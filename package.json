@@ -32,6 +32,9 @@
     "type": "git",
     "url": "git+https://github.com/Lundalogik/lime-elements-base-pack.git"
   },
+  "publishConfig": {
+    "registry": "http://npm.lundalogik.com:4873/"
+  },
   "jest": {
     "transform": {
       "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js"
