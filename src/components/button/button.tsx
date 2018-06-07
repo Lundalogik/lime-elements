@@ -8,9 +8,10 @@ import { Component, Prop, Watch, Element } from '@stencil/core';
 export class Button {
 
     @Prop() label: string;
-    @Prop() primary: boolean = false;
-    @Prop() disabled: boolean = false;
-    @Prop() loading: boolean = false;
+    @Prop() primary = false;
+    @Prop() disabled = false;
+    @Prop() loading = false;
+
     @Element() limelButton: HTMLElement;
 
     @Watch('loading')
