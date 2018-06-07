@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <title>Stencil Component Starter</title>
-  <script src="/build/mycomponent.js"></script>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+    <title>Lime Elements Base Pack dev-page</title>
+    <style>
+        html {
+            font-size: 62.5%;
+        }
+    </style>
+    <script src="/build/lime-elements.js"></script>
 </head>
 <body>
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+<limel-button label="Save" primary></limel-button>
+<limel-button label="Save" primary loading></limel-button>
+<limel-button label="Save" primary disabled></limel-button>
+<limel-button label="Save" primary disabled loading></limel-button>
+
+<limel-button label="Cancel"></limel-button>
+<limel-button label="Cancel" loading></limel-button>
+<limel-button label="Cancel" disabled></limel-button>
+<limel-button label="Cancel" disabled loading></limel-button>
 
 </body>
 </html>

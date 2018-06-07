@@ -23,6 +23,7 @@
   "devDependencies": {
     "@stencil/core": "0.9.7",
     "@stencil/dev-server": "latest",
+    "@stencil/less": "0.0.1",
     "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
     "jest": "^21.2.1",

@@ -1,13 +1,20 @@
+const less = require('@stencil/less');
+
 exports.config = {
-  namespace: 'mycomponent',
+  namespace: 'lime-elements',
   outputTargets:[
-    { 
-      type: 'dist' 
+    {
+      type: 'dist'
     },
-    { 
+    {
       type: 'www',
       serviceWorker: false
     }
+  ],
+  plugins: [
+    less({
+      injectGlobalPaths: ['node_modules/lime-less-variables/src/lime-less-variables.less']
+    })
   ]
 };
 

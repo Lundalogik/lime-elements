@@ -13,9 +13,12 @@ declare global {
   }
   namespace JSXElements {}
 
+  interface HTMLElement {
+    componentOnReady?: () => Promise<this | null>;
+  }
+
   interface HTMLStencilElement extends HTMLElement {
     componentOnReady(): Promise<this>;
-    componentOnReady(done: (ele?: this) => void): void;
 
     forceUpdate(): void;
   }
@@ -27,33 +30,70 @@ declare global {
 declare global {
 
   namespace StencilComponents {
-    interface MyComponent {
-      'first': string;
-      'last': string;
+    interface LimelButton {
+      'disabled': boolean;
+      'label': string;
+      'loading': boolean;
+      'primary': boolean;
     }
   }
 
-  interface HTMLMyComponentElement extends StencilComponents.MyComponent, HTMLStencilElement {}
+  interface HTMLLimelButtonElement extends StencilComponents.LimelButton, HTMLStencilElement {}
 
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  var HTMLLimelButtonElement: {
+    prototype: HTMLLimelButtonElement;
+    new (): HTMLLimelButtonElement;
   };
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'limel-button': HTMLLimelButtonElement;
   }
   interface ElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'limel-button': HTMLLimelButtonElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'my-component': JSXElements.MyComponentAttributes;
+      'limel-button': JSXElements.LimelButtonAttributes;
     }
   }
   namespace JSXElements {
-    export interface MyComponentAttributes extends HTMLAttributes {
-      'first'?: string;
-      'last'?: string;
+    export interface LimelButtonAttributes extends HTMLAttributes {
+      'disabled'?: boolean;
+      'label'?: string;
+      'loading'?: boolean;
+      'primary'?: boolean;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface LimelSpinner {
+
+    }
+  }
+
+  interface HTMLLimelSpinnerElement extends StencilComponents.LimelSpinner, HTMLStencilElement {}
+
+  var HTMLLimelSpinnerElement: {
+    prototype: HTMLLimelSpinnerElement;
+    new (): HTMLLimelSpinnerElement;
+  };
+  interface HTMLElementTagNameMap {
+    'limel-spinner': HTMLLimelSpinnerElement;
+  }
+  interface ElementTagNameMap {
+    'limel-spinner': HTMLLimelSpinnerElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'limel-spinner': JSXElements.LimelSpinnerAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface LimelSpinnerAttributes extends HTMLAttributes {
+
     }
   }
 }
