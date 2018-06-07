@@ -21,11 +21,12 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@stencil/core": "^0.9.1",
+    "@stencil/core": "0.9.7",
     "@stencil/dev-server": "latest",
     "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
-    "jest": "^21.2.1"
+    "jest": "^21.2.1",
+    "lime-less-variables": "http://npm.lundalogik.com:4873/lime-less-variables/-/lime-less-variables-0.2.13.tgz"
   },
   "repository": {
     "type": "git",
