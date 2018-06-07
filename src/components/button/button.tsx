@@ -38,9 +38,7 @@ export class Button {
             <button disabled={this.disabled}>
                 <span class="label">{this.label}</span>
                 <limel-spinner></limel-spinner>
-                <svg version="1.1" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 30 30">
-                    <polygon points="20.659,10 13.774,16.884 9.884,12.994 8.542,14.335 13.595,19.387 13.777,19.563 22,11.341"></polygon>
-                </svg>
+                <svg width="30" height="30"><path d="M20.659 10l-6.885 6.884-3.89-3.89-1.342 1.341 5.053 5.052.182.176L22 11.341z"/></svg>
             </button>
         );
     }Z
