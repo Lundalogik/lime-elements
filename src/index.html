@@ -13,15 +13,26 @@
 </head>
 <body>
 
-<limel-button label="Save" primary></limel-button>
-<limel-button label="Save" primary loading></limel-button>
-<limel-button label="Save" primary disabled></limel-button>
-<limel-button label="Save" primary disabled loading></limel-button>
+<limel-button-group>
+    <limel-button label="Save" primary></limel-button>
+    <limel-button label="Cancel"></limel-button>
+</limel-button-group>
+<br />
+<limel-button-group>
+    <limel-button label="Save" primary loading></limel-button>
+    <limel-button label="Cancel" loading></limel-button>
+</limel-button-group>
+<br />
+<limel-button-group>
+    <limel-button label="Save" primary disabled></limel-button>
+    <limel-button label="Cancel" disabled></limel-button>
+</limel-button-group>
+<br />
+<limel-button-group>
+    <limel-button label="Save" primary disabled loading></limel-button>
+    <limel-button label="Cancel" disabled loading></limel-button>
+</limel-button-group>
 
-<limel-button label="Cancel"></limel-button>
-<limel-button label="Cancel" loading></limel-button>
-<limel-button label="Cancel" disabled></limel-button>
-<limel-button label="Cancel" disabled loading></limel-button>
 
 </body>
 </html>

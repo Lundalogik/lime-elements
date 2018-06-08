@@ -1,0 +1,23 @@
+:host {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+
+    &[center] {
+        justify-content: center;
+    }
+
+    limel-button:not(:first-child) {
+        margin-left: 1.0rem;
+    }
+
+    &[reverse-order] {
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+
+        limel-button:not(:first-child) {
+            margin-left: 0;
+            margin-right: 1.0rem;
+        }
+    }
+}

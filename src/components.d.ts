@@ -30,6 +30,39 @@ declare global {
 declare global {
 
   namespace StencilComponents {
+    interface LimelButtonGroup {
+
+    }
+  }
+
+  interface HTMLLimelButtonGroupElement extends StencilComponents.LimelButtonGroup, HTMLStencilElement {}
+
+  var HTMLLimelButtonGroupElement: {
+    prototype: HTMLLimelButtonGroupElement;
+    new (): HTMLLimelButtonGroupElement;
+  };
+  interface HTMLElementTagNameMap {
+    'limel-button-group': HTMLLimelButtonGroupElement;
+  }
+  interface ElementTagNameMap {
+    'limel-button-group': HTMLLimelButtonGroupElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'limel-button-group': JSXElements.LimelButtonGroupAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface LimelButtonGroupAttributes extends HTMLAttributes {
+
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface LimelButton {
       'disabled': boolean;
       'label': string;
