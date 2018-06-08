@@ -10,27 +10,32 @@
         }
     </style>
     <script src="/build/lime-elements.js"></script>
+    <script>
+        function clickHandler(data) {
+            console.log('Button clicked:', data);
+        }
+    </script>
 </head>
 <body>
 
-<limel-button-group>
-    <limel-button label="Save" primary></limel-button>
-    <limel-button label="Cancel"></limel-button>
+<limel-button-group reverse-order>
+    <limel-button label="Save" primary onClick="clickHandler(this)"></limel-button>
+    <limel-button label="Cancel" onClick="clickHandler(this)"></limel-button>
 </limel-button-group>
 <br />
-<limel-button-group>
-    <limel-button label="Save" primary loading></limel-button>
-    <limel-button label="Cancel" loading></limel-button>
+<limel-button-group reverse-order>
+    <limel-button label="Save" primary loading onClick="clickHandler(this)"></limel-button>
+    <limel-button label="Cancel" loading onClick="clickHandler(this)"></limel-button>
 </limel-button-group>
 <br />
-<limel-button-group>
-    <limel-button label="Save" primary disabled></limel-button>
-    <limel-button label="Cancel" disabled></limel-button>
+<limel-button-group reverse-order>
+    <limel-button label="Save" primary disabled onClick="clickHandler(this)"></limel-button>
+    <limel-button label="Cancel" disabled onClick="clickHandler(this)"></limel-button>
 </limel-button-group>
 <br />
-<limel-button-group>
-    <limel-button label="Save" primary disabled loading></limel-button>
-    <limel-button label="Cancel" disabled loading></limel-button>
+<limel-button-group reverse-order>
+    <limel-button label="Save" primary disabled loading onClick="clickHandler(this)"></limel-button>
+    <limel-button label="Cancel" disabled loading onClick="clickHandler(this)"></limel-button>
 </limel-button-group>
 
 

@@ -2,7 +2,7 @@ import { Component } from '@stencil/core';
 
 @Component({
     tag: 'limel-spinner',
-    styleUrl: 'spinner.less',
+    styleUrl: 'spinner.scss',
     shadow: true
 })
 export class Spinner {

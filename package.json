@@ -19,15 +19,18 @@
     "test": "jest",
     "test.watch": "jest --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@lime-material/button": "0.0.1"
+  },
   "devDependencies": {
     "@stencil/core": "0.9.7",
     "@stencil/dev-server": "latest",
     "@stencil/less": "0.0.1",
+    "@stencil/sass": "0.0.5",
     "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
     "jest": "^21.2.1",
-    "lime-less-variables": "http://npm.lundalogik.com:4873/lime-less-variables/-/lime-less-variables-0.2.13.tgz"
+    "lime-less-variables": "^0.2.13"
   },
   "repository": {
     "type": "git",

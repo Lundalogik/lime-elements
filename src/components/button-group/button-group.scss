@@ -1,4 +1,4 @@
-:host {
+limel-button-group {
     align-items: center;
     display: flex;
     justify-content: flex-end;
@@ -7,7 +7,7 @@
         justify-content: center;
     }
 
-    limel-button:not(:first-child) {
+    > limel-button:not(:first-child) {
         margin-left: 1.0rem;
     }
 
