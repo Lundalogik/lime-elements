@@ -20,7 +20,7 @@
     "test.watch": "jest --watch"
   },
   "dependencies": {
-    "@lime-material/button": "0.0.1"
+    "@lime-material/button": "0.0.2"
   },
   "devDependencies": {
     "@stencil/core": "0.9.7",
