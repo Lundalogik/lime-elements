@@ -12,9 +12,11 @@ button {
 
     svg {
         fill: currentColor;
+        height: 3.0rem;
         opacity: 0;
         pointer-events: none;
         position: absolute;
+        width: 3.0rem;
     }
 
     .label,
