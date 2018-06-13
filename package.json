@@ -1,6 +1,6 @@
 {
   "name": "lime-elements-base-pack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Lime Elements Base Pack",
   "author": "Lime Technologies",
   "license": "UNLICENSED",
@@ -29,8 +29,7 @@
     "@stencil/sass": "0.0.5",
     "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
-    "jest": "^21.2.1",
-    "lime-less-variables": "^0.2.13"
+    "jest": "^21.2.1"
   },
   "repository": {
     "type": "git",
