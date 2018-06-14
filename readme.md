@@ -2,9 +2,9 @@
 
 This package will include basic components like buttons, loading-spinners, etcetera.
 
-To start the dev-server, run `SASS_PATH=node_modules npm start`.
+To start the dev-server, run `npm start`.
 
-To build the dist folder, run `SASS_PATH=node_modules npm run build`.
+To build the dist folder, run `npm run build`.
 
 ## Requirements
 

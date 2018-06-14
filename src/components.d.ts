@@ -93,6 +93,7 @@ declare global {
       'disabled'?: boolean;
       'label'?: string;
       'loading'?: boolean;
+      'onLimelButtonClicked'?: (event: CustomEvent) => void;
       'primary'?: boolean;
     }
   }

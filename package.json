@@ -1,6 +1,6 @@
 {
   "name": "lime-elements-base-pack",
-  "version": "0.0.3",
+  "version": "0.0.11",
   "description": "Lime Elements Base Pack",
   "author": "Lime Technologies",
   "license": "UNLICENSED",
@@ -12,12 +12,13 @@
     "dist/"
   ],
   "scripts": {
-    "build": "stencil build",
-    "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
+    "build": "SASS_PATH=node_modules stencil build",
+    "dev": "SASS_PATH=node_modules sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
     "serve": "stencil-dev-server",
     "start": "npm run dev",
     "test": "jest",
-    "test.watch": "jest --watch"
+    "test.watch": "jest --watch",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@lime-material/button": "0.0.5"

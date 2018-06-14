@@ -1,4 +1,4 @@
-import { Component, Prop, Watch, Element } from '@stencil/core';
+import { Component, Prop, Watch, Element, Event, EventEmitter, Listen } from '@stencil/core';
 
 @Component({
     tag: 'limel-button',
@@ -13,6 +13,13 @@ export class Button {
     @Prop() loading = false;
 
     @Element() limelButton: HTMLElement;
+
+    @Event() limelButtonClicked: EventEmitter;
+
+    @Listen('click')
+    clickHandler() {
+        this.limelButtonClicked.emit();
+    }
 
     @Watch('loading')
     loadingWatcher(newValue: boolean, oldValue: boolean) {
