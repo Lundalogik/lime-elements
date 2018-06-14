@@ -18,7 +18,9 @@ export class Button {
 
     @Listen('click')
     clickHandler() {
-        this.limelButtonClicked.emit();
+        if (!this.disabled) {
+            this.limelButtonClicked.emit(this.limelButton);
+        }
     }
 
     @Watch('loading')
