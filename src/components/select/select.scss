@@ -1,0 +1,11 @@
+@import "../mdc-wrappers/mdc-theme/mdc-theme";
+@import "../mdc-wrappers/mdc-select/mdc-select";
+
+.mdc-select {
+    width: 100%;
+
+    &__native-control {
+        padding-top: 2.5rem;
+        padding-bottom: 0.2rem;
+    }
+}
