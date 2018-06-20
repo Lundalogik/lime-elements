@@ -10,6 +10,9 @@
             font-size: 62.5%;
         }
     </style>
+    <script>
+        window.switchOnChange = function(e) { console.log(e.detail); };
+    </script>
     <script src="/build/lime-elements.js"></script>
 </head>
 <body>
@@ -18,6 +21,38 @@
     <limel-button label="Save" primary></limel-button>
     <limel-button label="Cancel"></limel-button>
 </limel-button-group>
+
+<limel-switch
+    label="False - Enabled"
+    value="false"
+    onChange=switchOnChange(event)
+></limel-switch>
+<br/>
+<br/>
+<br/>
+<limel-switch
+    label="True - Enabled"
+    value="true"
+    onChange=switchOnChange(event)
+></limel-switch>
+<br/>
+<br/>
+<br/>
+<limel-switch
+    label="False - Disabled"
+    value="false"
+    disabled
+    onChange=switchOnChange(event)
+></limel-switch>
+<br/>
+<br/>
+<br/>
+<limel-switch
+    label="True - Disabled"
+    value="true"
+    disabled
+    onChange=switchOnChange(event)
+></limel-switch>
 
 </body>
 </html>

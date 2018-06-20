@@ -132,6 +132,44 @@ declare global {
   }
 }
 
+
+declare global {
+
+  namespace StencilComponents {
+    interface LimelSwitch {
+      'disabled': boolean;
+      'label': string;
+      'value': boolean;
+    }
+  }
+
+  interface HTMLLimelSwitchElement extends StencilComponents.LimelSwitch, HTMLStencilElement {}
+
+  var HTMLLimelSwitchElement: {
+    prototype: HTMLLimelSwitchElement;
+    new (): HTMLLimelSwitchElement;
+  };
+  interface HTMLElementTagNameMap {
+    'limel-switch': HTMLLimelSwitchElement;
+  }
+  interface ElementTagNameMap {
+    'limel-switch': HTMLLimelSwitchElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'limel-switch': JSXElements.LimelSwitchAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface LimelSwitchAttributes extends HTMLAttributes {
+      'disabled'?: boolean;
+      'label'?: string;
+      'onChange'?: (event: CustomEvent) => void;
+      'value'?: boolean;
+    }
+  }
+}
+
 declare global { namespace JSX { interface StencilJSX {} } }
 
 export declare function defineCustomElements(window: any): void;
