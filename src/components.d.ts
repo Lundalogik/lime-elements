@@ -26,6 +26,9 @@ declare global {
   interface HTMLAttributes {}
 }
 
+import {
+  Option,
+} from './components/select/option';
 
 declare global {
 
@@ -95,6 +98,46 @@ declare global {
       'loading'?: boolean;
       'onLimelButtonClicked'?: (event: CustomEvent) => void;
       'primary'?: boolean;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface LimelSelect {
+      'disabled': boolean;
+      'label': string;
+      'options': Array<Option>;
+      'value': string;
+    }
+  }
+
+  interface HTMLLimelSelectElement extends StencilComponents.LimelSelect, HTMLStencilElement {}
+
+  var HTMLLimelSelectElement: {
+    prototype: HTMLLimelSelectElement;
+    new (): HTMLLimelSelectElement;
+  };
+  interface HTMLElementTagNameMap {
+    'limel-select': HTMLLimelSelectElement;
+  }
+  interface ElementTagNameMap {
+    'limel-select': HTMLLimelSelectElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'limel-select': JSXElements.LimelSelectAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface LimelSelectAttributes extends HTMLAttributes {
+      'disabled'?: boolean;
+      'label'?: string;
+      'onChange'?: (event: CustomEvent) => void;
+      'options'?: Array<Option>;
+      'value'?: string;
     }
   }
 }
