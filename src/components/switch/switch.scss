@@ -1,0 +1,19 @@
+@import "../mdc-wrappers/mdc-theme/mdc-theme";
+@import "../mdc-wrappers/mdc-typography/mdc-typography";
+@import "../mdc-wrappers/mdc-switch/mdc-switch";
+
+label {
+    @include mdc-typography(body2);
+
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+
+    &.disabled {
+        cursor: default;
+    }
+
+    .mdc-switch {
+        margin-right: 0.8rem;
+    }
+}
