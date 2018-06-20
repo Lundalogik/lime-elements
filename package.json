@@ -21,7 +21,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@lime-material/button": "http://npm.lundalogik.com:4873/@lime-material/button/-/button-0.0.7.tgz"
+    "@lime-material/button": "http://npm.lundalogik.com:4873/@lime-material/button/-/button-0.0.7.tgz",
+    "material-components-web": "^0.36.1"
   },
   "devDependencies": {
     "@stencil/core": "0.9.7",
