@@ -1,0 +1,7 @@
+$mdc-typography-font-family: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, Verdana, sans-serif;
+$mdc-typography-styles-button: (
+    font-size: 1.4rem,
+    text-transform: none,
+);
+
+@import "@material/typography/mdc-typography";
