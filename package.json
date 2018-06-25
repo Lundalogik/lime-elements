@@ -1,7 +1,7 @@
 {
-  "name": "lime-elements-base-pack",
+  "name": "lime-elements",
   "version": "0.0.13",
-  "description": "Lime Elements Base Pack",
+  "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "UNLICENSED",
   "module": "dist/esm/index.js",
@@ -71,7 +71,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lundalogik/lime-elements-base-pack.git"
+    "url": "git+https://github.com/Lundalogik/lime-elements.git"
   },
   "publishConfig": {
     "registry": "http://npm.lundalogik.com:4873/"

@@ -1,4 +1,4 @@
-# Lime Elements Base Pack
+# Lime Elements
 
 This package will include basic components like buttons, loading-spinners, etcetera.
 
