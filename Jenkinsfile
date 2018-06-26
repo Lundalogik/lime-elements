@@ -10,18 +10,10 @@ pipeline {
     }
 
     stages {
-        stage('Set up environment') {
-            steps {
-                sh 'curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -'
-                sh 'sudo apt-get install -y nodejs'
-                sh 'npm install'
-            }
-        }
-
         stage('Build and test') {
             steps {
-                sh 'npm build'
-                sh 'npm test'
+                sh 'make build'
+                sh 'make test'
             }
         }
 
