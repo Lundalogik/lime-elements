@@ -19,13 +19,13 @@ pipeline {
 
         stage('Publish package') {
             environment {
-                GITHUB_TOKEN = credentials('github-access-token')
+                GH_TOKEN = credentials('github-access-token')
                 NPM_TOKEN = credentials('devnpm-access-token')
             }
             steps {
                 script {
                     if (env.BRANCH_NAME == 'master') {
-                        sh 'npx semantic-release'
+                        sh 'npx semantic-release --debug'
                     }
                 }
             }
