@@ -1,6 +1,6 @@
 {
   "name": "lime-elements",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "UNLICENSED",
@@ -18,7 +18,8 @@
     "start": "npm run dev",
     "test": "jest",
     "test.watch": "jest --watch",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "@material/animation": "^0.34.0",
@@ -67,11 +68,12 @@
     "@stencil/sass": "0.0.5",
     "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
-    "jest": "^21.2.1"
+    "jest": "^21.2.1",
+    "semantic-release": "^15.6.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lundalogik/lime-elements.git"
+    "url": "https://github.com/Lundalogik/lime-elements.git"
   },
   "publishConfig": {
     "registry": "http://npm.lundalogik.com:4873/"
