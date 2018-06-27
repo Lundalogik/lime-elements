@@ -12,5 +12,3 @@ RUN npm install -g npm@latest && npm install
 
 # Bundle app source
 COPY . .
-
-CMD [ "npm", "run build" ]
