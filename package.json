@@ -69,7 +69,7 @@
     "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
     "jest": "^21.2.1",
-    "semantic-release": "^15.6.0"
+    "semantic-release": "^15.6.1"
   },
   "repository": {
     "type": "git",
