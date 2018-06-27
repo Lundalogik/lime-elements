@@ -12,12 +12,10 @@ The "Open Sans" font is included for development purposes, but is not included i
 
 ## <a name="commit"></a> Commit Message Guidelines
 
-We have very precise rules over how our git commit messages can be formatted.  This leads to **more
-readable messages** that are easy to follow when looking through the **project history**.  But also,
-we use the git commit messages to **generate the Angular change log**.
+These guidelines are based on the (Angular Commit Message Guidelines)[https://github.com/angular/angular/blob/5c0e681bf30121e7efec5304dd14d3e7e94ba6db/CONTRIBUTING.md#commit]. This leads to **more readable messages** that are easy to follow when looking through the **project history**. But also, we use the git commit messages to **generate the change log**.
 
 ### Commit Message Format
-Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
+Each commit message consists of a **header**, a **body** and a **footer**. The header has a special
 format that includes a **type**, a **scope** and a **subject**:
 
 ```
@@ -63,39 +61,7 @@ Must be one of the following:
 * **test**: Adding missing tests or correcting existing tests
 
 ### Scope
-The scope should be the name of the npm package affected (as perceived by the person reading the changelog generated from commit messages.
-
-The following is the list of supported scopes:
-
-* **animations**
-* **common**
-* **compiler**
-* **compiler-cli**
-* **core**
-* **elements**
-* **forms**
-* **http**
-* **language-service**
-* **platform-browser**
-* **platform-browser-dynamic**
-* **platform-server**
-* **platform-webworker**
-* **platform-webworker-dynamic**
-* **router**
-* **service-worker**
-* **upgrade**
-
-There are currently a few exceptions to the "use package name" rule:
-
-* **packaging**: used for changes that change the npm package layout in all of our packages, e.g.
-  public path changes, package.json changes done to all packages, d.ts file/format changes, changes
-  to bundles, etc.
-* **changelog**: used for updating the release notes in CHANGELOG.md
-* **docs-infra**: used for docs-app (angular.io) related changes within the /aio directory of the
-  repo
-* none/empty string: useful for `style`, `test` and `refactor` changes that are done across all
-  packages (e.g. `style: add missing semicolons`) and for docs changes that are not related to a
-  specific package (e.g. `docs: fix typo in tutorial`).
+The scope should be the name of the component affected (as perceived by the person reading the changelog generated from commit messages).
 
 ### Subject
 The subject contains a succinct description of the change:
@@ -114,4 +80,4 @@ reference GitHub issues that this commit **Closes**.
 
 **Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.
 
-A detailed explanation can be found in this [document][commit-message-format].
+A detailed explanation can be found in this [document](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y).
