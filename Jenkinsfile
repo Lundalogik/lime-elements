@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'master') {
-                        sh 'make semantic-release'
+                        sh 'make release'
                     }
                 }
             }
