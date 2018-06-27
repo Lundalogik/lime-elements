@@ -9,3 +9,8 @@ build:
 test:
 	@# Runs all frontend tests.
 	docker run --rm -w /lime $(DOCKER_IMAGE) npm run test
+
+.PHONY: semantic-release
+test:
+	@# Bumps and publishes.
+	docker run --rm -w /lime $(DOCKER_IMAGE) npx semantic-release --debug

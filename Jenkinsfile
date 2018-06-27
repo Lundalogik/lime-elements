@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'master') {
-                        sh 'npx semantic-release --debug'
+                        sh 'make semantic-release'
                     }
                 }
             }
