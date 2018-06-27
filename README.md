@@ -12,7 +12,7 @@ The "Open Sans" font is included for development purposes, but is not included i
 
 ## <a name="commit"></a> Commit Message Guidelines
 
-These guidelines are based on the (Angular Commit Message Guidelines)[https://github.com/angular/angular/blob/5c0e681bf30121e7efec5304dd14d3e7e94ba6db/CONTRIBUTING.md#commit]. This leads to **more readable messages** that are easy to follow when looking through the **project history**. But also, we use the git commit messages to **generate the change log**.
+These guidelines are based on the [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/5c0e681bf30121e7efec5304dd14d3e7e94ba6db/CONTRIBUTING.md#commit). This leads to **more readable messages** that are easy to follow when looking through the **project history**. But also, we use the git commit messages to **generate the change log**.
 
 ### Commit Message Format
 Each commit message consists of a **header**, a **body** and a **footer**. The header has a special
