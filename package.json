@@ -72,8 +72,7 @@
     "semantic-release": "^15.6.1"
   },
   "release": {
-    "branch": "master",
-    "debug": true
+    "branch": "master"
   },
   "repository": {
     "type": "git",
