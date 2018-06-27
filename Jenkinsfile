@@ -19,7 +19,7 @@ pipeline {
 
         stage('Publish package') {
             environment {
-                GH_TOKEN = credentials('ads-tmp')
+                GH_TOKEN = credentials('github-access-token')
                 NPM_TOKEN = credentials('devnpm-access-token')
                 CI = true
             }
