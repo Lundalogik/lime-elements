@@ -7,7 +7,7 @@
     <link href="/dev-assets/fonts.css" rel="stylesheet" />
     <style>
         html {
-            /*font-size: 62.5%;*/
+            font-size: 62.5%;
             font-family: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, Verdana, sans-serif;
         }
 
@@ -16,9 +16,6 @@
             width: 15rem;
         }
     </style>
-    <script>
-        window.switchOnChange = function(e) { console.log(e.detail); };
-    </script>
     <script src="/build/lime-elements.js"></script>
     <script src="/dev-assets/index_scripts.js"></script>
 </head>
@@ -60,6 +57,10 @@
     disabled
     onChange=switchOnChange(event)
 ></limel-switch>
+
+<br/>
+<br/>
+<br/>
 
 <button id="selector-disable">Disable</button>
 <button id="selector-toggle-options">Toggle options</button>
