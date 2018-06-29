@@ -1,67 +1,73 @@
-import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
-import { Option } from './option';
-import { MDCSelect } from '@material/select';
+import { MDCSelect } from '@material/select'; // tslint:disable-line:no-implicit-dependencies
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Prop
+} from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
+import { IOption } from './option';
 
 @Component({
-    tag: 'limel-select',
+    shadow: true,
     styleUrl: 'select.scss',
-    shadow: true
+    tag: 'limel-select',
 })
 export class Select {
+    @Prop() public disabled = false;
+    @Prop() public label: string;
+    @Prop() public value: string;
+    @Prop() public options: IOption[] = [];
 
-    @Prop() disabled = false;
-    @Prop() label: string;
-    @Prop() value: string;
-    @Prop() options: Array<Option> = [];
+    @Event() public change: EventEmitter;
 
-    @Event() change: EventEmitter;
-
-    @Element() limelSelect: HTMLElement;
+    @Element() public limelSelect: HTMLElement;
 
     private mdcSelect;
 
-    onChange = event => {
+    public onChange = (event) => {
         this.change.emit(event);
     }
 
-    componentDidLoad() {
+    public componentDidLoad() {
         const element = this.limelSelect.shadowRoot.querySelector('.mdc-select');
         this.mdcSelect = new MDCSelect(element);
     }
 
-    componentDidUnload() {
+    public componentDidUnload() {
         this.mdcSelect.destroy();
     }
 
-    render() {
+    public render() {
         return (
             <label
-                class={`
-                    mdc-select
-                    ${this.disabled ? 'mdc-select--disabled' : ''}
-                `}
+                class={`mdc-select ${this.disabled ? 'mdc-select--disabled' : ''}`}
             >
                 <select
                     onChange={this.onChange}
                     class="mdc-select__native-control"
                     disabled={this.disabled}
                 >
-                    {this.options.map((option) =>
-                        <option value={option.value}
+                    {this.options.map((option) => {
+                        return (
+                            <option
+                                key={option.value}
+                                value={option.value}
                                 selected={option.value === this.value}
-                                disabled={option.disabled}>
-                            {option.text}
-                        </option>
-                    )}
+                                disabled={option.disabled}
+                            >
+                                {option.text}
+                            </option>
+                        );
+                    })}
                 </select>
                 <span
-                    class={`
-                        mdc-floating-label
-                        ${this.value ? 'mdc-floating-label--float-above' : ''}
-                    `}
-                >{this.label}</span>
-                <div class="mdc-line-ripple"></div>
+                    class={`mdc-floating-label ${this.value ? 'mdc-floating-label--float-above' : ''}`}
+                >
+                    {this.label}
+                </span>
+                <div class="mdc-line-ripple" />
             </label>
-        )
+        );
     }
 }

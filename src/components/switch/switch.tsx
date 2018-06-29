@@ -1,23 +1,22 @@
-import { Component, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop } from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
 
 @Component({
-    tag: 'limel-switch',
+    shadow: true,
     styleUrl: 'switch.scss',
-    shadow: true
+    tag: 'limel-switch',
 })
 export class Switch {
+    @Prop() public label: string;
+    @Prop() public disabled = false;
+    @Prop() public value = false;
 
-    @Prop() label: string;
-    @Prop() disabled = false;
-    @Prop() value = false;
+    @Event() public change: EventEmitter;
 
-    @Event() change: EventEmitter;
-
-    onChange = event => {
+    public onChange = (event) => {
         this.change.emit(event.target.checked);
     };
 
-    render() {
+    public render() {
         return (
             <label class={`${this.disabled ? 'disabled' : ''}`}>
                 <div class="mdc-switch">
@@ -28,9 +27,9 @@ export class Switch {
                         onChange={this.onChange}
                         disabled={this.disabled}
                         checked={this.value}
-                    ></input>
+                    />
                     <div class="mdc-switch__background">
-                        <div class="mdc-switch__knob"></div>
+                        <div class="mdc-switch__knob" />
                     </div>
                 </div>
                 <span class="label">{this.label}</span>

@@ -14,12 +14,16 @@
   "scripts": {
     "build": "SASS_PATH=node_modules stencil build",
     "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
+    "lint": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
+    "lint:fix": "npx tslint --project . -t verbose --fix -c tslint.js 'src/**/*.{ts,tsx}'",
+    "lint:lintfile": "npx tslint -t stylish -c tslint.js 'tslint.js'",
+    "lint:lintfile:fix": "npx tslint --fix -t stylish -c tslint.js 'tslint.js'",
+    "prepublishOnly": "npm run build",
+    "semantic-release": "semantic-release",
     "serve": "stencil-dev-server",
     "start": "npm run dev",
     "test": "jest",
-    "test.watch": "jest --watch",
-    "prepublishOnly": "npm run build",
-    "semantic-release": "semantic-release"
+    "test.watch": "jest --watch"
   },
   "dependencies": {
     "material-components-web": "^0.36.1"
@@ -30,7 +34,10 @@
     "@stencil/sass": "0.0.5",
     "@types/jest": "^21.1.1",
     "jest": "^21.2.1",
-    "semantic-release": "^15.6.1"
+    "semantic-release": "^15.6.1",
+    "tslint": "^5.10.0",
+    "tslint-eslint-rules": "^5.3.1",
+    "tslint-react": "^3.6.0"
   },
   "release": {
     "branch": "master"

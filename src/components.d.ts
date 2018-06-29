@@ -26,7 +26,7 @@ declare global {
 }
 
 import {
-  Option,
+  IOption,
 } from './components/select/option';
 
 declare global {
@@ -108,7 +108,7 @@ declare global {
     interface LimelSelect {
       'disabled': boolean;
       'label': string;
-      'options': Array<Option>;
+      'options': IOption[];
       'value': string;
     }
   }
@@ -135,7 +135,7 @@ declare global {
       'disabled'?: boolean;
       'label'?: string;
       'onChange'?: (event: CustomEvent) => void;
-      'options'?: Array<Option>;
+      'options'?: IOption[];
       'value'?: string;
     }
   }
