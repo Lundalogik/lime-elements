@@ -1,5 +1,5 @@
-export interface Option {
-    text: string,
-    value: string,
-    disabled: boolean
+export interface IOption {
+    text: string;
+    value: string;
+    disabled: boolean;
 }

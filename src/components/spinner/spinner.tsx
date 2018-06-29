@@ -1,12 +1,12 @@
-import { Component } from '@stencil/core';
+import { Component } from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
 
 @Component({
-    tag: 'limel-spinner',
+    shadow: true,
     styleUrl: 'spinner.scss',
-    shadow: true
+    tag: 'limel-spinner',
 })
 export class Spinner {
-    render() {
+    public render() {
         return ('');
     }
 }

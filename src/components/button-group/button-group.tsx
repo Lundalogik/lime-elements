@@ -1,11 +1,11 @@
-import { Component } from '@stencil/core';
+import { Component } from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
 
 @Component({
+    styleUrl: 'button-group.scss',
     tag: 'limel-button-group',
-    styleUrl: 'button-group.scss'
 })
 export class ButtonGroup {
-    render() {
+    public render() {
         return (
             <slot />
         );
