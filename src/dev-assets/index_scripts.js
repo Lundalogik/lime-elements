@@ -1,4 +1,3 @@
-
 let selectorDisableButton;
 let selectorToggleOptionsButton;
 let selectorToggleOptions = false;
@@ -53,3 +52,7 @@ function setupSelector() {
 window.selectOnChange = function(e) {
     console.log('select value changed:', e);
 }
+
+window.switchOnChange = function(e) {
+    console.log(e.detail);
+};
