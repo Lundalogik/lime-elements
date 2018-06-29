@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build": "SASS_PATH=node_modules stencil build",
-    "dev": "SASS_PATH=node_modules sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
+    "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
     "serve": "stencil-dev-server",
     "start": "npm run dev",
     "test": "jest",
@@ -25,11 +25,9 @@
     "material-components-web": "^0.36.1"
   },
   "devDependencies": {
-    "@stencil/core": "0.9.7",
-    "@stencil/dev-server": "latest",
+    "@stencil/core": "0.10.0-9",
     "@stencil/less": "0.0.1",
     "@stencil/sass": "0.0.5",
-    "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
     "jest": "^21.2.1",
     "semantic-release": "^15.6.1"

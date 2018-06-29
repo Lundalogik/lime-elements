@@ -20,8 +20,3 @@ exports.config = {
         sass()
     ]
 };
-
-exports.devServer = {
-    root: 'www',
-    watchGlob: '**/**'
-}
