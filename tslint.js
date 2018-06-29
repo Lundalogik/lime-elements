@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ["tslint:latest", "tslint-react", "tslint-eslint-rules"],
+  extends: ["tslint:latest", "tslint-react", "tslint-eslint-rules", "tslint-sonarts"],
   linterOptions: {
     exclude: [
       "src/components.d.ts",
