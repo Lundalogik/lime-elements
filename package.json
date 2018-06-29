@@ -25,6 +25,11 @@
     "test": "jest",
     "test.watch": "jest --watch"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "dependencies": {
     "material-components-web": "^0.36.1"
   },
@@ -33,6 +38,7 @@
     "@stencil/less": "0.0.1",
     "@stencil/sass": "0.0.5",
     "@types/jest": "^21.1.1",
+    "husky": "^1.0.0-rc.9",
     "jest": "^21.2.1",
     "semantic-release": "^15.6.1",
     "tslint": "^5.10.0",
