@@ -14,8 +14,10 @@
   "scripts": {
     "build": "SASS_PATH=node_modules stencil build",
     "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
-    "lint": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
-    "lint:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
+    "lint": "npm run lint:src && npm run lint:config",
+    "lint:fix": "npm run lint:src:fix && npm run lint:config:fix",
+    "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
+    "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:config": "npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
     "lint:config:fix": "npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
     "prepublishOnly": "npm run build",

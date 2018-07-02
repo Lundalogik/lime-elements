@@ -5,6 +5,11 @@ build:
 	@# Builds the ci image lime-elements.
 	docker build --pull -t $(DOCKER_IMAGE) .
 
+.PHONY: lint
+lint:
+	@# Lints all applicable files.
+	docker run --rm -w /lime $(DOCKER_IMAGE) npm run lint
+
 .PHONY: test
 test:
 	@# Runs all frontend tests.
