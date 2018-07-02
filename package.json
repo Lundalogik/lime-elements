@@ -16,8 +16,8 @@
     "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
     "lint": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
-    "lint:lintfile": "npx tslint -t stylish -c tslint.js 'tslint.js'",
-    "lint:lintfile:fix": "npx tslint --fix -t stylish -c tslint.js 'tslint.js'",
+    "lint:config": "npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
+    "lint:config:fix": "npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
     "prepublishOnly": "npm run build",
     "semantic-release": "semantic-release",
     "serve": "stencil-dev-server",
@@ -27,7 +27,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run lint && npm run lint:config"
     }
   },
   "dependencies": {
@@ -38,6 +38,9 @@
     "@stencil/less": "0.0.1",
     "@stencil/sass": "0.0.5",
     "@types/jest": "^21.1.1",
+    "eslint": "^5.0.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.1",
     "husky": "^1.0.0-rc.9",
     "jest": "^21.2.1",
     "prettier": "^1.13.7",
