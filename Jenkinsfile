@@ -12,6 +12,7 @@ pipeline {
     stages {
         stage('Build and test') {
             steps {
+                sh 'make lint'
                 sh 'make build'
                 sh 'make test'
             }
