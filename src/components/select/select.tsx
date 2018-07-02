@@ -1,11 +1,5 @@
 import { MDCSelect } from '@material/select'; // tslint:disable-line:no-implicit-dependencies
-import {
-    Component,
-    Element,
-    Event,
-    EventEmitter,
-    Prop
-} from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
+import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
 import { IOption } from './option';
 
 @Component({
@@ -25,12 +19,14 @@ export class Select {
 
     private mdcSelect;
 
-    public onChange = (event) => {
+    public onChange = event => {
         this.change.emit(event);
-    }
+    };
 
     public componentDidLoad() {
-        const element = this.limelSelect.shadowRoot.querySelector('.mdc-select');
+        const element = this.limelSelect.shadowRoot.querySelector(
+            '.mdc-select'
+        );
         this.mdcSelect = new MDCSelect(element);
     }
 
@@ -41,14 +37,16 @@ export class Select {
     public render() {
         return (
             <label
-                class={`mdc-select ${this.disabled ? 'mdc-select--disabled' : ''}`}
+                class={`mdc-select ${
+                    this.disabled ? 'mdc-select--disabled' : ''
+                }`}
             >
                 <select
                     onChange={this.onChange}
                     class="mdc-select__native-control"
                     disabled={this.disabled}
                 >
-                    {this.options.map((option) => {
+                    {this.options.map(option => {
                         return (
                             <option
                                 key={option.value}
@@ -62,7 +60,9 @@ export class Select {
                     })}
                 </select>
                 <span
-                    class={`mdc-floating-label ${this.value ? 'mdc-floating-label--float-above' : ''}`}
+                    class={`mdc-floating-label ${
+                        this.value ? 'mdc-floating-label--float-above' : ''
+                    }`}
                 >
                     {this.label}
                 </span>

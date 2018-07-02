@@ -6,8 +6,6 @@ import { Component } from '@stencil/core'; // tslint:disable-line:no-implicit-de
 })
 export class ButtonGroup {
     public render() {
-        return (
-            <slot />
-        );
+        return <slot />;
     }
 }

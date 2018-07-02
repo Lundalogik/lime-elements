@@ -5,7 +5,7 @@ import {
     EventEmitter,
     Listen,
     Prop,
-    Watch
+    Watch,
 } from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
 
 @Component({
@@ -39,14 +39,18 @@ export class Button {
             button.classList.remove('loading');
             button.classList.add('just-loaded');
             const TIMEOUT = 2000;
-            setTimeout(() => { button.classList.remove('just-loaded'); }, TIMEOUT);
+            setTimeout(() => {
+                button.classList.remove('just-loaded');
+            }, TIMEOUT);
         }
     }
 
     public componentDidLoad() {
         this.loadingWatcher(this.loading, false);
         if (this.primary) {
-            this.limelButton.shadowRoot.querySelector('button').classList.add('mdc-button--unelevated', 'primary');
+            this.limelButton.shadowRoot
+                .querySelector('button')
+                .classList.add('mdc-button--unelevated', 'primary');
         }
     }
 
