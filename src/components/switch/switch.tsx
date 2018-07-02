@@ -12,7 +12,7 @@ export class Switch {
 
     @Event() public change: EventEmitter;
 
-    public onChange = (event) => {
+    public onChange = event => {
         this.change.emit(event.target.checked);
     };
 

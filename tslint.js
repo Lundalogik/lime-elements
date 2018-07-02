@@ -1,11 +1,21 @@
 module.exports = {
-  extends: ["tslint:latest", "tslint-react", "tslint-eslint-rules", "tslint-sonarts"],
+  extends: [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-sonarts",
+    "tslint-plugin-prettier",
+    "tslint-config-prettier",
+  ],
   linterOptions: {
     exclude: [
       "src/components.d.ts",
     ],
   },
+
   rules: {
+    "prettier": true,
+
     // See links for details:
     // https://palantir.github.io/tslint/rules/
     // https://github.com/buzinas/tslint-eslint-rules#rules-copied-from-the-eslint-website
@@ -73,56 +83,22 @@ module.exports = {
     "no-shadowed-variable": true,
     "no-unused-variable": true,
 
-    // Stylistic Issues
-    "array-bracket-spacing": [true, "always", {
-        "arraysInArrays": false,
-        "objectsInArrays": false,
-    }],
-    "block-spacing": [ true, "always" ],
-    "brace-style": [ true, "1tbs", {
-        "allowSingleLine": true,
-    }],
-    "comment-format": [true, "check-space"],
-    "eofline": true,
-    "new-parens": true,
-    "no-bitwise": true,
-    "no-consecutive-blank-lines": true,
-    "no-trailing-whitespace": true,
-    "object-curly-spacing": [ true, "always" ],
-    "object-literal-key-quotes": [true, "consistent-as-needed"],
-    "one-variable-per-declaration": [true, "ignore-for-loop"],
-    "quotemark": [true, "single", "jsx-double", "avoid-escape", "avoid-template"],
-    "semicolon": [true, "always", "ignore-bound-class-methods"],
-    "space-in-parens": [true, "never"],
-    "ter-computed-property-spacing": [true, "never"],
-    "ter-func-call-spacing": [true, "never"],
-    "ter-indent": [true, 4],
-    "ter-no-mixed-spaces-and-tabs": { "type": "spaces" },
-    "ter-padded-blocks": [true, "never"],
-    "variable-name": [true, "ban-keywords", "check-format"],
-
     // ECMAScript 6
     "no-var-keyword": true,
     "object-literal-shorthand": [true, "never"],
     "prefer-const": true,
     "ter-arrow-body-style": [true, "always"],
-    "ter-arrow-parens": [true, "always"],
-    "ter-arrow-spacing": [true],
     "ter-prefer-arrow-callback": [true],
 
     // See link for details:
     // https://www.npmjs.com/package/tslint-react#rules
     //
     // JSX
-    "jsx-alignment": true,
-    "jsx-curly-spacing": "never",
-    "jsx-equals-spacing": "always",
     "jsx-no-bind": true,
     "jsx-no-lambda": true,
     "jsx-no-multiline-js": false,
     "jsx-no-string-ref": true,
     "jsx-self-close": true,
-    "jsx-space-before-trailing-slash": true,
     "jsx-use-translation-function": true,
     "jsx-wrap-multiline": true,
   },

@@ -7,6 +7,6 @@ import { Component } from '@stencil/core'; // tslint:disable-line:no-implicit-de
 })
 export class Spinner {
     public render() {
-        return ('');
+        return '';
     }
 }
