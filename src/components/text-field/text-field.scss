@@ -1,0 +1,11 @@
+@import '../mdc-wrappers/mdc-theme/mdc-theme';
+@import '../mdc-wrappers/mdc-textfield/mdc-text-field';
+
+.mdc-text-field {
+    width: 100%;
+}
+
+.mdc-text-field__input {
+    height: 2.2rem;
+    padding-top: 1.2rem;
+}

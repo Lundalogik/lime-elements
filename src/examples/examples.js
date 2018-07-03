@@ -7,4 +7,7 @@ export const examples = [{
 },{
     name: 'limel-select',
     title: 'Select'
+}, {
+    name: 'limel-text-field',
+    title: 'Text Field'
 }];
