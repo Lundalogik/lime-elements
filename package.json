@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "build": "SASS_PATH=node_modules stencil build",
+    "cm": "git-cz",
     "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
     "lint": "npm run lint:src && npm run lint:config",
     "lint:fix": "npm run lint:src:fix && npm run lint:config:fix",
@@ -40,6 +41,9 @@
     "@stencil/less": "0.0.1",
     "@stencil/sass": "0.0.5",
     "@types/jest": "^21.1.1",
+    "ajv": "^6.0.0",
+    "commitizen": "^2.10.1",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.0.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.1",
@@ -76,5 +80,10 @@
       "json",
       "jsx"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
