@@ -94,7 +94,7 @@ module.exports = {
         // https://www.npmjs.com/package/tslint-react#rules
         //
         // JSX
-        'jsx-no-bind': true,
+        'jsx-no-bind': false,
         'jsx-no-lambda': true,
         'jsx-no-multiline-js': false,
         'jsx-no-string-ref': true,
