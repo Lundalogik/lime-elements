@@ -1,4 +1,4 @@
-# Contributing to semantic-release
+# Contributing to lime-elements
 
 ✨ Thanks for contributing to **lime-elements**! ✨
 
