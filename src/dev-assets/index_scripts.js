@@ -5,6 +5,7 @@ let selectorElement;
 
 document.addEventListener('DOMContentLoaded', function(event) {
     setupSelector();
+    setupTextField();
 });
 
 function setupSelector() {
