@@ -1,5 +1,12 @@
 import { MDCSelect } from '@material/select'; // tslint:disable-line:no-implicit-dependencies
-import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Prop,
+    State,
+} from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
 import { IOption } from './option';
 
 @Component({
@@ -13,15 +20,11 @@ export class Select {
     @Prop() public value: string;
     @Prop() public options: IOption[] = [];
 
-    @Event() public change: EventEmitter;
+    @Event() private change: EventEmitter;
 
-    @Element() public limelSelect: HTMLElement;
+    @Element() private limelSelect: HTMLElement;
 
-    private mdcSelect;
-
-    public onChange = event => {
-        this.change.emit(event);
-    };
+    @State() private mdcSelect;
 
     public componentDidLoad() {
         const element = this.limelSelect.shadowRoot.querySelector(
@@ -70,4 +73,8 @@ export class Select {
             </label>
         );
     }
+
+    private onChange = () => {
+        this.change.emit(this.mdcSelect.value);
+    };
 }
