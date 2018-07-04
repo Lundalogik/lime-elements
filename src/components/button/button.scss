@@ -2,6 +2,10 @@
 @import "../mdc-wrappers/mdc-typography/mdc-typography";
 @import "../mdc-wrappers/mdc-button/mdc-button";
 
+:host([disabled]) {
+    pointer-events: none;
+}
+
 button {
     .label {
         opacity: 1;
