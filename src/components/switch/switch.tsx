@@ -10,11 +10,7 @@ export class Switch {
     @Prop() public disabled = false;
     @Prop() public value = false;
 
-    @Event() public change: EventEmitter;
-
-    public onChange = event => {
-        this.change.emit(event.target.checked);
-    };
+    @Event() private change: EventEmitter;
 
     public render() {
         return (
@@ -36,4 +32,8 @@ export class Switch {
             </label>
         );
     }
+
+    private onChange = event => {
+        this.change.emit(event.target.checked);
+    };
 }
