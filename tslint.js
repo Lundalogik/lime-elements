@@ -95,7 +95,7 @@ module.exports = {
         //
         // JSX
         'jsx-no-bind': false,
-        'jsx-no-lambda': true,
+        'jsx-no-lambda': false,
         'jsx-no-multiline-js': false,
         'jsx-no-string-ref': true,
         'jsx-self-close': true,
