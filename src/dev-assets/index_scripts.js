@@ -50,9 +50,13 @@ function setupSelector() {
 }
 
 window.selectOnChange = function(e) {
-    console.log('select value changed:', e);
+    console.log('select value changed:', e.detail);
 }
 
 window.switchOnChange = function(e) {
     console.log(e.detail);
+};
+
+window.buttonOnClick = function(e) {
+    console.log(e);
 };
