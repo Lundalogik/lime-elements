@@ -1,1 +1,1 @@
-src/dev-assets
+# This file *must* exist, or npm will ignore everything in .gitignore when publishing!

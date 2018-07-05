@@ -22,7 +22,7 @@
     "lint:config": "npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
     "lint:config:fix": "npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
     "prepublishOnly": "npm run build",
-    "semantic-release": "semantic-release",
+    "publish": "npm run build && semantic-release",
     "serve": "stencil-dev-server",
     "start": "npm run dev",
     "test": "jest",
@@ -61,7 +61,11 @@
     "tslint-sonarts": "^1.7.0"
   },
   "release": {
-    "branch": "master"
+    "branch": "master",
+    "verifyConditions": ["@semantic-release/npm", "@semantic-release/github"],
+    "prepare": ["@semantic-release/npm"],
+    "publish": ["@semantic-release/npm", "@semantic-release/github"],
+    "npmPublish": true
   },
   "repository": {
     "type": "git",
