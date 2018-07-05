@@ -4,15 +4,10 @@ const less = require('@stencil/less');
 const sass = require('@stencil/sass');
 
 exports.config = {
-    copy: [{ src: 'dev-assets' }],
     namespace: 'lime-elements',
     outputTargets: [
         {
             type: 'dist',
-        },
-        {
-            type: 'www',
-            serviceWorker: false,
         },
     ],
     plugins: [
@@ -23,4 +18,5 @@ exports.config = {
         }),
         sass(),
     ],
+    excludeSrc: ['/test/', '**/.spec.', '**/examples/**', '**/dev-assets/**'],
 };
