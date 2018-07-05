@@ -65,7 +65,7 @@
     "verifyConditions": ["@semantic-release/npm", "@semantic-release/github"],
     "prepare": ["@semantic-release/npm"],
     "publish": ["@semantic-release/npm", "@semantic-release/github"],
-    "npmPublish": false,
+    "npmPublish": true,
     "tarballDir": "output",
     "noCi": true
   },
