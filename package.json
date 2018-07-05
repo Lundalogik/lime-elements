@@ -62,9 +62,17 @@
   },
   "release": {
     "branch": "master",
-    "verifyConditions": ["@semantic-release/npm", "@semantic-release/github"],
-    "prepare": ["@semantic-release/npm"],
-    "publish": ["@semantic-release/npm", "@semantic-release/github"],
+    "verifyConditions": [
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ],
+    "prepare": [
+      "@semantic-release/npm"
+    ],
+    "publish": [
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ],
     "npmPublish": true
   },
   "repository": {
