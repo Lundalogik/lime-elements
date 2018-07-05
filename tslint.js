@@ -8,7 +8,11 @@ module.exports = {
         'tslint-config-prettier',
     ],
     linterOptions: {
-        exclude: ['src/components.d.ts'],
+        exclude: [
+            'src/components.d.ts',
+            'src/examples/**',
+            'stencil.config.dev.js',
+        ],
     },
 
     rules: {

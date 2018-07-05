@@ -6,70 +6,42 @@
     <title>Lime Elements Base Pack dev-page</title>
     <link href="/dev-assets/fonts.css" rel="stylesheet" />
     <style>
-        html {
-            font-size: 62.5%;
+        :root {
+            --mdc-theme-primary: #00b3a7;
+            --mdc-theme-secondary: #f76b07;
         }
+ 
+        html {
+            font-size: 62.5%;  
+            height: 100%;
+        }
+        
+        body {
+            font-family: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, Verdana, sans-serif;
+            font-size: 1.4rem;
+            font-style: normal;
+            font-weight: 400;
+            margin: 0;
+            padding: 0; 
+            height: 100%;
+            overflow: hidden;
+        } 
 
-        limel-select {
-            display: block;
-            width: 15rem;
+        a:visited {
+            color: inherit;
         }
     </style>
+    <link href="/lib/codemirror/lib/codemirror.css" rel="stylesheet" />
+    <link href="/lib/codemirror/theme/solarized.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/lib/codemirror/lib/codemirror.js"></script>
+    <script src="/lib/codemirror/mode/javascript/javascript.js"></script>
     <script src="/build/lime-elements.js"></script>
-    <script src="/dev-assets/index_scripts.js"></script>
 </head>
 <body>
-
-<limel-button-group reverse-order>
-    <limel-button label="Save" onClick="buttonOnClick(event)" primary></limel-button>
-    <limel-button label="Cancel" onClick="buttonOnClick(event)"></limel-button>
-</limel-button-group>
-
-<limel-switch
-    label="False - Enabled"
-    value="false"
-    onChange=switchOnChange(event)
-></limel-switch>
-<br/>
-<br/>
-<br/>
-<limel-switch
-    label="True - Enabled"
-    value="true"
-    onChange=switchOnChange(event)
-></limel-switch>
-<br/>
-<br/>
-<br/>
-<limel-switch
-    label="False - Disabled"
-    value="false"
-    disabled
-    onChange=switchOnChange(event)
-></limel-switch>
-<br/>
-<br/>
-<br/>
-<limel-switch
-    label="True - Disabled"
-    value="true"
-    disabled
-    onChange=switchOnChange(event)
-></limel-switch>
-
-<br/>
-<br/>
-<br/>
-
-<button id="selector-disable">Disable</button>
-<button id="selector-toggle-options">Toggle options</button>
-<br />
-<br />
-<limel-select
-    name="selector"
-    disabled="false"
-    onChange=selectOnChange(event)
-></limel-select>
-
+    <limel-example-app></limel-example-app>
+    <svg xmlns="" style="display: none">
+        <symbol id="svg-icon-lime-crm-logotype" viewBox="0 0 487.1 473.3"><path d="M479.3 162.8c-32.6-113-125.6-153-177-160.5-43.2-6.6-155.6-7.2-227.6 112.3C17.8 209 58.9 285.8 59.5 348.9c-.4 28.8-4.8 63.6-44.7 90.4-39.9 26.8 13 28.8 18.3 29.1 32.6 2.1 84 6.8 142.9 4.1 51.1-2.4 139.8-1.6 219.6-66.9 39.6-32.5 116.3-116.5 83.7-242.8zm-349.2 93.3c4.8 4.9 11 7.4 18.7 7.4 11.9 0 19.9-6 23.8-18.1l22.7 5.8c-2.6 10.5-8.2 19-16.8 25.3-8.6 6.3-18.5 9.5-29.7 9.5-13.9 0-25.7-4.6-35.3-13.8-9.6-9.2-14.4-21-14.4-35.4 0-14.4 4.8-26.2 14.4-35.5 9.6-9.2 21.4-13.9 35.3-13.9 10.9 0 20.6 3.1 29.1 9.4s14.3 14.6 17.4 24.8l-23.6 6.7c-3.1-12.3-10.7-18.4-22.9-18.4-7.7 0-13.9 2.5-18.7 7.4-4.8 5-7.2 11.4-7.2 19.4.1 8.1 2.5 14.5 7.2 19.4zm137.6-42.7h-5.4c-22.1 0-33.1 13.3-33.1 39.8v30h-24.6v-92.9h24.6v16.9c8.4-12.2 19.5-18.2 33.3-18.2 2.9 0 5 .2 6.5.7l-1.3 23.7zm162.7 69.8H406v-53c0-6.1-1.7-10.9-5.2-14.6-3.5-3.7-7.8-5.5-13-5.5-6.7 0-12 2.4-15.8 7.2-3.8 4.8-5.8 11.9-5.8 21.3v44.7h-24.6v-53c0-6.1-1.7-10.9-5.2-14.6-3.5-3.7-7.8-5.5-13-5.5-6.7 0-11.9 2.4-15.6 7.1-3.7 4.7-5.6 11.8-5.6 21.4v44.7h-24.6v-92.9h24.6v7.6c7-7 16.2-10.4 27.7-10.4 13.4 0 23.6 5.1 30.5 15.3 8.2-10.2 19.5-15.3 33.9-15.3 9.9 0 18.4 3.5 25.5 10.5 7.1 7 10.6 16 10.6 27.1v57.9z"></path></symbol>
+    </svg>    
 </body>
 </html>
