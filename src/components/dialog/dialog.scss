@@ -1,0 +1,14 @@
+@import "../mdc-wrappers/mdc-theme/mdc-theme";
+@import "../mdc-wrappers/mdc-typography/mdc-typography";
+@import "../mdc-wrappers/mdc-dialog/mdc-dialog";
+
+.mdc-dialog__surface {
+    max-height: 95vh;
+    width: 70rem;
+
+    .mdc-dialog__body--scrollable  {
+        max-height: inherit;
+        border: 0;
+        overflow: auto;
+    }
+}
