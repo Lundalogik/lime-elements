@@ -1,4 +1,4 @@
-import { Component } from '@stencil/core';
+import { Component, Prop } from '@stencil/core';
 
 @Component({
     tag: 'limel-spinner',
@@ -6,6 +6,9 @@ import { Component } from '@stencil/core';
     shadow: true,
 })
 export class Spinner {
+    @Prop({ reflectToAttr: true })
+    public size: string;
+
     public render() {
         return '';
     }

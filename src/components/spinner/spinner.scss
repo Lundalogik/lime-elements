@@ -11,29 +11,31 @@
     border-top-color: transparent;
     border-width: 0.2rem;
     display: inline-block;
+
     // size=mini is the default
     height: 2.0rem;
     width: 2.0rem;
+}
 
-    &[size="x-small"] {
-        height: 2.6rem;
-        width: 2.6rem;
-        border-width: 0.3rem;
-    }
-    &[size="small"] {
-        height: 3.0rem;
-        width: 3.0rem;
-    }
-    &[size="medium"] {
-        height: 4.0rem;
-        width: 4.0rem;
-    }
-    &[size="large"] {
-        height: 5.8rem;
-        width: 5.8rem;
-        // Increase width slightly. It becomes too thin otherwise.
-        border-width: 0.3rem;
-    }
+:host([size="x-small"]) {
+    height: 2.6rem;
+    width: 2.6rem;
+    border-width: 0.3rem;
+}
+:host([size="small"]) {
+    height: 3.0rem;
+    width: 3.0rem;
+}
+:host([size="medium"]) {
+    height: 4.0rem;
+    width: 4.0rem;
+}
+:host([size="large"]) {
+    height: 5.8rem;
+    width: 5.8rem;
+
+    // Increase width slightly. It becomes too thin otherwise.
+    border-width: 0.3rem;
 }
 
 @keyframes spin {
