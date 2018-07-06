@@ -1,18 +1,16 @@
 import { Component } from '@stencil/core';
 
 @Component({
+    shadow: true,
     tag: 'limel-example-button',
-    shadow: true
 })
 export class ButtonExample {
-
-    render() {
+    public render() {
         return (
-            <limel-button-group reverse-order>
-                <limel-button label="Save" primary></limel-button>
-                <limel-button label="Cancel"></limel-button>
+            <limel-button-group reverse-order={true}>
+                <limel-button label="Save" primary={true} />
+                <limel-button label="Cancel" />
             </limel-button-group>
         );
     }
 }
-

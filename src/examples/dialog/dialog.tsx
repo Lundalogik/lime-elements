@@ -1,28 +1,32 @@
-import { Component, State, Element } from '@stencil/core';
+import { Component, State } from '@stencil/core';
 
 @Component({
+    shadow: true,
     tag: 'limel-example-dialog',
-    shadow: true
 })
 export class DialogExample {
+    @State() public dialogOpen = false;
+    @State() public isValid = false;
 
-    @State() dialogOpen = false;
-    @State() isValid = false;
+    @State() public age: number;
+    @State() public name = '';
 
-    @State() name = '';
-    @State() age: number;
-
-    @Element() element: HTMLElement;
-
-    render() {
+    public render() {
         return [
-            <limel-button primary
+            <limel-button
+                primary={true}
                 label="Open"
-                onClick={() => this.dialogOpen = true} />,
+                onClick={() => {
+                    this.dialogOpen = true;
+                }}
+            />,
 
             <limel-dialog
                 open={this.dialogOpen}
-                onClose={() => this.dialogOpen = false}>
+                onClose={() => {
+                    this.dialogOpen = false;
+                }}
+            >
                 <form>
                     <label>Name: </label>
                     <input
@@ -31,7 +35,7 @@ export class DialogExample {
                         value={this.name}
                         onInput={this.handleChangeName}
                     />
-                    <br/>
+                    <br />
                     <label>Age: </label>
                     <input
                         type="text"
@@ -39,29 +43,23 @@ export class DialogExample {
                         onInput={this.handleChangeColor}
                     />
                 </form>
-                <limel-button-group
-                    reverse-order
-                    slot="button"
-                >
+                <limel-button-group reverse-order={true} slot="button">
                     <limel-button
-                        primary
+                        primary={true}
                         label="Save"
                         disabled={!this.isValid}
                         onClick={this.submitForm}
                     />
-                    <limel-button
-                        label="Cancel"
-                        onClick={this.closeDialog}
-                    />
+                    <limel-button label="Cancel" onClick={this.closeDialog} />
                 </limel-button-group>
-            </limel-dialog>
+            </limel-dialog>,
         ];
     }
 
     /**
      *
      */
-    handleChangeName = event => {
+    public handleChangeName = event => {
         this.name = event.target.value;
         this.validate();
     };
@@ -69,7 +67,7 @@ export class DialogExample {
     /**
      *
      */
-    handleChangeColor = (event) => {
+    public handleChangeColor = event => {
         this.age = event.target.value;
         this.validate();
     };
@@ -77,15 +75,19 @@ export class DialogExample {
     /**
      *
      */
-    validate = () => {
-        this.isValid = (this.name.length >= 5) &&
-            (this.age > 20 && this.age < 50);
+    public validate = () => {
+        const MIN_NAME_LENGTH = 5;
+        const MIN_AGE = 20;
+        const MAX_AGE = 50;
+        this.isValid =
+            this.name.length >= MIN_NAME_LENGTH &&
+            (this.age > MIN_AGE && this.age < MAX_AGE);
     };
 
     /**
      *
      */
-    submitForm = () => {
+    public submitForm = () => {
         alert(`${this.name} is ${this.age} years old`);
         this.closeDialog();
     };
@@ -93,7 +95,7 @@ export class DialogExample {
     /**
      *
      */
-    closeDialog = () => {
+    public closeDialog = () => {
         this.dialogOpen = false;
     };
 }

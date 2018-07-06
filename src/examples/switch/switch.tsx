@@ -1,32 +1,43 @@
 import { Component } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-switch',
+    shadow: true,
     styleUrl: 'switch.scss',
-    shadow: true
+    tag: 'limel-example-switch',
 })
 export class SwitchExample {
-
-    render() {
+    public render() {
         return [
             <limel-switch
                 label="False - Enabled"
                 value={false}
-                onChange={event => console.log(event)}/>,
+                onChange={event => {
+                    console.log(event);
+                }}
+            />,
             <limel-switch
                 label="True - Enabled"
                 value={true}
-                onChange={event => console.log(event)}/>,
+                onChange={event => {
+                    console.log(event);
+                }}
+            />,
             <limel-switch
                 label="False - Disabled"
                 value={false}
-                disabled
-                onChange={event => console.log(event)}/>,
+                disabled={true}
+                onChange={event => {
+                    console.log(event);
+                }}
+            />,
             <limel-switch
                 label="True - Disabled"
                 value={true}
-                disabled
-                onChange={event => console.log(event)}/>,
-        ]
+                disabled={true}
+                onChange={event => {
+                    console.log(event);
+                }}
+            />,
+        ];
     }
 }
