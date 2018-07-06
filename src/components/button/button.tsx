@@ -1,4 +1,4 @@
-import { Component, Element, Prop, Watch } from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
+import { Component, Element, Prop, Watch } from '@stencil/core';
 
 @Component({
     shadow: true,
