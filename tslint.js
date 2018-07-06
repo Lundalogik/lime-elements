@@ -99,19 +99,43 @@ module.exports = {
         'no-var-keyword': true,
         'object-literal-shorthand': [true, 'never'],
         'prefer-const': true,
+
+        // Motivation for always requiring curly braces
+        // around the function body:
+        // In a single-line body without curly braces, the value
+        // of the statement is returned implicitly, which makes
+        // the syntax very terse and neat. The problem is that,
+        // in some cases, it can be very hard to tell if the
+        // value returned is actually used for anything, or if
+        // it just happens to get returned because the return
+        // is implicit.
+        // With curly braces, the return must be explicit.
+        // - If the value is explicitly returned, it's reasonable
+        //   to assume it's used somewhere.
+        // - If the value is not returned, we know for certain
+        //   it is not used.
+        // This can significantly improve confidence when making
+        // changes or refactoring the code in the future.
         'ter-arrow-body-style': [true, 'always'],
+
         'ter-prefer-arrow-callback': [true],
 
         // See link for details:
         // https://www.npmjs.com/package/tslint-react#rules
         //
         // JSX
+
+        // It seems like `jsx-key` is only relevant in React.
+        // Components built in Stencil will redraw the whole
+        // component on any change in the data.
+        'jsx-key': false,
+
         'jsx-no-bind': false,
         'jsx-no-lambda': false,
         'jsx-no-multiline-js': false,
         'jsx-no-string-ref': true,
         'jsx-self-close': true,
         'jsx-use-translation-function': true,
-        'jsx-wrap-multiline': true,
+        'jsx-wrap-multiline': false,
     },
 };
