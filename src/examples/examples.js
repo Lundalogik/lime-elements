@@ -10,4 +10,6 @@ export const examples = [{
 }, {
     name: 'limel-text-field',
     title: 'Text Field'
-}];
+}].sort((a, b) => {
+    return a.title > b.title ? 1 : -1;
+});
