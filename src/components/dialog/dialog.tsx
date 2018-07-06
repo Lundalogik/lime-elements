@@ -10,9 +10,9 @@ import {
 } from '@stencil/core';
 
 @Component({
-    shadow: true,
-    styleUrl: 'dialog.scss',
     tag: 'limel-dialog',
+    styleUrl: 'dialog.scss',
+    shadow: true,
 })
 export class Dialog {
     /**

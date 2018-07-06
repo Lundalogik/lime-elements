@@ -10,9 +10,9 @@ import {
 import { IOption } from './option';
 
 @Component({
-    shadow: true,
-    styleUrl: 'select.scss',
     tag: 'limel-select',
+    styleUrl: 'select.scss',
+    shadow: true,
 })
 export class Select {
     @Prop() public disabled = false;
