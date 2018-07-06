@@ -81,7 +81,6 @@ module.exports = {
         'no-string-throw': true,
         'no-switch-case-fall-through': true,
         'no-unused-expression': true,
-        'no-unused-expression': true,
         radix: true,
         'switch-default': true,
         'ter-no-proto': true,
