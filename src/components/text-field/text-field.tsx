@@ -9,9 +9,9 @@ import {
 } from '@stencil/core';
 
 @Component({
-    shadow: true,
-    styleUrl: 'text-field.scss',
     tag: 'limel-text-field',
+    styleUrl: 'text-field.scss',
+    shadow: true,
 })
 export class TextField {
     @Prop() public disabled = false;

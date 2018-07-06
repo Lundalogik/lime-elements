@@ -1,9 +1,9 @@
 import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
-    shadow: true,
-    styleUrl: 'switch.scss',
     tag: 'limel-switch',
+    styleUrl: 'switch.scss',
+    shadow: true,
 })
 export class Switch {
     @Prop() public label: string;

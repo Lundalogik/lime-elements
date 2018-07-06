@@ -92,6 +92,9 @@ module.exports = {
         'no-shadowed-variable': true,
         'no-unused-variable': true,
 
+        // Style
+        'object-literal-sort-keys': false,
+
         // ECMAScript 6
         'no-var-keyword': true,
         'object-literal-shorthand': [true, 'never'],
