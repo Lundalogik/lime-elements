@@ -1,4 +1,4 @@
-import { Component } from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
+import { Component } from '@stencil/core';
 
 @Component({
     styleUrl: 'button-group.scss',

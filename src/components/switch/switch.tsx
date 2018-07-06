@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop } from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
+import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
     shadow: true,

@@ -34,7 +34,13 @@ module.exports = {
         'no-ex-assign': true,
         'no-extra-boolean-cast': true,
         'no-extra-semi': true,
-        'no-implicit-dependencies': [true],
+
+        // It would be nice to have this enabled, but as long as tslint
+        // doesn't support whitelisting imports, enabling it will mean
+        // a minimum of one `tslint:disable-line:no-implicit-dependencies`
+        // comment in each file.
+        'no-implicit-dependencies': false,
+
         'no-inner-declarations': true,
         'no-invalid-regexp': true,
         'no-regex-spaces': true,

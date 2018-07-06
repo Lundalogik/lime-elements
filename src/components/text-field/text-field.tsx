@@ -1,4 +1,4 @@
-import { MDCTextField } from '@material/textfield'; // tslint:disable-line:no-implicit-dependencies
+import { MDCTextField } from '@material/textfield';
 import {
     Component,
     Element,
@@ -6,7 +6,7 @@ import {
     EventEmitter,
     Prop,
     State,
-} from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
+} from '@stencil/core';
 
 @Component({
     shadow: true,

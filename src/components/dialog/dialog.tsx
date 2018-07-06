@@ -1,4 +1,4 @@
-import { MDCDialog } from '@material/dialog'; // tslint:disable-line:no-implicit-dependencies
+import { MDCDialog } from '@material/dialog';
 import {
     Component,
     Element,
@@ -7,7 +7,7 @@ import {
     Prop,
     State,
     Watch,
-} from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
+} from '@stencil/core';
 
 @Component({
     shadow: true,

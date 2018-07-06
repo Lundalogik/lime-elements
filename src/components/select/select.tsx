@@ -1,4 +1,4 @@
-import { MDCSelect } from '@material/select'; // tslint:disable-line:no-implicit-dependencies
+import { MDCSelect } from '@material/select';
 import {
     Component,
     Element,
@@ -6,7 +6,7 @@ import {
     EventEmitter,
     Prop,
     State,
-} from '@stencil/core'; // tslint:disable-line:no-implicit-dependencies
+} from '@stencil/core';
 import { IOption } from './option';
 
 @Component({
