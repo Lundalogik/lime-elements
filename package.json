@@ -28,11 +28,6 @@
     "test": "jest",
     "test.watch": "jest --watch"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint"
-    }
-  },
   "dependencies": {
     "material-components-web": "^0.36.1"
   },
@@ -48,7 +43,6 @@
     "eslint": "^5.0.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.1",
-    "husky": "^1.0.0-rc.9",
     "codemirror": "^5.39.0",
     "jest": "^21.2.1",
     "prettier": "^1.13.7",
