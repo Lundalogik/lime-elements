@@ -89,7 +89,7 @@ $ git push origin <topic-branch-name>
 
 To ensure consistency and quality throughout the source code, all code modifications must have:
 - No [linting](#lint) errors
-- A [test](#tests) for every possible case introduced by your code change
+- (A [test](#tests) for every possible case introduced by your code change) This will be a future requirement, but at the moment, we don't have a test-environment that lets us easily test what we need to. So this requirement is relaxed for the time being.
 - [Valid commit message(s)](#commit-message-guidelines)
 - Documentation for new features
 - Updated documentation for modified features
@@ -123,6 +123,28 @@ Any line of the commit message cannot be longer 100 characters! This allows the 
 to read on GitHub as well as in various git tools.
 
 The **footer** can contain a [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/).
+
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
+**lime-elements** is [**commitizen**](https://commitizen.github.io/cz-cli/) friendly, and has **commitizen** installed locally. When committing, you are encouraged to use **commitizen** instead of `git commit`, to help ensure a valid commit message.
+
+To commit using **commitizen**, run either
+
+```bash
+$ npm run cm
+```
+
+or
+
+```bash
+$ npx git-cz
+```
+
+If you install **commitizen** globally (`npm i -g commitizen`), you can run:
+
+```bash
+$ git cz
+```
 
 #### Revert
 If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
@@ -200,12 +222,12 @@ $ npm install
 
 ### Lint
 
-The **lime-elements** repository uses [tslint](https://palantir.github.io/tslint/) and [eslint](https://eslint.org/) for linting and [Prettier](https://prettier.io) for formatting. Prettier formatting will be automatically verified and fixed by tslint.
+The **lime-elements** repository uses [tslint](https://palantir.github.io/tslint/) and [eslint](https://eslint.org/) for linting and [Prettier](https://prettier.io) for formatting. Prettier formatting will be automatically verified by tslint.
 
-When committing your code changes, all files will be linted in a precommit hook, and the commit will be prevented if the linting fails. If you wish to temporarily commit something that does not pass linting, you can use the `--no-verify` flag when committing:
+To lint all files, run:
 
 ```bash
-$ git commit --no-verify
+$ npm run lint
 ```
 
 **Tips**:
@@ -232,9 +254,3 @@ test.only('will be run', t => {
     t.pass();
 });
 ```
-
-### Commits
-
-The **lime-elements** repository uses [Commitizen](https://github.com/commitizen/cz-cli) to help you create [valid commit messages](#commit-message-guidelines).
-
-After staging your changes with `git add`, run `npm run cm` to start the interactive commit message CLI.
