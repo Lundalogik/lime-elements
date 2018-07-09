@@ -34,6 +34,8 @@
     "material-components-web": "^0.36.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^7.0.0",
+    "@commitlint/config-conventional": "^7.0.1",
     "@stencil/core": "0.10.1",
     "@stencil/less": "0.0.1",
     "@stencil/router": "^0.2.2",
