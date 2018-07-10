@@ -34,7 +34,7 @@
     "material-components-web": "^0.36.1"
   },
   "devDependencies": {
-    "@stencil/core": "0.10.0-9",
+    "@stencil/core": "0.10.1",
     "@stencil/less": "0.0.1",
     "@stencil/router": "^0.2.2",
     "@stencil/sass": "0.0.5",
