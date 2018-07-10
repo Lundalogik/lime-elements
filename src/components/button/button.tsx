@@ -8,7 +8,8 @@ import { Component, Element, Prop, Watch } from '@stencil/core';
 export class Button {
     @Prop() public label: string;
     @Prop() public primary = false;
-    @Prop({ reflectToAttr: true }) public disabled = false; // tslint:disable-line:prettier
+    @Prop({ reflectToAttr: true })
+    public disabled = false;
     @Prop() public loading = false;
 
     @Element() private limelButton: HTMLElement;
