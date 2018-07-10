@@ -94,7 +94,7 @@ To ensure consistency and quality throughout the source code, all code modificat
 - Documentation for new features
 - Updated documentation for modified features
 
-### <a name="commit"></a> Commit Message Guidelines
+### Commit Message Guidelines
 
 #### Atomic commits
 
