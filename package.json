@@ -14,6 +14,7 @@
   "scripts": {
     "build": "SASS_PATH=node_modules stencil build",
     "cm": "git-cz",
+    "build:www": "SASS_PATH=node_modules stencil build --config stencil.config.dev.js",
     "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve --docs --config stencil.config.dev.js",
     "lint": "npm run lint:src && npm run lint:examples && npm run lint:config",
     "lint:fix": "npm run lint:src:fix && npm run lint:examples:fix && npm run lint:config:fix",
@@ -27,8 +28,7 @@
     "publish": "npm run build && semantic-release",
     "serve": "stencil-dev-server",
     "start": "npm run dev",
-    "test": "jest",
-    "test.watch": "jest --watch"
+    "test": "npm run build:www && wdio wdio.conf.js"
   },
   "dependencies": {
     "material-components-web": "^0.36.1"
@@ -56,7 +56,16 @@
     "tslint-eslint-rules": "^5.3.1",
     "tslint-plugin-prettier": "^1.3.0",
     "tslint-react": "^3.6.0",
-    "tslint-sonarts": "^1.7.0"
+    "tslint-sonarts": "^1.7.0",
+    "wdio-chromedriver-service": "^0.1.3",
+    "wdio-iedriver-service": "^0.1.0",
+    "wdio-junit-reporter": "^0.4.4",
+    "wdio-mocha-framework": "^0.6.2",
+    "wdio-screenshots-cleanup-service": "0.0.7",
+    "wdio-selenium-standalone-service": "0.0.10",
+    "wdio-slick-reporter": "^1.0.1",
+    "wdio-static-server-service": "^1.0.1",
+    "webdriverio": "^4.13.1"
   },
   "release": {
     "branch": "master",
