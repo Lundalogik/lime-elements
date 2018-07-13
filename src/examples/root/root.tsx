@@ -10,17 +10,7 @@ export class Root {
             <stencil-router>
                 <stencil-route-switch scrollTopOffset={0}>
                     <stencil-route
-                        url="/"
-                        component="docs-root"
-                        exact={true}
-                    />
-                    <stencil-route
-                        url="/docs"
-                        component="docs-root"
-                        exact={true}
-                    />
-                    <stencil-route
-                        url="/docs/"
+                        url={['/', '/docs', '/docs/']}
                         component="docs-root"
                         exact={true}
                     />
