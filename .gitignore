@@ -1,7 +1,9 @@
 dist/
-www/
+www-dev/
+www-test/
 src/components.d.ts
 src/**/*.md
+errorShots/
 
 *~
 *.sw[mnpcod]

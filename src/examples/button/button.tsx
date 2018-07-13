@@ -1,8 +1,8 @@
 import { Component } from '@stencil/core';
 
 @Component({
+    tag: 'docs-limel-button',
     shadow: true,
-    tag: 'limel-example-button',
 })
 export class ButtonExample {
     public render() {

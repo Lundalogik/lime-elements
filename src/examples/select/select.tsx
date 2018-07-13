@@ -3,7 +3,7 @@ import { IOption } from '../../components/select/option';
 
 @Component({
     shadow: true,
-    tag: 'limel-example-select',
+    tag: 'docs-limel-select',
 })
 export class SelectExample {
     @State() public disabled = false;

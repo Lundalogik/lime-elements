@@ -1,0 +1,41 @@
+@import "@material/top-app-bar/mdc-top-app-bar";
+@import "@material/drawer/mdc-drawer";
+@import "@material/list/mdc-list";
+@import "@material/typography/mdc-typography";
+
+.mdc-top-app-bar {
+    a, svg {
+        width: 6rem;
+        height: 6rem;
+    }
+
+    .mdc-top-app-bar__title {
+        font-size: 1.7rem;
+    }
+}
+
+.mdc-drawer--permanent {
+    .mdc-list-item {
+        font-size: 1.5rem;
+
+        a {
+            text-decoration: none;
+        }
+    }
+}
+
+.mdc-list-item a {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    line-height: 48px;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+
+    main {
+        width: 100%;
+    }
+}
