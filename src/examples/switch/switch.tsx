@@ -3,7 +3,7 @@ import { Component } from '@stencil/core';
 @Component({
     shadow: true,
     styleUrl: 'switch.scss',
-    tag: 'limel-example-switch',
+    tag: 'docs-limel-switch',
 })
 export class SwitchExample {
     public render() {

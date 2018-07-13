@@ -2,7 +2,7 @@ import { Component, Listen, Prop, State, Watch } from '@stencil/core';
 
 @Component({
     shadow: true,
-    tag: 'limel-example-text-field',
+    tag: 'docs-limel-text-field',
 })
 export class TextFieldExample {
     @Prop({ mutable: true })
