@@ -142,7 +142,7 @@ exports.config = {
 
     //
     // Array of folder paths and mount points.
-    staticServerFolders: [{ mount: '/', path: './www' }],
+    staticServerFolders: [{ mount: '/', path: './www-test' }],
 
     //
     // Print logs to console

@@ -11,7 +11,7 @@ exports.config = {
     namespace: 'lime-elements',
     outputTargets:[
         {
-            dir: 'www-dev',
+            dir: 'www-test',
             type: 'www',
             serviceWorker: false
         }
