@@ -1,7 +1,7 @@
 import { Component } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-spinner',
+    tag: 'docs-limel-spinner',
     shadow: true,
 })
 export class SpinnerExample {

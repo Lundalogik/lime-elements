@@ -1,10 +1,10 @@
 import { Component } from '@stencil/core';
 
 @Component({
-    shadow: true,
-    tag: 'limel-example-doc',
+    tag: 'docs-home',
+    styleUrl: 'home.scss',
 })
-export class DocExample {
+export class Home {
     public render() {
         return (
             <div>
