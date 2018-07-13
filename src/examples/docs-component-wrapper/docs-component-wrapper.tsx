@@ -1,14 +1,12 @@
 import { Component, Prop, State } from '@stencil/core';
-import { MatchResults } from '@stencil/router';
 
 @Component({
     tag: 'docs-component-wrapper',
-    styleUrl: 'component-wrapper.scss',
+    styleUrl: 'docs-component-wrapper.scss',
 })
-export class ComponentWrapper {
-    @Prop() public match: MatchResults;
+export class DocsComponentWrapper {
+    @Prop() public componentName = '';
 
-    @State() private componentName = '';
     @State() private docs = '';
     @State() private code = '';
 
@@ -45,10 +43,6 @@ export class ComponentWrapper {
     }
 
     private update() {
-        this.componentName =
-            this.match && this.match.params.component
-                ? this.match.params.component
-                : '';
         this.loadDocumentation();
         this.loadCode();
     }
@@ -61,15 +55,13 @@ export class ComponentWrapper {
     }
 
     private loadCode() {
-        if (this.match && this.match.params.component) {
-            const noPrefix = this.componentName.replace('limel-', '');
-            this.fetchData(`/examples/${noPrefix}/${noPrefix}.tsx`).then(
-                data => {
-                    const prism = window['Prism']; // tslint:disable-line:no-string-literal
-                    this.code = prism.highlight(data, prism.languages.tsx);
-                }
-            );
-        }
+        const noPrefix = this.componentName.replace('limel-', '');
+        this.fetchData(`/examples/${noPrefix}/${noPrefix}.tsx`).then(
+            data => {
+                const prism = window['Prism']; // tslint:disable-line:no-string-literal
+                this.code = prism.highlight(data, prism.languages.tsx);
+            }
+        );
     }
 
     private fetchData(url) {

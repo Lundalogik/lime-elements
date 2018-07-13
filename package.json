@@ -15,7 +15,6 @@
     "build": "SASS_PATH=node_modules stencil build",
     "build:dev": "SASS_PATH=node_modules stencil build --dev --watch --serve --docs --config stencil.config.dev.js",
     "build:test": "SASS_PATH=node_modules stencil build --config stencil.config.test.js",
-    "build:test:watch": "SASS_PATH=node_modules stencil build --watch --config stencil.config.test.js",
     "cm": "git-cz",
     "lint": "npm run lint:src && npm run lint:examples && npm run lint:config",
     "lint:fix": "npm run lint:src:fix && npm run lint:examples:fix && npm run lint:config:fix",
@@ -29,8 +28,7 @@
     "publish": "npm run build && semantic-release",
     "serve": "stencil-dev-server",
     "start": "npm run build:dev",
-    "test": "npm run build:test && wdio wdio.conf.js",
-    "test:watch": "wdio wdio.conf.js --watch"
+    "test": "npm run build:test && wdio wdio.conf.js"
   },
   "dependencies": {
     "material-components-web": "^0.36.1"

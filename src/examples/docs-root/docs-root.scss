@@ -3,14 +3,7 @@
 @import "@material/list/mdc-list";
 @import "@material/typography/mdc-typography";
 
-docs-root {
-    display: flex;
-    align-items: stretch;
-    height: 100%;
-}
-
 .mdc-top-app-bar {
-
     a, svg {
         width: 6rem;
         height: 6rem;

@@ -44,6 +44,10 @@ exports.config = {
             //
             browserName: 'firefox',
         },
+        {
+            maxInstances: 1,
+            browserName: 'chrome',
+        },
     ],
     //
     // ===================
@@ -142,7 +146,7 @@ exports.config = {
 
     //
     // Array of folder paths and mount points.
-    staticServerFolders: [{ mount: '/', path: './www-test' }],
+    staticServerFolders: [{ mount: '/', path: './www-dev' }],
 
     //
     // Print logs to console
