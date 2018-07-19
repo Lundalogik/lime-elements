@@ -16,6 +16,9 @@ export const examples = [{
 },{
     name: 'limel-spinner',
     title: 'Spinner'
-}].sort((a, b) => {
+}, {
+    name: 'limel-tabs',
+    title: 'Tabs'
+}, ].sort((a, b) => {
     return a.title > b.title ? 1 : -1;
 });
