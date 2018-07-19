@@ -15,10 +15,10 @@ function extendListen(listen) {
         if (args[0] === port) {
             this.on('request', handleRequest);
         }
-    
+
         return listen.apply(this, args);
     }
-} 
+}
 
 /**
  * Serve files from the filesystem if the URL starts with '/stencil'
@@ -27,17 +27,21 @@ function extendListen(listen) {
  * @param {*} res 
  */
 function handleRequest(req, res) {
-  if (!req.url.includes('/stencil/www')) {
-      return;
-  }
+    if (!req.url.includes('/stencil/www')) {
+        return;
+    }
 
-  const filename = req.url.replace('/stencil', '');
-  const filepath = path.join(__dirname, filename);
+    const filename = req.url.replace('/stencil', '');
+    const filepath = path.join(__dirname, filename);
 
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/javascript');
-  const data = fs.readFileSync(filepath);
-  res.end(data);
+    if (!fs.existsSync(filepath)) {
+        return;
+    }
+
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/javascript');
+    const data = fs.readFileSync(filepath);
+    res.end(data);
 }
 
 /**
@@ -49,8 +53,8 @@ export default {
     indexHtml: 'src/index.html',
     port: port,
     themeConfig: {
-      colors: {
-        primary: '#00b3a7'
-      }
+        colors: {
+            primary: '#00b3a7'
+        }
     }
-  }
+}

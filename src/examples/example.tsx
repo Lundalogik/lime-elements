@@ -14,17 +14,23 @@ export class Example {
     @State()
     private code: string;
 
-    public render() {
-        const Example = this.name;        
+    componentWillLoad() {   
         const type = this.name.replace('limel-example-', '');
         const url = `/stencil/www/examples/${type}/${type}.tsx`;
 
         this.fetchData(url).then(data => {
             this.code = data;
-            const element = this.root.querySelector('.code pre');
-            const prism = window['Prism']; 
-            prism.highlightElement(element);
         });
+    }
+
+    componentDidUpdate() {    
+        const element = this.root.querySelector('.code pre');
+        const prism = window['Prism']; 
+        prism.highlightElement(element);
+    }
+
+    public render() {
+        const Example = this.name;     
 
         return [
             <div class="example">
