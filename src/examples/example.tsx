@@ -1,20 +1,17 @@
-import { Component, Prop, Element, State } from '@stencil/core';
+import { Component, Element, Prop, State } from '@stencil/core';
 
 @Component({
     tag: 'limel-example',
     styleUrl: 'example.scss',
 })
 export class Example {
-    @Prop()
-    public name: string;
+    @Prop() public name: string;
 
-    @Element()
-    private root: HTMLElement;
+    @Element() private root: HTMLElement;
 
-    @State()
-    private code: string;
+    @State() private code: string;
 
-    componentWillLoad() {   
+    public componentWillLoad() {
         const type = this.name.replace('limel-example-', '');
         const url = `/stencil/www/examples/${type}/${type}.tsx`;
 
@@ -23,24 +20,24 @@ export class Example {
         });
     }
 
-    componentDidUpdate() {    
+    public componentDidUpdate() {
         const element = this.root.querySelector('.code pre');
-        const prism = window['Prism']; 
+        const prism = window['Prism']; // tslint:disable-line:no-string-literal
         prism.highlightElement(element);
     }
 
     public render() {
-        const Example = this.name;     
+        const ExampleComponent = this.name;
 
         return [
             <div class="example">
-                <Example />
+                <ExampleComponent />
             </div>,
             <div class="code">
                 <pre class="react-prism react-prism language-jsx">
                     <code>{this.code}</code>
                 </pre>
-            </div>
+            </div>,
         ];
     }
 

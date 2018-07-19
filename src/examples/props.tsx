@@ -4,39 +4,30 @@ import { Component, Prop, State } from '@stencil/core';
     tag: 'limel-props',
     styleUrl: 'props.scss',
 })
-export class Props { 
-    @Prop()
-    public name: string;
+export class Props {
+    @Prop() public name: string;
 
-    @State()
-    private props = [];
+    @State() private props = [];
 
-    @State()
-    private events = [];
+    @State() private events = [];
 
-    componentDidLoad() {
+    public componentDidLoad() {
         const type = this.name.replace('limel-', '');
         const url = `/stencil/www/components/${type}/readme.md`;
 
         this.fetchData(url).then(data => {
-            const lines = data.split("\n").filter(row => !!row.trim());
+            const lines = data.split('\n').filter(row => !!row.trim());
             const { props, events } = this.parseLines(lines);
-    
+
             this.props = props;
             this.events = events;
         });
     }
 
     public render() {
-        return [
-            this.renderPropsTable(),
-            this.renderEventsTable()
-        ];
+        return [this.renderPropsTable(), this.renderEventsTable()];
     }
 
-    /**
-     * 
-     */
     private renderPropsTable() {
         if (!this.props.length) {
             return;
@@ -53,21 +44,20 @@ export class Props {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.map((prop) => (
-                        <tr>
-                            <td>{prop.name}</td>
-                            <td>{prop.type}</td>
-                            <td>{prop.description}</td>
-                        </tr>
-                    ))}
+                    {this.props.map(prop => {
+                        return (
+                            <tr>
+                                <td>{prop.name}</td>
+                                <td>{prop.type}</td>
+                                <td>{prop.description}</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
-            </table>
+            </table>,
         ];
     }
 
-    /**
-     * 
-     */
     private renderEventsTable() {
         if (!this.events.length) {
             return;
@@ -83,21 +73,19 @@ export class Props {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.events.map((event) => (
-                        <tr>
-                            <td>{event.name}</td>
-                            <td>{event.description}</td>
-                        </tr>
-                    ))}
+                    {this.events.map(event => {
+                        return (
+                            <tr>
+                                <td>{event.name}</td>
+                                <td>{event.description}</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
-            </table>
+            </table>,
         ];
     }
 
-    /**
-     * 
-     * @param url 
-     */
     private fetchData(url) {
         return fetch(url).then(data => {
             return data.body
@@ -109,10 +97,6 @@ export class Props {
         });
     }
 
-    /**
-     * 
-     * @param lines 
-     */
     private parseLines(lines) {
         const props = [];
         const events = [];
@@ -143,36 +127,45 @@ export class Props {
                 continue;
             }
 
-            if (line.includes('##')) {
-                currentObject = {
-                    name: line.replace('####', '').trim()
-                };
+            currentObject = this.editObject(
+                line,
+                currentObject,
+                props,
+                events,
+                mode
+            );
+        } while (true); // tslint:disable-line
 
-                if (mode === 'props') {
-                    props.push(currentObject);
-                }
-                else if (mode === 'events') {
-                    events.push(currentObject);
-                }
-                continue;
-            }
+        return { props: props, events: events };
+    }
+
+    private editObject(line, currentObject, props, events, mode) {
+        if (line.includes('##')) {
+            currentObject = {
+                name: line.replace('####', '').trim(),
+            };
 
             if (mode === 'props') {
-                if (!('type' in currentObject)) {
-                    currentObject.type = line;
-                    continue;
-                }
+                props.push(currentObject);
+            } else if (mode === 'events') {
+                events.push(currentObject);
+            }
+            return currentObject;
+        }
 
-                currentObject.description = line;
-                continue;
+        if (mode === 'props') {
+            if (!('type' in currentObject)) {
+                currentObject.type = line;
+                return currentObject;
             }
 
-            if (mode === 'events') {
-                currentObject.description = line;
-                continue;
-            }
-        } while (true);
+            currentObject.description = line;
+            return currentObject;
+        }
 
-        return { props, events };
+        if (mode === 'events') {
+            currentObject.description = line;
+            return currentObject;
+        }
     }
 }
