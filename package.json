@@ -14,7 +14,7 @@
   "scripts": {
     "build": "SASS_PATH=node_modules stencil build",
     "cm": "git-cz",
-    "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve --docs --config stencil.config.dev.js",
+    "dev": "SASS_PATH=node_modules stencil build --dev --watch --docs --config stencil.config.dev.js",
     "lint": "npm run lint:src && npm run lint:examples && npm run lint:config",
     "lint:fix": "npm run lint:src:fix && npm run lint:examples:fix && npm run lint:config:fix",
     "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
@@ -26,9 +26,11 @@
     "prepublishOnly": "npm run build",
     "publish": "npm run build && semantic-release",
     "serve": "stencil-dev-server",
-    "start": "npm run dev",
+    "start": "concurrently --kill-others \"npm run dev\" \"docz dev\"",
     "test": "jest",
-    "test.watch": "jest --watch"
+    "test.watch": "jest --watch",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
   "dependencies": {
     "material-components-web": "^0.36.1"
@@ -36,15 +38,15 @@
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",
-    "@stencil/core": "0.10.1",
+    "@stencil/core": "0.10.7",
     "@stencil/less": "0.0.1",
-    "@stencil/router": "^0.2.2",
     "@stencil/sass": "0.0.5",
     "@types/jest": "^21.1.1",
     "ajv": "^6.0.0",
-    "codemirror": "^5.39.0",
     "commitizen": "^2.10.1",
+    "concurrently": "^3.6.0",
     "cz-conventional-changelog": "^2.1.0",
+    "docz": "^0.5.9",
     "eslint": "^5.0.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.1",

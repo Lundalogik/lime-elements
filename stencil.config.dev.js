@@ -5,8 +5,7 @@ exports.config = {
     copy: [
         { src: 'dev-assets' },
         { src: 'examples/**/*.tsx' },
-        { src: 'components/**/*.md' },
-        { src: '../node_modules/codemirror', dest: 'lib/codemirror' }
+        { src: 'components/**/*.md' }
     ],
     namespace: 'lime-elements',
     outputTargets:[
