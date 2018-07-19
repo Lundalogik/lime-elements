@@ -1,3 +1,5 @@
+/* eslint-env es6 */
+
 const less = require('@stencil/less');
 const sass = require('@stencil/sass');
 
@@ -5,19 +7,21 @@ exports.config = {
     copy: [
         { src: 'dev-assets' },
         { src: 'examples/**/*.tsx' },
-        { src: 'components/**/*.md' }
+        { src: 'components/**/*.md' },
     ],
     namespace: 'lime-elements',
-    outputTargets:[
+    outputTargets: [
         {
             type: 'www',
-            serviceWorker: false
-        }
+            serviceWorker: false,
+        },
     ],
     plugins: [
         less({
-            injectGlobalPaths: ['node_modules/lime-less-variables/src/lime-less-variables.less']
+            injectGlobalPaths: [
+                'node_modules/lime-less-variables/src/lime-less-variables.less',
+            ],
         }),
-        sass()
-    ]
+        sass(),
+    ],
 };
