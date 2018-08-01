@@ -14,10 +14,14 @@ import {
     shadow: true,
 })
 export class TextField {
-    @Prop() public disabled = false;
-    @Prop() public invalid = false;
-    @Prop() public label: string;
-    @Prop() public required = false;
+    @Prop({ reflectToAttr: true })
+    public disabled = false;
+    @Prop({ reflectToAttr: true })
+    public invalid = false;
+    @Prop({ reflectToAttr: true })
+    public label: string;
+    @Prop({ reflectToAttr: true })
+    public required = false;
     @Prop() public value: string;
 
     @State() private mdcTextField;
