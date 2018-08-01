@@ -6,11 +6,14 @@ import { Component, Element, Prop, Watch } from '@stencil/core';
     shadow: true,
 })
 export class Button {
-    @Prop() public label: string;
-    @Prop() public primary = false;
+    @Prop({ reflectToAttr: true })
+    public label: string;
+    @Prop({ reflectToAttr: true })
+    public primary = false;
     @Prop({ reflectToAttr: true })
     public disabled = false;
-    @Prop() public loading = false;
+    @Prop({ reflectToAttr: true })
+    public loading = false;
 
     @Element() private limelButton: HTMLElement;
 
