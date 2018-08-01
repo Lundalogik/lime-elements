@@ -18,7 +18,7 @@ export class Dialog {
     /**
      * True if the dialog should be open, false otherwise
      */
-    @Prop({ mutable: true }) public open = false; // tslint:disable-line:prettier
+    @Prop({ mutable: true, reflectToAttr: true }) public open = false; // tslint:disable-line:prettier
 
     /**
      * Fired when the dialog is being implicitly closed
