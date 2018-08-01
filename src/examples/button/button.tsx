@@ -10,6 +10,7 @@ export class ButtonExample {
             <limel-button-group reverse-order={true}>
                 <limel-button label="Save" primary={true} />
                 <limel-button label="Cancel" />
+                <limel-button label="disabled" disabled={true} />
             </limel-button-group>
         );
     }
