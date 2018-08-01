@@ -6,9 +6,12 @@ import { Component, Event, EventEmitter, Prop } from '@stencil/core';
     shadow: true,
 })
 export class Switch {
-    @Prop() public label: string;
-    @Prop() public disabled = false;
-    @Prop() public value = false;
+    @Prop({ reflectToAttr: true })
+    public label: string;
+    @Prop({ reflectToAttr: true })
+    public disabled = false;
+    @Prop({ reflectToAttr: true })
+    public value = false;
 
     @Event() private change: EventEmitter;
 
