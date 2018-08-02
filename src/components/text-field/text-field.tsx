@@ -44,6 +44,12 @@ export class TextField {
         }
     }
 
+    public componentDidUpdate() {
+        if (this.value !== this.internalValue) {
+            this.internalValue = this.value;
+        }
+    }
+
     public render() {
         return (
             <label
@@ -62,7 +68,16 @@ export class TextField {
                     required={this.required}
                     disabled={this.disabled}
                 />
-                <span class="mdc-floating-label mdc-floating-label--float-above">
+                <span
+                    class={`
+                        mdc-floating-label
+                        ${
+                            this.internalValue
+                                ? 'mdc-floating-label--float-above'
+                                : ''
+                        }
+                    `}
+                >
                     {this.label}
                 </span>
                 <div class="mdc-line-ripple" />
