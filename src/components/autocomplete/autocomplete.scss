@@ -1,0 +1,21 @@
+@import "../mdc-wrappers/mdc-list/mdc-list";
+@import "../mdc-wrappers/mdc-elevation/mdc-elevation";
+
+.autocomplete-list-container {
+    position: relative;
+}
+
+.autocomplete-list {
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-height: 20.0rem;
+    overflow-y: auto;
+}
+
+.mdc-list-item {
+    cursor: pointer;
+}
+
