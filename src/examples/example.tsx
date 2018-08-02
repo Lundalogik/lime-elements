@@ -1,4 +1,7 @@
 import { Component, Element, Prop, State } from '@stencil/core';
+import prism from 'prismjs';
+import 'prismjs/components/prism-jsx.js'; // tslint:disable-line:no-submodule-imports
+import 'prismjs/components/prism-tsx.js'; // tslint:disable-line:no-submodule-imports
 
 @Component({
     tag: 'limel-example',
@@ -13,17 +16,13 @@ export class Example {
 
     public componentWillLoad() {
         const type = this.name.replace('limel-example-', '');
-        const url = `/stencil/www/examples/${type}/${type}.tsx`;
+        const url = `/stencil/examples/${type}/${type}.tsx`;
 
         this.fetchData(url).then(data => {
-            this.code = data;
+            this.code = prism.highlight(data, prism.languages.tsx);
+            const element = this.root.querySelector('.code code');
+            element.innerHTML = this.code;
         });
-    }
-
-    public componentDidUpdate() {
-        const element = this.root.querySelector('.code pre');
-        const prism = window['Prism']; // tslint:disable-line:no-string-literal
-        prism.highlightElement(element);
     }
 
     public render() {
@@ -35,7 +34,7 @@ export class Example {
             </div>,
             <div class="code">
                 <pre class="react-prism react-prism language-jsx">
-                    <code>{this.code}</code>
+                    <code />
                 </pre>
             </div>,
         ];

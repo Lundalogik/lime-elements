@@ -13,7 +13,7 @@ export class Props {
 
     public componentDidLoad() {
         const type = this.name.replace('limel-', '');
-        const url = `/stencil/www/components/${type}/readme.md`;
+        const url = `/stencil/components/${type}/readme.md`;
 
         this.fetchData(url).then(data => {
             const lines = data.split('\n').filter(row => !!row.trim());

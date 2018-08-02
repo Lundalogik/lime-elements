@@ -14,6 +14,7 @@ exports.config = {
         {
             type: 'www',
             serviceWorker: false,
+            dir: '.docz/public/stencil',
         },
     ],
     plugins: [
