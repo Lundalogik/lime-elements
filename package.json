@@ -46,7 +46,7 @@
     "commitizen": "^2.10.1",
     "concurrently": "^3.6.0",
     "cz-conventional-changelog": "^2.1.0",
-    "docz": "^0.8.0",
+    "docz": "^0.9.5",
     "eslint": "^5.0.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.1",
