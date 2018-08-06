@@ -6,8 +6,10 @@ import { IOption } from '../../components/select/option';
     tag: 'limel-example-select',
 })
 export class SelectExample {
-    @State() public disabled = false;
-    @State() public group = 0;
+    @State()
+    public disabled = false;
+    @State()
+    public group = 0;
 
     private options: IOption[][] = [
         [

@@ -14,18 +14,27 @@ import {
     tag: 'limel-autocomplete',
 })
 export class Autocomplete {
-    @Prop() public disabled: boolean = false;
-    @Prop() public completions: string[] = [];
-    @Prop() public label: string;
-    @Prop() public required: boolean = false;
-    @Prop() public value: string;
+    @Prop()
+    public disabled: boolean = false;
+    @Prop()
+    public completions: string[] = [];
+    @Prop()
+    public label: string;
+    @Prop()
+    public required: boolean = false;
+    @Prop()
+    public value: string;
 
-    @State() private internalValue: string;
-    @State() private listIsOpen: boolean = false;
+    @State()
+    private internalValue: string;
+    @State()
+    private listIsOpen: boolean = false;
 
-    @Element() private element: HTMLElement;
+    @Element()
+    private element: HTMLElement;
 
-    @Event() private autoCompleteChange: EventEmitter;
+    @Event()
+    private autoCompleteChange: EventEmitter;
 
     @Listen('change')
     public handleInputChange(event) {

@@ -5,11 +5,14 @@ import { Component, Prop, State } from '@stencil/core';
     styleUrl: 'props.scss',
 })
 export class Props {
-    @Prop() public name: string;
+    @Prop()
+    public name: string;
 
-    @State() private props = [];
+    @State()
+    private props = [];
 
-    @State() private events = [];
+    @State()
+    private events = [];
 
     public componentDidLoad() {
         const type = this.name.replace('limel-', '');

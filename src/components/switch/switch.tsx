@@ -13,7 +13,8 @@ export class Switch {
     @Prop({ reflectToAttr: true })
     public value = false;
 
-    @Event() private change: EventEmitter;
+    @Event()
+    private change: EventEmitter;
 
     public render() {
         return (

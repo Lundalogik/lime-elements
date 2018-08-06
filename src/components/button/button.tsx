@@ -15,7 +15,8 @@ export class Button {
     @Prop({ reflectToAttr: true })
     public loading = false;
 
-    @Element() private limelButton: HTMLElement;
+    @Element()
+    private limelButton: HTMLElement;
 
     public render() {
         return (

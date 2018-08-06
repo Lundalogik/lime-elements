@@ -8,11 +8,14 @@ import 'prismjs/components/prism-tsx.js'; // tslint:disable-line:no-submodule-im
     styleUrl: 'example.scss',
 })
 export class Example {
-    @Prop() public name: string;
+    @Prop()
+    public name: string;
 
-    @Element() private root: HTMLElement;
+    @Element()
+    private root: HTMLElement;
 
-    @State() private code: string;
+    @State()
+    private code: string;
 
     public componentWillLoad() {
         const type = this.name.replace('limel-example-', '');
