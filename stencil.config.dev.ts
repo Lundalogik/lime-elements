@@ -1,9 +1,8 @@
-/* eslint-env es6 */
+import { Config } from '@stencil/core';
+import { sass } from '@stencil/sass';
+import { less } from '@stencil/less';
 
-const less = require('@stencil/less');
-const sass = require('@stencil/sass');
-
-exports.config = {
+export const config: Config = {
     copy: [
         { src: 'dev-assets' },
         { src: 'examples/**/*.tsx' },
