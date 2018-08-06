@@ -178,8 +178,10 @@ Must be one of the following:
 * **fix**: A bug fix
 * **perf**: A code change that improves performance
 * **refactor**: A code change that neither fixes a bug nor adds a feature
+* **revert**: Reverts a previous commit
 * **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 * **test**: Adding missing tests or correcting existing tests
+* **chore**: Other changes that don't modify src or test files
 
 #### Scope
 The scope should be the name of the component affected (as perceived by the person reading the changelog generated from commit messages).
