@@ -19,14 +19,19 @@ export class Select {
     public disabled = false;
     @Prop({ reflectToAttr: true })
     public label: string;
-    @Prop() public value: string;
-    @Prop() public options: IOption[] = [];
+    @Prop()
+    public value: string;
+    @Prop()
+    public options: IOption[] = [];
 
-    @Event() private change: EventEmitter;
+    @Event()
+    private change: EventEmitter;
 
-    @Element() private limelSelect: HTMLElement;
+    @Element()
+    private limelSelect: HTMLElement;
 
-    @State() private mdcSelect;
+    @State()
+    private mdcSelect;
 
     public componentDidLoad() {
         const element = this.limelSelect.shadowRoot.querySelector(

@@ -5,9 +5,12 @@ import { Component, Listen, State } from '@stencil/core';
     shadow: true,
 })
 export class PickerExample {
-    @State() private required: boolean = false;
-    @State() private disabled: boolean = false;
-    @State() private value: string;
+    @State()
+    private required: boolean = false;
+    @State()
+    private disabled: boolean = false;
+    @State()
+    private value: string;
     @State()
     private completions: string[] = [
         'Lundalogik AB',

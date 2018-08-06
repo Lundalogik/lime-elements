@@ -24,11 +24,14 @@ export class Dialog {
     /**
      * Fired when the dialog is being implicitly closed
      */
-    @Event() private close: EventEmitter;
+    @Event()
+    private close: EventEmitter;
 
-    @Element() private host: HTMLElement;
+    @Element()
+    private host: HTMLElement;
 
-    @State() private mdcDialog: MDCDialog;
+    @State()
+    private mdcDialog: MDCDialog;
 
     /**
      * @param {boolean} newValue new open value

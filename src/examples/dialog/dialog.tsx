@@ -5,11 +5,15 @@ import { Component, State } from '@stencil/core';
     tag: 'limel-example-dialog',
 })
 export class DialogExample {
-    @State() public dialogOpen = false;
-    @State() public isValid = false;
+    @State()
+    public dialogOpen = false;
+    @State()
+    public isValid = false;
 
-    @State() public age: number;
-    @State() public name = '';
+    @State()
+    public age: number;
+    @State()
+    public name = '';
 
     public render() {
         return [

@@ -8,9 +8,12 @@ export class TextFieldExample {
     @Prop({ mutable: true })
     public required: boolean = false;
 
-    @State() public disabled: boolean = false;
-    @State() public invalid: boolean = false;
-    @State() public value: any;
+    @State()
+    public disabled: boolean = false;
+    @State()
+    public invalid: boolean = false;
+    @State()
+    public value: any;
 
     @Listen('change')
     public changeListen(event) {

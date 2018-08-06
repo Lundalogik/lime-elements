@@ -22,14 +22,19 @@ export class TextField {
     public label: string;
     @Prop({ reflectToAttr: true })
     public required = false;
-    @Prop() public value: string;
+    @Prop()
+    public value: string;
 
-    @State() private mdcTextField;
-    @State() private internalValue: string;
+    @State()
+    private mdcTextField;
+    @State()
+    private internalValue: string;
 
-    @Element() private limelTextField: HTMLElement;
+    @Element()
+    private limelTextField: HTMLElement;
 
-    @Event() private change: EventEmitter;
+    @Event()
+    private change: EventEmitter;
 
     public componentDidLoad() {
         this.internalValue = this.value;
