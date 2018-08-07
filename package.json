@@ -33,7 +33,8 @@
     "docz:build": "docz build"
   },
   "dependencies": {
-    "material-components-web": "^0.36.1"
+    "material-components-web": "^0.36.1",
+    "roddeh-i18n": "^1.1.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
