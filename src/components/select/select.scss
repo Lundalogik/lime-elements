@@ -1,5 +1,6 @@
-@import "../mdc-wrappers/mdc-theme/mdc-theme";
-@import "../mdc-wrappers/mdc-select/mdc-select";
+@import "../../style/variables";
+@import "@lime-material/theme/mdc-theme";
+@import "@lime-material/select/mdc-select";
 
 .mdc-select {
     width: 100%;

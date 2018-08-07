@@ -1,19 +1,19 @@
-@import "../mdc-wrappers/mdc-theme/mdc-theme";
-@import "../mdc-wrappers/mdc-typography/mdc-typography";
-@import "../mdc-wrappers/mdc-switch/mdc-switch";
+@import "../../style/variables";
+@import "@lime-material/typography/mdc-typography";
+@import "@lime-material/switch/mdc-switch";
+
+.mdc-switch {
+    @include mdc-switch-toggled-on-color(primary);
+
+    margin-right: 0.8rem;
+}
 
 label {
     @include mdc-typography(body2);
 
-    align-items: center;
     cursor: pointer;
-    display: flex;
 
     &.disabled {
         cursor: default;
-    }
-
-    .mdc-switch {
-        margin-right: 0.8rem;
     }
 }

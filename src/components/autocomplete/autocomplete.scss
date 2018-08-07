@@ -1,5 +1,6 @@
-@import "../mdc-wrappers/mdc-list/mdc-list";
-@import "../mdc-wrappers/mdc-elevation/mdc-elevation";
+@import "../../style/variables";
+@import "@lime-material/list/mdc-list";
+@import "@lime-material/elevation/mdc-elevation";
 
 .autocomplete-list-container {
     position: relative;
