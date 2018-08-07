@@ -1,6 +1,7 @@
-@import "../mdc-wrappers/mdc-theme/mdc-theme";
-@import "../mdc-wrappers/mdc-typography/mdc-typography";
-@import "../mdc-wrappers/mdc-button/mdc-button";
+@import "../../style/variables";
+@import "@lime-material/theme/mdc-theme";
+@import "@lime-material/typography/mdc-typography";
+@import "@lime-material/button/mdc-button";
 
 :host([disabled]) {
     pointer-events: none;

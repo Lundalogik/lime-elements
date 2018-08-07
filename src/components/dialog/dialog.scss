@@ -1,6 +1,7 @@
-@import "../mdc-wrappers/mdc-theme/mdc-theme";
-@import "../mdc-wrappers/mdc-typography/mdc-typography";
-@import "../mdc-wrappers/mdc-dialog/mdc-dialog";
+@import "../../style/variables";
+@import "@lime-material/theme/mdc-theme";
+@import "@lime-material/typography/mdc-typography";
+@import "@lime-material/dialog/mdc-dialog";
 
 .mdc-dialog__surface {
     max-height: 95vh;
