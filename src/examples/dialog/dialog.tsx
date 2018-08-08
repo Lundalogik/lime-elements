@@ -1,4 +1,5 @@
 import { Component, State } from '@stencil/core';
+import { LanguageService } from '../../components/language-selector/language.service';
 
 @Component({
     shadow: true,
@@ -15,11 +16,21 @@ export class DialogExample {
     @State()
     public name = '';
 
+    private labelOpen: string;
+    private languageService: LanguageService;
+
+    public componentWillLoad() {
+        this.languageService = new LanguageService();
+        this.labelOpen = this.languageService.getTranslation(
+            'limel.dialog.open'
+        );
+    }
+
     public render() {
         return [
             <limel-button
                 primary={true}
-                label="Open"
+                label={this.labelOpen}
                 onClick={() => {
                     this.dialogOpen = true;
                 }}
