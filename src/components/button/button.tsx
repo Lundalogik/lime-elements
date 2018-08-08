@@ -24,6 +24,7 @@ export class Button {
                 class={`
                     mdc-button
                     ${this.primary ? 'mdc-button--unelevated' : ''}
+                    ${this.loading ? 'loading' : ''}
                 `}
                 disabled={this.disabled}
             >
@@ -39,10 +40,7 @@ export class Button {
     @Watch('loading')
     protected loadingWatcher(newValue: boolean, oldValue: boolean) {
         const button = this.limelButton.shadowRoot.querySelector('button');
-        if (newValue && !oldValue) {
-            button.classList.add('loading');
-        } else if (oldValue) {
-            button.classList.remove('loading');
+        if (oldValue && !newValue) {
             button.classList.add('just-loaded');
             const TIMEOUT = 2000;
             setTimeout(() => {
