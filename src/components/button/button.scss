@@ -3,6 +3,14 @@
 @import "@lime-material/typography/mdc-typography";
 @import "@lime-material/button/mdc-button";
 
+:host {
+    display: inline-block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
 :host([disabled]) {
     pointer-events: none;
 }
