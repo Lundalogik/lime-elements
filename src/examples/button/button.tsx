@@ -8,6 +8,7 @@ import { LanguageService } from '../../components/language-selector/language.ser
 export class ButtonExample {
     private labelSave: string;
     private labelCancel: string;
+    private labelDisabled: string;
     private languageService: LanguageService;
 
     public componentWillLoad() {
@@ -18,6 +19,9 @@ export class ButtonExample {
         this.labelCancel = this.languageService.getTranslation(
             'limel.button.cancel'
         );
+        this.labelDisabled = this.languageService.getTranslation(
+            'limel.button.disabled'
+        );
     }
 
     public render() {
@@ -25,7 +29,7 @@ export class ButtonExample {
             <limel-button-group reverse-order={true}>
                 <limel-button label={this.labelSave} primary={true} />
                 <limel-button label={this.labelCancel} />
-                <limel-button label="disabled" disabled={true} />
+                <limel-button label={this.labelDisabled} disabled={true} />
             </limel-button-group>
         );
     }
