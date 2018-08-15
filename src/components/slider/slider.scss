@@ -1,0 +1,102 @@
+@import "../../style/variables";
+@import '@lime-material/theme/mdc-theme';
+@import '@lime-material/slider/mdc-slider';
+
+$colorGrey: #999999;
+
+.mdc-slider {
+    @include mdc-slider-highlight-color(primary);
+    @include mdc-slider-thumb-color(primary);
+    @include mdc-slider-value-pin-fill-color(primary);
+}
+
+.mdc-slider__pin-value-marker {
+    margin-bottom: .2rem;
+}
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.slider__label {
+    color: $colorGrey;
+    display: inline-block;
+    font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: clip;
+    width: 100%;
+}
+
+.slider__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+}
+
+.slider__content-range-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: .6rem;
+    width: 100%;
+}
+
+.slider__content-min-label {
+    color: $colorGrey;
+    font-size: 1.2rem;
+    left: 0;
+    top: 2rem;
+}
+
+.slider__content-max-label {
+    color: $colorGrey;
+    font-size: 1.2rem;
+    right: 0;
+    top: 2rem;
+}
+
+.slider__readonly {
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.mdc-slider {
+    height: 2.8rem;
+}
+
+.mdc-slider__track-container {
+    top: .9rem;
+}
+
+.mdc-slider__thumb-container {
+    top: 0rem;
+}
+
+.mdc-slider__pin {
+    border-radius: .4rem;
+    height: 2rem;
+    left: -.8rem;
+    top: -1.6rem;
+    transform: none;
+    width: 4rem;
+}
+
+.mdc-slider__pin-value-marker {
+    font-size: 1.2rem;
+    transform: rotate(0deg);
+}
+
+.mdc-slider--discrete {
+    &.mdc-slider--active {
+        .mdc-slider__pin {
+            transform: none;
+        }
+    }
+}
