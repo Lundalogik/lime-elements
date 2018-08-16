@@ -7,6 +7,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
+import { ENTER, SPACE } from '../../util/keycodes';
 
 @Component({
     tag: 'limel-text-field',
@@ -29,6 +30,9 @@ export class TextField {
     @Prop()
     public value: string;
 
+    @Prop()
+    public trailingIcon: string;
+
     @State()
     private mdcTextField;
 
@@ -40,6 +44,9 @@ export class TextField {
 
     @Event()
     private change: EventEmitter;
+
+    @Event()
+    private action: EventEmitter;
 
     public componentDidLoad() {
         this.internalValue = this.value;
@@ -68,6 +75,11 @@ export class TextField {
                     ${this.invalid ? 'mdc-text-field--invalid' : ''}
                     ${this.disabled ? 'mdc-text-field--disabled' : ''}
                     ${this.required ? 'mdc-text-field--required' : ''}
+                    ${
+                        this.trailingIcon
+                            ? 'mdc-text-field--with-trailing-icon'
+                            : ''
+                    }
                 `}
             >
                 <input
@@ -90,13 +102,45 @@ export class TextField {
                 >
                     {this.label}
                 </span>
+                {this.renderTrailingIcon()}
                 <div class="mdc-line-ripple" />
             </label>
+        );
+    }
+
+    private renderTrailingIcon() {
+        if (!this.trailingIcon) {
+            return;
+        }
+
+        return (
+            <i
+                onKeyPress={this.handleIconKeyPress.bind(this)}
+                onClick={this.handleIconClick.bind(this)}
+                class="mdc-text-field__icon"
+                tabindex="0"
+                role="button"
+            >
+                {this.trailingIcon}
+            </i>
         );
     }
 
     private handleChange(event) {
         this.internalValue = event.target.value;
         this.change.emit(this.internalValue);
+    }
+
+    private handleIconClick() {
+        this.action.emit();
+    }
+
+    private handleIconKeyPress(event) {
+        const isEnter = event.key === 'Enter' || event.keyCode === ENTER;
+        const isSpace = event.key === 'Space' || event.keyCode === SPACE;
+
+        if (isSpace || isEnter) {
+            this.action.emit();
+        }
     }
 }

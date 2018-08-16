@@ -4,6 +4,17 @@
 
 .mdc-text-field {
     width: 100%;
+
+    &.mdc-text-field--with-trailing-icon {
+        .mdc-text-field__input {
+            padding-left: 0;
+        }
+
+        .mdc-text-field__icon {
+            bottom: 0.5rem;
+            font-style: normal;
+        }
+    }
 }
 
 .mdc-text-field__input {
