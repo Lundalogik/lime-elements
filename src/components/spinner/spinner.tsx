@@ -6,6 +6,9 @@ import { Component, Prop } from '@stencil/core';
     shadow: true,
 })
 export class Spinner {
+    /**
+     * Determines the size of the spinner. Possible values: `mini`, `x-small`, `small`, `medium`, `large`. Defaults to `mini`.
+     */
     @Prop({ reflectToAttr: true })
     public size: string;
 
