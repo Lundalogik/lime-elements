@@ -16,17 +16,22 @@ import {
 export class TextField {
     @Prop({ reflectToAttr: true })
     public disabled = false;
+
     @Prop({ reflectToAttr: true })
     public invalid = false;
+
     @Prop({ reflectToAttr: true })
     public label: string;
+
     @Prop({ reflectToAttr: true })
     public required = false;
+
     @Prop()
     public value: string;
 
     @State()
     private mdcTextField;
+
     @State()
     private internalValue: string;
 
