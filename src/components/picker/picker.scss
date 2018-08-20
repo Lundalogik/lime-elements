@@ -1,0 +1,24 @@
+@import "../../style/variables";
+@import "@lime-material/elevation/mdc-elevation";
+
+:host {
+    position: relative;
+}
+
+.dropdown--spinner {
+    text-align: center;
+
+    limel-spinner {
+        margin: 1rem 0;
+        color: $mdc-theme-primary;
+    }
+}
+
+.dropdown--spinner,
+.dropdown--list {
+    background-color: white;
+    position: absolute;
+    margin-top: -.8rem;
+    max-height: 25rem;
+    overflow-y: auto;
+}
