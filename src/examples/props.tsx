@@ -156,19 +156,21 @@ export class Props {
             return currentObject;
         }
 
-        if (mode === 'props') {
-            if (!('type' in currentObject)) {
-                currentObject.type = line;
+        if (currentObject) {
+            if (mode === 'props') {
+                if (!('type' in currentObject)) {
+                    currentObject.type = line;
+                    return currentObject;
+                }
+
+                currentObject.description = line;
                 return currentObject;
             }
 
-            currentObject.description = line;
-            return currentObject;
-        }
-
-        if (mode === 'events') {
-            currentObject.description = line;
-            return currentObject;
+            if (mode === 'events') {
+                currentObject.description = line;
+                return currentObject;
+            }
         }
     }
 }
