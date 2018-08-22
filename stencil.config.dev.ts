@@ -1,6 +1,13 @@
 import { Config } from '@stencil/core';
+import { OutputTargetWww } from '@stencil/core/dist/declarations/output-targets';
 import { sass } from '@stencil/sass';
 import { less } from '@stencil/less';
+
+const targetWww: OutputTargetWww = {
+    type: 'www',
+    serviceWorker: null,
+    dir: '.docz/public/stencil',
+};
 
 export const config: Config = {
     copy: [
@@ -10,11 +17,7 @@ export const config: Config = {
     ],
     namespace: 'lime-elements',
     outputTargets: [
-        {
-            type: 'www',
-            serviceWorker: false,
-            dir: '.docz/public/stencil',
-        },
+        targetWww,
     ],
     plugins: [
         less({
