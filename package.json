@@ -15,21 +15,21 @@
     "build": "SASS_PATH=node_modules stencil build",
     "cm": "git-cz",
     "dev": "SASS_PATH=node_modules stencil build --dev --watch --docs --config stencil.config.dev.ts",
+    "docz:build": "docz build",
+    "docz:dev": "docz dev",
     "lint": "npm run lint:src && npm run lint:examples && npm run lint:config",
+    "lint:config": "npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
+    "lint:config:fix": "npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
+    "lint:examples": "npx tslint --project . -t stylish -c tslint.examples.js 'src/examples/**/*.{ts,tsx}'",
+    "lint:examples:fix": "npx tslint --project . -t stylish --fix -c tslint.examples.js 'src/examples/**/*.{ts,tsx}'",
     "lint:fix": "npm run lint:src:fix && npm run lint:examples:fix && npm run lint:config:fix",
     "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
-    "lint:examples": "npx tslint --project . -t stylish -c tslint.examples.js 'src/examples/**/*.{ts,tsx}'",
-    "lint:examples:fix": "npx tslint --project . -t stylish --fix -c tslint.examples.js 'src/examples/**/*.{ts,tsx}'",
-    "lint:config": "npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
-    "lint:config:fix": "npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
     "prepublishOnly": "npm run build",
     "publish": "npm run build && semantic-release",
     "start": "concurrently --kill-others \"npm run dev\" \"docz dev\"",
     "test": "jest",
-    "test.watch": "jest --watch",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "test.watch": "jest --watch"
   },
   "dependencies": {
     "lime-material-components-web": "^0.38.0"
