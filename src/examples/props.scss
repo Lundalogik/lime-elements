@@ -17,28 +17,28 @@ table {
     border-style: hidden;
     border-radius: 5px;
     font-size: 16px;
-    font-family: 'Inconsolata',monospace;
+    font-family: 'Inconsolata', monospace;
     color: #13161F;
 
-    & thead {
+    thead {
         color: #7D899C;
         background: #EEF1F5;
     }
 
-    & thead th {
+    thead th {
         text-align: left;
         font-weight: 400;
         padding: 20px 20px;
     }
 
-    & tbody td {
+    tbody td {
         padding: 12px 20px;
         line-height: 2;
         font-weight: 200;
-      } 
-      
-      & tbody > tr {
+    }
+
+    tbody > tr {
         display: table-row;
         border-top: 1px solid #CED4DE;
-      }
+    }
 }
