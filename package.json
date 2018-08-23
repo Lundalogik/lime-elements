@@ -25,7 +25,6 @@
     "lint:config:fix": "npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
     "prepublishOnly": "npm run build",
     "publish": "npm run build && semantic-release",
-    "serve": "stencil-dev-server",
     "start": "concurrently --kill-others \"npm run dev\" \"docz dev\"",
     "test": "jest",
     "test.watch": "jest --watch",
