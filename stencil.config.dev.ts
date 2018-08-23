@@ -1,7 +1,6 @@
 import { Config } from '@stencil/core';
 import { OutputTargetWww } from '@stencil/core/dist/declarations/output-targets';
 import { sass } from '@stencil/sass';
-import { less } from '@stencil/less';
 
 const targetWww: OutputTargetWww = {
     type: 'www',
@@ -20,11 +19,6 @@ export const config: Config = {
         targetWww,
     ],
     plugins: [
-        less({
-            injectGlobalPaths: [
-                'node_modules/lime-less-variables/src/lime-less-variables.less',
-            ],
-        }),
         sass(),
     ],
 };
