@@ -15,21 +15,48 @@ import { ENTER, SPACE } from '../../util/keycodes';
     styleUrl: 'text-field.scss',
 })
 export class TextField {
+    /**
+     * Disables the text-field when `true`.
+     * Defaults to `false`.
+     */
     @Prop({ reflectToAttr: true })
     public disabled = false;
 
+    /**
+     * Set to `true` to indicate that the current value of the text-field is
+     * invalid.
+     * Defaults to `false`.
+     */
     @Prop({ reflectToAttr: true })
     public invalid = false;
 
+    /**
+     * The input label.
+     */
     @Prop({ reflectToAttr: true })
     public label: string;
 
+    /**
+     * Set to `true` to indicate that the field is required.
+     * Defaults to `false`.
+     */
     @Prop({ reflectToAttr: true })
     public required = false;
 
+    /**
+     * The value of the field.
+     * Please note that the value of this property is *not* updated by the
+     * component itself when the user enters text. Instead, the new value is
+     * available via the `change` event. If the new value is accepted (the
+     * normal case), the consumer must update this property accordingly. If
+     * the value is not updated, the change is, in effect, rejected.
+     */
     @Prop({ reflectToAttr: true })
     public value: string;
 
+    /**
+     * This property doesn't work at the moment. Don't use it.
+     */
     @Prop({ reflectToAttr: true })
     public trailingIcon: string;
 
@@ -39,9 +66,18 @@ export class TextField {
     @Element()
     private limelTextField: HTMLElement;
 
+    /**
+     * Emitted when the input value is changed.
+     * The new value is available via the `detail` property on the event
+     * object.
+     */
     @Event()
     private change: EventEmitter;
 
+    /**
+     * This event is tied to the `trailingIcon` property, which doesn't work
+     * at the moment. Don't use it.
+     */
     @Event()
     private action: EventEmitter;
 
