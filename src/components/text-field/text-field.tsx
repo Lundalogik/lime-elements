@@ -36,9 +36,6 @@ export class TextField {
     @State()
     private mdcTextField;
 
-    @State()
-    private internalValue: string;
-
     @Element()
     private limelTextField: HTMLElement;
 
@@ -49,7 +46,6 @@ export class TextField {
     private action: EventEmitter;
 
     public componentDidLoad() {
-        this.internalValue = this.value;
         this.mdcTextField = new MDCTextField(
             this.limelTextField.shadowRoot.querySelector('.mdc-text-field')
         );
@@ -58,12 +54,6 @@ export class TextField {
     public componentDidUnload() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
-        }
-    }
-
-    public componentDidUpdate() {
-        if (this.value !== this.internalValue) {
-            this.internalValue = this.value;
         }
     }
 
@@ -86,18 +76,14 @@ export class TextField {
                     class="mdc-text-field__input"
                     id="limel-input"
                     onInput={this.handleChange.bind(this)}
-                    value={this.internalValue}
+                    value={this.value}
                     required={this.required}
                     disabled={this.disabled}
                 />
                 <span
                     class={`
                         mdc-floating-label
-                        ${
-                            this.internalValue
-                                ? 'mdc-floating-label--float-above'
-                                : ''
-                        }
+                        ${this.value ? 'mdc-floating-label--float-above' : ''}
                     `}
                 >
                     {this.label}
@@ -127,8 +113,7 @@ export class TextField {
     }
 
     private handleChange(event) {
-        this.internalValue = event.target.value;
-        this.change.emit(this.internalValue);
+        this.change.emit(event.target.value);
     }
 
     private handleIconClick() {
