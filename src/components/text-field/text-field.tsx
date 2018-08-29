@@ -11,8 +11,8 @@ import { ENTER, SPACE } from '../../util/keycodes';
 
 @Component({
     tag: 'limel-text-field',
-    styleUrl: 'text-field.scss',
     shadow: true,
+    styleUrl: 'text-field.scss',
 })
 export class TextField {
     @Prop({ reflectToAttr: true })
