@@ -27,10 +27,10 @@ export class TextField {
     @Prop({ reflectToAttr: true })
     public required = false;
 
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public value: string;
 
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public trailingIcon: string;
 
     @State()
