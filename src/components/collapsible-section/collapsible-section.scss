@@ -1,0 +1,58 @@
+@import "../../style/variables";
+
+:host {
+    display: block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
+:host([disabled]) {
+    pointer-events: none;
+}
+
+section {
+    background-color: #ffffff;
+
+    > header {
+        align-items: center;
+        background-color: #ffffff;
+        cursor: pointer;
+        display: flex;
+        padding-left: 1.0rem;
+
+        > .expander {
+            color: #a6a6a6;
+            height: 3.0rem;
+            margin-right: 0.5rem;
+            width: 3.0rem;
+
+            > svg {
+                fill: currentColor;
+            }
+        }
+
+        &:hover {
+            background-color: #f8f8f8;
+
+            > .expander {
+                color: #636363;
+            }
+        }
+    }
+
+    > .body {
+        display: none;
+    }
+
+    &.open {
+        > header {
+            background-color: #f8f8f8;
+        }
+
+        > .body {
+            display: block;
+        }
+    }
+}
