@@ -15,13 +15,15 @@ import {
 })
 export class Dialog {
     /**
-     * True if the dialog should be open, false otherwise
+     * `true` if the dialog is open, `false` otherwise.
+     * Defaults to `false`.
      */
     @Prop({ mutable: true, reflectToAttr: true })
     public open = false;
 
     /**
-     * Fired when the dialog is being implicitly closed
+     * Emitted when the dialog is closed from inside the component.
+     * (*Not* emitted when the consumer sets the `open`-property to `false`.)
      */
     @Event()
     private close: EventEmitter;
@@ -31,12 +33,6 @@ export class Dialog {
 
     private mdcDialog: MDCDialog;
 
-    /**
-     * @param {boolean} newValue new open value
-     * @param {boolean} oldValue previous open value
-     *
-     * @returns {void}
-     */
     @Watch('open')
     public watchHandler(newValue: boolean, oldValue: boolean) {
         if (oldValue === newValue) {
@@ -50,9 +46,6 @@ export class Dialog {
         }
     }
 
-    /**
-     * @returns {void}
-     */
     public componentDidLoad() {
         this.mdcDialog = new MDCDialog(
             this.host.shadowRoot.querySelector('.mdc-dialog')
@@ -67,18 +60,10 @@ export class Dialog {
         });
     }
 
-    /**
-     * @returns {void}
-     */
     public componentDidUnload() {
         this.mdcDialog.destroy();
     }
 
-    /**
-     * Renders the dialog
-     *
-     * @returns {HTMLElement} the dialog
-     */
     public render() {
         return (
             <aside
