@@ -35,8 +35,8 @@
     "lime-material-components-web": "^0.38.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.0.0",
-    "@commitlint/config-conventional": "^7.0.1",
+    "@commitlint/cli": "^7.1.1",
+    "@commitlint/config-conventional": "^7.1.1",
     "@stencil/core": "0.11.4",
     "@stencil/sass": "0.1.0",
     "@types/jest": "^21.1.1",
