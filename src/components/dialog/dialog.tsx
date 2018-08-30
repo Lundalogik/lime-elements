@@ -5,7 +5,6 @@ import {
     Event,
     EventEmitter,
     Prop,
-    State,
     Watch,
 } from '@stencil/core';
 
@@ -30,7 +29,6 @@ export class Dialog {
     @Element()
     private host: HTMLElement;
 
-    @State()
     private mdcDialog: MDCDialog;
 
     /**
