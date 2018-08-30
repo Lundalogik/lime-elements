@@ -17,7 +17,6 @@ table {
     border-style: hidden;
     border-radius: 5px;
     font-size: 16px;
-    font-family: 'Inconsolata', monospace;
     color: #13161F;
 
     thead {
@@ -42,4 +41,10 @@ table {
         display: table-row;
         border-top: 1px solid #CED4DE;
     }
+}
+
+code {
+    background-color: #efefef;
+    border-radius: 3px;
+    padding: 2px;
 }
