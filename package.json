@@ -14,7 +14,8 @@
   "scripts": {
     "build": "SASS_PATH=node_modules stencil build",
     "cm": "git-cz",
-    "dev": "SASS_PATH=node_modules stencil build --dev --watch --docs --config stencil.config.dev.ts",
+    "dev": "SASS_PATH=node_modules stencil build --dev --docs --config stencil.config.dev.ts",
+    "dev:watch": "SASS_PATH=node_modules stencil build --dev --watch --docs --config stencil.config.dev.ts",
     "docz:build": "docz build",
     "docz:dev": "docz dev",
     "lint": "npm run lint:src && npm run lint:examples && npm run lint:config",
@@ -27,7 +28,7 @@
     "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
     "prepublishOnly": "npm run build",
     "publish": "npm run build && semantic-release",
-    "start": "concurrently --kill-others \"npm run dev\" \"docz dev\"",
+    "start": "npm run dev && concurrently --kill-others \"npm run dev:watch\" \"docz dev\"",
     "test": "jest",
     "test.watch": "jest --watch"
   },
