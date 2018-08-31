@@ -12,7 +12,7 @@ export class ListExample {
         { text: 'Pandemic', id: 3 },
         { separator: true },
         { text: 'Catan', id: 4 },
-        { text: 'Ticket ot Ride', id: 5 },
+        { text: 'Ticket to Ride', id: 5 },
     ];
 
     public render() {
