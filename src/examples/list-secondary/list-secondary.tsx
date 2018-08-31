@@ -11,7 +11,7 @@ export class SecondaryTextListExample {
         { text: 'Smash Up!', secondaryText: '2-4 players', id: 2 },
         { text: 'Pandemic', secondaryText: '2-4 players', id: 3 },
         { text: 'Catan', secondaryText: '3-4 players', id: 4 },
-        { text: 'Ticket ot Ride', secondaryText: '2-5 players', id: 5 },
+        { text: 'Ticket to Ride', secondaryText: '2-5 players', id: 5 },
     ];
 
     public render() {

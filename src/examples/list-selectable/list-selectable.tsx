@@ -11,7 +11,7 @@ export class SelectableListExample {
         { text: 'Smash Up!', id: 2 },
         { text: 'Pandemic', id: 3 },
         { text: 'Catan', id: 4 },
-        { text: 'Ticket ot Ride', id: 5 },
+        { text: 'Ticket to Ride', id: 5 },
     ];
 
     public render() {
