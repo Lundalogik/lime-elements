@@ -1,7 +1,6 @@
 export interface ListItem {
     text: string;
     secondaryText?: string;
-    icon?: string;
     [data: string]: any;
 }
 

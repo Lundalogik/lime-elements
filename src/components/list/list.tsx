@@ -1,6 +1,8 @@
 import { MDCList } from '@lime-material/list';
 import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 import { ListItem, ListSeparator } from './list-item';
+import { ListRenderer } from './list-renderer';
+import { ListRendererConfig } from './list-renderer-config';
 
 @Component({
     tag: 'limel-list',
@@ -24,6 +26,7 @@ export class List {
     private element: HTMLElement;
 
     private mdcList: MDCList;
+    private listRenderer = new ListRenderer();
 
     /**
      * Fired when a new value has been selected from the list. Only fired if selectable is set to true
@@ -64,23 +67,10 @@ export class List {
     }
 
     public render() {
-        const twoLines = this.items.some(item => {
-            return 'secondaryText' in item && !!item.secondaryText;
-        });
-
-        return (
-            <ul
-                class={`
-                    mdc-list
-                    ${twoLines ? 'mdc-list mdc-list--two-line' : ''}
-                    ${this.selectable ? 'selectable' : ''}
-                `}
-                role="listbox"
-                aria-orientation="vertical"
-            >
-                {this.items.map(this.renderListItem.bind(this))}
-            </ul>
-        );
+        const config: ListRendererConfig = {
+            selectable: this.selectable,
+        };
+        return this.listRenderer.render(this.items, config);
     }
 
     /**
@@ -102,57 +92,5 @@ export class List {
         }
 
         this.change.emit(selectedItem);
-    }
-
-    /**
-     * Render a single list item
-     *
-     * @param {ListItem | ListSeparator} item the item to render
-     *
-     * @returns {HTMLElement} the list item
-     */
-    private renderListItem(item: ListItem | ListSeparator) {
-        if ('separator' in item) {
-            return <li class="mdc-list-divider" role="separator" />;
-        }
-
-        return (
-            <li class="mdc-list-item">
-                {this.renderIcon()}
-                {this.renderText(item.text, item.secondaryText)}
-            </li>
-        );
-    }
-
-    /**
-     * Render an icon for the list item (if any)
-     *
-     * @returns {HTMLElement} the icon
-     */
-    private renderIcon() {
-        return null; // TODO
-    }
-
-    /**
-     * Render the text of the list item
-     *
-     * @param {string} text primary text for the list item
-     * @param {string} secondaryText secondary text for the list item
-     *
-     * @returns {HTMLElement | string} the text for the list item
-     */
-    private renderText(text: string, secondaryText?: string) {
-        if (!secondaryText) {
-            return text;
-        }
-
-        return (
-            <span class="mdc-list-item__text">
-                <span class="mdc-list-item__primary-text">{text}</span>
-                <span class="mdc-list-item__secondary-text">
-                    {secondaryText}
-                </span>
-            </span>
-        );
     }
 }
