@@ -105,12 +105,15 @@ $ git push origin <topic-branch-name>
 
 ### Source code
 
-To ensure consistency and quality throughout the source code, all code modifications must have:
+To ensure consistency and quality throughout the source code, before being accepted and merged to master, all code modifications must have:
 - No [linting](#lint) errors
 - (A [test](#tests) for every possible case introduced by your code change) This will be a future requirement, but at the moment, we don't have a test-environment that lets us easily test what we need to. So this requirement is relaxed for the time being.
 - [Valid commit message(s)](#commit-message-guidelines)
 - Documentation for new features
 - Updated documentation for modified features
+
+**Please note**:
+We will be happy to help you out in meeting these requirements. Don't be afraid to share your code in a pull request even if it doesn't meet the requirements yet.
 
 ### Commit Message Guidelines
 
@@ -122,6 +125,9 @@ If possible, make [atomic commits](https://en.wikipedia.org/wiki/Atomic_commit),
 - a commit should not create an inconsistent state (such as test errors, linting errors, partial fix, feature with documentation etc...)
 
 A complex feature can be broken down into multiple commits as long as each one maintains a consistent state and consists of a self-contained change.
+
+**Please note**:
+Git makes it relatively easy to split and join commits later, and we'll be happy to help format your commits into one or more commits before accepting the pull request. However, it's usually a little easier to join several small commits than to split a large one, so when in doubt, make more and smaller commits.
 
 #### Commit Message Format
 Each commit message consists of a **header**, a **body** and a **footer**. The header has a special
@@ -163,6 +169,9 @@ If you install **commitizen** globally (`npm i -g commitizen`), you can run:
 ```bash
 $ git cz
 ```
+
+**Please note**:
+It's perfectly fine to have temporary commits not following these rules when working on a pull request branch. It's better to make several smaller commits while developing, than to make a single commit that includes more than one change. If necessary, we'll be happy to help you formulate the final commit messages before accepting your pull request. *However*, please make sure to write *some* description of the changes in each commit.
 
 #### Revert
 If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
