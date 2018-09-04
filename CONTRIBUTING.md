@@ -274,7 +274,7 @@ $ npm run test
 ```
 
 **Tips:** During development you can:
-- run in watch mode with `npm run test.watch` to automatically run a test file when you modify it
+- run in watch mode with `npm run test:watch` to automatically run a test file when you modify it
 - run only the test you are working on by adding `.only` to the test definition
 
 ```js

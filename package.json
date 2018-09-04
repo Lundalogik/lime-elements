@@ -30,7 +30,7 @@
     "publish": "npm run build && semantic-release",
     "start": "npm run dev && concurrently --kill-others \"npm run dev:watch\" \"docz dev\"",
     "test": "jest",
-    "test.watch": "jest --watch"
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "lime-material-components-web": "^0.38.0"
