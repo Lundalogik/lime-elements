@@ -264,6 +264,9 @@ $ npm run lint
 
 ### Tests
 
+**Please note**:
+At the moment, we don't have a working test-suite in **lime-elements**. Therefore, this section does not apply at the moment. See issue #24 for details.
+
 Before pushing your code changes make sure all **tests pass** and that you have added tests for every possible case introduced by your code change:
 
 ```bash
