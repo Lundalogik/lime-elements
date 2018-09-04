@@ -84,7 +84,6 @@ Here is a summary of the steps to follow:
 ```bash
 $ git checkout master
 $ git pull -r upstream master
-$ rm -rf node_modules
 $ npm install
 ```
 3. Create a new topic branch (off the main project development branch) to contain your feature, change, or fix:
