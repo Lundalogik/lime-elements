@@ -174,7 +174,7 @@ $ git cz
 It's perfectly fine to have temporary commits not following these rules when working on a pull request branch. It's better to make several smaller commits while developing, than to make a single commit that includes more than one change. If necessary, we'll be happy to help you formulate the final commit messages before accepting your pull request. *However*, please make sure to write *some* description of the changes in each commit.
 
 #### Revert
-If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
+If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted. This is what git does automatically when using `git revert <hash>`.
 
 #### Type
 Must be one of the following:
