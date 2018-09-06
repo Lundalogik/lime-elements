@@ -51,13 +51,11 @@ pipeline {
                 CI = true
             }
             steps {
-                sshagent(['663e4b49-30f6-4c46-a018-a37ba604d7c8']) {
-                    script {
-                        if (env.BRANCH_NAME == 'master') {
-                            sh 'make release'
-                        } else {
-                            echo('Skipping release step because this is not the master branch.')
-                        }
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        sh 'make release'
+                    } else {
+                        echo('Skipping release step because this is not the master branch.')
                     }
                 }
             }
