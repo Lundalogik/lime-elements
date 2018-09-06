@@ -62,6 +62,14 @@ export class TextField {
     @Prop({ reflectToAttr: true })
     public trailingIcon: string;
 
+    /**
+     * This property determines the html-type of the field and with
+     * that which keyboard to show on a mobile device.
+     * Defaults to 'text'
+     */
+    @Prop({ reflectToAttr: true })
+    public type = 'text';
+
     @State()
     private mdcTextField;
 
@@ -117,6 +125,7 @@ export class TextField {
                     value={this.value}
                     required={this.required}
                     disabled={this.disabled}
+                    type={this.type}
                 />
                 <span
                     class={`
