@@ -54,6 +54,8 @@ pipeline {
                     script {
                         if (env.BRANCH_NAME == 'master') {
                             sh 'make release'
+                        } else {
+                            echo('Skipping release step because this is not the master branch.')
                         }
                     }
                 }
