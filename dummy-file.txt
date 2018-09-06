@@ -1,1 +1,0 @@
-This is a dummy-file created so I can create a commit in order to trigger a version-bump necessary to test the updated config for semantic-release.
