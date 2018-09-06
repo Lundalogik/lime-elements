@@ -1,3 +1,10 @@
+# [3.5.0](https://github.com/Lundalogik/lime-elements/compare/v3.4.2...v3.5.0) (2018-09-06)
+
+
+### Features
+
+* **limel-text-field:** add property type to determine the inputs html-type ([245bf71](https://github.com/Lundalogik/lime-elements/commit/245bf71)), closes [#75](https://github.com/Lundalogik/lime-elements/issues/75)
+
 ## [3.4.2](https://github.com/Lundalogik/lime-elements/compare/v3.4.1...v3.4.2) (2018-09-06)
 
 
