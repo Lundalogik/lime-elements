@@ -46,14 +46,15 @@ pipeline {
 
         stage('Publish package') {
             environment {
-                GH_TOKEN = credentials('github-access-token')
                 NPM_TOKEN = credentials('devnpm-access-token')
                 CI = true
             }
             steps {
-                script {
-                    if (env.BRANCH_NAME == 'master') {
-                        sh 'make release'
+                sshagent(['663e4b49-30f6-4c46-a018-a37ba604d7c8']) {
+                    script {
+                        if (env.BRANCH_NAME == 'master') {
+                            sh 'make release'
+                        }
                     }
                 }
             }
