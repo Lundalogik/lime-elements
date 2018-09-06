@@ -55,7 +55,9 @@ export class TextField {
     public value: string;
 
     /**
-     * This property doesn't work at the moment. Don't use it.
+     * This property just shows its value on the right side of the field
+     * at this moment. As soon as we have integrated a icon library it's
+     * supposed to match with an icon and display that
      */
     @Prop({ reflectToAttr: true })
     public trailingIcon: string;
