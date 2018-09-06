@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/Lundalogik/lime-elements/compare/v3.5.0...v3.6.0) (2018-09-06)
+
+
+### Features
+
+* **limel-menu:** add menu component ([c35c676](https://github.com/Lundalogik/lime-elements/commit/c35c676)), closes [#71](https://github.com/Lundalogik/lime-elements/issues/71)
+
 # [3.5.0](https://github.com/Lundalogik/lime-elements/compare/v3.4.2...v3.5.0) (2018-09-06)
 
 
