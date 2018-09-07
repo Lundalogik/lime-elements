@@ -19,7 +19,7 @@ commitlint:
 .PHONY: test
 test:
 	@# Runs all frontend tests.
-	docker run --rm -w /lime $(DOCKER_IMAGE) npm run test
+	docker run --rm --cap-add=SYS_ADMIN -w /lime $(DOCKER_IMAGE) npm run test:ci
 
 .PHONY: release
 release:
