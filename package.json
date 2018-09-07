@@ -24,14 +24,18 @@
     "lint:examples": "npx tslint --project . -t stylish -c tslint.examples.js 'src/examples/**/*.{ts,tsx}'",
     "lint:examples:fix": "npx tslint --project . -t stylish --fix -c tslint.examples.js 'src/examples/**/*.{ts,tsx}'",
     "lint:fix": "npm run lint:src:fix && npm run lint:specs:fix && npm run lint:examples:fix && npm run lint:config:fix",
-    "lint:specs": "npx tslint --project . -t stylish -c tslint.specs.js 'src/**/*.spec.{ts,tsx}'",
-    "lint:specs:fix": "npx tslint --project . -t stylish --fix -c tslint.specs.js 'src/**/*.spec.{ts,tsx}'",
-    "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{!(spec.)}{ts,tsx}'",
-    "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{!(spec.)}{ts,tsx}'",
+    "lint:specs": "npx tslint --project . -t stylish -c tslint.specs.js 'src/**/*.{spec,e2e}.{ts,tsx}'",
+    "lint:specs:fix": "npx tslint --project . -t stylish --fix -c tslint.specs.js 'src/**/*.{spec,e2e}.{ts,tsx}'",
+    "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{!({spec,e2e}.)}{ts,tsx}'",
+    "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{!({spec,e2e}.)}{ts,tsx}'",
     "publish": "npm run build && semantic-release",
     "start": "npm run dev && concurrently --kill-others \"npm run dev:watch\" \"docz dev\"",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "stencil test --spec",
+    "test:all": "SASS_PATH=node_modules stencil test --spec --e2e",
+    "test:ci": "SASS_PATH=node_modules npm run build && SASS_PATH=node_modules stencil test --spec --e2e",
+    "test:e2e": "SASS_PATH=node_modules stencil test --e2e",
+    "test:e2e:watch": "SASS_PATH=node_modules stencil test --e2e --watch",
+    "test:watch": "stencil test --spec --watch"
   },
   "dependencies": {
     "lime-material-components-web": "^0.38.0"
@@ -41,7 +45,7 @@
     "@commitlint/config-conventional": "^7.1.2",
     "@semantic-release/changelog": "^3.0.0",
     "@semantic-release/git": "^7.0.3",
-    "@stencil/core": "0.12.4",
+    "@stencil/core": "^0.13.0-5",
     "@stencil/sass": "0.1.0",
     "@types/jest": "^23.3.1",
     "commitizen": "^2.10.1",
@@ -54,6 +58,7 @@
     "jest": "^23.5.0",
     "prettier": "^1.14.2",
     "prismjs": "^1.15.0",
+    "puppeteer": "1.7.0",
     "semantic-release": "^15.9.14",
     "showdown": "^1.8.6",
     "tslint": "^5.11.0",
@@ -90,19 +95,6 @@
   },
   "publishConfig": {
     "registry": "http://npm.lundalogik.com:4873/"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json",
-      "jsx"
-    ]
   },
   "config": {
     "commitizen": {
