@@ -26,7 +26,6 @@
     "lint:fix": "npm run lint:src:fix && npm run lint:examples:fix && npm run lint:config:fix",
     "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
-    "prepublishOnly": "npm run build",
     "publish": "npm run build && semantic-release",
     "start": "npm run dev && concurrently --kill-others \"npm run dev:watch\" \"docz dev\"",
     "test": "jest",
