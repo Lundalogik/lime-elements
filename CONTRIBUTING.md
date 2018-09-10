@@ -107,7 +107,7 @@ $ git push origin <topic-branch-name>
 
 To ensure consistency and quality throughout the source code, before being accepted and merged to master, all code modifications must have:
 - No [linting](#lint) errors
-- (A [test](#tests) for every possible case introduced by your code change) This will be a future requirement, but at the moment, we don't have a test-environment that lets us easily test what we need to. So this requirement is relaxed for the time being.
+- A [test](#tests) for every possible case introduced by your code change
 - [Valid commit message(s)](#commit-message-guidelines)
 - Documentation for new features
 - Updated documentation for modified features
@@ -264,14 +264,17 @@ $ npm run lint
 
 ### Tests
 
+There are two types of tests in **lime-elements**: unit tests (spec), and end-to-end tests (e2e).
+
 Before pushing your code changes make sure all **tests pass** and that you have added tests for every possible case introduced by your code change:
 
 ```bash
-$ npm run test
+$ npm run test:all
 ```
 
 **Tips:** During development you can:
-- run in watch mode with `npm run test:watch` to automatically run a test file when you modify it
+- run unit tests and e2e tests separately with `npm run test` and `npm run test:e2e`, respectively
+- run in watch mode with `npm run test:watch` or `npm run test:e2e:watch` to automatically run a test file when you modify it
 - run only the test you are working on by adding `.only` to the test definition
 
 ```js
@@ -281,5 +284,29 @@ test('will not be run', t => {
 
 test.only('will be run', t => {
     t.pass();
+});
+```
+
+`.only` also works for groups of tests:
+
+```js
+describe.only('group with .only', () => {
+    test('will be run', () => {
+        expect(true).toBe(true);
+    });
+
+    test('will also be run', () => {
+        expect(true).toBe(true);
+    });
+});
+
+describe('group without .only', () => {
+    test('will not be run', () => {
+        expect(true).toBe(false);
+    });
+
+    test('will also not be run', () => {
+        expect(true).toBe(false);
+    });
 });
 ```
