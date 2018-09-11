@@ -30,12 +30,12 @@
     "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{!({spec,e2e}.)}{ts,tsx}'",
     "publish": "npm run build && semantic-release",
     "start": "npm run dev && concurrently --kill-others \"npm run dev:watch\" \"docz dev\"",
-    "test": "stencil test --spec",
-    "test:all": "SASS_PATH=node_modules stencil test --spec --e2e",
+    "test": "SASS_PATH=node_modules stencil test --spec --e2e",
     "test:ci": "SASS_PATH=node_modules npm run build && SASS_PATH=node_modules stencil test --spec --e2e",
     "test:e2e": "SASS_PATH=node_modules stencil test --e2e",
     "test:e2e:watch": "SASS_PATH=node_modules stencil test --e2e --watch",
-    "test:watch": "stencil test --spec --watch"
+    "test:specs": "stencil test --spec",
+    "test:specs:watch": "stencil test --spec --watch"
   },
   "dependencies": {
     "lime-material-components-web": "^0.38.0"
