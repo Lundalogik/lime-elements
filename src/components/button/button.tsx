@@ -6,15 +6,34 @@ import { Component, Element, Prop, Watch } from '@stencil/core';
     shadow: true,
 })
 export class Button {
+    /**
+     * The text to show on the button.
+     */
     @Prop({ reflectToAttr: true })
     public label: string;
 
+    /**
+     * Set to `true` to make the button primary.
+     * Defaults to `false`.
+     */
     @Prop({ reflectToAttr: true })
     public primary = false;
 
+    /**
+     * Set to `true` to disable the button.
+     * Defaults to `false`.
+     */
     @Prop({ reflectToAttr: true })
     public disabled = false;
 
+    /**
+     * Set to `true` to put the button in the `loading` state.
+     * Please note that this does _not_ disable the button.
+     * If the button should be disabled while loading, the
+     * `disabled` property should be set to `true` as well.
+     *
+     * Defaults to `false`.
+     */
     @Prop({ reflectToAttr: true })
     public loading = false;
 
