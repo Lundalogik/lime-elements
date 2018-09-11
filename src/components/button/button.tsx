@@ -2,8 +2,8 @@ import { Component, Element, Prop, Watch } from '@stencil/core';
 
 @Component({
     tag: 'limel-button',
-    styleUrl: 'button.scss',
     shadow: true,
+    styleUrl: 'button.scss',
 })
 export class Button {
     /**
