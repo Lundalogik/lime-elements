@@ -8,10 +8,13 @@ import { Component, Element, Prop, Watch } from '@stencil/core';
 export class Button {
     @Prop({ reflectToAttr: true })
     public label: string;
+
     @Prop({ reflectToAttr: true })
     public primary = false;
+
     @Prop({ reflectToAttr: true })
     public disabled = false;
+
     @Prop({ reflectToAttr: true })
     public loading = false;
 
