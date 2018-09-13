@@ -49,6 +49,13 @@ pipeline {
                 GH_TOKEN = credentials('github-access-token')
                 NPM_TOKEN = credentials('devnpm-access-token')
                 CI = true
+
+                // Author used to commit the changelog etcetera.
+                // See https://github.com/semantic-release/git/tree/ca9de5fa08cf32a03d58f7422bd47b73489046d8#environment-variables
+                GIT_AUTHOR_NAME = 'Lime Developer'
+                GIT_AUTHOR_EMAIL = credentials('email-address-for-github-user-limego')
+                GIT_COMMITTER_NAME = 'Lime Developer'
+                GIT_COMMITTER_EMAIL = credentials('email-address-for-github-user-limego')
             }
             steps {
                 script {
