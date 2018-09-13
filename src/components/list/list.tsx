@@ -6,8 +6,8 @@ import { ListRendererConfig } from './list-renderer-config';
 
 @Component({
     tag: 'limel-list',
-    styleUrl: 'list.scss',
     shadow: true,
+    styleUrl: 'list.scss',
 })
 export class List {
     /**
