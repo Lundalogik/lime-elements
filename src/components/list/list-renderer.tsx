@@ -11,6 +11,7 @@ export class ListRenderer {
         items: Array<ListItem | ListSeparator>,
         config: ListRendererConfig = {}
     ) {
+        items = items || [];
         config = { ...this.defaultConfig, ...config };
 
         const twoLines = items.some(item => {
