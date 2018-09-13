@@ -1,6 +1,14 @@
 @import "../../style/variables";
 @import "@lime-material/list/mdc-list";
 
+:host {
+    display: block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
 .mdc-list {
     cursor: pointer;
 }
