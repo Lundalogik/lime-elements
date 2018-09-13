@@ -1,5 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
+// Since we are currently using a pre-release of Stencil to get access
+// to Puppeteer, documentation is lacking.
+//
+// Methods and properties for E2EElement (v0.13.0-9):
+// https://github.com/ionic-team/stencil/blob/a0250ffcbf5a2c657475a05052eac3a4690809d2/src/testing/puppeteer/puppeteer-declarations.ts#L78
+//
+// Matchers (expect-methods) for E2EElement (v0.13.0-9):
+// https://github.com/ionic-team/stencil/blob/a0250ffcbf5a2c657475a05052eac3a4690809d2/src/declarations/testing.ts#L5
+
 describe('limel-button', async () => {
     let page;
     beforeEach(async () => {
