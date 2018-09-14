@@ -11,8 +11,8 @@ import { IOption } from './option';
 
 @Component({
     tag: 'limel-select',
-    styleUrl: 'select.scss',
     shadow: true,
+    styleUrl: 'select.scss',
 })
 export class Select {
     @Prop({ reflectToAttr: true })

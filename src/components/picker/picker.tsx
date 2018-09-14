@@ -12,8 +12,8 @@ import { ListItem } from '../list/list-item';
 
 @Component({
     tag: 'limel-picker',
-    styleUrl: 'picker.scss',
     shadow: true,
+    styleUrl: 'picker.scss',
 })
 export class Picker {
     /**

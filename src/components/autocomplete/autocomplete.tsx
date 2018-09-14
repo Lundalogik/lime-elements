@@ -9,9 +9,9 @@ import {
 } from '@stencil/core';
 
 @Component({
+    tag: 'limel-autocomplete',
     shadow: true,
     styleUrl: 'autocomplete.scss',
-    tag: 'limel-autocomplete',
 })
 export class Autocomplete {
     @Prop()

@@ -10,8 +10,8 @@ import {
 
 @Component({
     tag: 'limel-switch',
-    styleUrl: 'switch.scss',
     shadow: true,
+    styleUrl: 'switch.scss',
 })
 export class Switch {
     @Prop({ reflectToAttr: true })

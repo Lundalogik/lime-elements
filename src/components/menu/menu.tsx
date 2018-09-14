@@ -12,8 +12,8 @@ import { ListRenderer } from '../list/list-renderer';
 
 @Component({
     tag: 'limel-menu',
-    styleUrl: 'menu.scss',
     shadow: true,
+    styleUrl: 'menu.scss',
 })
 export class Menu {
     @Prop({ reflectToAttr: true })
