@@ -37,7 +37,7 @@ export class Menu {
     /**
      * Is displayed on the default trigger button.
      */
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public label = '';
 
     /**
