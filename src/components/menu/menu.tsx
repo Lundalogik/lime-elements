@@ -44,13 +44,13 @@ export class Menu {
      * Is emitted when the menu is cancelled.
      */
     @Event()
-    public cancel: EventEmitter;
+    private cancel: EventEmitter;
 
     /**
      * Is emitted when a menu item is selected.
      */
     @Event()
-    public select: EventEmitter;
+    private select: EventEmitter;
 
     @Element()
     private element: HTMLElement;
