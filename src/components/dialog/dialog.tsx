@@ -10,8 +10,8 @@ import {
 
 @Component({
     tag: 'limel-dialog',
-    styleUrl: 'dialog.scss',
     shadow: true,
+    styleUrl: 'dialog.scss',
 })
 export class Dialog {
     /**
