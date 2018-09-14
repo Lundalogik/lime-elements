@@ -17,10 +17,10 @@ import { ListRenderer } from '../list/list-renderer';
 })
 export class Menu {
     /**
-     * Sets the disabled state of the menu.
+     * Is displayed on the default trigger button.
      */
     @Prop({ reflectToAttr: true })
-    public disabled = false;
+    public label = '';
 
     /**
      * A list of items and separators to show in the menu.
@@ -29,16 +29,16 @@ export class Menu {
     public items: Array<ListItem | ListSeparator> = [];
 
     /**
+     * Sets the disabled state of the menu.
+     */
+    @Prop({ reflectToAttr: true })
+    public disabled = false;
+
+    /**
      * Sets the open state of the menu.
      */
     @Prop({ mutable: true, reflectToAttr: true })
     public open = false;
-
-    /**
-     * Is displayed on the default trigger button.
-     */
-    @Prop({ reflectToAttr: true })
-    public label = '';
 
     /**
      * Is emitted when the menu is cancelled.
