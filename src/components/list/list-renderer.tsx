@@ -4,6 +4,7 @@ import { ListRendererConfig } from './list-renderer-config';
 export class ListRenderer {
     private defaultConfig: ListRendererConfig = {
         isMenu: false,
+        isOpen: true,
         selectable: false,
     };
 
@@ -28,7 +29,7 @@ export class ListRenderer {
                     ${config.isMenu ? 'mdc-menu__items' : ''}
                     ${config.selectable ? 'selectable' : ''}
                 `}
-                aria-hidden={(!!config.isMenu).toString()}
+                aria-hidden={(!config.isOpen).toString()}
                 role={role}
                 aria-orientation="vertical"
             >

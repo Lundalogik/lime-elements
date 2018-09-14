@@ -88,7 +88,7 @@ export class Menu {
             <div class="mdc-menu-anchor">
                 <slot name="trigger">{this.renderTrigger()}</slot>
                 <div class="mdc-menu" tabindex="-1">
-                    {this.listRenderer.render(this.items, { isMenu: true })}
+                    {this.listRenderer.render(this.items, { isMenu: true, isOpen: this.open })}
                 </div>
                 {this.disabled ? <div class="menu-disabled" /> : null}
             </div>
