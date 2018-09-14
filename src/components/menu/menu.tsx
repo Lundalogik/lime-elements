@@ -58,13 +58,6 @@ export class Menu {
     private menu: MDCMenu;
     private listRenderer = new ListRenderer();
 
-    @Watch('open')
-    public openWatcher(newValue: boolean) {
-        if (newValue !== this.menu.open) {
-            this.menu.open = newValue;
-        }
-    }
-
     public componentDidLoad() {
         const menuElement = this.element.shadowRoot.querySelector('.mdc-menu');
         this.menu = new MDCMenu(menuElement);
@@ -100,6 +93,13 @@ export class Menu {
                 {this.disabled ? <div class="menu-disabled" /> : null}
             </div>
         );
+    }
+
+    @Watch('open')
+    protected openWatcher(newValue: boolean) {
+        if (newValue !== this.menu.open) {
+            this.menu.open = newValue;
+        }
     }
 
     private renderTrigger() {
