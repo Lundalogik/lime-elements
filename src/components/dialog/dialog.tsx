@@ -33,19 +33,6 @@ export class Dialog {
 
     private mdcDialog: MDCDialog;
 
-    @Watch('open')
-    public watchHandler(newValue: boolean, oldValue: boolean) {
-        if (oldValue === newValue) {
-            return;
-        }
-
-        if (newValue) {
-            this.mdcDialog.show();
-        } else {
-            this.mdcDialog.close();
-        }
-    }
-
     public componentDidLoad() {
         this.mdcDialog = new MDCDialog(
             this.host.shadowRoot.querySelector('.mdc-dialog')
@@ -90,5 +77,18 @@ export class Dialog {
                 <div class="mdc-dialog__backdrop" />
             </aside>
         );
+    }
+
+    @Watch('open')
+    protected watchHandler(newValue: boolean, oldValue: boolean) {
+        if (oldValue === newValue) {
+            return;
+        }
+
+        if (newValue) {
+            this.mdcDialog.show();
+        } else {
+            this.mdcDialog.close();
+        }
     }
 }
