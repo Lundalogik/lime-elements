@@ -16,10 +16,10 @@ import { ListRenderer } from '../list/list-renderer';
     styleUrl: 'menu.scss',
 })
 export class Menu {
-    @Prop({ reflectToAttr: true })
     /**
      * Sets the disabled state of the menu.
      */
+    @Prop({ reflectToAttr: true })
     public disabled = false;
 
     /**
