@@ -19,4 +19,5 @@ export const config: Config = {
     plugins: [
         sass(),
     ],
+    tsconfig: './tsconfig.dev.json'
 };
