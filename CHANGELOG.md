@@ -1,3 +1,11 @@
+## [3.6.1](https://github.com/Lundalogik/lime-elements/compare/v3.6.0...v3.6.1) (2018-09-17)
+
+
+### Bug Fixes
+
+* **limel-list:** fix component crashing when there are no elements in the list ([453dc34](https://github.com/Lundalogik/lime-elements/commit/453dc34))
+* **limel-list:** set the default display value to `block` ([6431af3](https://github.com/Lundalogik/lime-elements/commit/6431af3))
+
 # [3.6.0](https://github.com/Lundalogik/lime-elements/compare/v3.5.0...v3.6.0) (2018-09-06)
 
 
