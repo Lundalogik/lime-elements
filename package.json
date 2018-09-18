@@ -45,7 +45,7 @@
     "@commitlint/config-conventional": "^7.1.2",
     "@semantic-release/changelog": "^3.0.0",
     "@semantic-release/git": "^7.0.4",
-    "@stencil/core": "0.13.0-11",
+    "@stencil/core": "0.13.0-12",
     "@stencil/sass": "0.1.0",
     "@types/jest": "^23.3.1",
     "commitizen": "^2.10.1",
