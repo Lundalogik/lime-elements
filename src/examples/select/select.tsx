@@ -1,5 +1,5 @@
 import { Component, State } from '@stencil/core';
-import { IOption } from '../../interface';
+import { Option } from '../../interface';
 
 @Component({
     shadow: true,
@@ -11,7 +11,7 @@ export class SelectExample {
     @State()
     public group = 0;
 
-    private options: IOption[][] = [
+    private options: Option[][] = [
         [
             { text: '', value: '', disabled: true },
             { text: 'Luke Skywalker', value: 'luke' },

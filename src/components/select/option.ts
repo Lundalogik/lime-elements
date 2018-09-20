@@ -1,4 +1,4 @@
-export interface IOption {
+export interface Option {
     text: string;
     value: string;
     disabled?: boolean;
