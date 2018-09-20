@@ -12,10 +12,10 @@
     "dist/"
   ],
   "scripts": {
-    "build": "cross-env-shell SASS_PATH=node_modules \"stencil build\"",
+    "build": "cross-env-shell SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
     "cm": "git-cz",
-    "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs --config stencil.config.dev.ts\"",
-    "dev:watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs --config stencil.config.dev.ts\"",
+    "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs\"",
+    "dev:watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs\"",
     "docz:build": "docz build",
     "docz:dev": "docz dev",
     "lint": "npm run lint:src && npm run lint:specs && npm run lint:examples && npm run lint:config",
@@ -31,7 +31,6 @@
     "publish": "npm run build && semantic-release",
     "start": "npm run dev && concurrently --kill-others \"npm run dev:watch\" \"docz dev\"",
     "test": "cross-env-shell SASS_PATH=node_modules \"stencil test --spec --e2e\"",
-    "test:ci": "npm run build && npm run test",
     "test:e2e": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e\"",
     "test:e2e:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e --watch\"",
     "test:specs": "stencil test --spec",
