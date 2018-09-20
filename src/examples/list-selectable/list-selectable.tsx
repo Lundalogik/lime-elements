@@ -1,5 +1,5 @@
 import { Component } from '@stencil/core';
-import { ListItem } from '../../components/list/list-item';
+import { ListItem } from '../../interface';
 
 @Component({
     tag: 'limel-example-list-selectable',

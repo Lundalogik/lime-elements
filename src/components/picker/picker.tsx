@@ -8,7 +8,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { ARROW_DOWN, ARROW_UP, TAB } from '../../util/keycodes';
-import { ListItem } from '../list/list-item';
+import { ListItem } from '../../interface';
 
 @Component({
     tag: 'limel-picker',

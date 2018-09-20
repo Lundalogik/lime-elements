@@ -7,7 +7,7 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
-import { ListItem, ListSeparator } from '../list/list-item';
+import { ListItem, ListSeparator } from '../../interface';
 import { ListRenderer } from '../list/list-renderer';
 
 @Component({
