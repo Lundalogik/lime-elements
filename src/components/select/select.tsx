@@ -7,7 +7,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { IOption } from '../../interface';
+import { Option } from '../../interface';
 
 @Component({
     tag: 'limel-select',
@@ -22,7 +22,7 @@ export class Select {
     @Prop()
     public value: string;
     @Prop()
-    public options: IOption[] = [];
+    public options: Option[] = [];
 
     @Event()
     private change: EventEmitter;
