@@ -1,16 +1,23 @@
 import { Config } from '@stencil/core';
-import { OutputTargetDist } from '@stencil/core/dist/declarations/output-targets';
+import { OutputTargetWww } from '@stencil/core/dist/declarations/output-targets';
 import { sass } from '@stencil/sass';
 
-const targetDist: OutputTargetDist = {
-    type: 'dist',
+const targetWww: OutputTargetWww = {
+    type: 'www',
+    serviceWorker: null,
+    dir: '.docz/public/stencil',
 };
 
 export const config: Config = {
+    copy: [
+        { src: 'dev-assets' },
+        { src: 'examples/**/*.tsx' },
+        { src: 'components/**/*.md' },
+    ],
     namespace: 'lime-elements',
-    outputTargets: [ targetDist ],
+    outputTargets: [ targetWww ],
     plugins: [
         sass(),
     ],
-    excludeSrc: ['/test/', '**/.spec.', '**/examples/**', '**/dev-assets/**'],
+    tsconfig: './tsconfig.dev.json'
 };
