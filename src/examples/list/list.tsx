@@ -1,5 +1,5 @@
 import { Component } from '@stencil/core';
-import { ListItem, ListSeparator } from '../../components/list/list-item';
+import { ListItem, ListSeparator } from '../../interface';
 
 @Component({
     tag: 'limel-example-list',

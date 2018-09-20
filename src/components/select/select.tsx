@@ -7,7 +7,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { IOption } from './option';
+import { IOption } from '../../interface';
 
 @Component({
     tag: 'limel-select',

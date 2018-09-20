@@ -1,6 +1,6 @@
 import { Component, State } from '@stencil/core';
 import debounce from 'lodash.debounce';
-import { ListItem } from '../../components/list/list-item';
+import { ListItem } from '../../interface';
 
 const DEBOUNCE_DELAY = 300;
 const NETWORK_DELAY = 500;

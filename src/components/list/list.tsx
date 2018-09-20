@@ -1,6 +1,6 @@
 import { MDCList } from '@lime-material/list';
 import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
-import { ListItem, ListSeparator } from './list-item';
+import { ListItem, ListSeparator } from '../../interface';
 import { ListRenderer } from './list-renderer';
 import { ListRendererConfig } from './list-renderer-config';
 

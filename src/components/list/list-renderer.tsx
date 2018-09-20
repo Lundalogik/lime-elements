@@ -1,4 +1,4 @@
-import { ListItem, ListSeparator } from './list-item';
+import { ListItem, ListSeparator } from '../../interface';
 import { ListRendererConfig } from './list-renderer-config';
 
 export class ListRenderer {
