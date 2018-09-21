@@ -1,3 +1,18 @@
+# [4.0.0](https://github.com/Lundalogik/lime-elements/compare/v3.6.1...v4.0.0) (2018-09-21)
+
+
+### Bug Fixes
+
+* **stencil:** release 3.6.1 was actually breaking and is replaced by this release ([272c5ca](https://github.com/Lundalogik/lime-elements/commit/272c5ca))
+
+
+### BREAKING CHANGES
+
+* **stencil:** When using **lime-elements** with **Angular** or other build system using
+**Webpack**, replace the line `import { defineCustomElements }  from 'lime-elements'` with `import {
+defineCustomElements }  from 'lime-elements/dist/loader'`. In **Angular**, this line is found in
+`main.ts`.
+
 ## [3.6.1](https://github.com/Lundalogik/lime-elements/compare/v3.6.0...v3.6.1) (2018-09-17)
 
 ### BREAKING! 3.6.1 should have been a major release. It has been unpublished. Please downgrade to 3.6.0 or upgrade to 4.0.0.
