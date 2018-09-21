@@ -38,7 +38,7 @@
     "test:specs:watch": "stencil test --spec --watch"
   },
   "dependencies": {
-    "lime-material-components-web": "http://npm.lundalogik.com:4873/lime-material-components-web/-/lime-material-components-web-0.38.0.tgz"
+    "lime-material-components-web": "^0.38.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",
