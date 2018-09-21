@@ -1,3 +1,22 @@
+# [5.0.0](https://github.com/Lundalogik/lime-elements/compare/v4.0.1...v5.0.0) (2018-09-21)
+
+
+### Bug Fixes
+
+* export previously missing interfaces ([0de8850](https://github.com/Lundalogik/lime-elements/commit/0de8850))
+
+
+### Code Refactoring
+
+* **limel-select:** rename `IOption` to `Option` ([4d707e9](https://github.com/Lundalogik/lime-elements/commit/4d707e9))
+
+
+### BREAKING CHANGES
+
+* **limel-select:** The interface `IOption` has been renamed to `Option`. Before this release, the
+interface was not correctly exported, so it is unlikely that any external consumers of
+**lime-elements** actually have a breaking dependency on this interface.
+
 ## [4.0.1](https://github.com/Lundalogik/lime-elements/compare/v4.0.0...v4.0.1) (2018-09-21)
 
 
