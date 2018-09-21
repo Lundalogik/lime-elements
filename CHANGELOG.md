@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/Lundalogik/lime-elements/compare/v4.0.0...v4.0.1) (2018-09-21)
+
+
+### Bug Fixes
+
+* fix dependency on lime-material-components-web ([076e8f5](https://github.com/Lundalogik/lime-elements/commit/076e8f5))
+
 # [4.0.0](https://github.com/Lundalogik/lime-elements/compare/v3.6.1...v4.0.0) (2018-09-21)
 
 
