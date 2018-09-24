@@ -9,7 +9,10 @@
   "types": "dist/types/interface.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
-    "dist/"
+    "/dist/**/*.js",
+    "/dist/**/*.json",
+    "/dist/**/*.css",
+    "/dist/**/*.ts"
   ],
   "scripts": {
     "build": "cross-env-shell SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
