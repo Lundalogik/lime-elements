@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/Lundalogik/lime-elements/compare/v5.0.0...v5.0.1) (2018-09-24)
+
+
+### Bug Fixes
+
+* exclude .scss files from dist-package ([6e7fabd](https://github.com/Lundalogik/lime-elements/commit/6e7fabd))
+
 # [5.0.0](https://github.com/Lundalogik/lime-elements/compare/v4.0.1...v5.0.0) (2018-09-21)
 
 
