@@ -120,7 +120,6 @@ export class TextField {
             >
                 <input
                     class="mdc-text-field__input"
-                    id="limel-input"
                     onInput={this.handleChange.bind(this)}
                     value={this.value}
                     required={this.required}
