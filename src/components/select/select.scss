@@ -2,6 +2,14 @@
 @import "@lime-material/theme/mdc-theme";
 @import "@lime-material/select/mdc-select";
 
+:host {
+    display: block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
 .mdc-select {
     width: 100%;
 
