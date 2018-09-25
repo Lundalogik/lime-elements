@@ -43,7 +43,7 @@
     "test:specs:watch": "stencil test --spec --watch"
   },
   "dependencies": {
-    "lime-material-components-web": "^0.38.0"
+    "lime-material-components-web": "^0.38.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",
