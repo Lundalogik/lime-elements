@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/Lundalogik/lime-elements/compare/v5.0.2...v5.1.0) (2018-09-26)
+
+
+### Features
+
+* **snackbar:** new snackbar component ([065e567](https://github.com/Lundalogik/lime-elements/commit/065e567))
+
 ## [5.0.2](https://github.com/Lundalogik/lime-elements/compare/v5.0.1...v5.0.2) (2018-09-24)
 
 
