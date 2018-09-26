@@ -37,7 +37,7 @@ describe('limel-snackbar', async () => {
             await snackbar.callMethod('show');
             await page.waitForChanges();
             await page.evaluate(() => {
-                window.clock.tick(5000);
+                window['clock'].tick(5000);
             });
             await page.waitFor(100);
         });
@@ -89,7 +89,7 @@ async function createPageWithFakeTimers(content) {
     const page = await createPage(content);
     await page.addScriptTag({ content: lolex() });
     await page.evaluate(() => {
-        window.clock = window.lolex.install();
+        window['clock'] = window['lolex'].install();
     });
     return page;
 }

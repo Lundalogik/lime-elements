@@ -242,7 +242,7 @@ describe('limel-button', async () => {
                     describe('after 2 seconds', () => {
                         beforeEach(async () => {
                             await page.evaluate(() => {
-                                window.clock.tick(2000);
+                                window['clock'].tick(2000);
                             });
                             await page.waitForChanges();
                         });
@@ -290,7 +290,7 @@ describe('limel-button', async () => {
                 describe('after 2 seconds', () => {
                     beforeEach(async () => {
                         await page.evaluate(() => {
-                            window.clock.tick(2000);
+                            window['clock'].tick(2000);
                         });
                         await page.waitForChanges();
                     });
@@ -325,7 +325,7 @@ async function createPageWithFakeTimers(content) {
     const page = await createPage(content);
     await page.addScriptTag({ content: lolex() });
     await page.evaluate(() => {
-        window.clock = window.lolex.install();
+        window['clock'] = window['lolex'].install();
     });
     return page;
 }

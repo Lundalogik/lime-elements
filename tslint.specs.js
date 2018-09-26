@@ -9,6 +9,7 @@ module.exports = {
         'no-duplicate-string': false,
         'no-identical-functions': false,
         'no-magic-numbers': false,
+        'no-string-literal': false,
         'no-submodule-imports': [true, '@stencil/core/testing'],
     },
 };
