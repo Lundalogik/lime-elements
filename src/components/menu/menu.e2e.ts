@@ -157,7 +157,6 @@ describe('limel-menu', async () => {
             beforeEach(async () => {
                 item = await list.find('li');
                 await item.click();
-                await page.waitFor(100); // Give the event a chance to bubble.
                 await page.waitForChanges();
             });
             it('emits the `select` event', () => {
