@@ -60,9 +60,13 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'master') {
+                        echo 'On master. Running release step.'
                         sh 'make release'
+                    } else if (env.BRANCH_NAME.substring(0,3) == 'PR-') {
+                        echo 'On PR branch. Running release step in dry-run mode.'
+                        sh "make release_dry_run BRANCH=${env.BRANCH_NAME}"
                     } else {
-                        echo('Skipping release step because this is not the master branch.')
+                        echo('Not on master nor a PR branch. Skipping release step.')
                     }
                 }
             }
