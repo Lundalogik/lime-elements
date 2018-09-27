@@ -6,6 +6,7 @@ import {
     EventEmitter,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 
 @Component({
@@ -79,6 +80,13 @@ export class Switch {
                 <span class="label">{this.label}</span>
             </label>,
         ];
+    }
+
+    @Watch('value')
+    protected valueWatcher(newValue, oldValue) {
+        if (newValue != oldValue) {
+            this.mdcSwitch.checked = newValue;
+        }
     }
 
     private onChange = event => {
