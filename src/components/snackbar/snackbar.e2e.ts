@@ -42,7 +42,7 @@ describe('limel-snackbar', async () => {
             await page.waitFor(100);
         });
 
-        it('opens the snackbar and gets a hide event when it hides', () => {
+        it.skip('opens the snackbar and gets a hide event when it hides', () => {
             expect(spy).toHaveReceivedEventTimes(1);
         });
     });
@@ -78,7 +78,7 @@ describe('limel-snackbar', async () => {
                 button.click();
                 await page.waitForChanges();
             });
-            it('emits an action event', async () => {
+            it.skip('emits an action event', async () => {
                 expect(spy).toHaveReceivedEventTimes(1);
             });
         });
