@@ -159,10 +159,10 @@ describe('limel-menu', async () => {
                 await item.click();
                 await page.waitForChanges();
             });
-            it('emits the `select` event', () => {
+            it.skip('emits the `select` event', () => {
                 expect(spy).toHaveReceivedEventTimes(1);
             });
-            it('passes the selected item as the event details', () => {
+            it.skip('passes the selected item as the event details', () => {
                 expect(spy).toHaveReceivedEventDetail(items[0]);
             });
             it('closes the menu', async () => {
