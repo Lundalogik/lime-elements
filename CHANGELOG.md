@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/Lundalogik/lime-elements/compare/v5.1.0...v5.1.1) (2018-09-27)
+
+
+### Bug Fixes
+
+* **limel-switch:** make switch update correctly when value is changed by consumer ([d4171b1](https://github.com/Lundalogik/lime-elements/commit/d4171b1)), closes [#121](https://github.com/Lundalogik/lime-elements/issues/121)
+
 # [5.1.0](https://github.com/Lundalogik/lime-elements/compare/v5.0.2...v5.1.0) (2018-09-26)
 
 
