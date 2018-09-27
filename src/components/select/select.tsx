@@ -50,9 +50,10 @@ export class Select {
     public render() {
         return (
             <label
-                class={`mdc-select ${
-                    this.disabled ? 'mdc-select--disabled' : ''
-                }`}
+                class={`
+                    mdc-select
+                    ${this.disabled ? 'mdc-select--disabled' : ''}
+                `}
             >
                 <select
                     onChange={this.onChange}
@@ -73,9 +74,10 @@ export class Select {
                     })}
                 </select>
                 <span
-                    class={`mdc-floating-label ${
-                        this.value ? 'mdc-floating-label--float-above' : ''
-                    }`}
+                    class={`
+                        mdc-floating-label
+                        ${this.value ? 'mdc-floating-label--float-above' : ''}
+                    `}
                 >
                     {this.label}
                 </span>
