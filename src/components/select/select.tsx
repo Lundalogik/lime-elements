@@ -17,10 +17,13 @@ import { Option } from '../../interface';
 export class Select {
     @Prop({ reflectToAttr: true })
     public disabled = false;
+
     @Prop({ reflectToAttr: true })
     public label: string;
+
     @Prop()
     public value: string;
+
     @Prop()
     public options: Option[] = [];
 
