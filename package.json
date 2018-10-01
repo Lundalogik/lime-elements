@@ -9,7 +9,7 @@
   "types": "dist/types/interface.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
-    "/dist",
+    "dist/",
     "/dist/**/*.js",
     "/dist/**/*.json",
     "/dist/**/*.css",
