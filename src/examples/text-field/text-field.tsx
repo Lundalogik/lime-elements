@@ -1,8 +1,9 @@
 import { Component, Listen, Prop, State, Watch } from '@stencil/core';
 
 @Component({
-    shadow: true,
     tag: 'limel-example-text-field',
+    shadow: true,
+    styleUrl: 'text-field.scss',
 })
 export class TextFieldExample {
     @Prop({ mutable: true })
@@ -15,37 +16,40 @@ export class TextFieldExample {
     @State()
     public value: any;
 
-    @Listen('change')
-    public changeListen(event) {
-        console.log('listen on value');
-        this.value = event.detail;
-        this.invalid = this.required && !this.value;
-    }
-
     public render() {
         return [
-            <limel-button-group>
-                <limel-button
-                    onClick={() => {
-                        this.disabled = !this.disabled;
+            <section>
+                <limel-button-group>
+                    <limel-button
+                        onClick={() => {
+                            this.disabled = !this.disabled;
+                        }}
+                        label={this.disabled ? 'Enable' : 'Disable'}
+                    />
+                    <limel-button
+                        onClick={() => {
+                            this.required = !this.required;
+                        }}
+                        label={this.required ? 'Set optional' : 'Set required'}
+                    />
+                </limel-button-group>
+                <limel-text-field
+                    disabled={this.disabled}
+                    invalid={this.invalid}
+                    label="Text Field Label"
+                    required={this.required}
+                    value={this.value}
+                    onChange={event => {
+                        this.changeHandler(event);
                     }}
-                    label={this.disabled ? 'Enable' : 'Disable'}
                 />
-                <limel-button
-                    onClick={() => {
-                        this.required = !this.required;
-                    }}
-                    label={this.required ? 'Set optional' : 'Set required'}
-                />
-            </limel-button-group>,
-            <limel-text-field
-                disabled={this.disabled}
-                invalid={this.invalid}
-                label="Text Field Label"
-                required={this.required}
-                value={this.value}
-            />,
-            <span>Value: {this.value}</span>,
+                <span>Value: {this.value}</span>
+            </section>,
+            <section class="inline-textfields">
+                <h3>Multiple fields inline</h3>
+                <limel-text-field label="First field" />
+                <limel-text-field label="Second field" />
+            </section>,
         ];
     }
 
@@ -64,6 +68,12 @@ export class TextFieldExample {
     @Watch('required')
     protected watchRequired() {
         console.log('watch required');
+        this.invalid = this.required && !this.value;
+    }
+
+    private changeHandler(event) {
+        console.log('listen on value');
+        this.value = event.detail;
         this.invalid = this.required && !this.value;
     }
 }

@@ -1,0 +1,12 @@
+.inline-textfields {
+    position: relative;
+
+    limel-text-field {
+        display: inline-block;
+        width: calc(50% - 1.0rem);
+
+        &:first-of-type {
+            margin-right: 2.0rem;
+        }
+    }
+}

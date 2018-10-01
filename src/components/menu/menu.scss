@@ -1,6 +1,8 @@
 @import "../../style/variables";
 @import "@lime-material/list/mdc-list";
 @import "@lime-material/menu/mdc-menu";
+@import "@lime-material/menu-surface/mdc-menu-surface";
+@import "@lime-material/theme/mdc-theme";
 
 $menu-item-background-color: #ebebeb;
 
@@ -12,25 +14,17 @@ $menu-item-background-color: #ebebeb;
     display: none;
 }
 
-.menu-disabled {
-    height: 100%;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-}
-
 .menu__trigger {
-    background: None;
-    border: None;
+    border-color: transparent;
+    border-width: 0.1rem;
+    border-style: solid;
+    background: none;
     color: #afafaf;
     height: 3.6rem;
 
     &-enabled {
         &:hover {
-            border: solid;
             border-color: #afafaf;
-            border-width: 0.1rem;
             color: #636363;
         }
     }

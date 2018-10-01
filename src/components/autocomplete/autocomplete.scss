@@ -2,6 +2,14 @@
 @import "@lime-material/list/mdc-list";
 @import "@lime-material/elevation/mdc-elevation";
 
+:host {
+    display: block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
 .autocomplete-list-container {
     position: relative;
 }
