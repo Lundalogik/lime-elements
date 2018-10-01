@@ -12,5 +12,5 @@ export const config: Config = {
     plugins: [
         sass(),
     ],
-    excludeSrc: ['/test/', '**/.spec.', '**/examples/**', '**/dev-assets/**'],
+    excludeSrc: ['/test/', '**/examples/**', '**/dev-assets/**', '**/*.spec.*', '**/*.e2e.*', '**/*.test-wrapper.*'],
 };
