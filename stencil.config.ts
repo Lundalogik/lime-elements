@@ -12,6 +12,7 @@ export const config: Config = {
     copy: [
         { src: 'dev-assets' },
         { src: 'examples/**/*.tsx' },
+        { src: 'examples/**/*.scss' },
         { src: 'components/**/*.md' },
     ],
     namespace: 'lime-elements',
