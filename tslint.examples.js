@@ -8,5 +8,6 @@ module.exports = {
         ban: false,
         'jsx-use-translation-function': false,
         'no-console': false,
+        'no-duplicate-string': false,
     },
 };
