@@ -11,5 +11,6 @@ module.exports = {
         'no-magic-numbers': false,
         'no-string-literal': false,
         'no-submodule-imports': [true, '@stencil/core/testing'],
+        'parameters-max-number': false,
     },
 };
