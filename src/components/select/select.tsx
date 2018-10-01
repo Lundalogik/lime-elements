@@ -6,6 +6,7 @@ import {
     EventEmitter,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import { Option } from '../../interface';
 
@@ -41,6 +42,9 @@ export class Select {
             '.mdc-select'
         );
         this.mdcSelect = new MDCSelect(element);
+        if (this.value !== this.mdcSelect.value) {
+            this.onChange();
+        }
     }
 
     public componentDidUnload() {
@@ -84,6 +88,20 @@ export class Select {
                 <div class="mdc-line-ripple" />
             </label>
         );
+    }
+
+    @Watch('options')
+    protected optionsWatcher(newOptions) {
+        if (newOptions && newOptions.length) {
+            setTimeout(() => {
+                this.mdcSelect.selectedIndex = 0;
+                this.onChange();
+            }, 0);
+        } else {
+            this.mdcSelect.value = null;
+            this.mdcSelect.selectedIndex = -1;
+            this.onChange();
+        }
     }
 
     private onChange = () => {
