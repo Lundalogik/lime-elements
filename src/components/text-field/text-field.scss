@@ -2,22 +2,34 @@
 @import '@lime-material/theme/mdc-theme';
 @import '@lime-material/textfield/mdc-text-field';
 
+:host {
+    display: block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
 .mdc-text-field {
     width: 100%;
-
-    &.mdc-text-field--with-trailing-icon {
-        .mdc-text-field__input {
-            padding-left: 0;
-        }
-
-        .mdc-text-field__icon {
-            bottom: 0.5rem;
-            font-style: normal;
-        }
-    }
 }
 
-.mdc-text-field__input {
-    height: 2.2rem;
-    padding-top: 1.2rem;
-}
+// .mdc-text-field {
+//     width: 100%;
+
+//     &.mdc-text-field--with-trailing-icon {
+//         .mdc-text-field__input {
+//             padding-left: 0;
+//         }
+
+//         .mdc-text-field__icon {
+//             bottom: 0.5rem;
+//             font-style: normal;
+//         }
+//     }
+// }
+
+// .mdc-text-field__input {
+//     height: 2.2rem;
+//     padding-top: 1.2rem;
+// }

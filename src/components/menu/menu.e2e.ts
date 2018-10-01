@@ -14,7 +14,7 @@ describe('limel-menu', async () => {
             html: '<limel-menu label="My Label"></limel-menu>',
         });
         limelMenu = await page.find('limel-menu');
-        menuAnchor = await page.find('limel-menu>>>.mdc-menu-anchor');
+        menuAnchor = await page.find('limel-menu>>>.mdc-menu-surface--anchor');
         triggerSlot = await menuAnchor.find('slot[name=trigger]');
         items = [
             { text: 'item 1' },
@@ -45,7 +45,7 @@ describe('limel-menu', async () => {
 
     describe('menu element', () => {
         it('is not visible', () => {
-            expect(menu).not.toHaveClass('mdc-menu--open');
+            expect(menu).not.toHaveClass('mdc-menu-surface--open');
             expect(list).toEqualAttribute('aria-hidden', 'true');
         });
     });
@@ -63,7 +63,7 @@ describe('limel-menu', async () => {
 
         describe('menu element', () => {
             it('is visible', () => {
-                expect(menu).toHaveClass('mdc-menu--open');
+                expect(menu).toHaveClass('mdc-menu-surface--open');
                 expect(list).toEqualAttribute('aria-hidden', 'false');
             });
         });
@@ -89,7 +89,7 @@ describe('limel-menu', async () => {
             it('opens the menu', async () => {
                 const isOpen = await limelMenu.getProperty('open');
                 expect(isOpen).toBe(true);
-                expect(menu).toHaveClass('mdc-menu--open');
+                expect(menu).toHaveClass('mdc-menu-surface--open');
                 expect(list).toEqualAttribute('aria-hidden', 'false');
             });
 
@@ -103,7 +103,7 @@ describe('limel-menu', async () => {
                 it('closes the menu', async () => {
                     const isOpen = await limelMenu.getProperty('open');
                     expect(isOpen).toBeFalsy();
-                    expect(menu).not.toHaveClass('mdc-menu--open');
+                    expect(menu).not.toHaveClass('mdc-menu-surface--open');
                     expect(list).toEqualAttribute('aria-hidden', 'true');
                 });
             });
@@ -137,7 +137,7 @@ describe('limel-menu', async () => {
                     it('does NOT open the menu', async () => {
                         const isOpen = await limelMenu.getProperty('open');
                         expect(isOpen).toBeFalsy();
-                        expect(menu).not.toHaveClass('mdc-menu--open');
+                        expect(menu).not.toHaveClass('mdc-menu-surface--open');
                         expect(list).toEqualAttribute('aria-hidden', 'true');
                     });
                 });
@@ -168,7 +168,7 @@ describe('limel-menu', async () => {
             it('closes the menu', async () => {
                 const isOpen = await limelMenu.getProperty('open');
                 expect(isOpen).toBeFalsy();
-                expect(menu).not.toHaveClass('mdc-menu--open');
+                expect(menu).not.toHaveClass('mdc-menu-surface--open');
                 expect(list).toEqualAttribute('aria-hidden', 'true');
             });
         });

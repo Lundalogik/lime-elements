@@ -8,7 +8,6 @@ import {
     Watch,
 } from '@stencil/core';
 import { ListItem, ListSeparator } from '../../interface';
-import { ListRenderer } from '../list/list-renderer';
 
 @Component({
     tag: 'limel-menu',
@@ -56,7 +55,6 @@ export class Menu {
     private element: HTMLElement;
 
     private menu: MDCMenu;
-    private listRenderer = new ListRenderer();
 
     public componentDidLoad() {
         const menuElement = this.element.shadowRoot.querySelector('.mdc-menu');
@@ -70,7 +68,7 @@ export class Menu {
                 this.open = false;
             }
         );
-        menuElement.addEventListener('MDCMenu:cancel', () => {
+        menuElement.addEventListener('MDCMenuSurface:closed', () => {
             this.cancel.emit();
             this.open = false;
         });
@@ -85,10 +83,17 @@ export class Menu {
 
     public render() {
         return (
-            <div class="mdc-menu-anchor">
+            <div class="mdc-menu-surface--anchor">
                 <slot name="trigger">{this.renderTrigger()}</slot>
-                <div class="mdc-menu" tabindex="-1">
-                    {this.listRenderer.render(this.items, { isMenu: true, isOpen: this.open })}
+                <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+                    <ul
+                        class="mdc-list"
+                        role="menu"
+                        aria-hidden={this.open ? 'false' : 'true'}
+                        aria-orientation="vertical"
+                    >
+                        {this.items.map(this.renderListItem.bind(this))}
+                    </ul>
                 </div>
                 {this.disabled ? <div class="menu-disabled" /> : null}
             </div>
@@ -102,12 +107,72 @@ export class Menu {
         }
     }
 
+    /**
+     * Render a single menu item
+     *
+     * @param {ListItem | ListSeparator} item the item to render
+     * @param {number} index the index the item had in the `items` array
+     *
+     * @returns {HTMLElement} the list item
+     */
+    private renderListItem(
+        item: ListItem | ListSeparator,
+        index: number
+    ) {
+        if ('separator' in item) {
+            return <li class="mdc-list-divider" role="separator" />;
+        }
+
+        let props: {
+            disabled?: true
+        } = {};
+
+        if (item.disabled) {
+            props.disabled = true;
+        }
+
+        return (
+            <li
+                class={`
+                    mdc-list-item
+                    ${item.disabled ? 'mdc-list-item--disabled' : ''}
+                `}
+                role="menuitem"
+                data-index={index}
+                {...props}
+            >
+                <span class="mdc-list-item__text">
+                    {this.renderText(item.text, item.secondaryText)}
+                </span>
+            </li>
+        );
+    }
+
+    /**
+     * Render the text of the list item
+     *
+     * @param {string} text primary text for the list item
+     * @param {string} secondaryText secondary text for the list item
+     *
+     * @returns {HTMLElement | string} the text for the list item
+     */
+    private renderText(text: string, secondaryText?: string) {
+        if (!secondaryText) {
+            return text;
+        }
+
+        return [
+            <span class="mdc-list-item__primary-text">{text}</span>,
+            <span class="mdc-list-item__secondary-text">{secondaryText}</span>,
+        ];
+    }
+
     private renderTrigger() {
         return (
             <button
                 class={`
                     menu__trigger
-                    ${!this.disabled ? 'menu__trigger-enabled' : ''}
+                    ${this.disabled ? '' : 'menu__trigger-enabled'}
                 `}
                 disabled={this.disabled}
                 onClick={this.onTriggerClick}

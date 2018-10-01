@@ -33,12 +33,18 @@ export class Dialog {
 
     private mdcDialog: MDCDialog;
 
+    private id: string;
+
+    public componentWillLoad() {
+        this.id = Math.random().toString(36).substr(2);
+    }
+
     public componentDidLoad() {
         this.mdcDialog = new MDCDialog(
             this.host.shadowRoot.querySelector('.mdc-dialog')
         );
         if (this.open) {
-            this.mdcDialog.show();
+            this.mdcDialog.open();
         }
 
         this.mdcDialog.listen('MDCDialog:cancel', () => {
@@ -53,29 +59,28 @@ export class Dialog {
 
     public render() {
         return (
-            <aside
-                id="limel-dialog"
+            <div
                 class="mdc-dialog"
                 role="alertdialog"
-                aria-labelledby="limel-dialog-label"
-                aria-describedby="limel-dialog-description"
+                aria-modal="true"
+                aria-labelledby={'limel-dialog-title-' + this.id}
+                aria-describedby={'limel-dialog-content-' + this.id}
             >
-                <div class="mdc-dialog__surface">
-                    <header class="mdc-dialog__header" id="limel-dialog-label">
-                        <slot name="header" />
-                    </header>
-                    <section
-                        id="limel-dialog-description"
-                        class="mdc-dialog__body mdc-dialog__body--scrollable"
-                    >
-                        <slot />
-                    </section>
-                    <footer class="mdc-dialog__footer">
-                        <slot name="button" />
-                    </footer>
+                <div class="mdc-dialog__container">
+                    <div class="mdc-dialog__surface">
+                        <header class="mdc-dialog__title" id={'limel-dialog-title-' + this.id}>
+                            <slot name="header" />
+                        </header>
+                        <div class="mdc-dialog__content" id={'limel-dialog-content-' + this.id}>
+                            <slot />
+                        </div>
+                        <footer class="mdc-dialog__actions">
+                            <slot name="button" />
+                        </footer>
+                    </div>
                 </div>
-                <div class="mdc-dialog__backdrop" />
-            </aside>
+                <div class="mdc-dialog__scrim"></div>
+            </div>
         );
     }
 
@@ -86,7 +91,7 @@ export class Dialog {
         }
 
         if (newValue) {
-            this.mdcDialog.show();
+            this.mdcDialog.open();
         } else {
             this.mdcDialog.close();
         }
