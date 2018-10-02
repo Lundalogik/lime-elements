@@ -10,9 +10,13 @@ pipeline {
     }
 
     stages {
-        stage('Build and test') {
+        stage('Create docker container') {
             steps {
                 sh 'make build'
+            }
+        }
+        stage('Lint commits') {
+            steps {
                 script {
                     if (env.BRANCH_NAME.substring(0,3) == 'PR-') {
                         commitHashes = sh (
@@ -39,12 +43,20 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
+        stage('Lint code') {
+            steps {
                 sh 'make lint'
+            }
+        }
+        stage('Run tests') {
+            steps {
                 sh 'make test'
             }
         }
 
-        stage('Publish package') {
+        stage('Build and release') {
             environment {
                 GH_TOKEN = credentials('github-access-token')
                 NPM_TOKEN = credentials('devnpm-access-token')
