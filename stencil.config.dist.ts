@@ -11,7 +11,7 @@ export const config: Config = {
     outputTargets: [targetDist],
     plugins: [sass()],
     excludeSrc: [
-        '/test/',
+        '**/test/**',
         '**/examples/**',
         '**/dev-assets/**',
         '**/*.spec.*',
