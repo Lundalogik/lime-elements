@@ -15,9 +15,7 @@ export const config: Config = {
         { src: 'components/**/*.md' },
     ],
     namespace: 'lime-elements',
-    outputTargets: [ targetWww ],
-    plugins: [
-        sass(),
-    ],
-    tsconfig: './tsconfig.dev.json'
+    outputTargets: [targetWww],
+    plugins: [sass()],
+    tsconfig: './tsconfig.dev.json',
 };

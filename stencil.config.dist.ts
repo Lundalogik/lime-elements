@@ -8,9 +8,14 @@ const targetDist: OutputTargetDist = {
 
 export const config: Config = {
     namespace: 'lime-elements',
-    outputTargets: [ targetDist ],
-    plugins: [
-        sass(),
+    outputTargets: [targetDist],
+    plugins: [sass()],
+    excludeSrc: [
+        '/test/',
+        '**/examples/**',
+        '**/dev-assets/**',
+        '**/*.spec.*',
+        '**/*.e2e.*',
+        '**/*.test-wrapper.*',
     ],
-    excludeSrc: ['/test/', '**/examples/**', '**/dev-assets/**', '**/*.spec.*', '**/*.e2e.*', '**/*.test-wrapper.*'],
 };
