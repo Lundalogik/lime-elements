@@ -34,7 +34,7 @@
     "lint:specs:fix": "npx tslint --project . -t stylish --fix -c tslint.specs.js 'src/**/*.{spec,e2e}.{ts,tsx}'",
     "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{!({spec,e2e}.)}{ts,tsx}'",
     "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{!({spec,e2e}.)}{ts,tsx}'",
-    "publish": "npm run build && semantic-release",
+    "release": "npm run build && semantic-release",
     "start": "npm run dev && concurrently --kill-others \"npm run dev:watch\" \"docz dev\"",
     "start:es5": "npm run dev:es5 && concurrently --kill-others \"npm run dev:es5:watch\" \"docz dev\"",
     "test": "cross-env-shell SASS_PATH=node_modules \"stencil test --spec --e2e\"",

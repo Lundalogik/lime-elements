@@ -30,4 +30,4 @@ release_dry_run:
 .PHONY: release
 release:
 	@# Bumps and publishes.
-	docker run --rm --user=root -e CI -e GH_TOKEN -e NPM_TOKEN -e GIT_AUTHOR_NAME -e GIT_AUTHOR_EMAIL -e GIT_COMMITTER_NAME -e GIT_COMMITTER_EMAIL -w /lime $(DOCKER_IMAGE) npm run publish
+	docker run --rm --user=root -e CI -e GH_TOKEN -e NPM_TOKEN -e GIT_AUTHOR_NAME -e GIT_AUTHOR_EMAIL -e GIT_COMMITTER_NAME -e GIT_COMMITTER_EMAIL -w /lime $(DOCKER_IMAGE) npm run release
