@@ -1,3 +1,10 @@
+## [5.1.2](https://github.com/Lundalogik/lime-elements/compare/v5.1.1...v5.1.2) (2018-10-02)
+
+
+### Bug Fixes
+
+* **limel-select:** update the value when the available options are changed ([ea8d31f](https://github.com/Lundalogik/lime-elements/commit/ea8d31f)), closes [#125](https://github.com/Lundalogik/lime-elements/issues/125)
+
 ## [5.1.1](https://github.com/Lundalogik/lime-elements/compare/v5.1.0...v5.1.1) (2018-09-27)
 
 
