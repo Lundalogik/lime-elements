@@ -1,0 +1,32 @@
+---
+name: Icon
+route: /icon
+menu: Components
+---
+
+# Icon
+
+The icon library used in Lime Elements is the Windows 10 set from Icons8 (https://icons8.com/windows-icons/).
+
+The size and color of the icon is set in CSS, however there are a few standard sizes defined that can be used with the `size` property.
+
+## Setup
+
+The `dist/collection/assets` folder from Lime Elements must be made available on the webserver. If it is placed in the root, no other setup is needed. The icons will be fetched with a relative URL from `assets/icons/<name-of-icon>.svg`.
+
+If they are placed in a sub folder somewhere, the easiest way to make them available is to use the HTML `base` element:
+
+```
+<base href="/my/parent/path/">
+```
+
+If this is not enough, or if the `base` element is already in use for something else, a global icon path can be configured with the `limel-config` element:
+
+```jsx
+<limel-config config={{iconPath: '/my/parent/path/'}} />
+```
+
+<limel-props name="limel-icon" />
+
+## Example
+<limel-example name="limel-example-icon" /> 
