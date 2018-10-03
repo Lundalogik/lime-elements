@@ -2,13 +2,13 @@ import { Component, Prop } from '@stencil/core';
 
 @Component({ tag: 'select-test-wrapper' })
 export class SelectTestWrapper {
-    @Prop({mutable: true})
+    @Prop({ mutable: true })
     public value?: string;
 
-    @Prop({mutable: true})
+    @Prop({ mutable: true })
     public onChangeCalledTimes = 0;
 
-    @Prop({mutable: true})
+    @Prop({ mutable: true })
     public onChangeLastEventDetails: string;
 
     public render() {
@@ -19,7 +19,7 @@ export class SelectTestWrapper {
                 onChange={event => {
                     this.onChange(event);
                 }}
-            ></limel-select>
+            />
         );
     }
 
