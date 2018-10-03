@@ -1,3 +1,10 @@
+# [6.1.0](https://github.com/Lundalogik/lime-elements/compare/v6.0.0...v6.1.0) (2018-10-03)
+
+
+### Features
+
+* **limel-icon:** add limel-icon component ([e073c8d](https://github.com/Lundalogik/lime-elements/commit/e073c8d))
+
 # [6.0.0](https://github.com/Lundalogik/lime-elements/compare/v5.1.2...v6.0.0) (2018-10-03)
 
 
