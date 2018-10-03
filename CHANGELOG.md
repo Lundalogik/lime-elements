@@ -1,3 +1,23 @@
+# [6.0.0](https://github.com/Lundalogik/lime-elements/compare/v5.1.2...v6.0.0) (2018-10-03)
+
+
+### Bug Fixes
+
+* **limel-select:** set display:block on the custom-element ([0812743](https://github.com/Lundalogik/lime-elements/commit/0812743))
+
+
+### Features
+
+* move towards vanilla material styling ([a1ed101](https://github.com/Lundalogik/lime-elements/commit/a1ed101)), closes [#111](https://github.com/Lundalogik/lime-elements/issues/111)
+
+
+### BREAKING CHANGES
+
+* Visually, there are "breaking" changes. `limel-textfield` has a significantly
+different look, which also affects all other components using limel-textfield: `limel-autocomplete`,
+`limel-picker`. `limel-select` has received a similar update of visual style. The font has been
+changed from Open Sans to Material's default Roboto.
+
 ## [5.1.2](https://github.com/Lundalogik/lime-elements/compare/v5.1.1...v5.1.2) (2018-10-02)
 
 
