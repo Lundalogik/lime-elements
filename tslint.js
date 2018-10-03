@@ -118,6 +118,7 @@ module.exports = {
         // This can significantly improve confidence when making
         // changes or refactoring the code in the future.
         'ter-arrow-body-style': [true, 'always'],
+        'arrow-return-shorthand': false,
 
         'ter-prefer-arrow-callback': [true],
 
