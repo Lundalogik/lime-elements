@@ -1,5 +1,12 @@
-import { Component, Prop, Element, Event, EventEmitter, Method } from '@stencil/core';
 import { MDCSnackbar } from '@lime-material/snackbar';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Method,
+    Prop,
+} from '@stencil/core';
 
 @Component({
     tag: 'limel-snackbar',
@@ -49,7 +56,9 @@ export class Snackbar {
     private mdcSnackbar: MDCSnackbar;
 
     public componentDidLoad() {
-        this.mdcSnackbar = new MDCSnackbar(this.host.shadowRoot.querySelector('.mdc-snackbar'));
+        this.mdcSnackbar = new MDCSnackbar(
+            this.host.shadowRoot.querySelector('.mdc-snackbar')
+        );
 
         this.mdcSnackbar.listen('MDCSnackbar:hide', () => {
             this.hide.emit();
@@ -62,24 +71,33 @@ export class Snackbar {
 
     /**
      * Show the snackbar
+     *
+     * @returns {void}
      */
     @Method()
-    public async show() {
-        const config = {
+    public show() {
+        const config: {
+            message: string;
+            multiline: boolean;
+            actionOnBottom: boolean;
+            actionText?: string;
+            actionHandler?: () => void;
+            timeout?: number;
+        } = {
             message: this.message,
             multiline: !!this.multiline,
-            actionOnBottom: true
+            actionOnBottom: true,
         };
 
         if (this.actionText) {
-            config['actionText'] = this.actionText;
-            config['actionHandler'] = () => {
+            config.actionText = this.actionText;
+            config.actionHandler = () => {
                 this.action.emit();
             };
         }
 
         if (this.timeout) {
-            config['timeout'] = this.timeout;
+            config.timeout = this.timeout;
         }
 
         this.mdcSnackbar.show(config);
@@ -87,13 +105,15 @@ export class Snackbar {
 
     public render() {
         return (
-            <div class="mdc-snackbar"
+            <div
+                class="mdc-snackbar"
                 aria-live="assertive"
                 aria-atomic="true"
-                aria-hidden="true">
-                <div class="mdc-snackbar__text"></div>
+                aria-hidden="true"
+            >
+                <div class="mdc-snackbar__text" />
                 <div class="mdc-snackbar__action-wrapper">
-                    <button type="button" class="mdc-snackbar__action-button"></button>
+                    <button type="button" class="mdc-snackbar__action-button" />
                 </div>
             </div>
         );

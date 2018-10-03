@@ -8,7 +8,12 @@ module.exports = {
         'tslint-config-prettier',
     ],
     linterOptions: {
-        exclude: ['src/components.d.ts', 'src/examples/**'],
+        exclude: [
+            'src/components.d.ts',
+            'src/examples/**',
+            'src/**/*.spec.{ts,tsx}',
+            'src/**/*.e2e.{ts,tsx}',
+        ],
     },
 
     rules: {

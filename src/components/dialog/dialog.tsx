@@ -36,7 +36,7 @@ export class Dialog {
     private id: string;
 
     public componentWillLoad() {
-        this.id = Math.random().toString(36).substr(2);
+        this.id = createRandomString();
     }
 
     public componentDidLoad() {
@@ -68,10 +68,16 @@ export class Dialog {
             >
                 <div class="mdc-dialog__container">
                     <div class="mdc-dialog__surface">
-                        <header class="mdc-dialog__title" id={'limel-dialog-title-' + this.id}>
+                        <header
+                            class="mdc-dialog__title"
+                            id={'limel-dialog-title-' + this.id}
+                        >
                             <slot name="header" />
                         </header>
-                        <div class="mdc-dialog__content" id={'limel-dialog-content-' + this.id}>
+                        <div
+                            class="mdc-dialog__content"
+                            id={'limel-dialog-content-' + this.id}
+                        >
                             <slot />
                         </div>
                         <footer class="mdc-dialog__actions">
@@ -79,7 +85,7 @@ export class Dialog {
                         </footer>
                     </div>
                 </div>
-                <div class="mdc-dialog__scrim"></div>
+                <div class="mdc-dialog__scrim" />
             </div>
         );
     }
@@ -96,4 +102,17 @@ export class Dialog {
             this.mdcDialog.close();
         }
     }
+}
+
+function createRandomString() {
+    const USE_HEX = 36;
+    const SKIP_LEADING_ZERODOT = 2;
+    return (
+        Math.random()
+            .toString(USE_HEX)
+            .substring(SKIP_LEADING_ZERODOT) +
+        Math.random()
+            .toString(USE_HEX)
+            .substring(SKIP_LEADING_ZERODOT)
+    );
 }

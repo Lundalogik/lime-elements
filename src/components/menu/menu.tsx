@@ -115,16 +115,13 @@ export class Menu {
      *
      * @returns {HTMLElement} the list item
      */
-    private renderListItem(
-        item: ListItem | ListSeparator,
-        index: number
-    ) {
+    private renderListItem(item: ListItem | ListSeparator, index: number) {
         if ('separator' in item) {
             return <li class="mdc-list-divider" role="separator" />;
         }
 
-        let props: {
-            disabled?: true
+        const props: {
+            disabled?: true;
         } = {};
 
         if (item.disabled) {
