@@ -18,4 +18,5 @@ export const config: Config = {
         '**/*.e2e.*',
         '**/*.test-wrapper.*',
     ],
+    globalScript: 'src/global/index.ts',
 };

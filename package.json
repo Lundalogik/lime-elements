@@ -16,7 +16,7 @@
     "/dist/**/*.ts"
   ],
   "scripts": {
-    "build": "cross-env-shell SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
+    "build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts && node copy-icons.js\"",
     "cm": "git-cz",
     "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs\"",
     "dev:es5": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs --es5\"",
@@ -35,8 +35,8 @@
     "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
     "release": "npm run build && semantic-release",
-    "start": "npm run dev && concurrently --kill-others \"npm run dev:watch\" \"docz dev\"",
-    "start:es5": "npm run dev:es5 && concurrently --kill-others \"npm run dev:es5:watch\" \"docz dev\"",
+    "start": "npm run dev && concurrently \"npm run dev:watch\" \"docz dev\" \"node copy-icons.js\"",
+    "start:es5": "npm run dev:es5 && concurrently \"npm run dev:es5:watch\" \"docz dev\" \"node copy-icons.js\"",
     "test": "cross-env-shell SASS_PATH=node_modules \"stencil test --spec --e2e\"",
     "test:e2e": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e\"",
     "test:e2e:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e --watch\"",
@@ -64,6 +64,7 @@
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "^3.0.0",
     "jest": "^23.5.0",
+    "ncp": "^2.0.0",
     "pixelmatch": "4.0.2",
     "prettier": "^1.14.3",
     "prismjs": "^1.15.0",

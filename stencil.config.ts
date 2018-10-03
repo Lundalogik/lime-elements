@@ -19,4 +19,5 @@ export const config: Config = {
     outputTargets: [targetWww],
     plugins: [sass()],
     tsconfig: './tsconfig.dev.json',
+    globalScript: 'src/global/index.ts',
 };
