@@ -9,7 +9,11 @@ const targetDist: OutputTargetDist = {
 export const config: Config = {
     namespace: 'lime-elements',
     outputTargets: [targetDist],
-    plugins: [sass()],
+    plugins: [
+        sass({
+            injectGlobalPaths: ['src/style/variables.scss'],
+        }),
+    ],
     excludeSrc: [
         '**/test/**',
         '**/examples/**',
