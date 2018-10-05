@@ -17,7 +17,11 @@ export const config: Config = {
     ],
     namespace: 'lime-elements',
     outputTargets: [targetWww],
-    plugins: [sass()],
+    plugins: [
+        sass({
+            injectGlobalPaths: ['src/style/variables.scss'],
+        }),
+    ],
     tsconfig: './tsconfig.dev.json',
     globalScript: 'src/global/index.ts',
 };
