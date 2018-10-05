@@ -1,3 +1,10 @@
+## [6.1.1](https://github.com/Lundalogik/lime-elements/compare/v6.1.0...v6.1.1) (2018-10-05)
+
+
+### Bug Fixes
+
+* correct scss-imports to remove build-error in consuming plugins ([e57cdcf](https://github.com/Lundalogik/lime-elements/commit/e57cdcf))
+
 # [6.1.0](https://github.com/Lundalogik/lime-elements/compare/v6.0.0...v6.1.0) (2018-10-03)
 
 
