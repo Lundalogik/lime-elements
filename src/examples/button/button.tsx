@@ -8,6 +8,14 @@ export class ButtonExample {
     @Element()
     private hostElement: HTMLElement;
 
+    private buttonWithClickHandler;
+
+    public componentDidLoad() {
+        this.buttonWithClickHandler = this.hostElement.shadowRoot.querySelector(
+            '#buttonWithClickHandler'
+        );
+    }
+
     public render() {
         return [
             <section>
@@ -93,9 +101,7 @@ export class ButtonExample {
     }
 
     private onClick() {
-        const button = this.hostElement.shadowRoot.querySelector(
-            '#buttonWithClickHandler'
-        );
+        const button = this.buttonWithClickHandler;
         button.setAttribute('disabled', 'true');
         button.setAttribute('loading', 'true');
 
