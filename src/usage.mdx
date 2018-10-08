@@ -1,0 +1,19 @@
+---
+name: Usage
+route: /usage
+menu: Home
+---
+
+# How to use lime-elements
+Generally speaking, the examples of the lime-elements components are meant to show off their key features 
+and make it easy to use them in other projects. Unfortunately you have to pay attention to some details.
+
+## Import statements 
+Some components use interfaces which are referred to in the examples with a relative path like this: 
+```ts
+import { Option } from '../../interface';
+```
+When using those interfaces in your own project, the import path changes to: 
+```ts
+import { Option } from 'lime-elements';
+```
