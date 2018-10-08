@@ -15,6 +15,13 @@ export class SecondaryTextListExample {
     ];
 
     public render() {
-        return <limel-list items={this.items} />;
+        return [
+            <limel-list items={this.items} />,
+            <hr />,
+            <p>
+                When importing ListItem, see{' '}
+                <a href="/usage#import-statements">Usage</a>
+            </p>,
+        ];
     }
 }

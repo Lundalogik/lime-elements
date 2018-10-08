@@ -145,6 +145,11 @@ export class SelectExample {
                     {this.toggleOptions.length}
                 </p>
             </section>,
+            <hr />,
+            <p>
+                When importing Option, see{' '}
+                <a href="/usage#import-statements">Usage</a>
+            </p>,
         ];
     }
 }

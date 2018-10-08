@@ -61,6 +61,11 @@ export class MenuExample {
                     </limel-menu>
                 </p>
             </section>,
+            <hr />,
+            <p>
+                When importing ListItem and ListSeparator, see{' '}
+                <a href="/usage#import-statements">Usage</a>
+            </p>,
         ];
     }
 

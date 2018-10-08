@@ -55,6 +55,11 @@ export class PickerExample {
             <div>
                 Value: <code>{JSON.stringify(this.selectedItem)}</code>
             </div>,
+            <hr />,
+            <p>
+                When importing ListItem, see{' '}
+                <a href="/usage#import-statements">Usage</a>
+            </p>,
         ];
     }
 

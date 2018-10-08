@@ -15,14 +15,19 @@ export class SelectableListExample {
     ];
 
     public render() {
-        return (
+        return [
             <limel-list
                 onChange={event => {
                     console.log(event.detail);
                 }}
                 selectable={true}
                 items={this.items}
-            />
-        );
+            />,
+            <hr />,
+            <p>
+                When importing ListItem, see{' '}
+                <a href="/usage#import-statements">Usage</a>
+            </p>,
+        ];
     }
 }
