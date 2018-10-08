@@ -1,3 +1,17 @@
+# [7.0.0](https://github.com/Lundalogik/lime-elements/compare/v6.1.1...v7.0.0) (2018-10-08)
+
+
+### Features
+
+* **limel-select:** change the `value` property from `string` to `Option` ([c8d2217](https://github.com/Lundalogik/lime-elements/commit/c8d2217)), closes [#129](https://github.com/Lundalogik/lime-elements/issues/129)
+
+
+### BREAKING CHANGES
+
+* **limel-select:** The type of the `value` property has been changed from `string` to `Option`. It now
+holds the selected Option object, not just the `value` of the selected Option. An empty value,
+previously represented by an empty string, is now represented by `null` instead.
+
 ## [6.1.1](https://github.com/Lundalogik/lime-elements/compare/v6.1.0...v6.1.1) (2018-10-05)
 
 
