@@ -5,10 +5,12 @@ import {
     EventEmitter,
     Prop,
     State,
-    Watch,
 } from '@stencil/core';
-import { ListItem } from '../../interface';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import { ListItem, Searcher } from '../../interface';
 import { ARROW_DOWN, ARROW_UP, TAB } from '../../util/keycodes';
+
+const SEARCH_DEBOUNCE = 500;
 
 @Component({
     tag: 'limel-picker',
@@ -35,16 +37,18 @@ export class Picker {
     public required: boolean = false;
 
     /**
-     * Current selected value
+     * Currently selected value
      */
     @Prop()
     public value: ListItem;
 
     /**
-     * List of items to display in the dropdown
+     * A search function that takes a search-string as an argument,
+     * and returns a promise that will eventually be resolved with
+     * an array of `ListItem`:s.
      */
     @Prop()
-    public items: ListItem[];
+    public searcher: Searcher;
 
     /**
      * Fired when a new value has been selected from the picker
@@ -52,11 +56,8 @@ export class Picker {
     @Event()
     private change: EventEmitter;
 
-    /**
-     * Fired when the input value in the text field has changed
-     */
-    @Event()
-    private input: EventEmitter;
+    @State()
+    private items: ListItem[];
 
     @State()
     private textValue: string;
@@ -67,7 +68,13 @@ export class Picker {
     @Element()
     private element: HTMLElement;
 
+    private debouncedSearch;
+
     public componentDidLoad() {
+        this.debouncedSearch = AwesomeDebouncePromise(
+            this.searcher,
+            SEARCH_DEBOUNCE
+        );
         this.element.addEventListener('blur', this.handleElementBlur);
     }
 
@@ -98,26 +105,6 @@ export class Picker {
             this.renderDropdown(),
         ];
     }
-
-    /**
-     * When new items have been received, remove the loading indicator
-     *
-     * @returns {void}
-     */
-    @Watch('items')
-    protected onItemsChange() {
-        this.loading = false;
-    }
-
-    /**
-     * Reset the value of the text field when the control loses focus
-     *
-     * @returns {void}
-     */
-    private handleElementBlur = () => {
-        this.textValue = '';
-        this.input.emit();
-    };
 
     /**
      * Renders the dropdown with the items to pick from, or a spinner if the picker
@@ -166,6 +153,18 @@ export class Picker {
     }
 
     /**
+     * Reset the value of the text field when the control loses focus
+     *
+     * @returns {void}
+     */
+    private handleElementBlur = () => {
+        this.textValue = '';
+        this.searcher(this.textValue).then(
+            this.handleSearchResult.bind(this, '')
+        );
+    };
+
+    /**
      * Change handler for the text field
      *
      * @param {CustomEvent} event event
@@ -174,11 +173,13 @@ export class Picker {
      */
     private handleTextChange(event: CustomEvent) {
         event.stopPropagation();
-        this.textValue = event.detail;
-        this.input.emit(event.detail);
-        if (event.detail) {
-            this.loading = true;
-        }
+        const query = event.detail;
+        this.textValue = query;
+        this.loading = true;
+
+        // If the search-query is an empty string, bypass debouncing.
+        const searchFn = query === '' ? this.searcher : this.debouncedSearch;
+        searchFn(query).then(this.handleSearchResult.bind(this, query));
     }
 
     /**
@@ -270,6 +271,13 @@ export class Picker {
             );
             listElement.focus();
             return;
+        }
+    }
+
+    private handleSearchResult(query: string, result: ListItem[]) {
+        if (query === this.textValue) {
+            this.items = result;
+            this.loading = false;
         }
     }
 }
