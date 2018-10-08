@@ -23,7 +23,7 @@ export class Select {
     public label: string;
 
     @Prop()
-    public value: string;
+    public value: Option;
 
     @Prop()
     public options: Option[] = [];
@@ -42,9 +42,7 @@ export class Select {
             '.mdc-select'
         );
         this.mdcSelect = new MDCSelect(element);
-        if (this.value !== this.mdcSelect.value) {
-            this.onChange();
-        }
+        this.onChange();
     }
 
     public componentDidUnload() {
@@ -69,7 +67,11 @@ export class Select {
                             <option
                                 key={option.value}
                                 value={option.value}
-                                selected={option.value === this.value}
+                                selected={
+                                    this.value
+                                        ? option.value === this.value.value
+                                        : option.value === ''
+                                }
                                 disabled={option.disabled}
                             >
                                 {option.text}
@@ -105,6 +107,15 @@ export class Select {
     }
 
     private onChange = () => {
-        this.change.emit(this.mdcSelect.value);
+        const mdcValue = this.mdcSelect.value;
+        let value: Option;
+        if (mdcValue === '') {
+            value = null;
+        } else {
+            value = this.options.find(option => {
+                return mdcValue === option.value;
+            });
+        }
+        this.change.emit(value);
     };
 }
