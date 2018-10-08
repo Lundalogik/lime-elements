@@ -1,9 +1,10 @@
 import { Component, Prop } from '@stencil/core';
+import { Option } from '../../../interface';
 
 @Component({ tag: 'select-test-wrapper' })
 export class SelectTestWrapper {
     @Prop({ mutable: true })
-    public value?: string;
+    public value?: Option;
 
     @Prop({ mutable: true })
     public onChangeCalledTimes = 0;
