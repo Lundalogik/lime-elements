@@ -1,8 +1,6 @@
 import { Component, State } from '@stencil/core';
-import debounce from 'lodash.debounce';
 import { ListItem } from '../../interface';
 
-const DEBOUNCE_DELAY = 300;
 const NETWORK_DELAY = 500;
 
 @Component({
@@ -27,28 +25,19 @@ export class PickerExample {
     ];
 
     @State()
-    private items: ListItem[] = [];
-
-    @State()
     private selectedItem;
-
-    constructor() {
-        this.search = debounce(this.search, DEBOUNCE_DELAY).bind(this);
-    }
 
     public render() {
         return [
             <limel-picker
                 onChange={event => {
-                    this.selectedItem = this.items.find(
-                        item => item === event.detail
-                    );
-                    this.items = [];
+                    this.selectedItem = this.allItems.find(item => {
+                        return item === event.detail;
+                    });
                 }}
                 label="Favorite awesomenaut"
-                onInput={this.handleInput.bind(this)}
+                searcher={this.search.bind(this)}
                 value={this.selectedItem}
-                items={this.items}
             />,
             <br />,
             <br />,
@@ -57,27 +46,26 @@ export class PickerExample {
             </div>,
             <hr />,
             <p>
-                When importing ListItem, see{' '}
+                When importing ListItem or PickerSearchResult, see{' '}
                 <a href="/usage#import-statements">Usage</a>
             </p>,
         ];
     }
 
-    private handleInput(event) {
-        if (!event.detail) {
-            this.items = [];
-            return;
-        }
-
-        this.search(event.detail);
-    }
-
-    private search(text) {
-        // Simulate some network delay
-        setTimeout(() => {
-            this.items = this.allItems.filter(item => {
-                return item.text.toLowerCase().includes(text.toLowerCase());
-            });
-        }, NETWORK_DELAY);
+    private search(query: string) {
+        return new Promise(resolve => {
+            if (query === '') {
+                resolve([]);
+            }
+            // Simulate some network delay
+            setTimeout(() => {
+                const filteredItems = this.allItems.filter(item => {
+                    return item.text
+                        .toLowerCase()
+                        .includes(query.toLowerCase());
+                });
+                resolve(filteredItems);
+            }, NETWORK_DELAY);
+        });
     }
 }
