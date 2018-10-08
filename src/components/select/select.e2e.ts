@@ -197,7 +197,7 @@ describe('limel-select', () => {
                             { text: 'David Tennant', value: '10' },
                             { text: 'Matt Smith', value: '11' },
                         ],
-                        '10',
+                        { text: 'David Tennant', value: '10' },
                         true
                     );
 
@@ -208,7 +208,7 @@ describe('limel-select', () => {
                                     { text: 'Peter Capaldi', value: '12' },
                                     { text: 'Jodie Witthaker', value: '13' },
                                 ],
-                                '12',
+                                { text: 'Peter Capaldi', value: '12' },
                                 true
                             );
                         });
@@ -219,7 +219,7 @@ describe('limel-select', () => {
                                     { text: 'Matt Smith', value: '11' },
                                     { text: 'Peter Capaldi', value: '12' },
                                 ],
-                                '',
+                                null,
                                 false
                             );
                         });
@@ -229,7 +229,7 @@ describe('limel-select', () => {
                                     { text: '', value: '', disabled: true },
                                     { text: 'Jodie Witthaker', value: '13' },
                                 ],
-                                '',
+                                null,
                                 false
                             );
                         });
@@ -252,10 +252,13 @@ describe('limel-select', () => {
                     const child = await innerSelect.find('option');
                     expect(child).toBeTruthy();
                 });
-                it.skip('value is ' + expectedValue || "''", async () => {
-                    const v = await testWrapper.getProperty('value');
-                    expect(v).toEqual(expectedValue);
-                });
+                it.skip(
+                    'value is ' + JSON.stringify(expectedValue),
+                    async () => {
+                        const v = await testWrapper.getProperty('value');
+                        expect(v).toEqual(expectedValue);
+                    }
+                );
                 it.skip('onChange was called', async () => {
                     const c = await testWrapper.getProperty(
                         'onChangeCalledTimes'
@@ -263,7 +266,8 @@ describe('limel-select', () => {
                     expect(c).toEqual(1);
                 });
                 it.skip(
-                    'onChange was called with value ' + expectedValue || "''",
+                    'onChange was called with value ' +
+                        JSON.stringify(expectedValue),
                     async () => {
                         const d = await testWrapper.getProperty(
                             'onChangeLastEventDetails'

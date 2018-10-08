@@ -7,16 +7,19 @@ import { Option } from '../../interface';
 })
 export class SelectExample {
     @State()
-    public basicValue: string;
+    public basicValue: Option;
 
     @State()
-    public initallyEmptyValue: string = '';
+    public initallyEmptyValue: Option;
 
     @State()
-    public initallyEmptyRequiredValue: string = '';
+    public initallyEmptyRequiredValue: Option;
 
     @State()
-    public toggleValue: string;
+    public preselectedValue: Option = { text: 'Leia Organo', value: 'leia' };
+
+    @State()
+    public toggleValue: Option;
 
     @State()
     public disabled = false;
@@ -39,6 +42,13 @@ export class SelectExample {
 
     private initallyEmptyRequiredOptions: Option[] = [
         { text: '', value: '', disabled: true },
+        { text: 'Luke Skywalker', value: 'luke' },
+        { text: 'Han Solo', value: 'han' },
+        { text: 'Leia Organo', value: 'leia' },
+    ];
+
+    private preselectedOptions: Option[] = [
+        { text: '', value: '' },
         { text: 'Luke Skywalker', value: 'luke' },
         { text: 'Han Solo', value: 'han' },
         { text: 'Leia Organo', value: 'leia' },
@@ -82,7 +92,7 @@ export class SelectExample {
                         this.basicValue = event.detail;
                     }}
                 />
-                <p>Value: {this.basicValue}</p>
+                <p>Value: {JSON.stringify(this.basicValue)}</p>
             </section>,
             <section>
                 <h3>Initially Empty</h3>
@@ -94,7 +104,7 @@ export class SelectExample {
                         this.initallyEmptyValue = event.detail;
                     }}
                 />
-                <p>Value: {this.initallyEmptyValue}</p>
+                <p>Value: {JSON.stringify(this.initallyEmptyValue)}</p>
             </section>,
             <section>
                 <h3>Initially Empty but the Empty Option Cannot be Selected</h3>
@@ -106,7 +116,19 @@ export class SelectExample {
                         this.initallyEmptyRequiredValue = event.detail;
                     }}
                 />
-                <p>Value: {this.initallyEmptyRequiredValue}</p>
+                <p>Value: {JSON.stringify(this.initallyEmptyRequiredValue)}</p>
+            </section>,
+            <section>
+                <h3>Specific value pre-selected</h3>
+                <limel-select
+                    options={this.preselectedOptions}
+                    value={this.preselectedValue}
+                    label="Favorite hero"
+                    onChange={event => {
+                        this.preselectedValue = event.detail;
+                    }}
+                />
+                <p>Value: {JSON.stringify(this.preselectedValue)}</p>
             </section>,
             <section>
                 <h3>Changing Available Options</h3>
@@ -136,10 +158,9 @@ export class SelectExample {
                     label="Favorite hero"
                     onChange={event => {
                         this.toggleValue = event.detail;
-                        console.log(event.detail);
                     }}
                 />
-                <p>Value: {this.toggleValue}</p>
+                <p>Value: {JSON.stringify(this.toggleValue)}</p>
                 <p>
                     Currently showing option group: {this.optionGroup + 1} /{' '}
                     {this.toggleOptions.length}
