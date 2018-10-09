@@ -12,6 +12,11 @@ To build the dist folder, run `npm run build`.
 
 The "Open Sans" font is included for development purposes, but is not included in the published package. This font should be supplied by the consuming application. If not supplied, texts will fall back to suitable alternatives.
 
+## Deploy documentation
+
+1. Run `make build-docs`
+2. Run `docker run -p <PORT>:5000 lime-elements-docs`
+
 ## Get help
 
 - Contact the Lime CRM feature team. (This section needs updating before the project is made public.)

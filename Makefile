@@ -1,4 +1,10 @@
 DOCKER_IMAGE = lime-elements
+DOCKER_DOCS_IMAGE = lime-elements-docs
+
+.PHONY: build-docs
+build-docs:
+	@# Builds the docs image for lime-elements.
+	docker build --file Dockerfile.docs --pull -t $(DOCKER_DOCS_IMAGE) .
 
 .PHONY: build
 build:

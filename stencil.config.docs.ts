@@ -15,6 +15,7 @@ export const config: Config = {
         { src: 'examples/**/*.scss' },
         { src: 'components/**/*.md' },
     ],
+    hashFileNames: false,
     namespace: 'lime-elements',
     outputTargets: [targetWww],
     plugins: [

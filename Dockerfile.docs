@@ -1,0 +1,8 @@
+FROM node:8-alpine
+WORKDIR /lime
+COPY .npmrc ./
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run docz:build
+CMD npm run docz:serve
