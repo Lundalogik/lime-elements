@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ description }}">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ title }}</title>
-    <base href="/stencil/">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/codemirror@5.39.2/lib/codemirror.css" />
-    <link href="/stencil/dev-assets/fonts.css" rel="stylesheet" />
-    <script src="/stencil/build/lime-elements.js"></script>
+<html dir="ltr" lang="{{ lang }}">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{{ description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <base href="/stencil/">
+    <title>{{ title }}</title>
+    {{ head }}
+</head>
+
+<body>
     <style>
         html {
             font-size: 62.5%;
         }
     </style>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/codemirror@5.39.2/lib/codemirror.css" />
+    <link href="/stencil/dev-assets/fonts.css" rel="stylesheet" />
+    <script src="/stencil/build/lime-elements.js"></script>
     <div id="root" />
-    <script src="/static/js/runtime~app.js"></script>
-    <script src="/static/js/vendors.js"></script>
-    <script src="/static/js/app.js"></script>
+    {{ footer }}
 </body>
+
 </html>
