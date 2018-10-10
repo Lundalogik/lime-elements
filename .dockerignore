@@ -1,3 +1,6 @@
 Dockerfile
 Makefile
 node_modules
+.docz/
+dist/
+.stencil/
