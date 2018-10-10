@@ -5,7 +5,7 @@ import { sass } from '@stencil/sass';
 const targetWww: OutputTargetWww = {
     type: 'www',
     serviceWorker: null,
-    dir: '.docz/dist/stencil',
+    dir: '.docz/public/stencil',
 };
 
 export const config: Config = {

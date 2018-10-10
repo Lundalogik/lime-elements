@@ -44,7 +44,8 @@ function copyFiles(path) {
 const env = process.env.NODE_ENV || 'dev';
 const paths = {
     prod: 'dist/collection',
-    dev: '.docz/dist/stencil',
+    dev: '.docz/public/stencil',
+    docz: '.docz/dist/stencil',
 };
 const basePath = paths[env];
 
