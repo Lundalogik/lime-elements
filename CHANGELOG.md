@@ -1,3 +1,10 @@
+# [7.1.0](https://github.com/Lundalogik/lime-elements/compare/v7.0.0...v7.1.0) (2018-10-10)
+
+
+### Features
+
+* **limel-multi-select:** add multi-select component ([2dce502](https://github.com/Lundalogik/lime-elements/commit/2dce502))
+
 # [7.0.0](https://github.com/Lundalogik/lime-elements/compare/v6.1.1...v7.0.0) (2018-10-08)
 
 
