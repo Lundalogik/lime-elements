@@ -15,6 +15,16 @@ pipeline {
                 sh 'make build'
             }
         }
+        stage('Lint code') {
+            steps {
+                sh 'make lint'
+            }
+        }
+        stage('Run tests') {
+            steps {
+                sh 'make test'
+            }
+        }
         stage('Lint commits') {
             steps {
                 script {
@@ -43,16 +53,6 @@ pipeline {
                         }
                     }
                 }
-            }
-        }
-        stage('Lint code') {
-            steps {
-                sh 'make lint'
-            }
-        }
-        stage('Run tests') {
-            steps {
-                sh 'make test'
             }
         }
 
