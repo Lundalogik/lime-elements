@@ -1,3 +1,18 @@
+# [8.0.0](https://github.com/Lundalogik/lime-elements/compare/v7.1.0...v8.0.0) (2018-10-11)
+
+
+### Bug Fixes
+
+* **limel-picker:** change the interface to accept a search-function which returns a promise ([0317d0f](https://github.com/Lundalogik/lime-elements/commit/0317d0f)), closes [#70](https://github.com/Lundalogik/lime-elements/issues/70)
+
+
+### BREAKING CHANGES
+
+* **limel-picker:** The `input` event has been removed. Instead, the picker should be supplied with a
+searcher-function, that accepts a query string as argument, and returns a promise that is eventually
+resolved with the search-result. As a result, the `items` property has also been removed, since
+these are now supplied by the searcher instead.
+
 # [7.1.0](https://github.com/Lundalogik/lime-elements/compare/v7.0.0...v7.1.0) (2018-10-10)
 
 
