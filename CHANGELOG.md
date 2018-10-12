@@ -1,3 +1,10 @@
+## [8.0.1](https://github.com/Lundalogik/lime-elements/compare/v8.0.0...v8.0.1) (2018-10-12)
+
+
+### Bug Fixes
+
+* **limel-dialog:** make it possible to open the dialog again after clicking the scrim ([bcd2b6e](https://github.com/Lundalogik/lime-elements/commit/bcd2b6e)), closes [#150](https://github.com/Lundalogik/lime-elements/issues/150)
+
 # [8.0.0](https://github.com/Lundalogik/lime-elements/compare/v7.1.0...v8.0.0) (2018-10-11)
 
 
