@@ -47,7 +47,7 @@ export class Dialog {
             this.mdcDialog.open();
         }
 
-        this.mdcDialog.listen('MDCDialog:cancel', () => {
+        this.mdcDialog.listen('MDCDialog:closed', () => {
             this.close.emit();
             this.open = false;
         });
