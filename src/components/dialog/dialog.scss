@@ -2,6 +2,10 @@
 @import "@lime-material/typography/mdc-typography";
 @import "@lime-material/dialog/mdc-dialog";
 
+slot[name="header"] {
+    display: none;
+}
+
 .mdc-dialog__surface {
     max-height: 95vh;
     width: 70rem;
