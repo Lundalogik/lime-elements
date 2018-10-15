@@ -15,6 +15,12 @@ import {
 })
 export class Dialog {
     /**
+     * The heading for the dialog, if any.
+     */
+    @Prop({ reflectToAttr: true })
+    public heading: string;
+
+    /**
      * `true` if the dialog is open, `false` otherwise.
      * Defaults to `false`.
      */
@@ -71,12 +77,7 @@ export class Dialog {
             >
                 <div class="mdc-dialog__container">
                     <div class="mdc-dialog__surface">
-                        <header
-                            class="mdc-dialog__title"
-                            id={'limel-dialog-title-' + this.id}
-                        >
-                            <slot name="header" />
-                        </header>
+                        {this.renderHeading()}
                         <div
                             class="mdc-dialog__content"
                             id={'limel-dialog-content-' + this.id}
@@ -104,6 +105,13 @@ export class Dialog {
         } else {
             this.mdcDialog.close();
         }
+    }
+
+    private renderHeading() {
+        if (this.heading) {
+            return <h2 class="mdc-dialog__title">{this.heading.trim()}</h2>;
+        }
+        return null;
     }
 }
 
