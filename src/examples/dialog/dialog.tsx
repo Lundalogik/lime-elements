@@ -114,17 +114,11 @@ export class DialogExample {
         return +this.age > MIN_AGE && +this.age < MAX_AGE;
     }
 
-    /**
-     *
-     */
     public submitForm = () => {
         alert(`${this.name} is ${this.age} years old`);
         this.closeDialog();
     };
 
-    /**
-     *
-     */
     public closeDialog = () => {
         this.headingDialogOpen = false;
     };
