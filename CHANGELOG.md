@@ -1,3 +1,10 @@
+# [8.1.0](https://github.com/Lundalogik/lime-elements/compare/v8.0.1...v8.1.0) (2018-10-15)
+
+
+### Features
+
+* **linear-progress:** new linear-progress component ([82ea96b](https://github.com/Lundalogik/lime-elements/commit/82ea96b))
+
 ## [8.0.1](https://github.com/Lundalogik/lime-elements/compare/v8.0.0...v8.0.1) (2018-10-12)
 
 
