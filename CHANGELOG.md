@@ -1,3 +1,10 @@
+## [8.1.1](https://github.com/Lundalogik/lime-elements/compare/v8.1.0...v8.1.1) (2018-10-16)
+
+
+### Bug Fixes
+
+* **dialog:** remove unnecessary event dispatching ([225d985](https://github.com/Lundalogik/lime-elements/commit/225d985)), closes [#159](https://github.com/Lundalogik/lime-elements/issues/159)
+
 # [8.1.0](https://github.com/Lundalogik/lime-elements/compare/v8.0.1...v8.1.0) (2018-10-15)
 
 
