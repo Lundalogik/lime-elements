@@ -48,7 +48,10 @@ export class Dialog {
         }
 
         this.mdcDialog.listen('MDCDialog:closed', () => {
-            this.close.emit();
+            if (this.open) {
+                this.close.emit();
+            }
+
             this.open = false;
         });
     }
