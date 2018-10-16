@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
     tag: 'limel-collapsible-section',
@@ -14,13 +14,13 @@ export class CollapsibleSection {
     public isOpen: boolean = false;
 
     /**
-     * Emitted when the section is expanded, regardless of initiator.
+     * Emitted when the section is expanded
      */
     @Event()
     private open: EventEmitter;
 
     /**
-     * Emitted when the section is collapsed, regardless of initiator.
+     * Emitted when the section is collapsed
      */
     @Event()
     private close: EventEmitter;
@@ -52,22 +52,13 @@ export class CollapsibleSection {
         );
     }
 
-    @Watch('isOpen')
-    protected isOpenWatcher(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            // The watcher gets triggered with `null` and `undefined`
-            // a bunch of times when closing, so we check newValue
-            // with === to avoid emitting more events than we should.
-            // /Ads
-            if (newValue === true) {
-                this.open.emit();
-            } else if (newValue === false) {
-                this.close.emit();
-            }
-        }
-    }
-
     private onClick() {
         this.isOpen = !this.isOpen;
+
+        if (this.isOpen) {
+            this.open.emit();
+        } else {
+            this.close.emit();
+        }
     }
 }
