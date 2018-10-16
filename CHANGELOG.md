@@ -1,3 +1,10 @@
+## [8.1.2](https://github.com/Lundalogik/lime-elements/compare/v8.1.1...v8.1.2) (2018-10-16)
+
+
+### Bug Fixes
+
+* **collapsible-section:** remove unnecessary event dispatching ([068afd5](https://github.com/Lundalogik/lime-elements/commit/068afd5)), closes [#160](https://github.com/Lundalogik/lime-elements/issues/160)
+
 ## [8.1.1](https://github.com/Lundalogik/lime-elements/compare/v8.1.0...v8.1.1) (2018-10-16)
 
 
