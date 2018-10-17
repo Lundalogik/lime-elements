@@ -8,10 +8,7 @@
 
 ### BREAKING CHANGES
 
-* **limel-dialog:** While backwards compatible in most cases, some functionality has been removed. If
-the `heading`-attribute is not set, the text-content of anything injected into the header-slot is
-copied and placed in the new h2-element. But any use of `<em>`, `<strong>`, or similar, will be
-stripped. So will any `<a>` tags. But none of these should be used in a dialog-heading anyway.
+* **limel-dialog:** The `header` slot has been replaced with the `heading` attribute.
 
 ## [8.1.2](https://github.com/Lundalogik/lime-elements/compare/v8.1.1...v8.1.2) (2018-10-16)
 
