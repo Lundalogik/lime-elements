@@ -1,3 +1,18 @@
+# [9.0.0](https://github.com/Lundalogik/lime-elements/compare/v8.1.2...v9.0.0) (2018-10-17)
+
+
+### Bug Fixes
+
+* **limel-dialog:** fix broken markup and resulting styling of the header ([ff81efc](https://github.com/Lundalogik/lime-elements/commit/ff81efc))
+
+
+### BREAKING CHANGES
+
+* **limel-dialog:** While backwards compatible in most cases, some functionality has been removed. If
+the `heading`-attribute is not set, the text-content of anything injected into the header-slot is
+copied and placed in the new h2-element. But any use of `<em>`, `<strong>`, or similar, will be
+stripped. So will any `<a>` tags. But none of these should be used in a dialog-heading anyway.
+
 ## [8.1.2](https://github.com/Lundalogik/lime-elements/compare/v8.1.1...v8.1.2) (2018-10-16)
 
 
