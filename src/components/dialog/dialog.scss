@@ -6,6 +6,10 @@ slot[name="header"] {
     display: none;
 }
 
+.mdc-dialog {
+    z-index: $zIndexDialogs;
+}
+
 .mdc-dialog__surface {
     max-height: 95vh;
     width: 70rem;
