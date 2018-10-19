@@ -8,6 +8,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
+import { createRandomString } from '../../util/random-string';
 
 @Component({
     tag: 'limel-switch',
@@ -92,17 +93,4 @@ export class Switch {
     private onChange = event => {
         this.change.emit(event.target.checked);
     };
-}
-
-function createRandomString() {
-    const USE_HEX = 36;
-    const SKIP_LEADING_ZERODOT = 2;
-    return (
-        Math.random()
-            .toString(USE_HEX)
-            .substring(SKIP_LEADING_ZERODOT) +
-        Math.random()
-            .toString(USE_HEX)
-            .substring(SKIP_LEADING_ZERODOT)
-    );
 }

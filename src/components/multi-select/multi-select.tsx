@@ -9,6 +9,7 @@ import {
     State,
 } from '@stencil/core';
 import { Option } from '../../interface';
+import { createRandomString } from '../../util/random-string';
 
 @Component({
     tag: 'limel-multi-select',
@@ -130,16 +131,4 @@ export class MultiSelect {
         });
         this.change.emit(checked);
     };
-}
-function createRandomString() {
-    const USE_HEX = 36;
-    const SKIP_LEADING_ZERODOT = 2;
-    return (
-        Math.random()
-            .toString(USE_HEX)
-            .substring(SKIP_LEADING_ZERODOT) +
-        Math.random()
-            .toString(USE_HEX)
-            .substring(SKIP_LEADING_ZERODOT)
-    );
 }
