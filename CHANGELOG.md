@@ -1,3 +1,10 @@
+## [9.0.1](https://github.com/Lundalogik/lime-elements/compare/v9.0.0...v9.0.1) (2018-10-19)
+
+
+### Bug Fixes
+
+* **limel-dialog:** trigger resize-event after opening-animation has finished ([34ab9dc](https://github.com/Lundalogik/lime-elements/commit/34ab9dc)), closes [#153](https://github.com/Lundalogik/lime-elements/issues/153)
+
 # [9.0.0](https://github.com/Lundalogik/lime-elements/compare/v8.1.2...v9.0.0) (2018-10-17)
 
 
