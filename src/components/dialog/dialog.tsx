@@ -54,6 +54,14 @@ export class Dialog {
             this.mdcDialog.open();
         }
 
+        this.mdcDialog.listen('MDCDialog:opened', () => {
+            // When the opening-animation has completed, dispatch a
+            // resize-event so that any content that depends on
+            // javascript for layout has a chance to update to the
+            // final layout of the dialog. /Ads
+            dispatchResizeEvent();
+        });
+
         this.mdcDialog.listen('MDCDialog:closed', () => {
             if (this.open) {
                 this.close.emit();
@@ -114,4 +122,16 @@ export class Dialog {
         }
         return null;
     }
+}
+
+function dispatchResizeEvent() {
+    /*
+     * The shorthand (`window.dispatchEvent(new Event('resize'));`)
+     * causes compiler errors, so we go the long way around.
+     * See https://stackoverflow.com/a/1818513/280972
+     * /Ads
+     */
+    const resizeEvent = window.document.createEvent('UIEvents');
+    resizeEvent.initUIEvent('resize', true, false, window, 0);
+    window.dispatchEvent(resizeEvent);
 }
