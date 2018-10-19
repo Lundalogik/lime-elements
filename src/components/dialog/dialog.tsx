@@ -7,6 +7,7 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
+import { createRandomString } from '../../util/random-string';
 
 @Component({
     tag: 'limel-dialog',
@@ -113,17 +114,4 @@ export class Dialog {
         }
         return null;
     }
-}
-
-function createRandomString() {
-    const USE_HEX = 36;
-    const SKIP_LEADING_ZERODOT = 2;
-    return (
-        Math.random()
-            .toString(USE_HEX)
-            .substring(SKIP_LEADING_ZERODOT) +
-        Math.random()
-            .toString(USE_HEX)
-            .substring(SKIP_LEADING_ZERODOT)
-    );
 }
