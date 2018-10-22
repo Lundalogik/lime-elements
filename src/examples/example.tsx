@@ -12,6 +12,9 @@ export class Example {
     @Prop()
     public name: string;
 
+    @Prop()
+    public path: string;
+
     @Element()
     private root: HTMLElement;
 
@@ -23,8 +26,9 @@ export class Example {
 
     public componentWillLoad() {
         const type = this.name.replace('limel-example-', '');
-        const tsxUrl = `/stencil/examples/${type}/${type}.tsx`;
-        const scssUrl = `/stencil/examples/${type}/${type}.scss`;
+        const path = this.path || type;
+        const tsxUrl = `/stencil/examples/${path}/${type}.tsx`;
+        const scssUrl = `/stencil/examples/${path}/${type}.scss`;
 
         this.fetchData(tsxUrl).then(data => {
             this.tsxCode = prism.highlight(data, prism.languages.tsx);
