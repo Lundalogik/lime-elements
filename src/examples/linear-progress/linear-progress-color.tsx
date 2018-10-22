@@ -8,7 +8,7 @@ export class LinearProgressExampleColor {
     @State()
     private color = { text: 'cornflowerblue', value: 'cornflowerblue' };
 
-    private fixedValueForColorExample = 0.85;
+    private value = 0.85;
 
     private colors = [
         { text: 'firebrick', value: 'firebrick' },
@@ -31,9 +31,10 @@ export class LinearProgressExampleColor {
             />,
             <br />,
             <limel-linear-progress
-                value={this.fixedValueForColorExample}
+                value={this.value}
                 style={{
                     '--mdc-theme-primary': this.color.value,
+                    '--background-color': 'aliceblue'
                 }}
             />,
         ];
