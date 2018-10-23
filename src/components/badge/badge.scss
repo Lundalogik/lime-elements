@@ -1,0 +1,21 @@
+limel-icon {
+    display: inline-block;
+    color: white;
+    line-height: 0;
+
+    background-color: var(--background-color, #575756);
+    border-radius: 50%;
+
+    &[size="x-small"] {
+        padding: .4rem;
+    }
+
+    &[size="small"] {
+        padding: .5rem;
+    }
+
+    &[size="medium"],
+    &[size="large"] {
+        padding: .8rem;
+    }
+}
