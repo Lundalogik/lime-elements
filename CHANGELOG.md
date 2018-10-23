@@ -1,3 +1,11 @@
+## [9.0.2](https://github.com/Lundalogik/lime-elements/compare/v9.0.1...v9.0.2) (2018-10-23)
+
+
+### Bug Fixes
+
+* **icon:** modify icon sizes ([2db4043](https://github.com/Lundalogik/lime-elements/commit/2db4043))
+* **icon:** replace all black colors with current color ([4c38ce6](https://github.com/Lundalogik/lime-elements/commit/4c38ce6))
+
 ## [9.0.1](https://github.com/Lundalogik/lime-elements/compare/v9.0.0...v9.0.1) (2018-10-19)
 
 
