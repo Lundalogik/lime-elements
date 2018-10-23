@@ -34,7 +34,7 @@ export class LinearProgressExampleColor {
                 value={this.value}
                 style={{
                     '--mdc-theme-primary': this.color.value,
-                    '--background-color': 'aliceblue'
+                    '--background-color': 'aliceblue',
                 }}
             />,
         ];
