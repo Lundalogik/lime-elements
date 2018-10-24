@@ -7,7 +7,12 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { ENTER_KEY_CODE, SPACE_KEY_CODE, ENTER, SPACE } from '../../util/keycodes';
+import {
+    ENTER,
+    ENTER_KEY_CODE,
+    SPACE,
+    SPACE_KEY_CODE,
+} from '../../util/keycodes';
 
 @Component({
     tag: 'limel-text-field',
