@@ -1,3 +1,12 @@
+# [9.1.0](https://github.com/Lundalogik/lime-elements/compare/v9.0.2...v9.1.0) (2018-10-24)
+
+
+### Features
+
+* **badge:** new badge component ([a01e0e1](https://github.com/Lundalogik/lime-elements/commit/a01e0e1))
+* **linear-progress:** add indeterminate prop ([19ac5df](https://github.com/Lundalogik/lime-elements/commit/19ac5df))
+* **linear-progress:** add variable for setting background color ([fcf6cad](https://github.com/Lundalogik/lime-elements/commit/fcf6cad))
+
 ## [9.0.2](https://github.com/Lundalogik/lime-elements/compare/v9.0.1...v9.0.2) (2018-10-23)
 
 
