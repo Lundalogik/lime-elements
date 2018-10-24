@@ -8,7 +8,7 @@ import {
 } from '@stencil/core';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { ListItem, Searcher } from '../../interface';
-import { ARROW_DOWN, ARROW_UP, TAB } from '../../util/keycodes';
+import { ARROW_DOWN_KEY_CODE, ARROW_UP_KEY_CODE, TAB_KEY_CODE, ARROW_DOWN, ARROW_UP, TAB } from '../../util/keycodes';
 
 const SEARCH_DEBOUNCE = 500;
 
@@ -241,10 +241,10 @@ export class Picker {
      * @returns {void}
      */
     private handleKeyDown(event: KeyboardEvent) {
-        const isTab = event.key === 'Tab' || event.keyCode === TAB;
-        const isUp = event.key === 'ArrowUp' || event.keyCode === ARROW_UP;
+        const isTab = event.key === TAB || event.keyCode === TAB_KEY_CODE;
+        const isUp = event.key === ARROW_UP || event.keyCode === ARROW_UP_KEY_CODE;
         const isDown =
-            event.key === 'ArrowDown' || event.keyCode === ARROW_DOWN;
+            event.key === ARROW_DOWN || event.keyCode === ARROW_DOWN_KEY_CODE;
 
         if (!isTab && !isUp && !isDown) {
             return;

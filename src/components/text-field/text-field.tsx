@@ -7,7 +7,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { ENTER, SPACE } from '../../util/keycodes';
+import { ENTER_KEY_CODE, SPACE_KEY_CODE, ENTER, SPACE } from '../../util/keycodes';
 
 @Component({
     tag: 'limel-text-field',
@@ -167,8 +167,8 @@ export class TextField {
     }
 
     private handleIconKeyPress(event) {
-        const isEnter = event.key === 'Enter' || event.keyCode === ENTER;
-        const isSpace = event.key === 'Space' || event.keyCode === SPACE;
+        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
+        const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
 
         if (isSpace || isEnter) {
             this.action.emit();
