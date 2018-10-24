@@ -1,0 +1,48 @@
+@import "@lime-material/chips/mdc-chips";
+@import '@lime-material/theme/mdc-theme';
+@import '@lime-material/textfield/mdc-text-field';
+
+:host([disabled]) {
+    pointer-events: none;
+
+    .mdc-chip-set {
+        opacity: 0.5;
+    }
+}
+
+limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
+    background-color: var(--icon-background-color, transparent);
+    padding: 0.5rem;
+    margin-left: -1.2rem !important;
+    color: var(--icon-color, rgba(0,0,0,.54));
+}
+
+.mdc-chip-set.mdc-chip-set--input {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+
+.mdc-text-field {
+    width: 100%;
+    height: auto;
+    cursor: text;
+
+    input {
+        width: auto;
+        border-bottom: none;
+        height: auto;
+        padding-top: 0;
+        flex-grow: 1;
+        flex-shrink: 0;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    .mdc-floating-label--float-above {
+        top: 2rem;
+        bottom: auto;
+    }
+}
