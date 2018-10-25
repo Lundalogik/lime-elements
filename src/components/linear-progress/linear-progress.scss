@@ -1,5 +1,9 @@
 @import "@lime-material/linear-progress/mdc-linear-progress";
 
+.mdc-linear-progress {
+    text-align: left;
+}
+
 .mdc-linear-progress__buffer {
     background-color: var(--background-color, #e6e6e6);
 }
