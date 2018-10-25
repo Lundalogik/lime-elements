@@ -31,14 +31,14 @@
 :host([size="medium"]) {
     &,
     > div {
-        height: 3rem;
-        width: 3rem;
+        height: 2.5rem;
+        width: 2.5rem;
     }
 }
 :host([size="large"]) {
     &,
     > div {
-        height: 5.6rem;
-        width: 5.6rem;
+        height: 3rem;
+        width: 3rem;
     }
 }
