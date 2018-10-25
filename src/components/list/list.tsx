@@ -50,7 +50,7 @@ export class List {
         // adapter and foundation classes for MDCList
         // that works with the shadow DOM
         this.mdcList.foundation_.adapter_.getFocusedElementIndex = () => {
-            return this.mdcList.listElements_.indexOf(
+            return this.mdcList.listElements.indexOf(
                 this.element.shadowRoot.activeElement
             );
         };
