@@ -5,6 +5,7 @@ import {
     EventEmitter,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { ListItem, Searcher } from '../../interface';
@@ -16,6 +17,7 @@ import {
     TAB,
     TAB_KEY_CODE,
 } from '../../util/keycodes';
+import { Chip } from '../chip-set/chip';
 
 const SEARCH_DEBOUNCE = 500;
 
@@ -44,10 +46,10 @@ export class Picker {
     public required: boolean = false;
 
     /**
-     * Currently selected value
+     * Currently selected value or values
      */
     @Prop()
-    public value: ListItem;
+    public value: ListItem | ListItem[];
 
     /**
      * A search function that takes a search-string as an argument,
@@ -56,6 +58,12 @@ export class Picker {
      */
     @Prop()
     public searcher: Searcher;
+
+    /**
+     *
+     */
+    @Prop()
+    public multiple: boolean = false;
 
     /**
      * Fired when a new value has been selected from the picker
@@ -72,10 +80,27 @@ export class Picker {
     @State()
     private loading: boolean = false;
 
+    @State()
+    private chips: Chip[] = [];
+
     @Element()
     private element: HTMLElement;
 
     private debouncedSearch;
+
+    constructor() {
+        this.handleElementBlur = this.handleElementBlur.bind(this);
+        this.handleTextInput = this.handleTextInput.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleListChange = this.handleListChange.bind(this);
+    }
+
+    @Watch('value')
+    public onChangeValue() {
+        this.chips = this.createChips(this.value);
+    }
 
     public componentDidLoad() {
         this.debouncedSearch = AwesomeDebouncePromise(
@@ -90,27 +115,46 @@ export class Picker {
     }
 
     public render() {
-        let value = this.textValue;
-        if (this.value) {
-            value = this.value.text;
-        }
-        const icon = this.value ? '\u2715' : null;
-
         return [
-            <limel-text-field
+            <limel-chip-set
+                tabindex="0"
+                type="input"
                 label={this.label}
-                value={value}
+                value={this.chips}
                 disabled={this.disabled}
                 required={this.required}
-                onChange={this.handleTextChange.bind(this)}
-                onInput={this.handleTextInput.bind(this)}
-                onKeyDown={this.handleKeyDown.bind(this)}
-                onFocus={this.handleTextFieldFocus.bind(this)}
-                onAction={this.handleAction.bind(this)}
-                trailingIcon={icon}
+                onInput={this.handleTextInput}
+                onKeyDown={this.handleKeyDown}
+                onFocus={this.handleTextFieldFocus}
+                onChange={this.handleChange}
             />,
             this.renderDropdown(),
         ];
+    }
+
+    private createChips(value: ListItem | ListItem[]): Chip[] {
+        if (!value) {
+            return [];
+        }
+
+        if (this.multiple) {
+            const listItems: ListItem[] = value as ListItem[];
+
+            return listItems.map(this.createChip);
+        }
+
+        const listItem: ListItem = value as ListItem;
+
+        return [this.createChip(listItem, 0)];
+    }
+
+    private createChip(listItem: ListItem, id: number): Chip {
+        // TODO: Add icon when supported by list component
+        return {
+            id: `${id}`,
+            text: listItem.text,
+            removable: true,
+        };
     }
 
     /**
@@ -120,7 +164,7 @@ export class Picker {
      * @returns {HTMLElement} picker dropdown
      */
     private renderDropdown() {
-        if (this.value) {
+        if (!this.multiple && this.value) {
             return;
         }
 
@@ -151,7 +195,7 @@ export class Picker {
                 class="dropdown--list mdc-elevation-transition mdc-elevation--z4"
             >
                 <limel-list
-                    onChange={this.handleListChange.bind(this)}
+                    onChange={this.handleListChange}
                     selectable={true}
                     items={this.items}
                 />
@@ -164,29 +208,11 @@ export class Picker {
      *
      * @returns {void}
      */
-    private handleElementBlur = () => {
+    private async handleElementBlur() {
         this.textValue = '';
-        this.searcher(this.textValue).then(
-            this.handleSearchResult.bind(this, '')
-        );
-    };
 
-    /**
-     * Change handler for the text field
-     *
-     * @param {CustomEvent} event event
-     *
-     * @returns {void}
-     */
-    private handleTextChange(event: CustomEvent) {
-        event.stopPropagation();
-        const query = event.detail;
-        this.textValue = query;
-        this.loading = true;
-
-        // If the search-query is an empty string, bypass debouncing.
-        const searchFn = query === '' ? this.searcher : this.debouncedSearch;
-        searchFn(query).then(this.handleSearchResult.bind(this, query));
+        const result = await this.searcher('');
+        this.handleSearchResult('', result);
     }
 
     /**
@@ -196,8 +222,17 @@ export class Picker {
      *
      * @returns {void}
      */
-    private handleTextInput(event) {
+    private async handleTextInput(event) {
         event.stopPropagation();
+
+        const query = event.detail;
+        this.textValue = query;
+        this.loading = true;
+
+        // If the search-query is an empty string, bypass debouncing.
+        const searchFn = query === '' ? this.searcher : this.debouncedSearch;
+        const result = await searchFn(query);
+        this.handleSearchResult(query, result);
     }
 
     /**
@@ -210,33 +245,44 @@ export class Picker {
     private handleListChange(event: CustomEvent) {
         event.stopPropagation();
         if (!this.value || this.value !== event.detail) {
-            this.change.emit(event.detail);
+            let newValue = event.detail;
+            if (this.multiple) {
+                newValue = [...(this.value as ListItem[]), event.detail];
+            }
+
+            this.change.emit(newValue);
+            this.items = [];
         }
     }
 
     /**
-     * Listen for the icon action in the text field to clear the value
-     * Emits a change event with an empty value
-     *
-     * @returns {void}
-     */
-    private handleAction() {
-        this.change.emit();
-    }
-
-    /**
-     * Focus handler for the text field
-     * Prevent focus if the picker has a value
+     * Focus handler for the chip set
+     * Prevent focus if the picker has a value and does not support multiple values
      *
      * @returns {void}
      */
     private handleTextFieldFocus() {
-        if (this.value) {
-            const textField = this.element.shadowRoot.querySelector(
-                'limel-text-field'
+        if (this.value && !this.multiple) {
+            const chipSet = this.element.shadowRoot.querySelector(
+                'limel-chip-set'
             );
-            textField.blur();
+            chipSet.blur();
         }
+    }
+
+    private handleChange(event) {
+        event.stopPropagation();
+
+        let newValue = null;
+        if (this.multiple) {
+            newValue = event.detail.map(chip => {
+                return (this.value as ListItem[]).find((_, index) => {
+                    return index === parseInt(chip.id, 10);
+                });
+            });
+        }
+
+        this.change.emit(newValue);
     }
 
     /**
