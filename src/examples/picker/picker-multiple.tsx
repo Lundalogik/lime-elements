@@ -4,10 +4,10 @@ import { ListItem } from '../../interface';
 const NETWORK_DELAY = 500;
 
 @Component({
-    tag: 'limel-example-picker',
+    tag: 'limel-example-picker-multiple',
     shadow: true,
 })
-export class PickerExample {
+export class PickerMultipleExample {
     private allItems: ListItem[] = [
         { text: 'Admiral Swiggins', id: 1 },
         { text: 'Ayla', id: 2 },
@@ -25,22 +25,23 @@ export class PickerExample {
     ];
 
     @State()
-    private selectedItem: ListItem;
+    private selectedItems: ListItem[] = [];
 
     public render() {
         return [
             <limel-picker
+                multiple={true}
                 onChange={event => {
-                    this.selectedItem = event.detail;
+                    this.selectedItems = [...event.detail];
                 }}
                 label="Favorite awesomenaut"
                 searcher={this.search.bind(this)}
-                value={this.selectedItem}
+                value={this.selectedItems}
             />,
             <br />,
             <br />,
             <div>
-                Value: <code>{JSON.stringify(this.selectedItem)}</code>
+                Value: <code>{JSON.stringify(this.selectedItems)}</code>
             </div>,
             <hr />,
             <p>
