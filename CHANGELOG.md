@@ -1,3 +1,10 @@
+## [9.1.1](https://github.com/Lundalogik/lime-elements/compare/v9.1.0...v9.1.1) (2018-10-29)
+
+
+### Bug Fixes
+
+* **icon:** reduces the gap between sizes to steps of 0.5 rem ([0b289c9](https://github.com/Lundalogik/lime-elements/commit/0b289c9))
+
 # [9.1.0](https://github.com/Lundalogik/lime-elements/compare/v9.0.2...v9.1.0) (2018-10-24)
 
 
