@@ -1,3 +1,10 @@
+# [9.2.0](https://github.com/Lundalogik/lime-elements.git/compare/v9.1.1...v9.2.0) (2018-10-30)
+
+
+### Features
+
+* **chip:** new chip-set component ([8a7ba66](https://github.com/Lundalogik/lime-elements.git/commit/8a7ba66))
+
 ## [9.1.1](https://github.com/Lundalogik/lime-elements/compare/v9.1.0...v9.1.1) (2018-10-29)
 
 
