@@ -68,7 +68,7 @@
     "prettier": "^1.14.3",
     "prismjs": "^1.15.0",
     "puppeteer": "1.8.0",
-    "semantic-release": "^15.10.3",
+    "semantic-release": "^15.10.6",
     "serve": "^10.0.2",
     "showdown": "^1.8.7",
     "tslint": "^5.11.0",
