@@ -75,9 +75,12 @@ describe('limel-switch', async () => {
             let mdcSwitch;
             beforeEach(async () => {
                 page = await createPage(`
-                    <limel-switch label="Active" value="false"></limel-switch>
+                    <limel-switch label="Active"></limel-switch>
                 `);
                 limelSwitch = await page.find('limel-switch');
+                limelSwitch.setProperty('value', false);
+                await page.waitForChanges();
+
                 mdcSwitch = await page.find('limel-switch>>>.mdc-switch');
             });
             it('is "off"', () => {
