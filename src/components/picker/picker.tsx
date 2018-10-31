@@ -60,7 +60,7 @@ export class Picker {
     public searcher: Searcher;
 
     /**
-     *
+     * True if multiple values are allowed
      */
     @Prop()
     public multiple: boolean = false;
@@ -98,8 +98,18 @@ export class Picker {
     }
 
     @Watch('value')
-    public onChangeValue() {
+    public onChangeValue(newValue, oldValue) {
         this.chips = this.createChips(this.value);
+        if (!this.multiple) {
+            return;
+        }
+
+        if (newValue.length <= oldValue.length) {
+            return;
+        }
+
+        const chipSet = this.element.shadowRoot.querySelector('limel-chip-set');
+        chipSet.focus();
     }
 
     public componentDidLoad() {
