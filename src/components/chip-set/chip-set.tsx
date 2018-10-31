@@ -5,6 +5,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    Method,
     Prop,
     State,
     Watch,
@@ -126,6 +127,12 @@ export class ChipSet {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
         }
+    }
+
+    @Method()
+    public focus() {
+        this.editMode = true;
+        this.host.shadowRoot.querySelector('input').focus();
     }
 
     public render() {
