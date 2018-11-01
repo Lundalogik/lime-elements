@@ -1,3 +1,10 @@
+## [9.2.1](https://github.com/Lundalogik/lime-elements.git/compare/v9.2.0...v9.2.1) (2018-11-01)
+
+
+### Bug Fixes
+
+* **limel-slider:** adjust disabled state to material style ([ad5e0d6](https://github.com/Lundalogik/lime-elements.git/commit/ad5e0d6)), closes [#154](https://github.com/Lundalogik/lime-elements.git/issues/154)
+
 # [9.2.0](https://github.com/Lundalogik/lime-elements.git/compare/v9.1.1...v9.2.0) (2018-10-30)
 
 
