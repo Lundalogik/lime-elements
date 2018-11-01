@@ -341,6 +341,12 @@ export class Picker {
     private handleSearchResult(query: string, result: ListItem[]) {
         if (query === this.textValue) {
             this.items = result;
+            if (this.multiple) {
+                const values = this.value as ListItem[];
+                this.items = result.filter(item => {
+                    return !values.includes(item);
+                });
+            }
             this.loading = false;
         }
     }
