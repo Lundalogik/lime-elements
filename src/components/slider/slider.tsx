@@ -42,6 +42,10 @@ export class Slider {
         this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
     }
 
+    public componentWillUpdate() {
+        this.mdcSlider.disabled = this.disabled;
+    }
+
     public componentDidUnload() {
         this.mdcSlider.destroy();
     }
@@ -68,6 +72,7 @@ export class Slider {
                         aria-valuemax={this.valuemax}
                         aria-valuenow={this.value}
                         aria-label={this.label}
+                        aria-disabled={this.disabled}
                     >
                         <div class="mdc-slider__track-container">
                             <div class="mdc-slider__track" />
@@ -89,7 +94,6 @@ export class Slider {
                         </div>
                     </div>
                 </div>
-                {this.disabled ? <div class="slider__readonly" /> : null}
             </div>
         );
     }
