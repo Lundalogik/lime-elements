@@ -260,6 +260,7 @@ export class ChipSet {
      */
     private handleInputBlur() {
         this.editMode = false;
+        this.textValue = ' ';
     }
 
     private handleTextInput(event) {
