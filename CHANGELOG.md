@@ -1,3 +1,19 @@
+# [9.3.0](https://github.com/Lundalogik/lime-elements.git/compare/v9.2.1...v9.3.0) (2018-11-05)
+
+
+### Bug Fixes
+
+* **chip-set:** clear text value on input blur ([ad87834](https://github.com/Lundalogik/lime-elements.git/commit/ad87834))
+* **linear-progress:** set text-align inside progress bar to left ([a6ca6b6](https://github.com/Lundalogik/lime-elements.git/commit/a6ca6b6))
+* **list:** update variable name ([cdb1fe1](https://github.com/Lundalogik/lime-elements.git/commit/cdb1fe1))
+
+
+### Features
+
+* **picker:** only allow unique values to be selected ([04da767](https://github.com/Lundalogik/lime-elements.git/commit/04da767))
+* **picker:** set focus on chip set input when selecting from the picker ([06b9eec](https://github.com/Lundalogik/lime-elements.git/commit/06b9eec))
+* **picker:** use chip set input in picker ([ceddc15](https://github.com/Lundalogik/lime-elements.git/commit/ceddc15))
+
 ## [9.2.1](https://github.com/Lundalogik/lime-elements.git/compare/v9.2.0...v9.2.1) (2018-11-01)
 
 
