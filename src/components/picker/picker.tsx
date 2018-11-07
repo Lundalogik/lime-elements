@@ -125,8 +125,18 @@ export class Picker {
     }
 
     public render() {
+        const iconColors = this.chips.some((chip: Chip) => {
+            return 'iconColor' in chip && !!chip.iconColor;
+        });
+        const style = {};
+
+        if (iconColors) {
+            style['--icon-color'] = 'white';
+        }
+
         return [
             <limel-chip-set
+                style={style}
                 tabindex="0"
                 type="input"
                 label={this.label}
@@ -164,6 +174,8 @@ export class Picker {
             id: `${id}`,
             text: listItem.text,
             removable: true,
+            icon: listItem.icon,
+            iconColor: listItem.iconColor,
         };
     }
 
@@ -197,6 +209,10 @@ export class Picker {
             return;
         }
 
+        const hasIcons = this.items.some(item => {
+            return 'icon' in item && !!item.icon;
+        });
+
         return (
             <div
                 style={{
@@ -205,6 +221,7 @@ export class Picker {
                 class="dropdown--list mdc-elevation-transition mdc-elevation--z4"
             >
                 <limel-list
+                    badgeIcons={hasIcons}
                     onChange={this.handleListChange}
                     selectable={true}
                     items={this.items}
