@@ -22,6 +22,12 @@ export class List {
     @Prop()
     public selectable: boolean;
 
+    /**
+     * True if the list should display larger icons with a background
+     */
+    @Prop()
+    public badgeIcons: boolean;
+
     @Element()
     private element: HTMLElement;
 
@@ -69,6 +75,7 @@ export class List {
     public render() {
         const config: ListRendererConfig = {
             selectable: this.selectable,
+            badgeIcons: this.badgeIcons,
         };
         return this.listRenderer.render(this.items, config);
     }

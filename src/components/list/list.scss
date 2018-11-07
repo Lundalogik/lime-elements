@@ -10,4 +10,11 @@
 
 .mdc-list {
     cursor: pointer;
+
+    &.mdc-list--avatar-list {
+        limel-icon {
+            background-color: var(--icon-background-color, #adadad);
+            color: white;
+        }
+    }
 }

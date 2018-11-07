@@ -6,6 +6,7 @@ export class ListRenderer {
         isMenu: false,
         isOpen: true,
         selectable: false,
+        badgeIcons: false,
     };
 
     public render(
@@ -19,6 +20,12 @@ export class ListRenderer {
             return 'secondaryText' in item && !!item.secondaryText;
         });
 
+        const icons =
+            config.badgeIcons &&
+            items.some(item => {
+                return 'icon' in item && !!item.icon;
+            });
+
         const role = config.isMenu ? 'menu' : 'listbox';
 
         return (
@@ -28,6 +35,7 @@ export class ListRenderer {
                     ${twoLines ? 'mdc-list--two-line' : ''}
                     ${config.isMenu ? 'mdc-menu__items' : ''}
                     ${config.selectable ? 'selectable' : ''}
+                    ${icons ? 'mdc-list--avatar-list' : ''}
                 `}
                 aria-hidden={(!config.isOpen).toString()}
                 role={role}
@@ -64,6 +72,7 @@ export class ListRenderer {
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 data-index={index}
             >
+                {item.icon ? this.renderIcon(item) : null}
                 {this.renderText(item.text, item.secondaryText)}
             </li>
         );
@@ -89,6 +98,29 @@ export class ListRenderer {
                     {secondaryText}
                 </span>
             </span>
+        );
+    }
+
+    /**
+     * Render an icon for a list item
+     *
+     * @param {ListItem} item the list item
+     *
+     * @returns {HTMLElement} the icon element
+     */
+    private renderIcon(item: ListItem) {
+        const style = {};
+        if (item.iconColor) {
+            style['--icon-background-color'] = item.iconColor;
+        }
+
+        return (
+            <limel-icon
+                class="mdc-list-item__graphic"
+                name={item.icon}
+                style={style}
+                size="medium"
+            />
         );
     }
 }
