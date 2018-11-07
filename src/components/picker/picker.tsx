@@ -218,11 +218,9 @@ export class Picker {
      *
      * @returns {void}
      */
-    private async handleElementBlur() {
+    private handleElementBlur() {
         this.textValue = '';
-
-        const result = await this.searcher('');
-        this.handleSearchResult('', result);
+        this.handleSearchResult('', []);
     }
 
     /**
@@ -271,13 +269,20 @@ export class Picker {
      *
      * @returns {void}
      */
-    private handleTextFieldFocus() {
+    private async handleTextFieldFocus() {
         if (this.value && !this.multiple) {
             const chipSet = this.element.shadowRoot.querySelector(
                 'limel-chip-set'
             );
             chipSet.blur();
+
+            return;
         }
+
+        this.textValue = '';
+        this.loading = true;
+        const result = await this.searcher('');
+        this.handleSearchResult('', result);
     }
 
     private handleChange(event) {
