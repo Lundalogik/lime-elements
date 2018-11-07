@@ -53,16 +53,20 @@ export class PickerMultipleExample {
 
     private search(query: string) {
         return new Promise(resolve => {
-            if (query === '') {
-                resolve([]);
-            }
             // Simulate some network delay
             setTimeout(() => {
+                if (query === '') {
+                    const NUMBER_OF_SUGGESTIONS = 3;
+                    resolve(this.allItems.slice(0, NUMBER_OF_SUGGESTIONS));
+                    return;
+                }
+
                 const filteredItems = this.allItems.filter(item => {
                     return item.text
                         .toLowerCase()
                         .includes(query.toLowerCase());
                 });
+
                 resolve(filteredItems);
             }, NETWORK_DELAY);
         });
