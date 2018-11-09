@@ -138,6 +138,7 @@ export class Menu {
                 data-index={index}
                 {...props}
             >
+                {item.icon ? this.renderIcon(item) : null}
                 <span class="mdc-list-item__text">
                     {this.renderText(item.text, item.secondaryText)}
                 </span>
@@ -162,6 +163,23 @@ export class Menu {
             <span class="mdc-list-item__primary-text">{text}</span>,
             <span class="mdc-list-item__secondary-text">{secondaryText}</span>,
         ];
+    }
+
+    /**
+     * Render an icon for a list item
+     *
+     * @param {ListItem} item the list item
+     *
+     * @returns {HTMLElement} the icon element
+     */
+    private renderIcon(item: ListItem) {
+        return (
+            <limel-icon
+                class="mdc-list-item__graphic"
+                name={item.icon}
+                size="medium"
+            />
+        );
     }
 
     private renderTrigger() {

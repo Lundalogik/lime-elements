@@ -1,6 +1,15 @@
 import { Component, State } from '@stencil/core';
 import { ListItem, ListSeparator } from '../../interface';
 
+const icons = [
+    'Editing/copy',
+    'Editing/cut',
+    'Editing/paste',
+    '',
+    'user_interface/add',
+    'Editing/delete',
+];
+
 @Component({
     tag: 'limel-example-menu',
     shadow: true,
@@ -59,6 +68,18 @@ export class MenuExample {
                             />
                         </div>
                     </limel-menu>
+                </p>
+            </section>,
+            <section>
+                <h3>With icons</h3>
+                <p>
+                    <limel-menu
+                        label="Menu"
+                        items={this.items.map((item, index) => {
+                            return { ...item, icon: icons[index] };
+                        })}
+                        onSelect={this.onSelect}
+                    />
                 </p>
             </section>,
             <hr />,
