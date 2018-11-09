@@ -15,7 +15,7 @@ export interface ListItem {
     disabled?: boolean;
 
     /**
-     * Name of the icon to use. Not valid for `filter`
+     * Name of the icon to use.
      */
     icon?: string;
 
