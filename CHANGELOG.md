@@ -1,3 +1,10 @@
+# [9.4.0](https://github.com/Lundalogik/lime-elements/compare/v9.3.0...v9.4.0) (2018-11-12)
+
+
+### Features
+
+* **limel-icon-button:** add component ([4423e20](https://github.com/Lundalogik/lime-elements/commit/4423e20)), closes [#186](https://github.com/Lundalogik/lime-elements/issues/186)
+
 # [9.3.0](https://github.com/Lundalogik/lime-elements.git/compare/v9.2.1...v9.3.0) (2018-11-05)
 
 
