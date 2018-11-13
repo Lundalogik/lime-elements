@@ -1,3 +1,10 @@
+# [9.5.0](https://github.com/Lundalogik/lime-elements/compare/v9.4.0...v9.5.0) (2018-11-13)
+
+
+### Features
+
+* **limel-icon-button:** add method `relayout` that triggers re-layout of hover-highlight ([2808c53](https://github.com/Lundalogik/lime-elements/commit/2808c53))
+
 # [9.4.0](https://github.com/Lundalogik/lime-elements/compare/v9.3.0...v9.4.0) (2018-11-12)
 
 
