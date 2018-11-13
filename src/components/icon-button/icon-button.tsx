@@ -1,5 +1,5 @@
 import { MDCRipple } from '@lime-material/ripple';
-import { Component, Element, Prop } from '@stencil/core';
+import { Component, Element, Method, Prop } from '@stencil/core';
 
 @Component({
     tag: 'limel-icon-button',
@@ -30,6 +30,21 @@ export class IconButton {
     private host: HTMLElement;
 
     private mdcIconButtonRipple;
+
+    /**
+     * If the button is hidden or inside another element that is animating
+     * while the button is instantiated, the hover-highlight may become
+     * misaligned. If so, calling this method will make the button re-layout
+     * the highlight.
+     *
+     * @returns {void}
+     */
+    @Method()
+    public relayout() {
+        if (this.mdcIconButtonRipple) {
+            this.mdcIconButtonRipple.layout();
+        }
+    }
 
     public componentDidLoad() {
         this.mdcIconButtonRipple = new MDCRipple(
