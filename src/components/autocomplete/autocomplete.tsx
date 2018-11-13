@@ -63,7 +63,7 @@ export class Autocomplete {
     public render() {
         return (
             <div>
-                <limel-text-field
+                <limel-input-field
                     label={this.label}
                     value={this.internalValue}
                     disabled={this.disabled}

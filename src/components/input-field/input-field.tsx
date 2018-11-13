@@ -15,20 +15,20 @@ import {
 } from '../../util/keycodes';
 
 @Component({
-    tag: 'limel-text-field',
+    tag: 'limel-input-field',
     shadow: true,
-    styleUrl: 'text-field.scss',
+    styleUrl: 'input-field.scss',
 })
-export class TextField {
+export class InputField {
     /**
-     * Disables the text-field when `true`.
+     * Disables the input field when `true`.
      * Defaults to `false`.
      */
     @Prop({ reflectToAttr: true })
     public disabled = false;
 
     /**
-     * Set to `true` to indicate that the current value of the text-field is
+     * Set to `true` to indicate that the current value of the input field is
      * invalid.
      * Defaults to `false`.
      */
@@ -75,11 +75,20 @@ export class TextField {
     @Prop({ reflectToAttr: true })
     public type = 'text';
 
+    /**
+     * Set to `true` to format the current value of the input field only
+     * if the field is of the html-type number.
+     * The number format is determined by the current language of the browser.
+     * Defaults to `true`.
+     */
+    @Prop({ reflectToAttr: true })
+    public formatOnNumber = true;
+
     @State()
     private mdcTextField;
 
     @Element()
-    private limelTextField: HTMLElement;
+    private limelInputField: HTMLElement;
 
     /**
      * Emitted when the input value is changed.
@@ -98,7 +107,7 @@ export class TextField {
 
     public componentDidLoad() {
         this.mdcTextField = new MDCTextField(
-            this.limelTextField.shadowRoot.querySelector('.mdc-text-field')
+            this.limelInputField.shadowRoot.querySelector('.mdc-text-field')
         );
     }
 
@@ -123,6 +132,7 @@ export class TextField {
                     }
                 `}
             >
+                {this.renderFormattedNumber()}
                 <input
                     class="mdc-text-field__input"
                     onInput={this.handleChange.bind(this)}
@@ -160,6 +170,21 @@ export class TextField {
             >
                 {this.trailingIcon}
             </i>
+        );
+    }
+
+    private renderFormattedNumber() {
+        if (this.type !== 'number' || !this.value) {
+            return;
+        }
+
+        const renderValue = this.formatOnNumber
+            ? new Intl.NumberFormat(navigator.language).format(
+                  Number(this.value)
+              )
+            : this.value;
+        return (
+            <span class="mdc-text-field__formatted_input">{renderValue}</span>
         );
     }
 
