@@ -35,7 +35,7 @@ export class Picker {
     public disabled: boolean = false;
 
     /**
-     * Text to display for the text field of the picker
+     * Text to display for the input field of the picker
      */
     @Prop()
     public label: string;
@@ -94,7 +94,7 @@ export class Picker {
         this.handleElementFocus = this.handleElementFocus.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
-        this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
+        this.handleInputFieldFocus = this.handleInputFieldFocus.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleListChange = this.handleListChange.bind(this);
     }
@@ -151,7 +151,7 @@ export class Picker {
                 required={this.required}
                 onInput={this.handleTextInput}
                 onKeyDown={this.handleKeyDown}
-                onFocus={this.handleTextFieldFocus}
+                onFocus={this.handleInputFieldFocus}
                 onChange={this.handleChange}
             />,
             this.renderDropdown(),
@@ -237,7 +237,7 @@ export class Picker {
     }
 
     /**
-     * Reset the value of the text field when the control loses focus
+     * Reset the value of the input field when the control loses focus
      *
      * @returns {void}
      */
@@ -247,7 +247,7 @@ export class Picker {
     }
 
     /**
-     * Set focus to the text field when this control receives focus
+     * Set focus to the input field when this control receives focus
      *
      * @returns {void}
      */
@@ -259,7 +259,7 @@ export class Picker {
     }
 
     /**
-     * Input handler for the text field
+     * Input handler for the input field
      *
      * @param {InputEvent} event event
      *
@@ -304,7 +304,7 @@ export class Picker {
      *
      * @returns {void}
      */
-    private async handleTextFieldFocus() {
+    private async handleInputFieldFocus() {
         if (this.value && !this.multiple) {
             const chipSet = this.element.shadowRoot.querySelector(
                 CHIP_SET_TAG_NAME
@@ -336,7 +336,7 @@ export class Picker {
     }
 
     /**
-     * Key handler for the text field
+     * Key handler for the input field
      * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
      *
      * @param {KeyboardEvent} event event

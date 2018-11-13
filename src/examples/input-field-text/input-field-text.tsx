@@ -1,11 +1,11 @@
-import { Component, Listen, Prop, State, Watch } from '@stencil/core';
+import { Component, Prop, State, Watch } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-text-field',
+    tag: 'limel-example-input-field-text',
     shadow: true,
-    styleUrl: 'text-field.scss',
+    styleUrl: 'input-field-text.scss',
 })
-export class TextFieldExample {
+export class InputFieldTextExample {
     @Prop({ mutable: true })
     public required: boolean = false;
 
@@ -33,7 +33,7 @@ export class TextFieldExample {
                         label={this.required ? 'Set optional' : 'Set required'}
                     />
                 </limel-button-group>
-                <limel-text-field
+                <limel-input-field
                     disabled={this.disabled}
                     invalid={this.invalid}
                     label="Text Field Label"
@@ -47,8 +47,8 @@ export class TextFieldExample {
             </section>,
             <section class="inline-textfields">
                 <h3>Multiple fields inline</h3>
-                <limel-text-field label="First field" />
-                <limel-text-field label="Second field" />
+                <limel-input-field label="First field" />
+                <limel-input-field label="Second field" />
             </section>,
         ];
     }

@@ -12,7 +12,7 @@ export class LinearProgressExample {
 
     public render() {
         return [
-            <limel-text-field
+            <limel-input-field
                 label="Value"
                 value={(this.value * FRACTION).toFixed(0)}
                 onChange={event => {

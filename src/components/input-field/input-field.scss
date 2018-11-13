@@ -1,0 +1,56 @@
+@import '@lime-material/theme/mdc-theme';
+@import '@lime-material/textfield/mdc-text-field';
+
+:host {
+    display: block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
+.mdc-text-field {
+    width: 100%;
+}
+
+.mdc-text-field__formatted_input {
+    display: None;
+}
+
+:not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
+    .mdc-text-field__formatted_input {
+        color: rgba(0,0,0,0.87);
+        font-size: 1.75rem;
+        font-weight: 400;
+        left: 1.2rem;
+        line-height: 2.8rem;
+        position: absolute;
+        top: 2rem;
+        z-index: 1;
+        display: block;
+    }
+
+    .mdc-text-field__input[type=number] {
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.mdc-text-field--disabled {
+    .mdc-text-field__formatted_input {
+        color: rgba(0, 0, 0, 0.37);
+    }
+}
+
+// .mdc-text-field {
+//     &.mdc-text-field--with-trailing-icon {
+//         .mdc-text-field__input {
+//             padding-left: 0;
+//         }
+
+//         .mdc-text-field__icon {
+//             bottom: 0.5rem;
+//             font-style: normal;
+//         }
+//     }
+// }
