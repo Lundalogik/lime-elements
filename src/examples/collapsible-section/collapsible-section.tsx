@@ -8,6 +8,9 @@ export class CollapsibleSectionExample {
     @State()
     private secondExampleIsOpen = false;
 
+    @State()
+    private percentage = 34;
+
     public render() {
         return [
             <section>
@@ -33,7 +36,10 @@ export class CollapsibleSectionExample {
                     onClose={this.secondExampleOnClose.bind(this)}
                 >
                     <h5 slot="header">Click me or click the button</h5>
-                    <p slot="body">Either way, the section will toggle!</p>
+                    <p slot="body">
+                        Either way, the section will toggle!
+                        <limel-slider unit="%" value={this.percentage} />
+                    </p>
                 </limel-collapsible-section>
             </section>,
         ];
