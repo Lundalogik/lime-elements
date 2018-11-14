@@ -1,3 +1,15 @@
+# [9.6.0](https://github.com/Lundalogik/lime-elements/compare/v9.5.0...v9.6.0) (2018-11-14)
+
+
+### Bug Fixes
+
+* **limel-collapsible-section:** call dispatchResizeEvent when section opened ([cc092fd](https://github.com/Lundalogik/lime-elements/commit/cc092fd)), closes [#192](https://github.com/Lundalogik/lime-elements/issues/192)
+
+
+### Features
+
+* **picker:** support for suggestions and searching for an empty value ([2e1a61c](https://github.com/Lundalogik/lime-elements/commit/2e1a61c))
+
 # [9.5.0](https://github.com/Lundalogik/lime-elements/compare/v9.4.0...v9.5.0) (2018-11-13)
 
 
