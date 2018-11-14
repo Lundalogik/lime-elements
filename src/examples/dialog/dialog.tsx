@@ -21,6 +21,9 @@ export class DialogExample {
     @State()
     private age: string;
 
+    @State()
+    private percentage = 45;
+
     public render() {
         return [
             <section>
@@ -87,6 +90,9 @@ export class DialogExample {
                                     this.age = event.detail;
                                 }}
                             />
+                        </p>
+                        <p>
+                            <limel-slider unit="%" value={this.percentage} />
                         </p>
                     </form>
                     <limel-button-group class="reverse-order" slot="button">
