@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, Prop } from '@stencil/core';
+import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 
 @Component({
     tag: 'limel-collapsible-section',
@@ -57,6 +58,8 @@ export class CollapsibleSection {
 
         if (this.isOpen) {
             this.open.emit();
+            const waitForUiToRender = 100;
+            setTimeout(dispatchResizeEvent, waitForUiToRender);
         } else {
             this.close.emit();
         }
