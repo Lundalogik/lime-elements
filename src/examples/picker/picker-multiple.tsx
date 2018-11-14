@@ -1,8 +1,6 @@
 import { Component, State } from '@stencil/core';
 import { ListItem } from '../../interface';
 
-const NETWORK_DELAY = 500;
-
 @Component({
     tag: 'limel-example-picker-multiple',
     shadow: true,
@@ -54,6 +52,7 @@ export class PickerMultipleExample {
     private search(query: string) {
         return new Promise(resolve => {
             // Simulate some network delay
+            const NETWORK_DELAY = 500;
             setTimeout(() => {
                 if (query === '') {
                     const NUMBER_OF_SUGGESTIONS = 3;
