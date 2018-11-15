@@ -1,10 +1,10 @@
 import { Component, State } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-dialog',
+    tag: 'limel-example-dialog-fullscreen',
     shadow: true,
 })
-export class DialogExample {
+export class DialogSizeExample {
     @State()
     private isOpen = false;
 
@@ -19,11 +19,12 @@ export class DialogExample {
             />,
             <limel-dialog
                 open={this.isOpen}
+                fullscreen={true}
                 onClose={() => {
                     this.isOpen = false;
                 }}
             >
-                <p>This is a simple alert-dialog.</p>
+                <p>This dialog is fullscreen</p>
                 <limel-button-group slot="button">
                     <limel-button
                         label="Ok"
