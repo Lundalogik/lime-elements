@@ -1,3 +1,10 @@
+# [9.8.0](https://github.com/Lundalogik/lime-elements/compare/v9.7.0...v9.8.0) (2018-11-15)
+
+
+### Features
+
+* **dialog:** allow size to be set through CSS variables ([fad7f1c](https://github.com/Lundalogik/lime-elements/commit/fad7f1c))
+
 # [9.7.0](https://github.com/Lundalogik/lime-elements/compare/v9.6.0...v9.7.0) (2018-11-15)
 
 
