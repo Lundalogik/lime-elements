@@ -1,3 +1,10 @@
+# [9.7.0](https://github.com/Lundalogik/lime-elements/compare/v9.6.0...v9.7.0) (2018-11-15)
+
+
+### Features
+
+* **limel-slider:** add factor property ([a412f72](https://github.com/Lundalogik/lime-elements/commit/a412f72)), closes [#196](https://github.com/Lundalogik/lime-elements/issues/196)
+
 # [9.6.0](https://github.com/Lundalogik/lime-elements/compare/v9.5.0...v9.6.0) (2018-11-14)
 
 
