@@ -1,10 +1,11 @@
 import { Component, State } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-dialog',
+    tag: 'limel-example-dialog-size',
     shadow: true,
+    styleUrl: 'dialog-size.scss',
 })
-export class DialogExample {
+export class DialogSizeExample {
     @State()
     private isOpen = false;
 
@@ -23,7 +24,13 @@ export class DialogExample {
                     this.isOpen = false;
                 }}
             >
-                <p>This is a simple alert-dialog.</p>
+                <p>This dialog has a custom size set through CSS variables:</p>
+                <p>
+                    <code>--dialog-width: 40rem</code>
+                </p>
+                <p>
+                    <code>--dialog-height: 50%</code>
+                </p>
                 <limel-button-group slot="button">
                     <limel-button
                         label="Ok"
