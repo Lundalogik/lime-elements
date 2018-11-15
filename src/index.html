@@ -16,6 +16,11 @@
         html {
             font-size: 62.5%;
         }
+
+        /* Hack to not hide a large dialog behind the left navigation bar */
+        #root > div > a + div {
+            z-index: 5;
+        }
     </style>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/codemirror@5.39.2/lib/codemirror.css" />
     <link href="/stencil/dev-assets/fonts.css" rel="stylesheet" />
