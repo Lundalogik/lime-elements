@@ -16,6 +16,13 @@ import {
 export class Slider {
     @Prop({ reflectToAttr: true })
     public disabled = false;
+    /**
+     * Default value: 1.
+     * The factor that the properties `value`, `maxValue` and `minValue` are multiplied by.
+     * On `change` divides the value by the factor, so the original format stays the same
+     */
+    @Prop({ reflectToAttr: true })
+    public factor: number = 1;
     @Prop({ reflectToAttr: true })
     public label: string;
     @Prop({ reflectToAttr: true })
@@ -57,20 +64,20 @@ export class Slider {
                 <div class="slider__content">
                     <div class="slider__content-range-container">
                         <span class="slider__content-min-label">
-                            {this.valuemin}
+                            {this.multiplyByFactor(this.valuemin)}
                             {this.unit}
                         </span>
                         <span class="slider__content-max-label">
-                            {this.valuemax}
+                            {this.multiplyByFactor(this.valuemax)}
                             {this.unit}
                         </span>
                     </div>
                     <div
                         class="mdc-slider mdc-slider--discrete"
                         role="slider"
-                        aria-valuemin={this.valuemin}
-                        aria-valuemax={this.valuemax}
-                        aria-valuenow={this.value}
+                        aria-valuemin={this.multiplyByFactor(this.valuemin)}
+                        aria-valuemax={this.multiplyByFactor(this.valuemax)}
+                        aria-valuenow={this.multiplyByFactor(this.value)}
                         aria-label={this.label}
                         aria-disabled={this.disabled}
                     >
@@ -80,7 +87,7 @@ export class Slider {
                         <div class="mdc-slider__thumb-container">
                             <div class="mdc-slider__pin">
                                 <span class="mdc-slider__pin-value-marker">
-                                    {this.value}
+                                    {this.multiplyByFactor(this.value)}
                                 </span>
                             </div>
                             <svg
@@ -100,10 +107,14 @@ export class Slider {
 
     @Watch('value')
     protected watchValue() {
-        this.mdcSlider.value = this.value;
+        this.mdcSlider.value = this.multiplyByFactor(this.value);
     }
 
     private changeHandler = event => {
-        this.change.emit(event.detail.value);
+        this.change.emit(event.detail.value / this.factor);
     };
+
+    private multiplyByFactor(value) {
+        return Math.round(value * this.factor);
+    }
 }
