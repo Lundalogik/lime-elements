@@ -18,7 +18,7 @@ export class Slider {
     public disabled = false;
     /**
      * Default value: 1.
-     * The factor that the properties `value`, `maxValue` and `minValue` are multiplied by.
+     * The factor that the properties `value`, `valuemax` and `valuemin` are multiplied by.
      * On `change` divides the value by the factor, so the original format stays the same
      */
     @Prop({ reflectToAttr: true })
