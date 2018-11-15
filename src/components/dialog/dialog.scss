@@ -6,13 +6,29 @@ slot[name="header"] {
     display: none;
 }
 
-.mdc-dialog__surface {
-    max-height: 95vh;
-    width: 70rem;
+.mdc-dialog {
+    .mdc-dialog__container {
+        max-width: 70%;
+        width: var(--dialog-width, auto);
+        max-height: 70%;
+        height: var(--dialog-height, auto);
 
-    .mdc-dialog__body--scrollable  {
-        max-height: inherit;
-        border: 0;
-        overflow: auto;
+
+        &.full-screen {
+            max-width: 100%;
+            width: 100%;
+            max-height: 100%;
+            height: 100%;
+        }
+    }
+
+    .mdc-dialog__surface {
+        width: 100%;
+
+        .mdc-dialog__body--scrollable  {
+            max-height: inherit;
+            border: 0;
+            overflow: auto;
+        }
     }
 }

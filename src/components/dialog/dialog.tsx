@@ -23,6 +23,12 @@ export class Dialog {
     public heading: string;
 
     /**
+     * `true` if the dialog should be full-screen, `false` otherwise.
+     */
+    @Prop({ reflectToAttr: true })
+    public fullscreen: boolean;
+
+    /**
      * `true` if the dialog is open, `false` otherwise.
      * Defaults to `false`.
      */
@@ -85,7 +91,11 @@ export class Dialog {
                 aria-labelledby={'limel-dialog-title-' + this.id}
                 aria-describedby={'limel-dialog-content-' + this.id}
             >
-                <div class="mdc-dialog__container">
+                <div
+                    class={`mdc-dialog__container ${
+                        this.fullscreen ? 'full-screen' : ''
+                    }`}
+                >
                     <div class="mdc-dialog__surface">
                         {this.renderHeading()}
                         <div
