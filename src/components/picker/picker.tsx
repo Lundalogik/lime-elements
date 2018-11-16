@@ -109,7 +109,7 @@ export class Picker {
         }
 
         const chipSet = this.element.shadowRoot.querySelector('limel-chip-set');
-        chipSet.focus();
+        chipSet.setFocus();
     }
 
     public componentDidLoad() {

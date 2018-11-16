@@ -94,8 +94,13 @@ export class ChipSet {
         this.handleTextInput = this.handleTextInput.bind(this);
     }
 
+    /**
+     * Used to set focus to the chip-set input field.
+     *
+     * @returns {void}
+     */
     @Method()
-    public focus() {
+    public setFocus() {
         this.editMode = true;
         this.host.shadowRoot.querySelector('input').focus();
     }
