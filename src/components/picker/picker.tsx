@@ -87,6 +87,7 @@ export class Picker {
     private element: HTMLElement;
 
     private debouncedSearch;
+    private chipSet;
 
     constructor() {
         this.handleElementBlur = this.handleElementBlur.bind(this);
@@ -108,8 +109,7 @@ export class Picker {
             return;
         }
 
-        const chipSet = this.element.shadowRoot.querySelector('limel-chip-set');
-        chipSet.setFocus();
+        this.chipSet.setFocus();
     }
 
     public componentDidLoad() {
@@ -118,6 +118,7 @@ export class Picker {
             SEARCH_DEBOUNCE
         );
         this.element.addEventListener('blur', this.handleElementBlur);
+        this.chipSet = this.element.shadowRoot.querySelector('limel-chip-set');
     }
 
     public componentDidUnload() {
@@ -175,6 +176,11 @@ export class Picker {
      */
     private renderDropdown() {
         if (!this.multiple && this.value) {
+            // Don't render the dropdown if the picker is already "full".
+            return;
+        }
+        if (!(this.chipSet && this.chipSet.getEditMode())) {
+            // Don't render the dropdown if the picker is not in edit mode.
             return;
         }
 
