@@ -94,9 +94,10 @@ export class ChipSet {
         this.handleTextInput = this.handleTextInput.bind(this);
     }
 
-    @Watch('value')
-    public handleChangeChips() {
-        this.textValue = ' ';
+    @Method()
+    public focus() {
+        this.editMode = true;
+        this.host.shadowRoot.querySelector('input').focus();
     }
 
     public componentDidLoad() {
@@ -129,12 +130,6 @@ export class ChipSet {
         }
     }
 
-    @Method()
-    public focus() {
-        this.editMode = true;
-        this.host.shadowRoot.querySelector('input').focus();
-    }
-
     public render() {
         if (this.type === 'input') {
             return this.renderInputChips();
@@ -150,6 +145,11 @@ export class ChipSet {
                 {this.value.map(this.renderChip)}
             </div>
         );
+    }
+
+    @Watch('value')
+    protected handleChangeChips() {
+        this.textValue = ' ';
     }
 
     private createMDCChipSet() {
