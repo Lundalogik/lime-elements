@@ -95,6 +95,16 @@ export class ChipSet {
     }
 
     /**
+     * Used to find out whether the chip-set is in edit mode.
+     *
+     * @returns {boolean} `true` if the chip-set is in edit mode, `false` otherwise.
+     */
+    @Method()
+    public getEditMode() {
+        return this.editMode;
+    }
+
+    /**
      * Used to set focus to the chip-set input field.
      *
      * @returns {void}
@@ -232,6 +242,9 @@ export class ChipSet {
                         }`}
                         value={textValue}
                         onBlur={this.handleInputBlur}
+                        onFocus={() => {
+                            this.editMode = true;
+                        }}
                         onInput={this.handleTextInput}
                     />
                 </div>
