@@ -88,6 +88,7 @@ export class Picker {
     private element: HTMLElement;
 
     private debouncedSearch;
+    private chipSet;
 
     constructor() {
         this.handleElementBlur = this.handleElementBlur.bind(this);
@@ -110,10 +111,7 @@ export class Picker {
             return;
         }
 
-        const chipSet = this.element.shadowRoot.querySelector(
-            CHIP_SET_TAG_NAME
-        );
-        chipSet.setFocus();
+        this.chipSet.setFocus();
     }
 
     public componentDidLoad() {
@@ -123,6 +121,7 @@ export class Picker {
         );
         this.element.addEventListener('blur', this.handleElementBlur);
         this.element.addEventListener('focus', this.handleElementFocus);
+        this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
     }
 
     public componentDidUnload() {
@@ -193,6 +192,11 @@ export class Picker {
      */
     private renderDropdown() {
         if (!this.multiple && this.value) {
+            // Don't render the dropdown if the picker is already "full".
+            return;
+        }
+        if (!(this.chipSet && this.chipSet.getEditMode())) {
+            // Don't render the dropdown if the picker is not in edit mode.
             return;
         }
 
@@ -252,10 +256,7 @@ export class Picker {
      * @returns {void}
      */
     private handleElementFocus() {
-        const chipSet: HTMLLimelChipSetElement = this.element.shadowRoot.querySelector(
-            CHIP_SET_TAG_NAME
-        );
-        chipSet.setFocus();
+        this.chipSet.setFocus();
     }
 
     /**
@@ -306,10 +307,7 @@ export class Picker {
      */
     private async handleTextFieldFocus() {
         if (this.value && !this.multiple) {
-            const chipSet = this.element.shadowRoot.querySelector(
-                CHIP_SET_TAG_NAME
-            );
-            chipSet.blur();
+            this.chipSet.blur();
 
             return;
         }
