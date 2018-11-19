@@ -1,3 +1,12 @@
+# [9.9.0](https://github.com/Lundalogik/lime-elements/compare/v9.8.0...v9.9.0) (2018-11-19)
+
+
+### Features
+
+* **list:** support for icons ([eb1021f](https://github.com/Lundalogik/lime-elements/commit/eb1021f))
+* **menu:** support for icons ([7eee825](https://github.com/Lundalogik/lime-elements/commit/7eee825))
+* **picker:** support for icons ([ccda724](https://github.com/Lundalogik/lime-elements/commit/ccda724))
+
 # [9.8.0](https://github.com/Lundalogik/lime-elements/compare/v9.7.0...v9.8.0) (2018-11-15)
 
 
