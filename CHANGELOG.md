@@ -1,3 +1,15 @@
+# [10.0.0](https://github.com/Lundalogik/lime-elements/compare/v9.9.0...v10.0.0) (2018-11-20)
+
+
+### Bug Fixes
+
+* **limel-chip-set:** change name of method `focus` to `setFocus` ([f849e8e](https://github.com/Lundalogik/lime-elements/commit/f849e8e))
+
+
+### BREAKING CHANGES
+
+* **limel-chip-set:** The method `focus()` on `limel-chip-set` has been renamed to `setFocus()`.
+
 # [9.9.0](https://github.com/Lundalogik/lime-elements/compare/v9.8.0...v9.9.0) (2018-11-19)
 
 
