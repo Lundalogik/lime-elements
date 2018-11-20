@@ -1,3 +1,10 @@
+## [10.0.1](https://github.com/Lundalogik/lime-elements/compare/v10.0.0...v10.0.1) (2018-11-20)
+
+
+### Bug Fixes
+
+* **picker:** set focus to text field when picker receives focus ([7abe7a2](https://github.com/Lundalogik/lime-elements/commit/7abe7a2))
+
 # [10.0.0](https://github.com/Lundalogik/lime-elements/compare/v9.9.0...v10.0.0) (2018-11-20)
 
 
