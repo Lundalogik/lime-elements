@@ -20,6 +20,7 @@ import {
 import { Chip } from '../chip-set/chip';
 
 const SEARCH_DEBOUNCE = 500;
+const CHIP_SET_TAG_NAME = 'limel-chip-set';
 
 @Component({
     tag: 'limel-picker',
@@ -90,6 +91,7 @@ export class Picker {
 
     constructor() {
         this.handleElementBlur = this.handleElementBlur.bind(this);
+        this.handleElementFocus = this.handleElementFocus.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
@@ -108,7 +110,9 @@ export class Picker {
             return;
         }
 
-        const chipSet = this.element.shadowRoot.querySelector('limel-chip-set');
+        const chipSet = this.element.shadowRoot.querySelector(
+            CHIP_SET_TAG_NAME
+        );
         chipSet.setFocus();
     }
 
@@ -118,10 +122,12 @@ export class Picker {
             SEARCH_DEBOUNCE
         );
         this.element.addEventListener('blur', this.handleElementBlur);
+        this.element.addEventListener('focus', this.handleElementFocus);
     }
 
     public componentDidUnload() {
         this.element.removeEventListener('blur', this.handleElementBlur);
+        this.element.removeEventListener('focus', this.handleElementFocus);
     }
 
     public render() {
@@ -241,6 +247,18 @@ export class Picker {
     }
 
     /**
+     * Set focus to the text field when this control receives focus
+     *
+     * @returns {void}
+     */
+    private handleElementFocus() {
+        const chipSet: HTMLLimelChipSetElement = this.element.shadowRoot.querySelector(
+            CHIP_SET_TAG_NAME
+        );
+        chipSet.setFocus();
+    }
+
+    /**
      * Input handler for the text field
      *
      * @param {InputEvent} event event
@@ -289,7 +307,7 @@ export class Picker {
     private async handleTextFieldFocus() {
         if (this.value && !this.multiple) {
             const chipSet = this.element.shadowRoot.querySelector(
-                'limel-chip-set'
+                CHIP_SET_TAG_NAME
             );
             chipSet.blur();
 
