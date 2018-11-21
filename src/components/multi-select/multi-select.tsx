@@ -1,15 +1,5 @@
-import { MDCCheckbox } from '@lime-material/checkbox';
-import { MDCFormField } from '@lime-material/form-field';
-
-import {
-    Component,
-    Element,
-    Event,
-    EventEmitter,
-    Prop,
-    State,
-} from '@stencil/core';
-import { Option } from '../../interface';
+import { Component, Event, EventEmitter, Prop, State } from '@stencil/core';
+import { ListItem, Option } from '../../interface';
 import { createRandomString } from '../../util/random-string';
 
 @Component({
@@ -40,38 +30,23 @@ export class MultiSelect {
     @Event()
     private change: EventEmitter;
 
-    @Element()
-    private limelMultiSelect: HTMLElement;
-
     @State()
     private fieldId = createRandomString();
 
     @State()
-    private mdcCheckboxes = [];
-
-    @State()
     private open = this.alwaysShowOptions;
 
-    public componentDidLoad() {
-        const elements = Array.from(
-            this.limelMultiSelect.shadowRoot.querySelectorAll(
-                '.multi-select .mdc-form-field'
-            )
-        );
+    private items: ListItem[] = [];
 
-        elements.forEach(element => {
-            const formField = new MDCFormField(element);
-            const checkbox = new MDCCheckbox(element.firstChild);
-            formField.input = checkbox;
-            this.mdcCheckboxes.push(checkbox);
-        });
-
-        this.onChange();
-    }
-
-    public componentDidUnload() {
-        this.mdcCheckboxes.forEach(checkbox => {
-            checkbox.destroy();
+    public componentWillLoad() {
+        this.options.forEach(option => {
+            const item: ListItem = {
+                id: option.value,
+                text: option.text,
+                disabled: option.disabled,
+                checked: !!this.isOptionChecked(option),
+            };
+            this.items.push(item);
         });
     }
 
@@ -93,9 +68,11 @@ export class MultiSelect {
                             ${this.open ? 'multi-select-surface-open' : ''}
                            `}
                     >
-                        {this.options.map((option: Option, index: number) => {
-                            return this.renderCheckbox(index, option);
-                        })}
+                        <limel-list
+                            onChange={this.onChange}
+                            includeCheckboxes={true}
+                            items={this.items}
+                        />
                     </div>
                 </div>
             </div>
@@ -122,7 +99,7 @@ export class MultiSelect {
                         onClick={this.onTriggerClick}
                     >
                         <span>{this.label}</span>
-                    </limel-icon-button>{' '}
+                    </limel-icon-button>
                 </div>
             );
         }
@@ -137,63 +114,20 @@ export class MultiSelect {
             .join(', ');
     }
 
-    private renderCheckbox(index: number, option: Option) {
-        return (
-            <div class="mdc-form-field">
-                <div
-                    class={`
-                        mdc-checkbox
-                        ${this.disabled ? 'mdc-checkbox--disabled' : ''}
-                    `}
-                >
-                    <input
-                        type="checkbox"
-                        class="mdc-checkbox__native-control"
-                        id={this.fieldId + '_' + index.toString()}
-                        value={option.value}
-                        checked={!!this.isOptionChecked(option)}
-                        disabled={this.disabled}
-                        onChange={this.onChange}
-                    />
-                    <div class="mdc-checkbox__background">
-                        <svg
-                            class="mdc-checkbox__checkmark"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                class="mdc-checkbox__checkmark-path"
-                                fill="none"
-                                d="M1.73,12.91 8.1,19.28 22.79,4.59"
-                            />
-                        </svg>
-                        <div class="mdc-checkbox__mixedmark" />
-                    </div>
-                </div>
-                <label htmlFor={this.fieldId + '_' + index.toString()}>
-                    {option.text}
-                </label>
-            </div>
-        );
-    }
-
     private isOptionChecked(option: Option) {
         return this.value.find(checkedOption => {
             return checkedOption.value === option.value;
         });
     }
 
-    private onChange = () => {
-        const checked = this.options.filter(option => {
-            const optionChecked = this.mdcCheckboxes.some(mdcCheckbox => {
-                return (
-                    mdcCheckbox.checked && mdcCheckbox.value === option.value
-                );
+    private onChange = event => {
+        event.stopPropagation();
+        const selectedOptions = this.options.filter(option => {
+            return event.detail.find(item => {
+                return item.id === option.value;
             });
-            if (optionChecked) {
-                return option;
-            }
         });
-        this.change.emit(checked);
+        this.change.emit(selectedOptions);
     };
 
     private onTriggerClick = () => {
