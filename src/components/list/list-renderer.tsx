@@ -7,6 +7,7 @@ export class ListRenderer {
         isOpen: true,
         selectable: false,
         badgeIcons: false,
+        includeCheckboxes: false,
     };
 
     public render(
@@ -15,7 +16,6 @@ export class ListRenderer {
     ) {
         items = items || [];
         config = { ...this.defaultConfig, ...config };
-
         const twoLines = items.some(item => {
             return 'secondaryText' in item && !!item.secondaryText;
         });
@@ -66,12 +66,19 @@ export class ListRenderer {
 
         return (
             <li
-                class="mdc-list-item"
+                class="mdc-list-item mdc-form-field"
                 role={config.isMenu ? 'menuitem' : ''}
                 tabindex={item.disabled ? '-1' : '0'}
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 data-index={index}
             >
+                {config.includeCheckboxes
+                    ? this.renderCheckboxes(
+                          item.checked,
+                          item.disabled,
+                          item.id
+                      )
+                    : null}
                 {item.icon ? this.renderIcon(item) : null}
                 {this.renderText(item.text, item.secondaryText)}
             </li>
@@ -88,7 +95,7 @@ export class ListRenderer {
      */
     private renderText(text: string, secondaryText?: string) {
         if (!secondaryText) {
-            return text;
+            return <label>{text}</label>;
         }
 
         return (
@@ -121,6 +128,48 @@ export class ListRenderer {
                 style={style}
                 size="medium"
             />
+        );
+    }
+
+    /**
+     *
+     * Render a checkbox for a list item
+     * @param {boolean} checked checkbox
+     * @param {boolean} disabled checkbox
+     * @param  {string} value of checkbox
+     * @returns {HTMLElement} the checkbox
+     */
+
+    private renderCheckboxes(
+        checked: boolean,
+        disabled: boolean,
+        value: string
+    ) {
+        return (
+            <div
+                class={`
+                            mdc-checkbox
+                            ${disabled ? 'mdc-checkbox--disabled' : ''}
+                        `}
+            >
+                <input
+                    type="checkbox"
+                    class="mdc-checkbox__native-control"
+                    value={value}
+                    checked={checked}
+                    disabled={disabled}
+                />
+                <div class="mdc-checkbox__background">
+                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                        <path
+                            className="mdc-checkbox__checkmark-path"
+                            fill="none"
+                            d="M1.73,12.91 8.1,19.28 22.79,4.59"
+                        />
+                    </svg>
+                    <div class="mdc-checkbox__mixedmark" />
+                </div>
+            </div>
         );
     }
 }

@@ -133,8 +133,8 @@ describe('limel-list', async () => {
             expect(innerList).toHaveClass('mdc-list--two-line');
         });
         it('renders items withOUT secondary text as single line', () => {
-            expect(innerList.children[0].children).toHaveLength(0);
-            expect(innerList.children[0]).toEqualText('item 1');
+            expect(innerList.children[0].children[0].children).toHaveLength(0);
+            expect(innerList.children[0].children[0]).toEqualText('item 1');
         });
         it('renders items WITH secondary text as two lines', () => {
             expect(innerList.children[2].children).toHaveLength(1);
@@ -219,6 +219,44 @@ describe('limel-list', async () => {
                         expect(spy).toHaveReceivedEventDetail(items[0]);
                     });
                 });
+            });
+        });
+    });
+
+    describe('when the attribute `includeCheckboxes`', () => {
+        let items;
+        beforeEach(async () => {
+            items = [{ text: 'item 1' }];
+            await limelList.setProperty('items', items);
+            await page.waitForChanges();
+        });
+        describe('is not set', () => {
+            it('is not selectable and does not contain checkboxes', () => {
+                expect(innerList).not.toHaveClass('selectable');
+                expect(innerList.children[0].children).toHaveLength(1);
+            });
+            it('the property is falsy', async () => {
+                const propValue = await limelList.getProperty(
+                    'includeCheckboxes'
+                );
+                expect(propValue).toBeFalsy();
+            });
+        });
+
+        describe('is set', () => {
+            beforeEach(async () => {
+                await limelList.setProperty('includeCheckboxes', true);
+                await page.waitForChanges();
+            });
+            it('is selectable and contains checkboxes', () => {
+                expect(innerList).toHaveClass('selectable');
+                expect(innerList.children[0].children).toHaveLength(2); // label and checkbox
+            });
+            it('the property is `true`', async () => {
+                const propValue = await limelList.getProperty(
+                    'includeCheckboxes'
+                );
+                expect(propValue).toBe(true);
             });
         });
     });

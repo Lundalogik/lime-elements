@@ -1,5 +1,14 @@
+import { MDCCheckbox } from '@lime-material/checkbox';
+import { MDCFormField } from '@lime-material/form-field';
 import { MDCList } from '@lime-material/list';
-import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Prop,
+    State,
+} from '@stencil/core';
 import { ListItem, ListSeparator } from '../../interface';
 import { ListRenderer } from './list-renderer';
 import { ListRendererConfig } from './list-renderer-config';
@@ -28,6 +37,13 @@ export class List {
     @Prop()
     public badgeIcons: boolean;
 
+    /**
+     * True if each list item should start with a checkbox.
+     * No support in combination with icons.
+     */
+    @Prop()
+    public includeCheckboxes: boolean;
+
     @Element()
     private element: HTMLElement;
 
@@ -35,47 +51,64 @@ export class List {
     private listRenderer = new ListRenderer();
 
     /**
-     * Fired when a new value has been selected from the list. Only fired if selectable is set to true
+     * Fired when a new value has been selected from the list. Only fired if selectable or includeCheckboxes is set to true
      */
     @Event()
     private change: EventEmitter;
+
+    @State()
+    private mdcCheckboxes = [];
 
     public componentDidLoad() {
         this.mdcList = new MDCList(
             this.element.shadowRoot.querySelector('.mdc-list')
         );
 
-        if (!this.selectable) {
-            return;
+        if (this.selectable || this.includeCheckboxes) {
+            this.mdcList.singleSelection = true;
+
+            // This is ugly and not the right way to do it.
+            // A better way would be to implement our own
+            // adapter and foundation classes for MDCList
+            // that works with the shadow DOM
+            this.mdcList.foundation_.adapter_.getFocusedElementIndex = () => {
+                return this.mdcList.listElements.indexOf(
+                    this.element.shadowRoot.activeElement
+                );
+            };
+            const setSelectedIndex = this.mdcList.foundation_.setSelectedIndex;
+            const self = this; // tslint:disable-line:no-this-assignment
+            this.mdcList.foundation_.setSelectedIndex = function(...args) {
+                setSelectedIndex.apply(this, args);
+                self.handleSelectItem(args[0]);
+            };
+            if (this.includeCheckboxes) {
+                const elements = Array.from(
+                    this.element.shadowRoot.querySelectorAll('.mdc-form-field')
+                );
+
+                elements.forEach(element => {
+                    const formField = new MDCFormField(element);
+                    const checkbox = new MDCCheckbox(element.firstChild);
+                    formField.input = checkbox;
+                    this.mdcCheckboxes.push(checkbox);
+                });
+            }
         }
-
-        this.mdcList.singleSelection = true;
-
-        // This is ugly and not the right way to do it.
-        // A better way would be to implement our own
-        // adapter and foundation classes for MDCList
-        // that works with the shadow DOM
-        this.mdcList.foundation_.adapter_.getFocusedElementIndex = () => {
-            return this.mdcList.listElements.indexOf(
-                this.element.shadowRoot.activeElement
-            );
-        };
-        const setSelectedIndex = this.mdcList.foundation_.setSelectedIndex;
-        const self = this; // tslint:disable-line:no-this-assignment
-        this.mdcList.foundation_.setSelectedIndex = function(...args) {
-            setSelectedIndex.apply(this, args);
-            self.handleSelectItem(args[0]);
-        };
     }
 
     public componentDidUnload() {
         this.mdcList.destroy();
+        this.mdcCheckboxes.forEach(checkbox => {
+            checkbox.destroy();
+        });
     }
 
     public render() {
         const config: ListRendererConfig = {
-            selectable: this.selectable,
+            selectable: this.selectable || this.includeCheckboxes,
             badgeIcons: this.badgeIcons,
+            includeCheckboxes: this.includeCheckboxes,
         };
         return this.listRenderer.render(this.items, config);
     }
@@ -88,16 +121,32 @@ export class List {
      * @returns {void}
      */
     private handleSelectItem(index: number) {
-        const selectedElement = this.element.shadowRoot.querySelector(
-            '.mdc-list-item--selected'
-        );
-        let selectedItem: ListItem = null;
-        if (selectedElement) {
-            selectedItem = this.items.filter(item => {
-                return !('separator' in item);
-            })[index] as ListItem;
-        }
+        if (this.selectable) {
+            const selectedElement = this.element.shadowRoot.querySelector(
+                '.mdc-list-item--selected'
+            );
+            let selectedItem: ListItem = null;
+            if (selectedElement) {
+                selectedItem = this.items.filter(item => {
+                    return !('separator' in item);
+                })[index] as ListItem;
+            }
 
-        this.change.emit(selectedItem);
+            this.change.emit(selectedItem);
+        }
+        if (this.includeCheckboxes) {
+            const checked = this.items.filter((item: ListItem) => {
+                const optionChecked = this.mdcCheckboxes.some(mdcCheckbox => {
+                    return (
+                        mdcCheckbox.checked &&
+                        mdcCheckbox.value === item.id.toString()
+                    );
+                });
+                if (optionChecked) {
+                    return item;
+                }
+            });
+            this.change.emit(checked);
+        }
     }
 }

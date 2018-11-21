@@ -3,4 +3,5 @@ export interface ListRendererConfig {
     isOpen?: boolean;
     selectable?: boolean;
     badgeIcons?: boolean;
+    includeCheckboxes?: boolean;
 }

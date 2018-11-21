@@ -24,6 +24,11 @@ export interface ListItem {
      */
     iconColor?: string;
 
+    /**
+     * True if a checkbox of this item should be checked
+     */
+    checked?: boolean;
+
     [data: string]: any;
 }
 
