@@ -1,5 +1,6 @@
 import { MDCCheckbox } from '@lime-material/checkbox';
 import { MDCFormField } from '@lime-material/form-field';
+
 import {
     Component,
     Element,
@@ -29,6 +30,13 @@ export class MultiSelect {
     @Prop()
     public options: Option[] = [];
 
+    /**
+     * default: `false`.
+     * If `true` it shows just the options without a summary and a trigger.
+     */
+    @Prop({ reflectToAttr: true })
+    public alwaysShowOptions = false;
+
     @Event()
     private change: EventEmitter;
 
@@ -40,6 +48,9 @@ export class MultiSelect {
 
     @State()
     private mdcCheckboxes = [];
+
+    @State()
+    private open = this.alwaysShowOptions;
 
     public componentDidLoad() {
         const elements = Array.from(
@@ -58,6 +69,12 @@ export class MultiSelect {
         this.onChange();
     }
 
+    public componentDidUnload() {
+        this.mdcCheckboxes.forEach(checkbox => {
+            checkbox.destroy();
+        });
+    }
+
     public render() {
         return (
             <div>
@@ -65,17 +82,64 @@ export class MultiSelect {
                     {this.label}
                 </label>
                 <div class="multi-select" id={this.fieldId}>
-                    {this.options.map((option: Option, index: number) => {
-                        return this.renderCheckbox(index, option);
-                    })}
+                    {this.renderTrigger()}
+                    <div
+                        class={` multi-select-options
+                            ${
+                                !this.alwaysShowOptions
+                                    ? 'multi-select-surface'
+                                    : ''
+                            }
+                            ${this.open ? 'multi-select-surface-open' : ''}
+                           `}
+                    >
+                        {this.options.map((option: Option, index: number) => {
+                            return this.renderCheckbox(index, option);
+                        })}
+                    </div>
                 </div>
             </div>
         );
     }
 
+    private renderTrigger() {
+        if (!this.alwaysShowOptions) {
+            return (
+                <div class="multi-select-trigger">
+                    <div
+                        class="multi-select-trigger-values"
+                        onClick={this.onTriggerClick}
+                    >
+                        {this.renderValues()}
+                    </div>
+                    <limel-icon-button
+                        icon="arrows/chevron_down_round"
+                        class={`
+                        menu__trigger
+                        ${this.disabled ? '' : 'menu__trigger-enabled'}
+                    `}
+                        disabled={this.disabled}
+                        onClick={this.onTriggerClick}
+                    >
+                        <span>{this.label}</span>
+                    </limel-icon-button>{' '}
+                </div>
+            );
+        }
+        return '';
+    }
+
+    private renderValues() {
+        return this.value
+            .map(option => {
+                return option.text;
+            })
+            .join(', ');
+    }
+
     private renderCheckbox(index: number, option: Option) {
         return (
-            <div class="mdc-form-field ">
+            <div class="mdc-form-field">
                 <div
                     class={`
                         mdc-checkbox
@@ -130,5 +194,9 @@ export class MultiSelect {
             }
         });
         this.change.emit(checked);
+    };
+
+    private onTriggerClick = () => {
+        this.open = !this.open;
     };
 }

@@ -1,6 +1,20 @@
 @import '@lime-material/form-field/mdc-form-field';
 @import '@lime-material/checkbox/mdc-checkbox';
 
+.multi-select-surface {
+    display: none;
+    &.multi-select-surface-open {
+        display: block;
+    }
+}
+.multi-select-trigger {
+    border-bottom-style: groove;
+
+    & .multi-select-trigger-values {
+        width: calc(100% - #{$icon-button-width});
+        display: inline-block;
+    }
+}
 .mdc-form-field {
     display: flex;
 }

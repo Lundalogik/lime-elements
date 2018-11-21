@@ -36,6 +36,76 @@ describe('limel-multi-select', () => {
         });
     });
 
+    describe('when the attribute `alwaysShowOptions`', () => {
+        describe('is not set', () => {
+            let limelMultiSelect;
+            let triggerElement;
+            let optionsElement;
+            beforeEach(async () => {
+                const { options, value } = setupTestData();
+                page = await createPage(`
+                    <limel-multi-select label="Favourite Doctors"></limel-multi-select>
+                `);
+                limelMultiSelect = await page.find('limel-multi-select');
+                await limelMultiSelect.setProperty('options', options);
+                await limelMultiSelect.setProperty('value', value);
+                await page.waitForChanges();
+                triggerElement = await page.find(
+                    'limel-multi-select >>> .multi-select'
+                );
+                optionsElement = await page.find(
+                    'limel-multi-select >>> .multi-select-options'
+                );
+            });
+            it('has class multi-select-surface', () => {
+                expect(
+                    optionsElement.classList.contains('multi-select-surface')
+                ).toBeTruthy();
+            });
+
+            it('renders trigger button', () => {
+                expect(triggerElement.children[0]).toEqualAttribute(
+                    'class',
+                    'multi-select-trigger'
+                );
+            });
+        });
+        describe('is not set to true', () => {
+            let limelMultiSelect;
+            let triggerElement;
+            let optionsElement;
+            beforeEach(async () => {
+                const { options, value } = setupTestData();
+                page = await createPage(`
+                    <limel-multi-select label="Favourite Doctors"></limel-multi-select>
+                `);
+                limelMultiSelect = await page.find('limel-multi-select');
+                await limelMultiSelect.setProperty('options', options);
+                await limelMultiSelect.setProperty('value', value);
+                await limelMultiSelect.setProperty('alwaysShowOptions', true);
+                await page.waitForChanges();
+                triggerElement = await page.find(
+                    'limel-multi-select >>> .multi-select'
+                );
+                optionsElement = await page.find(
+                    'limel-multi-select >>> .multi-select-options'
+                );
+            });
+            it('has no class multi-select-surface', () => {
+                expect(
+                    optionsElement.classList.contains('multi-select-surface')
+                ).toBeFalsy();
+            });
+
+            it('renders trigger button', () => {
+                expect(triggerElement.children[0]).not.toEqualAttribute(
+                    'class',
+                    'multi-select-trigger'
+                );
+            });
+        });
+    });
+
     describe('when the attribute `disabled`', () => {
         describe('is not set', () => {
             let limelMultiSelect;
