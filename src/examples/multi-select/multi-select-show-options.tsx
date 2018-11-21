@@ -3,9 +3,9 @@ import { Option } from '../../components/select/option';
 
 @Component({
     shadow: true,
-    tag: 'limel-example-multi-select',
+    tag: 'limel-example-multi-select-show-options',
 })
-export class MultiSelectExample {
+export class MultiSelectShowOptionsExample {
     @State()
     private basicOptions: Option[] = [
         { text: 'Luke Skywalker', value: 'luke' },
@@ -16,27 +16,15 @@ export class MultiSelectExample {
     @State()
     private basicValue: Option[] = [{ text: 'Han Solo', value: 'han' }];
 
-    @State()
-    private disabled = false;
-
     public render() {
         return [
             <section>
-                <h3>Basic Usage</h3>
-                <limel-button-group>
-                    <limel-button
-                        label="Toggle disabled"
-                        primary={true}
-                        onClick={() => {
-                            this.disabled = !this.disabled;
-                        }}
-                    />
-                </limel-button-group>
+                <h3>Show options without summary and trigger</h3>
                 <limel-multi-select
+                    alwaysShowOptions={true}
                     options={this.basicOptions}
                     value={this.basicValue}
                     label="Favorite heros"
-                    disabled={this.disabled}
                     onChange={event => {
                         this.basicValue = event.detail;
                     }}
