@@ -2,12 +2,12 @@ import { Component, State } from '@stencil/core';
 import { ListItem, ListSeparator } from '../../interface';
 
 const icons = [
-    'Editing/copy',
-    'Editing/cut',
-    'Editing/paste',
+    'copy',
+    'cut',
+    'paste',
     '',
-    'user_interface/add',
-    'Editing/delete',
+    'add',
+    'delete',
 ];
 
 @Component({

@@ -389,7 +389,7 @@ export class ChipSet {
                 class="mdc-chip__icon mdc-chip__icon--trailing"
                 tabindex="0"
                 role="button"
-                name="Science/multiply"
+                name="multiply"
             />
         );
     }

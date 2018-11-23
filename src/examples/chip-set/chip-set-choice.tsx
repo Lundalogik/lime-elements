@@ -11,18 +11,18 @@ export class ChipSetChoiceExample {
         {
             id: '1',
             text: 'Lime',
-            icon: 'plants/citrus',
+            icon: 'citrus',
         },
         {
             id: '2',
             text: 'Apple',
             selected: true,
-            icon: 'food/apple',
+            icon: 'apple',
         },
         {
             id: '3',
             text: 'Banana',
-            icon: 'food/banana',
+            icon: 'banana',
         },
     ];
 

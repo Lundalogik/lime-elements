@@ -7,11 +7,11 @@ import { ListItem } from '../../interface';
 })
 export class IconsListExample {
     private items: ListItem[] = [
-        { text: 'King of Tokyo', id: 1, icon: 'animals/gorilla' },
-        { text: 'Smash Up!', id: 2, icon: 'cinema/alien' },
-        { text: 'Pandemic', id: 3, icon: 'Healthcare/virus' },
-        { text: 'Catan', id: 4, icon: 'plants/wheat' },
-        { text: 'Ticket to Ride', id: 5, icon: 'transport/steam_engine' },
+        { text: 'King of Tokyo', id: 1, icon: 'gorilla' },
+        { text: 'Smash Up!', id: 2, icon: 'alien' },
+        { text: 'Pandemic', id: 3, icon: 'virus' },
+        { text: 'Catan', id: 4, icon: 'wheat' },
+        { text: 'Ticket to Ride', id: 5, icon: 'steam_engine' },
     ];
 
     public render() {
