@@ -75,7 +75,7 @@ export class ChipSetInputExample {
             id: name,
             text: name,
             removable: true,
-            icon: `animals/${name}`.toLowerCase(),
+            icon: `${name}`.toLowerCase(),
         };
     }
 }

@@ -9,7 +9,7 @@ export class BadgeExample {
         return [
             <limel-badge
                 size="x-small"
-                icon="Sports/teams"
+                icon="teams"
                 style={{
                     '--background-color': 'rgb(255, 176, 59)',
                 }}
@@ -17,7 +17,7 @@ export class BadgeExample {
             <br />,
             <limel-badge
                 size="small"
-                icon="Objects/money"
+                icon="money"
                 style={{
                     '--background-color': 'rgb(102, 187, 106)',
                 }}
@@ -25,7 +25,7 @@ export class BadgeExample {
             <br />,
             <limel-badge
                 size="medium"
-                icon="business/organization"
+                icon="organization"
                 style={{
                     '--background-color': 'rgb(41, 182, 246)',
                 }}
@@ -33,7 +33,7 @@ export class BadgeExample {
             <br />,
             <limel-badge
                 size="large"
-                icon="business/decision"
+                icon="decision"
                 style={{
                     '--background-color': '#ff7043',
                 }}
