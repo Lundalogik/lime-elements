@@ -15,7 +15,7 @@ export class IconButtonExample {
                 <p>
                     <limel-icon-button
                         label="Add favourite"
-                        icon="Lime/heart_outlined"
+                        icon="heart_outlined"
                     />
                 </p>
             </section>,
@@ -28,8 +28,8 @@ export class IconButtonExample {
                         }
                         icon={
                             this.isFavorite
-                                ? 'Lime/heart_filled'
-                                : 'Lime/heart_outlined'
+                                ? 'heart_filled'
+                                : 'heart_outlined'
                         }
                         onClick={() => {
                             this.isFavorite = !this.isFavorite;
@@ -42,7 +42,7 @@ export class IconButtonExample {
                 <p>
                     <limel-icon-button
                         label="Add favourite"
-                        icon="Lime/heart_outlined"
+                        icon="heart_outlined"
                         disabled={true}
                     />
                 </p>

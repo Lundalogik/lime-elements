@@ -14,35 +14,35 @@ export class PickerIconsExample {
             secondaryText:
                 'Anchor Hook, Anchor Drop, Ink Spray, Ink Propulsion',
             id: 1,
-            icon: 'animals/octopus',
+            icon: 'octopus',
             iconColor: '#ff7043',
         },
         {
             text: 'Ayla',
             secondaryText: 'Evil Eye, Rage, Chain Whack, Hop Skip',
             id: 2,
-            icon: 'Messaging/visible',
+            icon: 'visible',
             iconColor: '#ff3195',
         },
         {
             text: 'Clunk',
             secondaryText: 'Vacuum Bite, Explode, Missiles, Jet Boost',
             id: 3,
-            icon: 'Industry/robot_3',
+            icon: 'robot_3',
             iconColor: '#57879f',
         },
         {
             text: 'Coco',
             secondaryText: 'Ball Lightning, Blaze, Shock, Ollie',
             id: 4,
-            icon: 'Sports/surfing',
+            icon: 'surfing',
             iconColor: '#29b6f6',
         },
         {
             text: 'Derpl',
             secondaryText: 'Grid Trap, Siege Mode, Cat Shot, Booster Rocket',
             id: 5,
-            icon: 'animals/cat',
+            icon: 'cat',
             iconColor: '#66bb6a',
         },
         {
@@ -50,14 +50,14 @@ export class PickerIconsExample {
             secondaryText:
                 'Splash Dash, Tornado Move, Bolt .45 Fish-gun, Frog Jump',
             id: 6,
-            icon: 'animals/frog',
+            icon: 'frog',
             iconColor: '#26a69a',
         },
         {
             text: 'Gnaw',
             secondaryText: 'Acid Spit, Grow Weedling, Bite, Skroggle Jump',
             id: 7,
-            icon: 'animals/dog',
+            icon: 'dog',
             iconColor: '#ffb03b',
         },
         {
@@ -65,14 +65,14 @@ export class PickerIconsExample {
             secondaryText:
                 'Dynamite Throw, Summon Hyper Bull, Blaster, Double Jump',
             id: 8,
-            icon: 'city/sheriff',
+            icon: 'sheriff',
             iconColor: '#f05750',
         },
         {
             text: 'Leon',
             secondaryText: 'Tounge Snatch, Cloaking Skin, Slash, Reptile Jump',
             id: 9,
-            icon: 'Cultures/croissant',
+            icon: 'croissant',
             iconColor: '#ffcf3d',
         },
         {
@@ -80,14 +80,14 @@ export class PickerIconsExample {
             secondaryText:
                 'Timerift, Snipe, Protoblaster, Six Million Solar Human Jump',
             id: 10,
-            icon: 'Military/sniper_rifle',
+            icon: 'sniper_rifle',
             iconColor: '#575756',
         },
         {
             text: 'Skølldir',
             secondaryText: 'Mighty Throw, Earthquake, Bash, Explosive Fart',
             id: 11,
-            icon: 'food/beer',
+            icon: 'beer',
             iconColor: '#ffb03b',
         },
         {
@@ -95,14 +95,14 @@ export class PickerIconsExample {
             secondaryText:
                 'Suicide Drones, Healbot, Techno Synaptic Wave, Hover',
             id: 12,
-            icon: 'Healthcare/brain',
+            icon: 'brain',
             iconColor: '#ff3195',
         },
         {
             text: 'Yuri',
             secondaryText: 'Mine Deploying, Time Warp, Laser, Jet Pack',
             id: 13,
-            icon: 'Astrology/year_of_monkey',
+            icon: 'year_of_monkey',
             iconColor: '#adadad',
         },
     ];

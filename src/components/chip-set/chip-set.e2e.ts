@@ -86,12 +86,12 @@ describe('limel-chip-set', async () => {
             expect(chips[1]).toEqualText('Apple');
 
             let button = await chips[0].find(
-                'limel-icon[name="Science/multiply"][role="button"]'
+                'limel-icon[name="multiply"][role="button"]'
             );
             expect(button).toBeTruthy();
 
             button = await chips[1].find(
-                'limel-icon[name="Science/multiply"][role="button"]'
+                'limel-icon[name="multiply"][role="button"]'
             );
             expect(button).toBeFalsy();
         });
