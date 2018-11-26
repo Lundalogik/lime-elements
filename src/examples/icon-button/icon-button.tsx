@@ -27,9 +27,7 @@ export class IconButtonExample {
                             this.isFavorite ? 'Remove favorite' : 'Add favorite'
                         }
                         icon={
-                            this.isFavorite
-                                ? 'heart_filled'
-                                : 'heart_outlined'
+                            this.isFavorite ? 'heart_filled' : 'heart_outlined'
                         }
                         onClick={() => {
                             this.isFavorite = !this.isFavorite;
