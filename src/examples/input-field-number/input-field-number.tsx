@@ -15,7 +15,7 @@ export class InputFieldNumberExample {
     @State()
     public value: any;
     @State()
-    public formatOnNumber: boolean = true;
+    public formatNumber: boolean = true;
 
     public render() {
         return [
@@ -23,10 +23,10 @@ export class InputFieldNumberExample {
                 <limel-button-group>
                     <limel-button
                         onClick={() => {
-                            this.formatOnNumber = !this.formatOnNumber;
+                            this.formatNumber = !this.formatNumber;
                         }}
                         label={
-                            this.formatOnNumber
+                            this.formatNumber
                                 ? 'Unformat number'
                                 : 'Format number'
                         }
@@ -53,7 +53,7 @@ export class InputFieldNumberExample {
                         this.changeHandler(event);
                     }}
                     type="number"
-                    formatOnNumber={this.formatOnNumber}
+                    formatNumber={this.formatNumber}
                     disabled={this.disabled}
                     invalid={this.invalid}
                     required={this.required}
