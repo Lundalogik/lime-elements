@@ -77,12 +77,12 @@ export class InputField {
 
     /**
      * Set to `true` to format the current value of the input field only
-     * if the field is of the html-type number.
+     * if the field is of type number.
      * The number format is determined by the current language of the browser.
      * Defaults to `true`.
      */
     @Prop({ reflectToAttr: true })
-    public formatOnNumber = true;
+    public formatNumber = true;
 
     @State()
     private mdcTextField;
@@ -140,6 +140,7 @@ export class InputField {
                     required={this.required}
                     disabled={this.disabled}
                     type={this.type}
+                    step="any"
                 />
                 <span
                     class={`
@@ -178,7 +179,7 @@ export class InputField {
             return;
         }
 
-        const renderValue = this.formatOnNumber
+        const renderValue = this.formatNumber
             ? new Intl.NumberFormat(navigator.language).format(
                   Number(this.value)
               )
@@ -189,7 +190,18 @@ export class InputField {
     }
 
     private handleChange(event) {
-        this.change.emit(event.target.value);
+        let value = event.target.value;
+
+        if (this.type === 'number') {
+            if (!value && event.data) {
+                event.stopPropagation();
+                return;
+            }
+
+            value = Number(value);
+        }
+
+        this.change.emit(value);
     }
 
     private handleIconClick() {
