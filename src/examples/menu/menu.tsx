@@ -1,14 +1,7 @@
 import { Component, State } from '@stencil/core';
 import { ListItem, ListSeparator } from '../../interface';
 
-const icons = [
-    'copy',
-    'cut',
-    'paste',
-    '',
-    'add',
-    'delete',
-];
+const icons = ['copy', 'cut', 'paste', '', 'add', 'delete'];
 
 @Component({
     tag: 'limel-example-menu',
