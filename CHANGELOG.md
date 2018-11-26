@@ -1,3 +1,26 @@
+# [11.0.0](https://github.com/Lundalogik/lime-elements/compare/v10.0.2...v11.0.0) (2018-11-26)
+
+
+### Bug Fixes
+
+* **input-field:** onChange with number input emits a number instead of string ([1047f25](https://github.com/Lundalogik/lime-elements/commit/1047f25))
+
+
+### chore
+
+* **icons:** move icons to base folder ([0b58309](https://github.com/Lundalogik/lime-elements/commit/0b58309))
+
+
+### Features
+
+* **text-field:** adds support for number formatting ([661f9c6](https://github.com/Lundalogik/lime-elements/commit/661f9c6))
+
+
+### BREAKING CHANGES
+
+* **icons:** Icons have been moved out from the folder structure and are all located in one folder instead
+* **text-field:** Renames limel-text-field to limel-input-field.
+
 ## [10.0.2](https://github.com/Lundalogik/lime-elements/compare/v10.0.1...v10.0.2) (2018-11-22)
 
 
