@@ -11,7 +11,7 @@ export class BadgeExample {
                 size="x-small"
                 icon="teams"
                 style={{
-                    '--background-color': 'rgb(255, 176, 59)',
+                    '--background-color': 'var(--lime-orange)',
                 }}
             />,
             <br />,
@@ -19,7 +19,7 @@ export class BadgeExample {
                 size="small"
                 icon="money"
                 style={{
-                    '--background-color': 'rgb(102, 187, 106)',
+                    '--background-color': 'var(--lime-green)',
                 }}
             />,
             <br />,
@@ -27,7 +27,7 @@ export class BadgeExample {
                 size="medium"
                 icon="organization"
                 style={{
-                    '--background-color': 'rgb(41, 182, 246)',
+                    '--background-color': 'var(--lime-blue)',
                 }}
             />,
             <br />,
@@ -35,7 +35,7 @@ export class BadgeExample {
                 size="large"
                 icon="decision"
                 style={{
-                    '--background-color': '#ff7043',
+                    '--background-color': 'var(--lime-red)',
                 }}
             />,
         ];

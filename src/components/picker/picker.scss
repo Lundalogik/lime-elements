@@ -9,7 +9,7 @@
 
     limel-spinner {
         margin: 1rem 0;
-        color: $mdc-theme-primary;
+        color: var(--lime-primary-color, #{$mdc-theme-primary});
     }
 }
 

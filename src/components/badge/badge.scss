@@ -3,7 +3,7 @@ limel-icon {
     color: white;
     line-height: 0;
 
-    background-color: var(--background-color, #575756);
+    background-color: var(--background-color, var(--lime-dark-grey));
     border-radius: 50%;
 
     &[size="x-small"] {
