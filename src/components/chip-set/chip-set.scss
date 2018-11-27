@@ -45,4 +45,20 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         top: 2rem;
         bottom: auto;
     }
+
+    &:not(.mdc-text-field--disabled) {
+        background-color: var(--background-color, white);
+
+        &:not(.mdc-text-field--focused) {
+            border-bottom-style: solid;
+            border-bottom-width: .1rem;
+            border-bottom-color: rgba(0,0,0,.42);
+        }
+
+        &.mdc-text-field--focused {
+            border-bottom-style: solid;
+            border-bottom-width: .1rem;
+            border-bottom-color: rgba(0,0,0,0);
+        }
+    }
 }
