@@ -19,28 +19,28 @@ export class BadgeIconsListExample {
             secondaryText: '2-4 players',
             id: 2,
             icon: 'alien',
-            iconColor: '#66bb6a',
+            iconColor: 'var(--lime-green)',
         },
         {
             text: 'Pandemic',
             secondaryText: '2-4 players',
             id: 3,
             icon: 'virus',
-            iconColor: '#ff7043',
+            iconColor: 'var(--lime-red)',
         },
         {
             text: 'Catan',
             secondaryText: '3-4 players',
             id: 4,
             icon: 'wheat',
-            iconColor: '#ffb03b',
+            iconColor: 'var(--lime-orange)',
         },
         {
             text: 'Ticket to Ride',
             secondaryText: '2-5 players',
             id: 5,
             icon: 'steam_engine',
-            iconColor: '#57879f',
+            iconColor: 'var(--lime-dark-blue)',
         },
     ];
 

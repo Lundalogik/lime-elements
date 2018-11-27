@@ -14,4 +14,11 @@ export default {
             primary: '#00b3a7',
         },
     },
+    menu: [
+        {
+            name: 'Home',
+            menu: ['Lime Elements', 'Usage', 'Colors'],
+        },
+        'Components',
+    ],
 };
