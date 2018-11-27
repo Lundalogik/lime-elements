@@ -25,10 +25,10 @@ export class ChipSetInputExample {
             this.createChip('Fish'),
         ];
 
-        this.value[0].iconColor = '#ff7043'; // tslint:disable-line:no-magic-numbers
-        this.value[1].iconColor = '#ffb03b'; // tslint:disable-line:no-magic-numbers
-        this.value[2].iconColor = '#66bb6a'; // tslint:disable-line:no-magic-numbers
-        this.value[3].iconColor = '#29b6f6'; // tslint:disable-line:no-magic-numbers
+        this.value[0].iconColor = 'var(--lime-red)'; // tslint:disable-line:no-magic-numbers
+        this.value[1].iconColor = 'var(--lime-orange)'; // tslint:disable-line:no-magic-numbers
+        this.value[2].iconColor = 'var(--lime-green)'; // tslint:disable-line:no-magic-numbers
+        this.value[3].iconColor = 'var(--lime-blue)'; // tslint:disable-line:no-magic-numbers
     }
 
     public render() {

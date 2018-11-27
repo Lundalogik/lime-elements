@@ -1,8 +1,43 @@
-$mdc-theme-primary: #00a69c;
-$mdc-theme-secondary: #212121;
-$mdc-theme-on-primary: #ffffff;
-$mdc-theme-on-secondary: #ffffff;
+@import "./colors.scss";
+
+$mdc-theme-primary: $lime-turquoise;
+$mdc-theme-secondary: $lime-blue;
+$mdc-theme-background: #fff;
+$mdc-theme-surface: #fff;
+$mdc-theme-error: #b00020;
+$mdc-theme-on-primary: #fff;
+$mdc-theme-on-secondary: #fff;
+$mdc-theme-on-surface: #000;
+$mdc-theme-on-error: #fff;
+
+// The following variables are also available to be set if needed
+//
+// $mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+// $mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+// $mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
+// $mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
+// $mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
+// $mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
+// $mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+// $mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
+// $mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
+// $mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
+// $mdc-theme-text-primary-on-dark: white;
+// $mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+// $mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
+// $mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
+// $mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+
+:host {
+    --mdc-theme-primary: var(--lime-primary-color, #{$mdc-theme-primary});
+    --mdc-theme-secondary: var(--lime-secondary-color, #{$mdc-theme-secondary});
+    --mdc-theme-on-primary: var(--lime-on-primary-color, #{$mdc-theme-on-primary});
+    --mdc-theme-on-secondary: var(--lime-on-secondary-color, #{$mdc-theme-on-secondary});
+}
 
 $mdc-typography-styles-button: (
     text-transform: none,
 );
+
+@import "@lime-material/theme/mdc-theme";
+@import "@lime-material/typography/mdc-typography";

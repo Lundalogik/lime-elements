@@ -13,7 +13,7 @@
 
     &.mdc-list--avatar-list {
         limel-icon {
-            background-color: var(--icon-background-color, #adadad);
+            background-color: var(--icon-background-color, var(--lime-grey));
             color: white;
         }
     }

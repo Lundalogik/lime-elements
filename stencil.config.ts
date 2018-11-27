@@ -24,4 +24,5 @@ export const config: Config = {
     ],
     tsconfig: './tsconfig.dev.json',
     globalScript: 'src/global/index.ts',
+    globalStyle: 'src/global/colors.scss',
 };

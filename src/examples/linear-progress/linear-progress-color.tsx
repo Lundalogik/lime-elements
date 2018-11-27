@@ -6,17 +6,17 @@ import { Component, State } from '@stencil/core';
 })
 export class LinearProgressExampleColor {
     @State()
-    private color = { text: 'cornflowerblue', value: 'cornflowerblue' };
+    private color = { text: 'lime-blue', value: 'lime-blue' };
 
     private value = 0.85;
 
     private colors = [
-        { text: 'firebrick', value: 'firebrick' },
-        { text: 'chocolate', value: 'chocolate' },
-        { text: 'goldenrod', value: 'goldenrod' },
-        { text: 'seagreen', value: 'seagreen' },
-        { text: 'cornflowerblue', value: 'cornflowerblue' },
-        { text: 'rebeccapurple', value: 'rebeccapurple' },
+        { text: 'lime-red', value: 'lime-red' },
+        { text: 'lime-orange', value: 'lime-orange' },
+        { text: 'lime-yellow', value: 'lime-yellow' },
+        { text: 'lime-green', value: 'lime-green' },
+        { text: 'lime-blue', value: 'lime-blue' },
+        { text: 'lime-magenta', value: 'lime-magenta' },
     ];
 
     public render() {
@@ -33,8 +33,8 @@ export class LinearProgressExampleColor {
             <limel-linear-progress
                 value={this.value}
                 style={{
-                    '--mdc-theme-primary': this.color.value,
-                    '--background-color': 'aliceblue',
+                    '--lime-primary-color': `var(--${this.color.value})`,
+                    '--background-color': 'whitesmoke',
                 }}
             />,
         ];

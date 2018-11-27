@@ -23,4 +23,5 @@ export const config: Config = {
         '**/*.test-wrapper.*',
     ],
     globalScript: 'src/global/index.ts',
+    globalStyle: 'src/global/colors.scss',
 };
