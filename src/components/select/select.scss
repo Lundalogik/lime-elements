@@ -16,4 +16,8 @@
         padding-top: 2.5rem;
         padding-bottom: 0.2rem;
     }
+
+    &:not(.mdc-select--disabled) {
+        background-color: var(--background-color, white);
+    }
 }
