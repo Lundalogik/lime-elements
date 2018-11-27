@@ -11,6 +11,10 @@
 
 .mdc-text-field {
     width: 100%;
+
+    .mdc-text-field__input {
+        background-color: var(--background-color, white);
+    }
 }
 
 .mdc-text-field__formatted_input {
@@ -41,16 +45,3 @@
         color: rgba(0, 0, 0, 0.37);
     }
 }
-
-// .mdc-text-field {
-//     &.mdc-text-field--with-trailing-icon {
-//         .mdc-text-field__input {
-//             padding-left: 0;
-//         }
-
-//         .mdc-text-field__icon {
-//             bottom: 0.5rem;
-//             font-style: normal;
-//         }
-//     }
-// }
