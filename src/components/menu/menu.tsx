@@ -177,7 +177,7 @@ export class Menu {
             <limel-icon
                 class="mdc-list-item__graphic"
                 name={item.icon}
-                size="medium"
+                size="x-small"
             />
         );
     }
