@@ -1,3 +1,10 @@
+# [11.2.0](https://github.com/Lundalogik/lime-elements/compare/v11.1.0...v11.2.0) (2018-11-29)
+
+
+### Features
+
+* **colors:** define properties for setting colors ([a6c1333](https://github.com/Lundalogik/lime-elements/commit/a6c1333))
+
 # [11.1.0](https://github.com/Lundalogik/lime-elements/compare/v11.0.0...v11.1.0) (2018-11-29)
 
 
