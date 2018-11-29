@@ -1,3 +1,12 @@
+# [11.1.0](https://github.com/Lundalogik/lime-elements/compare/v11.0.0...v11.1.0) (2018-11-29)
+
+
+### Features
+
+* **chip-set:** allow setting background color when type is input ([7ba0fd3](https://github.com/Lundalogik/lime-elements/commit/7ba0fd3))
+* **input-field:** allow setting background color of field ([c770fe2](https://github.com/Lundalogik/lime-elements/commit/c770fe2))
+* **select:** allow setting background color of field ([c1e1375](https://github.com/Lundalogik/lime-elements/commit/c1e1375))
+
 # [11.0.0](https://github.com/Lundalogik/lime-elements/compare/v10.0.2...v11.0.0) (2018-11-26)
 
 
