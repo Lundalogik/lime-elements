@@ -1,3 +1,10 @@
+## [11.2.1](https://github.com/Lundalogik/lime-elements/compare/v11.2.0...v11.2.1) (2018-12-03)
+
+
+### Bug Fixes
+
+* **chip-set:** add animation to input element ([ef0c717](https://github.com/Lundalogik/lime-elements/commit/ef0c717))
+
 # [11.2.0](https://github.com/Lundalogik/lime-elements/compare/v11.1.0...v11.2.0) (2018-11-29)
 
 
