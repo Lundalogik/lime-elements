@@ -122,6 +122,7 @@ export class Picker {
         this.element.addEventListener('blur', this.handleElementBlur);
         this.element.addEventListener('focus', this.handleElementFocus);
         this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
+        this.chips = this.createChips(this.value);
     }
 
     public componentDidUnload() {
