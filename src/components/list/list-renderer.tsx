@@ -66,7 +66,10 @@ export class ListRenderer {
 
         return (
             <li
-                class="mdc-list-item"
+                class={`
+                    mdc-list-item
+                    ${item.disabled ? 'mdc-list-item--disabled' : ''}
+                `}
                 role={config.isMenu ? 'menuitem' : ''}
                 tabindex={item.disabled ? '-1' : '0'}
                 aria-disabled={item.disabled ? 'true' : 'false'}
