@@ -154,7 +154,7 @@ export class Picker {
                 onFocus={this.handleInputFieldFocus}
                 onChange={this.handleChange}
             />,
-            this.renderDropdown(),
+            <div class="mdc-menu-surface--anchor">{this.renderDropdown()}</div>,
         ];
     }
 
@@ -209,7 +209,8 @@ export class Picker {
                     style={{
                         width: `${boundingRect.width}px`,
                     }}
-                    class="dropdown--spinner mdc-elevation-transition mdc-elevation--z4"
+                    class="dropdown--spinner mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open"
+                    tabindex="-1"
                 >
                     <limel-spinner />
                 </div>
@@ -229,7 +230,8 @@ export class Picker {
                 style={{
                     width: `${boundingRect.width}px`,
                 }}
-                class="dropdown--list mdc-elevation-transition mdc-elevation--z4"
+                class="dropdown--list mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open"
+                tabindex="-1"
             >
                 <limel-list
                     badgeIcons={hasIcons}
