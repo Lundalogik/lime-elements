@@ -36,6 +36,17 @@ export class Dialog {
     public open = false;
 
     /**
+     * defines which action triggers a close-event;
+     * default: `{escapeKey: true, scrimClick: true,}`;
+     * if another click-event should close the dialog,
+     * add `data-mdc-dialog-action="close"` to that element
+     */
+    @Prop({ reflectToAttr: true })
+    public closingActions: { escapeKey: boolean; scrimClick: boolean } = {
+        escapeKey: true,
+        scrimClick: true,
+    };
+    /**
      * Emitted when the dialog is closed from inside the component.
      * (*Not* emitted when the consumer sets the `open`-property to `false`.)
      */
@@ -76,6 +87,13 @@ export class Dialog {
 
             this.open = false;
         });
+
+        this.mdcDialog.scrimClickAction = this.closingActions.scrimClick
+            ? 'close'
+            : '';
+        this.mdcDialog.escapeKeyAction = this.closingActions.escapeKey
+            ? 'close'
+            : '';
     }
 
     public componentDidUnload() {
