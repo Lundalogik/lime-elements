@@ -80,6 +80,7 @@ module.exports = {
         'no-magic-numbers': true,
         'no-multi-spaces': true,
         'no-string-throw': true,
+        'no-submodule-imports': false,
         'no-switch-case-fall-through': true,
         'no-unused-expression': true,
         radix: true,
