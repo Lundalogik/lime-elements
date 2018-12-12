@@ -39,7 +39,7 @@ export class DialogFormExample {
             >
                 <form>
                     <p>
-                        <limel-text-field
+                        <limel-input-field
                             label="Name"
                             value={this.name}
                             required={true}
@@ -50,7 +50,7 @@ export class DialogFormExample {
                         />
                     </p>
                     <p>
-                        <limel-text-field
+                        <limel-input-field
                             label="Age"
                             value={this.age}
                             required={true}
