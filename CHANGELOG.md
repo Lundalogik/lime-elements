@@ -1,3 +1,15 @@
+# [11.3.0](https://github.com/Lundalogik/lime-elements/compare/v11.2.1...v11.3.0) (2018-12-17)
+
+
+### Bug Fixes
+
+* **picker:** show pre-selected items ([0a66848](https://github.com/Lundalogik/lime-elements/commit/0a66848))
+
+
+### Features
+
+* **limel-dialog:** add property closingActions incl. example ([fb14313](https://github.com/Lundalogik/lime-elements/commit/fb14313)), closes [#139](https://github.com/Lundalogik/lime-elements/issues/139)
+
 ## [11.2.1](https://github.com/Lundalogik/lime-elements/compare/v11.2.0...v11.2.1) (2018-12-03)
 
 
