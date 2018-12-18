@@ -1,3 +1,11 @@
+# [11.4.0](https://github.com/Lundalogik/lime-elements/compare/v11.3.0...v11.4.0) (2018-12-18)
+
+
+### Features
+
+* **date-picker:** implements date pickers ([86d73a4](https://github.com/Lundalogik/lime-elements/commit/86d73a4))
+* **translations:** adds translations support ([fa400ce](https://github.com/Lundalogik/lime-elements/commit/fa400ce))
+
 # [11.3.0](https://github.com/Lundalogik/lime-elements/compare/v11.2.1...v11.3.0) (2018-12-17)
 
 
