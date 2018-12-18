@@ -12,9 +12,7 @@
     "dist/"
   ],
   "scripts": {
-    "postinstall": "npm run install-flatpickr && npm run rm-jsx-dom-types",
-    "install-flatpickr": "cp ./src/dev-assets/hack/flatpickr.js ./node_modules/flatpickr/dist/flatpickr.js",
-    "rm-jsx-dom-types": "node remove-jsx-dom-types.js",
+    "postinstall": "node postinstall.js",
     "build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
     "cm": "git-cz",
     "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs\"",
