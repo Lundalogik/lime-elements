@@ -1,3 +1,10 @@
+## [11.4.1](https://github.com/Lundalogik/lime-elements/compare/v11.4.0...v11.4.1) (2018-12-18)
+
+
+### Bug Fixes
+
+* **limel-picker:** fix z-index in list by using mdc-menu-surface css ([83eb102](https://github.com/Lundalogik/lime-elements/commit/83eb102)), closes [#179](https://github.com/Lundalogik/lime-elements/issues/179)
+
 # [11.4.0](https://github.com/Lundalogik/lime-elements/compare/v11.3.0...v11.4.0) (2018-12-18)
 
 
