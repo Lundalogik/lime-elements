@@ -18,16 +18,16 @@ import { YearPicker } from './pickers/YearPicker';
 })
 export class DatePicker {
     @Prop()
-    public disabled;
+    public disabled: boolean;
 
     @Prop()
-    public invalid;
+    public invalid: boolean;
 
     @Prop()
-    public label;
+    public label: string;
 
     @Prop()
-    public required;
+    public required: boolean;
 
     @Prop()
     public value: Date;
