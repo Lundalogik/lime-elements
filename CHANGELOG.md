@@ -1,3 +1,10 @@
+## [11.4.2](https://github.com/Lundalogik/lime-elements/compare/v11.4.1...v11.4.2) (2018-12-18)
+
+
+### Bug Fixes
+
+* **build:** fix postinstall to check if files exist ([2093bfd](https://github.com/Lundalogik/lime-elements/commit/2093bfd))
+
 ## [11.4.1](https://github.com/Lundalogik/lime-elements/compare/v11.4.0...v11.4.1) (2018-12-18)
 
 
