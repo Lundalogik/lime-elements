@@ -9,7 +9,8 @@
   "types": "dist/types/interface.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
-    "dist/"
+    "dist/",
+    "postinstall.js"
   ],
   "scripts": {
     "postinstall": "node postinstall.js",
