@@ -17,24 +17,49 @@ import { YearPicker } from './pickers/YearPicker';
     styleUrl: 'date-picker.scss',
 })
 export class DatePicker {
+    /**
+     * Disables the date picker when `true`.
+     * Defaults to `false`.
+     */
     @Prop()
     public disabled: boolean;
 
+    /**
+     * Set to `true` to indicate that the current value of the date picker is
+     * invalid.
+     * Defaults to `false`.
+     */
     @Prop()
     public invalid: boolean;
 
+    /**
+     * Text to display next to the date picker
+     */
     @Prop()
     public label: string;
 
+    /**
+     * Set to `true` to indicate that the field is required.
+     * Defaults to `false`.
+     */
     @Prop()
     public required: boolean;
 
+    /**
+     * The value of the field.
+     */
     @Prop()
     public value: Date;
 
+    /**
+     * Type of date picker. Defaults to `datetime`
+     */
     @Prop()
     public type: DateType = 'datetime';
 
+    /**
+     * Format to display the selected date in
+     */
     @Prop()
     public format: string;
 
@@ -44,6 +69,9 @@ export class DatePicker {
     @Element()
     private host: HTMLElement;
 
+    /**
+     * Emitted when the date picker value is changed.
+     */
     @Event()
     private change: EventEmitter;
 
