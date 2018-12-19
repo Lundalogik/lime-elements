@@ -1,3 +1,10 @@
+## [11.4.3](https://github.com/Lundalogik/lime-elements/compare/v11.4.2...v11.4.3) (2018-12-19)
+
+
+### Bug Fixes
+
+* **install:** add postinstall.js to published files ([3e5a239](https://github.com/Lundalogik/lime-elements/commit/3e5a239))
+
 ## [11.4.2](https://github.com/Lundalogik/lime-elements/compare/v11.4.1...v11.4.2) (2018-12-18)
 
 
