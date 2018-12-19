@@ -2,6 +2,7 @@ dist/
 www/
 src/components.d.ts
 src/**/*.md
+docsDist/
 
 *~
 *.sw[mnpcod]

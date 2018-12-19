@@ -4,6 +4,8 @@ import 'prismjs/components/prism-jsx.js'; // tslint:disable-line:no-submodule-im
 import 'prismjs/components/prism-scss.js'; // tslint:disable-line:no-submodule-imports
 import 'prismjs/components/prism-tsx.js'; // tslint:disable-line:no-submodule-imports
 
+const BASE_URL = '/lime-elements/';
+
 @Component({
     tag: 'limel-example',
     styleUrl: 'example.scss',
@@ -27,30 +29,44 @@ export class Example {
     public componentWillLoad() {
         const type = this.name.replace('limel-example-', '');
         const path = this.path || type;
-        const tsxUrl = `/stencil/examples/${path}/${type}.tsx`;
-        const scssUrl = `/stencil/examples/${path}/${type}.scss`;
+        const tsxUrl = `${BASE_URL}stencil/examples/${path}/${type}.tsx`;
+        const scssUrl = `${BASE_URL}stencil/examples/${path}/${type}.scss`;
 
-        this.fetchData(tsxUrl).then(data => {
-            this.tsxCode = prism.highlight(data, prism.languages.tsx);
-            const element = this.root.querySelector('.code.language-tsx code');
-            element.innerHTML = this.tsxCode;
-        });
+        this.fetchData(tsxUrl)
+            .then(data => {
+                this.tsxCode = prism.highlight(data, prism.languages.tsx);
+                const element = this.root.querySelector(
+                    '.code.language-tsx code'
+                );
+                element.innerHTML = this.tsxCode;
+            })
+            .catch(error => {
+                // Fetching the tsx source should not
+                // give us 404s, so always re-throw.
+                throw error;
+            });
 
-        this.fetchData(scssUrl).then(data => {
-            if (data !== 'Not Found') {
+        this.fetchData(scssUrl)
+            .then(data => {
                 this.scssCode = prism.highlight(data, prism.languages.scss);
                 const element = this.root.querySelector(
                     '.code.language-scss code'
                 );
                 element.innerHTML = this.scssCode;
-            }
-        });
+            })
+            .catch(error => {
+                // 404s are ok, other errors are not.
+                if (error.message !== '404') {
+                    throw error;
+                }
+            });
     }
 
     public render() {
         const ExampleComponent = this.name;
 
         return [
+            <limel-config config={{ iconPath: '/lime-elements/stencil/' }} />,
             <div class="example">
                 <ExampleComponent />
             </div>,
@@ -75,6 +91,9 @@ export class Example {
 
     private fetchData(url) {
         return fetch(url).then(data => {
+            if (data.status === 404) { // tslint:disable-line:no-magic-numbers prettier
+                throw new Error('404');
+            }
             return data.body
                 .getReader()
                 .read()
