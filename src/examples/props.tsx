@@ -1,6 +1,8 @@
 import { Component, Prop, State } from '@stencil/core';
 import * as showdown from 'showdown';
 
+const BASE_URL = '/lime-elements/';
+
 @Component({
     tag: 'limel-props',
     styleUrl: 'props.scss',
@@ -20,7 +22,7 @@ export class Props {
 
     public componentWillLoad() {
         const type = this.name.replace('limel-', '');
-        const url = `/stencil/components/${type}/readme.md`;
+        const url = `${BASE_URL}stencil/components/${type}/readme.md`;
 
         this.fetchData(url).then(data => {
             this.propsTableHtml = this.converter.makeHtml(data);

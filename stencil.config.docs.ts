@@ -6,6 +6,7 @@ const targetWww: OutputTargetWww = {
     type: 'www',
     serviceWorker: null,
     dir: '.docz/dist/stencil',
+    baseUrl: '/lime-elements/',
 };
 
 export const config: Config = {

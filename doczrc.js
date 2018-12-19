@@ -9,6 +9,8 @@ export default {
     typescript: true,
     indexHtml: 'src/index.html',
     port: port,
+    base: '/lime-elements/',
+    hashRouter: true,
     themeConfig: {
         colors: {
             primary: '#00b3a7',
