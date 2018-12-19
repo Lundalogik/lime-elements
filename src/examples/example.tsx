@@ -32,19 +32,12 @@ export class Example {
         const tsxUrl = `${BASE_URL}stencil/examples/${path}/${type}.tsx`;
         const scssUrl = `${BASE_URL}stencil/examples/${path}/${type}.scss`;
 
-        this.fetchData(tsxUrl)
-            .then(data => {
-                this.tsxCode = prism.highlight(data, prism.languages.tsx);
-                const element = this.root.querySelector(
-                    '.code.language-tsx code'
-                );
-                element.innerHTML = this.tsxCode;
-            })
-            .catch(error => {
-                // Fetching the tsx source should not
-                // give us 404s, so always re-throw.
-                throw error;
-            });
+        this.fetchData(tsxUrl).then(data => {
+            this.tsxCode = prism.highlight(data, prism.languages.tsx);
+            const element = this.root.querySelector('.code.language-tsx code');
+            element.innerHTML = this.tsxCode;
+        });
+        // Fetching the tsx source should not give us 404s, so no `catch` here.
 
         this.fetchData(scssUrl)
             .then(data => {
@@ -66,7 +59,7 @@ export class Example {
         const ExampleComponent = this.name;
 
         return [
-            <limel-config config={{ iconPath: '/lime-elements/stencil/' }} />,
+            <limel-config config={{ iconPath: `${BASE_URL}stencil/` }} />,
             <div class="example">
                 <ExampleComponent />
             </div>,

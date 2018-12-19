@@ -23,9 +23,7 @@
     "docz:build": "docz build && cross-env-shell SASS_PATH=node_modules stencil build --docs --config stencil.config.docs.ts",
     "docz:dev": "docz dev",
     "docz:serve": "serve .docz/dist --single",
-    "docz:publish": "npm run docz:publish:setup && npm run docz:build && cp -R .docz/dist/ docsDist/ && cd docsDist && git add -A && git commit -S -m \"chore(deploy docs): deploy latest docs to gh-pages\" && git push --force && cd .. && npm run docz:publish:teardown",
-    "docz:publish:setup": "mkdir docsDist && git worktree add docsDist gh-pages",
-    "docz:publish:teardown": "rm -rf docsDist && git worktree remove docsDist",
+    "docz:publish": "node publish-docs.js",
     "lint": "npm run lint:src && npm run lint:specs && npm run lint:examples && npm run lint:config",
     "lint:fix": "npm run lint:src:fix && npm run lint:specs:fix && npm run lint:examples:fix && npm run lint:config:fix",
     "lint:config": "npx tslint --project . -t stylish -c tslint.config.js '*.{ts,tsx}' && npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
@@ -46,6 +44,7 @@
     "test:specs:watch": "stencil test --spec --watch"
   },
   "dependencies": {
+    "@semantic-release/exec": "^3.3.1",
     "awesome-debounce-promise": "^1.0.0",
     "flatpickr": "^4.5.2",
     "jsx-dom": "^6.2.1",
@@ -77,8 +76,10 @@
     "prettier": "^1.15.3",
     "prismjs": "^1.15.0",
     "puppeteer": "1.8.0",
+    "replace-in-file": "^3.4.2",
     "semantic-release": "^15.13.2",
     "serve": "^10.1.1",
+    "shelljs": "^0.8.3",
     "showdown": "^1.9.0",
     "tslint": "^5.12.0",
     "tslint-config-prettier": "^1.17.0",
@@ -105,6 +106,14 @@
     "publish": [
       "@semantic-release/npm",
       "@semantic-release/github"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/exec",
+        {
+          "publishCmd": "npm run docz:publish -- --v=${nextRelease.version} --dryRun=${options.dryRun}"
+        }
+      ]
     ],
     "npmPublish": true
   },
