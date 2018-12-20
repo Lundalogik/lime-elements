@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:lts-stretch
 
 # Create app directory
 WORKDIR /lime
