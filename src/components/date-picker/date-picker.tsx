@@ -1,4 +1,11 @@
-import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Listen,
+    Prop,
+} from '@stencil/core';
 
 import { Translations } from '../../global/translations';
 import { DateType } from './date-type';
@@ -77,6 +84,9 @@ export class DatePicker {
 
     private picker: Picker;
 
+    private container: HTMLElement;
+    private input: HTMLElement;
+
     public componentWillLoad() {
         switch (this.type) {
             case 'date':
@@ -125,12 +135,10 @@ export class DatePicker {
         const textfield: HTMLElement = this.host.shadowRoot.querySelector(
             'limel-input-field'
         );
-        const input = textfield.shadowRoot.querySelector('input');
-        const container: HTMLElement = this.host.shadowRoot.querySelector(
-            '.container'
-        );
+        this.input = textfield.shadowRoot.querySelector('input');
+        this.container = this.host.shadowRoot.querySelector('.container');
 
-        this.picker.init(input, container, this.value);
+        this.picker.init(this.input, this.container, this.value);
     }
 
     public componentDidUnload() {
@@ -152,6 +160,11 @@ export class DatePicker {
                 />
             </div>
         );
+    }
+
+    @Listen('window:resize')
+    public resizeEvent() {
+        this.picker.init(this.input, this.container, this.value);
     }
 
     private handleChange(event) {
