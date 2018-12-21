@@ -1,3 +1,10 @@
+## [11.4.4](https://github.com/Lundalogik/lime-elements/compare/v11.4.3...v11.4.4) (2018-12-21)
+
+
+### Bug Fixes
+
+* **limel-date-picker:** fix width calculation if initially hidden ([d0f8de3](https://github.com/Lundalogik/lime-elements/commit/d0f8de3)), closes [#228](https://github.com/Lundalogik/lime-elements/issues/228)
+
 ## [11.4.3](https://github.com/Lundalogik/lime-elements/compare/v11.4.2...v11.4.3) (2018-12-19)
 
 
