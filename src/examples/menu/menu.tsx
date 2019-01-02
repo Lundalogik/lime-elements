@@ -14,8 +14,8 @@ export class MenuExample {
         { text: 'Cut' },
         { text: 'Paste', disabled: true },
         { separator: true },
-        { text: 'Add' },
-        { text: 'Delete' },
+        { text: 'Add that new thing' },
+        { text: 'Delete that old thing' },
     ];
 
     @State()
