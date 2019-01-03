@@ -59,7 +59,7 @@
     "@types/jest": "^23.3.9",
     "@types/puppeteer": "^1.10.0",
     "commitizen": "^3.0.5",
-    "concurrently": "^4.0.1",
+    "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
     "docz": "^0.12.9",
