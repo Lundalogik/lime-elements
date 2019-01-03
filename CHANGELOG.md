@@ -1,3 +1,10 @@
+## [11.4.5](https://github.com/Lundalogik/lime-elements/compare/v11.4.4...v11.4.5) (2019-01-03)
+
+
+### Bug Fixes
+
+* **limel-menu:** no word wrapping in menu items ([446a1be](https://github.com/Lundalogik/lime-elements/commit/446a1be)), closes [#230](https://github.com/Lundalogik/lime-elements/issues/230)
+
 ## [11.4.4](https://github.com/Lundalogik/lime-elements/compare/v11.4.3...v11.4.4) (2018-12-21)
 
 
