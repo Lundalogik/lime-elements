@@ -6,7 +6,7 @@ describe('limel-icon-button', async () => {
         let mdcIconButton;
         beforeEach(async () => {
             page = await createPage(`
-                <limel-icon-button icon="Lime/heart_outlined" label="Add favorite"></limel-switch>
+                <limel-icon-button icon="heart_outlined" label="Add favorite"></limel-switch>
             `);
             mdcIconButton = await page.find(
                 'limel-icon-button >>> .mdc-icon-button'
