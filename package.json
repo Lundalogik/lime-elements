@@ -47,7 +47,7 @@
     "flatpickr": "^4.5.2",
     "jsx-dom": "^6.2.1",
     "lime-material-components-web": "^0.40.1",
-    "moment": "^2.22.2"
+    "moment": "^2.23.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
