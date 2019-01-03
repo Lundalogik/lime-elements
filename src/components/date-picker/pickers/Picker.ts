@@ -35,6 +35,7 @@ export abstract class Picker {
             parseDate: this.nativePicker ? undefined : this.parseDate,
             appendTo: container,
             defaultDate: value,
+            animate: false,
         };
 
         config = { ...config, ...this.getConfig(this.nativePicker) };
