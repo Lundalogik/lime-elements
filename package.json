@@ -44,7 +44,7 @@
     "test:specs:watch": "stencil test --spec --watch"
   },
   "dependencies": {
-    "@semantic-release/exec": "^3.3.1",
+    "@semantic-release/exec": "^3.3.2",
     "awesome-debounce-promise": "^1.0.0",
     "flatpickr": "^4.5.2",
     "jsx-dom": "^6.2.1",
