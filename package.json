@@ -48,7 +48,7 @@
     "awesome-debounce-promise": "^1.0.0",
     "flatpickr": "^4.5.2",
     "jsx-dom": "^6.2.1",
-    "lime-material-components-web": "^0.40.1",
+    "lime-material-components-web": "^0.41.1",
     "moment": "^2.23.0"
   },
   "devDependencies": {
