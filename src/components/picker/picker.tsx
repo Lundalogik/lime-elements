@@ -87,6 +87,10 @@ export class Picker {
     @Element()
     private element: HTMLElement;
 
+    // Should NOT be decorated with State(), since this
+    // should not trigger a re-render by itself.
+    private chipSetEditMode = false;
+
     private debouncedSearch;
     private chipSet;
 
@@ -128,6 +132,12 @@ export class Picker {
     public componentDidUnload() {
         this.element.removeEventListener('blur', this.handleElementBlur);
         this.element.removeEventListener('focus', this.handleElementFocus);
+    }
+
+    public async componentWillUpdate() {
+        this.chipSetEditMode = !this.chipSet
+            ? false
+            : await this.chipSet.getEditMode();
     }
 
     public render() {
@@ -196,7 +206,7 @@ export class Picker {
             // Don't render the dropdown if the picker is already "full".
             return;
         }
-        if (!(this.chipSet && this.chipSet.getEditMode())) {
+        if (!this.chipSetEditMode) {
             // Don't render the dropdown if the picker is not in edit mode.
             return;
         }

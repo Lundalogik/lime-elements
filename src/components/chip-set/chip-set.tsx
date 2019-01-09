@@ -100,7 +100,7 @@ export class ChipSet {
      * @returns {boolean} `true` if the chip-set is in edit mode, `false` otherwise.
      */
     @Method()
-    public getEditMode() {
+    public async getEditMode() {
         return this.editMode;
     }
 
