@@ -1,3 +1,10 @@
+## [12.0.2](https://github.com/Lundalogik/lime-elements/compare/v12.0.1...v12.0.2) (2019-01-10)
+
+
+### Bug Fixes
+
+* **docs:** fix issue with documentation being published at incorrect path ([5e16f72](https://github.com/Lundalogik/lime-elements/commit/5e16f72))
+
 ## [12.0.1](https://github.com/Lundalogik/lime-elements/compare/v12.0.0...v12.0.1) (2019-01-10)
 
 
