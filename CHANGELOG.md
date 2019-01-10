@@ -1,3 +1,10 @@
+## [12.0.1](https://github.com/Lundalogik/lime-elements/compare/v12.0.0...v12.0.1) (2019-01-10)
+
+
+### Bug Fixes
+
+* **limel-date-picker:** format property overwrites default date format ([3e0f4dc](https://github.com/Lundalogik/lime-elements/commit/3e0f4dc)), closes [#237](https://github.com/Lundalogik/lime-elements/issues/237)
+
 # [12.0.0](https://github.com/Lundalogik/lime-elements/compare/v11.4.5...v12.0.0) (2019-01-10)
 
 
