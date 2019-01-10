@@ -8,11 +8,10 @@ import { h } from 'jsx-dom';
 import { Translations } from '../../../global/translations';
 
 export class YearPicker extends Picker {
-    protected dateFormat = 'YYYY';
     private years = [];
 
     public constructor(
-        dateFormat: string,
+        dateFormat: string = 'YYYY',
         change: EventEmitter,
         private translations: Translations
     ) {

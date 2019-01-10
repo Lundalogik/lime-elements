@@ -10,11 +10,10 @@ import { Translations } from '../../../global/translations';
 const NBROFMONTHS = 12;
 
 export class MonthPicker extends Picker {
-    protected dateFormat = 'MM/YYYY';
     private months = [];
 
     public constructor(
-        dateFormat: string,
+        dateFormat: string = 'MM/YYYY',
         change: EventEmitter,
         private translations: Translations
     ) {

@@ -11,11 +11,10 @@ const MONTHSPERQUARTER = 3;
 const NBROFMONTHS = 12;
 
 export class QuarterPicker extends Picker {
-    protected dateFormat = '[Q]Q YYYY';
     private quarters = [];
 
     public constructor(
-        dateFormat: string,
+        dateFormat: string = '[Q]Q YYYY',
         protected change: EventEmitter,
         private translations: Translations
     ) {
