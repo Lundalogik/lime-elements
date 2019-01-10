@@ -86,20 +86,9 @@ function build() {
         shell.exit(1);
     }
 
-    // This would be better, since it's cross-platform, but it doesn't
-    // place the output in the correct folder. It creates a dist-folder inside
-    // the target folder :(
-    // /Ads
-    // if (shell.cp('-R', '.docz/dist/', `docsDist/versions/${version}`).code !== 0) {
-    //     shell.echo('copying output failed!');
-    //     teardown();
-    //     shell.exit(1);
-    // }
-
-    // So instead of the above, we do a *nix copy command instead. Sorry Windows!
-    // /Ads
     if (
-        shell.exec(`cp -R .docz/dist/ docsDist/versions/${version}`).code !== 0
+        shell.cp('-R', '.docz/dist/*', `docsDist/versions/${version}/`).code !==
+        0
     ) {
         shell.echo('copying output failed!');
         teardown();
