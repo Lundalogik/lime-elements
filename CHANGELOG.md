@@ -1,3 +1,15 @@
+# [12.0.0](https://github.com/Lundalogik/lime-elements/compare/v11.4.5...v12.0.0) (2019-01-10)
+
+
+### Bug Fixes
+
+* **limel-chip-set:** make method getEditMode async ([cee272f](https://github.com/Lundalogik/lime-elements/commit/cee272f))
+
+
+### BREAKING CHANGES
+
+* **limel-chip-set:** The method `getEditMode` on limel-chip-set is now async (it will return a promise).
+
 ## [11.4.5](https://github.com/Lundalogik/lime-elements/compare/v11.4.4...v11.4.5) (2019-01-03)
 
 
