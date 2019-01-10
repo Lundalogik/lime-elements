@@ -76,7 +76,7 @@ export class ListRenderer {
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 data-index={index}
             >
-                {item.icon ? this.renderIcon(item) : null}
+                {item.icon ? this.renderIcon(config, item) : null}
                 {this.renderText(item.text, item.secondaryText)}
             </li>
         );
@@ -108,11 +108,12 @@ export class ListRenderer {
     /**
      * Render an icon for a list item
      *
+     * @param {ListRendererConfig} config the config object, passed on from the `renderListItem` function
      * @param {ListItem} item the list item
      *
      * @returns {HTMLElement} the icon element
      */
-    private renderIcon(item: ListItem) {
+    private renderIcon(config: ListRendererConfig, item: ListItem) {
         const style = {};
         if (item.iconColor) {
             style['--icon-background-color'] = item.iconColor;
@@ -123,7 +124,7 @@ export class ListRenderer {
                 class="mdc-list-item__graphic"
                 name={item.icon}
                 style={style}
-                size="medium"
+                size={config.isMenu ? 'small' : 'medium'}
             />
         );
     }

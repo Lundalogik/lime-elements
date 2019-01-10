@@ -27,3 +27,11 @@ $menu-item-background-color: #ebebeb;
         }
     }
 }
+
+.mdc-list-item[role="menuitem"] {
+    font-size: 1.3rem;
+
+    .mdc-list-item__graphic {
+        margin-right: 1.4rem;
+    }
+}
