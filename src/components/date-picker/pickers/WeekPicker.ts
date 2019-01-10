@@ -1,9 +1,15 @@
+import { EventEmitter } from '@stencil/core';
 import weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect';
 import { BaseOptions } from 'flatpickr/dist/types/options';
 import { Picker } from './Picker';
 
 export class WeekPicker extends Picker {
-    protected dateFormat = '[w] W GGGG';
+    public constructor(
+        dateFormat: string = '[w] W GGGG',
+        change: EventEmitter
+    ) {
+        super(dateFormat, change);
+    }
 
     public getConfig(nativePicker: boolean): Partial<BaseOptions> {
         return {
