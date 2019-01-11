@@ -1,3 +1,10 @@
+## [12.0.3](https://github.com/Lundalogik/lime-elements/compare/v12.0.2...v12.0.3) (2019-01-11)
+
+
+### Bug Fixes
+
+* **limel-menu:** decrease size of text and icons ([fed8c31](https://github.com/Lundalogik/lime-elements/commit/fed8c31)), closes [Lundalogik/crm-feature#704](https://github.com/Lundalogik/crm-feature/issues/704) [#210](https://github.com/Lundalogik/lime-elements/issues/210)
+
 ## [12.0.2](https://github.com/Lundalogik/lime-elements/compare/v12.0.1...v12.0.2) (2019-01-10)
 
 
