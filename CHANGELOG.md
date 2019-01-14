@@ -1,3 +1,10 @@
+## [12.0.5](https://github.com/Lundalogik/lime-elements/compare/v12.0.4...v12.0.5) (2019-01-14)
+
+
+### Bug Fixes
+
+* **limel-date-picker:** fix language config for provided translations ([58722f2](https://github.com/Lundalogik/lime-elements/commit/58722f2)), closes [#241](https://github.com/Lundalogik/lime-elements/issues/241)
+
 ## [12.0.4](https://github.com/Lundalogik/lime-elements/compare/v12.0.3...v12.0.4) (2019-01-14)
 
 
