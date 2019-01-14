@@ -14,10 +14,11 @@ export class MonthPicker extends Picker {
 
     public constructor(
         dateFormat: string = 'MM/YYYY',
+        language: string,
         change: EventEmitter,
         private translations: Translations
     ) {
-        super(dateFormat, change);
+        super(dateFormat, language, change);
         this.handleChange = this.handleChange.bind(this);
         this.handleReady = this.handleReady.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
@@ -87,12 +88,9 @@ export class MonthPicker extends Picker {
     }
 
     private getLocalizedHeading() {
-        const languageCodeDash = navigator.language.indexOf('-');
-        const languageCodeLength =
-            languageCodeDash > 0 ? languageCodeDash : navigator.language.length;
         return this.translations.get(
             'date-picker.month.heading',
-            navigator.language.substring(0, languageCodeLength)
+            this.language
         );
     }
 
