@@ -6,9 +6,10 @@ import { Picker } from './Picker';
 export class WeekPicker extends Picker {
     public constructor(
         dateFormat: string = '[w] W GGGG',
+        language: string,
         change: EventEmitter
     ) {
-        super(dateFormat, change);
+        super(dateFormat, language, change);
     }
 
     public getConfig(nativePicker: boolean): Partial<BaseOptions> {

@@ -8,7 +8,7 @@ import {
 } from '@stencil/core';
 
 import { Translations } from '../../global/translations';
-import { DateType } from './date-type';
+import { DateType, Languages } from './date-type';
 import { DatePicker as DateDatePicker } from './pickers/DatePicker';
 import { DatetimePicker } from './pickers/DatetimePicker';
 import { MonthPicker } from './pickers/MonthPicker';
@@ -70,6 +70,13 @@ export class DatePicker {
     @Prop()
     public format: string;
 
+    /**
+     * Defines the localisation for translations and date formatting.
+     * Property `format` customizes the localized date format.
+     */
+    @Prop()
+    public language: Languages = 'en';
+
     @Prop({ context: 'translations' })
     public translate: Translations;
 
@@ -90,20 +97,33 @@ export class DatePicker {
     public componentWillLoad() {
         switch (this.type) {
             case 'date':
-                this.picker = new DateDatePicker(this.format, this.change);
+                this.picker = new DateDatePicker(
+                    this.format,
+                    this.language,
+                    this.change
+                );
                 break;
 
             case 'time':
-                this.picker = new TimePicker(this.format, this.change);
+                this.picker = new TimePicker(
+                    this.format,
+                    this.language,
+                    this.change
+                );
                 break;
 
             case 'week':
-                this.picker = new WeekPicker(this.format, this.change);
+                this.picker = new WeekPicker(
+                    this.format,
+                    this.language,
+                    this.change
+                );
                 break;
 
             case 'month':
                 this.picker = new MonthPicker(
                     this.format,
+                    this.language,
                     this.change,
                     this.translate
                 );
@@ -112,6 +132,7 @@ export class DatePicker {
             case 'quarter':
                 this.picker = new QuarterPicker(
                     this.format,
+                    this.language,
                     this.change,
                     this.translate
                 );
@@ -119,6 +140,7 @@ export class DatePicker {
             case 'year':
                 this.picker = new YearPicker(
                     this.format,
+                    this.language,
                     this.change,
                     this.translate
                 );
@@ -126,7 +148,11 @@ export class DatePicker {
 
             case 'datetime':
             default:
-                this.picker = new DatetimePicker(this.format, this.change);
+                this.picker = new DatetimePicker(
+                    this.format,
+                    this.language,
+                    this.change
+                );
                 break;
         }
     }

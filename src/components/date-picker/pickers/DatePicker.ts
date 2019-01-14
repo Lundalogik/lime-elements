@@ -3,8 +3,12 @@ import { BaseOptions } from 'flatpickr/dist/types/options';
 import { Picker } from './Picker';
 
 export class DatePicker extends Picker {
-    public constructor(dateFormat: string = 'L', change: EventEmitter) {
-        super(dateFormat, change);
+    public constructor(
+        dateFormat: string = 'L',
+        language: string,
+        change: EventEmitter
+    ) {
+        super(dateFormat, language, change);
     }
 
     public getConfig(nativePicker: boolean): Partial<BaseOptions> {
