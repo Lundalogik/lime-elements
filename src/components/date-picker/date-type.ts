@@ -6,3 +6,5 @@ export type DateType =
     | 'month'
     | 'quarter'
     | 'year';
+
+export type Languages = 'en' | 'sv' | 'no' | 'fi' | 'da';
