@@ -23,6 +23,7 @@ export abstract class Picker {
         protected change: EventEmitter
     ) {
         this.language = language;
+        moment.locale(this.getMomentLang());
         const isMobile = isIOSDevice() || isAndroidDevice();
         this.nativePicker = isMobile;
 
