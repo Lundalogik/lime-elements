@@ -1,3 +1,10 @@
+## [12.0.4](https://github.com/Lundalogik/lime-elements/compare/v12.0.3...v12.0.4) (2019-01-14)
+
+
+### Bug Fixes
+
+* **limel-date-picker:** translate based on language property ([15ee7b6](https://github.com/Lundalogik/lime-elements/commit/15ee7b6)), closes [#241](https://github.com/Lundalogik/lime-elements/issues/241)
+
 ## [12.0.3](https://github.com/Lundalogik/lime-elements/compare/v12.0.2...v12.0.3) (2019-01-11)
 
 
