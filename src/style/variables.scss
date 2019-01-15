@@ -35,9 +35,60 @@ $mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
     --mdc-theme-on-secondary: var(--lime-on-secondary-color, #{$mdc-theme-on-secondary});
 }
 
+@import "@lime-material/theme/mdc-theme";
+
+$mdc-typography-styles-headline1: (
+    font-size: 9.6rem,
+    line-height: 9.6rem
+);
+$mdc-typography-styles-headline2: (
+    font-size: 6.0rem,
+    line-height: 6.0rem
+);
+$mdc-typography-styles-headline3: (
+    font-size: 4.8rem,
+    line-height: 5.0rem
+);
+$mdc-typography-styles-headline4: (
+    font-size: 3.4rem,
+    line-height: 4.0rem
+);
+$mdc-typography-styles-headline5: (
+    font-size: 2.4rem,
+    line-height: 3.2rem
+);
+$mdc-typography-styles-headline6: (
+    font-size: 2.0rem,
+    line-height: 3.2rem
+);
+$mdc-typography-styles-subtitle1: (
+    font-size: 1.4rem,
+    line-height: 2.8rem
+);
+$mdc-typography-styles-subtitle2: (
+    font-size: 1.4rem,
+    line-height: 2.2rem
+);
+$mdc-typography-styles-body1: (
+    font-size: 1.6rem,
+    line-height: 2.4rem
+);
+$mdc-typography-styles-body2: (
+    font-size: 1.4rem,
+    line-height: 2.0rem
+);
+$mdc-typography-styles-caption: (
+    font-size: 1.2rem,
+    line-height: 2.0rem
+);
 $mdc-typography-styles-button: (
+    font-size: 1.4rem,
+    line-height: 3.6rem,
     text-transform: none,
 );
+$mdc-typography-styles-overline: (
+    font-size: 1.2rem,
+    line-height: 3.2rem
+);
 
-@import "@lime-material/theme/mdc-theme";
 @import "@lime-material/typography/mdc-typography";
