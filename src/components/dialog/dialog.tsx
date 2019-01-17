@@ -53,6 +53,12 @@ export class Dialog {
     @Event()
     private close: EventEmitter;
 
+    /**
+     * Emitted when the dialog is in the process of being closed
+     */
+    @Event()
+    private closing: EventEmitter;
+
     @Element()
     private host: HTMLElement;
 
@@ -86,6 +92,10 @@ export class Dialog {
             }
 
             this.open = false;
+        });
+
+        this.mdcDialog.listen('MDCDialog:closing', () => {
+            this.closing.emit();
         });
 
         this.mdcDialog.scrimClickAction = this.closingActions.scrimClick

@@ -21,6 +21,9 @@ export class DialogFormExample {
     @State()
     private percentage = 45;
 
+    @State()
+    private isConfirmationOpen = false;
+
     public render() {
         return [
             <limel-button
@@ -35,6 +38,10 @@ export class DialogFormExample {
                 open={this.isOpen}
                 onClose={() => {
                     this.isOpen = false;
+                }}
+                onClosing={() => {
+                    console.log('dialog is closing now!');
+                    this.isConfirmationOpen = true;
                 }}
             >
                 <form>
@@ -72,6 +79,30 @@ export class DialogFormExample {
                         onClick={this.submitForm}
                     />
                     <limel-button label="Cancel" onClick={this.closeDialog} />
+                </limel-button-group>
+            </limel-dialog>,
+            <limel-dialog
+                open={this.isConfirmationOpen}
+                onClose={() => {
+                    this.isConfirmationOpen = false;
+                }}
+            >
+                <p>Are you sure you want to close this? </p>
+                <limel-button-group slot="button">
+                    <limel-button
+                        label="Yes"
+                        onClick={() => {
+                            this.isConfirmationOpen = false;
+                            this.isOpen = false;
+                        }}
+                    />
+                    <limel-button
+                        label="No"
+                        onClick={() => {
+                            this.isOpen = true;
+                            this.isConfirmationOpen = false;
+                        }}
+                    />
                 </limel-button-group>
             </limel-dialog>,
         ];
