@@ -4,7 +4,7 @@ DOCKER_DOCS_IMAGE = lime-elements-docs
 .PHONY: build
 build:
 	@# Builds the ci image lime-elements.
-	docker build --pull -t $(DOCKER_IMAGE) .
+	DOCKER_BUILDKIT=false docker build --pull -t $(DOCKER_IMAGE) .
 
 .PHONY: lint
 lint:
