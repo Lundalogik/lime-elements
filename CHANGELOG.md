@@ -1,3 +1,10 @@
+# [12.1.0](https://github.com/Lundalogik/lime-elements/compare/v12.0.5...v12.1.0) (2019-01-17)
+
+
+### Features
+
+* **limel-dialog:** add closing event ([e98038f](https://github.com/Lundalogik/lime-elements/commit/e98038f)), closes [#244](https://github.com/Lundalogik/lime-elements/issues/244)
+
 ## [12.0.5](https://github.com/Lundalogik/lime-elements/compare/v12.0.4...v12.0.5) (2019-01-14)
 
 
