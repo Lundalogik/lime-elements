@@ -14,6 +14,9 @@ export class CollapsibleSection {
     @Prop({ mutable: true, reflectToAttr: true })
     public isOpen: boolean = false;
 
+    @Prop()
+    public header: string;
+
     /**
      * Emitted when the section is expanded
      */
@@ -44,10 +47,12 @@ export class CollapsibleSection {
                             })()}
                         </svg>
                     </span>
-                    <slot name="header" />
+                    <h5 class="mdc-typography mdc-typography--headline5">
+                        {this.header}
+                    </h5>
                 </header>
                 <div class="body">
-                    <slot name="body" />
+                    <slot />
                 </div>
             </section>
         );
