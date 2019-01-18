@@ -15,9 +15,8 @@ export class CollapsibleSectionExample {
         return [
             <section>
                 <h3>Basic example</h3>
-                <limel-collapsible-section>
-                    <h5 slot="header">This element goes in the header-slot</h5>
-                    <p slot="body">This element goes in the body-slot.</p>
+                <limel-collapsible-section header="This text becomes the header">
+                    <p>This element becomes the body.</p>
                 </limel-collapsible-section>
             </section>,
             <hr />,
@@ -31,12 +30,12 @@ export class CollapsibleSectionExample {
                     />
                 </limel-button-group>
                 <limel-collapsible-section
+                    header="Click me or click the button"
                     isOpen={this.secondExampleIsOpen}
                     onOpen={this.secondExampleOnOpen.bind(this)}
                     onClose={this.secondExampleOnClose.bind(this)}
                 >
-                    <h5 slot="header">Click me or click the button</h5>
-                    <p slot="body">
+                    <p>
                         Either way, the section will toggle!
                         <limel-slider unit="%" value={this.percentage} />
                     </p>
