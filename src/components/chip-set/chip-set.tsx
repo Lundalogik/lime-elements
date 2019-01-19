@@ -242,7 +242,8 @@ export class ChipSet {
                         }`}
                         value={textValue}
                         onBlur={this.handleInputBlur}
-                        onFocus={() => {
+                        onFocus={event => {
+                            event.stopPropagation();
                             this.editMode = true;
                         }}
                         onInput={this.handleTextInput}
