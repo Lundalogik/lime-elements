@@ -17,7 +17,11 @@ $colorGrey: #999999;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    border-bottom-style: solid;
+    border-bottom-color: $lime-text-field-bottom-line-color;
+    border-bottom-width: 0.1rem;
 }
+
 
 .slider__label {
     color: $colorGrey;
