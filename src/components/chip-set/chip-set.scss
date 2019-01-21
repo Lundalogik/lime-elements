@@ -1,5 +1,13 @@
+$mdc-textarea-background: $mdc-theme-background;
+// $mdc-textarea-disabled-background: $mdc-theme-background;
+
+$mdc-text-field-background: $mdc-theme-background;
+// $mdc-text-field-disabled-background: $mdc-theme-background;
+
 @import "@lime-material/chips/mdc-chips";
 @import '@lime-material/textfield/mdc-text-field';
+@import '@lime-material/ripple/mdc-ripple';
+
 
 :host([disabled]) {
     pointer-events: none;
@@ -23,6 +31,8 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
 
 .mdc-text-field {
+    @include mdc-states-hover-opacity(0);
+    @include mdc-states-focus-opacity(0, true);
     width: 100%;
     height: auto;
     cursor: text;
@@ -48,8 +58,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     }
 
     &:not(.mdc-text-field--disabled) {
-        background-color: var(--background-color, white);
-
         &:not(.mdc-text-field--focused) {
             border-bottom-style: solid;
             border-bottom-width: .1rem;
