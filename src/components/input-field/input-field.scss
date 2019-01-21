@@ -1,4 +1,11 @@
+$mdc-textarea-background: $mdc-theme-background;
+// $mdc-textarea-disabled-background: $mdc-theme-background;
+
+$mdc-text-field-background: $mdc-theme-background;
+// $mdc-text-field-disabled-background: $mdc-theme-background;
+
 @import '@lime-material/textfield/mdc-text-field';
+@import '@lime-material/ripple/mdc-ripple';
 
 :host {
     display: block;
@@ -10,10 +17,8 @@
 
 .mdc-text-field {
     width: 100%;
-
-    .mdc-text-field__input {
-        background-color: var(--background-color, white);
-    }
+    @include mdc-states-hover-opacity(0);
+    @include mdc-states-focus-opacity(0, true);
 }
 
 .mdc-text-field__formatted_input {
