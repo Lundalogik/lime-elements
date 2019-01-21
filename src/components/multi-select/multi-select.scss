@@ -6,6 +6,6 @@
 }
 
 .mdc-checkbox  {
-    @include mdc-checkbox-ink-color(primary)
-    @include mdc-checkbox-container-colors(secondary, on-primary, secondary, on-primary)
+    @include mdc-checkbox-ink-color(primary);
+    @include mdc-checkbox-container-colors(secondary, on-primary, secondary, on-primary);
 }
