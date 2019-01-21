@@ -1,14 +1,15 @@
-@import "@lime-material/select/mdc-select";
+$mdc-select-fill-color: $mdc-theme-background;
 
-:host {
-    display: block;
-}
+@import "@lime-material/select/mdc-select";
+@import '@lime-material/ripple/mdc-ripple';
 
 :host([hidden]) {
     display: none;
 }
 
 .mdc-select {
+    @include mdc-states-hover-opacity(0);
+    @include mdc-states-focus-opacity(0, true);
     width: 100%;
     background-size: 1.2rem 1.2rem;
     background-position: right 1.6rem center;
@@ -16,9 +17,5 @@
     &__native-control {
         padding-top: 2.5rem;
         padding-bottom: 0.2rem;
-    }
-
-    &:not(.mdc-select--disabled) {
-        background-color: var(--background-color, white);
     }
 }
