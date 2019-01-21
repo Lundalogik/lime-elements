@@ -1,3 +1,10 @@
+## [12.1.1](https://github.com/Lundalogik/lime-elements/compare/v12.1.0...v12.1.1) (2019-01-21)
+
+
+### Bug Fixes
+
+* **fonts:** change fontsizes ([478c608](https://github.com/Lundalogik/lime-elements/commit/478c608))
+
 # [12.1.0](https://github.com/Lundalogik/lime-elements/compare/v12.0.5...v12.1.0) (2019-01-17)
 
 
