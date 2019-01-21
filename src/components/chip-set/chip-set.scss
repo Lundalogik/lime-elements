@@ -4,6 +4,10 @@ $mdc-textarea-background: $mdc-theme-background;
 $mdc-text-field-background: $mdc-theme-background;
 // $mdc-text-field-disabled-background: $mdc-theme-background;
 
+$mdc-text-field-bottom-line-idle: $lime-text-field-bottom-line-color;
+$mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
+$mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
+
 @import "@lime-material/chips/mdc-chips";
 @import '@lime-material/textfield/mdc-text-field';
 @import '@lime-material/ripple/mdc-ripple';
@@ -61,13 +65,11 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         &:not(.mdc-text-field--focused) {
             border-bottom-style: solid;
             border-bottom-width: .1rem;
-            border-bottom-color: rgba(0,0,0,.42);
         }
 
         &.mdc-text-field--focused {
             border-bottom-style: solid;
             border-bottom-width: .1rem;
-            border-bottom-color: rgba(0,0,0,0);
         }
     }
 }
