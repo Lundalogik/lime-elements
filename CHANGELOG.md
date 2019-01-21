@@ -1,3 +1,15 @@
+# [13.0.0](https://github.com/Lundalogik/lime-elements/compare/v12.1.1...v13.0.0) (2019-01-21)
+
+
+### Bug Fixes
+
+* **collapsible-section:** header is set as a property ([f4074e4](https://github.com/Lundalogik/lime-elements/commit/f4074e4))
+
+
+### BREAKING CHANGES
+
+* **collapsible-section:** New interface for lime-collapsible-section
+
 ## [12.1.1](https://github.com/Lundalogik/lime-elements/compare/v12.1.0...v12.1.1) (2019-01-21)
 
 
