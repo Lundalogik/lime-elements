@@ -86,6 +86,8 @@ function build() {
         shell.exit(1);
     }
 
+    shell.exec('ls -la .docz/dist/stencil/');
+
     if (
         shell.cp('-R', '.docz/dist/*', `docsDist/versions/${version}/`).code !==
         0
@@ -106,8 +108,6 @@ function build() {
 
 function commitAndPush() {
     shell.exec('git add -A --ignore-errors');
-
-    shell.exec('git status');
 
     if (
         shell.exec(
