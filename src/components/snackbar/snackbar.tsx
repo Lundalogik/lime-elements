@@ -60,8 +60,12 @@ export class Snackbar {
             this.host.shadowRoot.querySelector('.mdc-snackbar')
         );
 
-        this.mdcSnackbar.listen('MDCSnackbar:hide', () => {
-            this.hide.emit();
+        this.mdcSnackbar.listen('MDCSnackbar:closing', event => {
+            if (event.details === 'action') {
+                this.action.emit();
+            } else {
+                this.hide.emit();
+            }
         });
     }
 
@@ -76,46 +80,47 @@ export class Snackbar {
      */
     @Method()
     public show() {
-        const config: {
-            message: string;
-            multiline: boolean;
-            actionOnBottom: boolean;
-            actionText?: string;
-            actionHandler?: () => void;
-            timeout?: number;
-        } = {
-            message: this.message,
-            multiline: !!this.multiline,
-            actionOnBottom: true,
-        };
-
-        if (this.actionText) {
-            config.actionText = this.actionText;
-            config.actionHandler = () => {
-                this.action.emit();
-            };
-        }
-
         if (this.timeout) {
-            config.timeout = this.timeout;
+            this.mdcSnackbar.timeoutMs = this.timeout;
         }
 
-        this.mdcSnackbar.show(config);
+        this.mdcSnackbar.open();
     }
 
     public render() {
         return (
             <div
-                class="mdc-snackbar"
-                aria-live="assertive"
-                aria-atomic="true"
-                aria-hidden="true"
+                class={`
+                    mdc-snackbar
+                    ${this.multiline ? 'mdc-snackbar--stacked' : ''}
+                `}
             >
-                <div class="mdc-snackbar__text" />
-                <div class="mdc-snackbar__action-wrapper">
-                    <button type="button" class="mdc-snackbar__action-button" />
+                <div class="mdc-snackbar__surface">
+                    <div
+                        class="mdc-snackbar__label"
+                        role="status"
+                        aria-live="polite"
+                    >
+                        {this.message}
+                    </div>
+                    {this.renderAction(this.actionText)}
                 </div>
             </div>
         );
+    }
+
+    private renderAction(actionText) {
+        if (actionText) {
+            return (
+                <div class="mdc-snackbar__actions">
+                    <button
+                        type="button"
+                        class="mdc-button mdc-snackbar__action"
+                    >
+                        <span class="mdc-button__label">{actionText}</span>
+                    </button>
+                </div>
+            );
+        }
     }
 }
