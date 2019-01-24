@@ -36,6 +36,9 @@ export class PickerExample {
                 label="Favorite awesomenaut"
                 searcher={this.search.bind(this)}
                 value={this.selectedItem}
+                onInteract={event => {
+                    console.log(event.detail);
+                }}
             />,
             <br />,
             <br />,
