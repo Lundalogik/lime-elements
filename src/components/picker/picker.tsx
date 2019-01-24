@@ -72,6 +72,12 @@ export class Picker {
     @Event()
     private change: EventEmitter;
 
+    /**
+     * Fired when clicking on a selected value
+     */
+    @Event()
+    private interact: EventEmitter;
+
     @State()
     private items: ListItem[];
 
@@ -101,6 +107,7 @@ export class Picker {
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleInputFieldFocus = this.handleInputFieldFocus.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleInteract = this.handleInteract.bind(this);
         this.handleListChange = this.handleListChange.bind(this);
     }
 
@@ -163,6 +170,7 @@ export class Picker {
                 onKeyDown={this.handleKeyDown}
                 onFocus={this.handleInputFieldFocus}
                 onChange={this.handleChange}
+                onInteract={this.handleInteract}
             />,
             <div class="mdc-menu-surface--anchor">{this.renderDropdown()}</div>,
         ];
@@ -344,6 +352,11 @@ export class Picker {
         }
 
         this.change.emit(newValue);
+    }
+
+    private handleInteract(event) {
+        event.stopPropagation();
+        this.interact.emit(event.detail);
     }
 
     /**
