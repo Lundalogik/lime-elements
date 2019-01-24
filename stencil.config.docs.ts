@@ -24,7 +24,6 @@ export const config: Config = {
             injectGlobalPaths: ['src/style/variables.scss'],
         }),
     ],
-    tsconfig: './tsconfig.dev.json',
     globalScript: 'src/global/index.ts',
     globalStyle: 'src/global/colors.scss',
 };
