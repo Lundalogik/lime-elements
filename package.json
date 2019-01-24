@@ -20,7 +20,7 @@
     "dev:watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs\"",
     "dev:es5": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs --es5\"",
     "dev:es5:watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs --es5\"",
-    "docz:build": "docz build && cross-env-shell SASS_PATH=node_modules stencil build --docs --config stencil.config.docs.ts",
+    "docz:build": "docz build && cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --docs --config stencil.config.docs.ts\"",
     "docz:dev": "docz dev",
     "docz:serve": "serve .docz/dist --single",
     "docz:publish": "node publish-docs.js",
