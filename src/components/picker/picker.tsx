@@ -189,11 +189,10 @@ export class Picker {
 
         const listItem: ListItem = value as ListItem;
 
-        return [this.createChip(listItem, 0)];
+        return [this.createChip(listItem, listItem.id || 0)];
     }
 
     private createChip(listItem: ListItem, id: number): Chip {
-        // TODO: Add icon when supported by list component
         return {
             id: `${id}`,
             text: listItem.text,
