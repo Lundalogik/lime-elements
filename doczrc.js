@@ -5,7 +5,7 @@ const port = 3000;
  */
 export default {
     title: 'Lime Elements',
-    description: 'Documentation for Lime elements',
+    description: 'Documentation for Lime Elements',
     typescript: true,
     indexHtml: 'src/index.html',
     port: port,
