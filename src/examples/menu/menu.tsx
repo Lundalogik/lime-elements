@@ -2,6 +2,14 @@ import { Component, State } from '@stencil/core';
 import { ListItem, ListSeparator } from '../../interface';
 
 const icons = ['copy', 'cut', 'paste', '', 'add', 'delete'];
+const iconColors = [
+    'var(--lime-green)',
+    'var(--lime-red)',
+    'var(--lime-orange)',
+    '',
+    'var(--lime-dark-blue)',
+    'var(--lime-magenta)',
+];
 
 @Component({
     tag: 'limel-example-menu',
@@ -72,6 +80,23 @@ export class MenuExample {
                             return { ...item, icon: icons[index] };
                         })}
                         onSelect={this.onSelect}
+                    />
+                </p>
+            </section>,
+            <section>
+                <h3>With badge icons</h3>
+                <p>
+                    <limel-menu
+                        label="Menu"
+                        items={this.items.map((item, index) => {
+                            return {
+                                ...item,
+                                icon: icons[index],
+                                iconColor: iconColors[index],
+                            };
+                        })}
+                        onSelect={this.onSelect}
+                        badgeIcons={true}
                     />
                 </p>
             </section>,
