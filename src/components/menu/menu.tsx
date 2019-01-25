@@ -42,6 +42,12 @@ export class Menu {
     public open = false;
 
     /**
+     * Defines whether the menu should show badges.
+     */
+    @Prop({ mutable: true, reflectToAttr: true })
+    public badgeIcons = false;
+
+    /**
      * Is emitted when the menu is cancelled.
      */
     @Event()
@@ -89,6 +95,7 @@ export class Menu {
             selectable: true,
             isMenu: true,
             isOpen: this.open,
+            badgeIcons: this.badgeIcons,
         };
         return (
             <div class="mdc-menu-surface--anchor">
