@@ -1,3 +1,10 @@
+## [13.0.1](https://github.com/Lundalogik/lime-elements/compare/v13.0.0...v13.0.1) (2019-01-25)
+
+
+### Bug Fixes
+
+* **picker:** improve performance for limel-picker ([7b01dac](https://github.com/Lundalogik/lime-elements/commit/7b01dac))
+
 # [13.0.0](https://github.com/Lundalogik/lime-elements/compare/v12.1.1...v13.0.0) (2019-01-21)
 
 
