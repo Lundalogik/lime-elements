@@ -1,3 +1,11 @@
+# [13.2.0](https://github.com/Lundalogik/lime-elements/compare/v13.1.0...v13.2.0) (2019-01-25)
+
+
+### Features
+
+* **limel-badges:** allow badges ([161dfd4](https://github.com/Lundalogik/lime-elements/commit/161dfd4)), closes [Lundalogik/crm-feature#695](https://github.com/Lundalogik/crm-feature/issues/695)
+* **limel-list:** overwrite material badge size in a list ([f825806](https://github.com/Lundalogik/lime-elements/commit/f825806)), closes [Lundalogik/crm-feature#695](https://github.com/Lundalogik/crm-feature/issues/695)
+
 # [13.1.0](https://github.com/Lundalogik/lime-elements/compare/v13.0.3...v13.1.0) (2019-01-25)
 
 
