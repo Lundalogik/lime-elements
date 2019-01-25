@@ -1,3 +1,13 @@
+## [13.0.2](https://github.com/Lundalogik/lime-elements/compare/v13.0.1...v13.0.2) (2019-01-25)
+
+
+### Bug Fixes
+
+* change border bottom color on input fields ([2981bc9](https://github.com/Lundalogik/lime-elements/commit/2981bc9))
+* input field for limel-input is white ([beae022](https://github.com/Lundalogik/lime-elements/commit/beae022))
+* input field for limel-picker is white ([1533a54](https://github.com/Lundalogik/lime-elements/commit/1533a54))
+* input field for limel-select is white ([62c8f5c](https://github.com/Lundalogik/lime-elements/commit/62c8f5c))
+
 ## [13.0.1](https://github.com/Lundalogik/lime-elements/compare/v13.0.0...v13.0.1) (2019-01-25)
 
 
