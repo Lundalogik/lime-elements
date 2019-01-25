@@ -1,3 +1,11 @@
+## [13.0.3](https://github.com/Lundalogik/lime-elements/compare/v13.0.2...v13.0.3) (2019-01-25)
+
+
+### Bug Fixes
+
+* add border to multi-select ([5986223](https://github.com/Lundalogik/lime-elements/commit/5986223))
+* add border to slider ([b4784f1](https://github.com/Lundalogik/lime-elements/commit/b4784f1))
+
 ## [13.0.2](https://github.com/Lundalogik/lime-elements/compare/v13.0.1...v13.0.2) (2019-01-25)
 
 
