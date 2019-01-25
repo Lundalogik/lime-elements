@@ -1,3 +1,15 @@
+# [13.1.0](https://github.com/Lundalogik/lime-elements/compare/v13.0.3...v13.1.0) (2019-01-25)
+
+
+### Bug Fixes
+
+* **limel-picker:** set chip-set id from listItem id if existing ([d260906](https://github.com/Lundalogik/lime-elements/commit/d260906)), closes [#256](https://github.com/Lundalogik/lime-elements/issues/256)
+
+
+### Features
+
+* **limel-picker:** add interact event ([2e191d1](https://github.com/Lundalogik/lime-elements/commit/2e191d1)), closes [#256](https://github.com/Lundalogik/lime-elements/issues/256)
+
 ## [13.0.3](https://github.com/Lundalogik/lime-elements/compare/v13.0.2...v13.0.3) (2019-01-25)
 
 
