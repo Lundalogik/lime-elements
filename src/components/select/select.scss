@@ -13,8 +13,6 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
     @include mdc-states-hover-opacity(0);
     @include mdc-states-focus-opacity(0, true);
     width: 100%;
-    background-size: 1.2rem 1.2rem;
-    background-position: right 1.6rem center;
 
     &__native-control {
         padding-top: 2.5rem;
