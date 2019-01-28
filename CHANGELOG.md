@@ -1,3 +1,10 @@
+## [13.2.2](https://github.com/Lundalogik/lime-elements/compare/v13.2.1...v13.2.2) (2019-01-28)
+
+
+### Bug Fixes
+
+* **limel-select:** add icon to select list ([d0dc5a9](https://github.com/Lundalogik/lime-elements/commit/d0dc5a9))
+
 ## [13.2.1](https://github.com/Lundalogik/lime-elements/compare/v13.2.0...v13.2.1) (2019-01-28)
 
 
