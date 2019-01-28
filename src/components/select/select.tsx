@@ -51,12 +51,13 @@ export class Select {
 
     public render() {
         return (
-            <label
+            <div
                 class={`
                     mdc-select
                     ${this.disabled ? 'mdc-select--disabled' : ''}
                 `}
             >
+                <i class="mdc-select__dropdown-icon" />
                 <select
                     onChange={this.onChange}
                     class="mdc-select__native-control"
@@ -79,16 +80,16 @@ export class Select {
                         );
                     })}
                 </select>
-                <span
+                <label
                     class={`
                         mdc-floating-label
                         ${this.value ? 'mdc-floating-label--float-above' : ''}
                     `}
                 >
                     {this.label}
-                </span>
+                </label>
                 <div class="mdc-line-ripple" />
-            </label>
+            </div>
         );
     }
 
