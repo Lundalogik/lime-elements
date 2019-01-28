@@ -1,3 +1,10 @@
+## [13.2.1](https://github.com/Lundalogik/lime-elements/compare/v13.2.0...v13.2.1) (2019-01-28)
+
+
+### Bug Fixes
+
+* **input-field:** floating label if value is set or field is focused ([85d4c0e](https://github.com/Lundalogik/lime-elements/commit/85d4c0e))
+
 # [13.2.0](https://github.com/Lundalogik/lime-elements/compare/v13.1.0...v13.2.0) (2019-01-25)
 
 
