@@ -105,6 +105,8 @@ export class InputField {
     @Event()
     private action: EventEmitter;
 
+    private isFocused: boolean = false;
+
     public componentDidLoad() {
         this.mdcTextField = new MDCTextField(
             this.limelInputField.shadowRoot.querySelector('.mdc-text-field')
@@ -136,6 +138,12 @@ export class InputField {
                 <input
                     class="mdc-text-field__input"
                     onInput={this.handleChange.bind(this)}
+                    onFocus={() => {
+                        this.isFocused = true;
+                    }}
+                    onBlur={() => {
+                        this.isFocused = false;
+                    }}
                     value={this.value}
                     required={this.required}
                     disabled={this.disabled}
@@ -145,7 +153,11 @@ export class InputField {
                 <span
                     class={`
                         mdc-floating-label
-                        ${this.value ? 'mdc-floating-label--float-above' : ''}
+                        ${
+                            this.value || this.isFocused
+                                ? 'mdc-floating-label--float-above'
+                                : ''
+                        }
                     `}
                 >
                     {this.label}
@@ -198,7 +210,9 @@ export class InputField {
                 return;
             }
 
-            value = Number(value);
+            if (value) {
+                value = Number(value);
+            }
         }
 
         this.change.emit(value);
