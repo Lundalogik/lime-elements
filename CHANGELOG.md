@@ -1,3 +1,10 @@
+## [13.2.3](https://github.com/Lundalogik/lime-elements/compare/v13.2.2...v13.2.3) (2019-01-29)
+
+
+### Bug Fixes
+
+* **limel-dialog:** possible to create fullsize dialog ([590f592](https://github.com/Lundalogik/lime-elements/commit/590f592))
+
 ## [13.2.2](https://github.com/Lundalogik/lime-elements/compare/v13.2.1...v13.2.2) (2019-01-28)
 
 
