@@ -58,7 +58,7 @@
     "@semantic-release/git": "^7.0.8",
     "@stencil/core": "^0.17.0",
     "@stencil/sass": "^0.1.1",
-    "@types/jest": "^23.3.9",
+    "@types/jest": "^23.3.13",
     "@types/puppeteer": "1.11.2",
     "commitizen": "^3.0.5",
     "concurrently": "^4.1.0",
