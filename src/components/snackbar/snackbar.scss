@@ -2,5 +2,5 @@
 @import "@lime-material/snackbar/mdc-snackbar";
 
 .mdc-button {
-    @include mdc-button-ink-color($mdc-theme-secondary);
+    @include mdc-button-ink-color($lime-blue);
 }
