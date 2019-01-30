@@ -1,0 +1,20 @@
+@mixin fullpage-grid($cols8, $cols4, $cols2) {
+    display: grid;
+    grid-template-areas: $cols8;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 1.5rem;
+    grid-auto-flow: dense;
+    grid-auto-rows: 15rem;
+    margin: 0 auto;
+
+    .device-state-tellus & {
+        grid-template-areas: $cols4;
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 72rem;
+    }
+
+    .device-state-mars & {
+        grid-template-areas: $cols2;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
