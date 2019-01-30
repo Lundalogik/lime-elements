@@ -1,3 +1,15 @@
+# [13.3.0](https://github.com/Lundalogik/lime-elements/compare/v13.2.3...v13.3.0) (2019-01-30)
+
+
+### Bug Fixes
+
+* **limel-slider:** change pin color to white ([b83c585](https://github.com/Lundalogik/lime-elements/commit/b83c585)), closes [#252](https://github.com/Lundalogik/lime-elements/issues/252)
+
+
+### Features
+
+* **limel-slider:** define highlight color by variable ([07b687c](https://github.com/Lundalogik/lime-elements/commit/07b687c)), closes [#252](https://github.com/Lundalogik/lime-elements/issues/252)
+
 ## [13.2.3](https://github.com/Lundalogik/lime-elements/compare/v13.2.2...v13.2.3) (2019-01-29)
 
 
