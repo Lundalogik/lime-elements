@@ -3,9 +3,9 @@
 $colorGrey: #999999;
 
 .mdc-slider {
-    @include mdc-slider-highlight-color(primary);
-    @include mdc-slider-thumb-color(primary);
-    @include mdc-slider-value-pin-fill-color(primary);
+    @include mdc-slider-highlight-color(var(--lime-primary-color, $mdc-theme-primary));
+    @include mdc-slider-thumb-color(var(--lime-primary-color, $mdc-theme-primary));
+    @include mdc-slider-value-pin-fill-color(var(--lime-primary-color, $mdc-theme-primary));
     @include mdc-slider-value-pin-ink-color(on-primary);
 }
 
