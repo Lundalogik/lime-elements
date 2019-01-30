@@ -6,6 +6,7 @@ $colorGrey: #999999;
     @include mdc-slider-highlight-color(primary);
     @include mdc-slider-thumb-color(primary);
     @include mdc-slider-value-pin-fill-color(primary);
+    @include mdc-slider-value-pin-ink-color(on-primary);
 }
 
 .mdc-slider__pin-value-marker {
