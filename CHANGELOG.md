@@ -1,3 +1,10 @@
+# [13.4.0](https://github.com/Lundalogik/lime-elements/compare/v13.3.0...v13.4.0) (2019-01-31)
+
+
+### Features
+
+* **grid:** add scss mixin for fullpage-grid ([5b81baf](https://github.com/Lundalogik/lime-elements/commit/5b81baf)), closes [Lundalogik/crm-feature#709](https://github.com/Lundalogik/crm-feature/issues/709) [Lundalogik/crm-feature#710](https://github.com/Lundalogik/crm-feature/issues/710)
+
 # [13.3.0](https://github.com/Lundalogik/lime-elements/compare/v13.2.3...v13.3.0) (2019-01-30)
 
 
