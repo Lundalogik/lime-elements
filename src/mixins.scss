@@ -1,4 +1,4 @@
-@mixin fullpage-grid($cols8, $cols4, $cols2) {
+@mixin grid-fullpage($cols8, $cols4, $cols2) {
     display: grid;
     grid-template-areas: $cols8;
     grid-template-columns: repeat(8, 1fr);
