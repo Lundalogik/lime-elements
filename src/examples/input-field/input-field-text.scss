@@ -3,10 +3,10 @@
 
     limel-input-field {
         display: inline-block;
-        width: calc(50% - 1.0rem);
+        width: calc(50% - 1rem);
 
         &:first-of-type {
-            margin-right: 2.0rem;
+            margin-right: 2rem;
         }
     }
 }
