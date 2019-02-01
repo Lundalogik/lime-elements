@@ -1,3 +1,20 @@
+# [15.0.0](https://github.com/Lundalogik/lime-elements/compare/v14.0.0...v15.0.0) (2019-02-01)
+
+
+### chore
+
+* **limel-autocomplete:** delete component ([8ef2ad2](https://github.com/Lundalogik/lime-elements/commit/8ef2ad2)), closes [#274](https://github.com/Lundalogik/lime-elements/issues/274)
+
+
+### Features
+
+* **limel-input-field:** add prop completions as suggestions value can autocomplete to ([0eddeae](https://github.com/Lundalogik/lime-elements/commit/0eddeae)), closes [#274](https://github.com/Lundalogik/lime-elements/issues/274)
+
+
+### BREAKING CHANGES
+
+* **limel-autocomplete:** limel-autocomplete is deleted, use limel-input-field with completions instead
+
 # [14.0.0](https://github.com/Lundalogik/lime-elements/compare/v13.4.0...v14.0.0) (2019-02-01)
 
 
