@@ -84,8 +84,17 @@ export class InputField {
     @Prop({ reflectToAttr: true })
     public formatNumber = true;
 
+    /**
+     * list of suggestions `value` can autocomplete to.
+     */
+    @Prop()
+    public completions: string[] = [];
+
     @State()
     private mdcTextField;
+
+    @State()
+    private isFocused: boolean = false;
 
     @Element()
     private limelInputField: HTMLElement;
@@ -105,8 +114,6 @@ export class InputField {
     @Event()
     private action: EventEmitter;
 
-    private isFocused: boolean = false;
-
     public componentDidLoad() {
         this.mdcTextField = new MDCTextField(
             this.limelInputField.shadowRoot.querySelector('.mdc-text-field')
@@ -120,7 +127,7 @@ export class InputField {
     }
 
     public render() {
-        return (
+        return [
             <label
                 class={`
                     mdc-text-field
@@ -164,8 +171,11 @@ export class InputField {
                 </span>
                 {this.renderTrailingIcon()}
                 <div class="mdc-line-ripple" />
-            </label>
-        );
+            </label>,
+            <div class="autocomplete-list-container">
+                {this.renderDropdown()}
+            </div>,
+        ];
     }
 
     private renderTrailingIcon() {
@@ -200,6 +210,49 @@ export class InputField {
             <span class="mdc-text-field__formatted_input">{renderValue}</span>
         );
     }
+
+    private renderDropdown() {
+        const filteredCompletions = this.filterCompletions(this.value);
+
+        if (!filteredCompletions || filteredCompletions.length === 0) {
+            return null;
+        }
+        return (
+            this.isFocused && (
+                <div class="autocomplete-list mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open">
+                    <ul class="mdc-list">
+                        {filteredCompletions.map(completion => {
+                            return (
+                                <li
+                                    class="mdc-list-item"
+                                    onMouseDown={() => {
+                                        this.completionClickHandler(completion);
+                                    }}
+                                >
+                                    {completion}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            )
+        );
+    }
+
+    private completionClickHandler(autocompletion: string) {
+        this.mdcTextField.value = autocompletion;
+        this.change.emit(autocompletion);
+    }
+
+    private filterCompletions = (filter: string) => {
+        if (!filter) {
+            return this.completions;
+        }
+        return this.completions.filter(
+            completion =>
+                completion.toLowerCase().indexOf(filter.toLowerCase()) > -1
+        );
+    };
 
     private handleChange(event) {
         let value = event.target.value;

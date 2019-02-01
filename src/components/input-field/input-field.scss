@@ -8,9 +8,11 @@ $mdc-text-field-bottom-line-idle: $lime-text-field-bottom-line-color;
 $mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
 $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 
-
 @import '@lime-material/textfield/mdc-text-field';
 @import '@lime-material/ripple/mdc-ripple';
+@import '@lime-material/list/mdc-list';
+@import '@lime-material/elevation/mdc-elevation';
+@import "@lime-material/menu-surface/mdc-menu-surface";
 
 :host {
     display: block;
@@ -32,7 +34,7 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 
 :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
     .mdc-text-field__formatted_input {
-        color: rgba(0,0,0,0.87);
+        color: rgba(0, 0, 0, 0.87);
         font-weight: 400;
         left: 1.2rem;
         line-height: 2.8rem;
@@ -42,7 +44,7 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
         display: block;
     }
 
-    .mdc-text-field__input[type=number] {
+    .mdc-text-field__input[type='number'] {
         color: transparent;
         -webkit-text-fill-color: transparent;
     }
@@ -52,4 +54,22 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
     .mdc-text-field__formatted_input {
         color: rgba(0, 0, 0, 0.37);
     }
+}
+
+.autocomplete-list-container {
+    position: relative;
+}
+
+.autocomplete-list {
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-height: 20rem;
+    overflow-y: auto;
+}
+
+.mdc-list-item {
+    cursor: pointer;
 }
