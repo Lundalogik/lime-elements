@@ -1,3 +1,16 @@
+# [14.0.0](https://github.com/Lundalogik/lime-elements/compare/v13.4.0...v14.0.0) (2019-02-01)
+
+
+### Code Refactoring
+
+* **grid:** rename mixin `fullpage-grid` to `grid-fullpage` ([749dc3f](https://github.com/Lundalogik/lime-elements/commit/749dc3f))
+
+
+### BREAKING CHANGES
+
+* **grid:** In order to better accommodate other grid mixins in the future, the mixin
+`fullpage-grid` has been renamed to `grid-fullpage`.
+
 # [13.4.0](https://github.com/Lundalogik/lime-elements/compare/v13.3.0...v13.4.0) (2019-01-31)
 
 
