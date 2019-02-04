@@ -61,7 +61,10 @@ export class MultiSelect {
     public render() {
         return (
             <div>
-                <label htmlFor={this.fieldId} class="multi-select-label">
+                <label
+                    htmlFor={this.fieldId}
+                    class="multi-select-label mdc-floating-label mdc-floating-label--float-above"
+                >
                     {this.label}
                 </label>
                 <div class="multi-select" id={this.fieldId}>
