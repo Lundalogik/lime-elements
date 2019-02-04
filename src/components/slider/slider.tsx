@@ -60,7 +60,9 @@ export class Slider {
     public render() {
         return (
             <div class="slider">
-                <label class="slider__label">{this.label}</label>
+                <label class="slider__label mdc-floating-label mdc-floating-label--float-above">
+                    {this.label}
+                </label>
                 <div class="slider__content">
                     <div class="slider__content-range-container">
                         <span class="slider__content-min-label">
