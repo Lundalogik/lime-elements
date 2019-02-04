@@ -1,3 +1,12 @@
+## [15.0.1](https://github.com/Lundalogik/lime-elements/compare/v15.0.0...v15.0.1) (2019-02-04)
+
+
+### Bug Fixes
+
+* **multi-select:** change color on multi-select radio buttons to a dark-grey color ([7c47810](https://github.com/Lundalogik/lime-elements/commit/7c47810)), closes [#254](https://github.com/Lundalogik/lime-elements/issues/254)
+* **multi-select:** remove border-bottom styling ([9e79010](https://github.com/Lundalogik/lime-elements/commit/9e79010))
+* **slider:** remove border-bottom styling ([791ca7f](https://github.com/Lundalogik/lime-elements/commit/791ca7f))
+
 # [15.0.0](https://github.com/Lundalogik/lime-elements/compare/v14.0.0...v15.0.0) (2019-02-01)
 
 
