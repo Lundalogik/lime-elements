@@ -1,4 +1,5 @@
 @import '@lime-material/slider/mdc-slider';
+@import "@lime-material/floating-label/mdc-floating-label";
 
 $colorGrey: #999999;
 
@@ -25,12 +26,7 @@ $colorGrey: #999999;
 
 
 .slider__label {
-    color: $colorGrey;
-    display: inline-block;
-    font-size: 1.2rem;
-    overflow: hidden;
-    text-overflow: clip;
-    width: 100%;
+    padding-left: 2rem;
 }
 
 .slider__content {
