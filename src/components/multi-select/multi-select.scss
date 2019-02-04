@@ -1,5 +1,11 @@
 @import '@lime-material/form-field/mdc-form-field';
 @import '@lime-material/checkbox/mdc-checkbox';
+@import "@lime-material/floating-label/mdc-floating-label";
+
+.multi-select-label {
+    left: auto;
+    padding-left: 2rem;
+}
 
 .mdc-form-field {
     display: flex;
