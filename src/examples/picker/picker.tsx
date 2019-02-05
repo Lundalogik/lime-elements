@@ -56,7 +56,7 @@ export class PickerExample {
     private search(query: string) {
         return new Promise(resolve => {
             if (query === '') {
-                resolve([]);
+                resolve(this.allItems);
             }
             // Simulate some network delay
             setTimeout(() => {
