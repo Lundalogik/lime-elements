@@ -322,11 +322,12 @@ export class Picker {
     /**
      * Focus handler for the chip set
      * Prevent focus if the picker has a value and does not support multiple values
-     *
+     * @param {CustomEvent} event event
      * @returns {void}
      */
-    private async handleInputFieldFocus() {
+    private async handleInputFieldFocus(event) {
         if (this.value && !this.multiple) {
+            event.stopPropagation();
             this.chipSet.blur();
 
             return;
