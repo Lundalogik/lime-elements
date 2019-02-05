@@ -1,3 +1,10 @@
+## [15.0.4](https://github.com/Lundalogik/lime-elements/compare/v15.0.3...v15.0.4) (2019-02-05)
+
+
+### Bug Fixes
+
+* **limel-multi-select:** fix label styles ([9a6af5d](https://github.com/Lundalogik/lime-elements/commit/9a6af5d))
+
 ## [15.0.3](https://github.com/Lundalogik/lime-elements/compare/v15.0.2...v15.0.3) (2019-02-05)
 
 
