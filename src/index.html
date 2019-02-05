@@ -19,7 +19,12 @@
 
         /* Hack to not hide a large dialog behind the left navigation bar */
         #root > div > a + div {
+            /* nav-bar */
             z-index: 5;
+        }
+        #root > div > a + div + div {
+            /* nav-bar scrim in narrow mode */
+            z-index: 4;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/codemirror@5.39.2/lib/codemirror.css" />
