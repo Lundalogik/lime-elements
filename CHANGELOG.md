@@ -1,3 +1,11 @@
+## [15.0.2](https://github.com/Lundalogik/lime-elements/compare/v15.0.1...v15.0.2) (2019-02-05)
+
+
+### Bug Fixes
+
+* **limel-multi-select:** use floating label styles ([fcdd9dd](https://github.com/Lundalogik/lime-elements/commit/fcdd9dd))
+* **limel-slider:** use floating label styles ([4a5e469](https://github.com/Lundalogik/lime-elements/commit/4a5e469))
+
 ## [15.0.1](https://github.com/Lundalogik/lime-elements/compare/v15.0.0...v15.0.1) (2019-02-04)
 
 
