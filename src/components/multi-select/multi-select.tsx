@@ -60,14 +60,14 @@ export class MultiSelect {
 
     public render() {
         return (
-            <div>
+            <div class="multi-select">
                 <label
                     htmlFor={this.fieldId}
                     class="multi-select-label mdc-floating-label mdc-floating-label--float-above"
                 >
                     {this.label}
                 </label>
-                <div class="multi-select" id={this.fieldId}>
+                <div id={this.fieldId}>
                     {this.options.map((option: Option, index: number) => {
                         return this.renderCheckbox(index, option);
                     })}

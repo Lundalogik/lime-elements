@@ -2,16 +2,19 @@
 @import '@lime-material/checkbox/mdc-checkbox';
 @import "@lime-material/floating-label/mdc-floating-label";
 
-.multi-select-label {
-    left: auto;
-    padding-left: 2rem;
-}
+.multi-select {
+    position: relative;
 
-.mdc-form-field {
-    display: flex;
-}
+    .multi-select-label {
+        padding-left: 1.5rem;
+    }
 
-.mdc-checkbox  {
-    @include mdc-checkbox-ink-color(primary);
-    @include mdc-checkbox-container-colors(secondary, on-primary, secondary, on-primary);
+    .mdc-form-field {
+        display: flex;
+    }
+
+    .mdc-checkbox {
+        @include mdc-checkbox-ink-color(primary);
+        @include mdc-checkbox-container-colors(secondary, on-primary, secondary, on-primary);
+    }
 }
