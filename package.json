@@ -56,7 +56,7 @@
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/exec": "^3.3.2",
     "@semantic-release/git": "^7.0.8",
-    "@stencil/core": "^0.17.0",
+    "@stencil/core": "^0.17.2",
     "@stencil/sass": "^0.1.1",
     "@types/jest": "^23.3.13",
     "@types/puppeteer": "1.11.2",
