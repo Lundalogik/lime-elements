@@ -61,7 +61,7 @@ export class Snackbar {
         );
 
         this.mdcSnackbar.listen('MDCSnackbar:closing', event => {
-            if (event.details === 'action') {
+            if (event.detail.reason === 'action') {
                 this.action.emit();
             } else {
                 this.hide.emit();
