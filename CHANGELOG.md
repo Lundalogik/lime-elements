@@ -1,3 +1,10 @@
+## [15.0.5](https://github.com/Lundalogik/lime-elements/compare/v15.0.4...v15.0.5) (2019-02-08)
+
+
+### Bug Fixes
+
+* snackbar listens to action event again ([2860213](https://github.com/Lundalogik/lime-elements/commit/2860213))
+
 ## [15.0.4](https://github.com/Lundalogik/lime-elements/compare/v15.0.3...v15.0.4) (2019-02-05)
 
 
