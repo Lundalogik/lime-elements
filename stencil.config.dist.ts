@@ -7,12 +7,6 @@ const targetDist: OutputTargetDist = {
 };
 
 export const config: Config = {
-    copy: [
-        {
-            src: 'mixins.scss',
-            dest: '../mixins.scss',
-        },
-    ],
     namespace: 'lime-elements',
     outputTargets: [targetDist],
     plugins: [
