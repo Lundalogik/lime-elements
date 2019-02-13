@@ -1,3 +1,10 @@
+## [15.0.6](https://github.com/Lundalogik/lime-elements/compare/v15.0.5...v15.0.6) (2019-02-13)
+
+
+### Bug Fixes
+
+* **limel-dialog:** set focus trap on hidden input field ([263937b](https://github.com/Lundalogik/lime-elements/commit/263937b))
+
 ## [15.0.5](https://github.com/Lundalogik/lime-elements/compare/v15.0.4...v15.0.5) (2019-02-08)
 
 
