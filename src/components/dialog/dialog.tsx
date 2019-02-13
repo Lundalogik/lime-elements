@@ -1,4 +1,4 @@
-import { MDCDialog } from '@lime-material/dialog';
+import { MDCDialog, util } from '@lime-material/dialog';
 import {
     Component,
     Element,
@@ -7,6 +7,7 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
+import * as focusTrap from 'focus-trap';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
 
@@ -78,6 +79,20 @@ export class Dialog {
             this.mdcDialog.open();
         }
 
+        const { activate, deactivate } = util.createFocusTrapInstance(
+            this.host.shadowRoot.querySelector('.mdc-dialog__surface'),
+            focusTrap.default,
+            this.host.shadowRoot.getElementById('initialFocusEl')
+        );
+
+        this.mdcDialog.foundation_.adapter_.trapFocus = () => {
+            activate();
+        };
+
+        this.mdcDialog.foundation_.adapter_.releaseFocus = () => {
+            deactivate();
+        };
+
         this.mdcDialog.listen('MDCDialog:opened', () => {
             // When the opening-animation has completed, dispatch a
             // resize-event so that any content that depends on
@@ -119,6 +134,7 @@ export class Dialog {
                 aria-labelledby={'limel-dialog-title-' + this.id}
                 aria-describedby={'limel-dialog-content-' + this.id}
             >
+                <input hidden={true} id="initialFocusEl" />
                 <div
                     class={`mdc-dialog__container ${
                         this.fullscreen ? 'full-screen' : ''
