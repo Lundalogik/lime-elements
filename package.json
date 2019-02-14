@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "awesome-debounce-promise": "^1.0.0",
+    "chart.js": "^2.7.3",
     "flatpickr": "^4.5.2",
     "jsx-dom": "^6.2.1",
     "lime-material-components-web": "0.43.1",
@@ -58,6 +59,7 @@
     "@semantic-release/git": "^7.0.8",
     "@stencil/core": "^0.18.0",
     "@stencil/sass": "^0.1.1",
+    "@types/chart.js": "^2.7.45",
     "@types/jest": "^23.3.13",
     "@types/puppeteer": "1.11.2",
     "commitizen": "^3.0.5",
