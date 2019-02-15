@@ -5,6 +5,7 @@ import {
     EventEmitter,
     Listen,
     Prop,
+    State,
 } from '@stencil/core';
 
 import { Translations } from '../../global/translations';
@@ -89,10 +90,17 @@ export class DatePicker {
     @Event()
     private change: EventEmitter;
 
+    @State()
+    private formattedValue: string;
+
     private picker: Picker;
 
     private container: HTMLElement;
     private input: HTMLElement;
+
+    constructor() {
+        this.handleChange = this.handleChange.bind(this);
+    }
 
     public componentWillLoad() {
         switch (this.type) {
@@ -165,6 +173,7 @@ export class DatePicker {
         this.container = this.host.shadowRoot.querySelector('.container');
 
         this.picker.init(this.input, this.container, this.value);
+        this.formattedValue = this.picker.formatDate(this.value);
     }
 
     public componentDidUnload() {
@@ -172,8 +181,6 @@ export class DatePicker {
     }
 
     public render() {
-        const formattedValue = this.picker.formatDate(this.value);
-
         return (
             <div class="container">
                 <limel-input-field
@@ -181,7 +188,7 @@ export class DatePicker {
                     invalid={this.invalid}
                     label={this.label}
                     required={this.required}
-                    value={formattedValue}
+                    value={this.formattedValue}
                     onChange={this.handleChange}
                 />
             </div>
@@ -195,5 +202,6 @@ export class DatePicker {
 
     private handleChange(event) {
         event.stopPropagation();
+        this.formattedValue = event.detail;
     }
 }
