@@ -1,3 +1,10 @@
+## [15.0.7](https://github.com/Lundalogik/lime-elements/compare/v15.0.6...v15.0.7) (2019-02-15)
+
+
+### Bug Fixes
+
+* **limel-date-picker:** keep formatted value in sync ([1444754](https://github.com/Lundalogik/lime-elements/commit/1444754)), closes [#295](https://github.com/Lundalogik/lime-elements/issues/295)
+
 ## [15.0.6](https://github.com/Lundalogik/lime-elements/compare/v15.0.5...v15.0.6) (2019-02-13)
 
 
