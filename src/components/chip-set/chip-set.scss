@@ -12,6 +12,11 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 @import '@lime-material/textfield/mdc-text-field';
 @import '@lime-material/ripple/mdc-ripple';
 
+/**
+ * @prop --icon-background-color: Background color of the icon. Defaults to transparent.
+ * @prop --icon-color: Color of the icon. Defaults to 54% black.
+ * @prop --background-color: Background color of the field when type is set to input.
+ */
 
 :host([disabled]) {
     pointer-events: none;

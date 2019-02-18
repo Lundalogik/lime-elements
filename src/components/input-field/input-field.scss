@@ -14,6 +14,10 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 @import '@lime-material/elevation/mdc-elevation';
 @import "@lime-material/menu-surface/mdc-menu-surface";
 
+/**
+ * @prop --background-color: Background color of the field.
+ */
+
 :host {
     display: block;
 }
