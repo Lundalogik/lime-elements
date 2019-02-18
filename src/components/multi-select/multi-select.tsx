@@ -7,6 +7,7 @@ import {
     EventEmitter,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import { Option } from '../../interface';
 import { createRandomString } from '../../util/random-string';
@@ -41,21 +42,18 @@ export class MultiSelect {
     @State()
     private mdcCheckboxes = [];
 
+    @State()
+    private updateCheckboxes = false;
+
     public componentDidLoad() {
-        const elements = Array.from(
-            this.limelMultiSelect.shadowRoot.querySelectorAll(
-                '.multi-select .mdc-form-field'
-            )
-        );
+        this.initializeCheckboxes();
+    }
 
-        elements.forEach(element => {
-            const formField = new MDCFormField(element);
-            const checkbox = new MDCCheckbox(element.firstChild);
-            formField.input = checkbox;
-            this.mdcCheckboxes.push(checkbox);
-        });
-
-        this.onChange();
+    public componentDidUpdate() {
+        if (this.updateCheckboxes) {
+            this.initializeCheckboxes();
+            this.updateCheckboxes = false;
+        }
     }
 
     public render() {
@@ -74,6 +72,11 @@ export class MultiSelect {
                 </div>
             </div>
         );
+    }
+
+    @Watch('options')
+    protected watchOptions() {
+        this.updateCheckboxes = true;
     }
 
     private renderCheckbox(index: number, option: Option) {
@@ -113,6 +116,23 @@ export class MultiSelect {
                 </label>
             </div>
         );
+    }
+
+    private initializeCheckboxes() {
+        const elements = Array.from(
+            this.limelMultiSelect.shadowRoot.querySelectorAll(
+                '.multi-select .mdc-form-field'
+            )
+        );
+
+        elements.forEach(element => {
+            const formField = new MDCFormField(element);
+            const checkbox = new MDCCheckbox(element.firstChild);
+            formField.input = checkbox;
+            this.mdcCheckboxes.push(checkbox);
+        });
+
+        this.onChange();
     }
 
     private isOptionChecked(option: Option) {
