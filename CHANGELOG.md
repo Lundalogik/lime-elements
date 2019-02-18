@@ -1,3 +1,17 @@
+# [16.0.0](https://github.com/Lundalogik/lime-elements/compare/v15.0.7...v16.0.0) (2019-02-18)
+
+
+### Features
+
+* **limel-chart:** add component ([62b2b2c](https://github.com/Lundalogik/lime-elements/commit/62b2b2c)), closes [#287](https://github.com/Lundalogik/lime-elements/issues/287)
+* **limel-grid:** add new limel-grid component ([5572b6b](https://github.com/Lundalogik/lime-elements/commit/5572b6b)), closes [#289](https://github.com/Lundalogik/lime-elements/issues/289) [Lundalogik/crm-feature#758](https://github.com/Lundalogik/crm-feature/issues/758)
+
+
+### BREAKING CHANGES
+
+* **limel-grid:** The scss-mixin grid-fullscreen has been removed. It is replaced by the new
+limel-grid component.
+
 ## [15.0.7](https://github.com/Lundalogik/lime-elements/compare/v15.0.6...v15.0.7) (2019-02-15)
 
 
