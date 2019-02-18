@@ -1,5 +1,9 @@
 @import "@lime-material/linear-progress/mdc-linear-progress";
 
+/**
+ * @prop --background-color: Color to use for progress-bar track.
+ */
+
 .mdc-linear-progress {
     text-align: left;
 }

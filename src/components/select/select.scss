@@ -5,6 +5,10 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 @import "@lime-material/select/mdc-select";
 @import '@lime-material/ripple/mdc-ripple';
 
+/**
+ * @prop --background-color: Background color of the field.
+ */
+
 :host([hidden]) {
     display: none;
 }
