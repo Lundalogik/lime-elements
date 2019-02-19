@@ -45,6 +45,11 @@ export class MonthPicker extends Picker {
 
     protected handleClose(selectedDates) {
         super.handleClose(selectedDates);
+        this.selectMonth(
+            this.flatpickr.selectedDates,
+            this.flatpickr.input.value,
+            this.flatpickr
+        );
         this.flatpickr.prevMonthNav.removeEventListener(
             'mousedown',
             this.prevYear

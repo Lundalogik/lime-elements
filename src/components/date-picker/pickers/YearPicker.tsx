@@ -18,6 +18,7 @@ export class YearPicker extends Picker {
     ) {
         super(dateFormat, language, change);
         this.handleChange = this.handleChange.bind(this);
+        this.handleClose = this.handleClose.bind(this);
         this.handleReady = this.handleReady.bind(this);
     }
 
@@ -34,6 +35,14 @@ export class YearPicker extends Picker {
 
     protected handleChange(selectedDates, dateString) {
         this.selectYear(selectedDates, dateString);
+    }
+
+    protected handleClose(selectedDates) {
+        super.handleClose(selectedDates);
+        this.selectYear(
+            this.flatpickr.selectedDates,
+            this.flatpickr.input.value
+        );
     }
 
     private handleReady(_, __, fp) {
