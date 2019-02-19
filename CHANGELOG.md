@@ -1,3 +1,10 @@
+## [16.0.1](https://github.com/Lundalogik/lime-elements/compare/v16.0.0...v16.0.1) (2019-02-19)
+
+
+### Bug Fixes
+
+* **limel-date-picker:** change picker value when changing the input ([cf7dc60](https://github.com/Lundalogik/lime-elements/commit/cf7dc60)), closes [#297](https://github.com/Lundalogik/lime-elements/issues/297)
+
 # [16.0.0](https://github.com/Lundalogik/lime-elements/compare/v15.0.7...v16.0.0) (2019-02-18)
 
 
