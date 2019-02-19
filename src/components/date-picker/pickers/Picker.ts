@@ -73,10 +73,23 @@ export abstract class Picker {
     }
 
     protected handleClose(selectedDates) {
-        const date = selectedDates[0]
+        const momentInputDate = moment(
+            this.flatpickr.input.value,
+            this.dateFormat
+        );
+        let pickerDate = selectedDates[0]
             ? new Date(selectedDates[0].toJSON())
             : null;
-        this.change.emit(date);
+        const isSameInput = momentInputDate.isSame(moment(pickerDate));
+        if (!isSameInput) {
+            if (momentInputDate.isValid()) {
+                pickerDate = momentInputDate.toDate();
+                this.flatpickr.setDate(pickerDate);
+            } else {
+                this.flatpickr.clear();
+            }
+        }
+        this.change.emit(pickerDate);
     }
 
     private getMomentLang() {

@@ -46,6 +46,11 @@ export class QuarterPicker extends Picker {
 
     protected handleClose(selectedDates) {
         super.handleClose(selectedDates);
+        this.selectQuarter(
+            this.flatpickr.selectedDates,
+            this.flatpickr.input.value,
+            this.flatpickr
+        );
         this.flatpickr.prevMonthNav.removeEventListener(
             'mousedown',
             this.prevYear
