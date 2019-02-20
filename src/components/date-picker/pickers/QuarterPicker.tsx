@@ -1,5 +1,5 @@
 import { EventEmitter } from '@stencil/core';
-import { BaseOptions } from 'flatpickr/dist/types/options';
+import flatpickr from 'flatpickr';
 import { range } from 'lodash-es';
 import moment from 'moment/moment';
 import { Picker } from './Picker';
@@ -27,7 +27,7 @@ export class QuarterPicker extends Picker {
         this.prevYear = this.prevYear.bind(this);
     }
 
-    public getConfig(nativePicker: boolean): Partial<BaseOptions> {
+    public getConfig(nativePicker: boolean): flatpickr.Options.Options {
         const config: any = {
             onChange: this.handleChange,
         };
