@@ -1,40 +1,55 @@
 import { Component, State } from '@stencil/core';
 import { DateType } from '../../components/date-picker/date-type';
 
-const types = {
-    datetime: new Date('2018-12-25 16:00'),
-    date: new Date('2018-12-25'),
-    time: new Date('2018-12-25 16:00'),
-    week: new Date('2018-12-24'),
-    month: new Date('2018-12-01'),
-    quarter: new Date('2018-10-01'),
-    year: new Date('2018-10-01'),
-};
+const types = ['datetime', 'date', 'time', 'week', 'month', 'quarter', 'year'];
 
 @Component({
     tag: 'limel-example-date-picker',
     shadow: true,
 })
 export class DatePickerExample {
-    public handleChange = Object.keys(types).map((_, index) => {
-        return event => {
-            this.values[index] = event.detail;
-        };
-    });
+    @State()
+    private datetime = new Date('2018-12-25 16:00');
 
     @State()
-    private values = (Object as any).values(types);
+    private date = new Date('2018-12-25');
+
+    @State()
+    private time = new Date('2018-12-25 16:00');
+
+    @State()
+    private week = new Date('2018-12-24');
+
+    @State()
+    private month = new Date('2018-12-01');
+
+    @State()
+    private quarter = new Date('2018-10-01');
+
+    @State()
+    private year = new Date('2018-10-01');
 
     public render() {
-        return Object.keys(types).map((type: DateType, index) => {
+        return types.map((type: DateType) => {
             return (
-                <limel-date-picker
-                    type={type}
-                    label={type}
-                    value={this.values[index]}
-                    onChange={this.handleChange[index]}
-                />
+                <p>
+                    <limel-date-picker
+                        type={type}
+                        label={type}
+                        value={this[type]}
+                        onChange={event => {
+                            this.handleChange(event, type);
+                        }}
+                    />
+                    <p style={{ 'font-size': 'small' }}>
+                        Value: <code>{this[type].toString()}</code>
+                    </p>
+                </p>
             );
         });
+    }
+
+    private handleChange(event, type: DateType) {
+        this[type] = event.detail;
     }
 }
