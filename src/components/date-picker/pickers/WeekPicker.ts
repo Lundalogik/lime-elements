@@ -1,6 +1,6 @@
 import { EventEmitter } from '@stencil/core';
+import flatpickr from 'flatpickr';
 import weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect';
-import { BaseOptions } from 'flatpickr/dist/types/options';
 import { Picker } from './Picker';
 
 export class WeekPicker extends Picker {
@@ -12,7 +12,7 @@ export class WeekPicker extends Picker {
         super(dateFormat, language, change);
     }
 
-    public getConfig(nativePicker: boolean): Partial<BaseOptions> {
+    public getConfig(nativePicker: boolean): flatpickr.Options.Options {
         return {
             plugins: [weekSelectPlugin()],
             weekNumbers: !nativePicker,

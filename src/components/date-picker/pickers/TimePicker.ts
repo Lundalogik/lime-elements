@@ -1,5 +1,5 @@
 import { EventEmitter } from '@stencil/core';
-import { BaseOptions } from 'flatpickr/dist/types/options';
+import flatpickr from 'flatpickr';
 import { Picker } from './Picker';
 
 export class TimePicker extends Picker {
@@ -11,7 +11,7 @@ export class TimePicker extends Picker {
         super(dateFormat, language, change);
     }
 
-    public getConfig(): Partial<BaseOptions> {
+    public getConfig(): flatpickr.Options.Options {
         return {
             enableTime: true,
             noCalendar: true,

@@ -1,8 +1,6 @@
 import { EventEmitter } from '@stencil/core';
 import flatpickr from 'flatpickr';
 import FlatpickrLanguages from 'flatpickr/dist/l10n';
-import { Instance } from 'flatpickr/dist/types/instance';
-import { BaseOptions } from 'flatpickr/dist/types/options';
 import 'moment/locale/da';
 import 'moment/locale/fi';
 import 'moment/locale/nb';
@@ -14,7 +12,7 @@ export abstract class Picker {
     protected dateFormat: string;
     protected language: string = 'en';
 
-    protected flatpickr: Instance;
+    protected flatpickr: flatpickr.Instance;
     private nativePicker;
 
     public constructor(
@@ -38,7 +36,7 @@ export abstract class Picker {
     }
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
-        let config: Partial<BaseOptions> = {
+        let config: flatpickr.Options.Options = {
             allowInput: true,
             disableMobile: !this.nativePicker,
             formatDate: this.nativePicker ? undefined : this.formatDate,
@@ -60,7 +58,9 @@ export abstract class Picker {
         this.flatpickr.destroy();
     }
 
-    public abstract getConfig(useNativePicker: boolean): Partial<BaseOptions>;
+    public abstract getConfig(
+        useNativePicker: boolean
+    ): flatpickr.Options.Options;
 
     public formatDate(date: Date) {
         if (date) {
