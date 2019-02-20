@@ -48,7 +48,6 @@ export abstract class Picker {
             defaultDate: value,
             locale: FlatpickrLanguages[this.language] || 'en',
         };
-
         config = { ...config, ...this.getConfig(this.nativePicker) };
         this.flatpickr = flatpickr(element, config) as Instance; // tslint:disable-line:no-useless-cast
     }
@@ -73,23 +72,39 @@ export abstract class Picker {
     }
 
     protected handleClose(selectedDates) {
-        const momentInputDate = moment(
-            this.flatpickr.input.value,
-            this.dateFormat
-        );
         let pickerDate = selectedDates[0]
             ? new Date(selectedDates[0].toJSON())
             : null;
-        const isSameInput = momentInputDate.isSame(moment(pickerDate));
-        if (!isSameInput) {
-            if (momentInputDate.isValid()) {
-                pickerDate = momentInputDate.toDate();
-                this.flatpickr.setDate(pickerDate);
-            } else {
-                this.flatpickr.clear();
-            }
+        if (this.nativePicker) {
+            this.change.emit(pickerDate);
+        } else {
+            // With the changes in flatpickr between v4.5.2 and the state of
+            // the master branch when we created v4.5.3-lime1, this timeout
+            // had to be added to let `flatpickr.input.value` update before
+            // reading the value. /Ads
+            setTimeout(() => {
+                // We need to set the locale before parsing, in case the
+                // locale for this picker differs from the locale of the
+                // app as a whole. For some reason, the fact that we already
+                // set the locale in the Picker constructor doesn't affect
+                // the instance used here. /Ads
+                moment.locale(this.getMomentLang());
+                const momentInputDate = moment(
+                    this.flatpickr.input.value,
+                    this.dateFormat
+                );
+                const isSameInput = momentInputDate.isSame(moment(pickerDate));
+                if (!isSameInput) {
+                    if (momentInputDate.isValid()) {
+                        pickerDate = momentInputDate.toDate();
+                        this.flatpickr.setDate(pickerDate);
+                    } else {
+                        this.flatpickr.clear();
+                    }
+                }
+                this.change.emit(pickerDate);
+            }, 0);
         }
-        this.change.emit(pickerDate);
     }
 
     private getMomentLang() {
