@@ -13,9 +13,12 @@ export class WeekPicker extends Picker {
     }
 
     public getConfig(nativePicker: boolean): flatpickr.Options.Options {
-        return {
-            plugins: [weekSelectPlugin()],
-            weekNumbers: !nativePicker,
-        };
+        const config: any = {};
+
+        if (!nativePicker) {
+            config.plugins = [weekSelectPlugin()];
+            config.weekNumbers = true;
+        }
+        return config;
     }
 }
