@@ -7,6 +7,8 @@ import { Component, State } from '@stencil/core';
 export class DatePickerFormattedExample {
     @State()
     private valueNo = new Date('2018-11-04');
+
+    @State()
     private valueFi = new Date('2018-11-04');
 
     public render() {
@@ -16,10 +18,13 @@ export class DatePickerFormattedExample {
                 type="datetime"
                 label="Localized date"
                 value={this.valueNo}
-                onChange={this.handleChangeNo}
+                onChange={this.handleChangeNo.bind(this)}
             />,
             <p style={{ 'font-size': 'small' }}>
-                Value: <code>{this.valueNo.toString()}</code>
+                Value:{' '}
+                <code>
+                    {this.valueNo ? this.valueNo.toString() : 'invalid'}
+                </code>
             </p>,
             <limel-date-picker
                 language="fi"
@@ -27,10 +32,13 @@ export class DatePickerFormattedExample {
                 type="datetime"
                 label="Date with custom format"
                 value={this.valueFi}
-                onChange={this.handleChangeFi}
+                onChange={this.handleChangeFi.bind(this)}
             />,
             <p style={{ 'font-size': 'small' }}>
-                Value: <code>{this.valueFi.toString()}</code>
+                Value:{' '}
+                <code>
+                    {this.valueFi ? this.valueFi.toString() : 'invalid'}
+                </code>
             </p>,
         ];
     }

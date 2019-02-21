@@ -42,7 +42,10 @@ export class DatePickerExample {
                         }}
                     />
                     <p style={{ 'font-size': 'small' }}>
-                        Value: <code>{this[type].toString()}</code>
+                        Value:{' '}
+                        <code>
+                            {this[type] ? this[type].toString() : 'invalid'}
+                        </code>
                     </p>
                 </p>
             );
