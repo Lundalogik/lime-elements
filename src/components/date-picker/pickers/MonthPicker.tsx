@@ -20,6 +20,7 @@ export class MonthPicker extends Picker {
     ) {
         super(dateFormat, language, change);
         this.handleChange = this.handleChange.bind(this);
+        this.handleClose = this.handleClose.bind(this);
         this.handleReady = this.handleReady.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
         this.nextYear = this.nextYear.bind(this);
@@ -44,20 +45,23 @@ export class MonthPicker extends Picker {
     }
 
     protected handleClose(selectedDates) {
-        super.handleClose(selectedDates);
-        this.selectMonth(
-            this.flatpickr.selectedDates,
-            this.flatpickr.input.value,
-            this.flatpickr
-        );
-        this.flatpickr.prevMonthNav.removeEventListener(
-            'mousedown',
-            this.prevYear
-        );
-        this.flatpickr.nextMonthNav.removeEventListener(
-            'mousedown',
-            this.nextYear
-        );
+        return super.handleClose(selectedDates).then(() => {
+            this.selectMonth(
+                this.flatpickr.selectedDates,
+                this.flatpickr.input.value,
+                this.flatpickr
+            );
+            if (!this.nativePicker) {
+                this.flatpickr.prevMonthNav.removeEventListener(
+                    'mousedown',
+                    this.prevYear
+                );
+                this.flatpickr.nextMonthNav.removeEventListener(
+                    'mousedown',
+                    this.nextYear
+                );
+            }
+        });
     }
 
     private handleReady(_, __, fp) {
@@ -66,22 +70,26 @@ export class MonthPicker extends Picker {
     }
 
     private handleOpen() {
-        this.flatpickr.prevMonthNav.addEventListener(
-            'mousedown',
-            this.prevYear
-        );
-        this.flatpickr.nextMonthNav.addEventListener(
-            'mousedown',
-            this.nextYear
-        );
+        if (!this.nativePicker) {
+            this.flatpickr.prevMonthNav.addEventListener(
+                'mousedown',
+                this.prevYear
+            );
+            this.flatpickr.nextMonthNav.addEventListener(
+                'mousedown',
+                this.nextYear
+            );
+        }
     }
 
     private bootstrapMonthPicker(fp) {
-        fp.innerContainer.remove();
-        fp.calendarContainer
-            .getElementsByClassName('cur-month')[0]
-            .replaceWith(this.renderHeading());
-        fp.calendarContainer.appendChild(this.renderMonthsPicker(fp));
+        if (!this.nativePicker) {
+            fp.innerContainer.remove();
+            fp.calendarContainer
+                .getElementsByClassName('cur-month')[0]
+                .replaceWith(this.renderHeading());
+            fp.calendarContainer.appendChild(this.renderMonthsPicker(fp));
+        }
     }
 
     private renderHeading(): any {
@@ -131,26 +139,34 @@ export class MonthPicker extends Picker {
     }
 
     private selectMonth(selectedDates, dateString, fp) {
-        this.months.forEach(month => {
-            month.classList.remove('selected');
-        });
+        if (!this.nativePicker) {
+            this.months.forEach(month => {
+                month.classList.remove('selected');
+            });
 
-        if (
-            dateString !== '' &&
-            selectedDates[0] &&
-            selectedDates[0].getFullYear() === fp.currentYear
-        ) {
-            this.months[selectedDates[0].getMonth()].classList.add('selected');
+            if (
+                dateString !== '' &&
+                selectedDates[0] &&
+                selectedDates[0].getFullYear() === fp.currentYear
+            ) {
+                this.months[selectedDates[0].getMonth()].classList.add(
+                    'selected'
+                );
+            }
         }
     }
 
     private prevYear(event) {
-        event.stopImmediatePropagation();
-        this.flatpickr.changeMonth(-NBROFMONTHS);
+        if (!this.nativePicker) {
+            event.stopImmediatePropagation();
+            this.flatpickr.changeMonth(-NBROFMONTHS);
+        }
     }
 
     private nextYear(event) {
-        event.stopImmediatePropagation();
-        this.flatpickr.changeMonth(NBROFMONTHS);
+        if (!this.nativePicker) {
+            event.stopImmediatePropagation();
+            this.flatpickr.changeMonth(NBROFMONTHS);
+        }
     }
 }

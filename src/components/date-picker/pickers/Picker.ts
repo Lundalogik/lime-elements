@@ -13,7 +13,7 @@ export abstract class Picker {
     protected language: string = 'en';
 
     protected flatpickr: flatpickr.Instance;
-    private nativePicker;
+    protected nativePicker;
 
     public constructor(
         dateFormat: string,
@@ -24,7 +24,6 @@ export abstract class Picker {
         moment.locale(this.getMomentLang());
         const isMobile = isIOSDevice() || isAndroidDevice();
         this.nativePicker = isMobile;
-
         if (dateFormat) {
             this.dateFormat = dateFormat;
         }
@@ -71,17 +70,35 @@ export abstract class Picker {
         return '';
     }
 
-    protected handleClose(selectedDates) {
-        let pickerDate = selectedDates[0]
-            ? new Date(selectedDates[0].toJSON())
-            : null;
+    protected handleClose(selectedDates): Promise<any> {
         if (this.nativePicker) {
-            this.change.emit(pickerDate);
+            return this.handleCloseForNativePicker(selectedDates);
         } else {
-            // With the changes in flatpickr between v4.5.2 and the state of
-            // the master branch when we created v4.5.3-lime1, this timeout
-            // had to be added to let `flatpickr.input.value` update before
-            // reading the value. /Ads
+            return this.handleCloseForFlatpickr(selectedDates);
+        }
+    }
+
+    private handleCloseForNativePicker(selectedDates) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                const pickerDate = this.getPickerDate(selectedDates);
+                this.change.emit(pickerDate);
+                resolve(pickerDate);
+            }, 0);
+        });
+    }
+
+    private handleCloseForFlatpickr(selectedDates) {
+        return new Promise(resolve => {
+            // Since we allow manual editing of the input value, and
+            // flatpickr only picks up these changes when the user presses
+            // enter in the input, we need to check if the input string
+            // and the underlying value match.
+            //
+            // If this timeout is set to 0, we get a race-condition where
+            // the value is sometimes updated from the input-string, and
+            // sometimes not.
+            const timeout = 100;
             setTimeout(() => {
                 // We need to set the locale before parsing, in case the
                 // locale for this picker differs from the locale of the
@@ -93,6 +110,7 @@ export abstract class Picker {
                     this.flatpickr.input.value,
                     this.dateFormat
                 );
+                let pickerDate = this.getPickerDate(selectedDates);
                 const isSameInput = momentInputDate.isSame(moment(pickerDate));
                 if (!isSameInput) {
                     if (momentInputDate.isValid()) {
@@ -103,8 +121,13 @@ export abstract class Picker {
                     }
                 }
                 this.change.emit(pickerDate);
-            }, 0);
-        }
+                resolve(pickerDate);
+            }, timeout);
+        });
+    }
+
+    private getPickerDate(selectedDates) {
+        return selectedDates[0] ? new Date(selectedDates[0].toJSON()) : null;
     }
 
     private getMomentLang() {

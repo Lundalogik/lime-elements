@@ -38,28 +38,30 @@ export class YearPicker extends Picker {
     }
 
     protected handleClose(selectedDates) {
-        super.handleClose(selectedDates);
-        this.selectYear(
-            this.flatpickr.selectedDates,
-            this.flatpickr.input.value
-        );
+        return super.handleClose(selectedDates).then(() => {
+            this.selectYear(
+                this.flatpickr.selectedDates,
+                this.flatpickr.input.value
+            );
+        });
     }
 
     private handleReady(_, __, fp) {
         this.bootstrapYearPicker(fp);
-        const inputValue = fp.input.value;
-        this.selectYear(fp.selectedDates, inputValue);
+        this.selectYear(fp.selectedDates, fp.input.value);
     }
 
     private bootstrapYearPicker(fp) {
-        fp.innerContainer.remove();
-        fp.prevMonthNav.remove();
-        fp.nextMonthNav.remove();
-        fp.currentYearElement.parentNode.remove();
-        fp.calendarContainer
-            .getElementsByClassName('cur-month')[0]
-            .replaceWith(this.renderHeading());
-        fp.calendarContainer.appendChild(this.renderYearPicker(fp));
+        if (!this.nativePicker) {
+            fp.innerContainer.remove();
+            fp.prevMonthNav.remove();
+            fp.nextMonthNav.remove();
+            fp.currentYearElement.parentNode.remove();
+            fp.calendarContainer
+                .getElementsByClassName('cur-month')[0]
+                .replaceWith(this.renderHeading());
+            fp.calendarContainer.appendChild(this.renderYearPicker(fp));
+        }
     }
 
     private renderHeading(): any {
@@ -104,16 +106,18 @@ export class YearPicker extends Picker {
     }
 
     private selectYear(selectedDates, dateString) {
-        this.years.forEach(year => {
-            if (
-                dateString !== '' &&
-                selectedDates[0] &&
-                Number(year.innerText) === selectedDates[0].getFullYear()
-            ) {
-                year.classList.add('selected');
-            } else {
-                year.classList.remove('selected');
-            }
-        });
+        if (!this.nativePicker) {
+            this.years.forEach(year => {
+                if (
+                    dateString !== '' &&
+                    selectedDates[0] &&
+                    Number(year.innerText) === selectedDates[0].getFullYear()
+                ) {
+                    year.classList.add('selected');
+                } else {
+                    year.classList.remove('selected');
+                }
+            });
+        }
     }
 }
