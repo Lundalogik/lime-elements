@@ -43,10 +43,17 @@ export abstract class Picker {
             parseDate: this.nativePicker ? undefined : this.parseDate,
             appendTo: container,
             defaultDate: value,
-            locale: FlatpickrLanguages[this.language] || 'en',
+            locale: FlatpickrLanguages[this.language] || FlatpickrLanguages.en,
+            getWeek: this.getWeek,
         };
         config = { ...config, ...this.getConfig(this.nativePicker) };
-        this.flatpickr = flatpickr(element, config) as Instance; // tslint:disable-line:no-useless-cast
+
+        // Week numbers designate weeks as starting with Monday and
+        // ending with Sunday. To make the week numbers make sense,
+        // the calendar has to show weeks in the same way.
+        (config.locale as flatpickr.CustomLocale).firstDayOfWeek = 1;
+
+        this.flatpickr = flatpickr(element, config) as flatpickr.Instance; // tslint:disable-line:no-useless-cast
     }
 
     public destroy() {
