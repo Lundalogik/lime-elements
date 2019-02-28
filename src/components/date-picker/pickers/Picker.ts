@@ -56,6 +56,10 @@ export abstract class Picker {
         this.flatpickr = flatpickr(element, config) as flatpickr.Instance; // tslint:disable-line:no-useless-cast
     }
 
+    public redraw() {
+        this.flatpickr.redraw();
+    }
+
     public destroy() {
         if (!this.flatpickr) {
             return;
