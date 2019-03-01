@@ -169,7 +169,9 @@ export class DatePicker {
             'limel-input-field'
         );
         this.input = textfield.shadowRoot.querySelector('input');
-        const container: HTMLElement = this.host.shadowRoot.querySelector('.container');
+        const container: HTMLElement = this.host.shadowRoot.querySelector(
+            '.container'
+        );
 
         this.picker.init(this.input, container, this.value);
         this.formattedValue = this.picker.formatDate(this.value);

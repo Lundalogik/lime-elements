@@ -9,25 +9,25 @@ const types = ['datetime', 'date', 'time', 'week', 'month', 'quarter', 'year'];
 })
 export class DatePickerExample {
     @State()
-    private datetime = new Date('2018-12-25 16:00');
+    private datetime = new Date();
 
     @State()
-    private date = new Date('2018-12-25');
+    private date = new Date();
 
     @State()
-    private time = new Date('2018-12-25 16:00');
+    private time = new Date();
 
     @State()
-    private week = new Date('2018-12-24');
+    private week = new Date();
 
     @State()
-    private month = new Date('2018-12-01');
+    private month = new Date();
 
     @State()
-    private quarter = new Date('2018-10-01');
+    private quarter = new Date();
 
     @State()
-    private year = new Date('2018-10-01');
+    private year = new Date();
 
     public render() {
         return types.map((type: DateType) => {
@@ -44,7 +44,9 @@ export class DatePickerExample {
                     <p style={{ 'font-size': 'small' }}>
                         Value:{' '}
                         <code>
-                            {this[type] ? this[type].toString() : 'invalid'}
+                            {this[type]
+                                ? this[type].toString()
+                                : JSON.stringify(this[type])}
                         </code>
                     </p>
                 </p>
