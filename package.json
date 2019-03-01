@@ -24,6 +24,7 @@
     "docz:dev": "docz dev",
     "docz:serve": "serve .docz/dist --single",
     "docz:publish": "node publish-docs.js",
+    "docz:prod:serve": "node docs-locally.js",
     "lint": "npm run lint:src && npm run lint:specs && npm run lint:examples && npm run lint:config",
     "lint:fix": "npm run lint:src:fix && npm run lint:specs:fix && npm run lint:examples:fix && npm run lint:config:fix",
     "lint:config": "npx tslint --project . -t stylish -c tslint.config.js '*.{ts,tsx}' && npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
@@ -49,7 +50,8 @@
     "flatpickr": "^4.5.2",
     "jsx-dom": "^6.2.1",
     "lime-material-components-web": "0.43.1",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "static-server": "^2.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",
