@@ -73,6 +73,9 @@ export abstract class Picker {
     ): flatpickr.Options.Options;
 
     public formatDate(date: Date) {
+        if (this.nativePicker) {
+            return date ? JSON.stringify(date) : '';
+        }
         if (date) {
             return moment(date)
                 .locale(this.getMomentLang())
@@ -128,6 +131,7 @@ export abstract class Picker {
                         pickerDate = momentInputDate.toDate();
                         this.flatpickr.setDate(pickerDate);
                     } else {
+                        pickerDate = null;
                         this.flatpickr.clear();
                     }
                 }
