@@ -50,7 +50,7 @@ export abstract class Picker {
         };
 
         config = { ...config, ...this.getConfig(this.nativePicker) };
-        this.flatpickr = flatpickr(element, config) as Instance;
+        this.flatpickr = flatpickr(element, config);
     }
 
     public destroy() {
