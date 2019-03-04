@@ -36,7 +36,7 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown is set,
                     cleanup will still be run if script is successful.
     `);
-} else if (removeSpecific || runPruneDev) {
+} else if (removeSpecific || pruneDev) {
     if (runSetup) {
         setup();
     }
