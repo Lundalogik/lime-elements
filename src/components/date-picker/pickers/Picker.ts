@@ -21,7 +21,6 @@ export abstract class Picker {
         protected change: EventEmitter
     ) {
         this.language = language;
-        moment.locale(this.getMomentLang());
         const isMobile = isIOSDevice() || isAndroidDevice();
         this.nativePicker = isMobile;
         if (dateFormat) {
@@ -92,6 +91,10 @@ export abstract class Picker {
         }
     }
 
+    protected getMomentLang() {
+        return this.language === 'no' ? 'nb' : this.language;
+    }
+
     private handleCloseForNativePicker(selectedDates) {
         return new Promise(resolve => {
             setTimeout(() => {
@@ -114,15 +117,10 @@ export abstract class Picker {
             // sometimes not.
             const timeout = 100;
             setTimeout(() => {
-                // We need to set the locale before parsing, in case the
-                // locale for this picker differs from the locale of the
-                // app as a whole. For some reason, the fact that we already
-                // set the locale in the Picker constructor doesn't affect
-                // the instance used here. /Ads
-                moment.locale(this.getMomentLang());
                 const momentInputDate = moment(
                     this.flatpickr.input.value,
-                    this.dateFormat
+                    this.dateFormat,
+                    this.getMomentLang()
                 );
                 let pickerDate = this.getPickerDate(selectedDates);
                 const isSameInput = momentInputDate.isSame(moment(pickerDate));
@@ -145,15 +143,15 @@ export abstract class Picker {
         return selectedDates[0] ? new Date(selectedDates[0].toJSON()) : null;
     }
 
-    private getMomentLang() {
-        return this.language === 'no' ? 'nb' : this.language;
-    }
-
     private getWeek(date) {
         return moment(date).isoWeek();
     }
 
     private parseDate(dateString) {
-        return moment(dateString, this.dateFormat).toDate();
+        return moment(
+            dateString,
+            this.dateFormat,
+            this.getMomentLang()
+        ).toDate();
     }
 }
