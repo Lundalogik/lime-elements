@@ -123,7 +123,7 @@ export abstract class Picker {
                     this.getMomentLang()
                 );
                 let pickerDate = this.getPickerDate(selectedDates);
-                const isSameInput = momentInputDate.isSame(moment(pickerDate));
+                const isSameInput = momentInputDate.isSame(pickerDate);
                 if (!isSameInput) {
                     if (momentInputDate.isValid()) {
                         pickerDate = momentInputDate.toDate();
