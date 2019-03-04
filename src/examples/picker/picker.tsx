@@ -48,7 +48,7 @@ export class PickerExample {
             <hr />,
             <p>
                 When importing ListItem or PickerSearchResult, see{' '}
-                <a href="/usage#import-statements">Usage</a>
+                <a href="/lime-elements/usage#import-statements">Usage</a>
             </p>,
         ];
     }
