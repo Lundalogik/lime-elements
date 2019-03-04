@@ -133,6 +133,7 @@ export class MonthPicker extends Picker {
             >
                 {moment()
                     .month(month)
+                    .locale(this.getMomentLang())
                     .format('MMM')}
             </div>
         );

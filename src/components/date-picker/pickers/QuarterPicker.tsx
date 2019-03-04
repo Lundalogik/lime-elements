@@ -149,6 +149,7 @@ export class QuarterPicker extends Picker {
         const months = Array.from(Array(MONTHSPERQUARTER), (_, index) => {
             return moment()
                 .month(index + (quarter - 1) * MONTHSPERQUARTER)
+                .locale(this.getMomentLang())
                 .format('MMM');
         });
         return months.map(month => {
