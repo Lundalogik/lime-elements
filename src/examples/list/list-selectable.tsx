@@ -26,7 +26,7 @@ export class SelectableListExample {
             <hr />,
             <p>
                 When importing ListItem, see{' '}
-                <a href="/usage#import-statements">Usage</a>
+                <a href="/lime-elements/usage#import-statements">Usage</a>
             </p>,
         ];
     }
