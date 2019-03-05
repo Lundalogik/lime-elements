@@ -256,6 +256,11 @@ export class ChipSet {
                         onBlur={this.handleInputBlur}
                         onFocus={this.handleTextFieldFocus}
                         onInput={this.handleTextInput}
+                        // Some browsers emit a change event on input elements, we need to stop
+                        // that event from propagating since we are emiting our own change event
+                        onChange={event => {
+                            event.stopPropagation();
+                        }}
                     />
                 </div>
                 <label
