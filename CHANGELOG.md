@@ -1,3 +1,10 @@
+## [16.0.4](https://github.com/Lundalogik/lime-elements/compare/v16.0.3...v16.0.4) (2019-03-05)
+
+
+### Bug Fixes
+
+* **chart:** remove exposed ChartJS interfaces ([0881b89](https://github.com/Lundalogik/lime-elements/commit/0881b89))
+
 ## [16.0.3](https://github.com/Lundalogik/lime-elements/compare/v16.0.2...v16.0.3) (2019-03-05)
 
 
