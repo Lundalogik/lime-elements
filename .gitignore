@@ -3,6 +3,8 @@ www/
 src/components.d.ts
 src/**/readme.md
 docsDist/
+docsProdWww/
+reports/
 
 *~
 *.sw[mnpcod]

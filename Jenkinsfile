@@ -10,7 +10,7 @@ pipeline {
     }
 
     stages {
-        stage('Create docker container') {
+        stage('Create lime-elements docker container') {
             steps {
                 sh 'make build'
             }
@@ -20,9 +20,15 @@ pipeline {
                 sh 'make lint'
             }
         }
-        stage('Run tests') {
+        stage('Create lime-elements-wdio docker container') {
             steps {
-                sh 'make test'
+                sh 'make build_wdio'
+            }
+        }
+        stage('Run wdio tests') {
+            steps {
+                sh 'make wdio BROWSER=chrome'
+                sh 'make wdio BROWSER=firefox'
             }
         }
         stage('Lint commits') {

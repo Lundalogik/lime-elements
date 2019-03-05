@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "*": ["./*"],
+            "src/*": ["./src/*"]
+        },
+        "types": ["node", "@wdio/sync", "@wdio/mocha-framework"]
+    },
+    "include": ["./src/**/*.ts"]
+}

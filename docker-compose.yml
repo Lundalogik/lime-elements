@@ -1,10 +1,50 @@
-version: '3.2'
+version: '2.2'
 services:
     app:
         build: .
         image: lime-elements:latest
-        volumes:
-            - .:/lime
         ports:
             - 4200:4200
+    doczserver:
+        image: lime-elements:latest
+        command: npm run docz:serve -- --noSetup --noBuild
+        tty: true
+        ports:
+            - 127.0.0.1:1337:1337
+    chromedriver:
+        image: blueimp/chromedriver
+        init: true
+        tmpfs: /tmp
+        environment:
+            - DISABLE_X11=false
+            - ENABLE_VNC=true
+            - EXPOSE_X11=true
+        ports:
+            - 127.0.0.1:5900:5900
+    geckodriver:
+        image: blueimp/geckodriver
+        init: true
+        tmpfs: /tmp
+        shm_size: 2g
+        environment:
+            - DISABLE_X11=false
+            - ENABLE_VNC=true
+            - EXPOSE_X11=true
+        ports:
+            - 127.0.0.1:5901:5900
+    wdio:
+        image: blueimp/wdio
+        init: true
+        read_only: true
+        tty: true
+        environment:
+            - WAIT_FOR_HOSTS=chromedriver:4444 geckodriver:4444 doczserver:1337
+            - WAIT_FOR_TIMEOUT=300
+            - WINDOWS_HOST
+        volumes:
+            - .:/home/wdio
+        depends_on:
+            - doczserver
+            - chromedriver
+            - geckodriver
 

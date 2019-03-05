@@ -1,10 +1,15 @@
 DOCKER_IMAGE = lime-elements
-DOCKER_DOCS_IMAGE = lime-elements-docs
+DOCKER_IMAGE_WDIO = lime-elements-wdio
 
 .PHONY: build
 build:
 	@# Builds the ci image lime-elements.
 	docker build --pull -t $(DOCKER_IMAGE) .
+
+.PHONY: build_wdio
+build_wdio:
+	@# Builds the ci image lime-elements-wdio.
+	docker build --pull -t $(DOCKER_IMAGE_WDIO) ./wdio
 
 .PHONY: lint
 lint:
@@ -17,10 +22,11 @@ commitlint:
 	@# Lint the commit message of the commit with the given HASH
 	docker run --rm -w /lime $(DOCKER_IMAGE) npx commitlint -f $(HASH)^ -t $(HASH)
 
-.PHONY: test
-test:
-	@# Runs all frontend tests.
-	docker run --rm --cap-add=SYS_ADMIN -w /lime $(DOCKER_IMAGE) npm run test
+.PHONY: wdio
+wdio: BROWSER='chrome'
+wdio:
+	@# Runs all webdriver tests.
+	docker-compose run --rm wdio wdio/$(BROWSER).js
 
 .PHONY: build_docs
 build_docs:

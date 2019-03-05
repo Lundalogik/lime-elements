@@ -1,4 +1,5 @@
 const fs = require('fs');
+const shell = require('shelljs');
 
 // Remove type definitions for jsx-dom
 fs.exists('node_modules/jsx-dom/jsx-dom.d.ts', () => {
