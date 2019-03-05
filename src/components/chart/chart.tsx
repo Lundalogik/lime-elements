@@ -16,16 +16,16 @@ export class LChart {
      * See the Chart.js documentation for your chosen [chart type](https://www.chartjs.org/docs/2.7.3/charts/).
      */
     @Prop()
-    public datasets: Chart.ChartDataSets[] = [];
+    public datasets: any[] = [];
 
     @Prop({ reflectToAttr: true })
-    public type: Chart.ChartType;
+    public type: string;
 
     /**
      * See the Chart.js documentation for [Global Configuration](https://www.chartjs.org/docs/2.7.3/configuration/) and for your chosen [chart type](https://www.chartjs.org/docs/2.7.3/charts/).
      */
     @Prop()
-    public options: Chart.ChartOptions = {};
+    public options: any = {};
 
     @Element()
     private element: HTMLElement;
@@ -83,7 +83,7 @@ export class LChart {
             .trim();
     }
 
-    private getDatasetsWithColors(chartType: Chart.ChartType) {
+    private getDatasetsWithColors(chartType: string) {
         return this.datasets.map((dataset, index) => {
             if (dataset.backgroundColor || dataset.borderColor) {
                 return { ...dataset };
