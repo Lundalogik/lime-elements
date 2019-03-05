@@ -1,3 +1,18 @@
+## [16.0.3](https://github.com/Lundalogik/lime-elements/compare/v16.0.2...v16.0.3) (2019-03-05)
+
+
+### Bug Fixes
+
+* **limel-date-picker:** don't format value for native pickers ([94be85f](https://github.com/Lundalogik/lime-elements/commit/94be85f))
+* **limel-date-picker:** enable moving caret with keyboard ([dd49360](https://github.com/Lundalogik/lime-elements/commit/dd49360)), closes [#306](https://github.com/Lundalogik/lime-elements/issues/306)
+* **limel-date-picker:** fix pickers broken on mobile ([5f17cd4](https://github.com/Lundalogik/lime-elements/commit/5f17cd4)), closes [#311](https://github.com/Lundalogik/lime-elements/issues/311)
+* **limel-date-picker:** make sure week numbers are determined according to iso standard ([fd9dbf2](https://github.com/Lundalogik/lime-elements/commit/fd9dbf2))
+
+
+### Performance Improvements
+
+* **limel-date-picker:** on window resize, redraw picker instead of creating a new instance ([3327377](https://github.com/Lundalogik/lime-elements/commit/3327377))
+
 ## [16.0.2](https://github.com/Lundalogik/lime-elements/compare/v16.0.1...v16.0.2) (2019-02-26)
 
 
