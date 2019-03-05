@@ -67,6 +67,18 @@ export class ChipSet {
     private change: EventEmitter;
 
     /**
+     * Emitted when an input chip set has received focus and editing in the text field has started
+     */
+    @Event()
+    private startEdit: EventEmitter;
+
+    /**
+     * Emitted when an input chip set has lost focus and editing in the text field has ended
+     */
+    @Event()
+    private stopEdit: EventEmitter;
+
+    /**
      * Dispatched when the input is changed for type `input`
      */
     @Event()
@@ -271,6 +283,7 @@ export class ChipSet {
      */
     private handleTextFieldFocus() {
         this.editMode = true;
+        this.startEdit.emit();
     }
 
     /**
@@ -281,6 +294,11 @@ export class ChipSet {
     private handleInputBlur() {
         this.editMode = false;
         this.textValue = ' ';
+
+        // This timeout is needed in order to let a new element receive focus
+        setTimeout(() => {
+            this.stopEdit.emit();
+        }, 0);
     }
 
     private handleTextInput(event) {
