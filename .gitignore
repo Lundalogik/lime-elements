@@ -1,7 +1,7 @@
 dist/
 www/
 src/components.d.ts
-src/**/*.md
+src/**/readme.md
 docsDist/
 
 *~
