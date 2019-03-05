@@ -9,6 +9,7 @@ import {
 } from '@stencil/core';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { ListItem, Searcher } from '../../interface';
+import { isDescendant } from '../../util/dom';
 import {
     ARROW_DOWN,
     ARROW_DOWN_KEY_CODE,
@@ -109,6 +110,7 @@ export class Picker {
         this.handleChange = this.handleChange.bind(this);
         this.handleInteract = this.handleInteract.bind(this);
         this.handleListChange = this.handleListChange.bind(this);
+        this.handleStopEdit = this.handleStopEdit.bind(this);
     }
 
     @Watch('value')
@@ -171,6 +173,8 @@ export class Picker {
                 onFocus={this.handleInputFieldFocus}
                 onChange={this.handleChange}
                 onInteract={this.handleInteract}
+                onStartEdit={this.handleInputFieldFocus}
+                onStopEdit={this.handleStopEdit}
             />,
             <div class="mdc-menu-surface--anchor">{this.renderDropdown()}</div>,
         ];
@@ -258,6 +262,23 @@ export class Picker {
                 />
             </div>
         );
+    }
+
+    /**
+     * Check if a descendant still has focus, if not reset text value and search result
+     *
+     * @returns {void}
+     */
+    private handleStopEdit() {
+        // In browsers where shadow DOM is not supported activeElement on shadowRoot will return null
+        // However, document.activeElement will return the actual focused element instead of the outermost shadow host
+        const element =
+            this.element.shadowRoot.activeElement || document.activeElement;
+        if (isDescendant(element as HTMLElement, this.element)) {
+            return;
+        }
+
+        this.handleElementBlur();
     }
 
     /**
