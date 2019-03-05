@@ -13,7 +13,6 @@
     "postinstall.js"
   ],
   "scripts": {
-    "postinstall": "node postinstall.js",
     "build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
     "cm": "git-cz",
     "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs\"",
