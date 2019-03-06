@@ -7,13 +7,10 @@ const targetDist: OutputTargetDist = {
 };
 
 export const config: Config = {
+    copy: [{ src: 'style/' }],
     namespace: 'lime-elements',
     outputTargets: [targetDist],
-    plugins: [
-        sass({
-            injectGlobalPaths: ['src/style/variables.scss'],
-        }),
-    ],
+    plugins: [sass()],
     excludeSrc: [
         '**/test/**',
         '**/examples/**',
