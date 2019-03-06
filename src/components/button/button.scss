@@ -22,6 +22,14 @@ button {
         position: absolute;
     }
 
+    .mdc-button__icon.no-label {
+        margin: 0;
+    }
+
+    limel-icon {
+        vertical-align: top;
+    }
+
     svg {
         fill: currentColor;
         height: 3.0rem;
@@ -31,6 +39,7 @@ button {
         width: 3.0rem;
     }
 
+    limel-icon,
     .label,
     limel-spinner,
     svg {
@@ -38,6 +47,7 @@ button {
     }
 
     &.loading {
+        limel-icon,
         .label {
             opacity: 0;
         }
@@ -47,6 +57,7 @@ button {
     }
 
     &.just-loaded {
+        limel-icon,
         .label {
             opacity: 0;
         }
