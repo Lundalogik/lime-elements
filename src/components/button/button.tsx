@@ -27,6 +27,12 @@ export class Button {
     public outlined = false;
 
     /**
+     * Set icon for the button
+     */
+    @Prop({ reflectToAttr: true })
+    public icon: string;
+
+    /**
      * Set to `true` to disable the button.
      * Defaults to `false`.
      */
@@ -58,6 +64,7 @@ export class Button {
                 `}
                 disabled={this.disabled}
             >
+                {this.renderIcon()}
                 <span class="label mdc-button__label">{this.label}</span>
                 <limel-spinner />
                 <svg viewBox="0 0 30 30">
@@ -77,5 +84,27 @@ export class Button {
                 button.classList.remove('just-loaded');
             }, TIMEOUT);
         }
+    }
+
+    /**
+     * Render the icon for the button
+     *
+     * @returns {HTMLElement} the icon
+     */
+    private renderIcon() {
+        if (!this.icon) {
+            return;
+        }
+
+        let withoutLabelClass = '';
+        if (!this.label) {
+            withoutLabelClass = 'no-label';
+        }
+
+        return (
+            <i class={`mdc-button__icon ${withoutLabelClass}`}>
+                <limel-icon name={this.icon} />
+            </i>
+        );
     }
 }
