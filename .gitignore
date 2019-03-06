@@ -23,6 +23,8 @@ log.txt
 node_modules/
 $RECYCLE.BIN/
 
+docker-compose.override.yml
+
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
