@@ -20,6 +20,13 @@ export class Button {
     public primary = false;
 
     /**
+     * Set to `true` to make the button outlined.
+     * Defaults to `false`.
+     */
+    @Prop({ reflectToAttr: true })
+    public outlined = false;
+
+    /**
      * Set to `true` to disable the button.
      * Defaults to `false`.
      */
@@ -47,6 +54,7 @@ export class Button {
                     mdc-button
                     ${this.primary ? 'mdc-button--unelevated' : ''}
                     ${this.loading ? 'loading' : ''}
+                    ${this.outlined ? 'mdc-button--outlined' : ''}
                 `}
                 disabled={this.disabled}
             >
