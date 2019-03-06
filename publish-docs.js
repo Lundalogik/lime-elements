@@ -15,7 +15,7 @@ const runPush = argv.noPush === undefined;
 const runTeardown = argv.noTeardown === undefined;
 
 const cleanOnFail = runTeardown && argv.noCleanOnFail === undefined;
-const dryRun = argv.dryRun !== undefined;
+const dryRun = !!argv.dryRun && argv.dryRun !== 'false';
 
 if (argv.h !== undefined) {
     shell.echo(`
