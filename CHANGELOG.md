@@ -1,3 +1,11 @@
+# [16.1.0](https://github.com/Lundalogik/lime-elements/compare/v16.0.4...v16.1.0) (2019-03-07)
+
+
+### Features
+
+* **button:** add outlined button style ([26612a6](https://github.com/Lundalogik/lime-elements/commit/26612a6)), closes [#317](https://github.com/Lundalogik/lime-elements/issues/317)
+* **button:** add support for icons on buttons ([37b2c5a](https://github.com/Lundalogik/lime-elements/commit/37b2c5a)), closes [#317](https://github.com/Lundalogik/lime-elements/issues/317)
+
 ## [16.0.4](https://github.com/Lundalogik/lime-elements/compare/v16.0.3...v16.0.4) (2019-03-05)
 
 
