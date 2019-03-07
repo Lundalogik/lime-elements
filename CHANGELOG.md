@@ -1,3 +1,11 @@
+## [16.1.1](https://github.com/Lundalogik/lime-elements/compare/v16.1.0...v16.1.1) (2019-03-07)
+
+
+### Bug Fixes
+
+* **chip set:** stop input change event from propagating ([e2c7b32](https://github.com/Lundalogik/lime-elements/commit/e2c7b32))
+* **picker:** fix focus handling of picker in edge ([2017784](https://github.com/Lundalogik/lime-elements/commit/2017784))
+
 # [16.1.0](https://github.com/Lundalogik/lime-elements/compare/v16.0.4...v16.1.0) (2019-03-07)
 
 
