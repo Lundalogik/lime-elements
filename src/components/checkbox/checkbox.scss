@@ -1,0 +1,13 @@
+@import '../../style/variables';
+
+@import '@lime-material/form-field/mdc-form-field';
+@import '@lime-material/checkbox/mdc-checkbox';
+
+.mdc-form-field {
+    display: flex;
+
+    .mdc-checkbox {
+        @include mdc-checkbox-ink-color(primary);
+        @include mdc-checkbox-container-colors(secondary, on-primary, secondary, on-primary);
+    }
+}
