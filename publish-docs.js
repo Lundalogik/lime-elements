@@ -37,17 +37,21 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
                     cleanup will still be run if script is successful.
     `);
 } else if (removeSpecific || pruneDev) {
+    let commitMessage;
     if (runSetup) {
-        setup();
+        setupWorktree();
+        checkOutBranch();
     }
     if (pruneDev) {
         remove('0.0.0-dev*');
+        commitMessage = 'chore(deploy docs): prune dev-versions';
     }
     if (removeSpecific) {
         remove(argv.remove);
+        commitMessage = `chore(deploy docs): remove ${argv.remove}`;
     }
-    if (runCommit) {
-        commit('chore(deploy docs): prune dev-versions');
+    if (commitMessage && runCommit) {
+        commit(commitMessage);
     }
     if (runPush) {
         push();
@@ -57,10 +61,20 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     }
 } else {
     if (runSetup) {
-        setup();
+        setupWorktree();
     }
     if (runBuild) {
         build();
+    }
+    if (runSetup) {
+        // We wait to check out the branch until after the build
+        // in order to minimize the time between checkout and push,
+        // thereby minimizing the risk that someone else pushes
+        // new commits first, which would make our own push fail.
+        checkOutBranch();
+    }
+    if (runBuild) {
+        copyBuildOutput();
     }
     if (runCommit) {
         commit();
@@ -73,15 +87,11 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     }
 }
 
-function setup() {
+function setupWorktree() {
     if (!shell.which('git')) {
         shell.echo('Sorry, this script requires git');
         shell.exit(1);
     }
-
-    shell.echo('setting git user info');
-    shell.exec('git config user.email "$GIT_AUTHOR_EMAIL"');
-    shell.exec('git config user.name "$GIT_AUTHOR_NAME"');
 
     if (shell.mkdir('docsDist').code !== 0) {
         shell.echo('mkdir docsDist failed!');
@@ -89,14 +99,16 @@ function setup() {
     }
 
     if (
-        shell.exec('git worktree add docsDist remotes/origin/gh-pages').code !==
+        shell.exec('git worktree add docsDist remotes/origin/gh-pages --no-checkout').code !==
         0
     ) {
         shell.echo('git worktree add failed!');
         teardown();
         shell.exit(1);
     }
+}
 
+function checkOutBranch() {
     shell.cd('docsDist');
 
     if (shell.exec('git checkout gh-pages').code !== 0) {
@@ -110,20 +122,6 @@ function setup() {
 }
 
 function build() {
-    shell.cd('docsDist/versions');
-
-    shell.echo('Removing old version folder if it already exists.');
-    shell.rm('-rf', version);
-
-    if (shell.mkdir(version).code !== 0) {
-        shell.echo(`mkdir docsDist/versions/${version} failed!`);
-        shell.cd('../..');
-        teardown();
-        shell.exit(1);
-    }
-
-    shell.cd('../..');
-
     try {
         const options = {
             files: [
@@ -158,6 +156,22 @@ function build() {
         teardown();
         shell.exit(1);
     }
+}
+
+function copyBuildOutput() {
+    shell.cd('docsDist/versions');
+
+    shell.echo('Removing old version folder if it already exists.');
+    shell.rm('-rf', version);
+
+    if (shell.mkdir(version).code !== 0) {
+        shell.echo(`mkdir docsDist/versions/${version} failed!`);
+        shell.cd('../..');
+        teardown();
+        shell.exit(1);
+    }
+
+    shell.cd('../..');
 
     if (
         shell.cp('-R', '.docz/dist/*', `docsDist/versions/${version}/`).code !==
@@ -191,6 +205,10 @@ function updateVersionList() {
 }
 
 function commit(message) {
+    shell.echo('setting git user info');
+    shell.exec('git config user.email "$GIT_AUTHOR_EMAIL"');
+    shell.exec('git config user.name "$GIT_AUTHOR_NAME"');
+
     message = message || 'chore(deploy docs): deploy latest docs to gh-pages';
     shell.cd('docsDist');
 
