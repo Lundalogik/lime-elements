@@ -99,8 +99,9 @@ function setupWorktree() {
     }
 
     if (
-        shell.exec('git worktree add docsDist remotes/origin/gh-pages --no-checkout').code !==
-        0
+        shell.exec(
+            'git worktree add docsDist remotes/origin/gh-pages --no-checkout'
+        ).code !== 0
     ) {
         shell.echo('git worktree add failed!');
         teardown();
