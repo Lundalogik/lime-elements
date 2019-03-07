@@ -1,0 +1,2 @@
+/*! Built with http://stenciljs.com */
+const{h:e}=window.LimeElements;class t{constructor(){this.isOpen=!1}render(){return[e("limel-button",{primary:!0,label:"Open",onClick:()=>{this.isOpen=!0}}),e("limel-dialog",{open:this.isOpen,onClose:()=>{this.isOpen=!1}},e("p",null,"This is a simple alert-dialog."),e("limel-button-group",{slot:"button"},e("limel-button",{label:"Ok",onClick:()=>{this.isOpen=!1}})))]}static get is(){return"limel-example-dialog"}static get encapsulation(){return"shadow"}static get properties(){return{isOpen:{state:!0}}}}export{t as LimelExampleDialog};

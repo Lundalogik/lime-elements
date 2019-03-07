@@ -1,0 +1,2 @@
+/*! Built with http://stenciljs.com */
+const{h:t}=window.LimeElements;function e(t,e){if(t.closest)return t.closest(e);let s=t;for(;s;){if(n(s,e))return s;s=s.parentElement}return null}function n(t,e){return(t.matches||t.webkitMatchesSelector||t.msMatchesSelector).call(t,e)}const s=()=>{const t=window.document.createEvent("UIEvents");t.initUIEvent("resize",!0,!1,window,0),window.dispatchEvent(t)},r=()=>Math.random().toString(36).substring(2)+Math.random().toString(36).substring(2);export{e as a,n as b,s as c,r as d};

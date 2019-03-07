@@ -1,0 +1,74 @@
+@import '../../mixins';
+
+.limel-example-grid--grid-fullpage {
+    my-deep-red-widget { grid-area: drd; }
+    my-red-widget { grid-area: red; }
+    my-orange-widget { grid-area: ora; }
+    my-yellow-widget { grid-area: yel; }
+    my-green-widget { grid-area: grn; }
+    my-turquoise-widget { grid-area: trq; }
+    my-blue-widget { grid-area: blu; }
+    my-dark-blue-widget { grid-area: dbl; }
+    my-magenta-widget { grid-area: mag; }
+    my-light-grey-widget { grid-area: lgr; }
+    my-dark-grey-widget { grid-area: dgr; }
+
+    $large:
+        "drd drd red red ora ora yel yel"
+        "grn grn grn grn trq trq blu dbl"
+        "grn grn grn grn mag mag lgr lgr"
+        "dgr dgr ... ... ... ... ... ...";
+    $medium:
+        "drd drd red red"
+        "ora ora yel yel"
+        "grn grn trq trq"
+        "blu blu dbl dbl"
+        "mag mag lgr lgr"
+        "dgr dgr ... ...";
+    $small:
+        "drd red"
+        "ora ora"
+        "grn trq"
+        "blu blu"
+        "yel dbl"
+        "mag lgr"
+        "dgr ...";
+
+    @include grid-fullpage($large, $medium, $small);
+}
+
+
+
+// Below is stuff that's only here for the boxes in the grid
+// to look nice in this example. You wouldn't use any of this
+// when placing real widgets into a grid.
+
+my-deep-red-widget { background-color: var(--lime-deep-red); }
+my-red-widget { background-color: var(--lime-red); }
+my-orange-widget { background-color: var(--lime-orange); }
+my-yellow-widget { background-color: var(--lime-yellow); }
+my-green-widget { background-color: var(--lime-green); }
+my-turquoise-widget { background-color: var(--lime-turquoise); }
+my-blue-widget { background-color: var(--lime-blue); }
+my-dark-blue-widget { background-color: var(--lime-dark-blue); }
+my-magenta-widget { background-color: var(--lime-magenta); }
+my-light-grey-widget { background-color: var(--lime-light-grey); }
+my-dark-grey-widget { background-color: var(--lime-dark-grey); }
+
+fake-webclient {
+    display: block;
+    width: 100%;
+
+    &.device-state-tellus {
+        width: 60%;
+    }
+
+    &.device-state-mars {
+        width: 30%;
+    }
+}
+
+limel-select {
+    display: block;
+    max-width: 20rem;
+}

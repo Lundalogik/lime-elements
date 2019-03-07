@@ -1,0 +1,2 @@
+/*! Built with http://stenciljs.com */
+const{h:e}=window.LimeElements;class l{render(){return[e("limel-spinner",{style:{color:"orange"}}),e("div",{style:{color:"blue"}},e("limel-spinner",null))]}static get is(){return"limel-example-spinner-color"}static get encapsulation(){return"shadow"}}export{l as LimelExampleSpinnerColor};

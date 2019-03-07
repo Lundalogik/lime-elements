@@ -1,0 +1,1 @@
+function e(e,r){if(e.closest)return e.closest(r);let n=e;for(;n;){if(t(n,r))return n;n=n.parentElement}return null}function t(e,t){return(e.matches||e.webkitMatchesSelector||e.msMatchesSelector).call(e,t)}window;export{e as a,t as b};

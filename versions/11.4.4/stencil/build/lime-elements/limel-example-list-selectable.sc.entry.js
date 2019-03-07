@@ -1,0 +1,2 @@
+/*! Built with http://stenciljs.com */
+const{h:e}=window.LimeElements;class t{constructor(){this.items=[{text:"King of Tokyo",id:1},{text:"Smash Up!",id:2},{text:"Pandemic",id:3},{text:"Catan",id:4},{text:"Ticket to Ride",id:5}]}render(){return[e("limel-list",{onChange:e=>{console.log(e.detail)},selectable:!0,items:this.items}),e("hr",null),e("p",null,"When importing ListItem, see"," ",e("a",{href:"/usage#import-statements"},"Usage"))]}static get is(){return"limel-example-list-selectable"}static get encapsulation(){return"shadow"}}export{t as LimelExampleListSelectable};

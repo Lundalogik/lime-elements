@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lime Elements Documentation</title>
+    <script src="versions.js"></script>
+</head>
+<body>
+
+    <h1>Lime Elements Documentation</h1>
+
+    <section id="versions"></section>
+
+    <script>
+        var body = document.getElementById('versions');
+        window.versions.sort(function(a, b) {
+            a = a.split('.');
+            b = b.split('.');
+            if (a[0] !== b[0]) {
+                return +b[0] - +a[0];
+            }
+            if (a[1] !== b[1]) {
+                return +b[1] - +a[1];
+            }
+            if (a[2] !== b[2]) {
+                return +b[2] - +a[2];
+            }
+        });
+
+        window.versions.forEach(function(version, index) {
+            if (index === 0) {
+                createLink(`versions/${version}/`, 'Latest');
+            }
+            createLink(`versions/${version}/`, version);
+        });
+
+        function createLink(href, text) {
+            var link = document.createElement('a');
+            link.href = href;
+            link.appendChild(document.createTextNode(text));
+            body.appendChild(link);
+            body.appendChild(document.createElement('br'));
+        }
+    </script>
+</body>
+</html>
