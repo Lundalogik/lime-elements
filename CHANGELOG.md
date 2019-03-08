@@ -1,3 +1,10 @@
+## [16.1.2](https://github.com/Lundalogik/lime-elements/compare/v16.1.1...v16.1.2) (2019-03-08)
+
+
+### Bug Fixes
+
+* correct scss imports so we do not break consumer builds ([c9b4fe6](https://github.com/Lundalogik/lime-elements/commit/c9b4fe6)), closes [#329](https://github.com/Lundalogik/lime-elements/issues/329)
+
 ## [16.1.1](https://github.com/Lundalogik/lime-elements/compare/v16.1.0...v16.1.1) (2019-03-07)
 
 
