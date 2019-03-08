@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="&#x421;&#x43B;&#x43E;&#x439;_1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32"
+	 style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<g>
+	<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M23.195,25.871c-1.254-0.355-2.18-1.5-2.18-2.871
+		c0-1.656,1.344-3,3-3c1.656,0,3,1.344,3,3"/>
+	<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M31.015,27c0,2.211-1.789,4-4,4
+		c-2.211,0-4-1.789-4-4c0-2.211,1.789-4,4-4C29.226,23,31.015,24.789,31.015,27L31.015,27z"/>
+	<g>
+		<path d="M22.922,26.833c-1.711-0.485-2.907-2.062-2.907-3.833c0-2.206,1.794-4,4-4s4,1.794,4,4h-2c0-1.103-0.897-2-2-2
+			s-2,0.897-2,2c0,0.882,0.598,1.666,1.453,1.909L22.922,26.833z"/>
+	</g>
+	<g>
+		<path d="M27.015,32c-2.757,0-5-2.243-5-5s2.243-5,5-5s5,2.243,5,5S29.771,32,27.015,32z M27.015,24c-1.654,0-3,1.346-3,3
+			s1.346,3,3,3s3-1.346,3-3S28.669,24,27.015,24z"/>
+	</g>
+	<path d="M18.015,23c0-0.341,0.035-0.674,0.09-1H9v2h9.101C18.045,23.673,18.015,23.339,18.015,23z"/>
+	<path d="M22,7v1h2V7c0-1.654-1.346-3-3-3H11C9.346,4,8,5.346,8,7v1h2V7c0-0.551,0.449-1,1-1h10C21.551,6,22,6.449,22,7z"/>
+	<path d="M22,14v3.355c0.626-0.224,1.298-0.353,2-0.355V14H22z"/>
+	<path d="M20.743,28c-0.772-0.525-1.429-1.2-1.897-2H11c-0.552,0-1-0.448-1-1V14H8v11c0,1.657,1.343,3,3,3L20.743,28z"/>
+	<g>
+		<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M18,12c0,1.102,0.898,2,2,2s2-0.898,2-2"/>
+		<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M14,12c0,1.102,0.898,2,2,2c1.102,0,2-0.898,2-2"
+			/>
+		<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M10,12c0,1.102,0.898,2,2,2c1.102,0,2-0.898,2-2"
+			/>
+		<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="24" y1="9" x2="8" y2="9"/>
+		<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M9,8l-3,4c0,1.102,0.898,2,2,2
+			c1.102,0,2-0.898,2-2"/>
+		<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M22,12c0,1.102,0.898,2,2,2c1.102,0,2-0.898,2-2
+			l-3-4"/>
+	</g>
+</g>
+</svg>

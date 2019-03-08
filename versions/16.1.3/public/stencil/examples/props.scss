@@ -1,0 +1,50 @@
+h2 {
+    margin: 50px 0 20px;
+    line-height: 1.5em;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+table {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 50px;
+    table-layout: fixed;
+    box-shadow: 0 0 0 1px #CED4DE;
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: collapse;
+    border-style: hidden;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #13161F;
+
+    thead {
+        color: #7D899C;
+        background: #EEF1F5;
+    }
+
+    thead th {
+        text-align: left;
+        font-weight: 400;
+        padding: 20px 20px;
+    }
+
+    tbody td {
+        padding: 12px 20px;
+        line-height: 2;
+        font-weight: 200;
+        vertical-align: top;
+    }
+
+    tbody > tr {
+        display: table-row;
+        border-top: 1px solid #CED4DE;
+    }
+}
+
+code {
+    background-color: #efefef;
+    border-radius: 3px;
+    padding: 2px;
+}
