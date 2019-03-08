@@ -1,3 +1,10 @@
+# [16.2.0](https://github.com/Lundalogik/lime-elements/compare/v16.1.3...v16.2.0) (2019-03-08)
+
+
+### Features
+
+* **checkbox:** adds checkbox component ([ebc9272](https://github.com/Lundalogik/lime-elements/commit/ebc9272))
+
 ## [16.1.3](https://github.com/Lundalogik/lime-elements/compare/v16.1.2...v16.1.3) (2019-03-08)
 
 
