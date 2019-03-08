@@ -1,3 +1,10 @@
+## [16.1.3](https://github.com/Lundalogik/lime-elements/compare/v16.1.2...v16.1.3) (2019-03-08)
+
+
+### Bug Fixes
+
+* **limel-date-picker:** fix momentjs locale being set globally by datepicker ([307f8d6](https://github.com/Lundalogik/lime-elements/commit/307f8d6)), closes [#323](https://github.com/Lundalogik/lime-elements/issues/323)
+
 ## [16.1.2](https://github.com/Lundalogik/lime-elements/compare/v16.1.1...v16.1.2) (2019-03-08)
 
 
