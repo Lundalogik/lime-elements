@@ -19,7 +19,7 @@ export default {
     menu: [
         {
             name: 'Home',
-            menu: ['Lime Elements', 'Usage', 'Colors'],
+            menu: ['Lime Elements'],
         },
         'Components',
     ],
