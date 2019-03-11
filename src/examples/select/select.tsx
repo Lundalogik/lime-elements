@@ -166,11 +166,6 @@ export class SelectExample {
                     {this.toggleOptions.length}
                 </p>
             </section>,
-            <hr />,
-            <p>
-                When importing Option, see{' '}
-                <a href="/lime-elements/#/#import-statements">Import Statements</a>
-            </p>,
         ];
     }
 }

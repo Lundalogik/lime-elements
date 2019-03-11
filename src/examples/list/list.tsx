@@ -16,13 +16,6 @@ export class ListExample {
     ];
 
     public render() {
-        return [
-            <limel-list items={this.items} />,
-            <hr />,
-            <p>
-                When importing ListItem and ListSeparator, see{' '}
-                <a href="/lime-elements/#/#import-statements">Import Statements</a>
-            </p>,
-        ];
+        return <limel-list items={this.items} />;
     }
 }
