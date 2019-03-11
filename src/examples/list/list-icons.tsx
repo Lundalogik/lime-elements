@@ -20,7 +20,7 @@ export class IconsListExample {
             <hr />,
             <p>
                 When importing ListItem, see{' '}
-                <a href="/lime-elements/usage#import-statements">Usage</a>
+                <a href="/lime-elements/#/#import-statements">Import Statements</a>
             </p>,
         ];
     }
