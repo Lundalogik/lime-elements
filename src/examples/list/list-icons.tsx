@@ -15,13 +15,6 @@ export class IconsListExample {
     ];
 
     public render() {
-        return [
-            <limel-list items={this.items} />,
-            <hr />,
-            <p>
-                When importing ListItem, see{' '}
-                <a href="/lime-elements/#/#import-statements">Import Statements</a>
-            </p>,
-        ];
+        return <limel-list items={this.items} />;
     }
 }

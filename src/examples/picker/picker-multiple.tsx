@@ -41,11 +41,6 @@ export class PickerMultipleExample {
             <div>
                 Value: <code>{JSON.stringify(this.selectedItems)}</code>
             </div>,
-            <hr />,
-            <p>
-                When importing ListItem or PickerSearchResult, see{' '}
-                <a href="/lime-elements/#/#import-statements">Import Statements</a>
-            </p>,
         ];
     }
 
