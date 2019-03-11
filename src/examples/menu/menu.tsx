@@ -100,11 +100,6 @@ export class MenuExample {
                     />
                 </p>
             </section>,
-            <hr />,
-            <p>
-                When importing ListItem and ListSeparator, see{' '}
-                <a href="/lime-elements/#/#import-statements">Import Statements</a>
-            </p>,
         ];
     }
 
