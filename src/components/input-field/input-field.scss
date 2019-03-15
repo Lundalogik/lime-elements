@@ -79,3 +79,8 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 .mdc-list-item {
     cursor: pointer;
 }
+
+.mdc-text-field__icon {
+    width: 2.4rem;
+    height: 2.4rem;
+}

@@ -60,9 +60,7 @@ export class InputField {
     public value: string;
 
     /**
-     * This property just shows its value on the right side of the field
-     * at this moment. As soon as we have integrated a icon library it's
-     * supposed to match with an icon and display that
+     * Trailing icon to show to the far right in the field
      */
     @Prop({ reflectToAttr: true })
     public trailingIcon: string;
@@ -108,8 +106,7 @@ export class InputField {
     private change: EventEmitter;
 
     /**
-     * This event is tied to the `trailingIcon` property, which doesn't work
-     * at the moment. Don't use it.
+     * Emitted when the `trailingIcon` is set and the icon is interacted with
      */
     @Event()
     private action: EventEmitter;
@@ -191,7 +188,7 @@ export class InputField {
                 tabindex="0"
                 role="button"
             >
-                {this.trailingIcon}
+                <limel-icon name={this.trailingIcon} />
             </i>
         );
     }
