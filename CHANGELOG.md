@@ -1,3 +1,10 @@
+## [16.2.1](https://github.com/Lundalogik/lime-elements/compare/v16.2.0...v16.2.1) (2019-03-18)
+
+
+### Bug Fixes
+
+* **input field:** render icon correctly ([6517fcc](https://github.com/Lundalogik/lime-elements/commit/6517fcc))
+
 # [16.2.0](https://github.com/Lundalogik/lime-elements/compare/v16.1.3...v16.2.0) (2019-03-08)
 
 
