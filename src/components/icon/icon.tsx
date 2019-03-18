@@ -1,6 +1,7 @@
 import { Component, Element, Prop, Watch } from '@stencil/core';
 import { Config } from '../../global/config';
 import { IconCache } from '../../global/icon-cache';
+import { IconSize } from './icon';
 
 @Component({
     tag: 'limel-icon',
@@ -9,10 +10,10 @@ import { IconCache } from '../../global/icon-cache';
 })
 export class Icon {
     /**
-     * Size of the icon. Possible values: `x-small`, `small`, `medium`, `large`
+     * Size of the icon
      */
     @Prop({ reflectToAttr: true })
-    public size: string;
+    public size: IconSize;
 
     /**
      * Name of the icon
