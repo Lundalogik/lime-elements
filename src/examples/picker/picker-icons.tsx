@@ -103,7 +103,7 @@ export class PickerIconsExample {
             secondaryText: 'Mine Deploying, Time Warp, Laser, Jet Pack',
             id: 13,
             icon: 'year_of_monkey',
-            iconColor: 'var(--lime-grey)',
+            iconColor: 'var(--lime-light-grey)',
         },
     ];
 
