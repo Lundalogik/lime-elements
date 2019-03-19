@@ -29,7 +29,7 @@ export class Select {
     public options: Option[] = [];
 
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<Option>;
 
     @Element()
     private limelSelect: HTMLElement;

@@ -30,7 +30,7 @@ export class MultiSelect {
     public options: Option[] = [];
 
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<Option[]>;
 
     @Element()
     private limelMultiSelect: HTMLElement;

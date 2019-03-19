@@ -103,13 +103,13 @@ export class InputField {
      * object.
      */
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<string>;
 
     /**
      * Emitted when the `trailingIcon` is set and the icon is interacted with
      */
     @Event()
-    private action: EventEmitter;
+    private action: EventEmitter<void>;
 
     public componentDidLoad() {
         this.mdcTextField = new MDCTextField(

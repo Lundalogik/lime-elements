@@ -35,7 +35,7 @@ export class Slider {
     public valuemin: number = 0;
 
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<number>;
 
     @Element()
     private rootElement: HTMLElement;

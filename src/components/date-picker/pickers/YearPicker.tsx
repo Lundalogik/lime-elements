@@ -13,7 +13,7 @@ export class YearPicker extends Picker {
     public constructor(
         dateFormat: string = 'YYYY',
         language: string,
-        change: EventEmitter,
+        change: EventEmitter<Date>,
         private translations: Translations
     ) {
         super(dateFormat, language, change);

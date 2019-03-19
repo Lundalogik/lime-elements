@@ -24,7 +24,7 @@ export class Switch {
     public value = false;
 
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<boolean>;
 
     @Element()
     private host: HTMLElement;
@@ -91,6 +91,7 @@ export class Switch {
     }
 
     private onChange = event => {
+        event.stopPropagation();
         this.change.emit(event.target.checked);
     };
 }

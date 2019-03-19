@@ -16,7 +16,7 @@ export class QuarterPicker extends Picker {
     public constructor(
         dateFormat: string = '[Q]Q YYYY',
         language: string,
-        protected change: EventEmitter,
+        protected change: EventEmitter<Date>,
         private translations: Translations
     ) {
         super(dateFormat, language, change);
