@@ -15,7 +15,7 @@ export class MonthPicker extends Picker {
     public constructor(
         dateFormat: string = 'MM/YYYY',
         language: string,
-        change: EventEmitter,
+        change: EventEmitter<Date>,
         private translations: Translations
     ) {
         super(dateFormat, language, change);

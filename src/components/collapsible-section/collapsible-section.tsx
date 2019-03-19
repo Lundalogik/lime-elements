@@ -21,13 +21,13 @@ export class CollapsibleSection {
      * Emitted when the section is expanded
      */
     @Event()
-    private open: EventEmitter;
+    private open: EventEmitter<void>;
 
     /**
      * Emitted when the section is collapsed
      */
     @Event()
-    private close: EventEmitter;
+    private close: EventEmitter<void>;
 
     public render() {
         return (

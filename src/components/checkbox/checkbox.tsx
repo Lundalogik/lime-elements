@@ -38,7 +38,7 @@ export class Checkbox {
      * object.
      */
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<boolean>;
 
     @Element()
     private limelCheckbox: HTMLElement;

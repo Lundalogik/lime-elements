@@ -45,13 +45,13 @@ export class Snackbar {
      * Emitted when the action button is pressed
      */
     @Event()
-    private action: EventEmitter;
+    private action: EventEmitter<void>;
 
     /**
      * Emitted when the snackbar hides itself
      */
     @Event()
-    private hide: EventEmitter;
+    private hide: EventEmitter<void>;
 
     private mdcSnackbar: MDCSnackbar;
 

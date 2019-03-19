@@ -52,13 +52,13 @@ export class Dialog {
      * (*Not* emitted when the consumer sets the `open`-property to `false`.)
      */
     @Event()
-    private close: EventEmitter;
+    private close: EventEmitter<void>;
 
     /**
      * Emitted when the dialog is in the process of being closed
      */
     @Event()
-    private closing: EventEmitter;
+    private closing: EventEmitter<void>;
 
     @Element()
     private host: HTMLElement;

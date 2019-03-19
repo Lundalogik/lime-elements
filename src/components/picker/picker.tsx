@@ -71,13 +71,13 @@ export class Picker {
      * Fired when a new value has been selected from the picker
      */
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<ListItem | ListItem[]>;
 
     /**
      * Fired when clicking on a selected value
      */
     @Event()
-    private interact: EventEmitter;
+    private interact: EventEmitter<Chip>;
 
     @State()
     private items: ListItem[];
@@ -327,10 +327,10 @@ export class Picker {
      *
      * @returns {void}
      */
-    private handleListChange(event: CustomEvent) {
+    private handleListChange(event: CustomEvent<ListItem>) {
         event.stopPropagation();
         if (!this.value || this.value !== event.detail) {
-            let newValue = event.detail;
+            let newValue: ListItem | ListItem[] = event.detail;
             if (this.multiple) {
                 newValue = [...(this.value as ListItem[]), event.detail];
             }
@@ -360,12 +360,13 @@ export class Picker {
         this.handleSearchResult('', result);
     }
 
-    private handleChange(event) {
+    private handleChange(event: CustomEvent<Chip | Chip[]>) {
         event.stopPropagation();
 
         let newValue = null;
         if (this.multiple) {
-            newValue = event.detail.map(chip => {
+            const chips = event.detail as Chip[];
+            newValue = chips.map(chip => {
                 return (this.value as ListItem[]).find((_, index) => {
                     return index === parseInt(chip.id, 10);
                 });
@@ -375,7 +376,7 @@ export class Picker {
         this.change.emit(newValue);
     }
 
-    private handleInteract(event) {
+    private handleInteract(event: CustomEvent<Chip>) {
         event.stopPropagation();
         this.interact.emit(event.detail);
     }

@@ -38,7 +38,7 @@ export class List {
      * Fired when a new value has been selected from the list. Only fired if selectable is set to true
      */
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<ListItem>;
 
     public componentDidLoad() {
         this.mdcList = new MDCList(

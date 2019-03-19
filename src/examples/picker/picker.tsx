@@ -30,7 +30,7 @@ export class PickerExample {
     public render() {
         return [
             <limel-picker
-                onChange={event => {
+                onChange={(event: CustomEvent<ListItem>) => {
                     this.selectedItem = event.detail;
                 }}
                 label="Favorite awesomenaut"
