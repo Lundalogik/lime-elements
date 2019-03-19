@@ -21,7 +21,7 @@ export class CheckboxExample {
                         label="My fab checkbox"
                         id="fab"
                         checked={this.value}
-                        onChange={this.changeHandler}
+                        onChange={this.changeHandler.bind(this)}
                     />
                     <limel-button-group>
                         <limel-button
