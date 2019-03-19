@@ -1,4 +1,5 @@
 import { Component, Prop } from '@stencil/core';
+import { SpinnerSize } from './spinner';
 
 @Component({
     tag: 'limel-spinner',
@@ -7,10 +8,10 @@ import { Component, Prop } from '@stencil/core';
 })
 export class Spinner {
     /**
-     * Determines the size of the spinner. Possible values: `mini`, `x-small`, `small`, `medium`, `large`. Defaults to `mini`.
+     * Determines the size of the spinner.
      */
     @Prop({ reflectToAttr: true })
-    public size: string;
+    public size: SpinnerSize = 'mini';
 
     public render() {
         return '';
