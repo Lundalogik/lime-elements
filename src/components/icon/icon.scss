@@ -21,32 +21,32 @@
 :host([size="x-small"]) {
     &,
     > div {
-        height: 1.5rem;
-        width: 1.5rem;
+        height: pxToRem(15);
+        width: pxToRem(15);
     }
-    padding: .4rem;
+    padding: pxToRem(4);
 }
 :host([size="small"]) {
     &,
     > div {
-        height: 2rem;
-        width: 2rem;
+        height: pxToRem(20);
+        width: pxToRem(20);
     }
-    padding: .5rem;
+    padding: pxToRem(5);
 }
 :host([size="medium"]) {
     &,
     > div {
-        height: 2.5rem;
-        width: 2.5rem;
+        height: pxToRem(25);
+        width: pxToRem(25);
     }
-    padding: .8rem;
+    padding: pxToRem(8);
 }
 :host([size="large"]) {
     &,
     > div {
-        height: 3rem;
-        width: 3rem;
+        height: pxToRem(30);
+        width: pxToRem(30);
     }
-    padding: .8rem;
+    padding: pxToRem(8);
 }

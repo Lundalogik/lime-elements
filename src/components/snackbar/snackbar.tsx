@@ -1,4 +1,4 @@
-import { MDCSnackbar } from '@lime-material/snackbar';
+import { MDCSnackbar } from '@lime-material-16px/snackbar';
 import {
     Component,
     Element,

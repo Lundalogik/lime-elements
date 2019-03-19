@@ -1,3 +1,5 @@
+@import '../../style/functions';
+
 .lime-green {
     limel-icon {
         color: var(--lime-green);
@@ -24,7 +26,7 @@
 
 .custom-size {
     limel-icon {
-        height: 10rem;
-        width: 10rem;
+        height: pxToRem(100);
+        width: pxToRem(100);
     }
 }

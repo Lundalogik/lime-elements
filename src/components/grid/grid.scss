@@ -3,8 +3,8 @@
 /**
  * @prop --lime-grid-area: Grid layout
  * @prop --lime-grid-columns: Number of columns in the grid, defaults to 8
- * @prop --lime-grid-cell-height: Height of grid cells, defaults to 15rem
- * @prop --lime-grid-cell-width: Minimum width of grid cells, defaults to 15rem
+ * @prop --lime-grid-cell-height: Height of grid cells, defaults to 150 pixels
+ * @prop --lime-grid-cell-width: Minimum width of grid cells, defaults to 150 pixels
  */
 
 slot {
@@ -12,11 +12,11 @@ slot {
     grid-template-areas: var(--lime-grid-area, '');
     grid-template-columns: repeat(
         var(--lime-grid-columns, 8),
-        minmax(var(--lime-grid-cell-width, 15rem), 1fr)
+        minmax(var(--lime-grid-cell-width, pxToRem(150)), 1fr)
     );
-    grid-gap: 1.5rem;
+    grid-gap: pxToRem(15);
     grid-auto-flow: dense;
-    grid-auto-rows: var(--lime-grid-cell-height, 15rem);
-    grid-auto-columns: minmax(var(--lime-grid-cell-width, 15rem), auto);
+    grid-auto-rows: var(--lime-grid-cell-height, pxToRem(150));
+    grid-auto-columns: minmax(var(--lime-grid-cell-width, pxToRem(150)), auto);
     margin: 0 auto;
 }
