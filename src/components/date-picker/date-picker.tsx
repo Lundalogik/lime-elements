@@ -88,7 +88,7 @@ export class DatePicker {
      * Emitted when the date picker value is changed.
      */
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<Date>;
 
     @State()
     private formattedValue: string;

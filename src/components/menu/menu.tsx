@@ -51,13 +51,13 @@ export class Menu {
      * Is emitted when the menu is cancelled.
      */
     @Event()
-    private cancel: EventEmitter;
+    private cancel: EventEmitter<void>;
 
     /**
      * Is emitted when a menu item is selected.
      */
     @Event()
-    private select: EventEmitter;
+    private select: EventEmitter<ListItem>;
 
     @Element()
     private element: HTMLElement;
@@ -71,9 +71,9 @@ export class Menu {
         menuElement.addEventListener(
             'MDCMenu:selected',
             (event: CustomEvent) => {
-                this.select.emit(
-                    this.items[parseInt(event.detail.item.dataset.index, 10)]
-                );
+                this.select.emit(this.items[
+                    parseInt(event.detail.item.dataset.index, 10)
+                ] as ListItem);
                 this.open = false;
             }
         );

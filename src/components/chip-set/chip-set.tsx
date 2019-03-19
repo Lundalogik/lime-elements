@@ -58,31 +58,31 @@ export class ChipSet {
      * Dispatched when a chip is interacted with
      */
     @Event()
-    private interact: EventEmitter;
+    private interact: EventEmitter<Chip>;
 
     /**
      * Dispatched when a chip is selected/deselected
      */
     @Event()
-    private change: EventEmitter;
+    private change: EventEmitter<Chip | Chip[]>;
 
     /**
      * Emitted when an input chip set has received focus and editing in the text field has started
      */
     @Event()
-    private startEdit: EventEmitter;
+    private startEdit: EventEmitter<void>;
 
     /**
      * Emitted when an input chip set has lost focus and editing in the text field has ended
      */
     @Event()
-    private stopEdit: EventEmitter;
+    private stopEdit: EventEmitter<void>;
 
     /**
      * Dispatched when the input is changed for type `input`
      */
     @Event()
-    private input: EventEmitter;
+    private input: EventEmitter<string>;
 
     @Element()
     private host: HTMLElement;

@@ -29,7 +29,7 @@ export class PickerMultipleExample {
         return [
             <limel-picker
                 multiple={true}
-                onChange={event => {
+                onChange={(event: CustomEvent<ListItem[]>) => {
                     this.selectedItems = [...event.detail];
                 }}
                 label="Favorite awesomenaut"

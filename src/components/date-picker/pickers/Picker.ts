@@ -18,7 +18,7 @@ export abstract class Picker {
     public constructor(
         dateFormat: string,
         language: string,
-        protected change: EventEmitter
+        protected change: EventEmitter<Date>
     ) {
         this.language = language;
         const isMobile = isIOSDevice() || isAndroidDevice();
