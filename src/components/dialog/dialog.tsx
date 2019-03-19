@@ -24,10 +24,10 @@ export class Dialog {
     public heading: string;
 
     /**
-     * `true` if the dialog should be full-screen, `false` otherwise.
+     * Set to `true` to make the dialog "fullscreen".
      */
     @Prop({ reflectToAttr: true })
-    public fullscreen: boolean;
+    public fullscreen = false;
 
     /**
      * `true` if the dialog is open, `false` otherwise.
@@ -37,10 +37,7 @@ export class Dialog {
     public open = false;
 
     /**
-     * defines which action triggers a close-event;
-     * default: `{escapeKey: true, scrimClick: true,}`;
-     * if another click-event should close the dialog,
-     * add `data-mdc-dialog-action="close"` to that element
+     * Defines which action triggers a close-event.
      */
     @Prop({ reflectToAttr: true })
     public closingActions: { escapeKey: boolean; scrimClick: boolean } = {
@@ -55,7 +52,7 @@ export class Dialog {
     private close: EventEmitter<void>;
 
     /**
-     * Emitted when the dialog is in the process of being closed
+     * Emitted when the dialog is in the process of being closed.
      */
     @Event()
     private closing: EventEmitter<void>;

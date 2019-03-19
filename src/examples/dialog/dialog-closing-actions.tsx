@@ -29,7 +29,12 @@ export class DialogClosingActionsExample {
                     the escape key. Only the Ok-button triggers a close event.
                 </p>
                 <limel-button-group slot="button">
-                    <limel-button label="Ok" data-mdc-dialog-action="close" />
+                    <limel-button
+                        label="Ok"
+                        onClick={() => {
+                            this.isOpen = false;
+                        }}
+                    />
                 </limel-button-group>
             </limel-dialog>,
         ];
