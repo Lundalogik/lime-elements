@@ -1,7 +1,7 @@
 @import '../../style/variables';
 
-@import "@lime-material/elevation/mdc-elevation";
-@import "@lime-material/menu-surface/mdc-menu-surface";
+@import "@lime-material-16px/elevation/mdc-elevation";
+@import "@lime-material-16px/menu-surface/mdc-menu-surface";
 
 :host {
     position: relative;
@@ -11,7 +11,7 @@
     text-align: center;
 
     limel-spinner {
-        margin: 1rem 0;
+        margin: pxToRem(10) 0;
         color: var(--lime-primary-color, #{$mdc-theme-primary});
     }
 }
@@ -20,7 +20,7 @@
 .dropdown--list {
     background-color: white;
     position: absolute;
-    margin-top: -.8rem;
-    max-height: 25rem;
+    margin-top: pxToRem(-8);
+    max-height: pxToRem(250);
     overflow-y: auto;
 }

@@ -1,10 +1,12 @@
+@import '../../style/functions';
+
 :host(limel-example-icon-background) {
     display: flex;
     flex-direction: column;
 
     limel-icon {
         color: white;
-        margin-bottom: 1rem;
+        margin-bottom: pxToRem(10);
 
         &.company {
             background-color: var(--lime-blue)

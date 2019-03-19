@@ -1,5 +1,5 @@
-import { MDCChipSet } from '@lime-material/chips';
-import { MDCTextField } from '@lime-material/textfield';
+import { MDCChipSet } from '@lime-material-16px/chips';
+import { MDCTextField } from '@lime-material-16px/textfield';
 import {
     Component,
     Element,

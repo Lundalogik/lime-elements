@@ -1,14 +1,14 @@
 @import '../../style/variables';
 
-@import '@lime-material/form-field/mdc-form-field';
-@import '@lime-material/checkbox/mdc-checkbox';
-@import "@lime-material/floating-label/mdc-floating-label";
+@import '@lime-material-16px/form-field/mdc-form-field';
+@import '@lime-material-16px/checkbox/mdc-checkbox';
+@import "@lime-material-16px/floating-label/mdc-floating-label";
 
 .multi-select {
     position: relative;
 
     .multi-select-label {
-        padding-left: 1.5rem;
+        padding-left: pxToRem(15);
     }
 
     .mdc-form-field {

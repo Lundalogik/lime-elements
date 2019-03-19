@@ -1,4 +1,6 @@
+@import '../../style/functions';
+
 limel-switch {
-    margin: 2rem 0;
+    margin: pxToRem(20) 0;
     display: block;
 }

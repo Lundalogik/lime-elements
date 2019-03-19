@@ -1,11 +1,11 @@
 @import '../../style/variables';
 
-@import "@lime-material/switch/mdc-switch";
+@import "@lime-material-16px/switch/mdc-switch";
 
 .mdc-switch {
     @include mdc-switch-toggled-on-color(primary);
 
-    margin-right: 0.8rem;
+    margin-right: pxToRem(8);
 }
 
 label {

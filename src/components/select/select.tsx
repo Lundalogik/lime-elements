@@ -1,4 +1,4 @@
-import { MDCSelect } from '@lime-material/select';
+import { MDCSelect } from '@lime-material-16px/select';
 import {
     Component,
     Element,

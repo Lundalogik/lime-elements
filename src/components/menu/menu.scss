@@ -1,8 +1,8 @@
 @import '../../style/variables';
 
-@import "@lime-material/list/mdc-list";
-@import "@lime-material/menu/mdc-menu";
-@import "@lime-material/menu-surface/mdc-menu-surface";
+@import "@lime-material-16px/list/mdc-list";
+@import "@lime-material-16px/menu/mdc-menu";
+@import "@lime-material-16px/menu-surface/mdc-menu-surface";
 @import "../list/list.scss";
 
 $menu-item-background-color: #ebebeb;
@@ -17,11 +17,11 @@ $menu-item-background-color: #ebebeb;
 
 .menu__trigger {
     border-color: transparent;
-    border-width: 0.1rem;
+    border-width: pxToRem(1);
     border-style: solid;
     background: none;
     color: #afafaf;
-    height: 3.6rem;
+    height: pxToRem(36);
 
     &-enabled {
         &:hover {
@@ -32,9 +32,9 @@ $menu-item-background-color: #ebebeb;
 }
 
 .mdc-list-item[role="menuitem"] {
-    font-size: 1.3rem;
+    font-size: pxToRem(13);
 
     .mdc-list-item__graphic {
-        margin-right: 1.4rem;
+        margin-right: pxToRem(14);
     }
 }
