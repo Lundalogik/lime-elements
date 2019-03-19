@@ -30,6 +30,7 @@ export class LinearProgressExampleColor {
                 }}
             />,
             <br />,
+            <br />,
             <limel-linear-progress
                 value={this.value}
                 style={{
