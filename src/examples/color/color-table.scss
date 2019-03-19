@@ -1,15 +1,17 @@
+@import '../../style/functions';
+
 .grid {
     display: grid;
-    grid-template-columns: 25rem 25rem 25rem;
-    grid-template-rows: 15rem 15rem 15rem 15rem;
-    grid-gap: 1rem;
+    grid-template-columns: pxToRem(250) pxToRem(250) pxToRem(250);
+    grid-template-rows: pxToRem(150) pxToRem(150) pxToRem(150) pxToRem(150);
+    grid-gap: pxToRem(10);
 }
 
 .tile {
     color: white;
     text-align: center;
-    line-height: 15rem;
-    border-radius: .3rem;
+    line-height: pxToRem(150);
+    border-radius: pxToRem(3);
 
     pre {
         margin: 0;

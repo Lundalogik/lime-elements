@@ -1,9 +1,11 @@
+@import '../../style/functions';
+
 limel-button {
     --lime-primary-color: var(--lime-blue);
 }
 
 .box {
     background-color: var(--lime-green);
-    width: 5rem;
-    height: 5rem;
+    width: pxToRem(50);
+    height: pxToRem(50);
 }

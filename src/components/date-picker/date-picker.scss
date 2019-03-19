@@ -1,6 +1,6 @@
 @import '../../style/variables';
 
-@import '@lime-material/theme/mdc-theme';
+@import '@lime-material-16px/theme/mdc-theme';
 @import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 $inactiveTextColor: var(--mdc-theme-text-disabled-on-background, #{$mdc-theme-text-disabled-on-background});
@@ -38,19 +38,19 @@ $datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primar
         cursor: pointer;
         display: inline-block;
         flex-grow: 0;
-        padding: 1.0rem;
+        padding: pxToRem(10);
         position: relative;
-        min-width: 4.0rem;
+        min-width: pxToRem(40);
 
         &:after {
-            border-radius: 1.5rem;
+            border-radius: pxToRem(15);
             content: " ";
-            height: 3.0rem;
-            left: 0.5rem;
+            height: pxToRem(30);
+            left: pxToRem(5);
             position: absolute;
-            right: 0.5rem;
-            top: 0.7rem;
-            bottom: 0.7rem;
+            right: pxToRem(5);
+            top: pxToRem(7);
+            bottom: pxToRem(7);
             z-index: -1;
         }
 
@@ -74,31 +74,31 @@ $datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primar
         .datepicker-month-in-quarter {
             color: $inactiveTextColor;
             display: block;
-            font-size: 1.2rem;
+            font-size: pxToRem(12);
         }
     }
 
     .datepicker-month {
-        min-width: 7.0rem;
+        min-width: pxToRem(70);
 
         &:after {
-            left: 1.0rem;
-            right: 1.0rem;
+            left: pxToRem(10);
+            right: pxToRem(10);
         }
     }
 
     .flatpickr-month {
         background: $datepickerHeaderColor;
         color: $datepickerTextOnThemeColor;
-        height: 4.2rem;
-        padding-top: 0.6rem;
+        height: pxToRem(42);
+        padding-top: pxToRem(6);
     }
 
     .flatpickr-prev-month,
     .flatpickr-next-month {
         // Arrow colors
         fill: $datepickerTextOnThemeColor;
-        top: 0.6rem;
+        top: pxToRem(6);
         &:hover {
             color: $datepickerTextOnThemeColor;
             fill: $datepickerTextOnThemeColor;
@@ -114,12 +114,12 @@ $datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primar
 
     .flatpickr-current-month {
         span.cur-month {
-            font-size: 1.6rem;
+            font-size: pxToRem(16);
             font-weight: 400 !important;
         }
 
         input.cur-year {
-            font-size: 1.6rem;
+            font-size: pxToRem(16);
             font-weight: 400 !important;
         }
 
@@ -178,15 +178,15 @@ $datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primar
         // So the original circle is hidden and a new one
         // is created using a pseudo element.
         &:after {
-            border-radius: 1.5rem;
+            border-radius: pxToRem(15);
             content: " ";
-            height: 3.0rem;
+            height: pxToRem(30);
             left: 50%;
-            margin-left: -1.5rem;
-            margin-top: -1.5rem;
+            margin-left: pxToRem(-15);
+            margin-top: pxToRem(-15);
             position: absolute;
             top: 50%;
-            width: 3.0rem;
+            width: pxToRem(30);
             z-index: -1;
         }
 
@@ -210,6 +210,6 @@ $datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primar
 
     // The column with week numbers (including the title)
     .flatpickr-weekwrapper {
-        width: 4.0rem;
+        width: pxToRem(40);
     }
 }

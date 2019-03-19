@@ -4,8 +4,8 @@ $mdc-select-fill-color: $mdc-theme-background;
 $mdc-select-bottom-line-idle-color: $lime-text-field-bottom-line-color;
 $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 
-@import "@lime-material/select/mdc-select";
-@import '@lime-material/ripple/mdc-ripple';
+@import "@lime-material-16px/select/mdc-select";
+@import '@lime-material-16px/ripple/mdc-ripple';
 
 /**
  * @prop --background-color: Background color of the field.
@@ -21,7 +21,7 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
     width: 100%;
 
     &__native-control {
-        padding-top: 2.5rem;
-        padding-bottom: 0.2rem;
+        padding-top: pxToRem(25);
+        padding-bottom: pxToRem(2);
     }
 }

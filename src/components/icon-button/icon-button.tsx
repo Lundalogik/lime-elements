@@ -1,4 +1,4 @@
-import { MDCRipple } from '@lime-material/ripple';
+import { MDCRipple } from '@lime-material-16px/ripple';
 import { Component, Element, Method, Prop } from '@stencil/core';
 
 @Component({
