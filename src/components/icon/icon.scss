@@ -2,6 +2,7 @@
 
 :host {
     background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
     display: inline-block;
     line-height: 0;
 
@@ -23,6 +24,7 @@
         height: 1.5rem;
         width: 1.5rem;
     }
+    padding: .4rem;
 }
 :host([size="small"]) {
     &,
@@ -30,6 +32,7 @@
         height: 2rem;
         width: 2rem;
     }
+    padding: .5rem;
 }
 :host([size="medium"]) {
     &,
@@ -37,6 +40,7 @@
         height: 2.5rem;
         width: 2.5rem;
     }
+    padding: .8rem;
 }
 :host([size="large"]) {
     &,
@@ -44,4 +48,5 @@
         height: 3rem;
         width: 3rem;
     }
+    padding: .8rem;
 }
