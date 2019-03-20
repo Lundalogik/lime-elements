@@ -1,5 +1,5 @@
-export interface Option {
+export interface Option<T extends string = string> {
     text: string;
-    value: string;
+    value: T;
     disabled?: boolean;
 }
