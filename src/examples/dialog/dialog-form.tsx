@@ -71,7 +71,7 @@ export class DialogFormExample {
                         <limel-slider unit="%" value={this.percentage} />
                     </p>
                 </form>
-                <limel-button-group class="reverse-order" slot="button">
+                <limel-flex-container slot="button" reverse={true}>
                     <limel-button
                         primary={true}
                         label="Save"
@@ -79,7 +79,7 @@ export class DialogFormExample {
                         onClick={this.submitForm}
                     />
                     <limel-button label="Cancel" onClick={this.closeDialog} />
-                </limel-button-group>
+                </limel-flex-container>
             </limel-dialog>,
             <limel-dialog
                 open={this.isConfirmationOpen}
@@ -88,7 +88,7 @@ export class DialogFormExample {
                 }}
             >
                 <p>Are you sure you want to close this? </p>
-                <limel-button-group slot="button">
+                <limel-flex-container justify="end" slot="button">
                     <limel-button
                         label="Yes"
                         onClick={() => {
@@ -103,7 +103,7 @@ export class DialogFormExample {
                             this.isConfirmationOpen = false;
                         }}
                     />
-                </limel-button-group>
+                </limel-flex-container>
             </limel-dialog>,
         ];
     }

@@ -132,7 +132,7 @@ export class SelectExample {
             </section>,
             <section>
                 <h3>Changing Available Options</h3>
-                <limel-button-group>
+                <limel-flex-container justify="end">
                     <limel-button
                         primary={true}
                         onClick={() => {
@@ -150,7 +150,7 @@ export class SelectExample {
                         }}
                         label="Toggle options"
                     />
-                </limel-button-group>
+                </limel-flex-container>
                 <limel-select
                     options={this.toggleOptions[this.optionGroup]}
                     value={this.toggleValue}

@@ -19,7 +19,7 @@ export class InputFieldTextExample {
     public render() {
         return [
             <section>
-                <limel-button-group>
+                <limel-flex-container justify="end">
                     <limel-button
                         onClick={() => {
                             this.disabled = !this.disabled;
@@ -32,7 +32,7 @@ export class InputFieldTextExample {
                         }}
                         label={this.required ? 'Set optional' : 'Set required'}
                     />
-                </limel-button-group>
+                </limel-flex-container>
                 <limel-input-field
                     disabled={this.disabled}
                     invalid={this.invalid}
