@@ -27,7 +27,7 @@ export class CheckboxExample {
                         checked={this.value}
                         onChange={this.changeHandler}
                     />
-                    <limel-button-group>
+                    <limel-flex-container justify="end">
                         <limel-button
                             onClick={() => {
                                 this.disabled = !this.disabled;
@@ -40,7 +40,7 @@ export class CheckboxExample {
                             }}
                             label="Toggle checked"
                         />
-                    </limel-button-group>
+                    </limel-flex-container>
                 </div>
                 <p>
                     Value: <code>{this.value.toString()}</code>

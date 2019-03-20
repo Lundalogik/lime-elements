@@ -60,14 +60,14 @@ export class SliderExample {
             </section>,
             <section>
                 <h3>Disabled</h3>
-                <limel-button-group>
+                <limel-flex-container justify="end">
                     <limel-button
                         onClick={() => {
                             this.disabled = !this.disabled;
                         }}
                         label={this.disabled ? 'Enable' : 'Disable'}
                     />
-                </limel-button-group>
+                </limel-flex-container>
                 <limel-slider
                     label="Can be disabled"
                     disabled={this.disabled}
