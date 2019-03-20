@@ -23,7 +23,7 @@ export class MultiSelectExample {
         return [
             <section>
                 <h3>Basic Usage</h3>
-                <limel-button-group>
+                <limel-flex-container justify="end">
                     <limel-button
                         label="Toggle disabled"
                         primary={true}
@@ -31,7 +31,7 @@ export class MultiSelectExample {
                             this.disabled = !this.disabled;
                         }}
                     />
-                </limel-button-group>
+                </limel-flex-container>
                 <limel-multi-select
                     options={this.basicOptions}
                     value={this.basicValue}

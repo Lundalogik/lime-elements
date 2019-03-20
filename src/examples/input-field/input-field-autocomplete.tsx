@@ -26,7 +26,7 @@ export class InputFieldAutocompleteExample {
 
     public render() {
         return [
-            <limel-button-group>
+            <limel-flex-container justify="end">
                 <limel-button
                     onClick={() => {
                         this.disabled = !this.disabled;
@@ -39,7 +39,7 @@ export class InputFieldAutocompleteExample {
                     }}
                     label={this.required ? 'Set optional' : 'Set required'}
                 />
-            </limel-button-group>,
+            </limel-flex-container>,
             <limel-input-field
                 label="Autocomplete"
                 disabled={this.disabled}

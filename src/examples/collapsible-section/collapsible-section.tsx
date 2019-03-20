@@ -22,13 +22,13 @@ export class CollapsibleSectionExample {
             <hr />,
             <section>
                 <h3>Closing and opening from outside the component</h3>
-                <limel-button-group>
+                <limel-flex-container justify="end">
                     <limel-button
                         label={'toggle'}
                         primary={true}
                         onClick={this.toggleSecondExample.bind(this)}
                     />
-                </limel-button-group>
+                </limel-flex-container>
                 <limel-collapsible-section
                     header="Click me or click the button"
                     isOpen={this.secondExampleIsOpen}
