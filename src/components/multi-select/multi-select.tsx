@@ -121,7 +121,11 @@ export class MultiSelect {
         });
     }
 
-    private onChange = () => {
+    private onChange = (event?) => {
+        if (event) {
+            event.stopPropagation();
+        }
+
         const checked = this.options.filter(option => {
             const optionChecked = this.mdcCheckboxes.some(mdcCheckbox => {
                 return (
