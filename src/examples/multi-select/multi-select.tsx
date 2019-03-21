@@ -1,5 +1,5 @@
 import { Component, State } from '@stencil/core';
-import { Option } from '../../components/select/option';
+import { Option } from '../../components/select/option.types';
 
 @Component({
     shadow: true,

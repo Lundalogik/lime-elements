@@ -1,8 +1,8 @@
 // Components interfaces
 export * from './components';
-export * from './components/list/list-item';
-export * from './components/select/option';
-export * from './components/picker/searcher';
-export * from './components/icon/icon';
-export * from './components/spinner/spinner';
-export * from './components/flex-container/flex-container';
+export * from './components/list/list-item.types';
+export * from './components/select/option.types';
+export * from './components/picker/searcher.types';
+export * from './components/icon/icon.types';
+export * from './components/spinner/spinner.types';
+export * from './components/flex-container/flex-container.types';

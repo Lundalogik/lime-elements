@@ -1,5 +1,5 @@
 import { Component, Prop } from '@stencil/core';
-import { SpinnerSize } from './spinner';
+import { SpinnerSize } from './spinner.types';
 
 @Component({
     tag: 'limel-spinner',

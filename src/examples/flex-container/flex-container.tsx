@@ -3,8 +3,8 @@ import {
     FlexContainerAlign,
     FlexContainerDirection,
     FlexContainerJustify,
-} from '../../components/flex-container/flex-container';
-import { Option } from '../../components/select/option';
+} from '../../components/flex-container/flex-container.types';
+import { Option } from '../../components/select/option.types';
 
 @Component({
     tag: 'limel-example-flex-container',
