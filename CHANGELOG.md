@@ -1,3 +1,37 @@
+# [17.0.0](https://github.com/Lundalogik/lime-elements/compare/v16.2.1...v17.0.0) (2019-03-21)
+
+
+### Bug Fixes
+
+* **color:** use correct color variable ([594eeb0](https://github.com/Lundalogik/lime-elements/commit/594eeb0))
+* **icon:** define icon sizes ([eb706e7](https://github.com/Lundalogik/lime-elements/commit/eb706e7))
+* **limel-multi-select:** stop internal change-events from propagating outside the component ([9b6a09a](https://github.com/Lundalogik/lime-elements/commit/9b6a09a))
+* **limel-select:** stop internal change-events from propagating outside the component ([cbbade3](https://github.com/Lundalogik/lime-elements/commit/cbbade3))
+* **picker:** added value generic property to list item ([e1e44b6](https://github.com/Lundalogik/lime-elements/commit/e1e44b6))
+* **spinner:** define spinner sizes ([415065d](https://github.com/Lundalogik/lime-elements/commit/415065d))
+
+
+### Code Refactoring
+
+* **badge:** remove badge component ([8b81ef9](https://github.com/Lundalogik/lime-elements/commit/8b81ef9))
+* **button group:** remove button group ([6df45df](https://github.com/Lundalogik/lime-elements/commit/6df45df))
+
+
+### Features
+
+* **flex container:** new flex container component ([e0a65ef](https://github.com/Lundalogik/lime-elements/commit/e0a65ef))
+* **icon:** allow setting background color on icon ([fd006f8](https://github.com/Lundalogik/lime-elements/commit/fd006f8))
+
+
+### BREAKING CHANGES
+
+* **picker:** Removed the index signature from ListItem interface. Consumers of list items should
+pass any custom values in the value property instead
+* **button group:** Button group has been removed in favor of flex container, which offers the same
+functionality with a cleaner API and is not constrained to only containing buttons
+* **badge:** The badge component has been removed. Code that uses the badge component should use
+the icon component instead, which offers the same functionality.
+
 ## [16.2.1](https://github.com/Lundalogik/lime-elements/compare/v16.2.0...v16.2.1) (2019-03-18)
 
 
