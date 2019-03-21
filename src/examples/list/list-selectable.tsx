@@ -6,12 +6,12 @@ import { ListItem } from '../../interface';
     shadow: true,
 })
 export class SelectableListExample {
-    private items: ListItem[] = [
-        { text: 'King of Tokyo', id: 1 },
-        { text: 'Smash Up!', id: 2 },
-        { text: 'Pandemic', id: 3 },
-        { text: 'Catan', id: 4 },
-        { text: 'Ticket to Ride', id: 5 },
+    private items: Array<ListItem<number>> = [
+        { text: 'King of Tokyo', value: 1 },
+        { text: 'Smash Up!', value: 2 },
+        { text: 'Pandemic', value: 3 },
+        { text: 'Catan', value: 4 },
+        { text: 'Ticket to Ride', value: 5 },
     ];
 
     public render() {

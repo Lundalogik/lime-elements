@@ -23,15 +23,15 @@ export class ChipSetExample {
                 onInteract={this.handleInteract}
                 value={[
                     {
-                        id: '1',
+                        id: 1,
                         text: 'Lime',
                     },
                     {
-                        id: '2',
+                        id: 2,
                         text: 'Apple',
                     },
                     {
-                        id: '3',
+                        id: 3,
                         text: 'Banana',
                     },
                 ]}
