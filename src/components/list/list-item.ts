@@ -1,4 +1,4 @@
-export interface ListItem {
+export interface ListItem<T = any> {
     /**
      * Text to display in the list item
      */
@@ -24,7 +24,10 @@ export interface ListItem {
      */
     iconColor?: string;
 
-    [data: string]: any;
+    /**
+     * Value of the list item
+     */
+    value?: T;
 }
 
 export interface ListSeparator {

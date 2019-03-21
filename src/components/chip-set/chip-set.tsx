@@ -314,14 +314,14 @@ export class ChipSet {
 
     private handleInteraction(event) {
         const chip = this.value.find(item => {
-            return item.id === event.detail.chipId;
+            return `${item.id}` === event.detail.chipId;
         });
         this.interact.emit(chip);
     }
 
     private handleSelection(event) {
         let chip = this.value.find(item => {
-            return item.id === event.detail.chipId;
+            return `${item.id}` === event.detail.chipId;
         });
         chip = { ...chip, selected: event.detail.selected };
         this.change.emit(chip);
@@ -329,7 +329,7 @@ export class ChipSet {
 
     private handleRemove(event) {
         const newValue = this.value.filter(chip => {
-            return chip.id !== event.detail.chipId;
+            return `${chip.id}` !== event.detail.chipId;
         });
         this.change.emit(newValue);
     }
@@ -353,7 +353,7 @@ export class ChipSet {
             <div
                 class={`mdc-chip ${chip.selected ? 'mdc-chip--selected' : ''}`}
                 tabindex="0"
-                id={chip.id}
+                id={`${chip.id}`}
             >
                 {chip.icon ? this.renderIcon(chip) : null}
                 <div class="mdc-chip__text">{chip.text}</div>
@@ -366,7 +366,7 @@ export class ChipSet {
             <div
                 class={`mdc-chip ${chip.selected ? 'mdc-chip--selected' : ''}`}
                 tabindex="0"
-                id={chip.id}
+                id={`${chip.id}`}
             >
                 <div class="mdc-chip__checkmark">
                     <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
@@ -385,7 +385,7 @@ export class ChipSet {
 
     private renderDefaultChip(chip: Chip) {
         return (
-            <div class="mdc-chip" tabindex="0" id={chip.id}>
+            <div class="mdc-chip" tabindex="0" id={`${chip.id}`}>
                 {chip.icon ? this.renderIcon(chip) : null}
                 <div class="mdc-chip__text">{chip.text}</div>
                 {chip.removable ? this.renderTrailingIcon() : null}

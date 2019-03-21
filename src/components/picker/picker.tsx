@@ -51,7 +51,7 @@ export class Picker {
      * Currently selected value or values
      */
     @Prop()
-    public value: ListItem | ListItem[];
+    public value: ListItem<number | string> | Array<ListItem<number | string>>;
 
     /**
      * A search function that takes a search-string as an argument,
@@ -71,7 +71,9 @@ export class Picker {
      * Fired when a new value has been selected from the picker
      */
     @Event()
-    private change: EventEmitter<ListItem | ListItem[]>;
+    private change: EventEmitter<
+        ListItem<number | string> | Array<ListItem<number | string>>
+    >;
 
     /**
      * Fired when clicking on a selected value
@@ -80,7 +82,7 @@ export class Picker {
     private interact: EventEmitter<Chip>;
 
     @State()
-    private items: ListItem[];
+    private items: Array<ListItem<number | string>>;
 
     @State()
     private textValue: string;
@@ -193,12 +195,12 @@ export class Picker {
 
         const listItem: ListItem = value as ListItem;
 
-        return [this.createChip(listItem, listItem.id || 0)];
+        return [this.createChip(listItem)];
     }
 
-    private createChip(listItem: ListItem, id: number): Chip {
+    private createChip(listItem: ListItem): Chip {
         return {
-            id: `${id}`,
+            id: `${listItem.value}`,
             text: listItem.text,
             removable: true,
             icon: listItem.icon,
@@ -367,8 +369,8 @@ export class Picker {
         if (this.multiple) {
             const chips = event.detail as Chip[];
             newValue = chips.map(chip => {
-                return (this.value as ListItem[]).find((_, index) => {
-                    return index === parseInt(chip.id, 10);
+                return (this.value as ListItem[]).find(item => {
+                    return `${item.value}` === chip.id;
                 });
             });
         }

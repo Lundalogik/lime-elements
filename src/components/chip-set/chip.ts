@@ -1,13 +1,13 @@
-export interface Chip {
+export interface Chip<T = any> {
     /**
      * Id of the chip. Needs to be unique
      */
-    id: string;
+    id: number | string;
 
     /**
      * Text to display inside the chip
      */
-    text: string | number;
+    text: string;
 
     /**
      * Name of the icon to use. Not valid for `filter`
@@ -28,4 +28,9 @@ export interface Chip {
      * Wether the chip is selected or not. Only valid for `choice` and `filter`
      */
     selected?: boolean;
+
+    /**
+     * Value of the chip
+     */
+    value?: T;
 }
