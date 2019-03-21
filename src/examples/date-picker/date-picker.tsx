@@ -1,5 +1,5 @@
 import { Component, State } from '@stencil/core';
-import { DateType } from '../../components/date-picker/date-type';
+import { DateType } from '../../components/date-picker/date.types';
 
 const types = ['datetime', 'date', 'time', 'week', 'month', 'quarter', 'year'];
 

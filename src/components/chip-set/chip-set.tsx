@@ -10,7 +10,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { Chip } from './chip';
+import { Chip } from './chip.types';
 
 @Component({
     tag: 'limel-chip-set',

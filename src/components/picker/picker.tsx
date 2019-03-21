@@ -18,7 +18,7 @@ import {
     TAB,
     TAB_KEY_CODE,
 } from '../../util/keycodes';
-import { Chip } from '../chip-set/chip';
+import { Chip } from '../chip-set/chip.types';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
