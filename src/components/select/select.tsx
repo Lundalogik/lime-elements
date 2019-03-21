@@ -107,7 +107,11 @@ export class Select {
         }
     }
 
-    private onChange = () => {
+    private onChange = (event?) => {
+        if (event) {
+            event.stopPropagation();
+        }
+
         const mdcValue = this.mdcSelect.value;
         let value: Option;
         if (mdcValue === '') {
