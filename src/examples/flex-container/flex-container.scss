@@ -3,8 +3,8 @@ limel-flex-container {
 
     &.container {
         height: 60rem;
-        border: 1px solid var(--lime-dark-grey);
-        border-radius: 3px;
+        border: 0.1rem solid var(--lime-dark-grey);
+        border-radius: 0.3rem;
     }
 
     div {

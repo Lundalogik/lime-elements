@@ -1,6 +1,9 @@
 :host(limel-flex-container) {
     display: flex;
 }
+:host(limel-flex-container[hidden]) {
+    display: none;
+}
 
 :host(limel-flex-container[direction="horizontal"]) {
     flex-direction: row;
