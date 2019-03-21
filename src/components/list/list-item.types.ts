@@ -1,16 +1,16 @@
 export interface ListItem<T = any> {
     /**
-     * Text to display in the list item
+     * Text to display in the list item.
      */
     text: string;
 
     /**
-     * Additional supporting text to display in the list item
+     * Additional supporting text to display in the list item.
      */
     secondaryText?: string;
 
     /**
-     * True if the list item should be disabled
+     * True if the list item should be disabled.
      */
     disabled?: boolean;
 
@@ -20,12 +20,12 @@ export interface ListItem<T = any> {
     icon?: string;
 
     /**
-     * Background color of the icon. Overrides `--icon-background-color`
+     * Background color of the icon. Overrides `--icon-background-color`.
      */
     iconColor?: string;
 
     /**
-     * Value of the list item
+     * Value of the list item.
      */
     value?: T;
 }
