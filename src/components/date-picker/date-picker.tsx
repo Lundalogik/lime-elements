@@ -9,7 +9,7 @@ import {
 } from '@stencil/core';
 
 import { Translations } from '../../global/translations';
-import { DateType, Languages } from './date-type';
+import { DateType, Languages } from './date.types';
 import { DatePicker as DateDatePicker } from './pickers/DatePicker';
 import { DatetimePicker } from './pickers/DatetimePicker';
 import { MonthPicker } from './pickers/MonthPicker';

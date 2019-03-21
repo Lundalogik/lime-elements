@@ -1,7 +1,7 @@
 import { Component, Element, Prop, Watch } from '@stencil/core';
 import { Config } from '../../global/config';
 import { IconCache } from '../../global/icon-cache';
-import { IconSize } from './icon';
+import { IconSize } from './icon.types';
 
 @Component({
     tag: 'limel-icon',

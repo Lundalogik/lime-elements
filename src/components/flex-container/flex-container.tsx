@@ -3,7 +3,7 @@ import {
     FlexContainerAlign,
     FlexContainerDirection,
     FlexContainerJustify,
-} from './flex-container';
+} from './flex-container.types';
 
 @Component({
     tag: 'limel-flex-container',
