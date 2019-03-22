@@ -3,25 +3,25 @@ const h = window.LimeElements.h;
 class PickerMultipleExample {
     constructor() {
         this.allItems = [
-            { text: 'Admiral Swiggins', id: 1 },
-            { text: 'Ayla', id: 2 },
-            { text: 'Clunk', id: 3 },
-            { text: 'Coco', id: 4 },
-            { text: 'Derpl', id: 5 },
-            { text: 'Froggy G', id: 6 },
-            { text: 'Gnaw', id: 7 },
-            { text: 'Lonestar', id: 8 },
-            { text: 'Leon', id: 9 },
-            { text: 'Raelynn', id: 10 },
-            { text: 'Skølldir', id: 11 },
-            { text: 'Voltar', id: 12 },
-            { text: 'Yuri', id: 13 },
+            { text: 'Admiral Swiggins', value: 1 },
+            { text: 'Ayla', value: 2 },
+            { text: 'Clunk', value: 3 },
+            { text: 'Coco', value: 4 },
+            { text: 'Derpl', value: 5 },
+            { text: 'Froggy G', value: 6 },
+            { text: 'Gnaw', value: 7 },
+            { text: 'Lonestar', value: 8 },
+            { text: 'Leon', value: 9 },
+            { text: 'Raelynn', value: 10 },
+            { text: 'Skølldir', value: 11 },
+            { text: 'Voltar', value: 12 },
+            { text: 'Yuri', value: 13 },
         ];
         this.selectedItems = [];
     }
     render() {
         return [
-            h("limel-picker", { multiple: true, onChange: event => {
+            h("limel-picker", { multiple: true, onChange: (event) => {
                     this.selectedItems = [...event.detail];
                 }, label: "Favorite awesomenaut", searcher: this.search.bind(this), value: this.selectedItems }),
             h("br", null),

@@ -4,16 +4,16 @@ class ChipSetFilterExample {
     constructor() {
         this.chips = [
             {
-                id: '1',
+                id: 1,
                 text: 'Lime',
             },
             {
-                id: '2',
+                id: 2,
                 text: 'Apple',
                 selected: true,
             },
             {
-                id: '3',
+                id: 3,
                 text: 'Banana',
             },
         ];

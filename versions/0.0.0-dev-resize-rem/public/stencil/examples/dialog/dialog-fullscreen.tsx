@@ -25,14 +25,14 @@ export class DialogSizeExample {
                 }}
             >
                 <p>This dialog is fullscreen</p>
-                <limel-button-group slot="button">
+                <limel-flex-container justify="end" slot="button">
                     <limel-button
                         label="Ok"
                         onClick={() => {
                             this.isOpen = false;
                         }}
                     />
-                </limel-button-group>
+                </limel-flex-container>
             </limel-dialog>,
         ];
     }

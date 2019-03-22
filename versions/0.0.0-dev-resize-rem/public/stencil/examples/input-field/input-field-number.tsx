@@ -20,7 +20,7 @@ export class InputFieldNumberExample {
     public render() {
         return [
             <section>
-                <limel-button-group>
+                <limel-flex-container justify="end">
                     <limel-button
                         onClick={() => {
                             this.formatNumber = !this.formatNumber;
@@ -31,8 +31,8 @@ export class InputFieldNumberExample {
                                 : 'Format number'
                         }
                     />
-                </limel-button-group>
-                <limel-button-group>
+                </limel-flex-container>
+                <limel-flex-container justify="end">
                     <limel-button
                         onClick={() => {
                             this.disabled = !this.disabled;
@@ -45,7 +45,7 @@ export class InputFieldNumberExample {
                         }}
                         label={this.required ? 'Set optional' : 'Set required'}
                     />
-                </limel-button-group>
+                </limel-flex-container>
                 <limel-input-field
                     label="Number Field Label"
                     value={this.value}

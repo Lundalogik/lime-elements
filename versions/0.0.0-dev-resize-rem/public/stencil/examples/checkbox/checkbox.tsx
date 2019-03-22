@@ -12,6 +12,10 @@ export class CheckboxExample {
     @State()
     private value: boolean = false;
 
+    constructor() {
+        this.changeHandler = this.changeHandler.bind(this);
+    }
+
     public render() {
         return (
             <section>
@@ -21,9 +25,9 @@ export class CheckboxExample {
                         label="My fab checkbox"
                         id="fab"
                         checked={this.value}
-                        onChange={this.changeHandler.bind(this)}
+                        onChange={this.changeHandler}
                     />
-                    <limel-button-group>
+                    <limel-flex-container justify="end">
                         <limel-button
                             onClick={() => {
                                 this.disabled = !this.disabled;
@@ -36,7 +40,7 @@ export class CheckboxExample {
                             }}
                             label="Toggle checked"
                         />
-                    </limel-button-group>
+                    </limel-flex-container>
                 </div>
                 <p>
                     Value: <code>{this.value.toString()}</code>

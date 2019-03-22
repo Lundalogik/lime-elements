@@ -39,14 +39,14 @@ class DialogFormExample {
                             } })),
                     h("p", null,
                         h("limel-slider", { unit: "%", value: this.percentage }))),
-                h("limel-button-group", { class: "reverse-order", slot: "button" },
+                h("limel-flex-container", { slot: "button", reverse: true },
                     h("limel-button", { primary: true, label: "Save", disabled: !this.nameValid() || !this.ageValid(), onClick: this.submitForm }),
                     h("limel-button", { label: "Cancel", onClick: this.closeDialog }))),
             h("limel-dialog", { open: this.isConfirmationOpen, onClose: () => {
                     this.isConfirmationOpen = false;
                 } },
                 h("p", null, "Are you sure you want to close this? "),
-                h("limel-button-group", { slot: "button" },
+                h("limel-flex-container", { justify: "end", slot: "button" },
                     h("limel-button", { label: "Yes", onClick: () => {
                             this.isConfirmationOpen = false;
                             this.isOpen = false;

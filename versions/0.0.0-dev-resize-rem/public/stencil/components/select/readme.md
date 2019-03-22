@@ -7,26 +7,19 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type       | Default     |
-| ---------- | ---------- | ----------- | ---------- | ----------- |
-| `disabled` | `disabled` |             | `boolean`  | `false`     |
-| `label`    | `label`    |             | `string`   | `undefined` |
-| `options`  | --         |             | `Option[]` | `[]`        |
-| `value`    | --         |             | `Option`   | `undefined` |
+| Property   | Attribute  | Description | Type               | Default     |
+| ---------- | ---------- | ----------- | ------------------ | ----------- |
+| `disabled` | `disabled` |             | `boolean`          | `false`     |
+| `label`    | `label`    |             | `string`           | `undefined` |
+| `options`  | --         |             | `Option<string>[]` | `[]`        |
+| `value`    | --         |             | `Option<string>`   | `undefined` |
 
 
 ## Events
 
-| Event    | Description | Type                |
-| -------- | ----------- | ------------------- |
-| `change` |             | `CustomEvent<void>` |
-
-
-## CSS Custom Properties
-
-| Name                 | Description                    |
-| -------------------- | ------------------------------ |
-| `--background-color` | Background color of the field. |
+| Event    | Description | Type                  |
+| -------- | ----------- | --------------------- |
+| `change` |             | `CustomEvent<Option>` |
 
 
 ----------------------------------------------

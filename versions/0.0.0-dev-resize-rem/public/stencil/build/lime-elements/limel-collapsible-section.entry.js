@@ -79,7 +79,7 @@ class CollapsibleSectionExample {
             h("hr", null),
             h("section", null,
                 h("h3", null, "Closing and opening from outside the component"),
-                h("limel-button-group", null,
+                h("limel-flex-container", { justify: "end" },
                     h("limel-button", { label: 'toggle', primary: true, onClick: this.toggleSecondExample.bind(this) })),
                 h("limel-collapsible-section", { header: "Click me or click the button", isOpen: this.secondExampleIsOpen, onOpen: this.secondExampleOnOpen.bind(this), onClose: this.secondExampleOnClose.bind(this) },
                     h("p", null,

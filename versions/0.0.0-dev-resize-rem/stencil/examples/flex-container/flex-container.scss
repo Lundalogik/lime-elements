@@ -1,0 +1,39 @@
+limel-flex-container {
+    margin-bottom: 0.625*2rem;
+
+    &.container {
+        height: 0.625*60rem;
+        border: 0.625*0.1rem solid var(--lime-dark-grey);
+        border-radius: 0.625*0.3rem;
+    }
+
+    div {
+        display: block;
+        padding: 0.625*2.5rem 0.625*5rem;
+
+        text-align: center;
+        color: white;
+        font-size: 0.625*2rem;
+        line-height: 0;
+
+        &:nth-child(1) {
+            background-color: var(--lime-red);
+            padding: 0.625*1.25rem 0.625*5rem;
+        }
+        &:nth-child(2) {
+            background-color: var(--lime-orange);
+            padding: 0.625*5rem;
+        }
+        &:nth-child(3) {
+            background-color: var(--lime-green);
+        }
+        &:nth-child(4) {
+            background-color: var(--lime-blue);
+            padding: 0.625*2.5rem 0.625*10rem;
+        }
+        &:nth-child(5) {
+            background-color: var(--lime-magenta);
+            padding: 0.625*2.5rem;
+        }
+    }
+}

@@ -13,18 +13,18 @@
 | `label`    | `label`    | Label to display for the input field when type is `input`                                                                                                                                                                                                                                                                                                                                                              | `string`                          | `undefined` |
 | `required` | `required` | True if the control requires a value                                                                                                                                                                                                                                                                                                                                                                                   | `boolean`                         | `false`     |
 | `type`     | `type`     | Type of chip set  - `choice` renders a set of selectable chips where only one is selectable. The `removable` property is ignored - `filter` renders a set of selectable chips where all are selectable. The `icon` property is ignored - `input` renders a set of chips that can be used in conjunction with an input field  If no type is set, a basic set of chips without additional functionality will be rendered | `"choice" \| "filter" \| "input"` | `undefined` |
-| `value`    | --         | List of chips for the set                                                                                                                                                                                                                                                                                                                                                                                              | `Chip[]`                          | `[]`        |
+| `value`    | --         | List of chips for the set                                                                                                                                                                                                                                                                                                                                                                                              | `Chip<any>[]`                     | `[]`        |
 
 
 ## Events
 
-| Event       | Description                                                                                 | Type                |
-| ----------- | ------------------------------------------------------------------------------------------- | ------------------- |
-| `change`    | Dispatched when a chip is selected/deselected                                               | `CustomEvent<void>` |
-| `input`     | Dispatched when the input is changed for type `input`                                       | `CustomEvent<void>` |
-| `interact`  | Dispatched when a chip is interacted with                                                   | `CustomEvent<void>` |
-| `startEdit` | Emitted when an input chip set has received focus and editing in the text field has started | `CustomEvent<void>` |
-| `stopEdit`  | Emitted when an input chip set has lost focus and editing in the text field has ended       | `CustomEvent<void>` |
+| Event       | Description                                                                                 | Type                          |
+| ----------- | ------------------------------------------------------------------------------------------- | ----------------------------- |
+| `change`    | Dispatched when a chip is selected/deselected                                               | `CustomEvent<Chip \| Chip[]>` |
+| `input`     | Dispatched when the input is changed for type `input`                                       | `CustomEvent<string>`         |
+| `interact`  | Dispatched when a chip is interacted with                                                   | `CustomEvent<Chip>`           |
+| `startEdit` | Emitted when an input chip set has received focus and editing in the text field has started | `CustomEvent<void>`           |
+| `stopEdit`  | Emitted when an input chip set has lost focus and editing in the text field has ended       | `CustomEvent<void>`           |
 
 
 ## Methods
@@ -48,15 +48,6 @@ Used to set focus to the chip-set input field.
 Type: `void`
 
 
-
-
-## CSS Custom Properties
-
-| Name                      | Description                                              |
-| ------------------------- | -------------------------------------------------------- |
-| `--background-color`      | Background color of the field when type is set to input. |
-| `--icon-background-color` | Background color of the icon. Defaults to transparent.   |
-| `--icon-color`            | Color of the icon. Defaults to 54% black.                |
 
 
 ----------------------------------------------

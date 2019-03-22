@@ -4,18 +4,18 @@ class ChipSetChoiceExample {
     constructor() {
         this.chips = [
             {
-                id: '1',
+                id: 1,
                 text: 'Lime',
                 icon: 'citrus',
             },
             {
-                id: '2',
+                id: 2,
                 text: 'Apple',
                 selected: true,
                 icon: 'apple',
             },
             {
-                id: '3',
+                id: 3,
                 text: 'Banana',
                 icon: 'banana',
             },

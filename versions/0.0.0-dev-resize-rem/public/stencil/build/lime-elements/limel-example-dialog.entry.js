@@ -13,7 +13,7 @@ class DialogExample {
                     this.isOpen = false;
                 } },
                 h("p", null, "This is a simple alert-dialog."),
-                h("limel-button-group", { slot: "button" },
+                h("limel-flex-container", { justify: "end", slot: "button" },
                     h("limel-button", { label: "Ok", onClick: () => {
                             this.isOpen = false;
                         } }))),

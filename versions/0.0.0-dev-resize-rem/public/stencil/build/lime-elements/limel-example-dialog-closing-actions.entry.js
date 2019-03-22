@@ -13,8 +13,10 @@ class DialogClosingActionsExample {
                     this.isOpen = false;
                 } },
                 h("p", null, "This dialog doesn't close by clicking the scrim or pressing the escape key. Only the Ok-button triggers a close event."),
-                h("limel-button-group", { slot: "button" },
-                    h("limel-button", { label: "Ok", "data-mdc-dialog-action": "close" }))),
+                h("limel-flex-container", { justify: "end", slot: "button" },
+                    h("limel-button", { label: "Ok", onClick: () => {
+                            this.isOpen = false;
+                        } }))),
         ];
     }
     static get is() { return "limel-example-dialog-closing-actions"; }

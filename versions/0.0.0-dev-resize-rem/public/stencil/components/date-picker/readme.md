@@ -23,7 +23,7 @@
 
 | Event    | Description                                    | Type                |
 | -------- | ---------------------------------------------- | ------------------- |
-| `change` | Emitted when the date picker value is changed. | `CustomEvent<void>` |
+| `change` | Emitted when the date picker value is changed. | `CustomEvent<Date>` |
 
 
 ----------------------------------------------

@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description                                                                                                             | Type     | Default     |
-| -------- | --------- | ----------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `size`   | `size`    | Determines the size of the spinner. Possible values: `mini`, `x-small`, `small`, `medium`, `large`. Defaults to `mini`. | `string` | `undefined` |
+| Property | Attribute | Description                         | Type                                                    | Default  |
+| -------- | --------- | ----------------------------------- | ------------------------------------------------------- | -------- |
+| `size`   | `size`    | Determines the size of the spinner. | `"large" \| "medium" \| "mini" \| "small" \| "x-small"` | `'mini'` |
 
 
 ----------------------------------------------

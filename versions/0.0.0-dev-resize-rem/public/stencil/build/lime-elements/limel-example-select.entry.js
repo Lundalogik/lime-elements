@@ -90,7 +90,7 @@ class SelectExample {
                     JSON.stringify(this.preselectedValue))),
             h("section", null,
                 h("h3", null, "Changing Available Options"),
-                h("limel-button-group", null,
+                h("limel-flex-container", { justify: "end" },
                     h("limel-button", { primary: true, onClick: () => {
                             this.disabled = !this.disabled;
                         }, label: this.disabled ? 'Enable' : 'Disable' }),

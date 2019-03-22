@@ -17,7 +17,7 @@ class DialogSizeExample {
                     h("code", null, "--dialog-width: 0.625*40rem")),
                 h("p", null,
                     h("code", null, "--dialog-height: 50%")),
-                h("limel-button-group", { slot: "button" },
+                h("limel-flex-container", { justify: "end", slot: "button" },
                     h("limel-button", { label: "Ok", onClick: () => {
                             this.isOpen = false;
                         } }))),

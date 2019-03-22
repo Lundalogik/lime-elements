@@ -7,19 +7,19 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type       | Default     |
-| ---------- | ---------- | ----------- | ---------- | ----------- |
-| `disabled` | `disabled` |             | `boolean`  | `false`     |
-| `label`    | `label`    |             | `string`   | `undefined` |
-| `options`  | --         |             | `Option[]` | `[]`        |
-| `value`    | --         |             | `Option[]` | `[]`        |
+| Property   | Attribute  | Description | Type               | Default     |
+| ---------- | ---------- | ----------- | ------------------ | ----------- |
+| `disabled` | `disabled` |             | `boolean`          | `false`     |
+| `label`    | `label`    |             | `string`           | `undefined` |
+| `options`  | --         |             | `Option<string>[]` | `[]`        |
+| `value`    | --         |             | `Option<string>[]` | `[]`        |
 
 
 ## Events
 
-| Event    | Description | Type                |
-| -------- | ----------- | ------------------- |
-| `change` |             | `CustomEvent<void>` |
+| Event    | Description | Type                    |
+| -------- | ----------- | ----------------------- |
+| `change` |             | `CustomEvent<Option[]>` |
 
 
 ----------------------------------------------

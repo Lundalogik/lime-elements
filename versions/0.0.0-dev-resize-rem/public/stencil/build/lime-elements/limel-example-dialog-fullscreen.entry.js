@@ -13,7 +13,7 @@ class DialogSizeExample {
                     this.isOpen = false;
                 } },
                 h("p", null, "This dialog is fullscreen"),
-                h("limel-button-group", { slot: "button" },
+                h("limel-flex-container", { justify: "end", slot: "button" },
                     h("limel-button", { label: "Ok", onClick: () => {
                             this.isOpen = false;
                         } }))),

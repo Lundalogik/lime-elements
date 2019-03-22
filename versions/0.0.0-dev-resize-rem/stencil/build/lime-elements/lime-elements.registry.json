@@ -6,22 +6,11 @@
   "core": "lime-elements.core.js",
   "corePolyfilled": "lime-elements.core.pf.js",
   "components": {
-    "limel-badge": {
-      "bundleIds": {
-        "$": "limel-badge"
-      },
-      "encapsulation": "shadow"
-    },
     "limel-button": {
       "bundleIds": {
         "$": "limel-button"
       },
       "encapsulation": "shadow"
-    },
-    "limel-button-group": {
-      "bundleIds": {
-        "$": "limel-button"
-      }
     },
     "limel-chart": {
       "bundleIds": {
@@ -31,7 +20,7 @@
     },
     "limel-checkbox": {
       "bundleIds": {
-        "$": "limel-checkbox"
+        "$": "limel-button"
       },
       "encapsulation": "shadow"
     },
@@ -70,12 +59,6 @@
         "$": "limel-config"
       }
     },
-    "limel-example-badge": {
-      "bundleIds": {
-        "$": "limel-badge"
-      },
-      "encapsulation": "shadow"
-    },
     "limel-example-button": {
       "bundleIds": {
         "$": "limel-example-button"
@@ -85,12 +68,6 @@
     "limel-example-button-click": {
       "bundleIds": {
         "$": "limel-example-button-click"
-      },
-      "encapsulation": "shadow"
-    },
-    "limel-example-button-group": {
-      "bundleIds": {
-        "$": "limel-example-button-group"
       },
       "encapsulation": "shadow"
     },
@@ -120,7 +97,7 @@
     },
     "limel-example-checkbox": {
       "bundleIds": {
-        "$": "limel-checkbox"
+        "$": "limel-example-checkbox"
       },
       "encapsulation": "shadow"
     },
@@ -208,6 +185,12 @@
       },
       "encapsulation": "shadow"
     },
+    "limel-example-flex-container": {
+      "bundleIds": {
+        "$": "limel-example-flex-container"
+      },
+      "encapsulation": "shadow"
+    },
     "limel-example-grid": {
       "bundleIds": {
         "$": "limel-example-grid"
@@ -217,6 +200,12 @@
     "limel-example-icon": {
       "bundleIds": {
         "$": "limel-example-icon"
+      },
+      "encapsulation": "shadow"
+    },
+    "limel-example-icon-background": {
+      "bundleIds": {
+        "$": "limel-example-icon-background"
       },
       "encapsulation": "shadow"
     },
@@ -361,6 +350,12 @@
     "limel-example-switch": {
       "bundleIds": {
         "$": "limel-example-switch"
+      },
+      "encapsulation": "shadow"
+    },
+    "limel-flex-container": {
+      "bundleIds": {
+        "$": "limel-flex-container"
       },
       "encapsulation": "shadow"
     },

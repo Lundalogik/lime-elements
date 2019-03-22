@@ -1,6 +1,12 @@
 const h = window.LimeElements.h;
 
 class Spinner {
+    constructor() {
+        /**
+         * Determines the size of the spinner.
+         */
+        this.size = 'mini';
+    }
     render() {
         return '';
     }

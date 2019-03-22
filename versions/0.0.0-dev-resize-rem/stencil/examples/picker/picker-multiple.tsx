@@ -6,30 +6,30 @@ import { ListItem } from '../../interface';
     shadow: true,
 })
 export class PickerMultipleExample {
-    private allItems: ListItem[] = [
-        { text: 'Admiral Swiggins', id: 1 },
-        { text: 'Ayla', id: 2 },
-        { text: 'Clunk', id: 3 },
-        { text: 'Coco', id: 4 },
-        { text: 'Derpl', id: 5 },
-        { text: 'Froggy G', id: 6 },
-        { text: 'Gnaw', id: 7 },
-        { text: 'Lonestar', id: 8 },
-        { text: 'Leon', id: 9 },
-        { text: 'Raelynn', id: 10 },
-        { text: 'Skølldir', id: 11 },
-        { text: 'Voltar', id: 12 },
-        { text: 'Yuri', id: 13 },
+    private allItems: Array<ListItem<number>> = [
+        { text: 'Admiral Swiggins', value: 1 },
+        { text: 'Ayla', value: 2 },
+        { text: 'Clunk', value: 3 },
+        { text: 'Coco', value: 4 },
+        { text: 'Derpl', value: 5 },
+        { text: 'Froggy G', value: 6 },
+        { text: 'Gnaw', value: 7 },
+        { text: 'Lonestar', value: 8 },
+        { text: 'Leon', value: 9 },
+        { text: 'Raelynn', value: 10 },
+        { text: 'Skølldir', value: 11 },
+        { text: 'Voltar', value: 12 },
+        { text: 'Yuri', value: 13 },
     ];
 
     @State()
-    private selectedItems: ListItem[] = [];
+    private selectedItems: Array<ListItem<number>> = [];
 
     public render() {
         return [
             <limel-picker
                 multiple={true}
-                onChange={event => {
+                onChange={(event: CustomEvent<Array<ListItem<number>>>) => {
                     this.selectedItems = [...event.detail];
                 }}
                 label="Favorite awesomenaut"

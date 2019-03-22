@@ -1,5 +1,5 @@
 import { Component, State } from '@stencil/core';
-import { Chip } from '../../components/chip-set/chip';
+import { Chip } from '../../components/chip-set/chip.types';
 import { ENTER, ENTER_KEY_CODE } from '../../util/keycodes';
 
 @Component({
@@ -54,23 +54,23 @@ export class ChipSetInputExample {
         ];
     }
 
-    private handleInput(event) {
+    private handleInput(event: CustomEvent<string>) {
         this.textValue = event.detail;
     }
 
-    private handleKeyUp(event) {
+    private handleKeyUp(event: KeyboardEvent) {
         if (event.key === ENTER || event.keyCode === ENTER_KEY_CODE) {
             this.value = [...this.value, this.createChip(this.textValue)];
             this.textValue = null;
         }
     }
 
-    private handleChange(event) {
+    private handleChange(event: CustomEvent<Chip[]>) {
         console.log(event.detail);
         this.value = event.detail;
     }
 
-    private createChip(name): Chip {
+    private createChip(name: string): Chip {
         return {
             id: name,
             text: name,

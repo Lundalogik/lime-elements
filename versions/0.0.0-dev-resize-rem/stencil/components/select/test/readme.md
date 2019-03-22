@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property                   | Attribute                      | Description | Type     | Default     |
-| -------------------------- | ------------------------------ | ----------- | -------- | ----------- |
-| `onChangeCalledTimes`      | `on-change-called-times`       |             | `number` | `0`         |
-| `onChangeLastEventDetails` | `on-change-last-event-details` |             | `string` | `undefined` |
-| `value`                    | --                             |             | `Option` | `undefined` |
+| Property                   | Attribute                      | Description | Type             | Default     |
+| -------------------------- | ------------------------------ | ----------- | ---------------- | ----------- |
+| `onChangeCalledTimes`      | `on-change-called-times`       |             | `number`         | `0`         |
+| `onChangeLastEventDetails` | `on-change-last-event-details` |             | `string`         | `undefined` |
+| `value`                    | --                             |             | `Option<string>` | `undefined` |
 
 
 ----------------------------------------------

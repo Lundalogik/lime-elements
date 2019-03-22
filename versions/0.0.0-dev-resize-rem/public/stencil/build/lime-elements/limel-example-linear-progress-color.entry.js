@@ -19,6 +19,7 @@ class LinearProgressExampleColor {
                     this.color = event.detail;
                 } }),
             h("br", null),
+            h("br", null),
             h("limel-linear-progress", { value: this.value, style: {
                     '--lime-primary-color': `var(--${this.color.value})`,
                     '--background-color': 'whitesmoke',

@@ -31,14 +31,14 @@ export class DialogSizeExample {
                 <p>
                     <code>--dialog-height: 50%</code>
                 </p>
-                <limel-button-group slot="button">
+                <limel-flex-container justify="end" slot="button">
                     <limel-button
                         label="Ok"
                         onClick={() => {
                             this.isOpen = false;
                         }}
                     />
-                </limel-button-group>
+                </limel-flex-container>
             </limel-dialog>,
         ];
     }

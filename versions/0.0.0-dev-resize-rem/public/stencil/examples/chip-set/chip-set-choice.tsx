@@ -1,5 +1,5 @@
 import { Component, State } from '@stencil/core';
-import { Chip } from '../../components/chip-set/chip';
+import { Chip } from '../../components/chip-set/chip.types';
 
 @Component({
     tag: 'limel-example-chip-set-choice',
@@ -9,18 +9,18 @@ export class ChipSetChoiceExample {
     @State()
     private chips: Chip[] = [
         {
-            id: '1',
+            id: 1,
             text: 'Lime',
             icon: 'citrus',
         },
         {
-            id: '2',
+            id: 2,
             text: 'Apple',
             selected: true,
             icon: 'apple',
         },
         {
-            id: '3',
+            id: 3,
             text: 'Banana',
             icon: 'banana',
         },

@@ -10,13 +10,13 @@ class InputFieldNumberExample {
     render() {
         return [
             h("section", null,
-                h("limel-button-group", null,
+                h("limel-flex-container", { justify: "end" },
                     h("limel-button", { onClick: () => {
                             this.formatNumber = !this.formatNumber;
                         }, label: this.formatNumber
                             ? 'Unformat number'
                             : 'Format number' })),
-                h("limel-button-group", null,
+                h("limel-flex-container", { justify: "end" },
                     h("limel-button", { onClick: () => {
                             this.disabled = !this.disabled;
                         }, label: this.disabled ? 'Enable' : 'Disable' }),

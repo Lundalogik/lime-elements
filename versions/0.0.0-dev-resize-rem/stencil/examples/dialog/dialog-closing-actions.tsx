@@ -28,9 +28,14 @@ export class DialogClosingActionsExample {
                     This dialog doesn't close by clicking the scrim or pressing
                     the escape key. Only the Ok-button triggers a close event.
                 </p>
-                <limel-button-group slot="button">
-                    <limel-button label="Ok" data-mdc-dialog-action="close" />
-                </limel-button-group>
+                <limel-flex-container justify="end" slot="button">
+                    <limel-button
+                        label="Ok"
+                        onClick={() => {
+                            this.isOpen = false;
+                        }}
+                    />
+                </limel-flex-container>
             </limel-dialog>,
         ];
     }
