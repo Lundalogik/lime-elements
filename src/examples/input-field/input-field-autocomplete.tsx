@@ -1,16 +1,23 @@
-import { Component, State } from '@stencil/core';
+import { Component, State, Watch } from '@stencil/core';
 
 @Component({
     tag: 'limel-example-input-field-autocomplete',
     shadow: true,
+    styleUrl: 'input-field.scss',
 })
 export class InputFieldAutocompleteExample {
     @State()
-    private required: boolean = false;
+    private required = false;
+
     @State()
-    private disabled: boolean = false;
+    private disabled = false;
+
+    @State()
+    private invalid = false;
+
     @State()
     private value: string;
+
     @State()
     private completions: string[] = [
         'Lundalogik AB',
@@ -24,33 +31,54 @@ export class InputFieldAutocompleteExample {
         'Väderstad',
     ];
 
+    constructor() {
+        this.checkValidity = this.checkValidity.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.toggleEnabled = this.toggleEnabled.bind(this);
+        this.toggleRequired = this.toggleRequired.bind(this);
+    }
+
     public render() {
         return [
-            <limel-flex-container justify="end">
-                <limel-button
-                    onClick={() => {
-                        this.disabled = !this.disabled;
-                    }}
-                    label={this.disabled ? 'Enable' : 'Disable'}
-                />
-                <limel-button
-                    onClick={() => {
-                        this.required = !this.required;
-                    }}
-                    label={this.required ? 'Set optional' : 'Set required'}
-                />
-            </limel-flex-container>,
             <limel-input-field
                 label="Autocomplete"
-                disabled={this.disabled}
+                value={this.value}
                 completions={this.completions}
                 required={this.required}
-                value={this.value}
-                onChange={event => {
-                    this.value = event.detail;
-                }}
+                invalid={this.invalid}
+                disabled={this.disabled}
+                onChange={this.onChange}
             />,
-            <div class="test-output">Value: {this.value}</div>,
+            <p>
+                <limel-flex-container justify="end">
+                    <limel-button
+                        label={this.disabled ? 'Enable' : 'Disable'}
+                        onClick={this.toggleEnabled}
+                    />
+                    <limel-button
+                        label={this.required ? 'Set Optional' : 'Set Required'}
+                        onClick={this.toggleRequired}
+                    />
+                </limel-flex-container>
+            </p>,
+            <p>Value: {this.value}</p>,
         ];
+    }
+
+    @Watch('required')
+    private checkValidity() {
+        this.invalid = this.required && !this.value;
+    }
+
+    private onChange(event) {
+        this.value = event.detail;
+    }
+
+    private toggleEnabled() {
+        this.disabled = !this.disabled;
+    }
+
+    private toggleRequired() {
+        this.required = !this.required;
     }
 }

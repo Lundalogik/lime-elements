@@ -1,43 +1,34 @@
 import { Component, State } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-slider',
+    tag: 'limel-example-slider-multiplier',
     shadow: true,
     styleUrl: 'slider.scss',
 })
-export class SliderExample {
+export class SliderMultiplierExample {
     @State()
-    private disabled = false;
+    private value = 0.25;
 
-    @State()
-    private value = 25;
-
-    private minValue = 15;
-    private maxValue = 75;
+    private factor = 100;
+    private minValue = 0;
+    private maxValue = 1;
 
     constructor() {
         this.onChange = this.onChange.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
     }
 
     public render() {
         return (
             <section>
                 <limel-slider
-                    label="Basic slider"
+                    label="Slider with multiplier"
                     unit=" %"
                     value={this.value}
+                    factor={this.factor}
                     valuemax={this.maxValue}
                     valuemin={this.minValue}
-                    disabled={this.disabled}
                     onChange={this.onChange}
                 />
-                <limel-flex-container justify="end">
-                    <limel-button
-                        onClick={this.toggleEnabled}
-                        label={this.disabled ? 'Enable' : 'Disable'}
-                    />
-                </limel-flex-container>
                 <p>Current value: {this.value}</p>
             </section>
         );
@@ -45,9 +36,5 @@ export class SliderExample {
 
     private onChange(event) {
         this.value = event.detail;
-    }
-
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
     }
 }

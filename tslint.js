@@ -133,8 +133,8 @@ module.exports = {
         // component on any change in the data.
         'jsx-key': false,
 
-        'jsx-no-bind': false,
-        'jsx-no-lambda': false,
+        'jsx-no-bind': true,
+        'jsx-no-lambda': true,
         'jsx-no-multiline-js': false,
         'jsx-no-string-ref': true,
         'jsx-self-close': true,

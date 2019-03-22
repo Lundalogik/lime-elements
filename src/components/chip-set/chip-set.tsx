@@ -104,6 +104,7 @@ export class ChipSet {
         this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
         this.handleInputBlur = this.handleInputBlur.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.inputFieldOnChange = this.inputFieldOnChange.bind(this);
     }
 
     /**
@@ -257,10 +258,8 @@ export class ChipSet {
                         onFocus={this.handleTextFieldFocus}
                         onInput={this.handleTextInput}
                         // Some browsers emit a change event on input elements, we need to stop
-                        // that event from propagating since we are emiting our own change event
-                        onChange={event => {
-                            event.stopPropagation();
-                        }}
+                        // that event from propagating since we are emitting our own change event
+                        onChange={this.inputFieldOnChange}
                     />
                 </div>
                 <label
@@ -280,6 +279,10 @@ export class ChipSet {
                 <div class="mdc-line-ripple" />
             </div>
         );
+    }
+
+    private inputFieldOnChange(event) {
+        event.stopPropagation();
     }
 
     /**

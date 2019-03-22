@@ -29,10 +29,14 @@ export class CollapsibleSection {
     @Event()
     private close: EventEmitter<void>;
 
+    constructor() {
+        this.onClick = this.onClick.bind(this);
+    }
+
     public render() {
         return (
             <section class={`${this.isOpen ? 'open' : ''}`}>
-                <header onClick={this.onClick.bind(this)}>
+                <header onClick={this.onClick}>
                     <span class="expander">
                         <svg viewBox="0 0 30 30" width="100%" height="100%">
                             {(() => {

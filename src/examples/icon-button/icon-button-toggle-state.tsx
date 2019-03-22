@@ -1,24 +1,28 @@
 import { Component, State } from '@stencil/core';
 
 @Component({
-    tag: 'limel-example-icon-button',
+    tag: 'limel-example-icon-button-toggle-state',
     shadow: true,
 })
 export class IconButtonExample {
     @State()
+    private isFavorite = false;
+
+    @State()
     private disabled = false;
 
     constructor() {
+        this.toggleFavorite = this.toggleFavorite.bind(this);
         this.toggleEnabled = this.toggleEnabled.bind(this);
     }
 
     public render() {
         return [
             <limel-icon-button
-                label="Add favourite"
-                icon="heart_outlined"
+                label={this.isFavorite ? 'Remove Favorite' : 'Add Favorite'}
+                icon={this.isFavorite ? 'heart_filled' : 'heart_outlined'}
                 disabled={this.disabled}
-                onClick={this.onClick}
+                onClick={this.toggleFavorite}
             />,
             <limel-flex-container justify="end">
                 <limel-button
@@ -29,8 +33,8 @@ export class IconButtonExample {
         ];
     }
 
-    private onClick() {
-        console.log('Button clicked.');
+    private toggleFavorite() {
+        this.isFavorite = !this.isFavorite;
     }
 
     private toggleEnabled() {

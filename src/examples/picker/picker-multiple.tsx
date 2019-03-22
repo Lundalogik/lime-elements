@@ -4,6 +4,7 @@ import { ListItem } from '../../interface';
 @Component({
     tag: 'limel-example-picker-multiple',
     shadow: true,
+    styleUrl: 'picker.scss',
 })
 export class PickerMultipleExample {
     private allItems: Array<ListItem<number>> = [
@@ -25,26 +26,28 @@ export class PickerMultipleExample {
     @State()
     private selectedItems: Array<ListItem<number>> = [];
 
+    constructor() {
+        this.onChange = this.onChange.bind(this);
+        this.search = this.search.bind(this);
+    }
+
     public render() {
         return [
             <limel-picker
-                multiple={true}
-                onChange={(event: CustomEvent<Array<ListItem<number>>>) => {
-                    this.selectedItems = [...event.detail];
-                }}
                 label="Favorite awesomenaut"
-                searcher={this.search.bind(this)}
                 value={this.selectedItems}
+                multiple={true}
+                searcher={this.search}
+                onChange={this.onChange}
+                onInteract={this.onInteract}
             />,
-            <br />,
-            <br />,
-            <div>
+            <p>
                 Value: <code>{JSON.stringify(this.selectedItems)}</code>
-            </div>,
+            </p>,
         ];
     }
 
-    private search(query: string) {
+    private search(query: string): Promise<ListItem[]> {
         return new Promise(resolve => {
             // Simulate some network delay
             const NETWORK_DELAY = 500;
@@ -64,5 +67,13 @@ export class PickerMultipleExample {
                 resolve(filteredItems);
             }, NETWORK_DELAY);
         });
+    }
+
+    private onChange(event: CustomEvent<Array<ListItem<number>>>) {
+        this.selectedItems = [...event.detail];
+    }
+
+    private onInteract(event) {
+        console.log('Value interacted with:', event.detail);
     }
 }

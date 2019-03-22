@@ -10,17 +10,24 @@ export class LinearProgressExample {
     @State()
     private value = 0.7;
 
+    constructor() {
+        this.onChange = this.onChange.bind(this);
+    }
+
     public render() {
         return [
             <limel-input-field
                 label="Value"
                 value={(this.value * FRACTION).toFixed(0)}
-                onChange={event => {
-                    this.value = +event.detail / FRACTION;
-                }}
+                onChange={this.onChange}
             />,
-            <br />,
-            <limel-linear-progress value={this.value} />,
+            <p>
+                <limel-linear-progress value={this.value} />
+            </p>,
         ];
+    }
+
+    private onChange(event) {
+        this.value = +event.detail / FRACTION;
     }
 }

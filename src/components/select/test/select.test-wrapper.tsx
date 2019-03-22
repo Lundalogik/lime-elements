@@ -12,14 +12,16 @@ export class SelectTestWrapper {
     @Prop({ mutable: true })
     public onChangeLastEventDetails: string;
 
+    constructor() {
+        this.onChange = this.onChange.bind(this);
+    }
+
     public render() {
         return (
             <limel-select
                 label="Favourite Doctor"
                 value={this.value}
-                onChange={event => {
-                    this.onChange(event);
-                }}
+                onChange={this.onChange}
             />
         );
     }
