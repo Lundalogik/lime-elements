@@ -7,6 +7,7 @@ const MAX_AGE = 50;
 @Component({
     tag: 'limel-example-dialog-form',
     shadow: true,
+    styleUrl: 'dialog-form.scss',
 })
 export class DialogFormExample {
     @State()
@@ -24,25 +25,29 @@ export class DialogFormExample {
     @State()
     private isConfirmationOpen = false;
 
+    constructor() {
+        this.openDialog = this.openDialog.bind(this);
+        this.closeDialog = this.closeDialog.bind(this);
+        this.onClosing = this.onClosing.bind(this);
+        this.nameOnChange = this.nameOnChange.bind(this);
+        this.ageOnChange = this.ageOnChange.bind(this);
+        this.closeConfirmation = this.closeConfirmation.bind(this);
+        this.onConfirmPositive = this.onConfirmPositive.bind(this);
+        this.onConfirmNegative = this.onConfirmNegative.bind(this);
+    }
+
     public render() {
         return [
             <limel-button
                 primary={true}
                 label="Open"
-                onClick={() => {
-                    this.isOpen = true;
-                }}
+                onClick={this.openDialog}
             />,
             <limel-dialog
                 heading="Registration"
                 open={this.isOpen}
-                onClose={() => {
-                    this.isOpen = false;
-                }}
-                onClosing={() => {
-                    console.log('dialog is closing now!');
-                    this.isConfirmationOpen = true;
-                }}
+                onClose={this.closeDialog}
+                onClosing={this.onClosing}
             >
                 <form>
                     <p>
@@ -51,9 +56,7 @@ export class DialogFormExample {
                             value={this.name}
                             required={true}
                             invalid={!this.nameValid()}
-                            onChange={event => {
-                                this.name = event.detail;
-                            }}
+                            onChange={this.nameOnChange}
                         />
                     </p>
                     <p>
@@ -62,9 +65,7 @@ export class DialogFormExample {
                             value={this.age}
                             required={true}
                             invalid={!this.ageValid()}
-                            onChange={event => {
-                                this.age = event.detail;
-                            }}
+                            onChange={this.ageOnChange}
                         />
                     </p>
                     <p>
@@ -83,26 +84,19 @@ export class DialogFormExample {
             </limel-dialog>,
             <limel-dialog
                 open={this.isConfirmationOpen}
-                onClose={() => {
-                    this.isConfirmationOpen = false;
-                }}
+                onClose={this.closeConfirmation}
             >
                 <p>Are you sure you want to close this? </p>
-                <limel-flex-container justify="end" slot="button">
+                <limel-flex-container
+                    justify="end"
+                    reverse={true}
+                    slot="button"
+                >
                     <limel-button
                         label="Yes"
-                        onClick={() => {
-                            this.isConfirmationOpen = false;
-                            this.isOpen = false;
-                        }}
+                        onClick={this.onConfirmPositive}
                     />
-                    <limel-button
-                        label="No"
-                        onClick={() => {
-                            this.isOpen = true;
-                            this.isConfirmationOpen = false;
-                        }}
-                    />
+                    <limel-button label="No" onClick={this.onConfirmNegative} />
                 </limel-flex-container>
             </limel-dialog>,
         ];
@@ -121,7 +115,38 @@ export class DialogFormExample {
         this.closeDialog();
     };
 
-    private closeDialog = () => {
+    private openDialog() {
+        this.isOpen = true;
+    }
+
+    private closeDialog() {
         this.isOpen = false;
-    };
+    }
+
+    private onClosing() {
+        console.log('dialog is closing now!');
+        this.isConfirmationOpen = true;
+    }
+
+    private nameOnChange(event) {
+        this.name = event.detail;
+    }
+
+    private ageOnChange(event) {
+        this.age = event.detail;
+    }
+
+    private closeConfirmation() {
+        this.isConfirmationOpen = false;
+    }
+
+    private onConfirmPositive() {
+        this.isConfirmationOpen = false;
+        this.isOpen = false;
+    }
+
+    private onConfirmNegative() {
+        this.isOpen = true;
+        this.isConfirmationOpen = false;
+    }
 }

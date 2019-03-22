@@ -1,79 +1,71 @@
-import { Component, Prop, State, Watch } from '@stencil/core';
+import { Component, State, Watch } from '@stencil/core';
 
 @Component({
     tag: 'limel-example-input-field-text',
     shadow: true,
-    styleUrl: 'input-field-text.scss',
+    styleUrl: 'input-field.scss',
 })
 export class InputFieldTextExample {
-    @Prop({ mutable: true })
-    public required: boolean = false;
+    @State()
+    private required = false;
 
     @State()
-    public disabled: boolean = false;
+    private disabled = false;
+
     @State()
-    public invalid: boolean = false;
+    private invalid = false;
+
     @State()
-    public value: any;
+    private value;
+
+    constructor() {
+        this.checkValidity = this.checkValidity.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
+        this.toggleEnabled = this.toggleEnabled.bind(this);
+        this.toggleRequired = this.toggleRequired.bind(this);
+    }
 
     public render() {
         return [
-            <section>
+            <limel-input-field
+                label="Text Field"
+                value={this.value}
+                required={this.required}
+                invalid={this.invalid}
+                disabled={this.disabled}
+                onChange={this.changeHandler}
+            />,
+            <p>
                 <limel-flex-container justify="end">
                     <limel-button
-                        onClick={() => {
-                            this.disabled = !this.disabled;
-                        }}
+                        onClick={this.toggleEnabled}
                         label={this.disabled ? 'Enable' : 'Disable'}
                     />
                     <limel-button
-                        onClick={() => {
-                            this.required = !this.required;
-                        }}
-                        label={this.required ? 'Set optional' : 'Set required'}
+                        onClick={this.toggleRequired}
+                        label={this.required ? 'Set Optional' : 'Set Required'}
                     />
                 </limel-flex-container>
-                <limel-input-field
-                    disabled={this.disabled}
-                    invalid={this.invalid}
-                    label="Text Field Label"
-                    required={this.required}
-                    value={this.value}
-                    onChange={event => {
-                        this.changeHandler(event);
-                    }}
-                />
-                <span>Value: {this.value}</span>
-            </section>,
-            <section class="inline-textfields">
-                <h3>Multiple fields inline</h3>
-                <limel-input-field label="First field" />
-                <limel-input-field label="Second field" />
-            </section>,
+            </p>,
+            <p>Value: {this.value}</p>,
         ];
     }
 
-    /*
-     * `public`, `protected`, and `private` are just compiler hints
-     * in TypeScript, and doesn't actually affect the compiled code
-     * in any way. We can take advantage of this, because while
-     * watchers are being called from outside the component by the
-     * "framework" code, they should never be called by any outside
-     * code we write ourselves. The `protected`-label ensures we
-     * would get a compiler-error if we tried to call the function
-     * from outside the component, while also *not* giving a compiler
-     * error because the function isn't used internally (like `private`
-     * would have done).
-     */
     @Watch('required')
-    protected watchRequired() {
-        console.log('watch required');
+    private checkValidity() {
         this.invalid = this.required && !this.value;
     }
 
     private changeHandler(event) {
-        console.log('listen on value');
         this.value = event.detail;
-        this.invalid = this.required && !this.value;
+        this.checkValidity();
+    }
+
+    private toggleEnabled() {
+        this.disabled = !this.disabled;
+    }
+
+    private toggleRequired() {
+        this.required = !this.required;
     }
 }

@@ -11,6 +11,11 @@ export class DatePickerFormattedExample {
     @State()
     private valueFi = new Date('2018-11-04');
 
+    constructor() {
+        this.handleChangeNo = this.handleChangeNo.bind(this);
+        this.handleChangeFi = this.handleChangeFi.bind(this);
+    }
+
     public render() {
         return [
             <limel-date-picker
@@ -18,7 +23,7 @@ export class DatePickerFormattedExample {
                 type="datetime"
                 label="Localized date"
                 value={this.valueNo}
-                onChange={this.handleChangeNo.bind(this)}
+                onChange={this.handleChangeNo}
             />,
             <p style={{ 'font-size': 'small' }}>
                 Value:{' '}
@@ -32,7 +37,7 @@ export class DatePickerFormattedExample {
                 type="datetime"
                 label="Date with custom format"
                 value={this.valueFi}
-                onChange={this.handleChangeFi.bind(this)}
+                onChange={this.handleChangeFi}
             />,
             <p style={{ 'font-size': 'small' }}>
                 Value:{' '}

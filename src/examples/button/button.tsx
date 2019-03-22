@@ -59,7 +59,7 @@ export class ButtonExample {
                 <limel-switch
                     label={control.label}
                     value={!!this.props[control.property]}
-                    onChange={event => {
+                    onChange={event => { // tslint:disable-line:jsx-no-lambda prettier
                         this.props = {
                             ...this.props,
                             ...{

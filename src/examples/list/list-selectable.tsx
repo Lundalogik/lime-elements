@@ -17,12 +17,14 @@ export class SelectableListExample {
     public render() {
         return (
             <limel-list
-                onChange={event => {
-                    console.log(event.detail);
-                }}
+                onChange={this.onChange}
                 selectable={true}
                 items={this.items}
             />
         );
+    }
+
+    private onChange(event) {
+        console.log(event.detail);
     }
 }

@@ -8,19 +8,19 @@ export class ChipSetExample {
     @State()
     private disabled: boolean = false;
 
+    constructor() {
+        this.disabledOnChange = this.disabledOnChange.bind(this);
+        this.onInteract = this.onInteract.bind(this);
+    }
+
     public render() {
         return [
-            <limel-switch
-                label="Disabled"
-                onChange={event => {
-                    return (this.disabled = event.detail);
-                }}
-            />,
+            <limel-switch label="Disabled" onChange={this.disabledOnChange} />,
             <br />,
             <br />,
             <limel-chip-set
                 disabled={this.disabled}
-                onInteract={this.handleInteract}
+                onInteract={this.onInteract}
                 value={[
                     {
                         id: 1,
@@ -39,7 +39,11 @@ export class ChipSetExample {
         ];
     }
 
-    private handleInteract(event) {
+    private disabledOnChange(event) {
+        this.disabled = event.detail;
+    }
+
+    private onInteract(event) {
         console.log(event.detail);
     }
 }

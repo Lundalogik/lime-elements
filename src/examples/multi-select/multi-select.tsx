@@ -4,45 +4,52 @@ import { Option } from '../../components/select/option.types';
 @Component({
     shadow: true,
     tag: 'limel-example-multi-select',
+    styleUrl: 'multi-select.scss',
 })
 export class MultiSelectExample {
     @State()
-    private basicOptions: Option[] = [
+    private value: Option[] = [{ text: 'Han Solo', value: 'han' }];
+
+    @State()
+    private disabled = false;
+
+    private options: Option[] = [
         { text: 'Luke Skywalker', value: 'luke' },
         { text: 'Han Solo', value: 'han' },
         { text: 'Leia Organo', value: 'leia' },
     ];
 
-    @State()
-    private basicValue: Option[] = [{ text: 'Han Solo', value: 'han' }];
-
-    @State()
-    private disabled = true;
+    constructor() {
+        this.onChange = this.onChange.bind(this);
+        this.toggleEnabled = this.toggleEnabled.bind(this);
+    }
 
     public render() {
         return [
-            <section>
-                <h3>Basic Usage</h3>
+            <limel-multi-select
+                label="Favorite heros"
+                value={this.value}
+                options={this.options}
+                disabled={this.disabled}
+                onChange={this.onChange}
+            />,
+            <p>
                 <limel-flex-container justify="end">
                     <limel-button
-                        label="Toggle disabled"
-                        primary={true}
-                        onClick={() => {
-                            this.disabled = !this.disabled;
-                        }}
+                        onClick={this.toggleEnabled}
+                        label={this.disabled ? 'Enable' : 'Disable'}
                     />
                 </limel-flex-container>
-                <limel-multi-select
-                    options={this.basicOptions}
-                    value={this.basicValue}
-                    label="Favorite heros"
-                    disabled={this.disabled}
-                    onChange={event => {
-                        this.basicValue = event.detail;
-                    }}
-                />
-                <p>Value: {JSON.stringify(this.basicValue)}</p>
-            </section>,
+            </p>,
+            <p>Value: {JSON.stringify(this.value)}</p>,
         ];
+    }
+
+    private onChange(event) {
+        this.value = event.detail;
+    }
+
+    private toggleEnabled() {
+        this.disabled = !this.disabled;
     }
 }

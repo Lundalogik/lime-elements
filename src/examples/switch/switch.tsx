@@ -7,68 +7,54 @@ import { Component, State } from '@stencil/core';
 })
 export class SwitchExample {
     @State()
-    private valueOne = false;
+    private value = true;
+
     @State()
-    private valueTwo = true;
-    @State()
-    private valueThree = false;
-    @State()
-    private valueFour = true;
-    @State()
-    private toggleExampleValue = false;
+    private disabled = false;
+
+    constructor() {
+        this.onClickToggleEnabled = this.onClickToggleEnabled.bind(this);
+        this.onClickToggleChecked = this.onClickToggleChecked.bind(this);
+        this.onChange = this.onChange.bind(this);
+    }
 
     public render() {
-        return [
+        return (
             <section>
-                <h3>Basic usage</h3>
-                <limel-switch
-                    label={`${this.valueOne} - Enabled`}
-                    value={this.valueOne}
-                    onChange={event => {
-                        this.valueOne = event.detail;
-                    }}
-                />
-                <limel-switch
-                    label={`${this.valueTwo} - Enabled`}
-                    value={this.valueTwo}
-                    onChange={event => {
-                        this.valueTwo = event.detail;
-                    }}
-                />
-                <limel-switch
-                    label={`${this.valueThree} - Disabled`}
-                    value={this.valueThree}
-                    disabled={true}
-                    onChange={event => {
-                        this.valueThree = event.detail;
-                    }}
-                />
-                <limel-switch
-                    label={`${this.valueFour} - Disabled`}
-                    value={this.valueFour}
-                    disabled={true}
-                    onChange={event => {
-                        this.valueFour = event.detail;
-                    }}
-                />
-            </section>,
-            <section>
-                <h3>Updating the value from outside the component</h3>
-                <limel-button
-                    label="Toggle"
-                    primary={true}
-                    onClick={() => {
-                        this.toggleExampleValue = !this.toggleExampleValue;
-                    }}
-                />
-                <limel-switch
-                    label={`Current value: ${this.toggleExampleValue.toString()}`}
-                    value={this.toggleExampleValue}
-                    onChange={event => {
-                        this.toggleExampleValue = event.detail;
-                    }}
-                />
-            </section>,
-        ];
+                <div>
+                    <limel-switch
+                        label={`Current value: ${this.value.toString()}`}
+                        value={this.value}
+                        disabled={this.disabled}
+                        onChange={this.onChange}
+                    />
+                    <limel-flex-container justify="end">
+                        <limel-button
+                            onClick={this.onClickToggleEnabled}
+                            label={this.disabled ? 'Enable' : 'Disable'}
+                        />
+                        <limel-button
+                            onClick={this.onClickToggleChecked}
+                            label="Toggle checked"
+                        />
+                    </limel-flex-container>
+                </div>
+                <p>
+                    Value: <code>{this.value.toString()}</code>
+                </p>
+            </section>
+        );
+    }
+
+    private onClickToggleEnabled() {
+        this.disabled = !this.disabled;
+    }
+
+    private onClickToggleChecked() {
+        this.value = !this.value;
+    }
+
+    private onChange(event) {
+        this.value = event.detail;
     }
 }

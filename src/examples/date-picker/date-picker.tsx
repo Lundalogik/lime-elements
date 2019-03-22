@@ -37,7 +37,7 @@ export class DatePickerExample {
                         type={type}
                         label={type}
                         value={this[type]}
-                        onChange={event => {
+                        onChange={event => { // tslint:disable-line:jsx-no-lambda prettier
                             this.handleChange(event, type);
                         }}
                     />

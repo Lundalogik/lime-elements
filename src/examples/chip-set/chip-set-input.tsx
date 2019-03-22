@@ -29,16 +29,16 @@ export class ChipSetInputExample {
         this.value[1].iconColor = 'var(--lime-orange)'; // tslint:disable-line:no-magic-numbers
         this.value[2].iconColor = 'var(--lime-green)'; // tslint:disable-line:no-magic-numbers
         this.value[3].iconColor = 'var(--lime-blue)'; // tslint:disable-line:no-magic-numbers
+
+        this.disabledOnChange = this.disabledOnChange.bind(this);
+        this.chipSetOnChange = this.chipSetOnChange.bind(this);
+        this.onInput = this.onInput.bind(this);
+        this.onKeyUp = this.onKeyUp.bind(this);
     }
 
     public render() {
         return [
-            <limel-switch
-                label="Disabled"
-                onChange={event => {
-                    return (this.disabled = event.detail);
-                }}
-            />,
+            <limel-switch label="Disabled" onChange={this.disabledOnChange} />,
             <br />,
             <br />,
             <limel-chip-set
@@ -47,25 +47,29 @@ export class ChipSetInputExample {
                 value={this.value}
                 required={true}
                 disabled={this.disabled}
-                onChange={this.handleChange.bind(this)}
-                onInput={this.handleInput.bind(this)}
-                onKeyUp={this.handleKeyUp.bind(this)}
+                onChange={this.chipSetOnChange}
+                onInput={this.onInput}
+                onKeyUp={this.onKeyUp}
             />,
         ];
     }
 
-    private handleInput(event: CustomEvent<string>) {
+    private disabledOnChange(event) {
+        this.disabled = event.detail;
+    }
+
+    private onInput(event: CustomEvent<string>) {
         this.textValue = event.detail;
     }
 
-    private handleKeyUp(event: KeyboardEvent) {
+    private onKeyUp(event: KeyboardEvent) {
         if (event.key === ENTER || event.keyCode === ENTER_KEY_CODE) {
             this.value = [...this.value, this.createChip(this.textValue)];
             this.textValue = null;
         }
     }
 
-    private handleChange(event: CustomEvent<Chip[]>) {
+    private chipSetOnChange(event: CustomEvent<Chip[]>) {
         console.log(event.detail);
         this.value = event.detail;
     }

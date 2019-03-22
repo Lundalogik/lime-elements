@@ -3,17 +3,15 @@ import { Option } from '../../interface';
 
 @Component({
     shadow: true,
-    tag: 'limel-example-select',
+    tag: 'limel-example-select-preselected',
     styleUrl: 'select.scss',
 })
 export class SelectExample {
     @State()
-    public value: Option;
-
-    @State()
-    public disabled = false;
+    public value: Option = { text: 'Leia Organo', value: 'leia' };
 
     private options: Option[] = [
+        { text: '', value: '' },
         { text: 'Luke Skywalker', value: 'luke' },
         { text: 'Han Solo', value: 'han' },
         { text: 'Leia Organo', value: 'leia' },
@@ -21,7 +19,6 @@ export class SelectExample {
 
     constructor() {
         this.onChange = this.onChange.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
     }
 
     public render() {
@@ -31,17 +28,8 @@ export class SelectExample {
                     label="Favorite hero"
                     value={this.value}
                     options={this.options}
-                    disabled={this.disabled}
                     onChange={this.onChange}
                 />
-                <p>
-                    <limel-flex-container justify="end">
-                        <limel-button
-                            onClick={this.toggleEnabled}
-                            label={this.disabled ? 'Enable' : 'Disable'}
-                        />
-                    </limel-flex-container>
-                </p>
                 <p>Value: {JSON.stringify(this.value)}</p>
             </section>
         );
@@ -49,9 +37,5 @@ export class SelectExample {
 
     private onChange(event) {
         this.value = event.detail;
-    }
-
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
     }
 }

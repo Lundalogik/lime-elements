@@ -11,6 +11,12 @@ export class CollapsibleSectionExample {
     @State()
     private percentage = 34;
 
+    constructor() {
+        this.toggleSecondExample = this.toggleSecondExample.bind(this);
+        this.secondExampleOnOpen = this.secondExampleOnOpen.bind(this);
+        this.secondExampleOnClose = this.secondExampleOnClose.bind(this);
+    }
+
     public render() {
         return [
             <section>
@@ -26,14 +32,14 @@ export class CollapsibleSectionExample {
                     <limel-button
                         label={'toggle'}
                         primary={true}
-                        onClick={this.toggleSecondExample.bind(this)}
+                        onClick={this.toggleSecondExample}
                     />
                 </limel-flex-container>
                 <limel-collapsible-section
                     header="Click me or click the button"
                     isOpen={this.secondExampleIsOpen}
-                    onOpen={this.secondExampleOnOpen.bind(this)}
-                    onClose={this.secondExampleOnClose.bind(this)}
+                    onOpen={this.secondExampleOnOpen}
+                    onClose={this.secondExampleOnClose}
                 >
                     <p>
                         Either way, the section will toggle!
