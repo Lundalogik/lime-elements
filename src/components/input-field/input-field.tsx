@@ -104,6 +104,14 @@ export class InputField {
     @Event()
     private action: EventEmitter<void>;
 
+    constructor() {
+        this.handleChange = this.handleChange.bind(this);
+        this.handleIconKeyPress = this.handleIconKeyPress.bind(this);
+        this.handleIconClick = this.handleIconClick.bind(this);
+        this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+    }
+
     public componentDidLoad() {
         this.mdcTextField = new MDCTextField(
             this.limelInputField.shadowRoot.querySelector('.mdc-text-field')
@@ -134,13 +142,9 @@ export class InputField {
                 {this.renderFormattedNumber()}
                 <input
                     class="mdc-text-field__input"
-                    onInput={this.handleChange.bind(this)}
-                    onFocus={() => {
-                        this.isFocused = true;
-                    }}
-                    onBlur={() => {
-                        this.isFocused = false;
-                    }}
+                    onInput={this.handleChange}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                     value={this.value}
                     required={this.required}
                     disabled={this.disabled}
@@ -168,6 +172,14 @@ export class InputField {
         ];
     }
 
+    private onFocus() {
+        this.isFocused = true;
+    }
+
+    private onBlur() {
+        this.isFocused = false;
+    }
+
     private renderTrailingIcon() {
         if (!this.trailingIcon) {
             return;
@@ -175,8 +187,8 @@ export class InputField {
 
         return (
             <i
-                onKeyPress={this.handleIconKeyPress.bind(this)}
-                onClick={this.handleIconClick.bind(this)}
+                onKeyPress={this.handleIconKeyPress}
+                onClick={this.handleIconClick}
                 class="mdc-text-field__icon"
                 tabindex="0"
                 role="button"
@@ -215,7 +227,7 @@ export class InputField {
                             return (
                                 <li
                                     class="mdc-list-item"
-                                    onMouseDown={() => {
+                                    onMouseDown={() => { // tslint:disable-line:jsx-no-lambda prettier
                                         this.completionClickHandler(completion);
                                     }}
                                 >

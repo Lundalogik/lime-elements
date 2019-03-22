@@ -94,7 +94,7 @@ export class YearPicker extends Picker {
         return (
             <div
                 class="datepicker-year"
-                onClick={() => {
+                onClick={() => { // tslint:disable-line:jsx-no-lambda prettier
                     const date = moment(year).toDate();
                     fp.setDate(date, true);
                     fp.close();

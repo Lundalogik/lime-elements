@@ -10,42 +10,45 @@ export class PickerExample {
     @Element()
     private host: HTMLElement;
 
+    private triggerSnackbarWithoutAction: (event: MouseEvent) => void;
+    private triggerSnackbarWithAction: (event: MouseEvent) => void;
+
+    constructor() {
+        this.triggerSnackbarWithoutAction = this.triggerSnackbar.bind(
+            this,
+            'limel-snackbar'
+        );
+        this.triggerSnackbarWithAction = this.triggerSnackbar.bind(
+            this,
+            'limel-snackbar:last-child'
+        );
+    }
+
     public render() {
         return [
             <limel-button
                 primary={true}
                 label="Show snackbar"
-                onClick={this.triggerSnackbar.bind(this, 'limel-snackbar')}
+                onClick={this.triggerSnackbarWithoutAction}
             />,
             <br />,
             <br />,
             <limel-button
                 primary={true}
                 label="Show snackbar with action"
-                onClick={this.triggerSnackbar.bind(
-                    this,
-                    'limel-snackbar:last-child'
-                )}
+                onClick={this.triggerSnackbarWithAction}
             />,
             <limel-snackbar
                 message="Please do not leave your luggage unattended! It might be taken away!"
                 multiline={true}
                 timeout={SNACKBAR_TIMEOUT}
-                onHide={() => {
-                    console.log('It will soon be taken away!');
-                }}
+                onHide={this.snackbarWithoutActionOnHide}
             />,
             <limel-snackbar
                 message="Your luggage has been taken away!"
                 actionText="Reclaim"
-                onAction={() => {
-                    console.log('You claimed your luggage!');
-                }}
-                onHide={() => {
-                    console.log(
-                        'You were too late. Your luggage has been destroyed!'
-                    );
-                }}
+                onAction={this.snackbarOnAction}
+                onHide={this.snackbarWithActionOnHide}
             />,
         ];
     }
@@ -55,5 +58,17 @@ export class PickerExample {
             selector
         );
         snackbar.show();
+    }
+
+    private snackbarWithoutActionOnHide() {
+        console.log('It will soon be taken away!');
+    }
+
+    private snackbarOnAction() {
+        console.log('You claimed your luggage!');
+    }
+
+    private snackbarWithActionOnHide() {
+        console.log('You were too late. Your luggage has been destroyed!');
     }
 }

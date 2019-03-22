@@ -81,6 +81,13 @@ export class FlexContainerExample {
     @State()
     private reverse = false;
 
+    constructor() {
+        this.directionOnChange = this.directionOnChange.bind(this);
+        this.alignOnChange = this.alignOnChange.bind(this);
+        this.justifyOnChange = this.justifyOnChange.bind(this);
+        this.reverseOnChange = this.reverseOnChange.bind(this);
+    }
+
     public componentWillLoad() {
         this.direction = this.directionOptions[0];
         this.align = this.alignOptions[0];
@@ -94,38 +101,24 @@ export class FlexContainerExample {
                     label="Direction"
                     options={this.directionOptions}
                     value={this.direction}
-                    onChange={(
-                        event: CustomEvent<Option<FlexContainerDirection>>
-                    ) => {
-                        this.direction = event.detail;
-                    }}
+                    onChange={this.directionOnChange}
                 />
                 <limel-select
                     label="Align"
                     options={this.alignOptions}
                     value={this.align}
-                    onChange={(
-                        event: CustomEvent<Option<FlexContainerAlign>>
-                    ) => {
-                        this.align = event.detail;
-                    }}
+                    onChange={this.alignOnChange}
                 />
                 <limel-select
                     label="Justify"
                     options={this.justifyOptions}
                     value={this.justify}
-                    onChange={(
-                        event: CustomEvent<Option<FlexContainerJustify>>
-                    ) => {
-                        this.justify = event.detail;
-                    }}
+                    onChange={this.justifyOnChange}
                 />
                 <limel-checkbox
                     label="Reverse"
                     checked={this.reverse}
-                    onChange={(event: CustomEvent<boolean>) => {
-                        this.reverse = event.detail;
-                    }}
+                    onChange={this.reverseOnChange}
                 />
             </limel-flex-container>,
             <limel-flex-container
@@ -142,5 +135,23 @@ export class FlexContainerExample {
                 <div>5</div>
             </limel-flex-container>,
         ];
+    }
+
+    private directionOnChange(
+        event: CustomEvent<Option<FlexContainerDirection>>
+    ) {
+        this.direction = event.detail;
+    }
+
+    private alignOnChange(event: CustomEvent<Option<FlexContainerAlign>>) {
+        this.align = event.detail;
+    }
+
+    private justifyOnChange(event: CustomEvent<Option<FlexContainerJustify>>) {
+        this.justify = event.detail;
+    }
+
+    private reverseOnChange(event: CustomEvent<boolean>) {
+        this.reverse = event.detail;
     }
 }

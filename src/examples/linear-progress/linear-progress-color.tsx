@@ -19,25 +19,31 @@ export class LinearProgressExampleColor {
         { text: 'lime-magenta', value: 'lime-magenta' },
     ];
 
+    constructor() {
+        this.onChange = this.onChange.bind(this);
+    }
+
     public render() {
         return [
             <limel-select
                 label="Color"
                 options={this.colors}
                 value={this.color}
-                onChange={event => {
-                    this.color = event.detail;
-                }}
+                onChange={this.onChange}
             />,
-            <br />,
-            <br />,
-            <limel-linear-progress
-                value={this.value}
-                style={{
-                    '--lime-primary-color': `var(--${this.color.value})`,
-                    '--background-color': 'whitesmoke',
-                }}
-            />,
+            <p>
+                <limel-linear-progress
+                    value={this.value}
+                    style={{
+                        '--lime-primary-color': `var(--${this.color.value})`,
+                        '--background-color': 'whitesmoke',
+                    }}
+                />
+            </p>,
         ];
+    }
+
+    private onChange(event) {
+        this.color = event.detail;
     }
 }

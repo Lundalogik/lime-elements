@@ -131,7 +131,7 @@ export class QuarterPicker extends Picker {
             <div
                 class="datepicker-quarter"
                 id={`datepicker-quarter-${quarter}`}
-                onClick={() => {
+                onClick={() => { // tslint:disable-line:jsx-no-lambda prettier
                     const date = moment([fp.currentYear])
                         .quarter(quarter)
                         .toDate();

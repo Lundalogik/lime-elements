@@ -6,6 +6,7 @@ const NETWORK_DELAY = 500;
 @Component({
     tag: 'limel-example-picker-icons',
     shadow: true,
+    styleUrl: 'picker.scss',
 })
 export class PickerIconsExample {
     private allItems: Array<ListItem<number>> = [
@@ -110,26 +111,28 @@ export class PickerIconsExample {
     @State()
     private selectedItems: Array<ListItem<number>> = [];
 
+    constructor() {
+        this.search = this.search.bind(this);
+        this.onChange = this.onChange.bind(this);
+    }
+
     public render() {
         return [
             <limel-picker
-                multiple={true}
-                onChange={(event: CustomEvent<Array<ListItem<number>>>) => {
-                    this.selectedItems = [...event.detail];
-                }}
                 label="Favorite awesomenaut"
-                searcher={this.search.bind(this)}
                 value={this.selectedItems}
+                multiple={true}
+                searcher={this.search}
+                onChange={this.onChange}
+                onInteract={this.onInteract}
             />,
-            <br />,
-            <br />,
-            <div>
+            <p>
                 Value: <code>{JSON.stringify(this.selectedItems)}</code>
-            </div>,
+            </p>,
         ];
     }
 
-    private search(query: string) {
+    private search(query: string): Promise<ListItem[]> {
         return new Promise(resolve => {
             if (query === '') {
                 resolve([]);
@@ -147,5 +150,13 @@ export class PickerIconsExample {
                 resolve(filteredItems);
             }, NETWORK_DELAY);
         });
+    }
+
+    private onChange(event: CustomEvent<Array<ListItem<number>>>) {
+        this.selectedItems = [...event.detail];
+    }
+
+    private onInteract(event) {
+        console.log('Value interacted with:', event.detail);
     }
 }

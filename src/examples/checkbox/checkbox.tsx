@@ -14,6 +14,8 @@ export class CheckboxExample {
 
     constructor() {
         this.changeHandler = this.changeHandler.bind(this);
+        this.onClickToggleEnabled = this.onClickToggleEnabled.bind(this);
+        this.onClickToggleChecked = this.onClickToggleChecked.bind(this);
     }
 
     public render() {
@@ -29,15 +31,11 @@ export class CheckboxExample {
                     />
                     <limel-flex-container justify="end">
                         <limel-button
-                            onClick={() => {
-                                this.disabled = !this.disabled;
-                            }}
+                            onClick={this.onClickToggleEnabled}
                             label={this.disabled ? 'Enable' : 'Disable'}
                         />
                         <limel-button
-                            onClick={() => {
-                                this.value = !this.value;
-                            }}
+                            onClick={this.onClickToggleChecked}
                             label="Toggle checked"
                         />
                     </limel-flex-container>
@@ -47,6 +45,14 @@ export class CheckboxExample {
                 </p>
             </section>
         );
+    }
+
+    private onClickToggleEnabled() {
+        this.disabled = !this.disabled;
+    }
+
+    private onClickToggleChecked() {
+        this.value = !this.value;
     }
 
     private changeHandler(event) {
