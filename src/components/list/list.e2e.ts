@@ -216,7 +216,10 @@ describe('limel-list', async () => {
                         expect(spy).toHaveReceivedEventTimes(1);
                     });
                     it('passes the selected item as the event details', () => {
-                        expect(spy).toHaveReceivedEventDetail(items[0]);
+                        expect(spy).toHaveReceivedEventDetail({
+                            ...items[0],
+                            selected: true,
+                        });
                     });
                 });
             });

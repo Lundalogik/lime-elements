@@ -25,6 +25,11 @@ export interface ListItem<T = any> {
     iconColor?: string;
 
     /**
+     * True if the list item should be selected.
+     */
+    selected?: boolean;
+
+    /**
      * Value of the list item.
      */
     value?: T;
