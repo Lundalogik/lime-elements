@@ -39,7 +39,7 @@ export class PickerExample {
                 message="Your luggage has been taken away!"
                 actionText="Reclaim"
                 onAction={() => {
-                    console.log('You try to claim your luggage...');
+                    console.log('You claimed your luggage!');
                 }}
                 onHide={() => {
                     console.log(
