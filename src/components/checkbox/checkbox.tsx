@@ -2,6 +2,7 @@ import { MDCCheckbox } from '@lime-material-16px/checkbox';
 import { MDCFormField } from '@lime-material-16px/form-field';
 import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
+import { CheckboxTemplate } from './checkbox.template';
 
 @Component({
     tag: 'limel-checkbox',
@@ -36,9 +37,13 @@ export class Checkbox {
     @Element()
     private limelCheckbox: HTMLElement;
 
-    private formField;
-    private mdcCheckbox;
-    private id = createRandomString();
+    private formField: MDCFormField;
+    private mdcCheckbox: MDCCheckbox;
+    private id: string = createRandomString();
+
+    constructor() {
+        this.onChange = this.onChange.bind(this);
+    }
 
     public componentDidLoad() {
         this.formField = new MDCFormField(
@@ -57,42 +62,18 @@ export class Checkbox {
 
     public render() {
         return (
-            <div class="mdc-form-field ">
-                <div
-                    class={`
-                        mdc-checkbox
-                        ${this.disabled ? 'mdc-checkbox--disabled' : ''}
-                    `}
-                >
-                    <input
-                        type="checkbox"
-                        class="mdc-checkbox__native-control"
-                        id={this.id}
-                        checked={this.checked}
-                        disabled={this.disabled}
-                        onChange={this.onChange}
-                    />
-                    <div class="mdc-checkbox__background">
-                        <svg
-                            class="mdc-checkbox__checkmark"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                class="mdc-checkbox__checkmark-path"
-                                fill="none"
-                                d="M1.73,12.91 8.1,19.28 22.79,4.59"
-                            />
-                        </svg>
-                        <div class="mdc-checkbox__mixedmark" />
-                    </div>
-                </div>
-                <label htmlFor={this.id}>{this.label}</label>
-            </div>
+            <CheckboxTemplate
+                disabled={this.disabled}
+                label={this.label}
+                checked={this.checked}
+                onChange={this.onChange}
+                id={this.id}
+            />
         );
     }
 
-    private onChange = event => {
+    private onChange(event: Event) {
         event.stopPropagation();
         this.change.emit(this.mdcCheckbox.checked);
-    };
+    }
 }
