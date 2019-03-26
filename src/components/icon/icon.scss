@@ -5,6 +5,7 @@
     border-radius: 50%;
     display: inline-block;
     line-height: 0;
+    box-sizing: border-box;
 
     svg {
         fill: currentColor;
@@ -19,34 +20,34 @@
 }
 
 :host([size="x-small"]) {
-    &,
+    height: pxToRem(23);
+    width: pxToRem(23);
+
     > div {
-        height: pxToRem(15);
-        width: pxToRem(15);
+        margin: pxToRem(4);
     }
-    padding: pxToRem(4);
 }
 :host([size="small"]) {
-    &,
+    height: pxToRem(30);
+    width: pxToRem(30);
+
     > div {
-        height: pxToRem(20);
-        width: pxToRem(20);
+        margin: pxToRem(5);
     }
-    padding: pxToRem(5);
 }
 :host([size="medium"]) {
-    &,
+    height: pxToRem(41);
+    width: pxToRem(41);
+
     > div {
-        height: pxToRem(25);
-        width: pxToRem(25);
+        margin: pxToRem(8);
     }
-    padding: pxToRem(8);
 }
 :host([size="large"]) {
-    &,
+    height: pxToRem(46);
+    width: pxToRem(46);
+
     > div {
-        height: pxToRem(30);
-        width: pxToRem(30);
+        margin: pxToRem(8);
     }
-    padding: pxToRem(8);
 }
