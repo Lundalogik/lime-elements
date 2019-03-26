@@ -1,3 +1,15 @@
+# [18.0.0](https://github.com/Lundalogik/lime-elements/compare/v17.0.0...v18.0.0) (2019-03-26)
+
+
+### Features
+
+* change definition of 1rem from 10px to 16px ([35b00e5](https://github.com/Lundalogik/lime-elements/commit/35b00e5)), closes [Lundalogik/crm-feature#813](https://github.com/Lundalogik/crm-feature/issues/813)
+
+
+### BREAKING CHANGES
+
+* All size values have been rescaled to assume 1rem=16px.
+
 # [17.0.0](https://github.com/Lundalogik/lime-elements/compare/v16.2.1...v17.0.0) (2019-03-21)
 
 
