@@ -10,28 +10,29 @@
     border-top-color: transparent;
     border-width: pxToRem(2);
     display: inline-block;
+    box-sizing: border-box;
 
     // size=mini is the default
-    height: pxToRem(20);
-    width: pxToRem(20);
+    height: pxToRem(24);
+    width: pxToRem(24);
 }
 
 :host([size="x-small"]) {
-    height: pxToRem(26);
-    width: pxToRem(26);
+    height: pxToRem(32);
+    width: pxToRem(32);
     border-width: pxToRem(3);
 }
 :host([size="small"]) {
-    height: pxToRem(30);
-    width: pxToRem(30);
+    height: pxToRem(34);
+    width: pxToRem(34);
 }
 :host([size="medium"]) {
-    height: pxToRem(40);
-    width: pxToRem(40);
+    height: pxToRem(44);
+    width: pxToRem(44);
 }
 :host([size="large"]) {
-    height: pxToRem(58);
-    width: pxToRem(58);
+    height: pxToRem(64);
+    width: pxToRem(64);
 
     // Increase width slightly. It becomes too thin otherwise.
     border-width: pxToRem(3);
