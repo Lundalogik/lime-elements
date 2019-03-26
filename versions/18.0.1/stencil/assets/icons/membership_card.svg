@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M27,25H5c-1.105,0-2-0.895-2-2V9
+	c0-1.105,0.895-2,2-2h22c1.105,0,2,0.895,2,2v14C29,24.105,28.105,25,27,25z"/>
+<line style="fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" x1="21" y1="21" x2="23" y2="21"/>
+<line style="fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" x1="18" y1="21" x2="20" y2="21"/>
+<line style="fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" x1="24" y1="21" x2="26" y2="21"/>
+<g>
+	<path d="M12,14.802l0.014,0.031l0.461,1.007l1.098,0.143l0.199,0.026l-0.12,0.109l-0.862,0.785l0.258,1.137l0.002,0.008
+		l-0.071-0.04L12,17.457l-0.98,0.551l-0.071,0.04l0.002-0.008l0.258-1.137l-0.862-0.785l-0.12-0.109l0.199-0.026l1.098-0.143
+		l0.461-1.007L12,14.802 M12,10l-1.833,4l-4.476,0.584L9,17.597L8,22l4-2.249L16,22l-1-4.403l3.309-3.013L13.833,14L12,10L12,10z"/>
+</g>
+</svg>
