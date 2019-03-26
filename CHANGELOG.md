@@ -1,3 +1,11 @@
+## [18.0.1](https://github.com/Lundalogik/lime-elements/compare/v18.0.0...v18.0.1) (2019-03-26)
+
+
+### Bug Fixes
+
+* **icon:** change box-sizing to border-box ([fb045e4](https://github.com/Lundalogik/lime-elements/commit/fb045e4))
+* **spinner:** change box-sizing to border-box ([eff16bf](https://github.com/Lundalogik/lime-elements/commit/eff16bf))
+
 # [18.0.0](https://github.com/Lundalogik/lime-elements/compare/v17.0.0...v18.0.0) (2019-03-26)
 
 
