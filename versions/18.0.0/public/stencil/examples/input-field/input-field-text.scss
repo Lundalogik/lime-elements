@@ -1,0 +1,14 @@
+@import '../../style/functions';
+
+.inline-textfields {
+    position: relative;
+
+    limel-input-field {
+        display: inline-block;
+        width: calc(50% - pxToRem(10));
+
+        &:first-of-type {
+            margin-right: pxToRem(20);
+        }
+    }
+}

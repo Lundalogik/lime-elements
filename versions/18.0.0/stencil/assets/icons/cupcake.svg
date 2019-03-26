@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="6" y1="17" x2="26" y2="17"/>
+<rect x="15" y="19" width="2" height="7"/>
+<polygon points="22,19 20,19 19,26 21,26 "/>
+<polygon points="10,19 12,19 13,26 11,26 "/>
+<ellipse cx="23.5" cy="11" rx="1.5" ry="1"/>
+<ellipse cx="17.5" cy="12" rx="1.5" ry="1"/>
+<ellipse cx="10.5" cy="10" rx="1.5" ry="1"/>
+<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M17.853,7.254C17.557,6.519,16.84,6,16,6
+	s-1.557,0.519-1.853,1.254C8.868,8.012,4,11.178,4,15c0,2.147,2,2,2,2l1.652,7.434C7.855,25.349,8.667,26,9.604,26h12.791
+	c0.937,0,1.749-0.651,1.952-1.566L26,17c0,0,2,0.147,2-2C28,11.178,23.132,8.012,17.853,7.254z"/>
+</svg>
