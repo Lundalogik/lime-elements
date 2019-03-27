@@ -121,6 +121,7 @@ export class ListRenderer {
 
         return (
             <limel-icon
+                badge={config.badgeIcons}
                 class="mdc-list-item__graphic"
                 name={item.icon}
                 style={style}
