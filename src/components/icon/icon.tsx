@@ -21,6 +21,13 @@ export class Icon {
     @Prop({ reflectToAttr: true })
     public name: string;
 
+    /**
+     * Set to `true` to give the icon a round background with some padding.
+     * Only works when the `size` attribute is also set.
+     */
+    @Prop({ reflectToAttr: true })
+    public badge: boolean;
+
     @Prop({ context: 'config' })
     public config: Config;
 

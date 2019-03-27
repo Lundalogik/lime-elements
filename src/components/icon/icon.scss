@@ -20,32 +20,49 @@
 }
 
 :host([size="x-small"]) {
-    height: pxToRem(23);
-    width: pxToRem(23);
+    height: pxToRem(15) !important;
+    width: pxToRem(15) !important;
+}
+:host([size="small"]) {
+    height: pxToRem(20) !important;
+    width: pxToRem(20) !important;
+}
+:host([size="medium"]) {
+    height: pxToRem(25) !important;
+    width: pxToRem(25) !important;
+}
+:host([size="large"]) {
+    height: pxToRem(30) !important;
+    width: pxToRem(30) !important;
+}
+
+:host([badge][size="x-small"]) {
+    height: pxToRem(23) !important;
+    width: pxToRem(23) !important;
 
     > div {
         margin: pxToRem(4);
     }
 }
-:host([size="small"]) {
-    height: pxToRem(30);
-    width: pxToRem(30);
+:host([badge][size="small"]) {
+    height: pxToRem(30) !important;
+    width: pxToRem(30) !important;
 
     > div {
         margin: pxToRem(5);
     }
 }
-:host([size="medium"]) {
-    height: pxToRem(41);
-    width: pxToRem(41);
+:host([badge][size="medium"]) {
+    height: pxToRem(41) !important;
+    width: pxToRem(41) !important;
 
     > div {
         margin: pxToRem(8);
     }
 }
-:host([size="large"]) {
-    height: pxToRem(46);
-    width: pxToRem(46);
+:host([badge][size="large"]) {
+    height: pxToRem(46) !important;
+    width: pxToRem(46) !important;
 
     > div {
         margin: pxToRem(8);
