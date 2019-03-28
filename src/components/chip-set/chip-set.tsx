@@ -407,6 +407,8 @@ export class ChipSet {
                 class="mdc-chip__icon mdc-chip__icon--leading"
                 name={chip.icon}
                 style={style}
+                size="small"
+                badge={true}
             />
         );
     }
