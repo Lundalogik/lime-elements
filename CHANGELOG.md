@@ -1,3 +1,10 @@
+## [18.0.2](https://github.com/Lundalogik/lime-elements/compare/v18.0.1...v18.0.2) (2019-03-28)
+
+
+### Performance Improvements
+
+* remove lamda and bind() from templates ([a048973](https://github.com/Lundalogik/lime-elements/commit/a048973)), closes [#346](https://github.com/Lundalogik/lime-elements/issues/346)
+
 ## [18.0.1](https://github.com/Lundalogik/lime-elements/compare/v18.0.0...v18.0.1) (2019-03-26)
 
 
