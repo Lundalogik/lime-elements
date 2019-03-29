@@ -1,0 +1,1 @@
+const n=()=>{const n=window.document.createEvent("UIEvents");n.initUIEvent("resize",!0,!1,window,0),window.dispatchEvent(n)};export{n as a};

@@ -1,0 +1,32 @@
+@import '../../style/functions';
+
+.lime-green {
+    limel-icon {
+        color: var(--lime-green);
+    }
+}
+
+.loving-magenta {
+    limel-icon {
+        color: var(--lime-magenta);
+    }
+}
+
+.simply-blue {
+    limel-icon {
+        color: var(--lime-blue);
+    }
+}
+
+.sellable-orange {
+    limel-icon {
+        color: var(--lime-orange);
+    }
+}
+
+.custom-size {
+    limel-icon {
+        height: pxToRem(100);
+        width: pxToRem(100);
+    }
+}
