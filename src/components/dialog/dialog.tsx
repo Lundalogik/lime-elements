@@ -64,6 +64,12 @@ export class Dialog {
 
     private id: string;
 
+    constructor() {
+        this.handleMdcOpened = this.handleMdcOpened.bind(this);
+        this.handleMdcClosed = this.handleMdcClosed.bind(this);
+        this.handleMdcClosing = this.handleMdcClosing.bind(this);
+    }
+
     public componentWillLoad() {
         this.id = createRandomString();
     }
@@ -90,25 +96,9 @@ export class Dialog {
             deactivate();
         };
 
-        this.mdcDialog.listen('MDCDialog:opened', () => {
-            // When the opening-animation has completed, dispatch a
-            // resize-event so that any content that depends on
-            // javascript for layout has a chance to update to the
-            // final layout of the dialog. /Ads
-            dispatchResizeEvent();
-        });
-
-        this.mdcDialog.listen('MDCDialog:closed', () => {
-            if (this.open) {
-                this.close.emit();
-            }
-
-            this.open = false;
-        });
-
-        this.mdcDialog.listen('MDCDialog:closing', () => {
-            this.closing.emit();
-        });
+        this.mdcDialog.listen('MDCDialog:opened', this.handleMdcOpened);
+        this.mdcDialog.listen('MDCDialog:closed', this.handleMdcClosed);
+        this.mdcDialog.listen('MDCDialog:closing', this.handleMdcClosing);
 
         this.mdcDialog.scrimClickAction = this.closingActions.scrimClick
             ? 'close'
@@ -119,6 +109,9 @@ export class Dialog {
     }
 
     public componentDidUnload() {
+        this.mdcDialog.unlisten('MDCDialog:opened', this.handleMdcOpened);
+        this.mdcDialog.unlisten('MDCDialog:closed', this.handleMdcClosed);
+        this.mdcDialog.unlisten('MDCDialog:closing', this.handleMdcClosing);
         this.mdcDialog.destroy();
     }
 
@@ -166,6 +159,26 @@ export class Dialog {
         } else {
             this.mdcDialog.close();
         }
+    }
+
+    private handleMdcOpened() {
+        // When the opening-animation has completed, dispatch a
+        // resize-event so that any content that depends on
+        // javascript for layout has a chance to update to the
+        // final layout of the dialog. /Ads
+        dispatchResizeEvent();
+    }
+
+    private handleMdcClosed() {
+        if (this.open) {
+            this.close.emit();
+        }
+
+        this.open = false;
+    }
+
+    private handleMdcClosing() {
+        this.closing.emit();
     }
 
     private renderHeading() {
