@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<path style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" d="M24,28H8
+	c-0.552,0-1-0.448-1-1V8h18v19C25,27.552,24.552,28,24,28z"/>
+<g>
+	<g>
+		<path style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" d="M25,5h-1l-0.03-0.089
+			C23.883,4.386,23.427,4,22.894,4H9.106C8.572,4,8.117,4.386,8.029,4.911L8,5H7C6.448,5,6,5.448,6,6v2h20V6C26,5.448,25.552,5,25,5
+			z"/>
+	</g>
+</g>
+<line style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" x1="7" y1="12" x2="25" y2="12"/>
+<line style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" x1="7" y1="24" x2="25" y2="24"/>
+<polygon points="15.083,16.688 13.94,16.688 17.857,22 19,22 "/>
+<polygon points="17.857,18 19,18 16.143,22 15,22 "/>
+<path d="M15.5,14H13v1.5v1.407V19h1v-2h1.5c0.825,0,1.5-0.675,1.5-1.5S16.325,14,15.5,14z M15.5,16H14v-1h1.5
+	c0.271,0,0.5,0.229,0.5,0.5C16,15.771,15.771,16,15.5,16z"/>
+</svg>
