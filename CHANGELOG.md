@@ -1,3 +1,20 @@
+# [19.0.0](https://github.com/Lundalogik/lime-elements/compare/v18.0.2...v19.0.0) (2019-03-29)
+
+
+### Bug Fixes
+
+* **chip set:** use icon badges ([898b247](https://github.com/Lundalogik/lime-elements/commit/898b247))
+
+
+### Features
+
+* **icon:** add `badge` attribute to limel-icon, and only add extra padding when true ([e4fa6a8](https://github.com/Lundalogik/lime-elements/commit/e4fa6a8))
+
+
+### BREAKING CHANGES
+
+* **icon:** Reverts breaking change to limel-icon from v17.0.0 (fd006f8).
+
 ## [18.0.2](https://github.com/Lundalogik/lime-elements/compare/v18.0.1...v18.0.2) (2019-03-28)
 
 
