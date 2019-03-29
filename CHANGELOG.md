@@ -1,3 +1,10 @@
+## [19.0.1](https://github.com/Lundalogik/lime-elements/compare/v19.0.0...v19.0.1) (2019-03-29)
+
+
+### Performance Improvements
+
+* **mdc:** remove event listeners when components are destroyed ([f0d131a](https://github.com/Lundalogik/lime-elements/commit/f0d131a))
+
 # [19.0.0](https://github.com/Lundalogik/lime-elements/compare/v18.0.2...v19.0.0) (2019-03-29)
 
 
