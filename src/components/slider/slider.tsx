@@ -54,6 +54,7 @@ export class Slider {
     }
 
     public componentDidUnload() {
+        this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
         this.mdcSlider.destroy();
     }
 
