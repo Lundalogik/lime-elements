@@ -1,4 +1,7 @@
-import { MDCSnackbar } from '@lime-material-16px/snackbar';
+import {
+    MDCSnackbar,
+    MDCSnackbarCloseEvent,
+} from '@lime-material-16px/snackbar';
 import {
     Component,
     Element,
@@ -55,21 +58,20 @@ export class Snackbar {
 
     private mdcSnackbar: MDCSnackbar;
 
+    constructor() {
+        this.handleMdcClosing = this.handleMdcClosing.bind(this);
+    }
+
     public componentDidLoad() {
         this.mdcSnackbar = new MDCSnackbar(
             this.host.shadowRoot.querySelector('.mdc-snackbar')
         );
 
-        this.mdcSnackbar.listen('MDCSnackbar:closing', event => {
-            if (event.detail.reason === 'action') {
-                this.action.emit();
-            } else {
-                this.hide.emit();
-            }
-        });
+        this.mdcSnackbar.listen('MDCSnackbar:closing', this.handleMdcClosing);
     }
 
     public componentDidUnload() {
+        this.mdcSnackbar.unlisten('MDCSnackbar:closing', this.handleMdcClosing);
         this.mdcSnackbar.destroy();
     }
 
@@ -107,6 +109,14 @@ export class Snackbar {
                 </div>
             </div>
         );
+    }
+
+    private handleMdcClosing(event: MDCSnackbarCloseEvent) {
+        if (event.detail.reason === 'action') {
+            this.action.emit();
+        } else {
+            this.hide.emit();
+        }
     }
 
     private renderAction(actionText) {
