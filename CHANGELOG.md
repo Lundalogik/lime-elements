@@ -1,3 +1,10 @@
+# [19.1.0](https://github.com/Lundalogik/lime-elements/compare/v19.0.1...v19.1.0) (2019-03-29)
+
+
+### Features
+
+* **list:** improve list to handle multiple selection with checkboxes ([78ffd99](https://github.com/Lundalogik/lime-elements/commit/78ffd99))
+
 ## [19.0.1](https://github.com/Lundalogik/lime-elements/compare/v19.0.0...v19.0.1) (2019-03-29)
 
 
