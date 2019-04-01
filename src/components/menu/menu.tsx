@@ -65,28 +65,24 @@ export class Menu {
     private menu: MDCMenu;
     private listRenderer = new ListRenderer();
 
+    constructor() {
+        this.handleMdcSelected = this.handleMdcSelected.bind(this);
+        this.handleMdcClosed = this.handleMdcClosed.bind(this);
+    }
+
     public componentDidLoad() {
         const menuElement = this.element.shadowRoot.querySelector('.mdc-menu');
         this.menu = new MDCMenu(menuElement);
-        menuElement.addEventListener(
-            'MDCMenu:selected',
-            (event: CustomEvent) => {
-                this.select.emit(this.items[
-                    parseInt(event.detail.item.dataset.index, 10)
-                ] as ListItem);
-                this.open = false;
-            }
-        );
-        menuElement.addEventListener('MDCMenuSurface:closed', () => {
-            this.cancel.emit();
-            this.open = false;
-        });
+        this.menu.listen('MDCMenu:selected', this.handleMdcSelected);
+        this.menu.listen('MDCMenuSurface:closed', this.handleMdcClosed);
 
         this.menu.setAnchorCorner(Corner.TOP_START);
         this.menu.quickOpen = true;
     }
 
     public componentDidUnload() {
+        this.menu.unlisten('MDCMenu:selected', this.handleMdcSelected);
+        this.menu.unlisten('MDCMenuSurface:closed', this.handleMdcClosed);
         this.menu.destroy();
     }
 
@@ -128,6 +124,18 @@ export class Menu {
                 <span>{this.label}</span>
             </button>
         );
+    }
+
+    private handleMdcSelected(event: CustomEvent) {
+        this.select.emit(this.items[
+            parseInt(event.detail.item.dataset.index, 10)
+        ] as ListItem);
+        this.open = false;
+    }
+
+    private handleMdcClosed() {
+        this.cancel.emit();
+        this.open = false;
     }
 
     private onTriggerClick = () => {
