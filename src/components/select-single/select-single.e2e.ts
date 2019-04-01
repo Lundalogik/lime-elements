@@ -9,17 +9,19 @@ import { newE2EPage } from '@stencil/core/testing';
 // Matchers (expect-methods) for E2EElement (v0.13.0-9):
 // https://github.com/ionic-team/stencil/blob/a0250ffcbf5a2c657475a05052eac3a4690809d2/src/declarations/testing.ts#L5
 
-describe('limel-select', () => {
+describe('limel-select-single', () => {
     let page;
     describe('with a label', () => {
         let limelSelect;
         let label;
         beforeEach(async () => {
             page = await createPage(`
-                <limel-select label="Favourite Doctor"></limel-select>
+                <limel-select-single label="Favourite Doctor"></limel-select-single>
             `);
-            limelSelect = await page.find('limel-select');
-            label = await page.find('limel-select>>>.mdc-floating-label');
+            limelSelect = await page.find('limel-select-single');
+            label = await page.find(
+                'limel-select-single>>>.mdc-floating-label'
+            );
         });
         it('displays the correct label', () => {
             expect(label).toEqualText('Favourite Doctor');
@@ -43,11 +45,13 @@ describe('limel-select', () => {
             let innerSelect;
             beforeEach(async () => {
                 page = await createPage(`
-                    <limel-select label="Favourite Doctor"></limel-select>
+                    <limel-select-single label="Favourite Doctor"></limel-select-single>
                 `);
-                limelSelect = await page.find('limel-select');
-                mdcSelect = await page.find('limel-select>>>.mdc-select');
-                innerSelect = await page.find('limel-select>>>select');
+                limelSelect = await page.find('limel-select-single');
+                mdcSelect = await page.find(
+                    'limel-select-single>>>.mdc-select'
+                );
+                innerSelect = await page.find('limel-select-single>>>select');
             });
             it('is enabled', () => {
                 expect(mdcSelect).not.toHaveClass('mdc-select--disabled');
@@ -80,11 +84,13 @@ describe('limel-select', () => {
             let innerSelect;
             beforeEach(async () => {
                 page = await createPage(`
-                    <limel-select label="Favourite Doctor" disabled="false"></limel-select>
+                    <limel-select-single label="Favourite Doctor" disabled="false"></limel-select-single>
                 `);
-                limelSelect = await page.find('limel-select');
-                mdcSelect = await page.find('limel-select>>>.mdc-select');
-                innerSelect = await page.find('limel-select>>>select');
+                limelSelect = await page.find('limel-select-single');
+                mdcSelect = await page.find(
+                    'limel-select-single>>>.mdc-select'
+                );
+                innerSelect = await page.find('limel-select-single>>>select');
             });
             it('is enabled', () => {
                 expect(mdcSelect).not.toHaveClass('mdc-select--disabled');
@@ -117,11 +123,13 @@ describe('limel-select', () => {
             let innerSelect;
             beforeEach(async () => {
                 page = await createPage(`
-                    <limel-select label="Favourite Doctor" disabled="true"></limel-select>
+                    <limel-select-single label="Favourite Doctor" disabled="true"></limel-select-single>
                 `);
-                limelSelect = await page.find('limel-select');
-                mdcSelect = await page.find('limel-select>>>.mdc-select');
-                innerSelect = await page.find('limel-select>>>select');
+                limelSelect = await page.find('limel-select-single');
+                mdcSelect = await page.find(
+                    'limel-select-single>>>.mdc-select'
+                );
+                innerSelect = await page.find('limel-select-single>>>select');
             });
             it('is disabled', () => {
                 expect(mdcSelect).toHaveClass('mdc-select--disabled');
@@ -160,9 +168,11 @@ describe('limel-select', () => {
                     <select-test-wrapper></select-test-wrapper>
                 `);
                 testWrapper = await page.find('select-test-wrapper');
-                limelSelect = await page.find('limel-select');
-                innerSelect = await page.find('limel-select>>>select');
-                label = await page.find('limel-select>>>.mdc-floating-label');
+                limelSelect = await page.find('limel-select-single');
+                innerSelect = await page.find('limel-select-single>>>select');
+                label = await page.find(
+                    'limel-select-single>>>.mdc-floating-label'
+                );
             });
             it('has no options', async () => {
                 const child = await innerSelect.find('option');

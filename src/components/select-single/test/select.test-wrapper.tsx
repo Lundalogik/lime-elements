@@ -18,7 +18,7 @@ export class SelectTestWrapper {
 
     public render() {
         return (
-            <limel-select
+            <limel-select-single
                 label="Favourite Doctor"
                 value={this.value}
                 onChange={this.onChange}

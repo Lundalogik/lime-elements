@@ -12,11 +12,11 @@ import { Option } from '../../interface';
 import { createRandomString } from '../../util/random-string';
 
 @Component({
-    tag: 'limel-multi-select',
+    tag: 'limel-select-multiple',
     shadow: true,
-    styleUrl: 'multi-select.scss',
+    styleUrl: 'select-multiple.scss',
 })
-export class MultiSelect {
+export class SelectMultiple {
     @Prop({ reflectToAttr: true })
     public disabled = false;
 
@@ -61,17 +61,23 @@ export class MultiSelect {
     public render() {
         return (
             <div class="multi-select">
-                <label
-                    htmlFor={this.fieldId}
-                    class="multi-select-label mdc-floating-label mdc-floating-label--float-above"
+                <limel-collapsible-section
+                    header={
+                        this.label +
+                        ': ' +
+                        this.value
+                            .map(option => {
+                                return option.text;
+                            })
+                            .join(', ')
+                    }
                 >
-                    {this.label}
-                </label>
-                <div id={this.fieldId}>
-                    {this.options.map((option: Option, index: number) => {
-                        return this.renderCheckbox(index, option);
-                    })}
-                </div>
+                    <div>
+                        {this.options.map((option: Option, index: number) => {
+                            return this.renderCheckbox(index, option);
+                        })}
+                    </div>
+                </limel-collapsible-section>
             </div>
         );
     }
