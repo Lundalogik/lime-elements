@@ -22,8 +22,18 @@ section {
         display: flex;
         padding-left: pxToRem(10);
 
+        > h5 {
+            flex-grow: 1;
+            flex-shrink: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         > .expander {
             color: #a6a6a6;
+            flex-grow: 0;
+            flex-shrink: 0;
             height: pxToRem(30);
             margin-right: pxToRem(5);
             width: pxToRem(30);
