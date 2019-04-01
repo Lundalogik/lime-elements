@@ -1,5 +1,10 @@
 @import '../../style/variables';
 
+/**
+ * @prop --body-max-height: Maximum height of the body, when expanded, before a scrollbar is added.
+ *                          Defaults to `auto` (no maximum).
+ */
+
 :host {
     display: block;
 }
@@ -54,6 +59,8 @@ section {
 
     > .body {
         display: none;
+        max-height: var(--body-max-height, auto);
+        overflow: auto;
     }
 
     &.open {
