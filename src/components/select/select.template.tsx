@@ -11,6 +11,7 @@ import { Option } from './option.types';
 
 interface SelectTemplateProps {
     disabled?: boolean;
+    required?: boolean;
     options: Option[];
     value: Option | Option[];
     label?: string;
@@ -43,6 +44,8 @@ export const NativeSelectTemplate: FunctionalComponent<
                 {getSelectedText(props.value)}
             </div>
             <select
+                required={props.required}
+                aria-required={props.required}
                 onChange={props.onChange}
                 class="mdc-select__native-control"
                 disabled={props.disabled}
@@ -79,6 +82,7 @@ interface MenuSelectTemplateProps extends SelectTemplateProps {
     isOpen: boolean;
     open: () => void;
     close: () => void;
+    checkValid: boolean;
 }
 
 export const MenuSelectTemplate: FunctionalComponent<
@@ -92,12 +96,19 @@ export const MenuSelectTemplate: FunctionalComponent<
         hasValue = !!(props.value as Option).value;
     }
 
+    let isValid = true;
+    if (props.checkValid && props.required && !hasValue) {
+        isValid = false;
+    }
+
     return (
         <div
             class={`
             limel-select
             mdc-menu-surface--anchor
             ${props.disabled ? 'mdc-select--disabled' : ''}
+            ${props.required ? 'limel-select--required' : ''}
+            ${!isValid ? 'limel-select--invalid' : ''}
         `}
         >
             <div

@@ -9,6 +9,7 @@ import {
     EventEmitter,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import { isArray } from 'lodash-es';
 import { Option } from '../../interface';
@@ -37,6 +38,12 @@ export class Select {
     public disabled = false;
 
     /**
+     * True if the control requires a value
+     */
+    @Prop({ reflectToAttr: true })
+    public required = false;
+
+    /**
      * Text to display next to the select
      */
     @Prop({ reflectToAttr: true })
@@ -62,6 +69,8 @@ export class Select {
 
     @State()
     private menuOpen: boolean = false;
+
+    private checkValid: boolean = false;
 
     /**
      * Emitted when the value is changed
@@ -101,9 +110,7 @@ export class Select {
     public componentDidLoad() {
         let element: HTMLElement;
         if (!this.isMobileDevice) {
-            element = this.host.shadowRoot.querySelector(
-                '.mdc-floating-label'
-            );
+            element = this.host.shadowRoot.querySelector('.mdc-floating-label');
             this.mdcFloatingLabel = new MDCFloatingLabel(element);
 
             element = this.host.shadowRoot.querySelector('.mdc-line-ripple');
@@ -151,6 +158,7 @@ export class Select {
             return (
                 <MenuSelectTemplate
                     disabled={this.disabled}
+                    required={this.required}
                     label={this.label}
                     value={this.value}
                     options={this.options}
@@ -159,6 +167,7 @@ export class Select {
                     isOpen={this.menuOpen}
                     open={this.openMenu}
                     close={this.closeMenu}
+                    checkValid={this.checkValid}
                 />
             );
         }
@@ -166,6 +175,7 @@ export class Select {
         return (
             <NativeSelectTemplate
                 disabled={this.disabled}
+                required={this.required}
                 label={this.label}
                 value={this.value}
                 options={this.options}
@@ -173,6 +183,18 @@ export class Select {
                 multiple={this.multiple}
             />
         );
+    }
+
+    @Watch('menuOpen')
+    protected watchOpen(newValue: boolean, oldValue: boolean) {
+        if (this.checkValid) {
+            return;
+        }
+
+        // Menu was closed for the first time
+        if (!newValue && oldValue) {
+            this.checkValid = true;
+        }
     }
 
     private handleMenuChange(

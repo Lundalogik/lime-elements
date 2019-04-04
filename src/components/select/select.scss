@@ -46,7 +46,7 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
     }
 }
 
-.mdc-menu-surface--anchor {
+.limel-select {
 
     &,
     .limel-select-trigger,
@@ -63,7 +63,7 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
     .limel-select-trigger {
         display: inline-flex;
         cursor: pointer;
-        orting Option,
+
         &:focus {
             outline: none;
 
@@ -104,6 +104,25 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 
         .mdc-select__dropdown-icon {
             background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat 50%;
+        }
+    }
+
+    &.limel-select--required {
+        .mdc-floating-label::after {
+            content: "*";
+        }
+    }
+
+    &.limel-select--invalid {
+        .limel-select-trigger {
+            .mdc-floating-label {
+                color: $mdc-theme-error;
+            }
+            .mdc-line-ripple {
+                background-color: $mdc-theme-error;
+                transform: scaleX(1);
+                opacity: 1;
+            }
         }
     }
 

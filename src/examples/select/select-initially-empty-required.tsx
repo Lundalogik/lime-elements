@@ -29,6 +29,7 @@ export class SelectExample {
                     value={this.value}
                     options={this.options}
                     onChange={this.onChange}
+                    required={true}
                 />
                 <p>Value: {JSON.stringify(this.value)}</p>
             </section>
