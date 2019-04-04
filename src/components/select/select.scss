@@ -6,13 +6,25 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 
 @import "@lime-material-16px/select/mdc-select";
 @import '@lime-material-16px/ripple/mdc-ripple';
+@import "@lime-material-16px/line-ripple/mdc-line-ripple";
+@import "@lime-material-16px/floating-label/mdc-floating-label";
+@import "@lime-material-16px/menu-surface/mdc-menu-surface";
 
-/**
- * @prop --background-color: Background color of the field.
- */
 
 :host([hidden]) {
     display: none;
+}
+
+
+.limel-select__selected-text {
+    padding: pxToRem(20) pxToRem(52) pxToRem(4) pxToRem(16);
+    box-sizing: border-box;
+    border: none;
+    border-bottom: pxToRem(1) solid;
+    outline: none;
+    background-color: transparent;
+    white-space: nowrap;
+    border-bottom-color: rgba(0,0,0,.42);
 }
 
 .mdc-select {
@@ -23,5 +35,89 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
     &__native-control {
         padding-top: pxToRem(25);
         padding-bottom: pxToRem(2);
+        color: transparent !important;
+    }
+
+    .limel-select__selected-text {
+        width: 100%;
+        height: pxToRem(56);
+        position: absolute;
+        z-index: -1;
+    }
+}
+
+.mdc-menu-surface--anchor {
+
+    &,
+    .limel-select-trigger,
+    .limel-select__selected-text {
+        width: 100%;
+        height: pxToRem(56);
+        position: relative;
+    }
+
+    .limel-select__selected-text {
+        line-height: pxToRem(28);
+    }
+
+    .limel-select-trigger {
+        display: inline-flex;
+        cursor: pointer;
+        orting Option,
+        &:focus {
+            outline: none;
+
+            .mdc-floating-label {
+                color: var(--mdc-theme-primary);
+            }
+
+            .mdc-line-ripple {
+                transform: scaleX(1);
+                opacity: 1;
+                background-color: var(--mdc-theme-primary);
+            }
+
+            .mdc-select__dropdown-icon {
+                transform: rotate(180deg) translateY(pxToRem(-5));
+                color: var(--mdc-theme-primary);
+            }
+        }
+
+        .mdc-floating-label {
+            left: pxToRem(16);
+            right: auto;
+            top: pxToRem(21);
+            pointer-events: none;
+
+            &.mdc-floating-label--float-above {
+                top: pxToRem(17);
+            }
+
+            &.mdc-floating-label--active {
+                color: var(--mdc-theme-primary);
+            }
+        }
+
+        .mdc-line-ripple {
+            background-color: var(--mdc-theme-primary);
+        }
+
+        .mdc-select__dropdown-icon {
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat 50%;
+        }
+    }
+
+    .mdc-menu-surface {
+        left: 0;
+        top: pxToRem(56);
+        width: 100%;
+    }
+
+    .mdc-menu-surface--scrim {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
     }
 }
