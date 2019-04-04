@@ -13,6 +13,9 @@ export class SelectMultipleExample {
     @State()
     public disabled = false;
 
+    @State()
+    public required = false;
+
     private options: Option[] = [
         { text: 'Luke Skywalker', value: 'luke' },
         { text: 'Han Solo', value: 'han' },
@@ -22,6 +25,7 @@ export class SelectMultipleExample {
     constructor() {
         this.onChange = this.onChange.bind(this);
         this.toggleEnabled = this.toggleEnabled.bind(this);
+        this.toggleRequired = this.toggleRequired.bind(this);
     }
 
     public render() {
@@ -32,14 +36,21 @@ export class SelectMultipleExample {
                     value={this.value}
                     options={this.options}
                     disabled={this.disabled}
+                    required={this.required}
                     onChange={this.onChange}
                     multiple={true}
                 />
                 <p>
                     <limel-flex-container justify="end">
-                        <limel-button
-                            onClick={this.toggleEnabled}
-                            label={this.disabled ? 'Enable' : 'Disable'}
+                        <limel-checkbox
+                            label="Disabled"
+                            onChange={this.toggleEnabled}
+                            checked={this.disabled}
+                        />
+                        <limel-checkbox
+                            label="Required"
+                            onChange={this.toggleRequired}
+                            checked={this.required}
                         />
                     </limel-flex-container>
                 </p>
@@ -54,5 +65,9 @@ export class SelectMultipleExample {
 
     private toggleEnabled() {
         this.disabled = !this.disabled;
+    }
+
+    private toggleRequired() {
+        this.required = !this.required;
     }
 }
