@@ -6,6 +6,9 @@ export class SelectTestWrapper {
     @Prop({ mutable: true })
     public value?: Option;
 
+    @Prop()
+    public native?: boolean;
+
     @Prop({ mutable: true })
     public onChangeCalledTimes = 0;
 
@@ -17,8 +20,14 @@ export class SelectTestWrapper {
     }
 
     public render() {
+        const props: any = {};
+        if (this.native) {
+            props.native = true;
+        }
+
         return (
             <limel-select
+                {...props}
                 label="Favourite Doctor"
                 value={this.value}
                 onChange={this.onChange}
