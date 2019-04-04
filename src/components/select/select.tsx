@@ -11,7 +11,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { isArray } from 'lodash-es';
 import { Option } from '../../interface';
 import { isMobileDevice } from '../../util/device';
 import {
@@ -22,6 +21,7 @@ import {
     SPACE,
     SPACE_KEY_CODE,
 } from '../../util/keycodes';
+import { isMultiple } from '../../util/multiple';
 import { ListItem } from '../list/list-item.types';
 import { MenuSelectTemplate, NativeSelectTemplate } from './select.template';
 
@@ -202,15 +202,15 @@ export class Select {
     ) {
         event.stopPropagation();
 
-        if (isArray(event.detail)) {
-            const listItems: ListItem[] = event.detail as ListItem[];
+        if (isMultiple(event.detail)) {
+            const listItems: ListItem[] = event.detail;
             const options: Option[] = listItems.map(item => item.value);
             this.change.emit(options);
 
             return;
         }
 
-        const listItem: ListItem = event.detail as ListItem;
+        const listItem: ListItem = event.detail;
         const option: Option = listItem.value;
         this.change.emit(option);
         this.menuOpen = false;

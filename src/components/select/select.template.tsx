@@ -1,11 +1,11 @@
 import { FunctionalComponent } from '@stencil/core';
-import { isArray } from 'lodash-es';
 import {
     ENTER,
     ENTER_KEY_CODE,
     SPACE,
     SPACE_KEY_CODE,
 } from '../../util/keycodes';
+import { isMultiple } from '../../util/multiple';
 import { ListItem } from '../list/list-item.types';
 import { Option } from './option.types';
 
@@ -26,10 +26,10 @@ export const NativeSelectTemplate: FunctionalComponent<
     NativeSelectTemplateProps
 > = props => {
     let hasValue = !!props.value;
-    if (isArray(props.value)) {
-        hasValue = (props.value as Option[]).length > 0;
+    if (isMultiple(props.value)) {
+        hasValue = props.value.length > 0;
     } else if (hasValue) {
-        hasValue = !!(props.value as Option).value;
+        hasValue = !!props.value.value;
     }
 
     return (
@@ -90,10 +90,10 @@ export const MenuSelectTemplate: FunctionalComponent<
 > = props => {
     const items = createMenuItems(props.options, props.value);
     let hasValue = !!props.value;
-    if (isArray(props.value)) {
-        hasValue = (props.value as Option[]).length > 0;
+    if (isMultiple(props.value)) {
+        hasValue = props.value.length > 0;
     } else if (hasValue) {
-        hasValue = !!(props.value as Option).value;
+        hasValue = !!props.value.value;
     }
 
     let isValid = true;
@@ -182,11 +182,11 @@ function isSelected(option: Option, value: Option | Option[]): boolean {
         return false;
     }
 
-    if (isArray(value)) {
-        return (value as Option[]).some(o => option.value === o.value);
+    if (isMultiple(value)) {
+        return value.some(o => option.value === o.value);
     }
 
-    return option.value === (value as Option).value;
+    return option.value === value.value;
 }
 
 function createMenuItems(
@@ -211,9 +211,9 @@ function getSelectedText(value: Option | Option[]): string {
         return '';
     }
 
-    if (isArray(value)) {
-        return (value as Option[]).map(option => option.text).join(', ');
+    if (isMultiple(value)) {
+        return value.map(option => option.text).join(', ');
     }
 
-    return (value as Option).text;
+    return value.text;
 }
