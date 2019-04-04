@@ -17,7 +17,9 @@
 }
 
 .mdc-list {
-    cursor: pointer;
+    &.selectable .mdc-list-item:not(.mdc-list-item--disabled) {
+        cursor: pointer;
+    }
 
     &.mdc-list--avatar-list {
         limel-icon {

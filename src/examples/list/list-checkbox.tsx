@@ -10,10 +10,10 @@ export class ListCheckboxExample {
     @State()
     private allItems: Array<ListItem | ListSeparator> = [
         { text: 'Pikachu', value: 1, selected: true },
-        { text: 'Charmander', value: 2, selected: false },
+        { text: 'Charmander', value: 2, selected: false, disabled: true },
         { text: 'Super Mario', value: 3, selected: false },
         { separator: true },
-        { text: 'Yoshi', value: 4, selected: false },
+        { text: 'Yoshi', value: 4, selected: false, disabled: true },
         { text: 'Minion', value: 6, selected: true },
         { text: 'Pokéball', value: 5, selected: false },
     ];
