@@ -181,13 +181,18 @@ export class ListRenderer {
                     <CheckboxTemplate
                         id={`c_${index}`}
                         checked={item.selected}
+                        disabled={item.disabled}
                     />
                 </div>,
             ];
         }
         return [
             <div class="mdc-list-item__graphic">
-                <CheckboxTemplate id={`c_${index}`} checked={item.selected} />
+                <CheckboxTemplate
+                    id={`c_${index}`}
+                    checked={item.selected}
+                    disabled={item.disabled}
+                />
             </div>,
             this.renderText(item.text, item.secondaryText),
         ];
