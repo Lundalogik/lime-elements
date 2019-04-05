@@ -1,0 +1,1 @@
+const e=window.LimeElements.h;class i{render(){return[e("limel-spinner",null),e("limel-spinner",{size:"mini"}),e("limel-spinner",{size:"x-small"}),e("limel-spinner",{size:"small"}),e("limel-spinner",{size:"medium"}),e("limel-spinner",{size:"large"})]}static get is(){return"limel-example-spinner"}static get encapsulation(){return"shadow"}}export{i as LimelExampleSpinner};

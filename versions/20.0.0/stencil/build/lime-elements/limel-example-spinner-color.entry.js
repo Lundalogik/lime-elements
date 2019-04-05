@@ -1,0 +1,1 @@
+const e=window.LimeElements.h;class l{render(){return[e("limel-spinner",{style:{color:"orange"}}),e("div",{style:{color:"blue"}},e("limel-spinner",null))]}static get is(){return"limel-example-spinner-color"}static get encapsulation(){return"shadow"}}export{l as LimelExampleSpinnerColor};
