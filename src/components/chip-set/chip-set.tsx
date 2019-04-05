@@ -1,4 +1,8 @@
-import { MDCChipSet } from '@lime-material-16px/chips';
+import {
+    MDCChipInteractionEvent,
+    MDCChipSelectionEvent,
+    MDCChipSet,
+} from '@lime-material-16px/chips';
 import { MDCTextField } from '@lime-material-16px/textfield';
 import {
     Component,
@@ -315,14 +319,14 @@ export class ChipSet {
         this.input.emit(event.target.value && event.target.value.trim());
     }
 
-    private handleInteraction(event) {
+    private handleInteraction(event: MDCChipInteractionEvent) {
         const chip = this.value.find(item => {
             return `${item.id}` === event.detail.chipId;
         });
         this.interact.emit(chip);
     }
 
-    private handleSelection(event) {
+    private handleSelection(event: MDCChipSelectionEvent) {
         let chip = this.value.find(item => {
             return `${item.id}` === event.detail.chipId;
         });
@@ -330,7 +334,7 @@ export class ChipSet {
         this.change.emit(chip);
     }
 
-    private handleRemove(event) {
+    private handleRemove(event: MDCChipInteractionEvent) {
         const newValue = this.value.filter(chip => {
             return `${chip.id}` !== event.detail.chipId;
         });
