@@ -1,0 +1,1 @@
+const t=()=>Math.random().toString(36).substring(2)+Math.random().toString(36).substring(2);export{t as a};
