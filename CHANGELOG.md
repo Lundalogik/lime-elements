@@ -1,3 +1,27 @@
+# [20.0.0](https://github.com/Lundalogik/lime-elements/compare/v19.1.1...v20.0.0) (2019-04-05)
+
+
+### Bug Fixes
+
+* **list:** disabled items not handled correctly ([93a24cb](https://github.com/Lundalogik/lime-elements/commit/93a24cb))
+
+
+### Code Refactoring
+
+* **multi-select:** remove multi-select ([33fd282](https://github.com/Lundalogik/lime-elements/commit/33fd282)), closes [#203](https://github.com/Lundalogik/lime-elements/issues/203)
+
+
+### Features
+
+* **select:** add `required` property ([78be0a8](https://github.com/Lundalogik/lime-elements/commit/78be0a8)), closes [Lundalogik/lime-webclient#973](https://github.com/Lundalogik/lime-webclient/issues/973)
+* **select:** add property for selecting multiple values ([1f7d193](https://github.com/Lundalogik/lime-elements/commit/1f7d193)), closes [#203](https://github.com/Lundalogik/lime-elements/issues/203)
+
+
+### BREAKING CHANGES
+
+* **multi-select:** multi-select component has been removed in favor of the select component that now
+has a property called `multiple` that offers the same functionality in a better way
+
 ## [19.1.1](https://github.com/Lundalogik/lime-elements/compare/v19.1.0...v19.1.1) (2019-04-05)
 
 
