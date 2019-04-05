@@ -85,14 +85,14 @@ export class Dialog {
         const { activate, deactivate } = util.createFocusTrapInstance(
             this.host.shadowRoot.querySelector('.mdc-dialog__surface'),
             focusTrap.default,
-            this.host.shadowRoot.querySelector('#initialFocusEl')
+            this.host.shadowRoot.querySelector('#initialFocusEl') as any // tslint:disable-line:no-useless-cast
         );
 
-        this.mdcDialog.foundation_.adapter_.trapFocus = () => {
+        (this.mdcDialog as any).foundation_.adapter_.trapFocus = () => {
             activate();
         };
 
-        this.mdcDialog.foundation_.adapter_.releaseFocus = () => {
+        (this.mdcDialog as any).foundation_.adapter_.releaseFocus = () => {
             deactivate();
         };
 

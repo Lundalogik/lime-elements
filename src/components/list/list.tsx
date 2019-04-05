@@ -83,11 +83,11 @@ export class List {
 
     private handleAction(event: MDCListActionEvent) {
         if (!this.multiple) {
-            this.handleSingleSelect(event.detail);
+            this.handleSingleSelect(event.detail.index);
             return;
         }
 
-        this.handleMultiSelect(event.detail);
+        this.handleMultiSelect(event.detail.index);
     }
 
     private handleSingleSelect(index: number) {
