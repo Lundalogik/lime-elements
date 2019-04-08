@@ -1,3 +1,10 @@
+## [20.0.1](https://github.com/Lundalogik/lime-elements/compare/v20.0.0...v20.0.1) (2019-04-08)
+
+
+### Bug Fixes
+
+* **material:** update code to work with material 1.1.0 ([e2006de](https://github.com/Lundalogik/lime-elements/commit/e2006de))
+
 # [20.0.0](https://github.com/Lundalogik/lime-elements/compare/v19.1.1...v20.0.0) (2019-04-05)
 
 
