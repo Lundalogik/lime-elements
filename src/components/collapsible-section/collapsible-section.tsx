@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 
 @Component({

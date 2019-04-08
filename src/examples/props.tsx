@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 import * as showdown from 'showdown';
 
 const BASE_URL = '/lime-elements/';

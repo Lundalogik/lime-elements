@@ -1,6 +1,6 @@
-import { Component, Element, Prop, Watch } from '@stencil/core';
-import { Config } from '../../global/config';
-import { IconCache } from '../../global/icon-cache';
+import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import config from '../../global/config';
+import iconCache from '../../global/icon-cache';
 import { IconSize } from './icon.types';
 
 @Component({
@@ -28,12 +28,6 @@ export class Icon {
     @Prop({ reflectToAttr: true })
     public badge: boolean;
 
-    @Prop({ context: 'config' })
-    public config: Config;
-
-    @Prop({ context: 'iconCache' })
-    public iconCache: IconCache;
-
     @Element()
     private host: HTMLElement;
 
@@ -59,7 +53,7 @@ export class Icon {
      * @returns {string} the icon SVG data
      */
     private loadSvg(name: string) {
-        return this.iconCache.get(name, this.config.iconPath);
+        return iconCache.get(name, config.iconPath);
     }
 
     /*

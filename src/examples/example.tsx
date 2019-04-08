@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 import prism from 'prismjs';
 import 'prismjs/components/prism-jsx.js'; // tslint:disable-line:no-submodule-imports
 import 'prismjs/components/prism-scss.js'; // tslint:disable-line:no-submodule-imports

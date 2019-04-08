@@ -1,4 +1,4 @@
-import { Component, State } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 const MIN_NAME_LENGTH = 5;
 const MIN_AGE = 20;

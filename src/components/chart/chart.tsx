@@ -1,4 +1,4 @@
-import { Component, Element, Prop } from '@stencil/core';
+import { Component, Element, h, Prop } from '@stencil/core';
 import Chart from 'chart.js';
 
 @Component({
