@@ -1,6 +1,13 @@
 import { MDCCheckbox } from '@lime-material-16px/checkbox';
 import { MDCFormField } from '@lime-material-16px/form-field';
-import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+} from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { CheckboxTemplate } from './checkbox.template';
 

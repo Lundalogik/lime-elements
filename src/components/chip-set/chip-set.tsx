@@ -9,6 +9,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    h,
     Method,
     Prop,
     State,
@@ -114,20 +115,19 @@ export class ChipSet {
     /**
      * Used to find out whether the chip-set is in edit mode.
      *
-     * @returns {boolean} `true` if the chip-set is in edit mode, `false` otherwise.
+     * @returns {Promise<boolean>} `true` if the chip-set is in edit mode, `false` otherwise.
      */
     @Method()
-    public async getEditMode() {
+    public async getEditMode(): Promise<boolean> {
         return this.editMode;
     }
 
+    // tslint:disable-next-line:valid-jsdoc
     /**
      * Used to set focus to the chip-set input field.
-     *
-     * @returns {void}
      */
     @Method()
-    public setFocus() {
+    public async setFocus() {
         this.editMode = true;
         this.host.shadowRoot.querySelector('input').focus();
     }

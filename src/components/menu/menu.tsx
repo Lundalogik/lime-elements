@@ -4,6 +4,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    h,
     Prop,
     Watch,
 } from '@stencil/core';

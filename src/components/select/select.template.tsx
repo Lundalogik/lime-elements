@@ -1,4 +1,4 @@
-import { FunctionalComponent } from '@stencil/core';
+import { FunctionalComponent, h } from '@stencil/core';
 import {
     ENTER,
     ENTER_KEY_CODE,

@@ -7,6 +7,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    h,
     Method,
     Prop,
 } from '@stencil/core';
@@ -75,13 +76,12 @@ export class Snackbar {
         this.mdcSnackbar.destroy();
     }
 
+    // tslint:disable-next-line:valid-jsdoc
     /**
      * Show the snackbar
-     *
-     * @returns {void}
      */
     @Method()
-    public show() {
+    public async show() {
         if (this.timeout) {
             this.mdcSnackbar.timeoutMs = this.timeout;
         }

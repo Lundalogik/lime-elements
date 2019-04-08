@@ -1,4 +1,4 @@
-import { FunctionalComponent } from '@stencil/core';
+import { FunctionalComponent, h } from '@stencil/core';
 
 interface RadioButtonTemplateProps {
     disabled?: boolean;

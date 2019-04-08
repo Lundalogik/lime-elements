@@ -1,5 +1,12 @@
 import { MDCTextField } from '@lime-material-16px/textfield';
-import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+} from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { Chip } from '../chip-set/chip.types';
 import { FileInfo } from './file.types';

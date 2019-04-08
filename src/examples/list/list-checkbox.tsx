@@ -1,4 +1,4 @@
-import { Component, State } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 import { ListItem, ListSeparator } from '../../interface';
 
 @Component({
