@@ -4,10 +4,10 @@ import { sass } from '@stencil/sass';
 
 const targetDist: OutputTargetDist = {
     type: 'dist',
+    copy: [{ src: 'style/' }, { src: 'assets/' }],
 };
 
 export const config: Config = {
-    copy: [{ src: 'style/' }],
     namespace: 'lime-elements',
     outputTargets: [targetDist],
     plugins: [sass()],
@@ -19,6 +19,5 @@ export const config: Config = {
         '**/*.e2e.*',
         '**/*.test-wrapper.*',
     ],
-    globalScript: 'src/global/index.ts',
     globalStyle: 'src/global/colors.scss',
 };

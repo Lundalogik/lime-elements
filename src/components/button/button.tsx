@@ -1,4 +1,4 @@
-import { Component, Element, Prop, Watch } from '@stencil/core';
+import { Component, Element, h, Prop, Watch } from '@stencil/core';
 
 @Component({
     tag: 'limel-button',
@@ -78,6 +78,7 @@ export class Button {
     protected loadingWatcher(newValue: boolean, oldValue: boolean) {
         const button = this.limelButton.shadowRoot.querySelector('button');
         if (oldValue && !newValue) {
+            button.classList.remove('loading');
             button.classList.add('just-loaded');
             const TIMEOUT = 2000;
             setTimeout(() => {

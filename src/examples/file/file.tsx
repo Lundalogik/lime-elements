@@ -1,4 +1,4 @@
-import { Component, State } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 import { FileInfo } from '../../components/file/file.types';
 
 @Component({

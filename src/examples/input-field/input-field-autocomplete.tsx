@@ -1,4 +1,4 @@
-import { Component, State, Watch } from '@stencil/core';
+import { Component, h, State, Watch } from '@stencil/core';
 
 @Component({
     tag: 'limel-example-input-field-autocomplete',

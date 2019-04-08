@@ -1,4 +1,4 @@
-import { Component, State } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 import { DialogHeading } from '../../components/dialog/dialog.types';
 import { Option } from '../../components/select/option.types';
 

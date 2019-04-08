@@ -3,6 +3,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    h,
     Prop,
     State,
     Watch,

@@ -3,12 +3,13 @@ import {
     Element,
     Event,
     EventEmitter,
+    h,
     Listen,
     Prop,
     State,
 } from '@stencil/core';
 
-import { Translations } from '../../global/translations';
+import translate from '../../global/translations';
 import { DateType, Languages } from './date.types';
 import { DatePicker as DateDatePicker } from './pickers/DatePicker';
 import { DatetimePicker } from './pickers/DatetimePicker';
@@ -78,9 +79,6 @@ export class DatePicker {
     @Prop()
     public language: Languages = 'en';
 
-    @Prop({ context: 'translations' })
-    public translate: Translations;
-
     @Element()
     private host: HTMLElement;
 
@@ -133,7 +131,7 @@ export class DatePicker {
                     this.format,
                     this.language,
                     this.change,
-                    this.translate
+                    translate
                 );
                 break;
 
@@ -142,7 +140,7 @@ export class DatePicker {
                     this.format,
                     this.language,
                     this.change,
-                    this.translate
+                    translate
                 );
                 break;
             case 'year':
@@ -150,7 +148,7 @@ export class DatePicker {
                     this.format,
                     this.language,
                     this.change,
-                    this.translate
+                    translate
                 );
                 break;
 
@@ -195,7 +193,7 @@ export class DatePicker {
         );
     }
 
-    @Listen('window:resize')
+    @Listen('resize', { target: 'window' })
     public resizeEvent() {
         this.picker.init(this.input, this.container, this.value);
     }
