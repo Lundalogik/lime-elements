@@ -1,3 +1,10 @@
+# [20.1.0](https://github.com/Lundalogik/lime-elements/compare/v20.0.1...v20.1.0) (2019-04-10)
+
+
+### Features
+
+* **limel-file:** add component ([3b3f57c](https://github.com/Lundalogik/lime-elements/commit/3b3f57c)), closes [#303](https://github.com/Lundalogik/lime-elements/issues/303)
+
 ## [20.0.1](https://github.com/Lundalogik/lime-elements/compare/v20.0.0...v20.0.1) (2019-04-08)
 
 
