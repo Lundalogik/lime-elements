@@ -27,4 +27,9 @@ export interface FileInfo {
      * Size of file.
      */
     size?: number;
+
+    /**
+     * the file content
+     */
+    fileContent?: File;
 }

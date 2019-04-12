@@ -133,6 +133,7 @@ export class File {
             filename: file.name,
             contentType: file.type,
             size: file.size,
+            fileContent: file,
         };
         this.change.emit(limeFile);
         this.chipSet.blur();
