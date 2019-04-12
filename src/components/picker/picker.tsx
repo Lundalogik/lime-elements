@@ -259,7 +259,7 @@ export class Picker {
                 <limel-list
                     badgeIcons={hasIcons}
                     onChange={this.handleListChange}
-                    selectable={true}
+                    type="selectable"
                     items={this.items}
                 />
             </div>

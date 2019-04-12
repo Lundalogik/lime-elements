@@ -170,22 +170,18 @@ describe('limel-list', async () => {
         });
     });
 
-    describe('when the attribute `selectable`', () => {
+    describe('when the attribute `type`', () => {
         describe('is not set', () => {
             it('is not selectable', () => {
                 expect(innerList).not.toHaveClass('selectable');
             });
-            it('the property is falsy', async () => {
-                const propValue = await limelList.getProperty('selectable');
-                expect(propValue).toBeFalsy();
-            });
         });
 
-        describe('is set', () => {
+        describe('is set as `selectable`', () => {
             let items;
             beforeEach(async () => {
                 page = await newE2EPage({
-                    html: '<limel-list selectable></limel-list>',
+                    html: '<limel-list type="selectable"></limel-list>',
                 });
                 limelList = await page.find('limel-list');
                 innerList = await page.find('limel-list>>>ul');
@@ -196,9 +192,9 @@ describe('limel-list', async () => {
             it('is selectable', () => {
                 expect(innerList).toHaveClass('selectable');
             });
-            it('the property is `true`', async () => {
-                const propValue = await limelList.getProperty('selectable');
-                expect(propValue).toBe(true);
+            it('has the value `selectable`', async () => {
+                const propValue = await limelList.getProperty('type');
+                expect(propValue).toBe('selectable');
             });
             describe('the `change` event', () => {
                 let spy;

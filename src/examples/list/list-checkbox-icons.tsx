@@ -8,7 +8,7 @@ import { ListItem } from '../../interface';
 })
 export class ListCheckboxIconsExample {
     @State()
-    private allItems: ListItem[] = [
+    private items: ListItem[] = [
         {
             text: 'Pikachu',
             value: 1,
@@ -59,7 +59,7 @@ export class ListCheckboxIconsExample {
     private selectedItems: ListItem[] = [];
 
     constructor() {
-        this.selectedItems = this.allItems.filter(item => {
+        this.selectedItems = this.items.filter(item => {
             return !!item.selected;
         });
         this.handleChange = this.handleChange.bind(this);
@@ -69,9 +69,8 @@ export class ListCheckboxIconsExample {
         return [
             <limel-list
                 onChange={this.handleChange}
-                selectable={true}
-                items={this.allItems}
-                multiple={true}
+                items={this.items}
+                type="checkbox"
             />,
             <p>
                 Value: <code>{JSON.stringify(this.selectedItems)}</code>
@@ -81,7 +80,7 @@ export class ListCheckboxIconsExample {
 
     private handleChange(event: CustomEvent<ListItem[]>) {
         this.selectedItems = event.detail;
-        this.allItems = this.allItems.map((item: ListItem) => {
+        this.items = this.items.map((item: ListItem) => {
             const selected = !!event.detail.find((selectedItem: ListItem) => {
                 return selectedItem.value === item.value;
             });

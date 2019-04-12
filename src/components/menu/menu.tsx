@@ -88,10 +88,10 @@ export class Menu {
 
     public render() {
         const config: ListRendererConfig = {
-            selectable: true,
             isMenu: true,
             isOpen: this.open,
             badgeIcons: this.badgeIcons,
+            type: 'selectable',
         };
         return (
             <div class="mdc-menu-surface--anchor">

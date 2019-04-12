@@ -8,7 +8,7 @@ import { ListItem, ListSeparator } from '../../interface';
 })
 export class ListCheckboxExample {
     @State()
-    private allItems: Array<ListItem | ListSeparator> = [
+    private items: Array<ListItem | ListSeparator> = [
         { text: 'Pikachu', value: 1, selected: true },
         { text: 'Charmander', value: 2, selected: false, disabled: true },
         { text: 'Super Mario', value: 3, selected: false },
@@ -22,7 +22,7 @@ export class ListCheckboxExample {
     private selectedItems: Array<ListItem | ListSeparator> = [];
 
     constructor() {
-        this.selectedItems = this.allItems.filter((item: ListItem) => {
+        this.selectedItems = this.items.filter((item: ListItem) => {
             return !!item.selected;
         });
         this.handleChange = this.handleChange.bind(this);
@@ -32,9 +32,8 @@ export class ListCheckboxExample {
         return [
             <limel-list
                 onChange={this.handleChange}
-                selectable={true}
-                items={this.allItems}
-                multiple={true}
+                items={this.items}
+                type="checkbox"
             />,
             <p>
                 Value: <code>{JSON.stringify(this.selectedItems)}</code>
@@ -44,7 +43,7 @@ export class ListCheckboxExample {
 
     private handleChange(event: CustomEvent<ListItem[]>) {
         this.selectedItems = event.detail;
-        this.allItems = this.allItems.map((item: ListItem) => {
+        this.items = this.items.map((item: ListItem) => {
             const selected = !!event.detail.find((selectedItem: ListItem) => {
                 return selectedItem.value === item.value;
             });
