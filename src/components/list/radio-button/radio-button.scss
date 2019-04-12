@@ -1,0 +1,12 @@
+@import '../../../style/variables';
+
+ @import '@lime-material-16px/form-field/mdc-form-field';
+@import '@lime-material-16px/radio/mdc-radio';
+
+ .mdc-form-field {
+    display: flex;
+
+     .mdc-radio {
+        @include mdc-radio-ink-color(primary);
+    }
+}
