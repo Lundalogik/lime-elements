@@ -156,8 +156,7 @@ export const MenuSelectTemplate: FunctionalComponent<
             >
                 <limel-list
                     items={items}
-                    selectable={true}
-                    multiple={props.multiple}
+                    type={props.multiple ? 'checkbox' : 'selectable'}
                     onKeyDown={handleListKeys}
                     onKeyUp={handleListKeys}
                     onChange={props.onChange}
