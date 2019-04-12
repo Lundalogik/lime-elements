@@ -1,14 +1,13 @@
 import { ListItem, ListSeparator } from '../../interface';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { ListRendererConfig } from './list-renderer-config';
+import { RadioButtonTemplate } from './radio-button/radio-button.template';
 
 export class ListRenderer {
     private defaultConfig: ListRendererConfig = {
         isMenu: false,
         isOpen: true,
-        selectable: false,
         badgeIcons: false,
-        multiple: false,
     };
 
     private hasIcons: boolean;
@@ -29,21 +28,30 @@ export class ListRenderer {
         });
 
         const badgeIcons = config.badgeIcons && this.hasIcons;
+        const selectableListTypes = ['selectable', 'radio', 'checkbox'];
 
-        let role = config.selectable && config.multiple ? 'group' : null;
-        if (!role) {
-            role = config.isMenu ? 'menu' : 'listbox';
+        let role;
+        switch (config.type) {
+            case 'checkbox':
+                role = 'group';
+                break;
+            case 'radio':
+                role = 'radiogroup';
+                break;
+            default:
+                role = config.isMenu ? 'menu' : 'listbox';
         }
+
+        const classNames = {
+            'mdc-list': true,
+            'mdc-list--two-line': twoLines,
+            selectable: selectableListTypes.includes(config.type),
+            'mdc-list--avatar-list': badgeIcons,
+        };
 
         return (
             <ul
-                class={`
-                    mdc-list
-                    ${twoLines ? 'mdc-list--two-line' : ''}
-                    ${config.isMenu ? 'mdc-menu__items' : ''}
-                    ${config.selectable ? 'selectable' : ''}
-                    ${badgeIcons ? 'mdc-list--avatar-list' : ''}
-                `}
+                class={classNames}
                 aria-hidden={(!config.isOpen).toString()}
                 role={role}
                 aria-orientation="vertical"
@@ -71,18 +79,20 @@ export class ListRenderer {
             return <li class="mdc-list-divider" role="separator" />;
         }
 
-        if (config.selectable && config.multiple) {
-            return this.renderCheckboxListItem(config, item, index);
+        if (['radio', 'checkbox'].includes(config.type)) {
+            return this.renderVariantListItem(config, item, index);
         }
+
+        const classNames = {
+            'mdc-list-item': true,
+            'mdc-list-item--disabled': item.disabled,
+            'mdc-list-item__text': !item.secondaryText,
+            'mdc-list-item--selected': item.selected,
+        };
 
         return (
             <li
-                class={`
-                    mdc-list-item
-                    ${item.disabled ? 'mdc-list-item--disabled' : ''}
-                    ${!item.secondaryText ? 'mdc-list-item__text' : ''}
-                    ${item.selected ? 'mdc-list-item--selected' : ''}
-                `}
+                class={classNames}
                 role={config.isMenu ? 'menuitem' : ''}
                 tabindex={item.disabled ? '-1' : '0'}
                 aria-disabled={item.disabled ? 'true' : 'false'}
@@ -145,55 +155,64 @@ export class ListRenderer {
         );
     }
 
-    private renderCheckboxListItem(
+    private renderVariantListItem(
         config: ListRendererConfig,
         item: ListItem,
         index: number
     ) {
-        return (
-            <li
-                class={`
-                    mdc-list-item
-                    ${item.disabled ? 'mdc-list-item--disabled' : ''}
-                    ${!item.secondaryText ? 'mdc-list-item__text' : ''}
-                `}
-                role="checkbox"
-                aria-checked={item.selected ? 'true' : 'false'}
-                tabindex={item.disabled ? '-1' : '0'}
-                aria-disabled={item.disabled ? 'true' : 'false'}
-                data-index={index}
-            >
-                {this.renderCheckboxListItemContent(config, item, index)}
-            </li>
-        );
-    }
-
-    private renderCheckboxListItemContent(
-        config: ListRendererConfig,
-        item: ListItem,
-        index: number
-    ) {
-        if (this.hasIcons) {
-            return [
-                item.icon ? this.renderIcon(config, item) : null,
-                this.renderText(item.text, item.secondaryText),
-                <div class="mdc-list-item__meta">
-                    <CheckboxTemplate
-                        id={`c_${index}`}
-                        checked={item.selected}
-                        disabled={item.disabled}
-                    />
-                </div>,
-            ];
-        }
-        return [
-            <div class="mdc-list-item__graphic">
+        let itemTemplate;
+        if (config.type === 'radio') {
+            itemTemplate = (
+                <RadioButtonTemplate
+                    id={`c_${index}`}
+                    checked={item.selected}
+                    disabled={item.disabled}
+                />
+            );
+        } else if (config.type === 'checkbox') {
+            itemTemplate = (
                 <CheckboxTemplate
                     id={`c_${index}`}
                     checked={item.selected}
                     disabled={item.disabled}
                 />
-            </div>,
+            );
+        }
+
+        const classNames = {
+            'mdc-list-item': true,
+            'mdc-list-item--disabled': item.disabled,
+            'mdc-list-item__text': !item.secondaryText,
+        };
+
+        return (
+            <li
+                class={classNames}
+                role={config.type}
+                aria-checked={item.selected ? 'true' : 'false'}
+                tabindex={item.disabled ? '-1' : '0'}
+                aria-disabled={item.disabled ? 'true' : 'false'}
+                data-index={index}
+            >
+                {this.renderVariantListItemContent(config, item, itemTemplate)}
+            </li>
+        );
+    }
+
+    private renderVariantListItemContent(
+        config: ListRendererConfig,
+        item: ListItem,
+        itemTemplate: any
+    ) {
+        if (this.hasIcons) {
+            return [
+                item.icon ? this.renderIcon(config, item) : null,
+                this.renderText(item.text, item.secondaryText),
+                <div class="mdc-list-item__meta">{itemTemplate}</div>,
+            ];
+        }
+        return [
+            <div class="mdc-list-item__graphic">{itemTemplate}</div>,
             this.renderText(item.text, item.secondaryText),
         ];
     }

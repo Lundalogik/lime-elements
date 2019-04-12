@@ -1,8 +1,19 @@
 import { MDCList, MDCListActionEvent } from '@lime-material-16px/list';
-import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
+import { strings } from '@lime-material-16px/list/constants';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Prop,
+    Watch,
+} from '@stencil/core';
 import { ListItem, ListSeparator } from '../../interface';
 import { ListRenderer } from './list-renderer';
 import { ListRendererConfig } from './list-renderer-config';
+import { ListType } from './list.types';
+
+const { ACTION_EVENT } = strings;
 
 @Component({
     tag: 'limel-list',
@@ -17,29 +28,28 @@ export class List {
     public items: Array<ListItem | ListSeparator>;
 
     /**
-     * True if the items in the list should be selectable/clickable
-     */
-    @Prop()
-    public selectable: boolean;
-
-    /**
-     * True if the list should display larger icons with a background
+     * Set to `true` if the list should display larger icons with a background
      */
     @Prop()
     public badgeIcons: boolean;
 
     /**
-     * True if it should be possible to select multiple items
+     * The type of the list, omit to get a regular list. Available types are:
+     * `selectable`: regular list with single selection.
+     * `radio`: radio button list with single selection.
+     * `checkbox`: checkbox list with multiple selection.
      */
     @Prop()
-    public multiple: boolean;
+    public type: ListType;
 
     @Element()
     private element: HTMLElement;
 
-    private mdcList: MDCList;
-    private listRenderer = new ListRenderer();
     private config: ListRendererConfig;
+    private listRenderer = new ListRenderer();
+    private mdcList: MDCList;
+    private multiple: boolean;
+    private selectable: boolean;
 
     /**
      * Fired when a new value has been selected from the list. Only fired if selectable is set to true
@@ -56,17 +66,12 @@ export class List {
             this.element.shadowRoot.querySelector('.mdc-list')
         );
 
-        if (!this.selectable) {
-            return;
-        }
-
-        this.mdcList.listen('MDCList:action', this.handleAction);
-        this.mdcList.singleSelection = !this.multiple;
+        this.handleType();
     }
 
     public componentDidUnload() {
         if (this.selectable) {
-            this.mdcList.unlisten('MDCList:action', this.handleAction);
+            this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
         }
 
         this.mdcList.destroy();
@@ -74,11 +79,27 @@ export class List {
 
     public render() {
         this.config = {
-            selectable: this.selectable,
             badgeIcons: this.badgeIcons,
-            multiple: this.multiple,
+            type: this.type,
         };
         return this.listRenderer.render(this.items, this.config);
+    }
+
+    @Watch('type')
+    protected handleType() {
+        this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
+
+        this.selectable = ['selectable', 'radio', 'checkbox'].includes(
+            this.type
+        );
+        this.multiple = this.type === 'checkbox';
+
+        if (!this.selectable) {
+            return;
+        }
+
+        this.mdcList.listen(ACTION_EVENT, this.handleAction);
+        this.mdcList.singleSelection = !this.multiple;
     }
 
     private handleAction(event: MDCListActionEvent) {
@@ -99,6 +120,9 @@ export class List {
         });
 
         if (selectedItem) {
+            if (this.type === 'radio' && listItems[index] === selectedItem) {
+                return;
+            }
             this.change.emit({ ...selectedItem, selected: false });
         }
 

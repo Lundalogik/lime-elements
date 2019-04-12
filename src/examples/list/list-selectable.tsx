@@ -24,7 +24,7 @@ export class SelectableListExample {
         return (
             <limel-list
                 onChange={this.handleChange}
-                selectable={true}
+                type="selectable"
                 items={this.items}
             />
         );
