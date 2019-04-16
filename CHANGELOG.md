@@ -1,3 +1,10 @@
+## [20.1.1](https://github.com/Lundalogik/lime-elements/compare/v20.1.0...v20.1.1) (2019-04-16)
+
+
+### Bug Fixes
+
+* **limel-file:** change event contains file ([4c51b40](https://github.com/Lundalogik/lime-elements/commit/4c51b40)), closes [#355](https://github.com/Lundalogik/lime-elements/issues/355)
+
 # [20.1.0](https://github.com/Lundalogik/lime-elements/compare/v20.0.1...v20.1.0) (2019-04-10)
 
 
