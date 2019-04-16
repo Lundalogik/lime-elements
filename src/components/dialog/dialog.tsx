@@ -10,6 +10,7 @@ import {
 import * as focusTrap from 'focus-trap';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
+import { DialogHeading } from './dialog.types';
 
 @Component({
     tag: 'limel-dialog',
@@ -20,8 +21,8 @@ export class Dialog {
     /**
      * The heading for the dialog, if any.
      */
-    @Prop({ reflectToAttr: true })
-    public heading: string;
+    @Prop()
+    public heading: string | DialogHeading;
 
     /**
      * Set to `true` to make the dialog "fullscreen".
@@ -181,10 +182,52 @@ export class Dialog {
         this.closing.emit();
     }
 
+    private isBadgeHeading(
+        heading: string | DialogHeading
+    ): heading is DialogHeading {
+        return typeof heading === 'object' && !!heading.title && !!heading.icon;
+    }
+
     private renderHeading() {
-        if (this.heading) {
+        if (this.isBadgeHeading(this.heading)) {
+            const {
+                title,
+                subtitle,
+                supportingText,
+                icon,
+                badgeIcon,
+            } = this.heading;
+
+            return (
+                <div class="dialog__heading">
+                    <limel-icon
+                        size="large"
+                        name={icon}
+                        badge={badgeIcon !== false}
+                    />
+                    <div>
+                        {
+                            <h2 class="mdc-typography--headline2 dialog__title">
+                                {title}
+                            </h2>
+                        }
+                        {subtitle ? (
+                            <h3 class="mdc-typography--subtitle1 dialog__subtitle">
+                                {subtitle}
+                            </h3>
+                        ) : null}
+                        {supportingText ? (
+                            <h3 class="mdc-typography--subtitle1 dialog__supporting-text">
+                                {supportingText}
+                            </h3>
+                        ) : null}
+                    </div>
+                </div>
+            );
+        } else if (this.heading) {
             return <h2 class="mdc-dialog__title">{this.heading.trim()}</h2>;
         }
+
         return null;
     }
 }

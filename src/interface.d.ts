@@ -6,3 +6,4 @@ export * from './components/picker/searcher.types';
 export * from './components/icon/icon.types';
 export * from './components/spinner/spinner.types';
 export * from './components/flex-container/flex-container.types';
+export * from './components/dialog/dialog.types';
