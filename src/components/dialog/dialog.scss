@@ -7,6 +7,11 @@ $mdc-dialog-max-height: false;
 /**
  * @prop --dialog-width: Width of the dialog.
  * @prop --dialog-height: Height of the dialog.
+ * @prop --dialog-heading-title-color: Color of the title.
+ * @prop --dialog-heading-subtitle-color: Color of the subtitle.
+ * @prop --dialog-heading-supporting-text-color: Color of the supporting text.
+ * @prop --dialog-heading-icon-color: Color of the icon.
+ * @prop --dialog-heading-icon-background-color: Background color of the icon when displayed as a badge.
  */
 
 slot[name="header"] {
@@ -31,6 +36,47 @@ slot[name="header"] {
             max-height: inherit;
             border: 0;
             overflow: auto;
+        }
+    }
+
+    .mdc-dialog__title {
+        font-size: pxToRem(16);
+        line-height: 1.4;
+        margin: 0;
+        font-weight: 500;
+        font-style: normal;
+        color: var(--dialog-heading-title-color, #{$mdc-theme-text-primary-on-background});
+    }
+
+    .dialog__heading {
+        display: flex;
+        align-items: center;
+        margin: pxToRem(30) pxToRem(24) pxToRem(5);
+
+        limel-icon {
+            margin-right: pxToRem(15);
+            color: var(--dialog-heading-icon-color, #{$mdc-theme-secondary});
+
+            &[badge] {
+                background-color: var(--dialog-heading-icon-background-color, #{$mdc-theme-secondary});
+                color: var(--dialog-heading-icon-color, #{$mdc-theme-on-secondary});
+            }
+        }
+
+        .dialog__title {
+            font-weight: 500;
+            margin: 0;
+            color: var(--dialog-heading-title-color, #{$mdc-theme-text-primary-on-background});
+        }
+
+        .dialog__subtitle {
+            margin: 0;
+            color: var(--dialog-heading-subtitle-color, #{$mdc-theme-text-secondary-on-background});
+        }
+
+        .dialog__supporting-text {
+            margin: 0;
+            color: var(--dialog-heading-supporting-text-color, #{$mdc-theme-text-secondary-on-background});
         }
     }
 }
