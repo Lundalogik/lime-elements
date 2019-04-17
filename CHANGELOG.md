@@ -1,3 +1,15 @@
+# [20.2.0](https://github.com/Lundalogik/lime-elements/compare/v20.1.1...v20.2.0) (2019-04-17)
+
+
+### Bug Fixes
+
+* **index.html:** add Roboto font ([d2a388b](https://github.com/Lundalogik/lime-elements/commit/d2a388b))
+
+
+### Features
+
+* **dialog:** add support for icon badge in header ([647d3fd](https://github.com/Lundalogik/lime-elements/commit/647d3fd)), closes [Lundalogik/crm-feature#698](https://github.com/Lundalogik/crm-feature/issues/698)
+
 ## [20.1.1](https://github.com/Lundalogik/lime-elements/compare/v20.1.0...v20.1.1) (2019-04-16)
 
 
