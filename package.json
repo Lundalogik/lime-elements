@@ -48,7 +48,7 @@
     "chart.js": "^2.8.0",
     "flatpickr": "4.5.5-lime2",
     "jsx-dom": "^6.3.1",
-    "lime-material-components-web-16px": "^1.1.0",
+    "lime-material-components-web-16px": "^1.1.1",
     "moment": "^2.24.0",
     "static-server": "^2.2.1"
   },
