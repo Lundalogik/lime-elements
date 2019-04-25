@@ -1,3 +1,17 @@
+# [21.0.0](https://github.com/Lundalogik/lime-elements/compare/v20.2.0...v21.0.0) (2019-04-25)
+
+
+### Features
+
+* **list:** adds list type property ([3b4d5fc](https://github.com/Lundalogik/lime-elements/commit/3b4d5fc)), closes [#133](https://github.com/Lundalogik/lime-elements/issues/133)
+* **radio-button:** adds radio button to be used in lists ([99dfb71](https://github.com/Lundalogik/lime-elements/commit/99dfb71))
+
+
+### BREAKING CHANGES
+
+* **list:** Removes selectable and multiple properties and adds type property.
+With the type property it's now also possible to have radio button lists.
+
 # [20.2.0](https://github.com/Lundalogik/lime-elements/compare/v20.1.1...v20.2.0) (2019-04-17)
 
 
