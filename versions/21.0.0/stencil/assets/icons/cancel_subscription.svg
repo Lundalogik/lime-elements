@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<rect x="12" y="9" style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" width="10" height="3"/>
+<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="16" y1="15" x2="11" y2="15"/>
+<g>
+	<path d="M23,14h-5v2h0.025c1.418-1.062,3.119-1.764,4.975-1.949V14z"/>
+	<path d="M14,24H6v2h8.208C14.075,25.352,14,24.684,14,24z"/>
+	<path d="M9,6h16v8.051c0.69,0.069,1.358,0.208,2,0.411V4H7v8h2V6z"/>
+	<path d="M11,19h4.353c0.197-0.339,0.413-0.663,0.647-0.975V17h-5V19z"/>
+	<path d="M11,22h3.202c0.142-0.696,0.36-1.364,0.639-2H11V22z"/>
+</g>
+<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M6,25L6,25c-1.1,0-2-0.9-2-2V11h4v12
+	C8,24.1,7.1,25,6,25z"/>
+<circle style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" cx="24" cy="24" r="7"/>
+<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="29" y1="19" x2="19" y2="29"/>
+</svg>
