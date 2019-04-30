@@ -155,6 +155,10 @@ export class Dialog {
             return;
         }
 
+        if (!this.mdcDialog) {
+            return;
+        }
+
         if (newValue) {
             this.mdcDialog.open();
         } else {
@@ -224,7 +228,7 @@ export class Dialog {
                     </div>
                 </div>
             );
-        } else if (this.heading) {
+        } else if (typeof this.heading === 'string') {
             return <h2 class="mdc-dialog__title">{this.heading.trim()}</h2>;
         }
 
