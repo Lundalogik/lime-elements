@@ -1,3 +1,10 @@
+## [21.0.1](https://github.com/Lundalogik/lime-elements/compare/v21.0.0...v21.0.1) (2019-04-30)
+
+
+### Bug Fixes
+
+* **dialog:** minor fixes ([468e3fc](https://github.com/Lundalogik/lime-elements/commit/468e3fc))
+
 # [21.0.0](https://github.com/Lundalogik/lime-elements/compare/v20.2.0...v21.0.0) (2019-04-25)
 
 
