@@ -95,6 +95,7 @@ export class DatePicker {
 
     private picker: Picker;
 
+    private container: HTMLElement;
     private input: HTMLElement;
 
     constructor() {
@@ -169,11 +170,9 @@ export class DatePicker {
             'limel-input-field'
         );
         this.input = textfield.shadowRoot.querySelector('input');
-        const container: HTMLElement = this.host.shadowRoot.querySelector(
-            '.container'
-        );
+        this.container = this.host.shadowRoot.querySelector('.container');
 
-        this.picker.init(this.input, container, this.value);
+        this.picker.init(this.input, this.container, this.value);
         this.formattedValue = this.picker.formatDate(this.value);
     }
 
@@ -198,7 +197,7 @@ export class DatePicker {
 
     @Listen('window:resize')
     public resizeEvent() {
-        this.picker.redraw();
+        this.picker.init(this.input, this.container, this.value);
     }
 
     private handleChange(event) {
