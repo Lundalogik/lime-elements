@@ -1,3 +1,10 @@
+## [21.0.2](https://github.com/Lundalogik/lime-elements/compare/v21.0.1...v21.0.2) (2019-05-08)
+
+
+### Bug Fixes
+
+* **select:** use correct color for the bottom line ([d40100f](https://github.com/Lundalogik/lime-elements/commit/d40100f))
+
 ## [21.0.1](https://github.com/Lundalogik/lime-elements/compare/v21.0.0...v21.0.1) (2019-04-30)
 
 
