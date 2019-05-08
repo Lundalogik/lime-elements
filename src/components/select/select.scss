@@ -24,7 +24,7 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
     outline: none;
     background-color: transparent;
     white-space: nowrap;
-    border-bottom-color: rgba(0,0,0,.42);
+    border-bottom-color: $lime-text-field-bottom-line-color;
 }
 
 .mdc-select {
