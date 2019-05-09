@@ -1,3 +1,10 @@
+## [21.0.3](https://github.com/Lundalogik/lime-elements/compare/v21.0.2...v21.0.3) (2019-05-09)
+
+
+### Bug Fixes
+
+* **select:** increase z-index of scrim ([14e3b55](https://github.com/Lundalogik/lime-elements/commit/14e3b55))
+
 ## [21.0.2](https://github.com/Lundalogik/lime-elements/compare/v21.0.1...v21.0.2) (2019-05-08)
 
 
