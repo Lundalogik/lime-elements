@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<g>
+	<path d="M24,6c0,0.633,0,1.267,0,1.9l0.001,0c0.364,0,0.677-0.104,0.999-0.319V7.55V21l-5,5H7V7.555L6.946,7.581
+		C7.268,7.795,7.634,7.9,8,7.9c0.49,0,0.977-0.189,1.344-0.557L10,6.687l0.657,0.656C11.013,7.7,11.496,7.9,12,7.9
+		s0.987-0.2,1.344-0.557L14,6.687l0.657,0.657C15.028,7.715,15.514,7.9,16,7.9s0.973-0.186,1.343-0.557L18,6.688l0.656,0.656
+		C19.012,7.7,19.495,7.9,19.999,7.9c0.504,0,0.987-0.2,1.344-0.557l0.656-0.656l0.658,0.657C23.027,7.715,23.514,7.9,24,7.9
+		C24,7.267,24,6.633,24,6l-2.001-2l-2,2L18,4l-2,2l-2.001-2L12,6l-2-2L8,6L5,4l0.05,23.138C5,27.637,5.359,28,5.8,28h14.4l6.8-7V4
+		L24,6z"/>
+</g>
+<polygon points="20,27 20,21 26,21 "/>
+<rect x="8" y="9" width="16" height="2"/>
+<rect x="19" y="13" width="5" height="1"/>
+<rect x="19" y="15" width="5" height="1"/>
+<rect x="19" y="17" width="5" height="1"/>
+<rect x="19" y="19" width="5" height="1"/>
+<rect x="19" y="21" width="5" height="1"/>
+<rect x="19" y="23" width="4" height="1"/>
+<rect x="8" y="23" width="9" height="1"/>
+<g>
+	<rect x="11" y="16" width="1" height="3"/>
+	<polygon points="15,19 15,18 13,18 12,19 	"/>
+	<path d="M8,13v9h9v-9H8z M14,17h1h1v1v1l-1,1h-4l-1-1v-3l1-1v1l1-1h3l1,1h-3v2L14,17z"/>
+</g>
+</svg>
