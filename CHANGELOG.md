@@ -1,3 +1,10 @@
+## [21.0.4](https://github.com/Lundalogik/lime-elements/compare/v21.0.3...v21.0.4) (2019-05-14)
+
+
+### Bug Fixes
+
+* **list:** remove black hover over list item with checkbox ([cbb4d34](https://github.com/Lundalogik/lime-elements/commit/cbb4d34)), closes [#364](https://github.com/Lundalogik/lime-elements/issues/364)
+
 ## [21.0.3](https://github.com/Lundalogik/lime-elements/compare/v21.0.2...v21.0.3) (2019-05-09)
 
 
