@@ -1,0 +1,41 @@
+:host(limel-example-dialog-heading) {
+    --dialog-width: 700px;
+    --dialog-height: 650px;
+    --dialog-heading-supporting-text-color: #b00020;
+
+    limel-dialog.company {
+        --dialog-heading-icon-color: var(--lime-blue);
+
+        &.badge {
+            --dialog-heading-icon-background-color: var(--lime-blue);
+        }
+    }
+
+    limel-dialog.person {
+        --dialog-heading-icon-color: var(--lime-orange);
+
+        &.badge {
+            --dialog-heading-icon-background-color: var(--lime-orange);
+        }
+    }
+
+    limel-dialog.deal {
+        --dialog-heading-icon-color: var(--lime-green);
+
+        &.badge {
+            --dialog-heading-icon-background-color: var(--lime-green);
+        }
+    }
+
+    limel-dialog.todo {
+        --dialog-heading-icon-color: var(--lime-turquoise);
+
+        &.badge {
+            --dialog-heading-icon-background-color: var(--lime-turquoise);
+        }
+    }
+
+    limel-dialog.badge {
+        --dialog-heading-icon-color: white;
+    }
+}

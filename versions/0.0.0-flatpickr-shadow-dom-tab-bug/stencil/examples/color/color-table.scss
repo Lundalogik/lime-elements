@@ -1,0 +1,20 @@
+@import '../../style/functions';
+
+.grid {
+    display: grid;
+    grid-template-columns: pxToRem(250) pxToRem(250) pxToRem(250);
+    grid-template-rows: pxToRem(150) pxToRem(150) pxToRem(150) pxToRem(150);
+    grid-gap: pxToRem(10);
+}
+
+.tile {
+    color: white;
+    text-align: center;
+    line-height: pxToRem(150);
+    border-radius: pxToRem(3);
+
+    pre {
+        margin: 0;
+        padding: 0;
+    }
+}
