@@ -28,11 +28,8 @@
                 return +b[2] - +a[2];
             }
         });
-
+        createLink(`versions/latest/`, 'Latest');
         window.versions.forEach(function(version, index) {
-            if (index === 0) {
-                createLink(`versions/${version}/`, 'Latest');
-            }
             createLink(`versions/${version}/`, version);
         });
 
