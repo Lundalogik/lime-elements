@@ -195,13 +195,30 @@ function remove(pattern) {
 function updateVersionList() {
     shell.cd('docsDist');
 
-    const files = fs.readdirSync('versions');
+    const files = fs.readdirSync('versions').filter(file => file !== 'latest');
     fs.writeFileSync(
         'versions.js',
         `window.versions = ${JSON.stringify(files)};`
     );
 
     shell.cd('..');
+
+    createLatestSymlink(files[files.length - 1]);
+}
+
+function createLatestSymlink(folder) {
+    shell.cd('docsDist/versions');
+
+    if (
+        shell.ln('-sf', `${folder}`, 'latest').code !==
+        0
+    ) {
+        shell.echo('Creating latest-symlink failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    shell.cd('../..');
 }
 
 function commit(message) {
