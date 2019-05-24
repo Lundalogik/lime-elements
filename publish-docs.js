@@ -26,7 +26,7 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     --v             The version number for this release of the documentation.
                     Defaults to '0.0.0-dev'.
     --remove        Removes all versions matching the given filename-pattern.
-    --pruneDev      Alias for --removeSpecific=0.0.0-dev*
+    --pruneDev      Alias for --remove=0.0.0-dev*
     --noSetup       Run no setup. Only use this if you have previously run the setup step
                     without running the teardown step afterward.
     --noBuild       Do not build the documentation.
