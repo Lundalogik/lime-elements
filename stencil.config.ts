@@ -5,7 +5,7 @@ import { sass } from '@stencil/sass';
 const targetWww: OutputTargetWww = {
     type: 'www',
     serviceWorker: null,
-    dir: '.docz/public/stencil',
+    dir: '.docz/dist/stencil',
     copy: [
         { src: 'dev-assets' },
         { src: 'examples/**/*.tsx' },
@@ -15,9 +15,16 @@ const targetWww: OutputTargetWww = {
 };
 
 export const config: Config = {
+    hashFileNames: false,
     namespace: 'lime-elements',
     outputTargets: [targetWww],
     plugins: [sass()],
+    excludeSrc: [
+        '**/test/**',
+        '**/*.spec.*',
+        '**/*.e2e.*',
+        '**/*.test-wrapper.*',
+    ],
     tsconfig: './tsconfig.dev.json',
     globalStyle: 'src/global/colors.scss',
 };

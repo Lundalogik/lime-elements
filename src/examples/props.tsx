@@ -1,7 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import * as showdown from 'showdown';
 
-const BASE_URL = '/lime-elements/';
+const BASE_URL = '/';
 
 @Component({
     tag: 'limel-props',
@@ -23,7 +23,6 @@ export class Props {
     public componentWillLoad() {
         const type = this.name.replace('limel-', '');
         const url = `${BASE_URL}stencil/components/${type}/readme.md`;
-
         this.fetchData(url).then(data => {
             this.propsTableHtml = this.converter.makeHtml(data);
         });
@@ -46,11 +45,6 @@ export class Props {
     }
 
     private stripBuiltWithStencilLine(data) {
-        return data.replace(
-            `----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*`,
-            ''
-        );
+        return data.substring(0, data.indexOf('## Dependencies'));
     }
 }
