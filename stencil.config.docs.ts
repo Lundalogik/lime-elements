@@ -6,7 +6,7 @@ const targetWww: OutputTargetWww = {
     type: 'www',
     serviceWorker: null,
     dir: '.docz/dist/stencil',
-    baseUrl: '/lime-elements/',
+    baseUrl: '/',
     copy: [
         { src: 'dev-assets' },
         { src: 'examples/**/*.tsx' },
@@ -20,5 +20,11 @@ export const config: Config = {
     namespace: 'lime-elements',
     outputTargets: [targetWww],
     plugins: [sass()],
+    excludeSrc: [
+        '**/test/**',
+        '**/*.spec.*',
+        '**/*.e2e.*',
+        '**/*.test-wrapper.*',
+    ],
     globalStyle: 'src/global/colors.scss',
 };
