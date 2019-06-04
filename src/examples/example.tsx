@@ -4,7 +4,7 @@ import 'prismjs/components/prism-jsx.js'; // tslint:disable-line:no-submodule-im
 import 'prismjs/components/prism-scss.js'; // tslint:disable-line:no-submodule-imports
 import 'prismjs/components/prism-tsx.js'; // tslint:disable-line:no-submodule-imports
 
-const BASE_URL = '/lime-elements/';
+const BASE_URL = '/';
 
 @Component({
     tag: 'limel-example',
@@ -37,9 +37,7 @@ export class Example {
 
             const styleUrlMatch = tsxData.match(/styleUrl: '(.*)'/);
             if (styleUrlMatch) {
-                const scssUrl = `${BASE_URL}stencil/examples/${path}/${
-                    styleUrlMatch[1]
-                }`;
+                const scssUrl = `${BASE_URL}stencil/examples/${path}/${styleUrlMatch[1]}`;
                 this.fetchData(scssUrl).then(scssData => {
                     this.scssCode = prism.highlight(
                         scssData,
