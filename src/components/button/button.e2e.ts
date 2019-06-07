@@ -9,7 +9,7 @@ import { newE2EPage } from '@stencil/core/testing';
 // Matchers (expect-methods) for E2EElement (v0.13.0-9):
 // https://github.com/ionic-team/stencil/blob/a0250ffcbf5a2c657475a05052eac3a4690809d2/src/declarations/testing.ts#L5
 
-describe('limel-button', async () => {
+describe('limel-button', () => {
     let page;
     describe('with a label', () => {
         let limelButton;

@@ -1,7 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 import { ListItem, ListSeparator } from '../../interface';
 
-describe('limel-list', async () => {
+describe('limel-list', () => {
     let page;
     let limelList;
     let innerList;
