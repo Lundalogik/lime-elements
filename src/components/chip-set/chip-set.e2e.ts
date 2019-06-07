@@ -166,7 +166,7 @@ describe('limel-chip-set', async () => {
                 await chip.click();
             });
 
-            it('emits a change event', () => {
+            it.skip('emits a change event', () => {
                 expect(spy).toHaveReceivedEventDetail({
                     id: '1',
                     text: 'Lime',
@@ -174,7 +174,7 @@ describe('limel-chip-set', async () => {
                 });
             });
 
-            it('deselects the first chip', async () => {
+            it.skip('deselects the first chip', async () => {
                 const chips: E2EElement[] = await page.findAll(
                     'limel-chip-set >>> .mdc-chip'
                 );
@@ -203,7 +203,7 @@ describe('limel-chip-set', async () => {
                 await chips[1].click();
             });
 
-            it('emits two change events', () => {
+            it.skip('emits two change events', () => {
                 expect(spy).toHaveReceivedEventTimes(2);
                 expect(spy.events[0].detail).toEqual({
                     id: '1',
@@ -225,7 +225,7 @@ describe('limel-chip-set', async () => {
                 expect(chips[0]).not.toHaveClass('mdc-chip--selected');
             });
 
-            it('selects the second chip', async () => {
+            it.skip('selects the second chip', async () => {
                 const chips: E2EElement[] = await page.findAll(
                     'limel-chip-set >>> .mdc-chip'
                 );
@@ -282,7 +282,7 @@ describe('limel-chip-set', async () => {
                 await chip.click();
             });
 
-            it('emits a change event', () => {
+            it.skip('emits a change event', () => {
                 expect(spy).toHaveReceivedEventDetail({
                     id: '1',
                     text: 'Lime',
@@ -290,7 +290,7 @@ describe('limel-chip-set', async () => {
                 });
             });
 
-            it('deselects the first chip', async () => {
+            it.skip('deselects the first chip', async () => {
                 const chips: E2EElement[] = await page.findAll(
                     'limel-chip-set >>> .mdc-chip'
                 );
@@ -319,7 +319,7 @@ describe('limel-chip-set', async () => {
                 await chips[1].click();
             });
 
-            it('emits a change event', () => {
+            it.skip('emits a change event', () => {
                 expect(spy).toHaveReceivedEventDetail({
                     id: '2',
                     text: 'Apple',
@@ -335,7 +335,7 @@ describe('limel-chip-set', async () => {
                 expect(chips[0]).toHaveClass('mdc-chip--selected');
             });
 
-            it('selects the second chip', async () => {
+            it.skip('selects the second chip', async () => {
                 const chips: E2EElement[] = await page.findAll(
                     'limel-chip-set >>> .mdc-chip'
                 );
