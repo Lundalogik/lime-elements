@@ -1,6 +1,6 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
-describe('limel-chip-set', async () => {
+describe('limel-chip-set', () => {
     let page: E2EPage;
 
     describe('basic chip set', () => {
