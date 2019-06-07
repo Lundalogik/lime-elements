@@ -1,7 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 import { ListItem, ListSeparator } from '../list/list-item';
 
-describe('limel-menu', async () => {
+describe('limel-menu', () => {
     let page;
     let limelMenu;
     let menuAnchor;

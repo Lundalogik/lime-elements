@@ -1,6 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('limel-icon-button', async () => {
+describe('limel-icon-button', () => {
     let page;
     describe('smoke test', () => {
         let mdcIconButton;

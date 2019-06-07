@@ -1,6 +1,6 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
-describe('limel-snackbar', async () => {
+describe('limel-snackbar', () => {
     let page: E2EPage;
     let snackbar: E2EElement;
     let mdcSnackbar: E2EElement;
