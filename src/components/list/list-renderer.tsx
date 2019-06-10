@@ -48,6 +48,8 @@ export class ListRenderer {
             'mdc-list--two-line': twoLines,
             selectable: selectableListTypes.includes(config.type),
             'mdc-list--avatar-list': badgeIcons,
+            'list--compact':
+                twoLines && ['small', 'x-small'].includes(config.iconSize),
         };
 
         return (
@@ -151,7 +153,7 @@ export class ListRenderer {
                 class="mdc-list-item__graphic"
                 name={item.icon}
                 style={style}
-                size={config.isMenu ? 'small' : 'medium'}
+                size={config.iconSize}
             />
         );
     }
