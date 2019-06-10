@@ -6,3 +6,12 @@
 .mdc-button {
     @include mdc-button-ink-color($lime-blue);
 }
+
+.mdc-snackbar__actions {
+    limel-icon-button.mdc-snackbar__dismiss {
+        color: $mdc-theme-on-secondary;
+        width: auto;
+        height: auto;
+        padding: 0;
+    }
+}
