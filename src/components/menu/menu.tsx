@@ -90,6 +90,7 @@ export class Menu {
     public render() {
         const config: ListRendererConfig = {
             isMenu: true,
+            iconSize: 'small',
             isOpen: this.open,
             badgeIcons: this.badgeIcons,
             type: 'selectable',

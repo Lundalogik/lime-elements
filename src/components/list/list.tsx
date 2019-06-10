@@ -9,6 +9,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { ListItem, ListSeparator } from '../../interface';
+import { IconSize } from '../icon/icon.types';
 import { ListRenderer } from './list-renderer';
 import { ListRendererConfig } from './list-renderer-config';
 import { ListType } from './list.types';
@@ -32,6 +33,12 @@ export class List {
      */
     @Prop()
     public badgeIcons: boolean;
+
+    /**
+     * Size of the icons in the list
+     */
+    @Prop()
+    public iconSize: IconSize = 'medium';
 
     /**
      * The type of the list, omit to get a regular list. Available types are:
@@ -81,6 +88,7 @@ export class List {
         this.config = {
             badgeIcons: this.badgeIcons,
             type: this.type,
+            iconSize: this.iconSize,
         };
         return this.listRenderer.render(this.items, this.config);
     }
