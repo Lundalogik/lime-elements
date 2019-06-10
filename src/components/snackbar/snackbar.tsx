@@ -37,6 +37,12 @@ export class Snackbar {
     public actionText: string;
 
     /**
+     * True if the snackbar is dismissible, false otherwise
+     */
+    @Prop()
+    public dismissible: boolean;
+
+    /**
      * Whether to show the snackbar with space for multiple lines of text
      */
     @Prop()
@@ -105,7 +111,7 @@ export class Snackbar {
                     >
                         {this.message}
                     </div>
-                    {this.renderAction(this.actionText)}
+                    {this.renderActions(this.actionText, this.dismissible)}
                 </div>
             </div>
         );
@@ -119,18 +125,38 @@ export class Snackbar {
         }
     }
 
-    private renderAction(actionText) {
-        if (actionText) {
-            return (
-                <div class="mdc-snackbar__actions">
-                    <button
-                        type="button"
-                        class="mdc-button mdc-snackbar__action"
-                    >
-                        <span class="mdc-button__label">{actionText}</span>
-                    </button>
-                </div>
-            );
+    private renderActions(actionText: string, dismissible: boolean) {
+        if (!actionText && !dismissible) {
+            return;
         }
+
+        return (
+            <div class="mdc-snackbar__actions">
+                {this.renderActionButton(actionText)}
+                {this.renderDismissButton(dismissible)}
+            </div>
+        );
+    }
+
+    private renderActionButton(actionText: string) {
+        if (!actionText) {
+            return;
+        }
+
+        return (
+            <button type="button" class="mdc-button mdc-snackbar__action">
+                <span class="mdc-button__label">{actionText}</span>
+            </button>
+        );
+    }
+
+    private renderDismissButton(dismissible: boolean) {
+        if (!dismissible) {
+            return;
+        }
+
+        return (
+            <limel-icon-button class="mdc-snackbar__dismiss" icon="multiply" />
+        );
     }
 }

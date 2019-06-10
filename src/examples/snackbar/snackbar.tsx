@@ -1,4 +1,4 @@
-import { Component, Element, h } from '@stencil/core';
+import { Component, Element, h, State } from '@stencil/core';
 
 const SNACKBAR_TIMEOUT = 5000;
 
@@ -9,6 +9,9 @@ const SNACKBAR_TIMEOUT = 5000;
 export class PickerExample {
     @Element()
     private host: HTMLElement;
+
+    @State()
+    private dismissible = false;
 
     private triggerSnackbarWithoutAction: (event: MouseEvent) => void;
     private triggerSnackbarWithAction: (event: MouseEvent) => void;
@@ -22,10 +25,18 @@ export class PickerExample {
             this,
             'limel-snackbar:last-child'
         );
+        this.onChange = this.onChange.bind(this);
     }
 
     public render() {
         return [
+            <limel-checkbox
+                label="Dismissible"
+                checked={this.dismissible}
+                onChange={this.onChange}
+            />,
+            <br />,
+            <br />,
             <limel-button
                 primary={true}
                 label="Show snackbar"
@@ -40,13 +51,14 @@ export class PickerExample {
             />,
             <limel-snackbar
                 message="Please do not leave your luggage unattended! It might be taken away!"
-                multiline={true}
                 timeout={SNACKBAR_TIMEOUT}
+                dismissible={this.dismissible}
                 onHide={this.snackbarWithoutActionOnHide}
             />,
             <limel-snackbar
                 message="Your luggage has been taken away!"
                 actionText="Reclaim"
+                dismissible={this.dismissible}
                 onAction={this.snackbarOnAction}
                 onHide={this.snackbarWithActionOnHide}
             />,
@@ -70,5 +82,9 @@ export class PickerExample {
 
     private snackbarWithActionOnHide() {
         console.log('You were too late. Your luggage has been destroyed!');
+    }
+
+    private onChange(event: CustomEvent<boolean>) {
+        this.dismissible = event.detail;
     }
 }
