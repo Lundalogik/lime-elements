@@ -22,6 +22,11 @@ test:
 	@# Runs all frontend tests.
 	docker run --rm --cap-add=SYS_ADMIN -w /lime $(DOCKER_IMAGE) npm run test
 
+.PHONY: build_docs
+build_docs:
+	@# Builds the docs-app.
+	docker run --rm -w /lime $(DOCKER_IMAGE) npm run docz:build
+
 .PHONY: release_dry_run
 release_dry_run: BRANCH=''
 release_dry_run:
