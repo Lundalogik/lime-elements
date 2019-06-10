@@ -29,4 +29,14 @@
             color: white;
         }
     }
+
+    &.mdc-list--two-line.list--compact {
+        .mdc-list-item {
+            height: 4rem;
+
+            .mdc-list-item__text {
+                margin-top: pxToRem(-4);
+            }
+        }
+    }
 }
