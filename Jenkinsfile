@@ -78,8 +78,8 @@ pipeline {
                     } else if (env.BRANCH_NAME.substring(0,3) == 'PR-') {
                         echo 'On PR branch. Running release step in dry-run mode.'
                         sh "make release_dry_run BRANCH=${env.BRANCH_NAME}"
-                        echo 'Docs are not built in dry-run. Run separately.'
-                        sh 'make build_docs'
+                        // echo 'Docs are not built in dry-run. Run separately.'
+                        // sh 'make build_docs'
                     } else {
                         echo('Unknown branch type. Skipping release step.')
                     }
