@@ -1,6 +1,6 @@
+import flatpickr from '@limetech/flatpickr';
+import weekSelectPlugin from '@limetech/flatpickr/dist/plugins/weekSelect/weekSelect';
 import { EventEmitter } from '@stencil/core';
-import flatpickr from 'flatpickr';
-import weekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect';
 import { Picker } from './Picker';
 
 export class WeekPicker extends Picker {

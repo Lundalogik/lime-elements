@@ -1,5 +1,5 @@
+import flatpickr from '@limetech/flatpickr';
 import { EventEmitter } from '@stencil/core';
-import flatpickr from 'flatpickr';
 import { Picker } from './Picker';
 
 export class DatetimePicker extends Picker {
