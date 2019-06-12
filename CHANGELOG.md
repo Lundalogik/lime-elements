@@ -1,3 +1,19 @@
+# [22.0.0](https://github.com/Lundalogik/lime-elements/compare/v21.0.4...v22.0.0) (2019-06-12)
+
+
+### Build System
+
+* **package.json:** update @stencil/core ([097d81c](https://github.com/Lundalogik/lime-elements/commit/097d81c))
+
+
+### BREAKING CHANGES
+
+* **package.json:** **lime-elements** has been updated to use
+Stencil One. This makes it incompatible with any components
+built with older versions of Stencil. To upgrade to this
+version of **lime-elements**, also upgrade your own code to
+use Stencil One (v1.0.0 or later).
+
 ## [21.0.4](https://github.com/Lundalogik/lime-elements/compare/v21.0.3...v21.0.4) (2019-05-14)
 
 
