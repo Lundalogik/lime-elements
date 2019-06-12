@@ -1,5 +1,5 @@
+import flatpickr from '@limetech/flatpickr';
 import { EventEmitter } from '@stencil/core';
-import flatpickr from 'flatpickr';
 import { range } from 'lodash-es';
 import moment from 'moment/moment';
 import { Picker } from './Picker';
