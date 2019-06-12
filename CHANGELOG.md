@@ -1,3 +1,10 @@
+## [22.0.1](https://github.com/Lundalogik/lime-elements/compare/v22.0.0...v22.0.1) (2019-06-12)
+
+
+### Bug Fixes
+
+* **stencil:** use the 1.X version of @stencil/sass ([2625616](https://github.com/Lundalogik/lime-elements/commit/2625616))
+
 # [22.0.0](https://github.com/Lundalogik/lime-elements/compare/v21.0.4...v22.0.0) (2019-06-12)
 
 
