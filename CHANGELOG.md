@@ -1,3 +1,10 @@
+## [22.0.2](https://github.com/Lundalogik/lime-elements/compare/v22.0.1...v22.0.2) (2019-06-13)
+
+
+### Bug Fixes
+
+* **limel-icon:** undefined icons are not loaded ([dcabf2c](https://github.com/Lundalogik/lime-elements/commit/dcabf2c))
+
 ## [22.0.1](https://github.com/Lundalogik/lime-elements/compare/v22.0.0...v22.0.1) (2019-06-12)
 
 
