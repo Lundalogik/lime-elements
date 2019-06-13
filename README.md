@@ -4,9 +4,13 @@ This package will include basic components like buttons, loading-spinners, etcet
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-To start the dev-server, run `npm start`.
+To start the dev-server, run `npm run docz:dev`.
 
-To build the dist folder, run `npm run build`.
+To start the dev-server with a build-watcher, run `npm start`. Note that the build-watcher will rebuild the components when files are changed, but in order to update the documentation surrounding the components, you may need to restart the dev-server (press `ctrl-c` and run `npm start` again).
+
+To only start the server *without building anything*, run `npm run docz:serve`.
+
+To build the dist build, run `npm run build`.
 
 ## Requirements
 
