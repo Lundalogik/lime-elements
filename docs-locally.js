@@ -1,29 +1,34 @@
 const shell = require('shelljs');
+const argv = require('yargs').argv;
+
+const runServer = argv.noServe === undefined;
+
+const buildDev = !!argv.buildDev;
+const watch = !!argv.watch;
+
 const distDir = '.docz/dist';
 
-cleanOld();
-build();
-run();
-
-function cleanOld() {
-    shell.rm('-rf', distDir);
+if (buildDev) {
+    buildDevFn();
+}
+if (runServer) {
+    runServerFn();
 }
 
-function build() {
-    // dev-build required for the readme.md for
-    // each component to be created. /Ads
-    if (shell.exec('npm run dev').code !== 0) {
-        shell.echo('dev failed!');
-        shell.exit(1);
+function buildDevFn() {
+    if (!watch) {
+        shell.exec('npm run dev');
     }
 
-    if (shell.exec('npm run docz:build:dev').code !== 0) {
-        shell.echo('docz:build:dev failed!');
-        shell.exit(1);
+    shell.exec('npx docz build');
+
+    if (!watch) {
+        shell.mkdir('.docz/dist/stencil');
+        shell.cp('-R', '.tmp/*', '.docz/dist/stencil/');
     }
 }
 
-function run() {
+function runServerFn() {
     const httpServerPwa = require('http-server-pwa');
     httpServerPwa(distDir, {
         port: 3000,

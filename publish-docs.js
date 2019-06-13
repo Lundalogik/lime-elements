@@ -143,14 +143,6 @@ function build() {
         shell.exit(1);
     }
 
-    // dev-build required for the readme.md for
-    // each component to be created. /Ads
-    if (shell.exec('npm run dev').code !== 0) {
-        shell.echo('dev failed!');
-        teardown();
-        shell.exit(1);
-    }
-
     if (shell.exec('npm run docz:build').code !== 0) {
         shell.echo('docz:build failed!');
         teardown();
