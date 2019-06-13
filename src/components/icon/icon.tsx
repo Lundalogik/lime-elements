@@ -41,6 +41,9 @@ export class Icon {
 
     @Watch('name')
     protected async loadIcon(name: string) {
+        if (name === undefined || name === '') {
+            return;
+        }
         const svgData = await this.loadSvg(name);
         this.renderSvg(svgData);
     }
