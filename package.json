@@ -49,8 +49,8 @@
     "moment": "^2.24.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.6.1",
-    "@commitlint/config-conventional": "^7.6.0",
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
     "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/exec": "^3.3.3",
     "@semantic-release/git": "^7.0.12",
