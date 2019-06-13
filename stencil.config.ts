@@ -14,10 +14,17 @@ const targetWww: OutputTargetWww = {
     ],
 };
 
+// Target used for initally copying output into the
+// docz dist folder, to avoid having to build twice.
+const targetTmp: OutputTargetWww = {
+    ...targetWww,
+    dir: '.tmp',
+};
+
 export const config: Config = {
     hashFileNames: false,
     namespace: 'lime-elements',
-    outputTargets: [targetWww],
+    outputTargets: [targetWww, targetTmp],
     plugins: [sass()],
     excludeSrc: [
         '**/test/**',
