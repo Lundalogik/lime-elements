@@ -1,3 +1,11 @@
+# [22.1.0](https://github.com/Lundalogik/lime-elements/compare/v22.0.2...v22.1.0) (2019-06-17)
+
+
+### Features
+
+* **list:** add property for setting size on icon ([3aeda65](https://github.com/Lundalogik/lime-elements/commit/3aeda65))
+* **snackbar:** add dismissible property ([019f706](https://github.com/Lundalogik/lime-elements/commit/019f706))
+
 ## [22.0.2](https://github.com/Lundalogik/lime-elements/compare/v22.0.1...v22.0.2) (2019-06-13)
 
 
