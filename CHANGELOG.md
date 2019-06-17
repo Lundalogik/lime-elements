@@ -1,3 +1,10 @@
+## [22.1.1](https://github.com/Lundalogik/lime-elements/compare/v22.1.0...v22.1.1) (2019-06-17)
+
+
+### Bug Fixes
+
+* **flatpickr:** switch to @limetech/flatpickr and update to v4.5.5 ([e61b756](https://github.com/Lundalogik/lime-elements/commit/e61b756))
+
 # [22.1.0](https://github.com/Lundalogik/lime-elements/compare/v22.0.2...v22.1.0) (2019-06-17)
 
 
