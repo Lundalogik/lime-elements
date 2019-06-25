@@ -5,7 +5,7 @@ import { sass } from '@stencil/sass';
 const targetWww: OutputTargetWww = {
     type: 'www',
     serviceWorker: null,
-    dir: '.docz/dist/stencil',
+    dir: '.docz/public/stencil',
     copy: [
         { src: 'dev-assets' },
         { src: 'examples/**/*.tsx' },
@@ -14,17 +14,10 @@ const targetWww: OutputTargetWww = {
     ],
 };
 
-// Target used for initally copying output into the
-// docz dist folder, to avoid having to build twice.
-const targetTmp: OutputTargetWww = {
-    ...targetWww,
-    dir: '.tmp',
-};
-
 export const config: Config = {
     hashFileNames: false,
     namespace: 'lime-elements',
-    outputTargets: [targetWww, targetTmp],
+    outputTargets: [targetWww],
     plugins: [sass()],
     excludeSrc: [
         '**/test/**',
