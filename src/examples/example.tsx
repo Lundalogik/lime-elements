@@ -30,14 +30,14 @@ export class Example {
     public componentWillLoad() {
         const type = this.name.replace('limel-example-', '');
         const path = this.path || type;
-        const tsxUrl = `${BASE_URL}stencil/examples/${path}/${type}.tsx`;
+        const tsxUrl = `${BASE_URL}public/stencil/examples/${path}/${type}.tsx`;
 
         this.fetchData(tsxUrl).then(tsxData => {
             this.tsxCode = prism.highlight(tsxData, prism.languages.tsx);
 
             const styleUrlMatch = tsxData.match(/styleUrl: '(.*)'/);
             if (styleUrlMatch) {
-                const scssUrl = `${BASE_URL}stencil/examples/${path}/${styleUrlMatch[1]}`;
+                const scssUrl = `${BASE_URL}public/stencil/examples/${path}/${styleUrlMatch[1]}`;
                 this.fetchData(scssUrl).then(scssData => {
                     this.scssCode = prism.highlight(
                         scssData,
@@ -52,7 +52,9 @@ export class Example {
         const ExampleComponent = this.name;
 
         return [
-            <limel-config config={{ iconPath: `${BASE_URL}stencil/` }} />,
+            <limel-config
+                config={{ iconPath: `${BASE_URL}public/stencil/` }}
+            />,
             <div class="example">
                 <ExampleComponent />
             </div>,

@@ -23,4 +23,5 @@ export default {
         'Components',
     ],
     propsParser: false,
+    public: '.docz/public',
 };
