@@ -14,7 +14,7 @@ To build the dist build, run `npm run build`.
 
 ## Requirements
 
-The "Open Sans" font is included for development purposes, but is not included in the published package. This font should be supplied by the consuming application. If not supplied, texts will fall back to suitable alternatives.
+The "Roboto" font is included for development purposes, but is not included in the published package. This font should be supplied by the consuming application. If not supplied, texts will fall back to suitable alternatives.
 
 ## Deploy documentation
 
