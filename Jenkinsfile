@@ -60,7 +60,7 @@ pipeline {
             environment {
                 GH_USERNAME = 'limego'
                 GH_TOKEN = credentials('github-access-token')
-                NPM_TOKEN = credentials('devnpm-access-token')
+                NPM_TOKEN = credentials('npmjs-access-token')
                 CI = true
 
                 // Author used to commit the changelog etcetera.
