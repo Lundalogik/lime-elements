@@ -1,4 +1,4 @@
-import { MDCDialog, util } from '@lime-material-16px/dialog';
+import { MDCDialog, util } from '@limetech/mdc-dialog';
 import {
     Component,
     Element,

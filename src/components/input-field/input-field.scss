@@ -10,11 +10,11 @@ $mdc-text-field-bottom-line-idle: $lime-text-field-bottom-line-color;
 $mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
 $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 
-@import '@lime-material-16px/textfield/mdc-text-field';
-@import '@lime-material-16px/ripple/mdc-ripple';
-@import '@lime-material-16px/list/mdc-list';
-@import '@lime-material-16px/elevation/mdc-elevation';
-@import "@lime-material-16px/menu-surface/mdc-menu-surface";
+@import '@limetech/mdc-textfield/mdc-text-field';
+@import '@limetech/mdc-ripple/mdc-ripple';
+@import '@limetech/mdc-list/mdc-list';
+@import '@limetech/mdc-elevation/mdc-elevation';
+@import "@limetech/mdc-menu-surface/mdc-menu-surface";
 
 /**
  * @prop --background-color: Background color of the field.

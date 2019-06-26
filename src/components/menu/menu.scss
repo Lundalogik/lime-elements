@@ -1,8 +1,8 @@
 @import '../../style/variables';
 
-@import "@lime-material-16px/list/mdc-list";
-@import "@lime-material-16px/menu/mdc-menu";
-@import "@lime-material-16px/menu-surface/mdc-menu-surface";
+@import "@limetech/mdc-list/mdc-list";
+@import "@limetech/mdc-menu/mdc-menu";
+@import "@limetech/mdc-menu-surface/mdc-menu-surface";
 @import "../list/list.scss";
 
 $menu-item-background-color: #ebebeb;
