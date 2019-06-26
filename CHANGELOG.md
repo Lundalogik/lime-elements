@@ -1,3 +1,10 @@
+# [22.2.0](https://github.com/Lundalogik/lime-elements/compare/v22.1.1...v22.2.0) (2019-06-26)
+
+
+### Features
+
+* open-source under Apache-2.0 license ([8064f12](https://github.com/Lundalogik/lime-elements/commit/8064f12)), closes [#369](https://github.com/Lundalogik/lime-elements/issues/369)
+
 ## [22.1.1](https://github.com/Lundalogik/lime-elements/compare/v22.1.0...v22.1.1) (2019-06-17)
 
 
