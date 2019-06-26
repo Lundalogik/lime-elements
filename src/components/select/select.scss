@@ -4,11 +4,11 @@ $mdc-select-fill-color: $mdc-theme-background;
 $mdc-select-bottom-line-idle-color: $lime-text-field-bottom-line-color;
 $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 
-@import "@lime-material-16px/select/mdc-select";
-@import '@lime-material-16px/ripple/mdc-ripple';
-@import "@lime-material-16px/line-ripple/mdc-line-ripple";
-@import "@lime-material-16px/floating-label/mdc-floating-label";
-@import "@lime-material-16px/menu-surface/mdc-menu-surface";
+@import "@limetech/mdc-select/mdc-select";
+@import '@limetech/mdc-ripple/mdc-ripple';
+@import "@limetech/mdc-line-ripple/mdc-line-ripple";
+@import "@limetech/mdc-floating-label/mdc-floating-label";
+@import "@limetech/mdc-menu-surface/mdc-menu-surface";
 
 
 :host([hidden]) {

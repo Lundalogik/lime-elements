@@ -1,7 +1,7 @@
-import { MDCFloatingLabel } from '@lime-material-16px/floating-label';
-import { MDCLineRipple } from '@lime-material-16px/line-ripple';
-import { MDCMenuSurface } from '@lime-material-16px/menu-surface';
-import { MDCSelect } from '@lime-material-16px/select';
+import { MDCFloatingLabel } from '@limetech/mdc-floating-label';
+import { MDCLineRipple } from '@limetech/mdc-line-ripple';
+import { MDCMenuSurface } from '@limetech/mdc-menu-surface';
+import { MDCSelect } from '@limetech/mdc-select';
 import {
     Component,
     Element,

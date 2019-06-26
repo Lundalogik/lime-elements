@@ -10,9 +10,9 @@ $mdc-text-field-bottom-line-idle: $lime-text-field-bottom-line-color;
 $mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
 $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 
-@import "@lime-material-16px/chips/mdc-chips";
-@import '@lime-material-16px/textfield/mdc-text-field';
-@import '@lime-material-16px/ripple/mdc-ripple';
+@import "@limetech/mdc-chips/mdc-chips";
+@import '@limetech/mdc-textfield/mdc-text-field';
+@import '@limetech/mdc-ripple/mdc-ripple';
 
 /**
  * @prop --icon-background-color: Background color of the icon. Defaults to transparent.

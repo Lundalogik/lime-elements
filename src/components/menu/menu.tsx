@@ -1,4 +1,4 @@
-import { Corner, MDCMenu } from '@lime-material-16px/menu';
+import { Corner, MDCMenu } from '@limetech/mdc-menu';
 import {
     Component,
     Element,
