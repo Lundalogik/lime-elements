@@ -3,7 +3,7 @@
   "version": "22.1.1",
   "description": "Lime Elements",
   "author": "Lime Technologies",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
   "es2017": "dist/esm/index.mjs",
