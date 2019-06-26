@@ -1,4 +1,4 @@
-import { MDCSlider } from '@lime-material-16px/slider';
+import { MDCSlider } from '@limetech/mdc-slider';
 import {
     Component,
     Element,

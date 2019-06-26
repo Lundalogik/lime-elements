@@ -36,7 +36,7 @@ $mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
     --mdc-theme-on-secondary: var(--lime-on-secondary-color, #{$mdc-theme-on-secondary});
 }
 
-@import "@lime-material-16px/theme/mdc-theme";
+@import "@limetech/mdc-theme/mdc-theme";
 
 $mdc-typography-styles-headline1: (
     font-size: pxToRem(16),
@@ -92,4 +92,4 @@ $mdc-typography-styles-overline: (
     line-height: pxToRem(14)
 );
 
-@import "@lime-material-16px/typography/mdc-typography";
+@import "@limetech/mdc-typography/mdc-typography";

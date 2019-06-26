@@ -1,4 +1,4 @@
-import { MDCTextField } from '@lime-material-16px/textfield';
+import { MDCTextField } from '@limetech/mdc-textfield';
 import {
     Component,
     Element,

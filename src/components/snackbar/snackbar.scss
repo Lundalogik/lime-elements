@@ -1,7 +1,7 @@
 @import '../../style/variables';
 
-@import "@lime-material-16px/button/mdc-button";
-@import "@lime-material-16px/snackbar/mdc-snackbar";
+@import "@limetech/mdc-button/mdc-button";
+@import "@limetech/mdc-snackbar/mdc-snackbar";
 
 .mdc-button {
     @include mdc-button-ink-color($lime-blue);

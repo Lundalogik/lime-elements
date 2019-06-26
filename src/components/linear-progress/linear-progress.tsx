@@ -1,4 +1,4 @@
-import { MDCLinearProgress } from '@lime-material-16px/linear-progress';
+import { MDCLinearProgress } from '@limetech/mdc-linear-progress';
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
 
 @Component({

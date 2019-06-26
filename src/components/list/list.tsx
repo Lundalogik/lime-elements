@@ -1,5 +1,5 @@
-import { MDCList, MDCListActionEvent } from '@lime-material-16px/list';
-import { strings } from '@lime-material-16px/list/constants';
+import { MDCList, MDCListActionEvent } from '@limetech/mdc-list';
+import { strings } from '@limetech/mdc-list/constants';
 import {
     Component,
     Element,

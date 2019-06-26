@@ -1,6 +1,6 @@
 @import '../../style/variables';
 
-@import '@lime-material-16px/theme/mdc-theme';
+@import '@limetech/mdc-theme/mdc-theme';
 @import '../../../node_modules/@limetech/flatpickr/dist/flatpickr.min.css';
 
 $inactiveTextColor: var(--mdc-theme-text-disabled-on-background, #{$mdc-theme-text-disabled-on-background});

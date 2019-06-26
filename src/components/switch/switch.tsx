@@ -1,4 +1,4 @@
-import { MDCSwitch } from '@lime-material-16px/switch';
+import { MDCSwitch } from '@limetech/mdc-switch';
 import {
     Component,
     Element,
