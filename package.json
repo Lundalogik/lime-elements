@@ -95,7 +95,7 @@
     "url": "https://github.com/Lundalogik/lime-elements.git"
   },
   "publishConfig": {
-    "registry": "http://npm.lundalogik.com:4873/"
+    "access": "public"
   },
   "config": {
     "commitizen": {
