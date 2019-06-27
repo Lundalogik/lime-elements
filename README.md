@@ -29,4 +29,4 @@ Follow these steps:
 
 ## Get help
 
-- Please use the [Lime CRM Forum](https://forum.lime-crm.com/) for support, troubleshooting and questions.
+- Please open a GitHub issue for support, troubleshooting and questions.

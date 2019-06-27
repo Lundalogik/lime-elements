@@ -57,7 +57,7 @@ Confirmed bugs and ready-to-implement features are marked with the [help wanted 
 
 ## Using the issue tracker
 
-The issue tracker is the channel for [bug reports](#bug-report), [features requests](#feature-request) and [submitting pull requests](#submitting-a-pull-request) only. Please use the [Lime CRM Forum](https://forum.lime-crm.com/) for support, troubleshooting and questions.
+The issue tracker is the channel for [bug reports](#bug-report), [features requests](#feature-request) and [submitting pull requests](#submitting-a-pull-request). If you have a general question, or are in need of support, please open a [Question issue](https://github.com/Lundalogik/lime-elements/issues/new?template=03_question.md).
 
 Before opening an issue or a Pull Request, please use the [GitHub issue search](https://github.com/issues?utf8=%E2%9C%93&q=repo%3ALundalogik%2Flime-elements) to make sure the bug or feature request hasn't been already reported or fixed.
 
