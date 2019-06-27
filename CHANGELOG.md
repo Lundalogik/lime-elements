@@ -1,3 +1,10 @@
+## [22.2.1](https://github.com/Lundalogik/lime-elements/compare/v22.2.0...v22.2.1) (2019-06-27)
+
+
+### Bug Fixes
+
+* **readme:** trigger release of updated readme to npmjs.com ([1cf3192](https://github.com/Lundalogik/lime-elements/commit/1cf3192))
+
 # [22.2.0](https://github.com/Lundalogik/lime-elements/compare/v22.1.1...v22.2.0) (2019-06-26)
 
 
