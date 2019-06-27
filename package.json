@@ -87,6 +87,13 @@
     "tslint-react": "^4.0.0",
     "tslint-sonarts": "^1.9.0"
   },
+  "keywords": [
+    "lime elements",
+    "lime crm",
+    "material design",
+    "component library",
+    "web components"
+  ],
   "resolutions": {
     "docz/**/webpack": "4.28.4"
   },
