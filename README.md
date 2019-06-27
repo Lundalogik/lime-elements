@@ -29,4 +29,4 @@ Follow these steps:
 
 ## Get help
 
-- Please open a GitHub issue for support, troubleshooting and questions.
+- If you have a general question, or are in need of support, please open a [Question issue](https://github.com/Lundalogik/lime-elements/issues/new?template=03_question.md) on GitHub.
