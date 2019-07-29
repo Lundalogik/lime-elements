@@ -62,7 +62,7 @@
     "commitizen": "^4.0.3",
     "concurrently": "^4.1.1",
     "cross-env": "^5.2.0",
-    "cz-conventional-changelog": "^2.1.0",
+    "cz-conventional-changelog": "^3.0.2",
     "docz": "^1.1.0",
     "docz-theme-default": "^1.1.0",
     "eslint": "^6.1.0",
