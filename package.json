@@ -54,7 +54,7 @@
     "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/exec": "^3.3.5",
     "@semantic-release/git": "^7.0.16",
-    "@stencil/core": "^1.2.2",
+    "@stencil/core": "^1.2.3",
     "@stencil/sass": "^1.0.1",
     "@types/chart.js": "^2.7.56",
     "@types/jest": "^24.0.15",
