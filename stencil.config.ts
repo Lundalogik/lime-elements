@@ -7,7 +7,6 @@ const targetWww: OutputTargetWww = {
     serviceWorker: null,
     dir: '.docz/public/stencil',
     copy: [
-        { src: 'dev-assets' },
         { src: 'examples/**/*.tsx' },
         { src: 'examples/**/*.scss' },
         { src: 'components/**/*.md' },
