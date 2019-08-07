@@ -1,6 +1,14 @@
 import { Config } from '@stencil/core';
-import { OutputTargetWww } from '@stencil/core/dist/declarations/output-targets';
+import {
+    OutputTargetDist,
+    OutputTargetWww,
+} from '@stencil/core/dist/declarations/output-targets';
 import { sass } from '@stencil/sass';
+
+const targetDist: OutputTargetDist = {
+    type: 'dist',
+    copy: [{ src: 'style/' }, { src: 'assets/' }],
+};
 
 const targetWww: OutputTargetWww = {
     type: 'www',
@@ -16,7 +24,7 @@ const targetWww: OutputTargetWww = {
 export const config: Config = {
     hashFileNames: false,
     namespace: 'lime-elements',
-    outputTargets: [targetWww],
+    outputTargets: [targetDist, targetWww],
     plugins: [sass()],
     excludeSrc: [
         '**/test/**',
