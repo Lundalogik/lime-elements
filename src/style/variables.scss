@@ -93,3 +93,7 @@ $mdc-typography-styles-overline: (
 );
 
 @import "@limetech/mdc-typography/mdc-typography";
+
+@import "@limetech/mdc-animation/variables";
+
+$lime-banner-height: pxToRem(52) !default;

@@ -1,0 +1,47 @@
+@import '@limetech/mdc-elevation/mixins';
+@import '@limetech/mdc-theme/mixins';
+@import '../../style/variables';
+@import '../../style/functions.scss';
+
+.lime-banner {
+    min-height: $lime-banner-height;
+    @include mdc-theme-prop(background-color, surface);
+    @include mdc-elevation(1);
+    display: none;
+    &.lime-banner--open {
+        display: block;
+        .lime-banner__surface {
+            opacity: 1;
+        }
+    }
+    .lime-banner__surface {
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+        opacity: 0;
+    }
+
+    .lime-banner__content {
+        display: flex;
+        align-items: center;
+        align-content: stretch;
+        padding: pxToRem(16);
+        flex-wrap: wrap;
+    }
+
+    .lime-banner__icon {
+        margin: 0 pxToRem(10);
+        align-self: flex-start;
+    }
+
+    .lime-banner__actions {
+        margin-left: pxToRem(50);
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    limel-icon {
+        color: white;
+        background-color: var(--icon-background-color, var(--lime-dark-grey));
+    }
+}
