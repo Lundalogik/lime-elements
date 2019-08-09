@@ -1,3 +1,10 @@
+# [22.3.0](https://github.com/Lundalogik/lime-elements/compare/v22.2.1...v22.3.0) (2019-08-09)
+
+
+### Features
+
+* **limel-banner:** add component ([8955a69](https://github.com/Lundalogik/lime-elements/commit/8955a69))
+
 ## [22.2.1](https://github.com/Lundalogik/lime-elements/compare/v22.2.0...v22.2.1) (2019-06-27)
 
 
