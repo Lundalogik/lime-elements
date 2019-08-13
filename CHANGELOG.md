@@ -1,3 +1,10 @@
+## [22.3.1](https://github.com/Lundalogik/lime-elements/compare/v22.3.0...v22.3.1) (2019-08-13)
+
+
+### Bug Fixes
+
+* **date-picker:** update date-picker when value is updated by the consumer ([5fe428e](https://github.com/Lundalogik/lime-elements/commit/5fe428e)), closes [Lundalogik/crm-feature#859](https://github.com/Lundalogik/crm-feature/issues/859)
+
 # [22.3.0](https://github.com/Lundalogik/lime-elements/compare/v22.2.1...v22.3.0) (2019-08-09)
 
 
