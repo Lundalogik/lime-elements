@@ -7,6 +7,7 @@ import {
     Listen,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 
 import translate from '../../global/translations';
@@ -196,6 +197,13 @@ export class DatePicker {
     @Listen('resize', { target: 'window' })
     public resizeEvent() {
         this.picker.init(this.input, this.container, this.value);
+    }
+
+    @Watch('value')
+    protected onValueChange(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            this.formattedValue = this.picker.formatDate(newValue);
+        }
     }
 
     private handleChange(event) {
