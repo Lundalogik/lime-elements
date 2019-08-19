@@ -60,7 +60,7 @@
     "@types/jest": "^24.0.15",
     "@types/puppeteer": "^1.19.0",
     "commitizen": "^4.0.3",
-    "concurrently": "^4.1.1",
+    "concurrently": "^4.1.2",
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^3.0.2",
     "docz": "^1.1.0",
