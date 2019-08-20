@@ -43,6 +43,12 @@ export class Picker {
     public label: string;
 
     /**
+     * Search label to display in the input field when searching
+     */
+    @Prop()
+    public searchLabel: string;
+
+    /**
      * True if the control requires a value
      */
     @Prop()
@@ -171,6 +177,7 @@ export class Picker {
                 value={this.chips}
                 disabled={this.disabled}
                 required={this.required}
+                searchLabel={this.searchLabel}
                 onInput={this.handleTextInput}
                 onKeyDown={this.handleKeyDown}
                 onFocus={this.handleInputFieldFocus}
