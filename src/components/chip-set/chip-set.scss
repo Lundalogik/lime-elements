@@ -63,7 +63,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     }
 
     .mdc-floating-label--float-above {
-        top: pxToRem(20);
+        top: pxToRem(10);
         bottom: auto;
     }
 
@@ -78,4 +78,10 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             border-bottom-width: pxToRem(1);
         }
     }
+}
+
+#search-label {
+    color: rgba(0, 0, 0, 0.6);
+    bottom: pxToRem(10);
+    top: auto;
 }

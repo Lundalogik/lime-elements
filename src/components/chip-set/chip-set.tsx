@@ -60,6 +60,12 @@ export class ChipSet {
     public required: boolean = false;
 
     /**
+     * Search label to display when type is `input` and component is in search mode
+     */
+    @Prop()
+    public searchLabel: string;
+
+    /**
      * Dispatched when a chip is interacted with
      */
     @Event()
@@ -240,6 +246,10 @@ export class ChipSet {
         } else if (!this.value.length && !textValue.trim()) {
             textValue = '';
         }
+        let searchLabel = this.searchLabel;
+        if (!this.editMode || textValue.length > 0) {
+            searchLabel = '';
+        }
 
         return (
             <div
@@ -279,6 +289,13 @@ export class ChipSet {
                     htmlFor="my-text-field"
                 >
                     {this.label}
+                </label>
+                <label
+                    id="search-label"
+                    class="mdc-floating-label"
+                    htmlFor="my-text-field"
+                >
+                    {searchLabel}
                 </label>
                 <div class="mdc-line-ripple" />
             </div>
