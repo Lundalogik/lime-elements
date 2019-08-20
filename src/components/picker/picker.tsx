@@ -75,6 +75,12 @@ export class Picker {
     public multiple: boolean = false;
 
     /**
+     * True if the dropdown list should be displayed without cutting the content
+     */
+    @Prop()
+    public displayFullList: boolean = false;
+
+    /**
      * Fired when a new value has been selected from the picker
      */
     @Event()
@@ -261,7 +267,12 @@ export class Picker {
                 style={{
                     width: `${boundingRect.width}px`,
                 }}
-                class="dropdown--list mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open"
+                class={`dropdown--list
+                        mdc-elevation-transition
+                        mdc-elevation--z4
+                        mdc-menu-surface mdc-menu-surface--open
+                        ${this.displayFullList ? 'display-full-list' : ''}	
+                        `}
                 tabindex="-1"
             >
                 <limel-list
