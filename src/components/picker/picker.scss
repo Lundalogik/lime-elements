@@ -20,7 +20,10 @@
 .dropdown--list {
     background-color: white;
     position: absolute;
-    margin-top: pxToRem(-8);
-    max-height: pxToRem(250);
-    overflow-y: auto;
+    margin-top: pxToRem(-1);
+
+    &:not(.display-full-list) {
+        max-height: pxToRem(250);
+        overflow-y: auto;
+    }
 }

@@ -123,6 +123,7 @@ export class PickerIconsExample {
                 value={this.selectedItems}
                 searchLabel={'Search your awesomenaut'}
                 multiple={true}
+                displayFullList={true}
                 searcher={this.search}
                 onChange={this.onChange}
                 onInteract={this.onInteract}
