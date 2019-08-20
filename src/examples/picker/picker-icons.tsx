@@ -121,6 +121,7 @@ export class PickerIconsExample {
             <limel-picker
                 label="Favorite awesomenaut"
                 value={this.selectedItems}
+                searchLabel={'Search your awesomenaut'}
                 multiple={true}
                 searcher={this.search}
                 onChange={this.onChange}
