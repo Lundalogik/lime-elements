@@ -1,41 +1,39 @@
-@import '../../style/functions';
-
 limel-flex-container {
-    margin-bottom: pxToRem(20);
+    margin-bottom: 20/1.6rem;
 
     &.container {
-        height: pxToRem(600);
-        border: pxToRem(1) solid var(--lime-dark-grey);
-        border-radius: pxToRem(3);
+        height: 600/1.6rem;
+        border: 1/1.6rem solid var(--lime-dark-grey);
+        border-radius: 3/1.6rem;
     }
 
     div {
         display: block;
-        padding: pxToRem(25) pxToRem(50);
+        padding: 25/1.6rem 50/1.6rem;
 
         text-align: center;
         color: white;
-        font-size: pxToRem(20);
+        font-size: 20/1.6rem;
         line-height: 0;
 
         &:nth-child(1) {
             background-color: var(--lime-red);
-            padding: pxToRem(12.5) pxToRem(50);
+            padding: 12.5/1.6rem 50/1.6rem;
         }
         &:nth-child(2) {
             background-color: var(--lime-orange);
-            padding: pxToRem(50);
+            padding: 50/1.6rem;
         }
         &:nth-child(3) {
             background-color: var(--lime-green);
         }
         &:nth-child(4) {
             background-color: var(--lime-blue);
-            padding: pxToRem(25) pxToRem(100);
+            padding: 25/1.6rem 100/1.6rem;
         }
         &:nth-child(5) {
             background-color: var(--lime-magenta);
-            padding: pxToRem(25);
+            padding: 25/1.6rem;
         }
     }
 }
