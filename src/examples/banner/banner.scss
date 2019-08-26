@@ -1,5 +1,3 @@
-@import '../../style/functions.scss';
-
 limel-banner {
     --icon-background-color: var(--lime-deep-red);
     position: fixed;
@@ -12,6 +10,6 @@ limel-banner {
     }
 
     limel-button:not(last-child) {
-        margin-right: pxToRem(10);
+        margin-right: 10/1.6rem;
     }
 }

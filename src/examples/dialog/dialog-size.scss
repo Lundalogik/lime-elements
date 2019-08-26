@@ -1,6 +1,4 @@
-@import '../../style/functions';
-
 limel-dialog {
-    --dialog-width: pxToRem(400);
+    --dialog-width: 400/1.6rem;
     --dialog-height: 50%;
 }
