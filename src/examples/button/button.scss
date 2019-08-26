@@ -1,10 +1,8 @@
-@import '../../style/functions';
-
 limel-switch {
-    margin-right: pxToRem(15);
+    margin-right: 15/1.6rem;
 }
 
 limel-button {
     display: block;
-    margin-bottom: pxToRem(20);
+    margin-bottom: 20/1.6rem;
 }

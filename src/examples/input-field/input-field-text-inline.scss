@@ -1,5 +1,3 @@
-@import '../../style/functions';
-
 p {
     font-size: small;
 }
@@ -9,10 +7,10 @@ section {
 
     limel-input-field {
         display: inline-block;
-        width: calc(50% - pxToRem(10));
+        width: calc(50% - 10/1.6rem);
 
         &:first-of-type {
-            margin-right: pxToRem(20);
+            margin-right: 20/1.6rem;
         }
     }
 }

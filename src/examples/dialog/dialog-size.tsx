@@ -24,7 +24,7 @@ export class DialogSizeExample {
             <limel-dialog open={this.isOpen} onClose={this.closeDialog}>
                 <p>This dialog has a custom size set through CSS variables:</p>
                 <p>
-                    <code>--dialog-width: pxToRem(400)</code>
+                    <code>--dialog-width: 400/1.6rem</code>
                 </p>
                 <p>
                     <code>--dialog-height: 50%</code>
