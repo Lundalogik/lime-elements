@@ -8,7 +8,6 @@ const targetWww: OutputTargetWww = {
     dir: '.docz/dist/stencil',
     baseUrl: '/',
     copy: [
-        { src: 'dev-assets' },
         { src: 'examples/**/*.tsx' },
         { src: 'examples/**/*.scss' },
         { src: 'components/**/*.md' },
