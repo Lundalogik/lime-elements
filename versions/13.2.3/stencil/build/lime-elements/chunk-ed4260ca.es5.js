@@ -1,1 +1,0 @@
-LimeElements.loadBundle("chunk-ed4260ca.js",["exports"],function(e){window,e.dispatchResizeEvent=function(){var e=window.document.createEvent("UIEvents");e.initUIEvent("resize",!0,!1,window,0),window.dispatchEvent(e)}});
