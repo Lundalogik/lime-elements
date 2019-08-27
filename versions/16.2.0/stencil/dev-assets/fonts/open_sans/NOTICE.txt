@@ -1,6 +1,0 @@
-Source font files in ttf-format downloaded from Google Fonts.
-  https://www.google.com/fonts/specimen/Open+Sans
-
-All font files in this folder have been processed using the Font Squirrel Web
-Font Generator.
-  http://www.fontsquirrel.com/tools/webfont-generator
