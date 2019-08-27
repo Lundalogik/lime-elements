@@ -1,3 +1,16 @@
+# [22.4.0](https://github.com/Lundalogik/lime-elements/compare/v22.3.1...v22.4.0) (2019-08-27)
+
+
+### Bug Fixes
+
+* **picker:** makes icon size smaller in the list items ([4e9a9b5](https://github.com/Lundalogik/lime-elements/commit/4e9a9b5))
+
+
+### Features
+
+* **chip-set:** adds search label to input field when searching ([cf3d995](https://github.com/Lundalogik/lime-elements/commit/cf3d995))
+* **picker:** adds support for displaying full list without cutting content ([e5f776f](https://github.com/Lundalogik/lime-elements/commit/e5f776f))
+
 ## [22.3.1](https://github.com/Lundalogik/lime-elements/compare/v22.3.0...v22.3.1) (2019-08-13)
 
 
