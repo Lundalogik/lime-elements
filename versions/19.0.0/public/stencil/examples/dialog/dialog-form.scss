@@ -1,7 +1,0 @@
-@import '../../style/functions';
-
-limel-flex-container {
-    limel-button:not(:first-child) {
-        margin-right: pxToRem(10);
-    }
-}
