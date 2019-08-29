@@ -126,18 +126,9 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
         }
     }
 
-    .mdc-menu-surface {
-        left: 0;
-        top: pxToRem(56);
-        width: 100%;
-    }
-
-    .mdc-menu-surface--scrim {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 5;
+    &.limel-select--empty {
+        limel-portal {
+            margin-top: pxToRem(-8);
+        }
     }
 }
