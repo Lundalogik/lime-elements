@@ -23,7 +23,7 @@
     "watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs\"",
     "docz:build": "npm run dev && docz build && cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --docs --config stencil.config.docs.ts\"",
     "docz:dev": "docz dev",
-    "docz:watch": "concurrently \"npm run watch\" \"docz dev\"",
+    "docz:watch": "concurrently \"docz dev\" \"npm run watch\"",
     "docz:publish": "node publish-docs.js",
     "lint": "npm run lint:src && npm run lint:specs && npm run lint:examples && npm run lint:config",
     "lint:fix": "npm run lint:src:fix && npm run lint:specs:fix && npm run lint:examples:fix && npm run lint:config:fix",
