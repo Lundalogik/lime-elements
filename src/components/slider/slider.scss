@@ -3,7 +3,15 @@
 @import '@limetech/mdc-slider/mdc-slider';
 @import "@limetech/mdc-floating-label/mdc-floating-label";
 
+/**
+ * @prop --slider-bg-color-behind-component: Color of "transparent" parts of disabled slider. Defaults to #ffffff.
+ */
+
 $colorGrey: #999999;
+
+:host {
+    --mdc-slider-bg-color-behind-component: var(--slider-bg-color-behind-component, #ffffff);
+}
 
 .mdc-slider {
     @include mdc-slider-highlight-color(var(--lime-primary-color, $mdc-theme-primary));
@@ -76,6 +84,11 @@ $colorGrey: #999999;
     top: pxToRem(-16);
     transform: none;
     width: pxToRem(40);
+
+    .mdc-slider.mdc-slider--disabled & {
+        background: var(--mdc-slider-bg-color-behind-component);
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--mdc-slider-bg-color-behind-component) 15%, var(--mdc-slider-bg-color-behind-component) 85%, rgba(255,255,255,0) 100%);
+    }
 }
 
 .mdc-slider__pin-value-marker {
