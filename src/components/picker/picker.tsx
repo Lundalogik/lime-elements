@@ -49,6 +49,12 @@ export class Picker {
     public searchLabel: string;
 
     /**
+     * A message to display when the search returned an empty result
+     */
+    @Prop()
+    public emptyResultMessage: string;
+
+    /**
      * True if the control requires a value
      */
     @Prop()
@@ -255,7 +261,23 @@ export class Picker {
         }
 
         if (!this.items || !this.items.length) {
-            return;
+            if (!this.emptyResultMessage) {
+                return;
+            }
+
+            return (
+                <div
+                    style={{
+                        width: `${boundingRect.width}px`,
+                    }}
+                    class="dropdown--list mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open"
+                    tabindex="-1"
+                >
+                    <p class="empty-result-message">
+                        {this.emptyResultMessage}
+                    </p>
+                </div>
+            );
         }
 
         const hasIcons = this.items.some(item => {
@@ -271,7 +293,7 @@ export class Picker {
                         mdc-elevation-transition
                         mdc-elevation--z4
                         mdc-menu-surface mdc-menu-surface--open
-                        ${this.displayFullList ? 'display-full-list' : ''}	
+                        ${this.displayFullList ? 'display-full-list' : ''}
                         `}
                 tabindex="-1"
             >

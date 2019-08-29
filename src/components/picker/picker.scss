@@ -27,3 +27,12 @@
         overflow-y: auto;
     }
 }
+
+.dropdown--spinner {
+    padding-top: pxToRem(6);
+}
+
+.empty-result-message {
+    color: var(--lime-light-grey, #{$lime-light-grey});
+    text-align: center;
+}
