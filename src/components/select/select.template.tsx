@@ -1,10 +1,4 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import {
-    ENTER,
-    ENTER_KEY_CODE,
-    SPACE,
-    SPACE_KEY_CODE,
-} from '../../util/keycodes';
 import { isMultiple } from '../../util/multiple';
 import { ListItem } from '../list/list-item.types';
 import { Option } from './option.types';
@@ -78,7 +72,9 @@ export const NativeSelectTemplate: FunctionalComponent<
 };
 
 interface MenuSelectTemplateProps extends SelectTemplateProps {
+    id: string;
     onChange?: (event: CustomEvent<ListItem | ListItem[]>) => void;
+    onTriggerPress: (event: KeyboardEvent) => void;
     isOpen: boolean;
     open: () => void;
     close: () => void;
@@ -109,6 +105,7 @@ export const MenuSelectTemplate: FunctionalComponent<
             ${props.disabled ? 'mdc-select--disabled' : ''}
             ${props.required ? 'limel-select--required' : ''}
             ${!isValid ? 'limel-select--invalid' : ''}
+            ${!hasValue ? 'limel-select--empty' : ''}
         `}
         >
             <div
@@ -118,7 +115,7 @@ export const MenuSelectTemplate: FunctionalComponent<
                     limel-select-trigger
                     ${props.isOpen ? 'mdc-select--focused' : ''}
                 `}
-                slot="trigger"
+                onKeyPress={props.onTriggerPress}
             >
                 <i class="mdc-select__dropdown-icon" />
                 <div class="limel-select__selected-text">
@@ -144,37 +141,18 @@ export const MenuSelectTemplate: FunctionalComponent<
                 `}
                 />
             </div>
-            {props.isOpen ? (
-                <div class="mdc-menu-surface--scrim" onClick={props.close} />
-            ) : null}
-            <div
-                class={`
-                mdc-menu-surface
-                ${props.isOpen ? 'mdc-menu-surface--open' : ''}
-            `}
-                tabindex="-1"
-            >
-                <limel-list
-                    items={items}
-                    type={props.multiple ? 'checkbox' : 'selectable'}
-                    onKeyDown={handleListKeys}
-                    onKeyUp={handleListKeys}
-                    onChange={props.onChange}
-                />
-            </div>
+            <limel-portal containerId={props.id} visible={props.isOpen}>
+                <limel-menu-surface open={props.isOpen} onDismiss={props.close}>
+                    <limel-list
+                        items={items}
+                        type={props.multiple ? 'checkbox' : 'selectable'}
+                        onChange={props.onChange}
+                    />
+                </limel-menu-surface>
+            </limel-portal>
         </div>
     );
 };
-
-function handleListKeys(event: KeyboardEvent) {
-    const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
-    const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
-
-    if (isSpace || isEnter) {
-        event.stopPropagation();
-        event.preventDefault();
-    }
-}
 
 function isSelected(option: Option, value: Option | Option[]): boolean {
     if (!value) {

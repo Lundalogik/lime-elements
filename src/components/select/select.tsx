@@ -17,12 +17,11 @@ import { isMobileDevice } from '../../util/device';
 import {
     ENTER,
     ENTER_KEY_CODE,
-    ESCAPE,
-    ESCAPE_KEY_CODE,
     SPACE,
     SPACE_KEY_CODE,
 } from '../../util/keycodes';
 import { isMultiple } from '../../util/multiple';
+import { createRandomString } from '../../util/random-string';
 import { ListItem } from '../list/list-item.types';
 import { MenuSelectTemplate, NativeSelectTemplate } from './select.template';
 
@@ -89,13 +88,18 @@ export class Select {
 
     private isMobileDevice: boolean;
 
+    private portalId: string;
+
     constructor() {
         this.handleMenuChange = this.handleMenuChange.bind(this);
         this.handleNativeChange = this.handleNativeChange.bind(this);
-        this.handleMenuKeyDown = this.handleMenuKeyDown.bind(this);
-        this.handleMenuKeyUp = this.handleMenuKeyUp.bind(this);
+        this.handleMenuTriggerKeyPress = this.handleMenuTriggerKeyPress.bind(
+            this
+        );
         this.openMenu = this.openMenu.bind(this);
         this.closeMenu = this.closeMenu.bind(this);
+
+        this.portalId = createRandomString();
     }
 
     public componentWillLoad() {
@@ -116,9 +120,6 @@ export class Select {
 
             element = this.host.shadowRoot.querySelector('.mdc-line-ripple');
             this.mdcLineRipple = new MDCLineRipple(element);
-
-            this.host.addEventListener('keydown', this.handleMenuKeyDown);
-            this.host.addEventListener('keyup', this.handleMenuKeyUp);
 
             return;
         }
@@ -149,21 +150,28 @@ export class Select {
         if (this.mdcMenuSurface) {
             this.mdcMenuSurface.destroy();
         }
+    }
 
-        this.host.removeEventListener('keydown', this.handleMenuKeyDown);
-        this.host.removeEventListener('keyup', this.handleMenuKeyUp);
+    public componentDidUpdate() {
+        if (this.menuOpen) {
+            this.setMenuFocus();
+        } else {
+            this.setTriggerFocus();
+        }
     }
 
     public render() {
         if (!this.isMobileDevice) {
             return (
                 <MenuSelectTemplate
+                    id={this.portalId}
                     disabled={this.disabled}
                     required={this.required}
                     label={this.label}
                     value={this.value}
                     options={this.options}
                     onChange={this.handleMenuChange}
+                    onTriggerPress={this.handleMenuTriggerKeyPress}
                     multiple={this.multiple}
                     isOpen={this.menuOpen}
                     open={this.openMenu}
@@ -198,6 +206,26 @@ export class Select {
         }
     }
 
+    private setMenuFocus() {
+        setTimeout(() => {
+            const list: HTMLElement = document.querySelector(
+                `#${this.portalId} limel-menu-surface limel-list`
+            );
+            const firstItem: HTMLElement = list.shadowRoot.querySelector(
+                '[tabindex]'
+            );
+
+            firstItem.focus();
+        });
+    }
+
+    private setTriggerFocus() {
+        const trigger: HTMLElement = this.host.shadowRoot.querySelector(
+            '.limel-select-trigger'
+        );
+        trigger.focus();
+    }
+
     private handleMenuChange(
         event: CustomEvent<Array<ListItem<Option>> | ListItem<Option>>
     ) {
@@ -225,30 +253,14 @@ export class Select {
         this.menuOpen = false;
     }
 
-    private handleMenuKeyDown(event: KeyboardEvent) {
+    private handleMenuTriggerKeyPress(event: KeyboardEvent) {
         const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
         const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
 
-        if (isSpace || isEnter) {
+        if (!this.menuOpen && (isSpace || isEnter)) {
             event.stopPropagation();
             event.preventDefault();
-        }
-    }
-
-    private handleMenuKeyUp(event: KeyboardEvent) {
-        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
-        const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
-        const isEscape =
-            event.key === ESCAPE || event.keyCode === ESCAPE_KEY_CODE;
-
-        if (isSpace || isEnter) {
-            event.stopPropagation();
-            this.menuOpen = !this.menuOpen;
-        }
-
-        if (isEscape) {
-            event.stopPropagation();
-            this.menuOpen = false;
+            this.menuOpen = true;
         }
     }
 

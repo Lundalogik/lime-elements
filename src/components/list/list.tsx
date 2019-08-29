@@ -68,20 +68,16 @@ export class List {
         this.handleAction = this.handleAction.bind(this);
     }
 
-    public componentDidLoad() {
-        this.mdcList = new MDCList(
-            this.element.shadowRoot.querySelector('.mdc-list')
-        );
-
-        this.handleType();
+    public connectedCallback() {
+        this.setup();
     }
 
-    public componentDidUnload() {
-        if (this.selectable) {
-            this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
-        }
+    public disconnectedCallback() {
+        this.teardown();
+    }
 
-        this.mdcList.destroy();
+    public componentDidLoad() {
+        this.setup();
     }
 
     public render() {
@@ -95,6 +91,21 @@ export class List {
 
     @Watch('type')
     protected handleType() {
+        this.setupListeners();
+    }
+
+    private setup() {
+        const element = this.element.shadowRoot.querySelector('.mdc-list');
+        if (!element) {
+            return;
+        }
+
+        this.mdcList = new MDCList(element);
+
+        this.setupListeners();
+    }
+
+    private setupListeners() {
         this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
 
         this.selectable = ['selectable', 'radio', 'checkbox'].includes(
@@ -108,6 +119,14 @@ export class List {
 
         this.mdcList.listen(ACTION_EVENT, this.handleAction);
         this.mdcList.singleSelection = !this.multiple;
+    }
+
+    private teardown() {
+        if (this.selectable) {
+            this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
+        }
+
+        this.mdcList.destroy();
     }
 
     private handleAction(event: MDCListActionEvent) {
