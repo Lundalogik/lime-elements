@@ -61,7 +61,7 @@
     "@types/puppeteer": "1.19.1",
     "commitizen": "4.0.3",
     "concurrently": "4.1.2",
-    "cross-env": "5.2.0",
+    "cross-env": "5.2.1",
     "cz-conventional-changelog": "3.0.2",
     "docz": "1.2.0",
     "docz-theme-default": "1.2.0",
