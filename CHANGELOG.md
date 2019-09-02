@@ -1,3 +1,10 @@
+# [22.5.0](https://github.com/Lundalogik/lime-elements/compare/v22.4.0...v22.5.0) (2019-09-02)
+
+
+### Features
+
+* **picker:** add optional message for empty search result ([b4c5b4e](https://github.com/Lundalogik/lime-elements/commit/b4c5b4e)), closes [#307](https://github.com/Lundalogik/lime-elements/issues/307)
+
 # [22.4.0](https://github.com/Lundalogik/lime-elements/compare/v22.3.1...v22.4.0) (2019-08-27)
 
 
