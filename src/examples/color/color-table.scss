@@ -1,15 +1,15 @@
 .grid {
     display: grid;
-    grid-template-columns: 250/1.6rem 250/1.6rem 250/1.6rem;
-    grid-template-rows: 150/1.6rem 150/1.6rem 150/1.6rem 150/1.6rem;
-    grid-gap: 10/1.6rem;
+
+    grid-template-rows: 9.375rem 9.375rem 9.375rem 9.375rem;
+    grid-gap: .625rem;
 }
 
 .tile {
     color: white;
     text-align: center;
-    line-height: 150/1.6rem;
-    border-radius: 3/1.6rem;
+    line-height: 9.375rem;
+    border-radius: .1875rem;
 
     pre {
         margin: 0;
