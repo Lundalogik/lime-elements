@@ -7,10 +7,10 @@ section {
 
     limel-input-field {
         display: inline-block;
-        width: calc(50% - 10/1.6rem);
+        width: calc(50% - .625rem);
 
         &:first-of-type {
-            margin-right: 20/1.6rem;
+            margin-right: 1.25rem;
         }
     }
 }
