@@ -1,3 +1,10 @@
+## [22.5.1](https://github.com/Lundalogik/lime-elements/compare/v22.5.0...v22.5.1) (2019-09-04)
+
+
+### Bug Fixes
+
+* **slider:** fix background color for disabled slider ([2b1a890](https://github.com/Lundalogik/lime-elements/commit/2b1a890)), closes [#304](https://github.com/Lundalogik/lime-elements/issues/304)
+
 # [22.5.0](https://github.com/Lundalogik/lime-elements/compare/v22.4.0...v22.5.0) (2019-09-02)
 
 
