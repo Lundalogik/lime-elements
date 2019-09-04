@@ -40,6 +40,11 @@
     "test": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e\"",
     "test:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e --watch\""
   },
+  "paths": {
+    "@limetech/lime-elements": [
+      "src/interface"
+    ]
+  },
   "dependencies": {
     "@limetech/flatpickr": "^4.5.5",
     "@limetech/material-components-web": "^1.1.1",
