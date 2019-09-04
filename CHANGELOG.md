@@ -1,3 +1,17 @@
+# [22.6.0](https://github.com/Lundalogik/lime-elements/compare/v22.5.1...v22.6.0) (2019-09-04)
+
+
+### Bug Fixes
+
+* **select:** render select menu in document.body ([cc3f3f8](https://github.com/Lundalogik/lime-elements/commit/cc3f3f8)), closes [Lundalogik/crm-feature#839](https://github.com/Lundalogik/crm-feature/issues/839)
+* **util/random-string:** make sure the string always begins with a letter, not a digit ([be69d87](https://github.com/Lundalogik/lime-elements/commit/be69d87))
+
+
+### Features
+
+* **menu-surface:** new menu-surface component ([1cbeb5d](https://github.com/Lundalogik/lime-elements/commit/1cbeb5d))
+* **portal:** new component for rendering content within a different DOM node ([ad4cf42](https://github.com/Lundalogik/lime-elements/commit/ad4cf42))
+
 ## [22.5.1](https://github.com/Lundalogik/lime-elements/compare/v22.5.0...v22.5.1) (2019-09-04)
 
 
