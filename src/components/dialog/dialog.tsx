@@ -139,7 +139,7 @@ export class Dialog {
                     <div class="mdc-dialog__surface">
                         {this.renderHeading()}
                         <div
-                            class="mdc-dialog__content"
+                            class="mdc-dialog__content scrollbox"
                             id={'limel-dialog-content-' + this.id}
                         >
                             <slot />

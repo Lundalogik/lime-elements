@@ -1,3 +1,4 @@
+@import '../../style/functions';
 @import '../../style/variables';
 
 $mdc-dialog-max-width: false;
@@ -80,4 +81,31 @@ slot[name="header"] {
             color: var(--dialog-heading-supporting-text-color, #{$mdc-theme-text-secondary-on-background});
         }
     }
+}
+
+.scrollbox {
+    // variables to make it easier to support different background colors in the future:
+    --dialog-background-color: rgba(255, 255, 255, 1);
+    --dialog-background-color-transparent: rgba(255, 255, 255, 0);
+    --dialog-scroll-shadow-color: rgba(0, 0, 0, .2);
+    --dialog-scroll-shadow-color-transparent: rgba(0, 0, 0, 0);
+
+    // Credit to the ever fantastic Lea Verou!
+    // http://lea.verou.me/2012/04/background-attachment-local/
+
+    background:
+        /* Shadow covers */
+        linear-gradient(var(--dialog-background-color) 30%, var(--dialog-background-color-transparent)),
+        linear-gradient(var(--dialog-background-color-transparent), var(--dialog-background-color) 70%) 0 100%,
+
+        /* Shadows */
+        radial-gradient(farthest-side at 50% 0, var(--dialog-scroll-shadow-color), var(--dialog-scroll-shadow-color-transparent)),
+        radial-gradient(farthest-side at 50% 100%, var(--dialog-scroll-shadow-color), var(--dialog-scroll-shadow-color-transparent)) 0 100%;
+
+    background-repeat: no-repeat;
+    background-color: var(--dialog-background-color);
+    background-size: 100% pxToRem(40), 100% pxToRem(40), 100% pxToRem(14), 100% pxToRem(14);
+
+    /* Opera doesn't support this in the shorthand */
+    background-attachment: local, local, scroll, scroll;
 }
