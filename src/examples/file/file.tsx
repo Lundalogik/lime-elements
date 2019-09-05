@@ -1,5 +1,5 @@
+import { FileInfo } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { FileInfo } from '../../components/file/file.types';
 
 @Component({
     tag: 'limel-example-file',

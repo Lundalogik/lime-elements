@@ -1,5 +1,5 @@
+import { Option } from '@limetech/lime-elements';
 import { newE2EPage } from '@stencil/core/testing';
-import { Option } from './option.types';
 
 // Since we are currently using a pre-release of Stencil to get access
 // to Puppeteer, documentation is lacking.

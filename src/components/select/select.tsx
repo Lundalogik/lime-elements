@@ -1,3 +1,4 @@
+import { ListItem, Option } from '@limetech/lime-elements';
 import { MDCFloatingLabel } from '@limetech/mdc-floating-label';
 import { MDCLineRipple } from '@limetech/mdc-line-ripple';
 import { MDCMenuSurface } from '@limetech/mdc-menu-surface';
@@ -12,7 +13,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { Option } from '../../interface';
 import { isMobileDevice } from '../../util/device';
 import {
     ENTER,
@@ -22,7 +22,6 @@ import {
 } from '../../util/keycodes';
 import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
-import { ListItem } from '../list/list-item.types';
 import { MenuSelectTemplate, NativeSelectTemplate } from './select.template';
 
 @Component({

@@ -1,5 +1,5 @@
+import { ListItem, ListSeparator } from '@limetech/lime-elements';
 import { h } from '@stencil/core';
-import { ListItem, ListSeparator } from '../../interface';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { ListRendererConfig } from './list-renderer-config';
 import { RadioButtonTemplate } from './radio-button/radio-button.template';
