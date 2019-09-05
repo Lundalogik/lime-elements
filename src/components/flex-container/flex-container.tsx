@@ -1,9 +1,9 @@
-import { Component, h, Prop } from '@stencil/core';
 import {
     FlexContainerAlign,
     FlexContainerDirection,
     FlexContainerJustify,
-} from './flex-container.types';
+} from '@limetech/lime-elements';
+import { Component, h, Prop } from '@stencil/core';
 
 @Component({
     tag: 'limel-flex-container',

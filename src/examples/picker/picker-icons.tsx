@@ -1,5 +1,5 @@
+import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { ListItem } from '../../interface';
 
 const NETWORK_DELAY = 500;
 

@@ -1,3 +1,4 @@
+import { DialogHeading } from '@limetech/lime-elements';
 import { MDCDialog, util } from '@limetech/mdc-dialog';
 import {
     Component,
@@ -11,7 +12,6 @@ import {
 import * as focusTrap from 'focus-trap';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
-import { DialogHeading } from './dialog.types';
 
 @Component({
     tag: 'limel-dialog',

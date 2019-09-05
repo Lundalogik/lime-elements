@@ -1,5 +1,5 @@
+import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { Option } from '../../interface';
 
 @Component({
     shadow: true,

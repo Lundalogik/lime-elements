@@ -1,5 +1,5 @@
+import { ListItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { ListItem, ListSeparator } from '../../interface';
 
 @Component({
     tag: 'limel-example-list-selectable',
