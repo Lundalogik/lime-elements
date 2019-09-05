@@ -8,3 +8,4 @@ export * from './components/spinner/spinner.types';
 export * from './components/flex-container/flex-container.types';
 export * from './components/dialog/dialog.types';
 export * from './components/chip-set/chip.types';
+export * from './components/file/file.types';
