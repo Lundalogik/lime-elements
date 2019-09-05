@@ -1,5 +1,5 @@
+import { ListItem, ListSeparator } from '@limetech/lime-elements';
 import { newE2EPage } from '@stencil/core/testing';
-import { ListItem, ListSeparator } from '../../interface';
 
 describe('limel-list', () => {
     let page;

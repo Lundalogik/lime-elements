@@ -1,10 +1,10 @@
-import { Component, h, State } from '@stencil/core';
 import {
     FlexContainerAlign,
     FlexContainerDirection,
     FlexContainerJustify,
-} from '../../components/flex-container/flex-container.types';
-import { Option } from '../../components/select/option.types';
+    Option,
+} from '@limetech/lime-elements';
+import { Component, h, State } from '@stencil/core';
 
 @Component({
     tag: 'limel-example-flex-container',

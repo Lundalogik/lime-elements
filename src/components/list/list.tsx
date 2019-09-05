@@ -1,3 +1,9 @@
+import {
+    IconSize,
+    ListItem,
+    ListSeparator,
+    ListType,
+} from '@limetech/lime-elements';
 import { MDCList, MDCListActionEvent } from '@limetech/mdc-list';
 import { strings } from '@limetech/mdc-list/constants';
 import {
@@ -8,11 +14,8 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
-import { ListItem, ListSeparator } from '../../interface';
-import { IconSize } from '../icon/icon.types';
 import { ListRenderer } from './list-renderer';
 import { ListRendererConfig } from './list-renderer-config';
-import { ListType } from './list.types';
 
 const { ACTION_EVENT } = strings;
 

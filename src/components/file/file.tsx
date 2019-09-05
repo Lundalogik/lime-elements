@@ -1,3 +1,4 @@
+import { Chip, FileInfo } from '@limetech/lime-elements';
 import { MDCTextField } from '@limetech/mdc-textfield';
 import {
     Component,
@@ -8,8 +9,6 @@ import {
     Prop,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
-import { Chip } from '../chip-set/chip.types';
-import { FileInfo } from './file.types';
 
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 const DEFAULT_FILE_CHIP: Chip = {

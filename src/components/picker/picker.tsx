@@ -1,3 +1,4 @@
+import { Chip, ListItem, Searcher } from '@limetech/lime-elements';
 import {
     Component,
     Element,
@@ -9,7 +10,6 @@ import {
     Watch,
 } from '@stencil/core';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import { ListItem, Searcher } from '../../interface';
 import { isDescendant } from '../../util/dom';
 import {
     ARROW_DOWN,
@@ -19,7 +19,6 @@ import {
     TAB,
     TAB_KEY_CODE,
 } from '../../util/keycodes';
-import { Chip } from '../chip-set/chip.types';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';

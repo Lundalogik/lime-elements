@@ -1,5 +1,5 @@
+import { Option } from '@limetech/lime-elements';
 import { Component, h, Prop } from '@stencil/core';
-import { Option } from '../../../interface';
 
 @Component({ tag: 'select-test-wrapper' })
 export class SelectTestWrapper {

@@ -1,5 +1,4 @@
-import { IconSize } from '../icon/icon.types';
-import { ListType } from './list.types';
+import { IconSize, ListType } from '@limetech/lime-elements';
 
 export interface ListRendererConfig {
     isMenu?: boolean;

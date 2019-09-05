@@ -1,3 +1,4 @@
+import { Chip } from '@limetech/lime-elements';
 import {
     MDCChipInteractionEvent,
     MDCChipSelectionEvent,
@@ -15,7 +16,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { Chip } from './chip.types';
 
 @Component({
     tag: 'limel-chip-set',

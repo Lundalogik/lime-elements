@@ -1,3 +1,4 @@
+import { ListItem, ListSeparator } from '@limetech/lime-elements';
 import { Corner, MDCMenu } from '@limetech/mdc-menu';
 import {
     Component,
@@ -8,7 +9,6 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
-import { ListItem, ListSeparator } from '../../interface';
 import { ListRenderer } from '../list/list-renderer';
 import { ListRendererConfig } from '../list/list-renderer-config';
 

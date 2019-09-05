@@ -1,7 +1,6 @@
+import { ListItem, Option } from '@limetech/lime-elements';
 import { FunctionalComponent, h } from '@stencil/core';
 import { isMultiple } from '../../util/multiple';
-import { ListItem } from '../list/list-item.types';
-import { Option } from './option.types';
 
 interface SelectTemplateProps {
     disabled?: boolean;

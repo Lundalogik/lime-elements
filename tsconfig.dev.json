@@ -11,7 +11,11 @@
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "jsx": "react",
-        "jsxFactory": "h"
+        "jsxFactory": "h",
+        "baseUrl": ".",
+        "paths": {
+            "@limetech/lime-elements": ["src"]
+        }
     },
     "include": ["src", "types/jsx.d.ts"],
     "exclude": ["node_modules"]

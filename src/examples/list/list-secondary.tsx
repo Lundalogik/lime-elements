@@ -1,5 +1,5 @@
+import { ListItem } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
-import { ListItem } from '../../interface';
 
 @Component({
     tag: 'limel-example-list-secondary',
