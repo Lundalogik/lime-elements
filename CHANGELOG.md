@@ -1,3 +1,13 @@
+## [22.6.1](https://github.com/Lundalogik/lime-elements/compare/v22.6.0...v22.6.1) (2019-09-05)
+
+
+### Bug Fixes
+
+* **chip-set:** add missing export of chip types ([8b13349](https://github.com/Lundalogik/lime-elements/commit/8b13349))
+* **date-picker:** add missing export of date types ([58b7d9b](https://github.com/Lundalogik/lime-elements/commit/58b7d9b))
+* **file:** add missing export of file types ([5837c46](https://github.com/Lundalogik/lime-elements/commit/5837c46))
+* **list:** add missing export of list types ([a360e1f](https://github.com/Lundalogik/lime-elements/commit/a360e1f))
+
 # [22.6.0](https://github.com/Lundalogik/lime-elements/compare/v22.5.1...v22.6.0) (2019-09-04)
 
 
