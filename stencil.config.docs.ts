@@ -11,6 +11,10 @@ const targetWww: OutputTargetWww = {
         { src: 'examples/**/*.tsx' },
         { src: 'examples/**/*.scss' },
         { src: 'components/**/*.md' },
+        {
+            src: '../node_modules/@limetech/lime-icons8/assets/',
+            dest: 'assets/',
+        },
     ],
 };
 
