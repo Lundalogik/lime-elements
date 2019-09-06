@@ -7,7 +7,7 @@ import { sass } from '@stencil/sass';
 
 const targetDist: OutputTargetDist = {
     type: 'dist',
-    copy: [{ src: 'style/' }, { src: 'assets/' }],
+    copy: [{ src: 'style/' }],
 };
 
 const targetWww: OutputTargetWww = {
@@ -18,6 +18,10 @@ const targetWww: OutputTargetWww = {
         { src: 'examples/**/*.tsx' },
         { src: 'examples/**/*.scss' },
         { src: 'components/**/*.md' },
+        {
+            src: '../node_modules/@limetech/lime-icons8/assets/',
+            dest: 'assets/',
+        },
     ],
 };
 

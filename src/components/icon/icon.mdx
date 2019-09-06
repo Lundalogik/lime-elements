@@ -6,15 +6,18 @@ menu: Components
 
 # Icon
 
-The icon library used in Lime Elements is the Windows 10 set from Icons8 (https://icons8.com/windows-icons/).
+The recommended icon library for use with Lime Elements is the Windows 10 set from Icons8 (https://icons8.com/windows-icons/). This set is included in the relevant Lime products. If you are using Lime Elements in a non-Lime product, you will have to supply your own icons.
 
 The size and color of the icon is set in CSS, however there are a few standard sizes defined that can be used with the `size` property.
 
 ## Setup
 
-The `dist/collection/assets` folder from Lime Elements must be made available on the webserver. If it is placed in the root, no other setup is needed. The icons will be fetched with a relative URL from `assets/icons/<name-of-icon>.svg`.
+* To use **@limetech/lime-icons8**, the `/assets` folder from **@limetech/lime-icons8** must be made available on the webserver.
+* To use a different icon set, the icons must be placed in a folder structure that looks like this: `assets/icons/<name-of-icon>.svg`
 
-If they are placed in a sub folder somewhere, the easiest way to make them available is to use the HTML `base` element:
+If `assets` is placed in the root, no other setup is needed. The icons will be fetched with a relative URL from `assets/icons/<name-of-icon>.svg`.
+
+If `assets` is placed in a sub-folder somewhere, the easiest way to make the icons available is to use the HTML `base` element:
 
 ```
 <base href="/my/parent/path/">

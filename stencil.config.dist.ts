@@ -4,7 +4,7 @@ import { sass } from '@stencil/sass';
 
 const targetDist: OutputTargetDist = {
     type: 'dist',
-    copy: [{ src: 'style/' }, { src: 'assets/' }],
+    copy: [{ src: 'style/' }],
 };
 
 export const config: Config = {
