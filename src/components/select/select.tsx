@@ -238,6 +238,10 @@ export class Select {
             return;
         }
 
+        if (!event.detail.selected) {
+            return;
+        }
+
         const listItem: ListItem = event.detail;
         const option: Option = listItem.value;
         this.change.emit(option);
