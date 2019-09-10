@@ -277,15 +277,14 @@ export class ChipSet {
                     />
                 </div>
                 <label
-                    class={`mdc-floating-label
-                        ${
+                    class={{
+                        'mdc-floating-label': true,
+                        'mdc-floating-label--float-above': !!(
                             textValue || this.editMode
-                                ? 'mdc-floating-label--float-above'
-                                : ''
-                        }
-                        ${this.disabled ? 'mdc-text-field--disabled' : ''}
-                        ${this.required ? 'mdc-text-field--required' : ''}
-                        `}
+                        ),
+                        'mdc-text-field--disabled': this.disabled,
+                        'mdc-text-field--required': this.required,
+                    }}
                     htmlFor="my-text-field"
                 >
                     {this.label}
