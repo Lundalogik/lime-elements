@@ -3,7 +3,7 @@
 
 ### Bug Fixes
 
-* **icon:** move icons to private repo and packagea ([acb2c01](https://github.com/Lundalogik/lime-elements/commit/acb2c01))
+* **icon:** move icons to private repo and packages ([acb2c01](https://github.com/Lundalogik/lime-elements/commit/acb2c01))
 
 
 ### BREAKING CHANGES
