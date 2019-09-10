@@ -1,3 +1,19 @@
+# [23.0.0](https://github.com/Lundalogik/lime-elements/compare/v22.6.1...v23.0.0) (2019-09-10)
+
+
+### Bug Fixes
+
+* **icon:** move icons to private repo and packagea ([acb2c01](https://github.com/Lundalogik/lime-elements/commit/acb2c01))
+
+
+### BREAKING CHANGES
+
+* **icon:** The icon set previously delivered with lime-elements
+has been removed. The icons will be provided by the Lime products
+which use lime-elements. External consumers of lime-elements need to
+supply their own icons. Please see the documentation for limel-icon
+for more info.
+
 ## [22.6.1](https://github.com/Lundalogik/lime-elements/compare/v22.6.0...v22.6.1) (2019-09-05)
 
 
