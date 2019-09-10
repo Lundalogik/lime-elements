@@ -44,6 +44,11 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     }
 }
 
+.mdc-chip__icon--trailing svg {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
 
 .mdc-text-field {
     @include mdc-states-hover-opacity(0);
