@@ -85,14 +85,10 @@ describe('limel-chip-set', () => {
             expect(chips[0]).toEqualText('Lime');
             expect(chips[1]).toEqualText('Apple');
 
-            let button = await chips[0].find(
-                'limel-icon[name="multiply"][role="button"]'
-            );
+            let button = await chips[0].find('div[role="button"]');
             expect(button).toBeTruthy();
 
-            button = await chips[1].find(
-                'limel-icon[name="multiply"][role="button"]'
-            );
+            button = await chips[1].find('div[role="button"]');
             expect(button).toBeFalsy();
         });
 
@@ -103,7 +99,7 @@ describe('limel-chip-set', () => {
                 const chipSet: E2EElement = await page.find('limel-chip-set');
                 spy = await chipSet.spyOnEvent('change');
                 const button: E2EElement = await page.find(
-                    'limel-chip-set >>> .mdc-chip limel-icon[role="button"]'
+                    'limel-chip-set >>> .mdc-chip div[role="button"]'
                 );
                 await button.click();
             });
