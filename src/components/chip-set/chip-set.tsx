@@ -38,13 +38,13 @@ export class ChipSet {
      *
      * If no type is set, a basic set of chips without additional functionality will be rendered
      */
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public type?: 'choice' | 'filter' | 'input';
 
     /**
      * Label to display for the input field when type is `input`
      */
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public label: string;
 
     /**
