@@ -1,6 +1,7 @@
 @import '../../style/variables';
 
 @import "@limetech/mdc-button/mdc-button";
+@import "@limetech/mdc-icon-button/mdc-icon-button";
 @import "@limetech/mdc-snackbar/mdc-snackbar";
 
 .mdc-button {
@@ -8,10 +9,15 @@
 }
 
 .mdc-snackbar__actions {
-    limel-icon-button.mdc-snackbar__dismiss {
+    .mdc-snackbar__dismiss {
         color: $mdc-theme-on-secondary;
         width: auto;
         height: auto;
         padding: 0;
+
+        svg {
+            height: 100%;
+            width: 100%;
+        }
     }
 }
