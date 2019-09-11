@@ -104,6 +104,9 @@ export class ChipSet {
     @State()
     private textValue: string = '';
 
+    @State()
+    private blurred: boolean = false;
+
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
 
@@ -253,7 +256,10 @@ export class ChipSet {
 
         return (
             <div
-                class="mdc-text-field"
+                class={{
+                    'mdc-text-field': true,
+                    'mdc-text-field--invalid': this.isInvalid(),
+                }}
                 onFocus={this.handleTextFieldFocus}
                 tabindex="0"
             >
@@ -301,6 +307,18 @@ export class ChipSet {
         );
     }
 
+    private isInvalid() {
+        if (!this.required) {
+            return;
+        }
+
+        if (!this.blurred) {
+            return;
+        }
+
+        return !this.value || !this.value.length;
+    }
+
     private inputFieldOnChange(event) {
         event.stopPropagation();
     }
@@ -322,6 +340,7 @@ export class ChipSet {
     private handleInputBlur() {
         this.editMode = false;
         this.textValue = ' ';
+        this.blurred = true;
 
         // This timeout is needed in order to let a new element receive focus
         setTimeout(() => {
