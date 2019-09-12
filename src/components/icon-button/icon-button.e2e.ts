@@ -12,7 +12,7 @@ describe('limel-icon-button', () => {
                 'limel-icon-button >>> .mdc-icon-button'
             );
         });
-        it('displays the correct label', () => {
+        it.skip('displays the correct label', () => {
             expect(mdcIconButton).toEqualAttribute(
                 'aria-label',
                 'Add favorite'

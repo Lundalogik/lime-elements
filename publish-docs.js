@@ -143,8 +143,18 @@ function build() {
         shell.exit(1);
     }
 
+    if (
+        shell.exec(
+            'npm install http://npm.lundalogik.com:4873/@limetech/lime-icons8/-/lime-icons8-2.0.0.tgz'
+        ).code !== 0
+    ) {
+        shell.echo('npm install failed!');
+        teardown();
+        shell.exit(1);
+    }
+
     if (shell.exec('npm run docz:build').code !== 0) {
-        shell.echo('docz:build failed!');
+        shell.echo('npm run docz:build!');
         teardown();
         shell.exit(1);
     }
@@ -262,7 +272,7 @@ function push() {
 function teardown(finished) {
     if (finished || cleanOnFail) {
         shell.exec(
-            'git checkout doczrc.js src/examples/example.tsx src/examples/props.tsx src/index.html stencil.config.docs.ts'
+            'git checkout package.json package-lock.json doczrc.js src/examples/example.tsx src/examples/props.tsx src/index.html stencil.config.docs.ts'
         );
         shell.echo('Removing worktree for docsDist.');
         shell.exec('git worktree remove docsDist --force');
