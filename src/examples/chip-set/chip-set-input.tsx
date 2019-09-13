@@ -15,6 +15,9 @@ export class ChipSetInputExample {
     private textValue = '';
 
     @State()
+    private required: boolean = false;
+
+    @State()
     private disabled: boolean = false;
 
     constructor() {
@@ -30,32 +33,43 @@ export class ChipSetInputExample {
         this.value[2].iconColor = 'var(--lime-green)'; // tslint:disable-line:no-magic-numbers
         this.value[3].iconColor = 'var(--lime-blue)'; // tslint:disable-line:no-magic-numbers
 
-        this.disabledOnChange = this.disabledOnChange.bind(this);
         this.chipSetOnChange = this.chipSetOnChange.bind(this);
         this.onInput = this.onInput.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
+        this.toggleEnabled = this.toggleEnabled.bind(this);
+        this.toggleRequired = this.toggleRequired.bind(this);
     }
 
     public render() {
         return [
-            <limel-switch label="Disabled" onChange={this.disabledOnChange} />,
-            <br />,
-            <br />,
             <limel-chip-set
                 label="Animal"
                 type="input"
                 value={this.value}
-                required={true}
+                required={this.required}
                 disabled={this.disabled}
                 onChange={this.chipSetOnChange}
                 onInput={this.onInput}
                 onKeyUp={this.onKeyUp}
             />,
+            <p>
+                <limel-flex-container justify="end">
+                    <limel-checkbox
+                        label="Disabled"
+                        onChange={this.toggleEnabled}
+                        checked={this.disabled}
+                    />
+                    <limel-checkbox
+                        label="Required"
+                        onChange={this.toggleRequired}
+                        checked={this.required}
+                    />
+                </limel-flex-container>
+            </p>,
+            <p>
+                Value: <code>{JSON.stringify(this.value)}</code>
+            </p>,
         ];
-    }
-
-    private disabledOnChange(event) {
-        this.disabled = event.detail;
     }
 
     private onInput(event: CustomEvent<string>) {
@@ -81,5 +95,13 @@ export class ChipSetInputExample {
             removable: true,
             icon: `${name}`.toLowerCase(),
         };
+    }
+
+    private toggleEnabled() {
+        this.disabled = !this.disabled;
+    }
+
+    private toggleRequired() {
+        this.required = !this.required;
     }
 }
