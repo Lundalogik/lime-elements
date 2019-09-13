@@ -1,3 +1,10 @@
+## [23.0.1](https://github.com/Lundalogik/lime-elements/compare/v23.0.0...v23.0.1) (2019-09-13)
+
+
+### Bug Fixes
+
+* **select:** only emit one change event when selecting a value ([a7d4284](https://github.com/Lundalogik/lime-elements/commit/a7d4284))
+
 # [23.0.0](https://github.com/Lundalogik/lime-elements/compare/v22.6.1...v23.0.0) (2019-09-10)
 
 
