@@ -1,3 +1,11 @@
+## [23.0.2](https://github.com/Lundalogik/lime-elements/compare/v23.0.1...v23.0.2) (2019-09-16)
+
+
+### Bug Fixes
+
+* **chip set:** invalid state of required input chip-set not handled correctly ([c7dcbf1](https://github.com/Lundalogik/lime-elements/commit/c7dcbf1))
+* **chip-set:** add required marker to input chip-set ([ae5a967](https://github.com/Lundalogik/lime-elements/commit/ae5a967))
+
 ## [23.0.1](https://github.com/Lundalogik/lime-elements/compare/v23.0.0...v23.0.1) (2019-09-13)
 
 
