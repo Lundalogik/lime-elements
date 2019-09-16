@@ -112,6 +112,7 @@
   },
   "greenkeeper": {
     "ignore": [
+      "@types/jest",
       "jest",
       "jest-cli",
       "puppeteer"
