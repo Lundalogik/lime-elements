@@ -97,7 +97,7 @@ export class Picker {
      * Fired when clicking on a selected value
      */
     @Event()
-    private interact: EventEmitter<Chip>;
+    private interact: EventEmitter<ListItem>;
 
     @State()
     private items: Array<ListItem<number | string>>;
@@ -224,6 +224,7 @@ export class Picker {
             removable: true,
             icon: listItem.icon,
             iconColor: listItem.iconColor,
+            value: listItem,
         };
     }
 
@@ -421,7 +422,7 @@ export class Picker {
 
     private handleInteract(event: CustomEvent<Chip>) {
         event.stopPropagation();
-        this.interact.emit(event.detail);
+        this.interact.emit(event.detail ? event.detail.value : event.detail);
     }
 
     /**
