@@ -1,3 +1,17 @@
+# [24.0.0](https://github.com/Lundalogik/lime-elements/compare/v23.0.2...v24.0.0) (2019-09-18)
+
+
+### Bug Fixes
+
+* **picker:** remove leaking of internal implementation details through the `interact` event ([d4a3d11](https://github.com/Lundalogik/lime-elements/commit/d4a3d11))
+
+
+### BREAKING CHANGES
+
+* **picker:** The `interact` event used to supply a `Chip` used internally by limel-picker,
+instead of the `ListItem` supplied to limel-picker by the consumer. This has now been fixed.
+Implementations relying on the incorrect behavior will need to be updated.
+
 ## [23.0.2](https://github.com/Lundalogik/lime-elements/compare/v23.0.1...v23.0.2) (2019-09-16)
 
 
