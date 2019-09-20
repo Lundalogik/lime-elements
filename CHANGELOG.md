@@ -1,3 +1,10 @@
+## [24.0.1](https://github.com/Lundalogik/lime-elements/compare/v24.0.0...v24.0.1) (2019-09-20)
+
+
+### Bug Fixes
+
+* **picker:** the `interact` event supplies a `ListItem<number | string>` instead of `ListItem<any>` ([6df40e5](https://github.com/Lundalogik/lime-elements/commit/6df40e5))
+
 # [24.0.0](https://github.com/Lundalogik/lime-elements/compare/v23.0.2...v24.0.0) (2019-09-18)
 
 
