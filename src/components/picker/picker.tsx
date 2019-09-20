@@ -97,7 +97,7 @@ export class Picker {
      * Fired when clicking on a selected value
      */
     @Event()
-    private interact: EventEmitter<ListItem>;
+    private interact: EventEmitter<ListItem<number | string>>;
 
     @State()
     private items: Array<ListItem<number | string>>;
