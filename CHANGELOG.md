@@ -1,3 +1,11 @@
+## [24.0.2](https://github.com/Lundalogik/lime-elements/compare/v24.0.1...v24.0.2) (2019-09-24)
+
+
+### Bug Fixes
+
+* **chip-set:** adds margin to search label ([68870ac](https://github.com/Lundalogik/lime-elements/commit/68870ac))
+* **chip-set:** reflect properties `type` and `label` to attribute ([69aa336](https://github.com/Lundalogik/lime-elements/commit/69aa336))
+
 ## [24.0.1](https://github.com/Lundalogik/lime-elements/compare/v24.0.0...v24.0.1) (2019-09-20)
 
 
