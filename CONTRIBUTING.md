@@ -249,6 +249,10 @@ $ git remote add upstream https://github.com/Lundalogik/lime-elements
 $ npm install
 ```
 
+### Build
+
+Run `npm start` to make a development build and serve the documentation locally. Then run `npm run watch` in a separate console to automatically rebuild when you save changes.
+
 ### Lint
 
 The **lime-elements** repository uses [tslint](https://palantir.github.io/tslint/) and [eslint](https://eslint.org/) for linting and [Prettier](https://prettier.io) for formatting. Prettier formatting will be automatically verified by tslint.

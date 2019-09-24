@@ -36,7 +36,7 @@
     "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
     "release": "npm run build && semantic-release",
-    "start": "npm run docz:watch",
+    "start": "npm run dev && npm run docz:dev",
     "test": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e\"",
     "test:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e --watch\""
   },
