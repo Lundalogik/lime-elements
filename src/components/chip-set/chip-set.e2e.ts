@@ -53,72 +53,6 @@ describe('limel-chip-set', () => {
         });
     });
 
-    describe('basic chip set with removable chips', () => {
-        beforeEach(async () => {
-            page = await createPage(`<limel-chip-set></limel-chip-set>`);
-
-            const chipSet = await page.find('limel-chip-set');
-
-            const enableErrorLogger = disableErrorLogger();
-            chipSet.setProperty('value', [
-                {
-                    id: '1',
-                    text: 'Lime',
-                    removable: true,
-                },
-                {
-                    id: '2',
-                    text: 'Apple',
-                },
-            ]);
-
-            await page.waitForChanges();
-            enableErrorLogger();
-        });
-
-        it('renders the chips correctly', async () => {
-            const chips: E2EElement[] = await page.findAll(
-                'limel-chip-set >>> .mdc-chip'
-            );
-
-            expect(chips.length).toEqual(2);
-            expect(chips[0]).toEqualText('Lime');
-            expect(chips[1]).toEqualText('Apple');
-
-            let button = await chips[0].find(
-                'limel-icon[name="multiply"][role="button"]'
-            );
-            expect(button).toBeTruthy();
-
-            button = await chips[1].find(
-                'limel-icon[name="multiply"][role="button"]'
-            );
-            expect(button).toBeFalsy();
-        });
-
-        describe('when a chip delete button is clicked', () => {
-            let spy;
-
-            beforeEach(async () => {
-                const chipSet: E2EElement = await page.find('limel-chip-set');
-                spy = await chipSet.spyOnEvent('change');
-                const button: E2EElement = await page.find(
-                    'limel-chip-set >>> .mdc-chip limel-icon[role="button"]'
-                );
-                await button.click();
-            });
-
-            it('emits an change event', () => {
-                expect(spy).toHaveReceivedEventDetail([
-                    {
-                        id: '2',
-                        text: 'Apple',
-                    },
-                ]);
-            });
-        });
-    });
-
     describe('choice chip set', () => {
         beforeEach(async () => {
             page = await createPage(
@@ -356,6 +290,7 @@ describe('limel-chip-set', () => {
                 {
                     id: '1',
                     text: 'Lime',
+                    removable: true,
                 },
                 {
                     id: '2',
@@ -374,10 +309,19 @@ describe('limel-chip-set', () => {
             expect(chips.length).toEqual(2);
             expect(chips[0]).toEqualText('Lime');
             expect(chips[1]).toEqualText('Apple');
+
+            let button = await chips[0].find(
+                'limel-icon[name="multiply"][role="button"]'
+            );
+            expect(button).toBeTruthy();
+
+            button = await chips[1].find(
+                'limel-icon[name="multiply"][role="button"]'
+            );
+            expect(button).toBeFalsy();
         });
 
-        // Typing in an input field does not seem to work
-        describe.skip('when typing in the input field', () => {
+        describe('when typing in the input field', () => {
             let spy;
 
             beforeEach(async () => {
@@ -392,8 +336,30 @@ describe('limel-chip-set', () => {
                 await page.waitForChanges();
             });
 
-            it('emits an input event', async () => {
+            it('emits an input event', () => {
                 expect(spy).toHaveReceivedEventDetail('Banana');
+            });
+        });
+
+        describe('when a chip delete button is clicked', () => {
+            let spy;
+
+            beforeEach(async () => {
+                const chipSet: E2EElement = await page.find('limel-chip-set');
+                spy = await chipSet.spyOnEvent('change');
+                const button: E2EElement = await page.find(
+                    'limel-chip-set >>> .mdc-chip limel-icon[role="button"]'
+                );
+                await button.click();
+            });
+
+            it('emits a change event where the removed chip is not present', () => {
+                expect(spy).toHaveReceivedEventDetail([
+                    {
+                        id: '2',
+                        text: 'Apple',
+                    },
+                ]);
             });
         });
     });
@@ -401,19 +367,4 @@ describe('limel-chip-set', () => {
 
 async function createPage(content) {
     return newE2EPage({ html: content });
-}
-
-/**
- * Temporarily disable the error logger
- *
- * @returns {*} a function to enable it again
- */
-// tslint:disable:no-console
-function disableErrorLogger() {
-    const logger = console.error;
-    console.error = () => {}; // tslint:disable-line:no-empty
-
-    return () => {
-        console.error = logger;
-    };
 }
