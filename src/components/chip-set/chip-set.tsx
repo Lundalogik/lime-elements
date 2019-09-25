@@ -112,6 +112,7 @@ export class ChipSet {
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
+        this.renderInputChip = this.renderInputChip.bind(this);
         this.handleInteraction = this.handleInteraction.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
@@ -190,7 +191,7 @@ export class ChipSet {
 
     @Watch('value')
     protected handleChangeChips() {
-        this.textValue = ' ';
+        this.textValue = '';
     }
 
     private createMDCChipSet() {
@@ -241,30 +242,16 @@ export class ChipSet {
             hiddenInput = false;
         }
 
-        // Make sure the floating label is displayed correctly by setting the value of
-        // the input to an empty/not empty value
-        let textValue = this.textValue;
-        if (!textValue && this.value.length > 0) {
-            textValue = ' ';
-        } else if (!this.value.length && !textValue.trim()) {
-            textValue = '';
-        }
-        let searchLabel = this.searchLabel;
-        if (!this.editMode || textValue.length > 0) {
-            searchLabel = '';
-        }
-
         return (
             <div
                 class={{
                     'mdc-text-field': true,
                     'mdc-text-field--invalid': this.isInvalid(),
                 }}
-                onFocus={this.handleTextFieldFocus}
-                tabindex="0"
+                onClick={this.handleTextFieldFocus}
             >
                 <div class="mdc-chip-set mdc-chip-set--input">
-                    {this.value.map(this.renderChip)}
+                    {this.value.map(this.renderInputChip)}
                     <input
                         type="text"
                         id="my-text-field"
@@ -273,34 +260,26 @@ export class ChipSet {
                         class={`mdc-text-field__input ${
                             hiddenInput ? 'hidden' : ''
                         }`}
-                        value={textValue}
+                        value={this.textValue}
                         onBlur={this.handleInputBlur}
                         onFocus={this.handleTextFieldFocus}
                         onInput={this.handleTextInput}
                         // Some browsers emit a change event on input elements, we need to stop
                         // that event from propagating since we are emitting our own change event
                         onChange={this.inputFieldOnChange}
+                        placeholder={this.searchLabel}
                     />
                 </div>
                 <label
                     class={{
                         'mdc-floating-label': true,
-                        'mdc-floating-label--float-above': !!(
-                            textValue || this.editMode
-                        ),
                         'mdc-text-field--disabled': this.disabled,
                         'mdc-text-field--required': this.required,
+                        'force-float': !!(this.value.length || this.editMode),
                     }}
                     htmlFor="my-text-field"
                 >
                     {this.label}
-                </label>
-                <label
-                    id="search-label"
-                    class="mdc-floating-label"
-                    htmlFor="my-text-field"
-                >
-                    {searchLabel}
                 </label>
                 <div class="mdc-line-ripple" />
             </div>
@@ -339,7 +318,7 @@ export class ChipSet {
      */
     private handleInputBlur() {
         this.editMode = false;
-        this.textValue = ' ';
+        this.textValue = '';
         this.blurred = true;
 
         // This timeout is needed in order to let a new element receive focus
@@ -384,7 +363,6 @@ export class ChipSet {
             case 'filter':
                 return this.renderFilterChip(chip);
 
-            case 'input':
             default:
                 return this.renderDefaultChip(chip);
         }
@@ -430,9 +408,26 @@ export class ChipSet {
             <div class="mdc-chip" tabindex="0" id={`${chip.id}`}>
                 {chip.icon ? this.renderIcon(chip) : null}
                 <div class="mdc-chip__text">{chip.text}</div>
+            </div>
+        );
+    }
+
+    private renderInputChip(chip: Chip) {
+        return (
+            <div
+                class="mdc-chip"
+                id={`${chip.id}`}
+                onClick={this.catchInputChipClicks}
+            >
+                {chip.icon ? this.renderIcon(chip) : null}
+                <div class="mdc-chip__text">{chip.text}</div>
                 {chip.removable ? this.renderTrailingIcon() : null}
             </div>
         );
+    }
+
+    private catchInputChipClicks(event) {
+        event.stopPropagation();
     }
 
     private renderIcon(chip: Chip) {
@@ -456,7 +451,6 @@ export class ChipSet {
         return (
             <limel-icon
                 class="mdc-chip__icon mdc-chip__icon--trailing"
-                tabindex="0"
                 role="button"
                 name="multiply"
             />
