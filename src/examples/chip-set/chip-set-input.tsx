@@ -34,6 +34,7 @@ export class ChipSetInputExample {
         this.value[3].iconColor = 'var(--lime-blue)'; // tslint:disable-line:no-magic-numbers
 
         this.chipSetOnChange = this.chipSetOnChange.bind(this);
+        this.onInteract = this.onInteract.bind(this);
         this.onInput = this.onInput.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
         this.toggleEnabled = this.toggleEnabled.bind(this);
@@ -50,7 +51,9 @@ export class ChipSetInputExample {
                 disabled={this.disabled}
                 onChange={this.chipSetOnChange}
                 onInput={this.onInput}
+                onInteract={this.onInteract}
                 onKeyUp={this.onKeyUp}
+                searchLabel="Add an animal"
             />,
             <p>
                 <limel-flex-container justify="end">
@@ -86,6 +89,10 @@ export class ChipSetInputExample {
     private chipSetOnChange(event: CustomEvent<Chip[]>) {
         console.log(event.detail);
         this.value = event.detail;
+    }
+
+    private onInteract(event: CustomEvent<Chip>) {
+        console.log('Chip interacted with: ', event.detail);
     }
 
     private createChip(name: string): Chip {
