@@ -7,7 +7,12 @@ import { Component, h } from '@stencil/core';
 })
 export class SecondaryTextListExample {
     private items: Array<ListItem<number>> = [
-        { text: 'King of Tokyo', secondaryText: '2-6 players', value: 1 },
+        {
+            text: 'King of Tokyo',
+            secondaryText: '2-6 players',
+            value: 1,
+            disabled: true,
+        },
         { text: 'Smash Up!', secondaryText: '2-4 players', value: 2 },
         { text: 'Pandemic', secondaryText: '2-4 players', value: 3 },
         { text: 'Catan', secondaryText: '3-4 players', value: 4 },

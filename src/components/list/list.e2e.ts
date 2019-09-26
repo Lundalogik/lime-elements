@@ -62,8 +62,8 @@ describe('limel-list', () => {
             expect(innerList.children).toHaveLength(1);
             expect(innerList.children[0]).toHaveClass('mdc-list-item');
         });
-        it('sets tabindex to -1', () => {
-            expect(innerList.children[0]).toEqualAttribute('tabindex', '-1');
+        it('does not set tabindex', () => {
+            expect(innerList.children[0]).not.toHaveAttribute('tabindex');
         });
         it('sets the aria-disabled to true', () => {
             expect(innerList.children[0]).toEqualAttribute(
