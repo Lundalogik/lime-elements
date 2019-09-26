@@ -56,13 +56,13 @@ export class ChipSet {
     /**
      * True if the control requires a value
      */
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public required: boolean = false;
 
     /**
      * Search label to display when type is `input` and component is in search mode
      */
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public searchLabel: string;
 
     /**
