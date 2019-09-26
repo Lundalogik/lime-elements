@@ -13,6 +13,8 @@ export class ListRenderer {
 
     private hasIcons: boolean;
 
+    private applyTabIndexToItemAtIndex: number;
+
     public render(
         items: Array<ListItem | ListSeparator>,
         config: ListRendererConfig = {}
@@ -43,6 +45,10 @@ export class ListRenderer {
                 role = config.isMenu ? 'menu' : 'listbox';
         }
 
+        this.applyTabIndexToItemAtIndex = this.getIndexForWhichToApplyTabIndex(
+            items
+        );
+
         const classNames = {
             'mdc-list': true,
             'mdc-list--two-line': twoLines,
@@ -62,6 +68,39 @@ export class ListRenderer {
                 {items.map(this.renderListItem.bind(this, config))}
             </ul>
         );
+    }
+
+    /**
+     * Determine which ListItem should have the `tab-index` attribute set,
+     * and return the index at which that ListItem is located in `items`.
+     * Returns `undefined` if no item should have the attribute set.
+     * See https://github.com/material-components/material-components-web/tree/e66a43a75fef4f9179e24856649518e15e279a04/packages/mdc-list#accessibility
+     *
+     * @param {Array<ListItem | ListSeparator>} items the items of the list, including any `ListSeparator`:s
+     *
+     * @returns {number} the index as per the description
+     */
+    private getIndexForWhichToApplyTabIndex(
+        items: Array<ListItem | ListSeparator>
+    ) {
+        let result;
+        for (let i = 0, max = items.length; i < max; i += 1) {
+            if ('separator' in items[i]) {
+                // Ignore ListSeparator
+            } else {
+                const item = items[i] as ListItem<any>;
+                if (item.selected) {
+                    result = i;
+                    break;
+                }
+                if (result === undefined && !item.disabled) {
+                    result = i;
+                    // Do NOT break, as any later item with
+                    // `selected=true` should get the tab-index instead!
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -93,14 +132,19 @@ export class ListRenderer {
             'mdc-list-item--selected': item.selected,
         };
 
+        const attributes: { tabindex?: string } = {};
+        if (index === this.applyTabIndexToItemAtIndex) {
+            attributes.tabindex = '0';
+        }
+
         return (
             <li
                 class={classNames}
                 role={config.isMenu ? 'menuitem' : ''}
-                tabindex={item.disabled ? '-1' : '0'}
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 aria-selected={item.selected ? 'true' : 'false'}
                 data-index={index}
+                {...attributes}
             >
                 {item.icon ? this.renderIcon(config, item) : null}
                 {this.renderText(item.text, item.secondaryText)}
@@ -188,14 +232,19 @@ export class ListRenderer {
             'mdc-list-item__text': !item.secondaryText,
         };
 
+        const attributes: { tabindex?: string } = {};
+        if (index === this.applyTabIndexToItemAtIndex) {
+            attributes.tabindex = '0';
+        }
+
         return (
             <li
                 class={classNames}
                 role={config.type}
                 aria-checked={item.selected ? 'true' : 'false'}
-                tabindex={item.disabled ? '-1' : '0'}
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 data-index={index}
+                {...attributes}
             >
                 {this.renderVariantListItemContent(config, item, itemTemplate)}
             </li>
