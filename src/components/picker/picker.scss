@@ -8,6 +8,7 @@
 }
 
 .dropdown--spinner {
+    padding-top: pxToRem(6);
     text-align: center;
 
     limel-spinner {
@@ -26,10 +27,6 @@
         max-height: pxToRem(250);
         overflow-y: auto;
     }
-}
-
-.dropdown--spinner {
-    padding-top: pxToRem(6);
 }
 
 .empty-result-message {
