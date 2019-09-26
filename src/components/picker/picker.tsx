@@ -182,7 +182,6 @@ export class Picker {
         return [
             <limel-chip-set
                 style={style}
-                tabindex="0"
                 type="input"
                 label={this.label}
                 value={this.chips}
@@ -434,13 +433,17 @@ export class Picker {
      * @returns {void}
      */
     private handleKeyDown(event: KeyboardEvent) {
-        const isTab = event.key === TAB || event.keyCode === TAB_KEY_CODE;
+        const isForwardTab =
+            (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
+            !event.altKey &&
+            !event.metaKey &&
+            !event.shiftKey;
         const isUp =
             event.key === ARROW_UP || event.keyCode === ARROW_UP_KEY_CODE;
         const isDown =
             event.key === ARROW_DOWN || event.keyCode === ARROW_DOWN_KEY_CODE;
 
-        if (!isTab && !isUp && !isDown) {
+        if (!isForwardTab && !isUp && !isDown) {
             return;
         }
 
@@ -451,7 +454,7 @@ export class Picker {
 
         event.preventDefault();
 
-        if (isTab || isDown) {
+        if (isForwardTab || isDown) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
                 '.mdc-list-item:first-child'
             );
