@@ -119,18 +119,16 @@ export class Picker {
     private chipSetEditMode = false;
 
     private debouncedSearch;
-    private chipSet;
+    private chipSet: HTMLLimelChipSetElement;
 
     constructor() {
-        this.handleElementBlur = this.handleElementBlur.bind(this);
-        this.handleElementFocus = this.handleElementFocus.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleInputFieldFocus = this.handleInputFieldFocus.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleInteract = this.handleInteract.bind(this);
         this.handleListChange = this.handleListChange.bind(this);
-        this.handleStopEdit = this.handleStopEdit.bind(this);
+        this.handleStopEditAndBlur = this.handleStopEditAndBlur.bind(this);
     }
 
     @Watch('value')
@@ -152,15 +150,13 @@ export class Picker {
             this.searcher,
             SEARCH_DEBOUNCE
         );
-        this.element.addEventListener('blur', this.handleElementBlur);
-        this.element.addEventListener('focus', this.handleElementFocus);
+        this.element.addEventListener('blur', this.handleStopEditAndBlur);
         this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
         this.chips = this.createChips(this.value);
     }
 
     public componentDidUnload() {
-        this.element.removeEventListener('blur', this.handleElementBlur);
-        this.element.removeEventListener('focus', this.handleElementFocus);
+        this.element.removeEventListener('blur', this.handleStopEditAndBlur);
     }
 
     public async componentWillUpdate() {
@@ -190,11 +186,11 @@ export class Picker {
                 searchLabel={this.searchLabel}
                 onInput={this.handleTextInput}
                 onKeyDown={this.handleKeyDown}
-                onFocus={this.handleInputFieldFocus}
                 onChange={this.handleChange}
                 onInteract={this.handleInteract}
                 onStartEdit={this.handleInputFieldFocus}
-                onStopEdit={this.handleStopEdit}
+                onStopEdit={this.handleStopEditAndBlur}
+                emptyInputOnBlur={false}
             />,
             <div class="mdc-menu-surface--anchor">{this.renderDropdown()}</div>,
         ];
@@ -308,11 +304,11 @@ export class Picker {
     }
 
     /**
-     * Check if a descendant still has focus, if not reset text value and search result
+     * Check if a descendant still has focus. If not, reset text value and search result.
      *
      * @returns {void}
      */
-    private handleStopEdit() {
+    private handleStopEditAndBlur() {
         // In browsers where shadow DOM is not supported activeElement on shadowRoot will return null
         // However, document.activeElement will return the actual focused element instead of the outermost shadow host
         const element =
@@ -321,26 +317,9 @@ export class Picker {
             return;
         }
 
-        this.handleElementBlur();
-    }
-
-    /**
-     * Reset the value of the input field when the control loses focus
-     *
-     * @returns {void}
-     */
-    private handleElementBlur() {
+        this.chipSet.emptyInput();
         this.textValue = '';
         this.handleSearchResult('', []);
-    }
-
-    /**
-     * Set focus to the input field when this control receives focus
-     *
-     * @returns {void}
-     */
-    private handleElementFocus() {
-        this.chipSet.setFocus();
     }
 
     /**
@@ -389,14 +368,7 @@ export class Picker {
      * @param {CustomEvent} event event
      * @returns {void}
      */
-    private async handleInputFieldFocus(event) {
-        if (this.value && !this.multiple) {
-            event.stopPropagation();
-            this.chipSet.blur();
-
-            return;
-        }
-
+    private async handleInputFieldFocus() {
         this.textValue = '';
         this.loading = true;
         const result = await this.searcher('');
