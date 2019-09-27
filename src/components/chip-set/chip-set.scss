@@ -55,11 +55,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         flex-grow: 1;
         flex-shrink: 0;
         max-height: pxToRem(35);
-
-        &.hidden {
-            max-height: 0 !important;
-            transition: max-height 250ms cubic-bezier(0.5,0,1,0);
-        }
     }
 
     .mdc-floating-label--float-above {

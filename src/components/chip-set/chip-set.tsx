@@ -236,12 +236,6 @@ export class ChipSet {
     }
 
     private renderInputChips() {
-        // Hide the input field while we are not editing and there are chips in the set
-        let hiddenInput = true;
-        if (this.editMode || !this.value.length) {
-            hiddenInput = false;
-        }
-
         return (
             <div
                 class={{
@@ -257,9 +251,7 @@ export class ChipSet {
                         id="my-text-field"
                         required={this.required}
                         disabled={this.disabled}
-                        class={`mdc-text-field__input ${
-                            hiddenInput ? 'hidden' : ''
-                        }`}
+                        class="mdc-text-field__input"
                         value={this.textValue}
                         onBlur={this.handleInputBlur}
                         onFocus={this.handleTextFieldFocus}
