@@ -66,6 +66,12 @@ export class ChipSet {
     public searchLabel: string;
 
     /**
+     * Whether the input field should be emptied when the chip-set loses focus.
+     */
+    @Prop({ reflectToAttr: true })
+    public emptyInputOnBlur: boolean = true;
+
+    /**
      * Dispatched when a chip is interacted with
      */
     @Event()
@@ -140,6 +146,17 @@ export class ChipSet {
     public async setFocus() {
         this.editMode = true;
         this.host.shadowRoot.querySelector('input').focus();
+    }
+
+    /**
+     * Used to empty the input field. Used in conjunction with `emptyInputOnBlur` to let the
+     * consumer control when the input is emptied.
+     *
+     * @returns {Promise<void>} does not return anything, but methods have to be async
+     */
+    @Method()
+    public async emptyInput() {
+        this.textValue = '';
     }
 
     public componentDidLoad() {
@@ -309,8 +326,10 @@ export class ChipSet {
      * @returns {void}
      */
     private handleInputBlur() {
+        if (this.emptyInputOnBlur) {
+            this.textValue = '';
+        }
         this.editMode = false;
-        this.textValue = '';
         this.blurred = true;
 
         // This timeout is needed in order to let a new element receive focus

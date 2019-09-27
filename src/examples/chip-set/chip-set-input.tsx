@@ -20,6 +20,9 @@ export class ChipSetInputExample {
     @State()
     private disabled: boolean = false;
 
+    @State()
+    private emptyInputOnBlur: boolean = true;
+
     constructor() {
         this.value = [
             this.createChip('Elephant'),
@@ -39,6 +42,7 @@ export class ChipSetInputExample {
         this.onKeyUp = this.onKeyUp.bind(this);
         this.toggleEnabled = this.toggleEnabled.bind(this);
         this.toggleRequired = this.toggleRequired.bind(this);
+        this.setEmptyInputOnBlur = this.setEmptyInputOnBlur.bind(this);
     }
 
     public render() {
@@ -54,9 +58,15 @@ export class ChipSetInputExample {
                 onInteract={this.onInteract}
                 onKeyUp={this.onKeyUp}
                 searchLabel="Add an animal"
+                emptyInputOnBlur={this.emptyInputOnBlur}
             />,
             <p>
                 <limel-flex-container justify="end">
+                    <limel-checkbox
+                        label="Empty input on blur"
+                        onChange={this.setEmptyInputOnBlur}
+                        checked={this.emptyInputOnBlur}
+                    />
                     <limel-checkbox
                         label="Disabled"
                         onChange={this.toggleEnabled}
@@ -110,5 +120,9 @@ export class ChipSetInputExample {
 
     private toggleRequired() {
         this.required = !this.required;
+    }
+
+    private setEmptyInputOnBlur(event: CustomEvent<boolean>) {
+        this.emptyInputOnBlur = event.detail;
     }
 }
