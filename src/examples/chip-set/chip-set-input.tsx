@@ -40,8 +40,8 @@ export class ChipSetInputExample {
         this.onInteract = this.onInteract.bind(this);
         this.onInput = this.onInput.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
+        this.setEnabled = this.setEnabled.bind(this);
+        this.setRequired = this.setRequired.bind(this);
         this.setEmptyInputOnBlur = this.setEmptyInputOnBlur.bind(this);
     }
 
@@ -69,12 +69,12 @@ export class ChipSetInputExample {
                     />
                     <limel-checkbox
                         label="Disabled"
-                        onChange={this.toggleEnabled}
+                        onChange={this.setEnabled}
                         checked={this.disabled}
                     />
                     <limel-checkbox
                         label="Required"
-                        onChange={this.toggleRequired}
+                        onChange={this.setRequired}
                         checked={this.required}
                     />
                 </limel-flex-container>
@@ -114,12 +114,12 @@ export class ChipSetInputExample {
         };
     }
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
+    private setEnabled(event: CustomEvent<boolean>) {
+        this.disabled = event.detail;
     }
 
-    private toggleRequired() {
-        this.required = !this.required;
+    private setRequired(event: CustomEvent<boolean>) {
+        this.required = event.detail;
     }
 
     private setEmptyInputOnBlur(event: CustomEvent<boolean>) {
