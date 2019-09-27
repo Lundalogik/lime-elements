@@ -138,9 +138,10 @@ export class ChipSet {
         return this.editMode;
     }
 
-    // tslint:disable-next-line:valid-jsdoc
     /**
      * Used to set focus to the chip-set input field.
+     *
+     * @returns {Promise<void>} does not return anything, but methods have to be async
      */
     @Method()
     public async setFocus() {
