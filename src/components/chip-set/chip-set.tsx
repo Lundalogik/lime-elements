@@ -258,7 +258,7 @@ export class ChipSet {
             <div
                 class={{
                     'mdc-text-field': true,
-                    'mdc-text-field--invalid': this.isInvalid(),
+                    'force-invalid': this.isInvalid(),
                 }}
                 onClick={this.handleTextFieldFocus}
             >
@@ -267,7 +267,6 @@ export class ChipSet {
                     <input
                         type="text"
                         id="my-text-field"
-                        required={this.required}
                         disabled={this.disabled}
                         class="mdc-text-field__input"
                         value={this.textValue}
@@ -298,13 +297,11 @@ export class ChipSet {
 
     private isInvalid() {
         if (!this.required) {
-            return;
+            return false;
         }
-
         if (!this.blurred) {
-            return;
+            return false;
         }
-
         return !this.value || !this.value.length;
     }
 

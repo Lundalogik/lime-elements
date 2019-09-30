@@ -82,3 +82,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .force-float {
     @extend .mdc-floating-label--float-above;
 }
+
+.force-invalid {
+    @extend .mdc-text-field--invalid;
+}
