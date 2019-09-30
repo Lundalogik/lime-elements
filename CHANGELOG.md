@@ -1,3 +1,21 @@
+# [24.1.0](https://github.com/Lundalogik/lime-elements/compare/v24.0.2...v24.1.0) (2019-09-30)
+
+
+### Bug Fixes
+
+* **chip-set:** don't hide the input when not focused ([88bef4a](https://github.com/Lundalogik/lime-elements/commit/88bef4a))
+* **chip-set:** fix incorrect required-behavior ([f2c27fc](https://github.com/Lundalogik/lime-elements/commit/f2c27fc))
+* **chip-set:** improve keyboard navigation for input chip-sets ([81edd58](https://github.com/Lundalogik/lime-elements/commit/81edd58))
+* **chip-set:** reflect the properties `required` and `searchLabel` to attributes ([9ffe38c](https://github.com/Lundalogik/lime-elements/commit/9ffe38c))
+* **list:** correct tab-flow for list-items ([62e1e3d](https://github.com/Lundalogik/lime-elements/commit/62e1e3d))
+* **picker:** fix focus and blur behavior ([3365f09](https://github.com/Lundalogik/lime-elements/commit/3365f09)), closes [#428](https://github.com/Lundalogik/lime-elements/issues/428)
+* **picker:** improve keyboard-navigation ([280165b](https://github.com/Lundalogik/lime-elements/commit/280165b))
+
+
+### Features
+
+* **chip-set:** add option and method to let consumer control when input is emptied ([5d33ec5](https://github.com/Lundalogik/lime-elements/commit/5d33ec5))
+
 ## [24.0.2](https://github.com/Lundalogik/lime-elements/compare/v24.0.1...v24.0.2) (2019-09-24)
 
 
