@@ -1,3 +1,10 @@
+## [24.1.1](https://github.com/Lundalogik/lime-elements/compare/v24.1.0...v24.1.1) (2019-09-30)
+
+
+### Bug Fixes
+
+* **dialog:** wait 100 ms after opening before dispatching resize event ([a430fc9](https://github.com/Lundalogik/lime-elements/commit/a430fc9))
+
 # [24.1.0](https://github.com/Lundalogik/lime-elements/compare/v24.0.2...v24.1.0) (2019-09-30)
 
 
