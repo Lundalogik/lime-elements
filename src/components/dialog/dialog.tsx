@@ -172,7 +172,8 @@ export class Dialog {
         // resize-event so that any content that depends on
         // javascript for layout has a chance to update to the
         // final layout of the dialog. /Ads
-        dispatchResizeEvent();
+        const waitForUiToRender = 100;
+        setTimeout(dispatchResizeEvent, waitForUiToRender);
     }
 
     private handleMdcClosed() {
