@@ -24,8 +24,6 @@ RUN apt-get update && apt-get install -y wget --no-install-recommends \
 #     browser.launch({executablePath: 'google-chrome-unstable'})
 # ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
-RUN npm install -g npm@latest
-
 # Add user so we don't need --no-sandbox.
 RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && mkdir -p /home/pptruser/Downloads \
@@ -38,6 +36,8 @@ USER root
 
 # Bundle app source
 COPY . .
+
+RUN npm install -g npm@latest
 
 # Run npm install as pptruser so we don't have to chown node_modules later
 USER pptruser
