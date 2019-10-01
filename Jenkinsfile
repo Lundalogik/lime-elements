@@ -58,7 +58,7 @@ pipeline {
 
         stage('Build and release') {
             environment {
-                GH_USERNAME = 'limego'
+                GH_USERNAME = 'lime-ci'
                 GH_TOKEN = credentials('github-access-token')
                 NPM_TOKEN = credentials('npmjs-access-token')
                 CI = true
