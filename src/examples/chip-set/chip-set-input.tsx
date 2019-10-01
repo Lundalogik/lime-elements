@@ -90,9 +90,15 @@ export class ChipSetInputExample {
     }
 
     private onKeyUp(event: KeyboardEvent) {
-        if (event.key === ENTER || event.keyCode === ENTER_KEY_CODE) {
-            this.value = [...this.value, this.createChip(this.textValue)];
-            this.textValue = null;
+        if (
+            (event.key === ENTER || event.keyCode === ENTER_KEY_CODE) &&
+            this.textValue.trim()
+        ) {
+            this.value = [
+                ...this.value,
+                this.createChip(this.textValue.trim()),
+            ];
+            this.textValue = '';
         }
     }
 
