@@ -16,6 +16,9 @@ import {
     State,
     Watch,
 } from '@stencil/core';
+import { handleKeyboardEvent } from './chip-set-input-helpers';
+
+const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
 
 @Component({
     tag: 'limel-chip-set',
@@ -113,19 +116,24 @@ export class ChipSet {
     @State()
     private blurred: boolean = false;
 
+    @State()
+    private inputChipIndexSelected: number = null;
+
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
+    private handleKeyDown = handleKeyboardEvent;
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
         this.renderInputChip = this.renderInputChip.bind(this);
-        this.handleInteraction = this.handleInteraction.bind(this);
+        this.handleInteractionEvent = this.handleInteractionEvent.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
-        this.handleRemove = this.handleRemove.bind(this);
+        this.handleRemoveEvent = this.handleRemoveEvent.bind(this);
         this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
         this.handleInputBlur = this.handleInputBlur.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
         this.inputFieldOnChange = this.inputFieldOnChange.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
     }
 
     /**
@@ -223,7 +231,7 @@ export class ChipSet {
         if (!this.type || this.type === 'input') {
             this.mdcChipSet.listen(
                 'MDCChip:interaction',
-                this.handleInteraction
+                this.handleInteractionEvent
             );
         }
 
@@ -233,7 +241,7 @@ export class ChipSet {
 
         this.mdcChipSet.listen(
             'MDCChip:trailingIconInteraction',
-            this.handleRemove
+            this.handleRemoveEvent
         );
     }
 
@@ -241,12 +249,12 @@ export class ChipSet {
         if (this.mdcChipSet) {
             this.mdcChipSet.unlisten(
                 'MDCChip:interaction',
-                this.handleInteraction
+                this.handleInteractionEvent
             );
             this.mdcChipSet.unlisten('MDCChip:selection', this.handleSelection);
             this.mdcChipSet.unlisten(
                 'MDCChip:trailingIconInteraction',
-                this.handleRemove
+                this.handleRemoveEvent
             );
 
             this.mdcChipSet.destroy();
@@ -272,6 +280,7 @@ export class ChipSet {
                         value={this.textValue}
                         onBlur={this.handleInputBlur}
                         onFocus={this.handleTextFieldFocus}
+                        onKeyDown={this.handleKeyDown}
                         onInput={this.handleTextInput}
                         // Some browsers emit a change event on input elements, we need to stop
                         // that event from propagating since we are emitting our own change event
@@ -329,6 +338,7 @@ export class ChipSet {
         }
         this.editMode = false;
         this.blurred = true;
+        this.inputChipIndexSelected = null;
 
         // This timeout is needed in order to let a new element receive focus
         setTimeout(() => {
@@ -338,14 +348,19 @@ export class ChipSet {
 
     private handleTextInput(event) {
         event.stopPropagation();
+        this.inputChipIndexSelected = null;
         this.textValue = event.target.value;
         this.input.emit(event.target.value && event.target.value.trim());
     }
 
-    private handleInteraction(event: MDCChipInteractionEvent) {
+    private handleInteractionEvent(event: MDCChipInteractionEvent) {
         const chip = this.value.find(item => {
             return `${item.id}` === event.detail.chipId;
         });
+        this.emitInteraction(chip);
+    }
+
+    private emitInteraction(chip: Chip) {
         this.interact.emit(chip);
     }
 
@@ -357,9 +372,13 @@ export class ChipSet {
         this.change.emit(chip);
     }
 
-    private handleRemove(event: MDCChipInteractionEvent) {
+    private handleRemoveEvent(event: MDCChipInteractionEvent) {
+        this.removeChip(event.detail.chipId);
+    }
+
+    private removeChip(id: string | number) {
         const newValue = this.value.filter(chip => {
-            return `${chip.id}` !== event.detail.chipId;
+            return `${chip.id}` !== `${id}`;
         });
         this.change.emit(newValue);
     }
@@ -380,7 +399,7 @@ export class ChipSet {
     private renderChoiceChip(chip: Chip) {
         return (
             <div
-                class={`mdc-chip ${chip.selected ? 'mdc-chip--selected' : ''}`}
+                class={`mdc-chip ${chip.selected ? SELECTED_CHIP_CLASS : ''}`}
                 tabindex="0"
                 id={`${chip.id}`}
             >
@@ -393,7 +412,7 @@ export class ChipSet {
     private renderFilterChip(chip: Chip) {
         return (
             <div
-                class={`mdc-chip ${chip.selected ? 'mdc-chip--selected' : ''}`}
+                class={`mdc-chip ${chip.selected ? SELECTED_CHIP_CLASS : ''}`}
                 tabindex="0"
                 id={`${chip.id}`}
             >
@@ -421,10 +440,13 @@ export class ChipSet {
         );
     }
 
-    private renderInputChip(chip: Chip) {
+    private renderInputChip(chip: Chip, index: number) {
         return (
             <div
-                class="mdc-chip"
+                class={{
+                    'mdc-chip': true,
+                    'mdc-chip--selected': this.inputChipIndexSelected === index,
+                }}
                 id={`${chip.id}`}
                 onClick={this.catchInputChipClicks}
             >
