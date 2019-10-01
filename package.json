@@ -36,8 +36,11 @@
     "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
     "release": "npm run build && semantic-release",
     "start": "npm run dev && npm run docz:dev",
-    "test": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e\"",
-    "test:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e --watch\""
+    "test": "npm run test:spec && npm run test:e2e",
+    "test:e2e": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e\"",
+    "test:e2e:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e --watch\"",
+    "test:spec": "stencil test --spec",
+    "test:spec:watch": "stencil test --spec --watch"
   },
   "dependencies": {
     "@limetech/flatpickr": "^4.5.5",
