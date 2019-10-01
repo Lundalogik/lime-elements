@@ -216,9 +216,9 @@ function createLatestSymlink(folder) {
 }
 
 function commit(message) {
-    shell.echo('setting git user info');
-    shell.exec('git config user.email "$GIT_AUTHOR_EMAIL"');
-    shell.exec('git config user.name "$GIT_AUTHOR_NAME"');
+    // shell.echo('setting git user info');
+    // shell.exec('git config user.email "$GIT_AUTHOR_EMAIL"');
+    // shell.exec('git config user.name "$GIT_AUTHOR_NAME"');
 
     message = message || 'chore(deploy docs): deploy latest docs to gh-pages';
     shell.cd('docsDist');
@@ -227,7 +227,8 @@ function commit(message) {
 
     if (
         shell.exec(
-            `git commit --author "$GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL>" -m "${message}"`
+            `git commit -m "${message}"`
+            /* `git commit --author "$GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL>" -m "${message}"` */
         ).code !== 0
     ) {
         shell.echo('git commit failed!');
