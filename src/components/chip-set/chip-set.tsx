@@ -126,6 +126,8 @@ export class ChipSet {
     @State()
     private inputChipIndexSelected: number = null;
 
+    private inputHidden: boolean = false;
+
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
@@ -172,7 +174,7 @@ export class ChipSet {
      */
     @Method()
     public async emptyInput() {
-        this.textValue = '';
+        this.syncEmptyInput();
     }
 
     public componentDidLoad() {
@@ -223,7 +225,7 @@ export class ChipSet {
 
     @Watch('value')
     protected handleChangeChips() {
-        this.textValue = '';
+        this.syncEmptyInput();
     }
 
     private createMDCChipSet() {
@@ -283,7 +285,10 @@ export class ChipSet {
                         type="text"
                         id="my-text-field"
                         disabled={this.readonly || this.disabled}
-                        class="mdc-text-field__input"
+                        class={{
+                            'mdc-text-field__input': true,
+                            hidden: this.inputHidden && !this.editMode,
+                        }}
                         value={this.textValue}
                         onBlur={this.handleInputBlur}
                         onFocus={this.handleTextFieldFocus}
@@ -342,7 +347,7 @@ export class ChipSet {
      */
     private handleInputBlur() {
         if (this.emptyInputOnBlur) {
-            this.textValue = '';
+            this.syncEmptyInput();
         }
         this.editMode = false;
         this.blurred = true;
@@ -352,6 +357,15 @@ export class ChipSet {
         setTimeout(() => {
             this.stopEdit.emit();
         }, 0);
+    }
+
+    private syncEmptyInput() {
+        this.textValue = '';
+
+        // If there are chips in the picker, hide the input to avoid the input
+        // being placed on a new line and adding ugly space beneath the chips.
+        // If there are no chips, show the input, or the picker will look weird.
+        this.inputHidden = !!(this.value && this.value.length);
     }
 
     private handleTextInput(event) {
