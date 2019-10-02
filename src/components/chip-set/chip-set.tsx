@@ -57,6 +57,13 @@ export class ChipSet {
     public disabled: boolean = false;
 
     /**
+     * For chip-sets of type `input`. Set to `true` to disable adding and removing chips,
+     * but allow interaction with existing chips in the set.
+     */
+    @Prop({ reflectToAttr: true })
+    public readonly: boolean = false;
+
+    /**
      * True if the control requires a value
      */
     @Prop({ reflectToAttr: true })
@@ -266,6 +273,7 @@ export class ChipSet {
             <div
                 class={{
                     'mdc-text-field': true,
+                    'mdc-text-field--disabled': this.readonly || this.disabled,
                     'force-invalid': this.isInvalid(),
                 }}
                 onClick={this.handleTextFieldFocus}
@@ -275,7 +283,7 @@ export class ChipSet {
                     <input
                         type="text"
                         id="my-text-field"
-                        disabled={this.disabled}
+                        disabled={this.readonly || this.disabled}
                         class="mdc-text-field__input"
                         value={this.textValue}
                         onBlur={this.handleInputBlur}
@@ -291,7 +299,8 @@ export class ChipSet {
                 <label
                     class={{
                         'mdc-floating-label': true,
-                        'mdc-text-field--disabled': this.disabled,
+                        'mdc-text-field--disabled':
+                            this.readonly || this.disabled,
                         'mdc-text-field--required': this.required,
                         'force-float': !!(this.value.length || this.editMode),
                     }}
@@ -441,18 +450,26 @@ export class ChipSet {
     }
 
     private renderInputChip(chip: Chip, index: number) {
+        const attributes: { tabindex?: number } = {};
+        if (this.readonly && !this.disabled) {
+            attributes.tabindex = 0;
+        }
         return (
             <div
                 class={{
                     'mdc-chip': true,
                     'mdc-chip--selected': this.inputChipIndexSelected === index,
+                    disabled: this.disabled,
                 }}
                 id={`${chip.id}`}
                 onClick={this.catchInputChipClicks}
+                {...attributes}
             >
                 {chip.icon ? this.renderIcon(chip) : null}
                 <div class="mdc-chip__text">{chip.text}</div>
-                {chip.removable ? this.renderTrailingIcon() : null}
+                {chip.removable && !this.readonly && !this.disabled
+                    ? this.renderTrailingIcon()
+                    : null}
             </div>
         );
     }
