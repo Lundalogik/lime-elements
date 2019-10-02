@@ -1,3 +1,10 @@
+# [24.2.0](https://github.com/Lundalogik/lime-elements/compare/v24.1.1...v24.2.0) (2019-10-02)
+
+
+### Features
+
+* **chip-set:** chips in input chip-set can be navigated by keyboard ([1710f58](https://github.com/Lundalogik/lime-elements/commit/1710f58))
+
 ## [24.1.1](https://github.com/Lundalogik/lime-elements/compare/v24.1.0...v24.1.1) (2019-09-30)
 
 
