@@ -18,6 +18,9 @@ export class ChipSetInputExample {
     private required: boolean = false;
 
     @State()
+    private readonly: boolean = false;
+
+    @State()
     private disabled: boolean = false;
 
     @State()
@@ -41,6 +44,7 @@ export class ChipSetInputExample {
         this.onInput = this.onInput.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
         this.setDisabled = this.setDisabled.bind(this);
+        this.setReadonly = this.setReadonly.bind(this);
         this.setRequired = this.setRequired.bind(this);
         this.setEmptyInputOnBlur = this.setEmptyInputOnBlur.bind(this);
     }
@@ -52,6 +56,7 @@ export class ChipSetInputExample {
                 type="input"
                 value={this.value}
                 required={this.required}
+                readonly={this.readonly}
                 disabled={this.disabled}
                 onChange={this.chipSetOnChange}
                 onInput={this.onInput}
@@ -71,6 +76,11 @@ export class ChipSetInputExample {
                         label="Disabled"
                         onChange={this.setDisabled}
                         checked={this.disabled}
+                    />
+                    <limel-checkbox
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                        checked={this.readonly}
                     />
                     <limel-checkbox
                         label="Required"
@@ -122,6 +132,10 @@ export class ChipSetInputExample {
 
     private setDisabled(event: CustomEvent<boolean>) {
         this.disabled = event.detail;
+    }
+
+    private setReadonly(event: CustomEvent<boolean>) {
+        this.readonly = event.detail;
     }
 
     private setRequired(event: CustomEvent<boolean>) {
