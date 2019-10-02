@@ -255,7 +255,13 @@ export class Picker {
                     style={{
                         width: `${boundingRect.width}px`,
                     }}
-                    class="dropdown--spinner mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open"
+                    class={`
+                        dropdown--spinner
+                        mdc-elevation-transition
+                        mdc-elevation--z4
+                        mdc-menu-surface
+                        mdc-menu-surface--open
+                    `}
                     tabindex="-1"
                 >
                     <limel-spinner />
@@ -273,7 +279,13 @@ export class Picker {
                     style={{
                         width: `${boundingRect.width}px`,
                     }}
-                    class="dropdown--list mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open"
+                    class={`
+                        dropdown--list
+                        mdc-elevation-transition
+                        mdc-elevation--z4
+                        mdc-menu-surface
+                        mdc-menu-surface--open
+                    `}
                     tabindex="-1"
                 >
                     <p class="empty-result-message">
@@ -292,12 +304,14 @@ export class Picker {
                 style={{
                     width: `${boundingRect.width}px`,
                 }}
-                class={`dropdown--list
-                        mdc-elevation-transition
-                        mdc-elevation--z4
-                        mdc-menu-surface mdc-menu-surface--open
-                        ${this.displayFullList ? 'display-full-list' : ''}
-                        `}
+                class={`
+                    dropdown--list
+                    mdc-elevation-transition
+                    mdc-elevation--z4
+                    mdc-menu-surface
+                    mdc-menu-surface--open
+                    ${this.displayFullList ? 'display-full-list' : ''}
+                `}
                 tabindex="-1"
             >
                 <limel-list
