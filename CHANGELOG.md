@@ -1,3 +1,11 @@
+## [24.2.1](https://github.com/Lundalogik/lime-elements/compare/v24.2.0...v24.2.1) (2019-10-02)
+
+
+### Bug Fixes
+
+* **chip-set:** supplies its own x-icon, independent of icon-set used ([3b21e72](https://github.com/Lundalogik/lime-elements/commit/3b21e72))
+* **snackbar:** supplies its own x-icon, independent of icon-set used ([9d36977](https://github.com/Lundalogik/lime-elements/commit/9d36977))
+
 # [24.2.0](https://github.com/Lundalogik/lime-elements/compare/v24.1.1...v24.2.0) (2019-10-02)
 
 
