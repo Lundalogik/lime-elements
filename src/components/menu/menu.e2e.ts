@@ -74,7 +74,7 @@ describe('limel-menu', () => {
         beforeEach(async () => {
             defaultButton = await triggerSlot.find('button');
         });
-        it.skip('has the correct class', () => {
+        it('has the correct class', () => {
             expect(defaultButton).toHaveClass('menu__trigger');
         });
         it('has the supplied label', () => {
@@ -111,7 +111,7 @@ describe('limel-menu', () => {
 
         describe('when property `disabled`', () => {
             describe('is not set', () => {
-                it.skip('is enabled', () => {
+                it('is enabled', () => {
                     expect(defaultButton).not.toHaveAttribute('disabled');
                     expect(defaultButton).toHaveClass('menu__trigger-enabled');
                 });
@@ -159,10 +159,10 @@ describe('limel-menu', () => {
                 await item.click();
                 await page.waitForChanges();
             });
-            it.skip('emits the `select` event', () => {
+            it('emits the `select` event', () => {
                 expect(spy).toHaveReceivedEventTimes(1);
             });
-            it.skip('passes the selected item as the event details', () => {
+            it('passes the selected item as the event details', () => {
                 expect(spy).toHaveReceivedEventDetail(items[0]);
             });
             it('closes the menu', async () => {
