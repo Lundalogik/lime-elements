@@ -16,6 +16,8 @@ import {
     ARROW_DOWN_KEY_CODE,
     ARROW_UP,
     ARROW_UP_KEY_CODE,
+    ESCAPE,
+    ESCAPE_KEY_CODE,
     TAB,
     TAB_KEY_CODE,
 } from '../../util/keycodes';
@@ -110,7 +112,7 @@ export class Picker {
     private items: Array<ListItem<number | string>>;
 
     @State()
-    private textValue: string;
+    private textValue: string = '';
 
     @State()
     private loading: boolean = false;
@@ -130,7 +132,8 @@ export class Picker {
 
     constructor() {
         this.handleTextInput = this.handleTextInput.bind(this);
-        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
+        this.handleDropdownKeyDown = this.handleDropdownKeyDown.bind(this);
         this.handleInputFieldFocus = this.handleInputFieldFocus.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleInteract = this.handleInteract.bind(this);
@@ -149,7 +152,7 @@ export class Picker {
             return;
         }
 
-        this.chipSet.setFocus();
+        this.chipSet.setFocus(true);
     }
 
     public componentDidLoad() {
@@ -193,7 +196,7 @@ export class Picker {
                 required={this.required}
                 searchLabel={this.searchLabel}
                 onInput={this.handleTextInput}
-                onKeyDown={this.handleKeyDown}
+                onKeyDown={this.handleInputKeyDown}
                 onChange={this.handleChange}
                 onInteract={this.handleInteract}
                 onStartEdit={this.handleInputFieldFocus}
@@ -313,6 +316,7 @@ export class Picker {
                     ${this.displayFullList ? 'display-full-list' : ''}
                 `}
                 tabindex="-1"
+                onKeyDown={this.handleDropdownKeyDown}
             >
                 <limel-list
                     badgeIcons={hasIcons}
@@ -391,10 +395,10 @@ export class Picker {
      * @returns {void}
      */
     private async handleInputFieldFocus() {
-        this.textValue = '';
         this.loading = true;
-        const result = await this.searcher('');
-        this.handleSearchResult('', result);
+        const query = this.textValue;
+        const result = await this.searcher(query);
+        this.handleSearchResult(query, result);
     }
 
     private handleChange(event: CustomEvent<Chip | Chip[]>) {
@@ -426,7 +430,7 @@ export class Picker {
      *
      * @returns {void}
      */
-    private handleKeyDown(event: KeyboardEvent) {
+    private handleInputKeyDown(event: KeyboardEvent) {
         const isForwardTab =
             (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
             !event.altKey &&
@@ -436,6 +440,8 @@ export class Picker {
             event.key === ARROW_UP || event.keyCode === ARROW_UP_KEY_CODE;
         const isDown =
             event.key === ARROW_DOWN || event.keyCode === ARROW_DOWN_KEY_CODE;
+        const isEscape =
+            event.key === ESCAPE || event.keyCode === ESCAPE_KEY_CODE;
 
         if (!isForwardTab && !isUp && !isDown) {
             return;
@@ -462,6 +468,30 @@ export class Picker {
             );
             listElement.focus();
             return;
+        }
+
+        if (isEscape) {
+            event.preventDefault();
+            this.textValue = '';
+            this.chipSet.setFocus(true);
+        }
+    }
+
+    /**
+     * Key handler for the dropdown
+     *
+     * @param {KeyboardEvent} event event
+     *
+     * @returns {void}
+     */
+    private handleDropdownKeyDown(event: KeyboardEvent) {
+        const isEscape =
+            event.key === ESCAPE || event.keyCode === ESCAPE_KEY_CODE;
+
+        if (isEscape) {
+            event.preventDefault();
+            this.textValue = '';
+            this.chipSet.setFocus(true);
         }
     }
 
