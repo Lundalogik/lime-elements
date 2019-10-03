@@ -1,15 +1,6 @@
 import { Option } from '@limetech/lime-elements';
 import { newE2EPage } from '@stencil/core/testing';
 
-// Since we are currently using a pre-release of Stencil to get access
-// to Puppeteer, documentation is lacking.
-//
-// Methods and properties for E2EElement (v0.13.0-9):
-// https://github.com/ionic-team/stencil/blob/a0250ffcbf5a2c657475a05052eac3a4690809d2/src/testing/puppeteer/puppeteer-declarations.ts#L78
-//
-// Matchers (expect-methods) for E2EElement (v0.13.0-9):
-// https://github.com/ionic-team/stencil/blob/a0250ffcbf5a2c657475a05052eac3a4690809d2/src/declarations/testing.ts#L5
-
 describe('limel-select (native)', () => {
     let page;
     describe('with a label', () => {
@@ -64,7 +55,7 @@ describe('limel-select (native)', () => {
                     await limelSelect.setProperty('disabled', true);
                     await page.waitForChanges();
                 });
-                it.skip('is disabled', () => {
+                it('is disabled', () => {
                     expect(mdcSelect).toHaveClass('mdc-select--disabled');
                     expect(innerSelect).toHaveAttribute('disabled');
                 });
@@ -101,7 +92,7 @@ describe('limel-select (native)', () => {
                     await limelSelect.setProperty('disabled', true);
                     await page.waitForChanges();
                 });
-                it.skip('is disabled', () => {
+                it('is disabled', () => {
                     expect(mdcSelect).toHaveClass('mdc-select--disabled');
                     expect(innerSelect).toHaveAttribute('disabled');
                 });
@@ -138,7 +129,7 @@ describe('limel-select (native)', () => {
                     await limelSelect.setProperty('disabled', false);
                     await page.waitForChanges();
                 });
-                it.skip('is enabled', () => {
+                it('is enabled', () => {
                     expect(mdcSelect).not.toHaveClass('mdc-select--disabled');
                     expect(innerSelect).not.toHaveAttribute('disabled');
                 });
@@ -420,7 +411,7 @@ describe('limel-select (menu)', () => {
                     await limelSelect.setProperty('disabled', true);
                     await page.waitForChanges();
                 });
-                it.skip('is disabled', () => {
+                it('is disabled', () => {
                     expect(mdcSelect).toHaveClass('mdc-select--disabled');
                 });
                 it('the property is `true`', async () => {
@@ -453,7 +444,7 @@ describe('limel-select (menu)', () => {
                     await limelSelect.setProperty('disabled', true);
                     await page.waitForChanges();
                 });
-                it.skip('is disabled', () => {
+                it('is disabled', () => {
                     expect(mdcSelect).toHaveClass('mdc-select--disabled');
                 });
                 it('the property is `true`', async () => {
@@ -473,7 +464,7 @@ describe('limel-select (menu)', () => {
                 limelSelect = await page.find('limel-select');
                 mdcSelect = await page.find('limel-select>>>.limel-select');
             });
-            it.skip('is disabled', () => {
+            it('is disabled', () => {
                 expect(mdcSelect).toHaveClass('mdc-select--disabled');
             });
             it('the property is `true`', async () => {

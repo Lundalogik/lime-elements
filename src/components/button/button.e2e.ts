@@ -47,7 +47,7 @@ describe('limel-button', () => {
                 limelButton = await page.find('limel-button');
                 innerButton = await page.find('limel-button>>>button');
             });
-            it.skip('is non-primary', () => {
+            it('is non-primary', () => {
                 expect(innerButton).toHaveClass('mdc-button');
                 expect(innerButton).not.toHaveClass('mdc-button--unelevated');
             });
@@ -62,7 +62,7 @@ describe('limel-button', () => {
                     await page.waitForChanges();
                 });
 
-                it.skip('is primary', () => {
+                it('is primary', () => {
                     expect(innerButton).toHaveClasses([
                         'mdc-button',
                         'mdc-button--unelevated',
@@ -85,7 +85,7 @@ describe('limel-button', () => {
                 limelButton = await page.find('limel-button');
                 innerButton = await page.find('limel-button>>>button');
             });
-            it.skip('is primary', () => {
+            it('is primary', () => {
                 expect(innerButton).toHaveClasses([
                     'mdc-button',
                     'mdc-button--unelevated',
@@ -102,7 +102,7 @@ describe('limel-button', () => {
                     await page.waitForChanges();
                 });
 
-                it.skip('is non-primary', () => {
+                it('is non-primary', () => {
                     expect(innerButton).toHaveClass('mdc-button');
                     expect(innerButton).not.toHaveClass(
                         'mdc-button--unelevated'
