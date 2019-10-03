@@ -158,11 +158,16 @@ export class ChipSet {
     /**
      * Used to set focus to the chip-set input field.
      *
+     * @param {Boolean} emptyInput if `true`, any text in the input is discarded
+     *
      * @returns {Promise<void>} does not return anything, but methods have to be async
      */
     @Method()
-    public async setFocus() {
+    public async setFocus(emptyInput: boolean = false) {
         this.editMode = true;
+        if (emptyInput) {
+            this.textValue = '';
+        }
         this.host.shadowRoot.querySelector('input').focus();
     }
 
