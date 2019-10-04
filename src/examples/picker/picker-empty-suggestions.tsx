@@ -28,9 +28,17 @@ export class PickerExample {
     @State()
     private selectedItem: ListItem<number>;
 
+    @State()
+    private required: boolean = false;
+
+    @State()
+    private disabled: boolean = false;
+
     constructor() {
         this.search = this.search.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.setDisabled = this.setDisabled.bind(this);
+        this.setRequired = this.setRequired.bind(this);
     }
 
     public render() {
@@ -42,7 +50,23 @@ export class PickerExample {
                 emptyResultMessage="No results"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
+                required={this.required}
+                disabled={this.disabled}
             />,
+            <p>
+                <limel-flex-container justify="end">
+                    <limel-checkbox
+                        label="Disabled"
+                        onChange={this.setDisabled}
+                        checked={this.disabled}
+                    />
+                    <limel-checkbox
+                        label="Required"
+                        onChange={this.setRequired}
+                        checked={this.required}
+                    />
+                </limel-flex-container>
+            </p>,
             <p>
                 Value: <code>{JSON.stringify(this.selectedItem)}</code>
             </p>,
@@ -75,5 +99,13 @@ export class PickerExample {
 
     private onInteract(event) {
         console.log('Value interacted with:', event.detail);
+    }
+
+    private setDisabled(event: CustomEvent<boolean>) {
+        this.disabled = event.detail;
+    }
+
+    private setRequired(event: CustomEvent<boolean>) {
+        this.required = event.detail;
     }
 }

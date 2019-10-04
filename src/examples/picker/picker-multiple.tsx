@@ -35,8 +35,8 @@ export class PickerMultipleExample {
     constructor() {
         this.onChange = this.onChange.bind(this);
         this.search = this.search.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
+        this.setDisabled = this.setDisabled.bind(this);
+        this.setRequired = this.setRequired.bind(this);
     }
 
     public render() {
@@ -55,12 +55,12 @@ export class PickerMultipleExample {
                 <limel-flex-container justify="end">
                     <limel-checkbox
                         label="Disabled"
-                        onChange={this.toggleEnabled}
+                        onChange={this.setDisabled}
                         checked={this.disabled}
                     />
                     <limel-checkbox
                         label="Required"
-                        onChange={this.toggleRequired}
+                        onChange={this.setRequired}
                         checked={this.required}
                     />
                 </limel-flex-container>
@@ -101,11 +101,11 @@ export class PickerMultipleExample {
         console.log('Value interacted with:', event.detail);
     }
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
+    private setDisabled(event: CustomEvent<boolean>) {
+        this.disabled = event.detail;
     }
 
-    private toggleRequired() {
-        this.required = !this.required;
+    private setRequired(event: CustomEvent<boolean>) {
+        this.required = event.detail;
     }
 }
