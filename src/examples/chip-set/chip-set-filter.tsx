@@ -28,7 +28,7 @@ export class ChipSetFilterExample {
 
     constructor() {
         this.chipSetOnChange = this.chipSetOnChange.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
+        this.setDisabled = this.setDisabled.bind(this);
     }
 
     public render() {
@@ -43,7 +43,7 @@ export class ChipSetFilterExample {
                 <limel-flex-container justify="end">
                     <limel-checkbox
                         label="Disabled"
-                        onChange={this.toggleEnabled}
+                        onChange={this.setDisabled}
                         checked={this.disabled}
                     />
                 </limel-flex-container>
@@ -55,7 +55,7 @@ export class ChipSetFilterExample {
         console.log(event.detail);
     }
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
+    private setDisabled(event: CustomEvent<boolean>) {
+        this.disabled = event.detail;
     }
 }

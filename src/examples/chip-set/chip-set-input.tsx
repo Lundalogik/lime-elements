@@ -40,7 +40,7 @@ export class ChipSetInputExample {
         this.onInteract = this.onInteract.bind(this);
         this.onInput = this.onInput.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
-        this.setEnabled = this.setEnabled.bind(this);
+        this.setDisabled = this.setDisabled.bind(this);
         this.setRequired = this.setRequired.bind(this);
         this.setEmptyInputOnBlur = this.setEmptyInputOnBlur.bind(this);
     }
@@ -69,7 +69,7 @@ export class ChipSetInputExample {
                     />
                     <limel-checkbox
                         label="Disabled"
-                        onChange={this.setEnabled}
+                        onChange={this.setDisabled}
                         checked={this.disabled}
                     />
                     <limel-checkbox
@@ -120,7 +120,7 @@ export class ChipSetInputExample {
         };
     }
 
-    private setEnabled(event: CustomEvent<boolean>) {
+    private setDisabled(event: CustomEvent<boolean>) {
         this.disabled = event.detail;
     }
 
