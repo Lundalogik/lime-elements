@@ -32,12 +32,16 @@ export class PickerExample {
     private required: boolean = false;
 
     @State()
+    private readonly: boolean = false;
+
+    @State()
     private disabled: boolean = false;
 
     constructor() {
         this.search = this.search.bind(this);
         this.onChange = this.onChange.bind(this);
         this.setDisabled = this.setDisabled.bind(this);
+        this.setReadonly = this.setReadonly.bind(this);
         this.setRequired = this.setRequired.bind(this);
     }
 
@@ -51,6 +55,7 @@ export class PickerExample {
                 onChange={this.onChange}
                 onInteract={this.onInteract}
                 required={this.required}
+                readonly={this.readonly}
                 disabled={this.disabled}
             />,
             <p>
@@ -59,6 +64,11 @@ export class PickerExample {
                         label="Disabled"
                         onChange={this.setDisabled}
                         checked={this.disabled}
+                    />
+                    <limel-checkbox
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                        checked={this.readonly}
                     />
                     <limel-checkbox
                         label="Required"
@@ -103,6 +113,10 @@ export class PickerExample {
 
     private setDisabled(event: CustomEvent<boolean>) {
         this.disabled = event.detail;
+    }
+
+    private setReadonly(event: CustomEvent<boolean>) {
+        this.readonly = event.detail;
     }
 
     private setRequired(event: CustomEvent<boolean>) {
