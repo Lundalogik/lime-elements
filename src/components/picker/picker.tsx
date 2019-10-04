@@ -36,6 +36,13 @@ export class Picker {
     public disabled: boolean = false;
 
     /**
+     * Set to `true` to disable adding and removing items,
+     * but allow interaction with existing items.
+     */
+    @Prop({ reflectToAttr: true })
+    public readonly: boolean = false;
+
+    /**
      * Text to display for the input field of the picker
      */
     @Prop()
@@ -182,6 +189,7 @@ export class Picker {
                 label={this.label}
                 value={this.chips}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 required={this.required}
                 searchLabel={this.searchLabel}
                 onInput={this.handleTextInput}
