@@ -18,6 +18,7 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
  * @prop --icon-background-color: Background color of the icon. Defaults to transparent.
  * @prop --icon-color: Color of the icon. Defaults to 54% black.
  * @prop --background-color: Background color of the field when type is set to input.
+ * @prop --background-color-disabled: Background color of the field when type is set to input and the component is disabled or readonly.
  * @prop --input-chip-set-selected-chip-color: Color of the highlight around selected chips in input chip-sets.
  */
 
@@ -82,6 +83,14 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             border-bottom-width: pxToRem(1);
         }
     }
+}
+
+.mdc-text-field:not(.mdc-text-field--disabled) {
+    background-color: var(--background-color, #ffffff);
+}
+
+.mdc-text-field--disabled:not(.mdc-text-field--textarea) {
+    background-color: var(--background-color-disabled, #fafafa);
 }
 
 .mdc-text-field--disabled .mdc-chip {
