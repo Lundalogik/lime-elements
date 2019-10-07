@@ -1,3 +1,10 @@
+## [24.2.2](https://github.com/Lundalogik/lime-elements/compare/v24.2.1...v24.2.2) (2019-10-07)
+
+
+### Bug Fixes
+
+* **button:** fix issue where button might show both "loading" and "loading done" state ([0b529c3](https://github.com/Lundalogik/lime-elements/commit/0b529c3))
+
 ## [24.2.1](https://github.com/Lundalogik/lime-elements/compare/v24.2.0...v24.2.1) (2019-10-02)
 
 
