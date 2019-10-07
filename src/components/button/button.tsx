@@ -53,6 +53,8 @@ export class Button {
     @Element()
     private limelButton: HTMLElement;
 
+    private justLoadedTimeout: NodeJS.Timeout;
+
     public render() {
         return (
             <button
@@ -76,14 +78,18 @@ export class Button {
 
     @Watch('loading')
     protected loadingWatcher(newValue: boolean, oldValue: boolean) {
+        const JUST_LOADED = 'just-loaded';
         const button = this.limelButton.shadowRoot.querySelector('button');
         if (oldValue && !newValue) {
             button.classList.remove('loading');
-            button.classList.add('just-loaded');
+            button.classList.add(JUST_LOADED);
             const TIMEOUT = 2000;
-            setTimeout(() => {
-                button.classList.remove('just-loaded');
+            this.justLoadedTimeout = setTimeout(() => {
+                button.classList.remove(JUST_LOADED);
             }, TIMEOUT);
+        } else if (newValue) {
+            button.classList.remove(JUST_LOADED);
+            clearTimeout(this.justLoadedTimeout);
         }
     }
 
