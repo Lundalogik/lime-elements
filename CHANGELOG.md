@@ -1,3 +1,17 @@
+# [24.3.0](https://github.com/Lundalogik/lime-elements/compare/v24.2.2...v24.3.0) (2019-10-08)
+
+
+### Bug Fixes
+
+* **chip-set:** remove extra empty space below chips when picker is very narrow (hide the input) ([4524d9c](https://github.com/Lundalogik/lime-elements/commit/4524d9c)), closes [#455](https://github.com/Lundalogik/lime-elements/issues/455)
+
+
+### Features
+
+* **chip-set:** add `readonly` option ([c156fa2](https://github.com/Lundalogik/lime-elements/commit/c156fa2))
+* **picker:** add `readonly` option ([6e653e7](https://github.com/Lundalogik/lime-elements/commit/6e653e7)), closes [#429](https://github.com/Lundalogik/lime-elements/issues/429)
+* **picker:** add css variables for controlling component background color ([369b673](https://github.com/Lundalogik/lime-elements/commit/369b673))
+
 ## [24.2.2](https://github.com/Lundalogik/lime-elements/compare/v24.2.1...v24.2.2) (2019-10-07)
 
 
