@@ -1,3 +1,11 @@
+# [24.4.0](https://github.com/Lundalogik/lime-elements/compare/v24.3.0...v24.4.0) (2019-10-08)
+
+
+### Features
+
+* **chip-set:** the `setFocus` method now accepts an argument for emptying the input value ([961f52a](https://github.com/Lundalogik/lime-elements/commit/961f52a))
+* **picker:** pressing escape in the dropdown empties and focuses the input ([6b06bb2](https://github.com/Lundalogik/lime-elements/commit/6b06bb2))
+
 # [24.3.0](https://github.com/Lundalogik/lime-elements/compare/v24.2.2...v24.3.0) (2019-10-08)
 
 
