@@ -1,4 +1,9 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import {
+    E2EElement,
+    E2EPage,
+    EventSpy,
+    newE2EPage,
+} from '@stencil/core/testing';
 
 describe('limel-snackbar', () => {
     let page: E2EPage;
@@ -13,7 +18,6 @@ describe('limel-snackbar', () => {
             `);
             snackbar = await page.find('limel-snackbar');
             mdcSnackbar = await page.find('limel-snackbar>>>.mdc-snackbar');
-            snackbarLabel = await mdcSnackbar.find('.mdc-snackbar__label');
             await page.waitForChanges();
             await snackbar.callMethod('show');
             await page.waitForChanges();
@@ -23,14 +27,16 @@ describe('limel-snackbar', () => {
             expect(mdcSnackbar).toHaveClass('mdc-snackbar--open');
         });
 
-        it.skip('displays the message', () => {
-            // Doesn't work at the moment, no idea why. /Ads
+        it('displays the message', async () => {
+            // Some extra waiting is required for the content to be populated.
+            await page.waitFor(1000);
+            snackbarLabel = await mdcSnackbar.find('.mdc-snackbar__label');
             expect(snackbarLabel).toEqualText('This is a message');
         });
     });
 
     describe('hide', () => {
-        let spy;
+        let spy: EventSpy;
 
         beforeEach(async () => {
             page = await createPage(`
@@ -51,7 +57,7 @@ describe('limel-snackbar', () => {
     });
 
     describe('with actionText', () => {
-        let spy;
+        let spy: EventSpy;
         let button: E2EElement;
 
         beforeEach(async () => {
@@ -59,9 +65,7 @@ describe('limel-snackbar', () => {
                 <limel-snackbar message="This is a message" action-text="Press me!"></limel-snackbar>
             `);
             snackbar = await page.find('limel-snackbar');
-            snackbarLabel = await page.find(
-                'limel-snackbar>>>.mdc-snackbar__label'
-            );
+            mdcSnackbar = await page.find('limel-snackbar>>>.mdc-snackbar');
             button = await page.find('limel-snackbar>>>button');
             await page.waitForChanges();
             await snackbar.callMethod('show');
@@ -72,8 +76,10 @@ describe('limel-snackbar', () => {
             expect(mdcSnackbar).toHaveClass('mdc-snackbar--open');
         });
 
-        it.skip('displays the message', () => {
-            // Doesn't work at the moment, no idea why. /Ads
+        it('displays the message', async () => {
+            // Some extra waiting is required for the content to be populated.
+            await page.waitFor(1000);
+            snackbarLabel = await mdcSnackbar.find('.mdc-snackbar__label');
             expect(snackbarLabel).toEqualText('This is a message');
         });
 
