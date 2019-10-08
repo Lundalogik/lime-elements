@@ -210,16 +210,15 @@ export class ChipSet {
             return this.renderInputChips();
         }
 
-        let typeClass = '';
+        const classes = {
+            'mdc-chip-set': true,
+            disabled: this.disabled,
+        };
         if (this.type) {
-            typeClass = `mdc-chip-set--${this.type}`;
+            classes[`mdc-chip-set--${this.type}`] = true;
         }
 
-        return (
-            <div class={`mdc-chip-set ${typeClass}`}>
-                {this.value.map(this.renderChip)}
-            </div>
-        );
+        return <div class={classes}>{this.value.map(this.renderChip)}</div>;
     }
 
     @Watch('value')

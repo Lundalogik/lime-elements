@@ -28,12 +28,19 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     color: var(--icon-color, rgba(0,0,0,.54));
 }
 
-.mdc-chip-set.mdc-chip-set--input {
-    margin-top: pxToRem(20);
-    width: 100%;
+.mdc-chip-set {
+    &.disabled:not(.mdc-chip-set--input) {
+        opacity: 0.5;
+        pointer-events: none;
+    }
 
-    .mdc-chip--selected {
-        box-shadow: 0 0 0 pxToRem(4) var(--input-chip-set-selected-chip-color, var(--lime-turquoise, orange));
+    &.mdc-chip-set--input {
+        margin-top: pxToRem(20);
+        width: 100%;
+
+        .mdc-chip--selected {
+            box-shadow: 0 0 0 pxToRem(4) var(--input-chip-set-selected-chip-color, var(--lime-turquoise, orange));
+        }
     }
 }
 
