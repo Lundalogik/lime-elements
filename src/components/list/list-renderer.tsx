@@ -14,11 +14,14 @@ export class ListRenderer {
     private config: ListRendererConfig;
 
     private hasIcons: boolean;
+    private twoLines: boolean;
+    private avatarList: boolean;
 
     private applyTabIndexToItemAtIndex: number;
 
     public constructor() {
         this.renderListItem = this.renderListItem.bind(this);
+        this.renderDivider = this.renderDivider.bind(this);
     }
 
     public render(
@@ -28,7 +31,7 @@ export class ListRenderer {
         items = items || [];
         this.config = { ...this.defaultConfig, ...config };
 
-        const twoLines = items.some(item => {
+        this.twoLines = items.some(item => {
             return 'secondaryText' in item && !!item.secondaryText;
         });
 
@@ -36,7 +39,7 @@ export class ListRenderer {
             return 'icon' in item && !!item.icon;
         });
 
-        const badgeIcons = this.config.badgeIcons && this.hasIcons;
+        this.avatarList = this.config.badgeIcons && this.hasIcons;
         const selectableListTypes = ['selectable', 'radio', 'checkbox'];
 
         let role;
@@ -57,11 +60,12 @@ export class ListRenderer {
 
         const classNames = {
             'mdc-list': true,
-            'mdc-list--two-line': twoLines,
+            'mdc-list--two-line': this.twoLines,
             selectable: selectableListTypes.includes(this.config.type),
-            'mdc-list--avatar-list': badgeIcons,
+            'mdc-list--avatar-list': this.avatarList,
             'list--compact':
-                twoLines && ['small', 'x-small'].includes(this.config.iconSize),
+                this.twoLines &&
+                ['small', 'x-small'].includes(this.config.iconSize),
         };
 
         return (
@@ -117,10 +121,7 @@ export class ListRenderer {
      *
      * @returns {HTMLElement} the list item
      */
-    private renderListItem(
-        item: ListItem | ListSeparator,
-        index: number
-    ) {
+    private renderListItem(item: ListItem | ListSeparator, index: number) {
         if ('separator' in item) {
             return <li class="mdc-list-divider" role="separator" />;
         }
@@ -152,6 +153,7 @@ export class ListRenderer {
             >
                 {item.icon ? this.renderIcon(this.config, item) : null}
                 {this.renderText(item.text, item.secondaryText)}
+                {this.twoLines && this.avatarList ? this.renderDivider() : null}
             </li>
         );
     }
@@ -204,6 +206,17 @@ export class ListRenderer {
                 size={config.iconSize}
             />
         );
+    }
+
+    private renderDivider() {
+        const classes = {
+            'mdc-list-divider': true,
+            'mdc-list-divider--inset': true,
+        };
+        if (this.config.iconSize) {
+            classes[this.config.iconSize] = true;
+        }
+        return <hr class={classes} />;
     }
 
     private renderVariantListItem(

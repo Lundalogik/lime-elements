@@ -24,9 +24,44 @@
     }
 
     &.mdc-list--avatar-list {
+        position: relative;
+
         limel-icon {
             background-color: var(--icon-background-color, var(--lime-light-grey));
             color: white;
+        }
+
+        hr.mdc-list-divider {
+            position: absolute;
+            bottom: 0;
+
+            &.mdc-list-divider--inset {
+                --icon-width: #{pxToRem(41)};
+                --icon-right-padding: #{pxToRem(16)};
+                --list-right-padding: #{pxToRem(16)};
+                margin-left: calc(var(--icon-width) + var(--icon-right-padding));
+                width: calc(100% - var(--icon-width) - var(--icon-right-padding) - var(--list-right-padding));
+
+                &.x-small {
+                    --icon-width: #{pxToRem(23)};
+                }
+
+                &.small {
+                    --icon-width: #{pxToRem(30)};
+                }
+
+                &.medium {
+                    --icon-width: #{pxToRem(41)};
+                }
+
+                &.large {
+                    --icon-width: #{pxToRem(46)};
+                }
+            }
+        }
+
+        .mdc-list-item:last-child hr.mdc-list-divider {
+            display: none;
         }
     }
 
