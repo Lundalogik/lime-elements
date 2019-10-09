@@ -11,16 +11,22 @@ export class ListRenderer {
         badgeIcons: false,
     };
 
+    private config: ListRendererConfig;
+
     private hasIcons: boolean;
 
     private applyTabIndexToItemAtIndex: number;
+
+    public constructor() {
+        this.renderListItem = this.renderListItem.bind(this);
+    }
 
     public render(
         items: Array<ListItem | ListSeparator>,
         config: ListRendererConfig = {}
     ) {
         items = items || [];
-        config = { ...this.defaultConfig, ...config };
+        this.config = { ...this.defaultConfig, ...config };
 
         const twoLines = items.some(item => {
             return 'secondaryText' in item && !!item.secondaryText;
@@ -30,11 +36,11 @@ export class ListRenderer {
             return 'icon' in item && !!item.icon;
         });
 
-        const badgeIcons = config.badgeIcons && this.hasIcons;
+        const badgeIcons = this.config.badgeIcons && this.hasIcons;
         const selectableListTypes = ['selectable', 'radio', 'checkbox'];
 
         let role;
-        switch (config.type) {
+        switch (this.config.type) {
             case 'checkbox':
                 role = 'group';
                 break;
@@ -42,7 +48,7 @@ export class ListRenderer {
                 role = 'radiogroup';
                 break;
             default:
-                role = config.isMenu ? 'menu' : 'listbox';
+                role = this.config.isMenu ? 'menu' : 'listbox';
         }
 
         this.applyTabIndexToItemAtIndex = this.getIndexForWhichToApplyTabIndex(
@@ -52,20 +58,20 @@ export class ListRenderer {
         const classNames = {
             'mdc-list': true,
             'mdc-list--two-line': twoLines,
-            selectable: selectableListTypes.includes(config.type),
+            selectable: selectableListTypes.includes(this.config.type),
             'mdc-list--avatar-list': badgeIcons,
             'list--compact':
-                twoLines && ['small', 'x-small'].includes(config.iconSize),
+                twoLines && ['small', 'x-small'].includes(this.config.iconSize),
         };
 
         return (
             <ul
                 class={classNames}
-                aria-hidden={(!config.isOpen).toString()}
+                aria-hidden={(!this.config.isOpen).toString()}
                 role={role}
                 aria-orientation="vertical"
             >
-                {items.map(this.renderListItem.bind(this, config))}
+                {items.map(this.renderListItem)}
             </ul>
         );
     }
@@ -106,14 +112,12 @@ export class ListRenderer {
     /**
      * Render a single list item
      *
-     * @param {ListRendererConfig} config the config object, passed on from the `render` function
      * @param {ListItem | ListSeparator} item the item to render
      * @param {number} index the index the item had in the `items` array
      *
      * @returns {HTMLElement} the list item
      */
     private renderListItem(
-        config: ListRendererConfig,
         item: ListItem | ListSeparator,
         index: number
     ) {
@@ -121,8 +125,8 @@ export class ListRenderer {
             return <li class="mdc-list-divider" role="separator" />;
         }
 
-        if (['radio', 'checkbox'].includes(config.type)) {
-            return this.renderVariantListItem(config, item, index);
+        if (['radio', 'checkbox'].includes(this.config.type)) {
+            return this.renderVariantListItem(this.config, item, index);
         }
 
         const classNames = {
@@ -140,13 +144,13 @@ export class ListRenderer {
         return (
             <li
                 class={classNames}
-                role={config.isMenu ? 'menuitem' : ''}
+                role={this.config.isMenu ? 'menuitem' : ''}
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 aria-selected={item.selected ? 'true' : 'false'}
                 data-index={index}
                 {...attributes}
             >
-                {item.icon ? this.renderIcon(config, item) : null}
+                {item.icon ? this.renderIcon(this.config, item) : null}
                 {this.renderText(item.text, item.secondaryText)}
             </li>
         );
