@@ -41,7 +41,7 @@ export class List {
      * Size of the icons in the list
      */
     @Prop()
-    public iconSize: IconSize = 'medium';
+    public iconSize: IconSize = 'small';
 
     /**
      * The type of the list, omit to get a regular list. Available types are:
