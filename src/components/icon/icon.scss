@@ -53,8 +53,8 @@
     }
 }
 :host([badge][size="medium"]) {
-    height: pxToRem(41) !important;
-    width: pxToRem(41) !important;
+    height: pxToRem(40) !important;
+    width: pxToRem(40) !important;
 
     > div {
         margin: pxToRem(8);
