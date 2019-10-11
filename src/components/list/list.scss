@@ -19,6 +19,8 @@
 }
 
 .mdc-list {
+    --mdc-theme-text-icon-on-background: rgb(157,157,157);
+
     &.selectable .mdc-list-item:not(.mdc-list-item--disabled) {
         cursor: pointer;
     }
