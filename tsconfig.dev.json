@@ -15,7 +15,8 @@
         "baseUrl": ".",
         "paths": {
             "@limetech/lime-elements": ["src"]
-        }
+        },
+        "resolveJsonModule": true
     },
     "include": ["src", "types/jsx.d.ts"],
     "exclude": ["node_modules"]
