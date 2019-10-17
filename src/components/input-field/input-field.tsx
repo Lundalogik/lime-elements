@@ -43,6 +43,12 @@ export class InputField {
     public label: string;
 
     /**
+     * Optional helper text to display below the input field when it has focus
+     */
+    @Prop({ reflectToAttr: true })
+    public helperText: string;
+
+    /**
      * Set to `true` to indicate that the field is required.
      * Defaults to `false`.
      */
@@ -167,6 +173,7 @@ export class InputField {
                 {this.renderTrailingIcon()}
                 <div class="mdc-line-ripple" />
             </label>,
+            this.renderHelperText(),
             <div class="autocomplete-list-container">
                 {this.renderDropdown()}
             </div>,
@@ -179,6 +186,18 @@ export class InputField {
 
     private onBlur() {
         this.isFocused = false;
+    }
+
+    private renderHelperText() {
+        if (this.helperText === null || this.helperText === undefined) {
+            return;
+        }
+
+        return (
+            <div class="mdc-text-field-helper-line">
+                <div class="mdc-text-field-helper-text">{this.helperText}</div>
+            </div>
+        );
     }
 
     private renderTrailingIcon() {

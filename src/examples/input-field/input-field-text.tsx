@@ -29,6 +29,7 @@ export class InputFieldTextExample {
         return [
             <limel-input-field
                 label="Text Field"
+                helperText="Please enter a useful message!"
                 value={this.value}
                 required={this.required}
                 invalid={this.invalid}
