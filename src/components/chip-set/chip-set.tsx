@@ -64,6 +64,13 @@ export class ChipSet {
     public readonly: boolean = false;
 
     /**
+     * For chip-sets of type `input`. Limits the maximum number of chips.
+     * When the value is `0` or not set, no limit is applied.
+     */
+    @Prop({ reflectToAttr: true })
+    public maxItems: number;
+
+    /**
      * True if the control requires a value
      */
     @Prop({ reflectToAttr: true })
@@ -126,8 +133,6 @@ export class ChipSet {
     @State()
     private inputChipIndexSelected: number = null;
 
-    private inputHidden: boolean = false;
-
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
@@ -135,6 +140,7 @@ export class ChipSet {
     constructor() {
         this.renderChip = this.renderChip.bind(this);
         this.renderInputChip = this.renderInputChip.bind(this);
+        this.isFull = this.isFull.bind(this);
         this.handleInteractionEvent = this.handleInteractionEvent.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
         this.handleRemoveEvent = this.handleRemoveEvent.bind(this);
@@ -143,6 +149,7 @@ export class ChipSet {
         this.handleTextInput = this.handleTextInput.bind(this);
         this.inputFieldOnChange = this.inputFieldOnChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.inputHidden = this.inputHidden.bind(this);
     }
 
     /**
@@ -292,7 +299,7 @@ export class ChipSet {
                         disabled={this.readonly || this.disabled}
                         class={{
                             'mdc-text-field__input': true,
-                            hidden: this.inputHidden && !this.editMode,
+                            hidden: this.inputHidden(),
                         }}
                         value={this.textValue}
                         onBlur={this.handleInputBlur}
@@ -302,7 +309,8 @@ export class ChipSet {
                         // Some browsers emit a change event on input elements, we need to stop
                         // that event from propagating since we are emitting our own change event
                         onChange={this.inputFieldOnChange}
-                        placeholder={this.searchLabel}
+                        placeholder={this.isFull() ? '' : this.searchLabel}
+                        readonly={this.isFull()}
                     />
                 </div>
                 <label
@@ -320,6 +328,10 @@ export class ChipSet {
                 <div class="mdc-line-ripple" />
             </div>
         );
+    }
+
+    private isFull(): boolean {
+        return !!this.maxItems && this.value.length >= this.maxItems;
     }
 
     private isInvalid() {
@@ -366,11 +378,17 @@ export class ChipSet {
 
     private syncEmptyInput() {
         this.textValue = '';
+    }
+
+    private inputHidden() {
+        if (this.editMode) {
+            return this.isFull();
+        }
 
         // If there are chips in the picker, hide the input to avoid the input
         // being placed on a new line and adding ugly space beneath the chips.
         // If there are no chips, show the input, or the picker will look weird.
-        this.inputHidden = !!(this.value && this.value.length);
+        return !!(this.value && this.value.length);
     }
 
     private handleTextInput(event) {
