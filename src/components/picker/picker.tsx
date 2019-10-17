@@ -185,6 +185,14 @@ export class Picker {
             style['--icon-color'] = 'white';
         }
 
+        const props: {
+            maxItems?: number;
+        } = {};
+
+        if (!this.multiple) {
+            props.maxItems = 1;
+        }
+
         return [
             <limel-chip-set
                 style={style}
@@ -202,6 +210,7 @@ export class Picker {
                 onStartEdit={this.handleInputFieldFocus}
                 onStopEdit={this.handleStopEditAndBlur}
                 emptyInputOnBlur={false}
+                {...props}
             />,
             <div class="mdc-menu-surface--anchor">{this.renderDropdown()}</div>,
         ];
