@@ -22,11 +22,13 @@ export class InputFieldTextExample {
             <section>
                 <limel-input-field
                     label="First Field"
+                    helperText="This is a helper text"
                     value={this.firstValue}
                     onChange={this.firstOnChange}
                 />
                 <limel-input-field
                     label="Second Field"
+                    helperText=""
                     value={this.secondValue}
                     onChange={this.secondOnChange}
                 />
