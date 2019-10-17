@@ -1,4 +1,14 @@
 limel-chip-set[type="input"] {
     --icon-background-color: rgb(173, 173, 173);
     --icon-color: white;
+
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+limel-input-field {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: 1rem;
+    width: 6rem;
 }

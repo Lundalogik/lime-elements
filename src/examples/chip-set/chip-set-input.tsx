@@ -24,6 +24,9 @@ export class ChipSetInputExample {
     private disabled: boolean = false;
 
     @State()
+    private maxItems = 0;
+
+    @State()
     private emptyInputOnBlur: boolean = true;
 
     constructor() {
@@ -47,24 +50,34 @@ export class ChipSetInputExample {
         this.setReadonly = this.setReadonly.bind(this);
         this.setRequired = this.setRequired.bind(this);
         this.setEmptyInputOnBlur = this.setEmptyInputOnBlur.bind(this);
+        this.setMaxItems = this.setMaxItems.bind(this);
     }
 
     public render() {
         return [
-            <limel-chip-set
-                label="Animal"
-                type="input"
-                value={this.value}
-                required={this.required}
-                readonly={this.readonly}
-                disabled={this.disabled}
-                onChange={this.chipSetOnChange}
-                onInput={this.onInput}
-                onInteract={this.onInteract}
-                onKeyUp={this.onKeyUp}
-                searchLabel="Add an animal"
-                emptyInputOnBlur={this.emptyInputOnBlur}
-            />,
+            <limel-flex-container align="end">
+                <limel-chip-set
+                    label="Animal"
+                    type="input"
+                    value={this.value}
+                    required={this.required}
+                    readonly={this.readonly}
+                    disabled={this.disabled}
+                    maxItems={this.maxItems}
+                    onChange={this.chipSetOnChange}
+                    onInput={this.onInput}
+                    onInteract={this.onInteract}
+                    onKeyUp={this.onKeyUp}
+                    searchLabel="Add an animal"
+                    emptyInputOnBlur={this.emptyInputOnBlur}
+                />
+                <limel-input-field
+                    label="Max items"
+                    value={this.maxItems.toString()}
+                    type="number"
+                    onChange={this.setMaxItems}
+                />
+            </limel-flex-container>,
             <p>
                 <limel-flex-container justify="end">
                     <limel-checkbox
@@ -144,5 +157,11 @@ export class ChipSetInputExample {
 
     private setEmptyInputOnBlur(event: CustomEvent<boolean>) {
         this.emptyInputOnBlur = event.detail;
+    }
+
+    private setMaxItems(event: CustomEvent<string>) {
+        console.log('event.detail', event.detail, +event.detail);
+        this.maxItems = +event.detail;
+        console.log('this.maxItems', this.maxItems);
     }
 }
