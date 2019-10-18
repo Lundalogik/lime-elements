@@ -1,3 +1,27 @@
+# [24.5.0](https://github.com/Lundalogik/lime-elements/compare/v24.4.0...v24.5.0) (2019-10-18)
+
+
+### Bug Fixes
+
+* **icon:** change `medium` size icon from 41x41px to 40x40px ([2c2f3a7](https://github.com/Lundalogik/lime-elements/commit/2c2f3a7))
+* **list:** add divider-lines between list-items for two-line lists with badge icons ([818af98](https://github.com/Lundalogik/lime-elements/commit/818af98)), closes [#465](https://github.com/Lundalogik/lime-elements/issues/465)
+* **list:** correct alignment of icon lists to match that of same size badge-icon list ([80cd931](https://github.com/Lundalogik/lime-elements/commit/80cd931))
+* **list:** set icon color to a non-transparent grey, since our icons look bad with transparency ([f58c84a](https://github.com/Lundalogik/lime-elements/commit/f58c84a))
+* **picker:** increase icon size in dropdown list (use new default size) ([5370dae](https://github.com/Lundalogik/lime-elements/commit/5370dae))
+
+
+### Features
+
+* **chip-set:** add option `maxItems` to prevent adding new chips to input chip-set ([0d4b8eb](https://github.com/Lundalogik/lime-elements/commit/0d4b8eb))
+* **list:** change default size of icons and badge-icons from `medium` to `small` ([4204c37](https://github.com/Lundalogik/lime-elements/commit/4204c37))
+* **list:** make icon color configurable ([7651920](https://github.com/Lundalogik/lime-elements/commit/7651920))
+* **picker:** prevent text-input when picker is "full" ([b50dc65](https://github.com/Lundalogik/lime-elements/commit/b50dc65))
+
+
+### Performance Improvements
+
+* **list-renderer:** remove `.bind()` from template ([0972bde](https://github.com/Lundalogik/lime-elements/commit/0972bde))
+
 # [24.4.0](https://github.com/Lundalogik/lime-elements/compare/v24.3.0...v24.4.0) (2019-10-08)
 
 
