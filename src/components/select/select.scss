@@ -58,6 +58,9 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 
     .limel-select__selected-text {
         line-height: pxToRem(28);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .limel-select-trigger {
