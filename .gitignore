@@ -4,6 +4,8 @@ src/components.d.ts
 src/**/readme.md
 docsDist/
 
+.npmrc
+
 *~
 *.sw[mnpcod]
 *.log

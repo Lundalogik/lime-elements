@@ -19,7 +19,7 @@ const targetWww: OutputTargetWww = {
         { src: 'examples/**/*.scss' },
         { src: 'components/**/*.md' },
         {
-            src: '../node_modules/@limetech/lime-icons8/assets/',
+            src: '../node_modules/@lundalogik/lime-icons8/assets/',
             dest: 'assets/',
         },
     ],

@@ -12,7 +12,11 @@ pipeline {
     stages {
         stage('Create docker container') {
             steps {
-                sh 'make build'
+                withCredentials([
+                    string(credentialsId: 'github-access-token', variable: 'GH_TOKEN')
+                ]) {
+                    sh 'make build'
+                }
             }
         }
         stage('Lint code') {

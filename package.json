@@ -53,7 +53,7 @@
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
     "@commitlint/config-conventional": "8.2.0",
-    "@limetech/lime-icons8": "http://npm.lundalogik.com:4873/@limetech/lime-icons8/-/lime-icons8-2.0.0.tgz",
+    "@lundalogik/lime-icons8": "https://npm.pkg.github.com/download/@lundalogik/lime-icons8/2.0.0/ce8e62da50874749bf632b53f579f5041eb515ea86bd5d9f6cc5f9ae0baabb6f",
     "@semantic-release/changelog": "3.0.4",
     "@semantic-release/exec": "3.3.7",
     "@semantic-release/git": "7.0.16",
