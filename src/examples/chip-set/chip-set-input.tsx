@@ -160,8 +160,6 @@ export class ChipSetInputExample {
     }
 
     private setMaxItems(event: CustomEvent<string>) {
-        console.log('event.detail', event.detail, +event.detail);
         this.maxItems = +event.detail;
-        console.log('this.maxItems', this.maxItems);
     }
 }
