@@ -1,3 +1,10 @@
+## [24.5.1](https://github.com/Lundalogik/lime-elements/compare/v24.5.0...v24.5.1) (2019-10-18)
+
+
+### Bug Fixes
+
+* **limel-select:** ellipsis when text overflow ([82d122c](https://github.com/Lundalogik/lime-elements/commit/82d122c))
+
 # [24.5.0](https://github.com/Lundalogik/lime-elements/compare/v24.4.0...v24.5.0) (2019-10-18)
 
 
