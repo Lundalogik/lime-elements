@@ -39,11 +39,20 @@ COPY . .
 
 RUN npm install -g npm@latest
 
+ARG GH_TOKEN
+
+RUN GH_TOKEN="${GH_TOKEN}" ./generate_npmrc.sh
+
+# RUN rm -rf node_modules
+
 # Run npm install as pptruser so we don't have to chown node_modules later
 USER pptruser
+# RUN npm cache clean --force
 RUN npm install
 
 USER root
+
+RUN rm .npmrc
 
 # chown everything to be owned by pptruser, except for the node_modules
 # folder (already done), and the .git folder (unnecessary)
