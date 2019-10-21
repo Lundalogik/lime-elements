@@ -1,1 +1,0 @@
-System.register([],(function(n){"use strict";return{execute:function(){var t=function(){function n(){this.iconPath=""}return n}();var r=new t;var e=n("c",function(){return r}())}}}));
