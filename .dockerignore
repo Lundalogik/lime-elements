@@ -3,4 +3,5 @@ Makefile
 node_modules
 .docz/
 dist/
+.npmrc
 .stencil/
