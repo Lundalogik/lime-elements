@@ -1,0 +1,1 @@
+function r(r,e){if(e.contains(r))return!0;let t=r,n=0;for(;n<1e3&&t&&"#document-fragment"===t.getRootNode().nodeName;){if(t=t.getRootNode().host,e.contains(t))return!0;n+=1}return e.contains(t)}export{r as i};

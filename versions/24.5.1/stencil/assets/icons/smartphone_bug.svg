@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<g>
+	<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M17,28h-7c-1.105,0-2-0.895-2-2V6
+		c0-1.105,0.895-2,2-2h8c1.105,0,2,0.895,2,2v3"/>
+	<circle cx="14" cy="7" r="1"/>
+	<g>
+		
+			<ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.9914 21.1213)" style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" cx="22" cy="19" rx="5" ry="6"/>
+		<path style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" d="M16.72,19.414
+			c1.691,0.403,3.405,0.047,4.573-1.121c1.16-1.16,1.519-2.86,1.128-4.54"/>
+		<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="14.222" y1="21.121" x2="16.343" y2="20.414"/>
+		<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="20.586" y1="23.243" x2="19.879" y2="26.778"/>
+		<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="16.343" y1="24.657" x2="18.42" y2="22.58"/>
+		<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="24.121" y1="11.222" x2="23.414" y2="13.343"/>
+		<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="26.243" y1="17.586" x2="29.778" y2="16.879"/>
+		<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="27.657" y1="13.343" x2="25.58" y2="15.42"/>
+		<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="21.293" y1="18.293" x2="25.536" y2="22.536"/>
+	</g>
+	<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="16" y1="17" x2="14" y2="16"/>
+	<line style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;" x1="20" y1="13" x2="19" y2="11"/>
+</g>
+</svg>

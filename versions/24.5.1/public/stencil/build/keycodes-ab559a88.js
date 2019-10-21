@@ -1,0 +1,22 @@
+const TAB_KEY_CODE = 9;
+const ENTER_KEY_CODE = 13;
+const ESCAPE_KEY_CODE = 27;
+const SPACE_KEY_CODE = 32;
+const BACKSPACE_KEY_CODE = 8;
+const DELETE_KEY_CODE = 46;
+const ARROW_UP_KEY_CODE = 38;
+const ARROW_DOWN_KEY_CODE = 40;
+const ARROW_LEFT_KEY_CODE = 37;
+const ARROW_RIGHT_KEY_CODE = 39;
+const TAB = 'Tab';
+const ENTER = 'Enter';
+const ESCAPE = 'Escape';
+const SPACE = 'Space';
+const BACKSPACE = 'Backspace';
+const DELETE = 'Delete';
+const ARROW_UP = 'ArrowUp';
+const ARROW_DOWN = 'ArrowDown';
+const ARROW_LEFT = 'ArrowLeft';
+const ARROW_RIGHT = 'ArrowRight';
+
+export { ARROW_UP as A, BACKSPACE as B, DELETE as D, ENTER as E, SPACE as S, TAB as T, ENTER_KEY_CODE as a, TAB_KEY_CODE as b, ARROW_UP_KEY_CODE as c, ARROW_DOWN as d, ARROW_DOWN_KEY_CODE as e, ESCAPE as f, ESCAPE_KEY_CODE as g, SPACE_KEY_CODE as h, ARROW_LEFT as i, ARROW_LEFT_KEY_CODE as j, ARROW_RIGHT as k, ARROW_RIGHT_KEY_CODE as l, DELETE_KEY_CODE as m, BACKSPACE_KEY_CODE as n };

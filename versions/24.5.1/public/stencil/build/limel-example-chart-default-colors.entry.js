@@ -1,0 +1,55 @@
+import { r as registerInstance, h } from './core-804afdbc.js';
+
+const ChartDefaultColorsExample = class {
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+        this.labels = ['A', 'B'];
+        this.datasets = [
+            {
+                label: 'Turquoise',
+                data: [5, 3],
+            },
+            {
+                label: 'Magenta',
+                data: [5, 3],
+            },
+            {
+                label: 'Yellow',
+                data: [5, 3],
+            },
+            {
+                label: 'Green',
+                data: [5, 3],
+            },
+            {
+                label: 'Red',
+                data: [5, 3],
+            },
+            {
+                label: 'Orange',
+                data: [5, 3],
+            },
+            {
+                label: 'Repeat',
+                data: [5, 3],
+            },
+        ];
+        this.type = 'bar';
+        this.options = {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    },
+                ],
+            },
+        };
+    }
+    render() {
+        return (h("limel-chart", { type: this.type, labels: this.labels, datasets: this.datasets, options: this.options }));
+    }
+};
+
+export { ChartDefaultColorsExample as limel_example_chart_default_colors };
