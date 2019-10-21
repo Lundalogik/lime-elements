@@ -1,0 +1,1 @@
+import{r as e,h as i}from"./core-5f6fd4ec.js";const l=class{constructor(i){e(this,i)}render(){return[i("limel-spinner",null),i("limel-spinner",{size:"mini"}),i("limel-spinner",{size:"x-small"}),i("limel-spinner",{size:"small"}),i("limel-spinner",{size:"medium"}),i("limel-spinner",{size:"large"})]}};export{l as limel_example_spinner};

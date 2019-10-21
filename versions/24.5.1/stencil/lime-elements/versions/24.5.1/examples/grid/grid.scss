@@ -1,0 +1,40 @@
+my-deep-red-component { grid-area: drd; }
+my-red-component { grid-area: red; }
+my-orange-component { grid-area: ora; }
+my-yellow-component { grid-area: yel; }
+my-green-component { grid-area: grn; }
+my-turquoise-component { grid-area: trq; }
+my-blue-component { grid-area: blu; }
+my-dark-blue-component { grid-area: dbl; }
+my-magenta-component { grid-area: mag; }
+my-light-grey-component { grid-area: lgr; }
+my-dark-grey-component { grid-area: dgr; }
+
+limel-grid {
+    --lime-grid-columns: 4;
+
+    --lime-grid-area:
+        "drd drd blu dbl"
+        "trq trq blu dbl"
+        "red red red red"
+        "dgr mag mag lgr"
+        "ora ora yel yel"
+        "grn grn .   .  "
+        "grn grn .   .  ";
+}
+
+// Below is stuff that's only here for the boxes in the grid
+// to look nice in this example. You wouldn't use any of this
+// when placing real components into a grid.
+
+my-deep-red-component { background-color: var(--lime-deep-red); }
+my-red-component { background-color: var(--lime-red); }
+my-orange-component { background-color: var(--lime-orange); }
+my-yellow-component { background-color: var(--lime-yellow); }
+my-green-component { background-color: var(--lime-green); }
+my-turquoise-component { background-color: var(--lime-turquoise); }
+my-blue-component { background-color: var(--lime-blue); }
+my-dark-blue-component { background-color: var(--lime-dark-blue); }
+my-magenta-component { background-color: var(--lime-magenta); }
+my-light-grey-component { background-color: var(--lime-light-grey); }
+my-dark-grey-component { background-color: var(--lime-dark-grey); }

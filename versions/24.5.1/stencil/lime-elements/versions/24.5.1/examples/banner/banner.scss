@@ -1,0 +1,16 @@
+limel-banner {
+    --icon-background-color: var(--lime-deep-red);
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    @media (max-width: 720px) {
+        position: absolute;
+    }
+
+    limel-button:not(last-child) {
+        margin-right: .625rem;
+    }
+}

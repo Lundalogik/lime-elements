@@ -1,0 +1,16 @@
+p {
+    font-size: small;
+}
+
+section {
+    position: relative;
+
+    limel-input-field {
+        display: inline-block;
+        width: calc(50% - .625rem);
+
+        &:first-of-type {
+            margin-right: 1.25rem;
+        }
+    }
+}

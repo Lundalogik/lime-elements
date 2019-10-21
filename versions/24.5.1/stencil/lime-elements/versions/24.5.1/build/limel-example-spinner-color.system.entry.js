@@ -1,0 +1,1 @@
+System.register(["./core-e7aed7d8.system.js"],(function(e){"use strict";var n,r;return{setters:[function(e){n=e.r;r=e.h}],execute:function(){var t=e("limel_example_spinner_color",function(){function e(e){n(this,e)}e.prototype.render=function(){return[r("limel-spinner",{style:{color:"orange"}}),r("div",{style:{color:"blue"}},r("limel-spinner",null))]};return e}())}}}));
