@@ -1,1 +1,0 @@
-const s=new class{constructor(){this.iconPath=""}},c=(()=>s)();export{c};
