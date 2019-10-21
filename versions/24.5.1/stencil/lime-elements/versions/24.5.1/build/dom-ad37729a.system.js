@@ -1,0 +1,1 @@
+System.register([],(function(t){"use strict";return{execute:function(){t("i",e);function e(t,e){if(e.contains(t)){return true}var n=t;var r=0;var o=1e3;while(r<o&&n&&n.getRootNode().nodeName==="#document-fragment"){n=n.getRootNode().host;if(e.contains(n)){return true}r+=1}return e.contains(n)}}}}));

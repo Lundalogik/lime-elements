@@ -1,0 +1,15 @@
+{
+  "hosting": {
+    "headers": [
+      {
+        "source": "/lime-elements/versions/24.5.1/build/p-*",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=365000000, immutable"
+          }
+        ]
+      }
+    ]
+  }
+}

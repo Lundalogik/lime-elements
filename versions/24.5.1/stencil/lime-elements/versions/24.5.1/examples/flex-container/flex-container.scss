@@ -1,0 +1,39 @@
+limel-flex-container {
+    margin-bottom: 1.25rem;
+
+    &.container {
+        height: 37.5rem;
+        border: .0625rem solid var(--lime-dark-grey);
+        border-radius: .1875rem;
+    }
+
+    div {
+        display: block;
+        padding: 1.5625rem 3.125rem;
+
+        text-align: center;
+        color: white;
+        font-size: 1.25rem;
+        line-height: 0;
+
+        &:nth-child(1) {
+            background-color: var(--lime-red);
+            padding: .78125rem 3.125rem;
+        }
+        &:nth-child(2) {
+            background-color: var(--lime-orange);
+            padding: 3.125rem;
+        }
+        &:nth-child(3) {
+            background-color: var(--lime-green);
+        }
+        &:nth-child(4) {
+            background-color: var(--lime-blue);
+            padding: 1.5625rem 6.25rem;
+        }
+        &:nth-child(5) {
+            background-color: var(--lime-magenta);
+            padding: 1.5625rem;
+        }
+    }
+}
