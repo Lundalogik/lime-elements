@@ -125,17 +125,41 @@ function checkOutBranch() {
 function build() {
     try {
         const options = {
-            files: [
-                'doczrc.js',
-                'src/examples/example.tsx',
-                'src/examples/props.tsx',
-                'src/index.html',
-                'stencil.config.docs.ts',
-            ],
-            from: /\/lime-elements\//g,
-            to: `/lime-elements/versions/${version}/`,
+            files: ['doczrc.js'],
+            from: /base: '\/'/g,
+            to: `base: '/versions/${version}/'`,
         };
         replace.sync(options);
+
+        const options2 = {
+            files: ['src/examples/example.tsx', 'src/examples/props.tsx'],
+            from: /const BASE_URL = '\/';/g,
+            to: `const BASE_URL = '/versions/${version}/';`,
+        };
+        replace.sync(options2);
+
+        const options3 = {
+            files: ['src/index.html'],
+            from: [
+                /<base href="\/">/g,
+                /href="\/public\/stencil/g,
+                /src="\/public\/stencil/g,
+            ],
+            to: [
+                `<base href="/versions/${version}/">`,
+                `href="/versions/${version}/public/stencil`,
+                `src="/versions/${version}/public/stencil`,
+            ],
+        };
+        replace.sync(options3);
+
+        const options4 = {
+            files: ['stencil.config.docs.ts'],
+            from: /baseUrl: '\/'/g,
+            to: `baseUrl: '/versions/${version}/'`,
+        };
+        replace.sync(options4);
+
         shell.exec('git diff --name-status');
     } catch (error) {
         shell.echo('Error occurred:', error);
@@ -164,6 +188,9 @@ function copyBuildOutput() {
     }
 
     shell.cd('../..');
+
+    // Remove unnecessary extra copy of the Stencil app.
+    shell.rm('-rf', '.docz/dist/stencil');
 
     if (
         shell.cp('-R', '.docz/dist/*', `docsDist/versions/${version}/`).code !==
@@ -195,7 +222,7 @@ function updateVersionList() {
 
     shell.cd('..');
 
-    createLatestSymlink(files[files.length - 1]);
+    // createLatestSymlink(files[files.length - 1]);
 }
 
 function createLatestSymlink(folder) {
