@@ -24,6 +24,7 @@ import {
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
+const ITEM_LIMIT_NO_SCROLL = 5;
 
 @Component({
     tag: 'limel-picker',
@@ -322,7 +323,12 @@ export class Picker {
                     mdc-elevation--z4
                     mdc-menu-surface
                     mdc-menu-surface--open
-                    ${this.displayFullList ? 'display-full-list' : ''}
+                    ${
+                        this.displayFullList ||
+                        this.items.length <= ITEM_LIMIT_NO_SCROLL
+                            ? 'display-full-list'
+                            : ''
+                    }
                 `}
                 tabindex="-1"
                 onKeyDown={this.handleDropdownKeyDown}
