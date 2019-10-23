@@ -1,3 +1,10 @@
+# [24.6.0](https://github.com/Lundalogik/lime-elements/compare/v24.5.1...v24.6.0) (2019-10-23)
+
+
+### Features
+
+* **picker:** no scroll in list when five or less items ([c129158](https://github.com/Lundalogik/lime-elements/commit/c1291586ef886ca57a6aa26f133688502d905a7c))
+
 ## [24.5.1](https://github.com/Lundalogik/lime-elements/compare/v24.5.0...v24.5.1) (2019-10-18)
 
 
