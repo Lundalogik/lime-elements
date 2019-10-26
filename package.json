@@ -54,7 +54,7 @@
     "@commitlint/cli": "8.2.0",
     "@commitlint/config-conventional": "8.2.0",
     "@lundalogik/lime-icons8": "https://npm.pkg.github.com/download/@lundalogik/lime-icons8/2.1.0/96ebb4a7165fc618dba53568ab04db5fb9803a58d19e936965415e14dd224256",
-    "@semantic-release/changelog": "3.0.4",
+    "@semantic-release/changelog": "3.0.5",
     "@semantic-release/exec": "3.3.8",
     "@semantic-release/git": "7.0.16",
     "@stencil/core": "1.7.3",
