@@ -22,6 +22,15 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
  * @prop --input-chip-set-selected-chip-color: Color of the highlight around selected chips in input chip-sets.
  */
 
+.mdc-chip__icon {
+    flex-shrink: 0;
+}
+
+.mdc-chip__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     background-color: var(--icon-background-color, transparent);
     margin-left: pxToRem(-12) !important;
