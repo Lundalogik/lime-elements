@@ -1,3 +1,10 @@
+## [24.6.1](https://github.com/Lundalogik/lime-elements/compare/v24.6.0...v24.6.1) (2019-10-30)
+
+
+### Bug Fixes
+
+* **chip-set:** correct chip layout for very long chip texts ([50df5ae](https://github.com/Lundalogik/lime-elements/commit/50df5ae91a2c1983980c6db490237e96c7fab3ec)), closes [#496](https://github.com/Lundalogik/lime-elements/issues/496)
+
 # [24.6.0](https://github.com/Lundalogik/lime-elements/compare/v24.5.1...v24.6.0) (2019-10-23)
 
 
