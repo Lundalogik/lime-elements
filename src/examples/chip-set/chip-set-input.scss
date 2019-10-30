@@ -3,7 +3,8 @@ limel-chip-set[type="input"] {
     --icon-color: white;
 
     flex-grow: 1;
-    flex-shrink: 0;
+    flex-shrink: 1;
+    max-width: calc(100% - 7rem);
 }
 
 limel-input-field {
