@@ -39,16 +39,16 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
 } else if (removeSpecific || pruneDev) {
     let commitMessage;
     if (runSetup) {
-        setupWorktree();
+        cloneDocsRepo();
         checkOutBranch();
     }
     if (pruneDev) {
         remove('0.0.0-dev*');
-        commitMessage = 'chore(deploy docs): prune dev-versions';
+        commitMessage = 'chore(docs): prune dev-versions';
     }
     if (removeSpecific) {
         remove(argv.remove);
-        commitMessage = `chore(deploy docs): remove ${argv.remove}`;
+        commitMessage = `chore(docs): remove ${argv.remove}`;
     }
     if (commitMessage && runCommit) {
         commit(commitMessage);
@@ -61,7 +61,7 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     }
 } else {
     if (runSetup) {
-        setupWorktree();
+        cloneDocsRepo();
     }
     if (runBuild) {
         build();
@@ -87,23 +87,18 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     }
 }
 
-function setupWorktree() {
+function cloneDocsRepo() {
     if (!shell.which('git')) {
         shell.echo('Sorry, this script requires git');
         shell.exit(1);
     }
 
-    if (shell.mkdir('docsDist').code !== 0) {
-        shell.echo('mkdir docsDist failed!');
-        shell.exit(1);
-    }
-
     if (
         shell.exec(
-            'git worktree add docsDist remotes/origin/gh-pages --no-checkout'
+            'git clone --no-checkout https://$GH_TOKEN@github.com/Lundalogik/lime-elements-docs.git docsDist'
         ).code !== 0
     ) {
-        shell.echo('git worktree add failed!');
+        shell.echo('git clone failed!');
         teardown();
         shell.exit(1);
     }
@@ -112,8 +107,8 @@ function setupWorktree() {
 function checkOutBranch() {
     shell.cd('docsDist');
 
-    if (shell.exec('git checkout gh-pages').code !== 0) {
-        shell.echo('git checkout gh-pages failed!');
+    if (shell.exec('git checkout master').code !== 0) {
+        shell.echo('git checkout master failed!');
         shell.cd('..');
         teardown();
         shell.exit(1);
@@ -175,6 +170,9 @@ function build() {
 }
 
 function copyBuildOutput() {
+    // Create `versions` folder if it doesn't already exist.
+    shell.mkdir('docsDist/versions');
+
     shell.cd('docsDist/versions');
 
     shell.echo('Removing old version folder if it already exists.');
@@ -247,7 +245,7 @@ function commit(message) {
     // shell.exec('git config user.email "$GIT_AUTHOR_EMAIL"');
     // shell.exec('git config user.name "$GIT_AUTHOR_NAME"');
 
-    message = message || 'chore(deploy docs): deploy latest docs to gh-pages';
+    message = message || `chore(docs): create docs ${version}`;
     shell.cd('docsDist');
 
     shell.exec('git add -A --ignore-errors');
@@ -275,7 +273,7 @@ function push() {
         shell.echo('Dry-run, so skipping push.');
     } else if (
         shell.exec(
-            'git push https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages'
+            'git push https://$GH_TOKEN@github.com/Lundalogik/lime-elements-docs.git HEAD:master'
         ).code !== 0
     ) {
         shell.echo('git push failed!');
@@ -292,9 +290,7 @@ function teardown(finished) {
         shell.exec(
             'git checkout doczrc.js src/examples/example.tsx src/examples/props.tsx src/index.html stencil.config.docs.ts'
         );
-        shell.echo('Removing worktree for docsDist.');
-        shell.exec('git worktree remove docsDist --force');
-        shell.echo('Deleting local branch gh-pages.');
-        shell.exec('git branch -D gh-pages');
+        shell.echo('Removing docs repo clone in docsDist.');
+        shell.exec('rm -rf docsDist');
     }
 }
