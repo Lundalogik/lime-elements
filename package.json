@@ -81,7 +81,7 @@
     "replace-in-file": "4.2.0",
     "semantic-release": "15.13.30",
     "shelljs": "0.8.3",
-    "showdown": "1.9.0",
+    "showdown": "1.9.1",
     "tslint": "5.20.0",
     "tslint-config-prettier": "1.18.0",
     "tslint-eslint-rules": "5.4.0",
