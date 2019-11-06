@@ -77,6 +77,11 @@
             }
         }
     }
+
+    // Tweaks to display the icon correctly in Edge
+    limel-icon.mdc-list-item__graphic {
+        display: block;
+    }
 }
 
 .mdc-list:not(.mdc-list--avatar-list) {
