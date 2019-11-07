@@ -7,6 +7,15 @@
  * @prop --lime-grid-gutter: width of the gutter between columns and rows, defaults to `1rem` (16px) - see https://material.io/design/layout/responsive-layout-grid.html#breakpoints for guidelines
  */
 
+:host {
+    display: block;
+    position: relative;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
 slot {
     display: grid;
     grid-template-areas: var(--lime-grid-area, '');
@@ -17,5 +26,7 @@ slot {
     grid-gap: var(--lime-grid-gutter, pxToRem(16));
     grid-auto-flow: row dense;
     grid-auto-rows: var(--lime-grid-cell-height, pxToRem(150));
-    margin: 0 auto;
+    margin: 0;
+    height: 100%;
+    width: 100%;
 }
