@@ -1,3 +1,11 @@
+## [24.6.2](https://github.com/Lundalogik/lime-elements/compare/v24.6.1...v24.6.2) (2019-11-08)
+
+
+### Bug Fixes
+
+* **chip-set:** display correct size of trailing icon in Edge ([d8de6db](https://github.com/Lundalogik/lime-elements/commit/d8de6db98fd6a2679c605e8d465eeb4e80342708))
+* **list:** display correct size of icon in Edge ([787a713](https://github.com/Lundalogik/lime-elements/commit/787a713d5cb60486a801722fdb3deaabac95ea3e))
+
 ## [24.6.1](https://github.com/Lundalogik/lime-elements/compare/v24.6.0...v24.6.1) (2019-10-30)
 
 
