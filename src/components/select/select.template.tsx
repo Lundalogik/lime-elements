@@ -15,9 +15,7 @@ interface NativeSelectTemplateProps extends SelectTemplateProps {
     onChange?: (event: Event) => void;
 }
 
-export const NativeSelectTemplate: FunctionalComponent<
-    NativeSelectTemplateProps
-> = props => {
+export const NativeSelectTemplate: FunctionalComponent<NativeSelectTemplateProps> = props => {
     let hasValue = !!props.value;
     if (isMultiple(props.value)) {
         hasValue = props.value.length > 0;
@@ -80,9 +78,7 @@ interface MenuSelectTemplateProps extends SelectTemplateProps {
     checkValid: boolean;
 }
 
-export const MenuSelectTemplate: FunctionalComponent<
-    MenuSelectTemplateProps
-> = props => {
+export const MenuSelectTemplate: FunctionalComponent<MenuSelectTemplateProps> = props => {
     const items = createMenuItems(props.options, props.value);
     let hasValue = !!props.value;
     if (isMultiple(props.value)) {
