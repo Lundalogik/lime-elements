@@ -129,9 +129,11 @@ export class Menu {
     }
 
     private handleMdcSelected(event: CustomEvent) {
-        this.select.emit(this.items[
-            parseInt(event.detail.item.dataset.index, 10)
-        ] as ListItem);
+        this.select.emit(
+            this.items[
+                parseInt(event.detail.item.dataset.index, 10)
+            ] as ListItem
+        );
         this.open = false;
     }
 
