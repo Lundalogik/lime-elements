@@ -1,3 +1,29 @@
+# [25.0.0](https://github.com/Lundalogik/lime-elements/compare/v24.6.2...v25.0.0) (2019-11-14)
+
+
+### Bug Fixes
+
+* **grid:** change default number of columns from 8 to 4 ([e40ce9a](https://github.com/Lundalogik/lime-elements/commit/e40ce9a0c4e0dcd61482284aba7f7ebce8f1aa38))
+* **grid:** make sure the size of the grid is the same as the size of the `limel-grid` element ([b13be87](https://github.com/Lundalogik/lime-elements/commit/b13be878b78ab8a7977abe7acfc3cab1d3cf536c))
+* **grid:** remove variable `--lime-grid-cell-width` ([b1b54de](https://github.com/Lundalogik/lime-elements/commit/b1b54defd294c8b25590086e11c8c8f9c7dafc22))
+* **grid:** set `grid-auto-flow` to `row dense`, for better automatic layout if config is missing ([ade4f59](https://github.com/Lundalogik/lime-elements/commit/ade4f59f948e9e1aad05c26ff9d84c8a340cb229))
+
+
+### Features
+
+* **grid:** add variable `--lime-grid-gutter` with default of `16px`, for setting gutter width ([f88b968](https://github.com/Lundalogik/lime-elements/commit/f88b968226c7b0428de4ae3206db532db886fadc))
+* **grid:** change default row height from 150px to 64px ([89648c2](https://github.com/Lundalogik/lime-elements/commit/89648c228fda09bef3af58989dcc41abb55ecffa))
+
+
+### BREAKING CHANGES
+
+* **grid:** The default row height for `limel-grid` has been changed from 150px to 64px.
+* **grid:** The gutter width of limel-grid used to be hard-coded to 15px. The default value is
+now 16px, but the value can be now be configured using the `--lime-grid-gutter` variable.
+* **grid:** It is no longer possible to set a minimum column width. The column width is now
+determined automatically from the width of the component, and the number of columns used.
+* **grid:** The default number of columns for `limel-grid` has changed from `8` to `4`.
+
 ## [24.6.2](https://github.com/Lundalogik/lime-elements/compare/v24.6.1...v24.6.2) (2019-11-08)
 
 
