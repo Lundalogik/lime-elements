@@ -179,7 +179,12 @@ function build() {
 
 function copyBuildOutput() {
     // Create `versions` folder if it doesn't already exist.
-    shell.mkdir('docsDist/versions');
+    try {
+        shell.mkdir('docsDist/versions');
+    } catch (e) {
+        // If mkdir failed, it's almost certainly because the dir already exists.
+        // Just ignore the error.
+    }
 
     shell.cd('docsDist/versions');
 
