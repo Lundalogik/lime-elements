@@ -37,7 +37,7 @@ USER root
 # Bundle app source
 COPY . .
 
-RUN npm install -g npm@latest
+RUN npm install -g npm@latest && echo "node version = `node -v`" && echo "npm version = `npm -v`"
 
 ARG GH_TOKEN
 
