@@ -3,7 +3,7 @@
 /**
  * @prop --lime-grid-area: Grid layout
  * @prop --lime-grid-columns: Number of columns in the grid, defaults to 4
- * @prop --lime-grid-cell-height: Height of grid cells, defaults to `4rem` (64px)
+ * @prop --lime-grid-cell-height: Height of grid cells, defaults to `2.5rem` (40px)
  * @prop --lime-grid-gutter: width of the gutter between columns and rows, defaults to `1rem` (16px) - see https://material.io/design/layout/responsive-layout-grid.html#breakpoints for guidelines
  */
 
@@ -25,7 +25,7 @@ slot {
     );
     grid-gap: var(--lime-grid-gutter, pxToRem(16));
     grid-auto-flow: row dense;
-    grid-auto-rows: var(--lime-grid-cell-height, pxToRem(64));
+    grid-auto-rows: var(--lime-grid-cell-height, pxToRem(40));
     margin: 0;
     height: 100%;
     width: 100%;
