@@ -142,9 +142,11 @@ export class List {
     }
 
     private handleSingleSelect(index: number) {
-        const listItems: ListItem[] = this.items.filter(item => {
-            return !('separator' in item) && !item.disabled;
-        }) as ListItem[];
+        const listItems = this.items.filter(this.isListItem) as ListItem[];
+        if (listItems[index].disabled) {
+            return;
+        }
+
         const selectedItem: ListItem = listItems.find((item: ListItem) => {
             return !!item.selected;
         });
@@ -162,9 +164,11 @@ export class List {
     }
 
     private handleMultiSelect(index: number) {
-        const listItems = this.items.filter(item => {
-            return !('separator' in item) && !item.disabled;
-        });
+        const listItems = this.items.filter(this.isListItem) as ListItem[];
+        if (listItems[index].disabled) {
+            return;
+        }
+
         const selectedItems: ListItem[] = listItems
             .filter((item: ListItem, listIndex: number) => {
                 if (listIndex === index) {
@@ -181,5 +185,9 @@ export class List {
             });
 
         this.change.emit(selectedItems);
+    }
+
+    private isListItem(item: ListItem): boolean {
+        return !('separator' in item);
     }
 }
