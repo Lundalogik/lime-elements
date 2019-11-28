@@ -27,6 +27,10 @@ slot[name="header"] {
         &.full-screen {
             width: 100%;
             height: 100%;
+
+            .mdc-dialog__surface {
+                height: 100%;
+            }
         }
     }
 
