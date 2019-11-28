@@ -1,3 +1,10 @@
+# [25.1.0](https://github.com/Lundalogik/lime-elements/compare/v25.0.0...v25.1.0) (2019-11-28)
+
+
+### Features
+
+* **input-field:** add support for a helper text next to the input field ([10ba5e5](https://github.com/Lundalogik/lime-elements/commit/10ba5e591de5d444555847a20971444015803e87))
+
 # [25.0.0](https://github.com/Lundalogik/lime-elements/compare/v24.6.2...v25.0.0) (2019-11-14)
 
 
