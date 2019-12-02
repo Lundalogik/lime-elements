@@ -12,6 +12,9 @@ import {
 import { ListRenderer } from '../list/list-renderer';
 import { ListRendererConfig } from '../list/list-renderer-config';
 
+/**
+ * @slot trigger - Element to use as a trigger for the menu
+ */
 @Component({
     tag: 'limel-menu',
     shadow: true,

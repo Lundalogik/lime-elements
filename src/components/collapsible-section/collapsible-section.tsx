@@ -1,6 +1,9 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 
+/**
+ * @slot - Content to put inside the collapsible section
+ */
 @Component({
     tag: 'limel-collapsible-section',
     shadow: true,

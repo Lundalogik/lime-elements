@@ -13,6 +13,10 @@ import * as focusTrap from 'focus-trap';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
 
+/**
+ * @slot - Content to put inside the dialog
+ * @slot button - The dialog buttons
+ */
 @Component({
     tag: 'limel-dialog',
     shadow: true,

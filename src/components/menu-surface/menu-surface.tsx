@@ -15,6 +15,9 @@ import {
     TAB_KEY_CODE,
 } from '../../util/keycodes';
 
+/**
+ * @slot - Content to put inside the surface
+ */
 @Component({
     tag: 'limel-menu-surface',
     shadow: true,

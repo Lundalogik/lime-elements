@@ -5,6 +5,9 @@ import {
 } from '@limetech/lime-elements';
 import { Component, h, Prop } from '@stencil/core';
 
+/**
+ * @slot - Container content
+ */
 @Component({
     tag: 'limel-flex-container',
     shadow: true,
