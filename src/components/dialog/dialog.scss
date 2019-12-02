@@ -52,6 +52,7 @@ slot[name="header"] {
         display: flex;
         align-items: center;
         margin: pxToRem(30) pxToRem(24) pxToRem(5);
+        flex-shrink: 0;
 
         limel-icon {
             margin-right: pxToRem(15);
