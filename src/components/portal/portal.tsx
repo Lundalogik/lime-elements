@@ -11,6 +11,8 @@ import { Component, Element, h, Prop } from '@stencil/core';
  *   just another web compoent it will work without any issues
  * * When the node is moved in the DOM, `componentDidUnload`, `disconnectedCallback` and `connectedCallback`
  *   will be invoked, so `componentDidUnload` can not be used as a destructor (which is the wrong behavior anyway)
+ *
+ * @slot - Content to put inside the portal
  */
 @Component({
     tag: 'limel-portal',

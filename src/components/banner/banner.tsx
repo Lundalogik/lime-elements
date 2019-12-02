@@ -1,5 +1,8 @@
 import { Component, h, Method, Prop, State } from '@stencil/core';
 
+/**
+ * @slot buttons - Buttons to show in the banner
+ */
 @Component({
     tag: 'limel-banner',
     shadow: true,

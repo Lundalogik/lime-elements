@@ -1,5 +1,8 @@
 import { Component, h } from '@stencil/core';
 
+/**
+ * @slot - Grid content
+ */
 @Component({
     tag: 'limel-grid',
     shadow: true,
