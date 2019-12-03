@@ -1,3 +1,10 @@
+## [25.1.1](https://github.com/Lundalogik/lime-elements/compare/v25.1.0...v25.1.1) (2019-12-03)
+
+
+### Bug Fixes
+
+* **dialog:** prevent header from shrinking due to large body ([d5707dd](https://github.com/Lundalogik/lime-elements/commit/d5707ddabf7a374bf6d48109fc43512d10307474))
+
 # [25.1.0](https://github.com/Lundalogik/lime-elements/compare/v25.0.0...v25.1.0) (2019-11-28)
 
 
