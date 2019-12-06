@@ -1,3 +1,17 @@
+# [26.0.0](https://github.com/Lundalogik/lime-elements/compare/v25.2.0...v26.0.0) (2019-12-06)
+
+
+### Features
+
+* **grid:** set default row height to 2.5rem (40px) ([8c1a818](https://github.com/Lundalogik/lime-elements/commit/8c1a818137dcb9c545acd07ff10d2dff9a09cd86))
+
+
+### BREAKING CHANGES
+
+* **grid:** The default row height of the limel-grid component has been set to 2.5rem (40px).
+The row height of any given instance of limel-grid can be set using the `--lime-grid-cell-height`
+CSS variable.
+
 # [25.2.0](https://github.com/Lundalogik/lime-elements/compare/v25.1.1...v25.2.0) (2019-12-06)
 
 
