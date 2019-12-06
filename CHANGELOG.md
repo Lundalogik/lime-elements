@@ -1,3 +1,10 @@
+# [25.2.0](https://github.com/Lundalogik/lime-elements/compare/v25.1.1...v25.2.0) (2019-12-06)
+
+
+### Features
+
+* **dialog:** indicate scrollable content via a shadow ([0855358](https://github.com/Lundalogik/lime-elements/commit/08553588517eeceb298607c55f3a5e6dc1430642)), closes [#312](https://github.com/Lundalogik/lime-elements/issues/312)
+
 ## [25.1.1](https://github.com/Lundalogik/lime-elements/compare/v25.1.0...v25.1.1) (2019-12-03)
 
 
