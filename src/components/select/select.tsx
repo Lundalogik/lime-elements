@@ -244,6 +244,10 @@ export class Select {
 
         const listItem: ListItem = event.detail;
         const option: Option = listItem.value;
+        if (option.disabled) {
+            return;
+        }
+
         this.change.emit(option);
         this.menuOpen = false;
     }
