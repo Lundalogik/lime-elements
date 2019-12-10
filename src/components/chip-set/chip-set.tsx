@@ -232,7 +232,11 @@ export class ChipSet {
             classes[`mdc-chip-set--${this.type}`] = true;
         }
 
-        return <div class={classes}>{this.value.map(this.renderChip)}</div>;
+        return (
+            <div class={classes} role="grid">
+                {this.value.map(this.renderChip)}
+            </div>
+        );
     }
 
     @Watch('value')
@@ -429,27 +433,27 @@ export class ChipSet {
     }
 
     private renderChip(chip: Chip) {
-        switch (this.type) {
-            case 'choice':
-                return this.renderChoiceChip(chip);
-
-            case 'filter':
-                return this.renderFilterChip(chip);
-
-            default:
-                return this.renderDefaultChip(chip);
+        if (this.type === 'filter') {
+            return this.renderFilterChip(chip);
         }
+
+        return this.renderDefaultChip(chip);
     }
 
-    private renderChoiceChip(chip: Chip) {
+    private renderDefaultChip(chip: Chip) {
         return (
             <div
                 class={`mdc-chip ${chip.selected ? SELECTED_CHIP_CLASS : ''}`}
-                tabindex="0"
+                role="row"
                 id={`${chip.id}`}
             >
+                <div class="mdc-chip__ripple" />
                 {chip.icon ? this.renderIcon(chip) : null}
-                <div class="mdc-chip__text">{chip.text}</div>
+                <span role="gridcell">
+                    <span role="button" tabindex="0" class="mdc-chip__text">
+                        {chip.text}
+                    </span>
+                </span>
             </div>
         );
     }
@@ -458,10 +462,11 @@ export class ChipSet {
         return (
             <div
                 class={`mdc-chip ${chip.selected ? SELECTED_CHIP_CLASS : ''}`}
-                tabindex="0"
+                role="row"
                 id={`${chip.id}`}
             >
-                <div class="mdc-chip__checkmark">
+                <div class="mdc-chip__ripple" />
+                <span class="mdc-chip__checkmark">
                     <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
                         <path
                             class="mdc-chip__checkmark-path"
@@ -470,17 +475,17 @@ export class ChipSet {
                             d="M1.73,12.91 8.1,19.28 22.79,4.59"
                         />
                     </svg>
-                </div>
-                <div class="mdc-chip__text">{chip.text}</div>
-            </div>
-        );
-    }
-
-    private renderDefaultChip(chip: Chip) {
-        return (
-            <div class="mdc-chip" tabindex="0" id={`${chip.id}`}>
-                {chip.icon ? this.renderIcon(chip) : null}
-                <div class="mdc-chip__text">{chip.text}</div>
+                </span>
+                <span role="gridcell">
+                    <span
+                        role="checkbox"
+                        tabindex="0"
+                        aria-checked="false"
+                        class="mdc-chip__text"
+                    >
+                        {chip.text}
+                    </span>
+                </span>
             </div>
         );
     }
@@ -497,12 +502,18 @@ export class ChipSet {
                     'mdc-chip--selected': this.inputChipIndexSelected === index,
                     disabled: this.disabled,
                 }}
+                role="row"
                 id={`${chip.id}`}
                 onClick={this.catchInputChipClicks}
                 {...attributes}
             >
+                <div class="mdc-chip__ripple" />
                 {chip.icon ? this.renderIcon(chip) : null}
-                <div class="mdc-chip__text">{chip.text}</div>
+                <span role="gridcell">
+                    <span role="button" class="mdc-chip__text" tabindex="0">
+                        {chip.text}
+                    </span>
+                </span>
                 {chip.removable && !this.readonly && !this.disabled
                     ? this.renderTrailingIcon()
                     : null}
