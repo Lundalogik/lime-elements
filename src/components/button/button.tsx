@@ -66,6 +66,7 @@ export class Button {
                 `}
                 disabled={this.disabled}
             >
+                <div class="mdc-button__ripple" />
                 {this.renderIcon()}
                 <span class="label mdc-button__label">{this.label}</span>
                 <limel-spinner />
