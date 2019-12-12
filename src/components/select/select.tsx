@@ -214,7 +214,9 @@ export class Select {
                 '[tabindex]'
             );
 
-            firstItem.focus();
+            if (firstItem) {
+                firstItem.focus();
+            }
         });
     }
 
