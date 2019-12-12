@@ -1,3 +1,18 @@
+## [26.0.1](https://github.com/Lundalogik/lime-elements/compare/v26.0.0...v26.0.1) (2019-12-12)
+
+
+### Bug Fixes
+
+* **button:** update markup to satisfy changes in material 4.0.0 ([58dbb4d](https://github.com/Lundalogik/lime-elements/commit/58dbb4dddca31aefcac87d275268794188fb3c9e))
+* **chip-set:** adjust top margin of label in input field ([7de29cc](https://github.com/Lundalogik/lime-elements/commit/7de29cc83dc58705e43657887472da4db7d242eb)), closes [#402](https://github.com/Lundalogik/lime-elements/issues/402)
+* **chip-set:** update markup to satisfy changes in material 4.0.0 ([041dfcb](https://github.com/Lundalogik/lime-elements/commit/041dfcb6d126bb623d4637f095d2e46b68fae415)), closes [#402](https://github.com/Lundalogik/lime-elements/issues/402)
+* **dialog:** set height of surface to 100% in fullscreen mode ([2d7b0a1](https://github.com/Lundalogik/lime-elements/commit/2d7b0a1abe5112abe3adf59833d8b08a5c64a7b8)), closes [#402](https://github.com/Lundalogik/lime-elements/issues/402)
+* **list:** do not filter disabled list items ([b0bd2df](https://github.com/Lundalogik/lime-elements/commit/b0bd2dfb0ce706694630c028e7fe0e35e24cbc84)), closes [#402](https://github.com/Lundalogik/lime-elements/issues/402)
+* **package:** update @limetech/material-components-web to version 2.3.1 ([1a724ee](https://github.com/Lundalogik/lime-elements/commit/1a724eec729f961352e7675fd2f3a34107cc603b))
+* **package:** update @limetech/material-components-web to version 3.1.1 ([8d4bdcf](https://github.com/Lundalogik/lime-elements/commit/8d4bdcf4f3b49089c4aafb38d60c0d82e00365d3)), closes [#402](https://github.com/Lundalogik/lime-elements/issues/402)
+* **package:** update @limetech/material-components-web to version 4.0.0 ([4d08006](https://github.com/Lundalogik/lime-elements/commit/4d08006ce28a976204a4bc7b0fedacecab7860e2))
+* **select:** change should not fire when option is disabled ([90e8e0a](https://github.com/Lundalogik/lime-elements/commit/90e8e0acff885923a26d0f2824dc933204d1569a)), closes [#402](https://github.com/Lundalogik/lime-elements/issues/402)
+
 # [26.0.0](https://github.com/Lundalogik/lime-elements/compare/v25.2.0...v26.0.0) (2019-12-06)
 
 
