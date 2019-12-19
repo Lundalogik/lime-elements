@@ -15,7 +15,7 @@ export class SelectExample {
 
     private options: Option[] = [
         { text: 'Luke Skywalker', value: 'luke' },
-        { text: 'Han Solo', value: 'han' },
+        { text: 'Han Solo', value: 'han', disabled: true },
         { text: 'Leia Organo', value: 'leia' },
     ];
 
