@@ -133,7 +133,6 @@ export class ListRenderer {
         const classNames = {
             'mdc-list-item': true,
             'mdc-list-item--disabled': item.disabled,
-            'mdc-list-item__text': !item.secondaryText,
             'mdc-list-item--selected': item.selected,
         };
 
@@ -168,7 +167,7 @@ export class ListRenderer {
      */
     private renderText(text: string, secondaryText?: string) {
         if (!secondaryText) {
-            return text;
+            return <span class="mdc-list-item__text">{text}</span>;
         }
 
         return (

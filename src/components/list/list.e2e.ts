@@ -133,7 +133,7 @@ describe('limel-list', () => {
             expect(innerList).toHaveClass('mdc-list--two-line');
         });
         it('renders items withOUT secondary text as single line', () => {
-            expect(innerList.children[0].children).toHaveLength(0);
+            expect(innerList.children[0].children).toHaveLength(1);
             expect(innerList.children[0]).toEqualText('item 1');
         });
         it('renders items WITH secondary text as two lines', () => {
