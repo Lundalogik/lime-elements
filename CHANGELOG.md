@@ -1,3 +1,10 @@
+## [26.0.2](https://github.com/Lundalogik/lime-elements/compare/v26.0.1...v26.0.2) (2019-12-19)
+
+
+### Bug Fixes
+
+* **list:** update template for single line list items ([15d7a9e](https://github.com/Lundalogik/lime-elements/commit/15d7a9e77f22e71b1bf3bec403db3d764fd4b0b7))
+
 ## [26.0.1](https://github.com/Lundalogik/lime-elements/compare/v26.0.0...v26.0.1) (2019-12-12)
 
 
