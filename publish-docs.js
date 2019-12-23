@@ -26,6 +26,7 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
 
     --v             The version number for this release of the documentation.
                     Defaults to '0.0.0-dev'.
+    --dryRun        Use dry-run mode. Do not push or publish any changes.
     --remove        Removes all versions matching the given filename-pattern.
     --pruneDev      Alias for --remove=0.0.0-dev*
     --noSetup       Run no setup. Only use this if you have previously run the setup step
@@ -67,16 +68,10 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
 } else {
     if (runSetup) {
         cloneDocsRepo();
+        checkOutBranch();
     }
     if (runBuild) {
         build();
-    }
-    if (runSetup) {
-        // We wait to check out the branch until after the build
-        // in order to minimize the time between checkout and push,
-        // thereby minimizing the risk that someone else pushes
-        // new commits first, which would make our own push fail.
-        checkOutBranch();
     }
     if (runBuild) {
         copyBuildOutput();
@@ -166,6 +161,12 @@ function build() {
         shell.exec('git diff --name-status');
     } catch (error) {
         shell.echo('Error occurred:', error);
+        teardown();
+        shell.exit(1);
+    }
+
+    if (shell.exec('npm install').code !== 0) {
+        shell.echo('npm install failed!');
         teardown();
         shell.exit(1);
     }
