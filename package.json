@@ -76,7 +76,7 @@
     "ncp": "2.0.0",
     "pixelmatch": "5.1.0",
     "prettier": "1.19.1",
-    "prismjs": "1.17.1",
+    "prismjs": "1.18.0",
     "puppeteer": "1.19.0",
     "replace-in-file": "5.0.2",
     "semantic-release": "15.14.0",
