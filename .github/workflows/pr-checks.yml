@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - uses: Lundalogik/commitlint-github-action@master
+      - uses: Lundalogik/commitlint-github-action@update-dependencies
 
   autosquash:
     name: Block Autosquash Commits
