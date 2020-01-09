@@ -1,3 +1,10 @@
+## [26.0.3](https://github.com/Lundalogik/lime-elements/compare/v26.0.2...v26.0.3) (2020-01-09)
+
+
+### Bug Fixes
+
+* **select:** don't set focus on first item if null ([6b84454](https://github.com/Lundalogik/lime-elements/commit/6b84454b546adcbd36535ad426631d983377dccd))
+
 ## [26.0.2](https://github.com/Lundalogik/lime-elements/compare/v26.0.1...v26.0.2) (2019-12-19)
 
 
