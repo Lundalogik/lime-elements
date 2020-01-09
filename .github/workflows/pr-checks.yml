@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - uses: Lundalogik/commitlint-github-action@master
+      - uses: wagoid/commitlint-github-action@v1
 
   autosquash:
     name: Block Autosquash Commits
@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Block Autosquash Commits
-        uses: Lundalogik/block-autosquash-commits-action@master
+        uses: xt0rted/block-autosquash-commits-action@v2.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
