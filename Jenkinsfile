@@ -48,7 +48,7 @@ pipeline {
                         } else {
                             echo('Unknown branch type. Running release step in dry-run mode.')
                         }
-                        sh "make release_dry_run BRANCH=${env.BRANCH_NAME}"
+                        sh "make release_dry_run BRANCH=\"${env.BRANCH_NAME}\""
                         // echo 'Docs are not built in dry-run. Run separately.'
                         // sh 'make build_docs'
                     }
