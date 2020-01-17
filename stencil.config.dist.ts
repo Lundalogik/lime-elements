@@ -10,6 +10,14 @@ const targetDist: OutputTargetDist = {
 export const config: Config = {
     namespace: 'lime-elements',
     outputTargets: [targetDist],
+    commonjs: {
+        namedExports: {
+            'node_modules/react-dom/index.js': [
+                'render',
+                'unmountComponentAtNode',
+            ],
+        },
+    },
     plugins: [sass()],
     excludeSrc: [
         '**/test/**',
@@ -18,6 +26,7 @@ export const config: Config = {
         '**/*.spec.*',
         '**/*.e2e.*',
         '**/*.test-wrapper.*',
+        '**/components/form/**', // limel-form is still work in progress!
     ],
     globalStyle: 'src/global/colors.scss',
 };

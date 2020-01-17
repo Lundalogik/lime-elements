@@ -48,7 +48,9 @@
     "awesome-debounce-promise": "^2.1.0",
     "chart.js": "^2.8.0",
     "jsx-dom": "^6.4.0",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "react-jsonschema-form": "^1.8.1",
+    "react-shadow-dom-retarget-events": "^1.0.11"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "8.3.4",
