@@ -22,12 +22,21 @@ export const config: Config = {
     hashFileNames: false,
     namespace: 'lime-elements',
     outputTargets: [targetWww],
+    commonjs: {
+        namedExports: {
+            'node_modules/react-dom/index.js': [
+                'render',
+                'unmountComponentAtNode',
+            ],
+        },
+    },
     plugins: [sass()],
     excludeSrc: [
         '**/test/**',
         '**/*.spec.*',
         '**/*.e2e.*',
         '**/*.test-wrapper.*',
+        '**/components/form/**', // limel-form is still work in progress!
     ],
     globalStyle: 'src/global/colors.scss',
 };
