@@ -10,11 +10,15 @@ export class CheckboxExample {
     private disabled: boolean = false;
 
     @State()
+    private required: boolean = false;
+
+    @State()
     private value: boolean = false;
 
     constructor() {
         this.changeHandler = this.changeHandler.bind(this);
         this.onClickToggleEnabled = this.onClickToggleEnabled.bind(this);
+        this.onClickToggleRequired = this.onClickToggleRequired.bind(this);
         this.onClickToggleChecked = this.onClickToggleChecked.bind(this);
     }
 
@@ -27,12 +31,17 @@ export class CheckboxExample {
                         label="My fab checkbox"
                         id="fab"
                         checked={this.value}
+                        required={this.required}
                         onChange={this.changeHandler}
                     />
                     <limel-flex-container justify="end">
                         <limel-button
                             onClick={this.onClickToggleEnabled}
                             label={this.disabled ? 'Enable' : 'Disable'}
+                        />
+                        <limel-button
+                            onClick={this.onClickToggleRequired}
+                            label="Toggle required"
                         />
                         <limel-button
                             onClick={this.onClickToggleChecked}
@@ -49,6 +58,10 @@ export class CheckboxExample {
 
     private onClickToggleEnabled() {
         this.disabled = !this.disabled;
+    }
+
+    private onClickToggleRequired() {
+        this.required = !this.required;
     }
 
     private onClickToggleChecked() {

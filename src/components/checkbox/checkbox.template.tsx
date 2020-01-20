@@ -4,6 +4,8 @@ interface CheckboxTemplateProps {
     disabled?: boolean;
     id: string;
     checked?: boolean;
+    required?: boolean;
+    invalid?: boolean;
     onChange?: (event: Event) => void;
     label?: string;
 }
@@ -12,10 +14,12 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = prop
     return (
         <div class="mdc-form-field ">
             <div
-                class={`
-                        mdc-checkbox
-                        ${props.disabled ? 'mdc-checkbox--disabled' : ''}
-                    `}
+                class={{
+                    'mdc-checkbox': true,
+                    'mdc-checkbox--invalid': props.invalid,
+                    'mdc-checkbox--disabled': props.disabled,
+                    'mdc-checkbox--required': props.required,
+                }}
             >
                 <input
                     type="checkbox"
@@ -23,6 +27,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = prop
                     id={props.id}
                     checked={props.checked}
                     disabled={props.disabled}
+                    required={props.required}
                     onChange={props.onChange}
                 />
                 <div class="mdc-checkbox__background">
@@ -36,7 +41,16 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = prop
                     <div class="mdc-checkbox__mixedmark" />
                 </div>
             </div>
-            <label htmlFor={props.id}>{props.label}</label>
+            <label
+                class={{
+                    'mdc-checkbox--invalid': props.invalid,
+                    'mdc-checkbox--disabled': props.disabled,
+                    'mdc-checkbox--required': props.required,
+                }}
+                htmlFor={props.id}
+            >
+                {props.label}
+            </label>
         </div>
     );
 };
