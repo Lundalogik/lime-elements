@@ -18,6 +18,38 @@ const schema = {
             default: false,
             required: true,
         },
+        color: {
+            type: 'string',
+            title: 'Color',
+            enum: ['red', 'green', 'blue'],
+        },
+        colorMask: {
+            type: 'array',
+            title: 'Color mask',
+            description: 'Pick a color',
+            uniqueItems: true,
+            items: {
+                title: 'Color',
+                type: 'string',
+                anyOf: [
+                    {
+                        type: 'string',
+                        enum: ['#ff0000'],
+                        title: 'Red',
+                    },
+                    {
+                        type: 'string',
+                        enum: ['#00ff00'],
+                        title: 'Green',
+                    },
+                    {
+                        type: 'string',
+                        enum: ['#0000ff'],
+                        title: 'Blue',
+                    },
+                ],
+            },
+        },
     },
 };
 
