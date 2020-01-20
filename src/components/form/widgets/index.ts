@@ -1,5 +1,6 @@
 import React from 'react';
 import { Checkbox } from './checkbox';
+import { DatePicker } from './date-picker';
 import { InputField } from './input-field';
 import { Select } from './select';
 
@@ -26,6 +27,8 @@ export type WidgetType =
 
 export const widgets: Partial<Record<WidgetType, React.Component>> = {
     CheckboxWidget: Checkbox,
+    DateTimeWidget: DatePicker,
+    DateWidget: DatePicker,
     EmailWidget: InputField,
     TextWidget: InputField,
     SelectWidget: Select,
