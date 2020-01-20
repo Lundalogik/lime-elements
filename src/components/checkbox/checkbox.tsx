@@ -7,6 +7,7 @@ import {
     EventEmitter,
     h,
     Prop,
+    State,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { CheckboxTemplate } from './checkbox.template';
@@ -34,6 +35,16 @@ export class Checkbox {
      */
     @Prop({ reflectToAttr: true })
     public checked = false;
+
+    /**
+     * Set to `true` to indicate that the checkbox must be checked.
+     * Defaults to `false`.
+     */
+    @Prop({ reflectToAttr: true })
+    public required: boolean = false;
+
+    @State()
+    private modified = false;
 
     /**
      * Emitted when the input value is changed.
@@ -73,6 +84,8 @@ export class Checkbox {
                 disabled={this.disabled}
                 label={this.label}
                 checked={this.checked}
+                required={this.required}
+                invalid={this.required && this.modified && !this.checked}
                 onChange={this.onChange}
                 id={this.id}
             />
@@ -82,5 +95,6 @@ export class Checkbox {
     private onChange(event: Event) {
         event.stopPropagation();
         this.change.emit(this.mdcCheckbox.checked);
+        this.modified = true;
     }
 }
