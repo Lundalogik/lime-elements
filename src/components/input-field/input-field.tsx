@@ -14,6 +14,7 @@ import {
     SPACE,
     SPACE_KEY_CODE,
 } from '../../util/keycodes';
+import { InputType } from './input-field.types';
 
 @Component({
     tag: 'limel-input-field',
@@ -73,7 +74,7 @@ export class InputField {
      * Defaults to 'text'
      */
     @Prop({ reflectToAttr: true })
-    public type = 'text';
+    public type: InputType = 'text';
 
     /**
      * Set to `true` to format the current value of the input field only
@@ -83,6 +84,36 @@ export class InputField {
      */
     @Prop({ reflectToAttr: true })
     public formatNumber = true;
+
+    /**
+     * Incremental values that are valid if the field type is `number`
+     */
+    @Prop({ reflectToAttr: true })
+    public step: number | 'any' = 'any';
+
+    /**
+     * Maximum allowed value if input type is `number`
+     */
+    @Prop({ reflectToAttr: true })
+    public max: number;
+
+    /**
+     * Minimum allowed value if input type is `number`
+     */
+    @Prop({ reflectToAttr: true })
+    public min: number;
+
+    /**
+     * Maximum length of the value if type is `password`, `search`, `tel`, `text` or `url`
+     */
+    @Prop({ reflectToAttr: true })
+    public maxlength: number;
+
+    /**
+     * Minimum length of the value if type is `password`, `search`, `tel`, `text` or `url`
+     */
+    @Prop({ reflectToAttr: true })
+    public minlength: number;
 
     /**
      * list of suggestions `value` can autocomplete to.
@@ -132,6 +163,8 @@ export class InputField {
     }
 
     public render() {
+        const additionalProps = this.getAdditionalProps();
+
         return [
             <label
                 class={`
@@ -152,11 +185,11 @@ export class InputField {
                     onInput={this.handleChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
-                    value={this.value}
                     required={this.required}
                     disabled={this.disabled}
                     type={this.type}
-                    step="any"
+                    {...additionalProps}
+                    value={this.value}
                 />
                 <span
                     class={`
@@ -173,11 +206,37 @@ export class InputField {
                 {this.renderTrailingIcon()}
                 <div class="mdc-line-ripple" />
             </label>,
-            this.renderHelperText(),
+            this.renderHelperLine(),
             <div class="autocomplete-list-container">
                 {this.renderDropdown()}
             </div>,
         ];
+    }
+
+    private getAdditionalProps() {
+        const props: any = {};
+
+        if (this.type === 'number') {
+            props.step = this.step;
+        }
+
+        if (this.type === 'number' && this.min) {
+            props.min = this.min;
+        }
+
+        if (this.type === 'number' && this.max) {
+            props.max = this.max;
+        }
+
+        if (this.minlength) {
+            props.minlength = this.minlength;
+        }
+
+        if (this.maxlength) {
+            props.maxlength = this.maxlength;
+        }
+
+        return props;
     }
 
     private onFocus() {
@@ -188,16 +247,39 @@ export class InputField {
         this.isFocused = false;
     }
 
-    private renderHelperText() {
-        if (this.helperText === null || this.helperText === undefined) {
+    private renderHelperLine() {
+        if (
+            !this.maxlength &&
+            (this.helperText === null || this.helperText === undefined)
+        ) {
             return;
         }
 
         return (
             <div class="mdc-text-field-helper-line">
-                <div class="mdc-text-field-helper-text">{this.helperText}</div>
+                {this.renderHelperText()}
+                {this.renderCharacterCounter()}
             </div>
         );
+    }
+
+    private renderHelperText() {
+        if (this.helperText === null || this.helperText === undefined) {
+            return;
+        }
+
+        return <p class="mdc-text-field-helper-text">{this.helperText}</p>;
+    }
+
+    private renderCharacterCounter() {
+        if (!this.maxlength || this.type === 'number') {
+            return;
+        }
+
+        const text: string = this.value || '';
+        const label = `${text.length} / ${this.maxlength}`;
+
+        return <div class="mdc-text-field-character-counter">{label}</div>;
     }
 
     private renderTrailingIcon() {

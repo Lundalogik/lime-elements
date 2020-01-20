@@ -26,10 +26,13 @@ export class InputFieldTextExample {
     }
 
     public render() {
+        const MAX_LENGTH = 15;
+
         return [
             <limel-input-field
                 label="Text Field"
                 helperText="Please enter a useful message!"
+                maxlength={MAX_LENGTH}
                 value={this.value}
                 required={this.required}
                 invalid={this.invalid}
