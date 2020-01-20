@@ -89,6 +89,7 @@ module.exports = {
         'ter-no-script-url': true,
         'ter-no-self-compare': true,
         'triple-equals': true,
+        'prefer-conditional-expression': false,
 
         // Variables
         'no-shadowed-variable': true,
