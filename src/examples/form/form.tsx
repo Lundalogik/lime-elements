@@ -50,6 +50,12 @@ const schema = {
                 ],
             },
         },
+        date: {
+            type: 'string',
+            title: 'Date',
+            format: 'date',
+            description: 'Select a nice date',
+        },
     },
 };
 
@@ -61,6 +67,7 @@ export class FormExample {
     @State()
     private formData: object = {
         title: 'Test',
+        date: '2020-01-20',
     };
 
     constructor() {
