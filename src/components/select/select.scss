@@ -4,6 +4,7 @@ $mdc-select-fill-color: $mdc-theme-background;
 $mdc-select-bottom-line-idle-color: $lime-text-field-bottom-line-color;
 $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 
+@import "@limetech/mdc-select/helper-text/mdc-select-helper-text";
 @import '@limetech/mdc-ripple/mdc-ripple';
 @import "@limetech/mdc-line-ripple/mdc-line-ripple";
 @import "@limetech/mdc-floating-label/mdc-floating-label";
@@ -33,6 +34,10 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
         width: 100%;
         height: pxToRem(56);
         position: relative;
+    }
+
+    &.limel-select--with-helper-text {
+        margin-bottom: pxToRem(19);
     }
 
     .limel-select__selected-text {
@@ -108,10 +113,32 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
         }
     }
 
+    limel-portal {
+        margin-top: pxToRem(-6);
+    }
+
+    &.limel-select--with-helper-text {
+        limel-portal {
+            margin-top: pxToRem(-19);
+        }
+    }
+
     &.limel-select--empty {
         limel-portal {
-            margin-top: pxToRem(-8);
+            margin-top: pxToRem(-7);
         }
+
+        &.limel-select--with-helper-text {
+            limel-portal {
+                margin-top: pxToRem(-19);
+            }
+        }
+    }
+
+    .mdc-select-helper-text {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: pxToRem(-7);
     }
 }
 
