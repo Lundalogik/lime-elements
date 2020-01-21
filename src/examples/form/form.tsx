@@ -12,7 +12,12 @@ const schema = {
             default: 'A new task',
             description: 'Lorem ipsum dolor sit amet',
         },
-        done: { type: 'boolean', title: 'Done?', default: false },
+        done: {
+            type: 'boolean',
+            title: 'Done?',
+            default: false,
+            required: true,
+        },
     },
 };
 
