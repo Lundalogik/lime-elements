@@ -49,6 +49,12 @@ export class DatePicker {
     public label: string;
 
     /**
+     * Optional helper text to display below the input field when it has focus
+     */
+    @Prop()
+    public helperText: string;
+
+    /**
      * Set to `true` to indicate that the field is required.
      * Defaults to `false`.
      */
@@ -186,6 +192,7 @@ export class DatePicker {
                     disabled={this.disabled}
                     invalid={this.invalid}
                     label={this.label}
+                    helperText={this.helperText}
                     required={this.required}
                     value={this.formattedValue}
                     onChange={this.handleChange}
