@@ -29,6 +29,7 @@ export class SelectExample {
             <section>
                 <limel-select
                     label="Favorite hero"
+                    helperText="May the force be with him or her"
                     value={this.value}
                     options={this.options}
                     disabled={this.disabled}
