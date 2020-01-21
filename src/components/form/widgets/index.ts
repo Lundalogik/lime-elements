@@ -1,4 +1,5 @@
 import React from 'react';
+import { Checkbox } from './checkbox';
 import { InputField } from './input-field';
 
 // These are defined by react-json-schema-form
@@ -23,6 +24,7 @@ export type WidgetType =
     | 'URLWidget';
 
 export const widgets: Partial<Record<WidgetType, React.Component>> = {
+    CheckboxWidget: Checkbox,
     EmailWidget: InputField,
     TextWidget: InputField,
 };
