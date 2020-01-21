@@ -1,6 +1,7 @@
 import { ListItem, Option } from '@limetech/lime-elements';
 import { MDCFloatingLabel } from '@limetech/mdc-floating-label';
 import { MDCLineRipple } from '@limetech/mdc-line-ripple';
+import { MDCSelectHelperText } from '@limetech/mdc-select/helper-text';
 import {
     Component,
     Element,
@@ -47,6 +48,12 @@ export class Select {
     public label: string;
 
     /**
+     * Optional helper text to display below the input field when it has focus
+     */
+    @Prop({ reflectToAttr: true })
+    public helperText: string;
+
+    /**
      * Currently selected value or values (if `multiple` is set)
      */
     @Prop()
@@ -78,6 +85,7 @@ export class Select {
     @Element()
     private host: HTMLElement;
 
+    private mdcSelectHelperText: MDCSelectHelperText;
     private mdcFloatingLabel: MDCFloatingLabel;
     private mdcLineRipple: MDCLineRipple;
 
@@ -114,6 +122,11 @@ export class Select {
 
         element = this.host.shadowRoot.querySelector('.mdc-line-ripple');
         this.mdcLineRipple = new MDCLineRipple(element);
+
+        element = this.host.shadowRoot.querySelector('.mdc-select-helper-text');
+        if (element) {
+            this.mdcSelectHelperText = new MDCSelectHelperText(element);
+        }
     }
 
     public componentDidUnload() {
@@ -123,6 +136,10 @@ export class Select {
 
         if (this.mdcLineRipple) {
             this.mdcLineRipple.destroy();
+        }
+
+        if (this.mdcSelectHelperText) {
+            this.mdcSelectHelperText.destroy();
         }
     }
 
@@ -141,6 +158,7 @@ export class Select {
                 disabled={this.disabled}
                 required={this.required}
                 label={this.label}
+                helperText={this.helperText}
                 value={this.value}
                 options={this.options}
                 onMenuChange={this.handleMenuChange}
