@@ -8,6 +8,7 @@ interface SelectTemplateProps {
     options: Option[];
     value: Option | Option[];
     label?: string;
+    helperText?: string;
     multiple?: boolean;
     native: boolean;
 
@@ -42,11 +43,13 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = props =>
         'limel-select--required': props.required,
         'limel-select--invalid': !isValid,
         'limel-select--empty': !hasValue,
+        'limel-select--with-helper-text': typeof props.helperText === 'string',
     };
 
     return (
         <div class={classList}>
             <SelectValue {...props} hasValue={hasValue} />
+            <HelperText text={props.helperText} />
             <SelectDropdown {...props} />
         </div>
     );
@@ -83,6 +86,21 @@ const SelectValue: FunctionalComponent<SelectTemplateProps & {
             <span class={labelClassList}>{props.label}</span>
             <div class={lineClassList} />
         </div>
+    );
+};
+
+const HelperText: FunctionalComponent<{ text: string }> = props => {
+    if (typeof props.text !== 'string') {
+        return;
+    }
+
+    return (
+        <p
+            class="mdc-select-helper-text mdc-select-helper-text--persistent"
+            aria-hidden="true"
+        >
+            {props.text.trim()}
+        </p>
     );
 };
 
