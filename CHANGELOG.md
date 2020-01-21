@@ -1,3 +1,10 @@
+# [26.1.0](https://github.com/Lundalogik/lime-elements/compare/v26.0.3...v26.1.0) (2020-01-21)
+
+
+### Features
+
+* **form:** first basic version of form component (unreleased) ([409d20e](https://github.com/Lundalogik/lime-elements/commit/409d20e8ef68c8fc00da12650daba77c37065775))
+
 ## [26.0.3](https://github.com/Lundalogik/lime-elements/compare/v26.0.2...v26.0.3) (2020-01-09)
 
 
