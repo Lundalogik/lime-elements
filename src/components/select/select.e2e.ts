@@ -8,7 +8,7 @@ describe('limel-select (native)', () => {
         let label;
         beforeEach(async () => {
             page = await createPage(`
-                <limel-select native label="Favourite Doctor"></limel-select>
+                <limel-select data-native label="Favourite Doctor"></limel-select>
             `);
             limelSelect = await page.find('limel-select');
             label = await page.find('limel-select>>>.mdc-floating-label');
@@ -31,18 +31,18 @@ describe('limel-select (native)', () => {
     describe('when the attribute `disabled`', () => {
         describe('is not set', () => {
             let limelSelect;
-            let mdcSelect;
+            let container;
             let innerSelect;
             beforeEach(async () => {
                 page = await createPage(`
-                    <limel-select native label="Favourite Doctor"></limel-select>
+                    <limel-select data-native label="Favourite Doctor"></limel-select>
                 `);
                 limelSelect = await page.find('limel-select');
-                mdcSelect = await page.find('limel-select>>>.mdc-select');
+                container = await page.find('limel-select>>>.limel-select');
                 innerSelect = await page.find('limel-select>>>select');
             });
             it('is enabled', () => {
-                expect(mdcSelect).not.toHaveClass('mdc-select--disabled');
+                expect(container).not.toHaveClass('limel-select--disabled');
                 expect(innerSelect).not.toHaveAttribute('disabled');
             });
             it('the property is falsy', async () => {
@@ -56,7 +56,7 @@ describe('limel-select (native)', () => {
                     await page.waitForChanges();
                 });
                 it('is disabled', () => {
-                    expect(mdcSelect).toHaveClass('mdc-select--disabled');
+                    expect(container).toHaveClass('limel-select--disabled');
                     expect(innerSelect).toHaveAttribute('disabled');
                 });
                 it('the property is `true`', async () => {
@@ -68,18 +68,18 @@ describe('limel-select (native)', () => {
 
         describe('is set to `false`', () => {
             let limelSelect;
-            let mdcSelect;
+            let container;
             let innerSelect;
             beforeEach(async () => {
                 page = await createPage(`
-                    <limel-select native label="Favourite Doctor" disabled="false"></limel-select>
+                    <limel-select data-native label="Favourite Doctor" disabled="false"></limel-select>
                 `);
                 limelSelect = await page.find('limel-select');
-                mdcSelect = await page.find('limel-select>>>.mdc-select');
+                container = await page.find('limel-select>>>.limel-select');
                 innerSelect = await page.find('limel-select>>>select');
             });
             it('is enabled', () => {
-                expect(mdcSelect).not.toHaveClass('mdc-select--disabled');
+                expect(container).not.toHaveClass('limel-select--disabled');
                 expect(innerSelect).not.toHaveAttribute('disabled');
             });
             it('the property is falsy', async () => {
@@ -93,7 +93,7 @@ describe('limel-select (native)', () => {
                     await page.waitForChanges();
                 });
                 it('is disabled', () => {
-                    expect(mdcSelect).toHaveClass('mdc-select--disabled');
+                    expect(container).toHaveClass('limel-select--disabled');
                     expect(innerSelect).toHaveAttribute('disabled');
                 });
                 it('the property is `true`', async () => {
@@ -105,18 +105,18 @@ describe('limel-select (native)', () => {
 
         describe('is set to `true`', () => {
             let limelSelect;
-            let mdcSelect;
+            let container;
             let innerSelect;
             beforeEach(async () => {
                 page = await createPage(`
-                    <limel-select native label="Favourite Doctor" disabled="true"></limel-select>
+                    <limel-select data-native label="Favourite Doctor" disabled="true"></limel-select>
                 `);
                 limelSelect = await page.find('limel-select');
-                mdcSelect = await page.find('limel-select>>>.mdc-select');
+                container = await page.find('limel-select>>>.limel-select');
                 innerSelect = await page.find('limel-select>>>select');
             });
             it('is disabled', () => {
-                expect(mdcSelect).toHaveClass('mdc-select--disabled');
+                expect(container).toHaveClass('limel-select--disabled');
                 expect(innerSelect).toHaveAttribute('disabled');
             });
             it('the property is `true`', async () => {
@@ -130,7 +130,7 @@ describe('limel-select (native)', () => {
                     await page.waitForChanges();
                 });
                 it('is enabled', () => {
-                    expect(mdcSelect).not.toHaveClass('mdc-select--disabled');
+                    expect(container).not.toHaveClass('limel-select--disabled');
                     expect(innerSelect).not.toHaveAttribute('disabled');
                 });
                 it('the property is falsy', async () => {
@@ -149,7 +149,7 @@ describe('limel-select (native)', () => {
             let label;
             beforeEach(async () => {
                 page = await createPage(`
-                    <select-test-wrapper native></select-test-wrapper>
+                    <select-test-wrapper data-native></select-test-wrapper>
                 `);
                 testWrapper = await page.find('select-test-wrapper');
                 limelSelect = await page.find('limel-select');
@@ -307,7 +307,7 @@ describe('limel-select (native)', () => {
 
         beforeEach(async () => {
             page = await createPage(`
-                <limel-select native multiple label="Favourite Fruit"></limel-select>
+                <limel-select data-native multiple label="Favourite Fruit"></limel-select>
             `);
             limelSelect = await page.find('limel-select');
             innerSelect = await page.find('limel-select>>>select');
@@ -399,7 +399,7 @@ describe('limel-select (menu)', () => {
                 mdcSelect = await page.find('limel-select>>>.limel-select');
             });
             it('is enabled', () => {
-                expect(mdcSelect).not.toHaveClass('mdc-select--disabled');
+                expect(mdcSelect).not.toHaveClass('limel-select--disabled');
             });
             it('the property is falsy', async () => {
                 const propValue = await limelSelect.getProperty('disabled');
@@ -412,7 +412,7 @@ describe('limel-select (menu)', () => {
                     await page.waitForChanges();
                 });
                 it('is disabled', () => {
-                    expect(mdcSelect).toHaveClass('mdc-select--disabled');
+                    expect(mdcSelect).toHaveClass('limel-select--disabled');
                 });
                 it('the property is `true`', async () => {
                     const propValue = await limelSelect.getProperty('disabled');
@@ -432,7 +432,7 @@ describe('limel-select (menu)', () => {
                 mdcSelect = await page.find('limel-select>>>.limel-select');
             });
             it('is enabled', () => {
-                expect(mdcSelect).not.toHaveClass('mdc-select--disabled');
+                expect(mdcSelect).not.toHaveClass('limel-select--disabled');
             });
             it('the property is falsy', async () => {
                 const propValue = await limelSelect.getProperty('disabled');
@@ -445,7 +445,7 @@ describe('limel-select (menu)', () => {
                     await page.waitForChanges();
                 });
                 it('is disabled', () => {
-                    expect(mdcSelect).toHaveClass('mdc-select--disabled');
+                    expect(mdcSelect).toHaveClass('limel-select--disabled');
                 });
                 it('the property is `true`', async () => {
                     const propValue = await limelSelect.getProperty('disabled');
@@ -465,7 +465,7 @@ describe('limel-select (menu)', () => {
                 mdcSelect = await page.find('limel-select>>>.limel-select');
             });
             it('is disabled', () => {
-                expect(mdcSelect).toHaveClass('mdc-select--disabled');
+                expect(mdcSelect).toHaveClass('limel-select--disabled');
             });
             it('the property is `true`', async () => {
                 const propValue = await limelSelect.getProperty('disabled');
@@ -478,7 +478,7 @@ describe('limel-select (menu)', () => {
                     await page.waitForChanges();
                 });
                 it('is enabled', () => {
-                    expect(mdcSelect).not.toHaveClass('mdc-select--disabled');
+                    expect(mdcSelect).not.toHaveClass('limel-select--disabled');
                 });
                 it('the property is falsy', async () => {
                     const propValue = await limelSelect.getProperty('disabled');

@@ -1,8 +1,6 @@
 import { ListItem, Option } from '@limetech/lime-elements';
 import { MDCFloatingLabel } from '@limetech/mdc-floating-label';
 import { MDCLineRipple } from '@limetech/mdc-line-ripple';
-import { MDCMenuSurface } from '@limetech/mdc-menu-surface';
-import { MDCSelect } from '@limetech/mdc-select';
 import {
     Component,
     Element,
@@ -22,7 +20,7 @@ import {
 } from '../../util/keycodes';
 import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
-import { MenuSelectTemplate, NativeSelectTemplate } from './select.template';
+import { SelectTemplate } from './select.template';
 
 @Component({
     tag: 'limel-select',
@@ -80,10 +78,8 @@ export class Select {
     @Element()
     private host: HTMLElement;
 
-    private mdcSelect: MDCSelect;
     private mdcFloatingLabel: MDCFloatingLabel;
     private mdcLineRipple: MDCLineRipple;
-    private mdcMenuSurface: MDCMenuSurface;
 
     private isMobileDevice: boolean;
 
@@ -106,48 +102,27 @@ export class Select {
 
         // It should not be possible to render the native select for consumers, but we still want to make it testable.
         // We can set this attribute in tests to force rendering of the native select
-        if (this.host.hasAttribute('native')) {
+        if (this.host.hasAttribute('data-native')) {
             this.isMobileDevice = true;
         }
     }
 
     public componentDidLoad() {
         let element: HTMLElement;
-        if (!this.isMobileDevice) {
-            element = this.host.shadowRoot.querySelector('.mdc-floating-label');
-            this.mdcFloatingLabel = new MDCFloatingLabel(element);
+        element = this.host.shadowRoot.querySelector('.mdc-floating-label');
+        this.mdcFloatingLabel = new MDCFloatingLabel(element);
 
-            element = this.host.shadowRoot.querySelector('.mdc-line-ripple');
-            this.mdcLineRipple = new MDCLineRipple(element);
-
-            return;
-        }
-
-        element = this.host.shadowRoot.querySelector('.mdc-select');
-        this.mdcSelect = new MDCSelect(element);
-
-        if (!this.value) {
-            element
-                .querySelector('.mdc-floating-label')
-                .classList.remove('mdc-floating-label--float-above');
-        }
+        element = this.host.shadowRoot.querySelector('.mdc-line-ripple');
+        this.mdcLineRipple = new MDCLineRipple(element);
     }
 
     public componentDidUnload() {
-        if (this.mdcSelect) {
-            this.mdcSelect.destroy();
-        }
-
         if (this.mdcFloatingLabel) {
             this.mdcFloatingLabel.destroy();
         }
 
         if (this.mdcLineRipple) {
             this.mdcLineRipple.destroy();
-        }
-
-        if (this.mdcMenuSurface) {
-            this.mdcMenuSurface.destroy();
         }
     }
 
@@ -160,35 +135,23 @@ export class Select {
     }
 
     public render() {
-        if (!this.isMobileDevice) {
-            return (
-                <MenuSelectTemplate
-                    id={this.portalId}
-                    disabled={this.disabled}
-                    required={this.required}
-                    label={this.label}
-                    value={this.value}
-                    options={this.options}
-                    onChange={this.handleMenuChange}
-                    onTriggerPress={this.handleMenuTriggerKeyPress}
-                    multiple={this.multiple}
-                    isOpen={this.menuOpen}
-                    open={this.openMenu}
-                    close={this.closeMenu}
-                    checkValid={this.checkValid}
-                />
-            );
-        }
-
         return (
-            <NativeSelectTemplate
+            <SelectTemplate
+                id={this.portalId}
                 disabled={this.disabled}
                 required={this.required}
                 label={this.label}
                 value={this.value}
                 options={this.options}
-                onChange={this.handleNativeChange}
+                onMenuChange={this.handleMenuChange}
+                onNativeChange={this.handleNativeChange}
+                onTriggerPress={this.handleMenuTriggerKeyPress}
                 multiple={this.multiple}
+                isOpen={this.menuOpen}
+                open={this.openMenu}
+                close={this.closeMenu}
+                checkValid={this.checkValid}
+                native={this.isMobileDevice}
             />
         );
     }
@@ -206,6 +169,10 @@ export class Select {
     }
 
     private setMenuFocus() {
+        if (this.isMobileDevice) {
+            return;
+        }
+
         setTimeout(() => {
             const list: HTMLElement = document.querySelector(
                 `#${this.portalId} limel-menu-surface limel-list`
@@ -277,7 +244,7 @@ export class Select {
         event.stopPropagation();
 
         const element: HTMLSelectElement = this.host.shadowRoot.querySelector(
-            '.mdc-select select'
+            'select.limel-select__native-control'
         );
         const options = Array.apply(null, element.options)
             .filter((optionElement: HTMLOptionElement) => {
@@ -293,5 +260,6 @@ export class Select {
         }
 
         this.change.emit(options[0]);
+        this.menuOpen = false;
     }
 }
