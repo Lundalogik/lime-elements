@@ -9,68 +9,12 @@ interface SelectTemplateProps {
     value: Option | Option[];
     label?: string;
     multiple?: boolean;
-}
+    native: boolean;
 
-interface NativeSelectTemplateProps extends SelectTemplateProps {
-    onChange?: (event: Event) => void;
-}
+    onNativeChange: (event: Event) => void;
 
-export const NativeSelectTemplate: FunctionalComponent<NativeSelectTemplateProps> = props => {
-    let hasValue = !!props.value;
-    if (isMultiple(props.value)) {
-        hasValue = props.value.length > 0;
-    } else if (hasValue) {
-        hasValue = !!props.value.value;
-    }
-
-    return (
-        <div
-            class={`
-                mdc-select
-                ${props.disabled ? 'mdc-select--disabled' : ''}
-            `}
-        >
-            <i class="mdc-select__dropdown-icon" />
-            <div class="limel-select__selected-text">
-                {getSelectedText(props.value)}
-            </div>
-            <select
-                required={props.required}
-                aria-required={props.required}
-                onChange={props.onChange}
-                class="mdc-select__native-control"
-                disabled={props.disabled}
-                multiple={props.multiple}
-            >
-                {props.options.map(option => {
-                    return (
-                        <option
-                            key={option.value}
-                            value={option.value}
-                            selected={isSelected(option, props.value)}
-                            disabled={option.disabled}
-                        >
-                            {option.text}
-                        </option>
-                    );
-                })}
-            </select>
-            <label
-                class={`
-                    mdc-floating-label
-                    ${hasValue ? 'mdc-floating-label--float-above' : ''}
-                `}
-            >
-                {props.label}
-            </label>
-            <div class="mdc-line-ripple" />
-        </div>
-    );
-};
-
-interface MenuSelectTemplateProps extends SelectTemplateProps {
     id: string;
-    onChange?: (event: CustomEvent<ListItem | ListItem[]>) => void;
+    onMenuChange: (event: CustomEvent<ListItem | ListItem[]>) => void;
     onTriggerPress: (event: KeyboardEvent) => void;
     isOpen: boolean;
     open: () => void;
@@ -78,8 +22,7 @@ interface MenuSelectTemplateProps extends SelectTemplateProps {
     checkValid: boolean;
 }
 
-export const MenuSelectTemplate: FunctionalComponent<MenuSelectTemplateProps> = props => {
-    const items = createMenuItems(props.options, props.value);
+export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = props => {
     let hasValue = !!props.value;
     if (isMultiple(props.value)) {
         hasValue = props.value.length > 0;
@@ -92,60 +35,106 @@ export const MenuSelectTemplate: FunctionalComponent<MenuSelectTemplateProps> = 
         isValid = false;
     }
 
+    const classList = {
+        'limel-select': true,
+        'mdc-menu-surface--anchor': true,
+        'limel-select--disabled': props.disabled,
+        'limel-select--required': props.required,
+        'limel-select--invalid': !isValid,
+        'limel-select--empty': !hasValue,
+    };
+
+    return (
+        <div class={classList}>
+            <SelectValue {...props} hasValue={hasValue} />
+            <SelectDropdown {...props} />
+        </div>
+    );
+};
+
+const SelectValue: FunctionalComponent<SelectTemplateProps & {
+    hasValue: boolean;
+}> = props => {
+    const containerClassList = {
+        'limel-select-trigger': true,
+        'limel-select--focused': props.isOpen,
+    };
+    const labelClassList = {
+        'mdc-floating-label': true,
+        'mdc-floating-label--float-above': props.hasValue || props.isOpen,
+        'mdc-floating-label--active': props.isOpen,
+    };
+    const lineClassList = {
+        'mdc-line-ripple': true,
+        'mdc-line-ripple--active': props.isOpen,
+    };
+
     return (
         <div
-            class={`
-            limel-select
-            mdc-menu-surface--anchor
-            ${props.disabled ? 'mdc-select--disabled' : ''}
-            ${props.required ? 'limel-select--required' : ''}
-            ${!isValid ? 'limel-select--invalid' : ''}
-            ${!hasValue ? 'limel-select--empty' : ''}
-        `}
+            tabindex="0"
+            onClick={props.open}
+            class={containerClassList}
+            onKeyPress={props.onTriggerPress}
         >
-            <div
-                tabindex="0"
-                onClick={props.open}
-                class={`
-                    limel-select-trigger
-                    ${props.isOpen ? 'mdc-select--focused' : ''}
-                `}
-                onKeyPress={props.onTriggerPress}
-            >
-                <i class="mdc-select__dropdown-icon" />
-                <div class="limel-select__selected-text">
-                    {getSelectedText(props.value)}
-                </div>
-                <span
-                    class={`
-                    mdc-floating-label
-                    ${
-                        hasValue || props.isOpen
-                            ? 'mdc-floating-label--float-above'
-                            : ''
-                    }
-                    ${props.isOpen ? 'mdc-floating-label--active' : ''}
-                `}
-                >
-                    {props.label}
-                </span>
-                <div
-                    class={`
-                    mdc-line-ripple
-                    ${props.isOpen ? 'mdc-line-ripple--active' : ''}
-                `}
-                />
+            <i class="limel-select__dropdown-icon" />
+            <div class="limel-select__selected-text">
+                {getSelectedText(props.value)}
             </div>
-            <limel-portal containerId={props.id} visible={props.isOpen}>
-                <limel-menu-surface open={props.isOpen} onDismiss={props.close}>
-                    <limel-list
-                        items={items}
-                        type={props.multiple ? 'checkbox' : 'selectable'}
-                        onChange={props.onChange}
-                    />
-                </limel-menu-surface>
-            </limel-portal>
+            <span class={labelClassList}>{props.label}</span>
+            <div class={lineClassList} />
         </div>
+    );
+};
+
+const SelectDropdown: FunctionalComponent<SelectTemplateProps> = props => {
+    if (props.native) {
+        return <NativeDropdown {...props} />;
+    }
+
+    return <MenuDropdown {...props} />;
+};
+
+const MenuDropdown: FunctionalComponent<SelectTemplateProps> = props => {
+    const items = createMenuItems(props.options, props.value);
+
+    return (
+        <limel-portal containerId={props.id} visible={props.isOpen}>
+            <limel-menu-surface open={props.isOpen} onDismiss={props.close}>
+                <limel-list
+                    items={items}
+                    type={props.multiple ? 'checkbox' : 'selectable'}
+                    onChange={props.onMenuChange}
+                />
+            </limel-menu-surface>
+        </limel-portal>
+    );
+};
+
+const NativeDropdown: FunctionalComponent<SelectTemplateProps> = props => {
+    return (
+        <select
+            required={props.required}
+            aria-required={props.required}
+            onChange={props.onNativeChange}
+            onFocus={props.open}
+            onBlur={props.close}
+            class="limel-select__native-control"
+            disabled={props.disabled}
+            multiple={props.multiple}
+        >
+            {props.options.map(option => {
+                return (
+                    <option
+                        key={option.value}
+                        value={option.value}
+                        selected={isSelected(option, props.value)}
+                        disabled={option.disabled}
+                    >
+                        {option.text}
+                    </option>
+                );
+            })}
+        </select>
     );
 };
 
