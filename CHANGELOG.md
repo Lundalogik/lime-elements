@@ -1,3 +1,10 @@
+## [26.1.1](https://github.com/Lundalogik/lime-elements/compare/v26.1.0...v26.1.1) (2020-01-22)
+
+
+### Bug Fixes
+
+* **select:** make select work on mobile devices again ([4cf7a0e](https://github.com/Lundalogik/lime-elements/commit/4cf7a0e60a34745544397159b5507a2d7c0e6f1f))
+
 # [26.1.0](https://github.com/Lundalogik/lime-elements/compare/v26.0.3...v26.1.0) (2020-01-21)
 
 
