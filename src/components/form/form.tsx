@@ -10,6 +10,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import JSONSchemaForm from 'react-jsonschema-form';
 import retargetEvents from 'react-shadow-dom-retarget-events';
+import { FormError, ValidationStatus } from './form.types';
 import {
     ArrayFieldTemplate,
     FieldTemplate,
@@ -41,11 +42,22 @@ export class Form {
     @Event()
     public change: EventEmitter<object>;
 
+    /**
+     * Emitted when the validity of the form changes, or when
+     * a change is made to an invalid form
+     */
+    @Event()
+    public validate: EventEmitter<ValidationStatus>;
+
     @Element()
     private host: HTMLElement;
 
+    private form: any;
+    private isValid = true;
+
     public constructor() {
         this.handleChange = this.handleChange.bind(this);
+        this.setForm = this.setForm.bind(this);
     }
 
     public render() {
@@ -55,10 +67,12 @@ export class Form {
     protected componentDidLoad() {
         this.reactRender();
         retargetEvents(this.host.shadowRoot);
+        this.validateForm(this.value);
     }
 
     protected componentDidUpdate() {
         this.reactRender();
+        this.validateForm(this.value);
     }
 
     protected componentDidUnload() {
@@ -80,6 +94,7 @@ export class Form {
                     FieldTemplate: FieldTemplate,
                     ArrayFieldTemplate: ArrayFieldTemplate,
                     ObjectFieldTemplate: ObjectFieldTemplate,
+                    ref: this.setForm,
                 },
                 []
             ),
@@ -87,7 +102,25 @@ export class Form {
         );
     }
 
+    private setForm(form: any) {
+        this.form = form;
+    }
+
     private handleChange(event: any) {
         this.change.emit(event.formData);
+    }
+
+    private validateForm(value: object) {
+        const errors: FormError[] = this.form.validate(value).errors;
+        const status: ValidationStatus = {
+            valid: errors.length === 0,
+            errors: errors,
+        };
+
+        if (this.isValid !== status.valid || !status.valid) {
+            this.validate.emit(status);
+        }
+
+        this.isValid = status.valid;
     }
 }
