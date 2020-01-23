@@ -1,3 +1,17 @@
+# [26.2.0](https://github.com/Lundalogik/lime-elements/compare/v26.1.1...v26.2.0) (2020-01-23)
+
+
+### Features
+
+* **checkbox:** add required property ([68f371d](https://github.com/Lundalogik/lime-elements/commit/68f371dfbbf5c085e2ab00ee6dacff9714221e66))
+* **date-picker:** add helperText property ([5e47129](https://github.com/Lundalogik/lime-elements/commit/5e4712904573a4c95f2711f1df1699df58262838))
+* **form:** add component for handling boolean values ([74d885f](https://github.com/Lundalogik/lime-elements/commit/74d885f50f7f75d5472a2b89ecc4711a9b160975))
+* **form:** add component for handling date values ([cdd7d00](https://github.com/Lundalogik/lime-elements/commit/cdd7d0087251a61e3bddb00fdcabcf8ecffe59aa))
+* **form:** add component for handling enum values ([6120929](https://github.com/Lundalogik/lime-elements/commit/6120929521ba96decc428dacc9a34c4f8e6520db))
+* **form:** add component for handling text inputs ([317e654](https://github.com/Lundalogik/lime-elements/commit/317e654b4c065bb36661bd64622c610360f96a46))
+* **input-field:** improve validation ([4afe197](https://github.com/Lundalogik/lime-elements/commit/4afe197141a3aa208689d3655d0a0b3d48268373))
+* **select:** add helperText property ([8b3f26c](https://github.com/Lundalogik/lime-elements/commit/8b3f26c0ec223cb9f7e9299b1dc7d5f953667c92))
+
 ## [26.1.1](https://github.com/Lundalogik/lime-elements/compare/v26.1.0...v26.1.1) (2020-01-22)
 
 
