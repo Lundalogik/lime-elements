@@ -97,6 +97,7 @@ module.exports = {
         // Style
         'object-literal-sort-keys': false,
         'interface-name': false,
+        'array-type': [true, 'array-simple'],
 
         // ECMAScript 6
         'no-var-keyword': true,
