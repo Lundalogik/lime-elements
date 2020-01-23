@@ -1,1 +1,12 @@
-export const FieldTemplate = undefined; // TODO implement field template
+import React from 'react';
+
+export const FieldTemplate = props => {
+    const { classNames, children } = props;
+    return React.createElement(
+        'div',
+        {
+            className: classNames,
+        },
+        children
+    );
+};
