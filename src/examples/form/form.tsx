@@ -1,60 +1,116 @@
+import { ValidationStatus } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 const schema = {
-    title: 'My form',
-    description: 'This is a description text for the form.',
+    title: 'Registration form',
+    description: 'Please enter your personal information',
     type: 'object',
-    required: ['title'],
+    required: ['name', 'email', 'newsletters'],
     properties: {
-        title: {
+        name: {
             type: 'string',
-            title: 'Title',
-            default: 'A new task',
-            description: 'Enter a title',
+            title: 'Name',
+            default: 'Batman',
+            description: 'Enter your heroic name',
+            minLength: 5,
+            maxLength: 20,
         },
-        done: {
-            type: 'boolean',
-            title: 'Done?',
-            default: false,
-            required: true,
+        email: {
+            type: 'string',
+            title: 'Email',
+            description: 'Enter your email address',
+            format: 'email',
+        },
+        date: {
+            type: 'string',
+            title: 'Birthdate',
+            format: 'date',
+            description: 'Pick a nice date!',
         },
         color: {
             type: 'string',
-            title: 'Color',
-            enum: ['red', 'green', 'blue'],
+            title: 'Favorite cape color',
+            description: 'Preferably matching your boots',
+            oneOf: [
+                {
+                    type: 'string',
+                    const: 'red',
+                    title: 'Red',
+                },
+                {
+                    type: 'string',
+                    const: 'yellow',
+                    title: 'Yellow',
+                },
+                {
+                    type: 'string',
+                    const: 'green',
+                    title: 'Green',
+                },
+                {
+                    type: 'string',
+                    const: 'blue',
+                    title: 'Blue',
+                },
+                {
+                    type: 'string',
+                    const: 'black',
+                    title: 'Black',
+                },
+            ],
         },
-        colorMask: {
+        sidekicks: {
             type: 'array',
-            title: 'Color mask',
-            description: 'Pick a color',
+            title: 'Sidekicks',
+            description: 'Please select your sidekicks',
             uniqueItems: true,
             items: {
-                title: 'Color',
+                title: 'Friends',
                 type: 'string',
                 anyOf: [
                     {
                         type: 'string',
-                        enum: ['#ff0000'],
-                        title: 'Red',
+                        const: 'super',
+                        title: 'Superman',
                     },
                     {
                         type: 'string',
-                        enum: ['#00ff00'],
-                        title: 'Green',
+                        const: 'widow',
+                        title: 'Black Widow',
                     },
                     {
                         type: 'string',
-                        enum: ['#0000ff'],
-                        title: 'Blue',
+                        const: 'america',
+                        title: 'Captain America',
+                    },
+                    {
+                        type: 'string',
+                        const: 'squirrel',
+                        title: 'Squirrel Girl',
+                    },
+                    {
+                        type: 'string',
+                        const: 'devil',
+                        title: 'Daredevil',
+                    },
+                    {
+                        type: 'string',
+                        const: 'marvel',
+                        title: 'Captain Marvel',
+                    },
+                    {
+                        type: 'string',
+                        const: 'fantastic',
+                        title: 'Mr. Fantastic',
                     },
                 ],
             },
         },
-        date: {
-            type: 'string',
-            title: 'Date',
-            format: 'date',
-            description: 'Select a nice date',
+        newsletters: {
+            type: 'boolean',
+            title: 'I want to receive daily newsletters!',
+            default: false,
+            const: true,
         },
     },
 };
@@ -66,20 +122,32 @@ const schema = {
 export class FormExample {
     @State()
     private formData: object = {
-        title: 'Test',
-        date: '2020-01-20',
+        date: '1922-12-28',
     };
+
+    @State()
+    private valid = true;
 
     constructor() {
         this.handleFormChange = this.handleFormChange.bind(this);
+        this.handleFormValidate = this.handleFormValidate.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     public render() {
         return [
             <limel-form
                 onChange={this.handleFormChange}
+                onValidate={this.handleFormValidate}
                 value={this.formData}
                 schema={schema}
+            />,
+            <br />,
+            <limel-button
+                label="Submit"
+                primary={true}
+                disabled={!this.valid}
+                onClick={this.handleSubmit}
             />,
             <br />,
             <br />,
@@ -90,5 +158,15 @@ export class FormExample {
 
     private handleFormChange(event) {
         this.formData = event.detail;
+    }
+
+    private handleFormValidate(event: CustomEvent<ValidationStatus>) {
+        this.valid = event.detail.valid;
+        console.log(event.detail);
+    }
+
+    private handleSubmit() {
+        const json = JSON.stringify(this.formData, null, '    ');
+        alert(`Sending information to villains...\n\n${json}`);
     }
 }
