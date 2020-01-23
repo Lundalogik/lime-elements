@@ -1,3 +1,4 @@
+import moment from 'moment/moment';
 import React from 'react';
 import { DateType } from '../../date-picker/date.types';
 
@@ -53,7 +54,7 @@ export class DatePicker extends React.Component {
         }
     }
 
-    private handleChange(event: CustomEvent<boolean>) {
+    private handleChange(event: CustomEvent<Date>) {
         const props = this.props;
         event.stopPropagation();
 
@@ -61,7 +62,8 @@ export class DatePicker extends React.Component {
             return;
         }
 
-        props.onChange(event.detail);
+        const dateString = moment(event.detail).format('YYYY-MM-DD');
+        props.onChange(dateString);
     }
 }
 
