@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 
 const schema = {
     title: 'My form',
-    description: 'Lorem ipsum dolor sit amet',
+    description: 'This is a description text for the form.',
     type: 'object',
     required: ['title'],
     properties: {
@@ -10,7 +10,7 @@ const schema = {
             type: 'string',
             title: 'Title',
             default: 'A new task',
-            description: 'Lorem ipsum dolor sit amet',
+            description: 'Enter a title',
         },
         done: {
             type: 'boolean',
