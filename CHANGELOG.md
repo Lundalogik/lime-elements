@@ -1,3 +1,17 @@
+# [26.3.0](https://github.com/Lundalogik/lime-elements/compare/v26.2.0...v26.3.0) (2020-01-27)
+
+
+### Bug Fixes
+
+* **form:** convert dates to strings in date-picker change handler ([d94f6cc](https://github.com/Lundalogik/lime-elements/commit/d94f6ccb3f052a4c79b8f193116da233aab95900))
+* **form:** remove double titles and descriptions from form fields ([f446ce4](https://github.com/Lundalogik/lime-elements/commit/f446ce4defd21c55238fd573ccd681a1e4396e6d))
+* **select:** adjust bottom margin ([a1067b9](https://github.com/Lundalogik/lime-elements/commit/a1067b9c622a6ccdbb54364c0cea16e1e39f715f))
+
+
+### Features
+
+* **form:** add validation event ([eb8add2](https://github.com/Lundalogik/lime-elements/commit/eb8add2442e5149d243ad90ef2f0aaf381f141f2))
+
 # [26.2.0](https://github.com/Lundalogik/lime-elements/compare/v26.1.1...v26.2.0) (2020-01-23)
 
 
