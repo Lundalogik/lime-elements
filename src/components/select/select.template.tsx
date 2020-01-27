@@ -38,8 +38,9 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = props =>
 
     const classList = {
         'limel-select': true,
+        'mdc-select': true,
         'mdc-menu-surface--anchor': true,
-        'limel-select--disabled': props.disabled,
+        'mdc-select--disabled': props.disabled,
         'limel-select--required': props.required,
         'limel-select--invalid': !isValid,
         'limel-select--empty': !hasValue,

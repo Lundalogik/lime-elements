@@ -4,6 +4,7 @@ $mdc-select-fill-color: $mdc-theme-background;
 $mdc-select-bottom-line-idle-color: $lime-text-field-bottom-line-color;
 $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 
+@import "@limetech/mdc-select/mdc-select";
 @import "@limetech/mdc-select/helper-text/mdc-select-helper-text";
 @import '@limetech/mdc-ripple/mdc-ripple';
 @import "@limetech/mdc-line-ripple/mdc-line-ripple";
