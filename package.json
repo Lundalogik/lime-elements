@@ -57,7 +57,7 @@
     "@lundalogik/lime-icons8": "https://npm.pkg.github.com/download/@lundalogik/lime-icons8/2.1.0/96ebb4a7165fc618dba53568ab04db5fb9803a58d19e936965415e14dd224256",
     "@semantic-release/changelog": "3.0.6",
     "@semantic-release/exec": "4.0.0",
-    "@semantic-release/git": "7.0.18",
+    "@semantic-release/git": "9.0.0",
     "@stencil/core": "1.8.6",
     "@stencil/sass": "1.1.1",
     "@types/chart.js": "2.9.11",
