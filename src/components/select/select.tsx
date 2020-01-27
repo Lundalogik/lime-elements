@@ -113,6 +113,10 @@ export class Select {
         if (this.host.hasAttribute('data-native')) {
             this.isMobileDevice = true;
         }
+
+        if (!this.value) {
+            this.change.emit(this.options[0]);
+        }
     }
 
     public componentDidLoad() {
