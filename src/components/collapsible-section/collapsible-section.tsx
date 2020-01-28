@@ -1,5 +1,6 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
+import { Action } from './action';
 
 /**
  * @slot - Content to put inside the collapsible section
@@ -21,6 +22,12 @@ export class CollapsibleSection {
     public header: string;
 
     /**
+     * Actions to place to the far right inside the header
+     */
+    @Prop()
+    public actions: Action[];
+
+    /**
      * Emitted when the section is expanded
      */
     @Event()
@@ -32,8 +39,15 @@ export class CollapsibleSection {
     @Event()
     private close: EventEmitter<void>;
 
+    /**
+     * Emitted when an action is clicked inside the header
+     */
+    @Event()
+    private action: EventEmitter<Action>;
+
     constructor() {
         this.onClick = this.onClick.bind(this);
+        this.renderActionButton = this.renderActionButton.bind(this);
     }
 
     public render() {
@@ -54,9 +68,10 @@ export class CollapsibleSection {
                             })()}
                         </svg>
                     </span>
-                    <h5 class="mdc-typography mdc-typography--headline5">
+                    <h2 class="mdc-typography mdc-typography--headline2">
                         {this.header}
-                    </h5>
+                    </h2>
+                    {this.renderActions()}
                 </header>
                 <div class="body">
                     <slot />
@@ -76,4 +91,32 @@ export class CollapsibleSection {
             this.close.emit();
         }
     }
+
+    private renderActions() {
+        if (!this.actions) {
+            return;
+        }
+
+        return (
+            <div class="actions">
+                {this.actions.map(this.renderActionButton)}
+            </div>
+        );
+    }
+
+    private renderActionButton(action: Action) {
+        return (
+            <limel-icon-button
+                icon={action.icon}
+                label={action.label}
+                disabled={action.disabled}
+                onClick={this.handleActionClick(action)}
+            />
+        );
+    }
+
+    private handleActionClick = (action: Action) => (event: MouseEvent) => {
+        event.stopPropagation();
+        this.action.emit(action);
+    };
 }
