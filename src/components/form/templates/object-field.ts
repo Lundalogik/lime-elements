@@ -1,4 +1,5 @@
 import React from 'react';
+import { renderDescription, renderTitle } from './common';
 import { ObjectFieldProperty, ObjectFieldTemplateProps } from './types';
 
 export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
@@ -37,30 +38,6 @@ function renderCollapsibleField(props: ObjectFieldTemplateProps) {
 
 function renderProperties(properties: ObjectFieldProperty[]) {
     return properties.map(element => element.content);
-}
-
-function renderTitle(title: string) {
-    if (!title) {
-        return;
-    }
-
-    return React.createElement(
-        'h1',
-        { className: 'mdc-typography mdc-typography--headline1' },
-        title
-    );
-}
-
-function renderDescription(description: string) {
-    if (!description) {
-        return;
-    }
-
-    return React.createElement(
-        'p',
-        { className: 'mdc-typography mdc-typography--body1' },
-        description
-    );
 }
 
 function isCollapsible(schema: any) {

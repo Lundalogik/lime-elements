@@ -1,0 +1,102 @@
+import { Action } from '@limetech/lime-elements';
+import React from 'react';
+import { findTitle } from './common';
+import { ArrayFieldItem, Runnable } from './types';
+
+interface CollapsibleItemProps {
+    /**
+     * Data from reach-jsonschema-form
+     */
+    item: ArrayFieldItem;
+
+    /**
+     * The index of the field in the array
+     */
+    index: number;
+
+    /**
+     * The value of the field
+     */
+    data: any;
+
+    /**
+     * Schema for the field
+     */
+    schema: any;
+
+    /**
+     * Schema for the entire form
+     */
+    formSchema: any;
+}
+
+export class CollapsibleItemTemplate extends React.Component {
+    private props: CollapsibleItemProps;
+    private refs: { section: any };
+
+    constructor() {
+        super();
+        this.handleAction = this.handleAction.bind(this);
+    }
+
+    public componentDidMount() {
+        const section: HTMLLimelCollapsibleSectionElement = this.refs.section;
+        section.addEventListener('action', this.handleAction);
+
+        this.setActions(section);
+    }
+
+    public componentDidUpdate() {
+        const section: HTMLLimelCollapsibleSectionElement = this.refs.section;
+        this.setActions(section);
+    }
+
+    public componentWillUnmount() {
+        const section: HTMLLimelCollapsibleSectionElement = this.refs.section;
+        section.removeEventListener('action', this.handleAction);
+    }
+
+    public render() {
+        const { data, schema, index, formSchema } = this.props;
+        return React.createElement(
+            'limel-collapsible-section',
+            {
+                header: findTitle(data, schema, formSchema) || index,
+                className: 'limel-form-array-item--object',
+                ref: 'section',
+            },
+            this.props.item.children
+        );
+    }
+
+    private setActions(element: HTMLLimelCollapsibleSectionElement) {
+        const { item, index } = this.props;
+        const actions: Array<Action & Runnable> = [
+            {
+                id: 'remove',
+                icon: 'trash',
+                disabled: !item.hasRemove,
+                run: item.onDropIndexClick(index),
+            },
+            {
+                id: 'up',
+                icon: 'up_arrow',
+                disabled: !item.hasMoveUp,
+                run: item.onReorderClick(index, index - 1),
+            },
+            {
+                id: 'down',
+                icon: 'down_arrow',
+                disabled: !item.hasMoveDown,
+                run: item.onReorderClick(index, index + 1),
+            },
+        ];
+
+        element.actions = actions;
+    }
+
+    private handleAction(event: CustomEvent<Action & Runnable>) {
+        event.stopPropagation();
+        event.detail.run(event);
+    }
+}

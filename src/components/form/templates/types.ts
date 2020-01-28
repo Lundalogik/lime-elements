@@ -66,3 +66,7 @@ export interface ArrayFieldItem {
     onReorderClick: (index: number, newIndex: number) => (event: any) => void;
     readonly: boolean;
 }
+
+export interface Runnable {
+    run: (event: any) => void;
+}

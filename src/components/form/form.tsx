@@ -95,6 +95,9 @@ export class Form {
                     ArrayFieldTemplate: ArrayFieldTemplate,
                     ObjectFieldTemplate: ObjectFieldTemplate,
                     ref: this.setForm,
+                    formContext: {
+                        schema: this.schema,
+                    },
                 },
                 []
             ),

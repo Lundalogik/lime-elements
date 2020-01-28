@@ -1,5 +1,6 @@
 import React from 'react';
 import { InputType } from '../../input-field/input-field.types';
+import { isIntegerType, isNumberType } from '../schema';
 
 export class InputField extends React.Component {
     private refs: any;
@@ -51,7 +52,7 @@ export class InputField extends React.Component {
 }
 
 function getInputType(schema: any): InputType {
-    if (isType(schema.type, 'number') || isType(schema.type, 'integer')) {
+    if (isNumberType(schema) || isIntegerType(schema)) {
         return 'number';
     }
 
@@ -62,20 +63,12 @@ function getInputType(schema: any): InputType {
     return 'text';
 }
 
-function isType(input: string | string[], type: string) {
-    if (Array.isArray(input)) {
-        return input.includes(type);
-    }
-
-    return input === type;
-}
-
 function getStepSize(schema: any): 'any' | number {
-    if (isType(schema.type, 'number') && schema.multipleOf) {
+    if (isNumberType(schema) && schema.multipleOf) {
         return parseFloat(schema.multipleOf) || 'any';
     }
 
-    if (isType(schema.type, 'integer')) {
+    if (isIntegerType(schema)) {
         return parseInt(schema.multipleOf, 10) || 1;
     }
 
