@@ -1,1 +1,11 @@
 @import '../../style/variables';
+
+.limel-form-array-item--simple {
+    display: flex;
+    align-items: center;
+    margin-right: pxToRem(10);
+
+    *:first-child {
+        flex-grow: 1;
+    }
+}

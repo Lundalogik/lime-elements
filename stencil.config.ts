@@ -46,4 +46,9 @@ export const config: Config = {
     ],
     tsconfig: './tsconfig.dev.json',
     globalStyle: 'src/global/colors.scss',
+    testing: {
+        moduleNameMapper: {
+            '^lodash-es$': 'lodash',
+        },
+    },
 };
