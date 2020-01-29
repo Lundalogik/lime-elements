@@ -1,5 +1,12 @@
 @import '../../style/variables';
 
+/**
+ * @prop --closed-header-background-color: background color for header when closed
+ * @prop --open-header-background-color: background color for header when open
+ * @prop --body-background-color: background color for body
+ * @prop --body-padding: padding for body
+ */
+
 :host {
     display: block;
 }
@@ -13,11 +20,9 @@
 }
 
 section {
-    background-color: #ffffff;
-
     > header {
         align-items: center;
-        background-color: #ffffff;
+        background-color: var(--closed-header-background-color, #ffffff);
         cursor: pointer;
         display: flex;
         padding-left: pxToRem(10);
@@ -26,7 +31,7 @@ section {
         height: pxToRem(60);
 
         > .expander {
-            color: #a6a6a6;
+            color: rgba(0,0,0,0.33);
             height: pxToRem(30);
             margin-right: pxToRem(5);
             width: pxToRem(30);
@@ -41,21 +46,33 @@ section {
         }
 
         &:hover {
-            background-color: #f8f8f8;
+            background-color: var(--open-header-background-color, #f8f8f8);
 
             > .expander {
-                color: #636363;
+                color: rgba(0,0,0,0.6);
             }
         }
     }
 
     > .body {
+        background-color: var(--body-background-color, #ffffff);
         display: none;
+        padding: var(--body-padding, 0);
+
+        &:before,
+        &:after {
+            content: " ";
+            display: table;
+        }
+
+        &:after {
+            clear: both;
+        }
     }
 
     &.open {
         > header {
-            background-color: #f8f8f8;
+            background-color: var(--open-header-background-color, #f8f8f8);
         }
 
         > .body {
