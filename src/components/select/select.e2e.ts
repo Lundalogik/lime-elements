@@ -327,8 +327,8 @@ describe('limel-select (native)', () => {
                 await appleOption.click();
             });
 
-            it('emits one change event', () => {
-                expect(spy).toHaveReceivedEventTimes(1);
+            it('emits change event', () => {
+                expect(spy).toHaveReceivedEvent();
             });
 
             it('passes the selected option as the event details', () => {

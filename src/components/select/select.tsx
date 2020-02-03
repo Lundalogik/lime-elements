@@ -74,6 +74,7 @@ export class Select {
     @State()
     private menuOpen: boolean = false;
 
+    private hasChanged: boolean = false;
     private checkValid: boolean = false;
 
     /**
@@ -112,10 +113,6 @@ export class Select {
         // We can set this attribute in tests to force rendering of the native select
         if (this.host.hasAttribute('data-native')) {
             this.isMobileDevice = true;
-        }
-
-        if (!this.value) {
-            this.change.emit(this.options[0]);
         }
     }
 
@@ -244,7 +241,16 @@ export class Select {
     }
 
     private openMenu() {
+        if (this.emitFirstChangeEvent()) {
+            this.hasChanged = true;
+            this.change.emit(this.options[0]);
+        }
+
         this.menuOpen = true;
+    }
+
+    private emitFirstChangeEvent() {
+        return !this.hasChanged && this.isMobileDevice && !this.value;
     }
 
     private closeMenu() {
