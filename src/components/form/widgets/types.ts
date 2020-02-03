@@ -11,7 +11,13 @@ export interface WidgetProps {
     onChange: (value: any) => void;
     onBlur: (id: string, value: any) => void;
     onFocus: (id: string, value: any) => void;
-    options: object;
+    options: {
+        enumOptions: Array<{
+            label: string;
+            value: string;
+        }>;
+    };
     formContext: any;
     rawErrors: string[];
+    multiple?: boolean;
 }

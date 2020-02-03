@@ -25,19 +25,3 @@ function isType(input: string | string[], type: string) {
 
     return input === type;
 }
-
-export function getHelperText(schema: any, isValid: boolean, errors: string[] = []) {
-    if (isValid) {
-        return schema.description;
-    }
-
-    if (errors) {
-        return capitalize(errors[0]);
-    }
-
-    return schema.description;
-}
-
-function capitalize(text: string = '') {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-}
