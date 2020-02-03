@@ -1,4 +1,3 @@
-import React from 'react';
 import { Checkbox } from './checkbox';
 import { DatePicker } from './date-picker';
 import { InputField } from './input-field';
@@ -25,7 +24,7 @@ export type WidgetType =
     | 'UpDownWidget'
     | 'URLWidget';
 
-export const widgets: Partial<Record<WidgetType, React.Component>> = {
+export const widgets: Partial<Record<WidgetType, any>> = {
     CheckboxWidget: Checkbox,
     DateTimeWidget: DatePicker,
     DateWidget: DatePicker,

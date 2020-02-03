@@ -66,7 +66,7 @@ export class YearPicker extends Picker {
 
     private renderHeading(): any {
         return (
-            <span class="datepicker-year-heading">
+            <span className="datepicker-year-heading">
                 {this.getLocalizedHeading()}
             </span>
         );
@@ -79,7 +79,7 @@ export class YearPicker extends Picker {
     private renderYearPicker(fp): any {
         const yearsInterval = 5;
         return (
-            <div class="datepicker-years-container">
+            <div className="datepicker-years-container">
                 {range(-yearsInterval, yearsInterval).map(index => {
                     const year = moment().add(index, 'years');
                     const renderedYear = this.renderYear(year, fp);
@@ -93,7 +93,7 @@ export class YearPicker extends Picker {
     private renderYear(year, fp): any {
         return (
             <div
-                class="datepicker-year"
+                className="datepicker-year"
                 onClick={() => { // tslint:disable-line:jsx-no-lambda prettier
                     const date = moment(year).toDate();
                     fp.setDate(date, true);

@@ -3,11 +3,10 @@ import { InputType } from '../../input-field/input-field.types';
 import { isIntegerType, isNumberType } from '../schema';
 
 export class InputField extends React.Component {
-    private refs: any;
-    private props: any;
+    public refs: any;
 
-    constructor() {
-        super();
+    constructor(public props: WidgetProps) {
+        super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 

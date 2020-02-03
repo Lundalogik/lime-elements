@@ -99,7 +99,7 @@ export class QuarterPicker extends Picker {
 
     private renderHeading(): any {
         return (
-            <span class="datepicker-quarter-heading">
+            <span className="datepicker-quarter-heading">
                 {this.getLocalizedHeading()}
             </span>
         );
@@ -116,7 +116,7 @@ export class QuarterPicker extends Picker {
         const startQuarter = 1;
         const endQuarter = 5;
         return (
-            <div class="datepicker-quarters-container">
+            <div className="datepicker-quarters-container">
                 {range(startQuarter, endQuarter).map(quarter => {
                     const renderedQuarter = this.renderQuarter(quarter, fp);
                     this.quarters.push(renderedQuarter);
@@ -129,7 +129,7 @@ export class QuarterPicker extends Picker {
     private renderQuarter(quarter, fp): any {
         return (
             <div
-                class="datepicker-quarter"
+                className="datepicker-quarter"
                 id={`datepicker-quarter-${quarter}`}
                 onClick={() => { // tslint:disable-line:jsx-no-lambda prettier
                     const date = moment([fp.currentYear])
@@ -153,7 +153,7 @@ export class QuarterPicker extends Picker {
                 .format('MMM');
         });
         return months.map(month => {
-            return <span class="datepicker-month-in-quarter">{month}</span>;
+            return <span className="datepicker-month-in-quarter">{month}</span>;
         });
     }
 

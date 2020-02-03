@@ -3,11 +3,10 @@ import { Option } from 'src/components/select/option.types';
 import { isMultiple } from '../../../util/multiple';
 
 export class Select extends React.Component {
-    private refs: any;
-    private props: any;
+    public refs: any;
 
-    constructor() {
-        super();
+    constructor(public props: any) {
+        super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 
