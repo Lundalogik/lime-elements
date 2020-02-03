@@ -64,6 +64,7 @@ const schema = {
             title: 'Sidekicks',
             description: 'Please select your sidekicks',
             uniqueItems: true,
+            minItems: 2,
             items: {
                 title: 'Friends',
                 type: 'string',

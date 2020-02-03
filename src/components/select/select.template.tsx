@@ -5,6 +5,7 @@ import { isMultiple } from '../../util/multiple';
 interface SelectTemplateProps {
     disabled?: boolean;
     required?: boolean;
+    invalid?: boolean;
     options: Option[];
     value: Option | Option[];
     label?: string;
@@ -31,7 +32,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = props =>
         hasValue = !!props.value.value;
     }
 
-    let isValid = true;
+    let isValid = !props.invalid;
     if (props.checkValid && props.required && !hasValue) {
         isValid = false;
     }

@@ -1,19 +1,26 @@
 import moment from 'moment/moment';
 import React from 'react';
 import { DateType } from '../../date-picker/date.types';
+import { WidgetProps } from './types';
+import { getHelperText } from '../schema';
 
 export class DatePicker extends React.Component {
     public refs: any;
+    public state = {
+        modified: false
+    };
 
-    constructor(public props: any) {
+    constructor(public props: WidgetProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
     }
 
     public componentDidMount() {
         const element: HTMLLimelDatePickerElement = this.refs.ref;
 
         element.addEventListener('change', this.handleChange);
+        element.addEventListener('blur', this.handleBlur);
         this.setValue(element);
     }
 
@@ -21,6 +28,7 @@ export class DatePicker extends React.Component {
         const element: HTMLLimelDatePickerElement = this.refs.ref;
 
         element.removeEventListener('change', this.handleChange);
+        element.removeEventListener('blur', this.handleBlur);
     }
 
     public componentDidUpdate(prevProps: any) {
@@ -32,14 +40,15 @@ export class DatePicker extends React.Component {
     }
 
     public render() {
-        const props = this.props;
+        const props: WidgetProps = this.props;
         const type = getDateType(props.schema);
 
         return React.createElement('limel-date-picker', {
             disabled: props.disabled,
             label: props.label,
             required: props.required,
-            'helper-text': props.schema.description,
+            invalid: this.isInvalid(),
+            'helper-text': getHelperText(props.schema, !this.isInvalid(), props.rawErrors),
             type: type,
             ref: 'ref',
         });
@@ -63,6 +72,20 @@ export class DatePicker extends React.Component {
 
         const dateString = moment(event.detail).format('YYYY-MM-DD');
         props.onChange(dateString);
+    }
+
+    private handleBlur() {
+        this.setState({
+            modified: true
+        });
+    }
+
+    private isInvalid() {
+        if (!this.state.modified) {
+            return false;
+        }
+
+        return !!this.props.rawErrors;
     }
 }
 

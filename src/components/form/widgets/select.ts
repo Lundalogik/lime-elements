@@ -1,13 +1,19 @@
 import React from 'react';
 import { Option } from 'src/components/select/option.types';
 import { isMultiple } from '../../../util/multiple';
+import { WidgetProps } from './types';
+import { getHelperText } from '../schema';
 
 export class Select extends React.Component {
     public refs: any;
+    public state = {
+        modified: false
+    };
 
-    constructor(public props: any) {
+    constructor(public props: WidgetProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
     }
 
     public componentDidMount() {
@@ -16,16 +22,18 @@ export class Select extends React.Component {
         this.setOptions(element);
         this.setValue(element);
         element.addEventListener('change', this.handleChange);
+        element.addEventListener('blur', this.handleBlur);
     }
 
     public componentWillUnmount() {
         const element: HTMLLimelSelectElement = this.refs.ref;
 
         element.removeEventListener('change', this.handleChange);
+        element.removeEventListener('blur', this.handleBlur);
     }
 
     public componentDidUpdate(prevProps: any) {
-        const props = this.props;
+        const props: WidgetProps = this.props;
         const element: HTMLLimelSelectElement = this.refs.ref;
 
         if (props.options !== prevProps.options) {
@@ -45,7 +53,8 @@ export class Select extends React.Component {
             disabled: props.disabled,
             required: props.required,
             multiple: props.multiple,
-            'helper-text': props.schema.description,
+            invalid: this.isInvalid(),
+            'helper-text': getHelperText(props.schema, !this.isInvalid(), props.rawErrors),
             ref: 'ref',
         });
     }
@@ -84,6 +93,20 @@ export class Select extends React.Component {
         }
 
         props.onChange(event.detail.value);
+    }
+
+    private handleBlur() {
+        this.setState({
+            modified: true
+        });
+    }
+
+    private isInvalid() {
+        if (!this.state.modified) {
+            return false;
+        }
+
+        return !!this.props.rawErrors;
     }
 }
 
