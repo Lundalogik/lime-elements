@@ -36,6 +36,13 @@ export class Select {
     public disabled = false;
 
     /**
+     * Set to `true` to indicate that the current value of the select is invalid.
+     * Defaults to `false`.
+     */
+    @Prop({ reflectToAttr: true })
+    public invalid: boolean;
+
+    /**
      * True if the control requires a value
      */
     @Prop({ reflectToAttr: true })
@@ -158,6 +165,7 @@ export class Select {
                 id={this.portalId}
                 disabled={this.disabled}
                 required={this.required}
+                invalid={this.invalid}
                 label={this.label}
                 helperText={this.helperText}
                 value={this.value}

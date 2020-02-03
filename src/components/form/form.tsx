@@ -91,6 +91,8 @@ export class Form {
                     formData: this.value,
                     onChange: this.handleChange,
                     widgets: widgets,
+                    liveValidate: true,
+                    showErrorList: false,
                     FieldTemplate: FieldTemplate,
                     ArrayFieldTemplate: ArrayFieldTemplate,
                     ObjectFieldTemplate: ObjectFieldTemplate,

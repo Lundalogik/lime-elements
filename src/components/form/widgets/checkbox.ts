@@ -3,7 +3,7 @@ import React from 'react';
 export class Checkbox extends React.Component {
     public refs: any;
 
-    constructor(public props: any) {
+    constructor(public props: WidgetProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
