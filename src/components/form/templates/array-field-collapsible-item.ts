@@ -31,11 +31,10 @@ interface CollapsibleItemProps {
 }
 
 export class CollapsibleItemTemplate extends React.Component {
-    private props: CollapsibleItemProps;
-    private refs: { section: any };
+    public refs: { section: any };
 
-    constructor() {
-        super();
+    constructor(public props: CollapsibleItemProps) {
+        super(props);
         this.handleAction = this.handleAction.bind(this);
     }
 

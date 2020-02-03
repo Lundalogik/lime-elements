@@ -94,7 +94,7 @@ export class MonthPicker extends Picker {
 
     private renderHeading(): any {
         return (
-            <span class="datepicker-month-heading">
+            <span className="datepicker-month-heading">
                 {this.getLocalizedHeading()}
             </span>
         );
@@ -109,7 +109,7 @@ export class MonthPicker extends Picker {
 
     private renderMonthsPicker(fp): any {
         return (
-            <div class="datepicker-months-container">
+            <div className="datepicker-months-container">
                 {range(NBROFMONTHS).map(index => {
                     const renderedMonth = this.renderMonth(index, fp);
                     this.months.push(renderedMonth);
@@ -122,7 +122,7 @@ export class MonthPicker extends Picker {
     private renderMonth(month, fp): any {
         return (
             <div
-                class="datepicker-month"
+                className="datepicker-month"
                 onClick={() => { // tslint:disable-line:jsx-no-lambda prettier
                     const date = moment([fp.currentYear])
                         .month(month)

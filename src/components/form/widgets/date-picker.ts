@@ -3,11 +3,10 @@ import React from 'react';
 import { DateType } from '../../date-picker/date.types';
 
 export class DatePicker extends React.Component {
-    private refs: any;
-    private props: any;
+    public refs: any;
 
-    constructor() {
-        super();
+    constructor(public props: any) {
+        super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 

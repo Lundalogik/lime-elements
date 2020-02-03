@@ -6,10 +6,8 @@ import { renderDescription, renderTitle } from './common';
 import { ArrayFieldItem, ArrayFieldTemplateProps } from './types';
 
 export class ArrayFieldTemplate extends React.Component {
-    private props: ArrayFieldTemplateProps;
-
-    constructor() {
-        super();
+    constructor(public props: ArrayFieldTemplateProps) {
+        super(props);
         this.renderItem = this.renderItem.bind(this);
         this.handleAddClick = this.handleAddClick.bind(this);
     }

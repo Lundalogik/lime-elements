@@ -1,9 +1,17 @@
 import React from 'react';
 import { ArrayFieldItem } from './types';
 
+interface SimpleItemProps {
+    item: ArrayFieldItem;
+    index: number;
+}
+
 export class SimpleItemTemplate extends React.Component {
-    private props: { item: ArrayFieldItem; index: number };
-    private refs: { removeButton: any; moveUpButton: any; moveDownButton: any };
+    public refs: { removeButton: any; moveUpButton: any; moveDownButton: any };
+
+    constructor(public props: SimpleItemProps) {
+        super(props);
+    }
 
     private removeHandler: (event: any) => void;
     private moveUpHandler: (event: any) => void;

@@ -1,11 +1,10 @@
 import React from 'react';
 
 export class Checkbox extends React.Component {
-    private refs: any;
-    private props: any;
+    public refs: any;
 
-    constructor() {
-        super();
+    constructor(public props: any) {
+        super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 
