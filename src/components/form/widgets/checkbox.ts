@@ -1,4 +1,6 @@
 import React from 'react';
+import { WidgetProps } from './types';
+import { LimeElementsAdapter } from './adapter';
 
 export class Checkbox extends React.Component {
     public refs: any;
@@ -8,25 +10,17 @@ export class Checkbox extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    public componentDidMount() {
-        const element: HTMLLimelCheckboxElement = this.refs.ref;
-        element.addEventListener('change', this.handleChange);
-    }
-
-    public componentWillUnmount() {
-        const element: HTMLLimelCheckboxElement = this.refs.ref;
-        element.removeEventListener('change', this.handleChange);
-    }
-
     public render() {
-        const props = this.props;
+        const props: WidgetProps = this.props;
 
-        return React.createElement('limel-checkbox', {
-            checked: !!props.value,
-            label: props.label,
-            disabled: props.disabled,
-            required: props.required,
-            ref: 'ref',
+        return React.createElement(LimeElementsAdapter, {
+            name: 'limel-checkbox',
+            value: props.value,
+            onChange: this.handleChange,
+            widgetProps: props,
+            extraProps: {
+                checked: !!props.value,
+            },
         });
     }
 

@@ -1,80 +1,40 @@
 import React from 'react';
 import { Option } from 'src/components/select/option.types';
 import { isMultiple } from '../../../util/multiple';
+import { LimeElementsAdapter } from './adapter';
 import { WidgetProps } from './types';
-import { getHelperText } from '../schema';
 
 export class Select extends React.Component {
-    public refs: any;
     public state = {
-        modified: false
+        modified: false,
     };
 
     constructor(public props: WidgetProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
-    }
-
-    public componentDidMount() {
-        const element: HTMLLimelSelectElement = this.refs.ref;
-
-        this.setOptions(element);
-        this.setValue(element);
-        element.addEventListener('change', this.handleChange);
-        element.addEventListener('blur', this.handleBlur);
-    }
-
-    public componentWillUnmount() {
-        const element: HTMLLimelSelectElement = this.refs.ref;
-
-        element.removeEventListener('change', this.handleChange);
-        element.removeEventListener('blur', this.handleBlur);
-    }
-
-    public componentDidUpdate(prevProps: any) {
-        const props: WidgetProps = this.props;
-        const element: HTMLLimelSelectElement = this.refs.ref;
-
-        if (props.options !== prevProps.options) {
-            this.setOptions(element);
-        }
-
-        if (props.value !== prevProps.value) {
-            this.setValue(element);
-        }
     }
 
     public render() {
-        const props: any = this.props;
-
-        return React.createElement('limel-select', {
-            label: props.label || props.schema.title,
-            disabled: props.disabled,
-            required: props.required,
-            multiple: props.multiple,
-            invalid: this.isInvalid(),
-            'helper-text': getHelperText(props.schema, !this.isInvalid(), props.rawErrors),
-            ref: 'ref',
-        });
-    }
-
-    private setOptions(element: HTMLLimelSelectElement) {
-        const props = this.props;
-
+        const props: WidgetProps = this.props;
         const options = props.options.enumOptions.map(createOption);
-        element.options = options;
-    }
-
-    private setValue(element: HTMLLimelSelectElement) {
-        const props = this.props;
-        const options = element.options;
+        let value: any;
 
         if (props.multiple) {
-            element.value = findValues(props.value, options);
+            value = findValues(props.value, options);
         } else {
-            element.value = findValue(props.value, options);
+            value = findValue(props.value, options);
         }
+
+        return React.createElement(LimeElementsAdapter, {
+            name: 'limel-select',
+            value: value,
+            onChange: this.handleChange,
+            widgetProps: props,
+            extraProps: {
+                multiple: props.multiple,
+                options: options,
+            },
+        });
     }
 
     private handleChange(event: CustomEvent<Option | Option[]>) {
@@ -93,20 +53,6 @@ export class Select extends React.Component {
         }
 
         props.onChange(event.detail.value);
-    }
-
-    private handleBlur() {
-        this.setState({
-            modified: true
-        });
-    }
-
-    private isInvalid() {
-        if (!this.state.modified) {
-            return false;
-        }
-
-        return !!this.props.rawErrors;
     }
 }
 

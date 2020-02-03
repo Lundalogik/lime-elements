@@ -2,63 +2,39 @@ import moment from 'moment/moment';
 import React from 'react';
 import { DateType } from '../../date-picker/date.types';
 import { WidgetProps } from './types';
-import { getHelperText } from '../schema';
+import { LimeElementsAdapter } from './adapter';
 
 export class DatePicker extends React.Component {
     public refs: any;
     public state = {
-        modified: false
+        modified: false,
     };
 
     constructor(public props: WidgetProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
-    }
-
-    public componentDidMount() {
-        const element: HTMLLimelDatePickerElement = this.refs.ref;
-
-        element.addEventListener('change', this.handleChange);
-        element.addEventListener('blur', this.handleBlur);
-        this.setValue(element);
-    }
-
-    public componentWillUnmount() {
-        const element: HTMLLimelDatePickerElement = this.refs.ref;
-
-        element.removeEventListener('change', this.handleChange);
-        element.removeEventListener('blur', this.handleBlur);
-    }
-
-    public componentDidUpdate(prevProps: any) {
-        const element: HTMLLimelDatePickerElement = this.refs.ref;
-
-        if (this.props.value !== prevProps.value) {
-            this.setValue(element);
-        }
     }
 
     public render() {
         const props: WidgetProps = this.props;
         const type = getDateType(props.schema);
 
-        return React.createElement('limel-date-picker', {
-            disabled: props.disabled,
-            label: props.label,
-            required: props.required,
-            invalid: this.isInvalid(),
-            'helper-text': getHelperText(props.schema, !this.isInvalid(), props.rawErrors),
-            type: type,
-            ref: 'ref',
+        return React.createElement(LimeElementsAdapter, {
+            name: 'limel-date-picker',
+            value: this.getValue(),
+            onChange: this.handleChange,
+            widgetProps: props,
+            extraProps: {
+                type: type,
+            },
         });
     }
 
-    private setValue(element: HTMLLimelDatePickerElement) {
+    private getValue() {
         if (typeof this.props.value === 'string') {
-            element.value = new Date(this.props.value);
+            return new Date(this.props.value);
         } else {
-            element.value = this.props.value;
+            return this.props.value;
         }
     }
 
@@ -72,20 +48,6 @@ export class DatePicker extends React.Component {
 
         const dateString = moment(event.detail).format('YYYY-MM-DD');
         props.onChange(dateString);
-    }
-
-    private handleBlur() {
-        this.setState({
-            modified: true
-        });
-    }
-
-    private isInvalid() {
-        if (!this.state.modified) {
-            return false;
-        }
-
-        return !!this.props.rawErrors;
     }
 }
 
