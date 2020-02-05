@@ -1,3 +1,10 @@
+## [26.4.1](https://github.com/Lundalogik/lime-elements/compare/v26.4.0...v26.4.1) (2020-02-05)
+
+
+### Bug Fixes
+
+* **select:** show arrow in the dropdown ([04e701c](https://github.com/Lundalogik/lime-elements/commit/04e701c4c6f10c8fab1f1964f1fcd6d013d0770a))
+
 # [26.4.0](https://github.com/Lundalogik/lime-elements/compare/v26.3.0...v26.4.0) (2020-02-05)
 
 
