@@ -1,4 +1,5 @@
 import { Component, h, State } from '@stencil/core';
+import { ValidationStatus } from 'src/components/form/form.types';
 
 @Component({
     tag: 'limel-example-dynamic-form',
@@ -10,9 +11,12 @@ export class DynamicFormExample {
     private formData: object = {
         title: 'Test',
     };
+    @State()
+    private errors = null;
 
     @State()
     private schema: any = {
+        id: 'test',
         title: 'My form',
         description: 'Lorem ipsum dolor sit amet',
         type: 'object',
@@ -23,6 +27,7 @@ export class DynamicFormExample {
                 title: 'Title',
                 default: 'A new task',
                 description: 'Lorem ipsum dolor sit amet',
+                minLength: 5,
             },
             done: { type: 'boolean', title: 'Done?', default: false },
         },
@@ -35,6 +40,7 @@ export class DynamicFormExample {
         this.text = JSON.stringify(this.schema, null, '    ');
         this.handleFormChange = this.handleFormChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
+        this.handleValidate = this.handleValidate.bind(this);
     }
 
     public render() {
@@ -43,6 +49,7 @@ export class DynamicFormExample {
             <br />,
             <limel-form
                 onChange={this.handleFormChange}
+                onValidate={this.handleValidate}
                 value={this.formData}
                 schema={this.schema}
             />,
@@ -50,6 +57,8 @@ export class DynamicFormExample {
             <br />,
             'Value: ',
             <pre>{JSON.stringify(this.formData, null, '    ')}</pre>,
+            'Errors: ',
+            <pre>{JSON.stringify(this.errors, null, '    ')}</pre>,
         ];
     }
 
@@ -67,5 +76,9 @@ export class DynamicFormExample {
         } catch (e) {
             // tslint:disable-line:no-empty
         }
+    }
+
+    private handleValidate(event: CustomEvent<ValidationStatus>) {
+        this.errors = event.detail;
     }
 }
