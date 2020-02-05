@@ -1,3 +1,22 @@
+# [26.4.0](https://github.com/Lundalogik/lime-elements/compare/v26.3.0...v26.4.0) (2020-02-05)
+
+
+### Bug Fixes
+
+* **select:** adjust placement of floating label to match input-field component ([ec17e42](https://github.com/Lundalogik/lime-elements/commit/ec17e42f824a2de2c099b63d7daac87677723936))
+* **select:** correct default selection, which was broken in v26.1.1 ([fd4dffc](https://github.com/Lundalogik/lime-elements/commit/fd4dffc017f83ac1f89f75bb773fb97c8e53ff61)), closes [#573](https://github.com/Lundalogik/lime-elements/issues/573)
+* **select:** do not emit change event when component is mounted ([5fc1f19](https://github.com/Lundalogik/lime-elements/commit/5fc1f1959d84f682c915f986ada07a99a9a67d48)), closes [#574](https://github.com/Lundalogik/lime-elements/issues/574) [#573](https://github.com/Lundalogik/lime-elements/issues/573)
+* **select:** fix `disabled` state that was broken in v26.1.1 ([c4e9dce](https://github.com/Lundalogik/lime-elements/commit/c4e9dce132bba04cb9387ec623ad3d131d62d313))
+
+
+### Features
+
+* **collapsible-section:** add support for actions in the header ([ddca821](https://github.com/Lundalogik/lime-elements/commit/ddca82191768636dfbe3789a5abe40e517054dcd))
+* **collapsible-section:** background-color and padding can now be set using CSS variables ([b8d60cd](https://github.com/Lundalogik/lime-elements/commit/b8d60cd169f1be10bcff012676dde73e406e23d5)), closes [Lundalogik/crm-feature#968](https://github.com/Lundalogik/crm-feature/issues/968)
+* **form:** add component for array items ([2c73e62](https://github.com/Lundalogik/lime-elements/commit/2c73e626ebbfc59536128788aa9cfd5737326e3b))
+* **form:** add template for object fields ([ee8d9c3](https://github.com/Lundalogik/lime-elements/commit/ee8d9c3fd77cd643ad3aeec4a954b151f8aa2f54))
+* **form:** set validation errors as helper text when invalid ([a5e5c28](https://github.com/Lundalogik/lime-elements/commit/a5e5c28bdd723cb7abfc9149621c66999027b881))
+
 # [26.3.0](https://github.com/Lundalogik/lime-elements/compare/v26.2.0...v26.3.0) (2020-01-27)
 
 
