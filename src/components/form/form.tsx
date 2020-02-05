@@ -5,6 +5,7 @@ import {
     EventEmitter,
     h,
     Prop,
+    Watch,
 } from '@stencil/core';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
@@ -17,6 +18,7 @@ import {
     ObjectFieldTemplate,
 } from './templates';
 import { widgets } from './widgets';
+import { createRandomString } from '../../util/random-string';
 
 @Component({
     tag: 'limel-form',
@@ -28,7 +30,10 @@ export class Form {
      * The schema used to render the form
      */
     @Prop()
-    public schema: object;
+    public schema: {
+        id?: string;
+        [key: string]: any;
+    };
 
     /**
      * Value of the form
@@ -54,6 +59,7 @@ export class Form {
 
     private form: any;
     private isValid = true;
+    private modifiedSchema: object;
 
     public constructor() {
         this.handleChange = this.handleChange.bind(this);
@@ -62,6 +68,10 @@ export class Form {
 
     public render() {
         return <div class="root" />;
+    }
+
+    protected componentWillLoad() {
+        this.setSchemaId();
     }
 
     protected componentDidLoad() {
@@ -87,7 +97,7 @@ export class Form {
             React.createElement(
                 JSONSchemaForm,
                 {
-                    schema: this.schema,
+                    schema: this.modifiedSchema,
                     formData: this.value,
                     onChange: this.handleChange,
                     widgets: widgets,
@@ -98,7 +108,7 @@ export class Form {
                     ObjectFieldTemplate: ObjectFieldTemplate,
                     ref: this.setForm,
                     formContext: {
-                        schema: this.schema,
+                        schema: this.modifiedSchema,
                     },
                 },
                 []
@@ -127,5 +137,22 @@ export class Form {
         }
 
         this.isValid = status.valid;
+    }
+
+    @Watch('schema')
+    public setSchema() {
+        this.setSchemaId();
+    }
+
+    private setSchemaId() {
+        // Due to a bug in react-jsonschema-form, validation will stop working if the schema is updated.
+        // A workaround at the moment is to always give it a unique ID
+        // https://github.com/rjsf-team/react-jsonschema-form/issues/1563
+        const id = `${this.schema.id}-${createRandomString()}`;
+        this.modifiedSchema = {
+            ...this.schema,
+            id: id,
+            $id: id,
+        };
     }
 }
