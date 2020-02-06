@@ -127,6 +127,9 @@ export class InputField {
     @State()
     private isFocused: boolean = false;
 
+    @State()
+    private isModified: boolean = false;
+
     @Element()
     private limelInputField: HTMLElement;
 
@@ -164,7 +167,6 @@ export class InputField {
 
     public render() {
         const additionalProps = this.getAdditionalProps();
-
         return [
             <label
                 class={`
@@ -173,7 +175,7 @@ export class InputField {
                     ${this.disabled ? 'mdc-text-field--disabled' : ''}
                     ${this.required ? 'mdc-text-field--required' : ''}
                     ${
-                        this.trailingIcon
+                        this.getIcon()
                             ? 'mdc-text-field--with-trailing-icon'
                             : ''
                     }
@@ -245,6 +247,7 @@ export class InputField {
 
     private onBlur() {
         this.isFocused = false;
+        this.isModified = true;
     }
 
     private renderHelperLine() {
@@ -267,8 +270,20 @@ export class InputField {
         if (this.helperText === null || this.helperText === undefined) {
             return;
         }
-
-        return <p class="mdc-text-field-helper-text">{this.helperText}</p>;
+        return (
+            <p
+                class={`
+            mdc-text-field-helper-text
+            ${
+                this.isInvalid()
+                    ? 'mdc-text-field-helper-text--validation-msg'
+                    : ''
+            }
+        `}
+            >
+                {this.helperText}
+            </p>
+        );
     }
 
     private renderCharacterCounter() {
@@ -282,8 +297,31 @@ export class InputField {
         return <div class="mdc-text-field-character-counter">{label}</div>;
     }
 
+    private getIcon() {
+        if (this.isInvalid()) {
+            return 'high_importance';
+        }
+
+        return this.trailingIcon;
+    }
+
+    private isInvalid() {
+        if (this.invalid) {
+            return true;
+        }
+
+        if (!this.isModified) {
+            return false;
+        }
+
+        const element = this.limelInputField.shadowRoot.querySelector('input');
+
+        return !(element && element.checkValidity());
+    }
+
     private renderTrailingIcon() {
-        if (!this.trailingIcon) {
+        const icon = this.getIcon();
+        if (!icon) {
             return;
         }
 
@@ -295,7 +333,7 @@ export class InputField {
                 tabindex="0"
                 role="button"
             >
-                <limel-icon name={this.trailingIcon} />
+                <limel-icon name={icon} />
             </i>
         );
     }
