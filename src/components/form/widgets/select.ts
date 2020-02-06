@@ -1,5 +1,5 @@
 import React from 'react';
-import { Option } from 'src/components/select/option.types';
+import { Option } from '@limetech/lime-elements';
 import { isMultiple } from '../../../util/multiple';
 import { LimeElementsAdapter } from './adapter';
 import { WidgetProps } from './types';
