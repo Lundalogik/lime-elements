@@ -36,7 +36,12 @@ export class InputField extends React.Component {
             return;
         }
 
-        props.onChange(event.detail);
+        let value = null;
+        if (event.detail !== '') {
+            value = event.detail;
+        }
+
+        props.onChange(value);
     }
 }
 
