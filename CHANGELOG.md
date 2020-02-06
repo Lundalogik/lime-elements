@@ -1,3 +1,11 @@
+## [26.5.1](https://github.com/Lundalogik/lime-elements/compare/v26.5.0...v26.5.1) (2020-02-06)
+
+
+### Bug Fixes
+
+* **form:** do not emit empty strings from input field ([45b4f3f](https://github.com/Lundalogik/lime-elements/commit/45b4f3f5817990b3e0ea7c2e3283359d56137045))
+* **form:** set fields to invalid if they have initial invalid data ([2cc6a19](https://github.com/Lundalogik/lime-elements/commit/2cc6a19564136c4fa50dc6211d4a0e0b9458fba1))
+
 # [26.5.0](https://github.com/Lundalogik/lime-elements/compare/v26.4.1...v26.5.0) (2020-02-06)
 
 
