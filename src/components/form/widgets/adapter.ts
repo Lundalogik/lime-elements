@@ -11,6 +11,29 @@ export class LimeElementsAdapter extends React.Component {
         super(props);
         this.handleBlur = this.handleBlur.bind(this);
         this.setComponentProperty = this.setComponentProperty.bind(this);
+        this.initState();
+    }
+
+    private initState() {
+        if (this.hasValue(this.props.value)) {
+            this.state.modified = true;
+        }
+    }
+
+    private hasValue(value: any) {
+        if (!value) {
+            return false;
+        }
+
+        if (Array.isArray(value)) {
+            return !!value.length;
+        }
+
+        if (typeof value === 'object') {
+            return !!Object.entries(value).length;
+        }
+
+        return true;
     }
 
     public componentDidMount() {
