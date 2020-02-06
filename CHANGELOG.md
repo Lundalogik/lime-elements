@@ -1,3 +1,15 @@
+# [26.5.0](https://github.com/Lundalogik/lime-elements/compare/v26.4.1...v26.5.0) (2020-02-06)
+
+
+### Bug Fixes
+
+* **form:** set unique id in schema ([47c080f](https://github.com/Lundalogik/lime-elements/commit/47c080f86c74de132632ba26ba71295f3f717515))
+
+
+### Features
+
+* **form:** release form component ([0f988b3](https://github.com/Lundalogik/lime-elements/commit/0f988b3861e928f3fdcfeaa7cebc1d37afde8a31))
+
 ## [26.4.1](https://github.com/Lundalogik/lime-elements/compare/v26.4.0...v26.4.1) (2020-02-05)
 
 
