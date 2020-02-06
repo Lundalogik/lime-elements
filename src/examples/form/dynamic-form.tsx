@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { ValidationStatus } from 'src/components/form/form.types';
+import { ValidationStatus } from '@limetech/lime-elements';
 
 @Component({
     tag: 'limel-example-dynamic-form',
