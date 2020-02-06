@@ -26,7 +26,6 @@ export const config: Config = {
         '**/*.spec.*',
         '**/*.e2e.*',
         '**/*.test-wrapper.*',
-        '**/components/form/**', // limel-form is still work in progress!
     ],
     globalStyle: 'src/global/colors.scss',
 };
