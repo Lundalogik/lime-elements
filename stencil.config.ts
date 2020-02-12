@@ -4,6 +4,7 @@ import {
     OutputTargetWww,
 } from '@stencil/core/dist/declarations/output-targets';
 import { sass } from '@stencil/sass';
+import doczStarter from './rollup-plugin-docz-starter';
 
 const targetDist: OutputTargetDist = {
     type: 'dist',
@@ -37,7 +38,7 @@ export const config: Config = {
             ],
         },
     },
-    plugins: [sass()],
+    plugins: [sass(), doczStarter()],
     excludeSrc: [
         '**/test/**',
         '**/*.spec.*',
