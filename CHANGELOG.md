@@ -1,3 +1,10 @@
+## [26.5.2](https://github.com/Lundalogik/lime-elements/compare/v26.5.1...v26.5.2) (2020-02-13)
+
+
+### Bug Fixes
+
+* **text-field:** show error icon ([5b00ae5](https://github.com/Lundalogik/lime-elements/commit/5b00ae521192af7e27b00521acc94e38a36a11ad))
+
 ## [26.5.1](https://github.com/Lundalogik/lime-elements/compare/v26.5.0...v26.5.1) (2020-02-06)
 
 
