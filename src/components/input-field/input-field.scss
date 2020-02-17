@@ -18,6 +18,7 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 
 /**
  * @prop --background-color: Background color of the field.
+ * @prop --textarea-height: Height of the field when type is set to `textarea`
  */
 
 :host {
@@ -83,4 +84,10 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 .mdc-text-field__icon {
     width: pxToRem(24);
     height: pxToRem(24);
+}
+
+.mdc-text-field.mdc-text-field--textarea {
+    textarea {
+        height: var(--textarea-height);
+    }
 }

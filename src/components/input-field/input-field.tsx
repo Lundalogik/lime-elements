@@ -69,8 +69,7 @@ export class InputField {
     public trailingIcon: string;
 
     /**
-     * This property determines the html-type of the field and with
-     * that which keyboard to show on a mobile device.
+     * Type of textfield
      * Defaults to 'text'
      */
     @Prop({ reflectToAttr: true })
@@ -166,12 +165,16 @@ export class InputField {
     }
 
     public render() {
+        if (this.type === 'textarea') {
+            return this.renderTextArea();
+        }
+
         const additionalProps = this.getAdditionalProps();
         return [
             <label
                 class={`
                     mdc-text-field
-                    ${this.invalid ? 'mdc-text-field--invalid' : ''}
+                    ${this.isInvalid() ? 'mdc-text-field--invalid' : ''}
                     ${this.disabled ? 'mdc-text-field--disabled' : ''}
                     ${this.required ? 'mdc-text-field--required' : ''}
                     ${
@@ -212,6 +215,46 @@ export class InputField {
             <div class="autocomplete-list-container">
                 {this.renderDropdown()}
             </div>,
+        ];
+    }
+
+    private renderTextArea() {
+        const additionalProps = this.getAdditionalProps();
+        const classList = {
+            'mdc-text-field': true,
+            'mdc-text-field--textarea': true,
+            'mdc-text-field--disabled': this.disabled,
+            'mdc-text-field--with-trailing-icon': !!this.getIcon(),
+            'mdc-text-field--invalid': this.isInvalid(),
+            'mdc-text-field--required': this.required,
+        };
+
+        return [
+            <div class={classList}>
+                {this.renderCharacterCounter()}
+                <textarea
+                    id="textarea"
+                    class="mdc-text-field__input"
+                    onInput={this.handleChange}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                    required={this.required}
+                    disabled={this.disabled}
+                    {...additionalProps}
+                >
+                    {this.value}
+                </textarea>
+                <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading" />
+                    <div class="mdc-notched-outline__notch">
+                        <label htmlFor="textarea" class="mdc-floating-label">
+                            {this.label}
+                        </label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing" />
+                </div>
+            </div>,
+            this.renderHelperLine(),
         ];
     }
 
@@ -261,7 +304,9 @@ export class InputField {
         return (
             <div class="mdc-text-field-helper-line">
                 {this.renderHelperText()}
-                {this.renderCharacterCounter()}
+                {this.type !== 'textarea'
+                    ? this.renderCharacterCounter()
+                    : null}
             </div>
         );
     }
@@ -314,9 +359,18 @@ export class InputField {
             return false;
         }
 
-        const element = this.limelInputField.shadowRoot.querySelector('input');
+        const element = this.getInputElement();
 
         return !(element && element.checkValidity());
+    }
+
+    private getInputElement(): HTMLInputElement | HTMLTextAreaElement {
+        let elementName = 'input';
+        if (this.type === 'textarea') {
+            elementName = 'textarea';
+        }
+
+        return this.limelInputField.shadowRoot.querySelector(elementName);
     }
 
     private renderTrailingIcon() {
