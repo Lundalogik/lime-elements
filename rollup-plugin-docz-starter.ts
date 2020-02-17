@@ -3,6 +3,8 @@ import { argv } from 'process';
 
 // tslint:disable:only-arrow-functions no-console
 function doczStarter() {
+    let started = false;
+
     return {
         name: 'docz-starter',
         generateBundle: function() {
@@ -10,8 +12,13 @@ function doczStarter() {
                 return;
             }
 
+            if (started) {
+                return;
+            }
+
             console.log('📔 - Starting Docz...');
             const docz = spawn('npx', ['docz', 'dev']);
+            started = true;
 
             docz.on('close', code => {
                 console.log('📔 - Closing Docz...', code);
