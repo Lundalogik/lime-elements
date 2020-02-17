@@ -23,6 +23,7 @@ slot[name="header"] {
     .mdc-dialog__container {
         width: var(--dialog-width, auto);
         height: var(--dialog-height, auto);
+        max-height: 100%;
 
         &.full-screen {
             width: 100%;
@@ -36,6 +37,7 @@ slot[name="header"] {
 
     .mdc-dialog__surface {
         width: 100%;
+        height: 100%;
 
         .mdc-dialog__body--scrollable  {
             max-height: inherit;
