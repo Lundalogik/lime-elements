@@ -160,7 +160,7 @@ function build() {
 
         const options5 = {
             files: ['src/index.mdx'],
-            from: /<version>/g,
+            from: /<version\\>/g,
             to: `${version}`,
         };
         replace.sync(options5);
