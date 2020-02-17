@@ -2,6 +2,7 @@ import { Action } from '@limetech/lime-elements';
 import React from 'react';
 import { findTitle } from './common';
 import { ArrayFieldItem, Runnable } from './types';
+import { isEmpty } from 'lodash-es';
 
 interface CollapsibleItemProps {
     /**
@@ -32,10 +33,12 @@ interface CollapsibleItemProps {
 
 export class CollapsibleItemTemplate extends React.Component {
     public refs: { section: any };
+    private isOpen: boolean;
 
     constructor(public props: CollapsibleItemProps) {
         super(props);
         this.handleAction = this.handleAction.bind(this);
+        this.isOpen = isEmpty(props.data);
     }
 
     public componentDidMount() {
@@ -56,13 +59,15 @@ export class CollapsibleItemTemplate extends React.Component {
     }
 
     public render() {
-        const { data, schema, index, formSchema } = this.props;
+        const { data, schema, formSchema } = this.props;
+
         return React.createElement(
             'limel-collapsible-section',
             {
-                header: findTitle(data, schema, formSchema) || index,
+                header: findTitle(data, schema, formSchema) || 'New item',
                 className: 'limel-form-array-item--object',
                 ref: 'section',
+                'is-open': this.isOpen,
             },
             this.props.item.children
         );
