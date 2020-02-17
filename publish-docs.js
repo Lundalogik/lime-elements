@@ -158,6 +158,13 @@ function build() {
         };
         replace.sync(options4);
 
+        const options5 = {
+            files: ['src/index.mdx'],
+            from: /<version>/g,
+            to: `${version}`,
+        };
+        replace.sync(options5);
+
         shell.exec('git diff --name-status');
     } catch (error) {
         shell.echo('Error occurred:', error);
@@ -320,7 +327,7 @@ function publish() {
 function teardown(finished) {
     if (finished || cleanOnFail) {
         shell.exec(
-            'git checkout doczrc.js src/examples/example.tsx src/examples/props.tsx src/index.html stencil.config.docs.ts'
+            'git checkout doczrc.js src/examples/example.tsx src/examples/props.tsx src/index.html src/index.mdx stencil.config.docs.ts'
         );
         shell.echo('Removing docs repo clone in docsDist.');
         shell.exec('rm -rf docsDist');
