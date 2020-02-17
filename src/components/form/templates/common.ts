@@ -1,4 +1,4 @@
-import { get } from 'lodash-es';
+import { get, isEmpty } from 'lodash-es';
 import React from 'react';
 import { isArrayType, isObjectType } from '../schema';
 
@@ -27,9 +27,11 @@ export function renderDescription(description: string) {
 }
 
 /**
- * Find the first string item in a nested structure.
+ * Find a suitable title for a nested structure.
  *
- * If an object has the key 'title' it will have priority, followed by the key 'name'
+ * If an object has the key 'title' it will have priority, followed by the key 'name'.
+ * If 'title' nor 'name' is found, a required item will be considered.
+ * Otherwise the first occurrence of a nonempty string is chosen.
  *
  * @param {*} data the data to find the title for
  * @param {*} fieldSchema schema for the item
@@ -50,28 +52,55 @@ export function findTitle(data: any, fieldSchema: any, formSchema: any) {
         return findSchemaTitle(data, fieldSchema);
     }
 
-    const firstEntry = findFirstEntry(data);
+    const subSchema = findSubSchema(fieldSchema, formSchema);
+
+    data = sortDataByProperties(data, subSchema.properties);
+
+    const firstEntry = findFirstEntry(data, subSchema);
     if (!firstEntry) {
         return null;
     }
 
     const [key, value] = firstEntry;
-    const subSchema = findSubSchema(fieldSchema, key, formSchema);
-
-    return findTitle(value, subSchema, formSchema);
+    return findTitle(value, subSchema.properties[key], formSchema);
 }
 
-function findFirstEntry(data: any) {
+function sortDataByProperties(data: any, properties: object) {
+    if (!properties || isEmpty(properties)) {
+        return data;
+    }
+
+    const newData = {};
+    Object.keys(properties).forEach(key => (newData[key] = data[key]));
+    return newData;
+}
+
+function findFirstEntry(data: any, subSchema: any) {
     const entries = [
         ['title', data.title],
         ['name', data.name],
+        getRequiredEntry(data, subSchema),
         ...Object.entries(data),
     ];
 
     return entries.filter(([_, value]) => !!value)[0];
 }
 
-function findSubSchema(schema: any, key: any, formSchema: any) {
+function getRequiredEntry(data: any, subSchema: any) {
+    if (!('required' in subSchema)) {
+        return [null, null];
+    }
+    const firstNonEmptyRequiredKey = Object.keys(data).find(key =>
+        subSchema.required.includes(key)
+    );
+    if (!firstNonEmptyRequiredKey) {
+        return [null, null];
+    }
+
+    return [firstNonEmptyRequiredKey, data[firstNonEmptyRequiredKey]];
+}
+
+function findSubSchema(schema: any, formSchema: any) {
     let subSchema = schema;
     if (isArrayType(schema)) {
         subSchema = schema.items;
@@ -84,8 +113,7 @@ function findSubSchema(schema: any, key: any, formSchema: any) {
             .join('.');
         subSchema = get(formSchema, path);
     }
-
-    return subSchema.properties[key];
+    return subSchema;
 }
 
 function findSchemaTitle(value: any, schema: any) {

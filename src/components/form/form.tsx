@@ -148,7 +148,7 @@ export class Form {
         // Due to a bug in react-jsonschema-form, validation will stop working if the schema is updated.
         // A workaround at the moment is to always give it a unique ID
         // https://github.com/rjsf-team/react-jsonschema-form/issues/1563
-        const id = `${this.schema.id}-${createRandomString()}`;
+        const id = `${this.schema.$id}-${createRandomString()}`;
         this.modifiedSchema = {
             ...this.schema,
             id: id,

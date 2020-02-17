@@ -31,6 +31,9 @@ const schema = {
         title: {
             type: 'string',
         },
+        koko: {
+            type: 'string',
+        },
         name: {
             type: 'string',
             oneOf: [
@@ -46,37 +49,69 @@ const schema = {
                 },
             ],
         },
-        nested: {
-            type: 'object',
-            $ref: '#/definitions/nested',
-        },
-        list1: {
-            type: 'array',
-            items: {
-                type: 'string',
-                anyOf: [
-                    {
-                        type: 'string',
-                        const: 'item1',
-                        title: 'Item1',
-                    },
-                    {
-                        type: 'string',
-                        const: 'item2',
-                        title: 'Item2',
-                    },
-                ],
-            },
-        },
-        list2: {
-            type: 'array',
-            items: {
-                type: 'object',
-                $ref: '#/definitions/nested',
-            },
+    },
+};
+
+const nestedFirstSchema: any = { ...schema };
+nestedFirstSchema['properties'] = {
+    nested: {
+        type: 'object',
+        $ref: '#/definitions/nested',
+    },
+    data: {
+        type: 'string',
+    },
+};
+
+const nestedFirstWithTitleSchema: any = { ...schema };
+nestedFirstWithTitleSchema['properties'] = {
+    nested: {
+        type: 'object',
+        $ref: '#/definitions/nested',
+    },
+    data: {
+        type: 'string',
+    },
+    title: {
+        type: 'string',
+    },
+};
+
+const list1FirstSchema: any = { ...schema };
+list1FirstSchema['properties'] = {
+    list1: {
+        type: 'array',
+        items: {
+            type: 'string',
+            anyOf: [
+                {
+                    type: 'string',
+                    const: 'item1',
+                    title: 'Item1',
+                },
+                {
+                    type: 'string',
+                    const: 'item2',
+                    title: 'Item2',
+                },
+            ],
         },
     },
 };
+
+const list2FirstSchema: any = { ...schema };
+list2FirstSchema['properties'] = {
+    list2: {
+        type: 'array',
+        items: {
+            type: 'object',
+            $ref: '#/definitions/nested',
+        },
+    },
+};
+
+const schemaRequiredProperty: any = { ...schema };
+schemaRequiredProperty['required'] = ['data'];
 
 describe('findTitle()', () => {
     [
@@ -109,16 +144,40 @@ describe('findTitle()', () => {
             output: 'title',
         },
         {
-            input: [{ nested: { data: 'nestedName' } }, schema, schema],
+            input: [
+                { nested: { data: 'nestedName' } },
+                nestedFirstSchema,
+                schema,
+            ],
             output: 'Nested name',
         },
         {
-            input: [{ list1: ['item1'] }, schema, schema],
+            input: [
+                { nested: { data: 'nestedName' }, title: 'My title' },
+                nestedFirstWithTitleSchema,
+                schema,
+            ],
+            output: 'My title',
+        },
+        {
+            input: [{ list1: ['item1'] }, list1FirstSchema, schema],
             output: 'Item1',
         },
         {
-            input: [{ list2: [{ data: 'itemData' }] }, schema, schema],
+            input: [
+                { list2: [{ data: 'itemData' }] },
+                list2FirstSchema,
+                schema,
+            ],
             output: 'Item data',
+        },
+        {
+            input: [
+                { koko: 'loko', data: 'test' },
+                schemaRequiredProperty,
+                schema,
+            ],
+            output: 'test',
         },
     ].forEach(({ input, output }) => {
         const inputJson = JSON.stringify(input[1]);
