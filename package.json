@@ -60,7 +60,7 @@
     "@types/chart.js": "2.9.14",
     "@types/jest": "24.0.20",
     "@types/puppeteer": "1.19.1",
-    "@types/react": "16.9.19",
+    "@types/react": "16.9.20",
     "commitizen": "4.0.3",
     "cross-env": "7.0.0",
     "cz-conventional-changelog": "3.1.0",
