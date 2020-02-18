@@ -1,3 +1,10 @@
+## [26.5.3](https://github.com/Lundalogik/lime-elements/compare/v26.5.2...v26.5.3) (2020-02-18)
+
+
+### Bug Fixes
+
+* prevent multiple instances of docz ([736360b](https://github.com/Lundalogik/lime-elements/commit/736360b556068c1c931d1c9ec7cc10e754855a6a))
+
 ## [26.5.2](https://github.com/Lundalogik/lime-elements/compare/v26.5.1...v26.5.2) (2020-02-13)
 
 
