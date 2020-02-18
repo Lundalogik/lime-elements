@@ -1,3 +1,15 @@
+# [26.6.0](https://github.com/Lundalogik/lime-elements/compare/v26.5.3...v26.6.0) (2020-02-18)
+
+
+### Bug Fixes
+
+* **dialog:** set dialog surface to 100% height ([3018d5b](https://github.com/Lundalogik/lime-elements/commit/3018d5b8ab5c83a0e7d20a0a236446d5b34f2079)), closes [#590](https://github.com/Lundalogik/lime-elements/issues/590)
+
+
+### Features
+
+* **input-field:** add support for textarea ([701e1b3](https://github.com/Lundalogik/lime-elements/commit/701e1b3f857b062c06debed828db6b4b464d6d0a))
+
 ## [26.5.3](https://github.com/Lundalogik/lime-elements/compare/v26.5.2...v26.5.3) (2020-02-18)
 
 
