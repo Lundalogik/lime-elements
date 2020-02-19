@@ -193,6 +193,7 @@ export class InputField {
                     required={this.required}
                     disabled={this.disabled}
                     type={this.type}
+                    onWheel={this.handleWheel}
                     {...additionalProps}
                     value={this.value}
                 />
@@ -477,6 +478,11 @@ export class InputField {
 
         if (isSpace || isEnter) {
             this.action.emit();
+        }
+    }
+    private handleWheel(event: MouseEvent) {
+        if (this.type === 'number') {
+            event.preventDefault();
         }
     }
 }
