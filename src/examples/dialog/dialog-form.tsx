@@ -66,6 +66,7 @@ export class DialogFormExample {
                             required={true}
                             invalid={!this.ageValid()}
                             onChange={this.ageOnChange}
+                            type="number"
                         />
                     </p>
                     <p>
