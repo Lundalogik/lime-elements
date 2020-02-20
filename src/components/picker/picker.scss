@@ -1,35 +1,5 @@
 @import '../../style/variables';
 
-@import "@limetech/mdc-elevation/mdc-elevation";
-@import "@limetech/mdc-menu-surface/mdc-menu-surface";
-
 :host {
     position: relative;
-}
-
-.dropdown--spinner {
-    padding-top: pxToRem(6);
-    text-align: center;
-
-    limel-spinner {
-        margin: pxToRem(10) 0;
-        color: var(--lime-primary-color, #{$mdc-theme-primary});
-    }
-}
-
-.dropdown--spinner,
-.dropdown--list {
-    background-color: white;
-    position: absolute;
-    margin-top: pxToRem(-1);
-
-    &:not(.display-full-list) {
-        max-height: pxToRem(250);
-        overflow-y: auto;
-    }
-}
-
-.empty-result-message {
-    color: var(--lime-light-grey, #{$lime-light-grey});
-    text-align: center;
 }

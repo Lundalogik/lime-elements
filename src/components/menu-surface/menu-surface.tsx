@@ -61,14 +61,15 @@ export class MenuSurface {
     }
 
     public render() {
+        const classList = {
+            'mdc-menu-surface': true,
+            'mdc-menu-surface--open': this.open,
+            'mdc-elevation-transition': true,
+            'mdc-elevation--z4': true,
+        };
+
         return (
-            <div
-                class={{
-                    'mdc-menu-surface': true,
-                    'mdc-menu-surface--open': this.open,
-                }}
-                tabindex="-1"
-            >
+            <div class={classList} tabindex="-1">
                 <slot />
             </div>
         );
