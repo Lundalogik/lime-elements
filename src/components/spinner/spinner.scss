@@ -42,6 +42,11 @@
     display: none;
 }
 
+:host(.dropdown--spinner){
+    margin: pxToRem(10) 0;
+    color: var(--lime-primary-color, #{$mdc-theme-primary});
+}
+
 @keyframes spin {
     to { transform: rotate(360deg); }
 }

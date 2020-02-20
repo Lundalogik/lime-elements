@@ -1,7 +1,9 @@
 @import '../../style/variables';
-@import "@limetech/mdc-menu-surface/mdc-menu-surface";
+@import '@limetech/mdc-menu-surface/mdc-menu-surface';
+@import '@limetech/mdc-elevation/mdc-elevation';
 
 .mdc-menu-surface {
     width: 100%;
     max-height: 100%;
 }
+

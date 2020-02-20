@@ -21,6 +21,7 @@ import {
     TAB,
     TAB_KEY_CODE,
 } from '../../util/keycodes';
+import { createRandomString } from '../../util/random-string';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
@@ -130,6 +131,7 @@ export class Picker {
 
     private debouncedSearch;
     private chipSet: HTMLLimelChipSetElement;
+    private portalId: string;
 
     constructor() {
         this.handleTextInput = this.handleTextInput.bind(this);
@@ -140,15 +142,14 @@ export class Picker {
         this.handleInteract = this.handleInteract.bind(this);
         this.handleListChange = this.handleListChange.bind(this);
         this.handleStopEditAndBlur = this.handleStopEditAndBlur.bind(this);
+        this.handleSurfaceDismissed = this.handleSurfaceDismissed.bind(this);
+
+        this.portalId = createRandomString();
     }
 
     @Watch('value')
-    public onChangeValue(newValue, oldValue) {
+    public onChangeValue(newValue = [], oldValue = []) {
         this.chips = this.createChips(this.value);
-        if (!this.multiple) {
-            return;
-        }
-
         if (newValue.length <= oldValue.length) {
             return;
         }
@@ -161,13 +162,8 @@ export class Picker {
             this.searcher,
             SEARCH_DEBOUNCE
         );
-        this.element.addEventListener('blur', this.handleStopEditAndBlur);
         this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
         this.chips = this.createChips(this.value);
-    }
-
-    public componentDidUnload() {
-        this.element.removeEventListener('blur', this.handleStopEditAndBlur);
     }
 
     public async componentWillUpdate() {
@@ -251,95 +247,108 @@ export class Picker {
      * @returns {HTMLElement} picker dropdown
      */
     private renderDropdown() {
-        if (!this.multiple && this.value) {
-            // Don't render the dropdown if the picker is already "full".
-            return;
+        const content = this.getDropdownContent();
+        const styling = {};
+
+        if (this.isScrollableDropdown()) {
+            styling['max-height'] = '250px';
         }
-        if (!this.chipSetEditMode) {
-            // Don't render the dropdown if the picker is not in edit mode.
+
+        return this.renderPortal(content, styling);
+    }
+
+    private getDropdownContent() {
+        if (this.isFull()) {
             return;
         }
 
-        const boundingRect = this.element.getBoundingClientRect();
+        if (!this.chipSetEditMode) {
+            return;
+        }
 
         if (this.loading) {
-            return (
-                <div
-                    style={{
-                        width: `${boundingRect.width}px`,
-                    }}
-                    class={`
-                        dropdown--spinner
-                        mdc-elevation-transition
-                        mdc-elevation--z4
-                        mdc-menu-surface
-                        mdc-menu-surface--open
-                    `}
-                    tabindex="-1"
-                >
-                    <limel-spinner />
-                </div>
-            );
+            return this.renderSpinner();
         }
 
         if (!this.items || !this.items.length) {
-            if (!this.emptyResultMessage) {
-                return;
-            }
-
-            return (
-                <div
-                    style={{
-                        width: `${boundingRect.width}px`,
-                    }}
-                    class={`
-                        dropdown--list
-                        mdc-elevation-transition
-                        mdc-elevation--z4
-                        mdc-menu-surface
-                        mdc-menu-surface--open
-                    `}
-                    tabindex="-1"
-                >
-                    <p class="empty-result-message">
-                        {this.emptyResultMessage}
-                    </p>
-                </div>
-            );
+            return this.renderEmptyMessage();
         }
 
+        return this.renderListResult();
+    }
+
+    /**
+     * Returns true if the picker is "full"
+     * The picker is considered to be full if it has a value and only one is allowed
+     *
+     * @returns {boolean} true if the picker is full
+     */
+    private isFull(): boolean {
+        return !this.multiple && !!this.value;
+    }
+
+    private renderSpinner() {
+        return (
+            <div style={{ 'padding-top': '6px', 'text-align': 'center' }}>
+                <limel-spinner class={'dropdown--spinner'} />
+            </div>
+        );
+    }
+
+    private renderEmptyMessage() {
+        if (!this.emptyResultMessage) {
+            return;
+        }
+
+        const style = {
+            color: 'var(--lime-light-grey, #{$lime-light-grey})',
+            'text-align': 'center',
+        };
+
+        return <p style={style}>{this.emptyResultMessage}</p>;
+    }
+
+    private renderListResult() {
         const hasIcons = this.items.some(item => {
             return 'icon' in item && !!item.icon;
         });
 
         return (
-            <div
-                style={{
-                    width: `${boundingRect.width}px`,
-                }}
-                class={`
-                    dropdown--list
-                    mdc-elevation-transition
-                    mdc-elevation--z4
-                    mdc-menu-surface
-                    mdc-menu-surface--open
-                    ${
-                        this.displayFullList ||
-                        this.items.length <= ITEM_LIMIT_NO_SCROLL
-                            ? 'display-full-list'
-                            : ''
-                    }
-                `}
-                tabindex="-1"
-                onKeyDown={this.handleDropdownKeyDown}
+            <limel-list
+                badgeIcons={hasIcons}
+                onChange={this.handleListChange}
+                type="selectable"
+                items={this.items}
+            />
+        );
+    }
+
+    private isScrollableDropdown() {
+        if (this.displayFullList) {
+            return false;
+        }
+
+        if (!this.items || !this.items.length) {
+            return false;
+        }
+
+        return this.items.length > ITEM_LIMIT_NO_SCROLL;
+    }
+
+    private renderPortal(content = null, styling = {}) {
+        return (
+            <limel-portal
+                visible={!!content}
+                containerId={this.portalId}
+                containerStyle={styling}
             >
-                <limel-list
-                    badgeIcons={hasIcons}
-                    onChange={this.handleListChange}
-                    type="selectable"
-                    items={this.items}
-                />
-            </div>
+                <limel-menu-surface
+                    open={!!content}
+                    onDismiss={this.handleSurfaceDismissed}
+                >
+                    {content}
+                </limel-menu-surface>
+            </limel-portal>
         );
     }
 
@@ -353,12 +362,27 @@ export class Picker {
         // However, document.activeElement will return the actual focused element instead of the outermost shadow host
         const element =
             this.element.shadowRoot.activeElement || document.activeElement;
-        if (isDescendant(element as HTMLElement, this.element)) {
+        const portalElement = document.querySelector(`#${this.portalId}`);
+        if (
+            isDescendant(element as HTMLElement, this.element) ||
+            isDescendant(element as HTMLElement, portalElement as HTMLElement)
+        ) {
             return;
         }
 
         this.chipSet.emptyInput();
         this.textValue = '';
+        this.handleSearchResult('', []);
+    }
+
+    /**
+     * Reset text value and search result, when list got closed.
+     *
+     * @returns {void}
+     */
+    private handleSurfaceDismissed() {
+        this.textValue = '';
+        this.chipSet.setFocus(true);
         this.handleSearchResult('', []);
     }
 
@@ -454,14 +478,11 @@ export class Picker {
             event.key === ARROW_UP || event.keyCode === ARROW_UP_KEY_CODE;
         const isDown =
             event.key === ARROW_DOWN || event.keyCode === ARROW_DOWN_KEY_CODE;
-        const isEscape =
-            event.key === ESCAPE || event.keyCode === ESCAPE_KEY_CODE;
 
         if (!isForwardTab && !isUp && !isDown) {
             return;
         }
-
-        const list = this.element.shadowRoot.querySelector('limel-list');
+        const list = document.querySelector(` #${this.portalId} limel-list`);
         if (!list) {
             return;
         }
@@ -482,12 +503,6 @@ export class Picker {
             );
             listElement.focus();
             return;
-        }
-
-        if (isEscape) {
-            event.preventDefault();
-            this.textValue = '';
-            this.chipSet.setFocus(true);
         }
     }
 
