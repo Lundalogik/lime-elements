@@ -1,3 +1,15 @@
+# [26.7.0](https://github.com/Lundalogik/lime-elements/compare/v26.6.0...v26.7.0) (2020-02-21)
+
+
+### Bug Fixes
+
+* **form-common:** choose title by title, name, first required field or the first nonempty string ([5ee4ebf](https://github.com/Lundalogik/lime-elements/commit/5ee4ebfaf2f6df481add4c8bc5221186e0de8cb1))
+
+
+### Features
+
+* **array-field-collapsible-item:** expand collapsible section when new item ([0eda04a](https://github.com/Lundalogik/lime-elements/commit/0eda04a1ae7d71aab81308cc0454f941c9bd3f60))
+
 # [26.6.0](https://github.com/Lundalogik/lime-elements/compare/v26.5.3...v26.6.0) (2020-02-18)
 
 
