@@ -1,3 +1,10 @@
+## [26.7.1](https://github.com/Lundalogik/lime-elements/compare/v26.7.0...v26.7.1) (2020-02-21)
+
+
+### Bug Fixes
+
+* **input-field:** prevent changing number onwheel event ([1f93faa](https://github.com/Lundalogik/lime-elements/commit/1f93faaebe9b9fd05e38e8091277c6d0e0a25b4a))
+
 # [26.7.0](https://github.com/Lundalogik/lime-elements/compare/v26.6.0...v26.7.0) (2020-02-21)
 
 
