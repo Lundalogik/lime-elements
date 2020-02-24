@@ -1,3 +1,10 @@
+## [26.7.2](https://github.com/Lundalogik/lime-elements/compare/v26.7.1...v26.7.2) (2020-02-24)
+
+
+### Bug Fixes
+
+* **limel-picker:** render picker dropdown in document.body ([8d10cf1](https://github.com/Lundalogik/lime-elements/commit/8d10cf1bd2762ff930db50f6adb77d009eb62500)), closes [Lundalogik/crm-feature#971](https://github.com/Lundalogik/crm-feature/issues/971)
+
 ## [26.7.1](https://github.com/Lundalogik/lime-elements/compare/v26.7.0...v26.7.1) (2020-02-21)
 
 
