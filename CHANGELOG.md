@@ -1,3 +1,10 @@
+## [26.7.3](https://github.com/Lundalogik/lime-elements/compare/v26.7.2...v26.7.3) (2020-02-25)
+
+
+### Bug Fixes
+
+* **array-field-collapsible-item:** open when deep empty ([de8657a](https://github.com/Lundalogik/lime-elements/commit/de8657aeee4c81f0ebfb1109d96d930df8666638))
+
 ## [26.7.2](https://github.com/Lundalogik/lime-elements/compare/v26.7.1...v26.7.2) (2020-02-24)
 
 
