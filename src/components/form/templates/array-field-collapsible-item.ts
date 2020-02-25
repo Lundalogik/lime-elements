@@ -38,7 +38,7 @@ export class CollapsibleItemTemplate extends React.Component {
     constructor(public props: CollapsibleItemProps) {
         super(props);
         this.handleAction = this.handleAction.bind(this);
-        this.isOpen = isEmpty(props.data);
+        this.isOpen = this.isDeepEmpty(props.data);
     }
 
     public componentDidMount() {
@@ -60,7 +60,6 @@ export class CollapsibleItemTemplate extends React.Component {
 
     public render() {
         const { data, schema, formSchema } = this.props;
-
         return React.createElement(
             'limel-collapsible-section',
             {
@@ -102,5 +101,15 @@ export class CollapsibleItemTemplate extends React.Component {
     private handleAction(event: CustomEvent<Action & Runnable>) {
         event.stopPropagation();
         event.detail.run(event);
+    }
+
+    private isDeepEmpty(data) {
+        if (typeof data !== 'object') {
+            return false;
+        }
+        if (isEmpty(data)) {
+            return true;
+        }
+        return Object.values(data).every(this.isDeepEmpty);
     }
 }
