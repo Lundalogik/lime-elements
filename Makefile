@@ -1,5 +1,4 @@
 DOCKER_IMAGE = lime-elements
-DOCKER_DOCS_IMAGE = lime-elements-docs
 
 .PHONY: build
 build:
