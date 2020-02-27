@@ -12,7 +12,6 @@ const runSetup = argv.noSetup === undefined;
 const runBuild = argv.noBuild === undefined;
 const runCommit = argv.noCommit === undefined;
 const runPush = argv.noPush === undefined;
-const runPublish = argv.noPublish === undefined;
 const runTeardown = argv.noTeardown === undefined;
 
 const cleanOnFail = runTeardown && argv.noCleanOnFail === undefined;
@@ -26,7 +25,7 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
 
     --v             The version number for this release of the documentation.
                     Defaults to '0.0.0-dev'.
-    --dryRun        Use dry-run mode. Do not push or publish any changes.
+    --dryRun        Use dry-run mode. Do not push any changes.
     --remove        Removes all versions matching the given filename-pattern.
     --pruneDev      Alias for --remove=0.0.0-dev*
     --noSetup       Run no setup. Only use this if you have previously run the setup step
@@ -34,7 +33,6 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     --noBuild       Do not build the documentation.
     --noCommit      Do not commit any changes.
     --noPush        Do not push any commits.
-    --noPublish     Do not publish the result.
     --noTeardown    Run no cleanup at end of script. Implies --noCleanOnFail.
     --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown is set,
                     cleanup will still be run if script is successful.
@@ -56,9 +54,6 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     if (commitMessage && runCommit) {
         commit(commitMessage);
     }
-    if (runPublish) {
-        publish();
-    }
     if (runPush) {
         push();
     }
@@ -78,9 +73,6 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     }
     if (runCommit) {
         commit();
-    }
-    if (runPublish) {
-        publish();
     }
     if (runPush) {
         push();
@@ -298,24 +290,6 @@ function push() {
         ).code !== 0
     ) {
         shell.echo('git push failed!');
-        shell.cd('..');
-        teardown();
-        shell.exit(1);
-    }
-
-    shell.cd('..');
-}
-
-function publish() {
-    shell.cd('docsDist');
-
-    const command =
-        'aws s3 sync . s3://lime-documentation-lime-elements --exclude ".git/*"';
-
-    if (dryRun) {
-        shell.exec(command + ' --dryrun');
-    } else if (shell.exec(command).code !== 0) {
-        shell.echo('aws s3 sync failed!');
         shell.cd('..');
         teardown();
         shell.exit(1);

@@ -11,7 +11,7 @@ module.exports = {
             '@semantic-release/exec',
             {
                 publishCmd:
-                    'npm run docz:publish -- --v=${nextRelease.version} --noPublish --dryRun=${options.dryRun}',
+                    'npm run docz:publish -- --v=${nextRelease.version} --dryRun=${options.dryRun}',
             },
         ],
     ],
