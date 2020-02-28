@@ -16,8 +16,8 @@ const targetWww: OutputTargetWww = {
     serviceWorker: null,
     dir: '.docz/public/stencil',
     copy: [
-        { src: 'examples/**/*.tsx' },
-        { src: 'examples/**/*.scss' },
+        { src: 'components/**/examples/**/*.tsx' },
+        { src: 'components/**/examples/**/*.scss' },
         { src: 'components/**/*.md' },
         {
             src: '../node_modules/@lundalogik/lime-icons8/assets/',

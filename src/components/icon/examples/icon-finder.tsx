@@ -1,7 +1,7 @@
 import { Chip } from '@limetech/lime-elements';
 import * as iconIndex from '@lundalogik/lime-icons8/assets/icon-index.json';
 import { Component, h, State } from '@stencil/core';
-import { ENTER, ENTER_KEY_CODE } from '../../util/keycodes';
+import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
 @Component({
     tag: 'limel-example-icon-finder',
