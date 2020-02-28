@@ -1,6 +1,6 @@
 import { Chip } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { ENTER, ENTER_KEY_CODE } from '../../util/keycodes';
+import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
 @Component({
     tag: 'limel-example-chip-set-input',
