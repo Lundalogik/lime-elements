@@ -43,7 +43,7 @@
     "@limetech/flatpickr": "^4.5.5",
     "@limetech/material-components-web": "^4.0.1-p4.0.0.1",
     "awesome-debounce-promise": "^2.1.0",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.3",
     "jsx-dom": "^6.4.10",
     "moment": "^2.24.0",
     "react-jsonschema-form": "^1.8.1",
