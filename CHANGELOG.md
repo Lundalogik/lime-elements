@@ -1,3 +1,10 @@
+# [26.8.0](https://github.com/Lundalogik/lime-elements/compare/v26.7.3...v26.8.0) (2020-03-03)
+
+
+### Features
+
+* **config:** add feature switches to config object ([6e59877](https://github.com/Lundalogik/lime-elements/commit/6e598775ddb6d12cc39778866b6c197171a06750))
+
 ## [26.7.3](https://github.com/Lundalogik/lime-elements/compare/v26.7.2...v26.7.3) (2020-02-25)
 
 
