@@ -40,6 +40,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = prop
                     </svg>
                     <div class="mdc-checkbox__mixedmark" />
                 </div>
+                <div class="mdc-checkbox__ripple" />
             </div>
             <label
                 class={{
