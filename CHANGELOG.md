@@ -1,3 +1,10 @@
+# [26.9.0](https://github.com/Lundalogik/lime-elements/compare/v26.8.1...v26.9.0) (2020-03-04)
+
+
+### Features
+
+* **tab-bar:** add new component `limel-tab-bar` ([2078f88](https://github.com/Lundalogik/lime-elements/commit/2078f88c751a5a9ee5b36b53c6fe2b1493190247)), closes [#87](https://github.com/Lundalogik/lime-elements/issues/87)
+
 ## [26.8.1](https://github.com/Lundalogik/lime-elements/compare/v26.8.0...v26.8.1) (2020-03-04)
 
 
