@@ -1,24 +1,24 @@
 {
-    "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "allowUnreachableCode": true,
-        "declaration": false,
-        "experimentalDecorators": true,
-        "lib": ["dom", "es7"],
-        "moduleResolution": "node",
-        "module": "esnext",
-        "target": "es2017",
-        "noUnusedLocals": false,
-        "noUnusedParameters": false,
-        "jsx": "react",
-        "jsxFactory": "h",
-        "baseUrl": ".",
-        "paths": {
-            "@limetech/lime-elements": ["src"]
-        },
-        "resolveJsonModule": true,
-        "skipLibCheck": true
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "lib": ["dom", "es7"],
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "es2017",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "baseUrl": ".",
+    "paths": {
+      "@limetech/lime-elements": ["src"]
     },
-    "include": ["src", "types/jsx.d.ts"],
-    "exclude": ["node_modules"]
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "types/jsx.d.ts"],
+  "exclude": ["node_modules"]
 }
