@@ -1,3 +1,10 @@
+## [26.8.1](https://github.com/Lundalogik/lime-elements/compare/v26.8.0...v26.8.1) (2020-03-04)
+
+
+### Bug Fixes
+
+* **checkbox:** add ripple for indication of element focus ([945ba74](https://github.com/Lundalogik/lime-elements/commit/945ba74c537833acfc96275ad41f969c9c15d3e4)), closes [#564](https://github.com/Lundalogik/lime-elements/issues/564)
+
 # [26.8.0](https://github.com/Lundalogik/lime-elements/compare/v26.7.3...v26.8.0) (2020-03-03)
 
 
