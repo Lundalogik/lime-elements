@@ -1,11 +1,14 @@
 {
-    "singleQuote": true,
-    "tabWidth": 4,
-    "trailingComma": "es5",
-    "overrides": [
-        {
-            "files": ".prettierrc",
-            "options": { "parser": "json" }
-        }
-    ]
+  "singleQuote": true,
+  "tabWidth": 4,
+  "trailingComma": "es5",
+  "overrides": [
+    {
+      "files": [".prettierrc", "*.json"],
+      "options": {
+        "parser": "json",
+        "tabWidth": 2
+      }
+    }
+  ]
 }
