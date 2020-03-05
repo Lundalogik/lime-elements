@@ -1,0 +1,23 @@
+:host(limel-example-badge) {
+    display: flex;
+    justify-content: space-between;
+}
+
+.badge {
+    display: inline-block;
+}
+
+.badge:nth-child(2){
+    --badge-background-color: var(--lime-deep-red);
+    --badge-text-color: white;
+}
+
+.badge:nth-child(3){
+    --badge-background-color: var(--lime-yellow);
+    --badge-text-color: var(--lime-blue);
+}
+
+.badge:nth-child(4){
+    --badge-background-color: var(--lime-blue);
+    --badge-text-color: var(--lime-yellow);
+}
