@@ -1,0 +1,25 @@
+@import '../../style/variables';
+
+/**
+ * @prop --badge-background-color: badge background color
+ * @prop --badge-text-color: badge text color
+ */
+
+
+:host {
+  display: block;
+}
+
+.badge-container {
+    display: inline-block;
+    font-size: 0.7rem;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    background-color:  var(--badge-background-color, #EEF1F5);
+    color:  var(--badge-text-color, #7D899C);
+    padding: 0 0.3rem;
+    margin-left: 0.25rem;
+}

@@ -23,4 +23,9 @@ export interface Tab {
      *  Color of the icon.
      */
     iconColor?: string;
+
+    /**
+     * Shows a badge within the tab with a specified label
+     */
+    badge?: number;
 }
