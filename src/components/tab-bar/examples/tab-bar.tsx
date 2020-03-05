@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { Tab } from '../tab.types';
+import { Tab } from '@limetech/lime-elements';
 
 @Component({
     tag: 'limel-example-tab-bar',
