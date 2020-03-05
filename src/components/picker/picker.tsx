@@ -154,7 +154,7 @@ export class Picker {
             return;
         }
 
-        this.chipSet.setFocus(true);
+        this.chipSet?.setFocus(true);
     }
 
     public componentDidLoad() {
