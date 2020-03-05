@@ -9,5 +9,6 @@ module.exports = {
         'jsx-use-translation-function': false,
         'no-console': false,
         'no-duplicate-string': false,
+        'valid-jsdoc': false,
     },
 };
