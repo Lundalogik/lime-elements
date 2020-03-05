@@ -1,0 +1,36 @@
+---
+name: Tab panel
+route: /tab-panel
+menu: Components
+---
+
+# Tab panel 
+
+### 🚧 This feature is work in progress. It can be tested out by setting the feature switch `enableTabs` 🚧
+
+The `tab-panel` component uses the `tab-bar` component together with custom slotted components and will display the 
+content for the currently active tab. Each slotted component must have an id equal to the id of the corresponding tab
+it belongs to.
+
+The `tab-panel` component will automatically set each tab configuration on the corresponding slotted component as a
+property named `tab` so that the component can take action upon that. Sometimes it might be desirable to not load data
+or render anything until the tab is active. 
+
+The slotted components can also emit the `changeTab` event to update anything inside the actual tab, e.g. to change
+the icon, color or badge.
+
+<limel-props name="limel-tab-panel" />
+
+## Example
+
+This example illustrates how to add custom components inside the `tab-panel`. Each component will simulate loading the
+data it needs once the tab has been activated and then display the actual content. If the button is pressed, the 
+component will emit the `changeTab` event to change the badge inside the corresponding tab.
+
+<limel-example name="limel-example-tab-panel" />
+
+### Custom component
+
+This is the component that is used for each tab in the example above.
+
+<limel-example name="limel-example-tab-panel-content" path="tab-panel" code-only={true} />
