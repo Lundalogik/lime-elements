@@ -17,6 +17,9 @@ export class Example {
     @Prop({ reflectToAttr: true })
     public path: string;
 
+    @Prop({ reflectToAttr: true })
+    public codeOnly = false;
+
     @State()
     private tsxCode: string;
 
@@ -24,6 +27,7 @@ export class Example {
     private scssCode: string;
 
     constructor() {
+        this.renderExample = this.renderExample.bind(this);
         this.renderScssCode = this.renderScssCode.bind(this);
     }
 
@@ -50,8 +54,23 @@ export class Example {
     }
 
     public render() {
-        const ExampleComponent = this.name;
+        return [
+            this.renderExample(),
+            <limel-collapsible-section header="tsx" class="code language-tsx">
+                <pre class="react-prism react-prism language-tsx">
+                    <code class="language-tsx" innerHTML={this.tsxCode} />
+                </pre>
+            </limel-collapsible-section>,
+            this.renderScssCode(),
+        ];
+    }
 
+    private renderExample() {
+        if (this.codeOnly) {
+            return;
+        }
+
+        const ExampleComponent = this.name;
         return [
             <limel-config
                 config={{ iconPath: `${BASE_URL}public/stencil/` }}
@@ -59,12 +78,6 @@ export class Example {
             <div class="example">
                 <ExampleComponent />
             </div>,
-            <limel-collapsible-section header="tsx" class="code language-tsx">
-                <pre class="react-prism react-prism language-tsx">
-                    <code class="language-tsx" innerHTML={this.tsxCode} />
-                </pre>
-            </limel-collapsible-section>,
-            this.renderScssCode(),
         ];
     }
 
