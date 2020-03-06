@@ -8,7 +8,7 @@ const BASE_URL = '/';
     styleUrl: 'props.scss',
 })
 export class Props {
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public name: string;
 
     @State()

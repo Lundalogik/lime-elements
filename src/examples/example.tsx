@@ -11,10 +11,10 @@ const BASE_URL = '/';
     styleUrl: 'example.scss',
 })
 export class Example {
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public name: string;
 
-    @Prop()
+    @Prop({ reflectToAttr: true })
     public path: string;
 
     @State()
