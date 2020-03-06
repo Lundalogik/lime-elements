@@ -19,6 +19,10 @@
     margin: 0;
     overflow: hidden;
 
+    &:first-child {
+        border-radius: 5px 5px 0 0;
+    }
+
     &:last-child {
         border-bottom-width: 1px;
         border-radius: 0 0 5px 5px;
