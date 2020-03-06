@@ -33,7 +33,7 @@ export class Example {
         const tsxUrl = `${BASE_URL}public/stencil/components/${path}/examples/${type}.tsx`;
 
         this.fetchData(tsxUrl).then(tsxData => {
-            this.tsxCode = prism.highlight(tsxData, prism.languages.tsx);
+            this.tsxCode = prism.highlight(tsxData, prism.languages.tsx, 'tsx');
 
             const styleUrlMatch = tsxData.match(/styleUrl: '(.*)'/);
             if (styleUrlMatch) {
@@ -41,7 +41,8 @@ export class Example {
                 this.fetchData(scssUrl).then(scssData => {
                     this.scssCode = prism.highlight(
                         scssData,
-                        prism.languages.scss
+                        prism.languages.scss,
+                        'scss'
                     );
                 });
             }
