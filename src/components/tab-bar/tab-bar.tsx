@@ -5,11 +5,13 @@ import {
     Element,
     EventEmitter,
     Event,
+    Watch,
 } from '@stencil/core';
 import { MDCTabBar, MDCTabBarActivatedEvent } from '@limetech/mdc-tab-bar';
 import { strings } from '@limetech/mdc-tab-bar/constants';
 import { Tab } from './tab.types';
 import config from '../../global/config';
+import { isEqual } from 'lodash-es';
 
 const { TAB_ACTIVATED_EVENT } = strings;
 
@@ -29,6 +31,7 @@ export class TabBar {
     public tabs: Tab[];
 
     private mdcTabBar: MDCTabBar;
+    private setupMdc = false;
 
     @Event()
     private changeTab: EventEmitter<Tab>;
@@ -40,6 +43,32 @@ export class TabBar {
 
     public componentDidLoad() {
         this.setup();
+    }
+
+    public componentDidUpdate() {
+        if (!this.setupMdc) {
+            return;
+        }
+
+        this.setup();
+        this.setupMdc = false;
+    }
+
+    public componentDidUnload() {
+        this.tearDown();
+    }
+
+    @Watch('tabs')
+    protected tabsChanged(newTabs: Tab[], oldTabs: Tab[]) {
+        const newIds = newTabs.map(tab => tab.id);
+        const oldIds = oldTabs.map(tab => tab.id);
+
+        if (isEqual(newIds, oldIds)) {
+            return;
+        }
+
+        this.setupMdc = true;
+        this.tearDown();
     }
 
     private setup() {
@@ -59,6 +88,11 @@ export class TabBar {
         };
 
         this.setupListeners();
+    }
+
+    private tearDown() {
+        this.mdcTabBar.unlisten(TAB_ACTIVATED_EVENT, this.handleTabActivated);
+        this.mdcTabBar.destroy();
     }
 
     private getTabElements() {
@@ -82,12 +116,7 @@ export class TabBar {
         this.changeTab.emit({ ...this.tabs[index], active: true });
     }
 
-    public componentDidUnload() {
-        this.mdcTabBar.unlisten(TAB_ACTIVATED_EVENT, this.handleTabActivated);
-        this.mdcTabBar.destroy();
-    }
-
-    render() {
+    public render() {
         const featFlag = config.featureSwitches.enableTabs;
         if (!featFlag) {
             return;
