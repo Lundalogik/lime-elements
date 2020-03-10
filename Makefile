@@ -5,11 +5,6 @@ build:
 	@# Builds the ci image lime-elements.
 	docker build --build-arg GH_TOKEN=${GH_TOKEN} --pull -t $(DOCKER_IMAGE) .
 
-.PHONY: lint
-lint:
-	@# Lints all applicable files.
-	docker run --rm -w /lime $(DOCKER_IMAGE) npm run lint
-
 .PHONY: commitlint
 commitlint: HASH=''
 commitlint:

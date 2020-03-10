@@ -19,11 +19,6 @@ pipeline {
                 }
             }
         }
-        stage('Lint code') {
-            steps {
-                sh 'make lint'
-            }
-        }
         stage('Run tests') {
             steps {
                 sh 'make test'

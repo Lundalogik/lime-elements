@@ -2,6 +2,21 @@ name: Pull Request Checks
 on: [pull_request]
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - run: GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
+    - run: npm install
+    - run: rm .npmrc
+    - run: npm run lint
+
   commitlint:
     name: Commitlint
     runs-on: ubuntu-latest
