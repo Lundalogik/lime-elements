@@ -1,3 +1,10 @@
+# [26.10.0](https://github.com/Lundalogik/lime-elements/compare/v26.9.0...v26.10.0) (2020-03-10)
+
+
+### Features
+
+* **badge:** add badge component ([6cd1d27](https://github.com/Lundalogik/lime-elements/commit/6cd1d27d07a6e9eb7022620d6fe0ca6e03ea5936))
+
 # [26.9.0](https://github.com/Lundalogik/lime-elements/compare/v26.8.1...v26.9.0) (2020-03-04)
 
 
