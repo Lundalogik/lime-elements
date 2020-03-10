@@ -1,3 +1,11 @@
+## [26.10.1](https://github.com/Lundalogik/lime-elements/compare/v26.10.0...v26.10.1) (2020-03-10)
+
+
+### Bug Fixes
+
+* **picker:** make sure chipset has been created before setting focus ([7b1f0a9](https://github.com/Lundalogik/lime-elements/commit/7b1f0a9d4b11880bfe15a3a2c8456552f95bde18))
+* **tab-bar:** export tab type from package ([1092dd5](https://github.com/Lundalogik/lime-elements/commit/1092dd581244d0c9386519cf865f2709a2ab70fa))
+
 # [26.10.0](https://github.com/Lundalogik/lime-elements/compare/v26.9.0...v26.10.0) (2020-03-10)
 
 
