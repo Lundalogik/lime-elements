@@ -1,15 +1,14 @@
 import { Config } from '@stencil/core';
-import { OutputTargetDist } from '@stencil/core/dist/declarations/output-targets';
 import { sass } from '@stencil/sass';
-
-const targetDist: OutputTargetDist = {
-    type: 'dist',
-    copy: [{ src: 'style/' }],
-};
 
 export const config: Config = {
     namespace: 'lime-elements',
-    outputTargets: [targetDist],
+    outputTargets: [
+        {
+            type: 'dist',
+            copy: [{ src: 'style/' }],
+        },
+    ],
     commonjs: {
         namedExports: {
             'node_modules/react-dom/index.js': [
