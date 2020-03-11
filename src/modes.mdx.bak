@@ -1,0 +1,10 @@
+---
+name: Modes
+route: /modes
+menu: Design Guidelines
+---
+
+# Modes
+Dark Mode and Light Mode are supported by Lime Elements to have a more inclusive design; provide a broader accessibility support, and give possibility to users to choose their preferred styles.
+
+By using our CSS variables for colors, shadows, etc..., our components, and generic CSS class conventions you can make sure that dark/light modes are automatically handled thanks to `prefers-color-scheme` CSS media feature.

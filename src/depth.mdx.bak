@@ -1,0 +1,12 @@
+---
+name: Depth
+route: /depth
+menu: Design Guidelines
+---
+
+# Depth
+Depth is good
+
+
+## Shadows
+Shadows are used in the UI to create a sense of depth, improve perception of users of clickable elements of the UI, provide cues about hierarchy of objects on the screen, help users understand direction of movement or temporariness of a component that overlays itself on top of a context, and sometimes create more distinct surfaces by clarifying edges. A surface’s shadow is determined by its elevation and relationship to other surfaces.
