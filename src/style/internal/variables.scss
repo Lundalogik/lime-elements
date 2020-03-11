@@ -1,0 +1,13 @@
+/*
+ * This file is imported into every component!
+ *
+ * Nothing in this file may output any CSS
+ * without being explicitly used by outside code.
+ */
+
+@import "./functions";
+@import "../brand-color-definitions";
+
+$lime-text-field-bottom-line-color: rgba(0,0,0,0.12);
+
+$lime-banner-height: pxToRem(52) !default;
