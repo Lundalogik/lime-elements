@@ -1,0 +1,10 @@
+/*
+ * This file is imported into every component!
+ *
+ * Nothing in this file may output any CSS
+ * without being explicitly called by outside code.
+ */
+
+@function pxToRem($px) {
+    @return #{$px/16}rem;
+}

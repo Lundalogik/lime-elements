@@ -1,4 +1,13 @@
-@import "./colors.scss";
+/*
+ * This file is imported into every component that uses MDC!
+ *
+ * Anything in this file that generates CSS output on its own,
+ * without being explicitly used, will output that CSS in every
+ * single component, increasing the size of the production build.
+ * Avoid that unless there's very good reason for it!
+ */
+
+@import "../colors.scss";
 @import "./functions.scss";
 
 $mdc-theme-primary: $lime-turquoise;

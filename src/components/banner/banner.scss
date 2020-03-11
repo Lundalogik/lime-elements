@@ -1,7 +1,6 @@
 @import '@limetech/mdc-elevation/mixins';
 @import '@limetech/mdc-theme/mixins';
-@import '../../style/variables';
-@import '../../style/functions.scss';
+@import '../../style/internal/mdc-variables';
 
 .lime-banner {
     min-height: $lime-banner-height;
