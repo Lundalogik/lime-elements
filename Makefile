@@ -5,12 +5,6 @@ build:
 	@# Builds the ci image lime-elements.
 	docker build --build-arg GH_TOKEN=${GH_TOKEN} --pull -t $(DOCKER_IMAGE) .
 
-.PHONY: commitlint
-commitlint: HASH=''
-commitlint:
-	@# Lint the commit message of the commit with the given HASH
-	docker run --rm -w /lime $(DOCKER_IMAGE) npx commitlint -f $(HASH)^ -t $(HASH)
-
 .PHONY: test
 test:
 	@# Runs all frontend tests.
