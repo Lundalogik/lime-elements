@@ -66,6 +66,10 @@ export class TabPanel {
 
     private setTabStatus(tab: Tab) {
         const element = this.slotElements.find(e => e.id === tab.id);
+        if (!element) {
+            return;
+        }
+
         if (tab.active) {
             element.style.display = '';
         } else {
