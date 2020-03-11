@@ -7,8 +7,7 @@
  * Avoid that unless there's very good reason for it!
  */
 
-@import "../colors.scss";
-@import "./functions.scss";
+@import "./variables";
 
 $mdc-theme-primary: $lime-turquoise;
 $mdc-theme-secondary: $lime-dark-grey;
@@ -104,5 +103,3 @@ $mdc-typography-styles-overline: (
 @import "@limetech/mdc-typography/mdc-typography";
 
 @import "@limetech/mdc-animation/variables";
-
-$lime-banner-height: pxToRem(52) !default;
