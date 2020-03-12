@@ -36,5 +36,5 @@ export const config: Config = {
         '**/*.e2e.*',
         '**/*.test-wrapper.*',
     ],
-    globalStyle: 'src/global/colors.scss',
+    globalStyle: 'src/global/core-styles.scss',
 };
