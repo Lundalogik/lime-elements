@@ -41,7 +41,7 @@ export const config: Config = {
         '**/*.test-wrapper.*',
     ],
     tsconfig: './tsconfig.dev.json',
-    globalStyle: 'src/global/colors.scss',
+    globalStyle: 'src/global/core-styles.scss',
     testing: {
         moduleNameMapper: {
             '^lodash-es$': 'lodash',
