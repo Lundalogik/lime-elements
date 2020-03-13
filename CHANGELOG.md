@@ -1,3 +1,11 @@
+# [26.11.0](https://github.com/Lundalogik/lime-elements/compare/v26.10.1...v26.11.0) (2020-03-13)
+
+
+### Features
+
+* **styles:** add colors that auto adjust to dark/light modes ([f3de6f7](https://github.com/Lundalogik/lime-elements/commit/f3de6f7cb10b606ad8a948cead2df0c2295dbe06))
+* **styles:** add shadows for different depths ([b6293e2](https://github.com/Lundalogik/lime-elements/commit/b6293e2c8ccd07fb83691a2310e63419d1ae66e8))
+
 ## [26.10.1](https://github.com/Lundalogik/lime-elements/compare/v26.10.0...v26.10.1) (2020-03-10)
 
 
