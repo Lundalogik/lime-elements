@@ -1,0 +1,28 @@
+.property-select {
+    min-width: 15rem;
+}
+
+.path-item {
+    padding: 2rem 1rem 2rem 0;
+}
+
+.path-text {
+    padding-right: 1rem;
+
+    &:hover {
+        + .path-delete {
+            opacity: 100;
+        }
+    }
+}
+
+.path-delete {
+    color: var(--lime-deep-red);
+    opacity: 0;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+
+    &:hover {
+        opacity: 100;
+    }
+}
