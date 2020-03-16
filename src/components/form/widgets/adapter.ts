@@ -80,6 +80,7 @@ export class LimeElementsAdapter extends React.Component {
                 widgetProps.rawErrors
             ),
             ref: 'component',
+            widgetProps: widgetProps,
         });
     }
 

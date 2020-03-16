@@ -16,6 +16,8 @@ export class InputField extends React.Component {
         const step: number | 'any' = getStepSize(props.schema);
         const additionalProps = getAdditionalProps(props.schema);
 
+        const schemaProps = props.schema.lime?.component?.props || {};
+
         return React.createElement(LimeElementsAdapter, {
             name: 'limel-input-field',
             value: props.value,
@@ -24,6 +26,7 @@ export class InputField extends React.Component {
             extraProps: {
                 step: step,
                 type: type,
+                ...schemaProps,
                 ...additionalProps,
             },
         });

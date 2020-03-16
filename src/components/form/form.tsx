@@ -19,6 +19,16 @@ import {
 } from './templates';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
+import SchemaField from 'react-jsonschema-form/lib/components/fields/SchemaField';
+import { WebComponent } from './widgets/web-component';
+
+const CustomSchemaField = props => {
+    if (props.schema.lime?.component?.name) {
+        return React.createElement(WebComponent, props);
+    }
+
+    return React.createElement(SchemaField, props);
+};
 
 @Component({
     tag: 'limel-form',
@@ -100,6 +110,7 @@ export class Form {
                     schema: this.modifiedSchema,
                     formData: this.value,
                     onChange: this.handleChange,
+                    fields: { SchemaField: CustomSchemaField },
                     widgets: widgets,
                     liveValidate: true,
                     showErrorList: false,
