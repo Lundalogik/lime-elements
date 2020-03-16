@@ -4,4 +4,4 @@
  * `radio`: radio button list with single selection.
  * `checkbox`: checkbox list with multiple selection.
  */
-export type ListType = 'selectable' | 'radio' | 'checkbox';
+export type ListType = 'selectable' | 'radio' | 'checkbox' | 'menu';

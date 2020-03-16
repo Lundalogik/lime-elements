@@ -68,6 +68,14 @@
         }
     }
 
+    .mdc-list-item[role="menuitem"] {
+        font-size: pxToRem(13);
+
+        .mdc-list-item__graphic {
+            margin-right: pxToRem(14);
+        }
+    }
+
     &.mdc-list--two-line.list--compact {
         .mdc-list-item {
             height: 4rem;
@@ -82,6 +90,7 @@
     limel-icon.mdc-list-item__graphic {
         display: block;
     }
+
 }
 
 .mdc-list:not(.mdc-list--avatar-list) {
