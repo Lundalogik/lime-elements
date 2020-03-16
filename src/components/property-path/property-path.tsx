@@ -34,7 +34,7 @@ class LimetypeStore {
         property: string
     ): Promise<string> {
         const data = await this.getProperties(limetype);
-        return data[property].localname.singular;
+        return data[property].localname;
     }
 
     public async isRelation(limetype: string): Promise<boolean> {
@@ -52,7 +52,7 @@ class LimetypeStore {
 
     public async getProperties(limetype: string): Promise<any> {
         const data = await this.get(limetype);
-        return data._embedded.properties;
+        return data.properties;
     }
 
     private async populateForLimetype(limetype: string): Promise<void> {
@@ -71,6 +71,22 @@ class LimetypeStore {
                 }
 
                 throw new Error('Failed to get limetype information');
+            })
+            .then(response => {
+                // Convert properties from array to object keyed by property name
+                response.properties = {};
+
+                for (const property of response._embedded.properties) {
+                    response.properties[property.name] = property;
+                }
+
+                response.properties['id'] = {
+                    localname: 'Id',
+                    name: 'id',
+                    type: 'integer',
+                };
+
+                return response;
             })
             .then(response => (this.store[limetype] = response));
     }
@@ -119,7 +135,7 @@ export class PropertyPath {
     public widgetProps: any;
 
     @Prop({ reflect: true })
-    public value: string = '';
+    public value: string = null;
 
     @Watch('value')
     valueUpdated() {
@@ -266,9 +282,11 @@ export class PropertyPath {
 
         const lastRelationPath = this.getLastRelationPath();
 
-        const properties = await this.limetypeStore.getProperties(
+        let properties = await this.limetypeStore.getProperties(
             lastRelationPath.name
         );
+
+        properties = Object.keys(properties).map(name => properties[name]);
 
         const options = properties
             .filter(property => property.type !== 'hasmany')
@@ -279,12 +297,6 @@ export class PropertyPath {
                     relation: property.type === 'belongsto',
                 };
             });
-
-        options.push({
-            text: 'Id',
-            value: 'id',
-            relation: false,
-        });
 
         return options;
     }
@@ -360,6 +372,10 @@ export class PropertyPath {
     }
 
     private getValueDotNotationArray() {
+        if (this.value === null || this.value === undefined) {
+            return [];
+        }
+
         const arr = this.value.split('.');
 
         if (arr.length === 1 && arr[0] === '') {
