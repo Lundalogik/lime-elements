@@ -24,7 +24,10 @@ import { WebComponent } from './widgets/web-component';
 
 const CustomSchemaField = props => {
     if (props.schema.lime?.component?.name) {
-        return React.createElement(WebComponent, props);
+        return React.createElement(WebComponent, {
+            ...props,
+            value: props.formData,
+        });
     }
 
     return React.createElement(SchemaField, props);
