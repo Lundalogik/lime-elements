@@ -1,3 +1,10 @@
+## [26.11.1](https://github.com/Lundalogik/lime-elements/compare/v26.11.0...v26.11.1) (2020-03-16)
+
+
+### Bug Fixes
+
+* **styles:** fix broken css variables for shadows, introduced in v26.11.0 ([00099f7](https://github.com/Lundalogik/lime-elements/commit/00099f7b041e15e001903ae5afaf1ee60e2a1294))
+
 # [26.11.0](https://github.com/Lundalogik/lime-elements/compare/v26.10.1...v26.11.0) (2020-03-13)
 
 
