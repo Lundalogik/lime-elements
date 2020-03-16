@@ -6,7 +6,6 @@ import { RadioButtonTemplate } from './radio-button/radio-button.template';
 
 export class ListRenderer {
     private defaultConfig: ListRendererConfig = {
-        isOpen: true,
         badgeIcons: false,
     };
 
@@ -70,7 +69,7 @@ export class ListRenderer {
         return (
             <ul
                 class={classNames}
-                aria-hidden={(!this.config.isOpen).toString()}
+                aria-hidden={(this.config.type === 'menu').toString()}
                 role={role}
                 aria-orientation="vertical"
             >
