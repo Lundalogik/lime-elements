@@ -1,4 +1,5 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import { OpenDirection } from '../menu/menu.types';
 
 /**
  * The portal component provides a way to render children into a DOM node that exist outside
@@ -28,6 +29,24 @@ export class Portal {
      */
     @Prop()
     public visible = false;
+
+    /**
+     * Decides which direction the portal content should open. Defaults to right.
+     */
+    @Prop()
+    public openDirection: OpenDirection = 'right';
+
+    private width: number;
+
+    @Watch('visible')
+    protected onVisible() {
+        if (this.visible) {
+            setTimeout(() => {
+                this.width = this.getContentWidth(this.container);
+                this.styleContainer();
+            });
+        }
+    }
 
     /**
      * A unique ID
@@ -83,7 +102,7 @@ export class Portal {
 
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
-        content.forEach((element) => {
+        content.forEach((element: HTMLElement) => {
             this.container.appendChild(element);
         });
     }
@@ -111,9 +130,13 @@ export class Portal {
         const containerHeight = viewportHeight - rect.y;
 
         this.container.style.position = 'absolute';
-        this.container.style.left = `${x}px`;
+
+        const leftX = this.openDirection === 'right' ? x : x - this.width;
+        this.container.style.left = `${leftX}px`;
+
         this.container.style.top = `${y}px`;
-        this.container.style.width = `${rect.width}px`;
+        this.container.style.width =
+            rect.width > 0 ? `${rect.width}px` : `${this.width}px`;
         this.container.style.height = `${containerHeight}px`;
         this.container.style.display = 'block';
         if (!this.visible) {
@@ -144,5 +167,19 @@ export class Portal {
             document.documentElement.clientHeight,
             window.innerHeight || 0
         );
+    }
+
+    private getContentWidth(element: HTMLElement | Element) {
+        if (!element) {
+            return null;
+        }
+
+        const rect = element.getBoundingClientRect();
+        if (rect.width !== 0) {
+            return rect.width;
+        }
+
+        const elementContent = element.querySelector('*');
+        return this.getContentWidth(elementContent);
     }
 }
