@@ -62,6 +62,7 @@ export class MenuSurface {
 
     public render() {
         const classList = {
+            'mdc-menu': true,
             'mdc-menu-surface': true,
             'mdc-menu-surface--open': this.open,
             'mdc-elevation-transition': true,
@@ -76,7 +77,7 @@ export class MenuSurface {
     }
 
     private setup() {
-        const menuElement = this.host.shadowRoot.querySelector(
+        const menuElement: HTMLElement = this.host.shadowRoot.querySelector(
             '.mdc-menu-surface'
         );
         if (!menuElement) {

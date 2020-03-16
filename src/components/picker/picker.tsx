@@ -345,6 +345,7 @@ export class Picker {
                 <limel-menu-surface
                     open={!!content}
                     onDismiss={this.handleSurfaceDismissed}
+                    style={{ '--menu-surface-width': '100%' }}
                 >
                     {content}
                 </limel-menu-surface>

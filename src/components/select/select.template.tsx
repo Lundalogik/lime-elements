@@ -123,7 +123,11 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
 
     return (
         <limel-portal containerId={props.id} visible={props.isOpen}>
-            <limel-menu-surface open={props.isOpen} onDismiss={props.close}>
+            <limel-menu-surface
+                open={props.isOpen}
+                onDismiss={props.close}
+                style={{ '--menu-surface-width': '100%' }}
+            >
                 <limel-list
                     items={items}
                     type={props.multiple ? 'checkbox' : 'selectable'}
