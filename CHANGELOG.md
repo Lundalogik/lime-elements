@@ -1,3 +1,10 @@
+## [26.11.2](https://github.com/Lundalogik/lime-elements/compare/v26.11.1...v26.11.2) (2020-03-17)
+
+
+### Reverts
+
+* Revert "chore(package): add npm script `watch:prod` to enable integration with Angular in watch-build" ([fa1128c](https://github.com/Lundalogik/lime-elements/commit/fa1128cc0e3b50953dc86ac6385f760ac27d44d0))
+
 ## [26.11.1](https://github.com/Lundalogik/lime-elements/compare/v26.11.0...v26.11.1) (2020-03-16)
 
 
