@@ -24,6 +24,7 @@ import { WebComponent } from './widgets/web-component';
 
 const CustomSchemaField = props => {
     if (props.schema.lime?.component?.name) {
+        console.log('rendering custom web element', props);
         return React.createElement(WebComponent, {
             ...props,
             value: props.formData,
