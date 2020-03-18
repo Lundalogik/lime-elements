@@ -13,7 +13,7 @@ jobs:
       with:
         node-version: 12.x
     - run: GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
-    - run: npm install
+    - run: npm ci
     - run: rm .npmrc
     - run: npm run lint
 
