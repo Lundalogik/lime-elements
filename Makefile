@@ -5,11 +5,6 @@ build:
 	@# Builds the ci image lime-elements.
 	docker build --build-arg GH_TOKEN=${GH_TOKEN} --pull -t $(DOCKER_IMAGE) .
 
-.PHONY: test
-test:
-	@# Runs all frontend tests.
-	docker run --rm --cap-add=SYS_ADMIN -w /lime $(DOCKER_IMAGE) npm run test
-
 .PHONY: build_docs
 build_docs:
 	@# Builds the docs-app.

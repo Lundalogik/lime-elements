@@ -19,6 +19,24 @@ jobs:
         rm .npmrc
     - run: npm run lint
 
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: npm install
+      run: |
+        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
+        npm ci
+        rm .npmrc
+    - run: npm run build
+    - run: npm test --if-present
+
   commitlint:
     name: Commitlint
     runs-on: ubuntu-latest

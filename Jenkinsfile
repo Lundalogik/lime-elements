@@ -19,11 +19,6 @@ pipeline {
                 }
             }
         }
-        stage('Run tests') {
-            steps {
-                sh 'make test'
-            }
-        }
 
         stage('Build and release') {
             environment {
