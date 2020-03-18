@@ -45,7 +45,7 @@ export class Icon {
             return;
         }
         const svgData = await this.loadSvg(name);
-        this.renderSvg(svgData);
+        this.renderSvg(svgData, name);
     }
 
     /**
@@ -65,7 +65,15 @@ export class Icon {
      * will remain the way they look in the file.
      * Therefore we inject the svg as inline markup instead.
      */
-    private renderSvg(svgData: string) {
-        this.host.shadowRoot.querySelector('div.container').innerHTML = svgData;
+    private renderSvg(svgData: string, name: string) {
+        const container = this.host.shadowRoot.querySelector('div.container');
+        if (container) {
+            container.innerHTML = svgData;
+        } else {
+            // tslint:disable-next-line:no-console
+            console.error(
+                `limel-icon: no container found when trying to render svg! icon: ${name}`
+            );
+        }
     }
 }
