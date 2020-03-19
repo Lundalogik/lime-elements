@@ -1,0 +1,27 @@
+name: Release and Publish
+on:
+  push:
+    branches:
+      - master
+jobs:
+  semantic-release:
+    name: Run Semantic Release
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_USERNAME: lime-ci
+      GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
+      CI: true
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: npm install
+      run: |
+        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
+        npm ci
+        rm .npmrc
+    - run: npm run release

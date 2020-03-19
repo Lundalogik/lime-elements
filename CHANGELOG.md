@@ -1,3 +1,10 @@
+## [26.11.3](https://github.com/Lundalogik/lime-elements/compare/v26.11.2...v26.11.3) (2020-03-19)
+
+
+### Bug Fixes
+
+* **icon:** log to console instead of raising error when no container found ([af0013a](https://github.com/Lundalogik/lime-elements/commit/af0013af433c3bd57d851d89fd9179b300fb3a1b))
+
 ## [26.11.2](https://github.com/Lundalogik/lime-elements/compare/v26.11.1...v26.11.2) (2020-03-17)
 
 
