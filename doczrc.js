@@ -7,7 +7,6 @@ export default {
     title: 'Lime Elements',
     description: 'Documentation for Lime Elements',
     typescript: true,
-    indexHtml: 'src/index.html',
     port: port,
     base: '/',
     themeConfig: {
