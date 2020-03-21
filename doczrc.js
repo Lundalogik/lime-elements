@@ -23,4 +23,5 @@ export default {
     ],
     propsParser: false,
     public: '.docz/public',
+    files: ['src/**/*.mdx'],
 };
