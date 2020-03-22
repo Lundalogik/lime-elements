@@ -107,10 +107,7 @@ function findSubSchema(schema: any, formSchema: any) {
     }
 
     if (subSchema.$ref) {
-        const path = subSchema.$ref
-            .split('/')
-            .slice(1)
-            .join('.');
+        const path = subSchema.$ref.split('/').slice(1).join('.');
         subSchema = get(formSchema, path);
     }
     return subSchema;

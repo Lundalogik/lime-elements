@@ -124,9 +124,7 @@ export class MonthPicker extends Picker {
             <div
                 className="datepicker-month"
                 onClick={() => { // tslint:disable-line:jsx-no-lambda prettier
-                    const date = moment([fp.currentYear])
-                        .month(month)
-                        .toDate();
+                    const date = moment([fp.currentYear]).month(month).toDate();
                     fp.setDate(date, true);
                     fp.close();
                 }}
