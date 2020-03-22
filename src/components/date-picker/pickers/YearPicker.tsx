@@ -100,9 +100,7 @@ export class YearPicker extends Picker {
                     fp.close();
                 }}
             >
-                {moment(year)
-                    .locale(this.getMomentLang())
-                    .format('YYYY')}
+                {moment(year).locale(this.getMomentLang()).format('YYYY')}
             </div>
         );
     }

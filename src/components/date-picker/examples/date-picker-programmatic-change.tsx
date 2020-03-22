@@ -48,8 +48,6 @@ export class DatePickerExample {
     }
 
     private addOneHour() {
-        this.value = moment(this.value)
-            .add(1, 'hour')
-            .toDate();
+        this.value = moment(this.value).add(1, 'hour').toDate();
     }
 }
