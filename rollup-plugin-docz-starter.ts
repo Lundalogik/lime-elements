@@ -7,7 +7,7 @@ function doczStarter() {
 
     return {
         name: 'docz-starter',
-        generateBundle: function() {
+        generateBundle: function () {
             if (!argv.includes('--watch')) {
                 return;
             }
