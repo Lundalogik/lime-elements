@@ -57,9 +57,11 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = props =>
     );
 };
 
-const SelectValue: FunctionalComponent<SelectTemplateProps & {
-    hasValue: boolean;
-}> = props => {
+const SelectValue: FunctionalComponent<
+    SelectTemplateProps & {
+        hasValue: boolean;
+    }
+> = props => {
     const containerClassList = {
         'limel-select-trigger': true,
         'limel-select--focused': props.isOpen,
