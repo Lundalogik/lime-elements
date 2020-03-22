@@ -46,7 +46,7 @@ export class Select extends React.Component {
         }
 
         if (isMultiple(event.detail)) {
-            const value = event.detail.map(option => option.value);
+            const value = event.detail.map((option) => option.value);
             props.onChange(value);
 
             return;

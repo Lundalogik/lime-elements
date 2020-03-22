@@ -21,7 +21,7 @@ export class Config {
      * Copy any config settings to the global config object
      */
     private setGlobalConfig() {
-        Object.keys(this.config).forEach(key => {
+        Object.keys(this.config).forEach((key) => {
             globalConfig[key] = this.config[key];
         });
     }

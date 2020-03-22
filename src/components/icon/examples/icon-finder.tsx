@@ -86,9 +86,11 @@ export class IconFinder {
 
     private searchIcons() {
         this.icons = [];
-        this.indexedIcons.forEach(icon => {
-            this.value.forEach(search => {
-                const hits = icon.tags.filter(tag => tag.includes(search.text));
+        this.indexedIcons.forEach((icon) => {
+            this.value.forEach((search) => {
+                const hits = icon.tags.filter((tag) =>
+                    tag.includes(search.text)
+                );
                 if (hits.length || icon.id.includes(search.text)) {
                     this.icons.push(icon);
                 }

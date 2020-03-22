@@ -248,7 +248,7 @@ export class ChipSet {
         this.mdcChipSet = new MDCChipSet(
             this.host.shadowRoot.querySelector('.mdc-chip-set')
         );
-        this.mdcChipSet.chips.forEach(chip => {
+        this.mdcChipSet.chips.forEach((chip) => {
             chip.shouldRemoveOnTrailingIconClick = false;
         });
 
@@ -403,7 +403,7 @@ export class ChipSet {
     }
 
     private handleInteractionEvent(event: MDCChipInteractionEvent) {
-        const chip = this.value.find(item => {
+        const chip = this.value.find((item) => {
             return `${item.id}` === event.detail.chipId;
         });
         this.emitInteraction(chip);
@@ -414,7 +414,7 @@ export class ChipSet {
     }
 
     private handleSelection(event: MDCChipSelectionEvent) {
-        let chip = this.value.find(item => {
+        let chip = this.value.find((item) => {
             return `${item.id}` === event.detail.chipId;
         });
         chip = { ...chip, selected: event.detail.selected };
@@ -426,7 +426,7 @@ export class ChipSet {
     }
 
     private removeChip(id: string | number) {
-        const newValue = this.value.filter(chip => {
+        const newValue = this.value.filter((chip) => {
             return `${chip.id}` !== `${id}`;
         });
         this.change.emit(newValue);

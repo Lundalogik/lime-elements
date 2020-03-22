@@ -117,7 +117,7 @@ export class QuarterPicker extends Picker {
         const endQuarter = 5;
         return (
             <div className="datepicker-quarters-container">
-                {range(startQuarter, endQuarter).map(quarter => {
+                {range(startQuarter, endQuarter).map((quarter) => {
                     const renderedQuarter = this.renderQuarter(quarter, fp);
                     this.quarters.push(renderedQuarter);
                     return renderedQuarter;
@@ -152,14 +152,14 @@ export class QuarterPicker extends Picker {
                 .locale(this.getMomentLang())
                 .format('MMM');
         });
-        return months.map(month => {
+        return months.map((month) => {
             return <span className="datepicker-month-in-quarter">{month}</span>;
         });
     }
 
     private selectQuarter(selectedDates, dateString, fp) {
         if (!this.nativePicker) {
-            this.quarters.forEach(quarter => {
+            this.quarters.forEach((quarter) => {
                 quarter.classList.remove('selected');
             });
 

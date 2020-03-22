@@ -92,7 +92,7 @@ export abstract class Picker {
     }
 
     private handleCloseForNativePicker(selectedDates) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             setTimeout(() => {
                 const pickerDate = this.getPickerDate(selectedDates);
                 this.change.emit(pickerDate);
@@ -102,7 +102,7 @@ export abstract class Picker {
     }
 
     private handleCloseForFlatpickr(selectedDates) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             // Since we allow manual editing of the input value, and
             // flatpickr only picks up these changes when the user presses
             // enter in the input, we need to check if the input string

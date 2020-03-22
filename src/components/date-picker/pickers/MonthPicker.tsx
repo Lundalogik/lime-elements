@@ -110,7 +110,7 @@ export class MonthPicker extends Picker {
     private renderMonthsPicker(fp): any {
         return (
             <div className="datepicker-months-container">
-                {range(NBROFMONTHS).map(index => {
+                {range(NBROFMONTHS).map((index) => {
                     const renderedMonth = this.renderMonth(index, fp);
                     this.months.push(renderedMonth);
                     return renderedMonth;
@@ -139,7 +139,7 @@ export class MonthPicker extends Picker {
 
     private selectMonth(selectedDates, dateString, fp) {
         if (!this.nativePicker) {
-            this.months.forEach(month => {
+            this.months.forEach((month) => {
                 month.classList.remove('selected');
             });
 

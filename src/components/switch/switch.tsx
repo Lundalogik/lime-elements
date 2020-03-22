@@ -91,7 +91,7 @@ export class Switch {
         }
     }
 
-    private onChange = event => {
+    private onChange = (event) => {
         event.stopPropagation();
         this.change.emit(event.target.checked);
     };

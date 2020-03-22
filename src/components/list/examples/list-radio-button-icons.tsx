@@ -59,7 +59,7 @@ export class ListRadioButtonIconsExample {
     private selectedItem: ListItem;
 
     constructor() {
-        this.selectedItem = this.items.filter(item => {
+        this.selectedItem = this.items.filter((item) => {
             return !!item.selected;
         })[0];
         this.handleChange = this.handleChange.bind(this);

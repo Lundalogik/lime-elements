@@ -309,7 +309,7 @@ export class Picker {
     }
 
     private renderListResult() {
-        const hasIcons = this.items.some(item => {
+        const hasIcons = this.items.some((item) => {
             return 'icon' in item && !!item.icon;
         });
 
@@ -445,8 +445,8 @@ export class Picker {
         let newValue = null;
         if (this.multiple) {
             const chips = event.detail as Chip[];
-            newValue = chips.map(chip => {
-                return (this.value as ListItem[]).find(item => {
+            newValue = chips.map((chip) => {
+                return (this.value as ListItem[]).find((item) => {
                     return `${item.value}` === chip.id;
                 });
             });
@@ -529,7 +529,7 @@ export class Picker {
             this.items = result;
             if (this.multiple) {
                 const values = this.value as ListItem[];
-                this.items = result.filter(item => {
+                this.items = result.filter((item) => {
                     return !values.includes(item);
                 });
             }

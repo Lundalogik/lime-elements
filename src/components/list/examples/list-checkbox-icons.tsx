@@ -59,7 +59,7 @@ export class ListCheckboxIconsExample {
     private selectedItems: ListItem[] = [];
 
     constructor() {
-        this.selectedItems = this.items.filter(item => {
+        this.selectedItems = this.items.filter((item) => {
             return !!item.selected;
         });
         this.handleChange = this.handleChange.bind(this);

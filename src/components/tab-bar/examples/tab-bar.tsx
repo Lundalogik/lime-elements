@@ -75,7 +75,7 @@ export class TabBarExample {
 
     private onChange(event: CustomEvent<Tab>) {
         this.text = event.detail.text;
-        this.tabs = this.tabs.map(tab => {
+        this.tabs = this.tabs.map((tab) => {
             if (tab.id === event.detail.id) {
                 return event.detail;
             }
