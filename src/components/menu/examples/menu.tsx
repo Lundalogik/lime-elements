@@ -110,9 +110,9 @@ export class MenuExample {
         this.menuOpen = !this.menuOpen;
     };
 
-    private onSelect = event => {
+    private onSelect = (event) => {
         console.log('item selected', event.detail);
-        this.items = this.items.map(item => {
+        this.items = this.items.map((item) => {
             if (!('separator' in item)) {
                 item.disabled = item.text === event.detail.text;
             }

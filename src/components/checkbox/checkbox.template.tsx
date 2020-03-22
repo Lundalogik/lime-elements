@@ -10,7 +10,9 @@ interface CheckboxTemplateProps {
     label?: string;
 }
 
-export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = props => {
+export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
+    props
+) => {
     return (
         <div class="mdc-form-field ">
             <div

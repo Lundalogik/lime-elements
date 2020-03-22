@@ -83,13 +83,13 @@ export class PickerExample {
     }
 
     private search(query: string): Promise<ListItem[]> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             if (query === '') {
                 resolve(this.allItems);
             }
             // Simulate some network delay
             setTimeout(() => {
-                const filteredItems = this.allItems.filter(item => {
+                const filteredItems = this.allItems.filter((item) => {
                     return item.text
                         .toLowerCase()
                         .includes(query.toLowerCase());

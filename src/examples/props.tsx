@@ -23,7 +23,7 @@ export class Props {
     public componentWillLoad() {
         const type = this.name.replace('limel-', '');
         const url = `${BASE_URL}public/stencil/components/${type}/readme.md`;
-        this.fetchData(url).then(data => {
+        this.fetchData(url).then((data) => {
             this.propsTableHtml = this.converter.makeHtml(data);
         });
     }
@@ -33,7 +33,7 @@ export class Props {
     }
 
     private fetchData(url) {
-        return fetch(url).then(data => {
+        return fetch(url).then((data) => {
             return data.body
                 .getReader()
                 .read()

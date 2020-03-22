@@ -65,7 +65,7 @@ export class TabPanel {
     }
 
     private setTabStatus(tab: Tab) {
-        const element = this.slotElements.find(e => e.id === tab.id);
+        const element = this.slotElements.find((e) => e.id === tab.id);
         if (!element) {
             return;
         }
@@ -80,7 +80,7 @@ export class TabPanel {
     }
 
     private handleChangeTabs(event: CustomEvent<Tab>) {
-        this.tabs = this.tabs.map(tab => {
+        this.tabs = this.tabs.map((tab) => {
             if (tab.id === event.detail.id) {
                 return event.detail;
             }

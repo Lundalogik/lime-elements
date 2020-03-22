@@ -418,7 +418,7 @@ export class InputField {
             this.isFocused && (
                 <div class="autocomplete-list mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open">
                     <ul class="mdc-list">
-                        {filteredCompletions.map(completion => {
+                        {filteredCompletions.map((completion) => {
                             return (
                                 <li
                                     class="mdc-list-item"
@@ -446,7 +446,7 @@ export class InputField {
             return this.completions;
         }
         return this.completions.filter(
-            completion =>
+            (completion) =>
                 completion.toLowerCase().indexOf(filter.toLowerCase()) > -1
         );
     };

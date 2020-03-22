@@ -29,7 +29,7 @@ export class IconCache {
      * Creates and returns a promise that will be resolved when SVG data is available
      */
     private getIcon(name, path) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             if (!this.resolveFunctions[name]) {
                 this.resolveFunctions[name] = [];
                 this.fetchData(name, path);
@@ -78,7 +78,7 @@ export class IconCache {
      */
     private resolvePromises(name, svgData) {
         const resolves = this.resolveFunctions[name];
-        resolves.forEach(resolve => {
+        resolves.forEach((resolve) => {
             resolve(svgData);
         });
         this.resolveFunctions[name] = null;

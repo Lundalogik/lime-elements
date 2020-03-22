@@ -169,13 +169,13 @@ export class PickerIconsExample {
     }
 
     private search(query: string): Promise<ListItem[]> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             if (query === '') {
                 resolve([]);
             }
             // Simulate some network delay
             setTimeout(() => {
-                const filteredItems = this.allItems.filter(item => {
+                const filteredItems = this.allItems.filter((item) => {
                     const searchText =
                         item.text.toLowerCase() +
                         ' ' +

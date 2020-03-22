@@ -36,13 +36,13 @@ export class Example {
         const path = this.path || type;
         const tsxUrl = `${BASE_URL}public/stencil/components/${path}/examples/${type}.tsx`;
 
-        this.fetchData(tsxUrl).then(tsxData => {
+        this.fetchData(tsxUrl).then((tsxData) => {
             this.tsxCode = prism.highlight(tsxData, prism.languages.tsx, 'tsx');
 
             const styleUrlMatch = tsxData.match(/styleUrl: '(.*)'/);
             if (styleUrlMatch) {
                 const scssUrl = `${BASE_URL}public/stencil/components/${path}/examples/${styleUrlMatch[1]}`;
-                this.fetchData(scssUrl).then(scssData => {
+                this.fetchData(scssUrl).then((scssData) => {
                     this.scssCode = prism.highlight(
                         scssData,
                         prism.languages.scss,
@@ -94,7 +94,7 @@ export class Example {
     }
 
     private fetchData(url) {
-        return fetch(url).then(data => {
+        return fetch(url).then((data) => {
             if (data.status === 404) { // tslint:disable-line:no-magic-numbers prettier
                 throw new Error('404');
             }

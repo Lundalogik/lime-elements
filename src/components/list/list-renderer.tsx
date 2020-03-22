@@ -31,11 +31,11 @@ export class ListRenderer {
         items = items || [];
         this.config = { ...this.defaultConfig, ...config };
 
-        this.twoLines = items.some(item => {
+        this.twoLines = items.some((item) => {
             return 'secondaryText' in item && !!item.secondaryText;
         });
 
-        this.hasIcons = items.some(item => {
+        this.hasIcons = items.some((item) => {
             return 'icon' in item && !!item.icon;
         });
 

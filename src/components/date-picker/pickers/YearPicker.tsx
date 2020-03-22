@@ -80,7 +80,7 @@ export class YearPicker extends Picker {
         const yearsInterval = 5;
         return (
             <div className="datepicker-years-container">
-                {range(-yearsInterval, yearsInterval).map(index => {
+                {range(-yearsInterval, yearsInterval).map((index) => {
                     const year = moment().add(index, 'years');
                     const renderedYear = this.renderYear(year, fp);
                     this.years.push(renderedYear);
@@ -107,7 +107,7 @@ export class YearPicker extends Picker {
 
     private selectYear(selectedDates, dateString) {
         if (!this.nativePicker) {
-            this.years.forEach(year => {
+            this.years.forEach((year) => {
                 if (
                     dateString !== '' &&
                     selectedDates[0] &&

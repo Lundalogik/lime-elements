@@ -83,7 +83,7 @@ export class Portal {
 
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
-        content.forEach(element => {
+        content.forEach((element) => {
             this.container.appendChild(element);
         });
     }
@@ -120,7 +120,7 @@ export class Portal {
             this.container.style.display = 'none';
         }
 
-        Object.keys(this.containerStyle).forEach(property => {
+        Object.keys(this.containerStyle).forEach((property) => {
             this.container.style[property] = this.containerStyle[property];
         });
     }

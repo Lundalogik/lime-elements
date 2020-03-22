@@ -8,7 +8,9 @@ interface RadioButtonTemplateProps {
     label?: string;
 }
 
-export const RadioButtonTemplate: FunctionalComponent<RadioButtonTemplateProps> = props => {
+export const RadioButtonTemplate: FunctionalComponent<RadioButtonTemplateProps> = (
+    props
+) => {
     return (
         <div class="mdc-form-field">
             <div

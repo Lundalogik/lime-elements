@@ -82,7 +82,7 @@ export class PickerMultipleExample {
     }
 
     private search(query: string): Promise<ListItem[]> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             // Simulate some network delay
             const NETWORK_DELAY = 500;
             setTimeout(() => {
@@ -92,7 +92,7 @@ export class PickerMultipleExample {
                     return;
                 }
 
-                const filteredItems = this.allItems.filter(item => {
+                const filteredItems = this.allItems.filter((item) => {
                     return item.text
                         .toLowerCase()
                         .includes(query.toLowerCase());

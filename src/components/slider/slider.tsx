@@ -114,7 +114,7 @@ export class Slider {
         this.mdcSlider.value = this.multiplyByFactor(this.value);
     }
 
-    private changeHandler = event => {
+    private changeHandler = (event) => {
         this.change.emit(event.detail.value / this.factor);
     };
 

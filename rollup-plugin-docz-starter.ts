@@ -20,7 +20,7 @@ function doczStarter() {
             const docz = spawn('npx', ['docz', 'dev']);
             started = true;
 
-            docz.on('close', code => {
+            docz.on('close', (code) => {
                 console.log('📔 - Closing Docz...', code);
             });
         },

@@ -60,8 +60,8 @@ export class TabBar {
 
     @Watch('tabs')
     protected tabsChanged(newTabs: Tab[], oldTabs: Tab[]) {
-        const newIds = newTabs.map(tab => tab.id);
-        const oldIds = oldTabs.map(tab => tab.id);
+        const newIds = newTabs.map((tab) => tab.id);
+        const oldIds = oldTabs.map((tab) => tab.id);
 
         if (isEqual(newIds, oldIds)) {
             return;
@@ -107,7 +107,7 @@ export class TabBar {
 
     private handleTabActivated(event: MDCTabBarActivatedEvent) {
         const index = event.detail.index;
-        const oldSelectedTab = this.tabs.find(tab => tab.active === true);
+        const oldSelectedTab = this.tabs.find((tab) => tab.active === true);
 
         if (oldSelectedTab) {
             this.changeTab.emit({ ...oldSelectedTab, active: false });

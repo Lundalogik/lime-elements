@@ -24,7 +24,9 @@ interface SelectTemplateProps {
     checkValid: boolean;
 }
 
-export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = props => {
+export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
+    props
+) => {
     let hasValue = !!props.value;
     if (isMultiple(props.value)) {
         hasValue = props.value.length > 0;
@@ -61,7 +63,7 @@ const SelectValue: FunctionalComponent<
     SelectTemplateProps & {
         hasValue: boolean;
     }
-> = props => {
+> = (props) => {
     const containerClassList = {
         'limel-select-trigger': true,
         'limel-select--focused': props.isOpen,
@@ -93,7 +95,7 @@ const SelectValue: FunctionalComponent<
     );
 };
 
-const HelperText: FunctionalComponent<{ text: string }> = props => {
+const HelperText: FunctionalComponent<{ text: string }> = (props) => {
     if (typeof props.text !== 'string') {
         return;
     }
@@ -108,7 +110,7 @@ const HelperText: FunctionalComponent<{ text: string }> = props => {
     );
 };
 
-const SelectDropdown: FunctionalComponent<SelectTemplateProps> = props => {
+const SelectDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
     if (props.native) {
         return <NativeDropdown {...props} />;
     }
@@ -116,7 +118,7 @@ const SelectDropdown: FunctionalComponent<SelectTemplateProps> = props => {
     return <MenuDropdown {...props} />;
 };
 
-const MenuDropdown: FunctionalComponent<SelectTemplateProps> = props => {
+const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
     const items = createMenuItems(props.options, props.value);
 
     return (
@@ -132,7 +134,7 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = props => {
     );
 };
 
-const NativeDropdown: FunctionalComponent<SelectTemplateProps> = props => {
+const NativeDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
     return (
         <select
             required={props.required}
@@ -144,7 +146,7 @@ const NativeDropdown: FunctionalComponent<SelectTemplateProps> = props => {
             disabled={props.disabled}
             multiple={props.multiple}
         >
-            {props.options.map(option => {
+            {props.options.map((option) => {
                 return (
                     <option
                         key={option.value}
@@ -166,7 +168,7 @@ function isSelected(option: Option, value: Option | Option[]): boolean {
     }
 
     if (isMultiple(value)) {
-        return value.some(o => option.value === o.value);
+        return value.some((o) => option.value === o.value);
     }
 
     return option.value === value.value;
@@ -176,7 +178,7 @@ function createMenuItems(
     options: Option[],
     value: Option | Option[]
 ): Array<ListItem<Option>> {
-    return options.map(option => {
+    return options.map((option) => {
         const selected = isSelected(option, value);
         const { text, disabled } = option;
 
@@ -195,7 +197,7 @@ function getSelectedText(value: Option | Option[]): string {
     }
 
     if (isMultiple(value)) {
-        return value.map(option => option.text).join(', ');
+        return value.map((option) => option.text).join(', ');
     }
 
     return value.text;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const FieldTemplate = props => {
+export const FieldTemplate = (props) => {
     const { classNames, children } = props;
     return React.createElement(
         'div',

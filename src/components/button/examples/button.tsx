@@ -54,7 +54,7 @@ export class ButtonExample {
             },
         ];
 
-        return controls.map(control => {
+        return controls.map((control) => {
             return (
                 <limel-switch
                     label={control.label}
