@@ -13,7 +13,7 @@ export const config: Config = {
         {
             type: 'www',
             serviceWorker: null,
-            dir: '.docz/public/stencil',
+            dir: '.docz/static/stencil',
             copy: [
                 { src: 'components/**/examples/**/*.tsx' },
                 { src: 'components/**/examples/**/*.scss' },
