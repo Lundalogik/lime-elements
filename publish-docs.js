@@ -266,9 +266,21 @@ function commit(message) {
     shell.exec('git add -A --ignore-errors');
 
     if (dryRun) {
-        shell.exec('git status');
+        shell.echo('-----');
+        shell.echo('-----');
+        shell.echo('-----');
+        shell.echo('-----');
+        shell.echo('-----');
         shell.echo('Dry-run, so skipping commit.');
+        shell.echo('ls -la versions/0.0.0-dev/public/stencil/components/tab-panel:');
         shell.exec('ls -la versions/0.0.0-dev/public/stencil/components/tab-panel');
+        shell.echo('git status --ignored:')
+        shell.exec('git status --ignored');
+        shell.echo('-----');
+        shell.echo('-----');
+        shell.echo('-----');
+        shell.echo('-----');
+        shell.echo('-----');
     } else if (
         shell.exec(
             `git commit -m "${message}"`
