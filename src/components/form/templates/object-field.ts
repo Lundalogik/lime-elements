@@ -1,8 +1,23 @@
 import React from 'react';
-import { renderDescription, renderTitle } from './common';
+import {
+    renderDescription,
+    renderTitle,
+    renderCustomTemplateAdapter,
+} from './common';
 import { ObjectFieldProperty, ObjectFieldTemplateProps } from './types';
 
 export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
+    const { schema } = props;
+
+    if (schema.lime?.template?.name) {
+        console.log(
+            'rendering custom template adapter',
+            schema.lime?.template?.name,
+            props
+        );
+        return renderCustomTemplateAdapter(props);
+    }
+
     const id = props.idSchema.$id;
     if (id === 'root' || !isCollapsible(props.schema)) {
         return renderFieldWithTitle(props);

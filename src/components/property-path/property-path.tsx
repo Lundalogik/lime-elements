@@ -9,6 +9,7 @@ import {
     Event,
 } from '@stencil/core';
 import { Option } from '@limetech/lime-elements';
+import { FieldProps } from '../form/fields/types';
 
 const API_VERSION = 'v1';
 
@@ -132,12 +133,9 @@ export class PropertyPath {
     public label: string;
 
     @Prop()
-    public widgetProps: any;
+    public fieldProps: FieldProps;
 
-    @Prop({ reflect: true })
-    public value: string = null;
-
-    @Watch('value')
+    @Watch('fieldProps')
     valueUpdated() {
         this.initialize();
     }
@@ -372,11 +370,12 @@ export class PropertyPath {
     }
 
     private getValueDotNotationArray() {
-        if (this.value === null || this.value === undefined) {
+        const { formData } = this.fieldProps;
+        if (formData === null || formData === undefined) {
             return [];
         }
 
-        const arr = this.value.split('.');
+        const arr = formData.split('.');
 
         if (arr.length === 1 && arr[0] === '') {
             return [];

@@ -19,20 +19,7 @@ import {
 } from './templates';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
-import SchemaField from 'react-jsonschema-form/lib/components/fields/SchemaField';
-import { WebComponent } from './widgets/web-component';
-
-const CustomSchemaField = props => {
-    if (props.schema.lime?.component?.name) {
-        console.log('rendering custom web element', props);
-        return React.createElement(WebComponent, {
-            ...props,
-            value: props.formData,
-        });
-    }
-
-    return React.createElement(SchemaField, props);
-};
+import { SchemaField as CustomSchemaField } from './fields/schema-field';
 
 @Component({
     tag: 'limel-form',
@@ -77,6 +64,7 @@ export class Form {
 
     public constructor() {
         this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.setForm = this.setForm.bind(this);
     }
 
@@ -106,6 +94,8 @@ export class Form {
 
     private reactRender() {
         const rootElement = this.host.shadowRoot.querySelector('.root');
+
+        console.log('rendering form', this.value);
 
         render(
             React.createElement(

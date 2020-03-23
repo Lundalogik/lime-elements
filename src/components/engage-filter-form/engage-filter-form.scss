@@ -31,7 +31,7 @@
             left: 0;
             border-top: 1px solid #ccc;
             height: 50%;
-            width: 1em;
+            width: 1rem;
         }
     }
 
@@ -46,13 +46,14 @@
             left: -1rem;
             border-top: 1px solid #ccc;
             height: 50%;
-            width: 1em;
+            width: 1rem;
         }
     }
 
     .first-node {
         padding-left: 1rem;
         padding-bottom: 0.5rem;
+        position: relative;
 
         &::before {
             content: '';
@@ -62,13 +63,14 @@
             border-left: 1px solid #ccc;
             border-top: 1px solid #ccc;
             height: 50%;
-            width: 1em;
+            width: 1rem;
         }
     }
 
     .second-node {
         padding-left: 1rem;
         padding-top: 0.5rem;
+        position: relative;
 
         &::before {
             content: '';
@@ -78,7 +80,7 @@
             border-left: 1px solid #ccc;
             border-bottom: 1px solid #ccc;
             height: 50%;
-            width: 1em;
+            width: 1rem;
         }
     }
 }

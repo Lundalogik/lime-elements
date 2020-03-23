@@ -31,6 +31,13 @@ export const config: Config = {
                 'render',
                 'unmountComponentAtNode',
             ],
+            'node_modules/react/index.js': [
+                'useRef',
+                'useEffect',
+                'useCallback',
+                'useMemo',
+                'useState',
+            ],
         },
     },
     plugins: [sass(), doczStarter()],
