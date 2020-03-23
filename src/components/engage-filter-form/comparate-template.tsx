@@ -5,26 +5,19 @@ import {
 } from '../form/templates/types';
 
 @Component({
-    tag: 'limel-comparison-expression',
+    tag: 'limel-comparate-template',
     shadow: true,
     styleUrl: 'engage-filter-form.scss',
 })
-export class ComparisionExpressionComponent {
+export class ComparateComponent {
     @Prop()
     public templateProps: ObjectFieldTemplateProps;
 
     render() {
         return (
-            <limel-flex-container
-                direction="vertical"
-                class="flex-1 no-wrap node"
-                align="stretch"
-            >
-                <react-render content={this.getProperty('left').content} />
-                <react-render
-                    content={this.getProperty('comparator').content}
-                />
-                <react-render content={this.getProperty('right').content} />
+            <limel-flex-container>
+                <react-render content={this.getProperty('type').content} />
+                <react-render content={this.getProperty('value').content} />
             </limel-flex-container>
         );
     }

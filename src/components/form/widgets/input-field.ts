@@ -2,7 +2,7 @@ import React from 'react';
 import { InputType } from '@limetech/lime-elements';
 import { isIntegerType, isNumberType } from '../schema';
 import { WidgetProps } from './types';
-import { LimeElementsAdapter } from './adapter';
+import { LimeElementsWidgetAdapter } from '../adapter';
 
 export class InputField extends React.Component {
     constructor(public props: WidgetProps) {
@@ -16,17 +16,16 @@ export class InputField extends React.Component {
         const step: number | 'any' = getStepSize(props.schema);
         const additionalProps = getAdditionalProps(props.schema);
 
-        const schemaProps = props.schema.lime?.component?.props || {};
-
-        return React.createElement(LimeElementsAdapter, {
+        return React.createElement(LimeElementsWidgetAdapter, {
             name: 'limel-input-field',
             value: props.value,
-            onChange: this.handleChange,
+            events: {
+                change: this.handleChange,
+            },
             widgetProps: props,
             extraProps: {
                 step: step,
                 type: type,
-                ...schemaProps,
                 ...additionalProps,
             },
         });

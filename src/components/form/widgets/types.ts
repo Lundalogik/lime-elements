@@ -3,12 +3,19 @@ export interface WidgetProps {
     label: string;
     schema: any;
     value: any;
+    formData: any;
+    registry: any;
     placeholder: string;
     required: boolean;
     disabled: boolean;
     readonly: boolean;
     autofocus: boolean;
-    onChange: (value: any) => void;
+    errorSchema: any;
+    idSchema: any;
+    idPrefix: any;
+    onDropPropertyClick: (key: any) => void;
+    onKeyChange: (value: any, errorSchema?: any) => void;
+    onChange: (value: any, errorSchema?: any) => void;
     onBlur: (id: string, value: any) => void;
     onFocus: (id: string, value: any) => void;
     options: {

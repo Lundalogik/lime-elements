@@ -31,7 +31,7 @@ export interface ObjectFieldTemplateProps extends TemplateProps {
     description: string;
     properties: ObjectFieldProperty[];
     idSchema: any;
-    formData: object;
+    formData: any;
 }
 
 export interface ObjectFieldProperty {

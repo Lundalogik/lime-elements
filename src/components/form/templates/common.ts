@@ -1,6 +1,8 @@
 import { get, isEmpty } from 'lodash-es';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { isArrayType, isObjectType } from '../schema';
+import { LimeElementsAdapter } from '../adapter';
+import { TemplateProps } from './types';
 
 export function renderTitle(title: string) {
     if (!title) {
@@ -63,6 +65,26 @@ export function findTitle(data: any, fieldSchema: any, formSchema: any) {
 
     const [key, value] = firstEntry;
     return findTitle(value, subSchema.properties[key], formSchema);
+}
+
+/**
+ * Renders a custom template adapter. To be used to override the default template in react-jsonschema-form
+ * for a specific subSchema
+ *
+ * @param {TemplateProps} templateProps The template props
+ *
+ * @returns {ReactElement} The element
+ */
+export function renderCustomTemplateAdapter(
+    templateProps: TemplateProps
+): ReactElement {
+    return React.createElement(LimeElementsAdapter, {
+        name: templateProps.schema.lime?.template?.name,
+        elementProps: {
+            templateProps: templateProps,
+            ...(templateProps.schema.lime?.template?.props || {}),
+        },
+    });
 }
 
 function sortDataByProperties(data: any, properties: object) {

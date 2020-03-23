@@ -2,7 +2,11 @@ import React from 'react';
 import { isObjectType } from '../schema';
 import { CollapsibleItemTemplate } from './array-field-collapsible-item';
 import { SimpleItemTemplate } from './array-field-simple-item';
-import { renderDescription, renderTitle } from './common';
+import {
+    renderDescription,
+    renderTitle,
+    renderCustomTemplateAdapter,
+} from './common';
 import { ArrayFieldItem, ArrayFieldTemplateProps } from './types';
 
 export class ArrayFieldTemplate extends React.Component {
@@ -13,6 +17,10 @@ export class ArrayFieldTemplate extends React.Component {
     }
 
     public render() {
+        if (this.props.schema.lime?.template?.name) {
+            return renderCustomTemplateAdapter(this.props);
+        }
+
         return React.createElement(
             'div',
             {},

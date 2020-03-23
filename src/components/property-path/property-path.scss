@@ -8,6 +8,7 @@
 
 .path-text {
     padding-right: 1rem;
+    white-space: nowrap;
 
     &:hover {
         + .path-delete {
