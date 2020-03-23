@@ -265,7 +265,11 @@ function commit(message) {
 
     shell.exec('git add -A --ignore-errors');
 
-    if (
+    if (dryRun) {
+        shell.exec('git status');
+        shell.echo('Dry-run, so skipping commit.');
+        shell.exec('ls -la versions/0.0.0-dev/public/stencil/components/tab-panel');
+    } else if (
         shell.exec(
             `git commit -m "${message}"`
             /* `git commit --author "$GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL>" -m "${message}"` */
@@ -284,7 +288,6 @@ function push() {
     shell.cd('docsDist');
 
     if (dryRun) {
-        shell.exec('git log -1');
         shell.echo('Dry-run, so skipping push.');
     } else if (
         shell.exec(

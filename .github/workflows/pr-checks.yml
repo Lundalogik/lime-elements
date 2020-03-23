@@ -2,6 +2,27 @@ name: Pull Request Checks
 on: [pull_request]
 
 jobs:
+  test-docs:
+    name: Dry-run publish docs
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
+      GIT_AUTHOR_NAME: Lime CI
+      GIT_AUTHOR_EMAIL: developer@lime.tech
+      CI: true
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: npm install
+      run: |
+        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
+        npm ci
+        rm .npmrc
+    - run: npm run docz:publish -- --dryRun
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
