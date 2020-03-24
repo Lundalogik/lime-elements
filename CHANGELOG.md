@@ -1,3 +1,10 @@
+## [26.11.4](https://github.com/Lundalogik/lime-elements/compare/v26.11.3...v26.11.4) (2020-03-24)
+
+
+### Bug Fixes
+
+* **tab-bar:** style icon in tab bar ([f1a48ee](https://github.com/Lundalogik/lime-elements/commit/f1a48ee7fceb095ba816c39e96516f5870106c0b))
+
 ## [26.11.3](https://github.com/Lundalogik/lime-elements/compare/v26.11.2...v26.11.3) (2020-03-19)
 
 
