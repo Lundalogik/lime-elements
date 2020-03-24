@@ -1,3 +1,7 @@
+export * from './widgets/types';
+export * from './templates/types';
+export * from './fields/types';
+
 export interface ValidationStatus {
     /**
      * True if the form is valid, false otherwise
