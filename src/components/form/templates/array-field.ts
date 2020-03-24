@@ -6,6 +6,7 @@ import {
     renderDescription,
     renderTitle,
     renderCustomTemplateAdapter,
+    hasOverridenTemplate,
 } from './common';
 import { ArrayFieldItem, ArrayFieldTemplateProps } from './types';
 
@@ -17,7 +18,7 @@ export class ArrayFieldTemplate extends React.Component {
     }
 
     public render() {
-        if (this.props.schema.lime?.template?.name) {
+        if (hasOverridenTemplate(this.props.schema)) {
             return renderCustomTemplateAdapter(this.props);
         }
 

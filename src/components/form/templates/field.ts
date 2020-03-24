@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderCustomTemplateAdapter } from './common';
+import { renderCustomTemplateAdapter, hasOverridenTemplate } from './common';
 
 export const FieldTemplate = props => {
     const { classNames, children, schema } = props;
@@ -10,7 +10,7 @@ export const FieldTemplate = props => {
     if (
         schema.type !== 'object' &&
         schema.type !== 'array' &&
-        schema.lime?.template?.name
+        hasOverridenTemplate(schema)
     ) {
         return renderCustomTemplateAdapter(props);
     }

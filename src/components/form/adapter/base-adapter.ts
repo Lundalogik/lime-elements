@@ -1,59 +1,62 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { isNil, isNumber, isString, isBoolean } from 'lodash-es';
-
-// Keeps track of previous value
-const usePrevious = <T = any>(value: T): T | undefined => {
-    const ref = useRef<T>();
-    useEffect(() => {
-        ref.current = value;
-    });
-    return ref.current;
-};
 
 // Checks if value is a primitive
 const isPrimitive = value =>
     isNil(value) || isNumber(value) || isString(value) || isBoolean(value);
 
-export const LimeElementsAdapter = ({
-    name,
-    events = {},
-    elementProps = {},
-}: {
-    name: string;
-    events?: any;
-    elementProps?: any;
-}) => {
-    const component = useRef(null);
-    const prevElementProps = usePrevious(elementProps);
+export class LimeElementsAdapter extends React.Component {
+    component = null;
 
-    const setComponentProperty = ([key, value]: [string, any]) => {
-        const element = component.current;
-        element[key] = value;
+    static defaultProps = {
+        events: {},
+        elementProps: {},
     };
 
-    const getHandler = eventName => {
+    constructor(
+        public props: {
+            name: string;
+            events?: any;
+            elementProps?: any;
+        }
+    ) {
+        super(props);
+
+        this.component = React.createRef();
+
+        this.setComponentProperty = this.setComponentProperty.bind(this);
+    }
+
+    setComponentProperty([key, value]: [string, any]) {
+        const element = this.component.current;
+        element[key] = value;
+    }
+
+    getHandler(eventName) {
+        const { events } = this.props;
         return event => {
-            console.log('[EVENT] Stoppping propagation', event);
             event.stopPropagation();
             events[eventName](event);
         };
-    };
+    }
 
-    const setEvents = () => {
-        const element = component.current;
+    setEvents() {
+        const { events } = this.props;
+        const element = this.component.current;
         for (const event of Object.keys(events)) {
-            element.addEventListener(event, getHandler(event));
+            element.addEventListener(event, this.getHandler(event));
         }
-    };
+    }
 
-    const removeEvents = () => {
-        const element = component.current;
+    removeEvents() {
+        const { events } = this.props;
+        const element = this.component.current;
         for (const event of Object.keys(events)) {
             element.removeEventListener(event, events[event]);
         }
-    };
+    }
 
-    const getNonPrimitiveProps = () => {
+    getNonPrimitiveProps(elementProps) {
         const nonPrimitiveProps = {};
         for (const propName of Object.keys(elementProps)) {
             if (!isPrimitive(elementProps[propName])) {
@@ -62,9 +65,9 @@ export const LimeElementsAdapter = ({
         }
 
         return nonPrimitiveProps;
-    };
+    }
 
-    const getPrimitiveProps = () => {
+    getPrimitiveProps(elementProps) {
         const primitiveProps = {};
         for (const propName of Object.keys(elementProps)) {
             if (isPrimitive(elementProps[propName])) {
@@ -73,10 +76,10 @@ export const LimeElementsAdapter = ({
         }
 
         return primitiveProps;
-    };
+    }
 
-    const setNonPrimitives = () => {
-        const nonPrimitiveProps = getNonPrimitiveProps();
+    setNonPrimitives(prevElementProps, elementProps) {
+        const nonPrimitiveProps = this.getNonPrimitiveProps(elementProps);
         Object.entries(nonPrimitiveProps)
             .filter(([key, value]) => {
                 // If no previous props, set all properties
@@ -87,25 +90,29 @@ export const LimeElementsAdapter = ({
                 // otherwise check if prop has changed
                 return prevElementProps[key] !== value;
             })
-            .forEach(setComponentProperty);
-    };
+            .forEach(this.setComponentProperty);
+    }
 
-    // Set events on mount and remove events on unmount
-    useEffect(() => {
-        setEvents();
+    componentDidMount() {
+        this.setNonPrimitives(null, this.props.elementProps);
 
-        return () => {
-            removeEvents();
-        };
-    }, []);
+        this.setEvents();
+    }
 
-    // Update non primitives on mount and when component is updated
-    useEffect(() => {
-        setNonPrimitives();
-    }, [elementProps]);
+    componentWillUnmount() {
+        this.removeEvents();
+    }
 
-    return React.createElement(name, {
-        ...getPrimitiveProps(),
-        ref: component,
-    });
-};
+    componentDidUpdate(prevProps) {
+        this.setNonPrimitives(prevProps.elementProps, this.props.elementProps);
+    }
+
+    render() {
+        const { name, elementProps } = this.props;
+
+        return React.createElement(name, {
+            ...this.getPrimitiveProps(elementProps),
+            ref: this.component,
+        });
+    }
+}

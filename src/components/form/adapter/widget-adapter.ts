@@ -1,10 +1,4 @@
-import React, {
-    useState,
-    useCallback,
-    useMemo,
-    useEffect,
-    useRef,
-} from 'react';
+import React from 'react';
 import { WidgetProps } from '../widgets/types';
 import { LimeElementsAdapter } from './base-adapter';
 
@@ -12,33 +6,27 @@ function capitalize(text: string = '') {
     return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-export const LimeElementsWidgetAdapter = ({
-    name,
-    value,
-    widgetProps,
-    extraProps = {},
-    events = {},
-}: {
-    name: string;
-    value?: any;
-    widgetProps: WidgetProps;
-    extraProps?: any;
-    events?: { [key: string]: (event: any) => void };
-}) => {
-    const {
-        schema,
-        rawErrors,
-        label,
-        required,
-        disabled,
-        onChange,
-        value: widgetValue,
-    } = widgetProps;
+export class LimeElementsWidgetAdapter extends React.Component {
+    state = {
+        modified: false,
+    };
 
-    // Use widgetValue unless its overriden in widget
-    value = value || widgetValue;
+    constructor(
+        public props: {
+            name: string;
+            value?: any;
+            widgetProps: WidgetProps;
+            extraProps?: any;
+            events?: { [key: string]: (event: any) => void };
+        }
+    ) {
+        super(props);
 
-    const hasValue = () => {
+        this.handleBlur = this.handleBlur.bind(this);
+    }
+
+    hasValue() {
+        const value = this.getValue();
         if (!value) {
             return false;
         }
@@ -52,35 +40,47 @@ export const LimeElementsWidgetAdapter = ({
         }
 
         return true;
-    };
+    }
 
-    const [modified, setModified] = useState(hasValue());
+    handleBlur() {
+        this.setState({ modified: true });
+    }
 
-    const handleBlur = useCallback(() => setModified(true), []);
+    getLabel() {
+        const {
+            widgetProps: { schema, label },
+        } = this.props;
 
-    events = useMemo(
-        () => ({ change: onChange, blur: handleBlur, ...events }),
-        [onChange, handleBlur, events]
-    );
-
-    const getLabel = () => {
         return label || schema.title;
-    };
+    }
 
-    const isInvalid = () => {
+    isInvalid() {
+        const { modified } = this.state;
+        const {
+            widgetProps: { rawErrors },
+        } = this.props;
+
         if (!modified) {
             return false;
         }
 
         return !!rawErrors;
-    };
+    }
 
-    const isRequired = () => {
+    isRequired() {
+        const {
+            widgetProps: { required, schema },
+        } = this.props;
+
         return required || schema.minItems > 0;
-    };
+    }
 
-    const getHelperText = () => {
-        if (!isInvalid()) {
+    getHelperText() {
+        const {
+            widgetProps: { rawErrors, schema },
+        } = this.props;
+
+        if (!this.isInvalid()) {
             return schema.description;
         }
 
@@ -89,20 +89,48 @@ export const LimeElementsWidgetAdapter = ({
         }
 
         return schema.description;
-    };
+    }
 
-    return React.createElement(LimeElementsAdapter, {
-        name: name,
-        elementProps: {
-            value: value,
-            label: getLabel(),
-            disabled: disabled,
-            required: isRequired(),
-            invalid: isInvalid(),
-            'helper-text': getHelperText(),
-            widgetProps: widgetProps,
-            ...extraProps,
-        },
-        events: events,
-    });
-};
+    getValue() {
+        const {
+            value,
+            widgetProps: { value: widgetValue },
+        } = this.props;
+
+        // Use widgetValue unless its overriden in widget
+        return value || widgetValue;
+    }
+
+    render() {
+        const {
+            name,
+            events,
+            extraProps,
+            widgetProps,
+            widgetProps: { disabled, onChange },
+        } = this.props;
+
+        const value = this.getValue();
+
+        const newEvents = {
+            change: onChange,
+            blur: this.handleBlur,
+            ...events,
+        };
+
+        return React.createElement(LimeElementsAdapter, {
+            name: name,
+            elementProps: {
+                value: value,
+                label: this.getLabel(),
+                disabled: disabled,
+                required: this.isRequired(),
+                invalid: this.isInvalid(),
+                'helper-text': this.getHelperText(),
+                widgetProps: widgetProps,
+                ...extraProps,
+            },
+            events: newEvents,
+        });
+    }
+}

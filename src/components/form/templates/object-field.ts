@@ -3,18 +3,15 @@ import {
     renderDescription,
     renderTitle,
     renderCustomTemplateAdapter,
+    hasOverridenTemplate,
 } from './common';
 import { ObjectFieldProperty, ObjectFieldTemplateProps } from './types';
 
 export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     const { schema } = props;
 
-    if (schema.lime?.template?.name) {
-        console.log(
-            'rendering custom template adapter',
-            schema.lime?.template?.name,
-            props
-        );
+    if (hasOverridenTemplate(schema)) {
+        console.log('rendering custom template adapter', props);
         return renderCustomTemplateAdapter(props);
     }
 
