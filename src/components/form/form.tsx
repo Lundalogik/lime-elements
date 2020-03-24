@@ -64,7 +64,6 @@ export class Form {
 
     public constructor() {
         this.handleChange = this.handleChange.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.setForm = this.setForm.bind(this);
     }
 

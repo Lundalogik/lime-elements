@@ -78,14 +78,35 @@ export function findTitle(data: any, fieldSchema: any, formSchema: any) {
 export function renderCustomTemplateAdapter(
     templateProps: TemplateProps
 ): ReactElement {
+    const { name, props: overridenTemplateProps } = getOverridenTemplate(
+        templateProps.schema
+    );
+
+    console.log('Rendering custom element adapter', name, {
+        templateProps: templateProps,
+        ...overridenTemplateProps,
+    });
     return React.createElement(LimeElementsAdapter, {
-        name: templateProps.schema.lime?.template?.name,
+        name: name,
         elementProps: {
             templateProps: templateProps,
-            ...(templateProps.schema.lime?.template?.props || {}),
+            ...overridenTemplateProps,
         },
     });
 }
+
+export const hasOverridenTemplate = (schema): boolean => {
+    return Boolean(schema.lime?.overrides?.template?.name);
+};
+
+export const getOverridenTemplate = (
+    schema
+): { name: string; props: { [key: string]: any } } => {
+    const name = schema.lime?.overrides?.template?.name;
+    const props = schema.lime?.overrides?.template?.props || {};
+
+    return { name: name, props: props };
+};
 
 function sortDataByProperties(data: any, properties: object) {
     if (!properties || isEmpty(properties)) {
