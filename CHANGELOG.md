@@ -1,3 +1,10 @@
+# [26.12.0](https://github.com/Lundalogik/lime-elements/compare/v26.11.4...v26.12.0) (2020-03-25)
+
+
+### Features
+
+* **tabs:** new tab-bar and tab-panel components ([857bbab](https://github.com/Lundalogik/lime-elements/commit/857bbab106e615c00a1648931d5df0b388b248a6)), closes [#627](https://github.com/Lundalogik/lime-elements/issues/627) [#631](https://github.com/Lundalogik/lime-elements/issues/631) [#636](https://github.com/Lundalogik/lime-elements/issues/636)
+
 ## [26.11.4](https://github.com/Lundalogik/lime-elements/compare/v26.11.3...v26.11.4) (2020-03-24)
 
 
