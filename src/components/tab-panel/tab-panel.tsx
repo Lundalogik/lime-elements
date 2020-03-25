@@ -20,11 +20,11 @@ export class TabPanel {
     @Prop({ mutable: true })
     public tabs: Tab[] = [];
 
-    @Element()
-    private host: HTMLElement;
-
     @Event()
     protected changeTab: EventEmitter<Tab>;
+
+    @Element()
+    private host: HTMLElement;
 
     private slotElements: HTMLElement[];
 

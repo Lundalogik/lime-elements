@@ -20,20 +20,20 @@ const { TAB_ACTIVATED_EVENT } = strings;
     shadow: true,
 })
 export class TabBar {
-    @Element()
-    private host: HTMLElement;
-
     /**
      * List of tabs to display
      */
     @Prop()
     public tabs: Tab[];
 
-    private mdcTabBar: MDCTabBar;
-    private setupMdc = false;
-
     @Event()
     private changeTab: EventEmitter<Tab>;
+
+    @Element()
+    private host: HTMLElement;
+
+    private mdcTabBar: MDCTabBar;
+    private setupMdc = false;
 
     constructor() {
         this.handleTabActivated = this.handleTabActivated.bind(this);
