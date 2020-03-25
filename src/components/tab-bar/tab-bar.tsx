@@ -10,7 +10,6 @@ import {
 import { MDCTabBar, MDCTabBarActivatedEvent } from '@limetech/mdc-tab-bar';
 import { strings } from '@limetech/mdc-tab-bar/constants';
 import { Tab } from './tab.types';
-import config from '../../global/config';
 import { isEqual } from 'lodash-es';
 
 const { TAB_ACTIVATED_EVENT } = strings;
@@ -22,7 +21,7 @@ const { TAB_ACTIVATED_EVENT } = strings;
 })
 export class TabBar {
     @Element()
-    private element: HTMLElement;
+    private host: HTMLElement;
 
     /**
      * List of tabs to display
@@ -72,7 +71,7 @@ export class TabBar {
     }
 
     private setup() {
-        const element = this.element.shadowRoot.querySelector('.mdc-tab-bar');
+        const element = this.host.shadowRoot.querySelector('.mdc-tab-bar');
         if (!element) {
             return;
         }
@@ -83,7 +82,7 @@ export class TabBar {
         (this
             .mdcTabBar as any).foundation_.adapter_.getFocusedTabIndex = () => {
             const tabElements = this.getTabElements();
-            const activeElement = this.element.shadowRoot.activeElement;
+            const activeElement = this.host.shadowRoot.activeElement;
             return tabElements.indexOf(activeElement);
         };
 
@@ -96,9 +95,7 @@ export class TabBar {
     }
 
     private getTabElements() {
-        return [].slice.call(
-            this.element.shadowRoot.querySelectorAll('.mdc-tab')
-        );
+        return [].slice.call(this.host.shadowRoot.querySelectorAll('.mdc-tab'));
     }
 
     private setupListeners() {
@@ -117,11 +114,6 @@ export class TabBar {
     }
 
     public render() {
-        const featFlag = config.featureSwitches.enableTabs;
-        if (!featFlag) {
-            return;
-        }
-
         return (
             <div class="mdc-tab-bar" role="tablist">
                 <div class="mdc-tab-scroller">
