@@ -1,3 +1,10 @@
+## [26.12.1](https://github.com/Lundalogik/lime-elements/compare/v26.12.0...v26.12.1) (2020-03-26)
+
+
+### Bug Fixes
+
+* **icon:** remove unnecessary `console.error` logging ([f191ade](https://github.com/Lundalogik/lime-elements/commit/f191adef095a69ddadb8b2fb5089587b68d18b9b))
+
 # [26.12.0](https://github.com/Lundalogik/lime-elements/compare/v26.11.4...v26.12.0) (2020-03-25)
 
 
