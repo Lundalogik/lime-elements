@@ -10,7 +10,8 @@ import {
 import { Tab } from '../tab-bar/tab.types';
 
 /**
- * @slot - Content to put inside the `tab-panel`. Each slotted element must have the `id` attribute equal to the id of the tab it belongs to.
+ * @slot - Content to put inside the `tab-panel`. Each slotted element must
+ *         have the `id` attribute equal to the id of the tab it belongs to.
  */
 @Component({
     tag: 'limel-tab-panel',
@@ -20,11 +21,11 @@ export class TabPanel {
     @Prop({ mutable: true })
     public tabs: Tab[] = [];
 
-    @Element()
-    private host: HTMLElement;
-
     @Event()
     protected changeTab: EventEmitter<Tab>;
+
+    @Element()
+    private host: HTMLElement;
 
     private slotElements: HTMLElement[];
 
