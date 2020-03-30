@@ -1,3 +1,12 @@
+# [26.13.0](https://github.com/Lundalogik/lime-elements/compare/v26.12.1...v26.13.0) (2020-03-30)
+
+
+### Features
+
+* **list:** adds action menu to list item ([6ec77f0](https://github.com/Lundalogik/lime-elements/commit/6ec77f0a09159786eb6959fd59b506aff819dba7))
+* **menu:** use limel-portal ([745638f](https://github.com/Lundalogik/lime-elements/commit/745638f7c355bb877b28d94f035c7e661071322b))
+* **menu-surface:** adds support for full or auto width ([126bef2](https://github.com/Lundalogik/lime-elements/commit/126bef296131435e05d85c574c162f6f1d12f480))
+
 ## [26.12.1](https://github.com/Lundalogik/lime-elements/compare/v26.12.0...v26.12.1) (2020-03-26)
 
 
