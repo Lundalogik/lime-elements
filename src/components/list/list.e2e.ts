@@ -220,48 +220,5 @@ describe('limel-list', () => {
                 });
             });
         });
-        describe('is set as `menu`', () => {
-            let items;
-            beforeEach(async () => {
-                page = await newE2EPage({
-                    html: '<limel-list type="menu"></limel-list>',
-                });
-                limelList = await page.find('limel-list');
-                innerList = await page.find('limel-list>>>ul');
-                items = [{ text: 'item 1' }];
-                await limelList.setProperty('items', items);
-                await page.waitForChanges();
-            });
-            it('is selectable', () => {
-                expect(innerList).toHaveClass('selectable');
-            });
-            it('has the value `menu`', async () => {
-                const propValue = await limelList.getProperty('type');
-                expect(propValue).toBe('menu');
-            });
-            describe('the `change` event', () => {
-                let spy;
-                beforeEach(async () => {
-                    spy = await page.spyOnEvent('change');
-                });
-                describe('when an item is selected', () => {
-                    let item;
-                    beforeEach(async () => {
-                        item = await innerList.find('li');
-                        await item.click();
-                        await page.waitFor(20); // Give the event a chance to bubble.
-                    });
-                    it('is emitted', () => {
-                        expect(spy).toHaveReceivedEventTimes(1);
-                    });
-                    it('passes the selected item as the event details but as not selected', () => {
-                        expect(spy).toHaveReceivedEventDetail({
-                            ...items[0],
-                            selected: false,
-                        });
-                    });
-                });
-            });
-        });
     });
 });
