@@ -1,5 +1,10 @@
 @import '../../style/internal/mdc-variables';
 
+@import "@limetech/mdc-list/mdc-list";
+@import "@limetech/mdc-menu/mdc-menu";
+@import "@limetech/mdc-menu-surface/mdc-menu-surface";
+@import "../list/list.scss";
+
 $menu-item-background-color: #ebebeb;
 
 :host {
@@ -26,15 +31,10 @@ $menu-item-background-color: #ebebeb;
     }
 }
 
-.mdc-menu-surface--anchor {
-    position: relative;
+.mdc-list-item[role="menuitem"] {
+    font-size: pxToRem(13);
 
-    limel-portal {
-        position: absolute;
-
-        :host(*[open-direction="left"]) & {
-            right: 0;
-            bottom: 0;
-        }
+    .mdc-list-item__graphic {
+        margin-right: pxToRem(14);
     }
 }

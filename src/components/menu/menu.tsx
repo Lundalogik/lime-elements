@@ -1,7 +1,16 @@
 import { ListItem, ListSeparator } from '@limetech/lime-elements';
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
-import { createRandomString } from '../../util/random-string';
-import { OpenDirection } from './menu.types';
+import { Corner, MDCMenu } from '@limetech/mdc-menu';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+    Watch,
+} from '@stencil/core';
+import { ListRenderer } from '../list/list-renderer';
+import { ListRendererConfig } from '../list/list-renderer-config';
 
 /**
  * @slot trigger - Element to use as a trigger for the menu
@@ -31,12 +40,6 @@ export class Menu {
     public disabled = false;
 
     /**
-     * Decides if the menu should open right or left. Defaults to right.
-     */
-    @Prop({ reflectToAttr: true })
-    public openDirection: OpenDirection = 'right';
-
-    /**
      * Sets the open state of the menu.
      */
     @Prop({ mutable: true, reflectToAttr: true })
@@ -58,37 +61,59 @@ export class Menu {
      * Is emitted when a menu item is selected.
      */
     @Event()
-    private select: EventEmitter<ListItem | ListItem[]>;
+    private select: EventEmitter<ListItem>;
 
-    private portalId: string;
+    @Element()
+    private element: HTMLElement;
+
+    private menu: MDCMenu;
+    private listRenderer = new ListRenderer();
 
     constructor() {
-        this.portalId = createRandomString();
+        this.handleMdcSelected = this.handleMdcSelected.bind(this);
+        this.handleMdcClosed = this.handleMdcClosed.bind(this);
+    }
+
+    public componentDidLoad() {
+        const menuElement = this.element.shadowRoot.querySelector('.mdc-menu');
+        this.menu = new MDCMenu(menuElement);
+        this.menu.listen('MDCMenu:selected', this.handleMdcSelected);
+        this.menu.listen('MDCMenuSurface:closed', this.handleMdcClosed);
+
+        this.menu.setAnchorCorner(Corner.TOP_START);
+        this.menu.quickOpen = true;
+    }
+
+    public componentDidUnload() {
+        this.menu.unlisten('MDCMenu:selected', this.handleMdcSelected);
+        this.menu.unlisten('MDCMenuSurface:closed', this.handleMdcClosed);
+        this.menu.destroy();
     }
 
     public render() {
+        const config: ListRendererConfig = {
+            isMenu: true,
+            iconSize: 'small',
+            isOpen: this.open,
+            badgeIcons: this.badgeIcons,
+            type: 'selectable',
+        };
         return (
-            <div class="mdc-menu-surface--anchor" onClick={this.onTriggerClick}>
+            <div class="mdc-menu-surface--anchor">
                 <slot name="trigger">{this.renderTrigger()}</slot>
-                <limel-portal
-                    visible={this.open}
-                    containerId={this.portalId}
-                    openDirection={this.openDirection}
-                >
-                    <limel-menu-surface
-                        open={this.open}
-                        onDismiss={this.onClose}
-                    >
-                        <limel-list
-                            items={this.items}
-                            type="menu"
-                            badgeIcons={this.badgeIcons}
-                            onChange={this.onListChange}
-                        />
-                    </limel-menu-surface>
-                </limel-portal>
+                <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+                    {this.listRenderer.render(this.items, config)}
+                </div>
+                {this.disabled ? <div class="menu-disabled" /> : null}
             </div>
         );
+    }
+
+    @Watch('open')
+    protected openWatcher(newValue: boolean) {
+        if (newValue !== this.menu.open) {
+            this.menu.open = newValue;
+        }
     }
 
     private renderTrigger() {
@@ -99,33 +124,28 @@ export class Menu {
                     ${this.disabled ? '' : 'menu__trigger-enabled'}
                 `}
                 disabled={this.disabled}
+                onClick={this.onTriggerClick}
             >
                 <span>{this.label}</span>
             </button>
         );
     }
 
-    private onClose = () => {
+    private handleMdcSelected(event: CustomEvent) {
+        this.select.emit(
+            this.items[
+                parseInt(event.detail.item.dataset.index, 10)
+            ] as ListItem
+        );
+        this.open = false;
+    }
+
+    private handleMdcClosed() {
         this.cancel.emit();
         this.open = false;
-    };
+    }
 
     private onTriggerClick = () => {
-        if (this.disabled) {
-            return;
-        }
         this.open = !this.open;
-    };
-
-    private onListChange = (event) => {
-        this.items = this.items.map((item: ListItem) => {
-            if (item.value === event.detail.value) {
-                return event.detail;
-            }
-
-            return item;
-        });
-        this.select.emit(event.detail);
-        this.open = false;
     };
 }
