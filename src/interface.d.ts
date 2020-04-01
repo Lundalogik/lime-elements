@@ -15,4 +15,3 @@ export * from './components/input-field/input-field.types';
 export * from './components/form/form.types';
 export * from './components/collapsible-section/action';
 export * from './components/tab-bar/tab.types';
-export * from './components/menu/menu.types';

@@ -61,11 +61,13 @@ export class MenuExample {
                         onSelect={this.onSelect}
                         open={this.menuOpen}
                     >
-                        <limel-button
-                            slot="trigger"
-                            label="Menu"
-                            primary={true}
-                        />
+                        <div slot="trigger">
+                            <limel-button
+                                label="Menu"
+                                primary={true}
+                                onClick={this.onTrigger}
+                            />
+                        </div>
                     </limel-menu>
                 </p>
             </section>,
@@ -103,6 +105,9 @@ export class MenuExample {
 
     private onCancel = () => {
         this.menuOpen = false;
+    };
+    private onTrigger = () => {
+        this.menuOpen = !this.menuOpen;
     };
 
     private onSelect = (event) => {
