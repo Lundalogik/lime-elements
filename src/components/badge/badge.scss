@@ -10,6 +10,10 @@
   display: block;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .badge-container {
     display: inline-block;
     font-size: pxToRem(11);
