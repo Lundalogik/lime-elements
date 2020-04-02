@@ -33,7 +33,7 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     background-color: var(--icon-background-color, transparent);
-    margin-left: pxToRem(-12) !important;
+    margin-left: pxToRem(-11) !important;
     color: var(--icon-color, rgba(0,0,0,.54));
 }
 
