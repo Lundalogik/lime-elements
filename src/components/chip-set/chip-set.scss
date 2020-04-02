@@ -1,3 +1,4 @@
+@import '../../style/mixins';
 @import '../../style/internal/mdc-variables';
 
 $mdc-textarea-background: $mdc-theme-background;
@@ -9,6 +10,7 @@ $mdc-text-field-background: $mdc-theme-background;
 $mdc-text-field-bottom-line-idle: $lime-text-field-bottom-line-color;
 $mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
 $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
+$mdc-chip-background-color: #fff;
 
 @import "@limetech/mdc-chips/mdc-chips";
 @import '@limetech/mdc-textfield/mdc-text-field';
@@ -21,6 +23,15 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
  * @prop --background-color-disabled: Background color of the field when type is set to input and the component is disabled or readonly.
  * @prop --input-chip-set-selected-chip-color: Color of the highlight around selected chips in input chip-sets.
  */
+
+.mdc-chip {
+    background-color: $mdc-chip-background-color;
+    @include is-elevated-clickable;
+
+    &:hover {
+        background-color: $mdc-chip-background-color;
+    }
+}
 
 .mdc-chip__icon {
     flex-shrink: 0;
