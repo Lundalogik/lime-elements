@@ -53,8 +53,29 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     }
 }
 
-.mdc-chip__icon--trailing svg {
-    display: block;
+.mdc-chip__icon {
+    &.mdc-chip__icon--trailing {
+        margin-left: pxToRem(8);
+        margin-right: pxToRem(-8);
+        transition: background-color .2s ease;
+
+        width: pxToRem(22);
+        height: pxToRem(22);
+
+        &:hover {
+            background-color: rgba($lime-deep-red, .2);
+
+            svg {
+                transform: scale(.7);
+            }
+        }
+
+        svg {
+            transition: transform .2s ease;
+            display: block;
+            transform: scale(.9);
+        }
+    }
 }
 
 .mdc-text-field {
