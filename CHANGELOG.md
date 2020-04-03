@@ -1,3 +1,11 @@
+## [26.14.1](https://github.com/Lundalogik/lime-elements/compare/v26.14.0...v26.14.1) (2020-04-03)
+
+
+### Bug Fixes
+
+* **list:** revert adding action menu to list item ([87c291a](https://github.com/Lundalogik/lime-elements/commit/87c291a240085950564b5035dfb471c3e7bdf4b1)), closes [#640](https://github.com/Lundalogik/lime-elements/issues/640) [Lundalogik/crm-feature#989](https://github.com/Lundalogik/crm-feature/issues/989)
+* **menu:** revert the rebuild of limel-menu using limel-portal ([4b31ec9](https://github.com/Lundalogik/lime-elements/commit/4b31ec955926e3da3ef73c21016a43bd61f69779)), closes [Lundalogik/crm-feature#1008](https://github.com/Lundalogik/crm-feature/issues/1008)
+
 # [26.14.0](https://github.com/Lundalogik/lime-elements/compare/v26.13.1...v26.14.0) (2020-04-03)
 
 
