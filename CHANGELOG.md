@@ -1,3 +1,15 @@
+# [26.14.0](https://github.com/Lundalogik/lime-elements/compare/v26.13.1...v26.14.0) (2020-04-03)
+
+
+### Bug Fixes
+
+* **chip-set:** correctly align leading icons inside chips ([8a20617](https://github.com/Lundalogik/lime-elements/commit/8a206173a95f860757bea44f6e02da4fabbcb50c))
+
+
+### Features
+
+* **chip-set:** improve the remove (x) button on the chip ([2d15fe7](https://github.com/Lundalogik/lime-elements/commit/2d15fe718b43959c5d953d6ad40c6a9cd6b7e842))
+
 ## [26.13.1](https://github.com/Lundalogik/lime-elements/compare/v26.13.0...v26.13.1) (2020-04-03)
 
 
