@@ -1,3 +1,10 @@
+# [26.15.0](https://github.com/Lundalogik/lime-elements/compare/v26.14.1...v26.15.0) (2020-04-03)
+
+
+### Features
+
+* **chip-set:** make chips look elevated and interactive ([59416a4](https://github.com/Lundalogik/lime-elements/commit/59416a4f8efdc0b4ceb59b9bd1e145cbf62d3124))
+
 ## [26.14.1](https://github.com/Lundalogik/lime-elements/compare/v26.14.0...v26.14.1) (2020-04-03)
 
 
