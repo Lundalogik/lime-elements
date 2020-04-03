@@ -1,3 +1,12 @@
+## [26.13.1](https://github.com/Lundalogik/lime-elements/compare/v26.13.0...v26.13.1) (2020-04-03)
+
+
+### Bug Fixes
+
+* **badge:** make badge respect attribute `hidden` ([7dbfbd8](https://github.com/Lundalogik/lime-elements/commit/7dbfbd8cdf45b5ee7528cbb3fd4bace2006e2fc3))
+* **badge:** make badges with one digit appear like a full circle ([330e7b7](https://github.com/Lundalogik/lime-elements/commit/330e7b777fbe055b3a16b8187bf0f6b51255fa93)), closes [#678](https://github.com/Lundalogik/lime-elements/issues/678)
+* **badge:** set all sizes to whole pixels for default font size ([c493286](https://github.com/Lundalogik/lime-elements/commit/c493286bc84258b53d01e48518199bd5b6dcda2b))
+
 # [26.13.0](https://github.com/Lundalogik/lime-elements/compare/v26.12.1...v26.13.0) (2020-03-30)
 
 
