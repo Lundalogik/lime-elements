@@ -5,21 +5,28 @@
  * @prop --badge-text-color: badge text color
  */
 
-
 :host {
-  display: block;
+    display: block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 .badge-container {
     display: inline-block;
-    font-size: 0.7rem;
-    min-width: 1.2rem;
-    height: 1.2rem;
-    border-radius: 1.2rem;
-    line-height: 1.2rem;
+    font-size: pxToRem(11);
+    min-width: pxToRem(20);
+    height: pxToRem(20);
+    border-radius: pxToRem(20);
+    line-height: pxToRem(20);
     text-align: center;
     background-color:  var(--badge-background-color, #EEF1F5);
     color:  var(--badge-text-color, #7D899C);
-    padding: 0 0.3rem;
-    margin-left: 0.25rem;
+    padding: 0 pxToRem(5);
+    margin-left: pxToRem(4);
 }
