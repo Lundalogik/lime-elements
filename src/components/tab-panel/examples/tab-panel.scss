@@ -1,7 +1,9 @@
+$tab-content-background-color: #fff;
+
 limel-example-tab-panel-content {
     display: flex;
     height: 10rem;
-    background-color: #eee;
+    background-color: $tab-content-background-color;
     justify-content: center;
     align-items: center;
 }
