@@ -6,6 +6,8 @@ describe('limel-menu', () => {
     let limelMenu;
     let menuAnchor;
     let triggerSlot;
+    let menu;
+    let list;
     let items: Array<ListItem | ListSeparator>;
     beforeEach(async () => {
         page = await newE2EPage({
@@ -15,13 +17,37 @@ describe('limel-menu', () => {
         menuAnchor = await page.find('limel-menu>>>.mdc-menu-surface--anchor');
         triggerSlot = await menuAnchor.find('slot[name=trigger]');
         items = [
+            { text: 'item 1' },
+            { separator: true },
             {
-                text: 'My fab menu item',
-                secondaryText: 'Absolutely the best item!',
-                selected: false,
+                text: 'item 3',
+                secondaryText: 'some info',
             },
+            {
+                text: 'item 4',
+                disabled: true,
+            },
+            { text: 'item 5' },
         ];
         limelMenu.setProperty('items', items);
+        await page.waitForChanges();
+        menu = await menuAnchor.find('.mdc-menu');
+        list = await menu.find('.mdc-list');
+    });
+    it('renders the menu items', () => {
+        expect(list.children).toHaveLength(5);
+    });
+    it('defaults to closed', async () => {
+        const isOpen = await limelMenu.getProperty('open');
+        expect(isOpen).toBe(false);
+        expect(limelMenu).not.toHaveAttribute('open');
+    });
+
+    describe('menu element', () => {
+        it('is not visible', () => {
+            expect(menu).not.toHaveClass('mdc-menu-surface--open');
+            expect(list).toEqualAttribute('aria-hidden', 'true');
+        });
     });
 
     describe('when property `open` is set to `true`', () => {
@@ -33,6 +59,13 @@ describe('limel-menu', () => {
             const isOpen = await limelMenu.getProperty('open');
             expect(isOpen).toBe(true);
             expect(limelMenu).toHaveAttribute('open');
+        });
+
+        describe('menu element', () => {
+            it('is visible', () => {
+                expect(menu).toHaveClass('mdc-menu-surface--open');
+                expect(list).toEqualAttribute('aria-hidden', 'false');
+            });
         });
     });
 
@@ -56,6 +89,8 @@ describe('limel-menu', () => {
             it('opens the menu', async () => {
                 const isOpen = await limelMenu.getProperty('open');
                 expect(isOpen).toBe(true);
+                expect(menu).toHaveClass('mdc-menu-surface--open');
+                expect(list).toEqualAttribute('aria-hidden', 'false');
             });
 
             describe('when the menu is already open', () => {
@@ -68,6 +103,8 @@ describe('limel-menu', () => {
                 it('closes the menu', async () => {
                     const isOpen = await limelMenu.getProperty('open');
                     expect(isOpen).toBeFalsy();
+                    expect(menu).not.toHaveClass('mdc-menu-surface--open');
+                    expect(list).toEqualAttribute('aria-hidden', 'true');
                 });
             });
         });
@@ -100,6 +137,8 @@ describe('limel-menu', () => {
                     it('does NOT open the menu', async () => {
                         const isOpen = await limelMenu.getProperty('open');
                         expect(isOpen).toBeFalsy();
+                        expect(menu).not.toHaveClass('mdc-menu-surface--open');
+                        expect(list).toEqualAttribute('aria-hidden', 'true');
                     });
                 });
             });
@@ -114,10 +153,10 @@ describe('limel-menu', () => {
             await page.waitForChanges();
         });
         describe('when selected', () => {
-            let list;
+            let item;
             beforeEach(async () => {
-                list = await page.find('limel-list');
-                await list.click();
+                item = await list.find('li');
+                await item.click();
                 await page.waitForChanges();
             });
             it('emits the `select` event', () => {
@@ -129,6 +168,8 @@ describe('limel-menu', () => {
             it('closes the menu', async () => {
                 const isOpen = await limelMenu.getProperty('open');
                 expect(isOpen).toBeFalsy();
+                expect(menu).not.toHaveClass('mdc-menu-surface--open');
+                expect(list).toEqualAttribute('aria-hidden', 'true');
             });
         });
     });

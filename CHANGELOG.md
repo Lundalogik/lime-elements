@@ -1,3 +1,30 @@
+# [26.15.0](https://github.com/Lundalogik/lime-elements/compare/v26.14.1...v26.15.0) (2020-04-03)
+
+
+### Features
+
+* **chip-set:** make chips look elevated and interactive ([59416a4](https://github.com/Lundalogik/lime-elements/commit/59416a4f8efdc0b4ceb59b9bd1e145cbf62d3124))
+
+## [26.14.1](https://github.com/Lundalogik/lime-elements/compare/v26.14.0...v26.14.1) (2020-04-03)
+
+
+### Bug Fixes
+
+* **list:** revert adding action menu to list item ([87c291a](https://github.com/Lundalogik/lime-elements/commit/87c291a240085950564b5035dfb471c3e7bdf4b1)), closes [#640](https://github.com/Lundalogik/lime-elements/issues/640) [Lundalogik/crm-feature#989](https://github.com/Lundalogik/crm-feature/issues/989)
+* **menu:** revert the rebuild of limel-menu using limel-portal ([4b31ec9](https://github.com/Lundalogik/lime-elements/commit/4b31ec955926e3da3ef73c21016a43bd61f69779)), closes [Lundalogik/crm-feature#1008](https://github.com/Lundalogik/crm-feature/issues/1008)
+
+# [26.14.0](https://github.com/Lundalogik/lime-elements/compare/v26.13.1...v26.14.0) (2020-04-03)
+
+
+### Bug Fixes
+
+* **chip-set:** correctly align leading icons inside chips ([8a20617](https://github.com/Lundalogik/lime-elements/commit/8a206173a95f860757bea44f6e02da4fabbcb50c))
+
+
+### Features
+
+* **chip-set:** improve the remove (x) button on the chip ([2d15fe7](https://github.com/Lundalogik/lime-elements/commit/2d15fe718b43959c5d953d6ad40c6a9cd6b7e842))
+
 ## [26.13.1](https://github.com/Lundalogik/lime-elements/compare/v26.13.0...v26.13.1) (2020-04-03)
 
 
