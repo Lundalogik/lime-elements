@@ -1,6 +1,9 @@
 import React from 'react';
 import { isNil, isNumber, isString, isBoolean } from 'lodash-es';
 
+const toDashCase = myStr =>
+    myStr.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`);
+
 // Checks if value is a primitive
 const isPrimitive = value =>
     isNil(value) || isNumber(value) || isString(value) || isBoolean(value);
@@ -10,7 +13,7 @@ export class LimeElementsAdapter extends React.Component {
 
     static defaultProps = {
         events: {},
-        elementProps: {},
+        elementProps: {}
     };
 
     constructor(
@@ -71,7 +74,10 @@ export class LimeElementsAdapter extends React.Component {
         const primitiveProps = {};
         for (const propName of Object.keys(elementProps)) {
             if (isPrimitive(elementProps[propName])) {
-                primitiveProps[propName] = elementProps[propName];
+                // Dash case required here but not when setting props manually in `setComponentProperty`.
+                // It is assumed that camcelCase props are converted to dash-case, but that is not the case
+                // and we end up with props using 'thiscase' <- bad
+                primitiveProps[toDashCase(propName)] = elementProps[propName];
             }
         }
 
@@ -112,7 +118,7 @@ export class LimeElementsAdapter extends React.Component {
 
         return React.createElement(name, {
             ...this.getPrimitiveProps(elementProps),
-            ref: this.component,
+            ref: this.component
         });
     }
 }

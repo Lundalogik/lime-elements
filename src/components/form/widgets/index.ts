@@ -2,6 +2,7 @@ import { Checkbox } from './checkbox';
 import { DatePicker } from './date-picker';
 import { InputField } from './input-field';
 import { Select } from './select';
+import { base } from './base';
 
 // These are defined by react-json-schema-form
 export type WidgetType =
@@ -25,10 +26,10 @@ export type WidgetType =
     | 'URLWidget';
 
 export const widgets: Partial<Record<WidgetType, any>> = {
-    CheckboxWidget: Checkbox,
-    DateTimeWidget: DatePicker,
-    DateWidget: DatePicker,
-    EmailWidget: InputField,
-    TextWidget: InputField,
-    SelectWidget: Select,
+    CheckboxWidget: base(Checkbox),
+    DateTimeWidget: base(DatePicker),
+    DateWidget: base(DatePicker),
+    EmailWidget: base(InputField),
+    TextWidget: base(InputField),
+    SelectWidget: base(Select)
 };
