@@ -147,16 +147,6 @@ export class Picker {
         this.portalId = createRandomString();
     }
 
-    @Watch('value')
-    public onChangeValue(newValue = [], oldValue = []) {
-        this.chips = this.createChips(this.value);
-        if (newValue.length <= oldValue.length) {
-            return;
-        }
-
-        this.chipSet?.setFocus(true);
-    }
-
     public componentDidLoad() {
         this.debouncedSearch = AwesomeDebouncePromise(
             this.searcher,
@@ -211,6 +201,16 @@ export class Picker {
             />,
             <div class="mdc-menu-surface--anchor">{this.renderDropdown()}</div>,
         ];
+    }
+
+    @Watch('value')
+    protected onChangeValue(newValue = [], oldValue = []) {
+        this.chips = this.createChips(this.value);
+        if (newValue.length <= oldValue.length) {
+            return;
+        }
+
+        this.chipSet?.setFocus(true);
     }
 
     private createChips(value: ListItem | ListItem[]): Chip[] {
