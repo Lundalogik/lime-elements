@@ -129,7 +129,7 @@ export class Picker {
     // should not trigger a re-render by itself.
     private chipSetEditMode = false;
 
-    private debouncedSearch;
+    private debouncedSearch: Searcher;
     private chipSet: HTMLLimelChipSetElement;
     private portalId: string;
 
@@ -143,15 +143,13 @@ export class Picker {
         this.handleListChange = this.handleListChange.bind(this);
         this.handleStopEditAndBlur = this.handleStopEditAndBlur.bind(this);
         this.handleSurfaceDismissed = this.handleSurfaceDismissed.bind(this);
+        this.createDebouncedSearcher = this.createDebouncedSearcher.bind(this);
 
         this.portalId = createRandomString();
     }
 
     public componentDidLoad() {
-        this.debouncedSearch = AwesomeDebouncePromise(
-            this.searcher,
-            SEARCH_DEBOUNCE
-        );
+        this.createDebouncedSearcher(this.searcher);
         this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
         this.chips = this.createChips(this.value);
     }
@@ -211,6 +209,17 @@ export class Picker {
         }
 
         this.chipSet?.setFocus(true);
+    }
+
+    @Watch('searcher')
+    protected createDebouncedSearcher(newValue: Searcher) {
+        if (typeof newValue !== 'function') {
+            return;
+        }
+        this.debouncedSearch = AwesomeDebouncePromise(
+            newValue,
+            SEARCH_DEBOUNCE
+        );
     }
 
     private createChips(value: ListItem | ListItem[]): Chip[] {
