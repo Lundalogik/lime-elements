@@ -48,7 +48,7 @@ export interface ArrayFieldTemplateProps extends TemplateProps {
     items: ArrayFieldItem[];
     onAddClick: (event: any) => void;
     title: string;
-    formData: object;
+    formData: any;
 }
 
 export interface ArrayFieldItem {

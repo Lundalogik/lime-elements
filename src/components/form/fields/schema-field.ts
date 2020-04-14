@@ -23,7 +23,7 @@ export const SchemaField = (props: FieldProps) => {
     };
 
     if (hasOverridenField(props.schema)) {
-        console.log('rendering custom schema field', props);
+        console.log('OVERRIDEN SCHEMA FIELD', props);
 
         const { name, props: overridenFieldProps } = getOverridenField(
             props.schema
@@ -32,11 +32,11 @@ export const SchemaField = (props: FieldProps) => {
             name: name,
             elementProps: {
                 fieldProps: props,
-                ...overridenFieldProps,
+                ...overridenFieldProps
             },
             events: {
-                change: handleChange,
-            },
+                change: handleChange
+            }
         });
     }
 
