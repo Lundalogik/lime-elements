@@ -22,3 +22,17 @@
         transform: translateY(0.08rem);
     }
 }
+
+@mixin is-flat-clickable() {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;
+
+    &:hover {
+      box-shadow: var(--button-shadow-hovered);
+    }
+
+    &:active {
+      box-shadow: var(--button-shadow-pressed);
+
+      transform: translateY(0.08rem);
+    }
+}
