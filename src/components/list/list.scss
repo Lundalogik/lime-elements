@@ -6,6 +6,8 @@
 
 @import './radio-button/radio-button.scss';
 
+@import '../../style/mixins';
+
 /**
  * @prop --icon-background-color: Color to use for icon background when `badgeIcons=true`.
  * @prop --icon-color: Color to use for icon. Defaults to grey when `badgeIcons=false`. Defaults to white when `badgeIcons=true`.
@@ -21,6 +23,36 @@
 
 .mdc-list {
     --mdc-theme-text-icon-on-background: var(--icon-color, rgb(157, 157, 157));
+    padding: 0;
+    border: 1px solid #f6f6f7;
+    border-radius: pxToRem(6);
+
+    .mdc-list-item {
+        &:nth-child(even) {
+            background-color: rgba(#fafafb, 1);
+        }
+        &:nth-child(odd) {
+            background-color: rgba(#fafafb, 0.5);
+        }
+        &:first-child {
+            border-radius: pxToRem(6) pxToRem(6) pxToRem(0) pxToRem(0);
+        }
+        &:last-child {
+            border-radius: pxToRem(0) pxToRem(0) pxToRem(6) pxToRem(6);
+        }
+
+        &:not(.mdc-list-item--disabled) {
+            @include is-flat-clickable();
+            &:hover {
+                z-index: 1;
+                background-color: #fff;
+
+                &:before {
+                    background-color: #fff;
+                }
+            }
+        }
+    }
 
     &.selectable .mdc-list-item:not(.mdc-list-item--disabled) {
         cursor: pointer;
