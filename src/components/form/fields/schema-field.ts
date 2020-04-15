@@ -17,7 +17,7 @@ const getOverridenField = (
 };
 
 export const SchemaField = (props: FieldProps) => {
-    const handleChange = event => {
+    const handleChange = (event) => {
         event.stopPropagation();
         props.onChange(event.detail);
     };
@@ -32,11 +32,11 @@ export const SchemaField = (props: FieldProps) => {
             name: name,
             elementProps: {
                 fieldProps: props,
-                ...overridenFieldProps
+                ...overridenFieldProps,
             },
             events: {
-                change: handleChange
-            }
+                change: handleChange,
+            },
         });
     }
 
