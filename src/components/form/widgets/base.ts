@@ -1,5 +1,5 @@
 import React from 'react';
-import { LimeElementsAdapter } from '../adapter';
+import { LimeElementsWidgetAdapter } from '../adapter';
 
 const hasOverridenWidget = (schema): boolean => {
     return Boolean(schema.lime?.overrides?.widget?.name);
@@ -16,21 +16,34 @@ const getOverridenWidget = (
 
 export const base = widget => {
     return props => {
-        console.log('Render widget', props, widget);
+        // Intercept on change of overriden widgets to avoid propagating on change event
+        const handleChange = event => {
+            event.stopPropagation();
+
+            props.onChange(event.detail);
+        };
+
+        // Check if we should use custom widget
         if (hasOverridenWidget(props.schema)) {
             const { name, props: overridenWidgetProps } = getOverridenWidget(
                 props.schema
             );
 
-            return React.createElement(LimeElementsAdapter, {
+            return React.createElement(LimeElementsWidgetAdapter, {
                 name: name,
-                elementProps: {
+                value: props.value,
+                widgetProps: props,
+                extraProps: {
                     ...overridenWidgetProps,
-                    widgetProps: props,
-                    widget: widget
+                    widget: widget // Pass widget so we can override and rerender the original widget if desired
+                },
+                events: {
+                    change: handleChange
                 }
             });
         }
+
+        // Render regular widget
         return React.createElement(widget, props);
     };
 };

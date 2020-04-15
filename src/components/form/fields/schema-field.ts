@@ -24,7 +24,7 @@ export const SchemaField = (props: FieldProps) => {
         props.onChange(event.detail);
     };
 
-    let prevFormData = null;
+    let prevFormData;
     let curFormData = props.formData;
 
     while (!isEqual(prevFormData, curFormData)) {
