@@ -2,6 +2,8 @@ import { LimeElementsAdapter } from '../adapter';
 import JSONSchemaField from 'react-jsonschema-form/lib/components/fields/SchemaField';
 import React from 'react';
 import { FieldProps } from './types';
+import { isEqual } from 'lodash-es';
+import { getDefaultFormState } from 'react-jsonschema-form/lib/utils';
 
 const hasOverridenField = (schema): boolean => {
     return Boolean(schema.lime?.overrides?.field?.name);
@@ -22,6 +24,25 @@ export const SchemaField = (props: FieldProps) => {
         props.onChange(event.detail);
     };
 
+    let prevFormData = null;
+    let curFormData = props.formData;
+
+    while (!isEqual(prevFormData, curFormData)) {
+        console.log('FORM DATA DOES NOT MATCH', prevFormData, curFormData);
+        prevFormData = curFormData;
+
+        curFormData = getDefaultFormState(
+            props.schema,
+            curFormData,
+            props.registry.definitions
+        );
+    }
+
+    const fieldProps = {
+        ...props,
+        formData: curFormData
+    };
+
     if (hasOverridenField(props.schema)) {
         console.log('OVERRIDEN SCHEMA FIELD', props);
 
@@ -31,7 +52,7 @@ export const SchemaField = (props: FieldProps) => {
         return React.createElement(LimeElementsAdapter, {
             name: name,
             elementProps: {
-                fieldProps: props,
+                fieldProps: fieldProps,
                 ...overridenFieldProps
             },
             events: {
@@ -40,5 +61,5 @@ export const SchemaField = (props: FieldProps) => {
         });
     }
 
-    return React.createElement(JSONSchemaField, props);
+    return React.createElement(JSONSchemaField, fieldProps);
 };
