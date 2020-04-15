@@ -9,12 +9,19 @@ import {
     State,
 } from '@stencil/core';
 import {
+    ARROW_DOWN,
+    ARROW_DOWN_KEY_CODE,
+    ARROW_UP,
+    ARROW_UP_KEY_CODE,
     ENTER,
     ENTER_KEY_CODE,
     SPACE,
     SPACE_KEY_CODE,
+    TAB,
+    TAB_KEY_CODE,
 } from '../../util/keycodes';
 import { InputType } from './input-field.types';
+import { ListItem } from '@limetech/lime-elements';
 
 @Component({
     tag: 'limel-input-field',
@@ -144,18 +151,30 @@ export class InputField {
     @Event()
     private action: EventEmitter<void>;
 
+    public completionsList: ListItem[] = [];
+
+    @State()
+    public showCompletions: boolean = false;
+
     constructor() {
         this.handleChange = this.handleChange.bind(this);
         this.handleIconKeyPress = this.handleIconKeyPress.bind(this);
         this.handleIconClick = this.handleIconClick.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
+        this.handleCompletionChange = this.handleCompletionChange.bind(this);
+        this.onKeyDownForList = this.onKeyDownForList.bind(this);
     }
 
     public componentDidLoad() {
         this.mdcTextField = new MDCTextField(
             this.limelInputField.shadowRoot.querySelector('.mdc-text-field')
         );
+
+        this.completionsList = [...this.completions].map((item) => {
+            return { text: item };
+        });
     }
 
     public componentDidUnload() {
@@ -194,6 +213,7 @@ export class InputField {
                     disabled={this.disabled}
                     type={this.type}
                     onWheel={this.handleWheel}
+                    onKeyDown={this.onKeyDown}
                     {...additionalProps}
                     value={this.value}
                 />
@@ -287,6 +307,7 @@ export class InputField {
 
     private onFocus() {
         this.isFocused = true;
+        this.showCompletions = true;
     }
 
     private onBlur() {
@@ -408,46 +429,107 @@ export class InputField {
         );
     }
 
-    private renderDropdown() {
-        const filteredCompletions = this.filterCompletions(this.value);
+    /**
+     * Key handler for the input field
+     * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
+     *
+     * @param {KeyboardEvent} event event
+     *
+     * @returns {void}
+     */
 
+    private onKeyDown(event: KeyboardEvent) {
+        this.showCompletions = true;
+        const isForwardTab =
+            (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
+            !event.altKey &&
+            !event.metaKey &&
+            !event.shiftKey;
+        const isUp =
+            event.key === ARROW_UP || event.keyCode === ARROW_UP_KEY_CODE;
+        const isDown =
+            event.key === ARROW_DOWN || event.keyCode === ARROW_DOWN_KEY_CODE;
+
+        if (event.keyCode === TAB_KEY_CODE && event.shiftKey) {
+            this.showCompletions = false;
+        }
+
+        if (!isForwardTab && !isUp && !isDown) {
+            return;
+        }
+        const list = this.limelInputField.shadowRoot.querySelector(
+            `limel-list`
+        );
+        if (!list) {
+            return;
+        }
+
+        event.preventDefault();
+        if (isForwardTab || isDown) {
+            const listElement: HTMLElement = list.shadowRoot.querySelector(
+                '.mdc-list-item:first-child'
+            );
+            listElement.focus();
+            return;
+        }
+
+        if (isUp) {
+            const listElement: HTMLElement = list.shadowRoot.querySelector(
+                '.mdc-list-item:last-child'
+            );
+            listElement.focus();
+            return;
+        }
+    }
+
+    private handleCompletionChange(event: CustomEvent<ListItem>) {
+        event.stopPropagation();
+        if (!event.detail) {
+            return;
+        }
+
+        this.showCompletions = false;
+        this.change.emit(event.detail.text);
+    }
+
+    private onKeyDownForList(event: KeyboardEvent) {
+        const isForwardTab =
+            event.key === TAB || event.keyCode === TAB_KEY_CODE;
+        if (isForwardTab) {
+            this.showCompletions = false;
+        }
+    }
+
+    private renderDropdown() {
+        const filteredCompletions: ListItem[] = this.filterCompletions(
+            this.value
+        );
         if (!filteredCompletions || filteredCompletions.length === 0) {
             return null;
         }
         return (
-            this.isFocused && (
-                <div class="autocomplete-list mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open">
-                    <ul class="mdc-list">
-                        {filteredCompletions.map((completion) => {
-                            return (
-                                <li
-                                    class="mdc-list-item"
-                                    onMouseDown={() => { // tslint:disable-line:jsx-no-lambda prettier
-                                        this.completionClickHandler(completion);
-                                    }}
-                                >
-                                    {completion}
-                                </li>
-                            );
-                        })}
-                    </ul>
+            this.showCompletions && (
+                <div
+                    onKeyDown={this.onKeyDownForList}
+                    class="autocomplete-list mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open"
+                >
+                    <limel-list
+                        onChange={this.handleCompletionChange}
+                        type="selectable"
+                        items={filteredCompletions}
+                    />
                 </div>
             )
         );
     }
 
-    private completionClickHandler(autocompletion: string) {
-        this.mdcTextField.value = autocompletion;
-        this.change.emit(autocompletion);
-    }
-
     private filterCompletions = (filter: string) => {
         if (!filter) {
-            return this.completions;
+            return this.completionsList;
         }
-        return this.completions.filter(
+        return this.completionsList.filter(
             (completion) =>
-                completion.toLowerCase().indexOf(filter.toLowerCase()) > -1
+                completion.text.toLowerCase().indexOf(filter.toLowerCase()) > -1
         );
     };
 
