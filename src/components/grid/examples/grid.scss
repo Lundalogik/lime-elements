@@ -32,14 +32,27 @@ my-dark-grey-component {
     grid-area: dgr;
 }
 
+/* prettier-ignore */
 limel-grid {
     --lime-grid-columns: 4;
 
-    --lime-grid-area: 'drd drd blu dbl' 'drd drd blu dbl' 'trq trq blu dbl'
-        'trq trq blu dbl' 'red red red red' 'red red red red' 'red red red red'
-        'dgr mag mag lgr' 'dgr mag mag lgr' 'dgr mag mag lgr' 'ora mag mag yel'
-        'ora mag mag yel' 'grn grn .   .  ' 'grn grn .   .  ' 'grn grn .   .  '
-        'grn grn .   .  ';
+    --lime-grid-area:
+        "drd drd blu dbl"
+        "drd drd blu dbl"
+        "trq trq blu dbl"
+        "trq trq blu dbl"
+        "red red red red"
+        "red red red red"
+        "red red red red"
+        "dgr mag mag lgr"
+        "dgr mag mag lgr"
+        "dgr mag mag lgr"
+        "ora mag mag yel"
+        "ora mag mag yel"
+        "grn grn .   .  "
+        "grn grn .   .  "
+        "grn grn .   .  "
+        "grn grn .   .  ";
 }
 
 // Below is stuff that's only here for the boxes in the grid
