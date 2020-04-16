@@ -1,3 +1,10 @@
+# [26.16.0](https://github.com/Lundalogik/lime-elements/compare/v26.15.0...v26.16.0) (2020-04-15)
+
+
+### Features
+
+* **tab-bar:** restyle tabs ([b39cd90](https://github.com/Lundalogik/lime-elements/commit/b39cd907b7343b373d4f32d248683ad6b59cbe16))
+
 # [26.15.0](https://github.com/Lundalogik/lime-elements/compare/v26.14.1...v26.15.0) (2020-04-03)
 
 

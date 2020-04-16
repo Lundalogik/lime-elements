@@ -4,10 +4,102 @@
 @import '@limetech/mdc-tab-indicator/mdc-tab-indicator';
 @import '@limetech/mdc-tab/mdc-tab';
 
+$tab-content-background-color: #fff;
+$tab-background-color: #f6f6f7;
+$tab-border-radius: .65rem;
+$tab-active-outer-edge-curve-size: .75rem;
+$tab-separator-width: .125rem;
+$tab-separator-background-color: #e8e8ea;
+
 :host {
     display: block;
 }
 
 .mdc-tab-bar__icon {
     margin-right: .5rem;
+}
+
+.mdc-tab-indicator {
+    .mdc-tab-indicator__content  {
+        border: none;
+    }
+}
+
+.mdc-tab-scroller__scroll-content {
+    padding: .5rem $tab-active-outer-edge-curve-size 0 $tab-active-outer-edge-curve-size;
+    background-color: $tab-background-color;
+}
+
+.mdc-tab__ripple {
+    box-sizing: border-box;
+    border-radius: $tab-border-radius;
+    border: {
+        style: solid;
+        color: transparent;
+        width: .25rem;
+    };
+    opacity: .7;
+
+    &:before,
+    &:after {
+        transition: background-color .2s ease;
+    }
+}
+
+.mdc-tab {
+    border-radius:0;
+}
+
+.mdc-tab {
+    background-color: transparent;
+
+    &:not(.mdc-tab--active) {
+        &:after {
+            content: '';
+            display: block;
+            background-color: $tab-separator-background-color;
+            width: $tab-separator-width;
+            height: 1rem;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            border-radius: 1rem;
+            right: -$tab-separator-width;
+        }
+
+        &:last-of-type {
+            &:after {
+                display: none;
+            }
+        }
+    }
+}
+
+.mdc-tab--active {
+    border-radius: $tab-border-radius $tab-border-radius 0 0;
+    background-color: $tab-content-background-color;
+    z-index: 2;
+
+    &:before,
+    &:after {
+        content: '';
+        display: block;
+        width: $tab-active-outer-edge-curve-size;
+        height: $tab-active-outer-edge-curve-size;
+        position: absolute;
+        bottom: 0;
+        background-color: $tab-content-background-color;
+
+        -webkit-mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>"); //For chrome and Safari the browser prefix is needed. (last checked Apr 2020)
+        mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>");
+    }
+
+    &:before {
+        left: -$tab-active-outer-edge-curve-size;
+        transform: rotateY(180deg);
+    }
+    &:after {
+        right: -$tab-active-outer-edge-curve-size;
+    }
 }
