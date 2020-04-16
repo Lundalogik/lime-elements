@@ -15,9 +15,12 @@ jobs:
       with:
         node-version: 12.x
     - name: npm install
+    # The use of `npm install` instead of `npm ci` below is intentional.
+    # Using `npm ci` will make the build fail on the first of Greenkeeper's
+    # two commits. /Ads
       run: |
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
-        npm ci
+        npm install
         rm .npmrc
     - run: npm run build
     - run: npm test --if-present
