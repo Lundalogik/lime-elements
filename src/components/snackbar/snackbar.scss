@@ -1,8 +1,8 @@
 @import '../../style/internal/mdc-variables';
 
-@import "@limetech/mdc-button/mdc-button";
-@import "@limetech/mdc-icon-button/mdc-icon-button";
-@import "@limetech/mdc-snackbar/mdc-snackbar";
+@import '@limetech/mdc-button/mdc-button';
+@import '@limetech/mdc-icon-button/mdc-icon-button';
+@import '@limetech/mdc-snackbar/mdc-snackbar';
 
 .mdc-button {
     @include mdc-button-ink-color($lime-blue);

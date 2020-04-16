@@ -3,8 +3,8 @@ limel-flex-container {
 
     &.container {
         height: 37.5rem;
-        border: .0625rem solid var(--lime-dark-grey);
-        border-radius: .1875rem;
+        border: 0.0625rem solid var(--lime-dark-grey);
+        border-radius: 0.1875rem;
     }
 
     div {
@@ -18,7 +18,7 @@ limel-flex-container {
 
         &:nth-child(1) {
             background-color: var(--lime-red);
-            padding: .78125rem 3.125rem;
+            padding: 0.78125rem 3.125rem;
         }
         &:nth-child(2) {
             background-color: var(--lime-orange);

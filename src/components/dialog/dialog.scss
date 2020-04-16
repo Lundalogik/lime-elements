@@ -2,7 +2,7 @@
 
 $mdc-dialog-max-width: false;
 $mdc-dialog-max-height: false;
-@import "@limetech/mdc-dialog/mdc-dialog";
+@import '@limetech/mdc-dialog/mdc-dialog';
 
 /**
  * @prop --dialog-width: Width of the dialog.
@@ -14,7 +14,7 @@ $mdc-dialog-max-height: false;
  * @prop --dialog-heading-icon-background-color: Background color of the icon when displayed as a badge.
  */
 
-slot[name="header"] {
+slot[name='header'] {
     display: none;
 }
 
@@ -38,7 +38,7 @@ slot[name="header"] {
         width: 100%;
         height: 100%;
 
-        .mdc-dialog__body--scrollable  {
+        .mdc-dialog__body--scrollable {
             max-height: inherit;
             border: 0;
             overflow: auto;
@@ -51,7 +51,10 @@ slot[name="header"] {
         margin: 0;
         font-weight: 500;
         font-style: normal;
-        color: var(--dialog-heading-title-color, #{$mdc-theme-text-primary-on-background});
+        color: var(
+            --dialog-heading-title-color,
+            #{$mdc-theme-text-primary-on-background}
+        );
     }
 
     .dialog__heading {
@@ -65,25 +68,40 @@ slot[name="header"] {
             color: var(--dialog-heading-icon-color, #{$mdc-theme-secondary});
 
             &[badge] {
-                background-color: var(--dialog-heading-icon-background-color, #{$mdc-theme-secondary});
-                color: var(--dialog-heading-icon-color, #{$mdc-theme-on-secondary});
+                background-color: var(
+                    --dialog-heading-icon-background-color,
+                    #{$mdc-theme-secondary}
+                );
+                color: var(
+                    --dialog-heading-icon-color,
+                    #{$mdc-theme-on-secondary}
+                );
             }
         }
 
         .dialog__title {
             font-weight: 500;
             margin: 0;
-            color: var(--dialog-heading-title-color, #{$mdc-theme-text-primary-on-background});
+            color: var(
+                --dialog-heading-title-color,
+                #{$mdc-theme-text-primary-on-background}
+            );
         }
 
         .dialog__subtitle {
             margin: 0;
-            color: var(--dialog-heading-subtitle-color, #{$mdc-theme-text-secondary-on-background});
+            color: var(
+                --dialog-heading-subtitle-color,
+                #{$mdc-theme-text-secondary-on-background}
+            );
         }
 
         .dialog__supporting-text {
             margin: 0;
-            color: var(--dialog-heading-supporting-text-color, #{$mdc-theme-text-secondary-on-background});
+            color: var(
+                --dialog-heading-supporting-text-color,
+                #{$mdc-theme-text-secondary-on-background}
+            );
         }
     }
 }
@@ -92,24 +110,39 @@ slot[name="header"] {
     // variables to make it easier to support different background colors in the future:
     --dialog-background-color: rgba(255, 255, 255, 1);
     --dialog-background-color-transparent: rgba(255, 255, 255, 0);
-    --dialog-scroll-shadow-color: rgba(0, 0, 0, .2);
+    --dialog-scroll-shadow-color: rgba(0, 0, 0, 0.2);
     --dialog-scroll-shadow-color-transparent: rgba(0, 0, 0, 0);
 
     // Credit to the ever fantastic Lea Verou!
     // http://lea.verou.me/2012/04/background-attachment-local/
 
     background:
-        /* Shadow covers */
-        linear-gradient(var(--dialog-background-color) 30%, var(--dialog-background-color-transparent)),
-        linear-gradient(var(--dialog-background-color-transparent), var(--dialog-background-color) 70%) 0 100%,
-
+        /* Shadow covers */ linear-gradient(
+            var(--dialog-background-color) 30%,
+            var(--dialog-background-color-transparent)
+        ),
+        linear-gradient(
+                var(--dialog-background-color-transparent),
+                var(--dialog-background-color) 70%
+            )
+            0 100%,
         /* Shadows */
-        radial-gradient(farthest-side at 50% 0, var(--dialog-scroll-shadow-color), var(--dialog-scroll-shadow-color-transparent)),
-        radial-gradient(farthest-side at 50% 100%, var(--dialog-scroll-shadow-color), var(--dialog-scroll-shadow-color-transparent)) 0 100%;
+            radial-gradient(
+                farthest-side at 50% 0,
+                var(--dialog-scroll-shadow-color),
+                var(--dialog-scroll-shadow-color-transparent)
+            ),
+        radial-gradient(
+                farthest-side at 50% 100%,
+                var(--dialog-scroll-shadow-color),
+                var(--dialog-scroll-shadow-color-transparent)
+            )
+            0 100%;
 
     background-repeat: no-repeat;
     background-color: var(--dialog-background-color);
-    background-size: 100% pxToRem(40), 100% pxToRem(40), 100% pxToRem(14), 100% pxToRem(14);
+    background-size: 100% pxToRem(40), 100% pxToRem(40), 100% pxToRem(14),
+        100% pxToRem(14);
 
     /* Opera doesn't support this in the shorthand */
     background-attachment: local, local, scroll, scroll;

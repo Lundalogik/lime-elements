@@ -5,10 +5,10 @@
     display: none;
 }
 
-:host(limel-flex-container[direction="horizontal"]) {
+:host(limel-flex-container[direction='horizontal']) {
     flex-direction: row;
 }
-:host(limel-flex-container[direction="horizontal"][reverse]) {
+:host(limel-flex-container[direction='horizontal'][reverse]) {
     flex-direction: row-reverse;
 }
 :host(limel-flex-container[direction='vertical']) {

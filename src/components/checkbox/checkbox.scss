@@ -8,10 +8,16 @@
 
     .mdc-checkbox {
         @include mdc-checkbox-ink-color(primary);
-        @include mdc-checkbox-container-colors(secondary, on-primary, secondary, on-primary);
+        @include mdc-checkbox-container-colors(
+            secondary,
+            on-primary,
+            secondary,
+            on-primary
+        );
 
         &.mdc-checkbox--invalid {
-            .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate) ~ .mdc-checkbox__background {
+            .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate)
+                ~ .mdc-checkbox__background {
                 border-color: $mdc-theme-error;
             }
         }
@@ -22,10 +28,9 @@
             opacity: 0.37;
         }
 
-
         &.mdc-checkbox--required::after {
             margin-left: 0.0625rem;
-            content: "*";
+            content: '*';
         }
 
         &.mdc-checkbox--invalid {

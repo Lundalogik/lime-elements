@@ -19,10 +19,7 @@
 slot {
     display: grid;
     grid-template-areas: var(--lime-grid-area, '');
-    grid-template-columns: repeat(
-        var(--lime-grid-columns, 4),
-        minmax(0, 1fr)
-    );
+    grid-template-columns: repeat(var(--lime-grid-columns, 4), minmax(0, 1fr));
     grid-gap: var(--lime-grid-gutter, pxToRem(16));
     grid-auto-flow: row dense;
     grid-auto-rows: var(--lime-grid-cell-height, pxToRem(40));

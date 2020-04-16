@@ -4,17 +4,15 @@ $mdc-select-fill-color: $mdc-theme-background;
 $mdc-select-bottom-line-idle-color: $lime-text-field-bottom-line-color;
 $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 
-@import "@limetech/mdc-select/mdc-select";
-@import "@limetech/mdc-select/helper-text/mdc-select-helper-text";
+@import '@limetech/mdc-select/mdc-select';
+@import '@limetech/mdc-select/helper-text/mdc-select-helper-text';
 @import '@limetech/mdc-ripple/mdc-ripple';
-@import "@limetech/mdc-line-ripple/mdc-line-ripple";
-@import "@limetech/mdc-floating-label/mdc-floating-label";
-
+@import '@limetech/mdc-line-ripple/mdc-line-ripple';
+@import '@limetech/mdc-floating-label/mdc-floating-label';
 
 :host([hidden]) {
     display: none;
 }
-
 
 .limel-select__selected-text {
     padding: pxToRem(20) pxToRem(52) pxToRem(4) pxToRem(16);
@@ -28,7 +26,6 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 }
 
 .limel-select {
-
     &,
     .limel-select-trigger,
     .limel-select__selected-text {
@@ -92,13 +89,14 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
         }
 
         .mdc-select__dropdown-icon {
-            background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat 50%;
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E")
+                no-repeat 50%;
         }
     }
 
     &.limel-select--required {
         .mdc-floating-label::after {
-            content: "*";
+            content: '*';
         }
     }
 

@@ -10,18 +10,18 @@ table {
     padding: 0;
     margin-bottom: 50px;
     table-layout: fixed;
-    box-shadow: 0 0 0 1px #CED4DE;
+    box-shadow: 0 0 0 1px #ced4de;
     background-color: transparent;
     border-spacing: 0;
     border-collapse: collapse;
     border-style: hidden;
     border-radius: 5px;
     font-size: 16px;
-    color: #13161F;
+    color: #13161f;
 
     thead {
-        color: #7D899C;
-        background: #EEF1F5;
+        color: #7d899c;
+        background: #eef1f5;
     }
 
     thead th {
@@ -39,7 +39,7 @@ table {
 
     tbody > tr {
         display: table-row;
-        border-top: 1px solid #CED4DE;
+        border-top: 1px solid #ced4de;
     }
 }
 
