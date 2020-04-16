@@ -1,6 +1,6 @@
 @import '../../style/internal/mdc-variables';
 
-@import "@limetech/mdc-switch/mdc-switch";
+@import '@limetech/mdc-switch/mdc-switch';
 
 .mdc-switch {
     @include mdc-switch-toggled-on-color(primary);

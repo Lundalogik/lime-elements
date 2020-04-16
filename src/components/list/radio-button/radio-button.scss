@@ -1,12 +1,12 @@
 @import '../../../style/internal/mdc-variables';
 
- @import '@limetech/mdc-form-field/mdc-form-field';
+@import '@limetech/mdc-form-field/mdc-form-field';
 @import '@limetech/mdc-radio/mdc-radio';
 
- .mdc-form-field {
+.mdc-form-field {
     display: flex;
 
-     .mdc-radio {
+    .mdc-radio {
         @include mdc-radio-ink-color(primary);
     }
 }

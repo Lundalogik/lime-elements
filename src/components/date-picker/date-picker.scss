@@ -3,12 +3,18 @@
 @import '@limetech/mdc-theme/mdc-theme';
 @import '../../../node_modules/@limetech/flatpickr/dist/flatpickr.min.css';
 
-$inactiveTextColor: var(--mdc-theme-text-disabled-on-background, #{$mdc-theme-text-disabled-on-background});
+$inactiveTextColor: var(
+    --mdc-theme-text-disabled-on-background,
+    #{$mdc-theme-text-disabled-on-background}
+);
 
 $datepickerHeaderColor: var(--lime-primary-color, #{$mdc-theme-primary});
 $datepickerSelectedColor: $datepickerHeaderColor;
 $datepickerHoverHighlightColor: $datepickerHeaderColor;
-$datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primary});
+$datepickerTextOnThemeColor: var(
+    --lime-on-primary-color,
+    #{$mdc-theme-on-primary}
+);
 
 .container {
     display: inline-block;
@@ -44,7 +50,7 @@ $datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primar
 
         &:after {
             border-radius: pxToRem(15);
-            content: " ";
+            content: ' ';
             height: pxToRem(30);
             left: pxToRem(5);
             position: absolute;
@@ -141,7 +147,7 @@ $datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primar
     // Hide the arrow between the input box and the calendar
     &.arrowTop:before,
     &.arrowTop:after {
-      display: none;
+        display: none;
     }
 
     .flatpickr-day {
@@ -162,7 +168,10 @@ $datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primar
         &.today {
             background: transparent;
             &:after {
-                background: var(--mdc-theme-text-hint-on-light, $mdc-theme-text-hint-on-light);
+                background: var(
+                    --mdc-theme-text-hint-on-light,
+                    $mdc-theme-text-hint-on-light
+                );
                 opacity: 0.25;
             }
             &:hover {
@@ -179,7 +188,7 @@ $datepickerTextOnThemeColor: var(--lime-on-primary-color, #{$mdc-theme-on-primar
         // is created using a pseudo element.
         &:after {
             border-radius: pxToRem(15);
-            content: " ";
+            content: ' ';
             height: pxToRem(30);
             left: 50%;
             margin-left: pxToRem(-15);

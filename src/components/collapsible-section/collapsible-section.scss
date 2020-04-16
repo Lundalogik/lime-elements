@@ -31,7 +31,7 @@ section {
         height: pxToRem(60);
 
         > .expander {
-            color: rgba(0,0,0,0.33);
+            color: rgba(0, 0, 0, 0.33);
             height: pxToRem(30);
             margin-right: pxToRem(5);
             width: pxToRem(30);
@@ -49,7 +49,7 @@ section {
             background-color: var(--open-header-background-color, #f8f8f8);
 
             > .expander {
-                color: rgba(0,0,0,0.6);
+                color: rgba(0, 0, 0, 0.6);
             }
         }
     }
@@ -61,7 +61,7 @@ section {
 
         &:before,
         &:after {
-            content: " ";
+            content: ' ';
             display: table;
         }
 

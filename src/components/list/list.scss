@@ -1,6 +1,6 @@
 @import '../../style/internal/mdc-variables';
 
-@import "@limetech/mdc-list/mdc-list";
+@import '@limetech/mdc-list/mdc-list';
 
 @import '../checkbox/checkbox.scss';
 
@@ -20,7 +20,7 @@
 }
 
 .mdc-list {
-    --mdc-theme-text-icon-on-background: var(--icon-color, rgb(157,157,157));
+    --mdc-theme-text-icon-on-background: var(--icon-color, rgb(157, 157, 157));
 
     &.selectable .mdc-list-item:not(.mdc-list-item--disabled) {
         cursor: pointer;
@@ -30,7 +30,10 @@
         position: relative;
 
         limel-icon {
-            background-color: var(--icon-background-color, var(--lime-light-grey));
+            background-color: var(
+                --icon-background-color,
+                var(--lime-light-grey)
+            );
             color: var(--icon-color, white);
         }
 
@@ -42,8 +45,13 @@
                 --icon-width: #{pxToRem(41)};
                 --icon-right-padding: #{pxToRem(16)};
                 --list-right-padding: #{pxToRem(16)};
-                margin-left: calc(var(--icon-width) + var(--icon-right-padding));
-                width: calc(100% - var(--icon-width) - var(--icon-right-padding) - var(--list-right-padding));
+                margin-left: calc(
+                    var(--icon-width) + var(--icon-right-padding)
+                );
+                width: calc(
+                    100% - var(--icon-width) - var(--icon-right-padding) -
+                        var(--list-right-padding)
+                );
 
                 &.x-small {
                     --icon-width: #{pxToRem(23)};
@@ -87,10 +95,10 @@
 .mdc-list:not(.mdc-list--avatar-list) {
     limel-icon.mdc-list-item__graphic {
         // Tweaks to make icon lists align nicely with badge-icon lists.
-        &[size="x-small"] {
+        &[size='x-small'] {
             margin-right: pxToRem(24);
         }
-        &[size="small"] {
+        &[size='small'] {
             margin-right: pxToRem(26);
         }
     }

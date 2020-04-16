@@ -4,19 +4,19 @@
 
     limel-icon {
         color: white;
-        margin-bottom: .625rem;
+        margin-bottom: 0.625rem;
 
         &.company {
-            background-color: var(--lime-blue)
+            background-color: var(--lime-blue);
         }
         &.person {
-            background-color: var(--lime-orange)
+            background-color: var(--lime-orange);
         }
         &.deal {
-            background-color: var(--lime-green)
+            background-color: var(--lime-green);
         }
         &.campaign {
-            background-color: var(--lime-deep-red)
+            background-color: var(--lime-deep-red);
         }
     }
 }

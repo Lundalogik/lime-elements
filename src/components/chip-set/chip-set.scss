@@ -12,7 +12,7 @@ $mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
 $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 $mdc-chip-background-color: #fff;
 
-@import "@limetech/mdc-chips/mdc-chips";
+@import '@limetech/mdc-chips/mdc-chips';
 @import '@limetech/mdc-textfield/mdc-text-field';
 @import '@limetech/mdc-ripple/mdc-ripple';
 
@@ -45,7 +45,7 @@ $mdc-chip-background-color: #fff;
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     background-color: var(--icon-background-color, transparent);
     margin-left: pxToRem(-11) !important;
-    color: var(--icon-color, rgba(0,0,0,.54));
+    color: var(--icon-color, rgba(0, 0, 0, 0.54));
 }
 
 .mdc-chip-set {
@@ -59,7 +59,11 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         width: 100%;
 
         .mdc-chip--selected {
-            box-shadow: 0 0 0 pxToRem(4) var(--input-chip-set-selected-chip-color, var(--lime-turquoise, orange));
+            box-shadow: 0 0 0 pxToRem(4)
+                var(
+                    --input-chip-set-selected-chip-color,
+                    var(--lime-turquoise, orange)
+                );
         }
     }
 }
@@ -68,23 +72,23 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     &.mdc-chip__icon--trailing {
         margin-left: pxToRem(8);
         margin-right: pxToRem(-8);
-        transition: background-color .2s ease;
+        transition: background-color 0.2s ease;
 
         width: pxToRem(22);
         height: pxToRem(22);
 
         &:hover {
-            background-color: rgba($lime-deep-red, .2);
+            background-color: rgba($lime-deep-red, 0.2);
 
             svg {
-                transform: scale(.7);
+                transform: scale(0.7);
             }
         }
 
         svg {
-            transition: transform .2s ease;
+            transition: transform 0.2s ease;
             display: block;
-            transform: scale(.9);
+            transform: scale(0.9);
         }
     }
 }
@@ -147,7 +151,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 }
 
 .mdc-floating-label.mdc-text-field--required::after {
-    content: "*"
+    content: '*';
 }
 
 .force-float {

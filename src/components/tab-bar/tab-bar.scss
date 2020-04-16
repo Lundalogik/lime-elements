@@ -6,9 +6,9 @@
 
 $tab-content-background-color: #fff;
 $tab-background-color: #f6f6f7;
-$tab-border-radius: .65rem;
-$tab-active-outer-edge-curve-size: .75rem;
-$tab-separator-width: .125rem;
+$tab-border-radius: 0.65rem;
+$tab-active-outer-edge-curve-size: 0.75rem;
+$tab-separator-width: 0.125rem;
 $tab-separator-background-color: #e8e8ea;
 
 :host {
@@ -16,17 +16,18 @@ $tab-separator-background-color: #e8e8ea;
 }
 
 .mdc-tab-bar__icon {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
 }
 
 .mdc-tab-indicator {
-    .mdc-tab-indicator__content  {
+    .mdc-tab-indicator__content {
         border: none;
     }
 }
 
 .mdc-tab-scroller__scroll-content {
-    padding: .5rem $tab-active-outer-edge-curve-size 0 $tab-active-outer-edge-curve-size;
+    padding: 0.5rem $tab-active-outer-edge-curve-size 0
+        $tab-active-outer-edge-curve-size;
     background-color: $tab-background-color;
 }
 
@@ -36,18 +37,18 @@ $tab-separator-background-color: #e8e8ea;
     border: {
         style: solid;
         color: transparent;
-        width: .25rem;
-    };
-    opacity: .7;
+        width: 0.25rem;
+    }
+    opacity: 0.7;
 
     &:before,
     &:after {
-        transition: background-color .2s ease;
+        transition: background-color 0.2s ease;
     }
 }
 
 .mdc-tab {
-    border-radius:0;
+    border-radius: 0;
 }
 
 .mdc-tab {

@@ -7,7 +7,7 @@
  * Avoid that unless there's very good reason for it!
  */
 
-@import "./variables";
+@import './variables';
 
 $mdc-theme-primary: $lime-turquoise;
 $mdc-theme-secondary: $lime-dark-grey;
@@ -40,55 +40,61 @@ $mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
 :host {
     --mdc-theme-primary: var(--lime-primary-color, #{$mdc-theme-primary});
     --mdc-theme-secondary: var(--lime-secondary-color, #{$mdc-theme-secondary});
-    --mdc-theme-on-primary: var(--lime-on-primary-color, #{$mdc-theme-on-primary});
-    --mdc-theme-on-secondary: var(--lime-on-secondary-color, #{$mdc-theme-on-secondary});
+    --mdc-theme-on-primary: var(
+        --lime-on-primary-color,
+        #{$mdc-theme-on-primary}
+    );
+    --mdc-theme-on-secondary: var(
+        --lime-on-secondary-color,
+        #{$mdc-theme-on-secondary}
+    );
 }
 
-@import "@limetech/mdc-theme/mdc-theme";
+@import '@limetech/mdc-theme/mdc-theme';
 
 $mdc-typography-styles-headline1: (
     font-size: pxToRem(22),
-    line-height: pxToRem(22)
+    line-height: pxToRem(22),
 );
 $mdc-typography-styles-headline2: (
     font-size: pxToRem(16),
-    line-height: pxToRem(14)
+    line-height: pxToRem(14),
 );
 $mdc-typography-styles-headline3: (
     font-size: pxToRem(16),
-    line-height: pxToRem(14)
+    line-height: pxToRem(14),
 );
 $mdc-typography-styles-headline4: (
     font-size: pxToRem(16),
-    line-height: pxToRem(14)
+    line-height: pxToRem(14),
 );
 $mdc-typography-styles-headline5: (
     font-size: pxToRem(14),
-    line-height: pxToRem(14)
+    line-height: pxToRem(14),
 );
 $mdc-typography-styles-headline6: (
     font-size: pxToRem(14),
-    line-height: pxToRem(14)
+    line-height: pxToRem(14),
 );
 $mdc-typography-styles-subtitle1: (
     font-size: pxToRem(14),
-    line-height: pxToRem(18)
+    line-height: pxToRem(18),
 );
 $mdc-typography-styles-subtitle2: (
     font-size: pxToRem(13),
-    line-height: pxToRem(18)
+    line-height: pxToRem(18),
 );
 $mdc-typography-styles-body1: (
     font-size: pxToRem(13),
-    line-height: pxToRem(24)
+    line-height: pxToRem(24),
 );
 $mdc-typography-styles-body2: (
     font-size: pxToRem(13),
-    line-height: pxToRem(26)
+    line-height: pxToRem(26),
 );
 $mdc-typography-styles-caption: (
     font-size: pxToRem(11),
-    line-height: pxToRem(14)
+    line-height: pxToRem(14),
 );
 $mdc-typography-styles-button: (
     font-size: pxToRem(14),
@@ -97,9 +103,9 @@ $mdc-typography-styles-button: (
 );
 $mdc-typography-styles-overline: (
     font-size: pxToRem(11),
-    line-height: pxToRem(14)
+    line-height: pxToRem(14),
 );
 
-@import "@limetech/mdc-typography/mdc-typography";
+@import '@limetech/mdc-typography/mdc-typography';
 
-@import "@limetech/mdc-animation/variables";
+@import '@limetech/mdc-animation/variables';

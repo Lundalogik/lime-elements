@@ -5,9 +5,9 @@
  * without being explicitly used by outside code.
  */
 
-@import "../functions";
-@import "../brand-color-definitions";
+@import '../functions';
+@import '../brand-color-definitions';
 
-$lime-text-field-bottom-line-color: rgba(0,0,0,0.12);
+$lime-text-field-bottom-line-color: rgba(0, 0, 0, 0.12);
 
 $lime-banner-height: pxToRem(52) !default;
