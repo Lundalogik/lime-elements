@@ -1,3 +1,10 @@
+# [26.17.0](https://github.com/Lundalogik/lime-elements/compare/v26.16.1...v26.17.0) (2020-04-16)
+
+
+### Features
+
+* add keyboard support for autocomplete on input-field ([7e96b0e](https://github.com/Lundalogik/lime-elements/commit/7e96b0e41ac3bc5dc972e31e13b9d98664f8abd3))
+
 ## [26.16.1](https://github.com/Lundalogik/lime-elements/compare/v26.16.0...v26.16.1) (2020-04-16)
 
 
