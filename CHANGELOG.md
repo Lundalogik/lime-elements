@@ -1,3 +1,10 @@
+## [26.16.1](https://github.com/Lundalogik/lime-elements/compare/v26.16.0...v26.16.1) (2020-04-16)
+
+
+### Bug Fixes
+
+* **picker:** handle updates to the `searcher` property ([3153044](https://github.com/Lundalogik/lime-elements/commit/3153044295a40f1f3494b826710ec15a15e05ced)), closes [Lundalogik/crm-feature#1017](https://github.com/Lundalogik/crm-feature/issues/1017)
+
 # [26.16.0](https://github.com/Lundalogik/lime-elements/compare/v26.15.0...v26.16.0) (2020-04-15)
 
 
