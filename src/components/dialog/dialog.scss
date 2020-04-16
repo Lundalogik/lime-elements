@@ -116,28 +116,31 @@ slot[name='header'] {
     // Credit to the ever fantastic Lea Verou!
     // http://lea.verou.me/2012/04/background-attachment-local/
 
+    /* prettier-ignore */
     background:
-        /* Shadow covers */ linear-gradient(
+        /* Shadow covers */
+        linear-gradient(
             var(--dialog-background-color) 30%,
             var(--dialog-background-color-transparent)
         ),
         linear-gradient(
-                var(--dialog-background-color-transparent),
-                var(--dialog-background-color) 70%
-            )
-            0 100%,
+            var(--dialog-background-color-transparent),
+            var(--dialog-background-color) 70%
+        )
+        0 100%,
+
         /* Shadows */
-            radial-gradient(
-                farthest-side at 50% 0,
-                var(--dialog-scroll-shadow-color),
-                var(--dialog-scroll-shadow-color-transparent)
-            ),
         radial-gradient(
-                farthest-side at 50% 100%,
-                var(--dialog-scroll-shadow-color),
-                var(--dialog-scroll-shadow-color-transparent)
-            )
-            0 100%;
+            farthest-side at 50% 0,
+            var(--dialog-scroll-shadow-color),
+            var(--dialog-scroll-shadow-color-transparent)
+        ),
+        radial-gradient(
+            farthest-side at 50% 100%,
+            var(--dialog-scroll-shadow-color),
+            var(--dialog-scroll-shadow-color-transparent)
+        )
+        0 100%;
 
     background-repeat: no-repeat;
     background-color: var(--dialog-background-color);
