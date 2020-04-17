@@ -8,6 +8,7 @@
 
 Windows:
 - [ ] Chrome
+- [ ] Edge
 - [ ] Firefox
 
 Linux:
