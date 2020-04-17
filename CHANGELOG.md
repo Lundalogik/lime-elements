@@ -1,3 +1,10 @@
+# [26.18.0](https://github.com/Lundalogik/lime-elements/compare/v26.17.0...v26.18.0) (2020-04-17)
+
+
+### Features
+
+* **list:** make list items more distinct & interactive ([02e816c](https://github.com/Lundalogik/lime-elements/commit/02e816c6ae280d797c3b19f683604bd200b344c9))
+
 # [26.17.0](https://github.com/Lundalogik/lime-elements/compare/v26.16.1...v26.17.0) (2020-04-16)
 
 
