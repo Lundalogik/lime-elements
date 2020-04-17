@@ -111,6 +111,8 @@ export class LimeElementsAdapter extends React.Component {
 
     componentDidUpdate(prevProps) {
         this.setNonPrimitives(prevProps.elementProps, this.props.elementProps);
+        this.removeEvents();
+        this.setEvents();
     }
 
     render() {

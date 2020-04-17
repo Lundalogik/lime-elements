@@ -35,11 +35,11 @@ export const base = widget => {
                 widgetProps: props,
                 extraProps: {
                     ...overridenWidgetProps,
-                    widget: widget // Pass widget so we can override and rerender the original widget if desired
+                    widget: widget, // Pass widget so we can override and rerender the original widget if desired
                 },
                 events: {
-                    change: handleChange
-                }
+                    change: handleChange,
+                },
             });
         }
 

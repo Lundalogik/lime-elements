@@ -5,17 +5,17 @@ import {
     EventEmitter,
     h,
     Prop,
-    Watch
+    Watch,
 } from '@stencil/core';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import JSONSchemaForm from 'react-jsonschema-form';
+import JSONSchemaForm from './jsonschema-form/jsonschema-form';
 import retargetEvents from 'react-shadow-dom-retarget-events';
 import { FormError, ValidationStatus } from './form.types';
 import {
     ArrayFieldTemplate,
     FieldTemplate,
-    ObjectFieldTemplate
+    ObjectFieldTemplate,
 } from './templates';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
@@ -24,7 +24,7 @@ import { SchemaField as CustomSchemaField } from './fields/schema-field';
 @Component({
     tag: 'limel-form',
     shadow: true,
-    styleUrl: 'form.scss'
+    styleUrl: 'form.scss',
 })
 export class Form {
     /**
@@ -111,8 +111,8 @@ export class Form {
                     ObjectFieldTemplate: ObjectFieldTemplate,
                     ref: this.setForm,
                     formContext: {
-                        schema: this.modifiedSchema
-                    }
+                        schema: this.modifiedSchema,
+                    },
                 },
                 []
             ),
@@ -132,7 +132,7 @@ export class Form {
         const errors: FormError[] = this.form.validate(value).errors;
         const status: ValidationStatus = {
             valid: errors.length === 0,
-            errors: errors
+            errors: errors,
         };
 
         if (this.isValid !== status.valid || !status.valid) {
@@ -155,7 +155,7 @@ export class Form {
         this.modifiedSchema = {
             ...this.schema,
             id: id,
-            $id: id
+            $id: id,
         };
     }
 }
