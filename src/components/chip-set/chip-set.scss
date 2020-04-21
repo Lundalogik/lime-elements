@@ -27,6 +27,12 @@ $mdc-chip-background-color: #fff;
 .mdc-chip {
     background-color: $mdc-chip-background-color;
     @include is-elevated-clickable;
+    max-width: 100%;
+
+    span[role='gridcell'] {
+        // This is needed to force mdc-chip__text (which is inside this span) to truncate
+        min-width: 0;
+    }
 
     &:hover {
         background-color: $mdc-chip-background-color;
@@ -40,6 +46,7 @@ $mdc-chip-background-color: #fff;
 .mdc-chip__text {
     overflow: hidden;
     text-overflow: ellipsis;
+    display: block;
 }
 
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
