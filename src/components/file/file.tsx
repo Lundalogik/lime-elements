@@ -109,7 +109,7 @@ export class File {
                 required={this.required}
                 type="input"
                 value={chipArray}
-                onFocus={this.handleFileSelection}
+                onClick={this.handleFileSelection}
                 onChange={this.handleChipSetChange}
                 onInteract={this.preventAndStop}
                 onDrop={this.handleFileDrop}
@@ -119,8 +119,9 @@ export class File {
         ];
     }
 
-    private handleFileSelection(event: FocusEvent) {
+    private handleFileSelection(event: Event) {
         event.stopPropagation();
+        event.preventDefault();
         if (!this.value) {
             this.fileInput.click();
         }
