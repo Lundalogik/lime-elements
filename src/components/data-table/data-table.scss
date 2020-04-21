@@ -1,0 +1,8 @@
+@import '../../style/internal/mdc-variables';
+
+@import '@limetech/mdc-checkbox/mdc-checkbox';
+@import '@limetech/mdc-data-table/mdc-data-table';
+
+:host {
+  display: block;
+}
