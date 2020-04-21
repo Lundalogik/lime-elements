@@ -68,6 +68,8 @@ export class File {
         this.handleFileChange = this.handleFileChange.bind(this);
         this.handleChipSetChange = this.handleChipSetChange.bind(this);
         this.handleFileDrop = this.handleFileDrop.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
     }
 
     public componentDidLoad() {
@@ -107,6 +109,8 @@ export class File {
                 disabled={this.disabled}
                 label={this.label}
                 required={this.required}
+                onKeyDown={this.handleKeyDown}
+                onKeyUp={this.handleKeyUp}
                 type="input"
                 value={chipArray}
                 onClick={this.handleFileSelection}
@@ -117,6 +121,24 @@ export class File {
                 onDragOver={this.preventAndStop}
             />,
         ];
+    }
+
+    private handleKeyDown(event: KeyboardEvent) {
+        if (
+            event.code === 'Tab' ||
+            event.code === 'Backspace' ||
+            event.code === 'Enter'
+        ) {
+            return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    private handleKeyUp(event: KeyboardEvent) {
+        if (event.code === 'Enter' && !this.value) {
+            this.fileInput.click();
+        }
     }
 
     private handleFileSelection(event: Event) {
