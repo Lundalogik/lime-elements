@@ -6,6 +6,11 @@ function capitalize(text: string = '') {
     return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+/**
+ * Adapter to render a web component by string name from React.
+ *
+ * Specifically for Widgets in react-jsonschema-form
+ */
 export class LimeElementsWidgetAdapter extends React.Component {
     state = {
         modified: false,

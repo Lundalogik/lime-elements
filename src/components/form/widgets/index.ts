@@ -31,5 +31,5 @@ export const widgets: Partial<Record<WidgetType, any>> = {
     DateWidget: base(DatePicker),
     EmailWidget: base(InputField),
     TextWidget: base(InputField),
-    SelectWidget: base(Select)
+    SelectWidget: base(Select),
 };

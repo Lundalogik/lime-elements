@@ -82,10 +82,6 @@ export function renderCustomTemplateAdapter(
         templateProps.schema
     );
 
-    console.log('Rendering custom element adapter', name, {
-        templateProps: templateProps,
-        ...overridenTemplateProps,
-    });
     return React.createElement(LimeElementsAdapter, {
         name: name,
         elementProps: {
@@ -114,7 +110,7 @@ function sortDataByProperties(data: any, properties: object) {
     }
 
     const newData = {};
-    Object.keys(properties).forEach((key) => (newData[key] = data[key]));
+    Object.keys(properties).forEach(key => (newData[key] = data[key]));
     return newData;
 }
 
@@ -133,7 +129,7 @@ function getRequiredEntry(data: any, subSchema: any) {
     if (!('required' in subSchema)) {
         return [null, null];
     }
-    const firstNonEmptyRequiredKey = Object.keys(data).find((key) =>
+    const firstNonEmptyRequiredKey = Object.keys(data).find(key =>
         subSchema.required.includes(key)
     );
     if (!firstNonEmptyRequiredKey) {
@@ -150,7 +146,10 @@ function findSubSchema(schema: any, formSchema: any) {
     }
 
     if (subSchema.$ref) {
-        const path = subSchema.$ref.split('/').slice(1).join('.');
+        const path = subSchema.$ref
+            .split('/')
+            .slice(1)
+            .join('.');
         subSchema = get(formSchema, path);
     }
     return subSchema;
@@ -159,13 +158,13 @@ function findSubSchema(schema: any, formSchema: any) {
 function findSchemaTitle(value: any, schema: any) {
     if (isArrayType(schema) && schema.items.anyOf) {
         const titles = schema.items.anyOf
-            .filter((item) => value.includes(item.const))
-            .map((item) => item.title);
+            .filter(item => value.includes(item.const))
+            .map(item => item.title);
         return titles.join(', ');
     }
 
     if (schema.oneOf) {
-        return schema.oneOf.find((item) => value === item.const).title;
+        return schema.oneOf.find(item => value === item.const).title;
     }
 
     return value;

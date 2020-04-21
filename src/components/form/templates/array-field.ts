@@ -6,7 +6,7 @@ import {
     renderDescription,
     renderTitle,
     renderCustomTemplateAdapter,
-    hasOverridenTemplate
+    hasOverridenTemplate,
 } from './common';
 import { ArrayFieldItem, ArrayFieldTemplateProps } from './types';
 
@@ -18,8 +18,8 @@ export class ArrayFieldTemplate extends React.Component {
     }
 
     public render() {
+        // If template is overriden in schema, render it instead
         if (hasOverridenTemplate(this.props.schema)) {
-            console.log('OVERRIDEN ARRAY FIELD TEMPLATE', this.props);
             return renderCustomTemplateAdapter(this.props);
         }
 
@@ -42,7 +42,7 @@ export class ArrayFieldTemplate extends React.Component {
             outlined: true,
             label: 'Add',
             onClick: this.handleAddClick,
-            icon: 'add'
+            icon: 'add',
         });
     }
 
@@ -57,14 +57,14 @@ export class ArrayFieldTemplate extends React.Component {
                 data: formData[index],
                 schema: schema,
                 formSchema: formContext.schema,
-                index: index
+                index: index,
             });
         }
 
         return React.createElement(SimpleItemTemplate, {
             key: key,
             item: item,
-            index: index
+            index: index,
         });
     }
 

@@ -7,6 +7,17 @@ import {
 } from 'react-jsonschema-form/lib/utils';
 import { isEqual } from 'lodash-es';
 
+/**
+ * Find schema definition given a $ref
+ *
+ * This is copied directly from react-jsonschema-form/lib/utils v1.8.1 since it is
+ * not exported.
+ *
+ * @param {string} $ref the ref
+ * @param {any} definitions the defintions
+ *
+ * @returns {any} the schema definitions
+ */
 function findSchemaDefinition($ref, definitions: any = {}) {
     // Extract and use the referenced definition if we have it.
     const match = /^#\/definitions\/(.*)$/.exec($ref);
@@ -32,12 +43,24 @@ function findSchemaDefinition($ref, definitions: any = {}) {
     throw new Error(`Could not find a definition for ${$ref}.`);
 }
 
+/**
+ * Given a schema, populate the defaults of the form data
+ *
+ * This function is required because react-jsonschema-form
+ * does not populate defaults of dependencies of dependencies.
+ *
+ * @see https://github.com/rjsf-team/react-jsonschema-form/issues/1703
+ *
+ * @param {object} schema the schema for the associated data. Should be an 'object' schema
+ * @param {any} data the data object to populate with defaults
+ * @param {object} definitions schema definitions
+ *
+ * @returns {object} The updated data
+ */
 const populateDefaults = (schema, data, definitions) => {
-    console.log('Populate Defaults', schema, data);
-
+    // Resolve reference on schema if it exists
     if ('$ref' in schema) {
         const ref = findSchemaDefinition(schema.$ref, definitions);
-        console.log('Populate Defaults ref', ref);
         schema = mergeObjects(schema, ref);
         delete schema.$ref;
     }
@@ -47,28 +70,18 @@ const populateDefaults = (schema, data, definitions) => {
     let prevDataSchema;
     let curDataSchema;
 
+    // Loop and populate defaults until the dataSchema
+    // doesn't change and the data doesn't change.
+    // The dataSchema is the schema react-jsonschema-form
+    // generates for the provided data. So if we populate the data
+    // with defaults, we need to rebuild that dataSchema with the defaults
+    // populated.
     do {
-        console.log(
-            'Populate Defaults loop',
-            inputData,
-            outputData,
-            prevDataSchema,
-            curDataSchema
-        );
         inputData = outputData;
         prevDataSchema = curDataSchema;
         curDataSchema = retrieveSchema(schema, definitions, inputData);
-        console.log('Populate Defaults new data schema', curDataSchema);
 
         outputData = getDefaultFormState(curDataSchema, inputData, definitions);
-
-        console.log(
-            'Populate Defaults loop done',
-            inputData,
-            outputData,
-            prevDataSchema,
-            curDataSchema
-        );
     } while (
         !isEqual(inputData, outputData) &&
         !isEqual(prevDataSchema, curDataSchema)
@@ -76,7 +89,10 @@ const populateDefaults = (schema, data, definitions) => {
 
     data = outputData;
 
+    // For all properties in the dataSchema, recurse
+    // over the properties and populate the defaults of the subschema
     for (const prop of Object.keys(curDataSchema.properties)) {
+        // Only recurse on 'object' properties
         if (curDataSchema.properties[prop].type === 'object') {
             const propData = data[prop];
             data = {
@@ -90,11 +106,17 @@ const populateDefaults = (schema, data, definitions) => {
         }
     }
 
-    console.log('Populate Defaults done', data);
-
+    // Pass the updated data back up the stack
     return data;
 };
 
+/**
+ * This form component exists to manually populate the defaults of the schema
+ * before react-jsonschema-form populates the defaults because the react-jsonschema-form
+ * is not able to populate the defaults for dependencies of dependencies
+ *
+ * @see https://github.com/rjsf-team/react-jsonschema-form/issues/1703
+ */
 export default class Form extends React.Component<any, any> {
     form;
 
@@ -107,7 +129,6 @@ export default class Form extends React.Component<any, any> {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('COMPONENT WILL RECIEVE PROPS', nextProps);
         nextProps = {
             ...nextProps,
             formData: populateDefaults(
@@ -126,7 +147,6 @@ export default class Form extends React.Component<any, any> {
 
     render() {
         const { nextState } = this.state;
-        console.log('render overriden form', nextState);
         return React.createElement(
             JSONSchemaForm,
             {

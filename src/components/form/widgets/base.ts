@@ -14,6 +14,14 @@ const getOverridenWidget = (
     return { name: name, props: props };
 };
 
+/**
+ * Higher order component for widgets to allow for rendering of custom
+ * widgets based on overrides in a schema
+ *
+ * @param {any} widget The react component for the widget
+ *
+ * @returns {any} The react component to render the widget with the necessary override logic
+ */
 export const base = widget => {
     return props => {
         // Intercept on change of overriden widgets to avoid propagating on change event

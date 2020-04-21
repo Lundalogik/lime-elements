@@ -3,15 +3,15 @@ import {
     renderDescription,
     renderTitle,
     renderCustomTemplateAdapter,
-    hasOverridenTemplate
+    hasOverridenTemplate,
 } from './common';
 import { ObjectFieldProperty, ObjectFieldTemplateProps } from './types';
 
 export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     const { schema } = props;
 
+    // If the template is overriden in the schema, render the custom template
     if (hasOverridenTemplate(schema)) {
-        console.log('RENDERING OBJECT CUSTOM TEMPLATE ADAPTER', props);
         return renderCustomTemplateAdapter(props);
     }
 
@@ -41,7 +41,7 @@ function renderCollapsibleField(props: ObjectFieldTemplateProps) {
     return React.createElement(
         'limel-collapsible-section',
         {
-            header: props.title
+            header: props.title,
         },
         renderDescription(props.description),
         renderProperties(props.properties)

@@ -10,7 +10,6 @@ import {
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import JSONSchemaForm from './jsonschema-form/jsonschema-form';
-import retargetEvents from 'react-shadow-dom-retarget-events';
 import { FormError, ValidationStatus } from './form.types';
 import {
     ArrayFieldTemplate,
@@ -77,7 +76,6 @@ export class Form {
 
     protected componentDidLoad() {
         this.reactRender();
-        // retargetEvents(this.host.shadowRoot);
         this.validateForm(this.value);
     }
 
@@ -93,7 +91,6 @@ export class Form {
 
     private reactRender() {
         const rootElement = this.host.shadowRoot.querySelector('.root');
-        console.log('rendering form', this.value);
 
         render(
             React.createElement(
