@@ -219,7 +219,7 @@ export class Select {
 
         if (isMultiple(event.detail)) {
             const listItems: ListItem[] = event.detail;
-            const options: Option[] = listItems.map(item => item.value);
+            const options: Option[] = listItems.map((item) => item.value);
             this.change.emit(options);
 
             return;
@@ -278,7 +278,9 @@ export class Select {
                 return !!optionElement.selected;
             })
             .map((optionElement: HTMLOptionElement) => {
-                return this.options.find(o => o.value === optionElement.value);
+                return this.options.find(
+                    (o) => o.value === optionElement.value
+                );
             });
 
         if (this.multiple) {

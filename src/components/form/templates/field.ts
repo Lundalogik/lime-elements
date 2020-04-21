@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderCustomTemplateAdapter, hasOverridenTemplate } from './common';
 
-export const FieldTemplate = props => {
+export const FieldTemplate = (props) => {
     const { classNames, children, schema } = props;
 
     // Object and array template overrides are handled in their respective template files
@@ -18,7 +18,7 @@ export const FieldTemplate = props => {
     return React.createElement(
         'div',
         {
-            className: classNames
+            className: classNames,
         },
         children
     );

@@ -22,10 +22,10 @@ const getOverridenWidget = (
  *
  * @returns {any} The react component to render the widget with the necessary override logic
  */
-export const base = widget => {
-    return props => {
+export const base = (widget) => {
+    return (props) => {
         // Intercept on change of overriden widgets to avoid propagating on change event
-        const handleChange = event => {
+        const handleChange = (event) => {
             event.stopPropagation();
 
             props.onChange(event.detail);

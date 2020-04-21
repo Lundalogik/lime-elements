@@ -115,7 +115,7 @@ export class SchemaField extends React.Component<FieldProps> {
      */
     getDifferentKeys(a: object, b: object, equalsFunc = equals): any[] {
         const keys = union(Object.keys(a), Object.keys(b));
-        return keys.filter(key => {
+        return keys.filter((key) => {
             return !equalsFunc(b[key], a[key]);
         });
     }

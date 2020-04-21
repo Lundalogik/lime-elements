@@ -2,11 +2,11 @@ import React from 'react';
 import { isNil, isNumber, isString, isBoolean } from 'lodash-es';
 
 // Convert camelCase to dash-case
-const toDashCase = myStr =>
-    myStr.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`);
+const toDashCase = (myStr) =>
+    myStr.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
 
 // Checks if value is a primitive
-const isPrimitive = value =>
+const isPrimitive = (value) =>
     isNil(value) || isNumber(value) || isString(value) || isBoolean(value);
 
 /**
@@ -58,7 +58,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
      */
     getHandler(eventName: string) {
         const { events } = this.props;
-        return event => {
+        return (event) => {
             event.stopPropagation();
             events[eventName](event);
         };
