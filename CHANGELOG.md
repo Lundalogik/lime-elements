@@ -1,3 +1,11 @@
+## [26.18.1](https://github.com/Lundalogik/lime-elements/compare/v26.18.0...v26.18.1) (2020-04-22)
+
+
+### Bug Fixes
+
+* **file:** disable text input ([99c7f19](https://github.com/Lundalogik/lime-elements/commit/99c7f19bf2f54e63426dfc60ae3b57d8a923826c))
+* **file:** you end up in a loop when you try to upload a file ([f6c8c27](https://github.com/Lundalogik/lime-elements/commit/f6c8c2708a9ab13bc077dcc338bc8287b8d60795)), closes [#708](https://github.com/Lundalogik/lime-elements/issues/708)
+
 # [26.18.0](https://github.com/Lundalogik/lime-elements/compare/v26.17.0...v26.18.0) (2020-04-17)
 
 
