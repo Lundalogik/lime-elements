@@ -1,7 +1,7 @@
 module.exports = {
     extends: ['./tslint.js'],
     linterOptions: {
-        exclude: [],
+        exclude: ['src/**'],
     },
 
     rules: {

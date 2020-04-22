@@ -25,7 +25,7 @@
     "lint": "npm run lint:src && npm run lint:specs && npm run lint:examples && npm run lint:config && npm run lint:scss",
     "lint:fix": "npm run lint:src:fix && npm run lint:specs:fix && npm run lint:examples:fix && npm run lint:config:fix && npm run lint:scss:fix",
     "lint:config": "npx tslint --project . -t stylish -c tslint.config.js '*.{ts,tsx}' && npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
-    "lint:config:fix": "npx tslint -t stylish --fix -c tslint.config.js '*.{ts,tsx}' && npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
+    "lint:config:fix": "npx tslint --project . -t stylish --fix -c tslint.config.js '*.{ts,tsx}' && npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
     "lint:examples": "npx tslint --project . -t stylish -c tslint.examples.js 'src/components/**/examples/*.{ts,tsx}'",
     "lint:examples:fix": "npx tslint --project . -t stylish --fix -c tslint.examples.js 'src/components/**/examples/*.{ts,tsx}'",
     "lint:specs": "npx tslint --project . -t stylish -c tslint.specs.js 'src/**/*.{spec,e2e}.{ts,tsx}'",
