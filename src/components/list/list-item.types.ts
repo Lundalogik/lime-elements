@@ -33,6 +33,11 @@ export interface ListItem<T = any> {
      * Value of the list item.
      */
     value?: T;
+
+    /**
+     * List of actions to display as a menu at the end of the item
+     */
+    actions?: ListItem[];
 }
 
 export interface ListSeparator {
