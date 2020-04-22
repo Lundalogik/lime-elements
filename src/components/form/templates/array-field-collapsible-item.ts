@@ -38,6 +38,8 @@ export class CollapsibleItemTemplate extends React.Component {
     constructor(public props: CollapsibleItemProps) {
         super(props);
         this.handleAction = this.handleAction.bind(this);
+        this.isDeepEmpty = this.isDeepEmpty.bind(this);
+
         this.isOpen = this.isDeepEmpty(props.data);
     }
 
