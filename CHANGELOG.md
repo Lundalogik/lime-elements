@@ -1,3 +1,10 @@
+## [26.18.3](https://github.com/Lundalogik/lime-elements/compare/v26.18.2...v26.18.3) (2020-04-23)
+
+
+### Bug Fixes
+
+* **chip-set:** make chips truncate when their content is too long ([0c05c63](https://github.com/Lundalogik/lime-elements/commit/0c05c633677050bd9ff8b6c16a29b4b3a28855ac))
+
 ## [26.18.2](https://github.com/Lundalogik/lime-elements/compare/v26.18.1...v26.18.2) (2020-04-23)
 
 
