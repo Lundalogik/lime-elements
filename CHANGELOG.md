@@ -1,3 +1,10 @@
+## [26.18.2](https://github.com/Lundalogik/lime-elements/compare/v26.18.1...v26.18.2) (2020-04-23)
+
+
+### Bug Fixes
+
+* **form:** prevent argument mismatching in case the value is an array ([274c1c7](https://github.com/Lundalogik/lime-elements/commit/274c1c73f50305ec617be3f85deac0a3f942c14f)), closes [Lundalogik/crm-feature#1057](https://github.com/Lundalogik/crm-feature/issues/1057)
+
 ## [26.18.1](https://github.com/Lundalogik/lime-elements/compare/v26.18.0...v26.18.1) (2020-04-22)
 
 
