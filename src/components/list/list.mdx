@@ -8,23 +8,32 @@ menu: Components
 
 <limel-props name="limel-list" />
 
+## Custom styles
+
+| Class name              | Description                                                                                     |
+| ----------------------- | ----------------------------------------------------------------------------------------------- |
+| `has-striped-rows`      | Adds distinct styling by which every other row (list item) gets a darker background.            |
+| `has-interactive-items` | Adds more affordance by applying an elevated visual effect on list item, when they are hovered. |
+
+
+
 ## Examples
 
 ### Basic list with separator
 
-<limel-example name="limel-example-list" /> 
+<limel-example name="limel-example-list" />
 
 ### List with secondary text
 
-<limel-example name="limel-example-list-secondary" path="list" /> 
+<limel-example name="limel-example-list-secondary" path="list" />
 
 ### List with selectable items
 
-<limel-example name="limel-example-list-selectable" path="list" /> 
+<limel-example name="limel-example-list-selectable" path="list" />
 
 ### List with icons
 
-<limel-example name="limel-example-list-icons" path="list" /> 
+<limel-example name="limel-example-list-icons" path="list" />
 
 ### List with badge icons
 
@@ -49,3 +58,12 @@ menu: Components
 ### List with action menu
 
 <limel-example name="limel-example-list-action" path="list" />
+
+### List with custom styles
+Adding the `has-striped-rows` class to the list will make the items more distinct by adding different background colors to even and odd rows.
+
+Also, by taking advantage of the `has-interactive-items`, hovering on a list item which is not `disabled` will display an elevated visual effect, giving it more affordance and a solid feeling of interactivity.
+
+**Note:** to get both effects, you need to apply both of these classes.
+
+<limel-example name="limel-example-list-striped" path="list" />
