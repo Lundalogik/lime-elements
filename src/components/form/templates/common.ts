@@ -122,7 +122,10 @@ function findSchemaTitle(value: any, schema: any) {
     }
 
     if (schema.oneOf) {
-        return schema.oneOf.find((item) => value === item.const).title;
+        return (
+            schema.oneOf.find((item) => value === item.const)?.title ||
+            `${value} is an invalid option`
+        );
     }
 
     return value;
