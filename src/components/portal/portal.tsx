@@ -44,6 +44,7 @@ export class Portal {
             setTimeout(() => {
                 this.width = this.getContentWidth(this.container);
                 this.styleContainer();
+                this.showContainer();
             });
         }
     }
@@ -101,6 +102,7 @@ export class Portal {
         const content = slot.assignedElements();
 
         this.container = document.createElement('div');
+        this.hideContainer();
         this.container.setAttribute('id', this.containerId);
         content.forEach((element: HTMLElement) => {
             this.container.appendChild(element);
@@ -117,6 +119,14 @@ export class Portal {
 
     private removeContainer() {
         this.container.parentElement.removeChild(this.container);
+    }
+
+    private hideContainer() {
+        this.container.style.opacity = '0';
+    }
+
+    private showContainer() {
+        this.container.style.opacity = '1';
     }
 
     private styleContainer() {
