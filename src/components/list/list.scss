@@ -22,11 +22,10 @@
     display: none;
 }
 
-.mdc-list {
-    --mdc-theme-text-icon-on-background: var(--icon-color, rgb(157, 157, 157));
-    padding: 0;
-    border: 1px solid #f6f6f7;
-    border-radius: pxToRem(6);
+:host(.has-striped-rows) {
+    .mdc-list {
+        border: 1px solid #f6f6f7;
+    }
 
     .mdc-list-item {
         &:nth-child(even) {
@@ -35,13 +34,11 @@
         &:nth-child(odd) {
             background-color: rgba(#fafafb, 0.5);
         }
-        &:first-child {
-            border-radius: pxToRem(6) pxToRem(6) pxToRem(0) pxToRem(0);
-        }
-        &:last-child {
-            border-radius: pxToRem(0) pxToRem(0) pxToRem(6) pxToRem(6);
-        }
+    }
+}
 
+:host(.has-interactive-items) {
+    .mdc-list-item {
         &:not(.mdc-list-item--disabled) {
             @include is-flat-clickable();
             &:hover {
@@ -52,6 +49,21 @@
                     background-color: #fff;
                 }
             }
+        }
+    }
+}
+
+.mdc-list {
+    --mdc-theme-text-icon-on-background: var(--icon-color, rgb(157, 157, 157));
+    padding: 0;
+    border-radius: pxToRem(6);
+
+    .mdc-list-item {
+        &:first-child {
+            border-radius: pxToRem(6) pxToRem(6) pxToRem(0) pxToRem(0);
+        }
+        &:last-child {
+            border-radius: pxToRem(0) pxToRem(0) pxToRem(6) pxToRem(6);
         }
     }
 
