@@ -1,6 +1,7 @@
 @import '../../style/internal/mdc-variables';
 
 @import '@limetech/mdc-list/mdc-list';
+@import '@limetech/mdc-menu/mdc-menu';
 
 @import '../checkbox/checkbox.scss';
 
@@ -105,6 +106,14 @@
 
         .mdc-list-item:last-child hr.mdc-list-divider {
             display: none;
+        }
+    }
+
+    .mdc-list-item[role='menuitem'] {
+        font-size: pxToRem(13);
+
+        .mdc-list-item__graphic {
+            margin-right: pxToRem(14);
         }
     }
 
