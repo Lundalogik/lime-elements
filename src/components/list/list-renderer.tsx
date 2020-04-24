@@ -6,7 +6,6 @@ import { RadioButtonTemplate } from './radio-button/radio-button.template';
 
 export class ListRenderer {
     private defaultConfig: ListRendererConfig = {
-        isMenu: false,
         isOpen: true,
         badgeIcons: false,
     };
@@ -40,7 +39,7 @@ export class ListRenderer {
         });
 
         this.avatarList = this.config.badgeIcons && this.hasIcons;
-        const selectableListTypes = ['selectable', 'radio', 'checkbox'];
+        const selectableListTypes = ['selectable', 'radio', 'checkbox', 'menu'];
 
         let role;
         switch (this.config.type) {
@@ -51,7 +50,7 @@ export class ListRenderer {
                 role = 'radiogroup';
                 break;
             default:
-                role = this.config.isMenu ? 'menu' : 'listbox';
+                role = this.config.type === 'menu' ? 'menu' : 'listbox';
         }
 
         this.applyTabIndexToItemAtIndex = this.getIndexForWhichToApplyTabIndex(
@@ -71,7 +70,7 @@ export class ListRenderer {
         return (
             <ul
                 class={classNames}
-                aria-hidden={(!this.config.isOpen).toString()}
+                aria-hidden={(this.config.type === 'menu').toString()}
                 role={role}
                 aria-orientation="vertical"
             >
@@ -144,7 +143,7 @@ export class ListRenderer {
         return (
             <li
                 class={classNames}
-                role={this.config.isMenu ? 'menuitem' : ''}
+                role={this.config.type === 'menu' ? 'menuitem' : ''}
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 aria-selected={item.selected ? 'true' : 'false'}
                 data-index={index}
@@ -153,6 +152,7 @@ export class ListRenderer {
                 {item.icon ? this.renderIcon(this.config, item) : null}
                 {this.renderText(item.text, item.secondaryText)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
+                {this.renderActionMenu(item.actions)}
             </li>
         );
     }
@@ -216,6 +216,22 @@ export class ListRenderer {
             classes[this.config.iconSize] = true;
         }
         return <hr class={classes} />;
+    }
+
+    private renderActionMenu(actions: ListItem[]) {
+        if (!actions || actions.length === 0) {
+            return;
+        }
+
+        return (
+            <limel-menu
+                class="mdc-list-item__meta"
+                items={actions}
+                openDirection="left"
+            >
+                <limel-icon slot="trigger" name="menu_2" size="small" />
+            </limel-menu>
+        );
     }
 
     private renderVariantListItem(

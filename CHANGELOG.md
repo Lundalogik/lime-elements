@@ -1,3 +1,16 @@
+# [26.19.0](https://github.com/Lundalogik/lime-elements/compare/v26.18.3...v26.19.0) (2020-04-24)
+
+
+### Bug Fixes
+
+* **portal:** ensure components inside a portal is shown at the correct position only ([7c43692](https://github.com/Lundalogik/lime-elements/commit/7c43692cf91e81ed35f488dfd8b07165cc6d3cff))
+
+
+### Features
+
+* **list:** adds action menu to list item (again) ([fe60a4a](https://github.com/Lundalogik/lime-elements/commit/fe60a4a6c66effe109824d8f15f32a8d162c76a4))
+* **menu:** use limel-portal (again) ([b27c8e9](https://github.com/Lundalogik/lime-elements/commit/b27c8e9c82913b150a9fd5800ef93de68e1d6de6))
+
 ## [26.18.3](https://github.com/Lundalogik/lime-elements/compare/v26.18.2...v26.18.3) (2020-04-23)
 
 

@@ -5,19 +5,23 @@ import {
     ListType,
 } from '@limetech/lime-elements';
 import { MDCList, MDCListActionEvent } from '@limetech/mdc-list';
-import { strings } from '@limetech/mdc-list/constants';
+import { MDCMenu, MDCMenuItemEvent } from '@limetech/mdc-menu';
+import { strings as listStrings } from '@limetech/mdc-list/constants';
+import { strings as menuStrings } from '@limetech/mdc-menu/constants';
 import {
     Component,
     Element,
     Event,
     EventEmitter,
+    h,
     Prop,
     Watch,
 } from '@stencil/core';
 import { ListRenderer } from './list-renderer';
 import { ListRendererConfig } from './list-renderer-config';
 
-const { ACTION_EVENT } = strings;
+const { ACTION_EVENT } = listStrings;
+const { SELECTED_EVENT } = menuStrings;
 
 @Component({
     tag: 'limel-list',
@@ -48,6 +52,7 @@ export class List {
      * `selectable`: regular list with single selection.
      * `radio`: radio button list with single selection.
      * `checkbox`: checkbox list with multiple selection.
+     * `menu`: menu list with single selection.
      */
     @Prop()
     public type: ListType;
@@ -58,6 +63,7 @@ export class List {
     private config: ListRendererConfig;
     private listRenderer = new ListRenderer();
     private mdcList: MDCList;
+    private mdcMenu: MDCMenu;
     private multiple: boolean;
     private selectable: boolean;
 
@@ -67,8 +73,15 @@ export class List {
     @Event()
     private change: EventEmitter<ListItem | ListItem[]>;
 
+    /**
+     * Fired when an action has been selected from the action menu of a list item
+     */
+    @Event()
+    protected select: EventEmitter<ListItem | ListItem[]>;
+
     constructor() {
         this.handleAction = this.handleAction.bind(this);
+        this.handleMenuSelect = this.handleMenuSelect.bind(this);
     }
 
     public connectedCallback() {
@@ -89,7 +102,13 @@ export class List {
             type: this.type,
             iconSize: this.iconSize,
         };
-        return this.listRenderer.render(this.items, this.config);
+        const html = this.listRenderer.render(this.items, this.config);
+
+        if (this.type !== 'menu') {
+            return html;
+        }
+
+        return <div class="mdc-menu mdc-menu-surface">{html}</div>;
     }
 
     @Watch('type')
@@ -98,20 +117,49 @@ export class List {
     }
 
     private setup() {
+        if (this.type === 'menu') {
+            this.setupMenu();
+        } else {
+            this.setupList();
+        }
+
+        this.setupListeners();
+    }
+
+    private setupList() {
         const element = this.element.shadowRoot.querySelector('.mdc-list');
         if (!element) {
             return;
         }
 
         this.mdcList = new MDCList(element);
+    }
 
-        this.setupListeners();
+    private setupMenu() {
+        const element = this.element.shadowRoot.querySelector('.mdc-menu');
+        if (!element) {
+            return;
+        }
+
+        this.mdcMenu = new MDCMenu(element);
     }
 
     private setupListeners() {
+        if (this.type === 'menu') {
+            this.setupMenuListeners();
+        } else {
+            this.setupListListeners();
+        }
+    }
+
+    private setupListListeners() {
+        if (!this.mdcList) {
+            return;
+        }
+
         this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
 
-        this.selectable = ['selectable', 'radio', 'checkbox'].includes(
+        this.selectable = ['selectable', 'radio', 'checkbox', 'menu'].includes(
             this.type
         );
         this.multiple = this.type === 'checkbox';
@@ -124,12 +172,18 @@ export class List {
         this.mdcList.singleSelection = !this.multiple;
     }
 
-    private teardown() {
-        if (this.selectable) {
-            this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
-        }
+    private setupMenuListeners() {
+        this.mdcMenu?.unlisten(SELECTED_EVENT, this.handleMenuSelect);
+        this.selectable = true;
+        this.mdcMenu?.listen(SELECTED_EVENT, this.handleMenuSelect);
+    }
 
-        this.mdcList.destroy();
+    private teardown() {
+        this.mdcList?.unlisten(ACTION_EVENT, this.handleAction);
+        this.mdcList?.destroy();
+
+        this.mdcMenu?.unlisten(SELECTED_EVENT, this.handleMenuSelect);
+        this.mdcMenu?.destroy();
     }
 
     private handleAction(event: MDCListActionEvent) {
@@ -139,6 +193,10 @@ export class List {
         }
 
         this.handleMultiSelect(event.detail.index);
+    }
+
+    private handleMenuSelect(event: MDCMenuItemEvent) {
+        this.handleSingleSelect(event.detail.index);
     }
 
     private handleSingleSelect(index: number) {
@@ -152,13 +210,15 @@ export class List {
         });
 
         if (selectedItem) {
-            if (this.type === 'radio' && listItems[index] === selectedItem) {
-                return;
-            }
             this.change.emit({ ...selectedItem, selected: false });
         }
 
         if (listItems[index] !== selectedItem) {
+            if (this.type === 'menu') {
+                this.change.emit({ ...listItems[index], selected: false });
+                return;
+            }
+
             this.change.emit({ ...listItems[index], selected: true });
         }
     }
