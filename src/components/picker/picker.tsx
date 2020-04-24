@@ -142,7 +142,6 @@ export class Picker {
         this.handleInteract = this.handleInteract.bind(this);
         this.handleListChange = this.handleListChange.bind(this);
         this.handleStopEditAndBlur = this.handleStopEditAndBlur.bind(this);
-        this.handleSurfaceDismissed = this.handleSurfaceDismissed.bind(this);
         this.createDebouncedSearcher = this.createDebouncedSearcher.bind(this);
 
         this.portalId = createRandomString();
@@ -353,7 +352,6 @@ export class Picker {
             >
                 <limel-menu-surface
                     open={!!content}
-                    onDismiss={this.handleSurfaceDismissed}
                     style={{ '--menu-surface-width': '100%' }}
                 >
                     {content}
@@ -382,17 +380,6 @@ export class Picker {
 
         this.chipSet.emptyInput();
         this.textValue = '';
-        this.handleSearchResult('', []);
-    }
-
-    /**
-     * Reset text value and search result, when list got closed.
-     *
-     * @returns {void}
-     */
-    private handleSurfaceDismissed() {
-        this.textValue = '';
-        this.chipSet.setFocus(true);
         this.handleSearchResult('', []);
     }
 
