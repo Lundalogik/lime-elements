@@ -323,7 +323,9 @@ export class ChipSet {
                         'mdc-text-field--disabled':
                             this.readonly || this.disabled,
                         'mdc-text-field--required': this.required,
-                        'force-float': !!(this.value.length || this.editMode),
+                        'mdc-floating-label--float-above': !!(
+                            this.value.length || this.editMode
+                        ),
                     }}
                     htmlFor="my-text-field"
                 >
