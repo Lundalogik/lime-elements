@@ -83,7 +83,7 @@
     "puppeteer": "1.19.0",
     "replace-in-file": "6.0.0",
     "semantic-release": "17.0.7",
-    "shelljs": "0.8.3",
+    "shelljs": "0.8.4",
     "showdown": "1.9.1",
     "shx": "0.3.2",
     "tslint": "6.1.1",
