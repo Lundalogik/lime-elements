@@ -110,7 +110,8 @@ export class Menu {
         this.open = false;
     };
 
-    private onTriggerClick = () => {
+    private onTriggerClick = (event: MouseEvent) => {
+        event.stopPropagation();
         if (this.disabled) {
             return;
         }
