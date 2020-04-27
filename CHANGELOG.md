@@ -1,3 +1,10 @@
+## [26.19.1](https://github.com/Lundalogik/lime-elements/compare/v26.19.0...v26.19.1) (2020-04-27)
+
+
+### Bug Fixes
+
+* **form:** return descriptive title if title can't be found due to an invalid value ([4887de3](https://github.com/Lundalogik/lime-elements/commit/4887de39080b8037dcadc4f54b2f6a1cef2992a5))
+
 # [26.19.0](https://github.com/Lundalogik/lime-elements/compare/v26.18.3...v26.19.0) (2020-04-24)
 
 
