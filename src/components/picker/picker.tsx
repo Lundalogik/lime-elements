@@ -203,6 +203,8 @@ export class Picker {
     @Watch('value')
     protected onChangeValue(newValue = [], oldValue = []) {
         this.chips = this.createChips(this.value);
+        newValue = newValue || [];
+        oldValue = oldValue || [];
         if (newValue.length <= oldValue.length) {
             return;
         }
