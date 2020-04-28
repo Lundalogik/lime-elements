@@ -1,3 +1,10 @@
+## [26.19.2](https://github.com/Lundalogik/lime-elements/compare/v26.19.1...v26.19.2) (2020-04-28)
+
+
+### Bug Fixes
+
+* **menu:** click events not propagated ([8c42522](https://github.com/Lundalogik/lime-elements/commit/8c42522d8a06d55f01c23dba87da0ede7131c35d))
+
 ## [26.19.1](https://github.com/Lundalogik/lime-elements/compare/v26.19.0...v26.19.1) (2020-04-27)
 
 
