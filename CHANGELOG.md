@@ -1,3 +1,10 @@
+## [26.19.3](https://github.com/Lundalogik/lime-elements/compare/v26.19.2...v26.19.3) (2020-04-28)
+
+
+### Bug Fixes
+
+* **picker:** remove handler for dismissed surface to keep the list and text when scrolling ([0e842a4](https://github.com/Lundalogik/lime-elements/commit/0e842a4064a2a315393c0b765da72853ddef3fb7))
+
 ## [26.19.2](https://github.com/Lundalogik/lime-elements/compare/v26.19.1...v26.19.2) (2020-04-28)
 
 
