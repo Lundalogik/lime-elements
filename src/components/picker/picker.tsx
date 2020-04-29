@@ -201,15 +201,8 @@ export class Picker {
     }
 
     @Watch('value')
-    protected onChangeValue(newValue = [], oldValue = []) {
+    protected onChangeValue() {
         this.chips = this.createChips(this.value);
-        newValue = newValue || [];
-        oldValue = oldValue || [];
-        if (newValue.length <= oldValue.length) {
-            return;
-        }
-
-        this.chipSet?.setFocus(true);
     }
 
     @Watch('searcher')
@@ -423,6 +416,10 @@ export class Picker {
             this.change.emit(newValue);
             this.items = [];
         }
+
+        if (this.multiple) {
+            this.chipSet?.setFocus(true);
+        }
     }
 
     /**
@@ -449,6 +446,10 @@ export class Picker {
                     return `${item.value}` === chip.id;
                 });
             });
+        }
+
+        if (!this.multiple && !newValue) {
+            this.chipSet?.setFocus(true);
         }
 
         this.change.emit(newValue);
