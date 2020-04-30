@@ -1,3 +1,10 @@
+# [26.20.0](https://github.com/Lundalogik/lime-elements/compare/v26.19.4...v26.20.0) (2020-04-30)
+
+
+### Features
+
+* **list:** add custom class for lists that need striped style ([d81bc57](https://github.com/Lundalogik/lime-elements/commit/d81bc5704a66e0e00ed1d6369ee50b05206aa431))
+
 ## [26.19.4](https://github.com/Lundalogik/lime-elements/compare/v26.19.3...v26.19.4) (2020-04-30)
 
 
