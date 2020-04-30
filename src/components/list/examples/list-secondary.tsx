@@ -15,6 +15,7 @@ export class SecondaryTextListExample {
         },
         { text: 'Smash Up!', secondaryText: '2-4 players', value: 2 },
         { text: 'Pandemic', secondaryText: '2-4 players', value: 3 },
+        { text: 'Memory', value: 3 },
         { text: 'Catan', secondaryText: '3-4 players', value: 4 },
         { text: 'Ticket to Ride', secondaryText: '2-5 players', value: 5 },
     ];

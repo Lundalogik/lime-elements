@@ -129,12 +129,20 @@
         }
     }
 
-    &.mdc-list--two-line.list--compact {
-        .mdc-list-item {
-            height: 4rem;
+    &.mdc-list--two-line {
+        .mdc-list-item__primary-text {
+            margin-top: pxToRem(-12);
+        }
+        .mdc-list-item__text {
+            align-self: center;
+        }
+        &.list--compact {
+            .mdc-list-item {
+                height: 4rem;
 
-            .mdc-list-item__text {
-                margin-top: pxToRem(-4);
+                .mdc-list-item__text {
+                    margin-top: pxToRem(-4);
+                }
             }
         }
     }
