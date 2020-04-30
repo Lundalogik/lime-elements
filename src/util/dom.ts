@@ -7,6 +7,10 @@
  * @returns {boolean} true if the element is a descendant of the parent element, false otherwise
  */
 export function isDescendant(element: Node, parent: Node) {
+    if (!parent) {
+        return false;
+    }
+
     if (parent.contains(element)) {
         return true;
     }
