@@ -1,3 +1,11 @@
+## [26.19.4](https://github.com/Lundalogik/lime-elements/compare/v26.19.3...v26.19.4) (2020-04-30)
+
+
+### Bug Fixes
+
+* **picker:** ensure picker doesn't crash if its value is set to null ([09fbd86](https://github.com/Lundalogik/lime-elements/commit/09fbd86649bb5245f7abbc43b2dcfafcd78296d2))
+* **picker:** ensure picker doesn't crash if portalId is null ([a6bc01f](https://github.com/Lundalogik/lime-elements/commit/a6bc01f3a1bc9681fc487bebe69e34ce98e7ff77))
+
 ## [26.19.3](https://github.com/Lundalogik/lime-elements/compare/v26.19.2...v26.19.3) (2020-04-28)
 
 
