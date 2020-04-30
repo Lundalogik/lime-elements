@@ -1,3 +1,10 @@
+## [26.20.1](https://github.com/Lundalogik/lime-elements/compare/v26.20.0...v26.20.1) (2020-04-30)
+
+
+### Bug Fixes
+
+* **list:** center-align contents of lists with or without secondary text ([caae9e7](https://github.com/Lundalogik/lime-elements/commit/caae9e7161216f3663fb4b8d8c1394756ae94e61))
+
 # [26.20.0](https://github.com/Lundalogik/lime-elements/compare/v26.19.4...v26.20.0) (2020-04-30)
 
 
