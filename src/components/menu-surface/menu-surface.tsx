@@ -43,7 +43,6 @@ export class MenuSurface {
 
     constructor() {
         this.handleDocumentClick = this.handleDocumentClick.bind(this);
-        this.handleDocumentScroll = this.handleDocumentScroll.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleResize = this.handleResize.bind(this);
     }
@@ -90,9 +89,6 @@ export class MenuSurface {
         document.addEventListener('mousedown', this.handleDocumentClick, {
             capture: true,
         });
-        document.addEventListener('wheel', this.handleDocumentScroll, {
-            passive: true,
-        });
         this.host.addEventListener('keydown', this.handleKeyDown);
         window.addEventListener('resize', this.handleResize, {
             passive: true,
@@ -104,7 +100,6 @@ export class MenuSurface {
         document.removeEventListener('mousedown', this.handleDocumentClick, {
             capture: true,
         });
-        document.removeEventListener('wheel', this.handleDocumentScroll);
         this.host.removeEventListener('keydown', this.handleKeyDown);
         window.removeEventListener('resize', this.handleResize);
     }
@@ -113,12 +108,6 @@ export class MenuSurface {
         if (this.open && !isDescendant(event.target, this.host)) {
             this.dismiss.emit();
             this.preventClickEventPropagation();
-        }
-    }
-
-    private handleDocumentScroll(event) {
-        if (this.open && !isDescendant(event.target, this.host)) {
-            this.dismiss.emit();
         }
     }
 
