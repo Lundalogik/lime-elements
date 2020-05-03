@@ -42,6 +42,17 @@ export class MenuExample {
                 </p>
             </section>,
             <section>
+                <h3>With default trigger and opening to the left</h3>
+                <p>
+                    <limel-menu
+                        label="Menu"
+                        items={this.items}
+                        onSelect={this.onSelect}
+                        openDirection="left"
+                    />
+                </p>
+            </section>,
+            <section>
                 <h3>Disabled with default trigger</h3>
                 <p>
                     <limel-menu
