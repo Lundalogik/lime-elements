@@ -1,5 +1,7 @@
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
 import { OpenDirection } from '../menu/menu.types';
+import { createPopper, Instance, OptionsGeneric } from '@popperjs/core';
+import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 
 /**
  * The portal component provides a way to render children into a DOM node that exist outside
@@ -36,17 +38,19 @@ export class Portal {
     @Prop()
     public openDirection: OpenDirection = 'right';
 
-    private width: number;
-
     @Watch('visible')
     protected onVisible() {
-        if (this.visible) {
-            setTimeout(() => {
-                this.width = this.getContentWidth(this.container);
-                this.styleContainer();
-                this.showContainer();
-            });
+        if (!this.visible) {
+            return;
         }
+        if (!this.popperInstance) {
+            return;
+        }
+        setTimeout(() => {
+            const popperConfig = this.createPopperConfig();
+            this.popperInstance.setOptions(popperConfig);
+            this.showContainer();
+        });
     }
 
     /**
@@ -72,19 +76,26 @@ export class Portal {
 
     private container: HTMLElement;
 
-    public connectedCallback() {
-        this.attachContainer();
-        this.styleContainer();
-    }
+    private popperInstance: Instance;
 
     public disconnectedCallback() {
         this.removeContainer();
+        this.popperInstance.destroy();
+        this.popperInstance = null;
     }
 
     public componentDidLoad() {
         this.createContainer();
+        this.hideContainer();
         this.attachContainer();
         this.styleContainer();
+
+        const popperConfig = this.createPopperConfig();
+        this.popperInstance = createPopper(
+            this.host,
+            this.container,
+            popperConfig
+        );
     }
 
     public componentDidUpdate() {
@@ -102,22 +113,20 @@ export class Portal {
         const content = slot.assignedElements();
 
         this.container = document.createElement('div');
-        this.hideContainer();
         this.container.setAttribute('id', this.containerId);
+        this.container.setAttribute('class', 'limel-portal--container');
+
         content.forEach((element: HTMLElement) => {
             this.container.appendChild(element);
         });
     }
 
     private attachContainer() {
-        if (!this.container) {
-            return;
-        }
-
         this.parent.appendChild(this.container);
     }
 
     private removeContainer() {
+        this.hideContainer();
         this.container.parentElement.removeChild(this.container);
     }
 
@@ -128,48 +137,24 @@ export class Portal {
     private showContainer() {
         this.container.style.opacity = '1';
     }
-
     private styleContainer() {
-        if (!this.container) {
-            return;
-        }
-
         const rect: any = this.host.getBoundingClientRect();
-        const [x, y] = this.getPosition(rect);
         const viewportHeight = this.getViewportHeight();
         const containerHeight = viewportHeight - rect.y;
 
-        this.container.style.position = 'absolute';
-
-        const leftX = this.openDirection === 'right' ? x : x - this.width;
-        this.container.style.left = `${leftX}px`;
-
-        this.container.style.top = `${y}px`;
-        this.container.style.width =
-            rect.width > 0 ? `${rect.width}px` : `${this.width}px`;
         this.container.style.height = `${containerHeight}px`;
         this.container.style.display = 'block';
         if (!this.visible) {
             this.container.style.display = 'none';
         }
+        this.container.style.width =
+            rect.width > 0
+                ? `${rect.width}px`
+                : `${this.getContentWidth(this.container)}px`;
 
         Object.keys(this.containerStyle).forEach((property) => {
             this.container.style[property] = this.containerStyle[property];
         });
-    }
-
-    private getPosition(rect: DOMRect) {
-        let x = rect.x;
-        let y = rect.y;
-
-        let element: HTMLElement = this.container.parentElement;
-        while (element) {
-            x += element.scrollLeft;
-            y += element.scrollTop;
-            element = element.parentElement;
-        }
-
-        return [x, y];
     }
 
     private getViewportHeight() {
@@ -191,5 +176,22 @@ export class Portal {
 
         const elementContent = element.querySelector('*');
         return this.getContentWidth(elementContent);
+    }
+
+    private createPopperConfig(): Partial<
+        OptionsGeneric<Partial<FlipModifier>>
+    > {
+        return {
+            placement:
+                this.openDirection === 'left' ? 'bottom-end' : 'bottom-start',
+            modifiers: [
+                {
+                    name: 'flip',
+                    options: {
+                        fallbackPlacements: [],
+                    },
+                },
+            ],
+        };
     }
 }
