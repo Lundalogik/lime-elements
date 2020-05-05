@@ -35,6 +35,29 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
     @include mdc-states-focus-opacity(0, true);
 }
 
+label {
+    &.mdc-text-field {
+        transition: background-color 0.2s ease;
+
+        &:not(.mdc-text-field--disabled) {
+            // this has to be written this way to be able to override MD styles
+            background-color: transparent;
+
+            &:hover {
+                background-color: #f1f1f3;
+            }
+        }
+
+        &.mdc-text-field--focused {
+            background-color: #f6f6f7;
+        }
+
+        &.mdc-text-field--disabled {
+            background-color: transparent;
+        }
+    }
+}
+
 .mdc-text-field__formatted_input {
     display: None;
 }
