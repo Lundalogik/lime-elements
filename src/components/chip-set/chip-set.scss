@@ -1,5 +1,6 @@
 @import '../../style/mixins';
 @import '../../style/internal/mdc-variables';
+@import '../input-field/input-field';
 
 $mdc-textarea-background: $mdc-theme-background;
 // $mdc-textarea-disabled-background: $mdc-theme-background;
@@ -13,8 +14,6 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
 $mdc-chip-background-color: #fff;
 
 @import '@limetech/mdc-chips/mdc-chips';
-@import '@limetech/mdc-textfield/mdc-text-field';
-@import '@limetech/mdc-ripple/mdc-ripple';
 
 /**
  * @prop --icon-background-color: Background color of the icon. Defaults to transparent.
@@ -138,14 +137,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             border-bottom-width: pxToRem(1);
         }
     }
-}
-
-.mdc-text-field:not(.mdc-text-field--disabled) {
-    background-color: var(--background-color, #ffffff);
-}
-
-.mdc-text-field--disabled:not(.mdc-text-field--textarea) {
-    background-color: var(--background-color-disabled, #fafafa);
 }
 
 .mdc-text-field--disabled .mdc-chip {

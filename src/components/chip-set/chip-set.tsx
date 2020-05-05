@@ -287,7 +287,7 @@ export class ChipSet {
 
     private renderInputChips() {
         return (
-            <label
+            <div
                 class={{
                     'mdc-text-field': true,
                     'mdc-text-field--disabled': this.readonly || this.disabled,
@@ -330,7 +330,7 @@ export class ChipSet {
                     {this.label}
                 </label>
                 <div class="mdc-line-ripple" />
-            </label>
+            </div>
         );
     }
 
