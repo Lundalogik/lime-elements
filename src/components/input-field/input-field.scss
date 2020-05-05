@@ -35,7 +35,8 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
     @include mdc-states-focus-opacity(0, true);
 }
 
-label {
+label,
+div {
     &.mdc-text-field {
         transition: background-color 0.2s ease;
 
