@@ -1,3 +1,15 @@
+# [26.22.0](https://github.com/Lundalogik/lime-elements/compare/v26.21.0...v26.22.0) (2020-05-06)
+
+
+### Bug Fixes
+
+* **chip-set:** import styles directly from limel-input-field ([2d5db9d](https://github.com/Lundalogik/lime-elements/commit/2d5db9d2492b0776f4448ea54f10326ecce13c3b))
+
+
+### Features
+
+* **input-field:** add custom styles to create interactive bg-colors ([f1387c3](https://github.com/Lundalogik/lime-elements/commit/f1387c38d1174413818ec9d5f870d529018924c0))
+
 # [26.21.0](https://github.com/Lundalogik/lime-elements/compare/v26.20.1...v26.21.0) (2020-05-06)
 
 
