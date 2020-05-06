@@ -1,3 +1,11 @@
+# [26.21.0](https://github.com/Lundalogik/lime-elements/compare/v26.20.1...v26.21.0) (2020-05-06)
+
+
+### Features
+
+* **menu-surface:** menu is kept open while scrolling ([d0adbd3](https://github.com/Lundalogik/lime-elements/commit/d0adbd3f089cef034b233c7a60f48b1132ea2626))
+* **portal:** use popperjs for positioning ([0949aa0](https://github.com/Lundalogik/lime-elements/commit/0949aa0588f0c23cbec50ad852fab1d1efc2134e))
+
 ## [26.20.1](https://github.com/Lundalogik/lime-elements/compare/v26.20.0...v26.20.1) (2020-04-30)
 
 
