@@ -1,3 +1,10 @@
+## [26.22.1](https://github.com/Lundalogik/lime-elements/compare/v26.22.0...v26.22.1) (2020-05-07)
+
+
+### Bug Fixes
+
+* **picker:** do not focus chipset on value change when a single picker value is chosen ([7f1a7b9](https://github.com/Lundalogik/lime-elements/commit/7f1a7b92c79020477321f51cfde8d99ab54cf94f))
+
 # [26.22.0](https://github.com/Lundalogik/lime-elements/compare/v26.21.0...v26.22.0) (2020-05-06)
 
 
