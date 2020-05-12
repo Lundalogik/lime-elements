@@ -38,6 +38,12 @@ export class Portal {
     @Prop()
     public openDirection: OpenDirection = 'right';
 
+    /**
+     * Position of the content
+     */
+    @Prop()
+    public position: 'fixed' | 'absolute' = 'absolute';
+
     @Watch('visible')
     protected onVisible() {
         if (!this.visible) {
@@ -182,6 +188,7 @@ export class Portal {
         OptionsGeneric<Partial<FlipModifier>>
     > {
         return {
+            strategy: this.position,
             placement:
                 this.openDirection === 'left' ? 'bottom-end' : 'bottom-start',
             modifiers: [

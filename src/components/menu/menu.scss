@@ -30,11 +30,17 @@ $menu-item-background-color: #ebebeb;
     position: relative;
 
     limel-portal {
-        position: absolute;
+        &.limel-portal--fixed {
+            position: fixed;
+        }
 
-        :host(*[open-direction='left']) & {
-            right: 0;
-            bottom: 0;
+        &:not(.limel-portal--fixed) {
+            position: absolute;
+
+            :host(*[open-direction='left']) & {
+                right: 0;
+                bottom: 0;
+            }
         }
     }
 }
