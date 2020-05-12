@@ -10,6 +10,7 @@ $tab-border-radius: 0.65rem;
 $tab-active-outer-edge-curve-size: 0.75rem;
 $tab-separator-width: 0.125rem;
 $tab-separator-background-color: #e8e8ea;
+$tab-scroller-fade-width: 65;
 
 :host {
     display: block;
@@ -22,6 +23,70 @@ $tab-separator-background-color: #e8e8ea;
 .mdc-tab-indicator {
     .mdc-tab-indicator__content {
         border: none;
+    }
+}
+
+.mdc-tab-scroller {
+    position: relative;
+    overflow: hidden;
+
+    .scroll-fade,
+    .scroll-button {
+        position: absolute;
+        transition-property: transform;
+        transition-duration: 250ms;
+        transition-timing-function: ease-out;
+    }
+
+    .scroll-fade {
+        top: 0;
+        height: 100%;
+        width: pxToRem($tab-scroller-fade-width);
+        pointer-events: none;
+
+        &.left {
+            transform: translate3d(pxToRem(0 - $tab-scroller-fade-width), 0, 0);
+            left: 0;
+            background: linear-gradient(
+                270deg,
+                rgba(246, 246, 247, 0) 0%,
+                rgba(246, 246, 247, 0.8) 40%,
+                rgba(246, 246, 247, 0.8) 100%
+            );
+        }
+
+        &.right {
+            transform: translate3d(pxToRem($tab-scroller-fade-width), 0, 0);
+            right: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(246, 246, 247, 0) 0%,
+                rgba(246, 246, 247, 0.8) 40%,
+                rgba(246, 246, 247, 0.8) 100%
+            );
+        }
+    }
+
+    .scroll-button {
+        --icon-background-color: #ffffff;
+        top: pxToRem(4);
+
+        &.left {
+            transform: translate3d(pxToRem(0 - $tab-scroller-fade-width), 0, 0);
+            left: pxToRem(4);
+        }
+
+        &.right {
+            transform: translate3d(pxToRem($tab-scroller-fade-width), 0, 0);
+            right: pxToRem(4);
+        }
+    }
+
+    &.scroll-left .scroll-fade.left,
+    &.scroll-left .scroll-button.left,
+    &.scroll-right .scroll-fade.right,
+    &.scroll-right .scroll-button.right {
+        transform: translate3d(0, 0, 0);
     }
 }
 

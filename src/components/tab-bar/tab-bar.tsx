@@ -13,6 +13,8 @@ import { Tab } from './tab.types';
 import { isEqual } from 'lodash-es';
 
 const { TAB_ACTIVATED_EVENT } = strings;
+const SCROLL_DISTANCE_ON_CLICK_PX = 150;
+const HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX = 40;
 
 @Component({
     tag: 'limel-tab-bar',
@@ -34,9 +36,15 @@ export class TabBar {
 
     private mdcTabBar: MDCTabBar;
     private setupMdc = false;
+    private scrollerElement: HTMLElement;
+    private scrollArea: HTMLElement;
+    private scrollContent: HTMLElement;
 
     constructor() {
         this.handleTabActivated = this.handleTabActivated.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+        this.handleLeftScrollClick = this.handleLeftScrollClick.bind(this);
+        this.handleRightScrollClick = this.handleRightScrollClick.bind(this);
         this.renderTab = this.renderTab.bind(this);
     }
 
@@ -77,6 +85,13 @@ export class TabBar {
         }
 
         this.mdcTabBar = new MDCTabBar(element);
+        this.scrollerElement = element.querySelector('.mdc-tab-scroller');
+        this.scrollArea = element.querySelector(
+            '.mdc-tab-scroller__scroll-area'
+        );
+        this.scrollContent = element.querySelector(
+            '.mdc-tab-scroller__scroll-content'
+        );
 
         // Workaround for shadow dom support for material
         (this
@@ -87,9 +102,11 @@ export class TabBar {
         };
 
         this.setupListeners();
+        this.handleScroll();
     }
 
     private tearDown() {
+        this.scrollArea.removeEventListener('scroll', this.handleScroll);
         this.mdcTabBar.unlisten(TAB_ACTIVATED_EVENT, this.handleTabActivated);
         this.mdcTabBar.destroy();
     }
@@ -100,6 +117,9 @@ export class TabBar {
 
     private setupListeners() {
         this.mdcTabBar.listen(TAB_ACTIVATED_EVENT, this.handleTabActivated);
+        this.scrollArea.addEventListener('scroll', this.handleScroll, {
+            passive: true,
+        });
     }
 
     private handleTabActivated(event: MDCTabBarActivatedEvent) {
@@ -113,6 +133,41 @@ export class TabBar {
         this.changeTab.emit({ ...this.tabs[index], active: true });
     }
 
+    private handleScroll() {
+        const scrollLeft = this.scrollArea.scrollLeft;
+        const scrollRight = Math.floor(
+            this.scrollContent.getBoundingClientRect().width -
+                this.scrollArea.getBoundingClientRect().width -
+                scrollLeft
+        );
+
+        if (scrollLeft > HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX) {
+            this.scrollerElement.classList.add('scroll-left');
+        } else {
+            this.scrollerElement.classList.remove('scroll-left');
+        }
+
+        if (scrollRight > HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX) {
+            this.scrollerElement.classList.add('scroll-right');
+        } else {
+            this.scrollerElement.classList.remove('scroll-right');
+        }
+    }
+
+    private handleLeftScrollClick() {
+        this.scrollArea.scroll({
+            left: this.scrollArea.scrollLeft - SCROLL_DISTANCE_ON_CLICK_PX,
+            behavior: 'smooth',
+        });
+    }
+
+    private handleRightScrollClick() {
+        this.scrollArea.scroll({
+            left: this.scrollArea.scrollLeft + SCROLL_DISTANCE_ON_CLICK_PX,
+            behavior: 'smooth',
+        });
+    }
+
     public render() {
         return (
             <div class="mdc-tab-bar" role="tablist">
@@ -121,6 +176,26 @@ export class TabBar {
                         <div class="mdc-tab-scroller__scroll-content">
                             {this.tabs.map(this.renderTab)}
                         </div>
+                    </div>
+                    <div class="scroll-fade left" />
+                    <div class="scroll-button left" tab-index="-1">
+                        <limel-icon-button
+                            icon="angle_left"
+                            elevated={true}
+                            tabindex="-1"
+                            aria-hidden="true"
+                            onClick={this.handleLeftScrollClick}
+                        />
+                    </div>
+                    <div class="scroll-fade right" />
+                    <div class="scroll-button right">
+                        <limel-icon-button
+                            icon="angle_right"
+                            elevated={true}
+                            tabindex="-1"
+                            aria-hidden="true"
+                            onClick={this.handleRightScrollClick}
+                        />
                     </div>
                 </div>
             </div>
