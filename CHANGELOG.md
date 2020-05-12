@@ -1,3 +1,11 @@
+# [26.23.0](https://github.com/Lundalogik/lime-elements/compare/v26.22.1...v26.23.0) (2020-05-12)
+
+
+### Features
+
+* **menu:** allow menu to have fixed positioning ([673fe79](https://github.com/Lundalogik/lime-elements/commit/673fe791dc6d66baf15c4e33aaa9182725ffd251))
+* **portal:** allow portal content to have fixed positioning ([32866de](https://github.com/Lundalogik/lime-elements/commit/32866deeaccef81a2997f9ff251f1942efe66bdb))
+
 ## [26.22.1](https://github.com/Lundalogik/lime-elements/compare/v26.22.0...v26.22.1) (2020-05-07)
 
 
