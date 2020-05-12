@@ -42,6 +42,17 @@ export class MenuExample {
                 </p>
             </section>,
             <section>
+                <h3>With fixed position</h3>
+                <p>
+                    <limel-menu
+                        label="Menu"
+                        fixed={true}
+                        items={this.items}
+                        onSelect={this.onSelect}
+                    />
+                </p>
+            </section>,
+            <section>
                 <h3>With default trigger and opening to the left</h3>
                 <p>
                     <limel-menu

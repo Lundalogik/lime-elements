@@ -1,5 +1,12 @@
 import { ListItem, ListSeparator } from '@limetech/lime-elements';
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+    Element,
+} from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { OpenDirection } from './menu.types';
 
@@ -49,6 +56,12 @@ export class Menu {
     public badgeIcons = false;
 
     /**
+     * Defines whether the menu should have a fixed position on the screen
+     */
+    @Prop()
+    public fixed = false;
+
+    /**
      * Is emitted when the menu is cancelled.
      */
     @Event()
@@ -60,6 +73,9 @@ export class Menu {
     @Event()
     private select: EventEmitter<ListItem | ListItem[]>;
 
+    @Element()
+    private host: HTMLElement;
+
     private portalId: string;
 
     constructor() {
@@ -67,13 +83,21 @@ export class Menu {
     }
 
     public render() {
+        const portalClasses = {
+            'limel-portal--fixed': this.fixed,
+        };
+        const portalPosition = this.getPortalPosition();
+
         return (
             <div class="mdc-menu-surface--anchor" onClick={this.onTriggerClick}>
                 <slot name="trigger">{this.renderTrigger()}</slot>
                 <limel-portal
+                    class={portalClasses}
+                    style={portalPosition}
                     visible={this.open}
                     containerId={this.portalId}
                     openDirection={this.openDirection}
+                    position={this.fixed ? 'fixed' : 'absolute'}
                 >
                     <limel-menu-surface
                         open={this.open}
@@ -129,4 +153,22 @@ export class Menu {
         this.select.emit(event.detail);
         this.open = false;
     };
+
+    private getPortalPosition() {
+        if (!this.fixed) {
+            return {};
+        }
+
+        const rect = this.host.getBoundingClientRect();
+        const portalPosition = {
+            top: `${rect.y + rect.height}px`,
+            left: `${rect.x}px`,
+        };
+
+        if (this.openDirection === 'left') {
+            portalPosition.left = `${rect.x + rect.width}px`;
+        }
+
+        return portalPosition;
+    }
 }
