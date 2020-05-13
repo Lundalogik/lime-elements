@@ -57,11 +57,16 @@ export class IconButton {
     }
 
     public render() {
+        const buttonAttributes: { tabindex?: string } = {};
+        if (this.host.hasAttribute('tabindex')) {
+            buttonAttributes.tabindex = this.host.getAttribute('tabindex');
+        }
         return (
             <button
                 class={`mdc-icon-button`}
                 disabled={this.disabled}
                 aria-label={this.label}
+                {...buttonAttributes}
             >
                 <limel-icon name={this.icon} />
             </button>
