@@ -1,5 +1,6 @@
 import { MDCRipple } from '@limetech/mdc-ripple';
 import { Component, Element, h, Method, Prop } from '@stencil/core';
+import { IconSize } from '@limetech/lime-elements';
 
 @Component({
     tag: 'limel-icon-button',
@@ -12,6 +13,13 @@ export class IconButton {
      */
     @Prop({ reflectToAttr: true })
     public icon: string;
+
+    /**
+     * Set to `true` to give the button our standard "elevated" look, lifting
+     * it off the flat layout.
+     */
+    @Prop({ reflectToAttr: true })
+    public elevated = false;
 
     /**
      * The text to show to screenreaders and other assistive tech.
@@ -61,6 +69,13 @@ export class IconButton {
         if (this.host.hasAttribute('tabindex')) {
             buttonAttributes.tabindex = this.host.getAttribute('tabindex');
         }
+
+        const iconAttributes: { badge?: boolean; size?: IconSize } = {};
+        if (this.elevated) {
+            iconAttributes.badge = true;
+            iconAttributes.size = 'small';
+        }
+
         return (
             <button
                 class={`mdc-icon-button`}
@@ -68,7 +83,7 @@ export class IconButton {
                 aria-label={this.label}
                 {...buttonAttributes}
             >
-                <limel-icon name={this.icon} />
+                <limel-icon name={this.icon} {...iconAttributes} />
             </button>
         );
     }
