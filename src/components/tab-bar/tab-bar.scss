@@ -6,9 +6,9 @@
 
 $tab-content-background-color: #fff;
 $tab-background-color: #f6f6f7;
-$tab-border-radius: 0.65rem;
-$tab-active-outer-edge-curve-size: 0.75rem;
-$tab-separator-width: 0.125rem;
+$tab-border-radius: pxToRem(10);
+$tab-active-outer-edge-curve-size: pxToRem(12);
+$tab-separator-width: pxToRem(2);
 $tab-separator-background-color: #e8e8ea;
 $tab-scroller-fade-width: 65;
 
@@ -17,7 +17,7 @@ $tab-scroller-fade-width: 65;
 }
 
 .mdc-tab-bar__icon {
-    margin-right: 0.5rem;
+    margin-right: pxToRem(8);
 }
 
 .mdc-tab-indicator {
@@ -91,7 +91,7 @@ $tab-scroller-fade-width: 65;
 }
 
 .mdc-tab-scroller__scroll-content {
-    padding: 0.5rem $tab-active-outer-edge-curve-size 0
+    padding: pxToRem(8) $tab-active-outer-edge-curve-size 0
         $tab-active-outer-edge-curve-size;
     background-color: $tab-background-color;
 }
@@ -102,7 +102,7 @@ $tab-scroller-fade-width: 65;
     border: {
         style: solid;
         color: transparent;
-        width: 0.25rem;
+        width: pxToRem(4);
     }
     opacity: 0.7;
 
@@ -125,12 +125,12 @@ $tab-scroller-fade-width: 65;
             display: block;
             background-color: $tab-separator-background-color;
             width: $tab-separator-width;
-            height: 1rem;
+            height: pxToRem(16);
             margin: auto;
             position: absolute;
             top: 0;
             bottom: 0;
-            border-radius: 1rem;
+            border-radius: pxToRem(16);
             right: -$tab-separator-width;
         }
 
