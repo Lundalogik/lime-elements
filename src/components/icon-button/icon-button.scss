@@ -1,5 +1,10 @@
+@import '../../style/mixins';
 @import '../../style/internal/mdc-variables';
 @import '@limetech/mdc-icon-button/mdc-icon-button';
+
+/**
+ * @prop --icon-background-color: Background color when attribute `elevated` is set to `true`.
+ */
 
 :host {
     display: inline-block;
@@ -11,4 +16,14 @@
 
 :host([disabled]) {
     pointer-events: none;
+}
+
+:host([elevated]) {
+    .mdc-icon-button {
+        padding: pxToRem(9);
+    }
+
+    limel-icon {
+        @include is-elevated-clickable;
+    }
 }
