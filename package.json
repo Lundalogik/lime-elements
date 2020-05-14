@@ -29,7 +29,7 @@
     "lint:examples": "npx tslint --project . -t stylish -c tslint.examples.js 'src/components/**/examples/*.{ts,tsx}'",
     "lint:examples:fix": "npx tslint --project . -t stylish --fix -c tslint.examples.js 'src/components/**/examples/*.{ts,tsx}'",
     "lint:specs": "npx tslint --project . -t stylish -c tslint.specs.js 'src/**/*.{spec,e2e}.{ts,tsx}'",
-    "lint:specs:fix": "npx tslint --project . -t stylish --fix -c tslint.specs.js 'src/**/*.{spec,e2e}.{ts,tsx}'",
+    "lint:specs:fix": "npx tslint --project . -t stylish --fix -c tslint.specs.js 'src/**/*.{spec,e2e,test-wrapper}.{ts,tsx}'",
     "lint:src": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:src:fix": "npx tslint --project . -t stylish --fix -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:scss": "prettier -c --ignore-path ./.gitignore **/*.scss",
