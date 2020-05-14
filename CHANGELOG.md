@@ -1,3 +1,17 @@
+# [26.24.0](https://github.com/Lundalogik/lime-elements/compare/v26.23.0...v26.24.0) (2020-05-14)
+
+
+### Bug Fixes
+
+* **icon-button:** add support for native attribute `tabindex` ([3fd793d](https://github.com/Lundalogik/lime-elements/commit/3fd793dee8d47878fac618c4f55097c0e213a363))
+
+
+### Features
+
+* **icon:** add css property `--icon-background-color` ([31e2a4f](https://github.com/Lundalogik/lime-elements/commit/31e2a4fe3e2563e051fb749ab37c03a21548f4cf))
+* **icon-button:** add support for "elevated" look ([b6fadf3](https://github.com/Lundalogik/lime-elements/commit/b6fadf3a501fa11421c9370a9281d62550eda886))
+* **tab-bar:** add buttons when bar can be scrolled ([c9f23f2](https://github.com/Lundalogik/lime-elements/commit/c9f23f2fd497bf3e3439c41608ccb3660bbf6662)), closes [Lundalogik/crm-feature#1022](https://github.com/Lundalogik/crm-feature/issues/1022)
+
 # [26.23.0](https://github.com/Lundalogik/lime-elements/compare/v26.22.1...v26.23.0) (2020-05-12)
 
 
