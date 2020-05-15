@@ -1,14 +1,5 @@
 @import '../../style/internal/mdc-variables';
-
-$mdc-textarea-background: $mdc-theme-background;
-// $mdc-textarea-disabled-background: $mdc-theme-background;
-
-$mdc-text-field-background: $mdc-theme-background;
-// $mdc-text-field-disabled-background: $mdc-theme-background;
-
-$mdc-text-field-bottom-line-idle: $lime-text-field-bottom-line-color;
-$mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
-$mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
+@import '../../style/internal/shared_input-select-picker';
 
 @import '@limetech/mdc-textfield/mdc-text-field';
 @import '@limetech/mdc-ripple/mdc-ripple';
@@ -33,6 +24,10 @@ $mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
     width: 100%;
     @include mdc-states-hover-opacity(0);
     @include mdc-states-focus-opacity(0, true);
+
+    .mdc-floating-label {
+        top: $floating-label-top-value;
+    }
 }
 
 label,
@@ -42,19 +37,19 @@ div {
 
         &:not(.mdc-text-field--disabled) {
             // this has to be written this way to be able to override MD styles
-            background-color: transparent;
+            background-color: $background-color-normal;
 
             &:hover {
-                background-color: #f1f1f3;
+                background-color: $background-color-hovered;
             }
         }
 
         &.mdc-text-field--focused {
-            background-color: #f6f6f7;
+            background-color: $background-color-focused;
         }
 
         &.mdc-text-field--disabled {
-            background-color: transparent;
+            background-color: $background-color-disabled;
         }
     }
 }
@@ -65,14 +60,14 @@ div {
 
 :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
     .mdc-text-field__formatted_input {
-        color: rgba(0, 0, 0, 0.87);
-        font-weight: 400;
-        left: pxToRem(12);
-        line-height: pxToRem(28);
-        position: absolute;
-        top: pxToRem(20);
-        z-index: 1;
+        @include looks-like-input-label;
+
         display: block;
+
+        position: absolute;
+        left: pxToRem(16);
+        top: pxToRem(21);
+        z-index: 1;
     }
 
     .mdc-text-field__input[type='number'] {
@@ -83,7 +78,7 @@ div {
 
 .mdc-text-field--disabled {
     .mdc-text-field__formatted_input {
-        color: rgba(0, 0, 0, 0.37);
+        @include looks-disabled;
     }
 }
 
