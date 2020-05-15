@@ -1,8 +1,5 @@
 @import '../../style/internal/mdc-variables';
-
-$mdc-select-fill-color: $mdc-theme-background;
-$mdc-select-bottom-line-idle-color: $lime-text-field-bottom-line-color;
-$mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
+@import '../../style/internal/shared_input-select-picker';
 
 @import '@limetech/mdc-select/mdc-select';
 @import '@limetech/mdc-select/helper-text/mdc-select-helper-text';
@@ -10,73 +7,45 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
 @import '@limetech/mdc-line-ripple/mdc-line-ripple';
 @import '@limetech/mdc-floating-label/mdc-floating-label';
 
+@import '../../style/mixins';
+
 :host([hidden]) {
     display: none;
 }
 
 .limel-select__selected-text {
-    padding: pxToRem(20) pxToRem(52) pxToRem(4) pxToRem(16);
+    @include looks-like-input-label;
     box-sizing: border-box;
-    border: none;
-    border-bottom: pxToRem(1) solid;
     outline: none;
-    background-color: transparent;
+
+    overflow: hidden;
     white-space: nowrap;
-    border-bottom-color: $lime-text-field-bottom-line-color;
+    text-overflow: ellipsis;
+
+    padding: pxToRem(20) pxToRem(40) pxToRem(6) pxToRem(16);
 }
 
 .limel-select {
-    &,
-    .limel-select-trigger,
-    .limel-select__selected-text {
-        width: 100%;
-        height: pxToRem(56);
-        position: relative;
-        margin-bottom: pxToRem(19);
-    }
-
-    &.limel-select--with-helper-text {
-        height: pxToRem(75);
-    }
-
-    .limel-select__selected-text {
-        line-height: pxToRem(28);
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+    display: grid;
 
     .limel-select-trigger {
         display: inline-flex;
+        height: $height-of-mdc-text-field;
+
         cursor: pointer;
+        border-radius: pxToRem(5);
+        background-color: $background-color-normal;
 
         &:focus {
             outline: none;
-
-            .mdc-floating-label {
-                color: var(--mdc-theme-primary);
-            }
-
-            .mdc-line-ripple {
-                transform: scaleX(1);
-                opacity: 1;
-                background-color: var(--mdc-theme-primary);
-            }
-
-            .mdc-select__dropdown-icon {
-                transform: rotate(180deg) translateY(pxToRem(-5));
-                color: var(--mdc-theme-primary);
-            }
         }
 
         .mdc-floating-label {
-            left: pxToRem(16);
-            right: auto;
-            top: pxToRem(21);
-            pointer-events: none;
+            top: $floating-label-top-value;
+            transform: translateY(-50%);
 
             &.mdc-floating-label--float-above {
-                top: pxToRem(25);
+                @include label--float-above;
             }
 
             &.mdc-floating-label--active {
@@ -91,6 +60,47 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
         .mdc-select__dropdown-icon {
             background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E")
                 no-repeat 50%;
+        }
+    }
+
+    .limel-select-trigger,
+    .limel-select__selected-text {
+        width: 100%;
+        position: relative;
+    }
+
+    &.mdc-select--disabled {
+        .limel-select-trigger {
+            @include looks-disabled;
+        }
+    }
+
+    &:not(.mdc-select--disabled) {
+        .limel-select-trigger {
+            @include is-elevated-clickable;
+
+            &:hover {
+                background-color: $background-color-hovered;
+            }
+
+            &.limel-select--focused {
+                background-color: $background-color-focused;
+
+                .mdc-floating-label {
+                    color: var(--mdc-theme-primary);
+                }
+
+                .mdc-line-ripple {
+                    transform: scaleX(1);
+                    opacity: 1;
+                    background-color: var(--mdc-theme-primary);
+                }
+
+                .mdc-select__dropdown-icon {
+                    transform: rotate(180deg);
+                    color: var(--mdc-theme-primary);
+                }
+            }
         }
     }
 
@@ -112,22 +122,13 @@ $mdc-select-bottom-line-hover-color: $lime-text-field-bottom-line-color;
             }
         }
     }
-
-    limel-portal {
-        margin-top: pxToRem(-19);
-    }
-
-    .mdc-select-helper-text {
-        margin-left: 1rem;
-        margin-right: 1rem;
-        margin-top: pxToRem(-19);
-    }
 }
 
 select.limel-select__native-control {
-    top: 0;
     position: absolute;
+    top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
     opacity: 0;
