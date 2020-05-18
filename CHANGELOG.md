@@ -1,3 +1,11 @@
+## [26.24.1](https://github.com/Lundalogik/lime-elements/compare/v26.24.0...v26.24.1) (2020-05-15)
+
+
+### Bug Fixes
+
+* upgrade jsx-dom from 6.4.10 to 6.4.13 ([4b4275a](https://github.com/Lundalogik/lime-elements/commit/4b4275a68554ea36ba62eb5c04b4a8a1a0ef1f4a))
+* upgrade jsx-dom from 6.4.10 to 6.4.13 ([c8657fe](https://github.com/Lundalogik/lime-elements/commit/c8657fe71bdf8d800b93c287d283c1a5c17de657))
+
 # [26.24.0](https://github.com/Lundalogik/lime-elements/compare/v26.23.0...v26.24.0) (2020-05-14)
 
 
