@@ -81,6 +81,7 @@ export class IconButton {
                 class={`mdc-icon-button`}
                 disabled={this.disabled}
                 aria-label={this.label}
+                title={this.label}
                 {...buttonAttributes}
             >
                 <limel-icon name={this.icon} {...iconAttributes} />
