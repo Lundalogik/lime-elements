@@ -65,6 +65,40 @@ export class TabBar {
         this.tearDown();
     }
 
+    public render() {
+        return (
+            <div class="mdc-tab-bar" role="tablist">
+                <div class="mdc-tab-scroller">
+                    <div class="mdc-tab-scroller__scroll-area mdc-tab-scroller__scroll-area--scroll">
+                        <div class="mdc-tab-scroller__scroll-content">
+                            {this.tabs.map(this.renderTab)}
+                        </div>
+                    </div>
+                    <div class="scroll-fade left" />
+                    <div class="scroll-button left" tab-index="-1">
+                        <limel-icon-button
+                            icon="angle_left"
+                            elevated={true}
+                            tabindex="-1"
+                            aria-hidden="true"
+                            onClick={this.handleLeftScrollClick}
+                        />
+                    </div>
+                    <div class="scroll-fade right" />
+                    <div class="scroll-button right">
+                        <limel-icon-button
+                            icon="angle_right"
+                            elevated={true}
+                            tabindex="-1"
+                            aria-hidden="true"
+                            onClick={this.handleRightScrollClick}
+                        />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     @Watch('tabs')
     protected tabsChanged(newTabs: Tab[], oldTabs: Tab[]) {
         const newIds = newTabs.map((tab) => tab.id);
@@ -166,40 +200,6 @@ export class TabBar {
             left: this.scrollArea.scrollLeft + SCROLL_DISTANCE_ON_CLICK_PX,
             behavior: 'smooth',
         });
-    }
-
-    public render() {
-        return (
-            <div class="mdc-tab-bar" role="tablist">
-                <div class="mdc-tab-scroller">
-                    <div class="mdc-tab-scroller__scroll-area mdc-tab-scroller__scroll-area--scroll">
-                        <div class="mdc-tab-scroller__scroll-content">
-                            {this.tabs.map(this.renderTab)}
-                        </div>
-                    </div>
-                    <div class="scroll-fade left" />
-                    <div class="scroll-button left" tab-index="-1">
-                        <limel-icon-button
-                            icon="angle_left"
-                            elevated={true}
-                            tabindex="-1"
-                            aria-hidden="true"
-                            onClick={this.handleLeftScrollClick}
-                        />
-                    </div>
-                    <div class="scroll-fade right" />
-                    <div class="scroll-button right">
-                        <limel-icon-button
-                            icon="angle_right"
-                            elevated={true}
-                            tabindex="-1"
-                            aria-hidden="true"
-                            onClick={this.handleRightScrollClick}
-                        />
-                    </div>
-                </div>
-            </div>
-        );
     }
 
     private renderIcon(tab: Tab) {
