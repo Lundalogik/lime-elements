@@ -1,3 +1,10 @@
+# [26.25.0](https://github.com/Lundalogik/lime-elements/compare/v26.24.1...v26.25.0) (2020-05-18)
+
+
+### Features
+
+* **icon-button:** show label for icon button on hover ([3705198](https://github.com/Lundalogik/lime-elements/commit/3705198c5bbebab71becf400ddc9cffe66e5af49))
+
 ## [26.24.1](https://github.com/Lundalogik/lime-elements/compare/v26.24.0...v26.24.1) (2020-05-15)
 
 
