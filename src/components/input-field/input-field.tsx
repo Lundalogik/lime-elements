@@ -76,6 +76,12 @@ export class InputField {
     public trailingIcon: string;
 
     /**
+     * Leading icon to show to the far left in the field
+     */
+    @Prop({ reflectToAttr: true })
+    public leadingIcon: string;
+
+    /**
      * Type of textfield
      * Defaults to 'text'
      */
@@ -146,7 +152,7 @@ export class InputField {
     private change: EventEmitter<string>;
 
     /**
-     * Emitted when the `trailingIcon` is set and the icon is interacted with
+     * Emitted when `trailingIcon` or `leadingIcon` is set and the icon is interacted with
      */
     @Event()
     private action: EventEmitter<void>;
@@ -189,20 +195,19 @@ export class InputField {
         }
 
         const additionalProps = this.getAdditionalProps();
+        const classList = {
+            'mdc-text-field': true,
+            'mdc-text-field--invalid': this.isInvalid(),
+            'mdc-text-field--disabled': this.disabled,
+            'mdc-text-field--required': this.required,
+            'mdc-text-field--with-trailing-icon':
+                !!this.getIcon() && !!this.trailingIcon,
+            'mdc-text-field--with-leading-icon':
+                !!this.getIcon() && !!this.leadingIcon,
+        };
+
         return [
-            <label
-                class={`
-                    mdc-text-field
-                    ${this.isInvalid() ? 'mdc-text-field--invalid' : ''}
-                    ${this.disabled ? 'mdc-text-field--disabled' : ''}
-                    ${this.required ? 'mdc-text-field--required' : ''}
-                    ${
-                        this.getIcon()
-                            ? 'mdc-text-field--with-trailing-icon'
-                            : ''
-                    }
-                `}
-            >
+            <label class={classList}>
                 {this.renderFormattedNumber()}
                 <input
                     class="mdc-text-field__input"
@@ -229,7 +234,7 @@ export class InputField {
                 >
                     {this.label}
                 </span>
-                {this.renderTrailingIcon()}
+                {this.renderIcons()}
                 <div class="mdc-line-ripple" />
             </label>,
             this.renderHelperLine(),
@@ -368,8 +373,7 @@ export class InputField {
         if (this.isInvalid()) {
             return 'high_importance';
         }
-
-        return this.trailingIcon;
+        return this.trailingIcon || this.leadingIcon;
     }
 
     private isInvalid() {
@@ -395,7 +399,7 @@ export class InputField {
         return this.limelInputField.shadowRoot.querySelector(elementName);
     }
 
-    private renderTrailingIcon() {
+    private renderIcons() {
         const icon = this.getIcon();
         if (!icon) {
             return;
