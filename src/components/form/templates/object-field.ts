@@ -3,7 +3,7 @@ import {
     renderDescription,
     renderTitle,
     renderCustomTemplateAdapter,
-    hasOverridenTemplate
+    hasOverridenTemplate,
 } from './common';
 import { ObjectFieldProperty, ObjectFieldTemplateProps } from './types';
 
@@ -11,7 +11,6 @@ export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     const { schema } = props;
 
     if (hasOverridenTemplate(schema)) {
-        console.log('RENDERING OBJECT CUSTOM TEMPLATE ADAPTER', props);
         return renderCustomTemplateAdapter(props);
     }
 
@@ -41,7 +40,7 @@ function renderCollapsibleField(props: ObjectFieldTemplateProps) {
     return React.createElement(
         'limel-collapsible-section',
         {
-            header: props.title
+            header: props.title,
         },
         renderDescription(props.description),
         renderProperties(props.properties)
@@ -49,7 +48,7 @@ function renderCollapsibleField(props: ObjectFieldTemplateProps) {
 }
 
 function renderProperties(properties: ObjectFieldProperty[]) {
-    return properties.map(element => element.content);
+    return properties.map((element) => element.content);
 }
 
 function isCollapsible(schema: any) {

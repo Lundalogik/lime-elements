@@ -1,11 +1,11 @@
 import React from 'react';
 import { isNil, isNumber, isString, isBoolean } from 'lodash-es';
 
-const toDashCase = myStr =>
-    myStr.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`);
+const toDashCase = (myStr) =>
+    myStr.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
 
 // Checks if value is a primitive
-const isPrimitive = value =>
+const isPrimitive = (value) =>
     isNil(value) || isNumber(value) || isString(value) || isBoolean(value);
 
 export class LimeElementsAdapter extends React.Component {
@@ -13,7 +13,7 @@ export class LimeElementsAdapter extends React.Component {
 
     static defaultProps = {
         events: {},
-        elementProps: {}
+        elementProps: {},
     };
 
     constructor(
@@ -37,7 +37,7 @@ export class LimeElementsAdapter extends React.Component {
 
     getHandler(eventName) {
         const { events } = this.props;
-        return event => {
+        return (event) => {
             event.stopPropagation();
             events[eventName](event);
         };
@@ -118,7 +118,7 @@ export class LimeElementsAdapter extends React.Component {
 
         return React.createElement(name, {
             ...this.getPrimitiveProps(elementProps),
-            ref: this.component
+            ref: this.component,
         });
     }
 }

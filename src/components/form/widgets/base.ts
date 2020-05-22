@@ -14,10 +14,10 @@ const getOverridenWidget = (
     return { name: name, props: props };
 };
 
-export const base = widget => {
-    return props => {
+export const base = (widget) => {
+    return (props) => {
         // Intercept on change of overriden widgets to avoid propagating on change event
-        const handleChange = event => {
+        const handleChange = (event) => {
             event.stopPropagation();
 
             props.onChange(event.detail);
@@ -35,11 +35,11 @@ export const base = widget => {
                 widgetProps: props,
                 extraProps: {
                     ...overridenWidgetProps,
-                    widget: widget // Pass widget so we can override and rerender the original widget if desired
+                    widget: widget, // Pass widget so we can override and rerender the original widget if desired
                 },
                 events: {
-                    change: handleChange
-                }
+                    change: handleChange,
+                },
             });
         }
 

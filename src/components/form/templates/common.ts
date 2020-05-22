@@ -82,10 +82,6 @@ export function renderCustomTemplateAdapter(
         templateProps.schema
     );
 
-    console.log('Rendering custom element adapter', name, {
-        templateProps: templateProps,
-        ...overridenTemplateProps,
-    });
     return React.createElement(LimeElementsAdapter, {
         name: name,
         elementProps: {

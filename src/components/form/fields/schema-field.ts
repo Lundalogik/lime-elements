@@ -23,8 +23,6 @@ export const SchemaField = (props: FieldProps) => {
     };
 
     if (hasOverridenField(props.schema)) {
-        console.log('OVERRIDEN SCHEMA FIELD', props);
-
         const { name, props: overridenFieldProps } = getOverridenField(
             props.schema
         );
