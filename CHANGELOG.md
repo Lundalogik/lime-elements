@@ -1,3 +1,10 @@
+# [26.26.0](https://github.com/Lundalogik/lime-elements/compare/v26.25.0...v26.26.0) (2020-05-22)
+
+
+### Features
+
+* **leadingIcon:** add leadingIcon for input type search ([c93ff74](https://github.com/Lundalogik/lime-elements/commit/c93ff740f18d4e03dd5eb4f6eb98297da4997f61))
+
 # [26.25.0](https://github.com/Lundalogik/lime-elements/compare/v26.24.1...v26.25.0) (2020-05-18)
 
 
