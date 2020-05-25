@@ -1,5 +1,5 @@
 import { LimeElementsAdapter } from '../adapters';
-import JSONSchemaField from 'react-jsonschema-form/lib/components/fields/SchemaField';
+import JSONSchemaField from '@rjsf/core/lib/components/fields/SchemaField';
 import React from 'react';
 import { FieldProps } from './types';
 import { isEmpty, capitalize } from 'lodash-es';
@@ -184,7 +184,7 @@ export class SchemaField extends React.Component<FieldProps> {
 
     private handleChange(data) {
         const { formData, schema } = this.props;
-        const { definitions } = this.props.registry;
+        const { rootSchema } = this.props.registry;
 
         this.setState({ modified: true });
 
@@ -192,7 +192,7 @@ export class SchemaField extends React.Component<FieldProps> {
             formData,
             data,
             schema,
-            definitions
+            rootSchema
         );
 
         this.props.onChange(newData);

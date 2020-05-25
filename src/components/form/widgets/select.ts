@@ -16,7 +16,8 @@ export class Select extends React.Component {
 
     public render() {
         const props: WidgetProps = this.props;
-        const options = props.options.enumOptions.map(createOption);
+        const enumOptions: any[] = props.options.enumOptions as any[];
+        const options = enumOptions.map(createOption);
         let value: any;
 
         if (props.multiple) {
