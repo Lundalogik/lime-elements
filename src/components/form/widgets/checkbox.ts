@@ -1,6 +1,6 @@
 import React from 'react';
 import { WidgetProps } from './types';
-import { LimeElementsAdapter } from './adapter';
+import { LimeElementsWidgetAdapter } from '../adapters';
 
 export class Checkbox extends React.Component {
     public refs: any;
@@ -13,13 +13,15 @@ export class Checkbox extends React.Component {
     public render() {
         const props: WidgetProps = this.props;
 
-        return React.createElement(LimeElementsAdapter, {
+        return React.createElement(LimeElementsWidgetAdapter, {
             name: 'limel-checkbox',
             value: props.value,
-            onChange: this.handleChange,
             widgetProps: props,
             extraProps: {
                 checked: !!props.value,
+            },
+            events: {
+                change: this.handleChange,
             },
         });
     }

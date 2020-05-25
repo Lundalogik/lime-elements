@@ -2,7 +2,7 @@ import moment from 'moment/moment';
 import React from 'react';
 import { DateType } from '../../date-picker/date.types';
 import { WidgetProps } from './types';
-import { LimeElementsAdapter } from './adapter';
+import { LimeElementsWidgetAdapter } from '../adapters';
 
 export class DatePicker extends React.Component {
     public refs: any;
@@ -19,10 +19,12 @@ export class DatePicker extends React.Component {
         const props: WidgetProps = this.props;
         const type = getDateType(props.schema);
 
-        return React.createElement(LimeElementsAdapter, {
+        return React.createElement(LimeElementsWidgetAdapter, {
             name: 'limel-date-picker',
             value: this.getValue(),
-            onChange: this.handleChange,
+            events: {
+                change: this.handleChange,
+            },
             widgetProps: props,
             extraProps: {
                 type: type,
