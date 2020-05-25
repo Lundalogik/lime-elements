@@ -15,6 +15,7 @@ export const config: Config = {
                 'render',
                 'unmountComponentAtNode',
             ],
+            'node_modules/react/index.js': ['Component', 'forwardRef'],
         },
     },
     plugins: [sass()],
