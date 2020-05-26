@@ -27,6 +27,7 @@
 
     .mdc-floating-label {
         top: $floating-label-top-value;
+        right: pxToRem(8); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
     }
 }
 
