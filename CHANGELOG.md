@@ -1,3 +1,12 @@
+## [26.26.1](https://github.com/Lundalogik/lime-elements/compare/v26.26.0...v26.26.1) (2020-05-26)
+
+
+### Bug Fixes
+
+* **chip-set:** unify styles with other input types ([7d86151](https://github.com/Lundalogik/lime-elements/commit/7d861516ca95e674cb2419e863c6968da0fb45a3))
+* **input-field:** unify styles with other input types ([f587020](https://github.com/Lundalogik/lime-elements/commit/f587020c5e11684c7f6ec96d4f130cd01fc0a697))
+* **select:** unify styles with other input types ([0b0cf77](https://github.com/Lundalogik/lime-elements/commit/0b0cf772b9dbb8228163294929bd4630588e869b))
+
 # [26.26.0](https://github.com/Lundalogik/lime-elements/compare/v26.25.0...v26.26.0) (2020-05-22)
 
 
