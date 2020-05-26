@@ -42,6 +42,9 @@
 
         .mdc-floating-label {
             top: $floating-label-top-value;
+            right: pxToRem(
+                16
+            ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
             transform: translateY(-50%);
 
             &.mdc-floating-label--float-above {
