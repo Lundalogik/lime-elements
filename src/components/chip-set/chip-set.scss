@@ -55,7 +55,12 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         width: 100%;
 
         .mdc-chip--selected {
-            box-shadow: var(--button-shadow-pressed);
+            // When chip is selected with keyboard (backspace / arrow-keys) to be deleted
+            box-shadow: 0 0 0 pxToRem(3) var(--lime-deep-red);
+
+            .mdc-chip__icon--trailing {
+                color: var(--lime-deep-red);
+            }
         }
     }
 
