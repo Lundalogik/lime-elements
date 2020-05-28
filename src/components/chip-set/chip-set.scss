@@ -1,19 +1,10 @@
-@import '../../style/mixins';
 @import '../../style/internal/mdc-variables';
 @import '../input-field/input-field';
-
-$mdc-textarea-background: $mdc-theme-background;
-// $mdc-textarea-disabled-background: $mdc-theme-background;
-
-$mdc-text-field-background: $mdc-theme-background;
-// $mdc-text-field-disabled-background: $mdc-theme-background;
-
-$mdc-text-field-bottom-line-idle: $lime-text-field-bottom-line-color;
-$mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
-$mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
-$mdc-chip-background-color: #fff;
+@import '../../style/internal/shared_input-select-picker';
 
 @import '@limetech/mdc-chips/mdc-chips';
+
+@import '../../style/mixins';
 
 /**
  * @prop --icon-background-color: Background color of the icon. Defaults to transparent.
@@ -55,22 +46,26 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 }
 
 .mdc-chip-set {
-    &.disabled:not(.mdc-chip-set--input) {
-        opacity: 0.5;
-        pointer-events: none;
-    }
+    align-items: center;
+    min-height: $height-of-mdc-text-field;
 
     &.mdc-chip-set--input {
-        margin-top: pxToRem(20);
+        padding-top: $padding-top-of-chipset-input;
+        padding-bottom: 0;
         width: 100%;
 
         .mdc-chip--selected {
-            box-shadow: 0 0 0 pxToRem(4)
-                var(
-                    --input-chip-set-selected-chip-color,
-                    var(--lime-turquoise, orange)
-                );
+            // When chip is selected with keyboard (backspace / arrow-keys) to be deleted
+            box-shadow: 0 0 0 pxToRem(3) var(--lime-deep-red);
+
+            .mdc-chip__icon--trailing {
+                color: var(--lime-deep-red);
+            }
         }
+    }
+
+    &.disabled:not(.mdc-chip-set--input) {
+        @include looks-disabled;
     }
 }
 
@@ -102,39 +97,31 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .mdc-text-field {
     @include mdc-states-hover-opacity(0);
     @include mdc-states-focus-opacity(0, true);
+
+    border-bottom-style: solid;
+    border-bottom-width: pxToRem(1);
+
     width: 100%;
     height: auto;
     cursor: text;
 
-    input {
+    .mdc-text-field__input {
         width: auto;
-        border-bottom: none;
-        height: auto;
-        padding-top: 0;
+        height: $height-of-chip;
+        line-height: $height-of-chip;
+        padding: 0 pxToRem(12);
+        margin-bottom: pxToRem(8);
+
         flex-grow: 1;
         flex-shrink: 0;
-        max-height: pxToRem(35);
+
+        border-bottom: none;
 
         &.hidden {
-            max-height: 0 !important;
-            transition: max-height 250ms cubic-bezier(0.5, 0, 1, 0);
-        }
-    }
-
-    .mdc-floating-label--float-above {
-        top: pxToRem(20);
-        bottom: auto;
-    }
-
-    &:not(.mdc-text-field--focused) {
-        border-bottom-style: solid;
-        border-bottom-width: pxToRem(1);
-    }
-
-    &:not(.mdc-text-field--disabled) {
-        &.mdc-text-field--focused {
-            border-bottom-style: solid;
-            border-bottom-width: pxToRem(1);
+            // This class is added, as soon as there is a chip selected and displayed
+            // This input field should not be visually visible as it breaks the UI in some cases
+            // But it should be rendered to be able to tab between fields and do other keyboard commands /Kia
+            padding: 0;
         }
     }
 }
@@ -143,17 +130,17 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     pointer-events: all;
 
     &.disabled {
-        opacity: 0.5;
-        pointer-events: none;
+        @include looks-disabled;
     }
 }
 
-.mdc-floating-label.mdc-text-field--required::after {
-    content: '*';
-}
-
-.force-float {
-    @extend .mdc-floating-label--float-above;
+.mdc-floating-label {
+    &.mdc-text-field--required::after {
+        content: '*';
+    }
+    &.force-float {
+        @include label--float-above;
+    }
 }
 
 .force-invalid {

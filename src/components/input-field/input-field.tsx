@@ -200,8 +200,7 @@ export class InputField {
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled,
             'mdc-text-field--required': this.required,
-            'mdc-text-field--with-trailing-icon':
-                !!this.getIcon() && !!this.trailingIcon,
+            'mdc-text-field--with-trailing-icon': !!this.getIcon(),
             'mdc-text-field--with-leading-icon':
                 !!this.getIcon() && !!this.leadingIcon,
         };
