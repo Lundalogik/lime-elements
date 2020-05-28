@@ -1,3 +1,10 @@
+## [26.27.2](https://github.com/Lundalogik/lime-elements/compare/v26.27.1...v26.27.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* **input-field:** fix alignment input field with error icon ([4b6eb17](https://github.com/Lundalogik/lime-elements/commit/4b6eb1744e49dda89ef9658cf758024052e03b7d))
+
 ## [26.27.1](https://github.com/Lundalogik/lime-elements/compare/v26.27.0...v26.27.1) (2020-05-28)
 
 
