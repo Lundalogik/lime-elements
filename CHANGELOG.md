@@ -1,3 +1,11 @@
+## [26.27.1](https://github.com/Lundalogik/lime-elements/compare/v26.27.0...v26.27.1) (2020-05-28)
+
+
+### Bug Fixes
+
+* **input-field:** force the label truncate when container is too little ([3ea61a1](https://github.com/Lundalogik/lime-elements/commit/3ea61a18d18dfc405541414770f22177b14267da))
+* **select:** force the label truncate when container is too little ([0a00e0f](https://github.com/Lundalogik/lime-elements/commit/0a00e0f277a56a996a6ac29d206b7742f1f6301e))
+
 # [26.27.0](https://github.com/Lundalogik/lime-elements/compare/v26.26.1...v26.27.0) (2020-05-27)
 
 
