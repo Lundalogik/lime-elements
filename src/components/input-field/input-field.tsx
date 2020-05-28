@@ -188,6 +188,12 @@ export class InputField {
         }
     }
 
+    public componentDidUpdate() {
+        if (this.invalid) {
+            this.mdcTextField.valid = false;
+        }
+    }
+
     public render() {
         if (this.type === 'textarea') {
             return this.renderTextArea();
