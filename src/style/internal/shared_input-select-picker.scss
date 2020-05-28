@@ -1,0 +1,53 @@
+// Visual styles that unify the look & feel and behavior of
+// components such as input fields, select dropdowns and pickers
+
+$mdc-textarea-background: $mdc-theme-background;
+// $mdc-textarea-disabled-background: $mdc-theme-background;
+
+$mdc-text-field-background: $mdc-theme-background;
+// $mdc-text-field-disabled-background: $mdc-theme-background;
+
+$lime-text-field-bottom-line-color: rgba(0, 0, 0, 0.12);
+
+$mdc-text-field-bottom-line-idle: $lime-text-field-bottom-line-color;
+$mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
+$mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
+
+$background-color-normal: rgba(#fff, 0.5);
+$background-color-hovered: rgba(#f1f1f3, 0.5);
+$background-color-focused: rgba(#f1f1f3, 0.7);
+$background-color-disabled: transparent;
+
+$height-of-mdc-text-field: 3.5rem; //This is written directly in rem, beucase the vaiable used to calculate things elsewhere
+$height-of-chip: pxToRem(20);
+
+$mdc-chip-background-color: #fff;
+$padding-top-of-chipset-input: 1rem;
+$height-of-chipset-input: $height-of-mdc-text-field -
+    $padding-top-of-chipset-input;
+
+$floating-label-top-value: pxToRem(
+    28
+); // this overrides MD's original top value which is top: 50%. The reason is that we have fields or pickers which can have multiple rows, and a % value aligns the label in a wrong position
+
+@mixin looks-disabled() {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+@mixin looks-like-input-label() {
+    font-family: Roboto, sans-serif;
+    font-size: 0.875rem;
+    line-height: pxToRem(28);
+
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+
+    font-weight: 400;
+    letter-spacing: 0.009375em;
+}
+
+@mixin label--float-above() {
+    transform: translateY(-106%) scale(0.75);
+}

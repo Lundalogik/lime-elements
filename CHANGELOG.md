@@ -1,3 +1,41 @@
+## [26.27.2](https://github.com/Lundalogik/lime-elements/compare/v26.27.1...v26.27.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* **input-field:** fix alignment input field with error icon ([4b6eb17](https://github.com/Lundalogik/lime-elements/commit/4b6eb1744e49dda89ef9658cf758024052e03b7d))
+
+## [26.27.1](https://github.com/Lundalogik/lime-elements/compare/v26.27.0...v26.27.1) (2020-05-28)
+
+
+### Bug Fixes
+
+* **input-field:** force the label truncate when container is too little ([3ea61a1](https://github.com/Lundalogik/lime-elements/commit/3ea61a18d18dfc405541414770f22177b14267da))
+* **select:** force the label truncate when container is too little ([0a00e0f](https://github.com/Lundalogik/lime-elements/commit/0a00e0f277a56a996a6ac29d206b7742f1f6301e))
+
+# [26.27.0](https://github.com/Lundalogik/lime-elements/compare/v26.26.1...v26.27.0) (2020-05-27)
+
+
+### Features
+
+* **chip-set:** improve styling when chip is selected for deletion using keyboard ([dc3a3f0](https://github.com/Lundalogik/lime-elements/commit/dc3a3f039c95194f1bdfa21c0a2fa2ec15d2281f))
+
+## [26.26.1](https://github.com/Lundalogik/lime-elements/compare/v26.26.0...v26.26.1) (2020-05-26)
+
+
+### Bug Fixes
+
+* **chip-set:** unify styles with other input types ([7d86151](https://github.com/Lundalogik/lime-elements/commit/7d861516ca95e674cb2419e863c6968da0fb45a3))
+* **input-field:** unify styles with other input types ([f587020](https://github.com/Lundalogik/lime-elements/commit/f587020c5e11684c7f6ec96d4f130cd01fc0a697))
+* **select:** unify styles with other input types ([0b0cf77](https://github.com/Lundalogik/lime-elements/commit/0b0cf772b9dbb8228163294929bd4630588e869b))
+
+# [26.26.0](https://github.com/Lundalogik/lime-elements/compare/v26.25.0...v26.26.0) (2020-05-22)
+
+
+### Features
+
+* **leadingIcon:** add leadingIcon for input type search ([c93ff74](https://github.com/Lundalogik/lime-elements/commit/c93ff740f18d4e03dd5eb4f6eb98297da4997f61))
+
 # [26.25.0](https://github.com/Lundalogik/lime-elements/compare/v26.24.1...v26.25.0) (2020-05-18)
 
 
