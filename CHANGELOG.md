@@ -1,3 +1,10 @@
+# [26.27.0](https://github.com/Lundalogik/lime-elements/compare/v26.26.1...v26.27.0) (2020-05-27)
+
+
+### Features
+
+* **chip-set:** improve styling when chip is selected for deletion using keyboard ([dc3a3f0](https://github.com/Lundalogik/lime-elements/commit/dc3a3f039c95194f1bdfa21c0a2fa2ec15d2281f))
+
 ## [26.26.1](https://github.com/Lundalogik/lime-elements/compare/v26.26.0...v26.26.1) (2020-05-26)
 
 
