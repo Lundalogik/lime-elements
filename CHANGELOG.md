@@ -1,3 +1,10 @@
+## [26.27.3](https://github.com/Lundalogik/lime-elements/compare/v26.27.2...v26.27.3) (2020-05-29)
+
+
+### Bug Fixes
+
+* **chip-set:** render input really hidden when it's hidden ([1aa1fc0](https://github.com/Lundalogik/lime-elements/commit/1aa1fc06e23771f174cf4b1a7d2a0442fa3130de))
+
 ## [26.27.2](https://github.com/Lundalogik/lime-elements/compare/v26.27.1...v26.27.2) (2020-05-28)
 
 
