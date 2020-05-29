@@ -121,7 +121,9 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             // This class is added, as soon as there is a chip selected and displayed
             // This input field should not be visually visible as it breaks the UI in some cases
             // But it should be rendered to be able to tab between fields and do other keyboard commands /Kia
-            padding: 0;
+            opacity: 0;
+            position: absolute;
+            z-index: -100;
         }
     }
 }
