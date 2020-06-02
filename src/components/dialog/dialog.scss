@@ -1,7 +1,6 @@
 @import '../../style/internal/mdc-variables';
 
-$mdc-dialog-max-width: false;
-$mdc-dialog-max-height: false;
+$mdc-dialog-max-width: null;
 @import '@limetech/mdc-dialog/mdc-dialog';
 
 /**
@@ -19,30 +18,27 @@ slot[name='header'] {
 }
 
 .mdc-dialog {
-    .mdc-dialog__container {
-        width: var(--dialog-width, auto);
-        height: var(--dialog-height, auto);
-        max-height: 100%;
+    @include mdc-dialog-max-width(1000rem, $mdc-dialog-margin);
 
-        &.full-screen {
-            width: 100%;
+    &.full-screen {
+        @include mdc-dialog-max-height(1000rem, $mdc-dialog-margin);
+        .mdc-dialog__container {
             height: 100%;
+            width: 100%;
 
             .mdc-dialog__surface {
                 height: 100%;
+                width: 100%;
             }
         }
     }
+    .mdc-dialog__container {
+        height: 100%;
+    }
 
     .mdc-dialog__surface {
-        width: 100%;
-        height: 100%;
-
-        .mdc-dialog__body--scrollable {
-            max-height: inherit;
-            border: 0;
-            overflow: auto;
-        }
+        width: var(--dialog-width, auto);
+        height: var(--dialog-height, auto);
     }
 
     .mdc-dialog__title {

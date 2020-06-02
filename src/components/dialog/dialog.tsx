@@ -124,18 +124,17 @@ export class Dialog {
     public render() {
         return (
             <div
-                class="mdc-dialog"
+                class={{
+                    'mdc-dialog': true,
+                    'full-screen': !!this.fullscreen,
+                }}
                 role="alertdialog"
                 aria-modal="true"
                 aria-labelledby={'limel-dialog-title-' + this.id}
                 aria-describedby={'limel-dialog-content-' + this.id}
             >
                 <input hidden={true} id="initialFocusEl" />
-                <div
-                    class={`mdc-dialog__container ${
-                        this.fullscreen ? 'full-screen' : ''
-                    }`}
-                >
+                <div class="mdc-dialog__container">
                     <div class="mdc-dialog__surface">
                         {this.renderHeading()}
                         <div
