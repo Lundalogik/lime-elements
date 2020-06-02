@@ -24,7 +24,7 @@ export const config: Config = {
         '**/dev-assets/**',
         '**/*.spec.*',
         '**/*.e2e.*',
-        '**/*.test-wrapper.*',
+        '**/*.test-wrapper.*'   
     ],
     globalStyle: 'src/global/core-styles.scss',
 };
