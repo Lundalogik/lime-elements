@@ -9,7 +9,7 @@ import {
 } from '@stencil/core';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import JSONSchemaForm from 'react-jsonschema-form';
+import JSONSchemaForm from './jsonschema-form/jsonschema-form';
 import retargetEvents from 'react-shadow-dom-retarget-events';
 import { FormError, ValidationStatus } from './form.types';
 import {
