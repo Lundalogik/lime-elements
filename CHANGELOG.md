@@ -1,3 +1,10 @@
+# [26.28.0](https://github.com/Lundalogik/lime-elements/compare/v26.27.4...v26.28.0) (2020-06-03)
+
+
+### Features
+
+* **schema-form:** add support for custom components in place of SchemaFields ([8a34158](https://github.com/Lundalogik/lime-elements/commit/8a34158186b3534e5ee100790291a4647d00270d))
+
 ## [26.27.4](https://github.com/Lundalogik/lime-elements/compare/v26.27.3...v26.27.4) (2020-06-03)
 
 
