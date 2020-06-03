@@ -1,3 +1,10 @@
+## [26.27.4](https://github.com/Lundalogik/lime-elements/compare/v26.27.3...v26.27.4) (2020-06-03)
+
+
+### Bug Fixes
+
+* **dialog:** fix broken max-height, so that dialog is never taller than viewport ([63b4584](https://github.com/Lundalogik/lime-elements/commit/63b4584d5b3778020b15b6ea84ad17793f4f43e5)), closes [#786](https://github.com/Lundalogik/lime-elements/issues/786)
+
 ## [26.27.3](https://github.com/Lundalogik/lime-elements/compare/v26.27.2...v26.27.3) (2020-05-29)
 
 
