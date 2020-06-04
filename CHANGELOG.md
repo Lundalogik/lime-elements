@@ -1,3 +1,10 @@
+# [26.29.0](https://github.com/Lundalogik/lime-elements/compare/v26.28.0...v26.29.0) (2020-06-04)
+
+
+### Features
+
+* **table:** created simple table component ([7fbd2b4](https://github.com/Lundalogik/lime-elements/commit/7fbd2b43822d89d130ab4ea63ded1f17fadc33d0))
+
 # [26.28.0](https://github.com/Lundalogik/lime-elements/compare/v26.27.4...v26.28.0) (2020-06-03)
 
 
