@@ -1,3 +1,46 @@
+# [26.28.0](https://github.com/Lundalogik/lime-elements/compare/v26.27.4...v26.28.0) (2020-06-03)
+
+
+### Features
+
+* **schema-form:** add support for custom components in place of SchemaFields ([8a34158](https://github.com/Lundalogik/lime-elements/commit/8a34158186b3534e5ee100790291a4647d00270d))
+
+## [26.27.4](https://github.com/Lundalogik/lime-elements/compare/v26.27.3...v26.27.4) (2020-06-03)
+
+
+### Bug Fixes
+
+* **dialog:** fix broken max-height, so that dialog is never taller than viewport ([63b4584](https://github.com/Lundalogik/lime-elements/commit/63b4584d5b3778020b15b6ea84ad17793f4f43e5)), closes [#786](https://github.com/Lundalogik/lime-elements/issues/786)
+
+## [26.27.3](https://github.com/Lundalogik/lime-elements/compare/v26.27.2...v26.27.3) (2020-05-29)
+
+
+### Bug Fixes
+
+* **chip-set:** render input really hidden when it's hidden ([1aa1fc0](https://github.com/Lundalogik/lime-elements/commit/1aa1fc06e23771f174cf4b1a7d2a0442fa3130de))
+
+## [26.27.2](https://github.com/Lundalogik/lime-elements/compare/v26.27.1...v26.27.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* **input-field:** fix alignment input field with error icon ([4b6eb17](https://github.com/Lundalogik/lime-elements/commit/4b6eb1744e49dda89ef9658cf758024052e03b7d))
+
+## [26.27.1](https://github.com/Lundalogik/lime-elements/compare/v26.27.0...v26.27.1) (2020-05-28)
+
+
+### Bug Fixes
+
+* **input-field:** force the label truncate when container is too little ([3ea61a1](https://github.com/Lundalogik/lime-elements/commit/3ea61a18d18dfc405541414770f22177b14267da))
+* **select:** force the label truncate when container is too little ([0a00e0f](https://github.com/Lundalogik/lime-elements/commit/0a00e0f277a56a996a6ac29d206b7742f1f6301e))
+
+# [26.27.0](https://github.com/Lundalogik/lime-elements/compare/v26.26.1...v26.27.0) (2020-05-27)
+
+
+### Features
+
+* **chip-set:** improve styling when chip is selected for deletion using keyboard ([dc3a3f0](https://github.com/Lundalogik/lime-elements/commit/dc3a3f039c95194f1bdfa21c0a2fa2ec15d2281f))
+
 ## [26.26.1](https://github.com/Lundalogik/lime-elements/compare/v26.26.0...v26.26.1) (2020-05-26)
 
 
