@@ -1,3 +1,24 @@
+# [26.29.0](https://github.com/Lundalogik/lime-elements/compare/v26.28.0...v26.29.0) (2020-06-04)
+
+
+### Features
+
+* **table:** created simple table component ([7fbd2b4](https://github.com/Lundalogik/lime-elements/commit/7fbd2b43822d89d130ab4ea63ded1f17fadc33d0))
+
+# [26.28.0](https://github.com/Lundalogik/lime-elements/compare/v26.27.4...v26.28.0) (2020-06-03)
+
+
+### Features
+
+* **schema-form:** add support for custom components in place of SchemaFields ([8a34158](https://github.com/Lundalogik/lime-elements/commit/8a34158186b3534e5ee100790291a4647d00270d))
+
+## [26.27.4](https://github.com/Lundalogik/lime-elements/compare/v26.27.3...v26.27.4) (2020-06-03)
+
+
+### Bug Fixes
+
+* **dialog:** fix broken max-height, so that dialog is never taller than viewport ([63b4584](https://github.com/Lundalogik/lime-elements/commit/63b4584d5b3778020b15b6ea84ad17793f4f43e5)), closes [#786](https://github.com/Lundalogik/lime-elements/issues/786)
+
 ## [26.27.3](https://github.com/Lundalogik/lime-elements/compare/v26.27.2...v26.27.3) (2020-05-29)
 
 

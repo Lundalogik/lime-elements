@@ -17,6 +17,7 @@ import {
     FieldTemplate,
     ObjectFieldTemplate,
 } from './templates';
+import { SchemaField as CustomSchemaField } from './fields/schema-field';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
 
@@ -109,6 +110,10 @@ export class Form {
                     ref: this.setForm,
                     formContext: {
                         schema: this.modifiedSchema,
+                        rootValue: this.value,
+                    },
+                    fields: {
+                        SchemaField: CustomSchemaField,
                     },
                 },
                 []

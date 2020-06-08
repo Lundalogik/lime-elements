@@ -1,0 +1,7 @@
+@import '../../../node_modules/tabulator-tables/src/scss/tabulator.scss';
+:host {
+    display: block;
+}
+#tabulator-table {
+    height: 100%;
+}

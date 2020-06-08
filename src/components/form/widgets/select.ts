@@ -1,7 +1,7 @@
 import React from 'react';
 import { Option } from '@limetech/lime-elements';
 import { isMultiple } from '../../../util/multiple';
-import { LimeElementsAdapter } from './adapter';
+import { LimeElementsWidgetAdapter } from '../adapters';
 import { WidgetProps } from './types';
 
 export class Select extends React.Component {
@@ -25,10 +25,12 @@ export class Select extends React.Component {
             value = findValue(props.value, options);
         }
 
-        return React.createElement(LimeElementsAdapter, {
+        return React.createElement(LimeElementsWidgetAdapter, {
             name: 'limel-select',
             value: value,
-            onChange: this.handleChange,
+            events: {
+                change: this.handleChange,
+            },
             widgetProps: props,
             extraProps: {
                 multiple: props.multiple,
