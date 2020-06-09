@@ -50,7 +50,7 @@ export class Table {
         this.tabulator.setColumns(this.columns);
     }
     render() {
-        if (!config.featureSwitches.showTable) {
+        if (!config.featureSwitches.enableTable) {
             return;
         }
         return <div id="tabulator-table" />;
