@@ -1,4 +1,4 @@
-import flatpickr from '@limetech/flatpickr';
+import flatpickr from 'flatpickr';
 import { EventEmitter } from '@stencil/core';
 import { range } from 'lodash-es';
 import moment from 'moment/moment';
