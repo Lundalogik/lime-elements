@@ -14,6 +14,7 @@ $tab-scroller-fade-width: 65;
 
 :host {
     display: block;
+    position: relative;
 }
 
 .mdc-tab-bar__icon {
