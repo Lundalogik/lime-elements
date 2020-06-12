@@ -15,6 +15,7 @@ import { Tab } from '../tab-bar/tab.types';
  */
 @Component({
     tag: 'limel-tab-panel',
+    styleUrl: 'tab-panel.scss',
     shadow: true,
 })
 export class TabPanel {
