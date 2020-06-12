@@ -13,4 +13,46 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 }
 #tabulator-table {
     height: 100%;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+}
+
+.tabulator {
+    .tabulator-header {
+        border-bottom: 0;
+        background-color: $table-header-background-color;
+
+        .tabulator-col {
+            background-color: $table-header-background-color;
+        }
+
+        .tabulator-col-title {
+            padding-left: pxToRem(2);
+        }
+    }
+}
+
+.tabulator-row {
+    @include is-flat-clickable();
+
+    &.tabulator-row-odd {
+        background-color: #fafafb;
+    }
+
+    &.tabulator-row-even {
+        background-color: #ededee;
+    }
+
+    &.tabulator-selectable {
+        &:hover {
+            background-color: #fff;
+            z-index: 1;
+        }
+    }
+
+    .tabulator-cell {
+        border-right: transparent;
+        padding-left: pxToRem(6);
+    }
 }
