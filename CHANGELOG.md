@@ -1,3 +1,10 @@
+## [26.29.1](https://github.com/Lundalogik/lime-elements/compare/v26.29.0...v26.29.1) (2020-06-12)
+
+
+### Performance Improvements
+
+* **button:** hide spinners to avoid constantly running animations ([680b455](https://github.com/Lundalogik/lime-elements/commit/680b455f58fe8585af24fbd39625379e4cf70eab))
+
 # [26.29.0](https://github.com/Lundalogik/lime-elements/compare/v26.28.0...v26.29.0) (2020-06-04)
 
 
