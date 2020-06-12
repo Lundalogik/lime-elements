@@ -1,5 +1,7 @@
 @import '../../style/internal/mdc-variables';
 @import '@limetech/mdc-button/mdc-button';
+@import '../../style/mixins';
+@import '../../style/internal/variables';
 
 :host {
     display: inline-block;
@@ -14,6 +16,13 @@
 }
 
 button {
+    @include is-elevated-clickable();
+
+    &.mdc-button {
+        min-width: pxToRem(36);
+        padding: 0 pxToRem(12);
+    }
+
     .label {
         opacity: 1;
     }
