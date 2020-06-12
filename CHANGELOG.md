@@ -1,3 +1,11 @@
+## [26.29.2](https://github.com/Lundalogik/lime-elements/compare/v26.29.1...v26.29.2) (2020-06-12)
+
+
+### Bug Fixes
+
+* **table:** add styles and animate sorting icon ([9a9e207](https://github.com/Lundalogik/lime-elements/commit/9a9e20754632cf05cbc6b34826cda8b0ef4b7eb2))
+* **table:** add styles similar to our current tables ([6dc8736](https://github.com/Lundalogik/lime-elements/commit/6dc873676684765a90395409319c9e4ccab6ac1d))
+
 ## [26.29.1](https://github.com/Lundalogik/lime-elements/compare/v26.29.0...v26.29.1) (2020-06-12)
 
 
