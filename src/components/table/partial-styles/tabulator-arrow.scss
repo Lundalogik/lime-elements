@@ -1,0 +1,59 @@
+.tabulator-arrow {
+    transition: border 0.2s ease;
+    top: pxToRem(8) !important;
+
+    [aria-sort='none'] & {
+        border-bottom-color: $tabulator-arrow-color !important;
+    }
+    [aria-sort='desc'] & {
+        border-top-color: $tabulator-arrow-color-active !important;
+    }
+    [aria-sort='asc'] & {
+        border-bottom-color: $tabulator-arrow-color-active !important;
+    }
+
+    &:before,
+    &:after {
+        display: block;
+        content: '';
+
+        position: absolute;
+        bottom: 0;
+    }
+    &:before {
+        z-index: 1;
+        background-color: $table-header-background-color;
+        width: pxToRem(8);
+        height: pxToRem(8);
+        transform: rotate(45deg);
+        left: pxToRem(-4);
+        top: pxToRem(4);
+    }
+    &:after {
+        z-index: 2;
+        width: pxToRem(2);
+        background-color: $tabulator-arrow-color;
+        height: pxToRem(9);
+        top: pxToRem(2);
+        left: pxToRem(-1);
+    }
+
+    [aria-sort='desc'] & {
+        top: pxToRem(16) !important;
+
+        &:before {
+            top: pxToRem(-12);
+        }
+
+        &:after {
+            top: pxToRem(-11);
+        }
+    }
+
+    [aria-sort='desc'] &,
+    [aria-sort='asc'] & {
+        &:after {
+            background-color: $tabulator-arrow-color-active;
+        }
+    }
+}
