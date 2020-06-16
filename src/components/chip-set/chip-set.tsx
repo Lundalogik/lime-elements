@@ -447,7 +447,6 @@ export class ChipSet {
                 role="row"
                 id={`${chip.id}`}
             >
-                <div class="mdc-chip__ripple" />
                 {chip.icon ? this.renderIcon(chip) : null}
                 <span role="gridcell">
                     <span role="button" tabindex="0" class="mdc-chip__text">
@@ -465,7 +464,6 @@ export class ChipSet {
                 role="row"
                 id={`${chip.id}`}
             >
-                <div class="mdc-chip__ripple" />
                 <span class="mdc-chip__checkmark">
                     <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
                         <path
@@ -507,7 +505,6 @@ export class ChipSet {
                 onClick={this.catchInputChipClicks}
                 {...attributes}
             >
-                <div class="mdc-chip__ripple" />
                 {chip.icon ? this.renderIcon(chip) : null}
                 <span role="gridcell">
                     <span role="button" class="mdc-chip__text" tabindex="0">
