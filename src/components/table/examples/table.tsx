@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { Column } from '../table';
+import { Column } from '../table.types';
 
 @Component({
     tag: 'limel-example-table',
