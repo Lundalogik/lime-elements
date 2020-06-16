@@ -448,12 +448,18 @@ export class ChipSet {
                 id={`${chip.id}`}
             >
                 {chip.icon ? this.renderIcon(chip) : null}
-                <span role="gridcell">
-                    <span role="button" tabindex="0" class="mdc-chip__text">
-                        {chip.text}
-                    </span>
-                </span>
+                {chip.text ? this.renderLabel(chip) : null}
             </div>
+        );
+    }
+
+    private renderLabel(chip: Chip<any>) {
+        return (
+            <span role="gridcell">
+                <span role="button" tabindex="0" class="mdc-chip__text">
+                    {chip.text}
+                </span>
+            </span>
         );
     }
 
@@ -506,11 +512,7 @@ export class ChipSet {
                 {...attributes}
             >
                 {chip.icon ? this.renderIcon(chip) : null}
-                <span role="gridcell">
-                    <span role="button" class="mdc-chip__text" tabindex="0">
-                        {chip.text}
-                    </span>
-                </span>
+                {this.renderLabel(chip)}
                 {chip.removable && !this.readonly && !this.disabled
                     ? this.renderTrailingIcon()
                     : null}
