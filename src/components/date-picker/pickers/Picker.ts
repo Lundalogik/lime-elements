@@ -41,10 +41,12 @@ export abstract class Picker {
             onClose: this.handleClose,
             parseDate: this.nativePicker ? undefined : this.parseDate,
             appendTo: container,
-            defaultDate: value,
             locale: FlatpickrLanguages[this.language] || FlatpickrLanguages.en,
             getWeek: this.getWeek,
         };
+        if (value) {
+            config.defaultDate = value;
+        }
         config = { ...config, ...this.getConfig(this.nativePicker) };
 
         // Week numbers designate weeks as starting with Monday and

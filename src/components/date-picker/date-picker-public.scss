@@ -3,9 +3,6 @@
 @import '@limetech/mdc-theme/mdc-theme';
 @import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
 
-:host {
-    height: 455px;
-}
 
 $inactiveTextColor: var(
     --mdc-theme-text-disabled-on-background,

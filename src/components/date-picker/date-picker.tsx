@@ -22,7 +22,7 @@ import { WeekPicker } from './pickers/WeekPicker';
 import { YearPicker } from './pickers/YearPicker';
 
 @Component({
-    tag: 'limel-date-picker',
+    tag: 'limel-date-picker-flatpickr',
     shadow: true,
     styleUrl: 'date-picker.scss',
 })
@@ -34,6 +34,12 @@ export class DatePicker {
     @Prop()
     public disabled: boolean;
 
+    @Prop()
+    public inputElement: HTMLElement;
+
+    @State()
+    private pickerCreated: boolean = false;
+
     /**
      * Set to `true` to indicate that the current value of the date picker is
      * invalid.
@@ -41,6 +47,9 @@ export class DatePicker {
      */
     @Prop()
     public invalid: boolean;
+
+    @Prop()
+    public show: boolean;
 
     /**
      * Text to display next to the date picker
@@ -168,42 +177,42 @@ export class DatePicker {
                 );
                 break;
         }
-    }
-
-    public componentDidLoad() {
-        const textfield: HTMLElement = this.host.shadowRoot.querySelector(
-            'limel-input-field'
-        );
-        this.input = textfield.shadowRoot.querySelector('input');
-        this.container = this.host.shadowRoot.querySelector('.container');
-
-        this.picker.init(this.input, this.container, this.value);
         this.formattedValue = this.picker.formatDate(this.value);
     }
 
+    public componentDidUpdate() {
+
+        if (!this.inputElement) {
+            return;
+        }
+
+        if (this.pickerCreated) {
+            return;
+        }
+
+        this.container = this.host.shadowRoot.querySelector('.container');
+        this.picker.init(this.inputElement, this.container, this.value);
+        this.pickerCreated = true;
+    }
+
+    public componentDidLoad() {
+    }
     public componentDidUnload() {
         this.picker.destroy();
     }
 
     public render() {
-        return (
+        return [
             <div class="container">
-                <limel-input-field
-                    disabled={this.disabled}
-                    invalid={this.invalid}
-                    label={this.label}
-                    helperText={this.helperText}
-                    required={this.required}
-                    value={this.formattedValue}
-                    onChange={this.handleChange}
-                />
             </div>
-        );
+        ];
     }
 
     @Listen('resize', { target: 'window' })
     public resizeEvent() {
-        this.picker.init(this.input, this.container, this.value);
+        // TODO: Fix me. not working. Error thrown in webclient.
+        // Maybe because rendered inside web component?
+        //this.picker.init(this.input, this.container, this.value);
     }
 
     @Watch('value')
