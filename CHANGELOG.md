@@ -1,3 +1,10 @@
+## [26.30.1](https://github.com/Lundalogik/lime-elements/compare/v26.30.0...v26.30.1) (2020-06-17)
+
+
+### Bug Fixes
+
+* trigger release ([f9a823d](https://github.com/Lundalogik/lime-elements/commit/f9a823d7f42697b7d1baa8779e7af78ead2ea0dc))
+
 # [26.30.0](https://github.com/Lundalogik/lime-elements/compare/v26.29.2...v26.30.0) (2020-06-16)
 
 
