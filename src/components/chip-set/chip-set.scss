@@ -15,19 +15,24 @@
  */
 
 .mdc-chip {
-    background-color: $mdc-chip-background-color;
     @include is-elevated-inset-clickable;
     max-width: 100%;
     min-width: pxToRem(32);
     padding: 0 pxToRem(1);
     display: inline-grid;
     grid-auto-flow: column;
-    grid-gap: pxToRem(4);
+    background-color: $mdc-chip-background-color;
 
     span[role='gridcell'] {
         min-width: 0; // This is needed to force mdc-chip__text (which is inside this span) to truncate
 
         &:only-child {
+            .mdc-chip__text {
+                padding-left: pxToRem(12);
+            }
+        }
+
+        &:first-child {
             .mdc-chip__text {
                 padding-left: pxToRem(12);
             }
@@ -57,7 +62,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
-    padding-right: pxToRem(12);
+    padding: 0 pxToRem(12) 0 pxToRem(4);
 }
 
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
