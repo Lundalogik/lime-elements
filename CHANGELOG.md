@@ -1,3 +1,16 @@
+# [26.30.0](https://github.com/Lundalogik/lime-elements/compare/v26.29.2...v26.30.0) (2020-06-16)
+
+
+### Bug Fixes
+
+* **chip-set:** remove mdc-chip__ripple div ([adeb6da](https://github.com/Lundalogik/lime-elements/commit/adeb6da7e72b02960ed9144fe23773acb2a3734d))
+* **chip-set:** rewrite layout using grid ([f322b9e](https://github.com/Lundalogik/lime-elements/commit/f322b9e9f841f36b1609d11f451e6e3d8a133d39))
+
+
+### Features
+
+* **shadows:** add shadow styles for inset elements ([c952107](https://github.com/Lundalogik/lime-elements/commit/c9521077b07c86ce6d54b549016abcc1c49dac2b))
+
 ## [26.29.2](https://github.com/Lundalogik/lime-elements/compare/v26.29.1...v26.29.2) (2020-06-12)
 
 
