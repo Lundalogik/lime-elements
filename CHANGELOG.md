@@ -1,3 +1,10 @@
+# [26.31.0](https://github.com/Lundalogik/lime-elements/compare/v26.30.1...v26.31.0) (2020-06-18)
+
+
+### Features
+
+* **tab-panel:** make it possible to scroll inside the content of a tab ([2285f47](https://github.com/Lundalogik/lime-elements/commit/2285f47e763ca9795d7c7fe0eaf94dc9a27046d6)), closes [Lundalogik/crm-feature#1141](https://github.com/Lundalogik/crm-feature/issues/1141)
+
 ## [26.30.1](https://github.com/Lundalogik/lime-elements/compare/v26.30.0...v26.30.1) (2020-06-17)
 
 
