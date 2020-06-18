@@ -1,16 +1,9 @@
 import { Component, h, Prop, Element, Watch } from '@stencil/core';
 import TabulatorTable from 'tabulator-tables';
 import config from '../../global/config';
-export interface Column {
-    /**
-     * column title to be displayed
-     */
-    title: string;
-    /**
-     * the key for this column in the data array
-     */
-    field: string;
-}
+import { Column } from './table.types';
+import { createColumnDefinition } from './columns';
+
 @Component({
     tag: 'limel-table',
     styleUrl: 'table.scss',
@@ -18,41 +11,52 @@ export interface Column {
 })
 export class Table {
     /**
-     * table data to be displayed
+     * Data to be displayed in the table
      */
     @Prop()
     public data: object[] = [];
 
+    /**
+     * Columns used to display the data
+     */
     @Prop()
     public columns: Column[] = [];
 
     @Element()
-    el: HTMLElement;
+    private host: HTMLElement;
 
     private tabulator: Tabulator;
 
     public componentDidLoad() {
-        const option: Tabulator.Options = {
+        const options: Tabulator.Options = {
             data: this.data,
-            columns: this.columns,
+            columns: this.getColumnDefinitions(),
         };
-        const table: HTMLElement = this.el.shadowRoot.querySelector(
+        const table: HTMLElement = this.host.shadowRoot.querySelector(
             '#tabulator-table'
         );
-        this.tabulator = new TabulatorTable(table, option);
+        this.tabulator = new TabulatorTable(table, options);
     }
+
     @Watch('data')
     public updateData() {
         this.tabulator.setData(this.data);
     }
+
     @Watch('columns')
     public updateColumns() {
-        this.tabulator.setColumns(this.columns);
+        this.tabulator.setColumns(this.getColumnDefinitions());
     }
+
+    private getColumnDefinitions(): Tabulator.ColumnDefinition[] {
+        return this.columns.map(createColumnDefinition);
+    }
+
     render() {
         if (!config.featureSwitches.enableTable) {
             return;
         }
+
         return <div id="tabulator-table" />;
     }
 }

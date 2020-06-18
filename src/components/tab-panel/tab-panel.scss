@@ -1,0 +1,22 @@
+@import '../../style/internal/variables';
+
+:host(limel-tab-panel) {
+    display: block;
+    height: 100%;
+}
+
+.tab-panel {
+    // contains both limel-tab-bar and tab-content
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-content {
+    height: 100%;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+}

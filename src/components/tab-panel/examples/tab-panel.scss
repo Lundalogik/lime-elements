@@ -1,8 +1,12 @@
 $tab-content-background-color: #fff;
 
+limel-tab-panel {
+    height: 20rem;
+}
+
 limel-example-tab-panel-content {
     display: flex;
-    height: 10rem;
+    height: 100%;
     background-color: $tab-content-background-color;
     justify-content: center;
     align-items: center;
