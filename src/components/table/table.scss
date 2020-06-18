@@ -2,7 +2,8 @@
 @import '../../style/mixins';
 @import '../../style/internal/variables';
 
-$table-header-background-color: #d1d1d5;
+$table-header-background-color: #ededee;
+$table-header-background-color-hover: #f1f1f3;
 $tabulator-arrow-color: #babac0;
 $tabulator-arrow-color-active: var(--lime-turquoise);
 
@@ -11,6 +12,7 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 :host {
     display: block;
 }
+
 #tabulator-table {
     height: 100%;
     width: 100%;
@@ -24,7 +26,15 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
         background-color: $table-header-background-color;
 
         .tabulator-col {
+            transition: background-color 0.2s ease;
             background-color: $table-header-background-color;
+            border-right-color: #fafafb;
+
+            &.tabulator-sortable {
+                &:hover {
+                    background-color: $table-header-background-color-hover;
+                }
+            }
         }
 
         .tabulator-col-title {
@@ -41,7 +51,7 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
     }
 
     &.tabulator-row-even {
-        background-color: #ededee;
+        background-color: #fff;
     }
 
     &.tabulator-selectable {
