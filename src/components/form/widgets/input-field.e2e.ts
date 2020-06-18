@@ -38,9 +38,20 @@ describe('form input-field', () => {
     console.log('input', inp, '\n\n-----\n\n-----\n\n-----\n\n');
     console.log('\n\n-----\n\n-----\n\n-----\n\n');
 
-    // expect(form).toEqualHtml('<limel-input-field></limel-input-field>');
-    // expect(limelInput).toEqualHtml('<limel-input-field></limel-input-field>');
-    expect(inp).toEqualHtml('<limel-input-field></limel-input-field>');
+    // await page.debugger();
+
+    await page.$eval('div', () => {
+        const input = document.querySelector('limel-form').shadowRoot.querySelector('limel-input-field').shadowRoot.querySelector('input');
+        input.focus();
+        const eventA = new KeyboardEvent('keypress', {
+            bubbles: true,
+            cancelable: true,
+            code: 'KeyA',
+            composed: true,
+            key: 'a',
+        });
+        input.dispatchEvent(eventA);
+    });
 
     // console.log('limel-form', form.nodeName);
     // console.log('div', form.shadowRoot.childNodes[0].nodeName);
@@ -73,6 +84,6 @@ describe('form input-field', () => {
 
     await page.waitForChanges();
     let value2 = await limelInput.getProperty('value');
-    expect(value2).toBe('88 MPH');
+    expect(value2).toBe('a');
   });
 });

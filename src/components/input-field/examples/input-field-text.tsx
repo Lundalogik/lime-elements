@@ -38,6 +38,7 @@ export class InputFieldTextExample {
                 invalid={this.invalid}
                 disabled={this.disabled}
                 onChange={this.changeHandler}
+                onKeyPress={(event) => console.log(event)}
             />,
             <p>
                 <limel-flex-container justify="end">
