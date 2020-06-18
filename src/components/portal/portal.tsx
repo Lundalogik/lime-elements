@@ -149,9 +149,12 @@ export class Portal {
         const containerHeight = viewportHeight - rect.y;
 
         this.container.style.height = `${containerHeight}px`;
-        this.container.style.display = 'block';
-        if (!this.visible) {
+        if (this.visible) {
+            this.container.style.display = 'block';
+            this.container.style.opacity = '1';
+        } else {
             this.container.style.display = 'none';
+            this.container.style.opacity = '0';
         }
         this.container.style.width =
             rect.width > 0
