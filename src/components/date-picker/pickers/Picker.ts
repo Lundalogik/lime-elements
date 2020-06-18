@@ -36,7 +36,6 @@ export abstract class Picker {
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
         let config: flatpickr.Options.Options = {
-            allowInput: true,
             disableMobile: !this.nativePicker,
             formatDate: this.nativePicker ? undefined : this.formatDate,
             onClose: this.handleClose,
@@ -83,22 +82,6 @@ export abstract class Picker {
     }
 
     protected handleClose(selectedDates): Promise<any> {
-        if (this.nativePicker) {
-            return this.handleCloseForNativePicker(selectedDates);
-        } else {
-            return this.handleCloseForFlatpickr(selectedDates);
-        }
-    }
-
-    protected getFlatpickrLang() {
-        return this.language === 'nb' ? 'no' : this.language;
-    }
-
-    protected getMomentLang() {
-        return this.language === 'no' ? 'nb' : this.language;
-    }
-
-    private handleCloseForNativePicker(selectedDates) {
         return new Promise((resolve) => {
             setTimeout(() => {
                 const pickerDate = this.getPickerDate(selectedDates);
@@ -108,38 +91,12 @@ export abstract class Picker {
         });
     }
 
-    private handleCloseForFlatpickr(selectedDates) {
-        return new Promise((resolve) => {
-            // Since we allow manual editing of the input value, and
-            // flatpickr only picks up these changes when the user presses
-            // enter in the input, we need to check if the input string
-            // and the underlying value match.
-            //
-            // If this timeout is set to 0, we get a race-condition where
-            // the value is sometimes updated from the input-string, and
-            // sometimes not.
-            const timeout = 100;
-            setTimeout(() => {
-                const momentInputDate = moment(
-                    this.flatpickr.input.value,
-                    this.dateFormat,
-                    this.getMomentLang()
-                );
-                let pickerDate = this.getPickerDate(selectedDates);
-                const isSameInput = momentInputDate.isSame(pickerDate);
-                if (!isSameInput) {
-                    if (momentInputDate.isValid()) {
-                        pickerDate = momentInputDate.toDate();
-                        this.flatpickr.setDate(pickerDate);
-                    } else {
-                        pickerDate = null;
-                        this.flatpickr.clear();
-                    }
-                }
-                this.change.emit(pickerDate);
-                resolve(pickerDate);
-            }, timeout);
-        });
+    protected getFlatpickrLang() {
+        return this.language === 'nb' ? 'no' : this.language;
+    }
+
+    protected getMomentLang() {
+        return this.language === 'no' ? 'nb' : this.language;
     }
 
     private getPickerDate(selectedDates) {
