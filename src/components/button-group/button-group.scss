@@ -1,0 +1,109 @@
+@import '../../style/internal/mdc-variables';
+@import '../../style/internal/shared_input-select-picker';
+
+@import '@limetech/mdc-chips/mdc-chips';
+
+@import '../../style/mixins';
+
+.mdc-chip {
+    @include is-flat-inset-clickable;
+    max-width: 100%;
+    min-width: pxToRem(32);
+    padding: 0 pxToRem(1);
+    display: inline-grid;
+    grid-auto-flow: column;
+    background-color: transparent;
+    margin: pxToRem(2) !important;
+
+    &:not(:last-child) {
+        &:after {
+            content: '';
+            display: block;
+
+            height: pxToRem(16);
+            width: 2px;
+            border-radius: pxToRem(4);
+            background-color: #e8e8ea;
+
+            position: absolute;
+            right: pxToRem(-5);
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+
+    span[role='gridcell'] {
+        &:focus-within {
+            outline: none;
+            color: var(--mdc-theme-primary);
+        }
+    }
+    input[type='radio'] {
+        width: 0;
+        position: absolute;
+    }
+
+    span[role='gridcell'] {
+        min-width: 0; // This is needed to force mdc-chip__text (which is inside this span) to truncate
+
+        &:only-child {
+            .mdc-chip__text {
+                padding-left: pxToRem(12);
+            }
+        }
+
+        &:first-child {
+            .mdc-chip__text {
+                padding-left: pxToRem(12);
+            }
+        }
+    }
+
+    &:hover {
+        background-color: $mdc-chip-background-color;
+    }
+
+    &.mdc-chip--selected {
+        box-shadow: var(--button-shadow-inset);
+
+        &:active {
+            box-shadow: var(--button-shadow-inset-pressed);
+        }
+    }
+
+    &.mdc-chip--selected {
+        .mdc-chip-set--choice & {
+            color: #303042;
+        }
+    }
+}
+
+.mdc-chip__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    padding: 0 pxToRem(12) 0 pxToRem(4);
+}
+
+limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
+    background-color: var(--icon-background-color, transparent);
+    margin: 0 !important;
+    color: var(--icon-color, rgba(0, 0, 0, 0.54));
+}
+
+.mdc-chip-set {
+    align-items: center;
+    border-radius: pxToRem(60);
+    background-color: #f1f1f3;
+    padding: 0;
+
+    width: max-content;
+    max-width: 100%;
+
+    flex-wrap: nowrap; // Not sure about this. It'll put items on one row, but also can look bad on action bars. Kia
+
+    &.disabled {
+        @include looks-disabled;
+    }
+}
