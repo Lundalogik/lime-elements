@@ -57,3 +57,22 @@
         }
     }
 }
+
+@keyframes indicate-sortable-column {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+    30% {
+        transform: translate3d(0, pxToRem(-1.4), 0);
+    }
+    60% {
+        transform: translate3d(0, pxToRem(1.4), 0);
+    }
+}
+
+.tabulator-col.tabulator-sortable:hover {
+    .tabulator-arrow {
+        animation: indicate-sortable-column 0.5s ease;
+    }
+}
