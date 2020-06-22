@@ -1,3 +1,11 @@
+## [26.31.1](https://github.com/Lundalogik/lime-elements/compare/v26.31.0...v26.31.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* **table:** make it more similar to current tables ([41e80dd](https://github.com/Lundalogik/lime-elements/commit/41e80ddcb9ddf1f004c6cc179ec8cc84cae278d0))
+* **tabulator-arrow:** add more interactivity on hover, to hint columns are sortable ([3dbcb82](https://github.com/Lundalogik/lime-elements/commit/3dbcb8276213b506cbdade5932f82e62903a6d9e))
+
 # [26.31.0](https://github.com/Lundalogik/lime-elements/compare/v26.30.1...v26.31.0) (2020-06-18)
 
 
