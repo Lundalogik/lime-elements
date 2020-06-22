@@ -1,7 +1,7 @@
 @import '../../style/internal/mdc-variables';
 
 @import '@limetech/mdc-theme/mdc-theme';
-@import '../../../node_modules/@limetech/flatpickr/dist/flatpickr.min.css';
+@import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 $inactiveTextColor: var(
     --mdc-theme-text-disabled-on-background,
@@ -94,6 +94,18 @@ $datepickerTextOnThemeColor: var(
     }
 
     .flatpickr-month {
+        color: $datepickerTextOnThemeColor;
+
+        .numInputWrapper span.arrowUp,
+        .numInputWrapper span.arrowDown {
+            &:after {
+                border-top-color: $datepickerTextOnThemeColor;
+                border-bottom-color: $datepickerTextOnThemeColor;
+            }
+        }
+    }
+
+    .flatpickr-months {
         background: $datepickerHeaderColor;
         color: $datepickerTextOnThemeColor;
         height: pxToRem(42);
@@ -111,22 +123,19 @@ $datepickerTextOnThemeColor: var(
         }
     }
 
-    .numInputWrapper span.arrowUp,
-    .numInputWrapper span.arrowDown {
-        &:after {
-            border-top-color: $datepickerTextOnThemeColor;
-        }
-    }
-
     .flatpickr-current-month {
-        span.cur-month {
+        div.flatpickr-month {
             font-size: pxToRem(16);
             font-weight: 400 !important;
+            color: $datepickerTextOnThemeColor;
         }
 
-        input.cur-year {
-            font-size: pxToRem(16);
-            font-weight: 400 !important;
+        select {
+            color: $datepickerTextOnThemeColor;
+        }
+
+        input {
+            color: $datepickerTextOnThemeColor;
         }
 
         .numInputWrapper:hover {

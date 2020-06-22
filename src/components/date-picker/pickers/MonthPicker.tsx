@@ -1,4 +1,4 @@
-import flatpickr from '@limetech/flatpickr';
+import flatpickr from 'flatpickr';
 import { EventEmitter } from '@stencil/core';
 import { range } from 'lodash-es';
 import moment from 'moment/moment';
@@ -86,7 +86,7 @@ export class MonthPicker extends Picker {
         if (!this.nativePicker) {
             fp.innerContainer.remove();
             fp.calendarContainer
-                .getElementsByClassName('cur-month')[0]
+                .getElementsByClassName('flatpickr-monthDropdown-months')[0]
                 .replaceWith(this.renderHeading());
             fp.calendarContainer.appendChild(this.renderMonthsPicker(fp));
         }

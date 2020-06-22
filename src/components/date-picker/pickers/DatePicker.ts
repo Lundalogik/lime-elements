@@ -1,4 +1,4 @@
-import flatpickr from '@limetech/flatpickr';
+import flatpickr from 'flatpickr';
 import { EventEmitter } from '@stencil/core';
 import { Picker } from './Picker';
 
