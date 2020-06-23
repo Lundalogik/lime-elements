@@ -50,3 +50,10 @@ export interface TableComponent<T extends object = any> {
      */
     data?: T;
 }
+
+export interface TableParams {
+    /**
+     * The current page being set
+     */
+    page: number;
+}
