@@ -51,9 +51,26 @@ export interface TableComponent<T extends object = any> {
     data?: T;
 }
 
+export interface ColumnSorter {
+    /**
+     * The column being sorted
+     */
+    column: Column;
+
+    /**
+     * The direction to sort on
+     */
+    direction: 'ASC' | 'DESC';
+}
+
 export interface TableParams {
     /**
      * The current page being set
      */
     page: number;
+
+    /**
+     * Sorters applied to the current page
+     */
+    sorters?: ColumnSorter[];
 }

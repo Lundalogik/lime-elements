@@ -9,8 +9,8 @@ import {
 } from '@stencil/core';
 import TabulatorTable from 'tabulator-tables';
 import config from '../../global/config';
-import { Column, TableParams } from './table.types';
-import { createColumnDefinition } from './columns';
+import { Column, TableParams, ColumnSorter } from './table.types';
+import { createColumnDefinition, createColumnSorter } from './columns';
 
 const FIRST_PAGE = 1;
 
@@ -34,7 +34,7 @@ export class Table {
 
     /**
      * Set to either `local` or `remote` to change how the table handles the
-     * loaded data. When in `local` mode, all pagination will be
+     * loaded data. When in `local` mode, all sorting and pagination will be
      * done locally with the data given. When in `remote` mode, the consumer
      * is responsible to give the table new data when a `load` event occurs
      */
@@ -52,6 +52,12 @@ export class Table {
      */
     @Prop()
     public totalRows: number;
+
+    /**
+     * Emitted when `mode` is `local` the data is sorted
+     */
+    @Event()
+    public sort: EventEmitter<ColumnSorter[]>;
 
     /**
      * Emitted when `mode` is `local` and a new page has been set
@@ -76,6 +82,7 @@ export class Table {
     private resolver: (data: any) => void;
 
     constructor() {
+        this.handleDataSorting = this.handleDataSorting.bind(this);
         this.handlePageLoaded = this.handlePageLoaded.bind(this);
         this.requestData = this.requestData.bind(this);
     }
@@ -115,6 +122,7 @@ export class Table {
         return {
             data: this.data,
             columns: this.getColumnDefinitions(),
+            dataSorting: this.handleDataSorting,
             pageLoaded: this.handlePageLoaded,
             ...ajaxOptions,
             ...paginationOptions,
@@ -134,6 +142,7 @@ export class Table {
         // used since we have our own custom `ajaxRequestFunc`
         const remoteUrl = 'https://localhost';
         return {
+            ajaxSorting: true,
             ajaxURL: remoteUrl,
             ajaxRequestFunc: this.requestData,
         };
@@ -156,11 +165,14 @@ export class Table {
             this.resolver = resolve;
         });
 
+        const sorters = params.sorters;
         const currentPage = params.page;
+        const columnSorters = sorters.map(createColumnSorter(this.columns));
 
         this.currentPage = currentPage;
         this.load.emit({
             page: this.currentPage,
+            sorters: columnSorters,
         });
 
         return promise;
@@ -168,6 +180,19 @@ export class Table {
 
     private isRemoteMode(): boolean {
         return this.mode === 'remote';
+    }
+
+    private handleDataSorting(sorters: Tabulator.Sorter[]): void {
+        if (this.isRemoteMode()) {
+            return;
+        }
+
+        const columnSorters = sorters.map(createColumnSorter(this.columns));
+        if (columnSorters.length === 0) {
+            return;
+        }
+
+        this.sort.emit(columnSorters);
     }
 
     private handlePageLoaded(page: number): void {

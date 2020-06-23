@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { Column, TableParams } from '../table.types';
+import { Column, TableParams, ColumnSorter } from '../table.types';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
@@ -46,11 +46,31 @@ export class TableExampleRemote {
 
     private handleLoad(event: CustomEvent<TableParams>) {
         console.log('Loading new data', event.detail);
+        const sorter = event.detail.sorters[0];
 
         this.currentPage = event.detail.page;
+        if (sorter) {
+            this.allData = [...data].sort(this.compareBy(sorter));
+        }
 
         this.loadData();
     }
+
+    /**
+     * This will only handle how to compare strings. This means the two number
+     * columns in the example will not be sorted in the correct way
+     */
+    private compareBy = (sorter: ColumnSorter) => (a: Bird, b: Bird) => {
+        const column = sorter.column;
+        const fieldA = a[column.field];
+        const fieldB = b[column.field];
+
+        if (sorter.direction === 'ASC') {
+            return String(fieldA).localeCompare(String(fieldB));
+        }
+
+        return String(fieldB).localeCompare(String(fieldA));
+    };
 
     /**
      * Simulate some network delay, like loading data from a server

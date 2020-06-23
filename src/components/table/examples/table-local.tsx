@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { Column } from '../table.types';
+import { Column, ColumnSorter } from '../table.types';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
@@ -14,10 +14,14 @@ export class TableExampleLocal {
     @State()
     private currentPage: number = 1;
 
+    @State()
+    private currentSorting: string = 'None';
+
     private pageSize = 10;
 
     constructor() {
         this.handleChangePage = this.handleChangePage.bind(this);
+        this.handleSort = this.handleSort.bind(this);
     }
 
     public componentWillLoad() {
@@ -43,6 +47,10 @@ export class TableExampleLocal {
         this.currentPage = event.detail;
     }
 
+    private handleSort(event: CustomEvent<ColumnSorter[]>) {
+        this.currentSorting = event.detail[0].column.title;
+    }
+
     public render() {
         return [
             <limel-table
@@ -50,8 +58,10 @@ export class TableExampleLocal {
                 columns={this.columns}
                 pageSize={this.pageSize}
                 onChangePage={this.handleChangePage}
+                onSort={this.handleSort}
             />,
             <p>Current page is: {this.currentPage}</p>,
+            <p>Currently sorting on: {this.currentSorting}</p>,
         ];
     }
 }
