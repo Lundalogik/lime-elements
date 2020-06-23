@@ -204,7 +204,7 @@ export class Select {
             const list: HTMLElement = document.querySelector(
                 `#${this.portalId} limel-menu-surface limel-list`
             );
-            const firstItem: HTMLElement = list.shadowRoot.querySelector(
+            const firstItem: HTMLElement = list?.shadowRoot?.querySelector(
                 '[tabindex]'
             );
 
