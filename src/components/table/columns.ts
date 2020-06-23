@@ -1,4 +1,4 @@
-import { Column } from './table.types';
+import { Column, ColumnSorter } from './table.types';
 
 /**
  * Create Tabulator column definitions from a limel-table column configuration
@@ -79,3 +79,28 @@ export function createCustomComponent(
 
     return element;
 }
+
+// Tabulator seems to also have this `field` property, that does not appear on
+// the interface for some reason
+interface TabulatorSorter extends Tabulator.Sorter {
+    field: string;
+}
+
+/**
+ * Create a column sorter from a tabulator sorter
+ *
+ * @param {Column[]} columns all available columns in the table
+ *
+ * @return {Function} function that creates a sorter from a tabulator sorter
+ */
+export const createColumnSorter = (columns: Column[]) => (
+    sorter: TabulatorSorter
+): ColumnSorter => {
+    const column = columns.find((col) => col.field === sorter.field);
+    const direction = sorter.dir.toUpperCase() as 'ASC' | 'DESC';
+
+    return {
+        column: column,
+        direction: direction,
+    };
+};
