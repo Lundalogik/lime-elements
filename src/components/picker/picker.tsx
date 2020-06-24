@@ -347,6 +347,7 @@ export class Picker {
                 visible={!!content}
                 containerId={this.portalId}
                 containerStyle={styling}
+                inheritParentWidth={true}
             >
                 <limel-menu-surface
                     open={!!content}
