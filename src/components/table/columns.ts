@@ -1,4 +1,4 @@
-import { Column, ColumnSorter } from './table.types';
+import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
 
 /**
  * Create Tabulator column definitions from a limel-table column configuration
@@ -18,6 +18,10 @@ export function createColumnDefinition(
     if (column.component || column.formatter) {
         definition.formatter = formatCell;
         definition.formatterParams = column as object;
+    }
+
+    if (column.aggregator) {
+        definition.bottomCalc = getColumnAggregator(column);
     }
 
     return definition;
@@ -104,3 +108,18 @@ export const createColumnSorter = (columns: Column[]) => (
         direction: direction,
     };
 };
+
+export function getColumnAggregator(column: Column): Tabulator.ColumnCalc {
+    const aggregator = column.aggregator;
+    if (isAggregatorFunction(aggregator)) {
+        return (values: any[], data: object[]) => {
+            return aggregator(column, values, data);
+        };
+    }
+
+    return aggregator;
+}
+
+function isAggregatorFunction(value: any): value is ColumnAggregatorFunction {
+    return typeof value === 'function';
+}

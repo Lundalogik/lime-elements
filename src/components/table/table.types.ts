@@ -18,6 +18,11 @@ export interface Column<T extends object = any> {
      * Component used to render the field value
      */
     component?: TableComponentDefinition;
+
+    /**
+     * Type of aggregator to use for the column
+     */
+    aggregator?: ColumnAggregatorType | ColumnAggregatorFunction<T>;
 }
 
 export type TableFormatter = (value: any, data?: object) => string;
@@ -74,3 +79,45 @@ export interface TableParams {
      */
     sorters?: ColumnSorter[];
 }
+
+export enum ColumnAggregatorType {
+    /**
+     * Calculates the average value of all numerical cells in the column
+     */
+    Average = 'avg',
+
+    /**
+     * Displays the maximum value from all numerical cells in the column
+     */
+    Maximum = 'max',
+
+    /**
+     * Displays the minimum value from all numerical cells in the column
+     */
+    Minimum = 'min',
+
+    /**
+     * Displays the sum of all numerical cells in the column
+     */
+    Sum = 'sum',
+
+    /**
+     * Counts the number of non empty cells in the column
+     */
+    Count = 'count',
+}
+
+/**
+ * Calculate an aggregated value for a column
+ *
+ * @param {Column} column the configuration for the column
+ * @param {*[]} values list of all values to be aggregated
+ * @param {T[]} data list of all objects to be aggregated
+ *
+ * @returns {*} the aggregated data
+ */
+export type ColumnAggregatorFunction<T = object> = (
+    column?: Column,
+    values?: any[],
+    data?: T[]
+) => any;
