@@ -1,3 +1,10 @@
+## [26.31.2](https://github.com/Lundalogik/lime-elements/compare/v26.31.1...v26.31.2) (2020-06-24)
+
+
+### Bug Fixes
+
+* **limel-select:** ensure select element don't crash when it's list element doesn't exist ([0240901](https://github.com/Lundalogik/lime-elements/commit/02409016060ecf0545e5d75ad18a398c29ad057d))
+
 ## [26.31.1](https://github.com/Lundalogik/lime-elements/compare/v26.31.0...v26.31.1) (2020-06-22)
 
 
