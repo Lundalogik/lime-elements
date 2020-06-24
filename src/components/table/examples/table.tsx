@@ -19,6 +19,7 @@ export class TableExample {
             stamina: '40%',
             sign: '🧚‍♂️',
             dateOfBirth: '14/05/1991',
+            role: 'The Big Boss',
         },
         {
             id: 2,
@@ -30,6 +31,7 @@ export class TableExample {
             placeOfBirth: 'Ekudshire',
             sign: '🐉',
             dateOfBirth: '30/07/1987',
+            role: 'Head of Guardians',
         },
         {
             id: 3,
@@ -41,6 +43,7 @@ export class TableExample {
             placeOfBirth: 'Blarc',
             sign: '🧝‍♂️',
             dateOfBirth: '29/10/1297',
+            role: 'Head of External Politics',
         },
         {
             id: 4,
@@ -52,6 +55,7 @@ export class TableExample {
             placeOfBirth: 'Kamond',
             sign: '❄️',
             dateOfBirth: '23/07/1670',
+            role: 'Chief Cool Stuff Officer',
         },
         {
             id: 5,
@@ -63,6 +67,7 @@ export class TableExample {
             placeOfBirth: 'Blodholm',
             sign: '🧛‍♀️',
             dateOfBirth: '10/11/1985',
+            role: 'Bloodline Quality Controller',
         },
         {
             id: 6,
@@ -74,6 +79,7 @@ export class TableExample {
             placeOfBirth: 'Wuacross',
             sign: '🐺',
             dateOfBirth: '06/06/1984',
+            role: 'Head Hunter',
         },
         {
             id: 7,
@@ -85,6 +91,7 @@ export class TableExample {
             placeOfBirth: 'Bruhgnathal',
             sign: '🐗',
             dateOfBirth: '26/01/1976',
+            role: 'Head of Security',
         },
         {
             id: 8,
@@ -96,6 +103,7 @@ export class TableExample {
             placeOfBirth: 'Orasas',
             sign: '🔮',
             dateOfBirth: '05/10/1945',
+            role: 'Chief Entertainment Officer',
         },
     ];
     @State()
@@ -108,6 +116,7 @@ export class TableExample {
         { title: 'Place of Birth', field: 'placeOfBirth' },
         { title: 'Sign', field: 'sign' },
         { title: 'Date of Birth', field: 'dateOfBirth' },
+        { title: 'Role', field: 'role' },
     ] as any;
 
     render() {
