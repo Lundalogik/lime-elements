@@ -8,6 +8,7 @@ $tabulator-arrow-color: #babac0;
 $tabulator-arrow-color-active: var(--lime-turquoise);
 
 @import './partial-styles/tabulator-arrow';
+@import './partial-styles/tabulator-custom-styles';
 
 :host {
     display: block;
@@ -44,21 +45,18 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 }
 
 .tabulator-row {
-    @include is-flat-clickable();
-
+    &.tabulator-selectable {
+        transition: background-color 0.2s ease;
+        &:hover {
+            background-color: $table-header-background-color;
+        }
+    }
     &.tabulator-row-odd {
         background-color: #fafafb;
     }
 
     &.tabulator-row-even {
         background-color: #fff;
-    }
-
-    &.tabulator-selectable {
-        &:hover {
-            background-color: #fff;
-            z-index: 1;
-        }
     }
 
     .tabulator-cell {
