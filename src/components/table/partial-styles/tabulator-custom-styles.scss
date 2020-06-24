@@ -1,0 +1,65 @@
+:host(.has-interactive-rows) {
+    .tabulator-row {
+        &.tabulator-selectable {
+            @include is-flat-clickable();
+            &:hover {
+                background-color: #fff;
+                z-index: 1;
+            }
+        }
+    }
+}
+
+:host(.has-low-density) {
+    #tabulator-table {
+        width: max-content;
+        max-width: 100%;
+        margin: auto;
+    }
+
+    .tabulator-table {
+        background-color: transparent;
+        padding: pxToRem(8);
+    }
+
+    .tabulator-header {
+        padding: 0 pxToRem(8);
+        background-color: transparent;
+
+        .tabulator-col-content {
+            padding-left: pxToRem(8);
+        }
+    }
+
+    .tabulator-col {
+        &:first-child {
+            border-radius: pxToRem(6) 0 0 pxToRem(6);
+        }
+        &:last-child {
+            border-radius: 0 pxToRem(6) pxToRem(6) 0;
+        }
+    }
+
+    .tabulator-row {
+        border-radius: pxToRem(8);
+        margin-bottom: pxToRem(4);
+
+        &:first-child {
+            margin-top: pxToRem(12);
+        }
+    }
+
+    .tabulator-cell {
+        height: pxToRem(44);
+        line-height: pxToRem(36);
+        padding-left: pxToRem(12);
+        padding-right: pxToRem(8);
+
+        &:first-child {
+            border-radius: pxToRem(8) 0 0 pxToRem(8);
+        }
+        &:last-child {
+            border-radius: 0 pxToRem(8) pxToRem(8) 0;
+        }
+    }
+}
