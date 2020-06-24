@@ -77,6 +77,9 @@ export class Portal {
     @Prop()
     public parent: HTMLElement = document.body;
 
+    @Prop()
+    public inheritParentWidth = false;
+
     @Element()
     private host: HTMLElement;
 
@@ -143,12 +146,10 @@ export class Portal {
     private showContainer() {
         this.container.style.opacity = '1';
     }
+
     private styleContainer() {
         const rect: any = this.host.getBoundingClientRect();
-        const viewportHeight = this.getViewportHeight();
-        const containerHeight = viewportHeight - rect.y;
 
-        this.container.style.height = `${containerHeight}px`;
         if (this.visible) {
             this.container.style.display = 'block';
             this.container.style.opacity = '1';
@@ -156,21 +157,17 @@ export class Portal {
             this.container.style.display = 'none';
             this.container.style.opacity = '0';
         }
-        this.container.style.width =
-            rect.width > 0
-                ? `${rect.width}px`
-                : `${this.getContentWidth(this.container)}px`;
+
+        if (this.inheritParentWidth) {
+            this.container.style.width =
+                rect.width > 0
+                    ? `${rect.width}px`
+                    : `${this.getContentWidth(this.container)}px`;
+        }
 
         Object.keys(this.containerStyle).forEach((property) => {
             this.container.style[property] = this.containerStyle[property];
         });
-    }
-
-    private getViewportHeight() {
-        return Math.max(
-            document.documentElement.clientHeight,
-            window.innerHeight || 0
-        );
     }
 
     private getContentWidth(element: HTMLElement | Element) {
