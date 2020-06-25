@@ -8,6 +8,7 @@ $tabulator-arrow-color: #babac0;
 $tabulator-arrow-color-active: var(--lime-turquoise);
 
 @import './partial-styles/tabulator-arrow';
+@import './partial-styles/tabulator-paginator';
 @import './partial-styles/tabulator-custom-styles';
 
 :host {
@@ -40,6 +41,15 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 
         .tabulator-col-title {
             padding-left: pxToRem(2);
+        }
+    }
+
+    .tabulator-footer {
+        background-color: $table-header-background-color;
+        border: none;
+
+        .tabulator-calcs-holder {
+            border-color: #e8e8ea;
         }
     }
 }
