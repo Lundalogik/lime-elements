@@ -105,6 +105,7 @@ export class DatePicker {
 
     constructor() {
         this.handleChange = this.handleChange.bind(this);
+        this.clearValue = this.clearValue.bind(this);
     }
 
     public componentWillLoad() {
@@ -186,6 +187,10 @@ export class DatePicker {
     }
 
     public render() {
+        const inputProps = {
+            trailingIcon: this.value ? 'clear_symbol' : null,
+            onAction: this.clearValue,
+        };
         return (
             <div class="container">
                 <limel-input-field
@@ -196,6 +201,7 @@ export class DatePicker {
                     required={this.required}
                     value={this.formattedValue}
                     onChange={this.handleChange}
+                    {...inputProps}
                 />
             </div>
         );
@@ -216,5 +222,10 @@ export class DatePicker {
     private handleChange(event) {
         event.stopPropagation();
         this.formattedValue = event.detail;
+    }
+
+    private clearValue() {
+        this.formattedValue = '';
+        this.change.emit(null);
     }
 }
