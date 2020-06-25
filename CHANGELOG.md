@@ -1,3 +1,10 @@
+# [26.32.0](https://github.com/Lundalogik/lime-elements/compare/v26.31.2...v26.32.0) (2020-06-25)
+
+
+### Features
+
+* **table:** add custom styles for low-density and interactive rows ([888f340](https://github.com/Lundalogik/lime-elements/commit/888f340a7ee8057a490fa426f0897663f5191c7f))
+
 ## [26.31.2](https://github.com/Lundalogik/lime-elements/compare/v26.31.1...v26.31.2) (2020-06-24)
 
 
