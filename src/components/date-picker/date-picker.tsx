@@ -99,6 +99,7 @@ export class DatePicker {
         this.handleCalendarChange = this.handleCalendarChange.bind(this);
         this.showCalendar = this.showCalendar.bind(this);
         this.dateFormatter = new DateFormatter(this.language);
+        this.clearValue = this.clearValue.bind(this);
     }
 
     public componentWillLoad() {
@@ -109,6 +110,10 @@ export class DatePicker {
     }
 
     public render() {
+        const inputProps = {
+            trailingIcon: this.value ? 'clear_symbol' : null,
+            onAction: this.clearValue,
+        };
         return (
             <div class="container">
                 <limel-input-field
@@ -120,6 +125,7 @@ export class DatePicker {
                     value={this.formattedValue}
                     onFocus={this.showCalendar}
                     ref={(el) => (this.textField = el)}
+                    {...inputProps}
                 />
                 <limel-portal
                     containerId={this.portalId}
@@ -195,5 +201,10 @@ export class DatePicker {
             this.hideCalendar();
         }
         this.change.emit(date);
+    }
+
+    private clearValue() {
+        this.formattedValue = '';
+        this.change.emit(null);
     }
 }
