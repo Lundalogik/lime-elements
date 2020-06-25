@@ -31,6 +31,7 @@ export abstract class Picker {
         this.handleClose = this.handleClose.bind(this);
         this.parseDate = this.parseDate.bind(this);
         this.formatDate = this.formatDate.bind(this);
+        this.getFlatpickrLang = this.getFlatpickrLang.bind(this);
     }
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
@@ -42,7 +43,9 @@ export abstract class Picker {
             parseDate: this.nativePicker ? undefined : this.parseDate,
             appendTo: container,
             defaultDate: value,
-            locale: FlatpickrLanguages[this.language] || FlatpickrLanguages.en,
+            locale:
+                FlatpickrLanguages[this.getFlatpickrLang()] ||
+                FlatpickrLanguages.en,
             getWeek: this.getWeek,
         };
         config = { ...config, ...this.getConfig(this.nativePicker) };
@@ -85,6 +88,10 @@ export abstract class Picker {
         } else {
             return this.handleCloseForFlatpickr(selectedDates);
         }
+    }
+
+    protected getFlatpickrLang() {
+        return this.language === 'nb' ? 'no' : this.language;
     }
 
     protected getMomentLang() {
