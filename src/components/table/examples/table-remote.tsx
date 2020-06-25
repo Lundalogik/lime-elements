@@ -35,7 +35,11 @@ export class TableExampleRemote {
                 formatter: this.addUnit('cm'),
             },
             { title: 'Nest type', field: 'nest', formatter: capitalize },
-            { title: 'Eggs per clutch', field: 'eggs' },
+            {
+                title: 'Eggs per clutch',
+                field: 'eggs',
+                aggregator: this.calculateAverage,
+            },
             { title: 'Origin', field: 'origin' },
         ];
     }
@@ -71,6 +75,22 @@ export class TableExampleRemote {
 
         return String(fieldB).localeCompare(String(fieldA));
     };
+
+    /**
+     * Calculate the average value for a column for all the available data
+     *
+     * `values` and `rowsData` are not needed in this example since they only
+     * contain the values for the data that is currently loaded in the table
+     */
+    private calculateAverage(column: Column, values: any[], rowsData: Bird[]) {
+        console.log(values, rowsData);
+
+        const total = data.reduce((sum: number, value: Bird) => {
+            return sum + value[column.field];
+        }, 0);
+
+        return total / data.length;
+    }
 
     /**
      * Simulate some network delay, like loading data from a server

@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { Column, ColumnSorter } from '../table.types';
+import { Column, ColumnSorter, ColumnAggregatorType } from '../table.types';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
@@ -34,7 +34,11 @@ export class TableExampleLocal {
                 formatter: this.addUnit('cm'),
             },
             { title: 'Nest type', field: 'nest', formatter: capitalize },
-            { title: 'Eggs per clutch', field: 'eggs' },
+            {
+                title: 'Eggs per clutch',
+                field: 'eggs',
+                aggregator: ColumnAggregatorType.Average,
+            },
             { title: 'Origin', field: 'origin' },
         ];
     }
