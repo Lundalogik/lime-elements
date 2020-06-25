@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
 h2 {
     margin: 50px 0 20px;
     line-height: 1.5em;
@@ -6,45 +8,74 @@ h2 {
 }
 
 table {
+    display: block;
     width: 100%;
     padding: 0;
     margin-bottom: 50px;
-    table-layout: fixed;
-    box-shadow: 0 0 0 1px #ced4de;
-    background-color: transparent;
+
     border-spacing: 0;
     border-collapse: collapse;
     border-style: hidden;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #13161f;
+    border: 1px solid var(--contrast-400);
+    border-radius: 4px;
+
+    color: var(--contrast-1400);
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--contrast-200);
 
     thead {
-        color: #7d899c;
-        background: #eef1f5;
-    }
-
-    thead th {
-        text-align: left;
+        border-radius: 4px 4px 0 0;
+        border-bottom: 1px solid var(--contrast-400);
+        color: var(--contrast-900);
         font-weight: 400;
-        padding: 20px 20px;
+        background: var(--contrast-200);
+
+        th {
+            text-align: left;
+            padding: 4px 8px 4px 12px;
+            font-size: 14px;
+
+            &:first-child {
+                border-top-left-radius: 4px;
+            }
+
+            &:last-child {
+                border-top-right-radius: 4px;
+            }
+        }
     }
 
-    tbody td {
-        padding: 12px 20px;
-        line-height: 2;
-        font-weight: 200;
-        vertical-align: top;
-    }
-
-    tbody > tr {
-        display: table-row;
-        border-top: 1px solid #ced4de;
+    tbody {
+        td {
+            padding: 8px 12px 12px 12px;
+            vertical-align: top;
+            font-size: 14px;
+        }
+        tr {
+            display: table-row;
+            &:nth-child(even) {
+                background-color: var(--contrast-300);
+            }
+            &:last-child {
+                td {
+                    &:first-child {
+                        border-bottom-left-radius: 4px;
+                    }
+                    &:last-child {
+                        border-bottom-right-radius: 4px;
+                    }
+                }
+            }
+        }
     }
 }
 
 code {
-    background-color: #efefef;
+    display: inline-block;
+    font-family: 'Source Code Pro', monospace;
+    background-color: var(--contrast-600);
+    color: var(--contrast-1300);
     border-radius: 3px;
-    padding: 2px;
+    padding: 1px 5px;
+    font-size: 11px;
 }
