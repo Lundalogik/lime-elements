@@ -6,6 +6,7 @@ const BASE_URL = '/';
 @Component({
     tag: 'limel-props',
     styleUrl: 'props.scss',
+    shadow: true,
 })
 export class Props {
     @Prop({ reflectToAttr: true })
