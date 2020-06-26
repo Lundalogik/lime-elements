@@ -1,25 +1,15 @@
 import {
     Component,
-    Element,
-    Event,
-    EventEmitter,
     h,
-    Listen,
     Prop,
     State,
+    EventEmitter,
+    Event,
     Watch,
 } from '@stencil/core';
-
+import { createRandomString } from '../../util/random-string';
 import { DateType, Languages } from '@limetech/lime-elements';
-import translate from '../../global/translations';
-import { DatePicker as DateDatePicker } from './pickers/DatePicker';
-import { DatetimePicker } from './pickers/DatetimePicker';
-import { MonthPicker } from './pickers/MonthPicker';
-import { Picker } from './pickers/Picker';
-import { QuarterPicker } from './pickers/QuarterPicker';
-import { TimePicker } from './pickers/TimePicker';
-import { WeekPicker } from './pickers/WeekPicker';
-import { YearPicker } from './pickers/YearPicker';
+import { DateFormatter } from './dateFormatter';
 
 @Component({
     tag: 'limel-date-picker',
@@ -86,9 +76,6 @@ export class DatePicker {
     @Prop()
     public language: Languages = 'en';
 
-    @Element()
-    private host: HTMLElement;
-
     /**
      * Emitted when the date picker value is changed.
      */
@@ -98,91 +85,27 @@ export class DatePicker {
     @State()
     private formattedValue: string;
 
-    private picker: Picker;
+    private textField: HTMLElement;
+    private datePickerCalendar: HTMLLimelFlatpickrAdapterElement;
 
-    private container: HTMLElement;
-    private input: HTMLElement;
+    private portalId = `date-picker-calendar-${createRandomString()}`;
+
+    @State()
+    private showPortal = false;
+
+    private dateFormatter: DateFormatter;
 
     constructor() {
-        this.handleChange = this.handleChange.bind(this);
+        this.handleCalendarChange = this.handleCalendarChange.bind(this);
+        this.showCalendar = this.showCalendar.bind(this);
+        this.dateFormatter = new DateFormatter(this.language);
     }
 
     public componentWillLoad() {
-        switch (this.type) {
-            case 'date':
-                this.picker = new DateDatePicker(
-                    this.format,
-                    this.language,
-                    this.change
-                );
-                break;
-
-            case 'time':
-                this.picker = new TimePicker(
-                    this.format,
-                    this.language,
-                    this.change
-                );
-                break;
-
-            case 'week':
-                this.picker = new WeekPicker(
-                    this.format,
-                    this.language,
-                    this.change
-                );
-                break;
-
-            case 'month':
-                this.picker = new MonthPicker(
-                    this.format,
-                    this.language,
-                    this.change,
-                    translate
-                );
-                break;
-
-            case 'quarter':
-                this.picker = new QuarterPicker(
-                    this.format,
-                    this.language,
-                    this.change,
-                    translate
-                );
-                break;
-            case 'year':
-                this.picker = new YearPicker(
-                    this.format,
-                    this.language,
-                    this.change,
-                    translate
-                );
-                break;
-
-            case 'datetime':
-            default:
-                this.picker = new DatetimePicker(
-                    this.format,
-                    this.language,
-                    this.change
-                );
-                break;
-        }
-    }
-
-    public componentDidLoad() {
-        const textfield: HTMLElement = this.host.shadowRoot.querySelector(
-            'limel-input-field'
+        this.formattedValue = this.dateFormatter.formatDateByType(
+            this.value,
+            this.type
         );
-        this.input = textfield.shadowRoot.querySelector('input');
-        this.container = this.host.shadowRoot.querySelector('.container');
-
-        this.picker.init(this.input, this.container, this.value);
-        this.formattedValue = this.picker.formatDate(this.value);
-    }
-
-    public componentDidUnload() {
-        this.picker.destroy();
     }
 
     public render() {
@@ -195,26 +118,82 @@ export class DatePicker {
                     helperText={this.helperText}
                     required={this.required}
                     value={this.formattedValue}
-                    onChange={this.handleChange}
+                    onFocus={this.showCalendar}
+                    ref={(el) => (this.textField = el)}
                 />
+                <limel-portal
+                    containerId={this.portalId}
+                    visible={this.showPortal}
+                >
+                    <limel-flatpickr-adapter
+                        type={this.type}
+                        value={this.value}
+                        ref={(el) => (this.datePickerCalendar = el)}
+                        onChange={this.handleCalendarChange}
+                    />
+                </limel-portal>
             </div>
         );
     }
 
-    @Listen('resize', { target: 'window' })
-    public resizeEvent() {
-        this.picker.init(this.input, this.container, this.value);
-    }
-
     @Watch('value')
     protected onValueChange(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            this.formattedValue = this.picker.formatDate(newValue);
+        if (newValue !== oldValue && newValue !== this.formattedValue) {
+            this.formattedValue = this.dateFormatter.formatDateByType(
+                newValue,
+                this.type
+            );
         }
     }
 
-    private handleChange(event) {
+    private showCalendar(event) {
+        this.showPortal = true;
+        const inputElement = this.textField.shadowRoot.querySelector('input');
+        setTimeout(() => {
+            this.datePickerCalendar.inputElement = inputElement;
+        });
         event.stopPropagation();
-        this.formattedValue = event.detail;
+
+        document.addEventListener('mousedown', this.documentClickListener, {
+            passive: true,
+        });
+        document.addEventListener('keydown', this.documentClickListener, {
+            passive: true,
+        });
+    }
+
+    private hideCalendar() {
+        setTimeout(() => {
+            this.showPortal = false;
+        });
+        document.removeEventListener('mousedown', this.documentClickListener);
+        document.removeEventListener('keydown', this.documentClickListener);
+    }
+
+    private documentClickListener = (event: MouseEvent | KeyboardEvent) => {
+        if (
+            event.type === 'keydown' &&
+            (event as KeyboardEvent).key !== 'Tab'
+        ) {
+            return;
+        }
+        const element = document.querySelector(`#${this.portalId}`);
+        if (!element.contains(event.target as Node)) {
+            this.hideCalendar();
+        }
+    };
+
+    private handleCalendarChange(event) {
+        const date = event.detail;
+        this.formattedValue = this.dateFormatter.formatDateByType(
+            date,
+            this.type
+        );
+        event.stopPropagation();
+        if (this.type !== 'datetime' && this.type !== 'time') {
+            this.textField.blur();
+            this.hideCalendar();
+        }
+        this.change.emit(date);
     }
 }

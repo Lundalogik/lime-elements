@@ -7,8 +7,11 @@ import 'moment/locale/nb';
 import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { isAndroidDevice, isIOSDevice } from '../../../util/device';
+import { DateFormatter } from '../dateFormatter';
 
 export abstract class Picker {
+    private dateFormatter: DateFormatter;
+
     protected dateFormat: string;
     protected language: string = 'en';
 
@@ -26,6 +29,7 @@ export abstract class Picker {
         if (dateFormat) {
             this.dateFormat = dateFormat;
         }
+        this.dateFormatter = new DateFormatter(language);
 
         this.getWeek = this.getWeek.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -38,10 +42,11 @@ export abstract class Picker {
             allowInput: true,
             disableMobile: !this.nativePicker,
             formatDate: this.nativePicker ? undefined : this.formatDate,
-            onClose: this.handleClose,
             parseDate: this.nativePicker ? undefined : this.parseDate,
             appendTo: container,
             defaultDate: value,
+            onValueUpdate: this.handleClose,
+            inline: true,
             locale: FlatpickrLanguages[this.language] || FlatpickrLanguages.en,
             getWeek: this.getWeek,
         };
@@ -53,6 +58,10 @@ export abstract class Picker {
         (config.locale as flatpickr.CustomLocale).firstDayOfWeek = 1;
 
         this.flatpickr = flatpickr(element, config) as flatpickr.Instance; // tslint:disable-line:no-useless-cast
+    }
+
+    public redraw() {
+        this.flatpickr.redraw();
     }
 
     public destroy() {
@@ -68,15 +77,7 @@ export abstract class Picker {
     ): flatpickr.Options.Options;
 
     public formatDate(date: Date) {
-        if (this.nativePicker) {
-            return date ? JSON.stringify(date) : '';
-        }
-        if (date) {
-            return moment(date)
-                .locale(this.getMomentLang())
-                .format(this.dateFormat);
-        }
-        return '';
+        return this.dateFormatter.formatDate(date, this.dateFormat);
     }
 
     protected handleClose(selectedDates): Promise<any> {
