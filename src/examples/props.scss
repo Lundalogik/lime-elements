@@ -7,8 +7,19 @@ h2 {
     font-weight: 400;
 }
 
+.bxmZti {
+    padding: 0;
+
+    .fsncwJ {
+        // Markdown generated tables
+        padding: 0;
+        display: table;
+    }
+}
+
+.bxmZti table.fsncwJ,
 table {
-    display: block;
+    font-family: "Source Sans Pro",sans-serif;
     width: 100%;
     padding: 0;
     margin-bottom: 50px;
@@ -16,12 +27,12 @@ table {
     border-spacing: 0;
     border-collapse: collapse;
     border-style: hidden;
-    border: 1px solid var(--contrast-400);
     border-radius: 4px;
 
     color: var(--contrast-1400);
     -webkit-font-smoothing: antialiased;
     background-color: var(--contrast-200);
+    box-shadow: 0 0 0 1px var(--contrast-400);
 
     thead {
         border-radius: 4px 4px 0 0;
@@ -34,6 +45,7 @@ table {
             text-align: left;
             padding: 4px 8px 4px 12px;
             font-size: 14px;
+            line-height: normal;
 
             &:first-child {
                 border-top-left-radius: 4px;
@@ -50,10 +62,12 @@ table {
             padding: 8px 12px 12px 12px;
             vertical-align: top;
             font-size: 14px;
+            line-height: normal;
         }
         tr {
             display: table-row;
-            &:nth-child(even) {
+            border: none; // only for markdown generated tables
+            &:nth-child(odd) {
                 background-color: var(--contrast-300);
             }
             &:last-child {
@@ -70,6 +84,9 @@ table {
     }
 }
 
+.bxmZti table,
+code.hwCYSS,
+table code,
 code {
     display: inline-block;
     font-family: 'Source Code Pro', monospace;
