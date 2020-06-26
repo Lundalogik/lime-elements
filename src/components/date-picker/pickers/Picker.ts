@@ -7,8 +7,11 @@ import 'moment/locale/nb';
 import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { isAndroidDevice, isIOSDevice } from '../../../util/device';
+import { DateFormatter } from '../dateFormatter';
 
 export abstract class Picker {
+    private dateFormatter: DateFormatter;
+
     protected dateFormat: string;
     protected language: string = 'en';
 
@@ -26,6 +29,7 @@ export abstract class Picker {
         if (dateFormat) {
             this.dateFormat = dateFormat;
         }
+        this.dateFormatter = new DateFormatter(language);
 
         this.getWeek = this.getWeek.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -36,12 +40,14 @@ export abstract class Picker {
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
         let config: flatpickr.Options.Options = {
+            clickOpens: this.nativePicker,
             disableMobile: !this.nativePicker,
             formatDate: this.nativePicker ? undefined : this.formatDate,
-            onClose: this.handleClose,
             parseDate: this.nativePicker ? undefined : this.parseDate,
             appendTo: container,
             defaultDate: value,
+            onValueUpdate: this.handleClose,
+            inline: !this.nativePicker,
             locale:
                 FlatpickrLanguages[this.getFlatpickrLang()] ||
                 FlatpickrLanguages.en,
@@ -57,6 +63,10 @@ export abstract class Picker {
         this.flatpickr = flatpickr(element, config) as flatpickr.Instance; // tslint:disable-line:no-useless-cast
     }
 
+    public redraw() {
+        this.flatpickr.redraw();
+    }
+
     public destroy() {
         if (!this.flatpickr) {
             return;
@@ -70,15 +80,7 @@ export abstract class Picker {
     ): flatpickr.Options.Options;
 
     public formatDate(date: Date) {
-        if (this.nativePicker) {
-            return date ? JSON.stringify(date) : '';
-        }
-        if (date) {
-            return moment(date)
-                .locale(this.getMomentLang())
-                .format(this.dateFormat);
-        }
-        return '';
+        return this.dateFormatter.formatDate(date, this.dateFormat);
     }
 
     protected handleClose(selectedDates): Promise<any> {
