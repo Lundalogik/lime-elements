@@ -121,7 +121,7 @@ export class Table {
 
         return {
             data: this.data,
-            layout: 'fitColumns',
+            layout: 'fitDataFill',
             columns: this.getColumnDefinitions(),
             dataSorting: this.handleDataSorting,
             pageLoaded: this.handlePageLoaded,
