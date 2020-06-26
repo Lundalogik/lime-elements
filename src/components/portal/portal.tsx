@@ -195,7 +195,11 @@ export class Portal {
                 {
                     name: 'flip',
                     options: {
-                        fallbackPlacements: [],
+                        fallbackPlacements: [
+                            this.openDirection === 'left'
+                                ? 'top-end'
+                                : 'top-start',
+                        ],
                     },
                 },
             ],
