@@ -1,3 +1,10 @@
+# [26.34.0](https://github.com/Lundalogik/lime-elements/compare/v26.33.1...v26.34.0) (2020-06-26)
+
+
+### Features
+
+* **table:** set default layout to fitColumns ([f51869d](https://github.com/Lundalogik/lime-elements/commit/f51869db01f162649e46c7150440c70381dfbe71))
+
 ## [26.33.1](https://github.com/Lundalogik/lime-elements/compare/v26.33.0...v26.33.1) (2020-06-26)
 
 
