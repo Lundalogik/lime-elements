@@ -1,3 +1,17 @@
+## [26.33.1](https://github.com/Lundalogik/lime-elements/compare/v26.33.0...v26.33.1) (2020-06-26)
+
+
+### Bug Fixes
+
+* **tablulator-paginator:** style paginators ([2638b81](https://github.com/Lundalogik/lime-elements/commit/2638b813a2aecae812a82a880b1e7c62ebb6c4a4))
+
+# [26.33.0](https://github.com/Lundalogik/lime-elements/compare/v26.32.0...v26.33.0) (2020-06-26)
+
+
+### Features
+
+* **button-group:** add component ([91a25f1](https://github.com/Lundalogik/lime-elements/commit/91a25f12e0804b715daeabd825957a9f43a48976))
+
 # [26.32.0](https://github.com/Lundalogik/lime-elements/compare/v26.31.2...v26.32.0) (2020-06-25)
 
 

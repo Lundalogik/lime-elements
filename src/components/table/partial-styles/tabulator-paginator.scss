@@ -1,0 +1,111 @@
+.tabulator .tabulator-footer {
+    .tabulator-paginator {
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: end;
+
+        .tabulator-pages {
+            margin: 0 pxToRem(8);
+
+            .tabulator-page {
+                margin: 0 pxToRem(0);
+            }
+        }
+
+        .tabulator-page {
+            &:not([disabled]) {
+                @include is-flat-clickable;
+            }
+            position: relative;
+            height: pxToRem(28);
+            min-width: pxToRem(28);
+            padding: 0 pxToRem(8);
+            margin: 0;
+
+            border: none;
+            border-radius: pxToRem(40);
+
+            color: #303042;
+            background-color: transparent;
+
+            &:hover {
+                color: #303042;
+                background-color: #fafafb;
+            }
+
+            &.active {
+                box-shadow: var(--button-shadow-inset);
+                background-color: #fff;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+// Interactivity effects for buttons
+.tabulator-page {
+    &[data-page='first'],
+    &[data-page='prev'],
+    &[data-page='next'],
+    &[data-page='last'] {
+        font-size: 0;
+        color: transparent !important;
+        &:after {
+            transition: transform 0.2s ease;
+            display: block;
+            opacity: 0.7;
+
+            position: absolute;
+            top: pxToRem(2);
+            right: pxToRem(2);
+            bottom: pxToRem(2);
+            left: pxToRem(2);
+        }
+    }
+
+    &[data-page='prev'],
+    &[data-page='next'] {
+        &:after {
+            content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 100 100'><defs/><path d='M68.714 50L37.286 70V30l31.428 20z'/></svg>");
+        }
+    }
+
+    &[data-page='first'],
+    &[data-page='last'] {
+        &:after {
+            content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 100 100'><defs/><path d='M60.714 50L29.286 70V30l31.428 20zM64.714 30h6v40h-6z'/></svg>");
+        }
+    }
+
+    &[data-page='first'],
+    &[data-page='prev'] {
+        &:after {
+            transform: rotateZ(180deg);
+        }
+    }
+
+    &[data-page='next']:not([disabled]),
+    &[data-page='last']:not([disabled]) {
+        &:hover {
+            &:after {
+                transform: translate3d(pxToRem(1.5), 0, 0);
+            }
+        }
+    }
+
+    &[data-page='first']:not([disabled]),
+    &[data-page='prev']:not([disabled]) {
+        &:hover {
+            &:after {
+                transform: translate3d(pxToRem(-1.5), 0, 0) rotateZ(180deg);
+            }
+        }
+    }
+}
