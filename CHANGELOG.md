@@ -1,3 +1,10 @@
+# [26.33.0](https://github.com/Lundalogik/lime-elements/compare/v26.32.0...v26.33.0) (2020-06-26)
+
+
+### Features
+
+* **button-group:** add component ([91a25f1](https://github.com/Lundalogik/lime-elements/commit/91a25f12e0804b715daeabd825957a9f43a48976))
+
 # [26.32.0](https://github.com/Lundalogik/lime-elements/compare/v26.31.2...v26.32.0) (2020-06-25)
 
 
