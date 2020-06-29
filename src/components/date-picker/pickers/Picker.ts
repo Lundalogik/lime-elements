@@ -13,7 +13,7 @@ export abstract class Picker {
     protected language: string = 'en';
 
     protected flatpickr: flatpickr.Instance;
-    protected nativePicker;
+    protected nativePicker: boolean;
 
     public constructor(
         dateFormat: string,
@@ -107,11 +107,7 @@ export abstract class Picker {
         return moment(date).isoWeek();
     }
 
-    private parseDate(dateString) {
-        return moment(
-            dateString,
-            this.dateFormat,
-            this.getMomentLang()
-        ).toDate();
+    private parseDate(date: string) {
+        return moment(date, this.dateFormat, this.getMomentLang()).toDate();
     }
 }
