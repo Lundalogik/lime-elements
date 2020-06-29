@@ -1,3 +1,10 @@
+## [26.34.3](https://github.com/Lundalogik/lime-elements/compare/v26.34.2...v26.34.3) (2020-06-29)
+
+
+### Bug Fixes
+
+* **table:** cells won't grow over specified max-width ([86a486b](https://github.com/Lundalogik/lime-elements/commit/86a486b769084532cd02c489be2674781998f5de))
+
 ## [26.34.2](https://github.com/Lundalogik/lime-elements/compare/v26.34.1...v26.34.2) (2020-06-29)
 
 
