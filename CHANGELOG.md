@@ -1,3 +1,10 @@
+## [26.34.1](https://github.com/Lundalogik/lime-elements/compare/v26.34.0...v26.34.1) (2020-06-29)
+
+
+### Bug Fixes
+
+* upgrade replace-in-file from 6.0.0 to 6.1.0 ([83ceb07](https://github.com/Lundalogik/lime-elements/commit/83ceb0774b9926b2c1d72e90f2100ff4440150c5))
+
 # [26.34.0](https://github.com/Lundalogik/lime-elements/compare/v26.33.1...v26.34.0) (2020-06-26)
 
 
