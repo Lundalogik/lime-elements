@@ -39,7 +39,7 @@ export abstract class Picker {
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
         let config: flatpickr.Options.Options = {
-            clickOpens: false,
+            clickOpens: this.nativePicker,
             disableMobile: !this.nativePicker,
             formatDate: this.nativePicker ? undefined : this.formatDate,
             parseDate: this.nativePicker ? undefined : this.parseDate,
