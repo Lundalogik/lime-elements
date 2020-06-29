@@ -1,4 +1,4 @@
-import flatpickr from '@limetech/flatpickr';
+import flatpickr from 'flatpickr';
 import { EventEmitter } from '@stencil/core';
 import { range } from 'lodash-es';
 import moment from 'moment/moment';
@@ -58,7 +58,7 @@ export class YearPicker extends Picker {
             fp.nextMonthNav.remove();
             fp.currentYearElement.parentNode.remove();
             fp.calendarContainer
-                .getElementsByClassName('cur-month')[0]
+                .getElementsByClassName('flatpickr-month')[0]
                 .replaceWith(this.renderHeading());
             fp.calendarContainer.appendChild(this.renderYearPicker(fp));
         }
@@ -66,7 +66,7 @@ export class YearPicker extends Picker {
 
     private renderHeading(): any {
         return (
-            <span className="datepicker-year-heading">
+            <span className="datepicker-year-heading flatpickr-current-month">
                 {this.getLocalizedHeading()}
             </span>
         );

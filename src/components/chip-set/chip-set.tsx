@@ -447,14 +447,19 @@ export class ChipSet {
                 role="row"
                 id={`${chip.id}`}
             >
-                <div class="mdc-chip__ripple" />
                 {chip.icon ? this.renderIcon(chip) : null}
-                <span role="gridcell">
-                    <span role="button" tabindex="0" class="mdc-chip__text">
-                        {chip.text}
-                    </span>
-                </span>
+                {chip.text ? this.renderLabel(chip) : null}
             </div>
+        );
+    }
+
+    private renderLabel(chip: Chip<any>) {
+        return (
+            <span role="gridcell">
+                <span role="button" tabindex="0" class="mdc-chip__text">
+                    {chip.text}
+                </span>
+            </span>
         );
     }
 
@@ -465,7 +470,6 @@ export class ChipSet {
                 role="row"
                 id={`${chip.id}`}
             >
-                <div class="mdc-chip__ripple" />
                 <span class="mdc-chip__checkmark">
                     <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
                         <path
@@ -507,13 +511,8 @@ export class ChipSet {
                 onClick={this.catchInputChipClicks}
                 {...attributes}
             >
-                <div class="mdc-chip__ripple" />
                 {chip.icon ? this.renderIcon(chip) : null}
-                <span role="gridcell">
-                    <span role="button" class="mdc-chip__text" tabindex="0">
-                        {chip.text}
-                    </span>
-                </span>
+                {this.renderLabel(chip)}
                 {chip.removable && !this.readonly && !this.disabled
                     ? this.renderTrailingIcon()
                     : null}

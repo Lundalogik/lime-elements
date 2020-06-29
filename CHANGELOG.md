@@ -1,3 +1,94 @@
+## [26.34.3](https://github.com/Lundalogik/lime-elements/compare/v26.34.2...v26.34.3) (2020-06-29)
+
+
+### Bug Fixes
+
+* **table:** cells won't grow over specified max-width ([86a486b](https://github.com/Lundalogik/lime-elements/commit/86a486b769084532cd02c489be2674781998f5de))
+
+## [26.34.2](https://github.com/Lundalogik/lime-elements/compare/v26.34.1...v26.34.2) (2020-06-29)
+
+
+### Bug Fixes
+
+* **select:** set focus on menu change not every update ([ce8379a](https://github.com/Lundalogik/lime-elements/commit/ce8379a71ab046b319ce26584cda30a6957352b2))
+
+## [26.34.1](https://github.com/Lundalogik/lime-elements/compare/v26.34.0...v26.34.1) (2020-06-29)
+
+
+### Bug Fixes
+
+* upgrade replace-in-file from 6.0.0 to 6.1.0 ([83ceb07](https://github.com/Lundalogik/lime-elements/commit/83ceb0774b9926b2c1d72e90f2100ff4440150c5))
+
+# [26.34.0](https://github.com/Lundalogik/lime-elements/compare/v26.33.1...v26.34.0) (2020-06-26)
+
+
+### Features
+
+* **table:** set default layout to fitColumns ([f51869d](https://github.com/Lundalogik/lime-elements/commit/f51869db01f162649e46c7150440c70381dfbe71))
+
+## [26.33.1](https://github.com/Lundalogik/lime-elements/compare/v26.33.0...v26.33.1) (2020-06-26)
+
+
+### Bug Fixes
+
+* **tablulator-paginator:** style paginators ([2638b81](https://github.com/Lundalogik/lime-elements/commit/2638b813a2aecae812a82a880b1e7c62ebb6c4a4))
+
+# [26.33.0](https://github.com/Lundalogik/lime-elements/compare/v26.32.0...v26.33.0) (2020-06-26)
+
+
+### Features
+
+* **button-group:** add component ([91a25f1](https://github.com/Lundalogik/lime-elements/commit/91a25f12e0804b715daeabd825957a9f43a48976))
+
+# [26.32.0](https://github.com/Lundalogik/lime-elements/compare/v26.31.2...v26.32.0) (2020-06-25)
+
+
+### Features
+
+* **table:** add custom styles for low-density and interactive rows ([888f340](https://github.com/Lundalogik/lime-elements/commit/888f340a7ee8057a490fa426f0897663f5191c7f))
+
+## [26.31.2](https://github.com/Lundalogik/lime-elements/compare/v26.31.1...v26.31.2) (2020-06-24)
+
+
+### Bug Fixes
+
+* **limel-select:** ensure select element don't crash when it's list element doesn't exist ([0240901](https://github.com/Lundalogik/lime-elements/commit/02409016060ecf0545e5d75ad18a398c29ad057d))
+
+## [26.31.1](https://github.com/Lundalogik/lime-elements/compare/v26.31.0...v26.31.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* **table:** make it more similar to current tables ([41e80dd](https://github.com/Lundalogik/lime-elements/commit/41e80ddcb9ddf1f004c6cc179ec8cc84cae278d0))
+* **tabulator-arrow:** add more interactivity on hover, to hint columns are sortable ([3dbcb82](https://github.com/Lundalogik/lime-elements/commit/3dbcb8276213b506cbdade5932f82e62903a6d9e))
+
+# [26.31.0](https://github.com/Lundalogik/lime-elements/compare/v26.30.1...v26.31.0) (2020-06-18)
+
+
+### Features
+
+* **tab-panel:** make it possible to scroll inside the content of a tab ([2285f47](https://github.com/Lundalogik/lime-elements/commit/2285f47e763ca9795d7c7fe0eaf94dc9a27046d6)), closes [Lundalogik/crm-feature#1141](https://github.com/Lundalogik/crm-feature/issues/1141)
+
+## [26.30.1](https://github.com/Lundalogik/lime-elements/compare/v26.30.0...v26.30.1) (2020-06-17)
+
+
+### Bug Fixes
+
+* trigger release ([f9a823d](https://github.com/Lundalogik/lime-elements/commit/f9a823d7f42697b7d1baa8779e7af78ead2ea0dc))
+
+# [26.30.0](https://github.com/Lundalogik/lime-elements/compare/v26.29.2...v26.30.0) (2020-06-16)
+
+
+### Bug Fixes
+
+* **chip-set:** remove mdc-chip__ripple div ([adeb6da](https://github.com/Lundalogik/lime-elements/commit/adeb6da7e72b02960ed9144fe23773acb2a3734d))
+* **chip-set:** rewrite layout using grid ([f322b9e](https://github.com/Lundalogik/lime-elements/commit/f322b9e9f841f36b1609d11f451e6e3d8a133d39))
+
+
+### Features
+
+* **shadows:** add shadow styles for inset elements ([c952107](https://github.com/Lundalogik/lime-elements/commit/c9521077b07c86ce6d54b549016abcc1c49dac2b))
+
 ## [26.29.2](https://github.com/Lundalogik/lime-elements/compare/v26.29.1...v26.29.2) (2020-06-12)
 
 

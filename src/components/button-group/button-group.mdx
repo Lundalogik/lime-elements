@@ -1,0 +1,50 @@
+---
+name: Button group
+route: /button-group
+menu: Components
+---
+
+# Button group
+
+A button group control is a linear set of two or more buttons.
+
+## Usage
+
+Button groups are often used to display different views of the same thing. A common example of this component is when you switch
+between [ Map | Transit | Satellite ] views to look at an area on the map.
+
+In some cases, button groups may serve as quick filters as well. For example a list of contacts, in which the user can switch to [ All | Favorites | Frequently contacted ]
+can incorporate a button group to quickly filter out items and display subsets of them.
+
+## Layout
+
+Button can contain text or icons, but not both simultaneously! Within the group, icon buttons will all have the same width, while each text button inherits
+its width from its content.
+
+The button groups are usually placed in top headers and action bars, sometimes with other elements. Since the group items will always be rendered in a row,
+you must make sure not to have too many buttons in the group. Because if the container of your button group does not get
+enough space to fit in all its buttons, they will have to truncate their text and may appear very cramped together.
+
+Always think about how your button group will appear on a small screen such as phones.
+<limel-props name="limel-button-group" />
+
+## Example: icon only
+
+If you pick well descriptive icons, this layout will usually suffice. When you specify an `icon`, it will automatically be shown instead of the `title`.
+However, adding titles for buttons is compulsory. The reason is that when only icons are shown, titles will appear as `aria-label` for screen readers, as well as
+`title` attribute when users hover and hold their cursors on the buttons. This makes it easier for them to know what the button actually does or what the icon tries to indicate.
+
+So, make sure to label your icons properly and descriptively.
+<limel-example name="limel-example-button-group-icons" path="button-group" />
+
+## Example: text only
+
+This layout is good when you do not have access to icons which are descriptive enough.
+<limel-example name="limel-example-button-group" />
+
+## Example: mixed text and icon within the same group
+
+Generally, you should avoid mixing text and images in button group. Although individual buttons can contain text or images, mixing the two in a single group can
+lead to an inconsistent and confusing interface.
+However, in some case your design may benefit from having only one button in a different format.
+<limel-example name="limel-example-button-group-mix" path="button-group"/>

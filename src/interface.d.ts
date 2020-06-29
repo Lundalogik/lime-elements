@@ -16,3 +16,5 @@ export * from './components/form/form.types';
 export * from './components/collapsible-section/action';
 export * from './components/tab-bar/tab.types';
 export * from './components/menu/menu.types';
+export * from './components/table/table.types';
+export * from './components/button/button.types';

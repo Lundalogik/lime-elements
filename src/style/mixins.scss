@@ -19,7 +19,23 @@
     &:active {
         box-shadow: var(--button-shadow-pressed);
 
-        transform: translateY(0.08rem);
+        transform: translate3d(0, 0.08rem, 0);
+    }
+}
+
+@mixin is-elevated-inset-clickable() {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease,
+        transform 0.1s ease-out;
+
+    box-shadow: var(--button-shadow-normal);
+
+    &:hover {
+        box-shadow: var(--button-shadow-hovered);
+    }
+
+    &:active {
+        box-shadow: var(--button-shadow-inset-pressed);
+        transform: translate3d(0, 0.05rem, 0);
     }
 }
 
@@ -34,6 +50,20 @@
     &:active {
         box-shadow: var(--button-shadow-pressed);
 
-        transform: translateY(0.08rem);
+        transform: translate3d(0, 0.08rem, 0);
+    }
+}
+
+@mixin is-flat-inset-clickable() {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease,
+        transform 0.1s ease-out;
+
+    &:hover {
+        box-shadow: var(--button-shadow-hovered);
+    }
+
+    &:active {
+        box-shadow: var(--button-shadow-inset-pressed);
+        transform: translate3d(0, 0.05rem, 0);
     }
 }

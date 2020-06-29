@@ -154,8 +154,6 @@ export class Select {
     public componentDidUpdate() {
         if (this.menuOpen) {
             this.setMenuFocus();
-        } else {
-            this.setTriggerFocus();
         }
     }
 
@@ -204,7 +202,7 @@ export class Select {
             const list: HTMLElement = document.querySelector(
                 `#${this.portalId} limel-menu-surface limel-list`
             );
-            const firstItem: HTMLElement = list.shadowRoot.querySelector(
+            const firstItem: HTMLElement = list?.shadowRoot?.querySelector(
                 '[tabindex]'
             );
 
@@ -246,6 +244,7 @@ export class Select {
 
         this.change.emit(option);
         this.menuOpen = false;
+        this.setTriggerFocus();
     }
 
     private openMenu() {

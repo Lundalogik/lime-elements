@@ -1,5 +1,5 @@
-import flatpickr from '@limetech/flatpickr';
-import FlatpickrLanguages from '@limetech/flatpickr/dist/l10n';
+import flatpickr from 'flatpickr';
+import FlatpickrLanguages from 'flatpickr/dist/l10n';
 import { EventEmitter } from '@stencil/core';
 import 'moment/locale/da';
 import 'moment/locale/fi';

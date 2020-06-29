@@ -36,6 +36,7 @@ jobs:
         rm .npmrc
     - run: npm run build
     - run: npm test --if-present
+    - run: npm run docz:build
 
   commitlint:
     name: Commitlint
