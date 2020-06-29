@@ -46,7 +46,7 @@ export abstract class Picker {
             appendTo: container,
             defaultDate: value,
             onValueUpdate: this.handleClose,
-            inline: true,
+            inline: !this.nativePicker,
             locale: FlatpickrLanguages[this.language] || FlatpickrLanguages.en,
             getWeek: this.getWeek,
         };
