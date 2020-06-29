@@ -1,3 +1,10 @@
+## [26.34.2](https://github.com/Lundalogik/lime-elements/compare/v26.34.1...v26.34.2) (2020-06-29)
+
+
+### Bug Fixes
+
+* **select:** set focus on menu change not every update ([ce8379a](https://github.com/Lundalogik/lime-elements/commit/ce8379a71ab046b319ce26584cda30a6957352b2))
+
 ## [26.34.1](https://github.com/Lundalogik/lime-elements/compare/v26.34.0...v26.34.1) (2020-06-29)
 
 
