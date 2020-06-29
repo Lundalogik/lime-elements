@@ -154,8 +154,6 @@ export class Select {
     public componentDidUpdate() {
         if (this.menuOpen) {
             this.setMenuFocus();
-        } else {
-            this.setTriggerFocus();
         }
     }
 
@@ -246,6 +244,7 @@ export class Select {
 
         this.change.emit(option);
         this.menuOpen = false;
+        this.setTriggerFocus();
     }
 
     private openMenu() {
