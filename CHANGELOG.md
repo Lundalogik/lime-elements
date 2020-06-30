@@ -1,3 +1,10 @@
+## [26.34.4](https://github.com/Lundalogik/lime-elements/compare/v26.34.3...v26.34.4) (2020-06-30)
+
+
+### Bug Fixes
+
+* **slider:** redesign the slider ([0ae3a41](https://github.com/Lundalogik/lime-elements/commit/0ae3a413a8cd8a692cb9d58ec0789a20a4e6e0cf))
+
 ## [26.34.3](https://github.com/Lundalogik/lime-elements/compare/v26.34.2...v26.34.3) (2020-06-29)
 
 
