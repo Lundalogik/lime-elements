@@ -8,7 +8,8 @@ import {
     Watch,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
-import { DateType, Languages } from '@limetech/lime-elements';
+import { isAndroidDevice, isIOSDevice } from '../../util/device';
+import { DateType, InputType, Languages } from '@limetech/lime-elements';
 import { DateFormatter } from './dateFormatter';
 
 @Component({
@@ -85,6 +86,8 @@ export class DatePicker {
     @State()
     private formattedValue: string;
 
+    private useNative: boolean;
+    private nativeType: InputType;
     private textField: HTMLElement;
     private datePickerCalendar: HTMLLimelFlatpickrAdapterElement;
 
@@ -103,10 +106,42 @@ export class DatePicker {
     }
 
     public componentWillLoad() {
+        this.useNative = isIOSDevice() || isAndroidDevice();
         this.formattedValue = this.dateFormatter.formatDateByType(
             this.value,
             this.type
         );
+
+        switch (this.type) {
+            case 'date':
+                this.nativeType = 'date';
+                break;
+
+            case 'time':
+                this.nativeType = 'time';
+                break;
+
+            case 'week':
+                this.nativeType = 'week';
+                break;
+
+            case 'month':
+                this.nativeType = 'month';
+                break;
+
+            case 'quarter':
+                this.nativeType = 'date';
+                break;
+
+            case 'year':
+                this.nativeType = 'date';
+                break;
+
+            case 'datetime':
+            default:
+                this.nativeType = 'datetime-local';
+                break;
+        }
     }
 
     public render() {
@@ -114,6 +149,23 @@ export class DatePicker {
             trailingIcon: this.value ? 'clear_symbol' : null,
             onAction: this.clearValue,
         };
+
+        if (this.useNative) {
+            return (
+                <div class="container">
+                    <limel-input-field
+                        disabled={this.disabled}
+                        invalid={this.invalid}
+                        label={this.label}
+                        helperText={this.helperText}
+                        required={this.required}
+                        value={this.formattedValue}
+                        type={this.nativeType}
+                    />
+                </div>
+            );
+        }
+
         return (
             <div class="container">
                 <limel-input-field
