@@ -34,10 +34,10 @@ $colorGrey: #999999;
 }
 
 .slider {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     position: relative;
+    padding-top: pxToRem(
+        28
+    ); // Without this, the slider's label will be rendered outside the slider's box model (because it has an absolute position and transform)
 }
 
 .slider__label {
@@ -48,50 +48,113 @@ $colorGrey: #999999;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-left: pxToRem(16);
-    margin-right: pxToRem(16);
 }
 
 .slider__content-range-container {
     display: flex;
+    order: 2;
     justify-content: space-between;
-    padding-top: pxToRem(6);
     width: 100%;
+    padding-top: pxToRem(4);
+}
+
+.slider__content-min-label,
+.slider__content-max-label {
+    opacity: 0.8;
+    font-size: pxToRem(12);
+    top: pxToRem(20);
+
+    &:hover {
+        opacity: 1;
+    }
 }
 
 .slider__content-min-label {
-    color: $colorGrey;
-    font-size: pxToRem(12);
     left: 0;
-    top: pxToRem(20);
 }
 
 .slider__content-max-label {
-    color: $colorGrey;
-    font-size: pxToRem(12);
     right: 0;
-    top: pxToRem(20);
 }
 
 .mdc-slider {
-    height: pxToRem(28);
+    height: pxToRem(12);
 }
 
 .mdc-slider__track-container {
-    top: pxToRem(9);
+    top: pxToRem(8);
+    height: pxToRem(4);
+    border-radius: pxToRem(4);
 }
 
 .mdc-slider__thumb-container {
     top: 0;
+
+    &:before,
+    &:after {
+        transition: all 0.2s ease 0.2s;
+        content: '';
+        display: block;
+        position: absolute;
+        top: pxToRem(8);
+        bottom: 0;
+        margin: auto;
+        background: {
+            image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            position: center;
+            repeat: no-repeat;
+            size: cover;
+        }
+
+        width: pxToRem(12);
+        opacity: 0;
+    }
+
+    &:before {
+        left: pxToRem(-16);
+        transform: rotate(90deg);
+    }
+    &:after {
+        right: pxToRem(-14);
+        transform: rotate(-90deg);
+    }
+
+    &:hover {
+        &:before {
+            opacity: 0.8;
+            left: pxToRem(-20);
+        }
+        &:after {
+            opacity: 0.8;
+            right: pxToRem(-18);
+        }
+    }
 }
 
 .mdc-slider__pin {
-    border-radius: pxToRem(4);
-    height: pxToRem(20);
-    left: pxToRem(-8);
-    top: pxToRem(-16);
+    transition: all 0.2s ease;
     transform: none;
-    width: pxToRem(40);
+    border-radius: pxToRem(20);
+
+    height: pxToRem(20);
+    line-height: pxToRem(20);
+    padding: 0 pxToRem(2);
+
+    left: pxToRem(-4);
+    margin: 0 auto;
+
+    box-shadow: var(--button-shadow-normal);
+    transform-origin: bottom;
+
+    &:hover {
+        box-shadow: var(--button-shadow-hovered);
+    }
+
+    .mdc-slider--active & {
+        // when the pin is being dragged
+        box-shadow: var(--button-shadow-hovered);
+        transform: scale(1.5) translateY(pxToRem(-16)) !important;
+    }
 
     .mdc-slider.mdc-slider--disabled & {
         background: var(--mdc-slider-bg-color-behind-component);
@@ -103,6 +166,11 @@ $colorGrey: #999999;
             rgba(255, 255, 255, 0) 100%
         );
     }
+}
+
+.mdc-slider__thumb {
+    box-shadow: 0 0 0 pxToRem(4) rgba(#fff, 0.7);
+    border-radius: 50%;
 }
 
 .mdc-slider__pin-value-marker {

@@ -74,3 +74,8 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
         padding-left: pxToRem(6);
     }
 }
+
+.tabulator-col,
+.tabulator-cell {
+    max-width: pxToRem(600);
+}

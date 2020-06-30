@@ -13,6 +13,7 @@ module.exports = {
             'src/components/**/examples/**',
             'src/**/*.spec.{ts,tsx}',
             'src/**/*.e2e.{ts,tsx}',
+            'src/**/*.test-wrapper.{ts,tsx}',
         ],
     },
 

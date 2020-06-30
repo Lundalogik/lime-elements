@@ -1,3 +1,31 @@
+## [26.34.4](https://github.com/Lundalogik/lime-elements/compare/v26.34.3...v26.34.4) (2020-06-30)
+
+
+### Bug Fixes
+
+* **slider:** redesign the slider ([0ae3a41](https://github.com/Lundalogik/lime-elements/commit/0ae3a413a8cd8a692cb9d58ec0789a20a4e6e0cf))
+
+## [26.34.3](https://github.com/Lundalogik/lime-elements/compare/v26.34.2...v26.34.3) (2020-06-29)
+
+
+### Bug Fixes
+
+* **table:** cells won't grow over specified max-width ([86a486b](https://github.com/Lundalogik/lime-elements/commit/86a486b769084532cd02c489be2674781998f5de))
+
+## [26.34.2](https://github.com/Lundalogik/lime-elements/compare/v26.34.1...v26.34.2) (2020-06-29)
+
+
+### Bug Fixes
+
+* **select:** set focus on menu change not every update ([ce8379a](https://github.com/Lundalogik/lime-elements/commit/ce8379a71ab046b319ce26584cda30a6957352b2))
+
+## [26.34.1](https://github.com/Lundalogik/lime-elements/compare/v26.34.0...v26.34.1) (2020-06-29)
+
+
+### Bug Fixes
+
+* upgrade replace-in-file from 6.0.0 to 6.1.0 ([83ceb07](https://github.com/Lundalogik/lime-elements/commit/83ceb0774b9926b2c1d72e90f2100ff4440150c5))
+
 # [26.34.0](https://github.com/Lundalogik/lime-elements/compare/v26.33.1...v26.34.0) (2020-06-26)
 
 
