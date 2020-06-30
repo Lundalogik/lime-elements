@@ -1,3 +1,10 @@
+## [26.34.5](https://github.com/Lundalogik/lime-elements/compare/v26.34.4...v26.34.5) (2020-06-30)
+
+
+### Bug Fixes
+
+* **button:** improve button styles ([bae48f3](https://github.com/Lundalogik/lime-elements/commit/bae48f309a6950ab26224421c56459021466dce4))
+
 ## [26.34.4](https://github.com/Lundalogik/lime-elements/compare/v26.34.3...v26.34.4) (2020-06-30)
 
 
