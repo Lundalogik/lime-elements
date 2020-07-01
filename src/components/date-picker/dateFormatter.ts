@@ -25,22 +25,11 @@ export class DateFormatter {
         return '';
     }
 
-    public formatDateByType(date: Date, type: DateType) {
-        const dateFormat = this.getDateFormat(type);
-        if (this.isMobile) {
-            return date ? JSON.stringify(date) : '';
-        }
-        if (date) {
-            return moment(date).locale(this.getLanguage()).format(dateFormat);
-        }
-        return '';
-    }
-
     public getLanguage() {
         return this.language === 'no' ? 'nb' : this.language;
     }
 
-    private getDateFormat(type: DateType) {
+    public getDateFormat(type: DateType) {
         return (
             {
                 date: 'L',

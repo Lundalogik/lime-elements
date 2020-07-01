@@ -103,10 +103,6 @@ export abstract class Picker {
     }
 
     private parseDate(date: string) {
-        return moment(
-            date,
-            this.dateFormat,
-            this.getMomentLang()
-        ).toDate();
+        return moment(date, this.dateFormat, this.getMomentLang()).toDate();
     }
 }

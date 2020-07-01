@@ -17,7 +17,6 @@ import { QuarterPicker } from '../pickers/QuarterPicker';
 import { TimePicker } from '../pickers/TimePicker';
 import { WeekPicker } from '../pickers/WeekPicker';
 import { YearPicker } from '../pickers/YearPicker';
-import { DateFormatter } from '../dateFormatter';
 
 @Component({
     tag: 'limel-flatpickr-adapter',
@@ -30,9 +29,6 @@ export class DatePickerCalendar {
      */
     @Prop()
     public value: Date;
-
-    @Prop()
-    public dateFormatter: DateFormatter;
 
     /**
      * Type of date picker. Defaults to `datetime`
@@ -66,12 +62,6 @@ export class DatePickerCalendar {
     private flatPickrCreated: boolean = false;
 
     private container: HTMLElement;
-
-    constructor() {
-        this.dateFormatter = this.dateFormatter
-            ? this.dateFormatter
-            : new DateFormatter();
-    }
 
     public componentWillLoad() {
         switch (this.type) {

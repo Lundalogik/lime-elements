@@ -110,9 +110,13 @@ export class DatePicker {
 
     public componentWillLoad() {
         this.useNative = isIOSDevice() || isAndroidDevice();
-        this.formattedValue = this.dateFormatter.formatDateByType(
+        this.format = this.format
+            ? this.format
+            : this.dateFormatter.getDateFormat(this.type);
+
+        this.formattedValue = this.dateFormatter.formatDate(
             this.value,
-            this.type
+            this.format
         );
 
         switch (this.type) {
@@ -188,6 +192,8 @@ export class DatePicker {
                     visible={this.showPortal}
                 >
                     <limel-flatpickr-adapter
+                        format={this.format}
+                        language={this.language}
                         type={this.type}
                         value={this.value}
                         ref={(el) => (this.datePickerCalendar = el)}
@@ -201,9 +207,9 @@ export class DatePicker {
     @Watch('value')
     protected onValueChange(newValue, oldValue) {
         if (newValue !== oldValue && newValue !== this.formattedValue) {
-            this.formattedValue = this.dateFormatter.formatDateByType(
-                newValue,
-                this.type
+            this.formattedValue = this.dateFormatter.formatDate(
+                this.value,
+                this.format
             );
         }
     }
@@ -247,10 +253,7 @@ export class DatePicker {
 
     private handleCalendarChange(event) {
         const date = event.detail;
-        this.formattedValue = this.dateFormatter.formatDateByType(
-            date,
-            this.type
-        );
+        this.formattedValue = this.dateFormatter.formatDate(date, this.format);
         event.stopPropagation();
         if (this.type !== 'datetime' && this.type !== 'time') {
             this.textField.blur();

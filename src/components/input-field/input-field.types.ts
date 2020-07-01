@@ -1,5 +1,5 @@
 export type InputType =
-    | 'date'
+    | 'date'
     | 'datetime-local'
     | 'email'
     | 'month'
