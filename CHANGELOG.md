@@ -1,3 +1,10 @@
+# [26.35.0](https://github.com/Lundalogik/lime-elements/compare/v26.34.5...v26.35.0) (2020-07-01)
+
+
+### Features
+
+* **date-picker:** add `'nb'` for Norsk Bokmål as a permitted language option ([c69f92c](https://github.com/Lundalogik/lime-elements/commit/c69f92cb3f3e2576930bddc7ac73dc1f1f6e62d5))
+
 ## [26.34.5](https://github.com/Lundalogik/lime-elements/compare/v26.34.4...v26.34.5) (2020-06-30)
 
 
