@@ -100,6 +100,9 @@ export class DatePicker {
 
     constructor() {
         this.handleCalendarChange = this.handleCalendarChange.bind(this);
+        this.handleInputElementChange = this.handleInputElementChange.bind(
+            this
+        );
         this.showCalendar = this.showCalendar.bind(this);
         this.dateFormatter = new DateFormatter(this.language);
         this.clearValue = this.clearValue.bind(this);
@@ -176,6 +179,7 @@ export class DatePicker {
                     required={this.required}
                     value={this.formattedValue}
                     onFocus={this.showCalendar}
+                    onChange={this.handleInputElementChange}
                     ref={(el) => (this.textField = el)}
                     {...inputProps}
                 />
@@ -253,6 +257,10 @@ export class DatePicker {
             this.hideCalendar();
         }
         this.change.emit(date);
+    }
+
+    private handleInputElementChange(event) {
+        event.stopPropagation();
     }
 
     private clearValue() {
