@@ -24,6 +24,11 @@
     --shadow-depth-8: 0 #{pxToRem(3.2)} #{pxToRem(7.2)} 0 rgba(0, 0, 0, 0.132),
         0 #{pxToRem(0.6)} #{pxToRem(1.8)} 0 rgba(0, 0, 0, 0.108);
 
+    // Like above but light source is below the element, good for bottom bars, etc...
+    --shadow-depth-8-reversed: 0 #{pxToRem(-3.2)} #{pxToRem(7.2)} 0
+            rgba(0, 0, 0, 0.132),
+        0 #{pxToRem(-0.6)} #{pxToRem(1.8)} 0 rgba(0, 0, 0, 0.108);
+
     // Good for Teaching callouts, Search results dropdown, cards, Tooltips
     --shadow-depth-16: 0 #{pxToRem(6.4)} #{pxToRem(14.4)} 0 rgba(0, 0, 0, 0.132),
         0 #{pxToRem(1.2)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.108);
