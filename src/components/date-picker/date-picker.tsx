@@ -12,6 +12,29 @@ import { isAndroidDevice, isIOSDevice } from '../../util/device';
 import { DateType, InputType, Languages } from '@limetech/lime-elements';
 import { DateFormatter } from './dateFormatter';
 
+// tslint:disable:no-duplicate-string
+const nativeTypeForConsumerType: { [key: string]: InputType } = {
+    date: 'date',
+    time: 'time',
+    // Mobile Safari feature detects as capable of input type `week`,
+    // but it just displays a non-interactive input
+    // TODO(ads): remove this when support is decent on iOS!
+    week: isIOSDevice() ? 'date' : 'week',
+    month: 'month',
+    quarter: 'date',
+    year: 'date',
+    datetime: 'datetime-local',
+    default: 'datetime-local',
+};
+const nativeFormatForType = {
+    date: 'Y-MM-DD',
+    time: 'HH:mm',
+    week: 'GGGG-[W]WW',
+    month: 'Y-MM',
+    'datetime-local': 'Y-MM-DD[T]HH:mm',
+};
+// tslint:enable:no-duplicate-string
+
 @Component({
     tag: 'limel-date-picker',
     shadow: true,
@@ -86,8 +109,12 @@ export class DatePicker {
     @State()
     private formattedValue: string;
 
+    @State()
+    private internalFormat: string;
+
     private useNative: boolean;
     private nativeType: InputType;
+    private nativeFormat: string;
     private textField: HTMLElement;
     private datePickerCalendar: HTMLLimelFlatpickrAdapterElement;
 
@@ -106,49 +133,22 @@ export class DatePicker {
         this.showCalendar = this.showCalendar.bind(this);
         this.dateFormatter = new DateFormatter(this.language);
         this.clearValue = this.clearValue.bind(this);
+        this.nativeChangeHandler = this.nativeChangeHandler.bind(this);
     }
 
     public componentWillLoad() {
         this.useNative = isIOSDevice() || isAndroidDevice();
-        this.format = this.format
-            ? this.format
-            : this.dateFormatter.getDateFormat(this.type);
+
+        this.updateInternalFormatAndType();
 
         this.formattedValue = this.dateFormatter.formatDate(
             this.value,
-            this.format
+            this.internalFormat
         );
+    }
 
-        switch (this.type) {
-            case 'date':
-                this.nativeType = 'date';
-                break;
-
-            case 'time':
-                this.nativeType = 'time';
-                break;
-
-            case 'week':
-                this.nativeType = 'week';
-                break;
-
-            case 'month':
-                this.nativeType = 'month';
-                break;
-
-            case 'quarter':
-                this.nativeType = 'date';
-                break;
-
-            case 'year':
-                this.nativeType = 'date';
-                break;
-
-            case 'datetime':
-            default:
-                this.nativeType = 'datetime-local';
-                break;
-        }
+    public componentWillUpdate() {
+        this.updateInternalFormatAndType();
     }
 
     public render() {
@@ -168,6 +168,7 @@ export class DatePicker {
                         required={this.required}
                         value={this.formattedValue}
                         type={this.nativeType}
+                        onChange={this.nativeChangeHandler}
                     />
                 </div>
             );
@@ -192,7 +193,7 @@ export class DatePicker {
                     visible={this.showPortal}
                 >
                     <limel-flatpickr-adapter
-                        format={this.format}
+                        format={this.internalFormat}
                         language={this.language}
                         type={this.type}
                         value={this.value}
@@ -209,9 +210,32 @@ export class DatePicker {
         if (newValue !== oldValue && newValue !== this.formattedValue) {
             this.formattedValue = this.dateFormatter.formatDate(
                 this.value,
-                this.format
+                this.internalFormat
             );
         }
+    }
+
+    private updateInternalFormatAndType() {
+        this.nativeType = nativeTypeForConsumerType[this.type || 'default'];
+        this.nativeFormat = nativeFormatForType[this.nativeType];
+
+        if (this.useNative) {
+            this.internalFormat = this.nativeFormat;
+        } else if (this.format) {
+            this.internalFormat = this.format;
+        } else {
+            this.internalFormat = this.dateFormatter.getDateFormat(this.type);
+        }
+    }
+
+    private nativeChangeHandler(event: CustomEvent<string>) {
+        event.stopPropagation();
+        const date = this.dateFormatter.parseDate(
+            event.detail,
+            this.internalFormat
+        );
+        this.formattedValue = event.detail;
+        this.change.emit(date);
     }
 
     private showCalendar(event) {
@@ -253,7 +277,10 @@ export class DatePicker {
 
     private handleCalendarChange(event) {
         const date = event.detail;
-        this.formattedValue = this.dateFormatter.formatDate(date, this.format);
+        this.formattedValue = this.dateFormatter.formatDate(
+            date,
+            this.internalFormat
+        );
         event.stopPropagation();
         if (this.type !== 'datetime' && this.type !== 'time') {
             this.textField.blur();
