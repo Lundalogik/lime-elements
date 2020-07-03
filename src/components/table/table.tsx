@@ -8,7 +8,6 @@ import {
     Event,
 } from '@stencil/core';
 import TabulatorTable from 'tabulator-tables';
-import config from '../../global/config';
 import { Column, TableParams, ColumnSorter } from './table.types';
 import { createColumnDefinition, createColumnSorter } from './columns';
 
@@ -225,10 +224,6 @@ export class Table {
     }
 
     render() {
-        if (!config.featureSwitches.enableTable) {
-            return;
-        }
-
         return <div id="tabulator-table" />;
     }
 }
