@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash-es';
 
 interface CollapsibleItemProps {
     /**
-     * Data from reach-jsonschema-form
+     * Data from react-jsonschema-form
      */
     item: ArrayFieldItem;
 

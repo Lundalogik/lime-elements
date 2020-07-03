@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderDescription, renderTitle } from './common';
-import { ObjectFieldProperty, ObjectFieldTemplateProps } from './types';
+import { ObjectFieldProperty } from './types';
+import { ObjectFieldTemplateProps } from '@rjsf/core';
 
 export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     const id = props.idSchema.$id;
@@ -15,7 +16,7 @@ export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     return renderProperties(props.properties);
 };
 
-function renderFieldWithTitle(props: ObjectFieldTemplateProps) {
+function renderFieldWithTitle(props: ObjectFieldTemplateProps): any {
     return React.createElement(
         'div',
         {},

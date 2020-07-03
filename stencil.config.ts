@@ -13,15 +13,11 @@ export const config: Config = {
         {
             type: 'www',
             serviceWorker: null,
-            dir: '.docz/public/stencil',
+            dir: 'www',
             copy: [
                 { src: 'components/**/examples/**/*.tsx' },
                 { src: 'components/**/examples/**/*.scss' },
                 { src: 'components/**/*.md' },
-                {
-                    src: '../node_modules/@lundalogik/lime-icons8/assets/',
-                    dest: 'assets/',
-                },
             ],
         },
     ],
@@ -33,7 +29,7 @@ export const config: Config = {
             ],
         },
     },
-    plugins: [sass(), doczStarter()],
+    plugins: [sass()],
     excludeSrc: [
         '**/test/**',
         '**/*.spec.*',

@@ -18,7 +18,7 @@
     "build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
     "cm": "git-cz",
     "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs\"",
-    "watch": "shx rm -rf .docz/ && cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs\"",
+    "watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --serve\"",
     "watch:prod": "shx rm -rf .docz/ && cross-env-shell SASS_PATH=node_modules \"stencil build --watch --docs\"",
     "docz:build": "npm run dev && docz build && cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --docs --config stencil.config.docs.ts\"",
     "docz:publish": "node publish-docs.js",
@@ -46,6 +46,7 @@
   "dependencies": {
     "@limetech/material-components-web": "^4.0.1-p4.0.0.1",
     "@popperjs/core": "^2.4.2",
+    "@rjsf/core": "^2.2.0",
     "@types/tabulator-tables": "^4.6.7",
     "awesome-debounce-promise": "^2.1.0",
     "chart.js": "^2.9.3",
@@ -53,14 +54,11 @@
     "jsx-dom": "^6.4.15",
     "moment": "^2.26.0",
     "number-abbreviate": "^2.0.0",
-    "react-jsonschema-form": "^1.8.1",
     "react-shadow-dom-retarget-events": "^1.0.11",
     "tabulator-tables": "^4.6.3"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "8.3.4",
-    "@lundalogik/cz-conventional-changelog": "^3.1.0",
-    "@lundalogik/lime-icons8": "https://npm.pkg.github.com/download/@lundalogik/lime-icons8/2.1.0/96ebb4a7165fc618dba53568ab04db5fb9803a58d19e936965415e14dd224256",
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/exec": "5.0.0",
     "@semantic-release/git": "9.0.0",

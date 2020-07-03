@@ -1,8 +1,8 @@
 import { LimeElementsAdapter } from '../adapters';
-import JSONSchemaField from 'react-jsonschema-form/lib/components/fields/SchemaField';
+import JSONSchemaField from '@rjsf/core/lib/components/fields/SchemaField';
 import React from 'react';
-import { FieldProps } from './types';
 import { isEmpty, capitalize } from 'lodash-es';
+import { FieldProps } from '@rjsf/core';
 
 const hasCustomComponent = (schema): boolean => {
     return Boolean(schema.lime?.component?.name);

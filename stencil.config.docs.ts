@@ -14,10 +14,6 @@ export const config: Config = {
                 { src: 'components/**/examples/**/*.tsx' },
                 { src: 'components/**/examples/**/*.scss' },
                 { src: 'components/**/*.md' },
-                {
-                    src: '../node_modules/@lundalogik/lime-icons8/assets/',
-                    dest: 'assets/',
-                },
             ],
         },
     ],

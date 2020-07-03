@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <base href="/">
     <title>{{ title }}</title>
-    {{ head }}
 </head>
 
 <body class="mdc-typography">
@@ -28,11 +27,11 @@
     </style>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/codemirror@5.39.2/lib/codemirror.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
-    <link href="/public/stencil/build/lime-elements.css" rel="stylesheet" />
-    <script type="module" src="/public/stencil/build/lime-elements.esm.js"></script>
-    <script nomodule src="/public/stencil/build/lime-elements.js"></script>
+    <link href="/build/lime-elements.css" rel="stylesheet" />
+    <script type="module" src="/build/lime-elements.esm.js"></script>
+    <script nomodule src="/build/lime-elements.js"></script>
     <div id="root" />
-    {{ footer }}
+    <limel-example-form></limel-example-form>
 </body>
 
 </html>
