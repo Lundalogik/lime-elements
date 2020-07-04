@@ -1,23 +1,34 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
+import { kompendium } from 'kompendium';
+import guides from './guides';
 
 export const config: Config = {
     hashFileNames: false,
     namespace: 'lime-elements',
     outputTargets: [
         {
+            type: 'docs-custom',
+            strict: true,
+            generator: kompendium({
+                typeRoot: './src/interface.d.ts',
+                guides: guides,
+            }),
+        },
+        {
             type: 'www',
             serviceWorker: null,
-            dir: '.docz/dist/stencil',
+            dir: 'www',
             baseUrl: '/',
             copy: [
                 { src: 'style/color-palette-extended.css' },
-                { src: 'components/**/examples/**/*.tsx' },
-                { src: 'components/**/examples/**/*.scss' },
-                { src: 'components/**/*.md' },
                 {
                     src: '../node_modules/@lundalogik/lime-icons8/assets/',
                     dest: 'assets/',
+                },
+                {
+                    src: '../node_modules/kompendium/dist/',
+                    dest: 'assets/kompendium/',
                 },
             ],
         },

@@ -1,5 +1,4 @@
 // Components interfaces
-export * from './components';
 export * from './components/list/list-item.types';
 export * from './components/select/option.types';
 export * from './components/picker/searcher.types';
