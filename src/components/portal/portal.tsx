@@ -17,6 +17,7 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  * appropriate setup will have to be done again on `connectedCallback`
  *
  * @slot - Content to put inside the portal
+ * @private
  */
 @Component({
     tag: 'limel-portal',

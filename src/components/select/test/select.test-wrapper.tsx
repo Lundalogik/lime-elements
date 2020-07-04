@@ -1,6 +1,9 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, Prop } from '@stencil/core';
 
+/**
+ * @private
+ */
 @Component({ tag: 'select-test-wrapper' })
 export class SelectTestWrapper {
     @Prop({ mutable: true })
