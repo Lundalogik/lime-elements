@@ -1,6 +1,9 @@
 import { Component, Element, h, Prop } from '@stencil/core';
 import Chart from 'chart.js';
 
+/**
+ * @private
+ */
 @Component({
     tag: 'limel-chart',
     shadow: true,

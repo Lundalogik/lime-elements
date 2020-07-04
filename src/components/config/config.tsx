@@ -1,6 +1,9 @@
 import { Component, Prop } from '@stencil/core';
 import globalConfig from '../../global/config';
 
+/**
+ * @private
+ */
 @Component({
     tag: 'limel-config',
     shadow: true,

@@ -17,6 +17,7 @@ import {
 
 /**
  * @slot - Content to put inside the surface
+ * @private
  */
 @Component({
     tag: 'limel-menu-surface',
