@@ -5,6 +5,11 @@ import { capitalize } from 'lodash-es';
 
 const NETWORK_DELAY = 500;
 
+/**
+ * Remote sorting and pagination
+ *
+ * @link birds.ts
+ */
 @Component({
     tag: 'limel-example-table-remote',
     styleUrl: 'table.scss',

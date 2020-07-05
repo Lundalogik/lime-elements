@@ -1,6 +1,9 @@
 import { Chip } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Choice chip set
+ */
 @Component({
     tag: 'limel-example-chip-set-choice',
     shadow: true,

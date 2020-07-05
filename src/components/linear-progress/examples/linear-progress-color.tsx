@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Setting the color
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-linear-progress-color',

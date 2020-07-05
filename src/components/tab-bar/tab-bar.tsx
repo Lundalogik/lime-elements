@@ -17,6 +17,11 @@ const { TAB_ACTIVATED_EVENT } = strings;
 const SCROLL_DISTANCE_ON_CLICK_PX = 150;
 const HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX = 40;
 
+/**
+ * @exampleComponent limel-example-tab-bar
+ * @exampleComponent limel-example-tab-bar-with-dynamic-tab-width
+ * @exampleComponent limel-example-tab-bar-with-equal-tab-width
+ */
 @Component({
     tag: 'limel-tab-bar',
     styleUrl: 'tab-bar.scss',

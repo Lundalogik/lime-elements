@@ -1,6 +1,11 @@
 import { Component, h, State } from '@stencil/core';
 import { Tab } from '@limetech/lime-elements';
 
+/**
+ * In some situations and for the sake of UI design, you may want to have tabs
+ * that equally share the available screen width and stretch. To get such a
+ * result, you can add the `has-tabs-with-equal-width` class to the tab bar.
+ */
 @Component({
     tag: 'limel-example-tab-bar-with-equal-tab-width',
     shadow: true,

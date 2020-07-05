@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * quarter
+ */
 @Component({
     tag: 'limel-example-date-picker-quarter',
     shadow: true,

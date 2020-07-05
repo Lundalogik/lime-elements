@@ -24,6 +24,16 @@ import {
 import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
 
+/**
+ * @exampleComponent limel-example-input-field-text
+ * @exampleComponent limel-example-input-field-text-inline
+ * @exampleComponent limel-example-input-field-number
+ * @exampleComponent limel-example-input-field-autocomplete
+ * @exampleComponent limel-example-input-field-icon
+ * @exampleComponent limel-example-input-field-error-icon
+ * @exampleComponent limel-example-input-field-textarea
+ * @exampleComponent limel-example-input-field-search
+ */
 @Component({
     tag: 'limel-input-field',
     shadow: true,

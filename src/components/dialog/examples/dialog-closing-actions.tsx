@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Custom closing actions
+ */
 @Component({
     tag: 'limel-example-dialog-closing-actions',
     shadow: true,

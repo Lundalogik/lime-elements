@@ -1,6 +1,9 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * List with radio buttons and icons
+ */
 @Component({
     tag: 'limel-example-list-radio-button-icons',
     shadow: true,

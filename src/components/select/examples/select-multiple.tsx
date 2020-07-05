@@ -1,6 +1,9 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Select multiple values
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-select-multiple',

@@ -1,5 +1,8 @@
 import { Component, h } from '@stencil/core';
 
+/**
+ * Example with background color
+ */
 @Component({
     tag: 'limel-example-icon-background',
     shadow: true,

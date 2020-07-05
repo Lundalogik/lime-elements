@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Toggle State
+ */
 @Component({
     tag: 'limel-example-icon-button-toggle-state',
     shadow: true,

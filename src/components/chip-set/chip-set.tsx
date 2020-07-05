@@ -20,6 +20,12 @@ import { handleKeyboardEvent } from './chip-set-input-helpers';
 
 const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
 
+/**
+ * @exampleComponent limel-example-chip-set
+ * @exampleComponent limel-example-chip-set-choice
+ * @exampleComponent limel-example-chip-set-filter
+ * @exampleComponent limel-example-chip-set-input
+ */
 @Component({
     tag: 'limel-chip-set',
     shadow: true,

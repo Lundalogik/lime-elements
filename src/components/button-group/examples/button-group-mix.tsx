@@ -1,5 +1,15 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Mixed text and icon within the same group
+ *
+ * Generally, you should avoid mixing text and images in button group. Although
+ * individual buttons can contain text or images, mixing the two in a single
+ * group can lead to an inconsistent and confusing interface.
+ *
+ * However, in some case your design may benefit from having only one button in
+ * a different format.
+ */
 @Component({
     tag: 'limel-example-button-group-mix',
     shadow: true,

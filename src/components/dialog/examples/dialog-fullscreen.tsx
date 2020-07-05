@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Fullscreen
+ */
 @Component({
     tag: 'limel-example-dialog-fullscreen',
     shadow: true,

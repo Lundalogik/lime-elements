@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Input Field of Type Textarea
+ */
 @Component({
     tag: 'limel-example-input-field-textarea',
     shadow: true,

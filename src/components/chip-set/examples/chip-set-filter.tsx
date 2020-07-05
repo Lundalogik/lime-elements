@@ -1,6 +1,9 @@
 import { Chip } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Filter chip set
+ */
 @Component({
     tag: 'limel-example-chip-set-filter',
     shadow: true,

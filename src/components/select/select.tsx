@@ -23,6 +23,15 @@ import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
 import { SelectTemplate } from './select.template';
 
+/**
+ * @exampleComponent limel-example-select
+ * @exampleComponent limel-example-select-multiple
+ * @exampleComponent limel-example-select-initially-empty
+ * @exampleComponent limel-example-select-initially-empty-required
+ * @exampleComponent limel-example-select-preselected
+ * @exampleComponent limel-example-select-change-options
+ * @exampleComponent limel-example-select-dialog
+ */
 @Component({
     tag: 'limel-select',
     shadow: true,

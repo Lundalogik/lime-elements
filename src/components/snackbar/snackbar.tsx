@@ -9,6 +9,9 @@ import {
     Prop,
 } from '@stencil/core';
 
+/**
+ * @exampleComponent limel-example-snackbar
+ */
 @Component({
     tag: 'limel-snackbar',
     shadow: true,

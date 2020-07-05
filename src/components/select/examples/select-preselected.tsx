@@ -1,6 +1,9 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Specific Value Preselected
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-select-preselected',

@@ -1,6 +1,9 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
+/**
+ * List with icons
+ */
 @Component({
     tag: 'limel-example-list-icons',
     shadow: true,

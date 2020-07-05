@@ -3,6 +3,42 @@ import config from '../../global/config';
 import iconCache from '../../global/icon-cache';
 import { IconSize } from './icon.types';
 
+/**
+ * The recommended icon library for use with Lime Elements is the Windows 10 set
+ * from Icons8 (https://icons8.com/icons/windows). This set is included in the
+ * relevant Lime products. If you are using Lime Elements in a non-Lime product,
+ * you will have to supply your own icons.
+ *
+ * The size and color of the icon is set in CSS, however there are a few
+ * standard sizes defined that can be used with the `size` property.
+ *
+ * ## Setup
+ * * To use **@limetech/lime-icons8**, the `/assets` folder from
+ * **@limetech/lime-icons8** must be made available on the webserver.
+ * * To use a different icon set, the icons must be placed in a folder structure
+ * that looks like this: `assets/icons/<name-of-icon>.svg`
+ *
+ * If `assets` is placed in the root, no other setup is needed. The icons will
+ * be fetched with a relative URL from `assets/icons/<name-of-icon>.svg`.
+ *
+ * If `assets` is placed in a sub-folder somewhere, the easiest way to make the
+ * icons available is to use the HTML `base` element:
+ *
+ * ```
+ * <base href="/my/parent/path/">
+ * ```
+ *
+ * If this is not enough, or if the `base` element is already in use for
+ * something else, a global icon path can be configured with the `limel-config`
+ * element:
+ * ```
+ * <limel-config config={{iconPath: '/my/parent/path/'}} />
+ * ```
+ *
+ * @exampleComponent limel-example-icon
+ * @exampleComponent limel-example-icon-finder
+ * @exampleComponent limel-example-icon-background
+ */
 @Component({
     tag: 'limel-icon',
     shadow: true,

@@ -9,6 +9,10 @@ import {
     Watch,
 } from '@stencil/core';
 
+/**
+ * @exampleComponent limel-example-slider
+ * @exampleComponent limel-example-slider-multiplier
+ */
 @Component({
     tag: 'limel-slider',
     shadow: true,
