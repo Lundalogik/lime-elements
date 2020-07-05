@@ -12,6 +12,9 @@ import {
 import { createRandomString } from '../../util/random-string';
 import { CheckboxTemplate } from './checkbox.template';
 
+/**
+ * @exampleComponent limel-example-checkbox
+ */
 @Component({
     tag: 'limel-checkbox',
     shadow: true,

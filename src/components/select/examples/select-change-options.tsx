@@ -1,6 +1,9 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Changing Available Options
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-select-change-options',

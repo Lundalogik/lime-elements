@@ -19,6 +19,35 @@ const DEFAULT_FILE_CHIP: Chip = {
     iconColor: 'var(--lime-light-grey)',
 };
 
+/**
+ * This component lets end-users select a *single* file from their device
+ * storage. Regardless of the user's device or operating system, this component
+ * opens up a file picker dialog that allows the user to choose a file.
+ *
+ * ## Using correct labels
+ *
+ * This file picker can be used in different contexts. The component's distinct
+ * visual design including the upload icon hints end-users that this is not a
+ * normal input field like other fields in the form for example.
+ *
+ * However, you need to use a descriptive `label` that clarifies the
+ * functionality of the file picker, and/or provides users with clear
+ * instructions.
+ *
+ * Depending on the context, you may need to avoid labels such as:
+ * - File
+ * - Document
+ *
+ * and instead consider using labels like:
+ * - Attach a file
+ * - Upload a file
+ * - Choose a document
+ * - Choose a file
+ *
+ * and similar phrases...
+ *
+ * @exampleComponent limel-example-file
+ */
 @Component({
     tag: 'limel-file',
     shadow: true,

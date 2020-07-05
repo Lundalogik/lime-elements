@@ -15,6 +15,15 @@ import { ElementPool } from './element-pool';
 
 const FIRST_PAGE = 1;
 
+/**
+ * @exampleComponent limel-example-table
+ * @exampleComponent limel-example-table-custom-components
+ * @exampleComponent limel-example-table-local
+ * @exampleComponent limel-example-table-remote
+ * @exampleComponent limel-example-table-activate-row
+ * @exampleComponent limel-example-table-default-sorted
+ * @exampleComponent limel-example-table-low-density
+ */
 @Component({
     tag: 'limel-table',
     styleUrl: 'table.scss',

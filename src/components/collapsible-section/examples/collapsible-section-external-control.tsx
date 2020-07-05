@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Opening and closing from outside the component
+ */
 @Component({
     tag: 'limel-example-collapsible-section-external-control',
     shadow: true,

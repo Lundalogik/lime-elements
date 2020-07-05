@@ -1,6 +1,9 @@
 import { DialogHeading, Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Dialog with heading
+ */
 @Component({
     tag: 'limel-example-dialog-heading',
     styleUrl: 'dialog-heading.scss',

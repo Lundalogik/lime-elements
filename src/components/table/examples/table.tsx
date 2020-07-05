@@ -2,6 +2,10 @@ import { Component, h, State } from '@stencil/core';
 import { Column } from '../table.types';
 import { Person, persons } from './persons';
 
+/**
+ *
+ * @link persons.ts
+ */
 @Component({
     tag: 'limel-example-table',
     styleUrl: 'table.scss',

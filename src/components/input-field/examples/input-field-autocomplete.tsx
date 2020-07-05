@@ -1,5 +1,8 @@
 import { Component, h, State, Watch } from '@stencil/core';
 
+/**
+ * Input Field with Completions
+ */
 @Component({
     tag: 'limel-example-input-field-autocomplete',
     shadow: true,

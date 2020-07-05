@@ -1,6 +1,9 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
+/**
+ * List with action menu
+ */
 @Component({
     tag: 'limel-example-list-action',
     shadow: true,

@@ -2,6 +2,9 @@ import { Component, h, State } from '@stencil/core';
 
 const MIN_LENGTH = 6;
 
+/**
+ * Input Field with Error Icon
+ */
 @Component({
     tag: 'limel-example-input-field-error-icon',
     shadow: true,

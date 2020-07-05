@@ -23,6 +23,26 @@ import { ListRendererConfig } from './list-renderer-config';
 const { ACTION_EVENT } = listStrings;
 const { SELECTED_EVENT } = menuStrings;
 
+/**
+ * #### Custom styles
+ *
+ * | Class name              | Description                                                                                     |
+ * | ----------------------- | ----------------------------------------------------------------------------------------------- |
+ * | `has-striped-rows`      | Adds distinct styling by which every other row (list item) gets a darker background.            |
+ * | `has-interactive-items` | Adds more affordance by applying an elevated visual effect on list item, when they are hovered. |
+ *
+ * @exampleComponent limel-example-list
+ * @exampleComponent limel-example-list-secondary
+ * @exampleComponent limel-example-list-selectable
+ * @exampleComponent limel-example-list-icons
+ * @exampleComponent limel-example-list-badge-icons
+ * @exampleComponent limel-example-list-checkbox
+ * @exampleComponent limel-example-list-checkbox-icons
+ * @exampleComponent limel-example-list-radio-button
+ * @exampleComponent limel-example-list-radio-button-icons
+ * @exampleComponent limel-example-list-action
+ * @exampleComponent limel-example-list-striped
+ */
 @Component({
     tag: 'limel-list',
     shadow: true,

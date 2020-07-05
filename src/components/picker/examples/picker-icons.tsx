@@ -3,6 +3,9 @@ import { Component, h, State } from '@stencil/core';
 
 const NETWORK_DELAY = 500;
 
+/**
+ * With icons and displaying full list without cutting content
+ */
 @Component({
     tag: 'limel-example-picker-icons',
     shadow: true,

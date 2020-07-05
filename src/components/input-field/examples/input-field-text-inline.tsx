@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Multiple Fields Inline
+ */
 @Component({
     tag: 'limel-example-input-field-text-inline',
     shadow: true,

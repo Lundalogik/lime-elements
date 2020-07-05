@@ -3,6 +3,12 @@ import { Column } from '../table.types';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
+/**
+ * Custom components
+ *
+ * @link birds.ts
+ * @link table-food.tsx
+ */
 @Component({
     tag: 'limel-example-table-custom-components',
     styleUrl: 'table.scss',

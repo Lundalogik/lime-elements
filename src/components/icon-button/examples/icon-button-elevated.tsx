@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Elevated
+ */
 @Component({
     tag: 'limel-example-icon-button-elevated',
     shadow: true,

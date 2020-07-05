@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * With Multiplier
+ */
 @Component({
     tag: 'limel-example-slider-multiplier',
     shadow: true,

@@ -1,6 +1,9 @@
 import { ListItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * List with checkboxes
+ */
 @Component({
     tag: 'limel-example-list-checkbox',
     shadow: true,

@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * date
+ */
 @Component({
     tag: 'limel-example-date-picker-date',
     shadow: true,

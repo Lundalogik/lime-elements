@@ -2,6 +2,11 @@ import { Component, h, State } from '@stencil/core';
 import { Column } from '../table.types';
 import { persons, Person } from './persons';
 
+/**
+ * Activate a row
+ *
+ * @link persons.ts
+ */
 @Component({
     tag: 'limel-example-table-activate-row',
     styleUrl: 'table.scss',

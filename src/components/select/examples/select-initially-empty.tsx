@@ -1,6 +1,9 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Initially Empty
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-select-initially-empty',

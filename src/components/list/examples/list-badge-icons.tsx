@@ -1,6 +1,9 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
+/**
+ * List with badge icons
+ */
 @Component({
     tag: 'limel-example-list-badge-icons',
     shadow: true,

@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Custom size
+ */
 @Component({
     tag: 'limel-example-dialog-size',
     shadow: true,

@@ -3,6 +3,11 @@ import { Column, ColumnSorter, ColumnAggregatorType } from '../table.types';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
+/**
+ * Local sorting and pagination
+ *
+ * @link birds.ts
+ */
 @Component({
     tag: 'limel-example-table-local',
     styleUrl: 'table.scss',

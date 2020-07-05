@@ -1,6 +1,9 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Select field inside a dialog
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-select-dialog',

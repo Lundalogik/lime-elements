@@ -3,6 +3,9 @@ import { Column, ColumnSorter } from '../table.types';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
+/**
+ * Default sorted columns
+ */
 @Component({
     tag: 'limel-example-table-default-sorted',
     styleUrl: 'table.scss',

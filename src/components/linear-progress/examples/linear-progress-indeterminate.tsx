@@ -1,5 +1,8 @@
 import { Component, h } from '@stencil/core';
 
+/**
+ * Indeterminate progress bar
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-linear-progress-indeterminate',

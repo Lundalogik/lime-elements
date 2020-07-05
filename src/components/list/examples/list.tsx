@@ -1,6 +1,9 @@
 import { ListItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
+/**
+ * Basic list with separator
+ */
 @Component({
     tag: 'limel-example-list',
     shadow: true,

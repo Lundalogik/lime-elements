@@ -2,6 +2,38 @@ import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
 import { Button } from '../button/button.types';
 import { createRandomString } from '../../util/random-string';
 
+/**
+ * A button group control is a linear set of two or more buttons.
+ *
+ * ## Usage
+ *
+ * Button groups are often used to display different views of the same thing. A
+ * common example of this component is when you switch between [ Map | Transit
+ * | Satellite ] views to look at an area on the map.
+ *
+ * In some cases, button groups may serve as quick filters as well. For example
+ * a list of contacts, in which the user can switch to [ All | Favorites
+ * | Frequently contacted ] can incorporate a button group to quickly filter out
+ * items and display subsets of them.
+ *
+ * ## Layout
+ *
+ * Button can contain text or icons, but not both simultaneously! Within the
+ * group, icon buttons will all have the same width, while each text button
+ * inherits its width from its content.
+ *
+ * The button groups are usually placed in top headers and action bars,
+ * sometimes with other elements. Since the group items will always be rendered
+ * in a row, you must make sure not to have too many buttons in the group.
+ * Because if the container of your button group does not get enough space to
+ * fit in all its buttons, they will have to truncate their text and may appear
+ * very cramped together. Always think about how your button group will appear
+ * on a small screen such as phones.
+ *
+ * @exampleComponent limel-example-button-group-icons
+ * @exampleComponent limel-example-button-group
+ * @exampleComponent limel-example-button-group-mix
+ */
 @Component({
     tag: 'limel-button-group',
     shadow: true,

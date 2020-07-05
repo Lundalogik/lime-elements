@@ -1,6 +1,9 @@
 import { Component, h, State } from '@stencil/core';
 import { ValidationStatus } from '@limetech/lime-elements';
 
+/**
+ * Dynamic schema
+ */
 @Component({
     tag: 'limel-example-dynamic-form',
     shadow: true,

@@ -24,6 +24,13 @@ import { createRandomString } from '../../util/random-string';
 import Ajv from 'ajv';
 import { isInteger } from './validators';
 
+/**
+ * @exampleComponent limel-example-form
+ * @exampleComponent limel-example-nested-form
+ * @exampleComponent limel-example-list-form
+ * @exampleComponent limel-example-dynamic-form
+ * @exampleComponent limel-example-custom-component-form
+ */
 @Component({
     tag: 'limel-form',
     shadow: true,

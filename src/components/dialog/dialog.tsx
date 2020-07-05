@@ -14,6 +14,13 @@ import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
 
 /**
+ * @exampleComponent limel-example-dialog
+ * @exampleComponent limel-example-dialog-heading
+ * @exampleComponent limel-example-dialog-form
+ * @exampleComponent limel-example-dialog-size
+ * @exampleComponent limel-example-dialog-fullscreen
+ * @exampleComponent limel-example-dialog-closing-actions
+ *
  * @slot - Content to put inside the dialog
  * @slot button - The dialog buttons
  */

@@ -1,5 +1,8 @@
 import { Component, h } from '@stencil/core';
 
+/**
+ * Using the CSS properties
+ */
 @Component({
     tag: 'limel-example-collapsible-section-css-props',
     shadow: true,

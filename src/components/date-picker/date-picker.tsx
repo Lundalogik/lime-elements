@@ -36,6 +36,17 @@ const nativeFormatForType = {
 };
 // tslint:enable:no-duplicate-string
 
+/**
+ * @exampleComponent limel-example-date-picker-datetime
+ * @exampleComponent limel-example-date-picker-date
+ * @exampleComponent limel-example-date-picker-time
+ * @exampleComponent limel-example-date-picker-week
+ * @exampleComponent limel-example-date-picker-month
+ * @exampleComponent limel-example-date-picker-quarter
+ * @exampleComponent limel-example-date-picker-year
+ * @exampleComponent limel-example-date-picker-formatted
+ * @exampleComponent limel-example-date-picker-programmatic-change
+ */
 @Component({
     tag: 'limel-date-picker',
     shadow: true,

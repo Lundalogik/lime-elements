@@ -27,6 +27,12 @@ const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 const ITEM_LIMIT_NO_SCROLL = 5;
 
+/**
+ * @exampleComponent limel-example-picker
+ * @exampleComponent limel-example-picker-multiple
+ * @exampleComponent limel-example-picker-icons
+ * @exampleComponent limel-example-picker-empty-suggestions
+ */
 @Component({
     tag: 'limel-picker',
     shadow: true,
