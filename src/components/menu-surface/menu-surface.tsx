@@ -59,6 +59,10 @@ export class MenuSurface {
         this.setup();
     }
 
+    public componentDidUpdate() {
+        this.ensureMenuFitsInViewPort();
+    }
+
     public render() {
         const classList = {
             'mdc-menu': true,
@@ -162,5 +166,31 @@ export class MenuSurface {
             event.stopPropagation();
             this.dismiss.emit();
         }
+    }
+
+    private ensureMenuFitsInViewPort() {
+        this.host.style.height = 'auto';
+        setTimeout(() => {
+            const viewHeight = Math.max(
+                document.documentElement.clientHeight || 0,
+                window.innerHeight || 0
+            );
+            const { top, bottom } = this.host.getBoundingClientRect();
+            if (viewHeight > bottom && top > 0) {
+                // The surface is rendered inside the viewport :)
+                return;
+            }
+
+            // Set the height of the surface so that it fits either above or
+            // below the trigger, depending on where there is more space.
+            const spaceAboveTopOfSurface = Math.max(top, 0);
+            const spaceBelowTopOfSurface = Math.max(viewHeight - top, 0);
+            const extraCosmeticSpace = 16;
+            const maxHeight =
+                viewHeight -
+                Math.min(spaceAboveTopOfSurface, spaceBelowTopOfSurface) -
+                extraCosmeticSpace;
+            this.host.style.height = `${maxHeight}px`;
+        });
     }
 }
