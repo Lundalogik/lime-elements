@@ -1,3 +1,10 @@
+## [26.35.1](https://github.com/Lundalogik/lime-elements/compare/v26.35.0...v26.35.1) (2020-07-06)
+
+
+### Bug Fixes
+
+* **input:** style the inbuilt clear search button ([deab30d](https://github.com/Lundalogik/lime-elements/commit/deab30d2e82b86be9080a381539c4b0f5c0040b8))
+
 # [26.35.0](https://github.com/Lundalogik/lime-elements/compare/v26.34.5...v26.35.0) (2020-07-01)
 
 
