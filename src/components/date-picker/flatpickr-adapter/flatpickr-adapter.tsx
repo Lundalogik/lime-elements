@@ -43,6 +43,9 @@ export class DatePickerCalendar {
     public format: string;
 
     @Prop()
+    public isOpen: boolean;
+
+    @Prop()
     public inputElement: HTMLElement;
 
     /**
@@ -132,6 +135,31 @@ export class DatePickerCalendar {
         } else {
             this.createFlatpickr();
         }
+        this.tryFixConfusingWidthBug();
+    }
+
+    private tryFixConfusingWidthBug() {
+        // Sometimes the datepickr renders with the width set to 1px.
+        // We've not been able to understand why but believe it has
+        // to do with the internal implementation of flatpickr.
+        // The fix below is an ugly fix that seems to solve this
+        // issue for us.
+        const ONE_SECOND = 1000;
+        const TEN_PIXELS = 10;
+        if (this.isOpen) {
+            setTimeout(() => {
+                if (this.isOpen) {
+                    const flatpickrElement = this.container.querySelector(
+                        'div.flatpickr-calendar'
+                    );
+                    const { width } = flatpickrElement.getBoundingClientRect();
+                    if (width < TEN_PIXELS) {
+                        this.destroyFlatpickr();
+                        this.createFlatpickr();
+                    }
+                }
+            }, ONE_SECOND);
+        }
     }
 
     private createFlatpickr() {
@@ -146,6 +174,10 @@ export class DatePickerCalendar {
 
     private redrawFlatpickr() {
         this.picker.redraw();
+    }
+
+    private destroyFlatpickr() {
+        this.picker.destroy();
     }
 
     public componentDidUnload() {
