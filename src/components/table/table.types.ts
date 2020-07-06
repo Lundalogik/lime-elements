@@ -37,6 +37,17 @@ export interface TableComponentDefinition {
      * Properties to send to the component
      */
     props?: Record<string, any>;
+
+    /**
+     * Factory for creating properties dynamically for a custom component.
+     *
+     * The properties returned from this function will be merged with the
+     * `props` properties when the component is created.
+     *
+     * @param {*} data the data for the current row
+     * @returns {object} properties for the component
+     */
+    propsFactory?: (data: object) => Record<string, any>;
 }
 
 export interface TableComponent<T extends object = any> {
