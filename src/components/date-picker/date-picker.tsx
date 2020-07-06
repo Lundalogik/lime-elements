@@ -198,6 +198,7 @@ export class DatePicker {
                         type={this.type}
                         value={this.value}
                         ref={(el) => (this.datePickerCalendar = el)}
+                        isOpen={this.showPortal}
                         onChange={this.handleCalendarChange}
                     />
                 </limel-portal>
