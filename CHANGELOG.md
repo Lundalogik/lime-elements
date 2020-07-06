@@ -1,3 +1,10 @@
+## [26.35.2](https://github.com/Lundalogik/lime-elements/compare/v26.35.1...v26.35.2) (2020-07-06)
+
+
+### Bug Fixes
+
+* **schema-form:** emit undefined instead of null for empty value ([befd7f0](https://github.com/Lundalogik/lime-elements/commit/befd7f0b4cf2e484490ed06e31cb3387152b41fa))
+
 ## [26.35.1](https://github.com/Lundalogik/lime-elements/compare/v26.35.0...v26.35.1) (2020-07-06)
 
 
