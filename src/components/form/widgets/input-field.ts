@@ -38,7 +38,7 @@ export class InputField extends React.Component {
             return;
         }
 
-        let value = null;
+        let value;
         if (event.detail !== '') {
             value = event.detail;
         }
