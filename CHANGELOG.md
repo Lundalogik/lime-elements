@@ -1,3 +1,10 @@
+## [26.37.1](https://github.com/Lundalogik/lime-elements/compare/v26.37.0...v26.37.1) (2020-07-07)
+
+
+### Bug Fixes
+
+* **schema-field:** reset dependent fields when another fields changes ([4f2e9e1](https://github.com/Lundalogik/lime-elements/commit/4f2e9e12c84bbfc5f497279857ba76f9b21a0519))
+
 # [26.37.0](https://github.com/Lundalogik/lime-elements/compare/v26.36.0...v26.37.0) (2020-07-07)
 
 
