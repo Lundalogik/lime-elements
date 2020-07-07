@@ -1,3 +1,10 @@
+# [26.37.0](https://github.com/Lundalogik/lime-elements/compare/v26.36.0...v26.37.0) (2020-07-07)
+
+
+### Features
+
+* **shadows:** add shadow variable for bottom bars ([3fa31c3](https://github.com/Lundalogik/lime-elements/commit/3fa31c3ea347794bfbe0adaa8f75cf47931d1811))
+
 # [26.36.0](https://github.com/Lundalogik/lime-elements/compare/v26.35.4...v26.36.0) (2020-07-07)
 
 
