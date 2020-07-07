@@ -1,3 +1,17 @@
+## [26.35.4](https://github.com/Lundalogik/lime-elements/compare/v26.35.3...v26.35.4) (2020-07-06)
+
+
+### Bug Fixes
+
+* **form:** use Ajv to validate instead of rjsf ([17bd0a6](https://github.com/Lundalogik/lime-elements/commit/17bd0a68bef6de76baf88dc5e892d9530b306ade))
+
+## [26.35.3](https://github.com/Lundalogik/lime-elements/compare/v26.35.2...v26.35.3) (2020-07-06)
+
+
+### Bug Fixes
+
+* **schema-field:** change null to undefined for custom web components when appropriate ([63aa319](https://github.com/Lundalogik/lime-elements/commit/63aa3192ef4086d2c614e3c5773d92018328559e))
+
 ## [26.35.2](https://github.com/Lundalogik/lime-elements/compare/v26.35.1...v26.35.2) (2020-07-06)
 
 
