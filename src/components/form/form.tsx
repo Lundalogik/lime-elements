@@ -20,6 +20,8 @@ import {
 import { SchemaField as CustomSchemaField } from './fields/schema-field';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
+import Ajv from 'ajv';
+import { isInteger } from './validators';
 
 @Component({
     tag: 'limel-form',
@@ -58,13 +60,12 @@ export class Form {
     @Element()
     private host: HTMLElement;
 
-    private form: any;
     private isValid = true;
     private modifiedSchema: object;
+    private validator: Ajv.ValidateFunction;
 
     public constructor() {
         this.handleChange = this.handleChange.bind(this);
-        this.setForm = this.setForm.bind(this);
     }
 
     public render() {
@@ -73,6 +74,7 @@ export class Form {
 
     protected componentWillLoad() {
         this.setSchemaId();
+        this.createValidator();
     }
 
     protected componentDidLoad() {
@@ -107,7 +109,6 @@ export class Form {
                     FieldTemplate: FieldTemplate,
                     ArrayFieldTemplate: ArrayFieldTemplate,
                     ObjectFieldTemplate: ObjectFieldTemplate,
-                    ref: this.setForm,
                     formContext: {
                         schema: this.modifiedSchema,
                         rootValue: this.value,
@@ -122,18 +123,15 @@ export class Form {
         );
     }
 
-    private setForm(form: any) {
-        this.form = form;
-    }
-
     private handleChange(event: any) {
         this.change.emit(event.formData);
     }
 
     private validateForm(value: object) {
-        const errors: FormError[] = this.form.validate(value).errors;
+        const isValid = this.validator(value) === true;
+        const errors: FormError[] = this.getValidationErrors();
         const status: ValidationStatus = {
-            valid: errors.length === 0,
+            valid: isValid,
             errors: errors,
         };
 
@@ -147,6 +145,7 @@ export class Form {
     @Watch('schema')
     public setSchema() {
         this.setSchemaId();
+        this.createValidator();
     }
 
     private setSchemaId() {
@@ -159,5 +158,28 @@ export class Form {
             id: id,
             $id: id,
         };
+    }
+
+    private createValidator() {
+        const validator = new Ajv({
+            unknownFormats: 'ignore',
+            allErrors: true,
+        }).addFormat('integer', isInteger);
+        this.validator = validator.compile(this.schema);
+    }
+
+    private getValidationErrors(): FormError[] {
+        const errors = this.validator.errors || [];
+
+        return errors.map(
+            (error: Ajv.ErrorObject): FormError => {
+                return {
+                    name: error.keyword,
+                    property: error.dataPath,
+                    message: error.message,
+                    schemaPath: error.schemaPath,
+                };
+            }
+        );
     }
 }

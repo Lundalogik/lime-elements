@@ -1,6 +1,6 @@
 {
   "name": "@limetech/lime-elements",
-  "version": "26.35.0",
+  "version": "26.36.0",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "Apache-2.0",
@@ -47,6 +47,7 @@
     "@limetech/material-components-web": "^4.0.1-p4.0.0.1",
     "@popperjs/core": "^2.4.2",
     "@types/tabulator-tables": "^4.6.7",
+    "ajv": "^6.12.2",
     "awesome-debounce-promise": "^2.1.0",
     "chart.js": "^2.9.3",
     "flatpickr": "^4.6.3",
