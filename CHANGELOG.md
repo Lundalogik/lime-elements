@@ -1,3 +1,19 @@
+# [26.40.0](https://github.com/Lundalogik/lime-elements/compare/v26.39.1...v26.40.0) (2020-07-08)
+
+
+### Bug Fixes
+
+* **date-picker:** recreate the flatpickr if it hasn't rendered after 1 second ([d68d10c](https://github.com/Lundalogik/lime-elements/commit/d68d10c6cccd51f703ee1fd48d55cdd5329c482e))
+* **menu-surface:** ensure that lists can be correctly rendered in the portal ([9c6c5bc](https://github.com/Lundalogik/lime-elements/commit/9c6c5bcc5747433a0b50a362a99d44c45e9621b4))
+* **menu-surface:** ensure that the menu surface is rendered inside the viewport ([8e21e27](https://github.com/Lundalogik/lime-elements/commit/8e21e271e36e1e5d1a864d393ff409b32243177f))
+
+
+### Features
+
+* **date-picker:** add button for clearing the input value ([e0e470b](https://github.com/Lundalogik/lime-elements/commit/e0e470b3ff1d64a28cb2ff134d36fce63f9ad9bd))
+* **date-picker:** use portal to improve dropdown behavior for date-pickers inside dialog ([5b04b6a](https://github.com/Lundalogik/lime-elements/commit/5b04b6af002918caac345d23c47b3415580ba41d)), closes [#815](https://github.com/Lundalogik/lime-elements/issues/815)
+* **input-field:** add date and time related types to set of valid input types ([da0656d](https://github.com/Lundalogik/lime-elements/commit/da0656db55a5150c940296cc72c29ac320ec5fbd))
+
 ## [26.39.1](https://github.com/Lundalogik/lime-elements/compare/v26.39.0...v26.39.1) (2020-07-08)
 
 
