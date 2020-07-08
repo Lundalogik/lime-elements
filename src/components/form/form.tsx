@@ -45,6 +45,18 @@ export class Form {
     public value: object;
 
     /**
+     * Factory for creating properties for custom form components
+     *
+     * When using custom components in the form some properties might have to be
+     * set dynamically. If this factory is set, it will be called with the
+     * current schema for the field for each custom component in the form. The
+     * factory must return an object where each key is the name of the property
+     * that should be set, along with it's value.
+     */
+    @Prop()
+    public propsFactory?: (schema: Record<string, any>) => Record<string, any>;
+
+    /**
      * Emitted when a change is made within the form
      */
     @Event()
@@ -112,6 +124,7 @@ export class Form {
                     formContext: {
                         schema: this.modifiedSchema,
                         rootValue: this.value,
+                        propsFactory: this.propsFactory,
                     },
                     fields: {
                         SchemaField: CustomSchemaField,

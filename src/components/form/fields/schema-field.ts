@@ -122,6 +122,32 @@ const getCustomComponent = (
     return { name: name, props: props };
 };
 
+/**
+ * Create properties from the factory that is set on `limel-form`
+ *
+ * @param {*} formContext the form context
+ * @param {*} schema the schema for the current field
+ *
+ * @return {object} the properties created by the factory
+ */
+export function getFactoryProps(
+    formContext: any,
+    schema: any
+): Record<string, any> {
+    const factory: (schema: any) => Record<string, any> =
+        formContext.propsFactory;
+    if (typeof factory !== 'function') {
+        return {};
+    }
+
+    const props = factory(schema);
+    if (!props) {
+        return {};
+    }
+
+    return props;
+}
+
 export class SchemaField extends React.Component<FieldProps> {
     state = {
         modified: false,
@@ -240,8 +266,10 @@ export class SchemaField extends React.Component<FieldProps> {
             schema,
             errorSchema,
         } = this.props;
+        const factoryProps = getFactoryProps(registry.formContext, schema);
 
         return {
+            ...factoryProps,
             value: this.getValue(),
             required: this.isRequired(),
             readonly: readonly,
