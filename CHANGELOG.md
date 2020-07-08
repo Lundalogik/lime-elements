@@ -1,3 +1,10 @@
+# [26.39.0](https://github.com/Lundalogik/lime-elements/compare/v26.38.0...v26.39.0) (2020-07-08)
+
+
+### Features
+
+* **table:** added props factory function to table component definition interface ([40f6d34](https://github.com/Lundalogik/lime-elements/commit/40f6d3420d28ba890e8a2ec244ace2ce59fe03ad))
+
 # [26.38.0](https://github.com/Lundalogik/lime-elements/compare/v26.37.1...v26.38.0) (2020-07-08)
 
 
