@@ -1,3 +1,10 @@
+# [26.38.0](https://github.com/Lundalogik/lime-elements/compare/v26.37.1...v26.38.0) (2020-07-08)
+
+
+### Features
+
+* make dropdowns (menu, select, etc) appear above trigger if not enough space below ([d11dd71](https://github.com/Lundalogik/lime-elements/commit/d11dd71e910130eb0f561922f9ecaf202ef18b3f))
+
 ## [26.37.1](https://github.com/Lundalogik/lime-elements/compare/v26.37.0...v26.37.1) (2020-07-07)
 
 
