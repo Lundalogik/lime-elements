@@ -1,3 +1,19 @@
+## [26.39.1](https://github.com/Lundalogik/lime-elements/compare/v26.39.0...v26.39.1) (2020-07-08)
+
+
+### Bug Fixes
+
+* **input-field:** remove state decorator ([90fa45b](https://github.com/Lundalogik/lime-elements/commit/90fa45becdca1a9a3d598936c88a27bd414bfdd3))
+* **picker:** move chip creation to componentWillLoad ([8d1ed30](https://github.com/Lundalogik/lime-elements/commit/8d1ed3004c1d264b59500abc81dc2662f41bcded))
+* **switch:** remove state decorator ([2c3be6d](https://github.com/Lundalogik/lime-elements/commit/2c3be6de45a559660fd91aea456b7577b6e0dc71))
+
+# [26.39.0](https://github.com/Lundalogik/lime-elements/compare/v26.38.0...v26.39.0) (2020-07-08)
+
+
+### Features
+
+* **table:** added props factory function to table component definition interface ([40f6d34](https://github.com/Lundalogik/lime-elements/commit/40f6d3420d28ba890e8a2ec244ace2ce59fe03ad))
+
 # [26.38.0](https://github.com/Lundalogik/lime-elements/compare/v26.37.1...v26.38.0) (2020-07-08)
 
 

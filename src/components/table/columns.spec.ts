@@ -40,11 +40,15 @@ describe('createCustomComponent', () => {
                 props: {
                     bar: 'baz',
                 },
+                propsFactory: () => {
+                    return { limetype: 'bar' };
+                },
             };
 
             const component = createCustomComponent(cell, column, value);
             expect(component.tagName.toLowerCase()).toEqual('h1');
             expect(component).toHaveProperty('field', 'foo');
+            expect(component).toHaveProperty('limetype', 'bar');
             expect(component).toHaveProperty('value', 'FOO');
             expect(component).toHaveProperty('data', {
                 foo: 'Foo',

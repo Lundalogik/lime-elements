@@ -72,6 +72,12 @@ export function createCustomComponent(
 
     const element = document.createElement(column.component.name);
     let props: object = column.component.props || {};
+    if (column.component.propsFactory) {
+        props = {
+            ...props,
+            ...column.component.propsFactory(data),
+        };
+    }
     props = {
         ...props,
         field: field,
