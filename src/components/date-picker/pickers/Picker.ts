@@ -33,6 +33,7 @@ export abstract class Picker {
 
         this.getWeek = this.getWeek.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleOnClose = this.handleOnClose.bind(this);
         this.parseDate = this.parseDate.bind(this);
         this.formatDate = this.formatDate.bind(this);
         this.getFlatpickrLang = this.getFlatpickrLang.bind(this);
@@ -45,6 +46,7 @@ export abstract class Picker {
             formatDate: this.nativePicker ? undefined : this.formatDate,
             parseDate: this.nativePicker ? undefined : this.parseDate,
             appendTo: container,
+            onClose: this.handleOnClose,
             defaultDate: value,
             onValueUpdate: this.handleClose,
             inline: !this.nativePicker,
@@ -111,5 +113,9 @@ export abstract class Picker {
 
     private parseDate(date: string) {
         return moment(date, this.dateFormat, this.getMomentLang()).toDate();
+    }
+
+    private handleOnClose() {
+        this.flatpickr.element.focus();
     }
 }

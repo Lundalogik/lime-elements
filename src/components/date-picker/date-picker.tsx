@@ -284,7 +284,6 @@ export class DatePicker {
         );
         event.stopPropagation();
         if (this.type !== 'datetime' && this.type !== 'time') {
-            this.textField.blur();
             this.hideCalendar();
         }
         this.change.emit(date);
