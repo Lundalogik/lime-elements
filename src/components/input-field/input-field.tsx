@@ -133,7 +133,6 @@ export class InputField {
     @Prop()
     public completions: string[] = [];
 
-    @State()
     private mdcTextField;
 
     @State()
