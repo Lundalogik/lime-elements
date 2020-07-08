@@ -1,3 +1,59 @@
+# [26.38.0](https://github.com/Lundalogik/lime-elements/compare/v26.37.1...v26.38.0) (2020-07-08)
+
+
+### Features
+
+* make dropdowns (menu, select, etc) appear above trigger if not enough space below ([d11dd71](https://github.com/Lundalogik/lime-elements/commit/d11dd71e910130eb0f561922f9ecaf202ef18b3f))
+
+## [26.37.1](https://github.com/Lundalogik/lime-elements/compare/v26.37.0...v26.37.1) (2020-07-07)
+
+
+### Bug Fixes
+
+* **schema-field:** reset dependent fields when another fields changes ([4f2e9e1](https://github.com/Lundalogik/lime-elements/commit/4f2e9e12c84bbfc5f497279857ba76f9b21a0519))
+
+# [26.37.0](https://github.com/Lundalogik/lime-elements/compare/v26.36.0...v26.37.0) (2020-07-07)
+
+
+### Features
+
+* **shadows:** add shadow variable for bottom bars ([3fa31c3](https://github.com/Lundalogik/lime-elements/commit/3fa31c3ea347794bfbe0adaa8f75cf47931d1811))
+
+# [26.36.0](https://github.com/Lundalogik/lime-elements/compare/v26.35.4...v26.36.0) (2020-07-07)
+
+
+### Features
+
+* **table:** add table component ([4dc36ae](https://github.com/Lundalogik/lime-elements/commit/4dc36ae2e5256f69998af9f63b5053ff5b27400a))
+
+## [26.35.4](https://github.com/Lundalogik/lime-elements/compare/v26.35.3...v26.35.4) (2020-07-06)
+
+
+### Bug Fixes
+
+* **form:** use Ajv to validate instead of rjsf ([17bd0a6](https://github.com/Lundalogik/lime-elements/commit/17bd0a68bef6de76baf88dc5e892d9530b306ade))
+
+## [26.35.3](https://github.com/Lundalogik/lime-elements/compare/v26.35.2...v26.35.3) (2020-07-06)
+
+
+### Bug Fixes
+
+* **schema-field:** change null to undefined for custom web components when appropriate ([63aa319](https://github.com/Lundalogik/lime-elements/commit/63aa3192ef4086d2c614e3c5773d92018328559e))
+
+## [26.35.2](https://github.com/Lundalogik/lime-elements/compare/v26.35.1...v26.35.2) (2020-07-06)
+
+
+### Bug Fixes
+
+* **schema-form:** emit undefined instead of null for empty value ([befd7f0](https://github.com/Lundalogik/lime-elements/commit/befd7f0b4cf2e484490ed06e31cb3387152b41fa))
+
+## [26.35.1](https://github.com/Lundalogik/lime-elements/compare/v26.35.0...v26.35.1) (2020-07-06)
+
+
+### Bug Fixes
+
+* **input:** style the inbuilt clear search button ([deab30d](https://github.com/Lundalogik/lime-elements/commit/deab30d2e82b86be9080a381539c4b0f5c0040b8))
+
 # [26.35.0](https://github.com/Lundalogik/lime-elements/compare/v26.34.5...v26.35.0) (2020-07-01)
 
 
