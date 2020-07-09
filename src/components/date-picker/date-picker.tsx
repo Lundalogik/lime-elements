@@ -283,7 +283,7 @@ export class DatePicker {
             this.internalFormat
         );
         event.stopPropagation();
-        if (this.type !== 'datetime' && this.type !== 'time') {
+        if (this.pickerIsAutoClosing()) {
             this.hideCalendar();
         }
         this.change.emit(date);
@@ -291,6 +291,10 @@ export class DatePicker {
 
     private handleInputElementChange(event) {
         event.stopPropagation();
+    }
+
+    private pickerIsAutoClosing() {
+        return this.type !== 'datetime' && this.type !== 'time';
     }
 
     private clearValue() {
