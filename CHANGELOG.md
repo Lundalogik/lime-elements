@@ -1,3 +1,10 @@
+## [26.40.3](https://github.com/Lundalogik/lime-elements/compare/v26.40.2...v26.40.3) (2020-07-09)
+
+
+### Bug Fixes
+
+* **input-field:** overwrite native text field validation if consumer provides validation ([f20a2d6](https://github.com/Lundalogik/lime-elements/commit/f20a2d6739762211e36e2f24092867b3ceef07b4))
+
 ## [26.40.2](https://github.com/Lundalogik/lime-elements/compare/v26.40.1...v26.40.2) (2020-07-09)
 
 
