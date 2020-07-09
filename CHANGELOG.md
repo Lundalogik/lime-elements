@@ -1,3 +1,10 @@
+## [26.40.2](https://github.com/Lundalogik/lime-elements/compare/v26.40.1...v26.40.2) (2020-07-09)
+
+
+### Bug Fixes
+
+* **menu:** when dropdown is rendered upwards from trigger, do not cover the trigger ([93926c0](https://github.com/Lundalogik/lime-elements/commit/93926c0fd5b7e37e67dae4b2d1c7be287f541ca9))
+
 ## [26.40.1](https://github.com/Lundalogik/lime-elements/compare/v26.40.0...v26.40.1) (2020-07-09)
 
 
