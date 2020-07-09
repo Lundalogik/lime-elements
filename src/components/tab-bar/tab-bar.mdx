@@ -4,10 +4,33 @@ route: /tab-bar
 menu: Components
 ---
 
-# Tab bar 
+# Tab bar
+Tabs are great to organize information hierarchically in the interface and divide it into distinct categories. Using tabs, you can create groups of content that are related and at the same level in the hierarchy.
+
+Tab bars should be strictly used for navigation at the top levels. They should never be used to preform actions, or navigate away from the view which contains them.
+
+An exception for using tab bars in a high level of hierarchy is their usage in modals. Since modals are perceived as a separate place and not a par of the current context, you can even use tab bars there to group and organize their content.
+
+A tab bar can contain unlimited number of tabs. However, depending on the device width and width of the tabs, the number of visible tabs varies. When there is limited horizontal space, the component shows a "next" or "back" button, which scrolls and reveals the additional tabs.
+
+**Other things to consider**
+ * Never divide the content of a tab using a nested tab bar.
+ * Never place two tab bars within the same screen.
+ * Never use background color for icons in tabs.
+ * Avoid having long labels for tabs.
+ * A tab will never be hidden or get disabled, even if there is no content under it.
+
 
 <limel-props name="limel-tab-bar" />
 
 ## Example
 
 <limel-example name="limel-example-tab-bar" />
+
+### Tab bars with custom styles
+By default, tabs dynamically adjust their width to their own content, which means a tab with a larger label will be bigger than one with a shorter one. This is the preferred layout for tabs.
+<limel-example name="limel-example-tab-bar-with-dynamic-tab-width" />
+
+However, in some situations and for the sake of UI design, you may want to have tabs that equally share the available screen width and stretch. To get such a result, you can add the `has-tabs-with-equal-width` class to the tab bar.
+
+<limel-example name="limel-example-tab-bar-with-equal-tab-width" />
