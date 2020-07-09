@@ -11,6 +11,7 @@ import { createRandomString } from '../../util/random-string';
 import { isAndroidDevice, isIOSDevice } from '../../util/device';
 import { DateType, InputType, Languages } from '@limetech/lime-elements';
 import { DateFormatter } from './dateFormatter';
+import { MDCTextField } from '@limetech/mdc-textfield';
 
 // tslint:disable:no-duplicate-string
 const nativeTypeForConsumerType: { [key: string]: InputType } = {
@@ -133,7 +134,12 @@ export class DatePicker {
         this.showCalendar = this.showCalendar.bind(this);
         this.dateFormatter = new DateFormatter(this.language);
         this.clearValue = this.clearValue.bind(this);
+        this.hideCalendar = this.hideCalendar.bind(this);
+        this.onInputClick = this.onInputClick.bind(this);
         this.nativeChangeHandler = this.nativeChangeHandler.bind(this);
+        this.preventBlurFromCalendarContainer = this.preventBlurFromCalendarContainer.bind(
+            this
+        );
     }
 
     public componentWillLoad() {
@@ -184,6 +190,8 @@ export class DatePicker {
                     required={this.required}
                     value={this.formattedValue}
                     onFocus={this.showCalendar}
+                    onBlur={this.hideCalendar}
+                    onClick={this.onInputClick}
                     onChange={this.handleInputElementChange}
                     ref={(el) => (this.textField = el)}
                     {...inputProps}
@@ -253,6 +261,25 @@ export class DatePicker {
         document.addEventListener('keydown', this.documentClickListener, {
             passive: true,
         });
+
+        document.addEventListener(
+            'blur',
+            this.preventBlurFromCalendarContainer,
+            {
+                capture: true,
+            }
+        );
+    }
+
+    private preventBlurFromCalendarContainer(event) {
+        // We don't want the input element to lose focus when we pick
+        // a date in the calendar container.
+        // This is also required in order to not close the non
+        // automatically closing pickers (type datetime and time)
+        // when you pick a value.
+        if (event.relatedTarget === this.datePickerCalendar) {
+            event.stopPropagation();
+        }
     }
 
     private hideCalendar() {
@@ -261,6 +288,23 @@ export class DatePicker {
         });
         document.removeEventListener('mousedown', this.documentClickListener);
         document.removeEventListener('keydown', this.documentClickListener);
+        document.removeEventListener(
+            'blur',
+            this.preventBlurFromCalendarContainer
+        );
+
+        if (!this.pickerIsAutoClosing()) {
+            this.fixFlatpickrFocusBug();
+        }
+    }
+
+    private fixFlatpickrFocusBug() {
+        // Flatpickr removes the focus from the input field
+        // but the 'visual focus' is still there
+        const mdcTextField = new MDCTextField(
+            this.textField.shadowRoot.querySelector('.mdc-text-field')
+        );
+        mdcTextField.getDefaultFoundation().deactivateFocus();
     }
 
     private documentClickListener = (event: MouseEvent | KeyboardEvent) => {
@@ -287,6 +331,13 @@ export class DatePicker {
             this.hideCalendar();
         }
         this.change.emit(date);
+    }
+
+    private onInputClick(event) {
+        if (this.showPortal) {
+            return;
+        }
+        this.showCalendar(event);
     }
 
     private handleInputElementChange(event) {
