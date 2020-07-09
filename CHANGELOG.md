@@ -1,3 +1,10 @@
+## [26.40.1](https://github.com/Lundalogik/lime-elements/compare/v26.40.0...v26.40.1) (2020-07-09)
+
+
+### Bug Fixes
+
+* **date-picker:** improve handling of focus on the input field ([7dc63f5](https://github.com/Lundalogik/lime-elements/commit/7dc63f562ddec2a0172585653b40d7f5e145a67a)), closes [#764](https://github.com/Lundalogik/lime-elements/issues/764)
+
 # [26.40.0](https://github.com/Lundalogik/lime-elements/compare/v26.39.1...v26.40.0) (2020-07-08)
 
 
