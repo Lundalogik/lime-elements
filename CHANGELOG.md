@@ -1,3 +1,10 @@
+# [26.41.0](https://github.com/Lundalogik/lime-elements/compare/v26.40.5...v26.41.0) (2020-07-10)
+
+
+### Features
+
+* **tab-bar:** add css support for fixed & dynamic tab layouts ([92877b1](https://github.com/Lundalogik/lime-elements/commit/92877b1e0c4dea9bd3c9bfbb9b2d1bdcd90b09b4))
+
 ## [26.40.5](https://github.com/Lundalogik/lime-elements/compare/v26.40.4...v26.40.5) (2020-07-10)
 
 
