@@ -1,3 +1,10 @@
+# [26.42.0](https://github.com/Lundalogik/lime-elements/compare/v26.41.0...v26.42.0) (2020-07-10)
+
+
+### Features
+
+* **form:** add support for a props factory for custom components ([314dfab](https://github.com/Lundalogik/lime-elements/commit/314dfab434fb7a3d47a56b2b12aa8bb2a4e89a6e)), closes [Lundalogik/lime-crm-components#107](https://github.com/Lundalogik/lime-crm-components/issues/107)
+
 # [26.41.0](https://github.com/Lundalogik/lime-elements/compare/v26.40.5...v26.41.0) (2020-07-10)
 
 
