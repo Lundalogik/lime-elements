@@ -19,6 +19,7 @@ export class WeekPicker extends Picker {
             config.plugins = [weekSelectPlugin()];
             config.weekNumbers = true;
         }
+
         return config;
     }
 }

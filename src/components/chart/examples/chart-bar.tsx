@@ -9,11 +9,11 @@ export class ChartBarExample {
     private datasets = [
         {
             label: 'France',
-            data: [12, 5], // tslint:disable-line:no-magic-numbers
+            data: [12, 5],
         },
         {
             label: 'Sweden',
-            data: [3, 19], // tslint:disable-line:no-magic-numbers
+            data: [3, 19],
         },
     ];
 

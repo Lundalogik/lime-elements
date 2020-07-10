@@ -17,9 +17,15 @@ const LOAD_TIME = 1000;
     styleUrl: 'tab-panel-content.scss',
 })
 export class TabPanelContentExample {
+    /**
+     * The tab that this component belongs to
+     */
     @Prop()
     public tab: Tab;
 
+    /**
+     * Emitted when the vote button is clicked to update the badge in the tab
+     */
     @Event()
     private changeTab: EventEmitter<Tab>;
 

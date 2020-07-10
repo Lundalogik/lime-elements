@@ -1,7 +1,6 @@
 import { spawn } from 'child_process';
 import { argv } from 'process';
 
-// tslint:disable:only-arrow-functions no-console
 function doczStarter() {
     let started = false;
 

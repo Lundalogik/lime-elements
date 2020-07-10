@@ -37,10 +37,10 @@ export class ChipSetInputExample {
             this.createChip('Fish'),
         ];
 
-        this.value[0].iconColor = 'var(--lime-red)'; // tslint:disable-line:no-magic-numbers
-        this.value[1].iconColor = 'var(--lime-orange)'; // tslint:disable-line:no-magic-numbers
-        this.value[2].iconColor = 'var(--lime-green)'; // tslint:disable-line:no-magic-numbers
-        this.value[3].iconColor = 'var(--lime-blue)'; // tslint:disable-line:no-magic-numbers
+        this.value[0].iconColor = 'var(--lime-red)';
+        this.value[1].iconColor = 'var(--lime-orange)';
+        this.value[2].iconColor = 'var(--lime-green)';
+        this.value[3].iconColor = 'var(--lime-blue)';
 
         this.chipSetOnChange = this.chipSetOnChange.bind(this);
         this.onInteract = this.onInteract.bind(this);

@@ -173,6 +173,7 @@ export class PickerIconsExample {
             if (query === '') {
                 resolve([]);
             }
+
             // Simulate some network delay
             setTimeout(() => {
                 const filteredItems = this.allItems.filter((item) => {

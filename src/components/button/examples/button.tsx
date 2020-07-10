@@ -59,17 +59,18 @@ export class ButtonExample {
                 <limel-switch
                     label={control.label}
                     value={!!this.props[control.property]}
-                    onChange={event => { // tslint:disable-line:jsx-no-lambda prettier
-                        this.props = {
-                            ...this.props,
-                            ...{
-                                [control.property]:
-                                    (event.detail && control.value) || null,
-                            },
-                        };
-                    }}
+                    onChange={this.handleChange(control)}
                 />
             );
         });
     }
+
+    private handleChange = (control) => (event: CustomEvent) => {
+        this.props = {
+            ...this.props,
+            ...{
+                [control.property]: (event.detail && control.value) || null,
+            },
+        };
+    };
 }

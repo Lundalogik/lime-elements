@@ -70,7 +70,7 @@ export class Form {
     public validate: EventEmitter<ValidationStatus>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelFormElement;
 
     private isValid = true;
     private modifiedSchema: object;
@@ -100,6 +100,7 @@ export class Form {
         this.validateForm(this.value);
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     protected componentDidUnload() {
         const rootElement = this.host.shadowRoot.querySelector('.root');
         unmountComponentAtNode(rootElement);

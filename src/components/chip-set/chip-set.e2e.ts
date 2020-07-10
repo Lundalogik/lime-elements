@@ -8,7 +8,7 @@ describe('limel-chip-set', () => {
 
     describe('basic chip set', () => {
         beforeEach(async () => {
-            page = await createPage(`<limel-chip-set></limel-chip-set>`);
+            page = await createPage('<limel-chip-set></limel-chip-set>');
 
             chipSet = await page.find('limel-chip-set');
             chipSet.setProperty('value', [
@@ -52,7 +52,7 @@ describe('limel-chip-set', () => {
     describe('choice chip set', () => {
         beforeEach(async () => {
             page = await createPage(
-                `<limel-chip-set type="choice"></limel-chip-set>`
+                '<limel-chip-set type="choice"></limel-chip-set>'
             );
 
             chipSet = await page.find('limel-chip-set');
@@ -139,7 +139,7 @@ describe('limel-chip-set', () => {
     describe('filter chip set', () => {
         beforeEach(async () => {
             page = await createPage(
-                `<limel-chip-set type="filter"></limel-chip-set>`
+                '<limel-chip-set type="filter"></limel-chip-set>'
             );
 
             chipSet = await page.find('limel-chip-set');
@@ -224,7 +224,7 @@ describe('limel-chip-set', () => {
 
         beforeEach(async () => {
             page = await createPage(
-                `<limel-chip-set type="input"></limel-chip-set>`
+                '<limel-chip-set type="input"></limel-chip-set>'
             );
 
             chipSet = await page.find('limel-chip-set');

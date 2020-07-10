@@ -28,11 +28,14 @@ export class TabBar {
     @Prop()
     public tabs: Tab[];
 
+    /**
+     * Emitted when a tab has been changed
+     */
     @Event()
     private changeTab: EventEmitter<Tab>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelTabBarElement;
 
     private mdcTabBar: MDCTabBar;
     private setupMdc = false;
@@ -61,6 +64,7 @@ export class TabBar {
         this.setupMdc = false;
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         this.tearDown();
     }
@@ -128,10 +132,12 @@ export class TabBar {
         );
 
         // Workaround for shadow dom support for material
+        // eslint-disable-next-line no-underscore-dangle
         (this
             .mdcTabBar as any).foundation_.adapter_.getFocusedTabIndex = () => {
             const tabElements = this.getTabElements();
             const activeElement = this.host.shadowRoot.activeElement;
+
             return tabElements.indexOf(activeElement);
         };
 

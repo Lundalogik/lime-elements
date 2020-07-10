@@ -29,7 +29,7 @@ export class Icon {
     public badge: boolean;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelIconElement;
 
     public componentDidLoad() {
         this.loadIcon(this.name);
@@ -44,6 +44,7 @@ export class Icon {
         if (name === undefined || name === '') {
             return;
         }
+
         const svgData = await this.loadSvg(name);
         this.renderSvg(svgData);
     }

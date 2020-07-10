@@ -15,8 +15,12 @@ import {
     styleUrl: 'slider.scss',
 })
 export class Slider {
+    /**
+     * Set to `true` to disable the input
+     */
     @Prop({ reflectToAttr: true })
     public disabled = false;
+
     /**
      * Default value: 1.
      * The factor that the properties `value`, `valuemax` and `valuemin` are multiplied by.
@@ -24,22 +28,45 @@ export class Slider {
      */
     @Prop({ reflectToAttr: true })
     public factor: number = 1;
+
+    /**
+     * Label to display next to the input
+     */
     @Prop({ reflectToAttr: true })
     public label: string;
+
+    /**
+     * Unit to display next to the value
+     */
     @Prop({ reflectToAttr: true })
     public unit: string = '';
+
+    /**
+     * The value of the input
+     */
     @Prop({ reflectToAttr: true })
     public value: number;
+
+    /**
+     * The maximum value allowed
+     */
     @Prop({ reflectToAttr: true })
-    public valuemax: number = 100;
+    public valuemax: number = 100; // eslint-disable-line no-magic-numbers
+
+    /**
+     * The minimum value allowed
+     */
     @Prop({ reflectToAttr: true })
     public valuemin: number = 0;
 
+    /**
+     * Emitted when the value has been changed
+     */
     @Event()
     private change: EventEmitter<number>;
 
     @Element()
-    private rootElement: HTMLElement;
+    private rootElement: HTMLLimelSliderElement;
 
     private mdcSlider: MDCSlider;
 
@@ -54,6 +81,7 @@ export class Slider {
         this.mdcSlider.disabled = this.disabled;
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
         this.mdcSlider.destroy();

@@ -15,7 +15,7 @@ export class DatetimePicker extends Picker {
         return {
             enableTime: true,
             weekNumbers: !nativePicker,
-            time_24hr: true,
+            time_24hr: true, // eslint-disable-line camelcase
             minuteIncrement: 5,
         };
     }

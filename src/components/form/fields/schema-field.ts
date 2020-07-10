@@ -16,6 +16,7 @@ import { retrieveSchema } from 'react-jsonschema-form/lib/utils';
  */
 const getDifferentKeys = (a: object, b: object): any[] => {
     const keys = union(Object.keys(a), Object.keys(b));
+
     return keys.filter((key) => {
         return !isEqual(b[key], a[key]);
     });
@@ -72,19 +73,17 @@ export const resetDependentFields = (oldData, newData, schema, definitions) => {
  * 1. CustomEvent does not allow `detail` to equal `undefined`, but we can call onChange with `undefined` in React
  * 2. `null` is treated as a valid value in a jsonschema and with marshmallow and it has its own type (null)
  * 3. Without changing `null` to `undefined` there would be no way to remove a field from
- *    from the submitted form data once it had any data. (when POSTing, undefined is not posted since its not valid json)
+ * from the submitted form data once it had any data. (when POSTing, undefined is not posted since its not valid json)
  * 4. The only applies to custom web components since widgets handle transforming null/'' to undefined depending on the widget
- *    and its purpose.
+ * and its purpose.
  *
  * Example:
- *    If I have an object { name?: string, email?: string }
- *    that I am using a custom web component for `name`, then initially,
- *    the formData will be {} which is fine because neither name or email are required.
- *    Then if i input a value for name the formData will be { name: 'some_value' }
- *    which is also fine. But then if I want to remove name from the form data I
- *    would delete all the text from the name input field. Web components would emit
- *    this empty value as '' or null. If the web component tries to emit `undefined`, null
- *    would be emitted instead because CustomEvent has a default `detail` value of null
+ * If I have an object { name?: string, email?: string } that I am using a custom web component for `name`,
+ * then initially, the formData will be {} which is fine because neither name or email are required. Then if i input a
+ * value for name the formData will be { name: 'some_value' } which is also fine. But then if I want to remove name
+ * from the form data I would delete all the text from the name input field. Web components would emit this empty value
+ * as '' or null. If the web component tries to emit `undefined`, null would be emitted instead because CustomEvent has
+ * a default `detail` value of null
  *
  * @param {any} value the value associated with the schema
  * @param {any} schema the schema for the value
@@ -128,7 +127,7 @@ const getCustomComponent = (
  * @param {*} formContext the form context
  * @param {*} schema the schema for the current field
  *
- * @return {object} the properties created by the factory
+ * @returns {object} the properties created by the factory
  */
 export function getFactoryProps(
     formContext: any,
@@ -216,7 +215,7 @@ export class SchemaField extends React.Component<FieldProps> {
         }
 
         if (!isEmpty(errorSchema)) {
-            return capitalize(errorSchema.__errors[0]);
+            return capitalize(errorSchema.__errors[0]); // eslint-disable-line no-underscore-dangle
         }
 
         return schema.description;

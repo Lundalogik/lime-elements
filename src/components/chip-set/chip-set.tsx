@@ -119,7 +119,7 @@ export class ChipSet {
     private input: EventEmitter<string>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelChipSetElement;
 
     @State()
     private editMode: boolean = false;
@@ -165,7 +165,7 @@ export class ChipSet {
     /**
      * Used to set focus to the chip-set input field.
      *
-     * @param {Boolean} emptyInput if `true`, any text in the input is discarded
+     * @param {boolean} emptyInput if `true`, any text in the input is discarded
      *
      * @returns {Promise<void>} does not return anything, but methods have to be async
      */
@@ -175,6 +175,7 @@ export class ChipSet {
         if (emptyInput) {
             this.textValue = '';
         }
+
         this.host.shadowRoot.querySelector('input').focus();
     }
 
@@ -211,7 +212,7 @@ export class ChipSet {
         }
     }
 
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.destroyMDCChipSet();
 
         if (this.mdcTextField) {
@@ -342,9 +343,11 @@ export class ChipSet {
         if (!this.required) {
             return false;
         }
+
         if (!this.blurred) {
             return false;
         }
+
         return !this.value || !this.value.length;
     }
 
@@ -354,6 +357,7 @@ export class ChipSet {
 
     /**
      * Enter edit mode when the text field receives focus. When editMode is true, the input element will be visible
+     *
      * @returns {void}
      */
     private handleTextFieldFocus() {
@@ -364,12 +368,14 @@ export class ChipSet {
     /**
      * Exit edit mode when the input element loses focus. This makes sure the input element does not take up any
      * additional space when the user it not typing anything
+     *
      * @returns {void}
      */
     private handleInputBlur() {
         if (this.emptyInputOnBlur) {
             this.syncEmptyInput();
         }
+
         this.editMode = false;
         this.blurred = true;
         this.inputChipIndexSelected = null;
@@ -499,6 +505,7 @@ export class ChipSet {
         if (this.readonly && !this.disabled) {
             attributes.tabindex = 0;
         }
+
         return (
             <div
                 class={{
@@ -546,6 +553,7 @@ export class ChipSet {
     <line fill="none" id="svg_1" stroke="currentColor" stroke-width="2" x1="8" x2="24" y1="8" y2="24"/>
     <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>
 </svg>`;
+
         return (
             <div
                 class="mdc-chip__icon mdc-chip__icon--trailing"

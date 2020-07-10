@@ -53,7 +53,7 @@ export class Checkbox {
     private change: EventEmitter<boolean>;
 
     @Element()
-    private limelCheckbox: HTMLElement;
+    private limelCheckbox: HTMLLimelCheckboxElement;
 
     private formField: MDCFormField;
     private mdcCheckbox: MDCCheckbox;
@@ -73,6 +73,7 @@ export class Checkbox {
         this.formField.input = this.mdcCheckbox;
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         this.mdcCheckbox.destroy();
         this.formField.destroy();

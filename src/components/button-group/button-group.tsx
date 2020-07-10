@@ -62,6 +62,7 @@ export class ButtonGroup {
             'mdc-chip': true,
             'mdc-chip--selected': this.isButtonChecked(button),
         };
+
         return (
             <div class={classes} role="row">
                 <span role="gridcell">
@@ -84,6 +85,7 @@ export class ButtonGroup {
         if (button.icon) {
             return this.renderIcon(button);
         }
+
         return this.renderLabel(button);
     }
 

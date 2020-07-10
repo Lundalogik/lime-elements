@@ -133,6 +133,7 @@ export class MenuExample {
             if (!('separator' in item)) {
                 item.disabled = item.text === event.detail.text;
             }
+
             return item;
         });
     };

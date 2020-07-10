@@ -40,7 +40,8 @@ module.exports = {
         ],
         'quotes': [
             'error',
-            'single'
+            'single',
+            { 'avoidEscape': true }
         ],
         'semi': [
             'error',
@@ -158,6 +159,7 @@ module.exports = {
             'src/**/*.test-wrapper.{ts,tsx}',
         ],
         rules: {
+            '@stencil/required-jsdoc': 'off',
             'sonarjs/no-duplicate-string': 'off',
             'sonarjs/no-identical-functions': 'off',
             'jsdoc/require-returns': 'off',

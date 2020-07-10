@@ -51,7 +51,7 @@ export class Button {
     public loading = false;
 
     @Element()
-    private limelButton: HTMLElement;
+    private limelButton: HTMLLimelButtonElement;
 
     private justLoadedTimeout: NodeJS.Timeout;
 

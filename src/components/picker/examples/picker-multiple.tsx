@@ -89,6 +89,7 @@ export class PickerMultipleExample {
                 if (query === '') {
                     const NUMBER_OF_SUGGESTIONS = 3;
                     resolve(this.allItems.slice(0, NUMBER_OF_SUGGESTIONS));
+
                     return;
                 }
 

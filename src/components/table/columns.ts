@@ -78,6 +78,7 @@ export function createCustomComponent(
             ...column.component.propsFactory(data),
         };
     }
+
     props = {
         ...props,
         field: field,
@@ -101,7 +102,7 @@ interface TabulatorSorter extends Tabulator.Sorter {
  *
  * @param {Column[]} columns all available columns in the table
  *
- * @return {Function} function that creates a sorter from a tabulator sorter
+ * @returns {Function} function that creates a sorter from a tabulator sorter
  */
 export const createColumnSorter = (columns: Column[]) => (
     sorter: TabulatorSorter

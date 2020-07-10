@@ -37,7 +37,7 @@ export class MenuSurface {
     public dismiss: EventEmitter<void>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelMenuSurfaceElement;
 
     private menuSurface: MDCMenuSurface;
 

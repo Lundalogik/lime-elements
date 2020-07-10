@@ -101,6 +101,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
      */
     getHandler(eventName: string) {
         const { events } = this.props;
+
         return (event) => {
             event.stopPropagation();
             events[eventName](event);
@@ -228,7 +229,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
      * @param {object} prevNonPrimitiveProps the previous renders non primitive props
      * @param {object} nextNonPrimitiveProps the current renders non primitive props
      *
-     * @return {object} the changed primitive props
+     * @returns {object} the changed primitive props
      */
     getChangedNonPrimitiveProps(
         prevNonPrimitiveProps: object,

@@ -72,7 +72,7 @@ export class Table {
     public load: EventEmitter<TableParams>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelTableElement;
 
     private currentPage: number;
 
@@ -103,6 +103,7 @@ export class Table {
         if (this.resolver) {
             this.setResolvedData(this.data);
             this.resolver = null;
+
             return;
         }
 
@@ -141,6 +142,7 @@ export class Table {
         // Tabulator needs a URL to be set, even though this one will never be
         // used since we have our own custom `ajaxRequestFunc`
         const remoteUrl = 'https://localhost';
+
         return {
             ajaxSorting: true,
             ajaxURL: remoteUrl,
@@ -206,7 +208,7 @@ export class Table {
     private setResolvedData(data: object[]): void {
         if (this.pageSize) {
             this.resolver({
-                last_page: this.calculatePageCount(),
+                last_page: this.calculatePageCount(), // eslint-disable-line camelcase
                 data: data,
             });
         } else {

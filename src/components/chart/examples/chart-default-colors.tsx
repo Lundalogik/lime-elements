@@ -9,31 +9,31 @@ export class ChartDefaultColorsExample {
     private datasets = [
         {
             label: 'Turquoise',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
         },
         {
             label: 'Magenta',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
         },
         {
             label: 'Yellow',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
         },
         {
             label: 'Green',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
         },
         {
             label: 'Red',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
         },
         {
             label: 'Orange',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
         },
         {
             label: 'Repeat',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
         },
     ];
 

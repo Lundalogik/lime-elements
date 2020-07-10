@@ -1,4 +1,5 @@
 import { Component, h, State } from '@stencil/core';
+
 const MIN_LENGTH = 6;
 
 @Component({
@@ -47,6 +48,7 @@ export class InputFieldErrorIconExample {
 
     private isInvalid() {
         const substringLength = 9;
+
         return !!(
             this.valueConsumer &&
             this.valueConsumer.substr(-substringLength, substringLength) !==

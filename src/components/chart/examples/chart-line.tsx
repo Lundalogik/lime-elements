@@ -8,7 +8,7 @@ export class ChartLineExample {
     private labels = ['January', 'February', 'March', 'April', 'May', 'June'];
     private datasets = [
         {
-            data: [65, 59, 80, 81, 56, 55], // tslint:disable-line:no-magic-numbers
+            data: [65, 59, 80, 81, 56, 55],
             fill: false,
         },
     ];

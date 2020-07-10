@@ -9,23 +9,23 @@ export class ChartColorsExample {
     private datasets = [
         {
             label: 'Using hex-values',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
             backgroundColor: '#ff0000',
             borderColor: '#ff0000',
         },
         {
             label: 'Semi-transparent background, solid border',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
             backgroundColor: 'rgba(0, 0, 255, 0.2)',
             borderColor: 'rgba(0, 0, 255, 1)',
         },
         {
             label: 'No color set ',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
         },
         {
             label: 'No color set',
-            data: [5, 3], // tslint:disable-line:no-magic-numbers
+            data: [5, 3],
         },
     ];
 

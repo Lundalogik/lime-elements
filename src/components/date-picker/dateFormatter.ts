@@ -16,6 +16,7 @@ export class DateFormatter {
         if (date) {
             return moment(date).locale(this.getLanguage()).format(dateFormat);
         }
+
         return '';
     }
 
@@ -23,6 +24,7 @@ export class DateFormatter {
         if (date) {
             return moment(date, dateFormat).toDate();
         }
+
         return null;
     }
 
