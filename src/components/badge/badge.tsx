@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import NumAbbr from 'number-abbreviate';
+import { abbreviate } from './format';
 
 @Component({
     tag: 'limel-badge',
@@ -13,19 +13,7 @@ export class Badge {
     @Prop({ reflectToAttr: true })
     public label: number;
 
-    showRoundedNumber() {
-        if (typeof this.label !== 'number') {
-            return '';
-        }
-
-        const units = ['k', 'M', 'B', 'T'];
-
-        const numAbbr = new NumAbbr(units);
-
-        return numAbbr.abbreviate(this.label, 1);
-    }
-
     render() {
-        return <div class="badge-container">{this.showRoundedNumber()}</div>;
+        return <div class="badge-container">{abbreviate(this.label)}</div>;
     }
 }
