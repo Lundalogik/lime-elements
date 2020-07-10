@@ -1,3 +1,84 @@
+# [26.41.0](https://github.com/Lundalogik/lime-elements/compare/v26.40.5...v26.41.0) (2020-07-10)
+
+
+### Features
+
+* **tab-bar:** add css support for fixed & dynamic tab layouts ([92877b1](https://github.com/Lundalogik/lime-elements/commit/92877b1e0c4dea9bd3c9bfbb9b2d1bdcd90b09b4))
+
+## [26.40.5](https://github.com/Lundalogik/lime-elements/compare/v26.40.4...v26.40.5) (2020-07-10)
+
+
+### Bug Fixes
+
+* **slider:** properly style disabled slider's thumb ([3fdde72](https://github.com/Lundalogik/lime-elements/commit/3fdde727a9b164627a16ad51db42cfa118dc23e0))
+
+## [26.40.4](https://github.com/Lundalogik/lime-elements/compare/v26.40.3...v26.40.4) (2020-07-10)
+
+
+### Bug Fixes
+
+* **date-picker:** improve handling of click events ([962c932](https://github.com/Lundalogik/lime-elements/commit/962c93218716426080e918ae795cb7772d71b36c))
+
+## [26.40.3](https://github.com/Lundalogik/lime-elements/compare/v26.40.2...v26.40.3) (2020-07-09)
+
+
+### Bug Fixes
+
+* **input-field:** overwrite native text field validation if consumer provides validation ([f20a2d6](https://github.com/Lundalogik/lime-elements/commit/f20a2d6739762211e36e2f24092867b3ceef07b4))
+
+## [26.40.2](https://github.com/Lundalogik/lime-elements/compare/v26.40.1...v26.40.2) (2020-07-09)
+
+
+### Bug Fixes
+
+* **menu:** when dropdown is rendered upwards from trigger, do not cover the trigger ([93926c0](https://github.com/Lundalogik/lime-elements/commit/93926c0fd5b7e37e67dae4b2d1c7be287f541ca9))
+
+## [26.40.1](https://github.com/Lundalogik/lime-elements/compare/v26.40.0...v26.40.1) (2020-07-09)
+
+
+### Bug Fixes
+
+* **date-picker:** improve handling of focus on the input field ([7dc63f5](https://github.com/Lundalogik/lime-elements/commit/7dc63f562ddec2a0172585653b40d7f5e145a67a)), closes [#764](https://github.com/Lundalogik/lime-elements/issues/764)
+
+# [26.40.0](https://github.com/Lundalogik/lime-elements/compare/v26.39.1...v26.40.0) (2020-07-08)
+
+
+### Bug Fixes
+
+* **date-picker:** recreate the flatpickr if it hasn't rendered after 1 second ([d68d10c](https://github.com/Lundalogik/lime-elements/commit/d68d10c6cccd51f703ee1fd48d55cdd5329c482e))
+* **menu-surface:** ensure that lists can be correctly rendered in the portal ([9c6c5bc](https://github.com/Lundalogik/lime-elements/commit/9c6c5bcc5747433a0b50a362a99d44c45e9621b4))
+* **menu-surface:** ensure that the menu surface is rendered inside the viewport ([8e21e27](https://github.com/Lundalogik/lime-elements/commit/8e21e271e36e1e5d1a864d393ff409b32243177f))
+
+
+### Features
+
+* **date-picker:** add button for clearing the input value ([e0e470b](https://github.com/Lundalogik/lime-elements/commit/e0e470b3ff1d64a28cb2ff134d36fce63f9ad9bd))
+* **date-picker:** use portal to improve dropdown behavior for date-pickers inside dialog ([5b04b6a](https://github.com/Lundalogik/lime-elements/commit/5b04b6af002918caac345d23c47b3415580ba41d)), closes [#815](https://github.com/Lundalogik/lime-elements/issues/815)
+* **input-field:** add date and time related types to set of valid input types ([da0656d](https://github.com/Lundalogik/lime-elements/commit/da0656db55a5150c940296cc72c29ac320ec5fbd))
+
+## [26.39.1](https://github.com/Lundalogik/lime-elements/compare/v26.39.0...v26.39.1) (2020-07-08)
+
+
+### Bug Fixes
+
+* **input-field:** remove state decorator ([90fa45b](https://github.com/Lundalogik/lime-elements/commit/90fa45becdca1a9a3d598936c88a27bd414bfdd3))
+* **picker:** move chip creation to componentWillLoad ([8d1ed30](https://github.com/Lundalogik/lime-elements/commit/8d1ed3004c1d264b59500abc81dc2662f41bcded))
+* **switch:** remove state decorator ([2c3be6d](https://github.com/Lundalogik/lime-elements/commit/2c3be6de45a559660fd91aea456b7577b6e0dc71))
+
+# [26.39.0](https://github.com/Lundalogik/lime-elements/compare/v26.38.0...v26.39.0) (2020-07-08)
+
+
+### Features
+
+* **table:** added props factory function to table component definition interface ([40f6d34](https://github.com/Lundalogik/lime-elements/commit/40f6d3420d28ba890e8a2ec244ace2ce59fe03ad))
+
+# [26.38.0](https://github.com/Lundalogik/lime-elements/compare/v26.37.1...v26.38.0) (2020-07-08)
+
+
+### Features
+
+* make dropdowns (menu, select, etc) appear above trigger if not enough space below ([d11dd71](https://github.com/Lundalogik/lime-elements/commit/d11dd71e910130eb0f561922f9ecaf202ef18b3f))
+
 ## [26.37.1](https://github.com/Lundalogik/lime-elements/compare/v26.37.0...v26.37.1) (2020-07-07)
 
 

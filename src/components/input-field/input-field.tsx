@@ -133,7 +133,6 @@ export class InputField {
     @Prop()
     public completions: string[] = [];
 
-    @State()
     private mdcTextField;
 
     @State()
@@ -186,6 +185,12 @@ export class InputField {
     public componentDidUnload() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
+        }
+    }
+
+    public componentDidUpdate() {
+        if (this.invalid) {
+            this.mdcTextField.valid = false;
         }
     }
 

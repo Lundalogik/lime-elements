@@ -122,7 +122,11 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
     const items = createMenuItems(props.options, props.value);
 
     return (
-        <limel-portal containerId={props.id} visible={props.isOpen}>
+        <limel-portal
+            containerId={props.id}
+            visible={props.isOpen}
+            inheritParentWidth={true}
+        >
             <limel-menu-surface
                 open={props.isOpen}
                 onDismiss={props.close}

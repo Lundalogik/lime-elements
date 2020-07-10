@@ -19,8 +19,10 @@ import { createRandomString } from '../../util/random-string';
 export class Switch {
     @Prop({ reflectToAttr: true })
     public label: string;
+
     @Prop({ reflectToAttr: true })
     public disabled = false;
+
     @Prop({ reflectToAttr: true })
     public value = false;
 
@@ -33,7 +35,6 @@ export class Switch {
     @State()
     private fieldId = createRandomString();
 
-    @State()
     private mdcSwitch: MDCSwitch;
 
     /**

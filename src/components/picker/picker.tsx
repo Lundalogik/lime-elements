@@ -147,10 +147,13 @@ export class Picker {
         this.portalId = createRandomString();
     }
 
+    public componentWillLoad() {
+        this.chips = this.createChips(this.value);
+    }
+
     public componentDidLoad() {
         this.createDebouncedSearcher(this.searcher);
         this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
-        this.chips = this.createChips(this.value);
     }
 
     public async componentWillUpdate() {
@@ -344,6 +347,7 @@ export class Picker {
                 visible={!!content}
                 containerId={this.portalId}
                 containerStyle={styling}
+                inheritParentWidth={true}
             >
                 <limel-menu-surface
                     open={!!content}

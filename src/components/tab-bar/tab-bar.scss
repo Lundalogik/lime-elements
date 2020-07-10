@@ -17,6 +17,12 @@ $tab-scroller-fade-width: 65;
     position: relative;
 }
 
+:host(.has-tabs-with-equal-width) {
+    .mdc-tab {
+        flex: 1 0 auto;
+    }
+}
+
 .mdc-tab-bar__icon {
     margin-right: pxToRem(8);
 }
@@ -119,6 +125,7 @@ $tab-scroller-fade-width: 65;
 
 .mdc-tab {
     background-color: transparent;
+    flex: 0 0 auto;
 
     &:not(.mdc-tab--active) {
         &:after {
