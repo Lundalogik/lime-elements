@@ -42,9 +42,15 @@ export class DatePickerCalendar {
     @Prop()
     public format: string;
 
+    /**
+     * Set to `true` if the calendar should be open
+     */
     @Prop()
     public isOpen: boolean;
 
+    /**
+     * The native input element to use with flatpickr
+     */
     @Prop()
     public inputElement: HTMLElement;
 
@@ -135,6 +141,7 @@ export class DatePickerCalendar {
         } else {
             this.createFlatpickr();
         }
+
         this.tryFixConfusingWidthBug();
     }
 
@@ -168,6 +175,7 @@ export class DatePickerCalendar {
             // after its been rendered.
             return;
         }
+
         this.picker.init(this.inputElement, this.container, this.value);
         this.flatPickrCreated = true;
     }
@@ -180,7 +188,7 @@ export class DatePickerCalendar {
         this.picker.destroy();
     }
 
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.picker.destroy();
     }
 

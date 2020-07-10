@@ -18,6 +18,9 @@ export class LChart {
     @Prop()
     public datasets: any[] = [];
 
+    /**
+     *
+     */
     @Prop({ reflectToAttr: true })
     public type: string;
 
@@ -28,7 +31,7 @@ export class LChart {
     public options: any = {};
 
     @Element()
-    private element: HTMLElement;
+    private element: HTMLLimelChartElement;
 
     private chart;
 
@@ -64,7 +67,7 @@ export class LChart {
         });
     }
 
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.chart.destroy();
     }
 
@@ -101,7 +104,7 @@ export class LChart {
         const colorIndex = index % this.defaultColors.length;
         const hexColor = this.getPropertyValue(this.defaultColors[colorIndex]);
         const rgbColor = this.convertHex(hexColor);
-        const bgOpacity = chartType === 'bar' ? 1 : 0.2; // tslint:disable-line:no-magic-numbers
+        const bgOpacity = chartType === 'bar' ? 1 : 0.2; // eslint-disable-line no-magic-numbers
 
         return {
             ...dataset,

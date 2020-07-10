@@ -314,6 +314,7 @@ export class DatePicker {
         ) {
             return;
         }
+
         const element = document.querySelector(`#${this.portalId}`);
         if (!element.contains(event.target as Node)) {
             this.hideCalendar();
@@ -330,6 +331,7 @@ export class DatePicker {
         if (this.pickerIsAutoClosing()) {
             this.hideCalendar();
         }
+
         this.change.emit(date);
     }
 
@@ -337,6 +339,7 @@ export class DatePicker {
         if (this.showPortal) {
             return;
         }
+
         this.showCalendar(event);
     }
 

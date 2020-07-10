@@ -7,21 +7,39 @@ import { ListItem } from 'src/components/list/list-item.types';
     shadow: true,
 })
 export class CustomPickerExample implements FormComponent<number> {
+    /**
+     * The value of the property
+     */
     @Prop()
     public value: number;
 
+    /**
+     * Label to display next to the input field
+     */
     @Prop()
-    public title: string;
+    public label: string;
 
+    /**
+     * Set to `true` if a value is required
+     */
     @Prop()
     public required: boolean;
 
+    /**
+     * Set to `true` if the value is readonly
+     */
     @Prop()
     public readonly: boolean;
 
+    /**
+     * Set to `true` if input should be disabled
+     */
     @Prop()
     public disabled: boolean;
 
+    /**
+     * Emitted when the value is changed
+     */
     @Event()
     public change: EventEmitter<number>;
 
@@ -73,7 +91,7 @@ export class CustomPickerExample implements FormComponent<number> {
 
         return (
             <limel-picker
-                label={this.title}
+                label={this.label}
                 value={value}
                 disabled={this.disabled}
                 readonly={this.readonly}

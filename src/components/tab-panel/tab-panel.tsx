@@ -11,7 +11,7 @@ import { Tab } from '../tab-bar/tab.types';
 
 /**
  * @slot - Content to put inside the `tab-panel`. Each slotted element must
- *         have the `id` attribute equal to the id of the tab it belongs to.
+ * have the `id` attribute equal to the id of the tab it belongs to.
  */
 @Component({
     tag: 'limel-tab-panel',
@@ -19,14 +19,20 @@ import { Tab } from '../tab-bar/tab.types';
     shadow: true,
 })
 export class TabPanel {
+    /**
+     * The tabs to display in the panel
+     */
     @Prop({ mutable: true })
     public tabs: Tab[] = [];
 
+    /**
+     * Emitted when a tab has been changed
+     */
     @Event()
     protected changeTab: EventEmitter<Tab>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelTabPanelElement;
 
     private slotElements: HTMLElement[];
 
@@ -43,6 +49,7 @@ export class TabPanel {
         this.tabs.forEach(this.setTabStatus);
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     protected componentDidUnload() {
         const slot = this.getSlot();
         slot.removeEventListener('slotchange', this.setSlotElements);
@@ -78,7 +85,7 @@ export class TabPanel {
             element.style.display = 'none';
         }
 
-        element['tab'] = tab; // tslint:disable-line:no-string-literal
+        element['tab'] = tab; // eslint-disable-line @typescript-eslint/dot-notation
     }
 
     private handleChangeTabs(event: CustomEvent<Tab>) {

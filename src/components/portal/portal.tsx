@@ -11,9 +11,10 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  *
  * * Events might not bubble up as expected since the content is moved out to another DOM node
  * * Any styling that is applied to content from the parent will be lost, if the content is
- *   just another web compoent it will work without any issues
- * * When the node is moved in the DOM, `componentDidUnload`, `disconnectedCallback` and `connectedCallback`
- *   will be invoked, so `componentDidUnload` can not be used as a destructor (which is the wrong behavior anyway)
+ * just another web compoent it will work without any issues
+ * * When the node is moved in the DOM, `disconnectedCallback` and `connectedCallback`
+ * will be invoked, so if `disconnectedCallback` is used to do any tear-down, the
+ * appropriate setup will have to be done again on `connectedCallback`
  *
  * @slot - Content to put inside the portal
  */
@@ -49,9 +50,11 @@ export class Portal {
         if (!this.visible) {
             return;
         }
+
         if (!this.popperInstance) {
             return;
         }
+
         setTimeout(() => {
             const popperConfig = this.createPopperConfig();
             this.popperInstance.setOptions(popperConfig);
@@ -77,11 +80,14 @@ export class Portal {
     @Prop()
     public parent: HTMLElement = document.body;
 
+    /**
+     *
+     */
     @Prop()
     public inheritParentWidth = false;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelPortalElement;
 
     private container: HTMLElement;
 
@@ -181,6 +187,7 @@ export class Portal {
         }
 
         const elementContent = element.querySelector('*');
+
         return this.getContentWidth(elementContent);
     }
 

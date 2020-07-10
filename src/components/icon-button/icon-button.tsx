@@ -35,11 +35,10 @@ export class IconButton {
     public disabled = false;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelIconButtonElement;
 
     private mdcIconButtonRipple;
 
-    // tslint:disable-next-line:valid-jsdoc
     /**
      * If the button is hidden or inside another element that is animating
      * while the button is instantiated, the hover-highlight may become
@@ -60,6 +59,7 @@ export class IconButton {
         this.mdcIconButtonRipple.unbounded = true;
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         this.mdcIconButtonRipple.destroy();
     }
@@ -78,7 +78,7 @@ export class IconButton {
 
         return (
             <button
-                class={`mdc-icon-button`}
+                class="mdc-icon-button"
                 disabled={this.disabled}
                 aria-label={this.label}
                 title={this.label}

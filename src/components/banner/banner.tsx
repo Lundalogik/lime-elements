@@ -24,7 +24,6 @@ export class Banner {
     @State()
     private isOpen = false;
 
-    // tslint:disable-next-line:valid-jsdoc
     /**
      * Open the banner
      */
@@ -33,7 +32,6 @@ export class Banner {
         this.isOpen = true;
     }
 
-    // tslint:disable-next-line:valid-jsdoc
     /**
      * Close the banner
      */
@@ -69,6 +67,7 @@ export class Banner {
         if (!this.icon) {
             return;
         }
+
         return (
             <div class="lime-banner__icon">
                 <limel-icon name={this.icon} badge={true} size="large" />

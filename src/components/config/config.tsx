@@ -6,6 +6,9 @@ import globalConfig from '../../global/config';
     shadow: true,
 })
 export class Config {
+    /**
+     * Global configuration for Lime Elements
+     */
     @Prop()
     public config: object;
 

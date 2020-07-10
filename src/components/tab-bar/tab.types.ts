@@ -20,7 +20,7 @@ export interface Tab {
     active?: boolean;
 
     /**
-     *  Color of the icon.
+     * Color of the icon.
      */
     iconColor?: string;
 

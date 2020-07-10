@@ -87,6 +87,7 @@ export class PickerExample {
             if (query === '') {
                 resolve(this.allItems);
             }
+
             // Simulate some network delay
             setTimeout(() => {
                 const filteredItems = this.allItems.filter((item) => {

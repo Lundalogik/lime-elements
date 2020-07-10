@@ -9,7 +9,7 @@ describe('limel-button-group', () => {
     describe('basic button group', () => {
         beforeEach(async () => {
             page = await createPage(
-                `<limel-button-group></limel-button-group>`
+                '<limel-button-group></limel-button-group>'
             );
 
             buttonGroup = await page.find('limel-button-group');

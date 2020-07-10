@@ -15,7 +15,7 @@ export class TimePicker extends Picker {
         return {
             enableTime: true,
             noCalendar: true,
-            time_24hr: true,
+            time_24hr: true, // eslint-disable-line camelcase
             minuteIncrement: 5,
             defaultHour: 12,
             defaultMinute: 0,

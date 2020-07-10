@@ -46,7 +46,7 @@ export class Snackbar {
     public multiline: boolean;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelSnackbarElement;
 
     /**
      * Emitted when the action button is pressed
@@ -74,12 +74,12 @@ export class Snackbar {
         this.mdcSnackbar.listen('MDCSnackbar:closing', this.handleMdcClosing);
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         this.mdcSnackbar.unlisten('MDCSnackbar:closing', this.handleMdcClosing);
         this.mdcSnackbar.destroy();
     }
 
-    // tslint:disable-next-line:valid-jsdoc
     /**
      * Show the snackbar
      */
@@ -159,7 +159,7 @@ export class Snackbar {
 
         return (
             <div class="mdc-snackbar__dismiss">
-                <button class={`mdc-icon-button`} innerHTML={svgData} />
+                <button class="mdc-icon-button" innerHTML={svgData} />
             </div>
         );
     }

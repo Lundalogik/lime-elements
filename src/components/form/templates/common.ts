@@ -62,6 +62,7 @@ export function findTitle(data: any, fieldSchema: any, formSchema: any) {
     }
 
     const [key, value] = firstEntry;
+
     return findTitle(value, subSchema.properties[key], formSchema);
 }
 
@@ -72,6 +73,7 @@ function sortDataByProperties(data: any, properties: object) {
 
     const newData = {};
     Object.keys(properties).forEach((key) => (newData[key] = data[key]));
+
     return newData;
 }
 
@@ -90,6 +92,7 @@ function getRequiredEntry(data: any, subSchema: any) {
     if (!('required' in subSchema)) {
         return [null, null];
     }
+
     const firstNonEmptyRequiredKey = Object.keys(data).find((key) =>
         subSchema.required.includes(key)
     );
@@ -110,6 +113,7 @@ function findSubSchema(schema: any, formSchema: any) {
         const path = subSchema.$ref.split('/').slice(1).join('.');
         subSchema = get(formSchema, path);
     }
+
     return subSchema;
 }
 
@@ -118,6 +122,7 @@ function findSchemaTitle(value: any, schema: any) {
         const titles = schema.items.anyOf
             .filter((item) => value.includes(item.const))
             .map((item) => item.title);
+
         return titles.join(', ');
     }
 

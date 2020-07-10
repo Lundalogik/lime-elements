@@ -17,7 +17,7 @@ export class IconFinder {
     @State()
     private icons = [];
 
-    private indexedIcons = [...iconIndex['default']]; // tslint:disable-line:no-string-literal
+    private indexedIcons = [...iconIndex['default']]; // eslint-disable-line @typescript-eslint/dot-notation
 
     constructor() {
         this.chipSetOnChange = this.chipSetOnChange.bind(this);
@@ -46,6 +46,7 @@ export class IconFinder {
     private renderIconButton(icon) {
         const iconName = icon.id.replace('.svg', '');
         const label = `Copy ${iconName}`;
+
         return (
             <limel-icon-button
                 label={label}

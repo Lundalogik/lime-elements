@@ -1,8 +1,8 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import prism from 'prismjs';
-import 'prismjs/components/prism-jsx.js'; // tslint:disable-line:no-submodule-imports
-import 'prismjs/components/prism-scss.js'; // tslint:disable-line:no-submodule-imports
-import 'prismjs/components/prism-tsx.js'; // tslint:disable-line:no-submodule-imports
+import 'prismjs/components/prism-jsx.js';
+import 'prismjs/components/prism-scss.js';
+import 'prismjs/components/prism-tsx.js';
 
 const BASE_URL = '/';
 
@@ -11,12 +11,21 @@ const BASE_URL = '/';
     styleUrl: 'example.scss',
 })
 export class Example {
+    /**
+     *
+     */
     @Prop({ reflectToAttr: true })
     public name: string;
 
+    /**
+     *
+     */
     @Prop({ reflectToAttr: true })
     public path: string;
 
+    /**
+     *
+     */
     @Prop({ reflectToAttr: true })
     public codeOnly = false;
 
@@ -71,6 +80,7 @@ export class Example {
         }
 
         const ExampleComponent = this.name;
+
         return [
             <limel-config
                 config={{ iconPath: `${BASE_URL}public/stencil/` }}
@@ -95,9 +105,11 @@ export class Example {
 
     private fetchData(url) {
         return fetch(url).then((data) => {
-            if (data.status === 404) { // tslint:disable-line:no-magic-numbers prettier
+            // eslint-disable-next-line no-magic-numbers
+            if (data.status === 404) {
                 throw new Error('404');
             }
+
             return data.body
                 .getReader()
                 .read()

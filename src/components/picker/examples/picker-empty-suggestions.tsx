@@ -91,6 +91,7 @@ export class PickerExample {
                     resolve([]);
                 }, NETWORK_DELAY);
             }
+
             // Simulate some network delay
             setTimeout(() => {
                 const filteredItems = this.allItems.filter((item) => {

@@ -7,7 +7,7 @@ import { Component, Element, h, State } from '@stencil/core';
 })
 export class BannerExample {
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelExampleBannerElement;
 
     @State()
     private disabled = false;

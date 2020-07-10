@@ -37,6 +37,7 @@ export class MonthPicker extends Picker {
             config.onOpen = this.handleOpen;
             config.onYearChange = this.handleChange;
         }
+
         return config;
     }
 
@@ -113,6 +114,7 @@ export class MonthPicker extends Picker {
                 {range(NBROFMONTHS).map((index) => {
                     const renderedMonth = this.renderMonth(index, fp);
                     this.months.push(renderedMonth);
+
                     return renderedMonth;
                 })}
             </div>
@@ -123,7 +125,8 @@ export class MonthPicker extends Picker {
         return (
             <div
                 className="datepicker-month"
-                onClick={() => { // tslint:disable-line:jsx-no-lambda prettier
+                // eslint-disable-next-line react/jsx-no-bind
+                onClick={() => {
                     const date = moment([fp.currentYear]).month(month).toDate();
                     fp.setDate(date, true);
                     fp.close();

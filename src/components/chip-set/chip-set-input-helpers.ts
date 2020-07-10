@@ -1,5 +1,3 @@
-// tslint:disable no-invalid-this
-
 import {
     ARROW_LEFT,
     ARROW_LEFT_KEY_CODE,
@@ -74,6 +72,7 @@ function handleLeft(host, event) {
     event.preventDefault();
     if (host.inputChipIndexSelected === null) {
         host.inputChipIndexSelected = host.value.length - 1;
+
         return;
     }
 
@@ -88,6 +87,7 @@ function handleRight(host, event) {
     event.preventDefault();
     if (host.inputChipIndexSelected === null) {
         host.inputChipIndexSelected = 0;
+
         return;
     }
 

@@ -18,6 +18,9 @@ export class CollapsibleSection {
     @Prop({ mutable: true, reflectToAttr: true })
     public isOpen: boolean = false;
 
+    /**
+     * Text to display in the header of the section
+     */
     @Prop()
     public header: string;
 
@@ -62,6 +65,7 @@ export class CollapsibleSection {
                                         <path d="M15.5 12.246l1.008 1.008L21 17.746l-1.008 1.008-4.492-4.491-4.492 4.492L10 17.746l4.492-4.492 1.008-1.008z" />
                                     );
                                 }
+
                                 return (
                                     <path d="M15.5 19l1.008-1.008L21 13.5l-1.008-1.008-4.492 4.491-4.492-4.492L10 13.5l4.492 4.492L15.5 19z" />
                                 );

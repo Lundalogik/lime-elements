@@ -91,7 +91,7 @@ export class Select {
     private change: EventEmitter<Option | Option[]>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelSelectElement;
 
     private mdcSelectHelperText: MDCSelectHelperText;
     private mdcFloatingLabel: MDCFloatingLabel;
@@ -137,6 +137,7 @@ export class Select {
         }
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         if (this.mdcFloatingLabel) {
             this.mdcFloatingLabel.destroy();
@@ -281,7 +282,7 @@ export class Select {
         const element: HTMLSelectElement = this.host.shadowRoot.querySelector(
             'select.limel-select__native-control'
         );
-        const options = Array.apply(null, element.options)
+        const options = Array.apply(null, element.options) // eslint-disable-line prefer-spread
             .filter((optionElement: HTMLOptionElement) => {
                 return !!optionElement.selected;
             })
@@ -293,6 +294,7 @@ export class Select {
 
         if (this.multiple) {
             this.change.emit(options);
+
             return;
         }
 

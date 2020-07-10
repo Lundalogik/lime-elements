@@ -9,12 +9,21 @@ import { capitalize } from 'lodash-es';
     shadow: true,
 })
 export class TableFood implements TableComponent<Bird> {
+    /**
+     * Name of the field for the column
+     */
     @Prop()
     public field: string;
 
+    /**
+     * The value to display in the table cell
+     */
     @Prop()
     public value: any;
 
+    /**
+     * Data for the whole row
+     */
     @Prop()
     public data: Bird;
 

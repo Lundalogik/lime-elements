@@ -29,8 +29,8 @@ export abstract class Picker {
         if (dateFormat) {
             this.dateFormat = dateFormat;
         }
-        this.dateFormatter = new DateFormatter(language);
 
+        this.dateFormatter = new DateFormatter(language);
         this.getWeek = this.getWeek.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleOnClose = this.handleOnClose.bind(this);
@@ -62,7 +62,7 @@ export abstract class Picker {
         // the calendar has to show weeks in the same way.
         (config.locale as flatpickr.CustomLocale).firstDayOfWeek = 1;
 
-        this.flatpickr = flatpickr(element, config) as flatpickr.Instance; // tslint:disable-line:no-useless-cast
+        this.flatpickr = flatpickr(element, config) as flatpickr.Instance;
     }
 
     public redraw() {
