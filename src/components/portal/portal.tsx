@@ -55,7 +55,8 @@ export class Portal {
     public parent: HTMLElement = document.body;
 
     /**
-     *
+     * Used to make a dropdown have the same width as the trigger, for example
+     * in `limel-picker`
      */
     @Prop()
     public inheritParentWidth = false;
