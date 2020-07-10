@@ -1,3 +1,10 @@
+## [26.40.5](https://github.com/Lundalogik/lime-elements/compare/v26.40.4...v26.40.5) (2020-07-10)
+
+
+### Bug Fixes
+
+* **slider:** properly style disabled slider's thumb ([3fdde72](https://github.com/Lundalogik/lime-elements/commit/3fdde727a9b164627a16ad51db42cfa118dc23e0))
+
 ## [26.40.4](https://github.com/Lundalogik/lime-elements/compare/v26.40.3...v26.40.4) (2020-07-10)
 
 
