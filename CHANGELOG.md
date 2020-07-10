@@ -1,3 +1,10 @@
+## [26.40.4](https://github.com/Lundalogik/lime-elements/compare/v26.40.3...v26.40.4) (2020-07-10)
+
+
+### Bug Fixes
+
+* **date-picker:** improve handling of click events ([962c932](https://github.com/Lundalogik/lime-elements/commit/962c93218716426080e918ae795cb7772d71b36c))
+
 ## [26.40.3](https://github.com/Lundalogik/lime-elements/compare/v26.40.2...v26.40.3) (2020-07-09)
 
 
