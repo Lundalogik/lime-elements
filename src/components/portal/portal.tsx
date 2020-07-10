@@ -25,15 +25,6 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 })
 export class Portal {
     /**
-     * True if the content within the portal should be visible
-     *
-     * If the content is from within a dialog for instance, this can be set to
-     * true from false when the dialog opens to position the content properly
-     */
-    @Prop()
-    public visible = false;
-
-    /**
      * Decides which direction the portal content should open. Defaults to right.
      */
     @Prop()
@@ -44,23 +35,6 @@ export class Portal {
      */
     @Prop()
     public position: 'fixed' | 'absolute' = 'absolute';
-
-    @Watch('visible')
-    protected onVisible() {
-        if (!this.visible) {
-            return;
-        }
-
-        if (!this.popperInstance) {
-            return;
-        }
-
-        setTimeout(() => {
-            const popperConfig = this.createPopperConfig();
-            this.popperInstance.setOptions(popperConfig);
-            this.showContainer();
-        });
-    }
 
     /**
      * A unique ID
@@ -85,6 +59,32 @@ export class Portal {
      */
     @Prop()
     public inheritParentWidth = false;
+
+    /**
+     * True if the content within the portal should be visible
+     *
+     * If the content is from within a dialog for instance, this can be set to
+     * true from false when the dialog opens to position the content properly
+     */
+    @Prop()
+    public visible = false;
+
+    @Watch('visible')
+    protected onVisible() {
+        if (!this.visible) {
+            return;
+        }
+
+        if (!this.popperInstance) {
+            return;
+        }
+
+        setTimeout(() => {
+            const popperConfig = this.createPopperConfig();
+            this.popperInstance.setOptions(popperConfig);
+            this.showContainer();
+        });
+    }
 
     @Element()
     private host: HTMLLimelPortalElement;
