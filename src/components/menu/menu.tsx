@@ -52,7 +52,7 @@ export class Menu {
     /**
      * Defines whether the menu should show badges.
      */
-    @Prop({ mutable: true, reflectToAttr: true }) // eslint-disable-line @stencil/strict-mutable
+    @Prop({ reflectToAttr: true })
     public badgeIcons = false;
 
     /**
