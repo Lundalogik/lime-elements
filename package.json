@@ -53,7 +53,7 @@
     "tabulator-tables": "^4.6.3"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "8.3.4",
+    "@commitlint/config-conventional": "^9.1.1",
     "@lundalogik/cz-conventional-changelog": "^3.1.0",
     "@lundalogik/lime-icons8": "https://npm.pkg.github.com/download/@lundalogik/lime-icons8/2.1.0/96ebb4a7165fc618dba53568ab04db5fb9803a58d19e936965415e14dd224256",
     "@semantic-release/changelog": "5.0.1",
