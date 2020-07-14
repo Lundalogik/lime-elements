@@ -34,12 +34,6 @@ export const config: Config = {
         },
     },
     plugins: [sass(), doczStarter()],
-    excludeSrc: [
-        '**/test/**',
-        '**/*.spec.*',
-        '**/*.e2e.*',
-        '**/*.test-wrapper.*',
-    ],
     tsconfig: './tsconfig.dev.json',
     globalStyle: 'src/global/core-styles.scss',
     testing: {
