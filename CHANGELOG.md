@@ -1,3 +1,11 @@
+## [26.42.1](https://github.com/Lundalogik/lime-elements/compare/v26.42.0...v26.42.1) (2020-07-14)
+
+
+### Bug Fixes
+
+* **menu:** change 1px border, from REM value to PX to avoid visual defects ([87c1044](https://github.com/Lundalogik/lime-elements/commit/87c104448e59f6b9ce0d0780ddc06bc8308001a6))
+* **menu:** force tall menus placed at the bottom to render inside the viewport ([2c02d91](https://github.com/Lundalogik/lime-elements/commit/2c02d9170d9a1ff287f1342b40e96e1b27a8d20b))
+
 # [26.42.0](https://github.com/Lundalogik/lime-elements/compare/v26.41.0...v26.42.0) (2020-07-10)
 
 
