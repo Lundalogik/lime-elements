@@ -18,13 +18,5 @@ export const config: Config = {
         },
     },
     plugins: [sass()],
-    excludeSrc: [
-        '**/test/**',
-        '**/examples/**',
-        '**/dev-assets/**',
-        '**/*.spec.*',
-        '**/*.e2e.*',
-        '**/*.test-wrapper.*'   
-    ],
     globalStyle: 'src/global/core-styles.scss',
 };
