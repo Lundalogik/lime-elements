@@ -74,7 +74,7 @@ export class DynamicFormExample {
                 this.schema = json;
             }
         } catch (e) {
-            // eslint-disable-line no-empty
+            console.log(e);
         }
     }
 
