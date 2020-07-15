@@ -30,11 +30,6 @@ export const config: Config = {
         },
     },
     plugins: [sass()],
-    excludeSrc: [
-        '**/test/**',
-        '**/*.spec.*',
-        '**/*.e2e.*',
-        '**/*.test-wrapper.*',
-    ],
+    tsconfig: './tsconfig.docs.json',
     globalStyle: 'src/global/core-styles.scss',
 };
