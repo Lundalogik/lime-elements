@@ -231,7 +231,9 @@ export class InputField {
                     class={`
                         mdc-floating-label
                         ${
-                            this.value || this.isFocused
+                            this.value ||
+                            this.isFocused ||
+                            this.mdcTextField?.value
                                 ? 'mdc-floating-label--float-above'
                                 : ''
                         }
