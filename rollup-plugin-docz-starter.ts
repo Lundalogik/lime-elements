@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { spawn } from 'child_process';
 import { argv } from 'process';
 
@@ -6,7 +7,7 @@ function doczStarter() {
 
     return {
         name: 'docz-starter',
-        generateBundle: function () {
+        generateBundle: () => {
             if (!argv.includes('--watch')) {
                 return;
             }

@@ -21,8 +21,5 @@
     "typeRoots": ["types", "node_modules/@types"]
   },
   "include": ["src", "types/jsx.d.ts"],
-  "exclude": [
-    "node_modules",
-    "**/dev-assets/**",
-  ]
+  "exclude": ["node_modules", "**/dev-assets/**"]
 }
