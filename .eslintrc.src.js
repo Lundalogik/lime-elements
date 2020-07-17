@@ -1,7 +1,8 @@
+/* eslint-env node */
 module.exports = {
     env: {
         browser: true,
-        es2020: true
+        es2020: true,
     },
     extends: [
         'eslint:recommended',
@@ -9,44 +10,34 @@ module.exports = {
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:prettier/recommended',
         'plugin:sonarjs/recommended',
-        'plugin:jsdoc/recommended'
+        'plugin:jsdoc/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         parserOption: {
-            jsx: true
+            jsx: true,
         },
         ecmaVersion: 2020,
         sourceType: 'module',
-        project: './tsconfig.lint.json'
+        project: './tsconfig.lint.json',
     },
     plugins: [
         '@typescript-eslint',
         'prettier',
         'sonarjs',
         'jsdoc',
-        'prefer-arrow'
+        'prefer-arrow',
     ],
     settings: {
         react: {
             version: '16.8',
-            pragma: 'h'
+            pragma: 'h',
         },
     },
     rules: {
-        'linebreak-style': [
-            'error',
-            'unix'
-        ],
-        'quotes': [
-            'error',
-            'single',
-            { 'avoidEscape': true }
-        ],
-        'semi': [
-            'error',
-            'always'
-        ],
+        'linebreak-style': ['error', 'unix'],
+        quotes: ['error', 'single', { avoidEscape: true }],
+        semi: ['error', 'always'],
         'prettier/prettier': 'error',
         '@stencil/decorators-style': 'off',
         '@stencil/strict-boolean-conditions': 'off',
@@ -55,8 +46,8 @@ module.exports = {
         '@typescript-eslint/array-type': [
             'error',
             {
-                default: 'array-simple'
-            }
+                default: 'array-simple',
+            },
         ],
         '@typescript-eslint/consistent-type-assertions': 'error',
         '@typescript-eslint/dot-notation': 'error',
@@ -66,32 +57,26 @@ module.exports = {
         '@typescript-eslint/prefer-function-type': 'error',
         '@typescript-eslint/unified-signatures': 'error',
         'no-unused-vars': 'off',
-        'camelcase': 'error',
+        camelcase: 'error',
         'comma-dangle': [
             'error',
             {
                 arrays: 'always-multiline',
                 functions: 'never',
                 objects: 'always-multiline',
-                imports: 'always-multiline'
-            }
+                imports: 'always-multiline',
+            },
         ],
-        'curly': 'error',
+        curly: 'error',
         'default-case': 'error',
-        'eqeqeq': [
-            'error',
-            'always'
-        ],
+        eqeqeq: ['error', 'always'],
         'guard-for-in': 'error',
         'id-match': 'error',
         'jsdoc/check-indentation': 'error',
         'jsdoc/require-jsdoc': 'off',
         'jsdoc/no-undefined-types': 'off',
         'jsdoc/check-tag-names': 'off',
-        'max-classes-per-file': [
-            'error',
-            1
-        ],
+        'max-classes-per-file': ['error', 1],
         'no-bitwise': 'error',
         'no-caller': 'error',
         'no-console': 'error',
@@ -102,8 +87,8 @@ module.exports = {
             'error',
             {
                 ignore: [-1, 0, 1],
-                ignoreArrayIndexes: true
-            }
+                ignoreArrayIndexes: true,
+            },
         ],
         'no-new-func': 'error',
         'no-new-wrappers': 'error',
@@ -112,61 +97,56 @@ module.exports = {
         'no-shadow': [
             'error',
             {
-                hoist: 'all'
-            }
+                hoist: 'all',
+            },
         ],
         'no-template-curly-in-string': 'error',
         'no-throw-literal': 'error',
         'no-underscore-dangle': 'error',
         'no-var': 'error',
-        'object-shorthand': [
-            'error',
-            'never'
-        ],
-        'one-var': [
-            'error',
-            'never'
-        ],
+        'object-shorthand': ['error', 'never'],
+        'one-var': ['error', 'never'],
         'padding-line-between-statements': [
             'error',
-            { blankLine: "always", prev: "*", next: "return" },
-            { blankLine: "always", prev: "*", next: "function" },
-            { blankLine: "always", prev: "multiline-block-like", next: "*"}
+            { blankLine: 'always', prev: '*', next: 'return' },
+            { blankLine: 'always', prev: '*', next: 'function' },
+            { blankLine: 'always', prev: 'multiline-block-like', next: '*' },
         ],
         'prefer-arrow/prefer-arrow-functions': [
-            'error', {
-                allowStandaloneDeclarations: true
-            }
+            'error',
+            {
+                allowStandaloneDeclarations: true,
+            },
         ],
         'prefer-const': 'error',
         'prefer-object-spread': 'error',
-        'radix': 'error',
+        radix: 'error',
         'spaced-comment': [
             'error',
             'always',
             {
-                markers: [
-                    '/'
-                ]
-            }
+                markers: ['/'],
+            },
         ],
     },
-    overrides: [{
-        files: [
-            'src/components/**/examples/**',
-            'src/**/*.spec.{ts,tsx}',
-            'src/**/*.e2e.{ts,tsx}',
-            'src/**/*.test-wrapper.{ts,tsx}',
-        ],
-        rules: {
-            '@stencil/required-jsdoc': 'off',
-            'sonarjs/no-duplicate-string': 'off',
-            'sonarjs/no-identical-functions': 'off',
-            'jsdoc/require-returns': 'off',
-            'jsdoc/require-param': 'off',
-            'no-console': 'off',
-            'no-magic-numbers': 'off',
-            'prefer-arrow/prefer-arrow-functions': 'off'
-        }
-    }]
+    overrides: [
+        {
+            files: [
+                'src/components/**/examples/**',
+                'src/**/*.spec.{ts,tsx}',
+                'src/**/*.e2e.{ts,tsx}',
+                'src/**/*.test-wrapper.{ts,tsx}',
+            ],
+            rules: {
+                '@stencil/required-jsdoc': 'off',
+                'sonarjs/no-duplicate-string': 'off',
+                'sonarjs/no-identical-functions': 'off',
+                'jsdoc/require-returns': 'off',
+                'jsdoc/require-param': 'off',
+                'no-console': 'off',
+                'no-magic-numbers': 'off',
+                'prefer-arrow/prefer-arrow-functions': 'off',
+            },
+        },
+    ],
 };
