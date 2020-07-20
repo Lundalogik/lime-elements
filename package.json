@@ -11,7 +11,9 @@
   "main": "dist/index.js",
   "types": "dist/types/interface.d.ts",
   "collection": "dist/collection/collection-manifest.json",
-  "files": ["dist/"],
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
     "cm": "git-cz",
@@ -22,8 +24,8 @@
     "docz:publish": "node publish-docs.js",
     "lint": "npm run lint:src && npm run lint:scss && npm run lint:config",
     "lint:fix": "npm run lint:src:fix && npm run lint:scss:fix && npm run lint:config:fix",
-    "lint:config": "eslint --config .eslintrc.config.js './*.{ts,js}' --max-warnings=0 && prettier -l '{!(package-lock).json,.prettierrc}'",
-    "lint:config:fix": "eslint --config .eslintrc.config.js './*.{ts,js}' --fix --max-warnings=0 && prettier --write '{!(package-lock).json,.prettierrc}'",
+    "lint:config": "eslint --config .eslintrc.config.js './*.{ts,js}' --max-warnings=0 && prettier -l '{!(package*).json,.prettierrc}'",
+    "lint:config:fix": "eslint --config .eslintrc.config.js './*.{ts,js}' --fix --max-warnings=0 && prettier --write '{!(package*).json,.prettierrc}'",
     "lint:src": "eslint --config .eslintrc.src.js './src/**/*.{ts,tsx}' --max-warnings=0",
     "lint:src:fix": "eslint --config .eslintrc.src.js './src/**/*.{ts,tsx}' --fix --max-warnings=0",
     "lint:scss": "prettier -c --ignore-path ./.gitignore **/*.scss",
