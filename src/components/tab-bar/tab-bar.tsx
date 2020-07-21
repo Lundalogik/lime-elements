@@ -209,7 +209,12 @@ export class TabBar {
     }
 
     private renderIcon(tab: Tab) {
+        if (!tab.icon) {
+            return;
+        }
+
         const style = { color: '' };
+
         if (tab.iconColor) {
             style.color = tab.iconColor;
         }
