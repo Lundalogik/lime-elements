@@ -26,7 +26,7 @@ export class TabBar {
      * List of tabs to display
      */
     @Prop()
-    public tabs: Tab[];
+    public tabs: Tab[] = [];
 
     /**
      * Emitted when a tab has been changed
@@ -104,7 +104,7 @@ export class TabBar {
     }
 
     @Watch('tabs')
-    protected tabsChanged(newTabs: Tab[], oldTabs: Tab[]) {
+    protected tabsChanged(newTabs: Tab[] = [], oldTabs: Tab[] = []) {
         const newIds = newTabs.map((tab) => tab.id);
         const oldIds = oldTabs.map((tab) => tab.id);
 
