@@ -1,3 +1,10 @@
+## [26.42.2](https://github.com/Lundalogik/lime-elements/compare/v26.42.1...v26.42.2) (2020-07-22)
+
+
+### Bug Fixes
+
+* **tab-bar:** remove limel-icons when no icon name provided  in limel-tab-bar ([0b9beb2](https://github.com/Lundalogik/lime-elements/commit/0b9beb267df67e45c49d6f6904bd8c187e841122))
+
 ## [26.42.1](https://github.com/Lundalogik/lime-elements/compare/v26.42.0...v26.42.1) (2020-07-14)
 
 
