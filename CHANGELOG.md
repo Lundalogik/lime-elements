@@ -1,3 +1,10 @@
+## [26.42.3](https://github.com/Lundalogik/lime-elements/compare/v26.42.2...v26.42.3) (2020-07-23)
+
+
+### Bug Fixes
+
+* **tab-bar:** fix tab-bar crashes when previous tabs are undefined ([9837e8a](https://github.com/Lundalogik/lime-elements/commit/9837e8a1fc87bf6ece3172c6f36e2268a2cbcfa0)), closes [#852](https://github.com/Lundalogik/lime-elements/issues/852)
+
 ## [26.42.2](https://github.com/Lundalogik/lime-elements/compare/v26.42.1...v26.42.2) (2020-07-22)
 
 
