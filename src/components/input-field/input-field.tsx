@@ -260,6 +260,12 @@ export class InputField {
             'mdc-text-field--required': this.required,
         };
 
+        const labelClassList = {
+            'mdc-floating-label': true,
+            'textarea-label': true,
+            'mdc-floating-label--float-above': !!this.value || this.isFocused,
+        };
+
         return [
             <div class={classList}>
                 {this.renderCharacterCounter()}
@@ -278,7 +284,7 @@ export class InputField {
                 <div class="mdc-notched-outline">
                     <div class="mdc-notched-outline__leading" />
                     <div class="mdc-notched-outline__notch">
-                        <label htmlFor="textarea" class="mdc-floating-label">
+                        <label htmlFor="textarea" class={labelClassList}>
                             {this.label}
                         </label>
                     </div>
