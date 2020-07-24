@@ -1,3 +1,10 @@
+## [26.42.4](https://github.com/Lundalogik/lime-elements/compare/v26.42.3...v26.42.4) (2020-07-24)
+
+
+### Bug Fixes
+
+* **input-field:** correct placement of label for textarea ([b6a5014](https://github.com/Lundalogik/lime-elements/commit/b6a5014e2ec7f26635c5523d16eef524da692b4a)), closes [#722](https://github.com/Lundalogik/lime-elements/issues/722)
+
 ## [26.42.3](https://github.com/Lundalogik/lime-elements/compare/v26.42.2...v26.42.3) (2020-07-23)
 
 
