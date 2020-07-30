@@ -16,19 +16,19 @@ table {
     border-spacing: 0;
     border-collapse: collapse;
     border-style: hidden;
-    border: 1px solid var(--contrast-400);
+    border: 1px solid rgb(var(--contrast-400));
     border-radius: 4px;
 
-    color: var(--contrast-1400);
+    color: rgb(var(--contrast-1400));
     -webkit-font-smoothing: antialiased;
-    background-color: var(--contrast-200);
+    background-color: rgb(var(--contrast-200));
 
     thead {
         border-radius: 4px 4px 0 0;
-        border-bottom: 1px solid var(--contrast-400);
-        color: var(--contrast-900);
+        border-bottom: 1px solid rgb(var(--contrast-400));
+        color: rgb(var(--contrast-900));
         font-weight: 400;
-        background: var(--contrast-200);
+        background: rgb(var(--contrast-200));
 
         th {
             text-align: left;
@@ -54,7 +54,7 @@ table {
         tr {
             display: table-row;
             &:nth-child(even) {
-                background-color: var(--contrast-300);
+                background-color: rgb(var(--contrast-300));
             }
             &:last-child {
                 td {
@@ -73,8 +73,8 @@ table {
 code {
     display: inline-block;
     font-family: 'Source Code Pro', monospace;
-    background-color: var(--contrast-600);
-    color: var(--contrast-1300);
+    background-color: rgb(var(--contrast-600));
+    color: rgb(var(--contrast-1300));
     border-radius: 3px;
     padding: 1px 5px;
     font-size: 11px;
