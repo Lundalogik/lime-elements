@@ -15,6 +15,7 @@ export const config: Config = {
             serviceWorker: null,
             dir: '.docz/public/stencil',
             copy: [
+                { src: 'style/color-palette-extended.css' },
                 { src: 'components/**/examples/**/*.tsx' },
                 { src: 'components/**/examples/**/*.scss' },
                 { src: 'components/**/*.md' },
