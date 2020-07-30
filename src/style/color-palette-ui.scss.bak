@@ -1,0 +1,96 @@
+@import './mixins';
+
+// To be able to use colors with alpha, they are written in RGB.
+// Comments with HEX codes in front of the values are used as reference only.
+// Example of use:
+// solid: `color: rgb(var(--contrast-100))`
+// transparent: `color: rgba(var(--contrast-100), 0.5)`
+
+:root {
+    // Lime Technologies Brand Colors (Do not have dark/light mode variants)
+    --lime-brand-color-deep-red: 240, 87, 80; // #f05750
+    --lime-brand-color-sellable-orange: 255, 112, 67; // #ff7043 (FIXME: or 247-107-7; // #f76b07 ? --> can be replaced with orange-dark in light mode in this case)
+    --lime-brand-color-orange: 255, 176, 59; // #ffb03b
+    --lime-brand-color-yellow: 255, 207, 61; // #ffcf3d
+    --lime-brand-color-lime-green: 102, 187, 106; // #66bb6a (FIXME: or 133-196-54; // #85c436 ? --> can be replaced with lime-default in light mode in this case)
+    --lime-brand-color-flexible-turquoise: 38, 166, 154; // #26a69a (FIXME: or 0-179-167; // #00b3a7 ? --> needs modifying the teal hues in this case)
+    --lime-brand-color-simple-blue: 41, 182, 246; // #29b6f6 (FIXME: or 0-183-255; // #00b7ff ? --> can be replaced with sky-light in dark mode in this case)
+    --lime-brand-color-dark-blue: 87, 135, 159; // #57879f
+    --lime-brand-color-loving-magenta: 255, 49, 149; // #ff3195
+    --lime-brand-color-light-grey: 173, 173, 173; // #adadad
+    --lime-brand-color-grey: 87, 87, 86; // #575756
+
+    // Absolute white and black (Do not have dark/light mode variants)
+    --color-white: 255, 255, 255; // #fff
+    --color-black: 0, 0, 0; // #000
+
+    // Contrast swatches, to use for tones that can automatically revert in dark/light modes. E.g. text and background
+    --contrast-100: 255, 255, 255; // #fff
+    --contrast-200: 250, 250, 251; // #fafafb
+    --contrast-300: 246, 246, 247; // #f6f6f7
+    --contrast-400: 241, 241, 243; // #f1f1f3
+    --contrast-500: 237, 237, 238; // #ededee
+    --contrast-600: 232, 232, 234; // #e8e8ea
+    --contrast-700: 209, 209, 213; // #d1d1d5
+    --contrast-800: 186, 186, 192; // #babac0
+    --contrast-900: 140, 140, 150; // #8c8c96
+    --contrast-1000: 117, 117, 128; // #757580
+    --contrast-1100: 94, 94, 108; // #5e5e6c
+    --contrast-1200: 71, 71, 86; // #474756
+    --contrast-1300: 48, 48, 66; // #303042
+    --contrast-1400: 39, 39, 57; // #272739
+    --contrast-1500: 35, 35, 53; // #232335
+    --contrast-1600: 25, 25, 44; // #19192c
+    --contrast-1700: 0, 0, 0; // #000
+
+    // Colors swatches that get slightly dimmer in dark mode
+    --color-red-light: 229, 115, 115; // #e57373;
+    --color-red-default: 244, 67, 54; // #f44336;
+
+    --color-blue-light: 100, 181, 246; // #64b5f6
+    --color-blue-default: 33, 150, 243; // #2196f3
+
+    --color-green-light: 129, 199, 132; // #81c784
+    --color-green-default: 76, 175, 80; // #4caf50
+
+    --color-amber-light: 255, 213, 79; // #ffd54f
+    --color-amber-default: 255, 193, 7; // #ffc107
+
+    --color-orange-light: 255, 183, 77; // #ffb74d
+    --color-orange-default: 255, 152, 0; // #ff9800
+
+    @include in(dark-mode) {
+        --contrast-100: 0, 0, 0; // #000
+        --contrast-200: 25, 25, 44; // #19192c
+        --contrast-300: 35, 35, 53; // #232335
+        --contrast-400: 39, 39, 57; // #272739
+        --contrast-500: 48, 48, 66; // #303042
+        --contrast-600: 71, 71, 86; // #474756
+        --contrast-700: 94, 94, 108; // #5e5e6c
+        --contrast-800: 117, 117, 128; // #757580
+        --contrast-900: 140, 140, 150; // #8c8c96
+        --contrast-1000: 186, 186, 192; // #babac0
+        --contrast-1100: 209, 209, 213; // #d1d1d5
+        --contrast-1200: 232, 232, 234; // #e8e8ea
+        --contrast-1300: 237, 237, 238; // #ededee
+        --contrast-1400: 241, 241, 243; // #f1f1f3
+        --contrast-1500: 246, 246, 247; // #f6f6f7
+        --contrast-1600: 250, 250, 251; // #fafafb
+        --contrast-1700: 255, 255, 255; // #fff
+
+        --color-red-light: var(--lime-brand-color-deep-red);
+        --color-red-default: 229, 57, 53; // #e53935
+
+        --color-blue-light: 66, 165, 245; // #42a5f5
+        --color-blue-default: 30, 136, 229; // #1e88e5
+
+        --color-green-light: var(--lime-brand-color-lime-green);
+        --color-green-default: 67, 160, 71; // #43a047
+
+        --color-amber-light: var(--lime-brand-color-yellow);
+        --color-amber-default: var(--lime-brand-color-orange);
+
+        --color-orange-light: 255, 167, 38; // #ffa726
+        --color-orange-default: 251, 140, 0; // #fb8c00
+    }
+}
