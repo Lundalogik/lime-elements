@@ -1,3 +1,10 @@
+## [26.42.5](https://github.com/Lundalogik/lime-elements/compare/v26.42.4...v26.42.5) (2020-08-06)
+
+
+### Bug Fixes
+
+* **list:** too tall menus render outside screen on Safari ios with address bar ([156131c](https://github.com/Lundalogik/lime-elements/commit/156131cc83c10a3645e082003ecbae146cdd258b))
+
 ## [26.42.4](https://github.com/Lundalogik/lime-elements/compare/v26.42.3...v26.42.4) (2020-07-24)
 
 
