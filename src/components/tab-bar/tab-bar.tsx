@@ -146,6 +146,10 @@ export class TabBar {
     }
 
     private tearDown() {
+        if (!this.scrollArea || !this.mdcTabBar) {
+            return;
+        }
+
         this.scrollArea.removeEventListener('scroll', this.handleScroll);
         this.mdcTabBar.unlisten(TAB_ACTIVATED_EVENT, this.handleTabActivated);
         this.mdcTabBar.destroy();
