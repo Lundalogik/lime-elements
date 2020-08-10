@@ -18,8 +18,9 @@
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "typeRoots": ["types", "node_modules/@types"]
+    "typeRoots": ["types", "node_modules/@types"],
+    "allowJs": true
   },
-  "include": ["src", "types/jsx.d.ts"],
-  "exclude": ["node_modules", "**/dev-assets/**"]
+  "include": [".", ".eslintrc.js", "src/.eslintrc.js"],
+  "exclude": ["node_modules"]
 }
