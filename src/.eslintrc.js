@@ -1,11 +1,13 @@
 /* eslint-env node */
 module.exports = {
+    root: true,
     env: {
         browser: true,
         es2020: true,
     },
     extends: [
         'eslint:recommended',
+        'plugin:@stencil/recommended',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:prettier/recommended',
         'plugin:sonarjs/recommended',
@@ -13,8 +15,12 @@ module.exports = {
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
+        parserOption: {
+            jsx: true,
+        },
         ecmaVersion: 2020,
         sourceType: 'module',
+        project: 'tsconfig.lint.json',
     },
     plugins: [
         '@typescript-eslint',
@@ -23,11 +29,20 @@ module.exports = {
         'jsdoc',
         'prefer-arrow',
     ],
+    settings: {
+        react: {
+            version: '16.8',
+            pragma: 'h',
+        },
+    },
     rules: {
         'linebreak-style': ['error', 'unix'],
         quotes: ['error', 'single', { avoidEscape: true }],
         semi: ['error', 'always'],
         'prettier/prettier': 'error',
+        '@stencil/decorators-style': 'off',
+        '@stencil/strict-boolean-conditions': 'off',
+        '@stencil/render-returns-host': 'off',
         '@typescript-eslint/no-unused-vars-experimental': 'error',
         '@typescript-eslint/array-type': [
             'error',
@@ -36,6 +51,7 @@ module.exports = {
             },
         ],
         '@typescript-eslint/consistent-type-assertions': 'error',
+        '@typescript-eslint/dot-notation': 'error',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-unused-expressions': 'error',
         '@typescript-eslint/prefer-for-of': 'error',
@@ -106,7 +122,6 @@ module.exports = {
         'prefer-const': 'error',
         'prefer-object-spread': 'error',
         radix: 'error',
-        'sonarjs/no-duplicate-string': 'off',
         'spaced-comment': [
             'error',
             'always',
@@ -115,4 +130,25 @@ module.exports = {
             },
         ],
     },
+    overrides: [
+        {
+            files: [
+                './components/**/examples/**',
+                './**/*.spec.{ts,tsx}',
+                './**/*.e2e.{ts,tsx}',
+                './**/*.test-wrapper.{ts,tsx}',
+                '.eslintrc.js',
+            ],
+            rules: {
+                '@stencil/required-jsdoc': 'off',
+                'sonarjs/no-duplicate-string': 'off',
+                'sonarjs/no-identical-functions': 'off',
+                'jsdoc/require-returns': 'off',
+                'jsdoc/require-param': 'off',
+                'no-console': 'off',
+                'no-magic-numbers': 'off',
+                'prefer-arrow/prefer-arrow-functions': 'off',
+            },
+        },
+    ],
 };
