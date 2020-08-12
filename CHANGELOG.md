@@ -1,3 +1,10 @@
+## [26.42.6](https://github.com/Lundalogik/lime-elements/compare/v26.42.5...v26.42.6) (2020-08-12)
+
+
+### Bug Fixes
+
+* **tab-bar:** make sure scrollArea &  mdcTabBar exist before removing the element ([bf8cbc9](https://github.com/Lundalogik/lime-elements/commit/bf8cbc96791b61cc613f819eb915ca171fd3b05b)), closes [Lundalogik/crm-feature#1239](https://github.com/Lundalogik/crm-feature/issues/1239)
+
 ## [26.42.5](https://github.com/Lundalogik/lime-elements/compare/v26.42.4...v26.42.5) (2020-08-06)
 
 
