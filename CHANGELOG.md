@@ -1,3 +1,10 @@
+## [26.42.7](https://github.com/Lundalogik/lime-elements/compare/v26.42.6...v26.42.7) (2020-08-12)
+
+
+### Bug Fixes
+
+* update prismjs to reduce vulnerabilities ([6eb7436](https://github.com/Lundalogik/lime-elements/commit/6eb74361dd6faa826e35747f952ddf1ce895ff46))
+
 ## [26.42.6](https://github.com/Lundalogik/lime-elements/compare/v26.42.5...v26.42.6) (2020-08-12)
 
 
