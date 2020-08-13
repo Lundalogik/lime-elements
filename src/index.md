@@ -1,9 +1,3 @@
----
-name: Lime Elements
-route: /
-menu: Home
----
-
 # Lime Elements
 
 Version [<version\>](https://github.com/Lundalogik/lime-elements/blob/v<version\>/CHANGELOG.md). Please see the [changelog](https://github.com/Lundalogik/lime-elements/blob/master/CHANGELOG.md) for information about all versions.

@@ -1,9 +1,3 @@
----
-name: Color system
-route: /color-system
-menu: Design Guidelines
----
-
 # Color system
 By taking advantage of CSS variables, we have created a harmonic and pleasing color system that aims to ease the job of picking the right colors for components. These colors are inspired by [Material Design's 2014 color palettes](https://material.io/design/color/the-color-system.html#tools-for-picking-colors). However, we have modified them, renamed them, added new swatches, and also divided them into different subsets of colors which automatically adjust to Dark and Light themes.
 
@@ -11,14 +5,14 @@ By taking advantage of CSS variables, we have created a harmonic and pleasing co
 The color system offers a few sets of colors which we call "palettes". Each palette includes a number of swatches, each of which automatically adjusts itself to the light and dark themes. In other words, each swatch has only one name, but two versions; a brighter one which is displayed when light mode is activated, and a slightly dimmer tone of the same color which is displayed when dark mode is activated. You don't really have to care about this, and all you need to do is pick a color and use its CSS variable name in your code.
 
 ### Color swatch names
-<limel-example-extended-color-palette />
+<limel-example-extended-color-palette></limel-example-extended-color-palette>
 
 The color system consists of 20 base colors or "hues". Each hue has five variations: one default, two tints (light and lighter), and two shades (dark and darker); and this is simply how we have named their CSS variables. The `red` color for instance has the following variable names:
 
 `--color-red-lighter` →  `--color-red-light` →  `--color-red-default`→  `--color-red-dark` →  `--color-red-darker`
 
 ### Contrast swatch names
-<limel-example-contrast-color-palette />
+<limel-example-contrast-color-palette></limel-example-contrast-color-palette>
 
 The contrast swatches are used to clarify the generic and neutral UI elements such as backgrounds, containers, sections, and their textual content. Using them wisely will help create a sense of hierarchy as well as improved readability. CSS variable names for contrast swatches start with a prefix of `--contrast-` followed by a number. These numbers start at `100` and incrementally increase by 100 and stop at `1700`, such as:
 
@@ -32,7 +26,7 @@ The contrast swatches are used to clarify the generic and neutral UI elements su
 
 **Note:** don't confuse titles like "dark mode" and "light mode" or "dark/light themes" with these swatches' naming convention. As mentioned above, each swatch -despite its name- already comes with two tones inbuilt into the color system. For example the `--color-red-dark` variable will automatically be displayed as `#d32f2f` in light mode, and as `#c62828` in dark mode.
 
-<limel-example name="limel-example-dark-light-mode" path="color-system" />
+<limel-example-dark-light-mode></limel-example-dark-light-mode>
 
 The reduced brightness in dark mode is set with accessibility in mind, and will help reduce users' eye strain in low-light environments. In a proper design for dark mode, it is not enough to invert the background and text colors. Colors which are bright in light mode, will appear even brighter in dark mode and therefore pop out more from the UI, which can make the UI unpleasant or harder to look at.
 
@@ -76,7 +70,7 @@ What colors you can optionally change to communicate meaning:
 * In linear progress: color of the progressed section and what’s left (its background)
 * etc…
 
-<limel-example name="limel-example-colors-in-components" path="color-system"/>
+<limel-example-colors-in-components></limel-example-colors-in-components>
 
 
 
@@ -88,7 +82,7 @@ Extensive usage of colors will create a messy and inconsistent UI. Most of your 
 
 #### **UI palette** (default)
 
-<limel-example-ui-color-palette />
+<limel-example-ui-color-palette></limel-example-ui-color-palette>
 
 This includes 10 color swatches which give you colors that you normally need in a user interface. These few, hand picked swatches add an extra layer of meaning to elements of the interface and make it possible to quickly communicate what the element does or indicates.
 
@@ -97,7 +91,7 @@ ___
 
 #### **Primary palette**
 
-<limel-example-primary-color-palette />
+<limel-example-primary-color-palette></limel-example-primary-color-palette>
 
 Sometimes, just a handful of colors is not enough and you need a bit more. For example when you need colors for your icons, or diagrams. This palette with 40 swatches is designed to provide a decent number of harmonic colors while easing the choice of colors for you. Used for primary purposes and meaningful communications with colors.
 
@@ -105,13 +99,13 @@ ___
 
 #### **Extended palette**
 
-<limel-example-extended-color-palette />
+<limel-example-extended-color-palette></limel-example-extended-color-palette>
 
 With 100 swatches, this palette offers a much richer set of colors that can be used for visual communication, iconography, illustrations, and charts.
 ___
 
 ## Lime Technologies Brand Colors
-<limel-example-brand-color-palette />
+<limel-example-brand-color-palette></limel-example-brand-color-palette>
 
 This set of colors is included in all available palettes, and can be used for branding and marketing purposes. Swatches and their respective CSS variables have specific names starting with the prefix `--lime-brand-color-`.
 

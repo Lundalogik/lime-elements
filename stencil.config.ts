@@ -1,6 +1,7 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { kompendium } from 'kompendium';
+import guides from './guides';
 
 export const config: Config = {
     hashFileNames: false,
