@@ -1,26 +1,5 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode": false,
-    "declaration": false,
-    "experimentalDecorators": true,
-    "lib": ["dom", "es7"],
-    "moduleResolution": "node",
-    "module": "esnext",
-    "target": "es2017",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "jsx": "react",
-    "jsxFactory": "h",
-    "baseUrl": ".",
-    "paths": {
-      "@limetech/lime-elements": ["src"]
-    },
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "typeRoots": ["types", "node_modules/@types"]
-  },
-  "include": ["src", "types/jsx.d.ts"],
+  "extends": "./tsconfig.json",
   "exclude": [
     "node_modules",
     "**/test/**",
