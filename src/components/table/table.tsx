@@ -54,6 +54,12 @@ export class Table {
     public totalRows: number;
 
     /**
+     * Active row in the table
+     */
+    @Prop({ mutable: true })
+    public activeRow: object;
+
+    /**
      * Emitted when `mode` is `local` the data is sorted
      */
     @Event()
@@ -72,6 +78,12 @@ export class Table {
     @Event()
     public load: EventEmitter<TableParams>;
 
+    /**
+     * Emitted when a row is activated
+     */
+    @Event()
+    public activate: EventEmitter<object>;
+
     @Element()
     private host: HTMLLimelTableElement;
 
@@ -85,6 +97,8 @@ export class Table {
         this.handleDataSorting = this.handleDataSorting.bind(this);
         this.handlePageLoaded = this.handlePageLoaded.bind(this);
         this.requestData = this.requestData.bind(this);
+        this.onClickRow = this.onClickRow.bind(this);
+        this.formatRow = this.formatRow.bind(this);
     }
 
     public componentDidLoad() {
@@ -97,6 +111,11 @@ export class Table {
             '#tabulator-table'
         );
         this.tabulator = new TabulatorTable(table, options);
+    }
+
+    @Watch('activeRow')
+    public activeRowChanged() {
+        this.tabulator.getRows().forEach(this.formatRow);
     }
 
     @Watch('data')
@@ -132,6 +151,8 @@ export class Table {
             pageLoaded: this.handlePageLoaded,
             ...ajaxOptions,
             ...paginationOptions,
+            rowClick: this.onClickRow,
+            rowFormatter: this.formatRow,
         };
     }
 
@@ -208,6 +229,24 @@ export class Table {
         }
 
         this.changePage.emit(page);
+    }
+
+    private onClickRow(_, row: Tabulator.RowComponent): void {
+        if (this.activeRow === row.getData()) {
+            this.activeRow = null;
+        } else {
+            this.activeRow = row.getData();
+        }
+
+        this.activate.emit(this.activeRow);
+    }
+
+    private formatRow(row: Tabulator.RowComponent) {
+        if (this.activeRow === row.getData()) {
+            row.getElement().classList.add('active');
+        } else {
+            row.getElement().classList.remove('active');
+        }
     }
 
     private setResolvedData(data: object[]): void {
