@@ -71,7 +71,7 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 
     .tabulator-cell {
         border-right: transparent;
-        padding-left: pxToRem(6);
+        padding: pxToRem(6) pxToRem(8);
     }
 }
 
