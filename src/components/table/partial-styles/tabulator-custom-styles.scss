@@ -3,8 +3,12 @@
         &.tabulator-selectable {
             @include is-flat-clickable();
             &:hover {
-                background-color: #fff;
                 z-index: 1;
+            }
+            &:not(.active) {
+                &:hover {
+                    background-color: #fff;
+                }
             }
         }
     }

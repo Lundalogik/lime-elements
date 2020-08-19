@@ -57,8 +57,10 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 .tabulator-row {
     &.tabulator-selectable {
         transition: background-color 0.2s ease;
-        &:hover {
-            background-color: $table-header-background-color;
+        &:not(.active) {
+            &:hover {
+                background-color: $table-header-background-color;
+            }
         }
     }
     &.tabulator-row-odd {
@@ -67,6 +69,11 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 
     &.tabulator-row-even {
         background-color: #fff;
+    }
+
+    &.active,
+    &.active:hover {
+        background-color: rgba(#26a69a, 0.16);
     }
 
     .tabulator-cell {
