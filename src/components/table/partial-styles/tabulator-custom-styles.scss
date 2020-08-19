@@ -19,11 +19,20 @@
 
     .tabulator-table {
         background-color: transparent;
-        padding: pxToRem(8);
+    }
+
+    // This provides space for box-shadow effect. Otherwise the overflow properties will cut them out
+    .tabulator-headers {
+        padding: 0 pxToRem(8);
+    }
+    // This provides space for box-shadow effect. Otherwise the overflow properties will cut them out
+    .tabulator-row {
+        width: calc(100% - #{pxToRem(16)});
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .tabulator-header {
-        padding: 0 pxToRem(8);
         background-color: transparent;
 
         .tabulator-col-content {
@@ -51,7 +60,7 @@
 
     .tabulator-cell {
         height: pxToRem(44);
-        line-height: pxToRem(36);
+        line-height: pxToRem(32);
         padding-left: pxToRem(12);
         padding-right: pxToRem(8);
 
