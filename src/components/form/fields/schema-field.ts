@@ -14,7 +14,7 @@ import { retrieveSchema } from 'react-jsonschema-form/lib/utils';
  *
  * @returns {any[]} the array of keys
  */
-const getDifferentKeys = (a: object, b: object): any[] => {
+const getDifferentKeys = (a: object = {}, b: object = {}): any[] => {
     const keys = union(Object.keys(a), Object.keys(b));
 
     return keys.filter((key) => {
