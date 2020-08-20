@@ -10,6 +10,7 @@ import {
 import TabulatorTable from 'tabulator-tables';
 import { Column, TableParams, ColumnSorter } from './table.types';
 import { createColumnDefinition, createColumnSorter } from './columns';
+import { isEqual } from 'lodash-es';
 
 const FIRST_PAGE = 1;
 
@@ -99,11 +100,15 @@ export class Table {
     }
 
     @Watch('data')
-    public updateData() {
+    public updateData(newData = [], oldData = []) {
         if (this.resolver) {
             this.setResolvedData(this.data);
             this.resolver = null;
 
+            return;
+        }
+
+        if (isEqual(newData, oldData)) {
             return;
         }
 
