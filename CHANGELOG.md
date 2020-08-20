@@ -1,3 +1,10 @@
+## [26.42.10](https://github.com/Lundalogik/lime-elements/compare/v26.42.9...v26.42.10) (2020-08-20)
+
+
+### Performance Improvements
+
+* **table:** don't set data on Tabulator unless it has changed ([9cef57c](https://github.com/Lundalogik/lime-elements/commit/9cef57cf96c5088b116dac004a75614b3601cdf2))
+
 ## [26.42.9](https://github.com/Lundalogik/lime-elements/compare/v26.42.8...v26.42.9) (2020-08-20)
 
 
