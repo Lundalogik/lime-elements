@@ -1,3 +1,10 @@
+## [26.42.9](https://github.com/Lundalogik/lime-elements/compare/v26.42.8...v26.42.9) (2020-08-20)
+
+
+### Bug Fixes
+
+* **limel-form:** no error is thrown when parsing keys from schema w/o properties key ([c713c63](https://github.com/Lundalogik/lime-elements/commit/c713c6335c1614627b59e0b7b419086290ea9ae3))
+
 ## [26.42.8](https://github.com/Lundalogik/lime-elements/compare/v26.42.7...v26.42.8) (2020-08-18)
 
 
