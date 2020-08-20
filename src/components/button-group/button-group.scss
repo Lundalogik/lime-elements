@@ -33,6 +33,10 @@
         }
     }
 
+    label {
+        cursor: pointer;
+    }
+
     span[role='gridcell'] {
         &:focus-within {
             outline: none;

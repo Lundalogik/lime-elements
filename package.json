@@ -1,6 +1,6 @@
 {
   "name": "@limetech/lime-elements",
-  "version": "26.42.7",
+  "version": "26.42.8",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "Apache-2.0",
@@ -24,8 +24,8 @@
     "docz:publish": "node publish-docs.js",
     "lint": "npm run lint:src && npm run lint:scss",
     "lint:fix": "npm run lint:src:fix && npm run lint:scss:fix",
-    "lint:src": "eslint '**/*.{ts,tsx,js}' --max-warnings=0",
-    "lint:src:fix": "eslint '**/*.{ts,tsx,js}' --fix --max-warnings=0",
+    "lint:src": "eslint '**/*.{ts,tsx,js}' --max-warnings=0 && prettier -l '{!(package*).json,.prettierrc}'",
+    "lint:src:fix": "eslint '**/*.{ts,tsx,js}' --fix --max-warnings=0 && prettier --write '{!(package*).json,.prettierrc}'",
     "lint:scss": "prettier -c --ignore-path ./.gitignore **/*.scss",
     "lint:scss:fix": "prettier --write --ignore-path ./.gitignore **/*.scss",
     "release": "npm run build && semantic-release",

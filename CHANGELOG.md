@@ -1,3 +1,10 @@
+## [26.42.8](https://github.com/Lundalogik/lime-elements/compare/v26.42.7...v26.42.8) (2020-08-18)
+
+
+### Bug Fixes
+
+* **button-groups:** make entire chip look clickable ([1f26682](https://github.com/Lundalogik/lime-elements/commit/1f26682913542064c78a9499f01606f2cb3f021e))
+
 ## [26.42.7](https://github.com/Lundalogik/lime-elements/compare/v26.42.6...v26.42.7) (2020-08-12)
 
 
