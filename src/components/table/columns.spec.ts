@@ -17,6 +17,7 @@ describe('createCustomComponent', () => {
             getField: () => field,
             getData: () => data,
             getValue: () => value,
+            getColumn: () => null,
         };
 
         column = {
