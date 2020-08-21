@@ -1,3 +1,11 @@
+## [26.42.11](https://github.com/Lundalogik/lime-elements/compare/v26.42.10...v26.42.11) (2020-08-21)
+
+
+### Bug Fixes
+
+* **table:** make paddings similar to old tables in the web client ([c31fba5](https://github.com/Lundalogik/lime-elements/commit/c31fba5b849fffa43b75c34bd3abcdf4f83b0f39))
+* **tabulator-custom-styles:** fix layout misalignments ([e76da8a](https://github.com/Lundalogik/lime-elements/commit/e76da8a3d1e460c0a7be2e6ca997685eb01e4bad))
+
 ## [26.42.10](https://github.com/Lundalogik/lime-elements/compare/v26.42.9...v26.42.10) (2020-08-20)
 
 
