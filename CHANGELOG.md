@@ -1,3 +1,10 @@
+# [26.43.0](https://github.com/Lundalogik/lime-elements/compare/v26.42.11...v26.43.0) (2020-08-21)
+
+
+### Features
+
+* **table:** add row selection feature on table view ([170fb3a](https://github.com/Lundalogik/lime-elements/commit/170fb3adecf9ae8a99421573f21d822f3cae1903)), closes [#912](https://github.com/Lundalogik/lime-elements/issues/912)
+
 ## [26.42.11](https://github.com/Lundalogik/lime-elements/compare/v26.42.10...v26.42.11) (2020-08-21)
 
 
