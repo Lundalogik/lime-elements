@@ -1,4 +1,5 @@
 import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
+import Tabulator from 'tabulator-tables';
 
 /**
  * Create Tabulator column definitions from a limel-table column configuration
@@ -86,9 +87,41 @@ export function createCustomComponent(
         data: data,
     };
 
+    element.style.display = 'inline-block';
     Object.assign(element, props);
 
+    createResizeObserver(element, cell.getColumn());
+
     return element;
+}
+
+function createResizeObserver(
+    element: HTMLElement,
+    column: Tabulator.ColumnComponent
+) {
+    if (!('ResizeObserver' in window)) {
+        return;
+    }
+
+    const RESIZE_TIMEOUT = 1000;
+    const COLUMN_PADDING = 16;
+
+    const observer = new ResizeObserver(() => {
+        const width = element.getBoundingClientRect().width;
+
+        if (width < column.getWidth()) {
+            return;
+        }
+
+        column.setWidth(width + COLUMN_PADDING);
+    });
+    observer.observe(element);
+
+    // We give the component some time to resize itself before we
+    // stop listening for resize events
+    setTimeout(() => {
+        observer.unobserve(element);
+    }, RESIZE_TIMEOUT);
 }
 
 // Tabulator seems to also have this `field` property, that does not appear on
