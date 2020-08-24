@@ -146,7 +146,7 @@ module.exports = {
                 parserOption: {
                     jsx: true,
                 },
-                project: 'tsconfig.lint.json',
+                project: 'tsconfig.json',
             },
             rules: {
                 '@stencil/decorators-style': 'off',
@@ -157,6 +157,7 @@ module.exports = {
         },
         {
             files: [
+                'src/examples/*.{ts,tsx}',
                 'src/components/**/examples/*.{ts,tsx}',
                 'src/components/**/examples/**/*.{ts,tsx}',
                 'src/**/*.spec.{ts,tsx}',
