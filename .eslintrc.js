@@ -126,10 +126,14 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['./*.{ts,js}'],
-            parserOptions: {
-                project: './tsconfig.lint.json',
+            files: ['./*.js'],
+            rules: {
+                'no-unused-vars': 'error',
+                'sonarjs/no-duplicate-string': 'off',
             },
+        },
+        {
+            files: ['./*.ts'],
             rules: {
                 'sonarjs/no-duplicate-string': 'off',
             },

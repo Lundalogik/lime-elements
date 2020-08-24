@@ -3,6 +3,6 @@
   "compilerOptions": {
     "allowJs": true
   },
-  "include": [".", ".eslintrc.js", "src/.eslintrc.js"],
+  "include": ["."],
   "exclude": ["node_modules"]
 }
