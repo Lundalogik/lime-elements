@@ -1,3 +1,10 @@
+## [26.43.1](https://github.com/Lundalogik/lime-elements/compare/v26.43.0...v26.43.1) (2020-08-26)
+
+
+### Bug Fixes
+
+* **button-group:** remove visual defects on iOS ([8edc55f](https://github.com/Lundalogik/lime-elements/commit/8edc55fc211803e8e50951a96e02ee3681a1ab4c))
+
 # [26.43.0](https://github.com/Lundalogik/lime-elements/compare/v26.42.11...v26.43.0) (2020-08-21)
 
 
