@@ -146,13 +146,17 @@ export class TabBar {
     }
 
     private tearDown() {
-        if (!this.scrollArea || !this.mdcTabBar) {
-            return;
+        if (this.scrollArea) {
+            this.scrollArea.removeEventListener('scroll', this.handleScroll);
         }
 
-        this.scrollArea.removeEventListener('scroll', this.handleScroll);
-        this.mdcTabBar.unlisten(TAB_ACTIVATED_EVENT, this.handleTabActivated);
-        this.mdcTabBar.destroy();
+        if (this.mdcTabBar) {
+            this.mdcTabBar.unlisten(
+                TAB_ACTIVATED_EVENT,
+                this.handleTabActivated
+            );
+            this.mdcTabBar.destroy();
+        }
     }
 
     private getTabElements() {
