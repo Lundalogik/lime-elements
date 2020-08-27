@@ -1,3 +1,15 @@
+# [27.0.0](https://github.com/Lundalogik/lime-elements/compare/v26.43.1...v27.0.0) (2020-08-27)
+
+
+### Features
+
+* **color-system:** add different color palettes ([1325519](https://github.com/Lundalogik/lime-elements/commit/1325519e9a396b5918252b4ad15ca16c464620b9))
+
+
+### BREAKING CHANGES
+
+* **color-system:** The new color stylesheet `[node_modules/]@limetech/lime-elements/dist/lime-elements/style/color-palette-extended-light-mode-only.css` must be loaded. There is also a `color-palette-extended.css` in the same location. This should not be used in production until lime-elements has finished the transition to fully support dark mode in all components. ***NOTE!*** While no components currently use the new color variables, components *will* be updated to use the new variables in upcoming *minor* versions, which will be breaking if neither of the above stylesheets are loaded.
+
 ## [26.43.1](https://github.com/Lundalogik/lime-elements/compare/v26.43.0...v26.43.1) (2020-08-26)
 
 

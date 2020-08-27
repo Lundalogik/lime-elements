@@ -1,0 +1,53 @@
+@import '../../../style/functions';
+@import '../../../style/color-palette-extended';
+
+h3 {
+    color: rgb(var(--contrast-1300));
+}
+
+.background {
+    margin: pxToRem(12) auto pxToRem(20) auto;
+    padding: pxToRem(20) pxToRem(12);
+    background-color: rgb(var(--contrast-300));
+    border-radius: pxToRem(3);
+}
+
+.example-buttons {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 1rem;
+    justify-content: left;
+    margin-bottom: 2rem;
+}
+
+limel-button.success {
+    /* When a button is not a "primary" button, the --lime-primary-color will apply to its text */
+    --lime-primary-color: rgb(var(--color-green-default));
+}
+
+limel-button.caution {
+    --lime-on-primary-color: rgb(var(--color-black));
+    /* When a button is a "primary" button, the --lime-primary-color will apply to its background */
+    --lime-primary-color: rgb(var(--color-amber-default));
+}
+
+limel-linear-progress {
+    --lime-primary-color: rgb(var(--color-blue-default));
+    --background-color: rgb(var(--color-gray-light));
+
+    display: block;
+    margin-bottom: 2rem;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 0.25rem;
+
+    color: rgb(var(--contrast-200));
+    background-color: rgb(var(--contrast-1100));
+    box-shadow: var(--shadow-depth-16);
+}

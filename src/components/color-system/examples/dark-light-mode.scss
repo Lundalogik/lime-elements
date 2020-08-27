@@ -1,0 +1,154 @@
+@import '../../../style/functions';
+@import '../../../style/mixins';
+@import '../../../style/shadows';
+@import '../../../style/color-palette-extended';
+@import './shared-styles';
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(var(--color-blue-default));
+}
+p {
+    color: rgb(var(--contrast-1400));
+    margin-top: 0;
+}
+hr {
+    border-style: solid;
+    border-width: 1px 0 0 0;
+    border-color: rgb(var(--contrast-400));
+    margin-bottom: pxToRem(12);
+}
+
+.app-layout {
+    margin: pxToRem(20) 0;
+    display: grid;
+    width: 100%;
+    min-height: pxToRem(400);
+    overflow: hidden;
+    border: 1px solid rgba(var(--color-black), 0.07);
+    border-radius: pxToRem(5);
+
+    grid-auto-flow: column;
+    grid-template-columns: pxToRem(80) auto;
+
+    .nav {
+        background-color: rgb(var(--contrast-200));
+        box-shadow: var(--shadow-depth-8);
+        z-index: 1;
+    }
+
+    .nav__logo {
+        display: block;
+        width: calc(100% - #{pxToRem(32)});
+        margin: pxToRem(16) auto;
+        cursor: pointer;
+    }
+
+    .nav_item {
+        cursor: pointer;
+        display: block;
+        width: pxToRem(40);
+        height: pxToRem(40);
+        margin: pxToRem(20) auto;
+    }
+
+    .workspace {
+        background-color: rgb(var(--contrast-300));
+    }
+
+    .header {
+        background-color: rgb(var(--contrast-200));
+        color: rgb(var(--contrast-1200));
+        height: pxToRem(44);
+        line-height: pxToRem(44);
+        padding-left: pxToRem(16);
+    }
+}
+
+.card {
+    display: grid;
+    width: 60%;
+    height: pxToRem(200);
+    margin: pxToRem(100) auto;
+
+    background-color: rgb(var(--contrast-200));
+    border-radius: pxToRem(7);
+    box-shadow: var(--shadow-depth-16);
+
+    &__header {
+        font-size: pxToRem(16);
+        line-height: pxToRem(40);
+
+        width: 100%;
+        height: pxToRem(40);
+        padding: 0 pxToRem(12);
+
+        color: rgb(var(--contrast-1100));
+        background-color: rgb(var(--contrast-300));
+        border-radius: pxToRem(7) pxToRem(7) 0 0;
+    }
+
+    &__body {
+        padding: pxToRem(4) pxToRem(16) pxToRem(12) pxToRem(16);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .card {
+        // Note how in dark mode, we do specify a "lighter" background color here.
+        // This is because the card has an elevated effect, and human brain normally expect deeper objects to be darker and visa versa.
+        // This unconsciously helps users' perception of the interface.
+        background-color: rgb(var(--contrast-400));
+    }
+}
+
+.button {
+    @include is-elevated-clickable();
+    margin-right: pxToRem(8);
+    line-height: pxToRem(32);
+
+    height: pxToRem(32);
+    padding: 0 pxToRem(8);
+
+    border: none;
+    border-radius: pxToRem(4);
+
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+    &.success {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--color-green-default));
+        &:hover {
+            background-color: rgb(var(--color-green-light));
+        }
+    }
+    &.warning {
+        color: rgb(var(--color-black));
+        background-color: rgb(var(--color-amber-default));
+        &:hover {
+            background-color: rgb(var(--color-amber-light));
+        }
+    }
+    &.danger {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--color-red-default));
+        &:hover {
+            background-color: rgb(var(--color-red-light));
+        }
+    }
+    &.accented {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--color-blue-default));
+        &:hover {
+            background-color: rgb(var(--color-blue-light));
+        }
+    }
+}

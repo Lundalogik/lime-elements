@@ -1,0 +1,26 @@
+@import '../../../style/functions';
+@import '../../../style/color-palette-extended';
+@import './shared-styles';
+
+.color-palette {
+    grid-template-rows: repeat(3, 1fr) auto;
+    grid-template-columns: repeat(5, 1fr) auto;
+}
+
+.swatch {
+    max-height: pxToRem(32);
+
+    &.hue {
+        writing-mode: initial;
+        padding-top: 0;
+    }
+}
+
+.usage {
+    ul {
+        padding-inline-start: pxToRem(16);
+        font-size: pxToRem(14);
+        color: rgb(var(--contrast-1300));
+        margin: 0 0 pxToRem(16) 0;
+    }
+}
