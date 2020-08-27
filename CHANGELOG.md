@@ -1,3 +1,10 @@
+# [27.1.0](https://github.com/Lundalogik/lime-elements/compare/v27.0.0...v27.1.0) (2020-08-27)
+
+
+### Features
+
+* **core-styles:** let color palette be exported & accessible in webclient ([5b27cb6](https://github.com/Lundalogik/lime-elements/commit/5b27cb650e816d69594e72068cf897fb3d039b61))
+
 # [27.0.0](https://github.com/Lundalogik/lime-elements/compare/v26.43.1...v27.0.0) (2020-08-27)
 
 
