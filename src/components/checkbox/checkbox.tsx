@@ -75,8 +75,8 @@ export class Checkbox {
 
     // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
-        this.mdcCheckbox.destroy();
-        this.formField.destroy();
+        this.mdcCheckbox?.destroy();
+        this.formField?.destroy();
     }
 
     public render() {
