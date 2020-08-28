@@ -1,3 +1,14 @@
+## [28.0.1](https://github.com/Lundalogik/lime-elements/compare/v28.0.0...v28.0.1) (2020-08-28)
+
+
+### Bug Fixes
+
+* **checkbox:** check if objects exist before destroy ([c862cde](https://github.com/Lundalogik/lime-elements/commit/c862cde90bc0f6f03b347c0f8ec9dd06a382838b))
+* **form:** only unmount if element exist ([f075d3b](https://github.com/Lundalogik/lime-elements/commit/f075d3b8b003c3c29be269910d451c1d5c47de18))
+* **icon-button:** check if object exist before destroy ([6a002c9](https://github.com/Lundalogik/lime-elements/commit/6a002c91e7842837062f8929d67aed796021db21))
+* **menu-surface:** check if object exist before destroy ([87816ba](https://github.com/Lundalogik/lime-elements/commit/87816ba390b8ea1c2ffeb9f9fb456d387f12f506))
+* **portal:** use connectedCallback to setup container ([16b101a](https://github.com/Lundalogik/lime-elements/commit/16b101ac8155925ca31ee06a393cfafed6a3fc8a))
+
 # [28.0.0](https://github.com/Lundalogik/lime-elements/compare/v27.1.0...v28.0.0) (2020-08-28)
 
 
