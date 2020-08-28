@@ -1,3 +1,17 @@
+# [28.0.0](https://github.com/Lundalogik/lime-elements/compare/v27.1.0...v28.0.0) (2020-08-28)
+
+
+### Reverts
+
+* **core-styles:** revert "let color palette be exported & accessible in webclient" ([6d73d5b](https://github.com/Lundalogik/lime-elements/commit/6d73d5ba2c6493e3c3f39bbd4ea9f7a3c3015e35))
+
+
+### BREAKING CHANGES
+
+* **core-styles:** The color palettes should be imported by the consumer, as described in the
+documentation and the release notes for v27.0.0. The reverted change was a mistake due to
+miscommunication. Our apologies.
+
 # [27.1.0](https://github.com/Lundalogik/lime-elements/compare/v27.0.0...v27.1.0) (2020-08-27)
 
 
