@@ -94,13 +94,19 @@ export class Portal {
 
     private popperInstance: Instance;
 
+    private loaded = false;
+
     public disconnectedCallback() {
         this.removeContainer();
-        this.popperInstance.destroy();
+        this.popperInstance?.destroy();
         this.popperInstance = null;
     }
 
-    public componentDidLoad() {
+    public connectedCallback() {
+        if (!this.loaded) {
+            return;
+        }
+
         this.createContainer();
         this.hideContainer();
         this.attachContainer();
@@ -112,6 +118,11 @@ export class Portal {
             this.container,
             popperConfig
         );
+    }
+
+    public componentDidLoad() {
+        this.loaded = true;
+        this.connectedCallback();
     }
 
     public componentDidUpdate() {
@@ -142,6 +153,10 @@ export class Portal {
     }
 
     private removeContainer() {
+        if (!this.container) {
+            return;
+        }
+
         this.hideContainer();
         this.container.parentElement.removeChild(this.container);
     }
