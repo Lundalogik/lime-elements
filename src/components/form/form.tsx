@@ -103,7 +103,9 @@ export class Form {
     // eslint-disable-next-line @stencil/own-methods-must-be-private
     protected componentDidUnload() {
         const rootElement = this.host.shadowRoot.querySelector('.root');
-        unmountComponentAtNode(rootElement);
+        if (rootElement) {
+            unmountComponentAtNode(rootElement);
+        }
     }
 
     private reactRender() {
