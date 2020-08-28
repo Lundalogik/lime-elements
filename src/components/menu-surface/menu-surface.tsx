@@ -100,7 +100,7 @@ export class MenuSurface {
     }
 
     private teardown() {
-        this.menuSurface.destroy();
+        this.menuSurface?.destroy();
         document.removeEventListener('mousedown', this.handleDocumentClick, {
             capture: true,
         });
