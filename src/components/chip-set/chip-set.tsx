@@ -150,6 +150,9 @@ export class ChipSet {
         this.inputFieldOnChange = this.inputFieldOnChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.inputHidden = this.inputHidden.bind(this);
+        this.handleDeleteAllIconClick = this.handleDeleteAllIconClick.bind(
+            this
+        );
     }
 
     /**
@@ -228,6 +231,7 @@ export class ChipSet {
         const classes = {
             'mdc-chip-set': true,
             disabled: this.disabled,
+            'mdc-text-field--with-trailing-icon': true,
         };
         if (this.type) {
             classes[`mdc-chip-set--${this.type}`] = true;
@@ -293,6 +297,7 @@ export class ChipSet {
                     'mdc-text-field': true,
                     'mdc-text-field--disabled': this.readonly || this.disabled,
                     'force-invalid': this.isInvalid(),
+                    'chips-exists': this.value.length !== 0,
                 }}
                 onClick={this.handleTextFieldFocus}
             >
@@ -318,6 +323,7 @@ export class ChipSet {
                         readonly={this.isFull()}
                     />
                 </div>
+                {this.renderDeleteAllIcon()}
                 <label
                     class={{
                         'mdc-floating-label': true,
@@ -561,5 +567,18 @@ export class ChipSet {
                 innerHTML={svgData}
             />
         );
+    }
+    private renderDeleteAllIcon() {
+        return (
+            <i
+                onClick={this.handleDeleteAllIconClick}
+                class="mdc-text-field__icon delete-all-icon-button"
+                tabindex="0"
+                role="button"
+            />
+        );
+    }
+    private handleDeleteAllIconClick() {
+        this.change.emit([]);
     }
 }

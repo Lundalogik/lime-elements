@@ -354,6 +354,22 @@ describe('limel-chip-set', () => {
                 expect(secondChipRemoveButton).toBeFalsy();
             });
         });
+
+        describe('when the clear chips button is pressed', () => {
+            beforeEach(async () => {
+                spy = await page.spyOnEvent('change');
+                const deleteAllIconButton: E2EElement = await page.find(
+                    'limel-chip-set >>> .delete-all-icon-button'
+                );
+                await chipSet.hover();
+                await deleteAllIconButton.click();
+            });
+
+            it('emits a change event where the all chips are removed', () => {
+                expect(spy).toHaveReceivedEventTimes(1);
+                expect(spy.events[0].detail).toEqual([]);
+            });
+        });
     });
 });
 
