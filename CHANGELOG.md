@@ -1,3 +1,10 @@
+## [28.0.3](https://github.com/Lundalogik/lime-elements/compare/v28.0.2...v28.0.3) (2020-08-31)
+
+
+### Bug Fixes
+
+* **switch:** make sure MDC component exist ([6d5601a](https://github.com/Lundalogik/lime-elements/commit/6d5601a90fb6958c27e79655b77a4e23bdf98835))
+
 ## [28.0.2](https://github.com/Lundalogik/lime-elements/compare/v28.0.1...v28.0.2) (2020-08-31)
 
 
