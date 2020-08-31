@@ -1,3 +1,10 @@
+## [28.0.2](https://github.com/Lundalogik/lime-elements/compare/v28.0.1...v28.0.2) (2020-08-31)
+
+
+### Performance Improvements
+
+* **linear-progress:** remove continuous buffering animation ([db33e68](https://github.com/Lundalogik/lime-elements/commit/db33e681d1bdecb3a6109156efd2f6284ce6870d))
+
 ## [28.0.1](https://github.com/Lundalogik/lime-elements/compare/v28.0.0...v28.0.1) (2020-08-28)
 
 
