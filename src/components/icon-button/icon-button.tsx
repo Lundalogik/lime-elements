@@ -61,7 +61,7 @@ export class IconButton {
 
     // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
-        this.mdcIconButtonRipple.destroy();
+        this.mdcIconButtonRipple?.destroy();
     }
 
     public render() {
