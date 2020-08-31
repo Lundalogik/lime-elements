@@ -57,7 +57,7 @@ export class Switch {
 
     // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
-        this.mdcSwitch.destroy();
+        this.mdcSwitch?.destroy();
     }
 
     public render() {
