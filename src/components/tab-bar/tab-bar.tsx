@@ -10,7 +10,8 @@ import {
 import { MDCTabBar, MDCTabBarActivatedEvent } from '@limetech/mdc-tab-bar';
 import { strings } from '@limetech/mdc-tab-bar/constants';
 import { Tab } from './tab.types';
-import { isEqual } from 'lodash-es';
+import { isEqual, difference } from 'lodash-es';
+import { setActiveTab } from './tabs';
 
 const { TAB_ACTIVATED_EVENT } = strings;
 const SCROLL_DISTANCE_ON_CLICK_PX = 150;
@@ -25,7 +26,7 @@ export class TabBar {
     /**
      * List of tabs to display
      */
-    @Prop()
+    @Prop({ mutable: true })
     public tabs: Tab[] = [];
 
     /**
@@ -172,13 +173,13 @@ export class TabBar {
 
     private handleTabActivated(event: MDCTabBarActivatedEvent) {
         const index = event.detail.index;
-        const oldSelectedTab = this.tabs.find((tab) => tab.active === true);
+        const newTabs = setActiveTab(this.tabs, index);
 
-        if (oldSelectedTab) {
-            this.changeTab.emit({ ...oldSelectedTab, active: false });
-        }
+        difference(newTabs, this.tabs).forEach((tab: Tab) => {
+            this.changeTab.emit(tab);
+        });
 
-        this.changeTab.emit({ ...this.tabs[index], active: true });
+        this.tabs = newTabs;
     }
 
     private handleScroll() {
