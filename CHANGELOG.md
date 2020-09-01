@@ -1,3 +1,10 @@
+# [28.1.0](https://github.com/Lundalogik/lime-elements/compare/v28.0.3...v28.1.0) (2020-09-01)
+
+
+### Features
+
+* **chip-set:** add delete all chips button ([31ad2f7](https://github.com/Lundalogik/lime-elements/commit/31ad2f7f1a7864eb0262f763f53ddc09906d3a53)), closes [Lundalogik/crm-feature#1329](https://github.com/Lundalogik/crm-feature/issues/1329)
+
 ## [28.0.3](https://github.com/Lundalogik/lime-elements/compare/v28.0.2...v28.0.3) (2020-08-31)
 
 
