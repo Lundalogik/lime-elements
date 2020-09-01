@@ -14,6 +14,24 @@ export interface FieldProps {
     onChange: (formData: any) => void;
 }
 
+export interface ArrayProps {
+    disabled: boolean;
+    errorSchema: any;
+    formContext: any;
+    formData: any;
+    idPrefix: any;
+    idSchema: any;
+    name: string;
+    rawErrors: any;
+    readonly: boolean;
+    registry: any;
+    required: boolean;
+    schema: any;
+    uiSchema: any;
+    wasPropertyKeyModified: boolean;
+    onChange: (formData: any, errorSchema: any) => void;
+}
+
 export interface Registry {
     fields: any;
     widgets: any;
