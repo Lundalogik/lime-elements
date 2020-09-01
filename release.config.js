@@ -8,13 +8,14 @@ module.exports = {
         '@semantic-release/npm',
         '@semantic-release/git',
         '@semantic-release/github',
-        // [
-        //     '@semantic-release/exec',
-        //     {
-        //         publishCmd:
-        //             'npm run docz:publish -- --v=${nextRelease.version} --dryRun=${options.dryRun}',
-        //     },
-        // ],
+        [
+            '@semantic-release/exec',
+            {
+                publishCmd:
+                    // eslint-disable-next-line no-template-curly-in-string
+                    'npm run docz:publish -- --v=${nextRelease.version} --dryRun=${options.dryRun}',
+            },
+        ],
     ],
     npmPublish: true,
 };
