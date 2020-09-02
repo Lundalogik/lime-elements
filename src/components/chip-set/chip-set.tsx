@@ -149,6 +149,7 @@ export class ChipSet {
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
+    private clearAllLabel = 'Clear chips';
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
@@ -604,6 +605,8 @@ export class ChipSet {
                 class="mdc-text-field__icon clear-all-button"
                 tabindex="0"
                 role="button"
+                title={this.clearAllLabel}
+                aria-label={this.clearAllLabel}
             />
         );
     }
