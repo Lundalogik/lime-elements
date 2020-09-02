@@ -176,7 +176,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     @extend .mdc-text-field--invalid;
 }
 
-.chips-exists:hover {
+.has-chips:hover {
     .delete-all-icon-button {
         -webkit-appearance: none;
         cursor: pointer;
