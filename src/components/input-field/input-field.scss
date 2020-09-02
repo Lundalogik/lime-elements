@@ -83,6 +83,7 @@ div {
 }
 
 .mdc-text-field--disabled {
+    background-color: transparent;
     .mdc-text-field__formatted_input {
         @include looks-disabled;
     }

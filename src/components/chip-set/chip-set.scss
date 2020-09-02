@@ -204,3 +204,41 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         }
     }
 }
+
+.has-leading-icon {
+    &:not(.has-chips) {
+        .mdc-text-field__input {
+            padding-left: pxToRem(40);
+        }
+
+        .mdc-floating-label {
+            &:not(.force-float) {
+                padding-left: pxToRem(40);
+            }
+        }
+    }
+
+    &.has-chips,
+    &.mdc-text-field--focused {
+        .search-icon {
+            transform: translateY(6px);
+        }
+    }
+
+    .mdc-chip {
+        &:first-of-type {
+            margin-left: 40px;
+        }
+    }
+
+    .search-icon {
+        transition: transform 0.2s ease;
+        position: absolute;
+        top: pxToRem(16);
+        left: pxToRem(16);
+    }
+
+    limel-icon {
+        background-color: transparent;
+    }
+}
