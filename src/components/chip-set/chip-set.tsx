@@ -297,7 +297,7 @@ export class ChipSet {
                     'mdc-text-field': true,
                     'mdc-text-field--disabled': this.readonly || this.disabled,
                     'force-invalid': this.isInvalid(),
-                    'chips-exists': this.value.length !== 0,
+                    'has-chips': this.value.length !== 0,
                 }}
                 onClick={this.handleTextFieldFocus}
             >
