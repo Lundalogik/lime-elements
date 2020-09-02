@@ -67,3 +67,26 @@
         transform: translate3d(0, 0.05rem, 0);
     }
 }
+
+@mixin clear-all-button() {
+    // NOTE: you may need to specify "position: absolute" and align the position where you use this mixin
+    @include is-flat-clickable;
+
+    cursor: pointer;
+
+    height: pxToRem(20);
+    width: pxToRem(20);
+    border-radius: 50%;
+
+    background: {
+        color: #babac0;
+        repeat: no-repeat;
+        position: center;
+        size: pxToRem(12);
+        image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs/><path fill='rgb(255,255,255)' d='M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z'/></svg>");
+    }
+
+    &:hover {
+        background-color: #757580;
+    }
+}
