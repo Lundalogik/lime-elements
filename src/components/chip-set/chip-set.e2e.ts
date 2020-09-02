@@ -359,7 +359,7 @@ describe('limel-chip-set', () => {
             beforeEach(async () => {
                 spy = await page.spyOnEvent('change');
                 const deleteAllIconButton: E2EElement = await page.find(
-                    'limel-chip-set >>> .delete-all-icon-button'
+                    'limel-chip-set >>> .clear-all-button'
                 );
                 await chipSet.hover();
                 await deleteAllIconButton.click();

@@ -601,7 +601,7 @@ export class ChipSet {
         return (
             <i
                 onClick={this.handleDeleteAllIconClick}
-                class="mdc-text-field__icon delete-all-icon-button"
+                class="mdc-text-field__icon clear-all-button"
                 tabindex="0"
                 role="button"
             />
