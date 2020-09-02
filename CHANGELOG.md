@@ -1,3 +1,10 @@
+## [28.1.1](https://github.com/Lundalogik/lime-elements/compare/v28.1.0...v28.1.1) (2020-09-02)
+
+
+### Bug Fixes
+
+* **chip-set:** add darker color when hovering over button ([a7c3cb4](https://github.com/Lundalogik/lime-elements/commit/a7c3cb46e67cd22247d5663e8a4ce6de3e083977))
+
 # [28.1.0](https://github.com/Lundalogik/lime-elements/compare/v28.0.3...v28.1.0) (2020-09-01)
 
 
