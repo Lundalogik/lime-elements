@@ -29,6 +29,9 @@ export class ChipSetInputExample {
     @State()
     private emptyInputOnBlur: boolean = true;
 
+    @State()
+    private hasLeadingIcon: boolean = true;
+
     constructor() {
         this.value = [
             this.createChip('Elephant'),
@@ -51,6 +54,7 @@ export class ChipSetInputExample {
         this.setRequired = this.setRequired.bind(this);
         this.setEmptyInputOnBlur = this.setEmptyInputOnBlur.bind(this);
         this.setMaxItems = this.setMaxItems.bind(this);
+        this.setLeadingIcon = this.setLeadingIcon.bind(this);
     }
 
     public render() {
@@ -63,6 +67,7 @@ export class ChipSetInputExample {
                     required={this.required}
                     readonly={this.readonly}
                     disabled={this.disabled}
+                    leadingIcon={this.hasLeadingIcon ? 'search' : null}
                     maxItems={this.maxItems}
                     onChange={this.chipSetOnChange}
                     onInput={this.onInput}
@@ -99,6 +104,11 @@ export class ChipSetInputExample {
                         label="Required"
                         onChange={this.setRequired}
                         checked={this.required}
+                    />
+                    <limel-checkbox
+                        label={'Leading icon'}
+                        onChange={this.setLeadingIcon}
+                        checked={this.hasLeadingIcon}
                     />
                 </limel-flex-container>
             </p>,
@@ -157,6 +167,10 @@ export class ChipSetInputExample {
 
     private setEmptyInputOnBlur(event: CustomEvent<boolean>) {
         this.emptyInputOnBlur = event.detail;
+    }
+
+    private setLeadingIcon(event: CustomEvent<boolean>) {
+        this.hasLeadingIcon = event.detail;
     }
 
     private setMaxItems(event: CustomEvent<string>) {
