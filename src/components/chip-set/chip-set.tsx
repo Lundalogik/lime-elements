@@ -340,7 +340,7 @@ export class ChipSet {
                     />
                 </div>
                 {this.renderLeadingIcon()}
-                {this.renderRemoveAllChipsButton()}
+                {this.renderClearAllChipsButton()}
                 <label
                     class={{
                         'mdc-floating-label': true,
@@ -598,7 +598,8 @@ export class ChipSet {
             />
         );
     }
-    private renderRemoveAllChipsButton() {
+
+    private renderClearAllChipsButton() {
         return (
             <i
                 onClick={this.handleDeleteAllIconClick}
