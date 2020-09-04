@@ -46,7 +46,7 @@
     input[type='radio'] {
         width: 0;
         position: absolute;
-        border: none; // This removes some visual defects on iOS, created by "user agent styles"
+        opacity: 0; // This removes some visual defects on iOS and Firefox, created by "user agent styles"
     }
 
     span[role='gridcell'] {
