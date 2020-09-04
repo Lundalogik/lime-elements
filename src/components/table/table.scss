@@ -32,6 +32,11 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
             background-color: $table-header-background-color;
             border-right-color: #fafafb;
 
+            .tabulator-col-content {
+                padding-top: pxToRem(8);
+                padding-bottom: pxToRem(8);
+            }
+
             &.tabulator-sortable {
                 &:hover {
                     background-color: $table-header-background-color-hover;
@@ -40,6 +45,7 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
         }
 
         .tabulator-col-title {
+            font-weight: 500;
             padding-left: pxToRem(2);
         }
     }
@@ -78,11 +84,12 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 
     .tabulator-cell {
         border-right: transparent;
-        padding: pxToRem(6) pxToRem(8);
+        padding: pxToRem(8);
     }
 }
 
 .tabulator-col,
 .tabulator-cell {
     max-width: pxToRem(600);
+    font-size: pxToRem(13);
 }
