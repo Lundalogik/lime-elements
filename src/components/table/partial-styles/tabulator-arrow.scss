@@ -1,6 +1,6 @@
 .tabulator-arrow {
     transition: border 0.2s ease;
-    top: pxToRem(8) !important;
+    top: pxToRem(12) !important;
 
     [aria-sort='none'] & {
         border-bottom-color: $tabulator-arrow-color !important;
@@ -39,7 +39,7 @@
     }
 
     [aria-sort='desc'] & {
-        top: pxToRem(16) !important;
+        top: pxToRem(20) !important;
 
         &:before {
             top: pxToRem(-12);
