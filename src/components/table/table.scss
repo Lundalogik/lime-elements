@@ -55,6 +55,8 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 }
 
 .tabulator-row {
+    content-visibility: auto; //Currently (2020-Sep-04), this works only in Chrome 85+ https://web.dev/content-visibility/
+
     &.tabulator-selectable {
         transition: background-color 0.2s ease;
         &:not(.active) {
