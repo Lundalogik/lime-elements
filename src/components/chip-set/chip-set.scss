@@ -242,3 +242,8 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         background-color: transparent;
     }
 }
+
+.delimiter {
+    opacity: 0.5;
+    padding: 0 pxToRem(2);
+}

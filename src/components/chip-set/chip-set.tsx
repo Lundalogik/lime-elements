@@ -96,6 +96,12 @@ export class ChipSet {
     public leadingIcon: string = null;
 
     /**
+     * For chip-set of type `input`. Sets delimiters between chips.
+     */
+    @Prop({ reflectToAttr: true })
+    public delimiter: string = null;
+
+    /**
      * Dispatched when a chip is interacted with
      */
     @Event()
@@ -160,6 +166,7 @@ export class ChipSet {
         this.handleDeleteAllIconClick = this.handleDeleteAllIconClick.bind(
             this
         );
+        this.renderDelimiter = this.renderDelimiter.bind(this);
     }
 
     /**
@@ -521,7 +528,8 @@ export class ChipSet {
             attributes.tabindex = 0;
         }
 
-        return (
+        return [
+            this.renderDelimiter(index),
             <div
                 class={{
                     'mdc-chip': true,
@@ -538,8 +546,8 @@ export class ChipSet {
                 {chip.removable && !this.readonly && !this.disabled
                     ? this.renderChipRemoveButton()
                     : null}
-            </div>
-        );
+            </div>,
+        ];
     }
 
     private catchInputChipClicks(event) {
@@ -601,5 +609,13 @@ export class ChipSet {
     }
     private handleDeleteAllIconClick() {
         this.change.emit([]);
+    }
+
+    private renderDelimiter(index: Number) {
+        if (index === 0 || !this.delimiter) {
+            return;
+        }
+
+        return <div class="delimiter">{this.delimiter}</div>;
     }
 }

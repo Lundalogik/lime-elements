@@ -32,6 +32,9 @@ export class ChipSetInputExample {
     @State()
     private hasLeadingIcon: boolean = true;
 
+    @State()
+    private delimiter: string = '&';
+
     constructor() {
         this.value = [
             this.createChip('Elephant'),
@@ -55,6 +58,7 @@ export class ChipSetInputExample {
         this.setEmptyInputOnBlur = this.setEmptyInputOnBlur.bind(this);
         this.setMaxItems = this.setMaxItems.bind(this);
         this.setLeadingIcon = this.setLeadingIcon.bind(this);
+        this.useDelimiters = this.useDelimiters.bind(this);
     }
 
     public render() {
@@ -75,6 +79,7 @@ export class ChipSetInputExample {
                     onKeyUp={this.onKeyUp}
                     searchLabel="Add an animal"
                     emptyInputOnBlur={this.emptyInputOnBlur}
+                    delimiter={this.delimiter}
                 />
                 <limel-input-field
                     label="Max items"
@@ -109,6 +114,11 @@ export class ChipSetInputExample {
                         label={'Leading icon'}
                         onChange={this.setLeadingIcon}
                         checked={this.hasLeadingIcon}
+                    />
+                    <limel-checkbox
+                        label="Use delimiters"
+                        onChange={this.useDelimiters}
+                        checked={this.delimiter !== null}
                     />
                 </limel-flex-container>
             </p>,
@@ -175,5 +185,9 @@ export class ChipSetInputExample {
 
     private setMaxItems(event: CustomEvent<string>) {
         this.maxItems = +event.detail;
+    }
+
+    private useDelimiters(event: CustomEvent<boolean>) {
+        this.delimiter = event.detail ? '&' : null;
     }
 }
