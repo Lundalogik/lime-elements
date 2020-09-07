@@ -1,3 +1,17 @@
+## [28.1.3](https://github.com/Lundalogik/lime-elements/compare/v28.1.2...v28.1.3) (2020-09-07)
+
+
+### Bug Fixes
+
+* **tab-bar:** save tab state by making it mutable ([c8dfabf](https://github.com/Lundalogik/lime-elements/commit/c8dfabf28db36ad8bc1633ebd626cdb6e30dcfec)), closes [Lundalogik/crm-feature#1327](https://github.com/Lundalogik/crm-feature/issues/1327)
+
+## [28.1.2](https://github.com/Lundalogik/lime-elements/compare/v28.1.1...v28.1.2) (2020-09-07)
+
+
+### Bug Fixes
+
+* **button-group:** fix visual defects on Firefox cause by user agent stylesheets ([746b2ef](https://github.com/Lundalogik/lime-elements/commit/746b2efcc453e80b29bceb6b8527d7bc935c9bb9))
+
 ## [28.1.1](https://github.com/Lundalogik/lime-elements/compare/v28.1.0...v28.1.1) (2020-09-02)
 
 
