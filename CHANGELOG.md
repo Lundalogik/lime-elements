@@ -1,3 +1,10 @@
+# [28.2.0](https://github.com/Lundalogik/lime-elements/compare/v28.1.4...v28.2.0) (2020-09-07)
+
+
+### Features
+
+* **chip-set:** add optional leading icon ([0cfe663](https://github.com/Lundalogik/lime-elements/commit/0cfe663f65cbe1ddb07699f9714e554337f6f4a1))
+
 ## [28.1.4](https://github.com/Lundalogik/lime-elements/compare/v28.1.3...v28.1.4) (2020-09-07)
 
 
