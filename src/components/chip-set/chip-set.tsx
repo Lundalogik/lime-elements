@@ -601,7 +601,8 @@ export class ChipSet {
 
     private renderClearAllChipsButton() {
         return (
-            <i
+            <a
+                href=""
                 onClick={this.handleDeleteAllIconClick}
                 class="mdc-text-field__icon clear-all-button"
                 tabindex="0"
@@ -611,7 +612,8 @@ export class ChipSet {
             />
         );
     }
-    private handleDeleteAllIconClick() {
+    private handleDeleteAllIconClick(event: Event) {
+        event.preventDefault();
         this.change.emit([]);
     }
 
