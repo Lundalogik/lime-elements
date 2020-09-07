@@ -1,3 +1,10 @@
+## [28.1.2](https://github.com/Lundalogik/lime-elements/compare/v28.1.1...v28.1.2) (2020-09-07)
+
+
+### Bug Fixes
+
+* **button-group:** fix visual defects on Firefox cause by user agent stylesheets ([746b2ef](https://github.com/Lundalogik/lime-elements/commit/746b2efcc453e80b29bceb6b8527d7bc935c9bb9))
+
 ## [28.1.1](https://github.com/Lundalogik/lime-elements/compare/v28.1.0...v28.1.1) (2020-09-02)
 
 
