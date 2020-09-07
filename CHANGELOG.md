@@ -1,3 +1,10 @@
+## [28.1.4](https://github.com/Lundalogik/lime-elements/compare/v28.1.3...v28.1.4) (2020-09-07)
+
+
+### Bug Fixes
+
+* **table:** make Tabulator look more like old tables in web client ([aad9589](https://github.com/Lundalogik/lime-elements/commit/aad95895999ac8c2d53f3a8007af088d23377e6a))
+
 ## [28.1.3](https://github.com/Lundalogik/lime-elements/compare/v28.1.2...v28.1.3) (2020-09-07)
 
 
