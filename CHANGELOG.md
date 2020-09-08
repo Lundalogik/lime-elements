@@ -1,3 +1,10 @@
+# [28.3.0](https://github.com/Lundalogik/lime-elements/compare/v28.2.0...v28.3.0) (2020-09-08)
+
+
+### Features
+
+* **chip-set:** add optional delimiters between chips ([0ebc43b](https://github.com/Lundalogik/lime-elements/commit/0ebc43b1d1f7e402b7d19e5fead71793dc4e36b9)), closes [Lundalogik/crm-feature#1351](https://github.com/Lundalogik/crm-feature/issues/1351)
+
 # [28.2.0](https://github.com/Lundalogik/lime-elements/compare/v28.1.4...v28.2.0) (2020-09-07)
 
 
