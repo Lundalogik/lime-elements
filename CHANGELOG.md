@@ -1,3 +1,10 @@
+## [28.3.1](https://github.com/Lundalogik/lime-elements/compare/v28.3.0...v28.3.1) (2020-09-09)
+
+
+### Bug Fixes
+
+* **table:** calculate column width for custom components ([87b764a](https://github.com/Lundalogik/lime-elements/commit/87b764a86bcd891dc05736ca4eb7abd4be65ac29))
+
 # [28.3.0](https://github.com/Lundalogik/lime-elements/compare/v28.2.0...v28.3.0) (2020-09-08)
 
 
