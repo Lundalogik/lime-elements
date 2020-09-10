@@ -1,3 +1,11 @@
+## [28.4.1](https://github.com/Lundalogik/lime-elements/compare/v28.4.0...v28.4.1) (2020-09-10)
+
+
+### Bug Fixes
+
+* **tab-panel:** initialize slot elements array ([44658a0](https://github.com/Lundalogik/lime-elements/commit/44658a0b464894f55be8ad54e5b123324c5dffcd))
+* **table:** add wrapper element to Tabulator ([7a9eca7](https://github.com/Lundalogik/lime-elements/commit/7a9eca7f83eb0ca2154cdc3f561c777ed15e3f2f))
+
 # [28.4.0](https://github.com/Lundalogik/lime-elements/compare/v28.3.1...v28.4.0) (2020-09-10)
 
 
