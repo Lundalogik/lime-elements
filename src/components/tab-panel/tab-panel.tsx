@@ -34,7 +34,7 @@ export class TabPanel {
     @Element()
     private host: HTMLLimelTabPanelElement;
 
-    private slotElements: HTMLElement[];
+    private slotElements: HTMLElement[] = [];
 
     constructor() {
         this.handleChangeTabs = this.handleChangeTabs.bind(this);
