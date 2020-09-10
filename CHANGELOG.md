@@ -1,3 +1,16 @@
+# [28.4.0](https://github.com/Lundalogik/lime-elements/compare/v28.3.1...v28.4.0) (2020-09-10)
+
+
+### Bug Fixes
+
+* **chip-set:** add some space for the clear all button so it won't overlap chips ([3b159c0](https://github.com/Lundalogik/lime-elements/commit/3b159c07c88ebd6fac8f81b2a4317ebbaaa0470f))
+* **chip-set:** make clear-all button keyboard accessible ([2f3ab2e](https://github.com/Lundalogik/lime-elements/commit/2f3ab2e0a35440bc30d21fc03e27114ec187abb1)), closes [#936](https://github.com/Lundalogik/lime-elements/issues/936)
+
+
+### Features
+
+* **chip-set:** add `aria-label` & `title` for clear all button ([714dc30](https://github.com/Lundalogik/lime-elements/commit/714dc3018d57dbcdcb100e228a62c98bfd2e1ade))
+
 ## [28.3.1](https://github.com/Lundalogik/lime-elements/compare/v28.3.0...v28.3.1) (2020-09-09)
 
 
