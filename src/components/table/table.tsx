@@ -270,6 +270,10 @@ export class Table {
     }
 
     render() {
-        return <div id="tabulator-table" />;
+        return (
+            <div id="tabulator-container">
+                <div id="tabulator-table" />
+            </div>
+        );
     }
 }
