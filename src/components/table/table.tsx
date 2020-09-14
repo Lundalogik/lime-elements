@@ -11,6 +11,7 @@ import TabulatorTable from 'tabulator-tables';
 import { Column, TableParams, ColumnSorter } from './table.types';
 import { ColumnDefinitionFactory, createColumnSorter } from './columns';
 import { isEqual } from 'lodash-es';
+import { ElementPool } from './element-pool';
 
 const FIRST_PAGE = 1;
 
@@ -93,6 +94,7 @@ export class Table {
 
     private resolver: (data: any) => void;
 
+    private pool: ElementPool;
     private columnFactory: ColumnDefinitionFactory;
 
     constructor() {
@@ -101,7 +103,8 @@ export class Table {
         this.requestData = this.requestData.bind(this);
         this.onClickRow = this.onClickRow.bind(this);
         this.formatRow = this.formatRow.bind(this);
-        this.columnFactory = new ColumnDefinitionFactory();
+        this.pool = new ElementPool(document);
+        this.columnFactory = new ColumnDefinitionFactory(this.pool);
     }
 
     public componentDidLoad() {
@@ -114,6 +117,10 @@ export class Table {
             '#tabulator-table'
         );
         this.tabulator = new TabulatorTable(table, options);
+    }
+
+    public disconnectedCallback() {
+        this.pool.clear();
     }
 
     @Watch('activeRow')
@@ -134,6 +141,7 @@ export class Table {
             return;
         }
 
+        this.pool.releaseAll();
         this.tabulator.setData(this.data);
     }
 
@@ -253,6 +261,7 @@ export class Table {
     }
 
     private setResolvedData(data: object[]): void {
+        this.pool.releaseAll();
         if (this.pageSize) {
             this.resolver({
                 last_page: this.calculatePageCount(), // eslint-disable-line camelcase

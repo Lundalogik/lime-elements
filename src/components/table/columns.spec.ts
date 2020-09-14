@@ -3,6 +3,7 @@ import {
     createCustomComponent,
     createFormatter,
 } from './columns';
+import { ElementPool } from './element-pool';
 import { Column } from './table.types';
 
 describe('createCustomComponent', () => {
@@ -12,6 +13,7 @@ describe('createCustomComponent', () => {
     let data: Record<string, any>;
     let column: Column;
     let factory: ColumnDefinitionFactory;
+    let pool: ElementPool;
 
     beforeEach(() => {
         cell = {
@@ -33,7 +35,8 @@ describe('createCustomComponent', () => {
 
         field = 'foo';
         value = 'FOO';
-        factory = new ColumnDefinitionFactory();
+        pool = new ElementPool(document);
+        factory = new ColumnDefinitionFactory(pool);
     });
 
     describe('createCustomComponent', () => {
@@ -48,7 +51,7 @@ describe('createCustomComponent', () => {
                 },
             };
 
-            const component = createCustomComponent(cell, column, value);
+            const component = createCustomComponent(cell, column, value, pool);
             expect(component.tagName.toLowerCase()).toEqual('h1');
             expect(component).toHaveProperty('field', 'foo');
             expect(component).toHaveProperty('limetype', 'bar');
@@ -66,7 +69,7 @@ describe('createCustomComponent', () => {
         describe('when formatter is given', () => {
             beforeEach(() => {
                 column.formatter = (v) => `formatted: ${v}`;
-                formatCell = createFormatter(column);
+                formatCell = createFormatter(column, pool);
             });
 
             it('returns the formatted value', () => {
@@ -79,7 +82,7 @@ describe('createCustomComponent', () => {
                 column.component = {
                     name: 'h1',
                 };
-                formatCell = createFormatter(column);
+                formatCell = createFormatter(column, pool);
             });
 
             it('returns the formatted value', () => {
@@ -95,7 +98,7 @@ describe('createCustomComponent', () => {
                 column.component = {
                     name: 'h1',
                 };
-                formatCell = createFormatter(column);
+                formatCell = createFormatter(column, pool);
             });
 
             it('returns the formatted value', () => {
