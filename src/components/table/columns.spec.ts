@@ -1,7 +1,7 @@
 import {
-    createColumnDefinition,
+    ColumnDefinitionFactory,
     createCustomComponent,
-    formatCell,
+    createFormatter,
 } from './columns';
 import { Column } from './table.types';
 
@@ -11,6 +11,7 @@ describe('createCustomComponent', () => {
     let field: string;
     let data: Record<string, any>;
     let column: Column;
+    let factory: ColumnDefinitionFactory;
 
     beforeEach(() => {
         cell = {
@@ -32,6 +33,7 @@ describe('createCustomComponent', () => {
 
         field = 'foo';
         value = 'FOO';
+        factory = new ColumnDefinitionFactory();
     });
 
     describe('createCustomComponent', () => {
@@ -58,19 +60,29 @@ describe('createCustomComponent', () => {
         });
     });
 
-    describe('formatCell', () => {
+    describe('createFormatter', () => {
+        let formatCell: Function;
+
         describe('when formatter is given', () => {
-            it('returns the formatted value', () => {
+            beforeEach(() => {
                 column.formatter = (v) => `formatted: ${v}`;
+                formatCell = createFormatter(column);
+            });
+
+            it('returns the formatted value', () => {
                 expect(formatCell(cell, column)).toEqual('formatted: FOO');
             });
         });
 
         describe('when component is given', () => {
-            it('returns the formatted value', () => {
+            beforeEach(() => {
                 column.component = {
                     name: 'h1',
                 };
+                formatCell = createFormatter(column);
+            });
+
+            it('returns the formatted value', () => {
                 const component = formatCell(cell, column) as HTMLElement;
                 expect(component.tagName.toLowerCase()).toEqual('h1');
                 expect(component).toHaveProperty('value', 'FOO');
@@ -78,11 +90,15 @@ describe('createCustomComponent', () => {
         });
 
         describe('when both formatter and component is given', () => {
-            it('returns the formatted value', () => {
+            beforeEach(() => {
                 column.formatter = (v) => `formatted: ${v}`;
                 column.component = {
                     name: 'h1',
                 };
+                formatCell = createFormatter(column);
+            });
+
+            it('returns the formatted value', () => {
                 const component = formatCell(cell, column) as HTMLElement;
                 expect(component.tagName.toLowerCase()).toEqual('h1');
                 expect(component).toHaveProperty('value', 'formatted: FOO');
@@ -90,7 +106,7 @@ describe('createCustomComponent', () => {
         });
     });
 
-    describe('createColumnDefinition', () => {
+    describe('ColumnDefinitionFactory.create', () => {
         it('converts a limel-table column config to a Tabulator column definition', () => {
             column.formatter = () => '';
             column.component = {
@@ -100,7 +116,7 @@ describe('createCustomComponent', () => {
                 },
             };
 
-            const definition = createColumnDefinition(column);
+            const definition = factory.create(column);
             expect(definition).toHaveProperty('field', 'foo');
             expect(definition).toHaveProperty('title', 'Foo');
 

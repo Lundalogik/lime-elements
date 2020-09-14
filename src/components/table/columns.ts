@@ -1,31 +1,56 @@
 import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
 import Tabulator from 'tabulator-tables';
 
+export class ColumnDefinitionFactory {
+    constructor() {
+        this.create = this.create.bind(this);
+    }
+
+    /**
+     * Create Tabulator column definitions from a limel-table column configuration
+     *
+     * @param {Column} column config describing the column
+     *
+     * @returns {Tabulator.ColumnDefinition} Tabulator column
+     */
+    public create(column: Column<object>): Tabulator.ColumnDefinition {
+        const definition: Tabulator.ColumnDefinition = {
+            title: column.title,
+            field: column.field,
+        };
+
+        if (column.component || column.formatter) {
+            definition.formatter = createFormatter(column);
+            definition.formatterParams = column as object;
+        }
+
+        if (column.aggregator) {
+            definition.bottomCalc = getColumnAggregator(column);
+        }
+
+        return definition;
+    }
+}
+
 /**
- * Create Tabulator column definitions from a limel-table column configuration
+ * Create a formatter to be used to format values in a column
  *
  * @param {Column} column config describing the column
  *
- * @returns {Tabulator.ColumnDefinition} Tabulator column
+ * @returns {Tabulator.Formatter} Tabulator formatter
  */
-export function createColumnDefinition(
-    column: Column<object>
-): Tabulator.ColumnDefinition {
-    const definition: Tabulator.ColumnDefinition = {
-        title: column.title,
-        field: column.field,
+export function createFormatter(
+    column: Column
+): Tabulator.Formatter {
+    if (!column.component) {
+        return formatCell;
+    }
+
+    return (cell: Tabulator.CellComponent) => {
+        const value = formatCell(cell, column);
+
+        return createCustomComponent(cell, column, value);
     };
-
-    if (column.component || column.formatter) {
-        definition.formatter = formatCell;
-        definition.formatterParams = column as object;
-    }
-
-    if (column.aggregator) {
-        definition.bottomCalc = getColumnAggregator(column);
-    }
-
-    return definition;
 }
 
 /**
@@ -34,21 +59,17 @@ export function createColumnDefinition(
  * @param {Tabulator.CellComponent} cell the cell being rendered in the table
  * @param {Column} column configuration for the current column
  *
- * @returns {string|HTMLElement} the formatted value
+ * @returns {string} the formatted value
  */
 export function formatCell(
     cell: Tabulator.CellComponent,
     column: Column
-): HTMLElement | string {
+): string {
     const data = cell.getData();
     let value = cell.getValue();
 
     if (column.formatter) {
         value = column.formatter(value, data);
-    }
-
-    if (column.component) {
-        return createCustomComponent(cell, column, value);
     }
 
     return value;

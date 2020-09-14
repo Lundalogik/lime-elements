@@ -9,7 +9,7 @@ import {
 } from '@stencil/core';
 import TabulatorTable from 'tabulator-tables';
 import { Column, TableParams, ColumnSorter } from './table.types';
-import { createColumnDefinition, createColumnSorter } from './columns';
+import { ColumnDefinitionFactory, createColumnSorter } from './columns';
 import { isEqual } from 'lodash-es';
 
 const FIRST_PAGE = 1;
@@ -93,12 +93,15 @@ export class Table {
 
     private resolver: (data: any) => void;
 
+    private columnFactory: ColumnDefinitionFactory;
+
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
         this.handlePageLoaded = this.handlePageLoaded.bind(this);
         this.requestData = this.requestData.bind(this);
         this.onClickRow = this.onClickRow.bind(this);
         this.formatRow = this.formatRow.bind(this);
+        this.columnFactory = new ColumnDefinitionFactory();
     }
 
     public componentDidLoad() {
@@ -157,7 +160,7 @@ export class Table {
     }
 
     private getColumnDefinitions(): Tabulator.ColumnDefinition[] {
-        return this.columns.map(createColumnDefinition);
+        return this.columns.map(this.columnFactory.create);
     }
 
     private getAjaxOptions(): Tabulator.OptionsData {
