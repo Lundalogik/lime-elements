@@ -1,3 +1,10 @@
+## [28.4.2](https://github.com/Lundalogik/lime-elements/compare/v28.4.1...v28.4.2) (2020-09-14)
+
+
+### Bug Fixes
+
+* **tab-bar:** hide unwanted scrollbars on Firefox ([1cfac35](https://github.com/Lundalogik/lime-elements/commit/1cfac35434be731e9e2ef4b57cf02e2b9c4dcad0))
+
 ## [28.4.1](https://github.com/Lundalogik/lime-elements/compare/v28.4.0...v28.4.1) (2020-09-10)
 
 
