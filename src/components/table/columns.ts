@@ -134,12 +134,13 @@ function createResizeObserver(
 
     const observer = new ResizeObserver(() => {
         const width = element.getBoundingClientRect().width;
+        const newWidth = width + COLUMN_PADDING;
 
-        if (width < column.getWidth()) {
+        if (newWidth < column.getWidth()) {
             return;
         }
 
-        column.setWidth(width + COLUMN_PADDING);
+        column.setWidth(newWidth);
     });
     observer.observe(element);
 
