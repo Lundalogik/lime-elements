@@ -7,6 +7,7 @@ import {
     h,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import {
     ARROW_DOWN,
@@ -247,6 +248,13 @@ export class InputField {
                 {this.renderDropdown()}
             </div>,
         ];
+    }
+
+    @Watch('value')
+    protected valueWatcher(newValue: string) {
+        if (this.type === 'textarea' && newValue !== this.mdcTextField.value) {
+            this.mdcTextField.value = newValue;
+        }
     }
 
     private renderTextArea() {
