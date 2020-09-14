@@ -1,8 +1,9 @@
 import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
 import Tabulator from 'tabulator-tables';
+import { ElementPool } from './element-pool';
 
 export class ColumnDefinitionFactory {
-    constructor() {
+    constructor(private pool: ElementPool) {
         this.create = this.create.bind(this);
     }
 
@@ -20,7 +21,7 @@ export class ColumnDefinitionFactory {
         };
 
         if (column.component || column.formatter) {
-            definition.formatter = createFormatter(column);
+            definition.formatter = createFormatter(column, this.pool);
             definition.formatterParams = column as object;
         }
 
@@ -36,11 +37,13 @@ export class ColumnDefinitionFactory {
  * Create a formatter to be used to format values in a column
  *
  * @param {Column} column config describing the column
+ * @param {ElementPool} pool pool to get custom components from
  *
  * @returns {Tabulator.Formatter} Tabulator formatter
  */
 export function createFormatter(
-    column: Column
+    column: Column,
+    pool: ElementPool
 ): Tabulator.Formatter {
     if (!column.component) {
         return formatCell;
@@ -49,7 +52,7 @@ export function createFormatter(
     return (cell: Tabulator.CellComponent) => {
         const value = formatCell(cell, column);
 
-        return createCustomComponent(cell, column, value);
+        return createCustomComponent(cell, column, value, pool);
     };
 }
 
@@ -81,18 +84,20 @@ export function formatCell(
  * @param {Tabulator.CellComponent} cell Tabulator cell
  * @param {Column} column lime-elements column configuration
  * @param {string} value the value of the cell being rendered
+ * @param {ElementPool} pool pool to get custom components from
  *
  * @returns {HTMLElement} custom component that renders a value in the table
  */
 export function createCustomComponent(
     cell: Tabulator.CellComponent,
     column: Column,
-    value: string
+    value: string,
+    pool: ElementPool
 ): HTMLElement {
     const field = cell.getField();
     const data = cell.getData();
 
-    const element = document.createElement(column.component.name);
+    const element = pool.get(column.component.name);
     let props: object = column.component.props || {};
     if (column.component.propsFactory) {
         props = {
