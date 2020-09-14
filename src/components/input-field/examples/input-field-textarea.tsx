@@ -17,8 +17,8 @@ export class InputFieldTextareaExample {
 
     constructor() {
         this.changeHandler = this.changeHandler.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
+        this.setEnabled = this.setEnabled.bind(this);
+        this.setRequired = this.setRequired.bind(this);
     }
 
     public render() {
@@ -38,11 +38,11 @@ export class InputFieldTextareaExample {
             <p>
                 <limel-flex-container justify="end">
                     <limel-checkbox
-                        onClick={this.toggleEnabled}
+                        onChange={this.setEnabled}
                         label="Enabled"
                     />
                     <limel-checkbox
-                        onClick={this.toggleRequired}
+                        onChange={this.setRequired}
                         label="Required"
                     />
                 </limel-flex-container>
@@ -55,11 +55,13 @@ export class InputFieldTextareaExample {
         this.value = event.detail;
     }
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
+    private setEnabled(event: CustomEvent<boolean>) {
+        event.stopPropagation();
+        this.disabled = event.detail;
     }
 
-    private toggleRequired() {
-        this.required = !this.required;
+    private setRequired(event: CustomEvent<boolean>) {
+        event.stopPropagation();
+        this.required = event.detail;
     }
 }
