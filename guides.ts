@@ -7,6 +7,6 @@ export default [
     },
     {
         name: 'DesignGuidelines',
-        children: ['src/color-system.md'],
+        children: ['src/color-system.md', 'src/size-rhythms.md'],
     },
 ] as Guide[];
