@@ -1,0 +1,123 @@
+@import '../../../../style/functions';
+
+.visualize-sizes {
+    .button,
+    .label {
+        &:before,
+        &:after {
+            opacity: 1;
+        }
+    }
+    &#size-rhythm-example {
+        &:before,
+        &:after {
+            opacity: 1;
+        }
+    }
+}
+
+#size-rhythm-example,
+.button,
+.label {
+    &:before,
+    &:after {
+        transition: opacity 0.4s ease;
+        z-index: 1;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: pxToRem(8);
+        color: rgb(var(--contrast-1100));
+        opacity: 0;
+        box-sizing: border-box;
+    }
+}
+
+.button {
+    position: relative;
+
+    &:after {
+        content: '12';
+        top: pxToRem(4);
+        bottom: pxToRem(4);
+        right: pxToRem(-12);
+        width: pxToRem(12);
+        background-color: rgba(var(--color-cyan-light), 0.5);
+    }
+}
+
+#size-rhythm-example {
+    position: relative;
+
+    &:before {
+        content: '20';
+        top: 0;
+        left: 0;
+        bottom: 0;
+        margin: auto;
+        width: pxToRem(20);
+        height: pxToRem(20);
+        background-color: rgba(var(--color-orange-light), 0.5);
+    }
+}
+
+.label.one {
+    &:before,
+    &:after {
+        transition-delay: 0.2s;
+        content: '20';
+        left: pxToRem(0);
+        right: pxToRem(0);
+        margin: auto;
+        height: pxToRem(20);
+        width: pxToRem(20);
+
+        background-color: rgba(var(--color-orange-light), 0.5);
+    }
+
+    &:before {
+        top: pxToRem(-20);
+    }
+
+    &:after {
+        bottom: pxToRem(-20);
+    }
+}
+
+.label.two {
+    &:before {
+        transition-delay: 0.4s;
+        content: '40';
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        height: pxToRem(40);
+        width: pxToRem(16);
+        background-color: rgba(var(--color-magenta-light), 0.5);
+        backdrop-filter: blur(pxToRem(4));
+    }
+}
+
+.label.three {
+    &:before,
+    &:after {
+        transition-delay: 0.2s;
+        content: '16';
+        top: 0;
+        bottom: 0;
+        width: pxToRem(16);
+
+        background-color: rgba(var(--color-green-lighter), 0.5);
+    }
+
+    &:before {
+        left: pxToRem(0);
+    }
+
+    &:after {
+        right: pxToRem(0);
+    }
+}
