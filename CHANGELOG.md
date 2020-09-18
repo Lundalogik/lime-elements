@@ -1,3 +1,15 @@
+## [28.4.4](https://github.com/Lundalogik/lime-elements/compare/v28.4.3...v28.4.4) (2020-09-18)
+
+
+### Bug Fixes
+
+* **table:** calculate the correct width when resizing columns ([4ab6db7](https://github.com/Lundalogik/lime-elements/commit/4ab6db7c3d2562662ac4582d08a89953c8f56ecd))
+
+
+### Performance Improvements
+
+* **table:** use object pool for custom components ([3d9047a](https://github.com/Lundalogik/lime-elements/commit/3d9047a0b12a8768d3fb3646dcc465bd7b5a9152)), closes [Lundalogik/crm-feature#1384](https://github.com/Lundalogik/crm-feature/issues/1384)
+
 ## [28.4.3](https://github.com/Lundalogik/lime-elements/compare/v28.4.2...v28.4.3) (2020-09-17)
 
 
