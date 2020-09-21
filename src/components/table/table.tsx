@@ -96,15 +96,21 @@ export class Table {
 
     private pool: ElementPool;
     private columnFactory: ColumnDefinitionFactory;
+    private firstRequest: boolean;
 
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
         this.handlePageLoaded = this.handlePageLoaded.bind(this);
+        this.handleAjaxRequesting = this.handleAjaxRequesting.bind(this);
         this.requestData = this.requestData.bind(this);
         this.onClickRow = this.onClickRow.bind(this);
         this.formatRow = this.formatRow.bind(this);
         this.pool = new ElementPool(document);
         this.columnFactory = new ColumnDefinitionFactory(this.pool);
+    }
+
+    public componentWillLoad() {
+        this.firstRequest = this.mode === 'remote';
     }
 
     public componentDidLoad() {
@@ -184,7 +190,24 @@ export class Table {
             ajaxSorting: true,
             ajaxURL: remoteUrl,
             ajaxRequestFunc: this.requestData,
+            ajaxRequesting: this.handleAjaxRequesting,
         };
+    }
+
+    private handleAjaxRequesting() {
+        const abortRequest = this.firstRequest && this.data?.length;
+        this.firstRequest = false;
+
+        if (abortRequest) {
+            setTimeout(() => {
+                this.tabulator.setMaxPage(this.calculatePageCount());
+                this.tabulator.setData(this.data);
+            });
+
+            return false;
+        }
+
+        return true;
     }
 
     private getPaginationOptions(): Tabulator.OptionsPagination {
