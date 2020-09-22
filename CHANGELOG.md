@@ -1,3 +1,10 @@
+## [28.4.5](https://github.com/Lundalogik/lime-elements/compare/v28.4.4...v28.4.5) (2020-09-22)
+
+
+### Bug Fixes
+
+* **table:** ignore first ajax request if table is created with data ([4bfcc5d](https://github.com/Lundalogik/lime-elements/commit/4bfcc5d11970e257776710e2423bbf6acccdae2e)), closes [Lundalogik/lime-crm-components#150](https://github.com/Lundalogik/lime-crm-components/issues/150)
+
 ## [28.4.4](https://github.com/Lundalogik/lime-elements/compare/v28.4.3...v28.4.4) (2020-09-18)
 
 
