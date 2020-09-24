@@ -55,6 +55,13 @@ export class Table {
     public totalRows: number;
 
     /**
+     * The initial sorted columns
+     */
+
+    @Prop()
+    public sorting: ColumnSorter[] = [];
+
+    /**
      * Active row in the table
      */
     @Prop({ mutable: true })
@@ -170,7 +177,17 @@ export class Table {
             ...paginationOptions,
             rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
+            initialSort: this.getColumnSorter(),
         };
+    }
+
+    private getColumnSorter(): Tabulator.Sorter[] {
+        return this.sorting.map((sorter: ColumnSorter) => {
+            return {
+                column: String(sorter.column.field),
+                dir: sorter.direction.toLocaleLowerCase() as Tabulator.SortDirection,
+            };
+        });
     }
 
     private getColumnDefinitions(): Tabulator.ColumnDefinition[] {
