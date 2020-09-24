@@ -8,7 +8,7 @@ import { Column } from './table.types';
 
 describe('createCustomComponent', () => {
     let cell: any;
-    let value: string;
+    let value: any;
     let field: string;
     let data: Record<string, any>;
     let column: Column;
@@ -105,6 +105,90 @@ describe('createCustomComponent', () => {
                 const component = formatCell(cell, column) as HTMLElement;
                 expect(component.tagName.toLowerCase()).toEqual('h1');
                 expect(component).toHaveProperty('value', 'formatted: FOO');
+            });
+        });
+
+        describe('when the formatted value is a string', () => {
+            let escaped;
+
+            beforeEach(() => {
+                value = 'contains <em>html</em> & &lt;stuff&gt;';
+                escaped =
+                    'contains &lt;em&gt;html&lt;/em&gt; &amp; &amp;lt;stuff&amp;gt;';
+            });
+
+            describe('when no formatter is given', () => {
+                beforeEach(() => {
+                    formatCell = createFormatter(column, pool);
+                });
+
+                it('escapes the value', () => {
+                    expect(formatCell(cell, column)).toEqual(escaped);
+                });
+            });
+
+            describe('when formatter is given', () => {
+                beforeEach(() => {
+                    column.formatter = (v) => `formatted: ${v}`;
+                    formatCell = createFormatter(column, pool);
+                });
+
+                it('escapes the value', () => {
+                    expect(formatCell(cell, column)).toEqual(
+                        `formatted: ${escaped}`
+                    );
+                });
+            });
+
+            describe('when component is given', () => {
+                beforeEach(() => {
+                    column.component = {
+                        name: 'h1',
+                    };
+                    formatCell = createFormatter(column, pool);
+                });
+
+                it('returns the formatted value', () => {
+                    const component = formatCell(cell, column) as HTMLElement;
+                    expect(component.tagName.toLowerCase()).toEqual('h1');
+                    expect(component).toHaveProperty('value', escaped);
+                });
+            });
+
+            describe('when both formatter and component is given', () => {
+                beforeEach(() => {
+                    column.formatter = (v) => `formatted: ${v}`;
+                    column.component = {
+                        name: 'h1',
+                    };
+                    formatCell = createFormatter(column, pool);
+                });
+
+                it('returns the formatted value', () => {
+                    const component = formatCell(cell, column) as HTMLElement;
+                    expect(component.tagName.toLowerCase()).toEqual('h1');
+                    expect(component).toHaveProperty(
+                        'value',
+                        `formatted: ${escaped}`
+                    );
+                });
+            });
+        });
+
+        describe('when the formatted value is not a string', () => {
+            beforeEach(() => {
+                value = [
+                    'contains <em>html</em> & &lt;stuff&gt;',
+                    'here is another string',
+                ];
+                formatCell = createFormatter(column, pool);
+            });
+
+            it('does not deep escape', () => {
+                expect(formatCell(cell, column)).toEqual([
+                    'contains <em>html</em> & &lt;stuff&gt;',
+                    'here is another string',
+                ]);
             });
         });
     });
