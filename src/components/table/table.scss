@@ -11,6 +11,16 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 @import './partial-styles/tabulator-paginator';
 @import './partial-styles/tabulator-custom-styles';
 
+/**
+ * @prop --table-overflow: Default: `hidden`. For sticky header and/or footer: `visible`.
+ * @prop --table-header-position: Default: `initial`. For sticky header: `sticky`.
+ * @prop --table-header-top: Default: `unset`. For sticky header, set the distance from top to stick.
+ * @prop --table-header-z-index: Default: `unset`.
+ * @prop --table-footer-position: Default: `initial`. For sticky footer: `sticky`.
+ * @prop --table-footer-bottom: Default: `unset`. For sticky footer, set the distance from bottom to stick.
+ * @prop --table-footer-z-index: Default: `unset`.
+ */
+
 :host {
     display: block;
 }
@@ -28,9 +38,15 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 }
 
 .tabulator {
+    overflow: var(--table-overflow, hidden);
+
     .tabulator-header {
         border-bottom: 0;
         background-color: $table-header-background-color;
+
+        position: var(--table-header-position, initial);
+        top: var(--table-header-top, unset);
+        z-index: var(--table-header-z-index, unset);
 
         .tabulator-col {
             transition: background-color 0.2s ease;
@@ -58,6 +74,10 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
     .tabulator-footer {
         background-color: $table-header-background-color;
         border: none;
+
+        position: var(--table-footer-position, initial);
+        bottom: var(--table-footer-bottom, unset);
+        z-index: var(--table-footer-z-index, unset);
 
         .tabulator-calcs-holder {
             border-color: #e8e8ea;
