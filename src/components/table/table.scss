@@ -15,6 +15,10 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
     display: block;
 }
 
+:host([hidden]) {
+    display: none;
+}
+
 #tabulator-container,
 #tabulator-table {
     height: 100%;
