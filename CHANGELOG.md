@@ -1,3 +1,10 @@
+# [28.5.0](https://github.com/Lundalogik/lime-elements/compare/v28.4.5...v28.5.0) (2020-09-25)
+
+
+### Features
+
+* **table:** add default sorting ([a0f0448](https://github.com/Lundalogik/lime-elements/commit/a0f0448ef9fc29bfc3a49482445d00947f94431b)), closes [#961](https://github.com/Lundalogik/lime-elements/issues/961)
+
 ## [28.4.5](https://github.com/Lundalogik/lime-elements/compare/v28.4.4...v28.4.5) (2020-09-22)
 
 
