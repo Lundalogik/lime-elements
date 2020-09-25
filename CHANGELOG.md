@@ -1,3 +1,10 @@
+## [28.5.1](https://github.com/Lundalogik/lime-elements/compare/v28.5.0...v28.5.1) (2020-09-25)
+
+
+### Bug Fixes
+
+* **table:** escape html in tables ([a1dc99e](https://github.com/Lundalogik/lime-elements/commit/a1dc99e8460f72e84d9d8642b9e7ea944b7ab122)), closes [Lundalogik/crm-feature#1418](https://github.com/Lundalogik/crm-feature/issues/1418)
+
 # [28.5.0](https://github.com/Lundalogik/lime-elements/compare/v28.4.5...v28.5.0) (2020-09-25)
 
 
