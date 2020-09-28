@@ -7,7 +7,7 @@ import { Component, h, State } from '@stencil/core';
 })
 export class FileExample {
     @State()
-    private value: FileInfo = { filename: 'bla.jpg', id: 123 };
+    private value: FileInfo = { filename: 'picture.jpg', id: 123 };
 
     @State()
     private required = false;
@@ -25,7 +25,7 @@ export class FileExample {
                 onChange={this.toggleRequired}
             />,
             <limel-file
-                label="File"
+                label="Attach a file"
                 value={this.value}
                 required={this.required}
                 onChange={this.handleChange}
