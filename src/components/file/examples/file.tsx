@@ -19,17 +19,19 @@ export class FileExample {
 
     public render() {
         return [
-            <limel-switch
-                label="Toggle required"
-                value={this.required}
-                onChange={this.toggleRequired}
-            />,
             <limel-file
                 label="Attach a file"
                 value={this.value}
                 required={this.required}
                 onChange={this.handleChange}
             />,
+            <limel-flex-container justify="end">
+                <limel-switch
+                    label="Toggle required"
+                    value={this.required}
+                    onChange={this.toggleRequired}
+                />
+            </limel-flex-container>,
         ];
     }
 
