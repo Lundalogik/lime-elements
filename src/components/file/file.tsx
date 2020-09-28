@@ -121,6 +121,7 @@ export class File {
                 onDrop={this.handleFileDrop}
                 onDragEnter={this.preventAndStop}
                 onDragOver={this.preventAndStop}
+                leadingIcon="upload_to_cloud"
             />,
         ];
     }
