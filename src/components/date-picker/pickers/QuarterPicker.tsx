@@ -38,6 +38,7 @@ export class QuarterPicker extends Picker {
             config.onOpen = this.handleOpen;
             config.onYearChange = this.handleChange;
         }
+
         return config;
     }
 
@@ -115,11 +116,13 @@ export class QuarterPicker extends Picker {
     private renderQuarterPicker(fp): any {
         const startQuarter = 1;
         const endQuarter = 5;
+
         return (
             <div className="datepicker-quarters-container">
                 {range(startQuarter, endQuarter).map((quarter) => {
                     const renderedQuarter = this.renderQuarter(quarter, fp);
                     this.quarters.push(renderedQuarter);
+
                     return renderedQuarter;
                 })}
             </div>
@@ -131,7 +134,8 @@ export class QuarterPicker extends Picker {
             <div
                 className="datepicker-quarter"
                 id={`datepicker-quarter-${quarter}`}
-                onClick={() => { // tslint:disable-line:jsx-no-lambda prettier
+                // eslint-disable-next-line react/jsx-no-bind
+                onClick={() => {
                     const date = moment([fp.currentYear])
                         .quarter(quarter)
                         .toDate();
@@ -152,6 +156,7 @@ export class QuarterPicker extends Picker {
                 .locale(this.getMomentLang())
                 .format('MMM');
         });
+
         return months.map((month) => {
             return <span className="datepicker-month-in-quarter">{month}</span>;
         });

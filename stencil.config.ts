@@ -15,6 +15,7 @@ export const config: Config = {
             serviceWorker: null,
             dir: '.docz/public/stencil',
             copy: [
+                { src: 'style/color-palette-extended.css' },
                 { src: 'components/**/examples/**/*.tsx' },
                 { src: 'components/**/examples/**/*.scss' },
                 { src: 'components/**/*.md' },
@@ -34,12 +35,6 @@ export const config: Config = {
         },
     },
     plugins: [sass(), doczStarter()],
-    excludeSrc: [
-        '**/test/**',
-        '**/*.spec.*',
-        '**/*.e2e.*',
-        '**/*.test-wrapper.*',
-    ],
     tsconfig: './tsconfig.dev.json',
     globalStyle: 'src/global/core-styles.scss',
     testing: {

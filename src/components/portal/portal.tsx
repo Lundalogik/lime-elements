@@ -11,9 +11,10 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  *
  * * Events might not bubble up as expected since the content is moved out to another DOM node
  * * Any styling that is applied to content from the parent will be lost, if the content is
- *   just another web compoent it will work without any issues
- * * When the node is moved in the DOM, `componentDidUnload`, `disconnectedCallback` and `connectedCallback`
- *   will be invoked, so `componentDidUnload` can not be used as a destructor (which is the wrong behavior anyway)
+ * just another web compoent it will work without any issues
+ * * When the node is moved in the DOM, `disconnectedCallback` and `connectedCallback`
+ * will be invoked, so if `disconnectedCallback` is used to do any tear-down, the
+ * appropriate setup will have to be done again on `connectedCallback`
  *
  * @slot - Content to put inside the portal
  */
@@ -23,15 +24,6 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
     styleUrl: 'portal.scss',
 })
 export class Portal {
-    /**
-     * True if the content within the portal should be visible
-     *
-     * If the content is from within a dialog for instance, this can be set to
-     * true from false when the dialog opens to position the content properly
-     */
-    @Prop()
-    public visible = false;
-
     /**
      * Decides which direction the portal content should open. Defaults to right.
      */
@@ -43,21 +35,6 @@ export class Portal {
      */
     @Prop()
     public position: 'fixed' | 'absolute' = 'absolute';
-
-    @Watch('visible')
-    protected onVisible() {
-        if (!this.visible) {
-            return;
-        }
-        if (!this.popperInstance) {
-            return;
-        }
-        setTimeout(() => {
-            const popperConfig = this.createPopperConfig();
-            this.popperInstance.setOptions(popperConfig);
-            this.showContainer();
-        });
-    }
 
     /**
      * A unique ID
@@ -77,35 +54,71 @@ export class Portal {
     @Prop()
     public parent: HTMLElement = document.body;
 
+    /**
+     * Used to make a dropdown have the same width as the trigger, for example
+     * in `limel-picker`
+     */
+    @Prop()
+    public inheritParentWidth = false;
+
+    /**
+     * True if the content within the portal should be visible
+     *
+     * If the content is from within a dialog for instance, this can be set to
+     * true from false when the dialog opens to position the content properly
+     */
+    @Prop()
+    public visible = false;
+
+    @Watch('visible')
+    protected onVisible() {
+        if (!this.visible) {
+            this.hideContainer();
+            this.styleContainer();
+            this.destroyPopper();
+
+            return;
+        }
+
+        this.createPopper();
+        this.styleContainer();
+        requestAnimationFrame(() => {
+            this.showContainer();
+        });
+    }
+
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelPortalElement;
 
     private container: HTMLElement;
 
     private popperInstance: Instance;
 
+    private loaded = false;
+
     public disconnectedCallback() {
         this.removeContainer();
-        this.popperInstance.destroy();
-        this.popperInstance = null;
+        this.destroyPopper();
     }
 
-    public componentDidLoad() {
+    public connectedCallback() {
+        if (!this.loaded) {
+            return;
+        }
+
         this.createContainer();
         this.hideContainer();
         this.attachContainer();
         this.styleContainer();
 
-        const popperConfig = this.createPopperConfig();
-        this.popperInstance = createPopper(
-            this.host,
-            this.container,
-            popperConfig
-        );
+        if (this.visible) {
+            this.createPopper();
+        }
     }
 
-    public componentDidUpdate() {
-        this.styleContainer();
+    public componentDidLoad() {
+        this.loaded = true;
+        this.connectedCallback();
     }
 
     public render() {
@@ -132,6 +145,10 @@ export class Portal {
     }
 
     private removeContainer() {
+        if (!this.container) {
+            return;
+        }
+
         this.hideContainer();
         this.container.parentElement.removeChild(this.container);
     }
@@ -143,31 +160,26 @@ export class Portal {
     private showContainer() {
         this.container.style.opacity = '1';
     }
+
     private styleContainer() {
         const rect: any = this.host.getBoundingClientRect();
-        const viewportHeight = this.getViewportHeight();
-        const containerHeight = viewportHeight - rect.y;
 
-        this.container.style.height = `${containerHeight}px`;
-        this.container.style.display = 'block';
-        if (!this.visible) {
+        if (this.visible) {
+            this.container.style.display = 'block';
+        } else {
             this.container.style.display = 'none';
         }
-        this.container.style.width =
-            rect.width > 0
-                ? `${rect.width}px`
-                : `${this.getContentWidth(this.container)}px`;
+
+        if (this.inheritParentWidth) {
+            this.container.style.width =
+                rect.width > 0
+                    ? `${rect.width}px`
+                    : `${this.getContentWidth(this.container)}px`;
+        }
 
         Object.keys(this.containerStyle).forEach((property) => {
             this.container.style[property] = this.containerStyle[property];
         });
-    }
-
-    private getViewportHeight() {
-        return Math.max(
-            document.documentElement.clientHeight,
-            window.innerHeight || 0
-        );
     }
 
     private getContentWidth(element: HTMLElement | Element) {
@@ -181,7 +193,19 @@ export class Portal {
         }
 
         const elementContent = element.querySelector('*');
+
         return this.getContentWidth(elementContent);
+    }
+
+    private createPopper() {
+        const config = this.createPopperConfig();
+
+        this.popperInstance = createPopper(this.host, this.container, config);
+    }
+
+    private destroyPopper() {
+        this.popperInstance?.destroy();
+        this.popperInstance = null;
     }
 
     private createPopperConfig(): Partial<
@@ -195,7 +219,11 @@ export class Portal {
                 {
                     name: 'flip',
                     options: {
-                        fallbackPlacements: [],
+                        fallbackPlacements: [
+                            this.openDirection === 'left'
+                                ? 'top-end'
+                                : 'top-start',
+                        ],
                     },
                 },
             ],

@@ -123,7 +123,7 @@ export class Picker {
     private chips: Chip[] = [];
 
     @Element()
-    private element: HTMLElement;
+    private element: HTMLLimelPickerElement;
 
     // Should NOT be decorated with State(), since this
     // should not trigger a re-render by itself.
@@ -147,10 +147,13 @@ export class Picker {
         this.portalId = createRandomString();
     }
 
+    public componentWillLoad() {
+        this.chips = this.createChips(this.value);
+    }
+
     public componentDidLoad() {
         this.createDebouncedSearcher(this.searcher);
         this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
-        this.chips = this.createChips(this.value);
     }
 
     public async componentWillUpdate() {
@@ -210,6 +213,7 @@ export class Picker {
         if (typeof newValue !== 'function') {
             return;
         }
+
         this.debouncedSearch = AwesomeDebouncePromise(
             newValue,
             SEARCH_DEBOUNCE
@@ -344,6 +348,7 @@ export class Picker {
                 visible={!!content}
                 containerId={this.portalId}
                 containerStyle={styling}
+                inheritParentWidth={true}
             >
                 <limel-menu-surface
                     open={!!content}
@@ -425,7 +430,7 @@ export class Picker {
     /**
      * Focus handler for the chip set
      * Prevent focus if the picker has a value and does not support multiple values
-     * @param {CustomEvent} event event
+     *
      * @returns {void}
      */
     private async handleInputFieldFocus() {
@@ -482,6 +487,7 @@ export class Picker {
         if (!isForwardTab && !isUp && !isDown) {
             return;
         }
+
         const list = document.querySelector(` #${this.portalId} limel-list`);
         if (!list) {
             return;
@@ -494,6 +500,7 @@ export class Picker {
                 '.mdc-list-item:first-child'
             );
             listElement.focus();
+
             return;
         }
 
@@ -502,7 +509,6 @@ export class Picker {
                 '.mdc-list-item:last-child'
             );
             listElement.focus();
-            return;
         }
     }
 
@@ -533,6 +539,7 @@ export class Picker {
                     return !values.includes(item);
                 });
             }
+
             this.loading = false;
         }
     }

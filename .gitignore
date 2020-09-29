@@ -31,3 +31,4 @@ docker-compose.override.yml
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
+venv/

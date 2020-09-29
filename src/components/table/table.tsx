@@ -8,9 +8,10 @@ import {
     Event,
 } from '@stencil/core';
 import TabulatorTable from 'tabulator-tables';
-import config from '../../global/config';
 import { Column, TableParams, ColumnSorter } from './table.types';
-import { createColumnDefinition, createColumnSorter } from './columns';
+import { ColumnDefinitionFactory, createColumnSorter } from './columns';
+import { isEqual } from 'lodash-es';
+import { ElementPool } from './element-pool';
 
 const FIRST_PAGE = 1;
 
@@ -54,6 +55,19 @@ export class Table {
     public totalRows: number;
 
     /**
+     * The initial sorted columns
+     */
+
+    @Prop()
+    public sorting: ColumnSorter[] = [];
+
+    /**
+     * Active row in the table
+     */
+    @Prop({ mutable: true })
+    public activeRow: object;
+
+    /**
      * Emitted when `mode` is `local` the data is sorted
      */
     @Event()
@@ -72,8 +86,14 @@ export class Table {
     @Event()
     public load: EventEmitter<TableParams>;
 
+    /**
+     * Emitted when a row is activated
+     */
+    @Event()
+    public activate: EventEmitter<object>;
+
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelTableElement;
 
     private currentPage: number;
 
@@ -81,10 +101,23 @@ export class Table {
 
     private resolver: (data: any) => void;
 
+    private pool: ElementPool;
+    private columnFactory: ColumnDefinitionFactory;
+    private firstRequest: boolean;
+
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
         this.handlePageLoaded = this.handlePageLoaded.bind(this);
+        this.handleAjaxRequesting = this.handleAjaxRequesting.bind(this);
         this.requestData = this.requestData.bind(this);
+        this.onClickRow = this.onClickRow.bind(this);
+        this.formatRow = this.formatRow.bind(this);
+        this.pool = new ElementPool(document);
+        this.columnFactory = new ColumnDefinitionFactory(this.pool);
+    }
+
+    public componentWillLoad() {
+        this.firstRequest = this.mode === 'remote';
     }
 
     public componentDidLoad() {
@@ -99,14 +132,29 @@ export class Table {
         this.tabulator = new TabulatorTable(table, options);
     }
 
+    public disconnectedCallback() {
+        this.pool.clear();
+    }
+
+    @Watch('activeRow')
+    public activeRowChanged() {
+        this.tabulator.getRows().forEach(this.formatRow);
+    }
+
     @Watch('data')
-    public updateData() {
+    public updateData(newData = [], oldData = []) {
         if (this.resolver) {
             this.setResolvedData(this.data);
             this.resolver = null;
+
             return;
         }
 
+        if (isEqual(newData, oldData)) {
+            return;
+        }
+
+        this.pool.releaseAll();
         this.tabulator.setData(this.data);
     }
 
@@ -121,16 +169,29 @@ export class Table {
 
         return {
             data: this.data,
+            layout: 'fitDataFill',
             columns: this.getColumnDefinitions(),
             dataSorting: this.handleDataSorting,
             pageLoaded: this.handlePageLoaded,
             ...ajaxOptions,
             ...paginationOptions,
+            rowClick: this.onClickRow,
+            rowFormatter: this.formatRow,
+            initialSort: this.getColumnSorter(),
         };
     }
 
+    private getColumnSorter(): Tabulator.Sorter[] {
+        return this.sorting.map((sorter: ColumnSorter) => {
+            return {
+                column: String(sorter.column.field),
+                dir: sorter.direction.toLocaleLowerCase() as Tabulator.SortDirection,
+            };
+        });
+    }
+
     private getColumnDefinitions(): Tabulator.ColumnDefinition[] {
-        return this.columns.map(createColumnDefinition);
+        return this.columns.map(this.columnFactory.create);
     }
 
     private getAjaxOptions(): Tabulator.OptionsData {
@@ -141,11 +202,29 @@ export class Table {
         // Tabulator needs a URL to be set, even though this one will never be
         // used since we have our own custom `ajaxRequestFunc`
         const remoteUrl = 'https://localhost';
+
         return {
             ajaxSorting: true,
             ajaxURL: remoteUrl,
             ajaxRequestFunc: this.requestData,
+            ajaxRequesting: this.handleAjaxRequesting,
         };
+    }
+
+    private handleAjaxRequesting() {
+        const abortRequest = this.firstRequest && this.data?.length;
+        this.firstRequest = false;
+
+        if (abortRequest) {
+            setTimeout(() => {
+                this.tabulator.setMaxPage(this.calculatePageCount());
+                this.tabulator.setData(this.data);
+            });
+
+            return false;
+        }
+
+        return true;
     }
 
     private getPaginationOptions(): Tabulator.OptionsPagination {
@@ -203,10 +282,29 @@ export class Table {
         this.changePage.emit(page);
     }
 
+    private onClickRow(_, row: Tabulator.RowComponent): void {
+        if (this.activeRow === row.getData()) {
+            this.activeRow = null;
+        } else {
+            this.activeRow = row.getData();
+        }
+
+        this.activate.emit(this.activeRow);
+    }
+
+    private formatRow(row: Tabulator.RowComponent) {
+        if (this.activeRow === row.getData()) {
+            row.getElement().classList.add('active');
+        } else {
+            row.getElement().classList.remove('active');
+        }
+    }
+
     private setResolvedData(data: object[]): void {
+        this.pool.releaseAll();
         if (this.pageSize) {
             this.resolver({
-                last_page: this.calculatePageCount(),
+                last_page: this.calculatePageCount(), // eslint-disable-line camelcase
                 data: data,
             });
         } else {
@@ -224,10 +322,10 @@ export class Table {
     }
 
     render() {
-        if (!config.featureSwitches.enableTable) {
-            return;
-        }
-
-        return <div id="tabulator-table" />;
+        return (
+            <div id="tabulator-container">
+                <div id="tabulator-table" />
+            </div>
+        );
     }
 }

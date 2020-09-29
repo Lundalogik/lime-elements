@@ -1,0 +1,83 @@
+@import '../../../style/functions';
+@import '../../../style/color-palette-extended';
+@import './shared-styles';
+
+.color-palette {
+    grid-auto-flow: row;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(11, 1fr);
+    grid-gap: pxToRem(4) pxToRem(12);
+}
+.swatch {
+    transition: opacity 0.2s ease;
+    max-height: pxToRem(32);
+    padding: 0 pxToRem(12);
+    &.hue {
+        writing-mode: initial;
+        padding-top: 0;
+    }
+    &.--lime-brand-color-deep-red {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--lime-brand-color-deep-red));
+    }
+    &.--lime-brand-color-loving-magenta {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--lime-brand-color-loving-magenta));
+    }
+    &.--lime-brand-color-dark-blue {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--lime-brand-color-dark-blue));
+    }
+    &.--lime-brand-color-simple-blue {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--lime-brand-color-simple-blue));
+    }
+    &.--lime-brand-color-flexible-turquoise {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--lime-brand-color-flexible-turquoise));
+    }
+    &.--lime-brand-color-lime-green {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--lime-brand-color-lime-green));
+    }
+    &.--lime-brand-color-yellow {
+        color: rgb(var(--color-black));
+        background-color: rgb(var(--lime-brand-color-yellow));
+    }
+    &.--lime-brand-color-orange {
+        color: rgb(var(--color-black));
+        background-color: rgb(var(--lime-brand-color-orange));
+    }
+    &.--lime-brand-color-sellable-orange {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--lime-brand-color-sellable-orange));
+    }
+    &.--lime-brand-color-light-grey {
+        color: rgb(var(--color-black));
+        background-color: rgb(var(--lime-brand-color-light-grey));
+    }
+    &.--lime-brand-color-grey {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--lime-brand-color-grey));
+    }
+}
+
+.equals {
+    padding-right: pxToRem(16);
+}
+
+.which-mood {
+    opacity: 0.5;
+    padding-left: pxToRem(12);
+}
+
+.highlight-primary-colors {
+    .--lime-brand-color-deep-red,
+    .--lime-brand-color-dark-blue,
+    .--lime-brand-color-yellow,
+    .--lime-brand-color-orange,
+    .--lime-brand-color-light-grey {
+        opacity: 0.28;
+        filter: blur(#{pxToRem(3)});
+    }
+}

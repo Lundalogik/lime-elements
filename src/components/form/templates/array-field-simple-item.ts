@@ -6,6 +6,8 @@ interface SimpleItemProps {
     index: number;
 }
 
+const LIMEL_ICON_BUTTON = 'limel-icon-button';
+
 export class SimpleItemTemplate extends React.Component {
     public refs: { removeButton: any; moveUpButton: any; moveDownButton: any };
 
@@ -59,8 +61,7 @@ export class SimpleItemTemplate extends React.Component {
     }
 
     private renderRemoveButton(item: ArrayFieldItem) {
-        // tslint:disable-next-line:no-duplicate-string
-        return React.createElement('limel-icon-button', {
+        return React.createElement(LIMEL_ICON_BUTTON, {
             icon: 'trash',
             disabled: !item.hasRemove,
             ref: 'removeButton',
@@ -68,8 +69,7 @@ export class SimpleItemTemplate extends React.Component {
     }
 
     private renderMoveUpButton(item: ArrayFieldItem) {
-        // tslint:disable-next-line:no-duplicate-string
-        return React.createElement('limel-icon-button', {
+        return React.createElement(LIMEL_ICON_BUTTON, {
             icon: 'up_arrow',
             disabled: !item.hasMoveUp,
             ref: 'moveUpButton',
@@ -77,8 +77,7 @@ export class SimpleItemTemplate extends React.Component {
     }
 
     private renderMoveDownButton(item: ArrayFieldItem) {
-        // tslint:disable-next-line:no-duplicate-string
-        return React.createElement('limel-icon-button', {
+        return React.createElement(LIMEL_ICON_BUTTON, {
             icon: 'down_arrow',
             disabled: !item.hasMoveDown,
             ref: 'moveDownButton',

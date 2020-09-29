@@ -1,0 +1,50 @@
+@import '../../../style/functions';
+@import '../../../style/color-palette-extended';
+@import './shared-styles';
+
+.color-palette {
+    grid-template-columns: repeat(20, 1fr);
+    grid-gap: 0;
+    padding: pxToRem(20) pxToRem(12);
+    background-color: rgb(var(--contrast-300));
+    border-radius: pxToRem(3);
+}
+
+.swatch {
+    border-radius: 0;
+    font-size: pxToRem(12);
+    font-family: 'Source Code Pro', monospace;
+    letter-spacing: pxToRem(-1);
+}
+
+.--color-white {
+    border-radius: 50%;
+    transform: translateX(pxToRem(-8));
+}
+.--color-black {
+    border-radius: 50%;
+}
+
+.--contrast-100 {
+    border-radius: pxToRem(5) 0 0 pxToRem(5);
+}
+.--contrast-1700 {
+    border-radius: 0 pxToRem(5) pxToRem(5) 0;
+}
+.--contrast-900 {
+    &:before {
+        content: '';
+
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: -12px;
+        left: 0;
+        width: 4px;
+        height: 4px;
+        margin: auto;
+
+        background-color: rgba(var(--contrast-900), 0.5);
+        border-radius: 50%;
+    }
+}

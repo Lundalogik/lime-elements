@@ -1,13 +1,13 @@
+/* eslint-disable no-console */
 import { spawn } from 'child_process';
 import { argv } from 'process';
 
-// tslint:disable:only-arrow-functions no-console
 function doczStarter() {
     let started = false;
 
     return {
         name: 'docz-starter',
-        generateBundle: function () {
+        generateBundle: () => {
             if (!argv.includes('--watch')) {
                 return;
             }

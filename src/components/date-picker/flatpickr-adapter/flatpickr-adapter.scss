@@ -1,0 +1,249 @@
+@import '../../../style/internal/mdc-variables';
+
+@import '@limetech/mdc-theme/mdc-theme';
+@import '../../../../node_modules/flatpickr/dist/flatpickr.min.css';
+
+$inactiveTextColor: var(
+    --mdc-theme-text-disabled-on-background,
+    #{$mdc-theme-text-disabled-on-background}
+);
+
+$datepickerHeaderColor: var(--lime-primary-color, #{$mdc-theme-primary});
+$datepickerSelectedColor: $datepickerHeaderColor;
+$datepickerHoverHighlightColor: $datepickerHeaderColor;
+$datepickerTextOnThemeColor: var(
+    --lime-on-primary-color,
+    #{$mdc-theme-on-primary}
+);
+
+.container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+.flatpickr-calendar {
+    left: 0 !important;
+    top: auto !important;
+    margin-top: 2px;
+
+    .datepicker-months-container,
+    .datepicker-quarters-container,
+    .datepicker-weeks-container,
+    .datepicker-years-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        .selected {
+            z-index: 1;
+        }
+
+        :hover {
+            z-index: 1;
+        }
+    }
+
+    .datepicker-month,
+    .datepicker-quarter,
+    .datepicker-week,
+    .datepicker-year {
+        cursor: pointer;
+        display: inline-block;
+        flex-grow: 0;
+        padding: pxToRem(10);
+        position: relative;
+        min-width: pxToRem(40);
+
+        &:after {
+            border-radius: pxToRem(15);
+            content: ' ';
+            height: pxToRem(30);
+            left: pxToRem(5);
+            position: absolute;
+            right: pxToRem(5);
+            top: pxToRem(7);
+            bottom: pxToRem(7);
+            z-index: -1;
+        }
+
+        &.selected {
+            color: $datepickerTextOnThemeColor;
+
+            &:after {
+                background: $datepickerSelectedColor;
+            }
+        }
+
+        &:hover {
+            color: $datepickerTextOnThemeColor;
+
+            &:after {
+                background: $datepickerHoverHighlightColor;
+                opacity: 0.5;
+            }
+        }
+
+        .datepicker-month-in-quarter {
+            color: $inactiveTextColor;
+            display: block;
+            font-size: pxToRem(12);
+        }
+    }
+
+    .datepicker-month {
+        min-width: pxToRem(70);
+
+        &:after {
+            left: pxToRem(10);
+            right: pxToRem(10);
+        }
+    }
+
+    .flatpickr-month {
+        color: $datepickerTextOnThemeColor;
+
+        .numInputWrapper span.arrowUp,
+        .numInputWrapper span.arrowDown {
+            &:after {
+                border-top-color: $datepickerTextOnThemeColor;
+                border-bottom-color: $datepickerTextOnThemeColor;
+            }
+        }
+    }
+
+    .flatpickr-months {
+        background: $datepickerHeaderColor;
+        color: $datepickerTextOnThemeColor;
+        height: pxToRem(42);
+        padding-top: pxToRem(6);
+    }
+
+    .flatpickr-prev-month,
+    .flatpickr-next-month {
+        // Arrow colors
+        fill: $datepickerTextOnThemeColor;
+        top: pxToRem(6);
+        &:hover {
+            color: $datepickerTextOnThemeColor;
+            fill: $datepickerTextOnThemeColor;
+        }
+    }
+
+    .flatpickr-current-month {
+        div.flatpickr-month {
+            font-size: pxToRem(16);
+            font-weight: 400 !important;
+            color: $datepickerTextOnThemeColor;
+        }
+
+        select {
+            color: $datepickerTextOnThemeColor;
+        }
+
+        input {
+            color: $datepickerTextOnThemeColor;
+        }
+
+        .numInputWrapper:hover {
+            background: $datepickerHeaderColor;
+        }
+    }
+
+    .flatpickr-weekday {
+        background: $datepickerHeaderColor;
+        color: $datepickerTextOnThemeColor;
+        font-weight: 400;
+    }
+
+    .flatpickr-weekdays {
+        background: $datepickerHeaderColor;
+    }
+
+    // Hide the arrow between the input box and the calendar
+    &.arrowTop:before,
+    &.arrowTop:after {
+        display: none;
+    }
+
+    .flatpickr-day {
+        border: none;
+        background: transparent !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        max-width: none;
+
+        &.selected,
+        &.inRange,
+        &.selected:hover,
+        &.nextMonthDay:hover,
+        &:hover {
+            background: transparent;
+            color: $datepickerTextOnThemeColor;
+        }
+        &.today {
+            background: transparent;
+            &:after {
+                background: var(
+                    --mdc-theme-text-hint-on-light,
+                    $mdc-theme-text-hint-on-light
+                );
+                opacity: 0.25;
+            }
+            &:hover {
+                background: transparent;
+                color: $datepickerTextOnThemeColor;
+            }
+        }
+
+        // The circle around the date should be smaller than
+        // the original, but it's hard to actually style
+        // the original one and still keep some of the space
+        // between the days from our design.
+        // So the original circle is hidden and a new one
+        // is created using a pseudo element.
+        &:after {
+            border-radius: pxToRem(15);
+            content: ' ';
+            height: pxToRem(30);
+            left: 50%;
+            margin-left: pxToRem(-15);
+            margin-top: pxToRem(-15);
+            position: absolute;
+            top: 50%;
+            width: pxToRem(30);
+            z-index: -1;
+        }
+
+        &.selected {
+            &:after {
+                background: $datepickerSelectedColor;
+                color: $datepickerTextOnThemeColor;
+            }
+        }
+
+        &.inRange,
+        &.nextMonthDay:hover,
+        &:hover {
+            &:after {
+                background: $datepickerHoverHighlightColor;
+                color: $datepickerTextOnThemeColor;
+                opacity: 0.5;
+            }
+        }
+    }
+
+    // The column with week numbers (including the title)
+    .flatpickr-weekwrapper {
+        width: pxToRem(40);
+    }
+
+    .flatpickr-time {
+        // Ensure that the time picker is always shown
+        // on a date time picker to get correct position
+        // when popper decides to render (flip) it above
+        // the input field due to an overflow.
+        height: pxToRem(40);
+    }
+}

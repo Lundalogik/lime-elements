@@ -56,7 +56,7 @@ export class File {
     private change: EventEmitter<FileInfo>;
 
     @Element()
-    private element: HTMLElement;
+    private element: HTMLLimelFileElement;
 
     private fileInput: HTMLInputElement;
     private fileInputId = createRandomString();
@@ -82,6 +82,7 @@ export class File {
         );
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
@@ -98,6 +99,7 @@ export class File {
                   },
               ]
             : [];
+
         return [
             <input
                 id={this.fileInputId}
@@ -131,6 +133,7 @@ export class File {
         ) {
             return;
         }
+
         event.preventDefault();
         event.stopPropagation();
     }

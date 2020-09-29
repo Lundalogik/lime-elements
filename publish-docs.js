@@ -1,3 +1,4 @@
+/* eslint-env node */
 const shell = require('shelljs');
 const fs = require('fs');
 const replace = require('replace-in-file');
@@ -43,20 +44,25 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
         cloneDocsRepo();
         checkOutBranch();
     }
+
     if (pruneDev) {
         remove('0.0.0-dev*');
         commitMessage = 'chore(docs): prune dev-versions';
     }
+
     if (removeSpecific) {
         remove(argv.remove);
         commitMessage = `chore(docs): remove ${argv.remove}`;
     }
+
     if (commitMessage && runCommit) {
         commit(commitMessage);
     }
+
     if (runPush) {
         push();
     }
+
     if (runTeardown) {
         teardown(true);
     }
@@ -65,18 +71,23 @@ usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
         cloneDocsRepo();
         checkOutBranch();
     }
+
     if (runBuild) {
         build();
     }
+
     if (runBuild) {
         copyBuildOutput();
     }
+
     if (runCommit) {
         commit();
     }
+
     if (runPush) {
         push();
     }
+
     if (runTeardown) {
         teardown(true);
     }
@@ -238,22 +249,22 @@ function updateVersionList() {
     // createLatestSymlink(files[files.length - 1]);
 }
 
-function createLatestSymlink(folder) {
-    shell.cd('docsDist/versions');
-
-    if (shell.ln('-sf', `${folder}`, 'latest').code !== 0) {
-        if (
-            shell.rm('latest').code !== 0 ||
-            shell.ln('-sf', `${folder}`, 'latest').code !== 0
-        ) {
-            shell.echo('Creating latest-symlink failed!');
-            teardown();
-            shell.exit(1);
-        }
-    }
-
-    shell.cd('../..');
-}
+// function createLatestSymlink(folder) {
+//     shell.cd('docsDist/versions');
+//
+//     if (shell.ln('-sf', `${folder}`, 'latest').code !== 0) {
+//         if (
+//             shell.rm('latest').code !== 0 ||
+//             shell.ln('-sf', `${folder}`, 'latest').code !== 0
+//         ) {
+//             shell.echo('Creating latest-symlink failed!');
+//             teardown();
+//             shell.exit(1);
+//         }
+//     }
+//
+//     shell.cd('../..');
+// }
 
 function commit(message) {
     // shell.echo('setting git user info');

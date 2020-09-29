@@ -64,7 +64,7 @@ export class Dialog {
     private closing: EventEmitter<void>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelDialogElement;
 
     private mdcDialog: MDCDialog;
 
@@ -91,13 +91,15 @@ export class Dialog {
         const { activate, deactivate } = util.createFocusTrapInstance(
             this.host.shadowRoot.querySelector('.mdc-dialog__surface'),
             focusTrap.default,
-            this.host.shadowRoot.querySelector('#initialFocusEl') as any // tslint:disable-line:no-useless-cast
+            this.host.shadowRoot.querySelector('#initialFocusEl') as any
         );
 
+        // eslint-disable-next-line no-underscore-dangle
         (this.mdcDialog as any).foundation_.adapter_.trapFocus = () => {
             activate();
         };
 
+        // eslint-disable-next-line no-underscore-dangle
         (this.mdcDialog as any).foundation_.adapter_.releaseFocus = () => {
             deactivate();
         };
@@ -114,6 +116,7 @@ export class Dialog {
             : '';
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         this.mdcDialog.unlisten('MDCDialog:opened', this.handleMdcOpened);
         this.mdcDialog.unlisten('MDCDialog:closed', this.handleMdcClosed);

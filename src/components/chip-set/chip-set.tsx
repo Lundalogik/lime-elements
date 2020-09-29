@@ -89,6 +89,19 @@ export class ChipSet {
     public emptyInputOnBlur: boolean = true;
 
     /**
+     * For chip-sets of type `input`. When the value is null, no leading icon is used.
+     * Leading icon to show to the far left in the text field
+     */
+    @Prop({ reflectToAttr: true })
+    public leadingIcon: string = null;
+
+    /**
+     * For chip-set of type `input`. Sets delimiters between chips.
+     */
+    @Prop({ reflectToAttr: true })
+    public delimiter: string = null;
+
+    /**
      * Dispatched when a chip is interacted with
      */
     @Event()
@@ -119,7 +132,7 @@ export class ChipSet {
     private input: EventEmitter<string>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelChipSetElement;
 
     @State()
     private editMode: boolean = false;
@@ -136,6 +149,7 @@ export class ChipSet {
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
+    private clearAllLabel = 'Clear chips';
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
@@ -150,6 +164,10 @@ export class ChipSet {
         this.inputFieldOnChange = this.inputFieldOnChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.inputHidden = this.inputHidden.bind(this);
+        this.handleDeleteAllIconClick = this.handleDeleteAllIconClick.bind(
+            this
+        );
+        this.renderDelimiter = this.renderDelimiter.bind(this);
     }
 
     /**
@@ -165,7 +183,7 @@ export class ChipSet {
     /**
      * Used to set focus to the chip-set input field.
      *
-     * @param {Boolean} emptyInput if `true`, any text in the input is discarded
+     * @param {boolean} emptyInput if `true`, any text in the input is discarded
      *
      * @returns {Promise<void>} does not return anything, but methods have to be async
      */
@@ -175,6 +193,7 @@ export class ChipSet {
         if (emptyInput) {
             this.textValue = '';
         }
+
         this.host.shadowRoot.querySelector('input').focus();
     }
 
@@ -211,7 +230,7 @@ export class ChipSet {
         }
     }
 
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.destroyMDCChipSet();
 
         if (this.mdcTextField) {
@@ -227,6 +246,7 @@ export class ChipSet {
         const classes = {
             'mdc-chip-set': true,
             disabled: this.disabled,
+            'mdc-text-field--with-trailing-icon': true,
         };
         if (this.type) {
             classes[`mdc-chip-set--${this.type}`] = true;
@@ -292,6 +312,8 @@ export class ChipSet {
                     'mdc-text-field': true,
                     'mdc-text-field--disabled': this.readonly || this.disabled,
                     'force-invalid': this.isInvalid(),
+                    'has-chips': this.value.length !== 0,
+                    'has-leading-icon': this.leadingIcon !== null,
                 }}
                 onClick={this.handleTextFieldFocus}
             >
@@ -317,6 +339,8 @@ export class ChipSet {
                         readonly={this.isFull()}
                     />
                 </div>
+                {this.renderLeadingIcon()}
+                {this.renderClearAllChipsButton()}
                 <label
                     class={{
                         'mdc-floating-label': true,
@@ -342,9 +366,11 @@ export class ChipSet {
         if (!this.required) {
             return false;
         }
+
         if (!this.blurred) {
             return false;
         }
+
         return !this.value || !this.value.length;
     }
 
@@ -354,6 +380,7 @@ export class ChipSet {
 
     /**
      * Enter edit mode when the text field receives focus. When editMode is true, the input element will be visible
+     *
      * @returns {void}
      */
     private handleTextFieldFocus() {
@@ -364,12 +391,14 @@ export class ChipSet {
     /**
      * Exit edit mode when the input element loses focus. This makes sure the input element does not take up any
      * additional space when the user it not typing anything
+     *
      * @returns {void}
      */
     private handleInputBlur() {
         if (this.emptyInputOnBlur) {
             this.syncEmptyInput();
         }
+
         this.editMode = false;
         this.blurred = true;
         this.inputChipIndexSelected = null;
@@ -499,7 +528,9 @@ export class ChipSet {
         if (this.readonly && !this.disabled) {
             attributes.tabindex = 0;
         }
-        return (
+
+        return [
+            this.renderDelimiter(index),
             <div
                 class={{
                     'mdc-chip': true,
@@ -514,10 +545,10 @@ export class ChipSet {
                 {chip.icon ? this.renderIcon(chip) : null}
                 {this.renderLabel(chip)}
                 {chip.removable && !this.readonly && !this.disabled
-                    ? this.renderTrailingIcon()
+                    ? this.renderChipRemoveButton()
                     : null}
-            </div>
-        );
+            </div>,
+        ];
     }
 
     private catchInputChipClicks(event) {
@@ -541,11 +572,24 @@ export class ChipSet {
         );
     }
 
-    private renderTrailingIcon() {
+    private renderLeadingIcon() {
+        if (!this.leadingIcon) {
+            return;
+        }
+
+        return (
+            <i class="mdc-text-field__icon search-icon">
+                <limel-icon name={this.leadingIcon} />
+            </i>
+        );
+    }
+
+    private renderChipRemoveButton() {
         const svgData = `<svg style="height:100%;width:100%;" width="32" height="32" x="0px" y="0px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
     <line fill="none" id="svg_1" stroke="currentColor" stroke-width="2" x1="8" x2="24" y1="8" y2="24"/>
     <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>
 </svg>`;
+
         return (
             <div
                 class="mdc-chip__icon mdc-chip__icon--trailing"
@@ -553,5 +597,31 @@ export class ChipSet {
                 innerHTML={svgData}
             />
         );
+    }
+
+    private renderClearAllChipsButton() {
+        return (
+            <a
+                href=""
+                onClick={this.handleDeleteAllIconClick}
+                class="mdc-text-field__icon clear-all-button"
+                tabindex="0"
+                role="button"
+                title={this.clearAllLabel}
+                aria-label={this.clearAllLabel}
+            />
+        );
+    }
+    private handleDeleteAllIconClick(event: Event) {
+        event.preventDefault();
+        this.change.emit([]);
+    }
+
+    private renderDelimiter(index: Number) {
+        if (index === 0 || !this.delimiter) {
+            return;
+        }
+
+        return <div class="delimiter">{this.delimiter}</div>;
     }
 }

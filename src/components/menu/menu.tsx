@@ -46,13 +46,13 @@ export class Menu {
     /**
      * Sets the open state of the menu.
      */
-    @Prop({ mutable: true, reflectToAttr: true })
+    @Prop({ mutable: true, reflectToAttr: true }) // eslint-disable-line @stencil/strict-mutable
     public open = false;
 
     /**
      * Defines whether the menu should show badges.
      */
-    @Prop({ mutable: true, reflectToAttr: true })
+    @Prop({ reflectToAttr: true })
     public badgeIcons = false;
 
     /**
@@ -74,7 +74,7 @@ export class Menu {
     private select: EventEmitter<ListItem | ListItem[]>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelMenuElement;
 
     private portalId: string;
 
@@ -139,6 +139,7 @@ export class Menu {
         if (this.disabled) {
             return;
         }
+
         this.open = !this.open;
     };
 

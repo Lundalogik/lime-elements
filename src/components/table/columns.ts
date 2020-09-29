@@ -1,30 +1,60 @@
 import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
+import Tabulator from 'tabulator-tables';
+import { escape } from 'html-escaper';
+import { ElementPool } from './element-pool';
+
+export class ColumnDefinitionFactory {
+    constructor(private pool: ElementPool) {
+        this.create = this.create.bind(this);
+    }
+
+    /**
+     * Create Tabulator column definitions from a limel-table column configuration
+     *
+     * @param {Column} column config describing the column
+     *
+     * @returns {Tabulator.ColumnDefinition} Tabulator column
+     */
+    public create(column: Column<object>): Tabulator.ColumnDefinition {
+        const definition: Tabulator.ColumnDefinition = {
+            title: column.title,
+            field: column.field,
+        };
+
+        if (column.component || column.formatter) {
+            definition.formatter = createFormatter(column, this.pool);
+            definition.formatterParams = column as object;
+        }
+
+        if (column.aggregator) {
+            definition.bottomCalc = getColumnAggregator(column);
+        }
+
+        return definition;
+    }
+}
 
 /**
- * Create Tabulator column definitions from a limel-table column configuration
+ * Create a formatter to be used to format values in a column
  *
  * @param {Column} column config describing the column
+ * @param {ElementPool} pool pool to get custom components from
  *
- * @returns {Tabulator.ColumnDefinition} Tabulator column
+ * @returns {Tabulator.Formatter} Tabulator formatter
  */
-export function createColumnDefinition(
-    column: Column<object>
-): Tabulator.ColumnDefinition {
-    const definition: Tabulator.ColumnDefinition = {
-        title: column.title,
-        field: column.field,
+export function createFormatter(
+    column: Column,
+    pool: ElementPool
+): Tabulator.Formatter {
+    if (!column.component) {
+        return formatCell;
+    }
+
+    return (cell: Tabulator.CellComponent) => {
+        const value = formatCell(cell, column);
+
+        return createCustomComponent(cell, column, value, pool);
     };
-
-    if (column.component || column.formatter) {
-        definition.formatter = formatCell;
-        definition.formatterParams = column as object;
-    }
-
-    if (column.aggregator) {
-        definition.bottomCalc = getColumnAggregator(column);
-    }
-
-    return definition;
 }
 
 /**
@@ -33,12 +63,12 @@ export function createColumnDefinition(
  * @param {Tabulator.CellComponent} cell the cell being rendered in the table
  * @param {Column} column configuration for the current column
  *
- * @returns {string|HTMLElement} the formatted value
+ * @returns {string} the formatted value
  */
 export function formatCell(
     cell: Tabulator.CellComponent,
     column: Column
-): HTMLElement | string {
+): string {
     const data = cell.getData();
     let value = cell.getValue();
 
@@ -46,8 +76,8 @@ export function formatCell(
         value = column.formatter(value, data);
     }
 
-    if (column.component) {
-        return createCustomComponent(cell, column, value);
+    if (typeof value === 'string') {
+        value = escape(value);
     }
 
     return value;
@@ -59,19 +89,28 @@ export function formatCell(
  * @param {Tabulator.CellComponent} cell Tabulator cell
  * @param {Column} column lime-elements column configuration
  * @param {string} value the value of the cell being rendered
+ * @param {ElementPool} pool pool to get custom components from
  *
  * @returns {HTMLElement} custom component that renders a value in the table
  */
 export function createCustomComponent(
     cell: Tabulator.CellComponent,
     column: Column,
-    value: string
+    value: string,
+    pool: ElementPool
 ): HTMLElement {
     const field = cell.getField();
     const data = cell.getData();
 
-    const element = document.createElement(column.component.name);
+    const element = pool.get(column.component.name);
     let props: object = column.component.props || {};
+    if (column.component.propsFactory) {
+        props = {
+            ...props,
+            ...column.component.propsFactory(data),
+        };
+    }
+
     props = {
         ...props,
         field: field,
@@ -79,9 +118,42 @@ export function createCustomComponent(
         data: data,
     };
 
+    element.style.display = 'inline-block';
     Object.assign(element, props);
 
+    createResizeObserver(element, cell.getColumn());
+
     return element;
+}
+
+function createResizeObserver(
+    element: HTMLElement,
+    column: Tabulator.ColumnComponent
+) {
+    if (!('ResizeObserver' in window)) {
+        return;
+    }
+
+    const RESIZE_TIMEOUT = 1000;
+    const COLUMN_PADDING = 16;
+
+    const observer = new ResizeObserver(() => {
+        const width = element.getBoundingClientRect().width;
+        const newWidth = width + COLUMN_PADDING;
+
+        if (newWidth < column.getWidth()) {
+            return;
+        }
+
+        column.setWidth(newWidth);
+    });
+    observer.observe(element);
+
+    // We give the component some time to resize itself before we
+    // stop listening for resize events
+    setTimeout(() => {
+        observer.unobserve(element);
+    }, RESIZE_TIMEOUT);
 }
 
 // Tabulator seems to also have this `field` property, that does not appear on
@@ -95,7 +167,7 @@ interface TabulatorSorter extends Tabulator.Sorter {
  *
  * @param {Column[]} columns all available columns in the table
  *
- * @return {Function} function that creates a sorter from a tabulator sorter
+ * @returns {Function} function that creates a sorter from a tabulator sorter
  */
 export const createColumnSorter = (columns: Column[]) => (
     sorter: TabulatorSorter

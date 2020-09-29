@@ -58,7 +58,7 @@ export class List {
     public type: ListType;
 
     @Element()
-    private element: HTMLElement;
+    private element: HTMLLimelListElement;
 
     private config: ListRendererConfig;
     private listRenderer = new ListRenderer();
@@ -189,6 +189,7 @@ export class List {
     private handleAction(event: MDCListActionEvent) {
         if (!this.multiple) {
             this.handleSingleSelect(event.detail.index);
+
             return;
         }
 
@@ -216,6 +217,7 @@ export class List {
         if (listItems[index] !== selectedItem) {
             if (this.type === 'menu') {
                 this.change.emit({ ...listItems[index], selected: false });
+
                 return;
             }
 

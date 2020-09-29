@@ -30,6 +30,7 @@ export class YearPicker extends Picker {
         if (!nativePicker) {
             config.onReady = this.handleReady;
         }
+
         return config;
     }
 
@@ -78,12 +79,14 @@ export class YearPicker extends Picker {
 
     private renderYearPicker(fp): any {
         const yearsInterval = 5;
+
         return (
             <div className="datepicker-years-container">
                 {range(-yearsInterval, yearsInterval).map((index) => {
                     const year = moment().add(index, 'years');
                     const renderedYear = this.renderYear(year, fp);
                     this.years.push(renderedYear);
+
                     return renderedYear;
                 })}
             </div>
@@ -94,7 +97,8 @@ export class YearPicker extends Picker {
         return (
             <div
                 className="datepicker-year"
-                onClick={() => { // tslint:disable-line:jsx-no-lambda prettier
+                // eslint-disable-next-line react/jsx-no-bind
+                onClick={() => {
                     const date = moment(year).toDate();
                     fp.setDate(date, true);
                     fp.close();

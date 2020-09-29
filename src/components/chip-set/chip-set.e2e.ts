@@ -8,7 +8,7 @@ describe('limel-chip-set', () => {
 
     describe('basic chip set', () => {
         beforeEach(async () => {
-            page = await createPage(`<limel-chip-set></limel-chip-set>`);
+            page = await createPage('<limel-chip-set></limel-chip-set>');
 
             chipSet = await page.find('limel-chip-set');
             chipSet.setProperty('value', [
@@ -52,7 +52,7 @@ describe('limel-chip-set', () => {
     describe('choice chip set', () => {
         beforeEach(async () => {
             page = await createPage(
-                `<limel-chip-set type="choice"></limel-chip-set>`
+                '<limel-chip-set type="choice"></limel-chip-set>'
             );
 
             chipSet = await page.find('limel-chip-set');
@@ -139,7 +139,7 @@ describe('limel-chip-set', () => {
     describe('filter chip set', () => {
         beforeEach(async () => {
             page = await createPage(
-                `<limel-chip-set type="filter"></limel-chip-set>`
+                '<limel-chip-set type="filter"></limel-chip-set>'
             );
 
             chipSet = await page.find('limel-chip-set');
@@ -224,7 +224,7 @@ describe('limel-chip-set', () => {
 
         beforeEach(async () => {
             page = await createPage(
-                `<limel-chip-set type="input"></limel-chip-set>`
+                '<limel-chip-set type="input"></limel-chip-set>'
             );
 
             chipSet = await page.find('limel-chip-set');
@@ -352,6 +352,22 @@ describe('limel-chip-set', () => {
 
                 expect(firstChipRemoveButton).toBeFalsy();
                 expect(secondChipRemoveButton).toBeFalsy();
+            });
+        });
+
+        describe('when the clear chips button is pressed', () => {
+            beforeEach(async () => {
+                spy = await page.spyOnEvent('change');
+                const deleteAllIconButton: E2EElement = await page.find(
+                    'limel-chip-set >>> .clear-all-button'
+                );
+                await chipSet.hover();
+                await deleteAllIconButton.click();
+            });
+
+            it('emits a change event where the all chips are removed', () => {
+                expect(spy).toHaveReceivedEventTimes(1);
+                expect(spy.events[0].detail).toEqual([]);
             });
         });
     });

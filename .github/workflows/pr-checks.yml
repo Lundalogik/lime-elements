@@ -36,15 +36,14 @@ jobs:
         rm .npmrc
     - run: npm run build
     - run: npm test --if-present
+    - run: npm run docz:build
 
   commitlint:
     name: Commitlint
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v1
-      - uses: wagoid/commitlint-github-action@v1
+      - uses: wagoid/commitlint-github-action@v2
 
   autosquash:
     name: Block Autosquash Commits
@@ -54,11 +53,3 @@ jobs:
         uses: xt0rted/block-autosquash-commits-action@v2.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-  wip:
-    name: "Block WIP PR:s"
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: wip/action@v1.0.0

@@ -1,35 +1,19 @@
-import { Badge } from './badge';
+import { abbreviate } from './format';
 
 describe('limel-badge', () => {
-    const badge = new Badge();
-    it('builds', () => {
-        expect(badge).toBeTruthy();
-    });
-
     it('Badge: returns 950 (3 digits)', () => {
-        const expectedCounter = (badge.label = 950);
-        const actualNumber = badge.showRoundedNumber();
-        expect(actualNumber).toBe(expectedCounter);
+        expect(abbreviate(950)).toBe(950);
     });
 
     it('Badge: returns 10k (4 digits)', () => {
-        const expectedCounter = '10k';
-        badge.label = 9960;
-        const actualNumber = badge.showRoundedNumber();
-        expect(actualNumber).toBe(expectedCounter);
+        expect(abbreviate(9960)).toBe('10k');
     });
 
     it('Badge: returns 99.9k (5 digits), not round up to 100k', () => {
-        const expectedNumber = '99.9k';
-        badge.label = 99940;
-        const actualNumber = badge.showRoundedNumber();
-        expect(actualNumber).toBe(expectedNumber);
+        expect(abbreviate(99940)).toBe('99.9k');
     });
 
     it('Badge: returns 1M (6 digits)', () => {
-        const expectedNumber = '1M';
-        badge.label = 999990;
-        const actualNumber = badge.showRoundedNumber();
-        expect(actualNumber).toBe(expectedNumber);
+        expect(abbreviate(999990)).toBe('1M');
     });
 });

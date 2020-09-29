@@ -78,6 +78,9 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     &.mdc-chip-set--input {
         padding-top: $padding-top-of-chipset-input;
         padding-bottom: 0;
+        padding-right: pxToRem(
+            32
+        ); // This leaves space for "clear all" button and avoids overlapping with chips
         width: 100%;
 
         .mdc-chip--selected {
@@ -174,4 +177,69 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
 .force-invalid {
     @extend .mdc-text-field--invalid;
+}
+
+.clear-all-button {
+    transition: opacity 0.3s ease;
+    @include clear-all-button;
+
+    position: absolute;
+    right: pxToRem(8);
+    top: pxToRem(26);
+
+    opacity: 0; // Is hidden, but can receive focus (such as when navigating through tab indexes).
+
+    &:focus,
+    .has-chips:not(.mdc-text-field--disabled):hover &,
+    .has-chips:not(.mdc-text-field--disabled).mdc-text-field--focused & {
+        opacity: 1;
+    }
+
+    :not(.has-chips) &,
+    .has-chips.mdc-text-field--disabled & {
+        display: none; // Won't receive focus when disabled
+    }
+}
+
+.has-leading-icon {
+    &:not(.has-chips) {
+        .mdc-text-field__input {
+            padding-left: pxToRem(40);
+        }
+
+        .mdc-floating-label {
+            &:not(.force-float) {
+                padding-left: pxToRem(40);
+            }
+        }
+    }
+
+    &.has-chips,
+    &.mdc-text-field--focused {
+        .search-icon {
+            transform: translateY(6px);
+        }
+    }
+
+    .mdc-chip {
+        &:first-of-type {
+            margin-left: 40px;
+        }
+    }
+
+    .search-icon {
+        transition: transform 0.2s ease;
+        position: absolute;
+        top: pxToRem(16);
+        left: pxToRem(16);
+    }
+
+    limel-icon {
+        background-color: transparent;
+    }
+}
+
+.delimiter {
+    opacity: 0.5;
+    padding: 0 pxToRem(2);
 }

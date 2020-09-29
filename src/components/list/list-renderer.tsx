@@ -102,6 +102,7 @@ export class ListRenderer {
                     result = i;
                     break;
                 }
+
                 if (result === undefined && !item.disabled) {
                     result = i;
                     // Do NOT break, as any later item with
@@ -109,6 +110,7 @@ export class ListRenderer {
                 }
             }
         }
+
         return result;
     }
 
@@ -189,11 +191,13 @@ export class ListRenderer {
      * @returns {HTMLElement} the icon element
      */
     private renderIcon(config: ListRendererConfig, item: ListItem) {
-        const style = {};
+        const style: any = {};
         if (item.iconColor) {
-            config.badgeIcons
-                ? (style['--icon-background-color'] = item.iconColor)
-                : (style['color'] = item.iconColor); // tslint:disable-line:no-string-literal
+            if (config.badgeIcons) {
+                style['--icon-background-color'] = item.iconColor;
+            } else {
+                style.color = item.iconColor;
+            }
         }
 
         return (
@@ -215,6 +219,7 @@ export class ListRenderer {
         if (this.config.iconSize) {
             classes[this.config.iconSize] = true;
         }
+
         return <hr class={classes} />;
     }
 
@@ -295,6 +300,7 @@ export class ListRenderer {
                 <div class="mdc-list-item__meta">{itemTemplate}</div>,
             ];
         }
+
         return [
             <div class="mdc-list-item__graphic">{itemTemplate}</div>,
             this.renderText(item.text, item.secondaryText),

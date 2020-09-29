@@ -8,7 +8,7 @@ const SNACKBAR_TIMEOUT = 5000;
 })
 export class PickerExample {
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelExampleSnackbarElement;
 
     @State()
     private dismissible = false;

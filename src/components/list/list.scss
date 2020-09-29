@@ -53,6 +53,10 @@
     }
 }
 
+.mdc-menu {
+    max-height: 70vh; // force tall menus render inside the viewport when menu is at the bottom of the screen
+}
+
 .mdc-list {
     --mdc-theme-text-icon-on-background: var(--icon-color, rgb(157, 157, 157));
     padding: 0;

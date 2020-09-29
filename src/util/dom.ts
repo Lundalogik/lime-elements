@@ -28,7 +28,9 @@ export function isDescendant(element: Node, parent: Node) {
         if (parent.contains(currentNode)) {
             return true;
         }
+
         i += 1;
     }
+
     return parent.contains(currentNode);
 }

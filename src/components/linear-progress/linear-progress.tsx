@@ -20,7 +20,7 @@ export class LinearProgress {
     public indeterminate: boolean = false;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelLinearProgressElement;
 
     private mdcLinearProgress: MDCLinearProgress;
 
@@ -31,6 +31,7 @@ export class LinearProgress {
         this.mdcLinearProgress.progress = this.value;
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         if (this.mdcLinearProgress) {
             this.mdcLinearProgress.destroy();
@@ -47,7 +48,6 @@ export class LinearProgress {
                         : ''
                 }`}
             >
-                <div class="mdc-linear-progress__buffering-dots" />
                 <div class="mdc-linear-progress__buffer" />
                 <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
                     <span class="mdc-linear-progress__bar-inner" />

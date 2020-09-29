@@ -53,7 +53,7 @@ const schema = {
 };
 
 const nestedFirstSchema: any = { ...schema };
-nestedFirstSchema['properties'] = {
+nestedFirstSchema.properties = {
     nested: {
         type: 'object',
         $ref: '#/definitions/nested',
@@ -64,7 +64,7 @@ nestedFirstSchema['properties'] = {
 };
 
 const nestedFirstWithTitleSchema: any = { ...schema };
-nestedFirstWithTitleSchema['properties'] = {
+nestedFirstWithTitleSchema.properties = {
     nested: {
         type: 'object',
         $ref: '#/definitions/nested',
@@ -78,7 +78,7 @@ nestedFirstWithTitleSchema['properties'] = {
 };
 
 const list1FirstSchema: any = { ...schema };
-list1FirstSchema['properties'] = {
+list1FirstSchema.properties = {
     list1: {
         type: 'array',
         items: {
@@ -100,7 +100,7 @@ list1FirstSchema['properties'] = {
 };
 
 const list2FirstSchema: any = { ...schema };
-list2FirstSchema['properties'] = {
+list2FirstSchema.properties = {
     list2: {
         type: 'array',
         items: {
@@ -111,7 +111,7 @@ list2FirstSchema['properties'] = {
 };
 
 const schemaRequiredProperty: any = { ...schema };
-schemaRequiredProperty['required'] = ['data'];
+schemaRequiredProperty.required = ['data'];
 
 describe('findTitle()', () => {
     [
@@ -182,7 +182,7 @@ describe('findTitle()', () => {
     ].forEach(({ input, output }) => {
         const inputJson = JSON.stringify(input[1]);
         it(`returns ${output} when called with ${inputJson}`, () => {
-            expect(findTitle.apply(null, input)).toEqual(output);
+            expect(findTitle.apply(null, input)).toEqual(output); // eslint-disable-line prefer-spread
         });
     });
 });

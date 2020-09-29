@@ -11,6 +11,7 @@ export const config: Config = {
             dir: '.docz/dist/stencil',
             baseUrl: '/',
             copy: [
+                { src: 'style/color-palette-extended.css' },
                 { src: 'components/**/examples/**/*.tsx' },
                 { src: 'components/**/examples/**/*.scss' },
                 { src: 'components/**/*.md' },
@@ -30,11 +31,6 @@ export const config: Config = {
         },
     },
     plugins: [sass()],
-    excludeSrc: [
-        '**/test/**',
-        '**/*.spec.*',
-        '**/*.e2e.*',
-        '**/*.test-wrapper.*',
-    ],
+    tsconfig: './tsconfig.docs.json',
     globalStyle: 'src/global/core-styles.scss',
 };

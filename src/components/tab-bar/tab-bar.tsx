@@ -10,7 +10,8 @@ import {
 import { MDCTabBar, MDCTabBarActivatedEvent } from '@limetech/mdc-tab-bar';
 import { strings } from '@limetech/mdc-tab-bar/constants';
 import { Tab } from './tab.types';
-import { isEqual } from 'lodash-es';
+import { isEqual, difference } from 'lodash-es';
+import { setActiveTab } from './tabs';
 
 const { TAB_ACTIVATED_EVENT } = strings;
 const SCROLL_DISTANCE_ON_CLICK_PX = 150;
@@ -25,14 +26,17 @@ export class TabBar {
     /**
      * List of tabs to display
      */
-    @Prop()
-    public tabs: Tab[];
+    @Prop({ mutable: true })
+    public tabs: Tab[] = [];
 
+    /**
+     * Emitted when a tab has been changed
+     */
     @Event()
     private changeTab: EventEmitter<Tab>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelTabBarElement;
 
     private mdcTabBar: MDCTabBar;
     private setupMdc = false;
@@ -61,6 +65,7 @@ export class TabBar {
         this.setupMdc = false;
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         this.tearDown();
     }
@@ -100,7 +105,7 @@ export class TabBar {
     }
 
     @Watch('tabs')
-    protected tabsChanged(newTabs: Tab[], oldTabs: Tab[]) {
+    protected tabsChanged(newTabs: Tab[] = [], oldTabs: Tab[] = []) {
         const newIds = newTabs.map((tab) => tab.id);
         const oldIds = oldTabs.map((tab) => tab.id);
 
@@ -128,10 +133,12 @@ export class TabBar {
         );
 
         // Workaround for shadow dom support for material
+        // eslint-disable-next-line no-underscore-dangle
         (this
             .mdcTabBar as any).foundation_.adapter_.getFocusedTabIndex = () => {
             const tabElements = this.getTabElements();
             const activeElement = this.host.shadowRoot.activeElement;
+
             return tabElements.indexOf(activeElement);
         };
 
@@ -140,9 +147,17 @@ export class TabBar {
     }
 
     private tearDown() {
-        this.scrollArea.removeEventListener('scroll', this.handleScroll);
-        this.mdcTabBar.unlisten(TAB_ACTIVATED_EVENT, this.handleTabActivated);
-        this.mdcTabBar.destroy();
+        if (this.scrollArea) {
+            this.scrollArea.removeEventListener('scroll', this.handleScroll);
+        }
+
+        if (this.mdcTabBar) {
+            this.mdcTabBar.unlisten(
+                TAB_ACTIVATED_EVENT,
+                this.handleTabActivated
+            );
+            this.mdcTabBar.destroy();
+        }
     }
 
     private getTabElements() {
@@ -158,13 +173,13 @@ export class TabBar {
 
     private handleTabActivated(event: MDCTabBarActivatedEvent) {
         const index = event.detail.index;
-        const oldSelectedTab = this.tabs.find((tab) => tab.active === true);
+        const newTabs = setActiveTab(this.tabs, index);
 
-        if (oldSelectedTab) {
-            this.changeTab.emit({ ...oldSelectedTab, active: false });
-        }
+        difference(newTabs, this.tabs).forEach((tab: Tab) => {
+            this.changeTab.emit(tab);
+        });
 
-        this.changeTab.emit({ ...this.tabs[index], active: true });
+        this.tabs = newTabs;
     }
 
     private handleScroll() {
@@ -203,7 +218,12 @@ export class TabBar {
     }
 
     private renderIcon(tab: Tab) {
+        if (!tab.icon) {
+            return;
+        }
+
         const style = { color: '' };
+
         if (tab.iconColor) {
             style.color = tab.iconColor;
         }

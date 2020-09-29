@@ -1,3 +1,3 @@
-declare module "tabulator-tables" {
+declare module 'tabulator-tables' {
     export default Tabulator;
 }

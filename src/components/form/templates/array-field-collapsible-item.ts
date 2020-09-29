@@ -62,6 +62,7 @@ export class CollapsibleItemTemplate extends React.Component {
 
     public render() {
         const { data, schema, formSchema } = this.props;
+
         return React.createElement(
             'limel-collapsible-section',
             {
@@ -109,9 +110,11 @@ export class CollapsibleItemTemplate extends React.Component {
         if (typeof data !== 'object') {
             return false;
         }
+
         if (isEmpty(data)) {
             return true;
         }
+
         return Object.values(data).every(this.isDeepEmpty);
     }
 }

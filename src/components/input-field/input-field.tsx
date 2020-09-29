@@ -133,7 +133,6 @@ export class InputField {
     @Prop()
     public completions: string[] = [];
 
-    @State()
     private mdcTextField;
 
     @State()
@@ -143,7 +142,7 @@ export class InputField {
     private isModified: boolean = false;
 
     @Element()
-    private limelInputField: HTMLElement;
+    private limelInputField: HTMLLimelInputFieldElement;
 
     /**
      * Emitted when the input value is changed.
@@ -157,7 +156,7 @@ export class InputField {
     @Event()
     private action: EventEmitter<void>;
 
-    public completionsList: ListItem[] = [];
+    private completionsList: ListItem[] = [];
 
     @State()
     public showCompletions: boolean = false;
@@ -183,9 +182,16 @@ export class InputField {
         });
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
+        }
+    }
+
+    public componentDidUpdate() {
+        if (this.invalid) {
+            this.mdcTextField.valid = false;
         }
     }
 
@@ -254,6 +260,12 @@ export class InputField {
             'mdc-text-field--required': this.required,
         };
 
+        const labelClassList = {
+            'mdc-floating-label': true,
+            'textarea-label': true,
+            'mdc-floating-label--float-above': !!this.value || this.isFocused,
+        };
+
         return [
             <div class={classList}>
                 {this.renderCharacterCounter()}
@@ -272,7 +284,7 @@ export class InputField {
                 <div class="mdc-notched-outline">
                     <div class="mdc-notched-outline__leading" />
                     <div class="mdc-notched-outline__notch">
-                        <label htmlFor="textarea" class="mdc-floating-label">
+                        <label htmlFor="textarea" class={labelClassList}>
                             {this.label}
                         </label>
                     </div>
@@ -341,6 +353,7 @@ export class InputField {
         if (this.helperText === null || this.helperText === undefined) {
             return;
         }
+
         return (
             <p
                 class={`
@@ -372,6 +385,7 @@ export class InputField {
         if (this.isInvalid()) {
             return 'high_importance';
         }
+
         return this.trailingIcon || this.leadingIcon;
     }
 
@@ -427,6 +441,7 @@ export class InputField {
                   Number(this.value)
               )
             : this.value;
+
         return (
             <span class="mdc-text-field__formatted_input">{renderValue}</span>
         );
@@ -460,8 +475,9 @@ export class InputField {
         if (!isForwardTab && !isUp && !isDown) {
             return;
         }
+
         const list = this.limelInputField.shadowRoot.querySelector(
-            `limel-list`
+            'limel-list'
         );
         if (!list) {
             return;
@@ -473,6 +489,7 @@ export class InputField {
                 '.mdc-list-item:first-child'
             );
             listElement.focus();
+
             return;
         }
 
@@ -481,7 +498,6 @@ export class InputField {
                 '.mdc-list-item:last-child'
             );
             listElement.focus();
-            return;
         }
     }
 
@@ -510,6 +526,7 @@ export class InputField {
         if (!filteredCompletions || filteredCompletions.length === 0) {
             return null;
         }
+
         return (
             this.showCompletions && (
                 <div
@@ -530,6 +547,7 @@ export class InputField {
         if (!filter) {
             return this.completionsList;
         }
+
         return this.completionsList.filter(
             (completion) =>
                 completion.text.toLowerCase().indexOf(filter.toLowerCase()) > -1
@@ -542,6 +560,7 @@ export class InputField {
         if (this.type === 'number') {
             if (!value && event.data) {
                 event.stopPropagation();
+
                 return;
             }
 

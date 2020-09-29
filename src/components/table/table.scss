@@ -8,12 +8,14 @@ $tabulator-arrow-color: #babac0;
 $tabulator-arrow-color-active: var(--lime-turquoise);
 
 @import './partial-styles/tabulator-arrow';
+@import './partial-styles/tabulator-paginator';
 @import './partial-styles/tabulator-custom-styles';
 
 :host {
     display: block;
 }
 
+#tabulator-container,
 #tabulator-table {
     height: 100%;
     width: 100%;
@@ -31,6 +33,11 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
             background-color: $table-header-background-color;
             border-right-color: #fafafb;
 
+            .tabulator-col-content {
+                padding-top: pxToRem(8);
+                padding-bottom: pxToRem(8);
+            }
+
             &.tabulator-sortable {
                 &:hover {
                     background-color: $table-header-background-color-hover;
@@ -39,7 +46,17 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
         }
 
         .tabulator-col-title {
+            font-weight: 500;
             padding-left: pxToRem(2);
+        }
+    }
+
+    .tabulator-footer {
+        background-color: $table-header-background-color;
+        border: none;
+
+        .tabulator-calcs-holder {
+            border-color: #e8e8ea;
         }
     }
 }
@@ -47,8 +64,10 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 .tabulator-row {
     &.tabulator-selectable {
         transition: background-color 0.2s ease;
-        &:hover {
-            background-color: $table-header-background-color;
+        &:not(.active) {
+            &:hover {
+                background-color: $table-header-background-color;
+            }
         }
     }
     &.tabulator-row-odd {
@@ -59,8 +78,19 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
         background-color: #fff;
     }
 
+    &.active,
+    &.active:hover {
+        background-color: rgba(#26a69a, 0.16);
+    }
+
     .tabulator-cell {
         border-right: transparent;
-        padding-left: pxToRem(6);
+        padding: pxToRem(8);
     }
+}
+
+.tabulator-col,
+.tabulator-cell {
+    max-width: pxToRem(600);
+    font-size: pxToRem(13);
 }

@@ -17,39 +17,47 @@ import { createRandomString } from '../../util/random-string';
     styleUrl: 'switch.scss',
 })
 export class Switch {
+    /**
+     * Label to display next to the switch
+     */
     @Prop({ reflectToAttr: true })
     public label: string;
+
+    /**
+     * Set to `true` to disable the switch
+     */
     @Prop({ reflectToAttr: true })
     public disabled = false;
+
+    /**
+     * The value of the switch
+     */
     @Prop({ reflectToAttr: true })
     public value = false;
 
+    /**
+     * Emitted when the value has changed
+     */
     @Event()
     private change: EventEmitter<boolean>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelSwitchElement;
 
     @State()
     private fieldId = createRandomString();
 
-    @State()
     private mdcSwitch: MDCSwitch;
 
-    /**
-     * @returns {void}
-     */
     public componentDidLoad() {
         this.mdcSwitch = new MDCSwitch(
             this.host.shadowRoot.querySelector('.mdc-switch')
         );
     }
 
-    /**
-     * @returns {void}
-     */
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     public componentDidUnload() {
-        this.mdcSwitch.destroy();
+        this.mdcSwitch?.destroy();
     }
 
     public render() {

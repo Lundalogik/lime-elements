@@ -12,7 +12,7 @@ $menu-item-background-color: #ebebeb;
 
 .menu__trigger {
     border-color: transparent;
-    border-width: pxToRem(1);
+    border-width: 1px;
     border-style: solid;
     background: none;
     color: #afafaf;
@@ -35,12 +35,12 @@ $menu-item-background-color: #ebebeb;
         }
 
         &:not(.limel-portal--fixed) {
+            z-index: -999999;
             position: absolute;
-
-            :host(*[open-direction='left']) & {
-                right: 0;
-                bottom: 0;
-            }
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
         }
     }
 }

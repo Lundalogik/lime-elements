@@ -79,6 +79,7 @@ export class TabBarExample {
             if (tab.id === event.detail.id) {
                 return event.detail;
             }
+
             return tab;
         });
     }

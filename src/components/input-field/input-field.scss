@@ -1,5 +1,6 @@
 @import '../../style/internal/mdc-variables';
 @import '../../style/internal/shared_input-select-picker';
+@import '../../style/mixins';
 
 @import '@limetech/mdc-textfield/mdc-text-field';
 @import '@limetech/mdc-ripple/mdc-ripple';
@@ -8,7 +9,6 @@
 @import '@limetech/mdc-menu-surface/mdc-menu-surface';
 
 /**
- * @prop --background-color: Background color of the field.
  * @prop --textarea-height: Height of the field when type is set to `textarea`
  */
 
@@ -26,7 +26,10 @@
     @include mdc-states-focus-opacity(0, true);
 
     .mdc-floating-label {
-        top: $floating-label-top-value;
+        &:not(.textarea-label) {
+            top: $floating-label-top-value;
+        }
+
         right: pxToRem(
             8
         ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
@@ -80,6 +83,7 @@ div {
 }
 
 .mdc-text-field--disabled {
+    background-color: transparent;
     .mdc-text-field__formatted_input {
         @include looks-disabled;
     }
@@ -111,5 +115,19 @@ div {
 .mdc-text-field.mdc-text-field--textarea {
     textarea {
         height: var(--textarea-height);
+    }
+}
+
+input.mdc-text-field__input {
+    &::-webkit-search-cancel-button {
+        @include clear-all-button;
+
+        -webkit-appearance: none;
+
+        position: absolute;
+        right: pxToRem(8);
+        top: 0;
+        bottom: 0;
+        margin: auto;
     }
 }

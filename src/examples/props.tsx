@@ -6,8 +6,12 @@ const BASE_URL = '/';
 @Component({
     tag: 'limel-props',
     styleUrl: 'props.scss',
+    shadow: true,
 })
 export class Props {
+    /**
+     *
+     */
     @Prop({ reflectToAttr: true })
     public name: string;
 
@@ -39,6 +43,7 @@ export class Props {
                 .read()
                 .then(({ value }) => {
                     const text = new TextDecoder('utf-8').decode(value);
+
                     return this.stripBuiltWithStencilLine(text);
                 });
         });

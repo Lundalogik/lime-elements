@@ -20,6 +20,8 @@ import {
 import { SchemaField as CustomSchemaField } from './fields/schema-field';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
+import Ajv from 'ajv';
+import { isInteger } from './validators';
 
 @Component({
     tag: 'limel-form',
@@ -43,6 +45,18 @@ export class Form {
     public value: object;
 
     /**
+     * Factory for creating properties for custom form components
+     *
+     * When using custom components in the form some properties might have to be
+     * set dynamically. If this factory is set, it will be called with the
+     * current schema for the field for each custom component in the form. The
+     * factory must return an object where each key is the name of the property
+     * that should be set, along with it's value.
+     */
+    @Prop()
+    public propsFactory?: (schema: Record<string, any>) => Record<string, any>;
+
+    /**
      * Emitted when a change is made within the form
      */
     @Event()
@@ -56,15 +70,14 @@ export class Form {
     public validate: EventEmitter<ValidationStatus>;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLLimelFormElement;
 
-    private form: any;
     private isValid = true;
     private modifiedSchema: object;
+    private validator: Ajv.ValidateFunction;
 
     public constructor() {
         this.handleChange = this.handleChange.bind(this);
-        this.setForm = this.setForm.bind(this);
     }
 
     public render() {
@@ -73,6 +86,7 @@ export class Form {
 
     protected componentWillLoad() {
         this.setSchemaId();
+        this.createValidator();
     }
 
     protected componentDidLoad() {
@@ -86,9 +100,12 @@ export class Form {
         this.validateForm(this.value);
     }
 
+    // eslint-disable-next-line @stencil/own-methods-must-be-private
     protected componentDidUnload() {
         const rootElement = this.host.shadowRoot.querySelector('.root');
-        unmountComponentAtNode(rootElement);
+        if (rootElement) {
+            unmountComponentAtNode(rootElement);
+        }
     }
 
     private reactRender() {
@@ -107,10 +124,10 @@ export class Form {
                     FieldTemplate: FieldTemplate,
                     ArrayFieldTemplate: ArrayFieldTemplate,
                     ObjectFieldTemplate: ObjectFieldTemplate,
-                    ref: this.setForm,
                     formContext: {
                         schema: this.modifiedSchema,
                         rootValue: this.value,
+                        propsFactory: this.propsFactory,
                     },
                     fields: {
                         SchemaField: CustomSchemaField,
@@ -122,18 +139,15 @@ export class Form {
         );
     }
 
-    private setForm(form: any) {
-        this.form = form;
-    }
-
     private handleChange(event: any) {
         this.change.emit(event.formData);
     }
 
     private validateForm(value: object) {
-        const errors: FormError[] = this.form.validate(value).errors;
+        const isValid = this.validator(value) === true;
+        const errors: FormError[] = this.getValidationErrors();
         const status: ValidationStatus = {
-            valid: errors.length === 0,
+            valid: isValid,
             errors: errors,
         };
 
@@ -147,6 +161,7 @@ export class Form {
     @Watch('schema')
     public setSchema() {
         this.setSchemaId();
+        this.createValidator();
     }
 
     private setSchemaId() {
@@ -159,5 +174,28 @@ export class Form {
             id: id,
             $id: id,
         };
+    }
+
+    private createValidator() {
+        const validator = new Ajv({
+            unknownFormats: 'ignore',
+            allErrors: true,
+        }).addFormat('integer', isInteger);
+        this.validator = validator.compile(this.schema);
+    }
+
+    private getValidationErrors(): FormError[] {
+        const errors = this.validator.errors || [];
+
+        return errors.map(
+            (error: Ajv.ErrorObject): FormError => {
+                return {
+                    name: error.keyword,
+                    property: error.dataPath,
+                    message: error.message,
+                    schemaPath: error.schemaPath,
+                };
+            }
+        );
     }
 }
