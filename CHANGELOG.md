@@ -1,3 +1,10 @@
+## [28.5.4](https://github.com/Lundalogik/lime-elements/compare/v28.5.3...v28.5.4) (2020-09-29)
+
+
+### Bug Fixes
+
+* **file:** add leading icon to illustrate upload ([f17ca03](https://github.com/Lundalogik/lime-elements/commit/f17ca03e805630c895ffbfa550b58a3d5507e85a))
+
 ## [28.5.3](https://github.com/Lundalogik/lime-elements/compare/v28.5.2...v28.5.3) (2020-09-29)
 
 
