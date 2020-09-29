@@ -1,3 +1,10 @@
+## [28.5.3](https://github.com/Lundalogik/lime-elements/compare/v28.5.2...v28.5.3) (2020-09-29)
+
+
+### Bug Fixes
+
+* **input-field:** make it possible to programmatically update value in textarea ([9c50420](https://github.com/Lundalogik/lime-elements/commit/9c5042089874912fc2b5ae89ed192191b33d1817)), closes [#952](https://github.com/Lundalogik/lime-elements/issues/952)
+
 ## [28.5.2](https://github.com/Lundalogik/lime-elements/compare/v28.5.1...v28.5.2) (2020-09-29)
 
 
