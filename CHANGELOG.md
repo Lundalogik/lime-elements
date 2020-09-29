@@ -1,3 +1,10 @@
+## [28.5.2](https://github.com/Lundalogik/lime-elements/compare/v28.5.1...v28.5.2) (2020-09-29)
+
+
+### Bug Fixes
+
+* **select:** focus style for select dropdown ([e5f0853](https://github.com/Lundalogik/lime-elements/commit/e5f08538e920c20fcd71f0598b0b01eb2bd698bf))
+
 ## [28.5.1](https://github.com/Lundalogik/lime-elements/compare/v28.5.0...v28.5.1) (2020-09-25)
 
 
