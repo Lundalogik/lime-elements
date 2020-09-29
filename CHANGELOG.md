@@ -1,3 +1,57 @@
+## [28.5.2](https://github.com/Lundalogik/lime-elements/compare/v28.5.1...v28.5.2) (2020-09-29)
+
+
+### Bug Fixes
+
+* **select:** focus style for select dropdown ([e5f0853](https://github.com/Lundalogik/lime-elements/commit/e5f08538e920c20fcd71f0598b0b01eb2bd698bf))
+
+## [28.5.1](https://github.com/Lundalogik/lime-elements/compare/v28.5.0...v28.5.1) (2020-09-25)
+
+
+### Bug Fixes
+
+* **table:** escape html in tables ([a1dc99e](https://github.com/Lundalogik/lime-elements/commit/a1dc99e8460f72e84d9d8642b9e7ea944b7ab122)), closes [Lundalogik/crm-feature#1418](https://github.com/Lundalogik/crm-feature/issues/1418)
+
+# [28.5.0](https://github.com/Lundalogik/lime-elements/compare/v28.4.5...v28.5.0) (2020-09-25)
+
+
+### Features
+
+* **table:** add default sorting ([a0f0448](https://github.com/Lundalogik/lime-elements/commit/a0f0448ef9fc29bfc3a49482445d00947f94431b)), closes [#961](https://github.com/Lundalogik/lime-elements/issues/961)
+
+## [28.4.5](https://github.com/Lundalogik/lime-elements/compare/v28.4.4...v28.4.5) (2020-09-22)
+
+
+### Bug Fixes
+
+* **table:** ignore first ajax request if table is created with data ([4bfcc5d](https://github.com/Lundalogik/lime-elements/commit/4bfcc5d11970e257776710e2423bbf6acccdae2e)), closes [Lundalogik/lime-crm-components#150](https://github.com/Lundalogik/lime-crm-components/issues/150)
+
+## [28.4.4](https://github.com/Lundalogik/lime-elements/compare/v28.4.3...v28.4.4) (2020-09-18)
+
+
+### Bug Fixes
+
+* **table:** calculate the correct width when resizing columns ([4ab6db7](https://github.com/Lundalogik/lime-elements/commit/4ab6db7c3d2562662ac4582d08a89953c8f56ecd))
+
+
+### Performance Improvements
+
+* **table:** use object pool for custom components ([3d9047a](https://github.com/Lundalogik/lime-elements/commit/3d9047a0b12a8768d3fb3646dcc465bd7b5a9152)), closes [Lundalogik/crm-feature#1384](https://github.com/Lundalogik/crm-feature/issues/1384)
+
+## [28.4.3](https://github.com/Lundalogik/lime-elements/compare/v28.4.2...v28.4.3) (2020-09-17)
+
+
+### Performance Improvements
+
+* **portal:** create popper instance when portal is displayed ([3371b0e](https://github.com/Lundalogik/lime-elements/commit/3371b0e4269c1da36342fc6a0215a7b3deff6efe))
+
+## [28.4.2](https://github.com/Lundalogik/lime-elements/compare/v28.4.1...v28.4.2) (2020-09-14)
+
+
+### Bug Fixes
+
+* **tab-bar:** hide unwanted scrollbars on Firefox ([1cfac35](https://github.com/Lundalogik/lime-elements/commit/1cfac35434be731e9e2ef4b57cf02e2b9c4dcad0))
+
 ## [28.4.1](https://github.com/Lundalogik/lime-elements/compare/v28.4.0...v28.4.1) (2020-09-10)
 
 

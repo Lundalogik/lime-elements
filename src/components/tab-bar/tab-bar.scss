@@ -97,6 +97,11 @@ $tab-scroller-fade-width: 65;
     }
 }
 
+.mdc-tab-scroller__scroll-area--scroll {
+    scrollbar-width: none; // This hides the scrollbars appearing under the tab bar in Firefox
+    -ms-overflow-style: none; // Same as above for IE 11
+}
+
 .mdc-tab-scroller__scroll-content {
     padding: pxToRem(8) $tab-active-outer-edge-curve-size 0
         $tab-active-outer-edge-curve-size;
