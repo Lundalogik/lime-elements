@@ -3,7 +3,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-textarea',
     shadow: true,
-    styleUrl: 'input-field.scss',
 })
 export class InputFieldTextareaExample {
     @State()
