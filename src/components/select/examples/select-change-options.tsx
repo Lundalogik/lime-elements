@@ -4,6 +4,7 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     shadow: true,
     tag: 'limel-example-select-change-options',
+    styleUrl: 'select.scss',
 })
 export class SelectExample {
     @State()
