@@ -64,8 +64,14 @@ export class TableExampleLocal {
                 onChangePage={this.handleChangePage}
                 onSort={this.handleSort}
             />,
-            <p>Current page is: {this.currentPage}</p>,
-            <p>Currently sorting on: {this.currentSorting}</p>,
+            <limel-example-value
+                label="Current page is"
+                value={this.currentPage}
+            />,
+            <limel-example-value
+                label="Currently sorting on"
+                value={this.currentSorting}
+            />,
         ];
     }
 }

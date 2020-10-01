@@ -37,9 +37,7 @@ export class TableExampleActivateRow {
                 onActivate={this.onActivateRow}
                 class="has-low-density has-interactive-rows"
             />,
-            <p class="active-row">
-                Active row: <code>{JSON.stringify(this.activeRow)}</code>
-            </p>,
+            <limel-example-value label="Active row" value={this.activeRow} />,
         ];
     }
 

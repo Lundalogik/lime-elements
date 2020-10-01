@@ -4,7 +4,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     shadow: true,
     tag: 'limel-example-select',
-    styleUrl: 'select.scss',
 })
 export class SelectExample {
     @State()
@@ -43,7 +42,7 @@ export class SelectExample {
                         />
                     </limel-flex-container>
                 </p>
-                <p>Value: {JSON.stringify(this.value)}</p>
+                <limel-example-value value={this.value} />
             </section>
         );
     }

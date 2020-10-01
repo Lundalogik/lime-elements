@@ -39,9 +39,7 @@ export class SwitchExample {
                         />
                     </limel-flex-container>
                 </div>
-                <p>
-                    Value: <code>{this.value.toString()}</code>
-                </p>
+                <limel-example-value value={this.value} />
             </section>
         );
     }

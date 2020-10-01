@@ -4,7 +4,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-picker-multiple',
     shadow: true,
-    styleUrl: 'picker.scss',
 })
 export class PickerMultipleExample {
     private allItems: Array<ListItem<number>> = [
@@ -75,9 +74,7 @@ export class PickerMultipleExample {
                     />
                 </limel-flex-container>
             </p>,
-            <p>
-                Value: <code>{JSON.stringify(this.selectedItems)}</code>
-            </p>,
+            <limel-example-value value={this.selectedItems} />,
         ];
     }
 
