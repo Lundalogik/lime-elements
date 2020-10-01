@@ -67,10 +67,7 @@ export class NestedFormExample {
                 value={this.formData}
                 schema={schema}
             />,
-            <br />,
-            <br />,
-            'Value: ',
-            <pre>{JSON.stringify(this.formData, null, '    ')}</pre>,
+            <limel-example-value value={this.formData} />,
         ];
     }
 

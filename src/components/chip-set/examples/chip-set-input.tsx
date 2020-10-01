@@ -122,9 +122,7 @@ export class ChipSetInputExample {
                     />
                 </limel-flex-container>
             </p>,
-            <p>
-                Value: <code>{JSON.stringify(this.value)}</code>
-            </p>,
+            <limel-example-value value={this.value} />,
         ];
     }
 

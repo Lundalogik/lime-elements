@@ -43,7 +43,7 @@ export class TabBarExample {
                 onChangeTab={this.onChange}
                 class="has-tabs-with-equal-width"
             />,
-            <p>Tab: {this.text}</p>,
+            <limel-example-value label="Tab" value={this.text} />,
         ];
     }
 

@@ -89,10 +89,14 @@ export class SelectDialogExample {
                     />
                 </limel-flex-container>
             </limel-dialog>,
-            <p>Favorite hero: {this.heroValue && this.heroValue.text}</p>,
-            <p>
-                Loathed villain: {this.villainValue && this.villainValue.text}
-            </p>,
+            <limel-example-value
+                label="Favorite hero"
+                value={this.heroValue}
+            />,
+            <limel-example-value
+                label="Loathed villain"
+                value={this.villainValue}
+            />,
         ];
     }
 

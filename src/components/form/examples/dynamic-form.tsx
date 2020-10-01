@@ -53,12 +53,8 @@ export class DynamicFormExample {
                 value={this.formData}
                 schema={this.schema}
             />,
-            <br />,
-            <br />,
-            'Value: ',
-            <pre>{JSON.stringify(this.formData, null, '    ')}</pre>,
-            'Errors: ',
-            <pre>{JSON.stringify(this.errors, null, '    ')}</pre>,
+            <limel-example-value value={this.formData} />,
+            <limel-example-value label="Errors" value={this.errors} />,
         ];
     }
 

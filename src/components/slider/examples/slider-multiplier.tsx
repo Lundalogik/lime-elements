@@ -3,7 +3,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-slider-multiplier',
     shadow: true,
-    styleUrl: 'slider.scss',
 })
 export class SliderMultiplierExample {
     @State()
@@ -29,7 +28,7 @@ export class SliderMultiplierExample {
                     valuemin={this.minValue}
                     onChange={this.onChange}
                 />
-                <p>Current value: {this.value}</p>
+                <limel-example-value value={this.value} />
             </section>
         );
     }
