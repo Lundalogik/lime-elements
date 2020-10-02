@@ -150,10 +150,7 @@ export class FormExample {
                 disabled={!this.valid}
                 onClick={this.handleSubmit}
             />,
-            <br />,
-            <br />,
-            'Value: ',
-            <pre>{JSON.stringify(this.formData, null, '    ')}</pre>,
+            <limel-example-value value={this.formData} />,
         ];
     }
 

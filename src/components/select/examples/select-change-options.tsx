@@ -70,11 +70,13 @@ export class SelectExample {
                         />
                     </limel-flex-container>
                 </p>
-                <p>Value: {JSON.stringify(this.value)}</p>
-                <p>
-                    Currently showing option group:{' '}
-                    {this.currentOptionGroup + 1} / {this.optionGroups.length}
-                </p>
+                <limel-example-value value={this.value} />
+                <limel-example-value
+                    label="Currently showing option group"
+                    value={`${this.currentOptionGroup + 1} / ${
+                        this.optionGroups.length
+                    }`}
+                />
             </section>
         );
     }

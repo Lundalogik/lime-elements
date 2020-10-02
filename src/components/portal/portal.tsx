@@ -73,16 +73,16 @@ export class Portal {
     @Watch('visible')
     protected onVisible() {
         if (!this.visible) {
+            this.hideContainer();
+            this.styleContainer();
+            this.destroyPopper();
+
             return;
         }
 
-        if (!this.popperInstance) {
-            return;
-        }
-
-        setTimeout(() => {
-            const popperConfig = this.createPopperConfig();
-            this.popperInstance.setOptions(popperConfig);
+        this.createPopper();
+        this.styleContainer();
+        requestAnimationFrame(() => {
             this.showContainer();
         });
     }
@@ -98,8 +98,7 @@ export class Portal {
 
     public disconnectedCallback() {
         this.removeContainer();
-        this.popperInstance?.destroy();
-        this.popperInstance = null;
+        this.destroyPopper();
     }
 
     public connectedCallback() {
@@ -112,21 +111,14 @@ export class Portal {
         this.attachContainer();
         this.styleContainer();
 
-        const popperConfig = this.createPopperConfig();
-        this.popperInstance = createPopper(
-            this.host,
-            this.container,
-            popperConfig
-        );
+        if (this.visible) {
+            this.createPopper();
+        }
     }
 
     public componentDidLoad() {
         this.loaded = true;
         this.connectedCallback();
-    }
-
-    public componentDidUpdate() {
-        this.styleContainer();
     }
 
     public render() {
@@ -174,10 +166,8 @@ export class Portal {
 
         if (this.visible) {
             this.container.style.display = 'block';
-            this.container.style.opacity = '1';
         } else {
             this.container.style.display = 'none';
-            this.container.style.opacity = '0';
         }
 
         if (this.inheritParentWidth) {
@@ -205,6 +195,17 @@ export class Portal {
         const elementContent = element.querySelector('*');
 
         return this.getContentWidth(elementContent);
+    }
+
+    private createPopper() {
+        const config = this.createPopperConfig();
+
+        this.popperInstance = createPopper(this.host, this.container, config);
+    }
+
+    private destroyPopper() {
+        this.popperInstance?.destroy();
+        this.popperInstance = null;
     }
 
     private createPopperConfig(): Partial<

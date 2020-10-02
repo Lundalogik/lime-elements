@@ -51,7 +51,7 @@ export class InputFieldTextExample {
                     />
                 </limel-flex-container>
             </p>,
-            <p>Value: {this.value}</p>,
+            <limel-example-value value={this.value} />,
         ];
     }
 

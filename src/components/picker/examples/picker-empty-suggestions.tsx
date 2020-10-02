@@ -6,7 +6,6 @@ const NETWORK_DELAY = 500;
 @Component({
     tag: 'limel-example-picker-empty-suggestions',
     shadow: true,
-    styleUrl: 'picker.scss',
 })
 export class PickerExample {
     private allItems: Array<ListItem<number>> = [
@@ -77,9 +76,7 @@ export class PickerExample {
                     />
                 </limel-flex-container>
             </p>,
-            <p>
-                Value: <code>{JSON.stringify(this.selectedItem)}</code>
-            </p>,
+            <limel-example-value value={this.selectedItem} />,
         ];
     }
 

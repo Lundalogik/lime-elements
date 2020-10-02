@@ -31,14 +31,7 @@ export class DatePickerExample {
                         />
                     </limel-flex-container>
                 </p>
-                <p style={{ 'font-size': 'small' }}>
-                    Value:{' '}
-                    <code>
-                        {this.value
-                            ? this.value.toString()
-                            : JSON.stringify(this.value)}
-                    </code>
-                </p>
+                <limel-example-value value={this.value} />
             </p>
         );
     }

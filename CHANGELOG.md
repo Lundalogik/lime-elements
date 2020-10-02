@@ -1,3 +1,162 @@
+## [28.5.4](https://github.com/Lundalogik/lime-elements/compare/v28.5.3...v28.5.4) (2020-09-29)
+
+
+### Bug Fixes
+
+* **file:** add leading icon to illustrate upload ([f17ca03](https://github.com/Lundalogik/lime-elements/commit/f17ca03e805630c895ffbfa550b58a3d5507e85a))
+
+## [28.5.3](https://github.com/Lundalogik/lime-elements/compare/v28.5.2...v28.5.3) (2020-09-29)
+
+
+### Bug Fixes
+
+* **input-field:** make it possible to programmatically update value in textarea ([9c50420](https://github.com/Lundalogik/lime-elements/commit/9c5042089874912fc2b5ae89ed192191b33d1817)), closes [#952](https://github.com/Lundalogik/lime-elements/issues/952)
+
+## [28.5.2](https://github.com/Lundalogik/lime-elements/compare/v28.5.1...v28.5.2) (2020-09-29)
+
+
+### Bug Fixes
+
+* **select:** focus style for select dropdown ([e5f0853](https://github.com/Lundalogik/lime-elements/commit/e5f08538e920c20fcd71f0598b0b01eb2bd698bf))
+
+## [28.5.1](https://github.com/Lundalogik/lime-elements/compare/v28.5.0...v28.5.1) (2020-09-25)
+
+
+### Bug Fixes
+
+* **table:** escape html in tables ([a1dc99e](https://github.com/Lundalogik/lime-elements/commit/a1dc99e8460f72e84d9d8642b9e7ea944b7ab122)), closes [Lundalogik/crm-feature#1418](https://github.com/Lundalogik/crm-feature/issues/1418)
+
+# [28.5.0](https://github.com/Lundalogik/lime-elements/compare/v28.4.5...v28.5.0) (2020-09-25)
+
+
+### Features
+
+* **table:** add default sorting ([a0f0448](https://github.com/Lundalogik/lime-elements/commit/a0f0448ef9fc29bfc3a49482445d00947f94431b)), closes [#961](https://github.com/Lundalogik/lime-elements/issues/961)
+
+## [28.4.5](https://github.com/Lundalogik/lime-elements/compare/v28.4.4...v28.4.5) (2020-09-22)
+
+
+### Bug Fixes
+
+* **table:** ignore first ajax request if table is created with data ([4bfcc5d](https://github.com/Lundalogik/lime-elements/commit/4bfcc5d11970e257776710e2423bbf6acccdae2e)), closes [Lundalogik/lime-crm-components#150](https://github.com/Lundalogik/lime-crm-components/issues/150)
+
+## [28.4.4](https://github.com/Lundalogik/lime-elements/compare/v28.4.3...v28.4.4) (2020-09-18)
+
+
+### Bug Fixes
+
+* **table:** calculate the correct width when resizing columns ([4ab6db7](https://github.com/Lundalogik/lime-elements/commit/4ab6db7c3d2562662ac4582d08a89953c8f56ecd))
+
+
+### Performance Improvements
+
+* **table:** use object pool for custom components ([3d9047a](https://github.com/Lundalogik/lime-elements/commit/3d9047a0b12a8768d3fb3646dcc465bd7b5a9152)), closes [Lundalogik/crm-feature#1384](https://github.com/Lundalogik/crm-feature/issues/1384)
+
+## [28.4.3](https://github.com/Lundalogik/lime-elements/compare/v28.4.2...v28.4.3) (2020-09-17)
+
+
+### Performance Improvements
+
+* **portal:** create popper instance when portal is displayed ([3371b0e](https://github.com/Lundalogik/lime-elements/commit/3371b0e4269c1da36342fc6a0215a7b3deff6efe))
+
+## [28.4.2](https://github.com/Lundalogik/lime-elements/compare/v28.4.1...v28.4.2) (2020-09-14)
+
+
+### Bug Fixes
+
+* **tab-bar:** hide unwanted scrollbars on Firefox ([1cfac35](https://github.com/Lundalogik/lime-elements/commit/1cfac35434be731e9e2ef4b57cf02e2b9c4dcad0))
+
+## [28.4.1](https://github.com/Lundalogik/lime-elements/compare/v28.4.0...v28.4.1) (2020-09-10)
+
+
+### Bug Fixes
+
+* **tab-panel:** initialize slot elements array ([44658a0](https://github.com/Lundalogik/lime-elements/commit/44658a0b464894f55be8ad54e5b123324c5dffcd))
+* **table:** add wrapper element to Tabulator ([7a9eca7](https://github.com/Lundalogik/lime-elements/commit/7a9eca7f83eb0ca2154cdc3f561c777ed15e3f2f))
+
+# [28.4.0](https://github.com/Lundalogik/lime-elements/compare/v28.3.1...v28.4.0) (2020-09-10)
+
+
+### Bug Fixes
+
+* **chip-set:** add some space for the clear all button so it won't overlap chips ([3b159c0](https://github.com/Lundalogik/lime-elements/commit/3b159c07c88ebd6fac8f81b2a4317ebbaaa0470f))
+* **chip-set:** make clear-all button keyboard accessible ([2f3ab2e](https://github.com/Lundalogik/lime-elements/commit/2f3ab2e0a35440bc30d21fc03e27114ec187abb1)), closes [#936](https://github.com/Lundalogik/lime-elements/issues/936)
+
+
+### Features
+
+* **chip-set:** add `aria-label` & `title` for clear all button ([714dc30](https://github.com/Lundalogik/lime-elements/commit/714dc3018d57dbcdcb100e228a62c98bfd2e1ade))
+
+## [28.3.1](https://github.com/Lundalogik/lime-elements/compare/v28.3.0...v28.3.1) (2020-09-09)
+
+
+### Bug Fixes
+
+* **table:** calculate column width for custom components ([87b764a](https://github.com/Lundalogik/lime-elements/commit/87b764a86bcd891dc05736ca4eb7abd4be65ac29))
+
+# [28.3.0](https://github.com/Lundalogik/lime-elements/compare/v28.2.0...v28.3.0) (2020-09-08)
+
+
+### Features
+
+* **chip-set:** add optional delimiters between chips ([0ebc43b](https://github.com/Lundalogik/lime-elements/commit/0ebc43b1d1f7e402b7d19e5fead71793dc4e36b9)), closes [Lundalogik/crm-feature#1351](https://github.com/Lundalogik/crm-feature/issues/1351)
+
+# [28.2.0](https://github.com/Lundalogik/lime-elements/compare/v28.1.4...v28.2.0) (2020-09-07)
+
+
+### Features
+
+* **chip-set:** add optional leading icon ([0cfe663](https://github.com/Lundalogik/lime-elements/commit/0cfe663f65cbe1ddb07699f9714e554337f6f4a1))
+
+## [28.1.4](https://github.com/Lundalogik/lime-elements/compare/v28.1.3...v28.1.4) (2020-09-07)
+
+
+### Bug Fixes
+
+* **table:** make Tabulator look more like old tables in web client ([aad9589](https://github.com/Lundalogik/lime-elements/commit/aad95895999ac8c2d53f3a8007af088d23377e6a))
+
+## [28.1.3](https://github.com/Lundalogik/lime-elements/compare/v28.1.2...v28.1.3) (2020-09-07)
+
+
+### Bug Fixes
+
+* **tab-bar:** save tab state by making it mutable ([c8dfabf](https://github.com/Lundalogik/lime-elements/commit/c8dfabf28db36ad8bc1633ebd626cdb6e30dcfec)), closes [Lundalogik/crm-feature#1327](https://github.com/Lundalogik/crm-feature/issues/1327)
+
+## [28.1.2](https://github.com/Lundalogik/lime-elements/compare/v28.1.1...v28.1.2) (2020-09-07)
+
+
+### Bug Fixes
+
+* **button-group:** fix visual defects on Firefox cause by user agent stylesheets ([746b2ef](https://github.com/Lundalogik/lime-elements/commit/746b2efcc453e80b29bceb6b8527d7bc935c9bb9))
+
+## [28.1.1](https://github.com/Lundalogik/lime-elements/compare/v28.1.0...v28.1.1) (2020-09-02)
+
+
+### Bug Fixes
+
+* **chip-set:** add darker color when hovering over button ([a7c3cb4](https://github.com/Lundalogik/lime-elements/commit/a7c3cb46e67cd22247d5663e8a4ce6de3e083977))
+
+# [28.1.0](https://github.com/Lundalogik/lime-elements/compare/v28.0.3...v28.1.0) (2020-09-01)
+
+
+### Features
+
+* **chip-set:** add delete all chips button ([31ad2f7](https://github.com/Lundalogik/lime-elements/commit/31ad2f7f1a7864eb0262f763f53ddc09906d3a53)), closes [Lundalogik/crm-feature#1329](https://github.com/Lundalogik/crm-feature/issues/1329)
+
+## [28.0.3](https://github.com/Lundalogik/lime-elements/compare/v28.0.2...v28.0.3) (2020-08-31)
+
+
+### Bug Fixes
+
+* **switch:** make sure MDC component exist ([6d5601a](https://github.com/Lundalogik/lime-elements/commit/6d5601a90fb6958c27e79655b77a4e23bdf98835))
+
+## [28.0.2](https://github.com/Lundalogik/lime-elements/compare/v28.0.1...v28.0.2) (2020-08-31)
+
+
+### Performance Improvements
+
+* **linear-progress:** remove continuous buffering animation ([db33e68](https://github.com/Lundalogik/lime-elements/commit/db33e681d1bdecb3a6109156efd2f6284ce6870d))
+
 ## [28.0.1](https://github.com/Lundalogik/lime-elements/compare/v28.0.0...v28.0.1) (2020-08-28)
 
 

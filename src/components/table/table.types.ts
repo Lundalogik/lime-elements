@@ -27,6 +27,20 @@ export interface Column<T extends object = any> {
 
 export type TableFormatter = (value: any, data?: object) => string;
 
+/**
+ * Definition for a component to be displayed in a cell in the table
+ *
+ * @note The table will display the component as `inline-block` in order
+ * to give the column the correct size. If the component should have the
+ * full width of the column, this might have to be overridden by setting
+ * the display mode to `block`, e.g.
+ *
+ * ```css
+ * :host(*) {
+ *     display: block !important;
+ * }
+ * ```
+ */
 export interface TableComponentDefinition {
     /**
      * Name of the component

@@ -29,6 +29,12 @@ export class ChipSetInputExample {
     @State()
     private emptyInputOnBlur: boolean = true;
 
+    @State()
+    private hasLeadingIcon: boolean = true;
+
+    @State()
+    private delimiter: string = '&';
+
     constructor() {
         this.value = [
             this.createChip('Elephant'),
@@ -51,6 +57,8 @@ export class ChipSetInputExample {
         this.setRequired = this.setRequired.bind(this);
         this.setEmptyInputOnBlur = this.setEmptyInputOnBlur.bind(this);
         this.setMaxItems = this.setMaxItems.bind(this);
+        this.setLeadingIcon = this.setLeadingIcon.bind(this);
+        this.useDelimiters = this.useDelimiters.bind(this);
     }
 
     public render() {
@@ -63,6 +71,7 @@ export class ChipSetInputExample {
                     required={this.required}
                     readonly={this.readonly}
                     disabled={this.disabled}
+                    leadingIcon={this.hasLeadingIcon ? 'search' : null}
                     maxItems={this.maxItems}
                     onChange={this.chipSetOnChange}
                     onInput={this.onInput}
@@ -70,6 +79,7 @@ export class ChipSetInputExample {
                     onKeyUp={this.onKeyUp}
                     searchLabel="Add an animal"
                     emptyInputOnBlur={this.emptyInputOnBlur}
+                    delimiter={this.delimiter}
                 />
                 <limel-input-field
                     label="Max items"
@@ -100,11 +110,19 @@ export class ChipSetInputExample {
                         onChange={this.setRequired}
                         checked={this.required}
                     />
+                    <limel-checkbox
+                        label={'Leading icon'}
+                        onChange={this.setLeadingIcon}
+                        checked={this.hasLeadingIcon}
+                    />
+                    <limel-checkbox
+                        label="Use delimiters"
+                        onChange={this.useDelimiters}
+                        checked={this.delimiter !== null}
+                    />
                 </limel-flex-container>
             </p>,
-            <p>
-                Value: <code>{JSON.stringify(this.value)}</code>
-            </p>,
+            <limel-example-value value={this.value} />,
         ];
     }
 
@@ -159,7 +177,15 @@ export class ChipSetInputExample {
         this.emptyInputOnBlur = event.detail;
     }
 
+    private setLeadingIcon(event: CustomEvent<boolean>) {
+        this.hasLeadingIcon = event.detail;
+    }
+
     private setMaxItems(event: CustomEvent<string>) {
         this.maxItems = +event.detail;
+    }
+
+    private useDelimiters(event: CustomEvent<boolean>) {
+        this.delimiter = event.detail ? '&' : null;
     }
 }
