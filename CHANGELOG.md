@@ -1,3 +1,10 @@
+## [28.5.5](https://github.com/Lundalogik/lime-elements/compare/v28.5.4...v28.5.5) (2020-10-02)
+
+
+### Bug Fixes
+
+* **form:** fix resetting dependent fields during schema changes in lists ([13457d4](https://github.com/Lundalogik/lime-elements/commit/13457d4925ba893a3d8f77669e034bc0108c9ee0))
+
 ## [28.5.4](https://github.com/Lundalogik/lime-elements/compare/v28.5.3...v28.5.4) (2020-09-29)
 
 
