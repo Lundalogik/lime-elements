@@ -125,7 +125,7 @@ function checkOutBranch() {
 
 function build() {
     try {
-        const options3 = {
+        let options = {
             files: ['src/index.html'],
             from: [
                 /<base href="\/">/g,
@@ -142,21 +142,21 @@ function build() {
                 `/versions/${version}/kompendium.json`,
             ],
         };
-        replace.sync(options3);
+        replace.sync(options);
 
-        const options4 = {
+        options = {
             files: ['stencil.config.docs.ts'],
             from: /baseUrl: '\/'/g,
             to: `baseUrl: '/versions/${version}/'`,
         };
-        replace.sync(options4);
+        replace.sync(options);
 
-        const options5 = {
+        options = {
             files: ['src/index.md'],
             from: /<version\\>/g,
             to: `${version}`,
         };
-        replace.sync(options5);
+        replace.sync(options);
 
         shell.exec('git diff --name-status');
     } catch (error) {
