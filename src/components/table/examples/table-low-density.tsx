@@ -15,21 +15,23 @@ import { Column } from '../table.types';
  * explains what each cell is about, and also enjoy sorting possibilities it
  * offers.
  *
- * #### Usage notes
+ * :::note usage notes
  * - In this low-density UI, all cells will get a fixed height, which may affect
  * the layout of custom components that you place inside them.
  * - This UI is not preferred for data intensive views, in which the user's main
  * task is processing the presented data and making sense of it. For such views,
  * use the table component with its normal density.
+ *:::
  *
- * #### Clickable rows
+ * ##### Clickable rows
  * By taking advantage of the `has-interactive-rows` class, hovering on a row
  * will display an elevated visual effect, giving it more affordance and a solid
  * feeling of interactivity.
  *
- * #### Usage notes
+ * :::note usage notes
  * - Only use this class when clicking on an entire row triggers a reaction in
  * the system, for example a card or a modal is opened to show further details.
+ *:::
  */
 @Component({
     tag: 'limel-example-table-low-density',

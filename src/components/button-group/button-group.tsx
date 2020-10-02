@@ -18,10 +18,6 @@ import { createRandomString } from '../../util/random-string';
  *
  * ## Layout
  *
- * Button can contain text or icons, but not both simultaneously! Within the
- * group, icon buttons will all have the same width, while each text button
- * inherits its width from its content.
- *
  * The button groups are usually placed in top headers and action bars,
  * sometimes with other elements. Since the group items will always be rendered
  * in a row, you must make sure not to have too many buttons in the group.
@@ -29,6 +25,12 @@ import { createRandomString } from '../../util/random-string';
  * fit in all its buttons, they will have to truncate their text and may appear
  * very cramped together. Always think about how your button group will appear
  * on a small screen such as phones.
+ * :::note
+ * Button can contain text or icons, but not both simultaneously!
+ * :::
+ *
+ * Within the group, icon buttons will all have the same width, while each text button
+ * inherits its width from its content.
  *
  * @exampleComponent limel-example-button-group-icons
  * @exampleComponent limel-example-button-group
