@@ -84,7 +84,7 @@
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
     "lodash-es": "4.17.15",
-    "prettier": "2.0.5",
+    "prettier": "^2.1.2",
     "prismjs": "1.21.0",
     "puppeteer": "1.19.0",
     "react": "^16.13.1",
