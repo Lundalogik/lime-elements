@@ -1,12 +1,19 @@
 @import '../../../style/functions';
 
-.custom-made-button {
+#size-rhythm-example {
+    background-color: rgb(var(--contrast-200));
+    border: 1px solid rgb(var(--contrast-400));
+    border-radius: pxToRem(4);
+    padding: pxToRem(20);
+    margin-bottom: pxToRem(20);
+}
+
+.button {
     box-sizing: border-box;
-    position: relative;
 
     display: inline-block;
     border: none;
-    border-radius: pxToRem(8);
+    border-radius: pxToRem(6);
 
     height: pxToRem(40);
     line-height: pxToRem(40);
@@ -14,22 +21,22 @@
     margin: 0 pxToRem(6);
 
     font-size: pxToRem(16);
-    background-color: #fff;
+    background-color: rgb(var(--contrast-500));
     box-shadow: 0 #{pxToRem(1.5)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.232),
         0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0 rgba(0, 0, 0, 0.208);
-
-    cursor: pointer;
-
-    &:after {
-        content: '12';
-        font-size: pxToRem(8);
-        position: absolute;
-        right: pxToRem(-12);
-        width: pxToRem(12);
-        background-color: #b2ebf2;
-    }
 
     &:first-of-type {
         margin-left: 0;
     }
+
+    &:focus {
+        outline: none;
+    }
 }
+
+.label {
+    color: rgb(var(--contrast-1200));
+}
+
+// Below visualizes the sizes only, you can ignore it
+@import './partial-styles/visualize-sizes';
