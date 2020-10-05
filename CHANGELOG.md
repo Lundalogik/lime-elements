@@ -1,3 +1,10 @@
+## [28.5.6](https://github.com/Lundalogik/lime-elements/compare/v28.5.5...v28.5.6) (2020-10-05)
+
+
+### Bug Fixes
+
+* **form:** fix sort and remove list of text fields in form ([8d0ce0c](https://github.com/Lundalogik/lime-elements/commit/8d0ce0cc3f4dc13d1e1f0eb7c671b21a0fad20d5)), closes [Lundalogik/lime-elements#969](https://github.com/Lundalogik/lime-elements/issues/969)
+
 ## [28.5.5](https://github.com/Lundalogik/lime-elements/compare/v28.5.4...v28.5.5) (2020-10-02)
 
 
