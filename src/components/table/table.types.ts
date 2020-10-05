@@ -105,6 +105,7 @@ export interface TableParams {
     sorters?: ColumnSorter[];
 }
 
+// eslint-disable-next-line no-shadow
 export enum ColumnAggregatorType {
     /**
      * Calculates the average value of all numerical cells in the column
