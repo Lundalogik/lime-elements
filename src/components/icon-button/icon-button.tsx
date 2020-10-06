@@ -57,15 +57,25 @@ export class IconButton {
         }
     }
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentDidLoad() {
-        this.mdcIconButtonRipple = new MDCRipple(
-            this.host.shadowRoot.querySelector('.mdc-icon-button')
-        );
+        this.initialize();
+    }
+
+    private initialize() {
+        const element = this.host.shadowRoot.querySelector('.mdc-icon-button');
+        if (!element) {
+            return;
+        }
+
+        this.mdcIconButtonRipple = new MDCRipple(element);
         this.mdcIconButtonRipple.unbounded = true;
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.mdcIconButtonRipple?.destroy();
     }
 
