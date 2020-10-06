@@ -88,32 +88,32 @@ export class Form {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    public render() {
-        return <div class="root" />;
-    }
-
-    protected componentWillLoad() {
+    public componentWillLoad() {
         this.setSchemaId();
         this.createValidator();
     }
 
-    protected componentDidLoad() {
+    public componentDidLoad() {
         this.reactRender();
         retargetEvents(this.host.shadowRoot);
         this.validateForm(this.value);
     }
 
-    protected componentDidUpdate() {
+    public componentDidUpdate() {
         this.reactRender();
         this.validateForm(this.value);
     }
 
     // eslint-disable-next-line @stencil/own-methods-must-be-private
-    protected componentDidUnload() {
+    public componentDidUnload() {
         const rootElement = this.host.shadowRoot.querySelector('.root');
         if (rootElement) {
             unmountComponentAtNode(rootElement);
         }
+    }
+
+    public render() {
+        return <div class="root" />;
     }
 
     private reactRender() {
