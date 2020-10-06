@@ -29,15 +29,27 @@ export class LinearProgress {
 
     private mdcLinearProgress: MDCLinearProgress;
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentDidLoad() {
-        this.mdcLinearProgress = new MDCLinearProgress(
-            this.host.shadowRoot.querySelector('.mdc-linear-progress')
+        this.initialize();
+    }
+
+    private initialize() {
+        const element = this.host.shadowRoot.querySelector(
+            '.mdc-linear-progress'
         );
+        if (!element) {
+            return;
+        }
+
+        this.mdcLinearProgress = new MDCLinearProgress(element);
         this.mdcLinearProgress.progress = this.value;
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         if (this.mdcLinearProgress) {
             this.mdcLinearProgress.destroy();
         }
