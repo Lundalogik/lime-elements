@@ -66,18 +66,30 @@ export class Checkbox {
         this.onChange = this.onChange.bind(this);
     }
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentDidLoad() {
-        this.formField = new MDCFormField(
-            this.limelCheckbox.shadowRoot.querySelector('.mdc-form-field')
+        this.initialize();
+    }
+
+    private initialize() {
+        const element = this.limelCheckbox.shadowRoot.querySelector(
+            '.mdc-form-field'
         );
+        if (!element) {
+            return;
+        }
+
+        this.formField = new MDCFormField(element);
         this.mdcCheckbox = new MDCCheckbox(
             this.limelCheckbox.shadowRoot.querySelector('.mdc-checkbox')
         );
         this.formField.input = this.mdcCheckbox;
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.mdcCheckbox?.destroy();
         this.formField?.destroy();
     }
