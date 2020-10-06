@@ -83,14 +83,25 @@ export class Dialog {
         this.handleMdcClosing = this.handleMdcClosing.bind(this);
     }
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentWillLoad() {
         this.id = createRandomString();
     }
 
     public componentDidLoad() {
-        this.mdcDialog = new MDCDialog(
-            this.host.shadowRoot.querySelector('.mdc-dialog')
-        );
+        this.initialize();
+    }
+
+    private initialize() {
+        const element = this.host.shadowRoot.querySelector('.mdc-dialog');
+        if (!element) {
+            return;
+        }
+
+        this.mdcDialog = new MDCDialog(element);
         if (this.open) {
             this.mdcDialog.open();
         }
@@ -123,8 +134,7 @@ export class Dialog {
             : '';
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.mdcDialog.unlisten('MDCDialog:opened', this.handleMdcOpened);
         this.mdcDialog.unlisten('MDCDialog:closed', this.handleMdcClosed);
         this.mdcDialog.unlisten('MDCDialog:closing', this.handleMdcClosing);
