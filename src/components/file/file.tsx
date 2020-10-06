@@ -103,18 +103,29 @@ export class File {
         this.handleKeyUp = this.handleKeyUp.bind(this);
     }
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentDidLoad() {
         this.fileInput = this.element.shadowRoot.getElementById(
             this.fileInputId
         ) as HTMLInputElement;
         this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
+        this.initialize();
+    }
+
+    private initialize() {
+        if (!this.chipSet) {
+            return;
+        }
+
         this.mdcTextField = new MDCTextField(
             this.chipSet.shadowRoot.querySelector('.mdc-text-field')
         );
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
         }
