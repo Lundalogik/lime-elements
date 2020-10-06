@@ -88,12 +88,24 @@ export class Form {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentWillLoad() {
         this.setSchemaId();
         this.createValidator();
     }
 
     public componentDidLoad() {
+        this.initialize();
+    }
+
+    private initialize() {
+        if (!this.host.shadowRoot.querySelector('.root')) {
+            return;
+        }
+
         this.reactRender();
         retargetEvents(this.host.shadowRoot);
         this.validateForm(this.value);
@@ -104,8 +116,7 @@ export class Form {
         this.validateForm(this.value);
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         const rootElement = this.host.shadowRoot.querySelector('.root');
         if (rootElement) {
             unmountComponentAtNode(rootElement);
