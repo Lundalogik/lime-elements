@@ -183,18 +183,30 @@ export class InputField {
         this.onKeyDownForList = this.onKeyDownForList.bind(this);
     }
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentDidLoad() {
-        this.mdcTextField = new MDCTextField(
-            this.limelInputField.shadowRoot.querySelector('.mdc-text-field')
+        this.initialize();
+    }
+
+    private initialize() {
+        const element = this.limelInputField.shadowRoot.querySelector(
+            '.mdc-text-field'
         );
+        if (!element) {
+            return;
+        }
+
+        this.mdcTextField = new MDCTextField(element);
 
         this.completionsList = [...this.completions].map((item) => {
             return { text: item };
         });
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
         }
