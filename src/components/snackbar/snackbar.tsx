@@ -69,16 +69,26 @@ export class Snackbar {
         this.handleMdcClosing = this.handleMdcClosing.bind(this);
     }
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentDidLoad() {
-        this.mdcSnackbar = new MDCSnackbar(
-            this.host.shadowRoot.querySelector('.mdc-snackbar')
-        );
+        this.initialize();
+    }
+
+    private initialize() {
+        const element = this.host.shadowRoot.querySelector('.mdc-snackbar');
+        if (!element) {
+            return;
+        }
+
+        this.mdcSnackbar = new MDCSnackbar(element);
 
         this.mdcSnackbar.listen('MDCSnackbar:closing', this.handleMdcClosing);
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.mdcSnackbar.unlisten('MDCSnackbar:closing', this.handleMdcClosing);
         this.mdcSnackbar.destroy();
     }
