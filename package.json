@@ -69,7 +69,7 @@
     "@types/jest": "^26.0.14",
     "@types/prismjs": "^1.16.1",
     "@types/puppeteer": "^3.0.2",
-    "@types/react": "^16.9.50",
+    "@types/react": "^16.9.51",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
     "commitizen": "^4.2.1",
