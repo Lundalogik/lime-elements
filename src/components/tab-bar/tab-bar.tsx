@@ -57,6 +57,10 @@ export class TabBar {
         this.renderTab = this.renderTab.bind(this);
     }
 
+    public connectedCallback() {
+        this.setup();
+    }
+
     public componentDidLoad() {
         this.setup();
     }
@@ -70,8 +74,7 @@ export class TabBar {
         this.setupMdc = false;
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.tearDown();
     }
 
