@@ -232,7 +232,7 @@ describe('limel-button', () => {
                     });
                     describe('after 2 seconds', () => {
                         beforeEach(async () => {
-                            await page.waitFor(1900);
+                            await page.waitForTimeout(1900);
                             await page.waitForChanges();
                         });
                         it('the visual state becomes "not loading" after 2 seconds', () => {
@@ -276,7 +276,7 @@ describe('limel-button', () => {
 
                 describe('after 2 seconds', () => {
                     beforeEach(async () => {
-                        await page.waitFor(1900);
+                        await page.waitForTimeout(1900);
                         await page.waitForChanges();
                     });
                     it('the visual state becomes "not loading" after 2 seconds', () => {
@@ -287,7 +287,7 @@ describe('limel-button', () => {
 
                 describe('and then setting the property to `true`', () => {
                     beforeEach(async () => {
-                        page.waitFor(100);
+                        page.waitForTimeout(100);
                         limelButton.setProperty('loading', true);
                         await page.waitForChanges();
                     });

@@ -29,7 +29,7 @@ describe('limel-snackbar', () => {
 
         it('displays the message', async () => {
             // Some extra waiting is required for the content to be populated.
-            await page.waitFor(1000);
+            await page.waitForTimeout(1000);
             snackbarLabel = await mdcSnackbar.find('.mdc-snackbar__label');
             expect(snackbarLabel).toEqualText('This is a message');
         });
@@ -47,7 +47,7 @@ describe('limel-snackbar', () => {
             spy = await snackbar.spyOnEvent('hide');
             await snackbar.callMethod('show');
             await page.waitForChanges();
-            await page.waitFor(4000);
+            await page.waitForTimeout(4000);
             await page.waitForChanges();
         });
 
@@ -78,7 +78,7 @@ describe('limel-snackbar', () => {
 
         it('displays the message', async () => {
             // Some extra waiting is required for the content to be populated.
-            await page.waitFor(1000);
+            await page.waitForTimeout(1000);
             snackbarLabel = await mdcSnackbar.find('.mdc-snackbar__label');
             expect(snackbarLabel).toEqualText('This is a message');
         });
