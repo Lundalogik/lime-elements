@@ -74,10 +74,23 @@ export class Slider {
 
     private mdcSlider: MDCSlider;
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentDidLoad() {
-        this.mdcSlider = new MDCSlider(
-            this.rootElement.shadowRoot.querySelector('.mdc-slider')
+        this.initialize();
+    }
+
+    private initialize() {
+        const element = this.rootElement.shadowRoot.querySelector(
+            '.mdc-slider'
         );
+        if (!element) {
+            return;
+        }
+
+        this.mdcSlider = new MDCSlider(element);
         this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
     }
 
@@ -85,8 +98,7 @@ export class Slider {
         this.mdcSlider.disabled = this.disabled;
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
         this.mdcSlider.destroy();
     }
