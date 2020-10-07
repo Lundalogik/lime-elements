@@ -52,14 +52,24 @@ export class Switch {
 
     private mdcSwitch: MDCSwitch;
 
-    public componentDidLoad() {
-        this.mdcSwitch = new MDCSwitch(
-            this.host.shadowRoot.querySelector('.mdc-switch')
-        );
+    public connectedCallback() {
+        this.initialize();
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public componentDidLoad() {
+        this.initialize();
+    }
+
+    private initialize() {
+        const element = this.host.shadowRoot.querySelector('.mdc-switch');
+        if (!element) {
+            return;
+        }
+
+        this.mdcSwitch = new MDCSwitch(element);
+    }
+
+    public disconnectedCallback() {
         this.mdcSwitch?.destroy();
     }
 
