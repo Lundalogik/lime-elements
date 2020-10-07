@@ -57,15 +57,26 @@ export class TabPanel {
         this.setTabStatus = this.setTabStatus.bind(this);
     }
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentDidLoad() {
+        this.initialize();
+    }
+
+    private initialize() {
         const slot = this.getSlot();
+        if (!slot) {
+            return;
+        }
+
         slot.addEventListener('slotchange', this.setSlotElements);
         this.setSlotElements();
         this.tabs.forEach(this.setTabStatus);
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         const slot = this.getSlot();
         slot.removeEventListener('slotchange', this.setSlotElements);
     }
