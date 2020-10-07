@@ -57,7 +57,7 @@ export class TabPanel {
         this.setTabStatus = this.setTabStatus.bind(this);
     }
 
-    protected componentDidLoad() {
+    public componentDidLoad() {
         const slot = this.getSlot();
         slot.addEventListener('slotchange', this.setSlotElements);
         this.setSlotElements();
@@ -65,7 +65,7 @@ export class TabPanel {
     }
 
     // eslint-disable-next-line @stencil/own-methods-must-be-private
-    protected componentDidUnload() {
+    public componentDidUnload() {
         const slot = this.getSlot();
         slot.removeEventListener('slotchange', this.setSlotElements);
     }
