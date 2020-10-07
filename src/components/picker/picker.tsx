@@ -49,7 +49,7 @@ export class Picker {
      * Set to `true` to disable adding and removing items,
      * but allow interaction with existing items.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public readonly: boolean = false;
 
     /**

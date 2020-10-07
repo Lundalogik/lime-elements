@@ -18,25 +18,25 @@ export class FlexContainer {
     /**
      * Direction of the main axis
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public direction: FlexContainerDirection = 'horizontal';
 
     /**
      * Specify how items are aligned along the main axis
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public justify: FlexContainerJustify = 'space-between';
 
     /**
      * Specify how items are aligned along the cross axis
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public align: FlexContainerAlign = 'center';
 
     /**
      * Reverse the order of the items
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public reverse = false;
 
     public render() {

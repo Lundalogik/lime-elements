@@ -51,7 +51,7 @@ export class ButtonGroup {
     /**
      * True if the button-group should be disabled
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled: boolean = false;
 
     /**

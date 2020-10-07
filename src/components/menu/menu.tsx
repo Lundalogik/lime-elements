@@ -23,7 +23,7 @@ export class Menu {
     /**
      * Is displayed on the default trigger button.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label = '';
 
     /**
@@ -35,25 +35,25 @@ export class Menu {
     /**
      * Sets the disabled state of the menu.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled = false;
 
     /**
      * Decides if the menu should open right or left. Defaults to right.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public openDirection: OpenDirection = 'right';
 
     /**
      * Sets the open state of the menu.
      */
-    @Prop({ mutable: true, reflectToAttr: true }) // eslint-disable-line @stencil/strict-mutable
+    @Prop({ mutable: true, reflect: true }) // eslint-disable-line @stencil/strict-mutable
     public open = false;
 
     /**
      * Defines whether the menu should show badges.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public badgeIcons = false;
 
     /**

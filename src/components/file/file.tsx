@@ -64,20 +64,20 @@ export class File {
     /**
      * The input label.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * Set to `true` to indicate that the field is required.
      * Defaults to `false`
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public required: boolean = false;
 
     /**
      * True if the input should be disabled
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled: boolean = false;
 
     /**

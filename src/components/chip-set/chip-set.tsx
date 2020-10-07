@@ -47,64 +47,64 @@ export class ChipSet {
      *
      * If no type is set, a basic set of chips without additional functionality will be rendered
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public type?: 'choice' | 'filter' | 'input';
 
     /**
      * Label to display for the input field when type is `input`
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * True if the chip set should be disabled
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled: boolean = false;
 
     /**
      * For chip-sets of type `input`. Set to `true` to disable adding and removing chips,
      * but allow interaction with existing chips in the set.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public readonly: boolean = false;
 
     /**
      * For chip-sets of type `input`. Limits the maximum number of chips.
      * When the value is `0` or not set, no limit is applied.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public maxItems: number;
 
     /**
      * True if the control requires a value
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public required: boolean = false;
 
     /**
      * Search label to display when type is `input` and component is in search mode
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public searchLabel: string;
 
     /**
      * Whether the input field should be emptied when the chip-set loses focus.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public emptyInputOnBlur: boolean = true;
 
     /**
      * For chip-sets of type `input`. When the value is null, no leading icon is used.
      * Leading icon to show to the far left in the text field
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public leadingIcon: string = null;
 
     /**
      * For chip-set of type `input`. Sets delimiters between chips.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public delimiter: string = null;
 
     /**

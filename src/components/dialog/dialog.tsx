@@ -39,20 +39,20 @@ export class Dialog {
     /**
      * Set to `true` to make the dialog "fullscreen".
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public fullscreen = false;
 
     /**
      * `true` if the dialog is open, `false` otherwise.
      * Defaults to `false`.
      */
-    @Prop({ mutable: true, reflectToAttr: true })
+    @Prop({ mutable: true, reflect: true })
     public open = false;
 
     /**
      * Defines which action triggers a close-event.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public closingActions: { escapeKey: boolean; scrimClick: boolean } = {
         escapeKey: true,
         scrimClick: true,

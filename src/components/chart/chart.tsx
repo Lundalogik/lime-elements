@@ -24,7 +24,7 @@ export class LChart {
     /**
      *
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public type: string;
 
     /**
