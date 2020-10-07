@@ -120,14 +120,5 @@
         }
       }
     }
-  },
-  "greenkeeper": {
-    "ignore": [
-      "@types/jest",
-      "@types/puppeteer",
-      "jest",
-      "jest-cli",
-      "puppeteer"
-    ]
   }
 }
