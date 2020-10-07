@@ -206,7 +206,7 @@ describe('limel-list', () => {
                     beforeEach(async () => {
                         item = await innerList.find('li');
                         await item.click();
-                        await page.waitFor(20); // Give the event a chance to bubble.
+                        await page.waitForTimeout(20); // Give the event a chance to bubble.
                     });
                     it('is emitted', () => {
                         expect(spy).toHaveReceivedEventTimes(1);
@@ -249,7 +249,7 @@ describe('limel-list', () => {
                     beforeEach(async () => {
                         item = await innerList.find('li');
                         await item.click();
-                        await page.waitFor(20); // Give the event a chance to bubble.
+                        await page.waitForTimeout(20); // Give the event a chance to bubble.
                     });
                     it('is emitted', () => {
                         expect(spy).toHaveReceivedEventTimes(1);
