@@ -1,10 +1,12 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * List with checkboxes and icons
+ */
 @Component({
     tag: 'limel-example-list-checkbox-icons',
     shadow: true,
-    styleUrl: 'list.scss',
 })
 export class ListCheckboxIconsExample {
     @State()
@@ -72,9 +74,7 @@ export class ListCheckboxIconsExample {
                 items={this.items}
                 type="checkbox"
             />,
-            <p>
-                Value: <code>{JSON.stringify(this.selectedItems)}</code>
-            </p>,
+            <limel-example-value value={this.selectedItems} />,
         ];
     }
 

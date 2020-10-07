@@ -18,11 +18,19 @@ import {
     ObjectFieldTemplate,
 } from './templates';
 import { SchemaField as CustomSchemaField } from './fields/schema-field';
+import { ArrayField as CustomArrayField } from './fields/array-field';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
 import Ajv from 'ajv';
 import { isInteger } from './validators';
 
+/**
+ * @exampleComponent limel-example-form
+ * @exampleComponent limel-example-nested-form
+ * @exampleComponent limel-example-list-form
+ * @exampleComponent limel-example-dynamic-form
+ * @exampleComponent limel-example-custom-component-form
+ */
 @Component({
     tag: 'limel-form',
     shadow: true,
@@ -131,6 +139,7 @@ export class Form {
                     },
                     fields: {
                         SchemaField: CustomSchemaField,
+                        ArrayField: CustomArrayField,
                     },
                 },
                 []

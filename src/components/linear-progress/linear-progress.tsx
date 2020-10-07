@@ -1,6 +1,11 @@
 import { MDCLinearProgress } from '@limetech/mdc-linear-progress';
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
 
+/**
+ * @exampleComponent limel-example-linear-progress
+ * @exampleComponent limel-example-linear-progress-color
+ * @exampleComponent limel-example-linear-progress-indeterminate
+ */
 @Component({
     tag: 'limel-linear-progress',
     shadow: true,

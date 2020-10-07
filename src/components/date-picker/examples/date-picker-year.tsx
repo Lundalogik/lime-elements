@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * year
+ */
 @Component({
     tag: 'limel-example-date-picker-year',
     shadow: true,
@@ -21,14 +24,7 @@ export class DatePickerExample {
                     value={this.value}
                     onChange={this.handleChange}
                 />
-                <p style={{ 'font-size': 'small' }}>
-                    Value:{' '}
-                    <code>
-                        {this.value
-                            ? this.value.toString()
-                            : JSON.stringify(this.value)}
-                    </code>
-                </p>
+                <limel-example-value value={this.value} />
             </p>
         );
     }

@@ -3,6 +3,11 @@ import { Column, ColumnSorter, ColumnAggregatorType } from '../table.types';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
+/**
+ * Local sorting and pagination
+ *
+ * @link birds.ts
+ */
 @Component({
     tag: 'limel-example-table-local',
     styleUrl: 'table.scss',
@@ -64,8 +69,14 @@ export class TableExampleLocal {
                 onChangePage={this.handleChangePage}
                 onSort={this.handleSort}
             />,
-            <p>Current page is: {this.currentPage}</p>,
-            <p>Currently sorting on: {this.currentSorting}</p>,
+            <limel-example-value
+                label="Current page is"
+                value={this.currentPage}
+            />,
+            <limel-example-value
+                label="Currently sorting on"
+                value={this.currentSorting}
+            />,
         ];
     }
 }

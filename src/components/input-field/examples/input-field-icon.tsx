@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Input Field with Icon Action
+ */
 @Component({
     tag: 'limel-example-input-field-icon',
     shadow: true,

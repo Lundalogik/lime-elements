@@ -2,6 +2,9 @@ import { Chip } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
+/**
+ * Input chip set
+ */
 @Component({
     tag: 'limel-example-chip-set-input',
     shadow: true,
@@ -122,9 +125,7 @@ export class ChipSetInputExample {
                     />
                 </limel-flex-container>
             </p>,
-            <p>
-                Value: <code>{JSON.stringify(this.value)}</code>
-            </p>,
+            <limel-example-value value={this.value} />,
         ];
     }
 

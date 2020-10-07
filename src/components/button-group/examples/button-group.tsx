@@ -1,5 +1,11 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Text only
+ *
+ * This layout is good when you do not have access to icons which are
+ * descriptive enough.
+ */
 @Component({
     tag: 'limel-example-button-group',
     shadow: true,

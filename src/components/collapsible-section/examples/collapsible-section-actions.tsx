@@ -1,6 +1,9 @@
 import { Action } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Example with actions
+ */
 @Component({
     tag: 'limel-example-collapsible-section-actions',
     shadow: true,

@@ -61,26 +61,38 @@ export class SimpleItemTemplate extends React.Component {
     }
 
     private renderRemoveButton(item: ArrayFieldItem) {
-        return React.createElement(LIMEL_ICON_BUTTON, {
+        const props: any = {
             icon: 'trash',
-            disabled: !item.hasRemove,
             ref: 'removeButton',
-        });
+        };
+        if (!item.hasRemove) {
+            props.disabled = true;
+        }
+
+        return React.createElement(LIMEL_ICON_BUTTON, props);
     }
 
     private renderMoveUpButton(item: ArrayFieldItem) {
-        return React.createElement(LIMEL_ICON_BUTTON, {
+        const props: any = {
             icon: 'up_arrow',
-            disabled: !item.hasMoveUp,
             ref: 'moveUpButton',
-        });
+        };
+        if (!item.hasMoveUp) {
+            props.disabled = true;
+        }
+
+        return React.createElement(LIMEL_ICON_BUTTON, props);
     }
 
     private renderMoveDownButton(item: ArrayFieldItem) {
-        return React.createElement(LIMEL_ICON_BUTTON, {
+        const props: any = {
             icon: 'down_arrow',
-            disabled: !item.hasMoveDown,
             ref: 'moveDownButton',
-        });
+        };
+        if (!item.hasMoveDown) {
+            props.disabled = true;
+        }
+
+        return React.createElement(LIMEL_ICON_BUTTON, props);
     }
 }

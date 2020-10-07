@@ -69,7 +69,7 @@ export class TabBarExample {
     public render() {
         return [
             <limel-tab-bar tabs={this.tabs} onChangeTab={this.onChange} />,
-            <p>Tab: {this.text}</p>,
+            <limel-example-value label="Tab" value={this.text} />,
         ];
     }
 

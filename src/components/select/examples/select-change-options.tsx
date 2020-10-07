@@ -1,6 +1,9 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Changing Available Options
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-select-change-options',
@@ -70,11 +73,13 @@ export class SelectExample {
                         />
                     </limel-flex-container>
                 </p>
-                <p>Value: {JSON.stringify(this.value)}</p>
-                <p>
-                    Currently showing option group:{' '}
-                    {this.currentOptionGroup + 1} / {this.optionGroups.length}
-                </p>
+                <limel-example-value value={this.value} />
+                <limel-example-value
+                    label="Currently showing option group"
+                    value={`${this.currentOptionGroup + 1} / ${
+                        this.optionGroups.length
+                    }`}
+                />
             </section>
         );
     }

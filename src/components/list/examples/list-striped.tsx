@@ -1,6 +1,18 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
+/**
+ * List with custom styles
+ *
+ * Adding the `has-striped-rows` class to the list will make the items more
+ * distinct by adding different background colors to even and odd rows.
+ *
+ * Also, by taking advantage of the `has-interactive-items`, hovering on a list
+ * item which is not `disabled` will display an elevated visual effect, giving
+ * it more affordance and a solid feeling of interactivity.
+ *
+ * **Note:** to get both effects, you need to apply both of these classes.
+ */
 @Component({
     tag: 'limel-example-list-striped',
     shadow: true,

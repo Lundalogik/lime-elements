@@ -314,3 +314,7 @@ describe('group without .only', () => {
     });
 });
 ```
+
+### Styling
+
+Please read the Design Guidelines section of the documentation, look at existing code, and feel free to ask any questions on the issue or PR you are working on.

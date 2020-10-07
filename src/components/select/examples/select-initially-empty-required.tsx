@@ -1,10 +1,12 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Initially Empty but the Empty Option Cannot Be Reselected
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-select-initially-empty-required',
-    styleUrl: 'select.scss',
 })
 export class SelectExample {
     @State()
@@ -31,7 +33,7 @@ export class SelectExample {
                     onChange={this.onChange}
                     required={true}
                 />
-                <p>Value: {JSON.stringify(this.value)}</p>
+                <limel-example-value value={this.value} />
             </section>
         );
     }

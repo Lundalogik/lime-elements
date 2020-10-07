@@ -1,6 +1,9 @@
 import { Component, h, State } from '@stencil/core';
 import { ValidationStatus } from '@limetech/lime-elements';
 
+/**
+ * Dynamic schema
+ */
 @Component({
     tag: 'limel-example-dynamic-form',
     shadow: true,
@@ -53,12 +56,8 @@ export class DynamicFormExample {
                 value={this.formData}
                 schema={this.schema}
             />,
-            <br />,
-            <br />,
-            'Value: ',
-            <pre>{JSON.stringify(this.formData, null, '    ')}</pre>,
-            'Errors: ',
-            <pre>{JSON.stringify(this.errors, null, '    ')}</pre>,
+            <limel-example-value value={this.formData} />,
+            <limel-example-value label="Errors" value={this.errors} />,
         ];
     }
 

@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * With a limel-slider - for testing
+ */
 @Component({
     tag: 'limel-example-collapsible-section-with-slider',
     shadow: true,

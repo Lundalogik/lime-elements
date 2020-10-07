@@ -3,10 +3,12 @@ import { Component, h, State } from '@stencil/core';
 
 const NETWORK_DELAY = 500;
 
+/**
+ * With icons and displaying full list without cutting content
+ */
 @Component({
     tag: 'limel-example-picker-icons',
     shadow: true,
-    styleUrl: 'picker.scss',
 })
 export class PickerIconsExample {
     private allItems: Array<ListItem<number>> = [
@@ -162,9 +164,7 @@ export class PickerIconsExample {
                     />
                 </limel-flex-container>
             </p>,
-            <p>
-                Value: <code>{JSON.stringify(this.selectedItems)}</code>
-            </p>,
+            <limel-example-value value={this.selectedItems} />,
         ];
     }
 

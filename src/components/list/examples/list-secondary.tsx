@@ -1,6 +1,9 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
+/**
+ * List with secondary text
+ */
 @Component({
     tag: 'limel-example-list-secondary',
     shadow: true,

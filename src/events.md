@@ -1,9 +1,3 @@
----
-name: Events and input handling
-route: /events
-menu: Home
----
-
 # Events and input handling
 
 All components in Lime Elements that has a value, and can take some kind of user input to change that value, has a `value` property, by which the consumer can set or update that value.

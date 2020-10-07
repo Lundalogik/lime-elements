@@ -1,5 +1,6 @@
 import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
 import Tabulator from 'tabulator-tables';
+import { escape } from 'html-escaper';
 import { ElementPool } from './element-pool';
 
 export class ColumnDefinitionFactory {
@@ -73,6 +74,10 @@ export function formatCell(
 
     if (column.formatter) {
         value = column.formatter(value, data);
+    }
+
+    if (typeof value === 'string') {
+        value = escape(value);
     }
 
     return value;

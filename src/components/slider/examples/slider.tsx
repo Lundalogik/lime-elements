@@ -3,7 +3,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-slider',
     shadow: true,
-    styleUrl: 'slider.scss',
 })
 export class SliderExample {
     @State()
@@ -38,7 +37,7 @@ export class SliderExample {
                         label={this.disabled ? 'Enable' : 'Disable'}
                     />
                 </limel-flex-container>
-                <p>Current value: {this.value}</p>
+                <limel-example-value value={this.value} />
             </section>
         );
     }

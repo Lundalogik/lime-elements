@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Input Field of Type Search
+ */
 @Component({
     tag: 'limel-example-input-field-search',
     shadow: true,

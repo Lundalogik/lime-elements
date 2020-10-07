@@ -1,10 +1,12 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Initially Empty
+ */
 @Component({
     shadow: true,
     tag: 'limel-example-select-initially-empty',
-    styleUrl: 'select.scss',
 })
 export class SelectExample {
     @State()
@@ -30,7 +32,7 @@ export class SelectExample {
                     options={this.options}
                     onChange={this.onChange}
                 />
-                <p>Value: {JSON.stringify(this.value)}</p>
+                <limel-example-value value={this.value} />
             </section>
         );
     }

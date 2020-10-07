@@ -1,6 +1,10 @@
 import { SpinnerSize } from '@limetech/lime-elements';
 import { Component, Prop } from '@stencil/core';
 
+/**
+ * @exampleComponent limel-example-spinner
+ * @exampleComponent limel-example-spinner-color
+ */
 @Component({
     tag: 'limel-spinner',
     shadow: true,

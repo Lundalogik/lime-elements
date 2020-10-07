@@ -11,6 +11,9 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 
+/**
+ * @exampleComponent limel-example-switch
+ */
 @Component({
     tag: 'limel-switch',
     shadow: true,

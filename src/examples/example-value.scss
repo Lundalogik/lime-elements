@@ -1,0 +1,39 @@
+@import '../style/functions';
+@import '../style/mixins';
+
+code {
+    font-family: 'Source Code Pro', monospace;
+    font-size: pxToRem(12);
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+
+    display: inline-block;
+    border-radius: pxToRem(3);
+    padding: pxToRem(1) pxToRem(5);
+    color: rgb(var(--contrast-1300));
+    background-color: rgb(var(--contrast-600));
+}
+
+pre > code {
+    display: block;
+    border-radius: pxToRem(8);
+    margin: pxToRem(8) 0;
+    padding: pxToRem(16);
+    overflow: auto;
+    white-space: pre-wrap;
+
+    color: rgb(var(--contrast-800));
+    background-color: rgb(var(--contrast-1600));
+
+    @include in(dark-mode) {
+        color: rgb(var(--contrast-1000));
+        background-color: rgb(var(--contrast-200));
+    }
+}

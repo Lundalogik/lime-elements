@@ -2,6 +2,11 @@ import { Component, h, State } from '@stencil/core';
 import { Column } from '../table.types';
 import { persons, Person } from './persons';
 
+/**
+ * Activate a row
+ *
+ * @link persons.ts
+ */
 @Component({
     tag: 'limel-example-table-activate-row',
     styleUrl: 'table.scss',
@@ -35,11 +40,9 @@ export class TableExampleActivateRow {
                 activeRow={this.activeRow}
                 columns={this.columns}
                 onActivate={this.onActivateRow}
-                class="has-low-density has-interactive-rows"
+                class="has-interactive-rows"
             />,
-            <p class="active-row">
-                Active row: <code>{JSON.stringify(this.activeRow)}</code>
-            </p>,
+            <limel-example-value label="Active row" value={this.activeRow} />,
         ];
     }
 

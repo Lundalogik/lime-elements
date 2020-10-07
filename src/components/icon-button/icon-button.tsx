@@ -2,6 +2,11 @@ import { MDCRipple } from '@limetech/mdc-ripple';
 import { Component, Element, h, Method, Prop } from '@stencil/core';
 import { IconSize } from '@limetech/lime-elements';
 
+/**
+ * @exampleComponent limel-example-icon-button
+ * @exampleComponent limel-example-icon-button-toggle-state
+ * @exampleComponent limel-example-icon-button-elevated
+ */
 @Component({
     tag: 'limel-icon-button',
     shadow: true,

@@ -15,6 +15,15 @@ import { ElementPool } from './element-pool';
 
 const FIRST_PAGE = 1;
 
+/**
+ * @exampleComponent limel-example-table
+ * @exampleComponent limel-example-table-custom-components
+ * @exampleComponent limel-example-table-local
+ * @exampleComponent limel-example-table-remote
+ * @exampleComponent limel-example-table-activate-row
+ * @exampleComponent limel-example-table-default-sorted
+ * @exampleComponent limel-example-table-low-density
+ */
 @Component({
     tag: 'limel-table',
     styleUrl: 'table.scss',
@@ -53,6 +62,13 @@ export class Table {
      */
     @Prop()
     public totalRows: number;
+
+    /**
+     * The initial sorted columns
+     */
+
+    @Prop()
+    public sorting: ColumnSorter[] = [];
 
     /**
      * Active row in the table
@@ -170,7 +186,17 @@ export class Table {
             ...paginationOptions,
             rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
+            initialSort: this.getColumnSorter(),
         };
+    }
+
+    private getColumnSorter(): Tabulator.Sorter[] {
+        return this.sorting.map((sorter: ColumnSorter) => {
+            return {
+                column: String(sorter.column.field),
+                dir: sorter.direction.toLocaleLowerCase() as Tabulator.SortDirection,
+            };
+        });
     }
 
     private getColumnDefinitions(): Tabulator.ColumnDefinition[] {

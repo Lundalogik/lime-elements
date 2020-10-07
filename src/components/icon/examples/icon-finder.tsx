@@ -3,6 +3,10 @@ import * as iconIndex from '@lundalogik/lime-icons8/assets/icon-index.json';
 import { Component, h, State } from '@stencil/core';
 import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
+/**
+ * Icon finder
+ * Search for an icon and click on it to copy its name to clipboard.
+ */
 @Component({
     tag: 'limel-example-icon-finder',
     shadow: true,

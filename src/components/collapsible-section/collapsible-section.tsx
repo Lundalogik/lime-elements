@@ -4,6 +4,11 @@ import { Action } from './action';
 
 /**
  * @slot - Content to put inside the collapsible section
+ * @exampleComponent limel-example-collapsible-section
+ * @exampleComponent limel-example-collapsible-section-actions
+ * @exampleComponent limel-example-collapsible-section-css-props
+ * @exampleComponent limel-example-collapsible-section-external-control
+ * @exampleComponent limel-example-collapsible-section-with-slider
  */
 @Component({
     tag: 'limel-collapsible-section',

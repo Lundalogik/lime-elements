@@ -1,10 +1,12 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * List with radio buttons and icons
+ */
 @Component({
     tag: 'limel-example-list-radio-button-icons',
     shadow: true,
-    styleUrl: 'list.scss',
 })
 export class ListRadioButtonIconsExample {
     @State()
@@ -72,9 +74,7 @@ export class ListRadioButtonIconsExample {
                 items={this.items}
                 type="radio"
             />,
-            <p>
-                Value: <code>{JSON.stringify(this.selectedItem)}</code>
-            </p>,
+            <limel-example-value value={this.selectedItem} />,
         ];
     }
 

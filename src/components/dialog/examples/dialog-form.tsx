@@ -4,6 +4,9 @@ const MIN_NAME_LENGTH = 5;
 const MIN_AGE = 20;
 const MAX_AGE = 50;
 
+/**
+ * Dialog with form and header
+ */
 @Component({
     tag: 'limel-example-dialog-form',
     shadow: true,

@@ -20,7 +20,7 @@ const dryRun = !!argv.dryRun && argv.dryRun !== 'false';
 
 if (argv.h !== undefined) {
     shell.echo(`
-usage: npm run docz:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev]
+usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev]
                                 [--noSetup] [--noBuild] [--noCommit] [--noPush]
                                 [--noTeardown] [--dryRun] [--noCleanOnFail]]
 
@@ -125,48 +125,38 @@ function checkOutBranch() {
 
 function build() {
     try {
-        const options = {
-            files: ['doczrc.js'],
-            from: /base: '\/'/g,
-            to: `base: '/versions/${version}/'`,
-        };
-        replace.sync(options);
-
-        const options2 = {
-            files: ['src/examples/example.tsx', 'src/examples/props.tsx'],
-            from: /const BASE_URL = '\/';/g,
-            to: `const BASE_URL = '/versions/${version}/';`,
-        };
-        replace.sync(options2);
-
-        const options3 = {
+        let options = {
             files: ['src/index.html'],
             from: [
                 /<base href="\/">/g,
-                /href="\/public\/stencil/g,
-                /src="\/public\/stencil/g,
+                /="\/build/g,
+                /="\/style/g,
+                /="\/assets/g,
+                /\/kompendium.json/g,
             ],
             to: [
                 `<base href="/versions/${version}/">`,
-                `href="/versions/${version}/public/stencil`,
-                `src="/versions/${version}/public/stencil`,
+                `="/versions/${version}/build`,
+                `="/versions/${version}/style`,
+                `="/versions/${version}/assets`,
+                `/versions/${version}/kompendium.json`,
             ],
         };
-        replace.sync(options3);
+        replace.sync(options);
 
-        const options4 = {
+        options = {
             files: ['stencil.config.docs.ts'],
             from: /baseUrl: '\/'/g,
             to: `baseUrl: '/versions/${version}/'`,
         };
-        replace.sync(options4);
+        replace.sync(options);
 
-        const options5 = {
-            files: ['src/index.mdx'],
+        options = {
+            files: ['src/index.md'],
             from: /<version\\>/g,
             to: `${version}`,
         };
-        replace.sync(options5);
+        replace.sync(options);
 
         shell.exec('git diff --name-status');
     } catch (error) {
@@ -181,8 +171,8 @@ function build() {
         shell.exit(1);
     }
 
-    if (shell.exec('npm run docz:build').code !== 0) {
-        shell.echo('docz:build failed!');
+    if (shell.exec('npm run docs:build').code !== 0) {
+        shell.echo('docs:build failed!');
         teardown();
         shell.exit(1);
     }
@@ -202,23 +192,22 @@ function copyBuildOutput() {
     shell.echo('Removing old version folder if it already exists.');
     shell.rm('-rf', version);
 
-    if (shell.mkdir(version).code !== 0) {
-        shell.echo(`mkdir docsDist/versions/${version} failed!`);
-        shell.cd('../..');
+    shell.cd('../..');
+
+    if (
+        shell.cp('-R', `www/versions/${version}`, 'docsDist/versions/').code !==
+        0
+    ) {
+        shell.echo('copying output failed!');
         teardown();
         shell.exit(1);
     }
 
-    shell.cd('../..');
-
-    // Remove unnecessary extra copy of the Stencil app.
-    shell.rm('-rf', '.docz/dist/stencil');
-
     if (
-        shell.cp('-R', '.docz/dist/*', `docsDist/versions/${version}/`).code !==
-        0
+        shell.cp('-R', 'www/kompendium.json', `docsDist/versions/${version}`)
+            .code !== 0
     ) {
-        shell.echo('copying output failed!');
+        shell.echo('copying kompendium.json failed!');
         teardown();
         shell.exit(1);
     }
@@ -313,9 +302,7 @@ function push() {
 
 function teardown(finished) {
     if (finished || cleanOnFail) {
-        shell.exec(
-            'git checkout doczrc.js src/examples/example.tsx src/examples/props.tsx src/index.html src/index.mdx stencil.config.docs.ts'
-        );
+        shell.exec('git checkout src/index.html stencil.config.docs.ts');
         shell.echo('Removing docs repo clone in docsDist.');
         shell.exec('rm -rf docsDist');
     }

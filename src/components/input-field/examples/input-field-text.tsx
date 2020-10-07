@@ -1,5 +1,8 @@
 import { Component, h, State, Watch } from '@stencil/core';
 
+/**
+ * Input Field of Type Text
+ */
 @Component({
     tag: 'limel-example-input-field-text',
     shadow: true,
@@ -51,7 +54,7 @@ export class InputFieldTextExample {
                     />
                 </limel-flex-container>
             </p>,
-            <p>Value: {this.value}</p>,
+            <limel-example-value value={this.value} />,
         ];
     }
 

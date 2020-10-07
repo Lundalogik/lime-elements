@@ -3,10 +3,12 @@ import { Component, h, State } from '@stencil/core';
 
 const NETWORK_DELAY = 500;
 
+/**
+ * With no suggestions and a message for empty search results
+ */
 @Component({
     tag: 'limel-example-picker-empty-suggestions',
     shadow: true,
-    styleUrl: 'picker.scss',
 })
 export class PickerExample {
     private allItems: Array<ListItem<number>> = [
@@ -77,9 +79,7 @@ export class PickerExample {
                     />
                 </limel-flex-container>
             </p>,
-            <p>
-                Value: <code>{JSON.stringify(this.selectedItem)}</code>
-            </p>,
+            <limel-example-value value={this.selectedItem} />,
         ];
     }
 

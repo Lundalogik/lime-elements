@@ -6,6 +6,7 @@ import {
 import { Component, h, Prop } from '@stencil/core';
 
 /**
+ * @exampleComponent limel-example-flex-container
  * @slot - Container content
  */
 @Component({

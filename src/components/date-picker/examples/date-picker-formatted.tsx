@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * With defined localization
+ */
 @Component({
     tag: 'limel-example-date-picker-formatted',
     shadow: true,
@@ -25,12 +28,7 @@ export class DatePickerFormattedExample {
                 value={this.valueNo}
                 onChange={this.handleChangeNo}
             />,
-            <p style={{ 'font-size': 'small' }}>
-                Value:{' '}
-                <code>
-                    {this.valueNo ? this.valueNo.toString() : 'invalid'}
-                </code>
-            </p>,
+            <limel-example-value value={this.valueNo} />,
             <limel-date-picker
                 language="fi"
                 format="YYYY-MM-DD"
@@ -39,12 +37,7 @@ export class DatePickerFormattedExample {
                 value={this.valueFi}
                 onChange={this.handleChangeFi}
             />,
-            <p style={{ 'font-size': 'small' }}>
-                Value:{' '}
-                <code>
-                    {this.valueFi ? this.valueFi.toString() : 'invalid'}
-                </code>
-            </p>,
+            <limel-example-value value={this.valueFi} />,
         ];
     }
 

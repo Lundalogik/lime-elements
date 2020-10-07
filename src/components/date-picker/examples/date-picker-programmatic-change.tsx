@@ -1,6 +1,9 @@
 import { Component, h, State } from '@stencil/core';
 import moment from 'moment/moment';
 
+/**
+ * Changing the input programmatically
+ */
 @Component({
     tag: 'limel-example-date-picker-programmatic-change',
     shadow: true,
@@ -31,14 +34,7 @@ export class DatePickerExample {
                         />
                     </limel-flex-container>
                 </p>
-                <p style={{ 'font-size': 'small' }}>
-                    Value:{' '}
-                    <code>
-                        {this.value
-                            ? this.value.toString()
-                            : JSON.stringify(this.value)}
-                    </code>
-                </p>
+                <limel-example-value value={this.value} />
             </p>
         );
     }

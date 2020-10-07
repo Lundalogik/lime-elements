@@ -1,3 +1,52 @@
+## [28.5.6](https://github.com/Lundalogik/lime-elements/compare/v28.5.5...v28.5.6) (2020-10-05)
+
+
+### Bug Fixes
+
+* **form:** fix sort and remove list of text fields in form ([8d0ce0c](https://github.com/Lundalogik/lime-elements/commit/8d0ce0cc3f4dc13d1e1f0eb7c671b21a0fad20d5)), closes [Lundalogik/lime-elements#969](https://github.com/Lundalogik/lime-elements/issues/969)
+
+## [28.5.5](https://github.com/Lundalogik/lime-elements/compare/v28.5.4...v28.5.5) (2020-10-02)
+
+
+### Bug Fixes
+
+* **form:** fix resetting dependent fields during schema changes in lists ([13457d4](https://github.com/Lundalogik/lime-elements/commit/13457d4925ba893a3d8f77669e034bc0108c9ee0))
+
+## [28.5.4](https://github.com/Lundalogik/lime-elements/compare/v28.5.3...v28.5.4) (2020-09-29)
+
+
+### Bug Fixes
+
+* **file:** add leading icon to illustrate upload ([f17ca03](https://github.com/Lundalogik/lime-elements/commit/f17ca03e805630c895ffbfa550b58a3d5507e85a))
+
+## [28.5.3](https://github.com/Lundalogik/lime-elements/compare/v28.5.2...v28.5.3) (2020-09-29)
+
+
+### Bug Fixes
+
+* **input-field:** make it possible to programmatically update value in textarea ([9c50420](https://github.com/Lundalogik/lime-elements/commit/9c5042089874912fc2b5ae89ed192191b33d1817)), closes [#952](https://github.com/Lundalogik/lime-elements/issues/952)
+
+## [28.5.2](https://github.com/Lundalogik/lime-elements/compare/v28.5.1...v28.5.2) (2020-09-29)
+
+
+### Bug Fixes
+
+* **select:** focus style for select dropdown ([e5f0853](https://github.com/Lundalogik/lime-elements/commit/e5f08538e920c20fcd71f0598b0b01eb2bd698bf))
+
+## [28.5.1](https://github.com/Lundalogik/lime-elements/compare/v28.5.0...v28.5.1) (2020-09-25)
+
+
+### Bug Fixes
+
+* **table:** escape html in tables ([a1dc99e](https://github.com/Lundalogik/lime-elements/commit/a1dc99e8460f72e84d9d8642b9e7ea944b7ab122)), closes [Lundalogik/crm-feature#1418](https://github.com/Lundalogik/crm-feature/issues/1418)
+
+# [28.5.0](https://github.com/Lundalogik/lime-elements/compare/v28.4.5...v28.5.0) (2020-09-25)
+
+
+### Features
+
+* **table:** add default sorting ([a0f0448](https://github.com/Lundalogik/lime-elements/commit/a0f0448ef9fc29bfc3a49482445d00947f94431b)), closes [#961](https://github.com/Lundalogik/lime-elements/issues/961)
+
 ## [28.4.5](https://github.com/Lundalogik/lime-elements/compare/v28.4.4...v28.4.5) (2020-09-22)
 
 
