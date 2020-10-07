@@ -22,7 +22,7 @@ export class Slider {
     /**
      * Set to `true` to disable the input
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled = false;
 
     /**
@@ -30,37 +30,37 @@ export class Slider {
      * The factor that the properties `value`, `valuemax` and `valuemin` are multiplied by.
      * On `change` divides the value by the factor, so the original format stays the same
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public factor: number = 1;
 
     /**
      * Label to display next to the input
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * Unit to display next to the value
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public unit: string = '';
 
     /**
      * The value of the input
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public value: number;
 
     /**
      * The maximum value allowed
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public valuemax: number = 100; // eslint-disable-line no-magic-numbers
 
     /**
      * The minimum value allowed
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public valuemin: number = 0;
 
     /**

@@ -13,7 +13,7 @@ export class Badge {
     /**
      * Label to display in the badge
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: number;
 
     render() {

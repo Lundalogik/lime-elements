@@ -24,26 +24,26 @@ export class Checkbox {
     /**
      * Disables the input field when `true`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled = false;
 
     /**
      * The checkbox label.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * The value of the checkbox. Set to `true` to make the checkbox checked.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public checked = false;
 
     /**
      * Set to `true` to indicate that the checkbox must be checked.
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public required: boolean = false;
 
     @State()

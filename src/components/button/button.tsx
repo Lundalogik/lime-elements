@@ -13,34 +13,34 @@ export class Button {
     /**
      * The text to show on the button.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * Set to `true` to make the button primary.
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public primary = false;
 
     /**
      * Set to `true` to make the button outlined.
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public outlined = false;
 
     /**
      * Set icon for the button
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public icon: string;
 
     /**
      * Set to `true` to disable the button.
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled = false;
 
     /**
@@ -51,7 +51,7 @@ export class Button {
      *
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public loading = false;
 
     @Element()

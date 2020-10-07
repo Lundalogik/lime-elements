@@ -44,7 +44,7 @@ export class InputField {
      * Disables the input field when `true`.
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled = false;
 
     /**
@@ -52,51 +52,51 @@ export class InputField {
      * invalid.
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public invalid = false;
 
     /**
      * The input label.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * Optional helper text to display below the input field when it has focus
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public helperText: string;
 
     /**
      * Set to `true` to indicate that the field is required.
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public required = false;
 
     /**
      * The value of the field.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public value: string;
 
     /**
      * Trailing icon to show to the far right in the field
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public trailingIcon: string;
 
     /**
      * Leading icon to show to the far left in the field
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public leadingIcon: string;
 
     /**
      * Type of textfield
      * Defaults to 'text'
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public type: InputType = 'text';
 
     /**
@@ -105,37 +105,37 @@ export class InputField {
      * The number format is determined by the current language of the browser.
      * Defaults to `true`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public formatNumber = true;
 
     /**
      * Incremental values that are valid if the field type is `number`
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public step: number | 'any' = 'any';
 
     /**
      * Maximum allowed value if input type is `number`
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public max: number;
 
     /**
      * Minimum allowed value if input type is `number`
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public min: number;
 
     /**
      * Maximum length of the value if type is `password`, `search`, `tel`, `text` or `url`
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public maxlength: number;
 
     /**
      * Minimum length of the value if type is `password`, `search`, `tel`, `text` or `url`
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public minlength: number;
 
     /**

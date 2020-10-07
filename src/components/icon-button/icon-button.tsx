@@ -16,27 +16,27 @@ export class IconButton {
     /**
      * The icon to display.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public icon: string;
 
     /**
      * Set to `true` to give the button our standard "elevated" look, lifting
      * it off the flat layout.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public elevated = false;
 
     /**
      * The text to show to screenreaders and other assistive tech.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * Set to `true` to disable the button.
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled = false;
 
     @Element()

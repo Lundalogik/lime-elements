@@ -48,20 +48,20 @@ export class Icon {
     /**
      * Size of the icon
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public size: IconSize;
 
     /**
      * Name of the icon
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public name: string;
 
     /**
      * Set to `true` to give the icon a round background with some padding.
      * Only works when the `size` attribute is also set.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public badge: boolean;
 
     @Element()

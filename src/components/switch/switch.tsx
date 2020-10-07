@@ -23,19 +23,19 @@ export class Switch {
     /**
      * Label to display next to the switch
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * Set to `true` to disable the switch
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled = false;
 
     /**
      * The value of the switch
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public value = false;
 
     /**

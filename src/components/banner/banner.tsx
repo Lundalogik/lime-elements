@@ -13,13 +13,13 @@ export class Banner {
     /**
      * The text to show on the banner.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public message: string;
 
     /**
      * Set icon for the banner
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public icon: string;
 
     @State()

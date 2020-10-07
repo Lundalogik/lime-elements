@@ -9,7 +9,7 @@ export class ExampleValue {
     /**
      *
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string = 'Value';
 
     /**

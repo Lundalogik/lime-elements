@@ -14,7 +14,7 @@ export class Spinner {
     /**
      * Determines the size of the spinner.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public size: SpinnerSize = 'mini';
 
     public render() {

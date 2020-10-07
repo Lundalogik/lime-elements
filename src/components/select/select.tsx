@@ -41,32 +41,32 @@ export class Select {
     /**
      * Disables the input field when `true`. Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public disabled = false;
 
     /**
      * Set to `true` to indicate that the current value of the select is invalid.
      * Defaults to `false`.
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public invalid: boolean;
 
     /**
      * True if the control requires a value
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public required = false;
 
     /**
      * Text to display next to the select
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * Optional helper text to display below the input field when it has focus
      */
-    @Prop({ reflectToAttr: true })
+    @Prop({ reflect: true })
     public helperText: string;
 
     /**
