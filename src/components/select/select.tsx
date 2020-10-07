@@ -122,6 +122,10 @@ export class Select {
         this.portalId = createRandomString();
     }
 
+    public connectedCallback() {
+        this.initialize();
+    }
+
     public componentWillLoad() {
         this.isMobileDevice = isMobileDevice();
 
@@ -133,8 +137,16 @@ export class Select {
     }
 
     public componentDidLoad() {
+        this.initialize();
+    }
+
+    private initialize() {
         let element: HTMLElement;
         element = this.host.shadowRoot.querySelector('.mdc-floating-label');
+        if (!element) {
+            return;
+        }
+
         this.mdcFloatingLabel = new MDCFloatingLabel(element);
 
         element = this.host.shadowRoot.querySelector('.mdc-line-ripple');
@@ -146,8 +158,7 @@ export class Select {
         }
     }
 
-    // eslint-disable-next-line @stencil/own-methods-must-be-private
-    public componentDidUnload() {
+    public disconnectedCallback() {
         if (this.mdcFloatingLabel) {
             this.mdcFloatingLabel.destroy();
         }
