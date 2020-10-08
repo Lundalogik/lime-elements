@@ -18,13 +18,19 @@ The contrast swatches are used to clarify the generic and neutral UI elements su
 
 `--contrast-100` → `--contrast-200` → ··· → `--contrast-1600` → `--contrast-1700`
 
-**Note** that you should never use these swatches when you are coloring something (like a colorful icon or illustration). Because these swatches will dramatically change their colors and get inverted in dark and light modes. So if you want something to have a shade of grey, or appear black or white all the time, then you should use the swatches from the color palette instead, not from this contrast palette, as they invert with modes.
+:::note
+Note that you should never use these swatches when you are coloring something (like a colorful icon or illustration). Because these swatches will dramatically change their colors and get inverted in dark and light modes. So if you want something to have a shade of grey, or appear black or white all the time, then you should use the swatches from the color palette instead, not from this contrast palette, as they invert with modes.
+:::
 
-**Note** that `--color-white` and `--color-black`, which are displayed beside the contrast swatches do not change in dark and light modes. These variables can be used, for example, in shadows (which remain black even in dark mode) or text colors on colored buttons.
+:::important
+Keep in mind that `--color-white` and `--color-black`, which are displayed beside the contrast swatches do not change in dark and light modes. These variables can be used, for example, in shadows (which remain black even in dark mode) or text colors on colored buttons.
+:::
 
 ### Dark mode, light mode, accessibility
 
-**Note:** don't confuse titles like "dark mode" and "light mode" or "dark/light themes" with these swatches' naming convention. As mentioned above, each swatch -despite its name- already comes with two tones inbuilt into the color system. For example the `--color-red-dark` variable will automatically be displayed as `#d32f2f` in light mode, and as `#c62828` in dark mode.
+:::note
+Don't confuse titles like "dark mode" and "light mode" or "dark/light themes" with these swatches' naming convention. As mentioned above, each swatch -despite its name- already comes with two tones inbuilt into the color system. For example the `--color-red-dark` variable will automatically be displayed as `#d32f2f` in light mode, and as `#c62828` in dark mode.
+:::
 
 <limel-example-dark-light-mode></limel-example-dark-light-mode>
 
@@ -37,12 +43,14 @@ The reason for this is that the card has an elevated effect with a drop shadow. 
 
 ## Usage
 
-**Note:** *Work in progress!* We are currently in the process of transitioning Lime Elements to eventually fully support dark mode. During this process, we recommend that any clients using Lime Elements load `@limetech/lime-elements/dist/lime-elements/style/color-palette-extended-light-mode-only.css`, where dark mode support is completely disabled, to avoid inconsistent behavior. To get dark mode support, to the extent available at the time, load `@limetech/lime-elements/dist/lime-elements/style/color-palette-extended.css` instead.
+:::warning Work in progress!
+We are currently in the process of transitioning Lime Elements to eventually fully support dark mode. During this process, we recommend that any clients using Lime Elements load `@limetech/lime-elements/dist/lime-elements/style/color-palette-extended-light-mode-only.css`, where dark mode support is completely disabled, to avoid inconsistent behavior. To get dark mode support, to the extent available at the time, load `@limetech/lime-elements/dist/lime-elements/style/color-palette-extended.css` instead.
+:::
 
 ### Using CSS variables
 We have not used HEX values to create the CSS variables for each color. They are instead written in RGB digits, without parentheses. For example `--color-blue-default: 33, 150, 243;` (which would be `#2196f3` in HEX). The reason for such a choice is empowering you to write the colors with alpha channel if needed.
 
-Thus, to get a solid blue color, you would write `color: rgb(var(--color-blue-default));`.  
+Thus, to get a solid blue color, you would write `color: rgb(var(--color-blue-default));`.
 To get a blue color with 10% opacity, write `color: rgba(var(--color-blue-default), 0.1);` instead.
 
 ### Customizing our components and your apps with colors
@@ -50,7 +58,9 @@ When using web-components from Lime Elements, you will notice that there are man
 
 But when you do your own add-ons, integrations, and apps, keep in mind that the UI should be neutrally colored (using the contrast scales). Applying intensive colors to big areas of the UI (such as headers and background colors) is not recommended.
 
+:::note
 Colors should be used to communicate meaning, and attract attention to things that are functionally important, not to scream your brand throughout the entire product. Different sections of the app should be distinct, but also blend together well. Extensive color usage will be placing the emphasis on an app’s UI structure, instead of its content.
+:::
 
 Use only one accent color (product color) and use it for all Lime Elements components in your product. Define this accent color by setting the CSS variable `--lime-primary-color`. We don't recommend using the Lime brand color CSS variables directly in this case, but instead suggest using their equivalent swatch from the color palette. This will ensure that your UI will automatically benefit from dark mode adjustments, while users do not notice the difference.
 
@@ -109,16 +119,22 @@ ___
 
 This set of colors is included in all available palettes, and can be used for branding and marketing purposes. Swatches and their respective CSS variables have specific names starting with the prefix `--lime-brand-color-`.
 
-**Note** that the brand colors do **not** have a dark and light version. Thus when their respective CSS variable names are used, they will be displayed with the same brightness in both light and dark UIs. However, an equivalent of all these hues already exist in our color palette, and mostly reside in the "dark mode" subset -as stated beside their names as well.
+:::note
+The brand colors do **not** have a dark and light version. Thus when their respective CSS variable names are used, they will be displayed with the same brightness in both light and dark UIs. However, an equivalent of all these hues already exist in our color palette, and mostly reside in the "dark mode" subset -as stated beside their names as well.
+:::
 
-**Note** that names of our brand colors are chosen by our Marketing department thus sometimes do not exactly match our naming conventions for their equivalent hues in the color palettes.
+:::note
+Names of our brand colors are chosen by our Marketing department thus sometimes do not exactly match our naming conventions for their equivalent hues in the color palettes.
+:::
 
 ### Usage of brand colors
 For correct use of Lime Technologies brand assets, including colors, please refer to [Lime Technologies brand guidelines](https://www.lime-technologies.se/brand-guidelines/).
 
 We recommend relying on the "UI palette" and avoid using brand colors extensively in UI design. Brand colors -as their name states- should be used where appropriate, to reflect the company's brand and identity; and add brand-recognizability to the product. These should be used the way you use spices in cooking. Too much and too many of them together will destroy the food. Therefore, in UI design, usage of brand colors should be very limited.
 
+:::tip
 Good places to use brand colors are:
 - in loading screens or splash screens
 - in logos or home links
 - as accent colors, but carefully! This depends on the color which is chosen to represent the product. For example `deep-red`, `yellow`, `light-grey` or `grey` can never be good accent colors, even if they can be chosen to represent a Lime product.
+:::
