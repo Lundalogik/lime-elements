@@ -1,3 +1,17 @@
+# [29.0.0](https://github.com/Lundalogik/lime-elements/compare/v28.5.6...v29.0.0) (2020-10-12)
+
+
+### Features
+
+* **stencil:** update to StencilJS v2 ([7f1991b](https://github.com/Lundalogik/lime-elements/commit/7f1991b1d5f31b3aa5b2ea151b3b090fdab63201))
+
+
+### BREAKING CHANGES
+
+* **stencil:** Lime Elements no longer supplies ES5-builds. Browser support for ES Modules (esm)
+is now required. If you are loading `lime-elements` with one `<script type="module" src="…">` tag
+and one `<script nomodule src="…">` tag, you should remove the latter.
+
 ## [28.5.6](https://github.com/Lundalogik/lime-elements/compare/v28.5.5...v28.5.6) (2020-10-05)
 
 
