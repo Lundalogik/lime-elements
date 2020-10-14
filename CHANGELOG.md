@@ -1,3 +1,10 @@
+## [29.0.1](https://github.com/Lundalogik/lime-elements/compare/v29.0.0...v29.0.1) (2020-10-14)
+
+
+### Bug Fixes
+
+* **chip-set:** only emit one startEdit event when focusing on the input field ([4e473a1](https://github.com/Lundalogik/lime-elements/commit/4e473a131dab790feb909ead0ed846795aa0ccf5)), closes [Lundalogik/crm-feature#1474](https://github.com/Lundalogik/crm-feature/issues/1474)
+
 # [29.0.0](https://github.com/Lundalogik/lime-elements/compare/v28.5.6...v29.0.0) (2020-10-12)
 
 
