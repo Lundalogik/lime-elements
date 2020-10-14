@@ -390,6 +390,10 @@ export class ChipSet {
      * @returns {void}
      */
     private handleTextFieldFocus() {
+        if (this.editMode) {
+            return;
+        }
+
         this.editMode = true;
         this.startEdit.emit();
     }
