@@ -1,6 +1,10 @@
+.tabulator-col-sorter {
+    right: pxToRem(16) !important;
+}
 .tabulator-arrow {
+    position: absolute;
     transition: border 0.2s ease;
-    top: pxToRem(12) !important;
+    top: pxToRem(4);
 
     [aria-sort='none'] & {
         border-bottom-color: $tabulator-arrow-color !important;
@@ -39,7 +43,7 @@
     }
 
     [aria-sort='desc'] & {
-        top: pxToRem(20) !important;
+        top: pxToRem(10);
 
         &:before {
             top: pxToRem(-12);
