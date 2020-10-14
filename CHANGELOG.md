@@ -1,3 +1,10 @@
+## [29.0.2](https://github.com/Lundalogik/lime-elements/compare/v29.0.1...v29.0.2) (2020-10-14)
+
+
+### Bug Fixes
+
+* **table:** render sorting arrow correctly ([e02e6aa](https://github.com/Lundalogik/lime-elements/commit/e02e6aa83e40a5e2ad0939750a0eeebb68afdcc1))
+
 ## [29.0.1](https://github.com/Lundalogik/lime-elements/compare/v29.0.0...v29.0.1) (2020-10-14)
 
 
