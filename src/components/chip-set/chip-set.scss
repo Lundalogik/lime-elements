@@ -156,6 +156,14 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             z-index: -100;
         }
     }
+    &:not(.mdc-text-field--disabled).has-chips {
+        background-color: rgba(
+            241,
+            241,
+            243,
+            0.5
+        ); // Same color as when focused or hovered
+    }
 }
 
 .mdc-text-field--disabled .mdc-chip {
