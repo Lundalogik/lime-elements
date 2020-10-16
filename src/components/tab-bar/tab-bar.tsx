@@ -1,6 +1,7 @@
 import {
     Component,
     h,
+    Listen,
     Prop,
     Element,
     EventEmitter,
@@ -123,6 +124,11 @@ export class TabBar {
 
         this.setupMdc = true;
         this.tearDown();
+    }
+
+    @Listen('resize', { passive: true, target: 'window' })
+    protected handleWindowResize() {
+        this.handleScroll();
     }
 
     private setup() {
