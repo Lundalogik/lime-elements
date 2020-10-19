@@ -21,7 +21,7 @@ export class ColumnDefinitionFactory {
             field: column.field,
         };
 
-        if (column.component || column.formatter) {
+        if (column.component?.name || column.formatter) {
             definition.formatter = createFormatter(column, this.pool);
             definition.formatterParams = column as object;
         }
@@ -50,11 +50,34 @@ export function createFormatter(
         return formatCell;
     }
 
+    if (!columnElementExists(column)) {
+        // eslint-disable-next-line no-console
+        console.warn(
+            `Failed to render custom component for column "${column.field.toString()}". Custom element <${
+                column.component.name
+            }/> does not exist. Using the default formatter.`
+        );
+
+        return;
+    }
+
     return (cell: Tabulator.CellComponent) => {
         const value = formatCell(cell, column);
 
         return createCustomComponent(cell, column, value, pool);
     };
+}
+
+function columnElementExists(column: Column<any>) {
+    const name = column.component.name;
+    if (typeof name === 'string') {
+        const isNativeElement = !name.includes('-');
+        const customElementExists = customElements.get(column.component.name);
+
+        return isNativeElement || customElementExists;
+    } else {
+        return false;
+    }
 }
 
 /**
