@@ -1,3 +1,10 @@
+## [29.0.3](https://github.com/Lundalogik/lime-elements/compare/v29.0.2...v29.0.3) (2020-10-20)
+
+
+### Bug Fixes
+
+* **table:** use default formatter for column if invalid component config is provided ([b250215](https://github.com/Lundalogik/lime-elements/commit/b250215e8ac435df42c94780df81dc5b0d69a5ac))
+
 ## [29.0.2](https://github.com/Lundalogik/lime-elements/compare/v29.0.1...v29.0.2) (2020-10-14)
 
 
