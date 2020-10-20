@@ -164,12 +164,19 @@ export class Table {
         }
 
         this.pool.releaseAll();
-        this.tabulator.setData(this.data);
+        setTimeout(() => {
+            this.tabulator.setData(this.data);
+        });
     }
 
     @Watch('columns')
     public updateColumns() {
         this.tabulator.setColumns(this.getColumnDefinitions());
+    }
+
+    @Watch('totalRows')
+    public updateMaxPage() {
+        this.tabulator.setMaxPage(this.calculatePageCount());
     }
 
     private getOptions(): Tabulator.Options {
