@@ -43,7 +43,7 @@
     "@types/tabulator-tables": "^4.7.1",
     "ajv": "^6.12.2",
     "awesome-debounce-promise": "^2.1.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "flatpickr": "^4.6.3",
     "html-escaper": "^3.0.0",
     "jsx-dom": "^6.4.17",
