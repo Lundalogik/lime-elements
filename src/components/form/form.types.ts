@@ -104,3 +104,46 @@ export interface FormInfo {
      */
     name?: string;
 }
+
+/**
+ * Lime elements specific options that can be specified under the `lime` key in
+ * a schema, e.g.
+ *
+ * ```ts
+ * const schema = {
+ *     type: 'object',
+ *     lime: {
+ *         collapsible: true,
+ *     },
+ * };
+ * ```
+ */
+export interface LimeSchemaOptions {
+    /**
+     * When specified on an object it will render all sub components inside a
+     * collapsible section
+     */
+    collapsible?: boolean;
+
+    /**
+     * Will render the field using the specified component. The component
+     * should implement the `FormComponent` interface
+     */
+    component?: FormComponentOptions;
+}
+
+/**
+ * Options for a component to be rendered inside a form
+ */
+export interface FormComponentOptions {
+    /**
+     * Name of the component
+     */
+    name?: string;
+
+    /**
+     * Extra properties to give the component in addition to the properties
+     * specified on the `FormComponent` interface
+     */
+    props?: Record<string, any>;
+}
