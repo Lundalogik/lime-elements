@@ -9,7 +9,7 @@
   "es2017": "dist/esm/index.js",
   "jsnext:main": "dist/esm/index.js",
   "main": "dist/index.cjs.js",
-  "types": "dist/types/interface.d.ts",
+  "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
     "dist/"
