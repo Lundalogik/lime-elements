@@ -130,6 +130,12 @@ export interface LimeSchemaOptions {
      * should implement the `FormComponent` interface
      */
     component?: FormComponentOptions;
+
+    /**
+     * When specified on an object it will render the sub components with the
+     * specified layout
+     */
+    layout?: FormLayoutOptions;
 }
 
 /**
@@ -146,4 +152,25 @@ export interface FormComponentOptions {
      * specified on the `FormComponent` interface
      */
     props?: Record<string, any>;
+}
+
+export interface FormLayoutOptions {
+    /**
+     * The type of layout to use
+     */
+    type: FormLayoutType;
+
+    /**
+     * When specified on a component within a layout, the component will take
+     * up the full width of the form
+     */
+    span?: 'all';
+}
+
+// eslint-disable-next-line no-shadow
+export enum FormLayoutType {
+    /**
+     * Render the form fields using a responsive grid layout
+     */
+    Grid = 'grid',
 }
