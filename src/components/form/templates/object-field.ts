@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormLayoutOptions } from '../form.types';
 import { renderDescription, renderTitle } from './common';
 import { ObjectFieldProperty, ObjectFieldTemplateProps } from './types';
 
@@ -12,16 +13,16 @@ export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
         return renderCollapsibleField(props);
     }
 
-    return renderProperties(props.properties);
+    return renderProperties(props.properties, props.schema);
 };
 
 function renderFieldWithTitle(props: ObjectFieldTemplateProps) {
     return React.createElement(
-        'div',
+        React.Fragment,
         {},
         renderTitle(props.title),
         renderDescription(props.description),
-        renderProperties(props.properties)
+        renderProperties(props.properties, props.schema)
     );
 }
 
@@ -32,12 +33,31 @@ function renderCollapsibleField(props: ObjectFieldTemplateProps) {
             header: props.title,
         },
         renderDescription(props.description),
-        renderProperties(props.properties)
+        renderProperties(props.properties, props.schema)
     );
 }
 
-function renderProperties(properties: ObjectFieldProperty[]) {
+function renderProperties(properties: ObjectFieldProperty[], schema: any) {
+    const layout: FormLayoutOptions = schema.lime?.layout;
+
+    if (layout?.type) {
+        return renderLayout(properties, layout);
+    }
+
     return properties.map((element) => element.content);
+}
+
+function renderLayout(
+    properties: ObjectFieldProperty[],
+    layout: FormLayoutOptions
+) {
+    return React.createElement(
+        'div',
+        {
+            className: `limel-form-layout--${layout.type}`,
+        },
+        properties.map((element) => element.content)
+    );
 }
 
 function isCollapsible(schema: any) {
