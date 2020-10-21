@@ -1,3 +1,10 @@
+## [29.0.4](https://github.com/Lundalogik/lime-elements/compare/v29.0.3...v29.0.4) (2020-10-21)
+
+
+### Bug Fixes
+
+* **types:** publish auto generated types for the source code ([3752cea](https://github.com/Lundalogik/lime-elements/commit/3752cea1aaa5b5cf3a6e3a3aae2f634c5f6cb4ec))
+
 ## [29.0.3](https://github.com/Lundalogik/lime-elements/compare/v29.0.2...v29.0.3) (2020-10-20)
 
 
