@@ -121,6 +121,7 @@ export class Table {
         this.requestData = this.requestData.bind(this);
         this.onClickRow = this.onClickRow.bind(this);
         this.formatRow = this.formatRow.bind(this);
+        this.updateMaxPage = this.updateMaxPage.bind(this);
         this.pool = new ElementPool(document);
         this.columnFactory = new ColumnDefinitionFactory(this.pool);
     }
@@ -174,9 +175,8 @@ export class Table {
         this.tabulator.setColumns(this.getColumnDefinitions());
     }
 
-    @Watch('totalRows')
-    public updateMaxPage() {
-        this.tabulator.setMaxPage(this.calculatePageCount());
+    private updateMaxPage() {
+        this.tabulator?.setMaxPage(this.calculatePageCount());
     }
 
     private getOptions(): Tabulator.Options {
@@ -194,6 +194,8 @@ export class Table {
             rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
             initialSort: this.getColumnSorter(),
+            dataLoaded: this.updateMaxPage,
+            dataFiltered: this.updateMaxPage,
         };
     }
 
@@ -233,7 +235,7 @@ export class Table {
 
         if (abortRequest) {
             setTimeout(() => {
-                this.tabulator.setMaxPage(this.calculatePageCount());
+                this.updateMaxPage();
                 this.tabulator.setData(this.data);
             });
 
