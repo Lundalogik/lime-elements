@@ -1,6 +1,6 @@
 {
   "name": "@limetech/lime-elements",
-  "version": "29.0.3",
+  "version": "29.0.4",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "Apache-2.0",
@@ -9,7 +9,7 @@
   "es2017": "dist/esm/index.js",
   "jsnext:main": "dist/esm/index.js",
   "main": "dist/index.cjs.js",
-  "types": "dist/types/interface.d.ts",
+  "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
     "dist/"
