@@ -1,3 +1,10 @@
+## [29.0.5](https://github.com/Lundalogik/lime-elements/compare/v29.0.4...v29.0.5) (2020-10-22)
+
+
+### Bug Fixes
+
+* **table:** set max page of tabulator when totalRows is updated ([6684a99](https://github.com/Lundalogik/lime-elements/commit/6684a99310f202341cc70e692272c909e9a8a0b6))
+
 ## [29.0.4](https://github.com/Lundalogik/lime-elements/compare/v29.0.3...v29.0.4) (2020-10-21)
 
 
