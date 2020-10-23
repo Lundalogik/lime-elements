@@ -107,6 +107,10 @@ export class Switch {
 
     @Watch('value')
     protected valueWatcher(newValue, oldValue) {
+        if (!this.mdcSwitch) {
+            return;
+        }
+
         if (newValue !== oldValue) {
             this.mdcSwitch.checked = newValue;
         }
