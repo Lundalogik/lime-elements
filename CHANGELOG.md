@@ -1,3 +1,10 @@
+## [29.0.6](https://github.com/Lundalogik/lime-elements/compare/v29.0.5...v29.0.6) (2020-10-23)
+
+
+### Bug Fixes
+
+* **switch:** ensure no exception is thrown in the console ([566df84](https://github.com/Lundalogik/lime-elements/commit/566df840c4df613fbd61a0ce0bf5a1559f58f94e))
+
 ## [29.0.5](https://github.com/Lundalogik/lime-elements/compare/v29.0.4...v29.0.5) (2020-10-22)
 
 
