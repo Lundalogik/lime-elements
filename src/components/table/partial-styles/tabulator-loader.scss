@@ -1,0 +1,40 @@
+@keyframes fade-in-tabulator-loader {
+    0% {
+        background: transparent;
+    }
+    100% {
+        background: rgba(var(--contrast-1400), 0.4);
+    }
+}
+
+@keyframes spin-tabulator-loader {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.tabulator {
+    .tabulator-loader {
+        animation: fade-in-tabulator-loader 0.5s ease 0.5s forwards;
+        animation-iteration-count: 1;
+        cursor: progress;
+        background: transparent;
+
+        .tabulator-loader-msg {
+            animation: spin-tabulator-loader 0.4s linear infinite;
+
+            color: transparent; // gets rid of default "loading" label
+            font-size: 0; // gets rid of default "loading" label
+            border-radius: 50%;
+            border: pxToRem(3) solid
+                rgb(var(--lime-brand-color-flexible-turquoise)) !important;
+            border-top-color: transparent !important;
+
+            width: pxToRem(20);
+            height: pxToRem(20);
+
+            background-color: transparent !important;
+            padding: 0;
+        }
+    }
+}
