@@ -51,16 +51,24 @@ slot[name='header'] {
             --dialog-heading-title-color,
             #{$mdc-theme-text-primary-on-background}
         );
+        &:before {
+            height: 1rem; // Kia: Not sure what `:before` is used for, but it's default MD height is 2.5rem, which makes the header very tall.
+        }
+    }
+
+    .mdc-dialog__title,
+    .dialog__heading {
+        padding: pxToRem(12);
+        background-color: rgb(var(--contrast-300));
     }
 
     .dialog__heading {
         display: flex;
         align-items: center;
-        margin: pxToRem(30) pxToRem(24) pxToRem(5);
         flex-shrink: 0;
 
         limel-icon {
-            margin-right: pxToRem(15);
+            margin-right: pxToRem(12);
             color: var(--dialog-heading-icon-color, #{$mdc-theme-secondary});
 
             &[badge] {
