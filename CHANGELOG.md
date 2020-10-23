@@ -1,3 +1,11 @@
+## [29.0.7](https://github.com/Lundalogik/lime-elements/compare/v29.0.6...v29.0.7) (2020-10-23)
+
+
+### Bug Fixes
+
+* **table:** always update table pages after data has been updated or loaded ([ff338d0](https://github.com/Lundalogik/lime-elements/commit/ff338d0a77a85ab287df69b058568b268874794c))
+* **table:** check boolean length correctly ([f1c2e33](https://github.com/Lundalogik/lime-elements/commit/f1c2e339955cb056ca9b50ccbac224ee95a0a5d9))
+
 ## [29.0.6](https://github.com/Lundalogik/lime-elements/compare/v29.0.5...v29.0.6) (2020-10-23)
 
 
