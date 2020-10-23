@@ -45,7 +45,7 @@ export class Form {
     public schema: {
         id?: string;
         [key: string]: any;
-    };
+    } = {};
 
     /**
      * Value of the form
