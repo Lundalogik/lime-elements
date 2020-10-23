@@ -230,7 +230,7 @@ export class Table {
     }
 
     private handleAjaxRequesting() {
-        const abortRequest = this.firstRequest && this.data?.length;
+        const abortRequest = this.firstRequest && !!this.data?.length;
         this.firstRequest = false;
 
         if (abortRequest) {
