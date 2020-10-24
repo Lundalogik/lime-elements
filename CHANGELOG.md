@@ -1,3 +1,10 @@
+## [29.0.8](https://github.com/Lundalogik/lime-elements/compare/v29.0.7...v29.0.8) (2020-10-24)
+
+
+### Bug Fixes
+
+* **table:** loader appears smoothly, instead of blinking ([e20db37](https://github.com/Lundalogik/lime-elements/commit/e20db3780859ee437e6cd91fbc395f326d0be095))
+
 ## [29.0.7](https://github.com/Lundalogik/lime-elements/compare/v29.0.6...v29.0.7) (2020-10-23)
 
 
