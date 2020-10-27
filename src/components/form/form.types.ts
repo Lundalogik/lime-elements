@@ -104,3 +104,73 @@ export interface FormInfo {
      */
     name?: string;
 }
+
+/**
+ * Lime elements specific options that can be specified under the `lime` key in
+ * a schema, e.g.
+ *
+ * ```ts
+ * const schema = {
+ *     type: 'object',
+ *     lime: {
+ *         collapsible: true,
+ *     },
+ * };
+ * ```
+ */
+export interface LimeSchemaOptions {
+    /**
+     * When specified on an object it will render all sub components inside a
+     * collapsible section
+     */
+    collapsible?: boolean;
+
+    /**
+     * Will render the field using the specified component. The component
+     * should implement the `FormComponent` interface
+     */
+    component?: FormComponentOptions;
+
+    /**
+     * When specified on an object it will render the sub components with the
+     * specified layout
+     */
+    layout?: FormLayoutOptions;
+}
+
+/**
+ * Options for a component to be rendered inside a form
+ */
+export interface FormComponentOptions {
+    /**
+     * Name of the component
+     */
+    name?: string;
+
+    /**
+     * Extra properties to give the component in addition to the properties
+     * specified on the `FormComponent` interface
+     */
+    props?: Record<string, any>;
+}
+
+export interface FormLayoutOptions {
+    /**
+     * The type of layout to use
+     */
+    type: FormLayoutType;
+
+    /**
+     * When specified on a component within a layout, the component will take
+     * up the full width of the form
+     */
+    span?: 'all';
+}
+
+// eslint-disable-next-line no-shadow
+export enum FormLayoutType {
+    /**
+     * Render the form fields using a responsive grid layout
+     */
+    Grid = 'grid',
+}
