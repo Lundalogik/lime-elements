@@ -285,8 +285,8 @@ export class InputField {
 
     @Watch('value')
     protected valueWatcher(newValue: string) {
-        if (this.type === 'textarea' && newValue !== this.mdcTextField.value) {
-            this.mdcTextField.value = newValue;
+        if (newValue !== this.mdcTextField.value) {
+            this.mdcTextField.value = newValue || '';
         }
     }
 
