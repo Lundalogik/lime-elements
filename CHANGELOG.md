@@ -1,3 +1,15 @@
+# [29.1.0](https://github.com/Lundalogik/lime-elements/compare/v29.0.8...v29.1.0) (2020-10-27)
+
+
+### Bug Fixes
+
+* **form:** add missing type information for schema ([b4130ca](https://github.com/Lundalogik/lime-elements/commit/b4130ca93cb70b16a2340b9325d12e9a1824efdb))
+
+
+### Features
+
+* **form:** add support for form layouts ([58ceaff](https://github.com/Lundalogik/lime-elements/commit/58ceaff8c4af057a21981f4bbef8906e52d1929f)), closes [Lundalogik/crm-feature#1479](https://github.com/Lundalogik/crm-feature/issues/1479)
+
 ## [29.0.8](https://github.com/Lundalogik/lime-elements/compare/v29.0.7...v29.0.8) (2020-10-24)
 
 
