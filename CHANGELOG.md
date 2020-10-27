@@ -1,3 +1,15 @@
+# [29.2.0](https://github.com/Lundalogik/lime-elements/compare/v29.1.0...v29.2.0) (2020-10-27)
+
+
+### Bug Fixes
+
+* **form:** make sure form is initialized with a schema ([bc1bfe3](https://github.com/Lundalogik/lime-elements/commit/bc1bfe3637b44589486133977cff819a3314164e))
+
+
+### Features
+
+* **form:** allow props on input-field to be overriden from schema ([7998fe9](https://github.com/Lundalogik/lime-elements/commit/7998fe9abd59b6117f15bc982b6305fcd8f84306)), closes [Lundalogik/crm-feature#1519](https://github.com/Lundalogik/crm-feature/issues/1519)
+
 # [29.1.0](https://github.com/Lundalogik/lime-elements/compare/v29.0.8...v29.1.0) (2020-10-27)
 
 
