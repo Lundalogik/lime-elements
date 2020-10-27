@@ -33,6 +33,7 @@ import { ListItem } from '@limetech/lime-elements';
  * @exampleComponent limel-example-input-field-error-icon
  * @exampleComponent limel-example-input-field-textarea
  * @exampleComponent limel-example-input-field-search
+ * @exampleComponent limel-example-input-field-pattern
  */
 @Component({
     tag: 'limel-input-field',
@@ -91,6 +92,15 @@ export class InputField {
      */
     @Prop({ reflect: true })
     public leadingIcon: string;
+
+    /**
+     * Regular expression that the current value of the input field must match.
+     * No forward slashes should be specified around the pattern.
+     * Only used if type is `text`, `tel`, `email`, `url`, `password`
+     * or `search`.
+     */
+    @Prop({ reflect: true })
+    public pattern: string;
 
     /**
      * Type of textfield
@@ -245,6 +255,7 @@ export class InputField {
                     required={this.required}
                     disabled={this.disabled}
                     type={this.type}
+                    pattern={this.pattern}
                     onWheel={this.handleWheel}
                     onKeyDown={this.onKeyDown}
                     {...additionalProps}
