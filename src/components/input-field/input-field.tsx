@@ -256,7 +256,6 @@ export class InputField {
                     disabled={this.disabled}
                     type={this.type}
                     pattern={this.pattern}
-                    onWheel={this.handleWheel}
                     onKeyDown={this.onKeyDown}
                     {...additionalProps}
                     value={this.value}
@@ -623,11 +622,6 @@ export class InputField {
 
         if (isSpace || isEnter) {
             this.action.emit();
-        }
-    }
-    private handleWheel(event: MouseEvent) {
-        if (this.type === 'number') {
-            event.preventDefault();
         }
     }
 }
