@@ -1,3 +1,15 @@
+# [29.3.0](https://github.com/Lundalogik/lime-elements/compare/v29.2.0...v29.3.0) (2020-10-28)
+
+
+### Bug Fixes
+
+* **input-field:** sync value with mdcvalue for all field types ([ef7a559](https://github.com/Lundalogik/lime-elements/commit/ef7a55959b68faa2e93c00eac3bd881c2135ebbc))
+
+
+### Features
+
+* **input-field:** add support for regex pattern ([a922602](https://github.com/Lundalogik/lime-elements/commit/a9226023dbbf69433c1c63140d3aaa66b363f688))
+
 # [29.2.0](https://github.com/Lundalogik/lime-elements/compare/v29.1.0...v29.2.0) (2020-10-27)
 
 
