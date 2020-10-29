@@ -40,6 +40,12 @@ export class Slider {
     public label: string;
 
     /**
+     * Optional helper text to display below the slider
+     */
+    @Prop({ reflect: true })
+    public helperText: string;
+
+    /**
      * Unit to display next to the value
      */
     @Prop({ reflect: true })
@@ -156,6 +162,19 @@ export class Slider {
                         </div>
                     </div>
                 </div>
+                {this.renderHelperLine()}
+            </div>
+        );
+    }
+
+    private renderHelperLine() {
+        if (!this.helperText) {
+            return;
+        }
+
+        return (
+            <div class="mdc-slider-helper-line">
+                <p class="mdc-slider-helper-text">{this.helperText}</p>
             </div>
         );
     }
