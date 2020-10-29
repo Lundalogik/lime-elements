@@ -1,3 +1,10 @@
+## [29.3.2](https://github.com/Lundalogik/lime-elements/compare/v29.3.1...v29.3.2) (2020-10-29)
+
+
+### Bug Fixes
+
+* **input-field:** do not prevent scrolling while hovering numeric input fields ([bc787dd](https://github.com/Lundalogik/lime-elements/commit/bc787dd8d063e4ebd7eb0a0e60354d46036a9322)), closes [Lundalogik/crm-feature#1538](https://github.com/Lundalogik/crm-feature/issues/1538)
+
 ## [29.3.1](https://github.com/Lundalogik/lime-elements/compare/v29.3.0...v29.3.1) (2020-10-29)
 
 
