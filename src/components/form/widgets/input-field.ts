@@ -72,7 +72,7 @@ function getStepSize(schema: any): 'any' | number {
 }
 
 function getAdditionalProps(schema: any) {
-    const props: any = {};
+    let props: any = {};
 
     if (schema.minimum) {
         props.min = schema.minimum;
@@ -88,6 +88,13 @@ function getAdditionalProps(schema: any) {
 
     if (schema.minLength) {
         props.minlength = schema.minLength;
+    }
+
+    if (schema.lime?.component?.props) {
+        props = {
+            ...props,
+            ...schema.lime.component.props,
+        };
     }
 
     return props;

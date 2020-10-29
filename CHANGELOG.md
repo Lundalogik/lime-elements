@@ -1,3 +1,46 @@
+# [29.3.0](https://github.com/Lundalogik/lime-elements/compare/v29.2.0...v29.3.0) (2020-10-28)
+
+
+### Bug Fixes
+
+* **input-field:** sync value with mdcvalue for all field types ([ef7a559](https://github.com/Lundalogik/lime-elements/commit/ef7a55959b68faa2e93c00eac3bd881c2135ebbc))
+
+
+### Features
+
+* **input-field:** add support for regex pattern ([a922602](https://github.com/Lundalogik/lime-elements/commit/a9226023dbbf69433c1c63140d3aaa66b363f688))
+
+# [29.2.0](https://github.com/Lundalogik/lime-elements/compare/v29.1.0...v29.2.0) (2020-10-27)
+
+
+### Bug Fixes
+
+* **form:** make sure form is initialized with a schema ([bc1bfe3](https://github.com/Lundalogik/lime-elements/commit/bc1bfe3637b44589486133977cff819a3314164e))
+
+
+### Features
+
+* **form:** allow props on input-field to be overriden from schema ([7998fe9](https://github.com/Lundalogik/lime-elements/commit/7998fe9abd59b6117f15bc982b6305fcd8f84306)), closes [Lundalogik/crm-feature#1519](https://github.com/Lundalogik/crm-feature/issues/1519)
+
+# [29.1.0](https://github.com/Lundalogik/lime-elements/compare/v29.0.8...v29.1.0) (2020-10-27)
+
+
+### Bug Fixes
+
+* **form:** add missing type information for schema ([b4130ca](https://github.com/Lundalogik/lime-elements/commit/b4130ca93cb70b16a2340b9325d12e9a1824efdb))
+
+
+### Features
+
+* **form:** add support for form layouts ([58ceaff](https://github.com/Lundalogik/lime-elements/commit/58ceaff8c4af057a21981f4bbef8906e52d1929f)), closes [Lundalogik/crm-feature#1479](https://github.com/Lundalogik/crm-feature/issues/1479)
+
+## [29.0.8](https://github.com/Lundalogik/lime-elements/compare/v29.0.7...v29.0.8) (2020-10-24)
+
+
+### Bug Fixes
+
+* **table:** loader appears smoothly, instead of blinking ([e20db37](https://github.com/Lundalogik/lime-elements/commit/e20db3780859ee437e6cd91fbc395f326d0be095))
+
 ## [29.0.7](https://github.com/Lundalogik/lime-elements/compare/v29.0.6...v29.0.7) (2020-10-23)
 
 
