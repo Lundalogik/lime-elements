@@ -48,7 +48,7 @@
     "html-escaper": "^3.0.0",
     "jsx-dom": "^6.4.17",
     "kompendium": "^0.7.0",
-    "moment": "^2.26.0",
+    "moment": "^2.29.1",
     "number-abbreviate": "^2.0.0",
     "react-jsonschema-form": "^1.8.1",
     "react-shadow-dom-retarget-events": "^1.0.11",
