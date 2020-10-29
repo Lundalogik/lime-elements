@@ -2,6 +2,7 @@ import { Checkbox } from './checkbox';
 import { DatePicker } from './date-picker';
 import { InputField } from './input-field';
 import { Select } from './select';
+import { Slider } from './slider';
 
 // These are defined by react-json-schema-form
 export type WidgetType =
@@ -31,4 +32,5 @@ export const widgets: Partial<Record<WidgetType, any>> = {
     EmailWidget: InputField,
     TextWidget: InputField,
     SelectWidget: Select,
+    RangeWidget: Slider,
 };
