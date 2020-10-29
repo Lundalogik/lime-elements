@@ -3,6 +3,7 @@ import { InputType } from '@limetech/lime-elements';
 import { isIntegerType, isNumberType } from '../schema';
 import { WidgetProps } from './types';
 import { LimeElementsWidgetAdapter } from '../adapters';
+import { Slider } from './slider';
 
 export class InputField extends React.Component {
     constructor(public props: WidgetProps) {
@@ -12,6 +13,11 @@ export class InputField extends React.Component {
 
     public render() {
         const props: WidgetProps = this.props;
+
+        if (isRange(props.schema)) {
+            return React.createElement(Slider, props);
+        }
+
         const type: InputType = getInputType(props.schema);
         const step: number | 'any' = getStepSize(props.schema);
         const additionalProps = getAdditionalProps(props.schema);
@@ -98,4 +104,12 @@ function getAdditionalProps(schema: any) {
     }
 
     return props;
+}
+
+function isRange(schema: any): boolean {
+    if (!isNumberType(schema) && !isIntegerType(schema)) {
+        return false;
+    }
+
+    return 'minimum' in schema && 'maximum' in schema && 'multipleOf' in schema;
 }

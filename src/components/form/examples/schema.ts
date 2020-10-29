@@ -18,6 +18,22 @@ export const schema = {
             description: 'Enter your email address',
             format: 'email',
         },
+        happiness: {
+            type: 'number',
+            title: 'Happiness',
+            description: 'How happy are you?',
+            minimum: 0,
+            maximum: 1,
+            multipleOf: 0.01,
+        },
+        bananas: {
+            type: 'number',
+            title: 'Bananas',
+            description: 'How many bananas do you want?',
+            minimum: 0,
+            maximum: 50,
+            multipleOf: 10,
+        },
         date: {
             type: 'string',
             title: 'Birthdate',
