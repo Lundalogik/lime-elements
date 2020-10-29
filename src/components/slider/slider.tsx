@@ -64,6 +64,12 @@ export class Slider {
     public valuemin: number = 0;
 
     /**
+     * The stepping interval to use when adjusting the value
+     */
+    @Prop({ reflect: true })
+    public step: number;
+
+    /**
      * Emitted when the value has been changed
      */
     @Event()
@@ -128,6 +134,7 @@ export class Slider {
                         aria-valuenow={this.multiplyByFactor(this.value)}
                         aria-label={this.label}
                         aria-disabled={this.disabled}
+                        data-step={this.step}
                     >
                         <div class="mdc-slider__track-container">
                             <div class="mdc-slider__track" />
