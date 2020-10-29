@@ -1,3 +1,10 @@
+## [29.3.1](https://github.com/Lundalogik/lime-elements/compare/v29.3.0...v29.3.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **table:** ensure component is completely rendered when loaded ([e13bae0](https://github.com/Lundalogik/lime-elements/commit/e13bae0f25abb34e52f522898e142a98c952565f))
+
 # [29.3.0](https://github.com/Lundalogik/lime-elements/compare/v29.2.0...v29.3.0) (2020-10-28)
 
 
