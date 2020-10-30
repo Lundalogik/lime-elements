@@ -137,7 +137,7 @@ export class Slider {
                         role="slider"
                         aria-valuemin={this.multiplyByFactor(this.valuemin)}
                         aria-valuemax={this.multiplyByFactor(this.valuemax)}
-                        aria-valuenow={this.multiplyByFactor(this.value)}
+                        aria-valuenow={this.multiplyByFactor(this.getValue())}
                         aria-label={this.label}
                         aria-disabled={this.disabled}
                         data-step={this.step}
@@ -148,7 +148,7 @@ export class Slider {
                         <div class="mdc-slider__thumb-container">
                             <div class="mdc-slider__pin">
                                 <span class="mdc-slider__pin-value-marker">
-                                    {this.multiplyByFactor(this.value)}
+                                    {this.multiplyByFactor(this.getValue())}
                                 </span>
                             </div>
                             <svg
@@ -181,7 +181,7 @@ export class Slider {
 
     @Watch('value')
     protected watchValue() {
-        this.mdcSlider.value = this.multiplyByFactor(this.value);
+        this.mdcSlider.value = this.multiplyByFactor(this.getValue());
     }
 
     private changeHandler = (event) => {
@@ -190,5 +190,14 @@ export class Slider {
 
     private multiplyByFactor(value) {
         return Math.round(value * this.factor);
+    }
+
+    private getValue() {
+        let value = this.value;
+        if (!isFinite(value)) {
+            value = this.valuemin;
+        }
+
+        return value;
     }
 }
