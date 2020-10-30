@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import { Tab } from '@limetech/lime-elements';
 
 /**
- * Tab bars with custom styles
+ * Default UI of Tab bars
  * By default, tabs dynamically adjust their width to their own content, which
  * means a tab with a larger label will be bigger than one with a shorter one.
  * This is the preferred layout for tabs.
