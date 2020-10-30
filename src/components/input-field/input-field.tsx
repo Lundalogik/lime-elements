@@ -256,6 +256,7 @@ export class InputField {
                     disabled={this.disabled}
                     type={this.type}
                     pattern={this.pattern}
+                    onWheel={this.handleWheel}
                     onKeyDown={this.onKeyDown}
                     {...additionalProps}
                     value={this.value}
@@ -627,5 +628,17 @@ export class InputField {
         if (isSpace || isEnter) {
             this.action.emit();
         }
+    }
+
+    private handleWheel() {
+        // This empty event handler is here to circumvent a bug.
+        // In some browsers (Chrome for example), hovering the input with
+        // the input focused, and scrolling, will both change the value
+        // AND scroll the page. We would prefer to never change the value
+        // on scroll, instead always scrolling the page, but since we
+        // haven't found a way to do that, this is the next best thing, as
+        // it prevents the page from being scrolled, but only in the
+        // circumstances when the value is changed by the scrolling.
+        // Please test THOROUGHLY if you remove this event handler 😄
     }
 }
