@@ -284,6 +284,10 @@ export class InputField {
 
     @Watch('value')
     protected valueWatcher(newValue: string) {
+        if (!this.mdcTextField) {
+            return;
+        }
+
         if (newValue !== this.mdcTextField.value) {
             this.mdcTextField.value = newValue || '';
         }
