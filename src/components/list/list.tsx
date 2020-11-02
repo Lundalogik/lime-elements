@@ -193,9 +193,13 @@ export class List {
     }
 
     private setupMenuListeners() {
-        this.mdcMenu?.unlisten(SELECTED_EVENT, this.handleMenuSelect);
+        if (!this.mdcMenu) {
+            return;
+        }
+
+        this.mdcMenu.unlisten(SELECTED_EVENT, this.handleMenuSelect);
         this.selectable = true;
-        this.mdcMenu?.listen(SELECTED_EVENT, this.handleMenuSelect);
+        this.mdcMenu.listen(SELECTED_EVENT, this.handleMenuSelect);
     }
 
     private teardown() {
