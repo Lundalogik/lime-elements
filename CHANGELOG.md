@@ -1,3 +1,17 @@
+# [29.4.0](https://github.com/Lundalogik/lime-elements/compare/v29.3.2...v29.4.0) (2020-11-02)
+
+
+### Bug Fixes
+
+* **slider:** render minimum value if value is not a number ([73dcfd2](https://github.com/Lundalogik/lime-elements/commit/73dcfd22aa9f54b55cd7141094e376f5199f3a5b))
+
+
+### Features
+
+* **form:** add suport for range picker ([7f101ae](https://github.com/Lundalogik/lime-elements/commit/7f101ae5becd0b14c02632e8dda887bf09fd29e6)), closes [Lundalogik/crm-feature#1570](https://github.com/Lundalogik/crm-feature/issues/1570)
+* **slider:** add helperText property ([afae4cf](https://github.com/Lundalogik/lime-elements/commit/afae4cfd645e44bc33dd90247acedd09caa62d58))
+* **slider:** add step property ([58ebda2](https://github.com/Lundalogik/lime-elements/commit/58ebda2598ef5c27db00ff900d8e587ec7d3e808))
+
 ## [29.3.2](https://github.com/Lundalogik/lime-elements/compare/v29.3.1...v29.3.2) (2020-10-29)
 
 
