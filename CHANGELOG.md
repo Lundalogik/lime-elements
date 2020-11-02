@@ -1,3 +1,12 @@
+## [29.4.2](https://github.com/Lundalogik/lime-elements/compare/v29.4.1...v29.4.2) (2020-11-02)
+
+
+### Bug Fixes
+
+* **input-field:** avoid error in value watcher ([aec064f](https://github.com/Lundalogik/lime-elements/commit/aec064f40ee7a22d9d35f37fdb271ccb16a7f8c7))
+* **linear-progress:** avoid error in value watcher ([91fbe24](https://github.com/Lundalogik/lime-elements/commit/91fbe24c8a06e91743cc6cc594a9d01ed409b8c0))
+* **table:** avoid error in value watcher ([ecd7d14](https://github.com/Lundalogik/lime-elements/commit/ecd7d14c35f8be12e878f8126f1ce835c4ff8fc8))
+
 ## [29.4.1](https://github.com/Lundalogik/lime-elements/compare/v29.4.0...v29.4.1) (2020-11-02)
 
 
