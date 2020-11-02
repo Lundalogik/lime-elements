@@ -181,6 +181,10 @@ export class Slider {
 
     @Watch('value')
     protected watchValue() {
+        if (!this.mdcSlider) {
+            return;
+        }
+
         this.mdcSlider.value = this.multiplyByFactor(this.getValue());
     }
 
