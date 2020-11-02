@@ -82,6 +82,27 @@ $colorGrey: #999999;
     width: calc(100% - #{pxToRem(32)});
     margin: 0 auto;
     height: pxToRem(12);
+
+    &:before,
+    &:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: pxToRem(7);
+
+        width: pxToRem(6);
+        height: pxToRem(6);
+        border-radius: 50%;
+        background-color: rgb(var(--contrast-600));
+    }
+
+    &:before {
+        left: pxToRem(-12);
+    }
+
+    &:after {
+        right: pxToRem(-12);
+    }
 }
 
 .mdc-slider__track-container {
@@ -170,7 +191,8 @@ $colorGrey: #999999;
 }
 
 .mdc-slider__thumb {
-    box-shadow: 0 0 0 pxToRem(4) rgba(#fff, 0.7);
+    box-shadow: 0 0 0 pxToRem(2) rgba(var(--contrast-100), 0.8),
+        0 0 0 pxToRem(3) rgba(var(--contrast-100), 0.8) inset;
     border-radius: 50%;
 }
 
@@ -183,6 +205,9 @@ $colorGrey: #999999;
     &.mdc-slider--active {
         .mdc-slider__pin {
             transform: none;
+        }
+        .mdc-slider__thumb {
+            transform: scale3d(1, 1, 1);
         }
     }
 }
