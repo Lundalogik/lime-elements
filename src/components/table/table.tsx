@@ -150,6 +150,10 @@ export class Table {
 
     @Watch('activeRow')
     public activeRowChanged() {
+        if (!this.tabulator) {
+            return;
+        }
+
         this.tabulator.getRows().forEach(this.formatRow);
     }
 
@@ -168,12 +172,20 @@ export class Table {
 
         this.pool.releaseAll();
         setTimeout(() => {
+            if (!this.tabulator) {
+                return;
+            }
+
             this.tabulator.setData(this.data);
         });
     }
 
     @Watch('columns')
     public updateColumns() {
+        if (!this.tabulator) {
+            return;
+        }
+
         this.tabulator.setColumns(this.getColumnDefinitions());
     }
 
