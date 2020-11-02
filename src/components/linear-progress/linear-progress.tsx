@@ -78,6 +78,10 @@ export class LinearProgress {
 
     @Watch('value')
     protected watchValue(newValue) {
+        if (!this.mdcLinearProgress) {
+            return;
+        }
+
         this.mdcLinearProgress.progress = newValue;
     }
 }
