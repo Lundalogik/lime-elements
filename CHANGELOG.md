@@ -1,3 +1,10 @@
+## [29.4.1](https://github.com/Lundalogik/lime-elements/compare/v29.4.0...v29.4.1) (2020-11-02)
+
+
+### Bug Fixes
+
+* **slider:** ensure no error log is thrown in the console ([6a0e2b6](https://github.com/Lundalogik/lime-elements/commit/6a0e2b62066b93a3ed09e67c744b91c11154a38b)), closes [#1532](https://github.com/Lundalogik/lime-elements/issues/1532)
+
 # [29.4.0](https://github.com/Lundalogik/lime-elements/compare/v29.3.2...v29.4.0) (2020-11-02)
 
 
