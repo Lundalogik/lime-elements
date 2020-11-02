@@ -54,7 +54,8 @@ $colorGrey: #999999;
     display: flex;
     order: 2;
     justify-content: space-between;
-    width: 100%;
+    width: calc(100% - #{pxToRem(8)});
+    margin: 0 auto;
     padding-top: pxToRem(4);
 }
 
@@ -78,6 +79,8 @@ $colorGrey: #999999;
 }
 
 .mdc-slider {
+    width: calc(100% - #{pxToRem(32)});
+    margin: 0 auto;
     height: pxToRem(12);
 }
 
@@ -89,6 +92,7 @@ $colorGrey: #999999;
 
 .mdc-slider__thumb-container {
     top: 0;
+    z-index: 1;
 
     .mdc-slider:not(.mdc-slider--disabled) & {
         &:before,
