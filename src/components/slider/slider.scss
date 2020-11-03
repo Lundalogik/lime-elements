@@ -199,6 +199,7 @@ $colorGrey: #999999;
 .mdc-slider__pin-value-marker {
     font-size: pxToRem(12);
     transform: rotate(0deg);
+    margin-bottom: 0;
 }
 
 .mdc-slider--discrete {
