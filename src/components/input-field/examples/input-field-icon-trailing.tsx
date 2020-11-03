@@ -1,13 +1,15 @@
 import { Component, h, State } from '@stencil/core';
 
 /**
- * Input Field with Icon Action
+ * Input Field with Trailing Icon & Action
+ *
+ * A trailing icon can be added along with an action for that trailing icon.
  */
 @Component({
-    tag: 'limel-example-input-field-icon',
+    tag: 'limel-example-input-field-icon-trailing',
     shadow: true,
 })
-export class InputFieldIconExample {
+export class InputFieldIconTrailingExample {
     @State()
     private value;
 
@@ -34,6 +36,6 @@ export class InputFieldIconExample {
     }
 
     private onAction() {
-        console.log(`sending email to ${this.value}`);
+        console.log(`Sending email to ${this.value}`);
     }
 }

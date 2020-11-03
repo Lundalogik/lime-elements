@@ -29,7 +29,9 @@ import { ListItem } from '@limetech/lime-elements';
  * @exampleComponent limel-example-input-field-text-inline
  * @exampleComponent limel-example-input-field-number
  * @exampleComponent limel-example-input-field-autocomplete
- * @exampleComponent limel-example-input-field-icon
+ * @exampleComponent limel-example-input-field-icon-leading
+ * @exampleComponent limel-example-input-field-icon-trailing
+ * @exampleComponent limel-example-input-field-icon-both
  * @exampleComponent limel-example-input-field-error-icon
  * @exampleComponent limel-example-input-field-textarea
  * @exampleComponent limel-example-input-field-search
