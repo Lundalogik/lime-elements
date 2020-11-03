@@ -611,6 +611,7 @@ export class InputField {
     };
 
     private handleChange(event) {
+        event.stopPropagation();
         let value = event.target.value;
 
         if (this.type === 'number') {
