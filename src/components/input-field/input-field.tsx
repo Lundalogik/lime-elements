@@ -240,9 +240,8 @@ export class InputField {
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled,
             'mdc-text-field--required': this.required,
-            'mdc-text-field--with-trailing-icon': !!this.getIcon(),
-            'mdc-text-field--with-leading-icon':
-                !!this.getIcon() && !!this.leadingIcon,
+            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
+            'mdc-text-field--with-leading-icon': !!this.leadingIcon,
         };
 
         return [
@@ -301,7 +300,7 @@ export class InputField {
             'mdc-text-field': true,
             'mdc-text-field--textarea': true,
             'mdc-text-field--disabled': this.disabled,
-            'mdc-text-field--with-trailing-icon': !!this.getIcon(),
+            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--required': this.required,
         };
@@ -427,14 +426,6 @@ export class InputField {
         return <div class="mdc-text-field-character-counter">{label}</div>;
     }
 
-    private getIcon() {
-        if (this.isInvalid()) {
-            return 'high_importance';
-        }
-
-        return this.trailingIcon || this.leadingIcon;
-    }
-
     private isInvalid() {
         if (this.invalid) {
             return true;
@@ -459,22 +450,47 @@ export class InputField {
     }
 
     private renderIcons() {
-        const icon = this.getIcon();
-        if (!icon) {
-            return;
+        const trailingIcon = this.getTrailingIcon();
+
+        const html = [];
+
+        if (this.leadingIcon) {
+            html.push(
+                <i
+                    onKeyPress={this.handleIconKeyPress}
+                    onClick={this.handleIconClick}
+                    class="mdc-text-field__icon"
+                    tabindex="0"
+                    role="button"
+                >
+                    <limel-icon name={this.leadingIcon} />
+                </i>
+            );
         }
 
-        return (
-            <i
-                onKeyPress={this.handleIconKeyPress}
-                onClick={this.handleIconClick}
-                class="mdc-text-field__icon"
-                tabindex="0"
-                role="button"
-            >
-                <limel-icon name={icon} />
-            </i>
-        );
+        if (trailingIcon) {
+            html.push(
+                <i
+                    onKeyPress={this.handleIconKeyPress}
+                    onClick={this.handleIconClick}
+                    class="mdc-text-field__icon"
+                    tabindex="0"
+                    role="button"
+                >
+                    <limel-icon name={trailingIcon} />
+                </i>
+            );
+        }
+
+        return html;
+    }
+
+    private getTrailingIcon() {
+        if (this.isInvalid()) {
+            return 'high_importance';
+        }
+
+        return this.trailingIcon;
     }
 
     private renderFormattedNumber() {
