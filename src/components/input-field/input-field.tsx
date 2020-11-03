@@ -468,7 +468,7 @@ export class InputField {
                     onKeyPress={this.handleIconKeyPress}
                     onClick={this.handleIconClick}
                     class="mdc-text-field__icon"
-                    tabindex="0"
+                    tabindex={this.isInvalid() ? '-1' : '0'}
                     role="button"
                 >
                     <limel-icon name={trailingIcon} />
@@ -629,14 +629,16 @@ export class InputField {
     }
 
     private handleIconClick() {
-        this.action.emit();
+        if (!this.isInvalid()) {
+            this.action.emit();
+        }
     }
 
     private handleIconKeyPress(event: KeyboardEvent) {
         const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
         const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
 
-        if (isSpace || isEnter) {
+        if ((isSpace || isEnter) && !this.isInvalid()) {
             this.action.emit();
         }
     }
