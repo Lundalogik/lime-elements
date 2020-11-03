@@ -154,17 +154,6 @@ export class InputField {
     @Prop()
     public completions: string[] = [];
 
-    private mdcTextField;
-
-    @State()
-    private isFocused: boolean = false;
-
-    @State()
-    private isModified: boolean = false;
-
-    @Element()
-    private limelInputField: HTMLLimelInputFieldElement;
-
     /**
      * Emitted when the input value is changed.
      */
@@ -177,10 +166,20 @@ export class InputField {
     @Event()
     private action: EventEmitter<void>;
 
-    private completionsList: ListItem[] = [];
+    @Element()
+    private limelInputField: HTMLLimelInputFieldElement;
+
+    @State()
+    private isFocused: boolean = false;
+
+    @State()
+    private isModified: boolean = false;
 
     @State()
     public showCompletions: boolean = false;
+
+    private mdcTextField;
+    private completionsList: ListItem[] = [];
 
     constructor() {
         this.handleChange = this.handleChange.bind(this);
