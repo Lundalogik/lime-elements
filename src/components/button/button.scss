@@ -21,6 +21,9 @@ button {
     &.mdc-button {
         min-width: pxToRem(36);
         padding: 0 pxToRem(12);
+        height: 100%;
+        min-height: pxToRem(36);
+        width: 100%;
     }
 
     .label {
