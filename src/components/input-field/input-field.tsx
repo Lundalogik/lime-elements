@@ -456,13 +456,7 @@ export class InputField {
 
         if (this.leadingIcon) {
             html.push(
-                <i
-                    onKeyPress={this.handleIconKeyPress}
-                    onClick={this.handleIconClick}
-                    class="mdc-text-field__icon"
-                    tabindex="0"
-                    role="button"
-                >
+                <i class="mdc-text-field__icon">
                     <limel-icon name={this.leadingIcon} />
                 </i>
             );

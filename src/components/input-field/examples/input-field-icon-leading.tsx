@@ -25,7 +25,6 @@ export class InputFieldIconLeadingExample {
 
     constructor() {
         this.onChange = this.onChange.bind(this);
-        this.onAction = this.onAction.bind(this);
     }
 
     public render() {
@@ -37,18 +36,11 @@ export class InputFieldIconLeadingExample {
                 helperText={`Please enter at least ${MIN_LENGTH} characters!`}
                 leadingIcon="map_marker"
                 onChange={this.onChange}
-                onAction={this.onAction}
             />
         );
     }
 
     private onChange(event) {
         this.value = event.detail;
-    }
-
-    private onAction() {
-        console.log(
-            "Deprecated - There shouldn't be an action for leading icons."
-        );
     }
 }
