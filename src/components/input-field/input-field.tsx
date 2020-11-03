@@ -178,7 +178,7 @@ export class InputField {
     @State()
     public showCompletions: boolean = false;
 
-    private mdcTextField;
+    private mdcTextField: MDCTextField;
     private completionsList: ListItem[] = [];
 
     constructor() {
@@ -500,7 +500,7 @@ export class InputField {
      * @returns {void}
      */
 
-    private onKeyDown(event: KeyboardEvent) {
+    private onKeyDown(event: KeyboardEvent): void {
         this.showCompletions = true;
         const isForwardTab =
             (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
@@ -620,7 +620,7 @@ export class InputField {
         this.action.emit();
     }
 
-    private handleIconKeyPress(event) {
+    private handleIconKeyPress(event: KeyboardEvent) {
         const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
         const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
 
