@@ -1,3 +1,10 @@
+## [29.4.5](https://github.com/Lundalogik/lime-elements/compare/v29.4.4...v29.4.5) (2020-11-04)
+
+
+### Bug Fixes
+
+* **button:** ensure button occupies whole area of the limel-button component ([b121d1c](https://github.com/Lundalogik/lime-elements/commit/b121d1ccec14de11ea3d65d650d437ddb290ae9a)), closes [#1004](https://github.com/Lundalogik/lime-elements/issues/1004)
+
 ## [29.4.4](https://github.com/Lundalogik/lime-elements/compare/v29.4.3...v29.4.4) (2020-11-04)
 
 
