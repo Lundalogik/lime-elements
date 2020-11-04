@@ -1,3 +1,12 @@
+## [29.4.4](https://github.com/Lundalogik/lime-elements/compare/v29.4.3...v29.4.4) (2020-11-04)
+
+
+### Bug Fixes
+
+* **slider:** keep slider's content inside its boundary box ([80d8748](https://github.com/Lundalogik/lime-elements/commit/80d87483f4cdc30b6d60b4b3fc1287840d3545be))
+* **slider:** vertically middle align mdc-slider__pin-value-marker ([4b97aaa](https://github.com/Lundalogik/lime-elements/commit/4b97aaae3380c8f2166c545ec94da6b07fdbadd0))
+* **slider:** visualize min and max points ([0656ef2](https://github.com/Lundalogik/lime-elements/commit/0656ef2975b1627671d4e819f691235bf1b98986))
+
 ## [29.4.3](https://github.com/Lundalogik/lime-elements/compare/v29.4.2...v29.4.3) (2020-11-03)
 
 
