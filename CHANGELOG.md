@@ -1,3 +1,13 @@
+## [29.4.6](https://github.com/Lundalogik/lime-elements/compare/v29.4.5...v29.4.6) (2020-11-04)
+
+
+### Bug Fixes
+
+* **input-field:** do not trigger action from leadingIcon ([5307475](https://github.com/Lundalogik/lime-elements/commit/5307475f2115b5c0109549ec3cccc03d0b127ceb))
+* **input-field:** do not trigger action if input is invalid ([cdacaa6](https://github.com/Lundalogik/lime-elements/commit/cdacaa6bbc1bf2ccf14539f53573053b33bb6d0a))
+* **input-field:** make it possible to use both leadingIcon and trailingIcon ([573784f](https://github.com/Lundalogik/lime-elements/commit/573784f2ce649cb54c56083f7b7ea39f4b9124a6))
+* **input-field:** prevent double change-events ([70e43df](https://github.com/Lundalogik/lime-elements/commit/70e43dff112c5a865ed3461a70797b2e70c57a16))
+
 ## [29.4.5](https://github.com/Lundalogik/lime-elements/compare/v29.4.4...v29.4.5) (2020-11-04)
 
 
