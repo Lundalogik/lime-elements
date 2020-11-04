@@ -24,6 +24,11 @@ import {
 import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
 
+interface LinkProperties {
+    href: string;
+    target?: string;
+}
+
 /**
  * @exampleComponent limel-example-input-field-text
  * @exampleComponent limel-example-input-field-text-inline
@@ -155,6 +160,14 @@ export class InputField {
      */
     @Prop()
     public completions: string[] = [];
+
+    /**
+     * For inputs of type `email`, `tel`, and `url`, set this to `true` to show
+     * a trailing icon with a `mailto:`,`tel:`, or normal link, respectively.
+     * The default icon can be overridden using the `trailingIcon` property.
+     */
+    @Prop({ reflect: true })
+    public showLink = false;
 
     /**
      * Emitted when the input value is changed.
@@ -450,8 +463,6 @@ export class InputField {
     }
 
     private renderIcons() {
-        const trailingIcon = this.getTrailingIcon();
-
         const html = [];
 
         if (this.leadingIcon) {
@@ -462,21 +473,63 @@ export class InputField {
             );
         }
 
-        if (trailingIcon) {
-            html.push(
-                <i
-                    onKeyPress={this.handleIconKeyPress}
-                    onClick={this.handleIconClick}
-                    class="mdc-text-field__icon"
-                    tabindex={this.isInvalid() ? '-1' : '0'}
-                    role="button"
-                >
-                    <limel-icon name={trailingIcon} />
-                </i>
-            );
+        const trailingIcon = this.getTrailingIcon();
+
+        if (!this.isInvalid() && this.hasLink()) {
+            html.push(this.renderLinkIcon(this.getLink(), trailingIcon));
+        } else if (trailingIcon) {
+            html.push(this.renderTrailingIcon(trailingIcon));
         }
 
         return html;
+    }
+
+    private hasLink() {
+        return this.showLink && ['email', 'tel', 'url'].includes(this.type);
+    }
+
+    private getLink() {
+        const props: LinkProperties = { href: '' };
+        switch (this.type) {
+            case 'email':
+                props.href = `mailto:${this.value}`;
+                break;
+            case 'tel':
+                props.href = `tel:${this.value}`;
+                break;
+            default:
+                props.href = `${this.value}`;
+                props.target = '_blank';
+        }
+
+        return props;
+    }
+
+    private renderLinkIcon(linkProps: LinkProperties, icon: string) {
+        return (
+            <a
+                {...linkProps}
+                class="mdc-text-field__icon"
+                tabindex={this.disabled ? '-1' : '0'}
+                role="button"
+            >
+                <limel-icon name={icon} />
+            </a>
+        );
+    }
+
+    private renderTrailingIcon(icon: string) {
+        return (
+            <i
+                onKeyPress={this.handleIconKeyPress}
+                onClick={this.handleIconClick}
+                class="mdc-text-field__icon"
+                tabindex={this.isInvalid() ? '-1' : '0'}
+                role="button"
+            >
+                <limel-icon name={icon} />
+            </i>
+        );
     }
 
     private getTrailingIcon() {
@@ -484,7 +537,21 @@ export class InputField {
             return 'high_importance';
         }
 
-        return this.trailingIcon;
+        if (this.trailingIcon) {
+            return this.trailingIcon;
+        }
+
+        if (this.showLink && this.type === 'email') {
+            return 'filled_message';
+        }
+
+        if (this.showLink && this.type === 'tel') {
+            return 'phone';
+        }
+
+        if (this.showLink && this.type === 'url') {
+            return 'external_link';
+        }
     }
 
     private renderFormattedNumber() {
