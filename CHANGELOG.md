@@ -1,3 +1,10 @@
+# [29.6.0](https://github.com/Lundalogik/lime-elements/compare/v29.5.0...v29.6.0) (2020-11-06)
+
+
+### Features
+
+* **form:** add support for different types of date-pickers ([c290470](https://github.com/Lundalogik/lime-elements/commit/c290470676896cc965e2ac3b487fae6783100e6e)), closes [Lundalogik/crm-feature#1584](https://github.com/Lundalogik/crm-feature/issues/1584)
+
 # [29.5.0](https://github.com/Lundalogik/lime-elements/compare/v29.4.6...v29.5.0) (2020-11-06)
 
 
