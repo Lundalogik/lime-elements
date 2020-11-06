@@ -1,3 +1,10 @@
+# [29.5.0](https://github.com/Lundalogik/lime-elements/compare/v29.4.6...v29.5.0) (2020-11-06)
+
+
+### Features
+
+* **input-field:** add option `showLink` for type `email`, `tel`, and `url` ([d1d11a5](https://github.com/Lundalogik/lime-elements/commit/d1d11a50116fb2e4bed8479065808dccf99987df)), closes [Lundalogik/crm-feature#1565](https://github.com/Lundalogik/crm-feature/issues/1565)
+
 ## [29.4.6](https://github.com/Lundalogik/lime-elements/compare/v29.4.5...v29.4.6) (2020-11-04)
 
 
