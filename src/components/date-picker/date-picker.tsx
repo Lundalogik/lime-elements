@@ -55,18 +55,16 @@ const nativeFormatForType = {
 export class DatePicker {
     /**
      * Disables the date picker when `true`.
-     * Defaults to `false`.
      */
     @Prop()
-    public disabled: boolean;
+    public disabled = false;
 
     /**
      * Set to `true` to indicate that the current value of the date picker is
      * invalid.
-     * Defaults to `false`.
      */
     @Prop()
-    public invalid: boolean;
+    public invalid = false;
 
     /**
      * Text to display next to the date picker
@@ -82,10 +80,9 @@ export class DatePicker {
 
     /**
      * Set to `true` to indicate that the field is required.
-     * Defaults to `false`.
      */
     @Prop()
-    public required: boolean;
+    public required = false;
 
     /**
      * The value of the field.
