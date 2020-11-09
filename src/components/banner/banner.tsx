@@ -64,7 +64,7 @@ export class Banner {
      *
      * @returns {HTMLElement} the icon
      */
-    private renderIcon() {
+    private renderIcon(): HTMLElement {
         if (!this.icon) {
             return;
         }
