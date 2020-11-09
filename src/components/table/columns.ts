@@ -99,7 +99,7 @@ export function formatCell(
         value = column.formatter(value, data);
     }
 
-    if (typeof value === 'string') {
+    if (typeof value === 'string' && !column.component) {
         value = escape(value);
     }
 
