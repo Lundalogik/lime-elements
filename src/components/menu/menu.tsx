@@ -57,7 +57,7 @@ export class Menu {
     public badgeIcons = false;
 
     /**
-     * Defines whether the menu should have a fixed position on the screen
+     * Defines whether the menu should have a fixed position on the screen.
      */
     @Prop()
     public fixed = false;

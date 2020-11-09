@@ -32,41 +32,41 @@ export class Portal {
     public openDirection: OpenDirection = 'right';
 
     /**
-     * Position of the content
+     * Position of the content.
      */
     @Prop()
     public position: 'fixed' | 'absolute' = 'absolute';
 
     /**
-     * A unique ID
+     * A unique ID.
      */
     @Prop()
     public containerId: string;
 
     /**
-     * Dynamic styling that can be applied to the container holding the content
+     * Dynamic styling that can be applied to the container holding the content.
      */
     @Prop()
     public containerStyle: object = {};
 
     /**
-     * Parent element to move the content to
+     * Parent element to move the content to.
      */
     @Prop()
     public parent: HTMLElement = document.body;
 
     /**
      * Used to make a dropdown have the same width as the trigger, for example
-     * in `limel-picker`
+     * in `limel-picker`.
      */
     @Prop()
     public inheritParentWidth = false;
 
     /**
-     * True if the content within the portal should be visible
+     * True if the content within the portal should be visible.
      *
      * If the content is from within a dialog for instance, this can be set to
-     * true from false when the dialog opens to position the content properly
+     * true from false when the dialog opens to position the content properly.
      */
     @Prop()
     public visible = false;

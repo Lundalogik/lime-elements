@@ -52,31 +52,31 @@ export class Select {
     public invalid: boolean;
 
     /**
-     * True if the control requires a value
+     * True if the control requires a value.
      */
     @Prop({ reflect: true })
     public required = false;
 
     /**
-     * Text to display next to the select
+     * Text to display next to the select.
      */
     @Prop({ reflect: true })
     public label: string;
 
     /**
-     * Optional helper text to display below the input field when it has focus
+     * Optional helper text to display below the input field when it has focus.
      */
     @Prop({ reflect: true })
     public helperText: string;
 
     /**
-     * Currently selected value or values (if `multiple` is set)
+     * Currently selected value or values (if `multiple` is set).
      */
     @Prop()
     public value: Option | Option[];
 
     /**
-     * List of options
+     * List of options.
      */
     @Prop()
     public options: Option[] = [];
@@ -94,7 +94,7 @@ export class Select {
     private checkValid: boolean = false;
 
     /**
-     * Emitted when the value is changed
+     * Emitted when the value is changed.
      */
     @Event()
     private change: EventEmitter<Option | Option[]>;

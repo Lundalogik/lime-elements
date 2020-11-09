@@ -97,7 +97,7 @@ export class DatePicker {
     public type: DateType = 'datetime';
 
     /**
-     * Format to display the selected date in
+     * Format to display the selected date in.
      */
     @Prop()
     public format: string;
