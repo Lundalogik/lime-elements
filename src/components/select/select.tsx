@@ -87,12 +87,6 @@ export class Select {
     @Prop()
     public multiple: boolean = false;
 
-    @State()
-    private menuOpen: boolean = false;
-
-    private hasChanged: boolean = false;
-    private checkValid: boolean = false;
-
     /**
      * Emitted when the value is changed.
      */
@@ -102,12 +96,15 @@ export class Select {
     @Element()
     private host: HTMLLimelSelectElement;
 
+    @State()
+    private menuOpen: boolean = false;
+
+    private hasChanged: boolean = false;
+    private checkValid: boolean = false;
     private mdcSelectHelperText: MDCSelectHelperText;
     private mdcFloatingLabel: MDCFloatingLabel;
     private mdcLineRipple: MDCLineRipple;
-
     private isMobileDevice: boolean;
-
     private portalId: string;
 
     constructor() {
