@@ -98,7 +98,7 @@ export class Button {
      *
      * @returns {HTMLElement} the icon
      */
-    private renderIcon() {
+    private renderIcon(): HTMLElement {
         if (!this.icon) {
             return;
         }
