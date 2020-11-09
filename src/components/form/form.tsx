@@ -27,6 +27,7 @@ import { isInteger } from './validators';
 /**
  * @exampleComponent limel-example-form
  * @exampleComponent limel-example-nested-form
+ * @exampleComponent limel-example-form-layout
  * @exampleComponent limel-example-list-form
  * @exampleComponent limel-example-dynamic-form
  * @exampleComponent limel-example-custom-component-form
@@ -44,7 +45,7 @@ export class Form {
     public schema: {
         id?: string;
         [key: string]: any;
-    };
+    } = {};
 
     /**
      * Value of the form

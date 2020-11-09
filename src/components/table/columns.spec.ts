@@ -214,5 +214,23 @@ describe('createCustomComponent', () => {
             expect(params.component).toEqual(column.component);
             expect(params.formatter).toBe(column.formatter);
         });
+
+        it('uses the default formatter if the element set in the custom component config does not exist', () => {
+            column.formatter = () => '';
+            column.component = {
+                name: 'not-existing-component',
+            };
+
+            const definition = factory.create(column);
+            expect(definition.formatter).toBe(undefined);
+        });
+
+        it('uses the default formatter if the custom component misses a name prop', () => {
+            column.formatter = () => '';
+            column.component = {} as any;
+
+            const definition = factory.create(column);
+            expect(definition.formatter).toBe(undefined);
+        });
     });
 });

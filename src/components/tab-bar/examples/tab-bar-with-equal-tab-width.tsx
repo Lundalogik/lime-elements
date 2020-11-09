@@ -2,6 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import { Tab } from '@limetech/lime-elements';
 
 /**
+ * Tab bars with custom styles
  * In some situations and for the sake of UI design, you may want to have tabs
  * that equally share the available screen width and stretch. To get such a
  * result, you can add the `has-tabs-with-equal-width` class to the tab bar.

@@ -1,3 +1,173 @@
+# [29.6.0](https://github.com/Lundalogik/lime-elements/compare/v29.5.0...v29.6.0) (2020-11-06)
+
+
+### Features
+
+* **form:** add support for different types of date-pickers ([c290470](https://github.com/Lundalogik/lime-elements/commit/c290470676896cc965e2ac3b487fae6783100e6e)), closes [Lundalogik/crm-feature#1584](https://github.com/Lundalogik/crm-feature/issues/1584)
+
+# [29.5.0](https://github.com/Lundalogik/lime-elements/compare/v29.4.6...v29.5.0) (2020-11-06)
+
+
+### Features
+
+* **input-field:** add option `showLink` for type `email`, `tel`, and `url` ([d1d11a5](https://github.com/Lundalogik/lime-elements/commit/d1d11a50116fb2e4bed8479065808dccf99987df)), closes [Lundalogik/crm-feature#1565](https://github.com/Lundalogik/crm-feature/issues/1565)
+
+## [29.4.6](https://github.com/Lundalogik/lime-elements/compare/v29.4.5...v29.4.6) (2020-11-04)
+
+
+### Bug Fixes
+
+* **input-field:** do not trigger action from leadingIcon ([5307475](https://github.com/Lundalogik/lime-elements/commit/5307475f2115b5c0109549ec3cccc03d0b127ceb))
+* **input-field:** do not trigger action if input is invalid ([cdacaa6](https://github.com/Lundalogik/lime-elements/commit/cdacaa6bbc1bf2ccf14539f53573053b33bb6d0a))
+* **input-field:** make it possible to use both leadingIcon and trailingIcon ([573784f](https://github.com/Lundalogik/lime-elements/commit/573784f2ce649cb54c56083f7b7ea39f4b9124a6))
+* **input-field:** prevent double change-events ([70e43df](https://github.com/Lundalogik/lime-elements/commit/70e43dff112c5a865ed3461a70797b2e70c57a16))
+
+## [29.4.5](https://github.com/Lundalogik/lime-elements/compare/v29.4.4...v29.4.5) (2020-11-04)
+
+
+### Bug Fixes
+
+* **button:** ensure button occupies whole area of the limel-button component ([b121d1c](https://github.com/Lundalogik/lime-elements/commit/b121d1ccec14de11ea3d65d650d437ddb290ae9a)), closes [#1004](https://github.com/Lundalogik/lime-elements/issues/1004)
+
+## [29.4.4](https://github.com/Lundalogik/lime-elements/compare/v29.4.3...v29.4.4) (2020-11-04)
+
+
+### Bug Fixes
+
+* **slider:** keep slider's content inside its boundary box ([80d8748](https://github.com/Lundalogik/lime-elements/commit/80d87483f4cdc30b6d60b4b3fc1287840d3545be))
+* **slider:** vertically middle align mdc-slider__pin-value-marker ([4b97aaa](https://github.com/Lundalogik/lime-elements/commit/4b97aaae3380c8f2166c545ec94da6b07fdbadd0))
+* **slider:** visualize min and max points ([0656ef2](https://github.com/Lundalogik/lime-elements/commit/0656ef2975b1627671d4e819f691235bf1b98986))
+
+## [29.4.3](https://github.com/Lundalogik/lime-elements/compare/v29.4.2...v29.4.3) (2020-11-03)
+
+
+### Bug Fixes
+
+* **input-field:** yet *another* attempt at fixing the issue of scrolling numeric input fields ([b8b4fb6](https://github.com/Lundalogik/lime-elements/commit/b8b4fb66b140533722a79ec851160f0f3f3caa9d)), closes [Lundalogik/crm-feature#1538](https://github.com/Lundalogik/crm-feature/issues/1538)
+
+## [29.4.2](https://github.com/Lundalogik/lime-elements/compare/v29.4.1...v29.4.2) (2020-11-02)
+
+
+### Bug Fixes
+
+* **input-field:** avoid error in value watcher ([aec064f](https://github.com/Lundalogik/lime-elements/commit/aec064f40ee7a22d9d35f37fdb271ccb16a7f8c7))
+* **linear-progress:** avoid error in value watcher ([91fbe24](https://github.com/Lundalogik/lime-elements/commit/91fbe24c8a06e91743cc6cc594a9d01ed409b8c0))
+* **table:** avoid error in value watcher ([ecd7d14](https://github.com/Lundalogik/lime-elements/commit/ecd7d14c35f8be12e878f8126f1ce835c4ff8fc8))
+
+## [29.4.1](https://github.com/Lundalogik/lime-elements/compare/v29.4.0...v29.4.1) (2020-11-02)
+
+
+### Bug Fixes
+
+* **slider:** ensure no error log is thrown in the console ([6a0e2b6](https://github.com/Lundalogik/lime-elements/commit/6a0e2b62066b93a3ed09e67c744b91c11154a38b)), closes [#1532](https://github.com/Lundalogik/lime-elements/issues/1532)
+
+# [29.4.0](https://github.com/Lundalogik/lime-elements/compare/v29.3.2...v29.4.0) (2020-11-02)
+
+
+### Bug Fixes
+
+* **slider:** render minimum value if value is not a number ([73dcfd2](https://github.com/Lundalogik/lime-elements/commit/73dcfd22aa9f54b55cd7141094e376f5199f3a5b))
+
+
+### Features
+
+* **form:** add suport for range picker ([7f101ae](https://github.com/Lundalogik/lime-elements/commit/7f101ae5becd0b14c02632e8dda887bf09fd29e6)), closes [Lundalogik/crm-feature#1570](https://github.com/Lundalogik/crm-feature/issues/1570)
+* **slider:** add helperText property ([afae4cf](https://github.com/Lundalogik/lime-elements/commit/afae4cfd645e44bc33dd90247acedd09caa62d58))
+* **slider:** add step property ([58ebda2](https://github.com/Lundalogik/lime-elements/commit/58ebda2598ef5c27db00ff900d8e587ec7d3e808))
+
+## [29.3.2](https://github.com/Lundalogik/lime-elements/compare/v29.3.1...v29.3.2) (2020-10-29)
+
+
+### Bug Fixes
+
+* **input-field:** do not prevent scrolling while hovering numeric input fields ([bc787dd](https://github.com/Lundalogik/lime-elements/commit/bc787dd8d063e4ebd7eb0a0e60354d46036a9322)), closes [Lundalogik/crm-feature#1538](https://github.com/Lundalogik/crm-feature/issues/1538)
+
+## [29.3.1](https://github.com/Lundalogik/lime-elements/compare/v29.3.0...v29.3.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **table:** ensure component is completely rendered when loaded ([e13bae0](https://github.com/Lundalogik/lime-elements/commit/e13bae0f25abb34e52f522898e142a98c952565f))
+
+# [29.3.0](https://github.com/Lundalogik/lime-elements/compare/v29.2.0...v29.3.0) (2020-10-28)
+
+
+### Bug Fixes
+
+* **input-field:** sync value with mdcvalue for all field types ([ef7a559](https://github.com/Lundalogik/lime-elements/commit/ef7a55959b68faa2e93c00eac3bd881c2135ebbc))
+
+
+### Features
+
+* **input-field:** add support for regex pattern ([a922602](https://github.com/Lundalogik/lime-elements/commit/a9226023dbbf69433c1c63140d3aaa66b363f688))
+
+# [29.2.0](https://github.com/Lundalogik/lime-elements/compare/v29.1.0...v29.2.0) (2020-10-27)
+
+
+### Bug Fixes
+
+* **form:** make sure form is initialized with a schema ([bc1bfe3](https://github.com/Lundalogik/lime-elements/commit/bc1bfe3637b44589486133977cff819a3314164e))
+
+
+### Features
+
+* **form:** allow props on input-field to be overriden from schema ([7998fe9](https://github.com/Lundalogik/lime-elements/commit/7998fe9abd59b6117f15bc982b6305fcd8f84306)), closes [Lundalogik/crm-feature#1519](https://github.com/Lundalogik/crm-feature/issues/1519)
+
+# [29.1.0](https://github.com/Lundalogik/lime-elements/compare/v29.0.8...v29.1.0) (2020-10-27)
+
+
+### Bug Fixes
+
+* **form:** add missing type information for schema ([b4130ca](https://github.com/Lundalogik/lime-elements/commit/b4130ca93cb70b16a2340b9325d12e9a1824efdb))
+
+
+### Features
+
+* **form:** add support for form layouts ([58ceaff](https://github.com/Lundalogik/lime-elements/commit/58ceaff8c4af057a21981f4bbef8906e52d1929f)), closes [Lundalogik/crm-feature#1479](https://github.com/Lundalogik/crm-feature/issues/1479)
+
+## [29.0.8](https://github.com/Lundalogik/lime-elements/compare/v29.0.7...v29.0.8) (2020-10-24)
+
+
+### Bug Fixes
+
+* **table:** loader appears smoothly, instead of blinking ([e20db37](https://github.com/Lundalogik/lime-elements/commit/e20db3780859ee437e6cd91fbc395f326d0be095))
+
+## [29.0.7](https://github.com/Lundalogik/lime-elements/compare/v29.0.6...v29.0.7) (2020-10-23)
+
+
+### Bug Fixes
+
+* **table:** always update table pages after data has been updated or loaded ([ff338d0](https://github.com/Lundalogik/lime-elements/commit/ff338d0a77a85ab287df69b058568b268874794c))
+* **table:** check boolean length correctly ([f1c2e33](https://github.com/Lundalogik/lime-elements/commit/f1c2e339955cb056ca9b50ccbac224ee95a0a5d9))
+
+## [29.0.6](https://github.com/Lundalogik/lime-elements/compare/v29.0.5...v29.0.6) (2020-10-23)
+
+
+### Bug Fixes
+
+* **switch:** ensure no exception is thrown in the console ([566df84](https://github.com/Lundalogik/lime-elements/commit/566df840c4df613fbd61a0ce0bf5a1559f58f94e))
+
+## [29.0.5](https://github.com/Lundalogik/lime-elements/compare/v29.0.4...v29.0.5) (2020-10-22)
+
+
+### Bug Fixes
+
+* **table:** set max page of tabulator when totalRows is updated ([6684a99](https://github.com/Lundalogik/lime-elements/commit/6684a99310f202341cc70e692272c909e9a8a0b6))
+
+## [29.0.4](https://github.com/Lundalogik/lime-elements/compare/v29.0.3...v29.0.4) (2020-10-21)
+
+
+### Bug Fixes
+
+* **types:** publish auto generated types for the source code ([3752cea](https://github.com/Lundalogik/lime-elements/commit/3752cea1aaa5b5cf3a6e3a3aae2f634c5f6cb4ec))
+
+## [29.0.3](https://github.com/Lundalogik/lime-elements/compare/v29.0.2...v29.0.3) (2020-10-20)
+
+
+### Bug Fixes
+
+* **table:** use default formatter for column if invalid component config is provided ([b250215](https://github.com/Lundalogik/lime-elements/commit/b250215e8ac435df42c94780df81dc5b0d69a5ac))
+
 ## [29.0.2](https://github.com/Lundalogik/lime-elements/compare/v29.0.1...v29.0.2) (2020-10-14)
 
 

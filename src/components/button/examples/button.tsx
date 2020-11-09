@@ -17,7 +17,12 @@ export class ButtonExample {
     };
 
     public render() {
-        return [<limel-button {...this.props} />, this.renderControls()];
+        return [
+            <div>
+                <limel-button {...this.props} />
+            </div>,
+            this.renderControls(),
+        ];
     }
 
     private renderControls() {

@@ -1,6 +1,6 @@
 {
   "name": "@limetech/lime-elements",
-  "version": "29.0.2",
+  "version": "29.6.0",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "Apache-2.0",
@@ -9,7 +9,7 @@
   "es2017": "dist/esm/index.js",
   "jsnext:main": "dist/esm/index.js",
   "main": "dist/index.cjs.js",
-  "types": "dist/types/interface.d.ts",
+  "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
     "dist/"
@@ -46,9 +46,9 @@
     "chart.js": "^2.9.3",
     "flatpickr": "^4.6.3",
     "html-escaper": "^3.0.0",
-    "jsx-dom": "^6.4.17",
+    "jsx-dom": "^6.4.21",
     "kompendium": "^0.7.0",
-    "moment": "^2.26.0",
+    "moment": "^2.29.1",
     "number-abbreviate": "^2.0.0",
     "react-jsonschema-form": "^1.8.1",
     "react-shadow-dom-retarget-events": "^1.0.11",

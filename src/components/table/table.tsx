@@ -121,6 +121,8 @@ export class Table {
         this.requestData = this.requestData.bind(this);
         this.onClickRow = this.onClickRow.bind(this);
         this.formatRow = this.formatRow.bind(this);
+        this.updateMaxPage = this.updateMaxPage.bind(this);
+        this.initTabulatorComponent = this.initTabulatorComponent.bind(this);
         this.pool = new ElementPool(document);
         this.columnFactory = new ColumnDefinitionFactory(this.pool);
     }
@@ -138,7 +140,8 @@ export class Table {
         const table: HTMLElement = this.host.shadowRoot.querySelector(
             '#tabulator-table'
         );
-        this.tabulator = new TabulatorTable(table, options);
+
+        this.initTabulatorComponent(table, options);
     }
 
     public disconnectedCallback() {
@@ -147,6 +150,10 @@ export class Table {
 
     @Watch('activeRow')
     public activeRowChanged() {
+        if (!this.tabulator) {
+            return;
+        }
+
         this.tabulator.getRows().forEach(this.formatRow);
     }
 
@@ -164,12 +171,57 @@ export class Table {
         }
 
         this.pool.releaseAll();
-        this.tabulator.setData(this.data);
+        setTimeout(() => {
+            if (!this.tabulator) {
+                return;
+            }
+
+            this.tabulator.setData(this.data);
+        });
     }
 
     @Watch('columns')
     public updateColumns() {
+        if (!this.tabulator) {
+            return;
+        }
+
         this.tabulator.setColumns(this.getColumnDefinitions());
+    }
+
+    /*
+     * Tabulator requires that the html element it's rendered inside
+     * has a size before it's created, otherwise it doesn't consider
+     * it self renderedy completely. (the callback "renderComplete"
+     * is never run).
+     *
+     * @param table {HTMLElement}
+     * @param options {Tabulator.Options}
+     *
+     * @returns {void}
+     */
+    private initTabulatorComponent(
+        table: HTMLElement,
+        options: Tabulator.Options
+    ) {
+        // Some browsers do not implement the ResizeObserver API...
+        // If that's the case lets just create the table no
+        // matter if its rendered or not.
+        if (!('ResizeObserver' in window)) {
+            this.tabulator = new TabulatorTable(table, options);
+
+            return;
+        }
+
+        const observer = new ResizeObserver(() => {
+            this.tabulator = new TabulatorTable(table, options);
+            observer.unobserve(table);
+        });
+        observer.observe(table);
+    }
+
+    private updateMaxPage() {
+        this.tabulator?.setMaxPage(this.calculatePageCount());
     }
 
     private getOptions(): Tabulator.Options {
@@ -187,6 +239,8 @@ export class Table {
             rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
             initialSort: this.getColumnSorter(),
+            dataLoaded: this.updateMaxPage,
+            dataFiltered: this.updateMaxPage,
         };
     }
 
@@ -221,12 +275,12 @@ export class Table {
     }
 
     private handleAjaxRequesting() {
-        const abortRequest = this.firstRequest && this.data?.length;
+        const abortRequest = this.firstRequest && !!this.data?.length;
         this.firstRequest = false;
 
         if (abortRequest) {
             setTimeout(() => {
-                this.tabulator.setMaxPage(this.calculatePageCount());
+                this.updateMaxPage();
                 this.tabulator.setData(this.data);
             });
 

@@ -40,6 +40,12 @@ export class Slider {
     public label: string;
 
     /**
+     * Optional helper text to display below the slider
+     */
+    @Prop({ reflect: true })
+    public helperText: string;
+
+    /**
      * Unit to display next to the value
      */
     @Prop({ reflect: true })
@@ -62,6 +68,12 @@ export class Slider {
      */
     @Prop({ reflect: true })
     public valuemin: number = 0;
+
+    /**
+     * The stepping interval to use when adjusting the value
+     */
+    @Prop({ reflect: true })
+    public step: number;
 
     /**
      * Emitted when the value has been changed
@@ -125,9 +137,10 @@ export class Slider {
                         role="slider"
                         aria-valuemin={this.multiplyByFactor(this.valuemin)}
                         aria-valuemax={this.multiplyByFactor(this.valuemax)}
-                        aria-valuenow={this.multiplyByFactor(this.value)}
+                        aria-valuenow={this.multiplyByFactor(this.getValue())}
                         aria-label={this.label}
                         aria-disabled={this.disabled}
+                        data-step={this.step}
                     >
                         <div class="mdc-slider__track-container">
                             <div class="mdc-slider__track" />
@@ -135,7 +148,7 @@ export class Slider {
                         <div class="mdc-slider__thumb-container">
                             <div class="mdc-slider__pin">
                                 <span class="mdc-slider__pin-value-marker">
-                                    {this.multiplyByFactor(this.value)}
+                                    {this.multiplyByFactor(this.getValue())}
                                 </span>
                             </div>
                             <svg
@@ -149,13 +162,30 @@ export class Slider {
                         </div>
                     </div>
                 </div>
+                {this.renderHelperLine()}
+            </div>
+        );
+    }
+
+    private renderHelperLine() {
+        if (!this.helperText) {
+            return;
+        }
+
+        return (
+            <div class="mdc-slider-helper-line">
+                <p class="mdc-slider-helper-text">{this.helperText}</p>
             </div>
         );
     }
 
     @Watch('value')
     protected watchValue() {
-        this.mdcSlider.value = this.multiplyByFactor(this.value);
+        if (!this.mdcSlider) {
+            return;
+        }
+
+        this.mdcSlider.value = this.multiplyByFactor(this.getValue());
     }
 
     private changeHandler = (event) => {
@@ -164,5 +194,14 @@ export class Slider {
 
     private multiplyByFactor(value) {
         return Math.round(value * this.factor);
+    }
+
+    private getValue() {
+        let value = this.value;
+        if (!isFinite(value)) {
+            value = this.valuemin;
+        }
+
+        return value;
     }
 }

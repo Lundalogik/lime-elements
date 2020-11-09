@@ -54,7 +54,8 @@ $colorGrey: #999999;
     display: flex;
     order: 2;
     justify-content: space-between;
-    width: 100%;
+    width: calc(100% - #{pxToRem(8)});
+    margin: 0 auto;
     padding-top: pxToRem(4);
 }
 
@@ -78,7 +79,30 @@ $colorGrey: #999999;
 }
 
 .mdc-slider {
+    width: calc(100% - #{pxToRem(32)});
+    margin: 0 auto;
     height: pxToRem(12);
+
+    &:before,
+    &:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: pxToRem(7);
+
+        width: pxToRem(6);
+        height: pxToRem(6);
+        border-radius: 50%;
+        background-color: rgb(var(--contrast-600));
+    }
+
+    &:before {
+        left: pxToRem(-12);
+    }
+
+    &:after {
+        right: pxToRem(-12);
+    }
 }
 
 .mdc-slider__track-container {
@@ -89,6 +113,7 @@ $colorGrey: #999999;
 
 .mdc-slider__thumb-container {
     top: 0;
+    z-index: 1;
 
     .mdc-slider:not(.mdc-slider--disabled) & {
         &:before,
@@ -166,13 +191,15 @@ $colorGrey: #999999;
 }
 
 .mdc-slider__thumb {
-    box-shadow: 0 0 0 pxToRem(4) rgba(#fff, 0.7);
+    box-shadow: 0 0 0 pxToRem(2) rgba(var(--contrast-100), 0.8),
+        0 0 0 pxToRem(3) rgba(var(--contrast-100), 0.8) inset;
     border-radius: 50%;
 }
 
 .mdc-slider__pin-value-marker {
     font-size: pxToRem(12);
     transform: rotate(0deg);
+    margin-bottom: 0;
 }
 
 .mdc-slider--discrete {
@@ -180,5 +207,28 @@ $colorGrey: #999999;
         .mdc-slider__pin {
             transform: none;
         }
+        .mdc-slider__thumb {
+            transform: scale3d(1, 1, 1);
+        }
+    }
+}
+
+.mdc-slider-helper-line {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+
+    .mdc-slider-helper-text {
+        font-size: 0.6875rem;
+        font-weight: 400;
+        letter-spacing: 0.0333333333em;
+        margin-top: 0;
+        line-height: normal;
+        margin: 0;
+        transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: opacity;
+        opacity: 1;
     }
 }

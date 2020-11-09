@@ -24,15 +24,24 @@ import {
 import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
 
+interface LinkProperties {
+    href: string;
+    target?: string;
+}
+
 /**
  * @exampleComponent limel-example-input-field-text
  * @exampleComponent limel-example-input-field-text-inline
  * @exampleComponent limel-example-input-field-number
  * @exampleComponent limel-example-input-field-autocomplete
- * @exampleComponent limel-example-input-field-icon
+ * @exampleComponent limel-example-input-field-icon-leading
+ * @exampleComponent limel-example-input-field-icon-trailing
+ * @exampleComponent limel-example-input-field-icon-both
+ * @exampleComponent limel-example-input-field-showlink
  * @exampleComponent limel-example-input-field-error-icon
  * @exampleComponent limel-example-input-field-textarea
  * @exampleComponent limel-example-input-field-search
+ * @exampleComponent limel-example-input-field-pattern
  */
 @Component({
     tag: 'limel-input-field',
@@ -93,6 +102,15 @@ export class InputField {
     public leadingIcon: string;
 
     /**
+     * Regular expression that the current value of the input field must match.
+     * No forward slashes should be specified around the pattern.
+     * Only used if type is `text`, `tel`, `email`, `url`, `password`
+     * or `search`.
+     */
+    @Prop({ reflect: true })
+    public pattern: string;
+
+    /**
      * Type of textfield
      * Defaults to 'text'
      */
@@ -144,16 +162,13 @@ export class InputField {
     @Prop()
     public completions: string[] = [];
 
-    private mdcTextField;
-
-    @State()
-    private isFocused: boolean = false;
-
-    @State()
-    private isModified: boolean = false;
-
-    @Element()
-    private limelInputField: HTMLLimelInputFieldElement;
+    /**
+     * For inputs of type `email`, `tel`, and `url`, set this to `true` to show
+     * a trailing icon with a `mailto:`,`tel:`, or normal link, respectively.
+     * The default icon can be overridden using the `trailingIcon` property.
+     */
+    @Prop({ reflect: true })
+    public showLink = false;
 
     /**
      * Emitted when the input value is changed.
@@ -167,10 +182,20 @@ export class InputField {
     @Event()
     private action: EventEmitter<void>;
 
-    private completionsList: ListItem[] = [];
+    @Element()
+    private limelInputField: HTMLLimelInputFieldElement;
+
+    @State()
+    private isFocused: boolean = false;
+
+    @State()
+    private isModified: boolean = false;
 
     @State()
     public showCompletions: boolean = false;
+
+    private mdcTextField: MDCTextField;
+    private completionsList: ListItem[] = [];
 
     constructor() {
         this.handleChange = this.handleChange.bind(this);
@@ -229,9 +254,8 @@ export class InputField {
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled,
             'mdc-text-field--required': this.required,
-            'mdc-text-field--with-trailing-icon': !!this.getIcon(),
-            'mdc-text-field--with-leading-icon':
-                !!this.getIcon() && !!this.leadingIcon,
+            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
+            'mdc-text-field--with-leading-icon': !!this.leadingIcon,
         };
 
         return [
@@ -245,6 +269,7 @@ export class InputField {
                     required={this.required}
                     disabled={this.disabled}
                     type={this.type}
+                    pattern={this.pattern}
                     onWheel={this.handleWheel}
                     onKeyDown={this.onKeyDown}
                     {...additionalProps}
@@ -274,8 +299,12 @@ export class InputField {
 
     @Watch('value')
     protected valueWatcher(newValue: string) {
-        if (this.type === 'textarea' && newValue !== this.mdcTextField.value) {
-            this.mdcTextField.value = newValue;
+        if (!this.mdcTextField) {
+            return;
+        }
+
+        if (newValue !== this.mdcTextField.value) {
+            this.mdcTextField.value = newValue || '';
         }
     }
 
@@ -285,7 +314,7 @@ export class InputField {
             'mdc-text-field': true,
             'mdc-text-field--textarea': true,
             'mdc-text-field--disabled': this.disabled,
-            'mdc-text-field--with-trailing-icon': !!this.getIcon(),
+            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--required': this.required,
         };
@@ -411,14 +440,6 @@ export class InputField {
         return <div class="mdc-text-field-character-counter">{label}</div>;
     }
 
-    private getIcon() {
-        if (this.isInvalid()) {
-            return 'high_importance';
-        }
-
-        return this.trailingIcon || this.leadingIcon;
-    }
-
     private isInvalid() {
         if (this.invalid) {
             return true;
@@ -443,22 +464,95 @@ export class InputField {
     }
 
     private renderIcons() {
-        const icon = this.getIcon();
-        if (!icon) {
-            return;
+        const html = [];
+
+        if (this.leadingIcon) {
+            html.push(
+                <i class="mdc-text-field__icon">
+                    <limel-icon name={this.leadingIcon} />
+                </i>
+            );
         }
 
+        const trailingIcon = this.getTrailingIcon();
+
+        if (!this.isInvalid() && this.hasLink()) {
+            html.push(this.renderLinkIcon(this.getLink(), trailingIcon));
+        } else if (trailingIcon) {
+            html.push(this.renderTrailingIcon(trailingIcon));
+        }
+
+        return html;
+    }
+
+    private hasLink() {
+        return this.showLink && ['email', 'tel', 'url'].includes(this.type);
+    }
+
+    private getLink() {
+        const props: LinkProperties = { href: '' };
+        switch (this.type) {
+            case 'email':
+                props.href = `mailto:${this.value}`;
+                break;
+            case 'tel':
+                props.href = `tel:${this.value}`;
+                break;
+            default:
+                props.href = `${this.value}`;
+                props.target = '_blank';
+        }
+
+        return props;
+    }
+
+    private renderLinkIcon(linkProps: LinkProperties, icon: string) {
+        return (
+            <a
+                {...linkProps}
+                class="mdc-text-field__icon"
+                tabindex={this.disabled ? '-1' : '0'}
+                role="button"
+            >
+                <limel-icon name={icon} />
+            </a>
+        );
+    }
+
+    private renderTrailingIcon(icon: string) {
         return (
             <i
                 onKeyPress={this.handleIconKeyPress}
                 onClick={this.handleIconClick}
                 class="mdc-text-field__icon"
-                tabindex="0"
+                tabindex={this.isInvalid() ? '-1' : '0'}
                 role="button"
             >
                 <limel-icon name={icon} />
             </i>
         );
+    }
+
+    private getTrailingIcon() {
+        if (this.isInvalid()) {
+            return 'high_importance';
+        }
+
+        if (this.trailingIcon) {
+            return this.trailingIcon;
+        }
+
+        if (this.showLink && this.type === 'email') {
+            return 'filled_message';
+        }
+
+        if (this.showLink && this.type === 'tel') {
+            return 'phone';
+        }
+
+        if (this.showLink && this.type === 'url') {
+            return 'external_link';
+        }
     }
 
     private renderFormattedNumber() {
@@ -486,7 +580,7 @@ export class InputField {
      * @returns {void}
      */
 
-    private onKeyDown(event: KeyboardEvent) {
+    private onKeyDown(event: KeyboardEvent): void {
         this.showCompletions = true;
         const isForwardTab =
             (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
@@ -585,6 +679,7 @@ export class InputField {
     };
 
     private handleChange(event) {
+        event.stopPropagation();
         let value = event.target.value;
 
         if (this.type === 'number') {
@@ -603,20 +698,29 @@ export class InputField {
     }
 
     private handleIconClick() {
-        this.action.emit();
-    }
-
-    private handleIconKeyPress(event) {
-        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
-        const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
-
-        if (isSpace || isEnter) {
+        if (!this.isInvalid()) {
             this.action.emit();
         }
     }
-    private handleWheel(event: MouseEvent) {
-        if (this.type === 'number') {
-            event.preventDefault();
+
+    private handleIconKeyPress(event: KeyboardEvent) {
+        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
+        const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
+
+        if ((isSpace || isEnter) && !this.isInvalid()) {
+            this.action.emit();
         }
+    }
+
+    private handleWheel() {
+        // This empty event handler is here to circumvent a bug.
+        // In some browsers (Chrome for example), hovering the input with
+        // the input focused, and scrolling, will both change the value
+        // AND scroll the page. We would prefer to never change the value
+        // on scroll, instead always scrolling the page, but since we
+        // haven't found a way to do that, this is the next best thing, as
+        // it prevents the page from being scrolled, but only in the
+        // circumstances when the value is changed by the scrolling.
+        // Please test THOROUGHLY if you remove this event handler 😄
     }
 }
