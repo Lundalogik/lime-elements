@@ -1,3 +1,10 @@
+## [29.6.1](https://github.com/Lundalogik/lime-elements/compare/v29.6.0...v29.6.1) (2020-11-09)
+
+
+### Bug Fixes
+
+* **dialog:** make headers & headings look nicer ([10e10c3](https://github.com/Lundalogik/lime-elements/commit/10e10c32dae564a5f23a4d1ac1f0bb22359298f1))
+
 # [29.6.0](https://github.com/Lundalogik/lime-elements/compare/v29.5.0...v29.6.0) (2020-11-06)
 
 
