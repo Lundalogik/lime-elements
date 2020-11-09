@@ -120,18 +120,15 @@ export class DatePicker {
 
     @State()
     private internalFormat: string;
+    @State()
+    private showPortal = false;
 
     private useNative: boolean;
     private nativeType: InputType;
     private nativeFormat: string;
     private textField: HTMLElement;
     private datePickerCalendar: HTMLLimelFlatpickrAdapterElement;
-
     private portalId = `date-picker-calendar-${createRandomString()}`;
-
-    @State()
-    private showPortal = false;
-
     private dateFormatter: DateFormatter;
 
     constructor() {
@@ -223,7 +220,7 @@ export class DatePicker {
     }
 
     @Watch('value')
-    protected onValueChange(newValue, oldValue) {
+    protected onValueChange(newValue: string, oldValue: string) {
         if (newValue !== oldValue && newValue !== this.formattedValue) {
             this.formattedValue = this.dateFormatter.formatDate(
                 this.value,
