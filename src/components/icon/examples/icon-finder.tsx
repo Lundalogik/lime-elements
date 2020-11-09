@@ -42,6 +42,7 @@ export class IconFinder {
                 onKeyUp={this.onKeyUp}
                 searchLabel="Search for icons"
                 emptyInputOnBlur={true}
+                leadingIcon={'search'}
             />,
             <div> {this.icons.map(this.renderIconButton)}</div>,
         ];
