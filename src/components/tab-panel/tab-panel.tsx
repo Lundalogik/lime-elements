@@ -6,6 +6,7 @@ import {
     EventEmitter,
     Event,
     Host,
+    Watch,
 } from '@stencil/core';
 import { Tab } from '../tab-bar/tab.types';
 
@@ -81,6 +82,12 @@ export class TabPanel {
         slot.removeEventListener('slotchange', this.setSlotElements);
     }
 
+    @Watch('tabs')
+    public tabsChanged() {
+        this.hidePanels();
+        this.tabs.forEach(this.setTabStatus);
+    }
+
     public render() {
         return (
             <Host onChangeTab={this.handleChangeTabs}>
@@ -96,7 +103,9 @@ export class TabPanel {
 
     private setSlotElements() {
         const slot = this.getSlot();
+        this.hidePanels();
         this.slotElements = [].slice.call(slot.assignedElements());
+        this.tabs.forEach(this.setTabStatus);
     }
 
     private setTabStatus(tab: Tab) {
@@ -128,5 +137,11 @@ export class TabPanel {
 
     private getSlot(): HTMLSlotElement {
         return this.host.shadowRoot.querySelector('slot');
+    }
+
+    private hidePanels() {
+        this.slotElements.forEach((element) => {
+            element.style.display = 'none';
+        });
     }
 }
