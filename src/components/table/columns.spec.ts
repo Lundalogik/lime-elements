@@ -152,7 +152,7 @@ describe('createCustomComponent', () => {
                 it('returns the formatted value', () => {
                     const component = formatter(cell, column) as HTMLElement;
                     expect(component.tagName.toLowerCase()).toEqual('h1');
-                    expect(component).toHaveProperty('value', escaped);
+                    expect(component).toHaveProperty('value', value);
                 });
             });
 
@@ -170,7 +170,7 @@ describe('createCustomComponent', () => {
                     expect(component.tagName.toLowerCase()).toEqual('h1');
                     expect(component).toHaveProperty(
                         'value',
-                        `formatted: ${escaped}`
+                        `formatted: ${value}`
                     );
                 });
             });
