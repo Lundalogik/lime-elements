@@ -59,11 +59,6 @@ export class Banner {
         );
     }
 
-    /**
-     * Render the icon for the button
-     *
-     * @returns {HTMLElement} the icon
-     */
     private renderIcon(): HTMLElement {
         if (!this.icon) {
             return;
