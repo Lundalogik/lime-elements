@@ -44,7 +44,6 @@ export class Dialog {
 
     /**
      * `true` if the dialog is open, `false` otherwise.
-     * Defaults to `false`.
      */
     @Prop({ mutable: true, reflect: true })
     public open = false;

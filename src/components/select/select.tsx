@@ -39,14 +39,14 @@ import { SelectTemplate } from './select.template';
 })
 export class Select {
     /**
-     * Disables the input field when `true`. Defaults to `false`.
+     * Disables the input field when `true`.
      */
     @Prop({ reflect: true })
     public disabled = false;
 
     /**
-     * Set to `true` to indicate that the current value of the select is invalid.
-     * Defaults to `false`.
+     * Set to `true` to indicate that the current value of the select is
+     * invalid.
      */
     @Prop({ reflect: true })
     public invalid: boolean;
@@ -82,7 +82,7 @@ export class Select {
     public options: Option[] = [];
 
     /**
-     * Set to `true` to allow multiple values to be selected. Defaults to `false`
+     * Set to `true` to allow multiple values to be selected.
      */
     @Prop()
     public multiple: boolean = false;
