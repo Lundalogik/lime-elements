@@ -1,3 +1,10 @@
+## [29.6.2](https://github.com/Lundalogik/lime-elements/compare/v29.6.1...v29.6.2) (2020-11-09)
+
+
+### Bug Fixes
+
+* **tab-bar:** update scroll-buttons when window is resized ([8a2fca5](https://github.com/Lundalogik/lime-elements/commit/8a2fca5ece8d7f1ba1186f062ac1eca541c61751)), closes [Lundalogik/crm-feature#1504](https://github.com/Lundalogik/crm-feature/issues/1504)
+
 ## [29.6.1](https://github.com/Lundalogik/lime-elements/compare/v29.6.0...v29.6.1) (2020-11-09)
 
 
