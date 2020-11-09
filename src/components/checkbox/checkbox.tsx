@@ -41,7 +41,6 @@ export class Checkbox {
 
     /**
      * Set to `true` to indicate that the checkbox must be checked.
-     * Defaults to `false`.
      */
     @Prop({ reflect: true })
     public required: boolean = false;

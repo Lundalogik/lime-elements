@@ -26,7 +26,7 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 })
 export class Portal {
     /**
-     * Decides which direction the portal content should open. Defaults to right.
+     * Decides which direction the portal content should open.
      */
     @Prop()
     public openDirection: OpenDirection = 'right';

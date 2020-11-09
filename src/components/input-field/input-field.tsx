@@ -51,7 +51,6 @@ interface LinkProperties {
 export class InputField {
     /**
      * Disables the input field when `true`.
-     * Defaults to `false`.
      */
     @Prop({ reflect: true })
     public disabled = false;
@@ -59,7 +58,6 @@ export class InputField {
     /**
      * Set to `true` to indicate that the current value of the input field is
      * invalid.
-     * Defaults to `false`.
      */
     @Prop({ reflect: true })
     public invalid = false;
@@ -78,7 +76,6 @@ export class InputField {
 
     /**
      * Set to `true` to indicate that the field is required.
-     * Defaults to `false`.
      */
     @Prop({ reflect: true })
     public required = false;
@@ -112,7 +109,6 @@ export class InputField {
 
     /**
      * Type of textfield
-     * Defaults to 'text'
      */
     @Prop({ reflect: true })
     public type: InputType = 'text';
@@ -121,7 +117,6 @@ export class InputField {
      * Set to `true` to format the current value of the input field only
      * if the field is of type number.
      * The number format is determined by the current language of the browser.
-     * Defaults to `true`.
      */
     @Prop({ reflect: true })
     public formatNumber = true;

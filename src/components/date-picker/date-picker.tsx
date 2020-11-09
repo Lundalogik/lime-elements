@@ -94,7 +94,7 @@ export class DatePicker {
     public value: Date;
 
     /**
-     * Type of date picker. Defaults to `datetime`
+     * Type of date picker.
      */
     @Prop()
     public type: DateType = 'datetime';
