@@ -1,50 +1,90 @@
-.tabulator .tabulator-footer {
-    .tabulator-paginator {
-        display: grid;
-        grid-auto-flow: column;
-        justify-content: end;
+.tabulator {
+    .tabulator-footer {
+        transition: transform 0.5s ease-out, opacity 0.35s ease; //For some reason the footer is not animated when it gets hidden/removed
 
-        .tabulator-pages {
-            margin: 0 pxToRem(8);
+        .tabulator-paginator {
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: end;
 
-            .tabulator-page {
-                margin: 0 pxToRem(0);
-            }
-        }
+            .tabulator-pages {
+                margin: 0 pxToRem(8);
 
-        .tabulator-page {
-            &:not([disabled]) {
-                @include is-flat-clickable;
-            }
-            position: relative;
-            height: pxToRem(28);
-            min-width: pxToRem(28);
-            padding: 0 pxToRem(8);
-            margin: 0;
-
-            border: none;
-            border-radius: pxToRem(40);
-
-            color: #303042;
-            background-color: transparent;
-
-            &:hover {
-                color: #303042;
-                background-color: #fafafb;
-            }
-
-            &.active {
-                box-shadow: var(--button-shadow-inset);
-                background-color: #fff;
-            }
-
-            &:disabled {
-                cursor: not-allowed;
-
-                &:hover {
-                    background-color: transparent;
+                .tabulator-page {
+                    margin: 0 pxToRem(0);
                 }
             }
+
+            .tabulator-page {
+                &:not([disabled]) {
+                    @include is-flat-clickable;
+                }
+                position: relative;
+                height: pxToRem(28);
+                min-width: pxToRem(28);
+                padding: 0 pxToRem(8);
+                margin: 0;
+
+                border: none;
+                border-radius: pxToRem(40);
+
+                color: #303042;
+                background-color: transparent;
+
+                &:hover {
+                    color: #303042;
+                    background-color: #fafafb;
+                }
+
+                &.active {
+                    box-shadow: var(--button-shadow-inset);
+                    background-color: #fff;
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
+
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.tabulator:not(.has-pagination) {
+    &:not(.has-aggregation) {
+        .tabulator-tableHolder {
+            height: 100% !important;
+            max-height: 100% !important;
+        }
+    }
+    &.has-aggregation {
+        .tabulator-tableHolder {
+            height: calc(
+                100% -
+                    (
+                        34px /*height of tabulator header */ + 36px
+                            /*height of tabulator paginator */
+                    )
+            ) !important;
+            max-height: calc(
+                100% -
+                    (
+                        34px /*height of tabulator header */ + 36px
+                            /*height of tabulator paginator */
+                    )
+            ) !important;
+        }
+    }
+
+    .tabulator-footer {
+        pointer-events: none;
+        .tabulator-paginator {
+            visibility: hidden; //Display:none does not work here because of the tabulators dynamic calculations, which requires manual resizing.
+            opacity: 0;
+            transform: translateY(pxToRem(40));
         }
     }
 }
