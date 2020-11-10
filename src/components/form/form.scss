@@ -10,12 +10,8 @@
     }
 }
 
-.limel-form-layout--grid {
+.limel-form-layout--default {
+    --gap: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
-    gap: 0.5rem;
-
-    .limel-form-layout-span--all {
-        grid-column: 1/-1;
-    }
+    gap: var(--gap);
 }
