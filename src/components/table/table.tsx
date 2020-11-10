@@ -10,7 +10,7 @@ import {
 import TabulatorTable from 'tabulator-tables';
 import { Column, TableParams, ColumnSorter } from './table.types';
 import { ColumnDefinitionFactory, createColumnSorter } from './columns';
-import { isEqual } from 'lodash-es';
+import { isEqual, has } from 'lodash-es';
 import { ElementPool } from './element-pool';
 
 const FIRST_PAGE = 1;
@@ -384,10 +384,20 @@ export class Table {
         return Math.ceil(total / this.pageSize);
     }
 
+    private hasAggregation(columns: Column[]): boolean {
+        return columns.some((column) => has(column, 'aggregator'));
+    }
+
     render() {
         return (
             <div id="tabulator-container">
-                <div id="tabulator-table" />
+                <div
+                    id="tabulator-table"
+                    class={{
+                        'has-pagination': this.totalRows > this.pageSize,
+                        'has-aggregation': this.hasAggregation(this.columns),
+                    }}
+                />
             </div>
         );
     }
