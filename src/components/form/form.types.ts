@@ -190,7 +190,7 @@ export interface GridLayoutOptions
     /**
      * Attempts to fill in holes earlier in the grid, if smaller items come up
      * later. This may cause items to appear out-of-order, when doing so would
-     * fill in holes left by larger items. Defaults to `true`
+     * fill holes left by larger items. Defaults to `true`.
      */
     dense?: boolean;
 }

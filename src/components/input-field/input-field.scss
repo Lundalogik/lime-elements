@@ -22,6 +22,24 @@
     display: none;
 }
 
+:host([type='textarea']) {
+    height: var(--textarea-height, 100%);
+
+    .mdc-text-field.mdc-text-field--textarea {
+        height: var(--textarea-height, 100%);
+
+        &.has-helper-line {
+            --heightOfHelperText: 1.1875rem;
+            height: calc(
+                var(--textarea-height, 100%) - var(--heightOfHelperText)
+            );
+        }
+    }
+    textarea.mdc-text-field__input {
+        resize: vertical;
+    }
+}
+
 .mdc-text-field {
     width: 100%;
     @include mdc-states-hover-opacity(0);
@@ -112,13 +130,6 @@ div {
 .mdc-text-field__icon {
     width: pxToRem(24);
     height: pxToRem(24);
-}
-
-.mdc-text-field.mdc-text-field--textarea {
-    textarea {
-        height: var(--textarea-height);
-        resize: vertical;
-    }
 }
 
 input.mdc-text-field__input {
