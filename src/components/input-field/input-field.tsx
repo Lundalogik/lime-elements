@@ -315,6 +315,7 @@ export class InputField {
             'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--required': this.required,
+            'has-helper-line': !!this.helperText || !!this.maxlength,
         };
 
         const labelClassList = {

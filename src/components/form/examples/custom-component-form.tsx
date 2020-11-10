@@ -1,11 +1,11 @@
 import { Component, h, State } from '@stencil/core';
-import { schema } from './component-schema';
+import { schema } from './custom-component-schema';
 
 /**
  * Custom form component
  *
- * @link component-schema.ts
- * @link custom-picker.tsx
+ * @link custom-component-schema.ts
+ * @link custom-component-picker.tsx
  */
 @Component({
     tag: 'limel-example-custom-component-form',
