@@ -40,11 +40,7 @@ function renderCollapsibleField(props: ObjectFieldTemplateProps) {
 function renderProperties(properties: ObjectFieldProperty[], schema: any) {
     const layout: FormLayoutOptions = schema.lime?.layout;
 
-    if (layout?.type) {
-        return renderLayout(properties, layout);
-    }
-
-    return properties.map((element) => element.content);
+    return renderLayout(properties, layout);
 }
 
 function renderLayout(
@@ -54,7 +50,7 @@ function renderLayout(
     return React.createElement(
         'div',
         {
-            className: `limel-form-layout--${layout.type}`,
+            className: `limel-form-layout--${layout?.type || 'default'}`,
         },
         properties.map((element) => element.content)
     );
