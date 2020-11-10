@@ -132,6 +132,7 @@ function build() {
                 /="\/build/g,
                 /="\/style/g,
                 /="\/assets/g,
+                /="\/node_modules/g,
                 /\/kompendium.json/g,
             ],
             to: [
@@ -139,6 +140,7 @@ function build() {
                 `="/versions/${version}/build`,
                 `="/versions/${version}/style`,
                 `="/versions/${version}/assets`,
+                `="/versions/${version}/node_modules`,
                 `/versions/${version}/kompendium.json`,
             ],
         };

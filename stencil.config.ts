@@ -2,6 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { kompendium } from 'kompendium';
 import guides from './guides';
+import linkNodeModules from './rollup-plugin-link-node-modules';
 
 export const config: Config = {
     hashFileNames: false,
@@ -23,17 +24,7 @@ export const config: Config = {
             type: 'www',
             serviceWorker: null,
             dir: 'www',
-            copy: [
-                { src: 'style/color-palette-extended.css' },
-                {
-                    src: '../node_modules/@lundalogik/lime-icons8/assets/',
-                    dest: 'assets/',
-                },
-                {
-                    src: '../node_modules/kompendium/dist/',
-                    dest: 'assets/kompendium/',
-                },
-            ],
+            copy: [{ src: 'style/color-palette-extended.css' }],
         },
     ],
     commonjs: {
@@ -44,7 +35,7 @@ export const config: Config = {
             ],
         },
     },
-    plugins: [sass()],
+    plugins: [sass(), linkNodeModules()],
     tsconfig: './tsconfig.dev.json',
     globalStyle: 'src/global/core-styles.scss',
     testing: {
