@@ -14,6 +14,8 @@ import { YearPicker } from '../pickers/YearPicker';
  * This component is internal and only supposed to be used by
  * the limel-date-picker. This component is needed in order for us
  * to render the flatpickr calendar in a portal.
+ *
+ * @private
  */
 @Component({
     tag: 'limel-flatpickr-adapter',
