@@ -3,8 +3,8 @@ import { Column } from '../table.types';
 
 /**
  * Low density table
- * By adding `has-low-dansity` class to the table, you can easily convert the
- * table into an airy list of items.
+ * By adding the `has-low-density` class to the table, you can easily convert
+ * the table into an airy list of items.
  *
  * This type of UI is suitable for generating minimalist lists of items with
  * only a few properties on each. Especially when the property values are not
