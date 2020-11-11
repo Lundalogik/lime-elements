@@ -19,7 +19,7 @@ export const schema = {
             title: 'Pet',
             lime: {
                 layout: {
-                    span: 'all',
+                    colSpan: 'all',
                 },
             },
         },
