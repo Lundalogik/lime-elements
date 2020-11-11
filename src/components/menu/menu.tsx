@@ -39,7 +39,7 @@ export class Menu {
     public disabled = false;
 
     /**
-     * Decides if the menu should open right or left. Defaults to right.
+     * Decides if the menu should open right or left.
      */
     @Prop({ reflect: true })
     public openDirection: OpenDirection = 'right';
@@ -57,7 +57,7 @@ export class Menu {
     public badgeIcons = false;
 
     /**
-     * Defines whether the menu should have a fixed position on the screen
+     * Defines whether the menu should have a fixed position on the screen.
      */
     @Prop()
     public fixed = false;

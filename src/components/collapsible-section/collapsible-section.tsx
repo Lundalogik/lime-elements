@@ -18,7 +18,6 @@ import { Action } from './action';
 export class CollapsibleSection {
     /**
      * `true` if the section is expanded, `false` if collapsed.
-     * Defaults to `false`.
      */
     @Prop({ mutable: true, reflect: true })
     public isOpen: boolean = false;

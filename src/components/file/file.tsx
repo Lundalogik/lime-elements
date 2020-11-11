@@ -69,7 +69,6 @@ export class File {
 
     /**
      * Set to `true` to indicate that the field is required.
-     * Defaults to `false`
      */
     @Prop({ reflect: true })
     public required: boolean = false;

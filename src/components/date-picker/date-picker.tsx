@@ -55,18 +55,16 @@ const nativeFormatForType = {
 export class DatePicker {
     /**
      * Disables the date picker when `true`.
-     * Defaults to `false`.
      */
     @Prop()
-    public disabled: boolean;
+    public disabled = false;
 
     /**
      * Set to `true` to indicate that the current value of the date picker is
      * invalid.
-     * Defaults to `false`.
      */
     @Prop()
-    public invalid: boolean;
+    public invalid = false;
 
     /**
      * Text to display next to the date picker
@@ -82,10 +80,9 @@ export class DatePicker {
 
     /**
      * Set to `true` to indicate that the field is required.
-     * Defaults to `false`.
      */
     @Prop()
-    public required: boolean;
+    public required = false;
 
     /**
      * The value of the field.
@@ -94,13 +91,13 @@ export class DatePicker {
     public value: Date;
 
     /**
-     * Type of date picker. Defaults to `datetime`
+     * Type of date picker.
      */
     @Prop()
     public type: DateType = 'datetime';
 
     /**
-     * Format to display the selected date in
+     * Format to display the selected date in.
      */
     @Prop()
     public format: string;
@@ -123,18 +120,15 @@ export class DatePicker {
 
     @State()
     private internalFormat: string;
+    @State()
+    private showPortal = false;
 
     private useNative: boolean;
     private nativeType: InputType;
     private nativeFormat: string;
     private textField: HTMLElement;
     private datePickerCalendar: HTMLLimelFlatpickrAdapterElement;
-
     private portalId = `date-picker-calendar-${createRandomString()}`;
-
-    @State()
-    private showPortal = false;
-
     private dateFormatter: DateFormatter;
 
     constructor() {
@@ -226,7 +220,7 @@ export class DatePicker {
     }
 
     @Watch('value')
-    protected onValueChange(newValue, oldValue) {
+    protected onValueChange(newValue: string, oldValue: string) {
         if (newValue !== oldValue && newValue !== this.formattedValue) {
             this.formattedValue = this.dateFormatter.formatDate(
                 this.value,

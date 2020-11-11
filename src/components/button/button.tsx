@@ -18,14 +18,12 @@ export class Button {
 
     /**
      * Set to `true` to make the button primary.
-     * Defaults to `false`.
      */
     @Prop({ reflect: true })
     public primary = false;
 
     /**
      * Set to `true` to make the button outlined.
-     * Defaults to `false`.
      */
     @Prop({ reflect: true })
     public outlined = false;
@@ -38,7 +36,6 @@ export class Button {
 
     /**
      * Set to `true` to disable the button.
-     * Defaults to `false`.
      */
     @Prop({ reflect: true })
     public disabled = false;
@@ -48,8 +45,6 @@ export class Button {
      * Please note that this does _not_ disable the button.
      * If the button should be disabled while loading, the
      * `disabled` property should be set to `true` as well.
-     *
-     * Defaults to `false`.
      */
     @Prop({ reflect: true })
     public loading = false;
@@ -98,12 +93,7 @@ export class Button {
         }
     }
 
-    /**
-     * Render the icon for the button
-     *
-     * @returns {HTMLElement} the icon
-     */
-    private renderIcon() {
+    private renderIcon(): HTMLElement {
         if (!this.icon) {
             return;
         }
