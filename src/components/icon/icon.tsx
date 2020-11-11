@@ -35,8 +35,13 @@ import { IconSize } from './icon.types';
  * <limel-config config={{iconPath: '/my/parent/path/'}} />
  * ```
  *
+ * ## Icon Finder
+ *
+ * Search for an icon and **click on it to copy its name to clipboard**.
+ *
+ * <limel-example-icon-finder />
+ *
  * @exampleComponent limel-example-icon
- * @exampleComponent limel-example-icon-finder
  * @exampleComponent limel-example-icon-background
  */
 @Component({

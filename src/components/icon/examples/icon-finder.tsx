@@ -9,8 +9,9 @@ interface Icon {
 }
 
 /**
- * Icon finder
- * Search for an icon and click on it to copy its name to clipboard.
+ * Icon Finder
+ *
+ * Used in the docs for `limel-icon`.
  */
 @Component({
     tag: 'limel-example-icon-finder',
