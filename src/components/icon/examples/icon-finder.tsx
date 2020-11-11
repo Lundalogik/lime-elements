@@ -3,6 +3,11 @@ import * as iconIndex from '@lundalogik/lime-icons8/assets/icon-index.json';
 import { Component, h, State } from '@stencil/core';
 import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
+interface Icon {
+    id: string;
+    tags: string[];
+}
+
 /**
  * Icon finder
  * Search for an icon and click on it to copy its name to clipboard.
@@ -13,13 +18,13 @@ import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 })
 export class IconFinder {
     @State()
-    private value = [];
+    private value: Chip[] = [];
 
     @State()
     private textValue = '';
 
     @State()
-    private icons = [];
+    private icons: Icon[] = [];
 
     private indexedIcons = [...iconIndex['default']]; // eslint-disable-line @typescript-eslint/dot-notation
 
@@ -48,7 +53,7 @@ export class IconFinder {
         ];
     }
 
-    private renderIconButton(icon) {
+    private renderIconButton(icon: Icon) {
         const iconName = icon.id.replace('.svg', '');
         const label = `Copy ${iconName}`;
 
@@ -92,8 +97,8 @@ export class IconFinder {
 
     private searchIcons() {
         this.icons = [];
-        this.indexedIcons.forEach((icon) => {
-            this.value.forEach((search) => {
+        this.indexedIcons.forEach((icon: Icon) => {
+            this.value.forEach((search: Chip) => {
                 const hits = icon.tags.filter((tag) =>
                     tag.includes(search.text)
                 );
