@@ -1,3 +1,10 @@
+## [29.6.3](https://github.com/Lundalogik/lime-elements/compare/v29.6.2...v29.6.3) (2020-11-12)
+
+
+### Bug Fixes
+
+* **tab-panel:** set correct display on panels when new tabs are given ([acfae12](https://github.com/Lundalogik/lime-elements/commit/acfae127ae3c3507cfd0a775e573f97d302c8243)), closes [Lundalogik/crm-feature#1494](https://github.com/Lundalogik/crm-feature/issues/1494)
+
 ## [29.6.2](https://github.com/Lundalogik/lime-elements/compare/v29.6.1...v29.6.2) (2020-11-09)
 
 
