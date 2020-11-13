@@ -1,3 +1,10 @@
+## [29.6.4](https://github.com/Lundalogik/lime-elements/compare/v29.6.3...v29.6.4) (2020-11-13)
+
+
+### Bug Fixes
+
+* **table:** show no pagination when only one page exists ([d53ed38](https://github.com/Lundalogik/lime-elements/commit/d53ed38dab930399f6cda81400bfc3bd5f495ccd)), closes [Lundalogik/crm-feature#1551](https://github.com/Lundalogik/crm-feature/issues/1551)
+
 ## [29.6.3](https://github.com/Lundalogik/lime-elements/compare/v29.6.2...v29.6.3) (2020-11-12)
 
 
