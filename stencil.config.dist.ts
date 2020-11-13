@@ -18,5 +18,6 @@ export const config: Config = {
         },
     },
     plugins: [sass()],
+    tsconfig: './tsconfig.dist.json',
     globalStyle: 'src/global/core-styles.scss',
 };
