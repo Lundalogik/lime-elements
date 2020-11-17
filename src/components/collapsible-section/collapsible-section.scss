@@ -19,64 +19,54 @@
     pointer-events: none;
 }
 
-section {
-    > header {
-        align-items: center;
-        background-color: var(--closed-header-background-color, #ffffff);
-        cursor: pointer;
-        display: flex;
-        padding-left: pxToRem(10);
-        padding-right: pxToRem(10);
-        justify-content: space-between;
-        height: pxToRem(60);
+.section__header {
+    transition: background-color 0.2s ease;
+    cursor: pointer;
 
-        > .expander {
-            color: rgba(0, 0, 0, 0.33);
-            height: pxToRem(30);
-            margin-right: pxToRem(5);
-            width: pxToRem(30);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
 
-            > svg {
-                fill: currentColor;
-            }
-        }
+    padding-left: pxToRem(10);
+    padding-right: pxToRem(10);
+    height: pxToRem(60);
 
-        > h2 {
-            flex-grow: 1;
-        }
+    background-color: var(--closed-header-background-color, #ffffff);
+    section.open & {
+        background-color: var(--open-header-background-color, #f8f8f8);
+    }
+    &:hover {
+        background-color: var(--open-header-background-color, #f8f8f8);
+    }
+}
 
-        &:hover {
-            background-color: var(--open-header-background-color, #f8f8f8);
+.section__header__expand-icon {
+    color: rgba(0, 0, 0, 0.33);
+    height: pxToRem(30);
+    margin-right: pxToRem(5);
+    width: pxToRem(30);
+}
 
-            > .expander {
-                color: rgba(0, 0, 0, 0.6);
-            }
-        }
+.section__header__title {
+    flex-grow: 1;
+}
+
+.section__body {
+    background-color: var(--body-background-color, #ffffff);
+    padding: var(--body-padding, 0);
+
+    display: none;
+    section.open & {
+        display: block;
     }
 
-    > .body {
-        background-color: var(--body-background-color, #ffffff);
-        display: none;
-        padding: var(--body-padding, 0);
-
-        &:before,
-        &:after {
-            content: ' ';
-            display: table;
-        }
-
-        &:after {
-            clear: both;
-        }
+    &:before,
+    &:after {
+        content: ' ';
+        display: table;
     }
 
-    &.open {
-        > header {
-            background-color: var(--open-header-background-color, #f8f8f8);
-        }
-
-        > .body {
-            display: block;
-        }
+    &:after {
+        clear: both;
     }
 }
