@@ -1,0 +1,115 @@
+.section__header__expand-icon {
+    position: relative;
+    height: pxToRem(30);
+    margin: 0 pxToRem(16) 0 pxToRem(8);
+    width: pxToRem(12);
+}
+
+.expand-icon__line {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+
+    width: 100%;
+    border-radius: pxToRem(16);
+    height: pxToRem(2);
+    background-color: var(--header-stroke-color, #8c8c96);
+
+    &:first-of-type,
+    &:last-of-type {
+        transition: opacity 0.2s ease, transform 0.4s ease;
+    }
+
+    &:first-of-type {
+        transform: rotate3d(0, 0, 1, 90deg);
+    }
+
+    &:last-of-type {
+        transform: rotate3d(0, 0, 1, -90deg);
+    }
+
+    &:nth-of-type(2),
+    &:nth-of-type(3) {
+        transition: opacity 0.2s ease, transform 0.18s ease;
+    }
+}
+
+.section__header {
+    &:hover {
+        .expand-icon__line {
+            &:first-of-type {
+                transform: rotate3d(0, 0, 1, 0deg);
+            }
+
+            &:last-of-type {
+                transform: rotate3d(0, 0, 1, 0deg);
+            }
+
+            &:nth-of-type(2),
+            &:nth-of-type(3) {
+                transition: opacity 0.5s ease 0.2s,
+                    transform 0.7s cubic-bezier(0.85, 0.11, 0.14, 1.35);
+            }
+
+            &:nth-of-type(2) {
+                transform: translate3d(0, pxToRem(-8), 0);
+                opacity: 0.4;
+            }
+
+            &:nth-of-type(3) {
+                transform: translate3d(0, pxToRem(8), 0);
+                opacity: 0.4;
+            }
+        }
+    }
+}
+
+section.open {
+    .section__header {
+        .expand-icon__line {
+            &:first-of-type {
+                transform: rotate3d(0, 0, 1, 0deg);
+            }
+
+            &:last-of-type {
+                transform: rotate3d(0, 0, 1, 0deg);
+            }
+
+            &:nth-of-type(2),
+            &:nth-of-type(3) {
+                transition: opacity 1s ease, transform 0.4s ease;
+            }
+
+            &:nth-of-type(2) {
+                transform: translate3d(0, pxToRem(-16), 0);
+                opacity: 0;
+            }
+
+            &:nth-of-type(3) {
+                transform: translate3d(0, pxToRem(16), 0);
+                opacity: 0;
+            }
+        }
+
+        &:hover {
+            .expand-icon__line {
+                &:first-of-type,
+                &:last-of-type {
+                    transition: opacity 0.2s ease,
+                        transform 0.4s cubic-bezier(0.85, 0.11, 0.14, 1.35);
+                }
+
+                &:first-of-type {
+                    transform: rotate3d(0, 0, 1, 45deg);
+                }
+
+                &:last-of-type {
+                    transform: rotate3d(0, 0, 1, -45deg);
+                }
+            }
+        }
+    }
+}

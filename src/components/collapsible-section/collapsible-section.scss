@@ -40,13 +40,6 @@
     }
 }
 
-.section__header__expand-icon {
-    color: rgba(0, 0, 0, 0.33);
-    height: pxToRem(30);
-    margin-right: pxToRem(5);
-    width: pxToRem(30);
-}
-
 .section__header__title {
     flex-grow: 1;
 }
@@ -70,3 +63,5 @@
         clear: both;
     }
 }
+
+@import './partial-styles/expand-icon.scss';

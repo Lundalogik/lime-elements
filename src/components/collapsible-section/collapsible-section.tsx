@@ -62,19 +62,10 @@ export class CollapsibleSection {
             <section class={`${this.isOpen ? 'open' : ''}`}>
                 <header class="section__header" onClick={this.onClick}>
                     <div class="section__header__expand-icon">
-                        <svg viewBox="0 0 30 30" width="100%" height="100%">
-                            {(() => {
-                                if (this.isOpen) {
-                                    return (
-                                        <path d="M15.5 12.246l1.008 1.008L21 17.746l-1.008 1.008-4.492-4.491-4.492 4.492L10 17.746l4.492-4.492 1.008-1.008z" />
-                                    );
-                                }
-
-                                return (
-                                    <path d="M15.5 19l1.008-1.008L21 13.5l-1.008-1.008-4.492 4.491-4.492-4.492L10 13.5l4.492 4.492L15.5 19z" />
-                                );
-                            })()}
-                        </svg>
+                        <div class="expand-icon__line"></div>
+                        <div class="expand-icon__line"></div>
+                        <div class="expand-icon__line"></div>
+                        <div class="expand-icon__line"></div>
                     </div>
                     <h2 class="section__header__title mdc-typography mdc-typography--headline2">
                         {this.header}
