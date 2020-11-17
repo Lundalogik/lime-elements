@@ -60,8 +60,8 @@ export class CollapsibleSection {
     public render() {
         return (
             <section class={`${this.isOpen ? 'open' : ''}`}>
-                <header onClick={this.onClick}>
-                    <span class="expander">
+                <header class="section__header" onClick={this.onClick}>
+                    <div class="section__header__expand-icon">
                         <svg viewBox="0 0 30 30" width="100%" height="100%">
                             {(() => {
                                 if (this.isOpen) {
@@ -75,13 +75,13 @@ export class CollapsibleSection {
                                 );
                             })()}
                         </svg>
-                    </span>
-                    <h2 class="mdc-typography mdc-typography--headline2">
+                    </div>
+                    <h2 class="section__header__title mdc-typography mdc-typography--headline2">
                         {this.header}
                     </h2>
                     {this.renderActions()}
                 </header>
-                <div class="body">
+                <div class="section__body">
                     <slot />
                 </div>
             </section>
@@ -106,7 +106,7 @@ export class CollapsibleSection {
         }
 
         return (
-            <div class="actions">
+            <div class="section__header__actions">
                 {this.actions.map(this.renderActionButton)}
             </div>
         );
