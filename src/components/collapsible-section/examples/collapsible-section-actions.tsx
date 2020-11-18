@@ -18,16 +18,16 @@ export class CollapsibleSectionActionsExample {
     private actions = [
         {
             id: '1',
-            icon: 'activity_history',
+            icon: 'trash',
         },
         {
             id: '2',
-            icon: 'fsociety_mask',
+            icon: 'available_updates',
             disabled: true,
         },
         {
             id: '3',
-            icon: 'sack_of_flour',
+            icon: 'menu_2',
         },
     ];
 
