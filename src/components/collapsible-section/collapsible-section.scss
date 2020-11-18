@@ -41,7 +41,18 @@
 }
 
 .section__header__title {
-    flex-grow: 1;
+  flex-grow: 1;
+  justify-self: flex-start;
+  padding-right: pxToRem(12);
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.section__header__actions {
+  justify-self: flex-end;
+  flex-shrink: 0;
 }
 
 .section__body {
