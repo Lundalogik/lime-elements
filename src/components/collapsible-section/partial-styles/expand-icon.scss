@@ -3,6 +3,8 @@
     height: pxToRem(30);
     margin: 0 pxToRem(16) 0 pxToRem(8);
     width: pxToRem(12);
+
+    flex-shrink: 0;
 }
 
 .expand-icon__line {
