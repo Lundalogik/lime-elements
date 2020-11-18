@@ -8,8 +8,8 @@
  */
 
 :host {
-    display: block;
     --border-radius-of-header: 0.75rem;
+    display: block;
 }
 
 :host([hidden]) {
@@ -63,7 +63,17 @@
     flex-shrink: 0;
 }
 
+@keyframes fade-in-section__body {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .section__body {
+    animation: fade-in-section__body 0.3s ease-in forwards;
     background-color: var(--body-background-color, #ffffff);
     padding: var(--body-padding, pxToRem(20));
     margin-bottom: pxToRem(24);
@@ -71,6 +81,7 @@
         var(--border-radius-of-header);
 
     display: none;
+    opacity: 0;
     section.open & {
         display: block;
     }
