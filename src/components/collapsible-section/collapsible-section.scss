@@ -31,28 +31,33 @@
     padding-right: pxToRem(10);
     height: pxToRem(60);
 
-    background-color: var(--closed-header-background-color, #ffffff);
+    background-color: var(--closed-header-background-color, #fafafb);
+    border-radius: var(--border-radius-of-header);
+
     section.open & {
-        background-color: var(--open-header-background-color, #f8f8f8);
+        background-color: var(--open-header-background-color, #ffffff);
+        &:hover {
+            background-color: var(--open-header-background-color, #f6f6f7);
+        }
     }
     &:hover {
-        background-color: var(--open-header-background-color, #f8f8f8);
+        background-color: var(--open-header-background-color, #f6f6f7);
     }
 }
 
 .section__header__title {
-  flex-grow: 1;
-  justify-self: flex-start;
-  padding-right: pxToRem(12);
+    flex-grow: 1;
+    justify-self: flex-start;
+    padding-right: pxToRem(12);
 
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .section__header__actions {
-  justify-self: flex-end;
-  flex-shrink: 0;
+    justify-self: flex-end;
+    flex-shrink: 0;
 }
 
 .section__body {
