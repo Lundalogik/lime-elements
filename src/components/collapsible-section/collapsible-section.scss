@@ -9,6 +9,7 @@
 
 :host {
     display: block;
+    --border-radius-of-header: 0.75rem;
 }
 
 :host([hidden]) {
@@ -20,7 +21,7 @@
 }
 
 .section__header {
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, border-radius 0.1s ease;
     cursor: pointer;
 
     align-items: center;
@@ -36,6 +37,8 @@
 
     section.open & {
         background-color: var(--open-header-background-color, #ffffff);
+        border-radius: var(--border-radius-of-header)
+            var(--border-radius-of-header) 0 0;
         &:hover {
             background-color: var(--open-header-background-color, #f6f6f7);
         }
@@ -63,6 +66,8 @@
 .section__body {
     background-color: var(--body-background-color, #ffffff);
     padding: var(--body-padding, 0);
+    border-radius: 0 0 var(--border-radius-of-header)
+        var(--border-radius-of-header);
 
     display: none;
     section.open & {
