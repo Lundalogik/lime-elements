@@ -65,7 +65,8 @@
 
 .section__body {
     background-color: var(--body-background-color, #ffffff);
-    padding: var(--body-padding, 0);
+    padding: var(--body-padding, pxToRem(20));
+    margin-bottom: pxToRem(24);
     border-radius: 0 0 var(--border-radius-of-header)
         var(--border-radius-of-header);
 
