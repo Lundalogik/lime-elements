@@ -1,3 +1,10 @@
+# [29.7.0](https://github.com/Lundalogik/lime-elements/compare/v29.6.4...v29.7.0) (2020-11-18)
+
+
+### Features
+
+* **button:** add `has-reduced-presence` helper class ([03be533](https://github.com/Lundalogik/lime-elements/commit/03be533ebfeac2bc798ae277caf3f11568db6f6c)), closes [Lundalogik/crm-feature#1581](https://github.com/Lundalogik/crm-feature/issues/1581)
+
 ## [29.6.4](https://github.com/Lundalogik/lime-elements/compare/v29.6.3...v29.6.4) (2020-11-13)
 
 

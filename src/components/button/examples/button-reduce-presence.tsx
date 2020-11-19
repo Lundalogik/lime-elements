@@ -1,21 +1,21 @@
 import { Component, h, State } from '@stencil/core';
 
 /**
- * With click handler
+ * Reduce Presence
  *
- * The click handler in this example sets the attributes `loading` and
- * `disabled` to `true`. After 1 second, the `loading` attribute is set to
- * `false` again. After another 5 seconds, the button is once again enabled.
+ * This example is identical to the one above, except that here, the
+ * `has-reduced-presence` class has been set to `true`. This will hide the
+ * button when it is disabled. However, it will also make sure that the button
+ * remains visible while the loading animation is ongoing. When the animation is
+ * done and the checkmark has been shown, the button will hide.
  *
- * When the `loading` attribute changes from `true` to `false`, the button
- * automatically displays a checkmark icon for 2 seconds. Note that our click
- * handler isn't actually involved in this.
+ * Read more in the [Design Guidelines](/#/DesignGuidelines/decluttering.md)
  */
 @Component({
-    tag: 'limel-example-button-click',
+    tag: 'limel-example-button-reduce-presence',
     shadow: true,
 })
-export class ButtonClickExample {
+export class ButtonReducePresenceExample {
     @State()
     private loading = false;
 
@@ -25,6 +25,7 @@ export class ButtonClickExample {
     public render() {
         return (
             <limel-button
+                class="has-reduced-presence"
                 label="Click me!"
                 primary={true}
                 loading={this.loading}
