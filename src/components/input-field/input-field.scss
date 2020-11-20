@@ -115,6 +115,7 @@ div {
 .mdc-text-field.mdc-text-field--textarea {
     textarea {
         height: var(--textarea-height);
+        resize: vertical;
     }
 }
 
