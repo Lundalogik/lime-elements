@@ -131,3 +131,12 @@ input.mdc-text-field__input {
         margin: auto;
     }
 }
+
+.mdc-text-field-character-counter {
+    transition: opacity 0.2s ease;
+    opacity: 0;
+
+    .mdc-text-field--focused + .mdc-text-field-helper-line & {
+        opacity: 1;
+    }
+}
