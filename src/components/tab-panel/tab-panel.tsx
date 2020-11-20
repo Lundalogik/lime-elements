@@ -11,21 +11,21 @@ import {
 import { Tab } from '../tab-bar/tab.types';
 
 /**
- * The `tab-panel` component uses the `tab-bar` component together with custom
- * slotted components and will display the content for the currently active tab.
- * Each slotted component must have an id equal to the id of the corresponding
- * tab it belongs to.
+ * The `limel-tab-panel` component uses the `limel-tab-bar` component together
+ * with custom slotted components and will display the content for the currently
+ * active tab. Each slotted component must have an id equal to the id of the
+ * corresponding tab it belongs to.
  *
- * The `tab-panel` component will automatically set each tab configuration on
- * the corresponding slotted component as a property named `tab` so that the
+ * The `limel-tab-panel` component will automatically set each tab configuration
+ * on the corresponding slotted component as a property named `tab` so that the
  * component can take action upon that. Sometimes it might be desirable to not
  * load data or render anything until the tab is active.
  *
  * The slotted components can also emit the `changeTab` event to update anything
  * inside the actual tab, e.g. to change the icon, color or badge.
  *
- * @slot - Content to put inside the `tab-panel`. Each slotted element must
- * have the `id` attribute equal to the id of the tab it belongs to.
+ * @slot - Content to put inside the `limel-tab-panel`. Each slotted element
+ * must have the `id` attribute equal to the id of the tab it belongs to.
  *
  * @exampleComponent limel-example-tab-panel
  */
