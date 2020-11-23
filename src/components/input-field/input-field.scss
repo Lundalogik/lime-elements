@@ -115,6 +115,7 @@ div {
 .mdc-text-field.mdc-text-field--textarea {
     textarea {
         height: var(--textarea-height);
+        resize: vertical;
     }
 }
 
@@ -129,5 +130,14 @@ input.mdc-text-field__input {
         top: 0;
         bottom: 0;
         margin: auto;
+    }
+}
+
+.mdc-text-field-character-counter {
+    transition: opacity 0.2s ease;
+    opacity: 0;
+
+    .mdc-text-field--focused + .mdc-text-field-helper-line & {
+        opacity: 1;
     }
 }

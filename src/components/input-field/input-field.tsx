@@ -325,7 +325,6 @@ export class InputField {
 
         return [
             <div class={classList}>
-                {this.renderCharacterCounter()}
                 <textarea
                     id="textarea"
                     class="mdc-text-field__input"
@@ -399,9 +398,7 @@ export class InputField {
         return (
             <div class="mdc-text-field-helper-line">
                 {this.renderHelperText()}
-                {this.type !== 'textarea'
-                    ? this.renderCharacterCounter()
-                    : null}
+                {this.renderCharacterCounter()}
             </div>
         );
     }

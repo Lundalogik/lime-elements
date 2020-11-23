@@ -1,3 +1,12 @@
+## [29.7.2](https://github.com/Lundalogik/lime-elements/compare/v29.7.1...v29.7.2) (2020-11-23)
+
+
+### Bug Fixes
+
+* **input-field:** allow only vertical resize for textarea ([5dbc854](https://github.com/Lundalogik/lime-elements/commit/5dbc85480136011ca97cce7707ed4b968edd7723))
+* **input-field:** hide character counter when not needed ([53a9045](https://github.com/Lundalogik/lime-elements/commit/53a90454a3a0c9eff123162f604f4bed28745b00))
+* **input-field:** make HTML of helper-line for textarea like all other inputs ([6afe67e](https://github.com/Lundalogik/lime-elements/commit/6afe67e93c56175421914c20127b39dab03378f1))
+
 ## [29.7.1](https://github.com/Lundalogik/lime-elements/compare/v29.7.0...v29.7.1) (2020-11-19)
 
 

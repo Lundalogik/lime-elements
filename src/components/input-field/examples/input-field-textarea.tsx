@@ -41,7 +41,7 @@ export class InputFieldTextareaExample {
                 <limel-flex-container justify="end">
                     <limel-checkbox
                         onChange={this.setEnabled}
-                        label="Enabled"
+                        label="Disabled"
                     />
                     <limel-checkbox
                         onChange={this.setRequired}
