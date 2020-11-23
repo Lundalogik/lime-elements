@@ -1,3 +1,10 @@
+## [29.7.3](https://github.com/Lundalogik/lime-elements/compare/v29.7.2...v29.7.3) (2020-11-23)
+
+
+### Bug Fixes
+
+* **collapsible-section:** disallow user selection of headings in collapsible sections ([ae4d4dc](https://github.com/Lundalogik/lime-elements/commit/ae4d4dc31b838c28d84512e8e3b9a1099c610a85))
+
 ## [29.7.2](https://github.com/Lundalogik/lime-elements/compare/v29.7.1...v29.7.2) (2020-11-23)
 
 
