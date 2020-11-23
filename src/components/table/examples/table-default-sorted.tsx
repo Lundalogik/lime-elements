@@ -5,6 +5,11 @@ import { capitalize } from 'lodash-es';
 
 /**
  * Default sorted columns
+ *
+ * In this example, the table is sorted on *two* columns. Primary sorting is
+ * done on the "Eggs per clutch" column, and secondary sorting is done on the
+ * "Name" column. The result is that within each "group" of birds that have the
+ * same number of eggs per clutch, the birds are sorted by name.
  */
 @Component({
     tag: 'limel-example-table-default-sorted',

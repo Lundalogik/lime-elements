@@ -1,12 +1,4 @@
-/*
- * This component is internal and only supposed to be used by
- * the limel-date-picker. This component is needed in order for us
- * to render the flatpickr calendar in a portal.
- *
- */
-
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
-
 import { DateType, Languages } from '@limetech/lime-elements';
 import translate from '../../../global/translations';
 import { DatePicker as DateOnlyPicker } from '../pickers/DatePicker';
@@ -18,6 +10,13 @@ import { TimePicker } from '../pickers/TimePicker';
 import { WeekPicker } from '../pickers/WeekPicker';
 import { YearPicker } from '../pickers/YearPicker';
 
+/**
+ * This component is internal and only supposed to be used by
+ * the limel-date-picker. This component is needed in order for us
+ * to render the flatpickr calendar in a portal.
+ *
+ * @private
+ */
 @Component({
     tag: 'limel-flatpickr-adapter',
     shadow: true,
@@ -31,25 +30,25 @@ export class DatePickerCalendar {
     public value: Date;
 
     /**
-     * Type of date picker. Defaults to `datetime`
+     * Type of date picker.
      */
     @Prop()
     public type: DateType = 'datetime';
 
     /**
-     * Format to display the selected date in
+     * Format to display the selected date in.
      */
     @Prop()
     public format: string;
 
     /**
-     * Set to `true` if the calendar should be open
+     * Set to `true` if the calendar should be open.
      */
     @Prop()
     public isOpen: boolean;
 
     /**
-     * The native input element to use with flatpickr
+     * The native input element to use with flatpickr.
      */
     @Prop()
     public inputElement: HTMLElement;

@@ -39,62 +39,56 @@ import { SelectTemplate } from './select.template';
 })
 export class Select {
     /**
-     * Disables the input field when `true`. Defaults to `false`.
+     * Disables the input field when `true`.
      */
     @Prop({ reflect: true })
     public disabled = false;
 
     /**
-     * Set to `true` to indicate that the current value of the select is invalid.
-     * Defaults to `false`.
+     * Set to `true` to indicate that the current value of the select is
+     * invalid.
      */
     @Prop({ reflect: true })
     public invalid: boolean;
 
     /**
-     * True if the control requires a value
+     * True if the control requires a value.
      */
     @Prop({ reflect: true })
     public required = false;
 
     /**
-     * Text to display next to the select
+     * Text to display next to the select.
      */
     @Prop({ reflect: true })
     public label: string;
 
     /**
-     * Optional helper text to display below the input field when it has focus
+     * Optional helper text to display below the input field when it has focus.
      */
     @Prop({ reflect: true })
     public helperText: string;
 
     /**
-     * Currently selected value or values (if `multiple` is set)
+     * Currently selected value or values (if `multiple` is set).
      */
     @Prop()
     public value: Option | Option[];
 
     /**
-     * List of options
+     * List of options.
      */
     @Prop()
     public options: Option[] = [];
 
     /**
-     * Set to `true` to allow multiple values to be selected. Defaults to `false`
+     * Set to `true` to allow multiple values to be selected.
      */
     @Prop()
     public multiple: boolean = false;
 
-    @State()
-    private menuOpen: boolean = false;
-
-    private hasChanged: boolean = false;
-    private checkValid: boolean = false;
-
     /**
-     * Emitted when the value is changed
+     * Emitted when the value is changed.
      */
     @Event()
     private change: EventEmitter<Option | Option[]>;
@@ -102,12 +96,15 @@ export class Select {
     @Element()
     private host: HTMLLimelSelectElement;
 
+    @State()
+    private menuOpen: boolean = false;
+
+    private hasChanged: boolean = false;
+    private checkValid: boolean = false;
     private mdcSelectHelperText: MDCSelectHelperText;
     private mdcFloatingLabel: MDCFloatingLabel;
     private mdcLineRipple: MDCLineRipple;
-
     private isMobileDevice: boolean;
-
     private portalId: string;
 
     constructor() {

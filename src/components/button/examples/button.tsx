@@ -18,10 +18,10 @@ export class ButtonExample {
 
     public render() {
         return [
-            <div>
-                <limel-button {...this.props} />
-            </div>,
-            this.renderControls(),
+            <limel-button {...this.props} />,
+            <limel-flex-container justify="end">
+                {this.renderControls()}
+            </limel-flex-container>,
         ];
     }
 

@@ -84,3 +84,20 @@ button {
         }
     }
 }
+
+:host(.has-reduced-presence) {
+    button {
+        transition: opacity 300ms ease-in-out;
+
+        &[disabled]:not(.loading):not(.just-loaded) {
+            opacity: 0;
+
+            limel-icon,
+            .label {
+                // Avoid fading in the label while
+                // simultaneously fading out the button.
+                opacity: 0;
+            }
+        }
+    }
+}

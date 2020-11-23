@@ -34,7 +34,6 @@ export class IconButton {
 
     /**
      * Set to `true` to disable the button.
-     * Defaults to `false`.
      */
     @Prop({ reflect: true })
     public disabled = false;

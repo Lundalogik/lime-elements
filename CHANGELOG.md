@@ -1,3 +1,36 @@
+## [29.7.1](https://github.com/Lundalogik/lime-elements/compare/v29.7.0...v29.7.1) (2020-11-19)
+
+
+### Bug Fixes
+
+* **collapsible-section:** add border radius to smoothen the UI ([1379d26](https://github.com/Lundalogik/lime-elements/commit/1379d26e3c0b22a408e7055f17cbd2ec9d1b43a9))
+* **collapsible-section:** add micro interactions to expand icon ([d1a544d](https://github.com/Lundalogik/lime-elements/commit/d1a544dd99eb970c962d5e91ea44d2e2fee8bc7b))
+* **collapsible-section:** fade in section body when opened ([baaa633](https://github.com/Lundalogik/lime-elements/commit/baaa6330d1f5f6220f7c462d71cd452aa1fb3ca2))
+* **collapsible-section:** improve UI by tweaking default padding & margin ([817deca](https://github.com/Lundalogik/lime-elements/commit/817deca9af459f0a8d0f499d4c458d3e010f8c5c))
+* **collapsible-section:** make long section title truncate ([6b85be5](https://github.com/Lundalogik/lime-elements/commit/6b85be5b9be7a2341e91a333b71e2122e9cee08e))
+* **collapsible-section:** use better default colors for header and body ([f3e685b](https://github.com/Lundalogik/lime-elements/commit/f3e685bb83e3218d26b8228d13a5bcbc97ddc94a))
+
+# [29.7.0](https://github.com/Lundalogik/lime-elements/compare/v29.6.4...v29.7.0) (2020-11-18)
+
+
+### Features
+
+* **button:** add `has-reduced-presence` helper class ([03be533](https://github.com/Lundalogik/lime-elements/commit/03be533ebfeac2bc798ae277caf3f11568db6f6c)), closes [Lundalogik/crm-feature#1581](https://github.com/Lundalogik/crm-feature/issues/1581)
+
+## [29.6.4](https://github.com/Lundalogik/lime-elements/compare/v29.6.3...v29.6.4) (2020-11-13)
+
+
+### Bug Fixes
+
+* **table:** show no pagination when only one page exists ([d53ed38](https://github.com/Lundalogik/lime-elements/commit/d53ed38dab930399f6cda81400bfc3bd5f495ccd)), closes [Lundalogik/crm-feature#1551](https://github.com/Lundalogik/crm-feature/issues/1551)
+
+## [29.6.3](https://github.com/Lundalogik/lime-elements/compare/v29.6.2...v29.6.3) (2020-11-12)
+
+
+### Bug Fixes
+
+* **tab-panel:** set correct display on panels when new tabs are given ([acfae12](https://github.com/Lundalogik/lime-elements/commit/acfae127ae3c3507cfd0a775e573f97d302c8243)), closes [Lundalogik/crm-feature#1494](https://github.com/Lundalogik/crm-feature/issues/1494)
+
 ## [29.6.2](https://github.com/Lundalogik/lime-elements/compare/v29.6.1...v29.6.2) (2020-11-09)
 
 

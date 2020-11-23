@@ -8,6 +8,7 @@
  */
 
 :host {
+    --border-radius-of-header: 0.75rem;
     display: block;
 }
 
@@ -19,64 +20,81 @@
     pointer-events: none;
 }
 
-section {
-    > header {
-        align-items: center;
-        background-color: var(--closed-header-background-color, #ffffff);
-        cursor: pointer;
-        display: flex;
-        padding-left: pxToRem(10);
-        padding-right: pxToRem(10);
-        justify-content: space-between;
-        height: pxToRem(60);
+.section__header {
+    transition: background-color 0.2s ease, border-radius 0.1s ease;
+    cursor: pointer;
 
-        > .expander {
-            color: rgba(0, 0, 0, 0.33);
-            height: pxToRem(30);
-            margin-right: pxToRem(5);
-            width: pxToRem(30);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
 
-            > svg {
-                fill: currentColor;
-            }
-        }
+    padding-left: pxToRem(10);
+    padding-right: pxToRem(10);
+    height: pxToRem(60);
 
-        > h2 {
-            flex-grow: 1;
-        }
+    background-color: var(--closed-header-background-color, #fafafb);
+    border-radius: var(--border-radius-of-header);
 
+    section.open & {
+        background-color: var(--open-header-background-color, #ffffff);
+        border-radius: var(--border-radius-of-header)
+            var(--border-radius-of-header) 0 0;
         &:hover {
-            background-color: var(--open-header-background-color, #f8f8f8);
-
-            > .expander {
-                color: rgba(0, 0, 0, 0.6);
-            }
+            background-color: var(--open-header-background-color, #f6f6f7);
         }
     }
-
-    > .body {
-        background-color: var(--body-background-color, #ffffff);
-        display: none;
-        padding: var(--body-padding, 0);
-
-        &:before,
-        &:after {
-            content: ' ';
-            display: table;
-        }
-
-        &:after {
-            clear: both;
-        }
-    }
-
-    &.open {
-        > header {
-            background-color: var(--open-header-background-color, #f8f8f8);
-        }
-
-        > .body {
-            display: block;
-        }
+    &:hover {
+        background-color: var(--open-header-background-color, #f6f6f7);
     }
 }
+
+.section__header__title {
+    flex-grow: 1;
+    justify-self: flex-start;
+    padding-right: pxToRem(12);
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.section__header__actions {
+    justify-self: flex-end;
+    flex-shrink: 0;
+}
+
+@keyframes fade-in-section__body {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.section__body {
+    animation: fade-in-section__body 0.3s ease-in forwards;
+    background-color: var(--body-background-color, #ffffff);
+    padding: var(--body-padding, pxToRem(20));
+    margin-bottom: pxToRem(24);
+    border-radius: 0 0 var(--border-radius-of-header)
+        var(--border-radius-of-header);
+
+    display: none;
+    opacity: 0;
+    section.open & {
+        display: block;
+    }
+
+    &:before,
+    &:after {
+        content: ' ';
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+@import './partial-styles/expand-icon.scss';

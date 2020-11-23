@@ -28,12 +28,6 @@ export class LinearProgressExampleColor {
 
     public render() {
         return [
-            <limel-select
-                label="Color"
-                options={this.colors}
-                value={this.color}
-                onChange={this.onChange}
-            />,
             <p>
                 <limel-linear-progress
                     value={this.value}
@@ -43,6 +37,12 @@ export class LinearProgressExampleColor {
                     }}
                 />
             </p>,
+            <limel-select
+                label="Color"
+                options={this.colors}
+                value={this.color}
+                onChange={this.onChange}
+            />,
         ];
     }
 

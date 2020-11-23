@@ -2,7 +2,8 @@ import { Component, h, State } from '@stencil/core';
 import { Tab } from '@limetech/lime-elements';
 
 /**
- * This example illustrates how to add custom components inside the `tab-panel`.
+ * This example illustrates how to add custom components inside the `limel-tab-panel`.
+ *
  * Each component will simulate loading the data it needs once the tab has been
  * activated and then display the actual content. If the button is pressed, the
  * component will emit the `changeTab` event to change the badge inside the
