@@ -1,0 +1,35 @@
+.mdc-text-field--with-trailing-icon {
+    &:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid) {
+        // `mdc-text-field--invalid` displays a (!) icon, which we don't want it to appear interactive
+        .trailing-icon {
+            transition: background-color 0.2s ease, box-shadow 0.3s ease;
+            border-radius: 50%;
+            padding: pxToRem(8);
+            right: pxToRem(8);
+
+            &:focus {
+                outline: none;
+            }
+
+            &:focus-visible {
+                box-shadow: 0 0 0 pxToRem(2) var(--mdc-theme-primary) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
+            }
+        }
+
+        &:hover {
+            .trailing-icon {
+                box-shadow: var(--button-shadow-normal);
+                background-color: rgba(var(--contrast-100), 0.4);
+
+                &:hover {
+                    background-color: rgb(var(--contrast-100));
+                    box-shadow: var(--button-shadow-hovered);
+                }
+
+                &:active {
+                    box-shadow: var(--button-shadow-pressed);
+                }
+            }
+        }
+    }
+}
