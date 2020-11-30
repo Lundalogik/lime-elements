@@ -505,7 +505,7 @@ export class InputField {
         return (
             <a
                 {...linkProps}
-                class="mdc-text-field__icon"
+                class="mdc-text-field__icon trailing-icon"
                 tabindex={this.disabled ? '-1' : '0'}
                 role="button"
             >
@@ -519,7 +519,7 @@ export class InputField {
             <i
                 onKeyPress={this.handleIconKeyPress}
                 onClick={this.handleIconClick}
-                class="mdc-text-field__icon"
+                class="mdc-text-field__icon trailing-icon"
                 tabindex={this.isInvalid() ? '-1' : '0'}
                 role="button"
             >

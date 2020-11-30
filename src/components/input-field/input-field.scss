@@ -8,6 +8,8 @@
 @import '@limetech/mdc-elevation/mdc-elevation';
 @import '@limetech/mdc-menu-surface/mdc-menu-surface';
 
+@import './partial-styles/trailing-icon.scss';
+
 /**
  * @prop --textarea-height: Height of the field when type is set to `textarea`
  */
