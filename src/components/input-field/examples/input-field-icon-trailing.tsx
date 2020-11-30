@@ -3,7 +3,16 @@ import { Component, h, State } from '@stencil/core';
 /**
  * Input Field with Trailing Icon & Action
  *
- * A trailing icon can be added along with an action for that trailing icon.
+ * A trailing icon can be added to input fields along with an action
+ * for that trailing icon.
+ * :::note
+ * Use trailing icons only when you intend to have an action associated with them.
+ * Trailing icons of input fields will get an interactive visual effect when
+ * hovered to hint users that they are clickable.
+ *
+ * Therefore, a purely ornamental trailing icon that has this interactive effect
+ * will be confusing for users.
+ * :::
  */
 @Component({
     tag: 'limel-example-input-field-icon-trailing',
