@@ -1,3 +1,10 @@
+## [29.7.4](https://github.com/Lundalogik/lime-elements/compare/v29.7.3...v29.7.4) (2020-11-30)
+
+
+### Bug Fixes
+
+* **collapsible-section:** set delay for micro animations ([4696eba](https://github.com/Lundalogik/lime-elements/commit/4696eba02261527797dd09b2190d4602ff098584))
+
 ## [29.7.3](https://github.com/Lundalogik/lime-elements/compare/v29.7.2...v29.7.3) (2020-11-23)
 
 
