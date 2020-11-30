@@ -1,3 +1,10 @@
+## [29.7.5](https://github.com/Lundalogik/lime-elements/compare/v29.7.4...v29.7.5) (2020-11-30)
+
+
+### Bug Fixes
+
+* **input-field:** add interactivity & more affordance to trailing icon ([8a65dfb](https://github.com/Lundalogik/lime-elements/commit/8a65dfbb953411f473efc40bfdf5d663ffa25eda))
+
 ## [29.7.4](https://github.com/Lundalogik/lime-elements/compare/v29.7.3...v29.7.4) (2020-11-30)
 
 
