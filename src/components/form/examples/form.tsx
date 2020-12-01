@@ -3,6 +3,8 @@ import { Component, h, State } from '@stencil/core';
 import { schema } from './schema';
 
 /**
+ * Basic form with validation
+ *
  * @link schema.ts
  */
 @Component({
@@ -49,7 +51,10 @@ export class FormExample {
 
     private handleFormValidate(event: CustomEvent<ValidationStatus>) {
         this.valid = event.detail.valid;
-        console.log(event.detail);
+        console.log(
+            'Basic form with validation - handleFormValidate:',
+            event.detail
+        );
     }
 
     private handleSubmit() {
