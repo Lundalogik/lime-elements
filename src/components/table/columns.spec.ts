@@ -2,6 +2,7 @@ import {
     ColumnDefinitionFactory,
     createCustomComponent,
     createFormatter,
+    formatCell,
 } from './columns';
 import { ElementPool } from './element-pool';
 import { Column } from './table.types';
@@ -64,16 +65,16 @@ describe('createCustomComponent', () => {
     });
 
     describe('createFormatter', () => {
-        let formatCell: Function;
+        let formatter: Function;
 
         describe('when formatter is given', () => {
             beforeEach(() => {
                 column.formatter = (v) => `formatted: ${v}`;
-                formatCell = createFormatter(column, pool);
+                formatter = createFormatter(column, pool) as any;
             });
 
             it('returns the formatted value', () => {
-                expect(formatCell(cell, column)).toEqual('formatted: FOO');
+                expect(formatter(cell, column)).toEqual('formatted: FOO');
             });
         });
 
@@ -82,11 +83,11 @@ describe('createCustomComponent', () => {
                 column.component = {
                     name: 'h1',
                 };
-                formatCell = createFormatter(column, pool);
+                formatter = createFormatter(column, pool) as any;
             });
 
             it('returns the formatted value', () => {
-                const component = formatCell(cell, column) as HTMLElement;
+                const component = formatter(cell, column) as HTMLElement;
                 expect(component.tagName.toLowerCase()).toEqual('h1');
                 expect(component).toHaveProperty('value', 'FOO');
             });
@@ -98,11 +99,11 @@ describe('createCustomComponent', () => {
                 column.component = {
                     name: 'h1',
                 };
-                formatCell = createFormatter(column, pool);
+                formatter = createFormatter(column, pool) as any;
             });
 
             it('returns the formatted value', () => {
-                const component = formatCell(cell, column) as HTMLElement;
+                const component = formatter(cell, column) as HTMLElement;
                 expect(component.tagName.toLowerCase()).toEqual('h1');
                 expect(component).toHaveProperty('value', 'formatted: FOO');
             });
@@ -119,22 +120,22 @@ describe('createCustomComponent', () => {
 
             describe('when no formatter is given', () => {
                 beforeEach(() => {
-                    formatCell = createFormatter(column, pool);
+                    formatter = createFormatter(column, pool) as any;
                 });
 
                 it('escapes the value', () => {
-                    expect(formatCell(cell, column)).toEqual(escaped);
+                    expect(formatter(cell, column)).toEqual(escaped);
                 });
             });
 
             describe('when formatter is given', () => {
                 beforeEach(() => {
                     column.formatter = (v) => `formatted: ${v}`;
-                    formatCell = createFormatter(column, pool);
+                    formatter = createFormatter(column, pool) as any;
                 });
 
                 it('escapes the value', () => {
-                    expect(formatCell(cell, column)).toEqual(
+                    expect(formatter(cell, column)).toEqual(
                         `formatted: ${escaped}`
                     );
                 });
@@ -145,11 +146,11 @@ describe('createCustomComponent', () => {
                     column.component = {
                         name: 'h1',
                     };
-                    formatCell = createFormatter(column, pool);
+                    formatter = createFormatter(column, pool) as any;
                 });
 
                 it('returns the formatted value', () => {
-                    const component = formatCell(cell, column) as HTMLElement;
+                    const component = formatter(cell, column) as HTMLElement;
                     expect(component.tagName.toLowerCase()).toEqual('h1');
                     expect(component).toHaveProperty('value', escaped);
                 });
@@ -161,11 +162,11 @@ describe('createCustomComponent', () => {
                     column.component = {
                         name: 'h1',
                     };
-                    formatCell = createFormatter(column, pool);
+                    formatter = createFormatter(column, pool) as any;
                 });
 
                 it('returns the formatted value', () => {
-                    const component = formatCell(cell, column) as HTMLElement;
+                    const component = formatter(cell, column) as HTMLElement;
                     expect(component.tagName.toLowerCase()).toEqual('h1');
                     expect(component).toHaveProperty(
                         'value',
@@ -181,11 +182,11 @@ describe('createCustomComponent', () => {
                     'contains <em>html</em> & &lt;stuff&gt;',
                     'here is another string',
                 ];
-                formatCell = createFormatter(column, pool);
+                formatter = createFormatter(column, pool) as any;
             });
 
             it('does not deep escape', () => {
-                expect(formatCell(cell, column)).toEqual([
+                expect(formatter(cell, column)).toEqual([
                     'contains <em>html</em> & &lt;stuff&gt;',
                     'here is another string',
                 ]);
@@ -222,7 +223,7 @@ describe('createCustomComponent', () => {
             };
 
             const definition = factory.create(column);
-            expect(definition.formatter).toBe(undefined);
+            expect(definition.formatter).toBe(formatCell);
         });
 
         it('uses the default formatter if the custom component misses a name prop', () => {
@@ -230,7 +231,7 @@ describe('createCustomComponent', () => {
             column.component = {} as any;
 
             const definition = factory.create(column);
-            expect(definition.formatter).toBe(undefined);
+            expect(definition.formatter).toBe(formatCell);
         });
     });
 });
