@@ -73,10 +73,6 @@ const SelectValue: FunctionalComponent<
         'mdc-floating-label--float-above': props.hasValue || props.isOpen,
         'mdc-floating-label--active': props.isOpen,
     };
-    const lineClassList = {
-        'mdc-line-ripple': true,
-        'mdc-line-ripple--active': props.isOpen,
-    };
 
     return (
         <div
@@ -89,8 +85,7 @@ const SelectValue: FunctionalComponent<
             <div class="limel-select__selected-text">
                 {getSelectedText(props.value)}
             </div>
-            <span class={labelClassList}>{props.label}</span>
-            <div class={lineClassList} />
+            <label class={labelClassList}>{props.label}</label>
         </div>
     );
 };
@@ -101,12 +96,14 @@ const HelperText: FunctionalComponent<{ text: string }> = (props) => {
     }
 
     return (
-        <p
-            class="mdc-select-helper-text mdc-select-helper-text--persistent"
-            aria-hidden="true"
-        >
-            {props.text.trim()}
-        </p>
+        <div class="mdc-select-helper-line">
+            <p
+                class="mdc-select-helper-text mdc-select-helper-text--persistent"
+                aria-hidden="true"
+            >
+                {props.text.trim()}
+            </p>
+        </div>
     );
 };
 

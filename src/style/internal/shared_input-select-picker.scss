@@ -34,7 +34,6 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
 @mixin looks-like-input-label() {
     font-family: Roboto, sans-serif;
     line-height: pxToRem(28);
-
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
