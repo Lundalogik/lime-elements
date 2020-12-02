@@ -241,6 +241,7 @@ export class Table {
             initialSort: this.getColumnSorter(),
             dataLoaded: this.updateMaxPage,
             dataFiltered: this.updateMaxPage,
+            nestedFieldSeparator: false,
         };
     }
 
