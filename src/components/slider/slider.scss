@@ -1,4 +1,5 @@
 @import '../../style/internal/mdc-variables';
+@import '../../style/internal/shared_input-select-picker';
 
 @import '@limetech/mdc-slider/mdc-slider';
 @import '@limetech/mdc-floating-label/mdc-floating-label';
@@ -36,18 +37,21 @@ $colorGrey: #999999;
 .slider {
     position: relative;
     padding-top: pxToRem(
-        28
+        20
     ); // Without this, the slider's label will be rendered outside the slider's box model (because it has an absolute position and transform)
 }
 
 .slider__label {
+    @include looks-like-input-label;
     padding-left: pxToRem(20);
+    font-size: pxToRem(16);
 }
 
 .slider__content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin: pxToRem(-2) 0 pxToRem(2) 0;
 }
 
 .slider__content-range-container {
@@ -214,21 +218,12 @@ $colorGrey: #999999;
 }
 
 .mdc-slider-helper-line {
-    padding-right: 1rem;
-    padding-left: 1rem;
-    display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
-
-    .mdc-slider-helper-text {
-        font-size: 0.6875rem;
-        font-weight: 400;
-        letter-spacing: 0.0333333333em;
-        margin-top: 0;
-        line-height: normal;
-        margin: 0;
-        transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: opacity;
-        opacity: 1;
+    @include looks-like-helper-line;
+}
+.mdc-slider-helper-text {
+    @include looks-like-helper-text;
+    opacity: 1;
+    &:before {
+        @include looks-like-helper-text-pseudo-before;
     }
 }
