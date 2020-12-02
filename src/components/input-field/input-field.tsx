@@ -254,6 +254,7 @@ export class InputField {
         const additionalProps = this.getAdditionalProps();
         const classList = {
             'mdc-text-field': true,
+            'mdc-text-field--outlined': true,
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled,
             'mdc-text-field--required': this.required,
@@ -262,10 +263,11 @@ export class InputField {
         };
 
         return [
-            <label class={classList}>
+            <div class={classList}>
                 {this.renderFormattedNumber()}
                 <input
                     class="mdc-text-field__input"
+                    id="tf-input-element"
                     onInput={this.handleChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
@@ -278,21 +280,27 @@ export class InputField {
                     {...additionalProps}
                     value={this.value}
                 />
-                <span
-                    class={`
-                        mdc-floating-label
-                        ${
-                            this.value || this.isFocused
-                                ? 'mdc-floating-label--float-above'
-                                : ''
-                        }
-                    `}
-                >
-                    {this.label}
-                </span>
+                <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                        <label
+                            class={`
+                            mdc-floating-label
+                            ${
+                                this.value || this.isFocused
+                                    ? 'mdc-floating-label--float-above'
+                                    : ''
+                            }
+                        `}
+                            htmlFor="input-element"
+                        >
+                            {this.label}
+                        </label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                </div>
                 {this.renderIcons()}
-                <div class="mdc-line-ripple" />
-            </label>,
+            </div>,
             this.renderHelperLine(),
             <div class="autocomplete-list-container">
                 {this.renderDropdown()}
