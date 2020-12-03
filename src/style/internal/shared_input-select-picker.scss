@@ -12,15 +12,11 @@ $label-color: rgba(var(--contrast-1200), 1);
 $label-color-disabled: rgba(var(--contrast-1200), 0.5);
 
 $height-of-mdc-text-field: 3.5rem; //This is written directly in rem, beucase the vaiable used to calculate things elsewhere
-$height-of-chip: pxToRem(20);
 
 $mdc-chip-background-color: #fff;
-$padding-top-of-chipset-input: 1rem;
-$height-of-chipset-input: $height-of-mdc-text-field -
-    $padding-top-of-chipset-input;
 
 $floating-label-top-value: pxToRem(
-    28
+    27
 ); // this overrides MD's original top value which is top: 50%. The reason is that we have fields or pickers which can have multiple rows, and a % value aligns the label in a wrong position
 
 $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo before in MD's helper texts, which sets their distance to the element on top of it. Originally in MD, this value is 1rem. In Lime Elements, we need to make it less due to our layout needs.
