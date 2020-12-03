@@ -31,7 +31,7 @@ interface LinkProperties {
 
 /**
  * @exampleComponent limel-example-input-field-text
- * @exampleComponent limel-example-input-field-text-inline
+ * @exampleComponent limel-example-input-field-text-multiple
  * @exampleComponent limel-example-input-field-number
  * @exampleComponent limel-example-input-field-autocomplete
  * @exampleComponent limel-example-input-field-icon-leading
