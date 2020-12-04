@@ -1,3 +1,11 @@
+## [29.7.6](https://github.com/Lundalogik/lime-elements/compare/v29.7.5...v29.7.6) (2020-12-04)
+
+
+### Bug Fixes
+
+* **table:** disable implicit field separator ([ce75d43](https://github.com/Lundalogik/lime-elements/commit/ce75d431c24b131e949d11c7cb94dfa1d4888509)), closes [Lundalogik/crm-feature#1621](https://github.com/Lundalogik/crm-feature/issues/1621)
+* **table:** make sure custom component has a name when creating formatter ([253488f](https://github.com/Lundalogik/lime-elements/commit/253488f47537ef2b5970fac0c2f1e68133e95551))
+
 ## [29.7.5](https://github.com/Lundalogik/lime-elements/compare/v29.7.4...v29.7.5) (2020-11-30)
 
 
