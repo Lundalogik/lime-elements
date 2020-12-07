@@ -204,6 +204,7 @@ export class InputField {
         this.onKeyDown = this.onKeyDown.bind(this);
         this.handleCompletionChange = this.handleCompletionChange.bind(this);
         this.onKeyDownForList = this.onKeyDownForList.bind(this);
+        this.layout = this.layout.bind(this);
     }
 
     public connectedCallback() {
@@ -227,12 +228,16 @@ export class InputField {
         this.completionsList = [...this.completions].map((item) => {
             return { text: item };
         });
+
+        window.addEventListener('resize', this.layout, { passive: true });
     }
 
     public disconnectedCallback() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
         }
+
+        window.removeEventListener('resize', this.layout);
     }
 
     public componentDidUpdate() {
@@ -304,6 +309,10 @@ export class InputField {
         if (newValue !== this.mdcTextField.value) {
             this.mdcTextField.value = newValue || '';
         }
+    }
+
+    private layout() {
+        this.mdcTextField?.layout();
     }
 
     private renderTextArea() {
