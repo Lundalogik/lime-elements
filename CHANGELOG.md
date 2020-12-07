@@ -1,3 +1,11 @@
+# [29.8.0](https://github.com/Lundalogik/lime-elements/compare/v29.7.6...v29.8.0) (2020-12-07)
+
+
+### Features
+
+* **form:** add optional form layouts ([f0c0c98](https://github.com/Lundalogik/lime-elements/commit/f0c0c98709c7a1bcaa78e7694f1f6b7346616653))
+* **form:** split span config into colSpan and rowSpan ([4ba4896](https://github.com/Lundalogik/lime-elements/commit/4ba4896ad3a1d83d658ccc78cec13ade85a622ef)), closes [Lundalogik/crm-feature#1527](https://github.com/Lundalogik/crm-feature/issues/1527)
+
 ## [29.7.6](https://github.com/Lundalogik/lime-elements/compare/v29.7.5...v29.7.6) (2020-12-04)
 
 
