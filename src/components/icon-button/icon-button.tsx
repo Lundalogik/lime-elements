@@ -13,6 +13,12 @@ import { IconSize } from '@limetech/lime-elements';
     styleUrl: 'icon-button.scss',
 })
 export class IconButton {
+    public constructor() {
+        this.removeFocusedStyleOnClick = this.removeFocusedStyleOnClick.bind(
+            this
+        );
+    }
+
     /**
      * The icon to display.
      */
@@ -56,6 +62,13 @@ export class IconButton {
         }
     }
 
+    private removeFocusedStyleOnClick() {
+        const mdcButton = this.host.shadowRoot.querySelector(
+            '.mdc-icon-button'
+        );
+        mdcButton.classList.remove('mdc-ripple-upgraded--background-focused');
+    }
+
     public connectedCallback() {
         this.initialize();
     }
@@ -72,10 +85,12 @@ export class IconButton {
 
         this.mdcIconButtonRipple = new MDCRipple(element);
         this.mdcIconButtonRipple.unbounded = true;
+        this.host.addEventListener('click', this.removeFocusedStyleOnClick);
     }
 
     public disconnectedCallback() {
         this.mdcIconButtonRipple?.destroy();
+        this.host.removeEventListener('click', this.removeFocusedStyleOnClick);
     }
 
     public render() {
