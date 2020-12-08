@@ -2,6 +2,12 @@
 @import '../../style/internal/mdc-variables';
 @import '@limetech/mdc-icon-button/mdc-icon-button';
 
+@media (pointer: coarse) {
+    .mdc-icon-button:hover::before {
+        opacity: 0;
+    }
+}
+
 /**
  * @prop --icon-background-color: Background color when attribute `elevated` is set to `true`.
  */
