@@ -579,9 +579,7 @@ export class InputField {
               )
             : this.value;
 
-        return (
-            <span class="mdc-text-field__formatted_input">{renderValue}</span>
-        );
+        return <span class="formatted-input">{renderValue}</span>;
     }
 
     /**
