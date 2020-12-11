@@ -1,3 +1,10 @@
+## [29.8.1](https://github.com/Lundalogik/lime-elements/compare/v29.8.0...v29.8.1) (2020-12-11)
+
+
+### Bug Fixes
+
+* **input-field:** fix missing label when prefilled and placed in dialog or collapsible-section ([5f3735a](https://github.com/Lundalogik/lime-elements/commit/5f3735a4aab6c0646c4fb82859b4ea9e76655a71)), closes [#950](https://github.com/Lundalogik/lime-elements/issues/950)
+
 # [29.8.0](https://github.com/Lundalogik/lime-elements/compare/v29.7.6...v29.8.0) (2020-12-07)
 
 
