@@ -30,6 +30,7 @@
 
     .limel-select-trigger {
         display: inline-flex;
+        min-width: 0; // makes the limel-select__selected-text truncate and prevents the select to grow wider than its container
         height: $height-of-mdc-text-field;
 
         cursor: pointer;
