@@ -1,3 +1,10 @@
+## [29.8.2](https://github.com/Lundalogik/lime-elements/compare/v29.8.1...v29.8.2) (2020-12-14)
+
+
+### Bug Fixes
+
+* **select:** make selected-text truncate & prevent select to grow wider than its container ([41238ed](https://github.com/Lundalogik/lime-elements/commit/41238ed0629ae2ed19201a9b82332851e543de51))
+
 ## [29.8.1](https://github.com/Lundalogik/lime-elements/compare/v29.8.0...v29.8.1) (2020-12-11)
 
 
