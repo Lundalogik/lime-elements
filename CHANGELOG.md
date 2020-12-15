@@ -1,3 +1,38 @@
+# [30.0.0](https://github.com/Lundalogik/lime-elements/compare/v29.8.3...v30.0.0) (2020-12-15)
+
+
+### Bug Fixes
+
+* **chip-set:** adjust to work with new outlined styles ([ff9a97c](https://github.com/Lundalogik/lime-elements/commit/ff9a97cb331c13706a500632b2b11633c794ebda)), closes [Lundalogik/crm-feature#1516](https://github.com/Lundalogik/crm-feature/issues/1516)
+* **select:** adjust to work with new outlined styles ([b01a3ce](https://github.com/Lundalogik/lime-elements/commit/b01a3cef61ea5bce99610b72e824cf2923282b84)), closes [Lundalogik/crm-feature#1516](https://github.com/Lundalogik/crm-feature/issues/1516)
+* **slider:** adjust to work with new outlined styles ([d44d153](https://github.com/Lundalogik/lime-elements/commit/d44d153e58ad405ef26e6189c3ff6166ea19e5d7)), closes [Lundalogik/crm-feature#1516](https://github.com/Lundalogik/crm-feature/issues/1516)
+
+
+### Features
+
+* **input-field:** change style from "underlined" to "outlined" ([ab3df1d](https://github.com/Lundalogik/lime-elements/commit/ab3df1da77e59cbe12958b537338df459f610d08)), closes [Lundalogik/crm-feature#1516](https://github.com/Lundalogik/crm-feature/issues/1516)
+
+
+### BREAKING CHANGES
+
+* **chip-set:** With this change, the field label has moved up a bit,
+which means the field now requires some whitespace above it, or the label
+will intersect with the element above. When the field is used with
+`limel-form`, spacing is already taken care of.
+* **slider:** With this change, the field label has moved up a bit,
+which means the field now requires some whitespace above it, or the label
+will intersect with the element above. When the field is used with
+`limel-form`, spacing is already taken care of.
+* **select:** With this change, the field label has moved up a bit,
+which means the field now requires some whitespace above it, or the label
+will intersect with the element above. When the field is used with
+`limel-form`, spacing is already taken care of.
+* **input-field:** The style of `limel-input-field` has been changed from
+"underlined" to "outlined". With this change, the field label has moved
+up a bit, which means the field now requires some whitespace above it,
+or the label will intersect with the element above. When the field is
+used with `limel-form`, spacing is already taken care of.
+
 ## [29.8.3](https://github.com/Lundalogik/lime-elements/compare/v29.8.2...v29.8.3) (2020-12-15)
 
 
