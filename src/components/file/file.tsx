@@ -143,26 +143,26 @@ export class File {
 
         return [
             <input
-                id={this.fileInputId}
-                type="file"
-                onChange={this.handleFileChange}
                 hidden={true}
+                id={this.fileInputId}
+                onChange={this.handleFileChange}
+                type="file"
             />,
             <limel-chip-set
                 disabled={this.disabled}
                 label={this.label}
-                required={this.required}
-                onKeyDown={this.handleKeyDown}
-                onKeyUp={this.handleKeyUp}
-                type="input"
-                value={chipArray}
-                onClick={this.handleFileSelection}
+                leadingIcon="upload_to_cloud"
                 onChange={this.handleChipSetChange}
-                onInteract={this.preventAndStop}
-                onDrop={this.handleFileDrop}
+                onClick={this.handleFileSelection}
                 onDragEnter={this.preventAndStop}
                 onDragOver={this.preventAndStop}
-                leadingIcon="upload_to_cloud"
+                onDrop={this.handleFileDrop}
+                onInteract={this.preventAndStop}
+                onKeyDown={this.handleKeyDown}
+                onKeyUp={this.handleKeyUp}
+                required={this.required}
+                type="input"
+                value={chipArray}
             />,
         ];
     }

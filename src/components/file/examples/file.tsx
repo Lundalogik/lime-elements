@@ -21,9 +21,9 @@ export class FileExample {
         return [
             <limel-file
                 label="Attach a file"
-                value={this.value}
-                required={this.required}
                 onChange={this.handleChange}
+                required={this.required}
+                value={this.value}
             />,
             <limel-flex-container justify="end">
                 <limel-switch
