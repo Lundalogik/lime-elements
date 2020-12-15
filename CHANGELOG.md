@@ -1,3 +1,10 @@
+## [29.8.3](https://github.com/Lundalogik/lime-elements/compare/v29.8.2...v29.8.3) (2020-12-15)
+
+
+### Bug Fixes
+
+* **form:** emit undefined from date-picker when cleared ([84a61bb](https://github.com/Lundalogik/lime-elements/commit/84a61bb927e00ace407e0c00176bae633a239fad)), closes [Lundalogik/crm-feature#1643](https://github.com/Lundalogik/crm-feature/issues/1643)
+
 ## [29.8.2](https://github.com/Lundalogik/lime-elements/compare/v29.8.1...v29.8.2) (2020-12-14)
 
 
