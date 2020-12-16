@@ -42,7 +42,7 @@ export class FileCustomIconExample {
         ];
     }
 
-    private handleChange(event) {
+    private handleChange(event: CustomEvent<FileInfo>) {
         this.value = event.detail;
         this.updateIcon();
         console.log('onChange', this.value);
