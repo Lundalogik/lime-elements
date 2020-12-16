@@ -35,7 +35,7 @@ export class FileExample {
         ];
     }
 
-    private handleChange(event) {
+    private handleChange(event: CustomEvent<FileInfo>) {
         this.value = event.detail;
         console.log('onChange', this.value);
     }
