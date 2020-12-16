@@ -1,3 +1,10 @@
+## [30.0.1](https://github.com/Lundalogik/lime-elements/compare/v30.0.0...v30.0.1) (2020-12-16)
+
+
+### Bug Fixes
+
+* **select:** remove unused line ripple ([734f758](https://github.com/Lundalogik/lime-elements/commit/734f7580b88fd3d4d2f0c5971bcaeae4bd6249f9)), closes [Lundalogik/crm-feature#1691](https://github.com/Lundalogik/crm-feature/issues/1691)
+
 # [30.0.0](https://github.com/Lundalogik/lime-elements/compare/v29.8.3...v30.0.0) (2020-12-15)
 
 
