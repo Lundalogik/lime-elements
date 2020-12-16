@@ -18,6 +18,12 @@ export const schema = {
             description: 'Enter your email address',
             format: 'email',
         },
+        home: {
+            type: 'string',
+            title: 'Home',
+            default: 'Earth',
+            readOnly: true,
+        },
         happiness: {
             type: 'number',
             title: 'Happiness',
