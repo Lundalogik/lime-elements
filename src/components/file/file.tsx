@@ -131,16 +131,6 @@ export class File {
     }
 
     public render() {
-        const chipArray = this.value
-            ? [
-                  {
-                      ...DEFAULT_FILE_CHIP,
-                      text: this.value.filename,
-                      id: this.value.id,
-                  },
-              ]
-            : [];
-
         return [
             <input
                 hidden={true}
@@ -162,9 +152,21 @@ export class File {
                 onKeyUp={this.handleKeyUp}
                 required={this.required}
                 type="input"
-                value={chipArray}
+                value={this.chipArray}
             />,
         ];
+    }
+
+    private get chipArray() {
+        return this.value
+            ? [
+                  {
+                      ...DEFAULT_FILE_CHIP,
+                      text: this.value.filename,
+                      id: this.value.id,
+                  },
+              ]
+            : [];
     }
 
     private handleKeyDown(event: KeyboardEvent) {
