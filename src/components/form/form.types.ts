@@ -136,6 +136,11 @@ export interface LimeSchemaOptions {
      * specified layout
      */
     layout?: FormLayoutOptions<any>;
+
+    /**
+     * Mark the field as disabled
+     */
+    disabled?: boolean;
 }
 
 /**
