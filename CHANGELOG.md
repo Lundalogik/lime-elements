@@ -1,3 +1,10 @@
+## [30.0.3](https://github.com/Lundalogik/lime-elements/compare/v30.0.2...v30.0.3) (2020-12-17)
+
+
+### Bug Fixes
+
+* **table:** calculate height of tables without aggregation & pagination correctly ([f7f1deb](https://github.com/Lundalogik/lime-elements/commit/f7f1debf6dbf4521c5d512dc02300ab07d917dd1))
+
 ## [30.0.2](https://github.com/Lundalogik/lime-elements/compare/v30.0.1...v30.0.2) (2020-12-17)
 
 
