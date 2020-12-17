@@ -23,6 +23,7 @@ import {
 } from '../../util/keycodes';
 import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
+import { getHref } from './link-helper';
 
 interface LinkProperties {
     href: string;
@@ -512,7 +513,7 @@ export class InputField {
                 props.href = `tel:${this.value}`;
                 break;
             default:
-                props.href = `${this.value}`;
+                props.href = getHref(this.value);
                 props.target = '_blank';
         }
 
