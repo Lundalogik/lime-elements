@@ -1,3 +1,10 @@
+## [30.0.2](https://github.com/Lundalogik/lime-elements/compare/v30.0.1...v30.0.2) (2020-12-17)
+
+
+### Bug Fixes
+
+* **menu-surface:** resize the menu's height when the host element's height changes ([f23f03d](https://github.com/Lundalogik/lime-elements/commit/f23f03d7a9fd27d5fc0db19014e1400101bcc876)), closes [Lundalogik/crm-feature#1635](https://github.com/Lundalogik/crm-feature/issues/1635)
+
 ## [30.0.1](https://github.com/Lundalogik/lime-elements/compare/v30.0.0...v30.0.1) (2020-12-16)
 
 
