@@ -1,3 +1,31 @@
+## [30.0.4](https://github.com/Lundalogik/lime-elements/compare/v30.0.3...v30.0.4) (2020-12-18)
+
+
+### Bug Fixes
+
+* **date-picker:** add timezone to date-time format type ([a7eb6c7](https://github.com/Lundalogik/lime-elements/commit/a7eb6c74ff2d64d4d11156c728b3a483b55b4149)), closes [Lundalogik/crm-feature#1690](https://github.com/Lundalogik/crm-feature/issues/1690)
+
+## [30.0.3](https://github.com/Lundalogik/lime-elements/compare/v30.0.2...v30.0.3) (2020-12-17)
+
+
+### Bug Fixes
+
+* **table:** calculate height of tables without aggregation & pagination correctly ([f7f1deb](https://github.com/Lundalogik/lime-elements/commit/f7f1debf6dbf4521c5d512dc02300ab07d917dd1))
+
+## [30.0.2](https://github.com/Lundalogik/lime-elements/compare/v30.0.1...v30.0.2) (2020-12-17)
+
+
+### Bug Fixes
+
+* **menu-surface:** resize the menu's height when the host element's height changes ([f23f03d](https://github.com/Lundalogik/lime-elements/commit/f23f03d7a9fd27d5fc0db19014e1400101bcc876)), closes [Lundalogik/crm-feature#1635](https://github.com/Lundalogik/crm-feature/issues/1635)
+
+## [30.0.1](https://github.com/Lundalogik/lime-elements/compare/v30.0.0...v30.0.1) (2020-12-16)
+
+
+### Bug Fixes
+
+* **select:** remove unused line ripple ([734f758](https://github.com/Lundalogik/lime-elements/commit/734f7580b88fd3d4d2f0c5971bcaeae4bd6249f9)), closes [Lundalogik/crm-feature#1691](https://github.com/Lundalogik/crm-feature/issues/1691)
+
 # [30.0.0](https://github.com/Lundalogik/lime-elements/compare/v29.8.3...v30.0.0) (2020-12-15)
 
 
