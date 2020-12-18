@@ -1,3 +1,10 @@
+## [30.0.5](https://github.com/Lundalogik/lime-elements/compare/v30.0.4...v30.0.5) (2020-12-18)
+
+
+### Bug Fixes
+
+* **form:** allow fields to be rendered as read only ([3ceb3ab](https://github.com/Lundalogik/lime-elements/commit/3ceb3abd0173ebf396a840dcc8297b9a71e68201)), closes [#1072](https://github.com/Lundalogik/lime-elements/issues/1072)
+
 ## [30.0.4](https://github.com/Lundalogik/lime-elements/compare/v30.0.3...v30.0.4) (2020-12-18)
 
 
