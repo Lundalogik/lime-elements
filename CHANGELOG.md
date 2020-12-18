@@ -1,3 +1,10 @@
+## [30.0.4](https://github.com/Lundalogik/lime-elements/compare/v30.0.3...v30.0.4) (2020-12-18)
+
+
+### Bug Fixes
+
+* **date-picker:** add timezone to date-time format type ([a7eb6c7](https://github.com/Lundalogik/lime-elements/commit/a7eb6c74ff2d64d4d11156c728b3a483b55b4149)), closes [Lundalogik/crm-feature#1690](https://github.com/Lundalogik/crm-feature/issues/1690)
+
 ## [30.0.3](https://github.com/Lundalogik/lime-elements/compare/v30.0.2...v30.0.3) (2020-12-17)
 
 
