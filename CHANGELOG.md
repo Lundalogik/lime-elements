@@ -1,3 +1,10 @@
+## [30.0.6](https://github.com/Lundalogik/lime-elements/compare/v30.0.5...v30.0.6) (2020-12-22)
+
+
+### Bug Fixes
+
+* **tab-bar:** reduce original letter spacing in MD tabs ([15c7063](https://github.com/Lundalogik/lime-elements/commit/15c70636789275aacac7d98d478940bad8ee57c1))
+
 ## [30.0.5](https://github.com/Lundalogik/lime-elements/compare/v30.0.4...v30.0.5) (2020-12-18)
 
 
