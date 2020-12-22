@@ -1,3 +1,11 @@
+## [30.0.7](https://github.com/Lundalogik/lime-elements/compare/v30.0.6...v30.0.7) (2020-12-22)
+
+
+### Bug Fixes
+
+* **input-field:** improve action for incomplete url:s ([2eec999](https://github.com/Lundalogik/lime-elements/commit/2eec999a012933c9663848fe703574fa8e4c12ab)), closes [Lundalogik/crm-feature#1628](https://github.com/Lundalogik/crm-feature/issues/1628)
+* **input-field:** improve target for relative url:s ([1268368](https://github.com/Lundalogik/lime-elements/commit/1268368a96801689d35f532977b88379dc86afd4))
+
 ## [30.0.6](https://github.com/Lundalogik/lime-elements/compare/v30.0.5...v30.0.6) (2020-12-22)
 
 
