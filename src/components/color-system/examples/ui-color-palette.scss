@@ -1,6 +1,12 @@
 @import '../../../style/functions';
 @import './shared-styles';
 
+// NOTE The following is a special local file that applies colors on :host
+// instead of :root. This is necessary to have this example use both dark- and
+// light-mode, despite the docs overall only using light-mode. This can be
+// removed once we enable dark-mode for the docs again. /Ads
+@import './color-palette-extended';
+
 .color-palette {
     grid-template-rows: repeat(3, 1fr) auto;
     grid-template-columns: repeat(5, 1fr) auto;
