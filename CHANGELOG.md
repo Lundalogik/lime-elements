@@ -1,3 +1,10 @@
+## [30.0.8](https://github.com/Lundalogik/lime-elements/compare/v30.0.7...v30.0.8) (2020-12-23)
+
+
+### Bug Fixes
+
+* **dialog:** don't render footer if the `button` slot is empty ([28f9602](https://github.com/Lundalogik/lime-elements/commit/28f9602fa92139ec6870e9c5e529dfbd6e26bb38)), closes [#1009](https://github.com/Lundalogik/lime-elements/issues/1009)
+
 ## [30.0.7](https://github.com/Lundalogik/lime-elements/compare/v30.0.6...v30.0.7) (2020-12-22)
 
 
