@@ -22,7 +22,7 @@
 
     &:first-of-type,
     &:last-of-type {
-        transition: opacity 0.2s ease, transform 0.4s ease;
+        transition: opacity 0.2s ease 0.1s, transform 0.4s ease 0.3s;
     }
 
     &:first-of-type {
@@ -52,8 +52,8 @@
 
             &:nth-of-type(2),
             &:nth-of-type(3) {
-                transition: opacity 0.5s ease 0.2s,
-                    transform 0.7s cubic-bezier(0.85, 0.11, 0.14, 1.35);
+                transition: opacity 0.5s ease 0.4s,
+                    transform 0.7s cubic-bezier(0.85, 0.11, 0.14, 1.35) 0.2s;
             }
 
             &:nth-of-type(2) {
@@ -72,6 +72,10 @@
 section.open {
     .section__header {
         .expand-icon__line {
+            &:first-of-type,
+            &:last-of-type {
+                transition: opacity 0.2s ease 0.1s, transform 0.4s ease 0.3s;
+            }
             &:first-of-type {
                 transform: rotate3d(0, 0, 1, 0deg);
             }
@@ -100,8 +104,8 @@ section.open {
             .expand-icon__line {
                 &:first-of-type,
                 &:last-of-type {
-                    transition: opacity 0.2s ease,
-                        transform 0.4s cubic-bezier(0.85, 0.11, 0.14, 1.35);
+                    transition: opacity 0.2s ease 0.4s,
+                        transform 0.4s cubic-bezier(0.85, 0.11, 0.14, 1.35) 0.2s;
                 }
 
                 &:first-of-type {

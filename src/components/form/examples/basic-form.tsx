@@ -1,9 +1,11 @@
 import { ValidationStatus } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { schema } from './schema';
+import { schema } from './basic-schema';
 
 /**
- * @link schema.ts
+ * Basic form with validation
+ *
+ * @link basic-schema.ts
  */
 @Component({
     tag: 'limel-example-form',
@@ -49,7 +51,10 @@ export class FormExample {
 
     private handleFormValidate(event: CustomEvent<ValidationStatus>) {
         this.valid = event.detail.valid;
-        console.log(event.detail);
+        console.log(
+            'Basic form with validation - handleFormValidate:',
+            event.detail
+        );
     }
 
     private handleSubmit() {

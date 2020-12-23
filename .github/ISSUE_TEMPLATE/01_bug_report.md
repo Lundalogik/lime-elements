@@ -1,12 +1,16 @@
 ---
 name: Bug report
 about: Something not working as expected
+labels: bug
 
 ---
 
 ## Current behavior
 
-<!-- Describe how the issue manifests. -->
+<!-- Describe how the issue manifests. Please add screenshots when possible. -->
+
+Steps to reproduce the behavior:
+1. …
 
 ## Expected behavior
 

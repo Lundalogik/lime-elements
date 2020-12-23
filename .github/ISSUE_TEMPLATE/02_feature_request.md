@@ -1,6 +1,7 @@
 ---
 name: Feature request
 about: Wouldn’t it be nice if lime-elements had ...
+labels: feature
 
 ---
 

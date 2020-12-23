@@ -47,8 +47,14 @@ export class DatePicker extends React.Component {
             return;
         }
 
+        if (!event.detail) {
+            props.onChange(undefined);
+
+            return;
+        }
+
         const formatMapping = {
-            'date-time': 'YYYY-MM-DDTHH:mm:ss',
+            'date-time': 'YYYY-MM-DDTHH:mm:ssZ',
             date: 'YYYY-MM-DD',
             time: 'HH:mm:ss',
         };

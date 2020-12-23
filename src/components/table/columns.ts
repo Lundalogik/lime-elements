@@ -46,7 +46,7 @@ export function createFormatter(
     column: Column,
     pool: ElementPool
 ): Tabulator.Formatter {
-    if (!column.component) {
+    if (!column.component?.name) {
         return formatCell;
     }
 
@@ -58,7 +58,7 @@ export function createFormatter(
             }/> does not exist. Using the default formatter.`
         );
 
-        return;
+        return formatCell;
     }
 
     return (cell: Tabulator.CellComponent) => {

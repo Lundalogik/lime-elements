@@ -8,6 +8,9 @@
 @import '@limetech/mdc-elevation/mdc-elevation';
 @import '@limetech/mdc-menu-surface/mdc-menu-surface';
 
+@import './partial-styles/trailing-icon.scss';
+@import './partial-styles/outlined-style-overrides.scss';
+
 /**
  * @prop --textarea-height: Height of the field when type is set to `textarea`
  */
@@ -20,60 +23,63 @@
     display: none;
 }
 
+:host([type='textarea']) {
+    height: var(--textarea-height, 100%);
+
+    .mdc-text-field.mdc-text-field--textarea {
+        height: var(--textarea-height, 100%);
+
+        &.has-helper-line {
+            --heightOfHelperText: 1.1875rem;
+            height: calc(
+                var(--textarea-height, 100%) - var(--heightOfHelperText)
+            );
+        }
+    }
+    textarea.mdc-text-field__input {
+        resize: vertical;
+    }
+}
+
+.mdc-text-field {
+    &:not(.mdc-text-field--disabled) {
+        .mdc-floating-label {
+            color: $label-color;
+        }
+    }
+    &.mdc-text-field--disabled {
+        .mdc-floating-label {
+            color: $label-color-disabled;
+        }
+    }
+}
+
 .mdc-text-field {
     width: 100%;
     @include mdc-states-hover-opacity(0);
     @include mdc-states-focus-opacity(0, true);
 
     .mdc-floating-label {
-        &:not(.textarea-label) {
-            top: $floating-label-top-value;
-        }
-
         right: pxToRem(
             8
         ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
     }
 }
 
-label,
-div {
-    &.mdc-text-field {
-        transition: background-color 0.2s ease;
+.formatted-input {
+    @include looks-like-input-label;
 
-        &:not(.mdc-text-field--disabled) {
-            // this has to be written this way to be able to override MD styles
-            background-color: $background-color-normal;
+    z-index: 1;
+    padding: 0 pxToRem(40) 0 pxToRem(16);
+    align-self: center;
+    position: absolute;
 
-            &:hover {
-                background-color: $background-color-hovered;
-            }
-        }
-
-        &.mdc-text-field--focused {
-            background-color: $background-color-focused;
-        }
-
-        &.mdc-text-field--disabled {
-            background-color: $background-color-disabled;
-        }
-    }
-}
-
-.mdc-text-field__formatted_input {
-    display: None;
+    display: none;
 }
 
 :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
-    .mdc-text-field__formatted_input {
-        @include looks-like-input-label;
-
+    .formatted-input {
         display: block;
-
-        position: absolute;
-        left: pxToRem(16);
-        top: pxToRem(21);
-        z-index: 1;
     }
 
     .mdc-text-field__input[type='number'] {
@@ -84,7 +90,7 @@ div {
 
 .mdc-text-field--disabled {
     background-color: transparent;
-    .mdc-text-field__formatted_input {
+    .formatted-input {
         @include looks-disabled;
     }
 }
@@ -112,12 +118,6 @@ div {
     height: pxToRem(24);
 }
 
-.mdc-text-field.mdc-text-field--textarea {
-    textarea {
-        height: var(--textarea-height);
-    }
-}
-
 input.mdc-text-field__input {
     &::-webkit-search-cancel-button {
         @include clear-all-button;
@@ -129,5 +129,24 @@ input.mdc-text-field__input {
         top: 0;
         bottom: 0;
         margin: auto;
+    }
+}
+
+.mdc-text-field-character-counter {
+    transition: opacity 0.2s ease;
+    opacity: 0;
+
+    .mdc-text-field--focused + .mdc-text-field-helper-line & {
+        opacity: 1;
+    }
+
+    &:before {
+        height: $height-of-helper-text-pseudo-before;
+    }
+}
+
+.mdc-text-field-helper-text {
+    &:before {
+        height: $height-of-helper-text-pseudo-before;
     }
 }

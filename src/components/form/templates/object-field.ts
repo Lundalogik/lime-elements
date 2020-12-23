@@ -1,6 +1,7 @@
 import React from 'react';
-import { FormLayoutOptions } from '../form.types';
+import { FormLayoutOptions, FormLayoutType } from '../form.types';
 import { renderDescription, renderTitle } from './common';
+import { GridLayout } from './grid-layout';
 import { ObjectFieldProperty, ObjectFieldTemplateProps } from './types';
 
 export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
@@ -40,21 +41,40 @@ function renderCollapsibleField(props: ObjectFieldTemplateProps) {
 function renderProperties(properties: ObjectFieldProperty[], schema: any) {
     const layout: FormLayoutOptions = schema.lime?.layout;
 
-    if (layout?.type) {
-        return renderLayout(properties, layout);
-    }
-
-    return properties.map((element) => element.content);
+    return renderLayout(properties, layout);
 }
 
 function renderLayout(
     properties: ObjectFieldProperty[],
     layout: FormLayoutOptions
 ) {
+    const type = layout?.type || FormLayoutType.Default;
+    const layouts: Record<FormLayoutType, Function> = {
+        default: renderDefaultLayout,
+        grid: renderGridLayout,
+    };
+
+    return layouts[type](properties, layout);
+}
+
+function renderDefaultLayout(properties: ObjectFieldProperty[]) {
     return React.createElement(
         'div',
         {
-            className: `limel-form-layout--${layout.type}`,
+            className: 'limel-form-layout--default',
+        },
+        properties.map((element) => element.content)
+    );
+}
+
+function renderGridLayout(
+    properties: ObjectFieldProperty[],
+    layout: FormLayoutOptions
+) {
+    return React.createElement(
+        GridLayout,
+        {
+            options: layout,
         },
         properties.map((element) => element.content)
     );

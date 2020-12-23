@@ -1,3 +1,162 @@
+## [30.0.8](https://github.com/Lundalogik/lime-elements/compare/v30.0.7...v30.0.8) (2020-12-23)
+
+
+### Bug Fixes
+
+* **dialog:** don't render footer if the `button` slot is empty ([28f9602](https://github.com/Lundalogik/lime-elements/commit/28f9602fa92139ec6870e9c5e529dfbd6e26bb38)), closes [#1009](https://github.com/Lundalogik/lime-elements/issues/1009)
+
+## [30.0.7](https://github.com/Lundalogik/lime-elements/compare/v30.0.6...v30.0.7) (2020-12-22)
+
+
+### Bug Fixes
+
+* **input-field:** improve action for incomplete url:s ([2eec999](https://github.com/Lundalogik/lime-elements/commit/2eec999a012933c9663848fe703574fa8e4c12ab)), closes [Lundalogik/crm-feature#1628](https://github.com/Lundalogik/crm-feature/issues/1628)
+* **input-field:** improve target for relative url:s ([1268368](https://github.com/Lundalogik/lime-elements/commit/1268368a96801689d35f532977b88379dc86afd4))
+
+## [30.0.6](https://github.com/Lundalogik/lime-elements/compare/v30.0.5...v30.0.6) (2020-12-22)
+
+
+### Bug Fixes
+
+* **tab-bar:** reduce original letter spacing in MD tabs ([15c7063](https://github.com/Lundalogik/lime-elements/commit/15c70636789275aacac7d98d478940bad8ee57c1))
+
+## [30.0.5](https://github.com/Lundalogik/lime-elements/compare/v30.0.4...v30.0.5) (2020-12-18)
+
+
+### Bug Fixes
+
+* **form:** allow fields to be rendered as read only ([3ceb3ab](https://github.com/Lundalogik/lime-elements/commit/3ceb3abd0173ebf396a840dcc8297b9a71e68201)), closes [#1072](https://github.com/Lundalogik/lime-elements/issues/1072)
+
+## [30.0.4](https://github.com/Lundalogik/lime-elements/compare/v30.0.3...v30.0.4) (2020-12-18)
+
+
+### Bug Fixes
+
+* **date-picker:** add timezone to date-time format type ([a7eb6c7](https://github.com/Lundalogik/lime-elements/commit/a7eb6c74ff2d64d4d11156c728b3a483b55b4149)), closes [Lundalogik/crm-feature#1690](https://github.com/Lundalogik/crm-feature/issues/1690)
+
+## [30.0.3](https://github.com/Lundalogik/lime-elements/compare/v30.0.2...v30.0.3) (2020-12-17)
+
+
+### Bug Fixes
+
+* **table:** calculate height of tables without aggregation & pagination correctly ([f7f1deb](https://github.com/Lundalogik/lime-elements/commit/f7f1debf6dbf4521c5d512dc02300ab07d917dd1))
+
+## [30.0.2](https://github.com/Lundalogik/lime-elements/compare/v30.0.1...v30.0.2) (2020-12-17)
+
+
+### Bug Fixes
+
+* **menu-surface:** resize the menu's height when the host element's height changes ([f23f03d](https://github.com/Lundalogik/lime-elements/commit/f23f03d7a9fd27d5fc0db19014e1400101bcc876)), closes [Lundalogik/crm-feature#1635](https://github.com/Lundalogik/crm-feature/issues/1635)
+
+## [30.0.1](https://github.com/Lundalogik/lime-elements/compare/v30.0.0...v30.0.1) (2020-12-16)
+
+
+### Bug Fixes
+
+* **select:** remove unused line ripple ([734f758](https://github.com/Lundalogik/lime-elements/commit/734f7580b88fd3d4d2f0c5971bcaeae4bd6249f9)), closes [Lundalogik/crm-feature#1691](https://github.com/Lundalogik/crm-feature/issues/1691)
+
+# [30.0.0](https://github.com/Lundalogik/lime-elements/compare/v29.8.3...v30.0.0) (2020-12-15)
+
+
+### Bug Fixes
+
+* **chip-set:** adjust to work with new outlined styles ([ff9a97c](https://github.com/Lundalogik/lime-elements/commit/ff9a97cb331c13706a500632b2b11633c794ebda)), closes [Lundalogik/crm-feature#1516](https://github.com/Lundalogik/crm-feature/issues/1516)
+* **select:** adjust to work with new outlined styles ([b01a3ce](https://github.com/Lundalogik/lime-elements/commit/b01a3cef61ea5bce99610b72e824cf2923282b84)), closes [Lundalogik/crm-feature#1516](https://github.com/Lundalogik/crm-feature/issues/1516)
+* **slider:** adjust to work with new outlined styles ([d44d153](https://github.com/Lundalogik/lime-elements/commit/d44d153e58ad405ef26e6189c3ff6166ea19e5d7)), closes [Lundalogik/crm-feature#1516](https://github.com/Lundalogik/crm-feature/issues/1516)
+
+
+### Features
+
+* **input-field:** change style from "underlined" to "outlined" ([ab3df1d](https://github.com/Lundalogik/lime-elements/commit/ab3df1da77e59cbe12958b537338df459f610d08)), closes [Lundalogik/crm-feature#1516](https://github.com/Lundalogik/crm-feature/issues/1516)
+
+
+### BREAKING CHANGES
+
+* **chip-set:** With this change, the field label has moved up a bit,
+which means the field now requires some whitespace above it, or the label
+will intersect with the element above. When the field is used with
+`limel-form`, spacing is already taken care of.
+* **slider:** With this change, the field label has moved up a bit,
+which means the field now requires some whitespace above it, or the label
+will intersect with the element above. When the field is used with
+`limel-form`, spacing is already taken care of.
+* **select:** With this change, the field label has moved up a bit,
+which means the field now requires some whitespace above it, or the label
+will intersect with the element above. When the field is used with
+`limel-form`, spacing is already taken care of.
+* **input-field:** The style of `limel-input-field` has been changed from
+"underlined" to "outlined". With this change, the field label has moved
+up a bit, which means the field now requires some whitespace above it,
+or the label will intersect with the element above. When the field is
+used with `limel-form`, spacing is already taken care of.
+
+## [29.8.3](https://github.com/Lundalogik/lime-elements/compare/v29.8.2...v29.8.3) (2020-12-15)
+
+
+### Bug Fixes
+
+* **form:** emit undefined from date-picker when cleared ([84a61bb](https://github.com/Lundalogik/lime-elements/commit/84a61bb927e00ace407e0c00176bae633a239fad)), closes [Lundalogik/crm-feature#1643](https://github.com/Lundalogik/crm-feature/issues/1643)
+
+## [29.8.2](https://github.com/Lundalogik/lime-elements/compare/v29.8.1...v29.8.2) (2020-12-14)
+
+
+### Bug Fixes
+
+* **select:** make selected-text truncate & prevent select to grow wider than its container ([41238ed](https://github.com/Lundalogik/lime-elements/commit/41238ed0629ae2ed19201a9b82332851e543de51))
+
+## [29.8.1](https://github.com/Lundalogik/lime-elements/compare/v29.8.0...v29.8.1) (2020-12-11)
+
+
+### Bug Fixes
+
+* **input-field:** fix missing label when prefilled and placed in dialog or collapsible-section ([5f3735a](https://github.com/Lundalogik/lime-elements/commit/5f3735a4aab6c0646c4fb82859b4ea9e76655a71)), closes [#950](https://github.com/Lundalogik/lime-elements/issues/950)
+
+# [29.8.0](https://github.com/Lundalogik/lime-elements/compare/v29.7.6...v29.8.0) (2020-12-07)
+
+
+### Features
+
+* **form:** add optional form layouts ([f0c0c98](https://github.com/Lundalogik/lime-elements/commit/f0c0c98709c7a1bcaa78e7694f1f6b7346616653))
+* **form:** split span config into colSpan and rowSpan ([4ba4896](https://github.com/Lundalogik/lime-elements/commit/4ba4896ad3a1d83d658ccc78cec13ade85a622ef)), closes [Lundalogik/crm-feature#1527](https://github.com/Lundalogik/crm-feature/issues/1527)
+
+## [29.7.6](https://github.com/Lundalogik/lime-elements/compare/v29.7.5...v29.7.6) (2020-12-04)
+
+
+### Bug Fixes
+
+* **table:** disable implicit field separator ([ce75d43](https://github.com/Lundalogik/lime-elements/commit/ce75d431c24b131e949d11c7cb94dfa1d4888509)), closes [Lundalogik/crm-feature#1621](https://github.com/Lundalogik/crm-feature/issues/1621)
+* **table:** make sure custom component has a name when creating formatter ([253488f](https://github.com/Lundalogik/lime-elements/commit/253488f47537ef2b5970fac0c2f1e68133e95551))
+
+## [29.7.5](https://github.com/Lundalogik/lime-elements/compare/v29.7.4...v29.7.5) (2020-11-30)
+
+
+### Bug Fixes
+
+* **input-field:** add interactivity & more affordance to trailing icon ([8a65dfb](https://github.com/Lundalogik/lime-elements/commit/8a65dfbb953411f473efc40bfdf5d663ffa25eda))
+
+## [29.7.4](https://github.com/Lundalogik/lime-elements/compare/v29.7.3...v29.7.4) (2020-11-30)
+
+
+### Bug Fixes
+
+* **collapsible-section:** set delay for micro animations ([4696eba](https://github.com/Lundalogik/lime-elements/commit/4696eba02261527797dd09b2190d4602ff098584))
+
+## [29.7.3](https://github.com/Lundalogik/lime-elements/compare/v29.7.2...v29.7.3) (2020-11-23)
+
+
+### Bug Fixes
+
+* **collapsible-section:** disallow user selection of headings in collapsible sections ([ae4d4dc](https://github.com/Lundalogik/lime-elements/commit/ae4d4dc31b838c28d84512e8e3b9a1099c610a85))
+
+## [29.7.2](https://github.com/Lundalogik/lime-elements/compare/v29.7.1...v29.7.2) (2020-11-23)
+
+
+### Bug Fixes
+
+* **input-field:** allow only vertical resize for textarea ([5dbc854](https://github.com/Lundalogik/lime-elements/commit/5dbc85480136011ca97cce7707ed4b968edd7723))
+* **input-field:** hide character counter when not needed ([53a9045](https://github.com/Lundalogik/lime-elements/commit/53a90454a3a0c9eff123162f604f4bed28745b00))
+* **input-field:** make HTML of helper-line for textarea like all other inputs ([6afe67e](https://github.com/Lundalogik/lime-elements/commit/6afe67e93c56175421914c20127b39dab03378f1))
+
 ## [29.7.1](https://github.com/Lundalogik/lime-elements/compare/v29.7.0...v29.7.1) (2020-11-19)
 
 

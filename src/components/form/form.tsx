@@ -27,10 +27,11 @@ import { isInteger } from './validators';
 /**
  * @exampleComponent limel-example-form
  * @exampleComponent limel-example-nested-form
- * @exampleComponent limel-example-form-layout
  * @exampleComponent limel-example-list-form
  * @exampleComponent limel-example-dynamic-form
  * @exampleComponent limel-example-custom-component-form
+ * @exampleComponent limel-example-form-layout
+ * @exampleComponent limel-example-form-span-fields
  */
 @Component({
     tag: 'limel-form',
@@ -60,7 +61,7 @@ export class Form {
      * set dynamically. If this factory is set, it will be called with the
      * current schema for the field for each custom component in the form. The
      * factory must return an object where each key is the name of the property
-     * that should be set, along with it's value.
+     * that should be set, along with its value.
      */
     @Prop()
     public propsFactory?: (schema: Record<string, any>) => Record<string, any>;

@@ -23,6 +23,7 @@ import {
 } from '../../util/keycodes';
 import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
+import { getHref, getTarget } from './link-helper';
 
 interface LinkProperties {
     href: string;
@@ -31,7 +32,7 @@ interface LinkProperties {
 
 /**
  * @exampleComponent limel-example-input-field-text
- * @exampleComponent limel-example-input-field-text-inline
+ * @exampleComponent limel-example-input-field-text-multiple
  * @exampleComponent limel-example-input-field-number
  * @exampleComponent limel-example-input-field-autocomplete
  * @exampleComponent limel-example-input-field-icon-leading
@@ -204,6 +205,7 @@ export class InputField {
         this.onKeyDown = this.onKeyDown.bind(this);
         this.handleCompletionChange = this.handleCompletionChange.bind(this);
         this.onKeyDownForList = this.onKeyDownForList.bind(this);
+        this.layout = this.layout.bind(this);
     }
 
     public connectedCallback() {
@@ -227,12 +229,16 @@ export class InputField {
         this.completionsList = [...this.completions].map((item) => {
             return { text: item };
         });
+
+        window.addEventListener('resize', this.layout, { passive: true });
     }
 
     public disconnectedCallback() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
         }
+
+        window.removeEventListener('resize', this.layout);
     }
 
     public componentDidUpdate() {
@@ -249,6 +255,7 @@ export class InputField {
         const additionalProps = this.getAdditionalProps();
         const classList = {
             'mdc-text-field': true,
+            'mdc-text-field--outlined': true,
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled,
             'mdc-text-field--required': this.required,
@@ -257,10 +264,11 @@ export class InputField {
         };
 
         return [
-            <label class={classList}>
+            <div class={classList}>
                 {this.renderFormattedNumber()}
                 <input
                     class="mdc-text-field__input"
+                    id="tf-input-element"
                     onInput={this.handleChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
@@ -273,21 +281,27 @@ export class InputField {
                     {...additionalProps}
                     value={this.value}
                 />
-                <span
-                    class={`
-                        mdc-floating-label
-                        ${
-                            this.value || this.isFocused
-                                ? 'mdc-floating-label--float-above'
-                                : ''
-                        }
-                    `}
-                >
-                    {this.label}
-                </span>
+                <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                        <label
+                            class={`
+                            mdc-floating-label
+                            ${
+                                this.value || this.isFocused
+                                    ? 'mdc-floating-label--float-above'
+                                    : ''
+                            }
+                        `}
+                            htmlFor="input-element"
+                        >
+                            {this.label}
+                        </label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                </div>
                 {this.renderIcons()}
-                <div class="mdc-line-ripple" />
-            </label>,
+            </div>,
             this.renderHelperLine(),
             <div class="autocomplete-list-container">
                 {this.renderDropdown()}
@@ -306,6 +320,10 @@ export class InputField {
         }
     }
 
+    private layout() {
+        this.mdcTextField?.layout();
+    }
+
     private renderTextArea() {
         const additionalProps = this.getAdditionalProps();
         const classList = {
@@ -315,6 +333,7 @@ export class InputField {
             'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--required': this.required,
+            'has-helper-line': !!this.helperText || !!this.maxlength,
         };
 
         const labelClassList = {
@@ -325,7 +344,6 @@ export class InputField {
 
         return [
             <div class={classList}>
-                {this.renderCharacterCounter()}
                 <textarea
                     id="textarea"
                     class="mdc-text-field__input"
@@ -399,9 +417,7 @@ export class InputField {
         return (
             <div class="mdc-text-field-helper-line">
                 {this.renderHelperText()}
-                {this.type !== 'textarea'
-                    ? this.renderCharacterCounter()
-                    : null}
+                {this.renderCharacterCounter()}
             </div>
         );
     }
@@ -497,8 +513,8 @@ export class InputField {
                 props.href = `tel:${this.value}`;
                 break;
             default:
-                props.href = `${this.value}`;
-                props.target = '_blank';
+                props.href = getHref(this.value);
+                props.target = getTarget(this.value);
         }
 
         return props;
@@ -508,7 +524,7 @@ export class InputField {
         return (
             <a
                 {...linkProps}
-                class="mdc-text-field__icon"
+                class="mdc-text-field__icon trailing-icon"
                 tabindex={this.disabled ? '-1' : '0'}
                 role="button"
             >
@@ -522,7 +538,7 @@ export class InputField {
             <i
                 onKeyPress={this.handleIconKeyPress}
                 onClick={this.handleIconClick}
-                class="mdc-text-field__icon"
+                class="mdc-text-field__icon trailing-icon"
                 tabindex={this.isInvalid() ? '-1' : '0'}
                 role="button"
             >
@@ -564,9 +580,7 @@ export class InputField {
               )
             : this.value;
 
-        return (
-            <span class="mdc-text-field__formatted_input">{renderValue}</span>
-        );
+        return <span class="formatted-input">{renderValue}</span>;
     }
 
     /**

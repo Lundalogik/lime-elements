@@ -4,6 +4,7 @@ import React from 'react';
 import { FieldProps } from './types';
 import { isEmpty, capitalize } from 'lodash-es';
 import { resetDependentFields } from './field-helpers';
+import { FieldTemplate } from '../templates';
 
 /**
  * If given a value and schema, check if the value should be translated
@@ -234,7 +235,7 @@ export class SchemaField extends React.Component<FieldProps> {
 
         verifyCustomComponentIsDefined(name);
 
-        return React.createElement(LimeElementsAdapter, {
+        const component = React.createElement(LimeElementsAdapter, {
             name: name,
             elementProps: {
                 ...userDefinedComponentProps,
@@ -244,6 +245,15 @@ export class SchemaField extends React.Component<FieldProps> {
                 change: this.handleCustomComponentChange,
             },
         });
+
+        return React.createElement(
+            FieldTemplate,
+            {
+                ...this.props,
+                classNames: 'form-group field field-custom',
+            },
+            component
+        );
     }
 
     render() {
