@@ -578,7 +578,19 @@ export class ChipSet {
 
     private renderIcon(chip: Chip) {
         const style = {};
+        if (chip.iconFillColor) {
+            style['--icon-color'] = chip.iconFillColor;
+        }
+
+        if (chip.iconBackgroundColor) {
+            style['--icon-background-color'] = chip.iconBackgroundColor;
+        }
+
         if (chip.iconColor) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`Chip.iconColor` is deprecated. Use `Chip.iconBackgroundColor` to set the background color of the icon.'
+            );
             style['--icon-background-color'] = chip.iconColor;
         }
 
