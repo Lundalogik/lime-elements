@@ -15,9 +15,20 @@ export interface Chip<T = any> {
     icon?: string;
 
     /**
-     * Background color of the icon. Overrides `--icon-background-color`.
+     * @deprecated
+     * Use `iconBackgroundColor` to set the background color of the icon.
      */
     iconColor?: string;
+
+    /**
+     * Color of the icon. Overrides `--icon-color`.
+     */
+    iconFillColor?: string;
+
+    /**
+     * Background color of the icon. Overrides `--icon-background-color`.
+     */
+    iconBackgroundColor?: string;
 
     /**
      * Whether the chip should be removable. Not valid for `choice`.
