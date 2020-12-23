@@ -1,3 +1,10 @@
+## [30.0.9](https://github.com/Lundalogik/lime-elements/compare/v30.0.8...v30.0.9) (2020-12-23)
+
+
+### Bug Fixes
+
+* **table:** only escape html in table for custom components once ([1a8202f](https://github.com/Lundalogik/lime-elements/commit/1a8202f73304bbe91521965c38bb74ac41d1c443)), closes [Lundalogik/crm-feature#1588](https://github.com/Lundalogik/crm-feature/issues/1588)
+
 ## [30.0.8](https://github.com/Lundalogik/lime-elements/compare/v30.0.7...v30.0.8) (2020-12-23)
 
 
