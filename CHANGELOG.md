@@ -1,3 +1,11 @@
+# [30.1.0](https://github.com/Lundalogik/lime-elements/compare/v30.0.9...v30.1.0) (2021-01-07)
+
+
+### Features
+
+* **chip-set:** allow controlling icon color and icon background color via properties on `Chip` ([6258dcc](https://github.com/Lundalogik/lime-elements/commit/6258dccb06547d6d49c92ceeae182940ec10f9f0))
+* **file:** support custom icon and icon-color ([a972274](https://github.com/Lundalogik/lime-elements/commit/a97227498d84962d2a87b3a6e15440c5a83c7689))
+
 ## [30.0.9](https://github.com/Lundalogik/lime-elements/compare/v30.0.8...v30.0.9) (2020-12-23)
 
 
