@@ -76,7 +76,7 @@ export class Dialog {
 
     private id: string;
 
-    private showFooter: boolean;
+    private showFooter = true;
 
     constructor() {
         this.handleMdcOpened = this.handleMdcOpened.bind(this);
