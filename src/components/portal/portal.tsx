@@ -163,7 +163,7 @@ export class Portal {
     }
 
     private styleContainer() {
-        const rect: any = this.host.getBoundingClientRect();
+        const hostWidth = this.host.getBoundingClientRect().width;
 
         if (this.visible) {
             this.container.style.display = 'block';
@@ -173,8 +173,8 @@ export class Portal {
 
         if (this.inheritParentWidth) {
             this.container.style.width =
-                rect.width > 0
-                    ? `${rect.width}px`
+                hostWidth > 0
+                    ? `${hostWidth}px`
                     : `${this.getContentWidth(this.container)}px`;
         }
 
@@ -188,9 +188,9 @@ export class Portal {
             return null;
         }
 
-        const rect = element.getBoundingClientRect();
-        if (rect.width !== 0) {
-            return rect.width;
+        const width = element.getBoundingClientRect().width;
+        if (width !== 0) {
+            return width;
         }
 
         const elementContent = element.querySelector('*');
