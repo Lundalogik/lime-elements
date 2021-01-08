@@ -159,18 +159,20 @@ export class File {
     }
 
     private get chipArray() {
-        return this.value
-            ? [
-                  {
-                      ...DEFAULT_FILE_CHIP,
-                      text: this.value.filename,
-                      id: this.value.id,
-                      icon: this.value.icon || DEFAULT_ICON,
-                      iconFillColor: this.value.iconColor,
-                      iconBackgroundColor: this.value.iconBackgroundColor,
-                  },
-              ]
-            : [];
+        if (!this.value) {
+            return [];
+        }
+
+        return [
+            {
+                ...DEFAULT_FILE_CHIP,
+                text: this.value.filename,
+                id: this.value.id,
+                icon: this.value.icon || DEFAULT_ICON,
+                iconFillColor: this.value.iconColor,
+                iconBackgroundColor: this.value.iconBackgroundColor,
+            },
+        ];
     }
 
     private handleKeyDown(event: KeyboardEvent) {

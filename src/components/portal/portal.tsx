@@ -1,6 +1,11 @@
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
 import { OpenDirection } from '../menu/menu.types';
-import { createPopper, Instance, OptionsGeneric } from '@popperjs/core';
+import {
+    createPopper,
+    Instance,
+    OptionsGeneric,
+    Placement,
+} from '@popperjs/core';
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 
 /**
@@ -172,10 +177,13 @@ export class Portal {
         }
 
         if (this.inheritParentWidth) {
-            this.container.style.width =
-                hostWidth > 0
-                    ? `${hostWidth}px`
-                    : `${this.getContentWidth(this.container)}px`;
+            const containerWidth = this.getContentWidth(this.container);
+            let width = containerWidth;
+            if (hostWidth > 0) {
+                width = hostWidth;
+            }
+
+            this.container.style.width = `${width}px`;
         }
 
         Object.keys(this.containerStyle).forEach((property) => {
@@ -212,19 +220,22 @@ export class Portal {
     private createPopperConfig(): Partial<
         OptionsGeneric<Partial<FlipModifier>>
     > {
+        let placement: Placement = 'bottom-start';
+        let flipPlacement: Placement = 'top-start';
+
+        if (this.openDirection === 'left') {
+            placement = 'bottom-end';
+            flipPlacement = 'top-end';
+        }
+
         return {
             strategy: this.position,
-            placement:
-                this.openDirection === 'left' ? 'bottom-end' : 'bottom-start',
+            placement: placement,
             modifiers: [
                 {
                     name: 'flip',
                     options: {
-                        fallbackPlacements: [
-                            this.openDirection === 'left'
-                                ? 'top-end'
-                                : 'top-start',
-                        ],
+                        fallbackPlacements: [flipPlacement],
                     },
                 },
             ],
