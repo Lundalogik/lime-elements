@@ -129,12 +129,15 @@ export class Dialog {
         this.mdcDialog.listen('MDCDialog:closed', this.handleMdcClosed);
         this.mdcDialog.listen('MDCDialog:closing', this.handleMdcClosing);
 
-        this.mdcDialog.scrimClickAction = this.closingActions.scrimClick
-            ? 'close'
-            : '';
-        this.mdcDialog.escapeKeyAction = this.closingActions.escapeKey
-            ? 'close'
-            : '';
+        this.mdcDialog.scrimClickAction = '';
+        if (this.closingActions.scrimClick) {
+            this.mdcDialog.scrimClickAction = 'close';
+        }
+
+        this.mdcDialog.escapeKeyAction = '';
+        if (this.closingActions.escapeKey) {
+            this.mdcDialog.escapeKeyAction = 'close';
+        }
     }
 
     public disconnectedCallback() {

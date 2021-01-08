@@ -56,15 +56,13 @@ export class LinearProgress {
     }
 
     public render() {
+        const classList = {
+            'mdc-linear-progress': true,
+            'mdc-linear-progress--indeterminate': this.indeterminate,
+        };
+
         return (
-            <div
-                role="progressbar"
-                class={`mdc-linear-progress ${
-                    this.indeterminate
-                        ? 'mdc-linear-progress--indeterminate'
-                        : ''
-                }`}
-            >
+            <div role="progressbar" class={classList}>
                 <div class="mdc-linear-progress__buffer" />
                 <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
                     <span class="mdc-linear-progress__bar-inner" />

@@ -267,22 +267,22 @@ describe('limel-select (native)', () => {
                         expect(d).toEqual(expectedValue);
                     }
                 );
-                it.skip(
-                    expectFloating
-                        ? 'label is floating'
-                        : 'label is not floating',
-                    () => {
-                        if (expectFloating) {
-                            expect(label).toHaveClass(
-                                'mdc-floating-label--float-above'
-                            );
-                        } else {
-                            expect(label).not.toHaveClass(
-                                'mdc-floating-label--float-above'
-                            );
-                        }
+                let name = 'label is not floating';
+                if (expectFloating) {
+                    name = 'label is floating';
+                }
+
+                it.skip(name, () => {
+                    if (expectFloating) {
+                        expect(label).toHaveClass(
+                            'mdc-floating-label--float-above'
+                        );
+                    } else {
+                        expect(label).not.toHaveClass(
+                            'mdc-floating-label--float-above'
+                        );
                     }
-                );
+                });
             }
         });
     });
