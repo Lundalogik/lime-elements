@@ -1,13 +1,16 @@
 import { FileInfo } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Custom icon and color
+ */
 @Component({
-    tag: 'limel-example-file',
+    tag: 'limel-example-file-custom-icon',
     shadow: true,
 })
-export class FileExample {
+export class FileCustomIconExample {
     @State()
-    private value: FileInfo = { filename: 'picture.jpg', id: 123 };
+    private value: FileInfo = { filename: 'custom.crab', id: 123 };
 
     @State()
     private required = false;
@@ -15,6 +18,10 @@ export class FileExample {
     constructor() {
         this.handleChange = this.handleChange.bind(this);
         this.toggleRequired = this.toggleRequired.bind(this);
+    }
+
+    public componentWillLoad() {
+        this.updateIcon();
     }
 
     public render() {
@@ -37,7 +44,16 @@ export class FileExample {
 
     private handleChange(event: CustomEvent<FileInfo>) {
         this.value = event.detail;
+        this.updateIcon();
         console.log('onChange', this.value);
+    }
+
+    private updateIcon() {
+        if (this.value?.filename?.substr(-5) === '.crab') {
+            this.value.icon = 'crab';
+            this.value.iconColor = 'white';
+            this.value.iconBackgroundColor = 'pink';
+        }
     }
 
     private toggleRequired() {

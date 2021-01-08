@@ -23,6 +23,7 @@ import {
 } from '../../util/keycodes';
 import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
+import { getHref, getTarget } from './link-helper';
 
 interface LinkProperties {
     href: string;
@@ -261,6 +262,10 @@ export class InputField {
             'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
             'mdc-text-field--with-leading-icon': !!this.leadingIcon,
         };
+        const labelClassList = {
+            'mdc-floating-label': true,
+            'mdc-floating-label--float-above': !!this.value || this.isFocused,
+        };
 
         return [
             <div class={classList}>
@@ -283,17 +288,7 @@ export class InputField {
                 <div class="mdc-notched-outline">
                     <div class="mdc-notched-outline__leading"></div>
                     <div class="mdc-notched-outline__notch">
-                        <label
-                            class={`
-                            mdc-floating-label
-                            ${
-                                this.value || this.isFocused
-                                    ? 'mdc-floating-label--float-above'
-                                    : ''
-                            }
-                        `}
-                            htmlFor="input-element"
-                        >
+                        <label class={labelClassList} htmlFor="input-element">
                             {this.label}
                         </label>
                     </div>
@@ -426,20 +421,12 @@ export class InputField {
             return;
         }
 
-        return (
-            <p
-                class={`
-            mdc-text-field-helper-text
-            ${
-                this.isInvalid()
-                    ? 'mdc-text-field-helper-text--validation-msg'
-                    : ''
-            }
-        `}
-            >
-                {this.helperText}
-            </p>
-        );
+        const classList = {
+            'mdc-text-field-helper-text': true,
+            'mdc-text-field-helper-text--validation-msg': this.isInvalid(),
+        };
+
+        return <p class={classList}>{this.helperText}</p>;
     }
 
     private renderCharacterCounter() {
@@ -512,8 +499,8 @@ export class InputField {
                 props.href = `tel:${this.value}`;
                 break;
             default:
-                props.href = `${this.value}`;
-                props.target = '_blank';
+                props.href = getHref(this.value);
+                props.target = getTarget(this.value);
         }
 
         return props;
@@ -573,11 +560,12 @@ export class InputField {
             return;
         }
 
-        const renderValue = this.formatNumber
-            ? new Intl.NumberFormat(navigator.language).format(
-                  Number(this.value)
-              )
-            : this.value;
+        let renderValue = this.value;
+        if (this.formatNumber) {
+            renderValue = new Intl.NumberFormat(navigator.language).format(
+                Number(this.value)
+            );
+        }
 
         return <span class="formatted-input">{renderValue}</span>;
     }

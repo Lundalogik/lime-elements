@@ -1,4 +1,4 @@
-import { Component, h, State, Watch } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 /**
  * With `showLink=true`
@@ -16,15 +16,6 @@ export class InputFieldShowlinkExample {
     private disabled = false;
 
     @State()
-    private emailInvalid = false;
-
-    @State()
-    private telInvalid = false;
-
-    @State()
-    private urlInvalid = false;
-
-    @State()
     private emailValue: string;
 
     @State()
@@ -34,7 +25,6 @@ export class InputFieldShowlinkExample {
     private urlValue: string;
 
     constructor() {
-        this.checkValidity = this.checkValidity.bind(this);
         this.emailChangeHandler = this.emailChangeHandler.bind(this);
         this.telChangeHandler = this.telChangeHandler.bind(this);
         this.urlChangeHandler = this.urlChangeHandler.bind(this);
@@ -48,7 +38,6 @@ export class InputFieldShowlinkExample {
                 label="Email Field"
                 value={this.emailValue}
                 required={this.required}
-                invalid={this.emailInvalid}
                 disabled={this.disabled}
                 onChange={this.emailChangeHandler}
                 type="email"
@@ -58,7 +47,6 @@ export class InputFieldShowlinkExample {
                 label="Phone Field"
                 value={this.telValue}
                 required={this.required}
-                invalid={this.telInvalid}
                 disabled={this.disabled}
                 onChange={this.telChangeHandler}
                 type="tel"
@@ -68,7 +56,6 @@ export class InputFieldShowlinkExample {
                 label="URL Field"
                 value={this.urlValue}
                 required={this.required}
-                invalid={this.urlInvalid}
                 disabled={this.disabled}
                 onChange={this.urlChangeHandler}
                 type="url"
@@ -92,26 +79,16 @@ export class InputFieldShowlinkExample {
         ];
     }
 
-    @Watch('required')
-    private checkValidity() {
-        this.emailInvalid = this.required && !this.emailValue;
-        this.telInvalid = this.required && !this.telValue;
-        this.urlInvalid = this.required && !this.urlValue;
-    }
-
     private emailChangeHandler(event: CustomEvent<string>) {
         this.emailValue = event.detail;
-        this.checkValidity();
     }
 
     private telChangeHandler(event: CustomEvent<string>) {
         this.telValue = event.detail;
-        this.checkValidity();
     }
 
     private urlChangeHandler(event: CustomEvent<string>) {
         this.urlValue = event.detail;
-        this.checkValidity();
     }
 
     private toggleEnabled() {

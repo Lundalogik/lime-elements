@@ -163,9 +163,10 @@ export class Picker {
     }
 
     public async componentWillUpdate() {
-        this.chipSetEditMode = !this.chipSet
-            ? false
-            : await this.chipSet.getEditMode();
+        this.chipSetEditMode = false;
+        if (this.chipSet) {
+            this.chipSetEditMode = await this.chipSet.getEditMode();
+        }
     }
 
     public render() {

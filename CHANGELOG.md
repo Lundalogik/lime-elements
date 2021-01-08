@@ -1,3 +1,55 @@
+## [30.1.2](https://github.com/Lundalogik/lime-elements/compare/v30.1.1...v30.1.2) (2021-01-08)
+
+
+### Bug Fixes
+
+* **icon-button:** remove sticky focus style when button is clicked ([a98f488](https://github.com/Lundalogik/lime-elements/commit/a98f48840d3db2b9e20d59704e65d841f4a96dda))
+* **icon-button:** remove sticky hover effect on non-mouse devices ([1ea9ccc](https://github.com/Lundalogik/lime-elements/commit/1ea9ccc4a2e04d32f388f9de52500a2b1c603de0))
+
+## [30.1.1](https://github.com/Lundalogik/lime-elements/compare/v30.1.0...v30.1.1) (2021-01-08)
+
+
+### Bug Fixes
+
+* **dialog:** footer would sometimes be missing, despite having items in it ([c2315f9](https://github.com/Lundalogik/lime-elements/commit/c2315f9da5f962b6ef437efc8ee1db474d25c7a6)), closes [Lundalogik/crm-feature#1706](https://github.com/Lundalogik/crm-feature/issues/1706)
+
+# [30.1.0](https://github.com/Lundalogik/lime-elements/compare/v30.0.9...v30.1.0) (2021-01-07)
+
+
+### Features
+
+* **chip-set:** allow controlling icon color and icon background color via properties on `Chip` ([6258dcc](https://github.com/Lundalogik/lime-elements/commit/6258dccb06547d6d49c92ceeae182940ec10f9f0))
+* **file:** support custom icon and icon-color ([a972274](https://github.com/Lundalogik/lime-elements/commit/a97227498d84962d2a87b3a6e15440c5a83c7689))
+
+## [30.0.9](https://github.com/Lundalogik/lime-elements/compare/v30.0.8...v30.0.9) (2020-12-23)
+
+
+### Bug Fixes
+
+* **table:** only escape html in table for custom components once ([1a8202f](https://github.com/Lundalogik/lime-elements/commit/1a8202f73304bbe91521965c38bb74ac41d1c443)), closes [Lundalogik/crm-feature#1588](https://github.com/Lundalogik/crm-feature/issues/1588)
+
+## [30.0.8](https://github.com/Lundalogik/lime-elements/compare/v30.0.7...v30.0.8) (2020-12-23)
+
+
+### Bug Fixes
+
+* **dialog:** don't render footer if the `button` slot is empty ([28f9602](https://github.com/Lundalogik/lime-elements/commit/28f9602fa92139ec6870e9c5e529dfbd6e26bb38)), closes [#1009](https://github.com/Lundalogik/lime-elements/issues/1009)
+
+## [30.0.7](https://github.com/Lundalogik/lime-elements/compare/v30.0.6...v30.0.7) (2020-12-22)
+
+
+### Bug Fixes
+
+* **input-field:** improve action for incomplete url:s ([2eec999](https://github.com/Lundalogik/lime-elements/commit/2eec999a012933c9663848fe703574fa8e4c12ab)), closes [Lundalogik/crm-feature#1628](https://github.com/Lundalogik/crm-feature/issues/1628)
+* **input-field:** improve target for relative url:s ([1268368](https://github.com/Lundalogik/lime-elements/commit/1268368a96801689d35f532977b88379dc86afd4))
+
+## [30.0.6](https://github.com/Lundalogik/lime-elements/compare/v30.0.5...v30.0.6) (2020-12-22)
+
+
+### Bug Fixes
+
+* **tab-bar:** reduce original letter spacing in MD tabs ([15c7063](https://github.com/Lundalogik/lime-elements/commit/15c70636789275aacac7d98d478940bad8ee57c1))
+
 ## [30.0.5](https://github.com/Lundalogik/lime-elements/compare/v30.0.4...v30.0.5) (2020-12-18)
 
 

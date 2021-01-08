@@ -15,9 +15,8 @@ const DEFAULT_FILE_CHIP: Chip = {
     id: null,
     text: null,
     removable: true,
-    icon: 'note',
-    iconColor: 'var(--lime-light-grey)',
 };
+const DEFAULT_ICON = 'note';
 
 /**
  * This component lets end-users select a *single* file from their device
@@ -49,10 +48,12 @@ const DEFAULT_FILE_CHIP: Chip = {
  *:::
  *
  * @exampleComponent limel-example-file
+ * @exampleComponent limel-example-file-custom-icon
  */
 @Component({
     tag: 'limel-file',
     shadow: true,
+    styleUrl: 'file.scss',
 })
 export class File {
     /**
@@ -131,39 +132,46 @@ export class File {
     }
 
     public render() {
-        const chipArray = this.value
-            ? [
-                  {
-                      ...DEFAULT_FILE_CHIP,
-                      text: this.value.filename,
-                      id: this.value.id,
-                  },
-              ]
-            : [];
-
         return [
             <input
-                id={this.fileInputId}
-                type="file"
-                onChange={this.handleFileChange}
                 hidden={true}
+                id={this.fileInputId}
+                onChange={this.handleFileChange}
+                type="file"
             />,
             <limel-chip-set
                 disabled={this.disabled}
                 label={this.label}
-                required={this.required}
-                onKeyDown={this.handleKeyDown}
-                onKeyUp={this.handleKeyUp}
-                type="input"
-                value={chipArray}
-                onClick={this.handleFileSelection}
+                leadingIcon="upload_to_cloud"
                 onChange={this.handleChipSetChange}
-                onInteract={this.preventAndStop}
-                onDrop={this.handleFileDrop}
+                onClick={this.handleFileSelection}
                 onDragEnter={this.preventAndStop}
                 onDragOver={this.preventAndStop}
-                leadingIcon="upload_to_cloud"
+                onDrop={this.handleFileDrop}
+                onInteract={this.preventAndStop}
+                onKeyDown={this.handleKeyDown}
+                onKeyUp={this.handleKeyUp}
+                required={this.required}
+                type="input"
+                value={this.chipArray}
             />,
+        ];
+    }
+
+    private get chipArray() {
+        if (!this.value) {
+            return [];
+        }
+
+        return [
+            {
+                ...DEFAULT_FILE_CHIP,
+                text: this.value.filename,
+                id: this.value.id,
+                icon: this.value.icon || DEFAULT_ICON,
+                iconFillColor: this.value.iconColor,
+                iconBackgroundColor: this.value.iconBackgroundColor,
+            },
         ];
     }
 
