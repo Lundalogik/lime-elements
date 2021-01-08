@@ -1,3 +1,10 @@
+## [30.1.1](https://github.com/Lundalogik/lime-elements/compare/v30.1.0...v30.1.1) (2021-01-08)
+
+
+### Bug Fixes
+
+* **dialog:** footer would sometimes be missing, despite having items in it ([c2315f9](https://github.com/Lundalogik/lime-elements/commit/c2315f9da5f962b6ef437efc8ee1db474d25c7a6)), closes [Lundalogik/crm-feature#1706](https://github.com/Lundalogik/crm-feature/issues/1706)
+
 # [30.1.0](https://github.com/Lundalogik/lime-elements/compare/v30.0.9...v30.1.0) (2021-01-07)
 
 
