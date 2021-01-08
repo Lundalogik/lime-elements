@@ -27,10 +27,12 @@ import { isInteger } from './validators';
 /**
  * @exampleComponent limel-example-form
  * @exampleComponent limel-example-nested-form
- * @exampleComponent limel-example-form-layout
  * @exampleComponent limel-example-list-form
  * @exampleComponent limel-example-dynamic-form
  * @exampleComponent limel-example-custom-component-form
+ * @exampleComponent limel-example-props-factory-form
+ * @exampleComponent limel-example-form-layout
+ * @exampleComponent limel-example-form-span-fields
  */
 @Component({
     tag: 'limel-form',

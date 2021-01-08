@@ -1,6 +1,5 @@
 import { ListItem, Option } from '@limetech/lime-elements';
 import { MDCFloatingLabel } from '@limetech/mdc-floating-label';
-import { MDCLineRipple } from '@limetech/mdc-line-ripple';
 import { MDCSelectHelperText } from '@limetech/mdc-select/helper-text';
 import {
     Component,
@@ -103,7 +102,6 @@ export class Select {
     private checkValid: boolean = false;
     private mdcSelectHelperText: MDCSelectHelperText;
     private mdcFloatingLabel: MDCFloatingLabel;
-    private mdcLineRipple: MDCLineRipple;
     private isMobileDevice: boolean;
     private portalId: string;
 
@@ -146,9 +144,6 @@ export class Select {
 
         this.mdcFloatingLabel = new MDCFloatingLabel(element);
 
-        element = this.host.shadowRoot.querySelector('.mdc-line-ripple');
-        this.mdcLineRipple = new MDCLineRipple(element);
-
         element = this.host.shadowRoot.querySelector('.mdc-select-helper-text');
         if (element) {
             this.mdcSelectHelperText = new MDCSelectHelperText(element);
@@ -158,10 +153,6 @@ export class Select {
     public disconnectedCallback() {
         if (this.mdcFloatingLabel) {
             this.mdcFloatingLabel.destroy();
-        }
-
-        if (this.mdcLineRipple) {
-            this.mdcLineRipple.destroy();
         }
 
         if (this.mdcSelectHelperText) {

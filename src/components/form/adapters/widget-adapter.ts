@@ -2,6 +2,7 @@ import React from 'react';
 import { WidgetProps } from '../widgets/types';
 import { LimeElementsAdapter } from './base-adapter';
 import { capitalize } from 'lodash-es';
+import { LimeSchemaOptions } from '../form.types';
 
 interface WidgetAdapterProps {
     name: string;
@@ -107,12 +108,11 @@ export class LimeElementsWidgetAdapter extends React.Component {
 
     render() {
         const { name, events, extraProps } = this.props;
-        const { disabled, onChange } = this.props.widgetProps;
-
+        const disabled = this.isDisabled();
         const value = this.getValue();
 
         const newEvents = {
-            change: onChange,
+            change: this.props.widgetProps.onChange,
             blur: this.handleBlur,
             ...events,
         };
@@ -130,5 +130,24 @@ export class LimeElementsWidgetAdapter extends React.Component {
             },
             events: newEvents,
         });
+    }
+
+    private isDisabled() {
+        // We treat disabled and readonly the same here since the default
+        // lime-elements components does not have a readonly state
+        if (this.isReadOnly()) {
+            return true;
+        }
+
+        const widgetProps = this.props.widgetProps;
+        const options: LimeSchemaOptions = widgetProps.schema.lime;
+
+        return widgetProps.disabled || options?.disabled;
+    }
+
+    private isReadOnly() {
+        const widgetProps = this.props.widgetProps;
+
+        return widgetProps.readonly;
     }
 }

@@ -315,51 +315,62 @@ export class ChipSet {
         return (
             <div
                 class={{
-                    'mdc-text-field': true,
-                    'mdc-text-field--disabled': this.readonly || this.disabled,
+                    'mdc-text-field mdc-text-field--outlined': true,
+                    'mdc-chip-set mdc-chip-set--input': true,
                     'force-invalid': this.isInvalid(),
+                    'mdc-text-field--disabled': this.readonly || this.disabled,
                     'has-chips': this.value.length !== 0,
                     'has-leading-icon': this.leadingIcon !== null,
                 }}
                 onClick={this.handleTextFieldFocus}
             >
-                <div class="mdc-chip-set mdc-chip-set--input">
-                    {this.value.map(this.renderInputChip)}
-                    <input
-                        type="text"
-                        id="my-text-field"
-                        disabled={this.readonly || this.disabled}
-                        class={{
-                            'mdc-text-field__input': true,
-                            hidden: this.inputHidden(),
-                        }}
-                        value={this.textValue}
-                        onBlur={this.handleInputBlur}
-                        onFocus={this.handleTextFieldFocus}
-                        onKeyDown={this.handleKeyDown}
-                        onInput={this.handleTextInput}
-                        // Some browsers emit a change event on input elements, we need to stop
-                        // that event from propagating since we are emitting our own change event
-                        onChange={this.inputFieldOnChange}
-                        placeholder={this.isFull() ? '' : this.searchLabel}
-                        readonly={this.isFull()}
-                    />
+                {this.value.map(this.renderInputChip)}
+                <input
+                    type="text"
+                    id="input-element"
+                    disabled={this.readonly || this.disabled}
+                    class={{
+                        'mdc-text-field__input': true,
+                        hidden: this.inputHidden(),
+                    }}
+                    value={this.textValue}
+                    onBlur={this.handleInputBlur}
+                    onFocus={this.handleTextFieldFocus}
+                    onKeyDown={this.handleKeyDown}
+                    onInput={this.handleTextInput}
+                    // Some browsers emit a change event on input elements, we need to stop
+                    // that event from propagating since we are emitting our own change event
+                    onChange={this.inputFieldOnChange}
+                    placeholder={this.isFull() ? '' : this.searchLabel}
+                    readonly={this.isFull()}
+                />
+                <div
+                    class={{
+                        'mdc-notched-outline': true,
+                        'lime-notched-outline--notched': !!this.value.length,
+                    }}
+                >
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                        <label
+                            class={{
+                                'mdc-floating-label': true,
+                                'mdc-text-field--disabled':
+                                    this.readonly || this.disabled,
+                                'mdc-text-field--required': this.required,
+                                'lime-floating-label--float-above': !!(
+                                    this.value.length || this.editMode
+                                ),
+                            }}
+                            htmlFor="input-element"
+                        >
+                            {this.label}
+                        </label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
                 </div>
                 {this.renderLeadingIcon()}
                 {this.renderClearAllChipsButton()}
-                <label
-                    class={{
-                        'mdc-floating-label': true,
-                        'mdc-text-field--disabled':
-                            this.readonly || this.disabled,
-                        'mdc-text-field--required': this.required,
-                        'force-float': !!(this.value.length || this.editMode),
-                    }}
-                    htmlFor="my-text-field"
-                >
-                    {this.label}
-                </label>
-                <div class="mdc-line-ripple" />
             </div>
         );
     }
@@ -554,9 +565,7 @@ export class ChipSet {
             >
                 {chip.icon ? this.renderIcon(chip) : null}
                 {this.renderLabel(chip)}
-                {chip.removable && !this.readonly && !this.disabled
-                    ? this.renderChipRemoveButton()
-                    : null}
+                {this.renderChipRemoveButton(chip)}
             </div>,
         ];
     }
@@ -567,7 +576,19 @@ export class ChipSet {
 
     private renderIcon(chip: Chip) {
         const style = {};
+        if (chip.iconFillColor) {
+            style['--icon-color'] = chip.iconFillColor;
+        }
+
+        if (chip.iconBackgroundColor) {
+            style['--icon-background-color'] = chip.iconBackgroundColor;
+        }
+
         if (chip.iconColor) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`Chip.iconColor` is deprecated. Use `Chip.iconBackgroundColor` to set the background color of the icon.'
+            );
             style['--icon-background-color'] = chip.iconColor;
         }
 
@@ -594,7 +615,11 @@ export class ChipSet {
         );
     }
 
-    private renderChipRemoveButton() {
+    private renderChipRemoveButton(chip: Chip) {
+        if (!chip.removable || this.readonly || this.disabled) {
+            return;
+        }
+
         const svgData = `<svg style="height:100%;width:100%;" width="32" height="32" x="0px" y="0px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
     <line fill="none" id="svg_1" stroke="currentColor" stroke-width="2" x1="8" x2="24" y1="8" y2="24"/>
     <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>

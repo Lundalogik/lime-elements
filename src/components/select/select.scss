@@ -3,8 +3,6 @@
 
 @import '@limetech/mdc-select/mdc-select';
 @import '@limetech/mdc-select/helper-text/mdc-select-helper-text';
-@import '@limetech/mdc-ripple/mdc-ripple';
-@import '@limetech/mdc-line-ripple/mdc-line-ripple';
 @import '@limetech/mdc-floating-label/mdc-floating-label';
 
 @import '../../style/mixins';
@@ -22,7 +20,8 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 
-    padding: pxToRem(20) pxToRem(40) pxToRem(6) pxToRem(16);
+    padding: 0 pxToRem(40) 0 pxToRem(16);
+    align-self: center;
 }
 
 .limel-select {
@@ -30,11 +29,12 @@
 
     .limel-select-trigger {
         display: inline-flex;
+        min-width: 0; // makes the limel-select__selected-text truncate and prevents the select to grow wider than its container
         height: $height-of-mdc-text-field;
 
         cursor: pointer;
         border-radius: pxToRem(5);
-        background-color: $background-color-normal;
+        background-color: $background-color-focused;
 
         &:focus {
             outline: none;
@@ -47,7 +47,8 @@
         }
 
         .mdc-floating-label {
-            top: $floating-label-top-value;
+            @include looks-like-input-label;
+            top: 50%;
             right: pxToRem(
                 16
             ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
@@ -60,10 +61,6 @@
             &.mdc-floating-label--active {
                 color: var(--mdc-theme-primary);
             }
-        }
-
-        .mdc-line-ripple {
-            background-color: var(--mdc-theme-primary);
         }
 
         .mdc-select__dropdown-icon {
@@ -90,21 +87,11 @@
         .limel-select-trigger {
             @include is-elevated-clickable;
 
-            &:hover {
-                background-color: $background-color-hovered;
-            }
-
             &.limel-select--focused {
                 background-color: $background-color-focused;
 
                 .mdc-floating-label {
                     color: var(--mdc-theme-primary);
-                }
-
-                .mdc-line-ripple {
-                    transform: scaleX(1);
-                    opacity: 1;
-                    background-color: var(--mdc-theme-primary);
                 }
 
                 .mdc-select__dropdown-icon {
@@ -122,16 +109,19 @@
     }
 
     &.limel-select--invalid {
-        .limel-select-trigger {
-            .mdc-floating-label {
-                color: $mdc-theme-error;
-            }
-            .mdc-line-ripple {
-                background-color: $mdc-theme-error;
-                transform: scaleX(1);
-                opacity: 1;
-            }
+        .limel-select-trigger .mdc-floating-label,
+        .mdc-select-helper-text {
+            color: $mdc-theme-error;
         }
+    }
+}
+
+.mdc-select-helper-line {
+    @include looks-like-helper-line;
+}
+.mdc-select-helper-text {
+    &:before {
+        @include looks-like-helper-text-pseudo-before;
     }
 }
 

@@ -41,6 +41,7 @@ export class MenuSurface {
     private host: HTMLLimelMenuSurfaceElement;
 
     private menuSurface: MDCMenuSurface;
+    private observer: IResizeObserver;
 
     constructor() {
         this.handleDocumentClick = this.handleDocumentClick.bind(this);
@@ -58,10 +59,6 @@ export class MenuSurface {
 
     public componentDidLoad() {
         this.setup();
-    }
-
-    public componentDidUpdate() {
-        this.ensureMenuFitsInViewPort();
     }
 
     public render() {
@@ -98,6 +95,13 @@ export class MenuSurface {
         window.addEventListener('resize', this.handleResize, {
             passive: true,
         });
+
+        if ('ResizeObserver' in window) {
+            const observer = new ResizeObserver(() => {
+                this.ensureMenuFitsInViewPort();
+            });
+            observer.observe(this.host);
+        }
     }
 
     private teardown() {
@@ -107,6 +111,10 @@ export class MenuSurface {
         });
         this.host.removeEventListener('keydown', this.handleKeyDown);
         window.removeEventListener('resize', this.handleResize);
+
+        if (this.observer) {
+            this.observer.unobserve(this.host);
+        }
     }
 
     private handleDocumentClick(event) {

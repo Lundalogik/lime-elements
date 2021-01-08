@@ -32,4 +32,19 @@ export interface FileInfo {
      * the file content
      */
     fileContent?: File;
+
+    /**
+     * Name of the icon to use.
+     */
+    icon?: string;
+
+    /**
+     * Icon color. Overrides `--icon-color`.
+     */
+    iconColor?: string;
+
+    /**
+     * Background color of the icon. Overrides `--icon-background-color`.
+     */
+    iconBackgroundColor?: string;
 }

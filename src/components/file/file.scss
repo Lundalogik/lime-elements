@@ -1,0 +1,8 @@
+/**
+ * @prop --icon-background-color: Background color of the icon. Defaults to `var(--lime-light-grey)``.
+ * @prop --icon-color: Color of the icon. Defaults to 54% black.
+ */
+
+:host {
+    --icon-background-color: var(--lime-light-grey);
+}

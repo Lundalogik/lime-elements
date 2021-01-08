@@ -135,7 +135,12 @@ export interface LimeSchemaOptions {
      * When specified on an object it will render the sub components with the
      * specified layout
      */
-    layout?: FormLayoutOptions;
+    layout?: FormLayoutOptions<any>;
+
+    /**
+     * Mark the field as disabled
+     */
+    disabled?: boolean;
 }
 
 /**
@@ -154,21 +159,54 @@ export interface FormComponentOptions {
     props?: Record<string, any>;
 }
 
-export interface FormLayoutOptions {
+export interface FormLayoutOptions<T = FormLayoutType.Default> {
     /**
      * The type of layout to use
      */
-    type: FormLayoutType;
+    type: T;
 
     /**
-     * When specified on a component within a layout, the component will take
-     * up the full width of the form
+     * @deprecated use `colSpan` instead
      */
     span?: 'all';
 }
 
+export interface GridLayoutOptions
+    extends FormLayoutOptions<FormLayoutType.Grid> {
+    /**
+     * When specified on a component within the grid, the component will take
+     * up the the specified number of columns in the form
+     */
+    // eslint-disable-next-line no-magic-numbers
+    colSpan?: 1 | 2 | 3 | 4 | 5 | 'all';
+
+    /**
+     * When specified on a component within the grid, the component will take
+     * up the the specified number of rows in the form
+     */
+    rowSpan?: number;
+
+    /**
+     * Number of columns to use in the layout
+     */
+    // eslint-disable-next-line no-magic-numbers
+    columns?: 1 | 2 | 3 | 4 | 5;
+
+    /**
+     * Attempts to fill in holes earlier in the grid, if smaller items come up
+     * later. This may cause items to appear out-of-order, when doing so would
+     * fill holes left by larger items. Defaults to `true`.
+     */
+    dense?: boolean;
+}
+
 // eslint-disable-next-line no-shadow
 export enum FormLayoutType {
+    /**
+     * The default layout
+     */
+    Default = 'default',
+
     /**
      * Render the form fields using a responsive grid layout
      */

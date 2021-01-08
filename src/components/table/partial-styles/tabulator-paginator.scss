@@ -53,11 +53,14 @@
     }
 }
 
+$height-of-tabulator-header: pxToRem(34);
+$height-of-tabulator-paginator: pxToRem(36);
+
 .tabulator:not(.has-pagination) {
     &:not(.has-aggregation) {
         .tabulator-tableHolder {
-            height: 100% !important;
-            max-height: 100% !important;
+            height: calc(100% - #{$height-of-tabulator-header}) !important;
+            max-height: calc(100% - #{$height-of-tabulator-header}) !important;
         }
     }
     &.has-aggregation {
@@ -65,15 +68,13 @@
             height: calc(
                 100% -
                     (
-                        34px /*height of tabulator header */ + 36px
-                            /*height of tabulator paginator */
+                        #{$height-of-tabulator-header} + #{$height-of-tabulator-paginator}
                     )
             ) !important;
             max-height: calc(
                 100% -
                     (
-                        34px /*height of tabulator header */ + 36px
-                            /*height of tabulator paginator */
+                        #{$height-of-tabulator-header} + #{$height-of-tabulator-paginator}
                     )
             ) !important;
         }

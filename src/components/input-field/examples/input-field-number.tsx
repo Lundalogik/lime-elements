@@ -32,6 +32,11 @@ export class InputFieldNumberExample {
     }
 
     public render() {
+        let formatLabel = 'Format number';
+        if (this.formatNumber) {
+            formatLabel = 'Unformat number';
+        }
+
         return [
             <limel-input-field
                 label="Number Field Label"
@@ -46,11 +51,7 @@ export class InputFieldNumberExample {
             <p>
                 <limel-flex-container justify="end">
                     <limel-button
-                        label={
-                            this.formatNumber
-                                ? 'Unformat number'
-                                : 'Format number'
-                        }
+                        label={formatLabel}
                         onClick={this.toggleFormatting}
                     />
                     <limel-button

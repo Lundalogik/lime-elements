@@ -1,34 +1,25 @@
 // Visual styles that unify the look & feel and behavior of
 // components such as input fields, select dropdowns and pickers
 
-$mdc-textarea-background: $mdc-theme-background;
-// $mdc-textarea-disabled-background: $mdc-theme-background;
+$lime-text-field-bottom-outline-color: rgba(var(--contrast-700), 0.65);
+$lime-text-field-bottom-outline-color-hover: rgba(var(--contrast-700), 1);
 
-$mdc-text-field-background: $mdc-theme-background;
-// $mdc-text-field-disabled-background: $mdc-theme-background;
-
-$lime-text-field-bottom-line-color: rgba(0, 0, 0, 0.12);
-
-$mdc-text-field-bottom-line-idle: $lime-text-field-bottom-line-color;
-$mdc-text-field-bottom-line-hover: $lime-text-field-bottom-line-color;
-$mdc-text-field-fullwidth-bottom-line-color: $lime-text-field-bottom-line-color;
-
-$background-color-normal: rgba(#fff, 0.5);
-$background-color-hovered: rgba(#f1f1f3, 0.5);
-$background-color-focused: rgba(#f1f1f3, 0.7);
+$background-color-normal: rgba(var(--contrast-200), 0.5);
+$background-color-hovered: rgba(var(--contrast-200), 1);
+$background-color-focused: rgba(var(--contrast-100), 0.8);
 $background-color-disabled: transparent;
+$label-color: rgba(var(--contrast-1200), 1);
+$label-color-disabled: rgba(var(--contrast-1200), 0.5);
 
 $height-of-mdc-text-field: 3.5rem; //This is written directly in rem, beucase the vaiable used to calculate things elsewhere
-$height-of-chip: pxToRem(20);
 
 $mdc-chip-background-color: #fff;
-$padding-top-of-chipset-input: 1rem;
-$height-of-chipset-input: $height-of-mdc-text-field -
-    $padding-top-of-chipset-input;
 
 $floating-label-top-value: pxToRem(
-    28
+    27
 ); // this overrides MD's original top value which is top: 50%. The reason is that we have fields or pickers which can have multiple rows, and a % value aligns the label in a wrong position
+
+$height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo before in MD's helper texts, which sets their distance to the element on top of it. Originally in MD, this value is 1rem. In Lime Elements, we need to make it less due to our layout needs.
 
 @mixin looks-disabled() {
     cursor: not-allowed;
@@ -38,16 +29,47 @@ $floating-label-top-value: pxToRem(
 
 @mixin looks-like-input-label() {
     font-family: Roboto, sans-serif;
-    font-size: 0.875rem;
     line-height: pxToRem(28);
-
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
+    font-size: pxToRem(14);
     font-weight: 400;
     letter-spacing: 0.009375em;
+    color: $label-color;
 }
 
 @mixin label--float-above() {
-    transform: translateY(-106%) scale(0.75);
+    transform: translateY(-2.38rem) scale(0.75);
+    font-size: pxToRem(16);
+}
+
+@mixin looks-like-helper-line {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+@mixin looks-like-helper-text {
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.0333333333em;
+    text-decoration: inherit;
+    text-transform: inherit;
+    display: block;
+    margin-top: 0;
+    line-height: normal;
+    margin: 0;
+    transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+}
+
+@mixin looks-like-helper-text-pseudo-before {
+    height: $height-of-helper-text-pseudo-before;
+    display: inline-block;
+    width: 0;
+    content: '';
+    vertical-align: 0;
 }

@@ -10,12 +10,98 @@
     }
 }
 
-.limel-form-layout--grid {
+.limel-form-layout--default {
+    --gap: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
-    gap: 0.5rem;
+    gap: var(--gap);
+}
 
-    .limel-form-layout-span--all {
+.limel-form-layout--grid {
+    --gap: 1rem;
+    --min-height-of-one-row: 4.71rem;
+    display: grid;
+    gap: var(--gap);
+
+    // Using `minmax(0, 1fr)` below, instead of just `1fr` ensures that
+    // components that are wider than their column don't make the column grow
+    // wider and squash the other columns. /Ads
+    grid-template-columns: repeat(var(--number-of-columns), minmax(0, 1fr));
+
+    &.auto-reorder-to-avoid-empty-cells {
+        grid-auto-flow: dense;
+    }
+
+    &.layout-1-columns {
+        .limel-form-layout-colspan--1,
+        .limel-form-layout-colspan--2,
+        .limel-form-layout-colspan--3,
+        .limel-form-layout-colspan--4,
+        .limel-form-layout-colspan--5 {
+            grid-column: span 1;
+        }
+    }
+
+    &.layout-2-columns {
+        .limel-form-layout-colspan--1 {
+            grid-column: span 1;
+        }
+        .limel-form-layout-colspan--2,
+        .limel-form-layout-colspan--3,
+        .limel-form-layout-colspan--4,
+        .limel-form-layout-colspan--5 {
+            grid-column: span 2;
+        }
+    }
+
+    &.layout-3-columns {
+        .limel-form-layout-colspan--1 {
+            grid-column: span 1;
+        }
+        .limel-form-layout-colspan--2 {
+            grid-column: span 2;
+        }
+        .limel-form-layout-colspan--3,
+        .limel-form-layout-colspan--4,
+        .limel-form-layout-colspan--5 {
+            grid-column: span 3;
+        }
+    }
+
+    &.layout-4-columns {
+        .limel-form-layout-colspan--1 {
+            grid-column: span 1;
+        }
+        .limel-form-layout-colspan--2 {
+            grid-column: span 2;
+        }
+        .limel-form-layout-colspan--3 {
+            grid-column: span 3;
+        }
+        .limel-form-layout-colspan--4,
+        .limel-form-layout-colspan--5 {
+            grid-column: span 4;
+        }
+    }
+
+    &.layout-5-columns {
+        .limel-form-layout-colspan--1 {
+            grid-column: span 1;
+        }
+        .limel-form-layout-colspan--2 {
+            grid-column: span 2;
+        }
+        .limel-form-layout-colspan--3 {
+            grid-column: span 3;
+        }
+        .limel-form-layout-colspan--4 {
+            grid-column: span 4;
+        }
+        .limel-form-layout-colspan--5 {
+            grid-column: span 5;
+        }
+    }
+
+    .limel-form-layout-colspan--all {
         grid-column: 1/-1;
     }
 }
