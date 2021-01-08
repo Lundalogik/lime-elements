@@ -565,9 +565,7 @@ export class ChipSet {
             >
                 {chip.icon ? this.renderIcon(chip) : null}
                 {this.renderLabel(chip)}
-                {chip.removable && !this.readonly && !this.disabled
-                    ? this.renderChipRemoveButton()
-                    : null}
+                {this.renderChipRemoveButton(chip)}
             </div>,
         ];
     }
@@ -617,7 +615,11 @@ export class ChipSet {
         );
     }
 
-    private renderChipRemoveButton() {
+    private renderChipRemoveButton(chip: Chip) {
+        if (!chip.removable || this.readonly || this.disabled) {
+            return;
+        }
+
         const svgData = `<svg style="height:100%;width:100%;" width="32" height="32" x="0px" y="0px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
     <line fill="none" id="svg_1" stroke="currentColor" stroke-width="2" x1="8" x2="24" y1="8" y2="24"/>
     <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>

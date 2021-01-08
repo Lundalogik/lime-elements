@@ -1,6 +1,11 @@
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
 import { OpenDirection } from '../menu/menu.types';
-import { createPopper, Instance, OptionsGeneric } from '@popperjs/core';
+import {
+    createPopper,
+    Instance,
+    OptionsGeneric,
+    Placement,
+} from '@popperjs/core';
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 
 /**
@@ -163,7 +168,7 @@ export class Portal {
     }
 
     private styleContainer() {
-        const rect: any = this.host.getBoundingClientRect();
+        const hostWidth = this.host.getBoundingClientRect().width;
 
         if (this.visible) {
             this.container.style.display = 'block';
@@ -172,10 +177,13 @@ export class Portal {
         }
 
         if (this.inheritParentWidth) {
-            this.container.style.width =
-                rect.width > 0
-                    ? `${rect.width}px`
-                    : `${this.getContentWidth(this.container)}px`;
+            const containerWidth = this.getContentWidth(this.container);
+            let width = containerWidth;
+            if (hostWidth > 0) {
+                width = hostWidth;
+            }
+
+            this.container.style.width = `${width}px`;
         }
 
         Object.keys(this.containerStyle).forEach((property) => {
@@ -188,9 +196,9 @@ export class Portal {
             return null;
         }
 
-        const rect = element.getBoundingClientRect();
-        if (rect.width !== 0) {
-            return rect.width;
+        const width = element.getBoundingClientRect().width;
+        if (width !== 0) {
+            return width;
         }
 
         const elementContent = element.querySelector('*');
@@ -212,19 +220,22 @@ export class Portal {
     private createPopperConfig(): Partial<
         OptionsGeneric<Partial<FlipModifier>>
     > {
+        let placement: Placement = 'bottom-start';
+        let flipPlacement: Placement = 'top-start';
+
+        if (this.openDirection === 'left') {
+            placement = 'bottom-end';
+            flipPlacement = 'top-end';
+        }
+
         return {
             strategy: this.position,
-            placement:
-                this.openDirection === 'left' ? 'bottom-end' : 'bottom-start',
+            placement: placement,
             modifiers: [
                 {
                     name: 'flip',
                     options: {
-                        fallbackPlacements: [
-                            this.openDirection === 'left'
-                                ? 'top-end'
-                                : 'top-start',
-                        ],
+                        fallbackPlacements: [flipPlacement],
                     },
                 },
             ],

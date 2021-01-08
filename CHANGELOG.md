@@ -1,3 +1,18 @@
+## [30.1.2](https://github.com/Lundalogik/lime-elements/compare/v30.1.1...v30.1.2) (2021-01-08)
+
+
+### Bug Fixes
+
+* **icon-button:** remove sticky focus style when button is clicked ([a98f488](https://github.com/Lundalogik/lime-elements/commit/a98f48840d3db2b9e20d59704e65d841f4a96dda))
+* **icon-button:** remove sticky hover effect on non-mouse devices ([1ea9ccc](https://github.com/Lundalogik/lime-elements/commit/1ea9ccc4a2e04d32f388f9de52500a2b1c603de0))
+
+## [30.1.1](https://github.com/Lundalogik/lime-elements/compare/v30.1.0...v30.1.1) (2021-01-08)
+
+
+### Bug Fixes
+
+* **dialog:** footer would sometimes be missing, despite having items in it ([c2315f9](https://github.com/Lundalogik/lime-elements/commit/c2315f9da5f962b6ef437efc8ee1db474d25c7a6)), closes [Lundalogik/crm-feature#1706](https://github.com/Lundalogik/crm-feature/issues/1706)
+
 # [30.1.0](https://github.com/Lundalogik/lime-elements/compare/v30.0.9...v30.1.0) (2021-01-07)
 
 
