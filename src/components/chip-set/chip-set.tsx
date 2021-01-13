@@ -201,6 +201,7 @@ export class ChipSet {
         }
 
         this.host.shadowRoot.querySelector('input').focus();
+        this.startEdit.emit();
     }
 
     /**
