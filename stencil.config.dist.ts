@@ -22,9 +22,7 @@ export const config: Config = {
     buildEs5: 'prod',
     extras: {
         /* See docs at https://stenciljs.com/docs/config-extras */
-        cssVarsShim: true,
         dynamicImportShim: true,
-        scriptDataOpts: true,
         shadowDomShim: true,
     },
     tsconfig: './tsconfig.dist.json',
