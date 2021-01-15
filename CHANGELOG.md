@@ -1,3 +1,10 @@
+## [30.1.3](https://github.com/Lundalogik/lime-elements/compare/v30.1.2...v30.1.3) (2021-01-15)
+
+
+### Bug Fixes
+
+* **chip-set:** emit startEdit event when setting focus on the input field ([10756a7](https://github.com/Lundalogik/lime-elements/commit/10756a702086f30e0b9b04628fbf967a95fe6da1))
+
 ## [30.1.2](https://github.com/Lundalogik/lime-elements/compare/v30.1.1...v30.1.2) (2021-01-08)
 
 
