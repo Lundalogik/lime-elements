@@ -49,7 +49,6 @@
 }
 
 .section__header__title {
-    flex-grow: 1;
     justify-self: flex-start;
     padding-right: pxToRem(12);
 
@@ -58,6 +57,21 @@
     text-overflow: ellipsis;
 
     user-select: none; // mostly to improve experience on Android, where tapping on sections selects the text too
+}
+
+.section__header__divider-line {
+    transition: opacity 0.3s ease 0.3s;
+    flex-grow: 1;
+    height: pxToRem(2);
+    border-radius: pxToRem(1);
+    background-color: var(--header-stroke-color, #8c8c96);
+    margin-right: pxToRem(16);
+
+    opacity: 0;
+
+    section.open & {
+        opacity: 0.16;
+    }
 }
 
 .section__header__actions {
