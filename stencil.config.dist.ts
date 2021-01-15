@@ -26,7 +26,6 @@ export const config: Config = {
         dynamicImportShim: true,
         scriptDataOpts: true,
         shadowDomShim: true,
-        initializeNextTick: true,
     },
     tsconfig: './tsconfig.dist.json',
     globalStyle: 'src/global/core-styles.scss',
