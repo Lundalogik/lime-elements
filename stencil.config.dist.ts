@@ -22,14 +22,11 @@ export const config: Config = {
     buildEs5: 'prod',
     extras: {
         /* See docs at https://stenciljs.com/docs/config-extras */
-        appendChildSlotFix: true,
-        cloneNodeFix: true,
         cssVarsShim: true,
         dynamicImportShim: true,
-        safari10: true,
-        scriptDataOpts: false,
+        scriptDataOpts: true,
         shadowDomShim: true,
-        slotChildNodesFix: true,
+        initializeNextTick: true,
     },
     tsconfig: './tsconfig.dist.json',
     globalStyle: 'src/global/core-styles.scss',
