@@ -70,6 +70,7 @@ export class CollapsibleSection {
                     <h2 class="section__header__title mdc-typography mdc-typography--headline2">
                         {this.header}
                     </h2>
+                    <div class="section__header__divider-line" />
                     {this.renderActions()}
                 </header>
                 <div class="section__body">
