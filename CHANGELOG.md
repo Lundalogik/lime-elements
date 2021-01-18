@@ -1,3 +1,11 @@
+## [30.1.4](https://github.com/Lundalogik/lime-elements/compare/v30.1.3...v30.1.4) (2021-01-18)
+
+
+### Bug Fixes
+
+* **collapsible-section:** add divider lines on headers ([a5ddc57](https://github.com/Lundalogik/lime-elements/commit/a5ddc57443a04a75caa6f93c1ffb8d763b813f67))
+* **collapsible-section:** reduce motion ([ceab5a5](https://github.com/Lundalogik/lime-elements/commit/ceab5a570145dfbfa37119ec54b3435d6f78d671))
+
 ## [30.1.3](https://github.com/Lundalogik/lime-elements/compare/v30.1.2...v30.1.3) (2021-01-15)
 
 
