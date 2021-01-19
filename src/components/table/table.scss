@@ -11,6 +11,7 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 @import './partial-styles/tabulator-paginator';
 @import './partial-styles/tabulator-loader';
 @import './partial-styles/tabulator-custom-styles';
+@import './partial-styles/header-component';
 
 :host {
     display: block;

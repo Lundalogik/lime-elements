@@ -1,0 +1,8 @@
+.lime-col-title__custom-component {
+    width: 100%;
+    display: flex;
+}
+.title-component-text {
+    @include truncate-text();
+    flex-grow: 1;
+}
