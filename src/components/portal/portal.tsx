@@ -135,7 +135,8 @@ export class Portal {
         const slot: HTMLSlotElement = this.host.shadowRoot.querySelector(
             'slot'
         );
-        const content = slot.assignedElements();
+        const content =
+            (slot.assignedElements && slot.assignedElements()) || [];
 
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);

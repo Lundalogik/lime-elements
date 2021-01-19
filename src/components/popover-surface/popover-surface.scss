@@ -1,0 +1,47 @@
+@import '../../style/functions';
+
+:host {
+    --popover-border-radius: 0.75rem;
+}
+
+.limel-popover-surface {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    width: var(--popover-surface-width, auto);
+    max-height: calc(100vh - 2rem);
+    max-width: calc(100vw - 2rem);
+
+    border-radius: var(--popover-border-radius);
+    box-shadow: var(--shadow-depth-16);
+    background-color: var(
+        --popover-body-background-color,
+        rgb(var(--contrast-100))
+    );
+
+    slot {
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+    }
+
+    slot[name='header'] {
+        border-radius: var(--popover-border-radius) var(--popover-border-radius)
+            0 0;
+        background-color: var(
+            --popover-header-background-color,
+            rgb(var(--contrast-300))
+        );
+    }
+    slot[name='body'] {
+    }
+    slot[name='footer'] {
+        border-radius: 0 0 var(--popover-border-radius)
+            var(--popover-border-radius);
+        background-color: var(
+            --popover-footer-background-color,
+            rgb(var(--contrast-500))
+        );
+    }
+}
