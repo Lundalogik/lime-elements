@@ -21,6 +21,10 @@ export class ColumnDefinitionFactory {
             field: column.field,
         };
 
+        if (column.headerComponent) {
+            definition.titleFormatter = formatHeader(column);
+        }
+
         if (column.component?.name || column.formatter) {
             definition.formatter = createFormatter(column, this.pool);
             definition.formatterParams = column as object;
@@ -33,6 +37,39 @@ export class ColumnDefinitionFactory {
         return definition;
     }
 }
+
+/**
+ * Formats the header of the column
+ *
+ * @param {Column} column the configuration for the column
+ *
+ * @returns {string | HTMLElement} custom component that renders a column header
+ */
+export const formatHeader = (column: Column) => (): string | HTMLElement => {
+    const element = document.createElement('div');
+    element.setAttribute('class', 'lime-col-title__custom-component');
+    const titleText = document.createElement('span');
+    titleText.setAttribute('class', 'title-component-text');
+    titleText.innerText = column.title;
+
+    const header = document.createElement(column.headerComponent.name);
+    header.setAttribute('class', 'title-component-slot');
+    let props: object = column.headerComponent.props || {};
+    if (column.headerComponent.propsFactory) {
+        props = {
+            ...props,
+            // we pass null to propsFactory function because no data in column header
+            ...column.headerComponent.propsFactory(null),
+        };
+    }
+
+    Object.assign(header, props);
+    element.appendChild(titleText);
+
+    element.appendChild(header);
+
+    return element;
+};
 
 /**
  * Create a formatter to be used to format values in a column

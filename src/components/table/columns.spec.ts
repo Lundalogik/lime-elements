@@ -233,5 +233,25 @@ describe('createCustomComponent', () => {
             const definition = factory.create(column);
             expect(definition.formatter).toBe(formatCell);
         });
+
+        it('formats the header of the column ', () => {
+            column.headerComponent = {
+                name: 'foo',
+                props: {
+                    icon: 'menu',
+                    items: [
+                        { text: 'All' },
+                        { text: 'Me' },
+                        { text: 'Contains' },
+                        { text: 'Equals' },
+                        { text: 'Not equals' },
+                    ],
+                },
+            };
+            const definition = factory.create(column);
+            const titleFormatter = definition.titleFormatter;
+            expect(definition).toHaveProperty('titleFormatter');
+            expect(typeof titleFormatter).toEqual('function');
+        });
     });
 });
