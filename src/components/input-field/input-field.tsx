@@ -9,6 +9,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
+import { debounce } from 'lodash-es';
 import {
     ARROW_DOWN,
     ARROW_DOWN_KEY_CODE,
@@ -206,6 +207,14 @@ export class InputField {
         this.handleCompletionChange = this.handleCompletionChange.bind(this);
         this.onKeyDownForList = this.onKeyDownForList.bind(this);
         this.layout = this.layout.bind(this);
+        this.changeEmitter = this.changeEmitter.bind(this);
+
+        const debounceTimeout = 100;
+        this.changeEmitter = debounce(this.changeEmitter, debounceTimeout, {
+            leading: false,
+            maxWait: 300,
+            trailing: true,
+        });
     }
 
     public connectedCallback() {
@@ -631,7 +640,14 @@ export class InputField {
         }
 
         this.showCompletions = false;
-        this.change.emit(event.detail.text);
+
+        /*
+         This change event doesn't need to be debounced in itself, but we want
+         to make absolutely sure that an earlier change event that *has* been
+         debounced doesn't emit after this one. Therefore, we run this through
+         the same debounced emitter function. /Ads
+         */
+        this.changeEmitter(event.detail.text);
     }
 
     private onKeyDownForList(event: KeyboardEvent) {
@@ -693,6 +709,10 @@ export class InputField {
             }
         }
 
+        this.changeEmitter(value);
+    }
+
+    private changeEmitter(value: string) {
         this.change.emit(value);
     }
 
