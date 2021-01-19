@@ -1,3 +1,10 @@
+## [30.1.5](https://github.com/Lundalogik/lime-elements/compare/v30.1.4...v30.1.5) (2021-01-19)
+
+
+### Bug Fixes
+
+* **tab-panel:** emit resize event to trigger component re-layout when changing tabs ([5903c1c](https://github.com/Lundalogik/lime-elements/commit/5903c1c8e123c3e5cb3354798a0301385ea442ab)), closes [Lundalogik/crm-feature#1696](https://github.com/Lundalogik/crm-feature/issues/1696) [Lundalogik/crm-feature#1697](https://github.com/Lundalogik/crm-feature/issues/1697)
+
 ## [30.1.4](https://github.com/Lundalogik/lime-elements/compare/v30.1.3...v30.1.4) (2021-01-18)
 
 

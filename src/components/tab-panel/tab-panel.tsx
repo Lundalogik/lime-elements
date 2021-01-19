@@ -9,6 +9,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { Tab } from '../tab-bar/tab.types';
+import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 
 /**
  * The `limel-tab-panel` component uses the `limel-tab-bar` component together
@@ -133,6 +134,10 @@ export class TabPanel {
         });
 
         this.setTabStatus(event.detail);
+
+        // Content inside the newly activated tab may need to redraw once
+        // visible, so we use the resize event trick. /Ads
+        setTimeout(dispatchResizeEvent);
     }
 
     private getSlot(): HTMLSlotElement {
