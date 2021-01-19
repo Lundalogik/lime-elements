@@ -1,5 +1,9 @@
 @import '../../style/internal/mdc-variables';
 
+/**
+ * @prop --form-body-padding: space around content of the form
+ */
+
 .limel-form-array-item--simple {
     display: flex;
     align-items: center;
@@ -14,6 +18,7 @@
     --gap: 1rem;
     display: grid;
     gap: var(--gap);
+    padding: var(--form-body-padding, pxToRem(16));
 }
 
 .limel-form-layout--grid {
@@ -21,6 +26,7 @@
     --min-height-of-one-row: 4.71rem;
     display: grid;
     gap: var(--gap);
+    padding: var(--form-body-padding, pxToRem(16));
 
     // Using `minmax(0, 1fr)` below, instead of just `1fr` ensures that
     // components that are wider than their column don't make the column grow
