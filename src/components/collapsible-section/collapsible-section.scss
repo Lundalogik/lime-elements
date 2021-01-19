@@ -4,7 +4,7 @@
  * @prop --closed-header-background-color: background color for header when closed
  * @prop --open-header-background-color: background color for header when open
  * @prop --body-background-color: background color for body
- * @prop --body-padding: padding for body
+ * @prop --body-padding: space around content of the body
  */
 
 :host {
@@ -91,7 +91,8 @@
 .section__body {
     animation: fade-in-section__body 0.3s ease-in forwards;
     background-color: var(--body-background-color, #ffffff);
-    padding: var(--body-padding, pxToRem(20));
+    padding-left: var(--body-padding, pxToRem(20));
+    padding-right: var(--body-padding, pxToRem(20));
     margin-bottom: pxToRem(24);
     border-radius: 0 0 var(--border-radius-of-header)
         var(--border-radius-of-header);
