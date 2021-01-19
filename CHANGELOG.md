@@ -1,3 +1,15 @@
+# [30.2.0](https://github.com/Lundalogik/lime-elements/compare/v30.1.5...v30.2.0) (2021-01-19)
+
+
+### Bug Fixes
+
+* **collapsible-section:** make `--body-padding` work only on the sides ([fde9fe5](https://github.com/Lundalogik/lime-elements/commit/fde9fe582df05023655a7b2cabd5cf096415b2ae))
+
+
+### Features
+
+* **form:** enable adding padding as overridable variables ([9a77f5f](https://github.com/Lundalogik/lime-elements/commit/9a77f5f0e40e63decac77c0f10cfa537e200ab3a))
+
 ## [30.1.5](https://github.com/Lundalogik/lime-elements/compare/v30.1.4...v30.1.5) (2021-01-19)
 
 
