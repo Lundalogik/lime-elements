@@ -23,6 +23,11 @@ export interface Column<T extends object = any> {
      * Type of aggregator to use for the column
      */
     aggregator?: ColumnAggregatorType | ColumnAggregatorFunction<T>;
+
+    /**
+     * A component used to render inside the column header
+     */
+    headerComponent?: TableComponentDefinition;
 }
 
 export type TableFormatter = (value: any, data?: object) => string;
@@ -57,6 +62,8 @@ export interface TableComponentDefinition {
      *
      * The properties returned from this function will be merged with the
      * `props` properties when the component is created.
+     *
+     * When the propsFactory is used for header components there will be no data available
      *
      * @param {*} data the data for the current row
      * @returns {object} properties for the component
