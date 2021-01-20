@@ -1,3 +1,10 @@
+## [30.2.1](https://github.com/Lundalogik/lime-elements/compare/v30.2.0...v30.2.1) (2021-01-20)
+
+
+### Bug Fixes
+
+* **input-field:** debounce changes to input, to avoid lost characters in some consumer applications ([4a7b8e6](https://github.com/Lundalogik/lime-elements/commit/4a7b8e687150ff70d8dd79ce5f44f00932276b56)), closes [Lundalogik/crm-feature#1719](https://github.com/Lundalogik/crm-feature/issues/1719)
+
 # [30.2.0](https://github.com/Lundalogik/lime-elements/compare/v30.1.5...v30.2.0) (2021-01-19)
 
 
