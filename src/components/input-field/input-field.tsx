@@ -297,7 +297,10 @@ export class InputField {
                 <div class="mdc-notched-outline">
                     <div class="mdc-notched-outline__leading"></div>
                     <div class="mdc-notched-outline__notch">
-                        <label class={labelClassList} htmlFor="input-element">
+                        <label
+                            class={labelClassList}
+                            htmlFor="tf-input-element"
+                        >
                             {this.label}
                         </label>
                     </div>
@@ -348,7 +351,7 @@ export class InputField {
         return [
             <div class={classList}>
                 <textarea
-                    id="textarea"
+                    id="tf-input-element"
                     class="mdc-text-field__input"
                     onInput={this.handleChange}
                     onFocus={this.onFocus}
@@ -362,7 +365,10 @@ export class InputField {
                 <div class="mdc-notched-outline">
                     <div class="mdc-notched-outline__leading" />
                     <div class="mdc-notched-outline__notch">
-                        <label htmlFor="textarea" class={labelClassList}>
+                        <label
+                            htmlFor="tf-input-element"
+                            class={labelClassList}
+                        >
                             {this.label}
                         </label>
                     </div>
