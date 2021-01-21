@@ -257,43 +257,43 @@ export class InputField {
     }
 
     public render() {
-        if (this.type === 'textarea') {
-            return this.renderTextArea();
-        }
+        const properties = this.getAdditionalProps();
+        properties.id = 'tf-input-element';
+        properties.class = 'mdc-text-field__input';
+        properties.onInput = this.handleChange;
+        properties.onFocus = this.onFocus;
+        properties.onBlur = this.onBlur;
+        properties.required = this.required;
+        properties.disabled = this.disabled;
 
-        const additionalProps = this.getAdditionalProps();
-        const classList = {
+        const containerClassList = {
             'mdc-text-field': true,
-            'mdc-text-field--outlined': true,
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled,
             'mdc-text-field--required': this.required,
             'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
-            'mdc-text-field--with-leading-icon': !!this.leadingIcon,
         };
+
         const labelClassList = {
             'mdc-floating-label': true,
             'mdc-floating-label--float-above': !!this.value || this.isFocused,
         };
 
+        if (this.type === 'textarea') {
+            containerClassList['mdc-text-field--textarea'] = true;
+            containerClassList['has-helper-line'] =
+                !!this.helperText || !!this.maxlength;
+        } else {
+            containerClassList['mdc-text-field--outlined'] = true;
+            containerClassList['mdc-text-field--with-leading-icon'] = !!this
+                .leadingIcon;
+        }
+
         return [
-            <div class={classList}>
+            <div class={containerClassList}>
                 {this.renderFormattedNumber()}
-                <input
-                    class="mdc-text-field__input"
-                    id="tf-input-element"
-                    onInput={this.handleChange}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    required={this.required}
-                    disabled={this.disabled}
-                    type={this.type}
-                    pattern={this.pattern}
-                    onWheel={this.handleWheel}
-                    onKeyDown={this.onKeyDown}
-                    {...additionalProps}
-                    value={this.value}
-                />
+                {this.renderInput(properties)}
+                {this.renderTextarea(properties)}
                 <div class="mdc-notched-outline">
                     <div class="mdc-notched-outline__leading"></div>
                     <div class="mdc-notched-outline__notch">
@@ -309,9 +309,7 @@ export class InputField {
                 {this.renderIcons()}
             </div>,
             this.renderHelperLine(),
-            <div class="autocomplete-list-container">
-                {this.renderDropdown()}
-            </div>,
+            this.renderAutocompleteList(),
         ];
     }
 
@@ -326,57 +324,33 @@ export class InputField {
         }
     }
 
-    private layout() {
-        this.mdcTextField?.layout();
+    private renderInput(properties) {
+        if (this.type === 'textarea') {
+            return;
+        }
+
+        return (
+            <input
+                {...properties}
+                type={this.type}
+                pattern={this.pattern}
+                onWheel={this.handleWheel}
+                onKeyDown={this.onKeyDown}
+                value={this.value}
+            />
+        );
     }
 
-    private renderTextArea() {
-        const additionalProps = this.getAdditionalProps();
-        const classList = {
-            'mdc-text-field': true,
-            'mdc-text-field--textarea': true,
-            'mdc-text-field--disabled': this.disabled,
-            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
-            'mdc-text-field--invalid': this.isInvalid(),
-            'mdc-text-field--required': this.required,
-            'has-helper-line': !!this.helperText || !!this.maxlength,
-        };
+    private renderTextarea(properties) {
+        if (this.type !== 'textarea') {
+            return;
+        }
 
-        const labelClassList = {
-            'mdc-floating-label': true,
-            'textarea-label': true,
-            'mdc-floating-label--float-above': !!this.value || this.isFocused,
-        };
+        return <textarea {...properties}>{this.value}</textarea>;
+    }
 
-        return [
-            <div class={classList}>
-                <textarea
-                    id="tf-input-element"
-                    class="mdc-text-field__input"
-                    onInput={this.handleChange}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    required={this.required}
-                    disabled={this.disabled}
-                    {...additionalProps}
-                >
-                    {this.value}
-                </textarea>
-                <div class="mdc-notched-outline">
-                    <div class="mdc-notched-outline__leading" />
-                    <div class="mdc-notched-outline__notch">
-                        <label
-                            htmlFor="tf-input-element"
-                            class={labelClassList}
-                        >
-                            {this.label}
-                        </label>
-                    </div>
-                    <div class="mdc-notched-outline__trailing" />
-                </div>
-            </div>,
-            this.renderHelperLine(),
-        ];
+    private layout() {
+        this.mdcTextField?.layout();
     }
 
     private getAdditionalProps() {
@@ -479,6 +453,10 @@ export class InputField {
     }
 
     private renderIcons() {
+        if (this.type === 'textarea') {
+            return;
+        }
+
         const html = [];
 
         if (this.leadingIcon) {
@@ -662,6 +640,18 @@ export class InputField {
         if (isForwardTab) {
             this.showCompletions = false;
         }
+    }
+
+    private renderAutocompleteList() {
+        if (this.type === 'textarea') {
+            return;
+        }
+
+        return (
+            <div class="autocomplete-list-container">
+                {this.renderDropdown()}
+            </div>
+        );
     }
 
     private renderDropdown() {
