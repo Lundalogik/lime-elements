@@ -90,3 +90,9 @@
         background-color: #757580;
     }
 }
+
+@mixin truncate-text() {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
