@@ -1,3 +1,11 @@
+# [30.3.0](https://github.com/Lundalogik/lime-elements/compare/v30.2.1...v30.3.0) (2021-01-25)
+
+
+### Features
+
+* **columns:** add a support for having action buttons inside the column header ([fc757ab](https://github.com/Lundalogik/lime-elements/commit/fc757ab672ff2304a4faba98bc0ab3aecdb115d6)), closes [#1749](https://github.com/Lundalogik/lime-elements/issues/1749)
+* **table.types:** add headerComponent property in the column interface ([d6461f8](https://github.com/Lundalogik/lime-elements/commit/d6461f82ff13cfa9539e78e5805166d4abf67af3)), closes [#1749](https://github.com/Lundalogik/lime-elements/issues/1749)
+
 ## [30.2.1](https://github.com/Lundalogik/lime-elements/compare/v30.2.0...v30.2.1) (2021-01-20)
 
 
