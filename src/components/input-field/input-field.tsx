@@ -25,6 +25,7 @@ import {
 import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
 import { getHref, getTarget } from './link-helper';
+import { JSXBase } from '@stencil/core/internal';
 
 interface LinkProperties {
     href: string;
@@ -324,7 +325,9 @@ export class InputField {
         }
     }
 
-    private renderInput(properties) {
+    private renderInput(
+        properties: JSXBase.InputHTMLAttributes<HTMLInputElement>
+    ) {
         if (this.type === 'textarea') {
             return;
         }
@@ -341,7 +344,9 @@ export class InputField {
         );
     }
 
-    private renderTextarea(properties) {
+    private renderTextarea(
+        properties: JSXBase.TextareaHTMLAttributes<HTMLTextAreaElement>
+    ) {
         if (this.type !== 'textarea') {
             return;
         }
