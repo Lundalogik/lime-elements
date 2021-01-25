@@ -17,6 +17,7 @@ describe('limel-input-field', () => {
         { name: 'text' },
         { name: 'textarea', nativeSelector: 'limel-input-field>>>textarea' },
         { name: 'url' },
+        { name: 'urlAsText', expectedNativeElementType: 'text' },
     ];
 
     types.forEach((type) =>
@@ -75,19 +76,20 @@ describe('limel-input-field', () => {
             });
             describe('the native input', () => {
                 let nativeInput: E2EElement;
+                const typeName = type.expectedNativeElementType || type.name;
 
                 beforeEach(async () => {
                     const selector =
                         type.nativeSelector || 'limel-input-field>>>input';
                     nativeInput = await page.find(selector);
                 });
-                if (type.name === 'textarea') {
+                if (typeName === 'textarea') {
                     it('uses a native textarea', () => {
                         expect(nativeInput).toBeTruthy();
                     });
                 } else {
-                    it(`has the type '${type.name}'`, () => {
-                        expect(nativeInput).toEqualAttribute('type', type.name);
+                    it(`has the type '${typeName}'`, () => {
+                        expect(nativeInput).toEqualAttribute('type', typeName);
                     });
                 }
 
@@ -241,6 +243,134 @@ describe('limel-input-field', () => {
             }
         })
     );
+
+    describe('with type="urlAsText" and show-link=true', () => {
+        beforeEach(async () => {
+            page = await createPage(`
+                <limel-input-field
+                    type="urlAsText"
+                    label="Website"
+                    show-link="true"
+                ></limel-input-field>
+            `);
+            limelInput = await page.find('limel-input-field');
+            inputContainer = await page.find(
+                'limel-input-field>>>div.mdc-text-field'
+            );
+        });
+
+        describe('with an empty value', () => {
+            beforeEach(async () => {
+                const nativeInput = await page.find(
+                    'limel-input-field>>>input'
+                );
+                nativeInput.focus();
+                limelInput.setProperty('value', '');
+                nativeInput.press('Tab');
+                await page.waitForChanges();
+            });
+            it('is NOT considered invalid', () => {
+                expect(inputContainer).not.toHaveClass(
+                    'mdc-text-field--invalid'
+                );
+            });
+            it('has a trailing icon indicating that the link can be opened', async () => {
+                const trailingIcon = await page.find(
+                    'limel-input-field>>>.mdc-text-field__icon.trailing-icon>limel-icon'
+                );
+                expect(trailingIcon).toBeTruthy();
+                expect(trailingIcon).toEqualAttribute('name', 'external_link');
+            });
+        });
+
+        const validUrls = [
+            {
+                input: 'https://www.fullyqualified.com/',
+                expectedHref: 'https://www.fullyqualified.com/',
+            },
+            {
+                input: 'http://www.fullyqualified.com/',
+                expectedHref: 'http://www.fullyqualified.com/',
+            },
+            {
+                input: '//www.relativeprotocol.com',
+                expectedHref: '//www.relativeprotocol.com',
+            },
+            {
+                input: 'www.missingprotocol.com',
+                expectedHref: 'https://www.missingprotocol.com',
+            },
+            { input: 'nowww.com', expectedHref: 'https://nowww.com' },
+            { input: '/aRelativeUrl', expectedHref: '/aRelativeUrl' },
+            {
+                input:
+                    'nowww.com/with/email/address/in?queryString=someone@example.com',
+                expectedHref:
+                    'https://nowww.com/with/email/address/in?queryString=someone@example.com',
+            },
+        ];
+
+        validUrls.forEach((url) =>
+            describe(`with a value of '${url.input}'`, () => {
+                beforeEach(async () => {
+                    const nativeInput = await page.find(
+                        'limel-input-field>>>input'
+                    );
+                    nativeInput.focus();
+                    limelInput.setProperty('value', url.input);
+                    nativeInput.press('Tab');
+                    await page.waitForChanges();
+                });
+                it('is NOT considered invalid', () => {
+                    expect(inputContainer).not.toHaveClass(
+                        'mdc-text-field--invalid'
+                    );
+                });
+                it(`has a link with the href '${url.expectedHref}'`, async () => {
+                    const link = await page.find(
+                        'limel-input-field>>>.mdc-text-field__icon.trailing-icon'
+                    );
+                    expect(link).toEqualAttribute('href', url.expectedHref);
+                });
+                it('has a trailing icon indicating that the link can be opened', async () => {
+                    const icon = await page.find(
+                        'limel-input-field>>>.mdc-text-field__icon.trailing-icon>limel-icon'
+                    );
+                    expect(icon).toEqualAttribute('name', 'external_link');
+                });
+            })
+        );
+
+        const invalidUrls = [
+            { input: 'justoneword' },
+            { input: 'some words with spaces' },
+        ];
+
+        invalidUrls.forEach((url) =>
+            describe(`with a value of '${url.input}'`, () => {
+                beforeEach(async () => {
+                    const nativeInput = await page.find(
+                        'limel-input-field>>>input'
+                    );
+                    nativeInput.focus();
+                    limelInput.setProperty('value', url.input);
+                    nativeInput.press('Tab');
+                    await page.waitForChanges();
+                });
+                it('IS considered invalid', () => {
+                    expect(inputContainer).toHaveClass(
+                        'mdc-text-field--invalid'
+                    );
+                });
+                it('has a trailing icon indicating the field is invalid', async () => {
+                    const icon = await page.find(
+                        'limel-input-field>>>.mdc-text-field__icon.trailing-icon>limel-icon'
+                    );
+                    expect(icon).toEqualAttribute('name', 'high_importance');
+                });
+            })
+        );
+    });
 });
 
 async function createPage(content: string) {
