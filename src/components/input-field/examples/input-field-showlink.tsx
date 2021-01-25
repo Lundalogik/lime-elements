@@ -61,6 +61,15 @@ export class InputFieldShowlinkExample {
                 type="url"
                 showLink
             />,
+            <limel-input-field
+                label="urlAsText"
+                value={this.urlValue}
+                required={this.required}
+                disabled={this.disabled}
+                onChange={this.urlChangeHandler}
+                type="urlAsText"
+                showLink
+            />,
             <p>
                 <limel-flex-container justify="end">
                     <limel-button
