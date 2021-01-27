@@ -1,3 +1,10 @@
+# [30.4.0](https://github.com/Lundalogik/lime-elements/compare/v30.3.0...v30.4.0) (2021-01-27)
+
+
+### Features
+
+* **popover:** add popover component ([d47d360](https://github.com/Lundalogik/lime-elements/commit/d47d3602fdf2fafb3f54d298625b1d95b7ac56fa))
+
 # [30.3.0](https://github.com/Lundalogik/lime-elements/compare/v30.2.1...v30.3.0) (2021-01-25)
 
 
