@@ -141,6 +141,9 @@ export class Portal {
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
         this.container.setAttribute('class', 'limel-portal--container');
+        Object.assign(this.container, {
+            portalSource: this.host,
+        });
 
         content.forEach((element: HTMLElement) => {
             this.container.appendChild(element);
