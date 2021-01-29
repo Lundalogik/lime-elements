@@ -46,14 +46,16 @@ export class ColumnDefinitionFactory {
  * @returns {string | HTMLElement} custom component that renders a column header
  */
 export const formatHeader = (column: Column) => (): string | HTMLElement => {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'lime-col-title__custom-component');
-    const titleText = document.createElement('span');
-    titleText.setAttribute('class', 'title-component-text');
-    titleText.innerText = column.title;
+    const headerElement = document.createElement('div');
+    headerElement.setAttribute('class', 'lime-col-title__custom-component');
 
-    const header = document.createElement(column.headerComponent.name);
-    header.setAttribute('class', 'title-component-slot');
+    const titleElement = document.createElement('span');
+    titleElement.setAttribute('class', 'title-component-text');
+    titleElement.innerText = column.title;
+
+    const customElement = document.createElement(column.headerComponent.name);
+    customElement.setAttribute('class', 'title-component-slot');
+
     let props: object = column.headerComponent.props || {};
     if (column.headerComponent.propsFactory) {
         props = {
@@ -63,12 +65,12 @@ export const formatHeader = (column: Column) => (): string | HTMLElement => {
         };
     }
 
-    Object.assign(header, props);
-    element.appendChild(titleText);
+    Object.assign(customElement, props);
 
-    element.appendChild(header);
+    headerElement.appendChild(titleElement);
+    headerElement.appendChild(customElement);
 
-    return element;
+    return headerElement;
 };
 
 /**
