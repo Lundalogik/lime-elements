@@ -1,3 +1,10 @@
+## [30.4.1](https://github.com/Lundalogik/lime-elements/compare/v30.4.0...v30.4.1) (2021-01-29)
+
+
+### Bug Fixes
+
+* **popover:** do not emit close event when clicking inside nested portals ([8ee5385](https://github.com/Lundalogik/lime-elements/commit/8ee5385bc2694ddf90ee0c046972497ae3baa900))
+
 # [30.4.0](https://github.com/Lundalogik/lime-elements/compare/v30.3.0...v30.4.0) (2021-01-27)
 
 
