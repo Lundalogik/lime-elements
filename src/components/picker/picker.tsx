@@ -25,7 +25,6 @@ import { createRandomString } from '../../util/random-string';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
-const ITEM_LIMIT_NO_SCROLL = 5;
 
 /**
  * @exampleComponent limel-example-picker
@@ -98,6 +97,10 @@ export class Picker {
 
     /**
      * True if the dropdown list should be displayed without cutting the content
+     *
+     * @deprecated This was used for a workaround, and isn't needed any
+     * longer. Setting it has no effect, and the property will be removed
+     * in the next major version.
      */
     @Prop()
     public displayFullList: boolean = false;
@@ -206,7 +209,7 @@ export class Picker {
                 emptyInputOnBlur={false}
                 {...props}
             />,
-            <div class="mdc-menu-surface--anchor">{this.renderDropdown()}</div>,
+            this.renderDropdown(),
         ];
     }
 
@@ -262,13 +265,8 @@ export class Picker {
      */
     private renderDropdown() {
         const content = this.getDropdownContent();
-        const styling = {};
 
-        if (this.isScrollableDropdown()) {
-            styling['max-height'] = '250px';
-        }
-
-        return this.renderPortal(content, styling);
+        return this.renderPortal(content);
     }
 
     private getDropdownContent() {
@@ -337,29 +335,20 @@ export class Picker {
         );
     }
 
-    private isScrollableDropdown() {
-        if (this.displayFullList) {
-            return false;
-        }
-
-        if (!this.items || !this.items.length) {
-            return false;
-        }
-
-        return this.items.length > ITEM_LIMIT_NO_SCROLL;
-    }
-
-    private renderPortal(content = null, styling = {}) {
+    private renderPortal(content = null) {
         return (
             <limel-portal
                 visible={!!content}
                 containerId={this.portalId}
-                containerStyle={styling}
                 inheritParentWidth={true}
             >
                 <limel-menu-surface
                     open={!!content}
-                    style={{ '--menu-surface-width': '100%' }}
+                    style={{
+                        '--menu-surface-width': '100%',
+                        'max-height': 'inherit',
+                        display: 'flex',
+                    }}
                 >
                     {content}
                 </limel-menu-surface>
