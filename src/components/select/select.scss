@@ -7,6 +7,12 @@
 
 @import '../../style/mixins';
 
+:host {
+    display: block;
+    position: relative;
+    height: $height-of-mdc-text-field;
+}
+
 :host([hidden]) {
     display: none;
 }
@@ -25,12 +31,12 @@
 }
 
 .limel-select {
-    display: grid;
+    height: 100%;
 
     .limel-select-trigger {
         display: inline-flex;
         min-width: 0; // makes the limel-select__selected-text truncate and prevents the select to grow wider than its container
-        height: $height-of-mdc-text-field;
+        height: 100%;
 
         cursor: pointer;
         border-radius: pxToRem(5);
