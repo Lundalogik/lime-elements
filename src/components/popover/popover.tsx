@@ -21,7 +21,7 @@ import { portalContains } from '../portal/contains';
  * dismissed by tapping or clicking another part of the screen, but not by a
  * clicking a button or link on the popover itself.
  *
- * :::important
+ * :::warning
  * The component is emitting a close event when you click outside its container.
  * However, it’s up to you as consumer to react properly on this event and
  * hide the component (preferably by setting the property `open` to `false`).
@@ -41,20 +41,15 @@ import { portalContains } from '../portal/contains';
  *
  *
  * ## Layout
- * Popovers have 3 slots, `header`, `body`, and `footer`; in which you can
- * import custom web-components. You can choose to only use `body`, or only
- * `header` and `body` for example.
+ * Popovers has only one slot in which you can import a custom web-component.
  *
  * :::note
- * You must make sure that web-components that you import into these slots have
- * a `width: 100%;` style and horizontally stretch across the popover.
+ * You must make sure that web-components that you import into the slot has
+ * a `width: 100%;` style so that it can horizontally stretch across the popover.
  *
  * However, `width` of the popover can be controlled by specifying a CSS variable
  * of `--popover-surface-width`. If you don't specify any width, the popover
  * will grow as wide as its content.
- *
- * There are other style variables as well for changing the default background
- * colors of `header`, `body`, and `footer`.
  * :::
  *
  * :::important
@@ -63,9 +58,7 @@ import { portalContains } from '../portal/contains';
  * :::
  *
  *
- * @slot - header - Content to put inside the header surface
- * @slot - body - Content to put inside the body surface
- * @slot - footer - Content to put inside the footer surface
+ * @slot - Content to put inside the surface
  * @exampleComponent limel-example-popover
  * @private
  */
@@ -126,9 +119,7 @@ export class Popover {
                     contentCollection={this.host.children}
                     style={cssProperties}
                 >
-                    <slot name="header" />
-                    <slot name="body" />
-                    <slot name="footer" />
+                    <slot />
                 </limel-popover-surface>
             </limel-portal>
         );
@@ -145,9 +136,7 @@ export class Popover {
     private getCssProperties() {
         const propertyNames = [
             '--popover-surface-width',
-            '--popover-header-background-color',
             '--popover-body-background-color',
-            '--popover-footer-background-color',
         ];
         const style = getComputedStyle(this.host);
         const values = propertyNames.map((property) => {
