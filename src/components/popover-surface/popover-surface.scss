@@ -1,9 +1,5 @@
 @import '../../style/functions';
 
-:host {
-    --popover-border-radius: 0.75rem;
-}
-
 .limel-popover-surface {
     position: relative;
     display: flex;
@@ -13,7 +9,7 @@
     max-height: calc(100vh - 2rem);
     max-width: calc(100vw - 2rem);
 
-    border-radius: var(--popover-border-radius);
+    border-radius: var(--popover-border-radius, pxToRem(12));
     box-shadow: var(--shadow-depth-16);
     background-color: var(
         --popover-body-background-color,
@@ -24,24 +20,5 @@
         box-sizing: border-box;
         display: block;
         width: 100%;
-    }
-
-    slot[name='header'] {
-        border-radius: var(--popover-border-radius) var(--popover-border-radius)
-            0 0;
-        background-color: var(
-            --popover-header-background-color,
-            rgb(var(--contrast-300))
-        );
-    }
-    slot[name='body'] {
-    }
-    slot[name='footer'] {
-        border-radius: 0 0 var(--popover-border-radius)
-            var(--popover-border-radius);
-        background-color: var(
-            --popover-footer-background-color,
-            rgb(var(--contrast-500))
-        );
     }
 }
