@@ -2,4 +2,9 @@
 
 :host {
     position: relative;
+    display: block;
+}
+
+:host([hidden]) {
+    display: none;
 }
