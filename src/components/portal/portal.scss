@@ -9,3 +9,7 @@
 :host(limel-portal.limel-portal--fixed) {
     position: fixed;
 }
+
+:host([hidden]) {
+    display: none;
+}
