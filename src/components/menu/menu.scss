@@ -28,19 +28,4 @@ $menu-item-background-color: #ebebeb;
 
 .mdc-menu-surface--anchor {
     position: relative;
-
-    limel-portal {
-        &.limel-portal--fixed {
-            position: fixed;
-        }
-
-        &:not(.limel-portal--fixed) {
-            z-index: -999999;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-    }
 }

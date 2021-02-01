@@ -8,22 +8,32 @@ import {
 } from '@popperjs/core';
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 
+/* eslint-disable jsdoc/check-indentation */
 /**
- * The portal component provides a way to render children into a DOM node that exist outside
- * the DOM hierarchy of the parent component.
+ * The portal component provides a way to render children into a DOM node that
+ * exist outside the DOM hierarchy of the parent component.
  *
  * There are some caveats when using this component
  *
- * * Events might not bubble up as expected since the content is moved out to another DOM node
- * * Any styling that is applied to content from the parent will be lost, if the content is
- * just another web compoent it will work without any issues
- * * When the node is moved in the DOM, `disconnectedCallback` and `connectedCallback`
- * will be invoked, so if `disconnectedCallback` is used to do any tear-down, the
- * appropriate setup will have to be done again on `connectedCallback`
+ * * Events might not bubble up as expected since the content is moved out to
+ *   another DOM node.
+ * * Any styling that is applied to content from the parent will be lost, if the
+ *   content is just another web compoent it will work without any issues.
+ *   Alternatively, use the
+ *   `style=""` html attribute.
+ * * Any component that is placed inside the container must have a style of
+ *   `max-height: inherit`. This ensures that its placement is calculated
+ *   correctly in relation to the trigger, and that it never covers its own
+ *   trigger.
+ * * When the node is moved in the DOM, `disconnectedCallback` and
+ *   `connectedCallback` will be invoked, so if `disconnectedCallback` is used
+ *   to do any tear-down, the appropriate setup will have to be done again on
+ *   `connectedCallback`.
  *
  * @slot - Content to put inside the portal
  * @private
  */
+/* eslint-enable jsdoc/check-indentation */
 @Component({
     tag: 'limel-portal',
     shadow: true,
@@ -86,8 +96,8 @@ export class Portal {
             return;
         }
 
-        this.createPopper();
         this.styleContainer();
+        this.createPopper();
         requestAnimationFrame(() => {
             this.showContainer();
         });
@@ -102,9 +112,14 @@ export class Portal {
 
     private loaded = false;
 
+    private observer: IResizeObserver;
+
     public disconnectedCallback() {
         this.removeContainer();
         this.destroyPopper();
+        if (this.observer) {
+            this.observer.unobserve(this.container);
+        }
     }
 
     public connectedCallback() {
@@ -119,6 +134,16 @@ export class Portal {
 
         if (this.visible) {
             this.createPopper();
+        }
+
+        if ('ResizeObserver' in window) {
+            const observer = new ResizeObserver(() => {
+                if (this.popperInstance) {
+                    this.styleContainer();
+                    this.popperInstance.update();
+                }
+            });
+            observer.observe(this.container);
         }
     }
 
@@ -190,6 +215,8 @@ export class Portal {
             this.container.style.width = `${width}px`;
         }
 
+        this.ensureContainerFitsInViewPort();
+
         Object.keys(this.containerStyle).forEach((property) => {
             this.container.style[property] = this.containerStyle[property];
         });
@@ -244,5 +271,22 @@ export class Portal {
                 },
             ],
         };
+    }
+
+    private ensureContainerFitsInViewPort() {
+        const viewHeight = Math.max(
+            document.documentElement.clientHeight || 0,
+            window.innerHeight || 0
+        );
+
+        const { top, bottom } = this.host.getBoundingClientRect();
+        const spaceAboveTopOfSurface = Math.max(top, 0);
+        const spaceBelowTopOfSurface = Math.max(viewHeight - bottom, 0);
+        const extraCosmeticSpace = 16;
+        const maxHeight =
+            Math.max(spaceAboveTopOfSurface, spaceBelowTopOfSurface) -
+            extraCosmeticSpace;
+
+        this.container.style.maxHeight = `${maxHeight}px`;
     }
 }
