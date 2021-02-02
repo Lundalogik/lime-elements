@@ -2,6 +2,7 @@ import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
 import Tabulator from 'tabulator-tables';
 import { escape } from 'html-escaper';
 import { ElementPool } from './element-pool';
+import { pickBy, negate } from 'lodash-es';
 
 export class ColumnDefinitionFactory {
     constructor(private pool: ElementPool) {
@@ -46,14 +47,16 @@ export class ColumnDefinitionFactory {
  * @returns {string | HTMLElement} custom component that renders a column header
  */
 export const formatHeader = (column: Column) => (): string | HTMLElement => {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'lime-col-title__custom-component');
-    const titleText = document.createElement('span');
-    titleText.setAttribute('class', 'title-component-text');
-    titleText.innerText = column.title;
+    const headerElement = document.createElement('div');
+    headerElement.setAttribute('class', 'lime-col-title__custom-component');
 
-    const header = document.createElement(column.headerComponent.name);
-    header.setAttribute('class', 'title-component-slot');
+    const titleElement = document.createElement('span');
+    titleElement.setAttribute('class', 'title-component-text');
+    titleElement.innerText = column.title;
+
+    const customElement = document.createElement(column.headerComponent.name);
+    customElement.setAttribute('class', 'title-component-slot');
+
     let props: object = column.headerComponent.props || {};
     if (column.headerComponent.propsFactory) {
         props = {
@@ -63,12 +66,12 @@ export const formatHeader = (column: Column) => (): string | HTMLElement => {
         };
     }
 
-    Object.assign(header, props);
-    element.appendChild(titleText);
+    setElementProperties(customElement, props);
 
-    element.appendChild(header);
+    headerElement.appendChild(titleElement);
+    headerElement.appendChild(customElement);
 
-    return element;
+    return headerElement;
 };
 
 /**
@@ -179,11 +182,61 @@ export function createCustomComponent(
     };
 
     element.style.display = 'inline-block';
-    Object.assign(element, props);
+    setElementProperties(element, props);
 
     createResizeObserver(element, cell.getColumn());
 
     return element;
+}
+
+/**
+ * Set all properties for a custom element, including event listeners
+ *
+ * @param {HTMLElement} element the custom element
+ * @param {object} props object of properties and event listeners
+ */
+function setElementProperties(element: HTMLElement, props: object) {
+    const properties = pickBy(props, negate(isEventListener));
+    Object.assign(element, properties);
+
+    const listeners = pickBy(props, isEventListener);
+    Object.entries(listeners).forEach(([key, value]) => {
+        const event = getEventName(key);
+        element.addEventListener(event, value as any);
+    });
+}
+
+/**
+ * Check if a property is an event listener.
+ *
+ * An event listener has to be a function and its property name have to start
+ * with "on" followed by the name of the event in camel case, e.g. "onEventName"
+ *
+ * @param {any} value the value to check
+ * @param {string} key name of the property
+ *
+ * @returns {boolean} true if the property of the object is an event listener
+ */
+function isEventListener(value: any, key: string): boolean {
+    if (typeof value !== 'function') {
+        return false;
+    }
+
+    return /^on[A-Z]/.test(key);
+}
+
+/**
+ * Get the name of an event from the name of an event listener
+ *
+ * E.g. "onMyEvent" will return "myEvent"
+ *
+ * @param {string} eventListener name of the event listener
+ *
+ * @returns {string} the name of the event
+ */
+function getEventName(eventListener: string): string {
+    // eslint-disable-next-line no-magic-numbers
+    return eventListener.charAt(2).toLowerCase() + eventListener.slice(3);
 }
 
 function createResizeObserver(

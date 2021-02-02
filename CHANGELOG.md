@@ -1,3 +1,10 @@
+# [30.5.0](https://github.com/Lundalogik/lime-elements/compare/v30.4.1...v30.5.0) (2021-02-01)
+
+
+### Features
+
+* **table:** allow event listeners to be passed with the props to custom components ([15b764f](https://github.com/Lundalogik/lime-elements/commit/15b764f0068f811a781f6fa0e73cb363924120aa))
+
 ## [30.4.1](https://github.com/Lundalogik/lime-elements/compare/v30.4.0...v30.4.1) (2021-01-29)
 
 
