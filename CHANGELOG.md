@@ -1,3 +1,10 @@
+## [30.5.1](https://github.com/Lundalogik/lime-elements/compare/v30.5.0...v30.5.1) (2021-02-02)
+
+
+### Bug Fixes
+
+* **popover:** remove unnecessary slots ([8df21d9](https://github.com/Lundalogik/lime-elements/commit/8df21d9185edacf958534fb52ac094b7460c3304))
+
 # [30.5.0](https://github.com/Lundalogik/lime-elements/compare/v30.4.1...v30.5.0) (2021-02-01)
 
 
