@@ -86,6 +86,12 @@ export class File {
     @Event()
     private change: EventEmitter<FileInfo>;
 
+    /**
+     * Dispatched when clicking on a chip
+     */
+    @Event()
+    private interact: EventEmitter<number | string>;
+
     @Element()
     private element: HTMLLimelFileElement;
 
@@ -101,6 +107,7 @@ export class File {
         this.handleFileDrop = this.handleFileDrop.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleKeyUp = this.handleKeyUp.bind(this);
+        this.handleChipInteract = this.handleChipInteract.bind(this);
     }
 
     public connectedCallback() {
@@ -148,7 +155,7 @@ export class File {
                 onDragEnter={this.preventAndStop}
                 onDragOver={this.preventAndStop}
                 onDrop={this.handleFileDrop}
-                onInteract={this.preventAndStop}
+                onInteract={this.handleChipInteract}
                 onKeyDown={this.handleKeyDown}
                 onKeyUp={this.handleKeyUp}
                 required={this.required}
@@ -239,6 +246,12 @@ export class File {
         this.preventAndStop(event);
         const dataTransfer = event.dataTransfer;
         this.handleFile(dataTransfer.files[0]);
+    }
+
+    private handleChipInteract(event: CustomEvent<Chip>) {
+        event.stopPropagation();
+        event.preventDefault();
+        this.interact.emit(event.detail.id);
     }
 
     private preventAndStop(event: Event) {
