@@ -1,3 +1,15 @@
+# [30.7.0](https://github.com/Lundalogik/lime-elements/compare/v30.6.0...v30.7.0) (2021-02-03)
+
+
+### Bug Fixes
+
+* **input-field:** correctly link the label to the input or textarea element ([e860f76](https://github.com/Lundalogik/lime-elements/commit/e860f76591c5f4bef2831ee181052c68621b3166))
+
+
+### Features
+
+* **input-field:** add `type='urlAsText'`, allowing urls that are not fully qualified ([27d1811](https://github.com/Lundalogik/lime-elements/commit/27d1811feb0bdd6757d8b31f1633d876e79a6cf4)), closes [Lundalogik/crm-feature#1595](https://github.com/Lundalogik/crm-feature/issues/1595)
+
 # [30.6.0](https://github.com/Lundalogik/lime-elements/compare/v30.5.1...v30.6.0) (2021-02-03)
 
 
