@@ -1,3 +1,10 @@
+# [30.6.0](https://github.com/Lundalogik/lime-elements/compare/v30.5.1...v30.6.0) (2021-02-03)
+
+
+### Features
+
+* **header:** add header component ([391d8f8](https://github.com/Lundalogik/lime-elements/commit/391d8f8f3a6dc37f9a5351a65e4a8ab7164bd782))
+
 ## [30.5.1](https://github.com/Lundalogik/lime-elements/compare/v30.5.0...v30.5.1) (2021-02-02)
 
 
