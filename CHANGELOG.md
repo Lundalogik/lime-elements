@@ -1,3 +1,13 @@
+## [30.7.1](https://github.com/Lundalogik/lime-elements/compare/v30.7.0...v30.7.1) (2021-02-03)
+
+
+### Bug Fixes
+
+* **menu:** fix collision detection for dropdown ([131c2b1](https://github.com/Lundalogik/lime-elements/commit/131c2b1e86af936cfc649eb3539c60c15f0ea29e))
+* **picker:** correctly size and position picker dropdown ([fec9568](https://github.com/Lundalogik/lime-elements/commit/fec95686f7423298d7eb79e3f1855ad2962cb5b4)), closes [Lundalogik/crm-feature#1722](https://github.com/Lundalogik/crm-feature/issues/1722)
+* **portal:** make internal portal component respect the `hidden` attribute if present ([6b20a7f](https://github.com/Lundalogik/lime-elements/commit/6b20a7ff418d46516afa83ebd645fab391c9de3a))
+* **select:** make dropdown positioning work correctly with updated limel-portal ([7b017a0](https://github.com/Lundalogik/lime-elements/commit/7b017a0fc0591db7a92f0cac114f5fe13c829316))
+
 # [30.7.0](https://github.com/Lundalogik/lime-elements/compare/v30.6.0...v30.7.0) (2021-02-03)
 
 
