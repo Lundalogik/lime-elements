@@ -19,12 +19,9 @@
 
 .limel-select__selected-text {
     @include looks-like-input-label;
+    @include truncate-text;
     box-sizing: border-box;
     outline: none;
-
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 
     padding: 0 pxToRem(40) 0 pxToRem(16);
     align-self: center;
