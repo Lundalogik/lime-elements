@@ -10,8 +10,8 @@ import { persons, Person } from './persons';
  */
 @Component({
     tag: 'limel-example-table-header-menu',
-    styleUrl: 'table.scss',
     shadow: true,
+    styleUrl: 'table.scss',
 })
 export class TableExampleHeadermenu {
     private tableData: Person[] = persons;
