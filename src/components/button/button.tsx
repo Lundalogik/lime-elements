@@ -4,6 +4,7 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
  * @exampleComponent limel-example-button
  * @exampleComponent limel-example-button-click
  * @exampleComponent limel-example-button-reduce-presence
+ * @exampleComponent limel-example-button-colors
  */
 @Component({
     tag: 'limel-button',

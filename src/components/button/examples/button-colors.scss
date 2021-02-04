@@ -1,0 +1,29 @@
+.colorful-buttons {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr;
+    grid-gap: 1.5rem 1rem;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.blue-primary {
+    /* background color for primary buttons */
+    --lime-primary-color: rgb(var(--color-blue-default));
+}
+
+.yellow-primary {
+    /* background color for primary buttons */
+    --lime-primary-color: rgb(var(--color-yellow-light));
+}
+
+.orange-text {
+    /* text color for primary buttons */
+    --lime-on-primary-color: rgb(var(--color-orange-default));
+}
+
+.blue-secondary {
+    /* text color for non-primary buttons */
+    --lime-primary-color: rgb(var(--color-blue-default));
+    /* has no effect for non-primary */
+    --lime-on-primary-color: rgb(var(--color-red-default));
+}
