@@ -1,3 +1,10 @@
+## [30.8.1](https://github.com/Lundalogik/lime-elements/compare/v30.8.0...v30.8.1) (2021-02-04)
+
+
+### Bug Fixes
+
+* **table:** correct alignment for custom components in column header ([d8d000a](https://github.com/Lundalogik/lime-elements/commit/d8d000accea06bb146e83393eb5197e7a9c30dc6)), closes [Lundalogik/crm-feature#1806](https://github.com/Lundalogik/crm-feature/issues/1806)
+
 # [30.8.0](https://github.com/Lundalogik/lime-elements/compare/v30.7.1...v30.8.0) (2021-02-04)
 
 
