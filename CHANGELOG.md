@@ -1,3 +1,10 @@
+# [30.8.0](https://github.com/Lundalogik/lime-elements/compare/v30.7.1...v30.8.0) (2021-02-04)
+
+
+### Features
+
+* **file:** dispatch interact event when clicking on a chip ([6d923ac](https://github.com/Lundalogik/lime-elements/commit/6d923acf9816b6f56970a7074f2df7b08c38e35b)), closes [Lundalogik/crm-feature#1777](https://github.com/Lundalogik/crm-feature/issues/1777)
+
 ## [30.7.1](https://github.com/Lundalogik/lime-elements/compare/v30.7.0...v30.7.1) (2021-02-03)
 
 
