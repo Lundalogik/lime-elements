@@ -141,3 +141,17 @@ select.limel-select__native-control {
     opacity: 0;
     border: 0;
 }
+
+:host(.is-narrow) {
+    height: pxToRem(36);
+
+    .mdc-floating-label {
+        &.mdc-floating-label--float-above {
+            transform: translateY(-1.76rem) scale(0.75);
+        }
+    }
+
+    .limel-select__selected-text {
+        padding: 0 pxToRem(12);
+    }
+}
