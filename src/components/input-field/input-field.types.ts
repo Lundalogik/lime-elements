@@ -11,4 +11,5 @@ export type InputType =
     | 'textarea'
     | 'time'
     | 'url'
+    | 'urlAsText'
     | 'week';

@@ -42,7 +42,6 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
     const classList = {
         'limel-select': true,
         'mdc-select': true,
-        'mdc-menu-surface--anchor': true,
         'mdc-select--disabled': props.disabled,
         'limel-select--required': props.required,
         'limel-select--invalid': !isValid,
@@ -127,7 +126,11 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
             <limel-menu-surface
                 open={props.isOpen}
                 onDismiss={props.close}
-                style={{ '--menu-surface-width': '100%' }}
+                style={{
+                    '--menu-surface-width': '100%',
+                    'max-height': 'inherit',
+                    display: 'flex',
+                }}
             >
                 <limel-list
                     items={items}

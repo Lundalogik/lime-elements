@@ -1,0 +1,95 @@
+@import '../../style/mixins.scss';
+@import '../../style/functions.scss';
+
+/**
+ * @prop --header-background-color: Background color of header, defaults to `--contrast-300`.
+ * @prop --header-heading-color: Color of heading text, defaults to `--contrast-1100`.
+ * @prop --header-subheading-color: Color of subheading text, defaults to `--contrast-900`.
+ * @prop --header-icon-color: Color of header icon, defaults to `--contrast-1100`.
+ * @prop --header-top-right-left-border-radius: Top-left and top-right border radius of header, defaults to `0.75rem`.
+ * @prop --header-responsive-breakpoint: Defines the minimum allowed `width` of both information and actions areas in the header, defaults to `22rem`.
+ */
+
+:host {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: var(--header-background-color, rgb(var(--contrast-300)));
+    border-top-left-radius: var(
+        --header-top-right-left-border-radius,
+        pxToRem(12)
+    );
+    border-top-right-radius: var(
+        --header-top-right-left-border-radius,
+        pxToRem(12)
+    );
+    padding: pxToRem(4);
+}
+
+.information {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    min-width: 0;
+}
+
+.information__icon {
+    flex-shrink: 0;
+    color: var(--header-icon-color, rgb(var(--contrast-1100)));
+}
+
+.information__headings {
+    min-width: 0;
+    margin-left: pxToRem(4);
+}
+
+.information__headings__heading,
+.information__headings__subheading {
+    @include truncate-text;
+    margin: 0;
+    padding: 0;
+}
+
+.information__headings__heading {
+    color: var(--header-heading-color, rgb(var(--contrast-1100)));
+    font-size: pxToRem(17);
+}
+
+.information__headings__subheading {
+    color: var(--header-subheading-color, rgb(var(--contrast-900)));
+    font-size: pxToRem(14);
+    font-weight: lighter;
+}
+
+.actions {
+    flex-shrink: 0;
+}
+
+:host(.is-narrow) {
+    .information__icon {
+        margin: pxToRem(-12) pxToRem(-8);
+        transform: scale(0.8);
+    }
+    .information__headings__heading {
+        font-size: pxToRem(15);
+    }
+}
+
+:host(.has-responsive-layout) {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            clamp(50%, var(--header-responsive-breakpoint, pxToRem(352)), 100%),
+            1fr
+        )
+    );
+    .information__headings {
+        padding-right: pxToRem(8);
+    }
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

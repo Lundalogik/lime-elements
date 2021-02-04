@@ -1,0 +1,10 @@
+:host(limel-example-header) {
+    --header-background-color: rgb(var(--contrast-1100));
+    --header-heading-color: rgb(var(--contrast-100));
+    --header-subheading-color: rgb(var(--color-red-lighter));
+    --header-icon-color: rgb(var(--color-red-light));
+}
+
+limel-icon-button {
+    color: rgb(var(--contrast-100));
+}

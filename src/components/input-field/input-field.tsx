@@ -25,6 +25,7 @@ import {
 import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
 import { getHref, getTarget } from './link-helper';
+import { JSXBase } from '@stencil/core/internal';
 
 interface LinkProperties {
     href: string;
@@ -103,14 +104,21 @@ export class InputField {
     /**
      * Regular expression that the current value of the input field must match.
      * No forward slashes should be specified around the pattern.
-     * Only used if type is `text`, `tel`, `email`, `url`, `password`
-     * or `search`.
+     * Only used if type is `text`, `tel`, `email`, `url`, `urlAsText`,
+     * `password`, or `search`.
      */
     @Prop({ reflect: true })
     public pattern: string;
 
     /**
-     * Type of textfield.
+     * Type of input.
+     *
+     * **Note** regarding type `url`: `limel-input` uses the native validation
+     * built into the browser for many types of input fields. The native
+     * validation for `url` is very strict, and does not allow relative urls,
+     * nor any other formats that are not a "fully qualified" url. To allow
+     * such urls, use the type `urlAsText` instead. This will use `text` as the
+     * type for the native input element, and only apply minimal validation.
      */
     @Prop({ reflect: true })
     public type: InputType = 'text';
@@ -143,14 +151,14 @@ export class InputField {
 
     /**
      * Maximum length of the value if type is `password`, `search`, `tel`,
-     * `text` or `url`.
+     * `text`, `url`, or `urlAsText`.
      */
     @Prop({ reflect: true })
     public maxlength: number;
 
     /**
      * Minimum length of the value if type is `password`, `search`, `tel`,
-     * `text` or `url`.
+     * `text`, `url`, or `urlAsText`.
      */
     @Prop({ reflect: true })
     public minlength: number;
@@ -162,9 +170,10 @@ export class InputField {
     public completions: string[] = [];
 
     /**
-     * For inputs of type `email`, `tel`, and `url`, set this to `true` to show
-     * a trailing icon with a `mailto:`,`tel:`, or normal link, respectively.
-     * The default icon can be overridden using the `trailingIcon` property.
+     * For inputs of type `email`, `tel`, `url`, and `urlAsText`, set this to
+     * `true` to show a trailing icon with a `mailto:`,`tel:`, or normal link,
+     * respectively. The default icon can be overridden using the `trailingIcon`
+     * property.
      */
     @Prop({ reflect: true })
     public showLink = false;
@@ -208,6 +217,7 @@ export class InputField {
         this.onKeyDownForList = this.onKeyDownForList.bind(this);
         this.layout = this.layout.bind(this);
         this.changeEmitter = this.changeEmitter.bind(this);
+        this.getContainerClassList = this.getContainerClassList.bind(this);
 
         const debounceTimeout = 100;
         this.changeEmitter = debounce(this.changeEmitter, debounceTimeout, {
@@ -257,47 +267,32 @@ export class InputField {
     }
 
     public render() {
-        if (this.type === 'textarea') {
-            return this.renderTextArea();
-        }
+        const properties = this.getAdditionalProps();
+        properties.id = 'tf-input-element';
+        properties.class = 'mdc-text-field__input';
+        properties.onInput = this.handleChange;
+        properties.onFocus = this.onFocus;
+        properties.onBlur = this.onBlur;
+        properties.required = this.required;
+        properties.disabled = this.disabled;
 
-        const additionalProps = this.getAdditionalProps();
-        const classList = {
-            'mdc-text-field': true,
-            'mdc-text-field--outlined': true,
-            'mdc-text-field--invalid': this.isInvalid(),
-            'mdc-text-field--disabled': this.disabled,
-            'mdc-text-field--required': this.required,
-            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
-            'mdc-text-field--with-leading-icon': !!this.leadingIcon,
-        };
         const labelClassList = {
             'mdc-floating-label': true,
             'mdc-floating-label--float-above': !!this.value || this.isFocused,
         };
 
         return [
-            <div class={classList}>
+            <div class={this.getContainerClassList()}>
                 {this.renderFormattedNumber()}
-                <input
-                    class="mdc-text-field__input"
-                    id="tf-input-element"
-                    onInput={this.handleChange}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    required={this.required}
-                    disabled={this.disabled}
-                    type={this.type}
-                    pattern={this.pattern}
-                    onWheel={this.handleWheel}
-                    onKeyDown={this.onKeyDown}
-                    {...additionalProps}
-                    value={this.value}
-                />
+                {this.renderInput(properties)}
+                {this.renderTextarea(properties)}
                 <div class="mdc-notched-outline">
                     <div class="mdc-notched-outline__leading"></div>
                     <div class="mdc-notched-outline__notch">
-                        <label class={labelClassList} htmlFor="input-element">
+                        <label
+                            class={labelClassList}
+                            htmlFor="tf-input-element"
+                        >
                             {this.label}
                         </label>
                     </div>
@@ -306,9 +301,7 @@ export class InputField {
                 {this.renderIcons()}
             </div>,
             this.renderHelperLine(),
-            <div class="autocomplete-list-container">
-                {this.renderDropdown()}
-            </div>,
+            this.renderAutocompleteList(),
         ];
     }
 
@@ -323,54 +316,63 @@ export class InputField {
         }
     }
 
-    private layout() {
-        this.mdcTextField?.layout();
-    }
+    private getContainerClassList() {
+        const forceInvalid = this.type === 'urlAsText' && this.isInvalid();
 
-    private renderTextArea() {
-        const additionalProps = this.getAdditionalProps();
         const classList = {
             'mdc-text-field': true,
-            'mdc-text-field--textarea': true,
-            'mdc-text-field--disabled': this.disabled,
-            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
             'mdc-text-field--invalid': this.isInvalid(),
+            'force-invalid': forceInvalid,
+            'mdc-text-field--disabled': this.disabled,
             'mdc-text-field--required': this.required,
-            'has-helper-line': !!this.helperText || !!this.maxlength,
+            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
         };
 
-        const labelClassList = {
-            'mdc-floating-label': true,
-            'textarea-label': true,
-            'mdc-floating-label--float-above': !!this.value || this.isFocused,
-        };
+        if (this.type === 'textarea') {
+            classList['mdc-text-field--textarea'] = true;
+            classList['has-helper-line'] =
+                !!this.helperText || !!this.maxlength;
+        } else {
+            classList['mdc-text-field--outlined'] = true;
+            classList['mdc-text-field--with-leading-icon'] = !!this.leadingIcon;
+        }
 
-        return [
-            <div class={classList}>
-                <textarea
-                    id="textarea"
-                    class="mdc-text-field__input"
-                    onInput={this.handleChange}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    required={this.required}
-                    disabled={this.disabled}
-                    {...additionalProps}
-                >
-                    {this.value}
-                </textarea>
-                <div class="mdc-notched-outline">
-                    <div class="mdc-notched-outline__leading" />
-                    <div class="mdc-notched-outline__notch">
-                        <label htmlFor="textarea" class={labelClassList}>
-                            {this.label}
-                        </label>
-                    </div>
-                    <div class="mdc-notched-outline__trailing" />
-                </div>
-            </div>,
-            this.renderHelperLine(),
-        ];
+        return classList;
+    }
+
+    private renderInput(
+        properties: JSXBase.InputHTMLAttributes<HTMLInputElement>
+    ) {
+        if (this.type === 'textarea') {
+            return;
+        }
+
+        const type = this.type === 'urlAsText' ? 'text' : this.type;
+
+        return (
+            <input
+                {...properties}
+                type={type}
+                pattern={this.pattern}
+                onWheel={this.handleWheel}
+                onKeyDown={this.onKeyDown}
+                value={this.value}
+            />
+        );
+    }
+
+    private renderTextarea(
+        properties: JSXBase.TextareaHTMLAttributes<HTMLTextAreaElement>
+    ) {
+        if (this.type !== 'textarea') {
+            return;
+        }
+
+        return <textarea {...properties}>{this.value}</textarea>;
+    }
+
+    private layout() {
+        this.mdcTextField?.layout();
     }
 
     private getAdditionalProps() {
@@ -458,9 +460,25 @@ export class InputField {
             return false;
         }
 
+        if (this.type === 'urlAsText' && this.isUrlInvalid(this.value)) {
+            return true;
+        }
+
         const element = this.getInputElement();
 
         return !(element && element.checkValidity());
+    }
+
+    private isUrlInvalid(url: string) {
+        if (!url) {
+            return false;
+        }
+
+        if (!url.includes('.') && url.substr(0, 1) !== '/') {
+            return true;
+        }
+
+        return false;
     }
 
     private getInputElement(): HTMLInputElement | HTMLTextAreaElement {
@@ -473,6 +491,10 @@ export class InputField {
     }
 
     private renderIcons() {
+        if (this.type === 'textarea') {
+            return;
+        }
+
         const html = [];
 
         if (this.leadingIcon) {
@@ -495,7 +517,10 @@ export class InputField {
     }
 
     private hasLink() {
-        return this.showLink && ['email', 'tel', 'url'].includes(this.type);
+        return (
+            this.showLink &&
+            ['email', 'tel', 'url', 'urlAsText'].includes(this.type)
+        );
     }
 
     private getLink() {
@@ -559,7 +584,10 @@ export class InputField {
             return 'phone';
         }
 
-        if (this.showLink && this.type === 'url') {
+        if (
+            this.showLink &&
+            (this.type === 'url' || this.type === 'urlAsText')
+        ) {
             return 'external_link';
         }
     }
@@ -656,6 +684,18 @@ export class InputField {
         if (isForwardTab) {
             this.showCompletions = false;
         }
+    }
+
+    private renderAutocompleteList() {
+        if (this.type === 'textarea') {
+            return;
+        }
+
+        return (
+            <div class="autocomplete-list-container">
+                {this.renderDropdown()}
+            </div>
+        );
     }
 
     private renderDropdown() {

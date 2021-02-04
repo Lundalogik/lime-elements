@@ -18,12 +18,6 @@ export class PopoverSurface {
     public open = false;
 
     /**
-     * Portal Id
-     */
-    @Prop()
-    public portalId: string;
-
-    /**
      * Content to render
      */
     @Prop()
@@ -44,26 +38,16 @@ export class PopoverSurface {
 
         return (
             <div class={classList} tabindex="-1">
-                <slot name="header" />
                 <slot name="body" />
-                <slot name="footer" />
             </div>
         );
     }
 
     private appendElement() {
-        const portalSlots = this.host.shadowRoot.querySelectorAll('slot');
-        Array.from(this.contentCollection).forEach((child) => {
-            if (child instanceof HTMLElement) {
-                const slot = child.getAttribute('slot');
-                const element = Array.from(portalSlots).find(
-                    (el) => el.name === slot
-                );
+        const portalSlot = this.host.shadowRoot.querySelector('slot');
 
-                if (element) {
-                    element.appendChild(child);
-                }
-            }
+        Array.from(this.contentCollection).forEach((child) => {
+            portalSlot.appendChild(child);
         });
     }
 }

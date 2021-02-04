@@ -1,3 +1,39 @@
+## [30.7.1](https://github.com/Lundalogik/lime-elements/compare/v30.7.0...v30.7.1) (2021-02-03)
+
+
+### Bug Fixes
+
+* **menu:** fix collision detection for dropdown ([131c2b1](https://github.com/Lundalogik/lime-elements/commit/131c2b1e86af936cfc649eb3539c60c15f0ea29e))
+* **picker:** correctly size and position picker dropdown ([fec9568](https://github.com/Lundalogik/lime-elements/commit/fec95686f7423298d7eb79e3f1855ad2962cb5b4)), closes [Lundalogik/crm-feature#1722](https://github.com/Lundalogik/crm-feature/issues/1722)
+* **portal:** make internal portal component respect the `hidden` attribute if present ([6b20a7f](https://github.com/Lundalogik/lime-elements/commit/6b20a7ff418d46516afa83ebd645fab391c9de3a))
+* **select:** make dropdown positioning work correctly with updated limel-portal ([7b017a0](https://github.com/Lundalogik/lime-elements/commit/7b017a0fc0591db7a92f0cac114f5fe13c829316))
+
+# [30.7.0](https://github.com/Lundalogik/lime-elements/compare/v30.6.0...v30.7.0) (2021-02-03)
+
+
+### Bug Fixes
+
+* **input-field:** correctly link the label to the input or textarea element ([e860f76](https://github.com/Lundalogik/lime-elements/commit/e860f76591c5f4bef2831ee181052c68621b3166))
+
+
+### Features
+
+* **input-field:** add `type='urlAsText'`, allowing urls that are not fully qualified ([27d1811](https://github.com/Lundalogik/lime-elements/commit/27d1811feb0bdd6757d8b31f1633d876e79a6cf4)), closes [Lundalogik/crm-feature#1595](https://github.com/Lundalogik/crm-feature/issues/1595)
+
+# [30.6.0](https://github.com/Lundalogik/lime-elements/compare/v30.5.1...v30.6.0) (2021-02-03)
+
+
+### Features
+
+* **header:** add header component ([391d8f8](https://github.com/Lundalogik/lime-elements/commit/391d8f8f3a6dc37f9a5351a65e4a8ab7164bd782))
+
+## [30.5.1](https://github.com/Lundalogik/lime-elements/compare/v30.5.0...v30.5.1) (2021-02-02)
+
+
+### Bug Fixes
+
+* **popover:** remove unnecessary slots ([8df21d9](https://github.com/Lundalogik/lime-elements/commit/8df21d9185edacf958534fb52ac094b7460c3304))
+
 # [30.5.0](https://github.com/Lundalogik/lime-elements/compare/v30.4.1...v30.5.0) (2021-02-01)
 
 
