@@ -80,10 +80,10 @@ const SelectValue: FunctionalComponent<
             class={containerClassList}
             onKeyPress={props.onTriggerPress}
         >
-            <i class="mdc-select__dropdown-icon" />
             <div class="limel-select__selected-text">
                 {getSelectedText(props.value)}
             </div>
+            <i class="mdc-select__dropdown-icon" />
             <label class={labelClassList}>{props.label}</label>
         </div>
     );
