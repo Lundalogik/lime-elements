@@ -1,6 +1,7 @@
 .lime-col-title__custom-component {
     width: 100%;
     display: flex;
+    align-items: center;
 }
 .title-component-text {
     @include truncate-text();

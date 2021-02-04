@@ -4,6 +4,7 @@ import { ListItem } from 'src/components/list/list-item.types';
 @Component({
     tag: 'limel-example-header-menu',
     shadow: true,
+    styleUrl: 'header-menu.scss',
 })
 export class HeaderMenu {
     @Prop()
