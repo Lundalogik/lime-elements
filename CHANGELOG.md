@@ -1,3 +1,10 @@
+# [30.9.0](https://github.com/Lundalogik/lime-elements/compare/v30.8.1...v30.9.0) (2021-02-04)
+
+
+### Features
+
+* **select:** enable narrow layouts ([3e203e9](https://github.com/Lundalogik/lime-elements/commit/3e203e9fa9bf76434b5eb82c14b9442330511d8d))
+
 ## [30.8.1](https://github.com/Lundalogik/lime-elements/compare/v30.8.0...v30.8.1) (2021-02-04)
 
 
