@@ -23,7 +23,7 @@
     box-sizing: border-box;
     outline: none;
 
-    padding: 0 pxToRem(40) 0 pxToRem(16);
+    padding: 0 pxToRem(16);
     align-self: center;
 }
 
@@ -32,6 +32,7 @@
 
     .limel-select-trigger {
         display: inline-flex;
+        align-items: center;
         min-width: 0; // makes the limel-select__selected-text truncate and prevents the select to grow wider than its container
         height: 100%;
 
@@ -65,19 +66,21 @@
                 color: var(--mdc-theme-primary);
             }
         }
+    }
 
-        .mdc-select__dropdown-icon {
-            transition: box-shadow 0.2s ease;
-            border-radius: 50%;
-            background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E")
-                no-repeat 50%;
-        }
+    .mdc-select__dropdown-icon {
+        transition: box-shadow 0.2s ease;
+        border-radius: 50%;
+        background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E")
+            no-repeat 50%;
+
+        position: relative;
+        bottom: unset;
     }
 
     .limel-select-trigger,
     .limel-select__selected-text {
         width: 100%;
-        position: relative;
     }
 
     &.mdc-select--disabled {
