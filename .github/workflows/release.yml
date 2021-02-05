@@ -23,6 +23,7 @@ jobs:
       with:
         node-version: '14'
         check-latest: true
+    - run: npm i -g npm
     - name: npm install
       run: |
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
