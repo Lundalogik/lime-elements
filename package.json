@@ -89,7 +89,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "replace-in-file": "6.1.0",
-    "semantic-release": "^17.3.1",
+    "semantic-release": "^17.3.7",
     "shelljs": "0.8.4",
     "showdown": "1.9.1",
     "shx": "0.3.2",
