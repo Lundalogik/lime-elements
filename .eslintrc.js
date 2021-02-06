@@ -25,7 +25,7 @@ module.exports = {
     ],
     settings: {
         react: {
-            version: '16.8',
+            version: '16.14',
             pragma: 'h',
         },
     },
