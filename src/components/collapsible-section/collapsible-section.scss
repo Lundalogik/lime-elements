@@ -1,4 +1,5 @@
 @import '../../style/internal/mdc-variables';
+@import '../../style/mixins';
 
 /**
  * @prop --closed-header-background-color: background color for header when closed
@@ -49,12 +50,11 @@
 }
 
 .section__header__title {
+    @include truncate-text;
+    line-height: normal;
+
     justify-self: flex-start;
     padding-right: pxToRem(12);
-
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 
     user-select: none; // mostly to improve experience on Android, where tapping on sections selects the text too
 }
