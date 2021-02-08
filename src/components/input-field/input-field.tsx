@@ -117,8 +117,9 @@ export class InputField {
      * built into the browser for many types of input fields. The native
      * validation for `url` is very strict, and does not allow relative urls,
      * nor any other formats that are not a "fully qualified" url. To allow
-     * such urls, use the type `urlAsText` instead. This will use `text` as the
-     * type for the native input element, and only apply minimal validation.
+     * such urls, use the type `urlAsText` instead. `urlAsText` works exactly
+     * like `text` in all regards, except that it enables use of the `showLink`
+     * property.
      */
     @Prop({ reflect: true })
     public type: InputType = 'text';
@@ -317,12 +318,9 @@ export class InputField {
     }
 
     private getContainerClassList() {
-        const forceInvalid = this.type === 'urlAsText' && this.isInvalid();
-
         const classList = {
             'mdc-text-field': true,
             'mdc-text-field--invalid': this.isInvalid(),
-            'force-invalid': forceInvalid,
             'mdc-text-field--disabled': this.disabled,
             'mdc-text-field--required': this.required,
             'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
@@ -460,25 +458,9 @@ export class InputField {
             return false;
         }
 
-        if (this.type === 'urlAsText' && this.isUrlInvalid(this.value)) {
-            return true;
-        }
-
         const element = this.getInputElement();
 
         return !(element && element.checkValidity());
-    }
-
-    private isUrlInvalid(url: string) {
-        if (!url) {
-            return false;
-        }
-
-        if (!url.includes('.') && url.substr(0, 1) !== '/') {
-            return true;
-        }
-
-        return false;
     }
 
     private getInputElement(): HTMLInputElement | HTMLTextAreaElement {
