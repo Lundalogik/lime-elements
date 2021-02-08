@@ -2,6 +2,11 @@
 
 @import '@limetech/mdc-switch/mdc-switch';
 
+:host {
+    display: inline-flex;
+    align-items: center;
+}
+
 .mdc-switch {
     @include mdc-switch-toggled-on-color(primary);
 
@@ -10,6 +15,7 @@
 
 label {
     @include mdc-typography(body2);
+    line-height: normal;
 
     cursor: pointer;
 
