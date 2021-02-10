@@ -63,6 +63,14 @@
     border-radius: pxToRem(6);
 
     .mdc-list-item {
+        &.mdc-list-item--disabled {
+            cursor: not-allowed;
+
+            limel-icon {
+                opacity: 0.38; // similar to `mdc-list-item__text` when disabled
+            }
+        }
+
         &:first-child {
             border-radius: pxToRem(6) pxToRem(6) pxToRem(0) pxToRem(0);
         }
