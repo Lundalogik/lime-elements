@@ -1,3 +1,10 @@
+## [30.9.1](https://github.com/Lundalogik/lime-elements/compare/v30.9.0...v30.9.1) (2021-02-09)
+
+
+### Bug Fixes
+
+* **input-field:** remove unnecessary validation when using `urlAsText` ([30f65e2](https://github.com/Lundalogik/lime-elements/commit/30f65e2488b0272567673bd03027e962d7009591)), closes [#1128](https://github.com/Lundalogik/lime-elements/issues/1128)
+
 # [30.9.0](https://github.com/Lundalogik/lime-elements/compare/v30.8.1...v30.9.0) (2021-02-04)
 
 

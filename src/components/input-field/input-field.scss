@@ -150,10 +150,3 @@ input.mdc-text-field__input {
         height: $height-of-helper-text-pseudo-before;
     }
 }
-
-.force-invalid {
-    // MDC will automatically remove the `mdc-text-field--invalid` class when
-    // the native validation passes. We sometimes need to be able to override
-    // that. /Ads
-    @extend .mdc-text-field--invalid;
-}
