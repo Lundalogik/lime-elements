@@ -1,3 +1,12 @@
+## [30.9.5](https://github.com/Lundalogik/lime-elements/compare/v30.9.4...v30.9.5) (2021-02-10)
+
+
+### Bug Fixes
+
+* **checkbox:** vertically center-align label text ([74782e5](https://github.com/Lundalogik/lime-elements/commit/74782e5581ea8767165a40b3ebb82cb66c8fa034))
+* **form:** vertically align switches and checkboxes ([2bda750](https://github.com/Lundalogik/lime-elements/commit/2bda750a7a2392fd52d9dd7bc9a34f39650bf2d2)), closes [Lundalogik/crm-feature#1629](https://github.com/Lundalogik/crm-feature/issues/1629)
+* **switch:** vertically center-align label text ([6404933](https://github.com/Lundalogik/lime-elements/commit/640493369abf8d11304c996500c2e18b8097e576))
+
 ## [30.9.4](https://github.com/Lundalogik/lime-elements/compare/v30.9.3...v30.9.4) (2021-02-10)
 
 
