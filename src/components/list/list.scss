@@ -161,10 +161,16 @@
     limel-icon.mdc-list-item__graphic {
         // Tweaks to make icon lists align nicely with badge-icon lists.
         &[size='x-small'] {
-            margin-right: pxToRem(24);
+            margin-right: pxToRem(4);
         }
         &[size='small'] {
-            margin-right: pxToRem(26);
+            margin-right: pxToRem(8);
+        }
+        &[size='medium'] {
+            margin-right: pxToRem(8);
+        }
+        &[size='large'] {
+            margin-right: pxToRem(12);
         }
     }
 }
