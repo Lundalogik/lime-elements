@@ -1,3 +1,10 @@
+## [30.9.4](https://github.com/Lundalogik/lime-elements/compare/v30.9.3...v30.9.4) (2021-02-10)
+
+
+### Bug Fixes
+
+* **table:** make col headers respect component's initial width ([a051692](https://github.com/Lundalogik/lime-elements/commit/a051692f2638a7f3dca09d734c6f62ae1ca32878))
+
 ## [30.9.3](https://github.com/Lundalogik/lime-elements/compare/v30.9.2...v30.9.3) (2021-02-10)
 
 
