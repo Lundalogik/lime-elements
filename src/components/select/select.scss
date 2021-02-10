@@ -17,14 +17,26 @@
     display: none;
 }
 
-.limel-select__selected-text {
-    @include looks-like-input-label;
-    @include truncate-text;
+.limel-select__selected-option {
+    display: flex;
+    align-items: center;
+
     box-sizing: border-box;
     outline: none;
 
     padding: 0 pxToRem(16);
     align-self: center;
+    min-width: 0; // makes it truncate and prevents the select to grow wider than its container
+}
+
+.limel-select__selected-option__icon {
+    margin-right: pxToRem(8);
+    flex-shrink: 0;
+}
+
+.limel-select__selected-option__text {
+    @include looks-like-input-label;
+    @include truncate-text;
 }
 
 .limel-select {
@@ -33,7 +45,6 @@
     .limel-select-trigger {
         display: inline-flex;
         align-items: center;
-        min-width: 0; // makes the limel-select__selected-text truncate and prevents the select to grow wider than its container
         height: 100%;
 
         cursor: pointer;
@@ -79,7 +90,7 @@
     }
 
     .limel-select-trigger,
-    .limel-select__selected-text {
+    .limel-select__selected-option {
         width: 100%;
     }
 
@@ -151,7 +162,7 @@ select.limel-select__native-control {
         }
     }
 
-    .limel-select__selected-text {
+    .limel-select__selected-option {
         padding: 0 pxToRem(12);
     }
 }
