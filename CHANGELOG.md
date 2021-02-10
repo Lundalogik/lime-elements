@@ -1,3 +1,10 @@
+## [30.9.3](https://github.com/Lundalogik/lime-elements/compare/v30.9.2...v30.9.3) (2021-02-10)
+
+
+### Bug Fixes
+
+* **collapsible-section:** fix chopped letters in section-headers ([8b4ee79](https://github.com/Lundalogik/lime-elements/commit/8b4ee796dfdefd53e82860be34042b3a59131081)), closes [Lundalogik/crm-feature#1739](https://github.com/Lundalogik/crm-feature/issues/1739)
+
 ## [30.9.2](https://github.com/Lundalogik/lime-elements/compare/v30.9.1...v30.9.2) (2021-02-10)
 
 
