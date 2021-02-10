@@ -1,3 +1,10 @@
+## [30.9.2](https://github.com/Lundalogik/lime-elements/compare/v30.9.1...v30.9.2) (2021-02-10)
+
+
+### Bug Fixes
+
+* **flatpickr-adapter:** fix bad contrast in month select in Firefox ([fb19110](https://github.com/Lundalogik/lime-elements/commit/fb19110f8ccd63e558bd5d9d8dba03945547511d)), closes [Lundalogik/crm-feature#1770](https://github.com/Lundalogik/crm-feature/issues/1770)
+
 ## [30.9.1](https://github.com/Lundalogik/lime-elements/compare/v30.9.0...v30.9.1) (2021-02-09)
 
 
