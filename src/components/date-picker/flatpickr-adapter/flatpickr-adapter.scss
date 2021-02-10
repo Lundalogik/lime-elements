@@ -140,6 +140,10 @@ $datepickerTextOnThemeColor: var(
 
         select {
             color: $datepickerTextOnThemeColor;
+
+            option {
+                color: initial;
+            }
         }
 
         input {

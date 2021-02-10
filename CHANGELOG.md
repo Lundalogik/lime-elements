@@ -1,3 +1,17 @@
+## [30.9.2](https://github.com/Lundalogik/lime-elements/compare/v30.9.1...v30.9.2) (2021-02-10)
+
+
+### Bug Fixes
+
+* **flatpickr-adapter:** fix bad contrast in month select in Firefox ([fb19110](https://github.com/Lundalogik/lime-elements/commit/fb19110f8ccd63e558bd5d9d8dba03945547511d)), closes [Lundalogik/crm-feature#1770](https://github.com/Lundalogik/crm-feature/issues/1770)
+
+## [30.9.1](https://github.com/Lundalogik/lime-elements/compare/v30.9.0...v30.9.1) (2021-02-09)
+
+
+### Bug Fixes
+
+* **input-field:** remove unnecessary validation when using `urlAsText` ([30f65e2](https://github.com/Lundalogik/lime-elements/commit/30f65e2488b0272567673bd03027e962d7009591)), closes [#1128](https://github.com/Lundalogik/lime-elements/issues/1128)
+
 # [30.9.0](https://github.com/Lundalogik/lime-elements/compare/v30.8.1...v30.9.0) (2021-02-04)
 
 
