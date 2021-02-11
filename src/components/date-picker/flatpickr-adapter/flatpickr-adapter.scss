@@ -37,11 +37,11 @@ $datepickerTextOnThemeColor: var(
         flex-wrap: wrap;
 
         .selected {
-            z-index: 1;
+            z-index: $limel-date-picker--flatpickr-adapter--datepicker-x-container--selected--z-index;
         }
 
         :hover {
-            z-index: 1;
+            z-index: $limel-date-picker--flatpickr-adapter--datepicker-x-container--hover--z-index;
         }
     }
 
@@ -65,7 +65,7 @@ $datepickerTextOnThemeColor: var(
             right: pxToRem(5);
             top: pxToRem(7);
             bottom: pxToRem(7);
-            z-index: -1;
+            z-index: $limel-date-picker--flatpickr-adapter--datepicker-x--after--z-index;
         }
 
         &.selected {
@@ -217,7 +217,7 @@ $datepickerTextOnThemeColor: var(
             position: absolute;
             top: 50%;
             width: pxToRem(30);
-            z-index: -1;
+            z-index: $limel-date-picker--flatpickr-adapter--flatpickr-day--after--z-index;
         }
 
         &.selected {
