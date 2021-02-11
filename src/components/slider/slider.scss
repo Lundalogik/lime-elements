@@ -117,7 +117,7 @@ $colorGrey: #999999;
 
 .mdc-slider__thumb-container {
     top: 0;
-    z-index: 1;
+    z-index: $limel-slider--thumb-container--z-index;
 
     .mdc-slider:not(.mdc-slider--disabled) & {
         &:before,

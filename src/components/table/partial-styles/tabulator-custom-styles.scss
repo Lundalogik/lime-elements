@@ -3,7 +3,7 @@
         &.tabulator-selectable {
             @include is-flat-clickable();
             &:hover {
-                z-index: 1;
+                z-index: $limel-table--has-interactive-rows--selectable-row--hover--z-index;
             }
             &:not(.active) {
                 &:hover {

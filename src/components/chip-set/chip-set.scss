@@ -148,7 +148,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             transition: all 0s;
             opacity: 0;
             position: absolute;
-            z-index: -100; // to let users interact with chips, in case they're covered
+            z-index: $limel-chip-set--hidden-text-field--z-index; // to let users interact with chips, in case they're covered
         }
     }
 }

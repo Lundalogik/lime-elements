@@ -69,7 +69,7 @@
 .formatted-input {
     @include looks-like-input-label;
 
-    z-index: 1;
+    z-index: $limel-input-field--formatted-input--z-index;
     padding: 0 pxToRem(40) 0 pxToRem(16);
     align-self: center;
     position: absolute;
