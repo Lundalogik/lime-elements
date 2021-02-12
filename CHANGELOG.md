@@ -1,3 +1,16 @@
+# [30.10.0](https://github.com/Lundalogik/lime-elements/compare/v30.9.5...v30.10.0) (2021-02-12)
+
+
+### Bug Fixes
+
+* **list:** apply better look & feel for disabled list items ([64036aa](https://github.com/Lundalogik/lime-elements/commit/64036aa5bec8a234fd4d25255004d9226c19625a))
+* **list:** better distance between icon and text ([a2dec84](https://github.com/Lundalogik/lime-elements/commit/a2dec84a715dd15633125b28d25a46cc39a87d7d))
+
+
+### Features
+
+* **select:** enable adding icons to select options ([01ff58c](https://github.com/Lundalogik/lime-elements/commit/01ff58c1f056716c98735e175afd6f6539708b75))
+
 ## [30.9.5](https://github.com/Lundalogik/lime-elements/compare/v30.9.4...v30.9.5) (2021-02-10)
 
 
