@@ -18,6 +18,8 @@ const runTeardown = argv.noTeardown === undefined;
 const cleanOnFail = runTeardown && argv.noCleanOnFail === undefined;
 const dryRun = !!argv.dryRun && argv.dryRun !== 'false';
 
+const BASE_URL = '/lime-elements/';
+
 if (argv.h !== undefined) {
     shell.echo(`
 usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev]
@@ -42,7 +44,6 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     let commitMessage;
     if (runSetup) {
         cloneDocsRepo();
-        checkOutBranch();
     }
 
     if (pruneDev) {
@@ -69,7 +70,6 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
 } else {
     if (runSetup) {
         cloneDocsRepo();
-        checkOutBranch();
     }
 
     if (runBuild) {
@@ -101,26 +101,13 @@ function cloneDocsRepo() {
 
     if (
         shell.exec(
-            'git clone --no-checkout https://$GH_TOKEN@github.com/Lundalogik/lime-elements-docs.git docsDist'
+            'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist'
         ).code !== 0
     ) {
         shell.echo('git clone failed!');
         teardown();
         shell.exit(1);
     }
-}
-
-function checkOutBranch() {
-    shell.cd('docsDist');
-
-    if (shell.exec('git checkout master').code !== 0) {
-        shell.echo('git checkout master failed!');
-        shell.cd('..');
-        teardown();
-        shell.exit(1);
-    }
-
-    shell.cd('..');
 }
 
 function build() {
@@ -135,11 +122,11 @@ function build() {
                 /\/kompendium.json/g,
             ],
             to: [
-                `<base href="/versions/${version}/">`,
-                `="/versions/${version}/build`,
-                `="/versions/${version}/style`,
-                `="/versions/${version}/assets`,
-                `/versions/${version}/kompendium.json`,
+                `<base href="${BASE_URL}versions/${version}/">`,
+                `="${BASE_URL}versions/${version}/build`,
+                `="${BASE_URL}versions/${version}/style`,
+                `="${BASE_URL}versions/${version}/assets`,
+                `${BASE_URL}versions/${version}/kompendium.json`,
             ],
         };
         replace.sync(options);
@@ -147,7 +134,7 @@ function build() {
         options = {
             files: ['stencil.config.docs.ts'],
             from: /baseUrl: '\/'/g,
-            to: `baseUrl: '/versions/${version}/'`,
+            to: `baseUrl: '${BASE_URL}/versions/${version}/'`,
         };
         replace.sync(options);
 
@@ -195,8 +182,11 @@ function copyBuildOutput() {
     shell.cd('../..');
 
     if (
-        shell.cp('-R', `www/versions/${version}`, 'docsDist/versions/').code !==
-        0
+        shell.cp(
+            '-R',
+            `www${BASE_URL}versions/${version}`,
+            'docsDist/versions/'
+        ).code !== 0
     ) {
         shell.echo('copying output failed!');
         teardown();
@@ -235,25 +225,26 @@ function updateVersionList() {
 
     shell.cd('..');
 
-    // createLatestSymlink(files[files.length - 1]);
+    createLatestSymlink(files[files.length - 1]);
 }
 
-// function createLatestSymlink(folder) {
-//     shell.cd('docsDist/versions');
-//
-//     if (shell.ln('-sf', `${folder}`, 'latest').code !== 0) {
-//         if (
-//             shell.rm('latest').code !== 0 ||
-//             shell.ln('-sf', `${folder}`, 'latest').code !== 0
-//         ) {
-//             shell.echo('Creating latest-symlink failed!');
-//             teardown();
-//             shell.exit(1);
-//         }
-//     }
-//
-//     shell.cd('../..');
-// }
+function createLatestSymlink(folder) {
+    shell.cd('docsDist/versions');
+
+    // eslint-disable-next-line sonarjs/no-collapsible-if
+    if (shell.ln('-sf', `${folder}`, 'latest').code !== 0) {
+        if (
+            shell.rm('latest').code !== 0 ||
+            shell.ln('-sf', `${folder}`, 'latest').code !== 0
+        ) {
+            shell.echo('Creating latest-symlink failed!');
+            teardown();
+            shell.exit(1);
+        }
+    }
+
+    shell.cd('../..');
+}
 
 function commit(message) {
     // shell.echo('setting git user info');
@@ -288,7 +279,7 @@ function push() {
         shell.echo('Dry-run, so skipping push.');
     } else if (
         shell.exec(
-            'git push https://$GH_TOKEN@github.com/Lundalogik/lime-elements-docs.git HEAD:master'
+            'git push https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages'
         ).code !== 0
     ) {
         shell.echo('git push failed!');
@@ -302,7 +293,9 @@ function push() {
 
 function teardown(finished) {
     if (finished || cleanOnFail) {
-        shell.exec('git checkout src/index.html stencil.config.docs.ts');
+        shell.exec(
+            'git checkout src/index.html src/index.md stencil.config.docs.ts'
+        );
         shell.echo('Removing docs repo clone in docsDist.');
         shell.exec('rm -rf docsDist');
     }
