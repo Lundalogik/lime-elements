@@ -1,5 +1,6 @@
 @import '../../style/internal/mdc-variables';
 @import '../../style/internal/shared_input-select-picker';
+@import './partial-styles/percentage-color.scss';
 
 @import '@limetech/mdc-slider/mdc-slider';
 @import '@limetech/mdc-floating-label/mdc-floating-label';
@@ -109,6 +110,11 @@ $colorGrey: #999999;
     }
 }
 
+.mdc-slider__track,
+.mdc-slider__pin {
+    transition: background-color 0.5s ease;
+}
+
 .mdc-slider__track-container {
     top: pxToRem(8);
     height: pxToRem(4);
@@ -201,6 +207,7 @@ $colorGrey: #999999;
 }
 
 .mdc-slider__pin-value-marker {
+    transition: color 0.5s ease;
     font-size: pxToRem(12);
     transform: rotate(0deg);
     margin-bottom: 0;

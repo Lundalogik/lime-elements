@@ -6,12 +6,14 @@ import {
     EventEmitter,
     h,
     Prop,
+    State,
     Watch,
 } from '@stencil/core';
-
+import { getPercentageClass } from './getPercentageClass';
 /**
  * @exampleComponent limel-example-slider
  * @exampleComponent limel-example-slider-multiplier
+ * @exampleComponent limel-example-slider-multiplier-percentage-colors
  */
 @Component({
     tag: 'limel-slider',
@@ -86,6 +88,13 @@ export class Slider {
 
     private mdcSlider: MDCSlider;
 
+    @State()
+    private percentageClass: string;
+
+    public constructor() {
+        this.inputHandler = this.inputHandler.bind(this);
+    }
+
     public connectedCallback() {
         this.initialize();
     }
@@ -104,6 +113,11 @@ export class Slider {
 
         this.mdcSlider = new MDCSlider(element);
         this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
+        this.mdcSlider.listen('MDCSlider:input', this.inputHandler);
+    }
+
+    public componentWillLoad() {
+        this.setPercentageClass(this.value);
     }
 
     public componentWillUpdate() {
@@ -112,12 +126,13 @@ export class Slider {
 
     public disconnectedCallback() {
         this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
+        this.mdcSlider.unlisten('MDCSlider:input', this.inputHandler);
         this.mdcSlider.destroy();
     }
 
     public render() {
         return (
-            <div class="slider">
+            <div class={`slider ${this.percentageClass}`}>
                 <label class="slider__label mdc-floating-label mdc-floating-label--float-above">
                     {this.label}
                 </label>
@@ -203,5 +218,15 @@ export class Slider {
         }
 
         return value;
+    }
+
+    private inputHandler(event) {
+        this.setPercentageClass(event.detail.value / this.factor);
+    }
+
+    private setPercentageClass(value) {
+        this.percentageClass = getPercentageClass(
+            (value - this.valuemin) / (this.valuemax - this.valuemin)
+        );
     }
 }
