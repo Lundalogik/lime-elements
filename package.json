@@ -19,7 +19,7 @@
     "cm": "git-cz",
     "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs\"",
     "watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs --serve\"",
-    "watch:prod": "shx rm -rf www/ && cross-env-shell SASS_PATH=node_modules \"stencil build --watch\"",
+    "watch:prod": "shx rm -rf www/ && cross-env-shell SASS_PATH=node_modules \"stencil build --watch --docs --serve --config stencil.config.ts\"",
     "docs:build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --docs --config stencil.config.docs.ts\"",
     "docs:publish": "node publish-docs.js",
     "lint": "npm run lint:src && npm run lint:scss",
