@@ -132,7 +132,7 @@ export class Picker {
     private chips: Chip[] = [];
 
     @Element()
-    private element: HTMLLimelPickerElement;
+    private host: HTMLLimelPickerElement;
 
     // Should NOT be decorated with State(), since this
     // should not trigger a re-render by itself.
@@ -162,7 +162,7 @@ export class Picker {
 
     public componentDidLoad() {
         this.createDebouncedSearcher(this.searcher);
-        this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
+        this.chipSet = this.host.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
     }
 
     public async componentWillUpdate() {
@@ -365,10 +365,10 @@ export class Picker {
         // In browsers where shadow DOM is not supported activeElement on shadowRoot will return null
         // However, document.activeElement will return the actual focused element instead of the outermost shadow host
         const element =
-            this.element.shadowRoot.activeElement || document.activeElement;
+            this.host.shadowRoot.activeElement || document.activeElement;
         const portalElement = document.querySelector(`#${this.portalId}`);
         if (
-            isDescendant(element as HTMLElement, this.element) ||
+            isDescendant(element as HTMLElement, this.host) ||
             isDescendant(element as HTMLElement, portalElement as HTMLElement)
         ) {
             return;
