@@ -188,10 +188,33 @@ function copyBuildOutput() {
             'docsDist/versions/'
         ).code !== 0
     ) {
+        shell.echo('copying icons failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    if (
+        shell.rm('-rf', `www${BASE_URL}versions/${version}/assets/icons`)
+            .code !== 0
+    ) {
+        shell.echo('removing icons folder failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    if (
+        shell.cp(
+            '-R',
+            `www${BASE_URL}versions/${version}`,
+            'docsDist/versions/'
+        ).code !== 0
+    ) {
         shell.echo('copying output failed!');
         teardown();
         shell.exit(1);
     }
+
+    createIconSymlink(`docsDist/versions/${version}/assets/icons`);
 
     if (
         shell.cp('-R', 'www/kompendium.json', `docsDist/versions/${version}`)
@@ -203,6 +226,20 @@ function copyBuildOutput() {
     }
 
     updateVersionList();
+}
+
+function createIconSymlink(path) {
+    // eslint-disable-next-line sonarjs/no-collapsible-if
+    if (shell.ln('-sf', 'docsDist/icons/', path).code !== 0) {
+        if (
+            shell.rm(path).code !== 0 ||
+            shell.ln('-sf', 'docsDist/icons/', path).code !== 0
+        ) {
+            shell.echo('Creating icons-symlink failed!');
+            teardown();
+            shell.exit(1);
+        }
+    }
 }
 
 function remove(pattern) {
