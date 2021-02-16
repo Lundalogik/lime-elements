@@ -268,7 +268,21 @@ function updateVersionList() {
 
     shell.cd('..');
 
-    createLatestSymlink(files[files.length - 1]);
+    // We need to sort the strings alphanumerically, which javascript doesn't
+    // do by default. So I found this neat solution at
+    // https://blog.praveen.science/natural-sorting-in-javascript/#solution
+    // /ads
+    var collator = new Intl.Collator(undefined, {
+        numeric: true,
+        sensitivity: "base"
+    });
+    files.sort(collator.compare);
+
+    const latestVersion = files[files.length - 1];
+
+    shell.echo(`Creating "latest"-link pointing to: ${latestVersion}`);
+
+    createLatestSymlink(latestVersion);
 }
 
 function createLatestSymlink(folder) {
@@ -281,6 +295,7 @@ function createLatestSymlink(folder) {
             shell.ln('-sf', `${folder}`, 'latest').code !== 0
         ) {
             shell.echo('Creating latest-symlink failed!');
+            shell.cd('../..');
             teardown();
             shell.exit(1);
         }
