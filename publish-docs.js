@@ -134,7 +134,7 @@ function build() {
         options = {
             files: ['stencil.config.docs.ts'],
             from: /baseUrl: '\/'/g,
-            to: `baseUrl: '${BASE_URL}/versions/${version}/'`,
+            to: `baseUrl: '${BASE_URL}versions/${version}/'`,
         };
         replace.sync(options);
 
