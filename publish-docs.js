@@ -219,7 +219,7 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
-    createIconSymlink(`docsDist/versions/${version}/assets/icons`);
+    createIconSymlink(version);
 
     if (
         shell.cp('-R', 'www/kompendium.json', `docsDist/versions/${version}`)
@@ -233,19 +233,19 @@ function copyBuildOutput() {
     updateVersionList();
 }
 
-function createIconSymlink(path) {
+function createIconSymlink(version) {
+    const path = `docsDist/versions/${version}/assets/`;
+    shell.cd(path);
     shell.echo('Creating icons-symlink.');
-    // eslint-disable-next-line sonarjs/no-collapsible-if
-    if (shell.ln('-sf', 'docsDist/icons/', path).code !== 0) {
-        if (
-            shell.rm(path).code !== 0 ||
-            shell.ln('-sf', 'docsDist/icons/', path).code !== 0
-        ) {
-            shell.echo('Creating icons-symlink failed!');
-            teardown();
-            shell.exit(1);
-        }
+
+    if (shell.ln('-sf', '../../../icons', 'icons').code !== 0) {
+        shell.echo('Creating icons-symlink failed!');
+        shell.cd('../../../..');
+        teardown();
+        shell.exit(1);
     }
+
+    shell.cd('../../../..');
 }
 
 function remove(pattern) {
