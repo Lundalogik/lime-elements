@@ -187,7 +187,7 @@ function copyBuildOutput() {
     if (
         shell.cp(
             '-R',
-            `www${BASE_URL}versions/${version}/assets/icons`,
+            `www${BASE_URL}versions/${version}/assets/icons/`,
             'docsDist/icons/'
         ).code !== 0
     ) {
