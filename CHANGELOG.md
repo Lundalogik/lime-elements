@@ -1,3 +1,11 @@
+# [30.11.0](https://github.com/Lundalogik/lime-elements/compare/v30.10.1...v30.11.0) (2021-02-16)
+
+
+### Features
+
+* **form:** add support for adding additional properties to slider widget ([caea6d7](https://github.com/Lundalogik/lime-elements/commit/caea6d7794f32d3ea9f6309a039f1f0c9d2b8ace)), closes [Lundalogik/crm-feature#1636](https://github.com/Lundalogik/crm-feature/issues/1636)
+* **slider:** color slider to visualize percentage value ([a119096](https://github.com/Lundalogik/lime-elements/commit/a1190968b7ae19236dad80641028cfd777afc9e2)), closes [Lundalogik/crm-feature#1636](https://github.com/Lundalogik/crm-feature/issues/1636)
+
 ## [30.10.1](https://github.com/Lundalogik/lime-elements/compare/v30.10.0...v30.10.1) (2021-02-16)
 
 
