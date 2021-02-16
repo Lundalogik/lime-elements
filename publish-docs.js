@@ -177,15 +177,18 @@ function copyBuildOutput() {
     shell.cd('docsDist/versions');
 
     shell.echo('Removing old version folder if it already exists.');
-    shell.rm('-rf', version);
+    if (shell.rm('-rf', version).code !== 0) {
+
+    }
 
     shell.cd('../..');
 
+    shell.echo('Copying icons to shared folder in docsDist.');
     if (
         shell.cp(
             '-R',
-            `www${BASE_URL}versions/${version}`,
-            'docsDist/versions/'
+            `www${BASE_URL}versions/${version}/assets/icons`,
+            'docsDist/icons/'
         ).code !== 0
     ) {
         shell.echo('copying icons failed!');
@@ -193,6 +196,7 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
+    shell.echo('Removing icons in new docs version.');
     if (
         shell.rm('-rf', `www${BASE_URL}versions/${version}/assets/icons`)
             .code !== 0
@@ -202,6 +206,7 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
+    shell.echo('Copying new docs version into docsDist/versions/');
     if (
         shell.cp(
             '-R',
@@ -229,6 +234,7 @@ function copyBuildOutput() {
 }
 
 function createIconSymlink(path) {
+    shell.echo('Creating icons-symlink.');
     // eslint-disable-next-line sonarjs/no-collapsible-if
     if (shell.ln('-sf', 'docsDist/icons/', path).code !== 0) {
         if (
