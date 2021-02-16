@@ -1,3 +1,10 @@
+## [30.10.1](https://github.com/Lundalogik/lime-elements/compare/v30.10.0...v30.10.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* **list:** border radius on all edges when only 1 item is displayed ([07a5578](https://github.com/Lundalogik/lime-elements/commit/07a55780fd57e0dfdfaa3533e438fdae2f5239d1))
+
 # [30.10.0](https://github.com/Lundalogik/lime-elements/compare/v30.9.5...v30.10.0) (2021-02-12)
 
 
