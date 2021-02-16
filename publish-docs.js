@@ -177,9 +177,7 @@ function copyBuildOutput() {
     shell.cd('docsDist/versions');
 
     shell.echo('Removing old version folder if it already exists.');
-    if (shell.rm('-rf', version).code !== 0) {
-
-    }
+    shell.rm('-rf', version);
 
     shell.cd('../..');
 
@@ -219,7 +217,7 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
-    createIconSymlink(version);
+    createIconSymlink();
 
     if (
         shell.cp('-R', 'www/kompendium.json', `docsDist/versions/${version}`)
@@ -233,7 +231,7 @@ function copyBuildOutput() {
     updateVersionList();
 }
 
-function createIconSymlink(version) {
+function createIconSymlink() {
     const path = `docsDist/versions/${version}/assets/`;
     shell.cd(path);
     shell.echo('Creating icons-symlink.');
@@ -272,9 +270,9 @@ function updateVersionList() {
     // do by default. So I found this neat solution at
     // https://blog.praveen.science/natural-sorting-in-javascript/#solution
     // /ads
-    var collator = new Intl.Collator(undefined, {
+    const collator = new Intl.Collator(undefined, {
         numeric: true,
-        sensitivity: "base"
+        sensitivity: 'base',
     });
     files.sort(collator.compare);
 
