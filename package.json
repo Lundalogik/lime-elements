@@ -78,7 +78,7 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-sonarjs": "^0.5.0",
+    "eslint-plugin-sonarjs": "^0.6.0",
     "jest": "^26.6.3",
     "jest-cli": "^26.6.3",
     "lodash-es": "^4.17.20",
