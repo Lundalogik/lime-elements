@@ -25,7 +25,6 @@
         bottom: 0;
     }
     &:before {
-        z-index: $limel-table--tabulator-arrow--before--z-index;
         background-color: $table-header-background-color;
         width: pxToRem(8);
         height: pxToRem(8);
@@ -34,7 +33,6 @@
         top: pxToRem(4);
     }
     &:after {
-        z-index: $limel-table--tabulator-arrow--after--z-index;
         width: pxToRem(2);
         background-color: $tabulator-arrow-color;
         height: pxToRem(9);
