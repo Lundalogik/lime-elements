@@ -1,3 +1,10 @@
+## [30.11.1](https://github.com/Lundalogik/lime-elements/compare/v30.11.0...v30.11.1) (2021-02-17)
+
+
+### Bug Fixes
+
+* **table:** the underlying library has been updated with many bugfixes and performance improvements ([c1e7378](https://github.com/Lundalogik/lime-elements/commit/c1e7378854d04d4ee3bb3ecba4b4c07f0c37791f))
+
 # [30.11.0](https://github.com/Lundalogik/lime-elements/compare/v30.10.1...v30.11.0) (2021-02-16)
 
 
