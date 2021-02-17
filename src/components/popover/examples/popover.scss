@@ -1,3 +1,5 @@
 :host(limel-example-popover) {
     --popover-header-background-color: rgb(var(--contrast-1300));
+    display: inline-block;
+    position: relative;
 }

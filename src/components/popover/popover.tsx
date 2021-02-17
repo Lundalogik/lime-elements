@@ -39,6 +39,16 @@ import { portalContains } from '../portal/contains';
  * When a popover is displayed, interactions with other controls are blocked,
  * until user dismisses the popover.
  *
+ * :::warning
+ * In order for the popover to pop on the correct side of the element that
+ * triggers it, you need to wrap both of them in a container and make sure that
+ * the container:
+ * 1. is visually as big as the element that triggers the popover
+ * 1. has a `position` property specified (this normally can be `position: relative;`).
+ *
+ * Check the example to see how `:host` is displayed as `inline-block` to be as
+ * big as the button which is inside it.
+ * :::
  *
  * ## Layout
  * Popovers has only one slot in which you can import a custom web-component.
