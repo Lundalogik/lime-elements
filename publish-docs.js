@@ -134,7 +134,7 @@ function build() {
         options = {
             files: ['stencil.config.docs.ts'],
             from: /baseUrl: '\/'/g,
-            to: `baseUrl: '${BASE_URL}/versions/${version}/'`,
+            to: `baseUrl: '${BASE_URL}versions/${version}/'`,
         };
         replace.sync(options);
 
@@ -181,11 +181,12 @@ function copyBuildOutput() {
 
     shell.cd('../..');
 
+    shell.echo('Copying icons to shared folder in docsDist.');
     if (
         shell.cp(
             '-R',
-            `www${BASE_URL}versions/${version}`,
-            'docsDist/versions/'
+            `www${BASE_URL}versions/${version}/assets/icons/`,
+            'docsDist/icons/'
         ).code !== 0
     ) {
         shell.echo('copying icons failed!');
@@ -193,6 +194,7 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
+    shell.echo('Removing icons in new docs version.');
     if (
         shell.rm('-rf', `www${BASE_URL}versions/${version}/assets/icons`)
             .code !== 0
@@ -202,6 +204,7 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
+    shell.echo('Copying new docs version into docsDist/versions/');
     if (
         shell.cp(
             '-R',
@@ -214,7 +217,7 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
-    createIconSymlink(`docsDist/versions/${version}/assets/icons`);
+    createIconSymlink();
 
     if (
         shell.cp('-R', 'www/kompendium.json', `docsDist/versions/${version}`)
@@ -228,18 +231,19 @@ function copyBuildOutput() {
     updateVersionList();
 }
 
-function createIconSymlink(path) {
-    // eslint-disable-next-line sonarjs/no-collapsible-if
-    if (shell.ln('-sf', 'docsDist/icons/', path).code !== 0) {
-        if (
-            shell.rm(path).code !== 0 ||
-            shell.ln('-sf', 'docsDist/icons/', path).code !== 0
-        ) {
-            shell.echo('Creating icons-symlink failed!');
-            teardown();
-            shell.exit(1);
-        }
+function createIconSymlink() {
+    const path = `docsDist/versions/${version}/assets/`;
+    shell.cd(path);
+    shell.echo('Creating icons-symlink.');
+
+    if (shell.ln('-sf', '../../../icons', 'icons').code !== 0) {
+        shell.echo('Creating icons-symlink failed!');
+        shell.cd('../../../..');
+        teardown();
+        shell.exit(1);
     }
+
+    shell.cd('../../../..');
 }
 
 function remove(pattern) {
@@ -262,7 +266,21 @@ function updateVersionList() {
 
     shell.cd('..');
 
-    createLatestSymlink(files[files.length - 1]);
+    // We need to sort the strings alphanumerically, which javascript doesn't
+    // do by default. So I found this neat solution at
+    // https://blog.praveen.science/natural-sorting-in-javascript/#solution
+    // /ads
+    const collator = new Intl.Collator(undefined, {
+        numeric: true,
+        sensitivity: 'base',
+    });
+    files.sort(collator.compare);
+
+    const latestVersion = files[files.length - 1];
+
+    shell.echo(`Creating "latest"-link pointing to: ${latestVersion}`);
+
+    createLatestSymlink(latestVersion);
 }
 
 function createLatestSymlink(folder) {
@@ -275,6 +293,7 @@ function createLatestSymlink(folder) {
             shell.ln('-sf', `${folder}`, 'latest').code !== 0
         ) {
             shell.echo('Creating latest-symlink failed!');
+            shell.cd('../..');
             teardown();
             shell.exit(1);
         }

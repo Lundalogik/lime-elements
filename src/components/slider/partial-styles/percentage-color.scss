@@ -1,0 +1,61 @@
+:host(.displays-percentage-colors) {
+    --color-percent--0: rgb(var(--color-gray-default));
+    --color-percent--0to10: rgb(var(--color-red-dark));
+    --color-percent--10to20: rgb(var(--color-red-default));
+    --color-percent--20to30: rgb(var(--color-coral-default));
+    --color-percent--30to40: rgb(var(--color-orange-default));
+    --color-percent--40to50: rgb(var(--color-amber-default));
+    --color-percent--50to60: rgb(var(--color-yellow-default));
+    --color-percent--60to70: rgb(var(--color-grass-default));
+    --color-percent--70to80: rgb(var(--color-lime-default));
+    --color-percent--80to90: rgb(var(--color-teal-default));
+    --color-percent--90to100: rgb(var(--color-teal-dark));
+
+    .slider.percent-0 {
+        --lime-primary-color: var(--color-percent--0);
+    }
+    .slider.percent-0-10 {
+        --lime-primary-color: var(--color-percent--0to10);
+    }
+    .slider.percent-10-20 {
+        --lime-primary-color: var(--color-percent--10to20);
+    }
+    .slider.percent-20-30 {
+        --lime-primary-color: var(--color-percent--20to30);
+    }
+    .slider.percent-30-40 {
+        --lime-primary-color: var(--color-percent--30to40);
+    }
+    .slider.percent-40-50 {
+        --lime-primary-color: var(--color-percent--40to50);
+    }
+    .slider.percent-50-60 {
+        --lime-primary-color: var(--color-percent--50to60);
+    }
+    .slider.percent-60-70 {
+        --lime-primary-color: var(--color-percent--60to70);
+    }
+    .slider.percent-70-80 {
+        --lime-primary-color: var(--color-percent--70to80);
+    }
+    .slider.percent-80-90 {
+        --lime-primary-color: var(--color-percent--80to90);
+    }
+    .slider.percent-90-100 {
+        --lime-primary-color: var(--color-percent--90to100);
+    }
+
+    .slider.percent-30-40,
+    .slider.percent-40-50,
+    .slider.percent-70-80 {
+        .mdc-slider__pin-value-marker {
+            color: rgb(var(--color-gray-darker));
+        }
+    }
+    .slider.percent-50-60,
+    .slider.percent-60-70 {
+        .mdc-slider__pin-value-marker {
+            color: rgb(var(--color-gray-dark));
+        }
+    }
+}

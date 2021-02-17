@@ -9,6 +9,8 @@
 
 @import '../../style/mixins';
 
+$list-border-radius: 0.375rem; // 6px
+
 /**
  * @prop --icon-background-color: Color to use for icon background when `badgeIcons=true`.
  * @prop --icon-color: Color to use for icon. Defaults to grey when `badgeIcons=false`. Defaults to white when `badgeIcons=true`.
@@ -60,7 +62,7 @@
 .mdc-list {
     --mdc-theme-text-icon-on-background: var(--icon-color, rgb(157, 157, 157));
     padding: 0;
-    border-radius: pxToRem(6);
+    border-radius: $list-border-radius;
 
     .mdc-list-item {
         &.mdc-list-item--disabled {
@@ -72,10 +74,12 @@
         }
 
         &:first-child {
-            border-radius: pxToRem(6) pxToRem(6) pxToRem(0) pxToRem(0);
+            border-top-left-radius: $list-border-radius;
+            border-top-right-radius: $list-border-radius;
         }
         &:last-child {
-            border-radius: pxToRem(0) pxToRem(0) pxToRem(6) pxToRem(6);
+            border-bottom-right-radius: $list-border-radius;
+            border-bottom-left-radius: $list-border-radius;
         }
     }
 
