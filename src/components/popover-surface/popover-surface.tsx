@@ -12,12 +12,6 @@ import { Component, h, Prop, Element } from '@stencil/core';
 })
 export class PopoverSurface {
     /**
-     * True if the popover surface is open, false otherwise
-     */
-    @Prop()
-    public open = false;
-
-    /**
      * Content to render
      */
     @Prop()
@@ -31,23 +25,16 @@ export class PopoverSurface {
     }
 
     public render() {
-        const classList = {
-            'limel-popover-surface': true,
-            'limel-popover-surface--open': this.open,
-        };
-
-        return (
-            <div class={classList} tabindex="-1">
-                <slot name="body" />
-            </div>
-        );
+        return <div class="limel-popover-surface" tabindex="-1" />;
     }
 
     private appendElement() {
-        const portalSlot = this.host.shadowRoot.querySelector('slot');
+        const portalContainer = this.host.shadowRoot.querySelector(
+            '.limel-popover-surface'
+        );
 
         Array.from(this.contentCollection).forEach((child) => {
-            portalSlot.appendChild(child);
+            portalContainer.appendChild(child);
         });
     }
 }
