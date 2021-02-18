@@ -16,22 +16,27 @@ export class PopoverExample {
 
     public render() {
         return [
-            <limel-button
-                primary={true}
-                label="Click me!"
-                onClick={this.openPopover}
-            />,
             <limel-popover open={this.isOpen} onClose={this.onPopoverClose}>
+                <limel-button
+                    slot="trigger"
+                    primary={true}
+                    label="Click me!"
+                    onClick={this.openPopover}
+                />
                 <p style={{ margin: '0.5rem 1rem' }}>Content</p>
             </limel-popover>,
         ];
     }
 
-    private openPopover() {
+    private openPopover(event: MouseEvent) {
+        event.stopPropagation();
+        console.log('opening');
         this.isOpen = true;
     }
 
-    private onPopoverClose() {
+    private onPopoverClose(event: CustomEvent) {
+        event.stopPropagation();
+        console.log('closing');
         this.isOpen = false;
     }
 }
