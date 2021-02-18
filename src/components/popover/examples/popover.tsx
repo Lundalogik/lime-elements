@@ -3,7 +3,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-popover',
     shadow: true,
-    styleUrl: 'popover.scss',
 })
 export class PopoverExample {
     @State()

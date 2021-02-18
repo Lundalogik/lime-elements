@@ -7,6 +7,7 @@ import {
     Placement,
 } from '@popperjs/core';
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
+import { arrowStyle } from './arrowStyle';
 
 /* eslint-disable jsdoc/check-indentation */
 /**
@@ -85,6 +86,12 @@ export class Portal {
      */
     @Prop()
     public visible = false;
+
+    /**
+     * Used to visulize the origin of the popper.
+     */
+    @Prop()
+    public useArrow = false;
 
     @Watch('visible')
     protected onVisible() {
@@ -170,6 +177,8 @@ export class Portal {
             portalSource: this.host,
         });
 
+        this.addArrow();
+
         content.forEach((element: HTMLElement) => {
             this.container.appendChild(element);
         });
@@ -220,6 +229,17 @@ export class Portal {
         Object.keys(this.containerStyle).forEach((property) => {
             this.container.style[property] = this.containerStyle[property];
         });
+    }
+
+    private addArrow() {
+        if (!this.useArrow) {
+            return;
+        }
+
+        const style = document.createElement('style');
+        style.innerHTML = arrowStyle;
+
+        this.container.appendChild(style);
     }
 
     private getContentWidth(element: HTMLElement | Element) {

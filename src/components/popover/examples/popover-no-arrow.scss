@@ -1,3 +1,7 @@
 :host(limel-example-popover) {
     --popover-body-background-color: rgb(var(--contrast-200));
 }
+
+limel-icon-button {
+    color: rgb(var(--color-blue-default));
+}
