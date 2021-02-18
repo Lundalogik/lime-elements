@@ -15,10 +15,4 @@
         --popover-body-background-color,
         rgb(var(--contrast-100))
     );
-
-    slot {
-        box-sizing: border-box;
-        display: block;
-        width: 100%;
-    }
 }

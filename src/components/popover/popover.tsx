@@ -115,7 +115,6 @@ export class Popover {
         return (
             <limel-portal visible={this.open} containerId={this.portalId}>
                 <limel-popover-surface
-                    open={this.open}
                     contentCollection={this.host.children}
                     style={cssProperties}
                 >
