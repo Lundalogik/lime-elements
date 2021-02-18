@@ -44,7 +44,7 @@ $list-border-radius: 0.375rem; // 6px
         &:not(.mdc-list-item--disabled) {
             @include is-flat-clickable();
             &:hover {
-                z-index: 1;
+                z-index: $limel-list--has-interactive-items--mdc-list-item--hover--z-index;
                 background-color: #fff;
 
                 &:before {

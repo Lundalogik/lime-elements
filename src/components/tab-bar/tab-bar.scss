@@ -159,7 +159,7 @@ $tab-scroller-fade-width: 65;
 .mdc-tab--active {
     border-radius: $tab-border-radius $tab-border-radius 0 0;
     background-color: $tab-content-background-color;
-    z-index: 2;
+    z-index: $limel-tab-bar--active-tab--z-index;
 
     &:before,
     &:after {

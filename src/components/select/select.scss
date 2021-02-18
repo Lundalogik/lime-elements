@@ -7,6 +7,11 @@
 
 @import '../../style/mixins';
 
+// Note! The `--dropdown-z-index` property is used from `select.tsx`.
+/**
+ * @prop --dropdown-z-index: z-index of the dropdown menu.
+ */
+
 :host {
     display: block;
     position: relative;

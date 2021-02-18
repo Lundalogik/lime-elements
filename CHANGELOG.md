@@ -1,3 +1,13 @@
+# [30.12.0](https://github.com/Lundalogik/lime-elements/compare/v30.11.1...v30.12.0) (2021-02-17)
+
+
+### Features
+
+* **dialog:** add consumer-overridable css property `--dialog-z-index` ([4ae182b](https://github.com/Lundalogik/lime-elements/commit/4ae182b1e5fed5c26cd8589537e2b902f2848d6b)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020)
+* **menu:** add consumer-overridable css property `--dropdown-z-index` ([1011ad0](https://github.com/Lundalogik/lime-elements/commit/1011ad06e45ceabe89d45c901dfe57aba2c934f6)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+* **picker:** add consumer-overridable css property `--dropdown-z-index` ([4b4be2a](https://github.com/Lundalogik/lime-elements/commit/4b4be2a21c421ef1c149f723aa9c6e36943e8f4a)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+* **select:** add consumer-overridable css property `--dropdown-z-index` ([b0c45ed](https://github.com/Lundalogik/lime-elements/commit/b0c45edecd177ca2fe15b7b9f12b8f569c1bfdba)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+
 ## [30.11.1](https://github.com/Lundalogik/lime-elements/compare/v30.11.0...v30.11.1) (2021-02-17)
 
 
