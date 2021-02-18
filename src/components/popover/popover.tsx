@@ -102,7 +102,7 @@ export class Popover {
     private setupClickHandler() {
         if (this.open) {
             document.addEventListener('click', this.globalClickListener, {
-                passive: true,
+                capture: true,
             });
         } else {
             document.removeEventListener('click', this.globalClickListener);
@@ -113,14 +113,15 @@ export class Popover {
         const cssProperties = this.getCssProperties();
 
         return (
-            <limel-portal visible={this.open} containerId={this.portalId}>
-                <limel-popover-surface
-                    contentCollection={this.host.children}
-                    style={cssProperties}
-                >
-                    <slot />
-                </limel-popover-surface>
-            </limel-portal>
+            <div class="trigger-anchor">
+                <slot name="trigger"></slot>
+                <limel-portal visible={this.open} containerId={this.portalId}>
+                    <limel-popover-surface
+                        contentCollection={this.host.children}
+                        style={cssProperties}
+                    />
+                </limel-portal>
+            </div>
         );
     }
 
@@ -128,6 +129,7 @@ export class Popover {
         const element: HTMLElement = event.target as HTMLElement;
         const clickedInside = portalContains(this.host, element);
         if (this.open && !clickedInside) {
+            event.stopPropagation();
             this.close.emit();
         }
     }

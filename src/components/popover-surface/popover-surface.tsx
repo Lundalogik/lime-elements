@@ -34,6 +34,10 @@ export class PopoverSurface {
         );
 
         Array.from(this.contentCollection).forEach((child) => {
+            if (child.slot === 'trigger') {
+                return;
+            }
+
             portalContainer.appendChild(child);
         });
     }
