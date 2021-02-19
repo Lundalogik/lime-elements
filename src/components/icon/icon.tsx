@@ -19,7 +19,7 @@ import { IconSize } from './icon.types';
  * that looks like this: `assets/icons/<name-of-icon>.svg`
  *
  * If `assets` is placed in the root, no other setup is needed. The icons will
- * be fetched with a relative URL from `assets/icons/<name-of-icon>.svg`.
+ * be fetched with a relative URL from `/assets/icons/<name-of-icon>.svg`.
  *
  * If `assets` is placed in a sub-folder somewhere, the easiest way to make the
  * icons available is to use the HTML `base` element:
