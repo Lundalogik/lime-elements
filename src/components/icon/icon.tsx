@@ -13,8 +13,8 @@ import { IconSize } from './icon.types';
  * standard sizes defined that can be used with the `size` property.
  *
  * ## Setup
- * * To use **@limetech/lime-icons8**, the `/assets` folder from
- * **@limetech/lime-icons8** must be made available on the webserver.
+ * * To use **@lundalogik/lime-icons8**, the `/assets` folder from
+ * **@lundalogik/lime-icons8** must be made available on the webserver.
  * * To use a different icon set, the icons must be placed in a folder structure
  * that looks like this: `assets/icons/<name-of-icon>.svg`
  *
