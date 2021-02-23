@@ -1,3 +1,29 @@
+@import '../../style/functions';
+
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0; // REMOVE  ME
+}
+
 img {
-    border: 1px solid red;
+    max-width: 100%;
+    height: auto;
+}
+
+video {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+audio {
+    width: 100%;
+}
+
+object[type='application/pdf'] {
+    width: 100%;
+    min-height: pxToRem(300); // makes sure to get browsers' native controls for the PDF
 }
