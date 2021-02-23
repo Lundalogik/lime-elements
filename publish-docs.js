@@ -276,7 +276,7 @@ function updateVersionList() {
     });
     files.sort(collator.compare);
 
-    const latestVersion = files[files.length - 1];
+    const latestVersion = files.filter((file) => !file.startsWith('PR-')).pop();
 
     shell.echo(`Creating "latest"-link pointing to: ${latestVersion}`);
 

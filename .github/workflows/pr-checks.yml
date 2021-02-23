@@ -40,7 +40,7 @@ jobs:
         rm .npmrc
     - run: npm run build
     - run: npm test --if-present
-    - run: npm run docs:build
+    - run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
 
   commitlint:
     name: Commitlint
