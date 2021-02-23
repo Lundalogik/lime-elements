@@ -1,0 +1,5 @@
+<svg viewBox="0 0 32 33" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="miter" stroke-miterlimit="1.5">
+<path fill="none" d="M0 .624h32v32H0z"/>
+<path d="M31 16.623H1" fill="none" stroke="rgb(var(--contrast-1100))" stroke-opacity=".4"/>
+<path d="M10 23.624H7v-14h3M22 9.624h3v14h-3" fill="none" stroke="rgb(var(--contrast-1100))" stroke-width="2"/>
+</svg>

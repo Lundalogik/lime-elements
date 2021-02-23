@@ -1,0 +1,7 @@
+<svg viewBox="0 0 32 33" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.5"><path fill="none" d="M0 .624h32v32H0z"/>
+<path d="M1 16.625h30" fill="none" stroke="rgb(var(--contrast-1100))" stroke-opacity=".4"/>
+<circle cx="16" cy="16.624" r="2" fill="rgb(var(--color-blue-default))"/>
+<circle cx="6" cy="16.624" r="2" fill="rgb(var(--color-blue-default))"/>
+<circle cx="26" cy="16.624" r="2" fill="rgb(var(--contrast-800))"/>
+<path d="M27 10.624l-6 6 6 6" fill="none" stroke="rgb(var(--contrast-1100))" stroke-width="2" stroke-linejoin="miter"/>
+</svg>
