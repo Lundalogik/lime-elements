@@ -43,7 +43,6 @@ jobs:
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
         npm ci
         rm .npmrc
-    - run: npm test --if-present
     - run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
 
   commitlint:
