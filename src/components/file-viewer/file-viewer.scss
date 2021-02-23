@@ -2,6 +2,8 @@
 @import '../../style/mixins';
 @import '../../style/internal/variables';
 
+$size-of-buttons: pxToRem(32);
+
 :host {
     position: relative;
     display: flex;
@@ -35,8 +37,11 @@ object[type='application/pdf'] {
 object[type='text/plain'] {
     border: 1px solid rgb(var(--contrast-400));
     border-radius: pxToRem(4);
+    padding: $size-of-buttons pxToRem(16);
+
     width: 100%;
-    padding: 0 pxToRem(16);
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 .buttons {
@@ -57,9 +62,9 @@ object[type='text/plain'] {
         justify-content: center;
 
         border-radius: 50%;
-        width: pxToRem(40);
-        height: pxToRem(40);
-        background-color: rgb(var(--contrast-100));
+        width: $size-of-buttons;
+        height: $size-of-buttons;
+        background-color: rgba(var(--contrast-100), 0.9);
     }
 
     limel-icon {

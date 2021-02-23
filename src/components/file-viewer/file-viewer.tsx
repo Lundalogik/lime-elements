@@ -68,7 +68,7 @@ export class FileViewer {
         return (
             <div class="buttons">
                 <a href={this.url} title="download" download>
-                    <limel-icon name="download_2" size="medium" />
+                    <limel-icon name="download_2" size="small" />
                 </a>
                 <a
                     href={this.url}
@@ -76,7 +76,7 @@ export class FileViewer {
                     rel="noopener noreferrer"
                     title="open in a new tab"
                 >
-                    <limel-icon name="external_link" size="medium" />
+                    <limel-icon name="external_link" size="small" />
                 </a>
             </div>
         );
