@@ -32,6 +32,28 @@ export class FilePreview {
             );
         }
 
+        if (this.type === 'application/pdf') {
+            return (
+                <object data={this.url} />
+            );
+        }
+
+        if(this.type.startsWith('audio/')) {
+            return (
+                <audio controls>
+                    <source src={this.url} type={this.type}/>
+                </audio>
+            );
+        }
+
+        if(this.type.startsWith('video/')) {
+            return (
+                <video controls>
+                    <source src={this.url} type={this.type}/>
+                </video>
+            );
+        }
+
         return;
     }
 }
