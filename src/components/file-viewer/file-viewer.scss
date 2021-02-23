@@ -65,6 +65,7 @@ object[type='text/plain'] {
         width: $size-of-buttons;
         height: $size-of-buttons;
         background-color: rgba(var(--contrast-100), 0.9);
+        backdrop-filter: blur(pxToRem(4));
     }
 
     limel-icon {
