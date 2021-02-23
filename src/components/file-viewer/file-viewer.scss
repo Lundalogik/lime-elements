@@ -17,6 +17,7 @@ img {
     max-width: 100%;
     min-width: pxToRem(100);
     height: auto;
+    object-fit: contain; // increases or decreases the size of the image to fill the box whilst preserving its aspect-ratio.
 }
 
 video {
