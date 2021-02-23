@@ -1,6 +1,9 @@
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
 
 /**
+ * This is a smart component that detects most common file types such as
+ * image, audio, video, or text files,
+ * and renders them properly using native HTML5 elements.
  * @exampleComponent limel-example-file-viewer-image
  */
 
