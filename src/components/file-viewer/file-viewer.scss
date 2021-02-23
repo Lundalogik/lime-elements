@@ -53,24 +53,34 @@ object[type='text/plain'] {
     display: grid;
     grid-auto-flow: column;
     grid-gap: pxToRem(8);
+}
 
-    a {
-        @include is-elevated-clickable;
-        cursor: pointer;
+.no-support {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: pxToRem(16);
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 50%;
-        width: $size-of-buttons;
-        height: $size-of-buttons;
-        background-color: rgba(var(--contrast-100), 0.9);
-        backdrop-filter: blur(pxToRem(4));
+    limel-icon {
+        background-color: rgb(var(--color-red-default));
     }
+}
+
+.button--download,
+.button--new-tab {
+    @include is-elevated-clickable;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    width: $size-of-buttons;
+    height: $size-of-buttons;
+    background-color: rgba(var(--contrast-100), 0.9);
+    backdrop-filter: blur(pxToRem(4));
 
     limel-icon {
         color: rgb(var(--contrast-1100));
     }
-
 }

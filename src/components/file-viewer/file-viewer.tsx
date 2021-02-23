@@ -95,7 +95,11 @@ export class FileViewer {
                     badge={true}
                 ></limel-icon>
                 <p>{this.noFileTypeSupportMessage}</p>
-                <a href={this.url} title="download" download>
+                <a
+                    href={this.url}
+                    title="download"
+                    class="button--download"
+                    download>
                     <limel-icon name="download_2" size="small" />
                 </a>
             </div>
@@ -105,10 +109,15 @@ export class FileViewer {
     private renderButtons() {
         return (
             <div class="buttons">
-                <a href={this.url} title="download" download>
+                <a
+                    href={this.url}
+                    title="download"
+                    class="button--download"
+                    download>
                     <limel-icon name="download_2" size="small" />
                 </a>
                 <a
+                    class="button--new-tab"
                     href={this.url}
                     target="_blank"
                     rel="noopener noreferrer"
