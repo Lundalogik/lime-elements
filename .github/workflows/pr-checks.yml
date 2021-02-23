@@ -48,6 +48,11 @@ jobs:
     - run: git config --global user.email "$GH_EMAIL"
     - run: git config --global user.name "$GH_USERNAME"
     - run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
+    - uses: actions/github-script@v3
+      with:
+        script: |
+          const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/pr-comment.js`);
+          await script({github, context});
 
   commitlint:
     name: Commitlint
