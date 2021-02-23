@@ -34,7 +34,13 @@ export class FilePreview {
 
         if (this.type === 'application/pdf') {
             return (
-                <object data={this.url} />
+                <object data={this.url} type={this.type}/>
+            );
+        }
+
+        if (this.type === 'text/plain') {
+            return (
+                <object data={this.url} type={this.type}/>
             );
         }
 

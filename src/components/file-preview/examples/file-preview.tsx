@@ -21,6 +21,11 @@ export class FilePreviewExample {
                 type="application/pdf"
             />,
             <limel-file-preview
+                url="https://filesamples.com/samples/document/txt/sample1.txt"
+                alt="Something descriptive"
+                type="text/plain"
+            />,
+            <limel-file-preview
                 url="https://github.com/caseyohara/campfire-sounds/raw/gh-pages/sounds/trombone.mp3"
                 alt="Something descriptive"
                 type="audio/mpeg"
