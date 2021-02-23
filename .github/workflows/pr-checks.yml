@@ -26,11 +26,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_USERNAME: lime-ci
-      GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
-      CI: true
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.CREATE_RELEASE }}
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
