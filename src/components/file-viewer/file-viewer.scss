@@ -1,6 +1,9 @@
 @import '../../style/functions';
+@import '../../style/mixins';
+@import '../../style/internal/variables';
 
 :host {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,6 +13,7 @@
 
 img {
     max-width: 100%;
+    min-width: pxToRem(100);
     height: auto;
 }
 
@@ -26,4 +30,40 @@ audio {
 object[type='application/pdf'] {
     width: 100%;
     min-height: pxToRem(300); // makes sure to get browsers' native controls for the PDF
+}
+
+object[type='text/plain'] {
+    border: 1px solid rgb(var(--contrast-400));
+    border-radius: pxToRem(4);
+    width: 100%;
+    padding: 0 pxToRem(16);
+}
+
+.buttons {
+    position: absolute;
+    z-index: $limel-file-viewer-buttons;
+    top: pxToRem(8);
+    right: pxToRem(8);
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: pxToRem(8);
+
+    a {
+        @include is-elevated-clickable;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+        width: pxToRem(40);
+        height: pxToRem(40);
+        background-color: rgb(var(--contrast-100));
+    }
+
+    limel-icon {
+        color: rgb(var(--contrast-1100));
+    }
+
 }
