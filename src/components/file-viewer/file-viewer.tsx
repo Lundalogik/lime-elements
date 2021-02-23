@@ -5,6 +5,7 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
  * image, audio, video, or text files,
  * and renders them properly using native HTML5 elements.
  * @exampleComponent limel-example-file-viewer-image
+ * @exampleComponent limel-example-file-viewer-with-picker
  */
 
 @Component({
@@ -29,6 +30,10 @@ export class FileViewer {
     public type: string;
 
     public render() {
+        if (!this.type) {
+            return;
+        }
+
         if (this.type.startsWith('image/')) {
             return [
                 this.renderButtons(),
