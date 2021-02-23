@@ -26,8 +26,17 @@ export class FileViewer {
     @Prop({ reflect: true })
     public alt: string;
 
+    /**
+     * The file type
+     */
     @Prop({ reflect: true })
     public type: string;
+
+    /**
+     * Message which will be displayed when the file type is not supported
+     */
+    @Prop({ reflect: true })
+    public noFileTypeSupportMessage: string = 'Cannot display this file!';
 
     public render() {
         if (!this.type) {
@@ -67,6 +76,24 @@ export class FileViewer {
                 </video>
             );
         }
+
+        return this.renderNoFileSupportMessage();
+    }
+
+    private renderNoFileSupportMessage() {
+        return (
+            <div class="no-support">
+                <limel-icon
+                    name="brake_warning"
+                    size="large"
+                    badge={true}
+                ></limel-icon>
+                <p>{this.noFileTypeSupportMessage}</p>
+                <a href={this.url} title="download" download>
+                    <limel-icon name="download_2" size="small" />
+                </a>
+            </div>
+        );
     }
 
     private renderButtons() {
