@@ -13,4 +13,10 @@ export default {
     'snackbar.dismiss': 'Stäng',
     'file.drag-and-drop-tips':
         'Dra och släpp filen här eller klicka om du vill bläddra.',
+    'file-viewer.message.unsupported-filetype': 'Kan inte visa den här filen!',
+    'file-viewer.download': 'Ladda ner',
+    'file-viewer.exit-fullscreen': 'Avsluta fullskärmsläge',
+    'file-viewer.open-in-fullscreen': 'Öppna i fullskärmsläge',
+    'file-viewer.open-in-new-tab': 'Öppna i ny flik',
+    'file-viewer.more-actions': 'Mer…',
 };

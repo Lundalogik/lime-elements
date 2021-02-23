@@ -11,4 +11,11 @@ export default {
     'chip-set.clear-all': 'Alles wissen',
     'file.drag-and-drop-tips':
         'Sleep uw bestand en zet het hier neer of klik om te bladeren.',
+    'file-viewer.message.unsupported-filetype':
+        'Kan dit bestand niet weergeven!',
+    'file-viewer.download': 'Downloaden',
+    'file-viewer.exit-fullscreen': 'Verlaat volledig scherm',
+    'file-viewer.open-in-fullscreen': 'Open in volledig scherm',
+    'file-viewer.open-in-new-tab': 'Openen op een nieuw tabblad',
+    'file-viewer.more-actions': 'Meer…',
 };

@@ -11,4 +11,10 @@ export default {
     'chip-set.clear-all': 'Fjern alle',
     'file.drag-and-drop-tips':
         'Dra og slipp filen her, eller klikk for å bla gjennom.',
+    'file-viewer.message.unsupported-filetype': 'Kan ikke vise denne filen!',
+    'file-viewer.download': 'Nedlasting',
+    'file-viewer.exit-fullscreen': 'Gå ut av fullskjerm',
+    'file-viewer.open-in-fullscreen': 'Åpne i fullskjerm',
+    'file-viewer.open-in-new-tab': 'Åpne i en ny fane',
+    'file-viewer.more-actions': 'Mer…',
 };

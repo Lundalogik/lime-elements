@@ -1,0 +1,14 @@
+section {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+
+    > * {
+        margin: 0;
+    }
+}
+
+limel-file-viewer {
+    margin: 0 0 4rem 0;
+}

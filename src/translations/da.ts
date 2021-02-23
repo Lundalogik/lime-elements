@@ -11,4 +11,10 @@ export default {
     'chip-set.clear-all': 'Ryd alle',
     'file.drag-and-drop-tips':
         'Træk og slip filen her, eller klik for at gennemse.',
+    'file-viewer.message.unsupported-filetype': 'Denne fil kan ikke vises!',
+    'file-viewer.download': 'Hent',
+    'file-viewer.exit-fullscreen': 'Afslut fuldskærm',
+    'file-viewer.open-in-fullscreen': 'Åbn i fuld skærm',
+    'file-viewer.open-in-new-tab': 'Åbn i en ny fane',
+    'file-viewer.more-actions': 'Mere…',
 };
