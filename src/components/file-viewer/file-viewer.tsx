@@ -89,18 +89,20 @@ export class FileViewer {
     private renderNoFileSupportMessage() {
         return (
             <div class="no-support">
-                <limel-icon
-                    name="brake_warning"
-                    size="large"
-                    badge={true}
-                ></limel-icon>
-                <p>{this.noFileTypeSupportMessage}</p>
+                <div class="no-support__info">
+                    <limel-icon
+                        class="icon--warning"
+                        name="brake_warning"
+                        size="large"
+                    ></limel-icon>
+                    <div>{this.noFileTypeSupportMessage}</div>
+                </div>
                 <a
                     href={this.url}
                     title="download"
                     class="button--download"
                     download>
-                    <limel-icon name="download_2" size="small" />
+                    <limel-icon name="download_2" size="large" />
                 </a>
             </div>
         );

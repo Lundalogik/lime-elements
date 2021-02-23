@@ -57,12 +57,19 @@ object[type='text/plain'] {
 
 .no-support {
     display: grid;
-    grid-auto-flow: column;
-    grid-gap: pxToRem(16);
+    justify-items: center;
 
-    limel-icon {
-        background-color: rgb(var(--color-red-default));
-    }
+    grid-gap: pxToRem(12);
+    border: 1px dashed rgb(var(--contrast-600));
+    border-radius: pxToRem(8);
+    padding: pxToRem(20);
+}
+
+.no-support__info {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: pxToRem(8);
+    align-items: center;
 }
 
 .button--download,
@@ -79,8 +86,24 @@ object[type='text/plain'] {
     height: $size-of-buttons;
     background-color: rgba(var(--contrast-100), 0.9);
     backdrop-filter: blur(pxToRem(4));
+}
 
+.button--download {
     limel-icon {
         color: rgb(var(--contrast-1100));
     }
+    .no-support & {
+        width: pxToRem(40);
+        height: pxToRem(40);
+    }
+}
+
+.button--new-tab {
+    limel-icon {
+        color: rgb(var(--color-blue-dark));
+    }
+}
+
+.icon--warning {
+    color: rgb(var(--color-orange-default));
 }
