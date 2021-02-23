@@ -43,6 +43,8 @@ jobs:
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
         npm ci
         rm .npmrc
+    - run: git config user.email "${{GIT_AUTHOR_EMAIL}}"
+    - run: git config user.name "${{GIT_AUTHOR_NAME}}"
     - run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
 
   commitlint:
