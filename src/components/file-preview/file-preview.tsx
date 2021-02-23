@@ -27,9 +27,31 @@ export class FilePreview {
 
     public render() {
         if(this.type.startsWith('image/')) {
-            return (
+            return [
+                <div class="buttons">
+                    <a
+                        href={this.url}
+                        title="download"
+                        download>
+                        <limel-icon
+                            name="download_2"
+                            size="medium"
+                        />
+                    </a>
+                    <a
+                        href={this.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="open in a new tab"
+                        >
+                        <limel-icon
+                            name="external_link"
+                            size="medium"
+                        />
+                    </a>
+                </div>,
                 <img src={this.url} alt={this.alt}/>
-            );
+            ];
         }
 
         if (this.type === 'application/pdf') {
