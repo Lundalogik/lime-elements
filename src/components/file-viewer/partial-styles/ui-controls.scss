@@ -1,0 +1,73 @@
+.buttons {
+    position: absolute;
+    z-index: 1;
+    top: 0.25rem;
+    right: 0.25rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    @media (pointer: coarse) {
+        // touchscreen devices
+        gap: 0.5rem;
+    }
+}
+
+.no-support {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 1px dashed rgb(var(--contrast-600));
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+
+    .icon--warning {
+        color: rgb(var(--color-orange-default));
+    }
+}
+
+[class^='button--'] {
+    all: unset;
+    @include mixins.is-elevated-clickable;
+    @include mixins.visualize-keyboard-focus;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    width: $size-of-buttons;
+    height: $size-of-buttons;
+
+    background-color: rgba(var(--contrast-100), 0.8);
+    backdrop-filter: blur(0.25rem);
+    -webkit-backdrop-filter: blur(0.25rem);
+
+    limel-icon {
+        transition: color 0.2s ease;
+        width: 1.25rem;
+        color: rgb(var(--contrast-1200));
+    }
+
+    &:hover {
+        limel-icon {
+            color: rgb(var(--contrast-1400));
+        }
+    }
+}
+
+.action-menu-for-pdf-files,
+.action-menu-for-office-files {
+    position: absolute;
+    right: 0.75rem;
+}
+.action-menu-for-pdf-files {
+    // Firefox and Chrome render a top bar
+    // for PDF files, but Safari doesn't.
+    bottom: 0.75rem;
+}
+.action-menu-for-office-files {
+    top: 0.75rem;
+}

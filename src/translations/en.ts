@@ -13,4 +13,10 @@ export default {
     'snackbar.dismiss': 'Dismiss',
     'file.drag-and-drop-tips':
         'Drag and drop your file here, or click to browse.',
+    'file-viewer.message.unsupported-filetype': 'Cannot display this file!',
+    'file-viewer.download': 'Download',
+    'file-viewer.exit-fullscreen': 'Exit fullscreen',
+    'file-viewer.open-in-fullscreen': 'Open in fullscreen',
+    'file-viewer.open-in-new-tab': 'Open in a new tab',
+    'file-viewer.more-actions': 'More…',
 };

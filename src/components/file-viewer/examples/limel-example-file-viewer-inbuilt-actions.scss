@@ -1,0 +1,10 @@
+:host(limel-example-file-viewer-inbuilt-actions) {
+    display: grid;
+    grid-template-columns: 1fr 30%;
+    gap: 2rem;
+}
+
+limel-file-viewer {
+    padding: 0.5rem;
+    border: 1px dashed rgb(var(--contrast-600));
+}
