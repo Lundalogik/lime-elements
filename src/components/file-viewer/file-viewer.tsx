@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import { Component, Element, h, Prop } from '@stencil/core';
 
 /**
  * This is a smart component that detects most common file types such as
