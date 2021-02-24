@@ -3,8 +3,8 @@ $size-of-buttons: pxToRem(32);
 .buttons {
     position: absolute;
     z-index: $limel-file-viewer-buttons;
-    top: pxToRem(8);
-    right: pxToRem(8);
+    top: pxToRem(4);
+    right: pxToRem(4);
     display: grid;
     grid-auto-flow: row;
     grid-gap: pxToRem(8);
@@ -27,8 +27,7 @@ $size-of-buttons: pxToRem(32);
     align-items: center;
 }
 
-.button--download,
-.button--new-tab {
+a[class^='button--'] {
     @include is-elevated-clickable;
     cursor: pointer;
 
@@ -41,19 +40,27 @@ $size-of-buttons: pxToRem(32);
     height: $size-of-buttons;
     background-color: rgba(var(--contrast-100), 0.85);
     backdrop-filter: blur(pxToRem(4));
+
+    limel-icon {
+        transition: color 0.2s ease;
+        color: rgb(var(--contrast-1200));
+    }
+
+    &:hover {
+        limel-icon {
+            color: rgb(var(--contrast-1400));
+        }
+    }
 }
 
 .button--download {
-    limel-icon {
-        color: rgb(var(--contrast-1200));
-    }
     .no-support & {
         width: pxToRem(40);
         height: pxToRem(40);
     }
 }
 
-.button--new-tab {
+a.button--new-tab {
     limel-icon {
         color: rgb(var(--color-blue-dark));
     }
@@ -61,4 +68,25 @@ $size-of-buttons: pxToRem(32);
 
 .icon--warning {
     color: rgb(var(--color-orange-default));
+}
+
+:host(:fullscreen) {
+    background-color: rgb(var(--color-glaucous-darker));
+
+    .buttons {
+        top: pxToRem(12);
+        right: pxToRem(12);
+    }
+
+    .button--download,
+    .button--new-tab,
+    .button--enter-fullscreen {
+        display: none;
+    }
+}
+
+:host(:not(:fullscreen)) {
+    .button--exit-fullscreen {
+        display: none;
+    }
 }

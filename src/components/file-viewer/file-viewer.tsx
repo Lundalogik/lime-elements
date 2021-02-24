@@ -68,7 +68,13 @@ export class FileViewer {
      * Title of the button that opens the file for fullscreen viewing
      */
     @Prop({ reflect: true })
-    public titleOpenFullscreen: string = 'Open in fullscreen';
+    public titleOpenInFullscreen: string = 'Open in fullscreen';
+
+    /**
+     * Title of the button that exists the fullscreen mode
+     */
+    @Prop({ reflect: true })
+    public titleExitFullscreen: string = 'Exit fullscreen';
 
     /**
      * Message which will be displayed when the file type is not supported
@@ -158,16 +164,24 @@ export class FileViewer {
                 <a
                     class="button--exit-fullscreen"
                     onClick={this.toggleFullScreen}
-                    title={this.titleOpenFullscreen}
+                    title={this.titleExitFullscreen}
                 >
                     <limel-icon name="multiply" size="small" />
                 </a>
                 <a
                     class="button--enter-fullscreen"
                     onClick={this.toggleFullScreen}
-                    title={this.titleOpenFullscreen}
+                    title={this.titleOpenInFullscreen}
                 >
                     <limel-icon name="fit_to_width" size="small" />
+                </a>
+                <a
+                    href={this.url}
+                    title={this.titleDownload}
+                    class="button--download"
+                    download
+                >
+                    <limel-icon name="download_2" size="small" />
                 </a>
                 <a
                     class="button--new-tab"
@@ -177,14 +191,6 @@ export class FileViewer {
                     title={this.titleOpenInNewTab}
                 >
                     <limel-icon name="external_link" size="small" />
-                </a>
-                <a
-                    href={this.url}
-                    title={this.titleDownload}
-                    class="button--download"
-                    download
-                >
-                    <limel-icon name="download_2" size="small" />
                 </a>
             </div>
         );
