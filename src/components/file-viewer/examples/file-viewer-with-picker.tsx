@@ -26,13 +26,13 @@ export class FileViewerWithPickerExample {
     public render() {
         return [
             <limel-file
-                label="Attach a file"
+                label="Choose a file…"
                 onChange={this.handleChange}
                 value={this.value}
             />,
+            <p>and view it below ↓</p>,
             <limel-file-viewer
                 url={this.dataUrl}
-                alt="Something descriptive"
                 type={this.value && this.value.contentType}
             />,
         ];

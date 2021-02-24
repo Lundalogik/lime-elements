@@ -1,3 +1,7 @@
+@import '../../../style/functions';
+
 limel-file-viewer {
-    border: 1px solid red;
+    margin-top: pxToRem(20);
+    padding: pxToRem(12);
+    box-shadow: var(--shadow-depth-16);
 }

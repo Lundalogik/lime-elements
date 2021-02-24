@@ -6,21 +6,30 @@ $size-of-buttons: pxToRem(32);
 
 :host {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-sizing: border-box;
+    display: block;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
     width: 100%;
 }
 
-img {
+img,
+video,
+audio,
+object[type='application/pdf'],
+object[type='text/plain'] {
     max-width: 100%;
+    box-sizing: border-box;
+}
+
+img {
     min-width: pxToRem(100);
-    height: auto;
+    // height: auto;
     object-fit: contain; // increases or decreases the size of the image to fill the box whilst preserving its aspect-ratio.
 }
 
 video {
-    max-width: 100%;
     width: 100%;
     height: auto;
 }
@@ -37,12 +46,14 @@ object[type='application/pdf'] {
 object[type='text/plain'] {
     border: 1px solid rgb(var(--contrast-400));
     border-radius: pxToRem(4);
-    padding: $size-of-buttons pxToRem(16);
+    padding: pxToRem(12) $size-of-buttons pxToRem(12) pxToRem(12);
 
     width: 100%;
     max-height: 100%;
     overflow-y: auto;
 }
+
+
 
 .buttons {
     position: absolute;
@@ -83,13 +94,13 @@ object[type='text/plain'] {
     border-radius: 50%;
     width: $size-of-buttons;
     height: $size-of-buttons;
-    background-color: rgba(var(--contrast-100), 0.9);
+    background-color: rgba(var(--contrast-100), 0.85);
     backdrop-filter: blur(pxToRem(4));
 }
 
 .button--download {
     limel-icon {
-        color: rgb(var(--contrast-1100));
+        color: rgb(var(--contrast-1200));
     }
     .no-support & {
         width: pxToRem(40);
