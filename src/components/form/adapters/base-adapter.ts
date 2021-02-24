@@ -66,6 +66,16 @@ export class LimeElementsAdapter extends React.Component<any, any> {
     ) {
         super(props);
 
+        if (props.elementProps) {
+            if (props.elementProps.formInfo?.schema?.disabled || props.elementProps.formInfo?.schema?.lime?.component?.props?.disabled) {
+                props.elementProps.disabled = true;
+            }
+
+            if (props.elementProps.formInfo?.schema?.readonly || props.elementProps.formInfo?.schema?.lime?.component?.props?.readonly) {
+                props.elementProps.readonly = true;
+            }
+        }
+
         this.state = {
             prevEvents: {},
         };
