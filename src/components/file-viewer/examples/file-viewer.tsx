@@ -1,8 +1,5 @@
 import { Component, h } from '@stencil/core';
 
-/**
- * Some text
- */
 @Component({
     tag: 'limel-example-file-viewer',
     shadow: true,

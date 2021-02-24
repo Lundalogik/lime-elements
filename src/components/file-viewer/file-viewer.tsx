@@ -24,6 +24,7 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
  * The download button will not work in this documentation, since example files
  * are not hosted in the same domain.
  *:::
+ *
  * @exampleComponent limel-example-file-viewer
  * @exampleComponent limel-example-file-viewer-with-picker
  */
@@ -41,7 +42,7 @@ export class FileViewer {
     public url: string;
 
     /**
-     * Alternative text for assistive technologies and screen readers
+     * Alternative text for assistive technologies and screen readers, displayed for image files
      */
     @Prop({ reflect: true })
     public alt: string;
@@ -112,7 +113,7 @@ export class FileViewer {
         if (this.type === 'text/plain') {
             return [
                 this.renderButtons(),
-                <object data={this.url} type={this.type} />
+                <object data={this.url} type={this.type} />,
             ];
         }
 
