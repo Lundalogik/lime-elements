@@ -48,13 +48,13 @@ export class FileViewer {
      * Title of the button that opens the file in a new browser tab
      */
     @Prop({ reflect: true })
-    public titleNewTab: string = 'Open in a new tab';
+    public titleOpenInNewTab: string = 'Open in a new tab';
 
     /**
      * Message which will be displayed when the file type is not supported
      */
     @Prop({ reflect: true })
-    public noFileTypeSupportMessage: string = 'Cannot display this file!';
+    public messageNoFileTypeSupport: string = 'Cannot display this file!';
 
     public render() {
         if (!this.type) {
@@ -107,7 +107,7 @@ export class FileViewer {
                         name="brake_warning"
                         size="large"
                     ></limel-icon>
-                    <div>{this.noFileTypeSupportMessage}</div>
+                    <div>{this.messageNoFileTypeSupport}</div>
                 </div>
                 <a
                     href={this.url}
@@ -128,7 +128,7 @@ export class FileViewer {
                     href={this.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title={this.titleNewTab}
+                    title={this.titleOpenInNewTab}
                 >
                     <limel-icon name="external_link" size="small" />
                 </a>
