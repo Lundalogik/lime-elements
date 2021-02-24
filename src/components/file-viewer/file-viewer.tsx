@@ -39,6 +39,18 @@ export class FileViewer {
     public type: string;
 
     /**
+     * Title of the button that downloads the file
+     */
+    @Prop({ reflect: true })
+    public titleDownload: string = 'Download';
+
+    /**
+     * Title of the button that opens the file in a new browser tab
+     */
+    @Prop({ reflect: true })
+    public titleNewTab: string = 'Open in a new tab';
+
+    /**
      * Message which will be displayed when the file type is not supported
      */
     @Prop({ reflect: true })
@@ -116,13 +128,13 @@ export class FileViewer {
                     href={this.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="open in a new tab"
+                    title={this.titleNewTab}
                 >
                     <limel-icon name="external_link" size="small" />
                 </a>
                 <a
                     href={this.url}
-                    title="download"
+                    title={this.titleDownload}
                     class="button--download"
                     download>
                     <limel-icon name="download_2" size="small" />
