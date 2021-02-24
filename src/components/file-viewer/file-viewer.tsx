@@ -99,41 +99,57 @@ export class FileViewer {
             return this.renderNoFileSupportMessage();
         }
 
+        return (
+            this.renderImage() ||
+            this.renderAudio() ||
+            this.renderVideo() ||
+            this.renderObject()
+        );
+    }
+
+    private renderImage() {
         if (this.type.startsWith('image/')) {
             return [
                 this.renderButtons(),
                 <img src={this.url} alt={this.alt} />,
             ];
         }
+    }
+
+    private renderObject() {
+        const objectElement = (
+            <object data={this.url} type={this.type}>
+                {this.renderNoFileSupportMessage()}
+            </object>
+        );
 
         if (this.type === 'application/pdf') {
-            return <object data={this.url} type={this.type} />;
+            return objectElement;
         }
 
-        if (this.type === 'text/plain') {
-            return [
-                this.renderButtons(),
-                <object data={this.url} type={this.type} />,
-            ];
-        }
+        return [this.renderButtons(), objectElement];
+    }
 
+    private renderAudio() {
         if (this.type.startsWith('audio/')) {
             return (
                 <audio controls>
                     <source src={this.url} type={this.type} />
+                    {this.renderNoFileSupportMessage()}
                 </audio>
             );
         }
+    }
 
+    private renderVideo() {
         if (this.type.startsWith('video/')) {
             return (
                 <video controls>
                     <source src={this.url} type={this.type} />
+                    {this.renderNoFileSupportMessage()}
                 </video>
             );
         }
-
-        return this.renderNoFileSupportMessage();
     }
 
     private renderNoFileSupportMessage() {
