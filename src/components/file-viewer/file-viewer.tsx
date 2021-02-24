@@ -65,10 +65,23 @@ export class FileViewer {
     public titleOpenInNewTab: string = 'Open in a new tab';
 
     /**
+     * Title of the button that opens the file for fullscreen viewing
+     */
+    @Prop({ reflect: true })
+    public titleOpenFullscreen: string = 'Open in fullscreen';
+
+    /**
      * Message which will be displayed when the file type is not supported
      */
     @Prop({ reflect: true })
     public messageNoFileTypeSupport: string = 'Cannot display this file!';
+
+    @Element()
+    public HostElement: HTMLLimelFileViewerElement;
+
+    constructor() {
+        this.toggleFullScreen = this.toggleFullScreen.bind(this);
+    }
 
     public render() {
         if (!this.url) {
@@ -143,6 +156,20 @@ export class FileViewer {
         return (
             <div class="buttons">
                 <a
+                    class="button--exit-fullscreen"
+                    onClick={this.toggleFullScreen}
+                    title={this.titleOpenFullscreen}
+                >
+                    <limel-icon name="multiply" size="small" />
+                </a>
+                <a
+                    class="button--enter-fullscreen"
+                    onClick={this.toggleFullScreen}
+                    title={this.titleOpenFullscreen}
+                >
+                    <limel-icon name="fit_to_width" size="small" />
+                </a>
+                <a
                     class="button--new-tab"
                     href={this.url}
                     target="_blank"
@@ -161,5 +188,15 @@ export class FileViewer {
                 </a>
             </div>
         );
+    }
+
+    private toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            this.HostElement.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
     }
 }
