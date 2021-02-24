@@ -119,34 +119,12 @@ export class MenuSurface {
     }
 
     private preventClickEventPropagation() {
-        // When the menu surface is open, we want to stop the `click` event from propagating
-        // when clicking outside the surface itself. This is to prevent any dialog that might
-        // be open from closing, etc. However, when dragging a scrollbar no `click` event is emitted,
-        // only mousedown and mouseup. So we listen for `mousedown` and attach a one-time listener
-        // for `click`, so we can capture and "kill" it.
-        document.addEventListener('click', this.stopEvent, {
-            capture: true,
-            once: true,
-        });
-        // We also capture and "kill" the next `mouseup` event.
+        // When the menu surface is open, we want to stop the `mouseup` event from propagating
+        // when for example dragging a scrollbar. So we capture and "kill" the `mouseup` event.
         document.addEventListener('mouseup', this.stopEvent, {
             capture: true,
             once: true,
         });
-        // If the user dragged the scrollbar, no `click` event happens. So when we get the
-        // `mouseup` event, remove the handler for `click` if it's still there.
-        // Otherwise, we would catch the next click even though the menu is no longer open.
-        document.addEventListener(
-            'mouseup',
-            () => {
-                document.removeEventListener('click', this.stopEvent, {
-                    capture: true,
-                });
-            },
-            {
-                once: true,
-            }
-        );
     }
 
     private stopEvent(event) {
