@@ -4,8 +4,9 @@ import { Component, h } from '@stencil/core';
  * Some text
  */
 @Component({
-    tag: 'limel-example-file-viewer-image',
+    tag: 'limel-example-file-viewer',
     shadow: true,
+    styleUrl: 'file-viewer.scss',
 })
 export class FileViewerExample {
     public render() {
@@ -16,7 +17,7 @@ export class FileViewerExample {
                 alt="Some of the people working at Lime Technologies"
                 type="image/jpg"
             />,
-            <h4>Pdf</h4>,
+            <h4>PDF</h4>,
             <limel-file-viewer
                 url="https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf"
                 type="application/pdf"

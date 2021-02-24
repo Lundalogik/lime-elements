@@ -2,11 +2,13 @@ import { FileInfo } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
- * Some text
+ * Select a file from your local machine using the file picker below,
+ * and the File Viewer component will display the file.
  */
 @Component({
     tag: 'limel-example-file-viewer-with-picker',
     shadow: true,
+    styleUrl: 'limel-example-file-viewer-with-picker.scss',
 })
 export class FileViewerWithPickerExample {
     @State()

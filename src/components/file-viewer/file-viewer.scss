@@ -10,7 +10,6 @@ $size-of-buttons: pxToRem(32);
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 20px 0; // REMOVE  ME
 }
 
 img {
@@ -51,7 +50,7 @@ object[type='text/plain'] {
     top: pxToRem(8);
     right: pxToRem(8);
     display: grid;
-    grid-auto-flow: column;
+    grid-auto-flow: row;
     grid-gap: pxToRem(8);
 }
 

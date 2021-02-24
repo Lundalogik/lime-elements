@@ -10,7 +10,7 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
  * whilst preserving thier aspect-ratio.
  * :::
  *
- * @exampleComponent limel-example-file-viewer-image
+ * @exampleComponent limel-example-file-viewer
  * @exampleComponent limel-example-file-viewer-with-picker
  */
 
@@ -112,13 +112,6 @@ export class FileViewer {
         return (
             <div class="buttons">
                 <a
-                    href={this.url}
-                    title="download"
-                    class="button--download"
-                    download>
-                    <limel-icon name="download_2" size="small" />
-                </a>
-                <a
                     class="button--new-tab"
                     href={this.url}
                     target="_blank"
@@ -126,6 +119,13 @@ export class FileViewer {
                     title="open in a new tab"
                 >
                     <limel-icon name="external_link" size="small" />
+                </a>
+                <a
+                    href={this.url}
+                    title="download"
+                    class="button--download"
+                    download>
+                    <limel-icon name="download_2" size="small" />
                 </a>
             </div>
         );
