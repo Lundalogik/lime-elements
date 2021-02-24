@@ -1,1 +1,0 @@
-import{i as n}from"./eq-5dc06ea1.js";var r=/^(?:0|[1-9]\d*)$/;function e(n,e){var t=typeof n;return!!(e=null==e?9007199254740991:e)&&("number"==t||"symbol"!=t&&r.test(n))&&n>-1&&n%1==0&&n<e}function t(n){return"number"==typeof n&&n>-1&&n%1==0&&n<=9007199254740991}function u(r){return null!=r&&t(r.length)&&!n(r)}export{e as a,u as b,t as i}

@@ -1,1 +1,0 @@
-const t=()=>String.fromCharCode(97+Math.floor(26*Math.random()))+Math.random().toString(36).substring(2)+Math.random().toString(36).substring(2);export{t as c}

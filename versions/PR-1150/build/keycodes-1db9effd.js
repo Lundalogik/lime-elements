@@ -1,1 +1,0 @@
-const a=9,s=13,e=27,r=32,o=8,c=46,t=38,p=40,w=37,A=39,n="Tab",D="Enter",E="Escape",b="Space",f="Backspace",g="Delete",h="ArrowUp",i="ArrowDown",k="ArrowLeft",l="ArrowRight";export{h as A,f as B,g as D,D as E,b as S,n as T,s as a,a as b,t as c,i as d,p as e,E as f,e as g,r as h,k as i,w as j,l as k,A as l,c as m,o as n}
