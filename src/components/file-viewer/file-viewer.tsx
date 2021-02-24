@@ -5,12 +5,6 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
  * image, audio, video, or text files,
  * and renders them properly using native HTML5 elements.
  *
- * For some file types such as text and images, the component will display a
- * download button and a button to open the file in a new browser tab.
- * This will allow users to preview the file in a fullscreen more with the
- * browser and take advantage of for example native zooming and panning
- * functionalities.
- *
  * :::note
  * Image files will always be contained in their containers, which means
  * they automatically increases or decreases in size to fill the box
@@ -20,6 +14,16 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
  * container in which the `limel-file-viewer` is loaded.
  * :::
  *
+ * For some file types such as text and images, the component will display a
+ * download button and a button to open the file in a new browser tab.
+ * This will allow users to preview the file in a fullscreen more with the
+ * browser and take advantage of for example native zooming and panning
+ * functionalities.
+ *
+ *:::note
+ * The download button will not work in this documentation, since example files
+ * are not hosted in the same domain.
+ *:::
  * @exampleComponent limel-example-file-viewer
  * @exampleComponent limel-example-file-viewer-with-picker
  */
