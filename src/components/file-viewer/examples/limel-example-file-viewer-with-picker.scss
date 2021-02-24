@@ -1,7 +1,9 @@
 @import '../../../style/functions';
 
-limel-file-viewer {
+.view-here {
     margin-top: pxToRem(20);
     padding: pxToRem(12);
+    height: pxToRem(600);
+
     box-shadow: var(--shadow-depth-16);
 }

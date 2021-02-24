@@ -31,10 +31,12 @@ export class FileViewerWithPickerExample {
                 value={this.value}
             />,
             <p>and view it below ↓</p>,
-            <limel-file-viewer
-                url={this.dataUrl}
-                type={this.value && this.value.contentType}
-            />,
+            <div class="view-here">
+                <limel-file-viewer
+                    url={this.dataUrl}
+                    type={this.value && this.value.contentType}
+                />
+            </div>,
         ];
     }
 

@@ -2,16 +2,17 @@
 @import '../../style/mixins';
 @import '../../style/internal/variables';
 
-$size-of-buttons: pxToRem(32);
+@import './partial-styles/ui-controls.scss';
+
 
 :host {
     position: relative;
     box-sizing: border-box;
-    // display: block;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 100%;
 }
 
 img,
@@ -26,7 +27,6 @@ object[type='text/plain'] {
 
 img {
     min-width: pxToRem(100);
-    // height: auto;
     object-fit: contain; // increases or decreases the size of the image to fill the box whilst preserving its aspect-ratio.
 }
 
@@ -41,6 +41,7 @@ audio {
 
 object[type='application/pdf'] {
     width: 100%;
+    height: 100%;
     min-height: pxToRem(300); // makes sure to get browsers' native controls for the PDF
 }
 
@@ -52,69 +53,4 @@ object[type='text/plain'] {
     width: 100%;
     height: 100%;
     overflow-y: auto;
-}
-
-
-
-.buttons {
-    position: absolute;
-    z-index: $limel-file-viewer-buttons;
-    top: pxToRem(8);
-    right: pxToRem(8);
-    display: grid;
-    grid-auto-flow: row;
-    grid-gap: pxToRem(8);
-}
-
-.no-support {
-    display: grid;
-    justify-items: center;
-
-    grid-gap: pxToRem(12);
-    border: 1px dashed rgb(var(--contrast-600));
-    border-radius: pxToRem(8);
-    padding: pxToRem(20);
-}
-
-.no-support__info {
-    display: grid;
-    grid-auto-flow: column;
-    grid-gap: pxToRem(8);
-    align-items: center;
-}
-
-.button--download,
-.button--new-tab {
-    @include is-elevated-clickable;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    width: $size-of-buttons;
-    height: $size-of-buttons;
-    background-color: rgba(var(--contrast-100), 0.85);
-    backdrop-filter: blur(pxToRem(4));
-}
-
-.button--download {
-    limel-icon {
-        color: rgb(var(--contrast-1200));
-    }
-    .no-support & {
-        width: pxToRem(40);
-        height: pxToRem(40);
-    }
-}
-
-.button--new-tab {
-    limel-icon {
-        color: rgb(var(--color-blue-dark));
-    }
-}
-
-.icon--warning {
-    color: rgb(var(--color-orange-default));
 }
