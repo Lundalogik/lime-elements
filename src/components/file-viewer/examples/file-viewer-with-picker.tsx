@@ -10,7 +10,7 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-file-viewer-with-picker',
     shadow: true,
-    styleUrl: 'limel-example-file-viewer-with-picker.scss',
+    styleUrl: 'file-viewer-with-picker.scss',
 })
 export class FileViewerWithPickerExample {
     @State()
