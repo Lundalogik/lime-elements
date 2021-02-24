@@ -13,7 +13,7 @@ export class FileViewerExample {
         return [
             <h4>Image</h4>,
             <limel-file-viewer
-                url="https://jobs.lime-technologies.com/wp-content/uploads/2020/04/Traineer-ad.jpg"
+                url="https://media-exp1.licdn.com/dms/image/C561BAQFNY8Ei6v1CSA/company-background_10000/0/1568387658609?e=1614247200&v=beta&t=EbxZQba3cqJ3wtX9Hx1weDjNR--kXxMqJpNmkBUghBQ"
                 alt="Some of the people working at Lime Technologies"
                 type="image/jpg"
             />,
