@@ -67,8 +67,12 @@ export class FileViewer {
     public messageNoFileTypeSupport: string = 'Cannot display this file!';
 
     public render() {
-        if (!this.type) {
+        if (!this.url) {
             return;
+        }
+
+        if (!this.type) {
+            return this.renderNoFileSupportMessage();
         }
 
         if (this.type.startsWith('image/')) {
@@ -123,7 +127,8 @@ export class FileViewer {
                     href={this.url}
                     title="download"
                     class="button--download"
-                    download>
+                    download
+                >
                     <limel-icon name="download_2" size="large" />
                 </a>
             </div>
@@ -146,7 +151,8 @@ export class FileViewer {
                     href={this.url}
                     title={this.titleDownload}
                     class="button--download"
-                    download>
+                    download
+                >
                     <limel-icon name="download_2" size="small" />
                 </a>
             </div>

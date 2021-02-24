@@ -43,6 +43,8 @@ export class FileViewerWithPickerExample {
     private handleChange(event: CustomEvent<FileInfo>) {
         this.value = event.detail;
         if (!this.value) {
+            this.dataUrl = '';
+
             return;
         }
 
