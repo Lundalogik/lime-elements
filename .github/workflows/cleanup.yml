@@ -1,0 +1,32 @@
+name: Cleanup
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  docs:
+    name: Remove PR docs
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_USERNAME: lime-ci
+      GH_EMAIL: 617355+lime-ci@users.noreply.github.com
+      GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
+      CI: true
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.CREATE_RELEASE }}
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        check-latest: true
+    - run: npm i -g npm
+    - name: npm install
+      run: |
+        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
+        npm ci
+        rm .npmrc
+    - run: git config --global user.email "$GH_EMAIL"
+    - run: git config --global user.name "$GH_USERNAME"
+    - run: npm run docs:publish -- --remove=PR-${{ github.event.pull_request.number }}
