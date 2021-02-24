@@ -71,8 +71,6 @@ a.button--new-tab {
 }
 
 :host(:fullscreen) {
-    background-color: rgb(var(--color-glaucous-darker));
-
     .buttons {
         top: pxToRem(12);
         right: pxToRem(12);

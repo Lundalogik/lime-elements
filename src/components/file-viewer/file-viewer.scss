@@ -59,6 +59,8 @@ object[type='text/plain'] {
 
 
 :host(:fullscreen) {
+    background-color: rgb(var(--color-gray-darker));
+
     object[type='text/plain'] {
         max-width: pxToRem(800);
         max-height: calc(100% - 2rem)
