@@ -1,3 +1,10 @@
+## [30.12.2](https://github.com/Lundalogik/lime-elements/compare/v30.12.1...v30.12.2) (2021-02-25)
+
+
+### Bug Fixes
+
+* **checkbox:** use default material design style for checked state ([76d9a2c](https://github.com/Lundalogik/lime-elements/commit/76d9a2cb56b703c13241ca68a0d59d4cb46c0d7f))
+
 ## [30.12.1](https://github.com/Lundalogik/lime-elements/compare/v30.12.0...v30.12.1) (2021-02-19)
 
 
