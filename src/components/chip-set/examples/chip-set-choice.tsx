@@ -3,6 +3,10 @@ import { Component, h, State } from '@stencil/core';
 
 /**
  * Choice chip set
+ *
+ * Only one option can be selected at once. Kind of like radio-buttons, but the
+ * user can deselect the chosen option too. Good as an alternative to using a
+ * `select` when there are only a few options.
  */
 @Component({
     tag: 'limel-example-chip-set-choice',

@@ -4,6 +4,9 @@ import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
 /**
  * Input chip set
+ *
+ * Useful for collections of tags or labels. Can also be used as an advanced
+ * search input, with leading icon and a delimiter between search terms.
  */
 @Component({
     tag: 'limel-example-chip-set-input',
@@ -33,10 +36,10 @@ export class ChipSetInputExample {
     private emptyInputOnBlur: boolean = true;
 
     @State()
-    private hasLeadingIcon: boolean = true;
+    private hasLeadingIcon: boolean = false;
 
     @State()
-    private delimiter: string = '&';
+    private delimiter: string = null;
 
     constructor() {
         this.value = [
