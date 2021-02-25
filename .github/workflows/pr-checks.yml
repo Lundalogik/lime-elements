@@ -19,7 +19,7 @@ jobs:
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
         npm ci
         rm .npmrc
-    - run: npm run lint
+    - run: npm run lint:prod
 
   ci:
     name: CI
