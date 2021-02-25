@@ -32,6 +32,12 @@ export class MenuSurface {
     public open = false;
 
     /**
+     * Clicks in this element should not be prevented when the menu surface is open
+     */
+    @Prop()
+    public allowClicksElement: HTMLElement;
+
+    /**
      * Emitted when the menu surface is dismissed and should be closed
      */
     @Event()
@@ -106,10 +112,28 @@ export class MenuSurface {
     }
 
     private handleDocumentClick(event) {
-        if (this.open && !isDescendant(event.target, this.host)) {
-            this.dismiss.emit();
-            this.preventClickEventPropagation();
+        const elementPath = event.path || [];
+
+        if (!this.open) {
+            return;
         }
+
+        if (isDescendant(event.target, this.host)) {
+            return;
+        }
+
+        if (this.allowClicksElement) {
+            const clickedInAllowedElement = elementPath.includes(
+                this.allowClicksElement
+            );
+
+            if (clickedInAllowedElement) {
+                return;
+            }
+        }
+
+        this.dismiss.emit();
+        this.preventClickEventPropagation();
     }
 
     private handleResize() {
