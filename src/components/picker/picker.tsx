@@ -349,6 +349,7 @@ export class Picker {
             >
                 <limel-menu-surface
                     open={!!content}
+                    allowClicksElement={this.host}
                     style={{
                         '--menu-surface-width': '100%',
                         'max-height': 'inherit',
