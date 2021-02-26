@@ -1,4 +1,4 @@
-import { Chip } from '@limetech/lime-elements';
+import { Chip, Languages } from '@limetech/lime-elements';
 import {
     MDCChipInteractionEvent,
     MDCChipSelectionEvent,
@@ -17,6 +17,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { handleKeyboardEvent } from './chip-set-input-helpers';
+import translate from '../../global/translations';
 
 const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
 
@@ -111,6 +112,13 @@ export class ChipSet {
     public delimiter: string = null;
 
     /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components. For example, the clear all chips label.
+     */
+    @Prop()
+    public language: Languages = 'en';
+
+    /**
      * Dispatched when a chip is interacted with
      */
     @Event()
@@ -158,7 +166,7 @@ export class ChipSet {
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
-    private clearAllLabel = 'Clear chips';
+    private clearAllChipsLabel: string;
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
@@ -216,6 +224,13 @@ export class ChipSet {
     @Method()
     public async emptyInput() {
         this.syncEmptyInput();
+    }
+
+    public componentWillLoad() {
+        this.clearAllChipsLabel = translate.get(
+            'chip-set.clear-all',
+            this.language
+        );
     }
 
     public componentDidLoad() {
@@ -664,8 +679,8 @@ export class ChipSet {
                 class="mdc-text-field__icon clear-all-button"
                 tabindex="0"
                 role="button"
-                title={this.clearAllLabel}
-                aria-label={this.clearAllLabel}
+                title={this.clearAllChipsLabel}
+                aria-label={this.clearAllChipsLabel}
             />
         );
     }
