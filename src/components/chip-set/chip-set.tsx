@@ -51,7 +51,7 @@ export class ChipSet {
     public type?: 'choice' | 'filter' | 'input';
 
     /**
-     * Label to display for the input field when type is `input`
+     * Label for the chip-set
      */
     @Prop({ reflect: true })
     public label: string;
