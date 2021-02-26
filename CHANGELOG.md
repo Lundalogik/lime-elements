@@ -1,3 +1,10 @@
+# [30.13.0](https://github.com/Lundalogik/lime-elements/compare/v30.12.2...v30.13.0) (2021-02-26)
+
+
+### Features
+
+* add label to chip-set of types other than input ([ff0dc72](https://github.com/Lundalogik/lime-elements/commit/ff0dc729b4e33e0df496b16e10639ed2f4191460))
+
 ## [30.12.2](https://github.com/Lundalogik/lime-elements/compare/v30.12.1...v30.12.2) (2021-02-25)
 
 
