@@ -1,3 +1,15 @@
+# [30.14.0](https://github.com/Lundalogik/lime-elements/compare/v30.13.0...v30.14.0) (2021-02-26)
+
+
+### Bug Fixes
+
+* **menu-surface:** do not kill click events when clicking in an allowed element ([13fce92](https://github.com/Lundalogik/lime-elements/commit/13fce9252df7eb175694c58882be5a40866fcc3f))
+
+
+### Features
+
+* **picker:** allow clicks for picker elements ([f808b75](https://github.com/Lundalogik/lime-elements/commit/f808b75899f2664662b5e05a7dcebda1c2b8a434))
+
 # [30.13.0](https://github.com/Lundalogik/lime-elements/compare/v30.12.2...v30.13.0) (2021-02-26)
 
 
