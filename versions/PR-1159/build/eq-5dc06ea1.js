@@ -1,1 +1,0 @@
-import{b as t}from"./_baseGetTag-accbac5b.js";import{i as o}from"./isObject-7039fcda.js";function c(c){if(!o(c))return!1;var n=t(c);return"[object Function]"==n||"[object GeneratorFunction]"==n||"[object AsyncFunction]"==n||"[object Proxy]"==n}function n(t,o){return t===o||t!=t&&o!=o}export{n as e,c as i}
