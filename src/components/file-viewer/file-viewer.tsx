@@ -1,3 +1,5 @@
+import { Languages } from '@limetech/lime-elements';
+import translate from '../../global/translations';
 import { Component, Element, h, Prop } from '@stencil/core';
 
 /**
@@ -54,34 +56,10 @@ export class FileViewer {
     public type: string;
 
     /**
-     * Title of the button that downloads the file
+     * Defines the localisation for translations.
      */
-    @Prop({ reflect: true })
-    public titleDownload: string = 'Download';
-
-    /**
-     * Title of the button that opens the file in a new browser tab
-     */
-    @Prop({ reflect: true })
-    public titleOpenInNewTab: string = 'Open in a new tab';
-
-    /**
-     * Title of the button that opens the file for fullscreen viewing
-     */
-    @Prop({ reflect: true })
-    public titleOpenInFullscreen: string = 'Open in fullscreen';
-
-    /**
-     * Title of the button that exists the fullscreen mode
-     */
-    @Prop({ reflect: true })
-    public titleExitFullscreen: string = 'Exit fullscreen';
-
-    /**
-     * Message which will be displayed when the file type is not supported
-     */
-    @Prop({ reflect: true })
-    public messageNoFileTypeSupport: string = 'Cannot display this file!';
+    @Prop()
+    public language: Languages = 'en';
 
     @Element()
     public HostElement: HTMLLimelFileViewerElement;
@@ -161,7 +139,9 @@ export class FileViewer {
                         name="brake_warning"
                         size="large"
                     ></limel-icon>
-                    <div>{this.messageNoFileTypeSupport}</div>
+                    <div>
+                        {this.getTranslation('message.unsupported-filetype')}
+                    </div>
                 </div>
                 <a
                     href={this.url}
@@ -181,20 +161,20 @@ export class FileViewer {
                 <a
                     class="button--exit-fullscreen"
                     onClick={this.toggleFullScreen}
-                    title={this.titleExitFullscreen}
+                    title={this.getTranslation('title.exit-fullscreen')}
                 >
                     <limel-icon name="multiply" size="small" />
                 </a>
                 <a
                     class="button--enter-fullscreen"
                     onClick={this.toggleFullScreen}
-                    title={this.titleOpenInFullscreen}
+                    title={this.getTranslation('title.open-in-fullscreen')}
                 >
                     <limel-icon name="fit_to_width" size="small" />
                 </a>
                 <a
                     href={this.url}
-                    title={this.titleDownload}
+                    title={this.getTranslation('title.download')}
                     class="button--download"
                     download
                 >
@@ -205,7 +185,7 @@ export class FileViewer {
                     href={this.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title={this.titleOpenInNewTab}
+                    title={this.getTranslation('title.open-in-new-tab')}
                 >
                     <limel-icon name="external_link" size="small" />
                 </a>
@@ -221,5 +201,9 @@ export class FileViewer {
                 document.exitFullscreen();
             }
         }
+    }
+
+    private getTranslation(key: string) {
+        return translate.get(`file-viewer.${key}`, this.language);
     }
 }
