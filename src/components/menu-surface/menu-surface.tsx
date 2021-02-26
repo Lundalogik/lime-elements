@@ -32,6 +32,12 @@ export class MenuSurface {
     public open = false;
 
     /**
+     * True if the menu surface should prevent clicks when open, false otherwise
+     */
+    @Prop()
+    public preventClicks = false;
+
+    /**
      * Emitted when the menu surface is dismissed and should be closed
      */
     @Event()
@@ -106,7 +112,11 @@ export class MenuSurface {
     }
 
     private handleDocumentClick(event) {
-        if (this.open && !isDescendant(event.target, this.host)) {
+        if (
+            this.open &&
+            !this.preventClicks &&
+            !isDescendant(event.target, this.host)
+        ) {
             this.dismiss.emit();
             this.preventClickEventPropagation();
         }
