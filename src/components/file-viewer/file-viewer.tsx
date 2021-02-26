@@ -48,7 +48,7 @@ export class FileViewer {
     public alt: string;
 
     /**
-     * The file type
+     * The MIME content type of the file, such as text/plain, application/pdf, etc.
      */
     @Prop({ reflect: true })
     public type: string;
