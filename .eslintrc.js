@@ -30,7 +30,6 @@ module.exports = {
         },
     },
     rules: {
-        'linebreak-style': ['error', 'unix'],
         quotes: ['error', 'single', { avoidEscape: true }],
         semi: ['error', 'always'],
         'prettier/prettier': 'error',

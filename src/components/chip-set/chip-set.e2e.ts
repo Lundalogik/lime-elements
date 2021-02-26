@@ -3,6 +3,7 @@ import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 describe('limel-chip-set', () => {
     let page: E2EPage;
     let chipSet: E2EElement;
+    let label: E2EElement;
     let chips: E2EElement[];
     let spy;
 
@@ -11,6 +12,7 @@ describe('limel-chip-set', () => {
             page = await createPage('<limel-chip-set></limel-chip-set>');
 
             chipSet = await page.find('limel-chip-set');
+            chipSet.setProperty('label', 'Fruit');
             chipSet.setProperty('value', [
                 {
                     id: '1',
@@ -23,9 +25,14 @@ describe('limel-chip-set', () => {
             ]);
             await page.waitForChanges();
 
+            label = await page.find('limel-chip-set >>> .chip-set__label');
             chips = await page.findAll('limel-chip-set >>> .mdc-chip');
 
             spy = await chipSet.spyOnEvent('interact');
+        });
+
+        it('renders the label', () => {
+            expect(label).toEqualText('Fruit');
         });
 
         it('renders the chips', () => {
@@ -70,9 +77,14 @@ describe('limel-chip-set', () => {
 
             await page.waitForChanges();
 
+            label = await page.find('limel-chip-set >>> .chip-set__label');
             chips = await page.findAll('limel-chip-set >>> .mdc-chip');
 
             spy = await chipSet.spyOnEvent('change');
+        });
+
+        it('does not render the label', () => {
+            expect(label).toBeNull();
         });
 
         it('renders the chips correctly', () => {
