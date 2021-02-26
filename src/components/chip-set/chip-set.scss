@@ -75,6 +75,13 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .mdc-chip-set {
     align-items: center;
     min-height: $height-of-mdc-text-field;
+    position: relative;
+
+    &.chip-set--with-label {
+        .lime-floating-label--float-above {
+            padding-left: pxToRem(4);
+        }
+    }
 
     &.mdc-chip-set--input {
         padding: pxToRem(8);
@@ -171,6 +178,12 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         @include label--float-above;
         top: $floating-label-top-value;
     }
+}
+
+.chip-set__label {
+    @include looks-like-input-label;
+    padding-left: pxToRem(20);
+    font-size: pxToRem(16);
 }
 
 .lime-notched-outline--notched {

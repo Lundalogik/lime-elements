@@ -26,20 +26,21 @@ export class ChipSetExample {
     public render() {
         return [
             <limel-chip-set
+                label="Tags"
                 disabled={this.disabled}
                 onInteract={this.onInteract}
                 value={[
                     {
                         id: 1,
-                        text: 'Lime',
+                        text: 'Fruit',
                     },
                     {
                         id: 2,
-                        text: 'Apple',
+                        text: 'Green',
                     },
                     {
                         id: 3,
-                        text: 'Banana',
+                        text: 'Sour',
                     },
                 ]}
             />,

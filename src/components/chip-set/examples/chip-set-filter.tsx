@@ -40,6 +40,7 @@ export class ChipSetFilterExample {
     public render() {
         return [
             <limel-chip-set
+                label="Include fruits of type:"
                 disabled={this.disabled}
                 type="filter"
                 onChange={this.chipSetOnChange}
