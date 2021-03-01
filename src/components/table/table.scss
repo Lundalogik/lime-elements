@@ -3,9 +3,10 @@
 @import '../../style/functions';
 @import '../../style/internal/variables';
 
-$table-header-background-color: #ededee;
-$table-header-background-color-hover: #f1f1f3;
-$tabulator-arrow-color: #babac0;
+$table-header-background-color: rgb(var(--contrast-500));
+$table-header-background-color-hover: rgb(var(--contrast-400));
+$table-header-background-color-when-being-dragged: rgb(var(--contrast-100));
+$tabulator-arrow-color: rgb(var(--contrast-800));
 $tabulator-arrow-color-active: var(--lime-turquoise);
 
 @import './partial-styles/tabulator-arrow';
@@ -13,6 +14,7 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 @import './partial-styles/tabulator-loader';
 @import './partial-styles/tabulator-custom-styles';
 @import './partial-styles/header-component';
+@import './partial-styles/movable-columns';
 
 :host {
     display: block;
@@ -34,7 +36,7 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
         .tabulator-col {
             transition: background-color 0.2s ease;
             background-color: $table-header-background-color;
-            border-right-color: #fafafb;
+            border-right-color: rgb(var(--contrast-200));
 
             .tabulator-col-content {
                 padding-top: pxToRem(8);
@@ -59,7 +61,7 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
         border: none;
 
         .tabulator-calcs-holder {
-            border-color: #e8e8ea;
+            border-color: rgb(var(--contrast-600));
         }
     }
 }
@@ -74,16 +76,16 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
         }
     }
     &.tabulator-row-odd {
-        background-color: #fafafb;
+        background-color: rgb(var(--contrast-200));
     }
 
     &.tabulator-row-even {
-        background-color: #fff;
+        background-color: rgb(var(--contrast-100));
     }
 
     &.active,
     &.active:hover {
-        background-color: rgba(#26a69a, 0.16);
+        background-color: rgba($tabulator-arrow-color-active, 0.16);
     }
 
     .tabulator-cell {

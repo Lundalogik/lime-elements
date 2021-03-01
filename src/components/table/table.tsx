@@ -18,6 +18,7 @@ const FIRST_PAGE = 1;
 /**
  * @exampleComponent limel-example-table
  * @exampleComponent limel-example-table-custom-components
+ * @exampleComponent limel-example-table-movable-columns
  * @exampleComponent limel-example-table-local
  * @exampleComponent limel-example-table-remote
  * @exampleComponent limel-example-table-activate-row
@@ -67,7 +68,6 @@ export class Table {
     /**
      * The initial sorted columns
      */
-
     @Prop()
     public sorting: ColumnSorter[] = [];
 
@@ -76,6 +76,12 @@ export class Table {
      */
     @Prop({ mutable: true })
     public activeRow: object;
+
+    /**
+     * Set to `true` to enable reordering of the columns by dragging them
+     */
+    @Prop()
+    public movableColumns: boolean;
 
     /**
      * Emitted when `mode` is `local` the data is sorted
@@ -101,6 +107,12 @@ export class Table {
      */
     @Event()
     public activate: EventEmitter<object>;
+
+    /**
+     * Emitted when the columns have been changed
+     */
+    @Event()
+    public changeColumns: EventEmitter<Column[]>;
 
     @Element()
     private host: HTMLLimelTableElement;
@@ -182,12 +194,23 @@ export class Table {
     }
 
     @Watch('columns')
-    public updateColumns() {
+    public updateColumns(newColumns: Column[], oldColumns: Column[]) {
         if (!this.tabulator) {
             return;
         }
 
+        if (this.areSameColumns(newColumns, oldColumns)) {
+            return;
+        }
+
         this.tabulator.setColumns(this.getColumnDefinitions());
+    }
+
+    private areSameColumns(newColumns: Column[], oldColumns: Column[]) {
+        return (
+            newColumns.length === oldColumns.length &&
+            newColumns.every((column) => oldColumns.includes(column))
+        );
     }
 
     /*
@@ -228,6 +251,7 @@ export class Table {
     private getOptions(): Tabulator.Options {
         const ajaxOptions = this.getAjaxOptions();
         const paginationOptions = this.getPaginationOptions();
+        const columnOptions = this.getColumnOptions();
 
         return {
             data: this.data,
@@ -243,6 +267,7 @@ export class Table {
             dataLoaded: this.updateMaxPage,
             dataFiltered: this.updateMaxPage,
             nestedFieldSeparator: false,
+            ...columnOptions,
         };
     }
 
@@ -390,6 +415,31 @@ export class Table {
         return columns.some((column) => has(column, 'aggregator'));
     }
 
+    private getColumnOptions = (): Tabulator.OptionsColumns => {
+        if (!this.movableColumns) {
+            return {};
+        }
+
+        return {
+            movableColumns: true,
+            columnMoved: this.handleMoveColumn,
+        };
+    };
+
+    private handleMoveColumn = (_, components: Tabulator.ColumnComponent[]) => {
+        const columns = components.map(this.findColumn);
+        this.changeColumns.emit(columns);
+    };
+
+    private findColumn = (component: Tabulator.ColumnComponent): Column => {
+        return this.columns.find((column) => {
+            return (
+                column.field === component.getField() &&
+                column.title === component.getDefinition().title
+            );
+        });
+    };
+
     render() {
         return (
             <div id="tabulator-container">
@@ -398,6 +448,7 @@ export class Table {
                     class={{
                         'has-pagination': this.totalRows > this.pageSize,
                         'has-aggregation': this.hasAggregation(this.columns),
+                        'has-movable-columns': this.movableColumns,
                     }}
                 />
             </div>

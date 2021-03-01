@@ -5,6 +5,7 @@
     position: absolute;
     transition: border 0.2s ease;
     top: pxToRem(4);
+    cursor: pointer;
 
     [aria-sort='none'] & {
         border-bottom-color: $tabulator-arrow-color !important;

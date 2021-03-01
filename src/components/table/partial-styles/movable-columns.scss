@@ -1,0 +1,40 @@
+@keyframes detach-a-column-header {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-2deg);
+    }
+}
+
+.tabulator.has-movable-columns {
+    .tabulator-header {
+        overflow-y: visible;
+
+        .tabulator-col {
+            cursor: move !important;
+
+            &.tabulator-sortable {
+                &.tabulator-moving {
+                    animation: detach-a-column-header 0.2s ease forwards;
+                    opacity: 0.9;
+                    border: none;
+
+                    border-radius: pxToRem(4);
+                    background-color: $table-header-background-color-when-being-dragged;
+                    box-shadow: var(--shadow-depth-16);
+
+                    &:hover {
+                        background-color: $table-header-background-color-when-being-dragged;
+                    }
+
+                    .tabulator-arrow {
+                        &:before {
+                            background-color: $table-header-background-color-when-being-dragged;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
