@@ -13,6 +13,7 @@ const runSetup = argv.noSetup === undefined;
 const runBuild = argv.noBuild === undefined;
 const runCommit = argv.noCommit === undefined;
 const runPush = argv.noPush === undefined;
+const forcePush = !!argv.forcePush;
 const runTeardown = argv.noTeardown === undefined;
 
 const cleanOnFail = runTeardown && argv.noCleanOnFail === undefined;
@@ -36,6 +37,10 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     --noBuild       Do not build the documentation.
     --noCommit      Do not commit any changes.
     --noPush        Do not push any commits.
+    --forcePush     Force-push commit. Only for use by the automated publish run
+                    when a new version has been released. Any less important
+                    runs, like those publishing the docs for a pull request,
+                    should NOT use this flag.
     --noTeardown    Run no cleanup at end of script. Implies --noCleanOnFail.
     --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown is set,
                     cleanup will still be run if script is successful.
@@ -76,6 +81,10 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
         build();
     }
 
+    if (runSetup) {
+        pullAndRebase();
+    }
+
     if (runBuild) {
         copyBuildOutput();
     }
@@ -108,6 +117,18 @@ function cloneDocsRepo() {
         teardown();
         shell.exit(1);
     }
+}
+
+function pullAndRebase() {
+    shell.cd('docsDist');
+    if (shell.exec('git pull --rebase').code !== 0) {
+        shell.echo('git pull failed!');
+        shell.cd('..');
+        teardown();
+        shell.exit(1);
+    }
+
+    shell.cd('..');
 }
 
 function build() {
@@ -330,12 +351,18 @@ function commit(message) {
 function push() {
     shell.cd('docsDist');
 
+    if (forcePush) {
+        shell.echo('Using `git push --force`!');
+    }
+
     if (dryRun) {
         shell.exec('git log -1');
         shell.echo('Dry-run, so skipping push.');
     } else if (
         shell.exec(
-            'git push https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages'
+            `git push ${
+                forcePush ? '--force' : ''
+            } https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages`
         ).code !== 0
     ) {
         shell.echo('git push failed!');
