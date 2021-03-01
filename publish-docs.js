@@ -76,6 +76,10 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
         build();
     }
 
+    if (runSetup) {
+        pullAndRebase();
+    }
+
     if (runBuild) {
         copyBuildOutput();
     }
@@ -108,6 +112,18 @@ function cloneDocsRepo() {
         teardown();
         shell.exit(1);
     }
+}
+
+function pullAndRebase() {
+    shell.cd('docsDist');
+    if (shell.exec('git pull --rebase').code !== 0) {
+        shell.echo('git pull failed!');
+        shell.cd('..');
+        teardown();
+        shell.exit(1);
+    }
+
+    shell.cd('..');
 }
 
 function build() {
