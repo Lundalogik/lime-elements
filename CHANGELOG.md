@@ -1,3 +1,10 @@
+# [30.15.0](https://github.com/Lundalogik/lime-elements/compare/v30.14.0...v30.15.0) (2021-03-01)
+
+
+### Features
+
+* add dutch language ([2b6ea58](https://github.com/Lundalogik/lime-elements/commit/2b6ea587b91d56bac2e66c7e95c0fa66e36fa920))
+
 # [30.14.0](https://github.com/Lundalogik/lime-elements/compare/v30.13.0...v30.14.0) (2021-02-26)
 
 
