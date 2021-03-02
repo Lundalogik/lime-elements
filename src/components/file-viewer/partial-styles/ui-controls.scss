@@ -70,6 +70,7 @@ a.button--new-tab {
     color: rgb(var(--color-orange-default));
 }
 
+
 :host(:fullscreen) {
     .buttons {
         top: pxToRem(12);
@@ -83,7 +84,26 @@ a.button--new-tab {
     }
 }
 
-:host(:not(:fullscreen)) {
+:host(:-webkit-full-screen) { // this is repetition of the previous block, but needed for Safari to work. There is no way to write SCSS rules for `:host` using commas sadly. You have to repeat.
+    .buttons {
+        top: pxToRem(12);
+        right: pxToRem(12);
+    }
+
+    .button--download,
+    .button--new-tab,
+    .button--enter-fullscreen {
+        display: none;
+    }
+}
+
+:host(:not(:-webkit-full-screen)) {
+    .button--exit-fullscreen {
+        display: none;
+    }
+}
+
+:host(:not(:fullscreen)) { // this is repetition of the previous block, but needed for Safari to work. There is no way to write SCSS rules for `:host` using commas sadly. You have to repeat.
     .button--exit-fullscreen {
         display: none;
     }

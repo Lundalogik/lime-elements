@@ -65,3 +65,12 @@ object:not([type='application/pdf']) {
         max-height: calc(100% - 2rem);
     }
 }
+
+:host(:-webkit-full-screen) { // this is repetition of the previous block, but needed for Safari to work. There is no way to write SCSS rules for `:host` using commas sadly. You have to repeat.
+    background-color: rgb(var(--color-gray-darker));
+
+    object[type='text/plain'] {
+        max-width: pxToRem(800);
+        max-height: calc(100% - 2rem);
+    }
+}
