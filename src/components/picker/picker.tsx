@@ -152,6 +152,7 @@ export class Picker {
         this.handleListChange = this.handleListChange.bind(this);
         this.handleStopEditAndBlur = this.handleStopEditAndBlur.bind(this);
         this.createDebouncedSearcher = this.createDebouncedSearcher.bind(this);
+        this.handleCloseMenu = this.handleCloseMenu.bind(this);
 
         this.portalId = createRandomString();
     }
@@ -355,6 +356,7 @@ export class Picker {
                         'max-height': 'inherit',
                         display: 'flex',
                     }}
+                    onDismiss={this.handleCloseMenu}
                 >
                     {content}
                 </limel-menu-surface>
@@ -380,9 +382,7 @@ export class Picker {
             return;
         }
 
-        this.chipSet.emptyInput();
-        this.textValue = '';
-        this.handleSearchResult('', []);
+        this.clearInputField();
     }
 
     /**
@@ -544,5 +544,15 @@ export class Picker {
 
             this.loading = false;
         }
+    }
+
+    private handleCloseMenu() {
+        this.clearInputField();
+    }
+
+    private clearInputField() {
+        this.chipSet.emptyInput();
+        this.textValue = '';
+        this.handleSearchResult('', []);
     }
 }
