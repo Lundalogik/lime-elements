@@ -49,10 +49,10 @@ export class ChipSetInputExample {
             this.createChip('Fish'),
         ];
 
-        this.value[0].iconColor = 'var(--lime-red)';
-        this.value[1].iconColor = 'var(--lime-orange)';
-        this.value[2].iconColor = 'var(--lime-green)';
-        this.value[3].iconColor = 'var(--lime-blue)';
+        this.value[0].iconFillColor = 'var(--lime-yellow)';
+        this.value[1].iconBackgroundColor = 'var(--lime-orange)';
+        this.value[2].iconBackgroundColor = 'var(--lime-green)';
+        this.value[3].iconBackgroundColor = 'var(--lime-blue)';
 
         this.chipSetOnChange = this.chipSetOnChange.bind(this);
         this.onInteract = this.onInteract.bind(this);
