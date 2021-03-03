@@ -7,6 +7,7 @@
  * @prop --header-subheading-color: Color of subheading text, defaults to `--contrast-900`.
  * @prop --header-supporting-text-color: Color of supporting text in subheading, defaults to `--header-subheading-color`.
  * @prop --header-icon-color: Color of header icon, defaults to `--contrast-1100`.
+ * @prop --header-icon-background-color: Background color of header icon, defaults to `transparent`.
  * @prop --header-top-right-left-border-radius: Top-left and top-right border radius of header, defaults to `0.75rem`.
  * @prop --header-responsive-breakpoint: Defines the minimum allowed `width` of both information and actions areas in the header, defaults to `22rem`.
  */
@@ -38,6 +39,7 @@
 .information__icon {
     flex-shrink: 0;
     color: var(--header-icon-color, rgb(var(--contrast-1100)));
+    background-color: var(--header-icon-background-color, transparent);
 }
 
 .information__headings {
