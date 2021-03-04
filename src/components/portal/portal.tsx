@@ -134,6 +134,7 @@ export class Portal {
 
         if (this.visible) {
             this.createPopper();
+            this.showContainer();
         }
 
         if ('ResizeObserver' in window) {
