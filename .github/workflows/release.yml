@@ -2,7 +2,7 @@ name: Release and Publish
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   semantic-release:
     name: Run Semantic Release
