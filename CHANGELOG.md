@@ -1,3 +1,10 @@
+## [30.15.1](https://github.com/Lundalogik/lime-elements/compare/v30.15.0...v30.15.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* **dateformatter:** add French and Dutch date formatting ([c084e02](https://github.com/Lundalogik/lime-elements/commit/c084e020bd21956bcd70128faae0fe2fb93743f8)), closes [Lundalogik/crm-feature#1810](https://github.com/Lundalogik/crm-feature/issues/1810)
+
 # [30.15.0](https://github.com/Lundalogik/lime-elements/compare/v30.14.0...v30.15.0) (2021-03-01)
 
 
