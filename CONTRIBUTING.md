@@ -82,8 +82,8 @@ Here is a summary of the steps to follow:
 1. [Set up the workspace](#set-up-the-workspace)
 2. Always get the latest changes from upstream and update dependencies:
 ```bash
-$ git checkout master
-$ git pull -r upstream master
+$ git checkout main
+$ git pull -r upstream main
 $ npm install
 ```
 3. Create a new topic branch (off the main project development branch) to contain your feature, change, or fix:
@@ -105,7 +105,7 @@ $ git push origin <topic-branch-name>
 
 ### Source code
 
-To ensure consistency and quality throughout the source code, before being accepted and merged to master, all code modifications must have:
+To ensure consistency and quality throughout the source code, before being accepted and merged to `main`, all code modifications must have:
 - No [linting](#lint) errors
 - A [test](#tests) for every possible case introduced by your code change
 - [Valid commit message(s)](#commit-message-guidelines)
