@@ -1,3 +1,10 @@
+## [30.15.2](https://github.com/Lundalogik/lime-elements/compare/v30.15.1...v30.15.2) (2021-03-04)
+
+
+### Bug Fixes
+
+* **picker:** listen to dismiss events from the menu to know when to close it ([ec5f1ae](https://github.com/Lundalogik/lime-elements/commit/ec5f1ae674a2449961dd1f0b67b643b22bc99322)), closes [Lundalogik/lime-elements#865](https://github.com/Lundalogik/lime-elements/issues/865)
+
 ## [30.15.1](https://github.com/Lundalogik/lime-elements/compare/v30.15.0...v30.15.1) (2021-03-04)
 
 
