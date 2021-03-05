@@ -1,6 +1,6 @@
 /* eslint-env node */
 module.exports = {
-    branches: ['master'],
+    branches: ['main'],
     plugins: [
         '@semantic-release/commit-analyzer',
         '@semantic-release/release-notes-generator',
@@ -13,7 +13,7 @@ module.exports = {
             {
                 publishCmd:
                     // eslint-disable-next-line no-template-curly-in-string
-                    'npm run docs:publish -- --v=${nextRelease.version} --dryRun=${options.dryRun}',
+                    'npm run docs:publish -- --v=${nextRelease.version} --dryRun=${options.dryRun} --forcePush',
             },
         ],
     ],
