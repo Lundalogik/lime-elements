@@ -156,7 +156,7 @@ export class SchemaField extends React.Component<FieldProps> {
             return schema.description;
         }
 
-        if (!isEmpty(errorSchema)) {
+        if (!isEmpty(errorSchema) && '__errors' in errorSchema) {
             return capitalize(errorSchema.__errors[0]); // eslint-disable-line no-underscore-dangle
         }
 
