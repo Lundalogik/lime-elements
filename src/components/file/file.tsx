@@ -49,6 +49,7 @@ const DEFAULT_ICON = 'note';
  *
  * @exampleComponent limel-example-file
  * @exampleComponent limel-example-file-custom-icon
+ * @exampleComponent limel-example-file-accepted-types
  */
 @Component({
     tag: 'limel-file',
@@ -79,6 +80,12 @@ export class File {
      */
     @Prop({ reflect: true })
     public disabled: boolean = false;
+
+    /**
+     * The [accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers)
+     */
+    @Prop({ reflect: true })
+    public accept: string = '*';
 
     /**
      * Dispatched when a file is selected/deselected
@@ -145,6 +152,7 @@ export class File {
                 id={this.fileInputId}
                 onChange={this.handleFileChange}
                 type="file"
+                accept={this.accept}
             />,
             <limel-chip-set
                 disabled={this.disabled}
