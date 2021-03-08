@@ -340,36 +340,6 @@ describe('limel-input-field', () => {
                 });
             })
         );
-
-        const invalidUrls = [
-            { input: 'justoneword' },
-            { input: 'some words with spaces' },
-        ];
-
-        invalidUrls.forEach((url) =>
-            describe(`with a value of '${url.input}'`, () => {
-                beforeEach(async () => {
-                    const nativeInput = await page.find(
-                        'limel-input-field>>>input'
-                    );
-                    nativeInput.focus();
-                    limelInput.setProperty('value', url.input);
-                    nativeInput.press('Tab');
-                    await page.waitForChanges();
-                });
-                it('IS considered invalid', () => {
-                    expect(inputContainer).toHaveClass(
-                        'mdc-text-field--invalid'
-                    );
-                });
-                it('has a trailing icon indicating the field is invalid', async () => {
-                    const icon = await page.find(
-                        'limel-input-field>>>.mdc-text-field__icon.trailing-icon>limel-icon'
-                    );
-                    expect(icon).toEqualAttribute('name', 'high_importance');
-                });
-            })
-        );
     });
 });
 

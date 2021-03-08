@@ -9,6 +9,8 @@
 
 @import '../../style/mixins';
 
+$list-border-radius: 0.375rem; // 6px
+
 /**
  * @prop --icon-background-color: Color to use for icon background when `badgeIcons=true`.
  * @prop --icon-color: Color to use for icon. Defaults to grey when `badgeIcons=false`. Defaults to white when `badgeIcons=true`.
@@ -42,7 +44,7 @@
         &:not(.mdc-list-item--disabled) {
             @include is-flat-clickable();
             &:hover {
-                z-index: 1;
+                z-index: $limel-list--has-interactive-items--mdc-list-item--hover--z-index;
                 background-color: #fff;
 
                 &:before {
@@ -60,14 +62,24 @@
 .mdc-list {
     --mdc-theme-text-icon-on-background: var(--icon-color, rgb(157, 157, 157));
     padding: 0;
-    border-radius: pxToRem(6);
+    border-radius: $list-border-radius;
 
     .mdc-list-item {
+        &.mdc-list-item--disabled {
+            cursor: not-allowed;
+
+            limel-icon {
+                opacity: 0.38; // similar to `mdc-list-item__text` when disabled
+            }
+        }
+
         &:first-child {
-            border-radius: pxToRem(6) pxToRem(6) pxToRem(0) pxToRem(0);
+            border-top-left-radius: $list-border-radius;
+            border-top-right-radius: $list-border-radius;
         }
         &:last-child {
-            border-radius: pxToRem(0) pxToRem(0) pxToRem(6) pxToRem(6);
+            border-bottom-right-radius: $list-border-radius;
+            border-bottom-left-radius: $list-border-radius;
         }
     }
 
@@ -161,10 +173,16 @@
     limel-icon.mdc-list-item__graphic {
         // Tweaks to make icon lists align nicely with badge-icon lists.
         &[size='x-small'] {
-            margin-right: pxToRem(24);
+            margin-right: pxToRem(4);
         }
         &[size='small'] {
-            margin-right: pxToRem(26);
+            margin-right: pxToRem(8);
+        }
+        &[size='medium'] {
+            margin-right: pxToRem(8);
+        }
+        &[size='large'] {
+            margin-right: pxToRem(12);
         }
     }
 }

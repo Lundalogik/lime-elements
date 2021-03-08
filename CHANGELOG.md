@@ -1,3 +1,153 @@
+# [30.16.0](https://github.com/Lundalogik/lime-elements/compare/v30.15.3...v30.16.0) (2021-03-08)
+
+
+### Features
+
+* **table:** enable movable columns ([2775050](https://github.com/Lundalogik/lime-elements/commit/2775050068e21466af0aa204f827c2356ec598f6)), closes [Lundalogik/crm-feature#1863](https://github.com/Lundalogik/crm-feature/issues/1863)
+
+## [30.15.3](https://github.com/Lundalogik/lime-elements/compare/v30.15.2...v30.15.3) (2021-03-05)
+
+
+### Bug Fixes
+
+* **button:** make buttons with has-reduced-presence really disappear ([66c1afa](https://github.com/Lundalogik/lime-elements/commit/66c1afae298875c4ac657555f228e087f3017e52))
+
+## [30.15.2](https://github.com/Lundalogik/lime-elements/compare/v30.15.1...v30.15.2) (2021-03-04)
+
+
+### Bug Fixes
+
+* **picker:** listen to dismiss events from the menu to know when to close it ([ec5f1ae](https://github.com/Lundalogik/lime-elements/commit/ec5f1ae674a2449961dd1f0b67b643b22bc99322)), closes [Lundalogik/lime-elements#865](https://github.com/Lundalogik/lime-elements/issues/865)
+
+## [30.15.1](https://github.com/Lundalogik/lime-elements/compare/v30.15.0...v30.15.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* **dateformatter:** add French and Dutch date formatting ([c084e02](https://github.com/Lundalogik/lime-elements/commit/c084e020bd21956bcd70128faae0fe2fb93743f8)), closes [Lundalogik/crm-feature#1810](https://github.com/Lundalogik/crm-feature/issues/1810)
+
+# [30.15.0](https://github.com/Lundalogik/lime-elements/compare/v30.14.0...v30.15.0) (2021-03-01)
+
+
+### Features
+
+* add dutch language ([2b6ea58](https://github.com/Lundalogik/lime-elements/commit/2b6ea587b91d56bac2e66c7e95c0fa66e36fa920))
+
+# [30.14.0](https://github.com/Lundalogik/lime-elements/compare/v30.13.0...v30.14.0) (2021-02-26)
+
+
+### Bug Fixes
+
+* **menu-surface:** do not kill click events when clicking in an allowed element ([13fce92](https://github.com/Lundalogik/lime-elements/commit/13fce9252df7eb175694c58882be5a40866fcc3f))
+
+
+### Features
+
+* **picker:** allow clicks for picker elements ([f808b75](https://github.com/Lundalogik/lime-elements/commit/f808b75899f2664662b5e05a7dcebda1c2b8a434))
+
+# [30.13.0](https://github.com/Lundalogik/lime-elements/compare/v30.12.2...v30.13.0) (2021-02-26)
+
+
+### Features
+
+* add label to chip-set of types other than input ([ff0dc72](https://github.com/Lundalogik/lime-elements/commit/ff0dc729b4e33e0df496b16e10639ed2f4191460))
+
+## [30.12.2](https://github.com/Lundalogik/lime-elements/compare/v30.12.1...v30.12.2) (2021-02-25)
+
+
+### Bug Fixes
+
+* **checkbox:** use default material design style for checked state ([76d9a2c](https://github.com/Lundalogik/lime-elements/commit/76d9a2cb56b703c13241ca68a0d59d4cb46c0d7f))
+
+## [30.12.1](https://github.com/Lundalogik/lime-elements/compare/v30.12.0...v30.12.1) (2021-02-19)
+
+
+### Bug Fixes
+
+* **popover:** correct positioning of "popped" content ([30dcac7](https://github.com/Lundalogik/lime-elements/commit/30dcac71d16f2f9f830e872cd53b921dfcd48018)), closes [Lundalogik/crm-feature#1849](https://github.com/Lundalogik/crm-feature/issues/1849)
+
+# [30.12.0](https://github.com/Lundalogik/lime-elements/compare/v30.11.1...v30.12.0) (2021-02-17)
+
+
+### Features
+
+* **dialog:** add consumer-overridable css property `--dialog-z-index` ([4ae182b](https://github.com/Lundalogik/lime-elements/commit/4ae182b1e5fed5c26cd8589537e2b902f2848d6b)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020)
+* **menu:** add consumer-overridable css property `--dropdown-z-index` ([1011ad0](https://github.com/Lundalogik/lime-elements/commit/1011ad06e45ceabe89d45c901dfe57aba2c934f6)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+* **picker:** add consumer-overridable css property `--dropdown-z-index` ([4b4be2a](https://github.com/Lundalogik/lime-elements/commit/4b4be2a21c421ef1c149f723aa9c6e36943e8f4a)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+* **select:** add consumer-overridable css property `--dropdown-z-index` ([b0c45ed](https://github.com/Lundalogik/lime-elements/commit/b0c45edecd177ca2fe15b7b9f12b8f569c1bfdba)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+
+## [30.11.1](https://github.com/Lundalogik/lime-elements/compare/v30.11.0...v30.11.1) (2021-02-17)
+
+
+### Bug Fixes
+
+* **table:** the underlying library has been updated with many bugfixes and performance improvements ([c1e7378](https://github.com/Lundalogik/lime-elements/commit/c1e7378854d04d4ee3bb3ecba4b4c07f0c37791f))
+
+# [30.11.0](https://github.com/Lundalogik/lime-elements/compare/v30.10.1...v30.11.0) (2021-02-16)
+
+
+### Features
+
+* **form:** add support for adding additional properties to slider widget ([caea6d7](https://github.com/Lundalogik/lime-elements/commit/caea6d7794f32d3ea9f6309a039f1f0c9d2b8ace)), closes [Lundalogik/crm-feature#1636](https://github.com/Lundalogik/crm-feature/issues/1636)
+* **slider:** color slider to visualize percentage value ([a119096](https://github.com/Lundalogik/lime-elements/commit/a1190968b7ae19236dad80641028cfd777afc9e2)), closes [Lundalogik/crm-feature#1636](https://github.com/Lundalogik/crm-feature/issues/1636)
+
+## [30.10.1](https://github.com/Lundalogik/lime-elements/compare/v30.10.0...v30.10.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* **list:** border radius on all edges when only 1 item is displayed ([07a5578](https://github.com/Lundalogik/lime-elements/commit/07a55780fd57e0dfdfaa3533e438fdae2f5239d1))
+
+# [30.10.0](https://github.com/Lundalogik/lime-elements/compare/v30.9.5...v30.10.0) (2021-02-12)
+
+
+### Bug Fixes
+
+* **list:** apply better look & feel for disabled list items ([64036aa](https://github.com/Lundalogik/lime-elements/commit/64036aa5bec8a234fd4d25255004d9226c19625a))
+* **list:** better distance between icon and text ([a2dec84](https://github.com/Lundalogik/lime-elements/commit/a2dec84a715dd15633125b28d25a46cc39a87d7d))
+
+
+### Features
+
+* **select:** enable adding icons to select options ([01ff58c](https://github.com/Lundalogik/lime-elements/commit/01ff58c1f056716c98735e175afd6f6539708b75))
+
+## [30.9.5](https://github.com/Lundalogik/lime-elements/compare/v30.9.4...v30.9.5) (2021-02-10)
+
+
+### Bug Fixes
+
+* **checkbox:** vertically center-align label text ([74782e5](https://github.com/Lundalogik/lime-elements/commit/74782e5581ea8767165a40b3ebb82cb66c8fa034))
+* **form:** vertically align switches and checkboxes ([2bda750](https://github.com/Lundalogik/lime-elements/commit/2bda750a7a2392fd52d9dd7bc9a34f39650bf2d2)), closes [Lundalogik/crm-feature#1629](https://github.com/Lundalogik/crm-feature/issues/1629)
+* **switch:** vertically center-align label text ([6404933](https://github.com/Lundalogik/lime-elements/commit/640493369abf8d11304c996500c2e18b8097e576))
+
+## [30.9.4](https://github.com/Lundalogik/lime-elements/compare/v30.9.3...v30.9.4) (2021-02-10)
+
+
+### Bug Fixes
+
+* **table:** make col headers respect component's initial width ([a051692](https://github.com/Lundalogik/lime-elements/commit/a051692f2638a7f3dca09d734c6f62ae1ca32878))
+
+## [30.9.3](https://github.com/Lundalogik/lime-elements/compare/v30.9.2...v30.9.3) (2021-02-10)
+
+
+### Bug Fixes
+
+* **collapsible-section:** fix chopped letters in section-headers ([8b4ee79](https://github.com/Lundalogik/lime-elements/commit/8b4ee796dfdefd53e82860be34042b3a59131081)), closes [Lundalogik/crm-feature#1739](https://github.com/Lundalogik/crm-feature/issues/1739)
+
+## [30.9.2](https://github.com/Lundalogik/lime-elements/compare/v30.9.1...v30.9.2) (2021-02-10)
+
+
+### Bug Fixes
+
+* **flatpickr-adapter:** fix bad contrast in month select in Firefox ([fb19110](https://github.com/Lundalogik/lime-elements/commit/fb19110f8ccd63e558bd5d9d8dba03945547511d)), closes [Lundalogik/crm-feature#1770](https://github.com/Lundalogik/crm-feature/issues/1770)
+
+## [30.9.1](https://github.com/Lundalogik/lime-elements/compare/v30.9.0...v30.9.1) (2021-02-09)
+
+
+### Bug Fixes
+
+* **input-field:** remove unnecessary validation when using `urlAsText` ([30f65e2](https://github.com/Lundalogik/lime-elements/commit/30f65e2488b0272567673bd03027e962d7009591)), closes [#1128](https://github.com/Lundalogik/lime-elements/issues/1128)
+
 # [30.9.0](https://github.com/Lundalogik/lime-elements/compare/v30.8.1...v30.9.0) (2021-02-04)
 
 

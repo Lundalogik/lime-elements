@@ -1,4 +1,5 @@
 @import '../../style/internal/mdc-variables';
+@import '../../style/internal/shared_input-select-picker';
 
 /**
  * @prop --form-body-padding: space around content of the form
@@ -109,5 +110,15 @@
 
     .limel-form-layout-colspan--all {
         grid-column: 1/-1;
+    }
+}
+
+.form-group {
+    limel-checkbox,
+    limel-switch {
+        margin-left: pxToRem(8);
+        min-height: calc(
+            var(--min-height-of-one-row) - #{$height-of-mdc-helper-text-block}
+        ); //This is because we have to align these items to top and make sure they align correctly even in one-columned layouts
     }
 }

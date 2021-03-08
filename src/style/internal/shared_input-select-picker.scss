@@ -12,6 +12,7 @@ $label-color: rgba(var(--contrast-1200), 1);
 $label-color-disabled: rgba(var(--contrast-1200), 0.5);
 
 $height-of-mdc-text-field: 3.5rem; //This is written directly in rem, beucase the vaiable used to calculate things elsewhere
+$height-of-mdc-helper-text-block: 0.9375rem;
 
 $mdc-chip-background-color: #fff;
 

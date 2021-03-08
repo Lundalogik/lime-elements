@@ -84,6 +84,9 @@ export class Menu {
     }
 
     public render() {
+        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
+            '--dropdown-z-index'
+        );
         const portalClasses = {
             'limel-portal--fixed': this.fixed,
         };
@@ -99,6 +102,7 @@ export class Menu {
                     containerId={this.portalId}
                     openDirection={this.openDirection}
                     position={this.fixed ? 'fixed' : 'absolute'}
+                    containerStyle={{ 'z-index': dropdownZIndex }}
                 >
                     <limel-menu-surface
                         open={this.open}

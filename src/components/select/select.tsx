@@ -24,6 +24,7 @@ import { SelectTemplate } from './select.template';
 
 /**
  * @exampleComponent limel-example-select
+ * @exampleComponent limel-example-select-with-icons
  * @exampleComponent limel-example-select-multiple
  * @exampleComponent limel-example-select-initially-empty
  * @exampleComponent limel-example-select-initially-empty-required
@@ -168,6 +169,10 @@ export class Select {
     }
 
     public render() {
+        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
+            '--dropdown-z-index'
+        );
+
         return (
             <SelectTemplate
                 id={this.portalId}
@@ -187,6 +192,7 @@ export class Select {
                 close={this.closeMenu}
                 checkValid={this.checkValid}
                 native={this.isMobileDevice}
+                dropdownZIndex={dropdownZIndex}
             />
         );
     }

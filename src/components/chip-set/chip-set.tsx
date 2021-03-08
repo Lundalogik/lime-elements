@@ -51,7 +51,7 @@ export class ChipSet {
     public type?: 'choice' | 'filter' | 'input';
 
     /**
-     * Label to display for the input field when type is `input`
+     * Label for the chip-set
      */
     @Prop({ reflect: true })
     public label: string;
@@ -259,8 +259,14 @@ export class ChipSet {
             classes[`mdc-chip-set--${this.type}`] = true;
         }
 
+        const chipSetLabel = this.renderChipSetLabel();
+        if (chipSetLabel) {
+            classes['chip-set--with-label'] = true;
+        }
+
         return (
             <div class={classes} role="grid">
+                {chipSetLabel}
                 {this.value.map(this.renderChip)}
             </div>
         );
@@ -310,6 +316,18 @@ export class ChipSet {
 
             this.mdcChipSet.destroy();
         }
+    }
+
+    private renderChipSetLabel() {
+        if (!this.label) {
+            return;
+        }
+
+        return (
+            <label class="chip-set__label mdc-floating-label lime-floating-label--float-above">
+                {this.label}
+            </label>
+        );
     }
 
     private renderInputChips() {

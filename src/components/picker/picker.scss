@@ -1,5 +1,10 @@
 @import '../../style/internal/mdc-variables';
 
+// Note! The `--dropdown-z-index` property is used from `picker.tsx`.
+/**
++ * @prop --dropdown-z-index: z-index of the dropdown menu.
++ */
+
 :host {
     position: relative;
     display: block;

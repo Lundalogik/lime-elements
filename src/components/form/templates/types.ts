@@ -1,71 +1,16 @@
-// These are defined by react-jsonschema-form and added
-// here as interfaces for type hinting
+import { ObjectFieldTemplateProps, ArrayFieldTemplateProps } from '@rjsf/core';
+export {
+    FieldTemplateProps,
+    ObjectFieldTemplateProps,
+    // eslint-disable-next-line comma-dangle
+    ArrayFieldTemplateProps,
+} from '@rjsf/core';
 
-export interface TemplateProps {
-    disabled: boolean;
-    readonly: boolean;
-    required: boolean;
-    schema: any;
-    uiSchema: any;
-    formContext: any;
-}
+export type TemplateProps = ObjectFieldTemplateProps | ArrayFieldTemplateProps;
 
-export interface FieldTemplateProps extends TemplateProps {
-    id: string;
-    classNames: string;
-    label: string;
-    description: any;
-    rawDescription: string;
-    children: any;
-    errors: any;
-    rawErrors: string[];
-    help: any;
-    rawHelp: string;
-    hidden: boolean;
-    displayLabel: boolean;
-    fields: any[];
-}
+export type ObjectFieldProperty = ObjectFieldTemplateProps['properties'][0];
 
-export interface ObjectFieldTemplateProps extends TemplateProps {
-    title: string;
-    description: string;
-    properties: ObjectFieldProperty[];
-    idSchema: any;
-    formData: object;
-}
-
-export interface ObjectFieldProperty {
-    content: any;
-    name: string;
-    disabled: boolean;
-    readonly: boolean;
-}
-
-export interface ArrayFieldTemplateProps extends TemplateProps {
-    canAdd: boolean;
-    className: string;
-    idSchema: any;
-    items: ArrayFieldItem[];
-    onAddClick: (event: any) => void;
-    title: string;
-    formData: object;
-}
-
-export interface ArrayFieldItem {
-    children: any;
-    className: string;
-    disabled: boolean;
-    hasMoveDown: boolean;
-    hasMoveUp: boolean;
-    hasRemove: boolean;
-    hasToolbar: boolean;
-    index: number;
-    key: string;
-    onAddIndexClick: (index: number) => (event: any) => void;
-    onDropIndexClick: (index: number) => (event: any) => void;
-    onReorderClick: (index: number, newIndex: number) => (event: any) => void;
-    readonly: boolean;
-}
+export type ArrayFieldItem = ArrayFieldTemplateProps['items'][0];
 
 export interface Runnable {
     run: (event: any) => void;

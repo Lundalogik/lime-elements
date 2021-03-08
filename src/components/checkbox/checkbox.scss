@@ -7,12 +7,11 @@
     display: flex;
 
     .mdc-checkbox {
-        @include mdc-checkbox-ink-color(primary);
         @include mdc-checkbox-container-colors(
             secondary,
             on-primary,
-            secondary,
-            on-primary
+            primary,
+            primary
         );
 
         &.mdc-checkbox--invalid {
@@ -24,6 +23,8 @@
     }
 
     label {
+        line-height: normal;
+
         &.mdc-checkbox--disabled {
             opacity: 0.37;
         }

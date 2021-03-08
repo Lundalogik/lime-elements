@@ -3,6 +3,9 @@ import { Component, h, State } from '@stencil/core';
 
 /**
  * Filter chip set
+ *
+ * Any number of options can be selected at once, including none. As the name
+ * suggests, this one is good for filtering things.
  */
 @Component({
     tag: 'limel-example-chip-set-filter',
@@ -37,6 +40,7 @@ export class ChipSetFilterExample {
     public render() {
         return [
             <limel-chip-set
+                label="Include fruits of type:"
                 disabled={this.disabled}
                 type="filter"
                 onChange={this.chipSetOnChange}

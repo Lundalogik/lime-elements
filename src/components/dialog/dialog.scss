@@ -6,6 +6,7 @@ $mdc-dialog-max-width: null;
 /**
  * @prop --dialog-width: Width of the dialog.
  * @prop --dialog-height: Height of the dialog.
+ * @prop --dialog-z-index: z-index of the dialog container, including the scrim.
  * @prop --dialog-heading-title-color: Color of the title.
  * @prop --dialog-heading-subtitle-color: Color of the subtitle.
  * @prop --dialog-heading-supporting-text-color: Color of the supporting text.
@@ -19,6 +20,8 @@ slot[name='header'] {
 
 .mdc-dialog {
     @include mdc-dialog-max-width(1000rem, $mdc-dialog-margin);
+
+    z-index: var(--dialog-z-index, $mdc-dialog-z-index);
 
     &.full-screen {
         @include mdc-dialog-max-height(1000rem, $mdc-dialog-margin);

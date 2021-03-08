@@ -154,7 +154,7 @@ describe('resetDependentFields()', () => {
                 oldData,
                 newData,
                 schemaWithReferences,
-                schemaWithReferences.definitions
+                schemaWithReferences
             )
         ).toEqual({
             type: 'Object',
@@ -177,7 +177,7 @@ describe('resetDependentFields()', () => {
                 oldData,
                 newData,
                 schemaWithReferences,
-                schemaWithReferences.definitions
+                schemaWithReferences
             )
         ).toEqual({
             type: 'String',

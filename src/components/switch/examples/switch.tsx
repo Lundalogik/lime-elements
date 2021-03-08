@@ -2,7 +2,6 @@ import { Component, h, State } from '@stencil/core';
 
 @Component({
     shadow: true,
-    styleUrl: 'switch.scss',
     tag: 'limel-example-switch',
 })
 export class SwitchExample {

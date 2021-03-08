@@ -1,4 +1,4 @@
-import JSONArrayField from 'react-jsonschema-form/lib/components/fields/ArrayField';
+import JSONArrayField from '@rjsf/core/lib/components/fields/ArrayField';
 import React from 'react';
 import { ArrayProps } from './types';
 import { resetDependentFields } from './field-helpers';
@@ -38,7 +38,7 @@ export class ArrayField extends React.Component<ArrayProps> {
 
     private handleChange(newData, errorSchema) {
         const { formData: oldData, schema } = this.props;
-        const { definitions } = this.props.registry;
+        const { rootSchema } = this.props.registry;
 
         // This case handles when the first list item is added. When there are no
         // items we get undefined instead of []
@@ -76,7 +76,7 @@ export class ArrayField extends React.Component<ArrayProps> {
                 oldData[i],
                 newData[i],
                 schema.items,
-                definitions
+                rootSchema
             );
         }
 

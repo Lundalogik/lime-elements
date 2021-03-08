@@ -31,9 +31,21 @@ export class SelectExample {
     };
 
     private options: Option[] = [
-        { text: 'Luke Skywalker', value: 'luke' },
-        { text: 'Han Solo', value: 'han' },
-        { text: 'Leia Organo', value: 'leia' },
+        {
+            text: 'Luke Skywalker',
+            value: 'luke',
+            icon: 'businessman',
+        },
+        {
+            text: 'Han Solo',
+            value: 'han',
+            icon: 'human_head',
+        },
+        {
+            text: 'Leia Organo',
+            value: 'leia',
+            icon: 'businesswoman',
+        },
     ];
 
     constructor() {

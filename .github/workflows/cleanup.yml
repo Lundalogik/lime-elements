@@ -1,24 +1,22 @@
-name: Release and Publish
+name: Cleanup
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [closed]
+
 jobs:
-  semantic-release:
-    name: Run Semantic Release
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+  docs:
+    name: Remove PR docs
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_USERNAME: lime-ci
+      GH_EMAIL: 617355+lime-ci@users.noreply.github.com
       GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
       CI: true
     steps:
     - uses: actions/checkout@v2
       with:
         token: ${{ secrets.CREATE_RELEASE }}
-        fetch-depth: 0
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
@@ -29,4 +27,6 @@ jobs:
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
         npm ci
         rm .npmrc
-    - run: npm run release
+    - run: git config --global user.email "$GH_EMAIL"
+    - run: git config --global user.name "$GH_USERNAME"
+    - run: npm run docs:publish -- --remove=PR-${{ github.event.pull_request.number }}

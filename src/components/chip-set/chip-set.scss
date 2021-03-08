@@ -75,6 +75,13 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .mdc-chip-set {
     align-items: center;
     min-height: $height-of-mdc-text-field;
+    position: relative;
+
+    &.chip-set--with-label {
+        .lime-floating-label--float-above {
+            padding-left: pxToRem(4);
+        }
+    }
 
     &.mdc-chip-set--input {
         padding: pxToRem(8);
@@ -148,7 +155,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             transition: all 0s;
             opacity: 0;
             position: absolute;
-            z-index: -100; // to let users interact with chips, in case they're covered
+            z-index: $limel-chip-set--hidden-text-field--z-index; // to let users interact with chips, in case they're covered
         }
     }
 }
@@ -171,6 +178,12 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         @include label--float-above;
         top: $floating-label-top-value;
     }
+}
+
+.chip-set__label {
+    @include looks-like-input-label;
+    padding-left: pxToRem(20);
+    font-size: pxToRem(16);
 }
 
 .lime-notched-outline--notched {

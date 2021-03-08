@@ -22,6 +22,8 @@ interface SelectTemplateProps {
     open: () => void;
     close: () => void;
     checkValid: boolean;
+
+    dropdownZIndex: string;
 }
 
 export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
@@ -80,8 +82,11 @@ const SelectValue: FunctionalComponent<
             class={containerClassList}
             onKeyPress={props.onTriggerPress}
         >
-            <div class="limel-select__selected-text">
-                {getSelectedText(props.value)}
+            <div class="limel-select__selected-option">
+                {getSelectedIcon(props.value)}
+                <span class="limel-select__selected-option__text">
+                    {getSelectedText(props.value)}
+                </span>
             </div>
             <i class="mdc-select__dropdown-icon" />
             <label class={labelClassList}>{props.label}</label>
@@ -122,6 +127,7 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
             containerId={props.id}
             visible={props.isOpen}
             inheritParentWidth={true}
+            containerStyle={{ 'z-index': props.dropdownZIndex }}
         >
             <limel-menu-surface
                 open={props.isOpen}
@@ -195,6 +201,8 @@ function createMenuItems(
             selected: selected,
             disabled: disabled,
             value: option,
+            icon: option.icon,
+            iconColor: option.iconColor,
         };
     });
 }
@@ -209,4 +217,24 @@ function getSelectedText(value: Option | Option[]): string {
     }
 
     return value.text;
+}
+
+function getSelectedIcon(value: any) {
+    if (!value || !value.icon) {
+        return '';
+    }
+
+    const style: any = {};
+    if (value.iconColor) {
+        style.color = value.iconColor;
+    }
+
+    return (
+        <limel-icon
+            class="limel-select__selected-option__icon"
+            name={value.icon}
+            size="medium"
+            style={style}
+        />
+    );
 }

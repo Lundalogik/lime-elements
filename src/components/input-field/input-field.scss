@@ -69,7 +69,7 @@
 .formatted-input {
     @include looks-like-input-label;
 
-    z-index: 1;
+    z-index: $limel-input-field--formatted-input--z-index;
     padding: 0 pxToRem(40) 0 pxToRem(16);
     align-self: center;
     position: absolute;
@@ -149,11 +149,4 @@ input.mdc-text-field__input {
     &:before {
         height: $height-of-helper-text-pseudo-before;
     }
-}
-
-.force-invalid {
-    // MDC will automatically remove the `mdc-text-field--invalid` class when
-    // the native validation passes. We sometimes need to be able to override
-    // that. /Ads
-    @extend .mdc-text-field--invalid;
 }

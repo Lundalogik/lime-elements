@@ -1,5 +1,15 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Basic example with no `type` set
+ *
+ * May be useful as a read-only presentation of a collection of tags, or
+ * similar.
+ *
+ * Depending on the use case, you may also wish to consider
+ * [limel-button](#/component/limel-button/) or
+ * [limel-button-group](#/component/limel-button-group/).
+ */
 @Component({
     tag: 'limel-example-chip-set',
     shadow: true,
@@ -16,20 +26,21 @@ export class ChipSetExample {
     public render() {
         return [
             <limel-chip-set
+                label="Tags"
                 disabled={this.disabled}
                 onInteract={this.onInteract}
                 value={[
                     {
                         id: 1,
-                        text: 'Lime',
+                        text: 'Fruit',
                     },
                     {
                         id: 2,
-                        text: 'Apple',
+                        text: 'Green',
                     },
                     {
                         id: 3,
-                        text: 'Banana',
+                        text: 'Sour',
                     },
                 ]}
             />,

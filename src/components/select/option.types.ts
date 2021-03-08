@@ -25,4 +25,14 @@ export interface Option<T extends string = string> {
      * Set to `true` to make this option disabled and not possible to select.
      */
     disabled?: boolean;
+
+    /**
+     * Displays an icon beside the name of the option.
+     */
+    icon?: string;
+
+    /**
+     * Adds a color to the icon.
+     */
+    iconColor?: string;
 }

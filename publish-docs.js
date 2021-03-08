@@ -13,10 +13,13 @@ const runSetup = argv.noSetup === undefined;
 const runBuild = argv.noBuild === undefined;
 const runCommit = argv.noCommit === undefined;
 const runPush = argv.noPush === undefined;
+const forcePush = !!argv.forcePush;
 const runTeardown = argv.noTeardown === undefined;
 
 const cleanOnFail = runTeardown && argv.noCleanOnFail === undefined;
 const dryRun = !!argv.dryRun && argv.dryRun !== 'false';
+
+const BASE_URL = '/lime-elements/';
 
 if (argv.h !== undefined) {
     shell.echo(`
@@ -34,6 +37,10 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     --noBuild       Do not build the documentation.
     --noCommit      Do not commit any changes.
     --noPush        Do not push any commits.
+    --forcePush     Force-push commit. Only for use by the automated publish run
+                    when a new version has been released. Any less important
+                    runs, like those publishing the docs for a pull request,
+                    should NOT use this flag.
     --noTeardown    Run no cleanup at end of script. Implies --noCleanOnFail.
     --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown is set,
                     cleanup will still be run if script is successful.
@@ -42,7 +49,6 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     let commitMessage;
     if (runSetup) {
         cloneDocsRepo();
-        checkOutBranch();
     }
 
     if (pruneDev) {
@@ -69,11 +75,14 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
 } else {
     if (runSetup) {
         cloneDocsRepo();
-        checkOutBranch();
     }
 
     if (runBuild) {
         build();
+    }
+
+    if (runSetup) {
+        pullAndRebase();
     }
 
     if (runBuild) {
@@ -101,7 +110,7 @@ function cloneDocsRepo() {
 
     if (
         shell.exec(
-            'git clone --no-checkout https://$GH_TOKEN@github.com/Lundalogik/lime-elements-docs.git docsDist'
+            'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist'
         ).code !== 0
     ) {
         shell.echo('git clone failed!');
@@ -110,11 +119,10 @@ function cloneDocsRepo() {
     }
 }
 
-function checkOutBranch() {
+function pullAndRebase() {
     shell.cd('docsDist');
-
-    if (shell.exec('git checkout master').code !== 0) {
-        shell.echo('git checkout master failed!');
+    if (shell.exec('git pull --rebase').code !== 0) {
+        shell.echo('git pull failed!');
         shell.cd('..');
         teardown();
         shell.exit(1);
@@ -135,11 +143,11 @@ function build() {
                 /\/kompendium.json/g,
             ],
             to: [
-                `<base href="/versions/${version}/">`,
-                `="/versions/${version}/build`,
-                `="/versions/${version}/style`,
-                `="/versions/${version}/assets`,
-                `/versions/${version}/kompendium.json`,
+                `<base href="${BASE_URL}versions/${version}/">`,
+                `="${BASE_URL}versions/${version}/build`,
+                `="${BASE_URL}versions/${version}/style`,
+                `="${BASE_URL}versions/${version}/assets`,
+                `${BASE_URL}versions/${version}/kompendium.json`,
             ],
         };
         replace.sync(options);
@@ -147,7 +155,7 @@ function build() {
         options = {
             files: ['stencil.config.docs.ts'],
             from: /baseUrl: '\/'/g,
-            to: `baseUrl: '/versions/${version}/'`,
+            to: `baseUrl: '${BASE_URL}versions/${version}/'`,
         };
         replace.sync(options);
 
@@ -194,14 +202,43 @@ function copyBuildOutput() {
 
     shell.cd('../..');
 
+    shell.echo('Copying icons to shared folder in docsDist.');
     if (
-        shell.cp('-R', `www/versions/${version}`, 'docsDist/versions/').code !==
-        0
+        shell.cp(
+            '-R',
+            `www${BASE_URL}versions/${version}/assets/icons/`,
+            'docsDist/icons/'
+        ).code !== 0
+    ) {
+        shell.echo('copying icons failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    shell.echo('Removing icons in new docs version.');
+    if (
+        shell.rm('-rf', `www${BASE_URL}versions/${version}/assets/icons`)
+            .code !== 0
+    ) {
+        shell.echo('removing icons folder failed!');
+        teardown();
+        shell.exit(1);
+    }
+
+    shell.echo('Copying new docs version into docsDist/versions/');
+    if (
+        shell.cp(
+            '-R',
+            `www${BASE_URL}versions/${version}`,
+            'docsDist/versions/'
+        ).code !== 0
     ) {
         shell.echo('copying output failed!');
         teardown();
         shell.exit(1);
     }
+
+    createIconSymlink();
 
     if (
         shell.cp('-R', 'www/kompendium.json', `docsDist/versions/${version}`)
@@ -213,6 +250,21 @@ function copyBuildOutput() {
     }
 
     updateVersionList();
+}
+
+function createIconSymlink() {
+    const path = `docsDist/versions/${version}/assets/`;
+    shell.cd(path);
+    shell.echo('Creating icons-symlink.');
+
+    if (shell.ln('-sf', '../../../icons', 'icons').code !== 0) {
+        shell.echo('Creating icons-symlink failed!');
+        shell.cd('../../../..');
+        teardown();
+        shell.exit(1);
+    }
+
+    shell.cd('../../../..');
 }
 
 function remove(pattern) {
@@ -235,25 +287,41 @@ function updateVersionList() {
 
     shell.cd('..');
 
-    // createLatestSymlink(files[files.length - 1]);
+    // We need to sort the strings alphanumerically, which javascript doesn't
+    // do by default. So I found this neat solution at
+    // https://blog.praveen.science/natural-sorting-in-javascript/#solution
+    // /ads
+    const collator = new Intl.Collator(undefined, {
+        numeric: true,
+        sensitivity: 'base',
+    });
+    files.sort(collator.compare);
+
+    const latestVersion = files.filter((file) => !file.startsWith('PR-')).pop();
+
+    shell.echo(`Creating "latest"-link pointing to: ${latestVersion}`);
+
+    createLatestSymlink(latestVersion);
 }
 
-// function createLatestSymlink(folder) {
-//     shell.cd('docsDist/versions');
-//
-//     if (shell.ln('-sf', `${folder}`, 'latest').code !== 0) {
-//         if (
-//             shell.rm('latest').code !== 0 ||
-//             shell.ln('-sf', `${folder}`, 'latest').code !== 0
-//         ) {
-//             shell.echo('Creating latest-symlink failed!');
-//             teardown();
-//             shell.exit(1);
-//         }
-//     }
-//
-//     shell.cd('../..');
-// }
+function createLatestSymlink(folder) {
+    shell.cd('docsDist/versions');
+
+    // eslint-disable-next-line sonarjs/no-collapsible-if
+    if (shell.ln('-sf', `${folder}`, 'latest').code !== 0) {
+        if (
+            shell.rm('latest').code !== 0 ||
+            shell.ln('-sf', `${folder}`, 'latest').code !== 0
+        ) {
+            shell.echo('Creating latest-symlink failed!');
+            shell.cd('../..');
+            teardown();
+            shell.exit(1);
+        }
+    }
+
+    shell.cd('../..');
+}
 
 function commit(message) {
     // shell.echo('setting git user info');
@@ -283,12 +351,18 @@ function commit(message) {
 function push() {
     shell.cd('docsDist');
 
+    if (forcePush) {
+        shell.echo('Using `git push --force`!');
+    }
+
     if (dryRun) {
         shell.exec('git log -1');
         shell.echo('Dry-run, so skipping push.');
     } else if (
         shell.exec(
-            'git push https://$GH_TOKEN@github.com/Lundalogik/lime-elements-docs.git HEAD:master'
+            `git push ${
+                forcePush ? '--force' : ''
+            } https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages`
         ).code !== 0
     ) {
         shell.echo('git push failed!');
@@ -302,7 +376,9 @@ function push() {
 
 function teardown(finished) {
     if (finished || cleanOnFail) {
-        shell.exec('git checkout src/index.html stencil.config.docs.ts');
+        shell.exec(
+            'git checkout src/index.html src/index.md stencil.config.docs.ts'
+        );
         shell.echo('Removing docs repo clone in docsDist.');
         shell.exec('rm -rf docsDist');
     }

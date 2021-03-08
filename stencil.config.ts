@@ -42,6 +42,7 @@ export const config: Config = {
                 'render',
                 'unmountComponentAtNode',
             ],
+            'node_modules/react/index.js': ['Component', 'forwardRef'],
         },
     },
     plugins: [sass()],
@@ -50,6 +51,7 @@ export const config: Config = {
     testing: {
         moduleNameMapper: {
             '^lodash-es$': 'lodash',
+            '@rjsf/core/lib/(.*)': '@rjsf/core/dist/cjs/$1',
         },
     },
 };

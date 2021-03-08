@@ -13,6 +13,7 @@ export class Slider extends React.Component {
         const schema = props.schema;
         let factor;
         let unit;
+        const additionalProps = getAdditionalProps(props.schema);
 
         if (isPercent(schema)) {
             factor = 100; // eslint-disable-line no-magic-numbers
@@ -32,6 +33,7 @@ export class Slider extends React.Component {
                 step: schema.multipleOf,
                 factor: factor,
                 unit: unit,
+                ...additionalProps,
             },
         });
     }
@@ -52,4 +54,17 @@ function isPercent(schema: any): boolean {
     return (
         schema.multipleOf < 1 && schema.minimum === 0 && schema.maximum === 1
     );
+}
+
+function getAdditionalProps(schema: any) {
+    let props: any = {};
+
+    if (schema.lime?.component?.props) {
+        props = {
+            ...props,
+            ...schema.lime.component.props,
+        };
+    }
+
+    return props;
 }
