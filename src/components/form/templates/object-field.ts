@@ -1,8 +1,13 @@
 import React from 'react';
 import { FormLayoutOptions, FormLayoutType } from '../form.types';
+import { LimeJSONSchema } from '../internal.types';
 import { renderDescription, renderTitle } from './common';
 import { GridLayout } from './grid-layout';
-import { ObjectFieldProperty, ObjectFieldTemplateProps } from './types';
+import {
+    LimeObjectFieldTemplateProps,
+    ObjectFieldProperty,
+    ObjectFieldTemplateProps,
+} from './types';
 
 export const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     const id = props.idSchema.$id;
@@ -27,11 +32,14 @@ function renderFieldWithTitle(props: ObjectFieldTemplateProps) {
     );
 }
 
-function renderCollapsibleField(props: ObjectFieldTemplateProps) {
+function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
+    const defaultOpen = !isCollapsed(props.schema);
+
     return React.createElement(
         'limel-collapsible-section',
         {
             header: props.title,
+            'is-open': defaultOpen,
         },
         renderDescription(props.description),
         renderProperties(props.properties, props.schema)
@@ -82,4 +90,8 @@ function renderGridLayout(
 
 function isCollapsible(schema: any) {
     return !!schema.lime?.collapsible;
+}
+
+function isCollapsed(schema: LimeJSONSchema) {
+    return schema.lime.collapsed !== false;
 }
