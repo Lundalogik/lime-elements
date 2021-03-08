@@ -1,3 +1,10 @@
+# [30.18.0](https://github.com/Lundalogik/lime-elements/compare/v30.17.1...v30.18.0) (2021-03-08)
+
+
+### Features
+
+* **file:** add accept prop to filter selectable file types ([9b1105b](https://github.com/Lundalogik/lime-elements/commit/9b1105b359753eac41ce62bbf2b043214aff472b)), closes [#1174](https://github.com/Lundalogik/lime-elements/issues/1174)
+
 ## [30.17.1](https://github.com/Lundalogik/lime-elements/compare/v30.17.0...v30.17.1) (2021-03-08)
 
 
