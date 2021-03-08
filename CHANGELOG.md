@@ -1,3 +1,10 @@
+# [30.16.0](https://github.com/Lundalogik/lime-elements/compare/v30.15.3...v30.16.0) (2021-03-08)
+
+
+### Features
+
+* **table:** enable movable columns ([2775050](https://github.com/Lundalogik/lime-elements/commit/2775050068e21466af0aa204f827c2356ec598f6)), closes [Lundalogik/crm-feature#1863](https://github.com/Lundalogik/crm-feature/issues/1863)
+
 ## [30.15.3](https://github.com/Lundalogik/lime-elements/compare/v30.15.2...v30.15.3) (2021-03-05)
 
 
