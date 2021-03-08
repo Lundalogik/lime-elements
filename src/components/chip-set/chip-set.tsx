@@ -25,6 +25,7 @@ const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
  * @exampleComponent limel-example-chip-set-choice
  * @exampleComponent limel-example-chip-set-filter
  * @exampleComponent limel-example-chip-set-input
+ * @exampleComponent limel-example-chip-icon-color
  */
 @Component({
     tag: 'limel-chip-set',
