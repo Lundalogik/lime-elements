@@ -1,3 +1,10 @@
+## [30.18.2](https://github.com/Lundalogik/lime-elements/compare/v30.18.1...v30.18.2) (2021-03-08)
+
+
+### Bug Fixes
+
+* fix crash where custom fields on nested schemas dont have error helper texts ([78a8600](https://github.com/Lundalogik/lime-elements/commit/78a86006aaf3c23873912d4593343b96ab1f8a07))
+
 ## [30.18.1](https://github.com/Lundalogik/lime-elements/compare/v30.18.0...v30.18.1) (2021-03-08)
 
 
