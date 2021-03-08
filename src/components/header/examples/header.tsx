@@ -53,7 +53,8 @@ export class HeaderExample {
             <limel-header
                 icon="brake_warning"
                 heading="Useful information"
-                subheading="Oops... data couldn't be loaded!"
+                subheading="Note"
+                supportingText="Data couldn't be loaded!"
             >
                 {this.renderActions()}
             </limel-header>

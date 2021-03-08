@@ -20,8 +20,8 @@ import { Component, h, Prop } from '@stencil/core';
  * ## Layout
  * The vital information in a header is usually manifested in form of an icon,
  * and a heading. A subheading also could be added to provide supplementary
- * information.
- *
+ * information. There is also a third place for displaying supplementary information
+ * or "supporting text", which will be rendered as a part of the subheading.
  * Along with this information, headers can also include actions, controls, or
  * menus.
  *
@@ -70,6 +70,12 @@ export class Header {
     @Prop()
     public subheading: string;
 
+    /**
+     * An extra string of text to display along with with the Subheading
+     */
+    @Prop()
+    public supportingText: string;
+
     public render() {
         return [
             <div class="information">
@@ -91,6 +97,7 @@ export class Header {
                         title={this.subheading}
                     >
                         {this.subheading}
+                        {this.renderSupportingText()}
                     </h2>
                 </div>
             </div>,
@@ -98,5 +105,17 @@ export class Header {
                 <slot />
             </div>,
         ];
+    }
+
+    private renderSupportingText() {
+        if (!this.supportingText) {
+            return;
+        }
+
+        return (
+            <span class="information__headings__subheading__supporting-text">
+                <span>·</span> {this.supportingText}
+            </span>
+        );
     }
 }

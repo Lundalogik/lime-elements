@@ -1,3 +1,18 @@
+## [30.17.1](https://github.com/Lundalogik/lime-elements/compare/v30.17.0...v30.17.1) (2021-03-08)
+
+
+### Bug Fixes
+
+* **chip-set:** update `--icon-color` default value to `rgb(var(--contrast-1100))` ([8e64a84](https://github.com/Lundalogik/lime-elements/commit/8e64a8449c9a59e5ad93468ab8d4f252ab1fed00)), closes [Lundalogik/crm-feature#1886](https://github.com/Lundalogik/crm-feature/issues/1886)
+
+# [30.17.0](https://github.com/Lundalogik/lime-elements/compare/v30.16.0...v30.17.0) (2021-03-08)
+
+
+### Features
+
+* **header:** add support for `supporting-text` ([7606561](https://github.com/Lundalogik/lime-elements/commit/76065617305b805348fb955fb8191be8cf20ee2b))
+* **header:** add support for background color header icon ([214a75c](https://github.com/Lundalogik/lime-elements/commit/214a75c2b20e05600c26a6787466f37f8ec5dbb4))
+
 # [30.16.0](https://github.com/Lundalogik/lime-elements/compare/v30.15.3...v30.16.0) (2021-03-08)
 
 
