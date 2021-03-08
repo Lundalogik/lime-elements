@@ -1,3 +1,11 @@
+## [30.18.1](https://github.com/Lundalogik/lime-elements/compare/v30.18.0...v30.18.1) (2021-03-08)
+
+
+### Bug Fixes
+
+* **input-field:** when using autocompletions, make it possible to close the dropdown ([8d4e628](https://github.com/Lundalogik/lime-elements/commit/8d4e6288ebf14b3666aa336e137858ed1d633654)), closes [Lundalogik/lime-elements#1115](https://github.com/Lundalogik/lime-elements/issues/1115)
+* **portal:** make portal visible immediately if initialized with `visible` set to `true` ([eebf6b9](https://github.com/Lundalogik/lime-elements/commit/eebf6b9960386a92479dabe70916ab7e4df394b5)), closes [Lundalogik/lime-elements#1115](https://github.com/Lundalogik/lime-elements/issues/1115)
+
 # [30.18.0](https://github.com/Lundalogik/lime-elements/compare/v30.17.1...v30.18.0) (2021-03-08)
 
 
