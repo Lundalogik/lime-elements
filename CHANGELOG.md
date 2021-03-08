@@ -1,3 +1,10 @@
+## [30.15.3](https://github.com/Lundalogik/lime-elements/compare/v30.15.2...v30.15.3) (2021-03-05)
+
+
+### Bug Fixes
+
+* **button:** make buttons with has-reduced-presence really disappear ([66c1afa](https://github.com/Lundalogik/lime-elements/commit/66c1afae298875c4ac657555f228e087f3017e52))
+
 ## [30.15.2](https://github.com/Lundalogik/lime-elements/compare/v30.15.1...v30.15.2) (2021-03-04)
 
 
