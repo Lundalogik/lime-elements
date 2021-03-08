@@ -71,7 +71,7 @@
     "@types/lodash-es": "^4.17.4",
     "@types/puppeteer": "^5.4.3",
     "@types/react": "^16.14.3",
-    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.15.1",
     "commitizen": "^4.2.3",
     "cross-env": "^7.0.3",
