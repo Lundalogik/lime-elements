@@ -8,7 +8,7 @@
 
 /**
  * @prop --icon-background-color: Background color of the icon. Defaults to transparent.
- * @prop --icon-color: Color of the icon. Defaults to 54% black.
+ * @prop --icon-color: Color of the icon. Defaults to `rgb(var(--contrast-1100))`.
  * @prop --background-color: Background color of the field when type is set to input.
  * @prop --background-color-disabled: Background color of the field when type is set to input and the component is disabled or readonly.
  * @prop --input-chip-set-selected-chip-color: Color of the highlight around selected chips in input chip-sets.
@@ -69,7 +69,7 @@ $height-of-chip-set-input: pxToRem(36);
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     background-color: var(--icon-background-color, transparent);
     margin: 0 !important;
-    color: var(--icon-color, rgba(0, 0, 0, 0.54));
+    color: var(--icon-color, rgb(var(--contrast-1100)));
 }
 
 .mdc-chip-set {

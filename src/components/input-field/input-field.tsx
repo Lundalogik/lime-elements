@@ -26,6 +26,7 @@ import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
 import { getHref, getTarget } from './link-helper';
 import { JSXBase } from '@stencil/core/internal';
+import { createRandomString } from '../../util/random-string';
 
 interface LinkProperties {
     href: string;
@@ -206,6 +207,7 @@ export class InputField {
 
     private mdcTextField: MDCTextField;
     private completionsList: ListItem[] = [];
+    private portalId: string;
 
     constructor() {
         this.handleChange = this.handleChange.bind(this);
@@ -215,10 +217,10 @@ export class InputField {
         this.onBlur = this.onBlur.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
         this.handleCompletionChange = this.handleCompletionChange.bind(this);
-        this.onKeyDownForList = this.onKeyDownForList.bind(this);
         this.layout = this.layout.bind(this);
         this.changeEmitter = this.changeEmitter.bind(this);
         this.getContainerClassList = this.getContainerClassList.bind(this);
+        this.handleCloseMenu = this.handleCloseMenu.bind(this);
 
         const debounceTimeout = 100;
         this.changeEmitter = debounce(this.changeEmitter, debounceTimeout, {
@@ -226,6 +228,8 @@ export class InputField {
             maxWait: 300,
             trailing: true,
         });
+
+        this.portalId = createRandomString();
     }
 
     public connectedCallback() {
@@ -618,9 +622,8 @@ export class InputField {
             return;
         }
 
-        const list = this.limelInputField.shadowRoot.querySelector(
-            'limel-list'
-        );
+        const list = document.querySelector(` #${this.portalId} limel-list`);
+
         if (!list) {
             return;
         }
@@ -660,27 +663,49 @@ export class InputField {
         this.changeEmitter(event.detail.text);
     }
 
-    private onKeyDownForList(event: KeyboardEvent) {
-        const isForwardTab =
-            event.key === TAB || event.keyCode === TAB_KEY_CODE;
-        if (isForwardTab) {
-            this.showCompletions = false;
-        }
-    }
-
     private renderAutocompleteList() {
         if (this.type === 'textarea') {
             return;
         }
 
+        return this.renderDropdown();
+    }
+
+    private renderPortal(content = null) {
+        const dropdownZIndex = getComputedStyle(
+            this.limelInputField
+        ).getPropertyValue('--dropdown-z-index');
+
         return (
-            <div class="autocomplete-list-container">
-                {this.renderDropdown()}
-            </div>
+            <limel-portal
+                visible={this.showCompletions}
+                containerId={this.portalId}
+                inheritParentWidth={true}
+                containerStyle={{ 'z-index': dropdownZIndex }}
+            >
+                <limel-menu-surface
+                    open={this.showCompletions}
+                    allowClicksElement={this.limelInputField}
+                    style={{
+                        '--menu-surface-width': '100%',
+                        'max-height': 'inherit',
+                        display: 'flex',
+                    }}
+                    onDismiss={this.handleCloseMenu}
+                >
+                    {content}
+                </limel-menu-surface>
+            </limel-portal>
         );
     }
 
     private renderDropdown() {
+        const content = this.renderListResult();
+
+        return this.renderPortal(content);
+    }
+
+    private renderListResult() {
         const filteredCompletions: ListItem[] = this.filterCompletions(
             this.value
         );
@@ -689,19 +714,16 @@ export class InputField {
         }
 
         return (
-            this.showCompletions && (
-                <div
-                    onKeyDown={this.onKeyDownForList}
-                    class="autocomplete-list mdc-elevation-transition mdc-elevation--z4 mdc-menu-surface mdc-menu-surface--open"
-                >
-                    <limel-list
-                        onChange={this.handleCompletionChange}
-                        type="selectable"
-                        items={filteredCompletions}
-                    />
-                </div>
-            )
+            <limel-list
+                onChange={this.handleCompletionChange}
+                type="selectable"
+                items={filteredCompletions}
+            />
         );
+    }
+
+    private handleCloseMenu() {
+        this.showCompletions = false;
     }
 
     private filterCompletions = (filter: string) => {
