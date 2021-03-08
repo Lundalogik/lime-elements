@@ -173,7 +173,7 @@ export interface FormLayoutOptions<T = FormLayoutType.Default> {
     type: T;
 
     /**
-     * @deprecated use `colSpan` instead
+     * @deprecated use `GridLayoutOptions.colSpan` instead
      */
     span?: 'all';
 }
