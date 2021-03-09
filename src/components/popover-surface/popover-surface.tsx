@@ -25,7 +25,7 @@ export class PopoverSurface {
     }
 
     public render() {
-        return <div class="limel-popover-surface" tabindex="-1" />;
+        return <div class="limel-popover-surface" tabindex="0" />;
     }
 
     private appendElement() {
