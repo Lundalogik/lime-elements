@@ -4,12 +4,12 @@
 @import '@limetech/mdc-tab-indicator/mdc-tab-indicator';
 @import '@limetech/mdc-tab/mdc-tab';
 
-$tab-content-background-color: #fff;
-$tab-background-color: #f6f6f7;
+$tab-content-background-color: rgb(var(--contrast-100));
+$tab-background-color: var(--contrast-300);
 $tab-border-radius: pxToRem(10);
 $tab-active-outer-edge-curve-size: pxToRem(12);
 $tab-separator-width: pxToRem(2);
-$tab-separator-background-color: #e8e8ea;
+$tab-separator-background-color: rgb(var(--contrast-600));
 $tab-scroller-fade-width: 65;
 
 @import './partial-styles/tab-bar-scroller.scss';
