@@ -19,9 +19,9 @@
         left: 0;
         background: linear-gradient(
             270deg,
-            rgba(246, 246, 247, 0) 0%,
-            rgba(246, 246, 247, 0.8) 40%,
-            rgba(246, 246, 247, 0.8) 100%
+            rgba($tab-background-color, 0) 0%,
+            rgba($tab-background-color, 0.8) 40%,
+            rgba($tab-background-color, 0.8) 100%
         );
     }
 
@@ -30,15 +30,15 @@
         right: 0;
         background: linear-gradient(
             90deg,
-            rgba(246, 246, 247, 0) 0%,
-            rgba(246, 246, 247, 0.8) 40%,
-            rgba(246, 246, 247, 0.8) 100%
+            rgba($tab-background-color, 0) 0%,
+            rgba($tab-background-color, 0.8) 40%,
+            rgba($tab-background-color, 0.8) 100%
         );
     }
 }
 
 .scroll-button {
-    --icon-background-color: #ffffff;
+    --icon-background-color: rgb(var(--contrast-100));
     top: pxToRem(4);
 
     &.left {
@@ -82,5 +82,5 @@
 .mdc-tab-scroller__scroll-content {
     padding: pxToRem(8) $tab-active-outer-edge-curve-size 0
         $tab-active-outer-edge-curve-size;
-    background-color: $tab-background-color;
+    background-color: rgb($tab-background-color);
 }
