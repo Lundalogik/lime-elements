@@ -122,6 +122,7 @@ export class TabBar {
                             elevated={true}
                             tabindex="-1"
                             aria-hidden="true"
+                            disabled={!this.canScrollLeft}
                             onClick={this.handleLeftScrollClick}
                         />
                     </div>
@@ -132,6 +133,7 @@ export class TabBar {
                             elevated={true}
                             tabindex="-1"
                             aria-hidden="true"
+                            disabled={!this.canScrollRight}
                             onClick={this.handleRightScrollClick}
                         />
                     </div>
