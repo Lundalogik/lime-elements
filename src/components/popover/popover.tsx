@@ -138,6 +138,7 @@ export class Popover {
         const propertyNames = [
             '--popover-surface-width',
             '--popover-body-background-color',
+            '--popover-border-radius',
         ];
         const style = getComputedStyle(this.host);
         const values = propertyNames.map((property) => {
