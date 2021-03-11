@@ -1,10 +1,6 @@
 import { ObjectFieldTemplateProps, ArrayFieldTemplateProps } from '@rjsf/core';
 import { LimeJSONSchema } from '../internal.types';
-export {
-    FieldTemplateProps,
-    ObjectFieldTemplateProps,
-    ArrayFieldTemplateProps,
-} from '@rjsf/core';
+export { FieldTemplateProps, ArrayFieldTemplateProps } from '@rjsf/core';
 
 export type TemplateProps = ObjectFieldTemplateProps | ArrayFieldTemplateProps;
 
