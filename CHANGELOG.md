@@ -1,3 +1,10 @@
+## [30.18.5](https://github.com/Lundalogik/lime-elements/compare/v30.18.4...v30.18.5) (2021-03-11)
+
+
+### Bug Fixes
+
+* **select:** better visualize `focused` with keyboard ([49a62fd](https://github.com/Lundalogik/lime-elements/commit/49a62fda6656933b28f48da243203c0b74c0858f))
+
 ## [30.18.4](https://github.com/Lundalogik/lime-elements/compare/v30.18.3...v30.18.4) (2021-03-11)
 
 
