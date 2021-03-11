@@ -126,6 +126,13 @@ export interface LimeSchemaOptions {
     collapsible?: boolean;
 
     /**
+     * When `collapsible` is `true`, set this to `false` to make the
+     * collapsible section load in the open state.
+     * Defaults to `true`.
+     */
+    collapsed?: boolean;
+
+    /**
      * Will render the field using the specified component. The component
      * should implement the `FormComponent` interface
      */
@@ -166,7 +173,7 @@ export interface FormLayoutOptions<T = FormLayoutType.Default> {
     type: T;
 
     /**
-     * @deprecated use `colSpan` instead
+     * @deprecated use `GridLayoutOptions.colSpan` instead
      */
     span?: 'all';
 }
