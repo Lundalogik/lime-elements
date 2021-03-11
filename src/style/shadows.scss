@@ -1,5 +1,8 @@
 @import './functions';
 @import './mixins';
+@import './internal/mdc-variables';
+
+$visualise-focused-state: 0 0 0 #{pxToRem(2)} var(--mdc-theme-primary);
 
 :root {
     // Good for buttons and clickables such as select dropdowns, or slider grabbers
@@ -23,8 +26,12 @@
     // Good for Command bars, Command dropdowns, Context menus
     --shadow-depth-8: 0 #{pxToRem(3.2)} #{pxToRem(7.2)} 0 rgba(0, 0, 0, 0.132),
         0 #{pxToRem(0.6)} #{pxToRem(1.8)} 0 rgba(0, 0, 0, 0.108);
-
-    // Like above but light source is below the element, good for bottom bars, etc...
+    // Same as above, but when element is focused
+    --shadow-depth-8-focused: 0 #{pxToRem(3.2)} #{pxToRem(7.2)} 0
+            rgba(0, 0, 0, 0.132),
+        0 #{pxToRem(0.6)} #{pxToRem(1.8)} 0 rgba(0, 0, 0, 0.108),
+        #{$visualise-focused-state};
+    // Same as above, but light source is below the element, good for bottom bars, etc...
     --shadow-depth-8-reversed: 0 #{pxToRem(-3.2)} #{pxToRem(7.2)} 0
             rgba(0, 0, 0, 0.132),
         0 #{pxToRem(-0.6)} #{pxToRem(1.8)} 0 rgba(0, 0, 0, 0.108);
@@ -33,7 +40,19 @@
     --shadow-depth-16: 0 #{pxToRem(6.4)} #{pxToRem(14.4)} 0 rgba(0, 0, 0, 0.132),
         0 #{pxToRem(1.2)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.108);
 
+    // Same as above, but when element is focused
+    --shadow-depth-16-focused: 0 #{pxToRem(6.4)} #{pxToRem(14.4)} 0
+            rgba(0, 0, 0, 0.132),
+        0 #{pxToRem(1.2)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.108),
+        #{$visualise-focused-state};
+
     // Good for Pop up dialogs
     --shadow-depth-64: 0 #{pxToRem(25.6)} #{pxToRem(57.6)} 0 rgba(0, 0, 0, 0.22),
         0 #{pxToRem(4.8)} #{pxToRem(14.4)} 0 rgba(0, 0, 0, 0.18);
+
+    // Same as above, but when element is focused
+    --shadow-depth-64-focused: 0 #{pxToRem(25.6)} #{pxToRem(57.6)} 0
+            rgba(0, 0, 0, 0.22),
+        0 #{pxToRem(4.8)} #{pxToRem(14.4)} 0 rgba(0, 0, 0, 0.18),
+        #{$visualise-focused-state};
 }

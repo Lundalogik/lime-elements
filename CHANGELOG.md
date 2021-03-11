@@ -1,3 +1,11 @@
+## [30.18.4](https://github.com/Lundalogik/lime-elements/compare/v30.18.3...v30.18.4) (2021-03-11)
+
+
+### Bug Fixes
+
+* **popover:** make it possible to tab to it ([5a44c30](https://github.com/Lundalogik/lime-elements/commit/5a44c300182587992a5ea7f31a983de025a86629))
+* **shadows:** add shadow styles to use for `focused` elements ([46a8731](https://github.com/Lundalogik/lime-elements/commit/46a87319c7162030843017c181d6540468de3759))
+
 ## [30.18.3](https://github.com/Lundalogik/lime-elements/compare/v30.18.2...v30.18.3) (2021-03-11)
 
 

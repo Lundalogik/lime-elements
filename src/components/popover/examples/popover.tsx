@@ -23,7 +23,9 @@ export class PopoverExample {
                     label="Click me!"
                     onClick={this.openPopover}
                 />
-                <p style={{ margin: '0.5rem 1rem' }}>Content</p>
+                <p style={{ margin: '0.5rem 1rem' }} tabindex="0">
+                    Content
+                </p>
             </limel-popover>,
         ];
     }
