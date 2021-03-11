@@ -1,3 +1,10 @@
+## [30.18.3](https://github.com/Lundalogik/lime-elements/compare/v30.18.2...v30.18.3) (2021-03-11)
+
+
+### Bug Fixes
+
+* **popover:** add forgotten border radius prop for popover ([235ffe1](https://github.com/Lundalogik/lime-elements/commit/235ffe19165a6a171dea59b42cbce6bb1ccb1c9e))
+
 ## [30.18.2](https://github.com/Lundalogik/lime-elements/compare/v30.18.1...v30.18.2) (2021-03-08)
 
 
