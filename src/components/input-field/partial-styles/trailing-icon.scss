@@ -33,3 +33,41 @@
         }
     }
 }
+
+:host([type='url']) {
+    .mdc-text-field--with-trailing-icon {
+        &:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid) {
+            .trailing-icon {
+                limel-icon {
+                    color: rgb(var(--color-blue-default));
+                }
+                &:hover {
+                    background-color: rgb(var(--color-blue-default));
+
+                    limel-icon {
+                        color: rgb(var(--color-white));
+                    }
+                }
+            }
+        }
+    }
+}
+
+:host([type='tel']) {
+    .mdc-text-field--with-trailing-icon {
+        &:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid) {
+            .trailing-icon {
+                limel-icon {
+                    color: rgb(var(--color-green-default));
+                }
+                &:hover {
+                    background-color: rgb(var(--color-green-default));
+
+                    limel-icon {
+                        color: rgb(var(--color-white));
+                    }
+                }
+            }
+        }
+    }
+}
