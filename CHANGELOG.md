@@ -1,3 +1,10 @@
+# [30.19.0](https://github.com/Lundalogik/lime-elements/compare/v30.18.5...v30.19.0) (2021-03-11)
+
+
+### Features
+
+* **form:** allow collapsible-sections to be loaded either open or closed ([1e5e929](https://github.com/Lundalogik/lime-elements/commit/1e5e929ff7620a52141c26e866a406ae48d614f8)), closes [Lundalogik/crm-feature#1609](https://github.com/Lundalogik/crm-feature/issues/1609)
+
 ## [30.18.5](https://github.com/Lundalogik/lime-elements/compare/v30.18.4...v30.18.5) (2021-03-11)
 
 
