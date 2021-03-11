@@ -1,4 +1,31 @@
 @import '../../style/functions';
+$size-of-arrow: pxToRem(10);
+
+:host {
+    display: block;
+    filter: drop-shadow(0 pxToRem(4) pxToRem(4) rgba(var(--color-black), 0.4));
+
+    &:before {
+        content: '';
+        visibility: hidden;
+
+        transform: rotate(45deg);
+        position: absolute;
+        width: $size-of-arrow;
+        height: $size-of-arrow;
+        margin: auto;
+        background-color: var(
+            --popover-body-background-color,
+            rgb(var(--contrast-100))
+        );
+    }
+}
+
+:host(.has-arrow) {
+    &:before {
+        visibility: visible;
+    }
+}
 
 .limel-popover-surface {
     position: relative;
@@ -9,8 +36,7 @@
     max-height: calc(100vh - 2rem);
     max-width: calc(100vw - 2rem);
 
-    border-radius: var(--popover-border-radius, pxToRem(12));
-    box-shadow: var(--shadow-depth-16);
+    border-radius: pxToRem(7);
     background-color: var(
         --popover-body-background-color,
         rgb(var(--contrast-100))

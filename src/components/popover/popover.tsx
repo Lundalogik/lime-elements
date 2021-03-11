@@ -60,6 +60,7 @@ import { portalContains } from '../portal/contains';
  *
  * @slot - Content to put inside the surface
  * @exampleComponent limel-example-popover
+ * @exampleComponent limel-example-popover-no-arrow
  * @private
  */
 @Component({
@@ -73,6 +74,12 @@ export class Popover {
      */
     @Prop()
     public open = false;
+
+    /**
+     * True if an arrow should be used to visulize the origin of the popover
+     */
+    @Prop()
+    public useArrow = true;
 
     /**
      * Emits an event when the component is closing
@@ -115,8 +122,15 @@ export class Popover {
         return (
             <div class="trigger-anchor">
                 <slot name="trigger"></slot>
-                <limel-portal visible={this.open} containerId={this.portalId}>
+                <limel-portal
+                    visible={this.open}
+                    containerId={this.portalId}
+                    useArrow={this.useArrow}
+                >
                     <limel-popover-surface
+                        class={{
+                            'has-arrow': this.useArrow,
+                        }}
                         contentCollection={this.host.children}
                         style={cssProperties}
                     />
