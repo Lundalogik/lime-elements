@@ -1,6 +1,6 @@
 {
   "name": "@limetech/lime-elements",
-  "version": "30.18.3",
+  "version": "30.19.0",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "Apache-2.0",
@@ -59,7 +59,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^12.0.1",
     "@lundalogik/cz-conventional-changelog": "^3.1.0",
-    "@lundalogik/lime-icons8": "^2.3.0",
+    "@lundalogik/lime-icons8": "^2.4.0",
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/exec": "5.0.0",
     "@semantic-release/git": "9.0.0",

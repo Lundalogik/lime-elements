@@ -58,12 +58,13 @@
 
         &:focus {
             outline: none;
-            .mdc-select__dropdown-icon {
-                box-shadow: var(--button-shadow-hovered);
-            }
+
             .mdc-floating-label {
                 color: var(--mdc-theme-primary);
             }
+        }
+        &:focus-visible {
+            box-shadow: var(--shadow-depth-8-focused) !important;
         }
 
         .mdc-floating-label {
