@@ -3,7 +3,6 @@ import { LimeJSONSchema } from '../internal.types';
 export {
     FieldTemplateProps,
     ObjectFieldTemplateProps,
-    // eslint-disable-next-line comma-dangle
     ArrayFieldTemplateProps,
 } from '@rjsf/core';
 
