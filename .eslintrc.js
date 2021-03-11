@@ -55,6 +55,7 @@ module.exports = {
                 functions: 'never',
                 objects: 'always-multiline',
                 imports: 'always-multiline',
+                exports: 'always-multiline',
             },
         ],
         curly: 'error',
