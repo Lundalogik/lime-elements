@@ -1,0 +1,8 @@
+<svg viewBox="0 0 33 33" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-miterlimit="10">
+    <path fill="none" d="M.192.624h32v32h-32z"/>
+    <path d="M7.192 14.873c0-2.483 2.017-4.5 4.5-4.5 2.484 0 4.5 2.017 4.5 4.5v3.5c0 2.484 2.017 4.5 4.5 4.5 2.484 0 4.5-2.016 4.5-4.5" fill="none" stroke="#5e5e6c"/>
+    <circle cx="25.192" cy="16.624" r="4" fill="rgb(var(--color-blue-default))"/>
+    <path fill="rgb(var(--color-red-default))" d="M4.192 13.623h6v6h-6z"/>
+    <circle cx="25.192" cy="16.624" r="2" fill="rgb(var(--color-gray-lighter))"/>
+    <circle cx="7.192" cy="16.624" r="2" fill="rgb(var(--color-gray-lighter))"/>
+</svg>

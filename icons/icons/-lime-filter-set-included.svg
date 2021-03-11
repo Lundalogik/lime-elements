@@ -1,0 +1,7 @@
+<svg viewBox="0 0 32 33" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.5">
+    <path fill="none" d="M0 .624h32v32H0z"/>
+    <path fill-opacity=".2" d="M5 5.624h22v22H5z"/>
+    <path d="M24 12.053H8M22.027 16.624H9.975M19.788 21.196h-7.575" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="22.788" cy="23.624" r="7" fill="rgb(var(--color-blue-default))"/>
+    <path d="M19.393 22.425l2.785 2.785 4.487-4.046" fill="none" stroke="rgb(var(--color-gray-lighter))" stroke-linejoin="miter"/>
+</svg>
