@@ -664,7 +664,7 @@ export class InputField {
     }
 
     private renderAutocompleteList() {
-        if (this.type === 'textarea') {
+        if (this.type === 'textarea' || !this.completions.length) {
             return;
         }
 
