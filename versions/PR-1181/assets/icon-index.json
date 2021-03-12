@@ -19488,7 +19488,27 @@
     "tags": []
   },
   {
-    "id": "-lime-filter-previous .svg",
+    "id": "-lime-filter-previous.svg",
+    "tags": []
+  },
+  {
+    "id": "-lime-filter-set-included-not.svg",
+    "tags": []
+  },
+  {
+    "id": "-lime-filter-set-included.svg",
+    "tags": []
+  },
+  {
+    "id": "-lime-filter-set-reset.svg",
+    "tags": []
+  },
+  {
+    "id": "-lime-filter-set.svg",
+    "tags": []
+  },
+  {
+    "id": "-lime-filter-connected-to.svg",
     "tags": []
   }
 ]
