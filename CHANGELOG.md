@@ -1,3 +1,10 @@
+## [30.19.1](https://github.com/Lundalogik/lime-elements/compare/v30.19.0...v30.19.1) (2021-03-12)
+
+
+### Bug Fixes
+
+* **input-field:** don't "steal" a click when blurring unless there's a dropdown visible ([1344dcf](https://github.com/Lundalogik/lime-elements/commit/1344dcf5c59479d41f1d0440ef959856287ffddd)), closes [Lundalogik/crm-feature#1910](https://github.com/Lundalogik/crm-feature/issues/1910)
+
 # [30.19.0](https://github.com/Lundalogik/lime-elements/compare/v30.18.5...v30.19.0) (2021-03-11)
 
 
