@@ -1,3 +1,10 @@
+## [30.19.2](https://github.com/Lundalogik/lime-elements/compare/v30.19.1...v30.19.2) (2021-03-15)
+
+
+### Bug Fixes
+
+* **input-field:** fix add more meaning and delight to input type `tel` & `url` ([66e638b](https://github.com/Lundalogik/lime-elements/commit/66e638b91d99f0190d0764a1f46eb4c77b2ff64b))
+
 ## [30.19.1](https://github.com/Lundalogik/lime-elements/compare/v30.19.0...v30.19.1) (2021-03-12)
 
 
