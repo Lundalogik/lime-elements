@@ -349,6 +349,10 @@ export class DatePicker {
     }
 
     private handleInputElementChange(event) {
+        if (event.detail === '') {
+            this.clearValue();
+        }
+
         event.stopPropagation();
     }
 
