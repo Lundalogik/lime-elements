@@ -1,3 +1,10 @@
+## [30.19.3](https://github.com/Lundalogik/lime-elements/compare/v30.19.2...v30.19.3) (2021-03-16)
+
+
+### Bug Fixes
+
+* **date-picker:** clearing a required date field with backspace sets the date field to invailid ([3fe8191](https://github.com/Lundalogik/lime-elements/commit/3fe8191e85a06d9766ef25f72173474e2f216231)), closes [Lundalogik/crm-feature#1912](https://github.com/Lundalogik/crm-feature/issues/1912)
+
 ## [30.19.2](https://github.com/Lundalogik/lime-elements/compare/v30.19.1...v30.19.2) (2021-03-15)
 
 
