@@ -33,3 +33,12 @@
         @include is-elevated-clickable;
     }
 }
+
+.mdc-icon-button {
+    &:focus-visible {
+        // only when non-pointer input is being used,
+        // e.g. tabbed into using keyboard
+        box-shadow: var(--shadow-depth-8-focused);
+        border-radius: 50%;
+    }
+}
