@@ -1,3 +1,10 @@
+## [30.19.4](https://github.com/Lundalogik/lime-elements/compare/v30.19.3...v30.19.4) (2021-03-19)
+
+
+### Bug Fixes
+
+* **icon-button:** visualize focus state when navigating with keyboard ([6b59a6b](https://github.com/Lundalogik/lime-elements/commit/6b59a6b0e71633945d598e0c15c3df8bc585925e))
+
 ## [30.19.3](https://github.com/Lundalogik/lime-elements/compare/v30.19.2...v30.19.3) (2021-03-16)
 
 
