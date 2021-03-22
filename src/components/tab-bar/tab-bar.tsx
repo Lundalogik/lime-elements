@@ -106,8 +106,8 @@ export class TabBar {
                 <div
                     class={{
                         'mdc-tab-scroller': true,
-                        'scroll-left': this.canScrollLeft,
-                        'scroll-right': this.canScrollRight,
+                        'can-scroll-left': this.canScrollLeft,
+                        'can-scroll-right': this.canScrollRight,
                     }}
                 >
                     <div class="mdc-tab-scroller__scroll-area mdc-tab-scroller__scroll-area--scroll">
