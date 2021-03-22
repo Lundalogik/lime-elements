@@ -60,15 +60,15 @@
     position: relative;
     overflow: hidden;
 
-    &.scroll-left .scroll-fade.left,
-    &.scroll-left .scroll-button.left,
-    &.scroll-right .scroll-fade.right,
-    &.scroll-right .scroll-button.right {
+    &.can-scroll-left .scroll-fade.left,
+    &.can-scroll-left .scroll-button.left,
+    &.can-scroll-right .scroll-fade.right,
+    &.can-scroll-right .scroll-button.right {
         transform: translate3d(0, 0, 0);
     }
 
-    &.scroll-left:not(.scroll-right) .scroll-button.right,
-    &.scroll-right:not(.scroll-left) .scroll-button.left {
+    &.can-scroll-left:not(.can-scroll-right) .scroll-button.right,
+    &.can-scroll-right:not(.can-scroll-left) .scroll-button.left {
         opacity: 0.5;
         transition-delay: 0.5s;
     }
