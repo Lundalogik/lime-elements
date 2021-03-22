@@ -102,6 +102,8 @@ export class Snackbar {
             this.mdcSnackbar.timeoutMs = this.timeout;
         }
 
+        this.mdcSnackbar.labelText = this.message;
+
         this.mdcSnackbar.open();
     }
 
@@ -118,9 +120,7 @@ export class Snackbar {
                         class="mdc-snackbar__label"
                         role="status"
                         aria-live="polite"
-                    >
-                        {this.message}
-                    </div>
+                    ></div>
                     {this.renderActions(this.actionText, this.dismissible)}
                 </div>
             </div>
