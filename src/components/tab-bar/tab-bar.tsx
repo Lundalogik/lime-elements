@@ -104,7 +104,7 @@ export class TabBar {
                         </div>
                     </div>
                     <div class="scroll-fade left" />
-                    <div class="scroll-button left" tab-index="-1">
+                    <div class="scroll-button left">
                         <limel-icon-button
                             icon="angle_left"
                             elevated={true}
