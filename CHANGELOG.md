@@ -1,3 +1,11 @@
+## [30.19.5](https://github.com/Lundalogik/lime-elements/compare/v30.19.4...v30.19.5) (2021-03-22)
+
+
+### Bug Fixes
+
+* **tab-bar:** prevent unintended clicks on the last tab ([ac31fdb](https://github.com/Lundalogik/lime-elements/commit/ac31fdbdda2603383a079b0f4a3c83b08a2ca248)), closes [Lundalogik/crm-feature#1862](https://github.com/Lundalogik/crm-feature/issues/1862)
+* **tab-bar:** use own css variables for colors ([78a086f](https://github.com/Lundalogik/lime-elements/commit/78a086f909cfe26d498d92e2ffabcbb45c909156))
+
 ## [30.19.4](https://github.com/Lundalogik/lime-elements/compare/v30.19.3...v30.19.4) (2021-03-19)
 
 
