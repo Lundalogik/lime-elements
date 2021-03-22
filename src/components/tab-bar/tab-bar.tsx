@@ -6,6 +6,7 @@ import {
     Element,
     EventEmitter,
     Event,
+    State,
     Watch,
 } from '@stencil/core';
 import { MDCTabBar, MDCTabBarActivatedEvent } from '@limetech/mdc-tab-bar';
@@ -59,9 +60,14 @@ export class TabBar {
     @Element()
     private host: HTMLLimelTabBarElement;
 
+    @State()
+    private canScrollLeft = false;
+
+    @State()
+    private canScrollRight = false;
+
     private mdcTabBar: MDCTabBar;
     private setupMdc = false;
-    private scrollerElement: HTMLElement;
     private scrollArea: HTMLElement;
     private scrollContent: HTMLElement;
 
@@ -97,7 +103,13 @@ export class TabBar {
     public render() {
         return (
             <div class="mdc-tab-bar" role="tablist">
-                <div class="mdc-tab-scroller">
+                <div
+                    class={{
+                        'mdc-tab-scroller': true,
+                        'scroll-left': this.canScrollLeft,
+                        'scroll-right': this.canScrollRight,
+                    }}
+                >
                     <div class="mdc-tab-scroller__scroll-area mdc-tab-scroller__scroll-area--scroll">
                         <div class="mdc-tab-scroller__scroll-content">
                             {this.tabs.map(this.renderTab)}
@@ -153,7 +165,6 @@ export class TabBar {
         }
 
         this.mdcTabBar = new MDCTabBar(element);
-        this.scrollerElement = element.querySelector('.mdc-tab-scroller');
         this.scrollArea = element.querySelector(
             '.mdc-tab-scroller__scroll-area'
         );
@@ -172,7 +183,9 @@ export class TabBar {
         };
 
         this.setupListeners();
-        this.handleScroll();
+
+        // Use timeout to avoid Stencil warning about re-renders. /Ads
+        setTimeout(this.handleScroll, 0);
     }
 
     private tearDown() {
@@ -220,15 +233,15 @@ export class TabBar {
         );
 
         if (scrollLeft > HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX) {
-            this.scrollerElement.classList.add('scroll-left');
+            this.canScrollLeft = true;
         } else {
-            this.scrollerElement.classList.remove('scroll-left');
+            this.canScrollLeft = false;
         }
 
         if (scrollRight > HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX) {
-            this.scrollerElement.classList.add('scroll-right');
+            this.canScrollRight = true;
         } else {
-            this.scrollerElement.classList.remove('scroll-right');
+            this.canScrollRight = false;
         }
     }
 
