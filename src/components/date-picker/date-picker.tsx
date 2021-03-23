@@ -3,6 +3,7 @@ import {
     h,
     Prop,
     State,
+    Element,
     EventEmitter,
     Event,
     Watch,
@@ -115,6 +116,9 @@ export class DatePicker {
     @Event()
     private change: EventEmitter<Date>;
 
+    @Element()
+    private host: HTMLLimelDatePickerElement;
+
     @State()
     private formattedValue: string;
 
@@ -185,6 +189,10 @@ export class DatePicker {
             );
         }
 
+        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
+            '--dropdown-z-index'
+        );
+
         return (
             <div class="container">
                 <limel-input-field
@@ -204,6 +212,7 @@ export class DatePicker {
                 <limel-portal
                     containerId={this.portalId}
                     visible={this.showPortal}
+                    containerStyle={{ 'z-index': dropdownZIndex }}
                 >
                     <limel-flatpickr-adapter
                         format={this.internalFormat}
