@@ -31,6 +31,7 @@ const CHIP_SET_TAG_NAME = 'limel-chip-set';
  * @exampleComponent limel-example-picker-multiple
  * @exampleComponent limel-example-picker-icons
  * @exampleComponent limel-example-picker-empty-suggestions
+ * @exampleComponent limel-example-picker-leading-icon
  */
 @Component({
     tag: 'limel-picker',
@@ -62,6 +63,12 @@ export class Picker {
      */
     @Prop()
     public searchLabel: string;
+
+    /**
+     * Leading icon to show to the far left in the text field
+     */
+    @Prop()
+    public leadingIcon: string;
 
     /**
      * A message to display when the search returned an empty result
@@ -196,6 +203,7 @@ export class Picker {
                 style={style}
                 type="input"
                 label={this.label}
+                leadingIcon={this.leadingIcon}
                 value={this.chips}
                 disabled={this.disabled}
                 readonly={this.readonly}
