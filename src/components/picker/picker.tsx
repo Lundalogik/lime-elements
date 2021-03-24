@@ -52,6 +52,12 @@ export class Picker {
     @Prop()
     public label: string;
 
+     /**
+     * Leading icon to show to the far left in the text field
+     */
+      @Prop()
+      public leadingIcon: string;
+
     /**
      * Search label to display in the input field when searching
      */
@@ -183,6 +189,7 @@ export class Picker {
         return [
             <limel-chip-set
                 style={style}
+                leadingIcon= {this.leadingIcon}
                 type="input"
                 label={this.label}
                 value={this.chips}
