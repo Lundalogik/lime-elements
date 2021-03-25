@@ -1,3 +1,10 @@
+# [30.21.0](https://github.com/Lundalogik/lime-elements/compare/v30.20.0...v30.21.0) (2021-03-25)
+
+
+### Features
+
+* **picker:** add leading icon to picker ([316361b](https://github.com/Lundalogik/lime-elements/commit/316361b89b8cee5738b8d0e12c9bf47c305b4a57))
+
 # [30.20.0](https://github.com/Lundalogik/lime-elements/compare/v30.19.5...v30.20.0) (2021-03-25)
 
 
