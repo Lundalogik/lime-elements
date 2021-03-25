@@ -1,3 +1,10 @@
+# [30.20.0](https://github.com/Lundalogik/lime-elements/compare/v30.19.5...v30.20.0) (2021-03-25)
+
+
+### Features
+
+* **datepicker:** add consumer-overridable css property `--dropdown-z-index` ([be0c2d6](https://github.com/Lundalogik/lime-elements/commit/be0c2d608b3d27e9c5c39ce5a9e2c34dae7b6f54)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+
 ## [30.19.5](https://github.com/Lundalogik/lime-elements/compare/v30.19.4...v30.19.5) (2021-03-22)
 
 
