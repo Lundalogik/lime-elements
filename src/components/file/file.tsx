@@ -160,6 +160,7 @@ export class File {
                 onChange={this.handleFileChange}
                 type="file"
                 accept={this.accept}
+                disabled={this.disabled || this.readonly}
             />,
             <limel-chip-set
                 disabled={this.disabled}
