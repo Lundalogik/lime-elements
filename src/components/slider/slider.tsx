@@ -22,10 +22,20 @@ import { getPercentageClass } from './getPercentageClass';
 })
 export class Slider {
     /**
-     * Set to `true` to disable the input
+     * Disables the slider when `true`. Works exactly the same as
+     * `readonly`. If either property is `true`, the slider will be
+     * disabled.
      */
     @Prop({ reflect: true })
     public disabled = false;
+
+    /**
+     * Disables the slider when `true`. Works exactly the same as
+     * `disabled`. If either property is `true`, the slider will be
+     * disabled.
+     */
+    @Prop({ reflect: true })
+    public readonly = false;
 
     /**
      * Default value: 1.
@@ -121,7 +131,7 @@ export class Slider {
     }
 
     public componentWillUpdate() {
-        this.mdcSlider.disabled = this.disabled;
+        this.mdcSlider.disabled = this.disabled || this.readonly;
     }
 
     public disconnectedCallback() {
@@ -154,7 +164,7 @@ export class Slider {
                         aria-valuemax={this.multiplyByFactor(this.valuemax)}
                         aria-valuenow={this.multiplyByFactor(this.getValue())}
                         aria-label={this.label}
-                        aria-disabled={this.disabled}
+                        aria-disabled={this.disabled || this.readonly}
                         data-step={this.step}
                     >
                         <div class="mdc-slider__track-container">
