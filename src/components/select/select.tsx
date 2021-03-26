@@ -40,10 +40,20 @@ import { SelectTemplate } from './select.template';
 })
 export class Select {
     /**
-     * Disables the input field when `true`.
+     * Disables the select when `true`. Works exactly the same as
+     * `readonly`. If either property is `true`, the select will be
+     * disabled.
      */
     @Prop({ reflect: true })
     public disabled = false;
+
+    /**
+     * Disables the select when `true`. Works exactly the same as
+     * `disabled`. If either property is `true`, the select will be
+     * disabled.
+     */
+    @Prop({ reflect: true })
+    public readonly = false;
 
     /**
      * Set to `true` to indicate that the current value of the select is
@@ -176,7 +186,7 @@ export class Select {
         return (
             <SelectTemplate
                 id={this.portalId}
-                disabled={this.disabled}
+                disabled={this.disabled || this.readonly}
                 required={this.required}
                 invalid={this.invalid}
                 label={this.label}
