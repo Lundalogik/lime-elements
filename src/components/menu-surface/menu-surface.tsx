@@ -38,6 +38,13 @@ export class MenuSurface {
     public allowClicksElement: HTMLElement;
 
     /**
+     * True if the propagation of the click event,
+     * when clicking outside the menu, should be stopped.
+     */
+    @Prop()
+    public stopPropagation = true;
+
+    /**
      * Emitted when the menu surface is dismissed and should be closed
      */
     @Event()
@@ -52,6 +59,7 @@ export class MenuSurface {
         this.handleDocumentClick = this.handleDocumentClick.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleResize = this.handleResize.bind(this);
+        this.stopEvent = this.stopEvent.bind(this);
     }
 
     public connectedCallback() {
@@ -174,8 +182,10 @@ export class MenuSurface {
     }
 
     private stopEvent(event) {
-        event.stopPropagation();
-        event.preventDefault();
+        if (this.stopPropagation) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
     }
 
     private handleKeyDown(event: KeyboardEvent) {

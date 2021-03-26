@@ -60,6 +60,7 @@ import { portalContains } from '../portal/contains';
  *
  * @slot - Content to put inside the surface
  * @exampleComponent limel-example-popover
+ * @exampleComponent limel-example-popover-click-issue
  * @private
  */
 @Component({
@@ -73,6 +74,13 @@ export class Popover {
      */
     @Prop()
     public open = false;
+
+    /**
+     * True if the propagation of the click event,
+     * when clicking outside the popover, should be stopped.
+     */
+    @Prop()
+    public stopPropagation = true;
 
     /**
      * Emits an event when the component is closing
@@ -129,7 +137,10 @@ export class Popover {
         const element: HTMLElement = event.target as HTMLElement;
         const clickedInside = portalContains(this.host, element);
         if (this.open && !clickedInside) {
-            event.stopPropagation();
+            if (this.stopPropagation) {
+                event.stopPropagation();
+            }
+
             this.close.emit();
         }
     }

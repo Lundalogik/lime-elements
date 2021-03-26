@@ -51,6 +51,13 @@ export class Menu {
     public open = false;
 
     /**
+     * True if the propagation of the click event,
+     * when clicking outside the menu, should be stopped.
+     */
+    @Prop()
+    public stopPropagation = true;
+
+    /**
      * Defines whether the menu should show badges.
      */
     @Prop({ reflect: true })
@@ -107,6 +114,7 @@ export class Menu {
                     <limel-menu-surface
                         open={this.open}
                         onDismiss={this.onClose}
+                        stopPropagation={this.stopPropagation}
                     >
                         <limel-list
                             items={this.items}
@@ -140,7 +148,10 @@ export class Menu {
     };
 
     private onTriggerClick = (event: MouseEvent) => {
-        event.stopPropagation();
+        if (this.stopPropagation) {
+            event.stopPropagation();
+        }
+
         if (this.disabled) {
             return;
         }
