@@ -23,6 +23,7 @@ export class PopoverClickIssueExample {
         this.openPopoverTwo = this.openPopoverTwo.bind(this);
         this.onPopoverTwoClose = this.onPopoverTwoClose.bind(this);
         this.openMenu = this.openMenu.bind(this);
+        this.toggleStopPropagation = this.toggleStopPropagation.bind(this);
     }
 
     public render() {
@@ -46,9 +47,7 @@ export class PopoverClickIssueExample {
                 popover/menu and open another one.
             </p>,
             <limel-checkbox
-                onChange={(ev: CustomEvent<boolean>) =>
-                    (this.stopPropagation = !ev.detail)
-                }
+                onChange={this.toggleStopPropagation}
                 checked={!this.stopPropagation}
                 label="Stop clickjacking"
             />,
@@ -97,6 +96,10 @@ export class PopoverClickIssueExample {
                 </limel-menu>
             </limel-flex-container>,
         ];
+    }
+
+    private toggleStopPropagation(ev: CustomEvent<boolean>) {
+        this.stopPropagation = !ev.detail;
     }
 
     private openPopoverOne() {
