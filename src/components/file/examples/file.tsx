@@ -14,7 +14,7 @@ export class FileExample {
 
     constructor() {
         this.handleChange = this.handleChange.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
+        this.handleRequiredChange = this.handleRequiredChange.bind(this);
     }
 
     public render() {
@@ -27,9 +27,9 @@ export class FileExample {
             />,
             <limel-flex-container justify="end">
                 <limel-switch
-                    label="Toggle required"
+                    label="Required"
                     value={this.required}
-                    onChange={this.toggleRequired}
+                    onChange={this.handleRequiredChange}
                 />
             </limel-flex-container>,
         ];
@@ -40,7 +40,7 @@ export class FileExample {
         console.log('onChange', this.value);
     }
 
-    private toggleRequired() {
-        this.required = !this.required;
+    private handleRequiredChange(event: CustomEvent<boolean>) {
+        this.required = !!event.detail;
     }
 }
