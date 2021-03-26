@@ -27,10 +27,20 @@ export class Switch {
     public label: string;
 
     /**
-     * Set to `true` to disable the switch
+     * Disables the switch when `true`. Works exactly the same as
+     * `disabled`. If either property is `true`, the switch will be
+     * disabled.
      */
     @Prop({ reflect: true })
     public disabled = false;
+
+    /**
+     * Disables the switch when `true`. Works exactly the same as
+     * `disabled`. If either property is `true`, the switch will be
+     * disabled.
+     */
+    @Prop({ reflect: true })
+    public readonly = false;
 
     /**
      * The value of the switch
@@ -76,10 +86,10 @@ export class Switch {
     public render() {
         return [
             <div
-                class={`
-                    mdc-switch
-                    ${this.disabled ? 'mdc-switch--disabled' : ''}
-                `}
+                class={{
+                    'mdc-switch': true,
+                    'mdc-switch--disabled': this.disabled || this.readonly,
+                }}
             >
                 <div class="mdc-switch__track" />
                 <div class="mdc-switch__thumb-underlay">
@@ -90,14 +100,14 @@ export class Switch {
                             id={this.fieldId}
                             role="switch"
                             onChange={this.onChange}
-                            disabled={this.disabled}
+                            disabled={this.disabled || this.readonly}
                             checked={this.value}
                         />
                     </div>
                 </div>
             </div>,
             <label
-                class={`${this.disabled ? 'disabled' : ''}`}
+                class={`${this.disabled || this.readonly ? 'disabled' : ''}`}
                 htmlFor={this.fieldId}
             >
                 <span class="label">{this.label}</span>
