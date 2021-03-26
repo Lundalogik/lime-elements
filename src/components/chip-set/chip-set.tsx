@@ -64,8 +64,10 @@ export class ChipSet {
     public disabled: boolean = false;
 
     /**
-     * For chip-sets of type `input`. Set to `true` to disable adding and removing chips,
-     * but allow interaction with existing chips in the set.
+     * For chip-sets of type `input`, set to `true` to disable adding and
+     * removing chips, but allow interaction with existing chips in the set.
+     * For any other types, setting either `readonly` or `disabled` disables
+     * the chip-set.
      */
     @Prop({ reflect: true })
     public readonly: boolean = false;
@@ -253,7 +255,7 @@ export class ChipSet {
 
         const classes = {
             'mdc-chip-set': true,
-            disabled: this.disabled,
+            disabled: this.disabled || this.readonly,
             'mdc-text-field--with-trailing-icon': true,
         };
         if (this.type) {
