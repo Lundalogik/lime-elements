@@ -40,14 +40,19 @@ export class InputField extends React.Component {
     private handleChange(event: CustomEvent<string>) {
         event.stopPropagation();
         const props = this.props;
+        const type = getInputType(props.schema);
 
         if (!props.onChange) {
             return;
         }
 
-        let value;
-        if (event.detail !== '') {
+        let value: string;
+        if (event.detail || typeof event.detail === 'number') {
             value = event.detail;
+        } else if (type === 'number') {
+            value = null;
+        } else {
+            value = '';
         }
 
         props.onChange(value);
