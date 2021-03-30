@@ -111,11 +111,18 @@ export class Popover {
 
     public render() {
         const cssProperties = this.getCssProperties();
+        const popoverZIndex = getComputedStyle(this.host).getPropertyValue(
+            '--popover-z-index'
+        );
 
         return (
             <div class="trigger-anchor">
                 <slot name="trigger"></slot>
-                <limel-portal visible={this.open} containerId={this.portalId}>
+                <limel-portal
+                    visible={this.open}
+                    containerId={this.portalId}
+                    containerStyle={{ 'z-index': popoverZIndex }}
+                >
                     <limel-popover-surface
                         contentCollection={this.host.children}
                         style={cssProperties}

@@ -360,6 +360,10 @@ export class DatePicker {
     }
 
     private onInputClick(event) {
+        if (this.disabled) {
+            return;
+        }
+
         if (this.showPortal) {
             return;
         }

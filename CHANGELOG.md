@@ -1,3 +1,17 @@
+# [30.22.0](https://github.com/Lundalogik/lime-elements/compare/v30.21.1...v30.22.0) (2021-03-30)
+
+
+### Features
+
+* **popover:** add consumer-overridable css property `--popover-z-index` ([c3f6738](https://github.com/Lundalogik/lime-elements/commit/c3f673836d315119033d6bf3856aca62c85ecd84)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+
+## [30.21.1](https://github.com/Lundalogik/lime-elements/compare/v30.21.0...v30.21.1) (2021-03-30)
+
+
+### Bug Fixes
+
+* **date-picker:** ensure picker respects the `disabled` property ([e5bda7c](https://github.com/Lundalogik/lime-elements/commit/e5bda7c9e0c65f9c42359f83fa85d42ba768f38a))
+
 # [30.21.0](https://github.com/Lundalogik/lime-elements/compare/v30.20.0...v30.21.0) (2021-03-25)
 
 
