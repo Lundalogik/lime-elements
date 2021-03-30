@@ -54,10 +54,20 @@ interface LinkProperties {
 })
 export class InputField {
     /**
-     * Disables the input field when `true`.
+     * Disables the input field when `true`. Works exactly the same as
+     * `readonly`. If either property is `true`, the input field will be
+     * disabled.
      */
     @Prop({ reflect: true })
     public disabled = false;
+
+    /**
+     * Disables the input field when `true`. Works exactly the same as
+     * `disabled`. If either property is `true`, the input field will be
+     * disabled.
+     */
+    @Prop({ reflect: true })
+    public readonly = false;
 
     /**
      * Set to `true` to indicate that the current value of the input field is
@@ -279,7 +289,7 @@ export class InputField {
         properties.onFocus = this.onFocus;
         properties.onBlur = this.onBlur;
         properties.required = this.required;
-        properties.disabled = this.disabled;
+        properties.disabled = this.disabled || this.readonly;
 
         const labelClassList = {
             'mdc-floating-label': true,
@@ -325,7 +335,7 @@ export class InputField {
         const classList = {
             'mdc-text-field': true,
             'mdc-text-field--invalid': this.isInvalid(),
-            'mdc-text-field--disabled': this.disabled,
+            'mdc-text-field--disabled': this.disabled || this.readonly,
             'mdc-text-field--required': this.required,
             'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
         };
@@ -531,7 +541,7 @@ export class InputField {
             <a
                 {...linkProps}
                 class="mdc-text-field__icon trailing-icon"
-                tabindex={this.disabled ? '-1' : '0'}
+                tabindex={this.disabled || this.readonly ? '-1' : '0'}
                 role="button"
             >
                 <limel-icon name={icon} />

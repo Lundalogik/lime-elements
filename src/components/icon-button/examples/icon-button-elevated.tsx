@@ -1,43 +1,23 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 /**
  * Elevated
+ *
+ * An alternative button style, which helps communicate that this is a button
+ * which can be clicked.
  */
 @Component({
     tag: 'limel-example-icon-button-elevated',
     shadow: true,
 })
 export class IconButtonElevatedExample {
-    @State()
-    private disabled = false;
-
-    constructor() {
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-    }
-
     public render() {
-        return [
+        return (
             <limel-icon-button
                 label="Add favourite"
                 icon="heart_outlined"
                 elevated={true}
-                disabled={this.disabled}
-                onClick={this.onClick}
-            />,
-            <limel-flex-container justify="end">
-                <limel-button
-                    onClick={this.toggleEnabled}
-                    label={this.disabled ? 'Enable' : 'Disable'}
-                />
-            </limel-flex-container>,
-        ];
-    }
-
-    private onClick() {
-        console.log('Button clicked.');
-    }
-
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
+            />
+        );
     }
 }

@@ -1,3 +1,50 @@
+# [30.23.0](https://github.com/Lundalogik/lime-elements/compare/v30.22.0...v30.23.0) (2021-03-30)
+
+
+### Bug Fixes
+
+* **file:** don't trigger file selection dialog if component is disabled or readonly ([13c7c95](https://github.com/Lundalogik/lime-elements/commit/13c7c951723901468a370ba0b77eab8fa9fa19f1))
+
+
+### Features
+
+* **checkbox:** add `readonly` property alongside `disabled` ([5aad97c](https://github.com/Lundalogik/lime-elements/commit/5aad97c967ece09a54617abe5881508b28a2d767)), closes [#1195](https://github.com/Lundalogik/lime-elements/issues/1195)
+* **chip-set:** make `readonly` "alias" `disabled` for types other than `input` ([ca6842d](https://github.com/Lundalogik/lime-elements/commit/ca6842d065745409fc4c586a91b3942d0a951c95)), closes [#1195](https://github.com/Lundalogik/lime-elements/issues/1195)
+* **date-picker:** add `readonly` property alongside `disabled` ([fbdccd4](https://github.com/Lundalogik/lime-elements/commit/fbdccd475d7260bd45ae2ea39031ad5abcea691b)), closes [#1195](https://github.com/Lundalogik/lime-elements/issues/1195)
+* **file:** add `readonly` property that still allows interaction with existing file ([59c626b](https://github.com/Lundalogik/lime-elements/commit/59c626b62d34edd35be4f5f5f4f223efd33e14ee)), closes [#1195](https://github.com/Lundalogik/lime-elements/issues/1195)
+* **input-field:** add `readonly` property alongside `disabled` ([bd0dfa1](https://github.com/Lundalogik/lime-elements/commit/bd0dfa11f750ae7fc2d5676ba42c4fdec469c0f6)), closes [#1195](https://github.com/Lundalogik/lime-elements/issues/1195)
+* **select:** add `readonly` property alongside `disabled` ([c8acda0](https://github.com/Lundalogik/lime-elements/commit/c8acda051fda379fd5af80fa9293e436dc4b245e)), closes [#1195](https://github.com/Lundalogik/lime-elements/issues/1195)
+* **slider:** add `readonly` property alongside `disabled` ([af59fc5](https://github.com/Lundalogik/lime-elements/commit/af59fc5f5a34d16016abecd7eee0d03f79369d2d)), closes [#1195](https://github.com/Lundalogik/lime-elements/issues/1195)
+* **switch:** add `readonly` property alongside `disabled` ([f904703](https://github.com/Lundalogik/lime-elements/commit/f904703860ec191858e7f986142fc4ce0e3fd14f)), closes [#1195](https://github.com/Lundalogik/lime-elements/issues/1195)
+
+# [30.22.0](https://github.com/Lundalogik/lime-elements/compare/v30.21.1...v30.22.0) (2021-03-30)
+
+
+### Features
+
+* **popover:** add consumer-overridable css property `--popover-z-index` ([c3f6738](https://github.com/Lundalogik/lime-elements/commit/c3f673836d315119033d6bf3856aca62c85ecd84)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+
+## [30.21.1](https://github.com/Lundalogik/lime-elements/compare/v30.21.0...v30.21.1) (2021-03-30)
+
+
+### Bug Fixes
+
+* **date-picker:** ensure picker respects the `disabled` property ([e5bda7c](https://github.com/Lundalogik/lime-elements/commit/e5bda7c9e0c65f9c42359f83fa85d42ba768f38a))
+
+# [30.21.0](https://github.com/Lundalogik/lime-elements/compare/v30.20.0...v30.21.0) (2021-03-25)
+
+
+### Features
+
+* **picker:** add leading icon to picker ([316361b](https://github.com/Lundalogik/lime-elements/commit/316361b89b8cee5738b8d0e12c9bf47c305b4a57))
+
+# [30.20.0](https://github.com/Lundalogik/lime-elements/compare/v30.19.5...v30.20.0) (2021-03-25)
+
+
+### Features
+
+* **datepicker:** add consumer-overridable css property `--dropdown-z-index` ([be0c2d6](https://github.com/Lundalogik/lime-elements/commit/be0c2d608b3d27e9c5c39ce5a9e2c34dae7b6f54)), closes [#1020](https://github.com/Lundalogik/lime-elements/issues/1020) [#1107](https://github.com/Lundalogik/lime-elements/issues/1107)
+
 ## [30.19.5](https://github.com/Lundalogik/lime-elements/compare/v30.19.4...v30.19.5) (2021-03-22)
 
 

@@ -22,10 +22,18 @@ import { CheckboxTemplate } from './checkbox.template';
 })
 export class Checkbox {
     /**
-     * Disables the input field when `true`.
+     * Disables the checkbox when `true`. Works exactly the same as `readonly`.
+     * If either property is `true`, the checkbox will be disabled.
      */
     @Prop({ reflect: true })
     public disabled = false;
+
+    /**
+     * Disables the checkbox when `true`. Works exactly the same as `disabled`.
+     * If either property is `true`, the checkbox will be disabled.
+     */
+    @Prop({ reflect: true })
+    public readonly = false;
 
     /**
      * The checkbox label.
@@ -96,7 +104,7 @@ export class Checkbox {
     public render() {
         return (
             <CheckboxTemplate
-                disabled={this.disabled}
+                disabled={this.disabled || this.readonly}
                 label={this.label}
                 checked={this.checked}
                 required={this.required}

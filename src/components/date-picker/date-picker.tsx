@@ -3,6 +3,7 @@ import {
     h,
     Prop,
     State,
+    Element,
     EventEmitter,
     Event,
     Watch,
@@ -54,10 +55,20 @@ const nativeFormatForType = {
 })
 export class DatePicker {
     /**
-     * Disables the date picker when `true`.
+     * Disables the date picker when `true`. Works exactly the same as
+     * `readonly`. If either property is `true`, the date picker will be
+     * disabled.
      */
     @Prop()
     public disabled = false;
+
+    /**
+     * Disables the date picker when `true`. Works exactly the same as
+     * `disabled`. If either property is `true`, the date picker will be
+     * disabled.
+     */
+    @Prop()
+    public readonly = false;
 
     /**
      * Set to `true` to indicate that the current value of the date picker is
@@ -114,6 +125,9 @@ export class DatePicker {
      */
     @Event()
     private change: EventEmitter<Date>;
+
+    @Element()
+    private host: HTMLLimelDatePickerElement;
 
     @State()
     private formattedValue: string;
@@ -172,7 +186,7 @@ export class DatePicker {
             return (
                 <div class="container">
                     <limel-input-field
-                        disabled={this.disabled}
+                        disabled={this.disabled || this.readonly}
                         invalid={this.invalid}
                         label={this.label}
                         helperText={this.helperText}
@@ -185,10 +199,14 @@ export class DatePicker {
             );
         }
 
+        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
+            '--dropdown-z-index'
+        );
+
         return (
             <div class="container">
                 <limel-input-field
-                    disabled={this.disabled}
+                    disabled={this.disabled || this.readonly}
                     invalid={this.invalid}
                     label={this.label}
                     helperText={this.helperText}
@@ -204,6 +222,7 @@ export class DatePicker {
                 <limel-portal
                     containerId={this.portalId}
                     visible={this.showPortal}
+                    containerStyle={{ 'z-index': dropdownZIndex }}
                 >
                     <limel-flatpickr-adapter
                         format={this.internalFormat}
@@ -341,6 +360,10 @@ export class DatePicker {
     }
 
     private onInputClick(event) {
+        if (this.disabled) {
+            return;
+        }
+
         if (this.showPortal) {
             return;
         }

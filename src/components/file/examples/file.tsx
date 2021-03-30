@@ -12,9 +12,17 @@ export class FileExample {
     @State()
     private required = false;
 
+    @State()
+    private disabled = false;
+
+    @State()
+    private readonly = false;
+
     constructor() {
         this.handleChange = this.handleChange.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
+        this.handleRequiredChange = this.handleRequiredChange.bind(this);
+        this.handleDisabledChange = this.handleDisabledChange.bind(this);
+        this.handleReadonlyChange = this.handleReadonlyChange.bind(this);
     }
 
     public render() {
@@ -24,12 +32,24 @@ export class FileExample {
                 onChange={this.handleChange}
                 required={this.required}
                 value={this.value}
+                disabled={this.disabled}
+                readonly={this.readonly}
             />,
             <limel-flex-container justify="end">
                 <limel-switch
-                    label="Toggle required"
+                    label="Required"
                     value={this.required}
-                    onChange={this.toggleRequired}
+                    onChange={this.handleRequiredChange}
+                />
+                <limel-switch
+                    label="Disabled"
+                    value={this.disabled}
+                    onChange={this.handleDisabledChange}
+                />
+                <limel-switch
+                    label="Readonly"
+                    value={this.readonly}
+                    onChange={this.handleReadonlyChange}
                 />
             </limel-flex-container>,
         ];
@@ -40,7 +60,15 @@ export class FileExample {
         console.log('onChange', this.value);
     }
 
-    private toggleRequired() {
-        this.required = !this.required;
+    private handleRequiredChange(event: CustomEvent<boolean>) {
+        this.required = !!event.detail;
+    }
+
+    private handleDisabledChange(event: CustomEvent<boolean>) {
+        this.disabled = !!event.detail;
+    }
+
+    private handleReadonlyChange(event: CustomEvent<boolean>) {
+        this.readonly = !!event.detail;
     }
 }
