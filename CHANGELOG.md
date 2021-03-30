@@ -1,3 +1,10 @@
+## [30.23.1](https://github.com/Lundalogik/lime-elements/compare/v30.23.0...v30.23.1) (2021-03-30)
+
+
+### Bug Fixes
+
+* allow snackbar message to be changed ([edfb4eb](https://github.com/Lundalogik/lime-elements/commit/edfb4eb5af506532a33096297e8b987decc80aa0))
+
 # [30.23.0](https://github.com/Lundalogik/lime-elements/compare/v30.22.0...v30.23.0) (2021-03-30)
 
 
