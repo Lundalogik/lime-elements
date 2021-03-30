@@ -1,3 +1,10 @@
+## [30.21.1](https://github.com/Lundalogik/lime-elements/compare/v30.21.0...v30.21.1) (2021-03-30)
+
+
+### Bug Fixes
+
+* **date-picker:** ensure picker respects the `disabled` property ([e5bda7c](https://github.com/Lundalogik/lime-elements/commit/e5bda7c9e0c65f9c42359f83fa85d42ba768f38a))
+
 # [30.21.0](https://github.com/Lundalogik/lime-elements/compare/v30.20.0...v30.21.0) (2021-03-25)
 
 
