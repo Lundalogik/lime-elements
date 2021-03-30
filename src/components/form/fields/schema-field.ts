@@ -213,7 +213,7 @@ export class SchemaField extends React.Component<FieldProps> {
             ...factoryProps,
             value: this.getValue(),
             required: this.isRequired(),
-            readonly: readonly,
+            readonly: readonly || schema.readOnly,
             disabled: disabled,
             invalid: this.isInvalid(),
             label: this.getLabel(),
