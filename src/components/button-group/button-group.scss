@@ -21,12 +21,12 @@
             display: block;
 
             height: pxToRem(16);
-            width: 2px;
+            width: pxToRem(2);
             border-radius: pxToRem(4);
-            background-color: #e8e8ea;
+            background-color: rgb(var(--contrast-600));
 
             position: absolute;
-            right: pxToRem(-5);
+            right: pxToRem(-3);
             top: 0;
             bottom: 0;
             margin: auto;
@@ -35,6 +35,7 @@
 
     label {
         cursor: pointer;
+        transition: color 0.2s ease;
     }
 
     input[type='radio'] {
@@ -101,7 +102,7 @@
 
     &.mdc-chip--selected {
         .mdc-chip-set--choice & {
-            color: #303042;
+            color: rgb(var(--contrast-1300));
         }
     }
 }
@@ -122,7 +123,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .mdc-chip-set {
     align-items: center;
     border-radius: pxToRem(60);
-    background-color: #f1f1f3;
+    background-color: rgb(var(--contrast-400));
     padding: 0;
 
     width: max-content;
