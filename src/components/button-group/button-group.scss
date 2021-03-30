@@ -37,20 +37,42 @@
         cursor: pointer;
     }
 
-    span[role='gridcell'] {
-        &:focus-within {
-            outline: none;
-            color: var(--mdc-theme-primary);
-        }
-    }
     input[type='radio'] {
         width: 0;
         position: absolute;
         opacity: 0; // This removes some visual defects on iOS and Firefox, created by "user agent styles"
+
+        &:focus-visible {
+            + label {
+                &:after {
+                    // visualizes keyboard navigation
+                    // only when non-pointer input is being used,
+                    // e.g. tabbed into using keyboard
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    border-radius: pxToRem(60);
+                    box-shadow: var(--shadow-depth-8-focused);
+                    z-index: $limel-button-group-radio-button-keyboard-focused--z-index;
+                }
+            }
+        }
     }
 
     span[role='gridcell'] {
         min-width: 0; // This is needed to force mdc-chip__text (which is inside this span) to truncate
+
+        &:focus-within {
+            // Cannot use `:focus-visible` here, since it is the radio button
+            // which gets focused, which is inside this element…
+            // and we are removing or hiding the visual appearance of the button
+            outline: none;
+            color: var(--mdc-theme-primary);
+        }
 
         &:only-child {
             .mdc-chip__text {
