@@ -1,3 +1,10 @@
+# [30.24.0](https://github.com/Lundalogik/lime-elements/compare/v30.23.1...v30.24.0) (2021-03-31)
+
+
+### Features
+
+* **chip-set:** make clear all chips button's label translatable ([ddeed2c](https://github.com/Lundalogik/lime-elements/commit/ddeed2c9171effd10941b65194c46338a29d7f47))
+
 ## [30.23.1](https://github.com/Lundalogik/lime-elements/compare/v30.23.0...v30.23.1) (2021-03-30)
 
 
