@@ -1,3 +1,11 @@
+## [30.24.2](https://github.com/Lundalogik/lime-elements/compare/v30.24.1...v30.24.2) (2021-03-31)
+
+
+### Bug Fixes
+
+* **button-group:** fine-tune visual details and use our color variables ([61d04af](https://github.com/Lundalogik/lime-elements/commit/61d04af50cd191a169f30fe78e8ba908a2752a00))
+* **button-group:** visualize when buttons are focused using keyboard ([78fa9f7](https://github.com/Lundalogik/lime-elements/commit/78fa9f71cdf71c4356781e2f75c9bd2d5cd141b7))
+
 ## [30.24.1](https://github.com/Lundalogik/lime-elements/compare/v30.24.0...v30.24.1) (2021-03-31)
 
 
