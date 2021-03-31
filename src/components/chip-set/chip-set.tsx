@@ -1,4 +1,4 @@
-import { Chip } from '@limetech/lime-elements';
+import { Chip, Languages } from '@limetech/lime-elements';
 import {
     MDCChipInteractionEvent,
     MDCChipSelectionEvent,
@@ -17,6 +17,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { handleKeyboardEvent } from './chip-set-input-helpers';
+import translate from '../../global/translations';
 
 const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
 
@@ -64,8 +65,10 @@ export class ChipSet {
     public disabled: boolean = false;
 
     /**
-     * For chip-sets of type `input`. Set to `true` to disable adding and removing chips,
-     * but allow interaction with existing chips in the set.
+     * For chip-sets of type `input`, set to `true` to disable adding and
+     * removing chips, but allow interaction with existing chips in the set.
+     * For any other types, setting either `readonly` or `disabled` disables
+     * the chip-set.
      */
     @Prop({ reflect: true })
     public readonly: boolean = false;
@@ -107,6 +110,13 @@ export class ChipSet {
      */
     @Prop({ reflect: true })
     public delimiter: string = null;
+
+    /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components. For example, the clear all chips label.
+     */
+    @Prop()
+    public language: Languages = 'en';
 
     /**
      * Dispatched when a chip is interacted with
@@ -156,7 +166,7 @@ export class ChipSet {
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
-    private clearAllLabel = 'Clear chips';
+    private clearAllChipsLabel: string;
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
@@ -216,6 +226,13 @@ export class ChipSet {
         this.syncEmptyInput();
     }
 
+    public componentWillLoad() {
+        this.clearAllChipsLabel = translate.get(
+            'chip-set.clear-all',
+            this.language
+        );
+    }
+
     public componentDidLoad() {
         if (this.type === 'input') {
             this.mdcTextField = new MDCTextField(
@@ -253,7 +270,7 @@ export class ChipSet {
 
         const classes = {
             'mdc-chip-set': true,
-            disabled: this.disabled,
+            disabled: this.disabled || this.readonly,
             'mdc-text-field--with-trailing-icon': true,
         };
         if (this.type) {
@@ -662,8 +679,8 @@ export class ChipSet {
                 class="mdc-text-field__icon clear-all-button"
                 tabindex="0"
                 role="button"
-                title={this.clearAllLabel}
-                aria-label={this.clearAllLabel}
+                title={this.clearAllChipsLabel}
+                aria-label={this.clearAllChipsLabel}
             />
         );
     }

@@ -6,12 +6,14 @@ const SNACKBAR_TIMEOUT = 5000;
     tag: 'limel-example-snackbar',
     shadow: true,
 })
-export class PickerExample {
+export class SnackbarExample {
     @Element()
     private host: HTMLLimelExampleSnackbarElement;
 
     @State()
     private dismissible = false;
+
+    private snackbarWithChangingMessage: HTMLLimelSnackbarElement;
 
     private triggerSnackbarWithoutAction: (event: MouseEvent) => void;
     private triggerSnackbarWithAction: (event: MouseEvent) => void;
@@ -24,6 +26,9 @@ export class PickerExample {
         this.triggerSnackbarWithAction = this.triggerSnackbar.bind(
             this,
             'limel-snackbar:last-child'
+        );
+        this.triggerSnackbarWithChangingMessage = this.triggerSnackbarWithChangingMessage.bind(
+            this
         );
         this.onChange = this.onChange.bind(this);
     }
@@ -49,11 +54,25 @@ export class PickerExample {
                 label="Show snackbar with action"
                 onClick={this.triggerSnackbarWithAction}
             />,
+            <br />,
+            <br />,
+            <limel-button
+                primary={true}
+                label="Show snackbar with changing message"
+                onClick={this.triggerSnackbarWithChangingMessage}
+            />,
             <limel-snackbar
                 message="Please do not leave your luggage unattended! It might be taken away!"
                 timeout={SNACKBAR_TIMEOUT}
                 dismissible={this.dismissible}
                 onHide={this.snackbarWithoutActionOnHide}
+            />,
+            <limel-snackbar
+                timeout={4000}
+                dismissible={this.dismissible}
+                ref={(el) =>
+                    (this.snackbarWithChangingMessage = el as HTMLLimelSnackbarElement)
+                }
             />,
             <limel-snackbar
                 message="Your luggage has been taken away!"
@@ -70,6 +89,20 @@ export class PickerExample {
             selector
         );
         snackbar.show();
+    }
+
+    private triggerSnackbarWithChangingMessage() {
+        const trigger = (message, timeoutMs) => {
+            setTimeout(() => {
+                this.snackbarWithChangingMessage.message = message;
+                this.snackbarWithChangingMessage.show();
+            }, timeoutMs);
+        };
+
+        trigger('Your luggage will be taken away in 15 seconds', 0);
+        trigger('Your luggage will be taken away in 10 seconds', 5000);
+        trigger('Your luggage will be taken away in 5 seconds', 10000);
+        trigger('Your luggage has been taken away!', 15000);
     }
 
     private snackbarWithoutActionOnHide() {

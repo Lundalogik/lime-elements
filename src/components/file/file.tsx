@@ -82,6 +82,13 @@ export class File {
     public disabled: boolean = false;
 
     /**
+     * Set to `true` to disable adding and removing files, but allow interaction
+     * with any already existing file.
+     */
+    @Prop({ reflect: true })
+    public readonly: boolean = false;
+
+    /**
      * The [accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers)
      */
     @Prop({ reflect: true })
@@ -153,9 +160,11 @@ export class File {
                 onChange={this.handleFileChange}
                 type="file"
                 accept={this.accept}
+                disabled={this.disabled || this.readonly}
             />,
             <limel-chip-set
                 disabled={this.disabled}
+                readonly={this.readonly}
                 label={this.label}
                 leadingIcon="upload_to_cloud"
                 onChange={this.handleChipSetChange}
