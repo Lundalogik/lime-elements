@@ -38,8 +38,9 @@ export class InputField extends React.Component {
     }
 
     private handleChange(event: CustomEvent<string>) {
-        const props = this.props;
         event.stopPropagation();
+        const props = this.props;
+
         if (!props.onChange) {
             return;
         }
