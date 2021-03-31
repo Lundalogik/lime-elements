@@ -38,6 +38,26 @@ $height-of-chip-set-input: pxToRem(36);
                 padding-left: pxToRem(12);
             }
         }
+
+        span[role='button'],
+        span[role='checkbox'] {
+            &:focus-visible {
+                &:after {
+                    // visualizes keyboard navigation on Chrome & Firefox
+                    // only when non-pointer input is being used,
+                    // e.g. tabbed into using keyboard
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    border-radius: pxToRem(60);
+                    box-shadow: var(--shadow-depth-8-focused);
+                }
+            }
+        }
     }
 
     &:hover {
