@@ -1,3 +1,10 @@
+## [30.24.1](https://github.com/Lundalogik/lime-elements/compare/v30.24.0...v30.24.1) (2021-03-31)
+
+
+### Bug Fixes
+
+* **form:** custom form components can be set to readonly in schema ([2367143](https://github.com/Lundalogik/lime-elements/commit/23671433323b79a9dc249abdf7775cffee8646dd))
+
 # [30.24.0](https://github.com/Lundalogik/lime-elements/compare/v30.23.1...v30.24.0) (2021-03-31)
 
 
