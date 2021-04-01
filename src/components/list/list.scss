@@ -186,3 +186,15 @@ $list-border-radius: 0.375rem; // 6px
         }
     }
 }
+
+:not(.mdc-list--non-interactive) {
+    > {
+        :not(.mdc-list-item--disabled).mdc-list-item {
+            &:focus-visible {
+                box-shadow: var(--shadow-depth-8-focused);
+                border-radius: $list-border-radius;
+                z-index: $limel-list--has-interactive-items--mdc-list-item--hover--z-index;
+            }
+        }
+    }
+}
