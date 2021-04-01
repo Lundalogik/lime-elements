@@ -187,13 +187,36 @@ $list-border-radius: 0.375rem; // 6px
     }
 }
 
+@keyframes fade-out-focus-style {
+    0% {
+        opacity: 0.12; // What Material Design sets
+    }
+    100% {
+        opacity: 0; // What we like it to become, a moment after it gets focused
+    }
+}
+
 :not(.mdc-list--non-interactive) {
     > {
         :not(.mdc-list-item--disabled).mdc-list-item {
+            &.mdc-ripple-upgraded--background-focused::before,
+            &:not(.mdc-ripple-upgraded):focus::before {
+                animation: fade-out-focus-style 1s ease forwards;
+            }
             &:focus-visible {
                 box-shadow: var(--shadow-depth-8-focused);
                 border-radius: $list-border-radius;
                 z-index: $limel-list--has-interactive-items--mdc-list-item--hover--z-index;
+
+                &:before {
+                    animation-duration: 0s !important;
+                }
+            }
+
+            &:before {
+                transition: opacity, background-color;
+                transition-duration: 0.2s;
+                transition-timing-function: ease;
             }
         }
     }
