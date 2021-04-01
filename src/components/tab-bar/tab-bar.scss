@@ -35,6 +35,15 @@ $tab-scroller-fade-width: 65;
     }
 }
 
+.mdc-tab--active {
+    .mdc-ripple-upgraded--background-focused {
+        &:before {
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+    }
+}
+
 .mdc-tab__ripple {
     box-sizing: border-box;
     border-radius: $tab-border-radius;
@@ -47,7 +56,7 @@ $tab-scroller-fade-width: 65;
 
     &:before,
     &:after {
-        transition: background-color 0.2s ease;
+        transition: background-color 0.5s ease;
     }
 }
 
