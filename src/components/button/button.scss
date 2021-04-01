@@ -37,7 +37,8 @@ button {
     }
 
     .mdc-button__icon.no-label {
-        margin: 0;
+        margin-right: pxToRem(-4);
+        margin-left: pxToRem(-4);
     }
 
     limel-icon {
