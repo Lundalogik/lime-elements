@@ -1,13 +1,12 @@
-@import '@limetech/mdc-elevation/mixins';
 @import '../../style/internal/mdc-variables';
 @import '../../style/mixins';
 
 .lime-banner {
     min-height: $lime-banner-height;
-    @include mdc-elevation(1);
     display: none;
     background-color: rgba(var(--contrast-100), 0.7);
     backdrop-filter: blur(pxToRem(5));
+    box-shadow: var(--shadow-depth-16);
 
     &.lime-banner--open {
         display: block;
