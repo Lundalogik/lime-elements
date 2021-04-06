@@ -1,3 +1,10 @@
+## [31.0.1](https://github.com/Lundalogik/lime-elements/compare/v31.0.0...v31.0.1) (2021-04-06)
+
+
+### Bug Fixes
+
+* **button:** render it a perfect square when there is only an icon ([6ce9a6e](https://github.com/Lundalogik/lime-elements/commit/6ce9a6e365ee2eb615f03b21fc36f3e4714a775e))
+
 # [31.0.0](https://github.com/Lundalogik/lime-elements/compare/v30.24.2...v31.0.0) (2021-04-01)
 
 
