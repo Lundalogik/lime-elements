@@ -24,6 +24,36 @@ button {
         height: 100%;
         min-height: pxToRem(36);
         width: 100%;
+
+        &:not(:disabled) {
+            color: var(--mdc-theme-primary, rgb(var(--color-teal-default)));
+            background-color: rgb(var(--contrast-100));
+
+            &.mdc-button--raised,
+            &.mdc-button--unelevated {
+                // Primary
+                color: var(--mdc-theme-on-primary, rgb(var(--color-white)));
+                background-color: var(
+                    --mdc-theme-primary,
+                    rgb(var(--color-teal-default))
+                );
+            }
+        }
+
+        &:disabled {
+            color: rgba(var(--contrast-1600), 0.37);
+            background-color: rgba(var(--contrast-1600), 0.1);
+
+            &.mdc-button--raised,
+            &.mdc-button--unelevated {
+                // Primary
+                background-color: rgba(var(--contrast-1700), 0.15);
+            }
+
+            &.mdc-button--outlined {
+                border-color: rgba(var(--contrast-1700), 0.2);
+            }
+        }
     }
 
     .label {
