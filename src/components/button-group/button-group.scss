@@ -89,7 +89,7 @@
     }
 
     &:hover {
-        background-color: $mdc-chip-background-color;
+        background-color: rgb(var(--contrast-100));
     }
 
     &.mdc-chip--selected {
