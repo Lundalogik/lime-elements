@@ -3,18 +3,12 @@
 @import '@limetech/mdc-theme/mdc-theme';
 @import '../../../../node_modules/flatpickr/dist/flatpickr.min.css';
 
-$inactiveTextColor: var(
-    --mdc-theme-text-disabled-on-background,
-    #{$mdc-theme-text-disabled-on-background}
-);
+$inactiveTextColor: var(--mdc-theme-text-disabled-on-background);
 
-$datepickerHeaderColor: var(--lime-primary-color, #{$mdc-theme-primary});
+$datepickerHeaderColor: var(--mdc-theme-primary);
 $datepickerSelectedColor: $datepickerHeaderColor;
 $datepickerHoverHighlightColor: $datepickerHeaderColor;
-$datepickerTextOnThemeColor: var(
-    --lime-on-primary-color,
-    #{$mdc-theme-on-primary}
-);
+$datepickerTextOnThemeColor: var(--mdc-theme-on-primary);
 
 .container {
     display: inline-block;
