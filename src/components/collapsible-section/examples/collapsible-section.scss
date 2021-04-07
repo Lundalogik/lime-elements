@@ -1,6 +1,7 @@
 :host(limel-example-collapsible-section-css-props) {
-    --closed-header-background-color: rgba(0, 0, 0, 0.05);
-    --open-header-background-color: rgba(0, 0, 0, 0.1);
-    --body-background-color: rgba(0, 0, 0, 0.05);
-    --body-padding: 0 1rem 1rem 1rem;
+    --closed-header-background-color: rgba(var(--contrast-1700), 0.05);
+    --open-header-background-color: rgba(var(--contrast-1700), 0.1);
+    --body-background-color: rgba(var(--contrast-1700), 0.05);
+    --body-padding: 1rem;
+    --header-stroke-color: rgb(var(--color-sky-default));
 }
