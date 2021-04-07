@@ -18,7 +18,7 @@
     width: 100%;
     border-radius: pxToRem(16);
     height: pxToRem(2);
-    background-color: var(--header-stroke-color, #8c8c96);
+    background-color: var(--header-stroke-color, rgb(var(--contrast-900)));
 
     &:first-of-type,
     &:last-of-type {
