@@ -17,7 +17,7 @@
         &.mdc-checkbox--invalid {
             .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate)
                 ~ .mdc-checkbox__background {
-                border-color: $mdc-theme-error;
+                border-color: var(--lime-error-text-color);
             }
         }
     }
@@ -35,7 +35,7 @@
         }
 
         &.mdc-checkbox--invalid {
-            color: $mdc-theme-error;
+            color: var(--lime-error-text-color);
         }
     }
 }
