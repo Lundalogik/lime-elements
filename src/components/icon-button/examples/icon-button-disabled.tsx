@@ -4,7 +4,7 @@ import { Component, h } from '@stencil/core';
  * Disabled
  */
 @Component({
-    tag: 'limel-example-icon-button',
+    tag: 'limel-example-icon-button-disabled',
     shadow: true,
 })
 export class IconButtonDisabledExample {
