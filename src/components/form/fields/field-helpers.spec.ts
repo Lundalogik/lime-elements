@@ -1,4 +1,5 @@
-import { resetDependentFields } from './field-helpers';
+/* eslint-disable camelcase */
+import { isCustomObjectSchema, resetDependentFields } from './field-helpers';
 
 describe('resetDependentFields()', () => {
     const schema = {
@@ -182,6 +183,84 @@ describe('resetDependentFields()', () => {
         ).toEqual({
             type: 'String',
             value: 'cheese',
+        });
+    });
+});
+
+describe('isCustomObjectSchema', () => {
+    let schema;
+    describe('when additionalProperties is not true', () => {
+        it('returns false', () => {
+            schema = {
+                type: 'object',
+            };
+            expect(isCustomObjectSchema(schema)).toBe(false);
+        });
+
+        it('returns false', () => {
+            schema = {
+                type: 'object',
+                additionalProperties: false,
+            };
+            expect(isCustomObjectSchema(schema)).toBe(false);
+        });
+    });
+
+    describe('when additionalProperties is true', () => {
+        it('returns true when no properties are set', () => {
+            schema = {
+                type: 'object',
+                additionalProperties: true,
+            };
+            expect(isCustomObjectSchema(schema)).toBe(true);
+        });
+
+        it('returns true when no properties are set', () => {
+            schema = {
+                type: 'object',
+                additionalProperties: true,
+                properties: {},
+            };
+            expect(isCustomObjectSchema(schema)).toBe(true);
+        });
+
+        describe('when schema has properties', () => {
+            it('returns false', () => {
+                schema = {
+                    type: 'object',
+                    additionalProperties: true,
+                    properties: {
+                        foo: {
+                            type: 'string',
+                        },
+                        bar: {
+                            type: 'string',
+                            __additional_property: true,
+                        },
+                    },
+                };
+                expect(isCustomObjectSchema(schema)).toBe(false);
+            });
+        });
+
+        describe('when all schema properties have __additional_property flag', () => {
+            it('returns true', () => {
+                schema = {
+                    type: 'object',
+                    additionalProperties: true,
+                    properties: {
+                        foo: {
+                            type: 'string',
+                            __additional_property: true,
+                        },
+                        bar: {
+                            type: 'string',
+                            __additional_property: true,
+                        },
+                    },
+                };
+                expect(isCustomObjectSchema(schema)).toBe(true);
+            });
         });
     });
 });

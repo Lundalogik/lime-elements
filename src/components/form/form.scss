@@ -122,3 +122,13 @@
         ); //This is because we have to align these items to top and make sure they align correctly even in one-columned layouts
     }
 }
+
+.form-error {
+    color: var(--mdc-theme-error, #b00020);
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    visibility: inherit;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 0.25rem;
+}
