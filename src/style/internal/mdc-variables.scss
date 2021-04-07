@@ -38,15 +38,21 @@ $mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
 // $mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
 
 :host {
-    --mdc-theme-primary: var(--lime-primary-color, #{$mdc-theme-primary});
-    --mdc-theme-secondary: var(--lime-secondary-color, #{$mdc-theme-secondary});
+    --mdc-theme-primary: var(
+        --lime-primary-color,
+        rgb(var(--color-teal-default))
+    );
+    --mdc-theme-secondary: var(
+        --lime-secondary-color,
+        rgb(var(--contrast-1100))
+    );
     --mdc-theme-on-primary: var(
         --lime-on-primary-color,
-        #{$mdc-theme-on-primary}
+        rgb(var(--contrast-100))
     );
     --mdc-theme-on-secondary: var(
         --lime-on-secondary-color,
-        #{$mdc-theme-on-secondary}
+        rgb(var(--contrast-100))
     );
     --mdc-theme-text-disabled-on-background: var(
         --lime-text-disabled-on-background-color,
