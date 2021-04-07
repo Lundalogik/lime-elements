@@ -132,5 +132,11 @@ export const schema = {
             default: false,
             const: true,
         },
+        params: {
+            type: 'object',
+            title: 'Parameters',
+            description: 'Additional data to send',
+            additionalProperties: true,
+        },
     },
 };

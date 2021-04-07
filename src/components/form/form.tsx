@@ -19,6 +19,7 @@ import {
 } from './templates';
 import { SchemaField as CustomSchemaField } from './fields/schema-field';
 import { ArrayField as CustomArrayField } from './fields/array-field';
+import { ObjectField as CustomObjectField } from './fields/object-field';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
 import Ajv from 'ajv';
@@ -154,6 +155,7 @@ export class Form {
                     fields: {
                         SchemaField: CustomSchemaField as any,
                         ArrayField: CustomArrayField as any,
+                        ObjectField: CustomObjectField as any,
                     },
                 },
                 []

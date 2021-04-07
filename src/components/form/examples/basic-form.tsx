@@ -15,6 +15,11 @@ export class FormExample {
     @State()
     private formData: object = {
         date: '1922-12-28',
+        params: {
+            secretHideout: 'Cave',
+            hidden: true,
+            entryCode: [1, 1, 2, 3, 5, 8],
+        },
     };
 
     @State()
