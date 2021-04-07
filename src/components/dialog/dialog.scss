@@ -18,6 +18,10 @@ slot[name='header'] {
     display: none;
 }
 
+:host {
+    --dialog-background-color: rgb(var(--contrast-100));
+}
+
 .mdc-dialog {
     @include mdc-dialog-max-width(1000rem, $mdc-dialog-margin);
 
@@ -42,6 +46,8 @@ slot[name='header'] {
     .mdc-dialog__surface {
         width: var(--dialog-width, auto);
         height: var(--dialog-height, auto);
+        background-color: var(--dialog-background-color);
+        box-shadow: var(--shadow-depth-64);
     }
 
     .mdc-dialog__title {
@@ -52,7 +58,7 @@ slot[name='header'] {
         font-style: normal;
         color: var(
             --dialog-heading-title-color,
-            #{$mdc-theme-text-primary-on-background}
+            var(--mdc-theme-text-primary-on-background)
         );
         &:before {
             height: 1rem; // Kia: Not sure what `:before` is used for, but it's default MD height is 2.5rem, which makes the header very tall.
@@ -91,7 +97,7 @@ slot[name='header'] {
             margin: 0;
             color: var(
                 --dialog-heading-title-color,
-                #{$mdc-theme-text-primary-on-background}
+                var(--mdc-theme-text-primary-on-background)
             );
         }
 
@@ -99,7 +105,7 @@ slot[name='header'] {
             margin: 0;
             color: var(
                 --dialog-heading-subtitle-color,
-                #{$mdc-theme-text-secondary-on-background}
+                var(--mdc-theme-text-secondary-on-background)
             );
         }
 
@@ -107,18 +113,16 @@ slot[name='header'] {
             margin: 0;
             color: var(
                 --dialog-heading-supporting-text-color,
-                #{$mdc-theme-text-secondary-on-background}
+                var(--mdc-theme-text-secondary-on-background)
             );
         }
     }
 }
 
 .scrollbox {
-    // variables to make it easier to support different background colors in the future:
-    --dialog-background-color: rgba(255, 255, 255, 1);
-    --dialog-background-color-transparent: rgba(255, 255, 255, 0);
-    --dialog-scroll-shadow-color: rgba(0, 0, 0, 0.2);
-    --dialog-scroll-shadow-color-transparent: rgba(0, 0, 0, 0);
+    --dialog-background-color-transparent: rgba(var(--contrast-100), 0);
+    --dialog-scroll-shadow-color: rgba(var(--color-black), 0.2);
+    --dialog-scroll-shadow-color-transparent: rgba(var(--color-black), 0);
 
     // Credit to the ever fantastic Lea Verou!
     // http://lea.verou.me/2012/04/background-attachment-local/
