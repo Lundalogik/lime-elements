@@ -3,6 +3,7 @@
 @import './internal/mdc-variables';
 
 $visualise-focused-state: 0 0 0 #{pxToRem(2)} var(--mdc-theme-primary);
+$visualise-error-state: 0 0 0 #{pxToRem(2)} rgb(var(--color-red-default));
 
 :root {
     // Good for buttons and clickables such as select dropdowns, or slider grabbers
@@ -31,6 +32,11 @@ $visualise-focused-state: 0 0 0 #{pxToRem(2)} var(--mdc-theme-primary);
             rgba(0, 0, 0, 0.132),
         0 #{pxToRem(0.6)} #{pxToRem(1.8)} 0 rgba(0, 0, 0, 0.108),
         #{$visualise-focused-state};
+    // Same as above, but when element is indicating error or warning
+    --shadow-depth-8-error: 0 #{pxToRem(3.2)} #{pxToRem(7.2)} 0
+            rgba(0, 0, 0, 0.132),
+        0 #{pxToRem(0.6)} #{pxToRem(1.8)} 0 rgba(0, 0, 0, 0.108),
+        #{$visualise-error-state};
     // Same as above, but light source is below the element, good for bottom bars, etc...
     --shadow-depth-8-reversed: 0 #{pxToRem(-3.2)} #{pxToRem(7.2)} 0
             rgba(0, 0, 0, 0.132),
