@@ -4,6 +4,7 @@
 /**
  * @prop --closed-header-background-color: background color for header when closed
  * @prop --open-header-background-color: background color for header when open
+ * @prop --header-stroke-color: color of the animated icons that visulize collapsed or normal states of the headers, as well as the divider line on headers
  * @prop --body-background-color: background color for body
  * @prop --body-padding: space around content of the body
  */
@@ -33,19 +34,31 @@
     padding-right: pxToRem(10);
     height: pxToRem(60);
 
-    background-color: var(--closed-header-background-color, #fafafb);
+    background-color: var(
+        --closed-header-background-color,
+        rgb(var(--contrast-200))
+    );
     border-radius: var(--border-radius-of-header);
 
     section.open & {
-        background-color: var(--open-header-background-color, #ffffff);
+        background-color: var(
+            --open-header-background-color,
+            rgb(var(--contrast-100))
+        );
         border-radius: var(--border-radius-of-header)
             var(--border-radius-of-header) 0 0;
         &:hover {
-            background-color: var(--open-header-background-color, #f6f6f7);
+            background-color: var(
+                --open-header-background-color,
+                rgb(var(--contrast-300))
+            );
         }
     }
     &:hover {
-        background-color: var(--open-header-background-color, #f6f6f7);
+        background-color: var(
+            --open-header-background-color,
+            rgb(var(--contrast-300))
+        );
     }
 }
 
@@ -64,7 +77,7 @@
     flex-grow: 1;
     height: pxToRem(2);
     border-radius: pxToRem(1);
-    background-color: var(--header-stroke-color, #8c8c96);
+    background-color: var(--header-stroke-color, rgb(var(--contrast-900)));
     margin-right: pxToRem(16);
 
     opacity: 0;
@@ -90,7 +103,7 @@
 
 .section__body {
     animation: fade-in-section__body 0.3s ease-in forwards;
-    background-color: var(--body-background-color, #ffffff);
+    background-color: var(--body-background-color, var(--contrast-100));
     padding-left: var(--body-padding, pxToRem(20));
     padding-right: var(--body-padding, pxToRem(20));
     margin-bottom: pxToRem(24);
