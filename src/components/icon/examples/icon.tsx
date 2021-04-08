@@ -9,7 +9,7 @@ export class IconExample {
     public render() {
         return [
             <section class="lime-green">
-                <h3>X-small icons</h3>
+                <h3>X-small</h3>
                 <limel-icon name="citrus" size="x-small" />
                 <limel-icon name="alps" size="x-small" />
                 <limel-icon name="ninja" size="x-small" />
@@ -18,7 +18,7 @@ export class IconExample {
                 <limel-icon name="croissant" size="x-small" />
             </section>,
             <section class="loving-magenta">
-                <h3>Small icons</h3>
+                <h3>Small</h3>
                 <limel-icon name="citrus" size="small" />
                 <limel-icon name="curls_with_dumbbells" size="small" />
                 <limel-icon name="bench_press" size="small" />
@@ -26,8 +26,8 @@ export class IconExample {
                 <limel-icon name="pullups" size="small" />
                 <limel-icon name="pushups" size="small" />
             </section>,
-            <section class="simply-blue">
-                <h3>Medium icons</h3>
+            <section class="simple-blue">
+                <h3>Medium</h3>
                 <limel-icon name="citrus" size="medium" />
                 <limel-icon name="day_of_the_tentacle" size="medium" />
                 <limel-icon name="bad_piggies" size="medium" />
@@ -36,7 +36,7 @@ export class IconExample {
                 <limel-icon name="pokemon" size="medium" />
             </section>,
             <section class="sellable-orange">
-                <h3>Large icons</h3>
+                <h3>Large</h3>
                 <limel-icon name="citrus" size="large" />
                 <limel-icon name="dragon" size="large" />
                 <limel-icon name="caterpillar" size="large" />
@@ -45,7 +45,7 @@ export class IconExample {
                 <limel-icon name="gorilla" size="large" />
             </section>,
             <section class="custom-size">
-                <h3>Custom sized icons</h3>
+                <h3>Custom</h3>
                 <p> Size set in css.</p>
                 <limel-icon name="citrus" />
                 <limel-icon name="strawberry" />

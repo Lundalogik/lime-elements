@@ -2,6 +2,10 @@ import { Component, h } from '@stencil/core';
 
 /**
  * Example with background color
+ *:::note
+ * Note that `badge` is set to `true` to provide more space around the icon,
+ * and make sure the background color is nicely displayed.
+ *:::
  */
 @Component({
     tag: 'limel-example-icon-background',
@@ -15,15 +19,21 @@ export class IconBackgroundExample {
                 badge={true}
                 class="company"
                 name="organization"
-                size="x-small"
+                size="large"
             />,
             <limel-icon
                 badge={true}
                 class="person"
                 name="user_group_man_man"
-                size="small"
+                size="large"
             />,
-            <limel-icon badge={true} class="deal" name="money" size="medium" />,
+            <limel-icon badge={true} class="deal" name="money" size="large" />,
+            <limel-icon
+                badge={true}
+                class="todo"
+                name="todo_list"
+                size="large"
+            />,
             <limel-icon
                 badge={true}
                 class="campaign"
