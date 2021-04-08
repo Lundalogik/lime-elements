@@ -21,13 +21,26 @@ export class ButtonCompositeExample {
         loading: false,
     };
 
+    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+
+    constructor() {
+        this.handleEvent = this.handleEvent.bind(this);
+    }
+
     public render() {
         return [
-            <limel-button {...this.props} />,
+            <limel-button {...this.props} onClick={this.handleEvent} />,
             <limel-flex-container justify="end">
                 {this.renderControls()}
             </limel-flex-container>,
+            <limel-example-event-printer
+                ref={(el) => (this.eventPrinter = el)}
+            />,
         ];
+    }
+
+    private handleEvent(event: Event) {
+        this.eventPrinter.writeEvent(event);
     }
 
     private renderControls() {
