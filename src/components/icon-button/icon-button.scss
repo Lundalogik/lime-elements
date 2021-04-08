@@ -37,6 +37,9 @@
 }
 
 .mdc-icon-button {
+    &:disabled {
+        color: var(--mdc-theme-text-disabled-on-background);
+    }
     &:focus-visible {
         // only when non-pointer input is being used,
         // e.g. tabbed into using keyboard
