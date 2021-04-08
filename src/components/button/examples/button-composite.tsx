@@ -1,11 +1,16 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Composite
+ *
+ * A place to try different combinations of states.
+ */
 @Component({
-    tag: 'limel-example-button',
+    tag: 'limel-example-button-composite',
     shadow: true,
-    styleUrl: 'button.scss',
+    styleUrl: 'button-composite.scss',
 })
-export class ButtonExample {
+export class ButtonCompositeExample {
     @State()
     private props = {
         label: 'My button',

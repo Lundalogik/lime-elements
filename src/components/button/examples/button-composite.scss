@@ -1,7 +1,12 @@
 limel-switch {
+    height: 3rem;
     margin-right: 0.9375rem;
 }
 
 limel-button {
     margin-bottom: 1.25rem;
+}
+
+limel-flex-container {
+    flex-wrap: wrap;
 }
