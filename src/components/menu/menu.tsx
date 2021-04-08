@@ -61,6 +61,10 @@ export class Menu {
 
     /**
      * Defines whether the menu should have a fixed position on the screen.
+     *
+     * @deprecated Fixed position was used to get around a bug in the placement
+     * of the menu. This bug has since been fixed, which makes this attribute
+     * obsolete.
      */
     @Prop()
     public fixed = false;
