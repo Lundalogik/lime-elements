@@ -1,11 +1,11 @@
 @import '../../style/internal/mdc-variables';
 
 /**
- * @prop --icon-background-color: Background color when attribute `badge` is set to `true`.
+ * @prop --icon-background-color: Background color when attribute `badge` is set to `true`. Defaults to `transparent`.
  */
 
 :host {
-    background-color: var(--icon-background-color, rgba(0, 0, 0, 0));
+    background-color: var(--icon-background-color, transparent);
     border-radius: 50%;
     display: inline-block;
     line-height: 0;
