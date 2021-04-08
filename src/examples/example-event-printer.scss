@@ -1,0 +1,23 @@
+@use './example-value';
+@import '../style/functions';
+
+.events-display {
+    max-height: 20rem;
+    overflow: auto;
+}
+
+h5 {
+    margin: 0;
+}
+
+details {
+    font-size: pxToRem(14);
+}
+
+summary {
+    cursor: pointer;
+}
+
+code {
+    font-size: pxToRem(10);
+}
