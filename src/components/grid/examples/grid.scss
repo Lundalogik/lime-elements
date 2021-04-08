@@ -60,35 +60,35 @@ limel-grid {
 // when placing real components into a grid.
 
 my-deep-red-component {
-    background-color: var(--lime-deep-red);
+    background-color: rgb(var(--color-red-darker));
 }
 my-red-component {
-    background-color: var(--lime-red);
+    background-color: rgb(var(--color-red-default));
 }
 my-orange-component {
-    background-color: var(--lime-orange);
+    background-color: rgb(var(--color-orange-default));
 }
 my-yellow-component {
-    background-color: var(--lime-yellow);
+    background-color: rgb(var(--color-yellow-default));
 }
 my-green-component {
-    background-color: var(--lime-green);
+    background-color: rgb(var(--color-green-default));
 }
 my-turquoise-component {
-    background-color: var(--lime-turquoise);
+    background-color: rgb(var(--color-teal-default));
 }
 my-blue-component {
-    background-color: var(--lime-blue);
+    background-color: rgb(var(--color-sky-default));
 }
 my-dark-blue-component {
-    background-color: var(--lime-dark-blue);
+    background-color: rgb(var(--color-blue-darker));
 }
 my-magenta-component {
-    background-color: var(--lime-magenta);
+    background-color: rgb(var(--color-magenta-default));
 }
 my-light-grey-component {
-    background-color: var(--lime-light-grey);
+    background-color: rgb(var(--color-glaucous-light));
 }
 my-dark-grey-component {
-    background-color: var(--lime-dark-grey);
+    background-color: rgb(var(--color-glaucous-darker));
 }
