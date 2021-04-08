@@ -51,8 +51,8 @@ export class FileCustomIconExample {
     private updateIcon() {
         if (this.value?.filename?.substr(-5) === '.crab') {
             this.value.icon = 'crab';
-            this.value.iconColor = 'white';
-            this.value.iconBackgroundColor = 'pink';
+            this.value.iconColor = 'rgb(var(--color-white))';
+            this.value.iconBackgroundColor = 'rgb(var(--color-coral-default))';
         }
     }
 
