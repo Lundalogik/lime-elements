@@ -11,7 +11,7 @@ import { createRandomString } from '../../util/random-string';
 import { OpenDirection } from './menu.types';
 
 /**
- * @slot trigger - Element to use as a trigger for the menu
+ * @slot trigger - Element to use as a trigger for the menu.
  * @exampleComponent limel-example-menu
  */
 @Component({
