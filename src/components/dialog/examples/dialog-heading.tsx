@@ -3,6 +3,8 @@ import { Component, h, State } from '@stencil/core';
 
 /**
  * Dialog with heading
+ *
+ * In this example you can also see how available style properties can be used.
  */
 @Component({
     tag: 'limel-example-dialog-heading',
