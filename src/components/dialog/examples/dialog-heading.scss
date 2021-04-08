@@ -1,41 +1,42 @@
 :host(limel-example-dialog-heading) {
-    --dialog-width: 700px;
-    --dialog-height: 650px;
-    --dialog-heading-supporting-text-color: #b00020;
+    --dialog-width: 40rem;
+    --dialog-heading-supporting-text-color: rgb(var(--color-orange-dark));
 
-    limel-dialog.company {
-        --dialog-heading-icon-color: var(--lime-blue);
-
-        &.badge {
-            --dialog-heading-icon-background-color: var(--lime-blue);
-        }
+    limel-input-field {
+        margin-bottom: 1rem;
     }
 
-    limel-dialog.person {
-        --dialog-heading-icon-color: var(--lime-orange);
+    limel-dialog {
+        &.company {
+            --dialog-heading-icon-color: rgb(var(--color-sky-default));
+            --dialog-heading-icon-background-color: rgb(
+                var(--color-sky-default)
+            );
+        }
+
+        &.person {
+            --dialog-heading-icon-color: rgb(var(--color-orange-default));
+            --dialog-heading-icon-background-color: rgb(
+                var(--color-orange-default)
+            );
+        }
+
+        &.deal {
+            --dialog-heading-icon-color: rgb(var(--color-green-default));
+            --dialog-heading-icon-background-color: rgb(
+                var(--color-green-default)
+            );
+        }
+
+        &.todo {
+            --dialog-heading-icon-color: rgb(var(--color-teal-default));
+            --dialog-heading-icon-background-color: rgb(
+                var(--color-teal-default)
+            );
+        }
 
         &.badge {
-            --dialog-heading-icon-background-color: var(--lime-orange);
+            --dialog-heading-icon-color: rgb(var(--color-white));
         }
-    }
-
-    limel-dialog.deal {
-        --dialog-heading-icon-color: var(--lime-green);
-
-        &.badge {
-            --dialog-heading-icon-background-color: var(--lime-green);
-        }
-    }
-
-    limel-dialog.todo {
-        --dialog-heading-icon-color: var(--lime-turquoise);
-
-        &.badge {
-            --dialog-heading-icon-background-color: var(--lime-turquoise);
-        }
-    }
-
-    limel-dialog.badge {
-        --dialog-heading-icon-color: white;
     }
 }
