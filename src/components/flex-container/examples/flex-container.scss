@@ -17,22 +17,22 @@ limel-flex-container {
         line-height: 0;
 
         &:nth-child(1) {
-            background-color: var(--lime-red);
+            background-color: rgb(var(--color-coral-light));
             padding: 0.78125rem 3.125rem;
         }
         &:nth-child(2) {
-            background-color: var(--lime-orange);
+            background-color: rgb(var(--color-amber-default));
             padding: 3.125rem;
         }
         &:nth-child(3) {
-            background-color: var(--lime-green);
+            background-color: rgb(var(--color-green-light));
         }
         &:nth-child(4) {
-            background-color: var(--lime-blue);
+            background-color: rgb(var(--color-sky-light));
             padding: 1.5625rem 6.25rem;
         }
         &:nth-child(5) {
-            background-color: var(--lime-magenta);
+            background-color: rgb(var(--color-magenta-default));
             padding: 1.5625rem;
         }
     }
