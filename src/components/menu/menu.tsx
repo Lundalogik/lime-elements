@@ -22,6 +22,9 @@ import { OpenDirection } from './menu.types';
 export class Menu {
     /**
      * Is displayed on the default trigger button.
+     *
+     * @deprecated Use with default trigger has been deprecated.
+     * Please supply your own trigger element.
      */
     @Prop({ reflect: true })
     public label = '';
@@ -81,6 +84,15 @@ export class Menu {
 
     constructor() {
         this.portalId = createRandomString();
+    }
+
+    public componentDidLoad() {
+        if (!this.host.querySelector('[slot="trigger"]')) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                'Using limel-menu with the default trigger is deprecated. Please provide your own trigger element.'
+            );
+        }
     }
 
     public render() {
