@@ -1,5 +1,6 @@
 limel-banner {
-    --icon-background-color: rgb(var(--color-red-default));
+    --banner-icon-fill-color: rgb(var(--color-yellow-lighter));
+    --banner-icon-background-color: rgb(var(--color-red-default));
     position: fixed;
     right: 0;
     top: 0;

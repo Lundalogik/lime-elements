@@ -1,6 +1,12 @@
 @import '../../style/internal/mdc-variables';
 @import '../../style/mixins';
 
+/**
+ * @prop --banner-icon-fill-color: Color of the banner icon.
+ * @prop --banner-icon-background-color: Background color of the banner icon.
+ * @prop --icon-background-color: DEPRECATED. Use `--banner-icon-background-color` instead.
+ */
+
 .lime-banner {
     min-height: $lime-banner-height;
     display: none;
@@ -45,10 +51,10 @@
     }
 
     limel-icon {
-        color: rgb(var(--color-white));
+        color: var(--banner-icon-fill-color, rgb(var(--contrast-100)));
         background-color: var(
-            --icon-background-color,
-            rgb(var(--contrast-800))
+            --banner-icon-background-color,
+            var(--icon-background-color, rgb(var(--contrast-800)))
         );
     }
 }
