@@ -1,3 +1,11 @@
+# [31.1.0](https://github.com/Lundalogik/lime-elements/compare/v31.0.2...v31.1.0) (2021-04-09)
+
+
+### Features
+
+* **menu:** deprecate property `fixed` ([7dcf3ea](https://github.com/Lundalogik/lime-elements/commit/7dcf3ea00668458101af4d4b5d61c5f106acf612)), closes [#1201](https://github.com/Lundalogik/lime-elements/issues/1201)
+* **menu:** deprecate use of limel-menu without a consumer provided trigger element ([01f8155](https://github.com/Lundalogik/lime-elements/commit/01f81558f590e8f1d3c75b4a4c317441441a6acf))
+
 ## [31.0.2](https://github.com/Lundalogik/lime-elements/compare/v31.0.1...v31.0.2) (2021-04-09)
 
 
