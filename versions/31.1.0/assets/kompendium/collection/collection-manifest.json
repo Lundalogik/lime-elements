@@ -1,0 +1,44 @@
+{
+  "entries": [
+    "./components/app/app.js",
+    "./components/code/code.js",
+    "./components/code/examples/code.js",
+    "./components/proplist/proplist.js",
+    "./components/component/component.js",
+    "./components/guide/guide.js",
+    "./components/markdown/markdown.js",
+    "./components/markdown/examples/markdown.js",
+    "./components/navigation/navigation.js",
+    "./components/playground/playground.js",
+    "./components/search/search.js",
+    "./components/taglist/taglist.js",
+    "./components/type/type.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "1.15.0",
+    "typescriptVersion": "3.9.5"
+  },
+  "collections": [
+    {
+      "name": "@stencil/router",
+      "tags": [
+        "stencil-async-content",
+        "stencil-route",
+        "stencil-route-link",
+        "stencil-route-switch",
+        "stencil-route-title",
+        "stencil-router",
+        "stencil-router-prompt",
+        "stencil-router-redirect"
+      ]
+    },
+    {
+      "name": "@stencil/state-tunnel",
+      "tags": [
+        "context-consumer"
+      ]
+    }
+  ],
+  "bundles": []
+}
