@@ -46,7 +46,7 @@
         &:focus-visible {
             + label {
                 &:after {
-                    // visualizes keyboard navigation
+                    // visualizes keyboard navigation on Chrome & Firefox
                     // only when non-pointer input is being used,
                     // e.g. tabbed into using keyboard
                     content: '';

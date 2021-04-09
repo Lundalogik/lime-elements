@@ -1,3 +1,11 @@
+## [31.1.2](https://github.com/Lundalogik/lime-elements/compare/v31.1.1...v31.1.2) (2021-04-09)
+
+
+### Bug Fixes
+
+* **chip-set:** visualize focus with keyboard for clear-all-button ([41ff132](https://github.com/Lundalogik/lime-elements/commit/41ff1329862dc83f61d14deaf75e06057390ddcb))
+* **chip-set:** visualize keyboard navigation for chips ([7a263c4](https://github.com/Lundalogik/lime-elements/commit/7a263c43784d7c624a1d4e245fa909a4844e1610))
+
 ## [31.1.1](https://github.com/Lundalogik/lime-elements/compare/v31.1.0...v31.1.1) (2021-04-09)
 
 

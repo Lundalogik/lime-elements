@@ -14,7 +14,17 @@ import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
 
 /**
+ * :::note
+ * Regarding the `close` event: When putting other elements that emit `close`
+ * events inside a dialog, those events must be caught and stopped inside the
+ * dialog. If not, they will bubble to the event handler listening for `close`
+ * events on the dialog, which will close the dialog too.
+ *
+ * See the example _Nested `close` events_.
+ * :::
+ *
  * @exampleComponent limel-example-dialog
+ * @exampleComponent limel-example-dialog-nested-close-events
  * @exampleComponent limel-example-dialog-heading
  * @exampleComponent limel-example-dialog-form
  * @exampleComponent limel-example-dialog-size
