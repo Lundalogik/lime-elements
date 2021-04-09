@@ -48,7 +48,7 @@ export class DatePicker extends React.Component {
         }
 
         if (!event.detail) {
-            props.onChange(undefined);
+            props.onChange(null);
 
             return;
         }

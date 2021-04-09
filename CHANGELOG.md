@@ -1,3 +1,46 @@
+# [31.1.0](https://github.com/Lundalogik/lime-elements/compare/v31.0.2...v31.1.0) (2021-04-09)
+
+
+### Features
+
+* **menu:** deprecate property `fixed` ([7dcf3ea](https://github.com/Lundalogik/lime-elements/commit/7dcf3ea00668458101af4d4b5d61c5f106acf612)), closes [#1201](https://github.com/Lundalogik/lime-elements/issues/1201)
+* **menu:** deprecate use of limel-menu without a consumer provided trigger element ([01f8155](https://github.com/Lundalogik/lime-elements/commit/01f81558f590e8f1d3c75b4a4c317441441a6acf))
+
+## [31.0.2](https://github.com/Lundalogik/lime-elements/compare/v31.0.1...v31.0.2) (2021-04-09)
+
+
+### Bug Fixes
+
+* **picker:** focus chipset when emptying multiple picker as well ([43f25f4](https://github.com/Lundalogik/lime-elements/commit/43f25f42f2449d3a78f07dc6a82358ff5cb85094))
+
+## [31.0.1](https://github.com/Lundalogik/lime-elements/compare/v31.0.0...v31.0.1) (2021-04-06)
+
+
+### Bug Fixes
+
+* **button:** render it a perfect square when there is only an icon ([6ce9a6e](https://github.com/Lundalogik/lime-elements/commit/6ce9a6e365ee2eb615f03b21fc36f3e4714a775e))
+
+# [31.0.0](https://github.com/Lundalogik/lime-elements/compare/v30.24.2...v31.0.0) (2021-04-01)
+
+
+### Bug Fixes
+
+* **form:** datepicker in form emits `null` when input field is empty ([888a2a9](https://github.com/Lundalogik/lime-elements/commit/888a2a95a0fad9555cde5603fd05ac7a37d04a85)), closes [Lundalogik/crm-feature#1960](https://github.com/Lundalogik/crm-feature/issues/1960)
+* **form:** input field in form emits empty string or `null` when input field is empty ([0259623](https://github.com/Lundalogik/lime-elements/commit/02596235f5d22a6a6f6de4784cf3b4c5ab32ac1d)), closes [Lundalogik/crm-feature#1960](https://github.com/Lundalogik/crm-feature/issues/1960)
+
+
+### BREAKING CHANGES
+
+* **form:** The default component for `string` and `number` fields in limel-form
+has been changed to emit a `change` event with the value set to an empty string for
+`string` fields and `null` for `number` fields, instead of the value `undefined` when
+the component value is emptied. While technically breaking, the change is unlikely to be
+breaking in practice.
+* **form:** The default component for `date` fields in limel-form has been changed
+to emit a `change` event with the value `null` instead of the value `undefined` when the
+component value is emptied. While technically breaking, the change is unlikely to be
+breaking in practice.
+
 ## [30.24.2](https://github.com/Lundalogik/lime-elements/compare/v30.24.1...v30.24.2) (2021-03-31)
 
 

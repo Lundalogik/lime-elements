@@ -463,7 +463,7 @@ export class Picker {
             });
         }
 
-        if (!this.multiple && !newValue) {
+        if (!newValue || !newValue.length) {
             this.chipSet?.setFocus(true);
         }
 

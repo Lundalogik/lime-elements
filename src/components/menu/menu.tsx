@@ -11,7 +11,7 @@ import { createRandomString } from '../../util/random-string';
 import { OpenDirection } from './menu.types';
 
 /**
- * @slot trigger - Element to use as a trigger for the menu
+ * @slot trigger - Element to use as a trigger for the menu.
  * @exampleComponent limel-example-menu
  */
 @Component({
@@ -22,6 +22,9 @@ import { OpenDirection } from './menu.types';
 export class Menu {
     /**
      * Is displayed on the default trigger button.
+     *
+     * @deprecated Use with default trigger has been deprecated.
+     * Please supply your own trigger element.
      */
     @Prop({ reflect: true })
     public label = '';
@@ -58,6 +61,10 @@ export class Menu {
 
     /**
      * Defines whether the menu should have a fixed position on the screen.
+     *
+     * @deprecated Fixed position was used to get around a bug in the placement
+     * of the menu. This bug has since been fixed, which makes this attribute
+     * obsolete.
      */
     @Prop()
     public fixed = false;
@@ -81,6 +88,15 @@ export class Menu {
 
     constructor() {
         this.portalId = createRandomString();
+    }
+
+    public componentDidLoad() {
+        if (!this.host.querySelector('[slot="trigger"]')) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                'Using limel-menu with the default trigger is deprecated. Please provide your own trigger element.'
+            );
+        }
     }
 
     public render() {
