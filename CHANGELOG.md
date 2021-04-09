@@ -1,3 +1,10 @@
+## [31.1.1](https://github.com/Lundalogik/lime-elements/compare/v31.1.0...v31.1.1) (2021-04-09)
+
+
+### Bug Fixes
+
+* **tab-bar:** improve visualization of focus state ([06f9bf9](https://github.com/Lundalogik/lime-elements/commit/06f9bf9eaf7f6c9724bd010b9273cd77c1429d80))
+
 # [31.1.0](https://github.com/Lundalogik/lime-elements/compare/v31.0.2...v31.1.0) (2021-04-09)
 
 
