@@ -1,3 +1,10 @@
+## [31.0.2](https://github.com/Lundalogik/lime-elements/compare/v31.0.1...v31.0.2) (2021-04-09)
+
+
+### Bug Fixes
+
+* **picker:** focus chipset when emptying multiple picker as well ([43f25f4](https://github.com/Lundalogik/lime-elements/commit/43f25f42f2449d3a78f07dc6a82358ff5cb85094))
+
 ## [31.0.1](https://github.com/Lundalogik/lime-elements/compare/v31.0.0...v31.0.1) (2021-04-06)
 
 
