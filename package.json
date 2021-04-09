@@ -75,6 +75,7 @@
     "@typescript-eslint/parser": "^4.16.1",
     "commitizen": "^4.2.3",
     "cross-env": "^7.0.3",
+    "dayjs": "^1.10.4",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-jsdoc": "^32.2.0",

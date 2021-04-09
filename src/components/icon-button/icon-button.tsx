@@ -4,6 +4,7 @@ import { IconSize } from '@limetech/lime-elements';
 
 /**
  * @exampleComponent limel-example-icon-button-basic
+ * @exampleComponent limel-example-icon-button-disabled
  * @exampleComponent limel-example-icon-button-elevated
  * @exampleComponent limel-example-icon-button-toggle-state
  * @exampleComponent limel-example-icon-button-composite
