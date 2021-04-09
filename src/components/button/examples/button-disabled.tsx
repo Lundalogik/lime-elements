@@ -4,19 +4,18 @@ import { Component, h } from '@stencil/core';
  * Disabled
  */
 @Component({
-    tag: 'limel-example-icon-button-disabled',
+    tag: 'limel-example-button-disabled',
     shadow: true,
 })
-export class IconButtonDisabledExample {
+export class ButtonDisabledExample {
     public render() {
-        return [
-            <limel-icon-button
-                label="Add favourite"
-                icon="heart_outlined"
+        return (
+            <limel-button
+                label="My Button"
                 disabled={true}
                 onClick={this.onClick}
-            />,
-        ];
+            />
+        );
     }
 
     private onClick() {

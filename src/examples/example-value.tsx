@@ -7,13 +7,13 @@ import { isDate, isObject, isArray, isUndefined } from 'lodash-es';
 })
 export class ExampleValue {
     /**
-     *
+     * A label describing the value.
      */
     @Prop({ reflect: true })
     public label: string = 'Value';
 
     /**
-     *
+     * The value that should be displayed.
      */
     @Prop()
     public value: any;

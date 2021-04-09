@@ -1,11 +1,16 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Composite
+ *
+ * A place to try different combinations of states.
+ */
 @Component({
-    tag: 'limel-example-button',
+    tag: 'limel-example-button-composite',
     shadow: true,
-    styleUrl: 'button.scss',
+    styleUrl: 'button-composite.scss',
 })
-export class ButtonExample {
+export class ButtonCompositeExample {
     @State()
     private props = {
         label: 'My button',
@@ -16,13 +21,26 @@ export class ButtonExample {
         loading: false,
     };
 
+    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+
+    constructor() {
+        this.handleEvent = this.handleEvent.bind(this);
+    }
+
     public render() {
         return [
-            <limel-button {...this.props} />,
+            <limel-button {...this.props} onClick={this.handleEvent} />,
             <limel-flex-container justify="end">
                 {this.renderControls()}
             </limel-flex-container>,
+            <limel-example-event-printer
+                ref={(el) => (this.eventPrinter = el)}
+            />,
         ];
+    }
+
+    private handleEvent(event: Event) {
+        this.eventPrinter.writeEvent(event);
     }
 
     private renderControls() {
