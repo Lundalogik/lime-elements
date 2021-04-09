@@ -1,0 +1,11 @@
+@import '../style/functions';
+
+limel-flex-container {
+    margin-top: pxToRem(20);
+    flex-wrap: wrap;
+}
+
+limel-switch {
+    height: pxToRem(48);
+    margin-right: pxToRem(15);
+}
