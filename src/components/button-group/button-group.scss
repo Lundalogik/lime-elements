@@ -114,12 +114,6 @@
     padding: 0 pxToRem(12) 0 pxToRem(4);
 }
 
-limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
-    background-color: var(--icon-background-color, transparent);
-    margin: 0 !important;
-    color: var(--icon-color, rgba(0, 0, 0, 0.54));
-}
-
 .mdc-chip-set {
     align-items: center;
     border-radius: pxToRem(60);
