@@ -33,7 +33,6 @@ export class LinearProgressExampleColor {
                     value={this.value}
                     style={{
                         '--lime-primary-color': `var(--${this.color.value})`,
-                        '--background-color': 'whitesmoke',
                     }}
                 />
             </p>,
