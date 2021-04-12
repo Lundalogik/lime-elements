@@ -143,6 +143,7 @@ function build() {
         let options = {
             files: ['src/index.html'],
             from: [
+                /href="\/favicon.svg"/g,
                 /<base href="\/">/g,
                 /="\/build/g,
                 /="\/style/g,
@@ -150,6 +151,7 @@ function build() {
                 /\/kompendium.json/g,
             ],
             to: [
+                `href="${BASE_URL}versions/${version}/favicon.svg"`,
                 `<base href="${BASE_URL}versions/${version}/">`,
                 `="${BASE_URL}versions/${version}/build`,
                 `="${BASE_URL}versions/${version}/style`,
