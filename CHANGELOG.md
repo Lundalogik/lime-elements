@@ -1,3 +1,11 @@
+## [31.1.3](https://github.com/Lundalogik/lime-elements/compare/v31.1.2...v31.1.3) (2021-04-12)
+
+
+### Bug Fixes
+
+* **list:** improve visualisation for keyboard focused items ([2b6efe9](https://github.com/Lundalogik/lime-elements/commit/2b6efe986547e0cb95ec63c9b3e45074f597f3b9))
+* **list:** smoothen transitions between focused & unfocused items ([deecc3b](https://github.com/Lundalogik/lime-elements/commit/deecc3b38a694220d249fcb72a6b602be4573a18))
+
 ## [31.1.2](https://github.com/Lundalogik/lime-elements/compare/v31.1.1...v31.1.2) (2021-04-09)
 
 
