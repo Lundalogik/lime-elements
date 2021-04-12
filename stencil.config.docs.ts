@@ -30,6 +30,10 @@ export const config: Config = {
                     src: '../node_modules/kompendium/dist/',
                     dest: 'assets/kompendium/',
                 },
+                {
+                    src: 'favicon.svg',
+                    dest: 'favicon.svg',
+                },
             ],
         },
     ],
