@@ -134,7 +134,7 @@
     &.limel-select--invalid {
         .limel-select-trigger .mdc-floating-label,
         .mdc-select-helper-text {
-            color: $mdc-theme-error;
+            color: var(--lime-error-text-color);
         }
     }
 }
