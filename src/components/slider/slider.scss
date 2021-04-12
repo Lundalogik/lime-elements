@@ -9,8 +9,6 @@
  * @prop --slider-bg-color-behind-component: Color of "transparent" parts of disabled slider. Defaults to #ffffff.
  */
 
-$colorGrey: #999999;
-
 :host {
     --mdc-slider-bg-color-behind-component: var(
         --slider-bg-color-behind-component,
