@@ -5,8 +5,6 @@
  * @prop --dropdown-z-index: z-index of the dropdown menu.
  */
 
-$menu-item-background-color: #ebebeb;
-
 :host {
     display: inline-block;
 }
@@ -20,13 +18,13 @@ $menu-item-background-color: #ebebeb;
     border-width: 1px;
     border-style: solid;
     background: none;
-    color: #afafaf;
+    color: rgb(var(--contrast-800));
     height: pxToRem(36);
 
     &-enabled {
         &:hover {
-            border-color: #afafaf;
-            color: #636363;
+            border-color: rgb(var(--contrast-800));
+            color: rgb(var(--contrast-1100));
         }
     }
 }
