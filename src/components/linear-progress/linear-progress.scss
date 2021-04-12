@@ -11,5 +11,5 @@
 }
 
 .mdc-linear-progress__buffer {
-    background-color: var(--background-color, #e6e6e6);
+    background-color: var(--background-color, rgb(var(--contrast-600)));
 }
