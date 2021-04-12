@@ -7,7 +7,7 @@
             }
             &:not(.active) {
                 &:hover {
-                    background-color: #fff;
+                    background-color: rgb(var(--contrast-100));
                 }
             }
         }

@@ -7,7 +7,8 @@ $table-header-background-color: rgb(var(--contrast-500));
 $table-header-background-color-hover: rgb(var(--contrast-400));
 $table-header-background-color-when-being-dragged: rgb(var(--contrast-100));
 $tabulator-arrow-color: rgb(var(--contrast-800));
-$tabulator-arrow-color-active: var(--lime-turquoise);
+$tabulator-arrow-color-active-raw-value: var(--color-teal-light);
+$tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 
 @import './partial-styles/tabulator-arrow';
 @import './partial-styles/tabulator-paginator';
@@ -85,7 +86,7 @@ $tabulator-arrow-color-active: var(--lime-turquoise);
 
     &.active,
     &.active:hover {
-        background-color: rgba($tabulator-arrow-color-active, 0.16);
+        background-color: rgba($tabulator-arrow-color-active-raw-value, 0.16);
     }
 
     .tabulator-cell {
