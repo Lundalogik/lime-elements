@@ -33,7 +33,7 @@
 
                 &:hover {
                     color: #303042;
-                    background-color: #fafafb;
+                    background-color: rgb(var(--contrast-200));
                 }
 
                 &.active {
