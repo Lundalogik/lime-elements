@@ -10,7 +10,7 @@
 
 .mdc-snackbar__actions {
     .mdc-snackbar__dismiss {
-        color: $mdc-theme-on-secondary;
+        color: var(--mdc-theme-on-secondary);
         width: auto;
         height: auto;
         padding: 0;
