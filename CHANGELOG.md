@@ -1,3 +1,10 @@
+## [31.1.4](https://github.com/Lundalogik/lime-elements/compare/v31.1.3...v31.1.4) (2021-04-14)
+
+
+### Bug Fixes
+
+* **icon-button:** ensure the icon is dead center regardless of the limel-icon-button size ([be5068c](https://github.com/Lundalogik/lime-elements/commit/be5068c43bfdb3b879811955209b213314ab2115))
+
 ## [31.1.3](https://github.com/Lundalogik/lime-elements/compare/v31.1.2...v31.1.3) (2021-04-12)
 
 
