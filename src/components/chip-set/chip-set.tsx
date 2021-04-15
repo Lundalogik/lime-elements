@@ -25,6 +25,7 @@ const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
  * @exampleComponent limel-example-chip-set
  * @exampleComponent limel-example-chip-set-choice
  * @exampleComponent limel-example-chip-set-filter
+ * @exampleComponent limel-example-chip-set-filter-badge
  * @exampleComponent limel-example-chip-set-input
  * @exampleComponent limel-example-chip-icon-color
  */
@@ -577,6 +578,7 @@ export class ChipSet {
                         {chip.text}
                     </span>
                 </span>
+                {this.renderBadge(chip)}
             </div>
         );
     }
@@ -695,5 +697,13 @@ export class ChipSet {
         }
 
         return <div class="delimiter">{this.delimiter}</div>;
+    }
+
+    private renderBadge(chip: Chip) {
+        if (!chip.badge) {
+            return;
+        }
+
+        return <limel-badge label={chip.badge} />;
     }
 }
