@@ -79,6 +79,11 @@ $height-of-chip-set-input: pxToRem(36);
     margin-left: pxToRem(8);
 }
 
+limel-badge {
+    margin-right: pxToRem(4);
+    margin-left: pxToRem(-8);
+}
+
 .mdc-chip__text {
     overflow: hidden;
     text-overflow: ellipsis;

@@ -44,4 +44,9 @@ export interface Chip<T = any> {
      * Value of the chip.
      */
     value?: T;
+
+    /**
+     * The value of the badge. Only valid for `filter`.
+     */
+    badge?: number;
 }
