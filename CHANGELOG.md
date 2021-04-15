@@ -1,3 +1,32 @@
+# [31.2.0](https://github.com/Lundalogik/lime-elements/compare/v31.1.4...v31.2.0) (2021-04-15)
+
+
+### Bug Fixes
+
+* **badge:** replace colors with variables ([016d004](https://github.com/Lundalogik/lime-elements/commit/016d0040de0c4f64489e0957e685e8de1b04e133))
+* **banner:** make it more elevated ([5e43ba9](https://github.com/Lundalogik/lime-elements/commit/5e43ba915d463c0ed58eb20f3f1f6d993bc66195))
+* **banner:** replace colors with variables ([388e08c](https://github.com/Lundalogik/lime-elements/commit/388e08cfbc10e6e5905f155dbeff98e94a0833a6))
+* **button:** replace colors with variables ([2c191da](https://github.com/Lundalogik/lime-elements/commit/2c191da99c15784b23dc05682547e8c14a43a0bb))
+* **button-group:** replace colors with variables ([21e37b0](https://github.com/Lundalogik/lime-elements/commit/21e37b0dc78bc700b515f728409847f0406dc904))
+* **checkbox:** replace colors with variables ([169bed6](https://github.com/Lundalogik/lime-elements/commit/169bed641e63925b23096e5c31a8918779db3f18))
+* **chip-set:** replace colors with variables ([bf2ddc9](https://github.com/Lundalogik/lime-elements/commit/bf2ddc9cb05478d8792ca8fbda8ae7df06561508))
+* **collapsible-section:** replace colors with variables ([d1cc3c1](https://github.com/Lundalogik/lime-elements/commit/d1cc3c1f962751ea27ed8e614799be68f83ac1f2))
+* **date-picker:** replace colors with variables ([aea220d](https://github.com/Lundalogik/lime-elements/commit/aea220de179928b6f1ac9b7baceae925a996dd5e))
+* **dialog:** replace colors with variables ([199d67b](https://github.com/Lundalogik/lime-elements/commit/199d67b54f84a7afc62d28561b177f0d42d9cc17))
+* **file:** replace colors with variables ([3bebd51](https://github.com/Lundalogik/lime-elements/commit/3bebd51171b0117f2e3dc36857323c3f559c120d))
+* **icon-button:** replace colors with variables ([e4154a5](https://github.com/Lundalogik/lime-elements/commit/e4154a5d470f82b55f5c93678a03d43080b0f1d7))
+* **linear-progress:** replace colors with variables ([f84cb0b](https://github.com/Lundalogik/lime-elements/commit/f84cb0b7a65824ae44b5c33c6bf4e039175ac025))
+* **list:** replace colors with variables ([6a3dd4f](https://github.com/Lundalogik/lime-elements/commit/6a3dd4ff336083074fbe54b8aa5c2bb31ec827e8))
+* **menu:** replace colors with variables ([e898753](https://github.com/Lundalogik/lime-elements/commit/e898753066b9fadbb2dec87762089cf8ee86d65a))
+* **select:** replace colors with variables ([9be3618](https://github.com/Lundalogik/lime-elements/commit/9be361881b074d97df029174759d06a9cb51b611))
+* **snackbar:** replace colors with variables ([e75ef2e](https://github.com/Lundalogik/lime-elements/commit/e75ef2ecbc69d40fcbda68ae33eea365cb931e34))
+* **table:** replace colors with variables ([a485123](https://github.com/Lundalogik/lime-elements/commit/a485123c69461a9691f4f03b838b145793ec3449))
+
+
+### Features
+
+* **banner:** make icon fill color customizable & reveal color variables in the docs ([1f08a1f](https://github.com/Lundalogik/lime-elements/commit/1f08a1f4df9b5d94faeb5fad2a4eef6b4d35b018))
+
 ## [31.1.4](https://github.com/Lundalogik/lime-elements/compare/v31.1.3...v31.1.4) (2021-04-14)
 
 
