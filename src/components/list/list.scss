@@ -120,21 +120,25 @@ $list-border-radius: 0.375rem; // 6px
     }
 
     &.mdc-list--two-line {
-        .mdc-list-item__primary-text {
-            margin-top: pxToRem(-12);
-        }
         .mdc-list-item__text {
-            align-self: center;
+            padding: pxToRem(8) 0;
         }
-        &.list--compact {
-            .mdc-list-item {
-                height: 4rem;
+        .mdc-list-item__primary-text {
+            margin-bottom: pxToRem(4);
+        }
+    }
 
-                .mdc-list-item__text {
-                    margin-top: pxToRem(-4);
-                }
-            }
+    .mdc-list-item__secondary-text,
+    .mdc-list-item__primary-text {
+        margin: 0;
+        &:before,
+        &:after {
+            display: none;
         }
+    }
+
+    .mdc-list-item__text {
+        align-self: center;
     }
 
     // Tweaks to display the icon correctly in Edge
