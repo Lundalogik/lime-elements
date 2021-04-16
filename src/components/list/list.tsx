@@ -24,13 +24,6 @@ const { ACTION_EVENT } = listStrings;
 const { SELECTED_EVENT } = menuStrings;
 
 /**
- * #### Custom styles
- *
- * | Class name              | Description                                                                                     |
- * | ----------------------- | ----------------------------------------------------------------------------------------------- |
- * | `has-striped-rows`      | Adds distinct styling by which every other row (list item) gets a darker background.            |
- * | `has-interactive-items` | Adds more affordance by applying an elevated visual effect on list item, when they are hovered. |
- *
  * @exampleComponent limel-example-list
  * @exampleComponent limel-example-list-secondary
  * @exampleComponent limel-example-list-selectable
