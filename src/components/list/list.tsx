@@ -14,6 +14,7 @@ import {
     Event,
     EventEmitter,
     h,
+    Host,
     Prop,
     Watch,
 } from '@stencil/core';
@@ -35,6 +36,7 @@ const { SELECTED_EVENT } = menuStrings;
  * @exampleComponent limel-example-list-radio-button-icons
  * @exampleComponent limel-example-list-action
  * @exampleComponent limel-example-list-striped
+ * @exampleComponent limel-example-list-badge-icons-with-multiple-lines
  */
 @Component({
     tag: 'limel-list',
@@ -69,6 +71,15 @@ export class List {
      */
     @Prop()
     public type: ListType;
+
+    /**
+     * By default, lists will display 3 lines of text, and then truncate the rest.
+     * Consumers can increase or decrease this number by specifying
+     * `maxLinesSecondaryText`. If consumer enters zero or negative
+     * numbers we default to 1; and if they type decimals we round up.
+     */
+    // eslint-disable-next-line no-magic-numbers
+    @Prop() maxLinesSecondaryText: number = 3;
 
     @Element()
     private element: HTMLLimelListElement;
@@ -115,10 +126,23 @@ export class List {
             type: this.type,
             iconSize: this.iconSize,
         };
+        let maxLinesSecondaryText = +this.maxLinesSecondaryText?.toFixed();
+        if (this.maxLinesSecondaryText < 1) {
+            maxLinesSecondaryText = 1;
+        }
+
         const html = this.listRenderer.render(this.items, this.config);
 
         if (this.type !== 'menu') {
-            return html;
+            return (
+                <Host
+                    style={{
+                        '--maxLinesSecondaryText': `${maxLinesSecondaryText}`,
+                    }}
+                >
+                    {html}
+                </Host>
+            );
         }
 
         return <div class="mdc-menu mdc-menu-surface">{html}</div>;
