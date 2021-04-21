@@ -1,3 +1,10 @@
+# [31.4.0](https://github.com/Lundalogik/lime-elements/compare/v31.3.0...v31.4.0) (2021-04-21)
+
+
+### Features
+
+* **chip-set:** add badge to filter chip-set ([c3d938e](https://github.com/Lundalogik/lime-elements/commit/c3d938ede53a438caacbb7426f71d0a3627bb7f9)), closes [Lundalogik/crm-feature#2002](https://github.com/Lundalogik/crm-feature/issues/2002)
+
 # [31.3.0](https://github.com/Lundalogik/lime-elements/compare/v31.2.0...v31.3.0) (2021-04-21)
 
 
