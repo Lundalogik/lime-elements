@@ -1,3 +1,10 @@
+# [31.3.0](https://github.com/Lundalogik/lime-elements/compare/v31.2.0...v31.3.0) (2021-04-21)
+
+
+### Features
+
+* **list:** allow multiple lines of secondaryText & customize their quantity ([56803d5](https://github.com/Lundalogik/lime-elements/commit/56803d5cde3f8df7a225e429dd466e1c851e1c80))
+
 # [31.2.0](https://github.com/Lundalogik/lime-elements/compare/v31.1.4...v31.2.0) (2021-04-15)
 
 
