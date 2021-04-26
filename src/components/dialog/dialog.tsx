@@ -100,6 +100,7 @@ export class Dialog {
 
     public componentWillLoad() {
         this.id = createRandomString();
+        this.showFooter = !!this.host.querySelector('[slot="button"]');
     }
 
     public componentDidLoad() {
@@ -111,8 +112,6 @@ export class Dialog {
         if (!element) {
             return;
         }
-
-        this.showFooter = !!this.host.querySelector('[slot="button"]');
 
         this.mdcDialog = new MDCDialog(element);
         if (this.open) {
