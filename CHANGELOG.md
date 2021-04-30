@@ -1,3 +1,10 @@
+## [31.4.1](https://github.com/Lundalogik/lime-elements/compare/v31.4.0...v31.4.1) (2021-04-30)
+
+
+### Bug Fixes
+
+* **styles:** define css variables once on `:root` instead of on every `:host` ([860acc9](https://github.com/Lundalogik/lime-elements/commit/860acc953cd782dd202d05c6685e11ddc581ee86)), closes [Lundalogik/crm-feature#2056](https://github.com/Lundalogik/crm-feature/issues/2056)
+
 # [31.4.0](https://github.com/Lundalogik/lime-elements/compare/v31.3.0...v31.4.0) (2021-04-21)
 
 
