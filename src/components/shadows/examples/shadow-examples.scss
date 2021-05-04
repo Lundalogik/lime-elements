@@ -1,0 +1,24 @@
+@import '../../../style/functions';
+@import 'button-shadows.scss';
+@import 'surface-shadows.scss';
+@import 'surface-shadows-inflated.scss';
+
+.shadow-example-grid {
+    display: grid;
+    grid-gap: pxToRem(28);
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    padding: pxToRem(20) 0;
+}
+
+.visualization {
+    display: flex;
+    flex-direction: column;
+
+    code {
+        font-size: pxToRem(12);
+        background-color: rgb(var(--contrast-500));
+        padding: 0 pxToRem(4);
+        border-radius: pxToRem(3);
+        margin-top: pxToRem(12);
+    }
+}

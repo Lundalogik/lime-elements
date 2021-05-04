@@ -1,0 +1,42 @@
+.button {
+    box-sizing: border-box;
+
+    display: inline-block;
+    border: none;
+    border-radius: pxToRem(6);
+
+    height: pxToRem(40);
+    line-height: pxToRem(40);
+    padding: 0 pxToRem(16);
+
+    font-size: pxToRem(16);
+    background-color: rgb(var(--contrast-100));
+
+    &:focus {
+        outline: none;
+    }
+
+    &.normal {
+        box-shadow: var(--button-shadow-normal);
+    }
+
+    &.hovered {
+        box-shadow: var(--button-shadow-hovered);
+    }
+
+    &.pressed {
+        box-shadow: var(--button-shadow-pressed);
+    }
+
+    &.inset {
+        box-shadow: var(--button-shadow-inset);
+    }
+
+    &.inset-pressed {
+        box-shadow: var(--button-shadow-inset-pressed);
+    }
+}
+
+.label {
+    color: rgb(var(--contrast-1200));
+}

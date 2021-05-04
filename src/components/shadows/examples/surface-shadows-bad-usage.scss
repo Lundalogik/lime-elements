@@ -1,0 +1,51 @@
+@import '../../../style/functions';
+
+.surface-shadows-bad-usage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: pxToRem(40);
+    padding: pxToRem(20);
+}
+
+.content {
+    padding: pxToRem(8) pxToRem(20);
+}
+
+.do,
+.do-not {
+    --example-border-radius: 0.5rem;
+    --header-background-color: rgb(var(--contrast-500));
+    --header-top-right-left-border-radius: var(--example-border-radius);
+    border-radius: var(--example-border-radius);
+    background-color: rgb(var(--contrast-100));
+}
+
+.box {
+    padding: pxToRem(8) pxToRem(20);
+    border-radius: pxToRem(8);
+}
+
+.do {
+    --header-icon-color: rgb(var(--color-green-default));
+
+    .box {
+        background-color: rgb(var(--contrast-400));
+        margin: pxToRem(32) 0;
+        padding-top: pxToRem(4);
+    }
+}
+
+.do-not {
+    --header-icon-color: rgb(var(--color-red-default));
+    .box {
+        box-shadow: var(--shadow-depth-64);
+    }
+}
+
+limel-icon {
+    color: rgb(var(--color-white));
+    background-color: rgb(var(--color-sky-light));
+    display: inline-block;
+    margin-right: pxToRem(8);
+    transform: translateY(pxToRem(3));
+}
