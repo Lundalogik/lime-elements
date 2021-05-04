@@ -1,0 +1,24 @@
+.shadow-example-grid {
+    &.inflated-examples {
+        background-color: rgb(var(--contrast-600));
+        padding: pxToRem(60);
+        grid-gap: pxToRem(60);
+
+        .surface {
+            border-radius: pxToRem(16);
+            background-color: rgb(var(--contrast-300));
+            height: pxToRem(112);
+            margin-bottom: pxToRem(20);
+        }
+    }
+}
+
+.shadow-inflated-8 {
+    box-shadow: var(--shadow-inflated-8);
+}
+.shadow-inflated-16 {
+    box-shadow: var(--shadow-inflated-16);
+}
+.shadow-inflated-64 {
+    box-shadow: var(--shadow-inflated-64);
+}

@@ -1,0 +1,48 @@
+.shadow-depth-8 {
+    box-shadow: var(--shadow-depth-8);
+}
+
+.shadow-depth-8-focused {
+    box-shadow: var(--shadow-depth-8-focused);
+}
+
+.shadow-depth-8-error {
+    box-shadow: var(--shadow-depth-8-error);
+}
+
+.shadow-depth-8-reversed {
+    box-shadow: var(--shadow-depth-8-reversed);
+}
+
+.shadow-depth-16 {
+    box-shadow: var(--shadow-depth-16);
+}
+
+.shadow-depth-16-focused {
+    box-shadow: var(--shadow-depth-16-focused);
+}
+
+.shadow-depth-64 {
+    box-shadow: var(--shadow-depth-64);
+}
+
+.shadow-depth-64-focused {
+    box-shadow: var(--shadow-depth-64-focused);
+}
+
+.surface {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: pxToRem(3);
+
+    height: pxToRem(80);
+    width: 100%;
+    padding: 0 pxToRem(16);
+
+    font-size: pxToRem(14);
+    background-color: rgb(var(--contrast-100));
+    z-index: 1;
+}
