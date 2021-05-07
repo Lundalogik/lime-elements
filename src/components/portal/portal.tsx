@@ -32,6 +32,8 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  *
  * @slot - Content to put inside the portal
  * @private
+ *
+ * @exampleComponent limel-example-portal
  */
 /* eslint-enable jsdoc/check-indentation */
 @Component({
@@ -86,6 +88,8 @@ export class Portal {
     @Prop()
     public visible = false;
 
+    private parents: WeakMap<HTMLElement, HTMLElement>;
+
     @Watch('visible')
     protected onVisible() {
         if (!this.visible) {
@@ -113,6 +117,10 @@ export class Portal {
     private loaded = false;
 
     private observer: IResizeObserver;
+
+    constructor() {
+        this.parents = new WeakMap();
+    }
 
     public disconnectedCallback() {
         this.removeContainer();
@@ -172,6 +180,7 @@ export class Portal {
         });
 
         content.forEach((element: HTMLElement) => {
+            this.parents.set(element, element.parentElement);
             this.container.appendChild(element);
         });
     }
@@ -184,6 +193,15 @@ export class Portal {
         if (!this.container) {
             return;
         }
+
+        Array.from(this.container.children).forEach((element: HTMLElement) => {
+            const parent = this.parents.get(element);
+            if (!parent) {
+                return;
+            }
+
+            parent.appendChild(element);
+        });
 
         this.hideContainer();
         this.container.parentElement.removeChild(this.container);
