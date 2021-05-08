@@ -1,3 +1,10 @@
+### [31.4.2](https://github.com/Lundalogik/lime-elements/compare/v31.4.1...v31.4.2) (2021-05-08)
+
+
+### Bug Fixes
+
+* **portal:** move portal content back on disconnect ([16d5c7b](https://github.com/Lundalogik/lime-elements/commit/16d5c7bfc29a7f0aa74bd36af14f6799daa9f25f)), closes [Lundalogik/crm-feature#2022](https://github.com/Lundalogik/crm-feature/issues/2022)
+
 ## [31.4.1](https://github.com/Lundalogik/lime-elements/compare/v31.4.0...v31.4.1) (2021-04-30)
 
 
