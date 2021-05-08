@@ -2,20 +2,22 @@
 module.exports = {
     branches: ['main'],
     plugins: [
-        '@semantic-release/commit-analyzer',
-        '@semantic-release/release-notes-generator',
+        [
+            '@semantic-release/commit-analyzer',
+            {
+                preset: 'conventionalcommits',
+            },
+        ],
+        [
+            '@semantic-release/release-notes-generator',
+            {
+                preset: 'conventionalcommits',
+            },
+        ],
         '@semantic-release/changelog',
         '@semantic-release/npm',
         '@semantic-release/git',
         '@semantic-release/github',
-        [
-            '@semantic-release/exec',
-            {
-                publishCmd:
-                    // eslint-disable-next-line no-template-curly-in-string
-                    'npm run docs:publish -- --v=${nextRelease.version} --dryRun=${options.dryRun} --forcePush',
-            },
-        ],
     ],
     npmPublish: true,
 };
