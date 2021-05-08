@@ -1,3 +1,10 @@
+### [31.4.3](https://github.com/Lundalogik/lime-elements/compare/v31.4.2...v31.4.3) (2021-05-08)
+
+
+### Bug Fixes
+
+* **dialog:** query host element before renderFooter is called ([5e91035](https://github.com/Lundalogik/lime-elements/commit/5e910358678ba05db64a77c7756422130c4ae61a))
+
 ### [31.4.2](https://github.com/Lundalogik/lime-elements/compare/v31.4.1...v31.4.2) (2021-05-08)
 
 
