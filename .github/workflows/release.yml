@@ -26,6 +26,7 @@ jobs:
     - run: npm run build
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v2
+      id: semantic # Need an `id` for output variables
       with:
         semantic_version: 17.3.9
         extra_plugins: |
