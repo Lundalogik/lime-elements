@@ -336,12 +336,12 @@ function commit(message) {
 
     if (argv.authorName) {
         shell.echo('setting git config user.name');
-        shell.exec(`git config user.name '${argv.authorName}'`);
+        shell.exec(`git config --local user.name '${argv.authorName}'`);
     }
 
     if (argv.authorEmail) {
         shell.echo('setting git config user.email');
-        shell.exec(`git config user.email '${argv.authorEmail}'`);
+        shell.exec(`git config --local user.email '${argv.authorEmail}'`);
     }
 
     shell.exec('git add -A --ignore-errors');
