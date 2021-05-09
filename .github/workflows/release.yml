@@ -39,7 +39,6 @@ jobs:
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
         CI: true
-    - run: echo "steps.semantic.outputs.new_release_published = ${{ steps.semantic.outputs.new_release_published }}"
     - name: Trigger PR
       if: steps.semantic.outputs.new_release_published == 'true'
       uses: peter-evans/repository-dispatch@v1
