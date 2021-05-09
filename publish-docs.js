@@ -346,12 +346,7 @@ function commit(message) {
 
     shell.exec('git add -A --ignore-errors');
 
-    if (
-        shell.exec(
-            `git commit -m "${message}"`
-            /* `git commit --author "$GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL>" -m "${message}"` */
-        ).code !== 0
-    ) {
+    if (shell.exec(`git commit -m "${message}"`).code !== 0) {
         shell.echo('git commit failed!');
         shell.cd('..');
         teardown();
