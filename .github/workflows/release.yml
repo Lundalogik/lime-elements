@@ -50,4 +50,10 @@ jobs:
         client-payload: '{ "new_release_version": "${{ steps.semantic.outputs.new_release_version }}", "new_release_notes": ${{ toJson(steps.semantic.outputs.new_release_notes) }} }'
     - name: Publish docs for new release
       if: steps.semantic.outputs.new_release_published == 'true'
-      run: npm run docs:publish -- --v=${{ steps.semantic.outputs.new_release_version }} --forcePush --authorName="GitHub Action" --authorEmail="action@github.com"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_USERNAME: lime-ci
+        GH_EMAIL: 617355+lime-ci@users.noreply.github.com
+        GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
+        CI: true
+      run: npm run docs:publish -- --v=${{ steps.semantic.outputs.new_release_version }} --forcePush --authorName="lime-ci" --authorEmail="617355+lime-ci@users.noreply.github.com"
