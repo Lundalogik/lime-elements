@@ -1,9 +1,19 @@
 import { Component, h, State } from '@stencil/core';
 
 /**
- * How to set focus on input fields
+ * Setting focus programmatically
  *
- * The `tabindex` must be set to be able to set focus on the input field.
+ * To set focus programmatically, call `.focus()` on the `limel-input-field`
+ * element. Note that, for this to work, the `tabindex` property must be set
+ * on the `limel-input-field`.
+ *
+ * - `tabindex="0"` means that the element should be focusable in sequential
+ * keyboard navigation, after any positive tabindex values and its order is
+ * defined by the document's source order.
+ * - A _positive value_ means the element should be focusable in sequential
+ * keyboard navigation, with its order defined by the value of the number.
+ *
+ * Read more on [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex).
  */
 @Component({
     tag: 'limel-example-input-field-focus',
