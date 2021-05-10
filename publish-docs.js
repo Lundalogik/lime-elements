@@ -25,7 +25,9 @@ if (argv.h !== undefined) {
     shell.echo(`
 usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev]
                                 [--noSetup] [--noBuild] [--noCommit] [--noPush]
-                                [--noTeardown] [--dryRun] [--noCleanOnFail]]
+                                [--noTeardown] [--dryRun] [--noCleanOnFail]
+                                [--gitUser=<commit author name>]
+                                [--gitEmail=<commit author email>]]
 
     --v             The version number for this release of the documentation.
                     Defaults to '0.0.0-dev'.
@@ -44,6 +46,11 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     --noTeardown    Run no cleanup at end of script. Implies --noCleanOnFail.
     --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown is set,
                     cleanup will still be run if script is successful.
+
+    --authorName    Commit author name. Will update the local git config if set.
+                    Will use existing git config if omitted.
+    --authorEmail   Commit author email address. Will update the local git
+                    config if set. Will use existing git config if omitted.
     `);
 } else if (removeSpecific || pruneDev) {
     let commitMessage;
@@ -324,21 +331,22 @@ function createLatestSymlink(folder) {
 }
 
 function commit(message) {
-    // shell.echo('setting git user info');
-    // shell.exec('git config user.email "$GIT_AUTHOR_EMAIL"');
-    // shell.exec('git config user.name "$GIT_AUTHOR_NAME"');
-
     message = message || `chore(docs): create docs ${version}`;
     shell.cd('docsDist');
 
+    if (argv.authorName) {
+        shell.echo('setting git config user.name');
+        shell.exec(`git config --local user.name '${argv.authorName}'`);
+    }
+
+    if (argv.authorEmail) {
+        shell.echo('setting git config user.email');
+        shell.exec(`git config --local user.email '${argv.authorEmail}'`);
+    }
+
     shell.exec('git add -A --ignore-errors');
 
-    if (
-        shell.exec(
-            `git commit -m "${message}"`
-            /* `git commit --author "$GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL>" -m "${message}"` */
-        ).code !== 0
-    ) {
+    if (shell.exec(`git commit -m "${message}"`).code !== 0) {
         shell.echo('git commit failed!');
         shell.cd('..');
         teardown();

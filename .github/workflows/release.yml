@@ -8,12 +8,6 @@ jobs:
     name: Run Semantic Release
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_USERNAME: lime-ci
-      GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
-      CI: true
     steps:
     - uses: actions/checkout@v2
       with:
@@ -29,4 +23,36 @@ jobs:
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
         npm ci
         rm .npmrc
-    - run: npm run release
+    - run: npm run build
+    - name: Semantic Release
+      uses: cycjimmy/semantic-release-action@v2
+      id: semantic # Need an `id` for output variables
+      with:
+        semantic_version: 17.3.9
+        extra_plugins: |
+          @semantic-release/changelog@5.0.1
+          @semantic-release/git@9.0.0
+          conventional-changelog-conventionalcommits@4.5.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE }}
+        GH_USERNAME: lime-ci
+        GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
+        CI: true
+    - name: Trigger PR
+      if: steps.semantic.outputs.new_release_published == 'true'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.CREATE_RELEASE }}
+        event-type: lime-elements-new-release
+        repository: Lundalogik/lime-webclient
+        client-payload: '{ "new_release_version": "${{ steps.semantic.outputs.new_release_version }}", "new_release_notes": ${{ toJson(steps.semantic.outputs.new_release_notes) }} }'
+    - name: Publish docs for new release
+      if: steps.semantic.outputs.new_release_published == 'true'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_USERNAME: lime-ci
+        GH_EMAIL: 617355+lime-ci@users.noreply.github.com
+        GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
+        CI: true
+      run: npm run docs:publish -- --v=${{ steps.semantic.outputs.new_release_version }} --forcePush --authorName="lime-ci" --authorEmail="617355+lime-ci@users.noreply.github.com"
