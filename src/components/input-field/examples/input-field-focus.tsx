@@ -26,17 +26,13 @@ export class InputFieldFocusExample {
 
     private inputField: HTMLLimelInputFieldElement;
 
-    constructor() {
-        this.setFocus = this.setFocus.bind(this);
-    }
-
     public render() {
         return [
             <limel-input-field
                 label="Set focus on me!"
                 value={this.value}
                 onChange={this.changeHandler}
-                ref={(input) => (this.inputField = input)}
+                ref={this.getInputFieldRef}
                 tabindex="0"
             />,
             <p>
@@ -47,13 +43,17 @@ export class InputFieldFocusExample {
         ];
     }
 
-    private changeHandler(event: CustomEvent<string>) {
-        this.value = event.detail;
-    }
+    private getInputFieldRef = (input: HTMLLimelInputFieldElement) => {
+        return (this.inputField = input);
+    };
 
-    private setFocus(event: MouseEvent) {
+    private changeHandler = (event: CustomEvent<string>) => {
+        this.value = event.detail;
+    };
+
+    private setFocus = (event: MouseEvent) => {
         event.stopPropagation();
         event.preventDefault();
         this.inputField.focus();
-    }
+    };
 }
