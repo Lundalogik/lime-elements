@@ -1,3 +1,10 @@
+## [31.5.0](https://github.com/Lundalogik/lime-elements/compare/v31.4.3...v31.5.0) (2021-05-10)
+
+
+### Features
+
+* **input-field:** make it possible to set focus on input fields ([82aab85](https://github.com/Lundalogik/lime-elements/commit/82aab85516722079dadc5cc9cd0b9f88d40a7bb7)), closes [Lundalogik/crm-feature#2055](https://github.com/Lundalogik/crm-feature/issues/2055)
+
 ### [31.4.3](https://github.com/Lundalogik/lime-elements/compare/v31.4.2...v31.4.3) (2021-05-08)
 
 
