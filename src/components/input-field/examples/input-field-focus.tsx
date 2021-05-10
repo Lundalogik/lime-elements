@@ -12,7 +12,7 @@ import { Component, h, State } from '@stencil/core';
 })
 export class InputFieldFocusExample {
     @State()
-    private value;
+    private value: string;
 
     private inputField: HTMLLimelInputFieldElement;
 
@@ -37,7 +37,7 @@ export class InputFieldFocusExample {
         ];
     }
 
-    private changeHandler(event) {
+    private changeHandler(event: CustomEvent<string>) {
         this.value = event.detail;
     }
 
