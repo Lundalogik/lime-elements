@@ -1,4 +1,25 @@
-:root{--lime-deep-red:#f05750;--lime-red:#ff7043;--lime-orange:#ffb03b;--lime-yellow:#ffcf3d;--lime-green:#66bb6a;--lime-turquoise:#26a69a;--lime-blue:#29b6f6;--lime-dark-blue:#57879f;--lime-magenta:#ff3195;--lime-light-grey:#adadad;--lime-dark-grey:#575756}:host{--mdc-theme-primary:var(
+:host{--mdc-theme-primary:var(
+      --lime-primary-color,
+      rgb(var(--color-teal-default))
+  );--mdc-theme-secondary:var(
+      --lime-secondary-color,
+      rgb(var(--contrast-1100))
+  );--mdc-theme-on-primary:var(
+      --lime-on-primary-color,
+      rgb(var(--contrast-100))
+  );--mdc-theme-on-secondary:var(
+      --lime-on-secondary-color,
+      rgb(var(--contrast-100))
+  );--mdc-theme-text-disabled-on-background:var(
+      --lime-text-disabled-on-background-color,
+      rgba(var(--contrast-1700), 0.38)
+  );--mdc-theme-text-primary-on-background:var(
+      --lime-text-primary-on-background-color,
+      rgba(var(--contrast-1700), 0.87)
+  );--mdc-theme-text-secondary-on-background:var(
+      --lime-text-secondary-on-background-color,
+      rgba(var(--contrast-1700), 0.54)
+  );--lime-error-text-color:rgb(var(--color-red-darker))}:root{--lime-deep-red:#f05750;--lime-red:#ff7043;--lime-orange:#ffb03b;--lime-yellow:#ffcf3d;--lime-green:#66bb6a;--lime-turquoise:#26a69a;--lime-blue:#29b6f6;--lime-dark-blue:#57879f;--lime-magenta:#ff3195;--lime-light-grey:#adadad;--lime-dark-grey:#575756}:host{--mdc-theme-primary:var(
       --lime-primary-color,
       rgb(var(--color-teal-default))
   );--mdc-theme-secondary:var(
@@ -47,25 +68,4 @@
       0 0.3rem 0.9rem 0 rgba(0, 0, 0, 0.18);--shadow-depth-64-focused:0 1.6rem 3.6rem 0
           rgba(0, 0, 0, 0.22),
       0 0.3rem 0.9rem 0 rgba(0, 0, 0, 0.18),
-      0 0 0 0.125rem var(--mdc-theme-primary)}:root{--mdc-theme-primary:var(
-      --lime-primary-color,
-      rgb(var(--color-teal-default))
-  );--mdc-theme-secondary:var(
-      --lime-secondary-color,
-      rgb(var(--contrast-1100))
-  );--mdc-theme-on-primary:var(
-      --lime-on-primary-color,
-      rgb(var(--contrast-100))
-  );--mdc-theme-on-secondary:var(
-      --lime-on-secondary-color,
-      rgb(var(--contrast-100))
-  );--mdc-theme-text-disabled-on-background:var(
-      --lime-text-disabled-on-background-color,
-      rgba(var(--contrast-1700), 0.38)
-  );--mdc-theme-text-primary-on-background:var(
-      --lime-text-primary-on-background-color,
-      rgba(var(--contrast-1700), 0.87)
-  );--mdc-theme-text-secondary-on-background:var(
-      --lime-text-secondary-on-background-color,
-      rgba(var(--contrast-1700), 0.54)
-  );--lime-error-text-color:rgb(var(--color-red-darker))}
+      0 0 0 0.125rem var(--mdc-theme-primary)}
