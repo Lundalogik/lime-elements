@@ -1,3 +1,10 @@
+### [31.5.1](https://github.com/Lundalogik/lime-elements/compare/v31.5.0...v31.5.1) (2021-05-11)
+
+
+### Bug Fixes
+
+* **button:** make it possible to change colors again ([aab8093](https://github.com/Lundalogik/lime-elements/commit/aab809364368fbbfe9d593339b4af589bbde6abb)), closes [Lundalogik/crm-feature#2092](https://github.com/Lundalogik/crm-feature/issues/2092)
+
 ## [31.5.0](https://github.com/Lundalogik/lime-elements/compare/v31.4.3...v31.5.0) (2021-05-10)
 
 
