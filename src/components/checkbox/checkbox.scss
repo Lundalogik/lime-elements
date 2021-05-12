@@ -58,3 +58,24 @@
         }
     }
 }
+
+.mdc-form-field {
+    .mdc-checkbox {
+        &.mdc-ripple-upgraded {
+            .mdc-checkbox__ripple {
+                &:before {
+                    animation: fade-out-focus-style 1s ease forwards;
+                }
+            }
+        }
+    }
+}
+
+@keyframes fade-out-focus-style {
+    0% {
+        opacity: 0.12; // What Material Design sets
+    }
+    100% {
+        opacity: 0; // What we like it to become, a moment after it gets focused
+    }
+}
