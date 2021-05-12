@@ -1,3 +1,10 @@
+### [31.5.2](https://github.com/Lundalogik/lime-elements/compare/v31.5.1...v31.5.2) (2021-05-12)
+
+
+### Bug Fixes
+
+* **list:** prevent flickering of scrollable menus ([c8228d4](https://github.com/Lundalogik/lime-elements/commit/c8228d44d51db6b41b22129c524d0fe1ad0717f3))
+
 ### [31.5.1](https://github.com/Lundalogik/lime-elements/compare/v31.5.0...v31.5.1) (2021-05-11)
 
 
