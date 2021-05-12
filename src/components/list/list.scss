@@ -40,6 +40,8 @@ $list-border-radius: 0.375rem; // 6px
     border-radius: $list-border-radius;
 
     .mdc-list-item {
+        z-index: $limel-list-mdc-list-item--z-index; // in Chrome on Windows, menus flicker when they have a scroll bar and user hovers on them. We may be able to remove this in future versions of Chrome. Kia 2021-May-12
+
         &.mdc-list-item--disabled {
             cursor: not-allowed;
 
