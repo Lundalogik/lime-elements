@@ -48,9 +48,17 @@
             }
         }
     }
+    &.mdc-text-field--invalid {
+        i.mdc-text-field__icon.trailing-icon {
+            limel-icon {
+                color: var(--lime-error-text-color);
+            }
+        }
+    }
 }
 
-:host([type='url']) {
+:host([type='url']),
+:host([type='urlAsText']) {
     .mdc-text-field--with-trailing-icon {
         .trailing-icon {
             limel-icon {
