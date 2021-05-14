@@ -1,3 +1,24 @@
+### [31.5.2](https://github.com/Lundalogik/lime-elements/compare/v31.5.1...v31.5.2) (2021-05-12)
+
+
+### Bug Fixes
+
+* **list:** prevent flickering of scrollable menus ([c8228d4](https://github.com/Lundalogik/lime-elements/commit/c8228d44d51db6b41b22129c524d0fe1ad0717f3))
+
+### [31.5.1](https://github.com/Lundalogik/lime-elements/compare/v31.5.0...v31.5.1) (2021-05-11)
+
+
+### Bug Fixes
+
+* **button:** make it possible to change colors again ([aab8093](https://github.com/Lundalogik/lime-elements/commit/aab809364368fbbfe9d593339b4af589bbde6abb)), closes [Lundalogik/crm-feature#2092](https://github.com/Lundalogik/crm-feature/issues/2092)
+
+## [31.5.0](https://github.com/Lundalogik/lime-elements/compare/v31.4.3...v31.5.0) (2021-05-10)
+
+
+### Features
+
+* **input-field:** make it possible to set focus on input fields ([82aab85](https://github.com/Lundalogik/lime-elements/commit/82aab85516722079dadc5cc9cd0b9f88d40a7bb7)), closes [Lundalogik/crm-feature#2055](https://github.com/Lundalogik/crm-feature/issues/2055)
+
 ### [31.4.3](https://github.com/Lundalogik/lime-elements/compare/v31.4.2...v31.4.3) (2021-05-08)
 
 

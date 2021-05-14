@@ -46,6 +46,7 @@ interface LinkProperties {
  * @exampleComponent limel-example-input-field-textarea
  * @exampleComponent limel-example-input-field-search
  * @exampleComponent limel-example-input-field-pattern
+ * @exampleComponent limel-example-input-field-focus
  */
 @Component({
     tag: 'limel-input-field',
@@ -231,6 +232,7 @@ export class InputField {
         this.changeEmitter = this.changeEmitter.bind(this);
         this.getContainerClassList = this.getContainerClassList.bind(this);
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
+        this.setFocus = this.setFocus.bind(this);
 
         const debounceTimeout = 100;
         this.changeEmitter = debounce(this.changeEmitter, debounceTimeout, {
@@ -265,6 +267,7 @@ export class InputField {
         });
 
         window.addEventListener('resize', this.layout, { passive: true });
+        this.limelInputField.addEventListener('focus', this.setFocus);
     }
 
     public disconnectedCallback() {
@@ -273,6 +276,7 @@ export class InputField {
         }
 
         window.removeEventListener('resize', this.layout);
+        this.limelInputField.removeEventListener('focus', this.setFocus);
     }
 
     public componentDidUpdate() {
@@ -318,6 +322,10 @@ export class InputField {
             this.renderHelperLine(),
             this.renderAutocompleteList(),
         ];
+    }
+
+    private setFocus() {
+        this.mdcTextField.focus();
     }
 
     @Watch('value')
