@@ -1,3 +1,10 @@
+### [31.5.3](https://github.com/Lundalogik/lime-elements/compare/v31.5.2...v31.5.3) (2021-05-14)
+
+
+### Bug Fixes
+
+* **package:** make all dependencies development dependencies only ([1b66e79](https://github.com/Lundalogik/lime-elements/commit/1b66e792ff3aee73f1733896589352e39e11d060))
+
 ### [31.5.2](https://github.com/Lundalogik/lime-elements/compare/v31.5.1...v31.5.2) (2021-05-12)
 
 
