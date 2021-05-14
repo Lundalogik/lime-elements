@@ -1,0 +1,69 @@
+.mdc-text-field {
+    &.lime-text-field--readonly {
+        .mdc-text-field__input {
+            background-color: transparent;
+        }
+
+        .mdc-text-field__input,
+        label.mdc-floating-label {
+            color: $label-color;
+        }
+
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+            border-color: transparent;
+        }
+
+        &.mdc-text-field--invalid {
+            & + .mdc-text-field-helper-line {
+                .mdc-text-field-helper-text--validation-msg {
+                    color: var(--lime-error-text-color);
+                }
+            }
+            .trailing-icon {
+                color: var(--lime-error-text-color);
+            }
+        }
+
+        .mdc-text-field__icon.trailing-icon {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            pointer-events: auto;
+            cursor: pointer;
+            color: $label-color;
+            border-radius: 0.25rem;
+
+            width: calc(100% - 2rem);
+            z-index: 0;
+
+            &:hover {
+                box-shadow: var(--button-shadow-hovered);
+            }
+
+            &:active {
+                box-shadow: var(--button-shadow-pressed);
+            }
+
+            limel-icon {
+                width: 1.5rem;
+            }
+        }
+    }
+}
+
+:host([type='url']),
+:host([type='urlAsText']),
+:host([type='tel']) {
+    .mdc-text-field {
+        &.lime-text-field--readonly {
+            &:hover {
+                .mdc-text-field__input {
+                    color: rgb(var(--color-white));
+                }
+            }
+        }
+    }
+}
