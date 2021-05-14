@@ -16,6 +16,9 @@ export class InputFieldTextExample {
     private disabled = false;
 
     @State()
+    private readonly = false;
+
+    @State()
     private invalid = false;
 
     @State()
@@ -25,6 +28,7 @@ export class InputFieldTextExample {
         this.checkValidity = this.checkValidity.bind(this);
         this.changeHandler = this.changeHandler.bind(this);
         this.toggleEnabled = this.toggleEnabled.bind(this);
+        this.toggleReadonly = this.toggleReadonly.bind(this);
         this.toggleRequired = this.toggleRequired.bind(this);
     }
 
@@ -40,6 +44,7 @@ export class InputFieldTextExample {
                 required={this.required}
                 invalid={this.invalid}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.changeHandler}
             />,
             <p>
@@ -47,6 +52,10 @@ export class InputFieldTextExample {
                     <limel-button
                         onClick={this.toggleEnabled}
                         label={this.disabled ? 'Enable' : 'Disable'}
+                    />
+                    <limel-button
+                        onClick={this.toggleReadonly}
+                        label={this.readonly ? 'Editable' : 'Readonly'}
                     />
                     <limel-button
                         onClick={this.toggleRequired}
@@ -70,6 +79,10 @@ export class InputFieldTextExample {
 
     private toggleEnabled() {
         this.disabled = !this.disabled;
+    }
+
+    private toggleReadonly() {
+        this.readonly = !this.readonly;
     }
 
     private toggleRequired() {
