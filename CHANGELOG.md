@@ -1,3 +1,11 @@
+## [31.6.0](https://github.com/Lundalogik/lime-elements/compare/v31.5.3...v31.6.0) (2021-05-17)
+
+
+### Features
+
+* **code-editor:** add code editor component ([b808fda](https://github.com/Lundalogik/lime-elements/commit/b808fdacf93316ef58cd238ed3f27f638045b2f4))
+* **form:** add support for arbitrary object fields ([066059f](https://github.com/Lundalogik/lime-elements/commit/066059f535fbe75f3129521c797600bdf2480030))
+
 ### [31.5.3](https://github.com/Lundalogik/lime-elements/compare/v31.5.2...v31.5.3) (2021-05-14)
 
 
