@@ -1,0 +1,19 @@
+// Some font size applied to `label--float-above` causes the labels to get cut off
+// when an empty field gets focused
+
+.mdc-text-field--outlined.mdc-notched-outline--upgraded,
+.mdc-text-field--outlined .mdc-notched-outline--upgraded {
+    .mdc-floating-label--float-above {
+        //font-size: 1rem; This is what we get from MD now, which causes the miscalculations
+        font-size: 0.875rem;
+        // of course this is `14px` and the other one is `16px`.
+        // Unfortunately MD scales the floating label down, by applying a
+        // `transform` & `scale(0.75)` which is probably why they had to increase
+        // the font-size, to make it more readable.
+        // This is why I don't like this hack.
+    }
+}
+
+// NOTE: if we ever remove this hack, we must also update a mixin
+// called: `@mixin label--float-above()`
+// located in: style/internal/shared_input-select-picker.scss
