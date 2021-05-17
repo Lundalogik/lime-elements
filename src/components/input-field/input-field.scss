@@ -10,6 +10,7 @@
 
 @import './partial-styles/trailing-icon.scss';
 @import './partial-styles/outlined-style-overrides.scss';
+@import './partial-styles/cropped-label-hack';
 
 /**
  * @prop --textarea-height: Height of the field when type is set to `textarea`

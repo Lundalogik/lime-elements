@@ -42,7 +42,8 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
 
 @mixin label--float-above() {
     transform: translateY(-2.38rem) scale(0.75);
-    font-size: pxToRem(16);
+    // font-size: pxToRem(16); // See comments in: /input-field/partial-styles/_cropped-label-hack.scss
+    font-size: 0.875rem;
 }
 
 @mixin looks-like-helper-line {
