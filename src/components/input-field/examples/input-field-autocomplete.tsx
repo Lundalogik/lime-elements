@@ -36,9 +36,6 @@ export class InputFieldAutocompleteExample {
 
     constructor() {
         this.checkValidity = this.checkValidity.bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
     }
 
     public render() {
@@ -50,17 +47,19 @@ export class InputFieldAutocompleteExample {
                 required={this.required}
                 invalid={this.invalid}
                 disabled={this.disabled}
-                onChange={this.onChange}
+                onChange={this.changeHandler}
             />,
             <p>
                 <limel-flex-container justify="end">
-                    <limel-button
-                        label={this.disabled ? 'Enable' : 'Disable'}
-                        onClick={this.toggleEnabled}
+                    <limel-checkbox
+                        checked={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
                     />
-                    <limel-button
-                        label={this.required ? 'Set Optional' : 'Set Required'}
-                        onClick={this.toggleRequired}
+                    <limel-checkbox
+                        checked={this.required}
+                        label="Required"
+                        onChange={this.setRequired}
                     />
                 </limel-flex-container>
             </p>,
@@ -73,15 +72,17 @@ export class InputFieldAutocompleteExample {
         this.invalid = this.required && !this.value;
     }
 
-    private onChange(event) {
+    private changeHandler = (event: CustomEvent<string>) => {
         this.value = event.detail;
-    }
+    };
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
-    }
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
 
-    private toggleRequired() {
-        this.required = !this.required;
-    }
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
+    };
 }

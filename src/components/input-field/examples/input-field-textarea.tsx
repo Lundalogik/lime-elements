@@ -21,13 +21,6 @@ export class InputFieldTextareaExample {
     @State()
     private value: string;
 
-    constructor() {
-        this.changeHandler = this.changeHandler.bind(this);
-        this.setEnabled = this.setEnabled.bind(this);
-        this.setReadonly = this.setReadonly.bind(this);
-        this.setRequired = this.setRequired.bind(this);
-    }
-
     public render() {
         const MAX_LENGTH = 500;
 
@@ -46,7 +39,7 @@ export class InputFieldTextareaExample {
             <p>
                 <limel-flex-container justify="end">
                     <limel-checkbox
-                        onChange={this.setEnabled}
+                        onChange={this.setDisabled}
                         label="Disabled"
                     />
                     <limel-checkbox
@@ -63,22 +56,22 @@ export class InputFieldTextareaExample {
         ];
     }
 
-    private changeHandler(event) {
+    private changeHandler = (event: CustomEvent<string>) => {
         this.value = event.detail;
-    }
+    };
 
-    private setEnabled(event: CustomEvent<boolean>) {
+    private setDisabled = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.disabled = event.detail;
-    }
+    };
 
-    private setReadonly(event: CustomEvent<boolean>) {
+    private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
-    }
+    };
 
-    private setRequired(event: CustomEvent<boolean>) {
+    private setRequired = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.required = event.detail;
-    }
+    };
 }

@@ -22,14 +22,10 @@ export class InputFieldTextExample {
     private invalid = false;
 
     @State()
-    private value;
+    private value: string;
 
     constructor() {
         this.checkValidity = this.checkValidity.bind(this);
-        this.changeHandler = this.changeHandler.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-        this.toggleReadonly = this.toggleReadonly.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
     }
 
     public render() {
@@ -49,17 +45,20 @@ export class InputFieldTextExample {
             />,
             <p>
                 <limel-flex-container justify="end">
-                    <limel-button
-                        onClick={this.toggleEnabled}
-                        label={this.disabled ? 'Enable' : 'Disable'}
+                    <limel-checkbox
+                        checked={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
                     />
-                    <limel-button
-                        onClick={this.toggleReadonly}
-                        label={this.readonly ? 'Editable' : 'Readonly'}
+                    <limel-checkbox
+                        checked={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
                     />
-                    <limel-button
-                        onClick={this.toggleRequired}
-                        label={this.required ? 'Set Optional' : 'Set Required'}
+                    <limel-checkbox
+                        checked={this.required}
+                        label="Required"
+                        onChange={this.setRequired}
                     />
                 </limel-flex-container>
             </p>,
@@ -72,20 +71,22 @@ export class InputFieldTextExample {
         this.invalid = this.required && !this.value;
     }
 
-    private changeHandler(event) {
+    private changeHandler = (event: CustomEvent<string>) => {
         this.value = event.detail;
-        this.checkValidity();
-    }
+    };
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
-    }
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
 
-    private toggleReadonly() {
-        this.readonly = !this.readonly;
-    }
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
+    };
 
-    private toggleRequired() {
-        this.required = !this.required;
-    }
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
+    };
 }
