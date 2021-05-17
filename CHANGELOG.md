@@ -1,3 +1,10 @@
+## [31.7.0](https://github.com/Lundalogik/lime-elements/compare/v31.6.0...v31.7.0) (2021-05-17)
+
+
+### Features
+
+* **shadows:** add new variables to help visually emphasize certain areas of the ui ([d2b370a](https://github.com/Lundalogik/lime-elements/commit/d2b370a5a3fffd95edd79258f6dadb0d9dedf65f))
+
 ## [31.6.0](https://github.com/Lundalogik/lime-elements/compare/v31.5.3...v31.6.0) (2021-05-17)
 
 
