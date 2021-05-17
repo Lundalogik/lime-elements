@@ -16,6 +16,9 @@ export class InputFieldNumberExample {
     private disabled = false;
 
     @State()
+    private readonly = false;
+
+    @State()
     private invalid = false;
 
     @State()
@@ -32,6 +35,7 @@ export class InputFieldNumberExample {
                 type="number"
                 formatNumber={this.formatNumber}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 invalid={this.invalid}
                 required={this.required}
                 onChange={this.changeHandler}
@@ -48,6 +52,10 @@ export class InputFieldNumberExample {
                         label="Disabled"
                         onChange={this.setDisabled}
                     />
+                    <limel-checkbox
+                        checked={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
                     />
                     <limel-checkbox
                         checked={this.required}
@@ -76,6 +84,11 @@ export class InputFieldNumberExample {
 
     private setDisabled = (event: CustomEvent<boolean>) => {
         this.disabled = event.detail;
+    };
+
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 
     private setRequired = (event: CustomEvent<boolean>) => {
