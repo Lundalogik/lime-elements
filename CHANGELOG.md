@@ -1,3 +1,12 @@
+### [31.7.1](https://github.com/Lundalogik/lime-elements/compare/v31.7.0...v31.7.1) (2021-05-17)
+
+
+### Bug Fixes
+
+* **checkbox:**  make the ripple effect fade out, when animation has finished ([e5a5b1e](https://github.com/Lundalogik/lime-elements/commit/e5a5b1e4fe820bb013ffaf6e74af7a530a138485))
+* **checkbox:** better visualize keyboard navigation ([96e9d00](https://github.com/Lundalogik/lime-elements/commit/96e9d0088028a2fc727727bd1523bdd5070bf5fb))
+* **checkbox:** move label slightly to left ([9ec043e](https://github.com/Lundalogik/lime-elements/commit/9ec043e1b4831ef62e7914c6d0616cdf883920fa))
+
 ## [31.7.0](https://github.com/Lundalogik/lime-elements/compare/v31.6.0...v31.7.0) (2021-05-17)
 
 
