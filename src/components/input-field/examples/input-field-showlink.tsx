@@ -16,6 +16,9 @@ export class InputFieldShowlinkExample {
     private disabled = false;
 
     @State()
+    private readonly = false;
+
+    @State()
     private emailValue: string;
 
     @State()
@@ -31,6 +34,7 @@ export class InputFieldShowlinkExample {
                 value={this.emailValue}
                 required={this.required}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.emailChangeHandler}
                 type="email"
                 showLink
@@ -40,6 +44,7 @@ export class InputFieldShowlinkExample {
                 value={this.telValue}
                 required={this.required}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.telChangeHandler}
                 type="tel"
                 showLink
@@ -49,6 +54,7 @@ export class InputFieldShowlinkExample {
                 value={this.urlValue}
                 required={this.required}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.urlChangeHandler}
                 type="url"
                 showLink
@@ -58,6 +64,7 @@ export class InputFieldShowlinkExample {
                 value={this.urlValue}
                 required={this.required}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.urlChangeHandler}
                 type="urlAsText"
                 showLink
@@ -68,6 +75,11 @@ export class InputFieldShowlinkExample {
                         checked={this.disabled}
                         label="Disabled"
                         onChange={this.setDisabled}
+                    />
+                    <limel-checkbox
+                        checked={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
                     />
                     <limel-checkbox
                         checked={this.required}
@@ -97,6 +109,11 @@ export class InputFieldShowlinkExample {
     private setDisabled = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.disabled = event.detail;
+    };
+
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 
     private setRequired = (event: CustomEvent<boolean>) => {

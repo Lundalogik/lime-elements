@@ -16,6 +16,9 @@ export class InputFieldAutocompleteExample {
     private disabled = false;
 
     @State()
+    private readonly = false;
+
+    @State()
     private invalid = false;
 
     @State()
@@ -47,6 +50,7 @@ export class InputFieldAutocompleteExample {
                 required={this.required}
                 invalid={this.invalid}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.changeHandler}
             />,
             <p>
@@ -55,6 +59,11 @@ export class InputFieldAutocompleteExample {
                         checked={this.disabled}
                         label="Disabled"
                         onChange={this.setDisabled}
+                    />
+                    <limel-checkbox
+                        checked={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
                     />
                     <limel-checkbox
                         checked={this.required}
@@ -79,6 +88,11 @@ export class InputFieldAutocompleteExample {
     private setDisabled = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.disabled = event.detail;
+    };
+
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 
     private setRequired = (event: CustomEvent<boolean>) => {
