@@ -205,6 +205,7 @@ export class Form {
         const validator = new Ajv({
             unknownFormats: 'ignore',
             allErrors: true,
+            multipleOfPrecision: 2,
         }).addFormat('integer', isInteger);
         this.validator = validator.compile(this.schema);
     }
