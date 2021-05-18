@@ -1,0 +1,12 @@
+:host {
+    width: 100%;
+    .flow-container {
+        overflow-x: auto;
+        .first-end-phase-item {
+            padding-left: 0.25rem;
+        }
+        .flow-item {
+            height: 2.5rem;
+        }
+    }
+}
