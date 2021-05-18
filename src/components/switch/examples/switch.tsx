@@ -11,6 +11,9 @@ export class SwitchExample {
     @State()
     private disabled = false;
 
+    @State()
+    private readonly = false;
+
     public render() {
         return (
             <section>
@@ -19,6 +22,7 @@ export class SwitchExample {
                         label={`Current value: ${this.value.toString()}`}
                         value={this.value}
                         disabled={this.disabled}
+                        readonly={this.readonly}
                         onChange={this.changeHandler}
                     />
                     <limel-flex-container justify="end">
@@ -26,6 +30,11 @@ export class SwitchExample {
                             checked={this.disabled}
                             label="Disabled"
                             onChange={this.setDisabled}
+                        />
+                        <limel-checkbox
+                            checked={this.readonly}
+                            label="Readonly"
+                            onChange={this.setReadonly}
                         />
                         <limel-checkbox
                             checked={this.value}
@@ -51,5 +60,10 @@ export class SwitchExample {
     private setChecked = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.value = event.detail;
+    };
+
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 }
