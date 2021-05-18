@@ -15,6 +15,12 @@ import { Component, h, State } from '@stencil/core';
 })
 export class SliderMultiplierPercentageColorsExample {
     @State()
+    private disabled = false;
+
+    @State()
+    private readonly = false;
+
+    @State()
     private value = 0.25;
 
     private factor = 100;
@@ -32,8 +38,22 @@ export class SliderMultiplierPercentageColorsExample {
                     factor={this.factor}
                     valuemax={this.maxValue}
                     valuemin={this.minValue}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
                     onChange={this.changeHandler}
                 />
+                <limel-flex-container justify="end">
+                    <limel-checkbox
+                        checked={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
+                    />
+                    <limel-checkbox
+                        checked={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                    />
+                </limel-flex-container>
                 <limel-example-value value={this.value} />
             </section>
         );
@@ -41,5 +61,15 @@ export class SliderMultiplierPercentageColorsExample {
 
     private changeHandler = (event: CustomEvent<number>) => {
         this.value = event.detail;
+    };
+
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
+
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 }
