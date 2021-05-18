@@ -11,12 +11,6 @@ export class SwitchExample {
     @State()
     private disabled = false;
 
-    constructor() {
-        this.onClickToggleEnabled = this.onClickToggleEnabled.bind(this);
-        this.onClickToggleChecked = this.onClickToggleChecked.bind(this);
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return (
             <section>
@@ -25,16 +19,18 @@ export class SwitchExample {
                         label={`Current value: ${this.value.toString()}`}
                         value={this.value}
                         disabled={this.disabled}
-                        onChange={this.onChange}
+                        onChange={this.changeHandler}
                     />
                     <limel-flex-container justify="end">
-                        <limel-button
-                            onClick={this.onClickToggleEnabled}
-                            label={this.disabled ? 'Enable' : 'Disable'}
+                        <limel-checkbox
+                            checked={this.disabled}
+                            label="Disabled"
+                            onChange={this.setDisabled}
                         />
-                        <limel-button
-                            onClick={this.onClickToggleChecked}
+                        <limel-checkbox
+                            checked={this.value}
                             label="Toggle checked"
+                            onChange={this.setChecked}
                         />
                     </limel-flex-container>
                 </div>
@@ -43,15 +39,17 @@ export class SwitchExample {
         );
     }
 
-    private onClickToggleEnabled() {
-        this.disabled = !this.disabled;
-    }
-
-    private onClickToggleChecked() {
-        this.value = !this.value;
-    }
-
-    private onChange(event) {
+    private changeHandler = (event: CustomEvent<boolean>) => {
         this.value = event.detail;
-    }
+    };
+
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
+
+    private setChecked = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.value = event.detail;
+    };
 }
