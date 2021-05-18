@@ -11,51 +11,53 @@
     --color-percent--80to90: rgb(var(--color-teal-default));
     --color-percent--90to100: rgb(var(--color-teal-dark));
 
-    .slider.percent-0 {
-        --lime-primary-color: var(--color-percent--0);
-    }
-    .slider.percent-0-10 {
-        --lime-primary-color: var(--color-percent--0to10);
-    }
-    .slider.percent-10-20 {
-        --lime-primary-color: var(--color-percent--10to20);
-    }
-    .slider.percent-20-30 {
-        --lime-primary-color: var(--color-percent--20to30);
-    }
-    .slider.percent-30-40 {
-        --lime-primary-color: var(--color-percent--30to40);
-    }
-    .slider.percent-40-50 {
-        --lime-primary-color: var(--color-percent--40to50);
-    }
-    .slider.percent-50-60 {
-        --lime-primary-color: var(--color-percent--50to60);
-    }
-    .slider.percent-60-70 {
-        --lime-primary-color: var(--color-percent--60to70);
-    }
-    .slider.percent-70-80 {
-        --lime-primary-color: var(--color-percent--70to80);
-    }
-    .slider.percent-80-90 {
-        --lime-primary-color: var(--color-percent--80to90);
-    }
-    .slider.percent-90-100 {
-        --lime-primary-color: var(--color-percent--90to100);
-    }
-
-    .slider.percent-30-40,
-    .slider.percent-40-50,
-    .slider.percent-70-80 {
-        .mdc-slider__pin-value-marker {
-            color: rgb(var(--color-gray-darker));
+    .slider,
+    .slider.lime-slider--readonly {
+        &.percent-0 {
+            --lime-primary-color: var(--color-percent--0);
         }
-    }
-    .slider.percent-50-60,
-    .slider.percent-60-70 {
-        .mdc-slider__pin-value-marker {
-            color: rgb(var(--color-gray-dark));
+        &.percent-0-10 {
+            --lime-primary-color: var(--color-percent--0to10);
+        }
+        &.percent-10-20 {
+            --lime-primary-color: var(--color-percent--10to20);
+        }
+        &.percent-20-30 {
+            --lime-primary-color: var(--color-percent--20to30);
+        }
+        &.percent-30-40 {
+            --lime-primary-color: var(--color-percent--30to40);
+        }
+        &.percent-40-50 {
+            --lime-primary-color: var(--color-percent--40to50);
+        }
+        &.percent-50-60 {
+            --lime-primary-color: var(--color-percent--50to60);
+        }
+        &.percent-60-70 {
+            --lime-primary-color: var(--color-percent--60to70);
+        }
+        &.percent-70-80 {
+            --lime-primary-color: var(--color-percent--70to80);
+        }
+        &.percent-80-90 {
+            --lime-primary-color: var(--color-percent--80to90);
+        }
+        &.percent-90-100 {
+            --lime-primary-color: var(--color-percent--90to100);
+        }
+        &.percent-30-40,
+        &.percent-40-50,
+        &.percent-70-80 {
+            .mdc-slider__pin-value-marker {
+                color: rgb(var(--color-gray-darker));
+            }
+        }
+        &.percent-50-60,
+        &.percent-60-70 {
+            .mdc-slider__pin-value-marker {
+                color: rgb(var(--color-gray-dark));
+            }
         }
     }
 }
