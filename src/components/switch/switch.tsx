@@ -27,17 +27,18 @@ export class Switch {
     public label: string;
 
     /**
-     * Disables the switch when `true`. Works exactly the same as
-     * `disabled`. If either property is `true`, the switch will be
-     * disabled.
+     * Disables the switch when `true`,
+     * and visually shows that the switch is editable but disabled.
+     * This tells the users that if certain requirements are met,
+     * the switch may become interactable.
      */
     @Prop({ reflect: true })
     public disabled = false;
 
     /**
-     * Disables the switch when `true`. Works exactly the same as
-     * `disabled`. If either property is `true`, the switch will be
-     * disabled.
+     * Disables the switch when `true`. This visualizes the switch slightly differently.
+     * But shows no visual sign indicating that the switch is disabled
+     * or can ever become interactable.
      */
     @Prop({ reflect: true })
     public readonly = false;

@@ -2,6 +2,8 @@
 
 @import '@limetech/mdc-switch/mdc-switch';
 
+@import './partial-styles/_readonly.scss';
+
 :host {
     display: inline-flex;
     align-items: center;
