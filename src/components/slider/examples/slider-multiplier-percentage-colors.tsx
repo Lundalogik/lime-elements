@@ -21,10 +21,6 @@ export class SliderMultiplierPercentageColorsExample {
     private minValue = 0;
     private maxValue = 1;
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return (
             <section>
@@ -36,14 +32,14 @@ export class SliderMultiplierPercentageColorsExample {
                     factor={this.factor}
                     valuemax={this.maxValue}
                     valuemin={this.minValue}
-                    onChange={this.onChange}
+                    onChange={this.changeHandler}
                 />
                 <limel-example-value value={this.value} />
             </section>
         );
     }
 
-    private onChange(event) {
+    private changeHandler = (event: CustomEvent<number>) => {
         this.value = event.detail;
-    }
+    };
 }
