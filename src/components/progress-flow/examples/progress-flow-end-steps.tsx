@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { FlowItem } from '../status-flow.types';
+import { FlowItem } from '../progress-flow.types';
 
 /**
  * Example with End steps
@@ -7,10 +7,10 @@ import { FlowItem } from '../status-flow.types';
  * An example to show a flow with end steps
  */
 @Component({
-    tag: 'limel-example-status-flow-end-steps',
+    tag: 'limel-example-progress-flow-end-steps',
     shadow: true,
 })
-export class StatusFlowEndStepsExample {
+export class ProgressFlowEndStepsExample {
     @State()
     private flowItems: FlowItem[] = [
         {
@@ -50,7 +50,7 @@ export class StatusFlowEndStepsExample {
     public render() {
         return (
             <limel-flex-container>
-                <limel-status-flow
+                <limel-progress-flow
                     flowItems={this.flowItems}
                     onChange={this.onChange}
                 />

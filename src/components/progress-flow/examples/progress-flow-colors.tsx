@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { FlowItem } from '../status-flow.types';
+import { FlowItem } from '../progress-flow.types';
 
 /**
  * Example with colors
@@ -8,10 +8,10 @@ import { FlowItem } from '../status-flow.types';
  * Open the dev-tools console to see logged changes.
  */
 @Component({
-    tag: 'limel-example-status-flow-colors',
+    tag: 'limel-example-progress-flow-colors',
     shadow: true,
 })
-export class StatusFlowColorsExample {
+export class ProgressFlowColorsExample {
     @State()
     private flowItems: FlowItem[] = [
         {
@@ -44,7 +44,7 @@ export class StatusFlowColorsExample {
     public render() {
         return (
             <limel-flex-container>
-                <limel-status-flow
+                <limel-progress-flow
                     flowItems={this.flowItems}
                     onChange={this.onChange}
                 />

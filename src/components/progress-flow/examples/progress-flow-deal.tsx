@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { FlowItem } from '../status-flow.types';
+import { FlowItem } from '../progress-flow.types';
 
 /**
  * Deal status Example
@@ -7,10 +7,10 @@ import { FlowItem } from '../status-flow.types';
  * An example to show a deal status flow
  */
 @Component({
-    tag: 'limel-example-status-flow-deal',
+    tag: 'limel-example-progress-flow-deal',
     shadow: true,
 })
-export class StatusFlowDealExample {
+export class ProgressFlowDealExample {
     @State()
     private flowItems: FlowItem[] = [
         {
@@ -55,7 +55,7 @@ export class StatusFlowDealExample {
     public render() {
         return (
             <limel-flex-container>
-                <limel-status-flow
+                <limel-progress-flow
                     flowItems={this.flowItems}
                     onChange={this.onChange}
                 />

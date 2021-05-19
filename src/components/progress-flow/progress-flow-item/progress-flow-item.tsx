@@ -1,12 +1,15 @@
 import { Component, Element, h, Prop } from '@stencil/core';
-import { FlowItem } from '../status-flow.types';
+import { FlowItem } from '../progress-flow.types';
 
+/**
+ * @private
+ */
 @Component({
-    tag: 'limel-status-flow-item',
+    tag: 'limel-progress-flow-item',
     shadow: true,
-    styleUrl: 'status-flow-item.scss',
+    styleUrl: 'progress-flow-item.scss',
 })
-export class StatusFlowItem {
+export class ProgressFlowItem {
     @Element()
     public element: HTMLElement;
 

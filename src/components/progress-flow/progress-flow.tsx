@@ -1,18 +1,18 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
-import { FlowItem } from './status-flow.types';
+import { FlowItem } from './progress-flow.types';
 
 /**
- * @exampleComponent limel-example-status-flow-basic
- * @exampleComponent limel-example-status-flow-colors
- * @exampleComponent limel-example-status-flow-end-steps
- * @exampleComponent limel-example-status-flow-deal
+ * @exampleComponent limel-example-progress-flow-basic
+ * @exampleComponent limel-example-progress-flow-colors
+ * @exampleComponent limel-example-progress-flow-end-steps
+ * @exampleComponent limel-example-progress-flow-deal
  */
 @Component({
-    tag: 'limel-status-flow',
+    tag: 'limel-progress-flow',
     shadow: true,
-    styleUrl: 'status-flow.scss',
+    styleUrl: 'progress-flow.scss',
 })
-export class StatusFlow {
+export class ProgressFlow {
     /**
      * What flow items to render
      */
@@ -44,7 +44,7 @@ export class StatusFlow {
             >
                 {endPhaseItems.reverse().map((item, i) => {
                     return (
-                        <limel-status-flow-item
+                        <limel-progress-flow-item
                             style={this.getItemStyle(item)}
                             class={{
                                 'flow-item': true,
@@ -60,7 +60,7 @@ export class StatusFlow {
                 })}
                 {regularFlowItems.reverse().map((item, i) => {
                     return (
-                        <limel-status-flow-item
+                        <limel-progress-flow-item
                             class="flow-item"
                             style={this.getItemStyle(item)}
                             item={item}

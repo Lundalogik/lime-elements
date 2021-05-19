@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { FlowItem } from '../status-flow.types';
+import { FlowItem } from '../progress-flow.types';
 
 /**
  * Basic Example
@@ -8,10 +8,10 @@ import { FlowItem } from '../status-flow.types';
  * Open the dev-tools console to see logged changes.
  */
 @Component({
-    tag: 'limel-example-status-flow-basic',
+    tag: 'limel-example-progress-flow-basic',
     shadow: true,
 })
-export class StatusFlowBasicExample {
+export class ProgressFlowBasicExample {
     @State()
     private flowItems: FlowItem[] = [
         { value: '1', text: 'Step 1', selected: true },
@@ -26,7 +26,7 @@ export class StatusFlowBasicExample {
     public render() {
         return (
             <limel-flex-container>
-                <limel-status-flow
+                <limel-progress-flow
                     flowItems={this.flowItems}
                     onChange={this.onChange}
                 />
