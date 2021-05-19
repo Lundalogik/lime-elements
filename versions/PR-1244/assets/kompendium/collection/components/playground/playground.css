@@ -156,9 +156,16 @@ section.example .code {
 .show-case_component {
   padding: 1.25rem;
   border-radius: 0.875rem;
-  background-color: rgb(var(--kompendium-color-white));
-  box-shadow: var(--shadow-showcase);
+  background-color: rgb(var(--kompendium-contrast-100));
   border: 1px solid rgb(var(--kompendium-contrast-300));
+  box-shadow: var(--shadow-showcase);
+}
+@media (prefers-color-scheme: dark) {
+  .show-case_component {
+    background-color: rgb(var(--kompendium-contrast-1700));
+    color: rgb(var(--kompendium-contrast-200));
+    border-color: transparent;
+  }
 }
 
 .debug {
