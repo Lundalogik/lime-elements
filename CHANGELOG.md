@@ -1,3 +1,10 @@
+### [31.7.2](https://github.com/Lundalogik/lime-elements/compare/v31.7.1...v31.7.2) (2021-05-19)
+
+
+### Bug Fixes
+
+* **input-field:** prevent labels getting cut off when input field is focused ([f9df829](https://github.com/Lundalogik/lime-elements/commit/f9df8292a5ec148eb62fae18d24cc185b2d19d36)), closes [Lundalogik/crm-feature#1671](https://github.com/Lundalogik/crm-feature/issues/1671)
+
 ### [31.7.1](https://github.com/Lundalogik/lime-elements/compare/v31.7.0...v31.7.1) (2021-05-17)
 
 
