@@ -16,7 +16,8 @@
 
     code {
         font-size: pxToRem(12);
-        background-color: rgb(var(--contrast-500));
+        background-color: rgb(var(--kompendium-contrast-500));
+        color: rgb(var(--kompendium-contrast-1100));
         padding: 0 pxToRem(4);
         border-radius: pxToRem(3);
         margin-top: pxToRem(12);
