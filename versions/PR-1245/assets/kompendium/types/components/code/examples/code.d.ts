@@ -1,3 +1,3 @@
 export declare class CodeExample {
-    render(): HTMLElement;
+  render(): HTMLElement;
 }

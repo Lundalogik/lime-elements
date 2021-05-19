@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-11d6cb66.js');
+const index = require('./index-05806c6d.js');
 
 const bacon = `
 # Bacon Ipsum!
@@ -46,12 +46,12 @@ Chicken pariatur strip steak ad, salami picanha corned beef aliquip capicola
 const markdownCss = ":host(*){display:block}";
 
 const MarkdownExample = class {
-    constructor(hostRef) {
-        index.registerInstance(this, hostRef);
-    }
-    render() {
-        return index.h("kompendium-markdown", { text: bacon });
-    }
+  constructor(hostRef) {
+    index.registerInstance(this, hostRef);
+  }
+  render() {
+    return index.h("kompendium-markdown", { text: bacon });
+  }
 };
 MarkdownExample.style = markdownCss;
 

@@ -25,7 +25,7 @@
   padding: 0.5rem 1rem;
   text-align: center;
   line-height: 0.9375rem;
-  color: rgb(var(--contrast-1000));
+  color: rgb(var(--kompendium-contrast-1000));
   font-size: 1rem;
   border-radius: 0.5rem 0.5rem 0 0;
   margin: 0 0.125rem;
@@ -59,23 +59,23 @@
   right: -0.625rem;
 }
 .tab-bar .tab:hover {
-  background-color: rgb(var(--contrast-100));
+  background-color: rgb(var(--kompendium-contrast-100));
 }
 .tab-bar .tab:hover:before, .tab-bar .tab:hover:after {
-  background-color: rgb(var(--contrast-100));
+  background-color: rgb(var(--kompendium-contrast-100));
 }
 @media (prefers-color-scheme: dark) {
   .tab-bar .tab:hover:before, .tab-bar .tab:hover:after {
-    background-color: rgb(var(--contrast-100));
+    background-color: rgb(var(--kompendium-contrast-100));
   }
 }
 .tab-bar .tab.active {
   z-index: 1;
-  color: rgb(var(--contrast-1100));
-  background: rgb(var(--color-code-background));
+  color: rgb(var(--kompendium-contrast-1100));
+  background: rgb(var(--kompendium-color-code-background));
 }
 .tab-bar .tab.active:before, .tab-bar .tab.active:after {
-  background: rgb(var(--color-code-background));
+  background: rgb(var(--kompendium-color-code-background));
 }
 
 .tab-items {
@@ -106,18 +106,18 @@ kompendium-code:before, kompendium-code:after {
 kompendium-code:before {
   top: 2.4375rem;
   height: 1.5rem;
-  background-image: linear-gradient(rgb(var(--color-code-background)), rgba(var(--color-code-background), 0));
+  background-image: linear-gradient(rgb(var(--kompendium-color-code-background)), rgba(var(--kompendium-color-code-background), 0));
 }
 kompendium-code:after {
   bottom: 0;
   height: 2rem;
-  background-image: linear-gradient(rgba(var(--color-code-background), 0), rgb(var(--color-code-background)));
+  background-image: linear-gradient(rgba(var(--kompendium-color-code-background), 0), rgb(var(--kompendium-color-code-background)));
 }
 
 section.example {
   padding-bottom: 2.5rem;
   margin-bottom: 2.5rem;
-  border-bottom: 1px solid rgb(var(--contrast-500));
+  border-bottom: 1px solid rgb(var(--kompendium-contrast-500));
 }
 section.example .result,
 section.example .code {
@@ -156,7 +156,44 @@ section.example .code {
 .show-case_component {
   padding: 1.25rem;
   border-radius: 0.875rem;
-  background-color: rgb(var(--color-white));
+  background-color: rgb(var(--kompendium-contrast-100));
+  border: 1px solid rgb(var(--kompendium-contrast-300));
   box-shadow: var(--shadow-showcase);
-  border: 1px solid rgb(var(--contrast-300));
+}
+@media (prefers-color-scheme: dark) {
+  .show-case_component {
+    background-color: rgb(var(--kompendium-contrast-1700));
+    color: rgb(var(--kompendium-contrast-200));
+    border-color: transparent;
+  }
+}
+
+.debug {
+  display: flex;
+  justify-content: flex-end;
+}
+.debug a.debug-link {
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out, opacity 0.2s ease;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 0;
+  margin: -3.25rem -1rem 0 0;
+  border-radius: 50%;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5"><path fill="none" d="M0 0h400v400H0z"/><path d="M194.97 254.84h77.555" fill="none" stroke="currentColor" stroke-opacity=".6" stroke-width="20"/><path d="M127.474 145.16l54.84 54.84M182.315 200l-54.84 54.84" fill="none" stroke="currentColor" stroke-width="20"/></svg>');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+}
+.debug a.debug-link:hover {
+  box-shadow: var(--kompendium-button-shadow-hovered);
+}
+.debug a.debug-link:active {
+  box-shadow: var(--kompendium-button-shadow-pressed);
+  transform: translate3d(0, 0.08rem, 0);
+}
+.debug a.debug-link:hover {
+  opacity: 1;
+  background-color: rgb(var(--kompendium-contrast-100));
 }

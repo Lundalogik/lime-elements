@@ -1,4 +1,4 @@
-import { JsonDocs } from '@stencil/core/internal';
+import { JsonDocs, Config, Logger } from '@stencil/core/internal';
 import { defaultConfig } from './config';
 import { addSources } from './source';
 import lnk from 'lnk';
@@ -8,6 +8,8 @@ import { createWatcher } from './watch';
 import { findGuides } from './guides';
 import { KompendiumConfig, KompendiumData, TypeDescription } from '../types';
 import { parseFile } from './typedoc';
+import { createSchemas } from './schema';
+import { createIndex } from './search';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
@@ -18,17 +20,20 @@ export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
     return kompendiumGenerator(config);
 };
 
+let logger: Logger;
+
 export function kompendiumGenerator(
     config: Partial<KompendiumConfig>
-): (docs: JsonDocs) => Promise<void> {
+): (docs: JsonDocs, stencilConfig: Config) => Promise<void> {
     config = {
         ...defaultConfig,
         ...config,
     };
     initialize(config);
 
-    return async (docs: JsonDocs) => {
-        console.time('kompendium');
+    return async (docs: JsonDocs, stencilConfig: Config) => {
+        logger = stencilConfig.logger;
+        const timeSpan = logger.createTimeSpan('kompendium started');
 
         const [jsonDocs, title, readme, guides, types] = await Promise.all([
             addSources(docs),
@@ -46,11 +51,15 @@ export function kompendiumGenerator(
             readme: readme,
             guides: guides,
             types: types,
+            schemas: createSchemas(docs.components, types),
+            index: null,
         };
+
+        data.index = createIndex(data);
 
         await writeData(config, data);
 
-        console.timeEnd('kompendium');
+        timeSpan.finish('kompendium finished');
     };
 }
 
@@ -145,7 +154,7 @@ async function getReadme(): Promise<string> {
     }
 
     if (!data) {
-        console.log('README did not exist');
+        logger.warn('README did not exist');
     }
 
     return data;
@@ -178,12 +187,12 @@ function isProd(): boolean {
 async function getTypes(
     config: Partial<KompendiumConfig>
 ): Promise<TypeDescription[]> {
-    console.log('Getting type information...');
+    logger.debug('Getting type information...');
     let types = await readTypes(config);
     const cache = await readCache(config);
 
     if (types.length === 0 || (await isModified(types, cache))) {
-        console.log('Parsing types...');
+        logger.debug('Parsing types...');
         const data = parseFile(config.typeRoot);
         await saveData(config, data);
         types = data;
@@ -206,7 +215,7 @@ async function isModified(types: any[], cache: Record<string, number>) {
         const filename = filenames[index];
         const result = cache[filename] !== data.mtimeMs;
 
-        console.log(`${filename} was ${result ? '' : 'not'} modified!`);
+        logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
 
         return result;
     });

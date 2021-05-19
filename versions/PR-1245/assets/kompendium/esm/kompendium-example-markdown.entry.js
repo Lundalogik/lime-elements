@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-fb5abbae.js';
+import { r as registerInstance, h } from './index-69abe4cb.js';
 
 const bacon = `
 # Bacon Ipsum!
@@ -42,12 +42,12 @@ Chicken pariatur strip steak ad, salami picanha corned beef aliquip capicola
 const markdownCss = ":host(*){display:block}";
 
 const MarkdownExample = class {
-    constructor(hostRef) {
-        registerInstance(this, hostRef);
-    }
-    render() {
-        return h("kompendium-markdown", { text: bacon });
-    }
+  constructor(hostRef) {
+    registerInstance(this, hostRef);
+  }
+  render() {
+    return h("kompendium-markdown", { text: bacon });
+  }
 };
 MarkdownExample.style = markdownCss;
 

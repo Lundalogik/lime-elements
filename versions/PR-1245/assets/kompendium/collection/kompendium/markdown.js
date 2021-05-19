@@ -10,20 +10,20 @@ import { saveFrontmatter } from './markdown-frontmatter';
 import { kompendiumCode } from './markdown-code';
 import { typeLinks } from './markdown-typelinks';
 export async function markdownToHtml(text, types = []) {
-    return new Promise((resolve) => {
-        unified()
-            .use(markdown)
-            .use(frontmatter)
-            .use(parseFrontmatter)
-            .use(saveFrontmatter)
-            .use(admonitions, { icons: 'none' })
-            .use(remark2rehype, { allowDangerousHtml: true })
-            .use(raw)
-            .use(typeLinks, { types: types })
-            .use(kompendiumCode)
-            .use(html)
-            .process(text, (_, file) => {
-            resolve(file);
-        });
+  return new Promise((resolve) => {
+    unified()
+      .use(markdown)
+      .use(frontmatter)
+      .use(parseFrontmatter)
+      .use(saveFrontmatter)
+      .use(admonitions, { icons: 'none' })
+      .use(remark2rehype, { allowDangerousHtml: true })
+      .use(raw)
+      .use(typeLinks, { types: types })
+      .use(kompendiumCode)
+      .use(html)
+      .process(text, (_, file) => {
+      resolve(file);
     });
+  });
 }

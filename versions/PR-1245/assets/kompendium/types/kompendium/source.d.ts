@@ -1,8 +1,8 @@
 import { JsonDocs, JsonDocsComponent } from '../stencil-public-runtime';
 export interface JsonDocsSource {
-    filename: string;
-    type: 'tsx' | 'ts' | 'scss' | 'less' | 'css';
-    source: string;
+  filename: string;
+  type: 'tsx' | 'ts' | 'scss' | 'less' | 'css';
+  source: string;
 }
 export declare function addSources(docs: JsonDocs): Promise<JsonDocs>;
 export declare function addComponentSources(component: JsonDocsComponent): Promise<any>;

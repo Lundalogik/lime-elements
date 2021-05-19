@@ -18,17 +18,9 @@ export namespace Components {
     }
     interface KompendiumCode {
         /**
-          * Source code
-         */
-        "code": string;
-        /**
           * The language of the code
          */
         "language": string;
-        /**
-          * @ignore
-         */
-        "random": number;
     }
     interface KompendiumComponent {
         /**
@@ -39,6 +31,24 @@ export namespace Components {
           * Matched route parameters
          */
         "match": MatchResults;
+        /**
+          * Component schemas
+         */
+        "schemas": Array<Record<string, any>>;
+    }
+    interface KompendiumDebug {
+        /**
+          * The generated documentation data
+         */
+        "docs": JsonDocs;
+        /**
+          * Matched route parameters
+         */
+        "match": MatchResults;
+        /**
+          * Component schemas
+         */
+        "schemas": Array<Record<string, any>>;
     }
     interface KompendiumExampleCode {
     }
@@ -59,6 +69,10 @@ export namespace Components {
          */
         "header": string;
         /**
+          * Index containing searchable documents
+         */
+        "index": any;
+        /**
           * Optional logo to display instead of the header
          */
         "logo": string;
@@ -72,6 +86,10 @@ export namespace Components {
           * The component to display
          */
         "component": JsonDocsComponent;
+        /**
+          * Schema for the component
+         */
+        "schema": Record<string, any>;
     }
     interface KompendiumProplist {
         /**
@@ -80,6 +98,10 @@ export namespace Components {
         "items": ProplistItem[];
     }
     interface KompendiumSearch {
+        /**
+          * Index containing searchable documents
+         */
+        "index": any;
     }
     interface KompendiumTaglist {
         /**
@@ -117,6 +139,12 @@ declare global {
     var HTMLKompendiumComponentElement: {
         prototype: HTMLKompendiumComponentElement;
         new (): HTMLKompendiumComponentElement;
+    };
+    interface HTMLKompendiumDebugElement extends Components.KompendiumDebug, HTMLStencilElement {
+    }
+    var HTMLKompendiumDebugElement: {
+        prototype: HTMLKompendiumDebugElement;
+        new (): HTMLKompendiumDebugElement;
     };
     interface HTMLKompendiumExampleCodeElement extends Components.KompendiumExampleCode, HTMLStencilElement {
     }
@@ -182,6 +210,7 @@ declare global {
         "kompendium-app": HTMLKompendiumAppElement;
         "kompendium-code": HTMLKompendiumCodeElement;
         "kompendium-component": HTMLKompendiumComponentElement;
+        "kompendium-debug": HTMLKompendiumDebugElement;
         "kompendium-example-code": HTMLKompendiumExampleCodeElement;
         "kompendium-example-markdown": HTMLKompendiumExampleMarkdownElement;
         "kompendium-guide": HTMLKompendiumGuideElement;
@@ -203,17 +232,9 @@ declare namespace LocalJSX {
     }
     interface KompendiumCode {
         /**
-          * Source code
-         */
-        "code"?: string;
-        /**
           * The language of the code
          */
         "language"?: string;
-        /**
-          * @ignore
-         */
-        "random"?: number;
     }
     interface KompendiumComponent {
         /**
@@ -224,6 +245,24 @@ declare namespace LocalJSX {
           * Matched route parameters
          */
         "match"?: MatchResults;
+        /**
+          * Component schemas
+         */
+        "schemas"?: Array<Record<string, any>>;
+    }
+    interface KompendiumDebug {
+        /**
+          * The generated documentation data
+         */
+        "docs"?: JsonDocs;
+        /**
+          * Matched route parameters
+         */
+        "match"?: MatchResults;
+        /**
+          * Component schemas
+         */
+        "schemas"?: Array<Record<string, any>>;
     }
     interface KompendiumExampleCode {
     }
@@ -244,6 +283,10 @@ declare namespace LocalJSX {
          */
         "header"?: string;
         /**
+          * Index containing searchable documents
+         */
+        "index"?: any;
+        /**
           * Optional logo to display instead of the header
          */
         "logo"?: string;
@@ -257,6 +300,10 @@ declare namespace LocalJSX {
           * The component to display
          */
         "component"?: JsonDocsComponent;
+        /**
+          * Schema for the component
+         */
+        "schema"?: Record<string, any>;
     }
     interface KompendiumProplist {
         /**
@@ -265,6 +312,10 @@ declare namespace LocalJSX {
         "items"?: ProplistItem[];
     }
     interface KompendiumSearch {
+        /**
+          * Index containing searchable documents
+         */
+        "index"?: any;
     }
     interface KompendiumTaglist {
         /**
@@ -287,6 +338,7 @@ declare namespace LocalJSX {
         "kompendium-app": KompendiumApp;
         "kompendium-code": KompendiumCode;
         "kompendium-component": KompendiumComponent;
+        "kompendium-debug": KompendiumDebug;
         "kompendium-example-code": KompendiumExampleCode;
         "kompendium-example-markdown": KompendiumExampleMarkdown;
         "kompendium-guide": KompendiumGuide;
@@ -306,6 +358,7 @@ declare module "@stencil/core" {
             "kompendium-app": LocalJSX.KompendiumApp & JSXBase.HTMLAttributes<HTMLKompendiumAppElement>;
             "kompendium-code": LocalJSX.KompendiumCode & JSXBase.HTMLAttributes<HTMLKompendiumCodeElement>;
             "kompendium-component": LocalJSX.KompendiumComponent & JSXBase.HTMLAttributes<HTMLKompendiumComponentElement>;
+            "kompendium-debug": LocalJSX.KompendiumDebug & JSXBase.HTMLAttributes<HTMLKompendiumDebugElement>;
             "kompendium-example-code": LocalJSX.KompendiumExampleCode & JSXBase.HTMLAttributes<HTMLKompendiumExampleCodeElement>;
             "kompendium-example-markdown": LocalJSX.KompendiumExampleMarkdown & JSXBase.HTMLAttributes<HTMLKompendiumExampleMarkdownElement>;
             "kompendium-guide": LocalJSX.KompendiumGuide & JSXBase.HTMLAttributes<HTMLKompendiumGuideElement>;

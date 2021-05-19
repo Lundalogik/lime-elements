@@ -89,7 +89,7 @@ select {
   border-radius: 50%;
   border-style: solid;
   border-width: 0.125rem;
-  border-color: rgb(var(--color-blue-default));
+  border-color: rgb(var(--kompendium-color-blue-default));
   border-top-color: transparent;
   display: inline-block;
   height: 1.25rem;
@@ -98,7 +98,7 @@ select {
 
 .loading-screen-text {
   padding-left: 0.75rem;
-  color: rgb(var(--contrast-1100));
+  color: rgb(var(--kompendium-contrast-1100));
 }
 
 :host {
