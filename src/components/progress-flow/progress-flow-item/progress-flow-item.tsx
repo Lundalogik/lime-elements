@@ -11,7 +11,7 @@ import { FlowItem } from '../progress-flow.types';
 })
 export class ProgressFlowItem {
     @Element()
-    public element: HTMLElement;
+    public element: HTMLLimelProgressFlowItemElement;
 
     @Prop()
     public item: FlowItem = null;
@@ -24,8 +24,11 @@ export class ProgressFlowItem {
 
     public render() {
         return (
-            <div
+            <button
+                title={this.item.text}
+                type="button"
                 class={{
+                    'btn-flow': true,
                     'button-container': true,
                     'end-phase': this.item?.isEndPhase,
                     active: this.item?.selected,
@@ -33,10 +36,8 @@ export class ProgressFlowItem {
                     last: this.isLast,
                 }}
             >
-                <button title={this.item.text} type="button" class="btn-flow">
-                    <span class="btn-flow-text">{this.item.text}</span>
-                </button>
-            </div>
+                <span class="btn-flow-text">{this.item.text}</span>
+            </button>
         );
     }
 }

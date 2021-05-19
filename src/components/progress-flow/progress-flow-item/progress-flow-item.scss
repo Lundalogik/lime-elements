@@ -4,80 +4,67 @@
     overflow-y: clip;
     --progress-flow-active-step-background-color: var(--mdc-theme-primary);
     --progress-flow-inactive-step-background-color: rgb(var(--contrast-600));
+}
 
-    .button-container {
-        height: 100%;
+.btn-flow {
+    transition-duration: 0.4s;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-width: 0px;
+    background-color: var(--progress-flow-inactive-step-background-color);
+    z-index: 2;
 
-        .btn-flow {
-            transition-duration: 0.4s;
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-width: 0px;
-            background-color: var(--progress-flow-inactive-step-background-color);
-            z-index: 2;
-        }
-        &:not(.active) {
-            .btn-flow:hover {
-                &,
-                &::after {
-                    transition-duration: 0.4s;
-                    background-color: rgb(var(--color-gray-light));
-                    cursor: pointer;
-                }
+    &:not(.active) {
+        &:hover {
+            &,
+            &::after {
+                transition-duration: 0.4s;
+                background-color: rgb(var(--color-gray-light));
+                cursor: pointer;
             }
         }
+    }
 
-        &:not(.end-phase, .first) {
-            .btn-flow {
-                padding-left: 1.4rem;
-            }
-        }
+    &:not(.end-phase, .first) {
+        padding-left: 1.4rem;
+    }
 
-        &:not(.end-phase, .last) {
-            .btn-flow::after {
-                border-top: solid 0.125rem rgb(var(--color-gray-lighter));
-                border-right: solid 0.125rem rgb(var(--color-gray-lighter));
-                transform: rotate(45deg) translate(1px, -1px);
+    &:not(.end-phase, .last) {
+        &:after {
+            border-top: solid 0.125rem rgb(var(--color-gray-lighter));
+            border-right: solid 0.125rem rgb(var(--color-gray-lighter));
+            transform: rotate(45deg) translate(1px, -1px);
 
-                content: '';
-                display: block;
-                position: absolute;
-                top: 1.25rem;
-                right: -1.25rem;
-                width: 2.5rem;
-                height: 2.5rem;
-                background-color: inherit;
-                transform-origin: top right;
-                transform: rotate(45deg);
-                border-radius: 0.3rem;
-                z-index: -1;
-            }
+            content: '';
+            display: block;
+            position: absolute;
+            top: 1.25rem;
+            right: -1.25rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: inherit;
+            transform-origin: top right;
+            transform: rotate(45deg);
+            border-radius: 0.3rem;
+            z-index: -1;
         }
+    }
 
-        &.end-phase {
-            .btn-flow {
-                border-radius: 0.25rem;
-            }
-            padding-right: 0.125rem;
-        }
-        &.active {
-            .btn-flow {
-                color: var(--mdc-theme-on-primary);
-                background-color: var(--progress-flow-active-step-background-color);
-            }
-        }
-        &.first {
-            .btn-flow {
-                border-top-left-radius: 9999px;
-                border-bottom-left-radius: 9999px;
-            }
-        }
-        &.last {
-            .btn-flow {
-                border-top-right-radius: 9999px;
-                border-bottom-right-radius: 9999px;
-            }
-        }
+    &.end-phase {
+        border-radius: 0.25rem;
+        // padding-right: 0.125rem;
+    }
+    &.active {
+        color: var(--mdc-theme-on-primary);
+        background-color: var(--progress-flow-active-step-background-color);
+    }
+    &.first {
+        border-top-left-radius: 9999px;
+        border-bottom-left-radius: 9999px;
+    }
+    &.last {
+        border-top-right-radius: 9999px;
+        border-bottom-right-radius: 9999px;
     }
 }

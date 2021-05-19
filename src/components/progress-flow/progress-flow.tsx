@@ -85,7 +85,8 @@ export class ProgressFlow {
     private getItemStyle(flowItem: FlowItem) {
         const style: any = {};
         if (flowItem?.activeColor) {
-            style['--progress-flow-active-step-background-color'] = flowItem.activeColor;
+            style['--progress-flow-active-step-background-color'] =
+                flowItem.activeColor;
         }
 
         return style;
