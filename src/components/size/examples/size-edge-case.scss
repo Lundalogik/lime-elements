@@ -9,6 +9,7 @@ $scale-factor: 3.5;
 #size-rhythm-edge-case-example {
     position: relative;
     background-color: rgb(var(--contrast-300));
+    color: rgb(var(--contrast-1100));
     border-radius: pxToRem(4);
     padding: pxToRem(40) 0 pxToRem(40) pxToRem(80);
     margin-bottom: pxToRem(20);
