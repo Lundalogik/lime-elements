@@ -4,7 +4,7 @@ import { FlowItem } from '../progress-flow.types';
 /**
  * Deal status Example
  *
- * An example to show a deal status flow
+ * An example to show a deal progress flow
  */
 @Component({
     tag: 'limel-example-progress-flow-deal',
