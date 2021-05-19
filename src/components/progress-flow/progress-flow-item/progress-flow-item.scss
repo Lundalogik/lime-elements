@@ -2,7 +2,7 @@
     width: 100%;
     height: 100%;
     overflow-y: clip;
-    --progress-flow-active-step-background-color: rgb(var(--color-teal-default));
+    --progress-flow-active-step-background-color: var(--mdc-theme-primary);
 
     .button-container {
         height: 100%;
