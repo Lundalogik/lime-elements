@@ -34,11 +34,8 @@ export class ProgressFlow {
             return o.isEndPhase;
         });
 
-        return (
-            <div
-                class="flow-container"
-            >
-                {endPhaseItems.reverse().map((item, i) => {
+        return [
+            endPhaseItems.reverse().map((item, i) => {
                     return (
                         <limel-progress-flow-item
                             style={this.getItemStyle(item)}
@@ -53,8 +50,8 @@ export class ProgressFlow {
                             }}
                         />
                     );
-                })}
-                {regularFlowItems.reverse().map((item, i) => {
+                }),
+                regularFlowItems.reverse().map((item, i) => {
                     return (
                         <limel-progress-flow-item
                             class="flow-item"
@@ -67,9 +64,8 @@ export class ProgressFlow {
                             }}
                         />
                     );
-                })}
-            </div>
-        );
+                }),
+        ];
     }
 
     private handleFlowItemClick(flowItem: FlowItem) {
