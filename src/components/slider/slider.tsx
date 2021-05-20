@@ -22,17 +22,18 @@ import { getPercentageClass } from './getPercentageClass';
 })
 export class Slider {
     /**
-     * Disables the slider when `true`. Works exactly the same as
-     * `readonly`. If either property is `true`, the slider will be
-     * disabled.
+     * Disables the slider when `true`,
+     * and visually shows that the field is editable but disabled.
+     * This tells the users that if certain requirements are met,
+     * the slider may become interactable.
      */
     @Prop({ reflect: true })
     public disabled = false;
 
     /**
-     * Disables the slider when `true`. Works exactly the same as
-     * `disabled`. If either property is `true`, the slider will be
-     * disabled.
+     * Disables the slider when `true`. This visualizes the slider slightly differently.
+     * But shows no visual sign indicating that the slider field
+     * is disabled or can ever become interactable.
      */
     @Prop({ reflect: true })
     public readonly = false;
@@ -103,6 +104,7 @@ export class Slider {
 
     public constructor() {
         this.inputHandler = this.inputHandler.bind(this);
+        this.getContainerClassList = this.getContainerClassList.bind(this);
     }
 
     public connectedCallback() {
@@ -140,9 +142,17 @@ export class Slider {
         this.mdcSlider.destroy();
     }
 
+    private getContainerClassList() {
+        return {
+            slider: true,
+            'lime-slider--readonly': this.readonly,
+            [this.percentageClass]: true,
+        };
+    }
+
     public render() {
         return (
-            <div class={`slider ${this.percentageClass}`}>
+            <div class={this.getContainerClassList()}>
                 <label class="slider__label mdc-floating-label mdc-floating-label--float-above">
                     {this.label}
                 </label>

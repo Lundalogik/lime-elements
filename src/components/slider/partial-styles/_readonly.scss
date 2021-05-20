@@ -1,0 +1,22 @@
+.lime-slider--readonly {
+    .mdc-slider.mdc-slider--disabled {
+        .mdc-slider__track-container {
+            top: pxToRem(2);
+            height: pxToRem(16);
+            border-radius: 10rem;
+        }
+
+        .mdc-slider__pin,
+        .mdc-slider__track {
+            background-color: var(--lime-primary-color, $mdc-theme-primary);
+        }
+        .mdc-slider__pin-value-marker {
+            color: var(--lime-on-primary-color, $mdc-theme-on-primary);
+        }
+        .mdc-slider__pin {
+            height: 1rem;
+            margin-top: pxToRem(2);
+            font-size: pxToRem(14);
+        }
+    }
+}

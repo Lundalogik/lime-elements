@@ -1,6 +1,7 @@
 @import '../../style/internal/mdc-variables';
 @import '../../style/internal/shared_input-select-picker';
 @import './partial-styles/percentage-color.scss';
+@import './partial-styles/_readonly.scss';
 
 @import '@limetech/mdc-slider/mdc-slider';
 @import '@limetech/mdc-floating-label/mdc-floating-label';
