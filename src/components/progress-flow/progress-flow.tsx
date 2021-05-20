@@ -35,12 +35,8 @@ export class ProgressFlow {
         });
 
         return (
-            <limel-flex-container
+            <div
                 class="flow-container"
-                direction="horizontal"
-                align="start"
-                justify="start"
-                reverse={true}
             >
                 {endPhaseItems.reverse().map((item, i) => {
                     return (
@@ -72,7 +68,7 @@ export class ProgressFlow {
                         />
                     );
                 })}
-            </limel-flex-container>
+            </div>
         );
     }
 

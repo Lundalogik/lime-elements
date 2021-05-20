@@ -5,6 +5,9 @@
 }
 
 .flow-container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
     overflow-x: auto;
 }
 
