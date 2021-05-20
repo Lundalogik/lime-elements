@@ -20,7 +20,15 @@ This is what we mean when we use the term "cognitive load" and talk about "reduc
 ### Input fields
 Whenever possible, we take care of these details in our components. For instance, in the `limel-input` components, the "Helper text" and "Character counters" get displayed only when the field is `focused`, meaning when the user is typing in the input box. Before the user interacts with the component, displaying such details is not helpful and only adds to the clutter on the screen.
 
-<limel-example-input-field-text></limel-example-input-field-text>
+<!-- <limel-example-input-field-text></limel-example-input-field-text> -->
+<!--
+NOTE: this example below is almost a duplicate of the example above.
+Because here we need the example to have a white background due to our
+lack of support for dark mode. When we have proper support
+for dark mode in lime elements, this example and its CSS can be deleted.
+Instead of this 👇, we can use that 👆 again. / Kia
+-->
+<limel-example-input-field-text-decluttering-guidelines></limel-example-input-field-text-decluttering-guidelines>
 
 However, sometimes such design decisions depend on the context and it is only you who are designing the UI that can judge. Examples of these follow below.
 
