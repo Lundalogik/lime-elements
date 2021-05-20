@@ -115,7 +115,7 @@ export class Portal {
 
     private loaded = false;
 
-    private observer: IResizeObserver;
+    private observer: ResizeObserver;
 
     constructor() {
         this.parents = new WeakMap();

@@ -8,7 +8,7 @@ const COLUMN_COUNT = '--number-of-columns';
 
 export class GridLayout extends React.Component<LayoutProps, LayoutState> {
     private elementRef: React.RefObject<HTMLElement>;
-    private observer: typeof ResizeObserver;
+    private observer: ResizeObserver;
 
     constructor(public props: LayoutProps) {
         super(props);
