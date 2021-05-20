@@ -1,3 +1,10 @@
+### [31.8.1](https://github.com/Lundalogik/lime-elements/compare/v31.8.0...v31.8.1) (2021-05-20)
+
+
+### Bug Fixes
+
+* **form:** valid decimal values in the form component is no longer reported as invalid ([ab984c1](https://github.com/Lundalogik/lime-elements/commit/ab984c1900f478c40be1d35293746b316d14fb64)), closes [Lundalogik/lime-elements#1235](https://github.com/Lundalogik/lime-elements/issues/1235)
+
 ## [31.8.0](https://github.com/Lundalogik/lime-elements/compare/v31.7.2...v31.8.0) (2021-05-19)
 
 
