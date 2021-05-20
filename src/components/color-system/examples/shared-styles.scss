@@ -6,7 +6,7 @@
     grid-auto-flow: column;
     margin: pxToRem(12) auto pxToRem(20) auto;
     padding: pxToRem(20) pxToRem(12);
-    background-color: rgb(var(--contrast-300));
+    background-color: rgb(var(--kompendium-contrast-300));
     border-radius: pxToRem(3);
 }
 
@@ -21,7 +21,7 @@
     transition: border-radius 0.2s ease;
     border-radius: 3px;
     justify-content: center;
-    color: rgba(var(--color-white), 0.4);
+    color: rgba(var(--kompendium-color-white), 0.4);
     font-size: pxToRem(20);
 
     &:after {
@@ -35,7 +35,7 @@
         font-family: 'Source Code Pro', monospace;
         font-size: pxToRem(12);
         position: relative;
-        color: rgb(var(--contrast-900));
+        color: rgb(var(--kompendium-contrast-900));
         padding-top: pxToRem(8);
         writing-mode: vertical-lr;
         justify-content: left;
@@ -45,7 +45,7 @@
 .brightness-label {
     font-family: 'Source Code Pro', monospace;
     font-size: pxToRem(12);
-    color: rgb(var(--contrast-900));
+    color: rgb(var(--kompendium-contrast-900));
     justify-content: start;
 }
 
