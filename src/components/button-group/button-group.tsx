@@ -35,6 +35,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-button-group-icons
  * @exampleComponent limel-example-button-group
  * @exampleComponent limel-example-button-group-mix
+ * @exampleComponent limel-example-button-group-composite
  */
 @Component({
     tag: 'limel-button-group',
