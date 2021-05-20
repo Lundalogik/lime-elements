@@ -74,7 +74,7 @@ export class CodeEditor {
     protected random: number;
 
     private editor: CodeMirror.Editor;
-    private observer: IResizeObserver;
+    private observer: ResizeObserver;
 
     public connectedCallback() {
         this.observer = new ResizeObserver(this.handleResize) as any;
