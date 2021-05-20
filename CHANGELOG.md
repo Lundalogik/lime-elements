@@ -1,3 +1,10 @@
+## [31.9.0](https://github.com/Lundalogik/lime-elements/compare/v31.8.1...v31.9.0) (2021-05-20)
+
+
+### Features
+
+* **slider:** make readonly & disabled visually distinct ([678d297](https://github.com/Lundalogik/lime-elements/commit/678d2976ac15f296694d52331e84186ba54e98ac))
+
 ### [31.8.1](https://github.com/Lundalogik/lime-elements/compare/v31.8.0...v31.8.1) (2021-05-20)
 
 
