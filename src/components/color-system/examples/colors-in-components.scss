@@ -1,13 +1,13 @@
 @import '../../../style/functions';
 
 h3 {
-    color: rgb(var(--contrast-1300));
+    color: rgb(var(--kompendium-contrast-1300));
 }
 
 .background {
     margin: pxToRem(12) auto pxToRem(20) auto;
     padding: pxToRem(20) pxToRem(12);
-    background-color: rgb(var(--contrast-300));
+    background-color: rgb(var(--kompendium-contrast-300));
     border-radius: pxToRem(3);
 }
 
@@ -46,7 +46,7 @@ limel-linear-progress {
     height: 3rem;
     border-radius: 0.25rem;
 
-    color: rgb(var(--contrast-200));
-    background-color: rgb(var(--contrast-1100));
+    color: rgb(var(--kompendium-contrast-200));
+    background-color: rgb(var(--kompendium-contrast-1100));
     box-shadow: var(--shadow-depth-16);
 }
