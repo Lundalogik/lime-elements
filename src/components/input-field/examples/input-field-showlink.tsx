@@ -16,6 +16,9 @@ export class InputFieldShowlinkExample {
     private disabled = false;
 
     @State()
+    private readonly = false;
+
+    @State()
     private emailValue: string;
 
     @State()
@@ -24,14 +27,6 @@ export class InputFieldShowlinkExample {
     @State()
     private urlValue: string;
 
-    constructor() {
-        this.emailChangeHandler = this.emailChangeHandler.bind(this);
-        this.telChangeHandler = this.telChangeHandler.bind(this);
-        this.urlChangeHandler = this.urlChangeHandler.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
-    }
-
     public render() {
         return [
             <limel-input-field
@@ -39,6 +34,7 @@ export class InputFieldShowlinkExample {
                 value={this.emailValue}
                 required={this.required}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.emailChangeHandler}
                 type="email"
                 showLink
@@ -48,6 +44,7 @@ export class InputFieldShowlinkExample {
                 value={this.telValue}
                 required={this.required}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.telChangeHandler}
                 type="tel"
                 showLink
@@ -57,6 +54,7 @@ export class InputFieldShowlinkExample {
                 value={this.urlValue}
                 required={this.required}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.urlChangeHandler}
                 type="url"
                 showLink
@@ -66,19 +64,27 @@ export class InputFieldShowlinkExample {
                 value={this.urlValue}
                 required={this.required}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 onChange={this.urlChangeHandler}
                 type="urlAsText"
                 showLink
             />,
             <p>
                 <limel-flex-container justify="end">
-                    <limel-button
-                        onClick={this.toggleEnabled}
-                        label={this.disabled ? 'Enable' : 'Disable'}
+                    <limel-checkbox
+                        checked={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
                     />
-                    <limel-button
-                        onClick={this.toggleRequired}
-                        label={this.required ? 'Set Optional' : 'Set Required'}
+                    <limel-checkbox
+                        checked={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                    />
+                    <limel-checkbox
+                        checked={this.required}
+                        label="Required"
+                        onChange={this.setRequired}
                     />
                 </limel-flex-container>
             </p>,
@@ -88,23 +94,30 @@ export class InputFieldShowlinkExample {
         ];
     }
 
-    private emailChangeHandler(event: CustomEvent<string>) {
+    private emailChangeHandler = (event: CustomEvent<string>) => {
         this.emailValue = event.detail;
-    }
+    };
 
-    private telChangeHandler(event: CustomEvent<string>) {
+    private telChangeHandler = (event: CustomEvent<string>) => {
         this.telValue = event.detail;
-    }
+    };
 
-    private urlChangeHandler(event: CustomEvent<string>) {
+    private urlChangeHandler = (event: CustomEvent<string>) => {
         this.urlValue = event.detail;
-    }
+    };
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
-    }
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
 
-    private toggleRequired() {
-        this.required = !this.required;
-    }
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
+    };
+
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
+    };
 }

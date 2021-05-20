@@ -55,17 +55,18 @@ interface LinkProperties {
 })
 export class InputField {
     /**
-     * Disables the input field when `true`. Works exactly the same as
-     * `readonly`. If either property is `true`, the input field will be
-     * disabled.
+     * Set to `true` to disable the field.
+     * Use `disabled` to indicate that the field can normally be interacted
+     * with, but is currently disabled. This tells the user that if certain
+     * requirements are met, the field may become enabled again.
      */
     @Prop({ reflect: true })
     public disabled = false;
 
     /**
-     * Disables the input field when `true`. Works exactly the same as
-     * `disabled`. If either property is `true`, the input field will be
-     * disabled.
+     * Set to `true` to make the field read-only.
+     * Use `readonly` when the field is only there to present the data it holds,
+     * and will not become possible for the current user to edit.
      */
     @Prop({ reflect: true })
     public readonly = false;
@@ -293,6 +294,7 @@ export class InputField {
         properties.onFocus = this.onFocus;
         properties.onBlur = this.onBlur;
         properties.required = this.required;
+        properties.readonly = this.readonly;
         properties.disabled = this.disabled || this.readonly;
 
         const labelClassList = {
@@ -344,6 +346,7 @@ export class InputField {
             'mdc-text-field': true,
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled || this.readonly,
+            'lime-text-field--readonly': this.readonly,
             'mdc-text-field--required': this.required,
             'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
         };
@@ -472,7 +475,16 @@ export class InputField {
     }
 
     private isInvalid() {
+        if (this.readonly) {
+            // A readonly field can never be invalid.
+            return false;
+        }
+
         if (this.invalid) {
+            // `this.invalid` is set by the consumer. If the consumer explicitly
+            // told us to consider the field invalid, we consider it invalid
+            // regardless of what our internal validation thinks, and regardless
+            // of whether the field has been modified.
             return true;
         }
 
@@ -549,7 +561,7 @@ export class InputField {
             <a
                 {...linkProps}
                 class="mdc-text-field__icon trailing-icon"
-                tabindex={this.disabled || this.readonly ? '-1' : '0'}
+                tabindex={this.disabled ? '-1' : '0'}
                 role="button"
             >
                 <limel-icon name={icon} />

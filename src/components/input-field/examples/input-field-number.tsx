@@ -16,6 +16,9 @@ export class InputFieldNumberExample {
     private disabled = false;
 
     @State()
+    private readonly = false;
+
+    @State()
     private invalid = false;
 
     @State()
@@ -24,19 +27,7 @@ export class InputFieldNumberExample {
     @State()
     private value;
 
-    constructor() {
-        this.changeHandler = this.changeHandler.bind(this);
-        this.toggleFormatting = this.toggleFormatting.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
-    }
-
     public render() {
-        let formatLabel = 'Format number';
-        if (this.formatNumber) {
-            formatLabel = 'Unformat number';
-        }
-
         return [
             <limel-input-field
                 label="Number Field Label"
@@ -44,23 +35,32 @@ export class InputFieldNumberExample {
                 type="number"
                 formatNumber={this.formatNumber}
                 disabled={this.disabled}
+                readonly={this.readonly}
                 invalid={this.invalid}
                 required={this.required}
                 onChange={this.changeHandler}
             />,
             <p>
                 <limel-flex-container justify="end">
-                    <limel-button
-                        label={formatLabel}
-                        onClick={this.toggleFormatting}
+                    <limel-checkbox
+                        checked={this.formatNumber}
+                        label="Format value"
+                        onChange={this.setFormatNumber}
                     />
-                    <limel-button
-                        label={this.disabled ? 'Enable' : 'Disable'}
-                        onClick={this.toggleEnabled}
+                    <limel-checkbox
+                        checked={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
                     />
-                    <limel-button
-                        label={this.required ? 'Set optional' : 'Set required'}
-                        onClick={this.toggleRequired}
+                    <limel-checkbox
+                        checked={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                    />
+                    <limel-checkbox
+                        checked={this.required}
+                        label="Required"
+                        onChange={this.setRequired}
                     />
                 </limel-flex-container>
             </p>,
@@ -73,20 +73,26 @@ export class InputFieldNumberExample {
         this.invalid = this.required && !this.value;
     }
 
-    private changeHandler(event) {
+    private changeHandler = (event: CustomEvent<string>) => {
         this.value = event.detail;
         this.checkValidity();
-    }
+    };
 
-    private toggleFormatting() {
-        this.formatNumber = !this.formatNumber;
-    }
+    private setFormatNumber = (event: CustomEvent<boolean>) => {
+        this.formatNumber = event.detail;
+    };
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
-    }
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        this.disabled = event.detail;
+    };
 
-    private toggleRequired() {
-        this.required = !this.required;
-    }
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
+    };
+
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
+    };
 }
