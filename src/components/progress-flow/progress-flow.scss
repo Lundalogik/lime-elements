@@ -5,13 +5,9 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: flex-start;
-    overflow-x: auto;
+    gap: 0.25rem;
 }
 
 .first-end-phase-item {
-    padding-left: 0.25rem;
-}
-
-.flow-item {
-    height: 2.5rem;
+    margin-left: 0.75rem;
 }
