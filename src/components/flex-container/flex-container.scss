@@ -1,5 +1,6 @@
 :host(limel-flex-container) {
     display: flex;
+    gap: calc(var(--flex-container-gap, 0) * 1rem);
 }
 :host(limel-flex-container[hidden]) {
     display: none;

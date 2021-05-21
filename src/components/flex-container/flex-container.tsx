@@ -39,6 +39,11 @@ export class FlexContainer {
     @Prop({ reflect: true })
     public reverse = false;
 
+    /**
+     * Accepts numbers and adds that number as a gap (in `rem`) between items
+     */
+    // FIXME: we need to render an inline style in the DOM, like this: `style="--flex-container-gap: {gap}"`
+
     public render() {
         return <slot />;
     }
