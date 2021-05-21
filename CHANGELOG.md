@@ -1,3 +1,10 @@
+## [31.10.0](https://github.com/Lundalogik/lime-elements/compare/v31.9.0...v31.10.0) (2021-05-21)
+
+
+### Features
+
+* **switch:** make readonly & disabled visually distinct ([ec75db3](https://github.com/Lundalogik/lime-elements/commit/ec75db3fba5dda3b18a9af021eda40ee03d56504))
+
 ## [31.9.0](https://github.com/Lundalogik/lime-elements/compare/v31.8.1...v31.9.0) (2021-05-20)
 
 
