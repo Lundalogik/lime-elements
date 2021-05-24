@@ -22,6 +22,9 @@ export class ProgressFlowItem {
     @Prop()
     public isLast: boolean = false;
 
+    @Prop()
+    public isPassed: boolean = false;
+
     public render() {
         return (
             <button
@@ -29,6 +32,7 @@ export class ProgressFlowItem {
                 type="button"
                 class={{
                     'btn-flow': true,
+                    'passed-phase': this.isPassed,
                     'end-phase': this.item?.isEndPhase,
                     active: this.item?.selected,
                     first: this.isFirst,

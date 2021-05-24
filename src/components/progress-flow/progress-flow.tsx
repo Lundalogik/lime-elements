@@ -33,38 +33,42 @@ export class ProgressFlow {
         const endPhaseItems = this.flowItems.filter((o) => {
             return o.isEndPhase;
         });
+        const activeIndex = regularFlowItems.findIndex((o) => {
+            return o.selected;
+        });
 
         return [
             endPhaseItems.reverse().map((item, i) => {
-                    return (
-                        <limel-progress-flow-item
-                            style={this.getItemStyle(item)}
-                            class={{
-                                'flow-item': true,
-                                'first-end-phase-item':
-                                    i === endPhaseItems.length - 1,
-                            }}
-                            item={item}
-                            onClick={() => {
-                                this.handleFlowItemClick(item);
-                            }}
-                        />
-                    );
-                }),
-                regularFlowItems.reverse().map((item, i) => {
-                    return (
-                        <limel-progress-flow-item
-                            class="flow-item"
-                            style={this.getItemStyle(item)}
-                            item={item}
-                            isLast={i === 0}
-                            isFirst={i === regularFlowItems.length - 1}
-                            onClick={() => {
-                                this.handleFlowItemClick(item);
-                            }}
-                        />
-                    );
-                }),
+                return (
+                    <limel-progress-flow-item
+                        style={this.getItemStyle(item)}
+                        class={{
+                            'flow-item': true,
+                            'first-end-phase-item':
+                                i === endPhaseItems.length - 1,
+                        }}
+                        item={item}
+                        onClick={() => {
+                            this.handleFlowItemClick(item);
+                        }}
+                    />
+                );
+            }),
+            regularFlowItems.reverse().map((item, i) => {
+                return (
+                    <limel-progress-flow-item
+                        class="flow-item"
+                        style={this.getItemStyle(item)}
+                        item={item}
+                        isLast={i === 0}
+                        isFirst={i === regularFlowItems.length - 1}
+                        isPassed={regularFlowItems.length - i - 1 < activeIndex}
+                        onClick={() => {
+                            this.handleFlowItemClick(item);
+                        }}
+                    />
+                );
+            }),
         ];
     }
 
