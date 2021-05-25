@@ -45,12 +45,10 @@ export class ProgressFlowColorsExample {
 
     public render() {
         return (
-            <limel-flex-container>
-                <limel-progress-flow
-                    flowItems={this.flowItems}
-                    onChange={this.onChange}
-                />
-            </limel-flex-container>
+            <limel-progress-flow
+                flowItems={this.flowItems}
+                onChange={this.onChange}
+            />
         );
     }
 
