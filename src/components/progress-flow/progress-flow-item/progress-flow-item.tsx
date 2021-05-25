@@ -39,7 +39,7 @@ export class ProgressFlowItem {
                 class={{
                     'btn-flow': true,
                     'passed': this.isPassed,
-                    'end-phase': this.item?.isEndPhase,
+                    'off-progress-step': this.item?.isOffProgress,
                     active: this.item?.selected,
                     first: this.isFirst,
                     last: this.isLast,

@@ -8,7 +8,7 @@ import { FlowItem } from '../progress-flow.types';
  * process. But sometimes such processes can be abrupted, despite the level of progress.
  *
  * Abruptions can be excluded and displayed separately (not as a part of the flow)
- * using the `isEndPhase` property.
+ * using the `isOffProgress` property.
  *
  */
 @Component({
@@ -46,14 +46,14 @@ export class ProgressFlowEndStepsExample {
         {
             value: 'rejected',
             text: 'Rejected',
-            isEndPhase: true,
+            isOffProgress: true,
             activeColor: 'rgb(var(--color-red-dark))',
             icon: 'cancel_2',
         },
         {
             value: 'onhold',
             text: 'On hold',
-            isEndPhase: true,
+            isOffProgress: true,
             activeColor: 'rgb(var(--color-coral-default))',
             icon: 'circled_pause',
         },

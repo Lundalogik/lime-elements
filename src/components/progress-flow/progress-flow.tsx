@@ -28,10 +28,10 @@ export class ProgressFlow {
 
     public render() {
         const regularFlowItems = this.flowItems.filter((o) => {
-            return !o.isEndPhase;
+            return !o.isOffProgress;
         });
         const endPhaseItems = this.flowItems.filter((o) => {
-            return o.isEndPhase;
+            return o.isOffProgress;
         });
         const activeIndex = regularFlowItems.findIndex((o) => {
             return o.selected;
@@ -44,7 +44,7 @@ export class ProgressFlow {
                         style={this.getItemStyle(item)}
                         class={{
                             'flow-item': true,
-                            'first-end-phase-item':
+                            'first-off-progress-step':
                                 i === endPhaseItems.length - 1,
                         }}
                         item={item}

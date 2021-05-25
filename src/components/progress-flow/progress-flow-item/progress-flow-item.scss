@@ -39,11 +39,11 @@
         }
     }
 
-    &:not(.end-phase, .first) {
+    &:not(.off-progress-step, .first) {
         padding-left: calc(var(--step-height) / 2);
     }
 
-    &:not(.end-phase, .last) {
+    &:not(.off-progress-step, .last) {
         .btn-flow-divider {
             height: var(--step-height);
             overflow-y: clip;
@@ -74,7 +74,7 @@
         }
     }
 
-    &.end-phase {
+    &.off-progress-step {
         border-radius: pxToRem(4);
         padding: 0 pxToRem(12);
 
