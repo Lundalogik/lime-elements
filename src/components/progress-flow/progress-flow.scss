@@ -1,5 +1,12 @@
 @import '../../style/internal/mdc-variables';
 
+/**
+* @prop --progress-flow-inactive-step-background-color: Background of inactive steps, defaults to `--contrast-600`.
+* @prop --progress-flow-active-step-background-color: Background color of active step, defaults to `--lime-primary-color`.
+* @prop --progress-flow-passed-step-background-color: Background color of passed steps, defaults to the color of active steps.
+* @prop --progress-flow-step-divider-color: Color of the arrow shaped dividers between steps which must be the same as component's background, defaults to `--contrast-100`.
+*/
+
 :host {
     width: 100%;
     display: flex;

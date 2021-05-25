@@ -16,24 +16,26 @@ export class ProgressFlowColorsExample {
     private flowItems: FlowItem[] = [
         {
             value: 'lime',
-            text: 'Lime step',
-            activeColor: 'rgb(var(--color-lime-default))',
+            text: 'Magenta step',
+            activeColor: 'rgb(var(--color-magenta-default)',
+            passedColor: 'rgb(var(--color-glaucous-dark))',
             selected: true,
         },
         {
             value: 'purple',
             text: 'Purple step',
             activeColor: 'rgb(var(--color-purple-default))',
+            passedColor: 'rgb(var(--color-glaucous-dark))',
         },
         {
             value: 'organge',
-            text: 'Orange step',
-            activeColor: 'rgb(var(--color-orange-default))',
+            text: 'Blue step',
+            activeColor: 'rgb(var(--color-blue-default))',
         },
         {
             value: 'red',
-            text: 'Red step',
-            activeColor: 'rgb(var(--color-red-default))',
+            text: 'Green step',
+            activeColor: 'rgb(var(--color-green-default))',
         },
     ];
 

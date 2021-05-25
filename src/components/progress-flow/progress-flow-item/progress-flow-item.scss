@@ -5,20 +5,20 @@
     width: 100%;
     overflow-y: clip;
 
-    --progress-flow-step-height: 2.5rem;
-    --progress-flow-active-step-divider-color: rgb(var(--contrast-100));
-    --progress-flow-active-step-background-color: var(--mdc-theme-primary);
-    --progress-flow-inactive-step-background-color: rgb(var(--contrast-600));
-    --progress-flow-inactive-step-background-color--hover: rgb(var(--contrast-400));
+    --step-height: 2.5rem;
+    --step-background--active: var(--progress-flow-active-step-background-color, var(--mdc-theme-primary));
+    --step-background--inactive: var(--progress-flow-inactive-step-background-color, rgb(var(--contrast-600)));
+    --step-background--passed: var(--progress-flow-passed-step-background-color, var(--step-background--active));
+    --progress-flow-step-divider-color: rgb(var(--contrast-100));
 }
 
 .btn-flow {
     transition: background-color 0.2s ease;
     position: relative;
     width: 100%;
-    height: var(--progress-flow-step-height);
+    height: var(--step-height);
     border: none;
-    background-color: var(--progress-flow-inactive-step-background-color);
+    background-color: var(--step-background--inactive);
     z-index: 2;
     font-size: pxToRem(14);
 
@@ -26,33 +26,30 @@
         cursor: pointer;
 
         &:hover {
-            &,
-            &::after {
-                transition: background-color 0.2s ease;
-                background-color: var(--progress-flow-inactive-step-background-color--hover);
-            }
+            filter: brightness(1.05);
         }
     }
 
     &:not(.end-phase, .first) {
-        padding-left: var(--progress-flow-step-height);
+        padding-left: var(--step-height);
     }
 
     &:not(.end-phase, .last) {
         &:after {
-            border-top: solid pxToRem(2) var(--progress-flow-active-step-divider-color);
-            border-right: solid pxToRem(2) var(--progress-flow-active-step-divider-color);
+            transition: background-color 0.2s ease;
+            border-top: solid pxToRem(2) var(--progress-flow-step-divider-color);
+            border-right: solid pxToRem(2) var(--progress-flow-step-divider-color);
 
             content: '';
             display: block;
             position: absolute;
             top: 0;
-            right: calc(var(--progress-flow-step-height) / 2 * -1);
+            right: calc(var(--step-height) / 2 * -1);
             bottom: 0;
             margin: auto;
-            width: var(--progress-flow-step-height);
-            height: var(--progress-flow-step-height);
-            background-color: inherit;
+            width: var(--step-height);
+            height: var(--step-height);
+            background-color: var(--step-background--inactive);
             border-radius: 0 pxToRem(6) 0 0;
             transform: rotate(45deg);
             z-index: -1;
@@ -65,16 +62,26 @@
     }
     &.active {
         color: var(--mdc-theme-on-primary);
-        background-color: var(--progress-flow-active-step-background-color);
+        background-color: var(--step-background--active);
+        &:after {
+            background-color: var(--step-background--active);
+        }
+    }
+    &.passed-phase {
+        color: var(--mdc-theme-on-primary);
+        background-color: var(--step-background--passed);
+        &:after {
+            background-color: var(--step-background--passed);
+        }
     }
     &.first {
-        border-top-left-radius: var(--progress-flow-step-height);
-        border-bottom-left-radius: var(--progress-flow-step-height);
+        border-top-left-radius: var(--step-height);
+        border-bottom-left-radius: var(--step-height);
         padding-left: pxToRem(20);
     }
     &.last {
-        border-top-right-radius: var(--progress-flow-step-height);
-        border-bottom-right-radius: var(--progress-flow-step-height);
+        border-top-right-radius: var(--step-height);
+        border-bottom-right-radius: var(--step-height);
         padding-right: pxToRem(20);
     }
 }
