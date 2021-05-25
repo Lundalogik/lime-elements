@@ -1,5 +1,6 @@
 @import '../../../style/mixins';
 @import '../../../style/functions';
+@import './partial-styles/active-indicator';
 
 :host {
     width: 100%;
@@ -80,6 +81,7 @@
     &.active {
         color: var(--step-text--active);
         background-color: var(--step-background--active);
+
         .btn-flow-divider:after {
             background-color: var(--step-background--active);
         }
@@ -87,6 +89,7 @@
     &.passed-phase {
         color: var(--step-text--passed);
         background-color: var(--step-background--passed);
+
         .btn-flow-divider:after {
             background-color: var(--step-background--passed);
         }

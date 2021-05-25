@@ -1,0 +1,22 @@
+.btn-flow {
+    &:not(.end-phase) {
+        &.active {
+            &:after  {
+                content: '';
+                position: absolute;
+                background-color: var(--step-divider-color);
+                width: pxToRem(6);
+                height: pxToRem(6);
+                right: pxToRem(-8);
+                border-radius: 50%;
+                opacity: 0.7;
+            }
+
+            &.last {
+                &:after {
+                    right: pxToRem(8);
+                }
+            }
+        }
+    }
+}
