@@ -39,8 +39,8 @@ export class ProgressFlowDealExample {
             icon: 'agreement',
         },
         {
-            value: 'rejection',
-            text: 'Rejection',
+            value: 'rejected',
+            text: 'Rejected',
             isEndPhase: true,
             activeColor: 'rgb(var(--color-red-dark))',
             icon: 'cancel_2',
