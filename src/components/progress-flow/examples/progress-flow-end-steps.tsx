@@ -2,9 +2,14 @@ import { Component, h, State } from '@stencil/core';
 import { FlowItem } from '../progress-flow.types';
 
 /**
- * Example with End steps
+ * Example with off-progress steps
  *
- * An example to show a flow with end steps
+ * Naturally, the Progress Flow component is used to visualize a continuous linear
+ * process. But sometimes such processes can be abrupted, despite the level of progress.
+ *
+ * Abruptions can be excluded and displayed separately (not as a part of the flow)
+ * using the `isEndPhase` property.
+ *
  */
 @Component({
     tag: 'limel-example-progress-flow-end-steps',
@@ -14,32 +19,43 @@ export class ProgressFlowEndStepsExample {
     @State()
     private flowItems: FlowItem[] = [
         {
-            value: '1',
-            text: 'Step 1',
-            activeColor: 'rgb(var(--color-blue-light))',
-            selected: true,
-        },
-        {
-            value: '2',
-            text: 'Step 2',
+            value: 'contact',
+            text: 'Customer contact',
             activeColor: 'rgb(var(--color-blue-default))',
+            selected: true,
+            icon: 'meeting',
         },
         {
-            value: '3',
-            text: 'Step 3',
-            activeColor: 'rgb(var(--color-blue-dark))',
+            value: 'requirement',
+            text: 'Demand analysis',
+            activeColor: 'rgb(var(--color-teal-default))',
+            icon: 'combo_chart',
         },
         {
-            value: 'success',
-            text: 'Success end step',
-            isEndPhase: true,
+            value: 'tender',
+            text: 'Quote',
             activeColor: 'rgb(var(--color-green-default))',
+            icon: 'paper_plane',
         },
         {
-            value: 'failed',
-            text: 'Failed end step',
+            value: 'agreement',
+            text: 'Agreement',
+            activeColor: 'rgb(var(--color-green-dark))',
+            icon: 'agreement',
+        },
+        {
+            value: 'rejected',
+            text: 'Rejected',
             isEndPhase: true,
             activeColor: 'rgb(var(--color-red-dark))',
+            icon: 'cancel_2',
+        },
+        {
+            value: 'onhold',
+            text: 'On hold',
+            isEndPhase: true,
+            activeColor: 'rgb(var(--color-coral-default))',
+            icon: 'circled_pause',
         },
     ];
 
