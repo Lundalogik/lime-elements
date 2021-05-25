@@ -17,7 +17,7 @@
     --step-divider-color: var(--progress-flow-step-divider-color, rgb(var(--contrast-100)));
 }
 
-.flow-step {
+.btn-flow {
     transition: background-color 0.2s ease;
     z-index: 2;
     display: flex;
@@ -39,12 +39,12 @@
         }
     }
 
-    &:not(.off-progress-step, .first) {
+    &:not(.end-phase, .first) {
         padding-left: calc(var(--step-height) / 2);
     }
 
-    &:not(.off-progress-step, .last) {
-        .flow-step-divider {
+    &:not(.end-phase, .last) {
+        .btn-flow-divider {
             height: var(--step-height);
             overflow-y: clip;
             position: absolute;
@@ -74,11 +74,11 @@
         }
     }
 
-    &.off-progress-step {
+    &.end-phase {
         border-radius: pxToRem(4);
         padding: 0 pxToRem(12);
 
-        .flow-step-icon {
+        .btn-flow-icon {
             margin-left: 0;
         }
     }
@@ -86,7 +86,7 @@
         color: var(--step-text--active);
         background-color: var(--step-background--active);
 
-        .flow-step-divider:after {
+        .btn-flow-divider:after {
             background-color: var(--step-background--active);
         }
     }
@@ -94,7 +94,7 @@
         color: var(--step-text--passed);
         background-color: var(--step-background--passed);
 
-        .flow-step-divider:after {
+        .btn-flow-divider:after {
             background-color: var(--step-background--passed);
         }
     }
@@ -106,14 +106,14 @@
     &.last {
         border-top-right-radius: var(--step-height);
         border-bottom-right-radius: var(--step-height);
-        padding-right: pxToRem(24);
+        padding-right: pxToRem(20);
     }
 }
 
-.flow-step-text {
+.btn-flow-text {
     @include truncate-text();
 }
 
-.flow-step-icon {
+.btn-flow-icon {
     margin: 0 pxToRem(8) 0 pxToRem(4);
 }

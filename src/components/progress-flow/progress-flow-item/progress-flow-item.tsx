@@ -5,9 +5,9 @@ import { FlowItem } from '../progress-flow.types';
  * @private
  */
 @Component({
-    tag: 'limel-progress-flow-step',
+    tag: 'limel-progress-flow-item',
     shadow: true,
-    styleUrl: 'progress-flow-step.scss',
+    styleUrl: 'progress-flow-item.scss',
 })
 export class ProgressFlowItem {
     @Element()
@@ -37,17 +37,17 @@ export class ProgressFlowItem {
                 title={this.item.text}
                 type="button"
                 class={{
-                    'flow-step': true,
+                    'btn-flow': true,
                     'passed-phase': this.isPassed,
-                    'off-progress-step': this.item?.isEndPhase,
+                    'end-phase': this.item?.isEndPhase,
                     active: this.item?.selected,
                     first: this.isFirst,
                     last: this.isLast,
                 }}
             >
                 {this.renderIcon()}
-                <span class="flow-step-text">{this.item.text}</span>
-                <div class="flow-step-divider"/>
+                <span class="btn-flow-text">{this.item.text}</span>
+                <div class="btn-flow-divider"/>
             </button>
         );
     }
@@ -60,7 +60,7 @@ export class ProgressFlowItem {
             <limel-icon
                 name={this.item.icon}
                 size="small"
-                class="flow-step-icon"
+                class="btn-flow-icon"
             />
         );
     }

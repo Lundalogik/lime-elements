@@ -1,5 +1,5 @@
-.flow-step {
-    &:not(.off-progress-step) {
+.btn-flow {
+    &:not(.end-phase) {
         &.active {
             &:after  {
                 content: '';
