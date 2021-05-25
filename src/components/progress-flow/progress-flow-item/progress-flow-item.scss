@@ -20,6 +20,9 @@
 .btn-flow {
     transition: background-color 0.2s ease;
     z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     width: 100%;
     height: var(--step-height);
@@ -93,6 +96,9 @@
 }
 
 .btn-flow-text {
-    width: 100%;
     @include truncate-text();
+}
+
+.btn-flow-icon {
+    margin-right: pxToRem(8);
 }

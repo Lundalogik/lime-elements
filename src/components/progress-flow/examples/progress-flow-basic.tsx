@@ -14,9 +14,14 @@ import { FlowItem } from '../progress-flow.types';
 export class ProgressFlowBasicExample {
     @State()
     private flowItems: FlowItem[] = [
-        { value: '1', text: 'Step 1', selected: true },
-        { value: '2', text: 'Step 2' },
-        { value: '3', text: 'Step 3' },
+        {
+            value: '1',
+            text: 'Step 1',
+            selected: true,
+            icon: 'add_shopping_cart',
+        },
+        { value: '2', text: 'Step 2', icon: 'shopping_cart_loaded' },
+        { value: '3', text: 'Step 3', icon: 'insert_money_euro' },
     ];
 
     constructor() {

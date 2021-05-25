@@ -18,33 +18,39 @@ export class ProgressFlowDealExample {
             text: 'Customer contact',
             activeColor: 'rgb(var(--color-blue-default))',
             selected: true,
+            icon: 'meeting',
         },
         {
             value: 'requirement',
             text: 'Demand analysis',
             activeColor: 'rgb(var(--color-teal-default))',
+            icon: 'combo_chart',
         },
         {
             value: 'tender',
             text: 'Quote',
             activeColor: 'rgb(var(--color-green-default))',
+            icon: 'paper_plane',
         },
         {
             value: 'agreement',
             text: 'Agreement',
             activeColor: 'rgb(var(--color-green-dark))',
+            icon: 'agreement',
         },
         {
             value: 'rejection',
             text: 'Rejection',
             isEndPhase: true,
             activeColor: 'rgb(var(--color-red-dark))',
+            icon: 'cancel_2',
         },
         {
             value: 'onhold',
             text: 'On hold',
             isEndPhase: true,
             activeColor: 'rgb(var(--color-coral-default))',
+            icon: 'circled_pause',
         },
     ];
 

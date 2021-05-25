@@ -25,6 +25,12 @@ export class ProgressFlowItem {
     @Prop()
     public isPassed: boolean = false;
 
+    /**
+     * Icon displayed along with the text optionally
+     */
+    @Prop()
+    public icon: string;
+
     public render() {
         return (
             <button
@@ -39,8 +45,22 @@ export class ProgressFlowItem {
                     last: this.isLast,
                 }}
             >
+                {this.renderIcon()}
                 <span class="btn-flow-text">{this.item.text}</span>
             </button>
+        );
+    }
+    private renderIcon() {
+        if (!this.item.icon) {
+            return;
+        }
+
+        return (
+            <limel-icon
+                name={this.item.icon}
+                size="small"
+                class="btn-flow-icon"
+            />
         );
     }
 }
