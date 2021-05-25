@@ -1,3 +1,18 @@
+## [32.0.0](https://github.com/Lundalogik/lime-elements/compare/v31.10.0...v32.0.0) (2021-05-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **slider:** Previously, only `value` was multiplied by `factor`. With this fix,
+`step` is also multiplied by `factor`. Let's say we have a slider that goes from 0 to
+100 %, where the `value` is a decimal between 0 and 1. This slider would have a
+`factor=100`. If the slider should move in steps of 5 percentage points, before this
+fix, `step` would be set to `5`. After this fix, `step` should be set to `0.05` instead.
+
+### Bug Fixes
+
+* **slider:** when both `step` and `factor` are supplied, multiply `step` by `factor` ([5a503fd](https://github.com/Lundalogik/lime-elements/commit/5a503fdec2026677163ba0c8629474df8d2e82da)), closes [Lundalogik/crm-feature#2114](https://github.com/Lundalogik/crm-feature/issues/2114)
+
 ## [31.10.0](https://github.com/Lundalogik/lime-elements/compare/v31.9.0...v31.10.0) (2021-05-21)
 
 
