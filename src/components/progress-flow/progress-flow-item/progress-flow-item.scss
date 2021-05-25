@@ -3,7 +3,6 @@
 
 :host {
     width: 100%;
-    overflow-y: clip;
 
     --step-height: 2.5rem;
     --step-background--inactive: var(--progress-flow-step-background-color--inactive, rgb(var(--contrast-600)));
@@ -44,24 +43,32 @@
     }
 
     &:not(.end-phase, .last) {
-        &:after {
-            transition: background-color 0.2s ease;
-            border-top: solid pxToRem(2) var(--step-divider-color);
-            border-right: solid pxToRem(2) var(--step-divider-color);
-
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0;
-            right: calc(var(--step-height) / 2 * -1);
-            bottom: 0;
-            margin: auto;
-            width: var(--step-height);
+        .btn-flow-divider {
             height: var(--step-height);
-            background-color: var(--step-background--inactive);
-            border-radius: 0 pxToRem(6) 0 0;
-            transform: rotate(45deg);
-            z-index: -1;
+            overflow-y: clip;
+            position: absolute;
+            right: 0;
+
+            &:after {
+                box-sizing: border-box;
+                transition: background-color 0.2s ease;
+                border-top: solid pxToRem(2) var(--step-divider-color);
+                border-right: solid pxToRem(2) var(--step-divider-color);
+
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                right: calc((var(--step-height) / 2 * -1) + var(--progress-flow-gap));
+                bottom: 0;
+                margin: auto;
+                width: calc(var(--step-height) * 0.9);
+                height: calc(var(--step-height) * 0.9);
+                background-color: var(--step-background--inactive);
+                border-radius: 0 pxToRem(6) 0 0;
+                transform: rotate(45deg);
+                z-index: -1;
+            }
         }
     }
 
@@ -72,14 +79,14 @@
     &.active {
         color: var(--step-text--active);
         background-color: var(--step-background--active);
-        &:after {
+        .btn-flow-divider:after {
             background-color: var(--step-background--active);
         }
     }
     &.passed-phase {
         color: var(--step-text--passed);
         background-color: var(--step-background--passed);
-        &:after {
+        .btn-flow-divider:after {
             background-color: var(--step-background--passed);
         }
     }

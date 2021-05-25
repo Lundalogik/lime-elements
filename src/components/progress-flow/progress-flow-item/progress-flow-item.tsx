@@ -47,6 +47,7 @@ export class ProgressFlowItem {
             >
                 {this.renderIcon()}
                 <span class="btn-flow-text">{this.item.text}</span>
+                <div class="btn-flow-divider"/>
             </button>
         );
     }
