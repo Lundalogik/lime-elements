@@ -40,7 +40,7 @@
     }
 
     &:not(.end-phase, .first) {
-        padding-left: var(--step-height);
+        padding-left: calc(var(--step-height) / 2);
     }
 
     &:not(.end-phase, .last) {
@@ -77,6 +77,10 @@
     &.end-phase {
         border-radius: pxToRem(4);
         padding: 0 pxToRem(12);
+
+        .btn-flow-icon {
+            margin-left: 0;
+        }
     }
     &.active {
         color: var(--step-text--active);
@@ -111,5 +115,5 @@
 }
 
 .btn-flow-icon {
-    margin-right: pxToRem(8);
+    margin: 0 pxToRem(8) 0 pxToRem(4);
 }
