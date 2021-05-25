@@ -17,6 +17,13 @@
     flex-direction: row-reverse;
     align-items: flex-start;
     gap: var(--progress-flow-gap);
+
+    overflow-x: auto;
+    scrollbar-width: none; // This hides the scrollbars appearing under in Firefox
+    -ms-overflow-style: none; // Same as above for IE 11
+    &::-webkit-scrollbar {
+        display: none; // This hides the scrollbars appearing under in Chrome
+    }
 }
 
 .first-off-progress-step {
