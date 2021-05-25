@@ -203,6 +203,14 @@ export class Table {
             return;
         }
 
+        const existingColumns = this.tabulator
+            .getColumns()
+            .map(this.findColumn);
+
+        if (this.areSameColumns(newColumns, existingColumns)) {
+            return;
+        }
+
         this.tabulator.setColumns(this.getColumnDefinitions());
     }
 
