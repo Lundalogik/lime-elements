@@ -41,11 +41,11 @@ export class ProgressFlow {
         return [
             endPhaseItems.reverse().map((item, i) => {
                 return (
-                    <limel-progress-flow-item
+                    <limel-progress-flow-step
                         style={this.getItemStyle(item)}
                         class={{
                             'flow-item': true,
-                            'first-end-phase-item':
+                            'first-off-progress-step':
                                 i === endPhaseItems.length - 1,
                         }}
                         item={item}
@@ -57,7 +57,7 @@ export class ProgressFlow {
             }),
             regularFlowItems.reverse().map((item, i) => {
                 return (
-                    <limel-progress-flow-item
+                    <limel-progress-flow-step
                         class="flow-item"
                         style={this.getItemStyle(item)}
                         item={item}
