@@ -48,6 +48,7 @@
             overflow-y: clip;
             position: absolute;
             right: 0;
+            z-index: -1;
 
             &:after {
                 box-sizing: border-box;
@@ -62,12 +63,12 @@
                 right: calc((var(--step-height) / 2 * -1) + var(--progress-flow-gap));
                 bottom: 0;
                 margin: auto;
+
                 width: calc(var(--step-height) * 0.9);
                 height: calc(var(--step-height) * 0.9);
                 background-color: var(--step-background--inactive);
                 border-radius: 0 pxToRem(6) 0 0;
                 transform: rotate(45deg);
-                z-index: -1;
             }
         }
     }
