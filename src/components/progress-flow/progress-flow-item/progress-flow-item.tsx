@@ -38,7 +38,7 @@ export class ProgressFlowItem {
                 type="button"
                 class={{
                     'btn-flow': true,
-                    'passed-phase': this.isPassed,
+                    'passed': this.isPassed,
                     'end-phase': this.item?.isEndPhase,
                     active: this.item?.selected,
                     first: this.isFirst,
