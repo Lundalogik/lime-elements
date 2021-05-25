@@ -6,21 +6,27 @@
     overflow-y: clip;
 
     --step-height: 2.5rem;
-    --step-background--active: var(--progress-flow-active-step-background-color, var(--mdc-theme-primary));
-    --step-background--inactive: var(--progress-flow-inactive-step-background-color, rgb(var(--contrast-600)));
-    --step-background--passed: var(--progress-flow-passed-step-background-color, var(--step-background--active));
-    --progress-flow-step-divider-color: rgb(var(--contrast-100));
+    --step-background--inactive: var(--progress-flow-step-background-color--inactive, rgb(var(--contrast-600)));
+    --step-background--active: var(--progress-flow-step-background-color--active, var(--mdc-theme-primary));
+    --step-background--passed: var(--progress-flow-step-background-color--passed, var(--step-background--active));
+
+    --step-text--inactive:  var(--progress-flow-step-text-color--inactive, rgb(var(--contrast-1200)));
+    --step-text--active: var(--progress-flow-step-text-color--active, var(--mdc-theme-on-primary));
+    --step-text--passed: var(--progress-flow-step-text-color--passed, var(--mdc-theme-on-primary));
+
+    --step-divider-color: var(--progress-flow-step-divider-color, rgb(var(--contrast-100)));
 }
 
 .btn-flow {
     transition: background-color 0.2s ease;
+    z-index: 2;
     position: relative;
     width: 100%;
     height: var(--step-height);
     border: none;
-    background-color: var(--step-background--inactive);
-    z-index: 2;
     font-size: pxToRem(14);
+    color: var(--step-text--inactive);
+    background-color: var(--step-background--inactive);
 
     &:not(.active) {
         cursor: pointer;
@@ -37,8 +43,8 @@
     &:not(.end-phase, .last) {
         &:after {
             transition: background-color 0.2s ease;
-            border-top: solid pxToRem(2) var(--progress-flow-step-divider-color);
-            border-right: solid pxToRem(2) var(--progress-flow-step-divider-color);
+            border-top: solid pxToRem(2) var(--step-divider-color);
+            border-right: solid pxToRem(2) var(--step-divider-color);
 
             content: '';
             display: block;
@@ -61,14 +67,14 @@
         padding: 0 pxToRem(12);
     }
     &.active {
-        color: var(--mdc-theme-on-primary);
+        color: var(--step-text--active);
         background-color: var(--step-background--active);
         &:after {
             background-color: var(--step-background--active);
         }
     }
     &.passed-phase {
-        color: var(--mdc-theme-on-primary);
+        color: var(--step-text--passed);
         background-color: var(--step-background--passed);
         &:after {
             background-color: var(--step-background--passed);

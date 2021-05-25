@@ -4,6 +4,7 @@ import { FlowItem } from './progress-flow.types';
 /**
  * @exampleComponent limel-example-progress-flow-basic
  * @exampleComponent limel-example-progress-flow-colors
+ * @exampleComponent limel-example-progress-flow-colors-css
  * @exampleComponent limel-example-progress-flow-end-steps
  * @exampleComponent limel-example-progress-flow-deal
  */
@@ -81,11 +82,11 @@ export class ProgressFlow {
     private getItemStyle(flowItem: FlowItem) {
         const style: any = {};
         if (flowItem?.activeColor) {
-            style['--progress-flow-active-step-background-color'] =
+            style['--progress-flow-step-background-color--active'] =
                 flowItem.activeColor;
         }
         if (flowItem?.passedColor) {
-            style['--progress-flow-passed-step-background-color'] =
+            style['--progress-flow-step-background-color--passed'] =
                 flowItem.passedColor;
         }
 

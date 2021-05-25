@@ -2,10 +2,14 @@ import { Component, h, State } from '@stencil/core';
 import { FlowItem } from '../progress-flow.types';
 
 /**
- * Example with colors
+ * Using colors
  *
- * Just a few flow items with colors and a onChange-handler.
- * Open the dev-tools console to see logged changes.
+ * By default, each step appreas as a light grey, and when active, it gets the
+ * defined `-lime-primary-color` as background. Also passed steps will get the
+ * same background color as active steps by default.
+ *
+ * However, both of these colors can be customized via code, by specifying color
+ * values for `activeColor` and `passedColor`.
  */
 @Component({
     tag: 'limel-example-progress-flow-colors',
@@ -18,24 +22,25 @@ export class ProgressFlowColorsExample {
             value: 'lime',
             text: 'Magenta step',
             activeColor: 'rgb(var(--color-magenta-default)',
-            passedColor: 'rgb(var(--color-glaucous-dark))',
+            passedColor: 'rgb(var(--color-green-lighter))',
             selected: true,
         },
         {
             value: 'purple',
             text: 'Purple step',
             activeColor: 'rgb(var(--color-purple-default))',
-            passedColor: 'rgb(var(--color-glaucous-dark))',
+            passedColor: 'rgb(var(--color-green-light))',
         },
         {
             value: 'organge',
             text: 'Blue step',
             activeColor: 'rgb(var(--color-blue-default))',
+            passedColor: 'rgb(var(--color-green-default))',
         },
         {
             value: 'red',
             text: 'Green step',
-            activeColor: 'rgb(var(--color-green-default))',
+            activeColor: 'rgb(var(--color-green-dark)',
         },
     ];
 
