@@ -57,7 +57,6 @@ export class ProgressFlowEndStepsExample {
     }
 
     private onChange(event: CustomEvent<FlowItem>) {
-        console.log('Item clicked', event.detail);
         this.flowItems = this.flowItems.map((item) => {
             return {
                 ...item,
