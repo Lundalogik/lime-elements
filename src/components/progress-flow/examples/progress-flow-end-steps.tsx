@@ -21,14 +21,14 @@ export class ProgressFlowEndStepsExample {
         {
             value: 'contact',
             text: 'Customer contact',
-            activeColor: 'rgb(var(--color-blue-default))',
+            activeColor: 'rgb(var(--color-orange-default))',
             selected: true,
             icon: 'meeting',
         },
         {
             value: 'requirement',
             text: 'Demand analysis',
-            activeColor: 'rgb(var(--color-teal-default))',
+            activeColor: 'rgb(var(--color-sky-default))',
             icon: 'combo_chart',
         },
         {
@@ -40,7 +40,7 @@ export class ProgressFlowEndStepsExample {
         {
             value: 'agreement',
             text: 'Agreement',
-            activeColor: 'rgb(var(--color-green-dark))',
+            activeColor: 'rgb(var(--color-teal-default))',
             icon: 'agreement',
         },
         {
@@ -57,7 +57,7 @@ export class ProgressFlowEndStepsExample {
             isOffProgress: true,
             activeColor: 'rgb(var(--color-coral-default))',
             icon: 'circled_pause',
-            iconColor: 'rgb(var(--color-coral-default))'
+            iconColor: 'rgb(var(--color-coral-default))',
         },
     ];
 

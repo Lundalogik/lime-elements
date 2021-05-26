@@ -13,6 +13,7 @@
 
 :host {
     --progress-flow-gap: 0.25rem;
+    box-sizing: border-box;
     width: 100%;
     display: flex;
     flex-direction: row-reverse;

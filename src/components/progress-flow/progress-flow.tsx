@@ -30,13 +30,13 @@ export class ProgressFlow {
     }
 
     public render() {
-        const regularFlowItems = this.flowItems.filter(o => {
+        const regularFlowItems = this.flowItems.filter((o) => {
             return !o.isOffProgress;
         });
-        const endPhaseItems = this.flowItems.filter(o => {
+        const endPhaseItems = this.flowItems.filter((o) => {
             return o.isOffProgress;
         });
-        const activeIndex = regularFlowItems.findIndex(o => {
+        const activeIndex = regularFlowItems.findIndex((o) => {
             return o.selected;
         });
 
