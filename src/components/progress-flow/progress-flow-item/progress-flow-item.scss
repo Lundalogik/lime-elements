@@ -31,10 +31,11 @@
     font-size: pxToRem(14);
 
     &:not(.active) {
-        cursor: pointer;
-
-        &:hover {
-            filter: brightness(1.05);
+        &:not(.disabled) {
+            cursor: pointer;
+            &:hover {
+                filter: brightness(1.05);
+            }
         }
     }
 

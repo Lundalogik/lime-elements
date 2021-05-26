@@ -19,6 +19,9 @@ export class ProgressFlow {
     @Prop()
     public flowItems: FlowItem[] = [];
 
+    @Prop()
+    public disabled = false;
+
     @Event()
     public change: EventEmitter<FlowItem>;
 
@@ -27,13 +30,13 @@ export class ProgressFlow {
     }
 
     public render() {
-        const regularFlowItems = this.flowItems.filter((o) => {
+        const regularFlowItems = this.flowItems.filter(o => {
             return !o.isOffProgress;
         });
-        const endPhaseItems = this.flowItems.filter((o) => {
+        const endPhaseItems = this.flowItems.filter(o => {
             return o.isOffProgress;
         });
-        const activeIndex = regularFlowItems.findIndex((o) => {
+        const activeIndex = regularFlowItems.findIndex(o => {
             return o.selected;
         });
 
@@ -42,6 +45,7 @@ export class ProgressFlow {
                 return (
                     <limel-progress-flow-item
                         style={this.getItemStyle(item)}
+                        disabled={this.disabled}
                         class={{
                             'flow-item': true,
                             'first-off-progress-step':
@@ -58,6 +62,7 @@ export class ProgressFlow {
                 return (
                     <limel-progress-flow-item
                         class="flow-item"
+                        disabled={this.disabled}
                         style={this.getItemStyle(item)}
                         item={item}
                         isLast={i === 0}
@@ -73,7 +78,7 @@ export class ProgressFlow {
     }
 
     private handleFlowItemClick(flowItem: FlowItem) {
-        if (!flowItem.selected) {
+        if (!flowItem.selected && !flowItem.disabled && !this.disabled) {
             this.change.emit(flowItem);
         }
     }
@@ -91,8 +96,7 @@ export class ProgressFlow {
         }
 
         if (flowItem?.iconColor) {
-            style['--progress-flow-icon-color--inactive'] =
-                flowItem.iconColor;
+            style['--progress-flow-icon-color--inactive'] = flowItem.iconColor;
         }
 
         return style;

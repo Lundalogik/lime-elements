@@ -25,6 +25,9 @@ export class ProgressFlowItem {
     @Prop()
     public isPassed: boolean = false;
 
+    @Prop()
+    public disabled = false;
+
     /**
      * Icon displayed along with the text optionally
      */
@@ -38,16 +41,17 @@ export class ProgressFlowItem {
                 type="button"
                 class={{
                     'btn-flow': true,
-                    'passed': this.isPassed,
+                    passed: this.isPassed,
                     'off-progress-step': this.item?.isOffProgress,
                     active: this.item?.selected,
                     first: this.isFirst,
                     last: this.isLast,
+                    disabled: this.disabled || this.item?.disabled,
                 }}
             >
                 {this.renderIcon()}
                 <span class="btn-flow-text">{this.item.text}</span>
-                <div class="btn-flow-divider"/>
+                <div class="btn-flow-divider" />
             </button>
         );
     }
