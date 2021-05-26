@@ -4,8 +4,13 @@ import { FlowItem } from '../progress-flow.types';
 /**
  * Basic Example
  *
- * Just a few flow items and a onChange-handler.
- * Open the dev-tools console to see logged changes.
+ * Progress flow can visualize linear process, consisting of distinct steps.
+ * Sometimes, this is a great alternative to use instead of `limel-select`.
+ * For instance, when there are too few options available to choose from, and
+ * the options have an incremental order.
+ *
+ * Each step can optionally get an icon, to help users understand its meaning
+ * faster, and recognize it quicker next time.
  */
 @Component({
     tag: 'limel-example-progress-flow-basic',
