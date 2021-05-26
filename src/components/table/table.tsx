@@ -149,12 +149,7 @@ export class Table {
             this.currentPage = FIRST_PAGE;
         }
 
-        const options = this.getOptions();
-        const table: HTMLElement = this.host.shadowRoot.querySelector(
-            '#tabulator-table'
-        );
-
-        this.initTabulatorComponent(table, options);
+        this.init();
     }
 
     public disconnectedCallback() {
@@ -211,7 +206,9 @@ export class Table {
             return;
         }
 
-        this.tabulator.setColumns(this.getColumnDefinitions());
+        // Updating columns requires a reinitialization otherwise sorting will not work
+        // afterwards
+        this.init();
     }
 
     private areSameColumns(newColumns: Column[], oldColumns: Column[]) {
@@ -219,6 +216,20 @@ export class Table {
             newColumns.length === oldColumns.length &&
             newColumns.every((column) => oldColumns.includes(column))
         );
+    }
+
+    private init() {
+        if (this.tabulator) {
+            this.pool.releaseAll();
+            this.tabulator.destroy();
+        }
+
+        const options = this.getOptions();
+        const table: HTMLElement = this.host.shadowRoot.querySelector(
+            '#tabulator-table'
+        );
+
+        this.initTabulatorComponent(table, options);
     }
 
     /*
