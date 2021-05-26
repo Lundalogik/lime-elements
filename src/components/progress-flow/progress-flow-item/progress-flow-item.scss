@@ -7,15 +7,40 @@
     width: 100%;
 
     --step-height: 2.5rem;
-    --step-background--inactive: var(--progress-flow-step-background-color--inactive, rgb(var(--contrast-600)));
-    --step-background--active: var(--progress-flow-step-background-color--active, var(--mdc-theme-primary));
-    --step-background--passed: var(--progress-flow-step-background-color--passed, var(--step-background--active));
+    --step-background--inactive: var(
+        --progress-flow-step-background-color--inactive,
+        rgb(var(--contrast-600))
+    );
+    --step-background--active: var(
+        --progress-flow-step-background-color--active,
+        var(--mdc-theme-primary)
+    );
+    --step-background--passed: var(
+        --progress-flow-step-background-color--passed,
+        var(--step-background--active)
+    );
 
-    --step-text--inactive:  var(--progress-flow-step-text-color--inactive, rgb(var(--contrast-1200)));
-    --step-text--active: var(--progress-flow-step-text-color--active, var(--mdc-theme-on-primary));
-    --step-text--passed: var(--progress-flow-step-text-color--passed, var(--mdc-theme-on-primary));
+    --step-text--inactive: var(
+        --progress-flow-step-text-color--inactive,
+        rgb(var(--contrast-1200))
+    );
+    --step-text--active: var(
+        --progress-flow-step-text-color--active,
+        var(--mdc-theme-on-primary)
+    );
+    --step-text--passed: var(
+        --progress-flow-step-text-color--passed,
+        var(--mdc-theme-on-primary)
+    );
 
-    --step-divider-color: var(--progress-flow-step-divider-color, rgb(var(--contrast-100)));
+    --step-divider-color: var(
+        --progress-flow-step-divider-color,
+        rgb(var(--contrast-100))
+    );
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .btn-flow {
@@ -102,6 +127,12 @@
 
 .btn-flow-text {
     @include truncate-text();
+}
+
+.btn-flow-seconday-text {
+    @include truncate-text();
+    font-size: pxToRem(12);
+    text-align: center;
 }
 
 .btn-flow-icon {

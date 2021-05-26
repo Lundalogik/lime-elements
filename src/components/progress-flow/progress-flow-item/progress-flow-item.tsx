@@ -35,7 +35,7 @@ export class ProgressFlowItem {
     public icon: string;
 
     public render() {
-        return (
+        return [
             <button
                 title={this.item.text}
                 type="button"
@@ -52,8 +52,13 @@ export class ProgressFlowItem {
                 {this.renderIcon()}
                 <span class="btn-flow-text">{this.item.text}</span>
                 <div class="btn-flow-divider" />
-            </button>
-        );
+            </button>,
+            this.item?.secondaryText ? (
+                <div class="btn-flow-seconday-text">
+                    {this.item.secondaryText}
+                </div>
+            ) : null,
+        ];
     }
     private renderIcon() {
         if (!this.item.icon) {
