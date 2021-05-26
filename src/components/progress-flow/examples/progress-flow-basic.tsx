@@ -18,6 +18,9 @@ import { FlowItem } from '../progress-flow.types';
 })
 export class ProgressFlowBasicExample {
     @State()
+    private disabled = false;
+
+    @State()
     private flowItems: FlowItem[] = [
         {
             value: '1',
@@ -34,12 +37,20 @@ export class ProgressFlowBasicExample {
     }
 
     public render() {
-        return (
+        return [
             <limel-progress-flow
                 flowItems={this.flowItems}
                 onChange={this.onChange}
-            />
-        );
+                disabled={this.disabled}
+            />,
+            <limel-flex-container justify="end">
+                <limel-checkbox
+                    checked={this.disabled}
+                    label="Disabled"
+                    onChange={this.setDisabled}
+                />
+            </limel-flex-container>,
+        ];
     }
 
     private onChange(event: CustomEvent<FlowItem>) {
@@ -51,4 +62,9 @@ export class ProgressFlowBasicExample {
             };
         });
     }
+
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
 }
