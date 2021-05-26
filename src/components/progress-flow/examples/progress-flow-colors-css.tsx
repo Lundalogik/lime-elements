@@ -9,7 +9,10 @@ import { FlowItem } from '../progress-flow.types';
  * change their colors, using these CSS variables. They apply globally to the
  * entire component.
  * :::note
- * Make sure text has enough contrast with its background and is readable.
+ * Make sure that:
+ * - text has enough contrast with its background and is readable.
+ * - the `--progress-flow-step-divider-color` has the same color as the component's
+ * container.
  * :::
  */
 @Component({
