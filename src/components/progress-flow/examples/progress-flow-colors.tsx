@@ -10,6 +10,10 @@ import { FlowItem } from '../progress-flow.types';
  *
  * However, both of these colors can be customized via code, by specifying color
  * values for `activeColor` and `passedColor`.
+ *
+ * Eventual icons will get the same color as the text for that step.
+ * But color of icons for inactive steps can be specified via code, using
+ * the `iconColor` property.
  */
 @Component({
     tag: 'limel-example-progress-flow-colors',
@@ -23,24 +27,31 @@ export class ProgressFlowColorsExample {
             text: 'Magenta step',
             activeColor: 'rgb(var(--color-magenta-default)',
             passedColor: 'rgb(var(--color-green-lighter))',
-            selected: true,
+            icon: 'roller_brush',
+            iconColor: 'rgb(var(--color-magenta-default)',
         },
         {
             value: 'purple',
             text: 'Purple step',
             activeColor: 'rgb(var(--color-purple-default))',
             passedColor: 'rgb(var(--color-green-light))',
+            icon: 'brush',
+            iconColor: 'rgb(var(--color-purple-default))',
         },
         {
             value: 'organge',
             text: 'Blue step',
             activeColor: 'rgb(var(--color-blue-default))',
             passedColor: 'rgb(var(--color-green-default))',
+            icon: 'paint_brush',
+            iconColor: 'rgb(var(--color-blue-default))',
         },
         {
             value: 'red',
             text: 'Green step',
             activeColor: 'rgb(var(--color-green-dark)',
+            icon: 'cosmetic_brush',
+            iconColor: 'rgb(var(--color-green-dark))',
         },
     ];
 

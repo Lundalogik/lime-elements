@@ -1,6 +1,7 @@
 @import '../../../style/mixins';
 @import '../../../style/functions';
-@import './partial-styles/active-indicator';
+@import './partial-styles/_active-indicator';
+@import './partial-styles/_icon-colors';
 
 :host {
     width: 100%;

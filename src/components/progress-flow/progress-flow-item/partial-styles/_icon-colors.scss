@@ -1,0 +1,17 @@
+.btn-flow {
+    .btn-flow-icon {
+        color: var(--progress-flow-icon-color--inactive, var(--step-text--inactive));
+    }
+
+    &.active {
+        .btn-flow-icon {
+            color: var(--step-text--active);
+        }
+    }
+
+    &.passed {
+        .btn-flow-icon {
+            color: var(--step-text--passed);
+        }
+    }
+}

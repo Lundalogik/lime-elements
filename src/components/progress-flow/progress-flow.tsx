@@ -90,6 +90,11 @@ export class ProgressFlow {
                 flowItem.passedColor;
         }
 
+        if (flowItem?.iconColor) {
+            style['--progress-flow-icon-color--inactive'] =
+                flowItem.iconColor;
+        }
+
         return style;
     }
 }

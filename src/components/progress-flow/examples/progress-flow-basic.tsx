@@ -19,6 +19,7 @@ export class ProgressFlowBasicExample {
             text: 'Step 1',
             selected: true,
             icon: 'add_shopping_cart',
+
         },
         { value: '2', text: 'Step 2', icon: 'shopping_cart_loaded' },
         { value: '3', text: 'Step 3', icon: 'insert_money_euro' },
