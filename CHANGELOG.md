@@ -1,3 +1,10 @@
+### [32.1.1](https://github.com/Lundalogik/lime-elements/compare/v32.1.0...v32.1.1) (2021-05-26)
+
+
+### Bug Fixes
+
+* **form:** an empty required text field is considered invalid ([eef259f](https://github.com/Lundalogik/lime-elements/commit/eef259f176df1a52e2e2d7109ed27457ab299702)), closes [Lundalogik/crm-feature#2112](https://github.com/Lundalogik/crm-feature/issues/2112)
+
 ## [32.1.0](https://github.com/Lundalogik/lime-elements/compare/v32.0.0...v32.1.0) (2021-05-26)
 
 
