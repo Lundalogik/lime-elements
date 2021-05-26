@@ -1,7 +1,7 @@
 @import '../../../style/mixins';
 @import '../../../style/functions';
 @import './partial-styles/_active-indicator';
-@import './partial-styles/_icon-colors';
+@import './partial-styles/_colors';
 
 :host {
     width: 100%;
@@ -29,8 +29,6 @@
     height: var(--step-height);
     border: none;
     font-size: pxToRem(14);
-    color: var(--step-text--inactive);
-    background-color: var(--step-background--inactive);
 
     &:not(.active) {
         cursor: pointer;
@@ -46,31 +44,8 @@
 
     &:not(.off-progress-step, .last) {
         .btn-flow-divider {
-            height: var(--step-height);
-            overflow-y: clip;
-            position: absolute;
-            right: 0;
-            z-index: -1;
-
             &:after {
-                box-sizing: border-box;
-                transition: background-color 0.2s ease;
-                border-top: solid pxToRem(2) var(--step-divider-color);
-                border-right: solid pxToRem(2) var(--step-divider-color);
-
                 content: '';
-                display: block;
-                position: absolute;
-                top: 0;
-                right: calc((var(--step-height) / 2 * -1) + var(--progress-flow-gap));
-                bottom: 0;
-                margin: auto;
-
-                width: calc(var(--step-height) * 0.9);
-                height: calc(var(--step-height) * 0.9);
-                background-color: var(--step-background--inactive);
-                border-radius: 0 pxToRem(6) 0 0;
-                transform: rotate(45deg);
             }
         }
     }
@@ -83,22 +58,6 @@
             margin-left: 0;
         }
     }
-    &.active {
-        color: var(--step-text--active);
-        background-color: var(--step-background--active);
-
-        .btn-flow-divider:after {
-            background-color: var(--step-background--active);
-        }
-    }
-    &.passed {
-        color: var(--step-text--passed);
-        background-color: var(--step-background--passed);
-
-        .btn-flow-divider:after {
-            background-color: var(--step-background--passed);
-        }
-    }
     &.first {
         border-top-left-radius: var(--step-height);
         border-bottom-left-radius: var(--step-height);
@@ -108,6 +67,35 @@
         border-top-right-radius: var(--step-height);
         border-bottom-right-radius: var(--step-height);
         padding-right: pxToRem(20);
+    }
+}
+
+.btn-flow-divider {
+    height: var(--step-height);
+    overflow-y: clip;
+    position: absolute;
+    right: 0;
+    z-index: -1;
+
+    &:after {
+        box-sizing: border-box;
+        transition: background-color 0.2s ease;
+        border: {
+            style: solid;
+            width: pxToRem(2) pxToRem(2) 0 0;
+        }
+
+        display: block;
+        position: absolute;
+        top: 0;
+        right: calc((var(--step-height) / 2 * -1) + var(--progress-flow-gap));
+        bottom: 0;
+        margin: auto;
+
+        width: calc(var(--step-height) * 0.9);
+        height: calc(var(--step-height) * 0.9);
+        border-radius: 0 pxToRem(6) 0 0;
+        transform: rotate(45deg);
     }
 }
 

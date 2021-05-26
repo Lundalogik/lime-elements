@@ -1,0 +1,41 @@
+.btn-flow {
+    color: var(--step-text--inactive);
+    background-color: var(--step-background--inactive);
+
+    .btn-flow-icon {
+        color: var(--progress-flow-icon-color--inactive, var(--step-text--inactive));
+    }
+
+    &.active {
+        color: var(--step-text--active);
+        background-color: var(--step-background--active);
+
+        .btn-flow-divider:after {
+            background-color: var(--step-background--active);
+        }
+
+        .btn-flow-icon {
+            color: var(--step-text--active);
+        }
+    }
+
+    &.passed {
+        color: var(--step-text--passed);
+        background-color: var(--step-background--passed);
+
+        .btn-flow-divider:after {
+            background-color: var(--step-background--passed);
+        }
+
+        .btn-flow-icon {
+            color: var(--step-text--passed);
+        }
+    }
+}
+
+.btn-flow-divider {
+    &:after {
+        border-color: var(--step-divider-color);
+        background-color: var(--step-background--inactive);
+    }
+}
