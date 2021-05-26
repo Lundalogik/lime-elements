@@ -52,7 +52,7 @@ export class ProgressFlow {
                                 i === endPhaseItems.length - 1,
                         }}
                         item={item}
-                        onClick={() => {
+                        onInteract={() => {
                             this.handleFlowItemClick(item);
                         }}
                     />
@@ -68,7 +68,7 @@ export class ProgressFlow {
                         isLast={i === 0}
                         isFirst={i === regularFlowItems.length - 1}
                         isPassed={regularFlowItems.length - i - 1 < activeIndex}
-                        onClick={() => {
+                        onInteract={() => {
                             this.handleFlowItemClick(item);
                         }}
                     />

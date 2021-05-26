@@ -1,4 +1,11 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+} from '@stencil/core';
 import { FlowItem } from '../progress-flow.types';
 
 /**
@@ -28,6 +35,9 @@ export class ProgressFlowItem {
     @Prop()
     public disabled = false;
 
+    @Event()
+    public interact: EventEmitter<void>;
+
     /**
      * Icon displayed along with the text optionally
      */
@@ -48,18 +58,28 @@ export class ProgressFlowItem {
                     last: this.isLast,
                     disabled: this.disabled || this.item?.disabled,
                 }}
+                onClick={() => {
+                    this.interact.emit();
+                }}
             >
                 {this.renderIcon()}
                 <span class="btn-flow-text">{this.item.text}</span>
                 <div class="btn-flow-divider" />
             </button>,
-            this.item?.secondaryText ? (
-                <div class="btn-flow-seconday-text">
-                    {this.item.secondaryText}
-                </div>
-            ) : null,
+            this.renderSecondaryText(),
         ];
     }
+
+    private renderSecondaryText() {
+        if (!this.item?.secondaryText) {
+            return;
+        }
+
+        return (
+            <div class="btn-flow-seconday-text">{this.item.secondaryText}</div>
+        );
+    }
+
     private renderIcon() {
         if (!this.item.icon) {
             return;
