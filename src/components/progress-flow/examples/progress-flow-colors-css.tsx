@@ -39,6 +39,7 @@ export class ProgressFlowColorsCssExample {
         {
             value: 'fourth',
             text: 'Fourth step',
+            icon: 'finish_flag'
         },
     ];
 
