@@ -48,7 +48,8 @@ export class ProgressFlowEndStepsExample {
             text: 'Rejected',
             isOffProgress: true,
             activeColor: 'rgb(var(--color-red-dark))',
-            icon: 'cancel_2',
+            icon: 'do_not_disturb',
+            iconColor: 'rgb(var(--color-red-dark))',
         },
         {
             value: 'onhold',
@@ -56,6 +57,7 @@ export class ProgressFlowEndStepsExample {
             isOffProgress: true,
             activeColor: 'rgb(var(--color-coral-default))',
             icon: 'circled_pause',
+            iconColor: 'rgb(var(--color-coral-default))'
         },
     ];
 
