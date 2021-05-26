@@ -19,14 +19,14 @@ export class ProgressFlowSecondaryTextExample {
             value: '1',
             text: 'Todo',
             icon: 'add_ticket',
-            secondaryText: 'added: 2021-01-07',
+            secondaryText: 'Added: 2021-01-07',
         },
         {
             value: '2',
             text: 'Working on it',
             icon: 'outgoing_data',
             selected: true,
-            secondaryText: 'started: 2021-01-08',
+            secondaryText: 'Started: 2021-01-08',
         },
         { value: '3', text: 'Done', icon: 'ok' },
     ];
