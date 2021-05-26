@@ -4,7 +4,7 @@ import { FlowItem } from '../progress-flow.types';
 /**
  * Using colors
  *
- * By default, each step appreas as a light grey, and when active, it gets the
+ * By default, each step appreas with a light grey background, and when active, it gets the
  * defined `-lime-primary-color` as background. Also passed steps will get the
  * same background color as active steps by default.
  *
@@ -26,7 +26,7 @@ export class ProgressFlowColorsExample {
             value: 'lime',
             text: 'Magenta step',
             activeColor: 'rgb(var(--color-magenta-default)',
-            passedColor: 'rgb(var(--color-green-lighter))',
+            passedColor: 'rgb(var(--color-green-light))',
             icon: 'roller_brush',
             iconColor: 'rgb(var(--color-magenta-default)',
         },
@@ -34,7 +34,7 @@ export class ProgressFlowColorsExample {
             value: 'purple',
             text: 'Purple step',
             activeColor: 'rgb(var(--color-purple-default))',
-            passedColor: 'rgb(var(--color-green-light))',
+            passedColor: 'rgb(var(--color-green-default))',
             icon: 'brush',
             iconColor: 'rgb(var(--color-purple-default))',
         },
@@ -42,16 +42,16 @@ export class ProgressFlowColorsExample {
             value: 'organge',
             text: 'Blue step',
             activeColor: 'rgb(var(--color-blue-default))',
-            passedColor: 'rgb(var(--color-green-default))',
+            passedColor: 'rgb(var(--color-green-dark))',
             icon: 'paint_brush',
             iconColor: 'rgb(var(--color-blue-default))',
         },
         {
             value: 'red',
             text: 'Green step',
-            activeColor: 'rgb(var(--color-green-dark)',
+            activeColor: 'rgb(var(--color-green-darker))',
             icon: 'cosmetic_brush',
-            iconColor: 'rgb(var(--color-green-dark))',
+            iconColor: 'rgb(var(--color-green-darker))',
         },
     ];
 
