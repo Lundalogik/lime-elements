@@ -1,3 +1,10 @@
+## [32.1.0](https://github.com/Lundalogik/lime-elements/compare/v32.0.0...v32.1.0) (2021-05-26)
+
+
+### Features
+
+* **form:** add support for readonly property on form fields ([a0b2af3](https://github.com/Lundalogik/lime-elements/commit/a0b2af325b183c0af3d1190bb1e289b1a01f97bc)), closes [Lundalogik/crm-feature#2071](https://github.com/Lundalogik/crm-feature/issues/2071)
+
 ## [32.0.0](https://github.com/Lundalogik/lime-elements/compare/v31.10.0...v32.0.0) (2021-05-25)
 
 
