@@ -1,8 +1,8 @@
-.btn-flow {
+.step {
     color: var(--step-text--inactive);
     background-color: var(--step-background--inactive);
 
-    .btn-flow-icon {
+    .icon{
         color: var(--progress-flow-icon-color--inactive, var(--step-text--inactive));
     }
 
@@ -10,11 +10,11 @@
         color: var(--step-text--active);
         background-color: var(--step-background--active);
 
-        .btn-flow-divider:after {
+        .divider:after {
             background-color: var(--step-background--active);
         }
 
-        .btn-flow-icon {
+        .icon{
             color: var(--step-text--active);
         }
     }
@@ -23,17 +23,17 @@
         color: var(--step-text--passed);
         background-color: var(--step-background--passed);
 
-        .btn-flow-divider:after {
+        .divider:after {
             background-color: var(--step-background--passed);
         }
 
-        .btn-flow-icon {
+        .icon{
             color: var(--step-text--passed);
         }
     }
 }
 
-.btn-flow-divider {
+.divider {
     &:after {
         border-color: var(--step-divider-color);
         background-color: var(--step-background--inactive);

@@ -53,9 +53,9 @@ export class ProgressFlowItem {
                 title={tooltip}
                 type="button"
                 class={{
-                    'btn-flow': true,
+                    'step': true,
                     passed: this.isPassed,
-                    'off-progress-step': this.item?.isOffProgress,
+                    'off-progress': this.item?.isOffProgress,
                     active: this.item?.selected,
                     first: this.isFirst,
                     last: this.isLast,
@@ -66,8 +66,8 @@ export class ProgressFlowItem {
                 }}
             >
                 {this.renderIcon()}
-                <span class="btn-flow-text">{this.item.text}</span>
-                <div class="btn-flow-divider" />
+                <span class="text">{this.item.text}</span>
+                <div class="divider" />
             </button>,
             this.renderSecondaryText(),
         ];
@@ -79,7 +79,7 @@ export class ProgressFlowItem {
         }
 
         return (
-            <div class="btn-flow-seconday-text">{this.item.secondaryText}</div>
+            <div class="seconday-text">{this.item.secondaryText}</div>
         );
     }
 
@@ -92,7 +92,7 @@ export class ProgressFlowItem {
             <limel-icon
                 name={this.item.icon}
                 size="small"
-                class="btn-flow-icon"
+                class="icon"
             />
         );
     }

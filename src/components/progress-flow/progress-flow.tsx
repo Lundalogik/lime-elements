@@ -49,7 +49,7 @@ export class ProgressFlow {
                         disabled={this.disabled}
                         class={{
                             'flow-item': true,
-                            'first-off-progress-step':
+                            'first-off-progress':
                                 i === endPhaseItems.length - 1,
                         }}
                         item={item}
