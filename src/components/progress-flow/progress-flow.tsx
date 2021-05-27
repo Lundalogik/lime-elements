@@ -1,4 +1,11 @@
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+} from '@stencil/core';
 import { FlowItem } from './progress-flow.types';
 
 /**
@@ -14,6 +21,9 @@ import { FlowItem } from './progress-flow.types';
     styleUrl: 'progress-flow.scss',
 })
 export class ProgressFlow {
+    @Element()
+    public element: HTMLLimelProgressFlowElement;
+
     /**
      * What flow items to render
      */
@@ -101,5 +111,37 @@ export class ProgressFlow {
         }
 
         return style;
+    }
+
+    public componentDidRender() {
+        this.setFocusOnActiveItem();
+    }
+
+    private setFocusOnActiveItem() {
+        const activeElement = this.getActiveElement();
+        if (activeElement) {
+            const activeItemLeftPosition =
+                activeElement.offsetLeft - this.element.offsetLeft;
+            const activeElementLeftPositionCenterd =
+                activeItemLeftPosition - this.element.offsetWidth / 2;
+            const activeElementCentered =
+                activeElementLeftPositionCenterd +
+                activeElement.offsetWidth / 2;
+            this.element.scrollTo({
+                behavior: 'smooth',
+                left: activeElementCentered,
+            });
+        }
+    }
+
+    private getActiveElement(): HTMLLimelProgressFlowItemElement {
+        const items = this.element.shadowRoot.querySelectorAll('.flow-item');
+        for (let i = 0; i < items.length; i++) {
+            const element: any = items[i];
+            const buttonElement = element.shadowRoot.querySelector('.active');
+            if (buttonElement) {
+                return element;
+            }
+        }
     }
 }
