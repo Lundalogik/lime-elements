@@ -50,11 +50,13 @@ export class ProgressFlowBasicExample {
                     onChange={this.setDisabled}
                 />
             </limel-flex-container>,
+            <limel-example-value
+                value={this.flowItems.find((i) => i.selected)}
+            />,
         ];
     }
 
     private onChange(event: CustomEvent<FlowItem>) {
-        console.log('Item clicked', event.detail);
         this.flowItems = this.flowItems.map((item) => {
             return {
                 ...item,
