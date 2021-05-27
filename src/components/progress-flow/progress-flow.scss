@@ -23,11 +23,13 @@
     overflow-x: auto;
     scrollbar-width: none; // This hides the scrollbars appearing under in Firefox
     -ms-overflow-style: none; // Same as above for IE 11
+    padding: pxToRem(4); // needed for the focus effect
+
     &::-webkit-scrollbar {
         display: none; // This hides the scrollbars appearing under in Chrome
     }
 }
 
 .first-off-progress-step {
-    margin-left: 0.75rem;
+    margin-left: pxToRem(8);
 }

@@ -47,6 +47,7 @@ export class ProgressFlowItem {
     public render() {
         return [
             <button
+                tabindex="0"
                 title={this.item.text}
                 type="button"
                 class={{

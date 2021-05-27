@@ -55,6 +55,14 @@
     border: none;
     font-size: pxToRem(14);
 
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        box-shadow: var(--shadow-depth-8-focused);
+    }
+
     &:not(.active) {
         &:not(.disabled) {
             cursor: pointer;
