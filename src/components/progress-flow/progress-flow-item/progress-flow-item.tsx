@@ -13,7 +13,7 @@ import { FlowItem } from '../progress-flow.types';
  */
 @Component({
     tag: 'limel-progress-flow-item',
-    shadow: true,
+    shadow: false,
     styleUrl: 'progress-flow-item.scss',
 })
 export class ProgressFlowItem {
@@ -45,15 +45,17 @@ export class ProgressFlowItem {
     public icon: string;
 
     public render() {
-        const secondaryText = this.item.secondaryText ? ' · ' + this.item.secondaryText : '';
-        const tooltip = this.item.text + secondaryText
+        const secondaryText = this.item.secondaryText
+            ? ' · ' + this.item.secondaryText
+            : '';
+        const tooltip = this.item.text + secondaryText;
         return [
             <button
                 tabindex="0"
                 title={tooltip}
                 type="button"
                 class={{
-                    'step': true,
+                    step: true,
                     passed: this.isPassed,
                     'off-progress': this.item?.isOffProgress,
                     active: this.item?.selected,
@@ -78,9 +80,7 @@ export class ProgressFlowItem {
             return;
         }
 
-        return (
-            <div class="seconday-text">{this.item.secondaryText}</div>
-        );
+        return <div class="seconday-text">{this.item.secondaryText}</div>;
     }
 
     private renderIcon() {
@@ -88,12 +88,6 @@ export class ProgressFlowItem {
             return;
         }
 
-        return (
-            <limel-icon
-                name={this.item.icon}
-                size="small"
-                class="icon"
-            />
-        );
+        return <limel-icon name={this.item.icon} size="small" class="icon" />;
     }
 }

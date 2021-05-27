@@ -51,34 +51,68 @@ export class ProgressFlow {
             return o.selected;
         });
 
+        // return [
+        //     endPhaseItems.reverse().map((item, i) => {
+        //         return (
+        //             <limel-progress-flow-item
+        //                 style={this.getItemStyle(item)}
+        //                 disabled={this.disabled}
+        //                 class={{
+        //                     'flow-item': true,
+        //                     'first-off-progress':
+        //                         i === endPhaseItems.length - 1,
+        //                 }}
+        //                 item={item}
+        //                 onInteract={() => {
+        //                     this.handleFlowItemClick(item);
+        //                 }}
+        //             />
+        //         );
+        //     }),
+        //     regularFlowItems.reverse().map((item, i) => {
+        //         return (
+        //             <limel-progress-flow-item
+        //                 class="flow-item"
+        //                 disabled={this.disabled}
+        //                 style={this.getItemStyle(item)}
+        //                 item={item}
+        //                 isLast={i === 0}
+        //                 isFirst={i === regularFlowItems.length - 1}
+        //                 isPassed={regularFlowItems.length - i - 1 < activeIndex}
+        //                 onInteract={() => {
+        //                     this.handleFlowItemClick(item);
+        //                 }}
+        //             />
+        //         );
+        //     }),
+        // ];
         return [
-            endPhaseItems.reverse().map((item, i) => {
-                return (
-                    <limel-progress-flow-item
-                        style={this.getItemStyle(item)}
-                        disabled={this.disabled}
-                        class={{
-                            'flow-item': true,
-                            'first-off-progress':
-                                i === endPhaseItems.length - 1,
-                        }}
-                        item={item}
-                        onInteract={() => {
-                            this.handleFlowItemClick(item);
-                        }}
-                    />
-                );
-            }),
-            regularFlowItems.reverse().map((item, i) => {
+            regularFlowItems.map((item, i) => {
                 return (
                     <limel-progress-flow-item
                         class="flow-item"
                         disabled={this.disabled}
                         style={this.getItemStyle(item)}
                         item={item}
-                        isLast={i === 0}
-                        isFirst={i === regularFlowItems.length - 1}
-                        isPassed={regularFlowItems.length - i - 1 < activeIndex}
+                        isFirst={i === 0}
+                        isLast={i === regularFlowItems.length - 1}
+                        isPassed={i < activeIndex}
+                        onInteract={() => {
+                            this.handleFlowItemClick(item);
+                        }}
+                    />
+                );
+            }),
+            endPhaseItems.map((item, i) => {
+                return (
+                    <limel-progress-flow-item
+                        style={this.getItemStyle(item)}
+                        disabled={this.disabled}
+                        class={{
+                            'flow-item': true,
+                            'first-off-progress': i === 0,
+                        }}
+                        item={item}
                         onInteract={() => {
                             this.handleFlowItemClick(item);
                         }}

@@ -5,7 +5,9 @@
 @import './partial-styles/_colors';
 
 :host {
-    width: 100%;
+    position: relative;
+    // z-index: $limel-progress-flow-step--z-index;
+    // width: 100%;
 
     --step-height: 2.5rem;
     --step-background--inactive: var(
@@ -46,7 +48,7 @@
 
 .step {
     transition: background-color 0.2s ease;
-    z-index: $limel-progress-flow-step--z-index;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,7 +91,7 @@
         border-radius: pxToRem(4);
         padding: 0 pxToRem(12);
 
-        .icon{
+        .icon {
             margin-left: 0;
         }
     }
@@ -110,7 +112,7 @@
     overflow-y: clip;
     position: absolute;
     right: 0;
-    z-index: $limel-progress-flow-divider--z-index;
+    // z-index: $limel-progress-flow-divider--z-index;
 
     &:after {
         box-sizing: border-box;
@@ -146,6 +148,6 @@
     margin: auto;
 }
 
-.icon{
+.icon {
     margin: 0 pxToRem(8) 0 pxToRem(4);
 }
