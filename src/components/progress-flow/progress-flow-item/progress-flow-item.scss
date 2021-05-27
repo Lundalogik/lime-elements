@@ -133,14 +133,16 @@
     }
 }
 
-.btn-flow-text {
+.btn-flow-text,
+.btn-flow-seconday-text {
     @include truncate-text();
+    max-width: pxToRem(156);
 }
 
 .btn-flow-seconday-text {
-    @include truncate-text();
     font-size: pxToRem(12);
     text-align: center;
+    margin: auto;
 }
 
 .btn-flow-icon {
