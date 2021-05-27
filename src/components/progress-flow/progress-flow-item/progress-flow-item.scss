@@ -1,5 +1,6 @@
 @import '../../../style/mixins';
-@import '../../../style/functions';
+@import '../../../style/internal/variables';
+
 @import './partial-styles/_active-indicator';
 @import './partial-styles/_colors';
 
@@ -45,7 +46,7 @@
 
 .step {
     transition: background-color 0.2s ease;
-    z-index: 1;
+    z-index: $limel-progress-flow-step--z-index;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,7 +110,7 @@
     overflow-y: clip;
     position: absolute;
     right: 0;
-    z-index: -1;
+    z-index: $limel-progress-flow-divider--z-index;
 
     &:after {
         box-sizing: border-box;
