@@ -45,10 +45,12 @@ export class ProgressFlowItem {
     public icon: string;
 
     public render() {
+        const secondaryText = this.item.secondaryText ? ' · ' + this.item.secondaryText : '';
+        const tooltip = this.item.text + secondaryText
         return [
             <button
                 tabindex="0"
-                title={this.item.text}
+                title={tooltip}
                 type="button"
                 class={{
                     'btn-flow': true,
