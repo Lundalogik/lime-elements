@@ -1,6 +1,7 @@
 import { Languages } from '@limetech/lime-elements';
 import translate from '../../global/translations';
 import { Component, Element, h, Prop } from '@stencil/core';
+import { Fullscreen } from './fullscreen';
 
 /**
  * This is a smart component that detects most common file types such as
@@ -64,8 +65,10 @@ export class FileViewer {
     @Element()
     public HostElement: HTMLLimelFileViewerElement;
 
+    private fullscreen: Fullscreen;
+
     constructor() {
-        this.toggleFullScreen = this.toggleFullScreen.bind(this);
+        this.fullscreen = new Fullscreen(this.HostElement);
     }
 
     public render() {
@@ -158,20 +161,7 @@ export class FileViewer {
     private renderButtons() {
         return (
             <div class="buttons">
-                <a
-                    class="button--exit-fullscreen"
-                    onClick={this.toggleFullScreen}
-                    title={this.getTranslation('title.exit-fullscreen')}
-                >
-                    <limel-icon name="multiply" size="small" />
-                </a>
-                <a
-                    class="button--enter-fullscreen"
-                    onClick={this.toggleFullScreen}
-                    title={this.getTranslation('title.open-in-fullscreen')}
-                >
-                    <limel-icon name="fit_to_width" size="small" />
-                </a>
+                {this.renderFullscreenButtons()}
                 <a
                     href={this.url}
                     title={this.getTranslation('title.download')}
@@ -193,13 +183,24 @@ export class FileViewer {
         );
     }
 
-    private toggleFullScreen() {
-        if (!document.fullscreenElement) {
-            this.HostElement.requestFullscreen();
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            }
+    private renderFullscreenButtons() {
+        if (this.fullscreen.isSupported()) {
+            return [
+                <a
+                    class="button--exit-fullscreen"
+                    onClick={this.fullscreen.toggle}
+                    title={this.getTranslation('title.exit-fullscreen')}
+                >
+                    <limel-icon name="multiply" size="small" />
+                </a>,
+                <a
+                    class="button--enter-fullscreen"
+                    onClick={this.fullscreen.toggle}
+                    title={this.getTranslation('title.open-in-fullscreen')}
+                >
+                    <limel-icon name="fit_to_width" size="small" />
+                </a>,
+            ];
         }
     }
 
