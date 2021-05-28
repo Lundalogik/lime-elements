@@ -21,6 +21,9 @@ export class ProgressFlowBasicExample {
     private disabled = false;
 
     @State()
+    private readonly = false;
+
+    @State()
     private flowItems: FlowItem[] = [
         {
             value: '1',
@@ -42,12 +45,18 @@ export class ProgressFlowBasicExample {
                 flowItems={this.flowItems}
                 onChange={this.onChange}
                 disabled={this.disabled}
+                readonly={this.readonly}
             />,
             <limel-flex-container justify="end">
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
                     onChange={this.setDisabled}
+                />
+                <limel-checkbox
+                    checked={this.readonly}
+                    label="Readonly"
+                    onChange={this.setReadonly}
                 />
             </limel-flex-container>,
             <limel-example-value
@@ -68,5 +77,10 @@ export class ProgressFlowBasicExample {
     private setDisabled = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.disabled = event.detail;
+    };
+
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 }

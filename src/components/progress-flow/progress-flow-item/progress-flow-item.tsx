@@ -35,6 +35,9 @@ export class ProgressFlowItem {
     @Prop()
     public disabled = false;
 
+    @Prop()
+    public readonly = false;
+
     @Event()
     public interact: EventEmitter<void>;
 
@@ -61,6 +64,7 @@ export class ProgressFlowItem {
                     first: this.isFirst,
                     last: this.isLast,
                     disabled: this.disabled || this.item?.disabled,
+                    'readonly': this.readonly
                 }}
                 onClick={() => {
                     this.interact.emit();

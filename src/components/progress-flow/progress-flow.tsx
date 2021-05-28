@@ -31,8 +31,24 @@ export class ProgressFlow {
     @Prop()
     public flowItems: FlowItem[] = [];
 
+    /**
+     * Set to `true` to disable the progress flow.
+     * Use `disabled` to indicate that the component can normally be interacted
+     * with, but is currently disabled. This tells the user that if certain
+     * requirements are met, the field may become enabled again.
+     */
     @Prop()
     public disabled = false;
+
+    /**
+     * Disables the progress flow when `true`.
+     * This does not visualize the component that much differently.
+     * But since the component does not provide any feedback that users can
+     * interact with the component, it makes it perfect for illustrative and
+     * informative porpuses.
+     */
+    @Prop()
+    public readonly = false;
 
     @Event()
     public change: EventEmitter<FlowItem>;
@@ -56,13 +72,15 @@ export class ProgressFlow {
             endPhaseItems.reverse().map((item, i) => {
                 return (
                     <limel-progress-flow-item
-                        style={this.getItemStyle(item)}
-                        disabled={this.disabled}
                         class={{
                             'flow-item': true,
+                            'lime-progress-flow--readonly': this.readonly,
                             'first-off-progress':
-                                i === endPhaseItems.length - 1,
+                            i === endPhaseItems.length - 1,
                         }}
+                        style={this.getItemStyle(item)}
+                        disabled={this.disabled || this.readonly}
+                        readonly={this.readonly}
                         item={item}
                         onInteract={() => {
                             this.handleFlowItemClick(item);
@@ -73,9 +91,13 @@ export class ProgressFlow {
             regularFlowItems.reverse().map((item, i) => {
                 return (
                     <limel-progress-flow-item
-                        class="flow-item"
-                        disabled={this.disabled}
+                        class={{
+                            'flow-item': true,
+                            'lime-progress-flow--readonly': this.readonly,
+                        }}
                         style={this.getItemStyle(item)}
+                        disabled={this.disabled || this.readonly}
+                        readonly={this.readonly}
                         item={item}
                         isLast={i === 0}
                         isFirst={i === regularFlowItems.length - 1}
