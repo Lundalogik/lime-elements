@@ -36,15 +36,12 @@ export class ProgressFlowSecondaryTextExample {
     }
 
     public render() {
-        return [
+        return (
             <limel-progress-flow
                 flowItems={this.flowItems}
                 onChange={this.onChange}
-            />,
-            <limel-example-value
-                value={this.flowItems.find((i) => i.selected)}
-            />,
-        ];
+            />
+        )
     }
 
     private onChange(event: CustomEvent<FlowItem>) {
