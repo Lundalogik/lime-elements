@@ -1,14 +1,14 @@
-:host([readonly]) {
-    .mdc-switch {
-        opacity: 1;
+.mdc-switch {
+    opacity: 1;
 
+    &.lime-switch--readonly {
         .mdc-switch__track {
             opacity: 1;
             border: none;
         }
 
         .mdc-switch__thumb {
-            background-color: transparent;
+            background-color: transparent !important;
             border: none;
             box-shadow: none;
             &:after {
