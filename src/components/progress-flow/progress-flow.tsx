@@ -142,11 +142,10 @@ export class ProgressFlow {
     private setFocusOnActiveItem() {
         const activeElement = this.getActiveElement();
         if (activeElement) {
-            console.log('Scroll to ', activeElement);
             const activeItemLeftPosition =
-                activeElement.offsetLeft + this.element.offsetLeft;
+                activeElement.offsetLeft - this.element.offsetLeft;
             const activeElementLeftPositionCenterd =
-                activeItemLeftPosition + this.element.offsetWidth / 2;
+                activeItemLeftPosition - this.element.offsetWidth / 2;
             const activeElementCentered =
                 activeElementLeftPositionCenterd +
                 activeElement.offsetWidth / 2;
@@ -158,6 +157,9 @@ export class ProgressFlow {
     }
 
     private getActiveElement(): HTMLLimelProgressFlowItemElement {
-        return this.element.shadowRoot.querySelector('.flow-item .active');
+        const itemButton = this.element.shadowRoot.querySelector(
+            '.flow-item .active'
+        );
+        return itemButton?.parentElement as HTMLLimelProgressFlowItemElement;
     }
 }
