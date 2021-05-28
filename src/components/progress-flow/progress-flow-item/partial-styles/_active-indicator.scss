@@ -2,6 +2,7 @@
     &:not(.off-progress) {
         &.active {
             &:after  {
+                z-index: $limel-progress-flow-step-content--z-index;
                 content: '';
                 position: absolute;
                 background-color: var(--step-divider-color);

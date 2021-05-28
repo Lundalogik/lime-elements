@@ -69,39 +69,38 @@ export class ProgressFlow {
         });
 
         return [
-            endPhaseItems.reverse().map((item, i) => {
+            regularFlowItems.map((item, i) => {
                 return (
                     <limel-progress-flow-item
                         class={{
                             'flow-item': true,
                             'lime-progress-flow--readonly': this.readonly,
-                            'first-off-progress':
-                            i === endPhaseItems.length - 1,
                         }}
                         style={this.getItemStyle(item)}
                         disabled={this.disabled || this.readonly}
                         readonly={this.readonly}
                         item={item}
+                        isFirst={i === 0}
+                        isLast={i === regularFlowItems.length - 1}
+                        isPassed={i < activeIndex}
                         onInteract={() => {
                             this.handleFlowItemClick(item);
                         }}
                     />
                 );
             }),
-            regularFlowItems.reverse().map((item, i) => {
+            endPhaseItems.map((item, i) => {
                 return (
                     <limel-progress-flow-item
                         class={{
                             'flow-item': true,
                             'lime-progress-flow--readonly': this.readonly,
+                            'first-off-progress': i === 0,
                         }}
                         style={this.getItemStyle(item)}
                         disabled={this.disabled || this.readonly}
                         readonly={this.readonly}
                         item={item}
-                        isLast={i === 0}
-                        isFirst={i === regularFlowItems.length - 1}
-                        isPassed={regularFlowItems.length - i - 1 < activeIndex}
                         onInteract={() => {
                             this.handleFlowItemClick(item);
                         }}
@@ -143,10 +142,11 @@ export class ProgressFlow {
     private setFocusOnActiveItem() {
         const activeElement = this.getActiveElement();
         if (activeElement) {
+            console.log('Scroll to ', activeElement);
             const activeItemLeftPosition =
-                activeElement.offsetLeft - this.element.offsetLeft;
+                activeElement.offsetLeft + this.element.offsetLeft;
             const activeElementLeftPositionCenterd =
-                activeItemLeftPosition - this.element.offsetWidth / 2;
+                activeItemLeftPosition + this.element.offsetWidth / 2;
             const activeElementCentered =
                 activeElementLeftPositionCenterd +
                 activeElement.offsetWidth / 2;
@@ -158,13 +158,6 @@ export class ProgressFlow {
     }
 
     private getActiveElement(): HTMLLimelProgressFlowItemElement {
-        const items = this.element.shadowRoot.querySelectorAll('.flow-item');
-        for (let i = 0; i < items.length; i++) {
-            const element: any = items[i];
-            const buttonElement = element.shadowRoot.querySelector('.active');
-            if (buttonElement) {
-                return element;
-            }
-        }
+        return this.element.shadowRoot.querySelector('.flow-item .active');
     }
 }

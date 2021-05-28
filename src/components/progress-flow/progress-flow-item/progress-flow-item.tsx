@@ -13,7 +13,7 @@ import { FlowItem } from '../progress-flow.types';
  */
 @Component({
     tag: 'limel-progress-flow-item',
-    shadow: true,
+    shadow: false,
     styleUrl: 'progress-flow-item.scss',
 })
 export class ProgressFlowItem {
@@ -48,7 +48,9 @@ export class ProgressFlowItem {
     public icon: string;
 
     public render() {
-        const secondaryText = this.item.secondaryText? ' · ' + this.item.secondaryText: '';
+        const secondaryText = this.item.secondaryText
+            ? ' · ' + this.item.secondaryText
+            : '';
         const tooltip = this.item.text + secondaryText;
 
         return [
@@ -64,7 +66,7 @@ export class ProgressFlowItem {
                     first: this.isFirst,
                     last: this.isLast,
                     disabled: this.disabled || this.item?.disabled,
-                    'readonly': this.readonly
+                    readonly: this.readonly,
                 }}
                 onClick={() => {
                     this.interact.emit();
