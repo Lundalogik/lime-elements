@@ -13,6 +13,9 @@
 
 :host {
     --progress-flow-gap: 0.25rem;
+    --step-height: 2.5rem;
+    --active-indicator-right: -0.5rem;
+
     box-sizing: border-box;
     width: 100%;
     display: flex;
@@ -32,4 +35,9 @@
 
 .first-off-progress {
     margin-left: pxToRem(8);
+}
+
+:host(.is-narrow) {
+    --step-height: 1.5rem;
+    --active-indicator-right: 0;
 }

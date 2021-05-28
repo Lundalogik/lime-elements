@@ -2,33 +2,37 @@ import { Component, h, State } from '@stencil/core';
 import { FlowItem } from '../progress-flow.types';
 
 /**
- * Example with secondary text
+ * Compact layout
  *
- * A `secondaryText` can be used to add further information to steps.
- * This could be for instance a timestamp of when a step was activated by the user
- * or an explainatory text.
+ * For cases where this component needs to take as little space as possible,
+ * we offer an alternative layout. All you need to do is addin the `is-narrow`
+ * class to the component.
  */
 @Component({
-    tag: 'limel-example-progress-flow-secondary-text',
+    tag: 'limel-example-progress-flow-narrow',
     shadow: true,
 })
-export class ProgressFlowSecondaryTextExample {
+export class ProgressNarrowExample {
     @State()
     private flowItems: FlowItem[] = [
         {
-            value: '1',
-            text: 'Todo',
-            icon: 'add_ticket',
-            secondaryText: 'Added: 2021-May-26',
+            value: 'first',
+            text: 'First step',
+            selected: true,
         },
         {
-            value: '2',
-            text: 'Working on it',
-            icon: 'outgoing_data',
-            selected: true,
-            secondaryText: 'Started: 2021-May-27',
+            value: 'second',
+            text: 'Second step',
         },
-        { value: '3', text: 'Done', icon: 'ok' },
+        {
+            value: 'third',
+            text: 'Third step',
+        },
+        {
+            value: 'fourth',
+            text: 'Fourth step',
+            icon: 'finish_flag',
+        },
     ];
 
     constructor() {
@@ -40,6 +44,7 @@ export class ProgressFlowSecondaryTextExample {
             <limel-progress-flow
                 flowItems={this.flowItems}
                 onChange={this.onChange}
+                class="is-narrow"
             />
         );
     }

@@ -7,7 +7,7 @@
                 background-color: var(--step-divider-color);
                 width: pxToRem(6);
                 height: pxToRem(6);
-                right: pxToRem(-8);
+                right: var(--active-indicator-right);
                 border-radius: 50%;
                 opacity: 0.7;
             }
