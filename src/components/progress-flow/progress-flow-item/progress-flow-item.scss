@@ -141,8 +141,8 @@
 
 .seconday-text {
     font-size: pxToRem(12);
-    text-align: center;
     margin: auto;
+    padding-left: calc(var(--step-height) / 2);
 }
 
 .icon{
