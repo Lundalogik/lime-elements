@@ -4,42 +4,40 @@
 @import './partial-styles/_active-indicator';
 @import './partial-styles/_colors';
 
-:host {
-    position: relative;
-    // z-index: $limel-progress-flow-step--z-index;
-    // width: 100%;
-
-    --step-height: 2.5rem;
+.flow-item {
     --step-background--inactive: var(
-        --progress-flow-step-background-color--inactive,
-        rgb(var(--contrast-600))
+    --progress-flow-step-background-color--inactive,
+    rgb(var(--contrast-600))
     );
     --step-background--active: var(
-        --progress-flow-step-background-color--active,
-        var(--mdc-theme-primary)
+    --progress-flow-step-background-color--active,
+    var(--mdc-theme-primary)
     );
     --step-background--passed: var(
-        --progress-flow-step-background-color--passed,
-        var(--step-background--active)
+    --progress-flow-step-background-color--passed,
+    var(--step-background--active)
     );
 
     --step-text--inactive: var(
-        --progress-flow-step-text-color--inactive,
-        rgb(var(--contrast-1200))
+    --progress-flow-step-text-color--inactive,
+    rgb(var(--contrast-1200))
     );
     --step-text--active: var(
-        --progress-flow-step-text-color--active,
-        var(--mdc-theme-on-primary)
+    --progress-flow-step-text-color--active,
+    var(--mdc-theme-on-primary)
     );
     --step-text--passed: var(
-        --progress-flow-step-text-color--passed,
-        var(--mdc-theme-on-primary)
+    --progress-flow-step-text-color--passed,
+    var(--mdc-theme-on-primary)
     );
 
     --step-divider-color: var(
-        --progress-flow-step-divider-color,
-        rgb(var(--contrast-100))
+    --progress-flow-step-divider-color,
+    rgb(var(--contrast-100))
     );
+
+    position: relative;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -47,7 +45,7 @@
 }
 
 .step {
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 
     display: flex;
     justify-content: center;
@@ -70,7 +68,10 @@
         &:not(.disabled) {
             cursor: pointer;
             &:hover {
-                filter: brightness(1.05);
+                box-shadow: var(--button-shadow-normal);
+            }
+            &:active {
+                box-shadow: var(--button-shadow-pressed);
             }
         }
     }
@@ -112,7 +113,7 @@
     overflow-y: clip;
     position: absolute;
     right: 0;
-    // z-index: $limel-progress-flow-divider--z-index;
+    z-index: $limel-progress-flow-divider--z-index;
 
     &:after {
         box-sizing: border-box;
@@ -140,6 +141,7 @@
 .seconday-text {
     @include truncate-text();
     max-width: pxToRem(156);
+    z-index: $limel-progress-flow-step-content--z-index;
 }
 
 .seconday-text {
@@ -150,4 +152,5 @@
 
 .icon {
     margin: 0 pxToRem(8) 0 pxToRem(4);
+    z-index: $limel-progress-flow-step-content--z-index;
 }

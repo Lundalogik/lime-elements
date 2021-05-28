@@ -49,6 +49,7 @@ export class ProgressFlowItem {
             ? ' · ' + this.item.secondaryText
             : '';
         const tooltip = this.item.text + secondaryText;
+
         return [
             <button
                 tabindex="0"
