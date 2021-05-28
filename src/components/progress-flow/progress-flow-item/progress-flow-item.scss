@@ -55,6 +55,16 @@
     border: none;
     font-size: pxToRem(14);
 
+    &.disabled {
+        opacity: 0.75;
+        cursor: not-allowed;
+
+        &.readonly {
+            opacity: 1;
+            cursor: default;
+        }
+    }
+
     &:focus {
         outline: none;
     }
