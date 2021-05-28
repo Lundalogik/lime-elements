@@ -6,34 +6,34 @@
 
 .flow-item {
     --step-background--inactive: var(
-        --progress-flow-step-background-color--inactive,
-        rgb(var(--contrast-600))
+    --progress-flow-step-background-color--inactive,
+    rgb(var(--contrast-600))
     );
     --step-background--active: var(
-        --progress-flow-step-background-color--active,
-        var(--mdc-theme-primary)
+    --progress-flow-step-background-color--active,
+    var(--mdc-theme-primary)
     );
     --step-background--passed: var(
-        --progress-flow-step-background-color--passed,
-        var(--step-background--active)
+    --progress-flow-step-background-color--passed,
+    var(--step-background--active)
     );
 
     --step-text--inactive: var(
-        --progress-flow-step-text-color--inactive,
-        rgb(var(--contrast-1200))
+    --progress-flow-step-text-color--inactive,
+    rgb(var(--contrast-1200))
     );
     --step-text--active: var(
-        --progress-flow-step-text-color--active,
-        var(--mdc-theme-on-primary)
+    --progress-flow-step-text-color--active,
+    var(--mdc-theme-on-primary)
     );
     --step-text--passed: var(
-        --progress-flow-step-text-color--passed,
-        var(--mdc-theme-on-primary)
+    --progress-flow-step-text-color--passed,
+    var(--mdc-theme-on-primary)
     );
 
     --step-divider-color: var(
-        --progress-flow-step-divider-color,
-        rgb(var(--contrast-100))
+    --progress-flow-step-divider-color,
+    rgb(var(--contrast-100))
     );
 
     position: relative;
