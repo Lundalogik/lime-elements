@@ -1,23 +1,30 @@
 .step {
+    &:after  {
+        pointer-events: none;
+        box-sizing: border-box;
+        z-index: $limel-progress-flow-step-content--z-index;
+        position: absolute;
+        right: var(--active-indicator-right);
+
+        background-color: var(--step-divider-color);
+        width: pxToRem(6);
+        height: pxToRem(6);
+        border-radius: 50%;
+        opacity: 0.7;
+    }
+
+    &.last {
+        &:after {
+            right: pxToRem(8);
+        }
+    }
+
     &:not(.off-progress) {
         &.active {
             &:after  {
-                z-index: $limel-progress-flow-step-content--z-index;
                 content: '';
-                position: absolute;
-                background-color: var(--step-divider-color);
-                width: pxToRem(6);
-                height: pxToRem(6);
-                right: var(--active-indicator-right);
-                border-radius: 50%;
-                opacity: 0.7;
-            }
-
-            &.last {
-                &:after {
-                    right: pxToRem(8);
-                }
             }
         }
     }
+
 }

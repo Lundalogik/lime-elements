@@ -1,0 +1,150 @@
+:host(.has-detached-steps) {
+    --progress-flow-gap: 0;
+    --active-indicator-right: 0.5rem;
+    --step-height: 1.75rem;
+    padding-top: var(--step-height);
+
+    .flow-item {
+        align-items: center;
+        --step-background--inactive: var(
+        --progress-flow-step-background-color--inactive,
+        rgb(var(--contrast-400))
+        );
+    }
+
+    .step {
+        border-radius: var(--step-height);
+        background-color: transparent;
+        padding: 0;
+
+        &:after { // active indicator
+            right: 0;
+            left: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+            height: calc(var(--step-height) + #{pxToRem(8)});
+            width: calc(var(--step-height) + #{pxToRem(8)});
+            border-width: pxToRem(2);
+            border-style: solid;
+            background-color: transparent;
+            opacity: 0.5;
+        }
+
+        &:before {
+            transition: box-shadow 0.2s ease, background-color 0.2s ease;
+            content: '';
+            width: var(--step-height);
+            height: var(--step-height);
+            border-radius: var(--step-height);
+
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+
+        &.active {
+            .divider:after {
+                background-image: linear-gradient(to right, var(--step-background--active), var(--step-background--inactive));
+            }
+        }
+
+        &:not(.active):not(.disabled) {
+            &:before {
+                box-shadow: var(--button-shadow-normal);
+            }
+
+            &:hover {
+                box-shadow: none;
+
+                &:before {
+                    box-shadow: var(--button-shadow-hovered);
+                }
+            }
+
+            &:active {
+                &:before {
+                    box-shadow: var(--button-shadow-pressed);
+                }
+            }
+        }
+
+    }
+
+    .divider {
+        width: 100%;
+        z-index: $limel-progress-flow-divider-alternative-ui--z-index;
+        &:after {
+            transform: rotate(0deg);
+            border: none;
+            height: pxToRem(4);
+            border-radius: 0;
+
+            width:  calc(100% - var(--step-height));
+            transform: translateX(calc(50% + var(--step-height)));
+
+        }
+
+    }
+    .off-progress-item {
+        &:not(.last-off-progress-item) {
+            .divider {
+                &:after {
+                    content: '';
+                    border: none;
+                    border-top: pxToRem(4) dashed var(--step-background--inactive);
+                    background: none;
+                }
+            }
+        }
+
+    }
+
+    .icon {
+        margin: 0;
+    }
+
+    .text {
+        position: absolute;
+        top: 0;
+        transform: translateY(calc(-100% - #{pxToRem(4)}));
+        padding: 0 pxToRem(16);
+        font-size: pxToRem(13);
+    }
+
+    .secondary-text {
+        padding-left: 0;
+        opacity: 0.6;
+    }
+}
+
+
+//  colors
+.step {
+    &:before {
+        background-color: var(--step-background--inactive);
+    }
+
+    &.active {
+        color: var(--step-text--inactive);
+
+        &:after { // active indicator
+            border-color: var(--step-background--active);
+        }
+
+        &:before {
+            background-color: var(--step-background--active);
+        }
+    }
+
+    &.passed {
+        color: var(--step-text--inactive);
+
+        &:before {
+            background-color: var(--step-background--passed);
+        }
+    }
+}

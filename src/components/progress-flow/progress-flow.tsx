@@ -15,6 +15,7 @@ import { FlowItem } from './progress-flow.types';
  * @exampleComponent limel-example-progress-flow-colors-css
  * @exampleComponent limel-example-progress-flow-end-steps
  * @exampleComponent limel-example-progress-flow-narrow
+ * @exampleComponent limel-example-progress-flow-alternative-ui
  */
 @Component({
     tag: 'limel-progress-flow',
@@ -94,8 +95,10 @@ export class ProgressFlow {
                     <limel-progress-flow-item
                         class={{
                             'flow-item': true,
+                            'off-progress-item': true,
+                            'first-off-progress-item': i === 0,
+                            'last-off-progress-item': i === endPhaseItems.length - 1,
                             'lime-progress-flow--readonly': this.readonly,
-                            'first-off-progress': i === 0,
                         }}
                         style={this.getItemStyle(item)}
                         disabled={this.disabled || this.readonly}
@@ -160,6 +163,7 @@ export class ProgressFlow {
         const itemButton = this.element.shadowRoot.querySelector(
             '.flow-item .active'
         );
+
         return itemButton?.parentElement as HTMLLimelProgressFlowItemElement;
     }
 }

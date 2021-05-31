@@ -15,6 +15,7 @@
     --progress-flow-gap: 0.25rem;
     --step-height: 2.5rem;
     --active-indicator-right: -0.5rem;
+    --max-text-width: 10rem;
 
     box-sizing: border-box;
     width: 100%;
@@ -33,7 +34,7 @@
     }
 }
 
-.first-off-progress {
+.first-off-progress-item {
     margin-left: pxToRem(8);
 }
 
