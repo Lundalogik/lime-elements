@@ -85,7 +85,7 @@ export class ProgressFlowItem {
             return;
         }
 
-        return <div class="seconday-text">{this.item.secondaryText}</div>;
+        return <div class="secondary-text">{this.item.secondaryText}</div>;
     }
 
     private renderIcon() {

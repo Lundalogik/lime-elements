@@ -148,13 +148,13 @@
 }
 
 .text,
-.seconday-text {
+.secondary-text {
     @include truncate-text();
     max-width: pxToRem(156);
     z-index: $limel-progress-flow-step-content--z-index;
 }
 
-.seconday-text {
+.secondary-text {
     font-size: pxToRem(12);
     margin: auto;
     padding-left: calc(var(--step-height) / 2);
