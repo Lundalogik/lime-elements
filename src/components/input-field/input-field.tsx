@@ -235,12 +235,8 @@ export class InputField {
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
         this.setFocus = this.setFocus.bind(this);
 
-        const debounceTimeout = 100;
-        this.changeEmitter = debounce(this.changeEmitter, debounceTimeout, {
-            leading: false,
-            maxWait: 300,
-            trailing: true,
-        });
+        const debounceTimeout = 300;
+        this.changeEmitter = debounce(this.changeEmitter, debounceTimeout);
 
         this.portalId = createRandomString();
     }
