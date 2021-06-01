@@ -1,0 +1,11 @@
+.limel-select.mdc-select {
+    &.limel-select--readonly {
+        .limel-select-trigger {
+            cursor: default;
+            opacity: 1;
+        }
+        .mdc-select__dropdown-icon {
+            display: none;
+        }
+    }
+}
