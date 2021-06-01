@@ -401,11 +401,11 @@ export class InputField {
             props.step = this.step;
         }
 
-        if (this.type === 'number' && this.min) {
+        if (this.type === 'number' && Number.isInteger(this.min)) {
             props.min = this.min;
         }
 
-        if (this.type === 'number' && this.max) {
+        if (this.type === 'number' && Number.isInteger(this.max)) {
             props.max = this.max;
         }
 
