@@ -12,16 +12,14 @@ export class SelectExample {
     @State()
     public disabled = false;
 
+    @State()
+    public required = false;
+
     private options: Option[] = [
         { text: 'Luke Skywalker', value: 'luke' },
         { text: 'Han Solo', value: 'han', disabled: true },
         { text: 'Leia Organo', value: 'leia' },
     ];
-
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-    }
 
     public render() {
         return (
@@ -32,13 +30,20 @@ export class SelectExample {
                     value={this.value}
                     options={this.options}
                     disabled={this.disabled}
-                    onChange={this.onChange}
+                    required={this.required}
+                    onChange={this.changeHandler}
                 />
                 <p>
                     <limel-flex-container justify="end">
-                        <limel-button
-                            onClick={this.toggleEnabled}
-                            label={this.disabled ? 'Enable' : 'Disable'}
+                        <limel-checkbox
+                            checked={this.disabled}
+                            label="Disabled"
+                            onChange={this.setDisabled}
+                        />
+                        <limel-checkbox
+                            checked={this.required}
+                            label="Required"
+                            onChange={this.setRequired}
                         />
                     </limel-flex-container>
                 </p>
@@ -47,11 +52,17 @@ export class SelectExample {
         );
     }
 
-    private onChange(event) {
+    private changeHandler = (event) => {
         this.value = event.detail;
-    }
+    };
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
-    }
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
+
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
+    };
 }
