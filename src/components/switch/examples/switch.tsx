@@ -36,7 +36,7 @@ export class SwitchExample {
                 />
                 <limel-checkbox
                     checked={this.value}
-                    label="Toggle checked"
+                    label="Selected"
                     onChange={this.setChecked}
                 />
             </limel-flex-container>,
