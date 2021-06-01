@@ -1,0 +1,1 @@
+import{r as e,h as s}from"./index-6a31bb18.js";const t=class{constructor(s){e(this,s)}render(){return s("limel-button",{label:"My Button",disabled:!0,onClick:this.onClick})}onClick(){console.log("This should never happen, since the button is disabled.")}};export{t as limel_example_button_disabled}
