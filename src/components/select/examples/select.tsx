@@ -13,6 +13,9 @@ export class SelectExample {
     public disabled = false;
 
     @State()
+    public readonly = false;
+
+    @State()
     public required = false;
 
     private options: Option[] = [
@@ -30,6 +33,7 @@ export class SelectExample {
                     value={this.value}
                     options={this.options}
                     disabled={this.disabled}
+                    readonly={this.readonly}
                     required={this.required}
                     onChange={this.changeHandler}
                 />
@@ -39,6 +43,11 @@ export class SelectExample {
                             checked={this.disabled}
                             label="Disabled"
                             onChange={this.setDisabled}
+                        />
+                        <limel-checkbox
+                            checked={this.readonly}
+                            label="Readonly"
+                            onChange={this.setReadonly}
                         />
                         <limel-checkbox
                             checked={this.required}
@@ -59,6 +68,11 @@ export class SelectExample {
     private setDisabled = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.disabled = event.detail;
+    };
+
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 
     private setRequired = (event: CustomEvent<boolean>) => {
