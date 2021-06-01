@@ -4,6 +4,7 @@ import { isMultiple } from '../../util/multiple';
 
 interface SelectTemplateProps {
     disabled?: boolean;
+    readonly?: boolean;
     required?: boolean;
     invalid?: boolean;
     options: Option[];
@@ -45,6 +46,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
         'limel-select': true,
         'mdc-select': true,
         'mdc-select--disabled': props.disabled,
+        'limel-select--readonly': props.readonly,
         'limel-select--required': props.required,
         'limel-select--invalid': !isValid,
         'limel-select--empty': !hasValue,
