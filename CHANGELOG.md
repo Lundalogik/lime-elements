@@ -1,3 +1,10 @@
+### [32.1.4](https://github.com/Lundalogik/lime-elements/compare/v32.1.3...v32.1.4) (2021-06-01)
+
+
+### Bug Fixes
+
+* **checkbox:** use cursor style `pointer` to indicate label can be clicked ([18c1760](https://github.com/Lundalogik/lime-elements/commit/18c176063a3402b4b378b4c73ee5fe814fd99aca))
+
 ### [32.1.3](https://github.com/Lundalogik/lime-elements/compare/v32.1.2...v32.1.3) (2021-06-01)
 
 
