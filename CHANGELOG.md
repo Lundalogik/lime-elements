@@ -1,3 +1,10 @@
+## [32.2.0](https://github.com/Lundalogik/lime-elements/compare/v32.1.5...v32.2.0) (2021-06-01)
+
+
+### Features
+
+* **select:** make `readonly` and `disabled` visually distinct ([2b9b8c7](https://github.com/Lundalogik/lime-elements/commit/2b9b8c742a7c0e79aca39e3bf2e3baa9cf2884ce))
+
 ### [32.1.5](https://github.com/Lundalogik/lime-elements/compare/v32.1.4...v32.1.5) (2021-06-01)
 
 
