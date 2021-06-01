@@ -1,3 +1,24 @@
+### [32.1.4](https://github.com/Lundalogik/lime-elements/compare/v32.1.3...v32.1.4) (2021-06-01)
+
+
+### Bug Fixes
+
+* **checkbox:** use cursor style `pointer` to indicate label can be clicked ([18c1760](https://github.com/Lundalogik/lime-elements/commit/18c176063a3402b4b378b4c73ee5fe814fd99aca))
+
+### [32.1.3](https://github.com/Lundalogik/lime-elements/compare/v32.1.2...v32.1.3) (2021-06-01)
+
+
+### Bug Fixes
+
+* **switch:** make switch keep correct styles when readonly is true or false ([dfda89a](https://github.com/Lundalogik/lime-elements/commit/dfda89a6ab05a7fc6f75ca9681ffddbf6cb76a19))
+
+### [32.1.2](https://github.com/Lundalogik/lime-elements/compare/v32.1.1...v32.1.2) (2021-06-01)
+
+
+### Bug Fixes
+
+* **input:** cursor jumps to end of input when rapidly typing ([51cf7c9](https://github.com/Lundalogik/lime-elements/commit/51cf7c9dab07d0378fcd0f86c36b73ca49197e13)), closes [#1255](https://github.com/Lundalogik/lime-elements/issues/1255)
+
 ### [32.1.1](https://github.com/Lundalogik/lime-elements/compare/v32.1.0...v32.1.1) (2021-05-26)
 
 

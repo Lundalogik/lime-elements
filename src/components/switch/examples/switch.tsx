@@ -15,37 +15,33 @@ export class SwitchExample {
     private readonly = false;
 
     public render() {
-        return (
-            <section>
-                <div>
-                    <limel-switch
-                        label={`Current value: ${this.value.toString()}`}
-                        value={this.value}
-                        disabled={this.disabled}
-                        readonly={this.readonly}
-                        onChange={this.changeHandler}
-                    />
-                    <limel-flex-container justify="end">
-                        <limel-checkbox
-                            checked={this.disabled}
-                            label="Disabled"
-                            onChange={this.setDisabled}
-                        />
-                        <limel-checkbox
-                            checked={this.readonly}
-                            label="Readonly"
-                            onChange={this.setReadonly}
-                        />
-                        <limel-checkbox
-                            checked={this.value}
-                            label="Toggle checked"
-                            onChange={this.setChecked}
-                        />
-                    </limel-flex-container>
-                </div>
-                <limel-example-value value={this.value} />
-            </section>
-        );
+        return [
+            <limel-switch
+                label={`Current value: ${this.value.toString()}`}
+                value={this.value}
+                disabled={this.disabled}
+                readonly={this.readonly}
+                onChange={this.changeHandler}
+            />,
+            <limel-flex-container justify="end">
+                <limel-checkbox
+                    checked={this.disabled}
+                    label="Disabled"
+                    onChange={this.setDisabled}
+                />
+                <limel-checkbox
+                    checked={this.readonly}
+                    label="Readonly"
+                    onChange={this.setReadonly}
+                />
+                <limel-checkbox
+                    checked={this.value}
+                    label="Selected"
+                    onChange={this.setChecked}
+                />
+            </limel-flex-container>,
+            <limel-example-value value={this.value} />,
+        ];
     }
 
     private changeHandler = (event: CustomEvent<boolean>) => {
