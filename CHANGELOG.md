@@ -1,3 +1,10 @@
+### [32.1.3](https://github.com/Lundalogik/lime-elements/compare/v32.1.2...v32.1.3) (2021-06-01)
+
+
+### Bug Fixes
+
+* **switch:** make switch keep correct styles when readonly is true or false ([dfda89a](https://github.com/Lundalogik/lime-elements/commit/dfda89a6ab05a7fc6f75ca9681ffddbf6cb76a19))
+
 ### [32.1.2](https://github.com/Lundalogik/lime-elements/compare/v32.1.1...v32.1.2) (2021-06-01)
 
 
