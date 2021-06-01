@@ -1,3 +1,10 @@
+### [32.1.5](https://github.com/Lundalogik/lime-elements/compare/v32.1.4...v32.1.5) (2021-06-01)
+
+
+### Bug Fixes
+
+* **input:** min and max property can be set to "0" on input field of type "number" ([7995cdc](https://github.com/Lundalogik/lime-elements/commit/7995cdcfaa4758aacf19084bb91da0e0abc6b47d)), closes [#1259](https://github.com/Lundalogik/lime-elements/issues/1259)
+
 ### [32.1.4](https://github.com/Lundalogik/lime-elements/compare/v32.1.3...v32.1.4) (2021-06-01)
 
 
