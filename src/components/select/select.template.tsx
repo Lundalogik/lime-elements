@@ -55,7 +55,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
 
     return (
         <div class={classList}>
-            <SelectValue {...props} hasValue={hasValue} />
+            <SelectValue {...props} hasValue={hasValue} isValid={isValid} />
             <HelperText text={props.helperText} />
             <SelectDropdown {...props} />
         </div>
@@ -65,6 +65,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
 const SelectValue: FunctionalComponent<
     SelectTemplateProps & {
         hasValue: boolean;
+        isValid: boolean;
     }
 > = (props) => {
     const containerClassList = {
@@ -90,9 +91,24 @@ const SelectValue: FunctionalComponent<
                     {getSelectedText(props.value)}
                 </span>
             </div>
+            <ShowIcon {...props} isValid={props.isValid} />
             <i class="mdc-select__dropdown-icon" />
             <label class={labelClassList}>{props.label}</label>
         </div>
+    );
+};
+
+const ShowIcon: FunctionalComponent<
+    SelectTemplateProps & {
+        isValid: boolean;
+    }
+> = (props) => {
+    if (props.isValid) {
+        return;
+    }
+
+    return (
+        <limel-icon name="high_importance" size="medium" class="invalid-icon" />
     );
 };
 
