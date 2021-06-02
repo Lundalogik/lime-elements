@@ -119,7 +119,6 @@
                 }
 
                 .mdc-select__dropdown-icon {
-                    transform: rotate(180deg);
                     color: var(--mdc-theme-primary);
                 }
             }
@@ -133,11 +132,23 @@
     }
 
     &.limel-select--invalid {
-        .limel-select-trigger .mdc-floating-label,
-        .mdc-select-helper-text {
+        .mdc-floating-label,
+        .limel-select__selected-option,
+        .mdc-select-helper-text,
+        .invalid-icon {
             color: var(--lime-error-text-color);
         }
+        .mdc-floating-label:not(.mdc-floating-label--float-above) {
+            max-width: calc(
+                100% - #{pxToRem(64)}
+            ); // leaves space for the invalid-icon
+        }
     }
+}
+
+.invalid-icon {
+    margin-right: pxToRem(8);
+    flex-shrink: 0;
 }
 
 .mdc-select-helper-line {
