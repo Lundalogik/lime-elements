@@ -18,6 +18,9 @@ export class SelectExample {
     @State()
     public required = false;
 
+    @State()
+    public invalid = false;
+
     private options: Option[] = [
         { text: 'Luke Skywalker', value: 'luke' },
         { text: 'Han Solo', value: 'han', disabled: true },
@@ -35,6 +38,7 @@ export class SelectExample {
                     disabled={this.disabled}
                     readonly={this.readonly}
                     required={this.required}
+                    invalid={this.invalid}
                     onChange={this.changeHandler}
                 />
                 <p>
@@ -53,6 +57,11 @@ export class SelectExample {
                             checked={this.required}
                             label="Required"
                             onChange={this.setRequired}
+                        />
+                        <limel-checkbox
+                            checked={this.invalid}
+                            label="Invalid"
+                            onChange={this.setInvalid}
                         />
                     </limel-flex-container>
                 </p>
@@ -78,5 +87,10 @@ export class SelectExample {
     private setRequired = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.required = event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.invalid = event.detail;
     };
 }
