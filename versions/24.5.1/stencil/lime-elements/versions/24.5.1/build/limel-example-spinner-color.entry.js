@@ -1,1 +1,0 @@
-import{r as e,h as r}from"./core-5f6fd4ec.js";const l=class{constructor(r){e(this,r)}render(){return[r("limel-spinner",{style:{color:"orange"}}),r("div",{style:{color:"blue"}},r("limel-spinner",null))]}};export{l as limel_example_spinner_color};

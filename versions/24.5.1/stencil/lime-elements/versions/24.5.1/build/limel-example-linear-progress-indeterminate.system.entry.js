@@ -1,1 +1,0 @@
-System.register(["./core-e7aed7d8.system.js"],(function(e){"use strict";var r,t;return{setters:[function(e){r=e.r;t=e.h}],execute:function(){var n=e("limel_example_linear_progress_indeterminate",function(){function e(e){r(this,e)}e.prototype.render=function(){return t("limel-linear-progress",{indeterminate:true})};return e}())}}}));

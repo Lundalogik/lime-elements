@@ -1,1 +1,0 @@
-System.register([],(function(e){"use strict";return{execute:function(){var t=e("d",(function(){var e=new UIEvent("resize",{view:window,detail:0});window.dispatchEvent(e)}))}}}));
