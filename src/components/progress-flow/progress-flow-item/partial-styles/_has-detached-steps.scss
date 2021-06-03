@@ -119,32 +119,30 @@
         padding-left: 0;
         opacity: 0.6;
     }
-}
-
-
-//  colors
-.step {
-    &:before {
-        background-color: var(--step-background--inactive);
-    }
-
-    &.active {
-        color: var(--step-text--inactive);
-
-        &:after { // active indicator
-            border-color: var(--step-background--active);
+    //  colors
+    .step {
+        &:before {
+            background-color: var(--step-background--inactive);
         }
 
-        &:before {
-            background-color: var(--step-background--active);
+        &.active {
+            color: var(--step-text--inactive);
+
+            &:after { // active indicator
+                border-color: var(--step-background--active);
+            }
+
+            &:before {
+                background-color: var(--step-background--active);
+            }
         }
-    }
 
-    &.passed {
-        color: var(--step-text--inactive);
+        &.passed {
+            color: var(--step-text--inactive);
 
-        &:before {
-            background-color: var(--step-background--passed);
+            &:before {
+                background-color: var(--step-background--passed);
+            }
         }
     }
 }
