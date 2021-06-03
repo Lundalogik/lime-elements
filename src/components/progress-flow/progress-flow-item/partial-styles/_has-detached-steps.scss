@@ -7,17 +7,40 @@
     .flow-item {
         align-items: center;
         --step-background--inactive: var(
-        --progress-flow-step-background-color--inactive,
-        rgb(var(--contrast-400))
+            --progress-flow-step-background-color--inactive,
+            rgb(var(--contrast-400))
         );
+
+        &:not(.active) {
+            .step:not(.disabled) {
+                &:before {
+                    box-shadow: var(--button-shadow-normal);
+                }
+
+                &:hover {
+                    box-shadow: none;
+
+                    &:before {
+                        box-shadow: var(--button-shadow-hovered);
+                    }
+                }
+
+                &:active {
+                    &:before {
+                        box-shadow: var(--button-shadow-pressed);
+                    }
+                }
+            }
+        }
     }
 
     .step {
         border-radius: var(--step-height);
         background-color: transparent;
-        padding: 0;
+        padding: 0 !important;
 
-        &:after { // active indicator
+        &:after {
+            // active indicator
             right: 0;
             left: 0;
             bottom: 0;
@@ -45,33 +68,6 @@
             left: 0;
             margin: auto;
         }
-
-        &.active {
-            .divider:after {
-                background-image: linear-gradient(to right, var(--step-background--active), var(--step-background--inactive));
-            }
-        }
-
-        &:not(.active):not(.disabled) {
-            &:before {
-                box-shadow: var(--button-shadow-normal);
-            }
-
-            &:hover {
-                box-shadow: none;
-
-                &:before {
-                    box-shadow: var(--button-shadow-hovered);
-                }
-            }
-
-            &:active {
-                &:before {
-                    box-shadow: var(--button-shadow-pressed);
-                }
-            }
-        }
-
     }
 
     .divider {
@@ -83,11 +79,9 @@
             height: pxToRem(4);
             border-radius: 0;
 
-            width:  calc(100% - var(--step-height));
+            width: calc(100% - var(--step-height));
             transform: translateX(calc(50% + var(--step-height)));
-
         }
-
     }
     .off-progress-item {
         &:not(.last-off-progress-item) {
@@ -95,12 +89,12 @@
                 &:after {
                     content: '';
                     border: none;
-                    border-top: pxToRem(4) dashed var(--step-background--inactive);
+                    border-top: pxToRem(4) dashed
+                        var(--step-background--inactive);
                     background: none;
                 }
             }
         }
-
     }
 
     .icon {
@@ -111,7 +105,6 @@
         position: absolute;
         top: 0;
         transform: translateY(calc(-100% - #{pxToRem(4)}));
-        padding: 0 pxToRem(16);
         font-size: pxToRem(13);
     }
 
@@ -119,29 +112,45 @@
         padding-left: 0;
         opacity: 0.6;
     }
+
     //  colors
-    .step {
-        &:before {
-            background-color: var(--step-background--inactive);
+    .flow-item {
+        .step {
+            &:before {
+                background-color: var(--step-background--inactive);
+            }
         }
 
         &.active {
-            color: var(--step-text--inactive);
+            .step {
+                color: var(--step-text--inactive);
 
-            &:after { // active indicator
-                border-color: var(--step-background--active);
-            }
+                .divider:after {
+                    background-image: linear-gradient(
+                        to right,
+                        var(--step-background--active),
+                        var(--step-background--inactive)
+                    );
+                }
 
-            &:before {
-                background-color: var(--step-background--active);
+                &:after {
+                    // active indicator
+                    border-color: var(--step-background--active);
+                }
+
+                &:before {
+                    background-color: var(--step-background--active);
+                }
             }
         }
 
         &.passed {
-            color: var(--step-text--inactive);
+            .step {
+                color: var(--step-text--inactive);
 
-            &:before {
-                background-color: var(--step-background--passed);
+                &:before {
+                    background-color: var(--step-background--passed);
+                }
             }
         }
     }

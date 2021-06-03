@@ -75,15 +75,16 @@ export class ProgressFlow {
                     <limel-progress-flow-item
                         class={{
                             'flow-item': true,
+                            first: i === 0,
+                            last: i === regularFlowItems.length - 1,
+                            passed: i < activeIndex,
+                            active: item.selected,
                             'lime-progress-flow--readonly': this.readonly,
                         }}
                         style={this.getItemStyle(item)}
                         disabled={this.disabled || this.readonly}
                         readonly={this.readonly}
                         item={item}
-                        isFirst={i === 0}
-                        isLast={i === regularFlowItems.length - 1}
-                        isPassed={i < activeIndex}
                         onInteract={() => {
                             this.handleFlowItemClick(item);
                         }}
@@ -96,8 +97,10 @@ export class ProgressFlow {
                         class={{
                             'flow-item': true,
                             'off-progress-item': true,
+                            active: item.selected,
                             'first-off-progress-item': i === 0,
-                            'last-off-progress-item': i === endPhaseItems.length - 1,
+                            'last-off-progress-item':
+                                i === endPhaseItems.length - 1,
                             'lime-progress-flow--readonly': this.readonly,
                         }}
                         style={this.getItemStyle(item)}

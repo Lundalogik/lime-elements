@@ -24,15 +24,6 @@ export class ProgressFlowItem {
     public item: FlowItem = null;
 
     @Prop()
-    public isFirst: boolean = false;
-
-    @Prop()
-    public isLast: boolean = false;
-
-    @Prop()
-    public isPassed: boolean = false;
-
-    @Prop()
     public disabled = false;
 
     @Prop()
@@ -60,11 +51,7 @@ export class ProgressFlowItem {
                 type="button"
                 class={{
                     step: true,
-                    passed: this.isPassed,
-                    'off-progress': this.item?.isOffProgress,
                     active: this.item?.selected,
-                    first: this.isFirst,
-                    last: this.isLast,
                     disabled: this.disabled || this.item?.disabled,
                     readonly: this.readonly,
                 }}

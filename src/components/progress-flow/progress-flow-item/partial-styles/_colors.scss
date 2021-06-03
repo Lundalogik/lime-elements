@@ -2,11 +2,14 @@
     color: var(--step-text--inactive);
     background-color: var(--step-background--inactive);
 
-    .icon{
-        color: var(--progress-flow-icon-color--inactive, var(--step-text--inactive));
+    .icon {
+        color: var(
+            --progress-flow-icon-color--inactive,
+            var(--step-text--inactive)
+        );
     }
 
-    &.active {
+    .flow-item.active & {
         color: var(--step-text--active);
         background-color: var(--step-background--active);
 
@@ -14,12 +17,12 @@
             background-color: var(--step-background--active);
         }
 
-        .icon{
+        .icon {
             color: var(--step-text--active);
         }
     }
 
-    &.passed {
+    .flow-item.passed & {
         color: var(--step-text--passed);
         background-color: var(--step-background--passed);
 
@@ -27,7 +30,7 @@
             background-color: var(--step-background--passed);
         }
 
-        .icon{
+        .icon {
             color: var(--step-text--passed);
         }
     }

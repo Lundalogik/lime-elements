@@ -1,5 +1,5 @@
 .step {
-    &:after  {
+    &:after {
         pointer-events: none;
         box-sizing: border-box;
         z-index: $limel-progress-flow-step-content--z-index;
@@ -13,7 +13,7 @@
         opacity: 0.7;
     }
 
-    &.last {
+    .last & {
         &:after {
             right: pxToRem(8);
         }
@@ -21,10 +21,9 @@
 
     &:not(.off-progress) {
         &.active {
-            &:after  {
+            &:after {
                 content: '';
             }
         }
     }
-
 }
