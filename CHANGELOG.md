@@ -1,3 +1,11 @@
+### [32.2.1](https://github.com/Lundalogik/lime-elements/compare/v32.2.0...v32.2.1) (2021-06-04)
+
+
+### Bug Fixes
+
+* **input-field:** add distinct color variables for `label`, `input-text` & `helper-text` ([91be89e](https://github.com/Lundalogik/lime-elements/commit/91be89e9cccfcf032706b7c5d71be11abdf7e9aa))
+* **input-field:** use correct color for readonly inputs of type `number` ([2bf73da](https://github.com/Lundalogik/lime-elements/commit/2bf73dab2e523c7c780687391958a8345987c65d))
+
 ## [32.2.0](https://github.com/Lundalogik/lime-elements/compare/v32.1.5...v32.2.0) (2021-06-01)
 
 
