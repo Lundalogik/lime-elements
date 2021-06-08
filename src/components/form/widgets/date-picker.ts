@@ -31,12 +31,30 @@ export class DatePicker extends React.Component {
         });
     }
 
-    private getValue() {
-        if (typeof this.props.value === 'string') {
-            return new Date(this.props.value);
-        } else {
+    private getValue(): Date {
+        if (typeof this.props.value !== 'string') {
             return this.props.value;
         }
+
+        if (!moment(this.props.value).isValid()) {
+            const dateString = this.getDateFromString(this.props.value);
+            if (dateString) {
+                return new Date(dateString);
+            }
+        }
+
+        return new Date(this.props.value);
+    }
+
+    private getDateFromString(value: string): string | null {
+        const dateRegexp = /([0-9][0-9][0-9][0-9])[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[T]([01][1-9]|[2][0-3])[:]([0-5][0-9])[:]([0-5][0-9])([+|-]([01][0-9]|[2][0-3])[:]([0-5][0-9])){0,1}/;
+        const dateString = value.match(dateRegexp);
+
+        if (Array.isArray(dateString) && !!dateString[0]) {
+            return dateString[0];
+        }
+
+        return null;
     }
 
     private handleChange(event: CustomEvent<Date>) {
