@@ -40,8 +40,9 @@ export class Slider {
 
     /**
      * Default value: 1.
-     * The factor that the properties `value`, `valuemax` and `valuemin` are multiplied by.
-     * On `change` divides the value by the factor, so the original format stays the same
+     * The factor that the properties `value`, `valuemax`, `valuemin`, and
+     * `step` are multiplied by. On `change` divides the value by the factor,
+     * so the original format stays the same.
      */
     @Prop({ reflect: true })
     public factor: number = 1;
@@ -175,7 +176,7 @@ export class Slider {
                         aria-valuenow={this.multiplyByFactor(this.getValue())}
                         aria-label={this.label}
                         aria-disabled={this.disabled || this.readonly}
-                        data-step={this.step}
+                        data-step={this.multiplyByFactor(this.step)}
                     >
                         <div class="mdc-slider__track-container">
                             <div class="mdc-slider__track" />

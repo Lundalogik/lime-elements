@@ -90,6 +90,7 @@ export class Switch {
                 class={{
                     'mdc-switch': true,
                     'mdc-switch--disabled': this.disabled || this.readonly,
+                    'lime-switch--readonly': this.readonly,
                 }}
             >
                 <div class="mdc-switch__track" />

@@ -110,6 +110,7 @@ export class LimeElementsWidgetAdapter extends React.Component {
         const { name, events, extraProps } = this.props;
         const disabled = this.isDisabled();
         const value = this.getValue();
+        const readonly = this.isReadOnly();
 
         const newEvents = {
             change: this.props.widgetProps.onChange,
@@ -123,6 +124,7 @@ export class LimeElementsWidgetAdapter extends React.Component {
                 value: value,
                 label: this.getLabel(),
                 disabled: disabled,
+                readonly: readonly,
                 required: this.isRequired(),
                 invalid: this.isInvalid(),
                 'helper-text': this.getHelperText(),
@@ -133,12 +135,6 @@ export class LimeElementsWidgetAdapter extends React.Component {
     }
 
     private isDisabled() {
-        // We treat disabled and readonly the same here since the default
-        // lime-elements components does not have a readonly state
-        if (this.isReadOnly()) {
-            return true;
-        }
-
         const widgetProps = this.props.widgetProps;
         const options: LimeSchemaOptions = widgetProps.schema.lime;
 

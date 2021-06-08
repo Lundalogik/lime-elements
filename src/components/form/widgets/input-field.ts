@@ -52,7 +52,7 @@ export class InputField extends React.Component {
         } else if (type === 'number') {
             value = null;
         } else {
-            value = '';
+            value = props.required ? null : '';
         }
 
         props.onChange(value);

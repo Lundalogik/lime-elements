@@ -8,8 +8,12 @@ $background-color-normal: rgba(var(--contrast-200), 0.5);
 $background-color-hovered: rgba(var(--contrast-200), 1);
 $background-color-focused: rgba(var(--contrast-100), 0.8);
 $background-color-disabled: transparent;
+
 $label-color: rgba(var(--contrast-1200), 1);
 $label-color-disabled: rgba(var(--contrast-1200), 0.5);
+$input-text-color: rgba(var(--contrast-1400), 1);
+$input-text-color-disabled: rgba(var(--contrast-1400), 0.5);
+$helper-text-color: $label-color;
 
 $height-of-mdc-text-field: 3.5rem; //This is written directly in rem, beucase the vaiable used to calculate things elsewhere
 $height-of-mdc-helper-text-block: 0.9375rem;

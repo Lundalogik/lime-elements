@@ -1,3 +1,75 @@
+### [32.2.1](https://github.com/Lundalogik/lime-elements/compare/v32.2.0...v32.2.1) (2021-06-04)
+
+
+### Bug Fixes
+
+* **input-field:** add distinct color variables for `label`, `input-text` & `helper-text` ([91be89e](https://github.com/Lundalogik/lime-elements/commit/91be89e9cccfcf032706b7c5d71be11abdf7e9aa))
+* **input-field:** use correct color for readonly inputs of type `number` ([2bf73da](https://github.com/Lundalogik/lime-elements/commit/2bf73dab2e523c7c780687391958a8345987c65d))
+
+## [32.2.0](https://github.com/Lundalogik/lime-elements/compare/v32.1.5...v32.2.0) (2021-06-01)
+
+
+### Features
+
+* **select:** make `readonly` and `disabled` visually distinct ([2b9b8c7](https://github.com/Lundalogik/lime-elements/commit/2b9b8c742a7c0e79aca39e3bf2e3baa9cf2884ce))
+
+### [32.1.5](https://github.com/Lundalogik/lime-elements/compare/v32.1.4...v32.1.5) (2021-06-01)
+
+
+### Bug Fixes
+
+* **input:** min and max property can be set to "0" on input field of type "number" ([7995cdc](https://github.com/Lundalogik/lime-elements/commit/7995cdcfaa4758aacf19084bb91da0e0abc6b47d)), closes [#1259](https://github.com/Lundalogik/lime-elements/issues/1259)
+
+### [32.1.4](https://github.com/Lundalogik/lime-elements/compare/v32.1.3...v32.1.4) (2021-06-01)
+
+
+### Bug Fixes
+
+* **checkbox:** use cursor style `pointer` to indicate label can be clicked ([18c1760](https://github.com/Lundalogik/lime-elements/commit/18c176063a3402b4b378b4c73ee5fe814fd99aca))
+
+### [32.1.3](https://github.com/Lundalogik/lime-elements/compare/v32.1.2...v32.1.3) (2021-06-01)
+
+
+### Bug Fixes
+
+* **switch:** make switch keep correct styles when readonly is true or false ([dfda89a](https://github.com/Lundalogik/lime-elements/commit/dfda89a6ab05a7fc6f75ca9681ffddbf6cb76a19))
+
+### [32.1.2](https://github.com/Lundalogik/lime-elements/compare/v32.1.1...v32.1.2) (2021-06-01)
+
+
+### Bug Fixes
+
+* **input:** cursor jumps to end of input when rapidly typing ([51cf7c9](https://github.com/Lundalogik/lime-elements/commit/51cf7c9dab07d0378fcd0f86c36b73ca49197e13)), closes [#1255](https://github.com/Lundalogik/lime-elements/issues/1255)
+
+### [32.1.1](https://github.com/Lundalogik/lime-elements/compare/v32.1.0...v32.1.1) (2021-05-26)
+
+
+### Bug Fixes
+
+* **form:** an empty required text field is considered invalid ([eef259f](https://github.com/Lundalogik/lime-elements/commit/eef259f176df1a52e2e2d7109ed27457ab299702)), closes [Lundalogik/crm-feature#2112](https://github.com/Lundalogik/crm-feature/issues/2112)
+
+## [32.1.0](https://github.com/Lundalogik/lime-elements/compare/v32.0.0...v32.1.0) (2021-05-26)
+
+
+### Features
+
+* **form:** add support for readonly property on form fields ([a0b2af3](https://github.com/Lundalogik/lime-elements/commit/a0b2af325b183c0af3d1190bb1e289b1a01f97bc)), closes [Lundalogik/crm-feature#2071](https://github.com/Lundalogik/crm-feature/issues/2071)
+
+## [32.0.0](https://github.com/Lundalogik/lime-elements/compare/v31.10.0...v32.0.0) (2021-05-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **slider:** Previously, only `value` was multiplied by `factor`. With this fix,
+`step` is also multiplied by `factor`. Let's say we have a slider that goes from 0 to
+100 %, where the `value` is a decimal between 0 and 1. This slider would have a
+`factor=100`. If the slider should move in steps of 5 percentage points, before this
+fix, `step` would be set to `5`. After this fix, `step` should be set to `0.05` instead.
+
+### Bug Fixes
+
+* **slider:** when both `step` and `factor` are supplied, multiply `step` by `factor` ([5a503fd](https://github.com/Lundalogik/lime-elements/commit/5a503fdec2026677163ba0c8629474df8d2e82da)), closes [Lundalogik/crm-feature#2114](https://github.com/Lundalogik/crm-feature/issues/2114)
+
 ## [31.10.0](https://github.com/Lundalogik/lime-elements/compare/v31.9.0...v31.10.0) (2021-05-21)
 
 

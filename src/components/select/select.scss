@@ -6,6 +6,7 @@
 @import '@limetech/mdc-floating-label/mdc-floating-label';
 
 @import '../../style/mixins';
+@import './partial-styles/_readonly.scss';
 
 // Note! The `--dropdown-z-index` property is used from `select.tsx`.
 /**
