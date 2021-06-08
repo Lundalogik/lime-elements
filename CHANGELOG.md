@@ -1,3 +1,12 @@
+### [32.2.2](https://github.com/Lundalogik/lime-elements/compare/v32.2.1...v32.2.2) (2021-06-08)
+
+
+### Bug Fixes
+
+* **table:** always return existing data. add loading prop ([5e41fbe](https://github.com/Lundalogik/lime-elements/commit/5e41fbe4d3b2151f60e8650155b06a1716a14183))
+* **table:** dont update columns if they match the existing table columns ([91392f4](https://github.com/Lundalogik/lime-elements/commit/91392f41927a4a0a169d03b374c4e0eff961efb7))
+* **table:** reinit table when columns change ([676c226](https://github.com/Lundalogik/lime-elements/commit/676c226791c463b1f3f3eb036c1439e1f37a7a15))
+
 ### [32.2.1](https://github.com/Lundalogik/lime-elements/compare/v32.2.0...v32.2.1) (2021-06-04)
 
 
