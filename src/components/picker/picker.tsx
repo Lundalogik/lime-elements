@@ -538,7 +538,6 @@ export class Picker {
      * @returns {void}
      */
     private handleActionListChange(event: CustomEvent<ListItem<Action>>) {
-        console.log('ACTION', event.detail);
         event.stopPropagation();
         if (!event.detail) {
             return;
