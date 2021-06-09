@@ -1,4 +1,4 @@
-import { Chip, ListItem, Searcher } from '@limetech/lime-elements';
+import { Action, Chip, ListItem, Searcher } from '@limetech/lime-elements';
 import {
     Component,
     Element,
@@ -22,12 +22,14 @@ import {
     TAB_KEY_CODE,
 } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
+import { ActionBehaviour, ActionPosition } from './actions.types';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 
 /**
  * @exampleComponent limel-example-picker
+ * @exampleComponent limel-example-picker-static-actions
  * @exampleComponent limel-example-picker-multiple
  * @exampleComponent limel-example-picker-icons
  * @exampleComponent limel-example-picker-empty-suggestions
@@ -113,6 +115,24 @@ export class Picker {
     public displayFullList: boolean = false;
 
     /**
+     * Static actions that can be clicked by user
+     */
+    @Prop()
+    public actions: Array<ListItem<Action>> = [];
+
+    /**
+     * Position of the actions
+     */
+    @Prop()
+    public actionPosition: ActionPosition = 'bottom';
+
+    /**
+     * Behaviour of the actions
+     */
+    @Prop()
+    public actionBehaviour: ActionBehaviour = 'sticky';
+
+    /**
      * Fired when a new value has been selected from the picker
      */
     @Event()
@@ -125,6 +145,12 @@ export class Picker {
      */
     @Event()
     private interact: EventEmitter<ListItem<number | string>>;
+
+    /**
+     * Fired when clicking on an action
+     */
+    @Event()
+    private action: EventEmitter<Action>;
 
     @State()
     private items: Array<ListItem<number | string>>;
@@ -157,6 +183,7 @@ export class Picker {
         this.handleChange = this.handleChange.bind(this);
         this.handleInteract = this.handleInteract.bind(this);
         this.handleListChange = this.handleListChange.bind(this);
+        this.handleActionListChange = this.handleActionListChange.bind(this);
         this.handleStopEditAndBlur = this.handleStopEditAndBlur.bind(this);
         this.createDebouncedSearcher = this.createDebouncedSearcher.bind(this);
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
@@ -273,17 +300,83 @@ export class Picker {
      * @returns {HTMLElement} picker dropdown
      */
     private renderDropdown() {
-        const content = this.getDropdownContent();
+        const dropDownContent = this.getDropdownContent();
+
+        const content = [];
+
+        if (this.shouldShowDropDownContent()) {
+            const actionContent = this.getActionContent();
+            if (this.actionPosition === 'top') {
+                content.push(actionContent);
+            }
+
+            if (dropDownContent) {
+                content.push(dropDownContent);
+            }
+
+            if (this.actionPosition === 'bottom') {
+                content.push(actionContent);
+            }
+        }
 
         return this.renderPortal(content);
     }
 
-    private getDropdownContent() {
+    private getActionContent() {
+        const actionCount = this.actions?.length ?? 0;
+        if (actionCount === 0) {
+            return null;
+        }
+
+        const separator = (
+            <hr
+                style={{
+                    margin: '0px',
+                }}
+            />
+        );
+
+        const toRender = [
+            <limel-list
+                badgeIcons={true}
+                type={'selectable'}
+                onChange={this.handleActionListChange}
+                items={this.actions.map(this.removeUnusedPropertiesOnAction)}
+            />,
+        ];
+
+        if (this.actionPosition === 'top') {
+            toRender.push(separator);
+        } else {
+            toRender.unshift(separator);
+        }
+
+        return toRender;
+    }
+
+    private removeUnusedPropertiesOnAction(
+        action: ListItem<Action>
+    ): ListItem<Action> {
+        return {
+            ...action,
+            actions: [],
+        };
+    }
+
+    private shouldShowDropDownContent() {
         if (this.isFull()) {
-            return;
+            return false;
         }
 
         if (!this.chipSetEditMode) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private getDropdownContent() {
+        if (!this.shouldShowDropDownContent()) {
             return;
         }
 
@@ -344,20 +437,20 @@ export class Picker {
         );
     }
 
-    private renderPortal(content = null) {
+    private renderPortal(content: any[] = []) {
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
             '--dropdown-z-index'
         );
 
         return (
             <limel-portal
-                visible={!!content}
+                visible={content.length > 0}
                 containerId={this.portalId}
                 inheritParentWidth={true}
                 containerStyle={{ 'z-index': dropdownZIndex }}
             >
                 <limel-menu-surface
-                    open={!!content}
+                    open={content.length > 0}
                     allowClicksElement={this.host}
                     style={{
                         '--menu-surface-width': '100%',
@@ -435,6 +528,24 @@ export class Picker {
         if (this.multiple) {
             this.chipSet?.setFocus(true);
         }
+    }
+
+    /**
+     * Change handler for the list
+     *
+     * @param {CustomEvent} event event
+     *
+     * @returns {void}
+     */
+    private handleActionListChange(event: CustomEvent<ListItem<Action>>) {
+        console.log('ACTION', event.detail);
+        event.stopPropagation();
+        if (!event.detail) {
+            return;
+        }
+
+        this.action.emit(event.detail.value);
+        this.items = [];
     }
 
     /**
