@@ -1,0 +1,159 @@
+import { Action, ListItem, Option } from '@limetech/lime-elements';
+import { Component, h, State } from '@stencil/core';
+import { ActionBehaviour, ActionPosition } from '../actions.types';
+
+const NETWORK_DELAY = 500;
+
+/**
+ * With static actions
+ */
+@Component({
+    tag: 'limel-example-picker-static-actions',
+    shadow: true,
+})
+export class PickerStaticActionsExample {
+    private allItems: Array<ListItem<number>> = [
+        { text: 'Admiral Swiggins', value: 1 },
+        { text: 'Ayla', value: 2 },
+        { text: 'Clunk', value: 3 },
+        { text: 'Coco', value: 4 },
+        { text: 'Derpl', value: 5 },
+        { text: 'Froggy G', value: 6 },
+        { text: 'Gnaw', value: 7 },
+        { text: 'Lonestar', value: 8 },
+        { text: 'Leon', value: 9 },
+        { text: 'Raelynn', value: 10 },
+        { text: 'Skølldir', value: 11 },
+        { text: 'Voltar', value: 12 },
+        { text: 'Yuri', value: 13 },
+    ];
+
+    private actions: Array<ListItem<Action>> = [
+        {
+            text: 'Create a dog',
+            icon: 'dog',
+            iconColor: 'rgb(var(--color-green-default))',
+            value: { id: 'dog' },
+        },
+        {
+            text: 'Create a cat',
+            icon: 'cat',
+            iconColor: 'rgb(var(--color-green-light))',
+            value: { id: 'cat' },
+        },
+    ];
+
+    private actionPositions: Array<Option<ActionPosition>> = [
+        { text: 'Top', value: 'top' },
+        { text: 'Bottom', value: 'bottom' },
+    ];
+
+    private actionBehaviours: Array<Option<ActionBehaviour>> = [
+        { text: 'Scroll', value: 'scroll' },
+        { text: 'Sticky', value: 'sticky' },
+    ];
+
+    @State()
+    private selectedItem: ListItem<number> = null;
+
+    @State()
+    private lastUsedAction: Action = null;
+
+    @State()
+    private actionBehaviour: Option<ActionBehaviour> = this.actionBehaviours[0];
+
+    @State()
+    private actionPosition: Option<ActionPosition> = this.actionPositions[0];
+
+    constructor() {
+        this.search = this.search.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onAction = this.onAction.bind(this);
+        this.setBehaviour = this.setBehaviour.bind(this);
+        this.setPosition = this.setPosition.bind(this);
+    }
+
+    public render() {
+        return [
+            <limel-picker
+                label="Favorite awesomenaut"
+                value={this.selectedItem}
+                searchLabel={'Search your awesomenaut'}
+                displayFullList={true}
+                searcher={this.search}
+                onChange={this.onChange}
+                onInteract={this.onInteract}
+                onAction={this.onAction}
+                actions={this.actions}
+                actionBehaviour={this.actionBehaviour?.value}
+                actionPosition={this.actionPosition?.value}
+            />,
+            <p>
+                <limel-flex-container justify="end">
+                    <limel-select
+                        style={{
+                            width: '10rem',
+                        }}
+                        label="Action Behaviour"
+                        onChange={this.setBehaviour}
+                        value={this.actionBehaviour}
+                        options={this.actionBehaviours}
+                    />
+
+                    <limel-select
+                        style={{
+                            width: '10rem',
+                            'margin-left': '0.5rem',
+                        }}
+                        label="Action Position"
+                        onChange={this.setPosition}
+                        value={this.actionPosition}
+                        options={this.actionPositions}
+                    />
+                </limel-flex-container>
+            </p>,
+            <limel-example-value
+                label="Last pressed action"
+                value={this.lastUsedAction}
+            />,
+        ];
+    }
+
+    private search(query: string): Promise<ListItem[]> {
+        return new Promise((resolve) => {
+            if (query === '') {
+                resolve(this.allItems);
+            }
+
+            // Simulate some network delay
+            setTimeout(() => {
+                const filteredItems = this.allItems.filter((item) => {
+                    return item.text
+                        .toLowerCase()
+                        .includes(query.toLowerCase());
+                });
+                resolve(filteredItems);
+            }, NETWORK_DELAY);
+        });
+    }
+
+    private onChange(event: CustomEvent<ListItem<number>>) {
+        this.selectedItem = event.detail;
+    }
+
+    private onAction(event: CustomEvent<Action>) {
+        this.lastUsedAction = event.detail;
+    }
+
+    private onInteract(event) {
+        console.log('Value interacted with:', event.detail);
+    }
+
+    private setBehaviour(event: CustomEvent<Option<ActionBehaviour>>) {
+        this.actionBehaviour = event.detail;
+    }
+
+    private setPosition(event: CustomEvent<Option<ActionPosition>>) {
+        this.actionPosition = event.detail;
+    }
+}
