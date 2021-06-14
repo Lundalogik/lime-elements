@@ -70,7 +70,7 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-sonarjs": "^0.6.0",
+    "eslint-plugin-sonarjs": "^0.8.0-125",
     "flatpickr": "^4.6.3",
     "html-escaper": "^3.0.3",
     "jest": "^26.6.3",
