@@ -65,7 +65,7 @@
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.4",
     "eslint": "^7.28.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jsdoc": "^32.2.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^3.3.1",
