@@ -234,9 +234,8 @@ export class Table {
         }
 
         const options = this.getOptions();
-        const table: HTMLElement = this.host.shadowRoot.querySelector(
-            '#tabulator-table'
-        );
+        const table: HTMLElement =
+            this.host.shadowRoot.querySelector('#tabulator-table');
 
         this.initTabulatorComponent(table, options);
     }

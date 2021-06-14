@@ -3,7 +3,6 @@
  *
  * @param {Node} element the element to check
  * @param {Node} parent the parent element
- *
  * @returns {boolean} true if the element is a descendant of the parent element, false otherwise
  */
 export function isDescendant(element: Node, parent: Node) {

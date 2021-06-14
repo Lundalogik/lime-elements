@@ -7,7 +7,6 @@ import { retrieveSchema, ADDITIONAL_PROPERTY_FLAG } from '@rjsf/core/lib/utils';
  *
  * @param {object} a first object
  * @param {object} b second object
- *
  * @returns {any[]} the array of keys
  */
 const getDifferentKeys = (a: object = {}, b: object = {}): any[] => {
@@ -28,7 +27,6 @@ const getDifferentKeys = (a: object = {}, b: object = {}): any[] => {
  * @param {any} newData The form data from a change event
  * @param {object} schema The schema associated with the data
  * @param {object} rootSchema The root schema
- *
  * @returns {void}
  */
 export const resetDependentFields = (oldData, newData, schema, rootSchema) => {
@@ -69,7 +67,6 @@ export const resetDependentFields = (oldData, newData, schema, rootSchema) => {
  * Check if the schema is of type object and have no declared properties
  *
  * @param {any} schema the schema
- *
  * @returns {boolean} true if the schema is for a custom object
  */
 export function isCustomObjectSchema(schema: any) {

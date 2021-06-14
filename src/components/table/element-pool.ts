@@ -13,7 +13,6 @@ export class ElementPool {
      * Get an element from the pool
      *
      * @param {string} name tag name of the element
-     *
      * @returns {HTMLElement} the element
      */
     public get(name: string): HTMLElement {

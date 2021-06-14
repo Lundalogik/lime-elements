@@ -12,7 +12,6 @@ import { OpenDirection } from './menu.types';
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.
- *
  * @exampleComponent limel-example-menu-basic
  * @exampleComponent limel-example-menu-disabled
  * @exampleComponent limel-example-menu-open-left

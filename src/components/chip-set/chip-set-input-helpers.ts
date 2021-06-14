@@ -18,7 +18,6 @@ import {
  * Lets the user select, activate, and remove chips with the keyboard.
  *
  * @param {KeyboardEvent} event event
- *
  * @returns {void}
  */
 export function handleKeyboardEvent(event: KeyboardEvent) {

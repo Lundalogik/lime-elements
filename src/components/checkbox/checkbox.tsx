@@ -82,9 +82,8 @@ export class Checkbox {
     }
 
     private initialize() {
-        const element = this.limelCheckbox.shadowRoot.querySelector(
-            '.mdc-form-field'
-        );
+        const element =
+            this.limelCheckbox.shadowRoot.querySelector('.mdc-form-field');
         if (!element) {
             return;
         }

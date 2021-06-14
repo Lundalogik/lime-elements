@@ -53,9 +53,8 @@ export class ListRenderer {
                 role = this.config.type === 'menu' ? 'menu' : 'listbox';
         }
 
-        this.applyTabIndexToItemAtIndex = this.getIndexForWhichToApplyTabIndex(
-            items
-        );
+        this.applyTabIndexToItemAtIndex =
+            this.getIndexForWhichToApplyTabIndex(items);
 
         const classNames = {
             'mdc-list': true,
@@ -86,7 +85,6 @@ export class ListRenderer {
      * See https://github.com/material-components/material-components-web/tree/e66a43a75fef4f9179e24856649518e15e279a04/packages/mdc-list#accessibility
      *
      * @param {Array<ListItem | ListSeparator>} items the items of the list, including any `ListSeparator`:s
-     *
      * @returns {number} the index as per the description
      */
     private getIndexForWhichToApplyTabIndex(
@@ -119,7 +117,6 @@ export class ListRenderer {
      *
      * @param {ListItem | ListSeparator} item the item to render
      * @param {number} index the index the item had in the `items` array
-     *
      * @returns {HTMLElement} the list item
      */
     private renderListItem(item: ListItem | ListSeparator, index: number) {
@@ -164,7 +161,6 @@ export class ListRenderer {
      *
      * @param {string} text primary text for the list item
      * @param {string} secondaryText secondary text for the list item
-     *
      * @returns {HTMLElement | string} the text for the list item
      */
     private renderText(text: string, secondaryText?: string) {
@@ -187,7 +183,6 @@ export class ListRenderer {
      *
      * @param {ListRendererConfig} config the config object, passed on from the `renderListItem` function
      * @param {ListItem} item the list item
-     *
      * @returns {HTMLElement} the icon element
      */
     private renderIcon(config: ListRendererConfig, item: ListItem) {

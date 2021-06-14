@@ -117,9 +117,8 @@ export class Slider {
     }
 
     private initialize() {
-        const element = this.rootElement.shadowRoot.querySelector(
-            '.mdc-slider'
-        );
+        const element =
+            this.rootElement.shadowRoot.querySelector('.mdc-slider');
         if (!element) {
             return;
         }

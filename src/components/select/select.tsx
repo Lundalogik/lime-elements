@@ -122,9 +122,8 @@ export class Select {
     constructor() {
         this.handleMenuChange = this.handleMenuChange.bind(this);
         this.handleNativeChange = this.handleNativeChange.bind(this);
-        this.handleMenuTriggerKeyPress = this.handleMenuTriggerKeyPress.bind(
-            this
-        );
+        this.handleMenuTriggerKeyPress =
+            this.handleMenuTriggerKeyPress.bind(this);
         this.openMenu = this.openMenu.bind(this);
         this.closeMenu = this.closeMenu.bind(this);
 
@@ -231,9 +230,8 @@ export class Select {
             const list: HTMLElement = document.querySelector(
                 `#${this.portalId} limel-menu-surface limel-list`
             );
-            const firstItem: HTMLElement = list?.shadowRoot?.querySelector(
-                '[tabindex]'
-            );
+            const firstItem: HTMLElement =
+                list?.shadowRoot?.querySelector('[tabindex]');
 
             if (firstItem) {
                 firstItem.focus();

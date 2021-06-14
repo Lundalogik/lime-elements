@@ -6,7 +6,6 @@
  *
  * @param {HTMLElement} element the parent element
  * @param {HTMLElement} child the child element to check
- *
  * @returns {boolean} `true` if child is a descendant of element, taking
  * portals into account
  */
