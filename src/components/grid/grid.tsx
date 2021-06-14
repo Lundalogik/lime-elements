@@ -6,7 +6,6 @@ import { Component, h } from '@stencil/core';
  * to enable easy configuration of its child-elements.
  *
  * @exampleComponent limel-example-grid
- *
  * @slot - Grid content
  */
 @Component({

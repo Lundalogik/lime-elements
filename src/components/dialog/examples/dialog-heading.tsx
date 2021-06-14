@@ -55,9 +55,8 @@ export class DialogHeadingExample {
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleSubtitleChange = this.handleSubtitleChange.bind(this);
-        this.handleSupportingTextChange = this.handleSupportingTextChange.bind(
-            this
-        );
+        this.handleSupportingTextChange =
+            this.handleSupportingTextChange.bind(this);
         this.handleIconChange = this.handleIconChange.bind(this);
         this.handleBadgeChange = this.handleBadgeChange.bind(this);
 

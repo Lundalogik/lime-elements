@@ -303,8 +303,7 @@ describe('limel-input-field', () => {
             { input: 'nowww.com', expectedHref: 'https://nowww.com' },
             { input: '/aRelativeUrl', expectedHref: '/aRelativeUrl' },
             {
-                input:
-                    'nowww.com/with/email/address/in?queryString=someone@example.com',
+                input: 'nowww.com/with/email/address/in?queryString=someone@example.com',
                 expectedHref:
                     'https://nowww.com/with/email/address/in?queryString=someone@example.com',
             },

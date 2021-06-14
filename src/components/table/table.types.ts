@@ -146,7 +146,6 @@ export enum ColumnAggregatorType {
  * @param {Column} column the configuration for the column
  * @param {*[]} values list of all values to be aggregated
  * @param {T[]} data list of all objects to be aggregated
- *
  * @returns {*} the aggregated data
  */
 export type ColumnAggregatorFunction<T = object> = (

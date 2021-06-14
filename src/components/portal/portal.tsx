@@ -15,24 +15,23 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  *
  * There are some caveats when using this component
  *
- * * Events might not bubble up as expected since the content is moved out to
+ * Events might not bubble up as expected since the content is moved out to
  *   another DOM node.
- * * Any styling that is applied to content from the parent will be lost, if the
+ * Any styling that is applied to content from the parent will be lost, if the
  *   content is just another web compoent it will work without any issues.
  *   Alternatively, use the
  *   `style=""` html attribute.
- * * Any component that is placed inside the container must have a style of
+ * Any component that is placed inside the container must have a style of
  *   `max-height: inherit`. This ensures that its placement is calculated
  *   correctly in relation to the trigger, and that it never covers its own
  *   trigger.
- * * When the node is moved in the DOM, `disconnectedCallback` and
+ * When the node is moved in the DOM, `disconnectedCallback` and
  *   `connectedCallback` will be invoked, so if `disconnectedCallback` is used
  *   to do any tear-down, the appropriate setup will have to be done again on
  *   `connectedCallback`.
  *
  * @slot - Content to put inside the portal
  * @private
- *
  * @exampleComponent limel-example-portal
  */
 /* eslint-enable jsdoc/check-indentation */
@@ -166,9 +165,8 @@ export class Portal {
     }
 
     private createContainer() {
-        const slot: HTMLSlotElement = this.host.shadowRoot.querySelector(
-            'slot'
-        );
+        const slot: HTMLSlotElement =
+            this.host.shadowRoot.querySelector('slot');
         const content =
             (slot.assignedElements && slot.assignedElements()) || [];
 

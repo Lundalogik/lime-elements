@@ -397,7 +397,6 @@ export class Picker {
      * Input handler for the input field
      *
      * @param {InputEvent} event event
-     *
      * @returns {void}
      */
     private async handleTextInput(event) {
@@ -417,7 +416,6 @@ export class Picker {
      * Change handler for the list
      *
      * @param {CustomEvent} event event
-     *
      * @returns {void}
      */
     private handleListChange(event: CustomEvent<ListItem>) {
@@ -480,7 +478,6 @@ export class Picker {
      * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
      *
      * @param {KeyboardEvent} event event
-     *
      * @returns {void}
      */
     private handleInputKeyDown(event: KeyboardEvent) {
@@ -526,7 +523,6 @@ export class Picker {
      * Key handler for the dropdown
      *
      * @param {KeyboardEvent} event event
-     *
      * @returns {void}
      */
     private handleDropdownKeyDown(event: KeyboardEvent) {

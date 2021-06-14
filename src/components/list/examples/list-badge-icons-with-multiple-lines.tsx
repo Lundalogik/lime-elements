@@ -25,14 +25,12 @@ import { Component, h } from '@stencil/core';
 export class BadgeIconsListExample {
     private items: Array<ListItem<number>> = [
         {
-            text:
-                'This item only has one line of primary text, and no secondary text',
+            text: 'This item only has one line of primary text, and no secondary text',
             value: 1,
             icon: 'text_width',
         },
         {
-            text:
-                'Very long primary texts like this one will truncate and you cannot do anything about it. Just avoid having long primary texts.',
+            text: 'Very long primary texts like this one will truncate and you cannot do anything about it. Just avoid having long primary texts.',
             secondaryText: 'This is a short secondary text.',
             value: 2,
             icon: 'text_width',

@@ -13,7 +13,6 @@ export class ColumnDefinitionFactory {
      * Create Tabulator column definitions from a limel-table column configuration
      *
      * @param {Column} column config describing the column
-     *
      * @returns {Tabulator.ColumnDefinition} Tabulator column
      */
     public create(column: Column<object>): Tabulator.ColumnDefinition {
@@ -43,7 +42,6 @@ export class ColumnDefinitionFactory {
  * Formats the header of the column
  *
  * @param {Column} column the configuration for the column
- *
  * @returns {string | HTMLElement} custom component that renders a column header
  */
 export const formatHeader = (column: Column) => (): string | HTMLElement => {
@@ -79,7 +77,6 @@ export const formatHeader = (column: Column) => (): string | HTMLElement => {
  *
  * @param {Column} column config describing the column
  * @param {ElementPool} pool pool to get custom components from
- *
  * @returns {Tabulator.Formatter} Tabulator formatter
  */
 export function createFormatter(
@@ -125,7 +122,6 @@ function columnElementExists(column: Column<any>) {
  *
  * @param {Tabulator.CellComponent} cell the cell being rendered in the table
  * @param {Column} column configuration for the current column
- *
  * @returns {string} the formatted value
  */
 export function formatCell(
@@ -153,7 +149,6 @@ export function formatCell(
  * @param {Column} column lime-elements column configuration
  * @param {string} value the value of the cell being rendered
  * @param {ElementPool} pool pool to get custom components from
- *
  * @returns {HTMLElement} custom component that renders a value in the table
  */
 export function createCustomComponent(
@@ -214,7 +209,6 @@ function setElementProperties(element: HTMLElement, props: object) {
  *
  * @param {any} value the value to check
  * @param {string} key name of the property
- *
  * @returns {boolean} true if the property of the object is an event listener
  */
 function isEventListener(value: any, key: string): boolean {
@@ -231,7 +225,6 @@ function isEventListener(value: any, key: string): boolean {
  * E.g. "onMyEvent" will return "myEvent"
  *
  * @param {string} eventListener name of the event listener
- *
  * @returns {string} the name of the event
  */
 function getEventName(eventListener: string): string {
@@ -279,20 +272,19 @@ interface TabulatorSorter extends Tabulator.Sorter {
  * Create a column sorter from a tabulator sorter
  *
  * @param {Column[]} columns all available columns in the table
- *
  * @returns {Function} function that creates a sorter from a tabulator sorter
  */
-export const createColumnSorter = (columns: Column[]) => (
-    sorter: TabulatorSorter
-): ColumnSorter => {
-    const column = columns.find((col) => col.field === sorter.field);
-    const direction = sorter.dir.toUpperCase() as 'ASC' | 'DESC';
+export const createColumnSorter =
+    (columns: Column[]) =>
+    (sorter: TabulatorSorter): ColumnSorter => {
+        const column = columns.find((col) => col.field === sorter.field);
+        const direction = sorter.dir.toUpperCase() as 'ASC' | 'DESC';
 
-    return {
-        column: column,
-        direction: direction,
+        return {
+            column: column,
+            direction: direction,
+        };
     };
-};
 
 export function getColumnAggregator(column: Column): Tabulator.ColumnCalc {
     const aggregator = column.aggregator;
