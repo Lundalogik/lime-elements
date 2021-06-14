@@ -61,7 +61,7 @@
     "ajv": "^6.12.2",
     "awesome-debounce-promise": "^2.1.0",
     "codemirror": "^5.60.0",
-    "commitizen": "^4.2.3",
+    "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.4",
     "eslint": "^7.21.0",
