@@ -2,5 +2,6 @@
 .github/
 .vscode/
 dist/
+docsDist/
 node_modules/
 www/
