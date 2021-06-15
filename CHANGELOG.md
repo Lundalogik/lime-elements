@@ -1,3 +1,10 @@
+### [32.2.4](https://github.com/Lundalogik/lime-elements/compare/v32.2.3...v32.2.4) (2021-06-15)
+
+
+### Bug Fixes
+
+* **select:** better visualize `invalid` state ([e8a83c0](https://github.com/Lundalogik/lime-elements/commit/e8a83c06da59056acf256271276e8c867c83ce61))
+
 ### [32.2.3](https://github.com/Lundalogik/lime-elements/compare/v32.2.2...v32.2.3) (2021-06-15)
 
 
