@@ -133,7 +133,7 @@ export class CodeEditor {
     }
 
     private getOptions(): CodeMirror.EditorConfiguration {
-        let mode: string | object = this.language;
+        let mode: string | CodeMirror.ModeSpec<any> = this.language;
         const TAB_SIZE = 4;
         let theme = 'lime light';
 
