@@ -101,7 +101,7 @@ export class PickerStaticActionsExample {
                 <limel-flex-container justify="end">
                     <limel-select
                         style={{
-                            width: '10rem',
+                            width: '12rem',
                         }}
                         label="Action Scroll Behaviour"
                         onChange={this.setBehaviour}
