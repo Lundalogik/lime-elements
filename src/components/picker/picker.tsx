@@ -121,13 +121,18 @@ export class Picker {
     public actions: Array<ListItem<Action>> = [];
 
     /**
-     * Position of the actions
+     * Position of the custom static actions in the Picker's results dropdown.
+     * Can be set to `top` or `bottom`. Defaults to `bottom`.
      */
     @Prop()
     public actionPosition: ActionPosition = 'bottom';
 
     /**
-     * Behaviour of the actions
+     * Scroll behaviour of the custom static actions, when user scrolls
+     * in the Picker's results dropdown. Can be set to `scroll` which means the
+     * action items will scroll together with the list, or `sticky` which
+     * retains their position on `top` or `bottom` while scrolling.
+     * Defaults to `sticky`.
      */
     @Prop()
     public actionBehaviour: ActionBehaviour = 'sticky';

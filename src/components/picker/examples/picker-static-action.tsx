@@ -6,6 +6,15 @@ const NETWORK_DELAY = 500;
 
 /**
  * With static actions
+ *
+ * Static items can be added to picker to enable triggering custom actions
+ * directly from the results dropdown list.
+ *
+ * :::tip
+ * A typical usecase of such actions is scenarios in which picker's search results
+ * or suggestions list does not include what user wants to pick. By offering
+ * custom actions right in the list, we can enable users to add missing items.
+ * :::
  */
 @Component({
     tag: 'limel-example-picker-static-actions',
@@ -30,15 +39,15 @@ export class PickerStaticActionsExample {
 
     private actions: Array<ListItem<Action>> = [
         {
-            text: 'Create a dog',
+            text: 'Add a dog',
             icon: 'dog',
-            iconColor: 'rgb(var(--color-green-default))',
+            iconColor: 'rgb(var(--color-orange-default))',
             value: { id: 'dog' },
         },
         {
-            text: 'Create a cat',
+            text: 'Add a cat',
             icon: 'cat',
-            iconColor: 'rgb(var(--color-green-light))',
+            iconColor: 'rgb(var(--color-green-default))',
             value: { id: 'cat' },
         },
     ];
@@ -76,7 +85,7 @@ export class PickerStaticActionsExample {
     public render() {
         return [
             <limel-picker
-                label="Favorite awesomenaut"
+                label="Select your favorite pet"
                 value={this.selectedItem}
                 searchLabel={'Search your awesomenaut'}
                 displayFullList={true}
@@ -94,7 +103,7 @@ export class PickerStaticActionsExample {
                         style={{
                             width: '10rem',
                         }}
-                        label="Action Behaviour"
+                        label="Action Scroll Behaviour"
                         onChange={this.setBehaviour}
                         value={this.actionBehaviour}
                         options={this.actionBehaviours}
