@@ -22,7 +22,7 @@ import {
     TAB_KEY_CODE,
 } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
-import { ActionBehaviour, ActionPosition } from './actions.types';
+import { ActionScrollBehaviour, ActionPosition } from './actions.types';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
@@ -135,7 +135,7 @@ export class Picker {
      * Defaults to `sticky`.
      */
     @Prop()
-    public actionBehaviour: ActionBehaviour = 'sticky';
+    public actionBehaviour: ActionScrollBehaviour = 'sticky';
 
     /**
      * Fired when a new value has been selected from the picker

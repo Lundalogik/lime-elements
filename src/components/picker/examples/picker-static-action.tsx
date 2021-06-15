@@ -1,6 +1,6 @@
 import { Action, ListItem, Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { ActionBehaviour, ActionPosition } from '../actions.types';
+import { ActionScrollBehaviour, ActionPosition } from '../actions.types';
 
 const NETWORK_DELAY = 500;
 
@@ -57,7 +57,7 @@ export class PickerStaticActionsExample {
         { text: 'Bottom', value: 'bottom' },
     ];
 
-    private actionBehaviours: Array<Option<ActionBehaviour>> = [
+    private actionBehaviours: Array<Option<ActionScrollBehaviour>> = [
         { text: 'Scroll', value: 'scroll' },
         { text: 'Sticky', value: 'sticky' },
     ];
@@ -69,7 +69,7 @@ export class PickerStaticActionsExample {
     private lastUsedAction: Action = null;
 
     @State()
-    private actionBehaviour: Option<ActionBehaviour> = this.actionBehaviours[0];
+    private actionBehaviour: Option<ActionScrollBehaviour> = this.actionBehaviours[0];
 
     @State()
     private actionPosition: Option<ActionPosition> = this.actionPositions[0];
@@ -158,7 +158,7 @@ export class PickerStaticActionsExample {
         console.log('Value interacted with:', event.detail);
     }
 
-    private setBehaviour(event: CustomEvent<Option<ActionBehaviour>>) {
+    private setBehaviour(event: CustomEvent<Option<ActionScrollBehaviour>>) {
         this.actionBehaviour = event.detail;
     }
 
