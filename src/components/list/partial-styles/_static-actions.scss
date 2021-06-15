@@ -1,0 +1,19 @@
+// This is used in limel-picker only for now
+
+:host(.static-actions-list) {
+    background-color: inherit;
+    z-index: $limel-list-static-actions-list--z-index;
+    background-color: var(--mdc-theme-surface);
+}
+
+:host(.has-position-sticky) {
+    position: sticky;
+}
+
+:host(.has-position-sticky.is-on-top) {
+    top: 0;
+}
+
+:host(.has-position-sticky.is-at-bottom) {
+    bottom: 0;
+}
