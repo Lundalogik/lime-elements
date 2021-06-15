@@ -79,7 +79,6 @@ export class ProgressFlow {
                             last: i === regularFlowItems.length - 1,
                             passed: i < activeIndex,
                             active: item.selected,
-                            'lime-progress-flow--readonly': this.readonly,
                         }}
                         style={this.getItemStyle(item)}
                         disabled={this.disabled || this.readonly}
@@ -101,7 +100,6 @@ export class ProgressFlow {
                             'first-off-progress-item': i === 0,
                             'last-off-progress-item':
                                 i === endPhaseItems.length - 1,
-                            'lime-progress-flow--readonly': this.readonly,
                         }}
                         style={this.getItemStyle(item)}
                         disabled={this.disabled || this.readonly}
