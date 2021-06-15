@@ -336,13 +336,20 @@ export class Picker {
         const separator = (
             <hr
                 style={{
-                    margin: '0px',
+                    margin: '0.5rem 0',
                 }}
             />
         );
 
         const toRender = [
             <limel-list
+                class={{
+                    'static-actions-list': true,
+                    'is-on-top': this.actionPosition === 'top',
+                    'is-at-bottom': this.actionPosition === 'bottom',
+                    'has-position-sticky':
+                        this.actionScrollBehaviour === 'sticky',
+                }}
                 badgeIcons={true}
                 type={'selectable'}
                 onChange={this.handleActionListChange}
