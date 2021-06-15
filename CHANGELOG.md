@@ -1,3 +1,10 @@
+### [32.2.3](https://github.com/Lundalogik/lime-elements/compare/v32.2.2...v32.2.3) (2021-06-15)
+
+
+### Bug Fixes
+
+* remove overridden interface for ResizeObserver ([88128ef](https://github.com/Lundalogik/lime-elements/commit/88128efd49f840124646e804b096e1ea345f4523))
+
 ### [32.2.2](https://github.com/Lundalogik/lime-elements/compare/v32.2.1...v32.2.2) (2021-06-08)
 
 
