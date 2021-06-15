@@ -135,7 +135,7 @@ export class Picker {
      * Defaults to `sticky`.
      */
     @Prop()
-    public actionBehaviour: ActionScrollBehaviour = 'sticky';
+    public actionScrollBehaviour: ActionScrollBehaviour = 'sticky';
 
     /**
      * Fired when a new value has been selected from the picker

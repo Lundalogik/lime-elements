@@ -57,7 +57,7 @@ export class PickerStaticActionsExample {
         { text: 'Bottom', value: 'bottom' },
     ];
 
-    private actionBehaviours: Array<Option<ActionScrollBehaviour>> = [
+    private actionScrollBehaviours: Array<Option<ActionScrollBehaviour>> = [
         { text: 'Scroll', value: 'scroll' },
         { text: 'Sticky', value: 'sticky' },
     ];
@@ -69,7 +69,7 @@ export class PickerStaticActionsExample {
     private lastUsedAction: Action = null;
 
     @State()
-    private actionBehaviour: Option<ActionScrollBehaviour> = this.actionBehaviours[0];
+    private actionScrollBehaviour: Option<ActionScrollBehaviour> = this.actionScrollBehaviours[0];
 
     @State()
     private actionPosition: Option<ActionPosition> = this.actionPositions[0];
@@ -94,7 +94,7 @@ export class PickerStaticActionsExample {
                 onInteract={this.onInteract}
                 onAction={this.onAction}
                 actions={this.actions}
-                actionBehaviour={this.actionBehaviour?.value}
+                actionScrollBehaviour={this.actionScrollBehaviour?.value}
                 actionPosition={this.actionPosition?.value}
             />,
             <p>
@@ -105,8 +105,8 @@ export class PickerStaticActionsExample {
                         }}
                         label="Action Scroll Behaviour"
                         onChange={this.setBehaviour}
-                        value={this.actionBehaviour}
-                        options={this.actionBehaviours}
+                        value={this.actionScrollBehaviour}
+                        options={this.actionScrollBehaviours}
                     />
 
                     <limel-select
@@ -159,7 +159,7 @@ export class PickerStaticActionsExample {
     }
 
     private setBehaviour(event: CustomEvent<Option<ActionScrollBehaviour>>) {
-        this.actionBehaviour = event.detail;
+        this.actionScrollBehaviour = event.detail;
     }
 
     private setPosition(event: CustomEvent<Option<ActionPosition>>) {
