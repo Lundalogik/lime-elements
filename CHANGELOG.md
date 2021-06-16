@@ -1,3 +1,10 @@
+### [32.2.5](https://github.com/Lundalogik/lime-elements/compare/v32.2.4...v32.2.5) (2021-06-16)
+
+
+### Bug Fixes
+
+* **input-field:** truncate `formatted-input` for type number ([ab4bf0b](https://github.com/Lundalogik/lime-elements/commit/ab4bf0bacd0a171d3ff9e34e56d03cff78b6bddc))
+
 ### [32.2.4](https://github.com/Lundalogik/lime-elements/compare/v32.2.3...v32.2.4) (2021-06-15)
 
 
