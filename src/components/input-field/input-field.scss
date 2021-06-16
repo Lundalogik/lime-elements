@@ -77,6 +77,8 @@
 
 .formatted-input {
     @include looks-like-input-label;
+    @include truncate-text;
+    width: calc(100% - #{pxToRem(20)});
 
     z-index: $limel-input-field--formatted-input--z-index;
     padding: 0 pxToRem(40) 0 pxToRem(16);
