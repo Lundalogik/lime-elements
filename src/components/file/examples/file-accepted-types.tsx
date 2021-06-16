@@ -1,6 +1,5 @@
 import { FileInfo } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-
 /**
  * Limit accepted file types
  */
