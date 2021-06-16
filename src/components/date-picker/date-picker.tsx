@@ -38,6 +38,7 @@ const nativeFormatForType = {
 // tslint:enable:no-duplicate-string
 
 /**
+ * @exampleComponent limel-example-date-picker-composite
  * @exampleComponent limel-example-date-picker-datetime
  * @exampleComponent limel-example-date-picker-date
  * @exampleComponent limel-example-date-picker-time
