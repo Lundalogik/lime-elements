@@ -59,7 +59,7 @@ export class DatePicker {
      * `readonly`. If either property is `true`, the date picker will be
      * disabled.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public disabled = false;
 
     /**
@@ -67,32 +67,32 @@ export class DatePicker {
      * `disabled`. If either property is `true`, the date picker will be
      * disabled.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public readonly = false;
 
     /**
      * Set to `true` to indicate that the current value of the date picker is
      * invalid.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public invalid = false;
 
     /**
      * Text to display next to the date picker
      */
-    @Prop()
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * Optional helper text to display below the input field when it has focus
      */
-    @Prop()
+    @Prop({ reflect: true })
     public helperText: string;
 
     /**
      * Set to `true` to indicate that the field is required.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public required = false;
 
     /**
@@ -104,20 +104,20 @@ export class DatePicker {
     /**
      * Type of date picker.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public type: DateType = 'datetime';
 
     /**
      * Format to display the selected date in.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public format: string;
 
     /**
      * Defines the localisation for translations and date formatting.
      * Property `format` customizes the localized date format.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public language: Languages = 'en';
 
     /**
