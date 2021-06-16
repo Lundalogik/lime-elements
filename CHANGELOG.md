@@ -1,3 +1,11 @@
+### [32.2.6](https://github.com/Lundalogik/lime-elements/compare/v32.2.5...v32.2.6) (2021-06-16)
+
+
+### Bug Fixes
+
+* **date-picker:** add proper support for `readonly` ([64bc0dd](https://github.com/Lundalogik/lime-elements/commit/64bc0dd844778888de54cb965e641789193b3f46)), closes [Lundalogik/crm-feature#2211](https://github.com/Lundalogik/crm-feature/issues/2211)
+* **date-picker:** reflect simple properties to attributes ([62a6467](https://github.com/Lundalogik/lime-elements/commit/62a6467d062407d8cc9d79a63b7658d679216d7f))
+
 ### [32.2.5](https://github.com/Lundalogik/lime-elements/compare/v32.2.4...v32.2.5) (2021-06-16)
 
 
