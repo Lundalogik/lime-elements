@@ -389,6 +389,7 @@ export class ChipSet {
                             this.value.length || this.editMode
                         ),
                     }}
+                    dropzone-tip={this.dropZoneTip()}
                 >
                     <div class="mdc-notched-outline__leading"></div>
                     <div class="mdc-notched-outline__notch">
@@ -414,6 +415,10 @@ export class ChipSet {
             </div>
         );
     }
+
+    private dropZoneTip = (): string => {
+        return translate.get('file.drag-and-drop-tips', this.language);
+    };
 
     private isFull(): boolean {
         return !!this.maxItems && this.value.length >= this.maxItems;

@@ -5,4 +5,6 @@ export default {
     'chip-set.clear-all': 'Clear all',
     'chip-set.remove-chip': 'Remove chip',
     'snackbar.dismiss': 'Dismiss',
+    'file.drag-and-drop-tips':
+        'Drag and drop your file here, or click to browse.',
 };
