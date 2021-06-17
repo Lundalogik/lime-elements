@@ -311,3 +311,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     opacity: 0.5;
     padding: 0 functions.pxToRem(2);
 }
+
+@import './partial-styles/_readonly';
+@import './partial-styles/_file-picker';
