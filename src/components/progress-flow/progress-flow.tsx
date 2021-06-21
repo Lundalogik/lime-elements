@@ -51,6 +51,9 @@ export class ProgressFlow {
     @Prop()
     public readonly = false;
 
+    /**
+     * Fired when a new value has been selected from the progress flow
+     */
     @Event()
     public change: EventEmitter<FlowItem>;
 
@@ -84,9 +87,7 @@ export class ProgressFlow {
                         disabled={this.disabled || this.readonly}
                         readonly={this.readonly}
                         item={item}
-                        onInteract={() => {
-                            this.handleFlowItemClick(item);
-                        }}
+                        onInteract={this.handleFlowItemClick(item)}
                     />
                 );
             }),
@@ -105,20 +106,18 @@ export class ProgressFlow {
                         disabled={this.disabled || this.readonly}
                         readonly={this.readonly}
                         item={item}
-                        onInteract={() => {
-                            this.handleFlowItemClick(item);
-                        }}
+                        onInteract={this.handleFlowItemClick(item)}
                     />
                 );
             }),
         ];
     }
 
-    private handleFlowItemClick(flowItem: FlowItem) {
+    private handleFlowItemClick = (flowItem: FlowItem) => () => {
         if (!flowItem.selected && !flowItem.disabled && !this.disabled) {
             this.change.emit(flowItem);
         }
-    }
+    };
 
     private getItemStyle(flowItem: FlowItem) {
         const style: any = {};
@@ -149,9 +148,11 @@ export class ProgressFlow {
             const activeItemLeftPosition =
                 activeElement.offsetLeft - this.element.offsetLeft;
             const activeElementLeftPositionCenterd =
+                // eslint-disable-next-line no-magic-numbers
                 activeItemLeftPosition - this.element.offsetWidth / 2;
             const activeElementCentered =
                 activeElementLeftPositionCenterd +
+                // eslint-disable-next-line no-magic-numbers
                 activeElement.offsetWidth / 2;
             this.element.scrollTo({
                 behavior: 'smooth',
@@ -161,9 +162,8 @@ export class ProgressFlow {
     }
 
     private getActiveElement(): HTMLLimelProgressFlowItemElement {
-        const itemButton = this.element.shadowRoot.querySelector(
-            '.flow-item .active'
-        );
+        const itemButton =
+            this.element.shadowRoot.querySelector('.flow-item .active');
 
         return itemButton?.parentElement as HTMLLimelProgressFlowItemElement;
     }

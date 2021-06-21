@@ -20,15 +20,27 @@ export class ProgressFlowItem {
     @Element()
     public element: HTMLLimelProgressFlowItemElement;
 
+    /**
+     * What flow item that should be rendered
+     */
     @Prop()
     public item: FlowItem = null;
 
+    /**
+     * True if the flow item should be disabled
+     */
     @Prop()
     public disabled = false;
 
+    /**
+     * True if the flow item should be readonly
+     */
     @Prop()
     public readonly = false;
 
+    /**
+     * Fired when clicking on the flow item
+     */
     @Event()
     public interact: EventEmitter<void>;
 
@@ -38,10 +50,16 @@ export class ProgressFlowItem {
     @Prop()
     public icon: string;
 
+    constructor() {
+        this.handleClick = this.handleClick.bind(this);
+    }
+
     public render() {
-        const secondaryText = this.item.secondaryText
-            ? ' · ' + this.item.secondaryText
-            : '';
+        let secondaryText = this.item.secondaryText;
+        if (secondaryText) {
+            secondaryText = ' · ' + secondaryText;
+        }
+
         const tooltip = this.item.text + secondaryText;
 
         return [
@@ -55,9 +73,7 @@ export class ProgressFlowItem {
                     disabled: this.disabled || this.item?.disabled,
                     readonly: this.readonly,
                 }}
-                onClick={() => {
-                    this.interact.emit();
-                }}
+                onClick={this.handleClick}
             >
                 {this.renderIcon()}
                 <span class="text">{this.item.text}</span>
@@ -65,6 +81,10 @@ export class ProgressFlowItem {
             </button>,
             this.renderSecondaryText(),
         ];
+    }
+
+    private handleClick() {
+        this.interact.emit();
     }
 
     private renderSecondaryText() {
