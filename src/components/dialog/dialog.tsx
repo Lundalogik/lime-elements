@@ -235,33 +235,15 @@ export class Dialog {
                 this.heading;
 
             return (
-                <div class="dialog__heading">
-                    <limel-icon
-                        size="large"
-                        name={icon}
-                        badge={badgeIcon !== false}
-                    />
-                    <div>
-                        {
-                            <h2 class="mdc-typography--headline2 dialog__title">
-                                {title}
-                            </h2>
-                        }
-                        {subtitle ? (
-                            <h3 class="mdc-typography--subtitle1 dialog__subtitle">
-                                {subtitle}
-                            </h3>
-                        ) : null}
-                        {supportingText ? (
-                            <h3 class="mdc-typography--subtitle1 dialog__supporting-text">
-                                {supportingText}
-                            </h3>
-                        ) : null}
-                    </div>
-                </div>
+                <limel-header
+                    icon={icon}
+                    heading={title}
+                    subheading={subtitle}
+                    supportingText={supportingText}
+                ></limel-header>
             );
         } else if (typeof this.heading === 'string') {
-            return <h2 class="mdc-dialog__title">{this.heading.trim()}</h2>;
+            return <limel-header heading={this.heading}></limel-header>;
         }
 
         return null;
