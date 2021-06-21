@@ -28,4 +28,12 @@
         rgba(var(--contrast-1700), 0.54)
     );
     --lime-error-text-color: rgb(var(--color-red-darker));
+    --mdc-theme-surface: var(
+        --lime-surface-background-color,
+        rgb(var(--contrast-100))
+    );
+    --mdc-theme-on-surface: var(
+        --lime-on-surface-color,
+        var(--lime-text-primary-on-background-color)
+    );
 }
