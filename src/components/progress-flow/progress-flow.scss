@@ -1,0 +1,45 @@
+@import '../../style/internal/mdc-variables';
+
+/**
+* @prop --progress-flow-step-background-color--inactive: Background of inactive steps, defaults to `--contrast-600`.
+* @prop --progress-flow-step-background-color--active: Background color of active step, defaults to `--lime-primary-color`.
+* @prop --progress-flow-step-background-color--passed: Background color of passed steps, defaults to the color of active steps.
+* @prop --progress-flow-step-text-color--inactive: Text of inactive steps, defaults to `--contrast-1200`.
+* @prop --progress-flow-step-text-color--active: Text color of active step, defaults to `--lime-primary-color`.
+* @prop --progress-flow-step-text-color-passed: Text color of passed steps, defaults to `--lime-primary-color`.
+* @prop --progress-flow-step-divider-color: Color of the arrow shaped dividers between steps which must be the same as component's background, defaults to `--contrast-100`.
+* @prop --progress-flow-icon-color--inactive: Color of the optional icons used in each step. Only affects inactive steps, defaults to text colors for inactive, active, or passed step.
+*/
+
+:host {
+    --progress-flow-gap: 0.25rem;
+    --step-height: 2.5rem;
+    --active-indicator-right: -0.5rem;
+    --max-text-width: 10rem;
+
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--progress-flow-gap);
+
+    overflow-x: auto;
+    scrollbar-width: none; // This hides the scrollbars appearing under in Firefox
+    -ms-overflow-style: none; // Same as above for IE 11
+    padding: pxToRem(4); // needed for the focus effect
+
+    &::-webkit-scrollbar {
+        display: none; // This hides the scrollbars appearing under in Chrome
+    }
+}
+
+.first-off-progress-item {
+    margin-left: pxToRem(8);
+}
+
+:host(.is-narrow) {
+    --step-height: 1.5rem;
+    --active-indicator-right: 0;
+    --progress-flow-gap: 0.125rem;
+}
