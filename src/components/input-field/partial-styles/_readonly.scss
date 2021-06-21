@@ -1,10 +1,15 @@
 .mdc-text-field {
     &.lime-text-field--readonly {
-        .mdc-text-field__input {
+        input.mdc-text-field__input {
             background-color: transparent;
+            color: $input-text-color;
         }
 
-        .mdc-text-field__input,
+        .formatted-input {
+            color: $input-text-color;
+            opacity: 1;
+        }
+
         label.mdc-floating-label {
             color: $label-color;
         }

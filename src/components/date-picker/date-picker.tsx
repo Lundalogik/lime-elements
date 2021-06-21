@@ -38,6 +38,7 @@ const nativeFormatForType = {
 // tslint:enable:no-duplicate-string
 
 /**
+ * @exampleComponent limel-example-date-picker-composite
  * @exampleComponent limel-example-date-picker-datetime
  * @exampleComponent limel-example-date-picker-date
  * @exampleComponent limel-example-date-picker-time
@@ -55,44 +56,45 @@ const nativeFormatForType = {
 })
 export class DatePicker {
     /**
-     * Disables the date picker when `true`. Works exactly the same as
-     * `readonly`. If either property is `true`, the date picker will be
-     * disabled.
+     * Set to `true` to disable the field.
+     * Use `disabled` to indicate that the field can normally be interacted
+     * with, but is currently disabled. This tells the user that if certain
+     * requirements are met, the field may become enabled again.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public disabled = false;
 
     /**
-     * Disables the date picker when `true`. Works exactly the same as
-     * `disabled`. If either property is `true`, the date picker will be
-     * disabled.
+     * Set to `true` to make the field read-only.
+     * Use `readonly` when the field is only there to present the data it holds,
+     * and will not become possible for the current user to edit.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public readonly = false;
 
     /**
      * Set to `true` to indicate that the current value of the date picker is
      * invalid.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public invalid = false;
 
     /**
      * Text to display next to the date picker
      */
-    @Prop()
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * Optional helper text to display below the input field when it has focus
      */
-    @Prop()
+    @Prop({ reflect: true })
     public helperText: string;
 
     /**
      * Set to `true` to indicate that the field is required.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public required = false;
 
     /**
@@ -104,20 +106,20 @@ export class DatePicker {
     /**
      * Type of date picker.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public type: DateType = 'datetime';
 
     /**
      * Format to display the selected date in.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public format: string;
 
     /**
      * Defines the localisation for translations and date formatting.
      * Property `format` customizes the localized date format.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public language: Languages = 'en';
 
     /**
@@ -147,22 +149,20 @@ export class DatePicker {
 
     constructor() {
         this.handleCalendarChange = this.handleCalendarChange.bind(this);
-        this.handleInputElementChange = this.handleInputElementChange.bind(
-            this
-        );
+        this.handleInputElementChange =
+            this.handleInputElementChange.bind(this);
         this.showCalendar = this.showCalendar.bind(this);
         this.dateFormatter = new DateFormatter(this.language);
         this.clearValue = this.clearValue.bind(this);
         this.hideCalendar = this.hideCalendar.bind(this);
         this.onInputClick = this.onInputClick.bind(this);
         this.nativeChangeHandler = this.nativeChangeHandler.bind(this);
-        this.preventBlurFromCalendarContainer = this.preventBlurFromCalendarContainer.bind(
-            this
-        );
+        this.preventBlurFromCalendarContainer =
+            this.preventBlurFromCalendarContainer.bind(this);
     }
 
     public componentWillLoad() {
-        this.useNative = isIOSDevice() || isAndroidDevice();
+        this.useNative = !this.readonly && (isIOSDevice() || isAndroidDevice());
 
         this.updateInternalFormatAndType();
 
@@ -177,16 +177,20 @@ export class DatePicker {
     }
 
     public render() {
-        const inputProps = {
-            trailingIcon: this.value ? 'clear_symbol' : null,
+        const inputProps: any = {
             onAction: this.clearValue,
         };
+
+        if (this.value && !this.readonly) {
+            inputProps.trailingIcon = 'clear_symbol';
+        }
 
         if (this.useNative) {
             return (
                 <div class="container">
                     <limel-input-field
-                        disabled={this.disabled || this.readonly}
+                        disabled={this.disabled}
+                        readonly={this.readonly}
                         invalid={this.invalid}
                         label={this.label}
                         helperText={this.helperText}
@@ -206,7 +210,8 @@ export class DatePicker {
         return (
             <div class="container">
                 <limel-input-field
-                    disabled={this.disabled || this.readonly}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
                     invalid={this.invalid}
                     label={this.label}
                     helperText={this.helperText}
@@ -360,7 +365,7 @@ export class DatePicker {
     }
 
     private onInputClick(event) {
-        if (this.disabled) {
+        if (this.disabled || this.readonly) {
             return;
         }
 

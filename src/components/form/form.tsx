@@ -213,15 +213,13 @@ export class Form {
     private getValidationErrors(): FormError[] {
         const errors = this.validator.errors || [];
 
-        return errors.map(
-            (error: Ajv.ErrorObject): FormError => {
-                return {
-                    name: error.keyword,
-                    property: error.dataPath,
-                    message: error.message,
-                    schemaPath: error.schemaPath,
-                };
-            }
-        );
+        return errors.map((error: Ajv.ErrorObject): FormError => {
+            return {
+                name: error.keyword,
+                property: error.dataPath,
+                message: error.message,
+                schemaPath: error.schemaPath,
+            };
+        });
     }
 }

@@ -40,17 +40,19 @@ import { SelectTemplate } from './select.template';
 })
 export class Select {
     /**
-     * Disables the select when `true`. Works exactly the same as
-     * `readonly`. If either property is `true`, the select will be
-     * disabled.
+     * Set to `true` to make the field disabled.
+     * and visually shows that the `select` component is editable but disabled.
+     * This tells the users that if certain requirements are met,
+     * the component may become interactable.
      */
     @Prop({ reflect: true })
     public disabled = false;
 
     /**
-     * Disables the select when `true`. Works exactly the same as
-     * `disabled`. If either property is `true`, the select will be
-     * disabled.
+     * Set to `true` to make the field read-only.
+     * This visualizes the component slightly differently.
+     * But shows no visual sign indicating that the component is disabled
+     * or can ever become interactable.
      */
     @Prop({ reflect: true })
     public readonly = false;
@@ -120,9 +122,8 @@ export class Select {
     constructor() {
         this.handleMenuChange = this.handleMenuChange.bind(this);
         this.handleNativeChange = this.handleNativeChange.bind(this);
-        this.handleMenuTriggerKeyPress = this.handleMenuTriggerKeyPress.bind(
-            this
-        );
+        this.handleMenuTriggerKeyPress =
+            this.handleMenuTriggerKeyPress.bind(this);
         this.openMenu = this.openMenu.bind(this);
         this.closeMenu = this.closeMenu.bind(this);
 
@@ -187,6 +188,7 @@ export class Select {
             <SelectTemplate
                 id={this.portalId}
                 disabled={this.disabled || this.readonly}
+                readonly={this.readonly}
                 required={this.required}
                 invalid={this.invalid}
                 label={this.label}
@@ -228,9 +230,8 @@ export class Select {
             const list: HTMLElement = document.querySelector(
                 `#${this.portalId} limel-menu-surface limel-list`
             );
-            const firstItem: HTMLElement = list?.shadowRoot?.querySelector(
-                '[tabindex]'
-            );
+            const firstItem: HTMLElement =
+                list?.shadowRoot?.querySelector('[tabindex]');
 
             if (firstItem) {
                 firstItem.focus();

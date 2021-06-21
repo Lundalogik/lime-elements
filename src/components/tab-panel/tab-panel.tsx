@@ -27,7 +27,6 @@ import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
  *
  * @slot - Content to put inside the `limel-tab-panel`. Each slotted element
  * must have the `id` attribute equal to the id of the tab it belongs to.
- *
  * @exampleComponent limel-example-tab-panel
  */
 @Component({

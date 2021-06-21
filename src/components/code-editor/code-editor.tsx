@@ -74,7 +74,7 @@ export class CodeEditor {
     protected random: number;
 
     private editor: CodeMirror.Editor;
-    private observer: IResizeObserver;
+    private observer: ResizeObserver;
 
     public connectedCallback() {
         this.observer = new ResizeObserver(this.handleResize) as any;
@@ -133,7 +133,7 @@ export class CodeEditor {
     }
 
     private getOptions(): CodeMirror.EditorConfiguration {
-        let mode: string | object = this.language;
+        let mode: string | CodeMirror.ModeSpec<any> = this.language;
         const TAB_SIZE = 4;
         let theme = 'lime light';
 

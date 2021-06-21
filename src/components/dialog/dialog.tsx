@@ -30,7 +30,6 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-dialog-size
  * @exampleComponent limel-example-dialog-fullscreen
  * @exampleComponent limel-example-dialog-closing-actions
- *
  * @slot - Content to put inside the dialog
  * @slot button - The dialog buttons
  */
@@ -232,13 +231,8 @@ export class Dialog {
 
     private renderHeading() {
         if (this.isBadgeHeading(this.heading)) {
-            const {
-                title,
-                subtitle,
-                supportingText,
-                icon,
-                badgeIcon,
-            } = this.heading;
+            const { title, subtitle, supportingText, icon, badgeIcon } =
+                this.heading;
 
             return (
                 <div class="dialog__heading">

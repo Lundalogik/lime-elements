@@ -13,9 +13,10 @@ import { IconSize } from './icon.types';
  * standard sizes defined that can be used with the `size` property.
  *
  * ### Setup
- * * To use **@lundalogik/lime-icons8**, the `/assets` folder from
- * **@lundalogik/lime-icons8** must be made available on the webserver.
- * * To use a different icon set, the icons must be placed in a folder structure
+ * To use **@lundalogik/lime-icons8**, the `/assets` folder from
+ *
+ * @lundalogik/lime-icons8** must be made available on the webserver.
+ * To use a different icon set, the icons must be placed in a folder structure
  * that looks like this: `assets/icons/<name-of-icon>.svg`
  *
  * If `assets` is placed in the root, no other setup is needed. The icons will
@@ -53,7 +54,6 @@ import { IconSize } from './icon.types';
  * Search for an icon and **click on it to copy its name to clipboard**.
  *
  * <limel-example-icon-finder />
- *
  * @exampleComponent limel-example-icon
  * @exampleComponent limel-example-icon-background
  */
@@ -107,7 +107,6 @@ export class Icon {
      * Load the SVG data for the icon from the icon cache
      *
      * @param {string} name name of the icon
-     *
      * @returns {string} the icon SVG data
      */
     private loadSvg(name: string) {

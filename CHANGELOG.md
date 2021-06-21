@@ -1,3 +1,84 @@
+### [32.2.6](https://github.com/Lundalogik/lime-elements/compare/v32.2.5...v32.2.6) (2021-06-16)
+
+
+### Bug Fixes
+
+* **date-picker:** add proper support for `readonly` ([64bc0dd](https://github.com/Lundalogik/lime-elements/commit/64bc0dd844778888de54cb965e641789193b3f46)), closes [Lundalogik/crm-feature#2211](https://github.com/Lundalogik/crm-feature/issues/2211)
+* **date-picker:** reflect simple properties to attributes ([62a6467](https://github.com/Lundalogik/lime-elements/commit/62a6467d062407d8cc9d79a63b7658d679216d7f))
+
+### [32.2.5](https://github.com/Lundalogik/lime-elements/compare/v32.2.4...v32.2.5) (2021-06-16)
+
+
+### Bug Fixes
+
+* **input-field:** truncate `formatted-input` for type number ([ab4bf0b](https://github.com/Lundalogik/lime-elements/commit/ab4bf0bacd0a171d3ff9e34e56d03cff78b6bddc))
+
+### [32.2.4](https://github.com/Lundalogik/lime-elements/compare/v32.2.3...v32.2.4) (2021-06-15)
+
+
+### Bug Fixes
+
+* **select:** better visualize `invalid` state ([e8a83c0](https://github.com/Lundalogik/lime-elements/commit/e8a83c06da59056acf256271276e8c867c83ce61))
+
+### [32.2.3](https://github.com/Lundalogik/lime-elements/compare/v32.2.2...v32.2.3) (2021-06-15)
+
+
+### Bug Fixes
+
+* remove overridden interface for ResizeObserver ([88128ef](https://github.com/Lundalogik/lime-elements/commit/88128efd49f840124646e804b096e1ea345f4523))
+
+### [32.2.2](https://github.com/Lundalogik/lime-elements/compare/v32.2.1...v32.2.2) (2021-06-08)
+
+
+### Bug Fixes
+
+* **table:** always return existing data. add loading prop ([5e41fbe](https://github.com/Lundalogik/lime-elements/commit/5e41fbe4d3b2151f60e8650155b06a1716a14183))
+* **table:** dont update columns if they match the existing table columns ([91392f4](https://github.com/Lundalogik/lime-elements/commit/91392f41927a4a0a169d03b374c4e0eff961efb7))
+* **table:** reinit table when columns change ([676c226](https://github.com/Lundalogik/lime-elements/commit/676c226791c463b1f3f3eb036c1439e1f37a7a15))
+
+### [32.2.1](https://github.com/Lundalogik/lime-elements/compare/v32.2.0...v32.2.1) (2021-06-04)
+
+
+### Bug Fixes
+
+* **input-field:** add distinct color variables for `label`, `input-text` & `helper-text` ([91be89e](https://github.com/Lundalogik/lime-elements/commit/91be89e9cccfcf032706b7c5d71be11abdf7e9aa))
+* **input-field:** use correct color for readonly inputs of type `number` ([2bf73da](https://github.com/Lundalogik/lime-elements/commit/2bf73dab2e523c7c780687391958a8345987c65d))
+
+## [32.2.0](https://github.com/Lundalogik/lime-elements/compare/v32.1.5...v32.2.0) (2021-06-01)
+
+
+### Features
+
+* **select:** make `readonly` and `disabled` visually distinct ([2b9b8c7](https://github.com/Lundalogik/lime-elements/commit/2b9b8c742a7c0e79aca39e3bf2e3baa9cf2884ce))
+
+### [32.1.5](https://github.com/Lundalogik/lime-elements/compare/v32.1.4...v32.1.5) (2021-06-01)
+
+
+### Bug Fixes
+
+* **input:** min and max property can be set to "0" on input field of type "number" ([7995cdc](https://github.com/Lundalogik/lime-elements/commit/7995cdcfaa4758aacf19084bb91da0e0abc6b47d)), closes [#1259](https://github.com/Lundalogik/lime-elements/issues/1259)
+
+### [32.1.4](https://github.com/Lundalogik/lime-elements/compare/v32.1.3...v32.1.4) (2021-06-01)
+
+
+### Bug Fixes
+
+* **checkbox:** use cursor style `pointer` to indicate label can be clicked ([18c1760](https://github.com/Lundalogik/lime-elements/commit/18c176063a3402b4b378b4c73ee5fe814fd99aca))
+
+### [32.1.3](https://github.com/Lundalogik/lime-elements/compare/v32.1.2...v32.1.3) (2021-06-01)
+
+
+### Bug Fixes
+
+* **switch:** make switch keep correct styles when readonly is true or false ([dfda89a](https://github.com/Lundalogik/lime-elements/commit/dfda89a6ab05a7fc6f75ca9681ffddbf6cb76a19))
+
+### [32.1.2](https://github.com/Lundalogik/lime-elements/compare/v32.1.1...v32.1.2) (2021-06-01)
+
+
+### Bug Fixes
+
+* **input:** cursor jumps to end of input when rapidly typing ([51cf7c9](https://github.com/Lundalogik/lime-elements/commit/51cf7c9dab07d0378fcd0f86c36b73ca49197e13)), closes [#1255](https://github.com/Lundalogik/lime-elements/issues/1255)
+
 ### [32.1.1](https://github.com/Lundalogik/lime-elements/compare/v32.1.0...v32.1.1) (2021-05-26)
 
 

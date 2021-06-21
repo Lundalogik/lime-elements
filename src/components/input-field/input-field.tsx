@@ -126,7 +126,7 @@ export class InputField {
     /**
      * Type of input.
      *
-     * **Note** regarding type `url`: `limel-input` uses the native validation
+     * Note** regarding type `url`: `limel-input` uses the native validation
      * built into the browser for many types of input fields. The native
      * validation for `url` is very strict, and does not allow relative urls,
      * nor any other formats that are not a "fully qualified" url. To allow
@@ -235,12 +235,8 @@ export class InputField {
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
         this.setFocus = this.setFocus.bind(this);
 
-        const debounceTimeout = 100;
-        this.changeEmitter = debounce(this.changeEmitter, debounceTimeout, {
-            leading: false,
-            maxWait: 300,
-            trailing: true,
-        });
+        const debounceTimeout = 300;
+        this.changeEmitter = debounce(this.changeEmitter, debounceTimeout);
 
         this.portalId = createRandomString();
     }
@@ -254,9 +250,8 @@ export class InputField {
     }
 
     private initialize() {
-        const element = this.limelInputField.shadowRoot.querySelector(
-            '.mdc-text-field'
-        );
+        const element =
+            this.limelInputField.shadowRoot.querySelector('.mdc-text-field');
         if (!element) {
             return;
         }
@@ -405,11 +400,11 @@ export class InputField {
             props.step = this.step;
         }
 
-        if (this.type === 'number' && this.min) {
+        if (this.type === 'number' && Number.isInteger(this.min)) {
             props.min = this.min;
         }
 
-        if (this.type === 'number' && this.max) {
+        if (this.type === 'number' && Number.isInteger(this.max)) {
             props.max = this.max;
         }
 
@@ -628,7 +623,6 @@ export class InputField {
      * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
      *
      * @param {KeyboardEvent} event event
-     *
      * @returns {void}
      */
 

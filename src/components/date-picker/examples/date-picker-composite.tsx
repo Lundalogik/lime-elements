@@ -6,29 +6,24 @@ import { Component, h, Prop, State } from '@stencil/core';
  * A place to try different combinations of states.
  */
 @Component({
-    tag: 'limel-example-button-composite',
+    tag: 'limel-example-date-picker-composite',
     shadow: true,
-    styleUrl: 'button-composite.scss',
 })
-export class ButtonCompositeExample {
+export class DatePickerCompositeExample {
     @Prop()
     public schema: any;
 
     @State()
-    private props = {
-        label: 'My button',
-        primary: true,
-        outlined: false,
-        icon: 'dog',
-        disabled: false,
-        loading: false,
+    private props: any = {
+        helperText: 'Please add a date',
+        label: 'Date',
+        language: 'en',
+        type: 'date',
+        value: new Date(),
     };
 
+    private key = 0;
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
-
-    constructor() {
-        this.handleEvent = this.handleEvent.bind(this);
-    }
 
     public componentWillLoad() {
         this.schema = {
@@ -43,16 +38,16 @@ export class ButtonCompositeExample {
 
     public render() {
         return [
-            <limel-button {...this.props} onClick={this.handleEvent} />,
+            <limel-date-picker
+                key={`updateOnFormChange-${this.key}`}
+                {...this.props}
+                onChange={this.handlePickerChange}
+            />,
             this.renderForm(),
             <limel-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];
-    }
-
-    private handleEvent(event: Event) {
-        this.eventPrinter.writeEvent(event);
     }
 
     private renderForm() {
@@ -61,13 +56,24 @@ export class ButtonCompositeExample {
                 <limel-form
                     schema={this.schema}
                     value={this.props}
-                    onChange={this.handleChange}
+                    onChange={this.handleFormChange}
                 />
             </limel-collapsible-section>
         );
     }
 
-    private handleChange = (event: CustomEvent) => {
-        this.props = event.detail;
+    private handleFormChange = (event: CustomEvent) => {
+        const value = this.props.value;
+        this.props = { ...event.detail, value: value };
+        this.key += 1;
+    };
+
+    private handlePickerChange = (event: CustomEvent<Date>) => {
+        this.handleEvent(event);
+        this.props = { ...this.props, value: event.detail };
+    };
+
+    private handleEvent = (event: Event) => {
+        this.eventPrinter.writeEvent(event);
     };
 }

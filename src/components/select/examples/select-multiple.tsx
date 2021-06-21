@@ -16,6 +16,9 @@ export class SelectMultipleExample {
     public disabled = false;
 
     @State()
+    public readonly = false;
+
+    @State()
     public required = false;
 
     private options: Option[] = [
@@ -23,12 +26,6 @@ export class SelectMultipleExample {
         { text: 'Han Solo', value: 'han' },
         { text: 'Leia Organo', value: 'leia' },
     ];
-
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
-    }
 
     public render() {
         return (
@@ -38,21 +35,27 @@ export class SelectMultipleExample {
                     value={this.value}
                     options={this.options}
                     disabled={this.disabled}
+                    readonly={this.readonly}
                     required={this.required}
-                    onChange={this.onChange}
+                    onChange={this.changeHandler}
                     multiple={true}
                 />
                 <p>
                     <limel-flex-container justify="end">
                         <limel-checkbox
-                            label="Disabled"
-                            onChange={this.toggleEnabled}
                             checked={this.disabled}
+                            label="Disabled"
+                            onChange={this.setDisabled}
                         />
                         <limel-checkbox
-                            label="Required"
-                            onChange={this.toggleRequired}
+                            checked={this.readonly}
+                            label="Readonly"
+                            onChange={this.setReadonly}
+                        />
+                        <limel-checkbox
                             checked={this.required}
+                            label="Required"
+                            onChange={this.setRequired}
                         />
                     </limel-flex-container>
                 </p>
@@ -61,15 +64,22 @@ export class SelectMultipleExample {
         );
     }
 
-    private onChange(event: CustomEvent<Option[]>) {
+    private changeHandler = (event: CustomEvent<Option[]>) => {
         this.value = event.detail;
-    }
+    };
 
-    private toggleEnabled() {
-        this.disabled = !this.disabled;
-    }
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
 
-    private toggleRequired() {
-        this.required = !this.required;
-    }
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
+    };
+
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
+    };
 }

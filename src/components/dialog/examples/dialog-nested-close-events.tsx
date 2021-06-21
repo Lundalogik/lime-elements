@@ -29,9 +29,8 @@ export class DialogNestedCloseEventsExample {
         this.openDialog = this.openDialog.bind(this);
         this.handleCloseOnDialog = this.handleCloseOnDialog.bind(this);
         this.handleStopEventChange = this.handleStopEventChange.bind(this);
-        this.handleCloseOnCollapsible = this.handleCloseOnCollapsible.bind(
-            this
-        );
+        this.handleCloseOnCollapsible =
+            this.handleCloseOnCollapsible.bind(this);
     }
 
     public render() {

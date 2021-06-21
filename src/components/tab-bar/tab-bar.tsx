@@ -28,11 +28,11 @@ const HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX = 40;
  * An exception for using tab bars in a high level of hierarchy is their usage in modals. This is because modals are perceived as a separate place and not a part of the current context. Therefore you can use tab bars in a modal to group and organize its content.
  * A tab bar can contain an unlimited number of tabs. However, depending on the device width and width of the tabs, the number of tabs that are visible at the same time will vary. When there is limited horizontal space, the component shows a left-arrow and/or right-arrow button, which scrolls and reveals the additional tabs. The tab bar can also be swiped left and right on a touch-device.
  *:::tip Other things to consider
- * * Never divide the content of a tab using a nested tab bar.
- * * Never place two tab bars within the same screen.
- * * Never use background color for icons in tabs.
- * * Avoid having long labels for tabs.
- * * A tab will never be removed or get disabled, even if there is no content under it.
+ * Never divide the content of a tab using a nested tab bar.
+ * Never place two tab bars within the same screen.
+ * Never use background color for icons in tabs.
+ * Avoid having long labels for tabs.
+ * A tab will never be removed or get disabled, even if there is no content under it.
  * :::
  *
  * @exampleComponent limel-example-tab-bar
@@ -176,13 +176,13 @@ export class TabBar {
 
         // Workaround for shadow dom support for material
         // eslint-disable-next-line no-underscore-dangle
-        (this
-            .mdcTabBar as any).foundation_.adapter_.getFocusedTabIndex = () => {
-            const tabElements = this.getTabElements();
-            const activeElement = this.host.shadowRoot.activeElement;
+        (this.mdcTabBar as any).foundation_.adapter_.getFocusedTabIndex =
+            () => {
+                const tabElements = this.getTabElements();
+                const activeElement = this.host.shadowRoot.activeElement;
 
-            return tabElements.indexOf(activeElement);
-        };
+                return tabElements.indexOf(activeElement);
+            };
 
         this.setupListeners();
 

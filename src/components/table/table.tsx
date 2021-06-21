@@ -84,6 +84,12 @@ export class Table {
     public movableColumns: boolean;
 
     /**
+     * Set to `true` to trigger loading animation
+     */
+    @Prop()
+    public loading: boolean = false;
+
+    /**
      * Emitted when `mode` is `local` the data is sorted
      */
     @Event()
@@ -118,14 +124,14 @@ export class Table {
     private host: HTMLLimelTableElement;
 
     private currentPage: number;
+    private currentLoad: { page: number; sorters: ColumnSorter[] };
 
     private tabulator: Tabulator;
-
-    private resolver: (data: any) => void;
 
     private pool: ElementPool;
     private columnFactory: ColumnDefinitionFactory;
     private firstRequest: boolean;
+    private currentSorting: ColumnSorter[];
 
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
@@ -149,16 +155,21 @@ export class Table {
             this.currentPage = FIRST_PAGE;
         }
 
-        const options = this.getOptions();
-        const table: HTMLElement = this.host.shadowRoot.querySelector(
-            '#tabulator-table'
-        );
-
-        this.initTabulatorComponent(table, options);
+        this.init();
     }
 
     public disconnectedCallback() {
         this.pool.clear();
+    }
+
+    @Watch('totalRows')
+    public totalRowsChanged() {
+        this.updateMaxPage();
+    }
+
+    @Watch('pageSize')
+    public pageSizeChanged() {
+        this.updateMaxPage();
     }
 
     @Watch('activeRow')
@@ -172,13 +183,6 @@ export class Table {
 
     @Watch('data')
     public updateData(newData = [], oldData = []) {
-        if (this.resolver) {
-            this.setResolvedData(this.data);
-            this.resolver = null;
-
-            return;
-        }
-
         if (isEqual(newData, oldData)) {
             return;
         }
@@ -203,7 +207,17 @@ export class Table {
             return;
         }
 
-        this.tabulator.setColumns(this.getColumnDefinitions());
+        const existingColumns = this.tabulator
+            .getColumns()
+            .map(this.findColumn);
+
+        if (this.areSameColumns(newColumns, existingColumns)) {
+            return;
+        }
+
+        // Updating columns requires a reinitialization otherwise sorting will not work
+        // afterwards
+        this.init();
     }
 
     private areSameColumns(newColumns: Column[], oldColumns: Column[]) {
@@ -211,6 +225,19 @@ export class Table {
             newColumns.length === oldColumns.length &&
             newColumns.every((column) => oldColumns.includes(column))
         );
+    }
+
+    private init() {
+        if (this.tabulator) {
+            this.pool.releaseAll();
+            this.tabulator.destroy();
+        }
+
+        const options = this.getOptions();
+        const table: HTMLElement =
+            this.host.shadowRoot.querySelector('#tabulator-table');
+
+        this.initTabulatorComponent(table, options);
     }
 
     /*
@@ -272,7 +299,9 @@ export class Table {
     }
 
     private getColumnSorter(): Tabulator.Sorter[] {
-        return this.sorting.map((sorter: ColumnSorter) => {
+        const sorting = this.currentSorting ?? this.sorting;
+
+        return sorting.map((sorter: ColumnSorter) => {
             return {
                 column: String(sorter.column.field),
                 dir: sorter.direction.toLocaleLowerCase() as Tabulator.SortDirection,
@@ -329,22 +358,35 @@ export class Table {
         };
     }
 
-    private requestData(_, __, params: any): Promise<object[]> {
-        const promise = new Promise<object[]>((resolve) => {
-            this.resolver = resolve;
-        });
-
+    private requestData(_, __, params: any): Promise<object> {
         const sorters = params.sorters;
         const currentPage = params.page;
         const columnSorters = sorters.map(createColumnSorter(this.columns));
 
-        this.currentPage = currentPage;
-        this.load.emit({
-            page: this.currentPage,
+        const load = {
+            page: currentPage,
             sorters: columnSorters,
+        };
+
+        // In order to make limel-table behave more like a controlled component,
+        // we always return the existing data from this function, therefore
+        // relying on the consumer component to handle the loading
+        // state via the loading prop, if it actually decides to load new data.
+        const resolveExistingData = Promise.resolve({
+            last_page: this.calculatePageCount(), // eslint-disable-line camelcase
+            data: this.data,
         });
 
-        return promise;
+        if (isEqual(this.currentLoad, load)) {
+            return resolveExistingData;
+        }
+
+        this.currentPage = currentPage;
+        this.currentSorting = columnSorters;
+        this.currentLoad = load;
+        this.load.emit(load);
+
+        return resolveExistingData;
     }
 
     private isRemoteMode(): boolean {
@@ -390,18 +432,6 @@ export class Table {
         }
     }
 
-    private setResolvedData(data: object[]): void {
-        this.pool.releaseAll();
-        if (this.pageSize) {
-            this.resolver({
-                last_page: this.calculatePageCount(), // eslint-disable-line camelcase
-                data: data,
-            });
-        } else {
-            this.resolver(data);
-        }
-    }
-
     private calculatePageCount(): number {
         let total = this.totalRows;
         if (!total) {
@@ -443,6 +473,15 @@ export class Table {
     render() {
         return (
             <div id="tabulator-container">
+                {/* Toggle style instead of removing the loader 
+                    because removing the element will cause a rerender, breaking the 
+                    tabulator table */}
+                <div
+                    id="tabulator-loader"
+                    style={{ display: this.loading ? 'flex' : 'none' }}
+                >
+                    <limel-spinner size="large" />
+                </div>
                 <div
                     id="tabulator-table"
                     class={{

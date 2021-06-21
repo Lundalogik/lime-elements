@@ -27,9 +27,8 @@ export class SnackbarExample {
             this,
             'limel-snackbar:last-child'
         );
-        this.triggerSnackbarWithChangingMessage = this.triggerSnackbarWithChangingMessage.bind(
-            this
-        );
+        this.triggerSnackbarWithChangingMessage =
+            this.triggerSnackbarWithChangingMessage.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
@@ -71,7 +70,8 @@ export class SnackbarExample {
                 timeout={4000}
                 dismissible={this.dismissible}
                 ref={(el) =>
-                    (this.snackbarWithChangingMessage = el as HTMLLimelSnackbarElement)
+                    (this.snackbarWithChangingMessage =
+                        el as HTMLLimelSnackbarElement)
                 }
             />,
             <limel-snackbar
@@ -85,9 +85,8 @@ export class SnackbarExample {
     }
 
     private triggerSnackbar(selector) {
-        const snackbar: HTMLLimelSnackbarElement = this.host.shadowRoot.querySelector(
-            selector
-        );
+        const snackbar: HTMLLimelSnackbarElement =
+            this.host.shadowRoot.querySelector(selector);
         snackbar.show();
     }
 

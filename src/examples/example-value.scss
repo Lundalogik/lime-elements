@@ -17,8 +17,8 @@ code {
     display: inline-block;
     border-radius: pxToRem(3);
     padding: pxToRem(1) pxToRem(5);
-    color: rgb(var(--contrast-1300));
-    background-color: rgb(var(--contrast-600));
+    color: rgb(var(--kompendium-contrast-1300));
+    background-color: rgb(var(--kompendium-contrast-600));
 }
 
 pre > code {
@@ -29,11 +29,6 @@ pre > code {
     overflow: auto;
     white-space: pre-wrap;
 
-    color: rgb(var(--contrast-800));
-    background-color: rgb(var(--contrast-1600));
-
-    @include in(dark-mode) {
-        color: rgb(var(--contrast-1000));
-        background-color: rgb(var(--contrast-200));
-    }
+    color: rgb(var(--kompendium-contrast-800));
+    background-color: rgb(var(--kompendium-contrast-1600));
 }

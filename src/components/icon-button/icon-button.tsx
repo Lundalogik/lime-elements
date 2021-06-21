@@ -16,9 +16,8 @@ import { IconSize } from '@limetech/lime-elements';
 })
 export class IconButton {
     public constructor() {
-        this.removeFocusedStyleOnClick = this.removeFocusedStyleOnClick.bind(
-            this
-        );
+        this.removeFocusedStyleOnClick =
+            this.removeFocusedStyleOnClick.bind(this);
     }
 
     /**
@@ -65,9 +64,8 @@ export class IconButton {
     }
 
     private removeFocusedStyleOnClick() {
-        const mdcButton = this.host.shadowRoot.querySelector(
-            '.mdc-icon-button'
-        );
+        const mdcButton =
+            this.host.shadowRoot.querySelector('.mdc-icon-button');
         mdcButton.classList.remove('mdc-ripple-upgraded--background-focused');
     }
 

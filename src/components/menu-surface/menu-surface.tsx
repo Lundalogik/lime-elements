@@ -83,9 +83,8 @@ export class MenuSurface {
     }
 
     private setup() {
-        const menuElement: HTMLElement = this.host.shadowRoot.querySelector(
-            '.mdc-menu-surface'
-        );
+        const menuElement: HTMLElement =
+            this.host.shadowRoot.querySelector('.mdc-menu-surface');
         if (!menuElement) {
             return;
         }

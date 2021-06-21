@@ -28,6 +28,7 @@ const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
  * @exampleComponent limel-example-chip-set-filter-badge
  * @exampleComponent limel-example-chip-set-input
  * @exampleComponent limel-example-chip-icon-color
+ * @exampleComponent limel-example-chip-set-composite
  */
 @Component({
     tag: 'limel-chip-set',
@@ -182,9 +183,8 @@ export class ChipSet {
         this.inputFieldOnChange = this.inputFieldOnChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.inputHidden = this.inputHidden.bind(this);
-        this.handleDeleteAllIconClick = this.handleDeleteAllIconClick.bind(
-            this
-        );
+        this.handleDeleteAllIconClick =
+            this.handleDeleteAllIconClick.bind(this);
         this.renderDelimiter = this.renderDelimiter.bind(this);
     }
 
@@ -202,7 +202,6 @@ export class ChipSet {
      * Used to set focus to the chip-set input field.
      *
      * @param {boolean} emptyInput if `true`, any text in the input is discarded
-     *
      * @returns {Promise<void>} does not return anything, but methods have to be async
      */
     @Method()

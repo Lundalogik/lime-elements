@@ -2,16 +2,21 @@
 
 $scale-factor: 3.5;
 
+:host {
+    display: block;
+    background-color: rgb(var(--contrast-200));
+    border-radius: pxToRem(4);
+}
+
 * {
     box-sizing: border-box;
 }
 
 #size-rhythm-edge-case-example {
     position: relative;
-    background-color: rgb(var(--contrast-300));
-    border-radius: pxToRem(4);
+    background-color: rgb(var(--contrast-400));
+    color: rgb(var(--contrast-1100));
     padding: pxToRem(40) 0 pxToRem(40) pxToRem(80);
-    margin-bottom: pxToRem(20);
 
     &:after {
         content: '';
@@ -32,7 +37,7 @@ $scale-factor: 3.5;
 .grid {
     display: grid;
     grid-auto-flow: row;
-    border-radius: pxToRem(12);
+    border-radius: pxToRem(12) 0 0 pxToRem(12);
     overflow: hidden;
     border: 1px solid rgb(var(--contrast-500));
 }

@@ -49,10 +49,16 @@
         .mdc-floating-label {
             color: $label-color;
         }
+        .mdc-text-field__input {
+            color: $input-text-color;
+        }
     }
     &.mdc-text-field--disabled {
         .mdc-floating-label {
             color: $label-color-disabled;
+        }
+        .mdc-text-field__input {
+            color: $input-text-color-disabled;
         }
     }
 }
@@ -71,6 +77,8 @@
 
 .formatted-input {
     @include looks-like-input-label;
+    @include truncate-text;
+    width: calc(100% - #{pxToRem(20)});
 
     z-index: $limel-input-field--formatted-input--z-index;
     padding: 0 pxToRem(40) 0 pxToRem(16);
@@ -78,6 +86,7 @@
     position: absolute;
 
     display: none;
+    color: $input-text-color;
 }
 
 :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
@@ -132,6 +141,18 @@ input.mdc-text-field__input {
         top: 0;
         bottom: 0;
         margin: auto;
+    }
+}
+
+.mdc-text-field {
+    &:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,
+    &:not(.mdc-text-field--disabled)
+        + .mdc-text-field-helper-line
+        .mdc-text-field-character-counter,
+    &:not(.mdc-text-field--disabled)
+        + .mdc-text-field-helper-line
+        .mdc-text-field-helper-text {
+        color: $helper-text-color;
     }
 }
 
