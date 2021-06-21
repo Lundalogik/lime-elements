@@ -69,8 +69,8 @@ export class PickerStaticActionsExample {
     private lastUsedAction: Action = null;
 
     @State()
-    private actionScrollBehaviour: Option<ActionScrollBehaviour> = this
-        .actionScrollBehaviours[0];
+    private actionScrollBehaviour: Option<ActionScrollBehaviour> =
+        this.actionScrollBehaviours[0];
 
     @State()
     private actionPosition: Option<ActionPosition> = this.actionPositions[0];

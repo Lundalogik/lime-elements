@@ -333,15 +333,7 @@ export class Picker {
             return null;
         }
 
-        const separator = (
-            <hr
-                style={{
-                    margin: '0.5rem 0',
-                }}
-            />
-        );
-
-        const toRender = [
+        return [
             <limel-list
                 class={{
                     'static-actions-list': true,
@@ -356,14 +348,6 @@ export class Picker {
                 items={this.actions.map(this.removeUnusedPropertiesOnAction)}
             />,
         ];
-
-        if (this.actionPosition === 'top') {
-            toRender.push(separator);
-        } else {
-            toRender.unshift(separator);
-        }
-
-        return toRender;
     }
 
     private removeUnusedPropertiesOnAction(
@@ -544,7 +528,6 @@ export class Picker {
      * Change handler for the list
      *
      * @param {CustomEvent} event event
-     *
      * @returns {void}
      */
     private handleActionListChange(event: CustomEvent<ListItem<Action>>) {
