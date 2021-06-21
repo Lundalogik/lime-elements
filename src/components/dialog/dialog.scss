@@ -20,6 +20,11 @@ slot[name='header'] {
 
 :host {
     --dialog-background-color: rgb(var(--contrast-100));
+    --header-heading-color: var(--dialog-heading-title-color);
+    --header-subheading-color: var(--dialog-heading-subtitle-color);
+    --header-supporting-text-color: var(--dialog-heading-supporting-text-color);
+    --header-icon-color: var(--dialog-heading-icon-color);
+    --header-icon-background-color: var(--dialog-heading-icon-background-color);
 }
 
 .mdc-dialog {
@@ -48,74 +53,6 @@ slot[name='header'] {
         height: var(--dialog-height, auto);
         background-color: var(--dialog-background-color);
         box-shadow: var(--shadow-depth-64);
-    }
-
-    .mdc-dialog__title {
-        font-size: pxToRem(16);
-        line-height: 1.4;
-        margin: 0;
-        font-weight: 500;
-        font-style: normal;
-        color: var(
-            --dialog-heading-title-color,
-            var(--mdc-theme-text-primary-on-background)
-        );
-        &:before {
-            height: 1rem; // Kia: Not sure what `:before` is used for, but it's default MD height is 2.5rem, which makes the header very tall.
-        }
-    }
-
-    .mdc-dialog__title,
-    .dialog__heading {
-        padding: pxToRem(12);
-        background-color: rgb(var(--contrast-300));
-    }
-
-    .dialog__heading {
-        display: flex;
-        align-items: center;
-        flex-shrink: 0;
-
-        limel-icon {
-            margin-right: pxToRem(12);
-            color: var(--dialog-heading-icon-color, #{$mdc-theme-secondary});
-
-            &[badge] {
-                background-color: var(
-                    --dialog-heading-icon-background-color,
-                    #{$mdc-theme-secondary}
-                );
-                color: var(
-                    --dialog-heading-icon-color,
-                    #{$mdc-theme-on-secondary}
-                );
-            }
-        }
-
-        .dialog__title {
-            font-weight: 500;
-            margin: 0;
-            color: var(
-                --dialog-heading-title-color,
-                var(--mdc-theme-text-primary-on-background)
-            );
-        }
-
-        .dialog__subtitle {
-            margin: 0;
-            color: var(
-                --dialog-heading-subtitle-color,
-                var(--mdc-theme-text-secondary-on-background)
-            );
-        }
-
-        .dialog__supporting-text {
-            margin: 0;
-            color: var(
-                --dialog-heading-supporting-text-color,
-                var(--mdc-theme-text-secondary-on-background)
-            );
-        }
     }
 }
 
