@@ -1,0 +1,170 @@
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+} from '@stencil/core';
+import { FlowItem } from './progress-flow.types';
+
+/**
+ * @exampleComponent limel-example-progress-flow-basic
+ * @exampleComponent limel-example-progress-flow-secondary-text
+ * @exampleComponent limel-example-progress-flow-colors
+ * @exampleComponent limel-example-progress-flow-colors-css
+ * @exampleComponent limel-example-progress-flow-end-steps
+ * @exampleComponent limel-example-progress-flow-narrow
+ * @exampleComponent limel-example-progress-flow-alternative-ui
+ */
+@Component({
+    tag: 'limel-progress-flow',
+    shadow: true,
+    styleUrl: 'progress-flow.scss',
+})
+export class ProgressFlow {
+    @Element()
+    public element: HTMLLimelProgressFlowElement;
+
+    /**
+     * What flow items to render
+     */
+    @Prop()
+    public flowItems: FlowItem[] = [];
+
+    /**
+     * Set to `true` to disable the progress flow.
+     * Use `disabled` to indicate that the component can normally be interacted
+     * with, but is currently disabled. This tells the user that if certain
+     * requirements are met, the field may become enabled again.
+     */
+    @Prop()
+    public disabled = false;
+
+    /**
+     * Disables the progress flow when `true`.
+     * This does not visualize the component that much differently.
+     * But since the component does not provide any feedback that users can
+     * interact with the component, it makes it perfect for illustrative and
+     * informative porpuses.
+     */
+    @Prop()
+    public readonly = false;
+
+    @Event()
+    public change: EventEmitter<FlowItem>;
+
+    constructor() {
+        this.handleFlowItemClick = this.handleFlowItemClick.bind(this);
+    }
+
+    public render() {
+        const regularFlowItems = this.flowItems.filter((o) => {
+            return !o.isOffProgress;
+        });
+        const endPhaseItems = this.flowItems.filter((o) => {
+            return o.isOffProgress;
+        });
+        const activeIndex = regularFlowItems.findIndex((o) => {
+            return o.selected;
+        });
+
+        return [
+            regularFlowItems.map((item, i) => {
+                return (
+                    <limel-progress-flow-item
+                        class={{
+                            'flow-item': true,
+                            first: i === 0,
+                            last: i === regularFlowItems.length - 1,
+                            passed: i < activeIndex,
+                            active: item.selected,
+                        }}
+                        style={this.getItemStyle(item)}
+                        disabled={this.disabled || this.readonly}
+                        readonly={this.readonly}
+                        item={item}
+                        onInteract={() => {
+                            this.handleFlowItemClick(item);
+                        }}
+                    />
+                );
+            }),
+            endPhaseItems.map((item, i) => {
+                return (
+                    <limel-progress-flow-item
+                        class={{
+                            'flow-item': true,
+                            'off-progress-item': true,
+                            active: item.selected,
+                            'first-off-progress-item': i === 0,
+                            'last-off-progress-item':
+                                i === endPhaseItems.length - 1,
+                        }}
+                        style={this.getItemStyle(item)}
+                        disabled={this.disabled || this.readonly}
+                        readonly={this.readonly}
+                        item={item}
+                        onInteract={() => {
+                            this.handleFlowItemClick(item);
+                        }}
+                    />
+                );
+            }),
+        ];
+    }
+
+    private handleFlowItemClick(flowItem: FlowItem) {
+        if (!flowItem.selected && !flowItem.disabled && !this.disabled) {
+            this.change.emit(flowItem);
+        }
+    }
+
+    private getItemStyle(flowItem: FlowItem) {
+        const style: any = {};
+        if (flowItem?.activeColor) {
+            style['--progress-flow-step-background-color--active'] =
+                flowItem.activeColor;
+        }
+
+        if (flowItem?.passedColor) {
+            style['--progress-flow-step-background-color--passed'] =
+                flowItem.passedColor;
+        }
+
+        if (flowItem?.iconColor) {
+            style['--progress-flow-icon-color--inactive'] = flowItem.iconColor;
+        }
+
+        return style;
+    }
+
+    public componentDidRender() {
+        this.setFocusOnActiveItem();
+    }
+
+    private setFocusOnActiveItem() {
+        const activeElement = this.getActiveElement();
+        if (activeElement) {
+            const activeItemLeftPosition =
+                activeElement.offsetLeft - this.element.offsetLeft;
+            const activeElementLeftPositionCenterd =
+                activeItemLeftPosition - this.element.offsetWidth / 2;
+            const activeElementCentered =
+                activeElementLeftPositionCenterd +
+                activeElement.offsetWidth / 2;
+            this.element.scrollTo({
+                behavior: 'smooth',
+                left: activeElementCentered,
+            });
+        }
+    }
+
+    private getActiveElement(): HTMLLimelProgressFlowItemElement {
+        const itemButton = this.element.shadowRoot.querySelector(
+            '.flow-item .active'
+        );
+
+        return itemButton?.parentElement as HTMLLimelProgressFlowItemElement;
+    }
+}

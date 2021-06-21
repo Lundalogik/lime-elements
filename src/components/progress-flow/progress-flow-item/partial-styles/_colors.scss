@@ -1,0 +1,44 @@
+.step {
+    color: var(--step-text--inactive);
+    background-color: var(--step-background--inactive);
+
+    .icon {
+        color: var(
+            --progress-flow-icon-color--inactive,
+            var(--step-text--inactive)
+        );
+    }
+
+    .flow-item.active & {
+        color: var(--step-text--active);
+        background-color: var(--step-background--active);
+
+        .divider:after {
+            background-color: var(--step-background--active);
+        }
+
+        .icon {
+            color: var(--step-text--active);
+        }
+    }
+
+    .flow-item.passed & {
+        color: var(--step-text--passed);
+        background-color: var(--step-background--passed);
+
+        .divider:after {
+            background-color: var(--step-background--passed);
+        }
+
+        .icon {
+            color: var(--step-text--passed);
+        }
+    }
+}
+
+.divider {
+    &:after {
+        border-color: var(--step-divider-color);
+        background-color: var(--step-background--inactive);
+    }
+}
