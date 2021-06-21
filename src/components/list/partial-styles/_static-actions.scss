@@ -1,0 +1,32 @@
+// This is used in limel-picker only for now
+
+:host(.static-actions-list) {
+    z-index: z-index.$list-static-actions-list;
+    background-color: var(--mdc-theme-surface);
+}
+
+:host(.has-position-sticky) {
+    position: sticky;
+    box-shadow: 0 0 functions.pxToRem(12) functions.pxToRem(8)
+        var(--mdc-theme-surface);
+}
+
+:host(.has-position-sticky.is-on-top) {
+    top: 0;
+}
+
+:host(.has-position-sticky.is-at-bottom) {
+    bottom: 0;
+}
+
+:host(.is-on-top) {
+    border-bottom: 1px solid rgb(var(--contrast-400));
+    margin-bottom: functions.pxToRem(8);
+    padding-bottom: functions.pxToRem(4);
+}
+
+:host(.is-at-bottom) {
+    border-top: 1px solid rgb(var(--contrast-400));
+    margin-top: functions.pxToRem(8);
+    padding-top: functions.pxToRem(4);
+}
