@@ -147,18 +147,16 @@ export class DatePicker {
 
     constructor() {
         this.handleCalendarChange = this.handleCalendarChange.bind(this);
-        this.handleInputElementChange = this.handleInputElementChange.bind(
-            this
-        );
+        this.handleInputElementChange =
+            this.handleInputElementChange.bind(this);
         this.showCalendar = this.showCalendar.bind(this);
         this.dateFormatter = new DateFormatter(this.language);
         this.clearValue = this.clearValue.bind(this);
         this.hideCalendar = this.hideCalendar.bind(this);
         this.onInputClick = this.onInputClick.bind(this);
         this.nativeChangeHandler = this.nativeChangeHandler.bind(this);
-        this.preventBlurFromCalendarContainer = this.preventBlurFromCalendarContainer.bind(
-            this
-        );
+        this.preventBlurFromCalendarContainer =
+            this.preventBlurFromCalendarContainer.bind(this);
     }
 
     public componentWillLoad() {

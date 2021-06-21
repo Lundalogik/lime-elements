@@ -126,7 +126,7 @@ export class InputField {
     /**
      * Type of input.
      *
-     * **Note** regarding type `url`: `limel-input` uses the native validation
+     * Note** regarding type `url`: `limel-input` uses the native validation
      * built into the browser for many types of input fields. The native
      * validation for `url` is very strict, and does not allow relative urls,
      * nor any other formats that are not a "fully qualified" url. To allow
@@ -250,9 +250,8 @@ export class InputField {
     }
 
     private initialize() {
-        const element = this.limelInputField.shadowRoot.querySelector(
-            '.mdc-text-field'
-        );
+        const element =
+            this.limelInputField.shadowRoot.querySelector('.mdc-text-field');
         if (!element) {
             return;
         }
@@ -624,7 +623,6 @@ export class InputField {
      * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
      *
      * @param {KeyboardEvent} event event
-     *
      * @returns {void}
      */
 

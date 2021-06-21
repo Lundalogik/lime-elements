@@ -28,7 +28,6 @@ import { FieldTemplate } from '../templates';
  *
  * @param {any} value the value associated with the schema
  * @param {any} schema the schema for the value
- *
  * @returns {boolean} whether or not null should be changed to undefined
  */
 const shouldChangeToUndefined = (value, schema): boolean => {
@@ -67,7 +66,6 @@ const getCustomComponent = (
  *
  * @param {*} formContext the form context
  * @param {*} schema the schema for the current field
- *
  * @returns {object} the properties created by the factory
  */
 export function getFactoryProps(
@@ -97,9 +95,8 @@ export class SchemaField extends React.Component<FieldProps> {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.handleCustomComponentChange = this.handleCustomComponentChange.bind(
-            this
-        );
+        this.handleCustomComponentChange =
+            this.handleCustomComponentChange.bind(this);
         this.initState();
     }
 
@@ -199,14 +196,8 @@ export class SchemaField extends React.Component<FieldProps> {
     }
 
     private buildCustomComponentProps() {
-        const {
-            disabled,
-            readonly,
-            name,
-            registry,
-            schema,
-            errorSchema,
-        } = this.props;
+        const { disabled, readonly, name, registry, schema, errorSchema } =
+            this.props;
         const factoryProps = getFactoryProps(registry.formContext, schema);
 
         return {

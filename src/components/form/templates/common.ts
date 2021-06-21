@@ -36,7 +36,6 @@ export function renderDescription(description: string) {
  * @param {*} data the data to find the title for
  * @param {*} fieldSchema schema for the item
  * @param {*} formSchema schema for the form
- *
  * @returns {string} describing title of the data
  */
 export function findTitle(data: any, fieldSchema: any, formSchema: any) {

@@ -22,7 +22,7 @@ import {
     TAB_KEY_CODE,
 } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
-import { ActionBehaviour, ActionPosition } from './actions.types';
+import { ActionScrollBehaviour, ActionPosition } from './actions.types';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
@@ -121,16 +121,21 @@ export class Picker {
     public actions: Array<ListItem<Action>> = [];
 
     /**
-     * Position of the actions
+     * Position of the custom static actions in the Picker's results dropdown.
+     * Can be set to `top` or `bottom`. Defaults to `bottom`.
      */
     @Prop()
     public actionPosition: ActionPosition = 'bottom';
 
     /**
-     * Behaviour of the actions
+     * Scroll behaviour of the custom static actions, when user scrolls
+     * in the Picker's results dropdown. Can be set to `scroll` which means the
+     * action items will scroll together with the list, or `sticky` which
+     * retains their position on `top` or `bottom` while scrolling.
+     * Defaults to `sticky`.
      */
     @Prop()
-    public actionBehaviour: ActionBehaviour = 'sticky';
+    public actionScrollBehaviour: ActionScrollBehaviour = 'sticky';
 
     /**
      * Fired when a new value has been selected from the picker
@@ -331,13 +336,20 @@ export class Picker {
         const separator = (
             <hr
                 style={{
-                    margin: '0px',
+                    margin: '0.5rem 0',
                 }}
             />
         );
 
         const toRender = [
             <limel-list
+                class={{
+                    'static-actions-list': true,
+                    'is-on-top': this.actionPosition === 'top',
+                    'is-at-bottom': this.actionPosition === 'bottom',
+                    'has-position-sticky':
+                        this.actionScrollBehaviour === 'sticky',
+                }}
                 badgeIcons={true}
                 type={'selectable'}
                 onChange={this.handleActionListChange}
@@ -490,7 +502,6 @@ export class Picker {
      * Input handler for the input field
      *
      * @param {InputEvent} event event
-     *
      * @returns {void}
      */
     private async handleTextInput(event) {
@@ -510,7 +521,6 @@ export class Picker {
      * Change handler for the list
      *
      * @param {CustomEvent} event event
-     *
      * @returns {void}
      */
     private handleListChange(event: CustomEvent<ListItem>) {
@@ -590,7 +600,6 @@ export class Picker {
      * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
      *
      * @param {KeyboardEvent} event event
-     *
      * @returns {void}
      */
     private handleInputKeyDown(event: KeyboardEvent) {
@@ -636,7 +645,6 @@ export class Picker {
      * Key handler for the dropdown
      *
      * @param {KeyboardEvent} event event
-     *
      * @returns {void}
      */
     private handleDropdownKeyDown(event: KeyboardEvent) {

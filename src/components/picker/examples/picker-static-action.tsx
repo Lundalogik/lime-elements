@@ -1,11 +1,20 @@
 import { Action, ListItem, Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { ActionBehaviour, ActionPosition } from '../actions.types';
+import { ActionScrollBehaviour, ActionPosition } from '../actions.types';
 
 const NETWORK_DELAY = 500;
 
 /**
  * With static actions
+ *
+ * Static items can be added to picker to enable triggering custom actions
+ * directly from the results dropdown list.
+ *
+ * :::tip
+ * A typical usecase of such actions is scenarios in which picker's search results
+ * or suggestions list does not include what user wants to pick. By offering
+ * custom actions right in the list, we can enable users to add missing items.
+ * :::
  */
 @Component({
     tag: 'limel-example-picker-static-actions',
@@ -30,15 +39,15 @@ export class PickerStaticActionsExample {
 
     private actions: Array<ListItem<Action>> = [
         {
-            text: 'Create a dog',
+            text: 'Add a dog',
             icon: 'dog',
-            iconColor: 'rgb(var(--color-green-default))',
+            iconColor: 'rgb(var(--color-orange-default))',
             value: { id: 'dog' },
         },
         {
-            text: 'Create a cat',
+            text: 'Add a cat',
             icon: 'cat',
-            iconColor: 'rgb(var(--color-green-light))',
+            iconColor: 'rgb(var(--color-green-default))',
             value: { id: 'cat' },
         },
     ];
@@ -48,7 +57,7 @@ export class PickerStaticActionsExample {
         { text: 'Bottom', value: 'bottom' },
     ];
 
-    private actionBehaviours: Array<Option<ActionBehaviour>> = [
+    private actionScrollBehaviours: Array<Option<ActionScrollBehaviour>> = [
         { text: 'Scroll', value: 'scroll' },
         { text: 'Sticky', value: 'sticky' },
     ];
@@ -60,7 +69,8 @@ export class PickerStaticActionsExample {
     private lastUsedAction: Action = null;
 
     @State()
-    private actionBehaviour: Option<ActionBehaviour> = this.actionBehaviours[0];
+    private actionScrollBehaviour: Option<ActionScrollBehaviour> = this
+        .actionScrollBehaviours[0];
 
     @State()
     private actionPosition: Option<ActionPosition> = this.actionPositions[0];
@@ -76,7 +86,7 @@ export class PickerStaticActionsExample {
     public render() {
         return [
             <limel-picker
-                label="Favorite awesomenaut"
+                label="Select your favorite pet"
                 value={this.selectedItem}
                 searchLabel={'Search your awesomenaut'}
                 displayFullList={true}
@@ -85,19 +95,19 @@ export class PickerStaticActionsExample {
                 onInteract={this.onInteract}
                 onAction={this.onAction}
                 actions={this.actions}
-                actionBehaviour={this.actionBehaviour?.value}
+                actionScrollBehaviour={this.actionScrollBehaviour?.value}
                 actionPosition={this.actionPosition?.value}
             />,
             <p>
                 <limel-flex-container justify="end">
                     <limel-select
                         style={{
-                            width: '10rem',
+                            width: '12rem',
                         }}
-                        label="Action Behaviour"
+                        label="Action Scroll Behaviour"
                         onChange={this.setBehaviour}
-                        value={this.actionBehaviour}
-                        options={this.actionBehaviours}
+                        value={this.actionScrollBehaviour}
+                        options={this.actionScrollBehaviours}
                     />
 
                     <limel-select
@@ -149,8 +159,8 @@ export class PickerStaticActionsExample {
         console.log('Value interacted with:', event.detail);
     }
 
-    private setBehaviour(event: CustomEvent<Option<ActionBehaviour>>) {
-        this.actionBehaviour = event.detail;
+    private setBehaviour(event: CustomEvent<Option<ActionScrollBehaviour>>) {
+        this.actionScrollBehaviour = event.detail;
     }
 
     private setPosition(event: CustomEvent<Option<ActionPosition>>) {

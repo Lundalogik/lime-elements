@@ -6,7 +6,6 @@ import { Tab } from './tab.types';
  *
  * @param {Tab[]} tabs list of tabs
  * @param {number} index the index of the tab to set to active
- *
  * @returns {Tab[]} a copy of the list of tabs with the changed tabs replaced
  */
 export function setActiveTab(tabs: Tab[], index: number): Tab[] {
