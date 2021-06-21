@@ -1,0 +1,41 @@
+.step {
+    color: var(--step-text);
+    background-color: var(--step-background);
+
+    .icon {
+        color: var(--progress-flow-icon-color, var(--step-text));
+    }
+
+    .flow-item.selected & {
+        color: var(--step-text--selected);
+        background-color: var(--step-background--selected);
+
+        .divider:after {
+            background-color: var(--step-background--selected);
+        }
+
+        .icon {
+            color: var(--step-text--selected);
+        }
+    }
+
+    .flow-item.passed & {
+        color: var(--step-text--passed);
+        background-color: var(--step-background--passed);
+
+        .divider:after {
+            background-color: var(--step-background--passed);
+        }
+
+        .icon {
+            color: var(--step-text--passed);
+        }
+    }
+}
+
+.divider {
+    &:after {
+        border-color: var(--step-divider-color);
+        background-color: var(--step-background);
+    }
+}
