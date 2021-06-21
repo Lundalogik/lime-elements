@@ -1,0 +1,29 @@
+.step {
+    &:after {
+        pointer-events: none;
+        box-sizing: border-box;
+        z-index: z-index.$limel-progress-flow-step-content;
+        position: absolute;
+        right: var(--selected-indicator-right);
+
+        background-color: var(--step-divider-color);
+        width: functions.pxToRem(6);
+        height: functions.pxToRem(6);
+        border-radius: 50%;
+        opacity: 0.7;
+    }
+
+    .last & {
+        &:after {
+            right: functions.pxToRem(8);
+        }
+    }
+
+    &:not(.off-progress) {
+        &.selected {
+            &:after {
+                content: '';
+            }
+        }
+    }
+}
