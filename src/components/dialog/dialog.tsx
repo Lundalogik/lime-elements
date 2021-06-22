@@ -231,8 +231,7 @@ export class Dialog {
 
     private renderHeading() {
         if (this.isBadgeHeading(this.heading)) {
-            const { title, subtitle, supportingText, icon, badgeIcon } =
-                this.heading;
+            const { title, subtitle, supportingText, icon } = this.heading;
 
             return (
                 <limel-header
