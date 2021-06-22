@@ -130,5 +130,5 @@ export class DialogHeadingExample {
 
     private handleIconChange = (event: CustomEvent<Option>) => {
         this.icon = event.detail;
-    }
+    };
 }
