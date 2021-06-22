@@ -27,9 +27,6 @@ export class DialogHeadingExample {
     @State()
     private icon: Option;
 
-    @State()
-    private badge: boolean = true;
-
     private icons: Option[] = [
         {
             text: 'Company',
@@ -59,11 +56,9 @@ export class DialogHeadingExample {
             subtitle: this.subtitle,
             supportingText: this.supportingText,
             icon: this.icon.value,
-            badgeIcon: this.badge,
         };
         const classNames = {
             [this.icon.text.toLowerCase()]: true,
-            badge: this.badge,
         };
 
         return [
@@ -102,11 +97,6 @@ export class DialogHeadingExample {
                     value={this.icon}
                     onChange={this.handleIconChange}
                 />
-                <limel-checkbox
-                    label="Badge"
-                    checked={this.badge}
-                    onChange={this.handleBadgeChange}
-                />
 
                 <limel-button
                     label="Ok"
@@ -140,9 +130,5 @@ export class DialogHeadingExample {
 
     private handleIconChange = (event: CustomEvent<Option>) => {
         this.icon = event.detail;
-    };
-
-    private handleBadgeChange = (event: CustomEvent<boolean>) => {
-        this.badge = event.detail;
-    };
+    }
 }
