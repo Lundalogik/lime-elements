@@ -79,12 +79,7 @@ export class Header {
     public render() {
         return [
             <div class="information">
-                <limel-icon
-                    class="information__icon"
-                    badge={true}
-                    size="large"
-                    name={this.icon}
-                />
+                {this.renderIcon()}
                 <div class="information__headings">
                     <h1
                         class="information__headings__heading"
@@ -105,6 +100,21 @@ export class Header {
                 <slot />
             </div>,
         ];
+    }
+
+    private renderIcon() {
+        if (!this.icon) {
+            return;
+        }
+
+        return (
+            <limel-icon
+                class="information__icon"
+                badge={true}
+                size="large"
+                name={this.icon}
+            />
+        );
     }
 
     private renderSupportingText() {
