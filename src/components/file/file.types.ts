@@ -3,6 +3,7 @@ export interface FileInfo {
      * ID of the file. Must be unique.
      */
     id: number | string;
+
     /**
      * Name of file.
      */
