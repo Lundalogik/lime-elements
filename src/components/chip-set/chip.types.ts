@@ -49,4 +49,10 @@ export interface Chip<T = any> {
      * The value of the badge. Only valid for `filter`.
      */
     badge?: number;
+
+    /**
+     * If supplied, the chip will render an `<a>` element, using the supplied
+     * href.
+     */
+    href?: string;
 }

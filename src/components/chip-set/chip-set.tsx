@@ -541,11 +541,21 @@ export class ChipSet {
     }
 
     private renderLabel(chip: Chip<any>) {
+        const attributes: any = {};
+        if (chip.href) {
+            attributes.href = chip.href;
+        }
+
         return (
             <span role="gridcell">
-                <span role="button" tabindex="0" class="mdc-chip__text">
+                <a
+                    role="button"
+                    tabindex="0"
+                    class="mdc-chip__text"
+                    {...attributes}
+                >
                     {chip.text}
-                </span>
+                </a>
             </span>
         );
     }
