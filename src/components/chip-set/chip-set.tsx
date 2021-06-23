@@ -18,6 +18,7 @@ import {
 } from '@stencil/core';
 import { handleKeyboardEvent } from './chip-set-input-helpers';
 import translate from '../../global/translations';
+import { getHref, getTarget } from '../../util/link-helper';
 
 const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
 
@@ -541,11 +542,22 @@ export class ChipSet {
     }
 
     private renderLabel(chip: Chip<any>) {
+        const attributes: any = {};
+        if (chip.href) {
+            attributes.href = getHref(chip.href);
+            attributes.target = getTarget(chip.href);
+        }
+
         return (
             <span role="gridcell">
-                <span role="button" tabindex="0" class="mdc-chip__text">
+                <a
+                    role="button"
+                    tabindex="0"
+                    class="mdc-chip__text"
+                    {...attributes}
+                >
                     {chip.text}
-                </span>
+                </a>
             </span>
         );
     }
