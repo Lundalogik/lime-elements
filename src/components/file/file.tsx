@@ -195,6 +195,7 @@ export class File {
                 icon: this.value.icon || DEFAULT_ICON,
                 iconFillColor: this.value.iconColor,
                 iconBackgroundColor: this.value.iconBackgroundColor,
+                href: this.value.href,
             },
         ];
     }

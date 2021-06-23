@@ -48,4 +48,11 @@ export interface FileInfo {
      * Background color of the icon. Overrides `--icon-background-color`.
      */
     iconBackgroundColor?: string;
+
+    /**
+     * URL where the file can be downloaded. Note that this is optional. If the
+     * file cannot be directly accessed via a unique url, this property should
+     * be left undefined or set to `null`.
+     */
+    href?: string;
 }

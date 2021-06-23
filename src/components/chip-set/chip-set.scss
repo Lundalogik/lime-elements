@@ -89,6 +89,8 @@ limel-badge {
     text-overflow: ellipsis;
     display: block;
     padding: 0 pxToRem(12) 0 pxToRem(4);
+    color: inherit;
+    text-decoration: none;
 }
 
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
