@@ -51,8 +51,7 @@ export interface Chip<T = any> {
     badge?: number;
 
     /**
-     * If supplied, the chip will render an `<a>` element, using the supplied
-     * href.
+     * If supplied, the chip will render a link, using the supplied href.
      */
     href?: string;
 }
