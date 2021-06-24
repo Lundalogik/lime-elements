@@ -11,11 +11,6 @@ export class DialogSizeExample {
     @State()
     private isOpen = false;
 
-    constructor() {
-        this.openDialog = this.openDialog.bind(this);
-        this.closeDialog = this.closeDialog.bind(this);
-    }
-
     public render() {
         return [
             <limel-button
@@ -38,11 +33,11 @@ export class DialogSizeExample {
         ];
     }
 
-    private openDialog() {
+    private openDialog = () => {
         this.isOpen = true;
-    }
+    };
 
-    private closeDialog() {
+    private closeDialog = () => {
         this.isOpen = false;
-    }
+    };
 }

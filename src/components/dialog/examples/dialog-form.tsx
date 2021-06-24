@@ -27,17 +27,6 @@ export class DialogFormExample {
     @State()
     private isConfirmationOpen = false;
 
-    constructor() {
-        this.openDialog = this.openDialog.bind(this);
-        this.closeDialog = this.closeDialog.bind(this);
-        this.onClosing = this.onClosing.bind(this);
-        this.nameOnChange = this.nameOnChange.bind(this);
-        this.ageOnChange = this.ageOnChange.bind(this);
-        this.closeConfirmation = this.closeConfirmation.bind(this);
-        this.onConfirmPositive = this.onConfirmPositive.bind(this);
-        this.onConfirmNegative = this.onConfirmNegative.bind(this);
-    }
-
     public render() {
         return [
             <limel-button
@@ -120,38 +109,38 @@ export class DialogFormExample {
         this.closeDialog();
     };
 
-    private openDialog() {
+    private openDialog = () => {
         this.isOpen = true;
-    }
+    };
 
-    private closeDialog() {
+    private closeDialog = () => {
         this.isOpen = false;
-    }
+    };
 
-    private onClosing() {
+    private onClosing = () => {
         console.log('dialog is closing now!');
         this.isConfirmationOpen = true;
-    }
+    };
 
-    private nameOnChange(event) {
+    private nameOnChange = (event) => {
         this.name = event.detail;
-    }
+    };
 
-    private ageOnChange(event) {
+    private ageOnChange = (event) => {
         this.age = event.detail;
-    }
+    };
 
-    private closeConfirmation() {
+    private closeConfirmation = () => {
         this.isConfirmationOpen = false;
-    }
+    };
 
-    private onConfirmPositive() {
+    private onConfirmPositive = () => {
         this.isConfirmationOpen = false;
         this.isOpen = false;
-    }
+    };
 
-    private onConfirmNegative() {
+    private onConfirmNegative = () => {
         this.isOpen = true;
         this.isConfirmationOpen = false;
-    }
+    };
 }

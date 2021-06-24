@@ -44,12 +44,6 @@ export class DialogClosingActionsExample {
     @State()
     private isOpen = false;
 
-    constructor() {
-        this.triggerOnClick = this.triggerOnClick.bind(this);
-        this.onClose = this.onClose.bind(this);
-        this.okOnClick = this.okOnClick.bind(this);
-    }
-
     public render() {
         return [
             <limel-button
@@ -75,15 +69,15 @@ export class DialogClosingActionsExample {
         ];
     }
 
-    private triggerOnClick() {
+    private triggerOnClick = () => {
         this.isOpen = true;
-    }
+    };
 
-    private okOnClick() {
+    private okOnClick = () => {
         this.isOpen = false;
-    }
+    };
 
-    private onClose() {
+    private onClose = () => {
         this.isOpen = false;
-    }
+    };
 }
