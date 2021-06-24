@@ -50,16 +50,6 @@ export class DialogHeadingExample {
     ];
 
     constructor() {
-        this.openDialog = this.openDialog.bind(this);
-        this.closeDialog = this.closeDialog.bind(this);
-
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleSubtitleChange = this.handleSubtitleChange.bind(this);
-        this.handleSupportingTextChange =
-            this.handleSupportingTextChange.bind(this);
-        this.handleIconChange = this.handleIconChange.bind(this);
-        this.handleBadgeChange = this.handleBadgeChange.bind(this);
-
         this.icon = this.icons[0];
     }
 
@@ -128,31 +118,31 @@ export class DialogHeadingExample {
         ];
     }
 
-    private openDialog() {
+    private openDialog = () => {
         this.isOpen = true;
-    }
+    };
 
-    private closeDialog() {
+    private closeDialog = () => {
         this.isOpen = false;
-    }
+    };
 
-    private handleTitleChange(event: CustomEvent<string>) {
+    private handleTitleChange = (event: CustomEvent<string>) => {
         this.title = event.detail;
-    }
+    };
 
-    private handleSubtitleChange(event: CustomEvent<string>) {
+    private handleSubtitleChange = (event: CustomEvent<string>) => {
         this.subtitle = event.detail;
-    }
+    };
 
-    private handleSupportingTextChange(event: CustomEvent<string>) {
+    private handleSupportingTextChange = (event: CustomEvent<string>) => {
         this.supportingText = event.detail;
-    }
+    };
 
-    private handleIconChange(event: CustomEvent<Option>) {
+    private handleIconChange = (event: CustomEvent<Option>) => {
         this.icon = event.detail;
-    }
+    };
 
-    private handleBadgeChange(event: CustomEvent<boolean>) {
+    private handleBadgeChange = (event: CustomEvent<boolean>) => {
         this.badge = event.detail;
-    }
+    };
 }
