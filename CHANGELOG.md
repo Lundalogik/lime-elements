@@ -1,3 +1,11 @@
+## [32.3.0](https://github.com/Lundalogik/lime-elements/compare/v32.2.6...v32.3.0) (2021-06-24)
+
+
+### Features
+
+* **chip-set:** allow chips to supply a href, and render as link ([9bc9be8](https://github.com/Lundalogik/lime-elements/commit/9bc9be8b04ee7d4717ac0e49ec4ba09ddae28bc8))
+* **file:** render file chips with proper link to download file ([45c7d96](https://github.com/Lundalogik/lime-elements/commit/45c7d96c544f7cb9b88bc36ceaf8df95c72e596f)), closes [Lundalogik/crm-feature#2231](https://github.com/Lundalogik/crm-feature/issues/2231)
+
 ### [32.2.6](https://github.com/Lundalogik/lime-elements/compare/v32.2.5...v32.2.6) (2021-06-16)
 
 
