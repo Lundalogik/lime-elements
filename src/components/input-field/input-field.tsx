@@ -24,7 +24,7 @@ import {
 } from '../../util/keycodes';
 import { InputType } from './input-field.types';
 import { ListItem } from '@limetech/lime-elements';
-import { getHref, getTarget } from './link-helper';
+import { getHref, getTarget } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
 
