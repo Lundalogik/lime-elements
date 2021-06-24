@@ -1,4 +1,4 @@
-import { getTarget, getHref, prependProtocol } from './link-helper';
+import { getTarget, getHref, isUrlAbsolute, prependProtocol } from './link-helper';
 
 describe('limeLinkHelper', () => {
     let element;
@@ -87,6 +87,33 @@ describe('limeLinkHelper', () => {
             it('does not alter input', () => {
                 isValid = false;
                 expect(prependProtocol('')).toEqual('');
+            });
+        });
+    });
+
+    describe('isUrlAbsolute"', () => {
+        [
+            '#test/hej',
+            'stackoverflow.com',
+            '/redirect?target=http://example.org',
+            'redirect',
+            'redirect?target=http://example.org',
+        ].forEach((link) => {
+            it(`returns false for '${link}'`, () => {
+                expect(isUrlAbsolute(link)).toEqual(false);
+            });
+        });
+
+        [
+            'http://one.com',
+            'https://two.com',
+            'ftp://five.com',
+            'ftps://six.com',
+            '//stackoverflow.com',
+            'Ftp://example.net'
+        ].forEach((link) => {
+            it(`returns true for '${link}'`, () => {
+                expect(isUrlAbsolute(link)).toEqual(true);
             });
         });
     });
