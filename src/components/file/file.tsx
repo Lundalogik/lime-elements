@@ -50,6 +50,7 @@ const DEFAULT_ICON = 'note';
  * @exampleComponent limel-example-file
  * @exampleComponent limel-example-file-custom-icon
  * @exampleComponent limel-example-file-accepted-types
+ * @exampleComponent limel-example-file-composite
  */
 @Component({
     tag: 'limel-file',
