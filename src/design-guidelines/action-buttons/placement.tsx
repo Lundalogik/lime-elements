@@ -1,30 +1,11 @@
 import { Component, h } from '@stencil/core';
 
-/**
- * Dialogs with several action buttons
- *
- * Sometimes dialogs come with several action buttons. They are used to ensure
- * that the user delibrately confirms an action, from a set of actions which are
- * often contradictory; for example **Discard** versus **Save**.
- * :::note
- * There are a few design conventions that you must follow, when presenting
- * several action buttons. Look at the example below to get a better understanding
- * of these conventions.
- * :::
- *
- * ##### Placement
- * On a user interface which is designed for a left-to-right
- * script like English, action buttons of a dialog are
- * typically located on the bottom-right corner. In that slot,
- * the Positive action is always on the right side, and the
- * negative one is on the left.
- */
 @Component({
-    tag: 'limel-example-dialog-action-button-conventions_placement',
+    tag: 'limel-example-action-button-conventions_placement',
     shadow: true,
-    styleUrl: 'dialog-action-button-conventions.scss',
+    styleUrl: 'action-button-conventions.scss',
 })
-export class DialogActionButtonConventionsPlacementExample {
+export class ActionButtonConventionsPlacementExample {
     public render() {
         return [
             <div class="dialog-action-buttons-examples">

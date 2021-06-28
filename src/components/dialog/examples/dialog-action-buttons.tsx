@@ -13,7 +13,7 @@ import { Component, h, State } from '@stencil/core';
  * (#/DesignGuidelines/action-buttons.md/).
  */
 @Component({
-    tag: 'limel-example-dialog-action-buttons',
+    tag: 'limel-example-action-buttons',
     shadow: true,
     styleUrl: 'dialog-action-buttons.scss',
 })

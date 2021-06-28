@@ -46,15 +46,4 @@ limel-flex-container {
         justify-self: flex-start;
         margin-right: auto;
     }
-    &.primary--neutral {
-        --lime-primary-color: rgb(var(--contrast-1100));
-    }
-    &.primary--caution {
-        --lime-on-primary-color: rgb(var(--color-glaucous-darker));
-        --lime-primary-color: rgb(var(--color-amber-default));
-    }
-    &.primary--danger {
-        --lime-on-primary-color: rgb(var(--color-white));
-        --lime-primary-color: rgb(var(--color-red-default));
-    }
 }

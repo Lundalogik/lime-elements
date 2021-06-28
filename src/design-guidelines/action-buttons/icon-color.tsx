@@ -1,20 +1,11 @@
 import { Component, h } from '@stencil/core';
 
-/**
- * Adding more meaning with colors and icons
- *
- * To make it easer for the users to understand the message and take a decision
- * faster you can use icons and colors on the buttons.
- *
- * Learn more about [usage of colors](#/DesignGuidelines/color-system.md/),
- * and [how to color limel-buttons](#/component/limel-button/).
- */
 @Component({
-    tag: 'limel-example-dialog-action-button-conventions_icon-color',
+    tag: 'limel-example-action-button-conventions_icon-color',
     shadow: true,
-    styleUrl: 'dialog-action-button-conventions_icon-color.scss',
+    styleUrl: 'action-button-conventions_icon-color.scss',
 })
-export class DialogActionButtonConventionsIconColorExample {
+export class ActionButtonConventionsIconColorExample {
     public render() {
         return [
             <div class="dialog-action-buttons-examples">

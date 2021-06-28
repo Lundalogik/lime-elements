@@ -1,5 +1,3 @@
-@import './_dialog-action-button-conventions--example-ui.scss';
-
 .button {
     &.justify-left {
         // In a full width flex container that has `justify-content: flex-end;`, these styles will align the targeted button to left
@@ -26,3 +24,5 @@
         --lime-primary-color: rgb(var(--color-red-default));
     }
 }
+
+@import './action-button-conventions.scss';

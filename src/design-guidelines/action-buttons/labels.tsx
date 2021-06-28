@@ -1,18 +1,11 @@
 import { Component, h } from '@stencil/core';
 
-/**
- * Choosing good labels
- *
- * Labels you use should make sense together. You are usually
- * dealing with contradictory actions, thus what you put on
- * each button should also reflect the contradiction.
- */
 @Component({
-    tag: 'limel-example-dialog-action-button-conventions_choosing-labels',
+    tag: 'limel-example-action-button-conventions_choosing-labels',
     shadow: true,
-    styleUrl: 'dialog-action-button-conventions.scss',
+    styleUrl: 'action-button-conventions.scss',
 })
-export class DialogActionButtonConventionsChoosingLabelsExample {
+export class ActionButtonConventionsChoosingLabelsExample {
     public render() {
         return [
             <div class="dialog-action-buttons-examples">

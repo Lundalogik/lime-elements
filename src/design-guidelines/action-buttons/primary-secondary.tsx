@@ -1,22 +1,11 @@
 import { Component, h } from '@stencil/core';
 
-/**
- * Primary versus secondary actions
- *
- * As you know, <code>limel-button</code> can have a `primary={true}` property,
- * which makes it stand out by getting the defined primary color.
- *
- * One of your action buttons is normally the primary action. That is the action
- * that you **expect** the users to take, or you **want** or **prefer** them
- * to click on. This is usually a safe action, and that is why you want to
- * promote it by highlighting it.
- */
 @Component({
-    tag: 'limel-example-dialog-action-button-conventions_primary-secondary',
+    tag: 'limel-example-action-button-conventions_primary-secondary',
     shadow: true,
-    styleUrl: 'dialog-action-button-conventions.scss',
+    styleUrl: 'action-button-conventions.scss',
 })
-export class DialogActionButtonConventionsPrimarySecondaryExample {
+export class ActionButtonConventionsPrimarySecondaryExample {
     public render() {
         return [
             <div class="dialog-action-buttons-examples">
