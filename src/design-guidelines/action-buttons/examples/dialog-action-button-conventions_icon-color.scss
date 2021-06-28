@@ -1,0 +1,28 @@
+@import './_dialog-action-button-conventions--example-ui.scss';
+
+.button {
+    &.justify-left {
+        // In a full width flex container that has `justify-content: flex-end;`, these styles will align the targeted button to left
+        justify-self: flex-start;
+        margin-right: auto;
+    }
+    &.primary--neutral {
+        // This is used on the `Back` button
+        // Not that button should be `primary`.
+        --lime-primary-color: rgb(var(--contrast-1100));
+    }
+    &.primary--caution {
+        // This is used on the `Discard` button
+        // Not that button should be `primary`.
+        --lime-on-primary-color: rgb(var(--color-glaucous-darker));
+        --lime-primary-color: rgb(var(--color-amber-default));
+    }
+    &.primary--danger {
+        // This is not used on any button in this example,
+        // but you can use it where suitable.
+        // E.g. when action is permanent and potentially distructive.
+        // Not that button should be `primary`.
+        --lime-on-primary-color: rgb(var(--color-white));
+        --lime-primary-color: rgb(var(--color-red-default));
+    }
+}

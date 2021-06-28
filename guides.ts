@@ -8,10 +8,10 @@ export default [
     {
         name: 'DesignGuidelines',
         children: [
-            'src/color-system.md',
-            'src/shadows-and-depth.md',
-            'src/decluttering.md',
-            'src/size-rhythms.md',
+            'src/design-guidelines/color-system.md',
+            'src/design-guidelines/shadows-and-depth.md',
+            'src/design-guidelines/size-rhythms.md',
+            'src/design-guidelines/decluttering.md',
         ],
     },
 ] as Guide[];
