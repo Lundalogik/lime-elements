@@ -39,7 +39,7 @@ $height-of-chip-set-input: pxToRem(36);
             }
         }
 
-        span[role='button'],
+        a[role='button'],
         span[role='checkbox'] {
             &:focus-visible {
                 &:after {
