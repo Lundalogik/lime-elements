@@ -4,7 +4,6 @@
 :host(limel-flex-container[hidden]) {
     display: none;
 }
-
 :host(limel-flex-container[direction='horizontal']) {
     flex-direction: row;
 }
@@ -17,7 +16,6 @@
 :host(limel-flex-container[direction='vertical'][reverse]) {
     flex-direction: column-reverse;
 }
-
 :host(limel-flex-container[align='start']) {
     align-items: flex-start;
 }
@@ -30,7 +28,6 @@
 :host(limel-flex-container[align='stretch']) {
     align-items: stretch;
 }
-
 :host(limel-flex-container[justify='start']) {
     justify-content: flex-start;
 }
