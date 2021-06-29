@@ -100,9 +100,11 @@ export class DialogSizeExample {
                     libero vel fringilla porttitor, odio orci rutrum enim, sed
                     rhoncus quam risus eu neque.
                 </p>
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button label="Ok" onClick={this.closeDialog} />
-                </limel-flex-container>
+                <limel-button
+                    label="Ok"
+                    onClick={this.closeDialog}
+                    slot="button"
+                />
             </limel-dialog>,
         ];
     }

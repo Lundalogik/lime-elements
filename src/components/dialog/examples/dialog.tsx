@@ -22,9 +22,11 @@ export class DialogExample {
             />,
             <limel-dialog open={this.isOpen} onClose={this.closeDialog}>
                 <p>This is a simple alert-dialog.</p>
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button label="Ok" onClick={this.closeDialog} />
-                </limel-flex-container>
+                <limel-button
+                    label="Ok"
+                    onClick={this.closeDialog}
+                    slot="button"
+                />
             </limel-dialog>,
         ];
     }

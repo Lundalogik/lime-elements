@@ -10,7 +10,6 @@ const MAX_AGE = 50;
 @Component({
     tag: 'limel-example-dialog-form',
     shadow: true,
-    styleUrl: 'dialog-form.scss',
 })
 export class DialogFormExample {
     @State()
@@ -76,32 +75,34 @@ export class DialogFormExample {
                         <limel-slider unit="%" value={this.percentage} />
                     </p>
                 </form>
-                <limel-flex-container slot="button" reverse={true}>
-                    <limel-button
-                        primary={true}
-                        label="Save"
-                        disabled={!this.nameValid() || !this.ageValid()}
-                        onClick={this.submitForm}
-                    />
-                    <limel-button label="Cancel" onClick={this.closeDialog} />
-                </limel-flex-container>
+                <limel-button
+                    label="Cancel"
+                    onClick={this.closeDialog}
+                    slot="button"
+                />
+                <limel-button
+                    primary={true}
+                    label="Save"
+                    disabled={!this.nameValid() || !this.ageValid()}
+                    onClick={this.submitForm}
+                    slot="button"
+                />
             </limel-dialog>,
             <limel-dialog
                 open={this.isConfirmationOpen}
                 onClose={this.closeConfirmation}
             >
                 <p>Are you sure you want to close this? </p>
-                <limel-flex-container
-                    justify="end"
-                    reverse={true}
+                <limel-button
+                    label="No"
+                    onClick={this.onConfirmNegative}
                     slot="button"
-                >
-                    <limel-button
-                        label="Yes"
-                        onClick={this.onConfirmPositive}
-                    />
-                    <limel-button label="No" onClick={this.onConfirmNegative} />
-                </limel-flex-container>
+                />
+                <limel-button
+                    label="Yes"
+                    onClick={this.onConfirmPositive}
+                    slot="button"
+                />
             </limel-dialog>,
         ];
     }
