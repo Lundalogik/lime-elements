@@ -118,13 +118,12 @@ export class DialogHeadingExample {
                     onChange={this.handleBadgeChange}
                 />
 
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button
-                        label="Ok"
-                        primary={true}
-                        onClick={this.closeDialog}
-                    />
-                </limel-flex-container>
+                <limel-button
+                    label="Ok"
+                    primary={true}
+                    onClick={this.closeDialog}
+                    slot="button"
+                />
             </limel-dialog>,
         ];
     }

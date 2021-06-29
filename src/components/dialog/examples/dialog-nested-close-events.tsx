@@ -47,12 +47,11 @@ export class DialogNestedCloseEventsExample {
                 >
                     <p>Then close me again…</p>
                 </limel-collapsible-section>
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button
-                        label="Ok"
-                        onClick={this.handleCloseOnDialog}
-                    />
-                </limel-flex-container>
+                <limel-button
+                    label="Ok"
+                    onClick={this.handleCloseOnDialog}
+                    slot="button"
+                />
             </limel-dialog>,
             <limel-flex-container justify="end">
                 <limel-switch

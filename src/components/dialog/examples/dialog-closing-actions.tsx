@@ -33,9 +33,11 @@ export class DialogClosingActionsExample {
                     This dialog doesn't close by clicking the scrim or pressing
                     the escape key. Only the Ok-button triggers a close event.
                 </p>
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button label="Ok" onClick={this.okOnClick} />
-                </limel-flex-container>
+                <limel-button
+                    label="I understand"
+                    onClick={this.okOnClick}
+                    slot="button"
+                />
             </limel-dialog>,
         ];
     }

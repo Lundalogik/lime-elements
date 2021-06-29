@@ -29,9 +29,11 @@ export class DialogSizeExample {
                 onClose={this.closeDialog}
             >
                 <p>This dialog is fullscreen</p>
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button label="Ok" onClick={this.closeDialog} />
-                </limel-flex-container>
+                <limel-button
+                    label="Ok"
+                    onClick={this.closeDialog}
+                    slot="button"
+                />
             </limel-dialog>,
         ];
     }

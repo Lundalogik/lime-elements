@@ -161,3 +161,10 @@ slot[name='header'] {
     /* Opera doesn't support this in the shorthand */
     background-attachment: local, local, scroll, scroll;
 }
+
+slot[name='button'] {
+    display: flex;
+    gap: 0.5rem; // Makes sure buttons get some default distance
+    width: 100%;
+    justify-content: flex-end;
+}
