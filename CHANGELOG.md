@@ -1,3 +1,10 @@
+### [32.3.1](https://github.com/Lundalogik/lime-elements/compare/v32.3.0...v32.3.1) (2021-06-29)
+
+
+### Bug Fixes
+
+* **chip-set:** fix broken focus highlighting for keyboard navigation ([4f148dd](https://github.com/Lundalogik/lime-elements/commit/4f148dd0ddc02096cb43ec2a79a1534d4d6bfdd5)), closes [Lundalogik/crm-feature#2231](https://github.com/Lundalogik/crm-feature/issues/2231)
+
 ## [32.3.0](https://github.com/Lundalogik/lime-elements/compare/v32.2.6...v32.3.0) (2021-06-24)
 
 
