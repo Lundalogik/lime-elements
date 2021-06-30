@@ -19,7 +19,7 @@ export class FileCompositeExample {
         label: 'Attach a file',
         value: {
             id: '123',
-            filename: 'picture.jpg',
+            filename: 'document.pdf',
         } as FileInfo,
     };
 

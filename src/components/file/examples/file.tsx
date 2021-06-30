@@ -10,7 +10,7 @@ import { Component, h, State } from '@stencil/core';
 })
 export class FileExample {
     @State()
-    private value: FileInfo = { filename: 'picture.jpg', id: 123 };
+    private value: FileInfo = { filename: 'letter.docx', id: 123 };
 
     @State()
     private required = false;
