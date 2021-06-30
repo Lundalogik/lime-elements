@@ -39,6 +39,13 @@ jobs:
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
         CI: true
+    - name: Trigger update in lime-crm-components
+      if: steps.semantic.outputs.new_release_published == 'true'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.CREATE_RELEASE }}
+        event-type: update-lime-dependencies
+        repository: Lundalogik/lime-crm-components
     - name: Trigger update in lime-webclient
       if: steps.semantic.outputs.new_release_published == 'true'
       uses: peter-evans/repository-dispatch@v1
