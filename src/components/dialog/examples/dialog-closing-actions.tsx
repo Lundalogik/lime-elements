@@ -49,12 +49,12 @@ export class DialogClosingActionsExample {
             <limel-button
                 primary={true}
                 label="Open"
-                onClick={this.triggerOnClick}
+                onClick={this.openDialog}
             />,
             <limel-dialog
                 open={this.isOpen}
                 closingActions={{ escapeKey: false, scrimClick: false }}
-                onClose={this.onClose}
+                onClose={this.closeDialog}
             >
                 <p>
                     This dialog doesn't close by clicking the scrim or pressing
@@ -62,22 +62,22 @@ export class DialogClosingActionsExample {
                 </p>
                 <limel-button
                     label="I understand"
-                    onClick={this.okOnClick}
+                    onClick={this.handleConfirmClick}
                     slot="button"
                 />
             </limel-dialog>,
         ];
     }
 
-    private triggerOnClick = () => {
+    private openDialog = () => {
         this.isOpen = true;
     };
 
-    private okOnClick = () => {
+    private handleConfirmClick = () => {
         this.isOpen = false;
     };
 
-    private onClose = () => {
+    private closeDialog = () => {
         this.isOpen = false;
     };
 }
