@@ -23,9 +23,36 @@ export class QuarterPicker extends Picker {
         this.handleChange = this.handleChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleReady = this.handleReady.bind(this);
-        this.handleOpen = this.handleOpen.bind(this);
         this.nextYear = this.nextYear.bind(this);
         this.prevYear = this.prevYear.bind(this);
+    }
+
+    public init(element: HTMLElement, container: HTMLElement, value?: Date) {
+        super.init(element, container, value);
+        if (!this.nativePicker) {
+            this.flatpickr.prevMonthNav.addEventListener(
+                'mousedown',
+                this.prevYear
+            );
+            this.flatpickr.nextMonthNav.addEventListener(
+                'mousedown',
+                this.nextYear
+            );
+        }
+    }
+
+    public destroy() {
+        super.destroy();
+        if (!this.nativePicker) {
+            this.flatpickr?.prevMonthNav.removeEventListener(
+                'mousedown',
+                this.prevYear
+            );
+            this.flatpickr?.nextMonthNav.removeEventListener(
+                'mousedown',
+                this.nextYear
+            );
+        }
     }
 
     public getConfig(nativePicker: boolean): flatpickr.Options.Options {
@@ -35,7 +62,6 @@ export class QuarterPicker extends Picker {
 
         if (!nativePicker) {
             config.onReady = this.handleReady;
-            config.onOpen = this.handleOpen;
             config.onYearChange = this.handleChange;
         }
 
@@ -53,35 +79,12 @@ export class QuarterPicker extends Picker {
                 this.flatpickr.input.value,
                 this.flatpickr
             );
-            if (!this.nativePicker) {
-                this.flatpickr.prevMonthNav.removeEventListener(
-                    'mousedown',
-                    this.prevYear
-                );
-                this.flatpickr.nextMonthNav.removeEventListener(
-                    'mousedown',
-                    this.nextYear
-                );
-            }
         });
     }
 
     private handleReady(_, __, fp) {
         this.bootstrapQuarterPicker(fp);
         this.selectQuarter(fp.selectedDates, fp.input.value, fp);
-    }
-
-    private handleOpen() {
-        if (!this.nativePicker) {
-            this.flatpickr.prevMonthNav.addEventListener(
-                'mousedown',
-                this.prevYear
-            );
-            this.flatpickr.nextMonthNav.addEventListener(
-                'mousedown',
-                this.nextYear
-            );
-        }
     }
 
     private bootstrapQuarterPicker(fp) {
@@ -91,10 +94,6 @@ export class QuarterPicker extends Picker {
                 .getElementsByClassName('flatpickr-monthDropdown-months')[0]
                 .replaceWith(this.renderHeading());
             fp.calendarContainer.appendChild(this.renderQuarterPicker(fp));
-
-            fp.prevMonthNav.addEventListener('mousedown', this.prevYear);
-
-            fp.nextMonthNav.addEventListener('mousedown', this.nextYear);
         }
     }
 
