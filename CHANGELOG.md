@@ -1,3 +1,10 @@
+## [32.4.0](https://github.com/Lundalogik/lime-elements/compare/v32.3.1...v32.4.0) (2021-07-01)
+
+
+### Features
+
+* **dialog:** remove the need to use `limel-flex-container` in button slot ([45b7abb](https://github.com/Lundalogik/lime-elements/commit/45b7abb8ea616e84ee2b08c01f9a0b6f126943b8))
+
 ### [32.3.1](https://github.com/Lundalogik/lime-elements/compare/v32.3.0...v32.3.1) (2021-06-29)
 
 
