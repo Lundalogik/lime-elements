@@ -3,6 +3,11 @@ import { Component, h, State } from '@stencil/core';
 
 /**
  * Custom icon and color
+ * This component automatically visualizes the file type, based on the extension
+ * of the selected file. The visualization is done by displaying a colorful icon
+ * along with the filename, for the most common file types.
+ *
+ * However, you can also customize the icon and its fill color & background color.
  */
 @Component({
     tag: 'limel-example-file-custom-icon',
