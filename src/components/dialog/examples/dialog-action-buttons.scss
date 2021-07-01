@@ -1,0 +1,24 @@
+:host {
+    --dialog-heading-icon-background-color: rgb(var(--color-red-default));
+    --dialog-heading-icon-color: rgb(var(--color-yellow-lighter));
+    --dialog-width: 40rem;
+}
+
+.button {
+    &.justify-left {
+        // In a full width flex container that has `justify-content: flex-end;`,
+        // these styles will align the targeted button to the left.
+        justify-self: flex-start;
+        margin-right: auto;
+    }
+    &.primary--neutral {
+        --lime-primary-color: rgb(var(--contrast-1100));
+    }
+    &.primary--caution {
+        --lime-on-primary-color: rgb(var(--color-glaucous-darker));
+        --lime-primary-color: rgb(var(--color-amber-default));
+    }
+    &.primary--danger {
+        --lime-primary-color: rgb(var(--color-red-default));
+    }
+}
