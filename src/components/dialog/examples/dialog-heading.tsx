@@ -27,9 +27,6 @@ export class DialogHeadingExample {
     @State()
     private icon: Option;
 
-    @State()
-    private badge: boolean = true;
-
     private icons: Option[] = [
         {
             text: 'Company',
@@ -50,16 +47,6 @@ export class DialogHeadingExample {
     ];
 
     constructor() {
-        this.openDialog = this.openDialog.bind(this);
-        this.closeDialog = this.closeDialog.bind(this);
-
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleSubtitleChange = this.handleSubtitleChange.bind(this);
-        this.handleSupportingTextChange =
-            this.handleSupportingTextChange.bind(this);
-        this.handleIconChange = this.handleIconChange.bind(this);
-        this.handleBadgeChange = this.handleBadgeChange.bind(this);
-
         this.icon = this.icons[0];
     }
 
@@ -69,11 +56,9 @@ export class DialogHeadingExample {
             subtitle: this.subtitle,
             supportingText: this.supportingText,
             icon: this.icon.value,
-            badgeIcon: this.badge,
         };
         const classNames = {
             [this.icon.text.toLowerCase()]: true,
-            badge: this.badge,
         };
 
         return [
@@ -112,48 +97,38 @@ export class DialogHeadingExample {
                     value={this.icon}
                     onChange={this.handleIconChange}
                 />
-                <limel-checkbox
-                    label="Badge"
-                    checked={this.badge}
-                    onChange={this.handleBadgeChange}
-                />
 
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button
-                        label="Ok"
-                        primary={true}
-                        onClick={this.closeDialog}
-                    />
-                </limel-flex-container>
+                <limel-button
+                    label="Ok"
+                    primary={true}
+                    onClick={this.closeDialog}
+                    slot="button"
+                />
             </limel-dialog>,
         ];
     }
 
-    private openDialog() {
+    private openDialog = () => {
         this.isOpen = true;
-    }
+    };
 
-    private closeDialog() {
+    private closeDialog = () => {
         this.isOpen = false;
-    }
+    };
 
-    private handleTitleChange(event: CustomEvent<string>) {
+    private handleTitleChange = (event: CustomEvent<string>) => {
         this.title = event.detail;
-    }
+    };
 
-    private handleSubtitleChange(event: CustomEvent<string>) {
+    private handleSubtitleChange = (event: CustomEvent<string>) => {
         this.subtitle = event.detail;
-    }
+    };
 
-    private handleSupportingTextChange(event: CustomEvent<string>) {
+    private handleSupportingTextChange = (event: CustomEvent<string>) => {
         this.supportingText = event.detail;
-    }
+    };
 
-    private handleIconChange(event: CustomEvent<Option>) {
+    private handleIconChange = (event: CustomEvent<Option>) => {
         this.icon = event.detail;
-    }
-
-    private handleBadgeChange(event: CustomEvent<boolean>) {
-        this.badge = event.detail;
-    }
+    };
 }

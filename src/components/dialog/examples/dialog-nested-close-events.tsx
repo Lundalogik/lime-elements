@@ -25,14 +25,6 @@ export class DialogNestedCloseEventsExample {
     @State()
     private stopInnerCloseEvent = false;
 
-    constructor() {
-        this.openDialog = this.openDialog.bind(this);
-        this.handleCloseOnDialog = this.handleCloseOnDialog.bind(this);
-        this.handleStopEventChange = this.handleStopEventChange.bind(this);
-        this.handleCloseOnCollapsible =
-            this.handleCloseOnCollapsible.bind(this);
-    }
-
     public render() {
         return [
             <limel-button
@@ -47,12 +39,11 @@ export class DialogNestedCloseEventsExample {
                 >
                     <p>Then close me again…</p>
                 </limel-collapsible-section>
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button
-                        label="Ok"
-                        onClick={this.handleCloseOnDialog}
-                    />
-                </limel-flex-container>
+                <limel-button
+                    label="Ok"
+                    onClick={this.handleCloseOnDialog}
+                    slot="button"
+                />
             </limel-dialog>,
             <limel-flex-container justify="end">
                 <limel-switch
@@ -64,24 +55,24 @@ export class DialogNestedCloseEventsExample {
         ];
     }
 
-    private openDialog() {
+    private openDialog = () => {
         this.isOpen = true;
-    }
+    };
 
-    private handleCloseOnDialog() {
+    private handleCloseOnDialog = () => {
         this.isOpen = false;
-    }
+    };
 
-    private handleCloseOnCollapsible(event: CustomEvent) {
+    private handleCloseOnCollapsible = (event: CustomEvent) => {
         if (this.stopInnerCloseEvent) {
             console.log('Stopping the inner `close` event.');
             event.stopPropagation();
         } else {
             console.log('NOT stopping the inner `close` event!');
         }
-    }
+    };
 
-    private handleStopEventChange(event: CustomEvent<boolean>) {
+    private handleStopEventChange = (event: CustomEvent<boolean>) => {
         this.stopInnerCloseEvent = event.detail;
-    }
+    };
 }

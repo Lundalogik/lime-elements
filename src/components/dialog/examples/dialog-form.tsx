@@ -10,7 +10,6 @@ const MAX_AGE = 50;
 @Component({
     tag: 'limel-example-dialog-form',
     shadow: true,
-    styleUrl: 'dialog-form.scss',
 })
 export class DialogFormExample {
     @State()
@@ -27,17 +26,6 @@ export class DialogFormExample {
 
     @State()
     private isConfirmationOpen = false;
-
-    constructor() {
-        this.openDialog = this.openDialog.bind(this);
-        this.closeDialog = this.closeDialog.bind(this);
-        this.onClosing = this.onClosing.bind(this);
-        this.nameOnChange = this.nameOnChange.bind(this);
-        this.ageOnChange = this.ageOnChange.bind(this);
-        this.closeConfirmation = this.closeConfirmation.bind(this);
-        this.onConfirmPositive = this.onConfirmPositive.bind(this);
-        this.onConfirmNegative = this.onConfirmNegative.bind(this);
-    }
 
     public render() {
         return [
@@ -76,32 +64,34 @@ export class DialogFormExample {
                         <limel-slider unit="%" value={this.percentage} />
                     </p>
                 </form>
-                <limel-flex-container slot="button" reverse={true}>
-                    <limel-button
-                        primary={true}
-                        label="Save"
-                        disabled={!this.nameValid() || !this.ageValid()}
-                        onClick={this.submitForm}
-                    />
-                    <limel-button label="Cancel" onClick={this.closeDialog} />
-                </limel-flex-container>
+                <limel-button
+                    label="Cancel"
+                    onClick={this.closeDialog}
+                    slot="button"
+                />
+                <limel-button
+                    primary={true}
+                    label="Save"
+                    disabled={!this.nameValid() || !this.ageValid()}
+                    onClick={this.submitForm}
+                    slot="button"
+                />
             </limel-dialog>,
             <limel-dialog
                 open={this.isConfirmationOpen}
                 onClose={this.closeConfirmation}
             >
                 <p>Are you sure you want to close this? </p>
-                <limel-flex-container
-                    justify="end"
-                    reverse={true}
+                <limel-button
+                    label="No"
+                    onClick={this.onConfirmNegative}
                     slot="button"
-                >
-                    <limel-button
-                        label="Yes"
-                        onClick={this.onConfirmPositive}
-                    />
-                    <limel-button label="No" onClick={this.onConfirmNegative} />
-                </limel-flex-container>
+                />
+                <limel-button
+                    label="Yes"
+                    onClick={this.onConfirmPositive}
+                    slot="button"
+                />
             </limel-dialog>,
         ];
     }
@@ -119,38 +109,38 @@ export class DialogFormExample {
         this.closeDialog();
     };
 
-    private openDialog() {
+    private openDialog = () => {
         this.isOpen = true;
-    }
+    };
 
-    private closeDialog() {
+    private closeDialog = () => {
         this.isOpen = false;
-    }
+    };
 
-    private onClosing() {
+    private onClosing = () => {
         console.log('dialog is closing now!');
         this.isConfirmationOpen = true;
-    }
+    };
 
-    private nameOnChange(event) {
+    private nameOnChange = (event) => {
         this.name = event.detail;
-    }
+    };
 
-    private ageOnChange(event) {
+    private ageOnChange = (event) => {
         this.age = event.detail;
-    }
+    };
 
-    private closeConfirmation() {
+    private closeConfirmation = () => {
         this.isConfirmationOpen = false;
-    }
+    };
 
-    private onConfirmPositive() {
+    private onConfirmPositive = () => {
         this.isConfirmationOpen = false;
         this.isOpen = false;
-    }
+    };
 
-    private onConfirmNegative() {
+    private onConfirmNegative = () => {
         this.isOpen = true;
         this.isConfirmationOpen = false;
-    }
+    };
 }

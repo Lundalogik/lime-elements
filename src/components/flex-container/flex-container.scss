@@ -4,7 +4,6 @@
 :host(limel-flex-container[hidden]) {
     display: none;
 }
-
 :host(limel-flex-container[direction='horizontal']) {
     flex-direction: row;
 }
@@ -17,7 +16,6 @@
 :host(limel-flex-container[direction='vertical'][reverse]) {
     flex-direction: column-reverse;
 }
-
 :host(limel-flex-container[align='start']) {
     align-items: flex-start;
 }
@@ -30,7 +28,6 @@
 :host(limel-flex-container[align='stretch']) {
     align-items: stretch;
 }
-
 :host(limel-flex-container[justify='start']) {
     justify-content: flex-start;
 }
@@ -48,4 +45,18 @@
 }
 :host(limel-flex-container[justify='space-evenly']) {
     justify-content: space-evenly;
+}
+
+// Since consumers often copy/paste from examples of `limel-dialog` from the
+// documentations, they often put their buttons in a `limel-flex-container`
+// which is used in the footer slot of those examples with buttons.
+// So to prevent unwanted layout problems of buttons having no distance, we use
+// below code to target `limel-flex-container`s in those slots.
+:host(limel-flex-container[slot='button']) {
+    gap: 0.5rem; // Makes sure buttons get some default distance
+    width: 100%;
+    justify-content: flex-end;
+}
+:host(limel-flex-container[slot='button'][direction='horizontal'][reverse]) {
+    justify-content: flex-start;
 }
