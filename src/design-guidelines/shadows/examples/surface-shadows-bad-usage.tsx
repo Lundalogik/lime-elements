@@ -8,7 +8,7 @@ import { Component, h } from '@stencil/core';
 export class SurfaceShadowBadUsageExample {
     public render() {
         return [
-            <div class="surface-shadows-bad-usage">
+            <div class="do-dont-container surface-shadows-bad-usage">
                 <div class="do-not">
                     <limel-header
                         icon="brake_warning"
