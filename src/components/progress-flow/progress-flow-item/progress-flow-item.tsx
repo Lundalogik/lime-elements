@@ -21,7 +21,7 @@ export class ProgressFlowItem {
     public element: HTMLLimelProgressFlowItemElement;
 
     /**
-     * What flow item that should be rendered
+     * The flow item that should be rendered
      */
     @Prop()
     public item: FlowItem = null;
