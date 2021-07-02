@@ -1,3 +1,12 @@
+### [32.4.1](https://github.com/Lundalogik/lime-elements/compare/v32.4.0...v32.4.1) (2021-07-02)
+
+
+### Bug Fixes
+
+* **dialog:** deprecate `badgeIcon` ([c3de8c6](https://github.com/Lundalogik/lime-elements/commit/c3de8c6071cbebf604412b4d1daa965c79129106))
+* **dialog:** replace heading with `limel-header` ([0cbd037](https://github.com/Lundalogik/lime-elements/commit/0cbd037e75dc50756053c46e7c6fd91dd50a448b))
+* **header:** do not display icon if it is not specified ([cf0bb49](https://github.com/Lundalogik/lime-elements/commit/cf0bb49c65251e16d09d7d76c6c254d4b2dc4c68))
+
 ## [32.4.0](https://github.com/Lundalogik/lime-elements/compare/v32.3.1...v32.4.0) (2021-07-01)
 
 

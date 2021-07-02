@@ -1,6 +1,7 @@
 :host(limel-example-dialog-heading) {
     --dialog-width: 40rem;
-    --dialog-heading-supporting-text-color: rgb(var(--color-orange-dark));
+    --dialog-heading-subtitle-color: rgb(var(--contrast-1200));
+    --dialog-heading-icon-color: rgb(var(--color-white));
 
     limel-input-field {
         margin-bottom: 1rem;
@@ -8,35 +9,27 @@
 
     limel-dialog {
         &.company {
-            --dialog-heading-icon-color: rgb(var(--color-sky-default));
             --dialog-heading-icon-background-color: rgb(
                 var(--color-sky-default)
             );
         }
 
         &.person {
-            --dialog-heading-icon-color: rgb(var(--color-orange-default));
             --dialog-heading-icon-background-color: rgb(
                 var(--color-orange-default)
             );
         }
 
         &.deal {
-            --dialog-heading-icon-color: rgb(var(--color-green-default));
             --dialog-heading-icon-background-color: rgb(
                 var(--color-green-default)
             );
         }
 
         &.todo {
+            --header-heading-color: rgb(var(--color-teal-dark));
+            --dialog-heading-supporting-text-color: rgb(var(--color-red-dark));
             --dialog-heading-icon-color: rgb(var(--color-teal-default));
-            --dialog-heading-icon-background-color: rgb(
-                var(--color-teal-default)
-            );
-        }
-
-        &.badge {
-            --dialog-heading-icon-color: rgb(var(--color-white));
         }
     }
 }

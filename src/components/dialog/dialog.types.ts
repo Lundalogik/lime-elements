@@ -3,5 +3,8 @@ export interface DialogHeading {
     subtitle?: string;
     supportingText?: string;
     icon: string;
+    /**
+     * @deprecated
+     */
     badgeIcon?: boolean;
 }
