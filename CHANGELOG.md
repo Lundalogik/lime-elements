@@ -1,3 +1,10 @@
+### [32.4.2](https://github.com/Lundalogik/lime-elements/compare/v32.4.1...v32.4.2) (2021-07-02)
+
+
+### Bug Fixes
+
+* **date-picker:** be able to change year with arrow buttons in month/quarter picker ([8114b04](https://github.com/Lundalogik/lime-elements/commit/8114b047cda728c265023a28c1e5eedda0e88b88)), closes [Lundalogik/lime-elements#1247](https://github.com/Lundalogik/lime-elements/issues/1247)
+
 ### [32.4.1](https://github.com/Lundalogik/lime-elements/compare/v32.4.0...v32.4.1) (2021-07-02)
 
 
