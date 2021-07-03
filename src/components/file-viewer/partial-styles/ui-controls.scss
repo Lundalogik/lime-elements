@@ -1,0 +1,111 @@
+$size-of-buttons: pxToRem(32);
+
+.buttons {
+    position: absolute;
+    z-index: $limel-file-viewer-buttons;
+    top: pxToRem(4);
+    right: pxToRem(4);
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: pxToRem(8);
+}
+
+.no-support {
+    display: grid;
+    justify-items: center;
+
+    grid-gap: pxToRem(12);
+    border: 1px dashed rgb(var(--contrast-600));
+    border-radius: pxToRem(8);
+    padding: pxToRem(20);
+}
+
+.no-support__info {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: pxToRem(8);
+    align-items: center;
+}
+
+a[class^='button--'] {
+    @include is-elevated-clickable;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    width: $size-of-buttons;
+    height: $size-of-buttons;
+    background-color: rgba(var(--contrast-100), 0.85);
+    backdrop-filter: blur(pxToRem(4));
+
+    limel-icon {
+        transition: color 0.2s ease;
+        color: rgb(var(--contrast-1200));
+    }
+
+    &:hover {
+        limel-icon {
+            color: rgb(var(--contrast-1400));
+        }
+    }
+}
+
+.button--download {
+    .no-support & {
+        width: pxToRem(40);
+        height: pxToRem(40);
+    }
+}
+
+a.button--new-tab {
+    limel-icon {
+        color: rgb(var(--color-blue-dark));
+    }
+}
+
+.icon--warning {
+    color: rgb(var(--color-orange-default));
+}
+
+:host(:fullscreen) {
+    .buttons {
+        top: pxToRem(12);
+        right: pxToRem(12);
+    }
+
+    .button--download,
+    .button--new-tab,
+    .button--enter-fullscreen {
+        display: none;
+    }
+}
+
+:host(:-webkit-full-screen) {
+    // this is repetition of the previous block, but needed for Safari to work. There is no way to write SCSS rules for `:host` using commas sadly. You have to repeat.
+    .buttons {
+        top: pxToRem(12);
+        right: pxToRem(12);
+    }
+
+    .button--download,
+    .button--new-tab,
+    .button--enter-fullscreen {
+        display: none;
+    }
+}
+
+:host(:not(:-webkit-full-screen)) {
+    .button--exit-fullscreen {
+        display: none;
+    }
+}
+
+:host(:not(:fullscreen)) {
+    // this is repetition of the previous block, but needed for Safari to work. There is no way to write SCSS rules for `:host` using commas sadly. You have to repeat.
+    .button--exit-fullscreen {
+        display: none;
+    }
+}
