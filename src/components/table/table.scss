@@ -1,7 +1,6 @@
+@use '../../style/mixins';
+@use '../../style/functions';
 @import '../../../node_modules/tabulator-tables/src/scss/tabulator.scss';
-@import '../../style/mixins';
-@import '../../style/functions';
-@import '../../style/internal/variables';
 
 $table-header-background-color: rgb(var(--contrast-500));
 $table-header-background-color-hover: rgb(var(--contrast-400));
@@ -40,8 +39,8 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
             border-right-color: rgb(var(--contrast-200));
 
             .tabulator-col-content {
-                padding-top: pxToRem(8);
-                padding-bottom: pxToRem(8);
+                padding-top: functions.pxToRem(8);
+                padding-bottom: functions.pxToRem(8);
             }
 
             &.tabulator-sortable {
@@ -53,7 +52,7 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 
         .tabulator-col-title {
             font-weight: 500;
-            padding-left: pxToRem(2);
+            padding-left: functions.pxToRem(2);
         }
     }
 
@@ -91,14 +90,14 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 
     .tabulator-cell {
         border-right: transparent;
-        padding: pxToRem(8);
+        padding: functions.pxToRem(8);
     }
 }
 
 .tabulator-col,
 .tabulator-cell {
-    max-width: pxToRem(600);
-    font-size: pxToRem(13);
+    max-width: functions.pxToRem(600);
+    font-size: functions.pxToRem(13);
 }
 
 #tabulator-loader {

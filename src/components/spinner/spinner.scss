@@ -1,4 +1,5 @@
-@import '../../style/internal/mdc-variables';
+@use '../../style/functions';
+@use '../../style/internal/mdc-variables';
 
 :host {
     animation-duration: 1s;
@@ -8,34 +9,34 @@
     border-radius: 50%;
     border-style: solid;
     border-top-color: transparent;
-    border-width: pxToRem(2);
+    border-width: functions.pxToRem(2);
     display: inline-block;
     box-sizing: border-box;
 
     // size=mini is the default
-    height: pxToRem(24);
-    width: pxToRem(24);
+    height: functions.pxToRem(24);
+    width: functions.pxToRem(24);
 }
 
 :host([size='x-small']) {
-    height: pxToRem(32);
-    width: pxToRem(32);
-    border-width: pxToRem(3);
+    height: functions.pxToRem(32);
+    width: functions.pxToRem(32);
+    border-width: functions.pxToRem(3);
 }
 :host([size='small']) {
-    height: pxToRem(34);
-    width: pxToRem(34);
+    height: functions.pxToRem(34);
+    width: functions.pxToRem(34);
 }
 :host([size='medium']) {
-    height: pxToRem(44);
-    width: pxToRem(44);
+    height: functions.pxToRem(44);
+    width: functions.pxToRem(44);
 }
 :host([size='large']) {
-    height: pxToRem(64);
-    width: pxToRem(64);
+    height: functions.pxToRem(64);
+    width: functions.pxToRem(64);
 
     // Increase width slightly. It becomes too thin otherwise.
-    border-width: pxToRem(3);
+    border-width: functions.pxToRem(3);
 }
 
 :host([hidden]) {
@@ -43,8 +44,8 @@
 }
 
 :host(.dropdown--spinner) {
-    margin: pxToRem(10) 0;
-    color: var(--lime-primary-color, #{$mdc-theme-primary});
+    margin: functions.pxToRem(10) 0;
+    color: var(--lime-primary-color, #{mdc-variables.$mdc-theme-primary});
 }
 
 @keyframes spin {

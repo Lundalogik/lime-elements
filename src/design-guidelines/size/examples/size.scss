@@ -1,15 +1,15 @@
-@import '../../../style/functions';
+@use '../../../style/functions';
 
 :host {
     display: block;
     background-color: rgb(var(--contrast-200));
-    border-radius: pxToRem(4);
+    border-radius: functions.pxToRem(4);
 }
 
 #size-rhythm-example {
     background-color: rgb(var(--contrast-400));
-    border-radius: pxToRem(4) pxToRem(4) 0 0;
-    padding: pxToRem(20);
+    border-radius: functions.pxToRem(4) functions.pxToRem(4) 0 0;
+    padding: functions.pxToRem(20);
 }
 
 .button {
@@ -17,17 +17,19 @@
 
     display: inline-block;
     border: none;
-    border-radius: pxToRem(6);
+    border-radius: functions.pxToRem(6);
 
-    height: pxToRem(40);
-    line-height: pxToRem(40);
-    padding: 0 pxToRem(16);
-    margin: 0 pxToRem(6);
+    height: functions.pxToRem(40);
+    line-height: functions.pxToRem(40);
+    padding: 0 functions.pxToRem(16);
+    margin: 0 functions.pxToRem(6);
 
-    font-size: pxToRem(16);
+    font-size: functions.pxToRem(16);
     background-color: rgb(var(--contrast-200));
-    box-shadow: 0 #{pxToRem(1.5)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.232),
-        0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0 rgba(0, 0, 0, 0.208);
+    box-shadow: 0 #{functions.pxToRem(1.5)} #{functions.pxToRem(3.6)} 0
+            rgba(0, 0, 0, 0.232),
+        0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
+            rgba(0, 0, 0, 0.208);
 
     &:first-of-type {
         margin-left: 0;

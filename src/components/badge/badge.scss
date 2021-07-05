@@ -1,4 +1,4 @@
-@import '../../style/internal/mdc-variables';
+@use '../../style/functions';
 
 /**
  * @prop --badge-background-color: badge background color
@@ -19,14 +19,14 @@
 
 .badge-container {
     display: inline-block;
-    font-size: pxToRem(11);
-    min-width: pxToRem(20);
-    height: pxToRem(20);
-    border-radius: pxToRem(20);
-    line-height: pxToRem(20);
+    font-size: functions.pxToRem(11);
+    min-width: functions.pxToRem(20);
+    height: functions.pxToRem(20);
+    border-radius: functions.pxToRem(20);
+    line-height: functions.pxToRem(20);
     text-align: center;
     background-color: var(--badge-background-color, rgb(var(--contrast-500)));
     color: var(--badge-text-color, rgb(var(--contrast-1200)));
-    padding: 0 pxToRem(5);
-    margin-left: pxToRem(4);
+    padding: 0 functions.pxToRem(5);
+    margin-left: functions.pxToRem(4);
 }

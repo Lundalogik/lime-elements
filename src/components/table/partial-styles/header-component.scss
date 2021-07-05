@@ -1,12 +1,15 @@
+@use '../../../style/mixins';
+@use '../../../style/functions';
+
 .lime-col-title__custom-component {
     width: 100%;
     display: flex;
     align-items: center;
-    margin-right: pxToRem(20);
+    margin-right: functions.pxToRem(20);
 }
 
 .title-component-text {
-    @include truncate-text();
+    @include mixins.truncate-text();
     flex-grow: 1;
     flex-shrink: 1;
     min-width: 0;

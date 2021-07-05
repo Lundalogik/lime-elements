@@ -1,9 +1,13 @@
+@use '../../../style/internal/z-index';
+@use '../../../style/mixins';
+@use '../../../style/functions';
+
 :host(.has-interactive-rows) {
     .tabulator-row {
         &.tabulator-selectable {
-            @include is-flat-clickable();
+            @include mixins.is-flat-clickable();
             &:hover {
-                z-index: $limel-table--has-interactive-rows--selectable-row--hover--z-index;
+                z-index: z-index.$table--has-interactive-rows--selectable-row--hover;
             }
             &:not(.active) {
                 &:hover {
@@ -27,11 +31,11 @@
 
     // This provides space for box-shadow effect. Otherwise the overflow properties will cut them out
     .tabulator-headers {
-        padding: 0 pxToRem(8);
+        padding: 0 functions.pxToRem(8);
     }
     // This provides space for box-shadow effect. Otherwise the overflow properties will cut them out
     .tabulator-row {
-        width: calc(100% - #{pxToRem(16)});
+        width: calc(100% - #{functions.pxToRem(16)});
         margin-right: auto;
         margin-left: auto;
     }
@@ -40,39 +44,39 @@
         background-color: transparent;
 
         .tabulator-col-content {
-            padding-left: pxToRem(8);
+            padding-left: functions.pxToRem(8);
         }
     }
 
     .tabulator-col {
         &:first-child {
-            border-radius: pxToRem(6) 0 0 pxToRem(6);
+            border-radius: functions.pxToRem(6) 0 0 functions.pxToRem(6);
         }
         &:last-child {
-            border-radius: 0 pxToRem(6) pxToRem(6) 0;
+            border-radius: 0 functions.pxToRem(6) functions.pxToRem(6) 0;
         }
     }
 
     .tabulator-row {
-        border-radius: pxToRem(8);
-        margin-bottom: pxToRem(4);
+        border-radius: functions.pxToRem(8);
+        margin-bottom: functions.pxToRem(4);
 
         &:first-child {
-            margin-top: pxToRem(12);
+            margin-top: functions.pxToRem(12);
         }
     }
 
     .tabulator-cell {
-        height: pxToRem(44);
-        line-height: pxToRem(32);
-        padding-left: pxToRem(12);
-        padding-right: pxToRem(8);
+        height: functions.pxToRem(44);
+        line-height: functions.pxToRem(32);
+        padding-left: functions.pxToRem(12);
+        padding-right: functions.pxToRem(8);
 
         &:first-child {
-            border-radius: pxToRem(8) 0 0 pxToRem(8);
+            border-radius: functions.pxToRem(8) 0 0 functions.pxToRem(8);
         }
         &:last-child {
-            border-radius: 0 pxToRem(8) pxToRem(8) 0;
+            border-radius: 0 functions.pxToRem(8) functions.pxToRem(8) 0;
         }
     }
 }

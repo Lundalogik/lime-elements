@@ -1,11 +1,11 @@
-@import '../../../style/functions';
-@import './shared-styles';
+@use '../../../style/functions';
+@use './shared-styles';
 
 // NOTE The following is a special local file that applies colors on :host
 // instead of :root. This is necessary to have this example use both dark- and
 // light-mode, despite the docs overall only using light-mode. This can be
 // removed once we enable dark-mode for the docs again. /Ads
-@import './color-palette-extended';
+@use './color-palette-extended';
 
 .color-palette {
     grid-template-rows: repeat(3, 1fr) auto;
@@ -13,7 +13,7 @@
 }
 
 .swatch {
-    max-height: pxToRem(32);
+    max-height: functions.pxToRem(32);
 
     &.hue {
         writing-mode: initial;
@@ -23,9 +23,9 @@
 
 .usage {
     ul {
-        padding-inline-start: pxToRem(16);
-        font-size: pxToRem(14);
+        padding-inline-start: functions.pxToRem(16);
+        font-size: functions.pxToRem(14);
         color: rgb(var(--contrast-1300));
-        margin: 0 0 pxToRem(16) 0;
+        margin: 0 0 functions.pxToRem(16) 0;
     }
 }

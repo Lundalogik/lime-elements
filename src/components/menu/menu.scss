@@ -1,4 +1,4 @@
-@import '../../style/internal/mdc-variables';
+@use '../../style/functions';
 
 // Note! The `--dropdown-z-index` property is used from `menu.tsx`.
 /**
@@ -19,7 +19,7 @@
     border-style: solid;
     background: none;
     color: rgb(var(--contrast-800));
-    height: pxToRem(36);
+    height: functions.pxToRem(36);
 
     &-enabled {
         &:hover {

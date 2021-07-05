@@ -1,5 +1,5 @@
-@import '../../style/functions';
-@import '../../style/internal/variables';
+@use '../../style/internal/z-index';
+@use '../../style/functions';
 
 .limel-popover-surface {
     position: relative;
@@ -10,10 +10,10 @@
     max-height: calc(100vh - 2rem);
     max-width: calc(100vw - 2rem);
 
-    border-radius: var(--popover-border-radius, pxToRem(12));
+    border-radius: var(--popover-border-radius, functions.pxToRem(12));
     box-shadow: var(--shadow-depth-16);
 
-    backdrop-filter: blur(pxToRem(5));
+    backdrop-filter: blur(functions.pxToRem(5));
 
     &:after {
         // allows using `--popover-body-background-color` while
@@ -27,11 +27,11 @@
         right: 0;
         bottom: 0;
         left: 0;
-        z-index: $limel-popover-before--z-index;
+        z-index: z-index.$popover-before;
 
         opacity: 0.7;
 
-        border-radius: var(--popover-border-radius, pxToRem(12));
+        border-radius: var(--popover-border-radius, functions.pxToRem(12));
         background-color: var(
             --popover-body-background-color,
             rgb(var(--contrast-100))

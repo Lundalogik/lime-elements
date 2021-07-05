@@ -1,3 +1,5 @@
+@use '../../style/functions';
+
 .scroll-fade,
 .scroll-button {
     position: absolute;
@@ -11,11 +13,15 @@
 .scroll-fade {
     top: 0;
     height: 100%;
-    width: pxToRem($tab-scroller-fade-width);
+    width: functions.pxToRem($tab-scroller-fade-width);
     pointer-events: none;
 
     &.left {
-        transform: translate3d(pxToRem(0 - $tab-scroller-fade-width), 0, 0);
+        transform: translate3d(
+            functions.pxToRem(0 - $tab-scroller-fade-width),
+            0,
+            0
+        );
         left: 0;
         background: linear-gradient(
             270deg,
@@ -26,7 +32,11 @@
     }
 
     &.right {
-        transform: translate3d(pxToRem($tab-scroller-fade-width), 0, 0);
+        transform: translate3d(
+            functions.pxToRem($tab-scroller-fade-width),
+            0,
+            0
+        );
         right: 0;
         background: linear-gradient(
             90deg,
@@ -39,16 +49,24 @@
 
 .scroll-button {
     --icon-background-color: rgb(var(--contrast-100));
-    top: pxToRem(4);
+    top: functions.pxToRem(4);
 
     &.left {
-        transform: translate3d(pxToRem(0 - $tab-scroller-fade-width), 0, 0);
-        left: pxToRem(4);
+        transform: translate3d(
+            functions.pxToRem(0 - $tab-scroller-fade-width),
+            0,
+            0
+        );
+        left: functions.pxToRem(4);
     }
 
     &.right {
-        transform: translate3d(pxToRem($tab-scroller-fade-width), 0, 0);
-        right: pxToRem(4);
+        transform: translate3d(
+            functions.pxToRem($tab-scroller-fade-width),
+            0,
+            0
+        );
+        right: functions.pxToRem(4);
     }
 
     &:hover {
@@ -80,7 +98,7 @@
 }
 
 .mdc-tab-scroller__scroll-content {
-    padding: pxToRem(8) $tab-active-outer-edge-curve-size 0
+    padding: functions.pxToRem(8) $tab-active-outer-edge-curve-size 0
         $tab-active-outer-edge-curve-size;
     background-color: rgb($tab-background-color);
 }

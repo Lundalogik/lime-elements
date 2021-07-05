@@ -1,9 +1,8 @@
-@import '../style/functions';
-@import '../style/mixins';
+@use '../style/functions';
 
 code {
     font-family: 'Source Code Pro', monospace;
-    font-size: pxToRem(12);
+    font-size: functions.pxToRem(12);
 
     -moz-tab-size: 4;
     -o-tab-size: 4;
@@ -15,17 +14,17 @@ code {
     hyphens: none;
 
     display: inline-block;
-    border-radius: pxToRem(3);
-    padding: pxToRem(1) pxToRem(5);
+    border-radius: functions.pxToRem(3);
+    padding: functions.pxToRem(1) functions.pxToRem(5);
     color: rgb(var(--kompendium-contrast-1300));
     background-color: rgb(var(--kompendium-contrast-600));
 }
 
 pre > code {
     display: block;
-    border-radius: pxToRem(8);
-    margin: pxToRem(8) 0;
-    padding: pxToRem(16);
+    border-radius: functions.pxToRem(8);
+    margin: functions.pxToRem(8) 0;
+    padding: functions.pxToRem(16);
     overflow: auto;
     white-space: pre-wrap;
 

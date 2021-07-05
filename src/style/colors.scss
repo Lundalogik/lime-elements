@@ -1,15 +1,15 @@
-@import './brand-color-definitions';
+@use './brand-colors';
 
 :root {
-    --lime-deep-red: #{$lime-deep-red};
-    --lime-red: #{$lime-red};
-    --lime-orange: #{$lime-orange};
-    --lime-yellow: #{$lime-yellow};
-    --lime-green: #{$lime-green};
-    --lime-turquoise: #{$lime-turquoise};
-    --lime-blue: #{$lime-blue};
-    --lime-dark-blue: #{$lime-dark-blue};
-    --lime-magenta: #{$lime-magenta};
-    --lime-light-grey: #{$lime-light-grey};
-    --lime-dark-grey: #{$lime-dark-grey};
+    --lime-deep-red: #{brand-colors.$lime-deep-red};
+    --lime-red: #{brand-colors.$lime-red};
+    --lime-orange: #{brand-colors.$lime-orange};
+    --lime-yellow: #{brand-colors.$lime-yellow};
+    --lime-green: #{brand-colors.$lime-green};
+    --lime-turquoise: #{brand-colors.$lime-turquoise};
+    --lime-blue: #{brand-colors.$lime-blue};
+    --lime-dark-blue: #{brand-colors.$lime-dark-blue};
+    --lime-magenta: #{brand-colors.$lime-magenta};
+    --lime-light-grey: #{brand-colors.$lime-light-grey};
+    --lime-dark-grey: #{brand-colors.$lime-dark-grey};
 }

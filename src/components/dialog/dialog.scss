@@ -1,3 +1,5 @@
+@use '../../style/functions';
+
 @import '../../style/internal/mdc-variables';
 
 $mdc-dialog-max-width: null;
@@ -92,8 +94,8 @@ slot[name='header'] {
 
     background-repeat: no-repeat;
     background-color: var(--dialog-background-color);
-    background-size: 100% pxToRem(40), 100% pxToRem(40), 100% pxToRem(14),
-        100% pxToRem(14);
+    background-size: 100% functions.pxToRem(40), 100% functions.pxToRem(40),
+        100% functions.pxToRem(14), 100% functions.pxToRem(14);
 
     /* Opera doesn't support this in the shorthand */
     background-attachment: local, local, scroll, scroll;

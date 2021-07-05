@@ -1,3 +1,5 @@
+@use '../../../style/functions';
+
 @keyframes fade-in-tabulator-loader {
     0% {
         background: transparent;
@@ -26,12 +28,12 @@
             color: transparent; // gets rid of default "loading" label
             font-size: 0; // gets rid of default "loading" label
             border-radius: 50%;
-            border: pxToRem(3) solid
+            border: functions.pxToRem(3) solid
                 rgb(var(--lime-brand-color-flexible-turquoise)) !important;
             border-top-color: transparent !important;
 
-            width: pxToRem(20);
-            height: pxToRem(20);
+            width: functions.pxToRem(20);
+            height: functions.pxToRem(20);
 
             background-color: transparent !important;
             padding: 0;

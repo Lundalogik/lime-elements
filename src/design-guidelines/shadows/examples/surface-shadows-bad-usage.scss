@@ -1,14 +1,14 @@
-@import '../../../style/functions';
+@use '../../../style/functions';
 
 .surface-shadows-bad-usage {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: pxToRem(40);
-    padding: pxToRem(20);
+    grid-gap: functions.pxToRem(40);
+    padding: functions.pxToRem(20);
 }
 
 .content {
-    padding: pxToRem(8) pxToRem(20);
+    padding: functions.pxToRem(8) functions.pxToRem(20);
 }
 
 .do,
@@ -22,8 +22,8 @@
 }
 
 .box {
-    padding: pxToRem(8) pxToRem(20);
-    border-radius: pxToRem(8);
+    padding: functions.pxToRem(8) functions.pxToRem(20);
+    border-radius: functions.pxToRem(8);
 }
 
 .do {
@@ -31,8 +31,8 @@
 
     .box {
         background-color: rgb(var(--contrast-400));
-        margin: pxToRem(32) 0;
-        padding-top: pxToRem(4);
+        margin: functions.pxToRem(32) 0;
+        padding-top: functions.pxToRem(4);
     }
 }
 
@@ -47,6 +47,6 @@ limel-icon {
     color: rgb(var(--color-white));
     background-color: rgb(var(--color-sky-light));
     display: inline-block;
-    margin-right: pxToRem(8);
-    transform: translateY(pxToRem(3));
+    margin-right: functions.pxToRem(8);
+    transform: translateY(functions.pxToRem(3));
 }

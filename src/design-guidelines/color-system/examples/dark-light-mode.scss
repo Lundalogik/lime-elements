@@ -1,13 +1,13 @@
-@import '../../../style/functions';
-@import '../../../style/mixins';
-@import '../../../style/shadows';
-@import './shared-styles';
+@use '../../../style/functions';
+@use '../../../style/mixins';
+@use '../../../style/shadows';
+@use './shared-styles';
 
 // NOTE The following is a special local file that applies colors on :host
 // instead of :root. This is necessary to have this example use both dark- and
 // light-mode, despite the docs overall only using light-mode. This can be
 // removed once we enable dark-mode for the docs again. /Ads
-@import './color-palette-extended';
+@use './color-palette-extended';
 
 * {
     box-sizing: border-box;
@@ -25,20 +25,20 @@ hr {
     border-style: solid;
     border-width: 1px 0 0 0;
     border-color: rgb(var(--contrast-400));
-    margin-bottom: pxToRem(12);
+    margin-bottom: functions.pxToRem(12);
 }
 
 .app-layout {
-    margin: pxToRem(20) 0;
+    margin: functions.pxToRem(20) 0;
     display: grid;
     width: 100%;
-    min-height: pxToRem(400);
+    min-height: functions.pxToRem(400);
     overflow: hidden;
     border: 1px solid rgba(var(--color-black), 0.07);
-    border-radius: pxToRem(5);
+    border-radius: functions.pxToRem(5);
 
     grid-auto-flow: column;
-    grid-template-columns: pxToRem(80) auto;
+    grid-template-columns: functions.pxToRem(80) auto;
 
     .nav {
         background-color: rgb(var(--contrast-200));
@@ -48,17 +48,17 @@ hr {
 
     .nav__logo {
         display: block;
-        width: calc(100% - #{pxToRem(32)});
-        margin: pxToRem(16) auto;
+        width: calc(100% - #{functions.pxToRem(32)});
+        margin: functions.pxToRem(16) auto;
         cursor: pointer;
     }
 
     .nav_item {
         cursor: pointer;
         display: block;
-        width: pxToRem(40);
-        height: pxToRem(40);
-        margin: pxToRem(20) auto;
+        width: functions.pxToRem(40);
+        height: functions.pxToRem(40);
+        margin: functions.pxToRem(20) auto;
     }
 
     .workspace {
@@ -68,37 +68,38 @@ hr {
     .header {
         background-color: rgb(var(--contrast-200));
         color: rgb(var(--contrast-1200));
-        height: pxToRem(44);
-        line-height: pxToRem(44);
-        padding-left: pxToRem(16);
+        height: functions.pxToRem(44);
+        line-height: functions.pxToRem(44);
+        padding-left: functions.pxToRem(16);
     }
 }
 
 .card {
     display: grid;
     width: 60%;
-    height: pxToRem(200);
-    margin: pxToRem(100) auto;
+    height: functions.pxToRem(200);
+    margin: functions.pxToRem(100) auto;
 
     background-color: rgb(var(--contrast-200));
-    border-radius: pxToRem(7);
+    border-radius: functions.pxToRem(7);
     box-shadow: var(--shadow-depth-16);
 
     &__header {
-        font-size: pxToRem(16);
-        line-height: pxToRem(40);
+        font-size: functions.pxToRem(16);
+        line-height: functions.pxToRem(40);
 
         width: 100%;
-        height: pxToRem(40);
-        padding: 0 pxToRem(12);
+        height: functions.pxToRem(40);
+        padding: 0 functions.pxToRem(12);
 
         color: rgb(var(--contrast-1100));
         background-color: rgb(var(--contrast-300));
-        border-radius: pxToRem(7) pxToRem(7) 0 0;
+        border-radius: functions.pxToRem(7) functions.pxToRem(7) 0 0;
     }
 
     &__body {
-        padding: pxToRem(4) pxToRem(16) pxToRem(12) pxToRem(16);
+        padding: functions.pxToRem(4) functions.pxToRem(16)
+            functions.pxToRem(12) functions.pxToRem(16);
     }
 }
 
@@ -112,15 +113,15 @@ hr {
 }
 
 .button {
-    @include is-elevated-clickable();
-    margin-right: pxToRem(8);
-    line-height: pxToRem(32);
+    @include mixins.is-elevated-clickable();
+    margin-right: functions.pxToRem(8);
+    line-height: functions.pxToRem(32);
 
-    height: pxToRem(32);
-    padding: 0 pxToRem(8);
+    height: functions.pxToRem(32);
+    padding: 0 functions.pxToRem(8);
 
     border: none;
-    border-radius: pxToRem(4);
+    border-radius: functions.pxToRem(4);
 
     cursor: pointer;
 

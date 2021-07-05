@@ -5,8 +5,6 @@
  * without being explicitly used by outside code.
  */
 
-@import '../functions';
-@import '../brand-color-definitions';
-@import './z-index-variables';
+@use '../functions';
 
-$lime-banner-height: pxToRem(52) !default;
+$lime-banner-height: functions.pxToRem(52) !default;

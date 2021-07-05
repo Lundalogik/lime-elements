@@ -1,5 +1,5 @@
 @use './example-value';
-@import '../style/functions';
+@use '../style/functions';
 
 .events-display {
     max-height: 20rem;
@@ -11,7 +11,7 @@ h5 {
 }
 
 details {
-    font-size: pxToRem(14);
+    font-size: functions.pxToRem(14);
 }
 
 summary {
@@ -19,5 +19,5 @@ summary {
 }
 
 code {
-    font-size: pxToRem(10);
+    font-size: functions.pxToRem(10);
 }
