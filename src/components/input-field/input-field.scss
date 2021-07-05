@@ -1,6 +1,9 @@
+@use '../../style/internal/z-index';
+@use '../../style/functions';
+@use '../../style/internal/shared_input-select-picker';
+@use '../../style/mixins';
+
 @import '../../style/internal/mdc-variables';
-@import '../../style/internal/shared_input-select-picker';
-@import '../../style/mixins';
 
 @import '@limetech/mdc-textfield/mdc-text-field';
 @import '@limetech/mdc-ripple/mdc-ripple';
@@ -10,7 +13,6 @@
 
 @import './partial-styles/trailing-icon.scss';
 @import './partial-styles/outlined-style-overrides.scss';
-@import './partial-styles/cropped-label-hack';
 @import './partial-styles/readonly';
 
 /**
@@ -47,18 +49,18 @@
 .mdc-text-field {
     &:not(.mdc-text-field--disabled) {
         .mdc-floating-label {
-            color: $label-color;
+            color: shared_input-select-picker.$label-color;
         }
         .mdc-text-field__input {
-            color: $input-text-color;
+            color: shared_input-select-picker.$input-text-color;
         }
     }
     &.mdc-text-field--disabled {
         .mdc-floating-label {
-            color: $label-color-disabled;
+            color: shared_input-select-picker.$label-color-disabled;
         }
         .mdc-text-field__input {
-            color: $input-text-color-disabled;
+            color: shared_input-select-picker.$input-text-color-disabled;
         }
     }
 }
@@ -69,24 +71,26 @@
     @include mdc-states-focus-opacity(0, true);
 
     .mdc-floating-label {
-        right: pxToRem(
+        right: functions.pxToRem(
             8
         ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
     }
 }
 
-.formatted-input {
-    @include looks-like-input-label;
-    @include truncate-text;
-    width: calc(100% - #{pxToRem(20)});
+@include shared_input-select-picker.cropped-label-hack;
 
-    z-index: $limel-input-field--formatted-input--z-index;
-    padding: 0 pxToRem(40) 0 pxToRem(16);
+.formatted-input {
+    @include shared_input-select-picker.looks-like-input-label;
+    @include mixins.truncate-text;
+    width: calc(100% - #{functions.pxToRem(20)});
+
+    z-index: z-index.$input-field--formatted-input;
+    padding: 0 functions.pxToRem(40) 0 functions.pxToRem(16);
     align-self: center;
     position: absolute;
 
     display: none;
-    color: $input-text-color;
+    color: shared_input-select-picker.$input-text-color;
 }
 
 :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
@@ -103,7 +107,7 @@
 .mdc-text-field--disabled {
     background-color: transparent;
     .formatted-input {
-        @include looks-disabled;
+        @include shared_input-select-picker.looks-disabled;
     }
 }
 
@@ -117,7 +121,7 @@
     top: 0;
     left: 0;
     right: 0;
-    max-height: pxToRem(200);
+    max-height: functions.pxToRem(200);
     overflow-y: auto;
 }
 
@@ -126,18 +130,18 @@
 }
 
 .mdc-text-field__icon {
-    width: pxToRem(24);
-    height: pxToRem(24);
+    width: functions.pxToRem(24);
+    height: functions.pxToRem(24);
 }
 
 input.mdc-text-field__input {
     &::-webkit-search-cancel-button {
-        @include clear-all-button;
+        @include mixins.clear-all-button;
 
         -webkit-appearance: none;
 
         position: absolute;
-        right: pxToRem(8);
+        right: functions.pxToRem(8);
         top: 0;
         bottom: 0;
         margin: auto;
@@ -152,7 +156,7 @@ input.mdc-text-field__input {
     &:not(.mdc-text-field--disabled)
         + .mdc-text-field-helper-line
         .mdc-text-field-helper-text {
-        color: $helper-text-color;
+        color: shared_input-select-picker.$helper-text-color;
     }
 }
 
@@ -165,12 +169,12 @@ input.mdc-text-field__input {
     }
 
     &:before {
-        height: $height-of-helper-text-pseudo-before;
+        height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
     }
 }
 
 .mdc-text-field-helper-text {
     &:before {
-        height: $height-of-helper-text-pseudo-before;
+        height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
     }
 }

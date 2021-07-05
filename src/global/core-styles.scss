@@ -1,8 +1,9 @@
 // These are exported for external use.
 
-@import '../style/_theme-color-variables.scss';
+@use '../style/internal/mdc-variables';
+@use '../style/_theme-color-variables';
+@use '../style/colors.scss';
+@use '../style/shadows.scss';
 :root {
-    @include theme-color-variables;
+    @include theme-color-variables.theme-color-variables;
 }
-@import '../style/colors.scss';
-@import '../style/shadows.scss';

@@ -46,8 +46,29 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
 
 @mixin label--float-above() {
     transform: translateY(-2.38rem) scale(0.75);
-    // font-size: pxToRem(16); // See comments in: /input-field/partial-styles/_cropped-label-hack.scss
+    // font-size: functions.pxToRem(16); // See comments in `cropped-label-hack` below
     font-size: 0.875rem;
+}
+
+@mixin cropped-label-hack {
+    // Some font size applied to `label--float-above` causes the labels to get cut off
+    // when an empty field gets focused
+
+    .mdc-text-field--outlined.mdc-notched-outline--upgraded,
+    .mdc-text-field--outlined .mdc-notched-outline--upgraded {
+        .mdc-floating-label--float-above {
+            //font-size: 1rem; This is what we get from MD now, which causes the miscalculations
+            font-size: 0.875rem;
+            // of course this is `14px` and the other one is `16px`.
+            // Unfortunately MD scales the floating label down, by applying a
+            // `transform` & `scale(0.75)` which is probably why they had to increase
+            // the font-size, to make it more readable.
+            // This is why I don't like this hack.
+        }
+    }
+
+    // NOTE: if we ever remove this hack, we must also update the mixin above
+    // (`label--float-above`)
 }
 
 @mixin looks-like-helper-line {

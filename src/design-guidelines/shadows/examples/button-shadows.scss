@@ -1,15 +1,17 @@
+@use '../../../style/functions';
+
 .button {
     box-sizing: border-box;
 
     display: inline-block;
     border: none;
-    border-radius: pxToRem(6);
+    border-radius: functions.pxToRem(6);
 
-    height: pxToRem(40);
-    line-height: pxToRem(40);
-    padding: 0 pxToRem(16);
+    height: functions.pxToRem(40);
+    line-height: functions.pxToRem(40);
+    padding: 0 functions.pxToRem(16);
 
-    font-size: pxToRem(16);
+    font-size: functions.pxToRem(16);
     background-color: rgb(var(--contrast-100));
 
     &:focus {

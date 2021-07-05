@@ -1,5 +1,6 @@
-@import '../../style/internal/mdc-variables';
-@import '../../style/mixins';
+@use '../../style/internal/mdc-variables';
+@use '../../style/functions';
+@use '../../style/mixins';
 
 /**
  * @prop --closed-header-background-color: background color for header when closed
@@ -30,9 +31,9 @@
     display: flex;
     justify-content: space-between;
 
-    padding-left: pxToRem(10);
-    padding-right: pxToRem(10);
-    height: pxToRem(60);
+    padding-left: functions.pxToRem(10);
+    padding-right: functions.pxToRem(10);
+    height: functions.pxToRem(60);
 
     background-color: var(
         --closed-header-background-color,
@@ -63,11 +64,11 @@
 }
 
 .section__header__title {
-    @include truncate-text;
+    @include mixins.truncate-text;
     line-height: normal;
 
     justify-self: flex-start;
-    padding-right: pxToRem(12);
+    padding-right: functions.pxToRem(12);
 
     user-select: none; // mostly to improve experience on Android, where tapping on sections selects the text too
 }
@@ -75,10 +76,10 @@
 .section__header__divider-line {
     transition: opacity 0.3s ease 0.3s;
     flex-grow: 1;
-    height: pxToRem(2);
-    border-radius: pxToRem(1);
+    height: functions.pxToRem(2);
+    border-radius: functions.pxToRem(1);
     background-color: var(--header-stroke-color, rgb(var(--contrast-900)));
-    margin-right: pxToRem(16);
+    margin-right: functions.pxToRem(16);
 
     opacity: 0;
 
@@ -104,9 +105,9 @@
 .section__body {
     animation: fade-in-section__body 0.3s ease-in forwards;
     background-color: var(--body-background-color, var(--contrast-100));
-    padding-left: var(--body-padding, pxToRem(20));
-    padding-right: var(--body-padding, pxToRem(20));
-    margin-bottom: pxToRem(24);
+    padding-left: var(--body-padding, functions.pxToRem(20));
+    padding-right: var(--body-padding, functions.pxToRem(20));
+    margin-bottom: functions.pxToRem(24);
     border-radius: 0 0 var(--border-radius-of-header)
         var(--border-radius-of-header);
 

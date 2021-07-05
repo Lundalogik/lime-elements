@@ -1,13 +1,13 @@
-@import '../../../style/functions';
-@import 'button-shadows.scss';
-@import 'surface-shadows.scss';
-@import 'surface-shadows-inflated.scss';
+@use '../../../style/functions';
+@use './button-shadows';
+@use './surface-shadows';
+@use './surface-shadows-inflated';
 
 .shadow-example-grid {
     display: grid;
-    grid-gap: pxToRem(28);
+    grid-gap: functions.pxToRem(28);
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    padding: pxToRem(20) 0;
+    padding: functions.pxToRem(20) 0;
 }
 
 .visualization {
@@ -15,11 +15,11 @@
     flex-direction: column;
 
     code {
-        font-size: pxToRem(12);
+        font-size: functions.pxToRem(12);
         background-color: rgb(var(--kompendium-contrast-500));
         color: rgb(var(--kompendium-contrast-1100));
-        padding: 0 pxToRem(4);
-        border-radius: pxToRem(3);
-        margin-top: pxToRem(12);
+        padding: 0 functions.pxToRem(4);
+        border-radius: functions.pxToRem(3);
+        margin-top: functions.pxToRem(12);
     }
 }

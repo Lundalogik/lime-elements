@@ -1,3 +1,6 @@
+@use '../../../style/mixins';
+@use '../../../style/functions';
+
 .tabulator {
     .tabulator-footer {
         transition: transform 0.5s ease-out, opacity 0.35s ease; //For some reason the footer is not animated when it gets hidden/removed
@@ -8,25 +11,25 @@
             justify-content: end;
 
             .tabulator-pages {
-                margin: 0 pxToRem(8);
+                margin: 0 functions.pxToRem(8);
 
                 .tabulator-page {
-                    margin: 0 pxToRem(0);
+                    margin: 0 functions.pxToRem(0);
                 }
             }
 
             .tabulator-page {
                 &:not([disabled]) {
-                    @include is-flat-clickable;
+                    @include mixins.is-flat-clickable;
                 }
                 position: relative;
-                height: pxToRem(28);
-                min-width: pxToRem(28);
-                padding: 0 pxToRem(8);
+                height: functions.pxToRem(28);
+                min-width: functions.pxToRem(28);
+                padding: 0 functions.pxToRem(8);
                 margin: 0;
 
                 border: none;
-                border-radius: pxToRem(40);
+                border-radius: functions.pxToRem(40);
 
                 color: #303042;
                 background-color: transparent;
@@ -53,8 +56,8 @@
     }
 }
 
-$height-of-tabulator-header: pxToRem(34);
-$height-of-tabulator-paginator: pxToRem(36);
+$height-of-tabulator-header: functions.pxToRem(34);
+$height-of-tabulator-paginator: functions.pxToRem(36);
 
 .tabulator:not(.has-pagination) {
     &:not(.has-aggregation) {
@@ -85,7 +88,7 @@ $height-of-tabulator-paginator: pxToRem(36);
         .tabulator-paginator {
             visibility: hidden; //Display:none does not work here because of the tabulators dynamic calculations, which requires manual resizing.
             opacity: 0;
-            transform: translateY(pxToRem(40));
+            transform: translateY(functions.pxToRem(40));
         }
     }
 }
@@ -104,10 +107,10 @@ $height-of-tabulator-paginator: pxToRem(36);
             opacity: 0.7;
 
             position: absolute;
-            top: pxToRem(2);
-            right: pxToRem(2);
-            bottom: pxToRem(2);
-            left: pxToRem(2);
+            top: functions.pxToRem(2);
+            right: functions.pxToRem(2);
+            bottom: functions.pxToRem(2);
+            left: functions.pxToRem(2);
         }
     }
 
@@ -136,7 +139,7 @@ $height-of-tabulator-paginator: pxToRem(36);
     &[data-page='last']:not([disabled]) {
         &:hover {
             &:after {
-                transform: translate3d(pxToRem(1.5), 0, 0);
+                transform: translate3d(functions.pxToRem(1.5), 0, 0);
             }
         }
     }
@@ -145,7 +148,8 @@ $height-of-tabulator-paginator: pxToRem(36);
     &[data-page='prev']:not([disabled]) {
         &:hover {
             &:after {
-                transform: translate3d(pxToRem(-1.5), 0, 0) rotateZ(180deg);
+                transform: translate3d(functions.pxToRem(-1.5), 0, 0)
+                    rotateZ(180deg);
             }
         }
     }

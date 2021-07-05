@@ -1,3 +1,5 @@
+@use '../../../style/functions';
+
 @keyframes detach-a-column-header {
     0% {
         transform: rotate(0deg);
@@ -20,7 +22,7 @@
                     opacity: 0.9;
                     border: none;
 
-                    border-radius: pxToRem(4);
+                    border-radius: functions.pxToRem(4);
                     background-color: $table-header-background-color-when-being-dragged;
                     box-shadow: var(--shadow-depth-16);
 

@@ -1,16 +1,18 @@
+@use '../../../style/functions';
+
 .mdc-text-field--with-trailing-icon {
     .mdc-text-field__icon.trailing-icon {
         transition: background-color 0.2s ease, box-shadow 0.3s ease;
         border-radius: 50%;
-        padding: pxToRem(8);
-        right: pxToRem(8);
+        padding: functions.pxToRem(8);
+        right: functions.pxToRem(8);
 
         &:focus {
             outline: none;
         }
 
         &:focus-visible {
-            box-shadow: 0 0 0 pxToRem(2) var(--mdc-theme-primary) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
+            box-shadow: 0 0 0 functions.pxToRem(2) var(--mdc-theme-primary) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
         }
     }
     &:hover {

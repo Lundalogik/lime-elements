@@ -1,11 +1,11 @@
-@import '../../style/internal/mdc-variables';
-@import '../../style/internal/shared_input-select-picker';
+@use '../../style/functions';
+@use '../../style/internal/shared_input-select-picker';
+@use '../../style/mixins';
 
 @import '@limetech/mdc-select/mdc-select';
 @import '@limetech/mdc-select/helper-text/mdc-select-helper-text';
 @import '@limetech/mdc-floating-label/mdc-floating-label';
 
-@import '../../style/mixins';
 @import './partial-styles/_readonly.scss';
 
 // Note! The `--dropdown-z-index` property is used from `select.tsx`.
@@ -16,7 +16,7 @@
 :host {
     display: block;
     position: relative;
-    height: $height-of-mdc-text-field;
+    height: shared_input-select-picker.$height-of-mdc-text-field;
 }
 
 :host([hidden]) {
@@ -30,19 +30,19 @@
     box-sizing: border-box;
     outline: none;
 
-    padding: 0 pxToRem(16);
+    padding: 0 functions.pxToRem(16);
     align-self: center;
     min-width: 0; // makes it truncate and prevents the select to grow wider than its container
 }
 
 .limel-select__selected-option__icon {
-    margin-right: pxToRem(8);
+    margin-right: functions.pxToRem(8);
     flex-shrink: 0;
 }
 
 .limel-select__selected-option__text {
-    @include looks-like-input-label;
-    @include truncate-text;
+    @include shared_input-select-picker.looks-like-input-label;
+    @include mixins.truncate-text;
 }
 
 .limel-select {
@@ -54,8 +54,8 @@
         height: 100%;
 
         cursor: pointer;
-        border-radius: pxToRem(5);
-        background-color: $background-color-focused;
+        border-radius: functions.pxToRem(5);
+        background-color: shared_input-select-picker.$background-color-focused;
 
         &:focus {
             outline: none;
@@ -69,15 +69,15 @@
         }
 
         .mdc-floating-label {
-            @include looks-like-input-label;
+            @include shared_input-select-picker.looks-like-input-label;
             top: 50%;
-            right: pxToRem(
+            right: functions.pxToRem(
                 16
             ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
             transform: translateY(-50%);
 
             &.mdc-floating-label--float-above {
-                @include label--float-above;
+                @include shared_input-select-picker.label--float-above;
             }
 
             &.mdc-floating-label--active {
@@ -103,16 +103,16 @@
 
     &.mdc-select--disabled {
         .limel-select-trigger {
-            @include looks-disabled;
+            @include shared_input-select-picker.looks-disabled;
         }
     }
 
     &:not(.mdc-select--disabled) {
         .limel-select-trigger {
-            @include is-elevated-clickable;
+            @include mixins.is-elevated-clickable;
 
             &.limel-select--focused {
-                background-color: $background-color-focused;
+                background-color: shared_input-select-picker.$background-color-focused;
 
                 .mdc-floating-label {
                     color: var(--mdc-theme-primary);
@@ -140,23 +140,23 @@
         }
         .mdc-floating-label:not(.mdc-floating-label--float-above) {
             max-width: calc(
-                100% - #{pxToRem(64)}
+                100% - #{functions.pxToRem(64)}
             ); // leaves space for the invalid-icon
         }
     }
 }
 
 .invalid-icon {
-    margin-right: pxToRem(8);
+    margin-right: functions.pxToRem(8);
     flex-shrink: 0;
 }
 
 .mdc-select-helper-line {
-    @include looks-like-helper-line;
+    @include shared_input-select-picker.looks-like-helper-line;
 }
 .mdc-select-helper-text {
     &:before {
-        @include looks-like-helper-text-pseudo-before;
+        @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
     }
 }
 
@@ -172,7 +172,7 @@ select.limel-select__native-control {
 }
 
 :host(.is-narrow) {
-    height: pxToRem(36);
+    height: functions.pxToRem(36);
 
     .mdc-floating-label {
         &.mdc-floating-label--float-above {
@@ -181,6 +181,6 @@ select.limel-select__native-control {
     }
 
     .limel-select__selected-option {
-        padding: 0 pxToRem(12);
+        padding: 0 functions.pxToRem(12);
     }
 }

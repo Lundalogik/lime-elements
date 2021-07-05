@@ -1,5 +1,6 @@
-@import '../../style/internal/mdc-variables';
-@import '../../style/mixins';
+@use '../../style/internal/mdc-variables';
+@use '../../style/internal/variables';
+@use '../../style/functions';
 
 /**
  * @prop --banner-icon-fill-color: Color of the banner icon.
@@ -8,10 +9,10 @@
  */
 
 .lime-banner {
-    min-height: $lime-banner-height;
+    min-height: variables.$lime-banner-height;
     display: none;
     background-color: rgba(var(--contrast-100), 0.7);
-    backdrop-filter: blur(pxToRem(5));
+    backdrop-filter: blur(functions.pxToRem(5));
     box-shadow: var(--shadow-depth-16);
 
     &.lime-banner--open {
@@ -31,7 +32,7 @@
         display: flex;
         align-items: center;
         align-content: stretch;
-        padding: pxToRem(16);
+        padding: functions.pxToRem(16);
         flex-wrap: wrap;
     }
 
@@ -40,12 +41,12 @@
     }
 
     .lime-banner__icon {
-        margin: 0 pxToRem(10);
+        margin: 0 functions.pxToRem(10);
         align-self: flex-start;
     }
 
     .lime-banner__actions {
-        margin-left: pxToRem(50);
+        margin-left: functions.pxToRem(50);
         display: flex;
         justify-content: flex-end;
     }

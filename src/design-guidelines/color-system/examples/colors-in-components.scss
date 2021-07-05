@@ -1,14 +1,14 @@
-@import '../../../style/functions';
+@use '../../../style/functions';
 
 h3 {
     color: rgb(var(--kompendium-contrast-1300));
 }
 
 .background {
-    margin: pxToRem(12) auto pxToRem(20) auto;
-    padding: pxToRem(20) pxToRem(12);
+    margin: functions.pxToRem(12) auto functions.pxToRem(20) auto;
+    padding: functions.pxToRem(20) functions.pxToRem(12);
     background-color: rgb(var(--kompendium-contrast-300));
-    border-radius: pxToRem(3);
+    border-radius: functions.pxToRem(3);
 }
 
 .example-buttons {

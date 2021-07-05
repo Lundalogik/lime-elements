@@ -1,3 +1,5 @@
+@use '../../../style/functions';
+
 .shadow-depth-8 {
     box-shadow: var(--shadow-depth-8);
 }
@@ -36,13 +38,13 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: pxToRem(3);
+    border-radius: functions.pxToRem(3);
 
-    height: pxToRem(80);
+    height: functions.pxToRem(80);
     width: 100%;
-    padding: 0 pxToRem(16);
+    padding: 0 functions.pxToRem(16);
 
-    font-size: pxToRem(14);
+    font-size: functions.pxToRem(14);
     background-color: rgb(var(--contrast-100));
     z-index: 1;
 }

@@ -1,7 +1,10 @@
-@import '../../style/internal/mdc-variables';
-@import '../../style/internal/shared_input-select-picker';
+@use '../../style/internal/z-index';
+@use '../../style/functions';
+@use '../../style/internal/shared_input-select-picker';
 @import './partial-styles/percentage-color.scss';
 @import './partial-styles/_readonly.scss';
+
+@import '../../style/internal/mdc-variables';
 
 @import '@limetech/mdc-slider/mdc-slider';
 @import '@limetech/mdc-floating-label/mdc-floating-label';
@@ -31,43 +34,43 @@
 }
 
 .mdc-slider__pin-value-marker {
-    margin-bottom: pxToRem(2);
+    margin-bottom: functions.pxToRem(2);
 }
 
 .slider {
     position: relative;
-    padding-top: pxToRem(
+    padding-top: functions.pxToRem(
         20
     ); // Without this, the slider's label will be rendered outside the slider's box model (because it has an absolute position and transform)
 }
 
 .slider__label {
-    @include looks-like-input-label;
-    padding-left: pxToRem(20);
-    font-size: pxToRem(16);
+    @include shared_input-select-picker.looks-like-input-label;
+    padding-left: functions.pxToRem(20);
+    font-size: functions.pxToRem(16);
 }
 
 .slider__content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: pxToRem(-2) 0 pxToRem(2) 0;
+    margin: functions.pxToRem(-2) 0 functions.pxToRem(2) 0;
 }
 
 .slider__content-range-container {
     display: flex;
     order: 2;
     justify-content: space-between;
-    width: calc(100% - #{pxToRem(8)});
+    width: calc(100% - #{functions.pxToRem(8)});
     margin: 0 auto;
-    padding-top: pxToRem(4);
+    padding-top: functions.pxToRem(4);
 }
 
 .slider__content-min-label,
 .slider__content-max-label {
     opacity: 0.8;
-    font-size: pxToRem(12);
-    top: pxToRem(20);
+    font-size: functions.pxToRem(12);
+    top: functions.pxToRem(20);
 
     &:hover {
         opacity: 1;
@@ -83,29 +86,29 @@
 }
 
 .mdc-slider {
-    width: calc(100% - #{pxToRem(32)});
+    width: calc(100% - #{functions.pxToRem(32)});
     margin: 0 auto;
-    height: pxToRem(12);
+    height: functions.pxToRem(12);
 
     &:before,
     &:after {
         content: '';
         display: inline-block;
         position: absolute;
-        top: pxToRem(7);
+        top: functions.pxToRem(7);
 
-        width: pxToRem(6);
-        height: pxToRem(6);
+        width: functions.pxToRem(6);
+        height: functions.pxToRem(6);
         border-radius: 50%;
         background-color: rgb(var(--contrast-600));
     }
 
     &:before {
-        left: pxToRem(-12);
+        left: functions.pxToRem(-12);
     }
 
     &:after {
-        right: pxToRem(-12);
+        right: functions.pxToRem(-12);
     }
 }
 
@@ -115,14 +118,14 @@
 }
 
 .mdc-slider__track-container {
-    top: pxToRem(8);
-    height: pxToRem(4);
-    border-radius: pxToRem(4);
+    top: functions.pxToRem(8);
+    height: functions.pxToRem(4);
+    border-radius: functions.pxToRem(4);
 }
 
 .mdc-slider__thumb-container {
     top: 0;
-    z-index: $limel-slider--thumb-container--z-index;
+    z-index: z-index.$slider--thumb-container;
 
     .mdc-slider:not(.mdc-slider--disabled) & {
         &:before,
@@ -131,7 +134,7 @@
             content: '';
             display: block;
             position: absolute;
-            top: pxToRem(8);
+            top: functions.pxToRem(8);
             bottom: 0;
             margin: auto;
             background: {
@@ -141,27 +144,27 @@
                 size: cover;
             }
 
-            width: pxToRem(12);
+            width: functions.pxToRem(12);
             opacity: 0;
         }
 
         &:before {
-            left: pxToRem(-16);
+            left: functions.pxToRem(-16);
             transform: rotate(90deg);
         }
         &:after {
-            right: pxToRem(-14);
+            right: functions.pxToRem(-14);
             transform: rotate(-90deg);
         }
 
         &:hover {
             &:before {
                 opacity: 0.8;
-                left: pxToRem(-20);
+                left: functions.pxToRem(-20);
             }
             &:after {
                 opacity: 0.8;
-                right: pxToRem(-18);
+                right: functions.pxToRem(-18);
             }
         }
     }
@@ -170,13 +173,13 @@
 .mdc-slider__pin {
     transition: all 0.2s ease;
     transform: none;
-    border-radius: pxToRem(20);
+    border-radius: functions.pxToRem(20);
 
-    height: pxToRem(20);
-    line-height: pxToRem(20);
-    padding: 0 pxToRem(2);
+    height: functions.pxToRem(20);
+    line-height: functions.pxToRem(20);
+    padding: 0 functions.pxToRem(2);
 
-    left: pxToRem(-4);
+    left: functions.pxToRem(-4);
     margin: 0 auto;
 
     transform-origin: bottom;
@@ -191,7 +194,7 @@
     .mdc-slider--active & {
         // when the pin is being dragged
         box-shadow: var(--button-shadow-hovered);
-        transform: scale(1.5) translateY(pxToRem(-16)) !important;
+        transform: scale(1.5) translateY(functions.pxToRem(-16)) !important;
     }
 
     .mdc-slider.mdc-slider--disabled & {
@@ -200,14 +203,14 @@
 }
 
 .mdc-slider__thumb {
-    box-shadow: 0 0 0 pxToRem(2) rgba(var(--contrast-100), 0.8),
-        0 0 0 pxToRem(3) rgba(var(--contrast-100), 0.8) inset;
+    box-shadow: 0 0 0 functions.pxToRem(2) rgba(var(--contrast-100), 0.8),
+        0 0 0 functions.pxToRem(3) rgba(var(--contrast-100), 0.8) inset;
     border-radius: 50%;
 }
 
 .mdc-slider__pin-value-marker {
     transition: color 0.5s ease;
-    font-size: pxToRem(12);
+    font-size: functions.pxToRem(12);
     transform: rotate(0deg);
     margin-bottom: 0;
 }
@@ -224,12 +227,12 @@
 }
 
 .mdc-slider-helper-line {
-    @include looks-like-helper-line;
+    @include shared_input-select-picker.looks-like-helper-line;
 }
 .mdc-slider-helper-text {
-    @include looks-like-helper-text;
+    @include shared_input-select-picker.looks-like-helper-text;
     opacity: 1;
     &:before {
-        @include looks-like-helper-text-pseudo-before;
+        @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
     }
 }

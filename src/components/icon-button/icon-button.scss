@@ -1,5 +1,5 @@
-@import '../../style/mixins';
-@import '../../style/internal/mdc-variables';
+@use '../../style/mixins';
+@use '../../style/functions';
 @import '@limetech/mdc-icon-button/mdc-icon-button';
 
 @media (pointer: coarse) {
@@ -28,11 +28,11 @@
 
 :host([elevated]) {
     .mdc-icon-button {
-        padding: pxToRem(9);
+        padding: functions.pxToRem(9);
     }
 
     limel-icon {
-        @include is-elevated-clickable;
+        @include mixins.is-elevated-clickable;
     }
 }
 

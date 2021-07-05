@@ -1,10 +1,12 @@
+@use '../../../style/functions';
+
 .tabulator-col-sorter {
-    right: pxToRem(16) !important;
+    right: functions.pxToRem(16) !important;
 }
 .tabulator-arrow {
     position: absolute;
     transition: border 0.2s ease;
-    top: pxToRem(4);
+    top: functions.pxToRem(4);
     cursor: pointer;
 
     [aria-sort='none'] & {
@@ -27,29 +29,29 @@
     }
     &:before {
         background-color: $table-header-background-color;
-        width: pxToRem(8);
-        height: pxToRem(8);
+        width: functions.pxToRem(8);
+        height: functions.pxToRem(8);
         transform: rotate(45deg);
-        left: pxToRem(-4);
-        top: pxToRem(4);
+        left: functions.pxToRem(-4);
+        top: functions.pxToRem(4);
     }
     &:after {
-        width: pxToRem(2);
+        width: functions.pxToRem(2);
         background-color: $tabulator-arrow-color;
-        height: pxToRem(9);
-        top: pxToRem(2);
-        left: pxToRem(-1);
+        height: functions.pxToRem(9);
+        top: functions.pxToRem(2);
+        left: functions.pxToRem(-1);
     }
 
     [aria-sort='desc'] & {
-        top: pxToRem(10);
+        top: functions.pxToRem(10);
 
         &:before {
-            top: pxToRem(-12);
+            top: functions.pxToRem(-12);
         }
 
         &:after {
-            top: pxToRem(-11);
+            top: functions.pxToRem(-11);
         }
     }
 
@@ -67,10 +69,10 @@
         transform: translate3d(0, 0, 0);
     }
     30% {
-        transform: translate3d(0, pxToRem(-1.4), 0);
+        transform: translate3d(0, functions.pxToRem(-1.4), 0);
     }
     60% {
-        transform: translate3d(0, pxToRem(1.4), 0);
+        transform: translate3d(0, functions.pxToRem(1.4), 0);
     }
 }
 

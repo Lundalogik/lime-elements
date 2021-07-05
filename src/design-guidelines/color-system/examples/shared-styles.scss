@@ -1,13 +1,13 @@
-@import '../../../style/functions';
+@use '../../../style/functions';
 
 .color-palette {
     display: grid;
-    grid-gap: pxToRem(4);
+    grid-gap: functions.pxToRem(4);
     grid-auto-flow: column;
-    margin: pxToRem(12) auto pxToRem(20) auto;
-    padding: pxToRem(20) pxToRem(12);
+    margin: functions.pxToRem(12) auto functions.pxToRem(20) auto;
+    padding: functions.pxToRem(20) functions.pxToRem(12);
     background-color: rgb(var(--kompendium-contrast-300));
-    border-radius: pxToRem(3);
+    border-radius: functions.pxToRem(3);
 }
 
 .brightness-label,
@@ -22,7 +22,7 @@
     border-radius: 3px;
     justify-content: center;
     color: rgba(var(--kompendium-color-white), 0.4);
-    font-size: pxToRem(20);
+    font-size: functions.pxToRem(20);
 
     &:after {
         // this makes the aspect ratio 1:1
@@ -33,10 +33,10 @@
 
     &.hue {
         font-family: 'Source Code Pro', monospace;
-        font-size: pxToRem(12);
+        font-size: functions.pxToRem(12);
         position: relative;
         color: rgb(var(--kompendium-contrast-900));
-        padding-top: pxToRem(8);
+        padding-top: functions.pxToRem(8);
         writing-mode: vertical-lr;
         justify-content: left;
     }
@@ -44,7 +44,7 @@
 
 .brightness-label {
     font-family: 'Source Code Pro', monospace;
-    font-size: pxToRem(12);
+    font-size: functions.pxToRem(12);
     color: rgb(var(--kompendium-contrast-900));
     justify-content: start;
 }
@@ -52,9 +52,9 @@
 .brand-colors-tips {
     transition: opacity 0.2s ease 0.4s;
     opacity: 0;
-    font-size: pxToRem(14);
-    padding-left: pxToRem(44);
-    margin-bottom: pxToRem(40);
+    font-size: functions.pxToRem(14);
+    padding-left: functions.pxToRem(44);
+    margin-bottom: functions.pxToRem(40);
 }
 
 .brand-colors {

@@ -1,17 +1,19 @@
+@use '../../../style/internal/shared_input-select-picker';
+
 .mdc-text-field {
     &.lime-text-field--readonly {
         input.mdc-text-field__input {
             background-color: transparent;
-            color: $input-text-color;
+            color: shared_input-select-picker.$input-text-color;
         }
 
         .formatted-input {
-            color: $input-text-color;
+            color: shared_input-select-picker.$input-text-color;
             opacity: 1;
         }
 
         label.mdc-floating-label {
-            color: $label-color;
+            color: shared_input-select-picker.$label-color;
         }
 
         .mdc-notched-outline__leading,
@@ -38,7 +40,7 @@
 
             pointer-events: auto;
             cursor: pointer;
-            color: $label-color;
+            color: shared_input-select-picker.$label-color;
             border-radius: 0.25rem;
 
             width: calc(100% - 2rem);

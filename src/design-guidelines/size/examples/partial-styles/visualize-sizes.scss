@@ -1,4 +1,4 @@
-@import '../../../../style/functions';
+@use '../../../../style/functions';
 
 .visualize-sizes {
     .button,
@@ -27,7 +27,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: pxToRem(8);
+        font-size: functions.pxToRem(8);
         color: rgb(var(--contrast-1100));
         opacity: 0;
         box-sizing: border-box;
@@ -39,10 +39,10 @@
 
     &:after {
         content: '12';
-        top: pxToRem(4);
-        bottom: pxToRem(4);
-        right: pxToRem(-12);
-        width: pxToRem(12);
+        top: functions.pxToRem(4);
+        bottom: functions.pxToRem(4);
+        right: functions.pxToRem(-12);
+        width: functions.pxToRem(12);
         background-color: rgba(var(--color-cyan-light), 0.5);
     }
 }
@@ -56,8 +56,8 @@
         left: 0;
         bottom: 0;
         margin: auto;
-        width: pxToRem(20);
-        height: pxToRem(20);
+        width: functions.pxToRem(20);
+        height: functions.pxToRem(20);
         background-color: rgba(var(--color-orange-light), 0.5);
     }
 }
@@ -67,21 +67,21 @@
     &:after {
         transition-delay: 0.2s;
         content: '20';
-        left: pxToRem(0);
-        right: pxToRem(0);
+        left: functions.pxToRem(0);
+        right: functions.pxToRem(0);
         margin: auto;
-        height: pxToRem(20);
-        width: pxToRem(20);
+        height: functions.pxToRem(20);
+        width: functions.pxToRem(20);
 
         background-color: rgba(var(--color-orange-light), 0.5);
     }
 
     &:before {
-        top: pxToRem(-20);
+        top: functions.pxToRem(-20);
     }
 
     &:after {
-        bottom: pxToRem(-20);
+        bottom: functions.pxToRem(-20);
     }
 }
 
@@ -94,10 +94,10 @@
         bottom: 0;
         left: 0;
         margin: auto;
-        height: pxToRem(40);
-        width: pxToRem(16);
+        height: functions.pxToRem(40);
+        width: functions.pxToRem(16);
         background-color: rgba(var(--color-magenta-light), 0.5);
-        backdrop-filter: blur(pxToRem(4));
+        backdrop-filter: blur(functions.pxToRem(4));
     }
 }
 
@@ -108,16 +108,16 @@
         content: '16';
         top: 0;
         bottom: 0;
-        width: pxToRem(16);
+        width: functions.pxToRem(16);
 
         background-color: rgba(var(--color-green-lighter), 0.5);
     }
 
     &:before {
-        left: pxToRem(0);
+        left: functions.pxToRem(0);
     }
 
     &:after {
-        right: pxToRem(0);
+        right: functions.pxToRem(0);
     }
 }

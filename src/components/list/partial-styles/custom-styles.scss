@@ -1,3 +1,6 @@
+@use '../../../style/internal/z-index';
+@use '../../../style/mixins';
+
 $background-color-of-odd-interactive-items: rgb(var(--contrast-100));
 $background-color-of-even-interactive-items: rgb(var(--contrast-200));
 $background-color-of-interactive-items-hovered: rgb(var(--contrast-100));
@@ -20,10 +23,10 @@ $background-color-of-interactive-items-hovered: rgb(var(--contrast-100));
 :host(.has-interactive-items) {
     .mdc-list-item {
         &:not(.mdc-list-item--disabled) {
-            @include is-flat-clickable();
+            @include mixins.is-flat-clickable();
 
             &:hover {
-                z-index: $limel-list--has-interactive-items--mdc-list-item--hover--z-index;
+                z-index: z-index.$list--has-interactive-items--mdc-list-item--hover;
                 background-color: $background-color-of-interactive-items-hovered;
 
                 &:before {

@@ -1,14 +1,16 @@
+@use '../../../style/functions';
+
 .shadow-example-grid {
     &.inflated-examples {
         background-color: rgb(var(--contrast-600));
-        padding: pxToRem(60);
-        grid-gap: pxToRem(60);
+        padding: functions.pxToRem(60);
+        grid-gap: functions.pxToRem(60);
 
         .surface {
-            border-radius: pxToRem(16);
+            border-radius: functions.pxToRem(16);
             background-color: rgb(var(--contrast-300));
-            height: pxToRem(112);
-            margin-bottom: pxToRem(20);
+            height: functions.pxToRem(112);
+            margin-bottom: functions.pxToRem(20);
         }
     }
 }
