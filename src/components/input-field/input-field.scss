@@ -12,7 +12,6 @@
 @import '@limetech/mdc-menu-surface/mdc-menu-surface';
 
 @import './partial-styles/trailing-icon.scss';
-@import './partial-styles/outlined-style-overrides.scss';
 @import './partial-styles/readonly';
 
 /**
@@ -46,37 +45,9 @@
     }
 }
 
-.mdc-text-field {
-    &:not(.mdc-text-field--disabled) {
-        .mdc-floating-label {
-            color: shared_input-select-picker.$label-color;
-        }
-        .mdc-text-field__input {
-            color: shared_input-select-picker.$input-text-color;
-        }
-    }
-    &.mdc-text-field--disabled {
-        .mdc-floating-label {
-            color: shared_input-select-picker.$label-color-disabled;
-        }
-        .mdc-text-field__input {
-            color: shared_input-select-picker.$input-text-color-disabled;
-        }
-    }
-}
-
-.mdc-text-field {
-    width: 100%;
-    @include mdc-states-hover-opacity(0);
-    @include mdc-states-focus-opacity(0, true);
-
-    .mdc-floating-label {
-        right: functions.pxToRem(
-            8
-        ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
-    }
-}
-
+@include shared_input-select-picker.outlined-style-overrides;
+@include shared_input-select-picker.floating-label-overrides;
+@include shared_input-select-picker.readonly-overrides;
 @include shared_input-select-picker.cropped-label-hack;
 
 .formatted-input {
@@ -104,8 +75,9 @@
     }
 }
 
+@include shared_input-select-picker.disabled-overrides;
+
 .mdc-text-field--disabled {
-    background-color: transparent;
     .formatted-input {
         @include shared_input-select-picker.looks-disabled;
     }
@@ -129,10 +101,7 @@
     cursor: pointer;
 }
 
-.mdc-text-field__icon {
-    width: functions.pxToRem(24);
-    height: functions.pxToRem(24);
-}
+@include shared_input-select-picker.leading-icon;
 
 input.mdc-text-field__input {
     &::-webkit-search-cancel-button {

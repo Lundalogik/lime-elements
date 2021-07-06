@@ -1,3 +1,8 @@
+@use '../functions';
+
+@import '../../style/internal/mdc-variables';
+@import '@limetech/mdc-textfield/mdc-text-field';
+
 // Visual styles that unify the look & feel and behavior of
 // components such as input fields, select dropdowns and pickers
 
@@ -20,7 +25,7 @@ $height-of-mdc-helper-text-block: 0.9375rem;
 
 $mdc-chip-background-color: rgb(var(--contrast-100));
 
-$floating-label-top-value: pxToRem(
+$floating-label-top-value: functions.pxToRem(
     27
 ); // this overrides MD's original top value which is top: 50%. The reason is that we have fields or pickers which can have multiple rows, and a % value aligns the label in a wrong position
 
@@ -34,11 +39,11 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
 
 @mixin looks-like-input-label() {
     font-family: Roboto, sans-serif;
-    line-height: pxToRem(28);
+    line-height: functions.pxToRem(28);
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
-    font-size: pxToRem(14);
+    font-size: functions.pxToRem(14);
     font-weight: 400;
     letter-spacing: 0.009375em;
     color: $label-color;
@@ -99,4 +104,180 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
     width: 0;
     content: '';
     vertical-align: 0;
+}
+
+@mixin floating-label-overrides {
+    .mdc-text-field {
+        &:not(.mdc-text-field--disabled) {
+            .mdc-floating-label {
+                color: $label-color;
+            }
+            .mdc-text-field__input {
+                color: $input-text-color;
+            }
+        }
+        &.mdc-text-field--disabled {
+            .mdc-floating-label {
+                color: $label-color-disabled;
+            }
+            .mdc-text-field__input {
+                color: $input-text-color-disabled;
+            }
+        }
+    }
+
+    .mdc-text-field {
+        width: 100%;
+        @include mdc-states-hover-opacity(0);
+        @include mdc-states-focus-opacity(0, true);
+
+        .mdc-floating-label {
+            right: functions.pxToRem(
+                8
+            ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
+        }
+    }
+}
+
+@mixin outlined-style-overrides {
+    .mdc-text-field {
+        transition: background-color 0.2s ease;
+        border-radius: functions.pxToRem(4);
+
+        &:not(.mdc-text-field--disabled) {
+            background-color: $background-color-normal;
+
+            &:hover {
+                background-color: $background-color-hovered;
+            }
+        }
+
+        &.mdc-text-field--focused {
+            background-color: $background-color-focused;
+        }
+
+        &.mdc-text-field--disabled {
+            background-color: $background-color-disabled;
+        }
+
+        &:not(.mdc-text-field--disabled) {
+            .mdc-notched-outline__leading,
+            .mdc-notched-outline__notch,
+            .mdc-notched-outline__trailing {
+                transition: border-color 0.2s ease;
+                border-color: $lime-text-field-bottom-outline-color;
+            }
+
+            &:not(.mdc-text-field--focused) {
+                .mdc-text-field__input {
+                    &:hover ~ .mdc-notched-outline {
+                        .mdc-notched-outline__leading,
+                        .mdc-notched-outline__notch,
+                        .mdc-notched-outline__trailing {
+                            border-color: $lime-text-field-bottom-outline-color-hover;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .mdc-text-field,
+    .mdc-text-field.mdc-text-field--focused {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+            border-width: 1px;
+        }
+    }
+
+    .mdc-text-field--outlined {
+        .mdc-text-field__input {
+            padding-bottom: functions.pxToRem(12);
+        }
+    }
+
+    .mdc-text-field.mdc-text-field--focused.mdc-text-field--outlined {
+        .mdc-notched-outline--notched {
+            .mdc-notched-outline__notch {
+                padding-top: 0;
+            }
+        }
+    }
+}
+
+@mixin leading-icon {
+    .mdc-text-field__icon {
+        width: functions.pxToRem(24);
+        height: functions.pxToRem(24);
+    }
+}
+
+@mixin readonly-overrides {
+    .mdc-text-field {
+        &.lime-text-field--readonly {
+            input.mdc-text-field__input {
+                background-color: transparent;
+                color: $input-text-color;
+            }
+
+            .formatted-input {
+                color: $input-text-color;
+                opacity: 1;
+            }
+
+            label.mdc-floating-label {
+                color: $label-color;
+            }
+
+            .mdc-notched-outline__leading,
+            .mdc-notched-outline__notch,
+            .mdc-notched-outline__trailing {
+                border-color: transparent;
+            }
+
+            &.mdc-text-field--invalid {
+                & + .mdc-text-field-helper-line {
+                    .mdc-text-field-helper-text--validation-msg {
+                        color: var(--lime-error-text-color);
+                    }
+                }
+                .trailing-icon {
+                    color: var(--lime-error-text-color);
+                }
+            }
+
+            .mdc-text-field__icon.trailing-icon {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                pointer-events: auto;
+                cursor: pointer;
+                color: $label-color;
+                border-radius: 0.25rem;
+
+                width: calc(100% - 2rem);
+                z-index: 0;
+
+                &:hover {
+                    box-shadow: var(--button-shadow-hovered);
+                }
+
+                &:active {
+                    box-shadow: var(--button-shadow-pressed);
+                }
+
+                limel-icon {
+                    width: 1.5rem;
+                }
+            }
+        }
+    }
+}
+
+@mixin disabled-overrides {
+    .mdc-text-field--disabled {
+        background-color: transparent;
+    }
 }
