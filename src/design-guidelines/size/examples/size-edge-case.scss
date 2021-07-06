@@ -45,7 +45,11 @@ $scale-factor: 3.5;
 .row {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: auto 1fr 2fr;
+    grid-template-columns:
+        functions.pxToRem(12 * $scale-factor) functions.pxToRem(
+            48 * $scale-factor
+        )
+        auto;
     grid-gap: functions.pxToRem(8 * $scale-factor);
 
     background-color: rgb(var(--contrast-200));
@@ -59,6 +63,7 @@ $scale-factor: 3.5;
 .cell {
     font-size: functions.pxToRem(20);
     line-height: functions.pxToRem(12 * $scale-factor);
+    white-space: nowrap;
 
     &.picture {
         background-color: rgb(var(--contrast-400));
