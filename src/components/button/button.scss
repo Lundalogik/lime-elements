@@ -66,6 +66,10 @@ button {
         position: absolute;
     }
 
+    .mdc-button__icon {
+        flex-shrink: 0;
+    }
+
     .mdc-button__icon.no-label {
         margin-right: functions.pxToRem(-4);
         margin-left: functions.pxToRem(-4);
