@@ -14,8 +14,7 @@ import { IconSize } from './icon.types';
  *
  * ### Setup
  * To use **@lundalogik/lime-icons8**, the `/assets` folder from
- *
- * @lundalogik/lime-icons8** must be made available on the webserver.
+ * __@lundalogik/lime-icons8__ must be made available on the webserver.
  * To use a different icon set, the icons must be placed in a folder structure
  * that looks like this: `assets/icons/<name-of-icon>.svg`
  *
@@ -54,6 +53,7 @@ import { IconSize } from './icon.types';
  * Search for an icon and **click on it to copy its name to clipboard**.
  *
  * <limel-example-icon-finder />
+ *
  * @exampleComponent limel-example-icon
  * @exampleComponent limel-example-icon-background
  */
