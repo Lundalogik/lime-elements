@@ -1,9 +1,11 @@
 @use '../../style/internal/z-index';
 @use '../../style/functions';
-@use '../input-field/input-field';
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
+@import '../../style/internal/mdc-variables';
+
+@import '@limetech/mdc-textfield/mdc-text-field';
 @import '@limetech/mdc-chips/mdc-chips';
 
 /**
@@ -158,11 +160,13 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     }
 }
 
-.mdc-text-field {
-    @include mdc-states-hover-opacity(0);
-    @include mdc-states-focus-opacity(0, true);
+@include shared_input-select-picker.outlined-style-overrides;
+@include shared_input-select-picker.floating-label-overrides;
+@include shared_input-select-picker.disabled-overrides;
+@include shared_input-select-picker.readonly-overrides;
+@include shared_input-select-picker.leading-icon;
 
-    width: 100%;
+.mdc-text-field {
     height: auto;
     cursor: text;
 
