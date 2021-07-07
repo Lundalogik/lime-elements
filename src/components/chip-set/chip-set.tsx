@@ -1,10 +1,7 @@
 import { Chip, Languages } from '@limetech/lime-elements';
-import {
-    MDCChipInteractionEvent,
-    MDCChipSelectionEvent,
-    MDCChipSet,
-} from '@limetech/mdc-chips';
-import { MDCTextField } from '@limetech/mdc-textfield';
+import { MDCChipSet } from '@material/chips/chip-set';
+import { MDCChipSetInteractionEventDetail, MDCChipSetSelectionEventDetail } from '@material/chips/chip-set/types';
+import { MDCTextField } from '@material/textfield';
 import {
     Component,
     Element,
@@ -300,9 +297,10 @@ export class ChipSet {
         this.mdcChipSet = new MDCChipSet(
             this.host.shadowRoot.querySelector('.mdc-chip-set')
         );
-        this.mdcChipSet.chips.forEach((chip) => {
-            chip.shouldRemoveOnTrailingIconClick = false;
-        });
+        console.warn('commented code chip-set.tsx:300');
+        // this.mdcChipSet.chips.forEach((chip) => {
+        //     chip.shouldRemoveOnTrailingIconClick = false;
+        // });
 
         if (!this.type || this.type === 'input') {
             this.mdcChipSet.listen(
@@ -490,9 +488,9 @@ export class ChipSet {
         this.input.emit(event.target.value && event.target.value.trim());
     }
 
-    private handleInteractionEvent(event: MDCChipInteractionEvent) {
+    private handleInteractionEvent(event: CustomEvent<MDCChipSetInteractionEventDetail>) {
         const chip = this.value.find((item) => {
-            return `${item.id}` === event.detail.chipId;
+            return `${item.id}` === event.detail.chipID;
         });
         this.emitInteraction(chip);
     }
@@ -501,16 +499,16 @@ export class ChipSet {
         this.interact.emit(chip);
     }
 
-    private handleSelection(event: MDCChipSelectionEvent) {
+    private handleSelection(event: CustomEvent<MDCChipSetSelectionEventDetail>) {
         let chip = this.value.find((item) => {
-            return `${item.id}` === event.detail.chipId;
+            return `${item.id}` === event.detail.chipID;
         });
-        chip = { ...chip, selected: event.detail.selected };
+        chip = { ...chip, selected: event.detail.isSelected };
         this.change.emit(chip);
     }
 
-    private handleRemoveEvent(event: MDCChipInteractionEvent) {
-        this.removeChip(event.detail.chipId);
+    private handleRemoveEvent(event: CustomEvent<MDCChipSetInteractionEventDetail>) {
+        this.removeChip(event.detail.chipID);
     }
 
     private removeChip(id: string | number) {

@@ -1,13 +1,14 @@
 @use '../../style/internal/z-index';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
+
+@use '../../style/internal/mdc-variables';
+
+@use '@material/slider';
+@use '@material/floating-label';
+
 @import './partial-styles/percentage-color.scss';
 @import './partial-styles/_readonly.scss';
-
-@import '../../style/internal/mdc-variables';
-
-@import '@limetech/mdc-slider/mdc-slider';
-@import '@limetech/mdc-floating-label/mdc-floating-label';
 
 /**
  * @prop --slider-bg-color-behind-component: Color of "transparent" parts of disabled slider. Defaults to #ffffff.
@@ -21,16 +22,16 @@
 }
 
 .mdc-slider {
-    @include mdc-slider-highlight-color(
-        var(--lime-primary-color, $mdc-theme-primary)
-    );
-    @include mdc-slider-thumb-color(
-        var(--lime-primary-color, $mdc-theme-primary)
-    );
-    @include mdc-slider-value-pin-fill-color(
-        var(--lime-primary-color, $mdc-theme-primary)
-    );
-    @include mdc-slider-value-pin-ink-color(on-primary);
+    // @include mdc-slider-highlight-color(
+    //     var(--lime-primary-color, $mdc-theme-primary)
+    // );
+    // @include mdc-slider-thumb-color(
+    //     var(--lime-primary-color, $mdc-theme-primary)
+    // );
+    // @include mdc-slider-value-pin-fill-color(
+    //     var(--lime-primary-color, $mdc-theme-primary)
+    // );
+    // @include mdc-slider-value-pin-ink-color(on-primary);
 }
 
 .mdc-slider__pin-value-marker {

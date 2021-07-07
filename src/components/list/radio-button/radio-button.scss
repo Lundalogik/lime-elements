@@ -1,10 +1,10 @@
-@import '@limetech/mdc-form-field/mdc-form-field';
-@import '@limetech/mdc-radio/mdc-radio';
+@use '@material/form-field';
+@use '@material/radio';
 
 .mdc-form-field {
     display: flex;
 
     .mdc-radio {
-        @include mdc-radio-ink-color(primary);
+        @include radio.ink-color(primary);
     }
 }
