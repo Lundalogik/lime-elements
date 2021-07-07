@@ -41,7 +41,6 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^12.1.4",
-    "@limetech/material-components-web": "^4.0.1-p4.0.0.1",
     "@lundalogik/cz-conventional-changelog": "^3.1.0",
     "@lundalogik/lime-icons8": "^2.4.0",
     "@popperjs/core": "^2.9.2",
@@ -78,6 +77,7 @@
     "jsx-dom": "^6.4.21",
     "kompendium": "^0.10.1",
     "lodash-es": "^4.17.21",
+    "material-components-web": "^11.0.0",
     "moment": "^2.29.1",
     "number-abbreviate": "^2.0.0",
     "prettier": "^2.3.1",
