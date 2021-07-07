@@ -1,42 +1,64 @@
 @use '../../style/functions';
 @use '../../style/internal/lime-theme';
 
-:host {
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-name: spin;
-    animation-timing-function: linear;
-    border-radius: 50%;
-    border-style: solid;
-    border-top-color: transparent;
-    border-width: functions.pxToRem(2);
-    display: inline-block;
-    box-sizing: border-box;
+/**
+ * @prop --spinner-color-1: 1st animated stroke color, defaults to `--lime-brand-color-deep-red`.
+ * @prop --spinner-color-2: 2nd animated stroke color, defaults to `--lime-brand-color-sellable-orange`.
+ * @prop --spinner-color-3: 3rd animated stroke color, defaults to `--lime-brand-color-simple-blue`.
+ * @prop --spinner-color-4: 4th animated stroke color, defaults to `--lime-brand-color-orange`.
+ * @prop --spinner-color-5: 5th animated stroke color, defaults to `--lime-brand-color-lime-green`.
+ * @prop --spinner-color-6: 6th animated stroke color, defaults to `--lime-brand-color-yellow`.
+ * @prop --spinner-color-7: 7th animated stroke color, defaults to `--lime-brand-color-flexible-turquoise`.
+ * @prop --spinner-color-8: 8th animated stroke color, defaults to `--lime-brand-color-loving-magenta`.
+ * @prop --spinner-color-9: 9th animated stroke color, defaults to `--lime-brand-color-dark-blue`.
+ * @prop --spinner-color-10: 10th animated stroke color, defaults to `--lime-brand-color-light-grey`.
+ */
 
-    // size=mini is the default
-    height: functions.pxToRem(24);
-    width: functions.pxToRem(24);
+$stroke-width-normal: 4;
+$stroke-width-thick: 10;
+$colors: var(--spinner-color-1, rgb(var(--lime-brand-color-deep-red))),
+    var(--spinner-color-2, rgb(var(--lime-brand-color-sellable-orange))),
+    var(--spinner-color-3, rgb(var(--lime-brand-color-simple-blue))),
+    var(--spinner-color-4, rgb(var(--lime-brand-color-orange))),
+    var(--spinner-color-5, rgb(var(--lime-brand-color-lime-green))),
+    var(--spinner-color-6, rgb(var(--lime-brand-color-yellow))),
+    var(--spinner-color-7, rgb(var(--lime-brand-color-flexible-turquoise))),
+    var(--spinner-color-8, rgb(var(--lime-brand-color-loving-magenta))),
+    var(--spinner-color-9, rgb(var(--lime-brand-color-dark-blue))),
+    var(--spinner-color-9, rgb(var(--lime-brand-color-light-grey)));
+$dash: 63;
+$duration: length($colors) * 1s;
+$duration-alt: $duration / length($colors);
+$keyframe: 1 / (length($colors) * 2) * 100;
+
+@keyframes spin {
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(720deg);
+    }
 }
 
-:host([size='x-small']) {
-    height: functions.pxToRem(32);
-    width: functions.pxToRem(32);
-    border-width: functions.pxToRem(3);
+@keyframes fade-in-the-spinner {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
-:host([size='small']) {
-    height: functions.pxToRem(34);
-    width: functions.pxToRem(34);
-}
-:host([size='medium']) {
-    height: functions.pxToRem(44);
-    width: functions.pxToRem(44);
-}
-:host([size='large']) {
-    height: functions.pxToRem(64);
-    width: functions.pxToRem(64);
 
-    // Increase width slightly. It becomes too thin otherwise.
-    border-width: functions.pxToRem(3);
+@keyframes animate-colored-circles {
+    #{$keyframe * 1%} {
+        stroke-dashoffset: 0;
+    }
+    #{$keyframe * 2%},
+    100% {
+        stroke-dashoffset: $dash;
+    }
 }
 
 :host([hidden]) {
@@ -44,12 +66,77 @@
 }
 
 :host(.dropdown--spinner) {
-    margin: functions.pxToRem(10) 0;
-    // color: var(--lime-primary-color, #{mdc-theme.$primary});
+    color: var(--lime-primary-color, #{mdc-variables.$mdc-theme-primary});
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+:host {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // size=mini is the default
+    height: functions.pxToRem(24);
+    width: functions.pxToRem(24);
+    transform: translate3d(0, 0, 0);
+    animation: fade-in-the-spinner 0.5s ease forwards;
+}
+
+:host([size='x-small']) {
+    height: functions.pxToRem(32);
+    width: functions.pxToRem(32);
+}
+
+:host([size='small']) {
+    height: functions.pxToRem(34);
+    width: functions.pxToRem(34);
+}
+
+:host([size='medium']) {
+    height: functions.pxToRem(44);
+    width: functions.pxToRem(44);
+}
+
+:host([size='large']) {
+    height: functions.pxToRem(64);
+    width: functions.pxToRem(64);
+}
+
+.spinner {
+    animation: spin $duration-alt linear infinite;
+    transform-origin: center;
+}
+
+.color {
+    animation: animate-colored-circles $duration linear infinite;
+    fill: none;
+    stroke-dasharray: $dash;
+    stroke-dashoffset: $dash;
+    stroke-linecap: round;
+    stroke-width: $stroke-width-normal;
+
+    &.thick {
+        stroke-width: $stroke-width-thick;
+    }
+
+    @for $i from 1 through length($colors) {
+        &:nth-child(#{$i}) {
+            stroke: nth($colors, $i);
+
+            @if $i > 1 {
+                animation-delay: ($i - 1) * $duration-alt;
+            }
+        }
+    }
+}
+
+.outline {
+    stroke: rgba(var(--lime-brand-color-light-grey), 0.3);
+    fill: none;
+    stroke-linecap: round;
+    stroke-width: $stroke-width-normal;
+
+    &.thick {
+        stroke-width: $stroke-width-thick;
     }
 }
