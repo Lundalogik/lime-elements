@@ -1,4 +1,4 @@
-import { Corner, MDCMenuSurface } from '@limetech/mdc-menu-surface';
+import { Corner, MDCMenuSurface } from '@material/menu-surface';
 import {
     Component,
     Element,

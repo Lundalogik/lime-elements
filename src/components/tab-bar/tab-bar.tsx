@@ -9,8 +9,8 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { MDCTabBar, MDCTabBarActivatedEvent } from '@limetech/mdc-tab-bar';
-import { strings } from '@limetech/mdc-tab-bar/constants';
+import { MDCTabBar, MDCTabBarActivatedEvent } from '@material/tab-bar';
+import { strings } from '@material/tab-bar/constants';
 import { Tab } from './tab.types';
 import { isEqual, difference } from 'lodash-es';
 import { setActiveTab } from './tabs';

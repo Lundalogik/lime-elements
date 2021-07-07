@@ -1,4 +1,4 @@
-import { MDCSnackbar, MDCSnackbarCloseEvent } from '@limetech/mdc-snackbar';
+import { MDCSnackbar, MDCSnackbarCloseEvent } from '@material/snackbar';
 import {
     Component,
     Element,

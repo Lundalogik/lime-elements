@@ -12,7 +12,7 @@ import { createRandomString } from '../../util/random-string';
 import { isAndroidDevice, isIOSDevice } from '../../util/device';
 import { DateType, InputType, Languages } from '@limetech/lime-elements';
 import { DateFormatter } from './dateFormatter';
-import { MDCTextField } from '@limetech/mdc-textfield';
+import { MDCTextField } from '@material/textfield';
 
 // tslint:disable:no-duplicate-string
 const nativeTypeForConsumerType: { [key: string]: InputType } = {

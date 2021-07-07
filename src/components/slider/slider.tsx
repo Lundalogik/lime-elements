@@ -1,4 +1,4 @@
-import { MDCSlider } from '@limetech/mdc-slider';
+import { MDCSlider } from '@material/slider';
 import {
     Component,
     Element,
@@ -133,7 +133,8 @@ export class Slider {
     }
 
     public componentWillUpdate() {
-        this.mdcSlider.disabled = this.disabled || this.readonly;
+        console.warn('commented code slider.tsx:136');
+        // this.mdcSlider.disabled = this.disabled || this.readonly;
     }
 
     public disconnectedCallback() {
@@ -220,7 +221,9 @@ export class Slider {
             return;
         }
 
-        this.mdcSlider.value = this.multiplyByFactor(this.getValue());
+        // eslint-disable-next-line no-console
+        console.warn('commented code slider.tsx:224');
+        // this.mdcSlider.value = this.multiplyByFactor(this.getValue());
     }
 
     private changeHandler = (event) => {

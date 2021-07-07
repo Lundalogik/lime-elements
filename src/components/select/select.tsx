@@ -1,6 +1,6 @@
 import { ListItem, Option } from '@limetech/lime-elements';
-import { MDCFloatingLabel } from '@limetech/mdc-floating-label';
-import { MDCSelectHelperText } from '@limetech/mdc-select/helper-text';
+import { MDCFloatingLabel } from '@material/floating-label';
+import { MDCSelectHelperText } from '@material/select/helper-text';
 import {
     Component,
     Element,
