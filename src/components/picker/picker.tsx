@@ -306,7 +306,15 @@ export class Picker {
 
     private renderSpinner() {
         return (
-            <div style={{ 'padding-top': '6px', 'text-align': 'center' }}>
+            <div
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    padding: '1rem 0',
+                }}
+            >
                 <limel-spinner class={'dropdown--spinner'} />
             </div>
         );
