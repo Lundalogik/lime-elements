@@ -2,7 +2,7 @@
 @use '../../../style/internal/mdc-variables';
 @use '../../../style/functions';
 
-@import '@limetech/mdc-theme/mdc-theme';
+@use '@material/theme/mdc-theme';
 @import '../../../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 $inactiveTextColor: var(--mdc-theme-text-disabled-on-background);

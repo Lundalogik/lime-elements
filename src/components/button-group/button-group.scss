@@ -3,7 +3,7 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-@import '@limetech/mdc-chips/mdc-chips';
+@use '@material/chips';
 
 .mdc-chip {
     @include mixins.is-flat-inset-clickable;

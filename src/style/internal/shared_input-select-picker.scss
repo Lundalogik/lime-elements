@@ -1,7 +1,8 @@
 @use '../functions';
 
-@import '../../style/internal/mdc-variables';
-@import '@limetech/mdc-textfield/mdc-text-field';
+@use '../../style/internal/mdc-variables';
+
+@use '@material/textfield';
 
 // Visual styles that unify the look & feel and behavior of
 // components such as input fields, select dropdowns and pickers
@@ -128,8 +129,8 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
 
     .mdc-text-field {
         width: 100%;
-        @include mdc-states-hover-opacity(0);
-        @include mdc-states-focus-opacity(0, true);
+        // @include mdc-states-hover-opacity(0);
+        // @include mdc-states-focus-opacity(0, true);
 
         .mdc-floating-label {
             right: functions.pxToRem(

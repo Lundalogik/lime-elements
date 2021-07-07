@@ -3,10 +3,10 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-@import '../../style/internal/mdc-variables';
+@use '../../style/internal/mdc-variables';
 
-@import '@limetech/mdc-textfield/mdc-text-field';
-@import '@limetech/mdc-chips/mdc-chips';
+@use '@material/textfield';
+@use '@material/chips';
 
 /**
  * @prop --icon-background-color: Background color of the icon. Defaults to transparent.

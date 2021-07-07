@@ -45,7 +45,8 @@
 
 :host(.dropdown--spinner) {
     margin: functions.pxToRem(10) 0;
-    color: var(--lime-primary-color, #{mdc-variables.$mdc-theme-primary});
+    @include mdc-variables.property(color, primary);
+    // color: var(--lime-primary-color, #{mdc-variables.$primary});
 }
 
 @keyframes spin {

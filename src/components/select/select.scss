@@ -2,9 +2,9 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-@import '@limetech/mdc-select/mdc-select';
-@import '@limetech/mdc-select/helper-text/mdc-select-helper-text';
-@import '@limetech/mdc-floating-label/mdc-floating-label';
+@use '@material/select';
+@use '@material/select/helper-text/mdc-select-helper-text';
+@use '@material/floating-label';
 
 @import './partial-styles/_readonly.scss';
 

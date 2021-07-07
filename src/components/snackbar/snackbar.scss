@@ -1,13 +1,13 @@
 @use '../../style/brand-colors';
 
-@import '../../style/internal/mdc-variables';
+@use '../../style/internal/mdc-variables';
 
-@import '@limetech/mdc-button/mdc-button';
-@import '@limetech/mdc-icon-button/mdc-icon-button';
-@import '@limetech/mdc-snackbar/mdc-snackbar';
+@use '@material/button';
+@use '@material/icon-button';
+@use '@material/snackbar';
 
 .mdc-button {
-    @include mdc-button-ink-color(brand-colors.$lime-blue);
+    @include button.ink-color(brand-colors.$lime-blue);
 }
 
 .mdc-snackbar__actions {
