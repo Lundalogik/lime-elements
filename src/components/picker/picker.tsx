@@ -316,7 +316,7 @@ export class Picker {
                     padding: '1rem 0',
                 }}
             >
-                <limel-spinner class={'dropdown--spinner'} />
+                <limel-spinner limeBranded={false} />
             </div>
         );
     }
