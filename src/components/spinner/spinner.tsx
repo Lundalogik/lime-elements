@@ -4,6 +4,7 @@ import { Component, Prop, h } from '@stencil/core';
 /**
  * @exampleComponent limel-example-spinner
  * @exampleComponent limel-example-spinner-color
+ * @exampleComponent limel-example-spinner-size
  */
 @Component({
     tag: 'limel-spinner',
