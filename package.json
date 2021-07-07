@@ -41,7 +41,6 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^12.1.4",
-    "@limetech/material-components-web": "^4.0.1-p4.0.0.1",
     "@lundalogik/cz-conventional-changelog": "^3.1.0",
     "@lundalogik/lime-icons8": "^2.4.0",
     "@popperjs/core": "^2.9.2",
