@@ -1,3 +1,10 @@
+### [32.4.3](https://github.com/Lundalogik/lime-elements/compare/v32.4.2...v32.4.3) (2021-07-07)
+
+
+### Bug Fixes
+
+* **button:** prevent icons from shrinking when button is squeezed ([8432543](https://github.com/Lundalogik/lime-elements/commit/84325437980d5bed6f2aefc337415d0c22616032))
+
 ### [32.4.2](https://github.com/Lundalogik/lime-elements/compare/v32.4.1...v32.4.2) (2021-07-02)
 
 
