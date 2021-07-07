@@ -1,7 +1,7 @@
 @use '../../style/functions';
 @use '../../style/internal/mdc-variables';
 
-@import '@limetech/mdc-switch/mdc-switch';
+@use '@material/switch';
 
 @import './partial-styles/_readonly.scss';
 
@@ -11,13 +11,14 @@
 }
 
 .mdc-switch {
-    @include mdc-switch-toggled-on-color(primary);
-
+    @include switch.toggled-on-color(
+        primary
+    ); // @include mdc-switch-toggled-on-color(primary);
     margin-right: functions.pxToRem(8);
 }
 
 label {
-    @include mdc-variables.mdc-typography(body2);
+    // @include mdc-variables.mdc-typography(body2);
     line-height: normal;
 
     cursor: pointer;

@@ -11,94 +11,96 @@
 @use '../functions';
 @use '../_theme-color-variables';
 
-$mdc-theme-primary: brand-colors.$lime-turquoise;
-$mdc-theme-secondary: brand-colors.$lime-dark-grey;
-$mdc-theme-background: #fff;
-$mdc-theme-surface: #fff;
-$mdc-theme-error: #b00020;
-$mdc-theme-on-primary: #fff;
-$mdc-theme-on-secondary: #fff;
-$mdc-theme-on-surface: #000;
-$mdc-theme-on-error: #fff;
-$mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
-$mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
-$mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
-$mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+@use '@material/theme' with (
+    $primary: brand-colors.$lime-turquoise,
+    $secondary: brand-colors.$lime-dark-grey,
+    $background: #fff,
+    $surface: #fff,
+    $error: #b00020,
+    $on-primary: #fff,
+    $on-secondary: #fff,
+    $on-surface: #000,
+    $on-error: #fff,
+    // $text-disabled-on-background: rgba(0, 0, 0, 0.38),
+    // $text-hint-on-light: rgba(0, 0, 0, 0.38),
+    // $text-primary-on-background: rgba(0, 0, 0, 0.87),
+    // $text-secondary-on-background: rgba(0, 0, 0, 0.54),
 
-// The following variables are also available to be set if needed
-//
-// $mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
-// $mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
-// $mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
-// $mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
-// $mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
-// $mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
-// $mdc-theme-text-primary-on-dark: white;
-// $mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
-// $mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
-// $mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
-// $mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+    // The following variables are also available to be set if needed
+    // (note by Ads: they probably aren't available in MDC v11)
+    //
+    // $text-hint-on-background: rgba(0, 0, 0, 0.38),
+    // $text-icon-on-background: rgba(0, 0, 0, 0.38),
+    // $text-primary-on-light: rgba(0, 0, 0, 0.87),
+    // $text-secondary-on-light: rgba(0, 0, 0, 0.54),
+    // $text-disabled-on-light: rgba(0, 0, 0, 0.38),
+    // $text-icon-on-light: rgba(0, 0, 0, 0.38),
+    // $text-primary-on-dark: white,
+    // $text-secondary-on-dark: rgba(255, 255, 255, 0.7),
+    // $text-hint-on-dark: rgba(255, 255, 255, 0.5),
+    // $text-disabled-on-dark: rgba(255, 255, 255, 0.5),
+    // $text-icon-on-dark: rgba(255, 255, 255, 0.5),
+);
+
+@use '@material/typography' with (
+    $styles-headline1: (
+        font-size: functions.pxToRem(22),
+        line-height: functions.pxToRem(22),
+    ),
+    $styles-headline2: (
+        font-size: functions.pxToRem(16),
+        line-height: functions.pxToRem(14),
+    ),
+    $styles-headline3: (
+        font-size: functions.pxToRem(16),
+        line-height: functions.pxToRem(14),
+    ),
+    $styles-headline4: (
+        font-size: functions.pxToRem(16),
+        line-height: functions.pxToRem(14),
+    ),
+    $styles-headline5: (
+        font-size: functions.pxToRem(14),
+        line-height: functions.pxToRem(14),
+    ),
+    $styles-headline6: (
+        font-size: functions.pxToRem(14),
+        line-height: functions.pxToRem(14),
+    ),
+    $styles-subtitle1: (
+        font-size: functions.pxToRem(14),
+        line-height: functions.pxToRem(18),
+    ),
+    $styles-subtitle2: (
+        font-size: functions.pxToRem(13),
+        line-height: functions.pxToRem(18),
+    ),
+    $styles-body1: (
+        font-size: functions.pxToRem(13),
+        line-height: functions.pxToRem(24),
+    ),
+    $styles-body2: (
+        font-size: functions.pxToRem(13),
+        line-height: functions.pxToRem(26),
+    ),
+    $styles-caption: (
+        font-size: functions.pxToRem(11),
+        line-height: functions.pxToRem(14),
+    ),
+    $styles-button: (
+        font-size: functions.pxToRem(14),
+        line-height: functions.pxToRem(36),
+        text-transform: none,
+    ),
+    $styles-overline: (
+        font-size: functions.pxToRem(11),
+        line-height: functions.pxToRem(14),
+    ),
+);
+@forward '@material/typography';
+
+@use '@material/animation';
 
 :host {
     @include theme-color-variables.theme-color-variables;
 }
-
-@import '@limetech/mdc-theme/mdc-theme';
-
-$mdc-typography-styles-headline1: (
-    font-size: functions.pxToRem(22),
-    line-height: functions.pxToRem(22),
-);
-$mdc-typography-styles-headline2: (
-    font-size: functions.pxToRem(16),
-    line-height: functions.pxToRem(14),
-);
-$mdc-typography-styles-headline3: (
-    font-size: functions.pxToRem(16),
-    line-height: functions.pxToRem(14),
-);
-$mdc-typography-styles-headline4: (
-    font-size: functions.pxToRem(16),
-    line-height: functions.pxToRem(14),
-);
-$mdc-typography-styles-headline5: (
-    font-size: functions.pxToRem(14),
-    line-height: functions.pxToRem(14),
-);
-$mdc-typography-styles-headline6: (
-    font-size: functions.pxToRem(14),
-    line-height: functions.pxToRem(14),
-);
-$mdc-typography-styles-subtitle1: (
-    font-size: functions.pxToRem(14),
-    line-height: functions.pxToRem(18),
-);
-$mdc-typography-styles-subtitle2: (
-    font-size: functions.pxToRem(13),
-    line-height: functions.pxToRem(18),
-);
-$mdc-typography-styles-body1: (
-    font-size: functions.pxToRem(13),
-    line-height: functions.pxToRem(24),
-);
-$mdc-typography-styles-body2: (
-    font-size: functions.pxToRem(13),
-    line-height: functions.pxToRem(26),
-);
-$mdc-typography-styles-caption: (
-    font-size: functions.pxToRem(11),
-    line-height: functions.pxToRem(14),
-);
-$mdc-typography-styles-button: (
-    font-size: functions.pxToRem(14),
-    line-height: functions.pxToRem(36),
-    text-transform: none,
-);
-$mdc-typography-styles-overline: (
-    font-size: functions.pxToRem(11),
-    line-height: functions.pxToRem(14),
-);
-
-@import '@limetech/mdc-typography/mdc-typography';
-
-@import '@limetech/mdc-animation/variables';

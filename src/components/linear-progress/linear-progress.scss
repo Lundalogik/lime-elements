@@ -1,5 +1,5 @@
 @use '../../style/internal/mdc-variables';
-@import '@limetech/mdc-linear-progress/mdc-linear-progress';
+@use '@material/linear-progress';
 
 /**
  * @prop --background-color: Color to use for progress-bar track.

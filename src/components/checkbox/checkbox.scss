@@ -1,12 +1,12 @@
-@import '../../style/internal/mdc-variables';
-@import '@limetech/mdc-form-field/mdc-form-field';
-@import '@limetech/mdc-checkbox/mdc-checkbox';
+@use '../../style/internal/mdc-variables';
+@use '@material/form-field';
+@use '@material/checkbox';
 
 .mdc-form-field {
     display: flex;
 
     .mdc-checkbox {
-        @include mdc-checkbox-container-colors(
+        @include checkbox.container-colors(
             secondary,
             on-primary,
             primary,

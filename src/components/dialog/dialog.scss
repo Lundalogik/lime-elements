@@ -1,9 +1,9 @@
 @use '../../style/functions';
 
-@import '../../style/internal/mdc-variables';
+@use '../../style/internal/mdc-variables';
 
-$mdc-dialog-max-width: null;
-@import '@limetech/mdc-dialog/mdc-dialog';
+// $mdc-dialog-max-width: null;
+@use '@material/dialog';
 
 /**
  * @prop --dialog-width: Width of the dialog.
@@ -30,12 +30,12 @@ slot[name='header'] {
 }
 
 .mdc-dialog {
-    @include mdc-dialog-max-width(1000rem, $mdc-dialog-margin);
+    @include dialog.max-width(16000px, dialog.$margin);
 
-    z-index: var(--dialog-z-index, $mdc-dialog-z-index);
+    z-index: var(--dialog-z-index, dialog.$z-index);
 
     &.full-screen {
-        @include mdc-dialog-max-height(1000rem, $mdc-dialog-margin);
+        @include dialog.max-height(16000px, dialog.$margin);
         .mdc-dialog__container {
             height: 100%;
             width: 100%;

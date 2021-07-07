@@ -4,10 +4,10 @@ import {
     ListSeparator,
     ListType,
 } from '@limetech/lime-elements';
-import { MDCList, MDCListActionEvent } from '@limetech/mdc-list';
-import { MDCMenu, MDCMenuItemEvent } from '@limetech/mdc-menu';
-import { strings as listStrings } from '@limetech/mdc-list/constants';
-import { strings as menuStrings } from '@limetech/mdc-menu/constants';
+import { MDCList, MDCListActionEvent } from '@material/list';
+import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
+import { strings as listStrings } from '@material/list/constants';
+import { strings as menuStrings } from '@material/menu/constants';
 import {
     Component,
     Element,

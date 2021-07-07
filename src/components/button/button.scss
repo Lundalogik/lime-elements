@@ -1,7 +1,9 @@
 @use '../../style/functions';
 @use '../../style/mixins';
-@import '../../style/internal/mdc-variables';
-@import '@limetech/mdc-button/mdc-button';
+
+@use '../../style/internal/mdc-variables';
+
+@use '@material/button/mdc-button';
 
 :host {
     display: inline-block;

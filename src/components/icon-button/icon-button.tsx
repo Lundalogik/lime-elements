@@ -1,4 +1,4 @@
-import { MDCRipple } from '@limetech/mdc-ripple';
+import { MDCRipple } from '@material/ripple';
 import { Component, Element, h, Method, Prop } from '@stencil/core';
 import { IconSize } from '@limetech/lime-elements';
 

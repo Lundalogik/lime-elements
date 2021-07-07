@@ -1,5 +1,5 @@
 import { Chip, FileInfo } from '@limetech/lime-elements';
-import { MDCTextField } from '@limetech/mdc-textfield';
+import { MDCTextField } from '@material/textfield';
 import {
     Component,
     Element,

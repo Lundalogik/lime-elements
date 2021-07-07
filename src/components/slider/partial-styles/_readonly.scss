@@ -11,16 +11,16 @@
 
         .mdc-slider__pin,
         .mdc-slider__track {
-            background-color: var(
-                --lime-primary-color,
-                mdc-variables.$mdc-theme-primary
-            );
+            // background-color: var(
+            //     --lime-primary-color,
+            //     mdc-variables.$mdc-theme-primary
+            // );
         }
         .mdc-slider__pin-value-marker {
-            color: var(
-                --lime-on-primary-color,
-                mdc-variables.$mdc-theme-on-primary
-            );
+            // color: var(
+            //     --lime-on-primary-color,
+            //     mdc-variables.$mdc-theme-on-primary
+            // );
         }
         .mdc-slider__pin {
             height: 1rem;

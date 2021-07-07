@@ -1,5 +1,5 @@
-import { MDCCheckbox } from '@limetech/mdc-checkbox';
-import { MDCFormField } from '@limetech/mdc-form-field';
+import { MDCCheckbox } from '@material/checkbox';
+import { MDCFormField } from '@material/form-field';
 import {
     Component,
     Element,
