@@ -11,19 +11,21 @@
 @use '../functions';
 @use '../_theme-color-variables';
 
-$mdc-theme-primary: brand-colors.$lime-turquoise;
-$mdc-theme-secondary: brand-colors.$lime-dark-grey;
-$mdc-theme-background: #fff;
-$mdc-theme-surface: #fff;
-$mdc-theme-error: #b00020;
-$mdc-theme-on-primary: #fff;
-$mdc-theme-on-secondary: #fff;
-$mdc-theme-on-surface: #000;
-$mdc-theme-on-error: #fff;
-$mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
-$mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
-$mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
-$mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+@use "@material/theme" with (
+    $primary: brand-colors.$lime-turquoise,
+    $secondary: brand-colors.$lime-dark-grey,
+    $background: #fff,
+    $surface: #fff,
+    $error: #b00020,
+    $on-primary: #fff,
+    $on-secondary: #fff,
+    $on-surface: #000,
+    $on-error: #fff,
+    // $text-disabled-on-background: rgba(0, 0, 0, 0.38),
+    // $text-hint-on-light: rgba(0, 0, 0, 0.38),
+    // $text-primary-on-background: rgba(0, 0, 0, 0.87),
+    // $text-secondary-on-background: rgba(0, 0, 0, 0.54),
+);
 
 // The following variables are also available to be set if needed
 //
@@ -42,8 +44,6 @@ $mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
 :host {
     @include theme-color-variables.theme-color-variables;
 }
-
-@import '@limetech/mdc-theme/mdc-theme';
 
 $mdc-typography-styles-headline1: (
     font-size: functions.pxToRem(22),
