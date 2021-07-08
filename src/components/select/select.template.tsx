@@ -74,7 +74,8 @@ const SelectValue: FunctionalComponent<
     };
     const labelClassList = {
         'mdc-floating-label': true,
-        'mdc-floating-label--float-above': props.hasValue || props.isOpen,
+        'mdc-floating-label--float-above':
+            props.hasValue || props.isOpen || props.readonly,
         'mdc-floating-label--active': props.isOpen,
     };
 
@@ -88,7 +89,7 @@ const SelectValue: FunctionalComponent<
             <div class="limel-select__selected-option">
                 {getSelectedIcon(props.value)}
                 <span class="limel-select__selected-option__text">
-                    {getSelectedText(props.value)}
+                    {getSelectedText(props.value, props.readonly)}
                 </span>
             </div>
             <ShowIcon {...props} isValid={props.isValid} />
@@ -225,7 +226,11 @@ function createMenuItems(
     });
 }
 
-function getSelectedText(value: Option | Option[]): string {
+function getSelectedText(value: Option | Option[], readonly: boolean): string {
+    if (!value && readonly) {
+        return '–';
+    }
+
     if (!value) {
         return '';
     }
