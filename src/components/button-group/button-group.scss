@@ -3,7 +3,7 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-@use '@material/chips';
+@use '@material/chips/deprecated/mdc-chips';
 
 .mdc-chip {
     @include mixins.is-flat-inset-clickable;
@@ -14,6 +14,7 @@
     grid-auto-flow: column;
     background-color: transparent;
     margin: functions.pxToRem(2) !important;
+    font-size: functions.pxToRem(14);
 
     &:not(:last-child) {
         &:after {
