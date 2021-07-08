@@ -294,12 +294,14 @@ export class InputField {
 
         const labelClassList = {
             'mdc-floating-label': true,
-            'mdc-floating-label--float-above': !!this.value || this.isFocused,
+            'mdc-floating-label--float-above':
+                !!this.value || this.isFocused || this.readonly,
         };
 
         return [
             <div class={this.getContainerClassList()}>
                 {this.renderFormattedNumber()}
+                {this.renderEmptyValueForReadonly()}
                 {this.renderInput(properties)}
                 {this.renderTextarea(properties)}
                 <div class="mdc-notched-outline">
@@ -445,6 +447,11 @@ export class InputField {
         );
     }
 
+    private renderEmptyValueForReadonly() {
+        if (this.readonly && !this.value) {
+            return <span class="formatted-input">–</span>;
+        }
+    }
     private renderHelperText() {
         if (this.helperText === null || this.helperText === undefined) {
             return;
