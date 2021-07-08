@@ -3,7 +3,8 @@
 
 @use '../../style/internal/lime-theme';
 
-@use '@material/button/mdc-button';
+@use '@material/button/styles';
+@use '@material/button';
 
 :host {
     display: inline-block;
@@ -120,6 +121,10 @@ button {
             display: block;
         }
     }
+}
+
+.mdc-button--outlined {
+    @include button.outline-color(primary);
 }
 
 $speed-of-reducing-presence: 0.3s;
