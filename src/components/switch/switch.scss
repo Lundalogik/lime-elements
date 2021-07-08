@@ -1,5 +1,5 @@
 @use '../../style/functions';
-@use '../../style/internal/mdc-variables';
+@use '../../style/internal/lime-theme';
 
 @use '@material/switch';
 
@@ -18,7 +18,7 @@
 }
 
 label {
-    // @include mdc-variables.mdc-typography(body2);
+    // @include mdc-theme.mdc-typography(body2);
     line-height: normal;
 
     cursor: pointer;

@@ -1,5 +1,5 @@
 @use '../../style/functions';
-@use '../../style/internal/mdc-variables';
+@use '../../style/internal/lime-theme';
 
 :host {
     animation-duration: 1s;
@@ -45,7 +45,7 @@
 
 :host(.dropdown--spinner) {
     margin: functions.pxToRem(10) 0;
-    // color: var(--lime-primary-color, #{mdc-variables.$primary});
+    // color: var(--lime-primary-color, #{mdc-theme.$primary});
 }
 
 @keyframes spin {

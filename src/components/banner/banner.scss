@@ -1,4 +1,5 @@
-@use '../../style/internal/mdc-variables';
+@use '../../style/internal/lime-theme';
+@use '../../style/internal/lime-typography';
 @use '../../style/internal/variables';
 @use '../../style/functions';
 
@@ -9,7 +10,7 @@
  */
 
 .lime-banner {
-    @include mdc-variables.typography(body2);
+    @include lime-typography.typography(body2);
     min-height: variables.$lime-banner-height;
     display: none;
     background-color: rgba(var(--contrast-100), 0.7);

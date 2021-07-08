@@ -1,5 +1,6 @@
 @use '../../style/functions';
-@use '../../style/internal/mdc-variables';
+@use '../../style/internal/lime-theme';
+@use '../../style/internal/lime-typography';
 
 /**
  * @prop --badge-background-color: badge background color
@@ -19,7 +20,7 @@
 }
 
 .badge-container {
-    @include mdc-variables.base;
+    @include lime-typography.base;
 
     display: inline-block;
     font-size: functions.pxToRem(11);
