@@ -22,16 +22,16 @@
 }
 
 .mdc-slider {
-    @include mdc-slider-highlight-color(
-        var(--lime-primary-color, $mdc-theme-primary)
-    );
-    @include mdc-slider-thumb-color(
-        var(--lime-primary-color, $mdc-theme-primary)
-    );
-    @include mdc-slider-value-pin-fill-color(
-        var(--lime-primary-color, $mdc-theme-primary)
-    );
-    @include mdc-slider-value-pin-ink-color(on-primary);
+    // @include mdc-slider-highlight-color(
+    //     var(--lime-primary-color, $mdc-theme-primary)
+    // );
+    // @include mdc-slider-thumb-color(
+    //     var(--lime-primary-color, $mdc-theme-primary)
+    // );
+    // @include mdc-slider-value-pin-fill-color(
+    //     var(--lime-primary-color, $mdc-theme-primary)
+    // );
+    // @include mdc-slider-value-pin-ink-color(on-primary);
 }
 
 .mdc-slider__pin-value-marker {

@@ -11,13 +11,14 @@
 }
 
 .mdc-switch {
-    @include switch.toggled-on-color(primary);
-
+    @include switch.toggled-on-color(
+        primary
+    ); // @include mdc-switch-toggled-on-color(primary);
     margin-right: functions.pxToRem(8);
 }
 
 label {
-    @include mdc-variables.typography(body2);
+    // @include mdc-variables.mdc-typography(body2);
     line-height: normal;
 
     cursor: pointer;

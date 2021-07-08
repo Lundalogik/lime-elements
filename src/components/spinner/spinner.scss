@@ -45,7 +45,6 @@
 
 :host(.dropdown--spinner) {
     margin: functions.pxToRem(10) 0;
-    @include mdc-variables.property(color, primary);
     // color: var(--lime-primary-color, #{mdc-variables.$primary});
 }
 
