@@ -1,4 +1,4 @@
-@use '../../../style/internal/mdc-variables';
+@use '../../../style/internal/lime-theme';
 @use '../../../style/functions';
 
 .lime-slider--readonly {
@@ -13,13 +13,13 @@
         .mdc-slider__track {
             // background-color: var(
             //     --lime-primary-color,
-            //     mdc-variables.$mdc-theme-primary
+            //     mdc-theme.$mdc-theme-primary
             // );
         }
         .mdc-slider__pin-value-marker {
             // color: var(
             //     --lime-on-primary-color,
-            //     mdc-variables.$mdc-theme-on-primary
+            //     mdc-theme.$mdc-theme-on-primary
             // );
         }
         .mdc-slider__pin {

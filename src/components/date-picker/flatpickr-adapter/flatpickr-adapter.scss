@@ -1,5 +1,5 @@
 @use '../../../style/internal/z-index';
-@use '../../../style/internal/mdc-variables';
+@use '../../../style/internal/lime-theme';
 @use '../../../style/functions';
 
 @use '@material/theme/mdc-theme';
@@ -187,7 +187,7 @@ $datepickerTextOnThemeColor: var(--mdc-theme-on-primary);
             &:after {
                 // background: var(
                 //     --mdc-theme-text-hint-on-light,
-                //     mdc-variables.$mdc-theme-text-hint-on-light
+                //     mdc-theme.$mdc-theme-text-hint-on-light
                 // );
                 opacity: 0.25;
             }
