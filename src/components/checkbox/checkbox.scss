@@ -1,18 +1,18 @@
 @use '../../style/internal/lime-theme';
-@use '@material/form-field';
 @use '@material/checkbox';
+@use '@material/form-field';
+
+:host {
+    --mdc-checkbox-checked-color: var(--mdc-theme-primary);
+}
+
+@include checkbox.core-styles;
+@include form-field.core-styles;
 
 .mdc-form-field {
     display: flex;
 
     .mdc-checkbox {
-        @include checkbox.container-colors(
-            secondary,
-            on-primary,
-            primary,
-            primary
-        );
-
         &.mdc-checkbox--invalid {
             .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate)
                 ~ .mdc-checkbox__background {
