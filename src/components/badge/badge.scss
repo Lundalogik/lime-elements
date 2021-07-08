@@ -1,4 +1,5 @@
 @use '../../style/functions';
+@use '../../style/internal/mdc-variables';
 
 /**
  * @prop --badge-background-color: badge background color
@@ -18,6 +19,8 @@
 }
 
 .badge-container {
+    @include mdc-variables.base;
+
     display: inline-block;
     font-size: functions.pxToRem(11);
     min-width: functions.pxToRem(20);

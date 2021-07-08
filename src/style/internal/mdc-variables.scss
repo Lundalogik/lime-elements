@@ -97,6 +97,7 @@
         line-height: functions.pxToRem(14),
     ),
 );
+@forward '@material/typography';
 
 @use '@material/animation';
 
