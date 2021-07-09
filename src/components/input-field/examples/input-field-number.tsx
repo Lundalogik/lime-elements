@@ -38,7 +38,7 @@ export class InputFieldNumberExample {
                 readonly={this.readonly}
                 invalid={this.invalid}
                 required={this.required}
-                onChange={this.changeHandler}
+                onChange={this.handleChange}
             />,
             <p>
                 <limel-flex-container justify="end">
@@ -73,7 +73,7 @@ export class InputFieldNumberExample {
         this.invalid = this.required && !this.value;
     }
 
-    private changeHandler = (event: CustomEvent<string>) => {
+    private handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
         this.checkValidity();
     };

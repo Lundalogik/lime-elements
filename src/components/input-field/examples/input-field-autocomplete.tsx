@@ -51,7 +51,7 @@ export class InputFieldAutocompleteExample {
                 invalid={this.invalid}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.changeHandler}
+                onChange={this.handleChange}
             />,
             <p>
                 <limel-flex-container justify="end">
@@ -81,7 +81,7 @@ export class InputFieldAutocompleteExample {
         this.invalid = this.required && !this.value;
     }
 
-    private changeHandler = (event: CustomEvent<string>) => {
+    private handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
     };
 

@@ -32,7 +32,7 @@ export class InputFieldTextareaExample {
                 maxlength={MAX_LENGTH}
                 value={this.value}
                 required={this.required}
-                onChange={this.changeHandler}
+                onChange={this.handleChange}
                 disabled={this.disabled}
                 readonly={this.readonly}
             />,
@@ -56,7 +56,7 @@ export class InputFieldTextareaExample {
         ];
     }
 
-    private changeHandler = (event: CustomEvent<string>) => {
+    private handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
     };
 
