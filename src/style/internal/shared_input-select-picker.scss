@@ -170,13 +170,11 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
             }
 
             &:not(.mdc-text-field--focused) {
-                .mdc-text-field__input {
-                    &:hover ~ .mdc-notched-outline {
-                        .mdc-notched-outline__leading,
-                        .mdc-notched-outline__notch,
-                        .mdc-notched-outline__trailing {
-                            border-color: $lime-text-field-bottom-outline-color-hover;
-                        }
+                &:hover .mdc-notched-outline {
+                    .mdc-notched-outline__leading,
+                    .mdc-notched-outline__notch,
+                    .mdc-notched-outline__trailing {
+                        border-color: $lime-text-field-bottom-outline-color-hover;
                     }
                 }
             }
@@ -192,18 +190,17 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
         }
     }
 
-    .mdc-text-field--outlined {
-        .mdc-text-field__input {
-            padding-bottom: functions.pxToRem(12);
-        }
-    }
-
     .mdc-text-field.mdc-text-field--focused.mdc-text-field--outlined {
         .mdc-notched-outline--notched {
             .mdc-notched-outline__notch {
                 padding-top: 0;
             }
         }
+    }
+
+    .mdc-text-field__icon--leading,
+    .mdc-text-field__icon--trailing {
+        flex-shrink: 0;
     }
 }
 
@@ -227,7 +224,7 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
                 opacity: 1;
             }
 
-            label.mdc-floating-label {
+            .mdc-floating-label {
                 color: $label-color;
             }
 
@@ -243,12 +240,12 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
                         color: var(--lime-error-text-color);
                     }
                 }
-                .trailing-icon {
+                .mdc-text-field__icon--trailing {
                     color: var(--lime-error-text-color);
                 }
             }
 
-            .mdc-text-field__icon.trailing-icon {
+            .mdc-text-field__icon--trailing.trailing-icon {
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;

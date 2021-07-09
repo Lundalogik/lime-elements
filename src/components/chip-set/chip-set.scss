@@ -5,10 +5,11 @@
 
 @use '../../style/internal/lime-theme';
 
-@use "@material/floating-label/mdc-floating-label";
-@use "@material/line-ripple/mdc-line-ripple";
+@use '@material/textfield';
+@use "@material/textfield/icon";
 @use "@material/notched-outline/mdc-notched-outline";
-@use "@material/textfield";
+@use "@material/floating-label/mdc-floating-label";
+@use '@material/ripple';
 @use '@material/chips/deprecated/mdc-chips';
 
 /**
@@ -18,6 +19,16 @@
  * @prop --background-color-disabled: Background color of the field when type is set to input and the component is disabled or readonly.
  * @prop --input-chip-set-selected-chip-color: Color of the highlight around selected chips in input chip-sets.
  */
+
+@include textfield.core-styles;
+@include icon.icon-core-styles;
+
+@include shared_input-select-picker.outlined-style-overrides;
+@include shared_input-select-picker.floating-label-overrides;
+@include shared_input-select-picker.disabled-overrides;
+@include shared_input-select-picker.readonly-overrides;
+@include shared_input-select-picker.leading-icon;
+
 $height-of-chip-set-input: functions.pxToRem(36);
 
 .mdc-chip {
@@ -167,12 +178,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         }
     }
 }
-
-@include shared_input-select-picker.outlined-style-overrides;
-@include shared_input-select-picker.floating-label-overrides;
-@include shared_input-select-picker.disabled-overrides;
-@include shared_input-select-picker.readonly-overrides;
-@include shared_input-select-picker.leading-icon;
 
 .mdc-text-field {
     height: auto;

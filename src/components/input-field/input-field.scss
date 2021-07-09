@@ -6,13 +6,13 @@
 @use '../../style/internal/lime-theme';
 
 @use '@material/textfield';
+@use "@material/textfield/icon";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/floating-label/mdc-floating-label";
 @use '@material/ripple';
 @use '@material/list';
 @use '@material/elevation';
 @use '@material/menu-surface';
-
-@import './partial-styles/trailing-icon.scss';
-@import './partial-styles/readonly';
 
 /**
  * @prop --textarea-height: Height of the field when type is set to `textarea`
@@ -45,23 +45,31 @@
     }
 }
 
+@include textfield.core-styles;
+@include icon.icon-core-styles;
+
 @include shared_input-select-picker.outlined-style-overrides;
 @include shared_input-select-picker.floating-label-overrides;
 @include shared_input-select-picker.readonly-overrides;
 @include shared_input-select-picker.cropped-label-hack;
+@include shared_input-select-picker.disabled-overrides;
+@include shared_input-select-picker.leading-icon;
 
 .formatted-input {
     @include shared_input-select-picker.looks-like-input-label;
     @include mixins.truncate-text;
     width: calc(100% - #{functions.pxToRem(20)});
 
-    z-index: z-index.$input-field--formatted-input;
-    padding: 0 functions.pxToRem(40) 0 functions.pxToRem(16);
+    z-index: z-index.$input-field--formatted-value;
     align-self: center;
     position: absolute;
 
     display: none;
     color: shared_input-select-picker.$input-text-color;
+}
+
+.formatted-input + .mdc-text-field__input {
+    z-index: z-index.$input-field--input-with-formatted-value;
 }
 
 :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
@@ -74,8 +82,6 @@
         -webkit-text-fill-color: transparent;
     }
 }
-
-@include shared_input-select-picker.disabled-overrides;
 
 .mdc-text-field--disabled {
     .formatted-input {
@@ -100,8 +106,6 @@
 .mdc-list-item {
     cursor: pointer;
 }
-
-@include shared_input-select-picker.leading-icon;
 
 input.mdc-text-field__input {
     &::-webkit-search-cancel-button {
@@ -147,3 +151,6 @@ input.mdc-text-field__input {
         height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
     }
 }
+
+@import './partial-styles/trailing-icon.scss';
+@import './partial-styles/readonly';
