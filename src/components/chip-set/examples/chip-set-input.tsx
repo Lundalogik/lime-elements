@@ -63,7 +63,7 @@ export class ChipSetInputExample {
                     leadingIcon={this.hasLeadingIcon ? 'search' : null}
                     maxItems={this.maxItems}
                     onChange={this.handleChange}
-                    onInput={this.onInput}
+                    onInput={this.handleInput}
                     onInteract={this.handleInteraction}
                     onKeyUp={this.onKeyUp}
                     searchLabel="Add an animal"
@@ -115,7 +115,7 @@ export class ChipSetInputExample {
         ];
     }
 
-    private onInput = (event: CustomEvent<string>) => {
+    private handleInput = (event: CustomEvent<string>) => {
         this.textValue = event.detail;
     };
 
