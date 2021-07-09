@@ -122,14 +122,6 @@ export class PickerIconsExample {
     @State()
     private disabled: boolean = false;
 
-    constructor() {
-        this.search = this.search.bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.setDisabled = this.setDisabled.bind(this);
-        this.setReadonly = this.setReadonly.bind(this);
-        this.setRequired = this.setRequired.bind(this);
-    }
-
     public render() {
         return [
             <limel-picker
@@ -168,7 +160,7 @@ export class PickerIconsExample {
         ];
     }
 
-    private search(query: string): Promise<ListItem[]> {
+    private search = (query: string): Promise<ListItem[]> => {
         return new Promise((resolve) => {
             if (query === '') {
                 resolve([]);
@@ -187,25 +179,25 @@ export class PickerIconsExample {
                 resolve(filteredItems);
             }, NETWORK_DELAY);
         });
-    }
+    };
 
-    private onChange(event: CustomEvent<Array<ListItem<number>>>) {
+    private onChange = (event: CustomEvent<Array<ListItem<number>>>) => {
         this.selectedItems = [...event.detail];
-    }
+    };
 
-    private onInteract(event) {
+    private onInteract = (event) => {
         console.log('Value interacted with:', event.detail);
-    }
+    };
 
-    private setDisabled(event: CustomEvent<boolean>) {
+    private setDisabled = (event: CustomEvent<boolean>) => {
         this.disabled = event.detail;
-    }
+    };
 
-    private setReadonly(event: CustomEvent<boolean>) {
+    private setReadonly = (event: CustomEvent<boolean>) => {
         this.readonly = event.detail;
-    }
+    };
 
-    private setRequired(event: CustomEvent<boolean>) {
+    private setRequired = (event: CustomEvent<boolean>) => {
         this.required = event.detail;
-    }
+    };
 }
