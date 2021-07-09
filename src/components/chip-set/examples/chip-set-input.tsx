@@ -64,7 +64,7 @@ export class ChipSetInputExample {
                     maxItems={this.maxItems}
                     onChange={this.handleChange}
                     onInput={this.onInput}
-                    onInteract={this.onInteract}
+                    onInteract={this.handleInteraction}
                     onKeyUp={this.onKeyUp}
                     searchLabel="Add an animal"
                     emptyInputOnBlur={this.emptyInputOnBlur}
@@ -137,7 +137,7 @@ export class ChipSetInputExample {
         this.value = event.detail;
     };
 
-    private onInteract = (event: CustomEvent<Chip>) => {
+    private handleInteraction = (event: CustomEvent<Chip>) => {
         console.log('Chip interacted with: ', event.detail);
     };
 
