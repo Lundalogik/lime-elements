@@ -22,11 +22,6 @@ export class InputFieldIconTrailingExample {
     @State()
     private value;
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-        this.onAction = this.onAction.bind(this);
-    }
-
     public render() {
         return (
             <limel-input-field
@@ -40,11 +35,11 @@ export class InputFieldIconTrailingExample {
         );
     }
 
-    private onChange(event) {
+    private onChange = (event) => {
         this.value = event.detail;
-    }
+    };
 
-    private onAction() {
+    private onAction = () => {
         console.log(`Sending email to ${this.value}`);
-    }
+    };
 }

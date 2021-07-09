@@ -11,11 +11,6 @@ export class InputFieldIconBothExample {
     @State()
     private value;
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-        this.onAction = this.onAction.bind(this);
-    }
-
     public render() {
         return (
             <limel-input-field
@@ -30,11 +25,11 @@ export class InputFieldIconBothExample {
         );
     }
 
-    private onChange(event) {
+    private onChange = (event) => {
         this.value = event.detail;
-    }
+    };
 
-    private onAction() {
+    private onAction = () => {
         window.open(this.value);
-    }
+    };
 }

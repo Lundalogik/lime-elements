@@ -18,12 +18,6 @@ export class InputFieldTextExample {
     @State()
     private addDistance: boolean = false;
 
-    constructor() {
-        this.firstOnChange = this.firstOnChange.bind(this);
-        this.secondOnChange = this.secondOnChange.bind(this);
-        this.toggleMode = this.toggleMode.bind(this);
-    }
-
     public render() {
         return (
             <div class={{ 'add-distance': this.addDistance }}>
@@ -40,26 +34,25 @@ export class InputFieldTextExample {
                         onChange={this.secondOnChange}
                     />
                 </section>
-                <limel-flex-container justify="start">
-                    <limel-checkbox
-                        label="Then click this to add distance between fields"
-                        onChange={this.toggleMode}
-                        checked={this.addDistance}
-                    />
-                </limel-flex-container>
+                <limel-checkbox
+                    label="Then click this to add distance between fields"
+                    onChange={this.toggleMode}
+                    checked={this.addDistance}
+                />
             </div>
         );
     }
 
-    private firstOnChange(event: CustomEvent<string>) {
+    private firstOnChange = (event: CustomEvent<string>) => {
         this.firstValue = event.detail;
-    }
+    };
 
-    private secondOnChange(event: CustomEvent<string>) {
+    private secondOnChange = (event: CustomEvent<string>) => {
         this.secondValue = event.detail;
-    }
+    };
 
-    private toggleMode(event: CustomEvent<boolean>) {
+    private toggleMode = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
         this.addDistance = event.detail;
-    }
+    };
 }

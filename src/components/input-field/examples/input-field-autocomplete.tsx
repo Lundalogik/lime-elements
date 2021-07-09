@@ -37,10 +37,6 @@ export class InputFieldAutocompleteExample {
         'Väderstad',
     ];
 
-    constructor() {
-        this.checkValidity = this.checkValidity.bind(this);
-    }
-
     public render() {
         return [
             <limel-input-field
@@ -77,7 +73,7 @@ export class InputFieldAutocompleteExample {
     }
 
     @Watch('required')
-    private checkValidity() {
+    protected checkValidity() {
         this.invalid = this.required && !this.value;
     }
 
