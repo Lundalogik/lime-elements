@@ -48,10 +48,6 @@ export class SelectExample {
         },
     ];
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return (
             <limel-header
@@ -69,7 +65,7 @@ export class SelectExample {
         );
     }
 
-    private onChange(event) {
+    private onChange = (event) => {
         this.value = event.detail;
-    }
+    };
 }

@@ -45,10 +45,6 @@ export class SelectExample {
         },
     ];
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return (
             <section>
@@ -64,7 +60,7 @@ export class SelectExample {
         );
     }
 
-    private onChange(event) {
+    private onChange = (event) => {
         this.value = event.detail;
-    }
+    };
 }
