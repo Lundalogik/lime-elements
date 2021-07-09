@@ -9,9 +9,6 @@ export class SizeExample {
     @State()
     private visualizeSizes: boolean = false;
 
-    constructor() {
-        this.toggleMode = this.toggleMode.bind(this);
-    }
     public render() {
         return [
             <div
@@ -38,7 +35,7 @@ export class SizeExample {
         ];
     }
 
-    private toggleMode() {
+    private toggleMode = () => {
         this.visualizeSizes = !this.visualizeSizes;
-    }
+    };
 }

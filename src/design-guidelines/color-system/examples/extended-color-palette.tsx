@@ -32,10 +32,6 @@ export class PaletteExample {
         'glaucous',
     ];
 
-    constructor() {
-        this.toggleMode = this.toggleMode.bind(this);
-        this.renderSwatches = this.renderSwatches.bind(this);
-    }
     public render() {
         return (
             <div class={{ 'brand-colors': this.brandColors }}>
@@ -63,7 +59,7 @@ export class PaletteExample {
         );
     }
 
-    private renderSwatches(): JSX.Element[][] {
+    private renderSwatches = (): JSX.Element[][] => {
         return this.colors.map((color) => {
             return [
                 <div class={`swatch --color-${color}-lighter`}></div>,
@@ -74,9 +70,9 @@ export class PaletteExample {
                 <div class="swatch hue">{color}</div>,
             ];
         });
-    }
+    };
 
-    private toggleMode() {
+    private toggleMode = () => {
         this.brandColors = !this.brandColors;
-    }
+    };
 }

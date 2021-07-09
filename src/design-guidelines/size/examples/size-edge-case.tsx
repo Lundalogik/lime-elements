@@ -9,9 +9,6 @@ export class SizeEdgeCaseExample {
     @State()
     private visualizeSizes: boolean = true;
 
-    constructor() {
-        this.toggleMode = this.toggleMode.bind(this);
-    }
     public render() {
         return [
             <div
@@ -41,7 +38,7 @@ export class SizeEdgeCaseExample {
         ];
     }
 
-    private toggleMode() {
+    private toggleMode = () => {
         this.visualizeSizes = !this.visualizeSizes;
-    }
+    };
 }
