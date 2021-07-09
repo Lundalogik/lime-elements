@@ -23,7 +23,7 @@ export class ChipSetExample {
             <limel-chip-set
                 label="Tags"
                 disabled={this.disabled}
-                onInteract={this.onInteract}
+                onInteract={this.handleInteraction}
                 value={[
                     {
                         id: 1,
@@ -51,7 +51,7 @@ export class ChipSetExample {
         ];
     }
 
-    private onInteract = (event) => {
+    private handleInteraction = (event) => {
         console.log(event.detail);
     };
 
