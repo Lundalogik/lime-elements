@@ -48,18 +48,6 @@ export class ChipSetInputExample {
             this.createChip('Badger'),
             this.createChip('Fish'),
         ];
-
-        this.chipSetOnChange = this.chipSetOnChange.bind(this);
-        this.onInteract = this.onInteract.bind(this);
-        this.onInput = this.onInput.bind(this);
-        this.onKeyUp = this.onKeyUp.bind(this);
-        this.setDisabled = this.setDisabled.bind(this);
-        this.setReadonly = this.setReadonly.bind(this);
-        this.setRequired = this.setRequired.bind(this);
-        this.setEmptyInputOnBlur = this.setEmptyInputOnBlur.bind(this);
-        this.setMaxItems = this.setMaxItems.bind(this);
-        this.setLeadingIcon = this.setLeadingIcon.bind(this);
-        this.useDelimiters = this.useDelimiters.bind(this);
     }
 
     public render() {
@@ -127,11 +115,11 @@ export class ChipSetInputExample {
         ];
     }
 
-    private onInput(event: CustomEvent<string>) {
+    private onInput = (event: CustomEvent<string>) => {
         this.textValue = event.detail;
-    }
+    };
 
-    private onKeyUp(event: KeyboardEvent) {
+    private onKeyUp = (event: KeyboardEvent) => {
         if (
             (event.key === ENTER || event.keyCode === ENTER_KEY_CODE) &&
             this.textValue.trim()
@@ -142,51 +130,51 @@ export class ChipSetInputExample {
             ];
             this.textValue = '';
         }
-    }
+    };
 
-    private chipSetOnChange(event: CustomEvent<Chip[]>) {
+    private handleChange = (event: CustomEvent<Chip[]>) => {
         console.log(event.detail);
         this.value = event.detail;
-    }
+    };
 
-    private onInteract(event: CustomEvent<Chip>) {
+    private onInteract = (event: CustomEvent<Chip>) => {
         console.log('Chip interacted with: ', event.detail);
-    }
+    };
 
-    private createChip(name: string): Chip {
+    private createChip = (name: string): Chip => {
         return {
             id: name,
             text: name,
             removable: true,
             icon: `${name}`.toLowerCase(),
         };
-    }
+    };
 
-    private setDisabled(event: CustomEvent<boolean>) {
+    private setDisabled = (event: CustomEvent<boolean>) => {
         this.disabled = event.detail;
-    }
+    };
 
-    private setReadonly(event: CustomEvent<boolean>) {
+    private setReadonly = (event: CustomEvent<boolean>) => {
         this.readonly = event.detail;
-    }
+    };
 
-    private setRequired(event: CustomEvent<boolean>) {
+    private setRequired = (event: CustomEvent<boolean>) => {
         this.required = event.detail;
-    }
+    };
 
-    private setEmptyInputOnBlur(event: CustomEvent<boolean>) {
+    private setEmptyInputOnBlur = (event: CustomEvent<boolean>) => {
         this.emptyInputOnBlur = event.detail;
-    }
+    };
 
-    private setLeadingIcon(event: CustomEvent<boolean>) {
+    private setLeadingIcon = (event: CustomEvent<boolean>) => {
         this.hasLeadingIcon = event.detail;
-    }
+    };
 
-    private setMaxItems(event: CustomEvent<string>) {
+    private setMaxItems = (event: CustomEvent<string>) => {
         this.maxItems = +event.detail;
-    }
+    };
 
-    private useDelimiters(event: CustomEvent<boolean>) {
+    private useDelimiters = (event: CustomEvent<boolean>) => {
         this.delimiter = event.detail ? '&' : null;
-    }
+    };
 }

@@ -18,11 +18,6 @@ export class ChipSetExample {
     @State()
     private disabled: boolean = false;
 
-    constructor() {
-        this.onInteract = this.onInteract.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-    }
-
     public render() {
         return [
             <limel-chip-set
@@ -56,11 +51,11 @@ export class ChipSetExample {
         ];
     }
 
-    private onInteract(event) {
+    private onInteract = (event) => {
         console.log(event.detail);
-    }
+    };
 
-    private toggleEnabled() {
+    private toggleEnabled = () => {
         this.disabled = !this.disabled;
-    }
+    };
 }
