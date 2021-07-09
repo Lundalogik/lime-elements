@@ -29,10 +29,6 @@ export class TableExampleActivateRow {
         { title: 'Role', field: 'role' },
     ];
 
-    constructor() {
-        this.onActivateRow = this.onActivateRow.bind(this);
-    }
-
     public render() {
         return [
             <limel-table
@@ -46,7 +42,7 @@ export class TableExampleActivateRow {
         ];
     }
 
-    private onActivateRow(event: CustomEvent<Person>) {
+    private onActivateRow = (event: CustomEvent<Person>) => {
         this.activeRow = event.detail;
-    }
+    };
 }
