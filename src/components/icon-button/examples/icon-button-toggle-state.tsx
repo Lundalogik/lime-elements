@@ -15,10 +15,6 @@ export class IconButtonToggleStateExample {
     @State()
     private isFavorite = false;
 
-    constructor() {
-        this.toggleFavorite = this.toggleFavorite.bind(this);
-    }
-
     public render() {
         return (
             <limel-icon-button
@@ -29,7 +25,7 @@ export class IconButtonToggleStateExample {
         );
     }
 
-    private toggleFavorite() {
+    private toggleFavorite = () => {
         this.isFavorite = !this.isFavorite;
-    }
+    };
 }
