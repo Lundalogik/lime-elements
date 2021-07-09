@@ -22,7 +22,7 @@ export class ButtonGroupMixExample {
         return [
             <limel-button-group
                 disabled={this.disabled}
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 value={[
                     {
                         id: '1',
@@ -57,7 +57,7 @@ export class ButtonGroupMixExample {
         ];
     }
 
-    private onChange = (event) => {
+    private handleChange = (event) => {
         console.log(event.detail);
     };
 
