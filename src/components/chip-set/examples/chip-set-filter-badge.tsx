@@ -39,8 +39,6 @@ export class ChipSetFilterBadgeExample {
     private disabled: boolean = false;
 
     constructor() {
-        this.chipSetOnChange = this.chipSetOnChange.bind(this);
-        this.setDisabled = this.setDisabled.bind(this);
         this.setAllBadgeValue();
     }
 
@@ -65,7 +63,7 @@ export class ChipSetFilterBadgeExample {
         ];
     }
 
-    private chipSetOnChange(event: CustomEvent<Chip>) {
+    private chipSetOnChange = (event: CustomEvent<Chip>) => {
         const updatedChips = [...this.chips];
         if (event.detail.id !== CHIP_SELECET_ALL_ID) {
             updatedChips[0].selected = false;
@@ -82,11 +80,11 @@ export class ChipSetFilterBadgeExample {
         );
         updatedChips[index] = event.detail;
         this.chips = updatedChips;
-    }
+    };
 
-    private setDisabled(event: CustomEvent<boolean>) {
+    private setDisabled = (event: CustomEvent<boolean>) => {
         this.disabled = event.detail;
-    }
+    };
 
     private setAllBadgeValue() {
         let badgeValue = 0;
