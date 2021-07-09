@@ -14,11 +14,6 @@ export class ButtonGroupExample {
     @State()
     private disabled: boolean = false;
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-    }
-
     public render() {
         return [
             <limel-button-group
@@ -52,11 +47,11 @@ export class ButtonGroupExample {
         ];
     }
 
-    private onChange(event) {
+    private onChange = (event) => {
         console.log(event.detail);
-    }
+    };
 
-    private toggleEnabled() {
+    private toggleEnabled = () => {
         this.disabled = !this.disabled;
-    }
+    };
 }
