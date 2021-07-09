@@ -21,10 +21,6 @@ export class MenuBasicExample {
         { text: 'Paste' },
     ];
 
-    constructor() {
-        this.handleSelect = this.handleSelect.bind(this);
-    }
-
     public render() {
         return [
             <limel-menu items={this.items} onSelect={this.handleSelect}>
@@ -37,7 +33,7 @@ export class MenuBasicExample {
         ];
     }
 
-    private handleSelect(event: CustomEvent<ListItem>) {
+    private handleSelect = (event: CustomEvent<ListItem>) => {
         this.lastSelectedItem = event.detail.text;
-    }
+    };
 }
