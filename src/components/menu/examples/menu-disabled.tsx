@@ -21,10 +21,6 @@ export class MenuDisabledExample {
         { text: 'Paste' },
     ];
 
-    constructor() {
-        this.handleSelect = this.handleSelect.bind(this);
-    }
-
     public render() {
         return (
             <limel-menu
@@ -37,10 +33,10 @@ export class MenuDisabledExample {
         );
     }
 
-    private handleSelect(event: CustomEvent<ListItem>) {
+    private handleSelect = (event: CustomEvent<ListItem>) => {
         console.error(
             'This should never happen, since the menu is disabled.',
             event
         );
-    }
+    };
 }
