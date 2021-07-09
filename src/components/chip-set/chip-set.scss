@@ -5,8 +5,11 @@
 
 @use '../../style/internal/lime-theme';
 
-@use '@material/textfield';
-@use '@material/chips';
+@use "@material/floating-label/mdc-floating-label";
+@use "@material/line-ripple/mdc-line-ripple";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/textfield";
+@use '@material/chips/deprecated/mdc-chips';
 
 /**
  * @prop --icon-background-color: Background color of the icon. Defaults to transparent.
@@ -93,6 +96,11 @@ limel-badge {
     padding: 0 functions.pxToRem(12) 0 functions.pxToRem(4);
     color: inherit;
     text-decoration: none;
+
+    &:focus,
+    &:focus-visible {
+        outline: none;
+    }
 }
 
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {

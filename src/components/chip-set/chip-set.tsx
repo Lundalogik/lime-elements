@@ -1,6 +1,10 @@
 import { Chip, Languages } from '@limetech/lime-elements';
-import { MDCChipSet } from '@material/chips/chip-set';
-import { MDCChipSetInteractionEventDetail, MDCChipSetSelectionEventDetail } from '@material/chips/chip-set/types';
+import {
+    MDCChipInteractionEvent,
+    MDCChipRemovalEvent,
+    MDCChipSelectionEvent,
+    MDCChipSet,
+} from '@material/chips/deprecated';
 import { MDCTextField } from '@material/textfield';
 import {
     Component,
@@ -297,10 +301,9 @@ export class ChipSet {
         this.mdcChipSet = new MDCChipSet(
             this.host.shadowRoot.querySelector('.mdc-chip-set')
         );
-        console.warn('commented code chip-set.tsx:300');
-        // this.mdcChipSet.chips.forEach((chip) => {
-        //     chip.shouldRemoveOnTrailingIconClick = false;
-        // });
+        this.mdcChipSet.chips.forEach((chip) => {
+            chip.shouldRemoveOnTrailingIconClick = false;
+        });
 
         if (!this.type || this.type === 'input') {
             this.mdcChipSet.listen(
@@ -488,9 +491,9 @@ export class ChipSet {
         this.input.emit(event.target.value && event.target.value.trim());
     }
 
-    private handleInteractionEvent(event: CustomEvent<MDCChipSetInteractionEventDetail>) {
+    private handleInteractionEvent(event: MDCChipInteractionEvent) {
         const chip = this.value.find((item) => {
-            return `${item.id}` === event.detail.chipID;
+            return `${item.id}` === event.detail.chipId;
         });
         this.emitInteraction(chip);
     }
@@ -499,16 +502,16 @@ export class ChipSet {
         this.interact.emit(chip);
     }
 
-    private handleSelection(event: CustomEvent<MDCChipSetSelectionEventDetail>) {
+    private handleSelection(event: MDCChipSelectionEvent) {
         let chip = this.value.find((item) => {
-            return `${item.id}` === event.detail.chipID;
+            return `${item.id}` === event.detail.chipId;
         });
-        chip = { ...chip, selected: event.detail.isSelected };
+        chip = { ...chip, selected: event.detail.selected };
         this.change.emit(chip);
     }
 
-    private handleRemoveEvent(event: CustomEvent<MDCChipSetInteractionEventDetail>) {
-        this.removeChip(event.detail.chipID);
+    private handleRemoveEvent(event: MDCChipRemovalEvent) {
+        this.removeChip(event.detail.chipId);
     }
 
     private removeChip(id: string | number) {
@@ -593,11 +596,6 @@ export class ChipSet {
     }
 
     private renderInputChip(chip: Chip, index: number) {
-        const attributes: { tabindex?: number } = {};
-        if (this.readonly && !this.disabled) {
-            attributes.tabindex = 0;
-        }
-
         return [
             this.renderDelimiter(index),
             <div
@@ -609,7 +607,6 @@ export class ChipSet {
                 role="row"
                 id={`${chip.id}`}
                 onClick={this.catchInputChipClicks}
-                {...attributes}
             >
                 {chip.icon ? this.renderIcon(chip) : null}
                 {this.renderLabel(chip)}
