@@ -24,11 +24,8 @@ export class TableExampleRemote {
     private allData: object[] = data;
 
     private pageSize = 10;
-    private currentPage: number;
 
-    constructor() {
-        this.handleLoad = this.handleLoad.bind(this);
-    }
+    private currentPage: number;
 
     public componentWillLoad() {
         this.columns = [
@@ -53,7 +50,7 @@ export class TableExampleRemote {
         return `${value} ${unit}`;
     };
 
-    private handleLoad(event: CustomEvent<TableParams>) {
+    private handleLoad = (event: CustomEvent<TableParams>) => {
         console.log('Loading new data', event.detail);
         const sorter = event.detail.sorters[0];
 
@@ -63,7 +60,7 @@ export class TableExampleRemote {
         }
 
         this.loadData();
-    }
+    };
 
     /**
      * This will only handle how to compare strings. This means the two number
