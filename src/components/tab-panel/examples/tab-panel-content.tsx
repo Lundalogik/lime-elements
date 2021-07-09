@@ -35,10 +35,6 @@ export class TabPanelContentExample {
     @State()
     private loaded = false;
 
-    constructor() {
-        this.vote = this.vote.bind(this);
-    }
-
     public render() {
         if (!this.loaded) {
             return <limel-spinner />;
@@ -91,11 +87,11 @@ export class TabPanelContentExample {
         }, LOAD_TIME);
     }
 
-    private vote() {
+    private vote = () => {
         this.votes++;
         this.changeTab.emit({
             ...this.tab,
             badge: this.votes,
         });
-    }
+    };
 }
