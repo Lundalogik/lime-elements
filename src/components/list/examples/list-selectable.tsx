@@ -19,10 +19,6 @@ export class SelectableListExample {
         { text: 'Ticket to Ride', value: 5 },
     ];
 
-    constructor() {
-        this.handleChange = this.handleChange.bind(this);
-    }
-
     public render() {
         return (
             <limel-list
@@ -33,7 +29,7 @@ export class SelectableListExample {
         );
     }
 
-    private handleChange(event: CustomEvent<ListItem>) {
+    private handleChange = (event: CustomEvent<ListItem>) => {
         this.items = this.items.map((item: ListItem) => {
             if (item.value === event.detail.value) {
                 return event.detail;
@@ -41,5 +37,5 @@ export class SelectableListExample {
 
             return item;
         });
-    }
+    };
 }

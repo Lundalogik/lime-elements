@@ -64,7 +64,6 @@ export class ListRadioButtonIconsExample {
         this.selectedItem = this.items.filter((item) => {
             return !!item.selected;
         })[0];
-        this.handleChange = this.handleChange.bind(this);
     }
 
     public render() {
@@ -78,7 +77,7 @@ export class ListRadioButtonIconsExample {
         ];
     }
 
-    private handleChange(event: CustomEvent<ListItem>) {
+    private handleChange = (event: CustomEvent<ListItem>) => {
         this.selectedItem = event.detail;
         this.items = this.items.map((item: ListItem) => {
             if (item.value === event.detail.value) {
@@ -87,5 +86,5 @@ export class ListRadioButtonIconsExample {
 
             return item;
         });
-    }
+    };
 }

@@ -27,7 +27,6 @@ export class ListCheckboxExample {
         this.selectedItems = this.items.filter((item: ListItem) => {
             return !!item.selected;
         });
-        this.handleChange = this.handleChange.bind(this);
     }
 
     public render() {
@@ -41,7 +40,7 @@ export class ListCheckboxExample {
         ];
     }
 
-    private handleChange(event: CustomEvent<ListItem[]>) {
+    private handleChange = (event: CustomEvent<ListItem[]>) => {
         this.selectedItems = event.detail;
         this.items = this.items.map((item: ListItem) => {
             const selected = !!event.detail.find((selectedItem: ListItem) => {
@@ -50,5 +49,5 @@ export class ListCheckboxExample {
 
             return { ...item, selected: selected };
         });
-    }
+    };
 }
