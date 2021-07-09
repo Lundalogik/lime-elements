@@ -22,10 +22,6 @@ export class LinearProgressExampleColor {
         { text: 'lime-magenta', value: 'lime-magenta' },
     ];
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return [
             <p>
@@ -45,7 +41,7 @@ export class LinearProgressExampleColor {
         ];
     }
 
-    private onChange(event) {
+    private onChange = (event) => {
         this.color = event.detail;
-    }
+    };
 }
