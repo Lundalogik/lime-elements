@@ -24,10 +24,6 @@ export class InputFieldTextExample {
     @State()
     private value: string;
 
-    constructor() {
-        this.checkValidity = this.checkValidity.bind(this);
-    }
-
     public render() {
         const MAX_LENGTH = 15;
 
@@ -66,7 +62,7 @@ export class InputFieldTextExample {
     }
 
     @Watch('required')
-    private checkValidity() {
+    protected checkValidity() {
         this.invalid = this.required && !this.value;
     }
 

@@ -16,12 +16,6 @@ export class InputFieldErrorIconExample {
     @State()
     private valueConsumer: string;
 
-    constructor() {
-        this.onChangeNative = this.onChangeNative.bind(this);
-        this.onChangeConsumer = this.onChangeConsumer.bind(this);
-        this.isInvalid = this.isInvalid.bind(this);
-    }
-
     public render() {
         return [
             <limel-input-field
@@ -42,14 +36,15 @@ export class InputFieldErrorIconExample {
         ];
     }
 
-    private onChangeNative(event: CustomEvent<string>) {
+    private onChangeNative = (event: CustomEvent<string>) => {
         this.valueNative = event.detail;
-    }
-    private onChangeConsumer(event: CustomEvent<string>) {
-        this.valueConsumer = event.detail;
-    }
+    };
 
-    private isInvalid() {
+    private onChangeConsumer = (event: CustomEvent<string>) => {
+        this.valueConsumer = event.detail;
+    };
+
+    private isInvalid = () => {
         const substringLength = 9;
 
         return !!(
@@ -57,5 +52,5 @@ export class InputFieldErrorIconExample {
             this.valueConsumer.substr(-substringLength, substringLength) !==
                 '@test.com'
         );
-    }
+    };
 }

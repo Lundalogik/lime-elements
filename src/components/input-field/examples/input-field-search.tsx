@@ -12,10 +12,6 @@ export class InputFieldSearchExample {
     @State()
     private value;
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return (
             <limel-input-field
@@ -28,7 +24,7 @@ export class InputFieldSearchExample {
         );
     }
 
-    private onChange(event) {
+    private onChange = (event) => {
         this.value = event.detail;
-    }
+    };
 }
