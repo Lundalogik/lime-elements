@@ -14,11 +14,6 @@ export class DatePickerFormattedExample {
     @State()
     private valueFi = new Date('2018-11-04');
 
-    constructor() {
-        this.handleChangeNo = this.handleChangeNo.bind(this);
-        this.handleChangeFi = this.handleChangeFi.bind(this);
-    }
-
     public render() {
         return [
             <limel-date-picker
@@ -41,11 +36,11 @@ export class DatePickerFormattedExample {
         ];
     }
 
-    private handleChangeNo(event) {
+    private handleChangeNo = (event) => {
         this.valueNo = event.detail;
-    }
+    };
 
-    private handleChangeFi(event) {
+    private handleChangeFi = (event) => {
         this.valueFi = event.detail;
-    }
+    };
 }
