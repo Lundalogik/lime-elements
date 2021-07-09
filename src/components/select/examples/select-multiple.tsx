@@ -37,7 +37,7 @@ export class SelectMultipleExample {
                     disabled={this.disabled}
                     readonly={this.readonly}
                     required={this.required}
-                    onChange={this.changeHandler}
+                    onChange={this.handleChange}
                     multiple={true}
                 />
                 <p>
@@ -64,7 +64,7 @@ export class SelectMultipleExample {
         );
     }
 
-    private changeHandler = (event: CustomEvent<Option[]>) => {
+    private handleChange = (event: CustomEvent<Option[]>) => {
         this.value = event.detail;
     };
 

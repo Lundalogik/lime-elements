@@ -26,7 +26,7 @@ export class SelectExample {
                     label="Favorite hero"
                     value={this.value}
                     options={this.options}
-                    onChange={this.onChange}
+                    onChange={this.handleChange}
                     required={true}
                 />
                 <limel-example-value value={this.value} />
@@ -34,7 +34,7 @@ export class SelectExample {
         );
     }
 
-    private onChange = (event) => {
+    private handleChange = (event) => {
         this.value = event.detail;
     };
 }
