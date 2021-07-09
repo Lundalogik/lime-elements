@@ -2,7 +2,7 @@ import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
- * Multiple values
+ * Multiple values can be picked
  */
 @Component({
     tag: 'limel-example-picker-multiple',
