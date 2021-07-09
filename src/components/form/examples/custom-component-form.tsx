@@ -19,10 +19,6 @@ export class CustomComponentFormExample {
         hero: 1001,
     };
 
-    constructor() {
-        this.handleFormChange = this.handleFormChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-form
@@ -34,7 +30,7 @@ export class CustomComponentFormExample {
         ];
     }
 
-    private handleFormChange(event) {
+    private handleFormChange = (event) => {
         this.formData = event.detail;
-    }
+    };
 }

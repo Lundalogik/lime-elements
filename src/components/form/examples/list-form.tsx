@@ -22,10 +22,6 @@ export class ListFormExample {
         ],
     };
 
-    constructor() {
-        this.handleFormChange = this.handleFormChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-form
@@ -37,7 +33,7 @@ export class ListFormExample {
         ];
     }
 
-    private handleFormChange(event) {
+    private handleFormChange = (event) => {
         this.formData = event.detail;
-    }
+    };
 }

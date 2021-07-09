@@ -22,11 +22,6 @@ export class PropsFactoryFormExample {
     };
     private aStringToInject = 'The string was successfully injected!';
 
-    constructor() {
-        this.propsFactory = this.propsFactory.bind(this);
-        this.handleFormChange = this.handleFormChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-form
@@ -39,7 +34,7 @@ export class PropsFactoryFormExample {
         ];
     }
 
-    private propsFactory(subSchema: Record<string, any>) {
+    private propsFactory = (subSchema: Record<string, any>) => {
         if (
             subSchema.lime?.component?.name ===
             'limel-example-props-factory-picker'
@@ -49,9 +44,9 @@ export class PropsFactoryFormExample {
                 injectedString: this.aStringToInject,
             };
         }
-    }
+    };
 
-    private handleFormChange(event: CustomEvent<object>) {
+    private handleFormChange = (event: CustomEvent<object>) => {
         this.formData = event.detail;
-    }
+    };
 }

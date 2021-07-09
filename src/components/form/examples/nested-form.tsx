@@ -14,10 +14,6 @@ export class NestedFormExample {
     @State()
     private formData: object = {};
 
-    constructor() {
-        this.handleFormChange = this.handleFormChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-form
@@ -29,7 +25,7 @@ export class NestedFormExample {
         ];
     }
 
-    private handleFormChange(event) {
+    private handleFormChange = (event) => {
         this.formData = event.detail;
-    }
+    };
 }

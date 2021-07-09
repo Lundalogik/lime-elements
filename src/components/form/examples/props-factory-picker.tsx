@@ -83,7 +83,6 @@ export class PropsFactoryPickerExample implements FormComponent<number> {
     ];
 
     constructor() {
-        this.handleChange = this.handleChange.bind(this);
         this.search = this.search.bind(this);
     }
 
@@ -98,10 +97,10 @@ export class PropsFactoryPickerExample implements FormComponent<number> {
         );
     }
 
-    private handleChange(event: CustomEvent<ListItem<number>>) {
+    private handleChange = (event: CustomEvent<ListItem<number>>) => {
         event.stopPropagation();
         this.change.emit(event.detail?.value);
-    }
+    };
 
     private async search(query: string): Promise<ListItem[]> {
         return this.heroes.filter((hero) => {

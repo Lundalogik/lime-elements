@@ -41,9 +41,6 @@ export class DynamicFormExample {
 
     constructor() {
         this.text = JSON.stringify(this.schema, null, '    ');
-        this.handleFormChange = this.handleFormChange.bind(this);
-        this.handleTextChange = this.handleTextChange.bind(this);
-        this.handleValidate = this.handleValidate.bind(this);
     }
 
     public render() {
@@ -61,11 +58,11 @@ export class DynamicFormExample {
         ];
     }
 
-    private handleFormChange(event: CustomEvent) {
+    private handleFormChange = (event: CustomEvent) => {
         this.formData = event.detail;
-    }
+    };
 
-    private handleTextChange(event) {
+    private handleTextChange = (event) => {
         this.text = event.target.value;
         try {
             const json = JSON.parse(event.target.value);
@@ -75,9 +72,9 @@ export class DynamicFormExample {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
-    private handleValidate(event: CustomEvent<ValidationStatus>) {
+    private handleValidate = (event: CustomEvent<ValidationStatus>) => {
         this.errors = event.detail;
-    }
+    };
 }
