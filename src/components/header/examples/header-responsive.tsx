@@ -45,10 +45,6 @@ export class HeaderExample {
         },
     ];
 
-    constructor() {
-        this.renderActionButton = this.renderActionButton.bind(this);
-    }
-
     public render() {
         return (
             <limel-header
@@ -74,7 +70,7 @@ export class HeaderExample {
         );
     }
 
-    private renderActionButton(action: Action) {
+    private renderActionButton = (action: Action) => {
         return (
             <limel-icon-button
                 icon={action.icon}
@@ -83,7 +79,7 @@ export class HeaderExample {
                 onClick={this.handleActionClick(action)}
             />
         );
-    }
+    };
 
     private handleActionClick = (action: Action) => (event: MouseEvent) => {
         event.stopPropagation();
