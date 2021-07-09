@@ -9,11 +9,6 @@ export class PopoverExample {
     @State()
     private isOpen = false;
 
-    constructor() {
-        this.openPopover = this.openPopover.bind(this);
-        this.onPopoverClose = this.onPopoverClose.bind(this);
-    }
-
     public render() {
         return [
             <limel-popover open={this.isOpen} onClose={this.onPopoverClose}>
@@ -30,15 +25,15 @@ export class PopoverExample {
         ];
     }
 
-    private openPopover(event: MouseEvent) {
+    private openPopover = (event: MouseEvent) => {
         event.stopPropagation();
         console.log('opening');
         this.isOpen = true;
-    }
+    };
 
-    private onPopoverClose(event: CustomEvent) {
+    private onPopoverClose = (event: CustomEvent) => {
         event.stopPropagation();
         console.log('closing');
         this.isOpen = false;
-    }
+    };
 }
