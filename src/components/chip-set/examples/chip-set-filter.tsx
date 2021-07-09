@@ -38,7 +38,7 @@ export class ChipSetFilterExample {
                 label="Include fruits of type:"
                 disabled={this.disabled}
                 type="filter"
-                onChange={this.chipSetOnChange}
+                onChange={this.handleChange}
                 value={this.chips}
             />,
             <p>
@@ -53,7 +53,7 @@ export class ChipSetFilterExample {
         ];
     }
 
-    private chipSetOnChange = (event) => {
+    private handleChange = (event) => {
         console.log(event.detail);
     };
 

@@ -42,7 +42,7 @@ export class ChipSetChoiceExample {
                 disabled={this.disabled}
                 type="choice"
                 label="Thirst quencher with a twist of"
-                onChange={this.chipSetOnChange}
+                onChange={this.handleChange}
                 value={this.chips}
             />,
             <p>
@@ -57,7 +57,7 @@ export class ChipSetChoiceExample {
         ];
     }
 
-    private chipSetOnChange = (event) => {
+    private handleChange = (event) => {
         console.log(event.detail);
     };
 
