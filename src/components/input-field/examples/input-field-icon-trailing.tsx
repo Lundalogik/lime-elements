@@ -29,13 +29,13 @@ export class InputFieldIconTrailingExample {
                 type="email"
                 value={this.value}
                 trailingIcon="filled_message"
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 onAction={this.onAction}
             />
         );
     }
 
-    private onChange = (event) => {
+    private handleChange = (event) => {
         this.value = event.detail;
     };
 

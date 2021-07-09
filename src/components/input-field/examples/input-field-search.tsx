@@ -19,12 +19,12 @@ export class InputFieldSearchExample {
                 type="search"
                 leadingIcon="search"
                 value={this.value}
-                onChange={this.onChange}
+                onChange={this.handleChange}
             />
         );
     }
 
-    private onChange = (event) => {
+    private handleChange = (event) => {
         this.value = event.detail;
     };
 }

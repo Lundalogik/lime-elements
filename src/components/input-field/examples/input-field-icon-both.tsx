@@ -19,13 +19,13 @@ export class InputFieldIconBothExample {
                 value={this.value}
                 leadingIcon="globe"
                 trailingIcon="external_link"
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 onAction={this.onAction}
             />
         );
     }
 
-    private onChange = (event) => {
+    private handleChange = (event) => {
         this.value = event.detail;
     };
 
