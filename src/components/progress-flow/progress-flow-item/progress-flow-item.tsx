@@ -20,44 +20,48 @@ export class ProgressFlowItem {
     @Element()
     public element: HTMLLimelProgressFlowItemElement;
 
+    /**
+     * The flow item that should be rendered
+     */
     @Prop()
     public item: FlowItem = null;
 
+    /**
+     * True if the flow item should be disabled
+     */
     @Prop()
     public disabled = false;
 
+    /**
+     * True if the flow item should be readonly
+     */
     @Prop()
     public readonly = false;
 
+    /**
+     * Fired when clicking on the flow item
+     */
     @Event()
     public interact: EventEmitter<void>;
 
-    /**
-     * Icon displayed along with the text optionally
-     */
-    @Prop()
-    public icon: string;
-
     public render() {
-        const secondaryText = this.item.secondaryText
-            ? ' · ' + this.item.secondaryText
-            : '';
-        const tooltip = this.item.text + secondaryText;
+        if (!this.item) {
+            return;
+        }
 
         return [
             <button
                 tabindex="0"
-                title={tooltip}
+                title={this.getToolTipText()}
                 type="button"
                 class={{
                     step: true,
                     active: this.item?.selected,
-                    disabled: this.disabled || this.item?.disabled,
+                    disabled: this.isDisabled(),
                     readonly: this.readonly,
                 }}
-                onClick={() => {
-                    this.interact.emit();
-                }}
+                onClick={this.handleClick}
+                disabled={this.isDisabled()}
             >
                 {this.renderIcon()}
                 <span class="text">{this.item.text}</span>
@@ -66,6 +70,22 @@ export class ProgressFlowItem {
             this.renderSecondaryText(),
         ];
     }
+
+    private isDisabled() {
+        return this.item?.disabled || this.readonly || this.disabled;
+    }
+
+    private getToolTipText() {
+        if (!this.item.secondaryText) {
+            return this.item.text;
+        }
+
+        return [this.item.text, this.item.secondaryText].join(' · ');
+    }
+
+    private handleClick = () => {
+        this.interact.emit();
+    };
 
     private renderSecondaryText() {
         if (!this.item?.secondaryText) {
