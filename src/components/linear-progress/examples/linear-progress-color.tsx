@@ -36,12 +36,12 @@ export class LinearProgressExampleColor {
                 label="Color"
                 options={this.colors}
                 value={this.color}
-                onChange={this.onChange}
+                onChange={this.handleChange}
             />,
         ];
     }
 
-    private onChange = (event) => {
+    private handleChange = (event) => {
         this.color = event.detail;
     };
 }
