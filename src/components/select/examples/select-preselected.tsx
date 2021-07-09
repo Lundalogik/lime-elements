@@ -26,14 +26,14 @@ export class SelectExample {
                     label="Favorite hero"
                     value={this.value}
                     options={this.options}
-                    onChange={this.onChange}
+                    onChange={this.handleChange}
                 />
                 <limel-example-value value={this.value} />
             </section>
         );
     }
 
-    private onChange = (event) => {
+    private handleChange = (event) => {
         this.value = event.detail;
     };
 }

@@ -53,7 +53,7 @@ export class SelectExample {
                     value={this.value}
                     options={this.optionGroups[this.currentOptionGroup]}
                     disabled={this.disabled}
-                    onChange={this.onChange}
+                    onChange={this.handleChange}
                 />
                 <p>
                     <limel-flex-container justify="end">
@@ -78,7 +78,7 @@ export class SelectExample {
         );
     }
 
-    private onChange = (event) => {
+    private handleChange = (event) => {
         this.value = event.detail;
     };
 
