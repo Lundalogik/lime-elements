@@ -36,6 +36,8 @@
     }
 }
 
+@include icon-button.core-styles;
+
 .mdc-icon-button {
     &:disabled {
         color: var(--mdc-theme-text-disabled-on-background);
