@@ -169,13 +169,6 @@ export class FormLayoutExample {
     @State()
     private schema = schema;
 
-    constructor() {
-        this.handleFormChange = this.handleFormChange.bind(this);
-        this.handleFormValidate = this.handleFormValidate.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-flex-container justify="end">
@@ -202,23 +195,23 @@ export class FormLayoutExample {
         ];
     }
 
-    private handleFormChange(event) {
+    private handleFormChange = (event) => {
         this.formData = event.detail;
-    }
+    };
 
-    private handleFormValidate(event: CustomEvent<ValidationStatus>) {
+    private handleFormValidate = (event: CustomEvent<ValidationStatus>) => {
         this.valid = event.detail.valid;
         console.log(event.detail);
-    }
+    };
 
-    private handleSubmit() {
+    private handleSubmit = () => {
         const json = JSON.stringify(this.formData, null, '    ');
         alert(`Sending information to villains...\n\n${json}`);
-    }
+    };
 
-    private handleCheckboxChange(event: CustomEvent<boolean>) {
+    private handleCheckboxChange = (event: CustomEvent<boolean>) => {
         this.dense = event.detail;
         this.schema = { ...this.schema };
         this.schema.lime.layout.dense = this.dense;
-    }
+    };
 }
