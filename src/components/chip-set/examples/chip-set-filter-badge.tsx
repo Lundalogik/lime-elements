@@ -48,7 +48,7 @@ export class ChipSetFilterBadgeExample {
                 label="Include fruits of type:"
                 disabled={this.disabled}
                 type="filter"
-                onChange={this.chipSetOnChange}
+                onChange={this.handleChange}
                 value={this.chips}
             />,
             <p>
@@ -63,7 +63,7 @@ export class ChipSetFilterBadgeExample {
         ];
     }
 
-    private chipSetOnChange = (event: CustomEvent<Chip>) => {
+    private handleChange = (event: CustomEvent<Chip>) => {
         const updatedChips = [...this.chips];
         if (event.detail.id !== CHIP_SELECET_ALL_ID) {
             updatedChips[0].selected = false;
