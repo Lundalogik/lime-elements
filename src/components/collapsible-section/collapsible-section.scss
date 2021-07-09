@@ -1,4 +1,5 @@
 @use '../../style/internal/lime-theme';
+@use '../../style/internal/lime-typography';
 @use '../../style/functions';
 @use '../../style/mixins';
 
@@ -64,6 +65,7 @@
 }
 
 .section__header__title {
+    @include lime-typography.typography(headline2);
     @include mixins.truncate-text;
     line-height: normal;
 
