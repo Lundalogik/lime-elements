@@ -9,9 +9,6 @@ export class PaletteExample {
     @State()
     private primaryColors: boolean = false;
 
-    constructor() {
-        this.toggleMode = this.toggleMode.bind(this);
-    }
     public render() {
         return (
             <div class={{ 'highlight-primary-colors': this.primaryColors }}>
@@ -115,7 +112,7 @@ export class PaletteExample {
         );
     }
 
-    private toggleMode() {
+    private toggleMode = () => {
         this.primaryColors = !this.primaryColors;
-    }
+    };
 }
