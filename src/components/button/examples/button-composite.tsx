@@ -26,10 +26,6 @@ export class ButtonCompositeExample {
 
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
 
-    constructor() {
-        this.handleEvent = this.handleEvent.bind(this);
-    }
-
     public componentWillLoad() {
         this.schema = {
             ...this.schema,
@@ -51,9 +47,9 @@ export class ButtonCompositeExample {
         ];
     }
 
-    private handleEvent(event: Event) {
+    private handleEvent = (event: Event) => {
         this.eventPrinter.writeEvent(event);
-    }
+    };
 
     private renderForm() {
         return (
