@@ -2,7 +2,9 @@ import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 const NETWORK_DELAY = 500;
-
+/**
+ * Single value can be picked
+ */
 @Component({
     tag: 'limel-example-picker',
     shadow: true,
