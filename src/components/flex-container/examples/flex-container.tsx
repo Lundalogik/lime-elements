@@ -81,13 +81,6 @@ export class FlexContainerExample {
     @State()
     private reverse = false;
 
-    constructor() {
-        this.directionOnChange = this.directionOnChange.bind(this);
-        this.alignOnChange = this.alignOnChange.bind(this);
-        this.justifyOnChange = this.justifyOnChange.bind(this);
-        this.reverseOnChange = this.reverseOnChange.bind(this);
-    }
-
     public componentWillLoad() {
         this.direction = this.directionOptions[0];
         this.align = this.alignOptions[0];
@@ -137,21 +130,25 @@ export class FlexContainerExample {
         ];
     }
 
-    private directionOnChange(
+    private directionOnChange = (
         event: CustomEvent<Option<FlexContainerDirection>>
-    ) {
+    ) => {
         this.direction = event.detail;
-    }
+    };
 
-    private alignOnChange(event: CustomEvent<Option<FlexContainerAlign>>) {
+    private alignOnChange = (
+        event: CustomEvent<Option<FlexContainerAlign>>
+    ) => {
         this.align = event.detail;
-    }
+    };
 
-    private justifyOnChange(event: CustomEvent<Option<FlexContainerJustify>>) {
+    private justifyOnChange = (
+        event: CustomEvent<Option<FlexContainerJustify>>
+    ) => {
         this.justify = event.detail;
-    }
+    };
 
-    private reverseOnChange(event: CustomEvent<boolean>) {
+    private reverseOnChange = (event: CustomEvent<boolean>) => {
         this.reverse = event.detail;
-    }
+    };
 }
