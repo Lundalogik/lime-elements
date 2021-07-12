@@ -1,3 +1,11 @@
+### [32.4.4](https://github.com/Lundalogik/lime-elements/compare/v32.4.3...v32.4.4) (2021-07-12)
+
+
+### Bug Fixes
+
+* **input-field:** render empty `readonly` field with a `–` value & `--float-above` label ([8ae2229](https://github.com/Lundalogik/lime-elements/commit/8ae2229d91d768f1ad16804b10c482340978e6ff))
+* **select:** render empty `readonly` select with a `–` value & `--float-above` label ([f4d55d1](https://github.com/Lundalogik/lime-elements/commit/f4d55d1f766b798799d8bbd2a1d86b2ee839d19f))
+
 ### [32.4.3](https://github.com/Lundalogik/lime-elements/compare/v32.4.2...v32.4.3) (2021-07-07)
 
 
