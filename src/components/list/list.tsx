@@ -183,6 +183,7 @@ export class List {
         }
 
         this.mdcMenu = new MDCMenu(element);
+        this.mdcMenu.items.map((item) => new MDCRipple(item));
     }
 
     private setupListeners() {
