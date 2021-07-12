@@ -95,16 +95,25 @@
                 }
             }
         }
+
+        .icon {
+            margin-left: auto;
+        }
     }
 
     .icon {
-        margin: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
     }
 
+    .text,
+    .secondary-text {
+        padding: 0 pxToRem(4);
+    }
     .text {
-        position: absolute;
-        top: 0;
-        transform: translateY(calc(-100% - #{pxToRem(4)}));
+        transform: translateY(calc(-100% - #{pxToRem(12)}));
         font-size: pxToRem(13);
     }
 
