@@ -11,6 +11,7 @@ import { FlowItem } from './progress-flow.types';
 /**
  * @exampleComponent limel-example-progress-flow-basic
  * @exampleComponent limel-example-progress-flow-secondary-text
+ * @exampleComponent limel-example-progress-flow-disabled-step
  * @exampleComponent limel-example-progress-flow-colors
  * @exampleComponent limel-example-progress-flow-colors-css
  * @exampleComponent limel-example-progress-flow-end-steps
