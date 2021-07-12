@@ -7,9 +7,16 @@ import { FlowItem } from '../progress-flow.types';
  * You can render the component with an alternative layout which may be good for
  * some use cases. To achive this, simply add the `has-detached-steps` to the
  * component.
+ * :::tip
+ * This design is more suitable when the user is not expected to go through
+ * the process by manually clicking on each step.
  *
- * Note that the `is-narrow` class does not affect this UI alternative.
- *
+ * For example when you only want to visualize status of process when things are
+ * happening without user's direct engagement.
+ * :::
+ * :::note
+ * The `is-narrow` class does not affect this UI alternative.
+ * :::
  */
 @Component({
     tag: 'limel-example-progress-flow-alternative-ui',
@@ -19,46 +26,56 @@ export class ProgressFlowAlternativeUiExample {
     @State()
     private flowItems: FlowItem[] = [
         {
-            value: 'contact',
-            text: 'Customer contact',
-            activeColor: 'rgb(var(--color-orange-default))',
+            value: 'placemend',
+            text: 'Order placed',
+            secondaryText: 'Yesterday, 19:37',
             selected: true,
-            icon: 'meeting',
-            secondaryText: 'Via phone support',
+            icon: 'add_shopping_cart',
+            activeColor: 'rgb(var(--color-orange-default))',
         },
         {
-            value: 'requirement',
-            text: 'Demand analysis',
-            activeColor: 'rgb(var(--color-sky-default))',
-            icon: 'combo_chart',
-        },
-        {
-            value: 'tender',
-            text: 'Quote',
+            value: 'payment',
+            text: 'Payment successful',
+            secondaryText: 'Credit card',
+            selected: true,
+            icon: 'money',
             activeColor: 'rgb(var(--color-green-default))',
-            icon: 'paper_plane',
         },
         {
-            value: 'agreement',
-            text: 'Agreement',
+            value: 'confirmation',
+            text: 'Order confirmed',
+            secondaryText: 'Today, 07:15',
+            selected: true,
+            icon: 'ok',
+            activeColor: 'rgb(var(--color-sky-default))',
+        },
+        {
+            value: 'process',
+            text: 'Order processed',
+            activeColor: 'rgb(var(--color-teal-default))',
+            icon: 'packaging',
+        },
+        {
+            value: 'shipment',
+            text: 'Ready to pickup',
             activeColor: 'rgb(var(--color-teal-default))',
             icon: 'agreement',
         },
         {
-            value: 'rejected',
-            text: 'Rejected',
+            value: 'cancel',
+            text: 'Order cancelled',
             isOffProgress: true,
-            activeColor: 'rgb(var(--color-red-dark))',
-            icon: 'do_not_disturb',
+            icon: 'return_purchase',
             iconColor: 'rgb(var(--color-red-dark))',
+            activeColor: 'rgb(var(--color-red-dark))',
         },
         {
-            value: 'onhold',
-            text: 'On hold',
+            value: 'returned',
+            text: 'Package retuned',
             isOffProgress: true,
-            activeColor: 'rgb(var(--color-coral-default))',
-            icon: 'circled_pause',
+            icon: 'return',
             iconColor: 'rgb(var(--color-coral-default))',
+            activeColor: 'rgb(var(--color-coral-default))',
         },
     ];
 
@@ -68,6 +85,7 @@ export class ProgressFlowAlternativeUiExample {
                 flowItems={this.flowItems}
                 onChange={this.handleChange}
                 class="has-detached-steps"
+                readonly={true}
             />
         );
     }
