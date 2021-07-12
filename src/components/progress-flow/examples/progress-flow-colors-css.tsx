@@ -6,8 +6,11 @@ import { FlowItem } from '../progress-flow.types';
  *
  * A few CSS variables can be used to customize the look and feel of the steps.
  * But keep in mind that it is not possible to target steps individually and
- * change their colors, using these CSS variables. They apply globally to the
- * entire component.
+ * change their colors, using these CSS variables.
+ * :::note
+ * Using CSS variables to tweak the colors, applies the colors globally to the
+ * component, not to individual steps!
+ * :::
  * :::note
  * Make sure that:
  * - text has enough contrast with its background and is readable.
