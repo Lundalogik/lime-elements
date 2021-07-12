@@ -689,7 +689,7 @@ export class InputField {
         event.preventDefault();
         if (isForwardTab || isDown) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-list-item:first-child'
+                '.mdc-deprecated-list-item:first-child'
             );
             listElement.focus();
 
@@ -698,7 +698,7 @@ export class InputField {
 
         if (isUp) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-list-item:last-child'
+                '.mdc-deprecated-list-item:last-child'
             );
             listElement.focus();
         }
