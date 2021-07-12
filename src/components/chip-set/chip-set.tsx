@@ -553,7 +553,7 @@ export class ChipSet {
             <span role="gridcell">
                 <a
                     role="button"
-                    tabindex="0"
+                    tabindex={this.disabled ? '-1' : '0'}
                     class="mdc-chip__text"
                     {...attributes}
                 >
@@ -583,7 +583,7 @@ export class ChipSet {
                 <span role="gridcell">
                     <span
                         role="checkbox"
-                        tabindex="0"
+                        tabindex={this.disabled ? '-1' : '0'}
                         aria-checked="false"
                         class="mdc-chip__text"
                     >
@@ -680,6 +680,10 @@ export class ChipSet {
     }
 
     private renderClearAllChipsButton() {
+        if (this.disabled || this.readonly) {
+            return;
+        }
+
         return (
             <a
                 href=""
