@@ -62,8 +62,18 @@ export class LinearProgress {
         };
 
         return (
-            <div role="progressbar" class={classList}>
-                <div class="mdc-linear-progress__buffer" />
+            <div
+                role="progressbar"
+                class={classList}
+                aria-label="Progress Bar"
+                aria-valuemin="0"
+                aria-valuemax="1"
+                aria-valuenow={this.value}
+            >
+                <div class="mdc-linear-progress__buffer">
+                    <div class="mdc-linear-progress__buffer-bar"></div>
+                    <div class="mdc-linear-progress__buffer-dots"></div>
+                </div>
                 <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
                     <span class="mdc-linear-progress__bar-inner" />
                 </div>
