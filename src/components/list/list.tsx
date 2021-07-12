@@ -6,6 +6,7 @@ import {
 } from '@limetech/lime-elements';
 import { MDCList, MDCListActionEvent } from '@material/list';
 import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
+import { MDCRipple } from '@material/ripple';
 import { strings as listStrings } from '@material/list/constants';
 import { strings as menuStrings } from '@material/menu/constants';
 import {
@@ -164,12 +165,15 @@ export class List {
     }
 
     private setupList() {
-        const element = this.element.shadowRoot.querySelector('.mdc-list');
+        const element = this.element.shadowRoot.querySelector(
+            '.mdc-deprecated-list'
+        );
         if (!element) {
             return;
         }
 
         this.mdcList = new MDCList(element);
+        this.mdcList.listElements.map((item) => new MDCRipple(item));
     }
 
     private setupMenu() {
