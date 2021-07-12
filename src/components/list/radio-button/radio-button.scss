@@ -1,6 +1,8 @@
 @use '@material/form-field';
 @use '@material/radio';
 
+@include form-field.core-styles;
+
 .mdc-form-field {
     display: flex;
 
