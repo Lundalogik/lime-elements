@@ -10,6 +10,9 @@
     display: block;
 }
 
+@include menu-surface.core-styles;
+@include menu.core-styles;
+
 .mdc-menu-surface {
     width: var(--menu-surface-width, auto);
     max-height: 100%;
