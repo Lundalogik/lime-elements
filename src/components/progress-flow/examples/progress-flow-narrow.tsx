@@ -35,26 +35,22 @@ export class ProgressNarrowExample {
         },
     ];
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return (
             <limel-progress-flow
                 flowItems={this.flowItems}
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 class="is-narrow"
             />
         );
     }
 
-    private onChange(event: CustomEvent<FlowItem>) {
+    private handleChange = (event: CustomEvent<FlowItem>) => {
         this.flowItems = this.flowItems.map((item) => {
             return {
                 ...item,
                 selected: item.value === event.detail?.value,
             };
         });
-    }
+    };
 }

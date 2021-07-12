@@ -35,15 +35,11 @@ export class ProgressFlowBasicExample {
         { value: '3', text: 'Step 3', icon: 'insert_money_euro' },
     ];
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-progress-flow
                 flowItems={this.flowItems}
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 disabled={this.disabled}
                 readonly={this.readonly}
             />,
@@ -65,14 +61,14 @@ export class ProgressFlowBasicExample {
         ];
     }
 
-    private onChange(event: CustomEvent<FlowItem>) {
+    private handleChange = (event: CustomEvent<FlowItem>) => {
         this.flowItems = this.flowItems.map((item) => {
             return {
                 ...item,
                 selected: item.value === event.detail?.value,
             };
         });
-    }
+    };
 
     private setDisabled = (event: CustomEvent<boolean>) => {
         event.stopPropagation();

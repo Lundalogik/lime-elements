@@ -62,26 +62,22 @@ export class ProgressFlowAlternativeUiExample {
         },
     ];
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return (
             <limel-progress-flow
                 flowItems={this.flowItems}
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 class="has-detached-steps"
             />
         );
     }
 
-    private onChange(event: CustomEvent<FlowItem>) {
+    private handleChange = (event: CustomEvent<FlowItem>) => {
         this.flowItems = this.flowItems.map((item) => {
             return {
                 ...item,
                 selected: item.value === event.detail?.value,
             };
         });
-    }
+    };
 }
