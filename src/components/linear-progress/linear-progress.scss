@@ -5,6 +5,8 @@
  * @prop --background-color: Color to use for progress-bar track.
  */
 
+@include linear-progress.core-styles;
+
 .mdc-linear-progress {
     text-align: left;
 }
