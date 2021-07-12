@@ -31,7 +31,7 @@ export class ProgressFlowDisabledStepExample {
         },
         {
             value: '4',
-            text: 'Let\'s go!',
+            text: "Let's go!",
             disabled: true,
         },
     ];
