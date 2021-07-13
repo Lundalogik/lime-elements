@@ -1,5 +1,4 @@
 import { DialogHeading } from '@limetech/lime-elements';
-// import { MDCDialog, util } from '@material/dialog';
 import { MDCDialog } from '@material/dialog';
 import {
     Component,
@@ -10,7 +9,6 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
-// import * as focusTrap from 'focus-trap';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
 
@@ -117,24 +115,6 @@ export class Dialog {
         if (this.open) {
             this.mdcDialog.open();
         }
-
-        // eslint-disable-next-line no-console
-        console.warn('commented code dialog.tsx:120');
-        // const { activate, deactivate } = util.createFocusTrapInstance(
-        //     this.host.shadowRoot.querySelector('.mdc-dialog__surface'),
-        //     focusTrap.default,
-        //     this.host.shadowRoot.querySelector('#initialFocusEl') as any
-        // );
-        //
-        // // eslint-disable-next-line no-underscore-dangle
-        // (this.mdcDialog as any).foundation_.adapter_.trapFocus = () => {
-        //     activate();
-        // };
-        //
-        // // eslint-disable-next-line no-underscore-dangle
-        // (this.mdcDialog as any).foundation_.adapter_.releaseFocus = () => {
-        //     deactivate();
-        // };
 
         this.mdcDialog.listen('MDCDialog:opened', this.handleMdcOpened);
         this.mdcDialog.listen('MDCDialog:closed', this.handleMdcClosed);
