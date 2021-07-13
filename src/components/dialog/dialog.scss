@@ -2,7 +2,6 @@
 
 @use '../../style/internal/lime-theme';
 
-// $mdc-dialog-max-width: null;
 @use '@material/dialog';
 
 /**
@@ -28,6 +27,8 @@ slot[name='header'] {
     --header-icon-color: var(--dialog-heading-icon-color);
     --header-icon-background-color: var(--dialog-heading-icon-background-color);
 }
+
+@include dialog.core-styles;
 
 .mdc-dialog {
     @include dialog.max-width(16000px, dialog.$margin);
