@@ -1,0 +1,88 @@
+.mdc-slider__thumb-knob {
+    .mdc-slider:not(.mdc-slider--disabled) & {
+        &:before,
+        &:after {
+            transition: all 0.2s ease 0.2s;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+
+            width: functions.pxToRem(12);
+            opacity: 0;
+
+            width: 0;
+            height: 0;
+            border: functions.pxToRem(4) solid transparent;
+            border-top-color: rgba(var(--contrast-1400), 0.6);
+        }
+
+        &:before {
+            left: functions.pxToRem(-20);
+            transform: rotate(90deg);
+        }
+        &:after {
+            right: functions.pxToRem(-20);
+            transform: rotate(-90deg);
+        }
+
+        &:hover {
+            &:before {
+                opacity: 0.8;
+                left: functions.pxToRem(-28);
+            }
+            &:after {
+                opacity: 0.8;
+                right: functions.pxToRem(-28);
+            }
+        }
+    }
+}
+
+.mdc-slider {
+    .mdc-slider__value-indicator-container {
+        z-index: 1; //FIXME
+    }
+    .mdc-slider__value-indicator {
+        transition: transform 0.2s ease-out;
+        opacity: 1; // makes sure number is being always displayed, not only while dragging
+        transform: scale(1) translateY(functions.pxToRem(32));
+        border-radius: functions.pxToRem(20);
+        padding: 0 functions.pxToRem(8);
+        height: functions.pxToRem(24);
+
+        &:before {
+            border-top-color: transparent;
+        }
+    }
+    .mdc-slider__value-indicator-text {
+        color: var(--color-of-value-indicator);
+    }
+
+    .mdc-ripple-upgraded--foreground-activation {
+        // when the pin is being dragged, which only happens when component is not `disabled` of course
+        .mdc-slider__value-indicator {
+            transform: scale(1.5) translateY(0);
+            box-shadow: var(--shadow-depth-16);
+
+            &:before {
+                border-top-color: var(--mdc-theme-primary);
+            }
+        }
+    }
+
+    &:not(.mdc-slider--disabled) {
+        .mdc-slider__value-indicator {
+            box-shadow: var(--button-shadow-normal);
+        }
+    }
+}
+
+.mdc-slider:not(.mdc-slider--disabled),
+.slider.lime-slider--readonly {
+    .mdc-slider__value-indicator {
+        background-color: var(--mdc-theme-primary);
+    }
+}

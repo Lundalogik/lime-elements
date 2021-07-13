@@ -1,3 +1,9 @@
+.mdc-slider__track--active_fill,
+.mdc-slider__track--inactive,
+.mdc-slider__thumb-knob {
+    transition: background-color 0.5s ease;
+}
+
 :host(.displays-percentage-colors) {
     --color-percent--0: rgb(var(--color-gray-default));
     --color-percent--0to10: rgb(var(--color-red-dark));
@@ -11,52 +17,65 @@
     --color-percent--80to90: rgb(var(--color-teal-default));
     --color-percent--90to100: rgb(var(--color-teal-dark));
 
-    .slider,
     .slider.lime-slider--readonly {
+        --mdc-theme-on-surface: var(--mdc-theme-primary);
+    }
+
+    .slider {
         &.percent-0 {
-            --lime-primary-color: var(--color-percent--0);
+            --mdc-theme-primary: var(--color-percent--0);
         }
         &.percent-0-10 {
-            --lime-primary-color: var(--color-percent--0to10);
+            --mdc-theme-primary: var(--color-percent--0to10);
         }
         &.percent-10-20 {
-            --lime-primary-color: var(--color-percent--10to20);
+            --mdc-theme-primary: var(--color-percent--10to20);
         }
         &.percent-20-30 {
-            --lime-primary-color: var(--color-percent--20to30);
+            --mdc-theme-primary: var(--color-percent--20to30);
         }
         &.percent-30-40 {
-            --lime-primary-color: var(--color-percent--30to40);
+            --mdc-theme-primary: var(--color-percent--30to40);
         }
         &.percent-40-50 {
-            --lime-primary-color: var(--color-percent--40to50);
+            --mdc-theme-primary: var(--color-percent--40to50);
         }
         &.percent-50-60 {
-            --lime-primary-color: var(--color-percent--50to60);
+            --mdc-theme-primary: var(--color-percent--50to60);
         }
         &.percent-60-70 {
-            --lime-primary-color: var(--color-percent--60to70);
+            --mdc-theme-primary: var(--color-percent--60to70);
         }
         &.percent-70-80 {
-            --lime-primary-color: var(--color-percent--70to80);
+            --mdc-theme-primary: var(--color-percent--70to80);
         }
         &.percent-80-90 {
-            --lime-primary-color: var(--color-percent--80to90);
+            --mdc-theme-primary: var(--color-percent--80to90);
         }
         &.percent-90-100 {
-            --lime-primary-color: var(--color-percent--90to100);
+            --mdc-theme-primary: var(--color-percent--90to100);
         }
         &.percent-30-40,
         &.percent-40-50,
         &.percent-70-80 {
-            .mdc-slider__pin-value-marker {
+            .mdc-slider__value-indicator-text {
                 color: rgb(var(--color-gray-darker));
+            }
+            .mdc-slider--disabled {
+                .mdc-slider__value-indicator-text {
+                    color: rgb(var(--contrast-100));
+                }
             }
         }
         &.percent-50-60,
         &.percent-60-70 {
-            .mdc-slider__pin-value-marker {
+            .mdc-slider__value-indicator-text {
                 color: rgb(var(--color-gray-dark));
+            }
+            .mdc-slider--disabled {
+                .mdc-slider__value-indicator-text {
+                    color: rgb(var(--contrast-100));
+                }
             }
         }
     }
