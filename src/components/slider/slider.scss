@@ -4,7 +4,7 @@
 
 @use '../../style/internal/lime-theme';
 
-@use '@material/slider';
+@use '@material/slider/styles';
 @use '@material/floating-label';
 
 @import './partial-styles/percentage-color.scss';
