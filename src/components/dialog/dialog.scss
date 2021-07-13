@@ -15,10 +15,6 @@
  * @prop --dialog-heading-icon-background-color: Background color of the icon when displayed as a badge.
  */
 
-slot[name='header'] {
-    display: none;
-}
-
 :host {
     --dialog-background-color: rgb(var(--contrast-100));
     --header-heading-color: var(--dialog-heading-title-color);
@@ -100,6 +96,10 @@ slot[name='header'] {
 
     /* Opera doesn't support this in the shorthand */
     background-attachment: local, local, scroll, scroll;
+}
+
+slot[name='header'] {
+    display: none;
 }
 
 slot[name='button'] {
