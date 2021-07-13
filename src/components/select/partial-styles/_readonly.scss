@@ -4,6 +4,9 @@
             cursor: default;
             opacity: 1;
         }
+        .limel-select__selected-option__text {
+            color: inherit;
+        }
         .mdc-select__dropdown-icon {
             display: none;
         }

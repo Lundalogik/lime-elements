@@ -2,7 +2,7 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-@use '@material/select';
+@use '@material/select/styles';
 @use '@material/select/helper-text/mdc-select-helper-text';
 @use '@material/floating-label';
 
@@ -30,7 +30,6 @@
     box-sizing: border-box;
     outline: none;
 
-    padding: 0 functions.pxToRem(16);
     align-self: center;
     min-width: 0; // makes it truncate and prevents the select to grow wider than its container
 }
@@ -47,6 +46,7 @@
 
 .limel-select {
     height: 100%;
+    width: 100%;
 
     .limel-select-trigger {
         display: inline-flex;
