@@ -29,6 +29,8 @@ slot[name='header'] {
     --header-icon-background-color: var(--dialog-heading-icon-background-color);
 }
 
+@include dialog.core-styles;
+
 .mdc-dialog {
     @include dialog.max-width(16000px, dialog.$margin);
 
