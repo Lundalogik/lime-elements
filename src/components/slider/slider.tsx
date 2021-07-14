@@ -14,6 +14,7 @@ import { getPercentageClass } from './getPercentageClass';
  * @exampleComponent limel-example-slider
  * @exampleComponent limel-example-slider-multiplier
  * @exampleComponent limel-example-slider-multiplier-percentage-colors
+ * @exampleComponent limel-example-slider-composite
  */
 @Component({
     tag: 'limel-slider',
