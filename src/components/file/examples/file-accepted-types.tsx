@@ -31,8 +31,4 @@ export class FileAcceptedTypesExample {
         this.value = event.detail;
         console.log('onChange', this.value);
     };
-
-    private toggleRequired = () => {
-        this.required = !this.required;
-    };
 }
