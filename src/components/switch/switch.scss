@@ -3,6 +3,8 @@
 
 @use '@material/switch';
 
+@include switch.core-styles;
+
 @import './partial-styles/_readonly.scss';
 
 :host {
@@ -11,14 +13,11 @@
 }
 
 .mdc-switch {
-    @include switch.toggled-on-color(
-        primary
-    ); // @include mdc-switch-toggled-on-color(primary);
+    @include switch.toggled-on-color(primary);
     margin-right: functions.pxToRem(8);
 }
 
 label {
-    // @include mdc-theme.mdc-typography(body2);
     line-height: normal;
 
     cursor: pointer;
