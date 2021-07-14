@@ -2,9 +2,12 @@
 
 @use '../../style/internal/lime-theme';
 
+@use '@material/button/styles';
 @use '@material/button';
 @use '@material/icon-button';
-@use '@material/snackbar';
+@use "@material/snackbar/mdc-snackbar";
+
+@include icon-button.core-styles;
 
 .mdc-button {
     @include button.ink-color(brand-colors.$lime-blue);
@@ -13,13 +16,5 @@
 .mdc-snackbar__actions {
     .mdc-snackbar__dismiss {
         color: var(--mdc-theme-on-secondary);
-        width: auto;
-        height: auto;
-        padding: 0;
-
-        svg {
-            height: 100%;
-            width: 100%;
-        }
     }
 }

@@ -109,21 +109,21 @@ export class Snackbar {
 
     public render() {
         return (
-            <div
+            <aside
                 class={`
                     mdc-snackbar
                     ${this.multiline ? 'mdc-snackbar--stacked' : ''}
                 `}
             >
-                <div class="mdc-snackbar__surface">
-                    <div
-                        class="mdc-snackbar__label"
-                        role="status"
-                        aria-live="polite"
-                    ></div>
+                <div
+                    class="mdc-snackbar__surface"
+                    role="status"
+                    aria-relevant="additions"
+                >
+                    <div class="mdc-snackbar__label" aria-atomic="false"></div>
                     {this.renderActions(this.actionText, this.dismissible)}
                 </div>
-            </div>
+            </aside>
         );
     }
 
@@ -141,7 +141,7 @@ export class Snackbar {
         }
 
         return (
-            <div class="mdc-snackbar__actions">
+            <div class="mdc-snackbar__actions" aria-atomic="true">
                 {this.renderActionButton(actionText)}
                 {this.renderDismissButton(dismissible)}
             </div>
@@ -171,9 +171,10 @@ export class Snackbar {
 </svg>`;
 
         return (
-            <div class="mdc-snackbar__dismiss">
-                <button class="mdc-icon-button" innerHTML={svgData} />
-            </div>
+            <button
+                class="mdc-icon-button mdc-snackbar__dismiss"
+                innerHTML={svgData}
+            />
         );
     }
 }
