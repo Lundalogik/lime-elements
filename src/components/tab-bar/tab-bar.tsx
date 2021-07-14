@@ -174,16 +174,6 @@ export class TabBar {
             '.mdc-tab-scroller__scroll-content'
         );
 
-        // Workaround for shadow dom support for material
-        // eslint-disable-next-line no-underscore-dangle
-        (this.mdcTabBar as any).foundation_.adapter_.getFocusedTabIndex =
-            () => {
-                const tabElements = this.getTabElements();
-                const activeElement = this.host.shadowRoot.activeElement;
-
-                return tabElements.indexOf(activeElement);
-            };
-
         this.setupListeners();
 
         // Use timeout to avoid Stencil warning about re-renders. /Ads
@@ -202,10 +192,6 @@ export class TabBar {
             );
             this.mdcTabBar.destroy();
         }
-    }
-
-    private getTabElements() {
-        return [].slice.call(this.host.shadowRoot.querySelectorAll('.mdc-tab'));
     }
 
     private setupListeners() {
