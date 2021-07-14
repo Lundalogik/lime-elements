@@ -3,6 +3,8 @@
 
 @use '@material/switch';
 
+@include switch.core-styles;
+
 @import './partial-styles/_readonly.scss';
 
 :host {
