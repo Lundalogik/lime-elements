@@ -82,10 +82,6 @@ export class PropsFactoryPickerExample implements FormComponent<number> {
         },
     ];
 
-    constructor() {
-        this.search = this.search.bind(this);
-    }
-
     public componentWillLoad() {
         console.log(
             'propsFactory-picker - this.injectedObject.someProp:',
@@ -102,11 +98,11 @@ export class PropsFactoryPickerExample implements FormComponent<number> {
         this.change.emit(event.detail?.value);
     };
 
-    private async search(query: string): Promise<ListItem[]> {
+    private search = async (query: string): Promise<ListItem[]> => {
         return this.heroes.filter((hero) => {
             return hero.text.toLowerCase().includes(query.toLowerCase());
         });
-    }
+    };
 
     public render() {
         const value = this.heroes.find((hero) => hero.value === this.value);
