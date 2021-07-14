@@ -32,7 +32,7 @@ export class SliderMultiplierPercentageColorsExample {
             <section>
                 <limel-slider
                     class="displays-percentage-colors"
-                    label="Slider with multiplier"
+                    label="Slider with percentage colors"
                     unit=" %"
                     value={this.value}
                     factor={this.factor}
