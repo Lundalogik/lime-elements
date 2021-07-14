@@ -15,11 +15,6 @@ export class FileAcceptedTypesExample {
     @State()
     private required = false;
 
-    constructor() {
-        this.handleChange = this.handleChange.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
-    }
-
     public render() {
         return [
             <limel-file
@@ -32,12 +27,12 @@ export class FileAcceptedTypesExample {
         ];
     }
 
-    private handleChange(event: CustomEvent<FileInfo>) {
+    private handleChange = (event: CustomEvent<FileInfo>) => {
         this.value = event.detail;
         console.log('onChange', this.value);
-    }
+    };
 
-    private toggleRequired() {
+    private toggleRequired = () => {
         this.required = !this.required;
-    }
+    };
 }
