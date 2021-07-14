@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Basic example
+ */
 @Component({
     tag: 'limel-example-slider',
     shadow: true,
