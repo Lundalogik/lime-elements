@@ -21,13 +21,6 @@ export class FileExample {
     @State()
     private readonly = false;
 
-    constructor() {
-        this.handleChange = this.handleChange.bind(this);
-        this.handleRequiredChange = this.handleRequiredChange.bind(this);
-        this.handleDisabledChange = this.handleDisabledChange.bind(this);
-        this.handleReadonlyChange = this.handleReadonlyChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-file
@@ -58,20 +51,20 @@ export class FileExample {
         ];
     }
 
-    private handleChange(event: CustomEvent<FileInfo>) {
+    private handleChange = (event: CustomEvent<FileInfo>) => {
         this.value = event.detail;
         console.log('onChange', this.value);
-    }
+    };
 
-    private handleRequiredChange(event: CustomEvent<boolean>) {
+    private handleRequiredChange = (event: CustomEvent<boolean>) => {
         this.required = !!event.detail;
-    }
+    };
 
-    private handleDisabledChange(event: CustomEvent<boolean>) {
+    private handleDisabledChange = (event: CustomEvent<boolean>) => {
         this.disabled = !!event.detail;
-    }
+    };
 
-    private handleReadonlyChange(event: CustomEvent<boolean>) {
+    private handleReadonlyChange = (event: CustomEvent<boolean>) => {
         this.readonly = !!event.detail;
-    }
+    };
 }

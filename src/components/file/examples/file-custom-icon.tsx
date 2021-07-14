@@ -15,11 +15,6 @@ export class FileCustomIconExample {
     @State()
     private required = false;
 
-    constructor() {
-        this.handleChange = this.handleChange.bind(this);
-        this.toggleRequired = this.toggleRequired.bind(this);
-    }
-
     public componentWillLoad() {
         this.updateIcon();
     }
@@ -42,11 +37,11 @@ export class FileCustomIconExample {
         ];
     }
 
-    private handleChange(event: CustomEvent<FileInfo>) {
+    private handleChange = (event: CustomEvent<FileInfo>) => {
         this.value = event.detail;
         this.updateIcon();
         console.log('onChange', this.value);
-    }
+    };
 
     private updateIcon() {
         if (this.value?.filename?.substr(-5) === '.crab') {
@@ -56,7 +51,7 @@ export class FileCustomIconExample {
         }
     }
 
-    private toggleRequired() {
+    private toggleRequired = () => {
         this.required = !this.required;
-    }
+    };
 }
