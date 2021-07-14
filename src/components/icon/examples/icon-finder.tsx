@@ -29,14 +29,6 @@ export class IconFinder {
 
     private indexedIcons = [...iconIndex['default']]; // eslint-disable-line @typescript-eslint/dot-notation
 
-    constructor() {
-        this.chipSetOnChange = this.chipSetOnChange.bind(this);
-        this.onInput = this.onInput.bind(this);
-        this.onKeyUp = this.onKeyUp.bind(this);
-        this.searchIcons = this.searchIcons.bind(this);
-        this.renderIconButton = this.renderIconButton.bind(this);
-    }
-
     public render() {
         return [
             <limel-chip-set
@@ -54,7 +46,7 @@ export class IconFinder {
         ];
     }
 
-    private renderIconButton(icon: Icon) {
+    private renderIconButton = (icon: Icon) => {
         const iconName = icon.id.replace('.svg', '');
         const label = `Copy ${iconName}`;
 
@@ -65,7 +57,7 @@ export class IconFinder {
                 onClick={this.copyIconName}
             />
         );
-    }
+    };
 
     private copyIconName(event) {
         const iconName = event.target.icon;
@@ -78,11 +70,11 @@ export class IconFinder {
         console.log(`copied icon name '${iconName}' to clipboard`);
     }
 
-    private onInput(event: CustomEvent<string>) {
+    private onInput = (event: CustomEvent<string>) => {
         this.textValue = event.detail;
-    }
+    };
 
-    private onKeyUp(event: KeyboardEvent) {
+    private onKeyUp = (event: KeyboardEvent) => {
         if (
             (event.key === ENTER || event.keyCode === ENTER_KEY_CODE) &&
             this.textValue.trim()
@@ -94,9 +86,9 @@ export class IconFinder {
             this.searchIcons();
             this.textValue = '';
         }
-    }
+    };
 
-    private searchIcons() {
+    private searchIcons = () => {
         this.icons = [];
         this.indexedIcons.forEach((icon: Icon) => {
             this.value.forEach((search: Chip) => {
@@ -109,12 +101,12 @@ export class IconFinder {
             });
         });
         this.icons = [...new Set(this.icons)];
-    }
+    };
 
-    private chipSetOnChange(event: CustomEvent<Chip[]>) {
+    private chipSetOnChange = (event: CustomEvent<Chip[]>) => {
         this.value = event.detail;
         this.searchIcons();
-    }
+    };
 
     private createChip(name: string): Chip {
         return {
