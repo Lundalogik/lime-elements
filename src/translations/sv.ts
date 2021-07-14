@@ -3,4 +3,5 @@ export default {
     'date-picker.quarter.heading': 'Kvartal',
     'date-picker.year.heading': 'År',
     'chip-set.clear-all': 'Rensa alla',
+    'snackbar.dismiss': 'Stäng',
 };

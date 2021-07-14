@@ -1,3 +1,4 @@
+import { Languages } from '@limetech/lime-elements';
 import { MDCSnackbar, MDCSnackbarCloseEvent } from '@material/snackbar';
 import {
     Component,
@@ -8,6 +9,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
+import translate from '../../global/translations';
 
 /**
  * @exampleComponent limel-example-snackbar
@@ -47,6 +49,12 @@ export class Snackbar {
      */
     @Prop()
     public multiline: boolean;
+
+    /**
+     * Defines the language for translations.
+     */
+    @Prop()
+    public language: Languages = 'en';
 
     @Element()
     private host: HTMLLimelSnackbarElement;
@@ -170,10 +178,13 @@ export class Snackbar {
     <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>
 </svg>`;
 
+        const label = translate.get('snackbar.dismiss', this.language);
+
         return (
             <button
                 class="mdc-icon-button mdc-snackbar__dismiss"
                 innerHTML={svgData}
+                title={label}
             />
         );
     }
