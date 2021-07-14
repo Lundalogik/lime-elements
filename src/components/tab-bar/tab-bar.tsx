@@ -110,7 +110,7 @@ export class TabBar {
                         'can-scroll-right': this.canScrollRight,
                     }}
                 >
-                    <div class="mdc-tab-scroller__scroll-area mdc-tab-scroller__scroll-area--scroll">
+                    <div class="mdc-tab-scroller__scroll-area lime-hide-scrollbars">
                         <div class="mdc-tab-scroller__scroll-content">
                             {this.tabs.map(this.renderTab)}
                         </div>
@@ -167,22 +167,14 @@ export class TabBar {
         }
 
         this.mdcTabBar = new MDCTabBar(element);
+        this.mdcTabBar.focusOnActivate = true;
+        this.mdcTabBar.useAutomaticActivation = true;
         this.scrollArea = element.querySelector(
             '.mdc-tab-scroller__scroll-area'
         );
         this.scrollContent = element.querySelector(
             '.mdc-tab-scroller__scroll-content'
         );
-
-        // Workaround for shadow dom support for material
-        // eslint-disable-next-line no-underscore-dangle
-        (this.mdcTabBar as any).foundation_.adapter_.getFocusedTabIndex =
-            () => {
-                const tabElements = this.getTabElements();
-                const activeElement = this.host.shadowRoot.activeElement;
-
-                return tabElements.indexOf(activeElement);
-            };
 
         this.setupListeners();
 
@@ -202,10 +194,6 @@ export class TabBar {
             );
             this.mdcTabBar.destroy();
         }
-    }
-
-    private getTabElements() {
-        return [].slice.call(this.host.shadowRoot.querySelectorAll('.mdc-tab'));
     }
 
     private setupListeners() {
@@ -274,28 +262,22 @@ export class TabBar {
 
         return (
             <limel-icon
-                class="mdc-tab-bar__icon"
+                class="mdc-tab__icon"
                 name={tab.icon}
                 style={style}
                 size="small"
+                aria-hidden="true"
             />
         );
     }
 
     private renderTab(tab: Tab) {
-        const classList = {
-            'mdc-tab': true,
-            'mdc-tab--active': !!tab.active,
-        };
-
-        const indicatorClassList = {
-            'mdc-tab-indicator': true,
-            'mdc-tab-indicator--active': !!tab.active,
-        };
-
         return (
             <button
-                class={classList}
+                class={{
+                    'mdc-tab': true,
+                    'mdc-tab--active': !!tab.active,
+                }}
                 role="tab"
                 aria-selected={tab.active ? 'true' : 'false'}
                 tabindex={tab.active ? 0 : -1}
@@ -305,7 +287,12 @@ export class TabBar {
                     <span class="mdc-tab__text-label">{tab.text}</span>
                     {tab.badge ? <limel-badge label={tab.badge} /> : ''}
                 </span>
-                <span class={indicatorClassList}>
+                <span
+                    class={{
+                        'mdc-tab-indicator': true,
+                        'mdc-tab-indicator--active': !!tab.active,
+                    }}
+                >
                     <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" />
                 </span>
                 <span class="mdc-tab__ripple" />
