@@ -1,5 +1,6 @@
 @use '../../style/mixins';
 @use '../../style/functions';
+@use '../../style/internal/lime-typography';
 @import '../../../node_modules/tabulator-tables/src/scss/tabulator.scss';
 
 $table-header-background-color: rgb(var(--contrast-500));
@@ -22,6 +23,7 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 
 #tabulator-container,
 #tabulator-table {
+    @include lime-typography.base;
     height: 100%;
     width: 100%;
     background-color: transparent;
