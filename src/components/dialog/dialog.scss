@@ -98,6 +98,13 @@
     background-attachment: local, local, scroll, scroll;
 }
 
+#initialFocusElement {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
 slot[name='header'] {
     display: none;
 }
