@@ -1,7 +1,6 @@
 import { Chip, Languages } from '@limetech/lime-elements';
 import {
     MDCChipInteractionEvent,
-    MDCChipRemovalEvent,
     MDCChipSelectionEvent,
     MDCChipSet,
 } from '@material/chips/deprecated';
@@ -178,7 +177,6 @@ export class ChipSet {
         this.isFull = this.isFull.bind(this);
         this.handleInteractionEvent = this.handleInteractionEvent.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
-        this.handleRemoveEvent = this.handleRemoveEvent.bind(this);
         this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
         this.handleInputBlur = this.handleInputBlur.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
@@ -301,9 +299,6 @@ export class ChipSet {
         this.mdcChipSet = new MDCChipSet(
             this.host.shadowRoot.querySelector('.mdc-chip-set')
         );
-        this.mdcChipSet.chips.forEach((chip) => {
-            chip.shouldRemoveOnTrailingIconClick = false;
-        });
 
         if (!this.type || this.type === 'input') {
             this.mdcChipSet.listen(
@@ -315,11 +310,6 @@ export class ChipSet {
         if (this.type === 'choice' || this.type === 'filter') {
             this.mdcChipSet.listen('MDCChip:selection', this.handleSelection);
         }
-
-        this.mdcChipSet.listen(
-            'MDCChip:trailingIconInteraction',
-            this.handleRemoveEvent
-        );
     }
 
     private destroyMDCChipSet() {
@@ -329,10 +319,6 @@ export class ChipSet {
                 this.handleInteractionEvent
             );
             this.mdcChipSet.unlisten('MDCChip:selection', this.handleSelection);
-            this.mdcChipSet.unlisten(
-                'MDCChip:trailingIconInteraction',
-                this.handleRemoveEvent
-            );
 
             this.mdcChipSet.destroy();
         }
@@ -510,10 +496,6 @@ export class ChipSet {
         this.change.emit(chip);
     }
 
-    private handleRemoveEvent(event: MDCChipRemovalEvent) {
-        this.removeChip(event.detail.chipId);
-    }
-
     private removeChip(id: string | number) {
         const newValue = this.value.filter((chip) => {
             return `${chip.id}` !== `${id}`;
@@ -670,11 +652,17 @@ export class ChipSet {
     <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>
 </svg>`;
 
+        const removeFunc = (event: MouseEvent) => {
+            event.stopPropagation();
+            this.removeChip(chip.id);
+        };
+
         return (
-            <div
-                class="mdc-chip__icon mdc-chip__icon--trailing"
-                role="button"
+            <button
+                class="mdc-chip__icon mdc-chip__icon--trailing mdc-deprecated-chip-trailing-action"
+                tabindex="-1"
                 innerHTML={svgData}
+                onClick={removeFunc}
             />
         );
     }
