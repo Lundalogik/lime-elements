@@ -3,5 +3,6 @@ export default {
     'date-picker.quarter.heading': 'Quarter',
     'date-picker.year.heading': 'Year',
     'chip-set.clear-all': 'Clear all',
+    'chip-set.remove-chip': 'Remove chip',
     'snackbar.dismiss': 'Dismiss',
 };
