@@ -170,6 +170,7 @@ export class ChipSet {
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
     private clearAllChipsLabel: string;
+    private removeChipLabel: string;
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
@@ -229,6 +230,10 @@ export class ChipSet {
     public componentWillLoad() {
         this.clearAllChipsLabel = translate.get(
             'chip-set.clear-all',
+            this.language
+        );
+        this.removeChipLabel = translate.get(
+            'chip-set.remove-chip',
             this.language
         );
     }
@@ -660,6 +665,7 @@ export class ChipSet {
         return (
             <button
                 class="mdc-chip__icon mdc-chip__icon--trailing mdc-deprecated-chip-trailing-action"
+                aria-label={this.removeChipLabel}
                 tabindex="-1"
                 innerHTML={svgData}
                 onClick={removeFunc}
