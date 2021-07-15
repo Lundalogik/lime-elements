@@ -153,6 +153,15 @@ export class Dialog {
                 <input hidden={true} id="initialFocusEl" />
                 <div class="mdc-dialog__container">
                     <div class="mdc-dialog__surface">
+                        {/*
+                            The `initialFocusElement` below is needed to make
+                            focus trapping work. At the time of writing, the
+                            focusable elements inside the slots are not
+                            detected, so we supply our own hidden element for
+                            the focus trap to use. Read more here:
+                            https://github.com/material-components/material-components-web/tree/v11.0.0/packages/mdc-dialog#handling-focus-trapping
+                        */}
+                        <input type="text" id="initialFocusElement" />
                         {this.renderHeading()}
                         <div
                             class="mdc-dialog__content scrollbox"
