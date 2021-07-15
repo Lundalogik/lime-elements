@@ -198,8 +198,7 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
         }
     }
 
-    .mdc-text-field__icon--leading,
-    .mdc-text-field__icon--trailing {
+    .mdc-text-field__icon {
         flex-shrink: 0;
     }
 }
