@@ -15,7 +15,6 @@
     background-color: transparent;
     margin: functions.pxToRem(2) !important;
     font-size: functions.pxToRem(14);
-    line-height: 1.25rem;
 
     &:not(:last-child) {
         &:after {
