@@ -216,6 +216,7 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
             input.mdc-text-field__input {
                 background-color: transparent;
                 color: $input-text-color;
+                pointer-events: none; // otherwise trailing icon links cannot be clicked
             }
 
             .formatted-input {
@@ -245,17 +246,17 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
             }
 
             .mdc-text-field__icon--trailing {
+                width: calc(100% - 1rem);
+                position: absolute;
+                left: 0;
+
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
 
                 pointer-events: auto;
-                cursor: pointer;
                 color: $label-color;
                 border-radius: 0.25rem;
-
-                width: calc(100% - 2rem);
-                z-index: 0;
 
                 &:hover {
                     box-shadow: var(--button-shadow-hovered);
@@ -267,6 +268,7 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
 
                 limel-icon {
                     width: 1.5rem;
+                    margin-right: 0.5rem;
                 }
             }
         }

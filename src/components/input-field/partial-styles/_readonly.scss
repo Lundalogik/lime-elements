@@ -4,8 +4,12 @@
     .mdc-text-field {
         &.lime-text-field--readonly {
             &:hover {
+                .formatted-input,
                 .mdc-text-field__input {
                     color: rgb(var(--color-white));
+                }
+                .mdc-text-field__input {
+                    z-index: z-index.$input-field--mdc-text-field__input--readonly;
                 }
             }
         }
