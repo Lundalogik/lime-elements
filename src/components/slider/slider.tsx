@@ -169,60 +169,37 @@ export class Slider {
         }
 
         return (
-            <div class={this.getContainerClassList()}>
-                <label class="slider__label mdc-floating-label mdc-floating-label--float-above">
-                    {this.label}
-                </label>
-                <div class="slider__content">
-                    <div class="slider__content-range-container">
-                        <span class="slider__content-min-label">
-                            {this.multiplyByFactor(this.valuemin)}
-                            {this.unit}
-                        </span>
-                        <span class="slider__content-max-label">
-                            {this.multiplyByFactor(this.valuemax)}
-                            {this.unit}
-                        </span>
-                    </div>
-                    <div
-                        class={{
-                            'mdc-slider': true,
-                            'mdc-slider--discrete': true,
-                            'mdc-slider--disabled': this.disabled,
-                        }}
-                    >
-                        <input
-                            class="mdc-slider__input"
-                            type="range"
-                            min={this.multiplyByFactor(this.valuemin)}
-                            max={this.multiplyByFactor(this.valuemax)}
-                            value={this.multiplyByFactor(this.value)}
-                            name="volume"
-                            aria-label="Discrete slider demo"
-                            {...inputProps}
-                        />
-                        <div class="mdc-slider__track">
-                            <div class="mdc-slider__track--inactive"></div>
-                            <div class="mdc-slider__track--active">
-                                <div class="mdc-slider__track--active_fill"></div>
-                            </div>
-                        </div>
-                        <div class="mdc-slider__thumb">
-                            <div
-                                class="mdc-slider__value-indicator-container"
-                                aria-hidden="true"
-                            >
-                                <div class="mdc-slider__value-indicator">
-                                    <span class="mdc-slider__value-indicator-text">
-                                        {this.multiplyByFactor(this.value)}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="mdc-slider__thumb-knob"></div>
-                        </div>
-                    </div>
+            <div class={{
+                'mdc-slider': true,
+                'mdc-slider--discrete': true,
+                'mdc-slider--disabled': this.disabled,
+            }}>
+              <input
+                class="mdc-slider__input"
+                type="range"
+                min={this.multiplyByFactor(this.valuemin)}
+                max={this.multiplyByFactor(this.valuemax)}
+                value={this.multiplyByFactor(this.value)}
+                name="volume"
+                aria-label="Discrete slider demo"
+                {...inputProps}
+              />
+              <div class="mdc-slider__track">
+                <div class="mdc-slider__track--inactive"></div>
+                <div class="mdc-slider__track--active">
+                  <div class="mdc-slider__track--active_fill"></div>
                 </div>
-                {this.renderHelperLine()}
+              </div>
+              <div class="mdc-slider__thumb">
+                <div class="mdc-slider__value-indicator-container" aria-hidden="true">
+                  <div class="mdc-slider__value-indicator">
+                    <span class="mdc-slider__value-indicator-text">
+                      {this.multiplyByFactor(this.value)}
+                    </span>
+                  </div>
+                </div>
+                <div class="mdc-slider__thumb-knob"></div>
+              </div>
             </div>
         );
     }
