@@ -211,38 +211,41 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
 }
 
 @mixin readonly-overrides {
-    .mdc-text-field {
-        &.lime-text-field--readonly {
-            input.mdc-text-field__input {
-                background-color: transparent;
-                color: $input-text-color;
-                pointer-events: none; // otherwise trailing icon links cannot be clicked
-            }
+    .mdc-text-field.mdc-text-field--disabled.lime-text-field--readonly {
+        input.mdc-text-field__input {
+            background-color: transparent;
+            color: $input-text-color;
+        }
 
-            .formatted-input {
-                color: $input-text-color;
-                opacity: 1;
-            }
+        .formatted-input {
+            color: $input-text-color;
+            opacity: 1;
+        }
 
-            .mdc-floating-label {
-                color: $label-color;
-            }
+        .mdc-floating-label {
+            color: $label-color;
+        }
 
-            .mdc-notched-outline__leading,
-            .mdc-notched-outline__notch,
-            .mdc-notched-outline__trailing {
-                border-color: transparent;
-            }
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+            border-color: transparent;
+        }
 
-            &.mdc-text-field--invalid {
-                & + .mdc-text-field-helper-line {
-                    .mdc-text-field-helper-text--validation-msg {
-                        color: var(--lime-error-text-color);
-                    }
-                }
-                .mdc-text-field__icon--trailing {
+        &.mdc-text-field--invalid {
+            & + .mdc-text-field-helper-line {
+                .mdc-text-field-helper-text--validation-msg {
                     color: var(--lime-error-text-color);
                 }
+            }
+            .mdc-text-field__icon--trailing {
+                color: var(--lime-error-text-color);
+            }
+        }
+
+        &.mdc-text-field--with-trailing-icon {
+            input.mdc-text-field__input {
+                pointer-events: none; // otherwise trailing icon links cannot be clicked
             }
 
             .mdc-text-field__icon--trailing {
@@ -258,17 +261,19 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
                 color: $label-color;
                 border-radius: 0.25rem;
 
+                limel-icon {
+                    width: 1.5rem;
+                    margin-right: 0.5rem;
+                }
+            }
+
+            &:hover .mdc-text-field__icon--trailing {
                 &:hover {
                     box-shadow: var(--button-shadow-hovered);
                 }
 
                 &:active {
                     box-shadow: var(--button-shadow-pressed);
-                }
-
-                limel-icon {
-                    width: 1.5rem;
-                    margin-right: 0.5rem;
                 }
             }
         }

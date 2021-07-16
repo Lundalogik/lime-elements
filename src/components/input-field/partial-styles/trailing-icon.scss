@@ -93,3 +93,7 @@
         }
     }
 }
+
+a.lime-trailing-icon-for-link {
+    @extend .mdc-text-field__icon--trailing;
+}

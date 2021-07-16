@@ -580,10 +580,15 @@ export class InputField {
     }
 
     private renderLinkIcon(linkProps: LinkProperties, icon: string) {
+        // If the trailing icon uses the class `mdc-text-field__icon--trailing`,
+        // MDC attaches a click handler to it, which apparently runs
+        // `preventDefault()` on the event. For links, we don't want that,
+        // so instead of `mdc-text-field__icon--trailing`, we use our own class
+        // `lime-trailing-icon-for-link`, which uses all the same styling. /Ads
         return (
             <a
                 {...linkProps}
-                class="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
+                class="material-icons mdc-text-field__icon lime-trailing-icon-for-link"
                 tabindex={this.disabled ? '-1' : '0'}
                 role="button"
             >
