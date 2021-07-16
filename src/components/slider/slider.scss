@@ -5,7 +5,7 @@
 @use '../../style/internal/lime-theme';
 
 @use '@material/slider/styles';
-@use '@material/floating-label';
+@use "@material/floating-label/mdc-floating-label";
 
 @import './partial-styles/percentage-color.scss';
 @import './partial-styles/_readonly.scss';
@@ -46,9 +46,7 @@
 }
 
 .slider__label {
-    @include shared_input-select-picker.looks-like-input-label;
     padding-left: functions.pxToRem(20);
-    font-size: functions.pxToRem(16);
 }
 
 .slider__content {
