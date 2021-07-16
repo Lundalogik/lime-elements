@@ -27,130 +27,134 @@
     display: none;
 }
 
-:host([type='textarea']) {
-    height: var(--textarea-height, 100%);
-
-    .mdc-text-field.mdc-text-field--textarea {
-        height: var(--textarea-height, 100%);
-
-        &.has-helper-line {
-            --heightOfHelperText: 1.1875rem;
-            height: calc(
-                var(--textarea-height, 100%) - var(--heightOfHelperText)
-            );
-        }
-    }
-    textarea.mdc-text-field__input {
-        resize: vertical;
-    }
-}
+// :host([type='textarea']) {
+//     height: var(--textarea-height, 100%);
+//
+//     .mdc-text-field.mdc-text-field--textarea {
+//         height: var(--textarea-height, 100%);
+//
+//         &.has-helper-line {
+//             --heightOfHelperText: 1.1875rem;
+//             height: calc(
+//                 var(--textarea-height, 100%) - var(--heightOfHelperText)
+//             );
+//         }
+//     }
+//     textarea.mdc-text-field__input {
+//         resize: vertical;
+//     }
+// }
 
 @include textfield.core-styles;
 @include icon.icon-core-styles;
 
-@include shared_input-select-picker.outlined-style-overrides;
-@include shared_input-select-picker.floating-label-overrides;
-@include shared_input-select-picker.readonly-overrides;
-@include shared_input-select-picker.cropped-label-hack;
-@include shared_input-select-picker.disabled-overrides;
-@include shared_input-select-picker.leading-icon;
-
-.formatted-input {
-    @include shared_input-select-picker.looks-like-input-label;
-    @include mixins.truncate-text;
-    width: calc(100% - #{functions.pxToRem(20)});
-
-    z-index: z-index.$input-field--formatted-value;
-    align-self: center;
-    position: absolute;
-
-    display: none;
-    color: shared_input-select-picker.$input-text-color;
-}
-
-.formatted-input + .mdc-text-field__input {
-    z-index: z-index.$input-field--input-with-formatted-value;
-}
-
-:not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
-    .formatted-input {
-        display: block;
-    }
-
-    .mdc-text-field__input[type='number'] {
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-    }
-}
-
-.mdc-text-field--disabled {
-    .formatted-input {
-        @include shared_input-select-picker.looks-disabled;
-    }
-}
-
-.autocomplete-list-container {
-    position: relative;
-}
-
-.autocomplete-list {
-    background-color: white;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    max-height: functions.pxToRem(200);
-    overflow-y: auto;
-}
-
-.mdc-deprecated-list-item {
-    cursor: pointer;
-}
-
-input.mdc-text-field__input {
-    &::-webkit-search-cancel-button {
-        @include mixins.clear-all-button;
-
-        -webkit-appearance: none;
-
-        position: absolute;
-        right: functions.pxToRem(8);
-        top: 0;
-        bottom: 0;
-        margin: auto;
-    }
-}
+// @include shared_input-select-picker.outlined-style-overrides;
+// @include shared_input-select-picker.floating-label-overrides;
+// @include shared_input-select-picker.readonly-overrides;
+// @include shared_input-select-picker.cropped-label-hack;
+// @include shared_input-select-picker.disabled-overrides;
+// @include shared_input-select-picker.leading-icon;
 
 .mdc-text-field {
-    &:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,
-    &:not(.mdc-text-field--disabled)
-        + .mdc-text-field-helper-line
-        .mdc-text-field-character-counter,
-    &:not(.mdc-text-field--disabled)
-        + .mdc-text-field-helper-line
-        .mdc-text-field-helper-text {
-        color: shared_input-select-picker.$helper-text-color;
-    }
+    width: 100%;
 }
 
-.mdc-text-field-character-counter {
-    transition: opacity 0.2s ease;
-    opacity: 0;
-
-    .mdc-text-field--focused + .mdc-text-field-helper-line & {
-        opacity: 1;
-    }
-
-    &:before {
-        height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
-    }
-}
-
-.mdc-text-field-helper-text {
-    &:before {
-        height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
-    }
-}
-
-@import './partial-styles/trailing-icon.scss';
-@import './partial-styles/readonly';
+// .formatted-input {
+//     @include shared_input-select-picker.looks-like-input-label;
+//     @include mixins.truncate-text;
+//     width: calc(100% - #{functions.pxToRem(20)});
+//
+//     z-index: z-index.$input-field--formatted-value;
+//     align-self: center;
+//     position: absolute;
+//
+//     display: none;
+//     color: shared_input-select-picker.$input-text-color;
+// }
+//
+// .formatted-input + .mdc-text-field__input {
+//     z-index: z-index.$input-field--input-with-formatted-value;
+// }
+//
+// :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
+//     .formatted-input {
+//         display: block;
+//     }
+//
+//     .mdc-text-field__input[type='number'] {
+//         color: transparent;
+//         -webkit-text-fill-color: transparent;
+//     }
+// }
+//
+// .mdc-text-field--disabled {
+//     .formatted-input {
+//         @include shared_input-select-picker.looks-disabled;
+//     }
+// }
+//
+// .autocomplete-list-container {
+//     position: relative;
+// }
+//
+// .autocomplete-list {
+//     background-color: white;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     max-height: functions.pxToRem(200);
+//     overflow-y: auto;
+// }
+//
+// .mdc-deprecated-list-item {
+//     cursor: pointer;
+// }
+//
+// input.mdc-text-field__input {
+//     &::-webkit-search-cancel-button {
+//         @include mixins.clear-all-button;
+//
+//         -webkit-appearance: none;
+//
+//         position: absolute;
+//         right: functions.pxToRem(8);
+//         top: 0;
+//         bottom: 0;
+//         margin: auto;
+//     }
+// }
+//
+// .mdc-text-field {
+//     &:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,
+//     &:not(.mdc-text-field--disabled)
+//         + .mdc-text-field-helper-line
+//         .mdc-text-field-character-counter,
+//     &:not(.mdc-text-field--disabled)
+//         + .mdc-text-field-helper-line
+//         .mdc-text-field-helper-text {
+//         color: shared_input-select-picker.$helper-text-color;
+//     }
+// }
+//
+// .mdc-text-field-character-counter {
+//     transition: opacity 0.2s ease;
+//     opacity: 0;
+//
+//     .mdc-text-field--focused + .mdc-text-field-helper-line & {
+//         opacity: 1;
+//     }
+//
+//     &:before {
+//         height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
+//     }
+// }
+//
+// .mdc-text-field-helper-text {
+//     &:before {
+//         height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
+//     }
+// }
+//
+// @import './partial-styles/trailing-icon.scss';
+// @import './partial-styles/readonly';

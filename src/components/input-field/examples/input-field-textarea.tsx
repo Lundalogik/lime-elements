@@ -1,4 +1,6 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, Element, h} from '@stencil/core';
+import { MDCTextField } from '@material/textfield';
+import { MDCFloatingLabel } from '@material/floating-label';
 
 /**
  * Input Field of Type Textarea
@@ -6,72 +8,40 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-textarea',
     shadow: true,
-    styleUrl: 'input-field.scss',
+    styleUrl: 'input-field-textarea.scss',
 })
 export class InputFieldTextareaExample {
-    @State()
-    private required = false;
+    @Element()
+    private host: HTMLLimelExampleInputFieldTextareaElement;
 
-    @State()
-    private disabled = false;
-
-    @State()
-    private readonly = false;
-
-    @State()
-    private value: string;
-
-    public render() {
-        const MAX_LENGTH = 500;
-
-        return [
-            <limel-input-field
-                label="Message"
-                type="textarea"
-                helperText="Please enter a useful message!"
-                maxlength={MAX_LENGTH}
-                value={this.value}
-                required={this.required}
-                onChange={this.handleChange}
-                disabled={this.disabled}
-                readonly={this.readonly}
-            />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        onChange={this.setDisabled}
-                        label="Disabled"
-                    />
-                    <limel-checkbox
-                        onChange={this.setReadonly}
-                        label="Readonly"
-                    />
-                    <limel-checkbox
-                        onChange={this.setRequired}
-                        label="Required"
-                    />
-                </limel-flex-container>
-            </p>,
-            <limel-example-value value={this.value} />,
-        ];
+    public componentDidLoad() {
+        new MDCTextField(this.host.shadowRoot.querySelector('.mdc-text-field'));
+        new MDCFloatingLabel(this.host.shadowRoot.querySelector('.mdc-floating-label'));
     }
 
-    private handleChange = (event: CustomEvent<string>) => {
-        this.value = event.detail;
-    };
-
-    private setDisabled = (event: CustomEvent<boolean>) => {
-        event.stopPropagation();
-        this.disabled = event.detail;
-    };
-
-    private setReadonly = (event: CustomEvent<boolean>) => {
-        event.stopPropagation();
-        this.readonly = event.detail;
-    };
-
-    private setRequired = (event: CustomEvent<boolean>) => {
-        event.stopPropagation();
-        this.required = event.detail;
-    };
+    public render() {
+        return [
+            <label class="mdc-text-field mdc-text-field--textarea">
+              <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                  <span class="mdc-floating-label" id="my-label-id">Textarea Label</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+              </span>
+              <span class="mdc-text-field__resizer">
+                <textarea
+                    class="mdc-text-field__input"
+                    aria-labelledby="my-label-id"
+                    rows={8}
+                    cols={40}
+                    maxlength="140"
+                ></textarea>
+              </span>
+            </label>,
+            <div class="mdc-text-field-helper-line">
+              <div class="mdc-text-field-character-counter">0 / 140</div>
+            </div>
+        ];
+    }
 }
