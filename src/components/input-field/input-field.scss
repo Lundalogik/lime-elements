@@ -56,6 +56,13 @@
 @include shared_input-select-picker.cropped-label-hack;
 @include shared_input-select-picker.disabled-overrides;
 @include shared_input-select-picker.leading-icon;
+@include shared_input-select-picker.trailing-icon;
+
+.mdc-text-field--with-trailing-icon {
+    .mdc-text-field__icon--trailing {
+        margin-right: functions.pxToRem(8);
+    }
+}
 
 .mdc-text-field {
     width: 100%;
