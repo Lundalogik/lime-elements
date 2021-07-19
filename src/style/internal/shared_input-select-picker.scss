@@ -221,6 +221,66 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
     }
 }
 
+@mixin trailing-icon {
+    .mdc-text-field--with-trailing-icon {
+        .mdc-text-field__icon--trailing {
+            transition: background-color 0.2s ease, box-shadow 0.3s ease;
+            border-radius: 50%;
+            padding: functions.pxToRem(8);
+
+            &:focus {
+                outline: none;
+            }
+
+            &:focus-visible {
+                box-shadow: 0 0 0 functions.pxToRem(2) var(--mdc-theme-primary) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
+            }
+        }
+        &:hover {
+            .mdc-text-field__icon--trailing {
+                box-shadow: var(--button-shadow-normal);
+                background-color: rgba(var(--contrast-100), 0.4);
+
+                &:hover {
+                    background-color: rgb(var(--contrast-100));
+                    box-shadow: var(--button-shadow-hovered);
+                }
+
+                &:active {
+                    box-shadow: var(--button-shadow-pressed);
+                }
+            }
+        }
+
+        &.mdc-text-field--disabled,
+        &.mdc-text-field--invalid {
+            // `mdc-text-field--invalid` displays a (!) icon, which we don't want it to appear interactive
+            &:hover {
+                .mdc-text-field__icon--trailing {
+                    box-shadow: none;
+                    background-color: transparent;
+
+                    &:hover {
+                        background-color: transparent;
+                        box-shadow: none;
+                    }
+
+                    &:active {
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+        &.mdc-text-field--invalid {
+            i.mdc-text-field__icon.mdc-text-field__icon--trailing {
+                limel-icon {
+                    color: var(--lime-error-text-color);
+                }
+            }
+        }
+    }
+}
+
 @mixin readonly-overrides {
     .mdc-text-field.mdc-text-field--disabled.lime-text-field--readonly {
         .mdc-text-field__input {
