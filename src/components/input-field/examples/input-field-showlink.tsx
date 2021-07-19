@@ -6,7 +6,7 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-showlink',
     shadow: true,
-    styleUrl: 'input-field.scss',
+    styleUrl: 'show-link.scss',
 })
 export class InputFieldShowlinkExample {
     @State()
