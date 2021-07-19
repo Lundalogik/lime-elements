@@ -18,7 +18,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-focus',
     shadow: true,
-    styleUrl: 'input-field.scss',
 })
 export class InputFieldFocusExample {
     @State()
