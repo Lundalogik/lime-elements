@@ -6,7 +6,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-search',
     shadow: true,
-    styleUrl: 'input-field.scss',
 })
 export class InputFieldSearchExample {
     @State()

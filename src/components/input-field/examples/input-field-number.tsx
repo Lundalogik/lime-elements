@@ -6,7 +6,6 @@ import { Component, h, State, Watch } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-number',
     shadow: true,
-    styleUrl: 'input-field.scss',
 })
 export class InputFieldNumberExample {
     @State()
