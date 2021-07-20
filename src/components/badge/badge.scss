@@ -1,4 +1,6 @@
 @use '../../style/functions';
+@use '../../style/internal/lime-theme';
+@use '../../style/internal/lime-typography';
 
 /**
  * @prop --badge-background-color: badge background color
@@ -18,6 +20,8 @@
 }
 
 .badge-container {
+    @include lime-typography.base;
+
     display: inline-block;
     font-size: functions.pxToRem(11);
     min-width: functions.pxToRem(20);
