@@ -68,6 +68,11 @@
     width: 100%;
 }
 
+.lime-empty-value-for-readonly {
+    width: calc(100% - #{functions.pxToRem(20)});
+    z-index: z-index.$input-field--formatted-value;
+}
+
 .lime-looks-like-input-value {
     @include shared_input-select-picker.looks-like-input-value;
 
@@ -87,12 +92,6 @@
 
     + .mdc-text-field__input {
         z-index: z-index.$input-field--input-with-formatted-value;
-    }
-
-    .mdc-text-field--textarea & {
-        position: absolute;
-        top: functions.pxToRem(14);
-        left: functions.pxToRem(16);
     }
 }
 
