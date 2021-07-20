@@ -348,6 +348,7 @@ export class ChipSet {
                     'mdc-chip-set mdc-chip-set--input': true,
                     'force-invalid': this.isInvalid(),
                     'mdc-text-field--disabled': this.readonly || this.disabled,
+                    'lime-text-field--readonly': this.readonly,
                     'has-chips mdc-text-field--label-floating':
                         this.value.length !== 0,
                     'has-leading-icon': this.leadingIcon !== null,
