@@ -457,7 +457,7 @@ export class InputField {
     private renderEmptyValueForReadonly() {
         if (this.readonly && !this.value) {
             return (
-                <span class="lime-formatted-input lime-looks-like-input-value">
+                <span class="lime-empty-value-for-readonly lime-looks-like-input-value">
                     –
                 </span>
             );
