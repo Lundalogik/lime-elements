@@ -28,6 +28,7 @@ $height-of-mdc-helper-text-block: 0.9375rem;
 $mdc-chip-background-color: rgb(var(--contrast-100));
 
 $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo before in MD's helper texts, which sets their distance to the element on top of it. Originally in MD, this value is 1rem. In Lime Elements, we need to make it less due to our layout needs.
+$cropped-label-hack--font-size: 0.875rem; //14px
 
 @mixin looks-disabled() {
     cursor: not-allowed;
@@ -74,7 +75,7 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
     .mdc-text-field--outlined .mdc-notched-outline--upgraded {
         .mdc-floating-label--float-above {
             //font-size: 1rem; This is what we get from MD now, which causes the miscalculations
-            font-size: 0.875rem;
+            font-size: $cropped-label-hack--font-size;
             // of course this is `14px` and the other one is `16px`.
             // Unfortunately MD scales the floating label down, by applying a
             // `transform` & `scale(0.75)` which is probably why they had to increase
