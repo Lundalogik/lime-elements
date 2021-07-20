@@ -134,19 +134,19 @@ export class List {
 
         const html = this.listRenderer.render(this.items, this.config);
 
-        if (this.type !== 'menu') {
-            return (
-                <Host
-                    style={{
-                        '--maxLinesSecondaryText': `${maxLinesSecondaryText}`,
-                    }}
-                >
-                    {html}
-                </Host>
-            );
+        if (this.type === 'menu') {
+            return <div class="mdc-menu mdc-menu-surface">{html}</div>;
         }
 
-        return <div class="mdc-menu mdc-menu-surface">{html}</div>;
+        return (
+            <Host
+                style={{
+                    '--maxLinesSecondaryText': `${maxLinesSecondaryText}`,
+                }}
+            >
+                {html}
+            </Host>
+        );
     }
 
     @Watch('type')
