@@ -26,7 +26,7 @@ export class InputFieldTextareaExample {
 
         return [
             <limel-input-field
-                label="Message"
+                label="Text Field"
                 type="textarea"
                 helperText="Please enter a useful message!"
                 maxlength={MAX_LENGTH}

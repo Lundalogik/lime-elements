@@ -1,11 +1,11 @@
 @use '../../../style/functions';
 
 .mdc-text-field--with-trailing-icon {
-    .mdc-text-field__icon.trailing-icon {
+    .mdc-text-field__icon--trailing {
         transition: background-color 0.2s ease, box-shadow 0.3s ease;
         border-radius: 50%;
         padding: functions.pxToRem(8);
-        right: functions.pxToRem(8);
+        margin-right: functions.pxToRem(8);
 
         &:focus {
             outline: none;
@@ -16,7 +16,7 @@
         }
     }
     &:hover {
-        .trailing-icon {
+        .mdc-text-field__icon--trailing {
             box-shadow: var(--button-shadow-normal);
             background-color: rgba(var(--contrast-100), 0.4);
 
@@ -35,7 +35,7 @@
     &.mdc-text-field--invalid {
         // `mdc-text-field--invalid` displays a (!) icon, which we don't want it to appear interactive
         &:hover {
-            .trailing-icon {
+            .mdc-text-field__icon--trailing {
                 box-shadow: none;
                 background-color: transparent;
 
@@ -51,7 +51,7 @@
         }
     }
     &.mdc-text-field--invalid {
-        i.mdc-text-field__icon.trailing-icon {
+        i.mdc-text-field__icon.mdc-text-field__icon--trailing {
             limel-icon {
                 color: var(--lime-error-text-color);
             }
@@ -62,7 +62,7 @@
 :host([type='url']),
 :host([type='urlAsText']) {
     .mdc-text-field--with-trailing-icon {
-        .trailing-icon {
+        .mdc-text-field__icon--trailing {
             limel-icon {
                 color: rgb(var(--color-blue-default));
             }
@@ -79,7 +79,7 @@
 
 :host([type='tel']) {
     .mdc-text-field--with-trailing-icon {
-        .trailing-icon {
+        .mdc-text-field__icon--trailing {
             limel-icon {
                 color: rgb(var(--color-green-default));
             }
@@ -92,4 +92,8 @@
             }
         }
     }
+}
+
+a.lime-trailing-icon-for-link {
+    @extend .mdc-text-field__icon--trailing;
 }

@@ -7,8 +7,9 @@
 // Visual styles that unify the look & feel and behavior of
 // components such as input fields, select dropdowns and pickers
 
-$lime-text-field-bottom-outline-color: rgba(var(--contrast-700), 0.65);
-$lime-text-field-bottom-outline-color-hover: rgba(var(--contrast-700), 1);
+$lime-text-field-outline-color: rgba(var(--contrast-700), 0.65);
+$lime-text-field-outline-color--hovered: rgba(var(--contrast-700), 1);
+$lime-text-field-outline-color--focused: var(--mdc-theme-primary);
 
 $background-color-normal: rgba(var(--contrast-200), 0.5);
 $background-color-hovered: rgba(var(--contrast-200), 1);
@@ -25,10 +26,6 @@ $height-of-mdc-text-field: 3.5rem; //This is written directly in rem, beucase th
 $height-of-mdc-helper-text-block: 0.9375rem;
 
 $mdc-chip-background-color: rgb(var(--contrast-100));
-
-$floating-label-top-value: functions.pxToRem(
-    27
-); // this overrides MD's original top value which is top: 50%. The reason is that we have fields or pickers which can have multiple rows, and a % value aligns the label in a wrong position
 
 $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo before in MD's helper texts, which sets their distance to the element on top of it. Originally in MD, this value is 1rem. In Lime Elements, we need to make it less due to our layout needs.
 
@@ -50,16 +47,29 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
     color: $label-color;
 }
 
+@mixin looks-like-input-value() {
+    font-family: Roboto, sans-serif;
+    line-height: functions.pxToRem(28);
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+
+    font-size: functions.pxToRem(14);
+    font-weight: 400;
+    letter-spacing: 0.009375em;
+}
+
 @mixin label--float-above() {
-    transform: translateY(-2.38rem) scale(0.75);
+    // transform: translateY(-2.38rem) scale(0.75);
     // font-size: functions.pxToRem(16); // See comments in `cropped-label-hack` below
-    font-size: 0.875rem;
+    // font-size: 0.875rem;
 }
 
 @mixin cropped-label-hack {
     // Some font size applied to `label--float-above` causes the labels to get cut off
     // when an empty field gets focused
-
+    .mdc-text-field--outlined.mdc-notched-outline--upgraded.mdc-text-field--textarea,
+    .mdc-text-field--outlined.mdc-text-field--textarea
+        .mdc-notched-outline--upgraded,
     .mdc-text-field--outlined.mdc-notched-outline--upgraded,
     .mdc-text-field--outlined .mdc-notched-outline--upgraded {
         .mdc-floating-label--float-above {
@@ -126,24 +136,18 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
             }
         }
     }
-
-    .mdc-text-field {
-        width: 100%;
-        // @include mdc-states-hover-opacity(0);
-        // @include mdc-states-focus-opacity(0, true);
-
-        .mdc-floating-label {
-            right: functions.pxToRem(
-                8
-            ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
-        }
-    }
 }
 
 @mixin outlined-style-overrides {
-    .mdc-text-field {
+    .mdc-text-field.mdc-text-field--outlined {
         transition: background-color 0.2s ease;
         border-radius: functions.pxToRem(4);
+
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+            transition: border-color 0.2s ease;
+        }
 
         &:not(.mdc-text-field--disabled) {
             background-color: $background-color-normal;
@@ -161,23 +165,28 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
             background-color: $background-color-disabled;
         }
 
-        &:not(.mdc-text-field--disabled) {
+        &:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid):not(.force-invalid) {
             .mdc-notched-outline__leading,
             .mdc-notched-outline__notch,
             .mdc-notched-outline__trailing {
-                transition: border-color 0.2s ease;
-                border-color: $lime-text-field-bottom-outline-color;
+                border-color: $lime-text-field-outline-color;
             }
 
-            &:not(.mdc-text-field--focused) {
-                .mdc-text-field__input {
-                    &:hover ~ .mdc-notched-outline {
-                        .mdc-notched-outline__leading,
-                        .mdc-notched-outline__notch,
-                        .mdc-notched-outline__trailing {
-                            border-color: $lime-text-field-bottom-outline-color-hover;
-                        }
+            &:not(.mdc-text-field--focused):not(.mdc-text-field--invalid):not(.force-invalid) {
+                &:hover .mdc-notched-outline {
+                    .mdc-notched-outline__leading,
+                    .mdc-notched-outline__notch,
+                    .mdc-notched-outline__trailing {
+                        border-color: $lime-text-field-outline-color--hovered;
                     }
+                }
+            }
+
+            &.mdc-text-field--focused {
+                .mdc-notched-outline__leading,
+                .mdc-notched-outline__notch,
+                .mdc-notched-outline__trailing {
+                    border-color: $lime-text-field-outline-color--focused;
                 }
             }
         }
@@ -192,18 +201,16 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
         }
     }
 
-    .mdc-text-field--outlined {
-        .mdc-text-field__input {
-            padding-bottom: functions.pxToRem(12);
-        }
-    }
-
     .mdc-text-field.mdc-text-field--focused.mdc-text-field--outlined {
         .mdc-notched-outline--notched {
             .mdc-notched-outline__notch {
                 padding-top: 0;
             }
         }
+    }
+
+    .mdc-text-field__icon {
+        flex-shrink: 0;
     }
 }
 
@@ -215,62 +222,69 @@ $height-of-helper-text-pseudo-before: 0.75rem; // There is strange a pseudo befo
 }
 
 @mixin readonly-overrides {
-    .mdc-text-field {
-        &.lime-text-field--readonly {
-            input.mdc-text-field__input {
-                background-color: transparent;
-                color: $input-text-color;
-            }
+    .mdc-text-field.mdc-text-field--disabled.lime-text-field--readonly {
+        .mdc-text-field__input {
+            background-color: transparent;
+            color: $input-text-color;
+        }
 
-            .formatted-input {
-                color: $input-text-color;
-                opacity: 1;
-            }
+        .lime-looks-like-input-value {
+            color: $input-text-color;
+            opacity: 1;
+        }
 
-            label.mdc-floating-label {
-                color: $label-color;
-            }
+        .mdc-floating-label {
+            color: $label-color;
+        }
 
-            .mdc-notched-outline__leading,
-            .mdc-notched-outline__notch,
-            .mdc-notched-outline__trailing {
-                border-color: transparent;
-            }
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+            border-color: transparent;
+        }
 
-            &.mdc-text-field--invalid {
-                & + .mdc-text-field-helper-line {
-                    .mdc-text-field-helper-text--validation-msg {
-                        color: var(--lime-error-text-color);
-                    }
-                }
-                .trailing-icon {
+        &.mdc-text-field--invalid {
+            & + .mdc-text-field-helper-line {
+                .mdc-text-field-helper-text--validation-msg {
                     color: var(--lime-error-text-color);
                 }
             }
+            .mdc-text-field__icon--trailing {
+                color: var(--lime-error-text-color);
+            }
+        }
 
-            .mdc-text-field__icon.trailing-icon {
+        &.mdc-text-field--with-trailing-icon {
+            input.mdc-text-field__input {
+                pointer-events: none; // otherwise trailing icon links cannot be clicked
+            }
+
+            .mdc-text-field__icon--trailing {
+                width: calc(100% - 1rem);
+                position: absolute;
+                left: 0;
+
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
 
                 pointer-events: auto;
-                cursor: pointer;
                 color: $label-color;
                 border-radius: 0.25rem;
 
-                width: calc(100% - 2rem);
-                z-index: 0;
+                limel-icon {
+                    width: 1.5rem;
+                    margin-right: 0.5rem;
+                }
+            }
 
+            &:hover .mdc-text-field__icon--trailing {
                 &:hover {
                     box-shadow: var(--button-shadow-hovered);
                 }
 
                 &:active {
                     box-shadow: var(--button-shadow-pressed);
-                }
-
-                limel-icon {
-                    width: 1.5rem;
                 }
             }
         }
