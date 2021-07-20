@@ -289,6 +289,7 @@ export class Select {
 
     private closeMenu() {
         this.menuOpen = false;
+        this.setTriggerFocus();
     }
 
     private handleMenuTriggerKeyPress(event: KeyboardEvent) {
