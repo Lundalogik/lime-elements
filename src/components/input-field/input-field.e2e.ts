@@ -22,7 +22,7 @@ describe('limel-input-field', () => {
 
     types.forEach((type) =>
         describe(`with type="${type.name}"`, () => {
-            const expectedInputId = 'tf-input-element';
+            const expectedLabelId = 'tf-input-label';
             beforeEach(async () => {
                 page = await createPage(`
                     <limel-input-field
@@ -32,7 +32,7 @@ describe('limel-input-field', () => {
                 `);
                 limelInput = await page.find('limel-input-field');
                 inputContainer = await page.find(
-                    'limel-input-field>>>div.mdc-text-field'
+                    'limel-input-field>>>label.mdc-text-field'
                 );
             });
             if (type.name === 'textarea') {
@@ -93,8 +93,11 @@ describe('limel-input-field', () => {
                     });
                 }
 
-                it('has the expected `id`', () => {
-                    expect(nativeInput).toEqualAttribute('id', expectedInputId);
+                it('has the expected value for `aria-labelledby`', () => {
+                    expect(nativeInput).toEqualAttribute(
+                        'aria-labelledby',
+                        expectedLabelId
+                    );
                 });
                 it('has the class `mdc-text-field__input`', () => {
                     expect(nativeInput).toHaveClass('mdc-text-field__input');
@@ -102,22 +105,21 @@ describe('limel-input-field', () => {
             });
             describe('the label', () => {
                 beforeEach(async () => {
-                    label = await page.find('limel-input-field>>>label');
-                });
-                it('is a "floating" label', () => {
-                    expect(label).toHaveClass('mdc-floating-label');
+                    label = await page.find(
+                        'limel-input-field>>>.mdc-floating-label'
+                    );
                 });
                 it('is NOT floating', () => {
                     expect(label).not.toHaveClass(
                         'mdc-floating-label--float-above'
                     );
                 });
-                it('is linked to the native input', () => {
-                    expect(label).toEqualAttribute('for', expectedInputId);
+                it('has the expected id', () => {
+                    expect(label).toEqualAttribute('id', expectedLabelId);
                 });
                 describe('after focusing', () => {
                     beforeEach(async () => {
-                        label.focus();
+                        label.click();
                         await page.waitForChanges();
                     });
                     it('IS floating', () => {
@@ -135,15 +137,15 @@ describe('limel-input-field', () => {
                 });
                 it('has the expected structure', () => {
                     expect(outline).toEqualHtml(`
-                    <div class="mdc-notched-outline mdc-notched-outline--upgraded">
-                        <div class="mdc-notched-outline__leading"></div>
-                        <div class="mdc-notched-outline__notch">
-                            <label for="tf-input-element" class="mdc-floating-label">
+                    <span class="mdc-notched-outline mdc-notched-outline--upgraded">
+                        <span class="mdc-notched-outline__leading"></span>
+                        <span class="mdc-notched-outline__notch">
+                            <span id="tf-input-label" class="mdc-floating-label">
                                 Test
-                            </label>
-                        </div>
-                        <div class="mdc-notched-outline__trailing"></div>
-                    </div>
+                            </span>
+                        </span>
+                        <span class="mdc-notched-outline__trailing"></span>
+                    </span>
                 `);
                 });
             });
@@ -160,7 +162,7 @@ describe('limel-input-field', () => {
                 if (type.name !== 'textarea') {
                     it('has a trailing icon indicating the field is invalid', async () => {
                         const limelIcon = await page.find(
-                            'limel-input-field>>>i.mdc-text-field__icon.trailing-icon>limel-icon'
+                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
                         );
                         expect(limelIcon).toBeTruthy();
                         expect(limelIcon).toEqualAttribute(
@@ -200,7 +202,7 @@ describe('limel-input-field', () => {
                     });
                     it('has the correct leading icon', async () => {
                         const leadingIcon = await page.find(
-                            'limel-input-field>>>i.mdc-text-field__icon:not(.trailing-icon)>limel-icon'
+                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon'
                         );
                         expect(leadingIcon).toBeTruthy();
                         expect(leadingIcon).toEqualAttribute('name', 'cat');
@@ -213,7 +215,7 @@ describe('limel-input-field', () => {
                     });
                     it('has the correct trailing icon', async () => {
                         const trailingIcon = await page.find(
-                            'limel-input-field>>>i.mdc-text-field__icon.trailing-icon>limel-icon'
+                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
                         );
                         expect(trailingIcon).toBeTruthy();
                         expect(trailingIcon).toEqualAttribute('name', 'dog');
@@ -227,14 +229,14 @@ describe('limel-input-field', () => {
                     });
                     it('has the correct leading icon', async () => {
                         const leadingIcon = await page.find(
-                            'limel-input-field>>>.mdc-text-field__icon:not(.trailing-icon)>limel-icon'
+                            'limel-input-field>>>.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon'
                         );
                         expect(leadingIcon).toBeTruthy();
                         expect(leadingIcon).toEqualAttribute('name', 'cat');
                     });
                     it('has the correct trailing icon', async () => {
                         const trailingIcon = await page.find(
-                            'limel-input-field>>>.mdc-text-field__icon.trailing-icon>limel-icon'
+                            'limel-input-field>>>.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
                         );
                         expect(trailingIcon).toBeTruthy();
                         expect(trailingIcon).toEqualAttribute('name', 'dog');
@@ -255,7 +257,7 @@ describe('limel-input-field', () => {
             `);
             limelInput = await page.find('limel-input-field');
             inputContainer = await page.find(
-                'limel-input-field>>>div.mdc-text-field'
+                'limel-input-field>>>label.mdc-text-field'
             );
         });
 
@@ -276,7 +278,7 @@ describe('limel-input-field', () => {
             });
             it('has a trailing icon indicating that the link can be opened', async () => {
                 const trailingIcon = await page.find(
-                    'limel-input-field>>>.mdc-text-field__icon.trailing-icon>limel-icon'
+                    'limel-input-field>>>.mdc-text-field__icon.lime-trailing-icon-for-link>limel-icon'
                 );
                 expect(trailingIcon).toBeTruthy();
                 expect(trailingIcon).toEqualAttribute('name', 'external_link');
@@ -327,13 +329,13 @@ describe('limel-input-field', () => {
                 });
                 it(`has a link with the href '${url.expectedHref}'`, async () => {
                     const link = await page.find(
-                        'limel-input-field>>>.mdc-text-field__icon.trailing-icon'
+                        'limel-input-field>>>.mdc-text-field__icon.lime-trailing-icon-for-link'
                     );
                     expect(link).toEqualAttribute('href', url.expectedHref);
                 });
                 it('has a trailing icon indicating that the link can be opened', async () => {
                     const icon = await page.find(
-                        'limel-input-field>>>.mdc-text-field__icon.trailing-icon>limel-icon'
+                        'limel-input-field>>>.mdc-text-field__icon.lime-trailing-icon-for-link>limel-icon'
                     );
                     expect(icon).toEqualAttribute('name', 'external_link');
                 });
