@@ -14,6 +14,7 @@ export class LinearProgressExample {
         return [
             <limel-input-field
                 label="Value"
+                type="number"
                 value={(this.value * FRACTION).toFixed(0)}
                 onChange={this.handleChange}
             />,
