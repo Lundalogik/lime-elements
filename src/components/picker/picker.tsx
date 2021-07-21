@@ -181,14 +181,11 @@ export class Picker {
     }
 
     public render() {
-        const iconColors = this.chips.some((chip: Chip) => {
-            return 'iconColor' in chip && !!chip.iconColor;
+        this.chips.forEach((chip: Chip) => {
+            if ('iconBackgroundColor' in chip && !!chip.iconBackgroundColor) {
+                chip.iconFillColor = 'rgb(var(--color-white))';
+            }
         });
-        const style = {};
-
-        if (iconColors) {
-            style['--icon-color'] = 'white';
-        }
 
         const props: {
             maxItems?: number;
@@ -200,7 +197,6 @@ export class Picker {
 
         return [
             <limel-chip-set
-                style={style}
                 type="input"
                 label={this.label}
                 leadingIcon={this.leadingIcon}
@@ -261,7 +257,7 @@ export class Picker {
             text: listItem.text,
             removable: true,
             icon: listItem.icon,
-            iconColor: listItem.iconColor,
+            iconBackgroundColor: listItem.iconColor,
             value: listItem,
         };
     }
