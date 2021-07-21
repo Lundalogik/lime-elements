@@ -15,12 +15,6 @@ export interface Chip<T = any> {
     icon?: string;
 
     /**
-     * @deprecated
-     * Use `iconBackgroundColor` to set the background color of the icon.
-     */
-    iconColor?: string;
-
-    /**
      * Color of the icon. Overrides `--icon-color`.
      */
     iconFillColor?: string;
