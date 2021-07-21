@@ -1,7 +1,6 @@
 .mdc-switch {
-    opacity: 1;
-
     &.lime-switch--readonly {
+        opacity: 1;
         .mdc-switch__track {
             opacity: 1;
             border: none;
@@ -26,6 +25,7 @@
                 }
             }
         }
+
         .mdc-switch__thumb-underlay {
             left: -1rem;
         }
