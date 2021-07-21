@@ -76,14 +76,12 @@ export class SelectDialogExample {
                     onChange={this.handleVillainChange}
                 />
                 <limel-icon name="star_wars" />
-
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button
-                        primary={true}
-                        label="Close"
-                        onClick={this.handleClose}
-                    />
-                </limel-flex-container>
+                <limel-button
+                    slot="button"
+                    primary={true}
+                    label="Close"
+                    onClick={this.handleClose}
+                />
             </limel-dialog>,
             <limel-example-value
                 label="Favorite hero"
