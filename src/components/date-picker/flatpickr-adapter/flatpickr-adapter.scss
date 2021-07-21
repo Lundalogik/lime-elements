@@ -185,10 +185,6 @@ $datepickerTextOnThemeColor: var(--mdc-theme-on-primary);
         &.today {
             background: transparent;
             &:after {
-                // background: var(
-                //     --mdc-theme-text-hint-on-light,
-                //     mdc-theme.$mdc-theme-text-hint-on-light
-                // );
                 opacity: 0.25;
             }
             &:hover {
