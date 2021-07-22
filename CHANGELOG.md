@@ -1,3 +1,12 @@
+### [33.0.2](https://github.com/Lundalogik/lime-elements/compare/v33.0.1...v33.0.2) (2021-07-22)
+
+
+### Bug Fixes
+
+* **switch:** improve `readonly` styles ([e119999](https://github.com/Lundalogik/lime-elements/commit/e1199992207ae440fe45f586952e73b52560e718))
+* **switch:** make `disabled` switch look disabled ([1a74f27](https://github.com/Lundalogik/lime-elements/commit/1a74f2766bffeaf8920cdf5fa4d4562e14f2f66e))
+* **switch:** make label text look like checkbox's label ([c893a23](https://github.com/Lundalogik/lime-elements/commit/c893a235e2c0954e418f4ccc0a0c610f0aa65226))
+
 ### [33.0.1](https://github.com/Lundalogik/lime-elements/compare/v33.0.0...v33.0.1) (2021-07-22)
 
 
