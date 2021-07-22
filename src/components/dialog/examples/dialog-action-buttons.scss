@@ -7,7 +7,7 @@
 .button {
     &.justify-left {
         // In a full width flex container that has `justify-content: flex-end;`,
-        // these styles will align the targeted button to left
+        // these styles will align the targeted button to the left.
         justify-self: flex-start;
         margin-right: auto;
     }

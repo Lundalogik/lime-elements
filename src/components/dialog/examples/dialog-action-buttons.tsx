@@ -4,14 +4,15 @@ import { Component, h, State } from '@stencil/core';
 /**
  * Example with three action buttons
  *
- * Check this out to see how more than two buttons can be positioned in dialog's
- * footer. Pay attention to how they are labeled & styled, and how you may be
- * able to enable important actions, conditionally.
+ * This example shows how more than two buttons can be positioned in a dialog's
+ * footer. Pay attention to how they are labeled & styled, and how you can
+ * enable important actions conditionally.
+ *
  * :::note
- * When it comes to these details such as placement of action buttons, choice of
+ * When it comes to details such as placement of action buttons, choice of
  * labels, and adding meaningful graphical details, it's important to follow
- * a few design conventions which are explained
- * [here in this guide](#/DesignGuidelines/action-buttons.md/).
+ * a few design conventions which are explained in
+ * [this guide](#/DesignGuidelines/action-buttons.md/).
  */
 @Component({
     tag: 'limel-example-dialog-action-buttons',
@@ -20,14 +21,14 @@ import { Component, h, State } from '@stencil/core';
 })
 export class DialogActionButtonsExample {
     @State()
-    private checked: boolean = false;
+    private checked = false;
 
     @State()
     private isOpen = false;
 
     public render() {
         const heading: DialogHeading = {
-            title: 'Woah…! Be careful.',
+            title: 'Whoa…! Be careful.',
             subtitle: 'Wanna mass-update 2345 items?',
             icon: 'brake_warning',
         };
@@ -45,8 +46,8 @@ export class DialogActionButtonsExample {
             >
                 <div class="dialog-content">
                     <p>
-                        You are about to update 2345 items simulatiously. This
-                        will irriversibly change the modified values in the
+                        You are about to update 2345 items simultaneously. This
+                        will irreversibly change the affected values in the
                         database, for all of these items!
                     </p>
                     <p>Are you sure you want to update them all?</p>
@@ -86,8 +87,8 @@ export class DialogActionButtonsExample {
         ];
     }
 
-    private confirmed = () => {
-        this.checked = !this.checked;
+    private confirmed = (event: CustomEvent<boolean>) => {
+        this.checked = event.detail;
     };
 
     private displayFeedback = () => {
