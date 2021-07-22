@@ -20,6 +20,11 @@ export interface Chip<T = any> {
     iconFillColor?: string;
 
     /**
+     * `title` attribute of the icon
+     */
+    iconTitle?: string;
+
+    /**
      * Background color of the icon. Overrides `--icon-background-color`.
      */
     iconBackgroundColor?: string;

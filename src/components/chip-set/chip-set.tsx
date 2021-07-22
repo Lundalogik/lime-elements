@@ -637,6 +637,7 @@ export class ChipSet {
                 style={style}
                 size="small"
                 badge={true}
+                title={chip.iconTitle}
             />
         );
     }
