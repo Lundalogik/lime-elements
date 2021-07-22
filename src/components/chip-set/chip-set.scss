@@ -216,6 +216,10 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
 // used only in chipsets that do not have input
 .chip-set__label {
+    @include mixins.truncate-text;
+    width: 120%; // `120%` instead of `100%`,
+    // because this class is always together with `mdc-floating-label--float-above`,
+    // which scales the label down. So there is more horizontal space to display the label in.
     top: functions.pxToRem(13);
     padding-left: functions.pxToRem(20);
 }
