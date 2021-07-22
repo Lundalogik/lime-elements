@@ -22,7 +22,7 @@ import { ArrayField as CustomArrayField } from './fields/array-field';
 import { ObjectField as CustomObjectField } from './fields/object-field';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
-import Ajv from 'ajv';
+import Ajv, { RequiredParams } from 'ajv';
 import { isInteger } from './validators';
 
 /**
@@ -214,9 +214,14 @@ export class Form {
         const errors = this.validator.errors || [];
 
         return errors.map((error: Ajv.ErrorObject): FormError => {
+            let property = error.dataPath;
+            if (error.keyword === 'required') {
+                property = (error.params as RequiredParams).missingProperty;
+            }
+
             return {
                 name: error.keyword,
-                property: error.dataPath,
+                property: property,
                 message: error.message,
                 schemaPath: error.schemaPath,
             };
