@@ -1,3 +1,11 @@
+### [33.0.1](https://github.com/Lundalogik/lime-elements/compare/v33.0.0...v33.0.1) (2021-07-22)
+
+
+### Bug Fixes
+
+* **chip-set:** make label truncate correctly when there is a leading icon ([e11e7c0](https://github.com/Lundalogik/lime-elements/commit/e11e7c081b234ed13a499eaf18ef4fb32baa0312))
+* **chip-set:** make label truncate when chip-set has no input field ([df32824](https://github.com/Lundalogik/lime-elements/commit/df328240380806811098e81775887405dce211db))
+
 ## [33.0.0](https://github.com/Lundalogik/lime-elements/compare/v32.4.4...v33.0.0) (2021-07-21)
 
 
