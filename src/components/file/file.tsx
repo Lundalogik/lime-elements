@@ -1,4 +1,5 @@
-import { Chip, FileInfo } from '@limetech/lime-elements';
+import translate from '../../global/translations';
+import { Chip, FileInfo, Languages } from '@limetech/lime-elements';
 import { MDCTextField } from '@material/textfield';
 import {
     Component,
@@ -96,6 +97,12 @@ export class File {
     public accept: string = '*';
 
     /**
+     * Defines the localisation for translations.
+     */
+    @Prop()
+    public language: Languages = 'en';
+
+    /**
      * Dispatched when a file is selected/deselected
      */
     @Event()
@@ -179,6 +186,8 @@ export class File {
                 required={this.required}
                 type="input"
                 value={this.chipArray}
+                title={this.getTranslation('drag-and-drop-tips')}
+                class="is-file-picker shows-dropzone"
             />,
         ];
     }
@@ -276,5 +285,9 @@ export class File {
     private preventAndStop(event: Event) {
         event.stopPropagation();
         event.preventDefault();
+    }
+
+    private getTranslation(key: string) {
+        return translate.get(`file.${key}`, this.language);
     }
 }

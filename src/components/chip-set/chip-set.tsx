@@ -169,8 +169,6 @@ export class ChipSet {
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
-    private clearAllChipsLabel: string;
-    private removeChipLabel: string;
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
@@ -229,17 +227,6 @@ export class ChipSet {
     @Method()
     public async emptyInput() {
         this.syncEmptyInput();
-    }
-
-    public componentWillLoad() {
-        this.clearAllChipsLabel = translate.get(
-            'chip-set.clear-all',
-            this.language
-        );
-        this.removeChipLabel = translate.get(
-            'chip-set.remove-chip',
-            this.language
-        );
     }
 
     public componentDidLoad() {
@@ -389,6 +376,7 @@ export class ChipSet {
                             this.value.length || this.editMode
                         ),
                     }}
+                    dropzone-tip={this.dropZoneTip()}
                 >
                     <div class="mdc-notched-outline__leading"></div>
                     <div class="mdc-notched-outline__notch">
@@ -414,6 +402,10 @@ export class ChipSet {
             </div>
         );
     }
+
+    private dropZoneTip = (): string => {
+        return translate.get('file.drag-and-drop-tips', this.language);
+    };
 
     private isFull(): boolean {
         return !!this.maxItems && this.value.length >= this.maxItems;
@@ -692,11 +684,20 @@ export class ChipSet {
                 class="mdc-text-field__icon clear-all-button"
                 tabindex="0"
                 role="button"
-                title={this.clearAllChipsLabel}
-                aria-label={this.clearAllChipsLabel}
+                title={this.clearAllChipsLabel()}
+                aria-label={this.clearAllChipsLabel()}
             />
         );
     }
+
+    private clearAllChipsLabel = (): string => {
+        return translate.get('chip-set.clear-all', this.language);
+    };
+
+    private removeChipLabel = (): string => {
+        return translate.get('chip-set.remove-chip', this.language);
+    };
+
     private handleDeleteAllIconClick(event: Event) {
         event.preventDefault();
         this.change.emit([]);

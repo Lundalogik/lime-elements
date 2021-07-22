@@ -1,6 +1,7 @@
 /**
  * @prop --icon-background-color: Background color of the icon. Defaults to `--contrast-400`.
  * @prop --icon-color: Color of the icon. Defaults to `--contrast-1100`.
+ * @prop --file-picker-dropzone-distance: Distance between the file picker and the dropzone. Defaults to `1rem` which is the default gap in `limel-form`.
  */
 
 :host {

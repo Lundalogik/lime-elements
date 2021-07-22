@@ -12,9 +12,6 @@ export class FileCustomIconExample {
     @State()
     private value: FileInfo = { filename: 'custom.crab', id: 123 };
 
-    @State()
-    private required = false;
-
     public componentWillLoad() {
         this.updateIcon();
     }
@@ -24,16 +21,9 @@ export class FileCustomIconExample {
             <limel-file
                 label="Attach a file"
                 onChange={this.handleChange}
-                required={this.required}
                 value={this.value}
             />,
-            <limel-flex-container justify="end">
-                <limel-switch
-                    label="Toggle required"
-                    value={this.required}
-                    onChange={this.toggleRequired}
-                />
-            </limel-flex-container>,
+            <limel-example-value value={this.value} />,
         ];
     }
 
@@ -50,8 +40,4 @@ export class FileCustomIconExample {
             this.value.iconBackgroundColor = 'rgb(var(--color-coral-default))';
         }
     }
-
-    private toggleRequired = () => {
-        this.required = !this.required;
-    };
 }
