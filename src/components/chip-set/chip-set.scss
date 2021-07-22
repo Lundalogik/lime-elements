@@ -284,7 +284,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             padding-left: $leading-icon-space;
             max-width: calc(
                 100% - #{$leading-icon-space}
-            ); // minus space taken by the leading-icon
+            );
             &.lime-floating-label--float-above {
                 padding-left: 0;
             }
