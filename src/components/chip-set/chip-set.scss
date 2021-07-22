@@ -31,6 +31,7 @@
 @include shared_input-select-picker.leading-icon;
 
 $height-of-chip-set-input: functions.pxToRem(36);
+$leading-icon-space: functions.pxToRem(40);
 
 .mdc-chip {
     @include mixins.is-elevated-inset-clickable;
@@ -272,12 +273,14 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .has-leading-icon {
     &:not(.has-chips) {
         .mdc-text-field__input {
-            padding-left: functions.pxToRem(40);
+            padding-left: $leading-icon-space;
         }
 
         .mdc-floating-label {
-            &:not(.lime-floating-label--float-above) {
-                padding-left: functions.pxToRem(40);
+            padding-left: $leading-icon-space;
+            max-width: calc(100% - #{$leading-icon-space});
+            &.lime-floating-label--float-above {
+                padding-left: 0;
             }
         }
     }
