@@ -29,6 +29,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-dialog-size
  * @exampleComponent limel-example-dialog-fullscreen
  * @exampleComponent limel-example-dialog-closing-actions
+ * @exampleComponent limel-example-dialog-action-buttons
  * @slot - Content to put inside the dialog
  * @slot button - The dialog buttons
  */
