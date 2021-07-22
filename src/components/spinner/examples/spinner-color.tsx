@@ -1,23 +1,34 @@
-import { Component, h } from '@stencil/core';
-
+import { Component, State, h } from '@stencil/core';
 /**
- * Color Example
+ * With custom colors
+ * The `limel-spinner` is designed to cycle through ten colors which are all
+ * from Lime Technologies' brand colors.
  *
- * The color of the spinner is set to the color of the `limel-spinner` element,
- * and can be set either explicitly on the element, or by inheriting the value
- * of a parent element.
+ * It is of course possible to override these colors.
  */
 @Component({
     tag: 'limel-example-spinner-color',
     shadow: true,
+    styleUrl: 'spinner-color.scss',
 })
 export class SpinnerColorExample {
+    @State()
+    private limeBranded = false;
+
     public render() {
         return [
-            <limel-spinner style={{ color: 'orange' }} />,
-            <div style={{ color: 'blue' }}>
-                <limel-spinner />
-            </div>,
+            <limel-spinner size="medium" limeBranded={this.limeBranded} />,
+            <limel-flex-container justify="end">
+                <limel-checkbox
+                    checked={this.limeBranded}
+                    label="Lime branded (default design)"
+                    onChange={this.renderBranded}
+                />
+            </limel-flex-container>,
         ];
     }
+    private renderBranded = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.limeBranded = event.detail;
+    };
 }

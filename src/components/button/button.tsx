@@ -76,7 +76,7 @@ export class Button {
                 <div class="mdc-button__ripple" />
                 {this.renderIcon()}
                 <span class="label mdc-button__label">{this.label}</span>
-                <limel-spinner />
+                <limel-spinner limeBranded={false} />
                 <svg viewBox="0 0 30 30">
                     <path d="M20.659 10l-6.885 6.884-3.89-3.89-1.342 1.341 5.053 5.052.182.176L22 11.341z" />
                 </svg>
