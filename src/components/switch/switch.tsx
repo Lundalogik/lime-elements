@@ -112,7 +112,7 @@ export class Switch {
                 class={`${this.disabled || this.readonly ? 'disabled' : ''}`}
                 htmlFor={this.fieldId}
             >
-                <span class="label">{this.label}</span>
+                {this.label}
             </label>,
         ];
     }

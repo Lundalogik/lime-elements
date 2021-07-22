@@ -1,7 +1,6 @@
 .mdc-switch {
-    opacity: 1;
-
     &.lime-switch--readonly {
+        opacity: 1;
         .mdc-switch__track {
             opacity: 1;
             border: none;
@@ -26,9 +25,6 @@
                 }
             }
         }
-        .mdc-switch__thumb-underlay {
-            left: -1rem;
-        }
 
         &.mdc-switch--checked {
             .mdc-switch__track {
@@ -36,22 +32,26 @@
             }
             .mdc-switch__thumb {
                 &:after {
-                    background-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path fill='none' stroke='rgb(255,255,255)' stroke-width='6' stroke-miterlimit='10' d='M29 7L11 25l-8-8'/></svg>");
+                    background-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path fill='none' stroke='rgb(255,255,255)' stroke-width='7' stroke-miterlimit='10' d='M29 7L11 25l-8-8'/></svg>");
                 }
-            }
-            .mdc-switch__thumb-underlay {
-                transform: translateX(1rem);
             }
         }
 
         &:not(.mdc-switch--checked) {
             .mdc-switch__track {
-                background-color: var(--mdc-theme-text-disabled-on-background);
+                background-color: rgb(var(--color-red-default));
             }
             .mdc-switch__thumb {
                 &:after {
-                    background-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path fill='none' stroke='rgb(255,255,255)' stroke-width='6' stroke-miterlimit='10' d='M8 8l16 16M24 8L8 24'/></svg>");
+                    background-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path fill='none' stroke='rgb(255,255,255)' stroke-width='7' stroke-miterlimit='10' d='M8 8l16 16M24 8L8 24'/></svg>");
                 }
+            }
+        }
+
+        + label {
+            &.disabled {
+                cursor: default;
+                opacity: 1;
             }
         }
     }
