@@ -37,7 +37,6 @@ In [`limel-dialog`](#/components/limel-dialog), there is a `slot` called `button
 ```
 :::
 
-
 <br/>
 
 *****
@@ -57,9 +56,11 @@ You can use this visual distinction to promote the action that is safer, even if
 - the action may be irreversible or risky
 
 <limel-example-action-buttons-primary-secondary-reversed></limel-example-action-buttons-primary-secondary-reversed>
+
 <br/>
 
 *****
+
 ## Choosing good labels
 
 Labels you use should make sense together. You are usually dealing with contradictory actions. Therefore, what you put on each button should also reflect the contradiction.
@@ -67,10 +68,12 @@ Labels you use should make sense together. You are usually dealing with contradi
 <limel-example-action-buttons-choosing-labels></limel-example-action-buttons-choosing-labels>
 
 Labels must be making each option as clear as possible. An explicit label give users more confidence in selecting the correct action.
+
 :::note
 - Make sure the label explains what the button does, rather than a generic label (such as “OK”, or "Yes").
 - Using verbs as labels instead of nouns is better, because a verb describes the action better.
 :::
+
 <limel-example-action-buttons-choosing-explicit-labels></limel-example-action-buttons-choosing-explicit-labels>
 
 <br/>
@@ -113,9 +116,11 @@ Learn more about [usage of colors and color conventions in the UI](#/DesignGuide
 :::note
 It might be tempting to use colors on action buttons, with the intention of making the user interface more cheerful. But using colors in a user interface must follow certain UI design conventions, as they convey meanings. Learn more about [usage of colors and color conventions in the UI](#/DesignGuidelines/color-system.md/).
 :::
+
 <limel-example-action-buttons-primary-secondary-reversed-colors></limel-example-action-buttons-primary-secondary-reversed-colors>
 
 :::note
 If an action is not irreversible or too risky, the design does not have to put a lot of visual emphasis on the secondary action, by means of icons and colors. In such cases, highlighting the primary action and making it more recognizable is more relevant, and more motivated.
 :::
+
 <limel-example-action-buttons-colors-do-dont></limel-example-action-buttons-colors-do-dont>
