@@ -17,10 +17,12 @@
 }
 
 label {
-    line-height: normal;
-
-    // @include mdc-theme.mdc-typography(body2);
     cursor: pointer;
+    // below styles make it look like label of checkbox
+    @include shared_input-select-picker.looks-like-input-value;
+    font-size: functions.pxToRem(13);
+    line-height: normal;
+    color: var(--mdc-theme-text-primary-on-background);
 
     &.disabled {
         @include shared_input-select-picker.looks-disabled;
