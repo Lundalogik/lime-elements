@@ -173,7 +173,7 @@ export class List {
         }
 
         this.mdcList = new MDCList(element);
-        this.mdcList.listElements.map((item) => new MDCRipple(item));
+        this.mdcList.listElements.forEach((item) => new MDCRipple(item));
     }
 
     private setupMenu() {
@@ -183,7 +183,7 @@ export class List {
         }
 
         this.mdcMenu = new MDCMenu(element);
-        this.mdcMenu.items.map((item) => new MDCRipple(item));
+        this.mdcMenu.items.forEach((item) => new MDCRipple(item));
     }
 
     private setupListeners() {
