@@ -1,3 +1,10 @@
+## [33.1.0](https://github.com/Lundalogik/lime-elements/compare/v33.0.2...v33.1.0) (2021-07-23)
+
+
+### Features
+
+* **file:** add a visual dropzone ([1de3f70](https://github.com/Lundalogik/lime-elements/commit/1de3f70fd284684e6df2424276cde439ffcb781a))
+
 ### [33.0.2](https://github.com/Lundalogik/lime-elements/compare/v33.0.1...v33.0.2) (2021-07-22)
 
 
