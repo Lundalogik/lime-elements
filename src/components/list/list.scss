@@ -79,6 +79,8 @@ $list-border-radius: 0.375rem; // 6px
                 rgb(var(--contrast-900))
             );
             color: var(--icon-color, rgba(var(--color-white), 0.88));
+            margin-right: functions.pxToRem(12);
+            margin-left: functions.pxToRem(-4);
         }
 
         hr.mdc-deprecated-list-divider {
