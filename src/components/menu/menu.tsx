@@ -8,6 +8,7 @@ import {
     Element,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
+import { zipObject } from 'lodash-es';
 import { OpenDirection } from './menu.types';
 
 /**
@@ -105,6 +106,7 @@ export class Menu {
     }
 
     public render() {
+        const cssProperties = this.getCssProperties();
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
             '--dropdown-z-index'
         );
@@ -128,6 +130,7 @@ export class Menu {
                     <limel-menu-surface
                         open={this.open}
                         onDismiss={this.onClose}
+                        style={cssProperties}
                     >
                         <limel-list
                             items={this.items}
@@ -197,5 +200,15 @@ export class Menu {
         }
 
         return portalPosition;
+    }
+
+    private getCssProperties() {
+        const propertyNames = ['--menu-surface-width'];
+        const style = getComputedStyle(this.host);
+        const values = propertyNames.map((property) => {
+            return style.getPropertyValue(property);
+        });
+
+        return zipObject(propertyNames, values);
     }
 }
