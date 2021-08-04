@@ -1,3 +1,10 @@
+### [33.1.1](https://github.com/Lundalogik/lime-elements/compare/v33.1.0...v33.1.1) (2021-08-04)
+
+
+### Bug Fixes
+
+* **menu:** pass css props defined for menu to portal ([e6e98a8](https://github.com/Lundalogik/lime-elements/commit/e6e98a8fbadfb38a1d6278f6bdeb21397dc460e8))
+
 ## [33.1.0](https://github.com/Lundalogik/lime-elements/compare/v33.0.2...v33.1.0) (2021-07-23)
 
 
