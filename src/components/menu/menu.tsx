@@ -18,6 +18,7 @@ import { OpenDirection } from './menu.types';
  * @exampleComponent limel-example-menu-open-left
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
+ * @exampleComponent limel-example-menu-grid
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -64,6 +65,12 @@ export class Menu {
      */
     @Prop({ reflect: true })
     public badgeIcons = false;
+
+    /**
+     * Renders list items in a grid layout, rather than a vertical list
+     */
+    @Prop({ reflect: true })
+    public gridLayout = false;
 
     /**
      * Defines whether the menu should have a fixed position on the screen.
@@ -133,6 +140,10 @@ export class Menu {
                         style={cssProperties}
                     >
                         <limel-list
+                            class={{
+                                'has-grid-layout has-interactive-items':
+                                    this.gridLayout,
+                            }}
                             items={this.items}
                             type="menu"
                             badgeIcons={this.badgeIcons}
@@ -203,7 +214,12 @@ export class Menu {
     }
 
     private getCssProperties() {
-        const propertyNames = ['--menu-surface-width'];
+        const propertyNames = [
+            '--menu-surface-width',
+            '--list-grid-item-max-width',
+            '--list-grid-item-min-width',
+            '--list-grid-gap',
+        ];
         const style = getComputedStyle(this.host);
         const values = propertyNames.map((property) => {
             return style.getPropertyValue(property);
