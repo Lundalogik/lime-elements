@@ -1,8 +1,9 @@
 :host(.has-grid-layout) {
     --gap: var(--list-grid-gap, 0.75rem);
-
     padding: var(--gap);
 
+    // Prettier's linting doesn't like the `grid-template-columns` below
+    /* prettier-ignore */
     .mdc-deprecated-list {
         display: grid;
         grid-gap: var(--gap);
