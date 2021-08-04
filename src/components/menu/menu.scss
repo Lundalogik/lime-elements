@@ -1,8 +1,10 @@
 @use '../../style/functions';
 
 // Note! The `--dropdown-z-index` property is used from `menu.tsx`.
+
 /**
- * @prop --dropdown-z-index: z-index of the dropdown menu.
+ * @prop --dropdown-z-index: `z-index` of the dropdown menu.
+ * @prop --menu-surface-width: Width of the menu surface. Defaults to `auto`
  */
 
 :host {
