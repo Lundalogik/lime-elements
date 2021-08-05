@@ -102,6 +102,12 @@ export class ChipSet {
     public emptyInputOnBlur: boolean = true;
 
     /**
+     * Whether the "Clear all" buttons should be shown
+     */
+    @Prop()
+    public clearAllButton: boolean = true;
+
+    /**
      * For chip-sets of type `input`. When the value is null, no leading icon is used.
      * Leading icon to show to the far left in the text field
      */
@@ -344,6 +350,7 @@ export class ChipSet {
                     'has-chips mdc-text-field--label-floating':
                         this.value.length !== 0,
                     'has-leading-icon': this.leadingIcon !== null,
+                    'has-clear-all-button': this.clearAllButton,
                 }}
                 onClick={this.handleTextFieldFocus}
             >
@@ -673,7 +680,7 @@ export class ChipSet {
     }
 
     private renderClearAllChipsButton() {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || this.readonly || !this.clearAllButton) {
             return;
         }
 
