@@ -4,10 +4,11 @@ import {
     ListSeparator,
     ListType,
 } from '@limetech/lime-elements';
-import { MDCList, MDCListActionEvent } from '@limetech/mdc-list';
-import { MDCMenu, MDCMenuItemEvent } from '@limetech/mdc-menu';
-import { strings as listStrings } from '@limetech/mdc-list/constants';
-import { strings as menuStrings } from '@limetech/mdc-menu/constants';
+import { MDCList, MDCListActionEvent } from '@material/list';
+import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
+import { MDCRipple } from '@material/ripple';
+import { strings as listStrings } from '@material/list/constants';
+import { strings as menuStrings } from '@material/menu/constants';
 import {
     Component,
     Element,
@@ -133,19 +134,19 @@ export class List {
 
         const html = this.listRenderer.render(this.items, this.config);
 
-        if (this.type !== 'menu') {
-            return (
-                <Host
-                    style={{
-                        '--maxLinesSecondaryText': `${maxLinesSecondaryText}`,
-                    }}
-                >
-                    {html}
-                </Host>
-            );
+        if (this.type === 'menu') {
+            return <div class="mdc-menu mdc-menu-surface">{html}</div>;
         }
 
-        return <div class="mdc-menu mdc-menu-surface">{html}</div>;
+        return (
+            <Host
+                style={{
+                    '--maxLinesSecondaryText': `${maxLinesSecondaryText}`,
+                }}
+            >
+                {html}
+            </Host>
+        );
     }
 
     @Watch('type')
@@ -164,12 +165,15 @@ export class List {
     }
 
     private setupList() {
-        const element = this.element.shadowRoot.querySelector('.mdc-list');
+        const element = this.element.shadowRoot.querySelector(
+            '.mdc-deprecated-list'
+        );
         if (!element) {
             return;
         }
 
         this.mdcList = new MDCList(element);
+        this.mdcList.listElements.forEach((item) => new MDCRipple(item));
     }
 
     private setupMenu() {
@@ -179,6 +183,7 @@ export class List {
         }
 
         this.mdcMenu = new MDCMenu(element);
+        this.mdcMenu.items.forEach((item) => new MDCRipple(item));
     }
 
     private setupListeners() {

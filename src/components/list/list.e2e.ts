@@ -13,8 +13,7 @@ describe('limel-list', () => {
 
     describe('without items', () => {
         it('renders an empty listbox', () => {
-            expect(innerList).toHaveClass('mdc-list');
-            expect(innerList).not.toHaveClass('mdc-menu__items');
+            expect(innerList).toHaveClass('mdc-deprecated-list');
             expect(innerList).toEqualAttribute('role', 'listbox');
             expect(innerList.children).toHaveLength(0);
         });
@@ -29,7 +28,9 @@ describe('limel-list', () => {
         });
         it('renders the item', () => {
             expect(innerList.children).toHaveLength(1);
-            expect(innerList.children[0]).toHaveClass('mdc-list-item');
+            expect(innerList.children[0]).toHaveClass(
+                'mdc-deprecated-list-item'
+            );
         });
         it('does not render a menu-item', () => {
             expect(innerList.children[0]).not.toEqualAttribute(
@@ -60,7 +61,9 @@ describe('limel-list', () => {
         });
         it('renders the item', () => {
             expect(innerList.children).toHaveLength(1);
-            expect(innerList.children[0]).toHaveClass('mdc-list-item');
+            expect(innerList.children[0]).toHaveClass(
+                'mdc-deprecated-list-item'
+            );
         });
         it('does not set tabindex', () => {
             expect(innerList.children[0]).not.toHaveAttribute('tabindex');
@@ -96,8 +99,12 @@ describe('limel-list', () => {
             expect(innerList.children).toHaveLength(5);
         });
         it('can render separators', () => {
-            expect(innerList.children[1]).toHaveClass('mdc-list-divider');
-            expect(innerList.children[1]).not.toHaveClass('mdc-list-item');
+            expect(innerList.children[1]).toHaveClass(
+                'mdc-deprecated-list-divider'
+            );
+            expect(innerList.children[1]).not.toHaveClass(
+                'mdc-deprecated-list-item'
+            );
             expect(innerList.children[1]).toEqualAttribute('role', 'separator');
         });
         it('gives each item the correct index', () => {
@@ -130,7 +137,7 @@ describe('limel-list', () => {
             await page.waitForChanges();
         });
         it('renders a list with two-line items', () => {
-            expect(innerList).toHaveClass('mdc-list--two-line');
+            expect(innerList).toHaveClass('mdc-deprecated-list--two-line');
         });
         it('renders items withOUT secondary text as single line', () => {
             expect(innerList.children[0].children).toHaveLength(1);
@@ -139,25 +146,29 @@ describe('limel-list', () => {
         it('renders items WITH secondary text as two lines', () => {
             expect(innerList.children[2].children).toHaveLength(1);
             expect(innerList.children[2].children[0]).toHaveClass(
-                'mdc-list-item__text'
+                'mdc-deprecated-list-item__text'
             );
             expect(innerList.children[2].children[0].children).toHaveLength(2);
             expect(innerList.children[2].children[0].children[0]).toEqualText(
                 'item 3'
             );
             expect(innerList.children[2].children[0].children[0]).toHaveClass(
-                'mdc-list-item__primary-text'
+                'mdc-deprecated-list-item__primary-text'
             );
             expect(innerList.children[2].children[0].children[1]).toEqualText(
                 'some info'
             );
             expect(innerList.children[2].children[0].children[1]).toHaveClass(
-                'mdc-list-item__secondary-text'
+                'mdc-deprecated-list-item__secondary-text'
             );
         });
         it('can render separators', () => {
-            expect(innerList.children[1]).toHaveClass('mdc-list-divider');
-            expect(innerList.children[1]).not.toHaveClass('mdc-list-item');
+            expect(innerList.children[1]).toHaveClass(
+                'mdc-deprecated-list-divider'
+            );
+            expect(innerList.children[1]).not.toHaveClass(
+                'mdc-deprecated-list-item'
+            );
             expect(innerList.children[1]).toEqualAttribute('role', 'separator');
         });
         it('gives each item the correct index', () => {

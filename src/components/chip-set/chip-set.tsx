@@ -3,8 +3,8 @@ import {
     MDCChipInteractionEvent,
     MDCChipSelectionEvent,
     MDCChipSet,
-} from '@limetech/mdc-chips';
-import { MDCTextField } from '@limetech/mdc-textfield';
+} from '@material/chips/deprecated';
+import { MDCTextField } from '@material/textfield';
 import {
     Component,
     Element,
@@ -169,7 +169,6 @@ export class ChipSet {
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
-    private clearAllChipsLabel: string;
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
@@ -177,7 +176,6 @@ export class ChipSet {
         this.isFull = this.isFull.bind(this);
         this.handleInteractionEvent = this.handleInteractionEvent.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
-        this.handleRemoveEvent = this.handleRemoveEvent.bind(this);
         this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
         this.handleInputBlur = this.handleInputBlur.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
@@ -207,6 +205,10 @@ export class ChipSet {
      */
     @Method()
     public async setFocus(emptyInput: boolean = false) {
+        if (this.disabled || this.readonly) {
+            return;
+        }
+
         this.editMode = true;
         if (emptyInput) {
             this.textValue = '';
@@ -225,13 +227,6 @@ export class ChipSet {
     @Method()
     public async emptyInput() {
         this.syncEmptyInput();
-    }
-
-    public componentWillLoad() {
-        this.clearAllChipsLabel = translate.get(
-            'chip-set.clear-all',
-            this.language
-        );
     }
 
     public componentDidLoad() {
@@ -300,9 +295,6 @@ export class ChipSet {
         this.mdcChipSet = new MDCChipSet(
             this.host.shadowRoot.querySelector('.mdc-chip-set')
         );
-        this.mdcChipSet.chips.forEach((chip) => {
-            chip.shouldRemoveOnTrailingIconClick = false;
-        });
 
         if (!this.type || this.type === 'input') {
             this.mdcChipSet.listen(
@@ -314,11 +306,6 @@ export class ChipSet {
         if (this.type === 'choice' || this.type === 'filter') {
             this.mdcChipSet.listen('MDCChip:selection', this.handleSelection);
         }
-
-        this.mdcChipSet.listen(
-            'MDCChip:trailingIconInteraction',
-            this.handleRemoveEvent
-        );
     }
 
     private destroyMDCChipSet() {
@@ -328,10 +315,6 @@ export class ChipSet {
                 this.handleInteractionEvent
             );
             this.mdcChipSet.unlisten('MDCChip:selection', this.handleSelection);
-            this.mdcChipSet.unlisten(
-                'MDCChip:trailingIconInteraction',
-                this.handleRemoveEvent
-            );
 
             this.mdcChipSet.destroy();
         }
@@ -343,7 +326,7 @@ export class ChipSet {
         }
 
         return (
-            <label class="chip-set__label mdc-floating-label lime-floating-label--float-above">
+            <label class="chip-set__label mdc-floating-label mdc-floating-label--float-above">
                 {this.label}
             </label>
         );
@@ -357,7 +340,9 @@ export class ChipSet {
                     'mdc-chip-set mdc-chip-set--input': true,
                     'force-invalid': this.isInvalid(),
                     'mdc-text-field--disabled': this.readonly || this.disabled,
-                    'has-chips': this.value.length !== 0,
+                    'lime-text-field--readonly': this.readonly,
+                    'has-chips mdc-text-field--label-floating':
+                        this.value.length !== 0,
                     'has-leading-icon': this.leadingIcon !== null,
                 }}
                 onClick={this.handleTextFieldFocus}
@@ -385,8 +370,13 @@ export class ChipSet {
                 <div
                     class={{
                         'mdc-notched-outline': true,
-                        'lime-notched-outline--notched': !!this.value.length,
+                        'mdc-notched-outline--upgraded': true,
+                        'mdc-text-field--required': this.required,
+                        'lime-notched-outline--notched': !!(
+                            this.value.length || this.editMode
+                        ),
                     }}
+                    dropzone-tip={this.dropZoneTip()}
                 >
                     <div class="mdc-notched-outline__leading"></div>
                     <div class="mdc-notched-outline__notch">
@@ -395,7 +385,7 @@ export class ChipSet {
                                 'mdc-floating-label': true,
                                 'mdc-text-field--disabled':
                                     this.readonly || this.disabled,
-                                'mdc-text-field--required': this.required,
+                                'mdc-floating-label--required': this.required,
                                 'lime-floating-label--float-above': !!(
                                     this.value.length || this.editMode
                                 ),
@@ -412,6 +402,10 @@ export class ChipSet {
             </div>
         );
     }
+
+    private dropZoneTip = (): string => {
+        return translate.get('file.drag-and-drop-tips', this.language);
+    };
 
     private isFull(): boolean {
         return !!this.maxItems && this.value.length >= this.maxItems;
@@ -439,6 +433,10 @@ export class ChipSet {
      * @returns {void}
      */
     private handleTextFieldFocus() {
+        if (this.disabled || this.readonly) {
+            return;
+        }
+
         if (this.editMode) {
             return;
         }
@@ -509,10 +507,6 @@ export class ChipSet {
         this.change.emit(chip);
     }
 
-    private handleRemoveEvent(event: MDCChipInteractionEvent) {
-        this.removeChip(event.detail.chipId);
-    }
-
     private removeChip(id: string | number) {
         const newValue = this.value.filter((chip) => {
             return `${chip.id}` !== `${id}`;
@@ -552,7 +546,7 @@ export class ChipSet {
             <span role="gridcell">
                 <a
                     role="button"
-                    tabindex="0"
+                    tabindex={this.disabled ? '-1' : '0'}
                     class="mdc-chip__text"
                     {...attributes}
                 >
@@ -582,7 +576,7 @@ export class ChipSet {
                 <span role="gridcell">
                     <span
                         role="checkbox"
-                        tabindex="0"
+                        tabindex={this.disabled ? '-1' : '0'}
                         aria-checked="false"
                         class="mdc-chip__text"
                     >
@@ -595,11 +589,6 @@ export class ChipSet {
     }
 
     private renderInputChip(chip: Chip, index: number) {
-        const attributes: { tabindex?: number } = {};
-        if (this.readonly && !this.disabled) {
-            attributes.tabindex = 0;
-        }
-
         return [
             this.renderDelimiter(index),
             <div
@@ -611,7 +600,6 @@ export class ChipSet {
                 role="row"
                 id={`${chip.id}`}
                 onClick={this.catchInputChipClicks}
-                {...attributes}
             >
                 {chip.icon ? this.renderIcon(chip) : null}
                 {this.renderLabel(chip)}
@@ -632,14 +620,6 @@ export class ChipSet {
 
         if (chip.iconBackgroundColor) {
             style['--icon-background-color'] = chip.iconBackgroundColor;
-        }
-
-        if (chip.iconColor) {
-            // eslint-disable-next-line no-console
-            console.warn(
-                '`Chip.iconColor` is deprecated. Use `Chip.iconBackgroundColor` to set the background color of the icon.'
-            );
-            style['--icon-background-color'] = chip.iconColor;
         }
 
         return (
@@ -675,16 +655,28 @@ export class ChipSet {
     <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>
 </svg>`;
 
+        const removeFunc = (event: MouseEvent) => {
+            event.stopPropagation();
+            this.removeChip(chip.id);
+        };
+
         return (
-            <div
-                class="mdc-chip__icon mdc-chip__icon--trailing"
-                role="button"
+            <button
+                class="mdc-chip__icon mdc-chip__icon--trailing mdc-deprecated-chip-trailing-action"
+                aria-label={this.removeChipLabel}
+                tabindex="-1"
                 innerHTML={svgData}
+                // eslint-disable-next-line react/jsx-no-bind
+                onClick={removeFunc}
             />
         );
     }
 
     private renderClearAllChipsButton() {
+        if (this.disabled || this.readonly) {
+            return;
+        }
+
         return (
             <a
                 href=""
@@ -692,11 +684,20 @@ export class ChipSet {
                 class="mdc-text-field__icon clear-all-button"
                 tabindex="0"
                 role="button"
-                title={this.clearAllChipsLabel}
-                aria-label={this.clearAllChipsLabel}
+                title={this.clearAllChipsLabel()}
+                aria-label={this.clearAllChipsLabel()}
             />
         );
     }
+
+    private clearAllChipsLabel = (): string => {
+        return translate.get('chip-set.clear-all', this.language);
+    };
+
+    private removeChipLabel = (): string => {
+        return translate.get('chip-set.remove-chip', this.language);
+    };
+
     private handleDeleteAllIconClick(event: Event) {
         event.preventDefault();
         this.change.emit([]);

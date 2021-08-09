@@ -1,12 +1,10 @@
 @use '../../style/internal/z-index';
 @use '../../style/functions';
-
-@import '../../style/internal/mdc-variables';
-
-@import '@limetech/mdc-tab-bar/mdc-tab-bar';
-@import '@limetech/mdc-tab-scroller/mdc-tab-scroller';
-@import '@limetech/mdc-tab-indicator/mdc-tab-indicator';
-@import '@limetech/mdc-tab/mdc-tab';
+@use '../../style/internal/lime-theme';
+@use '@material/tab-bar/mdc-tab-bar';
+@use '@material/tab-scroller/mdc-tab-scroller';
+@use '@material/tab-indicator/mdc-tab-indicator';
+@use '@material/tab/mdc-tab';
 
 $tab-content-background-color: rgb(var(--contrast-100));
 $tab-background-color: var(--contrast-300);
@@ -29,7 +27,7 @@ $tab-scroller-fade-width: 65;
     }
 }
 
-.mdc-tab-bar__icon {
+.mdc-tab__icon {
     margin-right: functions.pxToRem(8);
 }
 

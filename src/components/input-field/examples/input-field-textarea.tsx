@@ -6,7 +6,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-textarea',
     shadow: true,
-    styleUrl: 'input-field.scss',
 })
 export class InputFieldTextareaExample {
     @State()
@@ -26,13 +25,13 @@ export class InputFieldTextareaExample {
 
         return [
             <limel-input-field
-                label="Message"
+                label="Text Field"
                 type="textarea"
                 helperText="Please enter a useful message!"
                 maxlength={MAX_LENGTH}
                 value={this.value}
                 required={this.required}
-                onChange={this.changeHandler}
+                onChange={this.handleChange}
                 disabled={this.disabled}
                 readonly={this.readonly}
             />,
@@ -56,7 +55,7 @@ export class InputFieldTextareaExample {
         ];
     }
 
-    private changeHandler = (event: CustomEvent<string>) => {
+    private handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
     };
 

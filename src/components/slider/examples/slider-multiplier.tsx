@@ -25,14 +25,14 @@ export class SliderMultiplierExample {
                     factor={this.factor}
                     valuemax={this.maxValue}
                     valuemin={this.minValue}
-                    onChange={this.changeHandler}
+                    onChange={this.handleChange}
                 />
                 <limel-example-value value={this.value} />
             </section>
         );
     }
 
-    private changeHandler = (event: CustomEvent<number>) => {
+    private handleChange = (event: CustomEvent<number>) => {
         this.value = event.detail;
     };
 }

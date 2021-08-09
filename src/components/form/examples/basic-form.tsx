@@ -25,12 +25,6 @@ export class FormExample {
     @State()
     private valid = true;
 
-    constructor() {
-        this.handleFormChange = this.handleFormChange.bind(this);
-        this.handleFormValidate = this.handleFormValidate.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
     public render() {
         return [
             <limel-form
@@ -50,20 +44,20 @@ export class FormExample {
         ];
     }
 
-    private handleFormChange(event) {
+    private handleFormChange = (event) => {
         this.formData = event.detail;
-    }
+    };
 
-    private handleFormValidate(event: CustomEvent<ValidationStatus>) {
+    private handleFormValidate = (event: CustomEvent<ValidationStatus>) => {
         this.valid = event.detail.valid;
         console.log(
             'Basic form with validation - handleFormValidate:',
             event.detail
         );
-    }
+    };
 
-    private handleSubmit() {
+    private handleSubmit = () => {
         const json = JSON.stringify(this.formData, null, '    ');
         alert(`Sending information to villains...\n\n${json}`);
-    }
+    };
 }

@@ -32,18 +32,13 @@ export class ChipSetFilterExample {
     @State()
     private disabled: boolean = false;
 
-    constructor() {
-        this.chipSetOnChange = this.chipSetOnChange.bind(this);
-        this.setDisabled = this.setDisabled.bind(this);
-    }
-
     public render() {
         return [
             <limel-chip-set
                 label="Include fruits of type:"
                 disabled={this.disabled}
                 type="filter"
-                onChange={this.chipSetOnChange}
+                onChange={this.handleChange}
                 value={this.chips}
             />,
             <p>
@@ -58,11 +53,11 @@ export class ChipSetFilterExample {
         ];
     }
 
-    private chipSetOnChange(event) {
+    private handleChange = (event) => {
         console.log(event.detail);
-    }
+    };
 
-    private setDisabled(event: CustomEvent<boolean>) {
+    private setDisabled = (event: CustomEvent<boolean>) => {
         this.disabled = event.detail;
-    }
+    };
 }

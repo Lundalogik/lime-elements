@@ -1,4 +1,4 @@
-import { MDCSwitch } from '@limetech/mdc-switch';
+import { MDCSwitch } from '@material/switch';
 import {
     Component,
     Element,
@@ -112,7 +112,7 @@ export class Switch {
                 class={`${this.disabled || this.readonly ? 'disabled' : ''}`}
                 htmlFor={this.fieldId}
             >
-                <span class="label">{this.label}</span>
+                {this.label}
             </label>,
         ];
     }

@@ -4,6 +4,12 @@
             cursor: default;
             opacity: 1;
         }
+        .mdc-floating-label {
+            color: shared_input-select-picker.$label-color;
+        }
+        .limel-select__selected-option__text {
+            color: shared_input-select-picker.$input-text-color;
+        }
         .mdc-select__dropdown-icon {
             display: none;
         }

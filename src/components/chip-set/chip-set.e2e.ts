@@ -256,8 +256,12 @@ describe('limel-chip-set', () => {
 
             chips = await page.findAll('limel-chip-set >>> .mdc-chip');
 
-            firstChipRemoveButton = await chips[0].find('div[role="button"]');
-            secondChipRemoveButton = await chips[1].find('div[role="button"]');
+            firstChipRemoveButton = await chips[0].find(
+                'button.mdc-deprecated-chip-trailing-action'
+            );
+            secondChipRemoveButton = await chips[1].find(
+                'button.mdc-deprecated-chip-trailing-action'
+            );
         });
 
         it('renders the chips correctly', () => {

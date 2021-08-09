@@ -38,22 +38,18 @@ export class TabBarExample {
         },
     ];
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-tab-bar
                 tabs={this.tabs}
-                onChangeTab={this.onChange}
+                onChangeTab={this.handleChange}
                 class="has-tabs-with-equal-width"
             />,
             <limel-example-value label="Tab" value={this.text} />,
         ];
     }
 
-    private onChange(event: CustomEvent<Tab>) {
+    private handleChange = (event: CustomEvent<Tab>) => {
         this.text = event.detail.text;
         this.tabs = this.tabs.map((tab) => {
             if (tab.id === event.detail.id) {
@@ -62,5 +58,5 @@ export class TabBarExample {
 
             return tab;
         });
-    }
+    };
 }

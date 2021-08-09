@@ -3,10 +3,15 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-@import '../../style/internal/mdc-variables';
+@use '../../style/internal/lime-theme';
 
-@import '@limetech/mdc-textfield/mdc-text-field';
-@import '@limetech/mdc-chips/mdc-chips';
+@use '@material/textfield';
+@use "@material/textfield/icon";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/floating-label";
+@use "@material/floating-label/mdc-floating-label";
+@use '@material/ripple';
+@use '@material/chips/deprecated/mdc-chips';
 
 /**
  * @prop --icon-background-color: Background color of the icon. Defaults to transparent.
@@ -15,7 +20,18 @@
  * @prop --background-color-disabled: Background color of the field when type is set to input and the component is disabled or readonly.
  * @prop --input-chip-set-selected-chip-color: Color of the highlight around selected chips in input chip-sets.
  */
+
+@include textfield.core-styles;
+@include icon.icon-core-styles;
+
+@include shared_input-select-picker.outlined-style-overrides;
+@include shared_input-select-picker.floating-label-overrides;
+@include shared_input-select-picker.disabled-overrides;
+@include shared_input-select-picker.readonly-overrides;
+@include shared_input-select-picker.leading-icon;
+
 $height-of-chip-set-input: functions.pxToRem(36);
+$leading-icon-space: functions.pxToRem(40);
 
 .mdc-chip {
     @include mixins.is-elevated-inset-clickable;
@@ -93,6 +109,11 @@ limel-badge {
     padding: 0 functions.pxToRem(12) 0 functions.pxToRem(4);
     color: inherit;
     text-decoration: none;
+
+    &:focus,
+    &:focus-visible {
+        outline: none;
+    }
 }
 
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
@@ -160,12 +181,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     }
 }
 
-@include shared_input-select-picker.outlined-style-overrides;
-@include shared_input-select-picker.floating-label-overrides;
-@include shared_input-select-picker.disabled-overrides;
-@include shared_input-select-picker.readonly-overrides;
-@include shared_input-select-picker.leading-icon;
-
 .mdc-text-field {
     height: auto;
     cursor: text;
@@ -199,27 +214,32 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     }
 }
 
-.mdc-floating-label {
-    @include shared_input-select-picker.looks-like-input-label;
-    &.mdc-text-field--required::after {
-        content: '*';
-    }
-    &.lime-floating-label--float-above,
-    &.lime-floating-label--float-above.mdc-floating-label--float-above {
-        @include shared_input-select-picker.label--float-above;
-        top: shared_input-select-picker.$floating-label-top-value;
-    }
-}
-
+// used only in chipsets that do not have input
 .chip-set__label {
-    @include shared_input-select-picker.looks-like-input-label;
+    @include mixins.truncate-text;
+    width: 120%; // `120%` instead of `100%`,
+    // because this class is always together with `mdc-floating-label--float-above`,
+    // which scales the label down. So there is more horizontal space to display the label in.
+    top: functions.pxToRem(13);
     padding-left: functions.pxToRem(20);
-    font-size: functions.pxToRem(16);
 }
 
+// Because MDC removes some classes in chipset, we add custom
+// classes with similar names and expected behavior & styles.
+// These class names start with `lime-`, instead of `mdc-`.
 .lime-notched-outline--notched {
     .mdc-notched-outline__notch {
         border-top: 1px solid transparent !important;
+
+        .lime-floating-label--float-above {
+            // This overrides MDC's original top value which is `top: 50%`.
+            // The reason is that a % value aligns the label in a wrong position
+            // vertically, when there are multiple rows of chips.
+            top: functions.pxToRem(27);
+
+            transform: translateY(-34.75px) scale(0.75);
+            font-size: shared_input-select-picker.$cropped-label-hack--font-size;
+        }
     }
 }
 
@@ -257,12 +277,14 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .has-leading-icon {
     &:not(.has-chips) {
         .mdc-text-field__input {
-            padding-left: functions.pxToRem(40);
+            padding-left: $leading-icon-space;
         }
 
         .mdc-floating-label {
-            &:not(.lime-floating-label--float-above) {
-                padding-left: functions.pxToRem(40);
+            padding-left: $leading-icon-space;
+            max-width: calc(100% - #{$leading-icon-space});
+            &.lime-floating-label--float-above {
+                padding-left: 0;
             }
         }
     }
@@ -289,3 +311,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     opacity: 0.5;
     padding: 0 functions.pxToRem(2);
 }
+
+@import './partial-styles/_readonly';
+@import './partial-styles/_file-picker';

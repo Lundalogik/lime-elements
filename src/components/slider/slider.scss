@@ -1,106 +1,69 @@
 @use '../../style/internal/z-index';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
+
+@use '../../style/internal/lime-theme';
+
+@use '@material/slider/styles';
+@use "@material/floating-label/mdc-floating-label";
+
 @import './partial-styles/percentage-color.scss';
 @import './partial-styles/_readonly.scss';
-
-@import '../../style/internal/mdc-variables';
-
-@import '@limetech/mdc-slider/mdc-slider';
-@import '@limetech/mdc-floating-label/mdc-floating-label';
-
-/**
- * @prop --slider-bg-color-behind-component: Color of "transparent" parts of disabled slider. Defaults to #ffffff.
- */
-
-:host {
-    --mdc-slider-bg-color-behind-component: var(
-        --slider-bg-color-behind-component,
-        #ffffff
-    );
-}
-
-.mdc-slider {
-    @include mdc-slider-highlight-color(
-        var(--lime-primary-color, $mdc-theme-primary)
-    );
-    @include mdc-slider-thumb-color(
-        var(--lime-primary-color, $mdc-theme-primary)
-    );
-    @include mdc-slider-value-pin-fill-color(
-        var(--lime-primary-color, $mdc-theme-primary)
-    );
-    @include mdc-slider-value-pin-ink-color(on-primary);
-}
-
-.mdc-slider__pin-value-marker {
-    margin-bottom: functions.pxToRem(2);
-}
+@import './partial-styles/_thumb.scss';
 
 .slider {
     position: relative;
-    padding-top: functions.pxToRem(
-        20
-    ); // Without this, the slider's label will be rendered outside the slider's box model (because it has an absolute position and transform)
 }
 
 .slider__label {
-    @include shared_input-select-picker.looks-like-input-label;
     padding-left: functions.pxToRem(20);
-    font-size: functions.pxToRem(16);
+    top: functions.pxToRem(
+        9
+    ); // To place its label on the same height as other `floating-label`s in a form
 }
 
 .slider__content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin: functions.pxToRem(-2) 0 functions.pxToRem(2) 0;
+    margin-top: functions.pxToRem(4);
 }
 
 .slider__content-range-container {
     display: flex;
     order: 2;
     justify-content: space-between;
-    width: calc(100% - #{functions.pxToRem(8)});
+    width: calc(100% - #{functions.pxToRem(24)});
     margin: 0 auto;
-    padding-top: functions.pxToRem(4);
+    margin-top: functions.pxToRem(-16);
 }
 
 .slider__content-min-label,
 .slider__content-max-label {
-    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    opacity: 0.7;
     font-size: functions.pxToRem(12);
     top: functions.pxToRem(20);
 
-    &:hover {
+    .slider:hover & {
         opacity: 1;
     }
 }
 
-.slider__content-min-label {
-    left: 0;
-}
-
-.slider__content-max-label {
-    right: 0;
-}
-
-.mdc-slider {
-    width: calc(100% - #{functions.pxToRem(32)});
-    margin: 0 auto;
-    height: functions.pxToRem(12);
-
+.mdc-slider__track {
     &:before,
     &:after {
+        // start & end indicators
         content: '';
         display: inline-block;
         position: absolute;
-        top: functions.pxToRem(7);
+        top: 0;
+        bottom: 0;
+        margin: auto;
 
         width: functions.pxToRem(6);
         height: functions.pxToRem(6);
         border-radius: 50%;
-        background-color: rgb(var(--contrast-600));
+        background-color: rgba(var(--contrast-700), 0.6);
     }
 
     &:before {
@@ -109,120 +72,6 @@
 
     &:after {
         right: functions.pxToRem(-12);
-    }
-}
-
-.mdc-slider__track,
-.mdc-slider__pin {
-    transition: background-color 0.5s ease;
-}
-
-.mdc-slider__track-container {
-    top: functions.pxToRem(8);
-    height: functions.pxToRem(4);
-    border-radius: functions.pxToRem(4);
-}
-
-.mdc-slider__thumb-container {
-    top: 0;
-    z-index: z-index.$slider--thumb-container;
-
-    .mdc-slider:not(.mdc-slider--disabled) & {
-        &:before,
-        &:after {
-            transition: all 0.2s ease 0.2s;
-            content: '';
-            display: block;
-            position: absolute;
-            top: functions.pxToRem(8);
-            bottom: 0;
-            margin: auto;
-            background: {
-                image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-                position: center;
-                repeat: no-repeat;
-                size: cover;
-            }
-
-            width: functions.pxToRem(12);
-            opacity: 0;
-        }
-
-        &:before {
-            left: functions.pxToRem(-16);
-            transform: rotate(90deg);
-        }
-        &:after {
-            right: functions.pxToRem(-14);
-            transform: rotate(-90deg);
-        }
-
-        &:hover {
-            &:before {
-                opacity: 0.8;
-                left: functions.pxToRem(-20);
-            }
-            &:after {
-                opacity: 0.8;
-                right: functions.pxToRem(-18);
-            }
-        }
-    }
-}
-
-.mdc-slider__pin {
-    transition: all 0.2s ease;
-    transform: none;
-    border-radius: functions.pxToRem(20);
-
-    height: functions.pxToRem(20);
-    line-height: functions.pxToRem(20);
-    padding: 0 functions.pxToRem(2);
-
-    left: functions.pxToRem(-4);
-    margin: 0 auto;
-
-    transform-origin: bottom;
-    .mdc-slider:not(.mdc-slider--disabled) & {
-        box-shadow: var(--button-shadow-normal);
-
-        &:hover {
-            box-shadow: var(--button-shadow-hovered);
-        }
-    }
-
-    .mdc-slider--active & {
-        // when the pin is being dragged
-        box-shadow: var(--button-shadow-hovered);
-        transform: scale(1.5) translateY(functions.pxToRem(-16)) !important;
-    }
-
-    .mdc-slider.mdc-slider--disabled & {
-        background: var(--mdc-slider-bg-color-behind-component);
-    }
-}
-
-.mdc-slider__thumb {
-    box-shadow: 0 0 0 functions.pxToRem(2) rgba(var(--contrast-100), 0.8),
-        0 0 0 functions.pxToRem(3) rgba(var(--contrast-100), 0.8) inset;
-    border-radius: 50%;
-}
-
-.mdc-slider__pin-value-marker {
-    transition: color 0.5s ease;
-    font-size: functions.pxToRem(12);
-    transform: rotate(0deg);
-    margin-bottom: 0;
-}
-
-.mdc-slider--discrete {
-    &.mdc-slider--active {
-        .mdc-slider__pin {
-            transform: none;
-        }
-        .mdc-slider__thumb {
-            transform: scale3d(1, 1, 1);
-        }
     }
 }
 

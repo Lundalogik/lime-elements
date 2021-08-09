@@ -36,18 +36,13 @@ export class ChipSetChoiceExample {
     @State()
     private disabled: boolean = false;
 
-    constructor() {
-        this.chipSetOnChange = this.chipSetOnChange.bind(this);
-        this.setDisabled = this.setDisabled.bind(this);
-    }
-
     public render() {
         return [
             <limel-chip-set
                 disabled={this.disabled}
                 type="choice"
                 label="Thirst quencher with a twist of"
-                onChange={this.chipSetOnChange}
+                onChange={this.handleChange}
                 value={this.chips}
             />,
             <p>
@@ -62,11 +57,11 @@ export class ChipSetChoiceExample {
         ];
     }
 
-    private chipSetOnChange(event) {
+    private handleChange = (event) => {
         console.log(event.detail);
-    }
+    };
 
-    private setDisabled(event: CustomEvent<boolean>) {
+    private setDisabled = (event: CustomEvent<boolean>) => {
         this.disabled = event.detail;
-    }
+    };
 }

@@ -55,13 +55,6 @@ export class SelectDialogExample {
         { text: 'Darth Vader', value: 'vader' },
     ];
 
-    constructor() {
-        this.handleHeroChange = this.handleHeroChange.bind(this);
-        this.handleButtonClick = this.handleButtonClick.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleVillainChange = this.handleVillainChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-button
@@ -83,14 +76,12 @@ export class SelectDialogExample {
                     onChange={this.handleVillainChange}
                 />
                 <limel-icon name="star_wars" />
-
-                <limel-flex-container justify="end" slot="button">
-                    <limel-button
-                        primary={true}
-                        label="Close"
-                        onClick={this.handleClose}
-                    />
-                </limel-flex-container>
+                <limel-button
+                    slot="button"
+                    primary={true}
+                    label="Close"
+                    onClick={this.handleClose}
+                />
             </limel-dialog>,
             <limel-example-value
                 label="Favorite hero"
@@ -103,19 +94,19 @@ export class SelectDialogExample {
         ];
     }
 
-    private handleHeroChange(event: CustomEvent<Option>) {
+    private handleHeroChange = (event: CustomEvent<Option>) => {
         this.heroValue = event.detail;
-    }
+    };
 
-    private handleVillainChange(event: CustomEvent<Option>) {
+    private handleVillainChange = (event: CustomEvent<Option>) => {
         this.villainValue = event.detail;
-    }
+    };
 
-    private handleButtonClick() {
+    private handleButtonClick = () => {
         this.open = true;
-    }
+    };
 
-    private handleClose() {
+    private handleClose = () => {
         this.open = false;
-    }
+    };
 }

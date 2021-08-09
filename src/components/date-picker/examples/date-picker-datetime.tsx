@@ -11,10 +11,6 @@ export class DatePickerExample {
     @State()
     private value = new Date();
 
-    constructor() {
-        this.handleChange = this.handleChange.bind(this);
-    }
-
     public render() {
         return (
             <p>
@@ -29,7 +25,7 @@ export class DatePickerExample {
         );
     }
 
-    private handleChange(event) {
+    private handleChange = (event) => {
         this.value = event.detail;
-    }
+    };
 }

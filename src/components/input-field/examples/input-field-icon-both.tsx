@@ -11,11 +11,6 @@ export class InputFieldIconBothExample {
     @State()
     private value;
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-        this.onAction = this.onAction.bind(this);
-    }
-
     public render() {
         return (
             <limel-input-field
@@ -24,17 +19,17 @@ export class InputFieldIconBothExample {
                 value={this.value}
                 leadingIcon="globe"
                 trailingIcon="external_link"
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 onAction={this.onAction}
             />
         );
     }
 
-    private onChange(event) {
+    private handleChange = (event) => {
         this.value = event.detail;
-    }
+    };
 
-    private onAction() {
+    private onAction = () => {
         window.open(this.value);
-    }
+    };
 }

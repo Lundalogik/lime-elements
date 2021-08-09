@@ -45,12 +45,6 @@ export class SelectExample {
         [],
     ];
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-        this.toggleEnabled = this.toggleEnabled.bind(this);
-        this.changeOptionsGroup = this.changeOptionsGroup.bind(this);
-    }
-
     public render() {
         return (
             <section>
@@ -59,7 +53,7 @@ export class SelectExample {
                     value={this.value}
                     options={this.optionGroups[this.currentOptionGroup]}
                     disabled={this.disabled}
-                    onChange={this.onChange}
+                    onChange={this.handleChange}
                 />
                 <p>
                     <limel-flex-container justify="end">
@@ -84,16 +78,16 @@ export class SelectExample {
         );
     }
 
-    private onChange(event) {
+    private handleChange = (event) => {
         this.value = event.detail;
-    }
+    };
 
-    private toggleEnabled() {
+    private toggleEnabled = () => {
         this.disabled = !this.disabled;
-    }
+    };
 
-    private changeOptionsGroup() {
+    private changeOptionsGroup = () => {
         this.currentOptionGroup =
             (this.currentOptionGroup + 1) % this.optionGroups.length;
-    }
+    };
 }

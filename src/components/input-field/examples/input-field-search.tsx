@@ -6,15 +6,10 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-search',
     shadow: true,
-    styleUrl: 'input-field.scss',
 })
 export class InputFieldSearchExample {
     @State()
     private value;
-
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
 
     public render() {
         return (
@@ -23,12 +18,12 @@ export class InputFieldSearchExample {
                 type="search"
                 leadingIcon="search"
                 value={this.value}
-                onChange={this.onChange}
+                onChange={this.handleChange}
             />
         );
     }
 
-    private onChange(event) {
+    private handleChange = (event) => {
         this.value = event.detail;
-    }
+    };
 }

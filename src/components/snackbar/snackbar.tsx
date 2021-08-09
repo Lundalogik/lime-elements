@@ -1,4 +1,5 @@
-import { MDCSnackbar, MDCSnackbarCloseEvent } from '@limetech/mdc-snackbar';
+import { Languages } from '@limetech/lime-elements';
+import { MDCSnackbar, MDCSnackbarCloseEvent } from '@material/snackbar';
 import {
     Component,
     Element,
@@ -8,6 +9,7 @@ import {
     Method,
     Prop,
 } from '@stencil/core';
+import translate from '../../global/translations';
 
 /**
  * @exampleComponent limel-example-snackbar
@@ -47,6 +49,12 @@ export class Snackbar {
      */
     @Prop()
     public multiline: boolean;
+
+    /**
+     * Defines the language for translations.
+     */
+    @Prop()
+    public language: Languages = 'en';
 
     @Element()
     private host: HTMLLimelSnackbarElement;
@@ -109,21 +117,21 @@ export class Snackbar {
 
     public render() {
         return (
-            <div
+            <aside
                 class={`
                     mdc-snackbar
                     ${this.multiline ? 'mdc-snackbar--stacked' : ''}
                 `}
             >
-                <div class="mdc-snackbar__surface">
-                    <div
-                        class="mdc-snackbar__label"
-                        role="status"
-                        aria-live="polite"
-                    ></div>
+                <div
+                    class="mdc-snackbar__surface"
+                    role="status"
+                    aria-relevant="additions"
+                >
+                    <div class="mdc-snackbar__label" aria-atomic="false"></div>
                     {this.renderActions(this.actionText, this.dismissible)}
                 </div>
-            </div>
+            </aside>
         );
     }
 
@@ -141,7 +149,7 @@ export class Snackbar {
         }
 
         return (
-            <div class="mdc-snackbar__actions">
+            <div class="mdc-snackbar__actions" aria-atomic="true">
                 {this.renderActionButton(actionText)}
                 {this.renderDismissButton(dismissible)}
             </div>
@@ -170,10 +178,14 @@ export class Snackbar {
     <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>
 </svg>`;
 
+        const label = translate.get('snackbar.dismiss', this.language);
+
         return (
-            <div class="mdc-snackbar__dismiss">
-                <button class="mdc-icon-button" innerHTML={svgData} />
-            </div>
+            <button
+                class="mdc-icon-button mdc-snackbar__dismiss"
+                innerHTML={svgData}
+                title={label}
+            />
         );
     }
 }

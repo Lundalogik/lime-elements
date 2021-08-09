@@ -15,13 +15,6 @@ export class CheckboxExample {
     @State()
     private value: boolean = false;
 
-    constructor() {
-        this.changeHandler = this.changeHandler.bind(this);
-        this.onClickToggleEnabled = this.onClickToggleEnabled.bind(this);
-        this.onClickToggleRequired = this.onClickToggleRequired.bind(this);
-        this.onClickToggleChecked = this.onClickToggleChecked.bind(this);
-    }
-
     public render() {
         return (
             <section>
@@ -32,41 +25,49 @@ export class CheckboxExample {
                         id="fab"
                         checked={this.value}
                         required={this.required}
-                        onChange={this.changeHandler}
+                        onChange={this.handleChange}
                     />
+                </div>
+                <p>
                     <limel-flex-container justify="end">
-                        <limel-button
-                            onClick={this.onClickToggleEnabled}
-                            label={this.disabled ? 'Enable' : 'Disable'}
+                        <limel-checkbox
+                            checked={this.disabled}
+                            label="Disabled"
+                            onChange={this.setDisabled}
                         />
-                        <limel-button
-                            onClick={this.onClickToggleRequired}
-                            label="Toggle required"
+                        <limel-checkbox
+                            checked={this.required}
+                            label="Required"
+                            onChange={this.setRequired}
                         />
-                        <limel-button
-                            onClick={this.onClickToggleChecked}
+                        <limel-checkbox
+                            checked={this.value}
                             label="Toggle checked"
+                            onChange={this.toggleChecked}
                         />
                     </limel-flex-container>
-                </div>
+                </p>
                 <limel-example-value value={this.value} />
             </section>
         );
     }
 
-    private onClickToggleEnabled() {
-        this.disabled = !this.disabled;
-    }
-
-    private onClickToggleRequired() {
-        this.required = !this.required;
-    }
-
-    private onClickToggleChecked() {
-        this.value = !this.value;
-    }
-
-    private changeHandler(event) {
+    private handleChange = (event: CustomEvent<boolean>) => {
         this.value = event.detail;
-    }
+    };
+
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
+
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
+    };
+
+    private toggleChecked = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.value = !this.value;
+    };
 }

@@ -6,7 +6,6 @@ import { Component, h, State, Watch } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-autocomplete',
     shadow: true,
-    styleUrl: 'input-field.scss',
 })
 export class InputFieldAutocompleteExample {
     @State()
@@ -37,10 +36,6 @@ export class InputFieldAutocompleteExample {
         'Väderstad',
     ];
 
-    constructor() {
-        this.checkValidity = this.checkValidity.bind(this);
-    }
-
     public render() {
         return [
             <limel-input-field
@@ -51,7 +46,7 @@ export class InputFieldAutocompleteExample {
                 invalid={this.invalid}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.changeHandler}
+                onChange={this.handleChange}
             />,
             <p>
                 <limel-flex-container justify="end">
@@ -77,11 +72,11 @@ export class InputFieldAutocompleteExample {
     }
 
     @Watch('required')
-    private checkValidity() {
+    protected checkValidity() {
         this.invalid = this.required && !this.value;
     }
 
-    private changeHandler = (event: CustomEvent<string>) => {
+    private handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
     };
 

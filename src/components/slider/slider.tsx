@@ -1,4 +1,4 @@
-import { MDCSlider } from '@limetech/mdc-slider';
+import { MDCSlider } from '@material/slider';
 import {
     Component,
     Element,
@@ -14,6 +14,7 @@ import { getPercentageClass } from './getPercentageClass';
  * @exampleComponent limel-example-slider
  * @exampleComponent limel-example-slider-multiplier
  * @exampleComponent limel-example-slider-multiplier-percentage-colors
+ * @exampleComponent limel-example-slider-composite
  */
 @Component({
     tag: 'limel-slider',
@@ -123,6 +124,17 @@ export class Slider {
             return;
         }
 
+        /*
+        For some reason the input element's `value` attribute is removed
+        (probably by Stencil) when the element is first rendered. But if the
+        attribute is missing when MDCSlider is initialized (MDC v11.0.0),
+        MDCSlider crashes.
+        So we add the attribute right before initializing MDCSlider. /Ads
+        */
+        element
+            .querySelector('input')
+            .setAttribute('value', `${this.multiplyByFactor(this.getValue())}`);
+
         this.mdcSlider = new MDCSlider(element);
         this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
         this.mdcSlider.listen('MDCSlider:input', this.inputHandler);
@@ -130,10 +142,6 @@ export class Slider {
 
     public componentWillLoad() {
         this.setPercentageClass(this.value);
-    }
-
-    public componentWillUpdate() {
-        this.mdcSlider.disabled = this.disabled || this.readonly;
     }
 
     public disconnectedCallback() {
@@ -151,6 +159,15 @@ export class Slider {
     }
 
     public render() {
+        const inputProps: any = {};
+        if (this.step) {
+            inputProps.step = this.multiplyByFactor(this.step);
+        }
+
+        if (this.disabled || this.readonly) {
+            inputProps.disabled = true;
+        }
+
         return (
             <div class={this.getContainerClassList()}>
                 <label class="slider__label mdc-floating-label mdc-floating-label--float-above">
@@ -168,32 +185,41 @@ export class Slider {
                         </span>
                     </div>
                     <div
-                        class="mdc-slider mdc-slider--discrete"
-                        role="slider"
-                        aria-valuemin={this.multiplyByFactor(this.valuemin)}
-                        aria-valuemax={this.multiplyByFactor(this.valuemax)}
-                        aria-valuenow={this.multiplyByFactor(this.getValue())}
-                        aria-label={this.label}
-                        aria-disabled={this.disabled || this.readonly}
-                        data-step={this.multiplyByFactor(this.step)}
+                        class={{
+                            'mdc-slider': true,
+                            'mdc-slider--discrete': true,
+                            'mdc-slider--disabled':
+                                this.disabled || this.readonly,
+                        }}
                     >
-                        <div class="mdc-slider__track-container">
-                            <div class="mdc-slider__track" />
-                        </div>
-                        <div class="mdc-slider__thumb-container">
-                            <div class="mdc-slider__pin">
-                                <span class="mdc-slider__pin-value-marker">
-                                    {this.multiplyByFactor(this.getValue())}
-                                </span>
+                        <input
+                            class="mdc-slider__input"
+                            type="range"
+                            min={this.multiplyByFactor(this.valuemin)}
+                            max={this.multiplyByFactor(this.valuemax)}
+                            value={this.multiplyByFactor(this.value)}
+                            name="volume"
+                            aria-label="Discrete slider demo"
+                            {...inputProps}
+                        />
+                        <div class="mdc-slider__track">
+                            <div class="mdc-slider__track--inactive"></div>
+                            <div class="mdc-slider__track--active">
+                                <div class="mdc-slider__track--active_fill"></div>
                             </div>
-                            <svg
-                                class="mdc-slider__thumb"
-                                width="21"
-                                height="21"
+                        </div>
+                        <div class="mdc-slider__thumb">
+                            <div
+                                class="mdc-slider__value-indicator-container"
+                                aria-hidden="true"
                             >
-                                <circle cx="10.5" cy="10.5" r="7.875" />
-                            </svg>
-                            <div class="mdc-slider__focus-ring" />
+                                <div class="mdc-slider__value-indicator">
+                                    <span class="mdc-slider__value-indicator-text">
+                                        {this.multiplyByFactor(this.value)}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mdc-slider__thumb-knob"></div>
                         </div>
                     </div>
                 </div>
@@ -214,13 +240,31 @@ export class Slider {
         );
     }
 
+    @Watch('disabled')
+    protected watchDisabled() {
+        this.updateDisabledState();
+    }
+
+    @Watch('readonly')
+    protected watchReadonly() {
+        this.updateDisabledState();
+    }
+
     @Watch('value')
     protected watchValue() {
         if (!this.mdcSlider) {
             return;
         }
 
-        this.mdcSlider.value = this.multiplyByFactor(this.getValue());
+        this.mdcSlider.setValue(this.multiplyByFactor(this.getValue()));
+    }
+
+    private updateDisabledState() {
+        if (!this.mdcSlider) {
+            return;
+        }
+
+        this.mdcSlider.setDisabled(this.disabled || this.readonly);
     }
 
     private changeHandler = (event) => {

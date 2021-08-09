@@ -20,10 +20,6 @@ export class IconButtonCompositeExample {
         elevated: false,
     };
 
-    constructor() {
-        this.toggleFavorite = this.toggleFavorite.bind(this);
-    }
-
     public render() {
         return [
             <limel-icon-button
@@ -72,7 +68,7 @@ export class IconButtonCompositeExample {
         };
     };
 
-    private toggleFavorite() {
+    private toggleFavorite = () => {
         this.isFavorite = !this.isFavorite;
-    }
+    };
 }

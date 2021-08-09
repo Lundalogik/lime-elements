@@ -57,10 +57,10 @@ export class ListRenderer {
             this.getIndexForWhichToApplyTabIndex(items);
 
         const classNames = {
-            'mdc-list': true,
-            'mdc-list--two-line': this.twoLines,
+            'mdc-deprecated-list': true,
+            'mdc-deprecated-list--two-line': this.twoLines,
             selectable: selectableListTypes.includes(this.config.type),
-            'mdc-list--avatar-list': this.avatarList,
+            'mdc-deprecated-list--avatar-list': this.avatarList,
             'list--compact':
                 this.twoLines &&
                 ['small', 'x-small'].includes(this.config.iconSize),
@@ -121,7 +121,7 @@ export class ListRenderer {
      */
     private renderListItem(item: ListItem | ListSeparator, index: number) {
         if ('separator' in item) {
-            return <li class="mdc-list-divider" role="separator" />;
+            return <li class="mdc-deprecated-list-divider" role="separator" />;
         }
 
         if (['radio', 'checkbox'].includes(this.config.type)) {
@@ -129,9 +129,9 @@ export class ListRenderer {
         }
 
         const classNames = {
-            'mdc-list-item': true,
-            'mdc-list-item--disabled': item.disabled,
-            'mdc-list-item--selected': item.selected,
+            'mdc-deprecated-list-item': true,
+            'mdc-deprecated-list-item--disabled': item.disabled,
+            'mdc-deprecated-list-item--selected': item.selected,
         };
 
         const attributes: { tabindex?: string } = {};
@@ -165,13 +165,15 @@ export class ListRenderer {
      */
     private renderText(text: string, secondaryText?: string) {
         if (!secondaryText) {
-            return <span class="mdc-list-item__text">{text}</span>;
+            return <span class="mdc-deprecated-list-item__text">{text}</span>;
         }
 
         return (
-            <span class="mdc-list-item__text">
-                <span class="mdc-list-item__primary-text">{text}</span>
-                <span class="mdc-list-item__secondary-text">
+            <span class="mdc-deprecated-list-item__text">
+                <span class="mdc-deprecated-list-item__primary-text">
+                    {text}
+                </span>
+                <span class="mdc-deprecated-list-item__secondary-text">
                     {secondaryText}
                 </span>
             </span>
@@ -198,7 +200,7 @@ export class ListRenderer {
         return (
             <limel-icon
                 badge={config.badgeIcons}
-                class="mdc-list-item__graphic"
+                class="mdc-deprecated-list-item__graphic"
                 name={item.icon}
                 style={style}
                 size={config.iconSize}
@@ -208,8 +210,8 @@ export class ListRenderer {
 
     private renderDivider() {
         const classes = {
-            'mdc-list-divider': true,
-            'mdc-list-divider--inset': true,
+            'mdc-deprecated-list-divider': true,
+            'mdc-deprecated-list-divider--inset': true,
         };
         if (this.config.iconSize) {
             classes[this.config.iconSize] = true;
@@ -225,7 +227,7 @@ export class ListRenderer {
 
         return (
             <limel-menu
-                class="mdc-list-item__meta"
+                class="mdc-deprecated-list-item__meta"
                 items={actions}
                 openDirection="left"
             >
@@ -259,9 +261,9 @@ export class ListRenderer {
         }
 
         const classNames = {
-            'mdc-list-item': true,
-            'mdc-list-item--disabled': item.disabled,
-            'mdc-list-item__text': !item.secondaryText,
+            'mdc-deprecated-list-item': true,
+            'mdc-deprecated-list-item--disabled': item.disabled,
+            'mdc-deprecated-list-item__text': !item.secondaryText,
         };
 
         const attributes: { tabindex?: string } = {};
@@ -292,12 +294,14 @@ export class ListRenderer {
             return [
                 item.icon ? this.renderIcon(config, item) : null,
                 this.renderText(item.text, item.secondaryText),
-                <div class="mdc-list-item__meta">{itemTemplate}</div>,
+                <div class="mdc-deprecated-list-item__meta">
+                    {itemTemplate}
+                </div>,
             ];
         }
 
         return [
-            <div class="mdc-list-item__graphic">{itemTemplate}</div>,
+            <div class="mdc-deprecated-list-item__graphic">{itemTemplate}</div>,
             this.renderText(item.text, item.secondaryText),
         ];
     }

@@ -1,3 +1,101 @@
+### [33.1.1](https://github.com/Lundalogik/lime-elements/compare/v33.1.0...v33.1.1) (2021-08-04)
+
+
+### Bug Fixes
+
+* **menu:** pass css props defined for menu to portal ([e6e98a8](https://github.com/Lundalogik/lime-elements/commit/e6e98a8fbadfb38a1d6278f6bdeb21397dc460e8))
+
+## [33.1.0](https://github.com/Lundalogik/lime-elements/compare/v33.0.2...v33.1.0) (2021-07-23)
+
+
+### Features
+
+* **file:** add a visual dropzone ([1de3f70](https://github.com/Lundalogik/lime-elements/commit/1de3f70fd284684e6df2424276cde439ffcb781a))
+
+### [33.0.2](https://github.com/Lundalogik/lime-elements/compare/v33.0.1...v33.0.2) (2021-07-22)
+
+
+### Bug Fixes
+
+* **switch:** improve `readonly` styles ([e119999](https://github.com/Lundalogik/lime-elements/commit/e1199992207ae440fe45f586952e73b52560e718))
+* **switch:** make `disabled` switch look disabled ([1a74f27](https://github.com/Lundalogik/lime-elements/commit/1a74f2766bffeaf8920cdf5fa4d4562e14f2f66e))
+* **switch:** make label text look like checkbox's label ([c893a23](https://github.com/Lundalogik/lime-elements/commit/c893a235e2c0954e418f4ccc0a0c610f0aa65226))
+
+### [33.0.1](https://github.com/Lundalogik/lime-elements/compare/v33.0.0...v33.0.1) (2021-07-22)
+
+
+### Bug Fixes
+
+* **chip-set:** make label truncate correctly when there is a leading icon ([e11e7c0](https://github.com/Lundalogik/lime-elements/commit/e11e7c081b234ed13a499eaf18ef4fb32baa0312))
+* **chip-set:** make label truncate when chip-set has no input field ([df32824](https://github.com/Lundalogik/lime-elements/commit/df328240380806811098e81775887405dce211db))
+
+## [33.0.0](https://github.com/Lundalogik/lime-elements/compare/v32.4.4...v33.0.0) (2021-07-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **banner:** Support for the deprecated css variable `--icon-background-color` has been removed.
+Use `--banner-icon-background-color` instead.
+* **chip-set, picker:** The deprecated property `iconColor` has been removed from the interface `Chip`. Use
+`iconBackgroundColor` instead.
+* The underlying component library used for many of the components, MDC,
+has been updated from our own fork of v4.0.0 to the official v11.0.0. There should be
+no breaking changes to the APIs the Lime Elements presents, and we've done our best to
+make sure that all serious bugs created by the update have been addressed. However,
+there may well be several smaller styling issues that we haven't yet addressed.
+The most significant potential for breaking changes lie in the change in how sizes are
+styled. Our own fork of MDC v4.0.0 used `rem` for all sizes, to make all components
+scale based on the font size in the browser settings. The official MDC v11.0.0 instead
+uses `rem` only for typography related sizes, and `px` for other sizes. Many
+components still scale well when the browser font size is set to something other than
+the default 16px, but not all components do. Please submit issues for any bugs found
+at https://github.com/Lundalogik/lime-elements/issues/
+
+### Features
+
+* **banner:** remove support for deprecated css variable `--icon-background-color` ([2d7a7d1](https://github.com/Lundalogik/lime-elements/commit/2d7a7d19bf279837fca45f5a90933b3a58799bbd))
+* **chip-set:** add aria-label to remove-button for improved accessibility ([99827a0](https://github.com/Lundalogik/lime-elements/commit/99827a0e04d5b4a6ab060deb8b24d5ed6ead4ebc))
+* **chip-set, picker:** remove support for deprecated property `Chip.iconColor` ([cca078b](https://github.com/Lundalogik/lime-elements/commit/cca078b6e48553e0e580a9daf537751d996a967a))
+* **dialog:** make focus trapping work properly ([b7425c1](https://github.com/Lundalogik/lime-elements/commit/b7425c10448887c437e47c572100ae823816e0c8)), closes [#29](https://github.com/Lundalogik/lime-elements/issues/29)
+* **snackbar:** add title for dismiss-button for improved accessibility ([de2541a](https://github.com/Lundalogik/lime-elements/commit/de2541ab5b589457a4704d67c7bff971b0fd9ec4))
+* update MDC from internal fork of v4.0.0 to official v11.0.0 ([0acd5a3](https://github.com/Lundalogik/lime-elements/commit/0acd5a347a8bc247d9cc5f477074c563648bedce))
+
+
+### Bug Fixes
+
+* **badge:** MDC update ([f4793e9](https://github.com/Lundalogik/lime-elements/commit/f4793e974c08bbd38a213c63ee40275c703123f7))
+* **banner:** MDC update ([d006e36](https://github.com/Lundalogik/lime-elements/commit/d006e36667969606119b79cea831bdb9ba61d996))
+* **button:** MDC update ([bd6ac7c](https://github.com/Lundalogik/lime-elements/commit/bd6ac7c9626c0c3b116d93e8e1b677043cb03892))
+* **button-group:** MDC update ([9250a00](https://github.com/Lundalogik/lime-elements/commit/9250a0007d04012a15b70a6a78004ceb90cdcd82))
+* **checkbox:** MDC update ([ab40c82](https://github.com/Lundalogik/lime-elements/commit/ab40c82828b41f781e19f70ba5ace43f8c6473bf))
+* **chip-set:** MDC update ([8af3a4a](https://github.com/Lundalogik/lime-elements/commit/8af3a4a14249dd1a2a9fa8da0b03505befc1efef))
+* **chip-set:** prevent tabbing to chips in disabled chip-set ([3f6c14c](https://github.com/Lundalogik/lime-elements/commit/3f6c14ca46435aa30cc2605bb47f040b81957e8e))
+* **chipset:** apply correct input field styles in `readonly` ([41648a0](https://github.com/Lundalogik/lime-elements/commit/41648a06c7c98f1733115a0d96e11c8fa6d70549))
+* **collapsible-section:** MDC update ([508e9a5](https://github.com/Lundalogik/lime-elements/commit/508e9a50b76a6038d039e11b97fe0adff05b8331))
+* **dialog:** MDC update ([da3852f](https://github.com/Lundalogik/lime-elements/commit/da3852f3011575022dbbe6f8e608bd9876ca7079))
+* **form:** MDC update ([480e0e6](https://github.com/Lundalogik/lime-elements/commit/480e0e61425f900b632adbfc9bae567b1ea4a431))
+* **icon-button:** MDC update ([72332a8](https://github.com/Lundalogik/lime-elements/commit/72332a88c9fbc7e7b2e785d76deee9b2cbcfb332))
+* **input-field:** MDC update ([5c6ef03](https://github.com/Lundalogik/lime-elements/commit/5c6ef03c0a9ef85ccfca284f38ac3dec0a1b00f5)), closes [/github.com/Lundalogik/lime-elements/pull/1297#discussion_r670399736](https://github.com/Lundalogik//github.com/Lundalogik/lime-elements/pull/1297/issues/discussion_r670399736)
+* **linear-progress:** MDC update ([3ed9132](https://github.com/Lundalogik/lime-elements/commit/3ed9132ceb12dc0ac58657a76fd11ec6a4c51047))
+* **list:** MDC update ([55d4443](https://github.com/Lundalogik/lime-elements/commit/55d4443a355459ee9df1a9f4298571e148ef42eb))
+* **MDC update:** make project build again after MDC update ([dcb82a6](https://github.com/Lundalogik/lime-elements/commit/dcb82a65120a4339f47220e066c8d843531a1849))
+* **menu:** MDC update ([b3c479a](https://github.com/Lundalogik/lime-elements/commit/b3c479a827db3a8a93ef3a9b16af7350a5c0aeef))
+* **select:** MDC update ([67a40c5](https://github.com/Lundalogik/lime-elements/commit/67a40c5277c8b38b3b3d5bed4b662bf805d74cc0))
+* **select:** when the dropdown is closed, set focus to the trigger button ([630aa38](https://github.com/Lundalogik/lime-elements/commit/630aa38bb074901a5b0bab512525504b71351594))
+* **slider:** MDC update ([1cc6fe6](https://github.com/Lundalogik/lime-elements/commit/1cc6fe65c37cd27a47a1c472c61e40b507b4255f))
+* **snackbar:** MDC update ([5a2b54e](https://github.com/Lundalogik/lime-elements/commit/5a2b54ee6c619cb6fe914a13dceee6081eead34a))
+* **switch:** MDC update ([984e06b](https://github.com/Lundalogik/lime-elements/commit/984e06b5c9344181a74b9227903344339493739e))
+* **tab-bar:** MDC update ([56cee61](https://github.com/Lundalogik/lime-elements/commit/56cee613b7dfd1b49064a474bba141155308ebe6))
+* **table:** MDC update ([3844aea](https://github.com/Lundalogik/lime-elements/commit/3844aea163b3b3025278c146c677d4fadea9fec5))
+
+### [32.4.4](https://github.com/Lundalogik/lime-elements/compare/v32.4.3...v32.4.4) (2021-07-12)
+
+
+### Bug Fixes
+
+* **input-field:** render empty `readonly` field with a `–` value & `--float-above` label ([8ae2229](https://github.com/Lundalogik/lime-elements/commit/8ae2229d91d768f1ad16804b10c482340978e6ff))
+* **select:** render empty `readonly` select with a `–` value & `--float-above` label ([f4d55d1](https://github.com/Lundalogik/lime-elements/commit/f4d55d1f766b798799d8bbd2a1d86b2ee839d19f))
+
 ### [32.4.3](https://github.com/Lundalogik/lime-elements/compare/v32.4.2...v32.4.3) (2021-07-07)
 
 

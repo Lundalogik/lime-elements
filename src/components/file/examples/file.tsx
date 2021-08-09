@@ -21,13 +21,6 @@ export class FileExample {
     @State()
     private readonly = false;
 
-    constructor() {
-        this.handleChange = this.handleChange.bind(this);
-        this.handleRequiredChange = this.handleRequiredChange.bind(this);
-        this.handleDisabledChange = this.handleDisabledChange.bind(this);
-        this.handleReadonlyChange = this.handleReadonlyChange.bind(this);
-    }
-
     public render() {
         return [
             <limel-file
@@ -38,40 +31,46 @@ export class FileExample {
                 disabled={this.disabled}
                 readonly={this.readonly}
             />,
-            <limel-flex-container justify="end">
-                <limel-switch
-                    label="Required"
-                    value={this.required}
-                    onChange={this.handleRequiredChange}
-                />
-                <limel-switch
-                    label="Disabled"
-                    value={this.disabled}
-                    onChange={this.handleDisabledChange}
-                />
-                <limel-switch
-                    label="Readonly"
-                    value={this.readonly}
-                    onChange={this.handleReadonlyChange}
-                />
-            </limel-flex-container>,
+            <p>
+                <limel-flex-container justify="end">
+                    <limel-checkbox
+                        checked={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
+                    />
+                    <limel-checkbox
+                        checked={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                    />
+                    <limel-checkbox
+                        checked={this.required}
+                        label="Required"
+                        onChange={this.setRequired}
+                    />
+                </limel-flex-container>
+            </p>,
+            <limel-example-value value={this.value} />,
         ];
     }
 
-    private handleChange(event: CustomEvent<FileInfo>) {
+    private handleChange = (event: CustomEvent<FileInfo>) => {
         this.value = event.detail;
         console.log('onChange', this.value);
-    }
+    };
 
-    private handleRequiredChange(event: CustomEvent<boolean>) {
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
         this.required = !!event.detail;
-    }
+    };
 
-    private handleDisabledChange(event: CustomEvent<boolean>) {
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
         this.disabled = !!event.detail;
-    }
+    };
 
-    private handleReadonlyChange(event: CustomEvent<boolean>) {
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
         this.readonly = !!event.detail;
-    }
+    };
 }

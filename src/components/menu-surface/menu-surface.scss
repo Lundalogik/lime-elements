@@ -1,14 +1,13 @@
-@import '@limetech/mdc-menu-surface/mdc-menu-surface';
-@import '@limetech/mdc-elevation/mdc-elevation';
-@import '@limetech/mdc-menu/mdc-menu';
-
-/**
- * @prop --menu-surface-width: Width of the menu surface. Defaults to `auto`
- */
+@use '@material/menu-surface';
+@use '@material/elevation';
+@use '@material/menu';
 
 :host {
     display: block;
 }
+
+@include menu-surface.core-styles;
+@include menu.core-styles;
 
 .mdc-menu-surface {
     width: var(--menu-surface-width, auto);

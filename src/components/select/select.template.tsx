@@ -45,6 +45,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
     const classList = {
         'limel-select': true,
         'mdc-select': true,
+        'mdc-select--outlined': true,
         'mdc-select--disabled': props.disabled,
         'limel-select--readonly': props.readonly,
         'limel-select--required': props.required,
@@ -53,13 +54,13 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
         'limel-select--with-helper-text': typeof props.helperText === 'string',
     };
 
-    return (
+    return [
         <div class={classList}>
             <SelectValue {...props} hasValue={hasValue} isValid={isValid} />
-            <HelperText text={props.helperText} />
             <SelectDropdown {...props} />
-        </div>
-    );
+        </div>,
+        <HelperText text={props.helperText} />,
+    ];
 };
 
 const SelectValue: FunctionalComponent<
@@ -68,32 +69,62 @@ const SelectValue: FunctionalComponent<
         isValid: boolean;
     }
 > = (props) => {
-    const containerClassList = {
+    const anchorClassList = {
+        'mdc-select__anchor': true,
         'limel-select-trigger': true,
         'limel-select--focused': props.isOpen,
     };
     const labelClassList = {
         'mdc-floating-label': true,
-        'mdc-floating-label--float-above': props.hasValue || props.isOpen,
+        'mdc-floating-label--float-above':
+            props.hasValue || props.isOpen || props.readonly,
         'mdc-floating-label--active': props.isOpen,
     };
 
     return (
         <div
+            class={anchorClassList}
             tabindex="0"
             onClick={props.open}
-            class={containerClassList}
             onKeyPress={props.onTriggerPress}
+            role="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-labelledby="s-label s-selected-text"
         >
-            <div class="limel-select__selected-option">
+            <span id="s-label" class={labelClassList}>
+                {props.label}
+            </span>
+            <span class="mdc-select__selected-text-container limel-select__selected-option">
                 {getSelectedIcon(props.value)}
-                <span class="limel-select__selected-option__text">
-                    {getSelectedText(props.value)}
+                <span
+                    id="s-selected-text"
+                    class="mdc-select__selected-text limel-select__selected-option__text"
+                >
+                    {getSelectedText(props.value, props.readonly)}
                 </span>
-            </div>
+            </span>
             <ShowIcon {...props} isValid={props.isValid} />
-            <i class="mdc-select__dropdown-icon" />
-            <label class={labelClassList}>{props.label}</label>
+            <span class="mdc-select__dropdown-icon">
+                <svg
+                    class="mdc-select__dropdown-icon-graphic"
+                    viewBox="7 10 10 5"
+                    focusable="false"
+                >
+                    <polygon
+                        class="mdc-select__dropdown-icon-inactive"
+                        stroke="none"
+                        fill-rule="evenodd"
+                        points="7 10 12 15 17 10"
+                    ></polygon>
+                    <polygon
+                        class="mdc-select__dropdown-icon-active"
+                        stroke="none"
+                        fill-rule="evenodd"
+                        points="7 15 12 10 17 15"
+                    ></polygon>
+                </svg>
+            </span>
         </div>
     );
 };
@@ -225,7 +256,11 @@ function createMenuItems(
     });
 }
 
-function getSelectedText(value: Option | Option[]): string {
+function getSelectedText(value: Option | Option[], readonly: boolean): string {
+    if (!value && readonly) {
+        return '–';
+    }
+
     if (!value) {
         return '';
     }

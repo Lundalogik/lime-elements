@@ -1,8 +1,8 @@
 @use '../../../style/internal/z-index';
-@use '../../../style/internal/mdc-variables';
+@use '../../../style/internal/lime-theme';
 @use '../../../style/functions';
 
-@import '@limetech/mdc-theme/mdc-theme';
+@use '@material/theme/mdc-theme';
 @import '../../../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 $inactiveTextColor: var(--mdc-theme-text-disabled-on-background);
@@ -185,10 +185,6 @@ $datepickerTextOnThemeColor: var(--mdc-theme-on-primary);
         &.today {
             background: transparent;
             &:after {
-                background: var(
-                    --mdc-theme-text-hint-on-light,
-                    mdc-variables.$mdc-theme-text-hint-on-light
-                );
                 opacity: 0.25;
             }
             &:hover {

@@ -11,12 +11,6 @@ export class CollapsibleSectionExternalControlExample {
     @State()
     private isOpen = false;
 
-    constructor() {
-        this.toggle = this.toggle.bind(this);
-        this.onOpen = this.onOpen.bind(this);
-        this.onClose = this.onClose.bind(this);
-    }
-
     public render() {
         return (
             <section>
@@ -39,17 +33,17 @@ export class CollapsibleSectionExternalControlExample {
         );
     }
 
-    private toggle() {
+    private toggle = () => {
         this.isOpen = !this.isOpen;
-    }
+    };
 
-    private onOpen() {
+    private onOpen = () => {
         console.log('Section opened');
         this.isOpen = true;
-    }
+    };
 
-    private onClose() {
+    private onClose = () => {
         console.log('Section closed');
         this.isOpen = false;
-    }
+    };
 }

@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Basic example
+ */
 @Component({
     tag: 'limel-example-slider',
     shadow: true,
@@ -28,7 +31,7 @@ export class SliderExample {
                     valuemin={this.minValue}
                     disabled={this.disabled}
                     readonly={this.readonly}
-                    onChange={this.changeHandler}
+                    onChange={this.handleChange}
                 />
                 <limel-flex-container justify="end">
                     <limel-checkbox
@@ -47,7 +50,7 @@ export class SliderExample {
         );
     }
 
-    private changeHandler = (event: CustomEvent<number>) => {
+    private handleChange = (event: CustomEvent<number>) => {
         this.value = event.detail;
     };
 

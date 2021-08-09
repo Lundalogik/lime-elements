@@ -1,6 +1,6 @@
 @use '../../style/mixins';
 @use '../../style/functions';
-@import '@limetech/mdc-icon-button/mdc-icon-button';
+@use '@material/icon-button';
 
 @media (pointer: coarse) {
     .mdc-icon-button:hover::before {
@@ -35,6 +35,8 @@
         @include mixins.is-elevated-clickable;
     }
 }
+
+@include icon-button.core-styles;
 
 .mdc-icon-button {
     &:disabled {

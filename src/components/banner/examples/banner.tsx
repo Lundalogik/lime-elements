@@ -16,12 +16,6 @@ export class BannerExample {
 
     private banner: HTMLLimelBannerElement;
 
-    constructor() {
-        this.openBanner = this.openBanner.bind(this);
-        this.closeBanner = this.closeBanner.bind(this);
-        this.someCustomAction = this.someCustomAction.bind(this);
-    }
-
     public componentDidLoad() {
         this.banner = this.host.shadowRoot.querySelector('limel-banner');
     }
@@ -50,18 +44,18 @@ export class BannerExample {
         ];
     }
 
-    private openBanner() {
+    private openBanner = () => {
         this.banner.open();
         this.disabled = true;
-    }
+    };
 
-    private closeBanner() {
+    private closeBanner = () => {
         this.banner.close();
         this.disabled = false;
-    }
+    };
 
-    private someCustomAction() {
+    private someCustomAction = () => {
         alert('Triggered an action of some sort');
         this.closeBanner();
-    }
+    };
 }

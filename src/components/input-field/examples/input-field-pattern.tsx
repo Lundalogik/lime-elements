@@ -11,22 +11,18 @@ export class InputFieldPatternExample {
     @State()
     private value;
 
-    constructor() {
-        this.changeHandler = this.changeHandler.bind(this);
-    }
-
     public render() {
         return (
             <limel-input-field
                 label="Personal identity number (YYYYMMDD-XXXX)"
                 value={this.value}
                 pattern={'[0-9]{8}[-][0-9]{4}'}
-                onChange={this.changeHandler}
+                onChange={this.handleChange}
             />
         );
     }
 
-    private changeHandler(event) {
+    private handleChange = (event) => {
         this.value = event.detail;
-    }
+    };
 }

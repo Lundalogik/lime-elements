@@ -1,14 +1,15 @@
-@use '../../style/internal/mdc-variables';
+@use '../../style/internal/lime-theme';
+@use '../../style/internal/lime-typography';
 @use '../../style/internal/variables';
 @use '../../style/functions';
 
 /**
  * @prop --banner-icon-fill-color: Color of the banner icon.
  * @prop --banner-icon-background-color: Background color of the banner icon.
- * @prop --icon-background-color: DEPRECATED. Use `--banner-icon-background-color` instead.
  */
 
 .lime-banner {
+    @include lime-typography.typography(body2);
     min-height: variables.$lime-banner-height;
     display: none;
     background-color: rgba(var(--contrast-100), 0.7);
@@ -55,7 +56,7 @@
         color: var(--banner-icon-fill-color, rgb(var(--contrast-100)));
         background-color: var(
             --banner-icon-background-color,
-            var(--icon-background-color, rgb(var(--contrast-800)))
+            rgb(var(--contrast-800))
         );
     }
 }

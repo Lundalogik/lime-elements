@@ -1,10 +1,13 @@
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
-@use '../../style/internal/mdc-variables';
+@use '../../style/internal/lime-theme';
+@use '../../style/internal/lime-typography';
 
 /**
  * @prop --form-body-padding: space around content of the form
  */
+
+@include lime-typography.core-styles;
 
 .limel-form-array-item--simple {
     display: flex;

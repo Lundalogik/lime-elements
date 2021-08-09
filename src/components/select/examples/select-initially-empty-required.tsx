@@ -19,10 +19,6 @@ export class SelectExample {
         { text: 'Leia Organo', value: 'leia' },
     ];
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public render() {
         return (
             <section>
@@ -30,7 +26,7 @@ export class SelectExample {
                     label="Favorite hero"
                     value={this.value}
                     options={this.options}
-                    onChange={this.onChange}
+                    onChange={this.handleChange}
                     required={true}
                 />
                 <limel-example-value value={this.value} />
@@ -38,7 +34,7 @@ export class SelectExample {
         );
     }
 
-    private onChange(event) {
+    private handleChange = (event) => {
         this.value = event.detail;
-    }
+    };
 }

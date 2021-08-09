@@ -12,11 +12,6 @@ export class DatePickerExample {
     @State()
     private value = new Date();
 
-    constructor() {
-        this.handleChange = this.handleChange.bind(this);
-        this.addOneHour = this.addOneHour.bind(this);
-    }
-
     public render() {
         return (
             <p>
@@ -39,11 +34,11 @@ export class DatePickerExample {
         );
     }
 
-    private handleChange(event) {
+    private handleChange = (event) => {
         this.value = event.detail;
-    }
+    };
 
-    private addOneHour() {
+    private addOneHour = () => {
         this.value = moment(this.value).add(1, 'hour').toDate();
-    }
+    };
 }

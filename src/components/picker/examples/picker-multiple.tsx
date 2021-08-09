@@ -2,7 +2,7 @@ import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
- * Multiple values
+ * Multiple values can be picked
  */
 @Component({
     tag: 'limel-example-picker-multiple',
@@ -36,14 +36,6 @@ export class PickerMultipleExample {
 
     @State()
     private disabled: boolean = false;
-
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-        this.search = this.search.bind(this);
-        this.setDisabled = this.setDisabled.bind(this);
-        this.setReadonly = this.setReadonly.bind(this);
-        this.setRequired = this.setRequired.bind(this);
-    }
 
     public render() {
         return [
@@ -81,7 +73,7 @@ export class PickerMultipleExample {
         ];
     }
 
-    private search(query: string): Promise<ListItem[]> {
+    private search = (query: string): Promise<ListItem[]> => {
         return new Promise((resolve) => {
             // Simulate some network delay
             const NETWORK_DELAY = 500;
@@ -102,25 +94,25 @@ export class PickerMultipleExample {
                 resolve(filteredItems);
             }, NETWORK_DELAY);
         });
-    }
+    };
 
-    private onChange(event: CustomEvent<Array<ListItem<number>>>) {
+    private onChange = (event: CustomEvent<Array<ListItem<number>>>) => {
         this.selectedItems = [...event.detail];
-    }
+    };
 
-    private onInteract(event) {
+    private onInteract = (event) => {
         console.log('Value interacted with:', event.detail);
-    }
+    };
 
-    private setDisabled(event: CustomEvent<boolean>) {
+    private setDisabled = (event: CustomEvent<boolean>) => {
         this.disabled = event.detail;
-    }
+    };
 
-    private setReadonly(event: CustomEvent<boolean>) {
+    private setReadonly = (event: CustomEvent<boolean>) => {
         this.readonly = event.detail;
-    }
+    };
 
-    private setRequired(event: CustomEvent<boolean>) {
+    private setRequired = (event: CustomEvent<boolean>) => {
         this.required = event.detail;
-    }
+    };
 }

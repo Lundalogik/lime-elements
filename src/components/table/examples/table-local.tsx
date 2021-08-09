@@ -24,11 +24,6 @@ export class TableExampleLocal {
 
     private pageSize = 10;
 
-    constructor() {
-        this.handleChangePage = this.handleChangePage.bind(this);
-        this.handleSort = this.handleSort.bind(this);
-    }
-
     public componentWillLoad() {
         this.columns = [
             { title: 'Name', field: 'name' },
@@ -52,13 +47,13 @@ export class TableExampleLocal {
         return `${value} ${unit}`;
     };
 
-    private handleChangePage(event: CustomEvent<number>) {
+    private handleChangePage = (event: CustomEvent<number>) => {
         this.currentPage = event.detail;
-    }
+    };
 
-    private handleSort(event: CustomEvent<ColumnSorter[]>) {
+    private handleSort = (event: CustomEvent<ColumnSorter[]>) => {
         this.currentSorting = event.detail[0].column.title;
-    }
+    };
 
     public render() {
         return [

@@ -1,7 +1,10 @@
 @use '../../style/functions';
 @use '../../style/mixins';
-@import '../../style/internal/mdc-variables';
-@import '@limetech/mdc-button/mdc-button';
+
+@use '../../style/internal/lime-theme';
+
+@use '@material/button/styles';
+@use '@material/button';
 
 :host {
     display: inline-block;
@@ -118,6 +121,10 @@ button {
             display: block;
         }
     }
+}
+
+.mdc-button--outlined {
+    @include button.outline-color(primary);
 }
 
 $speed-of-reducing-presence: 0.3s;

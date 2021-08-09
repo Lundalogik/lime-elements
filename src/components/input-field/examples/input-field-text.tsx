@@ -6,7 +6,6 @@ import { Component, h, State, Watch } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-text',
     shadow: true,
-    styleUrl: 'input-field.scss',
 })
 export class InputFieldTextExample {
     @State()
@@ -24,10 +23,6 @@ export class InputFieldTextExample {
     @State()
     private value: string;
 
-    constructor() {
-        this.checkValidity = this.checkValidity.bind(this);
-    }
-
     public render() {
         const MAX_LENGTH = 15;
 
@@ -41,7 +36,7 @@ export class InputFieldTextExample {
                 invalid={this.invalid}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.changeHandler}
+                onChange={this.handleChange}
             />,
             <p>
                 <limel-flex-container justify="end">
@@ -67,11 +62,11 @@ export class InputFieldTextExample {
     }
 
     @Watch('required')
-    private checkValidity() {
+    protected checkValidity() {
         this.invalid = this.required && !this.value;
     }
 
-    private changeHandler = (event: CustomEvent<string>) => {
+    private handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
     };
 

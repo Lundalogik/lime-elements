@@ -1,5 +1,5 @@
 import { DialogHeading } from '@limetech/lime-elements';
-import { MDCDialog, util } from '@limetech/mdc-dialog';
+import { MDCDialog } from '@material/dialog';
 import {
     Component,
     Element,
@@ -9,7 +9,6 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
-import * as focusTrap from 'focus-trap';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
 
@@ -30,6 +29,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-dialog-size
  * @exampleComponent limel-example-dialog-fullscreen
  * @exampleComponent limel-example-dialog-closing-actions
+ * @exampleComponent limel-example-dialog-action-buttons
  * @slot - Content to put inside the dialog
  * @slot button - The dialog buttons
  */
@@ -117,22 +117,6 @@ export class Dialog {
             this.mdcDialog.open();
         }
 
-        const { activate, deactivate } = util.createFocusTrapInstance(
-            this.host.shadowRoot.querySelector('.mdc-dialog__surface'),
-            focusTrap.default,
-            this.host.shadowRoot.querySelector('#initialFocusEl') as any
-        );
-
-        // eslint-disable-next-line no-underscore-dangle
-        (this.mdcDialog as any).foundation_.adapter_.trapFocus = () => {
-            activate();
-        };
-
-        // eslint-disable-next-line no-underscore-dangle
-        (this.mdcDialog as any).foundation_.adapter_.releaseFocus = () => {
-            deactivate();
-        };
-
         this.mdcDialog.listen('MDCDialog:opened', this.handleMdcOpened);
         this.mdcDialog.listen('MDCDialog:closed', this.handleMdcClosed);
         this.mdcDialog.listen('MDCDialog:closing', this.handleMdcClosing);
@@ -170,6 +154,15 @@ export class Dialog {
                 <input hidden={true} id="initialFocusEl" />
                 <div class="mdc-dialog__container">
                     <div class="mdc-dialog__surface">
+                        {/*
+                            The `initialFocusElement` below is needed to make
+                            focus trapping work. At the time of writing, the
+                            focusable elements inside the slots are not
+                            detected, so we supply our own hidden element for
+                            the focus trap to use. Read more here:
+                            https://github.com/material-components/material-components-web/tree/v11.0.0/packages/mdc-dialog#handling-focus-trapping
+                        */}
+                        <input type="text" id="initialFocusElement" />
                         {this.renderHeading()}
                         <div
                             class="mdc-dialog__content scrollbox"

@@ -6,15 +6,15 @@
     --line-height-of-secondary-text: 1.2rem;
 }
 
-.mdc-list-item {
+.mdc-deprecated-list-item {
     height: auto !important; // `!important` because MD adds different fixed `height`s to different lists, such as `mdc-list--two-line` or `mdc-list--avatar-list` and we don't want to overwride them all separately
     min-height: 3rem; // in MD, `3rem` is the default `height`.
-}
 
-.mdc-list-item__secondary-text {
-    line-height: var(--line-height-of-secondary-text);
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: var(--maxLinesSecondaryText);
-    -webkit-box-orient: vertical;
+    .mdc-deprecated-list-item__secondary-text {
+        line-height: var(--line-height-of-secondary-text);
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: var(--maxLinesSecondaryText);
+        -webkit-box-orient: vertical;
+    }
 }

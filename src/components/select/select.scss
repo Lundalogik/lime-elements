@@ -2,9 +2,10 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-@import '@limetech/mdc-select/mdc-select';
-@import '@limetech/mdc-select/helper-text/mdc-select-helper-text';
-@import '@limetech/mdc-floating-label/mdc-floating-label';
+@use '@material/select/styles';
+@use '@material/select/helper-text/mdc-select-helper-text';
+@use '@material/floating-label';
+@use '@material/floating-label/mdc-floating-label';
 
 @import './partial-styles/_readonly.scss';
 
@@ -23,6 +24,10 @@
     display: none;
 }
 
+.mdc-select--outlined .mdc-floating-label {
+    left: functions.pxToRem(16);
+}
+
 .limel-select__selected-option {
     display: flex;
     align-items: center;
@@ -30,7 +35,6 @@
     box-sizing: border-box;
     outline: none;
 
-    padding: 0 functions.pxToRem(16);
     align-self: center;
     min-width: 0; // makes it truncate and prevents the select to grow wider than its container
 }
@@ -47,6 +51,13 @@
 
 .limel-select {
     height: 100%;
+    width: 100%;
+
+    &:not(.limel-select--readonly) {
+        .limel-select-trigger {
+            background-color: shared_input-select-picker.$background-color-focused;
+        }
+    }
 
     .limel-select-trigger {
         display: inline-flex;
@@ -55,33 +66,21 @@
 
         cursor: pointer;
         border-radius: functions.pxToRem(5);
-        background-color: shared_input-select-picker.$background-color-focused;
 
         &:focus {
             outline: none;
-
-            .mdc-floating-label {
-                color: var(--mdc-theme-primary);
-            }
         }
         &:focus-visible {
             box-shadow: var(--shadow-depth-8-focused) !important;
         }
 
         .mdc-floating-label {
-            @include shared_input-select-picker.looks-like-input-label;
-            top: 50%;
-            right: functions.pxToRem(
-                16
-            ); //This is a hack to force the label truncate when container is too little. Otherwise due to position: absolute it won't. Kia
-            transform: translateY(-50%);
-
+            width: calc(
+                100% - #{functions.pxToRem(16)}
+            ); //This forces the label to truncate when container is too little.
             &.mdc-floating-label--float-above {
-                @include shared_input-select-picker.label--float-above;
-            }
-
-            &.mdc-floating-label--active {
-                color: var(--mdc-theme-primary);
+                font-size: shared_input-select-picker.$cropped-label-hack--font-size;
+                transform: translateY(functions.pxToRem(-34.75)) scale(0.75);
             }
         }
     }
@@ -134,8 +133,8 @@
     &.limel-select--invalid {
         .mdc-floating-label,
         .limel-select__selected-option,
-        .mdc-select-helper-text,
-        .invalid-icon {
+        .invalid-icon,
+        + .mdc-select-helper-line .mdc-select-helper-text {
             color: var(--lime-error-text-color);
         }
         .mdc-floating-label:not(.mdc-floating-label--float-above) {
@@ -147,14 +146,17 @@
 }
 
 .invalid-icon {
-    margin-right: functions.pxToRem(8);
     flex-shrink: 0;
 }
 
 .mdc-select-helper-line {
     @include shared_input-select-picker.looks-like-helper-line;
 }
+
 .mdc-select-helper-text {
+    margin-left: 0;
+    margin-right: 0;
+
     &:before {
         @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
     }
@@ -174,13 +176,23 @@ select.limel-select__native-control {
 :host(.is-narrow) {
     height: functions.pxToRem(36);
 
+    .limel-select {
+        .mdc-select__anchor {
+            padding-left: functions.pxToRem(0);
+        }
+    }
+
     .mdc-floating-label {
         &.mdc-floating-label--float-above {
-            transform: translateY(-1.76rem) scale(0.75);
+            top: functions.pxToRem(28);
         }
     }
 
     .limel-select__selected-option {
-        padding: 0 functions.pxToRem(12);
+        padding: 0 functions.pxToRem(16);
+    }
+
+    .limel-select__selected-option__icon {
+        margin-left: functions.pxToRem(-8);
     }
 }

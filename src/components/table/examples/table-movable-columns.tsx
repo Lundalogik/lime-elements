@@ -23,13 +23,9 @@ export class TableExampleLocal {
         { title: 'Origin', field: 'origin' },
     ];
 
-    constructor() {
-        this.handleChangeColumns = this.handleChangeColumns.bind(this);
-    }
-
-    private handleChangeColumns(event: CustomEvent<Column[]>) {
+    private handleChangeColumns = (event: CustomEvent<Column[]>) => {
         this.columns = event.detail;
-    }
+    };
 
     public render() {
         const columnOrder = this.columns.map((column) => column.title);

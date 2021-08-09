@@ -1,4 +1,4 @@
-import { MDCTextField } from '@limetech/mdc-textfield';
+import { MDCTextField } from '@material/textfield';
 import {
     Component,
     Element,
@@ -32,6 +32,8 @@ interface LinkProperties {
     href: string;
     target?: string;
 }
+
+const helperTextId = 'tf-helper-text';
 
 /**
  * @exampleComponent limel-example-input-field-text
@@ -282,8 +284,9 @@ export class InputField {
     }
 
     public render() {
+        const labelId = 'tf-input-label';
         const properties = this.getAdditionalProps();
-        properties.id = 'tf-input-element';
+        properties['aria-labelledby'] = labelId;
         properties.class = 'mdc-text-field__input';
         properties.onInput = this.handleChange;
         properties.onFocus = this.onFocus;
@@ -292,30 +295,35 @@ export class InputField {
         properties.readonly = this.readonly;
         properties.disabled = this.disabled || this.readonly;
 
+        if (this.hasHelperText()) {
+            properties['aria-controls'] = helperTextId;
+            properties['aria-describedby'] = helperTextId;
+        }
+
         const labelClassList = {
             'mdc-floating-label': true,
-            'mdc-floating-label--float-above': !!this.value || this.isFocused,
+            'mdc-floating-label--float-above':
+                !!this.value || this.isFocused || this.readonly,
         };
 
         return [
-            <div class={this.getContainerClassList()}>
+            <label class={this.getContainerClassList()}>
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                        <span class={labelClassList} id={labelId}>
+                            {this.label}
+                        </span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                {this.renderLeadingIcon()}
                 {this.renderFormattedNumber()}
+                {this.renderEmptyValueForReadonly()}
                 {this.renderInput(properties)}
                 {this.renderTextarea(properties)}
-                <div class="mdc-notched-outline">
-                    <div class="mdc-notched-outline__leading"></div>
-                    <div class="mdc-notched-outline__notch">
-                        <label
-                            class={labelClassList}
-                            htmlFor="tf-input-element"
-                        >
-                            {this.label}
-                        </label>
-                    </div>
-                    <div class="mdc-notched-outline__trailing"></div>
-                </div>
-                {this.renderIcons()}
-            </div>,
+                {this.renderTrailingLinkOrButton()}
+            </label>,
             this.renderHelperLine(),
             this.renderAutocompleteList(),
         ];
@@ -339,6 +347,7 @@ export class InputField {
     private getContainerClassList() {
         const classList = {
             'mdc-text-field': true,
+            'mdc-text-field--outlined': true,
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled || this.readonly,
             'lime-text-field--readonly': this.readonly,
@@ -351,7 +360,6 @@ export class InputField {
             classList['has-helper-line'] =
                 !!this.helperText || !!this.maxlength;
         } else {
-            classList['mdc-text-field--outlined'] = true;
             classList['mdc-text-field--with-leading-icon'] = !!this.leadingIcon;
         }
 
@@ -386,7 +394,11 @@ export class InputField {
             return;
         }
 
-        return <textarea {...properties}>{this.value}</textarea>;
+        return (
+            <span class="mdc-text-field__resizer">
+                <textarea {...properties}>{this.value}</textarea>
+            </span>
+        );
     }
 
     private layout() {
@@ -430,10 +442,7 @@ export class InputField {
     }
 
     private renderHelperLine() {
-        if (
-            !this.maxlength &&
-            (this.helperText === null || this.helperText === undefined)
-        ) {
+        if (!this.maxlength && !this.hasHelperText()) {
             return;
         }
 
@@ -445,8 +454,17 @@ export class InputField {
         );
     }
 
+    private renderEmptyValueForReadonly() {
+        if (this.readonly && !this.value) {
+            return (
+                <span class="lime-empty-value-for-readonly lime-looks-like-input-value">
+                    –
+                </span>
+            );
+        }
+    }
     private renderHelperText() {
-        if (this.helperText === null || this.helperText === undefined) {
+        if (!this.hasHelperText()) {
             return;
         }
 
@@ -455,7 +473,15 @@ export class InputField {
             'mdc-text-field-helper-text--validation-msg': this.isInvalid(),
         };
 
-        return <p class={classList}>{this.helperText}</p>;
+        return (
+            <p class={classList} id={helperTextId}>
+                {this.helperText}
+            </p>
+        );
+    }
+
+    private hasHelperText() {
+        return this.helperText !== null && this.helperText !== undefined;
     }
 
     private renderCharacterCounter() {
@@ -501,20 +527,26 @@ export class InputField {
         return this.limelInputField.shadowRoot.querySelector(elementName);
     }
 
-    private renderIcons() {
+    private renderLeadingIcon = () => {
+        if (this.type === 'textarea') {
+            return;
+        }
+
+        if (this.leadingIcon) {
+            return (
+                <i class="material-icons mdc-text-field__icon mdc-text-field__icon--leading">
+                    <limel-icon name={this.leadingIcon} />
+                </i>
+            );
+        }
+    };
+
+    private renderTrailingLinkOrButton = () => {
         if (this.type === 'textarea') {
             return;
         }
 
         const html = [];
-
-        if (this.leadingIcon) {
-            html.push(
-                <i class="mdc-text-field__icon">
-                    <limel-icon name={this.leadingIcon} />
-                </i>
-            );
-        }
 
         const trailingIcon = this.getTrailingIcon();
 
@@ -525,7 +557,7 @@ export class InputField {
         }
 
         return html;
-    }
+    };
 
     private hasLink() {
         return (
@@ -552,10 +584,15 @@ export class InputField {
     }
 
     private renderLinkIcon(linkProps: LinkProperties, icon: string) {
+        // If the trailing icon uses the class `mdc-text-field__icon--trailing`,
+        // MDC attaches a click handler to it, which apparently runs
+        // `preventDefault()` on the event. For links, we don't want that,
+        // so instead of `mdc-text-field__icon--trailing`, we use our own class
+        // `lime-trailing-icon-for-link`, which uses all the same styling. /Ads
         return (
             <a
                 {...linkProps}
-                class="mdc-text-field__icon trailing-icon"
+                class="material-icons mdc-text-field__icon lime-trailing-icon-for-link"
                 tabindex={this.disabled ? '-1' : '0'}
                 role="button"
             >
@@ -565,13 +602,19 @@ export class InputField {
     }
 
     private renderTrailingIcon(icon: string) {
+        const props: any = {
+            tabIndex: this.isInvalid() ? '-1' : '0',
+        };
+        if (!this.isInvalid()) {
+            props.onKeyPress = this.handleIconKeyPress;
+            props.onClick = this.handleIconClick;
+            props.role = 'button';
+        }
+
         return (
             <i
-                onKeyPress={this.handleIconKeyPress}
-                onClick={this.handleIconClick}
-                class="mdc-text-field__icon trailing-icon"
-                tabindex={this.isInvalid() ? '-1' : '0'}
-                role="button"
+                class="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
+                {...props}
             >
                 <limel-icon name={icon} />
             </i>
@@ -615,7 +658,11 @@ export class InputField {
             );
         }
 
-        return <span class="formatted-input">{renderValue}</span>;
+        return (
+            <span class="lime-formatted-input lime-looks-like-input-value">
+                {renderValue}
+            </span>
+        );
     }
 
     /**
@@ -655,7 +702,7 @@ export class InputField {
         event.preventDefault();
         if (isForwardTab || isDown) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-list-item:first-child'
+                '.mdc-deprecated-list-item:first-child'
             );
             listElement.focus();
 
@@ -664,7 +711,7 @@ export class InputField {
 
         if (isUp) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-list-item:last-child'
+                '.mdc-deprecated-list-item:last-child'
             );
             listElement.focus();
         }

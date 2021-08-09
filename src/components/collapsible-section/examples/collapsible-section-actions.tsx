@@ -31,10 +31,6 @@ export class CollapsibleSectionActionsExample {
         },
     ];
 
-    constructor() {
-        this.handleAction = this.handleAction.bind(this);
-    }
-
     public render() {
         return (
             <limel-collapsible-section
@@ -47,7 +43,7 @@ export class CollapsibleSectionActionsExample {
         );
     }
 
-    private handleAction(event: CustomEvent<Action>) {
+    private handleAction = (event: CustomEvent<Action>) => {
         this.action = event.detail;
-    }
+    };
 }

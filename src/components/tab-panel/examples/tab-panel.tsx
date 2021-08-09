@@ -41,10 +41,6 @@ export class TabPanelExample {
         },
     ];
 
-    constructor() {
-        this.handleChangeTab = this.handleChangeTab.bind(this);
-    }
-
     public render() {
         return [
             <limel-tab-panel
@@ -58,7 +54,7 @@ export class TabPanelExample {
         ];
     }
 
-    private handleChangeTab(event: CustomEvent<Tab>) {
+    private handleChangeTab = (event: CustomEvent<Tab>) => {
         this.tabs = this.tabs.map((tab) => {
             if (tab.id === event.detail.id) {
                 return event.detail;
@@ -66,5 +62,5 @@ export class TabPanelExample {
 
             return tab;
         });
-    }
+    };
 }

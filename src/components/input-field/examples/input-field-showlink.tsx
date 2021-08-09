@@ -6,7 +6,7 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-input-field-showlink',
     shadow: true,
-    styleUrl: 'input-field.scss',
+    styleUrl: 'show-link.scss',
 })
 export class InputFieldShowlinkExample {
     @State()
@@ -35,7 +35,7 @@ export class InputFieldShowlinkExample {
                 required={this.required}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.emailChangeHandler}
+                onChange={this.handleEmailChange}
                 type="email"
                 showLink
             />,
@@ -45,7 +45,7 @@ export class InputFieldShowlinkExample {
                 required={this.required}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.telChangeHandler}
+                onChange={this.handleTelChange}
                 type="tel"
                 showLink
             />,
@@ -55,7 +55,7 @@ export class InputFieldShowlinkExample {
                 required={this.required}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.urlChangeHandler}
+                onChange={this.handleUrlChange}
                 type="url"
                 showLink
             />,
@@ -65,7 +65,7 @@ export class InputFieldShowlinkExample {
                 required={this.required}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.urlChangeHandler}
+                onChange={this.handleUrlChange}
                 type="urlAsText"
                 showLink
             />,
@@ -94,15 +94,15 @@ export class InputFieldShowlinkExample {
         ];
     }
 
-    private emailChangeHandler = (event: CustomEvent<string>) => {
+    private handleEmailChange = (event: CustomEvent<string>) => {
         this.emailValue = event.detail;
     };
 
-    private telChangeHandler = (event: CustomEvent<string>) => {
+    private handleTelChange = (event: CustomEvent<string>) => {
         this.telValue = event.detail;
     };
 
-    private urlChangeHandler = (event: CustomEvent<string>) => {
+    private handleUrlChange = (event: CustomEvent<string>) => {
         this.urlValue = event.detail;
     };
 

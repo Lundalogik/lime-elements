@@ -3,16 +3,17 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
 
-@import '../../style/internal/mdc-variables';
+@use '../../style/internal/lime-theme';
 
-@import '@limetech/mdc-textfield/mdc-text-field';
-@import '@limetech/mdc-ripple/mdc-ripple';
-@import '@limetech/mdc-list/mdc-list';
-@import '@limetech/mdc-elevation/mdc-elevation';
-@import '@limetech/mdc-menu-surface/mdc-menu-surface';
-
-@import './partial-styles/trailing-icon.scss';
-@import './partial-styles/readonly';
+@use '@material/textfield';
+@use "@material/textfield/icon";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/floating-label";
+@use "@material/floating-label/mdc-floating-label";
+@use '@material/ripple';
+@use '@material/list';
+@use '@material/elevation';
+@use '@material/menu-surface';
 
 /**
  * @prop --textarea-height: Height of the field when type is set to `textarea`
@@ -33,53 +34,71 @@
     .mdc-text-field.mdc-text-field--textarea {
         height: var(--textarea-height, 100%);
 
+        .mdc-text-field__input {
+            margin-top: functions.pxToRem(8);
+            margin-bottom: 0;
+        }
+
         &.has-helper-line {
-            --heightOfHelperText: 1.1875rem;
+            --heightOfHelperText: 0.9375rem;
             height: calc(
                 var(--textarea-height, 100%) - var(--heightOfHelperText)
             );
         }
     }
-    textarea.mdc-text-field__input {
-        resize: vertical;
+}
+
+@include textfield.core-styles;
+@include icon.icon-core-styles;
+
+@include shared_input-select-picker.outlined-style-overrides;
+@include shared_input-select-picker.readonly-overrides;
+@include shared_input-select-picker.cropped-label-hack;
+@include shared_input-select-picker.disabled-overrides;
+@include shared_input-select-picker.leading-icon;
+@include shared_input-select-picker.trailing-icon;
+
+.mdc-text-field--with-trailing-icon {
+    .mdc-text-field__icon--trailing {
+        margin-right: functions.pxToRem(8);
     }
 }
 
-@include shared_input-select-picker.outlined-style-overrides;
-@include shared_input-select-picker.floating-label-overrides;
-@include shared_input-select-picker.readonly-overrides;
-@include shared_input-select-picker.cropped-label-hack;
-
-.formatted-input {
-    @include shared_input-select-picker.looks-like-input-label;
-    @include mixins.truncate-text;
-    width: calc(100% - #{functions.pxToRem(20)});
-
-    z-index: z-index.$input-field--formatted-input;
-    padding: 0 functions.pxToRem(40) 0 functions.pxToRem(16);
-    align-self: center;
-    position: absolute;
-
-    display: none;
-    color: shared_input-select-picker.$input-text-color;
+.mdc-text-field {
+    width: 100%;
 }
 
-:not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
-    .formatted-input {
+.lime-empty-value-for-readonly {
+    width: calc(100% - #{functions.pxToRem(20)});
+    z-index: z-index.$input-field--formatted-value;
+}
+
+.lime-looks-like-input-value {
+    @include shared_input-select-picker.looks-like-input-value;
+
+    .mdc-text-field--disabled & {
+        @include shared_input-select-picker.looks-disabled;
+    }
+}
+
+.lime-formatted-input {
+    width: calc(100% - #{functions.pxToRem(20)});
+    z-index: z-index.$input-field--formatted-value;
+
+    display: none;
+    :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) & {
         display: block;
     }
 
-    .mdc-text-field__input[type='number'] {
-        color: transparent;
-        -webkit-text-fill-color: transparent;
+    + .mdc-text-field__input {
+        z-index: z-index.$input-field--input-with-formatted-value;
     }
 }
 
-@include shared_input-select-picker.disabled-overrides;
-
-.mdc-text-field--disabled {
-    .formatted-input {
-        @include shared_input-select-picker.looks-disabled;
+:not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
+    .mdc-text-field__input[type='number'] {
+        color: transparent;
+        -webkit-text-fill-color: transparent;
     }
 }
 
@@ -97,11 +116,9 @@
     overflow-y: auto;
 }
 
-.mdc-list-item {
+.mdc-deprecated-list-item {
     cursor: pointer;
 }
-
-@include shared_input-select-picker.leading-icon;
 
 input.mdc-text-field__input {
     &::-webkit-search-cancel-button {
@@ -147,3 +164,6 @@ input.mdc-text-field__input {
         height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
     }
 }
+
+@import './partial-styles/trailing-icon.scss';
+@import './partial-styles/readonly';
