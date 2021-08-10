@@ -1,3 +1,10 @@
+### [33.1.2](https://github.com/Lundalogik/lime-elements/compare/v33.1.1...v33.1.2) (2021-08-09)
+
+
+### Bug Fixes
+
+* **form:** show the property name in the validation error when missing required property ([fbf0f49](https://github.com/Lundalogik/lime-elements/commit/fbf0f492d6335e765e0cb4fe7f74c0c31796bd30)), closes [Lundalogik/crm-feature#2254](https://github.com/Lundalogik/crm-feature/issues/2254)
+
 ### [33.1.1](https://github.com/Lundalogik/lime-elements/compare/v33.1.0...v33.1.1) (2021-08-04)
 
 
