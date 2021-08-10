@@ -1,3 +1,10 @@
+### [33.1.3](https://github.com/Lundalogik/lime-elements/compare/v33.1.2...v33.1.3) (2021-08-10)
+
+
+### Bug Fixes
+
+* **table:** center align loading spinner ([f03b7c9](https://github.com/Lundalogik/lime-elements/commit/f03b7c9c18989abfb5cbaf223cce54c928181ae7))
+
 ### [33.1.2](https://github.com/Lundalogik/lime-elements/compare/v33.1.1...v33.1.2) (2021-08-09)
 
 
