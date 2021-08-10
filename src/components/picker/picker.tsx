@@ -16,6 +16,8 @@ import {
     ARROW_DOWN_KEY_CODE,
     ARROW_UP,
     ARROW_UP_KEY_CODE,
+    ENTER,
+    ENTER_KEY_CODE,
     ESCAPE,
     ESCAPE_KEY_CODE,
     TAB,
@@ -160,6 +162,7 @@ export class Picker {
         this.handleStopEditAndBlur = this.handleStopEditAndBlur.bind(this);
         this.createDebouncedSearcher = this.createDebouncedSearcher.bind(this);
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
+        this.onListKeyDown = this.onListKeyDown.bind(this);
 
         this.portalId = createRandomString();
     }
@@ -343,10 +346,23 @@ export class Picker {
             <limel-list
                 badgeIcons={hasIcons}
                 onChange={this.handleListChange}
+                onKeyDown={this.onListKeyDown}
                 type="selectable"
                 items={this.items}
             />
         );
+    }
+
+    private onListKeyDown(event: KeyboardEvent) {
+        const keyFound = [TAB, ESCAPE, ENTER].includes(event.key);
+        const keyCodeFound = [
+            TAB_KEY_CODE,
+            ESCAPE_KEY_CODE,
+            ENTER_KEY_CODE,
+        ].includes(event.keyCode);
+        if (keyFound || keyCodeFound) {
+            this.chipSet.setFocus();
+        }
     }
 
     private renderPortal(content = null) {
