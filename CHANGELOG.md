@@ -1,3 +1,15 @@
+## [33.2.0](https://github.com/Lundalogik/lime-elements/compare/v33.1.3...v33.2.0) (2021-08-10)
+
+
+### Features
+
+* **chip-set:** allow "clear all" button to be optionally hidden ([857adb6](https://github.com/Lundalogik/lime-elements/commit/857adb6cdc3aeca2ccbe7c596048f1264a852558))
+
+
+### Bug Fixes
+
+* **picker:** hide "Clear all" button when picker does not allow to pick more than one choice ([4895b0d](https://github.com/Lundalogik/lime-elements/commit/4895b0d0551c16235c610d027932d0b3269b7a4f))
+
 ### [33.1.3](https://github.com/Lundalogik/lime-elements/compare/v33.1.2...v33.1.3) (2021-08-10)
 
 
