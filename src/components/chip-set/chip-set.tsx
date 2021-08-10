@@ -21,6 +21,7 @@ import translate from '../../global/translations';
 import { getHref, getTarget } from '../../util/link-helper';
 
 const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
+const INPUT_FIELD_TABINDEX = 1;
 
 /**
  * @exampleComponent limel-example-chip-set
@@ -356,6 +357,7 @@ export class ChipSet {
             >
                 {this.value.map(this.renderInputChip)}
                 <input
+                    tabIndex={INPUT_FIELD_TABINDEX}
                     type="text"
                     id="input-element"
                     disabled={this.readonly || this.disabled}
