@@ -17,6 +17,8 @@ import {
     ARROW_UP_KEY_CODE,
     ENTER,
     ENTER_KEY_CODE,
+    ESCAPE,
+    ESCAPE_KEY_CODE,
     SPACE,
     SPACE_KEY_CODE,
     TAB,
@@ -236,6 +238,7 @@ export class InputField {
         this.getContainerClassList = this.getContainerClassList.bind(this);
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
         this.setFocus = this.setFocus.bind(this);
+        this.handleKeyDownInDropdown = this.handleKeyDownInDropdown.bind(this);
 
         const debounceTimeout = 300;
         this.changeEmitter = debounce(this.changeEmitter, debounceTimeout);
@@ -308,7 +311,7 @@ export class InputField {
 
         return [
             <label class={this.getContainerClassList()}>
-                <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline" tabindex="-1">
                     <span class="mdc-notched-outline__leading"></span>
                     <span class="mdc-notched-outline__notch">
                         <span class={labelClassList} id={labelId}>
@@ -447,7 +450,7 @@ export class InputField {
         }
 
         return (
-            <div class="mdc-text-field-helper-line">
+            <div tabIndex={-1} class="mdc-text-field-helper-line">
                 {this.renderHelperText()}
                 {this.renderCharacterCounter()}
             </div>
@@ -787,10 +790,23 @@ export class InputField {
         return (
             <limel-list
                 onChange={this.handleCompletionChange}
+                onKeyDown={this.handleKeyDownInDropdown}
                 type="selectable"
                 items={filteredCompletions}
             />
         );
+    }
+
+    private handleKeyDownInDropdown(event: KeyboardEvent) {
+        const keyFound = [TAB, ESCAPE, ENTER].includes(event.key);
+        const keyCodeFound = [
+            TAB_KEY_CODE,
+            ESCAPE_KEY_CODE,
+            ENTER_KEY_CODE,
+        ].includes(event.keyCode);
+        if (keyFound || keyCodeFound) {
+            this.setFocus();
+        }
     }
 
     private handleCloseMenu() {
