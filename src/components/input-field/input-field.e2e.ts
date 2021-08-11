@@ -137,7 +137,7 @@ describe('limel-input-field', () => {
                 });
                 it('has the expected structure', () => {
                     expect(outline).toEqualHtml(`
-                    <span class="mdc-notched-outline mdc-notched-outline--upgraded">
+                    <span class="mdc-notched-outline mdc-notched-outline--upgraded" tabindex="-1">
                         <span class="mdc-notched-outline__leading"></span>
                         <span class="mdc-notched-outline__notch">
                             <span id="tf-input-label" class="mdc-floating-label">
