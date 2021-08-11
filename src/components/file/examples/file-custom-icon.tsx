@@ -3,6 +3,11 @@ import { Component, h, State } from '@stencil/core';
 
 /**
  * Custom icon and color
+ * This component automatically visualizes the file type, based on the extension
+ * of the selected file. The visualization is done by displaying a colorful icon
+ * along with the filename, for the most common file types.
+ *
+ * However, you can also customize the icon and its fill color & background color.
  */
 @Component({
     tag: 'limel-example-file-custom-icon',
@@ -11,9 +16,6 @@ import { Component, h, State } from '@stencil/core';
 export class FileCustomIconExample {
     @State()
     private value: FileInfo = { filename: 'custom.crab', id: 123 };
-
-    @State()
-    private required = false;
 
     public componentWillLoad() {
         this.updateIcon();
@@ -24,16 +26,9 @@ export class FileCustomIconExample {
             <limel-file
                 label="Attach a file"
                 onChange={this.handleChange}
-                required={this.required}
                 value={this.value}
             />,
-            <limel-flex-container justify="end">
-                <limel-switch
-                    label="Toggle required"
-                    value={this.required}
-                    onChange={this.toggleRequired}
-                />
-            </limel-flex-container>,
+            <limel-example-value value={this.value} />,
         ];
     }
 
@@ -50,8 +45,4 @@ export class FileCustomIconExample {
             this.value.iconBackgroundColor = 'rgb(var(--color-coral-default))';
         }
     }
-
-    private toggleRequired = () => {
-        this.required = !this.required;
-    };
 }

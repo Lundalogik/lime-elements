@@ -1,11 +1,11 @@
 @use '../../style/functions';
+@use '../../style/internal/shared_input-select-picker';
 @use '../../style/internal/lime-theme';
+@use '../../style/internal/lime-typography';
 
 @use '@material/switch';
 
 @include switch.core-styles;
-
-@import './partial-styles/_readonly.scss';
 
 :host {
     display: inline-flex;
@@ -18,11 +18,13 @@
 }
 
 label {
-    line-height: normal;
+    @include lime-typography.typography(body2);
 
     cursor: pointer;
 
     &.disabled {
-        cursor: default;
+        @include shared_input-select-picker.looks-disabled;
     }
 }
+
+@import './partial-styles/_readonly.scss';

@@ -1,4 +1,5 @@
-import { Chip, FileInfo } from '@limetech/lime-elements';
+import translate from '../../global/translations';
+import { Chip, FileInfo, Languages } from '@limetech/lime-elements';
 import { MDCTextField } from '@material/textfield';
 import {
     Component,
@@ -7,8 +8,15 @@ import {
     EventEmitter,
     h,
     Prop,
+    State,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
+import {
+    getFileBackgroundColor,
+    getFileColor,
+    getFileExtensionTitle,
+    getFileIcon,
+} from './file-metadata';
 
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 const DEFAULT_FILE_CHIP: Chip = {
@@ -16,7 +24,6 @@ const DEFAULT_FILE_CHIP: Chip = {
     text: null,
     removable: true,
 };
-const DEFAULT_ICON = 'note';
 
 /**
  * This component lets end-users select a *single* file from their device
@@ -96,6 +103,12 @@ export class File {
     public accept: string = '*';
 
     /**
+     * Defines the localisation for translations.
+     */
+    @Prop()
+    public language: Languages = 'en';
+
+    /**
      * Dispatched when a file is selected/deselected
      */
     @Event()
@@ -109,6 +122,9 @@ export class File {
 
     @Element()
     private element: HTMLLimelFileElement;
+
+    @State()
+    private isDraggingOverDropZone = false;
 
     private fileInput: HTMLInputElement;
     private fileInputId = createRandomString();
@@ -164,24 +180,47 @@ export class File {
                 disabled={this.disabled || this.readonly}
             />,
             <limel-chip-set
+                class={{
+                    'is-file-picker': true,
+                    'shows-dropzone': true,
+                    'highlight-dropzone': this.isDraggingOverDropZone,
+                }}
                 disabled={this.disabled}
                 readonly={this.readonly}
                 label={this.label}
                 leadingIcon="upload_to_cloud"
                 onChange={this.handleChipSetChange}
                 onClick={this.handleFileSelection}
-                onDragEnter={this.preventAndStop}
-                onDragOver={this.preventAndStop}
-                onDrop={this.handleFileDrop}
                 onInteract={this.handleChipInteract}
                 onKeyDown={this.handleKeyDown}
                 onKeyUp={this.handleKeyUp}
                 required={this.required}
                 type="input"
                 value={this.chipArray}
+                title={this.getTranslation('drag-and-drop-tips')}
+                onDragEnter={this.handleDragEnter}
+                onDragOver={this.preventAndStop}
+                onDragLeave={this.handleDragLeave}
+                onDrop={this.handleFileDrop}
             />,
         ];
     }
+
+    private handleDragEnter = (event: DragEvent) => {
+        this.isDraggingOverDropZone = true;
+        this.preventAndStop(event);
+    };
+
+    private handleDragLeave = () => {
+        this.isDraggingOverDropZone = false;
+    };
+
+    private handleFileDrop = (event: DragEvent) => {
+        this.preventAndStop(event);
+        this.isDraggingOverDropZone = false;
+        const dataTransfer = event.dataTransfer;
+        this.handleFile(dataTransfer.files[0]);
+    };
 
     private get chipArray() {
         if (!this.value) {
@@ -193,10 +232,11 @@ export class File {
                 ...DEFAULT_FILE_CHIP,
                 text: this.value.filename,
                 id: this.value.id,
-                icon: this.value.icon || DEFAULT_ICON,
-                iconFillColor: this.value.iconColor,
-                iconBackgroundColor: this.value.iconBackgroundColor,
+                icon: getFileIcon(this.value),
+                iconFillColor: getFileColor(this.value),
+                iconBackgroundColor: getFileBackgroundColor(this.value),
                 href: this.value.href,
+                iconTitle: getFileExtensionTitle(this.value),
             },
         ];
     }
@@ -261,12 +301,6 @@ export class File {
         }
     }
 
-    private handleFileDrop(event: DragEvent) {
-        this.preventAndStop(event);
-        const dataTransfer = event.dataTransfer;
-        this.handleFile(dataTransfer.files[0]);
-    }
-
     private handleChipInteract(event: CustomEvent<Chip>) {
         event.stopPropagation();
         event.preventDefault();
@@ -276,5 +310,9 @@ export class File {
     private preventAndStop(event: Event) {
         event.stopPropagation();
         event.preventDefault();
+    }
+
+    private getTranslation(key: string) {
+        return translate.get(`file.${key}`, this.language);
     }
 }

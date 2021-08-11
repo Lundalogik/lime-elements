@@ -2,10 +2,6 @@
 @use '@material/elevation';
 @use '@material/menu';
 
-/**
- * @prop --menu-surface-width: Width of the menu surface. Defaults to `auto`
- */
-
 :host {
     display: block;
 }

@@ -21,6 +21,10 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
     display: block;
 }
 
+#tabulator-container {
+    position: relative;
+}
+
 #tabulator-container,
 #tabulator-table {
     @include lime-typography.base;

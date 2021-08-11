@@ -1,4 +1,4 @@
-import { FileInfo } from '@limetech/lime-elements';
+import { FileInfo, Languages } from '@limetech/lime-elements';
 import { Component, h, Prop, State } from '@stencil/core';
 
 /**
@@ -19,8 +19,9 @@ export class FileCompositeExample {
         label: 'Attach a file',
         value: {
             id: '123',
-            filename: 'picture.jpg',
+            filename: 'document.pdf',
         } as FileInfo,
+        language: 'en' as Languages,
     };
 
     private eventPrinter: HTMLLimelExampleEventPrinterElement;

@@ -31,6 +31,7 @@
 @include shared_input-select-picker.leading-icon;
 
 $height-of-chip-set-input: functions.pxToRem(36);
+$leading-icon-space: functions.pxToRem(40);
 
 .mdc-chip {
     @include mixins.is-elevated-inset-clickable;
@@ -134,9 +135,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
     &.mdc-chip-set--input {
         padding: functions.pxToRem(8);
-        padding-right: functions.pxToRem(
-            32
-        ); // This leaves space for "clear all" button and avoids overlapping with chips
+
         width: 100%;
 
         .mdc-chip--selected {
@@ -146,6 +145,14 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             .mdc-chip__icon--trailing {
                 color: rgb(var(--color-red-dark));
             }
+        }
+    }
+
+    &.has-clear-all-button {
+        &.mdc-chip-set--input {
+            padding-right: functions.pxToRem(
+                32
+            ); // This leaves space for "clear all" button and avoids overlapping with chips
         }
     }
 
@@ -215,6 +222,10 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
 // used only in chipsets that do not have input
 .chip-set__label {
+    @include mixins.truncate-text;
+    width: 120%; // `120%` instead of `100%`,
+    // because this class is always together with `mdc-floating-label--float-above`,
+    // which scales the label down. So there is more horizontal space to display the label in.
     top: functions.pxToRem(13);
     padding-left: functions.pxToRem(20);
 }
@@ -272,12 +283,14 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .has-leading-icon {
     &:not(.has-chips) {
         .mdc-text-field__input {
-            padding-left: functions.pxToRem(40);
+            padding-left: $leading-icon-space;
         }
 
         .mdc-floating-label {
-            &:not(.lime-floating-label--float-above) {
-                padding-left: functions.pxToRem(40);
+            padding-left: $leading-icon-space;
+            max-width: calc(100% - #{$leading-icon-space});
+            &.lime-floating-label--float-above {
+                padding-left: 0;
             }
         }
     }
@@ -304,3 +317,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     opacity: 0.5;
     padding: 0 functions.pxToRem(2);
 }
+
+@import './partial-styles/_readonly';
+@import './partial-styles/_file-picker';

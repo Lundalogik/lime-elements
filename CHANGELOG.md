@@ -1,3 +1,73 @@
+## [33.3.0](https://github.com/Lundalogik/lime-elements/compare/v33.2.0...v33.3.0) (2021-08-11)
+
+
+### Features
+
+* **chip.types:** add iconTitle to the chip interface ([ce335f9](https://github.com/Lundalogik/lime-elements/commit/ce335f928c9aa16753276245071393b1de55a5e1))
+* **file:** display icon of most common filetypes on chip ([2a4dfd8](https://github.com/Lundalogik/lime-elements/commit/2a4dfd849523b84d81a2b7e46750c556feed2fe1))
+
+
+### Bug Fixes
+
+* **chip-set:** enable setting title attribute to the lime-icon ([c573a37](https://github.com/Lundalogik/lime-elements/commit/c573a3763012e8cff9c21c26ea3a25b25fc139a2))
+
+## [33.2.0](https://github.com/Lundalogik/lime-elements/compare/v33.1.3...v33.2.0) (2021-08-10)
+
+
+### Features
+
+* **chip-set:** allow "clear all" button to be optionally hidden ([857adb6](https://github.com/Lundalogik/lime-elements/commit/857adb6cdc3aeca2ccbe7c596048f1264a852558))
+
+
+### Bug Fixes
+
+* **picker:** hide "Clear all" button when picker does not allow to pick more than one choice ([4895b0d](https://github.com/Lundalogik/lime-elements/commit/4895b0d0551c16235c610d027932d0b3269b7a4f))
+
+### [33.1.3](https://github.com/Lundalogik/lime-elements/compare/v33.1.2...v33.1.3) (2021-08-10)
+
+
+### Bug Fixes
+
+* **table:** center align loading spinner ([f03b7c9](https://github.com/Lundalogik/lime-elements/commit/f03b7c9c18989abfb5cbaf223cce54c928181ae7))
+
+### [33.1.2](https://github.com/Lundalogik/lime-elements/compare/v33.1.1...v33.1.2) (2021-08-09)
+
+
+### Bug Fixes
+
+* **form:** show the property name in the validation error when missing required property ([fbf0f49](https://github.com/Lundalogik/lime-elements/commit/fbf0f492d6335e765e0cb4fe7f74c0c31796bd30)), closes [Lundalogik/crm-feature#2254](https://github.com/Lundalogik/crm-feature/issues/2254)
+
+### [33.1.1](https://github.com/Lundalogik/lime-elements/compare/v33.1.0...v33.1.1) (2021-08-04)
+
+
+### Bug Fixes
+
+* **menu:** pass css props defined for menu to portal ([e6e98a8](https://github.com/Lundalogik/lime-elements/commit/e6e98a8fbadfb38a1d6278f6bdeb21397dc460e8))
+
+## [33.1.0](https://github.com/Lundalogik/lime-elements/compare/v33.0.2...v33.1.0) (2021-07-23)
+
+
+### Features
+
+* **file:** add a visual dropzone ([1de3f70](https://github.com/Lundalogik/lime-elements/commit/1de3f70fd284684e6df2424276cde439ffcb781a))
+
+### [33.0.2](https://github.com/Lundalogik/lime-elements/compare/v33.0.1...v33.0.2) (2021-07-22)
+
+
+### Bug Fixes
+
+* **switch:** improve `readonly` styles ([e119999](https://github.com/Lundalogik/lime-elements/commit/e1199992207ae440fe45f586952e73b52560e718))
+* **switch:** make `disabled` switch look disabled ([1a74f27](https://github.com/Lundalogik/lime-elements/commit/1a74f2766bffeaf8920cdf5fa4d4562e14f2f66e))
+* **switch:** make label text look like checkbox's label ([c893a23](https://github.com/Lundalogik/lime-elements/commit/c893a235e2c0954e418f4ccc0a0c610f0aa65226))
+
+### [33.0.1](https://github.com/Lundalogik/lime-elements/compare/v33.0.0...v33.0.1) (2021-07-22)
+
+
+### Bug Fixes
+
+* **chip-set:** make label truncate correctly when there is a leading icon ([e11e7c0](https://github.com/Lundalogik/lime-elements/commit/e11e7c081b234ed13a499eaf18ef4fb32baa0312))
+* **chip-set:** make label truncate when chip-set has no input field ([df32824](https://github.com/Lundalogik/lime-elements/commit/df328240380806811098e81775887405dce211db))
+
 ## [33.0.0](https://github.com/Lundalogik/lime-elements/compare/v32.4.4...v33.0.0) (2021-07-21)
 
 
