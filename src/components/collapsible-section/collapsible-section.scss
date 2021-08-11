@@ -62,6 +62,13 @@
             rgb(var(--contrast-300))
         );
     }
+
+    &:focus {
+        outline: none;
+    }
+    &:focus-visible {
+        box-shadow: var(--shadow-depth-8-focused);
+    }
 }
 
 .section__header__title {

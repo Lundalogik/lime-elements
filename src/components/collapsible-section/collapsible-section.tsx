@@ -1,6 +1,14 @@
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+    Element,
+} from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { Action } from './action';
+import { ENTER, ENTER_KEY_CODE } from '../../util/keycodes';
 
 /**
  * @slot - Content to put inside the collapsible section
@@ -52,6 +60,9 @@ export class CollapsibleSection {
     @Event()
     private action: EventEmitter<Action>;
 
+    @Element()
+    private host: HTMLLimelCollapsibleSectionElement;
+
     constructor() {
         this.onClick = this.onClick.bind(this);
         this.renderActionButton = this.renderActionButton.bind(this);
@@ -60,7 +71,12 @@ export class CollapsibleSection {
     public render() {
         return (
             <section class={`${this.isOpen ? 'open' : ''}`}>
-                <header class="section__header" onClick={this.onClick}>
+                <header
+                    class="section__header"
+                    onClick={this.onClick}
+                    onKeyDown={this.handleKeyDown}
+                    tabindex="0"
+                >
                     <div class="section__header__expand-icon">
                         <div class="expand-icon__line"></div>
                         <div class="expand-icon__line"></div>
@@ -91,6 +107,18 @@ export class CollapsibleSection {
             this.close.emit();
         }
     }
+
+    private handleKeyDown = (event: KeyboardEvent) => {
+        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
+
+        if (isEnter) {
+            event.stopPropagation();
+            event.preventDefault();
+            const element = (this.host.shadowRoot.activeElement ||
+                document.activeElement) as HTMLElement;
+            element.click();
+        }
+    };
 
     private renderActions() {
         if (!this.actions) {
