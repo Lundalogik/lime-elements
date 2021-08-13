@@ -11,6 +11,12 @@ import {
     State,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
+import {
+    getFileBackgroundColor,
+    getFileColor,
+    getFileExtensionTitle,
+    getFileIcon,
+} from './file-metadata';
 
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 const DEFAULT_FILE_CHIP: Chip = {
@@ -18,7 +24,6 @@ const DEFAULT_FILE_CHIP: Chip = {
     text: null,
     removable: true,
 };
-const DEFAULT_ICON = 'note';
 
 /**
  * This component lets end-users select a *single* file from their device
@@ -227,10 +232,11 @@ export class File {
                 ...DEFAULT_FILE_CHIP,
                 text: this.value.filename,
                 id: this.value.id,
-                icon: this.value.icon || DEFAULT_ICON,
-                iconFillColor: this.value.iconColor,
-                iconBackgroundColor: this.value.iconBackgroundColor,
+                icon: getFileIcon(this.value),
+                iconFillColor: getFileColor(this.value),
+                iconBackgroundColor: getFileBackgroundColor(this.value),
                 href: this.value.href,
+                iconTitle: getFileExtensionTitle(this.value),
             },
         ];
     }

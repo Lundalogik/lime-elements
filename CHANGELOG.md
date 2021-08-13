@@ -1,3 +1,30 @@
+## [33.4.0](https://github.com/Lundalogik/lime-elements/compare/v33.3.0...v33.4.0) (2021-08-11)
+
+
+### Features
+
+* **spinner:** render it like Lime logo or optionally like a circle… ([89ff7ed](https://github.com/Lundalogik/lime-elements/commit/89ff7edc648560be4c9f0fcf6adca3715f38f355))
+
+
+### Bug Fixes
+
+* **button:** make it work nicely with the new spinner by rendering the spinner as a circle ([a50a168](https://github.com/Lundalogik/lime-elements/commit/a50a16862c193b29caf6a81f9161615276783ba1))
+* **picker:** improve how spinner is visualized in picker's results list ([f4cabbc](https://github.com/Lundalogik/lime-elements/commit/f4cabbc23d4d71bc0156ac992bab9142a6777374))
+* **picker:** make it work nicely with the new spinner ([893adf8](https://github.com/Lundalogik/lime-elements/commit/893adf8e43b62a326b029190b484afb784cc5f5e))
+
+## [33.3.0](https://github.com/Lundalogik/lime-elements/compare/v33.2.0...v33.3.0) (2021-08-11)
+
+
+### Features
+
+* **chip.types:** add iconTitle to the chip interface ([ce335f9](https://github.com/Lundalogik/lime-elements/commit/ce335f928c9aa16753276245071393b1de55a5e1))
+* **file:** display icon of most common filetypes on chip ([2a4dfd8](https://github.com/Lundalogik/lime-elements/commit/2a4dfd849523b84d81a2b7e46750c556feed2fe1))
+
+
+### Bug Fixes
+
+* **chip-set:** enable setting title attribute to the lime-icon ([c573a37](https://github.com/Lundalogik/lime-elements/commit/c573a3763012e8cff9c21c26ea3a25b25fc139a2))
+
 ## [33.2.0](https://github.com/Lundalogik/lime-elements/compare/v33.1.3...v33.2.0) (2021-08-10)
 
 
