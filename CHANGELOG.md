@@ -1,3 +1,12 @@
+### [33.4.1](https://github.com/Lundalogik/lime-elements/compare/v33.4.0...v33.4.1) (2021-08-13)
+
+
+### Bug Fixes
+
+* **chipset:** ensure input field gets focus first when tabbing ([e19079b](https://github.com/Lundalogik/lime-elements/commit/e19079b8faad4ef87f39c25fc79ccfe404f52ed3))
+* **input:** ensure input component has focus after leaving search results ([3ec035b](https://github.com/Lundalogik/lime-elements/commit/3ec035bdba16a20535b1f72d4310dbc8392ea6fd))
+* **picker:** ensure picker component has focus after leaving search results ([b93c9d9](https://github.com/Lundalogik/lime-elements/commit/b93c9d91d5b7a0fddc4ca11912c071b11ea71016))
+
 ## [33.4.0](https://github.com/Lundalogik/lime-elements/compare/v33.3.0...v33.4.0) (2021-08-11)
 
 
