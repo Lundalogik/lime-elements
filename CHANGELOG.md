@@ -1,3 +1,10 @@
+## [33.5.0](https://github.com/Lundalogik/lime-elements/compare/v33.4.1...v33.5.0) (2021-08-16)
+
+
+### Features
+
+* **collapsible-section:** enable keyboard navigation and interaction ([0a26ce5](https://github.com/Lundalogik/lime-elements/commit/0a26ce5593e96a8e28a9634ffb4a4c5f9d5cd177))
+
 ### [33.4.1](https://github.com/Lundalogik/lime-elements/compare/v33.4.0...v33.4.1) (2021-08-13)
 
 
