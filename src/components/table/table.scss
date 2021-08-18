@@ -45,8 +45,16 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
             border-right-color: rgb(var(--contrast-200));
 
             .tabulator-col-content {
-                padding-top: functions.pxToRem(8);
-                padding-bottom: functions.pxToRem(8);
+                padding-top: 0;
+                padding-bottom: 0;
+                display: flex;
+                align-items: center;
+                height: functions.pxToRem(32);
+
+                .tabulator-col-title-holder {
+                    display: flex;
+                    width: 100%;
+                }
             }
 
             &.tabulator-sortable {
@@ -54,11 +62,12 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
                     background-color: $table-header-background-color-hover;
                 }
             }
-        }
 
-        .tabulator-col-title {
-            font-weight: 500;
-            padding-left: functions.pxToRem(2);
+            .tabulator-col-title {
+                font-weight: 500;
+                padding-right: functions.pxToRem(8) !important;
+                padding-left: functions.pxToRem(2);
+            }
         }
     }
 
