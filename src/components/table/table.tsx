@@ -90,13 +90,19 @@ export class Table {
     public loading: boolean = false;
 
     /**
+     * The page to show
+     */
+    @Prop()
+    public page: number = FIRST_PAGE;
+
+    /**
      * Emitted when `mode` is `local` the data is sorted
      */
     @Event()
     public sort: EventEmitter<ColumnSorter[]>;
 
     /**
-     * Emitted when `mode` is `local` and a new page has been set
+     * Emitted when a new page has been set
      */
     @Event()
     public changePage: EventEmitter<number>;
@@ -123,7 +129,6 @@ export class Table {
     @Element()
     private host: HTMLLimelTableElement;
 
-    private currentPage: number;
     private currentLoad: { page: number; sorters: ColumnSorter[] };
 
     private tabulator: Tabulator;
@@ -151,10 +156,6 @@ export class Table {
     }
 
     public componentDidLoad() {
-        if (this.pageSize) {
-            this.currentPage = FIRST_PAGE;
-        }
-
         this.init();
     }
 
@@ -170,6 +171,19 @@ export class Table {
     @Watch('pageSize')
     public pageSizeChanged() {
         this.updateMaxPage();
+    }
+
+    @Watch('page')
+    public pageChanged() {
+        if (!this.tabulator) {
+            return;
+        }
+
+        if (this.tabulator.getPage() === this.page) {
+            return;
+        }
+
+        this.tabulator.setPage(this.page);
     }
 
     @Watch('activeRow')
@@ -354,13 +368,18 @@ export class Table {
         return {
             pagination: this.isRemoteMode() ? 'remote' : 'local',
             paginationSize: this.pageSize,
-            paginationInitialPage: this.currentPage,
+            paginationInitialPage: this.page,
         };
     }
 
     private requestData(_, __, params: any): Promise<object> {
         const sorters = params.sorters;
         const currentPage = params.page;
+
+        if (this.page !== currentPage) {
+            this.changePage.emit(currentPage);
+        }
+
         const columnSorters = sorters.map(createColumnSorter(this.columns));
 
         const load = {
@@ -381,7 +400,6 @@ export class Table {
             return resolveExistingData;
         }
 
-        this.currentPage = currentPage;
         this.currentSorting = columnSorters;
         this.currentLoad = load;
         this.load.emit(load);
