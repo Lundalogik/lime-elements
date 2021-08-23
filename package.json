@@ -63,7 +63,7 @@
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.4",
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jsdoc": "^35.5.1",
     "eslint-plugin-prefer-arrow": "^1.2.3",
