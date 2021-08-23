@@ -1,3 +1,5 @@
+@use '../../style/internal/z-index';
+
 /**
  * @prop --popover-surface-width: Width of the popover surface. defaults to `auto`
  * @prop --popover-body-background-color: Background color of popover body, defaults to `--contrast-100`.
@@ -8,4 +10,18 @@
 .trigger-anchor {
     display: inline-block;
     position: relative;
+}
+
+.limel-popover-backdrop {
+    background: rgba(
+        cyan,
+        0.2
+    ); // this is for testing only, to make the div visible
+    border: 4px solid red; // this is for testing only, to make the div visible
+    z-index: var(--popover-z-index, z-index.$popover-backdrop-fallback);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
