@@ -59,7 +59,7 @@
     "@typescript-eslint/parser": "^4.29.2",
     "ajv": "^6.12.2",
     "awesome-debounce-promise": "^2.1.0",
-    "codemirror": "^5.61.1",
+    "codemirror": "^5.62.3",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.4",
