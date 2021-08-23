@@ -40,7 +40,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^12.1.4",
+    "@commitlint/config-conventional": "^13.1.0",
     "@lundalogik/cz-conventional-changelog": "^3.1.0",
     "@lundalogik/lime-icons8": "^2.4.0",
     "@popperjs/core": "^2.9.2",
