@@ -81,7 +81,7 @@
     "moment": "^2.29.1",
     "number-abbreviate": "^2.0.0",
     "prettier": "^2.3.2",
-    "puppeteer": "^7.1.0",
+    "puppeteer": "^10.2.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-shadow-dom-retarget-events": "^1.0.11",
