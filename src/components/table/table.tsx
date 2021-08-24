@@ -108,6 +108,12 @@ export class Table {
     public changePage: EventEmitter<number>;
 
     /**
+     * A message to display when the table has no data
+     */
+    @Prop()
+    public emptyMessage: string;
+
+    /**
      * Emitted when `mode` is `remote` and the table is loading new data. The
      * consumer is responsible for giving the table new data
      */
@@ -309,6 +315,7 @@ export class Table {
             dataFiltered: this.updateMaxPage,
             nestedFieldSeparator: false,
             ...columnOptions,
+            placeholder: this.emptyMessage,
         };
     }
 
