@@ -1,3 +1,10 @@
+### [33.5.2](https://github.com/Lundalogik/lime-elements/compare/v33.5.1...v33.5.2) (2021-08-24)
+
+
+### Bug Fixes
+
+* **popover:** prevent triggering of default link actions which are below an open popover ([bcbcfcb](https://github.com/Lundalogik/lime-elements/commit/bcbcfcbbc7f44463041c619700b934b25de5809d))
+
 ### [33.5.1](https://github.com/Lundalogik/lime-elements/compare/v33.5.0...v33.5.1) (2021-08-24)
 
 
