@@ -56,7 +56,11 @@ export class TableExampleCustomComponents {
                 formatter: this.capitalizeStrings,
             },
             { title: 'Nest type', field: 'nest', formatter: capitalize },
-            { title: 'Eggs per clutch', field: 'eggs' },
+            {
+                title: 'Eggs per clutch',
+                field: 'eggs',
+                horizontalAlign: 'right',
+            },
             { title: 'Origin', field: 'origin' },
         ];
     }

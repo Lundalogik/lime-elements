@@ -41,6 +41,7 @@ export class TableExampleHeadermenu {
         {
             title: 'Age',
             field: 'age',
+            horizontalAlign: 'right',
         },
         {
             title: 'Kind',
@@ -49,6 +50,7 @@ export class TableExampleHeadermenu {
         {
             title: 'Height',
             field: 'height',
+            horizontalAlign: 'right',
         },
         {
             title: 'Stamina',
