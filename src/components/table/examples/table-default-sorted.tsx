@@ -36,8 +36,13 @@ export class TableExampleDefaultSorted {
             {
                 title: 'Eggs per clutch',
                 field: 'eggs',
+                horizontalAlign: 'right',
             },
-            { title: 'Origin', field: 'origin' },
+            {
+                title: 'Origin',
+                field: 'origin',
+                horizontalAlign: 'right',
+            },
         ];
 
         this.sortedColumns = [

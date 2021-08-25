@@ -38,6 +38,7 @@ export class TableExampleLocal {
                 title: 'Eggs per clutch',
                 field: 'eggs',
                 aggregator: ColumnAggregatorType.Average,
+                horizontalAlign: 'right',
             },
             { title: 'Origin', field: 'origin' },
         ];

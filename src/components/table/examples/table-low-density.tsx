@@ -118,8 +118,8 @@ export class TableExample {
     public columns: Column[] = [
         { title: 'Invoice no.', field: 'invoiceNumber' },
         { title: 'Client no.', field: 'clientNumber' },
-        { title: 'VAT', field: 'vat' },
-        { title: 'Amount', field: 'amount' },
+        { title: 'VAT', field: 'vat', horizontalAlign: 'right' },
+        { title: 'Amount', field: 'amount', horizontalAlign: 'right' },
         { title: 'Invoice Date', field: 'invoiceDate' },
         { title: 'Reference Person', field: 'referencePerson' },
     ] as any;
