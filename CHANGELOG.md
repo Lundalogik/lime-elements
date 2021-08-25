@@ -1,3 +1,10 @@
+## [33.6.0](https://github.com/Lundalogik/lime-elements/compare/v33.5.3...v33.6.0) (2021-08-25)
+
+
+### Features
+
+* **table:** be able to set the page number in a table ([9773538](https://github.com/Lundalogik/lime-elements/commit/97735388ca2a9e6a23adaec27d5ba71b6f9e816d)), closes [Lundalogik/crm-feature#2197](https://github.com/Lundalogik/crm-feature/issues/2197)
+
 ### [33.5.3](https://github.com/Lundalogik/lime-elements/compare/v33.5.2...v33.5.3) (2021-08-25)
 
 
