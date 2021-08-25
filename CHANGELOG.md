@@ -1,3 +1,10 @@
+### [33.5.3](https://github.com/Lundalogik/lime-elements/compare/v33.5.2...v33.5.3) (2021-08-25)
+
+
+### Bug Fixes
+
+* **popover-surface:** make backdrop filter work on IOS ([a44ff04](https://github.com/Lundalogik/lime-elements/commit/a44ff04303909563c5360b8abf05ffc21784c87e))
+
 ### [33.5.2](https://github.com/Lundalogik/lime-elements/compare/v33.5.1...v33.5.2) (2021-08-24)
 
 
