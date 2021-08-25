@@ -118,6 +118,7 @@ export class Popover {
         return (
             <div class="trigger-anchor">
                 <slot name="trigger"></slot>
+                {this.renderBackdrop()}
                 <limel-portal
                     visible={this.open}
                     containerId={this.portalId}
@@ -130,6 +131,14 @@ export class Popover {
                 </limel-portal>
             </div>
         );
+    }
+
+    private renderBackdrop() {
+        if (!this.open) {
+            return;
+        }
+
+        return <div class="limel-popover-backdrop" />;
     }
 
     private globalClickListener(event: MouseEvent) {
