@@ -1,3 +1,25 @@
+### [33.5.3](https://github.com/Lundalogik/lime-elements/compare/v33.5.2...v33.5.3) (2021-08-25)
+
+
+### Bug Fixes
+
+* **popover-surface:** make backdrop filter work on IOS ([a44ff04](https://github.com/Lundalogik/lime-elements/commit/a44ff04303909563c5360b8abf05ffc21784c87e))
+
+### [33.5.2](https://github.com/Lundalogik/lime-elements/compare/v33.5.1...v33.5.2) (2021-08-24)
+
+
+### Bug Fixes
+
+* **popover:** prevent triggering of default link actions which are below an open popover ([bcbcfcb](https://github.com/Lundalogik/lime-elements/commit/bcbcfcbbc7f44463041c619700b934b25de5809d))
+
+### [33.5.1](https://github.com/Lundalogik/lime-elements/compare/v33.5.0...v33.5.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* **code-editor:** update underlying library, which includes some very minor bugfixes ([799fdea](https://github.com/Lundalogik/lime-elements/commit/799fdea80eddb4843cf180b5369f2f4ba82750aa))
+* **portal:** update underlying library, fixing positioning of elements with scaled parents ([faabbbe](https://github.com/Lundalogik/lime-elements/commit/faabbbe41697090d2248bb8de7220560b8b15e21))
+
 ## [33.5.0](https://github.com/Lundalogik/lime-elements/compare/v33.4.1...v33.5.0) (2021-08-16)
 
 
