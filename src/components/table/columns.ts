@@ -19,6 +19,7 @@ export class ColumnDefinitionFactory {
         const definition: Tabulator.ColumnDefinition = {
             title: column.title,
             field: column.field,
+            hozAlign: column.horizontalAlign,
         };
 
         if (column.headerComponent) {
