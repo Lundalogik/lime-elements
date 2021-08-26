@@ -1,3 +1,10 @@
+## [33.7.0](https://github.com/Lundalogik/lime-elements/compare/v33.6.0...v33.7.0) (2021-08-26)
+
+
+### Features
+
+* **table:** display a message to the users when the table has no data ([ee52b90](https://github.com/Lundalogik/lime-elements/commit/ee52b90c11637f7697eddb9443da385b48f9eda0)), closes [Lundalogik/lime-crm-components#284](https://github.com/Lundalogik/lime-crm-components/issues/284)
+
 ## [33.6.0](https://github.com/Lundalogik/lime-elements/compare/v33.5.3...v33.6.0) (2021-08-25)
 
 
