@@ -1,3 +1,16 @@
+## [33.8.0](https://github.com/Lundalogik/lime-elements/compare/v33.7.0...v33.8.0) (2021-08-27)
+
+
+### Features
+
+* **list:** enable rendering lists with a grid layout ([51355fc](https://github.com/Lundalogik/lime-elements/commit/51355fc29b925ca32a838449594201343b7c0cd5))
+* **menu:** enable rendering list items in menu with a grid layout ([9abb9a6](https://github.com/Lundalogik/lime-elements/commit/9abb9a66feebfd5d736b3bf6230de8c67b722979))
+
+
+### Bug Fixes
+
+* **list:** reduce the dead space around `badgeIcons` in avatar list ([ad9e1e4](https://github.com/Lundalogik/lime-elements/commit/ad9e1e4928b59557f070eb796884108ab496f1b2))
+
 ## [33.7.0](https://github.com/Lundalogik/lime-elements/compare/v33.6.0...v33.7.0) (2021-08-26)
 
 
