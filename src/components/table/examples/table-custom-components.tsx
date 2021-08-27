@@ -6,6 +6,25 @@ import { capitalize } from 'lodash-es';
 /**
  * Custom components
  *
+ * You can specify a custom component to use for any column in your table. This
+ * is done under the `component` key in the schema, following the
+ * [TableComponentDefinition](#/type/TableComponentDefinition/) specification,
+ * for example:
+ *
+ * ```ts
+ * const columns = [
+ *     {
+ *         title: 'Food',
+ *         field: 'food',
+ *         component: { name: 'my-fancy-food-displayer' },
+ *     },
+ * ];
+ * ```
+ *
+ * While you can, in principle, use any component in a table, your custom table
+ * components should implement the [TableComponent](#/type/TableComponent/)
+ * interface.
+ *
  * @link birds.ts
  * @link table-food.tsx
  */
