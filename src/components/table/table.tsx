@@ -498,8 +498,8 @@ export class Table {
     render() {
         return (
             <div id="tabulator-container">
-                {/* Toggle style instead of removing the loader 
-                    because removing the element will cause a rerender, breaking the 
+                {/* Toggle style instead of removing the loader
+                    because removing the element will cause a rerender, breaking the
                     tabulator table */}
                 <div
                     id="tabulator-loader"
