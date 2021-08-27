@@ -1,3 +1,10 @@
+## [33.9.0](https://github.com/Lundalogik/lime-elements/compare/v33.8.0...v33.9.0) (2021-08-27)
+
+
+### Features
+
+* **progress-flow:** add new component `limel-progress-flow` ([4fd8282](https://github.com/Lundalogik/lime-elements/commit/4fd8282d8bd5077f27686fc82b0d1f13715df389))
+
 ## [33.8.0](https://github.com/Lundalogik/lime-elements/compare/v33.7.0...v33.8.0) (2021-08-27)
 
 
