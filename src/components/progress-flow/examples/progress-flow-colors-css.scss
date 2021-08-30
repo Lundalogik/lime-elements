@@ -1,0 +1,18 @@
+:host {
+    --container-background-color: rgb(var(--contrast-1400));
+    background-color: var(--container-background-color);
+    display: block;
+    padding: 2rem;
+    border-radius: 0.6rem;
+
+    --progress-flow-step-divider-color: var(--container-background-color);
+
+    --progress-flow-step-background-color: rgb(var(--contrast-1200));
+    --progress-flow-step-background-color--selected: rgb(var(--color-sky-dark));
+    --progress-flow-passed-step-background-color: rgb(var(--contrast-700));
+
+    --progress-flow-step-text-color: rgb(var(--contrast-200));
+    --progress-flow-step-text-color-passed: rgb(var(--contrast-1100));
+
+    --progress-flow-icon-color: rgb(var(--color-lime-default));
+}

@@ -1,0 +1,43 @@
+@use '../../style/functions';
+@use '../../style/internal/variables';
+
+/**
+* @prop --progress-flow-step-background-color: Background color of steps, defaults to `--contrast-600`.
+* @prop --progress-flow-step-background-color--selected: Background color of selected step, defaults to `--lime-primary-color`.
+* @prop --progress-flow-step-background-color--passed: Background color of passed steps, defaults to the background color the step has when selected.
+* @prop --progress-flow-step-text-color: Text of steps, defaults to `--contrast-1200`.
+* @prop --progress-flow-step-text-color--selected: Text color of selected step, defaults to `--lime-primary-color`.
+* @prop --progress-flow-step-text-color-passed: Text color of passed steps, defaults to the text color the step has when selected.
+* @prop --progress-flow-step-divider-color: Color of the arrow shaped dividers between steps which must be the same as component's background, defaults to `--contrast-100`.
+* @prop --progress-flow-icon-color: Color of the optional icons used in each step. Only affects inactive steps, defaults to text colors for inactive, active, or passed step.
+*/
+
+:host {
+    --step-height: 2.5rem;
+    --selected-indicator-right: -0.5rem;
+    --max-text-width: 10rem;
+
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    overflow-x: auto;
+    scrollbar-width: none; // This hides the scrollbars appearing under in Firefox
+    -ms-overflow-style: none; // Same as above for IE 11
+    padding: functions.pxToRem(4); // needed for the focus effect
+
+    &::-webkit-scrollbar {
+        display: none; // This hides the scrollbars appearing under in Chrome
+    }
+}
+
+.first-off-progress-item {
+    margin-left: functions.pxToRem(8);
+}
+
+:host(.is-narrow) {
+    --step-height: 1.5rem;
+    --selected-indicator-right: 0;
+}

@@ -40,6 +40,7 @@ export class MenuCompositeExample {
         ],
         open: false,
         openDirection: 'right',
+        gridLayout: false,
     };
 
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
@@ -68,6 +69,7 @@ export class MenuCompositeExample {
                 badgeIcons={this.props.badgeIcons}
                 fixed={this.props.fixed}
                 open={this.props.open}
+                gridLayout={this.props.gridLayout}
                 onSelect={this.handleSelect}
                 onCancel={this.handleCancel}
             >

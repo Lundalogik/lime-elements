@@ -137,6 +137,7 @@ export class Popover {
         const clickedInside = portalContains(this.host, element);
         if (this.open && !clickedInside) {
             event.stopPropagation();
+            event.preventDefault();
             this.close.emit();
         }
     }

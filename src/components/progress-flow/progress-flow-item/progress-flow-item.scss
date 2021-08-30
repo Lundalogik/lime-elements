@@ -1,0 +1,180 @@
+@use '../../../style/mixins';
+@use '../../../style/functions';
+@use '../../../style/internal/variables';
+@use '../../../style/internal/z-index';
+
+.flow-item {
+    --step-background: var(
+        --progress-flow-step-background-color,
+        rgb(var(--contrast-600))
+    );
+    --step-background--selected: var(
+        --progress-flow-step-background-color--selected,
+        var(--mdc-theme-primary)
+    );
+    --step-background--passed: var(
+        --progress-flow-step-background-color--passed,
+        var(--step-background--selected)
+    );
+
+    --step-text: var(
+        --progress-flow-step-text-color,
+        rgb(var(--contrast-1200))
+    );
+    --step-text--selected: var(
+        --progress-flow-step-text-color--selected,
+        var(--mdc-theme-on-primary)
+    );
+    --step-text--passed: var(
+        --progress-flow-step-text-color--passed,
+        var(--step-text--selected)
+    );
+
+    --step-divider-color: var(
+        --progress-flow-step-divider-color,
+        rgb(var(--contrast-100))
+    );
+
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    &:not(.off-progress-item, .last) {
+        .divider {
+            &:after {
+                content: '';
+            }
+        }
+    }
+
+    &.off-progress-item {
+        margin-left: functions.pxToRem(8);
+    }
+}
+
+.step {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: var(--step-height);
+    border: none;
+    font-size: functions.pxToRem(14);
+
+    &.disabled {
+        opacity: 0.75;
+        cursor: not-allowed;
+
+        &.readonly {
+            opacity: 1;
+            cursor: default;
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        box-shadow: var(--shadow-depth-8-focused);
+    }
+
+    .flow-item:not(.off-progress-item, .first) & {
+        padding-left: calc(var(--step-height) / 2);
+    }
+
+    .flow-item:not(.selected) & {
+        &:not(.disabled) {
+            cursor: pointer;
+            &:hover {
+                box-shadow: var(--button-shadow-normal);
+            }
+            &:active {
+                box-shadow: var(--button-shadow-pressed);
+            }
+        }
+    }
+
+    .off-progress-item & {
+        border-radius: functions.pxToRem(4);
+        padding: 0 functions.pxToRem(12);
+        margin-left: functions.pxToRem(8);
+
+        .icon {
+            margin-left: 0;
+        }
+    }
+    .flow-item.first & {
+        border-top-left-radius: var(--step-height);
+        border-bottom-left-radius: var(--step-height);
+        padding-left: functions.pxToRem(20);
+    }
+    .flow-item.last & {
+        border-top-right-radius: var(--step-height);
+        border-bottom-right-radius: var(--step-height);
+        padding-right: functions.pxToRem(20);
+    }
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--step-height);
+    height: var(--step-height);
+
+    position: absolute;
+    z-index: z-index.$limel-progress-flow-divider;
+    right: 0;
+    transform: translateX(50%);
+    overflow-y: hidden;
+
+    &:after {
+        position: absolute;
+        display: block;
+
+        box-sizing: border-box;
+        transition: background-color 0.2s ease;
+
+        width: 100%;
+        height: 100%;
+        right: calc(var(--step-height) / 5);
+        transform: rotate(45deg);
+        border: {
+            style: solid;
+            width: functions.pxToRem(2) functions.pxToRem(2) 0 0;
+            radius: 0 functions.pxToRem(8) 0 0;
+            color: var(--step-divider-color);
+        }
+    }
+    .flow-item.last & {
+        width: 0;
+    }
+}
+
+.text,
+.secondary-text {
+    @include mixins.truncate-text();
+    max-width: var(--max-text-width);
+    z-index: z-index.$limel-progress-flow-step-content;
+}
+
+.secondary-text {
+    font-size: functions.pxToRem(12);
+    margin: auto;
+    padding-left: calc(var(--step-height) / 2);
+}
+
+.icon {
+    margin: 0 functions.pxToRem(8) 0 functions.pxToRem(4);
+    z-index: z-index.$limel-progress-flow-step-content;
+}
+
+@import './partial-styles/_selected-indicator';
+@import './partial-styles/_colors';

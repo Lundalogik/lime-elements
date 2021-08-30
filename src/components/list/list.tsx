@@ -38,6 +38,7 @@ const { SELECTED_EVENT } = menuStrings;
  * @exampleComponent limel-example-list-action
  * @exampleComponent limel-example-list-striped
  * @exampleComponent limel-example-list-badge-icons-with-multiple-lines
+ * @exampleComponent limel-example-list-grid
  */
 @Component({
     tag: 'limel-list',

@@ -1,3 +1,59 @@
+## [33.9.0](https://github.com/Lundalogik/lime-elements/compare/v33.8.0...v33.9.0) (2021-08-27)
+
+
+### Features
+
+* **progress-flow:** add new component `limel-progress-flow` ([4fd8282](https://github.com/Lundalogik/lime-elements/commit/4fd8282d8bd5077f27686fc82b0d1f13715df389))
+
+## [33.8.0](https://github.com/Lundalogik/lime-elements/compare/v33.7.0...v33.8.0) (2021-08-27)
+
+
+### Features
+
+* **list:** enable rendering lists with a grid layout ([51355fc](https://github.com/Lundalogik/lime-elements/commit/51355fc29b925ca32a838449594201343b7c0cd5))
+* **menu:** enable rendering list items in menu with a grid layout ([9abb9a6](https://github.com/Lundalogik/lime-elements/commit/9abb9a66feebfd5d736b3bf6230de8c67b722979))
+
+
+### Bug Fixes
+
+* **list:** reduce the dead space around `badgeIcons` in avatar list ([ad9e1e4](https://github.com/Lundalogik/lime-elements/commit/ad9e1e4928b59557f070eb796884108ab496f1b2))
+
+## [33.7.0](https://github.com/Lundalogik/lime-elements/compare/v33.6.0...v33.7.0) (2021-08-26)
+
+
+### Features
+
+* **table:** display a message to the users when the table has no data ([ee52b90](https://github.com/Lundalogik/lime-elements/commit/ee52b90c11637f7697eddb9443da385b48f9eda0)), closes [Lundalogik/lime-crm-components#284](https://github.com/Lundalogik/lime-crm-components/issues/284)
+
+## [33.6.0](https://github.com/Lundalogik/lime-elements/compare/v33.5.3...v33.6.0) (2021-08-25)
+
+
+### Features
+
+* **table:** be able to set the page number in a table ([9773538](https://github.com/Lundalogik/lime-elements/commit/97735388ca2a9e6a23adaec27d5ba71b6f9e816d)), closes [Lundalogik/crm-feature#2197](https://github.com/Lundalogik/crm-feature/issues/2197)
+
+### [33.5.3](https://github.com/Lundalogik/lime-elements/compare/v33.5.2...v33.5.3) (2021-08-25)
+
+
+### Bug Fixes
+
+* **popover-surface:** make backdrop filter work on IOS ([a44ff04](https://github.com/Lundalogik/lime-elements/commit/a44ff04303909563c5360b8abf05ffc21784c87e))
+
+### [33.5.2](https://github.com/Lundalogik/lime-elements/compare/v33.5.1...v33.5.2) (2021-08-24)
+
+
+### Bug Fixes
+
+* **popover:** prevent triggering of default link actions which are below an open popover ([bcbcfcb](https://github.com/Lundalogik/lime-elements/commit/bcbcfcbbc7f44463041c619700b934b25de5809d))
+
+### [33.5.1](https://github.com/Lundalogik/lime-elements/compare/v33.5.0...v33.5.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* **code-editor:** update underlying library, which includes some very minor bugfixes ([799fdea](https://github.com/Lundalogik/lime-elements/commit/799fdea80eddb4843cf180b5369f2f4ba82750aa))
+* **portal:** update underlying library, fixing positioning of elements with scaled parents ([faabbbe](https://github.com/Lundalogik/lime-elements/commit/faabbbe41697090d2248bb8de7220560b8b15e21))
+
 ## [33.5.0](https://github.com/Lundalogik/lime-elements/compare/v33.4.1...v33.5.0) (2021-08-16)
 
 
