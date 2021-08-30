@@ -213,7 +213,7 @@ export class Table {
                 return;
             }
 
-            this.tabulator.setData(this.data);
+            this.tabulator.replaceData(this.data);
         });
     }
 
@@ -358,7 +358,7 @@ export class Table {
         if (abortRequest) {
             setTimeout(() => {
                 this.updateMaxPage();
-                this.tabulator.setData(this.data);
+                this.tabulator.replaceData(this.data);
             });
 
             return false;
