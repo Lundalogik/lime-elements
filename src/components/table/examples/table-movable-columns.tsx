@@ -19,7 +19,7 @@ export class TableExampleLocal {
         { title: 'Name', field: 'name' },
         { title: 'Binominal name', field: 'binominalName' },
         { title: 'Nest type', field: 'nest', formatter: capitalize },
-        { title: 'Eggs per clutch', field: 'eggs' },
+        { title: 'Eggs per clutch', field: 'eggs', horizontalAlign: 'right' },
         { title: 'Origin', field: 'origin' },
     ];
 

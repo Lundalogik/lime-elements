@@ -18,12 +18,12 @@ const FIRST_PAGE = 1;
 /**
  * @exampleComponent limel-example-table
  * @exampleComponent limel-example-table-custom-components
+ * @exampleComponent limel-example-table-header-menu
  * @exampleComponent limel-example-table-movable-columns
  * @exampleComponent limel-example-table-local
  * @exampleComponent limel-example-table-remote
  * @exampleComponent limel-example-table-activate-row
  * @exampleComponent limel-example-table-default-sorted
- * @exampleComponent limel-example-table-header-menu
  * @exampleComponent limel-example-table-low-density
  */
 @Component({
@@ -512,8 +512,8 @@ export class Table {
     render() {
         return (
             <div id="tabulator-container">
-                {/* Toggle style instead of removing the loader 
-                    because removing the element will cause a rerender, breaking the 
+                {/* Toggle style instead of removing the loader
+                    because removing the element will cause a rerender, breaking the
                     tabulator table */}
                 <div
                     id="tabulator-loader"
