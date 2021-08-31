@@ -1,6 +1,7 @@
 import { newSpecPage, SpecPage } from '@stencil/core/testing';
 import { Popover } from './popover';
 import { Portal } from '../portal/portal';
+import { ESCAPE } from '../../util/keycodes';
 
 describe('popover', () => {
     let page: SpecPage;
@@ -29,6 +30,30 @@ describe('popover', () => {
                 '.limel-portal--container'
             );
             elem.click();
+            await page.waitForChanges();
+            expect(eventSpy).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('when ESC key is pressed', () => {
+        it('emits a close event', async () => {
+            const event = new KeyboardEvent('keyup', { key: ESCAPE });
+            page.doc.dispatchEvent(event);
+
+            await page.waitForChanges();
+            expect(eventSpy).toHaveBeenCalled();
+        });
+    });
+
+    describe('when ESC key is pressed when popover is closed', () => {
+        it('does not emit a close event', async () => {
+            const component = page.body.querySelector('limel-popover');
+            component.open = false;
+            await page.waitForChanges();
+
+            const event = new KeyboardEvent('keyup', { key: ESCAPE });
+            page.doc.dispatchEvent(event);
+
             await page.waitForChanges();
             expect(eventSpy).not.toHaveBeenCalled();
         });
