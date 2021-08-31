@@ -18,9 +18,9 @@ export class TableExample {
     @State()
     private columns: Column[] = [
         { title: 'Name', field: 'name' },
-        { title: 'Age', field: 'age' },
+        { title: 'Age', field: 'age', horizontalAlign: 'right' },
         { title: 'Kind', field: 'kind' },
-        { title: 'Height', field: 'height' },
+        { title: 'Height', field: 'height', horizontalAlign: 'right' },
         { title: 'Stamina', field: 'stamina' },
         { title: 'Place of Birth', field: 'placeOfBirth' },
         { title: 'Sign', field: 'sign' },

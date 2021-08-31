@@ -39,6 +39,7 @@ export class TableExampleRemote {
             { title: 'Nest type', field: 'nest', formatter: capitalize },
             {
                 title: 'Eggs per clutch',
+                horizontalAlign: 'right',
                 field: 'eggs',
                 aggregator: this.calculateAverage,
             },

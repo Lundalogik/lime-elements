@@ -220,7 +220,7 @@ export class ListRenderer {
         return <hr class={classes} />;
     }
 
-    private renderActionMenu(actions: ListItem[]) {
+    private renderActionMenu(actions: Array<ListItem | ListSeparator>) {
         if (!actions || actions.length === 0) {
             return;
         }
