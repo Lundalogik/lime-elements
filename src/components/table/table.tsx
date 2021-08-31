@@ -351,6 +351,20 @@ export class Table {
         };
     }
 
+    /*
+     * The ajaxRequesting callback is triggered when ever an ajax request is made.
+     *
+     * Tabulator is requesting data with an AJAX request even though it has been
+     * given data when it was created.
+     *
+     * It seems unnecessary for us to emit the `load` event as well when this
+     * happens, since we can just initialize the table with the data that has been
+     * given to us. Therefore, we abort the request if:
+     *
+     *  * its the first time this method is called and,
+     *  * data has been sent in to the component as a prop
+     *
+     */
     private handleAjaxRequesting() {
         const abortRequest = this.firstRequest && !!this.data?.length;
         this.firstRequest = false;
