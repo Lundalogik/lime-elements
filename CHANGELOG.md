@@ -1,3 +1,10 @@
+## [33.10.0-beta.2](https://github.com/Lundalogik/lime-elements/compare/v33.10.0-beta.1...v33.10.0-beta.2) (2021-08-31)
+
+
+### Features
+
+* **table:** add `horizontalAlign` property to `Column` interface ([7a3325d](https://github.com/Lundalogik/lime-elements/commit/7a3325db2f7c587302e180adbb536a9d83648fd9)), closes [Lundalogik/crm-feature#2123](https://github.com/Lundalogik/crm-feature/issues/2123)
+
 ## [33.10.0-beta.1](https://github.com/Lundalogik/lime-elements/compare/v33.9.0...v33.10.0-beta.1) (2021-08-30)
 
 
