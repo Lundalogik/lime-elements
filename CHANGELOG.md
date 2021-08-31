@@ -1,3 +1,10 @@
+## [33.10.0-beta.3](https://github.com/Lundalogik/lime-elements/compare/v33.10.0-beta.2...v33.10.0-beta.3) (2021-08-31)
+
+
+### Bug Fixes
+
+* **table:** don't scroll table to the left after each reload ([7c48aed](https://github.com/Lundalogik/lime-elements/commit/7c48aedc06a92a2563a89cfc1b7babb34a130dcb)), closes [Lundalogik/crm-feature#2027](https://github.com/Lundalogik/crm-feature/issues/2027)
+
 ## [33.10.0-beta.2](https://github.com/Lundalogik/lime-elements/compare/v33.10.0-beta.1...v33.10.0-beta.2) (2021-08-31)
 
 
