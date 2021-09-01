@@ -1,3 +1,10 @@
+## [33.10.0-beta.4](https://github.com/Lundalogik/lime-elements/compare/v33.10.0-beta.3...v33.10.0-beta.4) (2021-09-01)
+
+
+### Bug Fixes
+
+* **popover:** emit close event when ESC is pressed ([08bbbf7](https://github.com/Lundalogik/lime-elements/commit/08bbbf784e622f8faeac08dd80ee26116036838d)), closes [Lundalogik/crm-feature#2205](https://github.com/Lundalogik/crm-feature/issues/2205)
+
 ## [33.10.0-beta.3](https://github.com/Lundalogik/lime-elements/compare/v33.10.0-beta.2...v33.10.0-beta.3) (2021-08-31)
 
 
