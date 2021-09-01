@@ -1,3 +1,17 @@
+## [33.10.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.9.0...v33.10.0-next.1) (2021-09-01)
+
+
+### Features
+
+* **list-item:** adds list separator to list item actions types ([c2f0902](https://github.com/Lundalogik/lime-elements/commit/c2f090202e399128f6d8a4934d7e613f8d965704))
+* **table:** add `horizontalAlign` property to `Column` interface ([7a3325d](https://github.com/Lundalogik/lime-elements/commit/7a3325db2f7c587302e180adbb536a9d83648fd9)), closes [Lundalogik/crm-feature#2123](https://github.com/Lundalogik/crm-feature/issues/2123)
+
+
+### Bug Fixes
+
+* **popover:** emit close event when ESC is pressed ([08bbbf7](https://github.com/Lundalogik/lime-elements/commit/08bbbf784e622f8faeac08dd80ee26116036838d)), closes [Lundalogik/crm-feature#2205](https://github.com/Lundalogik/crm-feature/issues/2205)
+* **table:** don't scroll table to the left after each reload ([7c48aed](https://github.com/Lundalogik/lime-elements/commit/7c48aedc06a92a2563a89cfc1b7babb34a130dcb)), closes [Lundalogik/crm-feature#2027](https://github.com/Lundalogik/crm-feature/issues/2027)
+
 ## [33.10.0-beta.4](https://github.com/Lundalogik/lime-elements/compare/v33.10.0-beta.3...v33.10.0-beta.4) (2021-09-01)
 
 
