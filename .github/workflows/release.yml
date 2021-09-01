@@ -45,14 +45,14 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.CREATE_RELEASE }}
-        event-type: update-lime-dependencies
+        event-type: update-lime-elements
         repository: Lundalogik/lime-crm-components
     - name: Trigger update in lime-webclient
       if: steps.semantic.outputs.new_release_published == 'true'
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.CREATE_RELEASE }}
-        event-type: update-lime-dependencies
+        event-type: update-lime-elements
         repository: Lundalogik/lime-webclient
     - name: Publish docs for new release
       if: steps.semantic.outputs.new_release_published == 'true'
