@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - beta
+      - next
 jobs:
   semantic-release:
     name: Run Semantic Release
