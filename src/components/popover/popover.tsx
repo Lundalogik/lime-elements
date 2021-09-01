@@ -10,6 +10,7 @@ import {
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
 import { portalContains } from '../portal/contains';
+import { ESCAPE } from '../../util/keycodes';
 
 /**
  * A popover is an impermanent layer that is displayed on top of other content
@@ -22,9 +23,10 @@ import { portalContains } from '../portal/contains';
  * clicking a button or link on the popover itself.
  *
  * :::warning
- * The component is emitting a close event when you click outside its container.
- * However, it’s up to you as consumer to react properly on this event and
- * hide the component (preferably by setting the property `open` to `false`).
+ * The component is emitting a close event when you click outside its container
+ * or press the <kbd>Esc</kbd> key. However, it’s up to you as consumer to react
+ * properly on this event and hide the component (preferably by setting the
+ * property `open` to `false`).
  * :::
  *
  * ## Usage
@@ -92,20 +94,22 @@ export class Popover {
 
     @Watch('open')
     protected watchOpen() {
-        this.setupClickHandler();
+        this.setupGlobalHandlers();
     }
 
     public componentWillLoad() {
-        this.setupClickHandler();
+        this.setupGlobalHandlers();
     }
 
-    private setupClickHandler() {
+    private setupGlobalHandlers() {
         if (this.open) {
             document.addEventListener('click', this.globalClickListener, {
                 capture: true,
             });
+            document.addEventListener('keyup', this.handleGlobalKeyPress);
         } else {
             document.removeEventListener('click', this.globalClickListener);
+            document.removeEventListener('keyup', this.handleGlobalKeyPress);
         }
     }
 
@@ -155,4 +159,14 @@ export class Popover {
 
         return zipObject(propertyNames, values);
     }
+
+    private handleGlobalKeyPress = (event: KeyboardEvent) => {
+        if (event.key !== ESCAPE) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+        this.close.emit();
+    };
 }

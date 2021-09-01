@@ -5,6 +5,11 @@ import { persons, Person } from './persons';
 /**
  * Column header menu
  *
+ * You can also add custom components to the header cell of a column. In
+ * contrast to custom components used elsewhere in the table, custom components
+ * used in the header do not replace the entire content of the cell. Instead,
+ * they appear in a slot next to the column sorting icon.
+ *
  * @link persons.ts
  * @link header-menu.tsx
  */
@@ -36,6 +41,7 @@ export class TableExampleHeadermenu {
         {
             title: 'Age',
             field: 'age',
+            horizontalAlign: 'right',
         },
         {
             title: 'Kind',
@@ -44,6 +50,7 @@ export class TableExampleHeadermenu {
         {
             title: 'Height',
             field: 'height',
+            horizontalAlign: 'right',
         },
         {
             title: 'Stamina',

@@ -28,6 +28,11 @@ export interface Column<T extends object = any> {
      * A component used to render inside the column header
      */
     headerComponent?: TableComponentDefinition;
+
+    /**
+     * Sets the horizontal text alignment for the column
+     */
+    horizontalAlign?: 'left' | 'center' | 'right';
 }
 
 export type TableFormatter = (value: any, data?: object) => string;

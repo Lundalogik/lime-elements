@@ -18,12 +18,12 @@ const FIRST_PAGE = 1;
 /**
  * @exampleComponent limel-example-table
  * @exampleComponent limel-example-table-custom-components
+ * @exampleComponent limel-example-table-header-menu
  * @exampleComponent limel-example-table-movable-columns
  * @exampleComponent limel-example-table-local
  * @exampleComponent limel-example-table-remote
  * @exampleComponent limel-example-table-activate-row
  * @exampleComponent limel-example-table-default-sorted
- * @exampleComponent limel-example-table-header-menu
  * @exampleComponent limel-example-table-low-density
  */
 @Component({
@@ -213,7 +213,7 @@ export class Table {
                 return;
             }
 
-            this.tabulator.setData(this.data);
+            this.tabulator.replaceData(this.data);
         });
     }
 
@@ -351,6 +351,20 @@ export class Table {
         };
     }
 
+    /*
+     * The ajaxRequesting callback is triggered when ever an ajax request is made.
+     *
+     * Tabulator is requesting data with an AJAX request even though it has been
+     * given data when it was created.
+     *
+     * It seems unnecessary for us to emit the `load` event as well when this
+     * happens, since we can just initialize the table with the data that has been
+     * given to us. Therefore, we abort the request if:
+     *
+     *  * its the first time this method is called and,
+     *  * data has been sent in to the component as a prop
+     *
+     */
     private handleAjaxRequesting() {
         const abortRequest = this.firstRequest && !!this.data?.length;
         this.firstRequest = false;
@@ -358,7 +372,7 @@ export class Table {
         if (abortRequest) {
             setTimeout(() => {
                 this.updateMaxPage();
-                this.tabulator.setData(this.data);
+                this.tabulator.replaceData(this.data);
             });
 
             return false;
@@ -498,8 +512,8 @@ export class Table {
     render() {
         return (
             <div id="tabulator-container">
-                {/* Toggle style instead of removing the loader 
-                    because removing the element will cause a rerender, breaking the 
+                {/* Toggle style instead of removing the loader
+                    because removing the element will cause a rerender, breaking the
                     tabulator table */}
                 <div
                     id="tabulator-loader"

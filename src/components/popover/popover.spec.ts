@@ -1,10 +1,11 @@
-import { newSpecPage } from '@stencil/core/testing';
+import { newSpecPage, SpecPage } from '@stencil/core/testing';
 import { Popover } from './popover';
 import { Portal } from '../portal/portal';
+import { ESCAPE } from '../../util/keycodes';
 
 describe('popover', () => {
-    let page;
-    let eventSpy;
+    let page: SpecPage;
+    let eventSpy: jest.Mock;
     beforeEach(async () => {
         page = await newSpecPage({
             components: [Popover, Portal],
@@ -25,8 +26,34 @@ describe('popover', () => {
             // The content of the popover is rendered in a portal on the document,
             // thus we need find the portal its inside instead and not
             // limel-popover
-            const elem = page.body.querySelector('.limel-portal--container');
+            const elem: HTMLElement = page.body.querySelector(
+                '.limel-portal--container'
+            );
             elem.click();
+            await page.waitForChanges();
+            expect(eventSpy).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('when ESC key is pressed', () => {
+        it('emits a close event', async () => {
+            const event = new KeyboardEvent('keyup', { key: ESCAPE });
+            page.doc.dispatchEvent(event);
+
+            await page.waitForChanges();
+            expect(eventSpy).toHaveBeenCalled();
+        });
+    });
+
+    describe('when ESC key is pressed when popover is closed', () => {
+        it('does not emit a close event', async () => {
+            const component = page.body.querySelector('limel-popover');
+            component.open = false;
+            await page.waitForChanges();
+
+            const event = new KeyboardEvent('keyup', { key: ESCAPE });
+            page.doc.dispatchEvent(event);
+
             await page.waitForChanges();
             expect(eventSpy).not.toHaveBeenCalled();
         });

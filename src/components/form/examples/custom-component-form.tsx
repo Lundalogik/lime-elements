@@ -4,6 +4,31 @@ import { schema } from './custom-component-schema';
 /**
  * Custom form component
  *
+ * You can specify a custom component to use for any property in your form. This
+ * is done under the `lime` key in the schema, following the
+ * [LimeSchemaOptions](#/type/LimeSchemaOptions/) specification, for example:
+ *
+ * ```ts
+ * const schema = {
+ *     type: 'object',
+ *     properties: {
+ *         hero: {
+ *             type: 'integer',
+ *             title: 'Hero',
+ *             lime: {
+ *                 component: {
+ *                     name: 'my-useful-hero-picker',
+ *                 },
+ *             },
+ *         },
+ *     },
+ * };
+ * ```
+ *
+ * While you can, in principle, use any component in a form, your custom form
+ * components should implement the [FormComponent](#/type/FormComponent/)
+ * interface.
+ *
  * @link custom-component-schema.ts
  * @link custom-component-picker.tsx
  */
