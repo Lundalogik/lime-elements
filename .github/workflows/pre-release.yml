@@ -1,8 +1,8 @@
-name: Create and Publish Full Release
+name: Create and Publish Pre-Release
 on:
   push:
     branches:
-      - main
+      - next
 jobs:
   semantic-release:
     name: Run Semantic Release
