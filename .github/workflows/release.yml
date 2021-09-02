@@ -6,7 +6,6 @@ on:
 jobs:
   semantic-release:
     name: Run Semantic Release
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
