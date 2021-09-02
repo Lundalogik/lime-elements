@@ -61,4 +61,4 @@ jobs:
         GH_EMAIL: 617355+lime-ci@users.noreply.github.com
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         CI: true
-      run: npm run docs:publish -- --v=${{ steps.semantic.outputs.new_release_version }} --forcePush --authorName="lime-ci" --authorEmail="617355+lime-ci@users.noreply.github.com"
+      run: npm run docs:publish -- --v=NEXT-${{ steps.semantic.outputs.new_release_version }} --forcePush --authorName="lime-ci" --authorEmail="617355+lime-ci@users.noreply.github.com"
