@@ -43,11 +43,11 @@ export class MonthPicker extends Picker {
     public destroy() {
         super.destroy();
         if (!this.nativePicker) {
-            this.flatpickr?.prevMonthNav.removeEventListener(
+            this.flatpickr?.prevMonthNav?.removeEventListener(
                 'mousedown',
                 this.prevYear
             );
-            this.flatpickr?.nextMonthNav.removeEventListener(
+            this.flatpickr?.nextMonthNav?.removeEventListener(
                 'mousedown',
                 this.nextYear
             );
