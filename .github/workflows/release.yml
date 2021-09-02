@@ -38,6 +38,16 @@ jobs:
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
         CI: true
+    - name: Merge release commit back to branch `next`
+      if: steps.semantic.outputs.new_release_published == 'true'
+      uses: MaximeHeckel/github-action-merge-fast-forward@v1.1.0
+      with:
+        # Branch to merge
+        branchtomerge: 'main'
+        # Branch that will be updated
+        branch: 'next'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Trigger update in lime-crm-components
       if: steps.semantic.outputs.new_release_published == 'true'
       uses: peter-evans/repository-dispatch@v1
