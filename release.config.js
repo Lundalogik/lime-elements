@@ -16,7 +16,14 @@ module.exports = {
         ],
         '@semantic-release/changelog',
         '@semantic-release/npm',
-        '@semantic-release/git',
+        [
+            '@semantic-release/git',
+            {
+                message:
+                    // eslint-disable-next-line no-template-curly-in-string
+                    'chore(release): ${nextRelease.version} [release]\n\n${nextRelease.notes}',
+            },
+        ],
         '@semantic-release/github',
     ],
     npmPublish: true,
