@@ -1,6 +1,6 @@
 {
   "name": "@limetech/lime-elements",
-  "version": "33.11.0-next.1",
+  "version": "33.11.0",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "Apache-2.0",
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^13.1.0",
     "@lundalogik/cz-conventional-changelog": "^3.1.0",
-    "@lundalogik/lime-icons8": "^2.4.0",
+    "@lundalogik/lime-icons8": "^2.5.0",
     "@popperjs/core": "^2.9.3",
     "@rjsf/core": "^2.5.1",
     "@stencil/core": "^2.7.0",

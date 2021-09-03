@@ -1,3 +1,15 @@
+## [33.11.0](https://github.com/Lundalogik/lime-elements/compare/v33.10.0...v33.11.0) (2021-09-03)
+
+
+### Features
+
+* **date-picker:** add previous and next buttons to year-picker ([c8aa81e](https://github.com/Lundalogik/lime-elements/commit/c8aa81e1228df3a25ecf50c49befd8eea782df02)), closes [Lundalogik/crm-feature#2285](https://github.com/Lundalogik/crm-feature/issues/2285)
+
+
+### Bug Fixes
+
+* **date-picker:** fix undefined error when flatpicker is undefined ([abdec27](https://github.com/Lundalogik/lime-elements/commit/abdec270000c682098dd5deb271a92700f763c23))
+
 ## [33.11.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.10.0...v33.11.0-next.1) (2021-09-02)
 
 
