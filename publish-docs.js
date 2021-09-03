@@ -306,7 +306,12 @@ function updateVersionList() {
     });
     files.sort(collator.compare);
 
-    const latestVersion = files.filter((file) => !file.startsWith('PR-')).pop();
+    // Keep only versions that begin with a digit. Any versions beginning with
+    // a letter are pull requests, pre-releases, or other special cases, not
+    // eligible as "Latest".
+    const filteredVersions = files.filter((file) => file.match(/^[0-9].*/));
+
+    const latestVersion = filteredVersions.pop();
 
     shell.echo(`Creating "latest"-link pointing to: ${latestVersion}`);
 
