@@ -214,7 +214,7 @@ function copyBuildOutput() {
     shell.echo('Copying icons to shared folder in docsDist.');
     if (
         shell.cp(
-            '-R',
+            '-Ru',
             `www${BASE_URL}versions/${version}/assets/icons/*`,
             'docsDist/icons/'
         ).code !== 0
