@@ -1,0 +1,14 @@
+:host {
+    --dock-background-color: rgb(var(--contrast-1500));
+    --dock-item-text-color--deselected: rgb(var(--color-cyan-lighter));
+    --dock-item-text-color--selected: rgb(var(--contrast-100));
+    --dock-item-icon-color--deselected: rgb(var(--color-cyan-light));
+    --dock-item-background-color--selected: rgb(var(--color-cyan-light));
+}
+
+.application {
+    background-color: rgb(var(--contrast-1600));
+    overflow: hidden;
+    border-radius: 0.5rem;
+    height: 30rem;
+}

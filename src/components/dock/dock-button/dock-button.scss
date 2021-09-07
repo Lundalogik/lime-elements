@@ -1,0 +1,71 @@
+@use '../../../style/mixins';
+@use '../../../style/functions';
+@use '../../../style/internal/variables';
+
+.button {
+    all: unset;
+
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    width: 100%;
+    height: var(--dock-item-height);
+
+    border-radius: functions.pxToRem(6);
+    font-size: functions.pxToRem(14);
+    padding: 0 0.5rem;
+    min-width: var(--dock-item-height);
+
+    color: var(--limel-dock-item-text-color);
+    background-color: var(--dock-background-color);
+
+    &:focus-visible {
+        box-shadow: var(--shadow-depth-8-focused);
+    }
+
+    .dock-item:not(.selected) & {
+        &:not(.disabled) {
+            cursor: pointer;
+            @include mixins.is-flat-clickable();
+        }
+    }
+
+    &:hover {
+        z-index: 1;
+    }
+
+    &.selected {
+        color: var(--limel-dock-item-text-color--selected);
+        background-color: var(
+            --dock-item-background-color--selected,
+            rgb(var(--contrast-200))
+        );
+        box-shadow: var(--button-shadow-inset);
+
+        .icon {
+            color: var(--limel-dock-item-text--selected);
+        }
+    }
+}
+
+limel-popover {
+    display: grid; // an ugly hack to make buttons that are wrapped in a popover become fullwidth
+}
+
+.text {
+    @include mixins.truncate-text();
+    padding-left: 0.5rem;
+    padding-right: 0.75rem;
+}
+
+.icon {
+    flex-shrink: 0;
+    width: calc(var(--dock-item-height) - 1rem);
+    height: calc(var(--dock-item-height) - 1rem);
+    color: var(
+        --dock-item-icon-color--deselected,
+        var(--limel-dock-item-text-color)
+    );
+}
