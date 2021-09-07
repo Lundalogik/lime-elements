@@ -1,0 +1,32 @@
+.expand-shrink {
+    all: unset;
+    box-sizing: border-box;
+
+    @include mixins.is-flat-clickable();
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: var(--dock-expand-shrink-button-height);
+    padding: 0 0.5rem;
+    margin: var(--dock-padding);
+    border-radius: functions.pxToRem(6);
+
+    &.expanded {
+        justify-content: flex-end;
+
+        limel-icon {
+            transform: rotateY(180deg);
+        }
+    }
+
+    &:focus-visible {
+        box-shadow: var(--shadow-depth-8-focused);
+    }
+
+    limel-icon {
+        width: calc(var(--dock-expand-shrink-button-height) - 0.25rem);
+    }
+}

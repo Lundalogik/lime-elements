@@ -1,0 +1,19 @@
+:host(limel-example-dock-basic) {
+    --popover-surface-width: min(100vw, 40rem);
+}
+
+.application {
+    position: relative;
+    background-color: rgb(var(--contrast-400));
+    border: 1px solid rgb(var(--contrast-700));
+    overflow: hidden;
+    border-radius: 0.5rem;
+    height: 30rem;
+    width: 20rem;
+    margin: 0 auto;
+}
+
+limel-dock {
+    position: absolute;
+    inset: auto 0 0 0;
+}

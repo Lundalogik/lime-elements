@@ -1,0 +1,77 @@
+@use '../../style/mixins';
+@use '../../style/functions';
+@use '../../style/internal/variables';
+
+/**
+* @prop --dock-expanded-max-width: The maximum width of the Dock when it is expanded. Defaults to `max-content` which means the Dock will ajdust its width to the widest dock item.
+* @prop --dock-background-color: Background color of the whole compoentn, defaults to `--contrast-100`.
+* @prop --dock-item-background-color: Background color of buttons, defaults to `--dock-background-color`.
+* @prop --dock-item-background-color--selected: Background color of selected button, defaults to `--contrast-200`.
+* @prop --dock-item-text-color: Text of buttons, defaults to `--contrast-1100`.
+* @prop --dock-item-text-color--selected: Text color of selected button, defaults to `--contrast-1300`.
+* @prop --dock-item-icon-color: Color of the optional icons used in each button. Only affects inactive buttons, defaults to text colors for default or selected states.
+*/
+
+:host {
+    --dock-item-height: 2.75rem;
+    --selected-indicator-right: 0.25rem;
+    --max-text-width: 10rem;
+    --dock-padding: 0.25rem;
+    --dock-expand-shrink-button-height: 1rem;
+
+    isolation: isolate;
+    position: relative;
+
+    display: inline-flex;
+    flex-direction: column;
+
+    background-color: var(--dock-background-color, rgb(var(--contrast-100)));
+    box-shadow: #{functions.pxToRem(3)} 0 #{functions.pxToRem(6)} #{functions.pxToRem(
+                -2
+            )} rgba(var(--color-black), 0.15),
+        #{functions.pxToRem(3)} 0 #{functions.pxToRem(10)} #{functions.pxToRem(
+                -2
+            )} rgba(var(--color-black), 0.05);
+}
+
+:host(:not(.has-mobile-layout)) {
+    height: 100%;
+    width: calc((var(--dock-padding) * 2) + var(--dock-item-height));
+}
+
+:host(.expanded) {
+    width: var(--dock-expanded-max-width, max-content);
+}
+
+:host(.has-mobile-layout) {
+    width: 100%;
+    height: calc((var(--dock-padding) * 2) + var(--dock-item-height)); // FIXME
+    nav {
+        justify-content: space-between;
+        flex-direction: row;
+    }
+}
+
+.is-first-footer-item {
+    margin-top: auto;
+    justify-self: flex-end;
+}
+
+nav {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    gap: functions.pxToRem(6);
+    flex-grow: 1;
+
+    padding: var(--dock-padding); // needed for the focus effect
+
+    overflow-y: auto;
+    scrollbar-width: none; // This hides the scrollbars appearing under in Firefox
+    -ms-overflow-style: none; // Same as above for IE 11
+    &::-webkit-scrollbar {
+        display: none; // This hides the scrollbars appearing under in Chrome
+    }
+}
+
+@import './partial-styles/shrink-expand-button';
