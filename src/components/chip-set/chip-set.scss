@@ -26,6 +26,7 @@
 
 @include shared_input-select-picker.outlined-style-overrides;
 @include shared_input-select-picker.floating-label-overrides;
+@include shared_input-select-picker.cropped-label-hack;
 @include shared_input-select-picker.disabled-overrides;
 @include shared_input-select-picker.readonly-overrides;
 @include shared_input-select-picker.leading-icon;
