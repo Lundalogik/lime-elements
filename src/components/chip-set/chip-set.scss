@@ -288,10 +288,11 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         }
 
         .mdc-floating-label {
-            padding-left: $leading-icon-space;
-            max-width: calc(100% - #{$leading-icon-space});
-            &.lime-floating-label--float-above {
-                padding-left: 0;
+            &:not(.lime-floating-label--float-above) {
+                left: $leading-icon-space;
+            }
+            &.mdc-floating-label--float-above {
+                left: functions.pxToRem(4);
             }
         }
     }
