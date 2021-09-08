@@ -59,12 +59,6 @@ $cropped-label-hack--font-size: 0.875rem; //14px
     letter-spacing: 0.009375em;
 }
 
-@mixin label--float-above() {
-    // transform: translateY(-2.38rem) scale(0.75);
-    // font-size: functions.pxToRem(16); // See comments in `cropped-label-hack` below
-    // font-size: 0.875rem;
-}
-
 @mixin cropped-label-hack {
     // Some font size applied to `label--float-above` causes the labels to get cut off
     // when an empty field gets focused
@@ -83,9 +77,6 @@ $cropped-label-hack--font-size: 0.875rem; //14px
             // This is why I don't like this hack.
         }
     }
-
-    // NOTE: if we ever remove this hack, we must also update the mixin above
-    // (`label--float-above`)
 }
 
 @mixin looks-like-helper-line {
