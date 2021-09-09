@@ -1,3 +1,11 @@
+### [33.11.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.11.1-next.1...v33.11.1-next.2) (2021-09-09)
+
+
+### Bug Fixes
+
+* **chip-set:** correctly position label in different states of chip-set ([7de743e](https://github.com/Lundalogik/lime-elements/commit/7de743ef74e30d0f38ddcc2ad1232c48cb7a91a4))
+* **chip-set:** include `cropped-label-hack` for chipsets ([2586a0a](https://github.com/Lundalogik/lime-elements/commit/2586a0ac532def3d1d6b94a10617588199444a6d))
+
 ### [33.11.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.11.0...v33.11.1-next.1) (2021-09-03)
 
 
