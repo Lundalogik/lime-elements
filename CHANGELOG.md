@@ -1,3 +1,10 @@
+## [33.12.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.11.1-next.2...v33.12.0-next.1) (2021-09-10)
+
+
+### Features
+
+* **picker:** add capability for static actions in picker drop-down ([5a3af98](https://github.com/Lundalogik/lime-elements/commit/5a3af98083c8777e3762a87a6172c7beb78b989a)), closes [Lundalogik/crm-feature#2238](https://github.com/Lundalogik/crm-feature/issues/2238)
+
 ### [33.11.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.11.1-next.1...v33.11.1-next.2) (2021-09-09)
 
 
