@@ -599,7 +599,6 @@ export class ChipSet {
 
     private renderInputChip(chip: Chip, index: number) {
         return [
-            this.renderDelimiter(index),
             <div
                 class={{
                     'mdc-chip': true,
@@ -614,6 +613,7 @@ export class ChipSet {
                 {this.renderLabel(chip)}
                 {this.renderChipRemoveButton(chip)}
             </div>,
+            this.renderDelimiter(),
         ];
     }
 
@@ -713,8 +713,8 @@ export class ChipSet {
         this.change.emit([]);
     }
 
-    private renderDelimiter(index: Number) {
-        if (index === 0 || !this.delimiter) {
+    private renderDelimiter() {
+        if (!this.delimiter) {
             return;
         }
 
