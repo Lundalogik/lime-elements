@@ -107,6 +107,12 @@ export class Picker {
     public multiple: boolean = false;
 
     /**
+     * Sets delimiters between chips.
+     */
+    @Prop({ reflect: true })
+    public delimiter: string = null;
+
+    /**
      * True if the dropdown list should be displayed without cutting the content
      *
      * @deprecated This was used for a workaround, and isn't needed any
@@ -237,6 +243,7 @@ export class Picker {
                 leadingIcon={this.leadingIcon}
                 value={this.chips}
                 disabled={this.disabled}
+                delimiter={this.delimiter}
                 readonly={this.readonly}
                 required={this.required}
                 searchLabel={this.searchLabel}
