@@ -1,3 +1,10 @@
+## [33.12.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.12.0-next.2...v33.12.0-next.3) (2021-09-14)
+
+
+### Features
+
+* **picker:** make delimiter of chip-set available in picker ([83d0dcf](https://github.com/Lundalogik/lime-elements/commit/83d0dcf0600780f689560d3bfd6289d769ced671))
+
 ## [33.12.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.12.0-next.1...v33.12.0-next.2) (2021-09-14)
 
 
