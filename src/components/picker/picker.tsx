@@ -594,10 +594,6 @@ export class Picker {
             });
         }
 
-        if (!newValue || !newValue.length) {
-            this.chipSet?.setFocus(true);
-        }
-
         this.change.emit(newValue);
     }
 
