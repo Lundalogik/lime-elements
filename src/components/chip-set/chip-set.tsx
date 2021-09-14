@@ -175,6 +175,8 @@ export class ChipSet {
 
     private mdcChipSet: MDCChipSet;
     private mdcTextField: MDCTextField;
+    private inputElement: HTMLInputElement;
+    private focusHolder: HTMLInputElement;
     private handleKeyDown = handleKeyboardEvent;
 
     constructor() {
@@ -221,13 +223,15 @@ export class ChipSet {
             return;
         }
 
+        this.startEdit.emit();
         this.editMode = true;
         if (emptyInput) {
             this.textValue = '';
         }
 
-        this.host.shadowRoot.querySelector('input').focus();
-        this.startEdit.emit();
+        setTimeout(() => {
+            this.host.shadowRoot.querySelector('input').focus();
+        }, 100);
     }
 
     /**
@@ -242,13 +246,13 @@ export class ChipSet {
     }
 
     public componentDidLoad() {
-        if (this.type === 'input') {
-            this.mdcTextField = new MDCTextField(
-                this.host.shadowRoot.querySelector('.mdc-text-field')
-            );
-        }
+        this.init();
+    }
 
-        this.createMDCChipSet();
+    public connectedCallback() {
+        if (this.inputElement) {
+            this.init();
+        }
     }
 
     public componentWillUpdate() {
@@ -257,10 +261,6 @@ export class ChipSet {
 
     public componentDidUpdate() {
         this.createMDCChipSet();
-        const input = this.host.shadowRoot.querySelector('input');
-        if (input && this.editMode) {
-            input.focus();
-        }
     }
 
     public disconnectedCallback() {
@@ -301,6 +301,41 @@ export class ChipSet {
     @Watch('value')
     protected handleChangeChips() {
         this.syncEmptyInput();
+    }
+
+    private init() {
+        if (this.type === 'input') {
+            this.mdcTextField = new MDCTextField(
+                this.host.shadowRoot.querySelector('.mdc-text-field')
+            );
+        }
+
+        this.createMDCChipSet();
+
+        this.createFocusHolderElement();
+    }
+
+    private createFocusHolderElement() {
+        /*
+        When the user removes a chip, we want to set focus to the input again,
+        triggering the on-screen keyboard if on mobile. But, the on-screen
+        keyboard is only activated if the focus event happens as a synchronous
+        result of a click (or tap, presumably).
+        Setting focus on the normal input when a chip's remove button is pressed
+        technically works, but when we update the component to remove the chip
+        (which happens asynchronously), the on-screen keyboard disappears.
+        We solve this by creating a "focus holder", on which we set focus when
+        the user taps the remove-button. After removing the chip, we move the
+        focus to the regular input element. /Ads
+        */
+        this.focusHolder = document.createElement('input');
+        this.focusHolder.setAttribute('type', 'text');
+        this.focusHolder.style.position = 'absolute';
+        this.focusHolder.style.opacity = '0';
+        this.focusHolder.style.height = '0';
+        this.focusHolder.style.fontSize = '16px'; // disable auto zoom
+
+        this.host.prepend(this.focusHolder);
     }
 
     private createMDCChipSet() {
@@ -380,6 +415,7 @@ export class ChipSet {
                     onChange={this.inputFieldOnChange}
                     placeholder={this.isFull() ? '' : this.searchLabel}
                     readonly={this.isFull()}
+                    ref={(el) => (this.inputElement = el)}
                 />
                 <div
                     class={{
@@ -672,6 +708,10 @@ export class ChipSet {
 
         const removeFunc = (event: MouseEvent) => {
             event.stopPropagation();
+
+            // focus so that subsequent async focus will work
+            this.focusHolder.focus();
+
             this.removeChip(chip.id);
         };
 
