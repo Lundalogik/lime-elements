@@ -207,6 +207,11 @@ export class ChipSet {
     /**
      * Used to set focus to the chip-set input field.
      *
+     * Note, this will *not* bring up the on-screen keyboard on most mobile
+     * devices, becuase the `focus` event has to be executed during the handling
+     * of a `click` event for that to happen.
+     * See more here: https://stackoverflow.com/a/16601288/280972
+     *
      * @param {boolean} emptyInput if `true`, any text in the input is discarded
      * @returns {Promise<void>} does not return anything, but methods have to be async
      */
