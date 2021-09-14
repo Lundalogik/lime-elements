@@ -1,3 +1,10 @@
+## [33.12.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.12.0-next.1...v33.12.0-next.2) (2021-09-14)
+
+
+### Bug Fixes
+
+* **chip-set:** show delimiter directly after first chip ([29d0485](https://github.com/Lundalogik/lime-elements/commit/29d04852d3bdfa1c7dc840c6c7019faff69b18dc))
+
 ## [33.12.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.11.1-next.2...v33.12.0-next.1) (2021-09-10)
 
 
