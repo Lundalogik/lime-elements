@@ -48,7 +48,7 @@ describe('limel-switch', () => {
                 mdcSwitch = await page.find('limel-switch>>>.mdc-switch');
             });
             it('is "off"', () => {
-                expect(mdcSwitch).not.toHaveClass('mdc-switch--checked');
+                expect(mdcSwitch).not.toHaveClass('mdc-switch--selected');
             });
             it('the property is falsy', async () => {
                 const propValue = await limelSwitch.getProperty('value');
@@ -61,7 +61,7 @@ describe('limel-switch', () => {
                     await page.waitForChanges();
                 });
                 it('is "on"', () => {
-                    expect(mdcSwitch).toHaveClass('mdc-switch--checked');
+                    expect(mdcSwitch).toHaveClass('mdc-switch--selected');
                 });
                 it('the property is `true`', async () => {
                     const propValue = await limelSwitch.getProperty('value');
@@ -84,7 +84,7 @@ describe('limel-switch', () => {
                 mdcSwitch = await page.find('limel-switch>>>.mdc-switch');
             });
             it('is "off"', () => {
-                expect(mdcSwitch).not.toHaveClass('mdc-switch--checked');
+                expect(mdcSwitch).not.toHaveClass('mdc-switch--selected');
             });
             it('the property is falsy', async () => {
                 const propValue = await limelSwitch.getProperty('value');
@@ -97,7 +97,7 @@ describe('limel-switch', () => {
                     await page.waitForChanges();
                 });
                 it('is "on"', () => {
-                    expect(mdcSwitch).toHaveClass('mdc-switch--checked');
+                    expect(mdcSwitch).toHaveClass('mdc-switch--selected');
                 });
                 it('the property is `true`', async () => {
                     const propValue = await limelSwitch.getProperty('value');
@@ -117,7 +117,7 @@ describe('limel-switch', () => {
                 mdcSwitch = await page.find('limel-switch>>>.mdc-switch');
             });
             it('is "on"', () => {
-                expect(mdcSwitch).toHaveClass('mdc-switch--checked');
+                expect(mdcSwitch).toHaveClass('mdc-switch--selected');
             });
             it('the property is `true`', async () => {
                 const propValue = await limelSwitch.getProperty('value');
@@ -130,7 +130,7 @@ describe('limel-switch', () => {
                     await page.waitForChanges();
                 });
                 it('is "off"', () => {
-                    expect(mdcSwitch).not.toHaveClass('mdc-switch--checked');
+                    expect(mdcSwitch).not.toHaveClass('mdc-switch--selected');
                 });
                 it('the property is falsy', async () => {
                     const propValue = await limelSwitch.getProperty('value');
@@ -152,7 +152,7 @@ describe('limel-switch', () => {
                 mdcSwitch = await page.find('limel-switch>>>.mdc-switch');
             });
             it('is enabled', () => {
-                expect(mdcSwitch).not.toHaveClass('mdc-switch--disabled');
+                expect(mdcSwitch).not.toHaveAttribute('disabled');
             });
             it('the property is falsy', async () => {
                 const propValue = await limelSwitch.getProperty('disabled');
@@ -165,7 +165,7 @@ describe('limel-switch', () => {
                     await page.waitForChanges();
                 });
                 it('is disabled', () => {
-                    expect(mdcSwitch).toHaveClass('mdc-switch--disabled');
+                    expect(mdcSwitch).toHaveAttribute('disabled');
                 });
                 it('the property is `true`', async () => {
                     const propValue = await limelSwitch.getProperty('disabled');
@@ -185,7 +185,7 @@ describe('limel-switch', () => {
                 mdcSwitch = await page.find('limel-switch>>>.mdc-switch');
             });
             it('is enabled', () => {
-                expect(mdcSwitch).not.toHaveClass('mdc-switch--disabled');
+                expect(mdcSwitch).not.toHaveAttribute('disabled');
             });
             it('the property is falsy', async () => {
                 const propValue = await limelSwitch.getProperty('disabled');
@@ -198,7 +198,7 @@ describe('limel-switch', () => {
                     await page.waitForChanges();
                 });
                 it('is disabled', () => {
-                    expect(mdcSwitch).toHaveClass('mdc-switch--disabled');
+                    expect(mdcSwitch).toHaveAttribute('disabled');
                 });
                 it('the property is `true`', async () => {
                     const propValue = await limelSwitch.getProperty('disabled');
@@ -218,7 +218,7 @@ describe('limel-switch', () => {
                 mdcSwitch = await page.find('limel-switch>>>.mdc-switch');
             });
             it('is disabled', () => {
-                expect(mdcSwitch).toHaveClass('mdc-switch--disabled');
+                expect(mdcSwitch).toHaveAttribute('disabled');
             });
             it('the property is `true`', async () => {
                 const propValue = await limelSwitch.getProperty('disabled');
@@ -231,7 +231,7 @@ describe('limel-switch', () => {
                     await page.waitForChanges();
                 });
                 it('is enabled', () => {
-                    expect(mdcSwitch).not.toHaveClass('mdc-switch--disabled');
+                    expect(mdcSwitch).not.toHaveAttribute('disabled');
                 });
                 it('the property is falsy', async () => {
                     const propValue = await limelSwitch.getProperty('disabled');
