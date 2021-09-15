@@ -78,7 +78,7 @@
     "jsx-dom": "^7.0.4",
     "kompendium": "^0.10.3",
     "lodash-es": "^4.17.21",
-    "material-components-web": "^11.0.0",
+    "material-components-web": "^13.0.0",
     "moment": "^2.29.1",
     "number-abbreviate": "^2.0.0",
     "prettier": "^2.5.1",
