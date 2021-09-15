@@ -226,20 +226,6 @@ export class InputField {
     private portalId: string;
 
     constructor() {
-        this.handleChange = this.handleChange.bind(this);
-        this.handleIconKeyPress = this.handleIconKeyPress.bind(this);
-        this.handleIconClick = this.handleIconClick.bind(this);
-        this.onFocus = this.onFocus.bind(this);
-        this.onBlur = this.onBlur.bind(this);
-        this.onKeyDown = this.onKeyDown.bind(this);
-        this.handleCompletionChange = this.handleCompletionChange.bind(this);
-        this.layout = this.layout.bind(this);
-        this.changeEmitter = this.changeEmitter.bind(this);
-        this.getContainerClassList = this.getContainerClassList.bind(this);
-        this.handleCloseMenu = this.handleCloseMenu.bind(this);
-        this.setFocus = this.setFocus.bind(this);
-        this.handleKeyDownInDropdown = this.handleKeyDownInDropdown.bind(this);
-
         const debounceTimeout = 300;
         this.changeEmitter = debounce(this.changeEmitter, debounceTimeout);
 
@@ -254,7 +240,7 @@ export class InputField {
         this.initialize();
     }
 
-    private initialize() {
+    private initialize = () => {
         const element =
             this.limelInputField.shadowRoot.querySelector('.mdc-text-field');
         if (!element) {
@@ -269,7 +255,7 @@ export class InputField {
 
         window.addEventListener('resize', this.layout, { passive: true });
         this.limelInputField.addEventListener('focus', this.setFocus);
-    }
+    };
 
     public disconnectedCallback() {
         if (this.mdcTextField) {
@@ -332,9 +318,9 @@ export class InputField {
         ];
     }
 
-    private setFocus() {
+    private setFocus = () => {
         this.mdcTextField.focus();
-    }
+    };
 
     @Watch('value')
     protected valueWatcher(newValue: string) {
@@ -347,7 +333,7 @@ export class InputField {
         }
     }
 
-    private getContainerClassList() {
+    private getContainerClassList = () => {
         const classList = {
             'mdc-text-field': true,
             'mdc-text-field--outlined': true,
@@ -367,11 +353,11 @@ export class InputField {
         }
 
         return classList;
-    }
+    };
 
-    private renderInput(
+    private renderInput = (
         properties: JSXBase.InputHTMLAttributes<HTMLInputElement>
-    ) {
+    ) => {
         if (this.type === 'textarea') {
             return;
         }
@@ -388,11 +374,11 @@ export class InputField {
                 value={this.value}
             />
         );
-    }
+    };
 
-    private renderTextarea(
+    private renderTextarea = (
         properties: JSXBase.TextareaHTMLAttributes<HTMLTextAreaElement>
-    ) {
+    ) => {
         if (this.type !== 'textarea') {
             return;
         }
@@ -402,13 +388,13 @@ export class InputField {
                 <textarea {...properties}>{this.value}</textarea>
             </span>
         );
-    }
+    };
 
-    private layout() {
+    private layout = () => {
         this.mdcTextField?.layout();
-    }
+    };
 
-    private getAdditionalProps() {
+    private getAdditionalProps = () => {
         const props: any = {};
 
         if (this.type === 'number') {
@@ -432,19 +418,19 @@ export class InputField {
         }
 
         return props;
-    }
+    };
 
-    private onFocus() {
+    private onFocus = () => {
         this.isFocused = true;
         this.showCompletions = true;
-    }
+    };
 
-    private onBlur() {
+    private onBlur = () => {
         this.isFocused = false;
         this.isModified = true;
-    }
+    };
 
-    private renderHelperLine() {
+    private renderHelperLine = () => {
         if (!this.maxlength && !this.hasHelperText()) {
             return;
         }
@@ -455,9 +441,9 @@ export class InputField {
                 {this.renderCharacterCounter()}
             </div>
         );
-    }
+    };
 
-    private renderEmptyValueForReadonly() {
+    private renderEmptyValueForReadonly = () => {
         if (this.readonly && !this.value) {
             return (
                 <span class="lime-empty-value-for-readonly lime-looks-like-input-value">
@@ -465,8 +451,9 @@ export class InputField {
                 </span>
             );
         }
-    }
-    private renderHelperText() {
+    };
+
+    private renderHelperText = () => {
         if (!this.hasHelperText()) {
             return;
         }
@@ -481,13 +468,13 @@ export class InputField {
                 {this.helperText}
             </p>
         );
-    }
+    };
 
-    private hasHelperText() {
+    private hasHelperText = () => {
         return this.helperText !== null && this.helperText !== undefined;
-    }
+    };
 
-    private renderCharacterCounter() {
+    private renderCharacterCounter = () => {
         if (!this.maxlength || this.type === 'number') {
             return;
         }
@@ -496,9 +483,9 @@ export class InputField {
         const label = `${text.length} / ${this.maxlength}`;
 
         return <div class="mdc-text-field-character-counter">{label}</div>;
-    }
+    };
 
-    private isInvalid() {
+    private isInvalid = () => {
         if (this.readonly) {
             // A readonly field can never be invalid.
             return false;
@@ -519,16 +506,16 @@ export class InputField {
         const element = this.getInputElement();
 
         return !(element && element.checkValidity());
-    }
+    };
 
-    private getInputElement(): HTMLInputElement | HTMLTextAreaElement {
+    private getInputElement = (): HTMLInputElement | HTMLTextAreaElement => {
         let elementName = 'input';
         if (this.type === 'textarea') {
             elementName = 'textarea';
         }
 
         return this.limelInputField.shadowRoot.querySelector(elementName);
-    }
+    };
 
     private renderLeadingIcon = () => {
         if (this.type === 'textarea') {
@@ -562,14 +549,14 @@ export class InputField {
         return html;
     };
 
-    private hasLink() {
+    private hasLink = () => {
         return (
             this.showLink &&
             ['email', 'tel', 'url', 'urlAsText'].includes(this.type)
         );
-    }
+    };
 
-    private getLink() {
+    private getLink = () => {
         const props: LinkProperties = { href: '' };
         switch (this.type) {
             case 'email':
@@ -584,9 +571,9 @@ export class InputField {
         }
 
         return props;
-    }
+    };
 
-    private renderLinkIcon(linkProps: LinkProperties, icon: string) {
+    private renderLinkIcon = (linkProps: LinkProperties, icon: string) => {
         // If the trailing icon uses the class `mdc-text-field__icon--trailing`,
         // MDC attaches a click handler to it, which apparently runs
         // `preventDefault()` on the event. For links, we don't want that,
@@ -602,9 +589,9 @@ export class InputField {
                 <limel-icon name={icon} />
             </a>
         );
-    }
+    };
 
-    private renderTrailingIcon(icon: string) {
+    private renderTrailingIcon = (icon: string) => {
         const props: any = {
             tabIndex: this.isInvalid() ? '-1' : '0',
         };
@@ -622,9 +609,9 @@ export class InputField {
                 <limel-icon name={icon} />
             </i>
         );
-    }
+    };
 
-    private getTrailingIcon() {
+    private getTrailingIcon = () => {
         if (this.isInvalid()) {
             return 'high_importance';
         }
@@ -647,9 +634,9 @@ export class InputField {
         ) {
             return 'external_link';
         }
-    }
+    };
 
-    private renderFormattedNumber() {
+    private renderFormattedNumber = () => {
         if (this.type !== 'number' || !this.value) {
             return;
         }
@@ -666,7 +653,7 @@ export class InputField {
                 {renderValue}
             </span>
         );
-    }
+    };
 
     /**
      * Key handler for the input field
@@ -676,7 +663,7 @@ export class InputField {
      * @returns {void}
      */
 
-    private onKeyDown(event: KeyboardEvent): void {
+    private onKeyDown = (event: KeyboardEvent): void => {
         this.showCompletions = true;
         const isForwardTab =
             (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
@@ -718,9 +705,9 @@ export class InputField {
             );
             listElement.focus();
         }
-    }
+    };
 
-    private handleCompletionChange(event: CustomEvent<ListItem>) {
+    private handleCompletionChange = (event: CustomEvent<ListItem>) => {
         event.stopPropagation();
         if (!event.detail) {
             return;
@@ -735,17 +722,17 @@ export class InputField {
          the same debounced emitter function. /Ads
          */
         this.changeEmitter(event.detail.text);
-    }
+    };
 
-    private renderAutocompleteList() {
+    private renderAutocompleteList = () => {
         if (this.type === 'textarea' || !this.completions.length) {
             return;
         }
 
         return this.renderDropdown();
-    }
+    };
 
-    private renderPortal(content = null) {
+    private renderPortal = (content = null) => {
         const dropdownZIndex = getComputedStyle(
             this.limelInputField
         ).getPropertyValue('--dropdown-z-index');
@@ -771,15 +758,15 @@ export class InputField {
                 </limel-menu-surface>
             </limel-portal>
         );
-    }
+    };
 
-    private renderDropdown() {
+    private renderDropdown = () => {
         const content = this.renderListResult();
 
         return this.renderPortal(content);
-    }
+    };
 
-    private renderListResult() {
+    private renderListResult = () => {
         const filteredCompletions: ListItem[] = this.filterCompletions(
             this.value
         );
@@ -795,9 +782,9 @@ export class InputField {
                 items={filteredCompletions}
             />
         );
-    }
+    };
 
-    private handleKeyDownInDropdown(event: KeyboardEvent) {
+    private handleKeyDownInDropdown = (event: KeyboardEvent) => {
         const keyFound = [TAB, ESCAPE, ENTER].includes(event.key);
         const keyCodeFound = [
             TAB_KEY_CODE,
@@ -807,11 +794,11 @@ export class InputField {
         if (keyFound || keyCodeFound) {
             this.setFocus();
         }
-    }
+    };
 
-    private handleCloseMenu() {
+    private handleCloseMenu = () => {
         this.showCompletions = false;
-    }
+    };
 
     private filterCompletions = (filter: string) => {
         if (!filter) {
@@ -824,7 +811,7 @@ export class InputField {
         );
     };
 
-    private handleChange(event) {
+    private handleChange = (event) => {
         event.stopPropagation();
         let value = event.target.value;
 
@@ -841,28 +828,28 @@ export class InputField {
         }
 
         this.changeEmitter(value);
-    }
+    };
 
-    private changeEmitter(value: string) {
+    private changeEmitter = (value: string) => {
         this.change.emit(value);
-    }
+    };
 
-    private handleIconClick() {
+    private handleIconClick = () => {
         if (!this.isInvalid()) {
             this.action.emit();
         }
-    }
+    };
 
-    private handleIconKeyPress(event: KeyboardEvent) {
+    private handleIconKeyPress = (event: KeyboardEvent) => {
         const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
         const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
 
         if ((isSpace || isEnter) && !this.isInvalid()) {
             this.action.emit();
         }
-    }
+    };
 
-    private handleWheel() {
+    private handleWheel = () => {
         // This empty event handler is here to circumvent a bug.
         // In some browsers (Chrome for example), hovering the input with
         // the input focused, and scrolling, will both change the value
@@ -872,5 +859,5 @@ export class InputField {
         // it prevents the page from being scrolled, but only in the
         // circumstances when the value is changed by the scrolling.
         // Please test THOROUGHLY if you remove this event handler 😄
-    }
+    };
 }
