@@ -240,23 +240,6 @@ export class InputField {
         this.initialize();
     }
 
-    private initialize = () => {
-        const element =
-            this.limelInputField.shadowRoot.querySelector('.mdc-text-field');
-        if (!element) {
-            return;
-        }
-
-        this.mdcTextField = new MDCTextField(element);
-
-        this.completionsList = [...this.completions].map((item) => {
-            return { text: item };
-        });
-
-        window.addEventListener('resize', this.layout, { passive: true });
-        this.limelInputField.addEventListener('focus', this.setFocus);
-    };
-
     public disconnectedCallback() {
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
@@ -318,10 +301,6 @@ export class InputField {
         ];
     }
 
-    private setFocus = () => {
-        this.mdcTextField.focus();
-    };
-
     @Watch('value')
     protected valueWatcher(newValue: string) {
         if (!this.mdcTextField) {
@@ -332,6 +311,27 @@ export class InputField {
             this.mdcTextField.value = newValue || '';
         }
     }
+
+    private initialize = () => {
+        const element =
+            this.limelInputField.shadowRoot.querySelector('.mdc-text-field');
+        if (!element) {
+            return;
+        }
+
+        this.mdcTextField = new MDCTextField(element);
+
+        this.completionsList = [...this.completions].map((item) => {
+            return { text: item };
+        });
+
+        window.addEventListener('resize', this.layout, { passive: true });
+        this.limelInputField.addEventListener('focus', this.setFocus);
+    };
+
+    private setFocus = () => {
+        this.mdcTextField.focus();
+    };
 
     private getContainerClassList = () => {
         const classList = {
