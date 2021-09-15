@@ -9,59 +9,60 @@
 
 @use '../functions';
 
-@use '@material/typography' with (
-    $styles-headline1: (
-        font-size: functions.pxToRem(22),
-        line-height: functions.pxToRem(22),
-    ),
-    $styles-headline2: (
-        font-size: functions.pxToRem(16),
-        line-height: functions.pxToRem(14),
-    ),
-    $styles-headline3: (
-        font-size: functions.pxToRem(16),
-        line-height: functions.pxToRem(14),
-    ),
-    $styles-headline4: (
-        font-size: functions.pxToRem(16),
-        line-height: functions.pxToRem(14),
-    ),
-    $styles-headline5: (
-        font-size: functions.pxToRem(14),
-        line-height: functions.pxToRem(14),
-    ),
-    $styles-headline6: (
-        font-size: functions.pxToRem(14),
-        line-height: functions.pxToRem(14),
-    ),
-    $styles-subtitle1: (
-        font-size: functions.pxToRem(14),
-        line-height: functions.pxToRem(18),
-    ),
-    $styles-subtitle2: (
-        font-size: functions.pxToRem(13),
-        line-height: functions.pxToRem(18),
-    ),
-    $styles-body1: (
-        font-size: functions.pxToRem(13),
-        line-height: functions.pxToRem(24),
-    ),
-    $styles-body2: (
-        font-size: functions.pxToRem(13),
-        line-height: functions.pxToRem(26),
-    ),
-    $styles-caption: (
-        font-size: functions.pxToRem(11),
-        line-height: functions.pxToRem(14),
-    ),
-    $styles-button: (
-        font-size: functions.pxToRem(14),
-        line-height: functions.pxToRem(36),
-        text-transform: none,
-    ),
-    $styles-overline: (
-        font-size: functions.pxToRem(11),
-        line-height: functions.pxToRem(14),
-    ),
-);
+@use '@material/typography' with
+    (
+        $styles-headline1: (
+            font-size: functions.pxToRem(22),
+            line-height: functions.pxToRem(22),
+        ),
+        $styles-headline2: (
+            font-size: functions.pxToRem(16),
+            line-height: functions.pxToRem(14),
+        ),
+        $styles-headline3: (
+            font-size: functions.pxToRem(16),
+            line-height: functions.pxToRem(14),
+        ),
+        $styles-headline4: (
+            font-size: functions.pxToRem(16),
+            line-height: functions.pxToRem(14),
+        ),
+        $styles-headline5: (
+            font-size: functions.pxToRem(14),
+            line-height: functions.pxToRem(14),
+        ),
+        $styles-headline6: (
+            font-size: functions.pxToRem(14),
+            line-height: functions.pxToRem(14),
+        ),
+        $styles-subtitle1: (
+            font-size: functions.pxToRem(14),
+            line-height: functions.pxToRem(18),
+        ),
+        $styles-subtitle2: (
+            font-size: functions.pxToRem(13),
+            line-height: functions.pxToRem(18),
+        ),
+        $styles-body1: (
+            font-size: functions.pxToRem(13),
+            line-height: functions.pxToRem(24),
+        ),
+        $styles-body2: (
+            font-size: functions.pxToRem(13),
+            line-height: functions.pxToRem(26),
+        ),
+        $styles-caption: (
+            font-size: functions.pxToRem(11),
+            line-height: functions.pxToRem(14),
+        ),
+        $styles-button: (
+            font-size: functions.pxToRem(14),
+            line-height: functions.pxToRem(36),
+            text-transform: none,
+        ),
+        $styles-overline: (
+            font-size: functions.pxToRem(11),
+            line-height: functions.pxToRem(14),
+        )
+    );
 @forward '@material/typography';
