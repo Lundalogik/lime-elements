@@ -1,3 +1,10 @@
+## [33.12.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v33.12.0-next.3...v33.12.0-next.4) (2021-09-16)
+
+
+### Bug Fixes
+
+* **picker:** do not focus picker after chips is removed by clicking on remove button ([b4268e7](https://github.com/Lundalogik/lime-elements/commit/b4268e7b9db4c0231ebd8a059334e07feb97f195)), closes [#1344](https://github.com/Lundalogik/lime-elements/issues/1344)
+
 ## [33.12.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.12.0-next.2...v33.12.0-next.3) (2021-09-14)
 
 
