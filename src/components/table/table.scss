@@ -106,7 +106,8 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
     font-size: functions.pxToRem(13);
 }
 
-#tabulator-loader {
+#tabulator-loader,
+#tabulator-empty-text {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -114,9 +115,18 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#tabulator-loader {
     background-color: rgba(255, 255, 255, 0.5);
 
     limel-spinner {
         color: var(--lime-turquoise);
     }
+}
+
+#tabulator-empty-text {
+    color: rgb(var(--contrast-800));
+    font-weight: bold;
+    font-size: functions.pxToRem(20);
 }

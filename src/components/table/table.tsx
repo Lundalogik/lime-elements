@@ -315,7 +315,6 @@ export class Table {
             dataFiltered: this.updateMaxPage,
             nestedFieldSeparator: false,
             ...columnOptions,
-            placeholder: this.emptyMessage,
         };
     }
 
@@ -521,6 +520,7 @@ export class Table {
                 >
                     <limel-spinner size="large" />
                 </div>
+                {this.renderEmptyMessage()}
                 <div
                     id="tabulator-table"
                     class={{
@@ -529,6 +529,20 @@ export class Table {
                         'has-movable-columns': this.movableColumns,
                     }}
                 />
+            </div>
+        );
+    }
+
+    private renderEmptyMessage() {
+        const showEmptyMessage =
+            !this.loading && !this.data.length && this.emptyMessage;
+
+        return (
+            <div
+                id="tabulator-empty-text"
+                style={{ display: showEmptyMessage ? 'flex' : 'none' }}
+            >
+                <span>{this.emptyMessage}</span>
             </div>
         );
     }
