@@ -119,10 +119,6 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 
 #tabulator-loader {
     background-color: rgba(255, 255, 255, 0.5);
-
-    limel-spinner {
-        color: var(--lime-turquoise);
-    }
 }
 
 #tabulator-empty-text {
