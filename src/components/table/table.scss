@@ -118,7 +118,7 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 }
 
 #tabulator-loader {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(var(--contrast-100), 0.6);
 }
 
 #tabulator-empty-text {
