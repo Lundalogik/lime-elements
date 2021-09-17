@@ -1,3 +1,11 @@
+## [33.12.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v33.12.0-next.4...v33.12.0-next.5) (2021-09-17)
+
+
+### Bug Fixes
+
+* **table:** don't show empty message when loading the table ([9593d15](https://github.com/Lundalogik/lime-elements/commit/9593d150bbae80945fafb88e8d6ba91c8b51391a)), closes [Lundalogik/crm-feature#2326](https://github.com/Lundalogik/crm-feature/issues/2326)
+* **table:** remove deprecated `lime-spinner` styles ([6440707](https://github.com/Lundalogik/lime-elements/commit/64407075cc95418f6b0c5e72f3887f28daa25ca9))
+
 ## [33.12.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v33.12.0-next.3...v33.12.0-next.4) (2021-09-16)
 
 
