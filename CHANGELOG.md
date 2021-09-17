@@ -1,3 +1,22 @@
+## [33.12.0](https://github.com/Lundalogik/lime-elements/compare/v33.11.0...v33.12.0) (2021-09-17)
+
+
+### Features
+
+* **picker:** add capability for static actions in picker drop-down ([5a3af98](https://github.com/Lundalogik/lime-elements/commit/5a3af98083c8777e3762a87a6172c7beb78b989a)), closes [Lundalogik/crm-feature#2238](https://github.com/Lundalogik/crm-feature/issues/2238)
+* **picker:** make delimiter of chip-set available in picker ([83d0dcf](https://github.com/Lundalogik/lime-elements/commit/83d0dcf0600780f689560d3bfd6289d769ced671))
+
+
+### Bug Fixes
+
+* **chip-set:** correctly position label in different states of chip-set ([7de743e](https://github.com/Lundalogik/lime-elements/commit/7de743ef74e30d0f38ddcc2ad1232c48cb7a91a4))
+* **chip-set:** include `cropped-label-hack` for chipsets ([2586a0a](https://github.com/Lundalogik/lime-elements/commit/2586a0ac532def3d1d6b94a10617588199444a6d))
+* **chip-set:** show delimiter directly after first chip ([29d0485](https://github.com/Lundalogik/lime-elements/commit/29d04852d3bdfa1c7dc840c6c7019faff69b18dc))
+* **picker:** do not focus picker after chips is removed by clicking on remove button ([b4268e7](https://github.com/Lundalogik/lime-elements/commit/b4268e7b9db4c0231ebd8a059334e07feb97f195)), closes [#1344](https://github.com/Lundalogik/lime-elements/issues/1344)
+* **progress-flow:** correctly export the `FlowItem` interface ([5924e37](https://github.com/Lundalogik/lime-elements/commit/5924e37d149937204a0ebd6403bb8f9401c28436)), closes [#1338](https://github.com/Lundalogik/lime-elements/issues/1338)
+* **table:** don't show empty message when loading the table ([9593d15](https://github.com/Lundalogik/lime-elements/commit/9593d150bbae80945fafb88e8d6ba91c8b51391a)), closes [Lundalogik/crm-feature#2326](https://github.com/Lundalogik/crm-feature/issues/2326)
+* **table:** remove deprecated `lime-spinner` styles ([6440707](https://github.com/Lundalogik/lime-elements/commit/64407075cc95418f6b0c5e72f3887f28daa25ca9))
+
 ## [33.12.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v33.12.0-next.4...v33.12.0-next.5) (2021-09-17)
 
 
