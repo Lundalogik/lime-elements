@@ -85,9 +85,13 @@
     width: calc(100% - #{functions.pxToRem(20)});
     z-index: z-index.$input-field--formatted-value;
 
-    display: none;
+    position: absolute;
+    top: 0.9rem;
+    pointer-events: none;
+
+    opacity: 0;
     :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) & {
-        display: block;
+        opacity: 1;
     }
 
     + .mdc-text-field__input {

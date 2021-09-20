@@ -290,10 +290,10 @@ export class InputField {
                     <span class="mdc-notched-outline__trailing"></span>
                 </span>
                 {this.renderLeadingIcon()}
-                {this.renderFormattedNumber()}
                 {this.renderEmptyValueForReadonly()}
                 {this.renderInput(properties)}
                 {this.renderTextarea(properties)}
+                {this.renderFormattedNumber()}
                 {this.renderTrailingLinkOrButton()}
             </label>,
             this.renderHelperLine(),
@@ -637,12 +637,12 @@ export class InputField {
     };
 
     private renderFormattedNumber = () => {
-        if (this.type !== 'number' || !this.value) {
+        if (this.type !== 'number') {
             return;
         }
 
         let renderValue = this.value;
-        if (this.formatNumber) {
+        if (this.formatNumber && this.value) {
             renderValue = new Intl.NumberFormat(navigator.language).format(
                 Number(this.value)
             );
