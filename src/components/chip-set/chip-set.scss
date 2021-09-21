@@ -150,6 +150,11 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
             .mdc-chip__icon--trailing {
                 color: rgb(var(--color-red-dark));
+                background-color: $background-color-of-remove-chip-buton-when-hovered;
+
+                svg {
+                    transform: $scale-of-remove-chip-x-when-hovered;
+                }
             }
         }
     }
