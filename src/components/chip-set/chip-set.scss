@@ -33,6 +33,11 @@
 
 $height-of-chip-set-input: functions.pxToRem(36);
 $leading-icon-space: functions.pxToRem(40);
+$background-color-of-remove-chip-buton-when-hovered: rgba(
+    var(--color-red-default),
+    0.2
+);
+$scale-of-remove-chip-x-when-hovered: scale(0.7);
 
 .mdc-chip {
     @include mixins.is-elevated-inset-clickable;
@@ -173,10 +178,10 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         height: functions.pxToRem(22);
 
         &:hover {
-            background-color: rgba(var(--color-red-default), 0.2);
+            background-color: $background-color-of-remove-chip-buton-when-hovered;
 
             svg {
-                transform: scale(0.7);
+                transform: $scale-of-remove-chip-x-when-hovered;
             }
         }
 
