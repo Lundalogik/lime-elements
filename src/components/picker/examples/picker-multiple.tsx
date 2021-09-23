@@ -37,6 +37,9 @@ export class PickerMultipleExample {
     @State()
     private disabled: boolean = false;
 
+    @State()
+    private delimiter: string = null;
+
     public render() {
         return [
             <limel-picker
@@ -49,6 +52,7 @@ export class PickerMultipleExample {
                 required={this.required}
                 readonly={this.readonly}
                 disabled={this.disabled}
+                delimiter={this.delimiter}
             />,
             <p>
                 <limel-flex-container justify="end">
@@ -66,6 +70,11 @@ export class PickerMultipleExample {
                         label="Required"
                         onChange={this.setRequired}
                         checked={this.required}
+                    />
+                    <limel-checkbox
+                        label="Use delimiters"
+                        onChange={this.useDelimiters}
+                        checked={this.delimiter !== null}
                     />
                 </limel-flex-container>
             </p>,
@@ -114,5 +123,9 @@ export class PickerMultipleExample {
 
     private setRequired = (event: CustomEvent<boolean>) => {
         this.required = event.detail;
+    };
+
+    private useDelimiters = (event: CustomEvent<boolean>) => {
+        this.delimiter = event.detail ? '&' : null;
     };
 }
