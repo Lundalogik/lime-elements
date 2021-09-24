@@ -1,3 +1,11 @@
+### [33.12.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.12.0...v33.12.1-next.1) (2021-09-24)
+
+
+### Bug Fixes
+
+* **table:** change cursor shape to "wait" while table is loading ([969a4ff](https://github.com/Lundalogik/lime-elements/commit/969a4ff35f1c9b3641dc713f8ce1843fd223525c))
+* **table:** make column headers of a empty tables clickable ([8403e14](https://github.com/Lundalogik/lime-elements/commit/8403e14a69f5bbf0511c315cdd09502919ad8a8f))
+
 ## [33.12.0](https://github.com/Lundalogik/lime-elements/compare/v33.11.0...v33.12.0) (2021-09-17)
 
 
