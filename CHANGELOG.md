@@ -1,3 +1,10 @@
+### [33.12.1-next.4](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.3...v33.12.1-next.4) (2021-09-24)
+
+
+### Bug Fixes
+
+* **table:** remove unnecessary callbacks ([76bcb7a](https://github.com/Lundalogik/lime-elements/commit/76bcb7ab0a00362eaca12bbf064edfe267450eea))
+
 ### [33.12.1-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.2...v33.12.1-next.3) (2021-09-24)
 
 
