@@ -1,3 +1,25 @@
+### [33.12.1-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.2...v33.12.1-next.3) (2021-09-24)
+
+
+### Bug Fixes
+
+* **picker:** show `delimiter` only when `multiple` is true ([417f67d](https://github.com/Lundalogik/lime-elements/commit/417f67dfdfa81b63f93e8c0dc9e6f80abf3581dc))
+
+### [33.12.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.1...v33.12.1-next.2) (2021-09-24)
+
+
+### Bug Fixes
+
+* **chip-set:** improve visual feedback when selecting a chip with keyboard for deletion ([294cdc3](https://github.com/Lundalogik/lime-elements/commit/294cdc373cf483172688b4958caf7f0c2a1d5383))
+
+### [33.12.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.12.0...v33.12.1-next.1) (2021-09-24)
+
+
+### Bug Fixes
+
+* **table:** change cursor shape to "wait" while table is loading ([969a4ff](https://github.com/Lundalogik/lime-elements/commit/969a4ff35f1c9b3641dc713f8ce1843fd223525c))
+* **table:** make column headers of a empty tables clickable ([8403e14](https://github.com/Lundalogik/lime-elements/commit/8403e14a69f5bbf0511c315cdd09502919ad8a8f))
+
 ## [33.12.0](https://github.com/Lundalogik/lime-elements/compare/v33.11.0...v33.12.0) (2021-09-17)
 
 
