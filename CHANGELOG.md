@@ -1,3 +1,10 @@
+### [33.12.1-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.2...v33.12.1-next.3) (2021-09-24)
+
+
+### Bug Fixes
+
+* **picker:** show `delimiter` only when `multiple` is true ([417f67d](https://github.com/Lundalogik/lime-elements/commit/417f67dfdfa81b63f93e8c0dc9e6f80abf3581dc))
+
 ### [33.12.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.1...v33.12.1-next.2) (2021-09-24)
 
 
