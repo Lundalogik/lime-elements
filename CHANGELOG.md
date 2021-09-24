@@ -1,3 +1,10 @@
+### [33.12.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.1...v33.12.1-next.2) (2021-09-24)
+
+
+### Bug Fixes
+
+* **chip-set:** improve visual feedback when selecting a chip with keyboard for deletion ([294cdc3](https://github.com/Lundalogik/lime-elements/commit/294cdc373cf483172688b4958caf7f0c2a1d5383))
+
 ### [33.12.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.12.0...v33.12.1-next.1) (2021-09-24)
 
 
