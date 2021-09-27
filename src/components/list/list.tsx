@@ -155,6 +155,27 @@ export class List {
         this.setupListeners();
     }
 
+    @Watch('items')
+    protected itemsChanged() {
+        if (!this.mdcList) {
+            return;
+        }
+
+        const listItems = this.items.filter(this.isListItem);
+
+        if (!this.multiple) {
+            this.mdcList.selectedIndex = listItems.findIndex(
+                (item: ListItem) => item.selected
+            );
+
+            return;
+        }
+
+        this.mdcList.selectedIndex = listItems
+            .filter((item: ListItem) => item.selected)
+            .map((item: ListItem) => listItems.indexOf(item));
+    }
+
     private setup() {
         if (this.type === 'menu') {
             this.setupMenu();
