@@ -107,7 +107,7 @@ export class Picker {
     public multiple: boolean = false;
 
     /**
-     * Sets delimiters between chips.
+     * Sets delimiters between chips. Works only when `multiple` is `true`.
      */
     @Prop({ reflect: true })
     public delimiter: string = null;
@@ -243,7 +243,7 @@ export class Picker {
                 leadingIcon={this.leadingIcon}
                 value={this.chips}
                 disabled={this.disabled}
-                delimiter={this.delimiter}
+                delimiter={this.renderDelimiter()}
                 readonly={this.readonly}
                 required={this.required}
                 searchLabel={this.searchLabel}
@@ -276,6 +276,14 @@ export class Picker {
             newValue,
             SEARCH_DEBOUNCE
         );
+    }
+
+    private renderDelimiter() {
+        if (this.multiple) {
+            return this.delimiter;
+        }
+
+        return null;
     }
 
     private createChips(value: ListItem | ListItem[]): Chip[] {

@@ -311,8 +311,6 @@ export class Table {
             rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
             initialSort: this.getColumnSorter(),
-            dataLoaded: this.updateMaxPage,
-            dataFiltered: this.updateMaxPage,
             nestedFieldSeparator: false,
             ...columnOptions,
         };
