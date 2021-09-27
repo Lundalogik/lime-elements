@@ -1,3 +1,10 @@
+### [33.12.1-next.6](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.5...v33.12.1-next.6) (2021-09-27)
+
+
+### Bug Fixes
+
+* **input-field:** retain focus when numeric field is validated ([74adcc8](https://github.com/Lundalogik/lime-elements/commit/74adcc82cce12f8858e7d066068140418c2e47a2)), closes [#1348](https://github.com/Lundalogik/lime-elements/issues/1348)
+
 ### [33.12.1-next.5](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.4...v33.12.1-next.5) (2021-09-27)
 
 
