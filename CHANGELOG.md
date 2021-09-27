@@ -1,3 +1,10 @@
+### [33.12.1-next.5](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.4...v33.12.1-next.5) (2021-09-27)
+
+
+### Bug Fixes
+
+* **list:** set correct selected index on mdc-list ([0a2fad6](https://github.com/Lundalogik/lime-elements/commit/0a2fad6ed61d6c071ce364fb2fb255adbf9c357c)), closes [Lundalogik/crm-feature#2259](https://github.com/Lundalogik/crm-feature/issues/2259)
+
 ### [33.12.1-next.4](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.3...v33.12.1-next.4) (2021-09-24)
 
 
