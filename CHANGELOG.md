@@ -1,3 +1,10 @@
+### [33.12.1-next.7](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.6...v33.12.1-next.7) (2021-09-28)
+
+
+### Bug Fixes
+
+* **progress-flow:** fix still broken export of the `FlowItem` interface ([ac97f4b](https://github.com/Lundalogik/lime-elements/commit/ac97f4ba66a56d1911214bb1071cbd8f27efaced)), closes [#1362](https://github.com/Lundalogik/lime-elements/issues/1362)
+
 ### [33.12.1-next.6](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.5...v33.12.1-next.6) (2021-09-27)
 
 
