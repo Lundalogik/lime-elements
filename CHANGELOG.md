@@ -1,3 +1,10 @@
+## [33.13.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.7...v33.13.0-next.1) (2021-09-28)
+
+
+### Features
+
+* **style:** make Lime's percentage colors universally available ([861611c](https://github.com/Lundalogik/lime-elements/commit/861611cbbcc38606ae0c1928ba31b064d42b0b68))
+
 ### [33.12.1-next.7](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.6...v33.12.1-next.7) (2021-09-28)
 
 
