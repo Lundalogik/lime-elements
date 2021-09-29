@@ -93,6 +93,10 @@
 
         position: relative;
         bottom: unset;
+        margin: {
+            left: 0;
+            right: functions.pxToRem(4);
+        }
     }
 
     .limel-select-trigger,
