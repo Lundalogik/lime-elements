@@ -1,3 +1,10 @@
+## [33.13.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.2...v33.13.0-next.3) (2021-09-30)
+
+
+### Bug Fixes
+
+* **input-field:** fix cut-off label for input fields with leading icon ([1957c43](https://github.com/Lundalogik/lime-elements/commit/1957c43be112e74eaea02532aa3c7abc2b1d63f9))
+
 ## [33.13.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.1...v33.13.0-next.2) (2021-09-30)
 
 
