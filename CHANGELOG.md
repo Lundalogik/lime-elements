@@ -1,3 +1,10 @@
+## [33.13.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.1...v33.13.0-next.2) (2021-09-30)
+
+
+### Bug Fixes
+
+* **select:** give more space to label by reducing dropdown-icon's margins ([8f86a56](https://github.com/Lundalogik/lime-elements/commit/8f86a56f2e7a50e2e58384734721d540e1776849))
+
 ## [33.13.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.7...v33.13.0-next.1) (2021-09-28)
 
 
