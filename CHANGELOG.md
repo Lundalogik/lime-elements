@@ -1,3 +1,10 @@
+## [33.13.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.4...v33.13.0-next.5) (2021-09-30)
+
+
+### Features
+
+* **circular-progress:** add new `limel-circular-progress` component ([a35bd69](https://github.com/Lundalogik/lime-elements/commit/a35bd69b69282d7956780fcae40ef66442f15c3b))
+
 ## [33.13.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.3...v33.13.0-next.4) (2021-09-30)
 
 
