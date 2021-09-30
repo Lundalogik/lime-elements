@@ -1,3 +1,11 @@
+## [33.13.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.3...v33.13.0-next.4) (2021-09-30)
+
+
+### Bug Fixes
+
+* **list:** only apply badge effect to graphic ([ef783e3](https://github.com/Lundalogik/lime-elements/commit/ef783e3688623b8e8c699d1b52c30653e3aa87e5))
+* **list:** vertically center item action menu icon ([9120a58](https://github.com/Lundalogik/lime-elements/commit/9120a581983b7dc2b79242db110787ef9aea4d99))
+
 ## [33.13.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.2...v33.13.0-next.3) (2021-09-30)
 
 
