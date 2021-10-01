@@ -44,6 +44,7 @@
         cursor: pointer;
         line-height: normal;
         padding-left: 0;
+        color: rgb(var(--contrast-1700));
 
         &.mdc-checkbox--disabled {
             opacity: 0.37;
