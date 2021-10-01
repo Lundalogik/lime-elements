@@ -1,3 +1,10 @@
+## [33.13.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.5...v33.13.0-next.6) (2021-10-01)
+
+
+### Performance Improvements
+
+* **linear-progress:** remove `buffer-dots` and thus their always running animations ([455e1fc](https://github.com/Lundalogik/lime-elements/commit/455e1fcea8d1f7bc83694636648b3d6117234c93))
+
 ## [33.13.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.4...v33.13.0-next.5) (2021-09-30)
 
 
