@@ -62,7 +62,10 @@ $cropped-label-hack--font-size: 0.875rem; //14px
 @mixin cropped-label-hack {
     // Some font size applied to `label--float-above` causes the labels to get cut off
     // when an empty field gets focused
-    .mdc-text-field--outlined.mdc-notched-outline--upgraded.mdc-text-field--textarea,
+    .mdc-text-field--outlined.mdc-text-field--with-leading-icon.mdc-notched-outline--upgraded,
+    .mdc-text-field--outlined.mdc-text-field--with-leading-icon
+        .mdc-notched-outline--upgraded,
+    .mdc-text-field--outlined.mdc-text-field--textarea.mdc-notched-outline--upgraded,
     .mdc-text-field--outlined.mdc-text-field--textarea
         .mdc-notched-outline--upgraded,
     .mdc-text-field--outlined.mdc-notched-outline--upgraded,

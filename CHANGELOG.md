@@ -1,3 +1,32 @@
+## [33.13.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.4...v33.13.0-next.5) (2021-09-30)
+
+
+### Features
+
+* **circular-progress:** add new `limel-circular-progress` component ([a35bd69](https://github.com/Lundalogik/lime-elements/commit/a35bd69b69282d7956780fcae40ef66442f15c3b))
+
+## [33.13.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.3...v33.13.0-next.4) (2021-09-30)
+
+
+### Bug Fixes
+
+* **list:** only apply badge effect to graphic ([ef783e3](https://github.com/Lundalogik/lime-elements/commit/ef783e3688623b8e8c699d1b52c30653e3aa87e5))
+* **list:** vertically center item action menu icon ([9120a58](https://github.com/Lundalogik/lime-elements/commit/9120a581983b7dc2b79242db110787ef9aea4d99))
+
+## [33.13.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.2...v33.13.0-next.3) (2021-09-30)
+
+
+### Bug Fixes
+
+* **input-field:** fix cut-off label for input fields with leading icon ([1957c43](https://github.com/Lundalogik/lime-elements/commit/1957c43be112e74eaea02532aa3c7abc2b1d63f9))
+
+## [33.13.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.1...v33.13.0-next.2) (2021-09-30)
+
+
+### Bug Fixes
+
+* **select:** give more space to label by reducing dropdown-icon's margins ([8f86a56](https://github.com/Lundalogik/lime-elements/commit/8f86a56f2e7a50e2e58384734721d540e1776849))
+
 ## [33.13.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.12.1-next.7...v33.13.0-next.1) (2021-09-28)
 
 

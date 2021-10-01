@@ -67,10 +67,16 @@ $list-border-radius: 0.375rem; // 6px
         cursor: pointer;
     }
 
+    .mdc-deprecated-list-item__meta {
+        // the action menu on the right side a list item
+        line-height: 100%;
+        margin-right: -0.5rem;
+    }
+
     &.mdc-deprecated-list--avatar-list {
         position: relative;
 
-        limel-icon {
+        limel-icon.mdc-deprecated-list-item__graphic {
             background-color: var(
                 --icon-background-color,
                 rgb(var(--contrast-900))

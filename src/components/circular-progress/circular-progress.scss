@@ -1,0 +1,86 @@
+@use '../../style/functions';
+@use '../../style/internal/lime-theme';
+@use '../../style/internal/z-index';
+
+/**
+ * @prop --circular-progress-size: Determines the visual size of the visualization. This does not override the `size` property if it is specified.
+ * @prop --circular-progress-track-color: Determines the color of the circular track. Defaults to `--contrast-400`.
+ * @prop --circular-progress-fill-color: Determines the color of the progressed section. Defaults to `--lime-primary-color`.
+ */
+
+:host {
+    display: block;
+    box-sizing: border-box;
+}
+
+:host([size='x-small']) {
+    --circular-progress-size: 1.5rem;
+    font-weight: bold;
+}
+
+:host([size='small']) {
+    --circular-progress-size: 2rem;
+    font-weight: bold;
+}
+
+:host([size='medium']) {
+    --circular-progress-size: 3rem;
+}
+
+:host([size='large']) {
+    --circular-progress-size: 4rem;
+}
+
+:host([size='x-large']) {
+    --circular-progress-size: 5rem;
+}
+
+.lime-circular-progress {
+    --size: var(--circular-progress-size, 3rem);
+    --fill-color: var(--circular-progress-fill-color, var(--mdc-theme-primary));
+    --track-color: var(
+        --circular-progress-track-color,
+        rgb(var(--contrast-400))
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 0.125rem rgba(var(--contrast-100), 0.8);
+    background: conic-gradient(
+        var(--fill-color) 0% var(--percentage),
+        var(--track-color) var(--percentage) 100%
+    );
+
+    &:before {
+        $size-of-middle-circle: calc(
+            var(--size) * 0.75 + 0.25rem
+        ); // this calculation ensures that the middle circle is responsive and always perfectly centered
+
+        content: '';
+        position: absolute;
+        width: $size-of-middle-circle;
+        height: $size-of-middle-circle;
+        border-radius: 50%;
+        background-color: rgb(var(--contrast-100));
+        box-shadow: var(--button-shadow-pressed);
+    }
+}
+
+.value {
+    font-size: calc(var(--size) * 0.25);
+    color: rgb(var(--contrast-1200));
+    z-index: z-index.$limel-circular-progress-value;
+    cursor: default;
+}
+
+.suffix {
+    opacity: 0.7;
+}
+
+@import './partial-styles/_percentage-colors';

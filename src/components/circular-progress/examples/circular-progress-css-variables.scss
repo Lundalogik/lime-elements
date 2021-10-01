@@ -1,0 +1,12 @@
+:host {
+    --circular-progress-size: 8rem;
+    --circular-progress-fill-color: rgb(var(--color-orange-default));
+    --circular-progress-track-color: rgb(var(--color-orange-lighter));
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(var(--contrast-600));
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
