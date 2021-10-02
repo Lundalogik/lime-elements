@@ -1,8 +1,11 @@
 name: Create and Publish Full Release
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    # Run at 02:00 UTC every night.
+    - cron: "0 2 * * *"
+  # workflow_dispatch makes it possible to trigger the run manually
+  workflow_dispatch:
+
 jobs:
   semantic-release:
     name: Run Semantic Release
