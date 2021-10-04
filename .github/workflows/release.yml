@@ -1,8 +1,8 @@
 name: Create and Publish Full Release
 on:
-  schedule:
-    # Run at 02:00 UTC every night.
-    - cron: "0 2 * * *"
+  push:
+    branches:
+      - main
   # workflow_dispatch makes it possible to trigger the run manually
   workflow_dispatch:
 
