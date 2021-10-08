@@ -83,7 +83,9 @@ export class Select {
     public helperText: string;
 
     /**
-     * Currently selected value or values (if `multiple` is set).
+     * Currently selected value or values.
+     * If `multiple` is `true`, this must be an array. Otherwise it must be a
+     * single value.
      */
     @Prop()
     public value: Option | Option[];
