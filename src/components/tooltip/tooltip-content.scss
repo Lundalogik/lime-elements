@@ -1,0 +1,23 @@
+.tooltip-content {
+    display: flex;
+    flex-direction: row;
+    color: rgb(var(--color-gray-default));
+    border-radius: 0.5rem;
+    width: auto;
+    display: flex;
+    padding: 0.75rem;
+    transition: opacity 150ms ease-out;
+    margin-top: 0.3rem;
+    background-color: rgb(var(--color-gray-darker));
+
+    .tooltip {
+        color: rgb(var(--color-gray-lighter));
+    }
+
+    .helperLabel {
+        padding: 0 0 0 1rem;
+        &:empty {
+            display: none;
+        }
+    }
+}
