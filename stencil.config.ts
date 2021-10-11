@@ -25,6 +25,7 @@ export const config: Config = {
             dir: 'www',
             copy: [
                 { src: 'style/color-palette-extended-light-mode-only.css' },
+                { src: 'style/color-palette-extended.css' },
                 {
                     src: '../node_modules/@lundalogik/lime-icons8/assets/',
                     dest: 'assets/',
