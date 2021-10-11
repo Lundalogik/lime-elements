@@ -1,3 +1,32 @@
+## [33.13.0](https://github.com/Lundalogik/lime-elements/compare/v33.12.0...v33.13.0) (2021-10-02)
+
+
+### Features
+
+* **circular-progress:** add new `limel-circular-progress` component ([a35bd69](https://github.com/Lundalogik/lime-elements/commit/a35bd69b69282d7956780fcae40ef66442f15c3b))
+* **style:** make Lime's percentage colors universally available ([861611c](https://github.com/Lundalogik/lime-elements/commit/861611cbbcc38606ae0c1928ba31b064d42b0b68))
+
+
+### Bug Fixes
+
+* **chip-set:** improve visual feedback when selecting a chip with keyboard for deletion ([294cdc3](https://github.com/Lundalogik/lime-elements/commit/294cdc373cf483172688b4958caf7f0c2a1d5383))
+* **input-field:** fix cut-off label for input fields with leading icon ([1957c43](https://github.com/Lundalogik/lime-elements/commit/1957c43be112e74eaea02532aa3c7abc2b1d63f9))
+* **input-field:** retain focus when numeric field is validated ([74adcc8](https://github.com/Lundalogik/lime-elements/commit/74adcc82cce12f8858e7d066068140418c2e47a2)), closes [#1348](https://github.com/Lundalogik/lime-elements/issues/1348)
+* **list:** only apply badge effect to graphic ([ef783e3](https://github.com/Lundalogik/lime-elements/commit/ef783e3688623b8e8c699d1b52c30653e3aa87e5))
+* **list:** set correct selected index on mdc-list ([0a2fad6](https://github.com/Lundalogik/lime-elements/commit/0a2fad6ed61d6c071ce364fb2fb255adbf9c357c)), closes [Lundalogik/crm-feature#2259](https://github.com/Lundalogik/crm-feature/issues/2259)
+* **list:** vertically center item action menu icon ([9120a58](https://github.com/Lundalogik/lime-elements/commit/9120a581983b7dc2b79242db110787ef9aea4d99))
+* **picker:** show `delimiter` only when `multiple` is true ([417f67d](https://github.com/Lundalogik/lime-elements/commit/417f67dfdfa81b63f93e8c0dc9e6f80abf3581dc))
+* **progress-flow:** fix still broken export of the `FlowItem` interface ([ac97f4b](https://github.com/Lundalogik/lime-elements/commit/ac97f4ba66a56d1911214bb1071cbd8f27efaced)), closes [#1362](https://github.com/Lundalogik/lime-elements/issues/1362)
+* **select:** give more space to label by reducing dropdown-icon's margins ([8f86a56](https://github.com/Lundalogik/lime-elements/commit/8f86a56f2e7a50e2e58384734721d540e1776849))
+* **table:** change cursor shape to "wait" while table is loading ([969a4ff](https://github.com/Lundalogik/lime-elements/commit/969a4ff35f1c9b3641dc713f8ce1843fd223525c))
+* **table:** make column headers of a empty tables clickable ([8403e14](https://github.com/Lundalogik/lime-elements/commit/8403e14a69f5bbf0511c315cdd09502919ad8a8f))
+* **table:** remove unnecessary callbacks ([76bcb7a](https://github.com/Lundalogik/lime-elements/commit/76bcb7ab0a00362eaca12bbf064edfe267450eea))
+
+
+### Performance Improvements
+
+* **linear-progress:** remove `buffer-dots` and thus their always running animations ([455e1fc](https://github.com/Lundalogik/lime-elements/commit/455e1fcea8d1f7bc83694636648b3d6117234c93))
+
 ## [33.13.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v33.13.0-next.5...v33.13.0-next.6) (2021-10-01)
 
 

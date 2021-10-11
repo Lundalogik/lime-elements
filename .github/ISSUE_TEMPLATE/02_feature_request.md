@@ -1,10 +1,3 @@
----
-name: Feature request
-about: Wouldn’t it be nice if lime-elements had ...
-labels: feature
-
----
-
 ## New feature motivation
 
 <!-- Describe the context, the use-case and the advantages of the feature request. -->

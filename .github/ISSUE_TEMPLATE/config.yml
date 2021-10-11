@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Bug Report
+    about: Create a report of the issue you've encountered.
+    url: https://github.com/Lundalogik/lime-elements/issues/new?labels=bug&template=01_bug_report.md&projects=Lundalogik%2Flime-elements%2F1
+  - name: Feature Request
+    about: Wouldn’t it be nice if lime-elements had …
+    url: https://github.com/Lundalogik/lime-elements/issues/new?labels=feature&template=02_feature_request.md&projects=Lundalogik%2Flime-elements%2F1
+  - name: Question
+    about: Any requests for support or troubleshooting, and any other questions
+    url: https://github.com/Lundalogik/lime-elements/issues/new?template=03_question.md
