@@ -1,3 +1,10 @@
+## [33.14.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.13.0...v33.14.0-next.1) (2021-10-12)
+
+
+### Features
+
+* **tooltip:** add tooltip component ([452fb56](https://github.com/Lundalogik/lime-elements/commit/452fb56110c87110be2956ef9e873dc44d37c96d)), closes [Lundalogik/crm-feature#2336](https://github.com/Lundalogik/crm-feature/issues/2336)
+
 ## [33.13.0](https://github.com/Lundalogik/lime-elements/compare/v33.12.0...v33.13.0) (2021-10-02)
 
 
