@@ -61,7 +61,7 @@ export class DialogActionButtonsExample {
                 </div>
                 <limel-button
                     label="Back to editing"
-                    class="button back primary--neutral justify-left"
+                    class="button back primary--neutral"
                     icon="left_arrow"
                     onClick={this.closeDialog}
                     slot="button"
