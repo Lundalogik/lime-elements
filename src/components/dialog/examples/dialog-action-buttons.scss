@@ -5,11 +5,10 @@
 }
 
 .button {
-    &.justify-left {
-        // In a full width flex container that has `justify-content: flex-end;`,
+    &:first-of-type {
         // these styles will align the targeted button to the left.
-        justify-self: flex-start;
         margin-right: auto;
+        margin-top: 0;
     }
     &.primary--neutral {
         --lime-primary-color: rgb(var(--contrast-1100));
@@ -20,5 +19,16 @@
     }
     &.primary--danger {
         --lime-primary-color: rgb(var(--color-red-default));
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .button {
+        &:first-of-type {
+            // these styles will add a gap between "back button" and "discard" in a mobile view
+            // and put all buttons in a column.
+            margin-top: 1rem;
+            margin-right: 0;
+        }
     }
 }
