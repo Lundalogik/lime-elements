@@ -1,3 +1,10 @@
+## [33.14.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.1...v33.14.0-next.2) (2021-10-15)
+
+
+### Bug Fixes
+
+* **dialog:** UX issue with a button rendering ([3a90fd3](https://github.com/Lundalogik/lime-elements/commit/3a90fd3817f154521e692e292bc5277b93944106))
+
 ## [33.14.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.13.0...v33.14.0-next.1) (2021-10-12)
 
 
