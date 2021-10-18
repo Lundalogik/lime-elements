@@ -73,11 +73,7 @@ export class MenuCompositeExample {
                 onSelect={this.handleSelect}
                 onCancel={this.handleCancel}
             >
-                <limel-button
-                    label="Menu"
-                    disabled={this.props.disabled}
-                    slot="trigger"
-                />
+                <limel-button label="Menu" slot="trigger" />
             </limel-menu>,
             <limel-collapsible-section header="Settings">
                 <limel-form

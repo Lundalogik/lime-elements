@@ -155,6 +155,11 @@ export class Menu {
         );
     }
 
+    public componentDidRender() {
+        const slotElement = this.host.shadowRoot.querySelector('slot');
+        slotElement.assignedElements().forEach(this.setTriggerAttributes);
+    }
+
     private renderTrigger() {
         return (
             <button
@@ -168,6 +173,23 @@ export class Menu {
             </button>
         );
     }
+
+    private setTriggerAttributes = (element: HTMLElement) => {
+        const attributes = {
+            'aria-haspopup': true,
+            'aria-expanded': this.open,
+            disabled: this.disabled,
+            role: 'button',
+        };
+
+        for (const [key, value] of Object.entries(attributes)) {
+            if (!value) {
+                element.removeAttribute(key);
+            } else {
+                element.setAttribute(key, String(value));
+            }
+        }
+    };
 
     private onClose = () => {
         this.cancel.emit();

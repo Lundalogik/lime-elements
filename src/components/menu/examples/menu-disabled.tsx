@@ -4,10 +4,8 @@ import { Component, h } from '@stencil/core';
 /**
  * Disabled
  *
- * Note that both the `limel-menu` and the trigger button are disabled.
- * The `disabled` property on `limel-menu` prevents the menu from opening, but
- * does not affect the styling or behavior of the `limel-button` trigger
- * element.
+ * Note that you don't need to disable the trigger button separately, as the
+ * component takes care of this for you.
  */
 @Component({
     tag: 'limel-example-menu-disabled',
@@ -28,7 +26,7 @@ export class MenuDisabledExample {
                 disabled={true}
                 onSelect={this.handleSelect}
             >
-                <limel-button label="Menu" disabled={true} slot="trigger" />
+                <limel-button label="Menu" slot="trigger" />
             </limel-menu>
         );
     }
