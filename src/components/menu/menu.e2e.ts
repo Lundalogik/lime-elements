@@ -44,6 +44,10 @@ describe('limel-menu', () => {
         it('has the supplied label', () => {
             expect(defaultButton).toEqualText('My Label');
         });
+        it('sets the correct aria attributes on the trigger element', async () => {
+            expect(defaultButton.getAttribute('aria-haspopup')).toBeTruthy();
+            expect(defaultButton.getAttribute('role')).toEqual('button');
+        });
 
         describe('when clicked', () => {
             beforeEach(async () => {
@@ -53,6 +57,14 @@ describe('limel-menu', () => {
             it('opens the menu', async () => {
                 const isOpen = await limelMenu.getProperty('open');
                 expect(isOpen).toBe(true);
+            });
+            it('sets the correct aria attributes on the trigger element', async () => {
+                expect(
+                    defaultButton.getAttribute('aria-haspopup')
+                ).toBeTruthy();
+                expect(
+                    defaultButton.getAttribute('aria-expanded')
+                ).toBeTruthy();
             });
 
             describe('when the menu is already open', () => {
