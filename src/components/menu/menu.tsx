@@ -6,6 +6,7 @@ import {
     h,
     Prop,
     Element,
+    Watch,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
@@ -97,6 +98,8 @@ export class Menu {
     @Element()
     private host: HTMLLimelMenuElement;
 
+    private list: HTMLLimelListElement;
+
     private portalId: string;
 
     constructor() {
@@ -110,6 +113,19 @@ export class Menu {
                 'Using limel-menu with the default trigger is deprecated. Please provide your own trigger element.'
             );
         }
+    }
+
+    @Watch('open')
+    protected openWatcher() {
+        if (!this.open) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(() => {
+            observer.unobserve(this.list);
+            this.focusMenuItem();
+        });
+        observer.observe(this.list);
     }
 
     public render() {
@@ -148,6 +164,7 @@ export class Menu {
                             type="menu"
                             badgeIcons={this.badgeIcons}
                             onChange={this.onListChange}
+                            ref={this.setListElement}
                         />
                     </limel-menu-surface>
                 </limel-portal>
@@ -248,5 +265,28 @@ export class Menu {
         });
 
         return zipObject(propertyNames, values);
+    }
+
+    private setListElement = (element: HTMLLimelListElement) => {
+        this.list = element;
+    };
+
+    private focusMenuItem = () => {
+        const activeElement = this.list.shadowRoot.activeElement as HTMLElement;
+        activeElement?.blur();
+
+        const listItems = this.items.filter(this.isListItem);
+        const selectedIndex = Math.max(
+            listItems.findIndex((item) => item.selected),
+            0
+        );
+        const menuElements: HTMLElement[] = Array.from(
+            this.list.shadowRoot.querySelectorAll('[role="menuitem"]')
+        );
+        menuElements[selectedIndex]?.focus();
+    };
+
+    private isListItem(item: ListItem | ListSeparator): item is ListItem {
+        return !('separator' in item);
     }
 }
