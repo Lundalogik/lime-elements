@@ -1,19 +1,19 @@
 import { ListItem, ListSeparator } from '@limetech/lime-elements';
-import { newE2EPage } from '@stencil/core/testing';
+import { newE2EPage, E2EPage, E2EElement } from '@stencil/core/testing';
 
 describe('limel-menu', () => {
-    let page;
-    let limelMenu;
-    let menuAnchor;
-    let triggerSlot;
+    let page: E2EPage;
+    let limelMenu: HTMLLimelMenuElement & E2EElement;
     let items: Array<ListItem | ListSeparator>;
     beforeEach(async () => {
         page = await newE2EPage({
-            html: '<limel-menu label="My Label"></limel-menu>',
+            html: `
+                <limel-menu>
+                    <button slot="trigger">My Label</button>
+                </limel-menu>
+            `,
         });
-        limelMenu = await page.find('limel-menu');
-        menuAnchor = await page.find('limel-menu>>>.mdc-menu-surface--anchor');
-        triggerSlot = await menuAnchor.find('slot[name=trigger]');
+        limelMenu = (await page.find('limel-menu')) as any;
         items = [
             {
                 text: 'My fab menu item',
@@ -36,13 +36,10 @@ describe('limel-menu', () => {
         });
     });
 
-    describe('default button', () => {
+    describe('button', () => {
         let defaultButton;
         beforeEach(async () => {
-            defaultButton = await triggerSlot.find('button');
-        });
-        it('has the correct class', () => {
-            expect(defaultButton).toHaveClass('menu__trigger');
+            defaultButton = await page.find('button[slot="trigger"]');
         });
         it('has the supplied label', () => {
             expect(defaultButton).toEqualText('My Label');
@@ -76,7 +73,6 @@ describe('limel-menu', () => {
             describe('is not set', () => {
                 it('is enabled', () => {
                     expect(defaultButton).not.toHaveAttribute('disabled');
-                    expect(defaultButton).toHaveClass('menu__trigger-enabled');
                 });
             });
 
@@ -87,9 +83,6 @@ describe('limel-menu', () => {
                 });
                 it('is disabled', () => {
                     expect(defaultButton).toHaveAttribute('disabled');
-                    expect(defaultButton).not.toHaveClass(
-                        'menu__trigger-enabled'
-                    );
                 });
 
                 describe('when default button is clicked', () => {
