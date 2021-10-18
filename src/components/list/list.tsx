@@ -205,6 +205,8 @@ export class List {
         }
 
         this.mdcMenu = new MDCMenu(element);
+        this.mdcMenu.hasTypeahead = true;
+        this.mdcMenu.wrapFocus = true;
         this.mdcMenu.items.forEach((item) => new MDCRipple(item));
     }
 
