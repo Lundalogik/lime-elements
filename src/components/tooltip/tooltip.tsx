@@ -7,7 +7,7 @@ import { createRandomString } from '../../util/random-string';
  *
  * In order to display the tooltip, the tooltip element and the owner element
  * that it should describe must be within the same document or document
- * fragment. A good practice is to just render them next to each other like so
+ * fragment. A good practice is to just render them next to each other like so:
  *
  * ```html
  * <limel-button icon="search" id="tooltip-example" />
@@ -23,23 +23,23 @@ import { createRandomString } from '../../util/random-string';
 })
 export class Tooltip {
     /**
-     * Short descriptive text of the owner element
+     * Short descriptive text of the owner element.
      */
     @Prop()
     public label!: string;
 
     /**
-     * Additional helper text for the element
+     * Additional helper text for the element.
      * Example usage can be a keyboard shortcut to activate the function of the
-     * owner element
+     * owner element.
      */
     @Prop()
     public helperLabel: string;
 
     /**
-     * ID of the owner element that the tooltip should describe
+     * ID of the owner element that the tooltip should describe.
      * Must be a child within the same document fragment as the tooltip element
-     * itself
+     * itself.
      */
     @Prop()
     public elementId!: string;

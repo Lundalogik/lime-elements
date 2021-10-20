@@ -1,8 +1,7 @@
 import { Component, h } from '@stencil/core';
 
 /**
- * Tooltip for icons
- * with supporting a hotkey
+ * Basic example
  */
 @Component({
     tag: 'limel-example-tooltip',
