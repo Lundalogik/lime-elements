@@ -207,11 +207,17 @@ export class TabBar {
         const index = event.detail.index;
         const newTabs = setActiveTab(this.tabs, index);
 
-        difference(newTabs, this.tabs).forEach((tab: Tab) => {
-            this.changeTab.emit(tab);
-        });
+        difference(newTabs, this.tabs)
+            .sort(this.sortByInactive)
+            .forEach((tab: Tab) => {
+                this.changeTab.emit(tab);
+            });
 
         this.tabs = newTabs;
+    }
+
+    private sortByInactive(a: Tab, b: Tab) {
+        return Number(a.active) - Number(b.active);
     }
 
     private handleScroll() {
