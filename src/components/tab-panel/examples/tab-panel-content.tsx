@@ -7,7 +7,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { Tab } from '@limetech/lime-elements';
+import { Tab, TabPanelComponent } from '@limetech/lime-elements';
 
 const LOAD_TIME = 1000;
 
@@ -16,7 +16,7 @@ const LOAD_TIME = 1000;
     shadow: true,
     styleUrl: 'tab-panel-content.scss',
 })
-export class TabPanelContentExample {
+export class TabPanelContentExample implements TabPanelComponent {
     /**
      * The tab that this component belongs to
      */
@@ -27,7 +27,7 @@ export class TabPanelContentExample {
      * Emitted when the vote button is clicked to update the badge in the tab
      */
     @Event()
-    private changeTab: EventEmitter<Tab>;
+    public changeTab: EventEmitter<Tab>;
 
     @State()
     private votes = 0;
