@@ -1,3 +1,10 @@
+## [33.14.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.2...v33.14.0-next.3) (2021-10-20)
+
+
+### Bug Fixes
+
+* **tooltip:** improve component API and accessibility ([bb2b7bb](https://github.com/Lundalogik/lime-elements/commit/bb2b7bb39bf81662a07d124918e8155749aa45f3))
+
 ## [33.14.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.1...v33.14.0-next.2) (2021-10-15)
 
 

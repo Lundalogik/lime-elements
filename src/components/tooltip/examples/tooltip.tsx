@@ -1,40 +1,22 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 /**
- * Tooltip for icons
- * with supporting a hotkey
+ * Basic example
  */
-
 @Component({
     tag: 'limel-example-tooltip',
     shadow: true,
     styleUrl: 'tooltip.scss',
 })
 export class TooltipExample {
-    @State()
-    private isOpen = false;
-
     public render() {
         return [
-            <limel-button
-                icon="search"
-                onMouseOver={this.showTooltip}
-                onMouseOut={this.hideTooltip}
-                onClick={this.hideTooltip}
-            />,
+            <limel-button icon="search" id="tooltip-example" />,
             <limel-tooltip
-                open={this.isOpen}
-                label={'Search'}
-                helperLabel={'alt+f'}
+                label="Search"
+                helperLabel="alt+f"
+                elementId="tooltip-example"
             />,
         ];
     }
-
-    private showTooltip = () => {
-        this.isOpen = true;
-    };
-
-    private hideTooltip = () => {
-        this.isOpen = false;
-    };
 }

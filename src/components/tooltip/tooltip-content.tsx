@@ -1,9 +1,10 @@
 import { Component, h, Prop } from '@stencil/core';
 
 /**
+ * This component is used internally by `limel-tooltip`.
+ *
  * @private
  */
-
 @Component({
     tag: 'limel-tooltip-content',
     shadow: true,
@@ -11,13 +12,15 @@ import { Component, h, Prop } from '@stencil/core';
 })
 export class TooltipContent {
     /**
-     *tip for the hovered element
+     * Short descriptive text of the owner element.
      */
     @Prop()
     label: string;
 
     /**
-     *hotkey for the hovered element
+     * Additional helper text for the element.
+     * Example usage can be a keyboard shortcut to activate the function of the
+     * owner element.
      */
     @Prop()
     helperLabel: string;
