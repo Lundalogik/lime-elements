@@ -3,7 +3,6 @@ import { Component, h, Prop } from '@stencil/core';
 /**
  * @private
  */
-
 @Component({
     tag: 'limel-tooltip-content',
     shadow: true,
