@@ -1,3 +1,10 @@
+## [33.14.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.3...v33.14.0-next.4) (2021-10-20)
+
+
+### Bug Fixes
+
+* **tabs:** emit event for inactive tab before active ([60a70a0](https://github.com/Lundalogik/lime-elements/commit/60a70a008271fec46be41945146ccbc4c1dc48bd))
+
 ## [33.14.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.2...v33.14.0-next.3) (2021-10-20)
 
 
