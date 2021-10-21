@@ -1,3 +1,10 @@
+## [33.14.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.4...v33.14.0-next.5) (2021-10-21)
+
+
+### Features
+
+* **tab-panel:** add interface for tab-panel components ([64d3123](https://github.com/Lundalogik/lime-elements/commit/64d31231eb50a37488ff633aef3f2aed0d511498)), closes [#1264](https://github.com/Lundalogik/lime-elements/issues/1264)
+
 ## [33.14.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.3...v33.14.0-next.4) (2021-10-20)
 
 
