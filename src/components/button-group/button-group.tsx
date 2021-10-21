@@ -133,16 +133,21 @@ export class ButtonGroup {
     }
 
     private renderIcon(button: Button) {
-        return (
+        // Prefix with 'i' because html IDs cannot start with a digit,
+        // and we need to differentiate from the "buttonId". /Ads
+        const iconId = `i${button.id}`;
+
+        return [
             <limel-icon
+                id={iconId}
                 class="mdc-chip__icon"
                 aria-label={button.title}
-                title={button.title}
                 name={button.icon}
                 size="small"
                 badge={true}
-            />
-        );
+            />,
+            <limel-tooltip elementId={iconId} label={button.title} />,
+        ];
     }
 
     private onChange(event: Event) {
