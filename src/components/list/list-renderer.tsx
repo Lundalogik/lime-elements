@@ -1,4 +1,4 @@
-import { ListItem, ListSeparator } from '@limetech/lime-elements';
+import { ListItem, ListSeparator, MenuItem } from '@limetech/lime-elements';
 import { h } from '@stencil/core';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { ListRendererConfig } from './list-renderer-config';
@@ -15,6 +15,7 @@ export class ListRenderer {
     private hasIcons: boolean;
     private twoLines: boolean;
     private avatarList: boolean;
+    private commandKey: boolean;
 
     private applyTabIndexToItemAtIndex: number;
 
@@ -24,7 +25,7 @@ export class ListRenderer {
     }
 
     public render(
-        items: Array<ListItem | ListSeparator>,
+        items: Array<ListItem | ListSeparator | MenuItem>,
         config: ListRendererConfig = {}
     ) {
         items = items || [];
@@ -32,6 +33,10 @@ export class ListRenderer {
 
         this.twoLines = items.some((item) => {
             return 'secondaryText' in item && !!item.secondaryText;
+        });
+
+        this.commandKey = items.some((item) => {
+            return 'commandText' in item && !!item.commandText;
         });
 
         this.hasIcons = items.some((item) => {
@@ -63,6 +68,7 @@ export class ListRenderer {
             'mdc-deprecated-list--avatar-list': this.avatarList,
             'list--compact':
                 this.twoLines &&
+                this.commandKey &&
                 ['small', 'x-small'].includes(this.config.iconSize),
         };
 
@@ -84,11 +90,11 @@ export class ListRenderer {
      * Returns `undefined` if no item should have the attribute set.
      * See https://github.com/material-components/material-components-web/tree/e66a43a75fef4f9179e24856649518e15e279a04/packages/mdc-list#accessibility
      *
-     * @param {Array<ListItem | ListSeparator>} items the items of the list, including any `ListSeparator`:s
+     * @param {Array<ListItem | ListSeparator | MenuItems>} items the items of the list, including any `ListSeparator`:s
      * @returns {number} the index as per the description
      */
     private getIndexForWhichToApplyTabIndex(
-        items: Array<ListItem | ListSeparator>
+        items: Array<ListItem | ListSeparator | MenuItem>
     ) {
         let result;
         for (let i = 0, max = items.length; i < max; i += 1) {
@@ -115,11 +121,14 @@ export class ListRenderer {
     /**
      * Render a single list item
      *
-     * @param {ListItem | ListSeparator} item the item to render
+     * @param {ListItem | ListSeparator | MenuItems} item the item to render
      * @param {number} index the index the item had in the `items` array
      * @returns {HTMLElement} the list item
      */
-    private renderListItem(item: ListItem | ListSeparator, index: number) {
+    private renderListItem(
+        item: ListItem | ListSeparator | MenuItem,
+        index: number
+    ) {
         if ('separator' in item) {
             return <li class="mdc-deprecated-list-divider" role="separator" />;
         }
@@ -149,7 +158,7 @@ export class ListRenderer {
                 {...attributes}
             >
                 {item.icon ? this.renderIcon(this.config, item) : null}
-                {this.renderText(item.text, item.secondaryText)}
+                {this.renderText(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
                 {this.renderActionMenu(item.actions)}
             </li>
@@ -159,25 +168,51 @@ export class ListRenderer {
     /**
      * Render the text of the list item
      *
-     * @param {string} text primary text for the list item
-     * @param {string} secondaryText secondary text for the list item
+     * @param {ListItem | MenuItem} item the list item
      * @returns {HTMLElement | string} the text for the list item
      */
-    private renderText(text: string, secondaryText?: string) {
-        if (!secondaryText) {
-            return <span class="mdc-deprecated-list-item__text">{text}</span>;
+    private renderText(item: ListItem | MenuItem) {
+        if (this.isSimpleItem(item)) {
+            return (
+                <span class="mdc-deprecated-list-item__text">{item.text}</span>
+            );
         }
 
         return (
-            <span class="mdc-deprecated-list-item__text">
-                <span class="mdc-deprecated-list-item__primary-text">
-                    {text}
-                </span>
-                <span class="mdc-deprecated-list-item__secondary-text">
-                    {secondaryText}
-                </span>
-            </span>
+            <div class="mdc-deprecated-list-item__text">
+                <div class="mdc-deprecated-list-item__primary-command-text">
+                    <div class="mdc-deprecated-list-item__primary-text">
+                        {item.text}
+                    </div>
+                    {this.renderCommandText(item)}
+                </div>
+                <div class="mdc-deprecated-list-item__secondary-text">
+                    {item.secondaryText}
+                </div>
+            </div>
         );
+    }
+    private renderCommandText(item: ListItem | MenuItem) {
+        if (!('commandText' in item)) {
+            return;
+        }
+
+        return (
+            <div class="mdc-deprecated-list-item__command-text">
+                {item.commandText}
+            </div>
+        );
+    }
+    private isSimpleItem(item: ListItem | MenuItem): boolean {
+        if ('commandText' in item) {
+            return false;
+        }
+
+        if ('secondaryText' in item) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -287,13 +322,13 @@ export class ListRenderer {
 
     private renderVariantListItemContent(
         config: ListRendererConfig,
-        item: ListItem,
+        item: ListItem | MenuItem,
         itemTemplate: any
     ) {
         if (this.hasIcons) {
             return [
                 item.icon ? this.renderIcon(config, item) : null,
-                this.renderText(item.text, item.secondaryText),
+                this.renderText(item),
                 <div class="mdc-deprecated-list-item__meta">
                     {itemTemplate}
                 </div>,
@@ -302,7 +337,7 @@ export class ListRenderer {
 
         return [
             <div class="mdc-deprecated-list-item__graphic">{itemTemplate}</div>,
-            this.renderText(item.text, item.secondaryText),
+            this.renderText(item),
         ];
     }
 }

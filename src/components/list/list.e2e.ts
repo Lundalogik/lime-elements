@@ -152,9 +152,9 @@ describe('limel-list', () => {
             expect(innerList.children[2].children[0].children[0]).toEqualText(
                 'item 3'
             );
-            expect(innerList.children[2].children[0].children[0]).toHaveClass(
-                'mdc-deprecated-list-item__primary-text'
-            );
+            expect(
+                innerList.children[2].children[0].children[0].children[0]
+            ).toHaveClass('mdc-deprecated-list-item__primary-text');
             expect(innerList.children[2].children[0].children[1]).toEqualText(
                 'some info'
             );

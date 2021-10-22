@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
-import { OpenDirection } from './menu.types';
+import { MenuItem, OpenDirection } from './menu.types';
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.
@@ -21,6 +21,7 @@ import { OpenDirection } from './menu.types';
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
  * @exampleComponent limel-example-menu-composite
+ * @exampleComponent limel-example-menu-hotkeys
  */
 @Component({
     tag: 'limel-menu',
@@ -41,7 +42,7 @@ export class Menu {
      * A list of items and separators to show in the menu.
      */
     @Prop()
-    public items: Array<ListItem | ListSeparator> = [];
+    public items: Array<MenuItem | ListSeparator> = [];
 
     /**
      * Sets the disabled state of the menu.
