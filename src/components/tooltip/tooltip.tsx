@@ -52,6 +52,7 @@ export class Tooltip {
 
     private portalId: string;
     private tooltipId: string;
+    private showTooltipTimeoutHandle: number;
 
     public constructor() {
         this.portalId = createRandomString();
@@ -113,10 +114,14 @@ export class Tooltip {
     }
 
     private showTooltip = () => {
-        this.open = true;
+        const tooltipDelay = 500;
+        this.showTooltipTimeoutHandle = window.setTimeout(() => {
+            this.open = true;
+        }, tooltipDelay);
     };
 
     private hideTooltip = () => {
+        clearTimeout(this.showTooltipTimeoutHandle);
         this.open = false;
     };
 
