@@ -35,7 +35,10 @@ beforeEach(async () => {
 
 test('the component renders', () => {
     expect(tooltip).toEqualHtml(`
-        <limel-tooltip>
+        <limel-tooltip
+            element-id="tooltip-test"
+            label="Description"
+        >
             <mock:shadow-root>
                 <div class="trigger-anchor">
                     <limel-portal>
