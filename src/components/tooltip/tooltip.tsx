@@ -25,7 +25,7 @@ export class Tooltip {
     /**
      * Short descriptive text of the owner element.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public label!: string;
 
     /**
@@ -33,7 +33,7 @@ export class Tooltip {
      * Example usage can be a keyboard shortcut to activate the function of the
      * owner element.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public helperLabel: string;
 
     /**
@@ -41,7 +41,7 @@ export class Tooltip {
      * Must be a child within the same document fragment as the tooltip element
      * itself.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public elementId!: string;
 
     @State()

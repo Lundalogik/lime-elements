@@ -14,7 +14,7 @@ export class TooltipContent {
     /**
      * Short descriptive text of the owner element.
      */
-    @Prop()
+    @Prop({ reflect: true })
     label: string;
 
     /**
@@ -22,7 +22,7 @@ export class TooltipContent {
      * Example usage can be a keyboard shortcut to activate the function of the
      * owner element.
      */
-    @Prop()
+    @Prop({ reflect: true })
     helperLabel: string;
 
     public render() {
