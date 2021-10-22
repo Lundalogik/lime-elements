@@ -143,7 +143,8 @@ $list-border-radius: 0.375rem; // 6px
     }
 
     .mdc-deprecated-list-item__secondary-text,
-    .mdc-deprecated-list-item__primary-text {
+    .mdc-deprecated-list-item__primary-text,
+    .mdc-deprecated-list-item__command-text {
         margin: 0;
         &:before,
         &:after {
@@ -151,8 +152,21 @@ $list-border-radius: 0.375rem; // 6px
         }
     }
 
+    .mdc-deprecated-list-item__command-text {
+        color: rgb(var(--contrast-800));
+        margin-left: 0.7rem;
+    }
+
     .mdc-deprecated-list-item__text {
         align-self: center;
+        width: 100%;
+    }
+
+    .mdc-deprecated-list-item__primary-command-text {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
     }
 
     // Tweaks to display the icon correctly in Edge
