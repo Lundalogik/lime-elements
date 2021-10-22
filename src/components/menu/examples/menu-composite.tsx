@@ -59,7 +59,7 @@ export class MenuCompositeExample {
     }
 
     public render() {
-        console.log(this.schema);
+        console.log('Composite example schema:', this.schema);
 
         return [
             <limel-menu
