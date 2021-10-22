@@ -1,3 +1,16 @@
+## [33.14.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.5...v33.14.0-next.6) (2021-10-22)
+
+
+### Features
+
+* **menu:** add support for wrapped focus and typeahead ([9e520da](https://github.com/Lundalogik/lime-elements/commit/9e520dad8afc903e360a6e7843ac058fd7c4589f)), closes [Lundalogik/crm-feature#2380](https://github.com/Lundalogik/crm-feature/issues/2380)
+
+
+### Bug Fixes
+
+* **menu:** add missing attributes to menu trigger ([7d4ae48](https://github.com/Lundalogik/lime-elements/commit/7d4ae48150a495bf906a9d9f040a331720415016)), closes [Lundalogik/crm-feature#2380](https://github.com/Lundalogik/crm-feature/issues/2380)
+* **menu:** set focus on menu item when menu is opened ([b552a85](https://github.com/Lundalogik/lime-elements/commit/b552a8564f6f421c90c0b6910093fd95a02fbf0b)), closes [Lundalogik/crm-feature#2380](https://github.com/Lundalogik/crm-feature/issues/2380)
+
 ## [33.14.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.4...v33.14.0-next.5) (2021-10-21)
 
 
