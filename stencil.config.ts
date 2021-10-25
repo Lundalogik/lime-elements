@@ -58,5 +58,6 @@ export const config: Config = {
             '^lodash-es$': 'lodash',
             '@rjsf/core/lib/(.*)': '@rjsf/core/dist/cjs/$1',
         },
+        timers: 'fake',
     },
 };
