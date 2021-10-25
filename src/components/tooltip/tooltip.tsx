@@ -80,6 +80,7 @@ export class Tooltip {
                     containerId={this.portalId}
                     containerStyle={{
                         'z-index': tooltipZIndex,
+                        'pointer-events': 'none',
                     }}
                 >
                     <limel-tooltip-content
