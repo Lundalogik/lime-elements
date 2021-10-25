@@ -59,6 +59,10 @@ test('aria-describedby is set on the anchor', () => {
     expect(anchor.getAttribute('aria-describedby')).toBeTruthy();
 });
 
+test('aria-hidden is set when the owner element is NOT hovered', () => {
+    expect(content).toHaveAttribute('aria-hidden');
+});
+
 test('aria-hidden is removed when the owner element is hovered', async () => {
     const event = new MouseEvent('mouseover');
     anchor.dispatchEvent(event);
