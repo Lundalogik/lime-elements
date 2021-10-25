@@ -1,3 +1,12 @@
+## [33.14.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.6...v33.14.0-next.7) (2021-10-25)
+
+
+### Bug Fixes
+
+* **tooltip:** delay showing tooltip to avoid blinking when moving mouse quickly ([a047e43](https://github.com/Lundalogik/lime-elements/commit/a047e434b0b3fae8bbd0abb6c88405c2e3732018)), closes [#1397](https://github.com/Lundalogik/lime-elements/issues/1397)
+* **tooltip:** fix cursor flicker by disabling pointer-events on tooltip ([2023aca](https://github.com/Lundalogik/lime-elements/commit/2023aca43b2ca07886c39ee068b23e253af069f0))
+* **tooltip:** reflect primitive attributes ([92f2645](https://github.com/Lundalogik/lime-elements/commit/92f264503169d81dd7e5b56122d1d957795ecc4c))
+
 ## [33.14.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.5...v33.14.0-next.6) (2021-10-22)
 
 
