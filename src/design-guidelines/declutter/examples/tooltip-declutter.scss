@@ -1,0 +1,24 @@
+@import '../../action-buttons/examples/action-buttons';
+
+.tooltip-trigger {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    height: 1rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+
+    font-size: 80%;
+
+    color: rgb(var(--contrast-100));
+    background-color: rgb(var(--contrast-1300));
+
+    cursor: pointer;
+
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+        box-shadow: var(--shadow-depth-8-focused);
+    }
+}
