@@ -14,7 +14,7 @@ export class TooltipExample {
             <limel-button icon="search" id="tooltip-example" />,
             <limel-tooltip
                 label="Search"
-                helperLabel="alt+f"
+                helperLabel="alt + F"
                 elementId="tooltip-example"
             />,
         ];
