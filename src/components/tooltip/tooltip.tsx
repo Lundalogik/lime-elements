@@ -2,17 +2,29 @@ import { Component, h, Prop, Element, State } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 
 /**
- * Tooltips display a text label identifying an element, such as a description
- * of its function.
+ * A tooltip can be used to display a descriptive text for any element.
+ * The displayed content must be a brief and supplemental string of text,
+ * identifying the element or describing its function for the user,
+ * helping them better understand unfamiliar objects that aren't described
+ * directly in the UI.
  *
- * In order to display the tooltip, the tooltip element and the owner element
- * that it should describe must be within the same document or document
- * fragment. A good practice is to just render them next to each other like so:
+ * ## Interaction
+ * The tooltip appears after a slight delay, when the element is hovered;
+ * and disappears as soon as the cursor leaves the element.
+ * Therefore, users cannot interact with the tip, but if the trigger element
+ * itself is interactive, it will remain interactible even with a tooltip bound
+ * to it.
+ *
+ * :::note
+ * In order to display the tooltip, the tooltip element and its trigger element
+ * must be within the same document or document fragment.
+ * A good practice is to just place them next to each other like below:
  *
  * ```html
  * <limel-button icon="search" id="tooltip-example" />
  * <limel-tooltip label="Search" elementId="tooltip-example" />
  * ```
+ * :::
  *
  * @exampleComponent limel-example-tooltip
  * @private
