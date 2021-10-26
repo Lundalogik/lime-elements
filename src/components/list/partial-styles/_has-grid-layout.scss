@@ -6,7 +6,7 @@
     /* prettier-ignore */
     .mdc-deprecated-list {
         display: grid;
-        grid-gap: var(--gap);
+        gap: var(--gap);
         grid-template-columns: repeat(
             auto-fit,
             minmax(

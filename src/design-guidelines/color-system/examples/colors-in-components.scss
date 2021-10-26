@@ -14,7 +14,7 @@ h3 {
 .example-buttons {
     display: grid;
     grid-auto-flow: column;
-    grid-gap: 1rem;
+    gap: 1rem;
     justify-content: left;
     margin-bottom: 2rem;
 }

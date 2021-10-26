@@ -1,6 +1,6 @@
 # Size rhythms
 
-When designing components and layouts, you will have to specify the size of many properties such as `padding`, `margin`, `grid-gap`, `width`, `height`, and so forth.
+When designing components and layouts, you will have to specify the size of many properties such as `padding`, `margin`, `gap`, `width`, `height`, and so forth.
 
 To generate a consistent layout and visual expression, we only use sizes that are multiples of four (4 * x). For example 4, 8, 12, 16, 20, and so on.
 

@@ -3,7 +3,7 @@
 .surface-shadows-bad-usage {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: functions.pxToRem(40);
+    gap: functions.pxToRem(40);
     padding: functions.pxToRem(20);
 }
 

@@ -50,7 +50,7 @@ $scale-factor: 3.5;
             48 * $scale-factor
         )
         auto;
-    grid-gap: functions.pxToRem(8 * $scale-factor);
+    gap: functions.pxToRem(8 * $scale-factor);
 
     background-color: rgb(var(--contrast-200));
     padding: functions.pxToRem(6 * $scale-factor);

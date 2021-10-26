@@ -5,7 +5,7 @@
 
 .shadow-example-grid {
     display: grid;
-    grid-gap: functions.pxToRem(28);
+    gap: functions.pxToRem(28);
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     padding: functions.pxToRem(20) 0;
 }

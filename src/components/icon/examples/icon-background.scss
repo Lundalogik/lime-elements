@@ -1,7 +1,7 @@
 :host(limel-example-icon-background) {
     display: grid;
     grid-auto-flow: row;
-    grid-gap: 1rem;
+    gap: 1rem;
 
     limel-icon {
         color: rgb(var(--color-white)); /* For all icons in this example */
