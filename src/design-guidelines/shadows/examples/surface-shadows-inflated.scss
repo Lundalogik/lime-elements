@@ -4,7 +4,7 @@
     &.inflated-examples {
         background-color: rgb(var(--contrast-600));
         padding: functions.pxToRem(60);
-        grid-gap: functions.pxToRem(60);
+        gap: functions.pxToRem(60);
 
         .surface {
             border-radius: functions.pxToRem(16);

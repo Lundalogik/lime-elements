@@ -9,7 +9,7 @@
 
 .color-palette {
     grid-template-columns: repeat(20, 1fr);
-    grid-gap: 0;
+    gap: 0;
     padding: functions.pxToRem(20) functions.pxToRem(12);
     background-color: rgb(var(--contrast-300));
     border-radius: functions.pxToRem(3);

@@ -2,7 +2,7 @@
 
 .color-palette {
     display: grid;
-    grid-gap: functions.pxToRem(4);
+    gap: functions.pxToRem(4);
     grid-auto-flow: column;
     margin: functions.pxToRem(12) auto functions.pxToRem(20) auto;
     padding: functions.pxToRem(20) functions.pxToRem(12);
