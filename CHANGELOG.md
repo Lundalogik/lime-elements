@@ -1,3 +1,10 @@
+## [33.14.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.7...v33.14.0-next.8) (2021-10-26)
+
+
+### Bug Fixes
+
+* **tooltip:** capital letters at shortcuts ([ea101d5](https://github.com/Lundalogik/lime-elements/commit/ea101d5adc261349458c7d0fba8239480dd99ccb))
+
 ## [33.14.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.6...v33.14.0-next.7) (2021-10-25)
 
 
