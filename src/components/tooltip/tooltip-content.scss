@@ -1,18 +1,20 @@
 .tooltip-content {
     display: flex;
     flex-direction: row;
-    color: rgb(var(--color-gray-default));
     border-radius: 0.25rem;
     padding: 0.25rem 0.5rem;
-    background-color: rgb(var(--color-gray-darker));
     font-size: 0.875rem; // 14px
+    background-color: rgb(var(--contrast-1300));
+    box-shadow: var(--shadow-depth-16);
 
     .label {
-        color: rgb(var(--color-gray-lighter));
+        color: rgb(var(--contrast-200));
     }
 
     .helper-label {
+        color: rgb(var(--contrast-800));
         padding: 0 0 0 1rem;
+
         &:empty {
             display: none;
         }
