@@ -15,6 +15,7 @@ import { createRandomString } from '../../util/random-string';
  * ```
  *
  * @exampleComponent limel-example-tooltip
+ * @private
  */
 @Component({
     tag: 'limel-tooltip',
