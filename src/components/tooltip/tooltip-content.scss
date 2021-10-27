@@ -1,4 +1,5 @@
 .tooltip-content {
+    animation: display-tooltip 0.2s ease;
     display: flex;
     flex-direction: row;
     border-radius: 0.25rem;
@@ -18,5 +19,16 @@
         &:empty {
             display: none;
         }
+    }
+}
+
+@keyframes display-tooltip {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) scale(0.94);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
     }
 }
