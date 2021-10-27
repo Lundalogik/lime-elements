@@ -28,8 +28,8 @@ export class TooltipContent {
     public render() {
         return (
             <div class="tooltip-content">
-                <div class="tooltip">{this.label}</div>
-                <div class="helperLabel">{this.helperLabel}</div>
+                <div class="label">{this.label}</div>
+                <div class="helper-label">{this.helperLabel}</div>
             </div>
         );
     }
