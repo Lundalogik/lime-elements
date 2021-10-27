@@ -6,7 +6,6 @@ import { Component, h } from '@stencil/core';
 @Component({
     tag: 'limel-example-tooltip',
     shadow: true,
-    styleUrl: 'tooltip.scss',
 })
 export class TooltipExample {
     public render() {
