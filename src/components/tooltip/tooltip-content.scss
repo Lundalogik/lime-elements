@@ -10,11 +10,11 @@
     margin-top: 0.3rem;
     background-color: rgb(var(--color-gray-darker));
 
-    .tooltip {
+    .label {
         color: rgb(var(--color-gray-lighter));
     }
 
-    .helperLabel {
+    .helper-label {
         padding: 0 0 0 1rem;
         &:empty {
             display: none;
