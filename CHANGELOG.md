@@ -1,3 +1,10 @@
+## [33.14.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.8...v33.14.0-next.9) (2021-10-29)
+
+
+### Features
+
+* **list:** support a hotkey at menu component ([f2b3688](https://github.com/Lundalogik/lime-elements/commit/f2b3688567d283c6a1a7f711dc141c8eb664a6be))
+
 ## [33.14.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.7...v33.14.0-next.8) (2021-10-26)
 
 
