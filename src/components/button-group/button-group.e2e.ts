@@ -41,7 +41,7 @@ describe('limel-button-group', () => {
                 await buttons[0].click();
             });
 
-            it('emits an change event', () => {
+            it('emits a change event', () => {
                 expect(spy).toHaveReceivedEventTimes(1);
                 expect(spy).toHaveReceivedEventDetail({
                     id: '1',

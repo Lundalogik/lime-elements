@@ -1,3 +1,15 @@
+## [33.14.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.9...v33.14.0-next.10) (2021-10-29)
+
+
+### Features
+
+* **button-group:** apply a tooltip component ([43cc060](https://github.com/Lundalogik/lime-elements/commit/43cc06001a777c2d6a763f0359d929097e5f5251))
+
+
+### Bug Fixes
+
+* **button-group:** prefix id with letter, to avoid possible invalid id ([eeb2514](https://github.com/Lundalogik/lime-elements/commit/eeb25148d38d0df6327bebff4185560cff25f05b))
+
 ## [33.14.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.8...v33.14.0-next.9) (2021-10-29)
 
 
