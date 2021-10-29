@@ -1,3 +1,10 @@
+## [33.14.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.10...v33.14.0-next.11) (2021-10-29)
+
+
+### Bug Fixes
+
+* **menu:** make MenuItem generic ([3934e54](https://github.com/Lundalogik/lime-elements/commit/3934e548ff586d9c3f383bc2f90b0d5d3586a543))
+
 ## [33.14.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.9...v33.14.0-next.10) (2021-10-29)
 
 
