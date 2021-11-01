@@ -62,7 +62,6 @@ import { ESCAPE } from '../../util/keycodes';
  *
  * @slot - Content to put inside the surface
  * @exampleComponent limel-example-popover
- * @private
  */
 @Component({
     tag: 'limel-popover',
