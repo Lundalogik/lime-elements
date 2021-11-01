@@ -37,7 +37,7 @@ export interface MenuListItem<T = any> {
     /**
      * List of actions to display as a menu at the end of the item
      */
-    actions?: Array<ListItem | ListSeparator>;
+    actions?: Array<MenuListItem | ListSeparator>;
 }
 
 export interface ListSeparator {
