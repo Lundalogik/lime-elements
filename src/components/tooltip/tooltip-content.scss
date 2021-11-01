@@ -1,4 +1,4 @@
-.tooltip-content {
+:host {
     animation: display-tooltip 0.2s ease;
     display: flex;
     flex-direction: row;
@@ -7,18 +7,18 @@
     font-size: 0.875rem; // 14px
     background-color: rgb(var(--contrast-1300));
     box-shadow: var(--shadow-depth-16);
+}
 
-    .label {
-        color: rgb(var(--contrast-200));
-    }
+.label {
+    color: rgb(var(--contrast-200));
+}
 
-    .helper-label {
-        color: rgb(var(--contrast-800));
-        padding: 0 0 0 1rem;
+.helper-label {
+    color: rgb(var(--contrast-800));
+    padding: 0 0 0 1rem;
 
-        &:empty {
-            display: none;
-        }
+    &:empty {
+        display: none;
     }
 }
 
