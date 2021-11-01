@@ -1,3 +1,12 @@
+## [33.14.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.12...v33.14.0-next.13) (2021-11-01)
+
+
+### Bug Fixes
+
+* **tooltip:** better support darkmode ([f9e38bb](https://github.com/Lundalogik/lime-elements/commit/f9e38bb54a1d4477e6e4a103cb48a97c15e1f7db))
+* **tooltip:** display with animation ([ef1ee1f](https://github.com/Lundalogik/lime-elements/commit/ef1ee1f0ae1e662a3754b21be6825e69c4a40b78))
+* **tooltip:** make it look neater and less like buttons ([ec073e0](https://github.com/Lundalogik/lime-elements/commit/ec073e0b4e654eca7a80bb30ece8833354c12d20))
+
 ## [33.14.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.11...v33.14.0-next.12) (2021-11-01)
 
 
