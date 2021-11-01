@@ -1,3 +1,11 @@
+## [33.14.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.11...v33.14.0-next.12) (2021-11-01)
+
+
+### Features
+
+* **header:** make header component public ([8a5e060](https://github.com/Lundalogik/lime-elements/commit/8a5e0604cc0ed7108603b5f2cbbe6be65115471e)), closes [Lundalogik/crm-feature#2026](https://github.com/Lundalogik/crm-feature/issues/2026)
+* **popover:** make popover public ([3db6a27](https://github.com/Lundalogik/lime-elements/commit/3db6a279318c05d2c71c09ea64187af8fc9a824b)), closes [Lundalogik/crm-feature#2102](https://github.com/Lundalogik/crm-feature/issues/2102)
+
 ## [33.14.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.10...v33.14.0-next.11) (2021-10-29)
 
 
