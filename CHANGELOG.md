@@ -1,3 +1,10 @@
+## [33.14.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.13...v33.14.0-next.14) (2021-11-02)
+
+
+### Bug Fixes
+
+* **tooltip:** prevent it from breaking the UI in some situations ([0071930](https://github.com/Lundalogik/lime-elements/commit/0071930386e8f28dc070285648985ab5b98e40cd))
+
 ## [33.14.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.12...v33.14.0-next.13) (2021-11-01)
 
 
