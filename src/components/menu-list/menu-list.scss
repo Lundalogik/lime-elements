@@ -1,0 +1,244 @@
+@use '../../style/internal/z-index';
+@use '../../style/functions';
+@use '../../style/mixins';
+
+@use '../../style/internal/lime-theme';
+
+@use '@material/list';
+@use '@material/menu';
+@use '@material/ripple';
+
+$list-border-radius: 0.375rem; // 6px
+
+/**
+ * @prop --icon-background-color: Color to use for icon background when `badgeIcons=true`.
+ * @prop --icon-color: Color to use for icon. Defaults to grey when `badgeIcons=false`. Defaults to white when `badgeIcons=true`.
+ * @prop --list-grid-max-width: Maximum width of a list that has `has-grid-layout` class. Defaults to `100%`.
+ * @prop --list-grid-item-max-width: Maximum width of items in a list that has `has-grid-layout` class. Defaults to `10rem`.
+ * @prop --list-grid-item-min-width: Minimum width of items in a list that has `has-grid-layout` class. Defaults to `7.5rem`.
+ * @prop --list-grid-gap: Distance between items in a list that has `has-grid-layout` class. Defaults to `0.75rem`.
+ */
+
+:host {
+    display: block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
+@include list.deprecated-core-styles;
+
+.mdc-menu {
+    max-height: 70vh; // force tall menus render inside the viewport when menu is at the bottom of the screen
+}
+
+.mdc-deprecated-list {
+    --mdc-theme-text-icon-on-background: var(
+        --icon-color,
+        rgb(var(--contrast-900))
+    );
+    padding: 0;
+    border-radius: $list-border-radius;
+
+    .mdc-deprecated-list-item {
+        z-index: z-index.$list-mdc-list-item; // in Chrome on Windows, menus flicker when they have a scroll bar and user hovers on them. We may be able to remove this in future versions of Chrome. Kia 2021-May-12
+
+        &.mdc-deprecated-list-item--disabled {
+            cursor: not-allowed;
+
+            limel-icon {
+                opacity: 0.38; // similar to `mdc-deprecated-list-item__text` when disabled
+            }
+        }
+
+        &:first-child {
+            border-top-left-radius: $list-border-radius;
+            border-top-right-radius: $list-border-radius;
+        }
+        &:last-child {
+            border-bottom-right-radius: $list-border-radius;
+            border-bottom-left-radius: $list-border-radius;
+        }
+    }
+
+    &.selectable
+        .mdc-deprecated-list-item:not(.mdc-deprecated-list-item--disabled) {
+        cursor: pointer;
+    }
+
+    .mdc-deprecated-list-item__meta {
+        // the action menu on the right side a list item
+        line-height: 100%;
+        margin-right: -0.5rem;
+    }
+
+    &.mdc-deprecated-list--avatar-list {
+        position: relative;
+
+        limel-icon.mdc-deprecated-list-item__graphic {
+            background-color: var(
+                --icon-background-color,
+                rgb(var(--contrast-900))
+            );
+            color: var(--icon-color, rgba(var(--color-white), 0.88));
+            margin-right: functions.pxToRem(12);
+            margin-left: functions.pxToRem(-4);
+        }
+
+        hr.mdc-deprecated-list-divider {
+            position: absolute;
+            bottom: 0;
+
+            &.mdc-deprecated-list-divider--inset {
+                --icon-width: #{functions.pxToRem(41)};
+                --icon-right-padding: #{functions.pxToRem(16)};
+                --list-right-padding: #{functions.pxToRem(16)};
+                margin-left: calc(
+                    var(--icon-width) + var(--icon-right-padding)
+                );
+                width: calc(
+                    100% - var(--icon-width) - var(--icon-right-padding) -
+                        var(--list-right-padding)
+                );
+
+                &.x-small {
+                    --icon-width: #{functions.pxToRem(23)};
+                }
+
+                &.small {
+                    --icon-width: #{functions.pxToRem(30)};
+                }
+
+                &.medium {
+                    --icon-width: #{functions.pxToRem(40)};
+                }
+
+                &.large {
+                    --icon-width: #{functions.pxToRem(46)};
+                }
+            }
+        }
+
+        .mdc-deprecated-list-item:last-child hr.mdc-deprecated-list-divider {
+            display: none;
+        }
+    }
+
+    .mdc-deprecated-list-item[role='menuitem'] {
+        font-size: functions.pxToRem(13);
+
+        .mdc-deprecated-list-item__graphic {
+            margin-right: functions.pxToRem(14);
+        }
+    }
+
+    &.mdc-deprecated-list--two-line {
+        .mdc-deprecated-list-item__text {
+            padding: functions.pxToRem(8) 0;
+        }
+        .mdc-deprecated-list-item__primary-text {
+            margin-bottom: functions.pxToRem(4);
+        }
+    }
+
+    .mdc-deprecated-list-item__secondary-text,
+    .mdc-deprecated-list-item__primary-text,
+    .mdc-deprecated-list-item__command-text {
+        margin: 0;
+        &:before,
+        &:after {
+            display: none;
+        }
+    }
+
+    .mdc-deprecated-list-item__command-text {
+        color: rgb(var(--contrast-800));
+        margin-left: 0.7rem;
+    }
+
+    .mdc-deprecated-list-item__text {
+        align-self: center;
+        width: 100%;
+    }
+
+    .mdc-deprecated-list-item__primary-command-text {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    // Tweaks to display the icon correctly in Edge
+    limel-icon.mdc-deprecated-list-item__graphic {
+        display: block;
+    }
+}
+
+.mdc-deprecated-list:not(.mdc-deprecated-list--avatar-list) {
+    limel-icon.mdc-deprecated-list-item__graphic {
+        // Tweaks to make icon lists align nicely with badge-icon lists.
+        &[size='x-small'] {
+            margin-right: functions.pxToRem(4);
+        }
+        &[size='small'] {
+            margin-right: functions.pxToRem(8);
+        }
+        &[size='medium'] {
+            margin-right: functions.pxToRem(8);
+        }
+        &[size='large'] {
+            margin-right: functions.pxToRem(12);
+        }
+    }
+}
+
+.mdc-deprecated-list-item.mdc-ripple-upgraded {
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states;
+}
+
+@keyframes fade-out-focus-style {
+    0% {
+        opacity: 0.12; // What Material Design sets
+    }
+    100% {
+        opacity: 0; // What we like it to become, a moment after it gets focused
+    }
+}
+
+:not(.mdc-deprecated-list--non-interactive) {
+    > {
+        :not(.mdc-deprecated-list-item--disabled).mdc-deprecated-list-item {
+            &.mdc-ripple-upgraded--background-focused::before,
+            &:not(.mdc-ripple-upgraded):focus::before {
+                animation: fade-out-focus-style 1s ease forwards;
+            }
+            &:focus-visible {
+                box-shadow: var(--shadow-depth-8-focused);
+                border-radius: $list-border-radius;
+                z-index: z-index.$list--has-interactive-items--mdc-list-item--hover;
+
+                &:before {
+                    animation-duration: 0s !important;
+                }
+            }
+
+            &:before {
+                transition: opacity, background-color;
+                transition-duration: 0.2s;
+                transition-timing-function: ease;
+            }
+        }
+    }
+}
+
+@import '../checkbox/checkbox.scss';
+
+@import './radio-button/radio-button.scss';
+
+@import './partial-styles/custom-styles.scss';
+@import './partial-styles/enable-multiline-text.scss';
+@import './partial-styles/_has-grid-layout.scss';
+@import './partial-styles/_static-actions.scss';
