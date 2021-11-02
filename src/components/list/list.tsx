@@ -105,11 +105,6 @@ export class List {
     @Event()
     protected select: EventEmitter<ListItem | ListItem[]>;
 
-    constructor() {
-        this.handleAction = this.handleAction.bind(this);
-        this.handleMenuSelect = this.handleMenuSelect.bind(this);
-    }
-
     public connectedCallback() {
         this.setup();
     }
@@ -176,7 +171,7 @@ export class List {
             .map((item: ListItem) => listItems.indexOf(item));
     }
 
-    private setup() {
+    private setup = () => {
         if (this.type === 'menu') {
             this.setupMenu();
         } else {
@@ -184,9 +179,9 @@ export class List {
         }
 
         this.setupListeners();
-    }
+    };
 
-    private setupList() {
+    private setupList = () => {
         const element = this.element.shadowRoot.querySelector(
             '.mdc-deprecated-list'
         );
@@ -196,9 +191,9 @@ export class List {
 
         this.mdcList = new MDCList(element);
         this.mdcList.listElements.forEach((item) => new MDCRipple(item));
-    }
+    };
 
-    private setupMenu() {
+    private setupMenu = () => {
         const element = this.element.shadowRoot.querySelector('.mdc-menu');
         if (!element) {
             return;
@@ -208,17 +203,17 @@ export class List {
         this.mdcMenu.hasTypeahead = true;
         this.mdcMenu.wrapFocus = true;
         this.mdcMenu.items.forEach((item) => new MDCRipple(item));
-    }
+    };
 
-    private setupListeners() {
+    private setupListeners = () => {
         if (this.type === 'menu') {
             this.setupMenuListeners();
         } else {
             this.setupListListeners();
         }
-    }
+    };
 
-    private setupListListeners() {
+    private setupListListeners = () => {
         if (!this.mdcList) {
             return;
         }
@@ -236,9 +231,9 @@ export class List {
 
         this.mdcList.listen(ACTION_EVENT, this.handleAction);
         this.mdcList.singleSelection = !this.multiple;
-    }
+    };
 
-    private setupMenuListeners() {
+    private setupMenuListeners = () => {
         if (!this.mdcMenu) {
             return;
         }
@@ -246,17 +241,17 @@ export class List {
         this.mdcMenu.unlisten(SELECTED_EVENT, this.handleMenuSelect);
         this.selectable = true;
         this.mdcMenu.listen(SELECTED_EVENT, this.handleMenuSelect);
-    }
+    };
 
-    private teardown() {
+    private teardown = () => {
         this.mdcList?.unlisten(ACTION_EVENT, this.handleAction);
         this.mdcList?.destroy();
 
         this.mdcMenu?.unlisten(SELECTED_EVENT, this.handleMenuSelect);
         this.mdcMenu?.destroy();
-    }
+    };
 
-    private handleAction(event: MDCListActionEvent) {
+    private handleAction = (event: MDCListActionEvent) => {
         if (!this.multiple) {
             this.handleSingleSelect(event.detail.index);
 
@@ -264,13 +259,13 @@ export class List {
         }
 
         this.handleMultiSelect(event.detail.index);
-    }
+    };
 
-    private handleMenuSelect(event: MDCMenuItemEvent) {
+    private handleMenuSelect = (event: MDCMenuItemEvent) => {
         this.handleSingleSelect(event.detail.index);
-    }
+    };
 
-    private handleSingleSelect(index: number) {
+    private handleSingleSelect = (index: number) => {
         const listItems = this.items.filter(this.isListItem) as ListItem[];
         if (listItems[index].disabled) {
             return;
@@ -293,9 +288,9 @@ export class List {
 
             this.change.emit({ ...listItems[index], selected: true });
         }
-    }
+    };
 
-    private handleMultiSelect(index: number) {
+    private handleMultiSelect = (index: number) => {
         const listItems = this.items.filter(this.isListItem) as ListItem[];
         if (listItems[index].disabled) {
             return;
@@ -317,9 +312,9 @@ export class List {
             });
 
         this.change.emit(selectedItems);
-    }
+    };
 
-    private isListItem(item: ListItem): boolean {
+    private isListItem = (item: ListItem): boolean => {
         return !('separator' in item);
-    }
+    };
 }

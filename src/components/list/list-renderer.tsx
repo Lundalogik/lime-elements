@@ -19,11 +19,6 @@ export class ListRenderer {
 
     private applyTabIndexToItemAtIndex: number;
 
-    public constructor() {
-        this.renderListItem = this.renderListItem.bind(this);
-        this.renderDivider = this.renderDivider.bind(this);
-    }
-
     public render(
         items: Array<ListItem | ListSeparator | MenuItem>,
         config: ListRendererConfig = {}
@@ -93,9 +88,9 @@ export class ListRenderer {
      * @param {Array<ListItem | ListSeparator | MenuItems>} items the items of the list, including any `ListSeparator`:s
      * @returns {number} the index as per the description
      */
-    private getIndexForWhichToApplyTabIndex(
+    private getIndexForWhichToApplyTabIndex = (
         items: Array<ListItem | ListSeparator | MenuItem>
-    ) {
+    ) => {
         let result;
         for (let i = 0, max = items.length; i < max; i += 1) {
             if ('separator' in items[i]) {
@@ -116,7 +111,7 @@ export class ListRenderer {
         }
 
         return result;
-    }
+    };
 
     /**
      * Render a single list item
@@ -125,10 +120,10 @@ export class ListRenderer {
      * @param {number} index the index the item had in the `items` array
      * @returns {HTMLElement} the list item
      */
-    private renderListItem(
+    private renderListItem = (
         item: ListItem | ListSeparator | MenuItem,
         index: number
-    ) {
+    ) => {
         if ('separator' in item) {
             return <li class="mdc-deprecated-list-divider" role="separator" />;
         }
@@ -163,7 +158,7 @@ export class ListRenderer {
                 {this.renderActionMenu(item.actions)}
             </li>
         );
-    }
+    };
 
     /**
      * Render the text of the list item
@@ -171,7 +166,7 @@ export class ListRenderer {
      * @param {ListItem | MenuItem} item the list item
      * @returns {HTMLElement | string} the text for the list item
      */
-    private renderText(item: ListItem | MenuItem) {
+    private renderText = (item: ListItem | MenuItem) => {
         if (this.isSimpleItem(item)) {
             return (
                 <span class="mdc-deprecated-list-item__text">{item.text}</span>
@@ -191,8 +186,9 @@ export class ListRenderer {
                 </div>
             </div>
         );
-    }
-    private renderCommandText(item: ListItem | MenuItem) {
+    };
+
+    private renderCommandText = (item: ListItem | MenuItem) => {
         if (!('commandText' in item)) {
             return;
         }
@@ -202,8 +198,9 @@ export class ListRenderer {
                 {item.commandText}
             </div>
         );
-    }
-    private isSimpleItem(item: ListItem | MenuItem): boolean {
+    };
+
+    private isSimpleItem = (item: ListItem | MenuItem): boolean => {
         if ('commandText' in item) {
             return false;
         }
@@ -213,7 +210,7 @@ export class ListRenderer {
         }
 
         return true;
-    }
+    };
 
     /**
      * Render an icon for a list item
@@ -222,7 +219,7 @@ export class ListRenderer {
      * @param {ListItem} item the list item
      * @returns {HTMLElement} the icon element
      */
-    private renderIcon(config: ListRendererConfig, item: ListItem) {
+    private renderIcon = (config: ListRendererConfig, item: ListItem) => {
         const style: any = {};
         if (item.iconColor) {
             if (config.badgeIcons) {
@@ -241,9 +238,9 @@ export class ListRenderer {
                 size={config.iconSize}
             />
         );
-    }
+    };
 
-    private renderDivider() {
+    private renderDivider = () => {
         const classes = {
             'mdc-deprecated-list-divider': true,
             'mdc-deprecated-list-divider--inset': true,
@@ -253,9 +250,9 @@ export class ListRenderer {
         }
 
         return <hr class={classes} />;
-    }
+    };
 
-    private renderActionMenu(actions: Array<ListItem | ListSeparator>) {
+    private renderActionMenu = (actions: Array<ListItem | ListSeparator>) => {
         if (!actions || actions.length === 0) {
             return;
         }
@@ -269,13 +266,13 @@ export class ListRenderer {
                 <limel-icon slot="trigger" name="menu_2" size="small" />
             </limel-menu>
         );
-    }
+    };
 
-    private renderVariantListItem(
+    private renderVariantListItem = (
         config: ListRendererConfig,
         item: ListItem,
         index: number
-    ) {
+    ) => {
         let itemTemplate;
         if (config.type === 'radio') {
             itemTemplate = (
@@ -318,13 +315,13 @@ export class ListRenderer {
                 {this.renderVariantListItemContent(config, item, itemTemplate)}
             </li>
         );
-    }
+    };
 
-    private renderVariantListItemContent(
+    private renderVariantListItemContent = (
         config: ListRendererConfig,
         item: ListItem | MenuItem,
         itemTemplate: any
-    ) {
+    ) => {
         if (this.hasIcons) {
             return [
                 item.icon ? this.renderIcon(config, item) : null,
@@ -339,5 +336,5 @@ export class ListRenderer {
             <div class="mdc-deprecated-list-item__graphic">{itemTemplate}</div>,
             this.renderText(item),
         ];
-    }
+    };
 }

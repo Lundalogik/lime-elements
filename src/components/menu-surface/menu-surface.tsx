@@ -48,12 +48,6 @@ export class MenuSurface {
 
     private menuSurface: MDCMenuSurface;
 
-    constructor() {
-        this.handleDocumentClick = this.handleDocumentClick.bind(this);
-        this.handleKeyDown = this.handleKeyDown.bind(this);
-        this.handleResize = this.handleResize.bind(this);
-    }
-
     public connectedCallback() {
         this.setup();
     }
@@ -82,7 +76,7 @@ export class MenuSurface {
         );
     }
 
-    private setup() {
+    private setup = () => {
         const menuElement: HTMLElement =
             this.host.shadowRoot.querySelector('.mdc-menu-surface');
         if (!menuElement) {
@@ -99,18 +93,18 @@ export class MenuSurface {
         window.addEventListener('resize', this.handleResize, {
             passive: true,
         });
-    }
+    };
 
-    private teardown() {
+    private teardown = () => {
         this.menuSurface?.destroy();
         document.removeEventListener('mousedown', this.handleDocumentClick, {
             capture: true,
         });
         this.host.removeEventListener('keydown', this.handleKeyDown);
         window.removeEventListener('resize', this.handleResize);
-    }
+    };
 
-    private handleDocumentClick(event) {
+    private handleDocumentClick = (event) => {
         const elementPath = event.path || [];
 
         if (!this.open) {
@@ -133,15 +127,15 @@ export class MenuSurface {
 
         this.dismiss.emit();
         this.preventClickEventPropagation();
-    }
+    };
 
-    private handleResize() {
+    private handleResize = () => {
         if (this.open) {
             this.dismiss.emit();
         }
-    }
+    };
 
-    private preventClickEventPropagation() {
+    private preventClickEventPropagation = () => {
         // When the menu surface is open, we want to stop the `click` event from propagating
         // when clicking outside the surface itself. This is to prevent any dialog that might
         // be open from closing, etc. However, when dragging a scrollbar no `click` event is emitted,
@@ -170,14 +164,14 @@ export class MenuSurface {
                 once: true,
             }
         );
-    }
+    };
 
-    private stopEvent(event) {
+    private stopEvent = (event) => {
         event.stopPropagation();
         event.preventDefault();
-    }
+    };
 
-    private handleKeyDown(event: KeyboardEvent) {
+    private handleKeyDown = (event: KeyboardEvent) => {
         const isEscape =
             event.key === ESCAPE || event.keyCode === ESCAPE_KEY_CODE;
         const isTab = event.key === TAB || event.keyCode === TAB_KEY_CODE;
@@ -186,5 +180,5 @@ export class MenuSurface {
             event.stopPropagation();
             this.dismiss.emit();
         }
-    }
+    };
 }
