@@ -187,6 +187,7 @@ export class ListRenderer {
             </div>
         );
     };
+
     private renderCommandText = (item: ListItem | MenuItem) => {
         if (!('commandText' in item)) {
             return;
@@ -198,6 +199,7 @@ export class ListRenderer {
             </div>
         );
     };
+
     private isSimpleItem = (item: ListItem | MenuItem): boolean => {
         if ('commandText' in item) {
             return false;
