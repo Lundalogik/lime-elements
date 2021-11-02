@@ -1,8 +1,8 @@
-import { ListItem } from '../list/list-item.types';
+import { MenuListItem } from '../menu-list/menu-list-item.types';
 
 export type OpenDirection = 'left' | 'right';
 
-export interface MenuItem<T = any> extends ListItem<T> {
+export interface MenuItem<T = any> extends MenuListItem<T> {
     /**
      * The additional supporting text is used for shortcut commands and displayed in the list item.
      */

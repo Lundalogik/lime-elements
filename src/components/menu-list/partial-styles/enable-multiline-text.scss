@@ -1,0 +1,20 @@
+// We want to display all texts in multiple lines, which means overriding MDC's
+// default styles first. MDC offers possibility to have max three-line lists.
+// But MDC Web does not currently support three-line lists.
+
+:host {
+    --line-height-of-secondary-text: 1.2rem;
+}
+
+.mdc-deprecated-list-item {
+    height: auto !important; // `!important` because MD adds different fixed `height`s to different lists, such as `mdc-list--two-line` or `mdc-list--avatar-list` and we don't want to overwride them all separately
+    min-height: 3rem; // in MD, `3rem` is the default `height`.
+
+    .mdc-deprecated-list-item__secondary-text {
+        line-height: var(--line-height-of-secondary-text);
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: var(--maxLinesSecondaryText);
+        -webkit-box-orient: vertical;
+    }
+}
