@@ -1,4 +1,3 @@
-import { MenuListItem, ListSeparator } from '@limetech/lime-elements';
 import {
     Component,
     Event,
@@ -10,7 +9,11 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
-import { MenuItem, OpenDirection } from './menu.types';
+import {
+    ListSeparator,
+    MenuItem,
+    OpenDirection,
+} from '@limetech/lime-elements';
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.
@@ -94,7 +97,7 @@ export class Menu {
      * Is emitted when a menu item is selected.
      */
     @Event()
-    private select: EventEmitter<MenuListItem | MenuListItem[]>;
+    private select: EventEmitter<MenuItem | MenuItem[]>;
 
     @Element()
     private host: HTMLLimelMenuElement;
@@ -224,7 +227,7 @@ export class Menu {
     };
 
     private onListChange = (event) => {
-        this.items = this.items.map((item: MenuListItem) => {
+        this.items = this.items.map((item: MenuItem) => {
             if (item === event.detail) {
                 return event.detail;
             }
@@ -276,9 +279,9 @@ export class Menu {
         const activeElement = this.list.shadowRoot.activeElement as HTMLElement;
         activeElement?.blur();
 
-        const MenuListItems = this.items.filter(this.isMenuListItem);
+        const MenuItems = this.items.filter(this.isMenuItem);
         const selectedIndex = Math.max(
-            MenuListItems.findIndex((item) => item.selected),
+            MenuItems.findIndex((item) => item.selected),
             0
         );
         const menuElements: HTMLElement[] = Array.from(
@@ -287,9 +290,7 @@ export class Menu {
         menuElements[selectedIndex]?.focus();
     };
 
-    private isMenuListItem(
-        item: MenuListItem | ListSeparator
-    ): item is MenuListItem {
+    private isMenuItem(item: MenuItem | ListSeparator): item is MenuItem {
         return !('separator' in item);
     }
 }

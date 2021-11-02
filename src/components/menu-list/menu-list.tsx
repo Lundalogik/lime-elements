@@ -1,6 +1,6 @@
 import {
     IconSize,
-    MenuListItem,
+    MenuItem,
     ListSeparator,
     MenuListType,
 } from '@limetech/lime-elements';
@@ -38,7 +38,7 @@ export class MenuList {
      * List of items to display
      */
     @Prop()
-    public items: Array<MenuListItem | ListSeparator>;
+    public items: Array<MenuItem | ListSeparator>;
 
     /**
      * Set to `true` if the list should display larger icons with a background
@@ -85,13 +85,13 @@ export class MenuList {
      * Fired when a new value has been selected from the list. Only fired if selectable is set to true
      */
     @Event()
-    private change: EventEmitter<MenuListItem | MenuListItem[]>;
+    private change: EventEmitter<MenuItem | MenuItem[]>;
 
     /**
      * Fired when an action has been selected from the action menu of a list item
      */
     @Event()
-    protected select: EventEmitter<MenuListItem | MenuListItem[]>;
+    protected select: EventEmitter<MenuItem | MenuItem[]>;
 
     public connectedCallback() {
         this.setup();
@@ -144,19 +144,19 @@ export class MenuList {
             return;
         }
 
-        const MenuListItems = this.items.filter(this.isMenuListItem);
+        const MenuItems = this.items.filter(this.isMenuItem);
 
         if (!this.multiple) {
-            this.mdcList.selectedIndex = MenuListItems.findIndex(
-                (item: MenuListItem) => item.selected
+            this.mdcList.selectedIndex = MenuItems.findIndex(
+                (item: MenuItem) => item.selected
             );
 
             return;
         }
 
-        this.mdcList.selectedIndex = MenuListItems.filter(
-            (item: MenuListItem) => item.selected
-        ).map((item: MenuListItem) => MenuListItems.indexOf(item));
+        this.mdcList.selectedIndex = MenuItems.filter(
+            (item: MenuItem) => item.selected
+        ).map((item: MenuItem) => MenuItems.indexOf(item));
     }
 
     private setup = () => {
@@ -254,44 +254,38 @@ export class MenuList {
     };
 
     private handleSingleSelect = (index: number) => {
-        const MenuListItems = this.items.filter(
-            this.isMenuListItem
-        ) as MenuListItem[];
-        if (MenuListItems[index].disabled) {
+        const MenuItems = this.items.filter(this.isMenuItem) as MenuItem[];
+        if (MenuItems[index].disabled) {
             return;
         }
 
-        const selectedItem: MenuListItem = MenuListItems.find(
-            (item: MenuListItem) => {
-                return !!item.selected;
-            }
-        );
+        const selectedItem: MenuItem = MenuItems.find((item: MenuItem) => {
+            return !!item.selected;
+        });
 
         if (selectedItem) {
             this.change.emit({ ...selectedItem, selected: false });
         }
 
-        if (MenuListItems[index] !== selectedItem) {
+        if (MenuItems[index] !== selectedItem) {
             if (this.type === 'menu') {
-                this.change.emit({ ...MenuListItems[index], selected: false });
+                this.change.emit({ ...MenuItems[index], selected: false });
 
                 return;
             }
 
-            this.change.emit({ ...MenuListItems[index], selected: true });
+            this.change.emit({ ...MenuItems[index], selected: true });
         }
     };
 
     private handleMultiSelect = (index: number) => {
-        const MenuListItems = this.items.filter(
-            this.isMenuListItem
-        ) as MenuListItem[];
-        if (MenuListItems[index].disabled) {
+        const MenuItems = this.items.filter(this.isMenuItem) as MenuItem[];
+        if (MenuItems[index].disabled) {
             return;
         }
 
-        const selectedItems: MenuListItem[] = MenuListItems.filter(
-            (item: MenuListItem, listIndex: number) => {
+        const selectedItems: MenuItem[] = MenuItems.filter(
+            (item: MenuItem, listIndex: number) => {
                 if (listIndex === index) {
                     // This is the item that was selected or deselected,
                     // so we negate its previous selection status.
@@ -301,14 +295,14 @@ export class MenuList {
                 // This is an item that didn't change, so we keep its selection status.
                 return item.selected;
             }
-        ).map((item: MenuListItem) => {
+        ).map((item: MenuItem) => {
             return { ...item, selected: true };
         });
 
         this.change.emit(selectedItems);
     };
 
-    private isMenuListItem = (item: MenuListItem): boolean => {
+    private isMenuItem = (item: MenuItem): boolean => {
         return !('separator' in item);
     };
 }

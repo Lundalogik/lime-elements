@@ -1,10 +1,10 @@
-import { MenuListItem, ListSeparator } from '@limetech/lime-elements';
+import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { newE2EPage, E2EPage, E2EElement } from '@stencil/core/testing';
 
 describe('limel-menu', () => {
     let page: E2EPage;
     let limelMenu: HTMLLimelMenuElement & E2EElement;
-    let items: Array<MenuListItem | ListSeparator>;
+    let items: Array<MenuItem | ListSeparator>;
     beforeEach(async () => {
         page = await newE2EPage({
             html: `
