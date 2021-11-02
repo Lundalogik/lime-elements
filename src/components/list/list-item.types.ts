@@ -1,4 +1,4 @@
-import { ListSeparator, MenuListItem } from '@limetech/lime-elements';
+import { MenuItem } from '@limetech/lime-elements';
 
 export interface ListItem<T = any> {
     /**
@@ -39,5 +39,9 @@ export interface ListItem<T = any> {
     /**
      * List of actions to display as a menu at the end of the item
      */
-    actions?: Array<MenuListItem | ListSeparator>;
+    actions?: Array<MenuItem | ListSeparator>;
+}
+
+export interface ListSeparator {
+    separator: true;
 }

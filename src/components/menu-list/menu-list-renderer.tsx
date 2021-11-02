@@ -1,4 +1,4 @@
-import { MenuListItem, ListSeparator, MenuItem } from '@limetech/lime-elements';
+import { ListSeparator, MenuItem } from '@limetech/lime-elements';
 import { h } from '@stencil/core';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
@@ -20,7 +20,7 @@ export class MenuListRenderer {
     private applyTabIndexToItemAtIndex: number;
 
     public render(
-        items: Array<MenuListItem | ListSeparator | MenuItem>,
+        items: Array<ListSeparator | MenuItem>,
         config: MenuListRendererConfig = {}
     ) {
         items = items || [];
@@ -74,29 +74,29 @@ export class MenuListRenderer {
                 role={role}
                 aria-orientation="vertical"
             >
-                {items.map(this.renderMenuListItem)}
+                {items.map(this.renderMenuItem)}
             </ul>
         );
     }
 
     /**
-     * Determine which MenuListItem should have the `tab-index` attribute set,
-     * and return the index at which that MenuListItem is located in `items`.
+     * Determine which MenuItem should have the `tab-index` attribute set,
+     * and return the index at which that MenuItem is located in `items`.
      * Returns `undefined` if no item should have the attribute set.
      * See https://github.com/material-components/material-components-web/tree/e66a43a75fef4f9179e24856649518e15e279a04/packages/mdc-list#accessibility
      *
-     * @param {Array<MenuListItem | ListSeparator | MenuItems>} items the items of the list, including any `ListSeparator`:s
+     * @param {Array<ListSeparator | MenuItems>} items the items of the list, including any `ListSeparator`:s
      * @returns {number} the index as per the description
      */
     private getIndexForWhichToApplyTabIndex = (
-        items: Array<MenuListItem | ListSeparator | MenuItem>
+        items: Array<ListSeparator | MenuItem>
     ) => {
         let result;
         for (let i = 0, max = items.length; i < max; i += 1) {
             if ('separator' in items[i]) {
                 // Ignore ListSeparator
             } else {
-                const item = items[i] as MenuListItem<any>;
+                const item = items[i] as MenuItem<any>;
                 if (item.selected) {
                     result = i;
                     break;
@@ -116,12 +116,12 @@ export class MenuListRenderer {
     /**
      * Render a single list item
      *
-     * @param {MenuListItem | ListSeparator | MenuItems} item the item to render
+     * @param {ListSeparator | MenuItems} item the item to render
      * @param {number} index the index the item had in the `items` array
      * @returns {HTMLElement} the list item
      */
-    private renderMenuListItem = (
-        item: MenuListItem | ListSeparator | MenuItem,
+    private renderMenuItem = (
+        item: ListSeparator | MenuItem,
         index: number
     ) => {
         if ('separator' in item) {
@@ -129,7 +129,7 @@ export class MenuListRenderer {
         }
 
         if (['radio', 'checkbox'].includes(this.config.type)) {
-            return this.renderVariantMenuListItem(this.config, item, index);
+            return this.renderVariantMenuItem(this.config, item, index);
         }
 
         const classNames = {
@@ -163,10 +163,10 @@ export class MenuListRenderer {
     /**
      * Render the text of the list item
      *
-     * @param {MenuListItem | MenuItem} item the list item
+     * @param {MenuItem} item the list item
      * @returns {HTMLElement | string} the text for the list item
      */
-    private renderText = (item: MenuListItem | MenuItem) => {
+    private renderText = (item: MenuItem) => {
         if (this.isSimpleItem(item)) {
             return (
                 <span class="mdc-deprecated-list-item__text">{item.text}</span>
@@ -188,7 +188,7 @@ export class MenuListRenderer {
         );
     };
 
-    private renderCommandText = (item: MenuListItem | MenuItem) => {
+    private renderCommandText = (item: MenuItem) => {
         if (!('commandText' in item)) {
             return;
         }
@@ -200,7 +200,7 @@ export class MenuListRenderer {
         );
     };
 
-    private isSimpleItem = (item: MenuListItem | MenuItem): boolean => {
+    private isSimpleItem = (item: MenuItem): boolean => {
         if ('commandText' in item) {
             return false;
         }
@@ -215,14 +215,11 @@ export class MenuListRenderer {
     /**
      * Render an icon for a list item
      *
-     * @param {MenuListRendererConfig} config the config object, passed on from the `renderMenuListItem` function
-     * @param {MenuListItem} item the list item
+     * @param {MenuListRendererConfig} config the config object, passed on from the `renderMenuItem` function
+     * @param {MenuItem} item the list item
      * @returns {HTMLElement} the icon element
      */
-    private renderIcon = (
-        config: MenuListRendererConfig,
-        item: MenuListItem
-    ) => {
+    private renderIcon = (config: MenuListRendererConfig, item: MenuItem) => {
         const style: any = {};
         if (item.iconColor) {
             if (config.badgeIcons) {
@@ -255,9 +252,7 @@ export class MenuListRenderer {
         return <hr class={classes} />;
     };
 
-    private renderActionMenu = (
-        actions: Array<MenuListItem | ListSeparator>
-    ) => {
+    private renderActionMenu = (actions: Array<MenuItem | ListSeparator>) => {
         if (!actions || actions.length === 0) {
             return;
         }
@@ -273,9 +268,9 @@ export class MenuListRenderer {
         );
     };
 
-    private renderVariantMenuListItem = (
+    private renderVariantMenuItem = (
         config: MenuListRendererConfig,
-        item: MenuListItem,
+        item: MenuItem,
         index: number
     ) => {
         let itemTemplate;
@@ -317,7 +312,7 @@ export class MenuListRenderer {
                 data-index={index}
                 {...attributes}
             >
-                {this.renderVariantMenuListItemContent(
+                {this.renderVariantMenuItemContent(
                     config,
                     item,
                     itemTemplate
@@ -326,9 +321,9 @@ export class MenuListRenderer {
         );
     };
 
-    private renderVariantMenuListItemContent = (
+    private renderVariantMenuItemContent = (
         config: MenuListRendererConfig,
-        item: MenuListItem | MenuItem,
+        item: MenuItem,
         itemTemplate: any
     ) => {
         if (this.hasIcons) {

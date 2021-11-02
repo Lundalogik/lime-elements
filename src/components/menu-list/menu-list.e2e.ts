@@ -1,4 +1,4 @@
-import { MenuListItem, ListSeparator } from '@limetech/lime-elements';
+import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('limel-menu-list', () => {
@@ -22,7 +22,7 @@ describe('limel-menu-list', () => {
     });
 
     describe('with an item', () => {
-        let items: Array<MenuListItem | ListSeparator>;
+        let items: Array<MenuItem | ListSeparator>;
         beforeEach(async () => {
             items = [{ text: 'item 1' }];
             await limelList.setProperty('items', items);
@@ -55,7 +55,7 @@ describe('limel-menu-list', () => {
     });
 
     describe('with a disabled item', () => {
-        let items: Array<MenuListItem | ListSeparator>;
+        let items: Array<MenuItem | ListSeparator>;
         beforeEach(async () => {
             items = [{ text: 'item 1', disabled: true }];
             await limelList.setProperty('items', items);
@@ -82,7 +82,7 @@ describe('limel-menu-list', () => {
     });
 
     describe('with multiple items', () => {
-        let items: Array<MenuListItem | ListSeparator>;
+        let items: Array<MenuItem | ListSeparator>;
         beforeEach(async () => {
             items = [
                 { text: 'item 1' },
@@ -120,7 +120,7 @@ describe('limel-menu-list', () => {
     });
 
     describe('with at least one item with secondary text', () => {
-        let items: Array<MenuListItem | ListSeparator>;
+        let items: Array<MenuItem | ListSeparator>;
         beforeEach(async () => {
             items = [
                 { text: 'item 1' },
