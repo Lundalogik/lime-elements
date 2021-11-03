@@ -5,10 +5,8 @@ import {
     ListType,
 } from '@limetech/lime-elements';
 import { MDCList, MDCListActionEvent } from '@material/list';
-import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
 import { MDCRipple } from '@material/ripple';
 import { strings as listStrings } from '@material/list/constants';
-import { strings as menuStrings } from '@material/menu/constants';
 import {
     Component,
     Element,
@@ -23,7 +21,6 @@ import { ListRenderer } from './list-renderer';
 import { ListRendererConfig } from './list-renderer-config';
 
 const { ACTION_EVENT } = listStrings;
-const { SELECTED_EVENT } = menuStrings;
 
 /**
  * @exampleComponent limel-example-list
@@ -69,7 +66,6 @@ export class List {
      * `selectable`: regular list with single selection.
      * `radio`: radio button list with single selection.
      * `checkbox`: checkbox list with multiple selection.
-     * `menu`: menu list with single selection.
      */
     @Prop()
     public type: ListType;
@@ -89,7 +85,6 @@ export class List {
     private config: ListRendererConfig;
     private listRenderer = new ListRenderer();
     private mdcList: MDCList;
-    private mdcMenu: MDCMenu;
     private multiple: boolean;
     private selectable: boolean;
 
@@ -130,10 +125,6 @@ export class List {
 
         const html = this.listRenderer.render(this.items, this.config);
 
-        if (this.type === 'menu') {
-            return <div class="mdc-menu mdc-menu-surface">{html}</div>;
-        }
-
         return (
             <Host
                 style={{
@@ -172,11 +163,7 @@ export class List {
     }
 
     private setup = () => {
-        if (this.type === 'menu') {
-            this.setupMenu();
-        } else {
-            this.setupList();
-        }
+        this.setupList();
 
         this.setupListeners();
     };
@@ -193,34 +180,14 @@ export class List {
         this.mdcList.listElements.forEach((item) => new MDCRipple(item));
     };
 
-    private setupMenu = () => {
-        const element = this.element.shadowRoot.querySelector('.mdc-menu');
-        if (!element) {
-            return;
-        }
-
-        this.mdcMenu = new MDCMenu(element);
-        this.mdcMenu.hasTypeahead = true;
-        this.mdcMenu.wrapFocus = true;
-        this.mdcMenu.items.forEach((item) => new MDCRipple(item));
-    };
-
     private setupListeners = () => {
-        if (this.type === 'menu') {
-            this.setupMenuListeners();
-        } else {
-            this.setupListListeners();
-        }
-    };
-
-    private setupListListeners = () => {
         if (!this.mdcList) {
             return;
         }
 
         this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
 
-        this.selectable = ['selectable', 'radio', 'checkbox', 'menu'].includes(
+        this.selectable = ['selectable', 'radio', 'checkbox'].includes(
             this.type
         );
         this.multiple = this.type === 'checkbox';
@@ -233,22 +200,9 @@ export class List {
         this.mdcList.singleSelection = !this.multiple;
     };
 
-    private setupMenuListeners = () => {
-        if (!this.mdcMenu) {
-            return;
-        }
-
-        this.mdcMenu.unlisten(SELECTED_EVENT, this.handleMenuSelect);
-        this.selectable = true;
-        this.mdcMenu.listen(SELECTED_EVENT, this.handleMenuSelect);
-    };
-
     private teardown = () => {
         this.mdcList?.unlisten(ACTION_EVENT, this.handleAction);
         this.mdcList?.destroy();
-
-        this.mdcMenu?.unlisten(SELECTED_EVENT, this.handleMenuSelect);
-        this.mdcMenu?.destroy();
     };
 
     private handleAction = (event: MDCListActionEvent) => {
@@ -259,10 +213,6 @@ export class List {
         }
 
         this.handleMultiSelect(event.detail.index);
-    };
-
-    private handleMenuSelect = (event: MDCMenuItemEvent) => {
-        this.handleSingleSelect(event.detail.index);
     };
 
     private handleSingleSelect = (index: number) => {
@@ -280,12 +230,6 @@ export class List {
         }
 
         if (listItems[index] !== selectedItem) {
-            if (this.type === 'menu') {
-                this.change.emit({ ...listItems[index], selected: false });
-
-                return;
-            }
-
             this.change.emit({ ...listItems[index], selected: true });
         }
     };
