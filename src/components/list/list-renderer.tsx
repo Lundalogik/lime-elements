@@ -20,7 +20,7 @@ export class ListRenderer {
     private applyTabIndexToItemAtIndex: number;
 
     public render(
-        items: Array<ListItem | ListSeparator | MenuItem>,
+        items: Array<ListItem | ListSeparator>,
         config: ListRendererConfig = {}
     ) {
         items = items || [];
@@ -28,10 +28,6 @@ export class ListRenderer {
 
         this.twoLines = items.some((item) => {
             return 'secondaryText' in item && !!item.secondaryText;
-        });
-
-        this.commandKey = items.some((item) => {
-            return 'commandText' in item && !!item.commandText;
         });
 
         this.hasIcons = items.some((item) => {
@@ -80,11 +76,11 @@ export class ListRenderer {
      * Returns `undefined` if no item should have the attribute set.
      * See https://github.com/material-components/material-components-web/tree/e66a43a75fef4f9179e24856649518e15e279a04/packages/mdc-list#accessibility
      *
-     * @param {Array<ListItem | ListSeparator | MenuItems>} items the items of the list, including any `ListSeparator`:s
+     * @param {Array<ListItem | ListSeparator>} items the items of the list, including any `ListSeparator`:s
      * @returns {number} the index as per the description
      */
     private getIndexForWhichToApplyTabIndex = (
-        items: Array<ListItem | ListSeparator | MenuItem>
+        items: Array<ListItem | ListSeparator>
     ) => {
         let result;
         for (let i = 0, max = items.length; i < max; i += 1) {
@@ -111,12 +107,12 @@ export class ListRenderer {
     /**
      * Render a single list item
      *
-     * @param {ListItem | ListSeparator | MenuItems} item the item to render
+     * @param {ListItem | ListSeparator} item the item to render
      * @param {number} index the index the item had in the `items` array
      * @returns {HTMLElement} the list item
      */
     private renderListItem = (
-        item: ListItem | ListSeparator | MenuItem,
+        item: ListItem | ListSeparator,
         index: number
     ) => {
         if ('separator' in item) {
@@ -157,10 +153,10 @@ export class ListRenderer {
     /**
      * Render the text of the list item
      *
-     * @param {ListItem | MenuItem} item the list item
+     * @param {ListItem} item the list item
      * @returns {HTMLElement | string} the text for the list item
      */
-    private renderText = (item: ListItem | MenuItem) => {
+    private renderText = (item: ListItem) => {
         if (this.isSimpleItem(item)) {
             return (
                 <span class="mdc-deprecated-list-item__text">{item.text}</span>
@@ -173,7 +169,6 @@ export class ListRenderer {
                     <div class="mdc-deprecated-list-item__primary-text">
                         {item.text}
                     </div>
-                    {this.renderCommandText(item)}
                 </div>
                 <div class="mdc-deprecated-list-item__secondary-text">
                     {item.secondaryText}
@@ -182,23 +177,7 @@ export class ListRenderer {
         );
     };
 
-    private renderCommandText = (item: ListItem | MenuItem) => {
-        if (!('commandText' in item)) {
-            return;
-        }
-
-        return (
-            <div class="mdc-deprecated-list-item__command-text">
-                {item.commandText}
-            </div>
-        );
-    };
-
-    private isSimpleItem = (item: ListItem | MenuItem): boolean => {
-        if ('commandText' in item) {
-            return false;
-        }
-
+    private isSimpleItem = (item: ListItem): boolean => {
         if ('secondaryText' in item) {
             return false;
         }
@@ -246,7 +225,7 @@ export class ListRenderer {
         return <hr class={classes} />;
     };
 
-    private renderActionMenu = (actions: Array<ListItem | ListSeparator>) => {
+    private renderActionMenu = (actions: Array<MenuItem | ListSeparator>) => {
         if (!actions || actions.length === 0) {
             return;
         }
@@ -313,7 +292,7 @@ export class ListRenderer {
 
     private renderVariantListItemContent = (
         config: ListRendererConfig,
-        item: ListItem | MenuItem,
+        item: ListItem,
         itemTemplate: any
     ) => {
         if (this.hasIcons) {
