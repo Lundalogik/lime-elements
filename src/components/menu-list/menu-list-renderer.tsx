@@ -136,7 +136,6 @@ export class MenuListRenderer {
                 {item.icon ? this.renderIcon(this.config, item) : null}
                 {this.renderText(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
-                {this.renderActionMenu(item.actions)}
             </li>
         );
     };
@@ -231,21 +230,5 @@ export class MenuListRenderer {
         }
 
         return <hr class={classes} />;
-    };
-
-    private renderActionMenu = (actions: Array<MenuItem | ListSeparator>) => {
-        if (!actions || actions.length === 0) {
-            return;
-        }
-
-        return (
-            <limel-menu
-                class="mdc-deprecated-list-item__meta"
-                items={actions}
-                openDirection="left"
-            >
-                <limel-icon slot="trigger" name="menu_2" size="small" />
-            </limel-menu>
-        );
     };
 }
