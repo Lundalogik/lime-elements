@@ -234,10 +234,6 @@ $list-border-radius: 0.375rem; // 6px
     }
 }
 
-@import '../checkbox/checkbox.scss';
-
-@import './radio-button/radio-button.scss';
-
 @import './partial-styles/custom-styles.scss';
 @import './partial-styles/enable-multiline-text.scss';
 @import './partial-styles/_has-grid-layout.scss';

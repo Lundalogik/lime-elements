@@ -1,8 +1,6 @@
 import { ListSeparator, MenuItem } from '@limetech/lime-elements';
 import { h } from '@stencil/core';
-import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
-import { RadioButtonTemplate } from './radio-button/radio-button.template';
 
 export class MenuListRenderer {
     private defaultConfig: MenuListRendererConfig = {
@@ -39,19 +37,6 @@ export class MenuListRenderer {
         });
 
         this.avatarList = this.config.badgeIcons && this.hasIcons;
-        const selectableListTypes = ['selectable', 'radio', 'checkbox', 'menu'];
-
-        let role;
-        switch (this.config.type) {
-            case 'checkbox':
-                role = 'group';
-                break;
-            case 'radio':
-                role = 'radiogroup';
-                break;
-            default:
-                role = this.config.type === 'menu' ? 'menu' : 'listbox';
-        }
 
         this.applyTabIndexToItemAtIndex =
             this.getIndexForWhichToApplyTabIndex(items);
@@ -59,7 +44,7 @@ export class MenuListRenderer {
         const classNames = {
             'mdc-deprecated-list': true,
             'mdc-deprecated-list--two-line': this.twoLines,
-            selectable: selectableListTypes.includes(this.config.type),
+            selectable: true,
             'mdc-deprecated-list--avatar-list': this.avatarList,
             'list--compact':
                 this.twoLines &&
@@ -70,8 +55,8 @@ export class MenuListRenderer {
         return (
             <ul
                 class={classNames}
-                aria-hidden={(this.config.type === 'menu').toString()}
-                role={role}
+                aria-hidden={true}
+                role="menu"
                 aria-orientation="vertical"
             >
                 {items.map(this.renderMenuItem)}
@@ -128,10 +113,6 @@ export class MenuListRenderer {
             return <li class="mdc-deprecated-list-divider" role="separator" />;
         }
 
-        if (['radio', 'checkbox'].includes(this.config.type)) {
-            return this.renderVariantMenuItem(this.config, item, index);
-        }
-
         const classNames = {
             'mdc-deprecated-list-item': true,
             'mdc-deprecated-list-item--disabled': item.disabled,
@@ -146,7 +127,7 @@ export class MenuListRenderer {
         return (
             <li
                 class={classNames}
-                role={this.config.type === 'menu' ? 'menuitem' : ''}
+                role="menuitem"
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 aria-selected={item.selected ? 'true' : 'false'}
                 data-index={index}
@@ -266,79 +247,5 @@ export class MenuListRenderer {
                 <limel-icon slot="trigger" name="menu_2" size="small" />
             </limel-menu>
         );
-    };
-
-    private renderVariantMenuItem = (
-        config: MenuListRendererConfig,
-        item: MenuItem,
-        index: number
-    ) => {
-        let itemTemplate;
-        if (config.type === 'radio') {
-            itemTemplate = (
-                <RadioButtonTemplate
-                    id={`c_${index}`}
-                    checked={item.selected}
-                    disabled={item.disabled}
-                />
-            );
-        } else if (config.type === 'checkbox') {
-            itemTemplate = (
-                <CheckboxTemplate
-                    id={`c_${index}`}
-                    checked={item.selected}
-                    disabled={item.disabled}
-                />
-            );
-        }
-
-        const classNames = {
-            'mdc-deprecated-list-item': true,
-            'mdc-deprecated-list-item--disabled': item.disabled,
-            'mdc-deprecated-list-item__text': !item.secondaryText,
-        };
-
-        const attributes: { tabindex?: string } = {};
-        if (index === this.applyTabIndexToItemAtIndex) {
-            attributes.tabindex = '0';
-        }
-
-        return (
-            <li
-                class={classNames}
-                role={config.type}
-                aria-checked={item.selected ? 'true' : 'false'}
-                aria-disabled={item.disabled ? 'true' : 'false'}
-                data-index={index}
-                {...attributes}
-            >
-                {this.renderVariantMenuItemContent(
-                    config,
-                    item,
-                    itemTemplate
-                )}
-            </li>
-        );
-    };
-
-    private renderVariantMenuItemContent = (
-        config: MenuListRendererConfig,
-        item: MenuItem,
-        itemTemplate: any
-    ) => {
-        if (this.hasIcons) {
-            return [
-                item.icon ? this.renderIcon(config, item) : null,
-                this.renderText(item),
-                <div class="mdc-deprecated-list-item__meta">
-                    {itemTemplate}
-                </div>,
-            ];
-        }
-
-        return [
-            <div class="mdc-deprecated-list-item__graphic">{itemTemplate}</div>,
-            this.renderText(item),
-        ];
     };
 }
