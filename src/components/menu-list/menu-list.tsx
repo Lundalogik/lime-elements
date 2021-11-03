@@ -53,11 +53,9 @@ export class MenuList {
     public iconSize: IconSize = 'small';
 
     /**
-     * The type of the list, omit to get a regular list. Available types are:
-     * `selectable`: regular list with single selection.
-     * `radio`: radio button list with single selection.
-     * `checkbox`: checkbox list with multiple selection.
-     * `menu`: menu list with single selection.
+     * The type of the menu, omit to get a regular vertical menu.
+     * Available types are:
+     * `menu`: regular vertical menu.
      */
     @Prop()
     public type: MenuListType;
@@ -78,8 +76,6 @@ export class MenuList {
     private MenuListRenderer = new MenuListRenderer();
     private mdcList: MDCList;
     private mdcMenu: MDCMenu;
-    private multiple: boolean;
-    private selectable: boolean;
 
     /**
      * Fired when a new value has been selected from the list. Only fired if selectable is set to true
@@ -146,39 +142,14 @@ export class MenuList {
 
         const MenuItems = this.items.filter(this.isMenuItem);
 
-        if (!this.multiple) {
-            this.mdcList.selectedIndex = MenuItems.findIndex(
-                (item: MenuItem) => item.selected
-            );
-
-            return;
-        }
-
-        this.mdcList.selectedIndex = MenuItems.filter(
+        this.mdcList.selectedIndex = MenuItems.findIndex(
             (item: MenuItem) => item.selected
-        ).map((item: MenuItem) => MenuItems.indexOf(item));
+        );
     }
 
     private setup = () => {
-        if (this.type === 'menu') {
-            this.setupMenu();
-        } else {
-            this.setupList();
-        }
-
+        this.setupMenu();
         this.setupListeners();
-    };
-
-    private setupList = () => {
-        const element = this.element.shadowRoot.querySelector(
-            '.mdc-deprecated-list'
-        );
-        if (!element) {
-            return;
-        }
-
-        this.mdcList = new MDCList(element);
-        this.mdcList.listElements.forEach((item) => new MDCRipple(item));
     };
 
     private setupMenu = () => {
@@ -194,40 +165,11 @@ export class MenuList {
     };
 
     private setupListeners = () => {
-        if (this.type === 'menu') {
-            this.setupMenuListeners();
-        } else {
-            this.setupListListeners();
-        }
-    };
-
-    private setupListListeners = () => {
-        if (!this.mdcList) {
-            return;
-        }
-
-        this.mdcList.unlisten(ACTION_EVENT, this.handleAction);
-
-        this.selectable = ['selectable', 'radio', 'checkbox', 'menu'].includes(
-            this.type
-        );
-        this.multiple = this.type === 'checkbox';
-
-        if (!this.selectable) {
-            return;
-        }
-
-        this.mdcList.listen(ACTION_EVENT, this.handleAction);
-        this.mdcList.singleSelection = !this.multiple;
-    };
-
-    private setupMenuListeners = () => {
         if (!this.mdcMenu) {
             return;
         }
 
         this.mdcMenu.unlisten(SELECTED_EVENT, this.handleMenuSelect);
-        this.selectable = true;
         this.mdcMenu.listen(SELECTED_EVENT, this.handleMenuSelect);
     };
 
@@ -240,13 +182,7 @@ export class MenuList {
     };
 
     private handleAction = (event: MDCListActionEvent) => {
-        if (!this.multiple) {
-            this.handleSingleSelect(event.detail.index);
-
-            return;
-        }
-
-        this.handleMultiSelect(event.detail.index);
+        this.handleSingleSelect(event.detail.index);
     };
 
     private handleMenuSelect = (event: MDCMenuItemEvent) => {
@@ -276,30 +212,6 @@ export class MenuList {
 
             this.change.emit({ ...MenuItems[index], selected: true });
         }
-    };
-
-    private handleMultiSelect = (index: number) => {
-        const MenuItems = this.items.filter(this.isMenuItem) as MenuItem[];
-        if (MenuItems[index].disabled) {
-            return;
-        }
-
-        const selectedItems: MenuItem[] = MenuItems.filter(
-            (item: MenuItem, listIndex: number) => {
-                if (listIndex === index) {
-                    // This is the item that was selected or deselected,
-                    // so we negate its previous selection status.
-                    return !item.selected;
-                }
-
-                // This is an item that didn't change, so we keep its selection status.
-                return item.selected;
-            }
-        ).map((item: MenuItem) => {
-            return { ...item, selected: true };
-        });
-
-        this.change.emit(selectedItems);
     };
 
     private isMenuItem = (item: MenuItem): boolean => {

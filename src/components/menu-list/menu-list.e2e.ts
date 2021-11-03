@@ -14,9 +14,9 @@ describe('limel-menu-list', () => {
     });
 
     describe('without items', () => {
-        it('renders an empty listbox', () => {
+        it('renders an empty menu', () => {
             expect(innerList).toHaveClass('mdc-deprecated-list');
-            expect(innerList).toEqualAttribute('role', 'listbox');
+            expect(innerList).toEqualAttribute('role', 'menu');
             expect(innerList.children).toHaveLength(0);
         });
     });
@@ -28,17 +28,12 @@ describe('limel-menu-list', () => {
             await limelList.setProperty('items', items);
             await page.waitForChanges();
         });
-        it('renders the item', () => {
+        it('renders a menu item', () => {
             expect(innerList.children).toHaveLength(1);
             expect(innerList.children[0]).toHaveClass(
                 'mdc-deprecated-list-item'
             );
-        });
-        it('does not render a menu-item', () => {
-            expect(innerList.children[0]).not.toEqualAttribute(
-                'role',
-                'menuitem'
-            );
+            expect(innerList.children[0]).toEqualAttribute('role', 'menuitem');
         });
         it('sets tabindex to 0', () => {
             expect(innerList.children[0]).toEqualAttribute('tabindex', '0');
@@ -185,54 +180,11 @@ describe('limel-menu-list', () => {
 
     describe('when the attribute `type`', () => {
         describe('is not set', () => {
-            it('is not selectable', () => {
-                expect(innerList).not.toHaveClass('selectable');
-            });
-        });
-
-        describe('is set as `selectable`', () => {
-            let items;
-            beforeEach(async () => {
-                page = await newE2EPage({
-                    html: '<limel-menu-list type="selectable"></limel-menu-list>',
-                });
-                limelList = await page.find('limel-menu-list');
-                innerList = await page.find('limel-menu-list>>>ul');
-                items = [{ text: 'item 1' }];
-                await limelList.setProperty('items', items);
-                await page.waitForChanges();
-            });
             it('is selectable', () => {
                 expect(innerList).toHaveClass('selectable');
             });
-            it('has the value `selectable`', async () => {
-                const propValue = await limelList.getProperty('type');
-                expect(propValue).toBe('selectable');
-            });
-            describe('the `change` event', () => {
-                let spy;
-                beforeEach(async () => {
-                    spy = await page.spyOnEvent('change');
-                });
-                describe('when an item is selected', () => {
-                    let item;
-                    beforeEach(async () => {
-                        item = await innerList.find('li');
-                        await item.click();
-                        await page.waitForTimeout(20); // Give the event a chance to bubble.
-                    });
-                    it('is emitted', () => {
-                        expect(spy).toHaveReceivedEventTimes(1);
-                    });
-                    it('passes the selected item as the event details', () => {
-                        expect(spy).toHaveReceivedEventDetail({
-                            ...items[0],
-                            selected: true,
-                        });
-                    });
-                });
-            });
         });
+
         describe('is set as `menu`', () => {
             let items;
             beforeEach(async () => {
