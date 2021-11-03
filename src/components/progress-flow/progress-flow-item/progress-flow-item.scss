@@ -133,7 +133,7 @@
     z-index: z-index.$limel-progress-flow-divider;
     right: 0;
     transform: translateX(50%);
-    overflow-y: hidden;
+    overflow: hidden;
 
     &:after {
         position: absolute;
