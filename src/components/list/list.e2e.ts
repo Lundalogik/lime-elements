@@ -32,12 +32,6 @@ describe('limel-list', () => {
                 'mdc-deprecated-list-item'
             );
         });
-        it('does not render a menu-item', () => {
-            expect(innerList.children[0]).not.toEqualAttribute(
-                'role',
-                'menuitem'
-            );
-        });
         it('sets tabindex to 0', () => {
             expect(innerList.children[0]).toEqualAttribute('tabindex', '0');
         });
@@ -226,49 +220,6 @@ describe('limel-list', () => {
                         expect(spy).toHaveReceivedEventDetail({
                             ...items[0],
                             selected: true,
-                        });
-                    });
-                });
-            });
-        });
-        describe('is set as `menu`', () => {
-            let items;
-            beforeEach(async () => {
-                page = await newE2EPage({
-                    html: '<limel-list type="menu"></limel-list>',
-                });
-                limelList = await page.find('limel-list');
-                innerList = await page.find('limel-list>>>ul');
-                items = [{ text: 'item 1' }];
-                await limelList.setProperty('items', items);
-                await page.waitForChanges();
-            });
-            it('is selectable', () => {
-                expect(innerList).toHaveClass('selectable');
-            });
-            it('has the value `menu`', async () => {
-                const propValue = await limelList.getProperty('type');
-                expect(propValue).toBe('menu');
-            });
-            describe('the `change` event', () => {
-                let spy;
-                beforeEach(async () => {
-                    spy = await page.spyOnEvent('change');
-                });
-                describe('when an item is selected', () => {
-                    let item;
-                    beforeEach(async () => {
-                        item = await innerList.find('li');
-                        await item.click();
-                        await page.waitForTimeout(20); // Give the event a chance to bubble.
-                    });
-                    it('is emitted', () => {
-                        expect(spy).toHaveReceivedEventTimes(1);
-                    });
-                    it('passes the selected item as the event details but as not selected', () => {
-                        expect(spy).toHaveReceivedEventDetail({
-                            ...items[0],
-                            selected: false,
                         });
                     });
                 });

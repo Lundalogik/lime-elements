@@ -39,7 +39,7 @@ export class ListRenderer {
         });
 
         this.avatarList = this.config.badgeIcons && this.hasIcons;
-        const selectableListTypes = ['selectable', 'radio', 'checkbox', 'menu'];
+        const selectableListTypes = ['selectable', 'radio', 'checkbox'];
 
         let role;
         switch (this.config.type) {
@@ -50,7 +50,7 @@ export class ListRenderer {
                 role = 'radiogroup';
                 break;
             default:
-                role = this.config.type === 'menu' ? 'menu' : 'listbox';
+                role = 'listbox';
         }
 
         this.applyTabIndexToItemAtIndex =
@@ -68,12 +68,7 @@ export class ListRenderer {
         };
 
         return (
-            <ul
-                class={classNames}
-                aria-hidden={(this.config.type === 'menu').toString()}
-                role={role}
-                aria-orientation="vertical"
-            >
+            <ul class={classNames} role={role} aria-orientation="vertical">
                 {items.map(this.renderListItem)}
             </ul>
         );
@@ -146,7 +141,6 @@ export class ListRenderer {
         return (
             <li
                 class={classNames}
-                role={this.config.type === 'menu' ? 'menuitem' : ''}
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 aria-selected={item.selected ? 'true' : 'false'}
                 data-index={index}

@@ -5,7 +5,6 @@
 @use '../../style/internal/lime-theme';
 
 @use '@material/list';
-@use '@material/menu';
 @use '@material/ripple';
 
 $list-border-radius: 0.375rem; // 6px
@@ -28,10 +27,6 @@ $list-border-radius: 0.375rem; // 6px
 }
 
 @include list.deprecated-core-styles;
-
-.mdc-menu {
-    max-height: 70vh; // force tall menus render inside the viewport when menu is at the bottom of the screen
-}
 
 .mdc-deprecated-list {
     --mdc-theme-text-icon-on-background: var(
@@ -122,14 +117,6 @@ $list-border-radius: 0.375rem; // 6px
 
         .mdc-deprecated-list-item:last-child hr.mdc-deprecated-list-divider {
             display: none;
-        }
-    }
-
-    .mdc-deprecated-list-item[role='menuitem'] {
-        font-size: functions.pxToRem(13);
-
-        .mdc-deprecated-list-item__graphic {
-            margin-right: functions.pxToRem(14);
         }
     }
 
