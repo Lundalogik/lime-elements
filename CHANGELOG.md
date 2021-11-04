@@ -1,3 +1,10 @@
+## [33.14.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.15...v33.14.0-next.16) (2021-11-04)
+
+
+### Bug Fixes
+
+* **progress-flow:** remove scrollbar that sometimes appears ([ab519c4](https://github.com/Lundalogik/lime-elements/commit/ab519c4124338a09d0399eaa057b46c11204cd12))
+
 ## [33.14.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.14...v33.14.0-next.15) (2021-11-04)
 
 
