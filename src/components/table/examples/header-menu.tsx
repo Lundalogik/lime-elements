@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { ListItem } from 'src/components/list/list-item.types';
+import { ListItem } from '../../list/list-item.types';
 
 @Component({
     tag: 'limel-example-header-menu',

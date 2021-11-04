@@ -1,3 +1,10 @@
+## [33.14.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.14...v33.14.0-next.15) (2021-11-04)
+
+
+### Bug Fixes
+
+* **menu:** remove export of deleted interface ([55debf7](https://github.com/Lundalogik/lime-elements/commit/55debf72fe3652ee4536bf9291e92595ce78d160))
+
 ## [33.14.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.13...v33.14.0-next.14) (2021-11-02)
 
 
