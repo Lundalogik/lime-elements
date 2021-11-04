@@ -60,4 +60,5 @@ export const config: Config = {
         },
         timers: 'fake',
     },
+    sourceMap: true,
 };
