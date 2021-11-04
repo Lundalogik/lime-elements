@@ -1,5 +1,5 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { Button } from 'src/components/button/button.types';
+import { Button } from '../../button/button.types';
 
 /**
  * Composite
