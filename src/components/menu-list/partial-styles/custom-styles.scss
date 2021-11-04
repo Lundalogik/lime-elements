@@ -1,0 +1,38 @@
+@use '../../../style/internal/z-index';
+@use '../../../style/mixins';
+
+$background-color-of-odd-interactive-items: rgb(var(--contrast-100));
+$background-color-of-even-interactive-items: rgb(var(--contrast-200));
+$background-color-of-interactive-items-hovered: rgb(var(--contrast-100));
+
+:host(.has-striped-rows) {
+    .mdc-deprecated-list {
+        border: 1px solid rgb(var(--contrast-400));
+    }
+
+    .mdc-deprecated-list-item {
+        &:nth-child(even) {
+            background-color: $background-color-of-even-interactive-items;
+        }
+        &:nth-child(odd) {
+            background-color: $background-color-of-odd-interactive-items;
+        }
+    }
+}
+
+:host(.has-interactive-items) {
+    .mdc-deprecated-list-item {
+        &:not(.mdc-deprecated-list-item--disabled) {
+            @include mixins.is-flat-clickable();
+
+            &:hover {
+                z-index: z-index.$list--has-interactive-items--mdc-list-item--hover;
+                background-color: $background-color-of-interactive-items-hovered;
+
+                &:before {
+                    background-color: $background-color-of-interactive-items-hovered;
+                }
+            }
+        }
+    }
+}

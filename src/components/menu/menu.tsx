@@ -1,4 +1,3 @@
-import { ListItem, ListSeparator } from '@limetech/lime-elements';
 import {
     Component,
     Event,
@@ -10,7 +9,11 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
-import { MenuItem, OpenDirection } from './menu.types';
+import {
+    ListSeparator,
+    MenuItem,
+    OpenDirection,
+} from '@limetech/lime-elements';
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.
@@ -94,12 +97,12 @@ export class Menu {
      * Is emitted when a menu item is selected.
      */
     @Event()
-    private select: EventEmitter<ListItem | ListItem[]>;
+    private select: EventEmitter<MenuItem | MenuItem[]>;
 
     @Element()
     private host: HTMLLimelMenuElement;
 
-    private list: HTMLLimelListElement;
+    private list: HTMLLimelMenuListElement;
 
     private portalId: string;
 
@@ -156,7 +159,7 @@ export class Menu {
                         onDismiss={this.onClose}
                         style={cssProperties}
                     >
-                        <limel-list
+                        <limel-menu-list
                             class={{
                                 'has-grid-layout has-interactive-items':
                                     this.gridLayout,
@@ -224,7 +227,7 @@ export class Menu {
     };
 
     private onListChange = (event) => {
-        this.items = this.items.map((item: ListItem) => {
+        this.items = this.items.map((item: MenuItem) => {
             if (item === event.detail) {
                 return event.detail;
             }
@@ -268,7 +271,7 @@ export class Menu {
         return zipObject(propertyNames, values);
     }
 
-    private setListElement = (element: HTMLLimelListElement) => {
+    private setListElement = (element: HTMLLimelMenuListElement) => {
         this.list = element;
     };
 
@@ -276,9 +279,9 @@ export class Menu {
         const activeElement = this.list.shadowRoot.activeElement as HTMLElement;
         activeElement?.blur();
 
-        const listItems = this.items.filter(this.isListItem);
+        const MenuItems = this.items.filter(this.isMenuItem);
         const selectedIndex = Math.max(
-            listItems.findIndex((item) => item.selected),
+            MenuItems.findIndex((item) => item.selected),
             0
         );
         const menuElements: HTMLElement[] = Array.from(
@@ -287,7 +290,7 @@ export class Menu {
         menuElements[selectedIndex]?.focus();
     };
 
-    private isListItem(item: ListItem | ListSeparator): item is ListItem {
+    private isMenuItem(item: MenuItem | ListSeparator): item is MenuItem {
         return !('separator' in item);
     }
 }
