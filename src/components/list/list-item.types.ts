@@ -1,3 +1,5 @@
+import { MenuItem } from '@limetech/lime-elements';
+
 export interface ListItem<T = any> {
     /**
      * Text to display in the list item.
@@ -37,7 +39,7 @@ export interface ListItem<T = any> {
     /**
      * List of actions to display as a menu at the end of the item
      */
-    actions?: Array<ListItem | ListSeparator>;
+    actions?: Array<MenuItem | ListSeparator>;
 }
 
 export interface ListSeparator {
