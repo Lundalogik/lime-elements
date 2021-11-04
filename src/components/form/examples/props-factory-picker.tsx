@@ -1,6 +1,6 @@
 import { Component, h, Prop, EventEmitter, Event } from '@stencil/core';
 import { FormComponent } from '@limetech/lime-elements';
-import { ListItem } from 'src/components/list/list-item.types';
+import { ListItem } from '../../list/list-item.types';
 
 @Component({
     tag: 'limel-example-props-factory-picker',
