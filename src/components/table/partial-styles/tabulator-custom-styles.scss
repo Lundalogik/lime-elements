@@ -57,23 +57,26 @@
         margin-right: auto;
         margin-left: auto;
         border-radius: functions.pxToRem(8);
-        margin-bottom: functions.pxToRem(4);
 
-        &:first-child {
-            margin-top: functions.pxToRem(12);
-        }
-    }
+        &:not(.tabulator-calcs-bottom) {
+            margin-bottom: functions.pxToRem(4);
 
-    .tabulator-cell {
-        height: functions.pxToRem(44) !important;
-        padding-left: functions.pxToRem(12);
-        padding-right: functions.pxToRem(8);
+            &:first-child {
+                margin-top: functions.pxToRem(12);
+            }
 
-        &:first-child {
-            border-radius: functions.pxToRem(8) 0 0 functions.pxToRem(8);
-        }
-        &:last-child {
-            border-radius: 0 functions.pxToRem(8) functions.pxToRem(8) 0;
+            .tabulator-cell {
+                height: functions.pxToRem(44) !important;
+                padding-left: functions.pxToRem(12);
+                padding-right: functions.pxToRem(8);
+
+                &:first-child {
+                    border-radius: functions.pxToRem(8) 0 0 functions.pxToRem(8);
+                }
+                &:last-child {
+                    border-radius: 0 functions.pxToRem(8) functions.pxToRem(8) 0;
+                }
+            }
         }
     }
 }
