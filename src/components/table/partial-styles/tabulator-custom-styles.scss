@@ -67,8 +67,7 @@
     }
 
     .tabulator-cell {
-        height: functions.pxToRem(44);
-        line-height: functions.pxToRem(32);
+        height: functions.pxToRem(44) !important;
         padding-left: functions.pxToRem(12);
         padding-right: functions.pxToRem(8);
 
