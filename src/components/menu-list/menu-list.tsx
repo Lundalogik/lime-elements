@@ -15,7 +15,6 @@ import {
     Event,
     EventEmitter,
     h,
-    Host,
     Prop,
     Watch,
 } from '@stencil/core';
@@ -107,26 +106,10 @@ export class MenuList {
             type: this.type,
             iconSize: this.iconSize,
         };
-        let maxLinesSecondaryText = +this.maxLinesSecondaryText?.toFixed();
-        if (this.maxLinesSecondaryText < 1) {
-            maxLinesSecondaryText = 1;
-        }
 
         const html = this.MenuListRenderer.render(this.items, this.config);
 
-        if (this.type === 'menu') {
-            return <div class="mdc-menu mdc-menu-surface">{html}</div>;
-        }
-
-        return (
-            <Host
-                style={{
-                    '--maxLinesSecondaryText': `${maxLinesSecondaryText}`,
-                }}
-            >
-                {html}
-            </Host>
-        );
+        return <div class="mdc-menu mdc-menu-surface">{html}</div>;
     }
 
     @Watch('type')
@@ -204,13 +187,7 @@ export class MenuList {
         }
 
         if (MenuItems[index] !== selectedItem) {
-            if (this.type === 'menu') {
-                this.change.emit({ ...MenuItems[index], selected: false });
-
-                return;
-            }
-
-            this.change.emit({ ...MenuItems[index], selected: true });
+            this.change.emit({ ...MenuItems[index], selected: false });
         }
     };
 
