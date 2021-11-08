@@ -215,17 +215,17 @@ A detailed explanation can be found in this [document](https://docs.google.com/d
 #### Examples
 
 ```commit
-`fix(pencil): stop graphite breaking when too much pressure applied`
+fix(pencil): stop graphite breaking when too much pressure applied
 ```
 
 ```commit
-`feat(pencil): add 'graphiteWidth' option`
+feat(pencil): add 'graphiteWidth' option
 
 Fix #42
 ```
 
 ```commit
-perf(pencil): remove graphiteWidth option`
+perf(pencil): remove graphiteWidth option
 
 BREAKING CHANGE: The graphiteWidth option has been removed.
 
