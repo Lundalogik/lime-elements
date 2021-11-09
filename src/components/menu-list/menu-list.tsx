@@ -114,6 +114,7 @@ export class MenuList {
 
     @Watch('type')
     protected handleType() {
+        this.setMenuOrientation();
         this.setupListeners();
     }
 
@@ -132,6 +133,7 @@ export class MenuList {
 
     private setup = () => {
         this.setupMenu();
+        this.setMenuOrientation();
         this.setupListeners();
     };
 
@@ -142,6 +144,7 @@ export class MenuList {
         }
 
         this.mdcMenu = new MDCMenu(element);
+
         this.mdcMenu.hasTypeahead = true;
         this.mdcMenu.wrapFocus = true;
         this.mdcMenu.items.forEach((item) => new MDCRipple(item));
@@ -155,6 +158,16 @@ export class MenuList {
         this.mdcMenu.unlisten(SELECTED_EVENT, this.handleMenuSelect);
         this.mdcMenu.listen(SELECTED_EVENT, this.handleMenuSelect);
     };
+
+    private setMenuOrientation() {
+        if (this.type === 'grid') {
+            console.log('is grid');
+            this.mdcList.vertical = false;
+        } else {
+            console.log('is NOT grid');
+            this.mdcList.vertical = true;
+        }
+    }
 
     private teardown = () => {
         this.mdcList?.unlisten(ACTION_EVENT, this.handleAction);

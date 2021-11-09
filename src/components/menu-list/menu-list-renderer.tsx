@@ -52,12 +52,17 @@ export class MenuListRenderer {
                 ['small', 'x-small'].includes(this.config.iconSize),
         };
 
+        const props = {};
+        if (this.config.type !== 'grid') {
+            props['aria-orientation'] = 'vertical'
+        };
+
         return (
             <ul
                 class={classNames}
                 aria-hidden={true}
                 role="menu"
-                aria-orientation="vertical"
+                {...props}
             >
                 {items.map(this.renderMenuItem)}
             </ul>

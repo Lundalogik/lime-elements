@@ -165,7 +165,7 @@ export class Menu {
                                     this.gridLayout,
                             }}
                             items={this.items}
-                            type="menu"
+                            type={this.gridLayout ? 'grid' : 'menu'}
                             badgeIcons={this.badgeIcons}
                             onChange={this.onListChange}
                             ref={this.setListElement}
