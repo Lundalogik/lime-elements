@@ -5,10 +5,12 @@ import {
     h,
     Prop,
     Element,
+    Watch,
 } from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { Action } from './action';
 import { ENTER, ENTER_KEY_CODE } from '../../util/keycodes';
+import { getState, setState } from 'src/util/state-service';
 
 /**
  * @slot - Content to put inside the collapsible section
@@ -43,6 +45,21 @@ export class CollapsibleSection {
     public actions: Action[];
 
     /**
+     * Used to identify the section for the purpose of remembering the
+     * open/closed state.
+     */
+    @Prop({ reflect: true })
+    public stateKey: string;
+
+    /**
+     * Set to `false` to disable state memory even when `stateKey` is set.
+     * Normally, `stateKey` can just be left without a value to achieve the
+     * same thing.
+     */
+    @Prop({ reflect: true })
+    public rememberState: boolean = true;
+
+    /**
      * Emitted when the section is expanded
      */
     @Event()
@@ -63,9 +80,34 @@ export class CollapsibleSection {
     @Element()
     private host: HTMLLimelCollapsibleSectionElement;
 
+    private stateId: string;
+
     constructor() {
         this.onClick = this.onClick.bind(this);
         this.renderActionButton = this.renderActionButton.bind(this);
+    }
+
+    public connectedCallback() {
+        if (this.rememberState && this.stateKey) {
+            this.stateId = `limel-collapsible-section.${this.stateKey}.isOpen`;
+
+            const isOpen = getState(this.stateId);
+
+            if (
+                (isOpen === true || isOpen === false) &&
+                this.isOpen !== isOpen
+            ) {
+                this.isOpen = isOpen;
+                this.emitOpenState();
+            }
+        }
+    }
+
+    @Watch('isOpen')
+    public openCloseHandler(value: boolean) {
+        if (this.rememberState && this.stateId) {
+            setState(this.stateId, value);
+        }
     }
 
     public render() {
@@ -98,7 +140,10 @@ export class CollapsibleSection {
 
     private onClick() {
         this.isOpen = !this.isOpen;
+        this.emitOpenState();
+    }
 
+    private emitOpenState() {
         if (this.isOpen) {
             this.open.emit();
             const waitForUiToRender = 100;
