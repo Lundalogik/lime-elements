@@ -54,7 +54,8 @@ export class CollapsibleSection {
     /**
      * Set to `false` to disable state memory even when `stateKey` is set.
      * Normally, `stateKey` can just be left without a value to achieve the
-     * same thing.
+     * same thing, but when limel-collapsible-section is used in limel-form,
+     * `stateKey` will always be set. Use this property to override.
      */
     @Prop({ reflect: true })
     public rememberState: boolean = true;

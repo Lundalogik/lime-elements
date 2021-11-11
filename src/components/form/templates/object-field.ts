@@ -36,6 +36,10 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
         {
             header: props.title,
             'is-open': defaultOpen,
+            'state-key': encodeURIComponent(
+                props.schema?.lime?.stateKey ||
+                    `${props.formContext?.schema?.$ref}-${props.idSchema?.$id}-${props?.title}`
+            ),
         },
         renderDescription(props.description),
         renderProperties(props.properties, props.schema)
