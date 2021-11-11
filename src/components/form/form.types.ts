@@ -148,6 +148,21 @@ export interface LimeSchemaOptions {
      * Mark the field as disabled
      */
     disabled?: boolean;
+
+    /**
+     * Collapsible sections will remember their open/closed state when used
+     * in a form. If different sections are not able to uniquely identify
+     * themselves, they will "share" the same state. To prevent this, a unique
+     * key can be assigned to each section here.
+     */
+    stateKey?: string;
+
+    /**
+     * To disable a collapsible section's "state memory", and always use the
+     * default state as set via the `collapsed` property, set this value to
+     * `false`.
+     */
+    rememberState?: boolean;
 }
 
 /**

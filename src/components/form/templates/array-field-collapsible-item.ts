@@ -70,6 +70,12 @@ export class CollapsibleItemTemplate extends React.Component {
                 className: 'limel-form-array-item--object',
                 ref: 'section',
                 'is-open': this.isOpen,
+                'state-key': encodeURIComponent(
+                    schema?.lime?.stateKey ||
+                        `${schema.items?.$ref}-${this.props.index}-${
+                            data.title || data.property
+                        }`
+                ),
             },
             this.props.item.children
         );
