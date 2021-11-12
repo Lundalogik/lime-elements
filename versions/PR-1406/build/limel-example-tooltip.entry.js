@@ -1,0 +1,1 @@
+import{r as e,h as l}from"./index-c1a676a1.js";const o=class{constructor(l){e(this,l)}render(){return[l("limel-button",{icon:"search",id:"tooltip-example"}),l("limel-tooltip",{label:"Search",helperLabel:"alt + F",elementId:"tooltip-example"})]}};o.style=":host(limel-example-tooltip){--tooltip-body-background-color:rgb(var(--contrast-200))}";export{o as limel_example_tooltip}

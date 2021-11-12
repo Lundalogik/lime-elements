@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-7619d89c.js";const r=class{constructor(t){e(this,t),this.value=new Date,this.handleChange=e=>{this.value=e.detail}}render(){return t("p",null,t("limel-date-picker",{type:"quarter",label:"quarter",value:this.value,onChange:this.handleChange}),t("limel-example-value",{value:this.value}))}};export{r as limel_example_date_picker_quarter}

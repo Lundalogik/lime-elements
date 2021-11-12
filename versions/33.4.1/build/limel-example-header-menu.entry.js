@@ -1,0 +1,1 @@
+import{r as e,h as s}from"./index-7619d89c.js";const i=class{constructor(s){e(this,s),this.menuOpen=!0}render(){return s("limel-menu",{items:this.items,open:this.menuOpen},s("limel-icon",{slot:"trigger",name:this.icon,size:"x-small"}))}};i.style=":host{line-height:0}";export{i as limel_example_header_menu}
