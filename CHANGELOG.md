@@ -1,3 +1,10 @@
+## [33.14.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.16...v33.14.0-next.17) (2021-11-12)
+
+
+### Bug Fixes
+
+* **config:** make sure the config component does not crash if there is no config ([73b8657](https://github.com/Lundalogik/lime-elements/commit/73b86571b436e11568ed5146b83e520f55e22de4))
+
 ## [33.14.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.15...v33.14.0-next.16) (2021-11-04)
 
 
