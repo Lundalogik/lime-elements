@@ -288,7 +288,7 @@ function updateVersionList() {
 
     const files = fs
         .readdirSync('versions')
-        .filter((file) => file !== 'latest');
+        .filter((file) => file !== 'latest' && file !== 'next');
     fs.writeFileSync(
         'versions.js',
         `window.versions = ${JSON.stringify(files)};`
@@ -296,6 +296,18 @@ function updateVersionList() {
 
     shell.cd('..');
 
+    // Keep only versions that begin with a digit. Any versions beginning with
+    // a letter are pull requests, pre-releases, or other special cases, not
+    // eligible as "Latest".
+    const fullVersions = files.filter((file) => file.match(/^[0-9].*/));
+    findLatestRelease(fullVersions, 'latest');
+
+    // Keep only versions that begin with `NEXT-`.
+    const nextVersions = files.filter((file) => file.match(/^NEXT-.*/));
+    findLatestRelease(nextVersions, 'next');
+}
+
+function findLatestRelease(versions, alias) {
     // We need to sort the strings alphanumerically, which javascript doesn't
     // do by default. So I found this neat solution at
     // https://blog.praveen.science/natural-sorting-in-javascript/#solution
@@ -304,30 +316,26 @@ function updateVersionList() {
         numeric: true,
         sensitivity: 'base',
     });
-    files.sort(collator.compare);
+    const sortedVersions = [...versions];
+    sortedVersions.sort(collator.compare);
 
-    // Keep only versions that begin with a digit. Any versions beginning with
-    // a letter are pull requests, pre-releases, or other special cases, not
-    // eligible as "Latest".
-    const filteredVersions = files.filter((file) => file.match(/^[0-9].*/));
+    const versionToLink = sortedVersions.pop();
 
-    const latestVersion = filteredVersions.pop();
+    shell.echo(`Creating "${alias}"-link pointing to: ${versionToLink}`);
 
-    shell.echo(`Creating "latest"-link pointing to: ${latestVersion}`);
-
-    createLatestSymlink(latestVersion);
+    createSymlink(versionToLink, alias);
 }
 
-function createLatestSymlink(folder) {
+function createSymlink(folder, alias) {
     shell.cd('docsDist/versions');
 
     // eslint-disable-next-line sonarjs/no-collapsible-if
-    if (shell.ln('-sf', `${folder}`, 'latest').code !== 0) {
+    if (shell.ln('-sf', `${folder}`, alias).code !== 0) {
         if (
-            shell.rm('latest').code !== 0 ||
-            shell.ln('-sf', `${folder}`, 'latest').code !== 0
+            shell.rm(alias).code !== 0 ||
+            shell.ln('-sf', `${folder}`, alias).code !== 0
         ) {
-            shell.echo('Creating latest-symlink failed!');
+            shell.echo(`Creating symlink '${alias}' failed!`);
             shell.cd('../..');
             teardown();
             shell.exit(1);
