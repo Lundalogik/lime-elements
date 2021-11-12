@@ -211,29 +211,6 @@ function copyBuildOutput() {
 
     shell.cd('../..');
 
-    shell.echo('Copying icons to shared folder in docsDist.');
-    if (
-        shell.cp(
-            '-Ru',
-            `www${BASE_URL}versions/${version}/assets/icons/*`,
-            'docsDist/icons/'
-        ).code !== 0
-    ) {
-        shell.echo('copying icons failed!');
-        teardown();
-        shell.exit(1);
-    }
-
-    shell.echo('Removing icons in new docs version.');
-    if (
-        shell.rm('-rf', `www${BASE_URL}versions/${version}/assets/icons`)
-            .code !== 0
-    ) {
-        shell.echo('removing icons folder failed!');
-        teardown();
-        shell.exit(1);
-    }
-
     shell.echo('Copying new docs version into docsDist/versions/');
     if (
         shell.cp(
@@ -247,8 +224,6 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
-    createIconSymlink();
-
     if (
         shell.cp('-R', 'www/kompendium.json', `docsDist/versions/${version}`)
             .code !== 0
@@ -259,21 +234,6 @@ function copyBuildOutput() {
     }
 
     updateVersionList();
-}
-
-function createIconSymlink() {
-    const path = `docsDist/versions/${version}/assets/`;
-    shell.cd(path);
-    shell.echo('Creating icons-symlink.');
-
-    if (shell.ln('-sf', '../../../icons', 'icons').code !== 0) {
-        shell.echo('Creating icons-symlink failed!');
-        shell.cd('../../../..');
-        teardown();
-        shell.exit(1);
-    }
-
-    shell.cd('../../../..');
 }
 
 function remove(pattern) {
