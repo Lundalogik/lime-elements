@@ -18,7 +18,6 @@ export class MenuCompositeExample {
     private props = {
         badgeIcons: true,
         disabled: false,
-        fixed: false,
         items: [
             {
                 text: 'Copy',
@@ -67,7 +66,6 @@ export class MenuCompositeExample {
                 disabled={this.props.disabled}
                 openDirection={this.props.openDirection as any}
                 badgeIcons={this.props.badgeIcons}
-                fixed={this.props.fixed}
                 open={this.props.open}
                 gridLayout={this.props.gridLayout}
                 onSelect={this.handleSelect}

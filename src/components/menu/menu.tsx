@@ -78,16 +78,6 @@ export class Menu {
     public gridLayout = false;
 
     /**
-     * Defines whether the menu should have a fixed position on the screen.
-     *
-     * @deprecated Fixed position was used to get around a bug in the placement
-     * of the menu. This bug has since been fixed, which makes this attribute
-     * obsolete.
-     */
-    @Prop()
-    public fixed = false;
-
-    /**
      * Is emitted when the menu is cancelled.
      */
     @Event()
@@ -137,21 +127,15 @@ export class Menu {
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
             '--dropdown-z-index'
         );
-        const portalClasses = {
-            'limel-portal--fixed': this.fixed,
-        };
-        const portalPosition = this.getPortalPosition();
 
         return (
             <div class="mdc-menu-surface--anchor" onClick={this.onTriggerClick}>
                 <slot name="trigger">{this.renderTrigger()}</slot>
                 <limel-portal
-                    class={portalClasses}
-                    style={portalPosition}
                     visible={this.open}
                     containerId={this.portalId}
                     openDirection={this.openDirection}
-                    position={this.fixed ? 'fixed' : 'absolute'}
+                    position="absolute"
                     containerStyle={{ 'z-index': dropdownZIndex }}
                 >
                     <limel-menu-surface
@@ -237,24 +221,6 @@ export class Menu {
         this.select.emit(event.detail);
         this.open = false;
     };
-
-    private getPortalPosition() {
-        if (!this.fixed) {
-            return {};
-        }
-
-        const rect = this.host.getBoundingClientRect();
-        const portalPosition = {
-            top: `${rect.y + rect.height}px`,
-            left: `${rect.x}px`,
-        };
-
-        if (this.openDirection === 'left') {
-            portalPosition.left = `${rect.x + rect.width}px`;
-        }
-
-        return portalPosition;
-    }
 
     private getCssProperties() {
         const propertyNames = [
