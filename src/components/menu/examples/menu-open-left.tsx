@@ -1,4 +1,4 @@
-import { ListItem, ListSeparator } from '@limetech/lime-elements';
+import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
 /**
@@ -9,7 +9,7 @@ import { Component, h } from '@stencil/core';
     shadow: true,
 })
 export class MenuOpenLeftExample {
-    private items: Array<ListItem | ListSeparator> = [
+    private items: Array<MenuItem | ListSeparator> = [
         { text: 'Copy' },
         { text: 'Cut' },
         { separator: true },
