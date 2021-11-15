@@ -18,7 +18,7 @@ export class MenuListRenderer {
     private applyTabIndexToItemAtIndex: number;
 
     public render(
-        items: Array<ListSeparator | MenuItem>,
+        items: Array<MenuItem | ListSeparator>,
         config: MenuListRendererConfig = {}
     ) {
         items = items || [];
@@ -70,11 +70,11 @@ export class MenuListRenderer {
      * Returns `undefined` if no item should have the attribute set.
      * See https://github.com/material-components/material-components-web/tree/e66a43a75fef4f9179e24856649518e15e279a04/packages/mdc-list#accessibility
      *
-     * @param {Array<ListSeparator | MenuItems>} items the items of the list, including any `ListSeparator`:s
+     * @param {Array<MenuItem | ListSeparator>} items the items of the list, including any `ListSeparator`:s
      * @returns {number} the index as per the description
      */
     private getIndexForWhichToApplyTabIndex = (
-        items: Array<ListSeparator | MenuItem>
+        items: Array<MenuItem | ListSeparator>
     ) => {
         let result;
         for (let i = 0, max = items.length; i < max; i += 1) {
@@ -101,12 +101,12 @@ export class MenuListRenderer {
     /**
      * Render a single list item
      *
-     * @param {ListSeparator | MenuItems} item the item to render
+     * @param {MenuItem | ListSeparator} item the item to render
      * @param {number} index the index the item had in the `items` array
      * @returns {HTMLElement} the list item
      */
     private renderMenuItem = (
-        item: ListSeparator | MenuItem,
+        item: MenuItem | ListSeparator,
         index: number
     ) => {
         if ('separator' in item) {
@@ -136,7 +136,6 @@ export class MenuListRenderer {
                 {item.icon ? this.renderIcon(this.config, item) : null}
                 {this.renderText(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
-                {this.renderActionMenu(item.actions)}
             </li>
         );
     };
@@ -231,21 +230,5 @@ export class MenuListRenderer {
         }
 
         return <hr class={classes} />;
-    };
-
-    private renderActionMenu = (actions: Array<MenuItem | ListSeparator>) => {
-        if (!actions || actions.length === 0) {
-            return;
-        }
-
-        return (
-            <limel-menu
-                class="mdc-deprecated-list-item__meta"
-                items={actions}
-                openDirection="left"
-            >
-                <limel-icon slot="trigger" name="menu_2" size="small" />
-            </limel-menu>
-        );
     };
 }

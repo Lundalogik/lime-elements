@@ -1,5 +1,3 @@
-import { ListSeparator } from '@limetech/lime-elements';
-
 export type OpenDirection = 'left' | 'right';
 
 export interface MenuItem<T = any> {
@@ -42,9 +40,4 @@ export interface MenuItem<T = any> {
      * Value of the menu item.
      */
     value?: T;
-
-    /**
-     * List of actions to display as a menu at the end of the item
-     */
-    actions?: Array<MenuItem | ListSeparator>;
 }
