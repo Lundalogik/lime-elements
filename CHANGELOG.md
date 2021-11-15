@@ -1,3 +1,42 @@
+## [34.0.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.4...v34.0.0-next.5) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **dialog:** The deprecated property `badgeIcon` on the interface `DialogHeading`
+has been removed. Setting the property already had no effect, but since the property
+has now been removed, any consumers that are importing types from
+**@limetech/lime-elements** and are setting this property, will get an error when
+building. The solution is to simply not set the property.
+
+### Miscellaneous Chores
+
+* **dialog:** remove deprecated property `badgeIcon` from `DialogHeading` ([6c180bc](https://github.com/Lundalogik/lime-elements/commit/6c180bcfdf0775f39d072da5d6509e55104ec99e))
+
+## [34.0.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.3...v34.0.0-next.4) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** Support for using `limel-menu` without supplying you own trigger
+element has been removed. The deprecated property `label`, which was only used when
+the default trigger element was used, has thus also been removed.
+
+### Performance Improvements
+
+* **menu:** remove deprecated support for default trigger ([d6c3de3](https://github.com/Lundalogik/lime-elements/commit/d6c3de35fa0ef79200f98ec42bc6adf2e39ce332))
+
+## [34.0.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.2...v34.0.0-next.3) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** The deprecated property `fixed` on `limel-menu` has been removed.
+
+### Performance Improvements
+
+* **menu:** remove deprecated property `fixed` ([2a7ebed](https://github.com/Lundalogik/lime-elements/commit/2a7ebed95632ddf1c12a047f2be8603216415f8b))
+
 ## [34.0.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.1...v34.0.0-next.2) (2021-11-15)
 
 
