@@ -1,4 +1,4 @@
-import { ListItem, ListSeparator } from '@limetech/lime-elements';
+import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
 /**
@@ -12,7 +12,7 @@ import { Component, h } from '@stencil/core';
     shadow: true,
 })
 export class MenuDisabledExample {
-    private items: Array<ListItem | ListSeparator> = [
+    private items: Array<MenuItem | ListSeparator> = [
         { text: 'Copy' },
         { text: 'Cut' },
         { separator: true },
@@ -31,7 +31,7 @@ export class MenuDisabledExample {
         );
     }
 
-    private handleSelect = (event: CustomEvent<ListItem>) => {
+    private handleSelect = (event: CustomEvent<MenuItem>) => {
         console.error(
             'This should never happen, since the menu is disabled.',
             event
