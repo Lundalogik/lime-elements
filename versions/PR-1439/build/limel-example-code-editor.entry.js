@@ -1,0 +1,1 @@
+import{r as e,h as s}from"./index-a7da85d2.js";import{d as r}from"./birds-a0b078f9.js";let t=class{constructor(s){e(this,s),this.json=JSON.stringify(r,null,"    "),this.handleChange=e=>{this.json=e.detail}}render(){return s("limel-code-editor",{value:this.json,language:"json",onChange:this.handleChange})}};export{t as limel_example_code_editor}
