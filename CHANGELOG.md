@@ -1,3 +1,33 @@
+## [34.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.17...v34.0.0-next.1) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **list:** Because `limel-menu` no longer uses the `ListItem` interface,
+properties only used by `limel-menu` has been removed from the `ListItem` interface.
+
+This change should not be breaking if you are using the `ListItem` interface as
+intended. However, if you are adding values to properties intended for use only by
+`limel-menu` when supplying list items to `limel-list`, you will need to remove those
+properties, or the compiler will complain.
+* **menu:** `limel-menu` now uses the new interface `MenuItem` instead of the
+interface `ListItem`. `MenuItem` contains all properties from `ListItem` that were
+used by `limel-menu`, but does not contain any of the properties from `ListItem`
+that were _not_ used by `limel-menu`.
+
+If you are _not_ importing types from **@limetech/lime-elements**, this change should
+not be breaking for you.
+
+If you _are_ importing types from **@limetech/lime-elements**, and you are using
+`limel-menu`, then fixing any issues should simply be a matter of building your code
+and replacing `ListItem` with `MenuItem` wherever the compiler complains about the
+wrong type being used.
+
+### Code Refactoring
+
+* **list:** remove unused menu functionality ([31accdf](https://github.com/Lundalogik/lime-elements/commit/31accdf2827d45529a2f6247e247a5f601e91046)), closes [#1395](https://github.com/Lundalogik/lime-elements/issues/1395)
+* **menu:** use new interface `MenuItem` instead of `ListItem` ([7ca7de4](https://github.com/Lundalogik/lime-elements/commit/7ca7de462a4a285660eb63fb1cefdefc9a1fd088)), closes [#1395](https://github.com/Lundalogik/lime-elements/issues/1395)
+
 ## [33.14.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.16...v33.14.0-next.17) (2021-11-12)
 
 
