@@ -1,3 +1,18 @@
+## [34.0.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.5...v34.0.0-next.6) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **picker:** The deprecated property `displayFullList` on `limel-picker` has been
+removed. Setting the property had no effect even before this change, but since the
+property has now been removed, any consumers that are importing types from
+@limetech/lime-elements and are setting this property, will get an error when
+building. The solution is to simply not set the property.
+
+### Miscellaneous Chores
+
+* **picker:** remove deprecated and unused property `displayFullList` ([2fa2875](https://github.com/Lundalogik/lime-elements/commit/2fa28755b6242b4ab0cbbb8fe43e0a5a4a0caa6d))
+
 ## [34.0.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.4...v34.0.0-next.5) (2021-11-15)
 
 
