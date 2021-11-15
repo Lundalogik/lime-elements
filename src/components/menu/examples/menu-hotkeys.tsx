@@ -1,4 +1,4 @@
-import { ListItem, ListSeparator, MenuItem } from '@limetech/lime-elements';
+import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -34,7 +34,7 @@ export class MenuHotkeysExample {
         ];
     }
 
-    private handleSelect = (event: CustomEvent<ListItem>) => {
+    private handleSelect = (event: CustomEvent<MenuItem>) => {
         this.lastSelectedItem = event.detail.text;
     };
 }
