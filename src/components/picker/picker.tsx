@@ -113,16 +113,6 @@ export class Picker {
     public delimiter: string = null;
 
     /**
-     * True if the dropdown list should be displayed without cutting the content
-     *
-     * @deprecated This was used for a workaround, and isn't needed any
-     * longer. Setting it has no effect, and the property will be removed
-     * in the next major version.
-     */
-    @Prop()
-    public displayFullList: boolean = false;
-
-    /**
      * Static actions that can be clicked by the user.
      */
     @Prop()
