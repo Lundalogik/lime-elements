@@ -1,3 +1,16 @@
+## [34.0.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.6...v34.0.0-next.7) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **form:** The deprecated property `span` has been removed from the interface
+`FormLayoutOptions`. To achieve the same functionality, switch the interface used from
+`FormLayoutOptions` to `GridLayoutOptions` and set the property `colSpan` instead.
+
+### Miscellaneous Chores
+
+* **form:** remove the deprecated property `span` from `FormLayoutOptions` ([3bf95fd](https://github.com/Lundalogik/lime-elements/commit/3bf95fd8c3d8332fd00fe6fa607cc6f68b606e4e))
+
 ## [34.0.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.5...v34.0.0-next.6) (2021-11-15)
 
 
