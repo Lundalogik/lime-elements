@@ -1,3 +1,14 @@
+## [34.0.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.2...v34.0.0-next.3) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** The deprecated property `fixed` on `limel-menu` has been removed.
+
+### Performance Improvements
+
+* **menu:** remove deprecated property `fixed` ([2a7ebed](https://github.com/Lundalogik/lime-elements/commit/2a7ebed95632ddf1c12a047f2be8603216415f8b))
+
 ## [34.0.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.1...v34.0.0-next.2) (2021-11-15)
 
 
