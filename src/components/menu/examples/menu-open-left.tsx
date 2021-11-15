@@ -18,7 +18,7 @@ export class MenuOpenLeftExample {
 
     public render() {
         return (
-            <limel-menu label="Menu" items={this.items} openDirection="left">
+            <limel-menu items={this.items} openDirection="left">
                 <limel-button label="Menu" slot="trigger" />
             </limel-menu>
         );

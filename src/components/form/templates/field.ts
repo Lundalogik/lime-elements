@@ -31,7 +31,7 @@ export const FieldTemplate = (props) => {
 
 function getColSpan(schema: any) {
     const layout: GridLayoutOptions = schema.lime?.layout;
-    const colSpan = layout?.colSpan || layout?.span;
+    const colSpan = layout?.colSpan;
 
     if (!colSpan && isObjectType(schema)) {
         return 'all';
