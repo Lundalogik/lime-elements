@@ -171,11 +171,6 @@ export interface FormLayoutOptions<T = FormLayoutType.Default> {
      * The type of layout to use
      */
     type: T;
-
-    /**
-     * @deprecated use `GridLayoutOptions.colSpan` instead
-     */
-    span?: 'all';
 }
 
 export interface GridLayoutOptions
