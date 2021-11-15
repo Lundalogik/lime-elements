@@ -90,7 +90,6 @@ export class PickerStaticActionsExample {
                 label="Select your favorite pet"
                 value={this.selectedItem}
                 searchLabel={'Search your awesomenaut'}
-                displayFullList={true}
                 searcher={this.search}
                 onChange={this.onChange}
                 onInteract={this.onInteract}
