@@ -1,3 +1,18 @@
+## [34.0.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.4...v34.0.0-next.5) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **dialog:** The deprecated property `badgeIcon` on the interface `DialogHeading`
+has been removed. Setting the property already had no effect, but since the property
+has now been removed, any consumers that are importing types from
+**@limetech/lime-elements** and are setting this property, will get an error when
+building. The solution is to simply not set the property.
+
+### Miscellaneous Chores
+
+* **dialog:** remove deprecated property `badgeIcon` from `DialogHeading` ([6c180bc](https://github.com/Lundalogik/lime-elements/commit/6c180bcfdf0775f39d072da5d6509e55104ec99e))
+
 ## [34.0.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.3...v34.0.0-next.4) (2021-11-15)
 
 
