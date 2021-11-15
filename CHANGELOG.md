@@ -1,3 +1,19 @@
+## [34.0.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.1...v34.0.0-next.2) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **table:** since cells are now rendered as inline-flex,
+in some cases, custom components that are loaded within them
+might get shrunk and might not stretch to fill the cell entirely;
+unless you specify for example a `width: 100%;` style
+or other proper styles for them.
+
+### Bug Fixes
+
+* **table:** handle alignment of cell content using flex ([b33684e](https://github.com/Lundalogik/lime-elements/commit/b33684e0854a7c345f8c8654bba9038e01ec8db6))
+* **table:** render tall cells of low density table using height… ([71066e7](https://github.com/Lundalogik/lime-elements/commit/71066e70d67afbaaca05cc11313040ffe9859882))
+
 ## [34.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.17...v34.0.0-next.1) (2021-11-15)
 
 
