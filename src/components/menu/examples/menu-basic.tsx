@@ -1,4 +1,4 @@
-import { ListItem, ListSeparator } from '@limetech/lime-elements';
+import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -14,7 +14,7 @@ export class MenuBasicExample {
     @State()
     private lastSelectedItem: string;
 
-    private items: Array<ListItem | ListSeparator> = [
+    private items: Array<MenuItem | ListSeparator> = [
         { text: 'Copy' },
         { text: 'Cut' },
         { separator: true },
@@ -33,7 +33,7 @@ export class MenuBasicExample {
         ];
     }
 
-    private handleSelect = (event: CustomEvent<ListItem>) => {
+    private handleSelect = (event: CustomEvent<MenuItem>) => {
         this.lastSelectedItem = event.detail.text;
     };
 }

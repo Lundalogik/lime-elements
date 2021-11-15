@@ -1,4 +1,4 @@
-import { ListItem, ListSeparator } from '@limetech/lime-elements';
+import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
 /**
@@ -34,7 +34,7 @@ import { Component, h } from '@stencil/core';
     styleUrl: 'menu-grid.scss',
 })
 export class MenuGridExample {
-    private items: Array<ListItem | ListSeparator> = [
+    private items: Array<MenuItem | ListSeparator> = [
         {
             text: 'Companies',
             icon: 'organization',
