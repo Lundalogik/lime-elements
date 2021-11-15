@@ -1,3 +1,16 @@
+## [34.0.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.3...v34.0.0-next.4) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** Support for using `limel-menu` without supplying you own trigger
+element has been removed. The deprecated property `label`, which was only used when
+the default trigger element was used, has thus also been removed.
+
+### Performance Improvements
+
+* **menu:** remove deprecated support for default trigger ([d6c3de3](https://github.com/Lundalogik/lime-elements/commit/d6c3de35fa0ef79200f98ec42bc6adf2e39ce332))
+
 ## [34.0.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.2...v34.0.0-next.3) (2021-11-15)
 
 
