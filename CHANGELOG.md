@@ -1,3 +1,10 @@
+### [34.0.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.0...v34.0.1-next.1) (2021-11-16)
+
+
+### Bug Fixes
+
+* **list:** fix broken import of `MenuItem` so docs builds correctly ([2ae72c8](https://github.com/Lundalogik/lime-elements/commit/2ae72c8bc5d3e9cf69ca1a84601281c585b4bed3))
+
 ## [34.0.0](https://github.com/Lundalogik/lime-elements/compare/v33.13.0...v34.0.0) (2021-11-15)
 
 
