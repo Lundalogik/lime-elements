@@ -32,6 +32,7 @@ export class ArrayFieldTemplate extends React.Component {
             label: 'Add',
             onClick: this.handleAddClick,
             icon: 'add',
+            class: 'button-add-new',
         });
     }
 
