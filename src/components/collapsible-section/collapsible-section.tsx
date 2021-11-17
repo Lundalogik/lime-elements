@@ -33,7 +33,7 @@ export class CollapsibleSection {
     /**
      * Text to display in the header of the section
      */
-    @Prop()
+    @Prop({ reflect: true })
     public header: string;
 
     /**
