@@ -142,6 +142,10 @@
     width: 100%;
 }
 
+.mdc-typography--headline1 {
+    position: relative;
+}
+
 .form-group {
     .mdc-typography--headline1 {
         --mdc-typography-headline1-font-size: 2rem;
@@ -160,6 +164,23 @@
             margin-top: 1.25rem;
             margin-bottom: 0.5rem;
             color: rgb(var(--contrast-1100));
+
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                left: functions.pxToRem(-12);
+
+                background-color: var(--mdc-theme-primary);
+                width: functions.pxToRem(2);
+                height: var(--mdc-typography-headline1-line-height);
+                border-radius: functions.pxToRem(2);
+
+                opacity: 0.6;
+            }
         }
 
         .form-group {
@@ -170,6 +191,10 @@
                 margin-top: 1rem;
                 margin-bottom: 0.5rem;
                 color: rgb(var(--contrast-1200));
+
+                &:before {
+                    display: none;
+                }
             }
 
             .form-group {
@@ -180,6 +205,10 @@
                     margin-top: 1rem;
                     margin-bottom: 0.5rem;
                     color: rgb(var(--contrast-1200));
+
+                    &:before {
+                        display: none;
+                    }
                 }
             }
         }
