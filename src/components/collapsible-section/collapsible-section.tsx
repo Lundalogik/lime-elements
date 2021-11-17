@@ -63,11 +63,6 @@ export class CollapsibleSection {
     @Element()
     private host: HTMLLimelCollapsibleSectionElement;
 
-    constructor() {
-        this.onClick = this.onClick.bind(this);
-        this.renderActionButton = this.renderActionButton.bind(this);
-    }
-
     public render() {
         return (
             <section class={`${this.isOpen ? 'open' : ''}`}>
@@ -96,7 +91,7 @@ export class CollapsibleSection {
         );
     }
 
-    private onClick() {
+    private onClick = () => {
         this.isOpen = !this.isOpen;
 
         if (this.isOpen) {
@@ -106,7 +101,7 @@ export class CollapsibleSection {
         } else {
             this.close.emit();
         }
-    }
+    };
 
     private handleKeyDown = (event: KeyboardEvent) => {
         const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
@@ -120,7 +115,7 @@ export class CollapsibleSection {
         }
     };
 
-    private renderActions() {
+    private renderActions = () => {
         if (!this.actions) {
             return;
         }
@@ -130,9 +125,9 @@ export class CollapsibleSection {
                 {this.actions.map(this.renderActionButton)}
             </div>
         );
-    }
+    };
 
-    private renderActionButton(action: Action) {
+    private renderActionButton = (action: Action) => {
         return (
             <limel-icon-button
                 icon={action.icon}
@@ -141,7 +136,7 @@ export class CollapsibleSection {
                 onClick={this.handleActionClick(action)}
             />
         );
-    }
+    };
 
     private handleActionClick = (action: Action) => (event: MouseEvent) => {
         event.stopPropagation();
