@@ -1,11 +1,4 @@
-import {
-    Component,
-    Event,
-    EventEmitter,
-    h,
-    Prop,
-    Element,
-} from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { Action } from './action';
 import { ENTER, ENTER_KEY_CODE } from '../../util/keycodes';
@@ -60,9 +53,6 @@ export class CollapsibleSection {
     @Event()
     private action: EventEmitter<Action>;
 
-    @Element()
-    private host: HTMLLimelCollapsibleSectionElement;
-
     public render() {
         return (
             <section class={`${this.isOpen ? 'open' : ''}`}>
@@ -92,15 +82,7 @@ export class CollapsibleSection {
     }
 
     private onClick = () => {
-        this.isOpen = !this.isOpen;
-
-        if (this.isOpen) {
-            this.open.emit();
-            const waitForUiToRender = 100;
-            setTimeout(dispatchResizeEvent, waitForUiToRender);
-        } else {
-            this.close.emit();
-        }
+        this.handleInteraction();
     };
 
     private handleKeyDown = (event: KeyboardEvent) => {
@@ -109,9 +91,19 @@ export class CollapsibleSection {
         if (isEnter) {
             event.stopPropagation();
             event.preventDefault();
-            const element = (this.host.shadowRoot.activeElement ||
-                document.activeElement) as HTMLElement;
-            element.click();
+            this.handleInteraction();
+        }
+    };
+
+    private handleInteraction = () => {
+        this.isOpen = !this.isOpen;
+
+        if (this.isOpen) {
+            this.open.emit();
+            const waitForUiToRender = 100;
+            setTimeout(dispatchResizeEvent, waitForUiToRender);
+        } else {
+            this.close.emit();
         }
     };
 
