@@ -52,7 +52,7 @@ export class CollapsibleSectionStateful {
      * Emitted when an action is clicked inside the header
      */
     @Event()
-    private action: EventEmitter<Action>;
+    protected action: EventEmitter<Action>;
 
     private stateId: string;
 
@@ -80,7 +80,6 @@ export class CollapsibleSectionStateful {
                 actions={this.actions}
                 onOpen={this.handleOpenEvent}
                 onClose={this.handleCloseEvent}
-                onAction={this.handleActionEvent}
             >
                 <slot />
             </limel-collapsible-section>
@@ -112,10 +111,5 @@ export class CollapsibleSectionStateful {
         if (this.isOpen) {
             this.isOpen = false;
         }
-    };
-
-    private handleActionEvent = (event: CustomEvent) => {
-        event.stopPropagation();
-        this.action.emit(event.detail);
     };
 }
