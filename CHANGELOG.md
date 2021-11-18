@@ -1,3 +1,10 @@
+### [34.0.2-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.3...v34.0.2-next.4) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** fix alignment issues of checkbox & switch in forms ([b2b7893](https://github.com/Lundalogik/lime-elements/commit/b2b7893fa24da5bd3a0319ca4f17d84ec1d9bbe4))
+
 ### [34.0.2-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.2...v34.0.2-next.3) (2021-11-18)
 
 
