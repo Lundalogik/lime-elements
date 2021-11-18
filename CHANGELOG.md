@@ -1,3 +1,11 @@
+### [34.0.2-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.1...v34.0.2-next.1) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** make button that adds new form elements stretch through the entire width ([945f405](https://github.com/Lundalogik/lime-elements/commit/945f405f0a52077d8be2a7cdc5874a924e596888))
+* **form:** remove `outlined` style of the button that adds new form elements ([e0f163a](https://github.com/Lundalogik/lime-elements/commit/e0f163a7d5963178818d65ccb054d8ef3e6b69ad))
+
 ### [34.0.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.0...v34.0.1) (2021-11-16)
 
 
