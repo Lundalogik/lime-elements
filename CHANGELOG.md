@@ -1,3 +1,10 @@
+### [34.0.2-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.1...v34.0.2-next.2) (2021-11-18)
+
+
+### Bug Fixes
+
+* **table:** don't apply low density styles for footers ([ef91e5f](https://github.com/Lundalogik/lime-elements/commit/ef91e5fac943fe6ae7baa1bf1b9a0d75c3aa3af2))
+
 ### [34.0.2-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.1...v34.0.2-next.1) (2021-11-18)
 
 
