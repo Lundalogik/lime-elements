@@ -1,3 +1,11 @@
+### [34.0.2-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.2...v34.0.2-next.3) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** give visual details to nested form titles to reflect hierarchy better ([b3f5ab1](https://github.com/Lundalogik/lime-elements/commit/b3f5ab18bfaf866f7bc46d963ce1a4d0e204320c))
+* **form:** make nested headings in forms decrease size to reflect hierarchy ([ffcdfe1](https://github.com/Lundalogik/lime-elements/commit/ffcdfe1f3f068c3a9f737cadf3a5e9efc49c7cdc))
+
 ### [34.0.2-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.1...v34.0.2-next.2) (2021-11-18)
 
 
