@@ -1,13 +1,10 @@
-:host(limel-portal:not(.limel-portal--fixed)) {
+:host(limel-portal) {
     display: block;
     position: absolute;
     top: 0;
     bottom: 0;
     width: 100%;
     pointer-events: none;
-}
-:host(limel-portal.limel-portal--fixed) {
-    position: fixed;
 }
 
 :host([hidden]) {
