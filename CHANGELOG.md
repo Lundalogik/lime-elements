@@ -1,3 +1,26 @@
+### [34.0.2-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.2...v34.0.2-next.3) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** give visual details to nested form titles to reflect hierarchy better ([b3f5ab1](https://github.com/Lundalogik/lime-elements/commit/b3f5ab18bfaf866f7bc46d963ce1a4d0e204320c))
+* **form:** make nested headings in forms decrease size to reflect hierarchy ([ffcdfe1](https://github.com/Lundalogik/lime-elements/commit/ffcdfe1f3f068c3a9f737cadf3a5e9efc49c7cdc))
+
+### [34.0.2-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.1...v34.0.2-next.2) (2021-11-18)
+
+
+### Bug Fixes
+
+* **table:** don't apply low density styles for footers ([ef91e5f](https://github.com/Lundalogik/lime-elements/commit/ef91e5fac943fe6ae7baa1bf1b9a0d75c3aa3af2))
+
+### [34.0.2-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.1...v34.0.2-next.1) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** make button that adds new form elements stretch through the entire width ([945f405](https://github.com/Lundalogik/lime-elements/commit/945f405f0a52077d8be2a7cdc5874a924e596888))
+* **form:** remove `outlined` style of the button that adds new form elements ([e0f163a](https://github.com/Lundalogik/lime-elements/commit/e0f163a7d5963178818d65ccb054d8ef3e6b69ad))
+
 ### [34.0.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.0...v34.0.1) (2021-11-16)
 
 
