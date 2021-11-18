@@ -1,0 +1,1 @@
+import{r as e,h as l}from"./index-a7da85d2.js";let i=class{constructor(l){e(this,l),this.percentage=34}render(){return l("limel-collapsible-section",{header:"With a limel-slider"},l("div",null,l("p",null,"This is primarily here for testing purposes."),l("limel-slider",{unit:"%",value:this.percentage})))}};export{i as limel_example_collapsible_section_with_slider}
