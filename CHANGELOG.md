@@ -1,3 +1,10 @@
+### [34.0.2-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.4...v34.0.2-next.5) (2021-11-19)
+
+
+### Bug Fixes
+
+* **collapsible-section:** render header in 2 lines first, then truncate ([e8838f4](https://github.com/Lundalogik/lime-elements/commit/e8838f4dbad497154c75fc53ca324f6c22ff5a8e))
+
 ### [34.0.2-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.3...v34.0.2-next.4) (2021-11-18)
 
 
