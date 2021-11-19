@@ -97,6 +97,15 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
     .tabulator-cell {
         border-right: transparent;
         padding: functions.pxToRem(8);
+
+        display: inline-flex;
+        align-items: center;
+        &[style*='text-align: right;'] {
+            justify-content: flex-end;
+        }
+        &[style*='text-align: center;'] {
+            justify-content: center;
+        }
     }
 }
 

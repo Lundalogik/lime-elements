@@ -1,4 +1,4 @@
-import { MenuItem } from '@limetech/lime-elements';
+import { MenuItem } from '../menu/menu.types';
 
 export interface ListItem<T = any> {
     /**
