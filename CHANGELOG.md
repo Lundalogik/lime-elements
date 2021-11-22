@@ -1,3 +1,15 @@
+### [34.0.2-next.7](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.6...v34.0.2-next.7) (2021-11-22)
+
+
+### Bug Fixes
+
+* **collapsible-section:** reflect `header` property to attribute ([d47a240](https://github.com/Lundalogik/lime-elements/commit/d47a240a34b1aaa48ff1ea5feb50f65b8db12af2))
+
+
+### Performance Improvements
+
+* **collapsible-section:** do not synthesize click on keypress ([10ae39a](https://github.com/Lundalogik/lime-elements/commit/10ae39a906f44e550fe10c81875cd603537c66e6))
+
 ### [34.0.2-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.5...v34.0.2-next.6) (2021-11-22)
 
 
