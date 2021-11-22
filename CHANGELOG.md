@@ -1,3 +1,10 @@
+### [34.0.2-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.5...v34.0.2-next.6) (2021-11-22)
+
+
+### Bug Fixes
+
+* **date-picker:** prevent month picker from sometimes skipping a year when navigating ([d463154](https://github.com/Lundalogik/lime-elements/commit/d4631547c6a77c26ab71b659dd2fc46e9e64d3a1)), closes [#1455](https://github.com/Lundalogik/lime-elements/issues/1455)
+
 ### [34.0.2-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.4...v34.0.2-next.5) (2021-11-19)
 
 
