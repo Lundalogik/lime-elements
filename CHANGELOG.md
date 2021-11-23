@@ -1,3 +1,11 @@
+### [34.0.2-next.8](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.7...v34.0.2-next.8) (2021-11-23)
+
+
+### Bug Fixes
+
+* **form:** customize layout of checkbox and switch only in grid form ([1f3233f](https://github.com/Lundalogik/lime-elements/commit/1f3233fa9fce97281f8ee1af15e06f87aca09f5e)), closes [Lundalogik/crm-feature#2273](https://github.com/Lundalogik/crm-feature/issues/2273)
+* **select:** allow select element to grow in height ([78409c3](https://github.com/Lundalogik/lime-elements/commit/78409c372bff0e6185090191898c7d73e208db05)), closes [Lundalogik/crm-feature#2273](https://github.com/Lundalogik/crm-feature/issues/2273)
+
 ### [34.0.2-next.7](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.6...v34.0.2-next.7) (2021-11-22)
 
 
