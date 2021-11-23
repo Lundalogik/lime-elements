@@ -1,3 +1,11 @@
+### [34.0.2-next.9](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.8...v34.0.2-next.9) (2021-11-23)
+
+
+### Bug Fixes
+
+* **code-editor:** cleanup old editor html on disconnect ([40c3242](https://github.com/Lundalogik/lime-elements/commit/40c3242065663119413edefd76be4b56fc2ba787))
+* **form:** use key from rjsf for array items ([ea6c03b](https://github.com/Lundalogik/lime-elements/commit/ea6c03b2d95c701243e86c748763131ca08eb60f)), closes [Lundalogik/crm-feature#2486](https://github.com/Lundalogik/crm-feature/issues/2486)
+
 ### [34.0.2-next.8](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.7...v34.0.2-next.8) (2021-11-23)
 
 
