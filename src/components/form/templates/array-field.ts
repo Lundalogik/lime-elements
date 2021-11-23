@@ -29,9 +29,9 @@ export class ArrayFieldTemplate extends React.Component {
         }
 
         return React.createElement('limel-button', {
-            label: 'Add',
+            label: this.props.title || 'Add',
             onClick: this.handleAddClick,
-            icon: 'add',
+            icon: 'plus_math',
             class: 'button-add-new',
         });
     }
