@@ -67,7 +67,7 @@ export class CollapsibleItemTemplate extends React.Component {
             'limel-collapsible-section',
             {
                 header: findTitle(data, schema, formSchema) || 'New item',
-                className: 'limel-form-array-item--object',
+                class: 'limel-form-array-item--object',
                 ref: 'section',
                 'is-open': this.isOpen,
             },
