@@ -37,12 +37,11 @@ export class ArrayFieldTemplate extends React.Component {
     }
 
     private renderItem(item: ArrayFieldItem, index: number) {
-        const key = `id_${index}`;
         const { schema, formData, formContext } = this.props;
 
         if (isObjectType(schema.items)) {
             return React.createElement(CollapsibleItemTemplate, {
-                key: key,
+                key: item.key,
                 item: item,
                 data: formData[index],
                 schema: schema,
@@ -52,7 +51,7 @@ export class ArrayFieldTemplate extends React.Component {
         }
 
         return React.createElement(SimpleItemTemplate, {
-            key: key,
+            key: item.key,
             item: item,
             index: index,
         });
