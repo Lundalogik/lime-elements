@@ -1,3 +1,10 @@
+### [34.0.2-next.10](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.9...v34.0.2-next.10) (2021-11-23)
+
+
+### Bug Fixes
+
+* **array-field-collapsible-item:** add margin-bottom to the collapsible ([4f72d52](https://github.com/Lundalogik/lime-elements/commit/4f72d52dc5836e84ff4e4dba18fbb0a1e1d497da))
+
 ### [34.0.2-next.9](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.8...v34.0.2-next.9) (2021-11-23)
 
 
