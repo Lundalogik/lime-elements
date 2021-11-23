@@ -1,3 +1,67 @@
+### [34.0.2-next.8](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.7...v34.0.2-next.8) (2021-11-23)
+
+
+### Bug Fixes
+
+* **form:** customize layout of checkbox and switch only in grid form ([1f3233f](https://github.com/Lundalogik/lime-elements/commit/1f3233fa9fce97281f8ee1af15e06f87aca09f5e)), closes [Lundalogik/crm-feature#2273](https://github.com/Lundalogik/crm-feature/issues/2273)
+* **select:** allow select element to grow in height ([78409c3](https://github.com/Lundalogik/lime-elements/commit/78409c372bff0e6185090191898c7d73e208db05)), closes [Lundalogik/crm-feature#2273](https://github.com/Lundalogik/crm-feature/issues/2273)
+
+### [34.0.2-next.7](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.6...v34.0.2-next.7) (2021-11-22)
+
+
+### Bug Fixes
+
+* **collapsible-section:** reflect `header` property to attribute ([d47a240](https://github.com/Lundalogik/lime-elements/commit/d47a240a34b1aaa48ff1ea5feb50f65b8db12af2))
+
+
+### Performance Improvements
+
+* **collapsible-section:** do not synthesize click on keypress ([10ae39a](https://github.com/Lundalogik/lime-elements/commit/10ae39a906f44e550fe10c81875cd603537c66e6))
+
+### [34.0.2-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.5...v34.0.2-next.6) (2021-11-22)
+
+
+### Bug Fixes
+
+* **date-picker:** prevent month picker from sometimes skipping a year when navigating ([d463154](https://github.com/Lundalogik/lime-elements/commit/d4631547c6a77c26ab71b659dd2fc46e9e64d3a1)), closes [#1455](https://github.com/Lundalogik/lime-elements/issues/1455)
+
+### [34.0.2-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.4...v34.0.2-next.5) (2021-11-19)
+
+
+### Bug Fixes
+
+* **collapsible-section:** render header in 2 lines first, then truncate ([e8838f4](https://github.com/Lundalogik/lime-elements/commit/e8838f4dbad497154c75fc53ca324f6c22ff5a8e))
+
+### [34.0.2-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.3...v34.0.2-next.4) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** fix alignment issues of checkbox & switch in forms ([b2b7893](https://github.com/Lundalogik/lime-elements/commit/b2b7893fa24da5bd3a0319ca4f17d84ec1d9bbe4))
+
+### [34.0.2-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.2...v34.0.2-next.3) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** give visual details to nested form titles to reflect hierarchy better ([b3f5ab1](https://github.com/Lundalogik/lime-elements/commit/b3f5ab18bfaf866f7bc46d963ce1a4d0e204320c))
+* **form:** make nested headings in forms decrease size to reflect hierarchy ([ffcdfe1](https://github.com/Lundalogik/lime-elements/commit/ffcdfe1f3f068c3a9f737cadf3a5e9efc49c7cdc))
+
+### [34.0.2-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.1...v34.0.2-next.2) (2021-11-18)
+
+
+### Bug Fixes
+
+* **table:** don't apply low density styles for footers ([ef91e5f](https://github.com/Lundalogik/lime-elements/commit/ef91e5fac943fe6ae7baa1bf1b9a0d75c3aa3af2))
+
+### [34.0.2-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.1...v34.0.2-next.1) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** make button that adds new form elements stretch through the entire width ([945f405](https://github.com/Lundalogik/lime-elements/commit/945f405f0a52077d8be2a7cdc5874a924e596888))
+* **form:** remove `outlined` style of the button that adds new form elements ([e0f163a](https://github.com/Lundalogik/lime-elements/commit/e0f163a7d5963178818d65ccb054d8ef3e6b69ad))
+
 ### [34.0.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.0...v34.0.1) (2021-11-16)
 
 

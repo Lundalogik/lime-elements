@@ -29,10 +29,10 @@ export class ArrayFieldTemplate extends React.Component {
         }
 
         return React.createElement('limel-button', {
-            outlined: true,
             label: 'Add',
             onClick: this.handleAddClick,
             icon: 'add',
+            class: 'button-add-new',
         });
     }
 
