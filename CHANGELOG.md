@@ -1,3 +1,10 @@
+## [34.1.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.1...v34.1.0-next.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* **form:** use `title` as label on button-add-new ([5a5bd85](https://github.com/Lundalogik/lime-elements/commit/5a5bd8501f5a8c3f18929eede03bb8cb035fcbd8))
+
 ## [34.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.10...v34.1.0-next.1) (2021-11-24)
 
 
