@@ -1,3 +1,10 @@
+## [34.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.10...v34.1.0-next.1) (2021-11-24)
+
+
+### Features
+
+* **list:** enable keyboard typeahead navigation ([a6af160](https://github.com/Lundalogik/lime-elements/commit/a6af1601671f8fd2bf81635d6e2974f78855db18))
+
 ### [34.0.2-next.10](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.9...v34.0.2-next.10) (2021-11-23)
 
 
