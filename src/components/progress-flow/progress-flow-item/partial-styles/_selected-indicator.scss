@@ -18,8 +18,10 @@
             right: functions.pxToRem(8);
         }
     }
+}
 
-    &:not(.off-progress) {
+.flow-item:not(.off-progress-item) {
+    .step {
         &.selected {
             &:after {
                 content: '';
