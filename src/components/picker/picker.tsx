@@ -136,6 +136,12 @@ export class Picker {
     public actionScrollBehavior: ActionScrollBehavior = 'sticky';
 
     /**
+     * Whether badge icons should be used in the result list or not
+     */
+    @Prop({ reflect: true })
+    public badgeIcons: boolean = true;
+
+    /**
      * Fired when a new value has been selected from the picker
      */
     @Event()
@@ -438,7 +444,7 @@ export class Picker {
 
         return (
             <limel-list
-                badgeIcons={hasIcons}
+                badgeIcons={hasIcons && this.badgeIcons}
                 onChange={this.handleListChange}
                 onKeyDown={this.onListKeyDown}
                 type="selectable"
