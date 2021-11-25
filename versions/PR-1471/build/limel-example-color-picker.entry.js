@@ -1,0 +1,1 @@
+import{r,h as e}from"./index-a7da85d2.js";let l=class{constructor(e){r(this,e)}render(){return[e("limel-color-picker",null)]}};export{l as limel_example_color_picker}
