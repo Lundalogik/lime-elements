@@ -19,6 +19,10 @@
     }
 }
 
+.limel-form-array-item--object {
+    margin-bottom: 0.25rem;
+}
+
 .limel-form-layout--default {
     --gap: 1rem;
     display: grid;
@@ -117,13 +121,19 @@
     }
 }
 
-.form-group {
+.limel-form-layout--grid {
     limel-checkbox,
     limel-switch {
-        margin-left: functions.pxToRem(8);
+        // This is because we have to align these items to top and
+        // make sure they align correctly even in one-columned layouts
+        margin-top: functions.pxToRem(8);
+        display: block;
         min-height: calc(
             var(--min-height-of-one-row) - #{shared_input-select-picker.$height-of-mdc-helper-text-block}
-        ); //This is because we have to align these items to top and make sure they align correctly even in one-columned layouts
+        );
+    }
+    limel-switch {
+        margin-left: functions.pxToRem(8);
     }
 }
 
@@ -135,4 +145,82 @@
     padding-right: 1rem;
     padding-left: 1rem;
     padding-top: 0.25rem;
+}
+
+.button-add-new {
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.mdc-typography--headline1 {
+    position: relative;
+}
+
+.form-group {
+    .mdc-typography--headline1 {
+        --mdc-typography-headline1-font-size: 2rem;
+        --mdc-typography-headline1-line-height: 2.25rem;
+        --mdc-typography-headline1-letter-spacing: -0.0625rem;
+        --mdc-typography-headline1-font-weight: 400;
+        color: rgb(var(--contrast-1000));
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .form-group {
+        .mdc-typography--headline1 {
+            --mdc-typography-headline1-font-size: 1.625rem;
+            --mdc-typography-headline1-line-height: 1.25rem;
+            --mdc-typography-headline1-font-weight: 300;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: rgb(var(--contrast-1100));
+
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                left: functions.pxToRem(-12);
+
+                background-color: var(--mdc-theme-primary);
+                width: functions.pxToRem(2);
+                height: var(--mdc-typography-headline1-line-height);
+                border-radius: functions.pxToRem(2);
+
+                opacity: 0.6;
+            }
+        }
+
+        .form-group {
+            .mdc-typography--headline1 {
+                --mdc-typography-headline1-font-size: 1.375rem;
+                --mdc-typography-headline1-line-height: 1.5rem;
+                --mdc-typography-headline1-font-weight: 300;
+                margin-top: 1rem;
+                margin-bottom: 0.5rem;
+                color: rgb(var(--contrast-1200));
+
+                &:before {
+                    display: none;
+                }
+            }
+
+            .form-group {
+                .mdc-typography--headline1 {
+                    --mdc-typography-headline1-font-size: 1.25rem;
+                    --mdc-typography-headline1-line-height: 1.25rem;
+                    --mdc-typography-headline1-font-weight: 300;
+                    margin-top: 1rem;
+                    margin-bottom: 0.5rem;
+                    color: rgb(var(--contrast-1200));
+
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
 }
