@@ -1,3 +1,10 @@
+## [34.1.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.2...v34.1.0-next.3) (2021-11-25)
+
+
+### Features
+
+* **picker:** add support for disabling badge icons ([2534149](https://github.com/Lundalogik/lime-elements/commit/253414913295d5014b0a3d4032e91ec80b2ca5c7)), closes [Lundalogik/crm-feature#2471](https://github.com/Lundalogik/crm-feature/issues/2471)
+
 ## [34.1.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.1...v34.1.0-next.2) (2021-11-24)
 
 
