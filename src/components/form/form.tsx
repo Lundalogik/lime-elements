@@ -57,6 +57,12 @@ export class Form {
     public value: object;
 
     /**
+     * Set to `true` to disable the whole form.
+     */
+    @Prop()
+    public disabled = false;
+
+    /**
      * Factory for creating properties for custom form components
      *
      * When using custom components in the form some properties might have to be
@@ -147,6 +153,7 @@ export class Form {
                     FieldTemplate: FieldTemplate,
                     ArrayFieldTemplate: ArrayFieldTemplate as any,
                     ObjectFieldTemplate: ObjectFieldTemplate,
+                    disabled: this.disabled,
                     formContext: {
                         schema: this.modifiedSchema,
                         rootValue: this.value,
