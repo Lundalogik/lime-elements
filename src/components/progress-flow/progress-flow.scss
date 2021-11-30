@@ -33,10 +33,6 @@
     }
 }
 
-.first-off-progress-item {
-    margin-left: functions.pxToRem(8);
-}
-
 :host(.is-narrow) {
     --step-height: 1.5rem;
     --selected-indicator-right: 0;

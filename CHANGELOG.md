@@ -1,3 +1,10 @@
+## [34.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.3...v34.1.0-next.4) (2021-11-30)
+
+
+### Bug Fixes
+
+* **progress-flow:** remove selected indicators of off-pogress steps ([6d362f3](https://github.com/Lundalogik/lime-elements/commit/6d362f3b6345ceab5de749a5cf8fc49e418e9ac8))
+
 ## [34.1.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.2...v34.1.0-next.3) (2021-11-25)
 
 
