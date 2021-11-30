@@ -1,1 +1,1 @@
-import{r,h as e}from"./index-a7da85d2.js";let l=class{constructor(e){r(this,e)}render(){return e("limel-color-picker",null)}};export{l as limel_example_color_picker}
+import{r as e,h as o}from"./index-a7da85d2.js";let r=class{constructor(o){e(this,o)}render(){return o("limel-color-picker",{tooltipLabel:"Click to pick a color",helperText:"You can also type a color name or value to preview it here",label:"Chosen color"})}};export{r as limel_example_color_picker}
