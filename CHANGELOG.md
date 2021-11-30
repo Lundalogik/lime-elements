@@ -1,3 +1,10 @@
+## [34.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.5...v34.1.0-next.6) (2021-11-30)
+
+
+### Bug Fixes
+
+* **slider:** ensure that the component doesn't crash when value % step !== 0 ([24c8433](https://github.com/Lundalogik/lime-elements/commit/24c843329eaeed91606404095869fd9a8441cbcf))
+
 ## [34.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.4...v34.1.0-next.5) (2021-11-30)
 
 
