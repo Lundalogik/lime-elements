@@ -1,3 +1,10 @@
+## [34.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.4...v34.1.0-next.5) (2021-11-30)
+
+
+### Features
+
+* **form:** make it possible to disable whole form ([6b9f463](https://github.com/Lundalogik/lime-elements/commit/6b9f463c5bb337253fabae65cf8a7e8ef57057e5))
+
 ## [34.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.3...v34.1.0-next.4) (2021-11-30)
 
 
