@@ -1,0 +1,1 @@
+import{r as e,h as r}from"./index-a7da85d2.js";let l=class{constructor(r){e(this,r)}render(){return r("limel-flex-container",{justify:"end"},r("slot",null))}};l.style="limel-flex-container{margin-top:1.25rem;flex-wrap:wrap}limel-switch{height:3rem;margin-right:0.9375rem}";export{l as limel_example_controls}
