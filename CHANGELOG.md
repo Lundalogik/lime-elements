@@ -1,3 +1,10 @@
+## [34.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.6...v34.1.0-next.7) (2021-12-01)
+
+
+### Bug Fixes
+
+* **list:** make list items to be as wide as the list ([ad18ce9](https://github.com/Lundalogik/lime-elements/commit/ad18ce9d290573e59f8809f81e82f7d9a7ce42a8))
+
 ## [34.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.5...v34.1.0-next.6) (2021-11-30)
 
 
