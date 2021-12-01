@@ -18,7 +18,7 @@ $list-border-radius: 0.375rem; // 6px
  * @prop --list-grid-gap: Distance between items in a list that has `has-grid-layout` class. Defaults to `0.75rem`.
  */
 
-:host {
+:host(limel-list) {
     display: block;
 }
 
@@ -37,6 +37,7 @@ $list-border-radius: 0.375rem; // 6px
     border-radius: $list-border-radius;
 
     .mdc-deprecated-list-item {
+        box-sizing: border-box;
         z-index: z-index.$list-mdc-list-item; // in Chrome on Windows, menus flicker when they have a scroll bar and user hovers on them. We may be able to remove this in future versions of Chrome. Kia 2021-May-12
 
         &.mdc-deprecated-list-item--disabled {
