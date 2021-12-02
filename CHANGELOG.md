@@ -1,3 +1,10 @@
+## [34.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.8...v34.1.0-next.9) (2021-12-02)
+
+
+### Features
+
+* add `limel-color-picker` component ([b03f56c](https://github.com/Lundalogik/lime-elements/commit/b03f56c0b43becf42440d3766dd483b919be458f))
+
 ## [34.1.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.7...v34.1.0-next.8) (2021-12-02)
 
 
