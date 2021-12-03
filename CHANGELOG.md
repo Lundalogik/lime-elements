@@ -1,3 +1,10 @@
+## [34.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.9...v34.1.0-next.10) (2021-12-03)
+
+
+### Bug Fixes
+
+* **color-picker:** render the tooltip if there is a tooltip label ([51a715b](https://github.com/Lundalogik/lime-elements/commit/51a715ba7a6271d06eb70e4bfaabe9ac2179a784))
+
 ## [34.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.8...v34.1.0-next.9) (2021-12-02)
 
 
