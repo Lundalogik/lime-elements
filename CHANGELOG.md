@@ -1,3 +1,10 @@
+## [34.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.10...v34.1.0-next.11) (2021-12-03)
+
+
+### Bug Fixes
+
+* **color-picker-pallet:** add support for deprecated lime colors ([d2c4761](https://github.com/Lundalogik/lime-elements/commit/d2c47613eeccdea76835a86d0b4715bad30f013a))
+
 ## [34.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.9...v34.1.0-next.10) (2021-12-03)
 
 
