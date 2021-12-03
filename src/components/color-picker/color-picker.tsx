@@ -86,7 +86,7 @@ export class ColorPicker implements FormComponent {
         ];
     }
     private renderTooltip = () => {
-        if (!this.readonly) {
+        if (!this.readonly && this.tooltipLabel) {
             return (
                 <limel-tooltip
                     label={this.tooltipLabel}

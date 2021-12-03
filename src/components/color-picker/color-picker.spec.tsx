@@ -26,7 +26,6 @@ test('the component renders', () => {
     expect(page.body).toEqualHtml(`
         <limel-color-picker label="Hair color">
             <mock:shadow-root>
-                <limel-tooltip elementid="tooltip-button"></limel-tooltip>
                     <div class="color-picker">
                         <limel-popover>
                             <div class="picker-trigger" id="tooltip-button" role="button" slot="trigger" tabindex="0"></div>
