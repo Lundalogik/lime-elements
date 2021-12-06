@@ -42,4 +42,9 @@
             background-color: var(--lime-yellow);
         }
     }
+    &[style='--background:lime-light-grey;'] {
+        &:after {
+            background-color: var(--lime-light-grey);
+        }
+    }
 }
