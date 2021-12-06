@@ -84,7 +84,9 @@ function findFirstEntry(data: any, subSchema: any) {
         ...Object.entries(data),
     ];
 
-    return entries.filter(([_, value]) => !!value)[0];
+    return entries.filter(
+        ([_, value]) => !!value && typeof value !== 'boolean'
+    )[0];
 }
 
 function getRequiredEntry(data: any, subSchema: any) {
