@@ -1,3 +1,10 @@
+## [34.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.12...v34.1.0-next.13) (2021-12-06)
+
+
+### Bug Fixes
+
+* **color-picker:** add support for showing deprecated `lime-light-grey` color ([51b0915](https://github.com/Lundalogik/lime-elements/commit/51b0915a82facc493b5c0ad7f5a4ca0faed0c456))
+
 ## [34.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.11...v34.1.0-next.12) (2021-12-06)
 
 
