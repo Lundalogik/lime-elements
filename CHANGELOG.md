@@ -1,3 +1,10 @@
+## [34.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.11...v34.1.0-next.12) (2021-12-06)
+
+
+### Bug Fixes
+
+* **slider:** round invalid values to step ([ffc67bf](https://github.com/Lundalogik/lime-elements/commit/ffc67bffb525d674e297c6a5caf0dc89159bd699)), closes [Lundalogik/crm-feature#2301](https://github.com/Lundalogik/crm-feature/issues/2301) [Lundalogik/crm-feature#2419](https://github.com/Lundalogik/crm-feature/issues/2419)
+
 ## [34.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.10...v34.1.0-next.11) (2021-12-03)
 
 
