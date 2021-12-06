@@ -1,3 +1,38 @@
+## [34.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.10...v34.1.0-next.11) (2021-12-03)
+
+
+### Bug Fixes
+
+* **color-picker-pallet:** add support for deprecated lime colors ([d2c4761](https://github.com/Lundalogik/lime-elements/commit/d2c47613eeccdea76835a86d0b4715bad30f013a))
+
+## [34.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.9...v34.1.0-next.10) (2021-12-03)
+
+
+### Bug Fixes
+
+* **color-picker:** render the tooltip if there is a tooltip label ([51a715b](https://github.com/Lundalogik/lime-elements/commit/51a715ba7a6271d06eb70e4bfaabe9ac2179a784))
+
+## [34.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.8...v34.1.0-next.9) (2021-12-02)
+
+
+### Features
+
+* add `limel-color-picker` component ([b03f56c](https://github.com/Lundalogik/lime-elements/commit/b03f56c0b43becf42440d3766dd483b919be458f))
+
+## [34.1.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.7...v34.1.0-next.8) (2021-12-02)
+
+
+### Bug Fixes
+
+* **progress-flow:** fix rendering problem on iOS ([4f6487b](https://github.com/Lundalogik/lime-elements/commit/4f6487bb7cc96b97c9819458e697ff3133c084e4)), closes [Lundalogik/crm-feature#2453](https://github.com/Lundalogik/crm-feature/issues/2453)
+
+## [34.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.6...v34.1.0-next.7) (2021-12-01)
+
+
+### Bug Fixes
+
+* **list:** make list items to be as wide as the list ([ad18ce9](https://github.com/Lundalogik/lime-elements/commit/ad18ce9d290573e59f8809f81e82f7d9a7ce42a8))
+
 ## [34.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.5...v34.1.0-next.6) (2021-11-30)
 
 

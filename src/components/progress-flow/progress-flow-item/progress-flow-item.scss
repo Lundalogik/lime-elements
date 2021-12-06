@@ -134,8 +134,7 @@
 
     position: absolute;
     z-index: z-index.$limel-progress-flow-divider;
-    right: 0;
-    transform: translateX(50%);
+    right: calc(var(--step-height) / 2 * -1);
     overflow: hidden;
 
     &:after {

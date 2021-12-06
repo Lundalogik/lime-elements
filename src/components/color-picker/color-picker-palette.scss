@@ -1,0 +1,45 @@
+@use '../../design-guidelines/color-system/examples/extended-color-palette';
+@use '../../style/mixins';
+@import './color-picker';
+
+:host {
+    border-radius: 0.75rem; // is like popover's default `--popover-border-radius`
+    background-color: rgb(var(--kompendium-contrast-300));
+}
+
+.color-picker-palette {
+    display: grid;
+    gap: 0.25rem;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(4, 1fr) auto;
+    margin: 1rem;
+}
+
+.chosen-color-name {
+    box-sizing: border-box;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+}
+
+.chosen-color-preview {
+    border: 1px solid rgba(var(--contrast-700), 0.65); // color is the same as
+    // colors in shared_input-select-picker.scss
+    border-radius: 50%;
+}
+
+.swatch:not(.hue) {
+    @include mixins.is-flat-clickable();
+    cursor: pointer;
+
+    &:focus-visible {
+        box-shadow: var(--shadow-depth-8-focused),
+            0 0 0 0.25rem rgb(var(--contrast-100)) inset;
+    }
+}
+
+.swatch--selected {
+    border-radius: 50%;
+}
