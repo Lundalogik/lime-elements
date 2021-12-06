@@ -1,3 +1,31 @@
+## [34.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.12...v34.1.0-next.13) (2021-12-06)
+
+
+### Bug Fixes
+
+* **color-picker:** add support for showing deprecated `lime-light-grey` color ([51b0915](https://github.com/Lundalogik/lime-elements/commit/51b0915a82facc493b5c0ad7f5a4ca0faed0c456))
+
+## [34.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.11...v34.1.0-next.12) (2021-12-06)
+
+
+### Bug Fixes
+
+* **slider:** round invalid values to step ([ffc67bf](https://github.com/Lundalogik/lime-elements/commit/ffc67bffb525d674e297c6a5caf0dc89159bd699)), closes [Lundalogik/crm-feature#2301](https://github.com/Lundalogik/crm-feature/issues/2301) [Lundalogik/crm-feature#2419](https://github.com/Lundalogik/crm-feature/issues/2419)
+
+## [34.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.10...v34.1.0-next.11) (2021-12-03)
+
+
+### Bug Fixes
+
+* **color-picker-pallet:** add support for deprecated lime colors ([d2c4761](https://github.com/Lundalogik/lime-elements/commit/d2c47613eeccdea76835a86d0b4715bad30f013a))
+
+## [34.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.9...v34.1.0-next.10) (2021-12-03)
+
+
+### Bug Fixes
+
+* **color-picker:** render the tooltip if there is a tooltip label ([51a715b](https://github.com/Lundalogik/lime-elements/commit/51a715ba7a6271d06eb70e4bfaabe9ac2179a784))
+
 ## [34.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.8...v34.1.0-next.9) (2021-12-02)
 
 

@@ -1,4 +1,5 @@
 @use '../../style/mixins';
+@import './partial-styles/lime-admin-hack';
 
 :host {
     --popover-surface-width: 50rem;
