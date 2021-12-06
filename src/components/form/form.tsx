@@ -9,7 +9,7 @@ import {
 } from '@stencil/core';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import JSONSchemaForm from '@rjsf/core';
+import JSONSchemaForm, { AjvError } from '@rjsf/core';
 import retargetEvents from 'react-shadow-dom-retarget-events';
 import { FormError, ValidationStatus } from './form.types';
 import {
@@ -73,6 +73,12 @@ export class Form {
      */
     @Prop()
     public propsFactory?: (schema: Record<string, any>) => Record<string, any>;
+
+    /**
+     * Custom function to customize the default error messages provided by JSON Schema
+     */
+    @Prop()
+    public transformErrors?: (errors: AjvError[]) => AjvError[];
 
     /**
      * Emitted when a change is made within the form
@@ -154,6 +160,7 @@ export class Form {
                     ArrayFieldTemplate: ArrayFieldTemplate as any,
                     ObjectFieldTemplate: ObjectFieldTemplate,
                     disabled: this.disabled,
+                    transformErrors: this.transformErrors,
                     formContext: {
                         schema: this.modifiedSchema,
                         rootValue: this.value,
