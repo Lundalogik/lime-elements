@@ -1,3 +1,10 @@
+## [34.1.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.13...v34.1.0-next.14) (2021-12-07)
+
+
+### Bug Fixes
+
+* **form:** don't use boolean values as the title in a collapsible section ([1900e32](https://github.com/Lundalogik/lime-elements/commit/1900e323d6db61d0dd08835af719a4089945fa10))
+
 ## [34.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.12...v34.1.0-next.13) (2021-12-06)
 
 
