@@ -1,3 +1,10 @@
+## [34.1.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.14...v34.1.0-next.15) (2021-12-07)
+
+
+### Bug Fixes
+
+* **menu-list:** import styles from `limel-list` to remove duplicate css ([2d5d05c](https://github.com/Lundalogik/lime-elements/commit/2d5d05cbcca81752058ee930759adb921dfef843))
+
 ## [34.1.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.13...v34.1.0-next.14) (2021-12-07)
 
 
