@@ -1,3 +1,10 @@
+## [34.1.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.16...v34.1.0-next.17) (2021-12-07)
+
+
+### Bug Fixes
+
+* **input-field:** make the "clear all" button in input type="search" work ([6607818](https://github.com/Lundalogik/lime-elements/commit/6607818a3f8eccae500e7e76574eea7fcb8bde0b))
+
 ## [34.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.15...v34.1.0-next.16) (2021-12-07)
 
 
