@@ -1,3 +1,11 @@
+## [34.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.15...v34.1.0-next.16) (2021-12-07)
+
+
+### Bug Fixes
+
+* **form:** honor `lime.component.props.disabled` for all form components ([0da8529](https://github.com/Lundalogik/lime-elements/commit/0da85299af79344e20082c0d8b65f51dd0c291cb))
+* **form:** honor `lime.component.props.disabled` for limel-select ([83381f8](https://github.com/Lundalogik/lime-elements/commit/83381f8d4ca54defe9672279a5662b615ee642bb)), closes [#1477](https://github.com/Lundalogik/lime-elements/issues/1477)
+
 ## [34.1.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.14...v34.1.0-next.15) (2021-12-07)
 
 
