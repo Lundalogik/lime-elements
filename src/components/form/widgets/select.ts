@@ -26,6 +26,8 @@ export class Select extends React.Component {
             value = findValue(props.value, options);
         }
 
+        const additionalProps = props.schema.lime?.component?.props || {};
+
         return React.createElement(LimeElementsWidgetAdapter, {
             name: 'limel-select',
             value: value,
@@ -36,6 +38,7 @@ export class Select extends React.Component {
             extraProps: {
                 multiple: props.multiple,
                 options: options,
+                ...additionalProps,
             },
         });
     }
