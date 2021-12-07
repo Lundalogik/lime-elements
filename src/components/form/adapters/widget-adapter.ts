@@ -138,7 +138,11 @@ export class LimeElementsWidgetAdapter extends React.Component {
         const widgetProps = this.props.widgetProps;
         const options: LimeSchemaOptions = widgetProps.schema.lime;
 
-        return widgetProps.disabled || options?.disabled;
+        return (
+            widgetProps.disabled ||
+            options?.disabled ||
+            options?.component?.props?.disabled
+        );
     }
 
     private isReadOnly() {
