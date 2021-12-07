@@ -189,6 +189,7 @@ export class File {
                 readonly={this.readonly}
                 label={this.label}
                 leadingIcon="upload_to_cloud"
+                language={this.language}
                 onChange={this.handleChipSetChange}
                 onClick={this.handleFileSelection}
                 onInteract={this.handleChipInteract}
