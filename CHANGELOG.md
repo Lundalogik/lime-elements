@@ -1,3 +1,10 @@
+## [34.1.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.17...v34.1.0-next.18) (2021-12-08)
+
+
+### Bug Fixes
+
+* **file:** use given language for chip-set as well ([5a3de5c](https://github.com/Lundalogik/lime-elements/commit/5a3de5c4a321760329a77520c63e40326a79c37e))
+
 ## [34.1.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.16...v34.1.0-next.17) (2021-12-07)
 
 
