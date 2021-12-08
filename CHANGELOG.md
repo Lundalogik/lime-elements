@@ -1,3 +1,10 @@
+## [34.1.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.18...v34.1.0-next.19) (2021-12-08)
+
+
+### Bug Fixes
+
+* **input-field:** prevent value being covered by trailing icon when `showLink=true` & `readonly` ([32248a0](https://github.com/Lundalogik/lime-elements/commit/32248a0242467fdd1a00e963bd54305f9e484674))
+
 ## [34.1.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.17...v34.1.0-next.18) (2021-12-08)
 
 
