@@ -135,6 +135,10 @@ input.mdc-text-field__input {
         top: 0;
         bottom: 0;
         margin: auto;
+
+        &:active {
+            transform: none; //Makes the "clear-all button" work
+        }
     }
 }
 

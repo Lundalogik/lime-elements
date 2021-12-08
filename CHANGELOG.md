@@ -1,3 +1,25 @@
+## [34.1.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.16...v34.1.0-next.17) (2021-12-07)
+
+
+### Bug Fixes
+
+* **input-field:** make the "clear all" button in input type="search" work ([6607818](https://github.com/Lundalogik/lime-elements/commit/6607818a3f8eccae500e7e76574eea7fcb8bde0b))
+
+## [34.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.15...v34.1.0-next.16) (2021-12-07)
+
+
+### Bug Fixes
+
+* **form:** honor `lime.component.props.disabled` for all form components ([0da8529](https://github.com/Lundalogik/lime-elements/commit/0da85299af79344e20082c0d8b65f51dd0c291cb))
+* **form:** honor `lime.component.props.disabled` for limel-select ([83381f8](https://github.com/Lundalogik/lime-elements/commit/83381f8d4ca54defe9672279a5662b615ee642bb)), closes [#1477](https://github.com/Lundalogik/lime-elements/issues/1477)
+
+## [34.1.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.14...v34.1.0-next.15) (2021-12-07)
+
+
+### Bug Fixes
+
+* **menu-list:** import styles from `limel-list` to remove duplicate css ([2d5d05c](https://github.com/Lundalogik/lime-elements/commit/2d5d05cbcca81752058ee930759adb921dfef843))
+
 ## [34.1.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.13...v34.1.0-next.14) (2021-12-07)
 
 
