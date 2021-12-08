@@ -1,3 +1,15 @@
+## [34.1.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.19...v34.1.0-next.20) (2021-12-08)
+
+
+### Features
+
+* **code-editor:** allow controlling the maximum height of the component ([89090dc](https://github.com/Lundalogik/lime-elements/commit/89090dcbf67b8051b847edc0c2c7299e18504b21))
+
+
+### Bug Fixes
+
+* **code-editor:** let code editor grow as tall as its content ([cbf0b38](https://github.com/Lundalogik/lime-elements/commit/cbf0b38aca22fd09a2469b9f02d8083b8f87ffeb))
+
 ## [34.1.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.18...v34.1.0-next.19) (2021-12-08)
 
 
