@@ -141,6 +141,7 @@
         color: rgb(var(--code-editor-neutral-text-color));
         background-color: rgb(var(--code-editor-background-color));
         border-radius: 0.25rem;
+        height: auto;
     }
 
     &.CodeMirror-focused {
