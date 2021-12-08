@@ -12,6 +12,7 @@ import { data } from '../../table/examples/birds';
 @Component({
     tag: 'limel-example-code-editor',
     shadow: true,
+    styleUrl: 'code-editor.scss',
 })
 export class CodeExample {
     @State()
