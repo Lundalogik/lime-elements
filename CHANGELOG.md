@@ -1,3 +1,10 @@
+## [34.1.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.20...v34.1.0-next.21) (2021-12-09)
+
+
+### Bug Fixes
+
+* **menu-list:** add margin to visualize keyboard-focused items ([314a674](https://github.com/Lundalogik/lime-elements/commit/314a67436f9f8518e80af89f2e4083eaafbc3b37))
+
 ## [34.1.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.19...v34.1.0-next.20) (2021-12-08)
 
 
