@@ -1,3 +1,10 @@
+## [34.1.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.21...v34.1.0-next.22) (2021-12-09)
+
+
+### Bug Fixes
+
+* **menu-list:** display: block, to avoid a vertical scroll bar ([a3e2459](https://github.com/Lundalogik/lime-elements/commit/a3e2459c2e9d669176c244794d69695efa369244))
+
 ## [34.1.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.20...v34.1.0-next.21) (2021-12-09)
 
 
