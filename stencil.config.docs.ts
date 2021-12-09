@@ -34,15 +34,6 @@ export const config: Config = {
             ],
         },
     ],
-    commonjs: {
-        namedExports: {
-            'node_modules/react-dom/index.js': [
-                'render',
-                'unmountComponentAtNode',
-            ],
-            'node_modules/react/index.js': ['Component', 'forwardRef'],
-        },
-    },
     plugins: [sass()],
     tsconfig: './tsconfig.docs.json',
     globalStyle: 'src/global/core-styles.scss',
