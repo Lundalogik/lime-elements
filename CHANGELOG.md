@@ -1,3 +1,10 @@
+## [34.1.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.22...v34.1.0-next.23) (2021-12-10)
+
+
+### Features
+
+* **form:** make it possible to customize the default error messages ([e5a2719](https://github.com/Lundalogik/lime-elements/commit/e5a271983a64c148dd9ff9bda123c3bcbf5044c7))
+
 ## [34.1.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.21...v34.1.0-next.22) (2021-12-09)
 
 
