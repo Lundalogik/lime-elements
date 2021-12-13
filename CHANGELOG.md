@@ -1,3 +1,10 @@
+## [34.1.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.23...v34.1.0-next.24) (2021-12-13)
+
+
+### Bug Fixes
+
+* **array-field-collapsible:** change the order of the icons "up", "down", "trash" ([610b822](https://github.com/Lundalogik/lime-elements/commit/610b8226e6ceb1fc2954f4d698ab595e460227f5))
+
 ## [34.1.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.22...v34.1.0-next.23) (2021-12-10)
 
 
