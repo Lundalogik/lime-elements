@@ -36,6 +36,7 @@ const { ACTION_EVENT } = listStrings;
  * @exampleComponent limel-example-list-striped
  * @exampleComponent limel-example-list-badge-icons-with-multiple-lines
  * @exampleComponent limel-example-list-grid
+ * @exampleComponent limel-example-list-primary-component
  */
 @Component({
     tag: 'limel-list',
