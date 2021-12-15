@@ -150,6 +150,11 @@ $list-border-radius: 0.375rem; // 6px
         width: 100%;
     }
 
+    .has-primary-component {
+        .mdc-deprecated-list-item__text {
+            margin-left: 0.5rem;
+        }
+    }
     .mdc-deprecated-list-item__primary-command-text {
         display: flex;
         flex-direction: row;

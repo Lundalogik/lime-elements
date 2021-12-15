@@ -127,6 +127,7 @@ export class ListRenderer {
             'mdc-deprecated-list-item': true,
             'mdc-deprecated-list-item--disabled': item.disabled,
             'mdc-deprecated-list-item--selected': item.selected,
+            'has-primary-component': this.hasPrimaryComponent(item),
         };
 
         const attributes: { tabindex?: string } = {};
@@ -143,11 +144,27 @@ export class ListRenderer {
                 {...attributes}
             >
                 {item.icon ? this.renderIcon(this.config, item) : null}
+                {this.getPrimaryComponent(item)}
                 {this.renderText(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
                 {this.renderActionMenu(item.actions)}
             </li>
         );
+    };
+
+    private getPrimaryComponent(item: ListItem): Element {
+        if (!this.hasPrimaryComponent(item)) {
+            return;
+        }
+
+        const PrimaryComponent = item.primaryComponent.name;
+        const props = item.primaryComponent.props;
+
+        return <PrimaryComponent {...props} />;
+    }
+
+    private hasPrimaryComponent = (item: ListItem) => {
+        return !!item?.primaryComponent?.name;
     };
 
     /**
@@ -269,6 +286,7 @@ export class ListRenderer {
             'mdc-deprecated-list-item': true,
             'mdc-deprecated-list-item--disabled': item.disabled,
             'mdc-deprecated-list-item__text': !item.secondaryText,
+            'has-primary-component': this.hasPrimaryComponent(item),
         };
 
         const attributes: { tabindex?: string } = {};
@@ -298,6 +316,7 @@ export class ListRenderer {
         if (this.hasIcons) {
             return [
                 item.icon ? this.renderIcon(config, item) : null,
+                this.getPrimaryComponent(item),
                 this.renderText(item),
                 <div class="mdc-deprecated-list-item__meta">
                     {itemTemplate}
@@ -307,6 +326,7 @@ export class ListRenderer {
 
         return [
             <div class="mdc-deprecated-list-item__graphic">{itemTemplate}</div>,
+            this.getPrimaryComponent(item),
             this.renderText(item),
         ];
     };
