@@ -1,3 +1,10 @@
+## [34.1.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.25...v34.1.0-next.26) (2021-12-21)
+
+
+### Features
+
+* **list:** add the possibility to use a custom component inside the limel-list ([4c05353](https://github.com/Lundalogik/lime-elements/commit/4c05353bef35329c83748d162a85c1eaf8a563c3))
+
 ## [34.1.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.24...v34.1.0-next.25) (2021-12-21)
 
 
