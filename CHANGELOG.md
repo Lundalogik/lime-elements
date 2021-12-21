@@ -1,3 +1,10 @@
+## [34.1.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.24...v34.1.0-next.25) (2021-12-21)
+
+
+### Bug Fixes
+
+* **color-picker:** add "lime-magenta" color ([22f3366](https://github.com/Lundalogik/lime-elements/commit/22f3366d25dacf4cedf68e12ed2037759f4da108))
+
 ## [34.1.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.23...v34.1.0-next.24) (2021-12-13)
 
 

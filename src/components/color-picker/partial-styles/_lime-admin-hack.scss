@@ -7,6 +7,11 @@
 
 .picker-trigger,
 .chosen-color-preview {
+    &[style='--background:lime-magenta;'] {
+        &:after {
+            background-color: var(--lime-magenta);
+        }
+    }
     &[style='--background:lime-blue;'] {
         &:after {
             background-color: var(--lime-blue);
