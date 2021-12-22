@@ -136,6 +136,10 @@ describe('findTitle()', () => {
             output: 'Name',
         },
         {
+            input: [{ data: true }, schema, schema],
+            output: null,
+        },
+        {
             input: [
                 { data: 'test', name: 'name', title: 'title' },
                 schema,

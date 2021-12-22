@@ -9,7 +9,7 @@ import {
 } from '@stencil/core';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import JSONSchemaForm from '@rjsf/core';
+import JSONSchemaForm, { AjvError } from '@rjsf/core';
 import retargetEvents from 'react-shadow-dom-retarget-events';
 import { FormError, ValidationStatus } from './form.types';
 import {
@@ -34,6 +34,7 @@ import { isInteger } from './validators';
  * @exampleComponent limel-example-props-factory-form
  * @exampleComponent limel-example-form-layout
  * @exampleComponent limel-example-form-span-fields
+ * @exampleComponent limel-example-custom-error-message
  */
 @Component({
     tag: 'limel-form',
@@ -57,6 +58,12 @@ export class Form {
     public value: object;
 
     /**
+     * Set to `true` to disable the whole form.
+     */
+    @Prop()
+    public disabled = false;
+
+    /**
      * Factory for creating properties for custom form components
      *
      * When using custom components in the form some properties might have to be
@@ -67,6 +74,12 @@ export class Form {
      */
     @Prop()
     public propsFactory?: (schema: Record<string, any>) => Record<string, any>;
+
+    /**
+     * Custom function to customize the default error messages
+     */
+    @Prop()
+    public transformErrors?: (errors: FormError[]) => FormError[];
 
     /**
      * Emitted when a change is made within the form
@@ -90,6 +103,7 @@ export class Form {
 
     public constructor() {
         this.handleChange = this.handleChange.bind(this);
+        this.getCustomErrorMessages = this.getCustomErrorMessages.bind(this);
     }
 
     public connectedCallback() {
@@ -147,6 +161,8 @@ export class Form {
                     FieldTemplate: FieldTemplate,
                     ArrayFieldTemplate: ArrayFieldTemplate as any,
                     ObjectFieldTemplate: ObjectFieldTemplate,
+                    disabled: this.disabled,
+                    transformErrors: this.getCustomErrorMessages,
                     formContext: {
                         schema: this.modifiedSchema,
                         rootValue: this.value,
@@ -226,5 +242,39 @@ export class Form {
                 schemaPath: error.schemaPath,
             };
         });
+    }
+
+    private getCustomErrorMessages(originalErrors: AjvError[]): AjvError[] {
+        if (!this.transformErrors) {
+            return originalErrors;
+        }
+
+        const errors: FormError[] = originalErrors.map((error: AjvError) => {
+            return {
+                name: error.name,
+                property: error.property,
+                message: error.message,
+                // For some reason 'schemaPath' is missing from the AjvError type definition:
+                // https://github.com/rjsf-team/react-jsonschema-form/issues/2140
+                // eslint-disable-next-line @typescript-eslint/dot-notation
+                schemaPath: error['schemaPath'],
+            };
+        });
+
+        // Use `.call({}, …)` here to bind `this` to an empty object to prevent
+        // the consumer submitted `transformErrors` from getting access to our
+        // component's internals. /Ads
+        return this.transformErrors
+            .call({}, errors)
+            .map((transformedError: FormError) => {
+                const originalError = originalErrors.find((error: AjvError) => {
+                    return transformedError.property === error.property;
+                });
+
+                return {
+                    ...originalError,
+                    message: transformedError.message,
+                };
+            });
     }
 }

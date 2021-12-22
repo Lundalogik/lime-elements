@@ -4,7 +4,7 @@ import { Component, h, State } from '@stencil/core';
 const NETWORK_DELAY = 500;
 
 /**
- * With icons and displaying full list without cutting content
+ * With icons
  */
 @Component({
     tag: 'limel-example-picker-icons',
@@ -129,7 +129,6 @@ export class PickerIconsExample {
                 value={this.selectedItems}
                 searchLabel={'Search your awesomenaut'}
                 multiple={true}
-                displayFullList={true}
                 searcher={this.search}
                 onChange={this.onChange}
                 onInteract={this.onInteract}

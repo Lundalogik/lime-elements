@@ -1,0 +1,55 @@
+// In Lime Admin, old lime colors can be either written like this:
+// `lime-colorName` or like this `var(--lime-color-name)` .
+// They would work fine either way in the front-end. But this
+// component cannot visualize the first: (`lime-colorName`) and will
+// display a transparent color. Therefore, this hack is needed to make
+// it work perfectly in Lime Admin.
+
+.picker-trigger,
+.chosen-color-preview {
+    &[style='--background:lime-magenta;'] {
+        &:after {
+            background-color: var(--lime-magenta);
+        }
+    }
+    &[style='--background:lime-blue;'] {
+        &:after {
+            background-color: var(--lime-blue);
+        }
+    }
+    &[style='--background:lime-orange;'] {
+        &:after {
+            background-color: var(--lime-orange);
+        }
+    }
+    &[style='--background:lime-green;'] {
+        &:after {
+            background-color: var(--lime-green);
+        }
+    }
+    &[style='--background:lime-red;'] {
+        &:after {
+            background-color: var(--lime-red);
+        }
+    }
+    &[style='--background:lime-dark-blue;'] {
+        &:after {
+            background-color: var(--lime-dark-blue);
+        }
+    }
+    &[style='--background:lime-turquoise;'] {
+        &:after {
+            background-color: var(--lime-turquoise);
+        }
+    }
+    &[style='--background:lime-yellow;'] {
+        &:after {
+            background-color: var(--lime-yellow);
+        }
+    }
+    &[style='--background:lime-light-grey;'] {
+        &:after {
+            background-color: var(--lime-light-grey);
+        }
+    }
+}

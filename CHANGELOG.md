@@ -1,3 +1,568 @@
+## [34.1.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.25...v34.1.0-next.26) (2021-12-21)
+
+
+### Features
+
+* **list:** add the possibility to use a custom component inside the limel-list ([4c05353](https://github.com/Lundalogik/lime-elements/commit/4c05353bef35329c83748d162a85c1eaf8a563c3))
+
+## [34.1.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.24...v34.1.0-next.25) (2021-12-21)
+
+
+### Bug Fixes
+
+* **color-picker:** add "lime-magenta" color ([22f3366](https://github.com/Lundalogik/lime-elements/commit/22f3366d25dacf4cedf68e12ed2037759f4da108))
+
+## [34.1.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.23...v34.1.0-next.24) (2021-12-13)
+
+
+### Bug Fixes
+
+* **array-field-collapsible:** change the order of the icons "up", "down", "trash" ([610b822](https://github.com/Lundalogik/lime-elements/commit/610b8226e6ceb1fc2954f4d698ab595e460227f5))
+
+## [34.1.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.22...v34.1.0-next.23) (2021-12-10)
+
+
+### Features
+
+* **form:** make it possible to customize the default error messages ([e5a2719](https://github.com/Lundalogik/lime-elements/commit/e5a271983a64c148dd9ff9bda123c3bcbf5044c7))
+
+## [34.1.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.21...v34.1.0-next.22) (2021-12-09)
+
+
+### Bug Fixes
+
+* **menu-list:** display: block, to avoid a vertical scroll bar ([a3e2459](https://github.com/Lundalogik/lime-elements/commit/a3e2459c2e9d669176c244794d69695efa369244))
+
+## [34.1.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.20...v34.1.0-next.21) (2021-12-09)
+
+
+### Bug Fixes
+
+* **menu-list:** add margin to visualize keyboard-focused items ([314a674](https://github.com/Lundalogik/lime-elements/commit/314a67436f9f8518e80af89f2e4083eaafbc3b37))
+
+## [34.1.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.19...v34.1.0-next.20) (2021-12-08)
+
+
+### Features
+
+* **code-editor:** allow controlling the maximum height of the component ([89090dc](https://github.com/Lundalogik/lime-elements/commit/89090dcbf67b8051b847edc0c2c7299e18504b21))
+
+
+### Bug Fixes
+
+* **code-editor:** let code editor grow as tall as its content ([cbf0b38](https://github.com/Lundalogik/lime-elements/commit/cbf0b38aca22fd09a2469b9f02d8083b8f87ffeb))
+
+## [34.1.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.18...v34.1.0-next.19) (2021-12-08)
+
+
+### Bug Fixes
+
+* **input-field:** prevent value being covered by trailing icon when `showLink=true` & `readonly` ([32248a0](https://github.com/Lundalogik/lime-elements/commit/32248a0242467fdd1a00e963bd54305f9e484674))
+
+## [34.1.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.17...v34.1.0-next.18) (2021-12-08)
+
+
+### Bug Fixes
+
+* **file:** use given language for chip-set as well ([5a3de5c](https://github.com/Lundalogik/lime-elements/commit/5a3de5c4a321760329a77520c63e40326a79c37e))
+
+## [34.1.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.16...v34.1.0-next.17) (2021-12-07)
+
+
+### Bug Fixes
+
+* **input-field:** make the "clear all" button in input type="search" work ([6607818](https://github.com/Lundalogik/lime-elements/commit/6607818a3f8eccae500e7e76574eea7fcb8bde0b))
+
+## [34.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.15...v34.1.0-next.16) (2021-12-07)
+
+
+### Bug Fixes
+
+* **form:** honor `lime.component.props.disabled` for all form components ([0da8529](https://github.com/Lundalogik/lime-elements/commit/0da85299af79344e20082c0d8b65f51dd0c291cb))
+* **form:** honor `lime.component.props.disabled` for limel-select ([83381f8](https://github.com/Lundalogik/lime-elements/commit/83381f8d4ca54defe9672279a5662b615ee642bb)), closes [#1477](https://github.com/Lundalogik/lime-elements/issues/1477)
+
+## [34.1.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.14...v34.1.0-next.15) (2021-12-07)
+
+
+### Bug Fixes
+
+* **menu-list:** import styles from `limel-list` to remove duplicate css ([2d5d05c](https://github.com/Lundalogik/lime-elements/commit/2d5d05cbcca81752058ee930759adb921dfef843))
+
+## [34.1.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.13...v34.1.0-next.14) (2021-12-07)
+
+
+### Bug Fixes
+
+* **form:** don't use boolean values as the title in a collapsible section ([1900e32](https://github.com/Lundalogik/lime-elements/commit/1900e323d6db61d0dd08835af719a4089945fa10))
+
+## [34.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.12...v34.1.0-next.13) (2021-12-06)
+
+
+### Bug Fixes
+
+* **color-picker:** add support for showing deprecated `lime-light-grey` color ([51b0915](https://github.com/Lundalogik/lime-elements/commit/51b0915a82facc493b5c0ad7f5a4ca0faed0c456))
+
+## [34.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.11...v34.1.0-next.12) (2021-12-06)
+
+
+### Bug Fixes
+
+* **slider:** round invalid values to step ([ffc67bf](https://github.com/Lundalogik/lime-elements/commit/ffc67bffb525d674e297c6a5caf0dc89159bd699)), closes [Lundalogik/crm-feature#2301](https://github.com/Lundalogik/crm-feature/issues/2301) [Lundalogik/crm-feature#2419](https://github.com/Lundalogik/crm-feature/issues/2419)
+
+## [34.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.10...v34.1.0-next.11) (2021-12-03)
+
+
+### Bug Fixes
+
+* **color-picker-pallet:** add support for deprecated lime colors ([d2c4761](https://github.com/Lundalogik/lime-elements/commit/d2c47613eeccdea76835a86d0b4715bad30f013a))
+
+## [34.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.9...v34.1.0-next.10) (2021-12-03)
+
+
+### Bug Fixes
+
+* **color-picker:** render the tooltip if there is a tooltip label ([51a715b](https://github.com/Lundalogik/lime-elements/commit/51a715ba7a6271d06eb70e4bfaabe9ac2179a784))
+
+## [34.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.8...v34.1.0-next.9) (2021-12-02)
+
+
+### Features
+
+* add `limel-color-picker` component ([b03f56c](https://github.com/Lundalogik/lime-elements/commit/b03f56c0b43becf42440d3766dd483b919be458f))
+
+## [34.1.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.7...v34.1.0-next.8) (2021-12-02)
+
+
+### Bug Fixes
+
+* **progress-flow:** fix rendering problem on iOS ([4f6487b](https://github.com/Lundalogik/lime-elements/commit/4f6487bb7cc96b97c9819458e697ff3133c084e4)), closes [Lundalogik/crm-feature#2453](https://github.com/Lundalogik/crm-feature/issues/2453)
+
+## [34.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.6...v34.1.0-next.7) (2021-12-01)
+
+
+### Bug Fixes
+
+* **list:** make list items to be as wide as the list ([ad18ce9](https://github.com/Lundalogik/lime-elements/commit/ad18ce9d290573e59f8809f81e82f7d9a7ce42a8))
+
+## [34.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.5...v34.1.0-next.6) (2021-11-30)
+
+
+### Bug Fixes
+
+* **slider:** ensure that the component doesn't crash when value % step !== 0 ([24c8433](https://github.com/Lundalogik/lime-elements/commit/24c843329eaeed91606404095869fd9a8441cbcf))
+
+## [34.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.4...v34.1.0-next.5) (2021-11-30)
+
+
+### Features
+
+* **form:** make it possible to disable whole form ([6b9f463](https://github.com/Lundalogik/lime-elements/commit/6b9f463c5bb337253fabae65cf8a7e8ef57057e5))
+
+## [34.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.3...v34.1.0-next.4) (2021-11-30)
+
+
+### Bug Fixes
+
+* **progress-flow:** remove selected indicators of off-pogress steps ([6d362f3](https://github.com/Lundalogik/lime-elements/commit/6d362f3b6345ceab5de749a5cf8fc49e418e9ac8))
+
+## [34.1.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.2...v34.1.0-next.3) (2021-11-25)
+
+
+### Features
+
+* **picker:** add support for disabling badge icons ([2534149](https://github.com/Lundalogik/lime-elements/commit/253414913295d5014b0a3d4032e91ec80b2ca5c7)), closes [Lundalogik/crm-feature#2471](https://github.com/Lundalogik/crm-feature/issues/2471)
+
+## [34.1.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.1...v34.1.0-next.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* **form:** use `title` as label on button-add-new ([5a5bd85](https://github.com/Lundalogik/lime-elements/commit/5a5bd8501f5a8c3f18929eede03bb8cb035fcbd8))
+
+## [34.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.10...v34.1.0-next.1) (2021-11-24)
+
+
+### Features
+
+* **list:** enable keyboard typeahead navigation ([a6af160](https://github.com/Lundalogik/lime-elements/commit/a6af1601671f8fd2bf81635d6e2974f78855db18))
+
+### [34.0.2-next.10](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.9...v34.0.2-next.10) (2021-11-23)
+
+
+### Bug Fixes
+
+* **array-field-collapsible-item:** add margin-bottom to the collapsible ([4f72d52](https://github.com/Lundalogik/lime-elements/commit/4f72d52dc5836e84ff4e4dba18fbb0a1e1d497da))
+
+### [34.0.2-next.9](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.8...v34.0.2-next.9) (2021-11-23)
+
+
+### Bug Fixes
+
+* **code-editor:** cleanup old editor html on disconnect ([40c3242](https://github.com/Lundalogik/lime-elements/commit/40c3242065663119413edefd76be4b56fc2ba787))
+* **form:** use key from rjsf for array items ([ea6c03b](https://github.com/Lundalogik/lime-elements/commit/ea6c03b2d95c701243e86c748763131ca08eb60f)), closes [Lundalogik/crm-feature#2486](https://github.com/Lundalogik/crm-feature/issues/2486)
+
+### [34.0.2-next.8](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.7...v34.0.2-next.8) (2021-11-23)
+
+
+### Bug Fixes
+
+* **form:** customize layout of checkbox and switch only in grid form ([1f3233f](https://github.com/Lundalogik/lime-elements/commit/1f3233fa9fce97281f8ee1af15e06f87aca09f5e)), closes [Lundalogik/crm-feature#2273](https://github.com/Lundalogik/crm-feature/issues/2273)
+* **select:** allow select element to grow in height ([78409c3](https://github.com/Lundalogik/lime-elements/commit/78409c372bff0e6185090191898c7d73e208db05)), closes [Lundalogik/crm-feature#2273](https://github.com/Lundalogik/crm-feature/issues/2273)
+
+### [34.0.2-next.7](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.6...v34.0.2-next.7) (2021-11-22)
+
+
+### Bug Fixes
+
+* **collapsible-section:** reflect `header` property to attribute ([d47a240](https://github.com/Lundalogik/lime-elements/commit/d47a240a34b1aaa48ff1ea5feb50f65b8db12af2))
+
+
+### Performance Improvements
+
+* **collapsible-section:** do not synthesize click on keypress ([10ae39a](https://github.com/Lundalogik/lime-elements/commit/10ae39a906f44e550fe10c81875cd603537c66e6))
+
+### [34.0.2-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.5...v34.0.2-next.6) (2021-11-22)
+
+
+### Bug Fixes
+
+* **date-picker:** prevent month picker from sometimes skipping a year when navigating ([d463154](https://github.com/Lundalogik/lime-elements/commit/d4631547c6a77c26ab71b659dd2fc46e9e64d3a1)), closes [#1455](https://github.com/Lundalogik/lime-elements/issues/1455)
+
+### [34.0.2-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.4...v34.0.2-next.5) (2021-11-19)
+
+
+### Bug Fixes
+
+* **collapsible-section:** render header in 2 lines first, then truncate ([e8838f4](https://github.com/Lundalogik/lime-elements/commit/e8838f4dbad497154c75fc53ca324f6c22ff5a8e))
+
+### [34.0.2-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.3...v34.0.2-next.4) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** fix alignment issues of checkbox & switch in forms ([b2b7893](https://github.com/Lundalogik/lime-elements/commit/b2b7893fa24da5bd3a0319ca4f17d84ec1d9bbe4))
+
+### [34.0.2-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.2...v34.0.2-next.3) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** give visual details to nested form titles to reflect hierarchy better ([b3f5ab1](https://github.com/Lundalogik/lime-elements/commit/b3f5ab18bfaf866f7bc46d963ce1a4d0e204320c))
+* **form:** make nested headings in forms decrease size to reflect hierarchy ([ffcdfe1](https://github.com/Lundalogik/lime-elements/commit/ffcdfe1f3f068c3a9f737cadf3a5e9efc49c7cdc))
+
+### [34.0.2-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.0.2-next.1...v34.0.2-next.2) (2021-11-18)
+
+
+### Bug Fixes
+
+* **table:** don't apply low density styles for footers ([ef91e5f](https://github.com/Lundalogik/lime-elements/commit/ef91e5fac943fe6ae7baa1bf1b9a0d75c3aa3af2))
+
+### [34.0.2-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.1...v34.0.2-next.1) (2021-11-18)
+
+
+### Bug Fixes
+
+* **form:** make button that adds new form elements stretch through the entire width ([945f405](https://github.com/Lundalogik/lime-elements/commit/945f405f0a52077d8be2a7cdc5874a924e596888))
+* **form:** remove `outlined` style of the button that adds new form elements ([e0f163a](https://github.com/Lundalogik/lime-elements/commit/e0f163a7d5963178818d65ccb054d8ef3e6b69ad))
+
+### [34.0.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.0...v34.0.1) (2021-11-16)
+
+
+### Bug Fixes
+
+* **list:** fix broken import of `MenuItem` so docs builds correctly ([2ae72c8](https://github.com/Lundalogik/lime-elements/commit/2ae72c8bc5d3e9cf69ca1a84601281c585b4bed3))
+
+### [34.0.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.0.0...v34.0.1-next.1) (2021-11-16)
+
+
+### Bug Fixes
+
+* **list:** fix broken import of `MenuItem` so docs builds correctly ([2ae72c8](https://github.com/Lundalogik/lime-elements/commit/2ae72c8bc5d3e9cf69ca1a84601281c585b4bed3))
+
+## [34.0.0](https://github.com/Lundalogik/lime-elements/compare/v33.13.0...v34.0.0) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **form:** The deprecated property `span` has been removed from the interface
+`FormLayoutOptions`. To achieve the same functionality, switch the interface used from
+`FormLayoutOptions` to `GridLayoutOptions` and set the property `colSpan` instead.
+* **picker:** The deprecated property `displayFullList` on `limel-picker` has been
+removed. Setting the property had no effect even before this change, but since the
+property has now been removed, any consumers that are importing types from
+@limetech/lime-elements and are setting this property, will get an error when
+building. The solution is to simply not set the property.
+* **dialog:** The deprecated property `badgeIcon` on the interface `DialogHeading`
+has been removed. Setting the property already had no effect, but since the property
+has now been removed, any consumers that are importing types from
+**@limetech/lime-elements** and are setting this property, will get an error when
+building. The solution is to simply not set the property.
+* **menu:** Support for using `limel-menu` without supplying you own trigger
+element has been removed. The deprecated property `label`, which was only used when
+the default trigger element was used, has thus also been removed.
+* **menu:** The deprecated property `fixed` on `limel-menu` has been removed.
+* **table:** since cells are now rendered as inline-flex,
+in some cases, custom components that are loaded within them
+might get shrunk and might not stretch to fill the cell entirely;
+unless you specify for example a `width: 100%;` style
+or other proper styles for them.
+* **list:** Because `limel-menu` no longer uses the `ListItem` interface,
+properties only used by `limel-menu` has been removed from the `ListItem` interface.
+
+This change should not be breaking if you are using the `ListItem` interface as
+intended. However, if you are adding values to properties intended for use only by
+`limel-menu` when supplying list items to `limel-list`, you will need to remove those
+properties, or the compiler will complain.
+* **menu:** `limel-menu` now uses the new interface `MenuItem` instead of the
+interface `ListItem`. `MenuItem` contains all properties from `ListItem` that were
+used by `limel-menu`, but does not contain any of the properties from `ListItem`
+that were _not_ used by `limel-menu`.
+
+If you are _not_ importing types from **@limetech/lime-elements**, this change should
+not be breaking for you.
+
+If you _are_ importing types from **@limetech/lime-elements**, and you are using
+`limel-menu`, then fixing any issues should simply be a matter of building your code
+and replacing `ListItem` with `MenuItem` wherever the compiler complains about the
+wrong type being used.
+
+### Features
+
+* **button-group:** apply a tooltip component ([43cc060](https://github.com/Lundalogik/lime-elements/commit/43cc06001a777c2d6a763f0359d929097e5f5251))
+* **header:** make header component public ([8a5e060](https://github.com/Lundalogik/lime-elements/commit/8a5e0604cc0ed7108603b5f2cbbe6be65115471e)), closes [Lundalogik/crm-feature#2026](https://github.com/Lundalogik/crm-feature/issues/2026)
+* **list:** support a hotkey at menu component ([f2b3688](https://github.com/Lundalogik/lime-elements/commit/f2b3688567d283c6a1a7f711dc141c8eb664a6be))
+* **menu:** add support for wrapped focus and typeahead ([9e520da](https://github.com/Lundalogik/lime-elements/commit/9e520dad8afc903e360a6e7843ac058fd7c4589f)), closes [Lundalogik/crm-feature#2380](https://github.com/Lundalogik/crm-feature/issues/2380)
+* **popover:** make popover public ([3db6a27](https://github.com/Lundalogik/lime-elements/commit/3db6a279318c05d2c71c09ea64187af8fc9a824b)), closes [Lundalogik/crm-feature#2102](https://github.com/Lundalogik/crm-feature/issues/2102)
+* **tab-panel:** add interface for tab-panel components ([64d3123](https://github.com/Lundalogik/lime-elements/commit/64d31231eb50a37488ff633aef3f2aed0d511498)), closes [#1264](https://github.com/Lundalogik/lime-elements/issues/1264)
+* **tooltip:** add tooltip component ([452fb56](https://github.com/Lundalogik/lime-elements/commit/452fb56110c87110be2956ef9e873dc44d37c96d)), closes [Lundalogik/crm-feature#2336](https://github.com/Lundalogik/crm-feature/issues/2336)
+
+
+### Bug Fixes
+
+* **button-group:** prefix id with letter, to avoid possible invalid id ([eeb2514](https://github.com/Lundalogik/lime-elements/commit/eeb25148d38d0df6327bebff4185560cff25f05b))
+* **config:** make sure the config component does not crash if there is no config ([73b8657](https://github.com/Lundalogik/lime-elements/commit/73b86571b436e11568ed5146b83e520f55e22de4))
+* **dialog:** UX issue with a button rendering ([3a90fd3](https://github.com/Lundalogik/lime-elements/commit/3a90fd3817f154521e692e292bc5277b93944106))
+* **menu:** add missing attributes to menu trigger ([7d4ae48](https://github.com/Lundalogik/lime-elements/commit/7d4ae48150a495bf906a9d9f040a331720415016)), closes [Lundalogik/crm-feature#2380](https://github.com/Lundalogik/crm-feature/issues/2380)
+* **menu:** make MenuItem generic ([3934e54](https://github.com/Lundalogik/lime-elements/commit/3934e548ff586d9c3f383bc2f90b0d5d3586a543))
+* **menu:** remove export of deleted interface ([55debf7](https://github.com/Lundalogik/lime-elements/commit/55debf72fe3652ee4536bf9291e92595ce78d160))
+* **menu:** set focus on menu item when menu is opened ([b552a85](https://github.com/Lundalogik/lime-elements/commit/b552a8564f6f421c90c0b6910093fd95a02fbf0b)), closes [Lundalogik/crm-feature#2380](https://github.com/Lundalogik/crm-feature/issues/2380)
+* **progress-flow:** remove scrollbar that sometimes appears ([ab519c4](https://github.com/Lundalogik/lime-elements/commit/ab519c4124338a09d0399eaa057b46c11204cd12))
+* **table:** handle alignment of cell content using flex ([b33684e](https://github.com/Lundalogik/lime-elements/commit/b33684e0854a7c345f8c8654bba9038e01ec8db6))
+* **table:** render tall cells of low density table using height… ([71066e7](https://github.com/Lundalogik/lime-elements/commit/71066e70d67afbaaca05cc11313040ffe9859882))
+* **tabs:** emit event for inactive tab before active ([60a70a0](https://github.com/Lundalogik/lime-elements/commit/60a70a008271fec46be41945146ccbc4c1dc48bd))
+* **tooltip:** better support darkmode ([f9e38bb](https://github.com/Lundalogik/lime-elements/commit/f9e38bb54a1d4477e6e4a103cb48a97c15e1f7db))
+* **tooltip:** capital letters at shortcuts ([ea101d5](https://github.com/Lundalogik/lime-elements/commit/ea101d5adc261349458c7d0fba8239480dd99ccb))
+* **tooltip:** delay showing tooltip to avoid blinking when moving mouse quickly ([a047e43](https://github.com/Lundalogik/lime-elements/commit/a047e434b0b3fae8bbd0abb6c88405c2e3732018)), closes [#1397](https://github.com/Lundalogik/lime-elements/issues/1397)
+* **tooltip:** display with animation ([ef1ee1f](https://github.com/Lundalogik/lime-elements/commit/ef1ee1f0ae1e662a3754b21be6825e69c4a40b78))
+* **tooltip:** fix cursor flicker by disabling pointer-events on tooltip ([2023aca](https://github.com/Lundalogik/lime-elements/commit/2023aca43b2ca07886c39ee068b23e253af069f0))
+* **tooltip:** improve component API and accessibility ([bb2b7bb](https://github.com/Lundalogik/lime-elements/commit/bb2b7bb39bf81662a07d124918e8155749aa45f3))
+* **tooltip:** make it look neater and less like buttons ([ec073e0](https://github.com/Lundalogik/lime-elements/commit/ec073e0b4e654eca7a80bb30ece8833354c12d20))
+* **tooltip:** prevent it from breaking the UI in some situations ([0071930](https://github.com/Lundalogik/lime-elements/commit/0071930386e8f28dc070285648985ab5b98e40cd))
+* **tooltip:** reflect primitive attributes ([92f2645](https://github.com/Lundalogik/lime-elements/commit/92f264503169d81dd7e5b56122d1d957795ecc4c))
+
+
+### Performance Improvements
+
+* **menu:** remove deprecated property `fixed` ([2a7ebed](https://github.com/Lundalogik/lime-elements/commit/2a7ebed95632ddf1c12a047f2be8603216415f8b))
+* **menu:** remove deprecated support for default trigger ([d6c3de3](https://github.com/Lundalogik/lime-elements/commit/d6c3de35fa0ef79200f98ec42bc6adf2e39ce332))
+
+
+### Code Refactoring
+
+* **list:** remove unused menu functionality ([31accdf](https://github.com/Lundalogik/lime-elements/commit/31accdf2827d45529a2f6247e247a5f601e91046)), closes [#1395](https://github.com/Lundalogik/lime-elements/issues/1395)
+* **menu:** use new interface `MenuItem` instead of `ListItem` ([7ca7de4](https://github.com/Lundalogik/lime-elements/commit/7ca7de462a4a285660eb63fb1cefdefc9a1fd088)), closes [#1395](https://github.com/Lundalogik/lime-elements/issues/1395)
+
+
+### Miscellaneous Chores
+
+* **dialog:** remove deprecated property `badgeIcon` from `DialogHeading` ([6c180bc](https://github.com/Lundalogik/lime-elements/commit/6c180bcfdf0775f39d072da5d6509e55104ec99e))
+* **form:** remove the deprecated property `span` from `FormLayoutOptions` ([3bf95fd](https://github.com/Lundalogik/lime-elements/commit/3bf95fd8c3d8332fd00fe6fa607cc6f68b606e4e))
+* **picker:** remove deprecated and unused property `displayFullList` ([2fa2875](https://github.com/Lundalogik/lime-elements/commit/2fa28755b6242b4ab0cbbb8fe43e0a5a4a0caa6d))
+
+## [34.0.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.6...v34.0.0-next.7) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **form:** The deprecated property `span` has been removed from the interface
+`FormLayoutOptions`. To achieve the same functionality, switch the interface used from
+`FormLayoutOptions` to `GridLayoutOptions` and set the property `colSpan` instead.
+
+### Miscellaneous Chores
+
+* **form:** remove the deprecated property `span` from `FormLayoutOptions` ([3bf95fd](https://github.com/Lundalogik/lime-elements/commit/3bf95fd8c3d8332fd00fe6fa607cc6f68b606e4e))
+
+## [34.0.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.5...v34.0.0-next.6) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **picker:** The deprecated property `displayFullList` on `limel-picker` has been
+removed. Setting the property had no effect even before this change, but since the
+property has now been removed, any consumers that are importing types from
+@limetech/lime-elements and are setting this property, will get an error when
+building. The solution is to simply not set the property.
+
+### Miscellaneous Chores
+
+* **picker:** remove deprecated and unused property `displayFullList` ([2fa2875](https://github.com/Lundalogik/lime-elements/commit/2fa28755b6242b4ab0cbbb8fe43e0a5a4a0caa6d))
+
+## [34.0.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.4...v34.0.0-next.5) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **dialog:** The deprecated property `badgeIcon` on the interface `DialogHeading`
+has been removed. Setting the property already had no effect, but since the property
+has now been removed, any consumers that are importing types from
+**@limetech/lime-elements** and are setting this property, will get an error when
+building. The solution is to simply not set the property.
+
+### Miscellaneous Chores
+
+* **dialog:** remove deprecated property `badgeIcon` from `DialogHeading` ([6c180bc](https://github.com/Lundalogik/lime-elements/commit/6c180bcfdf0775f39d072da5d6509e55104ec99e))
+
+## [34.0.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.3...v34.0.0-next.4) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** Support for using `limel-menu` without supplying you own trigger
+element has been removed. The deprecated property `label`, which was only used when
+the default trigger element was used, has thus also been removed.
+
+### Performance Improvements
+
+* **menu:** remove deprecated support for default trigger ([d6c3de3](https://github.com/Lundalogik/lime-elements/commit/d6c3de35fa0ef79200f98ec42bc6adf2e39ce332))
+
+## [34.0.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.2...v34.0.0-next.3) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** The deprecated property `fixed` on `limel-menu` has been removed.
+
+### Performance Improvements
+
+* **menu:** remove deprecated property `fixed` ([2a7ebed](https://github.com/Lundalogik/lime-elements/commit/2a7ebed95632ddf1c12a047f2be8603216415f8b))
+
+## [34.0.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.0.0-next.1...v34.0.0-next.2) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **table:** since cells are now rendered as inline-flex,
+in some cases, custom components that are loaded within them
+might get shrunk and might not stretch to fill the cell entirely;
+unless you specify for example a `width: 100%;` style
+or other proper styles for them.
+
+### Bug Fixes
+
+* **table:** handle alignment of cell content using flex ([b33684e](https://github.com/Lundalogik/lime-elements/commit/b33684e0854a7c345f8c8654bba9038e01ec8db6))
+* **table:** render tall cells of low density table using height… ([71066e7](https://github.com/Lundalogik/lime-elements/commit/71066e70d67afbaaca05cc11313040ffe9859882))
+
+## [34.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.17...v34.0.0-next.1) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **list:** Because `limel-menu` no longer uses the `ListItem` interface,
+properties only used by `limel-menu` has been removed from the `ListItem` interface.
+
+This change should not be breaking if you are using the `ListItem` interface as
+intended. However, if you are adding values to properties intended for use only by
+`limel-menu` when supplying list items to `limel-list`, you will need to remove those
+properties, or the compiler will complain.
+* **menu:** `limel-menu` now uses the new interface `MenuItem` instead of the
+interface `ListItem`. `MenuItem` contains all properties from `ListItem` that were
+used by `limel-menu`, but does not contain any of the properties from `ListItem`
+that were _not_ used by `limel-menu`.
+
+If you are _not_ importing types from **@limetech/lime-elements**, this change should
+not be breaking for you.
+
+If you _are_ importing types from **@limetech/lime-elements**, and you are using
+`limel-menu`, then fixing any issues should simply be a matter of building your code
+and replacing `ListItem` with `MenuItem` wherever the compiler complains about the
+wrong type being used.
+
+### Code Refactoring
+
+* **list:** remove unused menu functionality ([31accdf](https://github.com/Lundalogik/lime-elements/commit/31accdf2827d45529a2f6247e247a5f601e91046)), closes [#1395](https://github.com/Lundalogik/lime-elements/issues/1395)
+* **menu:** use new interface `MenuItem` instead of `ListItem` ([7ca7de4](https://github.com/Lundalogik/lime-elements/commit/7ca7de462a4a285660eb63fb1cefdefc9a1fd088)), closes [#1395](https://github.com/Lundalogik/lime-elements/issues/1395)
+
+## [33.14.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.16...v33.14.0-next.17) (2021-11-12)
+
+
+### Bug Fixes
+
+* **config:** make sure the config component does not crash if there is no config ([73b8657](https://github.com/Lundalogik/lime-elements/commit/73b86571b436e11568ed5146b83e520f55e22de4))
+
+## [33.14.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.15...v33.14.0-next.16) (2021-11-04)
+
+
+### Bug Fixes
+
+* **progress-flow:** remove scrollbar that sometimes appears ([ab519c4](https://github.com/Lundalogik/lime-elements/commit/ab519c4124338a09d0399eaa057b46c11204cd12))
+
+## [33.14.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.14...v33.14.0-next.15) (2021-11-04)
+
+
+### Bug Fixes
+
+* **menu:** remove export of deleted interface ([55debf7](https://github.com/Lundalogik/lime-elements/commit/55debf72fe3652ee4536bf9291e92595ce78d160))
+
+## [33.14.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.13...v33.14.0-next.14) (2021-11-02)
+
+
+### Bug Fixes
+
+* **tooltip:** prevent it from breaking the UI in some situations ([0071930](https://github.com/Lundalogik/lime-elements/commit/0071930386e8f28dc070285648985ab5b98e40cd))
+
+## [33.14.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.12...v33.14.0-next.13) (2021-11-01)
+
+
+### Bug Fixes
+
+* **tooltip:** better support darkmode ([f9e38bb](https://github.com/Lundalogik/lime-elements/commit/f9e38bb54a1d4477e6e4a103cb48a97c15e1f7db))
+* **tooltip:** display with animation ([ef1ee1f](https://github.com/Lundalogik/lime-elements/commit/ef1ee1f0ae1e662a3754b21be6825e69c4a40b78))
+* **tooltip:** make it look neater and less like buttons ([ec073e0](https://github.com/Lundalogik/lime-elements/commit/ec073e0b4e654eca7a80bb30ece8833354c12d20))
+
+## [33.14.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.11...v33.14.0-next.12) (2021-11-01)
+
+
+### Features
+
+* **header:** make header component public ([8a5e060](https://github.com/Lundalogik/lime-elements/commit/8a5e0604cc0ed7108603b5f2cbbe6be65115471e)), closes [Lundalogik/crm-feature#2026](https://github.com/Lundalogik/crm-feature/issues/2026)
+* **popover:** make popover public ([3db6a27](https://github.com/Lundalogik/lime-elements/commit/3db6a279318c05d2c71c09ea64187af8fc9a824b)), closes [Lundalogik/crm-feature#2102](https://github.com/Lundalogik/crm-feature/issues/2102)
+
+## [33.14.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.10...v33.14.0-next.11) (2021-10-29)
+
+
+### Bug Fixes
+
+* **menu:** make MenuItem generic ([3934e54](https://github.com/Lundalogik/lime-elements/commit/3934e548ff586d9c3f383bc2f90b0d5d3586a543))
+
+## [33.14.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.9...v33.14.0-next.10) (2021-10-29)
+
+
+### Features
+
+* **button-group:** apply a tooltip component ([43cc060](https://github.com/Lundalogik/lime-elements/commit/43cc06001a777c2d6a763f0359d929097e5f5251))
+
+
+### Bug Fixes
+
+* **button-group:** prefix id with letter, to avoid possible invalid id ([eeb2514](https://github.com/Lundalogik/lime-elements/commit/eeb25148d38d0df6327bebff4185560cff25f05b))
+
+## [33.14.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.8...v33.14.0-next.9) (2021-10-29)
+
+
+### Features
+
+* **list:** support a hotkey at menu component ([f2b3688](https://github.com/Lundalogik/lime-elements/commit/f2b3688567d283c6a1a7f711dc141c8eb664a6be))
+
 ## [33.14.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v33.14.0-next.7...v33.14.0-next.8) (2021-10-26)
 
 

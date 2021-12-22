@@ -29,6 +29,12 @@
     <link href="/build/lime-elements.css" rel="stylesheet" />
     <script type="module" src="/build/lime-elements.esm.js"></script>
 
+    <limel-config></limel-config>
+
+    <script>
+        document.querySelector('limel-config').config = { iconPath: 'https://lundalogik.github.io/lime-icons8/' };
+    </script>
+
     <kompendium-app path="/kompendium.json"></kompendium-app>
 </body>
 

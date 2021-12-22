@@ -89,6 +89,11 @@ export class CodeEditor {
         this.editor = null;
 
         this.darkMode.removeEventListener('change', this.handleChangeDarkMode);
+
+        const editorElement = this.host.shadowRoot.querySelector('.editor');
+        editorElement?.childNodes.forEach((child) => {
+            child.remove();
+        });
     }
 
     public componentDidRender() {

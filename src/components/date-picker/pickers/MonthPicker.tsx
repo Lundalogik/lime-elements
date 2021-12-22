@@ -161,17 +161,25 @@ export class MonthPicker extends Picker {
         }
     }
 
-    private prevYear(event) {
+    private prevYear() {
         if (!this.nativePicker) {
-            event.stopImmediatePropagation();
-            this.flatpickr.changeMonth(-NBROFMONTHS);
+            // Preventing default or stopping the event from propagating doesn't
+            // stop flatpickr from moving one month on its own, so we let it do
+            // that, and then move the other 11 months to make it a full year.
+            // /Ads
+            const monthsToMove = 11;
+            this.flatpickr.changeMonth(-monthsToMove);
         }
     }
 
-    private nextYear(event) {
+    private nextYear() {
         if (!this.nativePicker) {
-            event.stopImmediatePropagation();
-            this.flatpickr.changeMonth(NBROFMONTHS);
+            // Preventing default or stopping the event from propagating doesn't
+            // stop flatpickr from moving one month on its own, so we let it do
+            // that, and then move the other 11 months to make it a full year.
+            // /Ads
+            const monthsToMove = 11;
+            this.flatpickr.changeMonth(monthsToMove);
         }
     }
 }

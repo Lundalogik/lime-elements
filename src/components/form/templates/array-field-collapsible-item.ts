@@ -67,7 +67,7 @@ export class CollapsibleItemTemplate extends React.Component {
             'limel-collapsible-section',
             {
                 header: findTitle(data, schema, formSchema) || 'New item',
-                className: 'limel-form-array-item--object',
+                class: 'limel-form-array-item--object',
                 ref: 'section',
                 'is-open': this.isOpen,
             },
@@ -79,10 +79,10 @@ export class CollapsibleItemTemplate extends React.Component {
         const { item, index } = this.props;
         const actions: Array<Action & Runnable> = [
             {
-                id: 'remove',
-                icon: 'trash',
-                disabled: !item.hasRemove,
-                run: item.onDropIndexClick(index),
+                id: 'down',
+                icon: 'down_arrow',
+                disabled: !item.hasMoveDown,
+                run: item.onReorderClick(index, index + 1),
             },
             {
                 id: 'up',
@@ -91,10 +91,10 @@ export class CollapsibleItemTemplate extends React.Component {
                 run: item.onReorderClick(index, index - 1),
             },
             {
-                id: 'down',
-                icon: 'down_arrow',
-                disabled: !item.hasMoveDown,
-                run: item.onReorderClick(index, index + 1),
+                id: 'remove',
+                icon: 'trash',
+                disabled: !item.hasRemove,
+                run: item.onDropIndexClick(index),
             },
         ];
 

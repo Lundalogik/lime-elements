@@ -24,10 +24,6 @@ export const config: Config = {
                 { src: 'style/color-palette-extended-light-mode-only.css' },
                 { src: 'style/color-palette-extended.css' },
                 {
-                    src: '../node_modules/@lundalogik/lime-icons8/assets/',
-                    dest: 'assets/',
-                },
-                {
                     src: '../node_modules/kompendium/dist/',
                     dest: 'assets/kompendium/',
                 },
@@ -38,15 +34,6 @@ export const config: Config = {
             ],
         },
     ],
-    commonjs: {
-        namedExports: {
-            'node_modules/react-dom/index.js': [
-                'render',
-                'unmountComponentAtNode',
-            ],
-            'node_modules/react/index.js': ['Component', 'forwardRef'],
-        },
-    },
     plugins: [sass()],
     tsconfig: './tsconfig.docs.json',
     globalStyle: 'src/global/core-styles.scss',

@@ -1,0 +1,23 @@
+@use '../../style/functions';
+
+@import '../list/list';
+
+:host(limel-menu-list) {
+    display: block;
+}
+
+.mdc-menu {
+    max-height: 70vh; // force tall menus render inside the viewport when menu is at the bottom of the screen
+}
+
+.mdc-deprecated-list {
+    margin: functions.pxToRem(4);
+    // added space to visualize keyboard-focused items
+    .mdc-deprecated-list-item[role='menuitem'] {
+        font-size: functions.pxToRem(13);
+
+        .mdc-deprecated-list-item__graphic {
+            margin-right: functions.pxToRem(14);
+        }
+    }
+}

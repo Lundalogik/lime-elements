@@ -1,5 +1,5 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { Languages } from 'src/components/date-picker/date.types';
+import { Languages } from '../../date-picker/date.types';
 import { Chip } from '../chip.types';
 
 /**

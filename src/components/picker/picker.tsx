@@ -113,16 +113,6 @@ export class Picker {
     public delimiter: string = null;
 
     /**
-     * True if the dropdown list should be displayed without cutting the content
-     *
-     * @deprecated This was used for a workaround, and isn't needed any
-     * longer. Setting it has no effect, and the property will be removed
-     * in the next major version.
-     */
-    @Prop()
-    public displayFullList: boolean = false;
-
-    /**
      * Static actions that can be clicked by the user.
      */
     @Prop()
@@ -144,6 +134,12 @@ export class Picker {
      */
     @Prop()
     public actionScrollBehavior: ActionScrollBehavior = 'sticky';
+
+    /**
+     * Whether badge icons should be used in the result list or not
+     */
+    @Prop({ reflect: true })
+    public badgeIcons: boolean = true;
 
     /**
      * Fired when a new value has been selected from the picker
@@ -448,7 +444,7 @@ export class Picker {
 
         return (
             <limel-list
-                badgeIcons={hasIcons}
+                badgeIcons={hasIcons && this.badgeIcons}
                 onChange={this.handleListChange}
                 onKeyDown={this.onListKeyDown}
                 type="selectable"

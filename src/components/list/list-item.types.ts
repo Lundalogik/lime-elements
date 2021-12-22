@@ -1,3 +1,5 @@
+import { MenuItem } from '../menu/menu.types';
+
 export interface ListItem<T = any> {
     /**
      * Text to display in the list item.
@@ -37,9 +39,26 @@ export interface ListItem<T = any> {
     /**
      * List of actions to display as a menu at the end of the item
      */
-    actions?: Array<ListItem | ListSeparator>;
+    actions?: Array<MenuItem | ListSeparator>;
+
+    /**
+     * Component used to render in the list
+     */
+    primaryComponent?: ListComponent;
 }
 
 export interface ListSeparator {
     separator: true;
+}
+
+export interface ListComponent {
+    /**
+     * Name of the custom component
+     */
+    name: string;
+
+    /**
+     * Properties to send to the custom component
+     */
+    props?: Record<string, any>;
 }

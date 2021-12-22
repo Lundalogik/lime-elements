@@ -12,6 +12,7 @@ export * from './components/input-field/input-field.types';
 export * from './components/list/list-item.types';
 export * from './components/list/list.types';
 export * from './components/menu/menu.types';
+export * from './components/menu-list/menu-list.types';
 export * from './components/picker/searcher.types';
 export * from './components/progress-flow/progress-flow.types';
 export * from './components/select/option.types';

@@ -23,6 +23,7 @@
     justify-content: center;
     color: rgba(var(--kompendium-color-white), 0.4);
     font-size: functions.pxToRem(20);
+    line-height: 99%;
 
     &:after {
         // this makes the aspect ratio 1:1

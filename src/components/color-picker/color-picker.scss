@@ -1,0 +1,66 @@
+@use '../../style/mixins';
+@import './partial-styles/lime-admin-hack';
+
+:host {
+    --popover-surface-width: 50rem;
+    --color-picker-default-background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill-opacity='0.1' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
+}
+
+.color-picker {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: auto 1fr;
+}
+
+.chosen-color-preview,
+.picker-trigger {
+    box-sizing: border-box;
+    position: relative;
+    isolation: isolate;
+    width: 3.5rem;
+    height: 3.5rem;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+    }
+
+    &:before {
+        background: var(--color-picker-default-background);
+        background-size: 0.5rem;
+        z-index: 0;
+    }
+
+    &:after {
+        background: var(--background);
+        z-index: 1;
+    }
+}
+
+.picker-trigger {
+    border-radius: 0.5rem;
+    cursor: pointer;
+    @include mixins.is-elevated-clickable();
+
+    &:after {
+        box-shadow: 0 0 0 0.25rem rgb(var(--contrast-100)) inset;
+    }
+}
+
+:host([readonly]) {
+    .picker-trigger {
+        &:hover,
+        &:active {
+            cursor: default;
+            box-shadow: var(--button-shadow-normal);
+            transform: none;
+        }
+    }
+}
+
+.chosen-color-input[readonly] {
+    transform: translateY(1rem);
+}

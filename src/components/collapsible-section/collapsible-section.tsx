@@ -1,11 +1,4 @@
-import {
-    Component,
-    Event,
-    EventEmitter,
-    h,
-    Prop,
-    Element,
-} from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { Action } from './action';
 import { ENTER, ENTER_KEY_CODE } from '../../util/keycodes';
@@ -33,7 +26,7 @@ export class CollapsibleSection {
     /**
      * Text to display in the header of the section
      */
-    @Prop()
+    @Prop({ reflect: true })
     public header: string;
 
     /**
@@ -59,14 +52,6 @@ export class CollapsibleSection {
      */
     @Event()
     private action: EventEmitter<Action>;
-
-    @Element()
-    private host: HTMLLimelCollapsibleSectionElement;
-
-    constructor() {
-        this.onClick = this.onClick.bind(this);
-        this.renderActionButton = this.renderActionButton.bind(this);
-    }
 
     public render() {
         return (
@@ -96,7 +81,21 @@ export class CollapsibleSection {
         );
     }
 
-    private onClick() {
+    private onClick = () => {
+        this.handleInteraction();
+    };
+
+    private handleKeyDown = (event: KeyboardEvent) => {
+        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
+
+        if (isEnter) {
+            event.stopPropagation();
+            event.preventDefault();
+            this.handleInteraction();
+        }
+    };
+
+    private handleInteraction = () => {
         this.isOpen = !this.isOpen;
 
         if (this.isOpen) {
@@ -106,21 +105,9 @@ export class CollapsibleSection {
         } else {
             this.close.emit();
         }
-    }
-
-    private handleKeyDown = (event: KeyboardEvent) => {
-        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
-
-        if (isEnter) {
-            event.stopPropagation();
-            event.preventDefault();
-            const element = (this.host.shadowRoot.activeElement ||
-                document.activeElement) as HTMLElement;
-            element.click();
-        }
     };
 
-    private renderActions() {
+    private renderActions = () => {
         if (!this.actions) {
             return;
         }
@@ -130,9 +117,9 @@ export class CollapsibleSection {
                 {this.actions.map(this.renderActionButton)}
             </div>
         );
-    }
+    };
 
-    private renderActionButton(action: Action) {
+    private renderActionButton = (action: Action) => {
         return (
             <limel-icon-button
                 icon={action.icon}
@@ -141,7 +128,7 @@ export class CollapsibleSection {
                 onClick={this.handleActionClick(action)}
             />
         );
-    }
+    };
 
     private handleActionClick = (action: Action) => (event: MouseEvent) => {
         event.stopPropagation();

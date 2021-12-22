@@ -118,11 +118,12 @@ export class Slider {
     }
 
     private initialize() {
-        const element =
-            this.rootElement.shadowRoot.querySelector('.mdc-slider');
-        if (!element) {
+        const inputElement = this.getInputElement();
+        if (!inputElement) {
             return;
         }
+
+        const value = this.getValue();
 
         /*
         For some reason the input element's `value` attribute is removed
@@ -131,13 +132,39 @@ export class Slider {
         MDCSlider crashes.
         So we add the attribute right before initializing MDCSlider. /Ads
         */
-        element
-            .querySelector('input')
-            .setAttribute('value', `${this.multiplyByFactor(this.getValue())}`);
+        inputElement.setAttribute('value', `${this.multiplyByFactor(value)}`);
 
-        this.mdcSlider = new MDCSlider(element);
-        this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
-        this.mdcSlider.listen('MDCSlider:input', this.inputHandler);
+        /*
+        When creating the `mdcSlider` component, its important that the value set in
+        the input field obeys the range and the step size.
+
+        The MDCSlider will throw an exception unless the value in the input element
+        is dividible by the step value and is in the provided range.
+        If an exception occurs, this component will crash and it will be impossible to change
+        its value.
+        The logic below ensures that the component will render even though the
+        provided value is wrong.
+        This could be considered wrong, but it at least fixes so that it's possible
+        to change the value from the UI.
+        */
+        const greaterThanOrEqualMin = value >= this.valuemin;
+        const lessThanOrEqualMax = value <= this.valuemax;
+
+        if (!greaterThanOrEqualMin) {
+            const newMin = this.multiplyByFactor(value);
+            inputElement.setAttribute('min', `${newMin}`);
+        }
+
+        if (!lessThanOrEqualMax) {
+            const newMax = this.multiplyByFactor(value);
+            inputElement.setAttribute('max', `${newMax}`);
+        }
+
+        if (!this.isMultipleOfStep(value, this.step)) {
+            inputElement.removeAttribute('step');
+        }
+
+        this.createMDCSlider();
     }
 
     public componentWillLoad() {
@@ -145,9 +172,7 @@ export class Slider {
     }
 
     public disconnectedCallback() {
-        this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
-        this.mdcSlider.unlisten('MDCSlider:input', this.inputHandler);
-        this.mdcSlider.destroy();
+        this.destroyMDCSlider();
     }
 
     private getContainerClassList() {
@@ -256,7 +281,19 @@ export class Slider {
             return;
         }
 
-        this.mdcSlider.setValue(this.multiplyByFactor(this.getValue()));
+        const value = this.multiplyByFactor(this.getValue());
+        this.mdcSlider.setValue(value);
+
+        if (this.isStepConfigured()) {
+            return;
+        }
+
+        const step = this.multiplyByFactor(this.step);
+        if (!this.isMultipleOfStep(value, step)) {
+            return;
+        }
+
+        this.reCreateSliderWithStep();
     }
 
     private updateDisabledState() {
@@ -268,7 +305,14 @@ export class Slider {
     }
 
     private changeHandler = (event) => {
-        this.change.emit(event.detail.value / this.factor);
+        let value = event.detail.value;
+        const step = this.multiplyByFactor(this.step);
+
+        if (!this.isMultipleOfStep(value, step)) {
+            value = this.roundToStep(value, step);
+        }
+
+        this.change.emit(value / this.factor);
     };
 
     private multiplyByFactor(value) {
@@ -292,5 +336,68 @@ export class Slider {
         this.percentageClass = getPercentageClass(
             (value - this.valuemin) / (this.valuemax - this.valuemin)
         );
+    }
+
+    private isMultipleOfStep(value: number, step: number): boolean {
+        if (!step) {
+            return true;
+        }
+
+        return value % step === 0;
+    }
+
+    private roundToStep(value: number, step: number): number {
+        return Math.round(value / step) * step;
+    }
+
+    private getRootElement(): HTMLElement | undefined {
+        return this.rootElement.shadowRoot.querySelector('.mdc-slider');
+    }
+
+    private getInputElement(): HTMLInputElement | undefined {
+        const element = this.getRootElement();
+        if (!element) {
+            return;
+        }
+
+        return element.querySelector('input');
+    }
+
+    private isStepConfigured(): boolean {
+        if (!this.step) {
+            return true;
+        }
+
+        const input = this.getInputElement();
+        if (!input) {
+            return true;
+        }
+
+        return input.hasAttribute('step');
+    }
+
+    private reCreateSliderWithStep() {
+        const inputElement = this.getInputElement();
+        const step = `${this.multiplyByFactor(this.step)}`;
+
+        inputElement.setAttribute('step', step);
+
+        this.destroyMDCSlider();
+        this.createMDCSlider();
+    }
+
+    private createMDCSlider() {
+        const element = this.getRootElement();
+
+        this.mdcSlider = new MDCSlider(element);
+        this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
+        this.mdcSlider.listen('MDCSlider:input', this.inputHandler);
+    }
+
+    private destroyMDCSlider() {
+        this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
+        this.mdcSlider.unlisten('MDCSlider:input', this.inputHandler);
+        this.mdcSlider.destroy();
+        this.mdcSlider = undefined;
     }
 }

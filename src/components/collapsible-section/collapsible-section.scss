@@ -73,13 +73,24 @@
 
 .section__header__title {
     @include lime-typography.typography(headline2);
-    @include mixins.truncate-text;
-    line-height: normal;
 
     justify-self: flex-start;
     padding-right: functions.pxToRem(12);
 
     user-select: none; // mostly to improve experience on Android, where tapping on sections selects the text too
+
+    padding-right: functions.pxToRem(8);
+
+    // Below tries to render text in two lines,
+    // and then truncate if there is no more space
+    height: auto;
+    max-height: 3rem;
+    line-height: 1.2rem;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .section__header__divider-line {
@@ -88,7 +99,7 @@
     height: functions.pxToRem(2);
     border-radius: functions.pxToRem(1);
     background-color: var(--header-stroke-color, rgb(var(--contrast-900)));
-    margin-right: functions.pxToRem(16);
+    margin-right: functions.pxToRem(8);
 
     opacity: 0;
 

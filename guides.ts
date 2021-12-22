@@ -12,7 +12,7 @@ export default [
             'src/design-guidelines/shadows/shadows-and-depth.md',
             'src/design-guidelines/size/size-rhythms.md',
             'src/design-guidelines/action-buttons/action-buttons.md',
-            'src/design-guidelines/decluttering.md',
+            'src/design-guidelines/declutter/declutter.md',
         ],
     },
 ] as Guide[];

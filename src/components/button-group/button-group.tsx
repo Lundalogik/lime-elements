@@ -93,6 +93,10 @@ export class ButtonGroup {
     }
 
     private renderButton(button: Button) {
+        // Prefix with 'b' because html IDs cannot start with a digit,
+        // and we need to differentiate from the ID on the limel-icon. /Ads
+        const buttonId = `b${button.id}`;
+
         const classes = {
             'mdc-chip': true,
             'mdc-chip--selected': this.isButtonChecked(button),
@@ -105,10 +109,10 @@ export class ButtonGroup {
                         type="radio"
                         name={this.radioGroupName}
                         checked={this.isButtonChecked(button)}
-                        id={button.id}
+                        id={buttonId}
                         onChange={this.onChange}
                     />
-                    <label htmlFor={button.id}>
+                    <label htmlFor={buttonId}>
                         {this.renderContent(button)}
                     </label>
                 </span>
@@ -133,24 +137,30 @@ export class ButtonGroup {
     }
 
     private renderIcon(button: Button) {
-        return (
+        // Prefix with 'i' because html IDs cannot start with a digit,
+        // and we need to differentiate from the "buttonId". /Ads
+        const iconId = `i${button.id}`;
+
+        return [
             <limel-icon
+                id={iconId}
                 class="mdc-chip__icon"
                 aria-label={button.title}
-                title={button.title}
                 name={button.icon}
                 size="small"
                 badge={true}
-            />
-        );
+            />,
+            <limel-tooltip elementId={iconId} label={button.title} />,
+        ];
     }
 
     private onChange(event: Event) {
         event.stopPropagation();
         const target = event.target as HTMLInputElement;
-        this.selectedButtonId = target.id;
+        // The ID is prefixed with `b` in the HTML, remember? /Ads
+        this.selectedButtonId = target.id.substr(1);
         const button = this.value.find((item) => {
-            return `${item.id}` === target.id;
+            return item.id === this.selectedButtonId;
         });
         this.change.emit(button);
     }

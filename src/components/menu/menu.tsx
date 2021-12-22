@@ -1,4 +1,3 @@
-import { ListItem, ListSeparator } from '@limetech/lime-elements';
 import {
     Component,
     Event,
@@ -10,7 +9,11 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
-import { OpenDirection } from './menu.types';
+import {
+    ListSeparator,
+    MenuItem,
+    OpenDirection,
+} from '@limetech/lime-elements';
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.
@@ -21,6 +24,7 @@ import { OpenDirection } from './menu.types';
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
  * @exampleComponent limel-example-menu-composite
+ * @exampleComponent limel-example-menu-hotkeys
  */
 @Component({
     tag: 'limel-menu',
@@ -29,19 +33,10 @@ import { OpenDirection } from './menu.types';
 })
 export class Menu {
     /**
-     * Is displayed on the default trigger button.
-     *
-     * @deprecated Use with default trigger has been deprecated.
-     * Please supply your own trigger element.
-     */
-    @Prop({ reflect: true })
-    public label = '';
-
-    /**
      * A list of items and separators to show in the menu.
      */
     @Prop()
-    public items: Array<ListItem | ListSeparator> = [];
+    public items: Array<MenuItem | ListSeparator> = [];
 
     /**
      * Sets the disabled state of the menu.
@@ -74,16 +69,6 @@ export class Menu {
     public gridLayout = false;
 
     /**
-     * Defines whether the menu should have a fixed position on the screen.
-     *
-     * @deprecated Fixed position was used to get around a bug in the placement
-     * of the menu. This bug has since been fixed, which makes this attribute
-     * obsolete.
-     */
-    @Prop()
-    public fixed = false;
-
-    /**
      * Is emitted when the menu is cancelled.
      */
     @Event()
@@ -93,12 +78,12 @@ export class Menu {
      * Is emitted when a menu item is selected.
      */
     @Event()
-    private select: EventEmitter<ListItem | ListItem[]>;
+    private select: EventEmitter<MenuItem | MenuItem[]>;
 
     @Element()
     private host: HTMLLimelMenuElement;
 
-    private list: HTMLLimelListElement;
+    private list: HTMLLimelMenuListElement;
 
     private portalId: string;
 
@@ -133,21 +118,15 @@ export class Menu {
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
             '--dropdown-z-index'
         );
-        const portalClasses = {
-            'limel-portal--fixed': this.fixed,
-        };
-        const portalPosition = this.getPortalPosition();
 
         return (
             <div class="mdc-menu-surface--anchor" onClick={this.onTriggerClick}>
-                <slot name="trigger">{this.renderTrigger()}</slot>
+                <slot name="trigger" />
                 <limel-portal
-                    class={portalClasses}
-                    style={portalPosition}
                     visible={this.open}
                     containerId={this.portalId}
                     openDirection={this.openDirection}
-                    position={this.fixed ? 'fixed' : 'absolute'}
+                    position="absolute"
                     containerStyle={{ 'z-index': dropdownZIndex }}
                 >
                     <limel-menu-surface
@@ -155,7 +134,7 @@ export class Menu {
                         onDismiss={this.onClose}
                         style={cssProperties}
                     >
-                        <limel-list
+                        <limel-menu-list
                             class={{
                                 'has-grid-layout has-interactive-items':
                                     this.gridLayout,
@@ -175,20 +154,6 @@ export class Menu {
     public componentDidRender() {
         const slotElement = this.host.shadowRoot.querySelector('slot');
         slotElement.assignedElements().forEach(this.setTriggerAttributes);
-    }
-
-    private renderTrigger() {
-        return (
-            <button
-                class={`
-                    menu__trigger
-                    ${this.disabled ? '' : 'menu__trigger-enabled'}
-                `}
-                disabled={this.disabled}
-            >
-                <span>{this.label}</span>
-            </button>
-        );
     }
 
     private setTriggerAttributes = (element: HTMLElement) => {
@@ -223,7 +188,7 @@ export class Menu {
     };
 
     private onListChange = (event) => {
-        this.items = this.items.map((item: ListItem) => {
+        this.items = this.items.map((item: MenuItem) => {
             if (item === event.detail) {
                 return event.detail;
             }
@@ -233,24 +198,6 @@ export class Menu {
         this.select.emit(event.detail);
         this.open = false;
     };
-
-    private getPortalPosition() {
-        if (!this.fixed) {
-            return {};
-        }
-
-        const rect = this.host.getBoundingClientRect();
-        const portalPosition = {
-            top: `${rect.y + rect.height}px`,
-            left: `${rect.x}px`,
-        };
-
-        if (this.openDirection === 'left') {
-            portalPosition.left = `${rect.x + rect.width}px`;
-        }
-
-        return portalPosition;
-    }
 
     private getCssProperties() {
         const propertyNames = [
@@ -267,7 +214,7 @@ export class Menu {
         return zipObject(propertyNames, values);
     }
 
-    private setListElement = (element: HTMLLimelListElement) => {
+    private setListElement = (element: HTMLLimelMenuListElement) => {
         this.list = element;
     };
 
@@ -275,9 +222,9 @@ export class Menu {
         const activeElement = this.list.shadowRoot.activeElement as HTMLElement;
         activeElement?.blur();
 
-        const listItems = this.items.filter(this.isListItem);
+        const MenuItems = this.items.filter(this.isMenuItem);
         const selectedIndex = Math.max(
-            listItems.findIndex((item) => item.selected),
+            MenuItems.findIndex((item) => item.selected),
             0
         );
         const menuElements: HTMLElement[] = Array.from(
@@ -286,7 +233,7 @@ export class Menu {
         menuElements[selectedIndex]?.focus();
     };
 
-    private isListItem(item: ListItem | ListSeparator): item is ListItem {
+    private isMenuItem(item: MenuItem | ListSeparator): item is MenuItem {
         return !('separator' in item);
     }
 }

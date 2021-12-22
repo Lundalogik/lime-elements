@@ -5,7 +5,6 @@
 @use '../../style/internal/lime-theme';
 
 @use '@material/list';
-@use '@material/menu';
 @use '@material/ripple';
 
 $list-border-radius: 0.375rem; // 6px
@@ -19,7 +18,7 @@ $list-border-radius: 0.375rem; // 6px
  * @prop --list-grid-gap: Distance between items in a list that has `has-grid-layout` class. Defaults to `0.75rem`.
  */
 
-:host {
+:host(limel-list) {
     display: block;
 }
 
@@ -28,10 +27,6 @@ $list-border-radius: 0.375rem; // 6px
 }
 
 @include list.deprecated-core-styles;
-
-.mdc-menu {
-    max-height: 70vh; // force tall menus render inside the viewport when menu is at the bottom of the screen
-}
 
 .mdc-deprecated-list {
     --mdc-theme-text-icon-on-background: var(
@@ -42,6 +37,7 @@ $list-border-radius: 0.375rem; // 6px
     border-radius: $list-border-radius;
 
     .mdc-deprecated-list-item {
+        box-sizing: border-box;
         z-index: z-index.$list-mdc-list-item; // in Chrome on Windows, menus flicker when they have a scroll bar and user hovers on them. We may be able to remove this in future versions of Chrome. Kia 2021-May-12
 
         &.mdc-deprecated-list-item--disabled {
@@ -125,14 +121,6 @@ $list-border-radius: 0.375rem; // 6px
         }
     }
 
-    .mdc-deprecated-list-item[role='menuitem'] {
-        font-size: functions.pxToRem(13);
-
-        .mdc-deprecated-list-item__graphic {
-            margin-right: functions.pxToRem(14);
-        }
-    }
-
     &.mdc-deprecated-list--two-line {
         .mdc-deprecated-list-item__text {
             padding: functions.pxToRem(8) 0;
@@ -143,7 +131,8 @@ $list-border-radius: 0.375rem; // 6px
     }
 
     .mdc-deprecated-list-item__secondary-text,
-    .mdc-deprecated-list-item__primary-text {
+    .mdc-deprecated-list-item__primary-text,
+    .mdc-deprecated-list-item__command-text {
         margin: 0;
         &:before,
         &:after {
@@ -151,8 +140,26 @@ $list-border-radius: 0.375rem; // 6px
         }
     }
 
+    .mdc-deprecated-list-item__command-text {
+        color: rgb(var(--contrast-800));
+        margin-left: 0.7rem;
+    }
+
     .mdc-deprecated-list-item__text {
         align-self: center;
+        width: 100%;
+    }
+
+    .has-primary-component {
+        .mdc-deprecated-list-item__text {
+            margin-left: 0.5rem;
+        }
+    }
+    .mdc-deprecated-list-item__primary-command-text {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
     }
 
     // Tweaks to display the icon correctly in Edge
