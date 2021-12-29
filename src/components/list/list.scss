@@ -69,6 +69,10 @@ $list-border-radius: 0.375rem; // 6px
         margin-right: -0.5rem;
     }
 
+    .mdc-deprecated-list-item__graphic {
+        margin-right: functions.pxToRem(8);
+    }
+
     &.mdc-deprecated-list--avatar-list {
         position: relative;
 
