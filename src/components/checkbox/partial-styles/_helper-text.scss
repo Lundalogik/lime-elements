@@ -1,0 +1,29 @@
+@use '../../../style/internal/shared_input-select-picker';
+
+.limel-checkbox-helper-line {
+    flex-basis: 100%;
+    @include shared_input-select-picker.looks-like-helper-line;
+}
+
+.limel-checkbox-helper-text {
+    @include shared_input-select-picker.looks-like-helper-text;
+    color: shared_input-select-picker.$helper-text-color;
+}
+
+.mdc-form-field {
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:focus-within {
+        .limel-checkbox-helper-text {
+            opacity: 1;
+        }
+    }
+}
+
+@media (pointer: coarse) {
+    // touchscreen devices
+    .limel-checkbox-helper-text {
+        opacity: 1;
+    }
+}

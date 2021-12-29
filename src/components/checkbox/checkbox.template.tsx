@@ -8,6 +8,7 @@ interface CheckboxTemplateProps {
     invalid?: boolean;
     onChange?: (event: Event) => void;
     label?: string;
+    helperText?: string;
 }
 
 export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
@@ -54,6 +55,21 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
             >
                 {props.label}
             </label>
+            <HelperText text={props.helperText} />
+        </div>
+    );
+};
+
+const HelperText: FunctionalComponent<{ text: string }> = (props) => {
+    if (typeof props.text !== 'string') {
+        return;
+    }
+
+    return (
+        <div class="limel-checkbox-helper-line">
+            <p class="limel-checkbox-helper-text" aria-hidden="true">
+                {props.text.trim()}
+            </p>
         </div>
     );
 };

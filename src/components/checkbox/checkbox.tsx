@@ -14,6 +14,7 @@ import { CheckboxTemplate } from './checkbox.template';
 
 /**
  * @exampleComponent limel-example-checkbox
+ * @exampleComponent limel-example-checkbox-helper-text
  */
 @Component({
     tag: 'limel-checkbox',
@@ -40,6 +41,12 @@ export class Checkbox {
      */
     @Prop({ reflect: true })
     public label: string;
+
+    /**
+     * Optional helper text to display below the checkbox
+     */
+    @Prop({ reflect: true })
+    public helperText: string;
 
     /**
      * The value of the checkbox. Set to `true` to make the checkbox checked.
@@ -105,6 +112,7 @@ export class Checkbox {
             <CheckboxTemplate
                 disabled={this.disabled || this.readonly}
                 label={this.label}
+                helperText={this.helperText}
                 checked={this.checked}
                 required={this.required}
                 invalid={this.required && this.modified && !this.checked}
