@@ -11,6 +11,7 @@
 
 .mdc-form-field {
     display: flex;
+    flex-wrap: wrap;
 
     .mdc-checkbox {
         &.mdc-checkbox--invalid {
@@ -80,3 +81,5 @@
         opacity: 0; // What we like it to become, a moment after it gets focused
     }
 }
+
+@import './partial-styles/_helper-text.scss';
