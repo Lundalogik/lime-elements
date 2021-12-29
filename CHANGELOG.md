@@ -1,3 +1,10 @@
+## [34.1.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.26...v34.1.0-next.27) (2021-12-29)
+
+
+### Bug Fixes
+
+* **list:** add missing styling for radio buttons ([a9e5914](https://github.com/Lundalogik/lime-elements/commit/a9e59143d3782f3acfc20baa55ece63b3ebf75b4)), closes [Lundalogik/crm-feature#2571](https://github.com/Lundalogik/crm-feature/issues/2571)
+
 ## [34.1.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.25...v34.1.0-next.26) (2021-12-21)
 
 
