@@ -1,3 +1,10 @@
+## [34.1.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.28...v34.1.0-next.29) (2021-12-29)
+
+
+### Bug Fixes
+
+* **list:** fix layout of two-lined lists, when only some individual items have `secondaryText` ([da7ff72](https://github.com/Lundalogik/lime-elements/commit/da7ff721cc744993dd0233bbbebd0557ab10965d))
+
 ## [34.1.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.27...v34.1.0-next.28) (2021-12-29)
 
 
