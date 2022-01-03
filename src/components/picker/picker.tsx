@@ -69,6 +69,12 @@ export class Picker {
     public searchLabel: string;
 
     /**
+     * Optional helper text to display below the input field when it has focus
+     */
+    @Prop({ reflect: true })
+    public helperText: string;
+
+    /**
      * Leading icon to show to the far left in the text field
      */
     @Prop()
@@ -236,6 +242,7 @@ export class Picker {
             <limel-chip-set
                 type="input"
                 label={this.label}
+                helperText={this.helperText}
                 leadingIcon={this.leadingIcon}
                 value={this.chips}
                 disabled={this.disabled}
