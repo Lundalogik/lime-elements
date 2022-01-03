@@ -63,6 +63,17 @@ export class ChipSet {
     public label: string;
 
     /**
+     * Optional helper text to display below the chipset.
+     * When type is `input`, the helper text is displayed below the
+     * input field when it has focus.
+     * When type is not `input`, the helper text is always displayed
+     * if the device is touch screen; otherwise it is shown when chip-set
+     * is hovered or focused using keyboard navigation.
+     */
+    @Prop({ reflect: true })
+    public helperText: string;
+
+    /**
      * True if the chip set should be disabled
      */
     @Prop({ reflect: true })
@@ -289,6 +300,7 @@ export class ChipSet {
             <div class={classes} role="grid">
                 {chipSetLabel}
                 {this.value.map(this.renderChip)}
+                {this.renderHelperLine()}
             </div>
         );
     }
@@ -340,7 +352,7 @@ export class ChipSet {
     }
 
     private renderInputChips() {
-        return (
+        return [
             <div
                 class={{
                     'mdc-text-field mdc-text-field--outlined': true,
@@ -408,8 +420,9 @@ export class ChipSet {
                 </div>
                 {this.renderLeadingIcon()}
                 {this.renderClearAllChipsButton()}
-            </div>
-        );
+            </div>,
+            this.renderHelperLine(),
+        ];
     }
 
     private dropZoneTip = (): string => {
@@ -564,6 +577,35 @@ export class ChipSet {
             </span>
         );
     }
+
+    private renderHelperLine = () => {
+        if (!this.hasHelperText()) {
+            return;
+        }
+
+        return (
+            <div tabIndex={-1} class="mdc-text-field-helper-line">
+                {this.renderHelperText()}
+            </div>
+        );
+    };
+
+    private renderHelperText = () => {
+        if (!this.hasHelperText()) {
+            return;
+        }
+
+        const classList = {
+            'mdc-text-field-helper-text': true,
+            'mdc-text-field-helper-text--validation-msg': this.isInvalid(),
+        };
+
+        return <p class={classList}>{this.helperText}</p>;
+    };
+
+    private hasHelperText = () => {
+        return this.helperText !== null && this.helperText !== undefined;
+    };
 
     private renderFilterChip(chip: Chip) {
         return (

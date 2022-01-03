@@ -1,0 +1,27 @@
+.mdc-text-field-helper-line {
+    flex-basis: 100%;
+}
+
+:host(:not([type='input'])) {
+    .mdc-chip-set {
+        &:hover,
+        &:focus,
+        &:focus-visible,
+        &:focus-within {
+            .mdc-text-field-helper-text {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+@media (pointer: coarse) {
+    // touchscreen devices
+    :host(:not([type='input'])) {
+        .mdc-chip-set {
+            .mdc-text-field-helper-text {
+                opacity: 1;
+            }
+        }
+    }
+}
