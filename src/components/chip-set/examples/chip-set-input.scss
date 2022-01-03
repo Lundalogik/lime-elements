@@ -1,16 +1,11 @@
-limel-chip-set[type='input'] {
-    flex-grow: 1;
-    flex-shrink: 1;
-    max-width: calc(100% - 7rem);
-}
-
-limel-input-field {
-    flex-grow: 0;
-    flex-shrink: 0;
-    margin-left: 1rem;
-    width: 6rem;
-}
-
-limel-flex-container {
+.props {
+    margin-top: 1rem;
+    display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+
+    limel-input-field {
+        width: 6rem;
+    }
 }

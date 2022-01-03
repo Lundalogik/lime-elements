@@ -52,65 +52,61 @@ export class ChipSetInputExample {
 
     public render() {
         return [
-            <limel-flex-container align="end">
-                <limel-chip-set
-                    label="Animal"
-                    type="input"
-                    value={this.value}
-                    required={this.required}
-                    readonly={this.readonly}
-                    disabled={this.disabled}
-                    leadingIcon={this.hasLeadingIcon ? 'search' : null}
-                    maxItems={this.maxItems}
-                    onChange={this.handleChange}
-                    onInput={this.handleInput}
-                    onInteract={this.handleInteraction}
-                    onKeyUp={this.onKeyUp}
-                    searchLabel="Add an animal"
-                    emptyInputOnBlur={this.emptyInputOnBlur}
-                    delimiter={this.delimiter}
-                />
+            <limel-chip-set
+                label="Animal"
+                type="input"
+                value={this.value}
+                required={this.required}
+                readonly={this.readonly}
+                disabled={this.disabled}
+                leadingIcon={this.hasLeadingIcon ? 'search' : null}
+                maxItems={this.maxItems}
+                onChange={this.handleChange}
+                onInput={this.handleInput}
+                onInteract={this.handleInteraction}
+                onKeyUp={this.onKeyUp}
+                searchLabel="Add an animal"
+                emptyInputOnBlur={this.emptyInputOnBlur}
+                delimiter={this.delimiter}
+            />,
+            <div class="props">
                 <limel-input-field
                     label="Max items"
                     value={this.maxItems.toString()}
                     type="number"
                     onChange={this.setMaxItems}
                 />
-            </limel-flex-container>,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        label="Empty input on blur"
-                        onChange={this.setEmptyInputOnBlur}
-                        checked={this.emptyInputOnBlur}
-                    />
-                    <limel-checkbox
-                        label="Disabled"
-                        onChange={this.setDisabled}
-                        checked={this.disabled}
-                    />
-                    <limel-checkbox
-                        label="Readonly"
-                        onChange={this.setReadonly}
-                        checked={this.readonly}
-                    />
-                    <limel-checkbox
-                        label="Required"
-                        onChange={this.setRequired}
-                        checked={this.required}
-                    />
-                    <limel-checkbox
-                        label={'Leading icon'}
-                        onChange={this.setLeadingIcon}
-                        checked={this.hasLeadingIcon}
-                    />
-                    <limel-checkbox
-                        label="Use delimiters"
-                        onChange={this.useDelimiters}
-                        checked={this.delimiter !== null}
-                    />
-                </limel-flex-container>
-            </p>,
+                <limel-checkbox
+                    label="Empty input on blur"
+                    onChange={this.setEmptyInputOnBlur}
+                    checked={this.emptyInputOnBlur}
+                />
+                <limel-checkbox
+                    label="Disabled"
+                    onChange={this.setDisabled}
+                    checked={this.disabled}
+                />
+                <limel-checkbox
+                    label="Readonly"
+                    onChange={this.setReadonly}
+                    checked={this.readonly}
+                />
+                <limel-checkbox
+                    label="Required"
+                    onChange={this.setRequired}
+                    checked={this.required}
+                />
+                <limel-checkbox
+                    label={'Leading icon'}
+                    onChange={this.setLeadingIcon}
+                    checked={this.hasLeadingIcon}
+                />
+                <limel-checkbox
+                    label="Use delimiters"
+                    onChange={this.useDelimiters}
+                    checked={this.delimiter !== null}
+                />
+            </div>,
             <limel-example-value value={this.value} />,
         ];
     }
