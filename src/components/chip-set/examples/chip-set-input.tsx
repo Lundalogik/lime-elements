@@ -53,8 +53,10 @@ export class ChipSetInputExample {
     public render() {
         return [
             <limel-chip-set
-                label="Animal"
                 type="input"
+                label="Animal"
+                helperText="For some animal names, icons are displayed on the chips"
+                searchLabel="Type an animal name & press Enter"
                 value={this.value}
                 required={this.required}
                 readonly={this.readonly}
@@ -65,7 +67,6 @@ export class ChipSetInputExample {
                 onInput={this.handleInput}
                 onInteract={this.handleInteraction}
                 onKeyUp={this.onKeyUp}
-                searchLabel="Add an animal"
                 emptyInputOnBlur={this.emptyInputOnBlur}
                 delimiter={this.delimiter}
             />,
