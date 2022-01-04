@@ -1,3 +1,10 @@
+## [34.1.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.29...v34.1.0-next.30) (2022-01-04)
+
+
+### Features
+
+* **chip-set:** add support for displaying `helperText` ([40fb36d](https://github.com/Lundalogik/lime-elements/commit/40fb36ddde10a53e3656595d7ce2531eb123b271))
+
 ## [34.1.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.28...v34.1.0-next.29) (2021-12-29)
 
 
