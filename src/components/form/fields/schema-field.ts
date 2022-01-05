@@ -150,7 +150,9 @@ export class SchemaField extends React.Component<FieldProps> {
         const { errorSchema, schema } = this.props;
 
         if (!this.isInvalid()) {
-            return schema.description;
+            const helperText = schema.lime?.component?.props?.helperText;
+
+            return helperText || schema.description;
         }
 
         if (!isEmpty(errorSchema) && '__errors' in errorSchema) {
