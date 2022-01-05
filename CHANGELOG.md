@@ -1,3 +1,66 @@
+## [34.1.0](https://github.com/Lundalogik/lime-elements/compare/v34.0.1...v34.1.0) (2022-01-05)
+
+
+### Features
+
+* **checkbox:** add support for displaying `helperText` ([07d992b](https://github.com/Lundalogik/lime-elements/commit/07d992b87f9d8e6af06cdf868ec7599eaf4b4bb6))
+* **chip-set:** add support for displaying `helperText` ([40fb36d](https://github.com/Lundalogik/lime-elements/commit/40fb36ddde10a53e3656595d7ce2531eb123b271))
+* **code-editor:** allow controlling the maximum height of the component ([89090dc](https://github.com/Lundalogik/lime-elements/commit/89090dcbf67b8051b847edc0c2c7299e18504b21))
+* **form:** make it possible to customize the default error messages ([e5a2719](https://github.com/Lundalogik/lime-elements/commit/e5a271983a64c148dd9ff9bda123c3bcbf5044c7))
+* **form:** make it possible to disable whole form ([6b9f463](https://github.com/Lundalogik/lime-elements/commit/6b9f463c5bb337253fabae65cf8a7e8ef57057e5))
+* **list:** add the possibility to use a custom component inside the limel-list ([4c05353](https://github.com/Lundalogik/lime-elements/commit/4c05353bef35329c83748d162a85c1eaf8a563c3))
+* **list:** enable keyboard typeahead navigation ([a6af160](https://github.com/Lundalogik/lime-elements/commit/a6af1601671f8fd2bf81635d6e2974f78855db18))
+* **picker:** add support for disabling badge icons ([2534149](https://github.com/Lundalogik/lime-elements/commit/253414913295d5014b0a3d4032e91ec80b2ca5c7)), closes [Lundalogik/crm-feature#2471](https://github.com/Lundalogik/crm-feature/issues/2471)
+* **picker:** add support for displaying `helperText` ([a80adaf](https://github.com/Lundalogik/lime-elements/commit/a80adaf2847d7d04ee5587536084b175c3a9e3e5))
+* add `limel-color-picker` component ([b03f56c](https://github.com/Lundalogik/lime-elements/commit/b03f56c0b43becf42440d3766dd483b919be458f))
+
+
+### Bug Fixes
+
+* **array-field-collapsible:** change the order of the icons "up", "down", "trash" ([610b822](https://github.com/Lundalogik/lime-elements/commit/610b8226e6ceb1fc2954f4d698ab595e460227f5))
+* **array-field-collapsible-item:** add margin-bottom to the collapsible ([4f72d52](https://github.com/Lundalogik/lime-elements/commit/4f72d52dc5836e84ff4e4dba18fbb0a1e1d497da))
+* **code-editor:** cleanup old editor html on disconnect ([40c3242](https://github.com/Lundalogik/lime-elements/commit/40c3242065663119413edefd76be4b56fc2ba787))
+* **code-editor:** let code editor grow as tall as its content ([cbf0b38](https://github.com/Lundalogik/lime-elements/commit/cbf0b38aca22fd09a2469b9f02d8083b8f87ffeb))
+* **collapsible-section:** reflect `header` property to attribute ([d47a240](https://github.com/Lundalogik/lime-elements/commit/d47a240a34b1aaa48ff1ea5feb50f65b8db12af2))
+* **collapsible-section:** render header in 2 lines first, then truncate ([e8838f4](https://github.com/Lundalogik/lime-elements/commit/e8838f4dbad497154c75fc53ca324f6c22ff5a8e))
+* **color-picker:** add "lime-magenta" color ([22f3366](https://github.com/Lundalogik/lime-elements/commit/22f3366d25dacf4cedf68e12ed2037759f4da108))
+* **color-picker:** add support for showing deprecated `lime-light-grey` color ([51b0915](https://github.com/Lundalogik/lime-elements/commit/51b0915a82facc493b5c0ad7f5a4ca0faed0c456))
+* **color-picker:** render the tooltip if there is a tooltip label ([51a715b](https://github.com/Lundalogik/lime-elements/commit/51a715ba7a6271d06eb70e4bfaabe9ac2179a784))
+* **color-picker-pallet:** add support for deprecated lime colors ([d2c4761](https://github.com/Lundalogik/lime-elements/commit/d2c47613eeccdea76835a86d0b4715bad30f013a))
+* **date-picker:** prevent month picker from sometimes skipping a year when navigating ([d463154](https://github.com/Lundalogik/lime-elements/commit/d4631547c6a77c26ab71b659dd2fc46e9e64d3a1)), closes [#1455](https://github.com/Lundalogik/lime-elements/issues/1455)
+* **file:** use given language for chip-set as well ([5a3de5c](https://github.com/Lundalogik/lime-elements/commit/5a3de5c4a321760329a77520c63e40326a79c37e))
+* **form:** customize layout of checkbox and switch only in grid form ([1f3233f](https://github.com/Lundalogik/lime-elements/commit/1f3233fa9fce97281f8ee1af15e06f87aca09f5e)), closes [Lundalogik/crm-feature#2273](https://github.com/Lundalogik/crm-feature/issues/2273)
+* **form:** don't use boolean values as the title in a collapsible section ([1900e32](https://github.com/Lundalogik/lime-elements/commit/1900e323d6db61d0dd08835af719a4089945fa10))
+* **form:** fix alignment issues of checkbox & switch in forms ([b2b7893](https://github.com/Lundalogik/lime-elements/commit/b2b7893fa24da5bd3a0319ca4f17d84ec1d9bbe4))
+* **form:** give visual details to nested form titles to reflect hierarchy better ([b3f5ab1](https://github.com/Lundalogik/lime-elements/commit/b3f5ab18bfaf866f7bc46d963ce1a4d0e204320c))
+* **form:** honor `lime.component.props.disabled` for all form components ([0da8529](https://github.com/Lundalogik/lime-elements/commit/0da85299af79344e20082c0d8b65f51dd0c291cb))
+* **form:** honor `lime.component.props.disabled` for limel-select ([83381f8](https://github.com/Lundalogik/lime-elements/commit/83381f8d4ca54defe9672279a5662b615ee642bb)), closes [#1477](https://github.com/Lundalogik/lime-elements/issues/1477)
+* **form:** make button that adds new form elements stretch through the entire width ([945f405](https://github.com/Lundalogik/lime-elements/commit/945f405f0a52077d8be2a7cdc5874a924e596888))
+* **form:** make nested headings in forms decrease size to reflect hierarchy ([ffcdfe1](https://github.com/Lundalogik/lime-elements/commit/ffcdfe1f3f068c3a9f737cadf3a5e9efc49c7cdc))
+* **form:** remove `outlined` style of the button that adds new form elements ([e0f163a](https://github.com/Lundalogik/lime-elements/commit/e0f163a7d5963178818d65ccb054d8ef3e6b69ad))
+* **form:** use `title` as label on button-add-new ([5a5bd85](https://github.com/Lundalogik/lime-elements/commit/5a5bd8501f5a8c3f18929eede03bb8cb035fcbd8))
+* **form:** use key from rjsf for array items ([ea6c03b](https://github.com/Lundalogik/lime-elements/commit/ea6c03b2d95c701243e86c748763131ca08eb60f)), closes [Lundalogik/crm-feature#2486](https://github.com/Lundalogik/crm-feature/issues/2486)
+* **input-field:** make the "clear all" button in input type="search" work ([6607818](https://github.com/Lundalogik/lime-elements/commit/6607818a3f8eccae500e7e76574eea7fcb8bde0b))
+* **input-field:** prevent value being covered by trailing icon when `showLink=true` & `readonly` ([32248a0](https://github.com/Lundalogik/lime-elements/commit/32248a0242467fdd1a00e963bd54305f9e484674))
+* **list:** add missing styling for radio buttons ([a9e5914](https://github.com/Lundalogik/lime-elements/commit/a9e59143d3782f3acfc20baa55ece63b3ebf75b4)), closes [Lundalogik/crm-feature#2571](https://github.com/Lundalogik/crm-feature/issues/2571)
+* **list:** fix layout of two-lined lists, when only some individual items have `secondaryText` ([da7ff72](https://github.com/Lundalogik/lime-elements/commit/da7ff721cc744993dd0233bbbebd0557ab10965d))
+* **list:** make list items to be as wide as the list ([ad18ce9](https://github.com/Lundalogik/lime-elements/commit/ad18ce9d290573e59f8809f81e82f7d9a7ce42a8))
+* **list:** reduce distance between radio buttons & checkboxes and list text ([e39de54](https://github.com/Lundalogik/lime-elements/commit/e39de547f6124167b31ae51cb44ec6dc05defdbb)), closes [Lundalogik/crm-feature#2572](https://github.com/Lundalogik/crm-feature/issues/2572)
+* **menu-list:** add margin to visualize keyboard-focused items ([314a674](https://github.com/Lundalogik/lime-elements/commit/314a67436f9f8518e80af89f2e4083eaafbc3b37))
+* **menu-list:** display: block, to avoid a vertical scroll bar ([a3e2459](https://github.com/Lundalogik/lime-elements/commit/a3e2459c2e9d669176c244794d69695efa369244))
+* **menu-list:** import styles from `limel-list` to remove duplicate css ([2d5d05c](https://github.com/Lundalogik/lime-elements/commit/2d5d05cbcca81752058ee930759adb921dfef843))
+* **progress-flow:** fix rendering problem on iOS ([4f6487b](https://github.com/Lundalogik/lime-elements/commit/4f6487bb7cc96b97c9819458e697ff3133c084e4)), closes [Lundalogik/crm-feature#2453](https://github.com/Lundalogik/crm-feature/issues/2453)
+* **progress-flow:** remove selected indicators of off-pogress steps ([6d362f3](https://github.com/Lundalogik/lime-elements/commit/6d362f3b6345ceab5de749a5cf8fc49e418e9ac8))
+* **select:** allow select element to grow in height ([78409c3](https://github.com/Lundalogik/lime-elements/commit/78409c372bff0e6185090191898c7d73e208db05)), closes [Lundalogik/crm-feature#2273](https://github.com/Lundalogik/crm-feature/issues/2273)
+* **slider:** ensure that the component doesn't crash when value % step !== 0 ([24c8433](https://github.com/Lundalogik/lime-elements/commit/24c843329eaeed91606404095869fd9a8441cbcf))
+* **slider:** round invalid values to step ([ffc67bf](https://github.com/Lundalogik/lime-elements/commit/ffc67bffb525d674e297c6a5caf0dc89159bd699)), closes [Lundalogik/crm-feature#2301](https://github.com/Lundalogik/crm-feature/issues/2301) [Lundalogik/crm-feature#2419](https://github.com/Lundalogik/crm-feature/issues/2419)
+* **table:** don't apply low density styles for footers ([ef91e5f](https://github.com/Lundalogik/lime-elements/commit/ef91e5fac943fe6ae7baa1bf1b9a0d75c3aa3af2))
+
+
+### Performance Improvements
+
+* **collapsible-section:** do not synthesize click on keypress ([10ae39a](https://github.com/Lundalogik/lime-elements/commit/10ae39a906f44e550fe10c81875cd603537c66e6))
+
 ## [34.1.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.31...v34.1.0-next.32) (2022-01-05)
 
 
