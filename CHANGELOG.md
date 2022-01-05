@@ -1,3 +1,10 @@
+## [34.1.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.30...v34.1.0-next.31) (2022-01-05)
+
+
+### Features
+
+* **picker:** add support for displaying `helperText` ([a80adaf](https://github.com/Lundalogik/lime-elements/commit/a80adaf2847d7d04ee5587536084b175c3a9e3e5))
+
 ## [34.1.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.29...v34.1.0-next.30) (2022-01-04)
 
 
