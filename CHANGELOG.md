@@ -1,3 +1,10 @@
+## [34.1.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.31...v34.1.0-next.32) (2022-01-05)
+
+
+### Features
+
+* **checkbox:** add support for displaying `helperText` ([07d992b](https://github.com/Lundalogik/lime-elements/commit/07d992b87f9d8e6af06cdf868ec7599eaf4b4bb6))
+
 ## [34.1.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v34.1.0-next.30...v34.1.0-next.31) (2022-01-05)
 
 
