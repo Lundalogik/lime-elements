@@ -47,7 +47,7 @@
 }
 
 .limel-select {
-    height: shared_input-select-picker.$height-of-mdc-text-field;
+    flex-wrap: wrap;
     width: 100%;
 
     &:not(.limel-select--readonly) {
@@ -57,9 +57,9 @@
     }
 
     .limel-select-trigger {
+        height: shared_input-select-picker.$height-of-mdc-text-field;
         display: inline-flex;
         align-items: center;
-        height: 100%;
 
         cursor: pointer;
         border-radius: functions.pxToRem(5);
@@ -163,8 +163,8 @@ select.limel-select__native-control {
 
 :host(.is-narrow) {
     .limel-select {
-        height: functions.pxToRem(36);
         .mdc-select__anchor {
+            height: functions.pxToRem(36);
             padding-left: functions.pxToRem(0);
         }
     }

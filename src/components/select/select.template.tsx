@@ -54,13 +54,13 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
         'limel-select--with-helper-text': typeof props.helperText === 'string',
     };
 
-    return [
+    return (
         <div class={classList}>
             <SelectValue {...props} hasValue={hasValue} isValid={isValid} />
             <SelectDropdown {...props} />
-        </div>,
-        <HelperText text={props.helperText} />,
-    ];
+            <HelperText text={props.helperText} />
+        </div>
+    );
 };
 
 const SelectValue: FunctionalComponent<
