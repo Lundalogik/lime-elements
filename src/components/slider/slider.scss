@@ -71,17 +71,7 @@
     }
 }
 
-.mdc-slider-helper-line {
-    @include shared_input-select-picker.looks-like-helper-line;
-}
-.mdc-slider-helper-text {
-    @include shared_input-select-picker.looks-like-helper-text;
-    opacity: 1;
-    &:before {
-        @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
-    }
-}
-
 @import './partial-styles/percentage-color';
 @import './partial-styles/_readonly';
 @import './partial-styles/_thumb';
+@import './partial-styles/_helper-text';
