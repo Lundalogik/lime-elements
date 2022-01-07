@@ -7,10 +7,6 @@
 @use '@material/slider/styles';
 @use '@material/floating-label/mdc-floating-label';
 
-@import './partial-styles/percentage-color.scss';
-@import './partial-styles/_readonly.scss';
-@import './partial-styles/_thumb.scss';
-
 .slider {
     position: relative;
 }
@@ -85,3 +81,7 @@
         @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
     }
 }
+
+@import './partial-styles/percentage-color';
+@import './partial-styles/_readonly';
+@import './partial-styles/_thumb';
