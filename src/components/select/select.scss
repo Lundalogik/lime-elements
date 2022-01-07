@@ -7,8 +7,6 @@
 @use '@material/floating-label';
 @use '@material/floating-label/mdc-floating-label';
 
-@import './partial-styles/_readonly.scss';
-
 // Note! The `--dropdown-z-index` property is used from `select.tsx`.
 /**
  * @prop --dropdown-z-index: z-index of the dropdown menu.
@@ -198,3 +196,5 @@ select.limel-select__native-control {
         margin-left: functions.pxToRem(-8);
     }
 }
+
+@import './partial-styles/_readonly';
