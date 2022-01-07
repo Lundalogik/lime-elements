@@ -1,7 +1,6 @@
 @use '../../../style/internal/shared_input-select-picker';
 
 .limel-checkbox-helper-line {
-    flex-basis: 100%;
     @include shared_input-select-picker.looks-like-helper-line;
 }
 
