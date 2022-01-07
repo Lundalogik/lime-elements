@@ -1,0 +1,12 @@
+.mdc-select-helper-line {
+    @include shared_input-select-picker.looks-like-helper-line;
+}
+
+.mdc-select-helper-text {
+    margin-left: 0;
+    margin-right: 0;
+
+    &:before {
+        @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
+    }
+}
