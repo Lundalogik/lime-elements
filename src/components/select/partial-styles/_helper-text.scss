@@ -1,3 +1,17 @@
+:host(:focus),
+:host(:focus-visible),
+:host(:focus-within) {
+    .mdc-select-helper-text {
+        opacity: 1;
+    }
+}
+
+.limel-select--focused {
+    + .mdc-select-helper-line .mdc-select-helper-text {
+        opacity: 1;
+    }
+}
+
 .mdc-select-helper-line {
     @include shared_input-select-picker.looks-like-helper-line;
 }
@@ -5,6 +19,8 @@
 .mdc-select-helper-text {
     margin-left: 0;
     margin-right: 0;
+
+    @include shared_input-select-picker.looks-like-helper-text;
 
     &:before {
         @include shared_input-select-picker.looks-like-helper-text-pseudo-before;

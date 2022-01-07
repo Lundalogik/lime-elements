@@ -57,8 +57,8 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
     return (
         <div class={classList}>
             <SelectValue {...props} hasValue={hasValue} isValid={isValid} />
-            <SelectDropdown {...props} />
             <HelperText text={props.helperText} />
+            <SelectDropdown {...props} />
         </div>
     );
 };
