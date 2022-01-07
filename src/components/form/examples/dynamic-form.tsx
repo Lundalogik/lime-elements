@@ -45,7 +45,12 @@ export class DynamicFormExample {
 
     public render() {
         return [
-            <textarea onChange={this.handleTextChange}>{this.text}</textarea>,
+            <limel-code-editor
+                onChange={this.handleTextChange}
+                value={this.text}
+                language="json"
+                line-numbers
+            />,
             <br />,
             <limel-form
                 onChange={this.handleFormChange}
