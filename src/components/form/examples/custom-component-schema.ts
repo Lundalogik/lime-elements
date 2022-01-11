@@ -17,6 +17,9 @@ export const schema = {
             lime: {
                 component: {
                     name: 'limel-example-custom-picker',
+                    props: {
+                        helperText: 'Pick your superhero!',
+                    },
                 },
             },
         },
