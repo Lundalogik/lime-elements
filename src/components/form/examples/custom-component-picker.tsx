@@ -10,31 +10,31 @@ export class CustomPickerExample implements FormComponent<number> {
     /**
      * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public value: number;
 
     /**
      * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public label: string;
 
     /**
      * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public required: boolean;
 
     /**
      * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public readonly: boolean;
 
     /**
      * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public disabled: boolean;
 
     /**
