@@ -38,6 +38,12 @@ export class CustomPickerExample implements FormComponent<number> {
     public disabled: boolean;
 
     /**
+     * @inheritdoc
+     */
+    @Prop({ reflect: true })
+    public helperText?: string;
+
+    /**
      * Emitted when the value is changed
      */
     @Event()
@@ -93,6 +99,7 @@ export class CustomPickerExample implements FormComponent<number> {
                 required={this.required}
                 onChange={this.handleChange}
                 searcher={this.search}
+                helperText={this.helperText}
             />
         );
     }
