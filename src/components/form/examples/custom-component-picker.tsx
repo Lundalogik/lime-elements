@@ -8,31 +8,31 @@ import { ListItem } from '../../list/list-item.types';
 })
 export class CustomPickerExample implements FormComponent<number> {
     /**
-     * The value of the property
+     * @inheritdoc
      */
     @Prop()
     public value: number;
 
     /**
-     * Label to display next to the input field
+     * @inheritdoc
      */
     @Prop()
     public label: string;
 
     /**
-     * Set to `true` if a value is required
+     * @inheritdoc
      */
     @Prop()
     public required: boolean;
 
     /**
-     * Set to `true` if the value is readonly
+     * @inheritdoc
      */
     @Prop()
     public readonly: boolean;
 
     /**
-     * Set to `true` if input should be disabled
+     * @inheritdoc
      */
     @Prop()
     public disabled: boolean;
