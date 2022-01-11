@@ -1,3 +1,10 @@
+### [34.1.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.1.0...v34.1.1-next.1) (2022-01-11)
+
+
+### Bug Fixes
+
+* **form:** properly support displaying `helperText` for custom components ([66c1ba6](https://github.com/Lundalogik/lime-elements/commit/66c1ba683d8ed693a9d0e11431249571527b8060))
+
 ## [34.1.0](https://github.com/Lundalogik/lime-elements/compare/v34.0.1...v34.1.0) (2022-01-05)
 
 
