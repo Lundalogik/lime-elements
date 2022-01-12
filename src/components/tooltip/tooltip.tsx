@@ -1,6 +1,8 @@
 import { Component, h, Prop, Element, State } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 
+const DEFAULT_MAX_LENGTH = 50;
+
 /**
  * A tooltip can be used to display a descriptive text for any element.
  * The displayed content must be a brief and supplemental string of text,
@@ -41,6 +43,7 @@ import { createRandomString } from '../../util/random-string';
  * effortlessly recognize can be hovered.
  *
  * @exampleComponent limel-example-tooltip
+ * @exampleComponent limel-example-tooltip-max-character
  * @private
  */
 @Component({
@@ -70,6 +73,13 @@ export class Tooltip {
      */
     @Prop({ reflect: true })
     public elementId!: string;
+
+    /**
+     * The maximum amount of characters before rendering 'label' and
+     * 'helperLabel' in two rows.
+     */
+    @Prop({ reflect: true })
+    public maxlength?: number = DEFAULT_MAX_LENGTH;
 
     @State()
     private open: boolean;
@@ -113,6 +123,7 @@ export class Tooltip {
                     <limel-tooltip-content
                         label={this.label}
                         helperLabel={this.helperLabel}
+                        maxlength={this.maxlength}
                         role="tooltip"
                         aria-hidden={!this.open}
                         id={this.tooltipId}

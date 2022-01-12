@@ -1,12 +1,30 @@
 :host {
     animation: display-tooltip 0.2s ease;
     display: flex;
-    column-gap: 1rem;
+
     border-radius: 0.25rem;
     padding: 0.25rem 0.5rem;
-    font-size: 0.875rem; // 14px
     background-color: rgb(var(--contrast-1300));
     box-shadow: var(--shadow-depth-16);
+}
+
+text {
+    font-size: 0.875rem; // 14px
+    line-height: 1.25;
+    display: flex;
+    column-gap: 1rem;
+
+    &.has-column-layout {
+        display: table-cell;
+        width: fit-content;
+        max-width: min(var(--tooltip-max-width-of-text), 80vw);
+        .label {
+            padding-bottom: 0.5rem;
+        }
+        .helper-label {
+            padding-bottom: 0.25rem;
+        }
+    }
 }
 
 .label {
