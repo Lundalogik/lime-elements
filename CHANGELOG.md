@@ -1,3 +1,10 @@
+### [34.1.1-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.2...v34.1.1-next.3) (2022-01-12)
+
+
+### Bug Fixes
+
+* **slider:** hide helper text, unless component is focused ([919fb58](https://github.com/Lundalogik/lime-elements/commit/919fb58e213b93a55652d124accc84cdcc0d86f7))
+
 ### [34.1.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.1...v34.1.1-next.2) (2022-01-12)
 
 
