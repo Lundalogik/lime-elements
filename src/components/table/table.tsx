@@ -12,6 +12,7 @@ import { Column, TableParams, ColumnSorter } from './table.types';
 import { ColumnDefinitionFactory, createColumnSorter } from './columns';
 import { isEqual, has } from 'lodash-es';
 import { ElementPool } from './element-pool';
+import { TableSelection } from './table-selection';
 
 const FIRST_PAGE = 1;
 
@@ -23,6 +24,7 @@ const FIRST_PAGE = 1;
  * @exampleComponent limel-example-table-local
  * @exampleComponent limel-example-table-remote
  * @exampleComponent limel-example-table-activate-row
+ * @exampleComponent limel-example-table-selectable-rows
  * @exampleComponent limel-example-table-default-sorted
  * @exampleComponent limel-example-table-low-density
  */
@@ -114,6 +116,18 @@ export class Table {
     public emptyMessage: string;
 
     /**
+     * Enables row selection
+     */
+    @Prop()
+    public selectable: boolean;
+
+    /**
+     * Selected data. Requires `selectable` to be true.
+     */
+    @Prop()
+    public selection: object[];
+
+    /**
      * Emitted when `mode` is `remote` and the table is loading new data. The
      * consumer is responsible for giving the table new data
      */
@@ -132,6 +146,18 @@ export class Table {
     @Event()
     public changeColumns: EventEmitter<Column[]>;
 
+    /**
+     * Emitted when the row selection has been changed
+     */
+    @Event()
+    public select: EventEmitter<object[]>;
+
+    /**
+     * Emitted when the select all rows state is toggled
+     */
+    @Event()
+    public selectAll: EventEmitter<boolean>;
+
     @Element()
     private host: HTMLLimelTableElement;
 
@@ -143,6 +169,7 @@ export class Table {
     private columnFactory: ColumnDefinitionFactory;
     private firstRequest: boolean;
     private currentSorting: ColumnSorter[];
+    private tableSelection: TableSelection;
 
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
@@ -151,14 +178,24 @@ export class Table {
         this.requestData = this.requestData.bind(this);
         this.onClickRow = this.onClickRow.bind(this);
         this.formatRow = this.formatRow.bind(this);
+        this.formatRows = this.formatRows.bind(this);
         this.updateMaxPage = this.updateMaxPage.bind(this);
         this.initTabulatorComponent = this.initTabulatorComponent.bind(this);
+        this.setSelection = this.setSelection.bind(this);
         this.pool = new ElementPool(document);
         this.columnFactory = new ColumnDefinitionFactory(this.pool);
     }
 
     public componentWillLoad() {
         this.firstRequest = this.mode === 'remote';
+        if (this.selectable) {
+            this.tableSelection = new TableSelection(
+                () => this.tabulator,
+                this.pool,
+                this.select
+            );
+            this.tableSelection.setSelection(this.selection);
+        }
     }
 
     public componentDidLoad() {
@@ -170,17 +207,17 @@ export class Table {
     }
 
     @Watch('totalRows')
-    public totalRowsChanged() {
+    protected totalRowsChanged() {
         this.updateMaxPage();
     }
 
     @Watch('pageSize')
-    public pageSizeChanged() {
+    protected pageSizeChanged() {
         this.updateMaxPage();
     }
 
     @Watch('page')
-    public pageChanged() {
+    protected pageChanged() {
         if (!this.tabulator) {
             return;
         }
@@ -193,32 +230,34 @@ export class Table {
     }
 
     @Watch('activeRow')
-    public activeRowChanged() {
+    protected activeRowChanged() {
         if (!this.tabulator) {
             return;
         }
 
-        this.tabulator.getRows().forEach(this.formatRow);
+        this.formatRows();
     }
 
     @Watch('data')
-    public updateData(newData = [], oldData = []) {
+    protected updateData(newData = [], oldData = []) {
         if (isEqual(newData, oldData)) {
             return;
         }
 
         this.pool.releaseAll();
+
         setTimeout(() => {
             if (!this.tabulator) {
                 return;
             }
 
             this.tabulator.replaceData(this.data);
+            this.setSelection();
         });
     }
 
     @Watch('columns')
-    public updateColumns(newColumns: Column[], oldColumns: Column[]) {
+    protected updateColumns(newColumns: Column[], oldColumns: Column[]) {
         if (!this.tabulator) {
             return;
         }
@@ -238,6 +277,15 @@ export class Table {
         // Updating columns requires a reinitialization otherwise sorting will not work
         // afterwards
         this.init();
+    }
+
+    @Watch('selection')
+    protected updateSelection(newSelection: any[]) {
+        if (!this.tableSelection) {
+            return;
+        }
+
+        this.tableSelection.setSelection(newSelection);
     }
 
     private areSameColumns(newColumns: Column[], oldColumns: Column[]) {
@@ -280,15 +328,25 @@ export class Table {
         // matter if its rendered or not.
         if (!('ResizeObserver' in window)) {
             this.tabulator = new TabulatorTable(table, options);
+            this.setSelection();
 
             return;
         }
 
         const observer = new ResizeObserver(() => {
             this.tabulator = new TabulatorTable(table, options);
+            this.setSelection();
             observer.unobserve(table);
         });
         observer.observe(table);
+    }
+
+    private setSelection() {
+        if (!(this.tabulator && this.tableSelection)) {
+            return;
+        }
+
+        this.tableSelection.setSelection(this.selection);
     }
 
     private updateMaxPage() {
@@ -328,7 +386,13 @@ export class Table {
     }
 
     private getColumnDefinitions(): Tabulator.ColumnDefinition[] {
-        return this.columns.map(this.columnFactory.create);
+        const columnDefinitions = this.columns.map(this.columnFactory.create);
+
+        if (this.tableSelection) {
+            return this.tableSelection.getColumnDefinitions(columnDefinitions);
+        }
+
+        return columnDefinitions;
     }
 
     private getAjaxOptions(): Tabulator.OptionsData {
@@ -450,7 +514,7 @@ export class Table {
         this.changePage.emit(page);
     }
 
-    private onClickRow(_, row: Tabulator.RowComponent): void {
+    private onClickRow(_ev, row: Tabulator.RowComponent): void {
         if (this.activeRow === row.getData()) {
             this.activeRow = null;
         } else {
@@ -458,6 +522,37 @@ export class Table {
         }
 
         this.activate.emit(this.activeRow);
+    }
+
+    private getActiveRows: () => Tabulator.RowComponent[] = () => {
+        if (!this.tabulator) {
+            return [];
+        }
+
+        return this.tabulator.getRows('active');
+    };
+
+    private getActiveRowsData: () => object[] = () => {
+        // Note: Tabulator.getData() creates copies of each data object
+        // and will break this.selection.has checks, hence why this function
+        // intentionally retrieves the data using the row components
+        return this.getActiveRows().map((row) => row.getData());
+    };
+
+    private selectAllOnChange = (ev: CustomEvent<boolean>) => {
+        const selectAll = ev.detail;
+
+        ev.stopPropagation();
+        ev.preventDefault();
+
+        const newSelection = selectAll ? this.getActiveRowsData() : [];
+        this.select.emit(newSelection);
+        this.tableSelection.setSelection(newSelection);
+        this.selectAll.emit(selectAll);
+    };
+
+    private formatRows() {
+        this.tabulator.getRows().forEach(this.formatRow);
     }
 
     private formatRow(row: Tabulator.RowComponent) {
@@ -519,13 +614,40 @@ export class Table {
                     <limel-spinner size="large" />
                 </div>
                 {this.renderEmptyMessage()}
+                {this.renderSelectAll()}
                 <div
                     id="tabulator-table"
                     class={{
                         'has-pagination': this.totalRows > this.pageSize,
                         'has-aggregation': this.hasAggregation(this.columns),
                         'has-movable-columns': this.movableColumns,
+                        'has-rowselector': this.selectable,
+                        'has-selection': this.tableSelection?.hasSelection,
                     }}
+                />
+            </div>
+        );
+    }
+
+    private renderSelectAll() {
+        if (!this.selectable) {
+            return;
+        }
+
+        const showSelectAll = !this.loading && this.tableSelection;
+
+        return (
+            <div
+                class="select-all"
+                style={{ display: showSelectAll ? 'inline-block' : 'none' }}
+            >
+                <limel-checkbox
+                    onChange={this.selectAllOnChange}
+                    checked={this.tableSelection.hasSelection}
+                    indeterminate={
+                        this.tableSelection.hasSelection &&
+                        this.selection.length < this.data.length
+                    }
                 />
             </div>
         );
