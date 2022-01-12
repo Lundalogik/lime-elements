@@ -1,3 +1,10 @@
+### [34.1.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.1...v34.1.1-next.2) (2022-01-12)
+
+
+### Bug Fixes
+
+* **chip-set:** make placement of helper text aligned with other components ([24e3dda](https://github.com/Lundalogik/lime-elements/commit/24e3dda91dacbbff3917e1fd2d1c6e7d8083f09e))
+
 ### [34.1.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.1.0...v34.1.1-next.1) (2022-01-11)
 
 
