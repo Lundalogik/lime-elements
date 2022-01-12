@@ -8,34 +8,40 @@ import { ListItem } from '../../list/list-item.types';
 })
 export class CustomPickerExample implements FormComponent<number> {
     /**
-     * The value of the property
+     * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public value: number;
 
     /**
-     * Label to display next to the input field
+     * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public label: string;
 
     /**
-     * Set to `true` if a value is required
+     * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public required: boolean;
 
     /**
-     * Set to `true` if the value is readonly
+     * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public readonly: boolean;
 
     /**
-     * Set to `true` if input should be disabled
+     * @inheritdoc
      */
-    @Prop()
+    @Prop({ reflect: true })
     public disabled: boolean;
+
+    /**
+     * @inheritdoc
+     */
+    @Prop({ reflect: true })
+    public helperText?: string;
 
     /**
      * Emitted when the value is changed
@@ -93,6 +99,7 @@ export class CustomPickerExample implements FormComponent<number> {
                 required={this.required}
                 onChange={this.handleChange}
                 searcher={this.search}
+                helperText={this.helperText}
             />
         );
     }

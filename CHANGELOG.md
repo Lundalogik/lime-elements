@@ -1,3 +1,17 @@
+### [34.1.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.1...v34.1.1-next.2) (2022-01-12)
+
+
+### Bug Fixes
+
+* **chip-set:** make placement of helper text aligned with other components ([24e3dda](https://github.com/Lundalogik/lime-elements/commit/24e3dda91dacbbff3917e1fd2d1c6e7d8083f09e))
+
+### [34.1.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.1.0...v34.1.1-next.1) (2022-01-11)
+
+
+### Bug Fixes
+
+* **form:** properly support displaying `helperText` for custom components ([66c1ba6](https://github.com/Lundalogik/lime-elements/commit/66c1ba683d8ed693a9d0e11431249571527b8060))
+
 ## [34.1.0](https://github.com/Lundalogik/lime-elements/compare/v34.0.1...v34.1.0) (2022-01-05)
 
 
