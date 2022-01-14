@@ -13,7 +13,7 @@
     .tabulator-header {
         overflow-y: visible;
 
-        .tabulator-col {
+        .tabulator-col:not(.tabulator-frozen) {
             cursor: move !important;
 
             &.tabulator-sortable {
