@@ -87,7 +87,7 @@
     "react-dom": "^16.14.0",
     "react-shadow-dom-retarget-events": "^1.1.0",
     "replace-in-file": "^6.2.0",
-    "shelljs": "0.8.4",
+    "shelljs": "0.8.5",
     "showdown": "1.9.1",
     "shx": "^0.3.3",
     "tabulator-tables": "^4.9.3",
