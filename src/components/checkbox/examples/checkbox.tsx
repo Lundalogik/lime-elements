@@ -15,6 +15,11 @@ export class CheckboxExample {
     @State()
     private value: boolean = false;
 
+    @State()
+    private indeterminate: boolean = false;
+
+    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+
     public render() {
         return (
             <section>
@@ -24,6 +29,7 @@ export class CheckboxExample {
                         label="My fab checkbox"
                         id="fab"
                         checked={this.value}
+                        indeterminate={this.indeterminate}
                         required={this.required}
                         onChange={this.handleChange}
                     />
@@ -45,15 +51,35 @@ export class CheckboxExample {
                             label="Checked"
                             onChange={this.setChecked}
                         />
+                        <limel-checkbox
+                            checked={this.indeterminate}
+                            label="Indeterminate"
+                            onChange={this.setIndeterminate}
+                        />
                     </limel-flex-container>
                 </p>
-                <limel-example-value value={this.value} />
+                <limel-example-value label="Checked" value={this.value} />
+                <limel-example-value
+                    label="Indeterminate"
+                    value={this.indeterminate}
+                />
+                <limel-example-event-printer
+                    ref={(el) => (this.eventPrinter = el)}
+                />
             </section>
         );
     }
 
     private handleChange = (event: CustomEvent<boolean>) => {
         this.value = event.detail;
+
+        // The only way a user can interact with the checkbox is to check it or
+        // uncheck it. The indeterminate state can only be set programmatically
+        // and will always be unset when the user interacts with the checkbox.
+        // Therefore, we must set indeterminate to `false` here.
+        this.indeterminate = false;
+
+        this.eventPrinter.writeEvent(event);
     };
 
     private setDisabled = (event: CustomEvent<boolean>) => {
@@ -68,6 +94,11 @@ export class CheckboxExample {
 
     private setChecked = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
-        this.value = !this.value;
+        this.value = event.detail;
+    };
+
+    private setIndeterminate = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.indeterminate = event.detail;
     };
 }
