@@ -1,0 +1,1 @@
+import{r as e,h as t}from"./index-a7da85d2.js";let r=class{constructor(t){e(this,t)}render(){return t("limel-button",{icon:"filled_message"})}};export{r as limel_example_button_icon}
