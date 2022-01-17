@@ -4,6 +4,7 @@ interface CheckboxTemplateProps {
     disabled?: boolean;
     id: string;
     checked?: boolean;
+    indeterminate?: boolean;
     required?: boolean;
     invalid?: boolean;
     onChange?: (event: Event) => void;
@@ -14,6 +15,11 @@ interface CheckboxTemplateProps {
 export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
     props
 ) => {
+    const inputProps = {};
+    if (props.indeterminate) {
+        inputProps['data-indeterminate'] = 'true';
+    }
+
     return (
         <div class="mdc-form-field ">
             <div
@@ -22,6 +28,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     'mdc-checkbox--invalid': props.invalid,
                     'mdc-checkbox--disabled': props.disabled,
                     'mdc-checkbox--required': props.required,
+                    'mdc-checkbox--indeterminate': props.indeterminate,
                 }}
             >
                 <input
@@ -32,6 +39,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     disabled={props.disabled}
                     required={props.required}
                     onChange={props.onChange}
+                    {...inputProps}
                 />
                 <div class="mdc-checkbox__background">
                     <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
@@ -49,6 +57,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     'mdc-checkbox--invalid': props.invalid,
                     'mdc-checkbox--disabled': props.disabled,
                     'mdc-checkbox--required': props.required,
+                    'mdc-checkbox--indeterminate': props.indeterminate,
                 }}
                 htmlFor={props.id}
             >
