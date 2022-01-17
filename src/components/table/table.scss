@@ -44,11 +44,6 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
             background-color: $table-header-background-color;
             border-right-color: rgb(var(--contrast-200));
 
-            .tabulator-col-content {
-                padding-top: functions.pxToRem(8);
-                padding-bottom: functions.pxToRem(8);
-            }
-
             &.tabulator-sortable {
                 &:hover {
                     background-color: $table-header-background-color-hover;
