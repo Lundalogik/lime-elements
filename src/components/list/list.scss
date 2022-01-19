@@ -91,9 +91,9 @@ $list-border-radius: 0.375rem; // 6px
             bottom: 0;
 
             &.mdc-deprecated-list-divider--inset {
-                --icon-width: #{functions.pxToRem(41)};
-                --icon-right-padding: #{functions.pxToRem(16)};
-                --list-right-padding: #{functions.pxToRem(16)};
+                --icon-width: #{functions.pxToRem(40)};
+                --icon-right-padding: #{functions.pxToRem(12)};
+                --list-right-padding: #{functions.pxToRem(12)};
                 right: 0;
                 width: calc(
                     100% - var(--icon-width) - var(--icon-right-padding) -
@@ -101,11 +101,11 @@ $list-border-radius: 0.375rem; // 6px
                 );
 
                 &.x-small {
-                    --icon-width: #{functions.pxToRem(23)};
+                    --icon-width: #{functions.pxToRem(24)};
                 }
 
                 &.small {
-                    --icon-width: #{functions.pxToRem(30)};
+                    --icon-width: #{functions.pxToRem(32)};
                 }
 
                 &.medium {
@@ -113,7 +113,7 @@ $list-border-radius: 0.375rem; // 6px
                 }
 
                 &.large {
-                    --icon-width: #{functions.pxToRem(46)};
+                    --icon-width: #{functions.pxToRem(48)};
                 }
             }
         }
