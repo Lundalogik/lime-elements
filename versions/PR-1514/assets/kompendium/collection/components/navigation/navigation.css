@@ -223,7 +223,7 @@ header a {
   background-color: rgb(var(--kompendium-contrast-1200));
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1000px) {
   .nav-panel-scrim.display-nav-panel {
     display: block;
   }
