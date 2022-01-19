@@ -1,3 +1,11 @@
+### [34.1.1-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.3...v34.1.1-next.4) (2022-01-19)
+
+
+### Bug Fixes
+
+* **select:** hide helper text, unless component is focused ([a565a59](https://github.com/Lundalogik/lime-elements/commit/a565a592a6c92308125746476ee9d59c07f30599))
+* **select:** prevent dropdown list from covering the helper text ([e800d6f](https://github.com/Lundalogik/lime-elements/commit/e800d6f581afae3d63c8664cfaab0b79fb60579c))
+
 ### [34.1.1-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.2...v34.1.1-next.3) (2022-01-12)
 
 
