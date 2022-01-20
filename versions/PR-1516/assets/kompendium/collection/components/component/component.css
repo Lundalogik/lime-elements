@@ -256,7 +256,7 @@ kompendium-playground {
   grid-template-columns: 1fr 1fr;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
   .props-events-layout .markdown-props {
     grid-gap: 0.75rem;
     grid-auto-flow: row;
@@ -294,7 +294,7 @@ kompendium-playground {
   margin-top: 0;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
   .methods-content {
     grid-gap: 0.75rem;
     grid-auto-flow: row;
@@ -336,7 +336,7 @@ kompendium-playground {
   background: rgba(var(--kompendium-contrast-1100), 0.05);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
   .styles-layout {
     grid-auto-flow: row;
     grid-template-columns: unset;
@@ -352,7 +352,7 @@ kompendium-playground {
   width: calc(50% - 2rem);
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1000px) {
   .docs kompendium-markdown {
     width: 100%;
   }
