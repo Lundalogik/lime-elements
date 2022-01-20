@@ -58,6 +58,7 @@ export class MenuListRenderer {
                 aria-hidden={true}
                 role="menu"
                 aria-orientation="vertical"
+                style={{ '--maxLinesSecondaryText': '2' }}
             >
                 {items.map(this.renderMenuItem)}
             </ul>
