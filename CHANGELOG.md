@@ -1,3 +1,10 @@
+### [34.1.1-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.4...v34.1.1-next.5) (2022-01-20)
+
+
+### Bug Fixes
+
+* **checkbox:** remove ripple effect ([9fb4ca6](https://github.com/Lundalogik/lime-elements/commit/9fb4ca62b2b20af7237e5b21c7ee4fe625dcc72c))
+
 ### [34.1.1-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.3...v34.1.1-next.4) (2022-01-19)
 
 
