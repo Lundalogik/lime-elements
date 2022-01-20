@@ -1,0 +1,6 @@
+:host {
+    --menu-surface-width: min(
+        calc(100vw - 4rem),
+        20rem
+    ); // The `min()` function selects the smallest value from a list of comma-separated expressions.
+}
