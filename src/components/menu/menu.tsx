@@ -23,9 +23,9 @@ import {
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
- * @exampleComponent limel-example-menu-composite
  * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-secondary-text
+ * @exampleComponent limel-example-menu-composite
  */
 @Component({
     tag: 'limel-menu',
