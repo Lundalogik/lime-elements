@@ -27,11 +27,8 @@
                         content: '';
                         display: block;
                         position: absolute;
-                        top: -0.75rem;
-                        right: -0.75rem;
-                        bottom: -0.75rem;
-                        left: -0.75rem;
-                        border-radius: 50%;
+                        inset: -0.25rem;
+                        border-radius: 0.25rem;
                         box-shadow: var(--shadow-depth-8-focused);
                     }
                 }
