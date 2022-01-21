@@ -42,8 +42,8 @@ export class CheckboxExample {
                         />
                         <limel-checkbox
                             checked={this.value}
-                            label="Toggle checked"
-                            onChange={this.toggleChecked}
+                            label="Checked"
+                            onChange={this.setChecked}
                         />
                     </limel-flex-container>
                 </p>
@@ -66,7 +66,7 @@ export class CheckboxExample {
         this.required = event.detail;
     };
 
-    private toggleChecked = (event: CustomEvent<boolean>) => {
+    private setChecked = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.value = !this.value;
     };
