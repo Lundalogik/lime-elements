@@ -94,10 +94,6 @@ export class Checkbox {
         this.mdcCheckbox.indeterminate = newValue;
     }
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
-    }
-
     public connectedCallback() {
         this.initialize();
     }
@@ -141,9 +137,9 @@ export class Checkbox {
         );
     }
 
-    private onChange(event: Event) {
+    private onChange = (event: Event) => {
         event.stopPropagation();
         this.change.emit(this.mdcCheckbox.checked);
         this.modified = true;
-    }
+    };
 }
