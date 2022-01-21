@@ -1,3 +1,10 @@
+## [34.2.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.1...v34.2.0-next.2) (2022-01-21)
+
+
+### Bug Fixes
+
+* **checkbox:** give it a solid background color ([c2d8d7b](https://github.com/Lundalogik/lime-elements/commit/c2d8d7bb185790f0b1c619bc65a254e574be7e63))
+
 ## [34.2.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.5...v34.2.0-next.1) (2022-01-21)
 
 
