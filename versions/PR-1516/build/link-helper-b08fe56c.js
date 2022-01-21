@@ -1,1 +1,0 @@
-function t(t){const n=t?String(t.trim()):"";return function(t){return n=t,["ftp","ftps","https","http"].some((t=>0===n.indexOf(t+"://")))||r(t)||u(t);var n}(n)?n:(f=n)?"https://"+f:f;var f}function n(n){return r(t(n))?"_self":"_blank"}function r(t){return!u(t)&&(t.startsWith("/")||t.startsWith("#"))}function u(t){return t.startsWith("//")}export{n as a,t as g}
