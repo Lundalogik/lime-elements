@@ -14,6 +14,17 @@
     flex-wrap: wrap;
 
     .mdc-checkbox {
+        .mdc-checkbox__native-control {
+            &[disabled],
+            &:enabled {
+                &:not(:checked):not(:indeterminate) {
+                    ~ .mdc-checkbox__background {
+                        background-color: rgb(var(--contrast-300));
+                    }
+                }
+            }
+        }
+
         &.mdc-checkbox--invalid {
             .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate)
                 ~ .mdc-checkbox__background {
@@ -35,15 +46,14 @@
             }
         }
     }
+    .mdc-checkbox--disabled {
+        opacity: 0.5;
+    }
 
     label {
         cursor: pointer;
         line-height: normal;
         padding-left: 0;
-
-        &.mdc-checkbox--disabled {
-            opacity: 0.37;
-        }
 
         &.mdc-checkbox--required::after {
             margin-left: 0.0625rem;
