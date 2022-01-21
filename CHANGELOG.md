@@ -1,3 +1,10 @@
+## [34.2.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.5...v34.2.0-next.1) (2022-01-21)
+
+
+### Features
+
+* **checkbox:** add support for indeterminate state ([295d6e9](https://github.com/Lundalogik/lime-elements/commit/295d6e98438bbd357892fa8daecbe3767e573831))
+
 ### [34.1.1-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.1.1-next.4...v34.1.1-next.5) (2022-01-20)
 
 
