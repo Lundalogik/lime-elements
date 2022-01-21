@@ -8,6 +8,7 @@ import {
     h,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { CheckboxTemplate } from './checkbox.template';
@@ -55,6 +56,12 @@ export class Checkbox {
     public checked = false;
 
     /**
+     * Enables indeterminate state. Set to `true` to signal indeterminate check.
+     */
+    @Prop({ reflect: true })
+    public indeterminate = false;
+
+    /**
      * Set to `true` to indicate that the checkbox must be checked.
      */
     @Prop({ reflect: true })
@@ -76,8 +83,15 @@ export class Checkbox {
     private mdcCheckbox: MDCCheckbox;
     private id: string = createRandomString();
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
+    @Watch('checked')
+    protected handleCheckedChange(newValue: boolean) {
+        this.mdcCheckbox.checked = newValue;
+    }
+
+    @Watch('indeterminate')
+    protected handleIndeterminateChange(newValue: boolean) {
+        this.mdcCheckbox.checked = this.checked;
+        this.mdcCheckbox.indeterminate = newValue;
     }
 
     public connectedCallback() {
@@ -113,7 +127,8 @@ export class Checkbox {
                 disabled={this.disabled || this.readonly}
                 label={this.label}
                 helperText={this.helperText}
-                checked={this.checked}
+                checked={this.checked || this.indeterminate}
+                indeterminate={this.indeterminate}
                 required={this.required}
                 invalid={this.required && this.modified && !this.checked}
                 onChange={this.onChange}
@@ -122,9 +137,9 @@ export class Checkbox {
         );
     }
 
-    private onChange(event: Event) {
+    private onChange = (event: Event) => {
         event.stopPropagation();
         this.change.emit(this.mdcCheckbox.checked);
         this.modified = true;
-    }
+    };
 }
