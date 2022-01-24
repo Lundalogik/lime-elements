@@ -10,13 +10,13 @@
     cursor: pointer;
 
     [aria-sort='none'] & {
-        border-bottom-color: $tabulator-arrow-color !important;
+        border-bottom-color: rgb(var(--table-arrow-color)) !important;
     }
     [aria-sort='desc'] & {
-        border-top-color: $tabulator-arrow-color-active !important;
+        border-top-color: rgb(var(--table-arrow-color--active)) !important;
     }
     [aria-sort='asc'] & {
-        border-bottom-color: $tabulator-arrow-color-active !important;
+        border-bottom-color: rgb(var(--table-arrow-color--active)) !important;
     }
 
     &:before,
@@ -28,7 +28,7 @@
         bottom: 0;
     }
     &:before {
-        background-color: $table-header-background-color;
+        background-color: rgb(var(--table-header-background-color));
         width: functions.pxToRem(8);
         height: functions.pxToRem(8);
         transform: rotate(45deg);
@@ -37,7 +37,7 @@
     }
     &:after {
         width: functions.pxToRem(2);
-        background-color: $tabulator-arrow-color;
+        background-color: rgb(var(--table-arrow-color));
         height: functions.pxToRem(9);
         top: functions.pxToRem(2);
         left: functions.pxToRem(-1);
@@ -58,7 +58,7 @@
     [aria-sort='desc'] &,
     [aria-sort='asc'] & {
         &:after {
-            background-color: $tabulator-arrow-color-active;
+            background-color: rgb(var(--table-arrow-color--active));
         }
     }
 }

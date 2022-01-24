@@ -23,16 +23,26 @@
                     border: none;
 
                     border-radius: functions.pxToRem(4);
-                    background-color: $table-header-background-color-when-being-dragged;
+                    background-color: rgb(
+                        var(---table-header-background-color-when-being-dragged)
+                    );
                     box-shadow: var(--shadow-depth-16);
 
                     &:hover {
-                        background-color: $table-header-background-color-when-being-dragged;
+                        background-color: rgb(
+                            var(
+                                ---table-header-background-color-when-being-dragged
+                            )
+                        );
                     }
 
                     .tabulator-arrow {
                         &:before {
-                            background-color: $table-header-background-color-when-being-dragged;
+                            background-color: rgb(
+                                var(
+                                    ---table-header-background-color-when-being-dragged
+                                )
+                            );
                         }
                     }
                 }

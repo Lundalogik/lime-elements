@@ -3,13 +3,6 @@
 @use '../../style/internal/lime-typography';
 @import '../../../node_modules/tabulator-tables/src/scss/tabulator.scss';
 
-$table-header-background-color: rgb(var(--contrast-500));
-$table-header-background-color-hover: rgb(var(--contrast-400));
-$table-header-background-color-when-being-dragged: rgb(var(--contrast-100));
-$tabulator-arrow-color: rgb(var(--contrast-800));
-$tabulator-arrow-color-active-raw-value: var(--color-teal-light);
-$tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
-
 @import './partial-styles/tabulator-arrow';
 @import './partial-styles/tabulator-paginator';
 @import './partial-styles/tabulator-loader';
@@ -19,6 +12,17 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 
 :host {
     display: block;
+    --table-header-background-color: var(--contrast-500);
+    --table-header-background-color--hover: var(--contrast-400);
+    --table-header-background-color-when-being-dragged: var(--contrast-100);
+
+    --table-row-background-color--odd: var(--contrast-200);
+    --table-row-background-color--even: var(--contrast-100);
+    --table-row-background-color--hover: var(--contrast-100);
+    --table-row-background-color--active: var(--color-teal-lighter);
+
+    --table-arrow-color: var(--contrast-800);
+    --table-arrow-color--active: var(--color-teal-default);
 }
 
 #tabulator-container {
@@ -37,16 +41,18 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 .tabulator {
     .tabulator-header {
         border-bottom: 0;
-        background-color: $table-header-background-color;
+        background-color: rgb(var(--table-header-background-color--hover));
 
         .tabulator-col {
             transition: background-color 0.2s ease;
-            background-color: $table-header-background-color;
+            background-color: rgb(var(--table-header-background-color--hover));
             border-right-color: rgb(var(--contrast-200));
 
             &.tabulator-sortable {
                 &:hover {
-                    background-color: $table-header-background-color-hover;
+                    background-color: var(
+                        --table-header-background-color--hover
+                    );
                 }
             }
         }
@@ -58,7 +64,7 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
     }
 
     .tabulator-footer {
-        background-color: $table-header-background-color;
+        background-color: rgb(var(--table-header-background-color--hover));
         border: none;
 
         .tabulator-calcs-holder {
@@ -72,7 +78,7 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
         transition: background-color 0.2s ease;
         &:not(.active) {
             &:hover {
-                background-color: $table-header-background-color;
+                background-color: var(--table-header-background-color);
             }
         }
     }
@@ -86,7 +92,7 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 
     &.active,
     &.active:hover {
-        background-color: rgba($tabulator-arrow-color-active-raw-value, 0.16);
+        background-color: var(--table-row-background-color--active);
     }
 
     .tabulator-cell {
