@@ -11,7 +11,9 @@
             }
             &:not(.active) {
                 &:hover {
-                    background-color: rgb(var(--contrast-100));
+                    background-color: rgb(
+                        var(--table-row-background-color--hover)
+                    );
                 }
             }
         }
