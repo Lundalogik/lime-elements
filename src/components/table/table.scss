@@ -78,21 +78,21 @@
         transition: background-color 0.2s ease;
         &:not(.active) {
             &:hover {
-                background-color: var(--table-header-background-color);
+                background-color: rgb(var(--table-header-background-color));
             }
         }
     }
     &.tabulator-row-odd {
-        background-color: rgb(var(--contrast-200));
+        background-color: rgb(var(--table-row-background-color--odd));
     }
 
     &.tabulator-row-even {
-        background-color: rgb(var(--contrast-100));
+        background-color: rgb(var(--table-row-background-color--even));
     }
 
     &.active,
     &.active:hover {
-        background-color: var(--table-row-background-color--active);
+        background-color: rgb(var(--table-row-background-color--active));
     }
 
     .tabulator-cell {
