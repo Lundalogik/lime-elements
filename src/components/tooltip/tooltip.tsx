@@ -53,6 +53,14 @@ const DEFAULT_MAX_LENGTH = 50;
 })
 export class Tooltip {
     /**
+     * ID of the owner element that the tooltip should describe.
+     * Must be a child within the same document fragment as the tooltip element
+     * itself.
+     */
+    @Prop({ reflect: true })
+    public elementId!: string;
+
+    /**
      * Short descriptive text of the owner element.
      */
     @Prop({ reflect: true })
@@ -65,14 +73,6 @@ export class Tooltip {
      */
     @Prop({ reflect: true })
     public helperLabel?: string;
-
-    /**
-     * ID of the owner element that the tooltip should describe.
-     * Must be a child within the same document fragment as the tooltip element
-     * itself.
-     */
-    @Prop({ reflect: true })
-    public elementId!: string;
 
     /**
      * The maximum amount of characters before rendering 'label' and
