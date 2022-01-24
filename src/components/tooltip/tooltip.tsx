@@ -64,7 +64,7 @@ export class Tooltip {
      * owner element.
      */
     @Prop({ reflect: true })
-    public helperLabel: string;
+    public helperLabel?: string;
 
     /**
      * ID of the owner element that the tooltip should describe.
