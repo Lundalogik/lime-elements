@@ -180,7 +180,7 @@ export function createCustomComponent(
     element.style.display = 'inline-block';
     setElementProperties(element, props);
 
-    createResizeObserver(element, cell.getColumn());
+    createResizeObserver(element, cell);
 
     return element;
 }
@@ -235,24 +235,31 @@ function getEventName(eventListener: string): string {
 
 function createResizeObserver(
     element: HTMLElement,
-    column: Tabulator.ColumnComponent
+    cell: Tabulator.CellComponent
 ) {
     if (!('ResizeObserver' in window)) {
         return;
     }
 
     const RESIZE_TIMEOUT = 1000;
-    const COLUMN_PADDING = 16;
+    const TABULATOR_CELL_PADDING = 16;
+    const column = cell.getColumn();
 
     const observer = new ResizeObserver(() => {
-        const width = element.getBoundingClientRect().width;
-        const newWidth = width + COLUMN_PADDING;
+        const rect = element.getBoundingClientRect();
+        const cellRect = cell.getElement().getBoundingClientRect();
+        const width = rect.width;
+        const newWidth = width + TABULATOR_CELL_PADDING;
+        const height = rect.height;
+        const newHeight = height + TABULATOR_CELL_PADDING;
 
-        if (newWidth < column.getWidth()) {
-            return;
+        if (newWidth > cellRect.width) {
+            column.setWidth(true);
         }
 
-        column.setWidth(newWidth);
+        if (newHeight > cellRect.height) {
+            cell.checkHeight();
+        }
     });
     observer.observe(element);
 
