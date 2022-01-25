@@ -12,21 +12,19 @@ import { Component, h, Prop } from '@stencil/core';
 })
 export class TooltipContent {
     /**
-     * Short descriptive text of the owner element.
+     * Read more in tooltip.tsx
      */
     @Prop({ reflect: true })
     label!: string;
 
     /**
-     * Additional helper text for the element.
-     * Example usage can be a keyboard shortcut to activate the function of the
-     * owner element.
+     * Read more in tooltip.tsx
      */
     @Prop({ reflect: true })
     helperLabel?: string;
 
     /**
-     * The maximum amount of characters before rendering 'label' and 'helperLabel' in two rows.
+     * Read more in tooltip.tsx
      */
     @Prop({ reflect: true })
     maxlength?: number;
