@@ -1,3 +1,10 @@
+## [34.2.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.2...v34.2.0-next.3) (2022-01-25)
+
+
+### Features
+
+* **tooltip:** break wide tooltips into two rows & allow overriding the break point ([4552bc0](https://github.com/Lundalogik/lime-elements/commit/4552bc0ccd847074b566742293c217154e16528b))
+
 ## [34.2.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.1...v34.2.0-next.2) (2022-01-21)
 
 
