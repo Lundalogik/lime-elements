@@ -42,7 +42,9 @@
 }
 
 .limel-select__selected-option__text {
-    @include shared_input-select-picker.looks-like-input-label;
+    .mdc-select:not(.mdc-select--disabled) & {
+        @include shared_input-select-picker.looks-like-input-label;
+    }
     @include mixins.truncate-text;
 }
 
@@ -72,6 +74,7 @@
         }
 
         .mdc-floating-label {
+            color: shared_input-select-picker.$label-color;
             width: calc(
                 100% - #{functions.pxToRem(16)}
             ); //This forces the label to truncate when container is too little.
