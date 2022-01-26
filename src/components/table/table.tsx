@@ -515,6 +515,11 @@ export class Table {
     }
 
     private onClickRow(_ev, row: Tabulator.RowComponent): void {
+        if (typeof row.getPosition === 'undefined') {
+            // Not a data row, probably a CalcComponent
+            return;
+        }
+
         if (this.activeRow === row.getData()) {
             this.activeRow = null;
         } else {
