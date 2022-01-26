@@ -54,6 +54,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
+    color: $input-text-color;
     font-size: functions.pxToRem(14);
     font-weight: 400;
     letter-spacing: 0.009375em;
