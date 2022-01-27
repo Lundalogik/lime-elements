@@ -134,6 +134,9 @@ export class Menu {
                         open={this.open}
                         onDismiss={this.onClose}
                         style={cssProperties}
+                        class={{
+                            'has-grid-layout': this.gridLayout,
+                        }}
                     >
                         <limel-menu-list
                             class={{

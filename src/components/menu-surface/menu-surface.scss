@@ -13,4 +13,9 @@
     width: var(--menu-surface-width, auto);
     max-height: 100%;
     position: relative;
+:host(limel-menu-surface.has-grid-layout) {
+    .mdc-menu-surface {
+        width: var(--menu-surface-width, min(calc(100vw - 2rem), 40rem));
+        max-width: unset;
+    }
 }
