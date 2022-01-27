@@ -67,6 +67,7 @@
     .tabulator-footer {
         background-color: rgb(var(--table-header-background-color--hover));
         border: none;
+        user-select: auto;
 
         .tabulator-calcs-holder {
             border-color: rgb(var(--contrast-600));
