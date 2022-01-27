@@ -18,7 +18,11 @@ export class CheckboxExample {
     @State()
     private indeterminate: boolean = false;
 
+    @State()
+    private disconnect: boolean = false;
+
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private cb: HTMLLimelCheckboxElement;
 
     public render() {
         return (
@@ -32,6 +36,7 @@ export class CheckboxExample {
                         indeterminate={this.indeterminate}
                         required={this.required}
                         onChange={this.handleChange}
+                        ref={(el) => (this.cb = el)}
                     />
                 </div>
                 <p>
@@ -56,7 +61,13 @@ export class CheckboxExample {
                             label="Indeterminate"
                             onChange={this.setIndeterminate}
                         />
+                        <limel-checkbox
+                            checked={this.disconnect}
+                            label="Disconnect/reconnect on click"
+                            onChange={this.disconnectOnClick}
+                        />
                     </limel-flex-container>
+                    <limel-button label="Redraw" onClick={this.reconnect} />
                 </p>
                 <limel-example-value label="Checked" value={this.value} />
                 <limel-example-value
@@ -71,6 +82,12 @@ export class CheckboxExample {
     }
 
     private handleChange = (event: CustomEvent<boolean>) => {
+        if (this.disconnect) {
+            setTimeout(() => {
+                this.reconnect();
+            });
+        }
+
         this.value = event.detail;
 
         // The only way a user can interact with the checkbox is to check it or
@@ -100,5 +117,16 @@ export class CheckboxExample {
     private setIndeterminate = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.indeterminate = event.detail;
+    };
+
+    private disconnectOnClick = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disconnect = event.detail;
+    };
+
+    private reconnect = () => {
+        const parent = this.cb.parentElement;
+        parent.removeChild(this.cb);
+        parent.appendChild(this.cb);
     };
 }
