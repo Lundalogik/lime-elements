@@ -3,7 +3,7 @@
 @use '../../../style/functions';
 
 :host(.has-interactive-rows) {
-    .tabulator-row {
+    .tabulator-row:not(.tabulator-calcs) {
         &.tabulator-selectable {
             @include mixins.is-flat-clickable();
             &:hover {
