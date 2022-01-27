@@ -1,3 +1,12 @@
+## [34.2.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.3...v34.2.0-next.4) (2022-01-27)
+
+
+### Bug Fixes
+
+* **list:** make size of list icons follow our size-rhythm convention ([ab51c52](https://github.com/Lundalogik/lime-elements/commit/ab51c52343dab7e8bf48d1756378fde82d09049c))
+* **menu:** let `secondaryText` be rendered max in 2 lines, then truncate ([d5d16d3](https://github.com/Lundalogik/lime-elements/commit/d5d16d3e5acfdb68bf40463ff389421fd9db1eee))
+* **menu:** remove dividers om menus with badge icons & secondaryText ([2815c10](https://github.com/Lundalogik/lime-elements/commit/2815c100258edc9cdc2980d09946510afff8a8ba))
+
 ## [34.2.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.2...v34.2.0-next.3) (2022-01-25)
 
 
