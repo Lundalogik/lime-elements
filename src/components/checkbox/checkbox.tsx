@@ -102,20 +102,6 @@ export class Checkbox {
         this.initialize();
     }
 
-    private initialize() {
-        const element =
-            this.limelCheckbox.shadowRoot.querySelector('.mdc-form-field');
-        if (!element) {
-            return;
-        }
-
-        this.formField = new MDCFormField(element);
-        this.mdcCheckbox = new MDCCheckbox(
-            this.limelCheckbox.shadowRoot.querySelector('.mdc-checkbox')
-        );
-        this.formField.input = this.mdcCheckbox;
-    }
-
     public disconnectedCallback() {
         this.mdcCheckbox?.destroy();
         this.formField?.destroy();
@@ -135,6 +121,20 @@ export class Checkbox {
                 id={this.id}
             />
         );
+    }
+
+    private initialize() {
+        const element =
+            this.limelCheckbox.shadowRoot.querySelector('.mdc-form-field');
+        if (!element) {
+            return;
+        }
+
+        this.formField = new MDCFormField(element);
+        this.mdcCheckbox = new MDCCheckbox(
+            this.limelCheckbox.shadowRoot.querySelector('.mdc-checkbox')
+        );
+        this.formField.input = this.mdcCheckbox;
     }
 
     private onChange = (event: Event) => {
