@@ -8,11 +8,11 @@ import { Component, h, State } from '@stencil/core';
  * will be displayed in two lines, and then get truncated.
  *
  * :::important
- * Keep in mind that a menu's drop-down will stretch as much as it can to display
- * its content. You must therefore specify a maximum width for menus with
- * long secondary text, otherwise they will fill out the entire screen width.
+ * Keep in mind that a menu's drop-down surface will stretch as much as its default
+ * maximum width values allow. However, if this default maximum width does not suit
+ * your use case, you can override it using the `--menu-surface-width` variable.
  *
- * But do not forget that menus should behave responsively, thus using a fixed `width`
+ * But do not forget that menus should still behave responsively, thus assigning a fixed value
  * should be avoided. To make the width responsive, try using the `min()` function.
  * This function selects the smallest value from a list of comma-separated expressions
  * which are placed within the parentheses.
