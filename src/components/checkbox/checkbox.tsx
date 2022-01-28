@@ -1,4 +1,4 @@
-import { MDCCheckbox } from '@material/checkbox';
+import { MDCCheckbox, cssClasses } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
 import {
     Component,
@@ -105,6 +105,18 @@ export class Checkbox {
     public disconnectedCallback() {
         this.mdcCheckbox?.destroy();
         this.formField?.destroy();
+
+        const checkboxElement = this.getCheckboxElement();
+        if (checkboxElement) {
+            checkboxElement.classList.remove(
+                cssClasses.ANIM_CHECKED_INDETERMINATE,
+                cssClasses.ANIM_CHECKED_UNCHECKED,
+                cssClasses.ANIM_INDETERMINATE_CHECKED,
+                cssClasses.ANIM_INDETERMINATE_UNCHECKED,
+                cssClasses.ANIM_UNCHECKED_CHECKED,
+                cssClasses.ANIM_UNCHECKED_INDETERMINATE
+            );
+        }
     }
 
     public render() {
@@ -131,10 +143,12 @@ export class Checkbox {
         }
 
         this.formField = new MDCFormField(element);
-        this.mdcCheckbox = new MDCCheckbox(
-            this.limelCheckbox.shadowRoot.querySelector('.mdc-checkbox')
-        );
+        this.mdcCheckbox = new MDCCheckbox(this.getCheckboxElement());
         this.formField.input = this.mdcCheckbox;
+    };
+
+    private getCheckboxElement = () => {
+        return this.limelCheckbox.shadowRoot.querySelector('.mdc-checkbox');
     };
 
     private onChange = (event: Event) => {
