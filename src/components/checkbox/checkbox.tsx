@@ -123,7 +123,7 @@ export class Checkbox {
         );
     }
 
-    private initialize() {
+    private initialize = () => {
         const element =
             this.limelCheckbox.shadowRoot.querySelector('.mdc-form-field');
         if (!element) {
@@ -135,7 +135,7 @@ export class Checkbox {
             this.limelCheckbox.shadowRoot.querySelector('.mdc-checkbox')
         );
         this.formField.input = this.mdcCheckbox;
-    }
+    };
 
     private onChange = (event: Event) => {
         event.stopPropagation();
