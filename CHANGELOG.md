@@ -1,3 +1,10 @@
+## [34.2.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.4...v34.2.0-next.5) (2022-01-28)
+
+
+### Bug Fixes
+
+* **checkbox:** clean up animation classes before reconnected ([1c49723](https://github.com/Lundalogik/lime-elements/commit/1c497235a96edfcd65aec1d2c793d55e4890468d))
+
 ## [34.2.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.3...v34.2.0-next.4) (2022-01-27)
 
 
