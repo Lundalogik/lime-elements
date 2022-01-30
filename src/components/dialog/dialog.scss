@@ -120,4 +120,7 @@ slot[name='button'] {
     slot[name='button'] {
         flex-direction: column-reverse;
     }
+    .mdc-dialog__actions {
+        padding: 1rem 1.5rem 1.5rem 1.5rem;
+    }
 }
