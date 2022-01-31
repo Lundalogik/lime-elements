@@ -58,4 +58,23 @@ $height-of-tabulator-aggreations: functions.pxToRem(36);
             min-height: $table-content-height--paginator-and-aggregation-rows;
         }
     }
+
+    &.has-pagination {
+        padding-top: $height-of-tabulator-paginator;
+    }
+
+    .tabulator-paginator {
+        position: absolute;
+        inset: 0 0 auto 0;
+    }
+
+    .tabulator-footer {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .tabulator-calcs-holder {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
 }
