@@ -9,7 +9,8 @@
 @import './partial-styles/tabulator-custom-styles';
 @import './partial-styles/header-component';
 @import './partial-styles/movable-columns';
-@import './partial-styles/row-selection';
+@import './partial-styles/_tabulator-footer';
+@import './partial-styles/_row-selection';
 
 :host {
     display: block;
@@ -26,6 +27,8 @@
     --table-arrow-color--active: var(--mdc-theme-primary);
 }
 
+@import './partial-styles/_table-main-layout';
+
 #tabulator-container {
     position: relative;
 }
@@ -33,8 +36,6 @@
 #tabulator-container,
 #tabulator-table {
     @include lime-typography.base;
-    height: 100%;
-    width: 100%;
     background-color: transparent;
     border: none;
 }
@@ -63,22 +64,9 @@
             padding-left: functions.pxToRem(2);
         }
     }
-
-    .tabulator-footer {
-        background-color: rgb(var(--table-header-background-color--hover));
-        border: none;
-        user-select: auto;
-
-        .tabulator-calcs-holder {
-            border-color: rgb(var(--contrast-600));
-        }
-    }
 }
 
 .tabulator-row {
-    &.tabulator-calcs {
-        cursor: default !important;
-    }
     &.tabulator-selectable {
         transition: background-color 0.2s ease;
         &:not(.active) {

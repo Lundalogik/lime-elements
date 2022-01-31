@@ -1,0 +1,39 @@
+#tabulator-container,
+#tabulator-table {
+    height: 100%;
+    width: 100%;
+}
+
+.tabulator {
+    display: flex;
+    flex-direction: column;
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .tabulator-header {
+        flex-shrink: 0;
+    }
+
+    .tabulator-tableHolder {
+        flex-grow: 1;
+        $unset-tabulators-calculated-and-hardcoded-height: unset !important; // tabulator calculates (not so precisely) height of the scrollable area of the table and adds it inline.
+        height: $unset-tabulators-calculated-and-hardcoded-height;
+        max-height: $unset-tabulators-calculated-and-hardcoded-height;
+        min-height: $unset-tabulators-calculated-and-hardcoded-height;
+    }
+
+    .tabulator-footer {
+        flex-shrink: 0;
+    }
+
+    &:not(.has-pagination) {
+        // When there is no pagination, Tabulator still displays the pagination bar,
+        // but with only 1 page in it. This is why we hide it:
+        .tabulator-paginator {
+            visibility: hidden;
+            display: none !important;
+        }
+    }
+}
