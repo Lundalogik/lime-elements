@@ -16,6 +16,8 @@ $tabulator-arrow-color-active: rgb($tabulator-arrow-color-active-raw-value);
 @import './partial-styles/tabulator-custom-styles';
 @import './partial-styles/header-component';
 @import './partial-styles/movable-columns';
+@import './partial-styles/_tabulator-footer';
+@import './partial-styles/_row-selection';
 
 :host {
     display: block;

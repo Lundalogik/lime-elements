@@ -1,0 +1,61 @@
+$height-of-tabulator-header: functions.pxToRem(28);
+$height-of-tabulator-paginator: functions.pxToRem(36);
+$height-of-tabulator-aggreations: functions.pxToRem(36);
+
+.tabulator {
+    &:not(.has-aggregation.has-pagination) {
+        // When there is no pagination, Tabulator still displays the pagination bar,
+        // but with only 1 page in it. This is why we hide it:
+
+        .tabulator-paginator {
+            visibility: hidden;
+            display: none;
+        }
+    }
+
+    &.has-aggregation:not(.has-pagination) {
+        $table-content-height--aggregation-row-only: calc(
+            100% -
+                (
+                    #{$height-of-tabulator-header} + #{$height-of-tabulator-aggreations}
+                )
+        ) !important;
+
+        .tabulator-tableHolder {
+            height: $table-content-height--aggregation-row-only;
+            max-height: $table-content-height--aggregation-row-only;
+            min-height: $table-content-height--aggregation-row-only;
+        }
+    }
+
+    &.has-pagination:not(.has-pagination) {
+        $table-content-height--paginator-row-only: calc(
+            100% -
+                (
+                    #{$height-of-tabulator-header} + #{$height-of-tabulator-paginator}
+                )
+        ) !important;
+
+        .tabulator-tableHolder {
+            height: $table-content-height--paginator-row-only;
+            max-height: $table-content-height--paginator-row-only;
+            min-height: $table-content-height--paginator-row-only;
+        }
+    }
+
+    &.has-pagination.has-pagination {
+        $table-content-height--paginator-and-aggregation-rows: calc(
+            100% -
+                (
+                    #{$height-of-tabulator-header} + #{$height-of-tabulator-paginator} +
+                        #{$height-of-tabulator-aggreations}
+                )
+        ) !important;
+
+        .tabulator-tableHolder {
+            height: $table-content-height--paginator-and-aggregation-rows;
+            max-height: $table-content-height--paginator-and-aggregation-rows;
+            min-height: $table-content-height--paginator-and-aggregation-rows;
+        }
+    }
+}
