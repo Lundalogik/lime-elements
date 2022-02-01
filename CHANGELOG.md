@@ -1,3 +1,10 @@
+## [34.2.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.5...v34.2.0-next.6) (2022-02-01)
+
+
+### Bug Fixes
+
+* **dialog:** add padding to the footer in mobile view ([f2e8888](https://github.com/Lundalogik/lime-elements/commit/f2e888834457b0ed0fb62d520c2159b4bbae5055))
+
 ## [34.2.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.4...v34.2.0-next.5) (2022-01-28)
 
 
