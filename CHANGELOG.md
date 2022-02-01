@@ -1,3 +1,10 @@
+## [35.0.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.1...v35.0.0-next.2) (2022-02-01)
+
+
+### Bug Fixes
+
+* **list:** add margin to the "limel-list" for proper keyboard visualization ([b991714](https://github.com/Lundalogik/lime-elements/commit/b991714fcc1c4900a1d628df38502b670fce1cd4))
+
 ## [35.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.6...v35.0.0-next.1) (2022-02-01)
 
 
