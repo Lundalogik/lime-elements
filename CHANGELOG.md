@@ -1,3 +1,18 @@
+## [35.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.6...v35.0.0-next.1) (2022-02-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** menus' dropdown lists will not render wider than `20rem`,
+and their text will be truncated. If you have menus in which the whole menu item
+label has to be displayed for the end user, make sure to increase the menu width
+and read our docs to learn how to do it in a responsive way.
+
+### Bug Fixes
+
+* **menu:** specify a default max-width instead of a static width ([4c0f351](https://github.com/Lundalogik/lime-elements/commit/4c0f3511b2863a2f6de144d26ad385c915662ca6))
+* **menu:** specify a default width for the grid menu layout ([371ef2d](https://github.com/Lundalogik/lime-elements/commit/371ef2d2a8442523ae55dc7e79b30c2c3d855a3e))
+
 ## [34.2.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.5...v34.2.0-next.6) (2022-02-01)
 
 
