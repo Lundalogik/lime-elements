@@ -1,3 +1,20 @@
+## [35.0.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.3...v35.0.0-next.4) (2022-02-02)
+
+
+### Features
+
+* **table:** add row selection possibility ([4a5453b](https://github.com/Lundalogik/lime-elements/commit/4a5453bcba61b56bdad3adcc9728a7498f110235))
+
+
+### Bug Fixes
+
+* **table:** let users select content of footer cells ([3f86269](https://github.com/Lundalogik/lime-elements/commit/3f86269af6a5ead52ad39601f959e13ec1babcb9))
+* **table:** never emit aggregation data as activeRow ([69a8312](https://github.com/Lundalogik/lime-elements/commit/69a83128aa521d118b0f13fdd2ade66723cef98e))
+* **table:** remove interactive styles from calculations row ([4d839c8](https://github.com/Lundalogik/lime-elements/commit/4d839c8a49994c7bf27cbfb4eb0fcad403aca754))
+* **table:** remove unnecessary styles ([c8a6ca3](https://github.com/Lundalogik/lime-elements/commit/c8a6ca3ecb4b0446a0243782dee81cc1f0f6344e))
+* **table:** use `css` variables for even & odd rows' background colors ([2757c6f](https://github.com/Lundalogik/lime-elements/commit/2757c6ff31d59335bffc0198d124e3731b86b956))
+* **table:** use `css` variables instead of `scss` variables ([cc60a63](https://github.com/Lundalogik/lime-elements/commit/cc60a63b8ab3449b0ab143cc7b2b82b6e80b9972))
+
 ## [35.0.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.2...v35.0.0-next.3) (2022-02-02)
 
 
