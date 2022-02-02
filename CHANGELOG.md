@@ -1,3 +1,12 @@
+## [35.0.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.2...v35.0.0-next.3) (2022-02-02)
+
+
+### Bug Fixes
+
+* **input-field:** make sure label has our default label color ([546d7ea](https://github.com/Lundalogik/lime-elements/commit/546d7ea341da3959ef424c46196d85cc7c2d33be))
+* **select:** make sure label color is the same as for `input-field` ([d976a07](https://github.com/Lundalogik/lime-elements/commit/d976a071c321e61f26c623353a35f8c34748a1c3))
+* **slider:** make sure label color is the same as for `input-field` ([20147ed](https://github.com/Lundalogik/lime-elements/commit/20147edaad49eca6dfe4872c7b7b6d95f4815b17))
+
 ## [35.0.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.1...v35.0.0-next.2) (2022-02-01)
 
 
