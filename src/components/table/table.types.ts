@@ -158,3 +158,17 @@ export type ColumnAggregatorFunction<T = object> = (
     values?: any[],
     data?: T[]
 ) => any;
+
+/**
+ * Defines aggregate values for columns
+ */
+export interface ColumnAggregate {
+    /**
+     * The name of the `Column` field
+     */
+    field: string;
+    /**
+     * The aggregate value
+     */
+    value: any;
+}
