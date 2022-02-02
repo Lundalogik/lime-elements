@@ -1,9 +1,9 @@
 import { Component, h, State } from '@stencil/core';
-import { Column, ColumnAggregatorType } from '../table.types';
+import { Column, ColumnAggregate } from '../table.types';
 import { persons, Person } from './persons';
 
 /**
- * Select rows
+ * Selectable rows with updating aggregates
  *
  * @link persons.ts
  */
@@ -17,6 +17,8 @@ export class TableExampleSelectableRows {
     private activeRow: Person;
     @State()
     private selection: Person[];
+    @State()
+    private aggregates: ColumnAggregate[];
 
     private tableData: Person[] = persons;
     private defaultSelection = [persons[0], persons[2]];
@@ -30,14 +32,12 @@ export class TableExampleSelectableRows {
             title: 'Age',
             field: 'age',
             horizontalAlign: 'right',
-            aggregator: ColumnAggregatorType.Average,
         },
         { title: 'Kind', field: 'kind' },
         {
             title: 'Height',
             field: 'height',
             horizontalAlign: 'right',
-            aggregator: ColumnAggregatorType.Sum,
         },
         { title: 'Stamina', field: 'stamina' },
         { title: 'Place of Birth', field: 'placeOfBirth' },
@@ -50,6 +50,7 @@ export class TableExampleSelectableRows {
 
     constructor() {
         this.selection = [...this.defaultSelection];
+        this.updateAggregates();
     }
 
     public render() {
@@ -65,6 +66,7 @@ export class TableExampleSelectableRows {
                 activeRow={this.activeRow}
                 selectable={true}
                 selection={this.selection}
+                aggregates={this.aggregates}
                 columns={this.columns}
                 onActivate={this.onActivateRow}
                 onSelect={this.onSelect}
@@ -93,6 +95,7 @@ export class TableExampleSelectableRows {
 
     private onSelect = (event: CustomEvent<Person[]>) => {
         this.selection = event.detail;
+        this.updateAggregates();
         this.eventPrinter.writeEvent(event);
     };
 
@@ -102,13 +105,80 @@ export class TableExampleSelectableRows {
 
     private selectAll = () => {
         this.selection = [...this.tableData];
+        this.updateAggregates();
     };
 
     private clearSelection = () => {
         this.selection = [];
+        this.updateAggregates();
     };
 
     private resetSelection = () => {
         this.selection = [...this.defaultSelection];
+        this.updateAggregates();
+    };
+
+    private updateAggregates = () => {
+        this.aggregates = [
+            this.getNameAggregate(),
+            this.getHeightAggregate(),
+            this.getAgeAggregate(),
+            this.getStaminaAggregate(),
+        ];
+    };
+
+    private getNameAggregate = () => {
+        const selected = this.selection.length;
+        const count = this.tableData.length;
+        const value = selected ? `Selected: ${selected}` : `Count: ${count}`;
+
+        return {
+            field: 'name',
+            value: value,
+        };
+    };
+
+    private getStaminaAggregate = () => {
+        const items = this.selection.length ? this.selection : this.tableData;
+        const stamina = items.map((d) => Number.parseInt(d.stamina, 10));
+        const minStamina = Math.min(...stamina);
+        const maxStamina = Math.max(...stamina);
+        let value = `${minStamina}%`;
+        if (minStamina !== maxStamina) {
+            value = `${minStamina}% - ${maxStamina}%`;
+        }
+
+        return {
+            field: 'stamina',
+            value: value,
+        };
+    };
+
+    private sumProperty = (
+        items: Person[],
+        valueProvider: (person: Person) => number
+    ) => {
+        return items.reduce((s, person) => s + valueProvider(person), 0);
+    };
+
+    private getAgeAggregate = () => {
+        const items = this.selection.length ? this.selection : this.tableData;
+        const sum = this.sumProperty(items, (p) => p.age);
+        const avg = sum / items.length || 0;
+
+        return {
+            field: 'age',
+            value: `Avg: ${Math.round(avg * 100) / 100}`,
+        };
+    };
+
+    private getHeightAggregate = () => {
+        const items = this.selection.length ? this.selection : this.tableData;
+        const sum = this.sumProperty(items, (p) => p.height);
+
+        return {
+            field: 'height',
+            value: `${sum} cm`,
+        };
     };
 }
