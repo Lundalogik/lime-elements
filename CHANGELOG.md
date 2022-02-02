@@ -1,3 +1,10 @@
+## [35.0.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.4...v35.0.0-next.5) (2022-02-02)
+
+
+### Bug Fixes
+
+* **table:** fix row selector visual defects, on selected & hovered rows ([ecc1fee](https://github.com/Lundalogik/lime-elements/commit/ecc1fee19487c73f0bd79f73ea110d05888f1f14))
+
 ## [35.0.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.3...v35.0.0-next.4) (2022-02-02)
 
 
