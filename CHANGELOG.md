@@ -1,3 +1,10 @@
+## [35.0.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.5...v35.0.0-next.6) (2022-02-03)
+
+
+### Bug Fixes
+
+* **table:** prevent moving the checkbox column ([c37a9b3](https://github.com/Lundalogik/lime-elements/commit/c37a9b3c31a4c396f812d5fcd5d88d60c76c191f))
+
 ## [35.0.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.4...v35.0.0-next.5) (2022-02-02)
 
 
