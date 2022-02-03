@@ -99,7 +99,7 @@
     .tabulator-col.limel-table--row-selector {
     border: none;
     cursor: default;
-    pointer-events: unset;
+    pointer-events: none;
     background-color: transparent;
     background-image: linear-gradient(
         to right,
