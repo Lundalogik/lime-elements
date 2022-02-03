@@ -9,10 +9,12 @@
 }
 
 /**
- * @prop --icon-background-color: Background color when attribute `elevated` is set to `true`.
+ * @prop --icon-button-background-color: Background color when attribute `elevated` is set to `true`.
  */
 
 :host {
+    --specified-background-color: var(--icon-button-background-color),
+        (var(--icon-background-color));
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -33,6 +35,10 @@
 
     limel-icon {
         @include mixins.is-elevated-clickable;
+        background-color: var(
+            --specified-background-color,
+            rgb(var(--contrast-100), 0.8)
+        );
     }
 }
 
