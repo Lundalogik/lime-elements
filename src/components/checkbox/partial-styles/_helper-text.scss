@@ -2,6 +2,8 @@
 
 .limel-checkbox-helper-line {
     @include shared_input-select-picker.looks-like-helper-line;
+    grid-column-start: 1;
+    grid-column-end: -1;
 }
 
 .limel-checkbox-helper-text {
