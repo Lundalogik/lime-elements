@@ -1,3 +1,10 @@
+## [35.0.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.6...v35.0.0-next.7) (2022-02-03)
+
+
+### Bug Fixes
+
+* bump version in order to test release workflow ([ce93bfd](https://github.com/Lundalogik/lime-elements/commit/ce93bfd83ad83631727cf37bd82789fb94ab92f2))
+
 ## [35.0.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.5...v35.0.0-next.6) (2022-02-03)
 
 
