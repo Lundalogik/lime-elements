@@ -2,23 +2,16 @@
 
 .limel-checkbox-helper-line {
     @include shared_input-select-picker.looks-like-helper-line;
-    grid-column-start: 1;
-    grid-column-end: -1;
 }
 
 .limel-checkbox-helper-text {
     @include shared_input-select-picker.looks-like-helper-text;
     color: shared_input-select-picker.$helper-text-color;
-}
 
-.mdc-form-field {
-    &:hover,
-    &:focus,
-    &:focus-visible,
-    &:focus-within {
-        .limel-checkbox-helper-text {
-            opacity: 1;
-        }
+    :host(:hover) &,
+    :host(:focus) &,
+    :host(:focus-within) & {
+        opacity: 1;
     }
 }
 
