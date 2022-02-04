@@ -266,11 +266,15 @@ export class Table {
             return;
         }
 
-        const existingColumns = this.tabulator
+        const columnsInTable = this.tabulator
             .getColumns()
-            .map(this.findColumn);
+            .filter((c) => c.getField());
 
-        if (this.areSameColumns(newColumns, existingColumns)) {
+        const oldColumnsInTable = columnsInTable.map((c) =>
+            oldColumns.find((old) => old.field === c.getField())
+        );
+
+        if (this.areSameColumns(newColumns, oldColumnsInTable)) {
             return;
         }
 
@@ -593,7 +597,7 @@ export class Table {
     };
 
     private handleMoveColumn = (_, components: Tabulator.ColumnComponent[]) => {
-        const columns = components.map(this.findColumn);
+        const columns = components.map(this.findColumn).filter((c) => c);
         this.changeColumns.emit(columns);
     };
 
