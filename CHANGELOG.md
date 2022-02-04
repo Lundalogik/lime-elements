@@ -1,3 +1,10 @@
+## [35.0.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.9...v35.0.0-next.10) (2022-02-04)
+
+
+### Bug Fixes
+
+* **table:** check if tableSelection is exists ([909d6d7](https://github.com/Lundalogik/lime-elements/commit/909d6d77f7c944565862445a7d63cb2c2140d9e4))
+
 ## [35.0.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.8...v35.0.0-next.9) (2022-02-04)
 
 
