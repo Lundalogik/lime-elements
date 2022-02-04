@@ -1,3 +1,10 @@
+## [35.0.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.7...v35.0.0-next.8) (2022-02-04)
+
+
+### Bug Fixes
+
+* **checkbox:** avoid rendering long labels on the next row below the checkbox ([003e77a](https://github.com/Lundalogik/lime-elements/commit/003e77aeceda62a102a7396d78d526a99b2f3b6a))
+
 ## [35.0.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.6...v35.0.0-next.7) (2022-02-03)
 
 
