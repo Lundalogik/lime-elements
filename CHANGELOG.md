@@ -1,3 +1,10 @@
+## [35.0.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.8...v35.0.0-next.9) (2022-02-04)
+
+
+### Bug Fixes
+
+* **table:** never emit internal row selector column ([c8e6a3d](https://github.com/Lundalogik/lime-elements/commit/c8e6a3dfc00c3044f2c82ac519917c04c2fa14fd))
+
 ## [35.0.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.7...v35.0.0-next.8) (2022-02-04)
 
 
