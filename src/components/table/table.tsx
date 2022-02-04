@@ -652,10 +652,10 @@ export class Table {
             >
                 <limel-checkbox
                     onChange={this.selectAllOnChange}
-                    checked={this.tableSelection.hasSelection}
+                    checked={this.tableSelection?.hasSelection}
                     indeterminate={
-                        this.tableSelection.hasSelection &&
-                        this.selection.length < this.data.length
+                        this.tableSelection?.hasSelection &&
+                        this.selection?.length < this.data.length
                     }
                 />
             </div>
