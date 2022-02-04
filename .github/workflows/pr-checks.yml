@@ -47,9 +47,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        if: github.actor != 'dependabot[bot]'
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v2
+        if: github.actor != 'dependabot[bot]'
 
   autosquash:
     name: Block Autosquash Commits
