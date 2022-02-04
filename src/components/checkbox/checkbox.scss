@@ -9,12 +9,8 @@
 @include checkbox.core-styles;
 @include form-field.core-styles;
 
-$constructed-size-of-checkbox: 2.5rem; // MDC has some variables that control the size of the
-// checkbox component,but they will be constructed to `40px` (`2.5rem`) in `height` and` width`
-
 .mdc-form-field {
-    display: grid;
-    grid-template-columns: $constructed-size-of-checkbox 1fr;
+    display: flex;
 
     .mdc-checkbox {
         .mdc-checkbox__native-control {
