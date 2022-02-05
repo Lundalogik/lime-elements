@@ -40,7 +40,6 @@ jobs:
         rm .npmrc
     - run: npm run build
     - run: npm test --if-present
-    - run: npm run docs:build
 
   commitlint:
     name: Commitlint
