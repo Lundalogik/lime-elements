@@ -33,7 +33,7 @@ module.exports = {
         quotes: ['error', 'single', { avoidEscape: true }],
         semi: ['error', 'always'],
         'prettier/prettier': 'error',
-        '@typescript-eslint/no-unused-vars-experimental': 'error',
+        '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/array-type': [
             'error',
             {
@@ -150,6 +150,8 @@ module.exports = {
                 project: 'tsconfig.json',
             },
             rules: {
+                '@stencil/decorators-context': 'off', // gives false errors with eslint v8.8.0 /Ads
+                '@stencil/no-unused-watch': 'off', // gives false errors with eslint v8.8.0 /Ads
                 '@stencil/decorators-style': 'off',
                 '@stencil/strict-boolean-conditions': 'off',
                 '@stencil/render-returns-host': 'off',
@@ -173,6 +175,8 @@ module.exports = {
                 project: 'tsconfig.lint.json',
             },
             rules: {
+                '@stencil/decorators-context': 'off', // gives false errors with eslint v8.8.0 /Ads
+                '@stencil/no-unused-watch': 'off', // gives false errors with eslint v8.8.0 /Ads
                 '@stencil/decorators-style': 'off',
                 '@stencil/strict-boolean-conditions': 'off',
                 '@stencil/render-returns-host': 'off',
