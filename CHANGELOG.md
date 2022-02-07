@@ -1,3 +1,10 @@
+## [35.0.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.10...v35.0.0-next.11) (2022-02-07)
+
+
+### Features
+
+* **table:** add aggregates property ([df61da8](https://github.com/Lundalogik/lime-elements/commit/df61da8d2db495eac28f748242bf6650568b6b3d))
+
 ## [35.0.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.9...v35.0.0-next.10) (2022-02-04)
 
 
