@@ -1,3 +1,107 @@
+## [35.0.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.10...v35.0.0-next.11) (2022-02-07)
+
+
+### Features
+
+* **table:** add aggregates property ([df61da8](https://github.com/Lundalogik/lime-elements/commit/df61da8d2db495eac28f748242bf6650568b6b3d))
+
+## [35.0.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.9...v35.0.0-next.10) (2022-02-04)
+
+
+### Bug Fixes
+
+* **table:** check if tableSelection is exists ([909d6d7](https://github.com/Lundalogik/lime-elements/commit/909d6d77f7c944565862445a7d63cb2c2140d9e4))
+
+## [35.0.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.8...v35.0.0-next.9) (2022-02-04)
+
+
+### Bug Fixes
+
+* **table:** never emit internal row selector column ([c8e6a3d](https://github.com/Lundalogik/lime-elements/commit/c8e6a3dfc00c3044f2c82ac519917c04c2fa14fd))
+
+## [35.0.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.7...v35.0.0-next.8) (2022-02-04)
+
+
+### Bug Fixes
+
+* **checkbox:** avoid rendering long labels on the next row below the checkbox ([003e77a](https://github.com/Lundalogik/lime-elements/commit/003e77aeceda62a102a7396d78d526a99b2f3b6a))
+
+## [35.0.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.6...v35.0.0-next.7) (2022-02-03)
+
+
+### Bug Fixes
+
+* bump version in order to test release workflow ([ce93bfd](https://github.com/Lundalogik/lime-elements/commit/ce93bfd83ad83631727cf37bd82789fb94ab92f2))
+
+## [35.0.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.5...v35.0.0-next.6) (2022-02-03)
+
+
+### Bug Fixes
+
+* **table:** prevent moving the checkbox column ([c37a9b3](https://github.com/Lundalogik/lime-elements/commit/c37a9b3c31a4c396f812d5fcd5d88d60c76c191f))
+
+## [35.0.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.4...v35.0.0-next.5) (2022-02-02)
+
+
+### Bug Fixes
+
+* **table:** fix row selector visual defects, on selected & hovered rows ([ecc1fee](https://github.com/Lundalogik/lime-elements/commit/ecc1fee19487c73f0bd79f73ea110d05888f1f14))
+
+## [35.0.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.3...v35.0.0-next.4) (2022-02-02)
+
+
+### Features
+
+* **table:** add row selection possibility ([4a5453b](https://github.com/Lundalogik/lime-elements/commit/4a5453bcba61b56bdad3adcc9728a7498f110235))
+
+
+### Bug Fixes
+
+* **table:** let users select content of footer cells ([3f86269](https://github.com/Lundalogik/lime-elements/commit/3f86269af6a5ead52ad39601f959e13ec1babcb9))
+* **table:** never emit aggregation data as activeRow ([69a8312](https://github.com/Lundalogik/lime-elements/commit/69a83128aa521d118b0f13fdd2ade66723cef98e))
+* **table:** remove interactive styles from calculations row ([4d839c8](https://github.com/Lundalogik/lime-elements/commit/4d839c8a49994c7bf27cbfb4eb0fcad403aca754))
+* **table:** remove unnecessary styles ([c8a6ca3](https://github.com/Lundalogik/lime-elements/commit/c8a6ca3ecb4b0446a0243782dee81cc1f0f6344e))
+* **table:** use `css` variables for even & odd rows' background colors ([2757c6f](https://github.com/Lundalogik/lime-elements/commit/2757c6ff31d59335bffc0198d124e3731b86b956))
+* **table:** use `css` variables instead of `scss` variables ([cc60a63](https://github.com/Lundalogik/lime-elements/commit/cc60a63b8ab3449b0ab143cc7b2b82b6e80b9972))
+
+## [35.0.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.2...v35.0.0-next.3) (2022-02-02)
+
+
+### Bug Fixes
+
+* **input-field:** make sure label has our default label color ([546d7ea](https://github.com/Lundalogik/lime-elements/commit/546d7ea341da3959ef424c46196d85cc7c2d33be))
+* **select:** make sure label color is the same as for `input-field` ([d976a07](https://github.com/Lundalogik/lime-elements/commit/d976a071c321e61f26c623353a35f8c34748a1c3))
+* **slider:** make sure label color is the same as for `input-field` ([20147ed](https://github.com/Lundalogik/lime-elements/commit/20147edaad49eca6dfe4872c7b7b6d95f4815b17))
+
+## [35.0.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.1...v35.0.0-next.2) (2022-02-01)
+
+
+### Bug Fixes
+
+* **list:** add margin to the "limel-list" for proper keyboard visualization ([b991714](https://github.com/Lundalogik/lime-elements/commit/b991714fcc1c4900a1d628df38502b670fce1cd4))
+
+## [35.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.6...v35.0.0-next.1) (2022-02-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** menus' dropdown lists will not render wider than `20rem`,
+and their text will be truncated. If you have menus in which the whole menu item
+label has to be displayed for the end user, make sure to increase the menu width
+and read our docs to learn how to do it in a responsive way.
+
+### Bug Fixes
+
+* **menu:** specify a default max-width instead of a static width ([4c0f351](https://github.com/Lundalogik/lime-elements/commit/4c0f3511b2863a2f6de144d26ad385c915662ca6))
+* **menu:** specify a default width for the grid menu layout ([371ef2d](https://github.com/Lundalogik/lime-elements/commit/371ef2d2a8442523ae55dc7e79b30c2c3d855a3e))
+
+## [34.2.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.5...v34.2.0-next.6) (2022-02-01)
+
+
+### Bug Fixes
+
+* **dialog:** add padding to the footer in mobile view ([f2e8888](https://github.com/Lundalogik/lime-elements/commit/f2e888834457b0ed0fb62d520c2159b4bbae5055))
+
 ## [34.2.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v34.2.0-next.4...v34.2.0-next.5) (2022-01-28)
 
 

@@ -20,7 +20,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
         inputProps['data-indeterminate'] = 'true';
     }
 
-    return (
+    return [
         <div class="mdc-form-field ">
             <div
                 class={{
@@ -63,9 +63,9 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
             >
                 {props.label}
             </label>
-            <HelperText text={props.helperText} />
-        </div>
-    );
+        </div>,
+        <HelperText text={props.helperText} />,
+    ];
 };
 
 const HelperText: FunctionalComponent<{ text: string }> = (props) => {
