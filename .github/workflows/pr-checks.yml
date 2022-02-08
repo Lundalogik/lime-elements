@@ -110,6 +110,7 @@ jobs:
           await script({github, context});
 
   autoapprove:
+    needs: [lint, build, test, commitlint, autosquash, docs]
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
