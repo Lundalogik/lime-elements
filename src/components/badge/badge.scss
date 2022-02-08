@@ -17,6 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 
     font-size: functions.pxToRem(11);
 
