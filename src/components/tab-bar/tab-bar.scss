@@ -118,13 +118,9 @@ $tab-scroller-fade-width: 65;
     }
 }
 
-.mdc-tab__content {
-    gap: functions.pxToRem(6);
-}
-
 .mdc-tab__text-label {
     // MDC adds a padding left of 8px using `.mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon+.mdc-tab__text-label`.
     // The `mdc-tab--stacked` is nothing we use. So,
     // for simplicity, we make it `!important` to override that.
-    padding-left: 0 !important;
+    padding: 0 functions.pxToRem(6) !important;
 }
