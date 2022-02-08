@@ -21,14 +21,15 @@ $tab-scroller-fade-width: 65;
     position: relative;
 }
 
+.mdc-tab {
+    padding-right: functions.pxToRem(20);
+    padding-left: functions.pxToRem(20);
+}
+
 :host(.has-tabs-with-equal-width) {
     .mdc-tab {
         flex: 1 0 auto;
     }
-}
-
-.mdc-tab__icon {
-    margin-right: functions.pxToRem(8);
 }
 
 .mdc-tab-indicator {
