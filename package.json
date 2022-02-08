@@ -58,7 +58,7 @@
     "@types/tabulator-tables": "^4.9.3",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
-    "ajv": "^6.12.6",
+    "ajv": "^8.10.0",
     "awesome-debounce-promise": "^2.1.0",
     "codemirror": "^5.62.3",
     "commitizen": "^4.2.4",
