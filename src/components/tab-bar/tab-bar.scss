@@ -1,5 +1,6 @@
 @use '../../style/internal/z-index';
 @use '../../style/functions';
+@use '../../style/mixins';
 @use '../../style/internal/lime-theme';
 @use '@material/tab-bar/mdc-tab-bar';
 @use '@material/tab-scroller/mdc-tab-scroller';
@@ -123,4 +124,41 @@ $tab-scroller-fade-width: 65;
     // The `mdc-tab--stacked` is nothing we use. So,
     // for simplicity, we make it `!important` to override that.
     padding: 0 functions.pxToRem(6) !important;
+}
+
+:host(.has-shrinkable-tabs) {
+    .mdc-tab-scroller__scroll-area {
+        .mdc-tab-scroller__scroll-content {
+            flex-shrink: 1;
+        }
+
+        .mdc-tab {
+            transition: flex-shrink 0.25s ease, flex-grow 0.25s ease,
+                padding 0.2s ease;
+            flex-shrink: 1;
+            min-width: 0;
+            // min-width: functions.pxToRem(48);
+            padding-right: min(2%, #{functions.pxToRem(12)});
+            padding-left: min(2%, #{functions.pxToRem(20)});
+
+            &.mdc-tab--active {
+                flex-shrink: 0.00001; // otherwise it will not animate in Chrome, if it's zero
+            }
+        }
+
+        .mdc-tab__content {
+            min-width: 0;
+        }
+
+        .mdc-tab__icon {
+            flex-shrink: 0;
+            margin-right: 0;
+        }
+
+        .mdc-tab__text-label {
+            @include mixins.truncate-text();
+            min-width: 0;
+            flex-shrink: 1;
+        }
+    }
 }
