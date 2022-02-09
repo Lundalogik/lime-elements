@@ -45,6 +45,11 @@ export interface ListItem<T = any> {
      * Component used to render in the list
      */
     primaryComponent?: ListComponent;
+
+    /**
+     * Only used for limel-picker at the moment. See docs for limel-chip-set.
+     */
+    inaccessible?: boolean;
 }
 
 export interface ListSeparator {

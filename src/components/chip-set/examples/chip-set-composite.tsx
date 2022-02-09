@@ -55,7 +55,14 @@ export class ChipSetCompositeExample {
 
     public render() {
         return [
-            <limel-chip-set {...this.props} onChange={this.handleChange} />,
+            <limel-chip-set
+                {...this.props}
+                onChange={this.handleEvent}
+                onInteract={this.handleEvent}
+                onStartEdit={this.handleEvent}
+                onStopEdit={this.handleEvent}
+                onInput={this.handleEvent}
+            />,
             this.renderForm(),
             <limel-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
@@ -75,7 +82,7 @@ export class ChipSetCompositeExample {
         );
     }
 
-    private handleChange = (event: CustomEvent<Chip | Chip[]>) => {
+    private handleEvent = (event: Event) => {
         this.eventPrinter.writeEvent(event);
     };
 

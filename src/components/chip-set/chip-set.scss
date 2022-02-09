@@ -40,7 +40,10 @@ $background-color-of-remove-chip-buton-when-hovered: rgba(
 $scale-of-remove-chip-x-when-hovered: scale(0.7);
 
 .mdc-chip {
-    @include mixins.is-elevated-inset-clickable;
+    &:not(.inaccessible) {
+        @include mixins.is-elevated-inset-clickable;
+    }
+
     max-width: 100%;
     min-width: functions.pxToRem(32);
     padding: 0 functions.pxToRem(1);
@@ -94,6 +97,10 @@ $scale-of-remove-chip-x-when-hovered: scale(0.7);
         &:active {
             box-shadow: var(--button-shadow-inset-pressed);
         }
+    }
+
+    &.inaccessible {
+        cursor: not-allowed;
     }
 }
 

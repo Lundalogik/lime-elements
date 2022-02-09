@@ -20,7 +20,6 @@ import { handleKeyboardEvent } from './chip-set-input-helpers';
 import translate from '../../global/translations';
 import { getHref, getTarget } from '../../util/link-helper';
 
-const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
 const INPUT_FIELD_TABINDEX = 1;
 
 /**
@@ -514,7 +513,9 @@ export class ChipSet {
         const chip = this.value.find((item) => {
             return `${item.id}` === event.detail.chipId;
         });
-        this.emitInteraction(chip);
+        if (!chip.inaccessible) {
+            this.emitInteraction(chip);
+        }
     }
 
     private emitInteraction(chip: Chip) {
@@ -547,7 +548,11 @@ export class ChipSet {
     private renderDefaultChip(chip: Chip) {
         return (
             <div
-                class={`mdc-chip ${chip.selected ? SELECTED_CHIP_CLASS : ''}`}
+                class={{
+                    'mdc-chip': true,
+                    'mdc-chip--selected': chip.selected,
+                    'inaccessible': chip.inaccessible,
+                }}
                 role="row"
                 id={`${chip.id}`}
             >
@@ -568,7 +573,7 @@ export class ChipSet {
             <span role="gridcell">
                 <a
                     role="button"
-                    tabindex={this.disabled ? '-1' : '0'}
+                    tabindex={this.disabled || chip.inaccessible ? '-1' : '0'}
                     class="mdc-chip__text"
                     {...attributes}
                 >
@@ -610,7 +615,11 @@ export class ChipSet {
     private renderFilterChip(chip: Chip) {
         return (
             <div
-                class={`mdc-chip ${chip.selected ? SELECTED_CHIP_CLASS : ''}`}
+                class={{
+                    'mdc-chip': true,
+                    'mdc-chip--selected': chip.selected,
+                    'inaccessible': chip.inaccessible,
+                }}
                 role="row"
                 id={`${chip.id}`}
             >
@@ -646,6 +655,7 @@ export class ChipSet {
                     'mdc-chip': true,
                     'mdc-chip--selected': this.inputChipIndexSelected === index,
                     disabled: this.disabled,
+                    inaccessible: chip.inaccessible,
                 }}
                 role="row"
                 id={`${chip.id}`}

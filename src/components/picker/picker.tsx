@@ -313,6 +313,7 @@ export class Picker {
             icon: listItem.icon,
             iconBackgroundColor: listItem.iconColor,
             value: listItem,
+            inaccessible: listItem.inaccessible,
         };
     }
 

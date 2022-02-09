@@ -45,7 +45,7 @@ export class ChipSetInputExample {
         this.value = [
             this.createChip('Elephant'),
             this.createChip('Caterpillar'),
-            this.createChip('Badger'),
+            {...this.createChip('Badger'), inaccessible: true},
             this.createChip('Fish'),
         ];
     }
