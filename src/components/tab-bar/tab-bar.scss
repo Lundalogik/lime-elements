@@ -58,6 +58,8 @@ $tab-scroller-fade-width: 65;
     flex: 0 0 auto;
 
     &:not(.mdc-tab--active) {
+        --badge-background-color: rgb(var(--contrast-600));
+
         &:after {
             content: '';
             display: block;
