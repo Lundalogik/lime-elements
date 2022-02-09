@@ -79,7 +79,6 @@ jobs:
 
   docs:
     name: Publish Docs
-    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -103,33 +102,18 @@ jobs:
     - run: git config --global user.email "$GH_EMAIL"
     - run: git config --global user.name "$GH_USERNAME"
     - run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
+      if: github.actor != 'dependabot[bot]'
     - uses: actions/github-script@v3
+      if: github.actor != 'dependabot[bot]'
       with:
         script: |
           const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/pr-comment.js`);
           await script({github, context});
-
-  dependabot-docs:
-    name: build docs for dependabot PRs
-    if: github.actor == 'dependabot[bot]'
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: ^16.13.2
-    - run: npm i -g npm@^8.4.0
-    - name: npm install
-      run: |
-        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
-        npm ci
-        rm .npmrc
     - run: npm run docs:build
+      if: github.actor == 'dependabot[bot]'
 
   autoapprove:
-    needs: [lint, build, test, autosquash, dependabot-docs]
+    needs: [lint, build, test, autosquash, docs]
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
