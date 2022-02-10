@@ -7,30 +7,26 @@
  * @prop --badge-text-color: badge text color
  */
 
-:host {
-    display: block;
-}
-
 :host([hidden]) {
     display: none;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-.badge-container {
+:host {
     @include lime-typography.base;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    display: inline-block;
     font-size: functions.pxToRem(11);
-    min-width: functions.pxToRem(20);
+
     height: functions.pxToRem(20);
+    line-height: 1;
+    min-width: functions.pxToRem(20);
+    padding: 0 functions.pxToRem(5);
+
     border-radius: functions.pxToRem(20);
-    line-height: functions.pxToRem(20);
-    text-align: center;
+
     background-color: var(--badge-background-color, rgb(var(--contrast-500)));
     color: var(--badge-text-color, rgb(var(--contrast-1200)));
-    padding: 0 functions.pxToRem(5);
-    margin-left: functions.pxToRem(4);
 }

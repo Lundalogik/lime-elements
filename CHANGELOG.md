@@ -1,3 +1,10 @@
+## [35.0.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.11...v35.0.0-next.12) (2022-02-08)
+
+
+### Bug Fixes
+
+* **tab-bar:** better use space by reducing distances between elements inside a tab ([6360541](https://github.com/Lundalogik/lime-elements/commit/6360541b959d73492658d9a3c0e5bbb0021d735d))
+
 ## [35.0.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.10...v35.0.0-next.11) (2022-02-07)
 
 
