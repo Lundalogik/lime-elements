@@ -182,7 +182,7 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
                 open={props.isOpen}
                 onDismiss={props.close}
                 style={{
-                    '--menu-surface-width': '100%',
+                    '--mdc-menu-min-width': '100%',
                     'max-height': 'inherit',
                     display: 'flex',
                 }}
