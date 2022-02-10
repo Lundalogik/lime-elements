@@ -1,3 +1,10 @@
+## [35.0.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.12...v35.0.0-next.13) (2022-02-10)
+
+
+### Bug Fixes
+
+* **select:** make dropdown list fill-width again ([99f54a7](https://github.com/Lundalogik/lime-elements/commit/99f54a773029de9f35372cde28f4cdad40bdf710))
+
 ## [35.0.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.11...v35.0.0-next.12) (2022-02-08)
 
 
