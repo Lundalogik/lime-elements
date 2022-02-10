@@ -11,7 +11,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import JSONSchemaForm, { AjvError } from '@rjsf/core';
 import retargetEvents from 'react-shadow-dom-retarget-events';
-import { FormError, ValidationStatus } from './form.types';
+import { FormError, ValidationError, ValidationStatus } from './form.types';
 import {
     ArrayFieldTemplate,
     FieldTemplate,
@@ -24,6 +24,7 @@ import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
 import Ajv, { RequiredParams } from 'ajv';
 import { isInteger } from './validators';
+import { mapValues } from 'lodash-es';
 
 /**
  * @exampleComponent limel-example-form
@@ -35,6 +36,7 @@ import { isInteger } from './validators';
  * @exampleComponent limel-example-form-layout
  * @exampleComponent limel-example-form-span-fields
  * @exampleComponent limel-example-custom-error-message
+ * @exampleComponent limel-example-server-errors
  */
 @Component({
     tag: 'limel-form',
@@ -80,6 +82,13 @@ export class Form {
      */
     @Prop()
     public transformErrors?: (errors: FormError[]) => FormError[];
+
+    /**
+     * Extra errors to display in the form. Typical use case is asynchronous
+     * errors generated server side.
+     */
+    @Prop()
+    public errors: ValidationError;
 
     /**
      * Emitted when a change is made within the form
@@ -158,6 +167,7 @@ export class Form {
                     widgets: widgets,
                     liveValidate: true,
                     showErrorList: false,
+                    extraErrors: this.getExtraErrors(this.errors),
                     FieldTemplate: FieldTemplate,
                     ArrayFieldTemplate: ArrayFieldTemplate as any,
                     ObjectFieldTemplate: ObjectFieldTemplate,
@@ -244,6 +254,20 @@ export class Form {
         });
     }
 
+    private getExtraErrors(errors: ValidationError): ExtraError | undefined {
+        if (!errors) {
+            return;
+        }
+
+        return mapValues(errors, (error) => {
+            if (Array.isArray(error)) {
+                return { __errors: error };
+            }
+
+            return this.getExtraErrors(error);
+        });
+    }
+
     private getCustomErrorMessages(originalErrors: AjvError[]): AjvError[] {
         if (!this.transformErrors) {
             return originalErrors;
@@ -277,4 +301,12 @@ export class Form {
                 };
             });
     }
+}
+
+interface ExtraError {
+    [key: string]:
+        | ExtraError
+        | {
+              __errors: string[];
+          };
 }

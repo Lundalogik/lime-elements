@@ -36,6 +36,13 @@ export interface FormError {
     message: string;
 }
 
+export type ValidationError = {
+    /**
+     * Name of the field the error belongs to
+     */
+    [key: string]: string[] | ValidationError;
+};
+
 export interface FormComponent<T = any> {
     /**
      * The value of the current property
