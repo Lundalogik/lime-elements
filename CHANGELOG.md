@@ -1,3 +1,10 @@
+## [35.0.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.13...v35.0.0-next.14) (2022-02-10)
+
+
+### Bug Fixes
+
+* **badge:** don't let it shrink in width, when container is too small ([494a441](https://github.com/Lundalogik/lime-elements/commit/494a441ca048efb7e327a16348ead25b604e6666))
+
 ## [35.0.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.12...v35.0.0-next.13) (2022-02-10)
 
 
