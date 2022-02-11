@@ -1,3 +1,11 @@
+## [35.0.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.14...v35.0.0-next.15) (2022-02-11)
+
+
+### Bug Fixes
+
+* **tab-bar:** decrease minimum width of tabs ([3718384](https://github.com/Lundalogik/lime-elements/commit/37183842e212b34a71308a6ea8e5216e010ca485))
+* **tab-bar:** give badges of inactive tabs a better contrast ([1ba19a4](https://github.com/Lundalogik/lime-elements/commit/1ba19a4b40e8d226a01b8e7a8748960765e33c8f))
+
 ## [35.0.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.13...v35.0.0-next.14) (2022-02-10)
 
 
