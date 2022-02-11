@@ -150,17 +150,15 @@ export class List {
 
         const listItems = this.items.filter(this.isListItem);
 
-        if (!this.multiple) {
+        if (this.multiple) {
+            this.mdcList.selectedIndex = listItems
+                .filter((item: ListItem) => item.selected)
+                .map((item: ListItem) => listItems.indexOf(item));
+        } else {
             this.mdcList.selectedIndex = listItems.findIndex(
                 (item: ListItem) => item.selected
             );
-
-            return;
         }
-
-        this.mdcList.selectedIndex = listItems
-            .filter((item: ListItem) => item.selected)
-            .map((item: ListItem) => listItems.indexOf(item));
     }
 
     private setup = () => {
