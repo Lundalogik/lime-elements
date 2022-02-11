@@ -1,9 +1,9 @@
 import { ListItem, ListSeparator } from '@limetech/lime-elements';
-import { newE2EPage } from '@stencil/core/testing';
+import { E2EElement, E2EPage, EventSpy, newE2EPage } from '@stencil/core/testing';
 
 describe('limel-list', () => {
-    let page;
-    let limelList;
+    let page: E2EPage;
+    let limelList: E2EElement;
     let innerList;
     beforeEach(async () => {
         page = await newE2EPage({ html: '<limel-list></limel-list>' });
@@ -222,6 +222,35 @@ describe('limel-list', () => {
                             selected: true,
                         });
                     });
+                });
+            });
+        });
+    });
+
+    describe('limel-list with radio-buttons', () => {
+        let spy: EventSpy;
+        beforeEach(async () => {
+            page = await newE2EPage({ html: '<limel-list type="radio"></limel-list>' });
+            limelList = await page.find('limel-list');
+            innerList = await page.find('limel-list>>>ul');
+            spy = await page.spyOnEvent('change');
+        });
+        describe('with a preselected item', () => {
+            beforeEach(async () => {
+                const items = [{
+                    "text": "First",
+                    "value": 1,
+                    "selected": true,
+                }, {
+                    "text": "Second",
+                    "value": 2
+                }];
+                limelList.setProperty('items', items);
+                await page.waitForChanges();
+            });
+            describe('when the selected item is deselected', () => {
+                it('does not throw an error', async () => {
+                    expect(async () => await page.click('limel-list>>>ul li')).not.toThrow();
                 });
             });
         });
