@@ -1,3 +1,11 @@
+## [35.0.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.15...v35.0.0-next.16) (2022-02-11)
+
+
+### Bug Fixes
+
+* **menu:** prevent menu surface getting too close to browser's edges & look cut-off ([4c451e3](https://github.com/Lundalogik/lime-elements/commit/4c451e350208928d65735a94608c8eda39946b00))
+* **popover:** prevent popover surface getting too close to browser's edges & look cut-off ([0c4478d](https://github.com/Lundalogik/lime-elements/commit/0c4478d56e1b3aad8fcafae823e5095a4de6431e))
+
 ## [35.0.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.14...v35.0.0-next.15) (2022-02-11)
 
 
