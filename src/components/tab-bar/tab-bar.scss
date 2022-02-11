@@ -54,10 +54,13 @@ $tab-scroller-fade-width: 65;
     letter-spacing: normal;
     padding-right: functions.pxToRem(20);
     padding-left: functions.pxToRem(20);
+    min-width: functions.pxToRem(40);
     background-color: transparent;
     flex: 0 0 auto;
 
     &:not(.mdc-tab--active) {
+        --badge-background-color: rgb(var(--contrast-600));
+
         &:after {
             content: '';
             display: block;
