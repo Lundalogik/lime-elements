@@ -4,10 +4,8 @@
 
 @use '@material/button/styles';
 @use '@material/button';
-@use '@material/icon-button';
+@use '@material/icon-button/styles' as icon-button-styles;
 @use '@material/snackbar/mdc-snackbar';
-
-@include icon-button.core-styles;
 
 .mdc-button {
     @include button.ink-color(brand-colors.$lime-blue);

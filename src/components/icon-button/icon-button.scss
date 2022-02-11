@@ -1,6 +1,6 @@
 @use '../../style/mixins';
 @use '../../style/functions';
-@use '@material/icon-button';
+@use '@material/icon-button/styles';
 
 @media (pointer: coarse) {
     .mdc-icon-button:hover::before {
@@ -35,8 +35,6 @@
         @include mixins.is-elevated-clickable;
     }
 }
-
-@include icon-button.core-styles;
 
 .mdc-icon-button {
     &:disabled {

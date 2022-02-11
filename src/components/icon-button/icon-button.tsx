@@ -113,6 +113,7 @@ export class IconButton {
                 title={this.label}
                 {...buttonAttributes}
             >
+                <div class="mdc-icon-button__ripple"></div>
                 <limel-icon name={this.icon} {...iconAttributes} />
             </button>
         );
