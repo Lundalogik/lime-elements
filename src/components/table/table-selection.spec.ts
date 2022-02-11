@@ -53,16 +53,18 @@ describe('table selection', () => {
             return cell as any;
         };
 
-        const makeRow: (data: any, position: number) => Tabulator.RowComponent =
-            (data, position) => {
-                const row: Partial<Tabulator.RowComponent> = {
-                    getData: () => data,
-                    getPosition: () => position,
-                };
-                row.getCells = () => [makeCell(row, data)];
-
-                return row as any;
+        const makeRow: (
+            data: any,
+            position: number
+        ) => Tabulator.RowComponent = (data, position) => {
+            const row: Partial<Tabulator.RowComponent> = {
+                getData: () => data,
+                getPosition: () => position,
             };
+            row.getCells = () => [makeCell(row, data)];
+
+            return row as any;
+        };
 
         const rows = rowData.map(makeRow);
         table.getRows = () => rows;

@@ -1,3 +1,52 @@
+## [35.0.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.13...v35.0.0-next.14) (2022-02-10)
+
+
+### Bug Fixes
+
+* **badge:** don't let it shrink in width, when container is too small ([494a441](https://github.com/Lundalogik/lime-elements/commit/494a441ca048efb7e327a16348ead25b604e6666))
+
+## [35.0.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.12...v35.0.0-next.13) (2022-02-10)
+
+
+### Bug Fixes
+
+* **select:** make dropdown list fill-width again ([99f54a7](https://github.com/Lundalogik/lime-elements/commit/99f54a773029de9f35372cde28f4cdad40bdf710))
+
+## [35.0.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.11...v35.0.0-next.12) (2022-02-08)
+
+
+### Bug Fixes
+
+* **tab-bar:** better use space by reducing distances between elements inside a tab ([6360541](https://github.com/Lundalogik/lime-elements/commit/6360541b959d73492658d9a3c0e5bbb0021d735d))
+
+## [35.0.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.10...v35.0.0-next.11) (2022-02-07)
+
+
+### Features
+
+* **table:** add aggregates property ([df61da8](https://github.com/Lundalogik/lime-elements/commit/df61da8d2db495eac28f748242bf6650568b6b3d))
+
+## [35.0.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.9...v35.0.0-next.10) (2022-02-04)
+
+
+### Bug Fixes
+
+* **table:** check if tableSelection is exists ([909d6d7](https://github.com/Lundalogik/lime-elements/commit/909d6d77f7c944565862445a7d63cb2c2140d9e4))
+
+## [35.0.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.8...v35.0.0-next.9) (2022-02-04)
+
+
+### Bug Fixes
+
+* **table:** never emit internal row selector column ([c8e6a3d](https://github.com/Lundalogik/lime-elements/commit/c8e6a3dfc00c3044f2c82ac519917c04c2fa14fd))
+
+## [35.0.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.7...v35.0.0-next.8) (2022-02-04)
+
+
+### Bug Fixes
+
+* **checkbox:** avoid rendering long labels on the next row below the checkbox ([003e77a](https://github.com/Lundalogik/lime-elements/commit/003e77aeceda62a102a7396d78d526a99b2f3b6a))
+
 ## [35.0.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.6...v35.0.0-next.7) (2022-02-03)
 
 

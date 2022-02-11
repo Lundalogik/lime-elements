@@ -27,22 +27,9 @@ $tab-scroller-fade-width: 65;
     }
 }
 
-.mdc-tab__icon {
-    margin-right: functions.pxToRem(8);
-}
-
 .mdc-tab-indicator {
     .mdc-tab-indicator__content {
         border: none;
-    }
-}
-
-.mdc-tab--active {
-    .mdc-ripple-upgraded--background-focused {
-        &:before {
-            background-color: transparent;
-            transition: background-color 1s ease;
-        }
     }
 }
 
@@ -65,9 +52,8 @@ $tab-scroller-fade-width: 65;
 .mdc-tab {
     border-radius: 0;
     letter-spacing: normal;
-}
-
-.mdc-tab {
+    padding-right: functions.pxToRem(20);
+    padding-left: functions.pxToRem(20);
     background-color: transparent;
     flex: 0 0 auto;
 
@@ -120,4 +106,22 @@ $tab-scroller-fade-width: 65;
     &:after {
         right: -$tab-active-outer-edge-curve-size;
     }
+
+    .mdc-ripple-upgraded--background-focused {
+        &:before {
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+    }
+}
+
+.mdc-tab__content {
+    gap: functions.pxToRem(6);
+}
+
+.mdc-tab__text-label {
+    // MDC adds a padding left of 8px using `.mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon+.mdc-tab__text-label`.
+    // The `mdc-tab--stacked` is nothing we use. So,
+    // for simplicity, we make it `!important` to override that.
+    padding-left: 0 !important;
 }

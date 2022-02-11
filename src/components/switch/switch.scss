@@ -3,17 +3,26 @@
 @use '../../style/internal/lime-theme';
 @use '../../style/internal/lime-typography';
 
-@use '@material/switch';
-
-@include switch.core-styles;
+@use '@material/switch/styles';
 
 :host {
     display: inline-flex;
     align-items: center;
+
+    --mdc-switch-selected-icon-color: transparent;
+    --mdc-switch-unselected-icon-color: transparent;
+
+    --mdc-switch-disabled-selected-icon-opacity: 1;
+    --mdc-switch-disabled-unselected-icon-opacity: 1;
+
+    --mdc-switch-selected-icon-size: 0.75rem;
+    --mdc-switch-unselected-icon-size: 0.75rem;
+
+    --mdc-switch-track-height: 1.25rem;
+    --mdc-switch-track-shape: var(--mdc-switch-track-height);
 }
 
 .mdc-switch {
-    @include switch.toggled-on-color(primary);
     margin-right: functions.pxToRem(8);
 }
 

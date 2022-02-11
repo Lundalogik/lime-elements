@@ -8,7 +8,12 @@ import {
     Event,
 } from '@stencil/core';
 import TabulatorTable from 'tabulator-tables';
-import { Column, TableParams, ColumnSorter } from './table.types';
+import {
+    Column,
+    TableParams,
+    ColumnSorter,
+    ColumnAggregate,
+} from './table.types';
 import { ColumnDefinitionFactory, createColumnSorter } from './columns';
 import { isEqual, has } from 'lodash-es';
 import { ElementPool } from './element-pool';
@@ -116,6 +121,12 @@ export class Table {
     public emptyMessage: string;
 
     /**
+     * Column aggregates to be displayed in the table
+     */
+    @Prop()
+    public aggregates: ColumnAggregate[];
+
+    /**
      * Enables row selection
      */
     @Prop()
@@ -182,6 +193,7 @@ export class Table {
         this.updateMaxPage = this.updateMaxPage.bind(this);
         this.initTabulatorComponent = this.initTabulatorComponent.bind(this);
         this.setSelection = this.setSelection.bind(this);
+        this.addColumnAggregator = this.addColumnAggregator.bind(this);
         this.pool = new ElementPool(document);
         this.columnFactory = new ColumnDefinitionFactory(this.pool);
     }
@@ -266,17 +278,44 @@ export class Table {
             return;
         }
 
-        const existingColumns = this.tabulator
+        const columnsInTable = this.tabulator
             .getColumns()
-            .map(this.findColumn);
+            .filter((c) => c.getField());
 
-        if (this.areSameColumns(newColumns, existingColumns)) {
+        const oldColumnsInTable = columnsInTable.map((c) =>
+            oldColumns.find((old) => old.field === c.getField())
+        );
+
+        if (this.areSameColumns(newColumns, oldColumnsInTable)) {
             return;
         }
 
         // Updating columns requires a reinitialization otherwise sorting will not work
         // afterwards
         this.init();
+    }
+
+    @Watch('aggregates')
+    protected updateAggregates(
+        newAggregates: ColumnAggregate[],
+        oldAggregates: ColumnAggregate[]
+    ) {
+        if (!this.tabulator) {
+            return;
+        }
+
+        if (isEqual(newAggregates, oldAggregates)) {
+            return;
+        }
+
+        if (!this.haveSameAggregateFields(newAggregates, oldAggregates)) {
+            this.init();
+
+            return;
+        }
+
+        this.tabulator.recalc();
+        this.tabulator.rowManager.redraw();
     }
 
     @Watch('selection')
@@ -292,6 +331,18 @@ export class Table {
         return (
             newColumns.length === oldColumns.length &&
             newColumns.every((column) => oldColumns.includes(column))
+        );
+    }
+
+    private haveSameAggregateFields(
+        newAggregates: ColumnAggregate[],
+        oldAggregates: ColumnAggregate[]
+    ) {
+        const oldAggregateFields = oldAggregates?.map((a) => a.field) || [];
+
+        return (
+            newAggregates?.length === oldAggregates?.length &&
+            !!newAggregates?.every((a) => oldAggregateFields.includes(a.field))
         );
     }
 
@@ -386,13 +437,48 @@ export class Table {
     }
 
     private getColumnDefinitions(): Tabulator.ColumnDefinition[] {
-        const columnDefinitions = this.columns.map(this.columnFactory.create);
+        const columnDefinitions = this.columns
+            .map(this.addColumnAggregator)
+            .map(this.columnFactory.create);
 
         if (this.tableSelection) {
             return this.tableSelection.getColumnDefinitions(columnDefinitions);
         }
 
         return columnDefinitions;
+    }
+
+    private addColumnAggregator(column: Column<any>): Column<any> {
+        if (!this.aggregates?.length || column.aggregator) {
+            return column;
+        }
+
+        const aggregate = this.aggregates.find((a) => a.field === column.field);
+        if (aggregate) {
+            column.aggregator = (
+                col?: Column,
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                _values?: any[],
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                _data?: any[]
+            ) => {
+                if (!col) {
+                    return undefined;
+                }
+
+                const value = this.aggregates.find(
+                    (a) => a.field === col.field
+                )?.value;
+
+                if (col.formatter) {
+                    return col.formatter(value);
+                }
+
+                return value;
+            };
+        }
+
+        return column;
     }
 
     private getAjaxOptions(): Tabulator.OptionsData {
@@ -593,7 +679,7 @@ export class Table {
     };
 
     private handleMoveColumn = (_, components: Tabulator.ColumnComponent[]) => {
-        const columns = components.map(this.findColumn);
+        const columns = components.map(this.findColumn).filter((c) => c);
         this.changeColumns.emit(columns);
     };
 
@@ -648,10 +734,10 @@ export class Table {
             >
                 <limel-checkbox
                     onChange={this.selectAllOnChange}
-                    checked={this.tableSelection.hasSelection}
+                    checked={this.tableSelection?.hasSelection}
                     indeterminate={
-                        this.tableSelection.hasSelection &&
-                        this.selection.length < this.data.length
+                        this.tableSelection?.hasSelection &&
+                        this.selection?.length < this.data.length
                     }
                 />
             </div>

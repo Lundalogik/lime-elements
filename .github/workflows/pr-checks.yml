@@ -11,9 +11,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
-        node-version: '14'
-        check-latest: true
-    - run: npm i -g npm@7.23.0
+        node-version: ^16.13.2
+    - run: npm i -g npm@^8.4.0
     - name: npm install
       run: |
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
@@ -21,8 +20,26 @@ jobs:
         rm .npmrc
     - run: npm run lint:prod
 
-  ci:
-    name: CI
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: ^16.13.2
+    - run: npm i -g npm@^8.4.0
+    - name: npm install
+      run: |
+        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
+        npm ci
+        rm .npmrc
+    - run: npm run build
+
+  test:
+    name: Test
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -38,18 +55,18 @@ jobs:
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
         npm ci
         rm .npmrc
-    - run: npm run build
     - run: npm test --if-present
-    - run: npm run docs:build
 
   commitlint:
     name: Commitlint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        if: github.actor != 'dependabot[bot]'
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v2
+        if: github.actor != 'dependabot[bot]'
 
   autosquash:
     name: Block Autosquash Commits
@@ -75,9 +92,8 @@ jobs:
         token: ${{ secrets.CREATE_RELEASE }}
     - uses: actions/setup-node@v2
       with:
-        node-version: '14'
-        check-latest: true
-    - run: npm i -g npm@7.6.0
+        node-version: ^16.13.2
+    - run: npm i -g npm@^8.4.0
     - name: npm install
       run: |
         GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
@@ -86,8 +102,27 @@ jobs:
     - run: git config --global user.email "$GH_EMAIL"
     - run: git config --global user.name "$GH_USERNAME"
     - run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
+      if: github.actor != 'dependabot[bot]'
     - uses: actions/github-script@v3
+      if: github.actor != 'dependabot[bot]'
       with:
         script: |
           const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/pr-comment.js`);
           await script({github, context});
+    - run: npm run docs:build
+      if: github.actor == 'dependabot[bot]'
+
+  autoapprove:
+    needs: [lint, build, test, autosquash, docs]
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable Automerge
+        run: gh pr merge --auto --rebase "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE }}
+      - name: Autoapprove
+        uses: hmarr/auto-approve-action@v2.1.0
+        with:
+          github-token: ${{ secrets.APPROVE_AUTOMATIC_PRS }}

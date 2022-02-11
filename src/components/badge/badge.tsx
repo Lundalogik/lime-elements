@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, Prop } from '@stencil/core';
 import { abbreviate } from './format';
 
 /**
@@ -17,6 +17,6 @@ export class Badge {
     public label: number;
 
     render() {
-        return <div class="badge-container">{abbreviate(this.label)}</div>;
+        return abbreviate(this.label);
     }
 }
