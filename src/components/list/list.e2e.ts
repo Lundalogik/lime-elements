@@ -23,7 +23,7 @@ describe('limel-list', () => {
         let items: Array<ListItem | ListSeparator>;
         beforeEach(async () => {
             items = [{ text: 'item 1' }];
-            await limelList.setProperty('items', items);
+            limelList.setProperty('items', items);
             await page.waitForChanges();
         });
         it('renders the item', () => {
@@ -86,7 +86,7 @@ describe('limel-list', () => {
                 },
                 { text: 'item 5' },
             ];
-            await limelList.setProperty('items', items);
+            limelList.setProperty('items', items);
             await page.waitForChanges();
         });
         it('renders the items', () => {
@@ -191,7 +191,7 @@ describe('limel-list', () => {
                 limelList = await page.find('limel-list');
                 innerList = await page.find('limel-list>>>ul');
                 items = [{ text: 'item 1' }];
-                await limelList.setProperty('items', items);
+                limelList.setProperty('items', items);
                 await page.waitForChanges();
             });
             it('is selectable', () => {
