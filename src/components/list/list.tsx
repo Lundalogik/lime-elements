@@ -155,9 +155,15 @@ export class List {
                 .filter((item: ListItem) => item.selected)
                 .map((item: ListItem) => listItems.indexOf(item));
         } else {
-            this.mdcList.selectedIndex = listItems.findIndex(
+            const selectedIndex = listItems.findIndex(
                 (item: ListItem) => item.selected
             );
+
+            if (selectedIndex === -1) {
+                this.mdcList.initializeListType();
+            } else {
+                this.mdcList.selectedIndex = selectedIndex;
+            }
         }
     }
 
