@@ -1,7 +1,7 @@
 import { ListItem, ListSeparator } from '@limetech/lime-elements';
 import { E2EElement, E2EPage, EventSpy, newE2EPage } from '@stencil/core/testing';
 
-describe('limel-list', () => {
+describe.skip('limel-list', () => {
     let page: E2EPage;
     let limelList: E2EElement;
     let innerList;
@@ -226,32 +226,44 @@ describe('limel-list', () => {
             });
         });
     });
+});
 
-    describe('limel-list with radio-buttons', () => {
-        let spy: EventSpy;
+describe('limel-list with radio-buttons', () => {
+    let page: E2EPage;
+    let limelList: E2EElement;
+    let innerList: E2EElement;
+    let listItems: E2EElement[];
+    let spy: EventSpy;
+    beforeEach(async () => {
+        page = await newE2EPage({ html: '<limel-list type="radio"></limel-list>' });
+        limelList = await page.find('limel-list');
+        innerList = await page.find('limel-list>>>ul');
+        spy = await page.spyOnEvent('change');
+    });
+    describe('with a preselected item', () => {
         beforeEach(async () => {
-            page = await newE2EPage({ html: '<limel-list type="radio"></limel-list>' });
-            limelList = await page.find('limel-list');
-            innerList = await page.find('limel-list>>>ul');
-            spy = await page.spyOnEvent('change');
+            const items = [{
+                "text": "First",
+                "value": 1,
+                "selected": true,
+            }, {
+                "text": "Second",
+                "value": 2
+            }];
+            limelList.setProperty('items', items);
+            await page.waitForChanges();
+            listItems = await page.findAll('limel-list>>>ul label');
         });
-        describe('with a preselected item', () => {
-            beforeEach(async () => {
-                const items = [{
-                    "text": "First",
-                    "value": 1,
-                    "selected": true,
-                }, {
-                    "text": "Second",
-                    "value": 2
-                }];
-                limelList.setProperty('items', items);
-                await page.waitForChanges();
-            });
-            describe('when the selected item is deselected', () => {
-                it('does not throw an error', async () => {
-                    expect(async () => await page.click('limel-list>>>ul li')).not.toThrow();
-                });
+        describe('when the selected item is deselected', () => {
+            it('does not throw an error', async () => {
+                console.log('listItems[1]', listItems[1]);
+                // expect(async () => await listItems[1].click()).not.toThrow();
+                // expect(true).toBeFalsy();
+                expect(async () => {
+                    await page.$eval('limel-list', (element) => {
+                        element.shadowRoot.querySelector('label').click()
+                    });
+                }).toThrow();
             });
         });
     });
