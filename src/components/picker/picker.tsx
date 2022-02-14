@@ -488,7 +488,7 @@ export class Picker {
                     open={content.length > 0}
                     allowClicksElement={this.host}
                     style={{
-                        '--menu-surface-width': '100%',
+                        '--mdc-menu-min-width': '100%',
                         'max-height': 'inherit',
                         display: 'flex',
                     }}
