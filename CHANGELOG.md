@@ -1,3 +1,10 @@
+## [35.0.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.16...v35.0.0-next.17) (2022-02-14)
+
+
+### Bug Fixes
+
+* **list:** unify highlight style of selected list items ([c287477](https://github.com/Lundalogik/lime-elements/commit/c2874770cc04d6fea5addfa6b93e0e30f43bd78b))
+
 ## [35.0.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.15...v35.0.0-next.16) (2022-02-11)
 
 
