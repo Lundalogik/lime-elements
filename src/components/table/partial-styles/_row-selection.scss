@@ -21,6 +21,10 @@
 
     limel-checkbox {
         transform: translate(-0.25rem, 0);
+
+        :host(.has-low-density) & {
+            transform: translate(-0.15rem, 0);
+        }
     }
 }
 
