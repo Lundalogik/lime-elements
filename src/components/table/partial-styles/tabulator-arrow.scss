@@ -34,6 +34,10 @@
         transform: rotate(45deg);
         left: functions.pxToRem(-4);
         top: functions.pxToRem(4);
+
+        .tabulator-col.tabulator-sortable:hover & {
+            background-color: rgb(var(--table-header-background-color--hover));
+        }
     }
     &:after {
         width: functions.pxToRem(2);
