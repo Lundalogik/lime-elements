@@ -4,6 +4,7 @@ interface CheckboxTemplateProps {
     disabled?: boolean;
     id: string;
     checked?: boolean;
+    readonly?: boolean;
     indeterminate?: boolean;
     required?: boolean;
     invalid?: boolean;
@@ -29,6 +30,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     'mdc-checkbox--disabled': props.disabled,
                     'mdc-checkbox--required': props.required,
                     'mdc-checkbox--indeterminate': props.indeterminate,
+                    'lime-checkbox--readonly': props.readonly,
                 }}
             >
                 <input
@@ -36,7 +38,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     class="mdc-checkbox__native-control"
                     id={props.id}
                     checked={props.checked}
-                    disabled={props.disabled}
+                    disabled={props.disabled || props.readonly}
                     required={props.required}
                     onChange={props.onChange}
                     {...inputProps}
@@ -58,6 +60,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     'mdc-checkbox--disabled': props.disabled,
                     'mdc-checkbox--required': props.required,
                     'mdc-checkbox--indeterminate': props.indeterminate,
+                    'lime-checkbox--readonly': props.readonly,
                 }}
                 htmlFor={props.id}
             >

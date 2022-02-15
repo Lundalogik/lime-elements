@@ -31,8 +31,9 @@ export class Checkbox {
     public disabled = false;
 
     /**
-     * Disables the checkbox when `true`. Works exactly the same as `disabled`.
-     * If either property is `true`, the checkbox will be disabled.
+     * Disables the checkbox when `true`. This visualizes the checkbox slightly differently.
+     * But shows no visual sign indicating that the checkbox is disabled
+     * or can ever become interactable.
      */
     @Prop({ reflect: true })
     public readonly = false;
@@ -128,6 +129,7 @@ export class Checkbox {
                 checked={this.checked || this.indeterminate}
                 indeterminate={this.indeterminate}
                 required={this.required}
+                readonly={this.readonly}
                 invalid={this.required && this.modified && !this.checked}
                 onChange={this.onChange}
                 id={this.id}

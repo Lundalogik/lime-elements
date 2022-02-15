@@ -18,6 +18,9 @@ export class CheckboxExample {
     @State()
     private indeterminate: boolean = false;
 
+    @State()
+    private readonly: boolean = false;
+
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
 
     public render() {
@@ -32,6 +35,7 @@ export class CheckboxExample {
                         indeterminate={this.indeterminate}
                         required={this.required}
                         onChange={this.handleChange}
+                        readonly={this.readonly}
                     />
                 </div>
                 <p>
@@ -55,6 +59,11 @@ export class CheckboxExample {
                             checked={this.indeterminate}
                             label="Indeterminate"
                             onChange={this.setIndeterminate}
+                        />
+                        <limel-checkbox
+                            checked={this.readonly}
+                            label="Readonly"
+                            onChange={this.setReadonly}
                         />
                     </limel-flex-container>
                 </p>
@@ -100,5 +109,10 @@ export class CheckboxExample {
     private setIndeterminate = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.indeterminate = event.detail;
+    };
+
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 }
