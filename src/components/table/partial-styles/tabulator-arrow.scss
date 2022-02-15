@@ -13,10 +13,16 @@
         border-bottom-color: rgb(var(--table-arrow-color)) !important;
     }
     [aria-sort='desc'] & {
-        border-top-color: rgb(var(--table-arrow-color--active)) !important;
+        border-top-color: var(--table-arrow-color--active) !important;
     }
     [aria-sort='asc'] & {
-        border-bottom-color: rgb(var(--table-arrow-color--active)) !important;
+        border-bottom-color: var(--table-arrow-color--active) !important;
+    }
+    [aria-sort='desc'] &,
+    [aria-sort='asc'] & {
+        &:after {
+            background-color: var(--table-arrow-color--active);
+        }
     }
 
     &:before,
@@ -56,13 +62,6 @@
 
         &:after {
             top: functions.pxToRem(-11);
-        }
-    }
-
-    [aria-sort='desc'] &,
-    [aria-sort='asc'] & {
-        &:after {
-            background-color: rgb(var(--table-arrow-color--active));
         }
     }
 }
