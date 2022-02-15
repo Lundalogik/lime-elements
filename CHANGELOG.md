@@ -1,3 +1,10 @@
+## [35.0.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.19...v35.0.0-next.20) (2022-02-15)
+
+
+### Bug Fixes
+
+* **table:** correct checkbox target area size in row selectors ([8d925ec](https://github.com/Lundalogik/lime-elements/commit/8d925ec755fabaf0d85e379be192be2f7ebadf48))
+
 ## [35.0.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.18...v35.0.0-next.19) (2022-02-15)
 
 
