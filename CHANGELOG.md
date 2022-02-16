@@ -1,3 +1,10 @@
+## [35.0.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.22...v35.0.0-next.23) (2022-02-16)
+
+
+### Bug Fixes
+
+* **form:** vertically align switches correctly ([966b7cd](https://github.com/Lundalogik/lime-elements/commit/966b7cdfa856ed77473af092fd14ce759e5f7223))
+
 ## [35.0.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.21...v35.0.0-next.22) (2022-02-16)
 
 
