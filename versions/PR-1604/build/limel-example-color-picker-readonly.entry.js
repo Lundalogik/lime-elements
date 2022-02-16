@@ -1,1 +1,0 @@
-import{r,h as e}from"./index-11aed7da.js";let l=class{constructor(e){r(this,e)}render(){return e("limel-color-picker",{label:"Look at this beautiful color!",readonly:!0,value:"rgba(var(--color-red-default), 0.4)"})}};export{l as limel_example_color_picker_readonly}
