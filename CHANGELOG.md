@@ -1,3 +1,24 @@
+## [35.0.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.19...v35.0.0-next.20) (2022-02-15)
+
+
+### Bug Fixes
+
+* **table:** correct checkbox target area size in row selectors ([8d925ec](https://github.com/Lundalogik/lime-elements/commit/8d925ec755fabaf0d85e379be192be2f7ebadf48))
+
+## [35.0.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.18...v35.0.0-next.19) (2022-02-15)
+
+
+### Bug Fixes
+
+* **menu:** avoid extra margin ([b8ccdec](https://github.com/Lundalogik/lime-elements/commit/b8ccdec57a853e0d3fd82da7785e427b6e0c26f7))
+
+## [35.0.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.17...v35.0.0-next.18) (2022-02-15)
+
+
+### Bug Fixes
+
+* **picker:** make dropdown list full-width ([f233db1](https://github.com/Lundalogik/lime-elements/commit/f233db1625744c2635495ed2f0912f7fe8c06343))
+
 ## [35.0.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.16...v35.0.0-next.17) (2022-02-14)
 
 
