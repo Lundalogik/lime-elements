@@ -1,3 +1,10 @@
+## [35.0.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.20...v35.0.0-next.21) (2022-02-16)
+
+
+### Bug Fixes
+
+* **list:** unset selected index when no item selected ([cd3542b](https://github.com/Lundalogik/lime-elements/commit/cd3542b2f56118b3d463593ebb4ff2f411c1174f)), closes [#1593](https://github.com/Lundalogik/lime-elements/issues/1593)
+
 ## [35.0.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.19...v35.0.0-next.20) (2022-02-15)
 
 
