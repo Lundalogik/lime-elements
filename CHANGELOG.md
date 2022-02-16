@@ -1,3 +1,10 @@
+## [35.0.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.23...v35.0.0-next.24) (2022-02-16)
+
+
+### Bug Fixes
+
+* **table:** correctly align select-all checkbox in low density mode ([e2e7cb6](https://github.com/Lundalogik/lime-elements/commit/e2e7cb667a83821d7d8ad3abdacd05247869122f))
+
 ## [35.0.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.22...v35.0.0-next.23) (2022-02-16)
 
 
