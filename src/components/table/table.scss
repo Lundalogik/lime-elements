@@ -23,7 +23,7 @@
     --table-row-background-color--active: var(--color-teal-lighter);
 
     --table-arrow-color: var(--contrast-800);
-    --table-arrow-color--active: var(--color-teal-default);
+    --table-arrow-color--active: var(--mdc-theme-primary);
 }
 
 #tabulator-container {
@@ -42,17 +42,17 @@
 .tabulator {
     .tabulator-header {
         border-bottom: 0;
-        background-color: rgb(var(--table-header-background-color--hover));
+        background-color: rgb(var(--table-header-background-color));
 
         .tabulator-col {
             transition: background-color 0.2s ease;
-            background-color: rgb(var(--table-header-background-color--hover));
+            background-color: rgb(var(--table-header-background-color));
             border-right-color: rgb(var(--contrast-200));
 
             &.tabulator-sortable {
                 &:hover {
-                    background-color: var(
-                        --table-header-background-color--hover
+                    background-color: rgb(
+                        var(--table-header-background-color--hover)
                     );
                 }
             }
