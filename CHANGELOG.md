@@ -1,3 +1,12 @@
+## [35.0.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.21...v35.0.0-next.22) (2022-02-16)
+
+
+### Bug Fixes
+
+* **table:** correctly use color variables for headers ([f200bb8](https://github.com/Lundalogik/lime-elements/commit/f200bb8694428982f8f6091477936591571f453e))
+* **table:** make sure sorter arrow gets its color from the accent color ([e1c35af](https://github.com/Lundalogik/lime-elements/commit/e1c35afe2e568213d4e5ad8c21ed5e508a920509))
+* **table:** visually differentiate between aggregated data of all rows vs. selected rows ([0f4df83](https://github.com/Lundalogik/lime-elements/commit/0f4df836efd3ceaa54e5d829437fed28cf83edee))
+
 ## [35.0.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.20...v35.0.0-next.21) (2022-02-16)
 
 
