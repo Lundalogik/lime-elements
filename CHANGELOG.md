@@ -1,3 +1,38 @@
+## [35.0.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.20...v35.0.0-next.21) (2022-02-16)
+
+
+### Bug Fixes
+
+* **list:** unset selected index when no item selected ([cd3542b](https://github.com/Lundalogik/lime-elements/commit/cd3542b2f56118b3d463593ebb4ff2f411c1174f)), closes [#1593](https://github.com/Lundalogik/lime-elements/issues/1593)
+
+## [35.0.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.19...v35.0.0-next.20) (2022-02-15)
+
+
+### Bug Fixes
+
+* **table:** correct checkbox target area size in row selectors ([8d925ec](https://github.com/Lundalogik/lime-elements/commit/8d925ec755fabaf0d85e379be192be2f7ebadf48))
+
+## [35.0.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.18...v35.0.0-next.19) (2022-02-15)
+
+
+### Bug Fixes
+
+* **menu:** avoid extra margin ([b8ccdec](https://github.com/Lundalogik/lime-elements/commit/b8ccdec57a853e0d3fd82da7785e427b6e0c26f7))
+
+## [35.0.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.17...v35.0.0-next.18) (2022-02-15)
+
+
+### Bug Fixes
+
+* **picker:** make dropdown list full-width ([f233db1](https://github.com/Lundalogik/lime-elements/commit/f233db1625744c2635495ed2f0912f7fe8c06343))
+
+## [35.0.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.16...v35.0.0-next.17) (2022-02-14)
+
+
+### Bug Fixes
+
+* **list:** unify highlight style of selected list items ([c287477](https://github.com/Lundalogik/lime-elements/commit/c2874770cc04d6fea5addfa6b93e0e30f43bd78b))
+
 ## [35.0.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.15...v35.0.0-next.16) (2022-02-11)
 
 
