@@ -1,3 +1,10 @@
+## [35.0.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.25...v35.0.0-next.26) (2022-02-17)
+
+
+### Features
+
+* **checkbox:** add support for readonly state ([3485c80](https://github.com/Lundalogik/lime-elements/commit/3485c805ffaa5e5337beb6557785f69a2ae87da1))
+
 ## [35.0.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.24...v35.0.0-next.25) (2022-02-17)
 
 
