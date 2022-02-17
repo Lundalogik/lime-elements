@@ -200,14 +200,7 @@ export class Table {
 
     public componentWillLoad() {
         this.firstRequest = this.mode === 'remote';
-        if (this.selectable) {
-            this.tableSelection = new TableSelection(
-                () => this.tabulator,
-                this.pool,
-                this.select
-            );
-            this.tableSelection.setSelection(this.selection);
-        }
+        this.initTableSelection();
     }
 
     public componentDidLoad() {
@@ -327,6 +320,16 @@ export class Table {
         this.tableSelection.setSelection(newSelection);
     }
 
+    @Watch('selectable')
+    protected updateSelectable() {
+        if (this.tableSelection && !this.selectable) {
+            this.tableSelection = null;
+        }
+
+        this.initTableSelection();
+        this.init();
+    }
+
     private areSameColumns(newColumns: Column[], oldColumns: Column[]) {
         return (
             newColumns.length === oldColumns.length &&
@@ -355,7 +358,6 @@ export class Table {
         const options = this.getOptions();
         const table: HTMLElement =
             this.host.shadowRoot.querySelector('#tabulator-table');
-
         this.initTabulatorComponent(table, options);
     }
 
@@ -390,6 +392,17 @@ export class Table {
             observer.unobserve(table);
         });
         observer.observe(table);
+    }
+
+    private initTableSelection() {
+        if (this.selectable) {
+            this.tableSelection = new TableSelection(
+                () => this.tabulator,
+                this.pool,
+                this.select
+            );
+            this.tableSelection.setSelection(this.selection);
+        }
     }
 
     private setSelection() {
