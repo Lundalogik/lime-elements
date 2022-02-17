@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use '../../style/functions';
 @use '../../style/internal/lime-theme';
 
@@ -28,8 +29,8 @@ $colors: var(--spinner-color-1, rgb(var(--lime-brand-color-deep-red))),
     var(--spinner-color-9, rgb(var(--lime-brand-color-light-grey)));
 $dash: 63;
 $duration: length($colors) * 1s;
-$duration-alt: $duration / length($colors);
-$keyframe: 1 / (length($colors) * 2) * 100;
+$duration-alt: math.div($duration, length($colors));
+$keyframe: math.div(1, length($colors) * 2) * 100;
 
 @keyframes spin {
     50% {

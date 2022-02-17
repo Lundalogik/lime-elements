@@ -5,14 +5,14 @@
 
 .select-all,
 .limel-table--row-selector {
-    --mdc-checkbox-ripple-size: 1rem; // prevent the checkbox affecting the row height
+    --mdc-checkbox-touch-target-size: 1rem; // prevent the checkbox affecting the row height
 }
 
 .select-all {
     position: absolute;
     z-index: z-index.$table--limel-table--row-selector;
     left: 0;
-    top: functions.pxToRem(7);
+    top: functions.pxToRem(6);
     width: functions.pxToRem(41); // width of the selector column
 
     display: flex !important;
@@ -21,6 +21,10 @@
 
     limel-checkbox {
         transform: translate(-0.25rem, 0);
+
+        :host(.has-low-density) & {
+            transform: translate(-0.15rem, 0);
+        }
     }
 }
 
@@ -108,4 +112,14 @@
     );
     position: sticky;
     left: 0;
+}
+
+.tabulator-calcs {
+    .tabulator-cell {
+        .has-selection & {
+            color: var(
+                --table-arrow-color--active
+            ); // to indicate that aggregated numbers are coming from the selcted rows not all rows
+        }
+    }
 }

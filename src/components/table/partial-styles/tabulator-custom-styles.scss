@@ -21,7 +21,10 @@
 }
 
 :host(.has-low-density) {
-    #tabulator-table {
+    $row-border-radius: 0.5rem;
+    $cell-padding-left: 0.5rem;
+
+    #tabulator-container {
         width: max-content;
         max-width: 100%;
         margin: auto;
@@ -31,34 +34,24 @@
         background-color: transparent;
     }
 
-    .tabulator-headers {
-        padding: 0 functions.pxToRem(8); // This provides space for box-shadow effect. Otherwise the overflow properties will cut them out
-    }
-
     .tabulator-header {
-        background-color: transparent;
+        border-radius: functions.pxToRem(6);
 
         .tabulator-col-content {
-            padding-left: functions.pxToRem(8);
+            padding-left: $cell-padding-left;
         }
     }
 
-    .tabulator-col {
-        &:first-child {
-            border-radius: functions.pxToRem(6) 0 0 functions.pxToRem(6);
-        }
-        &:last-child {
-            border-radius: 0 functions.pxToRem(6) functions.pxToRem(6) 0;
-        }
+    .tabulator-footer {
+        border-radius: $row-border-radius;
+    }
+
+    .tabulator-calcs-holder {
+        border-radius: $row-border-radius $row-border-radius 0 0;
     }
 
     .tabulator-row {
-        width: calc(
-            100% - #{functions.pxToRem(16)}
-        ); // This provides space for box-shadow effect. Otherwise the overflow properties will cut them out
-        margin-right: auto;
-        margin-left: auto;
-        border-radius: functions.pxToRem(8);
+        border-radius: $row-border-radius;
 
         &:not(.tabulator-calcs-bottom) {
             margin-bottom: functions.pxToRem(4);
@@ -70,13 +63,13 @@
             .tabulator-cell {
                 height: functions.pxToRem(44) !important;
                 padding-left: functions.pxToRem(12);
-                padding-right: functions.pxToRem(8);
+                padding-right: $cell-padding-left;
 
                 &:first-child {
-                    border-radius: functions.pxToRem(8) 0 0 functions.pxToRem(8);
+                    border-radius: $row-border-radius 0 0 $row-border-radius;
                 }
                 &:last-child {
-                    border-radius: 0 functions.pxToRem(8) functions.pxToRem(8) 0;
+                    border-radius: 0 $row-border-radius $row-border-radius 0;
                 }
             }
         }

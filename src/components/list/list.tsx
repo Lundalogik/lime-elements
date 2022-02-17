@@ -150,17 +150,21 @@ export class List {
 
         const listItems = this.items.filter(this.isListItem);
 
-        if (!this.multiple) {
-            this.mdcList.selectedIndex = listItems.findIndex(
+        if (this.multiple) {
+            this.mdcList.selectedIndex = listItems
+                .filter((item: ListItem) => item.selected)
+                .map((item: ListItem) => listItems.indexOf(item));
+        } else {
+            const selectedIndex = listItems.findIndex(
                 (item: ListItem) => item.selected
             );
 
-            return;
+            if (selectedIndex === -1) {
+                this.mdcList.initializeListType();
+            } else {
+                this.mdcList.selectedIndex = selectedIndex;
+            }
         }
-
-        this.mdcList.selectedIndex = listItems
-            .filter((item: ListItem) => item.selected)
-            .map((item: ListItem) => listItems.indexOf(item));
     }
 
     private setup = () => {

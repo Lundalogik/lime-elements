@@ -1,3 +1,91 @@
+## [35.0.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.23...v35.0.0-next.24) (2022-02-16)
+
+
+### Bug Fixes
+
+* **table:** correctly align select-all checkbox in low density mode ([e2e7cb6](https://github.com/Lundalogik/lime-elements/commit/e2e7cb667a83821d7d8ad3abdacd05247869122f))
+
+## [35.0.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.22...v35.0.0-next.23) (2022-02-16)
+
+
+### Bug Fixes
+
+* **form:** vertically align switches correctly ([966b7cd](https://github.com/Lundalogik/lime-elements/commit/966b7cdfa856ed77473af092fd14ce759e5f7223))
+
+## [35.0.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.21...v35.0.0-next.22) (2022-02-16)
+
+
+### Bug Fixes
+
+* **table:** correctly use color variables for headers ([f200bb8](https://github.com/Lundalogik/lime-elements/commit/f200bb8694428982f8f6091477936591571f453e))
+* **table:** make sure sorter arrow gets its color from the accent color ([e1c35af](https://github.com/Lundalogik/lime-elements/commit/e1c35afe2e568213d4e5ad8c21ed5e508a920509))
+* **table:** visually differentiate between aggregated data of all rows vs. selected rows ([0f4df83](https://github.com/Lundalogik/lime-elements/commit/0f4df836efd3ceaa54e5d829437fed28cf83edee))
+
+## [35.0.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.20...v35.0.0-next.21) (2022-02-16)
+
+
+### Bug Fixes
+
+* **list:** unset selected index when no item selected ([cd3542b](https://github.com/Lundalogik/lime-elements/commit/cd3542b2f56118b3d463593ebb4ff2f411c1174f)), closes [#1593](https://github.com/Lundalogik/lime-elements/issues/1593)
+
+## [35.0.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.19...v35.0.0-next.20) (2022-02-15)
+
+
+### Bug Fixes
+
+* **table:** correct checkbox target area size in row selectors ([8d925ec](https://github.com/Lundalogik/lime-elements/commit/8d925ec755fabaf0d85e379be192be2f7ebadf48))
+
+## [35.0.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.18...v35.0.0-next.19) (2022-02-15)
+
+
+### Bug Fixes
+
+* **menu:** avoid extra margin ([b8ccdec](https://github.com/Lundalogik/lime-elements/commit/b8ccdec57a853e0d3fd82da7785e427b6e0c26f7))
+
+## [35.0.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.17...v35.0.0-next.18) (2022-02-15)
+
+
+### Bug Fixes
+
+* **picker:** make dropdown list full-width ([f233db1](https://github.com/Lundalogik/lime-elements/commit/f233db1625744c2635495ed2f0912f7fe8c06343))
+
+## [35.0.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.16...v35.0.0-next.17) (2022-02-14)
+
+
+### Bug Fixes
+
+* **list:** unify highlight style of selected list items ([c287477](https://github.com/Lundalogik/lime-elements/commit/c2874770cc04d6fea5addfa6b93e0e30f43bd78b))
+
+## [35.0.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.15...v35.0.0-next.16) (2022-02-11)
+
+
+### Bug Fixes
+
+* **menu:** prevent menu surface getting too close to browser's edges & look cut-off ([4c451e3](https://github.com/Lundalogik/lime-elements/commit/4c451e350208928d65735a94608c8eda39946b00))
+* **popover:** prevent popover surface getting too close to browser's edges & look cut-off ([0c4478d](https://github.com/Lundalogik/lime-elements/commit/0c4478d56e1b3aad8fcafae823e5095a4de6431e))
+
+## [35.0.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.14...v35.0.0-next.15) (2022-02-11)
+
+
+### Bug Fixes
+
+* **tab-bar:** decrease minimum width of tabs ([3718384](https://github.com/Lundalogik/lime-elements/commit/37183842e212b34a71308a6ea8e5216e010ca485))
+* **tab-bar:** give badges of inactive tabs a better contrast ([1ba19a4](https://github.com/Lundalogik/lime-elements/commit/1ba19a4b40e8d226a01b8e7a8748960765e33c8f))
+
+## [35.0.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.13...v35.0.0-next.14) (2022-02-10)
+
+
+### Bug Fixes
+
+* **badge:** don't let it shrink in width, when container is too small ([494a441](https://github.com/Lundalogik/lime-elements/commit/494a441ca048efb7e327a16348ead25b604e6666))
+
+## [35.0.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.12...v35.0.0-next.13) (2022-02-10)
+
+
+### Bug Fixes
+
+* **select:** make dropdown list fill-width again ([99f54a7](https://github.com/Lundalogik/lime-elements/commit/99f54a773029de9f35372cde28f4cdad40bdf710))
+
 ## [35.0.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.11...v35.0.0-next.12) (2022-02-08)
 
 
