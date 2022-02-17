@@ -1,3 +1,10 @@
+## [35.0.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.24...v35.0.0-next.25) (2022-02-17)
+
+
+### Features
+
+* **form:** add support for extra errors ([8b2ed20](https://github.com/Lundalogik/lime-elements/commit/8b2ed2048e85b0ca5cf161d695b0aa5436082b8a))
+
 ## [35.0.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.23...v35.0.0-next.24) (2022-02-16)
 
 
