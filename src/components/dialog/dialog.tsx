@@ -22,6 +22,13 @@ import { createRandomString } from '../../util/random-string';
  * See the example _Nested `close` events_.
  * :::
  *
+ * :::important
+ * Are you developing for
+ * [Lime CRM](https://www.lime-technologies.com/en/lime-crm/)? Please note that
+ * you should use the [DialogService](https://lundalogik.github.io/lime-web-components/versions/latest/#/api/dialog-service)
+ * from Lime Web Components to open dialogs in Lime CRM.
+ * :::
+ *
  * @exampleComponent limel-example-dialog
  * @exampleComponent limel-example-dialog-nested-close-events
  * @exampleComponent limel-example-dialog-heading
