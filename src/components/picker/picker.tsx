@@ -36,6 +36,7 @@ const CHIP_SET_TAG_NAME = 'limel-chip-set';
  * @exampleComponent limel-example-picker-empty-suggestions
  * @exampleComponent limel-example-picker-leading-icon
  * @exampleComponent limel-example-picker-static-actions
+ * @exampleComponent limel-example-picker-composite
  */
 @Component({
     tag: 'limel-picker',
