@@ -11,6 +11,18 @@ const NETWORK_DELAY = 500;
     shadow: true,
 })
 export class PickerIconsExample {
+    @State()
+    private selectedItems: Array<ListItem<number>> = [];
+
+    @State()
+    private required: boolean = false;
+
+    @State()
+    private readonly: boolean = false;
+
+    @State()
+    private disabled: boolean = false;
+
     private allItems: Array<ListItem<number>> = [
         {
             text: 'Admiral Swiggins',
@@ -109,18 +121,6 @@ export class PickerIconsExample {
             iconColor: 'var(--lime-light-grey)',
         },
     ];
-
-    @State()
-    private selectedItems: Array<ListItem<number>> = [];
-
-    @State()
-    private required: boolean = false;
-
-    @State()
-    private readonly: boolean = false;
-
-    @State()
-    private disabled: boolean = false;
 
     public render() {
         return [

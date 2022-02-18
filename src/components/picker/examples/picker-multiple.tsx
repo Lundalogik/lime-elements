@@ -9,6 +9,21 @@ import { Component, h, State } from '@stencil/core';
     shadow: true,
 })
 export class PickerMultipleExample {
+    @State()
+    private selectedItems: Array<ListItem<number>> = [];
+
+    @State()
+    private required: boolean = false;
+
+    @State()
+    private readonly: boolean = false;
+
+    @State()
+    private disabled: boolean = false;
+
+    @State()
+    private delimiter: string = null;
+
     private allItems: Array<ListItem<number>> = [
         { text: 'Admiral Swiggins', value: 1 },
         { text: 'Ayla', value: 2 },
@@ -24,21 +39,6 @@ export class PickerMultipleExample {
         { text: 'Voltar', value: 12 },
         { text: 'Yuri', value: 13 },
     ];
-
-    @State()
-    private selectedItems: Array<ListItem<number>> = [];
-
-    @State()
-    private required: boolean = false;
-
-    @State()
-    private readonly: boolean = false;
-
-    @State()
-    private disabled: boolean = false;
-
-    @State()
-    private delimiter: string = null;
 
     public render() {
         return [
