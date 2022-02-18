@@ -5,6 +5,13 @@ const NETWORK_DELAY = 500;
 
 /**
  * With no suggestions and a message for empty search results
+ *
+ * :::important
+ * This example simulates that searching is done on the server. Because these
+ * examples do not _actually_ send requests to the server, we simulate a small
+ * delay, using `setTimeout`. **Please do NOT copy that to production code!**
+ * See the other examples for code that does not include this artificial delay.
+ * :::
  */
 @Component({
     tag: 'limel-example-picker-empty-suggestions',
@@ -13,15 +20,6 @@ const NETWORK_DELAY = 500;
 export class PickerExample {
     @State()
     private selectedItem: ListItem<number>;
-
-    @State()
-    private required: boolean = false;
-
-    @State()
-    private readonly: boolean = false;
-
-    @State()
-    private disabled: boolean = false;
 
     private allItems: Array<ListItem<number>> = [
         { text: 'Admiral Swiggins', value: 1 },
@@ -48,29 +46,7 @@ export class PickerExample {
                 emptyResultMessage="No results"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
-                required={this.required}
-                readonly={this.readonly}
-                disabled={this.disabled}
             />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        label="Disabled"
-                        onChange={this.setDisabled}
-                        checked={this.disabled}
-                    />
-                    <limel-checkbox
-                        label="Readonly"
-                        onChange={this.setReadonly}
-                        checked={this.readonly}
-                    />
-                    <limel-checkbox
-                        label="Required"
-                        onChange={this.setRequired}
-                        checked={this.required}
-                    />
-                </limel-flex-container>
-            </p>,
             <limel-example-value value={this.selectedItem} />,
         ];
     }
@@ -102,17 +78,5 @@ export class PickerExample {
 
     private onInteract = (event) => {
         console.log('Value interacted with:', event.detail);
-    };
-
-    private setDisabled = (event: CustomEvent<boolean>) => {
-        this.disabled = event.detail;
-    };
-
-    private setReadonly = (event: CustomEvent<boolean>) => {
-        this.readonly = event.detail;
-    };
-
-    private setRequired = (event: CustomEvent<boolean>) => {
-        this.required = event.detail;
     };
 }
