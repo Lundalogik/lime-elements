@@ -2,8 +2,6 @@ import { Action, ListItem, Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 import { ActionScrollBehavior, ActionPosition } from '../actions.types';
 
-const NETWORK_DELAY = 500;
-
 /**
  * With static actions
  *
@@ -135,15 +133,10 @@ export class PickerStaticActionsExample {
                 resolve(this.allItems);
             }
 
-            // Simulate some network delay
-            setTimeout(() => {
-                const filteredItems = this.allItems.filter((item) => {
-                    return item.text
-                        .toLowerCase()
-                        .includes(query.toLowerCase());
-                });
-                resolve(filteredItems);
-            }, NETWORK_DELAY);
+            const filteredItems = this.allItems.filter((item) => {
+                return item.text.toLowerCase().includes(query.toLowerCase());
+            });
+            resolve(filteredItems);
         });
     }
 
