@@ -11,6 +11,18 @@ const NETWORK_DELAY = 500;
     shadow: true,
 })
 export class PickerLeadingIconExample {
+    @State()
+    private selectedItem: ListItem<number>;
+
+    @State()
+    private required: boolean = false;
+
+    @State()
+    private readonly: boolean = false;
+
+    @State()
+    private disabled: boolean = false;
+
     private allItems: Array<ListItem<number>> = [
         { text: 'Admiral Swiggins', value: 1 },
         { text: 'Ayla', value: 2 },
@@ -26,18 +38,6 @@ export class PickerLeadingIconExample {
         { text: 'Voltar', value: 12 },
         { text: 'Yuri', value: 13 },
     ];
-
-    @State()
-    private selectedItem: ListItem<number>;
-
-    @State()
-    private required: boolean = false;
-
-    @State()
-    private readonly: boolean = false;
-
-    @State()
-    private disabled: boolean = false;
 
     public render() {
         return [
