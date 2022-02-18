@@ -7,10 +7,10 @@ import { Component, h, State } from '@stencil/core';
  * - "Search" is done locally in the frontend.
  */
 @Component({
-    tag: 'limel-example-picker',
+    tag: 'limel-example-picker-single',
     shadow: true,
 })
-export class PickerExample {
+export class PickerSingleExample {
     @State()
     private selectedItem: ListItem<number>;
 
