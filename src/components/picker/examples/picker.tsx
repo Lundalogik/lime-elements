@@ -1,9 +1,10 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
-const NETWORK_DELAY = 500;
 /**
- * Single value can be picked
+ * Single value can be picked.
+ *
+ * - "Search" is done locally in the frontend.
  */
 @Component({
     tag: 'limel-example-picker',
@@ -12,15 +13,6 @@ const NETWORK_DELAY = 500;
 export class PickerExample {
     @State()
     private selectedItem: ListItem<number>;
-
-    @State()
-    private required: boolean = false;
-
-    @State()
-    private readonly: boolean = false;
-
-    @State()
-    private disabled: boolean = false;
 
     private allItems: Array<ListItem<number>> = [
         { text: 'Admiral Swiggins', value: 1 },
@@ -46,29 +38,7 @@ export class PickerExample {
                 searcher={this.search}
                 onChange={this.onChange}
                 onInteract={this.onInteract}
-                required={this.required}
-                readonly={this.readonly}
-                disabled={this.disabled}
             />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        label="Disabled"
-                        onChange={this.setDisabled}
-                        checked={this.disabled}
-                    />
-                    <limel-checkbox
-                        label="Readonly"
-                        onChange={this.setReadonly}
-                        checked={this.readonly}
-                    />
-                    <limel-checkbox
-                        label="Required"
-                        onChange={this.setRequired}
-                        checked={this.required}
-                    />
-                </limel-flex-container>
-            </p>,
             <limel-example-value value={this.selectedItem} />,
         ];
     }
@@ -76,18 +46,14 @@ export class PickerExample {
     private search = (query: string): Promise<ListItem[]> => {
         return new Promise((resolve) => {
             if (query === '') {
-                resolve(this.allItems);
+                return resolve(this.allItems);
             }
 
-            // Simulate some network delay
-            setTimeout(() => {
-                const filteredItems = this.allItems.filter((item) => {
-                    return item.text
-                        .toLowerCase()
-                        .includes(query.toLowerCase());
-                });
-                resolve(filteredItems);
-            }, NETWORK_DELAY);
+            const filteredItems = this.allItems.filter((item) => {
+                return item.text.toLowerCase().includes(query.toLowerCase());
+            });
+
+            return resolve(filteredItems);
         });
     };
 
@@ -95,19 +61,7 @@ export class PickerExample {
         this.selectedItem = event.detail;
     };
 
-    private onInteract = (event) => {
+    private onInteract = (event: CustomEvent<ListItem<number>>) => {
         console.log('Value interacted with:', event.detail);
-    };
-
-    private setDisabled = (event: CustomEvent<boolean>) => {
-        this.disabled = event.detail;
-    };
-
-    private setReadonly = (event: CustomEvent<boolean>) => {
-        this.readonly = event.detail;
-    };
-
-    private setRequired = (event: CustomEvent<boolean>) => {
-        this.required = event.detail;
     };
 }
