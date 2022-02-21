@@ -1,3 +1,10 @@
+## [35.0.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.27...v35.0.0-next.28) (2022-02-21)
+
+
+### Bug Fixes
+
+* **table:** make 'selectAll' is disabled if the table is empty ([34b22d6](https://github.com/Lundalogik/lime-elements/commit/34b22d6fea932c3c3e66bb0abfc1970f94b57de9))
+
 ## [35.0.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.26...v35.0.0-next.27) (2022-02-21)
 
 
