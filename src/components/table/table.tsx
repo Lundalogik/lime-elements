@@ -747,6 +747,7 @@ export class Table {
             >
                 <limel-checkbox
                     onChange={this.selectAllOnChange}
+                    disabled={!this.totalRows}
                     checked={this.tableSelection?.hasSelection}
                     indeterminate={
                         this.tableSelection?.hasSelection &&
