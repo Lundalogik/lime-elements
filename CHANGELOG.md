@@ -1,3 +1,10 @@
+## [35.0.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.26...v35.0.0-next.27) (2022-02-21)
+
+
+### Bug Fixes
+
+* **table:** allow mutation of selectable ([b69d645](https://github.com/Lundalogik/lime-elements/commit/b69d645c7660f8ef00cd8b864c7b16e0cee66f73))
+
 ## [35.0.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.25...v35.0.0-next.26) (2022-02-17)
 
 
