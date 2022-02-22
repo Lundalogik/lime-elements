@@ -65,6 +65,13 @@
     }
 }
 
+.lime-text-field--empty {
+    .mdc-text-field__icon--trailing {
+        @include shared_input-select-picker.looks-disabled;
+        box-shadow: none !important;
+    }
+}
+
 .mdc-text-field {
     width: 100%;
 }
