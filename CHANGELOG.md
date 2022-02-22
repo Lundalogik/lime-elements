@@ -1,3 +1,10 @@
+## [35.0.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.28...v35.0.0-next.29) (2022-02-22)
+
+
+### Bug Fixes
+
+* **input-field:** make `showLink` icons disabled if input-field is empty ([2369fb5](https://github.com/Lundalogik/lime-elements/commit/2369fb5124b6cbbd932d4eebf0f3facee3184767))
+
 ## [35.0.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.27...v35.0.0-next.28) (2022-02-21)
 
 
