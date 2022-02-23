@@ -4,3 +4,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "@rjsf/core"
+        update-types: ["version-update:semver-major"]

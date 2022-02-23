@@ -342,6 +342,7 @@ export class InputField {
             'lime-text-field--readonly': this.readonly,
             'mdc-text-field--required': this.required,
             'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
+            'lime-text-field--empty': !this.value,
         };
 
         if (this.type === 'textarea') {
@@ -583,7 +584,7 @@ export class InputField {
             <a
                 {...linkProps}
                 class="material-icons mdc-text-field__icon lime-trailing-icon-for-link"
-                tabindex={this.disabled ? '-1' : '0'}
+                tabindex={this.disabled || !this.value ? '-1' : '0'}
                 role="button"
             >
                 <limel-icon name={icon} />
