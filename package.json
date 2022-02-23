@@ -45,7 +45,7 @@
     "@lundalogik/cz-conventional-changelog": "^3.1.0",
     "@lundalogik/lime-icons8": "^2.7.0",
     "@popperjs/core": "^2.9.3",
-    "@rjsf/core": "^2.5.1",
+    "@rjsf/core": "^2.4.2",
     "@stencil/core": "^2.13.0",
     "@stencil/eslint-plugin": "^0.4.0",
     "@stencil/sass": "^1.5.2",
