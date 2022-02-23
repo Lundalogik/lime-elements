@@ -1,3 +1,11 @@
+## [35.0.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.29...v35.0.0-next.30) (2022-02-23)
+
+
+### Reverts
+
+* chore(deps-dev): bump @rjsf/core from 2.5.1 to 3.2.1 ([2005cb3](https://github.com/Lundalogik/lime-elements/commit/2005cb31215a7ff42840ed02d126ecdf0894f111))
+* chore(deps-dev): bump @rjsf/core from 3.2.1 to 4.0.0 ([7f4f501](https://github.com/Lundalogik/lime-elements/commit/7f4f501b978a38f3ad2653b5a5b75600c25a82cc))
+
 ## [35.0.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.28...v35.0.0-next.29) (2022-02-22)
 
 
