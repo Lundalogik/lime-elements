@@ -14,7 +14,6 @@ jobs:
       GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
       CI: true
     steps:
-    - run: echo "github.actor = ${{ github.actor }}"
     - uses: actions/checkout@v2
       with:
         token: ${{ secrets.CREATE_RELEASE }}
