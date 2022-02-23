@@ -5,6 +5,7 @@ on:
 
 jobs:
   docs:
+    if: github.actor != 'dependabot[bot]'
     name: Remove PR docs
     runs-on: ubuntu-latest
     env:
