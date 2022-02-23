@@ -1,3 +1,32 @@
+## [35.0.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.29...v35.0.0-next.30) (2022-02-23)
+
+
+### Reverts
+
+* chore(deps-dev): bump @rjsf/core from 2.5.1 to 3.2.1 ([2005cb3](https://github.com/Lundalogik/lime-elements/commit/2005cb31215a7ff42840ed02d126ecdf0894f111))
+* chore(deps-dev): bump @rjsf/core from 3.2.1 to 4.0.0 ([7f4f501](https://github.com/Lundalogik/lime-elements/commit/7f4f501b978a38f3ad2653b5a5b75600c25a82cc))
+
+## [35.0.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.28...v35.0.0-next.29) (2022-02-22)
+
+
+### Bug Fixes
+
+* **input-field:** make `showLink` icons disabled if input-field is empty ([2369fb5](https://github.com/Lundalogik/lime-elements/commit/2369fb5124b6cbbd932d4eebf0f3facee3184767))
+
+## [35.0.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.27...v35.0.0-next.28) (2022-02-21)
+
+
+### Bug Fixes
+
+* **table:** make 'selectAll' is disabled if the table is empty ([34b22d6](https://github.com/Lundalogik/lime-elements/commit/34b22d6fea932c3c3e66bb0abfc1970f94b57de9))
+
+## [35.0.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.26...v35.0.0-next.27) (2022-02-21)
+
+
+### Bug Fixes
+
+* **table:** allow mutation of selectable ([b69d645](https://github.com/Lundalogik/lime-elements/commit/b69d645c7660f8ef00cd8b864c7b16e0cee66f73))
+
 ## [35.0.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.25...v35.0.0-next.26) (2022-02-17)
 
 
