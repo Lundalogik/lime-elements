@@ -186,11 +186,7 @@ export class MenuListRenderer {
             return false;
         }
 
-        if ('secondaryText' in item) {
-            return false;
-        }
-
-        return true;
+        return !('secondaryText' in item);
     };
 
     /**
