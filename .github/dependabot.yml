@@ -5,6 +5,11 @@ updates:
     versioning-strategy: increase
     schedule:
       interval: "daily"
+    registries:
+      npm-github:
+        type: npm-registry
+        url: https://npm.pkg.github.com
+        token: ${{secrets.READ_PRIVATE_GITHUB_PACKAGES}}
     ignore:
       - dependency-name: "@rjsf/core"
         update-types: ["version-update:semver-major"]
