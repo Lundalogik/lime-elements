@@ -195,11 +195,7 @@ export class ListRenderer {
     };
 
     private isSimpleItem = (item: ListItem): boolean => {
-        if ('secondaryText' in item) {
-            return false;
-        }
-
-        return true;
+        return !('secondaryText' in item);
     };
 
     /**

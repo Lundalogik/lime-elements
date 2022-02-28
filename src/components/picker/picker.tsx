@@ -383,11 +383,7 @@ export class Picker {
             return false;
         }
 
-        if (!this.chipSetEditMode) {
-            return false;
-        }
-
-        return true;
+        return !!this.chipSetEditMode;
     }
 
     private getDropdownContent() {
