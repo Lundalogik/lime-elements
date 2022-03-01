@@ -1,3 +1,10 @@
+## [35.0.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.30...v35.0.0-next.31) (2022-03-01)
+
+
+### Bug Fixes
+
+* **input-field:** make suggestion list full-width again ([3275c2c](https://github.com/Lundalogik/lime-elements/commit/3275c2c0d875f05443a78fadb1f167a88e94a6b1))
+
 ## [35.0.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.29...v35.0.0-next.30) (2022-02-23)
 
 
