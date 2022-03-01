@@ -1,6 +1,18 @@
 name: Pull Request Checks
 on: [pull_request]
 
+concurrency:
+  # Dependabot rebases all its PRs automatically, which causes all branches to
+  # run again every time something is merged. Then perhaps one of Dependabot's
+  # PRs are merged, then all Dependabot's PRs are rebased and run again, etc.
+  # This causes very many unnecessary workflow runs, so we try to limit this
+  # by having each new run triggered by Dependabot cancel any previous runs
+  # triggered by Dependabot.
+  # For any other users, only runs for the same PR are cancelled when a new run
+  # is started. /Ads
+  group: ${{ github.workflow }}-${{ github.actor == 'dependabot[bot]' && 'dependabot' || github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     name: Lint

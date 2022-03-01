@@ -2,13 +2,19 @@ import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
- * Multiple values can be picked
+ * Multiple values can be picked.
+ *
+ * - "Search" is done locally in the frontend.
+ * - Already picked items are removed from the available options.
  */
 @Component({
     tag: 'limel-example-picker-multiple',
     shadow: true,
 })
 export class PickerMultipleExample {
+    @State()
+    private selectedItems: Array<ListItem<number>> = [];
+
     private allItems: Array<ListItem<number>> = [
         { text: 'Admiral Swiggins', value: 1 },
         { text: 'Ayla', value: 2 },
@@ -25,20 +31,7 @@ export class PickerMultipleExample {
         { text: 'Yuri', value: 13 },
     ];
 
-    @State()
-    private selectedItems: Array<ListItem<number>> = [];
-
-    @State()
-    private required: boolean = false;
-
-    @State()
-    private readonly: boolean = false;
-
-    @State()
-    private disabled: boolean = false;
-
-    @State()
-    private delimiter: string = null;
+    private availableItems: Array<ListItem<number>> = [...this.allItems];
 
     public render() {
         return [
@@ -49,83 +42,39 @@ export class PickerMultipleExample {
                 searcher={this.search}
                 onChange={this.onChange}
                 onInteract={this.onInteract}
-                required={this.required}
-                readonly={this.readonly}
-                disabled={this.disabled}
-                delimiter={this.delimiter}
             />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        label="Disabled"
-                        onChange={this.setDisabled}
-                        checked={this.disabled}
-                    />
-                    <limel-checkbox
-                        label="Readonly"
-                        onChange={this.setReadonly}
-                        checked={this.readonly}
-                    />
-                    <limel-checkbox
-                        label="Required"
-                        onChange={this.setRequired}
-                        checked={this.required}
-                    />
-                    <limel-checkbox
-                        label="Use delimiters"
-                        onChange={this.useDelimiters}
-                        checked={this.delimiter !== null}
-                    />
-                </limel-flex-container>
-            </p>,
             <limel-example-value value={this.selectedItems} />,
         ];
     }
 
     private search = (query: string): Promise<ListItem[]> => {
         return new Promise((resolve) => {
-            // Simulate some network delay
-            const NETWORK_DELAY = 500;
-            setTimeout(() => {
-                if (query === '') {
-                    const NUMBER_OF_SUGGESTIONS = 3;
-                    resolve(this.allItems.slice(0, NUMBER_OF_SUGGESTIONS));
+            if (query === '') {
+                return resolve(this.availableItems);
+            }
 
-                    return;
-                }
+            const filteredItems = this.availableItems.filter((item) => {
+                return item.text.toLowerCase().includes(query.toLowerCase());
+            });
 
-                const filteredItems = this.allItems.filter((item) => {
-                    return item.text
-                        .toLowerCase()
-                        .includes(query.toLowerCase());
-                });
-
-                resolve(filteredItems);
-            }, NETWORK_DELAY);
+            return resolve(filteredItems);
         });
     };
 
     private onChange = (event: CustomEvent<Array<ListItem<number>>>) => {
         this.selectedItems = [...event.detail];
+        this.updateAvailableItems();
     };
 
-    private onInteract = (event) => {
+    private updateAvailableItems = () => {
+        this.availableItems = this.allItems.filter((item) => {
+            return !this.selectedItems.find((selectedItem) => {
+                return item.value === selectedItem.value;
+            });
+        });
+    };
+
+    private onInteract = (event: CustomEvent<ListItem<number>>) => {
         console.log('Value interacted with:', event.detail);
-    };
-
-    private setDisabled = (event: CustomEvent<boolean>) => {
-        this.disabled = event.detail;
-    };
-
-    private setReadonly = (event: CustomEvent<boolean>) => {
-        this.readonly = event.detail;
-    };
-
-    private setRequired = (event: CustomEvent<boolean>) => {
-        this.required = event.detail;
-    };
-
-    private useDelimiters = (event: CustomEvent<boolean>) => {
-        this.delimiter = event.detail ? '&' : null;
     };
 }

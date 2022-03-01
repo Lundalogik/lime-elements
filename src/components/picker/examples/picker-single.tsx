@@ -1,23 +1,16 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
-const NETWORK_DELAY = 500;
-
 /**
- * With no suggestions and a message for empty search results
+ * Single value can be picked.
  *
- * :::important
- * This example simulates that searching is done on the server. Because these
- * examples do not _actually_ send requests to the server, we simulate a small
- * delay, using `setTimeout`. **Please do NOT copy that to production code!**
- * See the other examples for code that does not include this artificial delay.
- * :::
+ * - "Search" is done locally in the frontend.
  */
 @Component({
-    tag: 'limel-example-picker-empty-suggestions',
+    tag: 'limel-example-picker-single',
     shadow: true,
 })
-export class PickerExample {
+export class PickerSingleExample {
     @State()
     private selectedItem: ListItem<number>;
 
@@ -43,7 +36,6 @@ export class PickerExample {
                 label="Favorite awesomenaut"
                 value={this.selectedItem}
                 searcher={this.search}
-                emptyResultMessage="No results"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,
@@ -54,21 +46,14 @@ export class PickerExample {
     private search = (query: string): Promise<ListItem[]> => {
         return new Promise((resolve) => {
             if (query === '') {
-                // Simulate some network delay
-                setTimeout(() => {
-                    resolve([]);
-                }, NETWORK_DELAY);
+                return resolve(this.allItems);
             }
 
-            // Simulate some network delay
-            setTimeout(() => {
-                const filteredItems = this.allItems.filter((item) => {
-                    return item.text
-                        .toLowerCase()
-                        .includes(query.toLowerCase());
-                });
-                resolve(filteredItems);
-            }, NETWORK_DELAY);
+            const filteredItems = this.allItems.filter((item) => {
+                return item.text.toLowerCase().includes(query.toLowerCase());
+            });
+
+            return resolve(filteredItems);
         });
     };
 
@@ -76,7 +61,7 @@ export class PickerExample {
         this.selectedItem = event.detail;
     };
 
-    private onInteract = (event) => {
+    private onInteract = (event: CustomEvent<ListItem<number>>) => {
         console.log('Value interacted with:', event.detail);
     };
 }
