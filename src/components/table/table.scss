@@ -3,15 +3,6 @@
 @use '../../style/internal/lime-typography';
 @import '../../../node_modules/tabulator-tables/src/scss/tabulator.scss';
 
-@import './partial-styles/tabulator-arrow';
-@import './partial-styles/tabulator-paginator';
-@import './partial-styles/tabulator-loader';
-@import './partial-styles/tabulator-custom-styles';
-@import './partial-styles/header-component';
-@import './partial-styles/movable-columns';
-@import './partial-styles/_tabulator-footer';
-@import './partial-styles/_row-selection';
-
 :host {
     display: block;
     --table-header-background-color: var(--contrast-500);
@@ -131,3 +122,12 @@
     font-size: functions.pxToRem(20);
     pointer-events: none;
 }
+
+@import './partial-styles/tabulator-arrow';
+@import './partial-styles/tabulator-paginator';
+@import './partial-styles/tabulator-loader';
+@import './partial-styles/tabulator-custom-styles';
+@import './partial-styles/header-component';
+@import './partial-styles/movable-columns';
+@import './partial-styles/_tabulator-footer';
+@import './partial-styles/_row-selection';
