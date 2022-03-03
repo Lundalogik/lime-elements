@@ -53,6 +53,7 @@
         .tabulator-col-title {
             font-weight: 500;
             padding-left: functions.pxToRem(2);
+            line-height: functions.pxToRem(20);
         }
     }
 }
