@@ -707,7 +707,16 @@ export class Table {
 
     render() {
         return (
-            <div id="tabulator-container">
+            <div
+                id="tabulator-container"
+                class={{
+                    'has-pagination': this.totalRows > this.pageSize,
+                    'has-aggregation': this.hasAggregation(this.columns),
+                    'has-movable-columns': this.movableColumns,
+                    'has-rowselector': this.selectable,
+                    'has-selection': this.tableSelection?.hasSelection,
+                }}
+            >
                 {/* Toggle style instead of removing the loader
                     because removing the element will cause a rerender, breaking the
                     tabulator table */}
@@ -719,16 +728,7 @@ export class Table {
                 </div>
                 {this.renderEmptyMessage()}
                 {this.renderSelectAll()}
-                <div
-                    id="tabulator-table"
-                    class={{
-                        'has-pagination': this.totalRows > this.pageSize,
-                        'has-aggregation': this.hasAggregation(this.columns),
-                        'has-movable-columns': this.movableColumns,
-                        'has-rowselector': this.selectable,
-                        'has-selection': this.tableSelection?.hasSelection,
-                    }}
-                />
+                <div id="tabulator-table" />
             </div>
         );
     }
