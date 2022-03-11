@@ -1,3 +1,16 @@
+## [35.0.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.31...v35.0.0-next.32) (2022-03-11)
+
+
+### Features
+
+* **table:** enable placing pagination bar at top, before the header ([96ddcd7](https://github.com/Lundalogik/lime-elements/commit/96ddcd76d5ac8bc0b7cf28465be5a9cfd7cef9e3))
+
+
+### Bug Fixes
+
+* **table:** make sure height of header & consumers' custom components are the same ([43a4984](https://github.com/Lundalogik/lime-elements/commit/43a4984fff8e37971ecfd91a14330e730e9d5434))
+* **table:** use our css variables for colors in paginator ([e03ea1a](https://github.com/Lundalogik/lime-elements/commit/e03ea1a72db37d5ca8c72be60b6191bf0e1d4dcd))
+
 ## [35.0.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.30...v35.0.0-next.31) (2022-03-01)
 
 
