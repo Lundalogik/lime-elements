@@ -36,6 +36,10 @@
         border-bottom: 0;
         background-color: rgb(var(--table-header-background-color));
 
+        .tabulator-headers {
+            width: fit-content;
+        }
+
         .tabulator-col {
             transition: background-color 0.2s ease;
             background-color: rgb(var(--table-header-background-color));
