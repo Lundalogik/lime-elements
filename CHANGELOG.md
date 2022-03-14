@@ -1,3 +1,10 @@
+## [35.0.0-next.33](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.32...v35.0.0-next.33) (2022-03-14)
+
+
+### Bug Fixes
+
+* **table:** make select-all checkbox cover header content even after scroll ([79accd1](https://github.com/Lundalogik/lime-elements/commit/79accd156610c05c741ad8bb34f47cce5aeb6078))
+
 ## [35.0.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.31...v35.0.0-next.32) (2022-03-11)
 
 
