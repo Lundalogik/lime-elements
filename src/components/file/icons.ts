@@ -125,5 +125,5 @@ const filetypeIconTable: Record<string, string> = {
 };
 
 export function getIconForFile(extension: string): string {
-    return filetypeIconTable[extension] || DEFAULT_ICON;
+    return filetypeIconTable[extension.toLowerCase()] || DEFAULT_ICON;
 }
