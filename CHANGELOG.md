@@ -1,3 +1,10 @@
+## [35.0.0-next.34](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.33...v35.0.0-next.34) (2022-03-21)
+
+
+### Bug Fixes
+
+* **file:** make file extension match for color and icon case insensitive ([5a36a72](https://github.com/Lundalogik/lime-elements/commit/5a36a72cd6f1569430bfff17ac8a9c16acb6f0e8))
+
 ## [35.0.0-next.33](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.32...v35.0.0-next.33) (2022-03-14)
 
 
