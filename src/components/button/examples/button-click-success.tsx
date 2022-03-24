@@ -12,10 +12,10 @@ import { Component, h, State } from '@stencil/core';
  * handler isn't actually involved in this.
  */
 @Component({
-    tag: 'limel-example-button-click',
+    tag: 'limel-example-button-click-success',
     shadow: true,
 })
-export class ButtonClickExample {
+export class ButtonClickSuccessExample {
     @State()
     private loading = false;
 

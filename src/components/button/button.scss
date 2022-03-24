@@ -83,12 +83,16 @@ button {
     }
 
     svg {
-        fill: currentColor;
         height: functions.pxToRem(30);
         opacity: 0;
         pointer-events: none;
         position: absolute;
         width: functions.pxToRem(30);
+
+        line {
+            stroke: rgb(var(--color-white));
+            stroke-width: 2;
+        }
     }
 
     limel-icon,
@@ -109,7 +113,8 @@ button {
         }
     }
 
-    &.just-loaded {
+    &.just-loaded,
+    &.just-failed {
         limel-icon,
         .label {
             opacity: 0;
@@ -119,12 +124,52 @@ button {
         }
         limel-spinner {
             display: block;
+            animation: fade-out-spinner 0.3s ease;
         }
+    }
+
+    &.just-failed {
+        background-color: var(--lime-error-text-color) !important;
+        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     }
 }
 
 .mdc-button--outlined {
     @include button.outline-color(primary);
+}
+
+@keyframes fade-out-spinner {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(#{functions.pxToRem(-1)}, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(#{functions.pxToRem(2)}, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(#{functions.pxToRem(-3)}, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(#{functions.pxToRem(3)}, 0, 0);
+    }
 }
 
 $speed-of-reducing-presence: 0.3s;
