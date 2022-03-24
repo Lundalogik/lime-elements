@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
 
 /**
  * @exampleComponent limel-example-button-basic
@@ -8,7 +8,8 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
  * @exampleComponent limel-example-button-outlined
  * @exampleComponent limel-example-button-primary
  * @exampleComponent limel-example-button-composite
- * @exampleComponent limel-example-button-click
+ * @exampleComponent limel-example-button-click-success
+ * @exampleComponent limel-example-button-click-fail
  * @exampleComponent limel-example-button-reduce-presence
  * @exampleComponent limel-example-button-colors
  */
@@ -57,48 +58,66 @@ export class Button {
     @Prop({ reflect: true })
     public loading = false;
 
-    @Element()
-    private limelButton: HTMLLimelButtonElement;
+    /**
+     * Set to `true` to indicate failure instead of success when the button is
+     * no longer in the `loading` state.
+     */
+    @Prop({ reflect: true })
+    public loadingFailed = false;
 
-    private justLoadedTimeout: NodeJS.Timeout;
+    @State()
+    private justLoaded = false;
+
+    private justLoadedTimeout?: number;
 
     public render() {
         return (
             <button
-                class={`
-                    mdc-button
-                    ${this.primary ? 'mdc-button--unelevated' : ''}
-                    ${this.loading ? 'loading' : ''}
-                    ${this.outlined ? 'mdc-button--outlined' : ''}
-                `}
+                class={{
+                    'mdc-button': true,
+                    'mdc-button--unelevated': this.primary,
+                    loading: this.loading,
+                    'just-loaded': this.justLoaded && !this.loadingFailed,
+                    'just-failed': this.justLoaded && this.loadingFailed,
+                    'mdc-button--outlined': this.outlined,
+                }}
                 disabled={this.disabled}
             >
                 <div class="mdc-button__ripple" />
                 {this.renderIcon()}
                 <span class="label mdc-button__label">{this.label}</span>
                 <limel-spinner limeBranded={false} />
-                <svg viewBox="0 0 30 30">
-                    <path d="M20.659 10l-6.885 6.884-3.89-3.89-1.342 1.341 5.053 5.052.182.176L22 11.341z" />
-                </svg>
+                <svg viewBox="0 0 30 30">{this.renderLoadingIcons()}</svg>
             </button>
         );
     }
 
     @Watch('loading')
     protected loadingWatcher(newValue: boolean, oldValue: boolean) {
-        const JUST_LOADED = 'just-loaded';
-        const button = this.limelButton.shadowRoot.querySelector('button');
         if (oldValue && !newValue) {
-            button.classList.remove('loading');
-            button.classList.add(JUST_LOADED);
+            this.justLoaded = true;
             const TIMEOUT = 2000;
-            this.justLoadedTimeout = setTimeout(() => {
-                button.classList.remove(JUST_LOADED);
+            this.justLoadedTimeout = window.setTimeout(() => {
+                this.justLoaded = false;
             }, TIMEOUT);
         } else if (newValue) {
-            button.classList.remove(JUST_LOADED);
-            clearTimeout(this.justLoadedTimeout);
+            this.justLoaded = false;
+            window.clearTimeout(this.justLoadedTimeout);
         }
+    }
+
+    private renderLoadingIcons() {
+        if (this.loadingFailed) {
+            return [
+                <line x1="9" y1="9" x2="21" y2="21"></line>,
+                <line x1="21" y1="9" x2="9" y2="21"></line>,
+            ];
+        }
+
+        return [
+            <line x1="8" y1="14" x2="15" y2="20"></line>,
+            <line x1="23" y1="9" x2="14" y2="20"></line>,
+        ];
     }
 
     private renderIcon(): HTMLElement {
