@@ -233,7 +233,29 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
+    shell.echo(`Copying docs-index.html to 'docsDist/versions/${version}/'`);
+    if (
+        shell.cp('docs-index.html', `docsDist/versions/${version}/`).code !== 0
+    ) {
+        shell.echo(
+            '[WARNING] Copying docs-index.html failed. Not critical, continuing.'
+        );
+    }
+
     updateVersionList();
+
+    shell.echo('Copying docs-index.html from most recent `next` version');
+    if (
+        shell.cp(
+            '-f',
+            'docsDist/versions/next/docs-index.html',
+            'docsDist/index.html'
+        ).code !== 0
+    ) {
+        shell.echo(
+            '[WARNING] Copying docs-index.html from most recent `next` failed. Not critical, continuing.'
+        );
+    }
 }
 
 function remove(pattern) {
