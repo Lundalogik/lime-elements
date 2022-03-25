@@ -282,14 +282,14 @@ function updateVersionList() {
     // a letter are pull requests, pre-releases, or other special cases, not
     // eligible as "Latest".
     const fullVersions = files.filter((file) => file.match(/^[0-9].*/));
-    findLatestRelease(fullVersions, 'latest');
+    createSymlinkForRelease(fullVersions, 'latest');
 
     // Keep only versions that begin with `NEXT-`.
     const nextVersions = files.filter((file) => file.match(/^NEXT-.*/));
-    findLatestRelease(nextVersions, 'next');
+    createSymlinkForRelease(nextVersions, 'next');
 }
 
-function findLatestRelease(versions, alias) {
+function createSymlinkForRelease(versions, alias) {
     // We need to sort the strings alphanumerically, which javascript doesn't
     // do by default. So I found this neat solution at
     // https://blog.praveen.science/natural-sorting-in-javascript/#solution
