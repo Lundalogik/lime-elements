@@ -32,7 +32,7 @@
     "lint:scss:fix": "prettier --write --ignore-path ./.gitignore **/*.scss",
     "lint:scss:prod": "prettier -c --end-of-line lf --ignore-path ./.gitignore **/*.scss",
     "start": "npm run watch",
-    "test": "npm run test:spec && npm run test:e2e",
+    "test": "cross-env-shell SASS_PATH=node_modules \"stencil test --spec --e2e\"",
     "test:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --spec --e2e --watch\"",
     "test:e2e": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e\"",
     "test:e2e:watch": "cross-env-shell SASS_PATH=node_modules \"stencil test --e2e --watch\"",
