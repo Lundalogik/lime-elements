@@ -1,0 +1,1 @@
+import{a as r}from"./_assignValue-b07f6963.js";function n(n,o){return function(r,n,o){for(var a=-1,t=r.length,f=n.length,i={};++a<t;)o(i,r[a],a<f?n[a]:void 0);return i}(n||[],o||[],r)}export{n as z}
