@@ -20,7 +20,9 @@ describe('limel-button', () => {
                 <limel-button label="Save"></limel-button>
             `);
             limelButton = await page.find('limel-button');
-            innerButton = await page.find('limel-button>>>button');
+            innerButton = await page.find(
+                'limel-button limel-loading-button >>> button'
+            );
         });
         it('displays the correct label', () => {
             expect(innerButton).toEqualText('Save');
@@ -44,7 +46,9 @@ describe('limel-button', () => {
                     <limel-button label="Save"></limel-button>
                 `);
                 limelButton = await page.find('limel-button');
-                innerButton = await page.find('limel-button>>>button');
+                innerButton = await page.find(
+                    'limel-button limel-loading-button >>> button'
+                );
             });
             it('is non-primary', () => {
                 expect(innerButton).toHaveClass('mdc-button');
@@ -80,7 +84,9 @@ describe('limel-button', () => {
                     <limel-button label="Save" primary></limel-button>
                 `);
                 limelButton = await page.find('limel-button');
-                innerButton = await page.find('limel-button>>>button');
+                innerButton = await page.find(
+                    'limel-button limel-loading-button >>> button'
+                );
             });
             it('is primary', () => {
                 expect(innerButton).toHaveClasses([
@@ -120,7 +126,9 @@ describe('limel-button', () => {
                     <limel-button label="Save"></limel-button>
                 `);
                 limelButton = await page.find('limel-button');
-                innerButton = await page.find('limel-button>>>button');
+                innerButton = await page.find(
+                    'limel-button limel-loading-button >>> button'
+                );
             });
             it('is enabled', async () => {
                 const propValue = await innerButton.getProperty('disabled');
@@ -154,7 +162,9 @@ describe('limel-button', () => {
                     <limel-button label="Save" disabled></limel-button>
                 `);
                 limelButton = await page.find('limel-button');
-                innerButton = await page.find('limel-button>>>button');
+                innerButton = await page.find(
+                    'limel-button limel-loading-button >>> button'
+                );
             });
             it('is disabled', async () => {
                 const propValue = await innerButton.getProperty('disabled');
@@ -190,11 +200,13 @@ describe('limel-button', () => {
                     <limel-button label="Save"></limel-button>
                 `);
                 limelButton = await page.find('limel-button');
-                innerButton = await page.find('limel-button>>>button');
+                innerButton = await page.find(
+                    'limel-button limel-loading-button >>> button'
+                );
             });
             it('the state is "not loading"', () => {
                 expect(innerButton).not.toHaveClass('loading');
-                expect(innerButton).not.toHaveClass('just-loaded');
+                expect(innerButton).not.toHaveClass('success');
             });
             it('the property is falsy', async () => {
                 const propValue = await limelButton.getProperty('loading');
@@ -208,7 +220,7 @@ describe('limel-button', () => {
                 });
                 it('the state is "loading"', () => {
                     expect(innerButton).toHaveClass('loading');
-                    expect(innerButton).not.toHaveClass('just-loaded');
+                    expect(innerButton).not.toHaveClass('success');
                 });
                 it('the property is `true`', async () => {
                     const propValue = await limelButton.getProperty('loading');
@@ -220,9 +232,9 @@ describe('limel-button', () => {
                         limelButton.setProperty('loading', false);
                         await page.waitForChanges();
                     });
-                    it('the visual state becomes "just-loaded"', () => {
+                    it('the visual state becomes "success"', () => {
                         expect(innerButton).not.toHaveClass('loading');
-                        expect(innerButton).toHaveClass('just-loaded');
+                        expect(innerButton).toHaveClass('success');
                     });
                     it('the property is falsy', async () => {
                         const propValue = await limelButton.getProperty(
@@ -237,7 +249,7 @@ describe('limel-button', () => {
                         });
                         it('the visual state becomes "not loading" after 2 seconds', () => {
                             expect(innerButton).not.toHaveClass('loading');
-                            expect(innerButton).not.toHaveClass('just-loaded');
+                            expect(innerButton).not.toHaveClass('success');
                         });
                     });
                 });
@@ -249,11 +261,13 @@ describe('limel-button', () => {
                     <limel-button label="Save" loading></limel-button>
                 `);
                 limelButton = await page.find('limel-button');
-                innerButton = await page.find('limel-button>>>button');
+                innerButton = await page.find(
+                    'limel-button limel-loading-button >>> button'
+                );
             });
             it('the state is "loading"', () => {
                 expect(innerButton).toHaveClass('loading');
-                expect(innerButton).not.toHaveClass('just-loaded');
+                expect(innerButton).not.toHaveClass('success');
             });
             it('the property is `true`', async () => {
                 const propValue = await limelButton.getProperty('loading');
@@ -265,9 +279,9 @@ describe('limel-button', () => {
                     limelButton.setProperty('loading', false);
                     await page.waitForChanges();
                 });
-                it('the visual state becomes "just-loaded"', () => {
+                it('the visual state becomes "success"', () => {
                     expect(innerButton).not.toHaveClass('loading');
-                    expect(innerButton).toHaveClass('just-loaded');
+                    expect(innerButton).toHaveClass('success');
                 });
                 it('the property is falsy', async () => {
                     const propValue = await limelButton.getProperty('loading');
@@ -281,7 +295,7 @@ describe('limel-button', () => {
                     });
                     it('the visual state becomes "not loading" after 2 seconds', () => {
                         expect(innerButton).not.toHaveClass('loading');
-                        expect(innerButton).not.toHaveClass('just-loaded');
+                        expect(innerButton).not.toHaveClass('success');
                     });
                 });
 
@@ -293,7 +307,7 @@ describe('limel-button', () => {
                     });
                     it('the visual state becomes "loading"', () => {
                         expect(innerButton).toHaveClass('loading');
-                        expect(innerButton).not.toHaveClass('just-loaded');
+                        expect(innerButton).not.toHaveClass('success');
                     });
                     it('the property is `true`', async () => {
                         const propValue = await limelButton.getProperty(

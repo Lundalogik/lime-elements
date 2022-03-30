@@ -1,4 +1,8 @@
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import {
+    LoadingButtonInteraction,
+    LoadingResult,
+} from '../loading-button/loading-button.types';
 
 /**
  * @exampleComponent limel-example-button-basic
@@ -14,8 +18,6 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
  */
 @Component({
     tag: 'limel-button',
-    shadow: true,
-    styleUrl: 'button.scss',
 })
 export class Button {
     /**
@@ -58,63 +60,48 @@ export class Button {
     public loading = false;
 
     @Element()
-    private limelButton: HTMLLimelButtonElement;
+    private host: HTMLLimelButtonElement;
 
-    private justLoadedTimeout: NodeJS.Timeout;
+    public componentDidLoad() {
+        this.loadingWatcher(this.loading, this.loading);
+    }
+
+    public connectedCallback() {
+        this.loadingWatcher(this.loading, this.loading);
+    }
 
     public render() {
         return (
-            <button
-                class={`
-                    mdc-button
-                    ${this.primary ? 'mdc-button--unelevated' : ''}
-                    ${this.loading ? 'loading' : ''}
-                    ${this.outlined ? 'mdc-button--outlined' : ''}
-                `}
+            <limel-loading-button
+                label={this.label}
+                primary={this.primary}
+                outlined={this.outlined}
+                icon={this.icon}
                 disabled={this.disabled}
-            >
-                <div class="mdc-button__ripple" />
-                {this.renderIcon()}
-                <span class="label mdc-button__label">{this.label}</span>
-                <limel-spinner limeBranded={false} />
-                <svg viewBox="0 0 30 30">
-                    <path d="M20.659 10l-6.885 6.884-3.89-3.89-1.342 1.341 5.053 5.052.182.176L22 11.341z" />
-                </svg>
-            </button>
+                hasReducedPresence={this.hasReducedPresence()}
+                onInteract={this.handleInteractEvent}
+            />
         );
     }
 
     @Watch('loading')
     protected loadingWatcher(newValue: boolean, oldValue: boolean) {
-        const JUST_LOADED = 'just-loaded';
-        const button = this.limelButton.shadowRoot.querySelector('button');
-        if (oldValue && !newValue) {
-            button.classList.remove('loading');
-            button.classList.add(JUST_LOADED);
-            const TIMEOUT = 2000;
-            this.justLoadedTimeout = setTimeout(() => {
-                button.classList.remove(JUST_LOADED);
-            }, TIMEOUT);
-        } else if (newValue) {
-            button.classList.remove(JUST_LOADED);
-            clearTimeout(this.justLoadedTimeout);
+        const button = this.host?.querySelector('limel-loading-button');
+        if (button && oldValue && !newValue) {
+            button.resolveLoading(LoadingResult.SUCCESS);
+        } else if (button && newValue) {
+            button.indicateLoading();
         }
     }
 
-    private renderIcon(): HTMLElement {
-        if (!this.icon) {
-            return;
-        }
+    private handleInteractEvent = (
+        event: CustomEvent<LoadingButtonInteraction>
+    ) => {
+        // Note that there is a `click` event too, and we let that through. /Ads
+        event.stopPropagation();
+    };
 
-        let withoutLabelClass = '';
-        if (!this.label) {
-            withoutLabelClass = 'no-label';
-        }
-
-        return (
-            <i class={`mdc-button__icon ${withoutLabelClass}`}>
-                <limel-icon name={this.icon} />
-            </i>
-        );
-    }
+    private hasReducedPresence = () => {
+        return this.host.classList.contains('has-reduced-presence');
+    };
 }
