@@ -341,7 +341,6 @@ export class InputField {
             'mdc-text-field--disabled': this.disabled || this.readonly,
             'lime-text-field--readonly': this.readonly,
             'mdc-text-field--required': this.required,
-            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
             'lime-text-field--empty': !this.value,
         };
 
@@ -351,6 +350,8 @@ export class InputField {
                 !!this.helperText || !!this.maxlength;
         } else {
             classList['mdc-text-field--with-leading-icon'] = !!this.leadingIcon;
+            classList['mdc-text-field--with-trailing-icon'] =
+                !!this.getTrailingIcon();
         }
 
         return classList;
