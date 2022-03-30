@@ -72,7 +72,6 @@ export function getFactoryProps(
     formContext: any,
     schema: any
 ): Record<string, any> {
-    // eslint-disable-next-line no-shadow
     const factory: (schema: any) => Record<string, any> =
         formContext.propsFactory;
     if (typeof factory !== 'function') {
