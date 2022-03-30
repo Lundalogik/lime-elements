@@ -1,0 +1,182 @@
+@use '../../style/functions';
+@use '../../style/mixins';
+
+@use '../../style/internal/lime-theme';
+
+@use '@material/button/styles';
+@use '@material/button';
+
+:host {
+    display: inline-block;
+}
+
+:host([hidden]) {
+    display: none;
+}
+
+:host([disabled]) {
+    pointer-events: none;
+}
+
+button {
+    @include mixins.is-elevated-clickable();
+
+    &.mdc-button {
+        min-width: functions.pxToRem(36);
+        padding: 0 functions.pxToRem(12);
+        height: 100%;
+        min-height: functions.pxToRem(36);
+        width: 100%;
+
+        &:not(:disabled) {
+            color: var(--mdc-theme-primary, rgb(var(--color-teal-default)));
+            background-color: rgb(var(--contrast-100));
+
+            &.mdc-button--raised,
+            &.mdc-button--unelevated {
+                // Primary
+                color: var(--mdc-theme-on-primary, rgb(var(--color-white)));
+                background-color: var(
+                    --mdc-theme-primary,
+                    rgb(var(--color-teal-default))
+                );
+            }
+        }
+
+        &:disabled {
+            color: rgba(var(--contrast-1600), 0.37);
+            background-color: rgba(var(--contrast-1600), 0.1);
+
+            &.mdc-button--raised,
+            &.mdc-button--unelevated {
+                // Primary
+                background-color: rgba(var(--contrast-1700), 0.15);
+            }
+
+            &.mdc-button--outlined {
+                border-color: rgba(var(--contrast-1700), 0.2);
+            }
+        }
+    }
+
+    .label {
+        opacity: 1;
+    }
+
+    limel-spinner {
+        opacity: 0;
+        display: none;
+        position: absolute;
+    }
+
+    .mdc-button__icon {
+        flex-shrink: 0;
+    }
+
+    .mdc-button__icon.no-label {
+        margin-right: functions.pxToRem(-4);
+        margin-left: functions.pxToRem(-4);
+    }
+
+    limel-icon {
+        vertical-align: top;
+    }
+
+    svg {
+        height: functions.pxToRem(30);
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        width: functions.pxToRem(30);
+
+        line {
+            stroke: rgb(var(--color-white));
+            stroke-width: 2;
+        }
+    }
+
+    limel-icon,
+    .label,
+    limel-spinner,
+    svg {
+        transition: opacity 300ms ease-in-out;
+    }
+
+    &.loading {
+        limel-icon,
+        .label {
+            opacity: 0;
+        }
+        limel-spinner {
+            opacity: 1;
+            display: block;
+        }
+    }
+
+    &.success,
+    &.failure {
+        limel-icon,
+        .label {
+            opacity: 0;
+        }
+        limel-spinner {
+            display: block;
+            animation: fade-out-spinner 0.3s ease;
+        }
+    }
+
+    &.success {
+        svg.success {
+            opacity: 1;
+        }
+    }
+
+    &.failure {
+        background-color: var(--lime-error-text-color) !important;
+        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+
+        svg.failure {
+            opacity: 1;
+        }
+    }
+}
+
+.mdc-button--outlined {
+    @include button.outline-color(primary);
+}
+
+@keyframes fade-out-spinner {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(#{functions.pxToRem(-1)}, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(#{functions.pxToRem(2)}, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(#{functions.pxToRem(-3)}, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(#{functions.pxToRem(3)}, 0, 0);
+    }
+}
+
+@import './partial-styles/_has-reduced-presence';

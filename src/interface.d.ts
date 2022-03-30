@@ -11,6 +11,7 @@ export * from './components/icon/icon.types';
 export * from './components/input-field/input-field.types';
 export * from './components/list/list-item.types';
 export * from './components/list/list.types';
+export * from './components/loading-button/loading-button.types';
 export * from './components/menu/menu.types';
 export * from './components/menu-list/menu-list.types';
 export * from './components/picker/searcher.types';

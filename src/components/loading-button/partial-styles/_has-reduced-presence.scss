@@ -1,0 +1,47 @@
+$speed-of-reducing-presence: 0.3s;
+
+@keyframes reduced-presence {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+}
+
+:host([has-reduced-presence]) {
+    button {
+        &[disabled]:not(.loading):not(.success):not(.failure) {
+            animation: reduced-presence $speed-of-reducing-presence ease
+                forwards;
+            transition: padding $speed-of-reducing-presence ease,
+                min-width $speed-of-reducing-presence ease;
+            transition-delay: $speed-of-reducing-presence;
+
+            padding: 0;
+            min-width: 0;
+            // we don't animate `min-height` and reset it to `0`, otherwise the
+            // button completely dissapear physically and can sometimes layout-shifts
+            // in the UI
+
+            .label {
+                transition: font-size 0.8s ease;
+                transition-delay: $speed-of-reducing-presence;
+                font-size: 0;
+                opacity: 0;
+            }
+            limel-icon,
+            limel-spinner,
+            svg {
+                transition: all $speed-of-reducing-presence ease;
+                transition-delay: $speed-of-reducing-presence;
+
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+        }
+    }
+}
