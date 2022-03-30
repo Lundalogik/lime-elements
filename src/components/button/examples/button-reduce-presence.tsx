@@ -3,11 +3,10 @@ import { Component, h, State } from '@stencil/core';
 /**
  * Reduce Presence
  *
- * This example is identical to the one above, except that here, the
- * `has-reduced-presence` class has been set to `true`. This will hide the
- * button when it is disabled. However, it will also make sure that the button
- * remains visible while the loading animation is ongoing. When the animation is
- * done and the checkmark has been shown, the button will hide.
+ * In this example, the `has-reduced-presence` class has been set.
+ * This will hide the button when it is disabled. Edit the form to show the
+ * button. Click the button to "save" the changes, and the button will become
+ * disabled, and thus disappear.
  *
  * Read more in the [Design Guidelines](#/DesignGuidelines/decluttering.md/)
  */
@@ -17,35 +16,38 @@ import { Component, h, State } from '@stencil/core';
 })
 export class ButtonReducePresenceExample {
     @State()
-    private loading = false;
+    private disabled = true;
 
     @State()
-    private disabled = false;
+    private inputValue = 'Edit this field to show the Save button';
+
+    private savedInputValue = 'Edit this field to show the Save button';
 
     public render() {
-        return (
+        return [
+            <limel-input-field
+                label="Some input"
+                value={this.inputValue}
+                onChange={this.handleInputChange}
+            />,
+            <br />,
             <limel-button
                 class="has-reduced-presence"
-                label="Click me!"
+                label="Save"
                 primary={true}
-                loading={this.loading}
                 disabled={this.disabled}
-                onClick={this.onClick}
-            />
-        );
+                onClick={this.handleClick}
+            />,
+        ];
     }
 
-    private onClick() {
+    private handleClick = () => {
+        this.savedInputValue = this.inputValue;
         this.disabled = true;
-        this.loading = true;
+    };
 
-        const TIME_LOADING = 1000;
-        const TIME_DISABLED = 5000;
-        setTimeout(() => {
-            this.loading = false;
-            setTimeout(() => {
-                this.disabled = false;
-            }, TIME_DISABLED);
-        }, TIME_LOADING);
-    }
+    private handleInputChange = (event: CustomEvent<string>) => {
+        this.inputValue = event.detail;
+        this.disabled = this.inputValue === this.savedInputValue;
+    };
 }

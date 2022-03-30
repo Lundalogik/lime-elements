@@ -8,11 +8,9 @@ import {
  * @exampleComponent limel-example-button-basic
  * @exampleComponent limel-example-button-disabled
  * @exampleComponent limel-example-button-icon
- * @exampleComponent limel-example-button-loading
  * @exampleComponent limel-example-button-outlined
  * @exampleComponent limel-example-button-primary
  * @exampleComponent limel-example-button-composite
- * @exampleComponent limel-example-button-click
  * @exampleComponent limel-example-button-reduce-presence
  * @exampleComponent limel-example-button-colors
  */
@@ -55,6 +53,8 @@ export class Button {
      * Please note that this does _not_ disable the button.
      * If the button should be disabled while loading, the
      * `disabled` property should be set to `true` as well.
+     *
+     * @deprecated Use limel-loading-button instead.
      */
     @Prop({ reflect: true })
     public loading = false;
@@ -90,6 +90,10 @@ export class Button {
         if (button && oldValue && !newValue) {
             button.resolveLoading(LoadingResult.SUCCESS);
         } else if (button && newValue) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                'The use of `loading` is deprecated. Please use limel-loading-button instead.'
+            );
             button.indicateLoading();
         }
     }
