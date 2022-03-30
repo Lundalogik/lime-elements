@@ -86,7 +86,8 @@ module.exports = {
         'no-new-wrappers': 'error',
         'no-return-await': 'error',
         'no-sequences': 'error',
-        'no-shadow': [
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': [
             'error',
             {
                 hoist: 'all',
