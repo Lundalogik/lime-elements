@@ -99,9 +99,9 @@
 
     .has-aggregation {
         .tabulator-tableHolder {
-            padding-bottom: functions.pxToRem(
-                28
-            ); // makes sure aggregations row doesn't cover the last table row
+            margin-bottom: functions.pxToRem(
+                24
+            ); // makes sure aggregations row doesn't cover the last table row, and horizontal scroll bar is shown on windows
         }
     }
 
