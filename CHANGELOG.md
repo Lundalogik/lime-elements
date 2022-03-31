@@ -1,3 +1,10 @@
+## [35.0.0-next.36](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.35...v35.0.0-next.36) (2022-03-31)
+
+
+### Bug Fixes
+
+* **table:** make sure horizontal scrollbar is shown on windows browsers ([a319436](https://github.com/Lundalogik/lime-elements/commit/a319436bcfe712c2a688099ba481aae4f1b89f87))
+
 ## [35.0.0-next.35](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.34...v35.0.0-next.35) (2022-03-31)
 
 
