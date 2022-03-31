@@ -1,3 +1,10 @@
+## [35.0.0-next.35](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.34...v35.0.0-next.35) (2022-03-31)
+
+
+### Bug Fixes
+
+* **input-field:** remove indentation when having required error in textarea ([10ce1ea](https://github.com/Lundalogik/lime-elements/commit/10ce1ea1bd4cafeb07c72d2023dc7ddab1b2b966)), closes [Lundalogik/crm-feature#2658](https://github.com/Lundalogik/crm-feature/issues/2658)
+
 ## [35.0.0-next.34](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.33...v35.0.0-next.34) (2022-03-21)
 
 
