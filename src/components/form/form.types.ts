@@ -21,6 +21,11 @@ export interface FormError {
     name: string;
 
     /**
+     * Params of the error
+     */
+    params?: unknown;
+
+    /**
      * Name of the invalid property
      */
     property: string;
