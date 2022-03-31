@@ -209,7 +209,6 @@ export interface GridLayoutOptions
     dense?: boolean;
 }
 
-// eslint-disable-next-line no-shadow
 export enum FormLayoutType {
     /**
      * The default layout
