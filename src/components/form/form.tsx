@@ -276,6 +276,7 @@ export class Form {
         const errors: FormError[] = originalErrors.map((error: AjvError) => {
             return {
                 name: error.name,
+                params: error.params,
                 property: error.property,
                 message: error.message,
                 // For some reason 'schemaPath' is missing from the AjvError type definition:
