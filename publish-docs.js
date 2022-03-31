@@ -201,6 +201,8 @@ function build() {
         teardown();
         shell.exit(1);
     }
+
+    shell.exec('ls -la www');
 }
 
 function copyBuildOutput() {
@@ -307,14 +309,14 @@ function pruneOldPatchAndNextVersions() {
     const fullVersionRegex = /^(\d*)\.(\d*)\.(\d*)$/;
     const fullVersions = files.filter((file) => file.match(fullVersionRegex));
 
-    const nextVersionRegex = /^NEXT-(\d*)\.(\d*)\.(\d*)(.*)/;
-    const nextVersions = files.filter((file) => file.match(nextVersionRegex));
-
     const collator = new Intl.Collator(undefined, {
         numeric: true,
         sensitivity: 'base',
     });
 
+    // -------
+    // For any versions that have the same major and minor version, and only
+    // differ in the patch version, keep only the latest.
     fullVersions.sort(collator.compare);
     fullVersions.reverse();
 
@@ -330,23 +332,23 @@ function pruneOldPatchAndNextVersions() {
 
         lastCheckedVersion = item;
     });
+    // -------
 
-    if (version && version.match(fullVersionRegex)) {
-        // We are publishing a new full version, so let's remove the docs for
-        // all the old next-versions this full version replaces.
-        const newVersion = version.match(fullVersionRegex);
+    // -------
+    // For any next-versions, only keep the latest one.
+    const nextVersionRegex = /^NEXT-(\d*)\.(\d*)\.(\d*)(.*)/;
+    const nextVersions = files.filter((file) => file.match(nextVersionRegex));
+
+    if (nextVersions.length > 1) {
+        nextVersions.sort(collator.compare);
+        nextVersions.reverse();
+        nextVersions.shift();
+
         nextVersions.forEach((item) => {
-            const current = item.match(nextVersionRegex);
-
-            if (
-                newVersion[1] === current[1] &&
-                newVersion[2] === current[2] &&
-                newVersion[3] === current[3]
-            ) {
-                versionsToDelete.push(item);
-            }
+            versionsToDelete.push(item);
         });
     }
+    // -------
 
     versionsToDelete.forEach((item) => {
         remove(item);
