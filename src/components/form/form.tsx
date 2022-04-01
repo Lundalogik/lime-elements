@@ -161,6 +161,7 @@ export class Form {
             React.createElement(
                 JSONSchemaForm,
                 {
+                    noValidate: true,
                     schema: this.modifiedSchema,
                     formData: this.value,
                     onChange: this.handleChange,
