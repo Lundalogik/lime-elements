@@ -394,19 +394,36 @@ export class Table {
         table: HTMLElement,
         options: Tabulator.Options
     ) {
+        const createTabulator = () => {
+            this.tabulator = new Tabulator(table, options);
+            this.tabulator.on('dataSorting', this.handleDataSorting);
+            this.tabulator.on('pageLoaded', this.handlePageLoaded);
+            this.tabulator.on('rowClick', this.onClickRow);
+
+            if (this.movableColumns) {
+                this.tabulator.on('columnMoved', this.handleMoveColumn);
+            }
+
+            if (this.isRemoteMode()) {
+                this.tabulator.on('tableBuilt', () => {
+                    this.tabulator.setData('https://localhost');
+                });
+            }
+
+            this.setSelection();
+        };
+
         // Some browsers do not implement the ResizeObserver API...
         // If that's the case lets just create the table no
         // matter if its rendered or not.
         if (!('ResizeObserver' in window)) {
-            this.tabulator = new TabulatorTable(table, options);
-            this.setSelection();
+            createTabulator();
 
             return;
         }
 
         const observer = new ResizeObserver(() => {
-            this.tabulator = new TabulatorTable(table, options);
-            this.setSelection();
+            createTabulator();
             observer.unobserve(table);
         });
         observer.observe(table);
@@ -444,11 +461,8 @@ export class Table {
             data: this.data,
             layout: mapLayout(this.layout),
             columns: this.getColumnDefinitions(),
-            dataSorting: this.handleDataSorting,
-            pageLoaded: this.handlePageLoaded,
             ...ajaxOptions,
             ...paginationOptions,
-            rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
             initialSort: this.getColumnSorter(),
             nestedFieldSeparator: false,
@@ -522,8 +536,8 @@ export class Table {
         const remoteUrl = 'https://localhost';
 
         return {
-            ajaxSorting: true,
             ajaxURL: remoteUrl,
+            sortMode: 'remote',
             ajaxRequestFunc: this.requestData,
             ajaxRequesting: this.handleAjaxRequesting,
         };
@@ -565,7 +579,8 @@ export class Table {
         }
 
         return {
-            pagination: this.isRemoteMode() ? 'remote' : 'local',
+            pagination: true,
+            paginationMode: this.isRemoteMode() ? 'remote' : 'local',
             paginationSize: this.pageSize,
             paginationInitialPage: this.page,
         };
@@ -705,7 +720,6 @@ export class Table {
 
         return {
             movableColumns: true,
-            columnMoved: this.handleMoveColumn,
         };
     };
 
