@@ -610,7 +610,7 @@ export class Table {
         return this.mode === 'remote';
     }
 
-    private handleDataSorting(sorters: Tabulator.Sorter[]): void {
+    private handleDataSorting(sorters: Tabulator.SorterFromTable[]): void {
         if (this.isRemoteMode()) {
             return;
         }
