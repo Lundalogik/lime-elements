@@ -1,5 +1,5 @@
 import { EventEmitter } from '@stencil/core';
-import Tabulator from 'tabulator-tables';
+import { Tabulator } from 'tabulator-tables';
 import { setElementProperties } from './columns';
 import { ElementPool } from './element-pool';
 import { Selection, SelectionChangeSet } from './selection';

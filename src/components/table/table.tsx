@@ -8,7 +8,7 @@ import {
     Event,
     Host,
 } from '@stencil/core';
-import TabulatorTable from 'tabulator-tables';
+import { Tabulator, TabulatorFull } from 'tabulator-tables';
 import {
     Column,
     TableParams,
@@ -192,7 +192,7 @@ export class Table {
 
     private currentLoad: { page: number; sorters: ColumnSorter[] };
 
-    private tabulator: Tabulator;
+    private tabulator: TabulatorFull;
 
     private pool: ElementPool;
     private columnFactory: ColumnDefinitionFactory;
