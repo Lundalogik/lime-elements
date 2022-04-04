@@ -1,5 +1,5 @@
 import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
-import Tabulator from 'tabulator-tables';
+import { Tabulator } from 'tabulator-tables';
 import { escape } from 'html-escaper';
 import { ElementPool } from './element-pool';
 import { pickBy, negate } from 'lodash-es';
@@ -256,12 +256,6 @@ function createResizeObserver(
     }, RESIZE_TIMEOUT);
 }
 
-// Tabulator seems to also have this `field` property, that does not appear on
-// the interface for some reason
-interface TabulatorSorter extends Tabulator.Sorter {
-    field: string;
-}
-
 /**
  * Create a column sorter from a tabulator sorter
  * @param {Column[]} columns all available columns in the table
@@ -269,7 +263,7 @@ interface TabulatorSorter extends Tabulator.Sorter {
  */
 export const createColumnSorter =
     (columns: Column[]) =>
-    (sorter: TabulatorSorter): ColumnSorter => {
+    (sorter: Tabulator.SorterFromTable): ColumnSorter => {
         const column = columns.find((col) => col.field === sorter.field);
         const direction = sorter.dir.toUpperCase() as 'ASC' | 'DESC';
 
