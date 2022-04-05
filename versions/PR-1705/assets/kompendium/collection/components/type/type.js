@@ -15,6 +15,7 @@ export class Type {
       interface: Interface,
       alias: Alias,
       enum: Enum,
+      class: Interface,
     };
     const TypeComponent = componentMap[this.type.type];
     return (h("article", { class: "type" },

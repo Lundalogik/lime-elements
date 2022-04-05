@@ -3,9 +3,10 @@ import negate from 'lodash/negate';
 import startCase from 'lodash/startCase';
 import zipObject from 'lodash/zipObject';
 import pick from 'lodash/pick';
-const ARRAY_PATTERN = /^(\w+)(<\w+>)?\[\]$|^Array<(\w+)(<\w+>)?>$/;
+const ARRAY_PATTERN = /^(\w+)(<\w+>)?\[\]$|^Array<(.+)>$/;
 const ENUM_PATTERN = /["'](\w+)["']\s?\|?/g;
 const ID_PATTERN = /^number \| string$|string \| number$/g;
+const TS_UTILITY_PATTERN = /(Partial|Required|Readonly|Array)<(.+?)>/g;
 /**
  * Create schemas for the components that describe their interface
  *
@@ -14,14 +15,17 @@ const ID_PATTERN = /^number \| string$|string \| number$/g;
  * @returns {*} list of schemas for the components
  */
 export function createSchemas(components, types) {
-  return components === null || components === void 0 ? void 0 : components.filter(negate(isExample)).map(createSchema(types));
+  var _a;
+  const componentSchemas = (components === null || components === void 0 ? void 0 : components.filter(negate(isExample)).map(createSchema(types))) || [];
+  const classSchemas = ((_a = types === null || types === void 0 ? void 0 : types.filter(isClass)) === null || _a === void 0 ? void 0 : _a.map(createSchema(types))) || [];
+  return [...componentSchemas, ...classSchemas];
 }
-const createSchema = (types) => (component) => {
+const createSchema = (types) => (object) => {
   const definitions = createDefinitions(types);
-  const properties = createProps(component.props, definitions);
+  const properties = createProps(object.props, definitions);
   const schema = {
     type: 'object',
-    $id: component.tag,
+    $id: getSchemaId(object),
     properties: properties,
   };
   const data = JSON.stringify(properties);
@@ -31,6 +35,12 @@ const createSchema = (types) => (component) => {
   }
   return schema;
 };
+function getSchemaId(object) {
+  if (isClass(object)) {
+    return object.name;
+  }
+  return object.tag;
+}
 function createDefinitions(types) {
   const interfaces = types.filter((type) => type.type === 'interface');
   const keys = interfaces.map((i) => i.name);
@@ -43,14 +53,15 @@ function createDefinitions(types) {
   return zipObject(keys, schemas);
 }
 function createProps(props, definitions) {
-  const keys = props.map((prop) => prop.name);
-  const schemas = props.map(createPropSchema(definitions));
+  const keys = (props === null || props === void 0 ? void 0 : props.map((prop) => prop.name)) || [];
+  const schemas = (props === null || props === void 0 ? void 0 : props.map(createPropSchema(definitions))) || [];
   return zipObject(keys, schemas);
 }
 const createPropSchema = (definitions) => (prop) => {
   const schema = {
     type: getSchemaType(prop.type),
     title: startCase(prop.name),
+    description: prop.docs,
   };
   if (prop.default) {
     schema.default = getDefaultValue(prop.default, schema.type);
@@ -121,18 +132,25 @@ function getSchemaItems(propType, definitions) {
 }
 function getSchemaPropertiesRef(propType, definitions) {
   const definition = Object.keys(definitions).find((key) => key === propType);
-  if (!definition) {
+  if (definition) {
+    return '#/definitions/' + definition;
+  }
+  const type = propType.replace(TS_UTILITY_PATTERN, '$2');
+  if (type === propType) {
     return;
   }
-  return '#/definitions/' + definition;
+  return getSchemaPropertiesRef(type, definitions);
 }
 function getOneOf(propType) {
-  const matches = [...propType.matchAll(ENUM_PATTERN)];
-  const oneOf = matches.map((match) => {
+  if (!ENUM_PATTERN.test(propType)) {
+    return;
+  }
+  const oneOf = propType.split('|').map((token) => {
+    const value = token.trim().replace(/["']/g, '');
     return {
       type: 'string',
-      const: match[1],
-      title: match[1],
+      const: value,
+      title: value,
     };
   });
   if (!oneOf.length) {
@@ -144,3 +162,6 @@ const isReferenceUsed = (data) => (name) => {
   const ref = '#/definitions/' + name;
   return data.includes(ref);
 };
+function isClass(type) {
+  return type.type === 'class';
+}

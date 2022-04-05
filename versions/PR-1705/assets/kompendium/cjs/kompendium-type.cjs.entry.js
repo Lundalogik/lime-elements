@@ -71,6 +71,7 @@ const Type = class {
       interface: Interface,
       alias: Alias,
       enum: Enum,
+      class: Interface,
     };
     const TypeComponent = componentMap[this.type.type];
     return (index.h("article", { class: "type" }, index.h("section", { class: "docs" }, index.h(TypeComponent, { type: type }))));
