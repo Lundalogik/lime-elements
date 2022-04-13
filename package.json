@@ -16,7 +16,6 @@
   ],
   "scripts": {
     "build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
-    "cm": "git-cz",
     "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs\"",
     "watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs --serve\"",
     "watch:prod": "shx rm -rf www/ && cross-env-shell SASS_PATH=node_modules \"stencil build --watch\"",
@@ -42,7 +41,6 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^16.0.0",
-    "@lundalogik/cz-conventional-changelog": "^3.1.0",
     "@lundalogik/lime-icons8": "^2.7.0",
     "@popperjs/core": "^2.11.5",
     "@rjsf/core": "^2.4.2",
@@ -61,8 +59,8 @@
     "ajv": "^6.12.6",
     "awesome-debounce-promise": "^2.1.0",
     "codemirror": "^5.62.3",
-    "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
     "dayjs": "^1.11.0",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
@@ -106,16 +104,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/@lundalogik/cz-conventional-changelog",
-      "additionalTypes": {
-        "switched": {
-          "description": "Not-yet-released functionality hidden behind a feature switch",
-          "title": "Not Released (feature switched)"
-        }
-      }
-    }
   }
 }
