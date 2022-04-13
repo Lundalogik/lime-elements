@@ -4,3 +4,8 @@ export interface DialogHeading {
     supportingText?: string;
     icon: string;
 }
+
+export interface ClosingActions {
+    escapeKey: boolean;
+    scrimClick: boolean;
+}
