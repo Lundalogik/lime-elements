@@ -1,3 +1,93 @@
+## [35.0.0](https://github.com/Lundalogik/lime-elements/compare/v34.1.0...v35.0.0) (2022-04-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** menus' dropdown lists will not render wider than `20rem`,
+and their text will be truncated. If you have menus in which the whole menu item
+label has to be displayed for the end user, make sure to increase the menu width
+and read our docs to learn how to do it in a responsive way.
+
+### Features
+
+* **checkbox:** add support for indeterminate state ([295d6e9](https://github.com/Lundalogik/lime-elements/commit/295d6e98438bbd357892fa8daecbe3767e573831))
+* **checkbox:** add support for readonly state ([3485c80](https://github.com/Lundalogik/lime-elements/commit/3485c805ffaa5e5337beb6557785f69a2ae87da1))
+* **form:** add support for extra errors ([8b2ed20](https://github.com/Lundalogik/lime-elements/commit/8b2ed2048e85b0ca5cf161d695b0aa5436082b8a))
+* **table:** add aggregates property ([df61da8](https://github.com/Lundalogik/lime-elements/commit/df61da8d2db495eac28f748242bf6650568b6b3d))
+* **table:** add row selection possibility ([4a5453b](https://github.com/Lundalogik/lime-elements/commit/4a5453bcba61b56bdad3adcc9728a7498f110235))
+* **table:** enable placing pagination bar at top, before the header ([96ddcd7](https://github.com/Lundalogik/lime-elements/commit/96ddcd76d5ac8bc0b7cf28465be5a9cfd7cef9e3))
+* **tooltip:** break wide tooltips into two rows & allow overriding the break point ([4552bc0](https://github.com/Lundalogik/lime-elements/commit/4552bc0ccd847074b566742293c217154e16528b))
+
+
+### Bug Fixes
+
+* bump version to include security fix in momentjs ([a2a421e](https://github.com/Lundalogik/lime-elements/commit/a2a421e970e1499d2e9d88c8e607e09491fbf2fa))
+* **badge:** don't let it shrink in width, when container is too small ([494a441](https://github.com/Lundalogik/lime-elements/commit/494a441ca048efb7e327a16348ead25b604e6666))
+* **checkbox:** avoid rendering long labels on the next row below the checkbox ([003e77a](https://github.com/Lundalogik/lime-elements/commit/003e77aeceda62a102a7396d78d526a99b2f3b6a))
+* **checkbox:** clean up animation classes before reconnected ([1c49723](https://github.com/Lundalogik/lime-elements/commit/1c497235a96edfcd65aec1d2c793d55e4890468d))
+* **checkbox:** give it a solid background color ([c2d8d7b](https://github.com/Lundalogik/lime-elements/commit/c2d8d7bb185790f0b1c619bc65a254e574be7e63))
+* **checkbox:** remove ripple effect ([9fb4ca6](https://github.com/Lundalogik/lime-elements/commit/9fb4ca62b2b20af7237e5b21c7ee4fe625dcc72c))
+* **chip-set:** make placement of helper text aligned with other components ([24e3dda](https://github.com/Lundalogik/lime-elements/commit/24e3dda91dacbbff3917e1fd2d1c6e7d8083f09e))
+* **dialog:** add padding to the footer in mobile view ([f2e8888](https://github.com/Lundalogik/lime-elements/commit/f2e888834457b0ed0fb62d520c2159b4bbae5055))
+* **file:** make file extension match for color and icon case insensitive ([5a36a72](https://github.com/Lundalogik/lime-elements/commit/5a36a72cd6f1569430bfff17ac8a9c16acb6f0e8))
+* **form:** properly support displaying `helperText` for custom components ([66c1ba6](https://github.com/Lundalogik/lime-elements/commit/66c1ba683d8ed693a9d0e11431249571527b8060))
+* **form:** vertically align switches correctly ([966b7cd](https://github.com/Lundalogik/lime-elements/commit/966b7cdfa856ed77473af092fd14ce759e5f7223))
+* **input-field:** make `showLink` icons disabled if input-field is empty ([2369fb5](https://github.com/Lundalogik/lime-elements/commit/2369fb5124b6cbbd932d4eebf0f3facee3184767))
+* **input-field:** make suggestion list full-width again ([3275c2c](https://github.com/Lundalogik/lime-elements/commit/3275c2c0d875f05443a78fadb1f167a88e94a6b1))
+* **input-field:** make sure label has our default label color ([546d7ea](https://github.com/Lundalogik/lime-elements/commit/546d7ea341da3959ef424c46196d85cc7c2d33be))
+* **input-field:** remove indentation when having required error in textarea ([10ce1ea](https://github.com/Lundalogik/lime-elements/commit/10ce1ea1bd4cafeb07c72d2023dc7ddab1b2b966)), closes [Lundalogik/crm-feature#2658](https://github.com/Lundalogik/crm-feature/issues/2658)
+* **list:** add margin to the "limel-list" for proper keyboard visualization ([b991714](https://github.com/Lundalogik/lime-elements/commit/b991714fcc1c4900a1d628df38502b670fce1cd4))
+* **list:** make size of list icons follow our size-rhythm convention ([ab51c52](https://github.com/Lundalogik/lime-elements/commit/ab51c52343dab7e8bf48d1756378fde82d09049c))
+* **list:** unify highlight style of selected list items ([c287477](https://github.com/Lundalogik/lime-elements/commit/c2874770cc04d6fea5addfa6b93e0e30f43bd78b))
+* **list:** unset selected index when no item selected ([cd3542b](https://github.com/Lundalogik/lime-elements/commit/cd3542b2f56118b3d463593ebb4ff2f411c1174f)), closes [#1593](https://github.com/Lundalogik/lime-elements/issues/1593)
+* **menu:** avoid extra margin ([b8ccdec](https://github.com/Lundalogik/lime-elements/commit/b8ccdec57a853e0d3fd82da7785e427b6e0c26f7))
+* **menu:** let `secondaryText` be rendered max in 2 lines, then truncate ([d5d16d3](https://github.com/Lundalogik/lime-elements/commit/d5d16d3e5acfdb68bf40463ff389421fd9db1eee))
+* **menu:** prevent menu surface getting too close to browser's edges & look cut-off ([4c451e3](https://github.com/Lundalogik/lime-elements/commit/4c451e350208928d65735a94608c8eda39946b00))
+* **menu:** remove dividers om menus with badge icons & secondaryText ([2815c10](https://github.com/Lundalogik/lime-elements/commit/2815c100258edc9cdc2980d09946510afff8a8ba))
+* **menu:** specify a default max-width instead of a static width ([4c0f351](https://github.com/Lundalogik/lime-elements/commit/4c0f3511b2863a2f6de144d26ad385c915662ca6))
+* **menu:** specify a default width for the grid menu layout ([371ef2d](https://github.com/Lundalogik/lime-elements/commit/371ef2d2a8442523ae55dc7e79b30c2c3d855a3e))
+* **picker:** make dropdown list full-width ([f233db1](https://github.com/Lundalogik/lime-elements/commit/f233db1625744c2635495ed2f0912f7fe8c06343))
+* **popover:** prevent popover surface getting too close to browser's edges & look cut-off ([0c4478d](https://github.com/Lundalogik/lime-elements/commit/0c4478d56e1b3aad8fcafae823e5095a4de6431e))
+* **select:** hide helper text, unless component is focused ([a565a59](https://github.com/Lundalogik/lime-elements/commit/a565a592a6c92308125746476ee9d59c07f30599))
+* **select:** make dropdown list fill-width again ([99f54a7](https://github.com/Lundalogik/lime-elements/commit/99f54a773029de9f35372cde28f4cdad40bdf710))
+* **select:** make sure label color is the same as for `input-field` ([d976a07](https://github.com/Lundalogik/lime-elements/commit/d976a071c321e61f26c623353a35f8c34748a1c3))
+* **select:** prevent dropdown list from covering the helper text ([e800d6f](https://github.com/Lundalogik/lime-elements/commit/e800d6f581afae3d63c8664cfaab0b79fb60579c))
+* **slider:** hide helper text, unless component is focused ([919fb58](https://github.com/Lundalogik/lime-elements/commit/919fb58e213b93a55652d124accc84cdcc0d86f7))
+* **slider:** make sure label color is the same as for `input-field` ([20147ed](https://github.com/Lundalogik/lime-elements/commit/20147edaad49eca6dfe4872c7b7b6d95f4815b17))
+* **tab-bar:** better use space by reducing distances between elements inside a tab ([6360541](https://github.com/Lundalogik/lime-elements/commit/6360541b959d73492658d9a3c0e5bbb0021d735d))
+* **tab-bar:** decrease minimum width of tabs ([3718384](https://github.com/Lundalogik/lime-elements/commit/37183842e212b34a71308a6ea8e5216e010ca485))
+* **tab-bar:** give badges of inactive tabs a better contrast ([1ba19a4](https://github.com/Lundalogik/lime-elements/commit/1ba19a4b40e8d226a01b8e7a8748960765e33c8f))
+* **table:** allow mutation of selectable ([b69d645](https://github.com/Lundalogik/lime-elements/commit/b69d645c7660f8ef00cd8b864c7b16e0cee66f73))
+* **table:** check if tableSelection is exists ([909d6d7](https://github.com/Lundalogik/lime-elements/commit/909d6d77f7c944565862445a7d63cb2c2140d9e4))
+* **table:** correct checkbox target area size in row selectors ([8d925ec](https://github.com/Lundalogik/lime-elements/commit/8d925ec755fabaf0d85e379be192be2f7ebadf48))
+* **table:** correctly align select-all checkbox in low density mode ([e2e7cb6](https://github.com/Lundalogik/lime-elements/commit/e2e7cb667a83821d7d8ad3abdacd05247869122f))
+* **table:** correctly use color variables for headers ([f200bb8](https://github.com/Lundalogik/lime-elements/commit/f200bb8694428982f8f6091477936591571f453e))
+* **table:** fix row selector visual defects, on selected & hovered rows ([ecc1fee](https://github.com/Lundalogik/lime-elements/commit/ecc1fee19487c73f0bd79f73ea110d05888f1f14))
+* **table:** let users select content of footer cells ([3f86269](https://github.com/Lundalogik/lime-elements/commit/3f86269af6a5ead52ad39601f959e13ec1babcb9))
+* **table:** make 'selectAll' is disabled if the table is empty ([34b22d6](https://github.com/Lundalogik/lime-elements/commit/34b22d6fea932c3c3e66bb0abfc1970f94b57de9))
+* **table:** make select-all checkbox cover header content even after scroll ([79accd1](https://github.com/Lundalogik/lime-elements/commit/79accd156610c05c741ad8bb34f47cce5aeb6078))
+* **table:** make sure height of header & consumers' custom components are the same ([43a4984](https://github.com/Lundalogik/lime-elements/commit/43a4984fff8e37971ecfd91a14330e730e9d5434))
+* **table:** make sure horizontal scrollbar is shown on windows browsers ([a319436](https://github.com/Lundalogik/lime-elements/commit/a319436bcfe712c2a688099ba481aae4f1b89f87))
+* **table:** make sure sorter arrow gets its color from the accent color ([e1c35af](https://github.com/Lundalogik/lime-elements/commit/e1c35afe2e568213d4e5ad8c21ed5e508a920509))
+* **table:** never emit aggregation data as activeRow ([69a8312](https://github.com/Lundalogik/lime-elements/commit/69a83128aa521d118b0f13fdd2ade66723cef98e))
+* **table:** never emit internal row selector column ([c8e6a3d](https://github.com/Lundalogik/lime-elements/commit/c8e6a3dfc00c3044f2c82ac519917c04c2fa14fd))
+* **table:** prevent moving the checkbox column ([c37a9b3](https://github.com/Lundalogik/lime-elements/commit/c37a9b3c31a4c396f812d5fcd5d88d60c76c191f))
+* **table:** remove interactive styles from calculations row ([4d839c8](https://github.com/Lundalogik/lime-elements/commit/4d839c8a49994c7bf27cbfb4eb0fcad403aca754))
+* **table:** remove unnecessary styles ([c8a6ca3](https://github.com/Lundalogik/lime-elements/commit/c8a6ca3ecb4b0446a0243782dee81cc1f0f6344e))
+* **table:** use `css` variables for even & odd rows' background colors ([2757c6f](https://github.com/Lundalogik/lime-elements/commit/2757c6ff31d59335bffc0198d124e3731b86b956))
+* **table:** use `css` variables instead of `scss` variables ([cc60a63](https://github.com/Lundalogik/lime-elements/commit/cc60a63b8ab3449b0ab143cc7b2b82b6e80b9972))
+* **table:** use our css variables for colors in paginator ([e03ea1a](https://github.com/Lundalogik/lime-elements/commit/e03ea1a72db37d5ca8c72be60b6191bf0e1d4dcd))
+* **table:** visually differentiate between aggregated data of all rows vs. selected rows ([0f4df83](https://github.com/Lundalogik/lime-elements/commit/0f4df836efd3ceaa54e5d829437fed28cf83edee))
+* bump version in order to test release workflow ([ce93bfd](https://github.com/Lundalogik/lime-elements/commit/ce93bfd83ad83631727cf37bd82789fb94ab92f2))
+
+
+### Reverts
+
+* chore(deps-dev): bump @rjsf/core from 2.5.1 to 3.2.1 ([2005cb3](https://github.com/Lundalogik/lime-elements/commit/2005cb31215a7ff42840ed02d126ecdf0894f111))
+* chore(deps-dev): bump @rjsf/core from 3.2.1 to 4.0.0 ([7f4f501](https://github.com/Lundalogik/lime-elements/commit/7f4f501b978a38f3ad2653b5a5b75600c25a82cc))
+* chore(deps-dev): bump @types/tabulator-tables from 4.9.3 to 5.1.0 ([228e4d0](https://github.com/Lundalogik/lime-elements/commit/228e4d05699f4b3a641f2ae2fd2850e63a4912db))
+* chore(deps-dev): bump ajv from 6.12.6 to 8.10.0 ([1216aed](https://github.com/Lundalogik/lime-elements/commit/1216aed292f34f1e114dd9a2ef9c307792e36a2c))
+
 ## [35.0.0-next.37](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.36...v35.0.0-next.37) (2022-04-13)
 
 
