@@ -1,3 +1,10 @@
+## [35.0.0-next.37](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.36...v35.0.0-next.37) (2022-04-13)
+
+
+### Bug Fixes
+
+* bump version to include security fix in momentjs ([a2a421e](https://github.com/Lundalogik/lime-elements/commit/a2a421e970e1499d2e9d88c8e607e09491fbf2fa))
+
 ## [35.0.0-next.36](https://github.com/Lundalogik/lime-elements/compare/v35.0.0-next.35...v35.0.0-next.36) (2022-03-31)
 
 
