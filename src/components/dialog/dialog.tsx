@@ -1,4 +1,4 @@
-import { DialogHeading } from '@limetech/lime-elements';
+import { DialogHeading, ClosingActions } from '@limetech/lime-elements';
 import { MDCDialog } from '@material/dialog';
 import {
     Component,
@@ -9,6 +9,7 @@ import {
     Prop,
     Watch,
 } from '@stencil/core';
+import { isEqual } from 'lodash-es';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
 
@@ -68,7 +69,7 @@ export class Dialog {
      * Defines which action triggers a close-event.
      */
     @Prop({ reflect: true })
-    public closingActions: { escapeKey: boolean; scrimClick: boolean } = {
+    public closingActions: ClosingActions = {
         escapeKey: true,
         scrimClick: true,
     };
@@ -128,15 +129,7 @@ export class Dialog {
         this.mdcDialog.listen('MDCDialog:closed', this.handleMdcClosed);
         this.mdcDialog.listen('MDCDialog:closing', this.handleMdcClosing);
 
-        this.mdcDialog.scrimClickAction = '';
-        if (this.closingActions.scrimClick) {
-            this.mdcDialog.scrimClickAction = 'close';
-        }
-
-        this.mdcDialog.escapeKeyAction = '';
-        if (this.closingActions.escapeKey) {
-            this.mdcDialog.escapeKeyAction = 'close';
-        }
+        this.setClosingActions();
     }
 
     public disconnectedCallback() {
@@ -202,6 +195,18 @@ export class Dialog {
         }
     }
 
+    @Watch('closingActions')
+    protected closingActionsChanged(
+        newValue: ClosingActions,
+        oldValue: ClosingActions
+    ) {
+        if (isEqual(newValue, oldValue)) {
+            return;
+        }
+
+        this.setClosingActions();
+    }
+
     private handleMdcOpened() {
         // When the opening-animation has completed, dispatch a
         // resize-event so that any content that depends on
@@ -255,6 +260,18 @@ export class Dialog {
                     <slot name="button" />
                 </footer>
             );
+        }
+    }
+
+    private setClosingActions() {
+        this.mdcDialog.scrimClickAction = '';
+        if (this.closingActions.scrimClick) {
+            this.mdcDialog.scrimClickAction = 'close';
+        }
+
+        this.mdcDialog.escapeKeyAction = '';
+        if (this.closingActions.escapeKey) {
+            this.mdcDialog.escapeKeyAction = 'close';
         }
     }
 }
