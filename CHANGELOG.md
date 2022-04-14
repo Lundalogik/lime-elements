@@ -1,3 +1,10 @@
+### [35.0.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v35.0.0...v35.0.1-next.1) (2022-04-14)
+
+
+### Bug Fixes
+
+* **dialog:** make it possible to update closing actions ([4c6b8d3](https://github.com/Lundalogik/lime-elements/commit/4c6b8d316ecb8196f2fb59811a4270fde586de8e)), closes [Lundalogik/crm-feature#1122](https://github.com/Lundalogik/crm-feature/issues/1122)
+
 ## [35.0.0](https://github.com/Lundalogik/lime-elements/compare/v34.1.0...v35.0.0) (2022-04-13)
 
 
