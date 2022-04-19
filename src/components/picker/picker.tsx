@@ -242,6 +242,7 @@ export class Picker {
         return [
             <limel-chip-set
                 type="input"
+                inputType="search"
                 label={this.label}
                 helperText={this.helperText}
                 leadingIcon={this.leadingIcon}
