@@ -220,6 +220,14 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             position: absolute;
             z-index: z-index.$chip-set--hidden-text-field; // to let users interact with chips, in case they're covered
         }
+        &[type='search'] {
+            -webkit-appearance: textfield; // Removes the default magnifying glass icon on iOS which appears automatically on input fields with type of search
+            background-color: transparent; // overides styles caused by previous line
+
+            &::-webkit-search-cancel-button {
+                display: none; // removes the default X button
+            }
+        }
     }
 }
 
