@@ -29,6 +29,8 @@ const INPUT_FIELD_TABINDEX = 1;
  * @exampleComponent limel-example-chip-set-filter
  * @exampleComponent limel-example-chip-set-filter-badge
  * @exampleComponent limel-example-chip-set-input
+ * @exampleComponent limel-example-chip-set-input-type-text
+ * @exampleComponent limel-example-chip-set-input-type-search
  * @exampleComponent limel-example-chip-icon-color
  * @exampleComponent limel-example-chip-set-composite
  */
@@ -87,6 +89,13 @@ export class ChipSet {
      */
     @Prop({ reflect: true })
     public readonly: boolean = false;
+
+    /**
+     * For chip-sets of type `input`. Value to use for the `type` attribute on the
+     * input field inside the chip-set.
+     */
+    @Prop({ reflect: true })
+    public inputType: 'search' | 'text' = 'text';
 
     /**
      * For chip-sets of type `input`. Limits the maximum number of chips.
@@ -370,7 +379,7 @@ export class ChipSet {
                 {this.value.map(this.renderInputChip)}
                 <input
                     tabIndex={INPUT_FIELD_TABINDEX}
-                    type="text"
+                    type={this.inputType}
                     id="input-element"
                     disabled={this.readonly || this.disabled}
                     class={{
