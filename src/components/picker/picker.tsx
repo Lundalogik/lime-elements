@@ -434,8 +434,9 @@ export class Picker {
         }
 
         const style = {
-            color: 'var(--lime-light-grey, #{$lime-light-grey})',
+            color: 'rgb(var(--contrast-1100))',
             'text-align': 'center',
+            margin: '0.5rem 1rem',
         };
 
         return <p style={style}>{this.emptyResultMessage}</p>;
