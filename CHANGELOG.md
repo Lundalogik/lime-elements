@@ -1,3 +1,10 @@
+### [35.0.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v35.0.1-next.1...v35.0.1-next.2) (2022-04-21)
+
+
+### Bug Fixes
+
+* **picker:** improve look and readability of empty result message ([e025940](https://github.com/Lundalogik/lime-elements/commit/e025940fe6c2ef69686543257200c5e9408fa141))
+
 ### [35.0.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v35.0.0...v35.0.1-next.1) (2022-04-14)
 
 
