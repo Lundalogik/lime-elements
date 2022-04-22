@@ -68,7 +68,7 @@ export interface KompendiumGuide {
   data: Record<string, any>;
   content: string;
 }
-export declare type TypeDescriptionType = 'interface' | 'alias' | 'enum';
+export declare type TypeDescriptionType = 'interface' | 'alias' | 'enum' | 'class';
 export interface TypeDescription {
   type: TypeDescriptionType;
   name: string;
@@ -81,6 +81,13 @@ export interface InterfaceDescription extends TypeDescription {
   typeParams: TypeParam[];
   props: Array<Partial<JsonDocsProp>>;
   methods: MethodDescription[];
+}
+export interface ClassDescription extends TypeDescription {
+  type: 'class';
+  typeParams: TypeParam[];
+  props: Array<Partial<JsonDocsProp>>;
+  methods: MethodDescription[];
+  decorators: DecoratorDescription[];
 }
 export interface TypeParam {
   name: string;
@@ -105,4 +112,8 @@ export interface MethodDescription extends Partial<JsonDocsMethod> {
 export interface ParameterDescription extends JsonDocMethodParameter {
   default: string;
   optional: boolean;
+}
+export interface DecoratorDescription {
+  name: string;
+  arguments: any;
 }
