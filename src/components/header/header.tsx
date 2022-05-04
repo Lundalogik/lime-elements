@@ -44,7 +44,12 @@ import { Component, h, Prop } from '@stencil/core';
  * @exampleComponent limel-example-header-colors
  * @exampleComponent limel-example-header-responsive
  * @exampleComponent limel-example-header-narrow
- * @slot - Content (actions) to be put inside the far right surface of the header
+ * @slot actions - Content (actions) to be put inside the far right surface of
+ * the header
+ * @slot [no name] - DEPRECATED. The `actions` slot used to be unnamed. This
+ * behavior has been deprecated, and support will be dropped in a future
+ * version. Please add `slot="actions"` to your elements to ensure your code
+ * will continue to work with future versions of Lime Elements.
  */
 @Component({
     tag: 'limel-header',
@@ -90,9 +95,9 @@ export class Header {
                     </h2>
                 </div>
             </div>,
-            <div class="actions">
+            <slot name="actions">
                 <slot />
-            </div>,
+            </slot>,
         ];
     }
 
