@@ -51,7 +51,7 @@ export class HeaderExample {
         }
 
         return (
-            <div class="actions">
+            <div class="actions" slot="actions">
                 {this.actions.map(this.renderActionButton)}
             </div>
         );
