@@ -79,17 +79,11 @@ export class Header {
         return [
             <div class="information">
                 {this.renderIcon()}
-                <div class="information__headings">
-                    <h1
-                        class="information__headings__heading"
-                        title={this.heading}
-                    >
+                <div class="headings">
+                    <h1 class="heading" title={this.heading}>
                         {this.heading}
                     </h1>
-                    <h2
-                        class="information__headings__subheading"
-                        title={this.subheading}
-                    >
+                    <h2 class="subheading" title={this.subheading}>
                         {this.subheading}
                         {this.renderSupportingText()}
                     </h2>
@@ -106,13 +100,7 @@ export class Header {
             return;
         }
 
-        return (
-            <limel-icon
-                class="information__icon"
-                badge={true}
-                name={this.icon}
-            />
-        );
+        return <limel-icon class="icon" badge={true} name={this.icon} />;
     }
 
     private renderSupportingText() {
