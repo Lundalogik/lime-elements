@@ -1,3 +1,10 @@
+### [35.0.1-next.3](https://github.com/Lundalogik/lime-elements/compare/v35.0.1-next.2...v35.0.1-next.3) (2022-05-11)
+
+
+### Bug Fixes
+
+* **header:** make narrow headers appear even smaller ([c118865](https://github.com/Lundalogik/lime-elements/commit/c1188655ea7800bfd1a7520ecebe8bba4d488a70))
+
 ### [35.0.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v35.0.1-next.1...v35.0.1-next.2) (2022-04-21)
 
 
