@@ -110,7 +110,6 @@ export class Header {
             <limel-icon
                 class="information__icon"
                 badge={true}
-                size="large"
                 name={this.icon}
             />
         );

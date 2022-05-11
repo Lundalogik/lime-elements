@@ -40,6 +40,8 @@
     flex-shrink: 0;
     color: var(--header-icon-color, rgb(var(--contrast-1100)));
     background-color: var(--header-icon-background-color, transparent);
+    width: functions.pxToRem(28);
+    margin: 0 functions.pxToRem(8);
 }
 
 .information__headings {
@@ -79,8 +81,8 @@
 
 :host(limel-header.is-narrow) {
     .information__icon {
-        margin: functions.pxToRem(-12) functions.pxToRem(-8);
-        transform: scale(0.8);
+        margin: 0 functions.pxToRem(2);
+        width: functions.pxToRem(20);
     }
     .information__headings__heading {
         font-size: functions.pxToRem(15);
