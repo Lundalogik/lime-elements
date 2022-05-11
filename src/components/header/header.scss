@@ -80,8 +80,10 @@
 }
 
 :host(limel-header.is-narrow) {
+    padding: functions.pxToRem(2) functions.pxToRem(4);
+
     .information__icon {
-        margin: 0 functions.pxToRem(2);
+        margin-right: functions.pxToRem(2);
         width: functions.pxToRem(20);
     }
     .information__headings__heading {
