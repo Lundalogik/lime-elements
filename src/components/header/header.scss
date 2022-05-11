@@ -12,7 +12,7 @@
  * @prop --header-responsive-breakpoint: Defines the minimum allowed `width` of both information and actions areas in the header, defaults to `22rem`.
  */
 
-:host {
+:host(limel-header) {
     display: flex;
     align-items: center;
     box-sizing: border-box;
@@ -77,7 +77,7 @@
     flex-shrink: 0;
 }
 
-:host(.is-narrow) {
+:host(limel-header.is-narrow) {
     .information__icon {
         margin: functions.pxToRem(-12) functions.pxToRem(-8);
         transform: scale(0.8);
@@ -87,7 +87,7 @@
     }
 }
 
-:host(.has-responsive-layout) {
+:host(limel-header.has-responsive-layout) {
     display: grid;
     grid-template-columns: repeat(
         auto-fit,
