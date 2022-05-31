@@ -105,6 +105,10 @@
     + .mdc-text-field__input {
         z-index: z-index.$input-field--input-with-formatted-value;
     }
+
+    .lime-has-prefix & {
+        margin-left: functions.pxToRem(10);
+    }
 }
 
 :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {

@@ -48,6 +48,8 @@ const helperTextId = 'tf-helper-text';
  * @exampleComponent limel-example-input-field-showlink
  * @exampleComponent limel-example-input-field-error-icon
  * @exampleComponent limel-example-input-field-textarea
+ * @exampleComponent limel-example-input-field-suffix
+ * @exampleComponent limel-example-input-field-prefix
  * @exampleComponent limel-example-input-field-search
  * @exampleComponent limel-example-input-field-pattern
  * @exampleComponent limel-example-input-field-focus
@@ -93,6 +95,20 @@ export class InputField {
      */
     @Prop({ reflect: true })
     public helperText: string;
+
+    /**
+     * A short piece of text to display before the value inside the input field.
+     * Displayed for all types except `textarea`.
+     */
+    @Prop({ reflect: true })
+    public prefix: string;
+
+    /**
+     * A short piece of text to display after the value inside the input field.
+     * Displayed for all types except `textarea`.
+     */
+    @Prop({ reflect: true })
+    public suffix: string;
 
     /**
      * Set to `true` to indicate that the field is required.
@@ -291,7 +307,9 @@ export class InputField {
                 </span>
                 {this.renderLeadingIcon()}
                 {this.renderEmptyValueForReadonly()}
+                {this.renderPrefix()}
                 {this.renderInput(properties)}
+                {this.renderSuffix()}
                 {this.renderTextarea(properties)}
                 {this.renderFormattedNumber()}
                 {this.renderTrailingLinkOrButton()}
@@ -342,6 +360,8 @@ export class InputField {
             'lime-text-field--readonly': this.readonly,
             'mdc-text-field--required': this.required,
             'lime-text-field--empty': !this.value,
+            'lime-has-prefix': this.hasPrefix(),
+            'lime-has-suffix': this.hasSuffix(),
         };
 
         if (this.type === 'textarea') {
@@ -474,6 +494,40 @@ export class InputField {
 
     private hasHelperText = () => {
         return this.helperText !== null && this.helperText !== undefined;
+    };
+
+    private renderSuffix = () => {
+        if (!this.hasSuffix() || this.type === 'textarea') {
+            return;
+        }
+
+        const classList = {
+            'mdc-text-field__affix': true,
+            'mdc-text-field__affix--suffix': true,
+        };
+
+        return <span class={classList}>{this.suffix}</span>;
+    };
+
+    private hasSuffix = () => {
+        return this.suffix !== null && this.suffix !== undefined;
+    };
+
+    private renderPrefix = () => {
+        if (!this.hasPrefix() || this.type === 'textarea') {
+            return;
+        }
+
+        const classList = {
+            'mdc-text-field__affix': true,
+            'mdc-text-field__affix--prefix': true,
+        };
+
+        return <span class={classList}>{this.prefix}</span>;
+    };
+
+    private hasPrefix = () => {
+        return this.prefix !== null && this.prefix !== undefined;
     };
 
     private renderCharacterCounter = () => {
