@@ -1,3 +1,10 @@
+## [35.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v35.0.1-next.3...v35.1.0-next.1) (2022-06-01)
+
+
+### Features
+
+* **input-field:** add support for displaying prefix and suffix ([d48063f](https://github.com/Lundalogik/lime-elements/commit/d48063fa76fb2c69a25aa1733b1e7b02942cf493))
+
 ### [35.0.1-next.3](https://github.com/Lundalogik/lime-elements/compare/v35.0.1-next.2...v35.0.1-next.3) (2022-05-11)
 
 
