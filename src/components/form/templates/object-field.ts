@@ -35,11 +35,26 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
         'limel-collapsible-section',
         {
             header: props.title,
+            id: getSchemaObjectPropertyPath(
+                props.formContext.schema,
+                props.idSchema
+            ),
             'is-open': defaultOpen,
         },
         renderDescription(props.description),
         renderProperties(props.properties, props.schema)
     );
+}
+
+function getSchemaObjectPropertyPath(schema: any, subSchema: LimeJSONSchema) {
+    const refPrefixLength = 2;
+    const matchAllForwardSlashes = /\//g;
+    const rootPath = (schema.$ref as string)
+        .replace(matchAllForwardSlashes, '.')
+        .slice(refPrefixLength);
+    const subSchemaPath = subSchema.$id?.replace('_', '.properties.');
+
+    return subSchemaPath.replace('root', rootPath);
 }
 
 function renderProperties(
