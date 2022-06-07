@@ -1,7 +1,9 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
 @use '../../../style/internal/variables';
-@use '../../../style/internal/z-index';
+
+$limel-progress-flow-step-content: 2;
+$limel-progress-flow-divider: 1;
 
 .flow-item {
     --step-background: var(
@@ -133,7 +135,7 @@
     height: var(--step-height);
 
     position: absolute;
-    z-index: z-index.$limel-progress-flow-divider;
+    z-index: $limel-progress-flow-divider;
     right: calc(var(--step-height) / 2 * -1);
     overflow: hidden;
 
@@ -164,7 +166,7 @@
 .secondary-text {
     @include mixins.truncate-text();
     max-width: var(--max-text-width);
-    z-index: z-index.$limel-progress-flow-step-content;
+    z-index: $limel-progress-flow-step-content;
 }
 
 .secondary-text {
@@ -175,7 +177,7 @@
 
 .icon {
     margin: 0 functions.pxToRem(8) 0 functions.pxToRem(4);
-    z-index: z-index.$limel-progress-flow-step-content;
+    z-index: $limel-progress-flow-step-content;
 }
 
 @import './partial-styles/_selected-indicator';
