@@ -1,3 +1,10 @@
+## [35.1.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.1...v35.1.0-next.2) (2022-06-07)
+
+
+### Features
+
+* **form:** add `params` to `FormError` ([2db5640](https://github.com/Lundalogik/lime-elements/commit/2db56405d4c4812b7409ba949aea417ee2e36453))
+
 ## [35.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v35.0.1-next.3...v35.1.0-next.1) (2022-06-01)
 
 
