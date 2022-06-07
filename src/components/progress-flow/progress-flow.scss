@@ -17,6 +17,7 @@
     --selected-indicator-right: -0.5rem;
     --max-text-width: 10rem;
 
+    isolation: isolate;
     box-sizing: border-box;
     width: 100%;
     display: flex;
