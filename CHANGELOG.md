@@ -1,3 +1,10 @@
+## [35.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.3...v35.1.0-next.4) (2022-06-08)
+
+
+### Features
+
+* **forms:** set rjsf collapsible sections id ([87bf2e2](https://github.com/Lundalogik/lime-elements/commit/87bf2e26020f63c87a6ae34b13164e4e187bfdf9))
+
 ## [35.1.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.2...v35.1.0-next.3) (2022-06-08)
 
 
