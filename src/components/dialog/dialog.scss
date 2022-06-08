@@ -13,6 +13,9 @@
  * @prop --dialog-heading-supporting-text-color: Color of the supporting text.
  * @prop --dialog-heading-icon-color: Color of the icon.
  * @prop --dialog-heading-icon-background-color: Background color of the icon when displayed as a badge.
+ * @prop --dialog-max-width: Max width of the dialog.
+ * @prop --dialog-max-height: Max height of the dialog.
+ * @prop --dialog-border-radius: Border radius of the dialog corners
  */
 
 :host {
@@ -45,6 +48,7 @@
     }
     .mdc-dialog__container {
         height: 100%;
+        width: var(--dialog-width, auto);
     }
 
     .mdc-dialog__surface {
@@ -52,6 +56,10 @@
         height: var(--dialog-height, auto);
         background-color: var(--dialog-background-color);
         box-shadow: var(--shadow-depth-64);
+
+        max-width: var(--dialog-max-width, calc(100vw - 2rem));
+        max-height: var(--dialog-max-height, calc(100% - 2rem));
+        border-radius: var(--dialog-border-radius, 0.25rem);
     }
 }
 
