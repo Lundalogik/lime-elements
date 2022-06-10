@@ -1,3 +1,10 @@
+## [35.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.4...v35.1.0-next.5) (2022-06-10)
+
+
+### Features
+
+* **dialog:** add CSS properties for max size ([5dd52fe](https://github.com/Lundalogik/lime-elements/commit/5dd52feb9b743b9388ffb2300fb8903a538cb951))
+
 ## [35.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.3...v35.1.0-next.4) (2022-06-08)
 
 
