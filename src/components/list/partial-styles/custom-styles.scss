@@ -1,4 +1,3 @@
-@use '../../../style/internal/z-index';
 @use '../../../style/mixins';
 
 $background-color-of-odd-interactive-items: rgb(var(--contrast-100));
@@ -26,7 +25,7 @@ $background-color-of-interactive-items-hovered: rgb(var(--contrast-100));
             @include mixins.is-flat-clickable();
 
             &:hover {
-                z-index: z-index.$list--has-interactive-items--mdc-list-item--hover;
+                z-index: $list--has-interactive-items--mdc-list-item--hover;
                 background-color: $background-color-of-interactive-items-hovered;
 
                 &:before {
