@@ -1,3 +1,10 @@
+## [35.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.6...v35.1.0-next.7) (2022-06-21)
+
+
+### Bug Fixes
+
+* **list:** prevent z-index overlapping problems by isolating the component ([076a7ce](https://github.com/Lundalogik/lime-elements/commit/076a7ce16c04522acb44f167185d942a1784e526))
+
 ## [35.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.5...v35.1.0-next.6) (2022-06-21)
 
 
