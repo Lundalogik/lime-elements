@@ -1,3 +1,10 @@
+## [35.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.5...v35.1.0-next.6) (2022-06-21)
+
+
+### Features
+
+* **packages:** upgrade lime-icons8 from 2.7.0 to 2.8.0 ([3f99c53](https://github.com/Lundalogik/lime-elements/commit/3f99c532f33ac4a940742cf5378a65d4556af0f3))
+
 ## [35.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.4...v35.1.0-next.5) (2022-06-10)
 
 
