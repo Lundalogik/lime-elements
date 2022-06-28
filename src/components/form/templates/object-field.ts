@@ -50,7 +50,7 @@ function getSchemaObjectPropertyPath(schema: any, subSchema: LimeJSONSchema) {
     const refPrefixLength = 2;
     const matchAllForwardSlashes = /\//g;
     const rootPath = (schema.$ref as string)
-        .replace(matchAllForwardSlashes, '.')
+        ?.replace(matchAllForwardSlashes, '.')
         .slice(refPrefixLength);
     const subSchemaPath = subSchema.$id?.replace('_', '.properties.');
 
