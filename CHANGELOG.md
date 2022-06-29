@@ -1,3 +1,10 @@
+## [35.1.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.7...v35.1.0-next.8) (2022-06-29)
+
+
+### Bug Fixes
+
+* **form:** avoid crash if object-field is missing $ref ([f9b9106](https://github.com/Lundalogik/lime-elements/commit/f9b9106dda265ba06590d23ae2a07c52d5e1f599))
+
 ## [35.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.6...v35.1.0-next.7) (2022-06-21)
 
 
