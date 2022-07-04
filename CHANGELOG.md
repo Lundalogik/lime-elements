@@ -1,3 +1,15 @@
+## [35.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.9...v35.1.0-next.10) (2022-07-04)
+
+
+### Features
+
+* **chip-set:** make it possible to set `input` type of `search` or `text` ([3f29654](https://github.com/Lundalogik/lime-elements/commit/3f29654688758af234881a388e812c6fafb97b49))
+
+
+### Bug Fixes
+
+* **picker:** set `inputType` to `search` ([75738a5](https://github.com/Lundalogik/lime-elements/commit/75738a51758116941123b6e6c863e9c0de12c103))
+
 ## [35.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.8...v35.1.0-next.9) (2022-07-04)
 
 
