@@ -1,3 +1,10 @@
+## [35.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.8...v35.1.0-next.9) (2022-07-04)
+
+
+### Bug Fixes
+
+* **progress-flow:** make it possible to set an icon color ([33ecb3c](https://github.com/Lundalogik/lime-elements/commit/33ecb3c887af763ee01f4fd24b6e4bbb208791d2))
+
 ## [35.1.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.7...v35.1.0-next.8) (2022-06-29)
 
 
