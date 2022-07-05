@@ -1,3 +1,10 @@
+## [35.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.10...v35.1.0-next.11) (2022-07-05)
+
+
+### Bug Fixes
+
+* **form:** avoid crash when subschema has no properties ([5bc32ff](https://github.com/Lundalogik/lime-elements/commit/5bc32ffe2bc996d09a256203229ee6acfc376760)), closes [Lundalogik/crm-feature#2857](https://github.com/Lundalogik/crm-feature/issues/2857)
+
 ## [35.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.9...v35.1.0-next.10) (2022-07-04)
 
 
