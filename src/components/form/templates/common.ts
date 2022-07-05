@@ -60,6 +60,10 @@ export function findTitle(data: any, fieldSchema: any, formSchema: any) {
         return null;
     }
 
+    if (!subSchema.properties) {
+        return null;
+    }
+
     const [key, value] = firstEntry;
 
     return findTitle(value, subSchema.properties[key], formSchema);
