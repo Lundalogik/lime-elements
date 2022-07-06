@@ -114,6 +114,7 @@ export class Tooltip {
         return (
             <div class="trigger-anchor">
                 <limel-portal
+                    openDirection="bottom-start"
                     visible={this.open}
                     containerId={this.portalId}
                     containerStyle={{

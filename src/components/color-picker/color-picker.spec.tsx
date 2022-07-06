@@ -27,7 +27,7 @@ test('the component renders', () => {
         <limel-color-picker label="Hair color">
             <mock:shadow-root>
                     <div class="color-picker">
-                        <limel-popover>
+                        <limel-popover opendirection="bottom-start">
                             <div class="picker-trigger" id="tooltip-button" role="button" slot="trigger" tabindex="0"></div>
                             <limel-color-picker-palette label="Hair color">
                                 <mock:shadow-root></mock:shadow-root>
