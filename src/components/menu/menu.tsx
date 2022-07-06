@@ -19,7 +19,7 @@ import {
  * @slot trigger - Element to use as a trigger for the menu.
  * @exampleComponent limel-example-menu-basic
  * @exampleComponent limel-example-menu-disabled
- * @exampleComponent limel-example-menu-open-left
+ * @exampleComponent limel-example-menu-open-direction
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
@@ -46,10 +46,10 @@ export class Menu {
     public disabled = false;
 
     /**
-     * Decides if the menu should open right or left.
+     * Decides the menu's location in relation to its trigger
      */
     @Prop({ reflect: true })
-    public openDirection: OpenDirection = 'right';
+    public openDirection: OpenDirection = 'bottom-start';
 
     /**
      * Sets the open state of the menu.

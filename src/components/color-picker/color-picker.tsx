@@ -102,7 +102,11 @@ export class ColorPicker implements FormComponent {
         }
 
         return (
-            <limel-popover open={this.isOpen} onClose={this.onPopoverClose}>
+            <limel-popover
+                open={this.isOpen}
+                openDirection="bottom-start"
+                onClose={this.onPopoverClose}
+            >
                 {this.renderPickerTrigger()}
                 <limel-color-picker-palette
                     value={this.value}
