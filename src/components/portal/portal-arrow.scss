@@ -1,0 +1,94 @@
+/**
+ * @prop --portal-arrow-color: The color of the arrow has to be the same as the surface opened in the portal.
+ */
+
+$size-of-arrow: 0.5rem;
+
+limel-portal-arrow,
+limel-portal-arrow::before {
+    position: absolute;
+}
+
+limel-portal-arrow {
+    visibility: hidden;
+
+    &::before {
+        visibility: visible;
+        content: '';
+
+        border: {
+            width: $size-of-arrow;
+            color: transparent;
+            style: solid;
+        }
+        [data-popper-placement^='top'] & {
+            border-top-color: var(--portal-arrow-color);
+            margin-left: -$size-of-arrow;
+        }
+        [data-popper-placement^='bottom'] & {
+            border-bottom-color: var(--portal-arrow-color);
+            margin-left: -$size-of-arrow;
+        }
+        [data-popper-placement^='left'] & {
+            border-left-color: var(--portal-arrow-color);
+            margin-top: -$size-of-arrow;
+        }
+        [data-popper-placement^='right'] & {
+            border-right-color: var(--portal-arrow-color);
+            margin-top: -$size-of-arrow;
+        }
+    }
+
+    [data-popper-placement^='top'] & {
+        bottom: 0;
+    }
+    [data-popper-placement^='bottom'] & {
+        top: -$size-of-arrow * 2;
+    }
+    [data-popper-placement^='left'] & {
+        right: 0;
+    }
+    [data-popper-placement^='right'] & {
+        left: -$size-of-arrow * 2;
+    }
+}
+
+.limel-portal--container {
+    &.has-arrow {
+        &[data-popper-placement^='right'] {
+            margin-left: $size-of-arrow !important;
+        }
+        &[data-popper-placement^='left'] {
+            margin-right: $size-of-arrow !important;
+        }
+        &[data-popper-placement^='top'] {
+            margin-bottom: $size-of-arrow !important;
+        }
+        &[data-popper-placement^='bottom'] {
+            margin-top: $size-of-arrow !important;
+        }
+    }
+}
+
+.arrow-style-tooltip::before {
+    --portal-arrow-color: rgb(
+        var(--contrast-1300)
+    ); // the same color as the tooltip background-color
+    opacity: 0;
+    animation: display-tooltip 0.2s ease forwards;
+
+    animation-delay: 0.2s;
+}
+
+.arrow-style-popover::before {
+    --portal-arrow-color: var(--popover-body-background-color);
+}
+
+@keyframes display-tooltip {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

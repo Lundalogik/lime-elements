@@ -9,7 +9,6 @@
     width: var(--popover-surface-width, auto);
     max-height: calc(100vh - 2rem);
     max-width: calc(100vw - 2rem);
-    margin: 0 0.25rem;
 
     border-radius: var(--popover-border-radius, functions.pxToRem(12));
     box-shadow: var(--shadow-depth-16);

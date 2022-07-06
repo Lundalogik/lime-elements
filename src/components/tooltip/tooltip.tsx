@@ -121,6 +121,8 @@ export class Tooltip {
                         'z-index': tooltipZIndex,
                         'pointer-events': 'none',
                     }}
+                    showArrow={true}
+                    arrowStyle={'arrow-style-tooltip'}
                 >
                     <limel-tooltip-content
                         label={this.label}

@@ -7,6 +7,7 @@ import {
     Placement,
 } from '@popperjs/core';
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
+import { ArrowModifier } from '@popperjs/core/lib/modifiers/arrow';
 
 /* eslint-disable jsdoc/check-indentation */
 /**
@@ -79,6 +80,18 @@ export class Portal {
     public inheritParentWidth = false;
 
     /**
+     * Set `showArrow` to `true` if you need to show sourse of `limel-popover` or `limel-tooltip`
+     */
+    @Prop()
+    public showArrow = false;
+
+    /**
+     * ..popover class
+     */
+    @Prop()
+    public arrowStyle: string;
+
+    /**
      * True if the content within the portal should be visible.
      *
      * If the content is from within a dialog for instance, this can be set to
@@ -110,6 +123,8 @@ export class Portal {
     private host: HTMLLimelPortalElement;
 
     private container: HTMLElement;
+
+    private arrow: HTMLElement;
 
     private popperInstance: Instance;
 
@@ -172,7 +187,7 @@ export class Portal {
 
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
-        this.container.setAttribute('class', 'limel-portal--container');
+        this.container.classList.add('limel-portal--container');
         Object.assign(this.container, {
             portalSource: this.host,
         });
@@ -181,6 +196,11 @@ export class Portal {
             this.parents.set(element, element.parentElement);
             this.container.appendChild(element);
         });
+        if (this.showArrow) {
+            this.arrow = document.createElement('limel-portal-arrow');
+            this.arrow.setAttribute('class', this.arrowStyle);
+            this.container.classList.add('has-arrow');
+        }
     }
 
     private attachContainer() {
@@ -188,6 +208,10 @@ export class Portal {
     }
 
     private removeContainer() {
+        if (this.arrow) {
+            this.container.removeChild(this.arrow);
+        }
+
         if (!this.container) {
             return;
         }
@@ -235,7 +259,10 @@ export class Portal {
         this.ensureContainerFitsInViewPort();
 
         Object.keys(this.containerStyle).forEach((property) => {
-            this.container.style[property] = this.containerStyle[property];
+            this.container.style.setProperty(
+                property,
+                this.containerStyle[property]
+            );
         });
     }
 
@@ -266,10 +293,14 @@ export class Portal {
     }
 
     private createPopperConfig(): Partial<
-        OptionsGeneric<Partial<FlipModifier>>
+        OptionsGeneric<Partial<FlipModifier | ArrowModifier>>
     > {
         const placement = this.getPlacement(this.openDirection);
         const flipPlacement = this.getFlipPlacement(this.openDirection);
+
+        if (this.arrow !== undefined) {
+            this.container.appendChild(this.arrow);
+        }
 
         return {
             strategy: this.position,
@@ -279,6 +310,12 @@ export class Portal {
                     name: 'flip',
                     options: {
                         fallbackPlacements: [flipPlacement],
+                    },
+                },
+                {
+                    name: 'arrow',
+                    options: {
+                        element: this.arrow,
                     },
                 },
             ],
