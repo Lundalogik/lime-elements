@@ -3,6 +3,6 @@
  * @prop --dropdown-z-index: z-index of the dropdown menu.
  */
 
-div.container {
+:host(limel-date-picker) {
     position: relative;
 }
