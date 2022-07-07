@@ -1,3 +1,10 @@
+## [35.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.11...v35.1.0-next.12) (2022-07-07)
+
+
+### Bug Fixes
+
+* **date-picker:** prevent click actions when component is disabled or readonly ([250f221](https://github.com/Lundalogik/lime-elements/commit/250f221dc010235ba1dc6a02f4d250ded6b8e93b))
+
 ## [35.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.10...v35.1.0-next.11) (2022-07-05)
 
 
