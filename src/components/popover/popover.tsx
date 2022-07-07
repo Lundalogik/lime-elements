@@ -11,6 +11,7 @@ import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
 import { portalContains } from '../portal/contains';
 import { ESCAPE } from '../../util/keycodes';
+import { OpenDirection } from '../menu/menu.types';
 
 /**
  * A popover is an impermanent layer that is displayed on top of other content
@@ -76,6 +77,12 @@ export class Popover {
     public open = false;
 
     /**
+     * Decides the popover's location in relation to its trigger
+     */
+    @Prop({ reflect: true })
+    public openDirection: OpenDirection;
+
+    /**
      * Emits an event when the component is closing
      */
     @Event()
@@ -125,6 +132,7 @@ export class Popover {
                     visible={this.open}
                     containerId={this.portalId}
                     containerStyle={{ 'z-index': popoverZIndex }}
+                    openDirection={this.openDirection}
                 >
                     <limel-popover-surface
                         contentCollection={this.host.children}
