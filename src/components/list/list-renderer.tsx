@@ -247,7 +247,7 @@ export class ListRenderer {
             <limel-menu
                 class="mdc-deprecated-list-item__meta"
                 items={actions}
-                openDirection="bottom-end"
+                openDirection="left-start"
             >
                 <limel-icon-button
                     class="action-menu-trigger"
