@@ -249,7 +249,11 @@ export class ListRenderer {
                 items={actions}
                 openDirection="left"
             >
-                <limel-icon slot="trigger" name="menu_2" size="small" />
+                <limel-icon-button
+                    class="action-menu-trigger"
+                    slot="trigger"
+                    icon="menu_2"
+                />
             </limel-menu>
         );
     };
