@@ -1,3 +1,10 @@
+## [35.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.12...v35.1.0-next.13) (2022-07-08)
+
+
+### Bug Fixes
+
+* **list:** make action menu accessible with keyboard ([f36247d](https://github.com/Lundalogik/lime-elements/commit/f36247d8ad31b115eebcb0f0ed9b9e16148120e0))
+
 ## [35.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.11...v35.1.0-next.12) (2022-07-07)
 
 
