@@ -727,7 +727,6 @@ export class ChipSet {
                 aria-label={this.removeChipLabel}
                 tabindex="-1"
                 innerHTML={svgData}
-                // eslint-disable-next-line react/jsx-no-bind
                 onClick={removeFunc}
             />
         );

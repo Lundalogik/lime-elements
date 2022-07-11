@@ -133,7 +133,6 @@ export class QuarterPicker extends Picker {
             <div
                 className="datepicker-quarter"
                 id={`datepicker-quarter-${quarter}`}
-                // eslint-disable-next-line react/jsx-no-bind
                 onClick={() => {
                     const date = moment([fp.currentYear])
                         .quarter(quarter)

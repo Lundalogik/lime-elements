@@ -54,7 +54,7 @@ export class Menu {
     /**
      * Sets the open state of the menu.
      */
-    @Prop({ mutable: true, reflect: true }) // eslint-disable-line @stencil/strict-mutable
+    @Prop({ mutable: true, reflect: true })
     public open = false;
 
     /**

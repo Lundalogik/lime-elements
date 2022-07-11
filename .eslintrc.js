@@ -142,7 +142,6 @@ module.exports = {
         },
         {
             files: ['src/**/*.{ts,tsx}'],
-            extends: ['plugin:@stencil/recommended'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
                 parserOption: {
@@ -151,11 +150,6 @@ module.exports = {
                 project: 'tsconfig.json',
             },
             rules: {
-                '@stencil/decorators-context': 'off', // gives false errors with eslint v8.8.0 /Ads
-                '@stencil/no-unused-watch': 'off', // gives false errors with eslint v8.8.0 /Ads
-                '@stencil/decorators-style': 'off',
-                '@stencil/strict-boolean-conditions': 'off',
-                '@stencil/render-returns-host': 'off',
                 '@typescript-eslint/dot-notation': 'error',
             },
         },
@@ -168,7 +162,6 @@ module.exports = {
                 'src/**/*.e2e.{ts,tsx}',
                 'src/**/*.test-wrapper.{ts,tsx}',
             ],
-            extends: ['plugin:@stencil/recommended'],
             parserOptions: {
                 parserOption: {
                     jsx: true,
@@ -176,12 +169,6 @@ module.exports = {
                 project: 'tsconfig.lint.json',
             },
             rules: {
-                '@stencil/decorators-context': 'off', // gives false errors with eslint v8.8.0 /Ads
-                '@stencil/no-unused-watch': 'off', // gives false errors with eslint v8.8.0 /Ads
-                '@stencil/decorators-style': 'off',
-                '@stencil/strict-boolean-conditions': 'off',
-                '@stencil/render-returns-host': 'off',
-                '@stencil/required-jsdoc': 'off',
                 '@typescript-eslint/dot-notation': 'error',
                 'sonarjs/no-duplicate-string': 'off',
                 'sonarjs/no-identical-functions': 'off',
