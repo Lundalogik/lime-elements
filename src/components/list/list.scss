@@ -249,10 +249,6 @@ $list-mdc-list-item: 0;
     }
 }
 
-.action-menu-trigger {
-    transform: scale(0.9); // otherwise edges of the menu will look cropped
-}
-
 @import '../checkbox/checkbox.scss';
 
 @import './radio-button/radio-button.scss';
