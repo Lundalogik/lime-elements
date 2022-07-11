@@ -1,3 +1,25 @@
+## [36.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.13...v36.0.0-next.1) (2022-07-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** Along with adding more supported values for `openDirection`, we
+have renamed the two previously supported values. `right` has been
+renamed to `bottom-start`, and `left` has been renamed to
+`bottom-end`. The default value has been changed from `right` to
+`bottom-start`, so if you have been using the default value, your
+menu will still be positioned the same way after this update.
+However, if you have used either `left` or `right` explicitly, you
+will need to update those values to have your menu positioned the
+same as before. For examples, please see the documentation for
+`limel-menu`.
+
+### Features
+
+* **list:** make list-item menu open from the top left corner of the menu button ([484cc0d](https://github.com/Lundalogik/lime-elements/commit/484cc0dd2f50a44378ec952e2ee53e3cb16d38c5))
+* **menu:** add more open direction possibilities for menu dropdown ([9109279](https://github.com/Lundalogik/lime-elements/commit/9109279b22c20abf2531aa29dbe646cb78341089))
+* **popover:** add property `openDirection` ([eb52462](https://github.com/Lundalogik/lime-elements/commit/eb52462fdaa7b8f0698c3a1281706fdd080c6415))
+
 ## [35.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.12...v35.1.0-next.13) (2022-07-08)
 
 
