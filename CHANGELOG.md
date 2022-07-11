@@ -1,3 +1,10 @@
+## [36.0.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.1...v36.0.0-next.2) (2022-07-11)
+
+
+### Bug Fixes
+
+* **list:** make on hover ripple effect of list item menu centered ([21aa98f](https://github.com/Lundalogik/lime-elements/commit/21aa98f6e2dfb3e6c53fa8c87ef90e45e4db8d6d))
+
 ## [36.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v35.1.0-next.13...v36.0.0-next.1) (2022-07-11)
 
 
