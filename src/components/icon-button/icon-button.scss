@@ -2,12 +2,6 @@
 @use '../../style/functions';
 @use '@material/icon-button/styles';
 
-@media (pointer: coarse) {
-    .mdc-icon-button:hover::before {
-        opacity: 0;
-    }
-}
-
 /**
  * @prop --icon-background-color: Background color when attribute `elevated` is set to `true`.
  */
