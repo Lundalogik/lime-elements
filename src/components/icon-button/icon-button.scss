@@ -3,14 +3,10 @@
 @use '@material/icon-button/styles';
 
 /**
- * @prop --icon-background-color: Background color when attribute `elevated` is set to `true`.
+ * @prop --icon-background-color: Background color of the button.
  */
 
-:host {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
+$height-of-limel-button: functions.pxToRem(36);
 
 :host([hidden]) {
     display: none;
@@ -20,24 +16,37 @@
     pointer-events: none;
 }
 
-:host([elevated]) {
-    .mdc-icon-button {
-        padding: functions.pxToRem(9);
-    }
-
-    limel-icon {
-        @include mixins.is-elevated-clickable;
-    }
-}
-
 .mdc-icon-button {
+    @include mixins.is-flat-clickable;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: $height-of-limel-button;
+    width: $height-of-limel-button;
+    padding: functions.pxToRem(2);
+    border-radius: 50%;
+    background-color: var(--icon-background-color, transparent);
+
+    :host([elevated]) & {
+        &:not(:hover):not(:active):not(:focus-visible) {
+            box-shadow: var(--button-shadow-normal);
+        }
+    }
+
     &:disabled {
         color: var(--mdc-theme-text-disabled-on-background);
     }
+
     &:focus-visible {
         // only when non-pointer input is being used,
         // e.g. tabbed into using keyboard
         box-shadow: var(--shadow-depth-8-focused);
         border-radius: 50%;
     }
+}
+
+limel-icon {
+    width: functions.pxToRem(20);
+    height: functions.pxToRem(20);
 }
