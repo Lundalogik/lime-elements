@@ -1,5 +1,4 @@
-import { MDCRipple } from '@material/ripple';
-import { Component, Element, h, Method, Prop } from '@stencil/core';
+import { Component, Element, h, Prop } from '@stencil/core';
 import { IconSize } from '@limetech/lime-elements';
 
 /**
@@ -15,11 +14,6 @@ import { IconSize } from '@limetech/lime-elements';
     styleUrl: 'icon-button.scss',
 })
 export class IconButton {
-    public constructor() {
-        this.removeFocusedStyleOnClick =
-            this.removeFocusedStyleOnClick.bind(this);
-    }
-
     /**
      * The icon to display.
      */
@@ -48,27 +42,6 @@ export class IconButton {
     @Element()
     private host: HTMLLimelIconButtonElement;
 
-    private mdcIconButtonRipple;
-
-    /**
-     * If the button is hidden or inside another element that is animating
-     * while the button is instantiated, the hover-highlight may become
-     * misaligned. If so, calling this method will make the button re-layout
-     * the highlight.
-     */
-    @Method()
-    public async relayout() {
-        if (this.mdcIconButtonRipple) {
-            this.mdcIconButtonRipple.layout();
-        }
-    }
-
-    private removeFocusedStyleOnClick() {
-        const mdcButton =
-            this.host.shadowRoot.querySelector('.mdc-icon-button');
-        mdcButton.classList.remove('mdc-ripple-upgraded--background-focused');
-    }
-
     public connectedCallback() {
         this.initialize();
     }
@@ -82,15 +55,6 @@ export class IconButton {
         if (!element) {
             return;
         }
-
-        this.mdcIconButtonRipple = new MDCRipple(element);
-        this.mdcIconButtonRipple.unbounded = true;
-        this.host.addEventListener('click', this.removeFocusedStyleOnClick);
-    }
-
-    public disconnectedCallback() {
-        this.mdcIconButtonRipple?.destroy();
-        this.host.removeEventListener('click', this.removeFocusedStyleOnClick);
     }
 
     public render() {
@@ -113,7 +77,6 @@ export class IconButton {
                 title={this.label}
                 {...buttonAttributes}
             >
-                <div class="mdc-icon-button__ripple"></div>
                 <limel-icon name={this.icon} {...iconAttributes} />
             </button>
         );
