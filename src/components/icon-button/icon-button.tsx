@@ -1,5 +1,4 @@
 import { Component, Element, h, Prop } from '@stencil/core';
-import { IconSize } from '@limetech/lime-elements';
 
 /**
  * @exampleComponent limel-example-icon-button-basic
@@ -63,12 +62,6 @@ export class IconButton {
             buttonAttributes.tabindex = this.host.getAttribute('tabindex');
         }
 
-        const iconAttributes: { badge?: boolean; size?: IconSize } = {};
-        if (this.elevated) {
-            iconAttributes.badge = true;
-            iconAttributes.size = 'small';
-        }
-
         return (
             <button
                 class="mdc-icon-button"
@@ -77,7 +70,7 @@ export class IconButton {
                 title={this.label}
                 {...buttonAttributes}
             >
-                <limel-icon name={this.icon} {...iconAttributes} />
+                <limel-icon name={this.icon} badge={true} />
             </button>
         );
     }
