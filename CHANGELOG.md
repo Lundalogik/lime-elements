@@ -1,3 +1,20 @@
+## [36.0.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.2...v36.0.0-next.3) (2022-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **icon-button:** Size of icon-button has decreased from `48px` (`3rem`)
+to `36px` (`2.5rem`), to make it similar to other elements such as
+buttons and button groups. But this size change may visually
+affect your UI. Also note that the elevated mode of icon-button renders
+slightly larger icon, and the elevation shadow effect is applied to
+the entire clickable area of the button.
+
+### Bug Fixes
+
+* **icon-button:** get rid of ripple effect ([b5f6850](https://github.com/Lundalogik/lime-elements/commit/b5f6850c5a5f0f3b8d65834b40f938912688b7b6))
+* **icon-button:** unify look & feel with limel-button ([eac2d68](https://github.com/Lundalogik/lime-elements/commit/eac2d685d1e81b3ff718bfd92de671db99889d7a))
+
 ## [36.0.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.1...v36.0.0-next.2) (2022-07-11)
 
 
