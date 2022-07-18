@@ -1,3 +1,10 @@
+## [36.0.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.3...v36.0.0-next.4) (2022-07-18)
+
+
+### Features
+
+* **button:** add loadingFailed property ([64d2eb9](https://github.com/Lundalogik/lime-elements/commit/64d2eb9285a440fd72778bd6b1f9592eae7649d0)), closes [Lundalogik/crm-feature#2733](https://github.com/Lundalogik/crm-feature/issues/2733)
+
 ## [36.0.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.2...v36.0.0-next.3) (2022-07-12)
 
 
