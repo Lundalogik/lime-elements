@@ -81,7 +81,7 @@ export class Button {
                     'just-failed': this.justLoaded && this.loadingFailed,
                     'mdc-button--outlined': this.outlined,
                 }}
-                disabled={this.disabled}
+                disabled={this.disabled || this.loading}
             >
                 <div class="mdc-button__ripple" />
                 {this.renderIcon()}
