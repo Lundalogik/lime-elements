@@ -1,14 +1,19 @@
 import { JsonDocsComponent, JsonDocsProp } from '@stencil/core/internal';
-import { InterfaceDescription, TypeDescription } from '../types';
+import {
+    ClassDescription,
+    InterfaceDescription,
+    TypeDescription,
+} from '../types';
 import { isExample } from './menu';
 import negate from 'lodash/negate';
 import startCase from 'lodash/startCase';
 import zipObject from 'lodash/zipObject';
 import pick from 'lodash/pick';
 
-const ARRAY_PATTERN = /^(\w+)(<\w+>)?\[\]$|^Array<(\w+)(<\w+>)?>$/;
+const ARRAY_PATTERN = /^(\w+)(<\w+>)?\[\]$|^Array<(.+)>$/;
 const ENUM_PATTERN = /["'](\w+)["']\s?\|?/g;
 const ID_PATTERN = /^number \| string$|string \| number$/g;
+const TS_UTILITY_PATTERN = /(Partial|Required|Readonly|Array)<(.+?)>/g;
 
 /**
  * Create schemas for the components that describe their interface
@@ -21,17 +26,22 @@ export function createSchemas(
     components: JsonDocsComponent[],
     types: TypeDescription[]
 ): Array<Record<string, any>> {
-    return components?.filter(negate(isExample)).map(createSchema(types));
+    const componentSchemas =
+        components?.filter(negate(isExample)).map(createSchema(types)) || [];
+    const classSchemas = types?.filter(isClass)?.map(createSchema(types)) || [];
+
+    return [...componentSchemas, ...classSchemas];
 }
 
 const createSchema =
-    (types: TypeDescription[]) => (component: JsonDocsComponent) => {
+    (types: TypeDescription[]) =>
+    (object: JsonDocsComponent | ClassDescription) => {
         const definitions = createDefinitions(types);
-        const properties = createProps(component.props, definitions);
+        const properties = createProps(object.props, definitions);
 
         const schema: any = {
             type: 'object',
-            $id: component.tag,
+            $id: getSchemaId(object),
             properties: properties,
         };
 
@@ -46,6 +56,14 @@ const createSchema =
 
         return schema;
     };
+
+function getSchemaId(object: JsonDocsComponent | ClassDescription): string {
+    if (isClass(object)) {
+        return object.name;
+    }
+
+    return object.tag;
+}
 
 function createDefinitions(types: TypeDescription[]): Record<string, any> {
     const interfaces: InterfaceDescription[] = types.filter(
@@ -62,9 +80,12 @@ function createDefinitions(types: TypeDescription[]): Record<string, any> {
     return zipObject(keys, schemas);
 }
 
-function createProps(props: JsonDocsProp[], definitions: Record<string, any>) {
-    const keys = props.map((prop) => prop.name);
-    const schemas = props.map(createPropSchema(definitions));
+function createProps(
+    props: Array<Partial<JsonDocsProp>>,
+    definitions: Record<string, any>
+) {
+    const keys = props?.map((prop) => prop.name) || [];
+    const schemas = props?.map(createPropSchema(definitions)) || [];
 
     return zipObject(keys, schemas);
 }
@@ -74,6 +95,7 @@ const createPropSchema =
         const schema: any = {
             type: getSchemaType(prop.type),
             title: startCase(prop.name),
+            description: prop.docs,
         };
 
         if (prop.default) {
@@ -167,20 +189,30 @@ function getSchemaPropertiesRef(
     definitions: Record<string, any>
 ): string {
     const definition = Object.keys(definitions).find((key) => key === propType);
-    if (!definition) {
+    if (definition) {
+        return '#/definitions/' + definition;
+    }
+
+    const type = propType.replace(TS_UTILITY_PATTERN, '$2');
+    if (type === propType) {
         return;
     }
 
-    return '#/definitions/' + definition;
+    return getSchemaPropertiesRef(type, definitions);
 }
 
 function getOneOf(propType: string) {
-    const matches = [...propType.matchAll(ENUM_PATTERN)];
-    const oneOf = matches.map((match) => {
+    if (!ENUM_PATTERN.test(propType)) {
+        return;
+    }
+
+    const oneOf = propType.split('|').map((token) => {
+        const value = token.trim().replace(/["']/g, '');
+
         return {
             type: 'string',
-            const: match[1],
-            title: match[1],
+            const: value,
+            title: value,
         };
     });
 
@@ -196,3 +228,7 @@ const isReferenceUsed = (data: string) => (name: string) => {
 
     return data.includes(ref);
 };
+
+function isClass(type: any): type is ClassDescription {
+    return type.type === 'class';
+}

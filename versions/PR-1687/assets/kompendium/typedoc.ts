@@ -1,5 +1,6 @@
 import {
     Application,
+    Decorator,
     Reflection,
     ReflectionKind,
     DeclarationReflection,
@@ -24,6 +25,7 @@ import {
     TypeDescription,
     MethodDescription,
     ParameterDescription,
+    ClassDescription,
 } from '../types';
 import { existsSync } from 'fs';
 
@@ -43,6 +45,7 @@ export function parseFile(filename: string): TypeDescription[] {
     const app = new Application();
     const options: Partial<TypeDocAndTSOptions> = {
         readme: 'none',
+        ignoreCompilerErrors: true,
     };
 
     if (filename.endsWith('.d.ts')) {
@@ -68,9 +71,11 @@ export function parseFile(filename: string): TypeDescription[] {
 
 const fns = {
     [ReflectionKind.Interface]: addInterface,
+    [ReflectionKind.Class]: addClass,
     [ReflectionKind.CallSignature]: addSignature,
     [ReflectionKind.Parameter]: addParam,
     [ReflectionKind.TypeAlias]: addType,
+    // [ReflectionKind.TypeLiteral]: addType,
     [ReflectionKind.Enum]: addEnum,
     [ReflectionKind.EnumMember]: addEnumMember,
 };
@@ -104,12 +109,34 @@ function addInterface(
     });
 }
 
+function addClass(reflection: DeclarationReflection, data: ClassDescription[]) {
+    if (!reflection.flags.isExported) {
+        return;
+    }
+
+    data.push({
+        type: 'class',
+        name: reflection.name,
+        typeParams: getTypeParams(reflection),
+        docs: getDocs(reflection),
+        docsTags: getDocsTags(reflection),
+        props: reflection.children?.filter(isProperty).map(getProperty),
+        methods: reflection.children?.filter(isMethod).map(getMethod),
+        sources: getSources(reflection),
+        decorators: reflection.decorators?.map(getDecorator),
+    });
+}
+
 function addSignature(reflection: SignatureReflection, data: MethodSignature) {
+    if (Array.isArray(data)) {
+        return;
+    }
+
     data.parameters = [];
     data.returns = {
         type: reflection.type.toString(),
         docs:
-            reflection.parent.parent.comment?.tags?.find(isReturns).text || '',
+            reflection.parent.parent.comment?.tags?.find(isReturns)?.text || '',
     };
 
     reflection.traverse(traverseCallback(data));
@@ -227,7 +254,7 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
     return {
         name: reflection.name,
         docs: getDocs(reflection),
-        docsTags: reflection.comment.tags
+        docsTags: reflection.comment?.tags
             ?.filter(negate(isParam))
             .filter(negate(isReturns))
             .map(getTag),
@@ -252,4 +279,11 @@ function getTypeParams(reflection: DeclarationReflection) {
 
 function getSources(reflection: DeclarationReflection) {
     return reflection.sources.map((source) => source.file.fullFileName);
+}
+
+function getDecorator(decorator: Decorator) {
+    return {
+        name: decorator.name,
+        arguments: decorator.arguments,
+    };
 }
