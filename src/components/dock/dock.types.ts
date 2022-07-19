@@ -1,3 +1,6 @@
+/**
+ * @private
+ */
 export interface DockItem<T = any> {
     /**
      * Text to display for the item.
