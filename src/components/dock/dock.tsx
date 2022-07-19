@@ -28,33 +28,44 @@ export class Dock {
     public host: HTMLLimelDockElement;
 
     /**
-     * What dock items to render
+     * Items that are placed within the `<nav />` section of the dock.
      */
     @Prop()
     public dockItems: DockItem[] = [];
 
     /**
-     * Fired when a dock item has been selected from the dock
+     * Fired when a Dock item has been selected from the dock.
      */
     @Event()
     public change: EventEmitter<DockItem>;
 
     /**
-     * Defines the width of the component and whether it should
-     * be wide and show the labels of the dock items,
-     * or be small and only show icons of the items.
+     * Defines the width of the component, when it loads.
+     * - `true`: shows both icons and labels of the Dock items.
+     * - `false`: only shows icons of the doc items, and displays
+     * their labels as tooltip.
+     *
+     * Note: when `hasMobileLayout` is `true`, labels will always
+     * be shown as tooltips. Read more below…
      */
     @Prop({ reflect: true })
     public expanded = false;
 
     /**
-     * xxx
+     * Set to `false` if you do not want to allow end-users
+     * to exapnd or shrink the Dock. This will hide the
+     * expand/shrink button, and the only things that defines
+     * the layout will be the `expanded` property, and
+     * the `mobileBreakPoint`.
      */
     @Prop({ reflect: true })
     public allowResize = true;
 
     /**
-     * xxxxxx
+     * Defines the breakpoint in pixles, at which the component will be rendered
+     * in a hoizontal layout. Default breakpoint is `700` pixels, which means
+     * when the screen size is smaller than `700px`, the component will automatically
+     * switch to a horizontal layout.
      */
     @Prop({ reflect: true })
     public mobileBreakPoint: number = DEFAULT_MOBILE_BREAKPOINT;
@@ -68,10 +79,15 @@ export class Dock {
     public ariaLabelledBy: string;
 
     /**
-     * xxxxxx
+     * Is used to render the component horizontally, and place
+     * the Dock items in a row.
      */
     @State()
     private hasMobileLayout = false;
+
+    /**
+     * Used to trigger mobileLayout, when viewport width is changed.
+     */
     private observer: ResizeObserver;
 
     public componentDidLoad() {
