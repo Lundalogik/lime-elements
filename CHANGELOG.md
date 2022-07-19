@@ -1,3 +1,10 @@
+## [36.0.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.4...v36.0.0-next.5) (2022-07-19)
+
+
+### Features
+
+* **button:** automatically disable button when `loading` is `true` ([117f104](https://github.com/Lundalogik/lime-elements/commit/117f104dc951a7e944a7d2f2c84de4763cf8498d))
+
 ## [36.0.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.3...v36.0.0-next.4) (2022-07-18)
 
 
