@@ -10,6 +10,7 @@
 * @prop --dock-item-text-color: Text of buttons, defaults to `--contrast-1100`.
 * @prop --dock-item-text-color--selected: Text color of selected button, defaults to `--contrast-1300`.
 * @prop --dock-item-icon-color: Color of the optional icons used in each button. Only affects inactive buttons, defaults to text colors for default or selected states.
+* @prop --popover-surface-width: Defines the width of the popover that is opened for dock items with custom components. Defaults to `auto`.
 */
 
 :host {

@@ -58,6 +58,7 @@ export class DockBasicExample {
             value: 'tables',
             label: 'Tables',
             icon: 'insert_table',
+            component: { name: 'my-custom-menu' },
         },
         {
             value: 'search',
