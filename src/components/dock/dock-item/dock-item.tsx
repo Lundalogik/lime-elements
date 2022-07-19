@@ -18,26 +18,24 @@ import { createRandomString } from '../../../util/random-string';
     shadow: false,
     styleUrl: 'dock-item.scss',
 })
-
-// buttons in a menu component
-export class DockItemMenu {
+export class DockItems {
     @Element()
     public element: HTMLLimelDockItemElement;
 
     /**
-     * The flow item that should be rendered
+     * The Dock item that should be rendered.
      */
     @Prop()
     public item: DockItem = null;
 
     /**
-     * xxxx
+     * Tells the individual items whether the parent is expanded or not.
      */
     @Prop()
     public expanded: boolean;
 
     /**
-     * xxxx
+     * Tells the individual items whether the parent has a horizontal layout or a vertical one.
      */
     @Prop()
     public hasMobileLayout: boolean;
