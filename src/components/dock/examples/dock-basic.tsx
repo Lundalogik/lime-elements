@@ -58,13 +58,11 @@ export class DockBasicExample {
             value: 'tables',
             label: 'Tables',
             icon: 'insert_table',
-            component: { name: 'my-custom-menu' },
         },
         {
             value: 'search',
             label: 'Search',
             icon: 'search',
-            iconColor: 'red',
         },
         {
             value: 'person',
