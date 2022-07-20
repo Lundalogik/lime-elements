@@ -38,12 +38,6 @@ export class DockCustomComponentExample {
             icon: 'insert_table',
             component: { name: 'my-custom-menu' },
         },
-        {
-            isFooterStart: true,
-            value: 'setting',
-            label: 'Settings',
-            icon: 'settings',
-        },
     ];
 
     public render() {
