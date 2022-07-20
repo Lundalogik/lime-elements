@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { DockItem } from '../dock.types';
+import { DockItemConfig } from '../dock.types';
 
 /**
  * Using CSS color variables for themeing the Dock
@@ -24,7 +24,7 @@ import { DockItem } from '../dock.types';
 })
 export class DockColorsCssExample {
     @State()
-    private dockItems: DockItem[] = [
+    private dockItems: DockItemConfig[] = [
         {
             value: '1',
             label: 'Home',
@@ -72,7 +72,7 @@ export class DockColorsCssExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<DockItem>) => {
+    private handleChange = (event: CustomEvent<DockItemConfig>) => {
         this.dockItems = this.dockItems.map((item) => {
             return {
                 ...item,
