@@ -1,16 +1,13 @@
-/**
- * @private
- */
-export interface DockItem<T = any> {
+export interface DockItem {
+    expanded: boolean;
+    useMobileLayout: boolean;
+}
+
+export interface DockItemConfig<T = any> {
     /**
      * Text to display for the item.
-     * To allow having custom components as Dock items,
-     * labels are optional. However,
-     * they must be provided for normal Dock items,
-     * as it will affect the accessibility
-     * for visually impared users.
      */
-    label?: string;
+    label: string;
 
     /**
      * xxxx
@@ -43,7 +40,7 @@ export interface DockItem<T = any> {
      * icons are optional. However,
      * they must be provided for normal Dock items.
      */
-    icon?: string;
+    icon: string;
 
     /**
      * Fill color of the icon on the button,
@@ -68,13 +65,11 @@ export interface DockItem<T = any> {
      * ````tsx
      * component: { name: 'your-component-tag' }
      * ````
-     *
-     * However, if your specify `props` for your `component`, then
-     * the entire Dock item will be replaced with your component.
-     * This is why `label` and `icon` or not kept mandatory!
      */
     component?: {
         name: string;
-        props?: T;
+        props?: {
+            [key: string]: any;
+        };
     };
 }

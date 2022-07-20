@@ -7,7 +7,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { DockItem } from '../dock.types';
+import { DockItem, DockItemConfig } from '../dock.types';
 import { createRandomString } from '../../../util/random-string';
 
 /**
@@ -18,15 +18,12 @@ import { createRandomString } from '../../../util/random-string';
     shadow: false,
     styleUrl: 'dock-item.scss',
 })
-export class DockItems {
-    @Element()
-    public element: HTMLLimelDockItemElement;
-
+export class DefaultDockItem implements DockItem {
     /**
      * The Dock item that should be rendered.
      */
     @Prop()
-    public item: DockItem = null;
+    public item: DockItemConfig = null;
 
     /**
      * Tells the individual items whether the parent is expanded or not.
@@ -38,13 +35,16 @@ export class DockItems {
      * Tells the individual items whether the parent has a horizontal layout or a vertical one.
      */
     @Prop()
-    public hasMobileLayout: boolean;
+    public useMobileLayout: boolean;
 
     /**
      * Fired when clicking on the flow item
      */
     @Event()
     public interact: EventEmitter<void>;
+
+    @Element()
+    public element: HTMLLimelDockItemElement;
 
     @State()
     private isOpen = false;
@@ -56,22 +56,11 @@ export class DockItems {
     }
 
     public render() {
-        const props = this.item?.component?.props;
-        if (props) {
-            return this.renderCustomDockItem();
-        }
-
         if (this.item?.component) {
             return this.renderPopover();
         }
 
         return this.renderButton(this.handleClick, '');
-    }
-
-    private renderCustomDockItem() {
-        const CustomComponent = this.item?.component?.name;
-
-        return <CustomComponent {...this.item?.component?.props} />;
     }
 
     private renderPopover() {
@@ -82,7 +71,7 @@ export class DockItems {
 
         return (
             <limel-popover
-                openDirection={this.hasMobileLayout ? 'top' : 'right'}
+                openDirection={this.useMobileLayout ? 'top' : 'right'}
                 open={this.isOpen}
                 onClose={this.onPopoverClose}
             >

@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { DockItem } from '../dock.types';
+import { DockItemConfig } from '../dock.types';
 
 /**
  * Setting a horizontal layout for mobile devices.
@@ -36,7 +36,7 @@ import { DockItem } from '../dock.types';
 })
 export class DockMobileExample {
     @State()
-    private dockItems: DockItem[] = [
+    private dockItems: DockItemConfig[] = [
         {
             value: 'home',
             label: 'Lime',
@@ -83,7 +83,7 @@ export class DockMobileExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<DockItem>) => {
+    private handleChange = (event: CustomEvent<DockItemConfig>) => {
         this.dockItems = this.dockItems.map((item) => {
             return {
                 ...item,

@@ -8,7 +8,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { DockItem } from './dock.types';
+import { DockItemConfig } from './dock.types';
 
 const DEFAULT_MOBILE_BREAKPOINT = 700;
 
@@ -34,13 +34,13 @@ export class Dock {
      * Items that are placed within the `<nav />` section of the dock.
      */
     @Prop()
-    public dockItems: DockItem[] = [];
+    public dockItems: DockItemConfig[] = [];
 
     /**
      * Fired when a Dock item has been selected from the dock.
      */
     @Event()
-    public change: EventEmitter<DockItem>;
+    public change: EventEmitter<DockItemConfig>;
 
     /**
      * Defines the width of the component, when it loads.
@@ -48,7 +48,7 @@ export class Dock {
      * - `false`: only shows icons of the doc items, and displays
      * their labels as tooltip.
      *
-     * Note: when `hasMobileLayout` is `true`, labels will always
+     * Note: when `useMobileLayout` is `true`, labels will always
      * be shown as tooltips. Read more below…
      */
     @Prop({ reflect: true })
@@ -86,7 +86,7 @@ export class Dock {
      * the Dock items in a row.
      */
     @State()
-    private hasMobileLayout = false;
+    private useMobileLayout = false;
 
     /**
      * Used to trigger mobileLayout, when viewport width is changed.
@@ -108,7 +108,7 @@ export class Dock {
                 class={{
                     dock: true,
                     expanded: this.expanded,
-                    'has-mobile-layout': this.hasMobileLayout,
+                    'has-mobile-layout': this.useMobileLayout,
                 }}
             >
                 <nav aria-labelledby={this.ariaLabelledBy}>
@@ -119,7 +119,7 @@ export class Dock {
         );
     }
 
-    private renderDockItem = (item: DockItem) => {
+    private renderDockItem = (item: DockItemConfig) => {
         return (
             <limel-dock-item
                 class={{
@@ -129,14 +129,14 @@ export class Dock {
                 }}
                 style={this.getItemStyle(item)}
                 item={item}
-                expanded={this.expanded && !this.hasMobileLayout}
-                hasMobileLayout={this.hasMobileLayout}
+                expanded={this.expanded && !this.useMobileLayout}
+                useMobileLayout={this.useMobileLayout}
                 onInteract={this.handleDockItemClick(item)}
             />
         );
     };
 
-    private handleDockItemClick = (dockItem: DockItem) => () => {
+    private handleDockItemClick = (dockItem: DockItemConfig) => () => {
         if (!dockItem.selected) {
             this.change.emit(dockItem);
         }
@@ -144,13 +144,13 @@ export class Dock {
 
     private handleResize = () => {
         if (window.innerWidth <= this.mobileBreakPoint) {
-            this.hasMobileLayout = true;
+            this.useMobileLayout = true;
         } else {
-            this.hasMobileLayout = false;
+            this.useMobileLayout = false;
         }
     };
 
-    private getItemStyle(dockItem: DockItem) {
+    private getItemStyle(dockItem: DockItemConfig) {
         const style: any = {};
         if (dockItem?.selectedBackgroundColor) {
             style['--dock-item-background-color--selected'] =
@@ -170,7 +170,7 @@ export class Dock {
     }
 
     private renderExpandShrinkToggle() {
-        if (this.hasMobileLayout || !this.allowResize) {
+        if (this.useMobileLayout || !this.allowResize) {
             return;
         }
 

@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { DockItem } from '../dock.types';
+import { DockItemConfig } from '../dock.types';
 
 /**
  * Displaying a custom component after Dock item is clicked
@@ -24,7 +24,7 @@ import { DockItem } from '../dock.types';
 })
 export class DockCustomComponentExample {
     @State()
-    private dockItems: DockItem[] = [
+    private dockItems: DockItemConfig[] = [
         {
             value: 'home',
             label: 'Lime',
@@ -55,7 +55,7 @@ export class DockCustomComponentExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<DockItem>) => {
+    private handleChange = (event: CustomEvent<DockItemConfig>) => {
         this.dockItems = this.dockItems.map((item) => {
             return {
                 ...item,

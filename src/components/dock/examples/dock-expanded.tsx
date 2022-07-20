@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { DockItem } from '../dock.types';
+import { DockItemConfig } from '../dock.types';
 
 /**
  * Basic Example expanded
@@ -11,7 +11,7 @@ import { DockItem } from '../dock.types';
 })
 export class DockExpandedExample {
     @State()
-    private dockItems: DockItem[] = [
+    private dockItems: DockItemConfig[] = [
         {
             value: 'home',
             label: 'Lime',
@@ -60,7 +60,7 @@ export class DockExpandedExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<DockItem>) => {
+    private handleChange = (event: CustomEvent<DockItemConfig>) => {
         this.dockItems = this.dockItems.map((item) => {
             return {
                 ...item,
