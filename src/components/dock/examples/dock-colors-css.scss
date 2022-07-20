@@ -1,14 +1,13 @@
 :host {
-    --popover-surface-width: min(100vw, 40rem);
-
-    --dock-item-background-color--selected: rgb(var(--color-sky-dark));
-    --dock-item-text-color--selected: rgb(var(--contrast-200));
-    --dock-item-icon-color--deselected: rgb(var(--color-teal-default));
+    --dock-background-color: rgb(var(--contrast-1500));
+    --dock-item-text-color--deselected: rgb(var(--color-cyan-lighter));
+    --dock-item-text-color--selected: rgb(var(--contrast-100));
+    --dock-item-icon-color--deselected: rgb(var(--color-cyan-light));
+    --dock-item-background-color--selected: rgb(var(--color-cyan-light));
 }
 
 .application {
-    background-color: rgb(var(--contrast-400));
-    border: 1px solid rgb(var(--contrast-700));
+    background-color: rgb(var(--contrast-1600));
     overflow: hidden;
     border-radius: 0.5rem;
     height: 30rem;

@@ -2,8 +2,19 @@ import { Component, h, State } from '@stencil/core';
 import { DockItem } from '../dock.types';
 
 /**
- * Using colors css
+ * Using CSS color variables for themeing the Dock
  *
+ * A few CSS variables can be used to customize the look and feel of the steps.
+ *
+ * :::note
+ * Using CSS variables to tweak the colors, applies the colors globally to the
+ * component, not to individual Dock items!
+ * To add colors to individual items, read the previous section.
+ * :::
+ * :::important
+ * Make sure that:
+ * - text has enough contrast with its background and is readable.
+ * :::
  */
 
 @Component({
@@ -11,7 +22,7 @@ import { DockItem } from '../dock.types';
     shadow: true,
     styleUrl: 'dock-colors-css.scss',
 })
-export class DockColorsCSSExample {
+export class DockColorsCssExample {
     @State()
     private dockItems: DockItem[] = [
         {
