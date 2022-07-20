@@ -77,5 +77,5 @@ limel-popover {
     flex-shrink: 0;
     width: calc(var(--dock-item-height) - 1rem);
     height: calc(var(--dock-item-height) - 1rem);
-    color: var(--dock-item-icon-color, var(--button-text));
+    color: var(--dock-item-icon-color--inactive, var(--button-text));
 }
