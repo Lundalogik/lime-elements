@@ -28,5 +28,6 @@
 
     limel-icon {
         width: calc(var(--dock-expand-shrink-button-height) - 0.25rem);
+        color: var(--dock-item-icon-color--deselected, var(--button-text));
     }
 }

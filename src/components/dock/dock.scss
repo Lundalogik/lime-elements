@@ -19,6 +19,23 @@
     --dock-padding: 0.25rem;
     --dock-expand-shrink-button-height: 1rem;
 
+    --button-background: var(
+        --dock-item-background-color--deselected,
+        --dock-background-color
+    );
+    --button-background--selected: var(
+        --dock-item-background-color--selected,
+        rgb(var(--contrast-200))
+    );
+    --button-text: var(
+        --dock-item-text-color--deselected,
+        rgb(var(--contrast-1100))
+    );
+    --button-text--selected: var(
+        --dock-item-text-color--selected,
+        rgb(var(--contrast-1300))
+    );
+
     isolation: isolate;
     position: relative;
 
