@@ -18,6 +18,7 @@ const DEFAULT_MOBILE_BREAKPOINT = 700;
  * @exampleComponent limel-example-dock-mobile
  * @exampleComponent limel-example-dock-expanded
  * @exampleComponent limel-example-dock-colors
+ * @exampleComponent limel-example-dock-colors-css
  * @private
  */
 @Component({
@@ -150,7 +151,7 @@ export class Dock {
     };
 
     private getItemStyle(dockItem: DockItem) {
-        const style = {};
+        const style: any = {};
         if (dockItem?.selectedBackgroundColor) {
             style['--dock-item-background-color--selected'] =
                 dockItem.selectedBackgroundColor;
