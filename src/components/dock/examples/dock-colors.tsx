@@ -21,14 +21,14 @@ export class DockColorsExample {
             icon: 'home',
         },
         {
-            value: '3',
+            value: '2',
             label: 'Search',
             icon: 'search',
             iconColor: 'rgb(var(--color-blue-light))',
             selectedBackgroundColor: 'rgb(var(--color-blue-light))',
         },
         {
-            value: '2',
+            value: '3',
             label: 'Calls',
             icon: 'phone',
             iconColor: 'rgb(var(--color-lime-default))',
