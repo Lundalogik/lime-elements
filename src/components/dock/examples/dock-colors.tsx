@@ -2,8 +2,26 @@ import { Component, h, State } from '@stencil/core';
 import { DockItem } from '../dock.types';
 
 /**
- * Using colors
+ * Using color properties for individual Dock items
  *
+ * It is possible to adjust the colors of individual Dock items by defining
+ * colors directly within the array of items.
+ * - `iconColor`: allows changing the fill color of the icons
+ * (when the Dock item is deselected),
+ * - `selectedBackgroundColor`: lets you define a specific background color for an
+ * individual Dock item, when it is selected.
+ * - `selectedTextColor`: allows you to change the label color of an individual
+ * Dock item, when it is selected.
+ * :::note
+ * Icon of a selected Dock item will always inherit its color from the label.
+ * :::
+ * :::important
+ * Make sure to have a good contrast between the text color and
+ * background color of the Dock item.
+ * Poor contrast will result in less readability, which in turn makes the component
+ * less accessible. Notice how we have specified `selectedTextColor` only for those
+ * items which would otherwise have a low contrast between background and text.
+ * :::
  */
 
 @Component({
