@@ -151,13 +151,18 @@ export class Dock {
 
     private getItemStyle(dockItem: DockItem) {
         const style = {};
-        if (dockItem?.selectedColor) {
+        if (dockItem?.selectedBackgroundColor) {
             style['--dock-item-background-color--selected'] =
-                dockItem.selectedColor;
+                dockItem.selectedBackgroundColor;
+        }
+
+        if (dockItem?.selectedTextColor) {
+            style['--dock-item-text-color--selected'] =
+                dockItem.selectedTextColor;
         }
 
         if (dockItem?.iconColor) {
-            style['--dock-item-icon-color--inactive'] = dockItem.iconColor;
+            style['--dock-item-icon-color--deselected'] = dockItem.iconColor;
         }
 
         return style;

@@ -5,9 +5,9 @@
 /**
 * @prop --dock-expanded-max-width: The maximum width of the Dock when it is expanded. Defaults to `max-content` which means the Dock will ajdust its width to the widest dock item.
 * @prop --dock-background-color: Background color of the whole compoentn, defaults to `--contrast-100`.
-* @prop --dock-item-background-color: Background color of buttons, defaults to `--dock-background-color`.
+* @prop --dock-item-background-color--deselected: Background color of buttons, defaults to `--dock-background-color`.
 * @prop --dock-item-background-color--selected: Background color of selected button, defaults to `--contrast-200`.
-* @prop --dock-item-text-color: Text of buttons, defaults to `--contrast-1100`.
+* @prop --dock-item-text-color--deselected: Text of buttons, defaults to `--contrast-1100`.
 * @prop --dock-item-text-color--selected: Text color of selected button, defaults to `--contrast-1300`.
 * @prop --dock-item-icon-color: Color of the optional icons used in each button. Only affects inactive buttons, defaults to text colors for default or selected states.
 * @prop --popover-surface-width: Defines the width of the popover that is opened for dock items with custom components. Defaults to `auto`.

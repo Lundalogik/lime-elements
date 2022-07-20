@@ -4,14 +4,14 @@
 
 .dock-item {
     --button-background: var(
-        --dock-item-background-color,
+        --dock-item-background-color--deselected,
         --dock-background-color
     );
     --button-background--selected: var(
         --dock-item-background-color--selected,
         rgb(var(--contrast-200))
     );
-    --button-text: var(--dock-item-text-color, rgb(var(--contrast-1100)));
+    --button-text: var(--dock-item-text-color--deselected, rgb(var(--contrast-1100)));
     --button-text--selected: var(
         --dock-item-text-color--selected,
         rgb(var(--contrast-1300))
@@ -77,5 +77,5 @@ limel-popover {
     flex-shrink: 0;
     width: calc(var(--dock-item-height) - 1rem);
     height: calc(var(--dock-item-height) - 1rem);
-    color: var(--dock-item-icon-color--inactive, var(--button-text));
+    color: var(--dock-item-icon-color--deselected, var(--button-text));
 }

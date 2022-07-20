@@ -23,12 +23,17 @@ export interface DockItem<T = any> {
     selected?: boolean;
 
     /**
-     * Background color of selected button.
+     * Text color of selected Dock item.
      */
-    selectedColor?: string;
+    selectedTextColor?: string;
 
     /**
-     * Value of the list item.
+     * Background color of selected Dock item.
+     */
+    selectedBackgroundColor?: string;
+
+    /**
+     * Value of the Dock item.
      */
     value?: T;
 

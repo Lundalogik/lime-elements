@@ -25,14 +25,15 @@ export class DockColorsExample {
             label: 'Search',
             icon: 'search',
             iconColor: 'rgb(var(--color-blue-light))',
-            selectedColor: 'rgb(var(--color-blue-light))',
+            selectedBackgroundColor: 'rgb(var(--color-blue-light))',
         },
         {
             value: '2',
             label: 'Calls',
             icon: 'phone',
             iconColor: 'rgb(var(--color-lime-default))',
-            selectedColor: 'rgb(var(--color-lime-default))',
+            selectedBackgroundColor: 'rgb(var(--color-lime-dark))',
+            selectedTextColor: 'rgb(var(--color-white))',
         },
 
         {
@@ -40,7 +41,7 @@ export class DockColorsExample {
             label: 'Chats',
             icon: 'chat',
             iconColor: 'rgb(var(--color-amber-default))',
-            selectedColor: 'rgb(var(--color-amber-default))',
+            selectedBackgroundColor: 'rgb(var(--color-amber-default))',
         },
         {
             isFooterStart: true,
@@ -49,7 +50,8 @@ export class DockColorsExample {
             label: 'Settings',
             icon: 'settings',
             iconColor: 'rgb(var(--color-pink-default))',
-            selectedColor: 'rgb(var(--color-pink-default))',
+            selectedBackgroundColor: 'rgb(var(--color-pink-default))',
+            selectedTextColor: 'rgb(var(--color-white))',
         },
     ];
 
@@ -59,6 +61,7 @@ export class DockColorsExample {
                 <limel-dock
                     dockItems={this.dockItems}
                     onChange={this.handleChange}
+                    expanded={true}
                 />
             </div>,
 
