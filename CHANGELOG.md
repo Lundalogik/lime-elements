@@ -1,3 +1,10 @@
+## [36.0.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.5...v36.0.0-next.6) (2022-07-21)
+
+
+### Bug Fixes
+
+* **button:** remove the `ripple` div & add our own keyboard focus styles ([c8c633a](https://github.com/Lundalogik/lime-elements/commit/c8c633a2f7d8a34f1a1a2559bbbd2cfa8da703eb))
+
 ## [36.0.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.4...v36.0.0-next.5) (2022-07-19)
 
 
