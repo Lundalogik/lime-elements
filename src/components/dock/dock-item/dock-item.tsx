@@ -76,7 +76,7 @@ export class DefaultDockItem implements DockItem {
                 onClose={this.onPopoverClose}
             >
                 {this.renderButton(this.openPopover, 'trigger')}
-                <CustomComponent />
+                <CustomComponent {...this.item.component.props} />
             </limel-popover>
         );
     }
