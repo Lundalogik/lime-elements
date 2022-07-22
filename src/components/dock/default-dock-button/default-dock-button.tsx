@@ -1,50 +1,39 @@
-import {
-    Component,
-    Element,
-    Event,
-    EventEmitter,
-    h,
-    Prop,
-    State,
-} from '@stencil/core';
-import { DockItem, DockItemConfig } from '../dock.types';
+import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
+import { CustomDockButton, DockItem } from '../dock.types';
 import { createRandomString } from '../../../util/random-string';
 
 /**
  * @private
  */
 @Component({
-    tag: 'limel-dock-item',
+    tag: 'limel-default-dock-button',
     shadow: false,
-    styleUrl: 'dock-item.scss',
+    styleUrl: 'default-dock-button.scss',
 })
-export class DefaultDockItem implements DockItem {
+export class DefaultDockButton implements CustomDockButton {
     /**
-     * The Dock item that should be rendered.
+     * @inheritdoc
      */
     @Prop()
-    public item: DockItemConfig = null;
+    public item!: DockItem;
 
     /**
-     * Tells the individual items whether the parent is expanded or not.
+     * @inheritdoc
      */
-    @Prop()
-    public expanded: boolean;
+    @Prop({ reflect: true })
+    public expanded? = false;
 
     /**
-     * Tells the individual items whether the parent has a horizontal layout or a vertical one.
+     * @inheritdoc
      */
-    @Prop()
-    public useMobileLayout: boolean;
+    @Prop({ reflect: true })
+    public useMobileLayout? = false;
 
     /**
-     * Fired when clicking on the flow item
+     * Fired when clicking on the flow item.
      */
     @Event()
-    public interact: EventEmitter<void>;
-
-    @Element()
-    public element: HTMLLimelDockItemElement;
+    private interact: EventEmitter<DockItem>;
 
     @State()
     private isOpen = false;
@@ -56,18 +45,15 @@ export class DefaultDockItem implements DockItem {
     }
 
     public render() {
-        if (this.item?.component) {
+        if (this.item?.dockMenu?.componentName) {
             return this.renderPopover();
         }
 
-        return this.renderButton(this.handleClick, '');
+        return this.renderButton(this.handleClick);
     }
 
     private renderPopover() {
-        const CustomComponent = this.item?.component?.name;
-        if (!CustomComponent) {
-            return;
-        }
+        const CustomComponent = this.item?.dockMenu.componentName;
 
         return (
             <limel-popover
@@ -76,12 +62,15 @@ export class DefaultDockItem implements DockItem {
                 onClose={this.onPopoverClose}
             >
                 {this.renderButton(this.openPopover, 'trigger')}
-                <CustomComponent {...this.item.component.props} />
+                <CustomComponent {...(this.item.dockMenu.props || [])} />
             </limel-popover>
         );
     }
 
-    private renderButton(universalHandleClick, slot) {
+    private renderButton(
+        handleClick: (event: MouseEvent) => void,
+        slot?: string
+    ) {
         return (
             <button
                 slot={slot}
@@ -92,7 +81,7 @@ export class DefaultDockItem implements DockItem {
                     button: true,
                     selected: this.item?.selected,
                 }}
-                onClick={universalHandleClick}
+                onClick={handleClick}
             >
                 {this.renderIcon()}
                 {this.renderLabel()}
@@ -106,13 +95,14 @@ export class DefaultDockItem implements DockItem {
         this.isOpen = true;
     };
 
-    private onPopoverClose = (event: CustomEvent) => {
+    private onPopoverClose = (event: Event) => {
         event.stopPropagation();
         this.isOpen = false;
     };
 
-    private handleClick = () => {
-        this.interact.emit();
+    private handleClick = (event: MouseEvent) => {
+        event.stopPropagation();
+        this.interact.emit(this.item);
     };
 
     private renderIcon() {

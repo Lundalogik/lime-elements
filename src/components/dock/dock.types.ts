@@ -1,75 +1,88 @@
 export interface DockItem {
-    expanded: boolean;
-    useMobileLayout: boolean;
-}
+    /**
+     * A non-changing value to uniquely identify each item.
+     */
+    id: string;
 
-export interface DockItemConfig<T = any> {
     /**
      * Text to display for the item.
      */
     label: string;
 
     /**
-     * xxxx
-     */
-    helperLabel?: string;
-
-    /**
-     * True if the list item should be selected.
-     */
-    selected?: boolean;
-
-    /**
-     * Text color of selected Dock item.
-     */
-    selectedTextColor?: string;
-
-    /**
-     * Background color of selected Dock item.
-     */
-    selectedBackgroundColor?: string;
-
-    /**
-     * Value of the Dock item.
-     */
-    value?: T;
-
-    /**
      * Name of the icon to use.
-     * To allow having custom components as Dock items,
-     * icons are optional. However,
-     * they must be provided for normal Dock items.
      */
     icon: string;
 
     /**
-     * Fill color of the icon on the button,
-     * when Dock item not selected.
+     * Additional helper text for the button.
+     * Example usage can be a keyboard shortcut to activate the button.
      */
-    iconColor?: string;
+    helperLabel?: string;
 
     /**
-     * Should be used only on one item.
-     * It will act as a separator,
-     * pushing the item and its preceding items to the bottom
-     * of the Dock (not in mobile layout).
+     * Whether the button should indicate it is selected.
+     * The button should be selected when … (@Kiarokh: add description here please!)
      */
-    isFooterStart?: boolean;
+    selected?: boolean;
 
     /**
-     * By default, all items in the Dock are rendered as buttons.
-     * When user clicks on them, they will run an specified action.
-     * However, for some use cases you can open a more complex
-     * component such as a list of items in a popover, when the
-     * dock item is clicked. To do so, specify:
-     * ````tsx
-     * component: { name: 'your-component-tag' }
-     * ````
+     * Used to specify a custom component to render as the dock button.
      */
-    component?: {
-        name: string;
-        props?: {
-            [key: string]: any;
-        };
+    dockButton?: DockButton;
+
+    /**
+     * Used to specify a custom component to render as a menu for the button.
+     */
+    dockMenu?: DockMenu;
+}
+
+export interface DockButton {
+    /**
+     * Must be the tag name of a custom component implementing the
+     * [CustomDockButton](#/type/CustomDockButton/) interface.
+     */
+    componentName: string;
+
+    /**
+     * Any properties that should be set on the custom component.
+     */
+    props?: {
+        [key: string]: any;
     };
+}
+
+export interface DockMenu {
+    /**
+     * The tag name of a custom component to be displayed in a popover when
+     * clicking on the dock item this belongs to.
+     */
+    componentName: string;
+
+    /**
+     * Any properties that should be set on the custom component.
+     */
+    props?: {
+        [key: string]: any;
+    };
+}
+
+export interface CustomDockButton {
+    /**
+     * The dock item to render.
+     */
+    item: DockItem;
+
+    /**
+     * Tells the individual item whether or not the dock is expanded.
+     */
+    expanded?: boolean;
+
+    /**
+     * Tells the individual items whether the dock has a horizontal or vertical
+     * layout. When `true`, the dock is horizontal, and placed at the bottom of
+     * the viewport. Otherwise, the dock is vertical, and placed on the left
+     * edge of the viewport (for RTL languages).
+     */
+    useMobileLayout?: boolean;
 }

@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { DockItemConfig } from '../dock.types';
+import { DockItem } from '../dock.types';
 
 /**
  * Displaying a custom component after Dock item is clicked
@@ -24,42 +24,38 @@ import { DockItemConfig } from '../dock.types';
 })
 export class DockCustomComponentExample {
     @State()
-    private dockItems: DockItemConfig[] = [
+    private dockItems: DockItem[] = [
         {
-            value: 'home',
+            id: 'home',
             label: 'Lime',
             helperLabel: 'Cmd + H',
             selected: true,
             icon: '-lime-logo-outlined-colored',
         },
         {
-            value: 'tables',
+            id: 'tables',
             label: 'Tables',
             icon: 'insert_table',
-            component: { name: 'my-custom-menu' },
+            dockMenu: { componentName: 'my-custom-menu' },
         },
     ];
 
     public render() {
-        return [
+        return (
             <div class="application">
                 <limel-dock
                     dockItems={this.dockItems}
-                    onChange={this.handleChange}
+                    onSelected={this.handleSelected}
                 />
-            </div>,
-
-            <limel-example-value
-                value={this.dockItems.find((i) => i.selected)}
-            />,
-        ];
+            </div>
+        );
     }
 
-    private handleChange = (event: CustomEvent<DockItemConfig>) => {
-        this.dockItems = this.dockItems.map((item) => {
+    private handleSelected = (event: CustomEvent<DockItem>) => {
+        this.dockItems = this.dockItems.map((item: DockItem) => {
             return {
                 ...item,
-                selected: item.value === event.detail?.value,
+                selected: item.id === event.detail.id,
             };
         });
     };

@@ -68,7 +68,10 @@
     }
 }
 
-.is-first-footer-item {
+.footer-separator {
+    display: none;
+}
+.footer-separator + .dock-item {
     margin-top: auto;
     justify-self: flex-end;
 }

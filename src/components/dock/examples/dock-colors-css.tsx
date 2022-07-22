@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { DockItemConfig } from '../dock.types';
+import { DockItem } from '../dock.types';
 
 /**
  * Using CSS color variables for themeing the Dock
@@ -24,60 +24,61 @@ import { DockItemConfig } from '../dock.types';
 })
 export class DockColorsCssExample {
     @State()
-    private dockItems: DockItemConfig[] = [
+    private dockItems: DockItem[] = [
         {
-            value: '1',
+            id: '1',
             label: 'Home',
             selected: true,
             icon: 'home',
         },
         {
-            value: '2',
+            id: '2',
             label: 'Search',
             icon: 'search',
         },
         {
-            value: '3',
+            id: '3',
             label: 'Calls',
             icon: 'phone',
         },
-
         {
-            value: '4',
+            id: '4',
             label: 'Chats',
             icon: 'chat',
         },
-        {
-            isFooterStart: true,
+    ];
 
-            value: '5',
+    @State()
+    private footerItems: DockItem[] = [
+        {
+            id: '5',
             label: 'Settings',
             icon: 'settings',
         },
     ];
 
     public render() {
-        return [
+        return (
             <div class="application">
                 <limel-dock
                     dockItems={this.dockItems}
-                    onChange={this.handleChange}
+                    footerItems={this.footerItems}
+                    onSelected={this.handleSelected}
                     expanded={true}
                 />
-            </div>,
-
-            <limel-example-value
-                value={this.dockItems.find((i) => i.selected)}
-            />,
-        ];
+            </div>
+        );
     }
 
-    private handleChange = (event: CustomEvent<DockItemConfig>) => {
-        this.dockItems = this.dockItems.map((item) => {
+    private handleSelected = (event: CustomEvent<DockItem>) => {
+        const setSelection = (item: DockItem) => {
             return {
                 ...item,
-                selected: item.value === event.detail?.value,
+                selected: item.id === event.detail.id,
             };
-        });
+        };
+
+        this.dockItems = this.dockItems.map(setSelection);
+        this.footerItems = this.footerItems.map(setSelection);
     };
 }

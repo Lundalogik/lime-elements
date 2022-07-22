@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { DockItemConfig } from '../dock.types';
+import { DockItem } from '../dock.types';
 
 /**
  * Using color properties for individual Dock items
@@ -31,70 +31,71 @@ import { DockItemConfig } from '../dock.types';
 })
 export class DockColorsExample {
     @State()
-    private dockItems: DockItemConfig[] = [
+    private dockItems: DockItem[] = [
         {
-            value: '1',
+            id: '1',
             label: 'Home',
             selected: true,
             icon: 'home',
         },
         {
-            value: '2',
+            id: '2',
             label: 'Search',
             icon: 'search',
-            iconColor: 'rgb(var(--color-blue-light))',
-            selectedBackgroundColor: 'rgb(var(--color-blue-light))',
+            // iconColor: 'rgb(var(--color-blue-light))',
+            // selectedBackgroundColor: 'rgb(var(--color-blue-light))',
         },
         {
-            value: '3',
+            id: '3',
             label: 'Calls',
             icon: 'phone',
-            iconColor: 'rgb(var(--color-lime-default))',
-            selectedBackgroundColor: 'rgb(var(--color-lime-dark))',
-            selectedTextColor: 'rgb(var(--color-white))',
+            // iconColor: 'rgb(var(--color-lime-default))',
+            // selectedBackgroundColor: 'rgb(var(--color-lime-dark))',
+            // selectedTextColor: 'rgb(var(--color-white))',
         },
-
         {
-            value: '4',
+            id: '4',
             label: 'Chats',
             icon: 'chat',
-            iconColor: 'rgb(var(--color-amber-default))',
-            selectedBackgroundColor: 'rgb(var(--color-amber-default))',
+            // iconColor: 'rgb(var(--color-amber-default))',
+            // selectedBackgroundColor: 'rgb(var(--color-amber-default))',
         },
-        {
-            isFooterStart: true,
+    ];
 
-            value: '5',
+    @State()
+    private footerItems: DockItem[] = [
+        {
+            id: '5',
             label: 'Settings',
             icon: 'settings',
-            iconColor: 'rgb(var(--color-pink-default))',
-            selectedBackgroundColor: 'rgb(var(--color-pink-default))',
-            selectedTextColor: 'rgb(var(--color-white))',
+            // iconColor: 'rgb(var(--color-pink-default))',
+            // selectedBackgroundColor: 'rgb(var(--color-pink-default))',
+            // selectedTextColor: 'rgb(var(--color-white))',
         },
     ];
 
     public render() {
-        return [
+        return (
             <div class="application">
                 <limel-dock
                     dockItems={this.dockItems}
-                    onChange={this.handleChange}
+                    footerItems={this.footerItems}
+                    onSelected={this.handleSelected}
                     expanded={true}
                 />
-            </div>,
-
-            <limel-example-value
-                value={this.dockItems.find((i) => i.selected)}
-            />,
-        ];
+            </div>
+        );
     }
 
-    private handleChange = (event: CustomEvent<DockItemConfig>) => {
-        this.dockItems = this.dockItems.map((item) => {
+    private handleSelected = (event: CustomEvent<DockItem>) => {
+        const setSelection = (item: DockItem) => {
             return {
                 ...item,
-                selected: item.value === event.detail?.value,
+                selected: item.id === event.detail.id,
             };
-        });
+        };
+
+        this.dockItems = this.dockItems.map(setSelection);
+        this.footerItems = this.footerItems.map(setSelection);
     };
 }

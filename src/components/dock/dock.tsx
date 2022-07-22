@@ -8,7 +8,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { DockItemConfig } from './dock.types';
+import { DockItem } from './dock.types';
 
 const DEFAULT_MOBILE_BREAKPOINT = 700;
 
@@ -31,16 +31,17 @@ export class Dock {
     public host: HTMLLimelDockElement;
 
     /**
-     * Items that are placed within the `<nav />` section of the dock.
+     * Items that are placed in the dock.
      */
     @Prop()
-    public dockItems: DockItemConfig[] = [];
+    public dockItems: DockItem[] = [];
 
     /**
-     * Fired when a Dock item has been selected from the dock.
+     * Items that are placed at the bottom of the dock. (Or at the end in mobile
+     * layout.)
      */
-    @Event()
-    public change: EventEmitter<DockItemConfig>;
+    @Prop()
+    public footerItems: DockItem[] = [];
 
     /**
      * Defines the width of the component, when it loads.
@@ -82,6 +83,12 @@ export class Dock {
     public ariaLabelledBy: string;
 
     /**
+     * Fired when a Dock item has been selected from the dock.
+     */
+    @Event()
+    private selected: EventEmitter<DockItem>;
+
+    /**
      * Is used to render the component horizontally, and place
      * the Dock items in a row.
      */
@@ -113,32 +120,37 @@ export class Dock {
             >
                 <nav aria-labelledby={this.ariaLabelledBy}>
                     {this.dockItems.map(this.renderDockItem)}
+                    <span class="footer-separator" />
+                    {this.footerItems.map(this.renderDockItem)}
                 </nav>
                 {this.renderExpandShrinkToggle()}
             </Host>
         );
     }
 
-    private renderDockItem = (item: DockItemConfig) => {
+    private renderDockItem = (item: DockItem) => {
+        let ButtonComponent = 'limel-default-dock-button';
+        if (item.dockButton?.componentName) {
+            ButtonComponent = item.dockButton.componentName;
+        }
+
         return (
-            <limel-dock-item
+            <ButtonComponent
                 class={{
                     'dock-item': true,
-                    'is-first-footer-item': item.isFooterStart,
                     selected: item.selected,
                 }}
-                style={this.getItemStyle(item)}
                 item={item}
                 expanded={this.expanded && !this.useMobileLayout}
                 useMobileLayout={this.useMobileLayout}
-                onInteract={this.handleDockItemClick(item)}
+                onInteract={this.handleDockItemClick}
             />
         );
     };
 
-    private handleDockItemClick = (dockItem: DockItemConfig) => () => {
-        if (!dockItem.selected) {
-            this.change.emit(dockItem);
+    private handleDockItemClick = (event: CustomEvent<DockItem>) => {
+        if (!event.detail.selected) {
+            this.selected.emit(event.detail);
         }
     };
 
@@ -149,25 +161,6 @@ export class Dock {
             this.useMobileLayout = false;
         }
     };
-
-    private getItemStyle(dockItem: DockItemConfig) {
-        const style: any = {};
-        if (dockItem?.selectedBackgroundColor) {
-            style['--dock-item-background-color--selected'] =
-                dockItem.selectedBackgroundColor;
-        }
-
-        if (dockItem?.selectedTextColor) {
-            style['--dock-item-text-color--selected'] =
-                dockItem.selectedTextColor;
-        }
-
-        if (dockItem?.iconColor) {
-            style['--dock-item-icon-color--deselected'] = dockItem.iconColor;
-        }
-
-        return style;
-    }
 
     private renderExpandShrinkToggle() {
         if (this.useMobileLayout || !this.allowResize) {
