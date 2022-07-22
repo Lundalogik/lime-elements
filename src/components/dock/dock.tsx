@@ -1,6 +1,5 @@
 import {
     Component,
-    Element,
     Event,
     EventEmitter,
     h,
@@ -27,9 +26,6 @@ const DEFAULT_MOBILE_BREAKPOINT = 700;
     styleUrl: 'dock.scss',
 })
 export class Dock {
-    @Element()
-    public host: HTMLLimelDockElement;
-
     /**
      * Items that are placed in the dock.
      */
