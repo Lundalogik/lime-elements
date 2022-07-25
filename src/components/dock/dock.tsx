@@ -39,9 +39,10 @@ export class Dock {
     public dockFooterItems?: DockItem[] = [];
 
     /**
-     * A label used to describe the purpose of the navigation element inside the
-     * dock to users of assistive technology, like screen readers.
-     * Example value: "Main Site Navigation"
+     * A label used to describe the purpose of the navigation element to users
+     * of assistive technologies, like screen readers. Especially useful when
+     * there are multiple navigation elements in the user interface.
+     * Example value: "Primary navigation"
      */
     @Prop({ reflect: true })
     public accessibleLabel?: string;
