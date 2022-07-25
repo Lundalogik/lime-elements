@@ -66,7 +66,7 @@ export class DockButton {
             >
                 {this.renderButton(this.openPopover, 'trigger')}
                 <CustomComponent
-                    {...(this.item.dockMenu.props || [])}
+                    {...(this.item.dockMenu.props || {})}
                     onClose={this.onPopoverClose}
                 />
             </limel-popover>
