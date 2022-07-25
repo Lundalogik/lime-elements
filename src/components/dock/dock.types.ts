@@ -1,4 +1,4 @@
-export interface DockItem<T = any> {
+export interface DockItem {
     /**
      * A non-changing value to uniquely identify each item.
      */
@@ -13,11 +13,6 @@ export interface DockItem<T = any> {
      * Name of the icon to use.
      */
     icon: string;
-
-    /**
-     * Value of the Dock item.
-     */
-    value?: T;
 
     /**
      * Additional helper text for the button.
