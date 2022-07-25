@@ -9,7 +9,6 @@ import { DockItem } from '../dock.types';
  * :::note
  * Using CSS variables to tweak the colors, applies the colors globally to the
  * component, not to individual Dock items!
- * To add colors to individual items, read the previous section.
  * :::
  * :::important
  * Make sure that:
