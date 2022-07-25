@@ -1,4 +1,4 @@
-export interface DockItem {
+export interface DockItem<T = any> {
     /**
      * A non-changing value to uniquely identify each item.
      */
@@ -13,6 +13,11 @@ export interface DockItem {
      * Name of the icon to use.
      */
     icon: string;
+
+    /**
+     * Value of the Dock item.
+     */
+    value?: T;
 
     /**
      * Additional helper text for the button.
@@ -65,6 +70,11 @@ export interface DockMenu {
     props?: {
         [key: string]: any;
     };
+
+    /**
+     * Whether the menu is open or not.
+     */
+    menuOpen?: boolean;
 }
 
 export interface CustomDockButton {

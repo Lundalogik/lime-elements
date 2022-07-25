@@ -38,6 +38,9 @@ export class DefaultDockButton implements CustomDockButton {
     @State()
     private isOpen = false;
 
+    @Event()
+    public close: EventEmitter<void>;
+
     private tooltipId: string;
 
     constructor() {
@@ -58,11 +61,14 @@ export class DefaultDockButton implements CustomDockButton {
         return (
             <limel-popover
                 openDirection={this.useMobileLayout ? 'top' : 'right'}
-                open={this.isOpen}
+                open={this.isOpen || this.item.dockMenu.menuOpen}
                 onClose={this.onPopoverClose}
             >
                 {this.renderButton(this.openPopover, 'trigger')}
-                <CustomComponent {...(this.item.dockMenu.props || [])} />
+                <CustomComponent
+                    {...(this.item.dockMenu.props || [])}
+                    onClose={this.onPopoverClose}
+                />
             </limel-popover>
         );
     }
@@ -95,9 +101,9 @@ export class DefaultDockButton implements CustomDockButton {
         this.isOpen = true;
     };
 
-    private onPopoverClose = (event: Event) => {
-        event.stopPropagation();
+    private onPopoverClose = () => {
         this.isOpen = false;
+        this.close.emit();
     };
 
     private handleClick = (event: MouseEvent) => {
