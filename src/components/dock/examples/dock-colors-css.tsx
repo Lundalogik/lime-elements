@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import { DockItem } from '../dock.types';
 
 /**
- * Using CSS color variables for themeing the Dock
+ * Using CSS color variables for theming the Dock
  *
  * A few CSS variables can be used to customize the look and feel of the steps.
  *
