@@ -114,7 +114,7 @@ export class Dock {
                     'has-mobile-layout': this.useMobileLayout,
                 }}
             >
-                <nav aria-labelledby={this.accessibleLabel}>
+                <nav aria-label={this.accessibleLabel}>
                     {this.dockItems.map(this.renderDockItem)}
                     <span class="footer-separator" />
                     {this.dockFooterItems.map(this.renderDockItem)}
