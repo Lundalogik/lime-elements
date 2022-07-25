@@ -32,29 +32,9 @@ export interface DockItem<T = any> {
     selected?: boolean;
 
     /**
-     * Used to specify a custom component to render as the dock button.
-     */
-    dockButton?: DockButton;
-
-    /**
      * Used to specify a custom component to render as a menu for the button.
      */
     dockMenu?: DockMenu;
-}
-
-export interface DockButton {
-    /**
-     * Must be the tag name of a custom component implementing the
-     * [CustomDockButton](#/type/CustomDockButton/) interface.
-     */
-    componentName: string;
-
-    /**
-     * Any properties that should be set on the custom component.
-     */
-    props?: {
-        [key: string]: any;
-    };
 }
 
 export interface DockMenu {
@@ -75,24 +55,4 @@ export interface DockMenu {
      * Whether the menu is open or not.
      */
     menuOpen?: boolean;
-}
-
-export interface CustomDockButton {
-    /**
-     * The dock item to render.
-     */
-    item: DockItem;
-
-    /**
-     * Tells the individual item whether or not the dock is expanded.
-     */
-    expanded?: boolean;
-
-    /**
-     * Tells the individual items whether the dock has a horizontal or vertical
-     * layout. When `true`, the dock is horizontal, and placed at the bottom of
-     * the viewport. Otherwise, the dock is vertical, and placed on the left
-     * edge of the viewport (for RTL languages).
-     */
-    useMobileLayout?: boolean;
 }

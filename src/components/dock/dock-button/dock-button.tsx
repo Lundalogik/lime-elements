@@ -1,16 +1,16 @@
 import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
-import { CustomDockButton, DockItem } from '../dock.types';
+import { DockItem } from '../dock.types';
 import { createRandomString } from '../../../util/random-string';
 
 /**
  * @private
  */
 @Component({
-    tag: 'limel-default-dock-button',
+    tag: 'limel-dock-button',
     shadow: false,
-    styleUrl: 'default-dock-button.scss',
+    styleUrl: 'dock-button.scss',
 })
-export class DefaultDockButton implements CustomDockButton {
+export class DockButton {
     /**
      * @inheritdoc
      */

@@ -129,13 +129,8 @@ export class Dock {
     };
 
     private renderDockItem = (item: DockItem) => {
-        let ButtonComponent = 'limel-default-dock-button';
-        if (item.dockButton?.componentName) {
-            ButtonComponent = item.dockButton.componentName;
-        }
-
         return (
-            <ButtonComponent
+            <limel-dock-button
                 class={{
                     'dock-item': true,
                     selected: item.selected,
