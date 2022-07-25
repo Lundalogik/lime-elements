@@ -91,18 +91,15 @@ export class Dock {
     @State()
     private useMobileLayout = false;
 
-    /**
-     * Used to trigger mobileLayout, when viewport width is changed.
-     */
-    private observer: ResizeObserver;
+    private resizeObserver: ResizeObserver;
 
     public componentDidLoad() {
-        this.observer = new ResizeObserver(this.handleResize);
-        this.observer.observe(document.body);
+        this.resizeObserver = new ResizeObserver(this.handleResize);
+        this.resizeObserver.observe(document.body);
     }
 
     disconnectedCallback() {
-        this.observer.disconnect();
+        this.resizeObserver.disconnect();
     }
 
     public render() {
