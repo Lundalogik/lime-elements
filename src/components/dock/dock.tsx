@@ -27,6 +27,14 @@ const DEFAULT_MOBILE_BREAKPOINT = 700;
 })
 export class Dock {
     /**
+     * A label used to describe the purpose of the navigation element inside the
+     * dock to users of assistive technology, like screen readers.
+     * Example value: "Main Site Navigation"
+     */
+    @Prop({ reflect: true })
+    public accessibleLabel!: string;
+
+    /**
      * Items that are placed in the dock.
      */
     @Prop()
@@ -37,7 +45,7 @@ export class Dock {
      * layout.)
      */
     @Prop()
-    public dockFooterItems: DockItem[] = [];
+    public dockFooterItems?: DockItem[] = [];
 
     /**
      * Defines the width of the component, when it loads.
@@ -49,7 +57,7 @@ export class Dock {
      * be shown as tooltips. Read more below…
      */
     @Prop({ reflect: true })
-    public expanded = false;
+    public expanded? = false;
 
     /**
      * Set to `false` if you do not want to allow end-users
@@ -59,7 +67,7 @@ export class Dock {
      * the `mobileBreakPoint`.
      */
     @Prop({ reflect: true })
-    public allowResize = true;
+    public allowResize? = true;
 
     /**
      * Defines the breakpoint in pixles, at which the component will be rendered
@@ -68,15 +76,7 @@ export class Dock {
      * switch to a horizontal layout.
      */
     @Prop({ reflect: true })
-    public mobileBreakPoint: number = DEFAULT_MOBILE_BREAKPOINT;
-
-    /**
-     * A document may have several <nav> elements, for example,
-     * one for site navigation and one for intra-page navigation.
-     * `ariaLabelledBy` can be used in such case to promote accessibility,
-     */
-    @Prop({ reflect: true })
-    public ariaLabelledBy: string;
+    public mobileBreakPoint?: number = DEFAULT_MOBILE_BREAKPOINT;
 
     /**
      * Fired when a Dock item has been selected from the dock.
@@ -114,7 +114,7 @@ export class Dock {
                     'has-mobile-layout': this.useMobileLayout,
                 }}
             >
-                <nav aria-labelledby={this.ariaLabelledBy}>
+                <nav aria-labelledby={this.accessibleLabel}>
                     {this.dockItems.map(this.renderDockItem)}
                     <span class="footer-separator" />
                     {this.dockFooterItems.map(this.renderDockItem)}

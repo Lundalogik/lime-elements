@@ -74,6 +74,7 @@ export class DockMobileExample {
         return (
             <div class="application">
                 <limel-dock
+                    accessibleLabel="Dock Example: mobile layout"
                     dockItems={this.dockItems}
                     dockFooterItems={this.dockFooterItems}
                     onSelected={this.handleSelected}

@@ -61,6 +61,7 @@ export class DockColorsCssExample {
         return (
             <div class="application">
                 <limel-dock
+                    accessibleLabel="Dock Example: CSS color variables"
                     dockItems={this.dockItems}
                     dockFooterItems={this.dockFooterItems}
                     onSelected={this.handleSelected}

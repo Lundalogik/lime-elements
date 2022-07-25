@@ -84,6 +84,7 @@ export class DockBasicExample {
         return (
             <div class="application">
                 <limel-dock
+                    accessibleLabel="Dock Example: basic dock"
                     dockItems={this.dockItems}
                     dockFooterItems={this.dockFooterItems}
                     onSelected={this.handleSelected}

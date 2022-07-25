@@ -50,6 +50,7 @@ export class DockExpandedExample {
         return (
             <div class="application">
                 <limel-dock
+                    accessibleLabel="Dock Example: expanded"
                     dockItems={this.dockItems}
                     dockFooterItems={this.dockFooterItems}
                     onSelected={this.handleSelected}
