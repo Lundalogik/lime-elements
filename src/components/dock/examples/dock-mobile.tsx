@@ -57,7 +57,7 @@ export class DockMobileExample {
     ];
 
     @State()
-    private footerItems: DockItem[] = [
+    private dockFooterItems: DockItem[] = [
         {
             id: 'create',
             label: 'Create object',
@@ -75,7 +75,7 @@ export class DockMobileExample {
             <div class="application">
                 <limel-dock
                     dockItems={this.dockItems}
-                    footerItems={this.footerItems}
+                    dockFooterItems={this.dockFooterItems}
                     onSelected={this.handleSelected}
                     mobileBreakPoint={5000}
                 />
@@ -92,6 +92,6 @@ export class DockMobileExample {
         };
 
         this.dockItems = this.dockItems.map(setSelection);
-        this.footerItems = this.footerItems.map(setSelection);
+        this.dockFooterItems = this.dockFooterItems.map(setSelection);
     };
 }

@@ -33,7 +33,7 @@ export class DockExpandedExample {
     ];
 
     @State()
-    private footerItems: DockItem[] = [
+    private dockFooterItems: DockItem[] = [
         {
             id: 'create',
             label: 'Create object',
@@ -51,7 +51,7 @@ export class DockExpandedExample {
             <div class="application">
                 <limel-dock
                     dockItems={this.dockItems}
-                    footerItems={this.footerItems}
+                    dockFooterItems={this.dockFooterItems}
                     onSelected={this.handleSelected}
                     allowResize={false}
                     expanded={true}
@@ -69,6 +69,6 @@ export class DockExpandedExample {
         };
 
         this.dockItems = this.dockItems.map(setSelection);
-        this.footerItems = this.footerItems.map(setSelection);
+        this.dockFooterItems = this.dockFooterItems.map(setSelection);
     };
 }

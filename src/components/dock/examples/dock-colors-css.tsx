@@ -49,7 +49,7 @@ export class DockColorsCssExample {
     ];
 
     @State()
-    private footerItems: DockItem[] = [
+    private dockFooterItems: DockItem[] = [
         {
             id: '5',
             label: 'Settings',
@@ -62,7 +62,7 @@ export class DockColorsCssExample {
             <div class="application">
                 <limel-dock
                     dockItems={this.dockItems}
-                    footerItems={this.footerItems}
+                    dockFooterItems={this.dockFooterItems}
                     onSelected={this.handleSelected}
                     expanded={true}
                 />
@@ -79,6 +79,6 @@ export class DockColorsCssExample {
         };
 
         this.dockItems = this.dockItems.map(setSelection);
-        this.footerItems = this.footerItems.map(setSelection);
+        this.dockFooterItems = this.dockFooterItems.map(setSelection);
     };
 }

@@ -37,7 +37,7 @@ export class Dock {
      * layout.)
      */
     @Prop()
-    public footerItems: DockItem[] = [];
+    public dockFooterItems: DockItem[] = [];
 
     /**
      * Defines the width of the component, when it loads.
@@ -117,7 +117,7 @@ export class Dock {
                 <nav aria-labelledby={this.ariaLabelledBy}>
                     {this.dockItems.map(this.renderDockItem)}
                     <span class="footer-separator" />
-                    {this.footerItems.map(this.renderDockItem)}
+                    {this.dockFooterItems.map(this.renderDockItem)}
                 </nav>
                 {this.renderExpandShrinkToggle()}
             </Host>
