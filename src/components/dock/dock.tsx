@@ -116,13 +116,17 @@ export class Dock {
             >
                 <nav aria-label={this.accessibleLabel}>
                     {this.dockItems.map(this.renderDockItem)}
-                    <span class="footer-separator" />
+                    {this.renderSeparator()}
                     {this.dockFooterItems.map(this.renderDockItem)}
                 </nav>
                 {this.renderExpandShrinkToggle()}
             </Host>
         );
     }
+
+    private renderSeparator = () => {
+        return this.useMobileLayout ? null : <span class="footer-separator" />;
+    };
 
     private renderDockItem = (item: DockItem) => {
         let ButtonComponent = 'limel-default-dock-button';
