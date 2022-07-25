@@ -53,7 +53,7 @@ export class DockExpandedExample {
                     accessibleLabel="Dock Example: expanded"
                     dockItems={this.dockItems}
                     dockFooterItems={this.dockFooterItems}
-                    onSelected={this.handleSelected}
+                    onItemSelected={this.handleSelected}
                     allowResize={false}
                     expanded={true}
                 />

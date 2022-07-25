@@ -81,7 +81,7 @@ export class DockColorsExample {
                     accessibleLabel="Dock Example: color properties for individual items"
                     dockItems={this.dockItems}
                     dockFooterItems={this.dockFooterItems}
-                    onSelected={this.handleSelected}
+                    onItemSelected={this.handleSelected}
                     expanded={true}
                 />
             </div>

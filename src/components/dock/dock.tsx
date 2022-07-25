@@ -82,7 +82,7 @@ export class Dock {
      * Fired when a Dock item has been selected from the dock.
      */
     @Event()
-    private selected: EventEmitter<DockItem>;
+    private itemSelected: EventEmitter<DockItem>;
 
     /**
      * Is used to render the component horizontally, and place
@@ -142,7 +142,7 @@ export class Dock {
 
     private handleDockItemClick = (event: CustomEvent<DockItem>) => {
         if (!event.detail.selected) {
-            this.selected.emit(event.detail);
+            this.itemSelected.emit(event.detail);
         }
     };
 

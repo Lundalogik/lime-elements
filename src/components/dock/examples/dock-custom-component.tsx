@@ -46,7 +46,7 @@ export class DockCustomComponentExample {
                 <limel-dock
                     accessibleLabel="Dock Example: item with custom menu"
                     dockItems={this.dockItems}
-                    onSelected={this.handleSelected}
+                    onItemSelected={this.handleSelected}
                 />
             </div>
         );

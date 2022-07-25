@@ -77,7 +77,7 @@ export class DockMobileExample {
                     accessibleLabel="Dock Example: mobile layout"
                     dockItems={this.dockItems}
                     dockFooterItems={this.dockFooterItems}
-                    onSelected={this.handleSelected}
+                    onItemSelected={this.handleSelected}
                     mobileBreakPoint={5000}
                 />
             </div>
