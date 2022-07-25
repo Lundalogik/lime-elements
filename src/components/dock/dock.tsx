@@ -26,14 +26,6 @@ const DEFAULT_MOBILE_BREAKPOINT = 700;
 })
 export class Dock {
     /**
-     * A label used to describe the purpose of the navigation element inside the
-     * dock to users of assistive technology, like screen readers.
-     * Example value: "Main Site Navigation"
-     */
-    @Prop({ reflect: true })
-    public accessibleLabel!: string;
-
-    /**
      * Items that are placed in the dock.
      */
     @Prop()
@@ -45,6 +37,14 @@ export class Dock {
      */
     @Prop()
     public dockFooterItems?: DockItem[] = [];
+
+    /**
+     * A label used to describe the purpose of the navigation element inside the
+     * dock to users of assistive technology, like screen readers.
+     * Example value: "Main Site Navigation"
+     */
+    @Prop({ reflect: true })
+    public accessibleLabel?: string;
 
     /**
      * Defines the width of the component, when it loads.
