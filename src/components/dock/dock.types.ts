@@ -22,14 +22,15 @@ export interface DockItem {
 
     /**
      * Whether the dock item should indicate it is selected.
-     * These dock items normally take the user to a top-level location within the
-     * navigation tree; for example "Home", "Search" or "My Account".
+     * These dock items normally take the user to a top-level location within
+     * the navigation tree; for example "Home", "Search" or "My Account".
      * Set `selected` to `true`, when:
-     * - the user interface is showing the same top-level location as the dock item
-     * is pointing at.
-     * - or the user interface is showing a page which is a sub-location of the top-level
-     * location. For example when user is at _My Account > Notification Settings_,
-     * the dock item of _My account_ should have the `selected` state.
+     * - the user interface is showing the same top-level location as the dock
+     * item is pointing at, or
+     * - the user interface is showing a page which is a sub-location of the
+     * top-level location. For example, when user is at
+     * _My Account > Notification Settings_, the dock item of _My Account_
+     * should have the `selected` state.
      */
     selected?: boolean;
 
@@ -42,9 +43,14 @@ export interface DockItem {
 export interface DockMenu {
     /**
      * The tag name of a custom component to be displayed in a popover when
-     * clicking on the dock item this belongs to.
+     * clicking on the dock item this menu belongs to.
      */
     componentName: string;
+
+    /**
+     * Whether the menu is open.
+     */
+    menuOpen?: boolean;
 
     /**
      * Any properties that should be set on the custom component.
@@ -52,9 +58,4 @@ export interface DockMenu {
     props?: {
         [key: string]: any;
     };
-
-    /**
-     * Whether the menu is open or not.
-     */
-    menuOpen?: boolean;
 }

@@ -3,8 +3,8 @@
 @use '../../style/internal/variables';
 
 /**
-* @prop --dock-expanded-max-width: The maximum width of the Dock when it is expanded. Defaults to `max-content` which means the Dock will ajdust its width to the widest dock item.
-* @prop --dock-background-color: Background color of the whole compoentn, defaults to `--contrast-100`.
+* @prop --dock-expanded-max-width: The maximum width of the Dock when it is expanded. Defaults to `max-content` which means the Dock will adjust its width to the widest dock item.
+* @prop --dock-background-color: Background color of the whole component, defaults to `--contrast-100`.
 * @prop --dock-item-background-color--selected: Background color of selected dock item, defaults to `--contrast-200`.
 * @prop --dock-item-text-color--deselected: Text of dock items, defaults to `--contrast-1100`.
 * @prop --dock-item-text-color--selected: Text color of selected dock item, defaults to `--contrast-1300`.
