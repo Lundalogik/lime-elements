@@ -64,8 +64,5 @@ limel-popover {
     flex-shrink: 0;
     width: calc(var(--dock-item-height) - 1rem);
     height: calc(var(--dock-item-height) - 1rem);
-    color: var(
-        --dock-item-icon-color--deselected,
-        var(--limel-dock-item-text-color)
-    );
+    color: var(--dock-item-icon-color, var(--limel-dock-item-text-color));
 }

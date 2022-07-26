@@ -1,8 +1,8 @@
 :host {
     --dock-background-color: rgb(var(--contrast-1500));
-    --dock-item-text-color--deselected: rgb(var(--color-cyan-lighter));
+    --dock-item-text-color: rgb(var(--color-cyan-lighter));
     --dock-item-text-color--selected: rgb(var(--contrast-100));
-    --dock-item-icon-color--deselected: rgb(var(--color-cyan-light));
+    --dock-item-icon-color: rgb(var(--color-cyan-light));
     --dock-item-background-color--selected: rgb(var(--color-cyan-light));
 }
 
