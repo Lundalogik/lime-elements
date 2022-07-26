@@ -19,10 +19,7 @@
     min-width: var(--dock-item-height);
 
     color: var(--limel-dock-item-text-color);
-    background-color: var(
-        --dock-item-background-color--deselected,
-        --dock-background-color
-    );
+    background-color: var(--dock-background-color);
 
     &:focus-visible {
         box-shadow: var(--shadow-depth-8-focused);
