@@ -15,19 +15,26 @@ export interface DockItem {
     icon: string;
 
     /**
-     * Additional helper text for the button.
-     * Example usage can be a keyboard shortcut to activate the button.
+     * Additional helper text for the dock item.
+     * Example usage can be a keyboard shortcut to activate the dock item.
      */
     helperLabel?: string;
 
     /**
-     * Whether the button should indicate it is selected.
-     * The button should be selected when … (@Kiarokh: add description here please!)
+     * Whether the dock item should indicate it is selected.
+     * These dock items normally take the user to a top-level location within the
+     * navigation tree; for example "Home", "Search" or "My Account".
+     * Set `selected` to `true`, when:
+     * - the user interface is showing the same top-level location as the dock item
+     * is pointing at.
+     * - or the user interface is showing a page which is a sub-location of the top-level
+     * location. For example when user is at _My Account > Notification Settings_,
+     * the dock item of _My account_ should have the `selected` state.
      */
     selected?: boolean;
 
     /**
-     * Used to specify a custom component to render as a menu for the button.
+     * Used to specify a custom component to render as a menu for the dock item.
      */
     dockMenu?: DockMenu;
 }
