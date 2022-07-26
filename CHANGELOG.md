@@ -1,3 +1,10 @@
+## [36.0.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.7...v36.0.0-next.8) (2022-07-26)
+
+
+### Bug Fixes
+
+* **dock:** remove `--deselected` suffix from CSS vars ([0573bcc](https://github.com/Lundalogik/lime-elements/commit/0573bcc7d1a80a1b633349267b0f555ffe1ecfa9))
+
 ## [36.0.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.6...v36.0.0-next.7) (2022-07-26)
 
 
