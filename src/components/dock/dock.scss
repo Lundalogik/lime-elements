@@ -13,24 +13,16 @@
 * @prop --popover-surface-width: Defines the width of the popover that is opened for dock items with custom components. Defaults to `auto`.
 */
 
-:host {
+:host(limel-dock) {
     --dock-item-height: 2.75rem;
     --dock-padding: 0.25rem;
     --dock-expand-shrink-button-height: 1rem;
 
-    --button-background: var(
-        --dock-item-background-color--deselected,
-        --dock-background-color
-    );
-    --button-background--selected: var(
-        --dock-item-background-color--selected,
-        rgb(var(--contrast-200))
-    );
-    --button-text: var(
+    --limel-dock-item-text-color: var(
         --dock-item-text-color--deselected,
         rgb(var(--contrast-1100))
     );
-    --button-text--selected: var(
+    --limel-dock-item-text-color--selected: var(
         --dock-item-text-color--selected,
         rgb(var(--contrast-1300))
     );
@@ -50,22 +42,13 @@
             )} rgba(var(--color-black), 0.05);
 }
 
-:host(:not(.has-mobile-layout)) {
+:host(limel-dock:not(.has-mobile-layout)) {
     height: 100%;
     width: calc((var(--dock-padding) * 2) + var(--dock-item-height));
 }
 
-:host(.expanded) {
+:host(limel-dock.expanded) {
     width: var(--dock-expanded-max-width, max-content);
-}
-
-:host(.has-mobile-layout) {
-    width: 100%;
-    height: calc((var(--dock-padding) * 2) + var(--dock-item-height)); // FIXME
-    nav {
-        justify-content: space-between;
-        flex-direction: row;
-    }
 }
 
 .footer-separator {
@@ -87,6 +70,11 @@ nav {
     -ms-overflow-style: none; // Same as above for IE 11
     &::-webkit-scrollbar {
         display: none; // This hides the scrollbars appearing under in Chrome
+    }
+
+    :host(limel-dock.has-mobile-layout) & {
+        justify-content: space-between;
+        flex-direction: row;
     }
 }
 

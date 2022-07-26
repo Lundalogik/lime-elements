@@ -18,8 +18,11 @@
     padding: 0 0.5rem;
     min-width: var(--dock-item-height);
 
-    color: var(--button-text);
-    background-color: var(--button-background);
+    color: var(--limel-dock-item-text-color);
+    background-color: var(
+        --dock-item-background-color--deselected,
+        --dock-background-color
+    );
 
     &:focus-visible {
         box-shadow: var(--shadow-depth-8-focused);
@@ -37,12 +40,15 @@
     }
 
     &.selected {
-        color: var(--button-text--selected);
-        background-color: var(--button-background--selected);
+        color: var(--limel-dock-item-text-color--selected);
+        background-color: var(
+            --dock-item-background-color--selected,
+            rgb(var(--contrast-200))
+        );
         box-shadow: var(--button-shadow-inset);
 
         .icon {
-            color: var(--button-text--selected);
+            color: var(--limel-dock-item-text--selected);
         }
     }
 }
@@ -61,5 +67,8 @@ limel-popover {
     flex-shrink: 0;
     width: calc(var(--dock-item-height) - 1rem);
     height: calc(var(--dock-item-height) - 1rem);
-    color: var(--dock-item-icon-color--deselected, var(--button-text));
+    color: var(
+        --dock-item-icon-color--deselected,
+        var(--limel-dock-item-text-color)
+    );
 }
