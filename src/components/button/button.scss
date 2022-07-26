@@ -4,7 +4,6 @@
 @use '../../style/internal/lime-theme';
 
 @use '@material/button/styles';
-@use '@material/button';
 
 :host {
     display: inline-block;
@@ -135,10 +134,6 @@ button {
         background-color: var(--lime-error-text-color) !important;
         animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     }
-}
-
-.mdc-button--outlined {
-    @include button.outline-color(primary);
 }
 
 @keyframes fade-out-spinner {
