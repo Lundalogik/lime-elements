@@ -25,6 +25,10 @@
     left: functions.pxToRem(16);
 }
 
+.mdc-select__dropdown-icon-graphic {
+    transition: transform 0.2s ease;
+}
+
 .limel-select__selected-option {
     display: flex;
     align-items: center;
@@ -108,7 +112,11 @@
                 }
 
                 .mdc-select__dropdown-icon {
-                    color: var(--mdc-theme-primary);
+                    fill: var(--mdc-theme-primary);
+                }
+
+                .mdc-select__dropdown-icon-graphic {
+                    transform: rotate(-180deg);
                 }
             }
         }
