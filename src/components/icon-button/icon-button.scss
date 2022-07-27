@@ -8,6 +8,10 @@
 
 $height-of-limel-button: functions.pxToRem(36);
 
+:host(limel-icon-button) {
+    isolation: isolate;
+}
+
 :host([hidden]) {
     display: none;
 }
