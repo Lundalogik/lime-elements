@@ -16,10 +16,6 @@ $height-of-limel-button: functions.pxToRem(36);
     display: none;
 }
 
-:host([disabled]) {
-    pointer-events: none;
-}
-
 .mdc-icon-button {
     @include mixins.is-flat-clickable;
     display: inline-flex;
