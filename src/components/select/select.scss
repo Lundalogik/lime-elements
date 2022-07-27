@@ -3,9 +3,6 @@
 @use '../../style/mixins';
 
 @use '@material/select/styles';
-@use '@material/select/helper-text/mdc-select-helper-text';
-@use '@material/floating-label';
-@use '@material/floating-label/mdc-floating-label';
 
 // Note! The `--dropdown-z-index` property is used from `select.tsx`.
 /**
