@@ -85,6 +85,12 @@ export class Dock {
     private itemSelected: EventEmitter<DockItem>;
 
     /**
+     * Fired when a Dock is expanded or collapsed.
+     */
+    @Event()
+    private dockExpanded: EventEmitter<boolean>;
+
+    /**
      * Is used to render the component horizontally, and place
      * the Dock items in a row.
      */
@@ -174,5 +180,6 @@ export class Dock {
 
     private toggleDockWidth = () => {
         this.expanded = !this.expanded;
+        this.dockExpanded.emit(this.expanded);
     };
 }
