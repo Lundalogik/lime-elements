@@ -349,11 +349,6 @@ kompendium-playground {
 
 .docs kompendium-markdown {
   display: block;
-  width: calc(50% - 2rem);
-}
-
-@media (max-width: 1000px) {
-  .docs kompendium-markdown {
-    width: 100%;
-  }
+  width: 100%;
+  max-width: 60rem;
 }
