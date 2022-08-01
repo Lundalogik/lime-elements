@@ -79,7 +79,7 @@ export class Dock {
     public mobileBreakPoint?: number = DEFAULT_MOBILE_BREAKPOINT;
 
     /**
-     * Fired when a Dock item has been selected from the dock.
+     * Fired when a dock item has been selected from the dock.
      */
     @Event()
     private itemSelected: EventEmitter<DockItem>;
