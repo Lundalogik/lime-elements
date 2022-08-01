@@ -85,6 +85,12 @@ export class Dock {
     private itemSelected: EventEmitter<DockItem>;
 
     /**
+     * Fired when the popover is closed.
+     */
+    @Event()
+    public close: EventEmitter<void>;
+
+    /**
      * Fired when a Dock is expanded or collapsed.
      */
     @Event()
