@@ -1,3 +1,10 @@
+## [36.0.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.9...v36.0.0-next.10) (2022-08-01)
+
+
+### Bug Fixes
+
+* **select:** set `aria-required` and `aria-disabled` on trigger elements to improve accessibility ([97cd086](https://github.com/Lundalogik/lime-elements/commit/97cd0865a0964b2d6b02ac8963d7af45e0e9bdee))
+
 ## [36.0.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.8...v36.0.0-next.9) (2022-07-28)
 
 
