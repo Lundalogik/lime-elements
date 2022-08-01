@@ -1,3 +1,11 @@
+## [36.0.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.10...v36.0.0-next.11) (2022-08-01)
+
+
+### Bug Fixes
+
+* **dock:** add missing `close` prop to parent component, which already exists on dock items ([647b141](https://github.com/Lundalogik/lime-elements/commit/647b141af36feabe9b88b3d4f27b3e9d0593db16))
+* **dock:** correctly use `itemSelected` (instead of `interact`) ([8976d1d](https://github.com/Lundalogik/lime-elements/commit/8976d1df98e31d21eac202b9e2ba0ae9ff31ee21))
+
 ## [36.0.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.9...v36.0.0-next.10) (2022-08-01)
 
 
