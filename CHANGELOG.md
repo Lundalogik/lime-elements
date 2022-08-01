@@ -1,3 +1,10 @@
+## [36.0.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.8...v36.0.0-next.9) (2022-07-28)
+
+
+### Features
+
+* **dock:** emit event when dock is expanded or collapsed ([94e1b9e](https://github.com/Lundalogik/lime-elements/commit/94e1b9ef47419d139072a1e0f74b46305637a544))
+
 ## [36.0.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.7...v36.0.0-next.8) (2022-07-26)
 
 
