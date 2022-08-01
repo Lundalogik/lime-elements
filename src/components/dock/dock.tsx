@@ -82,7 +82,7 @@ export class Dock {
      * Fired when a dock item has been selected from the dock.
      */
     @Event()
-    private itemSelected: EventEmitter<DockItem>;
+    public itemSelected: EventEmitter<DockItem>;
 
     /**
      * Fired when the popover is closed.
@@ -147,15 +147,8 @@ export class Dock {
                 item={item}
                 expanded={this.expanded && !this.useMobileLayout}
                 useMobileLayout={this.useMobileLayout}
-                onInteract={this.handleDockItemClick}
             />
         );
-    };
-
-    private handleDockItemClick = (event: CustomEvent<DockItem>) => {
-        if (!event.detail.selected) {
-            this.itemSelected.emit(event.detail);
-        }
     };
 
     private handleResize = () => {

@@ -116,7 +116,7 @@ export class DockButton {
 
     private handleClick = (event: MouseEvent) => {
         event.stopPropagation();
-        this.interact.emit(this.item);
+        this.itemSelected.emit(this.item);
     };
 
     private renderIcon() {
