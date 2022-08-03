@@ -18,7 +18,7 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  * Events might not bubble up as expected since the content is moved out to
  *   another DOM node.
  * Any styling that is applied to content from the parent will be lost, if the
- *   content is just another web compoent it will work without any issues.
+ *   content is just another web component it will work without any issues.
  *   Alternatively, use the
  *   `style=""` html attribute.
  * Any component that is placed inside the container must have a style of
