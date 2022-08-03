@@ -163,7 +163,12 @@ export class Popover {
             return style.getPropertyValue(property);
         });
 
-        return zipObject(propertyNames, values);
+        const result = zipObject(propertyNames, values);
+
+        result['--portal-arrow-color'] =
+            result['--popover-body-background-color'];
+
+        return result;
     }
 
     private handleGlobalKeyPress = (event: KeyboardEvent) => {

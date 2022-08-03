@@ -80,10 +80,6 @@ limel-portal-arrow {
     animation-delay: 0.2s;
 }
 
-.arrow-style-popover::before {
-    --portal-arrow-color: var(--popover-body-background-color);
-}
-
 @keyframes display-tooltip {
     0% {
         opacity: 0;
