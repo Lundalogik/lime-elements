@@ -67,7 +67,11 @@ export class Navigation {
           h("a", { href: "https://github.com/jgroth/kompendium" }, "Kompendium")))));
   }
   renderMenuItem(item) {
-    const classList = {
+    const itemClassList = {
+      active: this.isRouteActive(item.path),
+      'panel-item': true,
+    };
+    const chapterClassList = {
       active: this.isRouteActive(item.path),
       chapters: true,
       'panel-list': true,
@@ -82,13 +86,13 @@ export class Navigation {
     if (!chapters.length) {
       anchorAdditionalProps.onClick = this.toggleMenu;
     }
-    return (h("li", { class: "panel-item" },
+    return (h("li", { class: itemClassList },
       h("a", Object.assign({ class: anchorClassList, href: '#' + item.path }, anchorAdditionalProps),
+        h("span", { class: "link-text" }, item.title),
         h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "24", height: "24" },
           h("path", { fill: "none", d: "M0 0h24v24H0z" }),
-          h("path", { id: "arrow", d: "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z", fill: "currentColor" })),
-        h("span", { class: "link-text" }, item.title)),
-      h("ul", { class: classList }, chapters.map(this.renderMenuItem))));
+          h("path", { id: "arrow", d: "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z", fill: "currentColor" }))),
+      h("ul", { class: chapterClassList }, chapters.map(this.renderMenuItem))));
   }
   isRouteActive(route) {
     return this.route.startsWith(route);
