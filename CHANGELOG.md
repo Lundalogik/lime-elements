@@ -1,3 +1,10 @@
+## [36.0.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.11...v36.0.0-next.12) (2022-08-03)
+
+
+### Bug Fixes
+
+* **dock:** truncate label of popover dock items & prevent overflow of label ([c41f4cf](https://github.com/Lundalogik/lime-elements/commit/c41f4cf6d1cd2b898791114827cc29482e064d4d))
+
 ## [36.0.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.10...v36.0.0-next.11) (2022-08-01)
 
 
