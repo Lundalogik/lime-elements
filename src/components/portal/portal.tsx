@@ -87,10 +87,17 @@ export class Portal {
     public showArrow = false;
 
     /**
-     * ..popover class
+     * Dynamic styling that can be applied to the arrow element.
      */
     @Prop()
-    public arrowStyle: string;
+    public arrowStyle: object = {};
+
+    /**
+     * KeyFrames needed for the styles supplied in `containerStyle` or
+     * `arrowStyle` can be injected here.
+     */
+    @Prop({ reflect: true })
+    public keyFramesCss: string;
 
     /**
      * True if the content within the portal should be visible.
@@ -123,6 +130,7 @@ export class Portal {
     @Element()
     private host: HTMLLimelPortalElement;
 
+    private shadowedContainer: HTMLElement;
     private container: HTMLElement;
 
     private arrow: HTMLElement;
@@ -186,6 +194,8 @@ export class Portal {
         const content =
             (slot.assignedElements && slot.assignedElements()) || [];
 
+        this.shadowedContainer = document.createElement('div');
+        this.shadowedContainer.attachShadow({ mode: 'open' });
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
         this.container.classList.add('limel-portal--container');
@@ -199,13 +209,18 @@ export class Portal {
         });
         if (this.showArrow) {
             this.arrow = document.createElement('limel-portal-arrow');
-            this.arrow.setAttribute('class', this.arrowStyle);
             this.container.classList.add('has-arrow');
+            if (this.keyFramesCss) {
+                const keyFrames = document.createElement('style');
+                keyFrames.innerHTML = this.keyFramesCss;
+                this.arrow.appendChild(keyFrames);
+            }
         }
     }
 
     private attachContainer() {
-        this.parent.appendChild(this.container);
+        this.parent.appendChild(this.shadowedContainer);
+        this.shadowedContainer.shadowRoot.appendChild(this.container);
     }
 
     private removeContainer() {
@@ -217,21 +232,27 @@ export class Portal {
             this.container.removeChild(this.arrow);
         }
 
-        if (!this.container) {
-            return;
+        if (this.container) {
+            Array.from(this.container.children).forEach(
+                (element: HTMLElement) => {
+                    const parent = this.parents.get(element);
+                    if (!parent) {
+                        return;
+                    }
+
+                    parent.appendChild(element);
+                }
+            );
+
+            this.hideContainer();
+            this.shadowedContainer.shadowRoot.removeChild(this.container);
         }
 
-        Array.from(this.container.children).forEach((element: HTMLElement) => {
-            const parent = this.parents.get(element);
-            if (!parent) {
-                return;
-            }
-
-            parent.appendChild(element);
-        });
-
-        this.hideContainer();
-        this.container.parentElement.removeChild(this.container);
+        if (this.shadowedContainer) {
+            this.shadowedContainer.parentElement.removeChild(
+                this.shadowedContainer
+            );
+        }
     }
 
     private hideContainer() {
@@ -269,6 +290,15 @@ export class Portal {
                 this.containerStyle[property]
             );
         });
+
+        if (this.showArrow) {
+            Object.keys(this.arrowStyle).forEach((property) => {
+                this.arrow.style.setProperty(
+                    property,
+                    this.arrowStyle[property]
+                );
+            });
+        }
     }
 
     private getContentWidth(element: HTMLElement | Element) {

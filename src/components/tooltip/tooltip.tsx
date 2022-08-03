@@ -120,9 +120,24 @@ export class Tooltip {
                     containerStyle={{
                         'z-index': tooltipZIndex,
                         'pointer-events': 'none',
+                        '--portal-arrow-color': 'rgb(var(--contrast-1300))',
                     }}
                     showArrow={true}
-                    arrowStyle={'arrow-style-tooltip'}
+                    arrowStyle={{
+                        opacity: '0',
+                        animation: 'display-tooltip 0.2s ease forwards',
+                        'animation-delay': '0.2s',
+                    }}
+                    keyFramesCss={`
+                        @keyframes display-tooltip {
+                            0% {
+                                opacity: 0;
+                            }
+                            100% {
+                                opacity: 1;
+                            }
+                        }
+                    `}
                 >
                     <limel-tooltip-content
                         label={this.label}

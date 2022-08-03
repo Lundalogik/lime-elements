@@ -131,7 +131,6 @@ export class Popover {
                     containerStyle={cssProperties}
                     openDirection={this.openDirection}
                     showArrow={true}
-                    arrowStyle={'arrow-style-popover'}
                 >
                     <limel-popover-surface
                         contentCollection={this.host.children}
