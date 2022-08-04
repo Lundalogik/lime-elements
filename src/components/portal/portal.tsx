@@ -207,20 +207,26 @@ export class Portal {
             this.parents.set(element, element.parentElement);
             this.container.appendChild(element);
         });
+
+        this.arrow = document.createElement('limel-portal-arrow');
         if (this.showArrow) {
-            this.arrow = document.createElement('limel-portal-arrow');
             this.container.classList.add('has-arrow');
-            if (this.keyFramesCss) {
-                const keyFrames = document.createElement('style');
-                keyFrames.innerHTML = this.keyFramesCss;
-                this.arrow.appendChild(keyFrames);
-            }
+        }
+
+        if (this.keyFramesCss) {
+            const keyFrames = document.createElement('style');
+            keyFrames.innerHTML = this.keyFramesCss;
+            this.shadowedContainer.shadowRoot.appendChild(keyFrames);
         }
     }
 
     private attachContainer() {
         this.parent.appendChild(this.shadowedContainer);
         this.shadowedContainer.shadowRoot.appendChild(this.container);
+
+        if (this.showArrow) {
+            this.container.appendChild(this.arrow);
+        }
     }
 
     private removeContainer() {
@@ -347,7 +353,6 @@ export class Portal {
         };
 
         if (this.arrow !== undefined) {
-            this.container.appendChild(this.arrow);
             config.modifiers.push({
                 name: 'arrow',
                 options: {

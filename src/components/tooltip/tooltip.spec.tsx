@@ -33,6 +33,7 @@ beforeEach(async () => {
 
 test('the component renders', () => {
     portal.removeAttribute('container-id');
+    portal.removeAttribute('key-frames-css');
     content.removeAttribute('id');
 
     expect(tooltip).toEqualHtml(`
@@ -46,6 +47,7 @@ test('the component renders', () => {
                     <limel-portal
                         open-direction="bottom-start"
                         position="absolute"
+                        show-arrow=""
                     >
                         <mock:shadow-root>
                             <slot></slot>
