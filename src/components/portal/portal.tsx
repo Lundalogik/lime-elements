@@ -80,7 +80,8 @@ export class Portal {
     public inheritParentWidth = false;
 
     /**
-     * Set `showArrow` to `true` if you need to show sourse of `limel-popover` or `limel-tooltip`
+     * Set `showArrow` to `true` to display an arrow pointing to the trigger
+     * element.
      */
     @Prop()
     public showArrow = false;
