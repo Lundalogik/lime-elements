@@ -83,7 +83,7 @@ export class Portal {
      * Set `showArrow` to `true` to display an arrow pointing to the trigger
      * element.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public showArrow = false;
 
     /**
@@ -209,7 +209,11 @@ export class Portal {
     }
 
     private removeContainer() {
-        if (this.arrow) {
+        if (
+            this.arrow &&
+            this.container &&
+            Array.prototype.includes.apply(this.container.children, this.arrow)
+        ) {
             this.container.removeChild(this.arrow);
         }
 
@@ -293,17 +297,13 @@ export class Portal {
         this.popperInstance = null;
     }
 
-    private createPopperConfig(): Partial<
-        OptionsGeneric<Partial<FlipModifier | ArrowModifier>>
-    > {
+    private createPopperConfig() {
         const placement = this.getPlacement(this.openDirection);
         const flipPlacement = this.getFlipPlacement(this.openDirection);
 
-        if (this.arrow !== undefined) {
-            this.container.appendChild(this.arrow);
-        }
-
-        return {
+        const config: Partial<
+            OptionsGeneric<Partial<FlipModifier | ArrowModifier>>
+        > = {
             strategy: this.position,
             placement: placement,
             modifiers: [
@@ -313,14 +313,20 @@ export class Portal {
                         fallbackPlacements: [flipPlacement],
                     },
                 },
-                {
-                    name: 'arrow',
-                    options: {
-                        element: this.arrow,
-                    },
-                },
             ],
         };
+
+        if (this.arrow !== undefined) {
+            this.container.appendChild(this.arrow);
+            config.modifiers.push({
+                name: 'arrow',
+                options: {
+                    element: this.arrow,
+                },
+            });
+        }
+
+        return config;
     }
 
     private getPlacement(direction: OpenDirection): Placement {
