@@ -1,3 +1,11 @@
+## [36.0.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.12...v36.0.0-next.13) (2022-08-05)
+
+
+### Features
+
+* **date-picker:** enable adding placeholder text ([4277850](https://github.com/Lundalogik/lime-elements/commit/4277850d1c5b46cbbf84bc68383d9aa3a87848b5))
+* **input-field:** enable adding placeholder text ([01546cf](https://github.com/Lundalogik/lime-elements/commit/01546cfe2e57410cb8347644219d7c3fcea8bd0b))
+
 ## [36.0.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.11...v36.0.0-next.12) (2022-08-03)
 
 
