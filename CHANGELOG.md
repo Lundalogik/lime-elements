@@ -1,3 +1,10 @@
+## [36.0.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.13...v36.0.0-next.14) (2022-08-05)
+
+
+### Bug Fixes
+
+* **select:** rotate the dropdown graphic (caret) when menu is opened or closed ([290760e](https://github.com/Lundalogik/lime-elements/commit/290760eb070231e35506611e673619cb58af2fb0))
+
 ## [36.0.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.12...v36.0.0-next.13) (2022-08-05)
 
 
