@@ -79,10 +79,22 @@ export class Dock {
     public mobileBreakPoint?: number = DEFAULT_MOBILE_BREAKPOINT;
 
     /**
-     * Fired when a Dock item has been selected from the dock.
+     * Fired when a dock item has been selected from the dock.
      */
     @Event()
-    private itemSelected: EventEmitter<DockItem>;
+    public itemSelected: EventEmitter<DockItem>;
+
+    /**
+     * Fired when the popover is closed.
+     */
+    @Event()
+    public close: EventEmitter<void>;
+
+    /**
+     * Fired when a Dock is expanded or collapsed.
+     */
+    @Event()
+    private dockExpanded: EventEmitter<boolean>;
 
     /**
      * Is used to render the component horizontally, and place
@@ -135,15 +147,8 @@ export class Dock {
                 item={item}
                 expanded={this.expanded && !this.useMobileLayout}
                 useMobileLayout={this.useMobileLayout}
-                onInteract={this.handleDockItemClick}
             />
         );
-    };
-
-    private handleDockItemClick = (event: CustomEvent<DockItem>) => {
-        if (!event.detail.selected) {
-            this.itemSelected.emit(event.detail);
-        }
     };
 
     private handleResize = () => {
@@ -174,5 +179,6 @@ export class Dock {
 
     private toggleDockWidth = () => {
         this.expanded = !this.expanded;
+        this.dockExpanded.emit(this.expanded);
     };
 }

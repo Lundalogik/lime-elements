@@ -1,3 +1,40 @@
+## [36.0.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.12...v36.0.0-next.13) (2022-08-05)
+
+
+### Features
+
+* **date-picker:** enable adding placeholder text ([4277850](https://github.com/Lundalogik/lime-elements/commit/4277850d1c5b46cbbf84bc68383d9aa3a87848b5))
+* **input-field:** enable adding placeholder text ([01546cf](https://github.com/Lundalogik/lime-elements/commit/01546cfe2e57410cb8347644219d7c3fcea8bd0b))
+
+## [36.0.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.11...v36.0.0-next.12) (2022-08-03)
+
+
+### Bug Fixes
+
+* **dock:** truncate label of popover dock items & prevent overflow of label ([c41f4cf](https://github.com/Lundalogik/lime-elements/commit/c41f4cf6d1cd2b898791114827cc29482e064d4d))
+
+## [36.0.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.10...v36.0.0-next.11) (2022-08-01)
+
+
+### Bug Fixes
+
+* **dock:** add missing `close` prop to parent component, which already exists on dock items ([647b141](https://github.com/Lundalogik/lime-elements/commit/647b141af36feabe9b88b3d4f27b3e9d0593db16))
+* **dock:** correctly use `itemSelected` (instead of `interact`) ([8976d1d](https://github.com/Lundalogik/lime-elements/commit/8976d1df98e31d21eac202b9e2ba0ae9ff31ee21))
+
+## [36.0.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.9...v36.0.0-next.10) (2022-08-01)
+
+
+### Bug Fixes
+
+* **select:** set `aria-required` and `aria-disabled` on trigger elements to improve accessibility ([97cd086](https://github.com/Lundalogik/lime-elements/commit/97cd0865a0964b2d6b02ac8963d7af45e0e9bdee))
+
+## [36.0.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.8...v36.0.0-next.9) (2022-07-28)
+
+
+### Features
+
+* **dock:** emit event when dock is expanded or collapsed ([94e1b9e](https://github.com/Lundalogik/lime-elements/commit/94e1b9ef47419d139072a1e0f74b46305637a544))
+
 ## [36.0.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.7...v36.0.0-next.8) (2022-07-26)
 
 

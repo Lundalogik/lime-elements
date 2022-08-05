@@ -39,6 +39,7 @@ const helperTextId = 'tf-helper-text';
 
 /**
  * @exampleComponent limel-example-input-field-text
+ * @exampleComponent limel-example-input-field-placeholder
  * @exampleComponent limel-example-input-field-text-multiple
  * @exampleComponent limel-example-input-field-number
  * @exampleComponent limel-example-input-field-autocomplete
@@ -89,6 +90,12 @@ export class InputField {
      */
     @Prop({ reflect: true })
     public label: string;
+
+    /**
+     * The placeholder text shown inside the input field, when the field is focused and empty.
+     */
+    @Prop({ reflect: true })
+    public placeholder: string;
 
     /**
      * Optional helper text to display below the input field when it has focus
@@ -394,6 +401,7 @@ export class InputField {
                 onWheel={this.handleWheel}
                 onKeyDown={this.onKeyDown}
                 value={this.value}
+                placeholder={this.placeholder}
             />
         );
     };

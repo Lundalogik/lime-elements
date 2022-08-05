@@ -86,6 +86,12 @@ export class DatePicker {
     public label: string;
 
     /**
+     * The placeholder text shown inside the input field, when the field is focused and empty
+     */
+    @Prop({ reflect: true })
+    public placeholder: string;
+
+    /**
      * Optional helper text to display below the input field when it has focus
      */
     @Prop({ reflect: true })
@@ -211,6 +217,7 @@ export class DatePicker {
                 readonly={this.readonly}
                 invalid={this.invalid}
                 label={this.label}
+                placeholder={this.placeholder}
                 helperText={this.helperText}
                 required={this.required}
                 value={this.formattedValue}

@@ -12,32 +12,40 @@ import { createRandomString } from '../../../util/random-string';
 })
 export class DockButton {
     /**
-     * @inheritdoc
+     * Item that is placed in the dock.
      */
     @Prop()
     public item!: DockItem;
 
     /**
-     * @inheritdoc
+     * When the dock is expanded or collapsed, dock items
+     * show labels and tooltips as suitable for the layout.
      */
     @Prop({ reflect: true })
     public expanded? = false;
 
     /**
-     * @inheritdoc
+     * When dock is using mobile layout, dock items
+     * show labels and tooltips as suitable for the layout.
      */
     @Prop({ reflect: true })
     public useMobileLayout? = false;
 
     /**
-     * Fired when clicking on the flow item.
+     * Fired when a dock item has been selected from the dock.
      */
     @Event()
-    private interact: EventEmitter<DockItem>;
+    private itemSelected: EventEmitter<DockItem>;
 
+    /**
+     * Indicated whether the popover that renders a component is open.
+     */
     @State()
     private isOpen = false;
 
+    /**
+     * Fired when the popover is closed.
+     */
     @Event()
     public close: EventEmitter<void>;
 
@@ -108,7 +116,7 @@ export class DockButton {
 
     private handleClick = (event: MouseEvent) => {
         event.stopPropagation();
-        this.interact.emit(this.item);
+        this.itemSelected.emit(this.item);
     };
 
     private renderIcon() {

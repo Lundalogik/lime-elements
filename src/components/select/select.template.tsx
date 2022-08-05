@@ -91,6 +91,8 @@ const SelectValue: FunctionalComponent<
             aria-haspopup="listbox"
             aria-expanded="false"
             aria-labelledby="s-label s-selected-text"
+            aria-required={props.required}
+            aria-disabled={props.disabled}
         >
             <span id="s-label" class={labelClassList}>
                 {props.label}
@@ -194,6 +196,7 @@ const NativeDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
     return (
         <select
             required={props.required}
+            aria-disabled={props.disabled}
             aria-required={props.required}
             onChange={props.onNativeChange}
             onFocus={props.open}
