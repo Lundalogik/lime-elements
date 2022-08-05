@@ -28,6 +28,17 @@ import { Component, h, State } from '@stencil/core';
  * for example after submitting. Instructions that are not visible anymore will make it
  * hard for the user to realize what the problem is or how to solve it.
  * :::
+ * :::warning
+ * If no `label` is provided, then the placeholder text will be displayed even if the
+ * input field is not focused.
+ *
+ * However, this does not mean that you should use this
+ * as a hack, to create a minimalistic and clean user interface. Not providing labels
+ * will cause accessibility issues for users of assistive technologies,
+ * and strains users’ short-term memory as explained above.
+ * Additionally, users may confuse the placeholder text, as an automatically
+ * inputted value, and skip filling in information.
+ * :::
  */
 @Component({
     tag: 'limel-example-input-field-placeholder',

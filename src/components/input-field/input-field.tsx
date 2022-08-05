@@ -295,21 +295,11 @@ export class InputField {
             properties['aria-describedby'] = helperTextId;
         }
 
-        const labelClassList = {
-            'mdc-floating-label': true,
-            'mdc-floating-label--float-above':
-                !!this.value || this.isFocused || this.readonly,
-        };
-
         return [
             <label class={this.getContainerClassList()}>
                 <span class="mdc-notched-outline" tabindex="-1">
                     <span class="mdc-notched-outline__leading"></span>
-                    <span class="mdc-notched-outline__notch">
-                        <span class={labelClassList} id={labelId}>
-                            {this.label}
-                        </span>
-                    </span>
+                    {this.renderLabel(labelId)}
                     <span class="mdc-notched-outline__trailing"></span>
                 </span>
                 {this.renderLeadingIcon()}
@@ -361,6 +351,7 @@ export class InputField {
     private getContainerClassList = () => {
         const classList = {
             'mdc-text-field': true,
+            'mdc-text-field--no-label': !this.label,
             'mdc-text-field--outlined': true,
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled || this.readonly,
@@ -579,6 +570,26 @@ export class InputField {
         }
 
         return this.limelInputField.shadowRoot.querySelector(elementName);
+    };
+
+    private renderLabel = (labelId: string) => {
+        const labelClassList = {
+            'mdc-floating-label': true,
+            'mdc-floating-label--float-above':
+                !!this.value || this.isFocused || this.readonly,
+        };
+
+        if (!this.label) {
+            return;
+        }
+
+        return (
+            <span class="mdc-notched-outline__notch">
+                <span class={labelClassList} id={labelId}>
+                    {this.label}
+                </span>
+            </span>
+        );
     };
 
     private renderLeadingIcon = () => {
