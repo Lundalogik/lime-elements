@@ -185,6 +185,7 @@ export class DatePicker {
     public render() {
         const inputProps: any = {
             onAction: this.clearValue,
+            trailingIcon: null,
         };
 
         if (this.value && !this.readonly) {
