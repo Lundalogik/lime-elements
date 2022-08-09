@@ -1,3 +1,10 @@
+## [36.0.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.14...v36.0.0-next.15) (2022-08-09)
+
+
+### Bug Fixes
+
+* **input-field:** prevent visual defects if no label is provided ([fc627fe](https://github.com/Lundalogik/lime-elements/commit/fc627fef7590529f2f4dc61281579b410efefc51))
+
 ## [36.0.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.13...v36.0.0-next.14) (2022-08-05)
 
 
