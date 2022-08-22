@@ -38,6 +38,12 @@ export class DockButton {
     private itemSelected: EventEmitter<DockItem>;
 
     /**
+     * Fired when a dock menu is opened.
+     */
+    @Event()
+    private menuOpen: EventEmitter<DockItem>;
+
+    /**
      * Indicated whether the popover that renders a component is open.
      */
     @State()
@@ -107,6 +113,7 @@ export class DockButton {
     private openPopover = (event: MouseEvent) => {
         event.stopPropagation();
         this.isOpen = true;
+        this.menuOpen.emit(this.item);
     };
 
     private onPopoverClose = () => {
