@@ -1,3 +1,10 @@
+## [36.0.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.15...v36.0.0-next.16) (2022-08-25)
+
+
+### Bug Fixes
+
+* **code-editor:** update editor when value changes ([d39b625](https://github.com/Lundalogik/lime-elements/commit/d39b6259b00ea10b001e62cc85fb783d53e67317))
+
 ## [36.0.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.14...v36.0.0-next.15) (2022-08-09)
 
 
