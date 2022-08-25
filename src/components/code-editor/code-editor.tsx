@@ -6,6 +6,7 @@ import {
     Event,
     EventEmitter,
     State,
+    Watch,
 } from '@stencil/core';
 import { ColorScheme, Language } from './code-editor.types';
 import CodeMirror from 'codemirror';
@@ -102,6 +103,22 @@ export class CodeEditor {
         }
 
         this.editor = this.createEditor();
+    }
+
+    @Watch('value')
+    protected watchValue(newValue: string) {
+        if (!this.editor) {
+            return;
+        }
+
+        const currentValue = this.editor.getValue();
+        if (newValue === currentValue) {
+            // Circuit breaker for when the change comes from the editor itself
+            // The caret position will be reset without this
+            return;
+        }
+
+        this.editor.getDoc().setValue(newValue);
     }
 
     private handleChangeDarkMode = () => {
