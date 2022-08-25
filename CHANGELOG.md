@@ -1,3 +1,10 @@
+## [36.0.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.16...v36.0.0-next.17) (2022-08-25)
+
+
+### Bug Fixes
+
+* **code-editor:** stretch to parent ([8c8afcd](https://github.com/Lundalogik/lime-elements/commit/8c8afcd597d928b23683db10fb89f70f1ff90703))
+
 ## [36.0.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.15...v36.0.0-next.16) (2022-08-25)
 
 
