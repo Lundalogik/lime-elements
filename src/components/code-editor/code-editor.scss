@@ -10,6 +10,8 @@
 }
 
 .editor {
+    display: flex;
+    align-items: stretch;
     width: 100%;
 
     &.is-light-mode {
@@ -146,6 +148,7 @@
         background-color: rgb(var(--code-editor-background-color));
         border-radius: 0.25rem;
         height: auto;
+        width: 100%;
     }
 
     .CodeMirror-scroll {
