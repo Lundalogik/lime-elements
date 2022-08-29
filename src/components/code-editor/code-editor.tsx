@@ -13,6 +13,11 @@ import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/lint/lint';
+import 'codemirror/addon/lint/json-lint';
+import 'codemirror/addon/fold/foldgutter';
+import 'codemirror/addon/fold/brace-fold';
+import jslint from 'jsonlint-mod';
 
 /**
  * Currently this component support syntax highlighting for `javascript`,
@@ -20,6 +25,7 @@ import 'codemirror/addon/edit/matchbrackets';
  *
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
+ * @exampleComponent limel-example-code-editor-fold-lint
  */
 @Component({
     tag: 'limel-code-editor',
@@ -50,6 +56,18 @@ export class CodeEditor {
      */
     @Prop()
     public lineNumbers: boolean = false;
+
+    /**
+     * Allows the user to fold code
+     */
+    @Prop()
+    public fold: boolean = false;
+
+    /**
+     * Enables linting of JSON content
+     */
+    @Prop()
+    public lint: boolean = false;
 
     /**
      * Select color scheme for the editor
@@ -158,6 +176,7 @@ export class CodeEditor {
         let mode: string | CodeMirror.ModeSpec<any> = this.language;
         const TAB_SIZE = 4;
         let theme = 'lime light';
+        const gutters = [];
 
         if (this.isDarkMode()) {
             theme = 'lime dark';
@@ -168,11 +187,22 @@ export class CodeEditor {
                 name: 'application/json',
                 json: true,
             };
+            if (this.lint) {
+                gutters.push('CodeMirror-lint-markers');
+                if (!('jsonlint' in window)) {
+                    // eslint-disable-next-line @typescript-eslint/dot-notation
+                    window['jsonlint'] = jslint;
+                }
+            }
         } else if (this.language === 'typescript') {
             mode = {
                 name: 'application/typescript',
                 typescript: true,
             };
+        }
+
+        if (this.fold) {
+            gutters.push('CodeMirror-foldgutter');
         }
 
         return {
@@ -185,6 +215,9 @@ export class CodeEditor {
             lineNumbers: this.lineNumbers,
             styleActiveLine: true,
             matchBrackets: true,
+            lint: this.lint,
+            foldGutter: this.fold,
+            gutters: gutters,
         };
     }
 
