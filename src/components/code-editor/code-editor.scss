@@ -1,4 +1,8 @@
+@use '../../style/mixins';
+
 @import '../../../node_modules/codemirror/lib/codemirror.css';
+@import '../../../node_modules/codemirror/addon/lint/lint.css';
+@import '../../../node_modules/codemirror/addon/fold/foldgutter.css';
 
 /**
  * @prop --code-editor-max-height: Defines how tall the code editor can get before content becomes scrollable, defaults to `10rem`.
@@ -215,5 +219,49 @@
                 right: 0;
             }
         }
+    }
+    .CodeMirror-lint-marker-error,
+    .CodeMirror-lint-message-error {
+        background: {
+            image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs/><path fill='rgb(255,255,255)' d='M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z'/></svg>");
+            color: rgb(var(--color-red-default));
+            size: 0.75rem;
+        }
+        border-radius: 50%;
+    }
+
+    .CodeMirror-foldmarker {
+        position: relative;
+        @include mixins.is-elevated-clickable();
+        color: transparent;
+        text-shadow: none;
+
+        padding: 0 0.5rem;
+        border-radius: 1rem;
+
+        background: {
+            image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' xml:space='preserve'><circle cx='16' cy='16' r='2'/><circle cx='26' cy='16' r='2'/><circle cx='6' cy='16' r='2'/></svg>");
+            size: contain;
+            repeat: no-repeat;
+            position: center;
+        }
+
+        .is-dark-mode & {
+            background-color: rgb(var(--contrast-1200));
+        }
+    }
+
+    [class^='CodeMirror-foldgutter'] {
+        color: var(--code-editor-neutral-text-color);
+        transition: opacity 0.2s ease;
+        opacity: 0.4;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .CodeMirror-foldgutter-folded {
+        opacity: 0.7;
     }
 }

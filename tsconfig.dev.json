@@ -3,7 +3,8 @@
   "compilerOptions": {
     "allowUnreachableCode": true,
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+    "lib": ["dom", "es7", "es2019"]
   },
   "exclude": [
     "node_modules",

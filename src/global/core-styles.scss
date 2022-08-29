@@ -4,6 +4,7 @@
 @use '../style/_theme-color-variables';
 @use '../style/colors.scss';
 @use '../style/shadows.scss';
+@use '../style/internal/codemirror-tooltip.scss';
 :root {
     @include theme-color-variables.theme-color-variables;
 }

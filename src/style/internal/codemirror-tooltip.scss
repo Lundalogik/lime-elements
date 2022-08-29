@@ -1,0 +1,19 @@
+.CodeMirror-lint-tooltip.cm-s-lime {
+    position: fixed;
+    z-index: var(--tooltip-z-index, var(--dropdown-z-index, 130));
+    transition: opacity 0.4s ease 0s;
+    opacity: 0;
+
+    color: var(--mdc-theme-text-primary-on-background);
+    background-color: var(--mdc-theme-on-primary);
+
+    font-family: monospace;
+    font-size: 0.875rem; // 14px, like the default code editor's font size
+    white-space: pre-wrap;
+    // overflow: hidden; // Why `hidden`?
+
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    max-width: 40rem;
+    box-shadow: var(--shadow-depth-64);
+}
