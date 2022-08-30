@@ -6,6 +6,7 @@ import {
     Watch,
     EventEmitter,
     Event,
+    Host,
 } from '@stencil/core';
 import TabulatorTable from 'tabulator-tables';
 import {
@@ -18,6 +19,7 @@ import { ColumnDefinitionFactory, createColumnSorter } from './columns';
 import { isEqual, has } from 'lodash-es';
 import { ElementPool } from './element-pool';
 import { TableSelection } from './table-selection';
+import { mapLayout, Layout } from './layout';
 
 const FIRST_PAGE = 1;
 
@@ -31,7 +33,11 @@ const FIRST_PAGE = 1;
  * @exampleComponent limel-example-table-activate-row
  * @exampleComponent limel-example-table-selectable-rows
  * @exampleComponent limel-example-table-default-sorted
- * @exampleComponent limel-example-table-low-density
+ * @exampleComponent limel-example-table-layout-default
+ * @exampleComponent limel-example-table-layout-stretch-last-column
+ * @exampleComponent limel-example-table-layout-stretch-columns
+ * @exampleComponent limel-example-table-layout-low-density
+ * @exampleComponent limel-example-table-interactive-rows
  */
 @Component({
     tag: 'limel-table',
@@ -59,6 +65,17 @@ export class Table {
      */
     @Prop()
     public mode: 'local' | 'remote' = 'local';
+
+    /**
+     * Defines the layout of the table, based on how width of the columns are calculated.
+     *
+     * - `default`: makes columns as wide as their contents.
+     * - `stretchLastColumn`: makes columns as wide as their contents, stretch the last column to fill up the remaining table width.
+     * - `stretchColumns`: stretches all columns to fill the available width when possible.
+     * - `lowDensity`: makes columns as wide as their contents, and creates a low density and airy layout.
+     */
+    @Prop()
+    public layout: Layout;
 
     /**
      * Number of rows per page
@@ -424,7 +441,7 @@ export class Table {
 
         return {
             data: this.data,
-            layout: 'fitDataFill',
+            layout: mapLayout(this.layout),
             columns: this.getColumnDefinitions(),
             dataSorting: this.handleDataSorting,
             pageLoaded: this.handlePageLoaded,
@@ -707,29 +724,35 @@ export class Table {
 
     render() {
         return (
-            <div
-                id="tabulator-container"
+            <Host
                 class={{
-                    'has-pagination': this.totalRows > this.pageSize,
-                    'has-aggregation': this.hasAggregation(this.columns),
-                    'has-movable-columns': this.movableColumns,
-                    'has-rowselector': this.selectable,
-                    'has-selection': this.tableSelection?.hasSelection,
+                    'has-low-density': this.layout === 'lowDensity',
                 }}
             >
-                {/* Toggle style instead of removing the loader
+                <div
+                    id="tabulator-container"
+                    class={{
+                        'has-pagination': this.totalRows > this.pageSize,
+                        'has-aggregation': this.hasAggregation(this.columns),
+                        'has-movable-columns': this.movableColumns,
+                        'has-rowselector': this.selectable,
+                        'has-selection': this.tableSelection?.hasSelection,
+                    }}
+                >
+                    {/* Toggle style instead of removing the loader
                     because removing the element will cause a rerender, breaking the
                     tabulator table */}
-                <div
-                    id="tabulator-loader"
-                    style={{ display: this.loading ? 'flex' : 'none' }}
-                >
-                    <limel-spinner size="large" />
+                    <div
+                        id="tabulator-loader"
+                        style={{ display: this.loading ? 'flex' : 'none' }}
+                    >
+                        <limel-spinner size="large" />
+                    </div>
+                    {this.renderEmptyMessage()}
+                    {this.renderSelectAll()}
+                    <div id="tabulator-table" />
                 </div>
-                {this.renderEmptyMessage()}
-                {this.renderSelectAll()}
-                <div id="tabulator-table" />
-            </div>
+            </Host>
         );
     }
 
