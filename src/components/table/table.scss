@@ -3,6 +3,10 @@
 @use '../../style/internal/lime-typography';
 @import '../../../node_modules/tabulator-tables/src/scss/tabulator.scss';
 
+/*
+* @prop --table-max-column-width: defines a maximum width for columns using standard size units, to prevent the table from growing too wide. Set to `auto` if you do not need this limitation. Defaults to `40rem`.
+*/
+
 :host {
     display: block;
     --table-header-background-color: var(--contrast-500);
@@ -101,7 +105,7 @@
 
 .tabulator-col,
 .tabulator-cell {
-    max-width: functions.pxToRem(600);
+    max-width: var(--table-max-column-width, 40rem);
     font-size: functions.pxToRem(13);
 }
 
