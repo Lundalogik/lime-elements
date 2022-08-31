@@ -2,11 +2,12 @@
 
 /**
  * @prop --code-editor-max-height: Defines how tall the code editor can get before content becomes scrollable, defaults to `10rem`.
+ * @prop --code-editor-font-size: Defines the font size of the code, defaults to `0.875rem`.
  */
 
 :host {
     display: flex;
-    font-size: 0.875rem; // 14px
+    font-size: var(--code-editor-font-size, 0.875rem); // 14px
 }
 
 .editor {
