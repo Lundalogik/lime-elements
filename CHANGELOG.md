@@ -1,3 +1,15 @@
+## [36.0.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.17...v36.0.0-next.18) (2022-08-31)
+
+
+### Features
+
+* **code-editor:** allow modifying code's font size ([5cd7126](https://github.com/Lundalogik/lime-elements/commit/5cd71264a2653d7de31a9d29a90fec5dfd480a15))
+
+
+### Bug Fixes
+
+* **code-editor:** reduce code's font size ([285148a](https://github.com/Lundalogik/lime-elements/commit/285148a8c338c5e244e3e01cbf9c19a39f5682e7))
+
 ## [36.0.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.16...v36.0.0-next.17) (2022-08-25)
 
 
