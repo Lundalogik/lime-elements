@@ -1,3 +1,10 @@
+## [36.0.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.20...v36.0.0-next.21) (2022-09-01)
+
+
+### Features
+
+* **dock-button:** emit event when dock menu is opened ([e3e3087](https://github.com/Lundalogik/lime-elements/commit/e3e3087f520521968cdba561a314b5b876126b27))
+
 ## [36.0.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.19...v36.0.0-next.20) (2022-09-01)
 
 
