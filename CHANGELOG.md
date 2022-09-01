@@ -1,3 +1,10 @@
+## [36.0.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.19...v36.0.0-next.20) (2022-09-01)
+
+
+### Bug Fixes
+
+* **code-editor:** translate null value to empty string ([0adafc2](https://github.com/Lundalogik/lime-elements/commit/0adafc233516efd3331cfe0ab7ee216ccca1e448))
+
 ## [36.0.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.18...v36.0.0-next.19) (2022-09-01)
 
 
