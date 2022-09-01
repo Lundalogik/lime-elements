@@ -207,7 +207,7 @@ export class CodeEditor {
 
         return {
             mode: mode,
-            value: this.value,
+            value: this.value || '',
             theme: theme,
             readOnly: this.readonly,
             tabSize: TAB_SIZE,
