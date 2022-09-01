@@ -1,3 +1,10 @@
+## [36.0.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.18...v36.0.0-next.19) (2022-09-01)
+
+
+### Features
+
+* **code-editor:** lint and fold json ([8e3c790](https://github.com/Lundalogik/lime-elements/commit/8e3c79070453fed3c59c88e732da01087bd2ff33))
+
 ## [36.0.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.17...v36.0.0-next.18) (2022-08-31)
 
 
