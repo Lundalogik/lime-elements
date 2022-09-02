@@ -136,7 +136,7 @@ export class CodeEditor {
             return;
         }
 
-        this.editor.getDoc().setValue(newValue);
+        this.editor.getDoc().setValue(newValue || '');
     }
 
     private handleChangeDarkMode = () => {
