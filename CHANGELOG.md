@@ -1,3 +1,10 @@
+## [36.0.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.22...v36.0.0-next.23) (2022-09-02)
+
+
+### Bug Fixes
+
+* **code-editor:** avoid null reference in codemirror ([f6a274a](https://github.com/Lundalogik/lime-elements/commit/f6a274a0026e8709da42525e1c55d91ceb43f748))
+
 ## [36.0.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.21...v36.0.0-next.22) (2022-09-02)
 
 
