@@ -1,3 +1,10 @@
+## [36.0.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.21...v36.0.0-next.22) (2022-09-02)
+
+
+### Bug Fixes
+
+* **dock:** emit event when a dock menu is opened ([84bf6bd](https://github.com/Lundalogik/lime-elements/commit/84bf6bded54fa31fd1c6e6694c83a74e4b3397e6))
+
 ## [36.0.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.20...v36.0.0-next.21) (2022-09-01)
 
 
