@@ -35,13 +35,13 @@ export class DockButton {
      * Fired when a dock item has been selected from the dock.
      */
     @Event()
-    private itemSelected: EventEmitter<DockItem>;
+    public itemSelected: EventEmitter<DockItem>;
 
     /**
      * Fired when a dock menu is opened.
      */
     @Event()
-    private menuOpen: EventEmitter<DockItem>;
+    public menuOpen: EventEmitter<DockItem>;
 
     /**
      * Indicated whether the popover that renders a component is open.

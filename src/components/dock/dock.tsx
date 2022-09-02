@@ -85,6 +85,12 @@ export class Dock {
     public itemSelected: EventEmitter<DockItem>;
 
     /**
+     * Fired when a dock menu is opened.
+     */
+    @Event()
+    public menuOpen: EventEmitter<DockItem>;
+
+    /**
      * Fired when the popover is closed.
      */
     @Event()
