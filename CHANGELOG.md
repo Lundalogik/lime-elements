@@ -1,3 +1,11 @@
+## [36.0.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.23...v36.0.0-next.24) (2022-09-07)
+
+
+### Features
+
+* **table:** allow specifying max-width for columns ([fa30324](https://github.com/Lundalogik/lime-elements/commit/fa303243998db614ab8144616d3ca69f1b40a16c))
+* **table:** enable new layout options ([e0acae4](https://github.com/Lundalogik/lime-elements/commit/e0acae4051464c924a7fdffb1f668f1841ab9338))
+
 ## [36.0.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.22...v36.0.0-next.23) (2022-09-02)
 
 
