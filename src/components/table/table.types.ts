@@ -33,6 +33,11 @@ export interface Column<T extends object = any> {
      * Sets the horizontal text alignment for the column
      */
     horizontalAlign?: 'left' | 'center' | 'right';
+
+    /**
+     * Defines whether end-user can sort a column
+     */
+    headerSort?: boolean;
 }
 
 export type TableFormatter = (value: any, data?: object) => string;
