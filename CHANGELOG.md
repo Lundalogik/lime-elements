@@ -1,3 +1,10 @@
+## [36.0.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.24...v36.0.0-next.25) (2022-09-09)
+
+
+### Bug Fixes
+
+* **code-editor:** indent with spaces ([323fb35](https://github.com/Lundalogik/lime-elements/commit/323fb35946ca4e35c9c8bd4a4bc55ba7e927d888))
+
 ## [36.0.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.23...v36.0.0-next.24) (2022-09-07)
 
 
