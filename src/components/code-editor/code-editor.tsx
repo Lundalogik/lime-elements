@@ -169,6 +169,17 @@ export class CodeEditor {
 
         editor.on('change', this.handleChange);
 
+        // Replace tab with spaces and use the actual indent setting for
+        // the space count
+        editor.setOption('extraKeys', {
+            Tab: (codeMirror) => {
+                const spaces = Array(
+                    codeMirror.getOption('indentUnit') + 1
+                ).join(' ');
+                codeMirror.replaceSelection(spaces);
+            },
+        });
+
         return editor;
     }
 
