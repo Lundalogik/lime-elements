@@ -1,3 +1,10 @@
+## [36.0.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.25...v36.0.0-next.26) (2022-09-09)
+
+
+### Features
+
+* **table:** allow disabling the column sorting possibility for end-users ([2845b00](https://github.com/Lundalogik/lime-elements/commit/2845b00e4cb8176c1c55648c7eaae149925dbf51))
+
 ## [36.0.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.24...v36.0.0-next.25) (2022-09-09)
 
 
