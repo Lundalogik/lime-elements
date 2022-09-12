@@ -7,6 +7,9 @@
 * @prop --table-max-column-width: defines a maximum width for columns using standard size units, to prevent the table from growing too wide. Set to `auto` if you do not need this limitation. Defaults to `40rem`.
 */
 
+$width-of-sorter-arrow: 0.5rem;
+$cell-padding: 0.5rem;
+
 :host {
     display: block;
     --table-header-background-color: var(--contrast-500);
@@ -56,6 +59,10 @@
                     );
                 }
             }
+
+            .tabulator-col-content {
+                padding-right: $width-of-sorter-arrow;
+            }
         }
 
         .tabulator-col-title-holder {
@@ -63,9 +70,13 @@
             gap: 0.25rem;
         }
 
+        .tabulator-col-sorter {
+            order: 1;
+        }
         .tabulator-col-title {
+            order: 2;
             font-weight: 500;
-            padding-left: functions.pxToRem(2);
+            padding-right: 0 !important;
             line-height: functions.pxToRem(20);
         }
     }
@@ -95,7 +106,8 @@
 
     .tabulator-cell {
         border-right: transparent;
-        padding: functions.pxToRem(8);
+        padding: $cell-padding;
+        padding-left: $cell-padding + $width-of-sorter-arrow;
 
         display: inline-flex;
         align-items: center;
