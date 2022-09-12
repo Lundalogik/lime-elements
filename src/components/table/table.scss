@@ -58,6 +58,11 @@
             }
         }
 
+        .tabulator-col-title-holder {
+            display: flex;
+            gap: 0.25rem;
+        }
+
         .tabulator-col-title {
             font-weight: 500;
             padding-left: functions.pxToRem(2);
