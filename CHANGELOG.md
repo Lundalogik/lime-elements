@@ -1,3 +1,12 @@
+## [36.0.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.26...v36.0.0-next.27) (2022-09-13)
+
+
+### Bug Fixes
+
+* **table:** add a gap between column header component & title text ([06a04f8](https://github.com/Lundalogik/lime-elements/commit/06a04f8d5f897885aae5d08da2433e185f7a3a5b))
+* **table:** move sorter arrow to column header's left side ([a8bc13b](https://github.com/Lundalogik/lime-elements/commit/a8bc13b30e0404fbf42d77b8276eda2d81023f91))
+* **table:** show sorter arrow only when column is sorted ([b1d3e4a](https://github.com/Lundalogik/lime-elements/commit/b1d3e4a3c8a6788b4b2140d6dc913b40648fc669))
+
 ## [36.0.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.25...v36.0.0-next.26) (2022-09-09)
 
 
