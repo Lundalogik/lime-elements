@@ -3,7 +3,7 @@ import { Component, h } from '@stencil/core';
 
 @Component({
     tag: 'my-custom-menu',
-    shadow: true,
+    shadow: { delegatesFocus: true },
 })
 export class MyCustomMenu {
     private items: Array<ListItem<number>> = [

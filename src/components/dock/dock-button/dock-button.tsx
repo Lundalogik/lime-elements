@@ -1,4 +1,12 @@
-import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
 import { DockItem } from '../dock.types';
 import { createRandomString } from '../../../util/random-string';
 
@@ -56,6 +64,7 @@ export class DockButton {
     public close: EventEmitter<void>;
 
     private tooltipId: string;
+    private customComponentElement: HTMLElement;
 
     constructor() {
         this.tooltipId = createRandomString();
@@ -69,6 +78,18 @@ export class DockButton {
         return this.renderButton(this.handleClick);
     }
 
+    @Watch('isOpen')
+    protected openWatcher() {
+        if (!this.isOpen) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            this.focusCustomComponentElement
+        );
+        observer.observe(this.customComponentElement);
+    }
+
     private renderPopover() {
         const CustomComponent = this.item?.dockMenu.componentName;
 
@@ -80,6 +101,7 @@ export class DockButton {
             >
                 {this.renderButton(this.openPopover, 'trigger')}
                 <CustomComponent
+                    ref={this.setCustomComponentElement}
                     {...(this.item.dockMenu.props || {})}
                     onClose={this.onPopoverClose}
                 />
@@ -114,6 +136,10 @@ export class DockButton {
         event.stopPropagation();
         this.isOpen = true;
         this.menuOpen.emit(this.item);
+    };
+
+    private setCustomComponentElement = (element: HTMLElement) => {
+        this.customComponentElement = element;
     };
 
     private onPopoverClose = () => {
@@ -160,4 +186,10 @@ export class DockButton {
             );
         }
     }
+
+    private focusCustomComponentElement = () => {
+        if (this.customComponentElement?.shadowRoot?.delegatesFocus) {
+            this.customComponentElement?.focus();
+        }
+    };
 }

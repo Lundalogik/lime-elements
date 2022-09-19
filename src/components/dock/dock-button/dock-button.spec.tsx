@@ -6,12 +6,22 @@ import { DockButton } from './dock-button';
 let page: SpecPage;
 let item: DockItem;
 
+class IntersectionObserverMock {
+    observe() {}
+    disconnect() {}
+    unobserve() {}
+}
+
+global.IntersectionObserver = IntersectionObserverMock as any;
+
 beforeEach(async () => {
     item = {
         id: 'tables',
         label: 'Tables',
         icon: 'insert_table',
-        dockMenu: { componentName: 'my-custom-menu' },
+        dockMenu: {
+            componentName: 'my-custom-menu',
+        },
     };
     page = await newSpecPage({
         components: [DockButton],
