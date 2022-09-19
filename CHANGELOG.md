@@ -1,3 +1,10 @@
+## [36.0.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.27...v36.0.0-next.28) (2022-09-19)
+
+
+### Bug Fixes
+
+* **progress-flow:** visualize disabled steps better ([0355d0a](https://github.com/Lundalogik/lime-elements/commit/0355d0a73c060b2dacd64b8b9d20bd22db0ba4e1))
+
 ## [36.0.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.26...v36.0.0-next.27) (2022-09-13)
 
 
