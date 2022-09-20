@@ -82,12 +82,6 @@ export class MenuList {
     @Event()
     private change: EventEmitter<MenuItem>;
 
-    /**
-     * Fired when an action has been selected from the action menu of a list item
-     */
-    @Event()
-    protected select: EventEmitter<MenuItem | MenuItem[]>;
-
     public connectedCallback() {
         this.setup();
     }
