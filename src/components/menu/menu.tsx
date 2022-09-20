@@ -182,7 +182,7 @@ export class Menu {
         this.open = !this.open;
     };
 
-    private onListChange = (event) => {
+    private onListChange = (event: CustomEvent<MenuItem>) => {
         this.items = this.items.map((item: MenuItem) => {
             if (item === event.detail) {
                 return event.detail;
