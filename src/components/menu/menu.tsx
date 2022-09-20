@@ -92,15 +92,6 @@ export class Menu {
         this.portalId = createRandomString();
     }
 
-    public componentDidLoad() {
-        if (!this.host.querySelector('[slot="trigger"]')) {
-            // eslint-disable-next-line no-console
-            console.warn(
-                'Using limel-menu with the default trigger is deprecated. Please provide your own trigger element.'
-            );
-        }
-    }
-
     @Watch('open')
     protected openWatcher() {
         if (!this.open) {
