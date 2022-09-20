@@ -80,7 +80,7 @@ export class MenuList {
      * Fired when a new value has been selected from the list. Only fired if selectable is set to true
      */
     @Event()
-    private change: EventEmitter<MenuItem | MenuItem[]>;
+    private change: EventEmitter<MenuItem>;
 
     /**
      * Fired when an action has been selected from the action menu of a list item
