@@ -77,10 +77,10 @@ export class MenuList {
     private mdcMenu: MDCMenu;
 
     /**
-     * Fired when a new value has been selected from the list. Only fired if selectable is set to true
+     * Fired when a new value has been selected from the list.
      */
     @Event()
-    private change: EventEmitter<MenuItem>;
+    private select: EventEmitter<MenuItem>;
 
     public connectedCallback() {
         this.setup();
@@ -177,11 +177,11 @@ export class MenuList {
         });
 
         if (selectedItem) {
-            this.change.emit({ ...selectedItem, selected: false });
+            this.select.emit({ ...selectedItem, selected: false });
         }
 
         if (MenuItems[index] !== selectedItem) {
-            this.change.emit({ ...MenuItems[index], selected: false });
+            this.select.emit({ ...MenuItems[index], selected: false });
         }
     };
 
