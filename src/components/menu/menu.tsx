@@ -184,13 +184,6 @@ export class Menu {
 
     private handleSelect = (event: CustomEvent<MenuItem>) => {
         event.stopPropagation();
-        this.items = this.items.map((item: MenuItem) => {
-            if (item === event.detail) {
-                return event.detail;
-            }
-
-            return item;
-        });
         this.select.emit(event.detail);
         this.open = false;
     };
