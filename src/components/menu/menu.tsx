@@ -137,7 +137,7 @@ export class Menu {
                             items={this.items}
                             type="menu"
                             badgeIcons={this.badgeIcons}
-                            onChange={this.onListChange}
+                            onSelect={this.handleSelect}
                             ref={this.setListElement}
                         />
                     </limel-menu-surface>
@@ -182,7 +182,8 @@ export class Menu {
         this.open = !this.open;
     };
 
-    private onListChange = (event: CustomEvent<MenuItem>) => {
+    private handleSelect = (event: CustomEvent<MenuItem>) => {
+        event.stopPropagation();
         this.items = this.items.map((item: MenuItem) => {
             if (item === event.detail) {
                 return event.detail;
