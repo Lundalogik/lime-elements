@@ -1,5 +1,6 @@
 @use '../../style/internal/z-index';
 @use '../../style/functions';
+@use '../../style/mixins';
 
 .limel-popover-surface {
     position: relative;
@@ -40,18 +41,12 @@
         );
     }
 
+    @include mixins.visualize-keyboard-focus;
+
     &:focus,
     &:focus-within {
-        outline: none;
-
         &:after {
             opacity: 1;
         }
-    }
-
-    &:focus-visible {
-        // only when non-pointer input is being used,
-        // e.g. tabbed into using keyboard
-        box-shadow: var(--shadow-depth-16-focused);
     }
 }
