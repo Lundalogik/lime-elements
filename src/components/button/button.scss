@@ -20,9 +20,7 @@
 
 button {
     @include mixins.is-elevated-clickable();
-    &:focus-visible {
-        box-shadow: var(--shadow-depth-8-focused);
-    }
+    @include mixins.visualize-keyboard-focus;
 
     &.mdc-button {
         min-width: functions.pxToRem(36);
