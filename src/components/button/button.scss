@@ -24,7 +24,12 @@ button {
 
     &.mdc-button {
         min-width: functions.pxToRem(36);
-        padding: 0 functions.pxToRem(12);
+        padding: {
+            top: 0;
+            right: var(--button-padding-right, #{functions.pxToRem(12)});
+            bottom: 0;
+            left: var(--button-padding-left, #{functions.pxToRem(12)});
+        }
         height: 100%;
         min-height: functions.pxToRem(36);
         width: 100%;
