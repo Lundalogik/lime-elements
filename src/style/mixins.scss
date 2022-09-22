@@ -1,5 +1,16 @@
 @use './functions';
 
+@mixin visualize-keyboard-focus {
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--shadow-depth-8-focused);
+    }
+}
+
 @mixin in($media) {
     @if $media == dark-mode {
         @media (prefers-color-scheme: dark) {
