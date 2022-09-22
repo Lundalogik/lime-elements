@@ -5,6 +5,10 @@
 .button {
     all: unset;
 
+    cursor: pointer;
+    @include mixins.is-flat-clickable();
+    @include mixins.visualize-keyboard-focus;
+
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -21,17 +25,6 @@
     color: var(--limel-dock-item-text-color);
     background-color: var(--dock-background-color);
 
-    &:focus-visible {
-        box-shadow: var(--shadow-depth-8-focused);
-    }
-
-    .dock-item:not(.selected) & {
-        &:not(.disabled) {
-            cursor: pointer;
-            @include mixins.is-flat-clickable();
-        }
-    }
-
     &:hover {
         z-index: 1;
     }
@@ -42,7 +35,13 @@
             --dock-item-background-color--selected,
             rgb(var(--contrast-200))
         );
+
         box-shadow: var(--button-shadow-inset);
+
+        &:focus-visible {
+            box-shadow: var(--button-shadow-inset),
+                var(--shadow-depth-8-focused);
+        }
 
         .icon {
             color: var(--limel-dock-item-text--selected);
