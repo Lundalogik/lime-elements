@@ -1,3 +1,10 @@
+## [36.0.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.28...v36.0.0-next.29) (2022-09-23)
+
+
+### Features
+
+* **dock-button:** enable keyboard navigation in dock menu items ([420315a](https://github.com/Lundalogik/lime-elements/commit/420315ab0378a5cc26de931045c7ae7f55bca6ec))
+
 ## [36.0.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.27...v36.0.0-next.28) (2022-09-19)
 
 
