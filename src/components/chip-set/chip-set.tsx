@@ -408,30 +408,39 @@ export class ChipSet {
                     }}
                     dropzone-tip={this.dropZoneTip()}
                 >
-                    <div class="mdc-notched-outline__leading"></div>
-                    <div class="mdc-notched-outline__notch">
-                        <label
-                            class={{
-                                'mdc-floating-label': true,
-                                'mdc-text-field--disabled':
-                                    this.readonly || this.disabled,
-                                'mdc-floating-label--required': this.required,
-                                'lime-floating-label--float-above': !!(
-                                    this.value.length || this.editMode
-                                ),
-                            }}
-                            htmlFor="input-element"
-                        >
-                            {this.label}
-                        </label>
-                    </div>
-                    <div class="mdc-notched-outline__trailing"></div>
+                    <div class="mdc-notched-outline__leading" />
+                    {this.renderLabel()}
+                    <div class="mdc-notched-outline__trailing" />
                 </div>
                 {this.renderLeadingIcon()}
                 {this.renderClearAllChipsButton()}
             </div>,
             this.renderHelperLine(),
         ];
+    }
+
+    private renderLabel() {
+        const labelClassList = {
+            'mdc-floating-label': true,
+            'mdc-text-field--no-label': !this.label,
+            'mdc-text-field--disabled': this.readonly || this.disabled,
+            'mdc-floating-label--required': this.required,
+            'lime-floating-label--float-above': !!(
+                this.value.length || this.editMode
+            ),
+        };
+
+        if (!this.label) {
+            return;
+        }
+
+        return (
+            <div class="mdc-notched-outline__notch">
+                <label class={labelClassList} htmlFor="input-element">
+                    {this.label}
+                </label>
+            </div>
+        );
     }
 
     private dropZoneTip = (): string => {
