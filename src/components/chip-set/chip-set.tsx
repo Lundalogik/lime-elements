@@ -560,13 +560,13 @@ export class ChipSet {
                 role="row"
                 id={`${chip.id}`}
             >
-                {chip.icon ? this.renderIcon(chip) : null}
-                {chip.text ? this.renderLabel(chip) : null}
+                {chip.icon ? this.renderChipIcon(chip) : null}
+                {chip.text ? this.renderChipLabel(chip) : null}
             </div>
         );
     }
 
-    private renderLabel(chip: Chip<any>) {
+    private renderChipLabel(chip: Chip<any>) {
         const attributes: any = {};
         if (chip.href) {
             attributes.href = getHref(chip.href);
@@ -660,8 +660,8 @@ export class ChipSet {
                 id={`${chip.id}`}
                 onClick={this.catchInputChipClicks}
             >
-                {chip.icon ? this.renderIcon(chip) : null}
-                {this.renderLabel(chip)}
+                {chip.icon ? this.renderChipIcon(chip) : null}
+                {this.renderChipLabel(chip)}
                 {this.renderChipRemoveButton(chip)}
             </div>,
             this.renderDelimiter(),
@@ -672,7 +672,7 @@ export class ChipSet {
         event.stopPropagation();
     }
 
-    private renderIcon(chip: Chip) {
+    private renderChipIcon(chip: Chip) {
         const style = {};
         if (chip.iconFillColor) {
             style['--icon-color'] = chip.iconFillColor;
