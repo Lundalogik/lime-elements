@@ -1,3 +1,10 @@
+## [36.0.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.30...v36.0.0-next.31) (2022-09-27)
+
+
+### Bug Fixes
+
+* **button:** remove the extra left margin of the icon ([7a4f7bc](https://github.com/Lundalogik/lime-elements/commit/7a4f7bcc0a39f2fd3c736dfc3bd5d810907b25a4))
+
 ## [36.0.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.29...v36.0.0-next.30) (2022-09-27)
 
 
