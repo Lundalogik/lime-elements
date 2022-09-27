@@ -1,1 +1,0 @@
-import{r as t}from"./index-ab490ba1.js";import{c as o}from"./config-f7362aeb.js";const s=class{constructor(o){t(this,o)}componentDidLoad(){this.setGlobalConfig()}componentDidUpdate(){this.setGlobalConfig()}setGlobalConfig(){this.config&&Object.keys(this.config).forEach((t=>{o[t]=this.config[t]}))}render(){return null}};export{s as limel_config}
