@@ -58,6 +58,15 @@ button {
                 border-color: rgba(var(--contrast-1700), 0.2);
             }
         }
+
+        .mdc-button__icon {
+            flex-shrink: 0;
+            margin-left: functions.pxToRem(-4);
+
+            &.no-label {
+                margin-right: functions.pxToRem(-4);
+            }
+        }
     }
 
     .label {
@@ -68,15 +77,6 @@ button {
         opacity: 0;
         display: none;
         position: absolute;
-    }
-
-    .mdc-button__icon {
-        flex-shrink: 0;
-    }
-
-    .mdc-button__icon.no-label {
-        margin-right: functions.pxToRem(-4);
-        margin-left: functions.pxToRem(-4);
     }
 
     limel-icon {
