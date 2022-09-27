@@ -1,3 +1,10 @@
+## [36.0.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.29...v36.0.0-next.30) (2022-09-27)
+
+
+### Bug Fixes
+
+* **chip-set:** prevent visual defects if no label is provided ([7270779](https://github.com/Lundalogik/lime-elements/commit/7270779878ecadb0422ea57c9384115d8989c270))
+
 ## [36.0.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.28...v36.0.0-next.29) (2022-09-23)
 
 
