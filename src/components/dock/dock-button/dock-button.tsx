@@ -66,6 +66,10 @@ export class DockButton {
     private tooltipId: string;
     private customComponentElement: HTMLElement;
 
+    private buttonElement: HTMLButtonElement;
+
+    private hadVisibleFocus = false;
+
     constructor() {
         this.tooltipId = createRandomString();
     }
@@ -123,7 +127,10 @@ export class DockButton {
                     button: true,
                     selected: this.item?.selected,
                 }}
+                ref={this.setButtonElement}
                 onClick={handleClick}
+                onFocus={this.handleFocus}
+                onBlur={this.handleBlur}
             >
                 {this.renderIcon()}
                 {this.renderLabel()}
@@ -142,7 +149,15 @@ export class DockButton {
         this.customComponentElement = element;
     };
 
+    private setButtonElement = (element: HTMLButtonElement) => {
+        this.buttonElement = element;
+    };
+
     private onPopoverClose = () => {
+        if (this.hadVisibleFocus) {
+            this.buttonElement.focus();
+        }
+
         this.isOpen = false;
         this.close.emit();
     };
@@ -150,6 +165,16 @@ export class DockButton {
     private handleClick = (event: MouseEvent) => {
         event.stopPropagation();
         this.itemSelected.emit(this.item);
+    };
+
+    private handleFocus = () => {
+        this.hadVisibleFocus = this.buttonElement.matches(':focus-visible');
+    };
+
+    private handleBlur = () => {
+        if (!this.isOpen) {
+            this.hadVisibleFocus = false;
+        }
     };
 
     private renderIcon() {
