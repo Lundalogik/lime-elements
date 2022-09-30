@@ -1,3 +1,10 @@
+## [36.0.0-next.33](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.32...v36.0.0-next.33) (2022-09-30)
+
+
+### Bug Fixes
+
+* **table:** enable select all checkbox without totalRows, only data ([15b3abf](https://github.com/Lundalogik/lime-elements/commit/15b3abf91a798d012fb4610f23488f17a3b0a193))
+
 ## [36.0.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.31...v36.0.0-next.32) (2022-09-29)
 
 
