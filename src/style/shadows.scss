@@ -1,9 +1,11 @@
 @use './functions';
 
-$visualise-focused-state: 0 0 0 #{functions.pxToRem(2)} var(--mdc-theme-primary);
+$visualise-focused-state: 0 0 0 #{functions.pxToRem(2)} var(--lime-focus-ring-color);
 $visualise-error-state: 0 0 0 #{functions.pxToRem(2)} rgb(var(--color-red-default));
 
 :root {
+    --lime-focus-ring-color: var(--mdc-theme-primary);
+
     // Good for buttons and clickables such as select dropdowns, or slider grabbers
     --button-shadow-normal: 0 #{functions.pxToRem(1.5)} #{functions.pxToRem(
                 3.6
