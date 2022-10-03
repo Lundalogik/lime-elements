@@ -92,15 +92,6 @@ export class Menu {
         this.portalId = createRandomString();
     }
 
-    public componentDidLoad() {
-        if (!this.host.querySelector('[slot="trigger"]')) {
-            // eslint-disable-next-line no-console
-            console.warn(
-                'Using limel-menu with the default trigger is deprecated. Please provide your own trigger element.'
-            );
-        }
-    }
-
     @Watch('open')
     protected openWatcher() {
         if (!this.open) {
@@ -146,7 +137,7 @@ export class Menu {
                             items={this.items}
                             type="menu"
                             badgeIcons={this.badgeIcons}
-                            onChange={this.onListChange}
+                            onSelect={this.handleSelect}
                             ref={this.setListElement}
                         />
                     </limel-menu-surface>
@@ -191,14 +182,8 @@ export class Menu {
         this.open = !this.open;
     };
 
-    private onListChange = (event) => {
-        this.items = this.items.map((item: MenuItem) => {
-            if (item === event.detail) {
-                return event.detail;
-            }
-
-            return item;
-        });
+    private handleSelect = (event: CustomEvent<MenuItem>) => {
+        event.stopPropagation();
         this.select.emit(event.detail);
         this.open = false;
     };

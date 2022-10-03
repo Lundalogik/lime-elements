@@ -1,3 +1,22 @@
+## [36.0.0-next.33](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.32...v36.0.0-next.33) (2022-09-30)
+
+
+### Bug Fixes
+
+* **table:** enable select all checkbox without totalRows, only data ([15b3abf](https://github.com/Lundalogik/lime-elements/commit/15b3abf91a798d012fb4610f23488f17a3b0a193))
+
+## [36.0.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.31...v36.0.0-next.32) (2022-09-29)
+
+
+### Bug Fixes
+
+* **menu:** remove superfluous type for `change` event ([2ddc38f](https://github.com/Lundalogik/lime-elements/commit/2ddc38fcbbd9177e8599f2237e9af798657d8ff1))
+
+
+### Performance Improvements
+
+* **menu:** remove meaningless iteration of all menu items ([85fc44a](https://github.com/Lundalogik/lime-elements/commit/85fc44ae8dd0f7013079523381bc2b9b06c516a0))
+
 ## [36.0.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.30...v36.0.0-next.31) (2022-09-27)
 
 
