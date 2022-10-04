@@ -1,0 +1,21 @@
+:host(limel-example-badge-number) {
+    display: flex;
+    justify-content: space-between;
+}
+
+limel-badge {
+    &:nth-of-type(2) {
+        --badge-background-color: rgb(var(--color-red-default));
+        --badge-text-color: rgb(var(--color-yellow-lighter));
+    }
+
+    &:nth-of-type(3) {
+        --badge-background-color: rgb(var(--color-green-default));
+        --badge-text-color: rgb(var(--color-gray-lighter));
+    }
+
+    &:nth-of-type(4) {
+        --badge-background-color: rgb(var(--color-blue-default));
+        --badge-text-color: rgb(var(--color-white));
+    }
+}
