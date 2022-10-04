@@ -1,3 +1,97 @@
+## [36.0.0](https://github.com/Lundalogik/lime-elements/compare/v35.0.0...v36.0.0) (2022-10-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **icon-button:** Size of icon-button has decreased from `48px` (`3rem`)
+to `36px` (`2.5rem`), to make it similar to other elements such as
+buttons and button groups. But this size change may visually
+affect your UI. Also note that the elevated mode of icon-button renders
+slightly larger icon, and the elevation shadow effect is applied to
+the entire clickable area of the button.
+* **menu:** Along with adding more supported values for `openDirection`, we
+have renamed the two previously supported values. `right` has been
+renamed to `bottom-start`, and `left` has been renamed to
+`bottom-end`. The default value has been changed from `right` to
+`bottom-start`, so if you have been using the default value, your
+menu will still be positioned the same way after this update.
+However, if you have used either `left` or `right` explicitly, you
+will need to update those values to have your menu positioned the
+same as before. For examples, please see the documentation for
+`limel-menu`.
+
+### Features
+
+* **button:** add loadingFailed property ([64d2eb9](https://github.com/Lundalogik/lime-elements/commit/64d2eb9285a440fd72778bd6b1f9592eae7649d0)), closes [Lundalogik/crm-feature#2733](https://github.com/Lundalogik/crm-feature/issues/2733)
+* **button:** automatically disable button when `loading` is `true` ([117f104](https://github.com/Lundalogik/lime-elements/commit/117f104dc951a7e944a7d2f2c84de4763cf8498d))
+* **chip-set:** make it possible to set `input` type of `search` or `text` ([3f29654](https://github.com/Lundalogik/lime-elements/commit/3f29654688758af234881a388e812c6fafb97b49))
+* **code-editor:** allow modifying code's font size ([5cd7126](https://github.com/Lundalogik/lime-elements/commit/5cd71264a2653d7de31a9d29a90fec5dfd480a15))
+* **code-editor:** lint and fold json ([8e3c790](https://github.com/Lundalogik/lime-elements/commit/8e3c79070453fed3c59c88e732da01087bd2ff33))
+* **date-picker:** enable adding placeholder text ([4277850](https://github.com/Lundalogik/lime-elements/commit/4277850d1c5b46cbbf84bc68383d9aa3a87848b5))
+* **dialog:** add CSS properties for max size ([5dd52fe](https://github.com/Lundalogik/lime-elements/commit/5dd52feb9b743b9388ffb2300fb8903a538cb951))
+* **dock:** add new (still private) component `limel-dock` ([d292a4e](https://github.com/Lundalogik/lime-elements/commit/d292a4e2ecaf82f8c3677fd9e1f3f5c9385fed41))
+* **dock:** emit event when dock is expanded or collapsed ([94e1b9e](https://github.com/Lundalogik/lime-elements/commit/94e1b9ef47419d139072a1e0f74b46305637a544))
+* **dock-button:** emit event when dock menu is opened ([e3e3087](https://github.com/Lundalogik/lime-elements/commit/e3e3087f520521968cdba561a314b5b876126b27))
+* **dock-button:** enable keyboard navigation in dock menu items ([420315a](https://github.com/Lundalogik/lime-elements/commit/420315ab0378a5cc26de931045c7ae7f55bca6ec))
+* **form:** add `params` to `FormError` ([2db5640](https://github.com/Lundalogik/lime-elements/commit/2db56405d4c4812b7409ba949aea417ee2e36453))
+* **forms:** set rjsf collapsible sections id ([87bf2e2](https://github.com/Lundalogik/lime-elements/commit/87bf2e26020f63c87a6ae34b13164e4e187bfdf9))
+* **input-field:** add support for displaying prefix and suffix ([d48063f](https://github.com/Lundalogik/lime-elements/commit/d48063fa76fb2c69a25aa1733b1e7b02942cf493))
+* **input-field:** enable adding placeholder text ([01546cf](https://github.com/Lundalogik/lime-elements/commit/01546cfe2e57410cb8347644219d7c3fcea8bd0b))
+* **list:** make list-item menu open from the top left corner of the menu button ([484cc0d](https://github.com/Lundalogik/lime-elements/commit/484cc0dd2f50a44378ec952e2ee53e3cb16d38c5))
+* **menu:** add more open direction possibilities for menu dropdown ([9109279](https://github.com/Lundalogik/lime-elements/commit/9109279b22c20abf2531aa29dbe646cb78341089))
+* **packages:** upgrade lime-icons8 from 2.7.0 to 2.8.0 ([3f99c53](https://github.com/Lundalogik/lime-elements/commit/3f99c532f33ac4a940742cf5378a65d4556af0f3))
+* **popover:** add property `openDirection` ([eb52462](https://github.com/Lundalogik/lime-elements/commit/eb52462fdaa7b8f0698c3a1281706fdd080c6415))
+* **table:** allow disabling the column sorting possibility for end-users ([2845b00](https://github.com/Lundalogik/lime-elements/commit/2845b00e4cb8176c1c55648c7eaae149925dbf51))
+* **table:** allow specifying max-width for columns ([fa30324](https://github.com/Lundalogik/lime-elements/commit/fa303243998db614ab8144616d3ca69f1b40a16c))
+* **table:** enable new layout options ([e0acae4](https://github.com/Lundalogik/lime-elements/commit/e0acae4051464c924a7fdffb1f668f1841ab9338))
+
+
+### Bug Fixes
+
+* **button:** remove the `ripple` div & add our own keyboard focus styles ([c8c633a](https://github.com/Lundalogik/lime-elements/commit/c8c633a2f7d8a34f1a1a2559bbbd2cfa8da703eb))
+* **button:** remove the extra left margin of the icon ([7a4f7bc](https://github.com/Lundalogik/lime-elements/commit/7a4f7bcc0a39f2fd3c736dfc3bd5d810907b25a4))
+* **chip-set:** prevent visual defects if no label is provided ([7270779](https://github.com/Lundalogik/lime-elements/commit/7270779878ecadb0422ea57c9384115d8989c270))
+* **code-editor:** avoid null reference in codemirror ([f6a274a](https://github.com/Lundalogik/lime-elements/commit/f6a274a0026e8709da42525e1c55d91ceb43f748))
+* **code-editor:** indent with spaces ([323fb35](https://github.com/Lundalogik/lime-elements/commit/323fb35946ca4e35c9c8bd4a4bc55ba7e927d888))
+* **code-editor:** reduce code's font size ([285148a](https://github.com/Lundalogik/lime-elements/commit/285148a8c338c5e244e3e01cbf9c19a39f5682e7))
+* **code-editor:** stretch to parent ([8c8afcd](https://github.com/Lundalogik/lime-elements/commit/8c8afcd597d928b23683db10fb89f70f1ff90703))
+* **code-editor:** translate null value to empty string ([0adafc2](https://github.com/Lundalogik/lime-elements/commit/0adafc233516efd3331cfe0ab7ee216ccca1e448))
+* **code-editor:** update editor when value changes ([d39b625](https://github.com/Lundalogik/lime-elements/commit/d39b6259b00ea10b001e62cc85fb783d53e67317))
+* **date-picker:** prevent click actions when component is disabled or readonly ([250f221](https://github.com/Lundalogik/lime-elements/commit/250f221dc010235ba1dc6a02f4d250ded6b8e93b))
+* **dialog:** make it possible to update closing actions ([4c6b8d3](https://github.com/Lundalogik/lime-elements/commit/4c6b8d316ecb8196f2fb59811a4270fde586de8e)), closes [Lundalogik/crm-feature#1122](https://github.com/Lundalogik/crm-feature/issues/1122)
+* **dock:** add missing `close` prop to parent component, which already exists on dock items ([647b141](https://github.com/Lundalogik/lime-elements/commit/647b141af36feabe9b88b3d4f27b3e9d0593db16))
+* **dock:** correctly use `itemSelected` (instead of `interact`) ([8976d1d](https://github.com/Lundalogik/lime-elements/commit/8976d1df98e31d21eac202b9e2ba0ae9ff31ee21))
+* **dock:** emit event when a dock menu is opened ([84bf6bd](https://github.com/Lundalogik/lime-elements/commit/84bf6bded54fa31fd1c6e6694c83a74e4b3397e6))
+* **dock:** remove `--deselected` suffix from CSS vars ([0573bcc](https://github.com/Lundalogik/lime-elements/commit/0573bcc7d1a80a1b633349267b0f555ffe1ecfa9))
+* **dock:** truncate label of popover dock items & prevent overflow of label ([c41f4cf](https://github.com/Lundalogik/lime-elements/commit/c41f4cf6d1cd2b898791114827cc29482e064d4d))
+* **form:** avoid crash if object-field is missing $ref ([f9b9106](https://github.com/Lundalogik/lime-elements/commit/f9b9106dda265ba06590d23ae2a07c52d5e1f599))
+* **form:** avoid crash when subschema has no properties ([5bc32ff](https://github.com/Lundalogik/lime-elements/commit/5bc32ffe2bc996d09a256203229ee6acfc376760)), closes [Lundalogik/crm-feature#2857](https://github.com/Lundalogik/crm-feature/issues/2857)
+* **header:** make narrow headers appear even smaller ([c118865](https://github.com/Lundalogik/lime-elements/commit/c1188655ea7800bfd1a7520ecebe8bba4d488a70))
+* **icon-button:** get rid of ripple effect ([b5f6850](https://github.com/Lundalogik/lime-elements/commit/b5f6850c5a5f0f3b8d65834b40f938912688b7b6))
+* **icon-button:** unify look & feel with limel-button ([eac2d68](https://github.com/Lundalogik/lime-elements/commit/eac2d685d1e81b3ff718bfd92de671db99889d7a))
+* **input-field:** prevent visual defects if no label is provided ([fc627fe](https://github.com/Lundalogik/lime-elements/commit/fc627fef7590529f2f4dc61281579b410efefc51))
+* **list:** make action menu accessible with keyboard ([f36247d](https://github.com/Lundalogik/lime-elements/commit/f36247d8ad31b115eebcb0f0ed9b9e16148120e0))
+* **list:** make on hover ripple effect of list item menu centered ([21aa98f](https://github.com/Lundalogik/lime-elements/commit/21aa98f6e2dfb3e6c53fa8c87ef90e45e4db8d6d))
+* **list:** prevent z-index overlapping problems by isolating the component ([076a7ce](https://github.com/Lundalogik/lime-elements/commit/076a7ce16c04522acb44f167185d942a1784e526))
+* **menu:** remove superfluous type for `change` event ([2ddc38f](https://github.com/Lundalogik/lime-elements/commit/2ddc38fcbbd9177e8599f2237e9af798657d8ff1))
+* **picker:** improve look and readability of empty result message ([e025940](https://github.com/Lundalogik/lime-elements/commit/e025940fe6c2ef69686543257200c5e9408fa141))
+* **picker:** set `inputType` to `search` ([75738a5](https://github.com/Lundalogik/lime-elements/commit/75738a51758116941123b6e6c863e9c0de12c103))
+* **progress-flow:** improve visualization of `disabled` but `selected` steps ([f13c2d2](https://github.com/Lundalogik/lime-elements/commit/f13c2d2af6a33fbab11b15b48074bc33922ca367))
+* **progress-flow:** make it possible to set an icon color ([33ecb3c](https://github.com/Lundalogik/lime-elements/commit/33ecb3c887af763ee01f4fd24b6e4bbb208791d2))
+* **progress-flow:** prevent `z-index` overlapping problems by isolating the component ([f70ec67](https://github.com/Lundalogik/lime-elements/commit/f70ec67c8d0bf3ad4c1cb14fba2c1c62add6fbad))
+* **progress-flow:** visualize disabled steps better ([0355d0a](https://github.com/Lundalogik/lime-elements/commit/0355d0a73c060b2dacd64b8b9d20bd22db0ba4e1))
+* **select:** rotate the dropdown graphic (caret) when menu is opened or closed ([290760e](https://github.com/Lundalogik/lime-elements/commit/290760eb070231e35506611e673619cb58af2fb0))
+* **select:** set `aria-required` and `aria-disabled` on trigger elements to improve accessibility ([97cd086](https://github.com/Lundalogik/lime-elements/commit/97cd0865a0964b2d6b02ac8963d7af45e0e9bdee))
+* **table:** add a gap between column header component & title text ([06a04f8](https://github.com/Lundalogik/lime-elements/commit/06a04f8d5f897885aae5d08da2433e185f7a3a5b))
+* **table:** enable select all checkbox without totalRows, only data ([15b3abf](https://github.com/Lundalogik/lime-elements/commit/15b3abf91a798d012fb4610f23488f17a3b0a193))
+* **table:** move sorter arrow to column header's left side ([a8bc13b](https://github.com/Lundalogik/lime-elements/commit/a8bc13b30e0404fbf42d77b8276eda2d81023f91))
+* **table:** show sorter arrow only when column is sorted ([b1d3e4a](https://github.com/Lundalogik/lime-elements/commit/b1d3e4a3c8a6788b4b2140d6dc913b40648fc669))
+
+
+### Performance Improvements
+
+* **menu:** remove meaningless iteration of all menu items ([85fc44a](https://github.com/Lundalogik/lime-elements/commit/85fc44ae8dd0f7013079523381bc2b9b06c516a0))
+
 ## [36.0.0-next.34](https://github.com/Lundalogik/lime-elements/compare/v36.0.0-next.33...v36.0.0-next.34) (2022-10-03)
 
 
