@@ -1,6 +1,7 @@
 @use '../../style/functions';
 @use '../../style/internal/lime-theme';
 @use '../../style/internal/lime-typography';
+@use '../../style/mixins';
 
 /**
  * @prop --badge-background-color: badge background color
@@ -30,4 +31,9 @@
 
     background-color: var(--badge-background-color, rgb(var(--contrast-500)));
     color: var(--badge-text-color, rgb(var(--contrast-1200)));
+}
+span {
+    @include mixins.truncate-text;
+    min-width: 0;
+    max-width: 6ch;
 }
