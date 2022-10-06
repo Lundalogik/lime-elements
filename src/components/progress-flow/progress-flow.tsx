@@ -99,6 +99,7 @@ export class ProgressFlow {
                 readonly={this.readonly}
                 item={item}
                 onInteract={this.handleFlowItemClick(item)}
+                data-tracking-value={item.value}
             />
         );
     };
@@ -122,6 +123,7 @@ export class ProgressFlow {
                 readonly={this.readonly}
                 item={item}
                 onInteract={this.handleFlowItemClick(item)}
+                data-tracking-value={item.value}
             />
         );
     };
