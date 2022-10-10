@@ -11,7 +11,7 @@ export function abbreviate(value: number): string {
         return '';
     }
 
-    const units = ['k', 'M', 'B', 'T'];
+    const units = ['K', 'M', 'B', 'T'];
     const numAbbr = new NumAbbr(units);
 
     return numAbbr.abbreviate(value, 1);
