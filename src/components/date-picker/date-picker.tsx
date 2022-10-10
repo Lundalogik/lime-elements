@@ -86,6 +86,12 @@ export class DatePicker {
     public label: string;
 
     /**
+     * The placeholder text shown inside the input field, when the field is focused and empty
+     */
+    @Prop({ reflect: true })
+    public placeholder: string;
+
+    /**
      * Optional helper text to display below the input field when it has focus
      */
     @Prop({ reflect: true })
@@ -187,28 +193,6 @@ export class DatePicker {
 
         if (this.useNative) {
             return (
-                <div class="container">
-                    <limel-input-field
-                        disabled={this.disabled}
-                        readonly={this.readonly}
-                        invalid={this.invalid}
-                        label={this.label}
-                        helperText={this.helperText}
-                        required={this.required}
-                        value={this.formattedValue}
-                        type={this.nativeType}
-                        onChange={this.nativeChangeHandler}
-                    />
-                </div>
-            );
-        }
-
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index'
-        );
-
-        return (
-            <div class="container">
                 <limel-input-field
                     disabled={this.disabled}
                     readonly={this.readonly}
@@ -217,30 +201,49 @@ export class DatePicker {
                     helperText={this.helperText}
                     required={this.required}
                     value={this.formattedValue}
-                    onFocus={this.showCalendar}
-                    onBlur={this.hideCalendar}
-                    onClick={this.onInputClick}
-                    onChange={this.handleInputElementChange}
-                    ref={(el) => (this.textField = el)}
-                    {...inputProps}
+                    type={this.nativeType}
+                    onChange={this.nativeChangeHandler}
                 />
-                <limel-portal
-                    containerId={this.portalId}
-                    visible={this.showPortal}
-                    containerStyle={{ 'z-index': dropdownZIndex }}
-                >
-                    <limel-flatpickr-adapter
-                        format={this.internalFormat}
-                        language={this.language}
-                        type={this.type}
-                        value={this.value}
-                        ref={(el) => (this.datePickerCalendar = el)}
-                        isOpen={this.showPortal}
-                        onChange={this.handleCalendarChange}
-                    />
-                </limel-portal>
-            </div>
+            );
+        }
+
+        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
+            '--dropdown-z-index'
         );
+
+        return [
+            <limel-input-field
+                disabled={this.disabled}
+                readonly={this.readonly}
+                invalid={this.invalid}
+                label={this.label}
+                placeholder={this.placeholder}
+                helperText={this.helperText}
+                required={this.required}
+                value={this.formattedValue}
+                onFocus={this.showCalendar}
+                onBlur={this.hideCalendar}
+                onClick={this.onInputClick}
+                onChange={this.handleInputElementChange}
+                ref={(el) => (this.textField = el)}
+                {...inputProps}
+            />,
+            <limel-portal
+                containerId={this.portalId}
+                visible={this.showPortal}
+                containerStyle={{ 'z-index': dropdownZIndex }}
+            >
+                <limel-flatpickr-adapter
+                    format={this.internalFormat}
+                    language={this.language}
+                    type={this.type}
+                    value={this.value}
+                    ref={(el) => (this.datePickerCalendar = el)}
+                    isOpen={this.showPortal}
+                    onChange={this.handleCalendarChange}
+                />
+            </limel-portal>,
+        ];
     }
 
     @Watch('value')

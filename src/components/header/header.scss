@@ -12,7 +12,7 @@
  * @prop --header-responsive-breakpoint: Defines the minimum allowed `width` of both information and actions areas in the header, defaults to `22rem`.
  */
 
-:host {
+:host(limel-header) {
     display: flex;
     align-items: center;
     box-sizing: border-box;
@@ -36,36 +36,38 @@
     min-width: 0;
 }
 
-.information__icon {
+.icon {
     flex-shrink: 0;
     color: var(--header-icon-color, rgb(var(--contrast-1100)));
     background-color: var(--header-icon-background-color, transparent);
+    width: functions.pxToRem(28);
+    margin: 0 functions.pxToRem(8);
 }
 
-.information__headings {
+.headings {
     min-width: 0;
     margin-left: functions.pxToRem(4);
 }
 
-.information__headings__heading,
-.information__headings__subheading {
+.heading,
+.subheading {
     @include mixins.truncate-text;
     margin: 0;
     padding: 0;
 }
 
-.information__headings__heading {
+.heading {
     color: var(--header-heading-color, rgb(var(--contrast-1100)));
     font-size: functions.pxToRem(17);
 }
 
-.information__headings__subheading {
+.subheading {
     color: var(--header-subheading-color, rgb(var(--contrast-900)));
     font-size: functions.pxToRem(14);
     font-weight: lighter;
 }
 
-.information__headings__subheading__supporting-text {
+.subheading__supporting-text {
     color: var(--header-supporting-text-color, var(--header-subheading-color));
     span {
         margin: 0 functions.pxToRem(8);
@@ -77,17 +79,19 @@
     flex-shrink: 0;
 }
 
-:host(.is-narrow) {
-    .information__icon {
-        margin: functions.pxToRem(-12) functions.pxToRem(-8);
-        transform: scale(0.8);
+:host(limel-header.is-narrow) {
+    padding: functions.pxToRem(2) functions.pxToRem(4);
+
+    .icon {
+        margin-right: functions.pxToRem(2);
+        width: functions.pxToRem(20);
     }
-    .information__headings__heading {
+    .heading {
         font-size: functions.pxToRem(15);
     }
 }
 
-:host(.has-responsive-layout) {
+:host(limel-header.has-responsive-layout) {
     display: grid;
     grid-template-columns: repeat(
         auto-fit,
@@ -100,7 +104,7 @@
             1fr
         )
     );
-    .information__headings {
+    .headings {
         padding-right: functions.pxToRem(8);
     }
     .actions {

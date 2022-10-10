@@ -1,0 +1,21 @@
+.lime-checkbox--readonly.mdc-checkbox--disabled {
+    opacity: 1;
+    --mdc-ripple-press-opacity: 1;
+    --mdc-checkbox-disabled-color: transparent;
+    --mdc-checkbox-ink-color: var(--mdc-theme-primary);
+
+    :not(:checked):not(:indeterminate) {
+        ~ .mdc-checkbox__background {
+            --mdc-checkbox-disabled-color: transparent;
+            --mdc-checkbox-ink-color: transparent;
+            --lime-checkbox-unchecked-color: transparent;
+
+            &:after {
+                color: rgb(var(--color-red-default));
+                content: '×';
+                font-size: 1.25rem;
+                position: absolute;
+            }
+        }
+    }
+}

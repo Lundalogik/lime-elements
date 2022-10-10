@@ -1,6 +1,8 @@
 import { Component, h, Prop, Element, State } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 
+const DEFAULT_MAX_LENGTH = 50;
+
 /**
  * A tooltip can be used to display a descriptive text for any element.
  * The displayed content must be a brief and supplemental string of text,
@@ -41,6 +43,8 @@ import { createRandomString } from '../../util/random-string';
  * effortlessly recognize can be hovered.
  *
  * @exampleComponent limel-example-tooltip
+ * @exampleComponent limel-example-tooltip-max-character
+ * @exampleComponent limel-example-tooltip-composite
  * @private
  */
 @Component({
@@ -49,6 +53,14 @@ import { createRandomString } from '../../util/random-string';
     styleUrl: 'tooltip.scss',
 })
 export class Tooltip {
+    /**
+     * ID of the owner element that the tooltip should describe.
+     * Must be a child within the same document fragment as the tooltip element
+     * itself.
+     */
+    @Prop({ reflect: true })
+    public elementId!: string;
+
     /**
      * Short descriptive text of the owner element.
      */
@@ -61,15 +73,14 @@ export class Tooltip {
      * owner element.
      */
     @Prop({ reflect: true })
-    public helperLabel: string;
+    public helperLabel?: string;
 
     /**
-     * ID of the owner element that the tooltip should describe.
-     * Must be a child within the same document fragment as the tooltip element
-     * itself.
+     * The maximum amount of characters before rendering 'label' and
+     * 'helperLabel' in two rows.
      */
     @Prop({ reflect: true })
-    public elementId!: string;
+    public maxlength?: number = DEFAULT_MAX_LENGTH;
 
     @State()
     private open: boolean;
@@ -103,6 +114,7 @@ export class Tooltip {
         return (
             <div class="trigger-anchor">
                 <limel-portal
+                    openDirection="bottom-start"
                     visible={this.open}
                     containerId={this.portalId}
                     containerStyle={{
@@ -113,6 +125,7 @@ export class Tooltip {
                     <limel-tooltip-content
                         label={this.label}
                         helperLabel={this.helperLabel}
+                        maxlength={this.maxlength}
                         role="tooltip"
                         aria-hidden={!this.open}
                         id={this.tooltipId}

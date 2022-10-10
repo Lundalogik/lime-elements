@@ -195,11 +195,7 @@ export class ListRenderer {
     };
 
     private isSimpleItem = (item: ListItem): boolean => {
-        if ('secondaryText' in item) {
-            return false;
-        }
-
-        return true;
+        return !('secondaryText' in item);
     };
 
     /**
@@ -251,9 +247,13 @@ export class ListRenderer {
             <limel-menu
                 class="mdc-deprecated-list-item__meta"
                 items={actions}
-                openDirection="left"
+                openDirection="left-start"
             >
-                <limel-icon slot="trigger" name="menu_2" size="small" />
+                <limel-icon-button
+                    class="action-menu-trigger"
+                    slot="trigger"
+                    icon="menu_2"
+                />
             </limel-menu>
         );
     };

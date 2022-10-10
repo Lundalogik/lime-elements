@@ -20,6 +20,7 @@
 
 button {
     @include mixins.is-elevated-clickable();
+    @include mixins.visualize-keyboard-focus;
 
     &.mdc-button {
         min-width: functions.pxToRem(36);
@@ -57,6 +58,15 @@ button {
                 border-color: rgba(var(--contrast-1700), 0.2);
             }
         }
+
+        .mdc-button__icon {
+            flex-shrink: 0;
+            margin-left: functions.pxToRem(-4);
+
+            &.no-label {
+                margin-right: functions.pxToRem(-4);
+            }
+        }
     }
 
     .label {
@@ -69,26 +79,21 @@ button {
         position: absolute;
     }
 
-    .mdc-button__icon {
-        flex-shrink: 0;
-    }
-
-    .mdc-button__icon.no-label {
-        margin-right: functions.pxToRem(-4);
-        margin-left: functions.pxToRem(-4);
-    }
-
     limel-icon {
         vertical-align: top;
     }
 
     svg {
-        fill: currentColor;
         height: functions.pxToRem(30);
         opacity: 0;
         pointer-events: none;
         position: absolute;
         width: functions.pxToRem(30);
+
+        line {
+            stroke: rgb(var(--color-white));
+            stroke-width: 2;
+        }
     }
 
     limel-icon,
@@ -109,7 +114,8 @@ button {
         }
     }
 
-    &.just-loaded {
+    &.just-loaded,
+    &.just-failed {
         limel-icon,
         .label {
             opacity: 0;
@@ -119,7 +125,13 @@ button {
         }
         limel-spinner {
             display: block;
+            animation: fade-out-spinner 0.3s ease;
         }
+    }
+
+    &.just-failed {
+        background-color: var(--lime-error-text-color) !important;
+        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     }
 }
 
@@ -127,50 +139,38 @@ button {
     @include button.outline-color(primary);
 }
 
-$speed-of-reducing-presence: 0.3s;
-
-@keyframes reduced-presence {
+@keyframes fade-out-spinner {
     0% {
         opacity: 1;
         transform: scale(1);
     }
     100% {
         opacity: 0;
-        transform: scale(0.7);
+        transform: scale(1.5);
     }
 }
 
-:host(.has-reduced-presence) {
-    button {
-        &[disabled]:not(.loading):not(.just-loaded) {
-            animation: reduced-presence $speed-of-reducing-presence ease
-                forwards;
-            transition: padding $speed-of-reducing-presence ease,
-                min-width $speed-of-reducing-presence ease;
-            transition-delay: $speed-of-reducing-presence;
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(#{functions.pxToRem(-1)}, 0, 0);
+    }
 
-            padding: 0;
-            min-width: 0;
-            // we don't animate `min-height` and reset it to `0`, otherwise the
-            // button completely dissapear physically and can sometimes layout-shifts
-            // in the UI
+    20%,
+    80% {
+        transform: translate3d(#{functions.pxToRem(2)}, 0, 0);
+    }
 
-            .label {
-                transition: font-size 0.8s ease;
-                transition-delay: $speed-of-reducing-presence;
-                font-size: 0;
-                opacity: 0;
-            }
-            limel-icon,
-            limel-spinner,
-            svg {
-                transition: all $speed-of-reducing-presence ease;
-                transition-delay: $speed-of-reducing-presence;
+    30%,
+    50%,
+    70% {
+        transform: translate3d(#{functions.pxToRem(-3)}, 0, 0);
+    }
 
-                opacity: 0;
-                width: 0;
-                height: 0;
-            }
-        }
+    40%,
+    60% {
+        transform: translate3d(#{functions.pxToRem(3)}, 0, 0);
     }
 }
+
+@import './partial-styles/_has-reduced-presence';

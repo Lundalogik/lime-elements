@@ -3,7 +3,7 @@
     background-color: var(--step-background);
 
     .icon {
-        color: var(--progress-flow-icon-color, var(--step-text));
+        color: var(--progress-flow-icon-color--inactive, var(--step-text));
     }
 
     .flow-item.selected & {

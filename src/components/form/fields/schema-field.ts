@@ -72,7 +72,6 @@ export function getFactoryProps(
     formContext: any,
     schema: any
 ): Record<string, any> {
-    // eslint-disable-next-line no-shadow
     const factory: (schema: any) => Record<string, any> =
         formContext.propsFactory;
     if (typeof factory !== 'function') {
@@ -150,7 +149,9 @@ export class SchemaField extends React.Component<FieldProps> {
         const { errorSchema, schema } = this.props;
 
         if (!this.isInvalid()) {
-            return schema.description;
+            const helperText = schema.lime?.component?.props?.helperText;
+
+            return helperText || schema.description;
         }
 
         if (!isEmpty(errorSchema) && '__errors' in errorSchema) {

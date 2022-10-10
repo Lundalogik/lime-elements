@@ -6,7 +6,7 @@
 /**
  * @prop --closed-header-background-color: background color for header when closed
  * @prop --open-header-background-color: background color for header when open
- * @prop --header-stroke-color: color of the animated icons that visulize collapsed or normal states of the headers, as well as the divider line on headers
+ * @prop --header-stroke-color: color of the animated icons that visualize collapsed or normal states of the headers, as well as the divider line on headers
  * @prop --body-background-color: background color for body
  * @prop --body-padding: space around content of the body
  */
@@ -25,6 +25,8 @@
 }
 
 .section__header {
+    @include mixins.visualize-keyboard-focus;
+
     transition: background-color 0.4s ease, border-radius 0.1s ease;
     cursor: pointer;
 
@@ -56,18 +58,12 @@
             );
         }
     }
+
     &:hover {
         background-color: var(
             --open-header-background-color,
             rgb(var(--contrast-300))
         );
-    }
-
-    &:focus {
-        outline: none;
-    }
-    &:focus-visible {
-        box-shadow: var(--shadow-depth-8-focused);
     }
 }
 

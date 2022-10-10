@@ -14,6 +14,7 @@ const runBuild = argv.noBuild === undefined;
 const runCommit = argv.noCommit === undefined;
 const runPush = argv.noPush === undefined;
 const forcePush = !!argv.forcePush;
+const pruneOutdated = argv.noPruneOutdated === undefined;
 const runTeardown = argv.noTeardown === undefined;
 
 const cleanOnFail = runTeardown && argv.noCleanOnFail === undefined;
@@ -23,8 +24,9 @@ const BASE_URL = '/lime-elements/';
 
 if (argv.h !== undefined) {
     shell.echo(`
-usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev]
-                                [--noSetup] [--noBuild] [--noCommit] [--noPush]
+usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
+                                [--pruneDev] [--noSetup] [--noBuild]
+                                [--noCommit] [--noPush] [--noPruneOutdated]
                                 [--noTeardown] [--dryRun] [--noCleanOnFail]
                                 [--gitUser=<commit author name>]
                                 [--gitEmail=<commit author email>]]
@@ -34,8 +36,8 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
     --dryRun        Use dry-run mode. Do not push any changes.
     --remove        Removes all versions matching the given filename-pattern.
     --pruneDev      Alias for --remove=0.0.0-dev*
-    --noSetup       Run no setup. Only use this if you have previously run the setup step
-                    without running the teardown step afterward.
+    --noSetup       Run no setup. Only use this if you have previously run the
+                    setup step without running the teardown step afterward.
     --noBuild       Do not build the documentation.
     --noCommit      Do not commit any changes.
     --noPush        Do not push any commits.
@@ -43,9 +45,11 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
                     when a new version has been released. Any less important
                     runs, like those publishing the docs for a pull request,
                     should NOT use this flag.
+    --noPruneOutdated
+                    Do not remove docs for outdated patch- and next-versions.
     --noTeardown    Run no cleanup at end of script. Implies --noCleanOnFail.
-    --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown is set,
-                    cleanup will still be run if script is successful.
+    --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown
+                    is set, cleanup will still be run if script is successful.
 
     --authorName    Commit author name. Will update the local git config if set.
                     Will use existing git config if omitted.
@@ -98,6 +102,10 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>] [--pruneDev
 
     if (runCommit) {
         commit();
+    }
+
+    if (pruneOutdated) {
+        pruneOldPatchAndNextVersions();
     }
 
     if (runPush) {
@@ -193,6 +201,8 @@ function build() {
         teardown();
         shell.exit(1);
     }
+
+    shell.exec('ls -la www');
 }
 
 function copyBuildOutput() {
@@ -233,7 +243,29 @@ function copyBuildOutput() {
         shell.exit(1);
     }
 
+    shell.echo(`Copying docs-index.html to 'docsDist/versions/${version}/'`);
+    if (
+        shell.cp('docs-index.html', `docsDist/versions/${version}/`).code !== 0
+    ) {
+        shell.echo(
+            '[WARNING] Copying docs-index.html failed. Not critical, continuing.'
+        );
+    }
+
     updateVersionList();
+
+    shell.echo('Copying docs-index.html from most recent `next` version');
+    if (
+        shell.cp(
+            '-f',
+            'docsDist/versions/next/docs-index.html',
+            'docsDist/index.html'
+        ).code !== 0
+    ) {
+        shell.echo(
+            '[WARNING] Copying docs-index.html from most recent `next` failed. Not critical, continuing.'
+        );
+    }
 }
 
 function remove(pattern) {
@@ -260,14 +292,74 @@ function updateVersionList() {
     // a letter are pull requests, pre-releases, or other special cases, not
     // eligible as "Latest".
     const fullVersions = files.filter((file) => file.match(/^[0-9].*/));
-    findLatestRelease(fullVersions, 'latest');
+    createSymlinkForRelease(fullVersions, 'latest');
 
     // Keep only versions that begin with `NEXT-`.
     const nextVersions = files.filter((file) => file.match(/^NEXT-.*/));
-    findLatestRelease(nextVersions, 'next');
+    createSymlinkForRelease(nextVersions, 'next');
 }
 
-function findLatestRelease(versions, alias) {
+function pruneOldPatchAndNextVersions() {
+    shell.cd('docsDist');
+    const files = fs
+        .readdirSync('versions')
+        .filter((file) => file !== 'latest' && file !== 'next');
+    shell.cd('..');
+
+    const fullVersionRegex = /^(\d*)\.(\d*)\.(\d*)$/;
+    const fullVersions = files.filter((file) => file.match(fullVersionRegex));
+
+    const collator = new Intl.Collator(undefined, {
+        numeric: true,
+        sensitivity: 'base',
+    });
+
+    // -------
+    // For any versions that have the same major and minor version, and only
+    // differ in the patch version, keep only the latest.
+    fullVersions.sort(collator.compare);
+    fullVersions.reverse();
+
+    let lastCheckedVersion = fullVersions.shift();
+    const versionsToDelete = [];
+    fullVersions.forEach((item) => {
+        const lastChecked = lastCheckedVersion.match(fullVersionRegex);
+        const current = item.match(fullVersionRegex);
+
+        if (lastChecked[1] === current[1] && lastChecked[2] === current[2]) {
+            versionsToDelete.push(item);
+        }
+
+        lastCheckedVersion = item;
+    });
+    // -------
+
+    // -------
+    // For any next-versions, only keep the latest one.
+    const nextVersionRegex = /^NEXT-(\d*)\.(\d*)\.(\d*)(.*)/;
+    const nextVersions = files.filter((file) => file.match(nextVersionRegex));
+
+    if (nextVersions.length > 1) {
+        nextVersions.sort(collator.compare);
+        nextVersions.reverse();
+        nextVersions.shift();
+
+        nextVersions.forEach((item) => {
+            versionsToDelete.push(item);
+        });
+    }
+    // -------
+
+    versionsToDelete.forEach((item) => {
+        remove(item);
+
+        if (runCommit) {
+            commit(`chore(docs): remove ${argv.remove}`);
+        }
+    });
+}
+
+function createSymlinkForRelease(versions, alias) {
     // We need to sort the strings alphanumerically, which javascript doesn't
     // do by default. So I found this neat solution at
     // https://blog.praveen.science/natural-sorting-in-javascript/#solution

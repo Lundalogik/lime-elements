@@ -45,7 +45,7 @@ export class Portal {
      * Decides which direction the portal content should open.
      */
     @Prop()
-    public openDirection: OpenDirection = 'right';
+    public openDirection: OpenDirection = 'bottom';
 
     /**
      * Position of the content.
@@ -268,13 +268,8 @@ export class Portal {
     private createPopperConfig(): Partial<
         OptionsGeneric<Partial<FlipModifier>>
     > {
-        let placement: Placement = 'bottom-start';
-        let flipPlacement: Placement = 'top-start';
-
-        if (this.openDirection === 'left') {
-            placement = 'bottom-end';
-            flipPlacement = 'top-end';
-        }
+        const placement = this.getPlacement(this.openDirection);
+        const flipPlacement = this.getFlipPlacement(this.openDirection);
 
         return {
             strategy: this.position,
@@ -288,6 +283,44 @@ export class Portal {
                 },
             ],
         };
+    }
+
+    private getPlacement(direction: OpenDirection): Placement {
+        const placements: Record<OpenDirection, Placement> = {
+            'left-start': 'left-start',
+            left: 'left',
+            'left-end': 'left-end',
+            'right-start': 'right-start',
+            right: 'right',
+            'right-end': 'right-end',
+            'top-start': 'top-start',
+            top: 'top',
+            'top-end': 'top-end',
+            'bottom-start': 'bottom-start',
+            bottom: 'bottom',
+            'bottom-end': 'bottom-end',
+        };
+
+        return placements[direction];
+    }
+
+    private getFlipPlacement(direction: OpenDirection): Placement {
+        const flipPlacements: Record<OpenDirection, Placement> = {
+            'left-start': 'right-start',
+            left: 'right',
+            'left-end': 'right-end',
+            'right-start': 'left-start',
+            right: 'left',
+            'right-end': 'left-end',
+            'top-start': 'bottom-start',
+            top: 'bottom',
+            'top-end': 'bottom-end',
+            'bottom-start': 'top-start',
+            bottom: 'top',
+            'bottom-end': 'top-end',
+        };
+
+        return flipPlacements[direction];
     }
 
     private ensureContainerFitsInViewPort() {

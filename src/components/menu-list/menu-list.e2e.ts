@@ -207,7 +207,7 @@ describe('limel-menu-list', () => {
             describe('the `change` event', () => {
                 let spy;
                 beforeEach(async () => {
-                    spy = await page.spyOnEvent('change');
+                    spy = await page.spyOnEvent('select');
                 });
                 describe('when an item is selected', () => {
                     let item;

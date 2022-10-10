@@ -19,12 +19,13 @@ import {
  * @slot trigger - Element to use as a trigger for the menu.
  * @exampleComponent limel-example-menu-basic
  * @exampleComponent limel-example-menu-disabled
- * @exampleComponent limel-example-menu-open-left
+ * @exampleComponent limel-example-menu-open-direction
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
- * @exampleComponent limel-example-menu-composite
  * @exampleComponent limel-example-menu-hotkeys
+ * @exampleComponent limel-example-menu-secondary-text
+ * @exampleComponent limel-example-menu-composite
  */
 @Component({
     tag: 'limel-menu',
@@ -45,15 +46,15 @@ export class Menu {
     public disabled = false;
 
     /**
-     * Decides if the menu should open right or left.
+     * Decides the menu's location in relation to its trigger
      */
     @Prop({ reflect: true })
-    public openDirection: OpenDirection = 'right';
+    public openDirection: OpenDirection = 'bottom-start';
 
     /**
      * Sets the open state of the menu.
      */
-    @Prop({ mutable: true, reflect: true }) // eslint-disable-line @stencil/strict-mutable
+    @Prop({ mutable: true, reflect: true })
     public open = false;
 
     /**
@@ -91,15 +92,6 @@ export class Menu {
         this.portalId = createRandomString();
     }
 
-    public componentDidLoad() {
-        if (!this.host.querySelector('[slot="trigger"]')) {
-            // eslint-disable-next-line no-console
-            console.warn(
-                'Using limel-menu with the default trigger is deprecated. Please provide your own trigger element.'
-            );
-        }
-    }
-
     @Watch('open')
     protected openWatcher() {
         if (!this.open) {
@@ -133,6 +125,9 @@ export class Menu {
                         open={this.open}
                         onDismiss={this.onClose}
                         style={cssProperties}
+                        class={{
+                            'has-grid-layout': this.gridLayout,
+                        }}
                     >
                         <limel-menu-list
                             class={{
@@ -142,7 +137,7 @@ export class Menu {
                             items={this.items}
                             type="menu"
                             badgeIcons={this.badgeIcons}
-                            onChange={this.onListChange}
+                            onSelect={this.handleSelect}
                             ref={this.setListElement}
                         />
                     </limel-menu-surface>
@@ -187,14 +182,8 @@ export class Menu {
         this.open = !this.open;
     };
 
-    private onListChange = (event) => {
-        this.items = this.items.map((item: MenuItem) => {
-            if (item === event.detail) {
-                return event.detail;
-            }
-
-            return item;
-        });
+    private handleSelect = (event: CustomEvent<MenuItem>) => {
+        event.stopPropagation();
         this.select.emit(event.detail);
         this.open = false;
     };

@@ -129,6 +129,7 @@ const filetypeBackgroundColorTable: Record<string, string> = {
 
 export function getIconBackgroundColorForFile(extension: string): string {
     return (
-        filetypeBackgroundColorTable[extension] || DEFAULT_ICON_BACKGROUND_COLOR
+        filetypeBackgroundColorTable[extension.toLowerCase()] ||
+        DEFAULT_ICON_BACKGROUND_COLOR
     );
 }

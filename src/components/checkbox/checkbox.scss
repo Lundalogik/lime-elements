@@ -11,44 +11,54 @@
 
 .mdc-form-field {
     display: flex;
-    flex-wrap: wrap;
+
+    .mdc-checkbox__background {
+        background-color: var(--lime-checkbox-unchecked-color);
+    }
 
     .mdc-checkbox {
+        .mdc-checkbox__native-control {
+            &[disabled],
+            &:enabled {
+                &:not(:checked):not(:indeterminate) {
+                    ~ .mdc-checkbox__background {
+                        --lime-checkbox-unchecked-color: rgb(
+                            var(--contrast-300)
+                        );
+                    }
+                }
+            }
+        }
+
         &.mdc-checkbox--invalid {
             .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate)
                 ~ .mdc-checkbox__background {
                 border-color: var(--lime-error-text-color);
             }
         }
-        &.mdc-ripple-upgraded {
-            .mdc-checkbox__native-control {
-                &:focus-visible {
-                    + .mdc-checkbox__background {
-                        &:after {
-                            content: '';
-                            display: block;
-                            position: absolute;
-                            top: -0.75rem;
-                            right: -0.75rem;
-                            bottom: -0.75rem;
-                            left: -0.75rem;
-                            border-radius: 50%;
-                            box-shadow: var(--shadow-depth-8-focused);
-                        }
+        .mdc-checkbox__native-control {
+            &:focus-visible {
+                + .mdc-checkbox__background {
+                    &:after {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        inset: -0.25rem;
+                        border-radius: 0.25rem;
+                        box-shadow: var(--shadow-depth-8-focused);
                     }
                 }
             }
         }
+    }
+    .mdc-checkbox--disabled {
+        opacity: 0.5;
     }
 
     label {
         cursor: pointer;
         line-height: normal;
         padding-left: 0;
-
-        &.mdc-checkbox--disabled {
-            opacity: 0.37;
-        }
 
         &.mdc-checkbox--required::after {
             margin-left: 0.0625rem;
@@ -61,25 +71,5 @@
     }
 }
 
-.mdc-form-field {
-    .mdc-checkbox {
-        &.mdc-ripple-upgraded {
-            .mdc-checkbox__ripple {
-                &:before {
-                    animation: fade-out-focus-style 1s ease forwards;
-                }
-            }
-        }
-    }
-}
-
-@keyframes fade-out-focus-style {
-    0% {
-        opacity: 0.12; // What Material Design sets
-    }
-    100% {
-        opacity: 0; // What we like it to become, a moment after it gets focused
-    }
-}
-
 @import './partial-styles/_helper-text.scss';
+@import './partial-styles/_readonly.scss';

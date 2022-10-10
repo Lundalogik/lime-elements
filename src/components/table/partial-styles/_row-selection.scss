@@ -1,0 +1,117 @@
+@use '../../../style/internal/z-index';
+@use '../../../style/functions';
+
+// .has-rowselector {} // Mabe useful later
+
+.select-all,
+.limel-table--row-selector {
+    --mdc-checkbox-touch-target-size: 1rem; // prevent the checkbox affecting the row height
+}
+
+.select-all {
+    position: absolute;
+    z-index: z-index.$table--limel-table--row-selector;
+    left: 0;
+    top: functions.pxToRem(6);
+    width: functions.pxToRem(41); // width of the selector column
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.limel-table--row-selector {
+    position: sticky !important; // otherwise will be overwritten from `.tabulator-row .tabulator-cell`
+    left: 0;
+    border-width: 0;
+    justify-content: center;
+    z-index: z-index.$table--limel-table--row-selector;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+
+    .tabulator-row-odd & {
+        background-image: linear-gradient(
+            to right,
+            rgb(var(--table-row-background-color--odd)) 70%,
+            rgb(var(--table-row-background-color--odd), 0)
+        );
+    }
+
+    .tabulator-row-even & {
+        background-image: linear-gradient(
+            to right,
+            rgb(var(--table-row-background-color--even)) 70%,
+            rgb(var(--table-row-background-color--even), 0)
+        );
+    }
+
+    .tabulator-row:not(.tabulator-calcs):hover & {
+        will-change: background-image;
+        background-image: linear-gradient(
+            to right,
+            rgb(var(--table-row-background-color--hover)) 70%,
+            rgb(var(--table-row-background-color--hover), 0)
+        );
+    }
+
+    .tabulator-row.active &,
+    .tabulator-row.active:hover & {
+        background-image: linear-gradient(
+            to right,
+            rgb(var(--table-row-background-color--active)) 70%,
+            rgb(var(--table-row-background-color--active), 0)
+        );
+    }
+
+    limel-checkbox {
+        transition: opacity 0.2s ease;
+        align-self: center;
+        opacity: 0.3;
+
+        .tabulator-row:hover & {
+            opacity: 1;
+        }
+
+        .has-selection & {
+            opacity: 1;
+        }
+    }
+
+    // make the row selector column non-resizeable by hiding
+    // the resize handles between the frozen column and the
+    // column next to it
+    .tabulator-col-resize-handle {
+        display: none;
+    }
+    & + .tabulator-col,
+    & + .tabulator-cell {
+        .tabulator-col-resize-handle.prev {
+            display: none;
+        }
+    }
+}
+
+.has-movable-columns
+    .tabulator-header
+    .tabulator-col.limel-table--row-selector {
+    border: none;
+    cursor: default !important;
+    pointer-events: none;
+    background-color: transparent;
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--table-header-background-color--hover)) 70%,
+        rgb(var(--table-header-background-color--hover), 0)
+    );
+    left: 0;
+}
+
+.tabulator-calcs {
+    .tabulator-cell {
+        .has-selection & {
+            color: var(
+                --table-arrow-color--active
+            ); // to indicate that aggregated numbers are coming from the selcted rows not all rows
+        }
+    }
+}

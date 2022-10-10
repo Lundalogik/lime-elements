@@ -54,6 +54,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
+    color: $input-text-color;
     font-size: functions.pxToRem(14);
     font-weight: 400;
     letter-spacing: 0.009375em;
@@ -85,6 +86,8 @@ $cropped-label-hack--font-size: 0.875rem; //14px
 @mixin looks-like-helper-line {
     padding-right: 1rem;
     padding-left: 1rem;
+    flex-basis: 100%; // works like a line-break. NOTE: parent must have `flex-wrap: wrap;` /Kia
+    width: 100%;
 }
 
 @mixin looks-like-helper-text {

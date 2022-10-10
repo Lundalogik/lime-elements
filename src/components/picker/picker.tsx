@@ -30,12 +30,13 @@ const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 
 /**
- * @exampleComponent limel-example-picker
+ * @exampleComponent limel-example-picker-single
  * @exampleComponent limel-example-picker-multiple
  * @exampleComponent limel-example-picker-icons
  * @exampleComponent limel-example-picker-empty-suggestions
  * @exampleComponent limel-example-picker-leading-icon
  * @exampleComponent limel-example-picker-static-actions
+ * @exampleComponent limel-example-picker-composite
  */
 @Component({
     tag: 'limel-picker',
@@ -241,6 +242,7 @@ export class Picker {
         return [
             <limel-chip-set
                 type="input"
+                inputType="search"
                 label={this.label}
                 helperText={this.helperText}
                 leadingIcon={this.leadingIcon}
@@ -382,11 +384,7 @@ export class Picker {
             return false;
         }
 
-        if (!this.chipSetEditMode) {
-            return false;
-        }
-
-        return true;
+        return !!this.chipSetEditMode;
     }
 
     private getDropdownContent() {
@@ -437,8 +435,9 @@ export class Picker {
         }
 
         const style = {
-            color: 'var(--lime-light-grey, #{$lime-light-grey})',
+            color: 'rgb(var(--contrast-1100))',
             'text-align': 'center',
+            margin: '0.5rem 1rem',
         };
 
         return <p style={style}>{this.emptyResultMessage}</p>;
@@ -488,7 +487,7 @@ export class Picker {
                     open={content.length > 0}
                     allowClicksElement={this.host}
                     style={{
-                        '--menu-surface-width': '100%',
+                        '--mdc-menu-min-width': '100%',
                         'max-height': 'inherit',
                         display: 'flex',
                     }}

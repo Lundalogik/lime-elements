@@ -3,11 +3,11 @@ import { Component, h, State } from '@stencil/core';
 /**
  * Reduce Presence
  *
- * This example is identical to the one above, except that here, the
- * `has-reduced-presence` class has been set to `true`. This will hide the
- * button when it is disabled. However, it will also make sure that the button
- * remains visible while the loading animation is ongoing. When the animation is
- * done and the checkmark has been shown, the button will hide.
+ * This example is identical to the "With click handler" example, except that
+ * here, the `has-reduced-presence` class has been set to `true`. This will hide
+ * the button when it is disabled. However, it will also make sure that the
+ * button remains visible while the loading animation is ongoing. When the
+ * animation is done and the checkmark has been shown, the button will hide.
  *
  * Read more in the [Design Guidelines](#/DesignGuidelines/decluttering.md/)
  */

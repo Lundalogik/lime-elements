@@ -1,0 +1,18 @@
+version: 2
+registries:
+  npm-github:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{secrets.READ_PRIVATE_GITHUB_PACKAGES}}
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    open-pull-requests-limit: 1
+    versioning-strategy: increase
+    registries:
+      - npm-github
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "@rjsf/core"
+        update-types: ["version-update:semver-major"]

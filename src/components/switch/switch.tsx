@@ -72,7 +72,9 @@ export class Switch {
     }
 
     private initialize() {
-        const element = this.host.shadowRoot.querySelector('.mdc-switch');
+        const element = this.host.shadowRoot.querySelector(
+            '.mdc-switch'
+        ) as HTMLButtonElement;
         if (!element) {
             return;
         }
@@ -86,28 +88,44 @@ export class Switch {
 
     public render() {
         return [
-            <div
+            <button
+                id={this.fieldId}
                 class={{
                     'mdc-switch': true,
-                    'mdc-switch--disabled': this.disabled || this.readonly,
                     'lime-switch--readonly': this.readonly,
+                    'mdc-switch--unselected': !this.value,
+                    'mdc-switch--selected': this.value,
                 }}
+                type="button"
+                role="switch"
+                aria-checked={this.value}
+                disabled={this.disabled || this.readonly}
+                onClick={this.handleClick}
             >
                 <div class="mdc-switch__track" />
-                <div class="mdc-switch__thumb-underlay">
-                    <div class="mdc-switch__thumb">
-                        <input
-                            type="checkbox"
-                            class="mdc-switch__native-control"
-                            id={this.fieldId}
-                            role="switch"
-                            onChange={this.onChange}
-                            disabled={this.disabled || this.readonly}
-                            checked={this.value}
-                        />
+                <div class="mdc-switch__handle-track">
+                    <div class="mdc-switch__handle">
+                        <div class="mdc-switch__shadow">
+                            <div class="mdc-elevation-overlay"></div>
+                        </div>
+                        <div class="mdc-switch__ripple"></div>
+                        <div class="mdc-switch__icons">
+                            <svg
+                                class="mdc-switch__icon mdc-switch__icon--on"
+                                viewBox="0 0 24 24"
+                            >
+                                <path d="M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z" />
+                            </svg>
+                            <svg
+                                class="mdc-switch__icon mdc-switch__icon--off"
+                                viewBox="0 0 24 24"
+                            >
+                                <path d="M20 13H4v-2h16v2z" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
-            </div>,
+            </button>,
             <label
                 class={`${this.disabled || this.readonly ? 'disabled' : ''}`}
                 htmlFor={this.fieldId}
@@ -118,18 +136,16 @@ export class Switch {
     }
 
     @Watch('value')
-    protected valueWatcher(newValue, oldValue) {
+    protected valueWatcher(newValue: boolean) {
         if (!this.mdcSwitch) {
             return;
         }
 
-        if (newValue !== oldValue) {
-            this.mdcSwitch.checked = newValue;
-        }
+        this.mdcSwitch.selected = newValue;
     }
 
-    private onChange = (event) => {
+    private handleClick = (event: MouseEvent) => {
         event.stopPropagation();
-        this.change.emit(event.target.checked);
+        this.change.emit(!this.value);
     };
 }

@@ -7,9 +7,9 @@
 * @prop --progress-flow-step-background-color--passed: Background color of passed steps, defaults to the background color the step has when selected.
 * @prop --progress-flow-step-text-color: Text of steps, defaults to `--contrast-1200`.
 * @prop --progress-flow-step-text-color--selected: Text color of selected step, defaults to `--lime-primary-color`.
-* @prop --progress-flow-step-text-color-passed: Text color of passed steps, defaults to the text color the step has when selected.
+* @prop --progress-flow-step-text-color--passed: Text color of passed steps, defaults to the text color the step has when selected.
 * @prop --progress-flow-step-divider-color: Color of the arrow shaped dividers between steps which must be the same as component's background, defaults to `--contrast-100`.
-* @prop --progress-flow-icon-color: Color of the optional icons used in each step. Only affects inactive steps, defaults to text colors for inactive, active, or passed step.
+* @prop --progress-flow-icon-color--inactive: Color of the optional icons used in each step. Only affects inactive steps, defaults to text colors for inactive, active, or passed step.
 */
 
 :host {
@@ -17,6 +17,7 @@
     --selected-indicator-right: -0.5rem;
     --max-text-width: 10rem;
 
+    isolation: isolate;
     box-sizing: border-box;
     width: 100%;
     display: flex;

@@ -1,6 +1,4 @@
-import { MDCRipple } from '@material/ripple';
-import { Component, Element, h, Method, Prop } from '@stencil/core';
-import { IconSize } from '@limetech/lime-elements';
+import { Component, Element, h, Prop } from '@stencil/core';
 
 /**
  * @exampleComponent limel-example-icon-button-basic
@@ -15,11 +13,6 @@ import { IconSize } from '@limetech/lime-elements';
     styleUrl: 'icon-button.scss',
 })
 export class IconButton {
-    public constructor() {
-        this.removeFocusedStyleOnClick =
-            this.removeFocusedStyleOnClick.bind(this);
-    }
-
     /**
      * The icon to display.
      */
@@ -48,27 +41,6 @@ export class IconButton {
     @Element()
     private host: HTMLLimelIconButtonElement;
 
-    private mdcIconButtonRipple;
-
-    /**
-     * If the button is hidden or inside another element that is animating
-     * while the button is instantiated, the hover-highlight may become
-     * misaligned. If so, calling this method will make the button re-layout
-     * the highlight.
-     */
-    @Method()
-    public async relayout() {
-        if (this.mdcIconButtonRipple) {
-            this.mdcIconButtonRipple.layout();
-        }
-    }
-
-    private removeFocusedStyleOnClick() {
-        const mdcButton =
-            this.host.shadowRoot.querySelector('.mdc-icon-button');
-        mdcButton.classList.remove('mdc-ripple-upgraded--background-focused');
-    }
-
     public connectedCallback() {
         this.initialize();
     }
@@ -82,27 +54,12 @@ export class IconButton {
         if (!element) {
             return;
         }
-
-        this.mdcIconButtonRipple = new MDCRipple(element);
-        this.mdcIconButtonRipple.unbounded = true;
-        this.host.addEventListener('click', this.removeFocusedStyleOnClick);
-    }
-
-    public disconnectedCallback() {
-        this.mdcIconButtonRipple?.destroy();
-        this.host.removeEventListener('click', this.removeFocusedStyleOnClick);
     }
 
     public render() {
         const buttonAttributes: { tabindex?: string } = {};
         if (this.host.hasAttribute('tabindex')) {
             buttonAttributes.tabindex = this.host.getAttribute('tabindex');
-        }
-
-        const iconAttributes: { badge?: boolean; size?: IconSize } = {};
-        if (this.elevated) {
-            iconAttributes.badge = true;
-            iconAttributes.size = 'small';
         }
 
         return (
@@ -113,7 +70,7 @@ export class IconButton {
                 title={this.label}
                 {...buttonAttributes}
             >
-                <limel-icon name={this.icon} {...iconAttributes} />
+                <limel-icon name={this.icon} badge={true} />
             </button>
         );
     }

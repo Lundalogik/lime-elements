@@ -21,6 +21,11 @@ export interface FormError {
     name: string;
 
     /**
+     * Params of the error
+     */
+    params?: unknown;
+
+    /**
      * Name of the invalid property
      */
     property: string;
@@ -35,6 +40,13 @@ export interface FormError {
      */
     message: string;
 }
+
+export type ValidationError = {
+    /**
+     * Name of the field the error belongs to
+     */
+    [key: string]: string[] | ValidationError;
+};
 
 export interface FormComponent<T = any> {
     /**
@@ -202,7 +214,6 @@ export interface GridLayoutOptions
     dense?: boolean;
 }
 
-// eslint-disable-next-line no-shadow
 export enum FormLayoutType {
     /**
      * The default layout

@@ -3,15 +3,16 @@ import { Component, h } from '@stencil/core';
 
 /**
  * With grid layout
- * To render items of a menu in a gird layout instead of a vertical list,
- * two things are required:
- * 1. Simply setting the `gridLayout` property to `true`, and
- * 1. Specifying a proper width for the menu surface, using the
- * `--menu-surface-width` variable.
+ * To render items of a menu in a grid layout instead of a vertical list,
+ * simply setting the `gridLayout` property to `true`.
  *
  * :::note
- * Do not forget that menus should behave responsively, thus using a fixed `width`
- * should be avoided. To make the width responsive, try using the `min()` function.
+ * Menus with the grid layout has a responsive width by default,
+ * which will not grow wider than a certain size. However, if the default size is not
+ * wide enough for your use case, you can try setting another responsive width, using
+ * the `--menu-surface-width` variable.
+ *
+ * To achieve a responsive width, try using the `min()` function.
  * This function selects the smallest value from a list of comma-separated expressions
  * which are placed within the parentheses.
  *

@@ -54,13 +54,13 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
         'limel-select--with-helper-text': typeof props.helperText === 'string',
     };
 
-    return [
+    return (
         <div class={classList}>
             <SelectValue {...props} hasValue={hasValue} isValid={isValid} />
+            <HelperText text={props.helperText} />
             <SelectDropdown {...props} />
-        </div>,
-        <HelperText text={props.helperText} />,
-    ];
+        </div>
+    );
 };
 
 const SelectValue: FunctionalComponent<
@@ -91,6 +91,8 @@ const SelectValue: FunctionalComponent<
             aria-haspopup="listbox"
             aria-expanded="false"
             aria-labelledby="s-label s-selected-text"
+            aria-required={props.required}
+            aria-disabled={props.disabled}
         >
             <span id="s-label" class={labelClassList}>
                 {props.label}
@@ -112,16 +114,9 @@ const SelectValue: FunctionalComponent<
                     focusable="false"
                 >
                     <polygon
-                        class="mdc-select__dropdown-icon-inactive"
                         stroke="none"
                         fill-rule="evenodd"
                         points="7 10 12 15 17 10"
-                    ></polygon>
-                    <polygon
-                        class="mdc-select__dropdown-icon-active"
-                        stroke="none"
-                        fill-rule="evenodd"
-                        points="7 15 12 10 17 15"
                     ></polygon>
                 </svg>
             </span>
@@ -182,7 +177,7 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
                 open={props.isOpen}
                 onDismiss={props.close}
                 style={{
-                    '--menu-surface-width': '100%',
+                    '--mdc-menu-min-width': '100%',
                     'max-height': 'inherit',
                     display: 'flex',
                 }}
@@ -201,6 +196,7 @@ const NativeDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
     return (
         <select
             required={props.required}
+            aria-disabled={props.disabled}
             aria-required={props.required}
             onChange={props.onNativeChange}
             onFocus={props.open}

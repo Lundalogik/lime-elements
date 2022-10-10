@@ -39,6 +39,7 @@ const helperTextId = 'tf-helper-text';
 
 /**
  * @exampleComponent limel-example-input-field-text
+ * @exampleComponent limel-example-input-field-placeholder
  * @exampleComponent limel-example-input-field-text-multiple
  * @exampleComponent limel-example-input-field-number
  * @exampleComponent limel-example-input-field-autocomplete
@@ -48,6 +49,8 @@ const helperTextId = 'tf-helper-text';
  * @exampleComponent limel-example-input-field-showlink
  * @exampleComponent limel-example-input-field-error-icon
  * @exampleComponent limel-example-input-field-textarea
+ * @exampleComponent limel-example-input-field-suffix
+ * @exampleComponent limel-example-input-field-prefix
  * @exampleComponent limel-example-input-field-search
  * @exampleComponent limel-example-input-field-pattern
  * @exampleComponent limel-example-input-field-focus
@@ -89,10 +92,30 @@ export class InputField {
     public label: string;
 
     /**
+     * The placeholder text shown inside the input field, when the field is focused and empty.
+     */
+    @Prop({ reflect: true })
+    public placeholder: string;
+
+    /**
      * Optional helper text to display below the input field when it has focus
      */
     @Prop({ reflect: true })
     public helperText: string;
+
+    /**
+     * A short piece of text to display before the value inside the input field.
+     * Displayed for all types except `textarea`.
+     */
+    @Prop({ reflect: true })
+    public prefix: string;
+
+    /**
+     * A short piece of text to display after the value inside the input field.
+     * Displayed for all types except `textarea`.
+     */
+    @Prop({ reflect: true })
+    public suffix: string;
 
     /**
      * Set to `true` to indicate that the field is required.
@@ -272,26 +295,18 @@ export class InputField {
             properties['aria-describedby'] = helperTextId;
         }
 
-        const labelClassList = {
-            'mdc-floating-label': true,
-            'mdc-floating-label--float-above':
-                !!this.value || this.isFocused || this.readonly,
-        };
-
         return [
             <label class={this.getContainerClassList()}>
                 <span class="mdc-notched-outline" tabindex="-1">
                     <span class="mdc-notched-outline__leading"></span>
-                    <span class="mdc-notched-outline__notch">
-                        <span class={labelClassList} id={labelId}>
-                            {this.label}
-                        </span>
-                    </span>
+                    {this.renderLabel(labelId)}
                     <span class="mdc-notched-outline__trailing"></span>
                 </span>
                 {this.renderLeadingIcon()}
                 {this.renderEmptyValueForReadonly()}
+                {this.renderPrefix()}
                 {this.renderInput(properties)}
+                {this.renderSuffix()}
                 {this.renderTextarea(properties)}
                 {this.renderFormattedNumber()}
                 {this.renderTrailingLinkOrButton()}
@@ -336,12 +351,15 @@ export class InputField {
     private getContainerClassList = () => {
         const classList = {
             'mdc-text-field': true,
+            'mdc-text-field--no-label': !this.label,
             'mdc-text-field--outlined': true,
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled || this.readonly,
             'lime-text-field--readonly': this.readonly,
             'mdc-text-field--required': this.required,
-            'mdc-text-field--with-trailing-icon': !!this.getTrailingIcon(),
+            'lime-text-field--empty': !this.value,
+            'lime-has-prefix': this.hasPrefix(),
+            'lime-has-suffix': this.hasSuffix(),
         };
 
         if (this.type === 'textarea') {
@@ -350,6 +368,8 @@ export class InputField {
                 !!this.helperText || !!this.maxlength;
         } else {
             classList['mdc-text-field--with-leading-icon'] = !!this.leadingIcon;
+            classList['mdc-text-field--with-trailing-icon'] =
+                !!this.getTrailingIcon();
         }
 
         return classList;
@@ -372,6 +392,7 @@ export class InputField {
                 onWheel={this.handleWheel}
                 onKeyDown={this.onKeyDown}
                 value={this.value}
+                placeholder={this.placeholder}
             />
         );
     };
@@ -474,6 +495,40 @@ export class InputField {
         return this.helperText !== null && this.helperText !== undefined;
     };
 
+    private renderSuffix = () => {
+        if (!this.hasSuffix() || this.type === 'textarea') {
+            return;
+        }
+
+        const classList = {
+            'mdc-text-field__affix': true,
+            'mdc-text-field__affix--suffix': true,
+        };
+
+        return <span class={classList}>{this.suffix}</span>;
+    };
+
+    private hasSuffix = () => {
+        return this.suffix !== null && this.suffix !== undefined;
+    };
+
+    private renderPrefix = () => {
+        if (!this.hasPrefix() || this.type === 'textarea') {
+            return;
+        }
+
+        const classList = {
+            'mdc-text-field__affix': true,
+            'mdc-text-field__affix--prefix': true,
+        };
+
+        return <span class={classList}>{this.prefix}</span>;
+    };
+
+    private hasPrefix = () => {
+        return this.prefix !== null && this.prefix !== undefined;
+    };
+
     private renderCharacterCounter = () => {
         if (!this.maxlength || this.type === 'number') {
             return;
@@ -515,6 +570,26 @@ export class InputField {
         }
 
         return this.limelInputField.shadowRoot.querySelector(elementName);
+    };
+
+    private renderLabel = (labelId: string) => {
+        const labelClassList = {
+            'mdc-floating-label': true,
+            'mdc-floating-label--float-above':
+                !!this.value || this.isFocused || this.readonly,
+        };
+
+        if (!this.label) {
+            return;
+        }
+
+        return (
+            <span class="mdc-notched-outline__notch">
+                <span class={labelClassList} id={labelId}>
+                    {this.label}
+                </span>
+            </span>
+        );
     };
 
     private renderLeadingIcon = () => {
@@ -583,7 +658,7 @@ export class InputField {
             <a
                 {...linkProps}
                 class="material-icons mdc-text-field__icon lime-trailing-icon-for-link"
-                tabindex={this.disabled ? '-1' : '0'}
+                tabindex={this.disabled || !this.value ? '-1' : '0'}
                 role="button"
             >
                 <limel-icon name={icon} />
@@ -748,7 +823,7 @@ export class InputField {
                     open={this.showCompletions}
                     allowClicksElement={this.limelInputField}
                     style={{
-                        '--menu-surface-width': '100%',
+                        '--mdc-menu-min-width': '100%',
                         'max-height': 'inherit',
                         display: 'flex',
                     }}

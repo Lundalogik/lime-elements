@@ -4,6 +4,8 @@ interface CheckboxTemplateProps {
     disabled?: boolean;
     id: string;
     checked?: boolean;
+    readonly?: boolean;
+    indeterminate?: boolean;
     required?: boolean;
     invalid?: boolean;
     onChange?: (event: Event) => void;
@@ -14,7 +16,12 @@ interface CheckboxTemplateProps {
 export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
     props
 ) => {
-    return (
+    const inputProps = {};
+    if (props.indeterminate) {
+        inputProps['data-indeterminate'] = 'true';
+    }
+
+    return [
         <div class="mdc-form-field ">
             <div
                 class={{
@@ -22,6 +29,8 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     'mdc-checkbox--invalid': props.invalid,
                     'mdc-checkbox--disabled': props.disabled,
                     'mdc-checkbox--required': props.required,
+                    'mdc-checkbox--indeterminate': props.indeterminate,
+                    'lime-checkbox--readonly': props.readonly,
                 }}
             >
                 <input
@@ -29,9 +38,10 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     class="mdc-checkbox__native-control"
                     id={props.id}
                     checked={props.checked}
-                    disabled={props.disabled}
+                    disabled={props.disabled || props.readonly}
                     required={props.required}
                     onChange={props.onChange}
+                    {...inputProps}
                 />
                 <div class="mdc-checkbox__background">
                     <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
@@ -43,21 +53,22 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     </svg>
                     <div class="mdc-checkbox__mixedmark" />
                 </div>
-                <div class="mdc-checkbox__ripple" />
             </div>
             <label
                 class={{
                     'mdc-checkbox--invalid': props.invalid,
                     'mdc-checkbox--disabled': props.disabled,
                     'mdc-checkbox--required': props.required,
+                    'mdc-checkbox--indeterminate': props.indeterminate,
+                    'lime-checkbox--readonly': props.readonly,
                 }}
                 htmlFor={props.id}
             >
                 {props.label}
             </label>
-            <HelperText text={props.helperText} />
-        </div>
-    );
+        </div>,
+        <HelperText text={props.helperText} />,
+    ];
 };
 
 const HelperText: FunctionalComponent<{ text: string }> = (props) => {

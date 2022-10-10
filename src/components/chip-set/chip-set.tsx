@@ -29,6 +29,8 @@ const INPUT_FIELD_TABINDEX = 1;
  * @exampleComponent limel-example-chip-set-filter
  * @exampleComponent limel-example-chip-set-filter-badge
  * @exampleComponent limel-example-chip-set-input
+ * @exampleComponent limel-example-chip-set-input-type-text
+ * @exampleComponent limel-example-chip-set-input-type-search
  * @exampleComponent limel-example-chip-icon-color
  * @exampleComponent limel-example-chip-set-composite
  */
@@ -87,6 +89,13 @@ export class ChipSet {
      */
     @Prop({ reflect: true })
     public readonly: boolean = false;
+
+    /**
+     * For chip-sets of type `input`. Value to use for the `type` attribute on the
+     * input field inside the chip-set.
+     */
+    @Prop({ reflect: true })
+    public inputType: 'search' | 'text' = 'text';
 
     /**
      * For chip-sets of type `input`. Limits the maximum number of chips.
@@ -370,7 +379,7 @@ export class ChipSet {
                 {this.value.map(this.renderInputChip)}
                 <input
                     tabIndex={INPUT_FIELD_TABINDEX}
-                    type="text"
+                    type={this.inputType}
                     id="input-element"
                     disabled={this.readonly || this.disabled}
                     class={{
@@ -399,30 +408,39 @@ export class ChipSet {
                     }}
                     dropzone-tip={this.dropZoneTip()}
                 >
-                    <div class="mdc-notched-outline__leading"></div>
-                    <div class="mdc-notched-outline__notch">
-                        <label
-                            class={{
-                                'mdc-floating-label': true,
-                                'mdc-text-field--disabled':
-                                    this.readonly || this.disabled,
-                                'mdc-floating-label--required': this.required,
-                                'lime-floating-label--float-above': !!(
-                                    this.value.length || this.editMode
-                                ),
-                            }}
-                            htmlFor="input-element"
-                        >
-                            {this.label}
-                        </label>
-                    </div>
-                    <div class="mdc-notched-outline__trailing"></div>
+                    <div class="mdc-notched-outline__leading" />
+                    {this.renderLabel()}
+                    <div class="mdc-notched-outline__trailing" />
                 </div>
                 {this.renderLeadingIcon()}
                 {this.renderClearAllChipsButton()}
             </div>,
             this.renderHelperLine(),
         ];
+    }
+
+    private renderLabel() {
+        const labelClassList = {
+            'mdc-floating-label': true,
+            'mdc-text-field--no-label': !this.label,
+            'mdc-text-field--disabled': this.readonly || this.disabled,
+            'mdc-floating-label--required': this.required,
+            'lime-floating-label--float-above': !!(
+                this.value.length || this.editMode
+            ),
+        };
+
+        if (!this.label) {
+            return;
+        }
+
+        return (
+            <div class="mdc-notched-outline__notch">
+                <label class={labelClassList} htmlFor="input-element">
+                    {this.label}
+                </label>
+            </div>
+        );
     }
 
     private dropZoneTip = (): string => {
@@ -551,13 +569,13 @@ export class ChipSet {
                 role="row"
                 id={`${chip.id}`}
             >
-                {chip.icon ? this.renderIcon(chip) : null}
-                {chip.text ? this.renderLabel(chip) : null}
+                {chip.icon ? this.renderChipIcon(chip) : null}
+                {chip.text ? this.renderChipLabel(chip) : null}
             </div>
         );
     }
 
-    private renderLabel(chip: Chip<any>) {
+    private renderChipLabel(chip: Chip<any>) {
         const attributes: any = {};
         if (chip.href) {
             attributes.href = getHref(chip.href);
@@ -651,8 +669,8 @@ export class ChipSet {
                 id={`${chip.id}`}
                 onClick={this.catchInputChipClicks}
             >
-                {chip.icon ? this.renderIcon(chip) : null}
-                {this.renderLabel(chip)}
+                {chip.icon ? this.renderChipIcon(chip) : null}
+                {this.renderChipLabel(chip)}
                 {this.renderChipRemoveButton(chip)}
             </div>,
             this.renderDelimiter(),
@@ -663,7 +681,7 @@ export class ChipSet {
         event.stopPropagation();
     }
 
-    private renderIcon(chip: Chip) {
+    private renderChipIcon(chip: Chip) {
         const style = {};
         if (chip.iconFillColor) {
             style['--icon-color'] = chip.iconFillColor;
@@ -718,7 +736,6 @@ export class ChipSet {
                 aria-label={this.removeChipLabel}
                 tabindex="-1"
                 innerHTML={svgData}
-                // eslint-disable-next-line react/jsx-no-bind
                 onClick={removeFunc}
             />
         );

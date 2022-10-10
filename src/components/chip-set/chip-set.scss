@@ -105,7 +105,7 @@ $scale-of-remove-chip-x-when-hovered: scale(0.7);
 
 limel-badge {
     margin-right: functions.pxToRem(4);
-    margin-left: functions.pxToRem(-8);
+    margin-left: functions.pxToRem(-4);
 }
 
 .mdc-chip__text {
@@ -220,6 +220,14 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             position: absolute;
             z-index: z-index.$chip-set--hidden-text-field; // to let users interact with chips, in case they're covered
         }
+        &[type='search'] {
+            -webkit-appearance: textfield; // Removes the default magnifying glass icon on iOS which appears automatically on input fields with type of search
+            background-color: transparent; // overides styles caused by previous line
+
+            &::-webkit-search-cancel-button {
+                display: none; // removes the default X button
+            }
+        }
     }
 }
 
@@ -267,6 +275,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .clear-all-button {
     transition: opacity 0.3s ease;
     @include mixins.clear-all-button;
+    @include mixins.visualize-keyboard-focus;
 
     position: absolute;
     right: functions.pxToRem(8);
@@ -279,10 +288,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     .has-chips:not(.mdc-text-field--disabled).mdc-text-field--focused & {
         opacity: 1;
         outline: none;
-    }
-
-    &:focus-visible {
-        box-shadow: var(--shadow-depth-8-focused);
     }
 
     :not(.has-chips) &,

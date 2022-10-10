@@ -2,6 +2,12 @@
     flex-basis: 100%;
 }
 
+.mdc-text-field-helper-text {
+    &:before {
+        @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
+    }
+}
+
 :host(:not([type='input'])) {
     .mdc-chip-set {
         &:hover,

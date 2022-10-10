@@ -7,15 +7,18 @@
 @use '@material/slider/styles';
 @use '@material/floating-label/mdc-floating-label';
 
-@import './partial-styles/percentage-color.scss';
-@import './partial-styles/_readonly.scss';
-@import './partial-styles/_thumb.scss';
+:host([disabled]:not([readonly])) {
+    .slider__label {
+        color: shared_input-select-picker.$label-color-disabled;
+    }
+}
 
 .slider {
     position: relative;
 }
 
 .slider__label {
+    color: shared_input-select-picker.$label-color;
     padding-left: functions.pxToRem(20);
     top: functions.pxToRem(
         9
@@ -75,13 +78,7 @@
     }
 }
 
-.mdc-slider-helper-line {
-    @include shared_input-select-picker.looks-like-helper-line;
-}
-.mdc-slider-helper-text {
-    @include shared_input-select-picker.looks-like-helper-text;
-    opacity: 1;
-    &:before {
-        @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
-    }
-}
+@import './partial-styles/percentage-color';
+@import './partial-styles/_readonly';
+@import './partial-styles/_thumb';
+@import './partial-styles/_helper-text';

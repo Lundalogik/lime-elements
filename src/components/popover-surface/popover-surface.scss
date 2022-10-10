@@ -1,5 +1,6 @@
 @use '../../style/internal/z-index';
 @use '../../style/functions';
+@use '../../style/mixins';
 
 .limel-popover-surface {
     position: relative;
@@ -9,6 +10,7 @@
     width: var(--popover-surface-width, auto);
     max-height: calc(100vh - 2rem);
     max-width: calc(100vw - 2rem);
+    margin: 0 0.25rem;
 
     border-radius: var(--popover-border-radius, functions.pxToRem(12));
     box-shadow: var(--shadow-depth-16);
@@ -39,18 +41,12 @@
         );
     }
 
+    @include mixins.visualize-keyboard-focus;
+
     &:focus,
     &:focus-within {
-        outline: none;
-
         &:after {
             opacity: 1;
         }
-    }
-
-    &:focus-visible {
-        // only when non-pointer input is being used,
-        // e.g. tabbed into using keyboard
-        box-shadow: var(--shadow-depth-16-focused);
     }
 }

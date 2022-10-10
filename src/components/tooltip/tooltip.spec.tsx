@@ -38,6 +38,7 @@ test('the component renders', () => {
         <limel-tooltip
             element-id="tooltip-test"
             label="Description"
+            maxlength="50"
         >
             <mock:shadow-root>
                 <div class="trigger-anchor">
@@ -49,6 +50,7 @@ test('the component renders', () => {
                         <limel-tooltip-content
                             aria-hidden
                             label="Description"
+                            maxlength="50"
                             role="tooltip"
                         ></limel-tooltip-content>
                     </limel-portal>

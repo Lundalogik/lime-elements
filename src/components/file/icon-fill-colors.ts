@@ -124,5 +124,8 @@ const filetypeFillColorTable: Record<string, string> = {
 };
 
 export function getIconFillColorForFile(extension: string): string {
-    return filetypeFillColorTable[extension] || DEFAULT_ICON_FILL_COLOR;
+    return (
+        filetypeFillColorTable[extension.toLowerCase()] ||
+        DEFAULT_ICON_FILL_COLOR
+    );
 }

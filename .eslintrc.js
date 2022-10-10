@@ -33,7 +33,7 @@ module.exports = {
         quotes: ['error', 'single', { avoidEscape: true }],
         semi: ['error', 'always'],
         'prettier/prettier': 'error',
-        '@typescript-eslint/no-unused-vars-experimental': 'error',
+        '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/array-type': [
             'error',
             {
@@ -86,7 +86,8 @@ module.exports = {
         'no-new-wrappers': 'error',
         'no-return-await': 'error',
         'no-sequences': 'error',
-        'no-shadow': [
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': [
             'error',
             {
                 hoist: 'all',
@@ -141,7 +142,6 @@ module.exports = {
         },
         {
             files: ['src/**/*.{ts,tsx}'],
-            extends: ['plugin:@stencil/recommended'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
                 parserOption: {
@@ -150,9 +150,6 @@ module.exports = {
                 project: 'tsconfig.json',
             },
             rules: {
-                '@stencil/decorators-style': 'off',
-                '@stencil/strict-boolean-conditions': 'off',
-                '@stencil/render-returns-host': 'off',
                 '@typescript-eslint/dot-notation': 'error',
             },
         },
@@ -165,7 +162,6 @@ module.exports = {
                 'src/**/*.e2e.{ts,tsx}',
                 'src/**/*.test-wrapper.{ts,tsx}',
             ],
-            extends: ['plugin:@stencil/recommended'],
             parserOptions: {
                 parserOption: {
                     jsx: true,
@@ -173,10 +169,6 @@ module.exports = {
                 project: 'tsconfig.lint.json',
             },
             rules: {
-                '@stencil/decorators-style': 'off',
-                '@stencil/strict-boolean-conditions': 'off',
-                '@stencil/render-returns-host': 'off',
-                '@stencil/required-jsdoc': 'off',
                 '@typescript-eslint/dot-notation': 'error',
                 'sonarjs/no-duplicate-string': 'off',
                 'sonarjs/no-identical-functions': 'off',

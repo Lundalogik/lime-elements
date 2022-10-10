@@ -128,7 +128,6 @@ export class MonthPicker extends Picker {
         return (
             <div
                 className="datepicker-month"
-                // eslint-disable-next-line react/jsx-no-bind
                 onClick={() => {
                     const date = moment([fp.currentYear]).month(month).toDate();
                     fp.setDate(date, true);

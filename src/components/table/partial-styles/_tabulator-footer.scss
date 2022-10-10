@@ -1,0 +1,25 @@
+.tabulator {
+    .tabulator-footer {
+        transition: transform 0.5s ease-out, opacity 0.35s ease; //For some reason the footer is not animated when it gets hidden/removed
+        padding-top: 0;
+        padding-bottom: 0;
+        background-color: rgb(var(--table-header-background-color--hover));
+        border: none;
+        user-select: auto;
+
+        .tabulator-calcs-holder {
+            border-color: rgb(var(--contrast-600));
+            margin-top: 0;
+            margin-bottom: 0;
+
+            .tabulator-calcs {
+                cursor: default;
+            }
+
+            .tabulator-cell {
+                padding-top: functions.pxToRem(3);
+                padding-bottom: functions.pxToRem(3);
+            }
+        }
+    }
+}

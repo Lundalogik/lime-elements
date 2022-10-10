@@ -33,6 +33,11 @@ export interface Column<T extends object = any> {
      * Sets the horizontal text alignment for the column
      */
     horizontalAlign?: 'left' | 'center' | 'right';
+
+    /**
+     * Defines whether end-user can sort a column
+     */
+    headerSort?: boolean;
 }
 
 export type TableFormatter = (value: any, data?: object) => string;
@@ -117,7 +122,6 @@ export interface TableParams {
     sorters?: ColumnSorter[];
 }
 
-// eslint-disable-next-line no-shadow
 export enum ColumnAggregatorType {
     /**
      * Calculates the average value of all numerical cells in the column
@@ -158,3 +162,17 @@ export type ColumnAggregatorFunction<T = object> = (
     values?: any[],
     data?: T[]
 ) => any;
+
+/**
+ * Defines aggregate values for columns
+ */
+export interface ColumnAggregate {
+    /**
+     * The name of the `Column` field
+     */
+    field: string;
+    /**
+     * The aggregate value
+     */
+    value: any;
+}

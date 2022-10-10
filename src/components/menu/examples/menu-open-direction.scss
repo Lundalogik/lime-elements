@@ -1,0 +1,9 @@
+:host(limel-example-menu-open-direction) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+limel-select {
+    min-width: 8.75rem;
+}

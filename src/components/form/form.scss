@@ -126,11 +126,13 @@
     limel-switch {
         // This is because we have to align these items to top and
         // make sure they align correctly even in one-columned layouts
-        margin-top: functions.pxToRem(8);
-        display: block;
         min-height: calc(
             var(--min-height-of-one-row) - #{shared_input-select-picker.$height-of-mdc-helper-text-block}
         );
+    }
+    limel-checkbox {
+        margin-top: functions.pxToRem(8);
+        display: block;
     }
     limel-switch {
         margin-left: functions.pxToRem(8);

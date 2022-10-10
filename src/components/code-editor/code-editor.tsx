@@ -6,12 +6,18 @@ import {
     Event,
     EventEmitter,
     State,
+    Watch,
 } from '@stencil/core';
 import { ColorScheme, Language } from './code-editor.types';
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/lint/lint';
+import 'codemirror/addon/lint/json-lint';
+import 'codemirror/addon/fold/foldgutter';
+import 'codemirror/addon/fold/brace-fold';
+import jslint from 'jsonlint-mod';
 
 /**
  * Currently this component support syntax highlighting for `javascript`,
@@ -19,6 +25,7 @@ import 'codemirror/addon/edit/matchbrackets';
  *
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
+ * @exampleComponent limel-example-code-editor-fold-lint
  */
 @Component({
     tag: 'limel-code-editor',
@@ -49,6 +56,18 @@ export class CodeEditor {
      */
     @Prop()
     public lineNumbers: boolean = false;
+
+    /**
+     * Allows the user to fold code
+     */
+    @Prop()
+    public fold: boolean = false;
+
+    /**
+     * Enables linting of JSON content
+     */
+    @Prop()
+    public lint: boolean = false;
 
     /**
      * Select color scheme for the editor
@@ -104,6 +123,22 @@ export class CodeEditor {
         this.editor = this.createEditor();
     }
 
+    @Watch('value')
+    protected watchValue(newValue: string) {
+        if (!this.editor) {
+            return;
+        }
+
+        const currentValue = this.editor.getValue();
+        if (newValue === currentValue) {
+            // Circuit breaker for when the change comes from the editor itself
+            // The caret position will be reset without this
+            return;
+        }
+
+        this.editor.getDoc().setValue(newValue || '');
+    }
+
     private handleChangeDarkMode = () => {
         if (this.colorScheme !== 'auto') {
             return;
@@ -134,6 +169,17 @@ export class CodeEditor {
 
         editor.on('change', this.handleChange);
 
+        // Replace tab with spaces and use the actual indent setting for
+        // the space count
+        editor.setOption('extraKeys', {
+            Tab: (codeMirror) => {
+                const spaces = Array(
+                    codeMirror.getOption('indentUnit') + 1
+                ).join(' ');
+                codeMirror.replaceSelection(spaces);
+            },
+        });
+
         return editor;
     }
 
@@ -141,6 +187,7 @@ export class CodeEditor {
         let mode: string | CodeMirror.ModeSpec<any> = this.language;
         const TAB_SIZE = 4;
         let theme = 'lime light';
+        const gutters = [];
 
         if (this.isDarkMode()) {
             theme = 'lime dark';
@@ -151,6 +198,13 @@ export class CodeEditor {
                 name: 'application/json',
                 json: true,
             };
+            if (this.lint) {
+                gutters.push('CodeMirror-lint-markers');
+                if (!('jsonlint' in window)) {
+                    // eslint-disable-next-line @typescript-eslint/dot-notation
+                    window['jsonlint'] = jslint;
+                }
+            }
         } else if (this.language === 'typescript') {
             mode = {
                 name: 'application/typescript',
@@ -158,9 +212,13 @@ export class CodeEditor {
             };
         }
 
+        if (this.fold) {
+            gutters.push('CodeMirror-foldgutter');
+        }
+
         return {
             mode: mode,
-            value: this.value,
+            value: this.value || '',
             theme: theme,
             readOnly: this.readonly,
             tabSize: TAB_SIZE,
@@ -168,6 +226,9 @@ export class CodeEditor {
             lineNumbers: this.lineNumbers,
             styleActiveLine: true,
             matchBrackets: true,
+            lint: this.lint,
+            foldGutter: this.fold,
+            gutters: gutters,
         };
     }
 

@@ -60,6 +60,10 @@ export function findTitle(data: any, fieldSchema: any, formSchema: any) {
         return null;
     }
 
+    if (!subSchema.properties) {
+        return null;
+    }
+
     const [key, value] = firstEntry;
 
     return findTitle(value, subSchema.properties[key], formSchema);
@@ -84,9 +88,11 @@ function findFirstEntry(data: any, subSchema: any) {
         ...Object.entries(data),
     ];
 
-    return entries.filter(
-        ([_, value]) => !!value && typeof value !== 'boolean'
-    )[0];
+    return entries.filter((entry) => {
+        const value = entry[1];
+
+        return !!value && typeof value !== 'boolean';
+    })[0];
 }
 
 function getRequiredEntry(data: any, subSchema: any) {

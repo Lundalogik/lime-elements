@@ -1,4 +1,4 @@
-import { MDCCheckbox } from '@material/checkbox';
+import { MDCCheckbox, cssClasses } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
 import {
     Component,
@@ -8,6 +8,7 @@ import {
     h,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { CheckboxTemplate } from './checkbox.template';
@@ -30,8 +31,9 @@ export class Checkbox {
     public disabled = false;
 
     /**
-     * Disables the checkbox when `true`. Works exactly the same as `disabled`.
-     * If either property is `true`, the checkbox will be disabled.
+     * Disables the checkbox when `true`. This visualizes the checkbox slightly differently.
+     * But shows no visual sign indicating that the checkbox is disabled
+     * or can ever become interactable.
      */
     @Prop({ reflect: true })
     public readonly = false;
@@ -55,6 +57,12 @@ export class Checkbox {
     public checked = false;
 
     /**
+     * Enables indeterminate state. Set to `true` to signal indeterminate check.
+     */
+    @Prop({ reflect: true })
+    public indeterminate = false;
+
+    /**
      * Set to `true` to indicate that the checkbox must be checked.
      */
     @Prop({ reflect: true })
@@ -76,8 +84,15 @@ export class Checkbox {
     private mdcCheckbox: MDCCheckbox;
     private id: string = createRandomString();
 
-    constructor() {
-        this.onChange = this.onChange.bind(this);
+    @Watch('checked')
+    protected handleCheckedChange(newValue: boolean) {
+        this.mdcCheckbox.checked = newValue;
+    }
+
+    @Watch('indeterminate')
+    protected handleIndeterminateChange(newValue: boolean) {
+        this.mdcCheckbox.checked = this.checked;
+        this.mdcCheckbox.indeterminate = newValue;
     }
 
     public connectedCallback() {
@@ -88,23 +103,21 @@ export class Checkbox {
         this.initialize();
     }
 
-    private initialize() {
-        const element =
-            this.limelCheckbox.shadowRoot.querySelector('.mdc-form-field');
-        if (!element) {
-            return;
-        }
-
-        this.formField = new MDCFormField(element);
-        this.mdcCheckbox = new MDCCheckbox(
-            this.limelCheckbox.shadowRoot.querySelector('.mdc-checkbox')
-        );
-        this.formField.input = this.mdcCheckbox;
-    }
-
     public disconnectedCallback() {
         this.mdcCheckbox?.destroy();
         this.formField?.destroy();
+
+        const checkboxElement = this.getCheckboxElement();
+        if (checkboxElement) {
+            checkboxElement.classList.remove(
+                cssClasses.ANIM_CHECKED_INDETERMINATE,
+                cssClasses.ANIM_CHECKED_UNCHECKED,
+                cssClasses.ANIM_INDETERMINATE_CHECKED,
+                cssClasses.ANIM_INDETERMINATE_UNCHECKED,
+                cssClasses.ANIM_UNCHECKED_CHECKED,
+                cssClasses.ANIM_UNCHECKED_INDETERMINATE
+            );
+        }
     }
 
     public render() {
@@ -113,8 +126,10 @@ export class Checkbox {
                 disabled={this.disabled || this.readonly}
                 label={this.label}
                 helperText={this.helperText}
-                checked={this.checked}
+                checked={this.checked || this.indeterminate}
+                indeterminate={this.indeterminate}
                 required={this.required}
+                readonly={this.readonly}
                 invalid={this.required && this.modified && !this.checked}
                 onChange={this.onChange}
                 id={this.id}
@@ -122,9 +137,25 @@ export class Checkbox {
         );
     }
 
-    private onChange(event: Event) {
+    private initialize = () => {
+        const element =
+            this.limelCheckbox.shadowRoot.querySelector('.mdc-form-field');
+        if (!element) {
+            return;
+        }
+
+        this.formField = new MDCFormField(element);
+        this.mdcCheckbox = new MDCCheckbox(this.getCheckboxElement());
+        this.formField.input = this.mdcCheckbox;
+    };
+
+    private getCheckboxElement = () => {
+        return this.limelCheckbox.shadowRoot.querySelector('.mdc-checkbox');
+    };
+
+    private onChange = (event: Event) => {
         event.stopPropagation();
         this.change.emit(this.mdcCheckbox.checked);
         this.modified = true;
-    }
+    };
 }

@@ -20,6 +20,7 @@ export class ColumnDefinitionFactory {
             title: column.title,
             field: column.field,
             hozAlign: column.horizontalAlign,
+            headerSort: column.headerSort,
         };
 
         if (column.headerComponent) {
@@ -191,7 +192,7 @@ export function createCustomComponent(
  * @param {HTMLElement} element the custom element
  * @param {object} props object of properties and event listeners
  */
-function setElementProperties(element: HTMLElement, props: object) {
+export function setElementProperties(element: HTMLElement, props: object) {
     const properties = pickBy(props, negate(isEventListener));
     Object.assign(element, properties);
 

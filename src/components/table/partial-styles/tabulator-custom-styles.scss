@@ -3,7 +3,7 @@
 @use '../../../style/functions';
 
 :host(.has-interactive-rows) {
-    .tabulator-row {
+    .tabulator-row:not(.tabulator-calcs) {
         &.tabulator-selectable {
             @include mixins.is-flat-clickable();
             &:hover {
@@ -11,7 +11,9 @@
             }
             &:not(.active) {
                 &:hover {
-                    background-color: rgb(var(--contrast-100));
+                    background-color: rgb(
+                        var(--table-row-background-color--hover)
+                    );
                 }
             }
         }
@@ -19,7 +21,9 @@
 }
 
 :host(.has-low-density) {
-    #tabulator-table {
+    $row-border-radius: 0.5rem;
+
+    #tabulator-container {
         width: max-content;
         max-width: 100%;
         margin: auto;
@@ -29,34 +33,20 @@
         background-color: transparent;
     }
 
-    .tabulator-headers {
-        padding: 0 functions.pxToRem(8); // This provides space for box-shadow effect. Otherwise the overflow properties will cut them out
-    }
-
     .tabulator-header {
-        background-color: transparent;
-
-        .tabulator-col-content {
-            padding-left: functions.pxToRem(8);
-        }
+        border-radius: functions.pxToRem(6);
     }
 
-    .tabulator-col {
-        &:first-child {
-            border-radius: functions.pxToRem(6) 0 0 functions.pxToRem(6);
-        }
-        &:last-child {
-            border-radius: 0 functions.pxToRem(6) functions.pxToRem(6) 0;
-        }
+    .tabulator-footer {
+        border-radius: $row-border-radius;
+    }
+
+    .tabulator-calcs-holder {
+        border-radius: $row-border-radius $row-border-radius 0 0;
     }
 
     .tabulator-row {
-        width: calc(
-            100% - #{functions.pxToRem(16)}
-        ); // This provides space for box-shadow effect. Otherwise the overflow properties will cut them out
-        margin-right: auto;
-        margin-left: auto;
-        border-radius: functions.pxToRem(8);
+        border-radius: $row-border-radius;
 
         &:not(.tabulator-calcs-bottom) {
             margin-bottom: functions.pxToRem(4);
@@ -67,15 +57,56 @@
 
             .tabulator-cell {
                 height: functions.pxToRem(44) !important;
-                padding-left: functions.pxToRem(12);
-                padding-right: functions.pxToRem(8);
 
                 &:first-child {
-                    border-radius: functions.pxToRem(8) 0 0 functions.pxToRem(8);
+                    border-radius: $row-border-radius 0 0 $row-border-radius;
                 }
                 &:last-child {
-                    border-radius: 0 functions.pxToRem(8) functions.pxToRem(8) 0;
+                    border-radius: 0 $row-border-radius $row-border-radius 0;
                 }
+            }
+        }
+    }
+}
+
+:host(.has-pagination-on-top) {
+    .tabulator {
+        .tabulator-header {
+            order: 2;
+        }
+
+        .tabulator-tableHolder {
+            order: 3;
+        }
+
+        .tabulator-footer {
+            order: 1;
+            background-color: transparent;
+        }
+
+        .tabulator-calcs-holder {
+            position: absolute;
+            bottom: 0;
+        }
+    }
+
+    .has-aggregation {
+        .tabulator-tableHolder {
+            margin-bottom: functions.pxToRem(
+                24
+            ); // makes sure aggregations row doesn't cover the last table row, and horizontal scroll bar is shown on windows
+        }
+    }
+
+    .select-all {
+        top: functions.pxToRem(42);
+    }
+
+    #tabulator-container {
+        &:not(.has-pagination) {
+            .tabulator-paginator {
+                display: grid !important;
+                opacity: 0;
             }
         }
     }

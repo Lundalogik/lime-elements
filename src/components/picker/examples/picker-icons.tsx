@@ -1,8 +1,6 @@
 import { ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
-const NETWORK_DELAY = 500;
-
 /**
  * With icons
  */
@@ -11,6 +9,9 @@ const NETWORK_DELAY = 500;
     shadow: true,
 })
 export class PickerIconsExample {
+    @State()
+    private selectedItems: Array<ListItem<number>> = [];
+
     private allItems: Array<ListItem<number>> = [
         {
             text: 'Admiral Swiggins',
@@ -110,18 +111,6 @@ export class PickerIconsExample {
         },
     ];
 
-    @State()
-    private selectedItems: Array<ListItem<number>> = [];
-
-    @State()
-    private required: boolean = false;
-
-    @State()
-    private readonly: boolean = false;
-
-    @State()
-    private disabled: boolean = false;
-
     public render() {
         return [
             <limel-picker
@@ -132,29 +121,7 @@ export class PickerIconsExample {
                 searcher={this.search}
                 onChange={this.onChange}
                 onInteract={this.onInteract}
-                required={this.required}
-                readonly={this.readonly}
-                disabled={this.disabled}
             />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        label="Disabled"
-                        onChange={this.setDisabled}
-                        checked={this.disabled}
-                    />
-                    <limel-checkbox
-                        label="Readonly"
-                        onChange={this.setReadonly}
-                        checked={this.readonly}
-                    />
-                    <limel-checkbox
-                        label="Required"
-                        onChange={this.setRequired}
-                        checked={this.required}
-                    />
-                </limel-flex-container>
-            </p>,
             <limel-example-value value={this.selectedItems} />,
         ];
     }
@@ -165,18 +132,15 @@ export class PickerIconsExample {
                 resolve([]);
             }
 
-            // Simulate some network delay
-            setTimeout(() => {
-                const filteredItems = this.allItems.filter((item) => {
-                    const searchText =
-                        item.text.toLowerCase() +
-                        ' ' +
-                        item.secondaryText.toLowerCase();
+            const filteredItems = this.allItems.filter((item) => {
+                const searchText =
+                    item.text.toLowerCase() +
+                    ' ' +
+                    item.secondaryText.toLowerCase();
 
-                    return searchText.includes(query.toLowerCase());
-                });
-                resolve(filteredItems);
-            }, NETWORK_DELAY);
+                return searchText.includes(query.toLowerCase());
+            });
+            resolve(filteredItems);
         });
     };
 
@@ -184,19 +148,7 @@ export class PickerIconsExample {
         this.selectedItems = [...event.detail];
     };
 
-    private onInteract = (event) => {
+    private onInteract = (event: CustomEvent<ListItem<number>>) => {
         console.log('Value interacted with:', event.detail);
-    };
-
-    private setDisabled = (event: CustomEvent<boolean>) => {
-        this.disabled = event.detail;
-    };
-
-    private setReadonly = (event: CustomEvent<boolean>) => {
-        this.readonly = event.detail;
-    };
-
-    private setRequired = (event: CustomEvent<boolean>) => {
-        this.required = event.detail;
     };
 }

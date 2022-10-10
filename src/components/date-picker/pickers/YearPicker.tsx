@@ -159,7 +159,6 @@ export class YearPicker extends Picker {
         return (
             <div
                 className="datepicker-year"
-                // eslint-disable-next-line react/jsx-no-bind
                 onClick={() => {
                     const date = moment(year).toDate();
                     fp.setDate(date, true);

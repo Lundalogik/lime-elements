@@ -49,6 +49,7 @@ const schema = {
                 },
             ],
         },
+        props: { type: 'object' },
     },
 };
 
@@ -182,6 +183,10 @@ describe('findTitle()', () => {
                 schema,
             ],
             output: 'test',
+        },
+        {
+            input: [{ props: { limetype: 'deal' } }, schema, schema],
+            output: null,
         },
     ].forEach(({ input, output }) => {
         const inputJson = JSON.stringify(input[1]);

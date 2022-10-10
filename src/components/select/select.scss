@@ -7,8 +7,6 @@
 @use '@material/floating-label';
 @use '@material/floating-label/mdc-floating-label';
 
-@import './partial-styles/_readonly.scss';
-
 // Note! The `--dropdown-z-index` property is used from `select.tsx`.
 /**
  * @prop --dropdown-z-index: z-index of the dropdown menu.
@@ -25,6 +23,10 @@
 
 .mdc-select--outlined .mdc-floating-label {
     left: functions.pxToRem(16);
+}
+
+.mdc-select__dropdown-icon-graphic {
+    transition: transform 0.2s ease;
 }
 
 .limel-select__selected-option {
@@ -44,12 +46,14 @@
 }
 
 .limel-select__selected-option__text {
-    @include shared_input-select-picker.looks-like-input-label;
+    .mdc-select:not(.mdc-select--disabled) & {
+        @include shared_input-select-picker.looks-like-input-label;
+    }
     @include mixins.truncate-text;
 }
 
 .limel-select {
-    height: shared_input-select-picker.$height-of-mdc-text-field;
+    flex-wrap: wrap;
     width: 100%;
 
     &:not(.limel-select--readonly) {
@@ -59,21 +63,17 @@
     }
 
     .limel-select-trigger {
+        @include mixins.visualize-keyboard-focus;
+
+        height: shared_input-select-picker.$height-of-mdc-text-field;
         display: inline-flex;
         align-items: center;
-        height: 100%;
 
         cursor: pointer;
         border-radius: functions.pxToRem(5);
 
-        &:focus {
-            outline: none;
-        }
-        &:focus-visible {
-            box-shadow: var(--shadow-depth-8-focused) !important;
-        }
-
         .mdc-floating-label {
+            color: shared_input-select-picker.$label-color;
             width: calc(
                 100% - #{functions.pxToRem(16)}
             ); //This forces the label to truncate when container is too little.
@@ -81,20 +81,6 @@
                 font-size: shared_input-select-picker.$cropped-label-hack--font-size;
                 transform: translateY(functions.pxToRem(-34.75)) scale(0.75);
             }
-        }
-    }
-
-    .mdc-select__dropdown-icon {
-        transition: box-shadow 0.2s ease;
-        border-radius: 50%;
-        background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E")
-            no-repeat 50%;
-
-        position: relative;
-        bottom: unset;
-        margin: {
-            left: 0;
-            right: functions.pxToRem(4);
         }
     }
 
@@ -121,7 +107,11 @@
                 }
 
                 .mdc-select__dropdown-icon {
-                    color: var(--mdc-theme-primary);
+                    fill: var(--mdc-theme-primary);
+                }
+
+                .mdc-select__dropdown-icon-graphic {
+                    transform: rotate(-180deg);
                 }
             }
         }
@@ -152,19 +142,6 @@
     flex-shrink: 0;
 }
 
-.mdc-select-helper-line {
-    @include shared_input-select-picker.looks-like-helper-line;
-}
-
-.mdc-select-helper-text {
-    margin-left: 0;
-    margin-right: 0;
-
-    &:before {
-        @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
-    }
-}
-
 select.limel-select__native-control {
     position: absolute;
     top: 0;
@@ -178,8 +155,8 @@ select.limel-select__native-control {
 
 :host(.is-narrow) {
     .limel-select {
-        height: functions.pxToRem(36);
         .mdc-select__anchor {
+            height: functions.pxToRem(36);
             padding-left: functions.pxToRem(0);
         }
     }
@@ -198,3 +175,6 @@ select.limel-select__native-control {
         margin-left: functions.pxToRem(-8);
     }
 }
+
+@import './partial-styles/_readonly';
+@import './partial-styles/_helper-text';

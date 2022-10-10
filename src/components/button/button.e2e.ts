@@ -192,54 +192,34 @@ describe('limel-button', () => {
                 limelButton = await page.find('limel-button');
                 innerButton = await page.find('limel-button>>>button');
             });
-            it('the state is "not loading"', () => {
-                expect(innerButton).not.toHaveClass('loading');
-                expect(innerButton).not.toHaveClass('just-loaded');
-            });
-            it('the property is falsy', async () => {
-                const propValue = await limelButton.getProperty('loading');
-                expect(propValue).toBeFalsy();
-            });
+            testNotLoading();
+            testPropertyIsFalsy();
 
             describe('when setting the property to `true`', () => {
                 beforeEach(async () => {
                     limelButton.setProperty('loading', true);
                     await page.waitForChanges();
                 });
-                it('the state is "loading"', () => {
-                    expect(innerButton).toHaveClass('loading');
-                    expect(innerButton).not.toHaveClass('just-loaded');
-                });
-                it('the property is `true`', async () => {
-                    const propValue = await limelButton.getProperty('loading');
-                    expect(propValue).toBe(true);
-                });
+                testIsLoading();
 
                 describe('and then setting the property to `false`', () => {
                     beforeEach(async () => {
                         limelButton.setProperty('loading', false);
                         await page.waitForChanges();
                     });
-                    it('the visual state becomes "just-loaded"', () => {
-                        expect(innerButton).not.toHaveClass('loading');
-                        expect(innerButton).toHaveClass('just-loaded');
+                    testJustLoaded();
+                });
+
+                describe.each([
+                    [false, 'just-loaded'],
+                    [true, 'just-failed'],
+                ])('loadingFailed %j', (propValue, expected) => {
+                    beforeEach(async () => {
+                        limelButton.setProperty('loading', false);
+                        limelButton.setProperty('loadingFailed', propValue);
+                        await page.waitForChanges();
                     });
-                    it('the property is falsy', async () => {
-                        const propValue = await limelButton.getProperty(
-                            'loading'
-                        );
-                        expect(propValue).toBeFalsy();
-                    });
-                    describe('after 2 seconds', () => {
-                        beforeEach(async () => {
-                            await page.waitForTimeout(1900);
-                            await page.waitForChanges();
-                        });
-                        it('the visual state becomes "not loading" after 2 seconds', () => {
-                            expect(innerButton).not.toHaveClass('loading');
-                            expect(innerButton).not.toHaveClass('just-loaded');
-                        });
-                    });
+                    testJustLoaded(expected);
                 });
             });
         });
@@ -251,39 +231,14 @@ describe('limel-button', () => {
                 limelButton = await page.find('limel-button');
                 innerButton = await page.find('limel-button>>>button');
             });
-            it('the state is "loading"', () => {
-                expect(innerButton).toHaveClass('loading');
-                expect(innerButton).not.toHaveClass('just-loaded');
-            });
-            it('the property is `true`', async () => {
-                const propValue = await limelButton.getProperty('loading');
-                expect(propValue).toBe(true);
-            });
+            testIsLoading();
 
             describe('when setting the property to `false`', () => {
                 beforeEach(async () => {
                     limelButton.setProperty('loading', false);
                     await page.waitForChanges();
                 });
-                it('the visual state becomes "just-loaded"', () => {
-                    expect(innerButton).not.toHaveClass('loading');
-                    expect(innerButton).toHaveClass('just-loaded');
-                });
-                it('the property is falsy', async () => {
-                    const propValue = await limelButton.getProperty('loading');
-                    expect(propValue).toBeFalsy();
-                });
-
-                describe('after 2 seconds', () => {
-                    beforeEach(async () => {
-                        await page.waitForTimeout(1900);
-                        await page.waitForChanges();
-                    });
-                    it('the visual state becomes "not loading" after 2 seconds', () => {
-                        expect(innerButton).not.toHaveClass('loading');
-                        expect(innerButton).not.toHaveClass('just-loaded');
-                    });
-                });
+                testJustLoaded();
 
                 describe('and then setting the property to `true`', () => {
                     beforeEach(async () => {
@@ -291,19 +246,59 @@ describe('limel-button', () => {
                         limelButton.setProperty('loading', true);
                         await page.waitForChanges();
                     });
-                    it('the visual state becomes "loading"', () => {
-                        expect(innerButton).toHaveClass('loading');
-                        expect(innerButton).not.toHaveClass('just-loaded');
-                    });
-                    it('the property is `true`', async () => {
-                        const propValue = await limelButton.getProperty(
-                            'loading'
-                        );
-                        expect(propValue).toBe(true);
-                    });
+                    testIsLoading('the visual state becomes "loading"');
                 });
             });
         });
+
+        function testNotLoading(name = 'the state is "not loading"') {
+            it(name, () => {
+                expect(innerButton).not.toHaveClass('loading');
+                expect(innerButton).not.toHaveClass('just-failed');
+                expect(innerButton).not.toHaveClass('just-loaded');
+            });
+        }
+
+        function testPropertyIsFalsy() {
+            it('the property is falsy', async () => {
+                const propValue = await limelButton.getProperty('loading');
+                expect(propValue).toBeFalsy();
+            });
+        }
+
+        function testIsLoading(name = 'the state is "loading"') {
+            it(name, () => {
+                expect(innerButton).toHaveClass('loading');
+                expect(innerButton).not.toHaveClass('just-failed');
+                expect(innerButton).not.toHaveClass('just-loaded');
+            });
+            testPropertyIsTrue();
+        }
+
+        function testPropertyIsTrue() {
+            it('the property is `true`', async () => {
+                const propValue = await limelButton.getProperty('loading');
+                expect(propValue).toBe(true);
+            });
+        }
+
+        function testJustLoaded(expected = 'just-loaded') {
+            it(`the visual state becomes "${expected}"`, () => {
+                expect(innerButton).not.toHaveClass('loading');
+                expect(innerButton).toHaveClass(expected);
+            });
+            testPropertyIsFalsy();
+
+            describe('after 2 seconds', () => {
+                beforeEach(async () => {
+                    await page.waitForTimeout(1900);
+                    await page.waitForChanges();
+                });
+                testNotLoading(
+                    'the visual state becomes "not loading" after 2 seconds'
+                );
+            });
+        }
     });
 });
 

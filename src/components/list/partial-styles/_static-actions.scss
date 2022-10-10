@@ -1,7 +1,7 @@
 // This is used in limel-picker only for now
 
 :host(.static-actions-list) {
-    z-index: z-index.$list-static-actions-list;
+    z-index: $list-static-actions-list;
     background-color: var(--mdc-theme-surface);
 }
 

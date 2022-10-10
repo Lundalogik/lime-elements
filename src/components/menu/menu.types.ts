@@ -1,4 +1,16 @@
-export type OpenDirection = 'left' | 'right';
+export type OpenDirection =
+    | 'left-start'
+    | 'left'
+    | 'left-end'
+    | 'right-start'
+    | 'right'
+    | 'right-end'
+    | 'top-start'
+    | 'top'
+    | 'top-end'
+    | 'bottom-start'
+    | 'bottom'
+    | 'bottom-end';
 
 export interface MenuItem<T = any> {
     /**
