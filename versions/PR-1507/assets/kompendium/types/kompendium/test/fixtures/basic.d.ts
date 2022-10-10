@@ -48,3 +48,22 @@ export declare enum Color {
    */
   Blue = "blue"
 }
+/**
+ * The Zap class
+ *
+ * @deprecated
+ */
+export declare class Zap implements Foo {
+  /**
+   * @inheritdoc
+   */
+  foo: string;
+  /**
+   * @inheritdoc
+   */
+  bar?: boolean;
+  /**
+   * @inheritdoc
+   */
+  baz: (args: string) => number;
+}
