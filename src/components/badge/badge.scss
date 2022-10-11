@@ -14,6 +14,7 @@
 
 :host {
     @include lime-typography.base;
+    cursor: default;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -32,8 +33,13 @@
     background-color: var(--badge-background-color, rgb(var(--contrast-500)));
     color: var(--badge-text-color, rgb(var(--contrast-1200)));
 }
+
 span {
     @include mixins.truncate-text;
     min-width: 0;
-    max-width: 6ch;
+    max-width: 2.25rem;
+}
+
+:host(.has-large-label) {
+    cursor: help;
 }

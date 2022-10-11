@@ -5,6 +5,9 @@ import { Component, h } from '@stencil/core';
  *
  * String labels get truncated if their visual length is longer than
  * six characters placed side by side (six `0`s to be exact).
+ *
+ * When users hover the truncated badge, the complete
+ * `label` will be displayed in a tooltip.
  */
 @Component({
     tag: 'limel-example-badge-string',
