@@ -7,6 +7,9 @@ import { Component, h } from '@stencil/core';
  * For example, if the label is `1090` the badge will display `1.1K`.
  * Abbreviation units used are `K` (Kilo) that stands for Thousands,
  * `M` for Millions, `B` for Billions, and `T` for Trillions.
+ *
+ * When users hover the abbreviated badge, the complete
+ * `label` will be displayed in a tooltip.
  */
 @Component({
     tag: 'limel-example-badge-number',
