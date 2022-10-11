@@ -253,7 +253,7 @@ function createMenuItems(
 }
 
 function getSelectedText(value: Option | Option[], readonly: boolean): string {
-    if (!value && readonly) {
+    if ((!value || (isMultiple(value) && !value.length)) && readonly) {
         return '–';
     }
 
