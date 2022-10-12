@@ -1,3 +1,16 @@
+## [36.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.0.0...v36.1.0-next.1) (2022-10-12)
+
+
+### Features
+
+* **badge:** allow string labels ([a8f31c8](https://github.com/Lundalogik/lime-elements/commit/a8f31c8d58171c96778be4bcbadce454bd8f14e5))
+
+
+### Bug Fixes
+
+* **badge:** make all number units upper case ([26cb224](https://github.com/Lundalogik/lime-elements/commit/26cb2249a8b4c1de2986f90db4a31333ac00177e))
+* **badge:** use unabbreviated & un-truncated label as `title` to improve accessibility ([df3b30d](https://github.com/Lundalogik/lime-elements/commit/df3b30d06617246a38eea562f5f2c2ca51ac2651))
+
 ## [36.0.0](https://github.com/Lundalogik/lime-elements/compare/v35.0.0...v36.0.0) (2022-10-04)
 
 
