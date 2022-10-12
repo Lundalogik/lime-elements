@@ -90,7 +90,7 @@ describe('limel-progress-flow-item', () => {
     describe('when icon is given', () => {
         let icon: E2EElement;
         beforeEach(async () => {
-            flowItem = { text: 'Customer contact', icon: 'phone' };
+            flowItem = { text: 'Customer contact', icon: 'unit-test' };
             progressFlowItem.setProperty('item', flowItem);
             await page.waitForChanges();
             icon = await page.find('limel-icon');
@@ -98,7 +98,7 @@ describe('limel-progress-flow-item', () => {
 
         it('renders the item with the icon', () => {
             expect(icon).toBeTruthy();
-            expect(icon.getAttribute('name')).toEqual('phone');
+            expect(icon.getAttribute('name')).toEqual('unit-test');
         });
     });
 

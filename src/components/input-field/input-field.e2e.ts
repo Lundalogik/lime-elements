@@ -197,7 +197,7 @@ describe('limel-input-field', () => {
             if (type.name !== 'textarea') {
                 describe('when leadingIcon is set', () => {
                     beforeEach(async () => {
-                        limelInput.setAttribute('leading-icon', 'cat');
+                        limelInput.setAttribute('leading-icon', 'unit-test');
                         await page.waitForChanges();
                     });
                     it('has the correct leading icon', async () => {
@@ -205,12 +205,15 @@ describe('limel-input-field', () => {
                             'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon'
                         );
                         expect(leadingIcon).toBeTruthy();
-                        expect(leadingIcon).toEqualAttribute('name', 'cat');
+                        expect(leadingIcon).toEqualAttribute(
+                            'name',
+                            'unit-test'
+                        );
                     });
                 });
                 describe('when trailingIcon is set', () => {
                     beforeEach(async () => {
-                        limelInput.setAttribute('trailing-icon', 'dog');
+                        limelInput.setAttribute('trailing-icon', 'unit-test');
                         await page.waitForChanges();
                     });
                     it('has the correct trailing icon', async () => {
@@ -218,13 +221,16 @@ describe('limel-input-field', () => {
                             'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
                         );
                         expect(trailingIcon).toBeTruthy();
-                        expect(trailingIcon).toEqualAttribute('name', 'dog');
+                        expect(trailingIcon).toEqualAttribute(
+                            'name',
+                            'unit-test'
+                        );
                     });
                 });
                 describe('when leadingIcon and trailingIcon is set', () => {
                     beforeEach(async () => {
-                        limelInput.setAttribute('leading-icon', 'cat');
-                        limelInput.setAttribute('trailing-icon', 'dog');
+                        limelInput.setAttribute('leading-icon', 'angle_left');
+                        limelInput.setAttribute('trailing-icon', 'angle_right');
                         await page.waitForChanges();
                     });
                     it('has the correct leading icon', async () => {
@@ -232,14 +238,20 @@ describe('limel-input-field', () => {
                             'limel-input-field>>>.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon'
                         );
                         expect(leadingIcon).toBeTruthy();
-                        expect(leadingIcon).toEqualAttribute('name', 'cat');
+                        expect(leadingIcon).toEqualAttribute(
+                            'name',
+                            'angle_left'
+                        );
                     });
                     it('has the correct trailing icon', async () => {
                         const trailingIcon = await page.find(
                             'limel-input-field>>>.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
                         );
                         expect(trailingIcon).toBeTruthy();
-                        expect(trailingIcon).toEqualAttribute('name', 'dog');
+                        expect(trailingIcon).toEqualAttribute(
+                            'name',
+                            'angle_right'
+                        );
                     });
                 });
             }
