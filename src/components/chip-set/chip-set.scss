@@ -1,4 +1,3 @@
-@use '../../style/internal/z-index';
 @use '../../style/functions';
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins';
@@ -38,6 +37,10 @@ $background-color-of-remove-chip-buton-when-hovered: rgba(
     0.2
 );
 $scale-of-remove-chip-x-when-hovered: scale(0.7);
+
+:host(limel-chip-set) {
+    isolation: isolate;
+}
 
 .mdc-chip {
     @include mixins.is-elevated-inset-clickable;
@@ -218,7 +221,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             transition: all 0s;
             opacity: 0;
             position: absolute;
-            z-index: z-index.$chip-set--hidden-text-field; // to let users interact with chips, in case they're covered
+            z-index: -100; // to let users interact with chips, in case they're covered
         }
         &[type='search'] {
             -webkit-appearance: textfield; // Removes the default magnifying glass icon on iOS which appears automatically on input fields with type of search
