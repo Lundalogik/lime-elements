@@ -28,11 +28,7 @@ jobs:
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
-    - name: npm install
-      run: |
-        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
-        npm ci
-        rm .npmrc
+    - run: npm ci
     - run: npm run lint:prod
 
   build:
@@ -49,11 +45,7 @@ jobs:
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
-    - name: npm install
-      run: |
-        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
-        npm ci
-        rm .npmrc
+    - run: npm ci
     - run: npm run build
 
   test:
@@ -70,11 +62,7 @@ jobs:
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
-    - name: npm install
-      run: |
-        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
-        npm ci
-        rm .npmrc
+    - run: npm ci
     - run: npm test --if-present
 
   commitlint:
@@ -117,11 +105,7 @@ jobs:
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
-    - name: npm install
-      run: |
-        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
-        npm ci
-        rm .npmrc
+    - run: npm ci
     - run: git config --global user.email "$GH_EMAIL"
     - run: git config --global user.name "$GH_USERNAME"
     - run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
