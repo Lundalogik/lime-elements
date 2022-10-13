@@ -27,5 +27,5 @@ export interface Tab {
     /**
      * Shows a badge within the tab with a specified label
      */
-    badge?: number;
+    badge?: number | string;
 }
