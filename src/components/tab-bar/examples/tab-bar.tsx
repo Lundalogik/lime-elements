@@ -60,6 +60,11 @@ export class TabBarExample {
             iconColor: 'var(--lime-deep-red)',
             badge: 4,
         },
+        {
+            id: 8,
+            text: 'Inception',
+            badge: 'NEW',
+        },
     ];
 
     public render() {
