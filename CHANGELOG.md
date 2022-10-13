@@ -1,3 +1,10 @@
+## [36.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.3...v36.1.0-next.4) (2022-10-13)
+
+
+### Bug Fixes
+
+* **popover:** resolve z-index issues by using css `isolation` ([bfe84fd](https://github.com/Lundalogik/lime-elements/commit/bfe84fd837a82970652c03d9fa1f4787abbb5e88)), closes [Lundalogik/lime-elements#1864](https://github.com/Lundalogik/lime-elements/issues/1864)
+
 ## [36.1.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.2...v36.1.0-next.3) (2022-10-13)
 
 
