@@ -1,3 +1,10 @@
+## [36.1.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.1...v36.1.0-next.2) (2022-10-13)
+
+
+### Bug Fixes
+
+* **chip-set:** resolve z-index issues by using css `isolation` ([676d22c](https://github.com/Lundalogik/lime-elements/commit/676d22ceb83861cb9cf5caed8534378adff75505)), closes [Lundalogik/lime-elements#1864](https://github.com/Lundalogik/lime-elements/issues/1864)
+
 ## [36.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.0.0...v36.1.0-next.1) (2022-10-12)
 
 
