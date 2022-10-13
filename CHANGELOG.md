@@ -1,3 +1,10 @@
+## [36.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.4...v36.1.0-next.5) (2022-10-13)
+
+
+### Features
+
+* **tab:** allow string labels in badge ([1877e59](https://github.com/Lundalogik/lime-elements/commit/1877e59bd365325abd105e0f8432e6cb30e907a6))
+
 ## [36.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.3...v36.1.0-next.4) (2022-10-13)
 
 
