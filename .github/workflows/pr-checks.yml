@@ -129,7 +129,9 @@ jobs:
 
   autoapprove:
     needs: [lint, build, test, autosquash, docs]
-    if: github.actor == 'dependabot[bot]'
+    # Only run job if the PR comes from a repo owned by Lime and the PR was
+    # created by Dependabot.
+    if: github.event.pull_request.head.repo.owner.login == 'Lundalogik' && github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Enable Automerge
