@@ -1,3 +1,10 @@
+## [36.1.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.2...v36.1.0-next.3) (2022-10-13)
+
+
+### Reverts
+
+* "fix(badge): make all number units upper case" ([9e6dabb](https://github.com/Lundalogik/lime-elements/commit/9e6dabbe499e57f1df6a719b14a9cc799492e30a))
+
 ## [36.1.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.1...v36.1.0-next.2) (2022-10-13)
 
 
