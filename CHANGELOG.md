@@ -1,3 +1,10 @@
+## [36.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.5...v36.1.0-next.6) (2022-10-14)
+
+
+### Features
+
+* **datepicker:** highlight today in datepickers ([b0d2e09](https://github.com/Lundalogik/lime-elements/commit/b0d2e09c6fb1ed2b91706fe03e1a50abdbcb7f69))
+
 ## [36.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.4...v36.1.0-next.5) (2022-10-13)
 
 
