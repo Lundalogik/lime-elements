@@ -1,0 +1,888 @@
+// This file contains the original Flatpickr styles which are found in:
+// '../../../../node_modules/flatpickr/dist/flatpickr.css';
+//
+// To avoid overriding their styles and making this component work
+// well with our own size rhythms and color variables, we have just
+// copy/pasted their original styles here in this file.
+// Those styles that are either not needed (due to our better CSS)
+// or are overwritten in our styles are commented out here.
+// Styles for some features that we do not use are mostly ignored. /Kia
+
+.flatpickr-calendar {
+    // background: transparent;
+    // opacity: 0;
+    // display: none;
+    text-align: center;
+    // visibility: hidden;
+    // padding: 0;
+    // animation: none;
+    direction: ltr;
+    // border: 0;
+    font-size: 14px;
+    line-height: 24px;
+    // border-radius: 5px;
+    // position: absolute;
+    width: 307.875px;
+    // box-sizing: border-box;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    // background: #fff;
+    // box-shadow: 1px 0 0 #e6e6e6, -1px 0 0 #e6e6e6, 0 1px 0 #e6e6e6,
+    //     0 -1px 0 #e6e6e6, 0 3px 13px rgba(0, 0, 0, 0.08);
+
+    // &.open,
+    // &.inline {
+    //     // opacity: 1;
+    //     max-height: 640px;
+    //     visibility: visible;
+    // }
+
+    // &.open {
+    //     display: inline-block;
+    //     z-index: 99999;
+    // }
+
+    // &.animate.open {
+    //     animation: fpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);
+    // }
+
+    // &.inline {
+    //     display: block;
+    //     position: relative;
+    //     top: 2px;
+    // }
+
+    // &.static {
+    //     position: absolute;
+    //     top: calc(100% + 2px);
+
+    //     &.open {
+    //         z-index: 999;
+    //         display: block;
+    //     }
+    // }
+
+    .hasWeeks .dayContainer,
+    .hasTime .dayContainer {
+        border-bottom: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .hasWeeks .dayContainer {
+        border-left: 0;
+    }
+
+    // &.hasTime .flatpickr-time {
+    //     height: 40px;
+    //     border-top: 1px solid #e6e6e6;
+    // }
+
+    // &.noCalendar.hasTime .flatpickr-time {
+    //     height: auto;
+    // }
+
+    // Below seems to be their way of adding pointing arrows
+    // which we want to solve with our own `openDirection` on portal.
+
+    // &:before,
+    // &:after {
+    //     position: absolute;
+    //     display: block;
+    //     pointer-events: none;
+    //     border: solid transparent;
+    //     content: '';
+    //     height: 0;
+    //     width: 0;
+    //     left: 22px;
+    // }
+
+    // &.rightMost:before,
+    // &.arrowRight:before,
+    // &.rightMost:after,
+    // &.arrowRight:after {
+    //     left: auto;
+    //     right: 22px;
+    // }
+
+    // &.arrowCenter {
+    //     &:before,
+    //     &:after {
+    //         left: 50%;
+    //         right: 50%;
+    //     }
+    // }
+
+    // &:before {
+    //     border-width: 5px;
+    //     margin: 0 -5px;
+    // }
+
+    // &:after {
+    //     border-width: 4px;
+    //     margin: 0 -4px;
+    // }
+
+    // &.arrowTop {
+    //     &:before,
+    //     &:after {
+    //         bottom: 100%;
+    //     }
+
+    //     &:before {
+    //         border-bottom-color: #e6e6e6;
+    //     }
+
+    //     &:after {
+    //         border-bottom-color: #fff;
+    //     }
+    // }
+
+    // &.arrowBottom {
+    //     &:before,
+    //     &:after {
+    //         top: 100%;
+    //     }
+
+    //     &:before {
+    //         border-top-color: #e6e6e6;
+    //     }
+
+    //     &:after {
+    //         border-top-color: #fff;
+    //     }
+    // }
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.flatpickr-calendar.multiMonth .flatpickr-days .dayContainer {
+    &:nth-child(n + 1) .flatpickr-day.inRange:nth-child(7n + 7) {
+        box-shadow: none !important;
+    }
+
+    // &:nth-child(n + 2) .flatpickr-day.inRange:nth-child(7n + 1) {
+    //     box-shadow: -2px 0 0 #e6e6e6, 5px 0 0 #e6e6e6;
+    // }
+}
+
+.flatpickr-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+// *******
+.flatpickr-months {
+    display: flex;
+
+    .flatpickr-month {
+        background: transparent;
+        // color: rgba(0, 0, 0, 0.9);
+        // fill: rgba(0, 0, 0, 0.9);
+        height: 34px;
+        line-height: 1;
+        text-align: center;
+        position: relative;
+        user-select: none;
+        overflow: hidden;
+        flex: 1;
+    }
+
+    .flatpickr-prev-month,
+    .flatpickr-next-month {
+        user-select: none;
+        text-decoration: none;
+        cursor: pointer;
+        // position: absolute;
+        // top: 0;
+        // height: 34px;
+        // padding: 10px;
+        // z-index: 3;
+        // color: rgba(0, 0, 0, 0.9);
+        // fill: rgba(0, 0, 0, 0.9);
+
+        // &:hover {
+        //     color: #959ea9;
+
+        //     svg {
+        //         fill: #f64747;
+        //     }
+        // }
+
+        // svg {
+        //     width: 14px;
+        //     height: 14px;
+
+        //     path {
+        //         transition: fill 0.1s;
+        //         fill: inherit;
+        //     }
+        // }
+
+        &.flatpickr-disabled {
+            display: none;
+        }
+
+        i {
+            position: relative;
+        }
+    }
+
+    // .flatpickr-prev-month.flatpickr-prev-month {
+    //     left: 0;
+    // }
+
+    // .flatpickr-next-month {
+    //     &.flatpickr-prev-month {
+    //         left: 0;
+    //         right: 0;
+    //     }
+
+    //     &.flatpickr-next-month {
+    //         right: 0;
+    //     }
+    // }
+}
+
+// *******
+.numInputWrapper {
+    position: relative;
+    height: auto;
+
+    input,
+    span {
+        display: inline-block;
+    }
+
+    input {
+        width: 100%;
+
+        &::-ms-clear {
+            display: none;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            margin: 0;
+            -webkit-appearance: none;
+        }
+    }
+
+    span {
+        position: absolute;
+        right: 0;
+        // width: 14px;
+        // padding: 0 4px 0 2px;
+        height: 50%;
+        line-height: 50%;
+        opacity: 0;
+        cursor: pointer;
+        // border: 1px solid rgba(57, 57, 57, 0.15);
+
+        box-sizing: border-box;
+
+        // &:hover {
+        //     background: rgba(0, 0, 0, 0.1);
+        // }
+
+        // &:active {
+        //     background: rgba(0, 0, 0, 0.2);
+        // }
+
+        &:after {
+            display: block;
+            content: '';
+            position: absolute;
+        }
+
+        &.arrowUp {
+            top: 0;
+            border-bottom: 0;
+
+            &:after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-bottom: 4px solid rgba(57, 57, 57, 0.6); // border color is overwritten in our styles
+                // top: 26%;
+            }
+        }
+
+        &.arrowDown {
+            top: 50%;
+
+            &:after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4px solid rgba(57, 57, 57, 0.6); // border color is overwritten in our styles
+                // top: 40%;
+            }
+        }
+
+        svg {
+            width: inherit;
+            height: auto;
+
+            // path {
+            //     fill: rgba(0, 0, 0, 0.5);
+            // }
+        }
+    }
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.05); // will work in dark mode anyways
+
+        span {
+            opacity: 1;
+        }
+    }
+}
+
+// *******
+.flatpickr-current-month {
+    // font-size: 135%;
+    // line-height: inherit;
+    // font-weight: 300;
+    // color: inherit;
+    // position: absolute;
+    // width: 75%;
+    // left: 12.5%;
+    // padding: 7.48px 0 0 0;
+    // line-height: 1;
+    // height: 34px;
+    // display: inline-block;
+    // text-align: center;
+    // -webkit-transform: translate3d(0px, 0px, 0px);
+    // transform: translate3d(0px, 0px, 0px);
+
+    // span.cur-month {
+    // font-family: inherit;
+    // font-weight: 700;
+    // color: inherit;
+    // display: inline-block;
+    // margin-left: 0.5ch;
+    // padding: 0;
+
+    // &:hover {
+    //     background: rgba(0, 0, 0, 0.05);
+    // }
+    // }
+
+    // .numInputWrapper {
+    // width: 6ch;
+    // width: 7ch\0;
+    // display: inline-block;
+
+    // span {
+    //     &.arrowUp:after {
+    //         border-bottom-color: rgba(0, 0, 0, 0.9);
+    //     }
+
+    //     &.arrowDown:after {
+    //         border-top-color: rgba(0, 0, 0, 0.9);
+    //     }
+    // }
+    // }
+
+    input.cur-year {
+        background: transparent;
+
+        box-sizing: border-box;
+        color: inherit;
+        cursor: text;
+        padding: 0 0 0 0.5ch;
+        margin: 0;
+        display: inline-block;
+        font-size: inherit;
+        font-family: inherit;
+        font-weight: 300;
+        line-height: inherit;
+        height: auto;
+        border: 0;
+        border-radius: 0;
+        vertical-align: initial;
+        -webkit-appearance: textfield;
+        -moz-appearance: textfield;
+        appearance: textfield;
+
+        &:focus {
+            outline: 0;
+        }
+
+        &[disabled] {
+            font-size: 100%;
+            // color: rgba(0, 0, 0, 0.5);
+            background: transparent;
+            pointer-events: none;
+
+            &:hover {
+                font-size: 100%;
+                // color: rgba(0, 0, 0, 0.5);
+                background: transparent;
+                pointer-events: none;
+            }
+        }
+    }
+
+    .flatpickr-monthDropdown-months {
+        appearance: menulist;
+        background: transparent;
+        border: none;
+        // border-radius: 0;
+        // box-sizing: border-box;
+        // color: inherit;
+        cursor: pointer;
+        // font-size: inherit;
+        font-family: inherit;
+        font-weight: 300;
+        height: auto;
+        line-height: inherit;
+        // margin: -1px 0 0 0;
+        outline: none;
+        // padding: 0 0 0 0.5ch;
+        position: relative;
+        vertical-align: initial;
+
+        -webkit-appearance: menulist;
+        -moz-appearance: menulist;
+        width: auto;
+
+        &:focus,
+        &:active {
+            outline: none;
+        }
+
+        // &:hover {
+        //     background: rgba(0, 0, 0, 0.05);
+        // }
+
+        .flatpickr-monthDropdown-month {
+            background-color: transparent;
+            outline: none;
+            padding: 0;
+        }
+    }
+}
+
+// *******
+.flatpickr-weekdays {
+    // background: transparent;
+    // text-align: center;
+    // overflow: hidden;
+    // width: 100%;
+    display: flex;
+    align-items: center;
+    height: 28px;
+}
+// .flatpickr-weekdays .flatpickr-weekdaycontainer {
+//     display: flex;
+//     flex: 1;
+// }
+span.flatpickr-weekday {
+    // cursor: default;
+    font-size: 90%;
+    // background: transparent;
+    // color: rgba(0, 0, 0, 0.54);
+    // line-height: 1;
+    // margin: 0;
+    // text-align: center;
+    // display: block;
+    // flex: 1;
+    font-weight: bolder;
+}
+// .dayContainer,
+// .flatpickr-weeks {
+//     padding: 1px 0 0 0;
+// }
+.flatpickr-days {
+    position: relative;
+    overflow: hidden;
+    // display: flex;
+    // align-items: flex-start;
+    // width: 307.875px;
+}
+// .flatpickr-days:focus {
+//     outline: 0;
+// }
+// .dayContainer {
+// padding: 0;
+// outline: 0;
+// text-align: left;
+// width: 307.875px;
+// min-width: 307.875px;
+// max-width: 307.875px;
+// box-sizing: border-box;
+// display: flex;
+// flex-wrap: wrap;
+// justify-content: space-around;
+// transform: translate3d(0, 0, 0);
+// opacity: 1;
+// }
+// .dayContainer + .dayContainer {
+//     box-shadow: -1px 0 0 #e6e6e6;
+// }
+
+// *******
+.flatpickr-day {
+    // background: none;
+    // border: 1px solid transparent;
+    // border-radius: 150px;
+    // box-sizing: border-box;
+    // color: #393939;
+    // cursor: pointer;
+    // font-weight: 400;
+    // width: 14.2857143%;
+    // flex-basis: 14.2857143%;
+    // max-width: 39px;
+    // height: 39px;
+    // line-height: 39px;
+    // margin: 0;
+    // display: inline-block;
+    // position: relative;
+    // justify-content: center;
+    // text-align: center;
+
+    // &.inRange,
+    // &.prevMonthDay.inRange,
+    // &.nextMonthDay.inRange,
+    // &.today.inRange,
+    // &.prevMonthDay.today.inRange,
+    // &.nextMonthDay.today.inRange,
+    // &:hover,
+    // &.prevMonthDay:hover,
+    // &.nextMonthDay:hover,
+    // &:focus,
+    // &.prevMonthDay:focus,
+    // &.nextMonthDay:focus {
+    //     cursor: pointer;
+    //     outline: 0;
+    //     background: #e6e6e6;
+    //     border-color: #e6e6e6;
+    // }
+
+    // &.today {
+    //     border-color: #959ea9;
+
+    //     &:hover,
+    //     &:focus {
+    //         border-color: #959ea9;
+    //         background: #959ea9;
+    //         color: #fff;
+    //     }
+    // }
+
+    // &.selected,
+    // &.startRange,
+    // &.endRange,
+    // &.selected.inRange,
+    // &.startRange.inRange,
+    // &.endRange.inRange,
+    // &.selected:focus,
+    // &.startRange:focus,
+    // &.endRange:focus,
+    // &.selected:hover,
+    // &.startRange:hover,
+    // &.endRange:hover,
+    // &.selected.prevMonthDay,
+    // &.startRange.prevMonthDay,
+    // &.endRange.prevMonthDay,
+    // &.selected.nextMonthDay,
+    // &.startRange.nextMonthDay,
+    // &.endRange.nextMonthDay {
+    //     background: #569ff7;
+    //     box-shadow: none;
+    //     color: #fff;
+    //     border-color: #569ff7;
+    // }
+
+    &.selected.startRange,
+    &.startRange.startRange,
+    &.endRange.startRange {
+        border-radius: 50px 0 0 50px;
+    }
+
+    &.selected.endRange,
+    &.startRange.endRange,
+    &.endRange.endRange {
+        border-radius: 0 50px 50px 0;
+    }
+
+    // &.selected.startRange + .endRange:not(:nth-child(7n + 1)),
+    // &.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
+    // &.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
+    //     box-shadow: -10px 0 0 #569ff7;
+    // }
+
+    &.selected.startRange.endRange,
+    &.startRange.startRange.endRange {
+        border-radius: 50px;
+    }
+
+    // &.inRange {
+    // border-radius: 0;
+    //     box-shadow: -5px 0 0 #e6e6e6, 5px 0 0 #e6e6e6;
+    // }
+
+    // &.flatpickr-disabled {
+    //     color: rgba(57, 57, 57, 0.3);
+    //     background: transparent;
+    //     border-color: transparent;
+    //     cursor: default;
+
+    //     &:hover {
+    //         color: rgba(57, 57, 57, 0.3);
+    //         background: transparent;
+    //         border-color: transparent;
+    //         cursor: default;
+    //     }
+    // }
+
+    // &.prevMonthDay,
+    // &.nextMonthDay {
+    //     color: rgba(57, 57, 57, 0.3);
+    //     background: transparent;
+    //     border-color: transparent;
+    //     cursor: default;
+    // }
+
+    &.flatpickr-disabled,
+    &.notAllowed {
+        opacity: 0.4;
+        // color: rgba(57, 57, 57, 0.3);
+        background: transparent;
+        border-color: transparent;
+        cursor: default;
+
+        &.prevMonthDay,
+        &.nextMonthDay {
+            // color: rgba(57, 57, 57, 0.3);
+            background: transparent;
+            border-color: transparent;
+            cursor: default;
+        }
+    }
+
+    // &.flatpickr-disabled {
+    //     cursor: not-allowed;
+    //     color: rgba(57, 57, 57, 0.1);
+
+    //     &:hover {
+    //         cursor: not-allowed;
+    //         color: rgba(57, 57, 57, 0.1);
+    //     }
+    // }
+
+    &.week.selected {
+        border-radius: 0;
+        // box-shadow: -5px 0 0 #569ff7, 5px 0 0 #569ff7;
+    }
+
+    &.hidden {
+        visibility: hidden;
+    }
+}
+
+// *******
+// .rangeMode .flatpickr-day {
+//     margin-top: 1px;
+// }
+
+// *******
+.flatpickr-weekwrapper {
+    float: left;
+
+    // .flatpickr-weeks {
+    //     padding: 0 12px;
+    //     box-shadow: 1px 0 0 #e6e6e6;
+    // }
+
+    .flatpickr-weekday {
+        float: none;
+        width: 100%;
+        line-height: 28px;
+    }
+
+    span.flatpickr-day {
+        display: block;
+        width: 100%;
+        max-width: none;
+        // color: rgba(57, 57, 57, 0.3);
+        background: transparent;
+        cursor: default;
+        border: none;
+
+        &:hover {
+            display: block;
+            width: 100%;
+            max-width: none;
+            // color: rgba(57, 57, 57, 0.3);
+            background: transparent;
+            cursor: default;
+            border: none;
+        }
+    }
+}
+
+// *******
+.flatpickr-innerContainer {
+    // display: block;
+    // display: -webkit-box;
+    // display: -webkit-flex;
+    // display: -ms-flexbox;
+    display: flex;
+
+    // box-sizing: border-box;
+    // overflow: hidden;
+}
+.flatpickr-rContainer {
+    display: inline-block;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+// *******
+.flatpickr-time {
+    text-align: center;
+    outline: 0;
+    display: block;
+    // height: 0;
+    line-height: 40px;
+    max-height: 40px;
+    box-sizing: border-box;
+    overflow: hidden;
+    // display: -webkit-box;
+    // display: -webkit-flex;
+    // display: -ms-flexbox;
+    display: flex;
+
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+    .numInputWrapper {
+        flex: 1;
+        width: 40%;
+        height: 40px;
+        float: left;
+
+        // span {
+        //     &.arrowUp:after {
+        //         border-bottom-color: #393939;
+        //     }
+
+        //     &.arrowDown:after {
+        //         border-top-color: #393939;
+        //     }
+        // }
+    }
+
+    &.hasSeconds .numInputWrapper {
+        width: 26%;
+    }
+
+    &.time24hr .numInputWrapper {
+        width: 49%;
+    }
+
+    input {
+        background: transparent;
+        box-shadow: none;
+        border: 0;
+        border-radius: 0;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        height: inherit;
+        line-height: inherit;
+        // color: #393939;
+        font-size: 14px;
+        position: relative;
+        box-sizing: border-box;
+        appearance: textfield;
+
+        &.flatpickr-hour {
+            font-weight: bold;
+        }
+
+        &.flatpickr-minute,
+        &.flatpickr-second {
+            font-weight: 400;
+        }
+
+        &:focus {
+            outline: 0;
+            border: 0;
+        }
+    }
+
+    .flatpickr-time-separator {
+        height: inherit;
+        float: left;
+        line-height: inherit;
+        // color: #393939;
+        font-weight: bold;
+        width: 2%;
+        user-select: none;
+        align-self: center;
+    }
+
+    .flatpickr-am-pm {
+        height: inherit;
+        float: left;
+        line-height: inherit;
+        // color: #393939;
+        font-weight: bold;
+        width: 2%;
+        user-select: none;
+        align-self: center;
+        outline: 0;
+        width: 18%;
+        cursor: pointer;
+        text-align: center;
+        font-weight: 400;
+    }
+
+    input:hover,
+    .flatpickr-am-pm:hover,
+    input:focus,
+    .flatpickr-am-pm:focus {
+        background: #eee;
+    }
+}
+
+// *******
+.flatpickr-input[readonly] {
+    cursor: pointer;
+}
+
+// animations won't work with the current implementation of the
+// component in the limel-portal
+//
+// @-webkit-keyframes fpFadeInDown {
+//     from {
+//         opacity: 0;
+//         -webkit-transform: translate3d(0, -20px, 0);
+//         transform: translate3d(0, -20px, 0);
+//     }
+//     to {
+//         opacity: 1;
+//         -webkit-transform: translate3d(0, 0, 0);
+//         transform: translate3d(0, 0, 0);
+//     }
+// }
+// @keyframes fpFadeInDown {
+//     from {
+//         opacity: 0;
+//         -webkit-transform: translate3d(0, -20px, 0);
+//         transform: translate3d(0, -20px, 0);
+//     }
+//     to {
+//         opacity: 1;
+//         -webkit-transform: translate3d(0, 0, 0);
+//         transform: translate3d(0, 0, 0);
+//     }
+// }
