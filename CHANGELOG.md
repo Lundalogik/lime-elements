@@ -1,3 +1,51 @@
+## [36.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.5...v36.1.0-next.6) (2022-10-14)
+
+
+### Features
+
+* **datepicker:** highlight today in datepickers ([b0d2e09](https://github.com/Lundalogik/lime-elements/commit/b0d2e09c6fb1ed2b91706fe03e1a50abdbcb7f69))
+
+## [36.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.4...v36.1.0-next.5) (2022-10-13)
+
+
+### Features
+
+* **tab:** allow string labels in badge ([1877e59](https://github.com/Lundalogik/lime-elements/commit/1877e59bd365325abd105e0f8432e6cb30e907a6))
+
+## [36.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.3...v36.1.0-next.4) (2022-10-13)
+
+
+### Bug Fixes
+
+* **popover:** resolve z-index issues by using css `isolation` ([bfe84fd](https://github.com/Lundalogik/lime-elements/commit/bfe84fd837a82970652c03d9fa1f4787abbb5e88)), closes [Lundalogik/lime-elements#1864](https://github.com/Lundalogik/lime-elements/issues/1864)
+
+## [36.1.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.2...v36.1.0-next.3) (2022-10-13)
+
+
+### Reverts
+
+* "fix(badge): make all number units upper case" ([9e6dabb](https://github.com/Lundalogik/lime-elements/commit/9e6dabbe499e57f1df6a719b14a9cc799492e30a))
+
+## [36.1.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.1...v36.1.0-next.2) (2022-10-13)
+
+
+### Bug Fixes
+
+* **chip-set:** resolve z-index issues by using css `isolation` ([676d22c](https://github.com/Lundalogik/lime-elements/commit/676d22ceb83861cb9cf5caed8534378adff75505)), closes [Lundalogik/lime-elements#1864](https://github.com/Lundalogik/lime-elements/issues/1864)
+
+## [36.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.0.0...v36.1.0-next.1) (2022-10-12)
+
+
+### Features
+
+* **badge:** allow string labels ([a8f31c8](https://github.com/Lundalogik/lime-elements/commit/a8f31c8d58171c96778be4bcbadce454bd8f14e5))
+
+
+### Bug Fixes
+
+* **badge:** make all number units upper case ([26cb224](https://github.com/Lundalogik/lime-elements/commit/26cb2249a8b4c1de2986f90db4a31333ac00177e))
+* **badge:** use unabbreviated & un-truncated label as `title` to improve accessibility ([df3b30d](https://github.com/Lundalogik/lime-elements/commit/df3b30d06617246a38eea562f5f2c2ca51ac2651))
+
 ## [36.0.0](https://github.com/Lundalogik/lime-elements/compare/v35.0.0...v36.0.0) (2022-10-04)
 
 

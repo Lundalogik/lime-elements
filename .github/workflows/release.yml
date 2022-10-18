@@ -22,11 +22,7 @@ jobs:
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
-    - name: npm install
-      run: |
-        GH_TOKEN="${{ secrets.READ_PRIVATE_GITHUB_PACKAGES }}" ./generate_npmrc.sh
-        npm ci
-        rm .npmrc
+    - run: npm ci
     - run: npm run build
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v2

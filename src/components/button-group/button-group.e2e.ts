@@ -21,7 +21,7 @@ describe('limel-button-group', () => {
                 {
                     id: '2',
                     title: 'Apple',
-                    icon: 'apple',
+                    icon: 'unit-test',
                 },
             ]);
             await page.waitForChanges();
