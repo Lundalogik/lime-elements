@@ -1,3 +1,10 @@
+## [36.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.6...v36.1.0-next.7) (2022-10-18)
+
+
+### Bug Fixes
+
+* **input-field:** prevent overlapping prefix & formatted-input ([af43503](https://github.com/Lundalogik/lime-elements/commit/af4350349ce1527f46548526a3961150685d89e6))
+
 ## [36.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.5...v36.1.0-next.6) (2022-10-14)
 
 
