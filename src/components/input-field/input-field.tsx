@@ -305,10 +305,10 @@ export class InputField {
                 {this.renderLeadingIcon()}
                 {this.renderEmptyValueForReadonly()}
                 {this.renderPrefix()}
+                {this.renderFormattedNumber()}
                 {this.renderInput(properties)}
                 {this.renderSuffix()}
                 {this.renderTextarea(properties)}
-                {this.renderFormattedNumber()}
                 {this.renderTrailingLinkOrButton()}
             </label>,
             this.renderHelperLine(),
