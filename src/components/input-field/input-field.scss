@@ -77,8 +77,10 @@
 }
 
 .lime-empty-value-for-readonly {
-    width: calc(100% - #{functions.pxToRem(20)});
     z-index: z-index.$input-field--formatted-value;
+    position: absolute;
+    top: 0.875rem; // 14px
+    left: 1rem;
 }
 
 .lime-looks-like-input-value {
