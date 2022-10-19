@@ -33,7 +33,10 @@ module.exports = {
         quotes: ['error', 'single', { avoidEscape: true }],
         semi: ['error', 'always'],
         'prettier/prettier': 'error',
-        '@typescript-eslint/no-unused-vars': 'error',
+        '@typescript-eslint/no-unused-vars': [
+            'error',
+            { varsIgnorePattern: '^h$' },
+        ],
         '@typescript-eslint/array-type': [
             'error',
             {
