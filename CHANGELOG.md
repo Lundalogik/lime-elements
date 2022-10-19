@@ -1,3 +1,10 @@
+## [36.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.9...v36.1.0-next.10) (2022-10-19)
+
+
+### Bug Fixes
+
+* **date-picker:** make component better fit our visual style ([fe14799](https://github.com/Lundalogik/lime-elements/commit/fe14799c4b18bc83c2367d4ffca4d0348a1466b4))
+
 ## [36.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.8...v36.1.0-next.9) (2022-10-19)
 
 
