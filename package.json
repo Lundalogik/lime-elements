@@ -65,7 +65,7 @@
     "eslint-plugin-jsdoc": "^39.3.14",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-sonarjs": "^0.13.0",
     "flatpickr": "^4.6.13",
     "html-escaper": "^3.0.3",
