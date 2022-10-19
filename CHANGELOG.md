@@ -1,3 +1,10 @@
+## [36.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.8...v36.1.0-next.9) (2022-10-19)
+
+
+### Bug Fixes
+
+* **select:** select with multiple values doesn't show the empty value (-) when readonly ([42aaedc](https://github.com/Lundalogik/lime-elements/commit/42aaedc61dcd23e3f1814bb65cf0575c75d1c5a2))
+
 ## [36.1.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.7...v36.1.0-next.8) (2022-10-19)
 
 
