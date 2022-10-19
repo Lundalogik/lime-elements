@@ -1,4 +1,5 @@
 export default {
+    'date-picker.today': 'Vandaag',
     'date-picker.month.heading': 'Maand',
     'date-picker.quarter.heading': 'Kwartaal',
     'date-picker.year.heading': 'Jaar',

@@ -192,6 +192,14 @@ export class DatePickerCalendar {
     }
 
     public render() {
-        return <div class="container" ref={(el) => (this.container = el)} />;
+        return (
+            <div
+                class="container"
+                ref={(el) => (this.container = el)}
+                style={{
+                    '--today-label': `"${translate.get('date-picker.today')}"`,
+                }}
+            />
+        );
     }
 }

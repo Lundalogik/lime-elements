@@ -5,6 +5,10 @@
 @use '@material/theme/mdc-theme';
 @import '_flatpickr.scss';
 
+/**
+ * @prop --today-label: Tooltip label for "today".
+ */
+
 :host(limel-flatpickr-adapter) {
     --calendar-text-color: rgb(var(--contrast-1400));
     color: --calendar-text-color;
@@ -49,6 +53,7 @@ svg {
     .dayContainer & {
         @include mixins.is-flat-clickable();
     }
+    position: relative;
     cursor: pointer;
 
     display: flex;
@@ -94,6 +99,33 @@ svg {
                 background-color: transparent;
                 color: var(--mdc-theme-primary);
             }
+            &:before {
+                top: -60%;
+                opacity: 1;
+            }
+        }
+
+        &:before {
+            transition: opacity 0.2s ease, top 0.2s ease;
+
+            pointer-events: none;
+            content: var(--today-label);
+            display: inline-block;
+            position: absolute;
+            inset: auto;
+            top: -50%;
+
+            height: 1.25rem;
+            line-height: 1.25rem;
+            font-size: 0.75rem;
+
+            color: rgb(var(--contrast-1100));
+            border-radius: 1rem;
+            padding: 0.125rem 0.5rem;
+
+            background-color: rgb(var(--contrast-100), 0.9);
+            box-shadow: var(--shadow-depth-16);
+            opacity: 0;
         }
     }
 
