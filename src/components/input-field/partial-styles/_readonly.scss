@@ -29,3 +29,13 @@
         }
     }
 }
+
+:host([type='textarea']) {
+    .mdc-text-field {
+        &.lime-text-field--readonly {
+            .mdc-text-field__resizer {
+                pointer-events: all; //allows resize
+            }
+        }
+    }
+}
