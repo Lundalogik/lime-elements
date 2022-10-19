@@ -1,3 +1,11 @@
+## [36.1.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.7...v36.1.0-next.8) (2022-10-19)
+
+
+### Bug Fixes
+
+* **input-field:** align `-` when input-field has no value and readonly ([e689d86](https://github.com/Lundalogik/lime-elements/commit/e689d8657f133fb243f041df45b688b7c9a7b2d7))
+* **input-field:** allow resize when the textarea is readonly ([dc831ae](https://github.com/Lundalogik/lime-elements/commit/dc831aec11f60fce4fceb445837fd6580d1d7a0b))
+
 ## [36.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.6...v36.1.0-next.7) (2022-10-18)
 
 
