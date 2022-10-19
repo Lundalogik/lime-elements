@@ -16,3 +16,5 @@ updates:
     ignore:
       - dependency-name: "@rjsf/core"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "material-components-web"
+        update-types: ["version-update:semver-major"]
