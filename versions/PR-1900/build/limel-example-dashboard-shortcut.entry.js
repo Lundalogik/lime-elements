@@ -1,1 +1,1 @@
-import{r,h as o}from"./index-ab490ba1.js";const s=class{constructor(o){r(this,o)}render(){return[o("limel-dashboard-shortcut",{icon:"dog",label:"dog"})]}};s.style="limel-dashboard-shortcut{width:20%}";export{s as limel_example_dashboard_shortcut}
+import{r,h as o}from"./index-ab490ba1.js";const s=class{constructor(o){r(this,o)}render(){return o("limel-dashboard-shortcut",{icon:"dog",label:"dog"})}};s.style="limel-dashboard-shortcut{width:20%}";export{s as limel_example_dashboard_shortcut}
