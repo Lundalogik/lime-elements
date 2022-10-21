@@ -1,0 +1,7 @@
+:host(limel-example-shortcut-notification) {
+    display: grid;
+    grid-template-columns: repeat(3, 5rem);
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
