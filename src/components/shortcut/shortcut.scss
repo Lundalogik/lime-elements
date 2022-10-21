@@ -1,0 +1,80 @@
+/**
+* @prop --shortcut-border-radius: defines the radius of corners of the shortcut. Defaults to `1rem`
+* @prop --shortcut-icon-color: defines the fill color of the shortcut icon. Defaults to `--contrast-1000`
+* @prop --shortcut-label-color: defines the color of the shortcut label. Defaults to `--contrast-1100`
+* @prop --shortcut-background-color: defines the backgrounds color of the shortcut icon. Defaults to `--contrast-100`
+* @prop --shortcut-badge-text-color: Text color of the notification badge. Defaults to `--color-white`
+* @prop --shortcut-badge-background-color: Background color of the notification badge. Defaults to `--color-red-default`
+*/
+
+@use '../../style/mixins';
+
+:host(limel-shortcut) {
+    --badge-text-color: var(
+        --shortcut-badge-text-color,
+        rgb(var(--color-white))
+    );
+    --badge-background-color: var(
+        --shortcut-badge-background-color,
+        rgb(var(--color-red-default))
+    );
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 0.0625rem; //1px
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+:host(limel-shortcut[disabled]) {
+    a {
+        opacity: 0.5;
+        box-shadow: unset;
+        cursor: not-allowed;
+    }
+}
+
+a {
+    all: unset;
+    @include mixins.is-elevated-clickable;
+    @include mixins.visualize-keyboard-focus;
+    cursor: pointer;
+    text-align: center;
+
+    height: calc(100% - 1rem);
+    width: calc(100% - 1rem);
+    padding: 0.5rem;
+
+    border-radius: var(--shortcut-border-radius, 1rem);
+    background-color: var(
+        --shortcut-background-color,
+        rgb(var(--contrast-100))
+    );
+}
+
+limel-icon {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    color: var(--shortcut-icon-color, rgb(var(--contrast-1000)));
+    border-radius: var(--shortcut-border-radius, 1rem);
+}
+
+span {
+    @include mixins.truncate-text;
+    width: 100%;
+    color: var(--shortcut-label-color, rgb(var(--contrast-1100)));
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+limel-badge {
+    position: absolute;
+    top: -0.5rem;
+    right: 0;
+}
