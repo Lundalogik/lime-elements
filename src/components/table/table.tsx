@@ -28,6 +28,7 @@ const FIRST_PAGE = 1;
  * @exampleComponent limel-example-table-custom-components
  * @exampleComponent limel-example-table-header-menu
  * @exampleComponent limel-example-table-movable-columns
+ * @exampleComponent limel-example-table-sorting-disabled
  * @exampleComponent limel-example-table-local
  * @exampleComponent limel-example-table-remote
  * @exampleComponent limel-example-table-activate-row
@@ -770,7 +771,7 @@ export class Table {
             >
                 <limel-checkbox
                     onChange={this.selectAllOnChange}
-                    disabled={!this.totalRows}
+                    disabled={!this.data.length}
                     checked={this.tableSelection?.hasSelection}
                     indeterminate={
                         this.tableSelection?.hasSelection &&

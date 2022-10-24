@@ -27,8 +27,12 @@ export const config: Config = {
                 { src: 'style/color-palette-extended-light-mode-only.css' },
                 { src: 'style/color-palette-extended.css' },
                 {
-                    src: '../node_modules/@lundalogik/lime-icons8/assets/',
-                    dest: 'assets/',
+                    /*
+                     * Public domain svg files that can be used in tests
+                     * https://freesvg.org/yoga-exercise-low-poly-silhouette
+                     */
+                    src: 'icons/',
+                    dest: 'assets/icons/',
                 },
                 {
                     src: '../node_modules/kompendium/dist/',

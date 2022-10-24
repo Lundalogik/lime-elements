@@ -408,30 +408,39 @@ export class ChipSet {
                     }}
                     dropzone-tip={this.dropZoneTip()}
                 >
-                    <div class="mdc-notched-outline__leading"></div>
-                    <div class="mdc-notched-outline__notch">
-                        <label
-                            class={{
-                                'mdc-floating-label': true,
-                                'mdc-text-field--disabled':
-                                    this.readonly || this.disabled,
-                                'mdc-floating-label--required': this.required,
-                                'lime-floating-label--float-above': !!(
-                                    this.value.length || this.editMode
-                                ),
-                            }}
-                            htmlFor="input-element"
-                        >
-                            {this.label}
-                        </label>
-                    </div>
-                    <div class="mdc-notched-outline__trailing"></div>
+                    <div class="mdc-notched-outline__leading" />
+                    {this.renderLabel()}
+                    <div class="mdc-notched-outline__trailing" />
                 </div>
                 {this.renderLeadingIcon()}
                 {this.renderClearAllChipsButton()}
             </div>,
             this.renderHelperLine(),
         ];
+    }
+
+    private renderLabel() {
+        const labelClassList = {
+            'mdc-floating-label': true,
+            'mdc-text-field--no-label': !this.label,
+            'mdc-text-field--disabled': this.readonly || this.disabled,
+            'mdc-floating-label--required': this.required,
+            'lime-floating-label--float-above': !!(
+                this.value.length || this.editMode
+            ),
+        };
+
+        if (!this.label) {
+            return;
+        }
+
+        return (
+            <div class="mdc-notched-outline__notch">
+                <label class={labelClassList} htmlFor="input-element">
+                    {this.label}
+                </label>
+            </div>
+        );
     }
 
     private dropZoneTip = (): string => {
@@ -560,13 +569,13 @@ export class ChipSet {
                 role="row"
                 id={`${chip.id}`}
             >
-                {chip.icon ? this.renderIcon(chip) : null}
-                {chip.text ? this.renderLabel(chip) : null}
+                {chip.icon ? this.renderChipIcon(chip) : null}
+                {chip.text ? this.renderChipLabel(chip) : null}
             </div>
         );
     }
 
-    private renderLabel(chip: Chip<any>) {
+    private renderChipLabel(chip: Chip<any>) {
         const attributes: any = {};
         if (chip.href) {
             attributes.href = getHref(chip.href);
@@ -660,8 +669,8 @@ export class ChipSet {
                 id={`${chip.id}`}
                 onClick={this.catchInputChipClicks}
             >
-                {chip.icon ? this.renderIcon(chip) : null}
-                {this.renderLabel(chip)}
+                {chip.icon ? this.renderChipIcon(chip) : null}
+                {this.renderChipLabel(chip)}
                 {this.renderChipRemoveButton(chip)}
             </div>,
             this.renderDelimiter(),
@@ -672,7 +681,7 @@ export class ChipSet {
         event.stopPropagation();
     }
 
-    private renderIcon(chip: Chip) {
+    private renderChipIcon(chip: Chip) {
         const style = {};
         if (chip.iconFillColor) {
             style['--icon-color'] = chip.iconFillColor;

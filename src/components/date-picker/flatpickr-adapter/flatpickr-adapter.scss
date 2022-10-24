@@ -1,245 +1,275 @@
-@use '../../../style/internal/z-index';
 @use '../../../style/internal/lime-theme';
 @use '../../../style/functions';
+@use '../../../style/mixins';
 
 @use '@material/theme/mdc-theme';
-@import '../../../../node_modules/flatpickr/dist/flatpickr.min.css';
+@import '_flatpickr.scss';
 
-$inactiveTextColor: var(--mdc-theme-text-disabled-on-background);
+:host(limel-flatpickr-adapter) {
+    --calendar-text-color: rgb(var(--contrast-1400));
+    color: --calendar-text-color;
 
-$datepickerHeaderColor: var(--mdc-theme-primary);
-$datepickerSelectedColor: $datepickerHeaderColor;
-$datepickerHoverHighlightColor: $datepickerHeaderColor;
-$datepickerTextOnThemeColor: var(--mdc-theme-on-primary);
+    * {
+        box-sizing: border-box;
+        font-family: 'Roboto';
+    }
+}
 
-.container {
-    display: inline-block;
-    position: relative;
-    width: 100%;
+svg {
+    fill: var(--calendar-text-color) !important;
 }
 
 .flatpickr-calendar {
-    left: 0 !important;
-    top: auto !important;
-    margin-top: 2px;
+    isolation: isolate;
+    border-radius: 0.25rem;
+    background-color: rgb(var(--contrast-100));
+    box-shadow: var(--shadow-depth-16);
+}
 
-    .datepicker-months-container,
-    .datepicker-quarters-container,
-    .datepicker-weeks-container,
-    .datepicker-years-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        flex-wrap: wrap;
+.flatpickr-weekwrapper {
+    .flatpickr-day,
+    .flatpickr-weekday {
+        color: rgb(var(--contrast-700));
+    }
+}
 
-        .selected {
-            z-index: z-index.$date-picker--flatpickr-adapter--datepicker-x-container--selected;
-        }
+.flatpickr-weeks {
+    padding: 0 0.5rem;
+    box-shadow: 1px 0 0 rgb(var(--contrast-300));
+}
 
-        :hover {
-            z-index: z-index.$date-picker--flatpickr-adapter--datepicker-x-container--hover;
+.flatpickr-weekdaycontainer,
+.dayContainer {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.flatpickr-day {
+    .dayContainer & {
+        @include mixins.is-flat-clickable();
+    }
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--calendar-text-color);
+
+    border: 1px solid transparent;
+    border-radius: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+
+    &:hover {
+        z-index: 1;
+    }
+
+    &.prevMonthDay,
+    &.nextMonthDay {
+        color: rgb(var(--contrast-800));
+
+        &.inRange {
+            opacity: 0.6;
         }
     }
 
-    .datepicker-month,
-    .datepicker-quarter,
-    .datepicker-week,
-    .datepicker-year {
-        cursor: pointer;
-        display: inline-block;
-        flex-grow: 0;
-        padding: functions.pxToRem(10);
-        position: relative;
-        min-width: functions.pxToRem(40);
+    &.selected,
+    &.startRange,
+    &.endRange,
+    &.inRange,
+    &.selected:hover {
+        border-color: var(--mdc-theme-primary);
+        color: var(--mdc-theme-on-primary);
+        background: var(--mdc-theme-primary);
+    }
 
-        &:after {
-            border-radius: functions.pxToRem(15);
-            content: ' ';
-            height: functions.pxToRem(30);
-            left: functions.pxToRem(5);
-            position: absolute;
-            right: functions.pxToRem(5);
-            top: functions.pxToRem(7);
-            bottom: functions.pxToRem(7);
-            z-index: z-index.$date-picker--flatpickr-adapter--datepicker-x--after;
-        }
-
-        &.selected {
-            color: $datepickerTextOnThemeColor;
-
-            &:after {
-                background: $datepickerSelectedColor;
-            }
-        }
+    &.today {
+        border-color: var(--mdc-theme-on-primary);
+        box-shadow: 0 0 0 0.125rem var(--mdc-theme-primary);
 
         &:hover {
-            color: $datepickerTextOnThemeColor;
-
-            &:after {
-                background: $datepickerHoverHighlightColor;
-                opacity: 0.5;
+            &:not(.selected) {
+                background-color: transparent;
+                color: var(--mdc-theme-primary);
             }
-        }
-
-        .datepicker-month-in-quarter {
-            color: $inactiveTextColor;
-            display: block;
-            font-size: functions.pxToRem(12);
         }
     }
 
-    .datepicker-month {
-        min-width: functions.pxToRem(70);
+    &.inRange {
+        transition-duration: 0s;
+    }
+}
 
-        &:after {
-            left: functions.pxToRem(10);
-            right: functions.pxToRem(10);
-        }
+.flatpickr-time {
+    border-top: 1px solid rgb(var(--contrast-400));
+}
+
+.flatpickr-weekdays {
+    background-color: rgb(var(--contrast-300));
+}
+
+// top bar of month view
+.flatpickr-months {
+    justify-items: center;
+    padding: 0.125rem;
+    color: var(--calendar-text-color) !important;
+    border-bottom: 1px solid rgb(var(--contrast-300));
+
+    svg {
+        height: 0.75rem;
+        width: 0.75rem;
     }
 
     .flatpickr-month {
-        color: $datepickerTextOnThemeColor;
-
-        .numInputWrapper span.arrowUp,
-        .numInputWrapper span.arrowDown {
-            &:after {
-                border-top-color: $datepickerTextOnThemeColor;
-                border-bottom-color: $datepickerTextOnThemeColor;
-            }
-        }
-    }
-
-    .flatpickr-months {
-        background: $datepickerHeaderColor;
-        color: $datepickerTextOnThemeColor;
-        height: functions.pxToRem(42);
-        padding-top: functions.pxToRem(6);
-    }
-
-    .flatpickr-prev-month,
-    .flatpickr-next-month {
-        // Arrow colors
-        fill: $datepickerTextOnThemeColor;
-        top: functions.pxToRem(6);
-        &:hover {
-            color: $datepickerTextOnThemeColor;
-            fill: $datepickerTextOnThemeColor;
-        }
+        display: flex;
+        align-items: stretch;
     }
 
     .flatpickr-current-month {
-        div.flatpickr-month {
-            font-size: functions.pxToRem(16);
-            font-weight: 400 !important;
-            color: $datepickerTextOnThemeColor;
-        }
+        display: flex;
+        justify-content: space-evenly;
+        align-items: stretch;
+        gap: 1rem;
+        inset: 0;
 
-        select {
-            color: $datepickerTextOnThemeColor;
+        height: unset;
+        width: 100%;
 
-            option {
-                color: initial;
+        padding: 0.25rem;
+
+        .numInputWrapper {
+            width: 4rem;
+            border-radius: 0.25rem;
+
+            &:hover {
+                background-color: rgb(var(--contrast-300));
             }
         }
 
         input {
-            color: $datepickerTextOnThemeColor;
-        }
-
-        .numInputWrapper:hover {
-            background: $datepickerHeaderColor;
+            height: 100%;
         }
     }
 
-    .flatpickr-weekday {
-        background: $datepickerHeaderColor;
-        color: $datepickerTextOnThemeColor;
-        font-weight: 400;
+    .flatpickr-prev-month,
+    .flatpickr-next-month {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 2rem;
     }
+}
 
-    .flatpickr-weekdays {
-        background: $datepickerHeaderColor;
+.flatpickr-monthDropdown-months,
+.flatpickr-prev-month,
+.flatpickr-next-month,
+.arrowUp,
+.arrowDown {
+    @include mixins.is-flat-clickable;
+    border-radius: 0.25rem;
+
+    &:hover {
+        background-color: rgb(var(--contrast-100)) !important;
     }
+}
 
-    // Hide the arrow between the input box and the calendar
-    &.arrowTop:before,
-    &.arrowTop:after {
-        display: none;
-    }
+.arrowUp {
+    border-radius: 0 0.25rem 0 0;
+}
 
-    .flatpickr-day {
-        border: none;
-        background: transparent !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        max-width: none;
+.arrowDown {
+    border-radius: 0 0 0.25rem 0;
+}
 
-        &.selected,
-        &.inRange,
-        &.selected:hover,
-        &.nextMonthDay:hover,
-        &:hover {
-            background: transparent;
-            color: $datepickerTextOnThemeColor;
-        }
-        &.today {
-            background: transparent;
-            &:after {
-                opacity: 0.25;
-            }
-            &:hover {
-                background: transparent;
-                color: $datepickerTextOnThemeColor;
-            }
-        }
+.numInputWrapper {
+    border-radius: 0.25rem;
 
-        // The circle around the date should be smaller than
-        // the original, but it's hard to actually style
-        // the original one and still keep some of the space
-        // between the days from our design.
-        // So the original circle is hidden and a new one
-        // is created using a pseudo element.
-        &:after {
-            border-radius: functions.pxToRem(15);
-            content: ' ';
-            height: functions.pxToRem(30);
-            left: 50%;
-            margin-left: functions.pxToRem(-15);
-            margin-top: functions.pxToRem(-15);
-            position: absolute;
-            top: 50%;
-            width: functions.pxToRem(30);
-            z-index: z-index.$date-picker--flatpickr-adapter--flatpickr-day--after;
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1rem;
+
+        &.arrowUp:after {
+            border-bottom-color: rgb(var(--contrast-1400));
         }
 
-        &.selected {
-            &:after {
-                background: $datepickerSelectedColor;
-                color: $datepickerTextOnThemeColor;
-            }
-        }
-
-        &.inRange,
-        &.nextMonthDay:hover,
-        &:hover {
-            &:after {
-                background: $datepickerHoverHighlightColor;
-                color: $datepickerTextOnThemeColor;
-                opacity: 0.5;
-            }
+        &.arrowDown:after {
+            border-top-color: rgb(var(--contrast-1400));
         }
     }
+}
 
-    // The column with week numbers (including the title)
-    .flatpickr-weekwrapper {
-        width: functions.pxToRem(40);
+// ***************************
+
+.datepicker-months-container,
+.datepicker-quarters-container,
+.datepicker-years-container {
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.datepicker-months-container {
+    grid-template-columns: repeat(6, 1fr);
+}
+.datepicker-quarters-container {
+    grid-template-columns: repeat(4, 1fr);
+}
+.datepicker-years-container {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.datepicker-month,
+.datepicker-quarter,
+.datepicker-year {
+    @include mixins.is-flat-clickable;
+    cursor: pointer;
+    min-width: 0;
+    text-align: center;
+
+    &.selected {
+        color: var(--mdc-theme-on-primary);
+        background: var(--mdc-theme-primary);
     }
+}
 
-    .flatpickr-time {
-        // Ensure that the time picker is always shown
-        // on a date time picker to get correct position
-        // when popper decides to render (flip) it above
-        // the input field due to an overflow.
-        height: functions.pxToRem(40);
+.datepicker-month-heading,
+.datepicker-quarter-heading,
+.datepicker-year-heading {
+    align-self: center;
+}
+
+.datepicker-month {
+    padding: 0.125rem 0.5rem;
+    border-radius: 2rem;
+}
+.datepicker-quarter {
+    padding: 0.75rem 0;
+    border-radius: 1rem;
+}
+.datepicker-year {
+    padding: 0.125rem 0.25rem;
+    border-radius: 2rem;
+}
+
+.datepicker-quarter {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.datepicker-month-in-quarter {
+    opacity: 0.7;
+    display: block;
+    font-size: 0.75rem;
+    font-weight: normal;
+
+    &:first-of-type {
+        margin-top: 0.5rem;
     }
 }

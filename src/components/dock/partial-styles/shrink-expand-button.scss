@@ -3,6 +3,8 @@
     box-sizing: border-box;
 
     @include mixins.is-flat-clickable();
+    @include mixins.visualize-keyboard-focus;
+
     cursor: pointer;
 
     display: flex;
@@ -20,10 +22,6 @@
         limel-icon {
             transform: rotateY(180deg);
         }
-    }
-
-    &:focus-visible {
-        box-shadow: var(--shadow-depth-8-focused);
     }
 
     limel-icon {

@@ -18,14 +18,6 @@
     display: flex !important;
     align-items: center;
     justify-content: center;
-
-    limel-checkbox {
-        transform: translate(-0.25rem, 0);
-
-        :host(.has-low-density) & {
-            transform: translate(-0.15rem, 0);
-        }
-    }
 }
 
 .limel-table--row-selector {
@@ -34,6 +26,8 @@
     border-width: 0;
     justify-content: center;
     z-index: z-index.$table--limel-table--row-selector;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
 
     .tabulator-row-odd & {
         background-image: linear-gradient(
@@ -73,7 +67,6 @@
         transition: opacity 0.2s ease;
         align-self: center;
         opacity: 0.3;
-        transform: translate(-0.25rem, 0);
 
         .tabulator-row:hover & {
             opacity: 1;

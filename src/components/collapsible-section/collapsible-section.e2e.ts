@@ -275,7 +275,7 @@ describe('limel-collapsible-section', () => {
                 actions = [
                     {
                         id: 'abc',
-                        icon: 'dog',
+                        icon: 'unit-test',
                     },
                 ];
                 await page.$eval(

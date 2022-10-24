@@ -74,7 +74,6 @@ $limel-progress-flow-divider: 1;
     font-size: functions.pxToRem(14);
 
     &.disabled {
-        opacity: 0.75;
         cursor: not-allowed;
 
         &.readonly {

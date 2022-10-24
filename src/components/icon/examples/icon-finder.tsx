@@ -1,5 +1,4 @@
 import { Chip } from '@limetech/lime-elements';
-import * as iconIndex from '@lundalogik/lime-icons8/assets/icon-index.json';
 import { Component, h, State } from '@stencil/core';
 import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
@@ -27,7 +26,19 @@ export class IconFinder {
     @State()
     private icons: Icon[] = [];
 
-    private indexedIcons = [...iconIndex['default']]; // eslint-disable-line @typescript-eslint/dot-notation
+    private indexedIcons: any[] = [];
+
+    public componentWillLoad() {
+        this.loadIconIndex();
+    }
+
+    private loadIconIndex = async () => {
+        const response = await fetch(
+            'https://lundalogik.github.io/lime-icons8/assets/icon-index.json'
+        );
+        const json = await response?.json?.();
+        this.indexedIcons = json;
+    };
 
     public render() {
         return [

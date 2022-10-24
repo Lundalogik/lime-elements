@@ -77,8 +77,10 @@
 }
 
 .lime-empty-value-for-readonly {
-    width: calc(100% - #{functions.pxToRem(20)});
     z-index: z-index.$input-field--formatted-value;
+    position: absolute;
+    top: 0.875rem; // 14px
+    left: 1rem;
 }
 
 .lime-looks-like-input-value {
@@ -90,24 +92,18 @@
 }
 
 .lime-formatted-input {
+    display: none;
     width: calc(100% - #{functions.pxToRem(20)});
     z-index: z-index.$input-field--formatted-value;
 
-    position: absolute;
-    top: 0.9rem;
     pointer-events: none;
 
-    opacity: 0;
     :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) & {
-        opacity: 1;
+        display: block;
     }
 
     + .mdc-text-field__input {
         z-index: z-index.$input-field--input-with-formatted-value;
-    }
-
-    .lime-has-prefix & {
-        margin-left: functions.pxToRem(10);
     }
 }
 

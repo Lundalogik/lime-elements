@@ -22,7 +22,6 @@
 
 :host(.has-low-density) {
     $row-border-radius: 0.5rem;
-    $cell-padding-left: 0.5rem;
 
     #tabulator-container {
         width: max-content;
@@ -36,10 +35,6 @@
 
     .tabulator-header {
         border-radius: functions.pxToRem(6);
-
-        .tabulator-col-content {
-            padding-left: $cell-padding-left;
-        }
     }
 
     .tabulator-footer {
@@ -62,8 +57,6 @@
 
             .tabulator-cell {
                 height: functions.pxToRem(44) !important;
-                padding-left: functions.pxToRem(12);
-                padding-right: $cell-padding-left;
 
                 &:first-child {
                     border-radius: $row-border-radius 0 0 $row-border-radius;

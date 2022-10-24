@@ -20,6 +20,7 @@ export class ColumnDefinitionFactory {
             title: column.title,
             field: column.field,
             hozAlign: column.horizontalAlign,
+            headerSort: column.headerSort,
         };
 
         if (column.headerComponent) {
