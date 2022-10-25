@@ -80,50 +80,17 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   docs:
-    name: Publish Docs
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Read .nvmrc
-      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-      id: nvm
-    - uses: actions/setup-node@v2
-      with:
-        node-version: "${{ steps.nvm.outputs.NVMRC }}"
-    - run: node -v && npm -v
-    - run: npm ci
-    - run: git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-    - run: git config --global user.name "${GITHUB_ACTOR}"
-    - name: Publish PR docs
-      # Only publish docs if the PR comes from a repo owned by Lime.
-      # Also, skip publishing if the PR was created by Dependabot.
-      if: github.event.pull_request.head.repo.owner.login == 'Lundalogik' && github.actor != 'dependabot[bot]'
-      run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
-      env:
-        GH_TOKEN: ${{ secrets.PUBLISH_DOCS }}
-    - name: External PR or Dependabot - build docs, but do not publish
-      # If the PR comes from a repo not owned by Lime, or if the PR was created
-      # by Dependabot, just build the docs, but don't publish them.
-      if: github.event.pull_request.head.repo.owner.login != 'Lundalogik' || github.actor == 'dependabot[bot]'
-      run: npm run docs:build
-
-  docs-link:
-    name: Post link to docs on PR
-    needs: [docs]
-    # Use the same `if` as for the "Publish PR docs" step in the "docs" job.
-    if: github.event.pull_request.head.repo.owner.login == 'Lundalogik' && github.actor != 'dependabot[bot]'
-    runs-on: ubuntu-latest
+    name: Docs
     permissions:
       contents: read
       pull-requests: write
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/github-script@v3
-      with:
-        script: |
-          const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/pr-comment.js`);
-          await script({github, context});
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+    uses: ./.github/workflows/publish-docs.yml
+    with:
+      version: "PR-${{ github.event.pull_request.number }}"
+      # Only publish docs if the PR comes from a repo owned by Lime.
+      # Also, skip publishing if the PR was created by Dependabot.
+      buildOnly: ${{ github.event.pull_request.head.repo.owner.login != 'Lundalogik' || github.actor == 'dependabot[bot]' }}
+    secrets: inherit
 
   autoapprove:
     needs: [lint, build, test, autosquash, docs]
