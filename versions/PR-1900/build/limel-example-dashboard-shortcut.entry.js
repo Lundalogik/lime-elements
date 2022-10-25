@@ -1,1 +1,1 @@
-import{r,h as o}from"./index-ab490ba1.js";const s=class{constructor(o){r(this,o)}render(){return o("limel-dashboard-shortcut",{icon:"dog",label:"dog"})}};s.style="limel-dashboard-shortcut{width:20%}";export{s as limel_example_dashboard_shortcut}
+import{r,h as a}from"./index-ab490ba1.js";const t=class{constructor(a){r(this,a)}render(){return a("limel-dashboard-shortcut",{icon:"wikipedia",label:"Wikipedia",href:"https://www.wikipedia.org/",target:"_blank"})}};t.style="limel-dashboard-shortcut{width:20%}";export{t as limel_example_dashboard_shortcut}
