@@ -46,7 +46,7 @@ jobs:
   link-docs:
     if: github.event_name == 'pull_request'
     name: Post link to docs on PR
-    needs: [docs]
+    needs: [publish-docs]
     runs-on: ubuntu-latest
     permissions:
       contents: read
