@@ -17,8 +17,6 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: Read .nvmrc
@@ -34,8 +32,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: Read .nvmrc
@@ -51,8 +47,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: Read .nvmrc
@@ -88,16 +82,8 @@ jobs:
   docs:
     name: Publish Docs
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_USERNAME: lime-ci
-      GH_EMAIL: 617355+lime-ci@users.noreply.github.com
-      GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
-      CI: true
     steps:
     - uses: actions/checkout@v2
-      with:
-        token: ${{ github.event.pull_request.head.repo.owner.login == 'Lundalogik' && secrets.CREATE_RELEASE || secrets.GITHUB_TOKEN }}
     - name: Read .nvmrc
       run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
       id: nvm
@@ -106,26 +92,38 @@ jobs:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
     - run: npm ci
-    - run: git config --global user.email "$GH_EMAIL"
-    - run: git config --global user.name "$GH_USERNAME"
+    - run: git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+    - run: git config --global user.name "${GITHUB_ACTOR}"
     - name: Publish PR docs
-      run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
       # Only publish docs if the PR comes from a repo owned by Lime.
       # Also, skip publishing if the PR was created by Dependabot.
       if: github.event.pull_request.head.repo.owner.login == 'Lundalogik' && github.actor != 'dependabot[bot]'
-    - name: Post link to docs on PR
-      uses: actions/github-script@v3
-      if: github.event.pull_request.head.repo.owner.login == 'Lundalogik' && github.actor != 'dependabot[bot]'
+      run: npm run docs:publish -- --v=PR-${{ github.event.pull_request.number }}
+      env:
+        GH_TOKEN: ${{ secrets.PUBLISH_DOCS }}
+    - name: External PR or Dependabot - build docs, but do not publish
+      # If the PR comes from a repo not owned by Lime, or if the PR was created
+      # by Dependabot, just build the docs, but don't publish them.
+      if: github.event.pull_request.head.repo.owner.login != 'Lundalogik' || github.actor == 'dependabot[bot]'
+      run: npm run docs:build
+
+  docs-link:
+    name: Post link to docs on PR
+    needs: [docs]
+    # Use the same `if` as for the "Publish PR docs" step in the "docs" job.
+    if: github.event.pull_request.head.repo.owner.login == 'Lundalogik' && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/github-script@v3
       with:
         script: |
           const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/pr-comment.js`);
           await script({github, context});
-        github-token: ${{ secrets.CREATE_RELEASE }}
-    - name: External PR or Dependabot - build docs, but do not publish
-      run: npm run docs:build
-      # If the PR comes from a repo not owned by Lime, or if the PR was created
-      # by Dependabot, just build the docs, but don't publish them.
-      if: github.event.pull_request.head.repo.owner.login != 'Lundalogik' || github.actor == 'dependabot[bot]'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
   autoapprove:
     needs: [lint, build, test, autosquash, docs]
@@ -138,7 +136,7 @@ jobs:
         run: gh pr merge --auto --rebase "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE }}
+          GITHUB_TOKEN: ${{ secrets.ENABLE_AUTOMERGE }}
       - name: Autoapprove
         uses: hmarr/auto-approve-action@v2.1.0
         with:
