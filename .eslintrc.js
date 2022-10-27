@@ -22,6 +22,7 @@ module.exports = {
         'sonarjs',
         'jsdoc',
         'prefer-arrow',
+        'ban',
     ],
     settings: {
         react: {
@@ -180,6 +181,33 @@ module.exports = {
                 'no-console': 'off',
                 'no-magic-numbers': 'off',
                 'prefer-arrow/prefer-arrow-functions': 'off',
+            },
+        },
+        {
+            files: [
+                'src/**/*.spec.{ts,tsx}',
+                'src/**/*.e2e.{ts,tsx}',
+                'src/**/*.test-wrapper.{ts,tsx}',
+            ],
+            parserOptions: {
+                parserOption: {
+                    jsx: true,
+                },
+                project: 'tsconfig.lint.json',
+            },
+            rules: {
+                'ban/ban': [
+                    'error',
+                    {
+                        name: ['describe', 'only'],
+                        message: "don't focus tests",
+                    },
+                    { name: 'fdescribe', message: "don't focus tests" },
+                    { name: ['it', 'only'], message: "don't focus tests" },
+                    { name: 'fit', message: "don't focus tests" },
+                    { name: ['test', 'only'], message: "don't focus tests" },
+                    { name: 'ftest', message: "don't focus tests" },
+                ],
             },
         },
     ],
