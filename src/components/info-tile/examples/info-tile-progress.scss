@@ -1,0 +1,6 @@
+:host(limel-example-info-tile-progress) {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 10rem;
+    gap: 3rem;
+}

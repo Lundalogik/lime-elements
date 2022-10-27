@@ -1,0 +1,31 @@
+:host(limel-example-info-tile-styling) {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background-color: rgb(var(--contrast-1500));
+}
+
+limel-info-tile {
+    width: 18rem;
+    height: 8rem;
+
+    &:first-of-type {
+        --info-tile-icon-color: rgb(var(--color-cyan-light));
+        --info-tile-text-color: rgb(var(--color-yellow-default));
+        --info-tile-background-color: rgb(var(--color-indigo-dark));
+
+        --info-tile-badge-text-color: rgb(var(--color-indigo-dark));
+        --info-tile-badge-background-color: rgb(var(--color-orange-default));
+    }
+
+    &:last-of-type {
+        --info-tile-border-radius: 0.5rem;
+        --info-tile-icon-color: rgb(var(--color-cyan-dark));
+
+        --info-tile-progress-fill-color: rgb(var(--color-lime-light));
+        --info-tile-progress-prefix-color: rgb(var(--color-red-default));
+        --info-tile-progress-text-color: rgb(var(--color-lime-default));
+    }
+}
