@@ -1,0 +1,7 @@
+:host(limel-example-info-tile-badge) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 8rem;
+    gap: 2rem;
+    padding: 2rem;
+}
