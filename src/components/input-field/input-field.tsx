@@ -782,9 +782,9 @@ export class InputField {
         }
     };
 
-    private handleCompletionChange = (event: CustomEvent<ListItem>) => {
+    private handleCompletionChange = (event: CustomEvent<ListItem> | Event) => {
         event.stopPropagation();
-        if (!event.detail) {
+        if (!(event as any).detail) {
             return;
         }
 
@@ -796,7 +796,7 @@ export class InputField {
          debounced doesn't emit after this one. Therefore, we run this through
          the same debounced emitter function. /Ads
          */
-        this.changeEmitter(event.detail.text);
+        this.changeEmitter((event as CustomEvent<ListItem>).detail.text);
     };
 
     private renderAutocompleteList = () => {
