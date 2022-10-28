@@ -545,12 +545,20 @@ export class Picker {
      * @param {CustomEvent} event event
      * @returns {void}
      */
-    private handleListChange(event: CustomEvent<ListItem>) {
+    private handleListChange(event: CustomEvent<ListItem> | Event) {
         event.stopPropagation();
-        if (!this.value || this.value !== event.detail) {
-            let newValue: ListItem | ListItem[] = event.detail;
+        if (
+            !this.value ||
+            this.value !== (event as CustomEvent<ListItem>).detail
+        ) {
+            let newValue: ListItem | ListItem[] = (
+                event as CustomEvent<ListItem>
+            ).detail;
             if (this.multiple) {
-                newValue = [...(this.value as ListItem[]), event.detail];
+                newValue = [
+                    ...(this.value as ListItem[]),
+                    (event as CustomEvent<ListItem>).detail,
+                ];
             }
 
             this.change.emit(newValue);
@@ -568,13 +576,15 @@ export class Picker {
      * @param {CustomEvent} event event
      * @returns {void}
      */
-    private handleActionListChange(event: CustomEvent<ListItem<Action>>) {
+    private handleActionListChange(
+        event: CustomEvent<ListItem<Action>> | Event
+    ) {
         event.stopPropagation();
-        if (!event.detail) {
+        if (!(event as any).detail) {
             return;
         }
 
-        this.action.emit(event.detail.value);
+        this.action.emit((event as CustomEvent<ListItem<Action>>).detail.value);
         this.items = [];
     }
 
