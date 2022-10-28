@@ -120,6 +120,7 @@ describe('limel-input-field', () => {
                 describe('after focusing', () => {
                     beforeEach(async () => {
                         label.click();
+                        await page.waitForEvent('click');
                         await page.waitForChanges();
                     });
                     it('IS floating', () => {
