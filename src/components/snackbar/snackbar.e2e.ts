@@ -46,9 +46,7 @@ describe('limel-snackbar', () => {
             snackbar.setProperty('timeout', 4000);
             spy = await snackbar.spyOnEvent('hide');
             await snackbar.callMethod('show');
-            await page.waitForChanges();
-            await page.waitForTimeout(4000);
-            await page.waitForChanges();
+            await page.waitForEvent('hide');
         });
 
         it('opens the snackbar and gets a hide event when it hides', () => {
