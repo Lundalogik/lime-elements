@@ -7,6 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   sonarcloud:
+    if: github.actor != 'dependabot[bot]'
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
