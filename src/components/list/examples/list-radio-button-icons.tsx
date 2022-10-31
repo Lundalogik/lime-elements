@@ -1,4 +1,4 @@
-import { ListItem } from '@limetech/lime-elements';
+import { LimelListCustomEvent, ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -77,7 +77,7 @@ export class ListRadioButtonIconsExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<ListItem>) => {
+    private handleChange = (event: LimelListCustomEvent<ListItem>) => {
         this.selectedItem = event.detail;
         this.items = this.items.map((item: ListItem) => {
             if (item.value === event.detail.value) {

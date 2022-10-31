@@ -1,3 +1,4 @@
+import { LimelTableCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 import { Column, ColumnAggregate } from '../table.types';
 import { persons, Person } from './persons';
@@ -88,12 +89,12 @@ export class TableExampleSelectableRows {
         ];
     }
 
-    private onActivateRow = (event: CustomEvent<Person>) => {
+    private onActivateRow = (event: LimelTableCustomEvent<Person>) => {
         this.activeRow = event.detail;
         this.eventPrinter.writeEvent(event);
     };
 
-    private onSelect = (event: CustomEvent<Person[]>) => {
+    private onSelect = (event: LimelTableCustomEvent<Person[]>) => {
         this.selection = event.detail;
         this.updateAggregates();
         this.eventPrinter.writeEvent(event);

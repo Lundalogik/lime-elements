@@ -1,4 +1,4 @@
-import { Chip } from '@limetech/lime-elements';
+import { Chip, LimelChipSetCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
@@ -91,7 +91,7 @@ export class ChipSetInputExample {
         }
     };
 
-    private handleChange = (event: CustomEvent<Chip[]>) => {
+    private handleChange = (event: LimelChipSetCustomEvent<Chip[]>) => {
         this.value = event.detail;
     };
 

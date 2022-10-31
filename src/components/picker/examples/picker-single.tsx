@@ -1,4 +1,4 @@
-import { ListItem } from '@limetech/lime-elements';
+import { LimelPickerCustomEvent, ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -57,11 +57,11 @@ export class PickerSingleExample {
         });
     };
 
-    private onChange = (event: CustomEvent<ListItem<number>>) => {
+    private onChange = (event: LimelPickerCustomEvent<ListItem<number>>) => {
         this.selectedItem = event.detail;
     };
 
-    private onInteract = (event: CustomEvent<ListItem<number>>) => {
+    private onInteract = (event: LimelPickerCustomEvent<ListItem<number>>) => {
         console.log('Value interacted with:', event.detail);
     };
 }

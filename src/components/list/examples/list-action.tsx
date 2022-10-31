@@ -1,4 +1,4 @@
-import { ListItem } from '@limetech/lime-elements';
+import { LimelListCustomEvent, ListItem } from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
 /**
@@ -31,7 +31,7 @@ export class ListActionExample {
         return <limel-list items={this.items} onSelect={this.onSelectAction} />;
     }
 
-    private onSelectAction(event: CustomEvent<ListItem>) {
+    private onSelectAction(event: LimelListCustomEvent<ListItem>) {
         console.log('Executing action: ', event.detail);
     }
 }

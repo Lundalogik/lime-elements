@@ -1,4 +1,10 @@
-import { Action, ListItem, Option } from '@limetech/lime-elements';
+import {
+    Action,
+    LimelPickerCustomEvent,
+    LimelSelectCustomEvent,
+    ListItem,
+    Option,
+} from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 import { ActionScrollBehavior, ActionPosition } from '../actions.types';
 
@@ -140,7 +146,7 @@ export class PickerStaticActionsExample {
         });
     }
 
-    private onChange(event: CustomEvent<ListItem<number>>) {
+    private onChange(event: LimelPickerCustomEvent<ListItem<number>>) {
         this.selectedItem = event.detail;
     }
 
@@ -152,11 +158,13 @@ export class PickerStaticActionsExample {
         console.log('Value interacted with:', event.detail);
     }
 
-    private setBehavior(event: CustomEvent<Option<ActionScrollBehavior>>) {
+    private setBehavior(
+        event: LimelSelectCustomEvent<Option<ActionScrollBehavior>>
+    ) {
         this.actionScrollBehavior = event.detail;
     }
 
-    private setPosition(event: CustomEvent<Option<ActionPosition>>) {
+    private setPosition(event: LimelSelectCustomEvent<Option<ActionPosition>>) {
         this.actionPosition = event.detail;
     }
 }

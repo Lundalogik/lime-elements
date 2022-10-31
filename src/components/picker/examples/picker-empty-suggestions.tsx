@@ -1,4 +1,4 @@
-import { ListItem } from '@limetech/lime-elements';
+import { LimelPickerCustomEvent, ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 const NETWORK_DELAY = 500;
@@ -72,7 +72,7 @@ export class PickerExample {
         });
     };
 
-    private onChange = (event: CustomEvent<ListItem<number>>) => {
+    private onChange = (event: LimelPickerCustomEvent<ListItem<number>>) => {
         this.selectedItem = event.detail;
     };
 

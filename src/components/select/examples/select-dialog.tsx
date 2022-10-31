@@ -1,4 +1,4 @@
-import { Option } from '@limetech/lime-elements';
+import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -94,11 +94,11 @@ export class SelectDialogExample {
         ];
     }
 
-    private handleHeroChange = (event: CustomEvent<Option>) => {
+    private handleHeroChange = (event: LimelSelectCustomEvent<Option>) => {
         this.heroValue = event.detail;
     };
 
-    private handleVillainChange = (event: CustomEvent<Option>) => {
+    private handleVillainChange = (event: LimelSelectCustomEvent<Option>) => {
         this.villainValue = event.detail;
     };
 

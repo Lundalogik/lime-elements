@@ -1,4 +1,4 @@
-import { Option } from '@limetech/lime-elements';
+import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -64,7 +64,7 @@ export class SelectMultipleExample {
         );
     }
 
-    private handleChange = (event: CustomEvent<Option[]>) => {
+    private handleChange = (event: LimelSelectCustomEvent<Option[]>) => {
         this.value = event.detail;
     };
 

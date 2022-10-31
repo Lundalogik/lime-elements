@@ -1,5 +1,5 @@
 import { Component, h, Prop, EventEmitter, Event } from '@stencil/core';
-import { FormComponent } from '@limetech/lime-elements';
+import { FormComponent, LimelPickerCustomEvent } from '@limetech/lime-elements';
 import { ListItem } from '../../list/list-item.types';
 
 @Component({
@@ -93,7 +93,9 @@ export class PropsFactoryPickerExample implements FormComponent<number> {
         );
     }
 
-    private handleChange = (event: CustomEvent<ListItem<number>>) => {
+    private handleChange = (
+        event: LimelPickerCustomEvent<ListItem<number>>
+    ) => {
         event.stopPropagation();
         this.change.emit(event.detail?.value);
     };
