@@ -1,4 +1,8 @@
-import { MenuItem, ListSeparator } from '@limetech/lime-elements';
+import {
+    MenuItem,
+    ListSeparator,
+    LimelMenuCustomEvent,
+} from '@limetech/lime-elements';
 import { Component, h } from '@stencil/core';
 
 /**
@@ -31,7 +35,7 @@ export class MenuDisabledExample {
         );
     }
 
-    private handleSelect = (event: CustomEvent<MenuItem>) => {
+    private handleSelect = (event: LimelMenuCustomEvent<MenuItem>) => {
         console.error(
             'This should never happen, since the menu is disabled.',
             event

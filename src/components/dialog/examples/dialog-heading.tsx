@@ -1,4 +1,8 @@
-import { DialogHeading, Option } from '@limetech/lime-elements';
+import {
+    DialogHeading,
+    LimelSelectCustomEvent,
+    Option,
+} from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -128,7 +132,7 @@ export class DialogHeadingExample {
         this.supportingText = event.detail;
     };
 
-    private handleIconChange = (event: CustomEvent<Option>) => {
+    private handleIconChange = (event: LimelSelectCustomEvent<Option>) => {
         this.icon = event.detail;
     };
 }

@@ -3,6 +3,7 @@ import {
     ListSeparator,
     OpenDirection,
     Option,
+    LimelSelectCustomEvent,
 } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
@@ -75,7 +76,7 @@ export class MenuOpenDirectionExample {
     }
 
     private handleNewSelection = (
-        event: CustomEvent<Option<OpenDirection>>
+        event: LimelSelectCustomEvent<Option<OpenDirection>>
     ) => {
         this.selectedOpenDirection = event.detail;
     };

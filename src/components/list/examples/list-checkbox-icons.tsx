@@ -1,4 +1,4 @@
-import { ListItem } from '@limetech/lime-elements';
+import { LimelListCustomEvent, ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -77,7 +77,7 @@ export class ListCheckboxIconsExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<ListItem[]>) => {
+    private handleChange = (event: LimelListCustomEvent<ListItem[]>) => {
         this.selectedItems = event.detail;
         this.items = this.items.map((item: ListItem) => {
             const selected = !!event.detail.find((selectedItem: ListItem) => {

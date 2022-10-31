@@ -1,3 +1,4 @@
+import { LimelTableCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 import { Column } from '../table.types';
 import { persons, Person } from './persons';
@@ -42,7 +43,7 @@ export class TableExampleActivateRow {
         ];
     }
 
-    private onActivateRow = (event: CustomEvent<Person>) => {
+    private onActivateRow = (event: LimelTableCustomEvent<Person>) => {
         this.activeRow = event.detail;
     };
 }

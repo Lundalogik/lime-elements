@@ -1,4 +1,4 @@
-import { Chip } from '@limetech/lime-elements';
+import { Chip, LimelChipSetCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 const CHIP_SELECET_ALL_ID = 1;
 
@@ -63,7 +63,7 @@ export class ChipSetFilterBadgeExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<Chip>) => {
+    private handleChange = (event: LimelChipSetCustomEvent<Chip>) => {
         const updatedChips = [...this.chips];
         if (event.detail.id !== CHIP_SELECET_ALL_ID) {
             updatedChips[0].selected = false;

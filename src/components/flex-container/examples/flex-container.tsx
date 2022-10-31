@@ -2,6 +2,7 @@ import {
     FlexContainerAlign,
     FlexContainerDirection,
     FlexContainerJustify,
+    LimelSelectCustomEvent,
     Option,
 } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
@@ -131,19 +132,19 @@ export class FlexContainerExample {
     }
 
     private directionOnChange = (
-        event: CustomEvent<Option<FlexContainerDirection>>
+        event: LimelSelectCustomEvent<Option<FlexContainerDirection>>
     ) => {
         this.direction = event.detail;
     };
 
     private alignOnChange = (
-        event: CustomEvent<Option<FlexContainerAlign>>
+        event: LimelSelectCustomEvent<Option<FlexContainerAlign>>
     ) => {
         this.align = event.detail;
     };
 
     private justifyOnChange = (
-        event: CustomEvent<Option<FlexContainerJustify>>
+        event: LimelSelectCustomEvent<Option<FlexContainerJustify>>
     ) => {
         this.justify = event.detail;
     };

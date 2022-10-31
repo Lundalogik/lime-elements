@@ -1,4 +1,8 @@
-import { ListItem, ListSeparator } from '@limetech/lime-elements';
+import {
+    LimelListCustomEvent,
+    ListItem,
+    ListSeparator,
+} from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -29,7 +33,7 @@ export class SelectableListExample {
         );
     }
 
-    private handleChange = (event: CustomEvent<ListItem>) => {
+    private handleChange = (event: LimelListCustomEvent<ListItem>) => {
         this.items = this.items.map((item: ListItem) => {
             if (item.value === event.detail.value) {
                 return event.detail;

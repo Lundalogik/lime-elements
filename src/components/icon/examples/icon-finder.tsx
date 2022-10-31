@@ -1,4 +1,4 @@
-import { Chip } from '@limetech/lime-elements';
+import { Chip, LimelChipSetCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
@@ -114,7 +114,7 @@ export class IconFinder {
         this.icons = [...new Set(this.icons)];
     };
 
-    private chipSetOnChange = (event: CustomEvent<Chip[]>) => {
+    private chipSetOnChange = (event: LimelChipSetCustomEvent<Chip[]>) => {
         this.value = event.detail;
         this.searchIcons();
     };
