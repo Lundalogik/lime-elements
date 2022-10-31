@@ -91,10 +91,8 @@ export class ChipSetInputExample {
         }
     };
 
-    private handleChange = (event: CustomEvent<Chip[]> | Event) => {
-        if (event instanceof CustomEvent<Chip[]>) {
-            this.value = event.detail;
-        }
+    private handleChange = (event: CustomEvent<Chip[]>) => {
+        this.value = event.detail;
     };
 
     private createChip = (name: string): Chip => {

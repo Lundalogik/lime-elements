@@ -94,16 +94,12 @@ export class SelectDialogExample {
         ];
     }
 
-    private handleHeroChange = (event: CustomEvent<Option> | Event) => {
-        if (event instanceof CustomEvent<Option>) {
-            this.heroValue = event.detail;
-        }
+    private handleHeroChange = (event: CustomEvent<Option>) => {
+        this.heroValue = event.detail;
     };
 
-    private handleVillainChange = (event: CustomEvent<Option> | Event) => {
-        if (event instanceof CustomEvent<Option>) {
-            this.villainValue = event.detail;
-        }
+    private handleVillainChange = (event: CustomEvent<Option>) => {
+        this.villainValue = event.detail;
     };
 
     private handleButtonClick = () => {

@@ -88,19 +88,15 @@ export class TableExampleSelectableRows {
         ];
     }
 
-    private onActivateRow = (event: CustomEvent<Person> | Event) => {
-        if (event instanceof CustomEvent<Person>) {
-            this.activeRow = event.detail;
-            this.eventPrinter.writeEvent(event);
-        }
+    private onActivateRow = (event: CustomEvent<Person>) => {
+        this.activeRow = event.detail;
+        this.eventPrinter.writeEvent(event);
     };
 
-    private onSelect = (event: CustomEvent<Person[]> | Event) => {
-        if (event instanceof CustomEvent<Person>) {
-            this.selection = event.detail;
-            this.updateAggregates();
-            this.eventPrinter.writeEvent(event);
-        }
+    private onSelect = (event: CustomEvent<Person[]>) => {
+        this.selection = event.detail;
+        this.updateAggregates();
+        this.eventPrinter.writeEvent(event);
     };
 
     private onSelectAll = (event: CustomEvent<boolean>) => {

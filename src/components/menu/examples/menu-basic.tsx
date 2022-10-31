@@ -33,9 +33,7 @@ export class MenuBasicExample {
         ];
     }
 
-    private handleSelect = (event: CustomEvent<MenuItem> | Event) => {
-        if (event instanceof CustomEvent<MenuItem>) {
-            this.lastSelectedItem = event.detail.text;
-        }
+    private handleSelect = (event: CustomEvent<MenuItem>) => {
+        this.lastSelectedItem = event.detail.text;
     };
 }

@@ -64,30 +64,22 @@ export class SelectMultipleExample {
         );
     }
 
-    private handleChange = (event: CustomEvent<Option[]> | Event) => {
-        if (event instanceof CustomEvent<Option[]>) {
-            this.value = event.detail;
-        }
+    private handleChange = (event: CustomEvent<Option[]>) => {
+        this.value = event.detail;
     };
 
-    private setDisabled = (event: CustomEvent<boolean> | Event) => {
-        if (event instanceof CustomEvent<boolean>) {
-            event.stopPropagation();
-            this.disabled = event.detail;
-        }
+    private setDisabled = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
     };
 
-    private setReadonly = (event: CustomEvent<boolean> | Event) => {
-        if (event instanceof CustomEvent<boolean>) {
-            event.stopPropagation();
-            this.readonly = event.detail;
-        }
+    private setReadonly = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 
-    private setRequired = (event: CustomEvent<boolean> | Event) => {
-        if (event instanceof CustomEvent<boolean>) {
-            event.stopPropagation();
-            this.required = event.detail;
-        }
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
     };
 }

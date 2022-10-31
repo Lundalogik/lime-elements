@@ -129,11 +129,9 @@ export class ChipSetInputExample {
         }
     };
 
-    private handleChange = (event: CustomEvent<Chip[]> | Event) => {
-        if (event instanceof CustomEvent<Chip[]>) {
-            console.log(event.detail);
-            this.value = event.detail;
-        }
+    private handleChange = (event: CustomEvent<Chip[]>) => {
+        console.log(event.detail);
+        this.value = event.detail;
     };
 
     private handleInteraction = (event: CustomEvent<Chip>) => {
