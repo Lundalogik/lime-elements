@@ -1,3 +1,10 @@
+## [36.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.11...v36.1.0-next.12) (2022-10-31)
+
+
+### Bug Fixes
+
+* **date-picker:** display "Today" as a tooltip, when today's date is hovered ([c9590a0](https://github.com/Lundalogik/lime-elements/commit/c9590a07db15cbccf8d39102d67f2373fb1d649a))
+
 ## [36.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.10...v36.1.0-next.11) (2022-10-31)
 
 
