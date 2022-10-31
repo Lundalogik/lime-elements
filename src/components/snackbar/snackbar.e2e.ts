@@ -89,7 +89,7 @@ describe('limel-snackbar', () => {
             beforeEach(async () => {
                 spy = await snackbar.spyOnEvent('action');
                 button.click();
-                await page.waitForChanges();
+                await page.waitForEvent('action');
             });
             it('emits an action event', async () => {
                 expect(spy).toHaveReceivedEventTimes(1);
