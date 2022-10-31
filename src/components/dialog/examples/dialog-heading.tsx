@@ -128,9 +128,7 @@ export class DialogHeadingExample {
         this.supportingText = event.detail;
     };
 
-    private handleIconChange = (event: CustomEvent<Option> | Event) => {
-        if (event instanceof CustomEvent<Option>) {
-            this.icon = event.detail;
-        }
+    private handleIconChange = (event: CustomEvent<Option>) => {
+        this.icon = event.detail;
     };
 }

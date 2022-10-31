@@ -1,3 +1,13 @@
+## [36.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.10...v36.1.0-next.11) (2022-10-31)
+
+
+### Reverts
+
+* "chore(deps-dev): bump @stencil/core from 2.18.1 to 2.19.2" ([324cc1d](https://github.com/Lundalogik/lime-elements/commit/324cc1dd63f35052c4638a6348569e13c9cf5199))
+* "chore(dev-deps): bump @stencil/core from 2.15.1 to 2.18.1" ([9bf47b8](https://github.com/Lundalogik/lime-elements/commit/9bf47b8b7fdc049ed6de1d59cab4c7095b960768))
+* "chore(input-field): fix types that makes Stencil build fail" ([2370daf](https://github.com/Lundalogik/lime-elements/commit/2370daf68720c379cdad2364d36d7192b6db371c))
+* "chore(picker): fix types that makes Stencil build fail" ([d8cb233](https://github.com/Lundalogik/lime-elements/commit/d8cb2339874355baaf2ab787d52c78d93a8fa95d))
+
 ## [36.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.9...v36.1.0-next.10) (2022-10-19)
 
 

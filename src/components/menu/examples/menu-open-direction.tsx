@@ -75,10 +75,8 @@ export class MenuOpenDirectionExample {
     }
 
     private handleNewSelection = (
-        event: CustomEvent<Option<OpenDirection>> | Event
+        event: CustomEvent<Option<OpenDirection>>
     ) => {
-        if (event instanceof CustomEvent<Option<OpenDirection>>) {
-            this.selectedOpenDirection = event.detail;
-        }
+        this.selectedOpenDirection = event.detail;
     };
 }

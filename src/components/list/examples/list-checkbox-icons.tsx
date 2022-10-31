@@ -77,18 +77,14 @@ export class ListCheckboxIconsExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<ListItem[]> | Event) => {
-        if (event instanceof CustomEvent<ListItem[]>) {
-            this.selectedItems = event.detail;
-            this.items = this.items.map((item: ListItem) => {
-                const selected = !!event.detail.find(
-                    (selectedItem: ListItem) => {
-                        return selectedItem.value === item.value;
-                    }
-                );
-
-                return { ...item, selected: selected };
+    private handleChange = (event: CustomEvent<ListItem[]>) => {
+        this.selectedItems = event.detail;
+        this.items = this.items.map((item: ListItem) => {
+            const selected = !!event.detail.find((selectedItem: ListItem) => {
+                return selectedItem.value === item.value;
             });
-        }
+
+            return { ...item, selected: selected };
+        });
     };
 }

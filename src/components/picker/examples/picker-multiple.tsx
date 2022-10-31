@@ -61,13 +61,9 @@ export class PickerMultipleExample {
         });
     };
 
-    private onChange = (
-        event: CustomEvent<Array<ListItem<number>>> | Event
-    ) => {
-        if (event instanceof CustomEvent<Array<ListItem<number>>>) {
-            this.selectedItems = [...event.detail];
-            this.updateAvailableItems();
-        }
+    private onChange = (event: CustomEvent<Array<ListItem<number>>>) => {
+        this.selectedItems = [...event.detail];
+        this.updateAvailableItems();
     };
 
     private updateAvailableItems = () => {
@@ -78,9 +74,7 @@ export class PickerMultipleExample {
         });
     };
 
-    private onInteract = (event: CustomEvent<ListItem<number>> | Event) => {
-        if (event instanceof CustomEvent<ListItem<number>>) {
-            console.log('Value interacted with:', event.detail);
-        }
+    private onInteract = (event: CustomEvent<ListItem<number>>) => {
+        console.log('Value interacted with:', event.detail);
     };
 }

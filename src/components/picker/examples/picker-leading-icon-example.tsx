@@ -57,15 +57,11 @@ export class PickerLeadingIconExample {
         });
     };
 
-    private onChange = (event: CustomEvent<ListItem<number>> | Event) => {
-        if (event instanceof CustomEvent<ListItem<number>>) {
-            this.selectedItem = event.detail;
-        }
+    private onChange = (event: CustomEvent<ListItem<number>>) => {
+        this.selectedItem = event.detail;
     };
 
-    private onInteract = (event: CustomEvent<ListItem<number>> | Event) => {
-        if (event instanceof CustomEvent<ListItem<number>>) {
-            console.log('Value interacted with:', event.detail);
-        }
+    private onInteract = (event: CustomEvent<ListItem<number>>) => {
+        console.log('Value interacted with:', event.detail);
     };
 }

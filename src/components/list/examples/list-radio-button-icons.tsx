@@ -77,16 +77,14 @@ export class ListRadioButtonIconsExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<ListItem> | Event) => {
-        if (event instanceof CustomEvent<ListItem>) {
-            this.selectedItem = event.detail;
-            this.items = this.items.map((item: ListItem) => {
-                if (item.value === event.detail.value) {
-                    return event.detail;
-                }
+    private handleChange = (event: CustomEvent<ListItem>) => {
+        this.selectedItem = event.detail;
+        this.items = this.items.map((item: ListItem) => {
+            if (item.value === event.detail.value) {
+                return event.detail;
+            }
 
-                return item;
-            });
-        }
+            return item;
+        });
     };
 }

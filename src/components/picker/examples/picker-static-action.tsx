@@ -140,10 +140,8 @@ export class PickerStaticActionsExample {
         });
     }
 
-    private onChange(event: CustomEvent<ListItem<number>> | Event) {
-        if (event instanceof CustomEvent<ListItem<number>>) {
-            this.selectedItem = event.detail;
-        }
+    private onChange(event: CustomEvent<ListItem<number>>) {
+        this.selectedItem = event.detail;
     }
 
     private onAction(event: CustomEvent<Action>) {
@@ -154,17 +152,11 @@ export class PickerStaticActionsExample {
         console.log('Value interacted with:', event.detail);
     }
 
-    private setBehavior(
-        event: CustomEvent<Option<ActionScrollBehavior>> | Event
-    ) {
-        if (event instanceof CustomEvent<Option<ActionScrollBehavior>>) {
-            this.actionScrollBehavior = event.detail;
-        }
+    private setBehavior(event: CustomEvent<Option<ActionScrollBehavior>>) {
+        this.actionScrollBehavior = event.detail;
     }
 
-    private setPosition(event: CustomEvent<Option<ActionPosition>> | Event) {
-        if (event instanceof CustomEvent<Option<ActionPosition>>) {
-            this.actionPosition = event.detail;
-        }
+    private setPosition(event: CustomEvent<Option<ActionPosition>>) {
+        this.actionPosition = event.detail;
     }
 }
