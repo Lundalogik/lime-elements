@@ -42,7 +42,9 @@ export class TableExampleActivateRow {
         ];
     }
 
-    private onActivateRow = (event: CustomEvent<Person>) => {
-        this.activeRow = event.detail;
+    private onActivateRow = (event: CustomEvent<Person> | Event) => {
+        if (event instanceof CustomEvent<Person>) {
+            this.activeRow = event.detail;
+        }
     };
 }

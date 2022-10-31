@@ -31,7 +31,9 @@ export class ListActionExample {
         return <limel-list items={this.items} onSelect={this.onSelectAction} />;
     }
 
-    private onSelectAction(event: CustomEvent<ListItem>) {
-        console.log('Executing action: ', event.detail);
+    private onSelectAction(event: CustomEvent<ListItem> | Event) {
+        if (event instanceof CustomEvent<ListItem>) {
+            console.log('Executing action: ', event.detail);
+        }
     }
 }

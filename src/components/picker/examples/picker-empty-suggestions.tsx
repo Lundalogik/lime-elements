@@ -72,8 +72,10 @@ export class PickerExample {
         });
     };
 
-    private onChange = (event: CustomEvent<ListItem<number>>) => {
-        this.selectedItem = event.detail;
+    private onChange = (event: CustomEvent<ListItem<number>> | Event) => {
+        if (event instanceof CustomEvent<ListItem<number>>) {
+            this.selectedItem = event.detail;
+        }
     };
 
     private onInteract = (event) => {

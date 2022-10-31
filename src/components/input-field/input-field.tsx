@@ -783,20 +783,18 @@ export class InputField {
     };
 
     private handleCompletionChange = (event: CustomEvent<ListItem> | Event) => {
-        event.stopPropagation();
-        if (!(event as any).detail) {
-            return;
+        if (event instanceof CustomEvent<ListItem>) {
+            event.stopPropagation();
+            this.showCompletions = false;
+
+            /*
+             This change event doesn't need to be debounced in itself, but we want
+             to make absolutely sure that an earlier change event that *has* been
+             debounced doesn't emit after this one. Therefore, we run this through
+             the same debounced emitter function. /Ads
+             */
+            this.changeEmitter(event.detail.text);
         }
-
-        this.showCompletions = false;
-
-        /*
-         This change event doesn't need to be debounced in itself, but we want
-         to make absolutely sure that an earlier change event that *has* been
-         debounced doesn't emit after this one. Therefore, we run this through
-         the same debounced emitter function. /Ads
-         */
-        this.changeEmitter((event as CustomEvent<ListItem>).detail.text);
     };
 
     private renderAutocompleteList = () => {

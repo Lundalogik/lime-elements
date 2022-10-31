@@ -131,21 +131,27 @@ export class FlexContainerExample {
     }
 
     private directionOnChange = (
-        event: CustomEvent<Option<FlexContainerDirection>>
+        event: CustomEvent<Option<FlexContainerDirection>> | Event
     ) => {
-        this.direction = event.detail;
+        if (event instanceof CustomEvent<Option<FlexContainerDirection>>) {
+            this.direction = event.detail;
+        }
     };
 
     private alignOnChange = (
-        event: CustomEvent<Option<FlexContainerAlign>>
+        event: CustomEvent<Option<FlexContainerAlign>> | Event
     ) => {
-        this.align = event.detail;
+        if (event instanceof CustomEvent<Option<FlexContainerAlign>>) {
+            this.align = event.detail;
+        }
     };
 
     private justifyOnChange = (
-        event: CustomEvent<Option<FlexContainerJustify>>
+        event: CustomEvent<Option<FlexContainerJustify>> | Event
     ) => {
-        this.justify = event.detail;
+        if (event instanceof CustomEvent<Option<FlexContainerJustify>>) {
+            this.justify = event.detail;
+        }
     };
 
     private reverseOnChange = (event: CustomEvent<boolean>) => {
