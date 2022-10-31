@@ -93,9 +93,11 @@ export class PropsFactoryPickerExample implements FormComponent<number> {
         );
     }
 
-    private handleChange = (event: CustomEvent<ListItem<number>>) => {
-        event.stopPropagation();
-        this.change.emit(event.detail?.value);
+    private handleChange = (event: CustomEvent<ListItem<number>> | Event) => {
+        if (event instanceof CustomEvent<ListItem<number>>) {
+            event.stopPropagation();
+            this.change.emit(event.detail?.value);
+        }
     };
 
     private search = async (query: string): Promise<ListItem[]> => {

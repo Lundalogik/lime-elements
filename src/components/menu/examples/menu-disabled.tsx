@@ -31,7 +31,7 @@ export class MenuDisabledExample {
         );
     }
 
-    private handleSelect = (event: CustomEvent<MenuItem>) => {
+    private handleSelect = (event: CustomEvent<MenuItem> | Event) => {
         console.error(
             'This should never happen, since the menu is disabled.',
             event

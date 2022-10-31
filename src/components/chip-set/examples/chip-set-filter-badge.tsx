@@ -63,23 +63,28 @@ export class ChipSetFilterBadgeExample {
         ];
     }
 
-    private handleChange = (event: CustomEvent<Chip>) => {
-        const updatedChips = [...this.chips];
-        if (event.detail.id !== CHIP_SELECET_ALL_ID) {
-            updatedChips[0].selected = false;
-        }
+    private handleChange = (event: CustomEvent<Chip> | Event) => {
+        if (event instanceof CustomEvent<Chip>) {
+            const updatedChips = [...this.chips];
+            if (event.detail.id !== CHIP_SELECET_ALL_ID) {
+                updatedChips[0].selected = false;
+            }
 
-        if (event.detail.id === CHIP_SELECET_ALL_ID && event.detail.selected) {
-            updatedChips.forEach((chip) => {
-                chip.selected = false;
-            });
-        }
+            if (
+                event.detail.id === CHIP_SELECET_ALL_ID &&
+                event.detail.selected
+            ) {
+                updatedChips.forEach((chip) => {
+                    chip.selected = false;
+                });
+            }
 
-        const index = this.chips.findIndex(
-            (chips) => chips.id === event.detail.id
-        );
-        updatedChips[index] = event.detail;
-        this.chips = updatedChips;
+            const index = this.chips.findIndex(
+                (chips) => chips.id === event.detail.id
+            );
+            updatedChips[index] = event.detail;
+            this.chips = updatedChips;
+        }
     };
 
     private setDisabled = (event: CustomEvent<boolean>) => {

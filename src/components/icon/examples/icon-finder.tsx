@@ -114,9 +114,11 @@ export class IconFinder {
         this.icons = [...new Set(this.icons)];
     };
 
-    private chipSetOnChange = (event: CustomEvent<Chip[]>) => {
-        this.value = event.detail;
-        this.searchIcons();
+    private chipSetOnChange = (event: CustomEvent<Chip[]> | Event) => {
+        if (event instanceof CustomEvent<Chip[]>) {
+            this.value = event.detail;
+            this.searchIcons();
+        }
     };
 
     private createChip(name: string): Chip {
