@@ -18,3 +18,4 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "material-components-web"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "@stencil/core"
