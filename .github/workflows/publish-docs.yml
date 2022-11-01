@@ -44,7 +44,7 @@ jobs:
       run: npm run docs:build
 
   link-docs:
-    if: github.event_name == 'pull_request'
+    if: inputs.buildOnly == false
     name: Post link to docs on PR
     needs: [publish-docs]
     runs-on: ubuntu-latest
