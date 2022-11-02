@@ -1,3 +1,10 @@
+## [36.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.12...v36.1.0-next.13) (2022-11-02)
+
+
+### Features
+
+* **split-button:** add new component `limel-split-button` ([80e13d7](https://github.com/Lundalogik/lime-elements/commit/80e13d7d898e53ff2168f321a5fee7337b63f5d9)), closes [Lundalogik/hack-tuesday#265](https://github.com/Lundalogik/hack-tuesday/issues/265)
+
 ## [36.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.11...v36.1.0-next.12) (2022-10-31)
 
 
