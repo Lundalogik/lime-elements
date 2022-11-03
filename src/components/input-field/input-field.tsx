@@ -25,7 +25,7 @@ import {
     TAB_KEY_CODE,
 } from '../../util/keycodes';
 import { InputType } from './input-field.types';
-import { ListItem } from '@limetech/lime-elements';
+import { LimelListCustomEvent, ListItem } from '@limetech/lime-elements';
 import { getHref, getTarget } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
@@ -782,7 +782,9 @@ export class InputField {
         }
     };
 
-    private handleCompletionChange = (event: CustomEvent<ListItem>) => {
+    private handleCompletionChange = (
+        event: LimelListCustomEvent<ListItem>
+    ) => {
         event.stopPropagation();
         if (!event.detail) {
             return;
