@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.1.0",
-    "@popperjs/core": "^2.11.5",
+    "@popperjs/core": "^2.11.6",
     "@rjsf/core": "^2.4.2",
     "@stencil/core": "^2.15.1",
     "@stencil/sass": "^2.0.0",
