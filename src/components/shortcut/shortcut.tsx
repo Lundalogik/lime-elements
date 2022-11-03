@@ -79,7 +79,7 @@ export class Shortcut {
                 href={this.href}
                 target={this.target}
                 tabindex="0"
-                aria-label={this.getAreaLabel()}
+                aria-label={this.getAriaLabel()}
                 title={this.linkTitle}
             >
                 <limel-icon name={this.icon} />
@@ -95,7 +95,7 @@ export class Shortcut {
         }
     };
 
-    private getAreaLabel = () => {
+    private getAriaLabel = () => {
         if (this.label && this.linkTitle) {
             return this.label + '. ' + this.linkTitle;
         }
