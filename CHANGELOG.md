@@ -1,3 +1,10 @@
+## [36.1.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.13...v36.1.0-next.14) (2022-11-03)
+
+
+### Features
+
+* **shortcut:** add `limel-shortcut` component ([31955bd](https://github.com/Lundalogik/lime-elements/commit/31955bd104d4602e463960c76354f8cc407b0e2a))
+
 ## [36.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.12...v36.1.0-next.13) (2022-11-02)
 
 
