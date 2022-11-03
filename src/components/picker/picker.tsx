@@ -1,4 +1,11 @@
-import { Action, Chip, ListItem, Searcher } from '@limetech/lime-elements';
+import {
+    Action,
+    Chip,
+    LimelChipSetCustomEvent,
+    LimelListCustomEvent,
+    ListItem,
+    Searcher,
+} from '@limetech/lime-elements';
 import {
     Component,
     Element,
@@ -542,10 +549,10 @@ export class Picker {
     /**
      * Change handler for the list
      *
-     * @param {CustomEvent} event event
+     * @param {LimelListCustomEvent<ListItem>} event event
      * @returns {void}
      */
-    private handleListChange(event: CustomEvent<ListItem>) {
+    private handleListChange(event: LimelListCustomEvent<ListItem>) {
         event.stopPropagation();
         if (!this.value || this.value !== event.detail) {
             let newValue: ListItem | ListItem[] = event.detail;
@@ -565,10 +572,12 @@ export class Picker {
     /**
      * Change handler for the list
      *
-     * @param {CustomEvent} event event
+     * @param {LimelChipSetCustomEvent} event event
      * @returns {void}
      */
-    private handleActionListChange(event: CustomEvent<ListItem<Action>>) {
+    private handleActionListChange(
+        event: LimelListCustomEvent<ListItem<Action>>
+    ) {
         event.stopPropagation();
         if (!event.detail) {
             return;
@@ -591,7 +600,7 @@ export class Picker {
         this.handleSearchResult(query, result);
     }
 
-    private handleChange(event: CustomEvent<Chip | Chip[]>) {
+    private handleChange(event: LimelChipSetCustomEvent<Chip | Chip[]>) {
         event.stopPropagation();
 
         let newValue = null;
@@ -607,7 +616,7 @@ export class Picker {
         this.change.emit(newValue);
     }
 
-    private handleInteract(event: CustomEvent<Chip>) {
+    private handleInteract(event: LimelChipSetCustomEvent<Chip>) {
         event.stopPropagation();
         this.interact.emit(event.detail ? event.detail.value : event.detail);
     }
