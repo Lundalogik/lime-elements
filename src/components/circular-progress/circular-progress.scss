@@ -5,7 +5,9 @@
 /**
  * @prop --circular-progress-size: Determines the visual size of the visualization. This does not override the `size` property if it is specified.
  * @prop --circular-progress-track-color: Determines the color of the circular track. Defaults to `--contrast-400`.
+ * @prop --circular-progress-text-color: Determines the color of the circular value and suffix. Defaults to `--contrast-1200`.
  * @prop --circular-progress-fill-color: Determines the color of the progressed section. Defaults to `--lime-primary-color`.
+ * @prop --circular-progress-background-color: Determines the background color of the central section. Defaults to `--contrast-100`.
  */
 
 :host {
@@ -51,7 +53,7 @@
     height: var(--size);
     border-radius: 50%;
 
-    box-shadow: 0 0 0 0.125rem rgba(var(--contrast-100), 0.8);
+    box-shadow: 0 0 0 0.125rem rgb(var(--contrast-100), 0.7);
     background: conic-gradient(
         var(--fill-color) 0% var(--percentage),
         var(--track-color) var(--percentage) 100%
@@ -67,14 +69,17 @@
         width: $size-of-middle-circle;
         height: $size-of-middle-circle;
         border-radius: 50%;
-        background-color: rgb(var(--contrast-100));
+        background-color: var(
+            --circular-progress-background-color,
+            rgb(var(--contrast-100))
+        );
         box-shadow: var(--button-shadow-pressed);
     }
 }
 
 .value {
     font-size: calc(var(--size) * 0.25);
-    color: rgb(var(--contrast-1200));
+    color: var(--circular-progress-text-color, rgb(var(--contrast-1200)));
     z-index: z-index.$limel-circular-progress-value;
     cursor: default;
 }

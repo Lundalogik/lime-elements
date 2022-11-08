@@ -1,9 +1,8 @@
 import { Component, h } from '@stencil/core';
 /**
  * Tweaking the style, using CSS variables
- * The component offers a few possibilites for tweaking its size using
- * `--circular-progress-size`, as well as `--circular-progress-fill-color` and
- * `--circular-progress-track-color` for changing its colors.
+ * The component offers a few possibilities for tweaking its size and colors
+ * using a few CSS variables.
  *
  * :::note
  * If you have tweaked component's size using size presets offered by the
