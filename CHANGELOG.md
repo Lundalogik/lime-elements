@@ -1,3 +1,10 @@
+## [36.1.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.14...v36.1.0-next.15) (2022-11-08)
+
+
+### Features
+
+* **circular-progress:** add CSS props for coloring text & background ([871b804](https://github.com/Lundalogik/lime-elements/commit/871b804c719dc16698349fa1b9cf74946ee1daf9))
+
 ## [36.1.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.13...v36.1.0-next.14) (2022-11-03)
 
 
