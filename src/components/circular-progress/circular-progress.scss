@@ -94,7 +94,7 @@
 
 .value {
     display: flex;
-    font-size: calc(var(--size) * 0.25);
+    font-size: clamp(0.5rem, calc(var(--size) * 0.25), 4rem);
     color: var(--circular-progress-text-color, rgb(var(--contrast-1200)));
     z-index: 1;
     cursor: default;
