@@ -47,6 +47,12 @@ export class CircularProgress {
     public maxValue: number = PERCENT;
 
     /**
+     * The prefix which is displayed before the `value`, must be a few characters characters long.
+     */
+    @Prop({ reflect: true })
+    public prefix?: string = null;
+
+    /**
      * The suffix which is displayed after the `value`, must be one or two characters long. Defaults to `%`
      */
     @Prop()
@@ -83,6 +89,7 @@ export class CircularProgress {
                 aria-valuenow={this.value}
                 style={{ '--percentage': currentPercentage }}
             >
+                {this.renderPrefix()}
                 <span class="value">
                     {abbreviate(value)}
                     <span class="suffix">{this.suffix}</span>
@@ -90,4 +97,9 @@ export class CircularProgress {
             </div>
         );
     }
+    private renderPrefix = () => {
+        if (this.prefix) {
+            return <span class="prefix">{this.prefix}</span>;
+        }
+    };
 }
