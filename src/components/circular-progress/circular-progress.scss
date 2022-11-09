@@ -1,7 +1,6 @@
 @use '../../style/functions';
 @use '../../style/mixins';
 @use '../../style/internal/lime-theme';
-@use '../../style/internal/z-index';
 
 /**
  * @prop --circular-progress-size: Determines the visual size of the visualization. This does not override the `size` property if it is specified.
@@ -15,6 +14,7 @@
 :host {
     display: block;
     box-sizing: border-box;
+    isolation: isolate;
 }
 
 :host([size='x-small']) {
@@ -96,7 +96,7 @@
     display: flex;
     font-size: calc(var(--size) * 0.25);
     color: var(--circular-progress-text-color, rgb(var(--contrast-1200)));
-    z-index: z-index.$limel-circular-progress-value;
+    z-index: 1;
     cursor: default;
 }
 
