@@ -2,7 +2,9 @@
     --circular-progress-size: 8rem;
     --circular-progress-fill-color: rgb(var(--color-orange-default));
     --circular-progress-track-color: rgb(var(--color-orange-lighter));
+    --circular-progress-prefix-color: rgb(var(--color-cyan-light));
     --circular-progress-text-color: rgb(var(--contrast-100));
+    --circular-progress-suffix-color: rgb(var(--contrast-800));
     --circular-progress-background-color: rgb(var(--contrast-1100));
 
     display: flex;
