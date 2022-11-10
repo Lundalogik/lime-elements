@@ -1,3 +1,16 @@
+## [36.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.15...v36.1.0-next.16) (2022-11-10)
+
+
+### Features
+
+* **circular-progress:** add `prefix` as a property ([2077f37](https://github.com/Lundalogik/lime-elements/commit/2077f374d6a91977d88d04bbe9fbd161f12086b9))
+* **circular-progress:** add CSS prop for `suffix` text color ([6edcca5](https://github.com/Lundalogik/lime-elements/commit/6edcca502d3044cfab9f8bd41c56cea50aa5cf92))
+
+
+### Bug Fixes
+
+* **circular-progress:** make value `font-size` more reponsive ([beff9ac](https://github.com/Lundalogik/lime-elements/commit/beff9ac8f4dae8b430f70aaea0f04253f2e2fa0a))
+
 ## [36.1.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.14...v36.1.0-next.15) (2022-11-08)
 
 
