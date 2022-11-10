@@ -746,7 +746,6 @@ span.flatpickr-weekday {
 .flatpickr-time {
     text-align: center;
     outline: 0;
-    display: block;
     // height: 0;
     line-height: 40px;
     max-height: 40px;
@@ -835,8 +834,6 @@ span.flatpickr-weekday {
         float: left;
         line-height: inherit;
         // color: #393939;
-        font-weight: bold;
-        width: 2%;
         user-select: none;
         align-self: center;
         outline: 0;
