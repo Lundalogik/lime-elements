@@ -64,15 +64,15 @@ jobs:
     steps:
       - run: echo "needs.semantic-release.outputs.new_release_published = ${{ needs.semantic-release.outputs.new_release_published }}"
 
-  docs:
-    needs: semantic-release
-    if: needs.semantic-release.outputs.new_release_published == 'true'
-    permissions:
-      contents: read
-      pull-requests: write
-    uses: ./.github/workflows/publish-docs.yml
-    with:
-      version: "NEXT-${{ needs.semantic-release.outputs.new_release_version }}"
-      forcePush: true
-      buildOnly: true
-    secrets: inherit
+  # docs:
+  #   needs: semantic-release
+  #   if: needs.semantic-release.outputs.new_release_published == 'true'
+  #   permissions:
+  #     contents: read
+  #     pull-requests: write
+  #   uses: ./.github/workflows/publish-docs.yml
+  #   with:
+  #     version: "NEXT-${{ needs.semantic-release.outputs.new_release_version }}"
+  #     forcePush: true
+  #     buildOnly: true
+  #   secrets: inherit
