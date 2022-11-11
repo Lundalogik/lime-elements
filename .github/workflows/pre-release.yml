@@ -12,6 +12,8 @@ jobs:
     name: Run Semantic Release
     if: "!contains(github.event.head_commit.message, '[release]')"
     runs-on: ubuntu-latest
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
     steps:
     - uses: actions/checkout@v2
       with:
