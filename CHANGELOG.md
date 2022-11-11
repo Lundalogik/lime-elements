@@ -1,3 +1,42 @@
+## [36.1.0-dev.1](https://github.com/Lundalogik/lime-elements/compare/v36.0.0...v36.1.0-dev.1) (2022-11-11)
+
+
+### Features
+
+* **badge:** allow string labels ([a8f31c8](https://github.com/Lundalogik/lime-elements/commit/a8f31c8d58171c96778be4bcbadce454bd8f14e5))
+* **circular-progress:** add `prefix` as a property ([2077f37](https://github.com/Lundalogik/lime-elements/commit/2077f374d6a91977d88d04bbe9fbd161f12086b9))
+* **circular-progress:** add CSS prop for `suffix` text color ([6edcca5](https://github.com/Lundalogik/lime-elements/commit/6edcca502d3044cfab9f8bd41c56cea50aa5cf92))
+* **circular-progress:** add CSS props for coloring text & background ([871b804](https://github.com/Lundalogik/lime-elements/commit/871b804c719dc16698349fa1b9cf74946ee1daf9))
+* **datepicker:** highlight today in datepickers ([b0d2e09](https://github.com/Lundalogik/lime-elements/commit/b0d2e09c6fb1ed2b91706fe03e1a50abdbcb7f69))
+* **shortcut:** add `limel-shortcut` component ([31955bd](https://github.com/Lundalogik/lime-elements/commit/31955bd104d4602e463960c76354f8cc407b0e2a))
+* **split-button:** add new component `limel-split-button` ([80e13d7](https://github.com/Lundalogik/lime-elements/commit/80e13d7d898e53ff2168f321a5fee7337b63f5d9)), closes [Lundalogik/hack-tuesday#265](https://github.com/Lundalogik/hack-tuesday/issues/265)
+* **tab:** allow string labels in badge ([1877e59](https://github.com/Lundalogik/lime-elements/commit/1877e59bd365325abd105e0f8432e6cb30e907a6))
+
+
+### Bug Fixes
+
+* **badge:** make all number units upper case ([26cb224](https://github.com/Lundalogik/lime-elements/commit/26cb2249a8b4c1de2986f90db4a31333ac00177e))
+* **badge:** use unabbreviated & un-truncated label as `title` to improve accessibility ([df3b30d](https://github.com/Lundalogik/lime-elements/commit/df3b30d06617246a38eea562f5f2c2ca51ac2651))
+* **chip-set:** resolve z-index issues by using css `isolation` ([676d22c](https://github.com/Lundalogik/lime-elements/commit/676d22ceb83861cb9cf5caed8534378adff75505)), closes [Lundalogik/lime-elements#1864](https://github.com/Lundalogik/lime-elements/issues/1864)
+* **circular-progress:** make value `font-size` more reponsive ([beff9ac](https://github.com/Lundalogik/lime-elements/commit/beff9ac8f4dae8b430f70aaea0f04253f2e2fa0a))
+* **date-picker:** display "Today" as a tooltip, when today's date is hovered ([c9590a0](https://github.com/Lundalogik/lime-elements/commit/c9590a07db15cbccf8d39102d67f2373fb1d649a))
+* **date-picker:** make component better fit our visual style ([fe14799](https://github.com/Lundalogik/lime-elements/commit/fe14799c4b18bc83c2367d4ffca4d0348a1466b4))
+* **input-field:** align `-` when input-field has no value and readonly ([e689d86](https://github.com/Lundalogik/lime-elements/commit/e689d8657f133fb243f041df45b688b7c9a7b2d7))
+* **input-field:** allow resize when the textarea is readonly ([dc831ae](https://github.com/Lundalogik/lime-elements/commit/dc831aec11f60fce4fceb445837fd6580d1d7a0b))
+* **input-field:** prevent overlapping prefix & formatted-input ([af43503](https://github.com/Lundalogik/lime-elements/commit/af4350349ce1527f46548526a3961150685d89e6))
+* **popover:** resolve z-index issues by using css `isolation` ([bfe84fd](https://github.com/Lundalogik/lime-elements/commit/bfe84fd837a82970652c03d9fa1f4787abbb5e88)), closes [Lundalogik/lime-elements#1864](https://github.com/Lundalogik/lime-elements/issues/1864)
+* **select:** select with multiple values doesn't show the empty value (-) when readonly ([42aaedc](https://github.com/Lundalogik/lime-elements/commit/42aaedc61dcd23e3f1814bb65cf0575c75d1c5a2))
+
+
+### Reverts
+
+* "chore(deps-dev): bump @stencil/core from 2.18.1 to 2.19.2" ([324cc1d](https://github.com/Lundalogik/lime-elements/commit/324cc1dd63f35052c4638a6348569e13c9cf5199))
+* "chore(deps-dev): bump material-components-web from 13.0.0 to 14.0.0" ([7bdc871](https://github.com/Lundalogik/lime-elements/commit/7bdc871a906dee49ddab580cd9280293bbd6c082))
+* "chore(dev-deps): bump @stencil/core from 2.15.1 to 2.18.1" ([9bf47b8](https://github.com/Lundalogik/lime-elements/commit/9bf47b8b7fdc049ed6de1d59cab4c7095b960768))
+* "chore(input-field): fix types that makes Stencil build fail" ([2370daf](https://github.com/Lundalogik/lime-elements/commit/2370daf68720c379cdad2364d36d7192b6db371c))
+* "chore(picker): fix types that makes Stencil build fail" ([d8cb233](https://github.com/Lundalogik/lime-elements/commit/d8cb2339874355baaf2ab787d52c78d93a8fa95d))
+* "fix(badge): make all number units upper case" ([9e6dabb](https://github.com/Lundalogik/lime-elements/commit/9e6dabbe499e57f1df6a719b14a9cc799492e30a))
+
 ## [36.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.15...v36.1.0-next.16) (2022-11-10)
 
 
