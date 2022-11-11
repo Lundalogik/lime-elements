@@ -72,4 +72,5 @@ jobs:
     with:
       version: "NEXT-${{ needs.semantic-release.outputs.new_release_version }}"
       forcePush: true
+      buildOnly: true
     secrets: inherit
