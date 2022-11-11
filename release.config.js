@@ -1,6 +1,13 @@
 /* eslint-env node */
 module.exports = {
-    branches: ['main', { name: 'next', prerelease: true }],
+    branches: [
+        'main',
+        '+([0-9])?(.{+([0-9]),x}).x',
+        { name: 'next', prerelease: true },
+        { name: 'dev', prerelease: true },
+        { name: 'beta', prerelease: true },
+        { name: 'alpha', prerelease: true },
+    ],
     plugins: [
         [
             '@semantic-release/commit-analyzer',
