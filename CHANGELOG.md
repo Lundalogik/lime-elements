@@ -1,3 +1,10 @@
+## [36.1.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.17...v36.1.0-next.18) (2022-11-16)
+
+
+### Bug Fixes
+
+* **split-button:** prevent unintentionally activating the default action ([b99be79](https://github.com/Lundalogik/lime-elements/commit/b99be799e69cec8e51fe25d2b479ece1b28f11fe))
+
 ## [36.1.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.16...v36.1.0-next.17) (2022-11-16)
 
 
