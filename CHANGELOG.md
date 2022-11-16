@@ -1,3 +1,10 @@
+## [36.1.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.16...v36.1.0-next.17) (2022-11-16)
+
+
+### Bug Fixes
+
+* **split-button:** don't render the menu if there are no menu items ([e7b1a40](https://github.com/Lundalogik/lime-elements/commit/e7b1a40f4a53bb9d663149fddf91c8386e9be571))
+
 ## [36.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.15...v36.1.0-next.16) (2022-11-10)
 
 
