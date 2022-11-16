@@ -151,9 +151,8 @@ describe('limel-split-button', () => {
                 limelMenu = await page.find('limel-split-button>>>limel-menu');
             });
 
-            it('limel-memu displays nothing', async () => {
-                const propValue = await limelMenu.getProperty('items');
-                expect(propValue).toEqual([]);
+            it('limel-menu is not displayed', async () => {
+                expect(limelMenu).toEqual(null);
             });
         });
 
@@ -164,7 +163,7 @@ describe('limel-split-button', () => {
             ];
             beforeEach(async () => {
                 page = await createPage(`
-                    <limel-split-button></limel-split-button>
+                    <limel-split-button class="has-menu"></limel-split-button>
                 `);
 
                 splitButton = await page.find('limel-split-button');
@@ -175,7 +174,7 @@ describe('limel-split-button', () => {
                 limelMenu = await page.find('limel-split-button>>>limel-menu');
             });
 
-            it('limel-memu displays the values', async () => {
+            it('limel-menu displays the values', async () => {
                 const propValue = await limelMenu.getProperty('items');
                 expect(propValue).toEqual(items);
             });

@@ -61,30 +61,44 @@ export class SplitButton {
 
     render() {
         return (
-            <Host>
+            <Host
+                class={{
+                    'has-menu': !!this.items.length,
+                }}
+            >
                 <limel-button
                     label={this.label}
                     primary={this.primary}
                     icon={this.icon}
                     disabled={this.disabled}
                 />
-                <limel-menu
-                    class={{
-                        primary: this.primary,
-                    }}
-                    disabled={this.disabled}
-                    items={this.items}
-                    openDirection="bottom"
-                >
-                    <button
-                        class="menu-trigger"
-                        slot="trigger"
-                        disabled={this.disabled}
-                    >
-                        ⋮
-                    </button>
-                </limel-menu>
+                {this.renderMenu()}
             </Host>
         );
     }
+
+    private renderMenu = () => {
+        if (!this.items.length) {
+            return;
+        }
+
+        return (
+            <limel-menu
+                class={{
+                    primary: this.primary,
+                }}
+                disabled={this.disabled}
+                items={this.items}
+                openDirection="bottom"
+            >
+                <button
+                    class="menu-trigger"
+                    slot="trigger"
+                    disabled={this.disabled}
+                >
+                    ⋮
+                </button>
+            </limel-menu>
+        );
+    };
 }
