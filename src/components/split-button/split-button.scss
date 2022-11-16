@@ -1,7 +1,10 @@
 @import '../../style/mixins';
 
-:host(limel-split-button) {
+:host(limel-split-button.has-menu) {
     --button-padding-right: 2rem;
+}
+
+:host(limel-split-button) {
     display: inline-flex;
     isolation: isolate;
 
