@@ -27,6 +27,8 @@
     --header-icon-background-color: var(--dialog-heading-icon-background-color);
 }
 
+$responsive-body-padding: 3vw; // 3% of viewport's width
+
 @include dialog.core-styles;
 
 .mdc-dialog {
@@ -60,6 +62,11 @@
         max-width: var(--dialog-max-width, calc(100vw - 2rem));
         max-height: var(--dialog-max-height, calc(100% - 2rem));
         border-radius: var(--dialog-border-radius, 0.25rem);
+    }
+
+    .mdc-dialog__content {
+        padding: min(1.5rem, $responsive-body-padding)
+            min(1.25rem, $responsive-body-padding);
     }
 }
 
@@ -129,6 +136,7 @@ slot[name='button'] {
         flex-direction: column-reverse;
     }
     .mdc-dialog__actions {
-        padding: 1rem 1.5rem 1.5rem 1.5rem;
+        padding: min(1.5rem, $responsive-body-padding);
+        padding-top: 1rem;
     }
 }
