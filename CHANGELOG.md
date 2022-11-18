@@ -1,3 +1,10 @@
+## [36.1.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.18...v36.1.0-next.19) (2022-11-17)
+
+
+### Bug Fixes
+
+* **select:** visualize keyboard focus ([217242a](https://github.com/Lundalogik/lime-elements/commit/217242a794adf9cc4577149c95d7ad5f5f36b96f))
+
 ## [36.1.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.17...v36.1.0-next.18) (2022-11-16)
 
 
