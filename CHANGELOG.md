@@ -1,3 +1,15 @@
+## [36.1.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.19...v36.1.0-next.20) (2022-11-18)
+
+
+### Features
+
+* **dialog:** add CSS props for padding around the content ([3766b2d](https://github.com/Lundalogik/lime-elements/commit/3766b2d0d56e35d44297044ce46036874ed9dbf0))
+
+
+### Bug Fixes
+
+* **dialog:** make padding around the content responsive ([5fa486b](https://github.com/Lundalogik/lime-elements/commit/5fa486bb0540f1b18f8c3de70fe95de590ad07f2))
+
 ## [36.1.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.18...v36.1.0-next.19) (2022-11-17)
 
 
