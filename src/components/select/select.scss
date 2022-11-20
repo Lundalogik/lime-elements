@@ -63,6 +63,7 @@
     }
 
     .limel-select-trigger {
+        border: none;
         height: shared_input-select-picker.$height-of-mdc-text-field;
         display: inline-flex;
         align-items: center;

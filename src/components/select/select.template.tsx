@@ -82,17 +82,16 @@ const SelectValue: FunctionalComponent<
     };
 
     return (
-        <div
+        <button
             class={anchorClassList}
             tabindex="0"
             onClick={props.open}
             onKeyPress={props.onTriggerPress}
-            role="button"
             aria-haspopup="listbox"
             aria-expanded="false"
             aria-labelledby="s-label s-selected-text"
             aria-required={props.required}
-            aria-disabled={props.disabled}
+            disabled={props.disabled || props.readonly}
         >
             <span id="s-label" class={labelClassList}>
                 {props.label}
@@ -120,7 +119,7 @@ const SelectValue: FunctionalComponent<
                     ></polygon>
                 </svg>
             </span>
-        </div>
+        </button>
     );
 };
 
