@@ -87,6 +87,7 @@ jobs:
     uses: ./.github/workflows/publish-docs.yml
     with:
       version: "PR-${{ github.event.pull_request.number }}"
+      linkToPR: true
       # Only publish docs if the PR comes from a repo owned by Lime.
       # Also, skip publishing if the PR was created by Dependabot.
       buildOnly: ${{ github.event.pull_request.head.repo.owner.login != 'Lundalogik' || github.actor == 'dependabot[bot]' }}
