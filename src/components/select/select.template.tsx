@@ -84,7 +84,6 @@ const SelectValue: FunctionalComponent<
     return (
         <button
             class={anchorClassList}
-            tabindex="0"
             onClick={props.open}
             onKeyPress={props.onTriggerPress}
             aria-haspopup="listbox"
