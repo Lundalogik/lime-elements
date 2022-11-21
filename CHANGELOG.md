@@ -1,3 +1,10 @@
+## [36.1.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.20...v36.1.0-next.21) (2022-11-21)
+
+
+### Bug Fixes
+
+* **input-field:** do not render unformatted value when field is readonly ([6467462](https://github.com/Lundalogik/lime-elements/commit/64674625b22000889ace614dc65405211a563a00))
+
 ## [36.1.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.19...v36.1.0-next.20) (2022-11-18)
 
 
