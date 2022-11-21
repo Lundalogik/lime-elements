@@ -1,3 +1,10 @@
+## [36.1.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.21...v36.1.0-next.22) (2022-11-21)
+
+
+### Bug Fixes
+
+* **select:** make trigger element unfocusable using tab, when disabled ([b292271](https://github.com/Lundalogik/lime-elements/commit/b292271bdbf6acd2657f6f2186c55c319c84b144))
+
 ## [36.1.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.20...v36.1.0-next.21) (2022-11-21)
 
 
