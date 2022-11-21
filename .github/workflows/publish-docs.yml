@@ -16,6 +16,11 @@ on:
         required: false
         default: false
         type: boolean
+      linkToPR:
+        description: 'Pass `true` if these docs are for a pull request. A link to the docs will be posted in a comment on the PR.'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
 
@@ -44,7 +49,7 @@ jobs:
       run: npm run docs:build
 
   link-docs:
-    if: inputs.buildOnly == false
+    if: inputs.buildOnly == false && inputs.linkToPR == true
     name: Post link to docs on PR
     needs: [publish-docs]
     runs-on: ubuntu-latest
