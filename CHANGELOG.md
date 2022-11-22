@@ -1,3 +1,10 @@
+## [36.1.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.22...v36.1.0-next.23) (2022-11-22)
+
+
+### Bug Fixes
+
+* **select.template:** remove unnecessary `tabindex` from `button` element ([d1383d7](https://github.com/Lundalogik/lime-elements/commit/d1383d721ab89514038158b09c9904bcd4f7460d))
+
 ## [36.1.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.21...v36.1.0-next.22) (2022-11-21)
 
 
