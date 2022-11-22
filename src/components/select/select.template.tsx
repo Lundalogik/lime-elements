@@ -87,7 +87,8 @@ const SelectValue: FunctionalComponent<
             onClick={props.open}
             onKeyPress={props.onTriggerPress}
             aria-haspopup="listbox"
-            aria-expanded="false"
+            aria-expanded={props.isOpen}
+            aria-controls={props.id}
             aria-labelledby="s-label s-selected-text"
             aria-required={props.required}
             disabled={props.disabled || props.readonly}
