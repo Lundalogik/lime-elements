@@ -104,5 +104,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": ["./src/component/**"]
   }
 }
