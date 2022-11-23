@@ -1,3 +1,10 @@
+## [36.1.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.23...v36.1.0-next.24) (2022-11-23)
+
+
+### Bug Fixes
+
+* **select:** toggle `aria-expanded` to improve accessibility ([9d7a9c2](https://github.com/Lundalogik/lime-elements/commit/9d7a9c29c578fac2596e691487be8adb8e736a6f))
+
 ## [36.1.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.22...v36.1.0-next.23) (2022-11-22)
 
 
