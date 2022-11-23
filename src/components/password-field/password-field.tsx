@@ -1,8 +1,16 @@
-import { Component, EventEmitter, h, Prop, State, Event, Element } from "@stencil/core";
-import { Watch } from "@stencil/core/internal";
+import {
+    Component,
+    EventEmitter,
+    h,
+    Prop,
+    State,
+    Event,
+    Element,
+} from '@stencil/core';
+import { Watch } from '@stencil/core/internal';
 import { MDCTextField } from '@material/textfield';
-import { debounce } from "lodash-es";
-import { passwordParams } from "./password-params";
+import { debounce } from 'lodash-es';
+import { passwordParams } from './password-params';
 
 /**
  * @exampleComponent limel-example-password-field-default
@@ -16,8 +24,7 @@ import { passwordParams } from "./password-params";
     styleUrl: 'password-field.scss',
     shadow: true,
 })
-export class PasswordField{
-
+export class PasswordField {
     /**
      * Set to `true` to disable the field.
      * Use `disabled` to indicate that the field can normally be interacted
@@ -26,7 +33,6 @@ export class PasswordField{
      */
     @Prop()
     public disabled?: boolean = false;
-
 
     /**
      * Set to `true` to indicate that the current value of the input field is
@@ -51,11 +57,10 @@ export class PasswordField{
      * The password label (default "Password").
      */
     @Prop()
-    public label?: string = "Password";
+    public label?: string = 'Password';
 
     /**
      * Set password parameters
-     * 
      * interface for password parameters:
      * - `mustConsistCapitalLetters` => if true, the password must contain at least one uppercase character
      * - `mustConsistLowerCaseLetters` => if true, the password must contain at least one lowercase character
@@ -63,10 +68,7 @@ export class PasswordField{
      * - `mustConsistSpecialChracters` => if true, the password must contain at least one special character. Like:( ! # $ % & ? " )
      * - `maxLength` => set maximum password length
      * - `minLength?` => set minimum password length
-     * 
-     *
      * The password will be considered incorrect unless all specified parameters are met
-     * 
      */
     @Prop()
     passwordParameters?: passwordParams;
@@ -84,8 +86,8 @@ export class PasswordField{
     showHiddenButton?: boolean = false;
 
     /**
-    * Emitted when the password is changed.
-    */
+     * Emitted when the password is changed.
+     */
     @Event()
     private change: EventEmitter<string>;
 
@@ -135,7 +137,7 @@ export class PasswordField{
 
     private icon: string = 'hide';
     private mdcTextField: MDCTextField;
-         
+
     constructor() {
         const debounceTimeout = 300;
         this.changeEmitter = debounce(this.changeEmitter, debounceTimeout);
@@ -169,9 +171,10 @@ export class PasswordField{
     private toogleShowPassword = () => {
         this.showPassword = !this.showPassword;
     };
- 
+
     private initialize = () => {
-        const element = this.limelPasswordField.shadowRoot.querySelector('.mdc-text-field');
+        const element =
+            this.limelPasswordField.shadowRoot.querySelector('.mdc-text-field');
         if (!element) {
             return;
         }
@@ -181,31 +184,29 @@ export class PasswordField{
         window.addEventListener('resize', this.layout, { passive: true });
         this.limelPasswordField.addEventListener('focus', this.setFocus);
     };
- 
+
     private setFocus = () => {
         this.mdcTextField.focus();
     };
- 
+
     private getContainerClassList = () => {
-        const classList = {
+        return {
             'mdc-text-field': true,
             'mdc-text-field--outlined': true,
             'mdc-text-field--disabled': this.disabled,
             'mdc-text-field--required': this.required,
             'mdc-text-field--invalid': this.isInvalid(),
         };
-
-        return classList;
     };
- 
+
     private layout = () => {
         this.mdcTextField?.layout();
     };
- 
+
     private getAdditionalProps = () => {
         const props: any = {};
 
-        if(this.passwordParameters){
+        if (this.passwordParameters) {
             if (this.passwordParameters.minLength) {
                 props.minlength = this.passwordParameters.minLength;
             }
@@ -221,70 +222,99 @@ export class PasswordField{
     private onFocus = () => {
         this.isFocused = true;
     };
- 
+
     private onBlur = () => {
         this.isFocused = false;
         this.isModified = true;
     };
 
-    private checkPasswordParams(value: string){
-        if(this.passwordParameters){
+    private checkPasswordParams(value: string) {
+        if (this.passwordParameters) {
             this.hasLowerCase = /[a-z]/.test(value);
             this.hasCapitalCase = /[A-Z]/.test(value);
             this.hasNumeric = /[0-9]/.test(value);
             this.hasSpecial = /[!#$%&? "]/.test(value);
 
-            if(this.passwordParameters.minLength){
-                this.minlengthCheck = value.length >= this.passwordParameters.minLength;
+            if (this.passwordParameters.minLength) {
+                this.minlengthCheck =
+                    value.length >= this.passwordParameters.minLength;
             }
 
-            if(this.passwordParameters.maxLength){
-                this.maxlengthCheck = value.length <= this.passwordParameters.maxLength;
+            if (this.passwordParameters.maxLength) {
+                this.maxlengthCheck =
+                    value.length <= this.passwordParameters.maxLength;
             }
         }
-
     }
- 
-    private isInvalid = () => {     
+
+    private isInvalid = () => {
         if (this.invalid) {
             return true;
         }
 
-        if(!this.isModified){
+        if (!this.isModified) {
             return false;
         }
 
-        if(this.passwordParameters){
-            if(this.passwordParameters.mustConsistLowerCaseLetters && this.hasLowerCase == false){
-                return true;
-            }
-            if(this.passwordParameters.mustConsistCapitalLetters && this.hasCapitalCase == false){
-                return true;
-            }
-            if(this.passwordParameters.mustConsistNumericCharacter && this.hasNumeric == false){
-                return true;
-            }
-            if(this.passwordParameters.mustConsistSpecialChracters && this.hasSpecial == false){
-                return true;
-            }
-            if(this.passwordParameters.maxLength && this.maxlengthCheck == false){
-                return true;
-            }
-            if(this.passwordParameters.minLength && this.minlengthCheck == false){
-                return true;
-            }
-        }
-
-        if((this.value == undefined || this.value.length <= 0) && this.required){
+        if (this.passwordParameters && this.checkPasswordParamsControls()) {
             return true;
         }
 
-        return false;
+        if (
+            (this.value === undefined || this.value.length <= 0) &&
+            this.required
+        ) {
+            return true;
+        }
     };
+
+    private checkPasswordParamsControls(): boolean {
+        if (
+            this.passwordParameters.mustConsistLowerCaseLetters &&
+            this.hasLowerCase === false
+        ) {
+            return true;
+        }
+
+        if (
+            this.passwordParameters.mustConsistCapitalLetters &&
+            this.hasCapitalCase === false
+        ) {
+            return true;
+        }
+
+        if (
+            this.passwordParameters.mustConsistNumericCharacter &&
+            this.hasNumeric === false
+        ) {
+            return true;
+        }
+
+        if (
+            this.passwordParameters.mustConsistSpecialChracters &&
+            this.hasSpecial === false
+        ) {
+            return true;
+        }
+
+        if (
+            this.passwordParameters.maxLength &&
+            this.maxlengthCheck === false
+        ) {
+            return true;
+        }
+
+        if (
+            this.passwordParameters.minLength &&
+            this.minlengthCheck === false
+        ) {
+            return true;
+        }
+    }
 
     private handleChange = (event) => {
         event.stopPropagation();
-        let value = event.target.value;
+        const value = event.target.value;
         this.value = event.target.value;
 
         this.changeEmitter(value);
@@ -294,7 +324,7 @@ export class PasswordField{
     private changeEmitter = (value: string) => {
         this.change.emit(value);
     };
- 
+
     public render() {
         const labelId = 'tf-input-label';
         const properties = this.getAdditionalProps();
@@ -306,10 +336,10 @@ export class PasswordField{
         properties.required = this.required;
         properties.disabled = this.disabled;
 
-        let type: string = "password";
+        let type: string = 'password';
 
-        if(this.showPassword){
-            type = "text";
+        if (this.showPassword) {
+            type = 'text';
         }
 
         return [
@@ -329,31 +359,31 @@ export class PasswordField{
                     {this.renderHiddenButton()}
                 </label>
                 {this.renderPasswordParameters()}
-            </div>
+            </div>,
         ];
     }
- 
+
     private renderHiddenButton = () => {
-        if(!this.showHiddenButton){
+        if (!this.showHiddenButton) {
             return;
         }
 
-        return(
+        return (
             <limel-icon-button
                 icon={this.icon}
                 onClick={this.toogleShowPassword}
             ></limel-icon-button>
         );
-    }
- 
+    };
+
     private renderPasswordParameters = () => {
-        if(!this.passwordParameters || !this.showPasswordParameters){
+        if (!this.passwordParameters || !this.showPasswordParameters) {
             return;
         }
 
         const classList = {
             'flex-row': true,
-            'hidden': !this.isFocused,
+            hidden: !this.isFocused,
         };
 
         return (
@@ -371,8 +401,8 @@ export class PasswordField{
     };
 
     private renderLoverCaseCheckbox = () => {
-        if(this.passwordParameters.mustConsistLowerCaseLetters){
-            return(
+        if (this.passwordParameters.mustConsistLowerCaseLetters) {
+            return (
                 <limel-checkbox
                     label="Lowercase letters"
                     id="terms"
@@ -381,13 +411,11 @@ export class PasswordField{
                 />
             );
         }
-
-        return;
-    }
+    };
 
     private renderCapitalCheckbox = () => {
-        if(this.passwordParameters.mustConsistCapitalLetters){
-            return(
+        if (this.passwordParameters.mustConsistCapitalLetters) {
+            return (
                 <limel-checkbox
                     label="Capital letters"
                     id="terms"
@@ -396,13 +424,11 @@ export class PasswordField{
                 />
             );
         }
-
-        return;
-    }
+    };
 
     private renderNumberCheckbox = () => {
-        if(this.passwordParameters.mustConsistNumericCharacter){
-            return(
+        if (this.passwordParameters.mustConsistNumericCharacter) {
+            return (
                 <limel-checkbox
                     label="Numeric characters"
                     id="terms"
@@ -411,13 +437,11 @@ export class PasswordField{
                 />
             );
         }
-
-        return;
-    }
+    };
 
     private renderSpecialCheckbox = () => {
-        if(this.passwordParameters.mustConsistSpecialChracters){
-            return(
+        if (this.passwordParameters.mustConsistSpecialChracters) {
+            return (
                 <limel-checkbox
                     label="Special characters"
                     id="terms"
@@ -426,13 +450,11 @@ export class PasswordField{
                 />
             );
         }
-
-        return;
-    }
+    };
 
     private renderMinLengthCheckbox = () => {
-        if(this.passwordParameters.minLength){
-            return(
+        if (this.passwordParameters.minLength) {
+            return (
                 <limel-checkbox
                     label={`Minimum length ${this.passwordParameters.minLength}`}
                     id="terms"
@@ -441,29 +463,26 @@ export class PasswordField{
                 />
             );
         }
-
-        return;
-    }
+    };
 
     private renderMaxLengthCheckbox = () => {
-        if(this.passwordParameters.maxLength){
-            return(
+        if (this.passwordParameters.maxLength) {
+            return (
                 <limel-checkbox
                     label={`Maximum length of ${this.passwordParameters.maxLength}`}
                     id="terms"
                     readonly={true}
                     checked={this.maxlengthCheck}
                 />
-            )
+            );
         }
+    };
 
-        return;
-    }
- 
     private renderLabel = (labelId: string) => {
         const labelClassList = {
             'mdc-floating-label': true,
-            'mdc-floating-label--float-above': this.value != undefined || this.isFocused,
+            'mdc-floating-label--float-above':
+                this.value !== undefined || this.isFocused,
         };
 
         if (!this.label) {
@@ -478,5 +497,4 @@ export class PasswordField{
             </span>
         );
     };
- 
 }

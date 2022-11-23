@@ -1,4 +1,4 @@
-export interface passwordParams{
+export interface passwordParams {
     mustConsistCapitalLetters?: boolean;
     mustConsistLowerCaseLetters?: boolean;
     mustConsistNumericCharacter?: boolean;

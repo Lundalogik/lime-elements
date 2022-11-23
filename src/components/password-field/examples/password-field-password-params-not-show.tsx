@@ -8,7 +8,6 @@ import { Component, h, State } from '@stencil/core';
     shadow: true,
 })
 export class PasswordFieldPasswordParamsNotShowExample {
-
     @State()
     private minLength: number;
 
@@ -67,29 +66,35 @@ export class PasswordFieldPasswordParamsNotShowExample {
     public render() {
         return [
             <limel-password-field
-                label='Password'
+                label="Password"
                 required={true}
                 showPasswordParameters={false}
                 passwordParameters={{
                     minLength: this.minLength,
                     maxLength: this.maxLength,
                     mustConsistCapitalLetters: this.mustConsistCapitalLetters,
-                    mustConsistLowerCaseLetters: this.mustConsistLowerCaseLetters,
-                    mustConsistNumericCharacter: this.mustConsistNumericCharacter,
-                    mustConsistSpecialChracters: this.mustConsistSpecialChracters,
+                    mustConsistLowerCaseLetters:
+                        this.mustConsistLowerCaseLetters,
+                    mustConsistNumericCharacter:
+                        this.mustConsistNumericCharacter,
+                    mustConsistSpecialChracters:
+                        this.mustConsistSpecialChracters,
                 }}
                 onChange={this.handleChange}
             />,
             <div>
-                <limel-flex-container direction="horizontal" justify='space-between'>
+                <limel-flex-container
+                    direction="horizontal"
+                    justify="space-between"
+                >
                     <div>
                         <limel-input-field
-                            label='Min password length'
+                            label="Min password length"
                             type="number"
                             onChange={this.setMinLength}
                         />
                         <limel-input-field
-                            label='Max password length'
+                            label="Max password length"
                             type="number"
                             onChange={this.setMaxLength}
                         />

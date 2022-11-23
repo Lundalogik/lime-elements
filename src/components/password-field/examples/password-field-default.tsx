@@ -8,7 +8,6 @@ import { Component, h, State } from '@stencil/core';
     shadow: true,
 })
 export class PasswordFieldDefaultExample {
-
     @State()
     private required = false;
 
@@ -35,7 +34,7 @@ export class PasswordFieldDefaultExample {
     public render() {
         return [
             <limel-password-field
-                label='Password'
+                label="Password"
                 required={this.required}
                 disabled={this.disabled}
                 onChange={this.handleChange}
