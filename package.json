@@ -70,6 +70,7 @@
     "eslint-plugin-sonarjs": "^0.16.0",
     "flatpickr": "^4.6.13",
     "html-escaper": "^3.0.3",
+    "husky": "^8.0.2",
     "jest": "^26.6.3",
     "jest-cli": "^27.4.5",
     "jsonlint-mod": "^1.7.6",
@@ -107,6 +108,8 @@
   },
   "jest": {
     "collectCoverage": true,
-    "collectCoverageFrom": ["./src/component/**"]
+    "collectCoverageFrom": [
+      "./src/component/**"
+    ]
   }
 }

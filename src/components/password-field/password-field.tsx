@@ -71,19 +71,19 @@ export class PasswordField {
      * The password will be considered incorrect unless all specified parameters are met
      */
     @Prop()
-    passwordParameters?: passwordParams;
+    public passwordParameters?: passwordParams;
 
     /**
      * If is `true` then show password parameters when password is typing
      */
     @Prop()
-    showPasswordParameters?: boolean = false;
+    public showPasswordParameters?: boolean = false;
 
     /**
      * If is `true` then show button for hide/visible password
      */
     @Prop()
-    showHiddenButton?: boolean = false;
+    public showHiddenButton?: boolean = false;
 
     /**
      * Emitted when the password is changed.
@@ -98,31 +98,31 @@ export class PasswordField {
     public showPassword: boolean;
 
     @State()
-    private isFocused: boolean = false;
+    public isFocused: boolean = false;
 
     @State()
-    private isModified: boolean = false;
+    public isModified: boolean = false;
 
     @State()
-    private hasLowerCase: boolean = false;
+    public hasLowerCase: boolean = false;
 
     @State()
-    private hasCapitalCase: boolean = false;
+    public hasCapitalCase: boolean = false;
 
     @State()
-    private hasNumeric: boolean = false;
+    public hasNumeric: boolean = false;
 
     @State()
-    private hasSpecial: boolean = false;
+    public hasSpecial: boolean = false;
 
     @State()
-    private minlengthCheck: boolean = false;
+    public minlengthCheck: boolean = false;
 
     @State()
-    private maxlengthCheck: boolean = false;
+    public maxlengthCheck: boolean = false;
 
     @State()
-    private value: string;
+    public value: string;
 
     @Watch('value')
     protected valueWatcher(newValue: string) {
@@ -228,7 +228,7 @@ export class PasswordField {
         this.isModified = true;
     };
 
-    private checkPasswordParams(value: string) {
+    public checkPasswordParams(value: string) {
         if (this.passwordParameters) {
             this.hasLowerCase = /[a-z]/.test(value);
             this.hasCapitalCase = /[A-Z]/.test(value);
@@ -247,7 +247,7 @@ export class PasswordField {
         }
     }
 
-    private isInvalid = () => {
+    public isInvalid = () => {
         if (this.invalid) {
             return true;
         }
@@ -268,7 +268,7 @@ export class PasswordField {
         }
     };
 
-    private checkPasswordParamsControls(): boolean {
+    public checkPasswordParamsControls = (): boolean => {
         if (
             this.passwordParameters.mustConsistLowerCaseLetters &&
             this.hasLowerCase === false
@@ -376,7 +376,7 @@ export class PasswordField {
         );
     };
 
-    private renderPasswordParameters = () => {
+    public renderPasswordParameters = () => {
         if (!this.passwordParameters || !this.showPasswordParameters) {
             return;
         }
@@ -400,7 +400,7 @@ export class PasswordField {
         );
     };
 
-    private renderLoverCaseCheckbox = () => {
+    public renderLoverCaseCheckbox = () => {
         if (this.passwordParameters.mustConsistLowerCaseLetters) {
             return (
                 <limel-checkbox
@@ -413,7 +413,7 @@ export class PasswordField {
         }
     };
 
-    private renderCapitalCheckbox = () => {
+    public renderCapitalCheckbox = () => {
         if (this.passwordParameters.mustConsistCapitalLetters) {
             return (
                 <limel-checkbox
@@ -426,7 +426,7 @@ export class PasswordField {
         }
     };
 
-    private renderNumberCheckbox = () => {
+    public renderNumberCheckbox = () => {
         if (this.passwordParameters.mustConsistNumericCharacter) {
             return (
                 <limel-checkbox
@@ -439,7 +439,7 @@ export class PasswordField {
         }
     };
 
-    private renderSpecialCheckbox = () => {
+    public renderSpecialCheckbox = () => {
         if (this.passwordParameters.mustConsistSpecialChracters) {
             return (
                 <limel-checkbox
@@ -452,7 +452,7 @@ export class PasswordField {
         }
     };
 
-    private renderMinLengthCheckbox = () => {
+    public renderMinLengthCheckbox = () => {
         if (this.passwordParameters.minLength) {
             return (
                 <limel-checkbox
@@ -465,7 +465,7 @@ export class PasswordField {
         }
     };
 
-    private renderMaxLengthCheckbox = () => {
+    public renderMaxLengthCheckbox = () => {
         if (this.passwordParameters.maxLength) {
             return (
                 <limel-checkbox
@@ -478,7 +478,7 @@ export class PasswordField {
         }
     };
 
-    private renderLabel = (labelId: string) => {
+    public renderLabel = (labelId: string) => {
         const labelClassList = {
             'mdc-floating-label': true,
             'mdc-floating-label--float-above':
