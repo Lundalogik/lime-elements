@@ -1,4 +1,5 @@
 import { Component, Prop, h } from '@stencil/core';
+import { Link } from '@limetech/lime-elements';
 
 /**
  * This component can be used on places such as a start page or a dashboard.
@@ -33,37 +34,10 @@ export class Shortcut {
     public label?: string = null;
 
     /**
-     * The `title` tag of the hyperlink, which can be used to
-     * provide additional information about the link.
-     * It improves accessibility both for sighted users
-     * and users with assistive technologies.
-     */
-    @Prop({ reflect: true })
-    public linkTitle?: string = null;
-
-    /**
      * Set to `true` if shortcut is disabled.
      */
     @Prop({ reflect: true })
     public disabled?: boolean = false;
-
-    /**
-     * The url that the shortcut leads to.
-     */
-    @Prop({ reflect: true })
-    public href?: string = null;
-
-    /**
-     * Where to load the linked URL, as the name for a browsing context:
-     * - `_self`: in the current browsing context. (Default)
-     * - `_blank`: in a new tab.
-     * - `_parent`: in the parent browsing context of the current one.
-     * If no parent, behaves as `_self`.
-     * - `_top`: the topmost browsing context (the "highest" context
-     * that's an ancestor of the current one). If no ancestors, behaves as `_self`.
-     */
-    @Prop({ reflect: true })
-    public target: '_self' | '_blank' | '_parent' | '_top' = '_self';
 
     /**
      * If specified, will display a notification badge
@@ -72,15 +46,21 @@ export class Shortcut {
     @Prop({ reflect: true })
     public badge?: number | string;
 
+    /**
+     * If supplied, the shortcut will be a clickable link.
+     */
+    @Prop()
+    public link?: Link;
+
     public render() {
         return [
             <a
                 aria-disabled={this.disabled}
-                href={this.href}
-                target={this.target}
+                href={this.link?.href}
+                target={this.link?.target}
                 tabindex="0"
                 aria-label={this.getAriaLabel()}
-                title={this.linkTitle}
+                title={this.link?.title}
             >
                 <limel-icon name={this.icon} />
             </a>,
@@ -96,16 +76,16 @@ export class Shortcut {
     };
 
     private getAriaLabel = () => {
-        if (this.label && this.linkTitle) {
-            return this.label + '. ' + this.linkTitle;
+        if (this.label && this.link?.title) {
+            return this.label + '. ' + this.link.title;
         }
 
         if (this.label) {
             return this.label;
         }
 
-        if (this.linkTitle) {
-            return this.linkTitle;
+        if (this.link?.title) {
+            return this.link.title;
         }
 
         return undefined;

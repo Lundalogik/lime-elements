@@ -37,28 +37,34 @@ describe('limel-shortcut', () => {
         });
     });
 
-    describe('with `linkTitle`', () => {
+    describe('with `link` `title`', () => {
         beforeEach(async () => {
             page = await createPage(`
-                <limel-shortcut link-title="Open the iSpiffy app"></limel-shortcut>
+                <limel-shortcut></limel-shortcut>
             `);
             limelShortcut = await page.find('limel-shortcut');
+            limelShortcut.setProperty('link', {
+                title: 'Open the iSpiffy app',
+            });
+            await page.waitForChanges();
             link = await page.find('limel-shortcut >>> a');
             label = await page.find('limel-shortcut >>> span');
         });
-        it('sets the `title` attribute on the link', () => {
+        it('sets the `title` attribute on the `link`', () => {
             expect(link).toEqualAttribute('title', 'Open the iSpiffy app');
         });
-        it('includes the label in `aria-label`', () => {
+        it('includes the `title` in `aria-label`', () => {
             expect(link).toEqualAttribute('aria-label', 'Open the iSpiffy app');
         });
 
-        describe('when changing the `linkTitle`', () => {
+        describe('when changing the `link` `title`', () => {
             beforeEach(async () => {
-                limelShortcut.setProperty('linkTitle', 'I need a cup of tea');
+                limelShortcut.setProperty('link', {
+                    title: 'I need a cup of tea',
+                });
                 await page.waitForChanges();
             });
-            it('uses the new title', async () => {
+            it('uses the new `title`', async () => {
                 expect(link).toEqualAttribute('title', 'I need a cup of tea');
             });
             it('updates `aria-label`', () => {
@@ -70,26 +76,30 @@ describe('limel-shortcut', () => {
         });
     });
 
-    describe('with a label and a linkTitle', () => {
+    describe('with a label and a `link` `title`', () => {
         beforeEach(async () => {
             page = await createPage(`
-                <limel-shortcut label="iSpiffy" link-title="Open the iSpiffy app"></limel-shortcut>
+                <limel-shortcut label="iSpiffy"></limel-shortcut>
             `);
             limelShortcut = await page.find('limel-shortcut');
+            limelShortcut.setProperty('link', {
+                title: 'Open the iSpiffy app',
+            });
+            await page.waitForChanges();
             link = await page.find('limel-shortcut >>> a');
             label = await page.find('limel-shortcut >>> span');
         });
-        it('displays the correct label', () => {
+        it('displays the correct `label`', () => {
             expect(label).toEqualText('iSpiffy');
         });
-        it('uses both the label and the linkTitle to construct the `aria-label`', () => {
+        it('uses both the `label` and the `link` `title` to construct the `aria-label`', () => {
             expect(link).toEqualAttribute(
                 'aria-label',
                 'iSpiffy. Open the iSpiffy app'
             );
         });
 
-        describe('when changing the label', () => {
+        describe('when changing the `label`', () => {
             beforeEach(async () => {
                 limelShortcut.setProperty('label', 'imTired');
                 await page.waitForChanges();
@@ -102,9 +112,11 @@ describe('limel-shortcut', () => {
             });
         });
 
-        describe('when changing the linkTitle', () => {
+        describe('when changing the `link` `title`', () => {
             beforeEach(async () => {
-                limelShortcut.setProperty('linkTitle', 'I need a cup of tea');
+                limelShortcut.setProperty('link', {
+                    title: 'I need a cup of tea',
+                });
                 await page.waitForChanges();
             });
             it('updates `aria-label`', () => {
