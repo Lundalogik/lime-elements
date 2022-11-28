@@ -9,14 +9,14 @@ import { Component, h } from '@stencil/core';
 })
 export class ShortcutExample {
     public render() {
+        const link = {
+            href: 'https://www.wikipedia.org/',
+            title: 'Open Wikipedia in a new tab.',
+            target: '_blank',
+        };
+
         return (
-            <limel-shortcut
-                icon="wikipedia"
-                label="Wikipedia"
-                linkTitle="Open Wikipedia's website in a new tab."
-                href="https://www.wikipedia.org/"
-                target="_blank"
-            />
+            <limel-shortcut icon="wikipedia" label="Wikipedia" link={link} />
         );
     }
 }
