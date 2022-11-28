@@ -30,11 +30,12 @@ interface SelectTemplateProps {
 export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
     props
 ) => {
+    const value = props.value;
     let hasValue = !!props.value;
-    if (isMultiple(props.value)) {
-        hasValue = props.value.length > 0;
+    if (isMultiple(value)) {
+        hasValue = value.length > 0;
     } else if (hasValue) {
-        hasValue = !!props.value.value;
+        hasValue = !!value.value;
     }
 
     let isValid = !props.invalid;
