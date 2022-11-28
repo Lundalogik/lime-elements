@@ -1,3 +1,10 @@
+## [36.1.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.24...v36.1.0-next.25) (2022-11-28)
+
+
+### Features
+
+* **info-tile:** add `limel-info-tile` component ([beac8ab](https://github.com/Lundalogik/lime-elements/commit/beac8abcb72c54d8a76a0f8af00a2b3c3cd28c5c))
+
 ## [36.1.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.23...v36.1.0-next.24) (2022-11-23)
 
 
