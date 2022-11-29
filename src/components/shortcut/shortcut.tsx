@@ -4,10 +4,11 @@ import { Link } from '@limetech/lime-elements';
 /**
  * This component can be used on places such as a start page or a dashboard.
  * Clicking on the component should navigate the user to a new screen,
- * to which you need to provide a URL, using the `href` property.
+ * to which you need to provide a URL, by specifying an `href` for the `link` property.
  *
  * By default, this navigation will happen within the same browser tab.
- * However, it is possible to override that behavior, using the `target` property.
+ * However, it is possible to override that behavior, by specifying a `target`
+ * for the `link` property
  *
  * @exampleComponent limel-example-shortcut
  * @exampleComponent limel-example-shortcut-notification
