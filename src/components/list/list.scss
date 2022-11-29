@@ -212,8 +212,9 @@ $list-mdc-list-item: 0;
 :not(.mdc-deprecated-list--non-interactive) {
     > {
         :not(.mdc-deprecated-list-item--disabled).mdc-deprecated-list-item {
+            @include mixins.visualize-keyboard-focus;
+
             &:focus-visible {
-                box-shadow: var(--shadow-depth-8-focused);
                 border-radius: $list-border-radius;
                 z-index: $list--has-interactive-items--mdc-list-item--hover;
             }
