@@ -5,7 +5,6 @@ import {
     ListType,
 } from '@limetech/lime-elements';
 import { MDCList, MDCListActionEvent } from '@material/list';
-import { MDCRipple } from '@material/ripple';
 import { strings as listStrings } from '@material/list/constants';
 import {
     Component,
@@ -183,7 +182,6 @@ export class List {
 
         this.mdcList = new MDCList(element);
         this.mdcList.hasTypeahead = true;
-        this.mdcList.listElements.forEach((item) => new MDCRipple(item));
     };
 
     private setupListeners = () => {
