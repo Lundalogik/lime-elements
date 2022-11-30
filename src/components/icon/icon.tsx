@@ -2,6 +2,7 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
 import config from '../../global/config';
 import iconCache from '../../global/icon-cache';
 import { IconSize } from './icon.types';
+import { Icon as IconInterface } from '@limetech/lime-elements';
 
 /**
  * The recommended icon library for use with Lime Elements is the Windows 10 set
@@ -64,6 +65,13 @@ import { IconSize } from './icon.types';
 })
 export class Icon {
     /**
+     * Configuration for the icon. If conflicting values are also supplied
+     * via other properties, the values supplied here take precedence.
+     */
+    @Prop()
+    public icon: IconInterface;
+
+    /**
      * Size of the icon
      */
     @Prop({ reflect: true })
@@ -86,7 +94,7 @@ export class Icon {
     private host: HTMLLimelIconElement;
 
     public componentDidLoad() {
-        this.loadIcon(this.name);
+        this.loadIcon(this.icon?.name || this.name);
     }
 
     public render() {
@@ -94,7 +102,24 @@ export class Icon {
     }
 
     @Watch('name')
-    protected async loadIcon(name: string) {
+    protected async nameWatcher(name: string) {
+        if (this.icon?.src) {
+            return;
+        }
+
+        return this.loadIcon(this.icon?.name || name);
+    }
+
+    @Watch('icon')
+    protected async iconWatcher(icon: Icon) {
+        if (this.icon?.src) {
+            return this.renderSvg(this.icon.src);
+        }
+
+        return this.loadIcon(icon?.name || this.name);
+    }
+
+    private async loadIcon(name: string) {
         if (name === undefined || name === '') {
             return;
         }
