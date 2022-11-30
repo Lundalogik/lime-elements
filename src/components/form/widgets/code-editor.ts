@@ -24,6 +24,8 @@ export class CodeEditor extends React.Component {
                 value: value,
                 language: 'json',
                 lineNumbers: true,
+                fold: true,
+                lint: true,
             },
             events: {
                 change: this.handleChange,
