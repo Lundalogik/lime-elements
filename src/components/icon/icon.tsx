@@ -57,6 +57,7 @@ import { Icon as IconInterface } from '@limetech/lime-elements';
  *
  * @exampleComponent limel-example-icon
  * @exampleComponent limel-example-icon-background
+ * @exampleComponent limel-example-icon-from-svg-data
  */
 @Component({
     tag: 'limel-icon',
@@ -94,7 +95,11 @@ export class Icon {
     private host: HTMLLimelIconElement;
 
     public componentDidLoad() {
-        this.loadIcon(this.icon?.name || this.name);
+        if (this.icon?.src) {
+            this.renderSvg(this.icon.src);
+        } else {
+            this.loadIcon(this.icon?.name || this.name);
+        }
     }
 
     public render() {
