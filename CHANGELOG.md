@@ -1,3 +1,10 @@
+## [36.1.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.25...v36.1.0-next.26) (2022-11-30)
+
+
+### Bug Fixes
+
+* **select:** don't float label above, when empty option is selected ([05b7f11](https://github.com/Lundalogik/lime-elements/commit/05b7f11fb8b468545bfb7f3955452d0b0953c93c))
+
 ## [36.1.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.24...v36.1.0-next.25) (2022-11-28)
 
 
