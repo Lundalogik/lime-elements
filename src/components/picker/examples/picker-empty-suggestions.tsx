@@ -1,12 +1,14 @@
 import { LimelPickerCustomEvent, ListItem } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
+// 👇 Do NOT copy this to production code! It's a MOCK for this example ONLY!
 const NETWORK_DELAY = 500;
+// ☝️ Do NOT copy this to production code! It's a MOCK for this example ONLY!
 
 /**
  * With no suggestions and a message for empty search results
  *
- * :::important
+ * :::warning
  * This example simulates that searching is done on the server. Because these
  * examples do not _actually_ send requests to the server, we simulate a small
  * delay, using `setTimeout`. **Please do NOT copy that to production code!**
@@ -52,6 +54,7 @@ export class PickerExample {
     }
 
     private search = (query: string): Promise<ListItem[]> => {
+        // 👇 Do NOT copy this to production code! It's a MOCK for this example ONLY!
         return new Promise((resolve) => {
             if (query === '') {
                 // Simulate some network delay
@@ -70,6 +73,7 @@ export class PickerExample {
                 resolve(filteredItems);
             }, NETWORK_DELAY);
         });
+        // ☝️ Do NOT copy this to production code! It's a MOCK for this example ONLY!
     };
 
     private onChange = (event: LimelPickerCustomEvent<ListItem<number>>) => {
