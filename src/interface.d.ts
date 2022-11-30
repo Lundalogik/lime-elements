@@ -1,4 +1,5 @@
 // Components interfaces
+export * from './global/shared-types/icon.types';
 export * from './global/shared-types/link.types';
 export * from './components/button/button.types';
 export * from './components/chip-set/chip.types';
