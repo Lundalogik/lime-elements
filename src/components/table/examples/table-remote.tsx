@@ -3,10 +3,19 @@ import { Column, TableParams, ColumnSorter } from '../table.types';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 
+// 👇 Do NOT copy this to production code! It's a MOCK for this example ONLY!
 const NETWORK_DELAY = 500;
+// ☝️ Do NOT copy this to production code! It's a MOCK for this example ONLY!
 
 /**
  * Remote sorting and pagination
+ *
+ * :::warning
+ * This example simulates that searching is done on the server. Because these
+ * examples do not _actually_ send requests to the server, we simulate a small
+ * delay, using `setTimeout`. **Please do NOT copy that to production code!**
+ * See the other examples for code that does not include this artificial delay.
+ * :::
  *
  * @link birds.ts
  */
@@ -99,11 +108,13 @@ export class TableExampleRemote {
      * Simulate some network delay, like loading data from a server
      */
     private loadData() {
+        // 👇 Do NOT copy this to production code! It's a MOCK for this example ONLY!
         setTimeout(() => {
             const start = (this.currentPage - 1) * this.pageSize;
             const end = start + this.pageSize;
             this.currentData = this.allData.slice(start, end);
         }, NETWORK_DELAY);
+        // ☝️ Do NOT copy this to production code! It's a MOCK for this example ONLY!
     }
 
     public render() {
