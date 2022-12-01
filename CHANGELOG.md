@@ -1,3 +1,10 @@
+## [36.1.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.26...v36.1.0-next.27) (2022-12-01)
+
+
+### Bug Fixes
+
+* **form:** enable `lint` and `fold` for code editor in form ([a685a80](https://github.com/Lundalogik/lime-elements/commit/a685a802153b1b619f0eab94f8b6af268495474b))
+
 ## [36.1.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.25...v36.1.0-next.26) (2022-11-30)
 
 
