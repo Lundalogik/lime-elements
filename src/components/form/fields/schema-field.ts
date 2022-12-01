@@ -2,9 +2,11 @@ import { LimeElementsAdapter } from '../adapters';
 import JSONSchemaField from '@rjsf/core/lib/components/fields/SchemaField';
 import React from 'react';
 import { FieldProps } from './types';
-import { isEmpty, capitalize } from 'lodash-es';
+import { isEmpty, capitalize, mapValues } from 'lodash-es';
 import { resetDependentFields } from './field-helpers';
 import { FieldTemplate } from '../templates';
+import { ValidationError } from '../form.types';
+import { ExtraError } from '../form';
 
 /**
  * If given a value and schema, check if the value should be translated
@@ -214,6 +216,9 @@ export class SchemaField extends React.Component<FieldProps> {
                 schema: schema,
                 rootSchema: registry.formContext.schema,
                 errorSchema: errorSchema,
+                get errors() {
+                    return toValidationErrors(errorSchema);
+                },
                 rootValue: registry.formContext.rootValue,
                 name: name,
             },
@@ -260,4 +265,9 @@ export class SchemaField extends React.Component<FieldProps> {
 
         return React.createElement(JSONSchemaField, fieldProps);
     }
+}
+
+function toValidationErrors(errorSchema: ExtraError): ValidationError {
+    // eslint-disable-next-line no-underscore-dangle
+    return errorSchema.__errors || mapValues(errorSchema, toValidationErrors);
 }

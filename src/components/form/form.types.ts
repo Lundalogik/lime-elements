@@ -106,6 +106,8 @@ export interface FormInfo {
      */
     errorSchema?: object;
 
+    errors: ValidationError;
+
     /**
      * The value of the whole form
      */

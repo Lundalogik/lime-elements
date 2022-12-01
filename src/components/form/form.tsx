@@ -304,7 +304,7 @@ export class Form {
     }
 }
 
-interface ExtraError {
+export interface ExtraError {
     [key: string]:
         | ExtraError
         | {
