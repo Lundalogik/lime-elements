@@ -1,3 +1,10 @@
+## [36.1.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.27...v36.1.0-next.28) (2022-12-01)
+
+
+### Features
+
+* **dock:** publish `limel-dock` ([80867a7](https://github.com/Lundalogik/lime-elements/commit/80867a7a37f89b8a51d3a5fce1d2907d33ec101b))
+
 ## [36.1.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.26...v36.1.0-next.27) (2022-12-01)
 
 
