@@ -30,11 +30,14 @@ interface SelectTemplateProps {
 export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
     props
 ) => {
+    const value = props.value;
     let hasValue = !!props.value;
-    if (isMultiple(props.value)) {
-        hasValue = props.value.length > 0;
+    let hasEmptyText = true;
+    if (isMultiple(value)) {
+        hasValue = value.length > 0;
     } else if (hasValue) {
-        hasValue = !!props.value.value;
+        hasValue = !!value.value;
+        hasEmptyText = value.text === '';
     }
 
     let isValid = !props.invalid;
@@ -56,7 +59,12 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
 
     return (
         <div class={classList}>
-            <SelectValue {...props} hasValue={hasValue} isValid={isValid} />
+            <SelectValue
+                {...props}
+                hasValue={hasValue}
+                isValid={isValid}
+                hasEmptyText={hasEmptyText}
+            />
             <HelperText text={props.helperText} />
             <SelectDropdown {...props} />
         </div>
@@ -67,6 +75,7 @@ const SelectValue: FunctionalComponent<
     SelectTemplateProps & {
         hasValue: boolean;
         isValid: boolean;
+        hasEmptyText: boolean;
     }
 > = (props) => {
     const anchorClassList = {
@@ -77,7 +86,9 @@ const SelectValue: FunctionalComponent<
     const labelClassList = {
         'mdc-floating-label': true,
         'mdc-floating-label--float-above':
-            props.hasValue || props.isOpen || props.readonly,
+            (!props.hasEmptyText && props.hasValue) ||
+            props.isOpen ||
+            props.readonly,
         'mdc-floating-label--active': props.isOpen,
     };
 

@@ -1,3 +1,24 @@
+## [36.1.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.27...v36.1.0-next.28) (2022-12-01)
+
+
+### Features
+
+* **dock:** publish `limel-dock` ([80867a7](https://github.com/Lundalogik/lime-elements/commit/80867a7a37f89b8a51d3a5fce1d2907d33ec101b))
+
+## [36.1.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.26...v36.1.0-next.27) (2022-12-01)
+
+
+### Bug Fixes
+
+* **form:** enable `lint` and `fold` for code editor in form ([a685a80](https://github.com/Lundalogik/lime-elements/commit/a685a802153b1b619f0eab94f8b6af268495474b))
+
+## [36.1.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.25...v36.1.0-next.26) (2022-11-30)
+
+
+### Bug Fixes
+
+* **select:** don't float label above, when empty option is selected ([05b7f11](https://github.com/Lundalogik/lime-elements/commit/05b7f11fb8b468545bfb7f3955452d0b0953c93c))
+
 ## [36.1.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.24...v36.1.0-next.25) (2022-11-28)
 
 

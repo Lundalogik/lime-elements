@@ -17,7 +17,6 @@ const DEFAULT_MOBILE_BREAKPOINT = 700;
  * @exampleComponent limel-example-dock-mobile
  * @exampleComponent limel-example-dock-expanded
  * @exampleComponent limel-example-dock-colors-css
- * @private
  */
 @Component({
     tag: 'limel-dock',
