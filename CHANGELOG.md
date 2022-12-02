@@ -1,3 +1,10 @@
+## [36.1.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.28...v36.1.0-next.29) (2022-12-02)
+
+
+### Bug Fixes
+
+* **list:** remove the ripple effect from list items ([2a1fd01](https://github.com/Lundalogik/lime-elements/commit/2a1fd016666929916b0a4c07008f128c3222d532))
+
 ## [36.1.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.27...v36.1.0-next.28) (2022-12-01)
 
 
