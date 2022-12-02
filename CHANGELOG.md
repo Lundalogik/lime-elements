@@ -1,3 +1,10 @@
+## [36.1.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.29...v36.1.0-next.30) (2022-12-02)
+
+
+### Bug Fixes
+
+* **shortcut:** use `link` interface ([b4412de](https://github.com/Lundalogik/lime-elements/commit/b4412de2f28a2a5ea05f77b768687e696d2ead0f))
+
 ## [36.1.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.28...v36.1.0-next.29) (2022-12-02)
 
 
