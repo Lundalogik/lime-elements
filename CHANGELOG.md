@@ -1,3 +1,28 @@
+## [36.1.0-dev.4](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-dev.3...v36.1.0-dev.4) (2022-12-05)
+
+
+### Features
+
+* **dialog:** add CSS props for padding around the content ([3766b2d](https://github.com/Lundalogik/lime-elements/commit/3766b2d0d56e35d44297044ce46036874ed9dbf0))
+* **dock:** publish `limel-dock` ([80867a7](https://github.com/Lundalogik/lime-elements/commit/80867a7a37f89b8a51d3a5fce1d2907d33ec101b))
+* **info-tile:** add `limel-info-tile` component ([beac8ab](https://github.com/Lundalogik/lime-elements/commit/beac8abcb72c54d8a76a0f8af00a2b3c3cd28c5c))
+
+
+### Bug Fixes
+
+* **dialog:** make padding around the content responsive ([5fa486b](https://github.com/Lundalogik/lime-elements/commit/5fa486bb0540f1b18f8c3de70fe95de590ad07f2))
+* **form:** enable `lint` and `fold` for code editor in form ([a685a80](https://github.com/Lundalogik/lime-elements/commit/a685a802153b1b619f0eab94f8b6af268495474b))
+* **input-field:** do not render unformatted value when field is readonly ([6467462](https://github.com/Lundalogik/lime-elements/commit/64674625b22000889ace614dc65405211a563a00))
+* **list:** remove the ripple effect from list items ([2a1fd01](https://github.com/Lundalogik/lime-elements/commit/2a1fd016666929916b0a4c07008f128c3222d532))
+* **select:** don't float label above, when empty option is selected ([05b7f11](https://github.com/Lundalogik/lime-elements/commit/05b7f11fb8b468545bfb7f3955452d0b0953c93c))
+* **select:** make trigger element unfocusable using tab, when disabled ([b292271](https://github.com/Lundalogik/lime-elements/commit/b292271bdbf6acd2657f6f2186c55c319c84b144))
+* **select:** toggle `aria-expanded` to improve accessibility ([9d7a9c2](https://github.com/Lundalogik/lime-elements/commit/9d7a9c29c578fac2596e691487be8adb8e736a6f))
+* **select:** visualize keyboard focus ([217242a](https://github.com/Lundalogik/lime-elements/commit/217242a794adf9cc4577149c95d7ad5f5f36b96f))
+* **select.template:** remove unnecessary `tabindex` from `button` element ([d1383d7](https://github.com/Lundalogik/lime-elements/commit/d1383d721ab89514038158b09c9904bcd4f7460d))
+* **shortcut:** use `link` interface ([b4412de](https://github.com/Lundalogik/lime-elements/commit/b4412de2f28a2a5ea05f77b768687e696d2ead0f))
+* **split-button:** don't render the menu if there are no menu items ([e7b1a40](https://github.com/Lundalogik/lime-elements/commit/e7b1a40f4a53bb9d663149fddf91c8386e9be571))
+* **split-button:** prevent unintentionally activating the default action ([b99be79](https://github.com/Lundalogik/lime-elements/commit/b99be799e69cec8e51fe25d2b479ece1b28f11fe))
+
 ## [36.1.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.29...v36.1.0-next.30) (2022-12-02)
 
 
