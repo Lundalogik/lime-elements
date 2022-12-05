@@ -133,7 +133,7 @@ section.example .code {
   top: 0;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1000px) {
   section.example .result,
 section.example .code {
     width: 100%;

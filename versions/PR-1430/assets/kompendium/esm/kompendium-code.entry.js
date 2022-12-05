@@ -209,7 +209,7 @@ var Prism = (function (_self) {
 					//    at _.util.currentScript (http://localhost/components/prism-core.js:119:5)
 					//    at Global code (http://localhost/components/prism-core.js:606:1)
 
-					var src = (/at [^(\r\n]*\((.*):.+:.+\)$/i.exec(err.stack) || [])[1];
+					var src = (/at [^(\r\n]*\((.*):[^:]+:[^:]+\)$/i.exec(err.stack) || [])[1];
 					if (src) {
 						var scripts = document.getElementsByTagName('script');
 						for (var i in scripts) {
@@ -1234,8 +1234,14 @@ if (typeof commonjsGlobal !== 'undefined') {
 ********************************************** */
 
 Prism.languages.markup = {
-	'comment': /<!--[\s\S]*?-->/,
-	'prolog': /<\?[\s\S]+?\?>/,
+	'comment': {
+		pattern: /<!--(?:(?!<!--)[\s\S])*?-->/,
+		greedy: true
+	},
+	'prolog': {
+		pattern: /<\?[\s\S]+?\?>/,
+		greedy: true
+	},
 	'doctype': {
 		// https://www.w3.org/TR/xml/#NT-doctypedecl
 		pattern: /<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:[^<"'\]]|"[^"]*"|'[^']*'|<(?!!--)|<!--(?:[^-]|-(?!->))*-->)*\]\s*)?>/i,
@@ -1252,11 +1258,14 @@ Prism.languages.markup = {
 				greedy: true
 			},
 			'punctuation': /^<!|>$|[[\]]/,
-			'doctype-tag': /^DOCTYPE/,
+			'doctype-tag': /^DOCTYPE/i,
 			'name': /[^\s<>'"]+/
 		}
 	},
-	'cdata': /<!\[CDATA\[[\s\S]*?\]\]>/i,
+	'cdata': {
+		pattern: /<!\[CDATA\[[\s\S]*?\]\]>/i,
+		greedy: true
+	},
 	'tag': {
 		pattern: /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/,
 		greedy: true,
@@ -2097,8 +2106,9 @@ Prism.languages.insertBefore('less', 'property', {
 	Prism.languages.typescript.keyword.push(
 		/\b(?:abstract|as|declare|implements|is|keyof|readonly|require)\b/,
 		// keywords that have to be followed by an identifier
-		// eslint-disable-next-line regexp/no-dupe-characters-character-class
-		/\b(?:asserts|infer|interface|module|namespace|type)(?!\s*[^\s_${}*a-zA-Z\xA0-\uFFFF])/
+		/\b(?:asserts|infer|interface|module|namespace|type)\b(?=\s*(?:[{_$a-zA-Z\xA0-\uFFFF]|$))/,
+		// This is for `import type *, {}`
+		/\btype\b(?=\s*(?:[\{*]|$))/
 	);
 
 	// doesn't work with TS because TS is too complex
@@ -2481,7 +2491,7 @@ Prism.languages.insertBefore('less', 'property', {
 	});
 }());
 
-const codeCss = "div.code-toolbar{position:relative}div.code-toolbar>.toolbar{position:absolute;top:.3em;right:.2em;transition:opacity 0.3s ease-in-out;opacity:0}div.code-toolbar:hover>.toolbar{opacity:1}div.code-toolbar:focus-within>.toolbar{opacity:1}div.code-toolbar>.toolbar .toolbar-item{display:inline-block}div.code-toolbar>.toolbar a{cursor:pointer}div.code-toolbar>.toolbar button{background:none;border:0;color:inherit;font:inherit;line-height:normal;overflow:visible;padding:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}div.code-toolbar>.toolbar a,div.code-toolbar>.toolbar button,div.code-toolbar>.toolbar span{color:#bbb;font-size:.8em;padding:0 .5em;background:#f5f2f0;background:rgba(224, 224, 224, 0.2);box-shadow:0 2px 0 0 rgba(0,0,0,0.2);border-radius:.5em}div.code-toolbar>.toolbar a:hover,div.code-toolbar>.toolbar a:focus,div.code-toolbar>.toolbar button:hover,div.code-toolbar>.toolbar button:focus,div.code-toolbar>.toolbar span:hover,div.code-toolbar>.toolbar span:focus{color:inherit;text-decoration:none}:host{display:flex;font-size:1rem}slot{display:none}.root{width:100%}div.code-toolbar{z-index:1;display:flex;height:100%}div.code-toolbar>.toolbar{padding-right:0.25rem}div.code-toolbar>.toolbar .toolbar-item button,div.code-toolbar>.toolbar .toolbar-item span{all:unset}div.code-toolbar>.toolbar .toolbar-item button{cursor:pointer;transition:background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;box-shadow:var(--kompendium-button-shadow-normal);background-color:rgb(var(--kompendium-contrast-100));color:rgb(var(--kompendium-contrast-1100));padding:0.125rem 0.5rem;border-radius:0.375rem;font-size:0.75rem}div.code-toolbar>.toolbar .toolbar-item button:hover{box-shadow:var(--kompendium-button-shadow-hovered)}div.code-toolbar>.toolbar .toolbar-item button:active{box-shadow:var(--kompendium-button-shadow-pressed);transform:translate3d(0, 0.08rem, 0)}code,pre{font-family:var(--kompendium-font-code);font-size:0.8125rem}code[class*=language-],pre[class*=language-]{color:rgb(var(--kompendium-color-code-gray-lighter));background:none;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1.5rem 1rem 2rem 1rem;position:relative;margin:0;overflow:auto;flex-grow:1;border-radius:0.5625rem}:not(pre)>code[class*=language-],pre[class*=language-]{background:rgb(var(--kompendium-color-code-background))}:not(pre)>code[class*=language-]{white-space:normal}.token.comment{color:var(--kompendium-color-code-gray-light)}.token.block-comment,.token.prolog,.token.doctype,.token.cdata{color:var(--kompendium-color-code-gray-lighter)}.token.punctuation{color:var(--kompendium-color-code-gray-dark)}.token.tag,.token.attr-name,.token.namespace,.token.deleted{color:rgb(var(--kompendium-color-code-pink))}.token.function-name{color:rgb(var(--kompendium-color-code-blue))}.token.boolean,.token.number,.token.function{color:rgb(var(--kompendium-color-code-orange))}.token.property,.token.class-name,.token.constant,.token.symbol{color:rgb(var(--kompendium-color-code-yellow))}.token.selector,.token.important,.token.atrule,.token.keyword,.token.builtin{color:rgb(var(--kompendium-color-code-purple))}.token.string,.token.char,.token.attr-value,.token.regex,.token.variable{color:rgb(var(--kompendium-color-code-green-light))}.token.operator{color:rgb(var(--kompendium-color-code-purple))}.token.entity,.token.url{color:rgb(var(--kompendium-color-code-turquoise))}.token.important,.token.bold{font-weight:bold}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:rgb(var(--kompendium-color-code-green-dark))}";
+const codeCss = "div.code-toolbar{position:relative}div.code-toolbar>.toolbar{position:absolute;top:.3em;right:.2em;transition:opacity 0.3s ease-in-out;opacity:0}div.code-toolbar:hover>.toolbar{opacity:1}div.code-toolbar:focus-within>.toolbar{opacity:1}div.code-toolbar>.toolbar>.toolbar-item{display:inline-block}div.code-toolbar>.toolbar>.toolbar-item>a{cursor:pointer}div.code-toolbar>.toolbar>.toolbar-item>button{background:none;border:0;color:inherit;font:inherit;line-height:normal;overflow:visible;padding:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}div.code-toolbar>.toolbar>.toolbar-item>a,div.code-toolbar>.toolbar>.toolbar-item>button,div.code-toolbar>.toolbar>.toolbar-item>span{color:#bbb;font-size:.8em;padding:0 .5em;background:#f5f2f0;background:rgba(224, 224, 224, 0.2);box-shadow:0 2px 0 0 rgba(0,0,0,0.2);border-radius:.5em}div.code-toolbar>.toolbar>.toolbar-item>a:hover,div.code-toolbar>.toolbar>.toolbar-item>a:focus,div.code-toolbar>.toolbar>.toolbar-item>button:hover,div.code-toolbar>.toolbar>.toolbar-item>button:focus,div.code-toolbar>.toolbar>.toolbar-item>span:hover,div.code-toolbar>.toolbar>.toolbar-item>span:focus{color:inherit;text-decoration:none}:host{display:flex;font-size:1rem}slot{display:none}.root{width:100%}div.code-toolbar{z-index:1;display:flex;height:100%}div.code-toolbar>.toolbar{padding-right:0.25rem}div.code-toolbar>.toolbar .toolbar-item button,div.code-toolbar>.toolbar .toolbar-item span{all:unset}div.code-toolbar>.toolbar .toolbar-item button{cursor:pointer;transition:background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;box-shadow:var(--kompendium-button-shadow-normal);background-color:rgb(var(--kompendium-contrast-100));color:rgb(var(--kompendium-contrast-1100));padding:0.125rem 0.5rem;border-radius:0.375rem;font-size:0.75rem}div.code-toolbar>.toolbar .toolbar-item button:hover{box-shadow:var(--kompendium-button-shadow-hovered)}div.code-toolbar>.toolbar .toolbar-item button:active{box-shadow:var(--kompendium-button-shadow-pressed);transform:translate3d(0, 0.08rem, 0)}code,pre{font-family:var(--kompendium-font-code);font-size:0.8125rem}code[class*=language-],pre[class*=language-]{color:rgb(var(--kompendium-color-code-gray-lighter));background:none;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1.5rem 1rem 2rem 1rem;position:relative;margin:0;overflow:auto;flex-grow:1;border-radius:0.5625rem}:not(pre)>code[class*=language-],pre[class*=language-]{background:rgb(var(--kompendium-color-code-background))}:not(pre)>code[class*=language-]{white-space:normal}.token.comment{color:var(--kompendium-color-code-gray-light)}.token.block-comment,.token.prolog,.token.doctype,.token.cdata{color:var(--kompendium-color-code-gray-lighter)}.token.punctuation{color:var(--kompendium-color-code-gray-dark)}.token.tag,.token.attr-name,.token.namespace,.token.deleted{color:rgb(var(--kompendium-color-code-pink))}.token.function-name{color:rgb(var(--kompendium-color-code-blue))}.token.boolean,.token.number,.token.function{color:rgb(var(--kompendium-color-code-orange))}.token.property,.token.class-name,.token.constant,.token.symbol{color:rgb(var(--kompendium-color-code-yellow))}.token.selector,.token.important,.token.atrule,.token.keyword,.token.builtin{color:rgb(var(--kompendium-color-code-purple))}.token.string,.token.char,.token.attr-value,.token.regex,.token.variable{color:rgb(var(--kompendium-color-code-green-light))}.token.operator{color:rgb(var(--kompendium-color-code-purple))}.token.entity,.token.url{color:rgb(var(--kompendium-color-code-turquoise))}.token.important,.token.bold{font-weight:bold}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:rgb(var(--kompendium-color-code-green-dark))}";
 
 const Code = class {
   constructor(hostRef) {
