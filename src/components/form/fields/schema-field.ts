@@ -197,8 +197,15 @@ export class SchemaField extends React.Component<FieldProps> {
     }
 
     private buildCustomComponentProps() {
-        const { disabled, readonly, name, registry, schema, errorSchema } =
-            this.props;
+        const {
+            disabled,
+            readonly,
+            name,
+            registry,
+            schema,
+            errorSchema,
+            idSchema,
+        } = this.props;
         const factoryProps = getFactoryProps(registry.formContext, schema);
 
         return {
@@ -216,6 +223,7 @@ export class SchemaField extends React.Component<FieldProps> {
                 errorSchema: errorSchema,
                 rootValue: registry.formContext.rootValue,
                 name: name,
+                schemaPath: this.getSchemaPath(idSchema.$id),
             },
         };
     }
@@ -259,5 +267,19 @@ export class SchemaField extends React.Component<FieldProps> {
         };
 
         return React.createElement(JSONSchemaField, fieldProps);
+    }
+
+    /**
+     * Gets the path to the current property within the schema
+     *
+     * @param {string} schemaId the id of the schema
+     * @returns {string[]} an array with the schema path for the current property
+     * @example
+     * const schemaId = 'root_sections_0_controls_0_name';
+     * const schemaPath = getSchemaPath(schemaId);
+     * // => ['sections', '0', 'controls', '0', 'name']
+     */
+    private getSchemaPath(schemaId: string): string[] {
+        return schemaId.replace('root_', '').split('_');
     }
 }
