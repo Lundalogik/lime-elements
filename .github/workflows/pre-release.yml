@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -58,21 +59,14 @@ jobs:
         event-type: update-lime-elements
         repository: Lundalogik/lime-webclient
 
-  tmp:
+  docs:
     needs: semantic-release
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "needs.semantic-release.outputs.new_release_published = ${{ needs.semantic-release.outputs.new_release_published }}"
-
-  # docs:
-  #   needs: semantic-release
-  #   if: needs.semantic-release.outputs.new_release_published == 'true'
-  #   permissions:
-  #     contents: read
-  #     pull-requests: write
-  #   uses: ./.github/workflows/publish-docs.yml
-  #   with:
-  #     version: "NEXT-${{ needs.semantic-release.outputs.new_release_version }}"
-  #     forcePush: true
-  #     buildOnly: true
-  #   secrets: inherit
+    if: needs.semantic-release.outputs.new_release_published == 'true' && github.ref_name == 'next'
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: ./.github/workflows/publish-docs.yml
+    with:
+      version: "NEXT-${{ needs.semantic-release.outputs.new_release_version }}"
+      forcePush: true
+    secrets: inherit

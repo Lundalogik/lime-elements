@@ -1,4 +1,5 @@
 // Components interfaces
+export * from './global/shared-types/link.types';
 export * from './components/button/button.types';
 export * from './components/chip-set/chip.types';
 export * from './components/collapsible-section/action';
@@ -21,3 +22,4 @@ export * from './components/tab-bar/tab.types';
 export * from './components/tab-panel/tab-panel.types';
 export * from './components/table/table.types';
 export * from './components/dock/dock.types';
+export * from './components/info-tile/info-tile.types';

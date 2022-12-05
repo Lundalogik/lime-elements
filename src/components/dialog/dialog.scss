@@ -16,6 +16,8 @@
  * @prop --dialog-max-width: Max width of the dialog.
  * @prop --dialog-max-height: Max height of the dialog.
  * @prop --dialog-border-radius: Border radius of the dialog corners
+ * @prop --dialog-padding-top-bottom: Padding on top and bottom of dialog content. Defaults to `1.5rem`.
+ * @prop --dialog-padding-left-right: Padding on the sides of dialog content. Defaults to `1.25rem`.
  */
 
 :host {
@@ -26,6 +28,8 @@
     --header-icon-color: var(--dialog-heading-icon-color);
     --header-icon-background-color: var(--dialog-heading-icon-background-color);
 }
+
+$responsive-body-padding: 3vw; // 3% of viewport's width
 
 @include dialog.core-styles;
 
@@ -60,6 +64,17 @@
         max-width: var(--dialog-max-width, calc(100vw - 2rem));
         max-height: var(--dialog-max-height, calc(100% - 2rem));
         border-radius: var(--dialog-border-radius, 0.25rem);
+    }
+
+    .mdc-dialog__content {
+        padding: var(
+                --dialog-padding-top-bottom,
+                min(1.5rem, $responsive-body-padding)
+            )
+            var(
+                --dialog-padding-left-right,
+                min(1.25rem, $responsive-body-padding)
+            );
     }
 }
 
@@ -129,6 +144,7 @@ slot[name='button'] {
         flex-direction: column-reverse;
     }
     .mdc-dialog__actions {
-        padding: 1rem 1.5rem 1.5rem 1.5rem;
+        padding: min(1.5rem, $responsive-body-padding);
+        padding-top: 1rem;
     }
 }

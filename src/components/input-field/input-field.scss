@@ -112,6 +112,25 @@
         color: transparent;
         -webkit-text-fill-color: transparent;
     }
+
+    &.lime-text-field--readonly {
+        .mdc-text-field__input[type='number'] {
+            visibility: hidden;
+            // Not having `visibility: hidden;` makes the unformatted
+            // value selectable; which is not so nice when users
+            // click drag to select content on the screen.
+            // The reason to have it only on `readonly` mode is
+            // 1. This is the use case where it makes most sense
+            // 2. We don't want to repeat the same thing in the
+            // accessibility tree, and make it readable for assistive
+            // technologies.
+            // 3. When not readonly, clicking on the `<input />`
+            // element sets the focus and activates the edit mode.
+            // So we cannot always have it `hidden` on.
+            // which is why we have instead
+            // `color: transparent` a few lines before this.
+        }
+    }
 }
 
 .autocomplete-list-container {

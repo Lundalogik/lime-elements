@@ -1,7 +1,10 @@
 @import '../../style/mixins';
 
-:host(limel-split-button) {
+:host(limel-split-button.has-menu) {
     --button-padding-right: 2rem;
+}
+
+:host(limel-split-button) {
     display: inline-flex;
     isolation: isolate;
 
@@ -10,13 +13,15 @@
     }
 }
 
+$distance-around-trigger: 0.125rem;
+
 limel-menu {
     display: flex;
     justify-content: flex-end;
     position: relative;
     z-index: 1;
 
-    padding: 0.125rem;
+    padding: $distance-around-trigger;
     margin-left: calc(var(--button-padding-right) * -1);
     width: var(--button-padding-right);
 
@@ -76,5 +81,16 @@ limel-menu {
         &:hover {
             background-color: rgb(var(--color-white), 0.1);
         }
+    }
+
+    &:before {
+        // prevents unintentionally activating the default action,
+        // by clicking on the edge of menu trigger,
+        // which would be activating the default onClick action
+        // on `limel-button`.
+        content: '';
+        position: absolute;
+        inset: -$distance-around-trigger * 2;
+        z-index: -1;
     }
 }

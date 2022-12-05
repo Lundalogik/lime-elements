@@ -9,13 +9,17 @@ import { Component, h } from '@stencil/core';
 })
 export class ShortcutWithClickHandlerExample {
     public render() {
+        const link = {
+            href: '#/component/limel-table',
+            title: 'Open the documentation for limel-table',
+        };
+
         return (
             <limel-shortcut
                 icon="pivot_table"
                 label="limel-table"
-                linkTitle="Open the documentation for limel-table"
-                href="#/component/limel-table"
                 onClick={this.handleClick}
+                link={link}
             />
         );
     }
