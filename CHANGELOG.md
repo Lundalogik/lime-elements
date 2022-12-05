@@ -1,3 +1,10 @@
+## [36.1.0-dev.5](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-dev.4...v36.1.0-dev.5) (2022-12-05)
+
+
+### Bug Fixes
+
+* trigger release ([c4214db](https://github.com/Lundalogik/lime-elements/commit/c4214dbd4a3e0a4a279a4cd4a7e7fb99682e734b))
+
 ## [36.1.0-dev.4](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-dev.3...v36.1.0-dev.4) (2022-12-05)
 
 
