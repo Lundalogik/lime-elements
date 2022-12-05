@@ -44,16 +44,27 @@ jobs:
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
         CI: true
-    - name: Merge release commit back to branch `next`
-      if: steps.semantic.outputs.new_release_published == 'true'
-      uses: MaximeHeckel/github-action-merge-fast-forward@v1.1.0
+
+  merge-back-to-next:
+    needs: semantic-release
+    if: needs.semantic-release.outputs.new_release_published == 'true'
+    timeout-minutes: 2
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
       with:
-        # Branch to merge
-        branchtomerge: 'main'
-        # Branch that will be updated
-        branch: 'next'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.CREATE_RELEASE }}
+    - name: Set Git config
+      run: |
+          git config --local user.email "lime-opensource@users.noreply.github.com"
+          git config --local user.name "Lime Technologies OSS"
+    - run: git fetch --unshallow
+    - run: git checkout next
+    - run: git pull
+    - name: Merge release commit back to branch `next`
+      run: |
+          git merge --no-ff main -m 'chore(release): auto merge `main` back to `next` after release'
+          git push
 
   docs:
     needs: semantic-release
