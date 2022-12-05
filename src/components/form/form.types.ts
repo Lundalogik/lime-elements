@@ -115,6 +115,11 @@ export interface FormInfo {
      * The name of the current property
      */
     name?: string;
+
+    /**
+     * Path to the property within the schema
+     */
+    schemaPath?: string[];
 }
 
 /**
