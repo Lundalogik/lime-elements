@@ -5,6 +5,7 @@ on:
       - main
       - '*[0-9].*[0-9].x'
       - '*[0-9].x.x'
+      - 'dev'
   # workflow_dispatch makes it possible to trigger the run manually
   workflow_dispatch:
 
@@ -59,19 +60,19 @@ jobs:
     - name: Merge release commit back to branch `next`
       run: |
           git fetch --unshallow
-          git checkout next
+          git checkout update-release-workflow
           git pull
-          git merge --no-ff main -m "chore(release): auto merge `main` back to `next` after release"
+          git merge --no-ff dev -m "chore(release): auto merge `main` back to `next` after release"
           git push
 
-  docs:
-    needs: semantic-release
-    if: needs.semantic-release.outputs.new_release_published == 'true'
-    permissions:
-      contents: read
-      pull-requests: write
-    uses: ./.github/workflows/publish-docs.yml
-    with:
-      version: "${{ needs.semantic-release.outputs.new_release_version }}"
-      forcePush: true
-    secrets: inherit
+  # docs:
+  #   needs: semantic-release
+  #   if: needs.semantic-release.outputs.new_release_published == 'true'
+  #   permissions:
+  #     contents: read
+  #     pull-requests: write
+  #   uses: ./.github/workflows/publish-docs.yml
+  #   with:
+  #     version: "${{ needs.semantic-release.outputs.new_release_version }}"
+  #     forcePush: true
+  #   secrets: inherit
