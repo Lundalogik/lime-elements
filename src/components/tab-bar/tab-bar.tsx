@@ -38,6 +38,7 @@ const HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX = 40;
  * @exampleComponent limel-example-tab-bar
  * @exampleComponent limel-example-tab-bar-with-dynamic-tab-width
  * @exampleComponent limel-example-tab-bar-with-equal-tab-width
+ * @exampleComponent limel-example-tab-bar-shrinkable
  */
 @Component({
     tag: 'limel-tab-bar',
