@@ -1,3 +1,59 @@
+## [36.1.0](https://github.com/Lundalogik/lime-elements/compare/v36.0.0...v36.1.0) (2022-12-05)
+
+
+### Features
+
+* **badge:** allow string labels ([a8f31c8](https://github.com/Lundalogik/lime-elements/commit/a8f31c8d58171c96778be4bcbadce454bd8f14e5))
+* **circular-progress:** add `prefix` as a property ([2077f37](https://github.com/Lundalogik/lime-elements/commit/2077f374d6a91977d88d04bbe9fbd161f12086b9))
+* **circular-progress:** add CSS prop for `suffix` text color ([6edcca5](https://github.com/Lundalogik/lime-elements/commit/6edcca502d3044cfab9f8bd41c56cea50aa5cf92))
+* **circular-progress:** add CSS props for coloring text & background ([871b804](https://github.com/Lundalogik/lime-elements/commit/871b804c719dc16698349fa1b9cf74946ee1daf9))
+* **datepicker:** highlight today in datepickers ([b0d2e09](https://github.com/Lundalogik/lime-elements/commit/b0d2e09c6fb1ed2b91706fe03e1a50abdbcb7f69))
+* **dialog:** add CSS props for padding around the content ([3766b2d](https://github.com/Lundalogik/lime-elements/commit/3766b2d0d56e35d44297044ce46036874ed9dbf0))
+* **dock:** publish `limel-dock` ([80867a7](https://github.com/Lundalogik/lime-elements/commit/80867a7a37f89b8a51d3a5fce1d2907d33ec101b))
+* **info-tile:** add `limel-info-tile` component ([beac8ab](https://github.com/Lundalogik/lime-elements/commit/beac8abcb72c54d8a76a0f8af00a2b3c3cd28c5c))
+* **shortcut:** add `limel-shortcut` component ([31955bd](https://github.com/Lundalogik/lime-elements/commit/31955bd104d4602e463960c76354f8cc407b0e2a))
+* **split-button:** add new component `limel-split-button` ([80e13d7](https://github.com/Lundalogik/lime-elements/commit/80e13d7d898e53ff2168f321a5fee7337b63f5d9)), closes [Lundalogik/hack-tuesday#265](https://github.com/Lundalogik/hack-tuesday/issues/265)
+* **tab:** allow string labels in badge ([1877e59](https://github.com/Lundalogik/lime-elements/commit/1877e59bd365325abd105e0f8432e6cb30e907a6))
+
+
+### Bug Fixes
+
+* trigger release ([1846a40](https://github.com/Lundalogik/lime-elements/commit/1846a40ad91952415d3dc3435bf2869a5fa2a7b8))
+* trigger release ([db9548a](https://github.com/Lundalogik/lime-elements/commit/db9548a911c0cf9f6e8048a2951d014198e4e872))
+* **badge:** make all number units upper case ([26cb224](https://github.com/Lundalogik/lime-elements/commit/26cb2249a8b4c1de2986f90db4a31333ac00177e))
+* **badge:** use unabbreviated & un-truncated label as `title` to improve accessibility ([df3b30d](https://github.com/Lundalogik/lime-elements/commit/df3b30d06617246a38eea562f5f2c2ca51ac2651))
+* **chip-set:** resolve z-index issues by using css `isolation` ([676d22c](https://github.com/Lundalogik/lime-elements/commit/676d22ceb83861cb9cf5caed8534378adff75505)), closes [Lundalogik/lime-elements#1864](https://github.com/Lundalogik/lime-elements/issues/1864)
+* **circular-progress:** make value `font-size` more reponsive ([beff9ac](https://github.com/Lundalogik/lime-elements/commit/beff9ac8f4dae8b430f70aaea0f04253f2e2fa0a))
+* **date-picker:** display "Today" as a tooltip, when today's date is hovered ([c9590a0](https://github.com/Lundalogik/lime-elements/commit/c9590a07db15cbccf8d39102d67f2373fb1d649a))
+* **date-picker:** make component better fit our visual style ([fe14799](https://github.com/Lundalogik/lime-elements/commit/fe14799c4b18bc83c2367d4ffca4d0348a1466b4))
+* **dialog:** make padding around the content responsive ([5fa486b](https://github.com/Lundalogik/lime-elements/commit/5fa486bb0540f1b18f8c3de70fe95de590ad07f2))
+* **form:** enable `lint` and `fold` for code editor in form ([a685a80](https://github.com/Lundalogik/lime-elements/commit/a685a802153b1b619f0eab94f8b6af268495474b))
+* **input-field:** align `-` when input-field has no value and readonly ([e689d86](https://github.com/Lundalogik/lime-elements/commit/e689d8657f133fb243f041df45b688b7c9a7b2d7))
+* **input-field:** allow resize when the textarea is readonly ([dc831ae](https://github.com/Lundalogik/lime-elements/commit/dc831aec11f60fce4fceb445837fd6580d1d7a0b))
+* **input-field:** do not render unformatted value when field is readonly ([6467462](https://github.com/Lundalogik/lime-elements/commit/64674625b22000889ace614dc65405211a563a00))
+* **input-field:** prevent overlapping prefix & formatted-input ([af43503](https://github.com/Lundalogik/lime-elements/commit/af4350349ce1527f46548526a3961150685d89e6))
+* **list:** remove the ripple effect from list items ([2a1fd01](https://github.com/Lundalogik/lime-elements/commit/2a1fd016666929916b0a4c07008f128c3222d532))
+* **popover:** resolve z-index issues by using css `isolation` ([bfe84fd](https://github.com/Lundalogik/lime-elements/commit/bfe84fd837a82970652c03d9fa1f4787abbb5e88)), closes [Lundalogik/lime-elements#1864](https://github.com/Lundalogik/lime-elements/issues/1864)
+* **select:** don't float label above, when empty option is selected ([05b7f11](https://github.com/Lundalogik/lime-elements/commit/05b7f11fb8b468545bfb7f3955452d0b0953c93c))
+* **select:** make trigger element unfocusable using tab, when disabled ([b292271](https://github.com/Lundalogik/lime-elements/commit/b292271bdbf6acd2657f6f2186c55c319c84b144))
+* **select:** select with multiple values doesn't show the empty value (-) when readonly ([42aaedc](https://github.com/Lundalogik/lime-elements/commit/42aaedc61dcd23e3f1814bb65cf0575c75d1c5a2))
+* **select:** toggle `aria-expanded` to improve accessibility ([9d7a9c2](https://github.com/Lundalogik/lime-elements/commit/9d7a9c29c578fac2596e691487be8adb8e736a6f))
+* **select:** visualize keyboard focus ([217242a](https://github.com/Lundalogik/lime-elements/commit/217242a794adf9cc4577149c95d7ad5f5f36b96f))
+* **select.template:** remove unnecessary `tabindex` from `button` element ([d1383d7](https://github.com/Lundalogik/lime-elements/commit/d1383d721ab89514038158b09c9904bcd4f7460d))
+* **shortcut:** use `link` interface ([b4412de](https://github.com/Lundalogik/lime-elements/commit/b4412de2f28a2a5ea05f77b768687e696d2ead0f))
+* **split-button:** don't render the menu if there are no menu items ([e7b1a40](https://github.com/Lundalogik/lime-elements/commit/e7b1a40f4a53bb9d663149fddf91c8386e9be571))
+* **split-button:** prevent unintentionally activating the default action ([b99be79](https://github.com/Lundalogik/lime-elements/commit/b99be799e69cec8e51fe25d2b479ece1b28f11fe))
+
+
+### Reverts
+
+* "chore(deps-dev): bump @stencil/core from 2.18.1 to 2.19.2" ([324cc1d](https://github.com/Lundalogik/lime-elements/commit/324cc1dd63f35052c4638a6348569e13c9cf5199))
+* "chore(deps-dev): bump material-components-web from 13.0.0 to 14.0.0" ([7bdc871](https://github.com/Lundalogik/lime-elements/commit/7bdc871a906dee49ddab580cd9280293bbd6c082))
+* "chore(dev-deps): bump @stencil/core from 2.15.1 to 2.18.1" ([9bf47b8](https://github.com/Lundalogik/lime-elements/commit/9bf47b8b7fdc049ed6de1d59cab4c7095b960768))
+* "chore(input-field): fix types that makes Stencil build fail" ([2370daf](https://github.com/Lundalogik/lime-elements/commit/2370daf68720c379cdad2364d36d7192b6db371c))
+* "chore(picker): fix types that makes Stencil build fail" ([d8cb233](https://github.com/Lundalogik/lime-elements/commit/d8cb2339874355baaf2ab787d52c78d93a8fa95d))
+* "fix(badge): make all number units upper case" ([9e6dabb](https://github.com/Lundalogik/lime-elements/commit/9e6dabbe499e57f1df6a719b14a9cc799492e30a))
+
 ## [36.1.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v36.1.0-next.31...v36.1.0-next.32) (2022-12-05)
 
 
