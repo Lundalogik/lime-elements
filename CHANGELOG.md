@@ -1,3 +1,10 @@
+## [36.2.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.1.0...v36.2.0-next.1) (2022-12-09)
+
+
+### Features
+
+* **progress-flow:** update some internals to enable tracking using Heap ([d13f3a7](https://github.com/Lundalogik/lime-elements/commit/d13f3a76e7adeaff44478021f9819e06e23c338c))
+
 ## [36.1.0](https://github.com/Lundalogik/lime-elements/compare/v36.0.0...v36.1.0) (2022-12-05)
 
 
