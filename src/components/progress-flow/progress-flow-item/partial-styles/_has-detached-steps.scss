@@ -38,22 +38,8 @@
         background-color: transparent;
         padding: 0 !important;
 
-        &:after {
-            // selected indicator
-            right: 0;
-            left: 0;
-            bottom: 0;
-            top: 0;
-            margin: auto;
-            height: calc(var(--step-height) + #{functions.pxToRem(8)});
-            width: calc(var(--step-height) + #{functions.pxToRem(8)});
-            border-width: functions.pxToRem(2);
-            border-style: solid;
-            background-color: transparent;
-            opacity: 0.5;
-        }
-
         &:before {
+            //  circle
             transition: box-shadow 0.2s ease, background-color 0.2s ease;
             content: '';
             width: var(--step-height);
@@ -67,20 +53,27 @@
             left: 0;
             margin: auto;
         }
+
+        &:after {
+            // lock icon
+            right: 0;
+            left: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+        }
     }
 
     .divider {
         width: 100%;
-        z-index: z-index.$limel-progress-flow-divider-has-detached-steps;
+        left: 0;
         overflow: unset;
         transform: unset;
 
         &:after {
             border: none;
-            height: functions.pxToRem(4);
+            height: 0.25rem;
             border-radius: 0;
-
-            width: calc(100% - var(--step-height));
             transform: translateX(calc(50% + (var(--step-height) / 5)));
         }
     }
@@ -99,7 +92,7 @@
 
     .text,
     .secondary-text {
-        padding: 0 functions.pxToRem(4);
+        padding: 0 0.25rem;
     }
     .text {
         transform: translateY(calc(-100% - #{functions.pxToRem(12)}));
@@ -113,6 +106,9 @@
 
     //  colors
     .flow-item {
+        .icon {
+            --icon-background-color: var(--step-background);
+        }
         .step {
             &:before {
                 background-color: var(--step-background);
@@ -120,6 +116,10 @@
         }
 
         &.selected {
+            .icon {
+                --icon-background-color: var(--step-background--selected);
+            }
+
             .step {
                 color: var(--step-text);
 
@@ -143,6 +143,10 @@
         }
 
         &.passed {
+            .icon {
+                --icon-background-color: var(--step-background--passed);
+            }
+
             .step {
                 color: var(--step-text);
 
