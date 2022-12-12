@@ -1,3 +1,10 @@
+## [36.2.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.1...v36.2.0-next.2) (2022-12-12)
+
+
+### Bug Fixes
+
+* **list:** prevent items from becoming fully white when focused & hovered ([865bbc3](https://github.com/Lundalogik/lime-elements/commit/865bbc311c178168a82aa4a6ecc698d8915391f5))
+
 ## [36.2.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.1.0...v36.2.0-next.1) (2022-12-09)
 
 
