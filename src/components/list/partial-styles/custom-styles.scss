@@ -27,10 +27,6 @@ $background-color-of-interactive-items-hovered: rgb(var(--contrast-100));
             &:hover {
                 z-index: $list--has-interactive-items--mdc-list-item--hover;
                 background-color: $background-color-of-interactive-items-hovered;
-
-                &:before {
-                    background-color: $background-color-of-interactive-items-hovered;
-                }
             }
         }
     }
