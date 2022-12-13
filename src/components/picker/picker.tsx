@@ -110,6 +110,9 @@ export class Picker {
      * A search function that takes a search-string as an argument,
      * and returns a promise that will eventually be resolved with
      * an array of `ListItem`:s.
+     *
+     * See the docs for the type `Searcher` for type information on
+     * the searcher function itself.
      */
     @Prop()
     public searcher: Searcher;
