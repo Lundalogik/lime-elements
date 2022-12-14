@@ -86,9 +86,10 @@ const SelectValue: FunctionalComponent<
     const labelClassList = {
         'mdc-floating-label': true,
         'mdc-floating-label--float-above':
-            (!props.hasEmptyText && props.hasValue) ||
+            !props.hasEmptyText ||
             props.isOpen ||
-            props.readonly,
+            props.readonly ||
+            props.hasValue,
         'mdc-floating-label--active': props.isOpen,
     };
 
