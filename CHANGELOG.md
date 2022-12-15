@@ -1,3 +1,10 @@
+## [36.2.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.3...v36.2.0-next.4) (2022-12-15)
+
+
+### Features
+
+* **form:** adds schema path to custom components form info ([6da8e1c](https://github.com/Lundalogik/lime-elements/commit/6da8e1cf305bf80c451ce7ad7fb8e9b8ca25da2c))
+
 ## [36.2.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.2...v36.2.0-next.3) (2022-12-14)
 
 
