@@ -1,3 +1,11 @@
+## [36.2.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.4...v36.2.0-next.5) (2022-12-22)
+
+
+### Bug Fixes
+
+* **select:** put less space around caret icon in `is-narrow` mode ([6aa0241](https://github.com/Lundalogik/lime-elements/commit/6aa0241646279b7ace394a97cf59c2c500975cd0))
+* **select:** put less space between text and caret icon ([51f22c4](https://github.com/Lundalogik/lime-elements/commit/51f22c4834d469e43b7fce1c57f6cf179543faf5))
+
 ## [36.2.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.3...v36.2.0-next.4) (2022-12-15)
 
 
