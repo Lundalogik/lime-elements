@@ -163,6 +163,10 @@ select.limel-select__native-control {
             height: functions.pxToRem(36);
             padding-left: functions.pxToRem(0);
         }
+
+        .mdc-select__dropdown-icon {
+            margin-right: 0.25rem;
+        }
     }
 
     .mdc-floating-label {
