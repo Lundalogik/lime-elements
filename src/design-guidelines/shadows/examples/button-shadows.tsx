@@ -20,7 +20,7 @@ export class ButtonShadowExample {
                     <button class="button hovered">
                         <div class="label">Hover</div>
                     </button>
-                    <code>--button-shadow-hover</code>
+                    <code>--button-shadow-hovered</code>
                     <p>
                         makes the element look raised a bit more, ready to be
                         pressed

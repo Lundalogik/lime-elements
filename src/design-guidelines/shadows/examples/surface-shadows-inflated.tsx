@@ -13,21 +13,21 @@ export class SurfaceShadowInflatedExample {
                     <div class="surface shadow-inflated-8">
                         <div class="label">Inflated 8</div>
                     </div>
-                    <code>--shadow--inflated-8</code>
+                    <code>--shadow-inflated-8</code>
                     <p></p>
                 </div>
                 <div class="visualization">
                     <div class="surface shadow-inflated-16">
                         <div class="label two">Inflated 16</div>
                     </div>
-                    <code>--shadow--inflated-16</code>
+                    <code>--shadow-inflated-16</code>
                     <p></p>
                 </div>
                 <div class="visualization">
                     <div class="surface shadow-inflated-64">
                         <div class="label two">Inflated 64</div>
                     </div>
-                    <code>--shadow--inflated-64</code>
+                    <code>--shadow-inflated-64</code>
                     <p></p>
                 </div>
             </div>,
