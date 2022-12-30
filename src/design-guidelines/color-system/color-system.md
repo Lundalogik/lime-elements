@@ -46,6 +46,25 @@ In the above example, the card is using a contrast variable which is lighter tha
 
 The reason for this is that the card has an elevated effect with a drop shadow. Such visual effects (depth, movement, light direction and its effects, etc...) rely on our experiences from the physical world and try to mimic what happens in reality. Because human brain normally expect deeper objects to appear darker and vice versa, we have added a lighter color to the card for it to still be "elevated". This not only helps users' perception of the interface on an unconscious level, but also keeps the shadow effect more visible.
 
+:::tip
+If you want our color system to take care of these styles,
+simply use the `--lime-elevated-surface-background-color` variable
+as the background color of your custom elevated surfaces,
+instead of specifying a contrast variable manually. For example:
+
+```scss
+.my-elevated-surface {
+    background-color: var(--lime-elevated-surface-background-color);
+}
+```
+
+This variable automatically picks the brightest contrast swatch
+for `light` color-scheme, but not the absolute dimmest
+contrast swatch for the `dark` color-scheme. We also use this
+variable internally for many of components in Lime Elements,
+to properly support the dark mode.
+:::
+
 ## Usage
 
 All components in Lime Elements already use our color palette and therefore support the dark color scheme out of the box. But your application in which you use Lime Elements should also have support for the dark mode. To get dark mode support, simply load `@limetech/lime-elements/dist/lime-elements/style/color-palette-extended.css` in your app. This will make all of our colors and shadows variables accessible for your application to use internally as well.
