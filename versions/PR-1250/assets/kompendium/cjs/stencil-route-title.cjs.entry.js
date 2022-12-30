@@ -2,8 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-05806c6d.js');
-const activeRouter = require('./active-router-fab29ac1.js');
+const index = require('./index-d017bb3a.js');
+const activeRouter = require('./active-router-81476b7c.js');
 
 const RouteTitle = class {
   constructor(hostRef) {

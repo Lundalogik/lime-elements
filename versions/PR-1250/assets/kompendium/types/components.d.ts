@@ -36,6 +36,8 @@ export namespace Components {
          */
         "schemas": Array<Record<string, any>>;
     }
+    interface KompendiumDarkmodeSwitch {
+    }
     interface KompendiumDebug {
         /**
           * The generated documentation data
@@ -140,6 +142,12 @@ declare global {
         prototype: HTMLKompendiumComponentElement;
         new (): HTMLKompendiumComponentElement;
     };
+    interface HTMLKompendiumDarkmodeSwitchElement extends Components.KompendiumDarkmodeSwitch, HTMLStencilElement {
+    }
+    var HTMLKompendiumDarkmodeSwitchElement: {
+        prototype: HTMLKompendiumDarkmodeSwitchElement;
+        new (): HTMLKompendiumDarkmodeSwitchElement;
+    };
     interface HTMLKompendiumDebugElement extends Components.KompendiumDebug, HTMLStencilElement {
     }
     var HTMLKompendiumDebugElement: {
@@ -210,6 +218,7 @@ declare global {
         "kompendium-app": HTMLKompendiumAppElement;
         "kompendium-code": HTMLKompendiumCodeElement;
         "kompendium-component": HTMLKompendiumComponentElement;
+        "kompendium-darkmode-switch": HTMLKompendiumDarkmodeSwitchElement;
         "kompendium-debug": HTMLKompendiumDebugElement;
         "kompendium-example-code": HTMLKompendiumExampleCodeElement;
         "kompendium-example-markdown": HTMLKompendiumExampleMarkdownElement;
@@ -249,6 +258,8 @@ declare namespace LocalJSX {
           * Component schemas
          */
         "schemas"?: Array<Record<string, any>>;
+    }
+    interface KompendiumDarkmodeSwitch {
     }
     interface KompendiumDebug {
         /**
@@ -338,6 +349,7 @@ declare namespace LocalJSX {
         "kompendium-app": KompendiumApp;
         "kompendium-code": KompendiumCode;
         "kompendium-component": KompendiumComponent;
+        "kompendium-darkmode-switch": KompendiumDarkmodeSwitch;
         "kompendium-debug": KompendiumDebug;
         "kompendium-example-code": KompendiumExampleCode;
         "kompendium-example-markdown": KompendiumExampleMarkdown;
@@ -358,6 +370,7 @@ declare module "@stencil/core" {
             "kompendium-app": LocalJSX.KompendiumApp & JSXBase.HTMLAttributes<HTMLKompendiumAppElement>;
             "kompendium-code": LocalJSX.KompendiumCode & JSXBase.HTMLAttributes<HTMLKompendiumCodeElement>;
             "kompendium-component": LocalJSX.KompendiumComponent & JSXBase.HTMLAttributes<HTMLKompendiumComponentElement>;
+            "kompendium-darkmode-switch": LocalJSX.KompendiumDarkmodeSwitch & JSXBase.HTMLAttributes<HTMLKompendiumDarkmodeSwitchElement>;
             "kompendium-debug": LocalJSX.KompendiumDebug & JSXBase.HTMLAttributes<HTMLKompendiumDebugElement>;
             "kompendium-example-code": LocalJSX.KompendiumExampleCode & JSXBase.HTMLAttributes<HTMLKompendiumExampleCodeElement>;
             "kompendium-example-markdown": LocalJSX.KompendiumExampleMarkdown & JSXBase.HTMLAttributes<HTMLKompendiumExampleMarkdownElement>;

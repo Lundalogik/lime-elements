@@ -20,15 +20,16 @@ export declare class Navigation {
    */
   index: any;
   private route;
-  private host;
+  private displayNavPanel;
   constructor();
   protected connectedCallback(): void;
   protected disconnectedCallback(): void;
   private setRoute;
-  render(): HTMLElement;
+  render(): HTMLElement[];
   private renderHeader;
   private toggleMenu;
   private renderChapters;
   private renderMenuItem;
   private isRouteActive;
+  private stopPropagationOfNavClick;
 }

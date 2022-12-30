@@ -10,6 +10,7 @@ export function parseFile(filename) {
   const app = new Application();
   const options = {
     readme: 'none',
+    ignoreCompilerErrors: true,
   };
   if (filename.endsWith('.d.ts')) {
     options.includeDeclarations = true;
@@ -28,9 +29,11 @@ export function parseFile(filename) {
 }
 const fns = {
   [ReflectionKind.Interface]: addInterface,
+  [ReflectionKind.Class]: addClass,
   [ReflectionKind.CallSignature]: addSignature,
   [ReflectionKind.Parameter]: addParam,
   [ReflectionKind.TypeAlias]: addType,
+  // [ReflectionKind.TypeLiteral]: addType,
   [ReflectionKind.Enum]: addEnum,
   [ReflectionKind.EnumMember]: addEnumMember,
 };
@@ -58,12 +61,32 @@ function addInterface(reflection, data) {
     sources: getSources(reflection),
   });
 }
+function addClass(reflection, data) {
+  var _a, _b, _c;
+  if (!reflection.flags.isExported) {
+    return;
+  }
+  data.push({
+    type: 'class',
+    name: reflection.name,
+    typeParams: getTypeParams(reflection),
+    docs: getDocs(reflection),
+    docsTags: getDocsTags(reflection),
+    props: (_a = reflection.children) === null || _a === void 0 ? void 0 : _a.filter(isProperty).map(getProperty),
+    methods: (_b = reflection.children) === null || _b === void 0 ? void 0 : _b.filter(isMethod).map(getMethod),
+    sources: getSources(reflection),
+    decorators: (_c = reflection.decorators) === null || _c === void 0 ? void 0 : _c.map(getDecorator),
+  });
+}
 function addSignature(reflection, data) {
-  var _a, _b;
+  var _a, _b, _c;
+  if (Array.isArray(data)) {
+    return;
+  }
   data.parameters = [];
   data.returns = {
     type: reflection.type.toString(),
-    docs: ((_b = (_a = reflection.parent.parent.comment) === null || _a === void 0 ? void 0 : _a.tags) === null || _b === void 0 ? void 0 : _b.find(isReturns).text) || '',
+    docs: ((_c = (_b = (_a = reflection.parent.parent.comment) === null || _a === void 0 ? void 0 : _a.tags) === null || _b === void 0 ? void 0 : _b.find(isReturns)) === null || _c === void 0 ? void 0 : _c.text) || '',
   };
   reflection.traverse(traverseCallback(data));
 }
@@ -154,9 +177,9 @@ function getProperty(reflection) {
   };
 }
 function getMethod(reflection) {
-  var _a;
+  var _a, _b;
   const signature = getSignature(reflection);
-  return Object.assign({ name: reflection.name, docs: getDocs(reflection), docsTags: (_a = reflection.comment.tags) === null || _a === void 0 ? void 0 : _a.filter(negate(isParam)).filter(negate(isReturns)).map(getTag) }, signature);
+  return Object.assign({ name: reflection.name, docs: getDocs(reflection), docsTags: (_b = (_a = reflection.comment) === null || _a === void 0 ? void 0 : _a.tags) === null || _b === void 0 ? void 0 : _b.filter(negate(isParam)).filter(negate(isReturns)).map(getTag) }, signature);
 }
 function getSignature(reflection) {
   const signature = {};
@@ -171,4 +194,10 @@ function getTypeParams(reflection) {
 }
 function getSources(reflection) {
   return reflection.sources.map((source) => source.file.fullFileName);
+}
+function getDecorator(decorator) {
+  return {
+    name: decorator.name,
+    arguments: decorator.arguments,
+  };
 }

@@ -8,6 +8,7 @@ import { ExampleList } from './templates/examples';
 import negate from 'lodash/negate';
 export class KompendiumComponent {
   constructor() {
+    this.scrollToOnNextUpdate = null;
     this.handleRouteChange = this.handleRouteChange.bind(this);
   }
   connectedCallback() {
@@ -20,9 +21,15 @@ export class KompendiumComponent {
     const route = this.getRoute();
     this.scrollToElement(route);
   }
+  componentDidUpdate() {
+    if (this.scrollToOnNextUpdate) {
+      this.scrollToElement(this.scrollToOnNextUpdate);
+      this.scrollToOnNextUpdate = null;
+    }
+  }
   handleRouteChange() {
     const route = this.getRoute();
-    this.scrollToElement(route);
+    this.scrollToOnNextUpdate = route;
   }
   scrollToElement(id) {
     const element = this.host.shadowRoot.getElementById(id);
@@ -59,7 +66,7 @@ export class KompendiumComponent {
   }
   getId(name) {
     const route = this.getRoute().split('/').slice(0, 3).join('/');
-    return [route, name].filter((item) => !!item).join('/');
+    return [route, name].filter((item) => !!item).join('/') + '/';
   }
   getRoute() {
     return location.hash.substr(1);

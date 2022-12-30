@@ -9,7 +9,10 @@ export declare class Playground {
    */
   schema: Record<string, any>;
   private activeTab;
+  private theme;
   constructor();
+  connectedCallback(): void;
+  disconnectedCallback(): void;
   render(): HTMLElement;
   private renderTabs;
   private renderTab;
@@ -19,4 +22,5 @@ export declare class Playground {
   private renderDebugButton;
   private activateTab;
   private isTabActive;
+  private themeListener;
 }

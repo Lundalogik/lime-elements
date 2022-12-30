@@ -1,6 +1,6 @@
-import { r as registerInstance, h, a as getElement } from './index-69abe4cb.js';
+import { r as registerInstance, h, g as getElement } from './index-a0810d83.js';
 import { m as matchPath, q as isModifiedEvent } from './dom-utils-96bcc231.js';
-import { A as ActiveRouter } from './active-router-b091976e.js';
+import { A as ActiveRouter } from './active-router-7a57cf1c.js';
 
 const getUrl = (url, root) => {
   // Don't allow double slashes

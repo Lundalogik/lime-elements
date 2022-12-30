@@ -41,7 +41,7 @@
     --contrast-1400: 39, 39, 57; /* #272739 */
     --contrast-1500: 35, 35, 53; /* #232335 */
     --contrast-1600: 25, 25, 44; /* #19192c */
-    --contrast-1700: 0, 0, 0; /* #000 */
+    --contrast-1700: 20, 20, 37; /* #141425 */
 
     /* Colors swatches that get slightly dimmer in dark mode */
     --color-red-lighter: 255, 205, 210; /* #ffcdd2; */
@@ -166,7 +166,7 @@
 }
 
 :root[data-theme="force-dark"] {
-    --contrast-100: 0, 0, 0; /* #000 */
+    --contrast-100: 20, 20, 42; /* #14142a */
     --contrast-200: 25, 25, 44; /* #19192c */
     --contrast-300: 35, 35, 53; /* #232335 */
     --contrast-400: 39, 39, 57; /* #272739 */
@@ -307,7 +307,7 @@
 
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="force-light"]) {
-        --contrast-100: 0, 0, 0; /* #000 */
+        --contrast-100: 20, 20, 37; /* #141425 */
         --contrast-200: 25, 25, 44; /* #19192c */
         --contrast-300: 35, 35, 53; /* #232335 */
         --contrast-400: 39, 39, 57; /* #272739 */

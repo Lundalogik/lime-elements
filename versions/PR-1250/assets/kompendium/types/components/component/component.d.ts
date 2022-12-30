@@ -14,10 +14,12 @@ export declare class KompendiumComponent {
    */
   match: MatchResults;
   private host;
+  private scrollToOnNextUpdate;
   constructor();
   protected connectedCallback(): void;
   protected disconnectedCallback(): void;
   protected componentDidLoad(): void;
+  protected componentDidUpdate(): void;
   private handleRouteChange;
   private scrollToElement;
   render(): HTMLElement;

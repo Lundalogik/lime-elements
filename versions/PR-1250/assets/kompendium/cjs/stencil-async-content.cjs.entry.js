@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-05806c6d.js');
+const index = require('./index-d017bb3a.js');
 
 const AsyncContent = class {
   constructor(hostRef) {

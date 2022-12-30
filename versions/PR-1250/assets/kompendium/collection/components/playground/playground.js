@@ -1,22 +1,34 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Host, Prop, State } from '@stencil/core';
+import { THEME_EVENT_NAME } from '../darkmode-switch/types';
 export class Playground {
   constructor() {
     this.activateTab = (id) => () => {
       this.activeTab = id;
     };
+    this.themeListener = (event) => {
+      this.theme = event.detail;
+    };
     this.renderTab = this.renderTab.bind(this);
     this.renderItem = this.renderItem.bind(this);
+  }
+  connectedCallback() {
+    this.theme = document.querySelector('html').dataset.theme;
+    document.addEventListener(THEME_EVENT_NAME, this.themeListener);
+  }
+  disconnectedCallback() {
+    document.removeEventListener(THEME_EVENT_NAME, this.themeListener);
   }
   render() {
     if (!this.component) {
       return;
     }
     const sources = this.component.sources || [];
-    return (h("section", { class: "example" },
-      h("div", { class: "result" }, this.renderResult()),
-      h("aside", { class: "code" },
-        h("nav", { class: "tab-bar" }, this.renderTabs(sources)),
-        h("div", { class: "tab-items" }, this.renderItems(sources)))));
+    return (h(Host, { "data-theme": this.theme },
+      h("section", { class: "example" },
+        h("div", { class: "result" }, this.renderResult()),
+        h("aside", { class: "code" },
+          h("nav", { class: "tab-bar" }, this.renderTabs(sources)),
+          h("div", { class: "tab-items" }, this.renderItems(sources))))));
   }
   renderTabs(sources) {
     return sources.map(this.renderTab);
@@ -60,7 +72,11 @@ export class Playground {
     }
     const href = `#/debug/${tag}`;
     return (h("div", { class: "debug" },
-      h("a", { class: "debug-link", href: href, title: "Debug" }, "Debug")));
+      h("a", { class: "debug-link", href: href, title: "Debug" },
+        h("svg", { viewBox: "0 0 400 400", xmlns: "http://www.w3.org/2000/svg", "fill-rule": "evenodd", "clip-rule": "evenodd", "stroke-linecap": "round", "stroke-linejoin": "round", "stroke-miterlimit": "1.5" },
+          h("path", { fill: "none", d: "M0 0h400v400H0z" }),
+          h("path", { d: "M194.97 254.84h77.555", fill: "none", stroke: "currentColor", "stroke-opacity": ".6", "stroke-width": "20" }),
+          h("path", { d: "M127.474 145.16l54.84 54.84M182.315 200l-54.84 54.84", fill: "none", stroke: "currentColor", "stroke-width": "20" })))));
   }
   isTabActive(source, index) {
     let isActive = this.activeTab === source.filename;
@@ -119,6 +135,7 @@ export class Playground {
     }
   }; }
   static get states() { return {
-    "activeTab": {}
+    "activeTab": {},
+    "theme": {}
   }; }
 }

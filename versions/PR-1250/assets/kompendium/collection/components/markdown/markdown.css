@@ -202,6 +202,25 @@ hr {
   border-top: 1px solid rgb(var(--kompendium-contrast-600));
 }
 
+kbd {
+  font-family: var(--kompendium-font-code);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(var(--kompendium-contrast-1000));
+  background-color: rgb(var(--kompendium-contrast-200));
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: normal;
+  padding: 0.125rem 0.5rem;
+  margin: 0 0.25rem;
+  border-radius: 0.25rem;
+  box-shadow: var(--kompendium-button-shadow-normal), 0 0.03125rem 0.21875rem 0 rgba(var(--kompendium-contrast-100), 0.5) inset;
+  border: solid rgba(var(--kompendium-contrast-600), 0.8);
+  border-width: 0 0.0625rem 0.125rem 0.0625rem;
+}
+
 :host {
   display: block;
 }
@@ -275,6 +294,12 @@ dl dd:last-child {
   border-bottom-right-radius: 0.375rem;
 }
 
+dl,
+dt,
+dd {
+  transition: background-color 0.3s ease 0.05s, border-color 0.3s ease 0.05s;
+}
+
 :root {
   --kompendium-color-white: 255, 255, 255;
   --kompendium-color-black: 0, 0, 0;
@@ -307,7 +332,7 @@ dl dd:last-child {
   --kompendium-color-orange-default: 255, 152, 0;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme=force-light]) {
     --kompendium-contrast-100: 0, 0, 0;
     --kompendium-contrast-200: 25, 25, 44;
     --kompendium-contrast-300: 35, 35, 53;
@@ -337,6 +362,95 @@ dl dd:last-child {
     --kompendium-color-orange-default: 251, 140, 0;
   }
 }
+:root[data-theme=force-dark] {
+  --kompendium-contrast-100: 0, 0, 0;
+  --kompendium-contrast-200: 25, 25, 44;
+  --kompendium-contrast-300: 35, 35, 53;
+  --kompendium-contrast-400: 39, 39, 57;
+  --kompendium-contrast-500: 48, 48, 66;
+  --kompendium-contrast-600: 71, 71, 86;
+  --kompendium-contrast-700: 94, 94, 108;
+  --kompendium-contrast-800: 117, 117, 128;
+  --kompendium-contrast-900: 140, 140, 150;
+  --kompendium-contrast-1000: 186, 186, 192;
+  --kompendium-contrast-1100: 209, 209, 213;
+  --kompendium-contrast-1200: 232, 232, 234;
+  --kompendium-contrast-1300: 237, 237, 238;
+  --kompendium-contrast-1400: 241, 241, 243;
+  --kompendium-contrast-1500: 246, 246, 247;
+  --kompendium-contrast-1600: 250, 250, 251;
+  --kompendium-contrast-1700: 255, 255, 255;
+  --kompendium-color-red-light: 240, 87, 80;
+  --kompendium-color-red-default: 229, 57, 53;
+  --kompendium-color-blue-light: 66, 165, 245;
+  --kompendium-color-blue-default: 30, 136, 229;
+  --kompendium-color-green-light: 102, 187, 106;
+  --kompendium-color-green-default: 67, 160, 71;
+  --kompendium-color-amber-light: 255, 207, 61;
+  --kompendium-color-amber-default: 255, 176, 59;
+  --kompendium-color-orange-light: 255, 167, 38;
+  --kompendium-color-orange-default: 251, 140, 0;
+}
+@media (prefers-color-scheme: dark) {
+  :host(:not([data-theme=force-light])) :root {
+    --kompendium-contrast-100: 0, 0, 0;
+    --kompendium-contrast-200: 25, 25, 44;
+    --kompendium-contrast-300: 35, 35, 53;
+    --kompendium-contrast-400: 39, 39, 57;
+    --kompendium-contrast-500: 48, 48, 66;
+    --kompendium-contrast-600: 71, 71, 86;
+    --kompendium-contrast-700: 94, 94, 108;
+    --kompendium-contrast-800: 117, 117, 128;
+    --kompendium-contrast-900: 140, 140, 150;
+    --kompendium-contrast-1000: 186, 186, 192;
+    --kompendium-contrast-1100: 209, 209, 213;
+    --kompendium-contrast-1200: 232, 232, 234;
+    --kompendium-contrast-1300: 237, 237, 238;
+    --kompendium-contrast-1400: 241, 241, 243;
+    --kompendium-contrast-1500: 246, 246, 247;
+    --kompendium-contrast-1600: 250, 250, 251;
+    --kompendium-contrast-1700: 255, 255, 255;
+    --kompendium-color-red-light: 240, 87, 80;
+    --kompendium-color-red-default: 229, 57, 53;
+    --kompendium-color-blue-light: 66, 165, 245;
+    --kompendium-color-blue-default: 30, 136, 229;
+    --kompendium-color-green-light: 102, 187, 106;
+    --kompendium-color-green-default: 67, 160, 71;
+    --kompendium-color-amber-light: 255, 207, 61;
+    --kompendium-color-amber-default: 255, 176, 59;
+    --kompendium-color-orange-light: 255, 167, 38;
+    --kompendium-color-orange-default: 251, 140, 0;
+  }
+}
+:host([data-theme=force-dark]) :root {
+  --kompendium-contrast-100: 0, 0, 0;
+  --kompendium-contrast-200: 25, 25, 44;
+  --kompendium-contrast-300: 35, 35, 53;
+  --kompendium-contrast-400: 39, 39, 57;
+  --kompendium-contrast-500: 48, 48, 66;
+  --kompendium-contrast-600: 71, 71, 86;
+  --kompendium-contrast-700: 94, 94, 108;
+  --kompendium-contrast-800: 117, 117, 128;
+  --kompendium-contrast-900: 140, 140, 150;
+  --kompendium-contrast-1000: 186, 186, 192;
+  --kompendium-contrast-1100: 209, 209, 213;
+  --kompendium-contrast-1200: 232, 232, 234;
+  --kompendium-contrast-1300: 237, 237, 238;
+  --kompendium-contrast-1400: 241, 241, 243;
+  --kompendium-contrast-1500: 246, 246, 247;
+  --kompendium-contrast-1600: 250, 250, 251;
+  --kompendium-contrast-1700: 255, 255, 255;
+  --kompendium-color-red-light: 240, 87, 80;
+  --kompendium-color-red-default: 229, 57, 53;
+  --kompendium-color-blue-light: 66, 165, 245;
+  --kompendium-color-blue-default: 30, 136, 229;
+  --kompendium-color-green-light: 102, 187, 106;
+  --kompendium-color-green-default: 67, 160, 71;
+  --kompendium-color-amber-light: 255, 207, 61;
+  --kompendium-color-amber-default: 255, 176, 59;
+  --kompendium-color-orange-light: 255, 167, 38;
+  --kompendium-color-orange-default: 251, 140, 0;
+}
 
 :root {
   --kompendium-color-code-pink: 216, 27, 96;
@@ -362,7 +476,7 @@ dl dd:last-child {
   --kompendium-color-code-background: var(--kompendium-contrast-200);
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme=force-light]) {
     --kompendium-color-code-pink: 226, 119, 122;
     --kompendium-color-code-magenta: 232, 62, 140;
     --kompendium-color-code-blue: 97, 150, 204;
@@ -374,6 +488,44 @@ dl dd:last-child {
     --kompendium-color-code-turquoise: 103, 205, 204;
     --kompendium-color-code-gray-lighter: 117, 117, 128;
   }
+}
+:root[data-theme=force-dark] {
+  --kompendium-color-code-pink: 226, 119, 122;
+  --kompendium-color-code-magenta: 232, 62, 140;
+  --kompendium-color-code-blue: 97, 150, 204;
+  --kompendium-color-code-orange: 255, 152, 0;
+  --kompendium-color-code-yellow: 255, 213, 79;
+  --kompendium-color-code-purple: 206, 147, 216;
+  --kompendium-color-code-green-light: 174, 213, 129;
+  --kompendium-color-code-green-dark: 53, 196, 84;
+  --kompendium-color-code-turquoise: 103, 205, 204;
+  --kompendium-color-code-gray-lighter: 117, 117, 128;
+}
+@media (prefers-color-scheme: dark) {
+  :host(:not([data-theme=force-light])) :root {
+    --kompendium-color-code-pink: 226, 119, 122;
+    --kompendium-color-code-magenta: 232, 62, 140;
+    --kompendium-color-code-blue: 97, 150, 204;
+    --kompendium-color-code-orange: 255, 152, 0;
+    --kompendium-color-code-yellow: 255, 213, 79;
+    --kompendium-color-code-purple: 206, 147, 216;
+    --kompendium-color-code-green-light: 174, 213, 129;
+    --kompendium-color-code-green-dark: 53, 196, 84;
+    --kompendium-color-code-turquoise: 103, 205, 204;
+    --kompendium-color-code-gray-lighter: 117, 117, 128;
+  }
+}
+:host([data-theme=force-dark]) :root {
+  --kompendium-color-code-pink: 226, 119, 122;
+  --kompendium-color-code-magenta: 232, 62, 140;
+  --kompendium-color-code-blue: 97, 150, 204;
+  --kompendium-color-code-orange: 255, 152, 0;
+  --kompendium-color-code-yellow: 255, 213, 79;
+  --kompendium-color-code-purple: 206, 147, 216;
+  --kompendium-color-code-green-light: 174, 213, 129;
+  --kompendium-color-code-green-dark: 53, 196, 84;
+  --kompendium-color-code-turquoise: 103, 205, 204;
+  --kompendium-color-code-gray-lighter: 117, 117, 128;
 }
 
 .admonition {

@@ -64,11 +64,6 @@
 .tab-bar .tab:hover:before, .tab-bar .tab:hover:after {
   background-color: rgb(var(--kompendium-contrast-100));
 }
-@media (prefers-color-scheme: dark) {
-  .tab-bar .tab:hover:before, .tab-bar .tab:hover:after {
-    background-color: rgb(var(--kompendium-contrast-100));
-  }
-}
 .tab-bar .tab.active {
   z-index: 1;
   color: rgb(var(--kompendium-contrast-1100));
@@ -115,6 +110,7 @@ kompendium-code:after {
 }
 
 section.example {
+  transition: border-color 0.3s ease 0.05s;
   padding-bottom: 2.5rem;
   margin-bottom: 2.5rem;
   border-bottom: 1px solid rgb(var(--kompendium-contrast-500));
@@ -137,7 +133,7 @@ section.example .code {
   top: 0;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1000px) {
   section.example .result,
 section.example .code {
     width: 100%;
@@ -161,11 +157,20 @@ section.example .code {
   box-shadow: var(--shadow-showcase);
 }
 @media (prefers-color-scheme: dark) {
-  .show-case_component {
-    background-color: rgb(var(--kompendium-contrast-1700));
-    color: rgb(var(--kompendium-contrast-200));
-    border-color: transparent;
+  .show-case_component:not([data-theme=force-light]) {
+    background-color: rgb(var(--kompendium-contrast-200));
   }
+}
+.show-case_component[data-theme=force-dark] {
+  background-color: rgb(var(--kompendium-contrast-200));
+}
+@media (prefers-color-scheme: dark) {
+  :host(:not([data-theme=force-light])) .show-case_component {
+    background-color: rgb(var(--kompendium-contrast-200));
+  }
+}
+:host([data-theme=force-dark]) .show-case_component {
+  background-color: rgb(var(--kompendium-contrast-200));
 }
 
 .debug {
@@ -180,10 +185,7 @@ section.example .code {
   font-size: 0;
   margin: -3.25rem -1rem 0 0;
   border-radius: 50%;
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5"><path fill="none" d="M0 0h400v400H0z"/><path d="M194.97 254.84h77.555" fill="none" stroke="currentColor" stroke-opacity=".6" stroke-width="20"/><path d="M127.474 145.16l54.84 54.84M182.315 200l-54.84 54.84" fill="none" stroke="currentColor" stroke-width="20"/></svg>');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  color: rgb(var(--kompendium-contrast-1200));
   opacity: 0.6;
 }
 .debug a.debug-link:hover {
