@@ -48,9 +48,23 @@ The reason for this is that the card has an elevated effect with a drop shadow. 
 
 ## Usage
 
-:::warning Work in progress!
-We are currently in the process of transitioning Lime Elements to eventually fully support dark mode. During this process, we recommend that any clients using Lime Elements load `@limetech/lime-elements/dist/lime-elements/style/color-palette-extended-light-mode-only.css`, where dark mode support is completely disabled, to avoid inconsistent behavior. To get dark mode support, to the extent available at the time, load `@limetech/lime-elements/dist/lime-elements/style/color-palette-extended.css` instead.
+All components in Lime Elements already use our color palette and therefore support the dark color scheme out of the box. But your application in which you use Lime Elements should also have support for the dark mode. To get dark mode support, simply load `@limetech/lime-elements/dist/lime-elements/style/color-palette-extended.css` in your app. This will make all of our colors and shadows variables accessible for your application to use internally as well.
+
+:::warning
+If your application does not support the`dark` color-scheme properly yet, you should instead load `@limetech/lime-elements/dist/lime-elements/style/color-palette-extended-light-mode-only.css`, where dark mode support is completely disabled.
 :::
+
+### Enabling end users to force light or dark mode
+
+By default, our color system reacts to users' preferred color scheme, set by the operating system or the browser. However, some users may prefer to see a certain application in light or dark mode, despite their globally set preferred color scheme.
+
+You can enable them to do so, for example by providing a toggle switch in your application's internal preferences page; or add a toggle switch like the one we have on the sidebar of this documentation page.
+
+As long as the toggle switch that you implement applies a `data-theme='force-dark'` or `data-theme='force-light'` to the `root` of your HTML page for these "forced" color schemes, our color system will support these as well. For example:
+
+```html
+<html data-theme="force-dark"></html>
+```
 
 ### Using CSS variables
 
