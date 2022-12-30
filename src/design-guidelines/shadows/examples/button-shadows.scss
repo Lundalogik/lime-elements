@@ -12,7 +12,7 @@
     padding: 0 functions.pxToRem(16);
 
     font-size: functions.pxToRem(16);
-    background-color: rgb(var(--contrast-100));
+    background-color: var(--lime-elevated-surface-background-color);
 
     &:focus {
         outline: none;

@@ -5,6 +5,28 @@
 @use '../style/colors.scss';
 @use '../style/shadows.scss';
 @use '../style/internal/codemirror-tooltip.scss';
+@use '../style/mixins';
+
 :root {
     @include theme-color-variables.theme-color-variables;
+
+    // Elevated surfaces such as buttons, popovers or menus
+    // Which normally have a drop-shadow effect, need to be
+    // lighter than the background of the context they are in.
+    // This helps the shadow effect be more visible, and improves
+    // end-users' perception of the depth we are trying to create.
+    // In the `dark` color-scheme, it is the same story.
+    // However, that also means that using `--contrast-100` will render
+    // them with the darkest contrast swatch color, in dark mode.
+    // To avoid that, and instead of individually adding a
+    // `@media (prefers-color-scheme: dark)` query to CSS styles of
+    // each elevated surface, we use this CSS variable instead.
+    // Consumers can then tweak this, if they have used the component on a
+    // background color which interferes with this lightened surface,
+    // or provides a poor contrast.
+    --lime-elevated-surface-background-color: rgb(var(--contrast-100));
+}
+
+@include mixins.in(dark-mode) {
+    --lime-elevated-surface-background-color: rgb(var(--contrast-200));
 }
