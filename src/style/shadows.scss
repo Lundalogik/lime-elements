@@ -36,19 +36,9 @@ $visualise-error-state: 0 0 0 #{functions.pxToRem(2)} rgb(var(--color-red-defaul
         0 #{functions.pxToRem(0.6)} #{functions.pxToRem(1.8)} 0
             rgba(var(--color-black), 0.108);
     // Same as above, but when element is focused
-    --shadow-depth-8-focused: 0 #{functions.pxToRem(3.2)} #{functions.pxToRem(
-                7.2
-            )} 0 rgba(var(--color-black), 0.132),
-        0 #{functions.pxToRem(0.6)} #{functions.pxToRem(1.8)} 0
-            rgba(var(--color-black), 0.108),
-        #{$visualise-focused-state};
+    --shadow-depth-8-focused: var(--shadow-depth-8), #{$visualise-focused-state};
     // Same as above, but when element is indicating error or warning
-    --shadow-depth-8-error: 0 #{functions.pxToRem(3.2)} #{functions.pxToRem(
-                7.2
-            )} 0 rgba(var(--color-black), 0.132),
-        0 #{functions.pxToRem(0.6)} #{functions.pxToRem(1.8)} 0
-            rgba(var(--color-black), 0.108),
-        #{$visualise-error-state};
+    --shadow-depth-8-error: var(--shadow-depth-8), #{$visualise-error-state};
     // Same as above, but light source is below the element, good for bottom bars, etc...
     --shadow-depth-8-reversed: 0 #{functions.pxToRem(-3.2)} #{functions.pxToRem(
                 7.2
@@ -63,11 +53,7 @@ $visualise-error-state: 0 0 0 #{functions.pxToRem(2)} rgb(var(--color-red-defaul
             rgba(var(--color-black), 0.108);
 
     // Same as above, but when element is focused
-    --shadow-depth-16-focused: 0 #{functions.pxToRem(6.4)} #{functions.pxToRem(
-                14.4
-            )} 0 rgba(var(--color-black), 0.132),
-        0 #{functions.pxToRem(1.2)} #{functions.pxToRem(3.6)} 0
-            rgba(var(--color-black), 0.108),
+    --shadow-depth-16-focused: var(--shadow-depth-16),
         #{$visualise-focused-state};
 
     // Good for Pop up dialogs
@@ -77,11 +63,7 @@ $visualise-error-state: 0 0 0 #{functions.pxToRem(2)} rgb(var(--color-red-defaul
             rgba(var(--color-black), 0.18);
 
     // Same as above, but when element is focused
-    --shadow-depth-64-focused: 0 #{functions.pxToRem(25.6)} #{functions.pxToRem(
-                57.6
-            )} 0 rgba(var(--color-black), 0.22),
-        0 #{functions.pxToRem(4.8)} #{functions.pxToRem(14.4)} 0
-            rgba(var(--color-black), 0.18),
+    --shadow-depth-64-focused: var(--shadow-depth-64),
         #{$visualise-focused-state};
 
     --shadow-inflated-8: #{functions.pxToRem(-2)} #{functions.pxToRem(-2)} #{functions.pxToRem(
