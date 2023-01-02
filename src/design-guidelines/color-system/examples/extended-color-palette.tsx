@@ -43,13 +43,11 @@ export class PaletteExample {
                     <div class="brightness-label">dark</div>
                     <div class="brightness-label">darker</div>
                 </div>
-                <limel-flex-container justify="start">
-                    <limel-checkbox
-                        label="Highlight Lime's brand colors"
-                        onChange={this.toggleMode}
-                        checked={this.brandColors}
-                    />
-                </limel-flex-container>
+                <limel-checkbox
+                    label="Highlight Lime's brand colors"
+                    onChange={this.toggleMode}
+                    checked={this.brandColors}
+                />
                 <div class="brand-colors-tips">
                     Most of the brand colors are included in the subset for "
                     <b>dark mode</b>". Switch between dark & light mode to see

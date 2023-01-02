@@ -101,13 +101,11 @@ export class PaletteExample {
                         <span class="which-mood">in light-mode</span>
                     </div>
                 </div>
-                <limel-flex-container justify="start">
-                    <limel-checkbox
-                        label="Highlight primary brand colors"
-                        onChange={this.toggleMode}
-                        checked={this.primaryColors}
-                    />
-                </limel-flex-container>
+                <limel-checkbox
+                    label="Highlight primary brand colors"
+                    onChange={this.toggleMode}
+                    checked={this.primaryColors}
+                />
             </div>
         );
     }
