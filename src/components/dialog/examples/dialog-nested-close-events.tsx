@@ -45,13 +45,15 @@ export class DialogNestedCloseEventsExample {
                     slot="button"
                 />
             </limel-dialog>,
-            <limel-flex-container justify="end">
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-switch
                     label="Stop the inner close-event"
                     value={this.stopInnerCloseEvent}
                     onChange={this.handleStopEventChange}
                 />
-            </limel-flex-container>,
+            </limel-example-controls>,
         ];
     }
 
