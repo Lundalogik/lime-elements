@@ -24,59 +24,53 @@ export class CheckboxExample {
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
 
     public render() {
-        return (
-            <section>
-                <div>
-                    <limel-checkbox
-                        disabled={this.disabled}
-                        label="My fab checkbox"
-                        id="fab"
-                        checked={this.value}
-                        indeterminate={this.indeterminate}
-                        required={this.required}
-                        onChange={this.handleChange}
-                        readonly={this.readonly}
-                    />
-                </div>
-                <p>
-                    <limel-flex-container justify="end">
-                        <limel-checkbox
-                            checked={this.disabled}
-                            label="Disabled"
-                            onChange={this.setDisabled}
-                        />
-                        <limel-checkbox
-                            checked={this.required}
-                            label="Required"
-                            onChange={this.setRequired}
-                        />
-                        <limel-checkbox
-                            checked={this.value}
-                            label="Checked"
-                            onChange={this.setChecked}
-                        />
-                        <limel-checkbox
-                            checked={this.indeterminate}
-                            label="Indeterminate"
-                            onChange={this.setIndeterminate}
-                        />
-                        <limel-checkbox
-                            checked={this.readonly}
-                            label="Readonly"
-                            onChange={this.setReadonly}
-                        />
-                    </limel-flex-container>
-                </p>
-                <limel-example-value label="Checked" value={this.value} />
-                <limel-example-value
+        return [
+            <limel-checkbox
+                disabled={this.disabled}
+                label="My fab checkbox"
+                id="fab"
+                checked={this.value}
+                indeterminate={this.indeterminate}
+                required={this.required}
+                onChange={this.handleChange}
+                readonly={this.readonly}
+            />,
+            <limel-example-controls>
+                <limel-checkbox
+                    checked={this.disabled}
+                    label="Disabled"
+                    onChange={this.setDisabled}
+                />
+                <limel-checkbox
+                    checked={this.required}
+                    label="Required"
+                    onChange={this.setRequired}
+                />
+                <limel-checkbox
+                    checked={this.value}
+                    label="Checked"
+                    onChange={this.setChecked}
+                />
+                <limel-checkbox
+                    checked={this.readonly}
+                    label="Readonly"
+                    onChange={this.setReadonly}
+                />
+                <limel-checkbox
+                    checked={this.indeterminate}
                     label="Indeterminate"
-                    value={this.indeterminate}
+                    onChange={this.setIndeterminate}
                 />
-                <limel-example-event-printer
-                    ref={(el) => (this.eventPrinter = el)}
-                />
-            </section>
-        );
+            </limel-example-controls>,
+            <limel-example-value label="Checked" value={this.value} />,
+            <limel-example-value
+                label="Indeterminate"
+                value={this.indeterminate}
+            />,
+            <limel-example-event-printer
+                ref={(el) => (this.eventPrinter = el)}
+            />,
+        ];
     }
 
     private handleChange = (event: CustomEvent<boolean>) => {
