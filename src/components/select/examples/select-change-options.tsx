@@ -7,7 +7,6 @@ import { Component, h, State } from '@stencil/core';
 @Component({
     shadow: true,
     tag: 'limel-example-select-change-options',
-    styleUrl: 'select-change-options.scss',
 })
 export class SelectExample {
     @State()
@@ -46,36 +45,34 @@ export class SelectExample {
     ];
 
     public render() {
-        return (
-            <section>
-                <limel-select
-                    label="Favorite hero"
-                    value={this.value}
-                    options={this.optionGroups[this.currentOptionGroup]}
-                    disabled={this.disabled}
-                    onChange={this.handleChange}
+        return [
+            <limel-select
+                label="Favorite hero"
+                value={this.value}
+                options={this.optionGroups[this.currentOptionGroup]}
+                disabled={this.disabled}
+                onChange={this.handleChange}
+            />,
+            <limel-example-controls
+                style={{ '--example-controls-max-columns-width': '9rem' }}
+            >
+                <limel-button
+                    label={this.disabled ? 'Enable' : 'Disable'}
+                    onClick={this.toggleEnabled}
                 />
-                <p>
-                    <limel-flex-container justify="end">
-                        <limel-button
-                            label={this.disabled ? 'Enable' : 'Disable'}
-                            onClick={this.toggleEnabled}
-                        />
-                        <limel-button
-                            label="Change Options"
-                            onClick={this.changeOptionsGroup}
-                        />
-                    </limel-flex-container>
-                </p>
-                <limel-example-value value={this.value} />
-                <limel-example-value
-                    label="Currently showing option group"
-                    value={`${this.currentOptionGroup + 1} / ${
-                        this.optionGroups.length
-                    }`}
+                <limel-button
+                    label="Change Options"
+                    onClick={this.changeOptionsGroup}
                 />
-            </section>
-        );
+            </limel-example-controls>,
+            <limel-example-value value={this.value} />,
+            <limel-example-value
+                label="Currently showing option group"
+                value={`${this.currentOptionGroup + 1} / ${
+                    this.optionGroups.length
+                }`}
+            />,
+        ];
     }
 
     private handleChange = (event) => {
