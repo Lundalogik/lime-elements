@@ -27,6 +27,11 @@ export class InputFieldFocusExample {
 
     public render() {
         return [
+            <limel-button
+                onClick={this.setFocus}
+                label={'Set focus'}
+                style={{ 'margin-bottom': '1rem' }}
+            />,
             <limel-input-field
                 label="Set focus on me!"
                 value={this.value}
@@ -34,11 +39,6 @@ export class InputFieldFocusExample {
                 ref={this.getInputFieldRef}
                 tabindex="0"
             />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-button onClick={this.setFocus} label={'Set focus'} />
-                </limel-flex-container>
-            </p>,
         ];
     }
 
