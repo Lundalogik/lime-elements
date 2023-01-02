@@ -29,17 +29,16 @@ export class BannerExample {
                 onClick={this.openBanner}
             />,
             <limel-banner message={this.message} icon="exclamation_mark">
-                <limel-flex-container
-                    justify="end"
-                    align="stretch"
+                <limel-button
+                    label="Some Action"
+                    onClick={this.someCustomAction}
                     slot="buttons"
-                >
-                    <limel-button
-                        label="Some Action"
-                        onClick={this.someCustomAction}
-                    />
-                    <limel-button label="Close" onClick={this.closeBanner} />
-                </limel-flex-container>
+                />
+                <limel-button
+                    label="Close"
+                    onClick={this.closeBanner}
+                    slot="buttons"
+                />
             </limel-banner>,
         ];
     }
