@@ -56,12 +56,6 @@ export class TableExampleSelectableRows {
 
     public render() {
         return [
-            <limel-button label="Select all" onClick={this.selectAll} />,
-            <limel-button
-                label="Clear selection"
-                onClick={this.clearSelection}
-            />,
-            <limel-button label="Reset" onClick={this.resetSelection} />,
             <limel-table
                 data={this.tableData}
                 activeRow={this.activeRow}
@@ -78,6 +72,16 @@ export class TableExampleSelectableRows {
                 movableColumns={true}
                 class="has-interactive-rows"
             />,
+            <limel-example-controls
+                style={{ '--example-controls-max-columns-width': '10rem' }}
+            >
+                <limel-button label="Select all" onClick={this.selectAll} />
+                <limel-button
+                    label="Clear selection"
+                    onClick={this.clearSelection}
+                />
+                <limel-button label="Reset" onClick={this.resetSelection} />
+            </limel-example-controls>,
             <limel-example-value label="Active row" value={this.activeRow} />,
             <limel-example-value
                 label={`Selected rows: (${this.selection?.length || 0})`}
