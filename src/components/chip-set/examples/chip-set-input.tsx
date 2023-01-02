@@ -11,7 +11,6 @@ import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 @Component({
     tag: 'limel-example-chip-set-input',
     shadow: true,
-    styleUrl: 'chip-set-input.scss',
 })
 export class ChipSetInputExample {
     @State()
@@ -70,7 +69,9 @@ export class ChipSetInputExample {
                 emptyInputOnBlur={this.emptyInputOnBlur}
                 delimiter={this.delimiter}
             />,
-            <div class="props">
+            <limel-example-controls
+                style={{ '--example-controls-max-columns-width': '9rem' }}
+            >
                 <limel-input-field
                     label="Max items"
                     value={this.maxItems.toString()}
@@ -107,7 +108,7 @@ export class ChipSetInputExample {
                     onChange={this.useDelimiters}
                     checked={this.delimiter !== null}
                 />
-            </div>,
+            </limel-example-controls>,
             <limel-example-value value={this.value} />,
         ];
     }
