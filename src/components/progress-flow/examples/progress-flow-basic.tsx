@@ -43,7 +43,7 @@ export class ProgressFlowBasicExample {
                 disabled={this.disabled}
                 readonly={this.readonly}
             />,
-            <limel-flex-container justify="end">
+            <limel-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -54,7 +54,7 @@ export class ProgressFlowBasicExample {
                     label="Readonly"
                     onChange={this.setReadonly}
                 />
-            </limel-flex-container>,
+            </limel-example-controls>,
             <limel-example-value
                 value={this.flowItems.find((i) => i.selected)}
             />,
