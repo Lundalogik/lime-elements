@@ -25,13 +25,11 @@ export class SizeExample {
                     <div class="label three">Button 3</div>
                 </button>
             </div>,
-            <limel-flex-container justify="start">
-                <limel-checkbox
-                    label="Visualize sizes"
-                    onChange={this.toggleMode}
-                    checked={this.visualizeSizes}
-                />
-            </limel-flex-container>,
+            <limel-checkbox
+                label="Visualize sizes"
+                onChange={this.toggleMode}
+                checked={this.visualizeSizes}
+            />,
         ];
     }
 
