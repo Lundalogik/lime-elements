@@ -28,9 +28,9 @@ export class IconButtonCompositeExample {
                 onClick={this.toggleFavorite}
                 {...this.props}
             />,
-            <limel-flex-container justify="end">
+            <limel-example-controls>
                 {this.renderControls()}
-            </limel-flex-container>,
+            </limel-example-controls>,
         ];
     }
 
