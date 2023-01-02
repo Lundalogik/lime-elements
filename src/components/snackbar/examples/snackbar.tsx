@@ -5,6 +5,7 @@ const SNACKBAR_TIMEOUT = 5000;
 @Component({
     tag: 'limel-example-snackbar',
     shadow: true,
+    styleUrl: 'snackbar.scss',
 })
 export class SnackbarExample {
     @Element()
@@ -34,32 +35,30 @@ export class SnackbarExample {
 
     public render() {
         return [
-            <limel-checkbox
-                label="Dismissible"
-                checked={this.dismissible}
-                onChange={this.onChange}
-            />,
-            <br />,
-            <br />,
-            <limel-button
-                primary={true}
-                label="Show snackbar"
-                onClick={this.triggerSnackbarWithoutAction}
-            />,
-            <br />,
-            <br />,
-            <limel-button
-                primary={true}
-                label="Show snackbar with action"
-                onClick={this.triggerSnackbarWithAction}
-            />,
-            <br />,
-            <br />,
-            <limel-button
-                primary={true}
-                label="Show snackbar with changing message"
-                onClick={this.triggerSnackbarWithChangingMessage}
-            />,
+            <section>
+                <limel-button
+                    primary={true}
+                    label="Show snackbar"
+                    onClick={this.triggerSnackbarWithoutAction}
+                />
+                <limel-button
+                    primary={true}
+                    label="Show snackbar with action"
+                    onClick={this.triggerSnackbarWithAction}
+                />
+                <limel-button
+                    primary={true}
+                    label="Show snackbar with changing message"
+                    onClick={this.triggerSnackbarWithChangingMessage}
+                />
+            </section>,
+            <limel-example-controls>
+                <limel-checkbox
+                    label="Dismissible"
+                    checked={this.dismissible}
+                    onChange={this.onChange}
+                />
+            </limel-example-controls>,
             <limel-snackbar
                 message="Please do not leave your luggage unattended! It might be taken away!"
                 timeout={SNACKBAR_TIMEOUT}
