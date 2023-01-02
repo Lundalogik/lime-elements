@@ -18,13 +18,15 @@ export class SpinnerColorExample {
     public render() {
         return [
             <limel-spinner size="medium" limeBranded={this.limeBranded} />,
-            <limel-flex-container justify="end">
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-checkbox
                     checked={this.limeBranded}
                     label="Lime branded (default design)"
                     onChange={this.renderBranded}
                 />
-            </limel-flex-container>,
+            </limel-example-controls>,
         ];
     }
     private renderBranded = (event: CustomEvent<boolean>) => {
