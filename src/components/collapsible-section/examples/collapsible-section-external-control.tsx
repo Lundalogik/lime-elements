@@ -12,25 +12,22 @@ export class CollapsibleSectionExternalControlExample {
     private isOpen = false;
 
     public render() {
-        return (
-            <section>
-                <limel-flex-container justify="end">
-                    <limel-button
-                        label={'toggle'}
-                        primary={true}
-                        onClick={this.toggle}
-                    />
-                </limel-flex-container>
-                <limel-collapsible-section
-                    header="Click me or click the button"
-                    isOpen={this.isOpen}
-                    onOpen={this.onOpen}
-                    onClose={this.onClose}
-                >
-                    <p>Either way, the section will toggle!</p>
-                </limel-collapsible-section>
-            </section>
-        );
+        return [
+            <limel-button
+                label={'toggle'}
+                primary={true}
+                onClick={this.toggle}
+                style={{ 'margin-bottom': '1rem' }}
+            />,
+            <limel-collapsible-section
+                header="Click me or click the button"
+                isOpen={this.isOpen}
+                onOpen={this.onOpen}
+                onClose={this.onClose}
+            >
+                <p>Either way, the section will toggle!</p>
+            </limel-collapsible-section>,
+        ];
     }
 
     private toggle = () => {
