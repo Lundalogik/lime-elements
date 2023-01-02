@@ -69,25 +69,23 @@ export class InputFieldShowlinkExample {
                 type="urlAsText"
                 showLink
             />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        checked={this.disabled}
-                        label="Disabled"
-                        onChange={this.setDisabled}
-                    />
-                    <limel-checkbox
-                        checked={this.readonly}
-                        label="Readonly"
-                        onChange={this.setReadonly}
-                    />
-                    <limel-checkbox
-                        checked={this.required}
-                        label="Required"
-                        onChange={this.setRequired}
-                    />
-                </limel-flex-container>
-            </p>,
+            <limel-example-controls>
+                <limel-checkbox
+                    checked={this.disabled}
+                    label="Disabled"
+                    onChange={this.setDisabled}
+                />
+                <limel-checkbox
+                    checked={this.readonly}
+                    label="Readonly"
+                    onChange={this.setReadonly}
+                />
+                <limel-checkbox
+                    checked={this.required}
+                    label="Required"
+                    onChange={this.setRequired}
+                />
+            </limel-example-controls>,
             <limel-example-value value={this.emailValue} />,
             <limel-example-value value={this.telValue} />,
             <limel-example-value value={this.urlValue} />,
