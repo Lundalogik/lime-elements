@@ -44,12 +44,14 @@ export class InfoTileProgressExample {
                 link={{ href: '#' }}
                 progress={this.progress}
             />,
-            <limel-input-field
-                label="Progress value"
-                type="number"
-                value={`${this.progress.value}`}
-                onChange={this.handleChange}
-            />,
+            <limel-example-controls>
+                <limel-input-field
+                    label="Progress value"
+                    type="number"
+                    value={`${this.progress.value}`}
+                    onChange={this.handleChange}
+                />
+            </limel-example-controls>,
         ];
     }
 
