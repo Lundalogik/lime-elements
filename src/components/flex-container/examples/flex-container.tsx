@@ -90,31 +90,34 @@ export class FlexContainerExample {
 
     public render() {
         return [
-            <limel-flex-container justify="space-between">
+            <limel-example-controls>
                 <limel-select
                     label="Direction"
                     options={this.directionOptions}
                     value={this.direction}
                     onChange={this.directionOnChange}
+                    class="is-narrow"
                 />
                 <limel-select
                     label="Align"
                     options={this.alignOptions}
                     value={this.align}
                     onChange={this.alignOnChange}
+                    class="is-narrow"
                 />
                 <limel-select
                     label="Justify"
                     options={this.justifyOptions}
                     value={this.justify}
                     onChange={this.justifyOnChange}
+                    class="is-narrow"
                 />
                 <limel-checkbox
                     label="Reverse"
                     checked={this.reverse}
                     onChange={this.reverseOnChange}
                 />
-            </limel-flex-container>,
+            </limel-example-controls>,
             <limel-flex-container
                 class="container"
                 direction={this.direction.value}
