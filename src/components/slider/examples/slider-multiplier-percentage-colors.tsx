@@ -28,35 +28,33 @@ export class SliderMultiplierPercentageColorsExample {
     private maxValue = 1;
 
     public render() {
-        return (
-            <section>
-                <limel-slider
-                    class="displays-percentage-colors"
-                    label="Slider with percentage colors"
-                    unit=" %"
-                    value={this.value}
-                    factor={this.factor}
-                    valuemax={this.maxValue}
-                    valuemin={this.minValue}
-                    disabled={this.disabled}
-                    readonly={this.readonly}
-                    onChange={this.changeHandler}
+        return [
+            <limel-slider
+                class="displays-percentage-colors"
+                label="Slider with percentage colors"
+                unit=" %"
+                value={this.value}
+                factor={this.factor}
+                valuemax={this.maxValue}
+                valuemin={this.minValue}
+                disabled={this.disabled}
+                readonly={this.readonly}
+                onChange={this.changeHandler}
+            />,
+            <limel-example-controls>
+                <limel-checkbox
+                    checked={this.disabled}
+                    label="Disabled"
+                    onChange={this.setDisabled}
                 />
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        checked={this.disabled}
-                        label="Disabled"
-                        onChange={this.setDisabled}
-                    />
-                    <limel-checkbox
-                        checked={this.readonly}
-                        label="Readonly"
-                        onChange={this.setReadonly}
-                    />
-                </limel-flex-container>
-                <limel-example-value value={this.value} />
-            </section>
-        );
+                <limel-checkbox
+                    checked={this.readonly}
+                    label="Readonly"
+                    onChange={this.setReadonly}
+                />
+            </limel-example-controls>,
+            <limel-example-value value={this.value} />,
+        ];
     }
 
     private changeHandler = (event: CustomEvent<number>) => {

@@ -21,33 +21,31 @@ export class SliderExample {
     private maxValue = 75;
 
     public render() {
-        return (
-            <section>
-                <limel-slider
-                    label="Basic slider"
-                    unit=" %"
-                    value={this.value}
-                    valuemax={this.maxValue}
-                    valuemin={this.minValue}
-                    disabled={this.disabled}
-                    readonly={this.readonly}
-                    onChange={this.handleChange}
+        return [
+            <limel-slider
+                label="Basic slider"
+                unit=" %"
+                value={this.value}
+                valuemax={this.maxValue}
+                valuemin={this.minValue}
+                disabled={this.disabled}
+                readonly={this.readonly}
+                onChange={this.handleChange}
+            />,
+            <limel-example-controls>
+                <limel-checkbox
+                    checked={this.disabled}
+                    label="Disabled"
+                    onChange={this.setDisabled}
                 />
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        checked={this.disabled}
-                        label="Disabled"
-                        onChange={this.setDisabled}
-                    />
-                    <limel-checkbox
-                        checked={this.readonly}
-                        label="Readonly"
-                        onChange={this.setReadonly}
-                    />
-                </limel-flex-container>
-                <limel-example-value value={this.value} />
-            </section>
-        );
+                <limel-checkbox
+                    checked={this.readonly}
+                    label="Readonly"
+                    onChange={this.setReadonly}
+                />
+            </limel-example-controls>,
+            <limel-example-value value={this.value} />,
+        ];
     }
 
     private handleChange = (event: CustomEvent<number>) => {

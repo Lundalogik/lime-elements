@@ -27,6 +27,14 @@ export class SliderCompositeExample {
 
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
 
+    public componentWillLoad() {
+        this.schema.lime = {
+            layout: {
+                type: 'grid',
+            },
+        };
+    }
+
     public render() {
         return [
             <limel-slider {...this.props} onChange={this.handleSliderChange} />,
@@ -44,13 +52,15 @@ export class SliderCompositeExample {
 
     private renderForm = () => {
         return (
-            <limel-collapsible-section header="Settings">
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-form
                     schema={this.schema}
                     value={this.props}
                     onChange={this.handleFormChange}
                 />
-            </limel-collapsible-section>
+            </limel-example-controls>
         );
     };
 
