@@ -102,30 +102,25 @@ export class PickerStaticActionsExample {
                 actionScrollBehavior={this.actionScrollBehavior?.value}
                 actionPosition={this.actionPosition?.value}
             />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-select
-                        style={{
-                            width: '12rem',
-                        }}
-                        label="Action Scroll Behavior"
-                        onChange={this.setBehavior}
-                        value={this.actionScrollBehavior}
-                        options={this.actionScrollBehaviors}
-                    />
+            <limel-example-controls
+                style={{ '--example-controls-max-columns-width': '10rem' }}
+            >
+                <limel-select
+                    class="is-narrow"
+                    label="Action Scroll Behavior"
+                    onChange={this.setBehavior}
+                    value={this.actionScrollBehavior}
+                    options={this.actionScrollBehaviors}
+                />
 
-                    <limel-select
-                        style={{
-                            width: '10rem',
-                            'margin-left': '0.5rem',
-                        }}
-                        label="Action Position"
-                        onChange={this.setPosition}
-                        value={this.actionPosition}
-                        options={this.actionPositions}
-                    />
-                </limel-flex-container>
-            </p>,
+                <limel-select
+                    class="is-narrow"
+                    label="Action Position"
+                    onChange={this.setPosition}
+                    value={this.actionPosition}
+                    options={this.actionPositions}
+                />
+            </limel-example-controls>,
             <limel-example-value
                 label="Last pressed action"
                 value={this.lastUsedAction}
