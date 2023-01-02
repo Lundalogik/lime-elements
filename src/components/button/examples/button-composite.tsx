@@ -8,7 +8,6 @@ import { Component, h, Prop, State } from '@stencil/core';
 @Component({
     tag: 'limel-example-button-composite',
     shadow: true,
-    styleUrl: 'button-composite.scss',
 })
 export class ButtonCompositeExample {
     @Prop()
@@ -53,13 +52,15 @@ export class ButtonCompositeExample {
 
     private renderForm() {
         return (
-            <limel-collapsible-section header="Settings">
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-form
                     schema={this.schema}
                     value={this.props}
                     onChange={this.handleChange}
                 />
-            </limel-collapsible-section>
+            </limel-example-controls>
         );
     }
 
