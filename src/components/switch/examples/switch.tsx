@@ -23,7 +23,7 @@ export class SwitchExample {
                 readonly={this.readonly}
                 onChange={this.changeHandler}
             />,
-            <limel-flex-container justify="end">
+            <limel-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -39,7 +39,7 @@ export class SwitchExample {
                     label="Selected"
                     onChange={this.setChecked}
                 />
-            </limel-flex-container>,
+            </limel-example-controls>,
             <limel-example-value value={this.value} />,
         ];
     }
