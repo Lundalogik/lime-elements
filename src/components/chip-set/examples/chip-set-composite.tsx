@@ -65,13 +65,15 @@ export class ChipSetCompositeExample {
 
     private renderForm() {
         return (
-            <limel-collapsible-section header="Settings">
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-form
                     schema={this.schema}
                     value={this.props}
                     onChange={this.handleChangeForm}
                 />
-            </limel-collapsible-section>
+            </limel-example-controls>
         );
     }
 

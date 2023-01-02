@@ -41,15 +41,13 @@ export class ChipSetFilterExample {
                 onChange={this.handleChange}
                 value={this.chips}
             />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        label="Disabled"
-                        onChange={this.setDisabled}
-                        checked={this.disabled}
-                    />
-                </limel-flex-container>
-            </p>,
+            <limel-example-controls>
+                <limel-checkbox
+                    label="Disabled"
+                    onChange={this.setDisabled}
+                    checked={this.disabled}
+                />
+            </limel-example-controls>,
         ];
     }
 

@@ -39,15 +39,13 @@ export class ChipSetExample {
                     },
                 ]}
             />,
-            <p>
-                <limel-flex-container justify="end">
-                    <limel-checkbox
-                        label="Disabled"
-                        onChange={this.toggleEnabled}
-                        checked={this.disabled}
-                    />
-                </limel-flex-container>
-            </p>,
+            <limel-example-controls>
+                <limel-checkbox
+                    label="Disabled"
+                    onChange={this.toggleEnabled}
+                    checked={this.disabled}
+                />
+            </limel-example-controls>,
         ];
     }
 
