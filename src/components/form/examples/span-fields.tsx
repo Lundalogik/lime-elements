@@ -171,27 +171,27 @@ export class FormLayoutExample {
 
     public render() {
         return [
-            <limel-flex-container justify="end">
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-switch
                     label="Dense layout"
                     value={this.dense}
                     onChange={this.handleCheckboxChange}
                 />
-            </limel-flex-container>,
+            </limel-example-controls>,
             <limel-form
                 onChange={this.handleFormChange}
                 onValidate={this.handleFormValidate}
                 value={this.formData}
                 schema={this.schema}
             />,
-            <limel-flex-container justify="end">
-                <limel-button
-                    label="Submit"
-                    primary={true}
-                    disabled={!this.valid}
-                    onClick={this.handleSubmit}
-                />
-            </limel-flex-container>,
+            <limel-button
+                label="Submit"
+                primary={true}
+                disabled={!this.valid}
+                onClick={this.handleSubmit}
+            />,
         ];
     }
 
