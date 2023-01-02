@@ -12,7 +12,6 @@ import { Component, h, Prop } from '@stencil/core';
  *
  * @deprecated
  * @private
- * @exampleComponent limel-example-flex-container
  * @slot - Container content
  */
 @Component({
