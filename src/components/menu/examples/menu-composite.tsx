@@ -73,13 +73,15 @@ export class MenuCompositeExample {
             >
                 <limel-button label="Menu" slot="trigger" />
             </limel-menu>,
-            <limel-collapsible-section header="Settings">
+            <limel-example-controls
+                style={{ '--example-controls-column-layout': 'auto-fit' }}
+            >
                 <limel-form
                     schema={this.schema}
                     value={this.props}
                     onChange={this.handleChange}
                 />
-            </limel-collapsible-section>,
+            </limel-example-controls>,
             <limel-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
