@@ -13,25 +13,20 @@ export class DatePickerExample {
     private value = new Date();
 
     public render() {
-        return (
-            <p>
-                <limel-date-picker
-                    type="datetime"
-                    label="datetime"
-                    value={this.value}
-                    onChange={this.handleChange}
-                />
-                <p>
-                    <limel-flex-container justify="end">
-                        <limel-button
-                            onClick={this.addOneHour}
-                            label="Add one hour"
-                        />
-                    </limel-flex-container>
-                </p>
-                <limel-example-value value={this.value} />
-            </p>
-        );
+        return [
+            <limel-button
+                onClick={this.addOneHour}
+                label="Add one hour"
+                style={{ 'margin-bottom': '1rem' }}
+            />,
+            <limel-date-picker
+                type="datetime"
+                label="datetime"
+                value={this.value}
+                onChange={this.handleChange}
+            />,
+            <limel-example-value value={this.value} />,
+        ];
     }
 
     private handleChange = (event) => {
