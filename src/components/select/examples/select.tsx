@@ -28,46 +28,42 @@ export class SelectExample {
     ];
 
     public render() {
-        return (
-            <section>
-                <limel-select
-                    label="Favorite hero"
-                    helperText="May the force be with him or her"
-                    value={this.value}
-                    options={this.options}
-                    disabled={this.disabled}
-                    readonly={this.readonly}
-                    required={this.required}
-                    invalid={this.invalid}
-                    onChange={this.changeHandler}
+        return [
+            <limel-select
+                label="Favorite hero"
+                helperText="May the force be with him or her"
+                value={this.value}
+                options={this.options}
+                disabled={this.disabled}
+                readonly={this.readonly}
+                required={this.required}
+                invalid={this.invalid}
+                onChange={this.changeHandler}
+            />,
+            <limel-example-controls>
+                <limel-checkbox
+                    checked={this.disabled}
+                    label="Disabled"
+                    onChange={this.setDisabled}
                 />
-                <p>
-                    <limel-flex-container justify="end">
-                        <limel-checkbox
-                            checked={this.disabled}
-                            label="Disabled"
-                            onChange={this.setDisabled}
-                        />
-                        <limel-checkbox
-                            checked={this.readonly}
-                            label="Readonly"
-                            onChange={this.setReadonly}
-                        />
-                        <limel-checkbox
-                            checked={this.required}
-                            label="Required"
-                            onChange={this.setRequired}
-                        />
-                        <limel-checkbox
-                            checked={this.invalid}
-                            label="Invalid"
-                            onChange={this.setInvalid}
-                        />
-                    </limel-flex-container>
-                </p>
-                <limel-example-value value={this.value} />
-            </section>
-        );
+                <limel-checkbox
+                    checked={this.readonly}
+                    label="Readonly"
+                    onChange={this.setReadonly}
+                />
+                <limel-checkbox
+                    checked={this.required}
+                    label="Required"
+                    onChange={this.setRequired}
+                />
+                <limel-checkbox
+                    checked={this.invalid}
+                    label="Invalid"
+                    onChange={this.setInvalid}
+                />
+            </limel-example-controls>,
+            <limel-example-value value={this.value} />,
+        ];
     }
 
     private changeHandler = (event) => {
