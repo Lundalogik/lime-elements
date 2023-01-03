@@ -51,9 +51,7 @@ export class Button {
 
     /**
      * Set to `true` to put the button in the `loading` state.
-     * Please note that this does _not_ disable the button.
-     * If the button should be disabled while loading, the
-     * `disabled` property should be set to `true` as well.
+     * This also disables the button.
      */
     @Prop({ reflect: true })
     public loading = false;
