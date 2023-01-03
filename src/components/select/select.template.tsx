@@ -175,7 +175,7 @@ const SelectDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
 };
 
 const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
-    const items = createMenuItems(props.options, props.value);
+    const items = createMenuItems(props.options, props.value, props.required);
 
     return (
         <limel-portal
@@ -246,9 +246,12 @@ function isSelected(option: Option, value: Option | Option[]): boolean {
 
 function createMenuItems(
     options: Option[],
-    value: Option | Option[]
+    value: Option | Option[],
+    selectIsRequired = false
 ): Array<ListItem<Option>> {
-    return options.map((option) => {
+    const menuOptionFilter = getMenuOptionFilter(selectIsRequired);
+
+    return options.filter(menuOptionFilter).map((option) => {
         const selected = isSelected(option, value);
         const { text, disabled } = option;
 
@@ -261,6 +264,24 @@ function createMenuItems(
             iconColor: option.iconColor,
         };
     });
+}
+
+function getMenuOptionFilter(selectIsRequired: boolean) {
+    return (option: Option) => {
+        if (!selectIsRequired) {
+            // If the select component is NOT required, we keep all options.
+            return true;
+        }
+
+        if (option.text) {
+            // If the select component IS required, we keep only options
+            // that are not "empty". We only check the text property, because
+            // some systems use an "empty option" that will have a value for
+            // the `value` property, to signify "no option selected". Such
+            // an option should be treated as "empty".
+            return true;
+        }
+    };
 }
 
 function getSelectedText(value: Option | Option[], readonly: boolean): string {
