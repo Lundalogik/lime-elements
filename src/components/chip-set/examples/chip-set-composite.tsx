@@ -71,7 +71,7 @@ export class ChipSetCompositeExample {
                 <limel-form
                     schema={this.schema}
                     value={this.props}
-                    onChange={this.handleChangeForm}
+                    onChange={this.handleFormChange}
                 />
             </limel-example-controls>
         );
@@ -81,7 +81,7 @@ export class ChipSetCompositeExample {
         this.eventPrinter.writeEvent(event);
     };
 
-    private handleChangeForm = (event: CustomEvent) => {
+    private handleFormChange = (event: CustomEvent) => {
         this.props = { ...event.detail };
     };
 }
