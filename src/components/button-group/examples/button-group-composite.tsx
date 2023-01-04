@@ -66,7 +66,7 @@ export class ButtonCompositeExample {
                 <limel-form
                     schema={this.schema}
                     value={this.props}
-                    onChange={this.handleChangeForm}
+                    onChange={this.handleFormChange}
                 />
             </limel-example-controls>
         );
@@ -87,7 +87,7 @@ export class ButtonCompositeExample {
         this.props = { ...this.props };
     };
 
-    private handleChangeForm = (event: CustomEvent) => {
+    private handleFormChange = (event: CustomEvent) => {
         this.props = { ...event.detail };
     };
 }
