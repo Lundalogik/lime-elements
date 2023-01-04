@@ -104,6 +104,7 @@
     --color-glaucous-light: 135, 174, 193; // #87aec1
     --color-glaucous-default: var(--lime-brand-color-dark-blue);
 
+}
     @include in(dark-mode) {
         --contrast-100: 0, 0, 0; // #000
         --contrast-200: 25, 25, 44; // #19192c
@@ -183,4 +184,3 @@
         --color-glaucous-light: 110, 141, 156; // #6e8d9c
         --color-glaucous-default: 68, 108, 128; // #446c80
     }
-}
