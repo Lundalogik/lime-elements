@@ -163,14 +163,18 @@ $cropped-label-hack--font-size: 0.875rem; //14px
             background-color: $background-color-disabled;
         }
 
-        &:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid):not(.force-invalid) {
+        &:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid):not(
+                .force-invalid
+            ) {
             .mdc-notched-outline__leading,
             .mdc-notched-outline__notch,
             .mdc-notched-outline__trailing {
                 border-color: $lime-text-field-outline-color;
             }
 
-            &:not(.mdc-text-field--focused):not(.mdc-text-field--invalid):not(.force-invalid) {
+            &:not(.mdc-text-field--focused):not(.mdc-text-field--invalid):not(
+                    .force-invalid
+                ) {
                 &:hover .mdc-notched-outline {
                     .mdc-notched-outline__leading,
                     .mdc-notched-outline__notch,

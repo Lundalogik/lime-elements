@@ -31,7 +31,9 @@
         }
 
         &.mdc-checkbox--invalid {
-            .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate)
+            .mdc-checkbox__native-control:enabled:not(:checked):not(
+                    :indeterminate
+                )
                 ~ .mdc-checkbox__background {
                 border-color: var(--lime-error-text-color);
             }
