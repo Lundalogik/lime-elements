@@ -12,9 +12,9 @@ import { Component, h, State } from '@stencil/core';
  */
 @Component({
     shadow: true,
-    tag: 'limel-example-select-initially-empty',
+    tag: 'limel-example-select-with-empty-option',
 })
-export class SelectExample {
+export class SelectWithEmptyOptionExample {
     @State()
     public value: Option;
 

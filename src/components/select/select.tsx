@@ -26,7 +26,7 @@ import { SelectTemplate } from './select.template';
  * @exampleComponent limel-example-select
  * @exampleComponent limel-example-select-with-icons
  * @exampleComponent limel-example-select-multiple
- * @exampleComponent limel-example-select-initially-empty
+ * @exampleComponent limel-example-select-with-empty-option
  * @exampleComponent limel-example-select-preselected
  * @exampleComponent limel-example-select-change-options
  * @exampleComponent limel-example-select-narrow
