@@ -223,7 +223,7 @@ export class SchemaField extends React.Component<FieldProps> {
                 errorSchema: errorSchema,
                 rootValue: registry.formContext.rootValue,
                 name: name,
-                schemaPath: this.getSchemaPath(idSchema.$id),
+                schemaPath: this.getSchemaPath(idSchema?.$id),
             },
         };
     }
@@ -280,6 +280,10 @@ export class SchemaField extends React.Component<FieldProps> {
      * // => ['sections', '0', 'controls', '0', 'name']
      */
     private getSchemaPath(schemaId: string): string[] {
+        if (schemaId === undefined) {
+            return undefined;
+        }
+
         return schemaId.replace('root_', '').split('_');
     }
 }
