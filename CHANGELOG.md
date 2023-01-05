@@ -1,3 +1,10 @@
+## [36.2.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.5...v36.2.0-next.6) (2023-01-05)
+
+
+### Bug Fixes
+
+* **select.template:** hide disabled option with empty text ([e2392c8](https://github.com/Lundalogik/lime-elements/commit/e2392c8e0b4e3e8bd7943d9739fba79d0c68d5cf))
+
 ## [36.2.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.4...v36.2.0-next.5) (2022-12-22)
 
 
