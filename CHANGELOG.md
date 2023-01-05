@@ -1,3 +1,10 @@
+## [36.2.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.6...v36.2.0-next.7) (2023-01-05)
+
+
+### Bug Fixes
+
+* **form:** prevent error if `idSchema` is undefined ([ddf4f72](https://github.com/Lundalogik/lime-elements/commit/ddf4f7273f08d2dfb6aa3bed9ee820b67166e45c)), closes [Lundalogik/crm-feature#3136](https://github.com/Lundalogik/crm-feature/issues/3136)
+
 ## [36.2.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.5...v36.2.0-next.6) (2023-01-05)
 
 
