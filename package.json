@@ -79,7 +79,7 @@
     "material-components-web": "^13.0.0",
     "moment": "^2.29.4",
     "number-abbreviate": "^2.0.0",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.1",
     "puppeteer": "^19.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
