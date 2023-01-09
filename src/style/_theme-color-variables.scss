@@ -38,6 +38,6 @@
     );
     --mdc-theme-on-surface: var(
         --lime-on-surface-color,
-        var(--lime-text-primary-on-background-color)
+        rgb(var(--contrast-1500))
     );
 }
