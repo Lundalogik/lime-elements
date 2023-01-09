@@ -33,13 +33,22 @@
     }
 }
 
-@mixin is-elevated-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+@mixin is-elevated-clickable(
+    $color: var(--mdc-theme-on-surface),
+    $color--hovered: var(--mdc-theme-on-surface),
+    $background-color: var(--lime-elevated-surface-background-color),
+    $background-color--hovered: var(--lime-elevated-surface-background-color)
+) {
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
 
+    color: $color;
+    background-color: $background-color;
     box-shadow: var(--button-shadow-normal);
 
     &:hover {
+        color: $color--hovered;
+        background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
@@ -50,27 +59,48 @@
     }
 }
 
-@mixin is-elevated-inset-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+@mixin is-elevated-inset-clickable(
+    $color: var(--mdc-theme-on-surface),
+    $color--hovered: var(--mdc-theme-on-surface),
+    $background-color: var(--lime-elevated-surface-background-color),
+    $background-color--hovered: var(--lime-elevated-surface-background-color),
+    $background-color--inset: var(--mdc-theme-surface)
+) {
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
 
+    color: $color;
+    background-color: $background-color;
     box-shadow: var(--button-shadow-normal);
 
     &:hover {
+        color: $color--hovered;
+        background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
     &:active {
+        background-color: $background-color--inset;
         box-shadow: var(--button-shadow-inset-pressed);
         transform: translate3d(0, 0.05rem, 0);
     }
 }
 
-@mixin is-flat-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+@mixin is-flat-clickable(
+    $color: var(--mdc-theme-on-surface),
+    $background-color: transparent,
+    $color--hovered: var(--mdc-theme-on-surface),
+    $background-color--hovered: var(--lime-elevated-surface-background-color)
+) {
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
+
+    color: $color;
+    background-color: $background-color;
 
     &:hover {
+        color: $color--hovered;
+        background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
@@ -81,15 +111,27 @@
     }
 }
 
-@mixin is-flat-inset-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+@mixin is-flat-inset-clickable(
+    $color: var(--mdc-theme-on-surface),
+    $background-color: transparent,
+    $color--hovered: var(--mdc-theme-on-surface),
+    $background-color--hovered: var(--lime-elevated-surface-background-color),
+    $background-color--inset: var(--mdc-theme-surface)
+) {
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
+
+    color: $color;
+    background-color: $background-color;
 
     &:hover {
+        color: $color--hovered;
+        background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
     &:active {
+        background-color: $background-color--inset;
         box-shadow: var(--button-shadow-inset-pressed);
         transform: translate3d(0, 0.05rem, 0);
     }
