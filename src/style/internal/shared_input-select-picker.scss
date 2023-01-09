@@ -116,6 +116,13 @@ $cropped-label-hack--font-size: 0.875rem; //14px
         }
     }
 }
+
+@mixin input-field-placeholder {
+    &::placeholder {
+        color: rgb(var(--contrast-900)) !important;
+    }
+}
+
 @mixin looks-like-helper-text-pseudo-before {
     height: $height-of-helper-text-pseudo-before;
     display: inline-block;
