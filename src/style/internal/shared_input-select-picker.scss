@@ -107,6 +107,15 @@ $cropped-label-hack--font-size: 0.875rem; //14px
     opacity: 0;
 }
 
+@mixin helper-text-color {
+    .mdc-text-field:not(.mdc-text-field--disabled) {
+        .mdc-text-field-character-counter,
+        + .mdc-text-field-helper-line .mdc-text-field-character-counter,
+        + .mdc-text-field-helper-line .mdc-text-field-helper-text {
+            color: $helper-text-color;
+        }
+    }
+}
 @mixin looks-like-helper-text-pseudo-before {
     height: $height-of-helper-text-pseudo-before;
     display: inline-block;
