@@ -3,7 +3,7 @@
 
 :host {
     --popover-surface-width: 50rem;
-    --color-picker-default-background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill-opacity='0.1' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
+    --color-picker-default-background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill='rgba(186,186,192,0.16)' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
 }
 
 .color-picker {
