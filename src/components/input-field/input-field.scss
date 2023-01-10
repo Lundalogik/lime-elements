@@ -58,6 +58,7 @@
 @include shared_input-select-picker.leading-icon;
 @include shared_input-select-picker.trailing-icon;
 @include shared_input-select-picker.floating-label-overrides;
+@include shared_input-select-picker.helper-text-color;
 
 .mdc-text-field--with-trailing-icon {
     .mdc-text-field__icon--trailing {
@@ -74,6 +75,19 @@
 
 .mdc-text-field {
     width: 100%;
+
+    &:not(.mdc-text-field--disabled) {
+        .mdc-text-field__affix,
+        .mdc-text-field__icon {
+            color: rgb(var(--contrast-900));
+        }
+    }
+    &.mdc-text-field--disabled {
+        .mdc-text-field__affix,
+        .mdc-text-field__icon {
+            color: rgb(var(--contrast-700));
+        }
+    }
 }
 
 .lime-empty-value-for-readonly {
@@ -138,7 +152,7 @@
 }
 
 .autocomplete-list {
-    background-color: white;
+    background-color: var(--lime-elevated-surface-background-color);
     position: absolute;
     top: 0;
     left: 0;
@@ -152,6 +166,8 @@
 }
 
 input.mdc-text-field__input {
+    @include shared_input-select-picker.input-field-placeholder;
+
     &::-webkit-search-cancel-button {
         @include mixins.clear-all-button;
 
@@ -166,18 +182,6 @@ input.mdc-text-field__input {
         &:active {
             transform: none; //Makes the "clear-all button" work
         }
-    }
-}
-
-.mdc-text-field {
-    &:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,
-    &:not(.mdc-text-field--disabled)
-        + .mdc-text-field-helper-line
-        .mdc-text-field-character-counter,
-    &:not(.mdc-text-field--disabled)
-        + .mdc-text-field-helper-line
-        .mdc-text-field-helper-text {
-        color: shared_input-select-picker.$helper-text-color;
     }
 }
 
