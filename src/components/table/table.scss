@@ -9,8 +9,11 @@
 
 $width-of-sorter-arrow: 0.5rem;
 $cell-padding: 0.5rem;
+$table--has-interactive-rows--selectable-row--hover: 2;
+$table--limel-table--row-selector: 1;
 
-:host {
+:host(limel-table) {
+    isolation: isolate;
     display: block;
     --table-header-background-color: var(--contrast-500);
     --table-header-background-color--hover: var(--contrast-400);
