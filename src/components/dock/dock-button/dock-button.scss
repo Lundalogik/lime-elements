@@ -6,7 +6,9 @@
     all: unset;
 
     cursor: pointer;
-    @include mixins.is-flat-clickable();
+    @include mixins.is-flat-inset-clickable(
+        $color: var(--limel-dock-item-text-color)
+    );
     @include mixins.visualize-keyboard-focus;
 
     box-sizing: border-box;
@@ -21,9 +23,6 @@
     font-size: functions.pxToRem(14);
     padding: 0 0.5rem;
     min-width: var(--dock-item-height);
-
-    color: var(--limel-dock-item-text-color);
-    background-color: var(--dock-background-color);
 
     &:hover {
         z-index: 1;
