@@ -1,4 +1,3 @@
-@use '../../../style/internal/z-index';
 @use '../../../style/mixins';
 @use '../../../style/functions';
 
@@ -7,7 +6,7 @@
         &.tabulator-selectable {
             @include mixins.is-flat-clickable();
             &:hover {
-                z-index: z-index.$table--has-interactive-rows--selectable-row--hover;
+                z-index: $table--has-interactive-rows--selectable-row--hover;
             }
             &:not(.active) {
                 &:hover {
