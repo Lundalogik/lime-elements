@@ -21,7 +21,9 @@
 
             .tabulator-page {
                 &:not([disabled]) {
-                    @include mixins.is-flat-clickable;
+                    @include mixins.is-flat-clickable(
+                        $color: rgb(var(--contrast-1200)) !important
+                    );
                 }
                 position: relative;
                 height: functions.pxToRem(28);
@@ -32,15 +34,10 @@
                 border: none;
                 border-radius: functions.pxToRem(40);
 
-                color: rgb(var(--contrast-1200)) !important;
                 background-color: transparent;
 
-                &:hover {
-                    background-color: rgb(var(--contrast-100));
-                }
-
                 &.active {
-                    background-color: rgb(var(--contrast-100));
+                    background-color: var(--mdc-theme-surface);
                     box-shadow: var(--button-shadow-inset);
                 }
 
@@ -81,6 +78,9 @@
     &[data-page='next'] {
         &:after {
             content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 100 100'><defs/><path d='M68.714 50L37.286 70V30l31.428 20z'/></svg>");
+            @media (prefers-color-scheme: dark) {
+                content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 100 100'><defs/><path fill='rgb(255,255,255)' d='M68.714 50L37.286 70V30l31.428 20z'/></svg>");
+            }
         }
     }
 
@@ -88,6 +88,9 @@
     &[data-page='last'] {
         &:after {
             content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 100 100'><defs/><path d='M60.714 50L29.286 70V30l31.428 20zM64.714 30h6v40h-6z'/></svg>");
+            @media (prefers-color-scheme: dark) {
+                content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 100 100'><defs/><path fill='rgb(255,255,255)' d='M60.714 50L29.286 70V30l31.428 20zM64.714 30h6v40h-6z'/></svg>");
+            }
         }
     }
 
