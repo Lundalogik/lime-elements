@@ -2,6 +2,7 @@
 @use '../../style/mixins';
 
 @use '../../style/internal/lime-theme';
+@use '../checkbox/checkbox.scss';
 
 @use '@material/list';
 
@@ -22,6 +23,7 @@ $list-mdc-list-item: 0;
 :host(limel-list) {
     display: block;
     isolation: isolate;
+    @include checkbox.custom-checkbox-styles;
 }
 
 :host([hidden]) {
@@ -40,6 +42,10 @@ $list-mdc-list-item: 0;
     ); // added space to visualize keyboard-focused items
     padding: 0;
     border-radius: $list-border-radius;
+
+    .mdc-deprecated-list-divider {
+        border-bottom-color: rgb(var(--contrast-400));
+    }
 
     .mdc-deprecated-list-item {
         transition: background-color 0.2s ease;
