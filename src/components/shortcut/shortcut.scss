@@ -2,7 +2,7 @@
 * @prop --shortcut-border-radius: defines the radius of corners of the shortcut. Defaults to `1rem`
 * @prop --shortcut-icon-color: defines the fill color of the shortcut icon. Defaults to `--contrast-1000`
 * @prop --shortcut-label-color: defines the color of the shortcut label. Defaults to `--contrast-1100`
-* @prop --shortcut-background-color: defines the backgrounds color of the shortcut icon. Defaults to `--contrast-100`
+* @prop --shortcut-background-color: defines the backgrounds color of the shortcut icon. Defaults to `--lime-elevated-surface-background-color`
 * @prop --shortcut-badge-text-color: Text color of the notification badge. Defaults to `--color-white`
 * @prop --shortcut-badge-background-color: Background color of the notification badge. Defaults to `--color-red-default`
 */
@@ -40,7 +40,13 @@
 
 a {
     all: unset;
-    @include mixins.is-elevated-clickable;
+    @include mixins.is-elevated-clickable(
+        $background-color:
+            var(
+                --shortcut-background-color,
+                var(--lime-elevated-surface-background-color)
+            )
+    );
     @include mixins.visualize-keyboard-focus;
     cursor: pointer;
     text-align: center;
@@ -50,10 +56,6 @@ a {
     padding: 0.5rem;
 
     border-radius: var(--shortcut-border-radius, 1rem);
-    background-color: var(
-        --shortcut-background-color,
-        rgb(var(--contrast-100))
-    );
 }
 
 limel-icon {
