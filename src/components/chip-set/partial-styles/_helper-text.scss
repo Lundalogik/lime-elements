@@ -2,6 +2,8 @@
     flex-basis: 100%;
 }
 
+@include shared_input-select-picker.helper-text-color;
+
 .mdc-text-field-helper-text {
     &:before {
         @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
