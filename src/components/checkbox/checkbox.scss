@@ -2,8 +2,22 @@
 @use '@material/checkbox';
 @use '@material/form-field';
 
-:host {
+/**
+* @prop --checkbox-unchecked-border-color: Affects the border color of the default state of the checkbox (when it is not checked). Defaults to `--contrast-900`.
+*/
+
+@mixin custom-checkbox-styles {
+    // This is used in other components too, such as `limel-list`
     --mdc-checkbox-checked-color: var(--mdc-theme-primary);
+    --mdc-checkbox-unchecked-color: var(
+        --checkbox-unchecked-border-color,
+        rgb(var(--contrast-900))
+    );
+    --lime-checkbox-unchecked-color: rgb(var(--contrast-300));
+}
+
+:host(limel-checkbox) {
+    @include custom-checkbox-styles;
 }
 
 @include checkbox.core-styles;
@@ -12,19 +26,13 @@
 .mdc-form-field {
     display: flex;
 
-    .mdc-checkbox__background {
-        background-color: var(--lime-checkbox-unchecked-color);
-    }
-
     .mdc-checkbox {
         .mdc-checkbox__native-control {
             &[disabled],
             &:enabled {
                 &:not(:checked):not(:indeterminate) {
                     ~ .mdc-checkbox__background {
-                        --lime-checkbox-unchecked-color: rgb(
-                            var(--contrast-300)
-                        );
+                        background-color: var(--lime-checkbox-unchecked-color);
                     }
                 }
             }
