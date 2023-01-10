@@ -162,9 +162,10 @@ export class Snackbar {
         }
 
         return (
-            <button type="button" class="mdc-button mdc-snackbar__action">
-                <span class="mdc-button__label">{actionText}</span>
-            </button>
+            <limel-button
+                class="mdc-button mdc-snackbar__action"
+                label={actionText}
+            />
         );
     }
 
@@ -173,18 +174,13 @@ export class Snackbar {
             return;
         }
 
-        const svgData = `<svg width="32" height="32" x="0px" y="0px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-    <line fill="none" id="svg_1" stroke="currentColor" stroke-width="2" x1="8" x2="24" y1="8" y2="24"/>
-    <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>
-</svg>`;
-
         const label = translate.get('snackbar.dismiss', this.language);
 
         return (
-            <button
+            <limel-icon-button
                 class="mdc-icon-button mdc-snackbar__dismiss"
-                innerHTML={svgData}
-                title={label}
+                icon="multiply"
+                label={label}
             />
         );
     }
