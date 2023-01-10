@@ -6,13 +6,12 @@
 @use '@material/chips/deprecated/mdc-chips';
 
 .mdc-chip {
-    @include mixins.is-flat-inset-clickable;
+    @include mixins.is-flat-inset-clickable($background-color: transparent);
     max-width: 100%;
     min-width: functions.pxToRem(32);
     padding: 0 functions.pxToRem(1);
     display: inline-grid;
     grid-auto-flow: column;
-    background-color: transparent;
     margin: functions.pxToRem(2) !important;
     font-size: functions.pxToRem(14);
 
@@ -24,7 +23,11 @@
             height: functions.pxToRem(16);
             width: functions.pxToRem(2);
             border-radius: functions.pxToRem(4);
-            background-color: rgb(var(--contrast-600));
+            background-color: var(
+                --button-group-text-color,
+                rgb(var(--contrast-1200))
+            );
+            opacity: 0.1;
 
             position: absolute;
             right: functions.pxToRem(-3);
@@ -89,21 +92,12 @@
         }
     }
 
-    &:hover {
-        background-color: rgb(var(--contrast-100));
-    }
-
     &.mdc-chip--selected {
+        background-color: var(--mdc-theme-surface);
         box-shadow: var(--button-shadow-inset);
 
         &:active {
             box-shadow: var(--button-shadow-inset-pressed);
-        }
-    }
-
-    &.mdc-chip--selected {
-        .mdc-chip-set--choice & {
-            color: rgb(var(--contrast-1300));
         }
     }
 }
