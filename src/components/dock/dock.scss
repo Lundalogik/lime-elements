@@ -33,12 +33,7 @@
     flex-direction: column;
 
     background-color: var(--dock-background-color, rgb(var(--contrast-100)));
-    box-shadow: #{functions.pxToRem(3)} 0 #{functions.pxToRem(6)} #{functions.pxToRem(
-                -2
-            )} rgba(var(--color-black), 0.15),
-        #{functions.pxToRem(3)} 0 #{functions.pxToRem(10)} #{functions.pxToRem(
-                -2
-            )} rgba(var(--color-black), 0.05);
+    box-shadow: var(--shadow-depth-8);
 }
 
 :host(limel-dock:not(.has-mobile-layout)) {
