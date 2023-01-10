@@ -1,9 +1,9 @@
 :host {
-    --dock-background-color: rgb(var(--contrast-1500));
+    --dock-background-color: rgb(var(--color-glaucous-darker));
     --dock-item-text-color: rgb(var(--color-cyan-lighter));
-    --dock-item-text-color--selected: rgb(var(--contrast-100));
-    --dock-item-icon-color: rgb(var(--color-cyan-light));
-    --dock-item-background-color--selected: rgb(var(--color-cyan-light));
+    --dock-item-text-color--selected: rgb(var(--color-white));
+    --dock-item-icon-color: rgb(var(--color-cyan-lighter));
+    --dock-item-background-color--selected: rgb(var(--color-cyan-darker));
 }
 
 .application {
