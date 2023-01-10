@@ -53,8 +53,7 @@
         );
     }
 
-    .tabulator-row.active &,
-    .tabulator-row.active:hover & {
+    .tabulator-row.active & {
         background-image: linear-gradient(
             to right,
             rgb(var(--table-row-background-color--active)) 70%,

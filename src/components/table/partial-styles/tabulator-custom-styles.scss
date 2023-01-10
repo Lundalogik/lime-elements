@@ -4,10 +4,24 @@
 :host(.has-interactive-rows) {
     .tabulator-row:not(.tabulator-calcs) {
         &.tabulator-selectable {
-            @include mixins.is-flat-clickable();
+            // We could use `@include mixins.is-flat-clickable()`,
+            // But the "arguments" of the mixin would make the CSS for
+            // even and odd row colors and background color very complicated.
+            // So instead, I've copy/pasted the useful parts of the mixin here
+            transition: color 0.2s ease, background-color 0.2s ease,
+                box-shadow 0.2s ease, transform 0.1s ease-out;
+
+            &:active {
+                box-shadow: var(--button-shadow-pressed);
+
+                transform: translate3d(0, 0.08rem, 0);
+            }
+
             &:hover {
                 z-index: $table--has-interactive-rows--selectable-row--hover;
+                box-shadow: var(--button-shadow-hovered);
             }
+
             &:not(.active) {
                 &:hover {
                     background-color: rgb(
