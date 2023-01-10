@@ -2,7 +2,6 @@
 
 $background-color-of-odd-interactive-items: rgb(var(--contrast-100));
 $background-color-of-even-interactive-items: rgb(var(--contrast-200));
-$background-color-of-interactive-items-hovered: rgb(var(--contrast-100));
 
 :host(.has-striped-rows) {
     .mdc-deprecated-list {
@@ -26,7 +25,6 @@ $background-color-of-interactive-items-hovered: rgb(var(--contrast-100));
 
             &:hover {
                 z-index: $list--has-interactive-items--mdc-list-item--hover;
-                background-color: $background-color-of-interactive-items-hovered;
             }
         }
     }
