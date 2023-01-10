@@ -64,7 +64,7 @@ describe('limel-snackbar', () => {
             `);
             snackbar = await page.find('limel-snackbar');
             mdcSnackbar = await page.find('limel-snackbar>>>.mdc-snackbar');
-            button = await page.find('limel-snackbar>>>button');
+            button = await page.find('limel-snackbar>>>limel-button');
             await page.waitForChanges();
             await snackbar.callMethod('show');
             await page.waitForChanges();
@@ -81,8 +81,8 @@ describe('limel-snackbar', () => {
             expect(snackbarLabel).toEqualText('This is a message');
         });
 
-        it('displays the action text', () => {
-            expect(button).toEqualText('Press me!');
+        it('displays the action text', async () => {
+            expect(button.getAttribute('label')).toEqualText('Press me!');
         });
 
         describe('when the action button is pressed', () => {

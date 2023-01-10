@@ -1,18 +1,18 @@
-@use '../../style/brand-colors';
-
 @use '../../style/internal/lime-theme';
 
-@use '@material/button/styles';
-@use '@material/button';
-@use '@material/icon-button/styles' as icon-button-styles;
 @use '@material/snackbar/mdc-snackbar';
 
-.mdc-button {
-    @include button.ink-color(brand-colors.$lime-blue);
+.mdc-snackbar__surface {
+    box-shadow: var(--shadow-depth-16);
 }
 
 .mdc-snackbar__actions {
-    .mdc-snackbar__dismiss {
-        color: var(--mdc-theme-on-secondary);
-    }
+    gap: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+limel-button {
+    // This is a bad hack to make the button have the same color as its background.
+    // But will be removed when we get the dark-mode enabled.
+    --contrast-100: #333;
 }
