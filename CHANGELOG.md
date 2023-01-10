@@ -1,3 +1,10 @@
+## [36.2.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.7...v36.2.0-next.8) (2023-01-10)
+
+
+### Bug Fixes
+
+* **button-group:** reduce the label's font-size ([1bc1f30](https://github.com/Lundalogik/lime-elements/commit/1bc1f30f2b34ef5e809c2b247719a8a43a140d86))
+
 ## [36.2.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.6...v36.2.0-next.7) (2023-01-05)
 
 
