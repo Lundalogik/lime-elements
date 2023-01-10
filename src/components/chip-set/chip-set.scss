@@ -42,13 +42,12 @@ $scale-of-remove-chip-x-when-hovered: scale(0.7);
 }
 
 .mdc-chip {
-    @include mixins.is-elevated-inset-clickable;
+    @include mixins.is-elevated-inset-clickable();
     max-width: 100%;
     min-width: functions.pxToRem(32);
     padding: 0 functions.pxToRem(1);
     display: inline-grid;
     grid-auto-flow: column;
-    background-color: shared_input-select-picker.$mdc-chip-background-color;
 
     span[role='gridcell'] {
         min-width: 0; // This is needed to force mdc-chip__text (which is inside this span) to truncate
@@ -86,15 +85,17 @@ $scale-of-remove-chip-x-when-hovered: scale(0.7);
         }
     }
 
-    &:hover {
-        background-color: shared_input-select-picker.$mdc-chip-background-color;
-    }
-
     &.mdc-chip--selected {
+        color: var(--mdc-theme-primary) !important;
+        background-color: var(--mdc-theme-surface) !important;
         box-shadow: var(--button-shadow-inset);
 
         &:active {
             box-shadow: var(--button-shadow-inset-pressed);
+        }
+
+        .mdc-chip__icon--leading {
+            color: var(--mdc-theme-primary) !important;
         }
     }
 }
@@ -176,8 +177,9 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
 .mdc-chip__icon {
     &.mdc-chip__icon--trailing {
-        transition: background-color 0.2s ease;
+        transition: background-color 0.2s ease, color 0.2s ease;
 
+        color: var(--mdc-theme-on-surface);
         margin-left: 0;
         margin-right: functions.pxToRem(5);
 
@@ -205,6 +207,8 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     cursor: text;
 
     .mdc-text-field__input {
+        @include shared_input-select-picker.input-field-placeholder;
+
         width: auto;
         height: $height-of-chip-set-input;
         line-height: $height-of-chip-set-input;
