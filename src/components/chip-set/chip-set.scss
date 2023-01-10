@@ -275,7 +275,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 }
 
 .clear-all-button {
-    transition: opacity 0.3s ease;
     @include mixins.clear-all-button;
     @include mixins.visualize-keyboard-focus;
 
