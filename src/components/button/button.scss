@@ -19,9 +19,6 @@
 }
 
 button {
-    @include mixins.is-elevated-clickable();
-    @include mixins.visualize-keyboard-focus;
-
     &.mdc-button {
         min-width: functions.pxToRem(36);
         padding: {
@@ -35,8 +32,10 @@ button {
         width: 100%;
 
         &:not(:disabled) {
-            color: var(--mdc-theme-primary, rgb(var(--color-teal-default)));
-            background-color: rgb(var(--contrast-100));
+            @include mixins.is-elevated-clickable(
+                $color: var(--mdc-theme-primary, rgb(var(--color-teal-default)))
+            );
+            @include mixins.visualize-keyboard-focus;
 
             &.mdc-button--raised,
             &.mdc-button--unelevated {
