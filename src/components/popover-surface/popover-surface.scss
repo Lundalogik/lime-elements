@@ -40,7 +40,7 @@
         border-radius: var(--popover-border-radius, functions.pxToRem(12));
         background-color: var(
             --popover-body-background-color,
-            rgb(var(--contrast-100))
+            var(--lime-elevated-surface-background-color)
         );
     }
 
