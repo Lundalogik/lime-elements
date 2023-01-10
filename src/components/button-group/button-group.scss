@@ -4,6 +4,9 @@
 @use '../../style/mixins';
 
 @use '@material/chips/deprecated/mdc-chips';
+/**
+* @prop --button-group-background-color: Background color of the component. Defaults to `--contrast-400`
+*/
 
 .mdc-chip {
     @include mixins.is-flat-inset-clickable($background-color: transparent);
@@ -113,7 +116,10 @@
 .mdc-chip-set {
     align-items: center;
     border-radius: functions.pxToRem(60);
-    background-color: rgb(var(--contrast-400));
+    background-color: var(
+        --button-group-background-color,
+        rgb(var(--contrast-400))
+    );
     padding: 0;
 
     width: max-content;
