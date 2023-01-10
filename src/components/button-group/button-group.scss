@@ -109,6 +109,7 @@
 }
 
 .mdc-chip__text {
+    font-size: functions.pxToRem(13);
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
