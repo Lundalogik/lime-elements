@@ -215,10 +215,35 @@ kbd {
   line-height: normal;
   padding: 0.125rem 0.5rem;
   margin: 0 0.25rem;
-  border-radius: 0.25rem;
   box-shadow: var(--kompendium-button-shadow-normal), 0 0.03125rem 0.21875rem 0 rgba(var(--kompendium-contrast-100), 0.5) inset;
-  border: solid rgba(var(--kompendium-contrast-600), 0.8);
-  border-width: 0 0.0625rem 0.125rem 0.0625rem;
+  border-radius: 0.25rem;
+  border-style: solid;
+  border-color: rgba(var(--kompendium-contrast-600), 0.8);
+  border-width: 0 1px 0.125rem 1px;
+}
+@media (prefers-color-scheme: dark) {
+  kbd:not([data-theme=force-light]) {
+    background-color: rgb(var(--kompendium-contrast-200));
+    color: rgb(var(--kompendium-contrast-1100));
+    border-color: rgba(var(--kompendium-contrast-500), 0.8);
+  }
+}
+kbd[data-theme=force-dark] {
+  background-color: rgb(var(--kompendium-contrast-200));
+  color: rgb(var(--kompendium-contrast-1100));
+  border-color: rgba(var(--kompendium-contrast-500), 0.8);
+}
+@media (prefers-color-scheme: dark) {
+  :host(:not([data-theme=force-light])) kbd {
+    background-color: rgb(var(--kompendium-contrast-200));
+    color: rgb(var(--kompendium-contrast-1100));
+    border-color: rgba(var(--kompendium-contrast-500), 0.8);
+  }
+}
+:host([data-theme=force-dark]) kbd {
+  background-color: rgb(var(--kompendium-contrast-200));
+  color: rgb(var(--kompendium-contrast-1100));
+  border-color: rgba(var(--kompendium-contrast-500), 0.8);
 }
 
 :host {
@@ -319,7 +344,7 @@ dd {
   --kompendium-contrast-1400: 39, 39, 57;
   --kompendium-contrast-1500: 35, 35, 53;
   --kompendium-contrast-1600: 25, 25, 44;
-  --kompendium-contrast-1700: 0, 0, 0;
+  --kompendium-contrast-1700: 20, 20, 37;
   --kompendium-color-red-light: 229, 115, 115;
   --kompendium-color-red-default: 244, 67, 54;
   --kompendium-color-blue-light: 100, 181, 246;
@@ -333,7 +358,7 @@ dd {
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme=force-light]) {
-    --kompendium-contrast-100: 0, 0, 0;
+    --kompendium-contrast-100: 20, 20, 37;
     --kompendium-contrast-200: 25, 25, 44;
     --kompendium-contrast-300: 35, 35, 53;
     --kompendium-contrast-400: 39, 39, 57;
@@ -363,7 +388,7 @@ dd {
   }
 }
 :root[data-theme=force-dark] {
-  --kompendium-contrast-100: 0, 0, 0;
+  --kompendium-contrast-100: 20, 20, 37;
   --kompendium-contrast-200: 25, 25, 44;
   --kompendium-contrast-300: 35, 35, 53;
   --kompendium-contrast-400: 39, 39, 57;
@@ -393,7 +418,7 @@ dd {
 }
 @media (prefers-color-scheme: dark) {
   :host(:not([data-theme=force-light])) :root {
-    --kompendium-contrast-100: 0, 0, 0;
+    --kompendium-contrast-100: 20, 20, 37;
     --kompendium-contrast-200: 25, 25, 44;
     --kompendium-contrast-300: 35, 35, 53;
     --kompendium-contrast-400: 39, 39, 57;
@@ -423,7 +448,7 @@ dd {
   }
 }
 :host([data-theme=force-dark]) :root {
-  --kompendium-contrast-100: 0, 0, 0;
+  --kompendium-contrast-100: 20, 20, 37;
   --kompendium-contrast-200: 25, 25, 44;
   --kompendium-contrast-300: 35, 35, 53;
   --kompendium-contrast-400: 39, 39, 57;
