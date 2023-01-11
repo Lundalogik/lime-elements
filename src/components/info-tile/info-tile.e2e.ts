@@ -14,6 +14,19 @@ describe('limel-info-tile', () => {
             expect(value).toEqualText('Test value');
         });
     });
+
+    describe('when value is empty', () => {
+        let label: E2EElement;
+        beforeEach(async () => {
+            page = await createPage(`
+                <limel-info-tile label="Test label"></limel-info-tile>
+            `);
+            label = await page.find('limel-info-tile >>> .label');
+        });
+        it('does not crash', () => {
+            expect(label).toEqualText('Test label');
+        });
+    });
 });
 
 async function createPage(content) {
