@@ -1,9 +1,9 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
-describe('limel-icon-button', () => {
-    let page;
+describe('limel-info-tile', () => {
+    let page: E2EPage;
     describe('smoke test', () => {
-        let value;
+        let value: E2EElement;
         beforeEach(async () => {
             page = await createPage(`
                 <limel-info-tile value="Test value"></limel-info-tile>
