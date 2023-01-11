@@ -157,7 +157,7 @@ export class InfoTile {
     };
 
     private renderValue = () => {
-        const characterCount = this.value.toString().length;
+        const characterCount = (this.value ?? '').toString().length;
 
         if (this.value) {
             return (
