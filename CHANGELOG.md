@@ -1,3 +1,23 @@
+## [36.2.0](https://github.com/Lundalogik/lime-elements/compare/v36.1.0...v36.2.0) (2023-01-13)
+
+
+### Features
+
+* **form:** adds schema path to custom components form info ([6da8e1c](https://github.com/Lundalogik/lime-elements/commit/6da8e1cf305bf80c451ce7ad7fb8e9b8ca25da2c))
+* **progress-flow:** update some internals to enable tracking using Heap ([d13f3a7](https://github.com/Lundalogik/lime-elements/commit/d13f3a76e7adeaff44478021f9819e06e23c338c))
+
+
+### Bug Fixes
+
+* **button-group:** reduce the label's font-size ([1bc1f30](https://github.com/Lundalogik/lime-elements/commit/1bc1f30f2b34ef5e809c2b247719a8a43a140d86))
+* **form:** prevent error if `idSchema` is undefined ([ddf4f72](https://github.com/Lundalogik/lime-elements/commit/ddf4f7273f08d2dfb6aa3bed9ee820b67166e45c)), closes [Lundalogik/crm-feature#3136](https://github.com/Lundalogik/crm-feature/issues/3136)
+* **info-tile:** do not crash if `value` is undefined ([bec7224](https://github.com/Lundalogik/lime-elements/commit/bec72247d4e053bb0ba8b248422106c8c542ff12)), closes [#2022](https://github.com/Lundalogik/lime-elements/issues/2022)
+* **list:** prevent items from becoming fully white when focused & hovered ([865bbc3](https://github.com/Lundalogik/lime-elements/commit/865bbc311c178168a82aa4a6ecc698d8915391f5))
+* **select:** do not cover a value by label if multiple selections are possible ([441a10d](https://github.com/Lundalogik/lime-elements/commit/441a10d45554e7def653ea542f5a0a25c672c440))
+* **select:** put less space around caret icon in `is-narrow` mode ([6aa0241](https://github.com/Lundalogik/lime-elements/commit/6aa0241646279b7ace394a97cf59c2c500975cd0))
+* **select:** put less space between text and caret icon ([51f22c4](https://github.com/Lundalogik/lime-elements/commit/51f22c4834d469e43b7fce1c57f6cf179543faf5))
+* **select.template:** hide disabled option with empty text ([e2392c8](https://github.com/Lundalogik/lime-elements/commit/e2392c8e0b4e3e8bd7943d9739fba79d0c68d5cf))
+
 ## [36.2.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.2.0-next.8...v36.2.0-next.9) (2023-01-11)
 
 
