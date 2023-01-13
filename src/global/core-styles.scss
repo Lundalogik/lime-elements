@@ -27,6 +27,15 @@
     --lime-elevated-surface-background-color: rgb(var(--contrast-100));
 }
 
-@include mixins.in(dark-mode) {
-    --lime-elevated-surface-background-color: rgb(var(--contrast-200));
-}
+// ⚠️ This section below is commented out.
+// It's contents are moved to src/style/color-palette-extended.css
+//
+// Because we don't want to give dark-mode-specific shadows to those
+// clients that only import src/style/color-palette-extended-light-mode-only.css
+// Because if their OS is in dark mode, not their app,
+// The shadows will get rendered too dark, due to `@media (prefers-color-scheme: dark)`
+// rule from the mixin. The day we generate `.css` files from these `.scss` files,
+// we can do it differently.
+// @include mixins.in(dark-mode) {
+//     --lime-elevated-surface-background-color: rgb(var(--contrast-200));
+// }
