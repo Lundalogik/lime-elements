@@ -47,8 +47,7 @@ jobs:
 
   merge-back-to-next:
     needs: semantic-release
-    # if: needs.semantic-release.outputs.new_release_published == 'true'
-    if: false
+    if: needs.semantic-release.outputs.new_release_published == 'true'
     timeout-minutes: 2
     runs-on: ubuntu-latest
     steps:
