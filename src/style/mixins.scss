@@ -12,6 +12,16 @@
 }
 
 @mixin in($media) {
+    // ⛔️ As long as we don't have a script that generates a
+    // `.css` files automatically, we cannot use this mixin.
+    // we need to manually write the dark-mode CSS variables
+    // inside this file: /style/color-palette-extended.css
+    //
+    // ⚠️ Also note that this mixin only puts styles
+    // on the `:root` which means the `<html` level.
+    // Therefore, it cannot be used inside components
+    // to generate custom dark-mode styles.
+
     @if $media == dark-mode {
         @media (prefers-color-scheme: dark) {
             :root:not([data-theme='force-light']) {
