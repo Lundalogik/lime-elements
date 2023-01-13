@@ -1,8 +1,5 @@
 @use '../../../style/mixins';
 
-$background-color-of-odd-interactive-items: rgb(var(--contrast-100));
-$background-color-of-even-interactive-items: rgb(var(--contrast-200));
-
 :host(.has-striped-rows) {
     .mdc-deprecated-list {
         border: 1px solid rgb(var(--contrast-400));
@@ -10,10 +7,16 @@ $background-color-of-even-interactive-items: rgb(var(--contrast-200));
 
     .mdc-deprecated-list-item {
         &:nth-child(even) {
-            background-color: $background-color-of-even-interactive-items;
+            background-color: var(
+                --list-background-color-of-odd-interactive-items,
+                rgb(var(--contrast-200))
+            );
         }
         &:nth-child(odd) {
-            background-color: $background-color-of-odd-interactive-items;
+            background-color: var(
+                --list-background-color-of-even-interactive-items,
+                rgb(var(--contrast-100))
+            );
         }
     }
 }

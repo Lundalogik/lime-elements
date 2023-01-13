@@ -18,6 +18,8 @@ $list-mdc-list-item: 0;
  * @prop --list-grid-item-max-width: Maximum width of items in a list that has `has-grid-layout` class. Defaults to `10rem`.
  * @prop --list-grid-item-min-width: Minimum width of items in a list that has `has-grid-layout` class. Defaults to `7.5rem`.
  * @prop --list-grid-gap: Distance between items in a list that has `has-grid-layout` class. Defaults to `0.75rem`.
+ * @prop --list-background-color-of-odd-interactive-items: Background color of odd list items, when `has-striped-rows` class is applied to the component. Defaults to `--contrast-200`.
+ * @prop --list-background-color-of-even-interactive-items:  Background color of even list items, when `has-striped-rows` class is applied to the component. Defaults to `transparent`.
  */
 
 :host(limel-list) {
