@@ -1,3 +1,10 @@
+### [36.1.1](https://github.com/Lundalogik/lime-elements/compare/v36.1.0...v36.1.1) (2023-01-13)
+
+
+### Bug Fixes
+
+* **info-tile:** do not crash if `value` is undefined ([e67f700](https://github.com/Lundalogik/lime-elements/commit/e67f700698c1236302baa04065295b07ad607246)), closes [#2022](https://github.com/Lundalogik/lime-elements/issues/2022)
+
 ## [36.1.0](https://github.com/Lundalogik/lime-elements/compare/v36.0.0...v36.1.0) (2022-12-05)
 
 
