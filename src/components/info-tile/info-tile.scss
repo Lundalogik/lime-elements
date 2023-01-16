@@ -112,13 +112,13 @@ a {
 }
 
 .icon {
+    z-index: 1;
     position: absolute;
     top: 0.5rem;
     right: 0.75rem;
     padding: 0.25rem;
 
-    display: flex;
-    justify-content: center;
+    aspect-ratio: 1/1;
 
     color: var(--info-tile-icon-color, rgb(var(--contrast-1000)));
 
@@ -130,7 +130,7 @@ a {
     );
 
     @supports not (container-type: size) {
-        height: min(60%, var(--icon-max-size));
+        height: min(20%, 5rem);
     }
 
     .has-circular-progress & {
@@ -150,18 +150,16 @@ a {
         var(--icon-preferred-size),
         var(--icon-max-size)
     );
+    @supports not (container-type: size) {
+        --circular-progress-size: initial;
+    }
 }
 
 .label {
     z-index: 1;
     color: var(--info-tile-text-color, rgb(var(--contrast-1100)));
 
-    line-height: normal;
-    // white-space: normal;
-    // overflow: hidden;
-    // display: -webkit-box;
-    // -webkit-line-clamp: 2; // max number of lines before truncation
-    // -webkit-box-orient: vertical;
+    line-height: 1.2;
     font-size: clamp(
         var(--label-min-size),
         var(--label-preferred-size),
@@ -241,7 +239,7 @@ limel-linear-progress {
         var(--value-max-size)
     );
     @supports not (container-type: size) {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
 
     :host(limel-info-tile[loading]) & {
