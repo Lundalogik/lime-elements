@@ -117,8 +117,7 @@ a {
     right: 0.75rem;
     padding: 0.25rem;
 
-    display: flex;
-    justify-content: center;
+    aspect-ratio: 1/1;
 
     color: var(--info-tile-icon-color, rgb(var(--contrast-1000)));
 
