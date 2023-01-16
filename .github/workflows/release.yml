@@ -11,7 +11,6 @@ on:
 jobs:
   semantic-release:
     name: Run Semantic Release
-    if: false
     runs-on: ubuntu-latest
     outputs:
       new_release_published: ${{ steps.semantic.outputs.new_release_published }}
