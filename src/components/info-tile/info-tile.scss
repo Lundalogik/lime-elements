@@ -129,7 +129,7 @@ a {
     );
 
     @supports not (container-type: size) {
-        height: min(60%, var(--icon-max-size));
+        height: min(20%, 5rem);
     }
 
     .has-circular-progress & {
@@ -149,6 +149,9 @@ a {
         var(--icon-preferred-size),
         var(--icon-max-size)
     );
+    @supports not (container-type: size) {
+        --circular-progress-size: initial;
+    }
 }
 
 .label {
@@ -240,7 +243,7 @@ limel-linear-progress {
         var(--value-max-size)
     );
     @supports not (container-type: size) {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
 
     :host(limel-info-tile[loading]) & {
