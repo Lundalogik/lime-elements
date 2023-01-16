@@ -1,3 +1,55 @@
+## [36.3.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.2.0...v36.3.0-next.1) (2023-01-16)
+
+
+### Features
+
+* **button-group:** add a CSS variable for the group's background ([5c3d4fc](https://github.com/Lundalogik/lime-elements/commit/5c3d4fcc3a176ab1a9370d68346c9d93510b94cb))
+* **checkbox:** add a CSS variable for the border color of the unchecked state ([c7cffe2](https://github.com/Lundalogik/lime-elements/commit/c7cffe2cf2243419374838433567605a52fa761f))
+* **core-styles:** added a CSS theme variable for background color of elevated surfaces ([249bb2c](https://github.com/Lundalogik/lime-elements/commit/249bb2c61af8e968ca039104258b3cf4cbae1cad))
+* **mixins:** give basic dark-mode support to clickable elements in various components ([1492956](https://github.com/Lundalogik/lime-elements/commit/14929569cbbb7100f1cb648c8b8892e8b9897500))
+* **shadows:** add `dark` color-scheme variants of the CSS variables ([b2d7590](https://github.com/Lundalogik/lime-elements/commit/b2d75900eeeefa7a45c3b7d1b0af4597a22369b4))
+* **shadows:** add CSS variables for `focused-state` and `error-state` ([6bbd9dc](https://github.com/Lundalogik/lime-elements/commit/6bbd9dc99ec1a3a28509acba7a77cf492ca93e15))
+* **style:** add new CSS variable to visualize error with a red hue from our palette ([5da388e](https://github.com/Lundalogik/lime-elements/commit/5da388e268d108196548ee782a2831c9cccaee9d))
+* **style:** add new mixin for helper-text-color ([eccde71](https://github.com/Lundalogik/lime-elements/commit/eccde71862d2b546ef90a58d98e5c78b6d2fc98f))
+* **style:** add new mixin for input filed placeholder text ([3f7c01e](https://github.com/Lundalogik/lime-elements/commit/3f7c01e505be083ad95ec604d19a610df2bf65f8))
+
+
+### Bug Fixes
+
+* **button-group:** support dark mode properly ([d97eb66](https://github.com/Lundalogik/lime-elements/commit/d97eb6612dd0a9cd8a6209eff8e4087a25076afb))
+* **button:** support dark mode properly ([2f83603](https://github.com/Lundalogik/lime-elements/commit/2f8360393b5e0f956e35f7e9058021bb50789915))
+* **chip-set:** remove overwritten thus unused `transition` style of the clear-all-button ([80b0f74](https://github.com/Lundalogik/lime-elements/commit/80b0f74abcc4672d6976f9052beb40a6f25e3307))
+* **chip-set:** support dark mode properly ([c2c1769](https://github.com/Lundalogik/lime-elements/commit/c2c1769b436e5178b8407ae9822c79d4f9afc0b2))
+* **code-editor:** support dark mode properly ([c28ae26](https://github.com/Lundalogik/lime-elements/commit/c28ae26d8214a53d53b8a566178f311e91e75976))
+* **color-palette:** slightly lighten up the darkest `--contrast-` swatch ([7892242](https://github.com/Lundalogik/lime-elements/commit/7892242b22e10f0e7862f72643f2afb1501a812b))
+* **color-picker:** support dark mode properly ([a71d3d4](https://github.com/Lundalogik/lime-elements/commit/a71d3d4fc0516227400a3d9ab7956b5b9e3f950a))
+* **date-picker:** support dark mode properly ([f80c82e](https://github.com/Lundalogik/lime-elements/commit/f80c82ee0d58fe8489bfcb003b85158ffc44cf19))
+* **dialog:** support dark mode properly ([5d67478](https://github.com/Lundalogik/lime-elements/commit/5d67478aff458babcad22d475c9d4796ec3e68c6))
+* **dock:** support dark mode properly ([2ba8577](https://github.com/Lundalogik/lime-elements/commit/2ba85778411526f58d4e953628161192849cc767))
+* **icon-button:** use `is-flat-clickable` mixin correctly ([1562c46](https://github.com/Lundalogik/lime-elements/commit/1562c4622bd95dc3197b4d85426da60371b698e0))
+* **info-tile:** decrease space between label rows ([c83534d](https://github.com/Lundalogik/lime-elements/commit/c83534d7b6916358f0e6eee2297010c0778aec18))
+* **info-tile:** fix icon alignment issue on IOS ([ee8efc3](https://github.com/Lundalogik/lime-elements/commit/ee8efc3f152585a89fa17c67190e2365b36f5eff))
+* **info-tile:** make sure icon is on top of circular progress in small containers ([7e3bd1a](https://github.com/Lundalogik/lime-elements/commit/7e3bd1ada6d454b295d2a08e3fdaa19f3a2c805d))
+* **info-tiles:** adjust the layout if no container queries support ([ab6e907](https://github.com/Lundalogik/lime-elements/commit/ab6e9079de5bfe341fd36794a1e159e39f8d59e8))
+* **info-tile:** support dark mode properly ([e3fa102](https://github.com/Lundalogik/lime-elements/commit/e3fa102e0e28a4b353f7f8a8e912d18b65bd0ef7))
+* **input-field:** support dark mode properly ([2cc6583](https://github.com/Lundalogik/lime-elements/commit/2cc65830116013a12dd4f851541dabe881e7b55b))
+* **list:** support dark mode properly ([df4e504](https://github.com/Lundalogik/lime-elements/commit/df4e504839354f57a854886fdaad08275175903e))
+* **menu:** support dark mode properly ([816c800](https://github.com/Lundalogik/lime-elements/commit/816c80075db53aea18c67a2b285e77ea06eb0620))
+* **popover:** support dark mode properly ([d99111a](https://github.com/Lundalogik/lime-elements/commit/d99111a50cb38df3c1d397fe85d3d9fe81f7da4d))
+* **select:** support dark mode properly ([33d3abc](https://github.com/Lundalogik/lime-elements/commit/33d3abc68c526505f1cd5b59180deb1852767d7c))
+* **shortcut:** support dark mode properly ([76f7b13](https://github.com/Lundalogik/lime-elements/commit/76f7b1311965c0f616c06a7d2c520d0fe5239e41))
+* **slider:** support dark mode properly ([5a1a04c](https://github.com/Lundalogik/lime-elements/commit/5a1a04c6c38061720605206942ac965b3dc0436a))
+* **snackbar:** support dark mode properly ([4840471](https://github.com/Lundalogik/lime-elements/commit/4840471fb83ddddbc3e4d3a1d0e0902df0c912bb))
+* **style:** exclude dark-mode-only CSS variables from clients that want light-mode-only ([621b47d](https://github.com/Lundalogik/lime-elements/commit/621b47d465afe3529f60995dc7721c2c2f61a94a))
+* **style:** improve the `in(dark-mode)` mixin to fully support dark mode ([49b1e2c](https://github.com/Lundalogik/lime-elements/commit/49b1e2cbbfafed864687ab030336b1ebfdb0968d))
+* **style:** make `clear-all-button` mixin support dark mode ([92d5607](https://github.com/Lundalogik/lime-elements/commit/92d5607b34122f065a5f7764b514f24e9c882395))
+* **style:** use correct fallback for `--mdc-theme-on-surface` ([ae2a0a5](https://github.com/Lundalogik/lime-elements/commit/ae2a0a57444076f94cb4ef4d1c16b06044fefad5))
+* **switch:** support dark mode properly ([5252064](https://github.com/Lundalogik/lime-elements/commit/52520641a4bf239dc34e812b7c670d40bfba1be3))
+* **tab-bar:** support dark mode properly ([75a078a](https://github.com/Lundalogik/lime-elements/commit/75a078a4f4a8f9e4e86f4291c09c7caf94287854))
+* **table:** give it its own stacking context, using `isolate` styles ([c929b5d](https://github.com/Lundalogik/lime-elements/commit/c929b5d7abff32f5e25305560c7944adbe3d693f))
+* **table:** make pagination buttons fully support dark mode ([d20cd48](https://github.com/Lundalogik/lime-elements/commit/d20cd48139e5c2a8609d63c4a08e6f6072c736f9))
+* **table:** support dark mode properly ([36635a8](https://github.com/Lundalogik/lime-elements/commit/36635a8487cf2f361542f3dc419de51fc1c62d23))
+
 ## [36.2.0](https://github.com/Lundalogik/lime-elements/compare/v36.1.0...v36.2.0) (2023-01-13)
 
 
