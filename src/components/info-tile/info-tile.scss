@@ -158,12 +158,7 @@ a {
     z-index: 1;
     color: var(--info-tile-text-color, rgb(var(--contrast-1100)));
 
-    line-height: normal;
-    // white-space: normal;
-    // overflow: hidden;
-    // display: -webkit-box;
-    // -webkit-line-clamp: 2; // max number of lines before truncation
-    // -webkit-box-orient: vertical;
+    line-height: 1.2;
     font-size: clamp(
         var(--label-min-size),
         var(--label-preferred-size),
