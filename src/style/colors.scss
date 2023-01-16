@@ -1,17 +1,15 @@
-@use './brand-colors';
-
 :root {
-    --lime-deep-red: #{brand-colors.$lime-deep-red};
-    --lime-red: #{brand-colors.$lime-red};
-    --lime-orange: #{brand-colors.$lime-orange};
-    --lime-yellow: #{brand-colors.$lime-yellow};
-    --lime-green: #{brand-colors.$lime-green};
-    --lime-turquoise: #{brand-colors.$lime-turquoise};
-    --lime-blue: #{brand-colors.$lime-blue};
-    --lime-dark-blue: #{brand-colors.$lime-dark-blue};
-    --lime-magenta: #{brand-colors.$lime-magenta};
-    --lime-light-grey: #{brand-colors.$lime-light-grey};
-    --lime-dark-grey: #{brand-colors.$lime-dark-grey};
+    --lime-deep-red: rgb(var(--lime-brand-color-deep-red));
+    --lime-red: rgb(var(--lime-brand-color-sellable-orange));
+    --lime-orange: rgb(var(--lime-brand-color-orange));
+    --lime-yellow: rgb(var(--lime-brand-color-yellow));
+    --lime-green: rgb(var(--lime-brand-color-lime-green));
+    --lime-turquoise: rgb(var(--lime-brand-color-flexible-turquoise));
+    --lime-blue: rgb(var(--lime-brand-color-simple-blue));
+    --lime-dark-blue: rgb(var(--lime-brand-color-dark-blue));
+    --lime-magenta: rgb(var(--lime-brand-color-loving-magenta));
+    --lime-light-grey: rgb(var(--lime-brand-color-light-grey));
+    --lime-dark-grey: rgb(var(--lime-brand-color-grey));
 
     --color-percent--0: rgb(var(--color-gray-default));
     --color-percent--0to10: rgb(var(--color-red-dark));
