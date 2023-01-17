@@ -1,3 +1,15 @@
+## [36.3.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.1...v36.3.0-next.2) (2023-01-17)
+
+
+### Features
+
+* **list:** add CSS props for background color of even & odd list items ([49cfd6d](https://github.com/Lundalogik/lime-elements/commit/49cfd6d421a2025ef55d8045a336e4241f357882))
+
+
+### Bug Fixes
+
+* **list:** correctly support dark mode in lists with `has-striped-rows` class ([ce2a1f2](https://github.com/Lundalogik/lime-elements/commit/ce2a1f21017c91859d5f758334c5e7d57cd6766f))
+
 ## [36.3.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.2.0...v36.3.0-next.1) (2023-01-16)
 
 
