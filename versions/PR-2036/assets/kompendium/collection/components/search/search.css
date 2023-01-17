@@ -121,6 +121,13 @@ select {
   box-shadow: var(--kompendium-button-shadow-pressed);
   transform: translate3d(0, 0.08rem, 0);
 }
+.search-box .result.has-results li a:focus {
+  outline: none;
+}
+.search-box .result.has-results li a:focus-visible {
+  outline: none;
+  box-shadow: var(--kompendium-shadow-depth-8-focused);
+}
 .search-box .result.has-results li:hover a {
   background: rgb(var(--kompendium-contrast-100));
 }
