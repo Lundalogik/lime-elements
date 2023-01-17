@@ -137,9 +137,17 @@ a {
   transition: color 0.2s ease;
   color: rgb(var(--kompendium-color-blue-default));
   text-decoration: none;
+  border-radius: 0.125rem;
 }
 a:hover {
   color: rgb(var(--kompendium-color-blue-light));
+}
+a:focus {
+  outline: none;
+}
+a:focus-visible {
+  outline: none;
+  box-shadow: var(--kompendium-shadow-depth-8-focused);
 }
 
 ul {

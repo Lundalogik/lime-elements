@@ -179,6 +179,13 @@ section.example .code {
   box-shadow: var(--kompendium-button-shadow-pressed);
   transform: translate3d(0, 0.08rem, 0);
 }
+.debug a.debug-link:focus {
+  outline: none;
+}
+.debug a.debug-link:focus-visible {
+  outline: none;
+  box-shadow: var(--kompendium-shadow-depth-8-focused);
+}
 .debug a.debug-link:hover {
   opacity: 1;
   background-color: rgb(var(--kompendium-contrast-100));
