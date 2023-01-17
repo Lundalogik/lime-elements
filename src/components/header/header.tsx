@@ -41,6 +41,7 @@ import { Component, h, Prop } from '@stencil/core';
  * :::
  *
  * @exampleComponent limel-example-header
+ * @exampleComponent limel-example-header-colors
  * @exampleComponent limel-example-header-responsive
  * @exampleComponent limel-example-header-narrow
  * @slot - Content (actions) to be put inside the far right surface of the header
