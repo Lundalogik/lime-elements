@@ -22,25 +22,13 @@ import { Action } from '@limetech/lime-elements';
 @Component({
     tag: 'limel-example-header',
     shadow: true,
-    styleUrl: 'header.scss',
 })
 export class HeaderExample {
     private actions = [
         {
             id: '1',
-            icon: 'refresh',
-            label: 'Refresh',
-        },
-        {
-            id: '2',
-            icon: 'delete',
-            label: 'Delete',
-            disabled: true,
-        },
-        {
-            id: '3',
-            icon: 'edit',
-            label: 'Edit',
+            icon: 'multiply',
+            label: 'Close',
         },
     ];
 
@@ -74,7 +62,6 @@ export class HeaderExample {
             <limel-icon-button
                 icon={action.icon}
                 label={action.label}
-                disabled={action.disabled}
                 onClick={this.handleActionClick(action)}
             />
         );
