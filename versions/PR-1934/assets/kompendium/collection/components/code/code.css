@@ -105,6 +105,13 @@ div.code-toolbar > .toolbar .toolbar-item button:active {
   box-shadow: var(--kompendium-button-shadow-pressed);
   transform: translate3d(0, 0.08rem, 0);
 }
+div.code-toolbar > .toolbar .toolbar-item button:focus {
+  outline: none;
+}
+div.code-toolbar > .toolbar .toolbar-item button:focus-visible {
+  outline: none;
+  box-shadow: var(--kompendium-shadow-depth-8-focused);
+}
 
 /* PrismJS 1.19.0
 https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript+less+jsx+tsx+scss+typescript */
