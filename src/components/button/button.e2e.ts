@@ -48,7 +48,6 @@ describe('limel-button', () => {
             });
             it('is non-primary', () => {
                 expect(innerButton).toHaveClass('mdc-button');
-                expect(innerButton).not.toHaveClass('mdc-button--unelevated');
             });
             it('the property is falsy', async () => {
                 const propValue = await limelButton.getProperty('primary');
@@ -62,10 +61,7 @@ describe('limel-button', () => {
                 });
 
                 it('is primary', () => {
-                    expect(innerButton).toHaveClasses([
-                        'mdc-button',
-                        'mdc-button--unelevated',
-                    ]);
+                    expect(innerButton).toHaveClasses(['mdc-button']);
                 });
                 it('the property is `true`', async () => {
                     const propValue = await limelButton.getProperty('primary');
@@ -83,10 +79,7 @@ describe('limel-button', () => {
                 innerButton = await page.find('limel-button>>>button');
             });
             it('is primary', () => {
-                expect(innerButton).toHaveClasses([
-                    'mdc-button',
-                    'mdc-button--unelevated',
-                ]);
+                expect(innerButton).toHaveClasses(['mdc-button']);
             });
             it('the property is `true`', async () => {
                 const propValue = await limelButton.getProperty('primary');
@@ -101,9 +94,6 @@ describe('limel-button', () => {
 
                 it('is non-primary', () => {
                     expect(innerButton).toHaveClass('mdc-button');
-                    expect(innerButton).not.toHaveClass(
-                        'mdc-button--unelevated'
-                    );
                 });
                 it('the property is falsy', async () => {
                     const propValue = await limelButton.getProperty('primary');

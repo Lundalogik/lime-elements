@@ -73,7 +73,6 @@ export class Button {
             <button
                 class={{
                     'mdc-button': true,
-                    'mdc-button--unelevated': this.primary,
                     loading: this.loading,
                     'just-loaded': this.justLoaded && !this.loadingFailed,
                     'just-failed': this.justLoaded && this.loadingFailed,
