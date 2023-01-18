@@ -125,6 +125,16 @@ header a {
   flex-grow: 1;
   line-height: 0;
 }
+.branding-and-mode a {
+  border-radius: 0.125rem;
+}
+.branding-and-mode a:focus {
+  outline: none;
+}
+.branding-and-mode a:focus-visible {
+  outline: none;
+  box-shadow: var(--kompendium-shadow-depth-8-focused);
+}
 .branding-and-mode kompendium-darkmode-switch {
   position: relative;
   flex-shrink: 0;
@@ -148,12 +158,12 @@ header a {
 .powered-by {
   position: absolute;
   bottom: 0;
+  left: 0;
   font-size: 0.75rem;
   padding: 0.5rem 0.75rem;
   background-color: rgba(var(--kompendium-contrast-100), 0.4);
   backdrop-filter: blur(0.25rem);
   width: 100%;
-  margin-left: -0.25rem;
 }
 .powered-by p {
   padding-left: 1.75rem;
@@ -196,6 +206,13 @@ header a {
 .nav-panel__responsive-menu:active {
   box-shadow: var(--kompendium-button-shadow-pressed);
   transform: translate3d(0, 0.08rem, 0);
+}
+.nav-panel__responsive-menu:focus {
+  outline: none;
+}
+.nav-panel__responsive-menu:focus-visible {
+  outline: none;
+  box-shadow: var(--kompendium-shadow-depth-8-focused);
 }
 .nav-panel__responsive-menu span {
   transition: background-color 0.2s ease, transform 0.2s ease 0.3s, opacity 0.15s ease 0.3s;
@@ -278,6 +295,13 @@ header a {
 .panel-link.active svg {
   transform: scale(0.64) rotate(-90deg);
 }
+.panel-link:focus {
+  outline: none;
+}
+.panel-link:focus-visible {
+  outline: none;
+  box-shadow: var(--kompendium-shadow-depth-8-focused);
+}
 .panel-link svg {
   visibility: hidden;
   transition: transform 0.2s ease;
@@ -300,7 +324,10 @@ header a {
   height: 0;
 }
 .chapters > .panel-item {
-  padding-left: 0.5rem;
+  padding: 0 0.5rem;
+}
+.chapters:not(.active) {
+  visibility: hidden;
 }
 .chapters.active {
   transition: height 0.2s ease;
