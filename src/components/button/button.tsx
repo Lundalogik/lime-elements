@@ -2,16 +2,16 @@ import { Component, h, Prop, State, Watch } from '@stencil/core';
 
 /**
  * @exampleComponent limel-example-button-basic
+ * @exampleComponent limel-example-button-primary
+ * @exampleComponent limel-example-button-outlined
  * @exampleComponent limel-example-button-disabled
  * @exampleComponent limel-example-button-icon
  * @exampleComponent limel-example-button-loading
- * @exampleComponent limel-example-button-outlined
- * @exampleComponent limel-example-button-primary
- * @exampleComponent limel-example-button-composite
  * @exampleComponent limel-example-button-click-success
  * @exampleComponent limel-example-button-click-fail
  * @exampleComponent limel-example-button-reduce-presence
  * @exampleComponent limel-example-button-colors
+ * @exampleComponent limel-example-button-composite
  */
 @Component({
     tag: 'limel-button',
