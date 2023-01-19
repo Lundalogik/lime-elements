@@ -28,7 +28,7 @@ jobs:
     name: Publish Docs
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Read .nvmrc
       run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
       id: nvm
@@ -57,7 +57,7 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: actions/github-script@v3
       with:
         script: |
