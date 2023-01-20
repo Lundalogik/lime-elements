@@ -1,3 +1,11 @@
+## [36.3.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.8...v36.3.0-next.9) (2023-01-20)
+
+
+### Bug Fixes
+
+* **chip-set:** make leading icon color react to dark mode ([8b1e598](https://github.com/Lundalogik/lime-elements/commit/8b1e598538521fefca037bd41775af2ef2054e08))
+* **chipset:** make delimiters text color react to dark mode ([7ea94c5](https://github.com/Lundalogik/lime-elements/commit/7ea94c57ba63ba002e80bd7759c88146fd5a0257))
+
 ## [36.3.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.7...v36.3.0-next.8) (2023-01-20)
 
 
