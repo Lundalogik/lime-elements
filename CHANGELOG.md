@@ -1,3 +1,10 @@
+### [36.1.3](https://github.com/Lundalogik/lime-elements/compare/v36.1.2...v36.1.3) (2023-01-20)
+
+
+### Bug Fixes
+
+* **select:** do not cover a value by label if multiple selections are possible ([736f6c9](https://github.com/Lundalogik/lime-elements/commit/736f6c996e707da464ee9214e5619045a7ac5483))
+
 ### [36.1.2](https://github.com/Lundalogik/lime-elements/compare/v36.1.1...v36.1.2) (2023-01-13)
 
 
