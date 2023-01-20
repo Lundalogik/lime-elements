@@ -1,3 +1,10 @@
+## [36.3.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.4...v36.3.0-next.5) (2023-01-20)
+
+
+### Bug Fixes
+
+* **form:** use dark mode friendly CSS variable for headline & body text ([8758d37](https://github.com/Lundalogik/lime-elements/commit/8758d3736ba314369d6b5cc39967831bdd6e8b83))
+
 ## [36.3.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.3...v36.3.0-next.4) (2023-01-20)
 
 
