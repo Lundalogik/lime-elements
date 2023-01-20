@@ -44,6 +44,13 @@ jobs:
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
         CI: true
+    - name: Trigger update in lime-crm-building-blocks
+      if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'next'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
+        event-type: update-lime-elements
+        repository: Lundalogik/lime-crm-building-blocks
     - name: Trigger update in lime-crm-components
       if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'next'
       uses: peter-evans/repository-dispatch@v1
