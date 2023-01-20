@@ -70,6 +70,7 @@ $scale-factor: 0.8;
 
 label {
     @include lime-typography.typography(body2);
+    color: var(--mdc-theme-on-surface);
 
     cursor: pointer;
 
