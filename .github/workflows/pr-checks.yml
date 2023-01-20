@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Read .nvmrc
-      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       id: nvm
     - uses: actions/setup-node@v3
       with:
@@ -35,7 +35,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Read .nvmrc
-      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       id: nvm
     - uses: actions/setup-node@v3
       with:
@@ -50,7 +50,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Read .nvmrc
-      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       id: nvm
     - uses: actions/setup-node@v3
       with:
