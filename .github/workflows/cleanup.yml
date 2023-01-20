@@ -15,13 +15,13 @@ jobs:
       GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
       CI: true
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         token: ${{ secrets.CREATE_RELEASE }}
     - name: Read .nvmrc
       run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
       id: nvm
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
