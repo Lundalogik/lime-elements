@@ -118,12 +118,12 @@ header a {
   margin-bottom: 0.75rem;
 }
 .branding-and-mode h1 {
+  all: unset;
   font-size: 1rem;
   font-weight: normal;
-  letter-spacing: 0.5ch;
   color: rgb(var(--kompendium-contrast-900));
   flex-grow: 1;
-  line-height: 0;
+  line-height: 1;
 }
 .branding-and-mode a {
   border-radius: 0.125rem;
