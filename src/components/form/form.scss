@@ -169,13 +169,17 @@
         margin-bottom: 0.5rem;
     }
     .form-group {
+        .mdc-typography--headline1,
+        .mdc-typography--body1 {
+            color: var(--mdc-theme-on-surface);
+        }
+
         .mdc-typography--headline1 {
             --mdc-typography-headline1-font-size: 1.625rem;
             --mdc-typography-headline1-line-height: 1.25rem;
             --mdc-typography-headline1-font-weight: 300;
             margin-top: 1.25rem;
             margin-bottom: 0.5rem;
-            color: rgb(var(--contrast-1100));
 
             &:before {
                 content: '';
