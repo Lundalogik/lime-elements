@@ -1,3 +1,10 @@
+## [36.3.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.7...v36.3.0-next.8) (2023-01-20)
+
+
+### Bug Fixes
+
+* **collapsible-section:** make header title color respect dark mode ([0dd6dc9](https://github.com/Lundalogik/lime-elements/commit/0dd6dc982b0b6f3df2f4851e082e785bddfebe38))
+
 ## [36.3.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.6...v36.3.0-next.7) (2023-01-20)
 
 
