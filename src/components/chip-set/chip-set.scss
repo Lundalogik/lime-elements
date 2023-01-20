@@ -338,6 +338,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 .delimiter {
     opacity: 0.5;
     padding: 0 functions.pxToRem(2);
+    color: var(--mdc-theme-on-surface);
 }
 
 @import './partial-styles/_readonly';
