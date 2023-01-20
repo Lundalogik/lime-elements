@@ -1,3 +1,10 @@
+## [36.3.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.5...v36.3.0-next.6) (2023-01-20)
+
+
+### Bug Fixes
+
+* **form:** make headline and body text colors darker for nested sections ([49b43f3](https://github.com/Lundalogik/lime-elements/commit/49b43f3ce88bc7ef7479cae53f9b50594e17a6ec))
+
 ## [36.3.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.4...v36.3.0-next.5) (2023-01-20)
 
 
