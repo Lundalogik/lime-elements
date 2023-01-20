@@ -1,3 +1,10 @@
+## [36.3.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.6...v36.3.0-next.7) (2023-01-20)
+
+
+### Features
+
+* **header:** add named slot `actions` and deprecate unnamed slot ([166980f](https://github.com/Lundalogik/lime-elements/commit/166980f464c3c1d69b38b767e1cc6d0230aa58df))
+
 ## [36.3.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.5...v36.3.0-next.6) (2023-01-20)
 
 
