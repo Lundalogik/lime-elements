@@ -19,6 +19,8 @@ $background-color-disabled: transparent;
 $label-color: rgba(var(--contrast-1200), 1);
 $label-color-disabled: rgba(var(--contrast-1200), 0.5);
 $input-text-color: rgba(var(--contrast-1400), 1);
+$input-text-leading-icon-color: rgb(var(--contrast-900));
+
 $input-text-color-disabled: rgba(var(--contrast-1400), 0.5);
 $helper-text-color: $label-color;
 
@@ -228,12 +230,14 @@ $cropped-label-hack--font-size: 0.875rem; //14px
     }
 
     .mdc-text-field__icon {
+        color: $input-text-leading-icon-color;
         flex-shrink: 0;
     }
 }
 
 @mixin leading-icon {
     .mdc-text-field__icon {
+        color: $input-text-leading-icon-color;
         width: functions.pxToRem(24);
         height: functions.pxToRem(24);
     }
