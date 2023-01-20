@@ -1,3 +1,10 @@
+## [36.3.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.3...v36.3.0-next.4) (2023-01-20)
+
+
+### Bug Fixes
+
+* **button:** make sure all buttons have the same transition styles ([63c4ccd](https://github.com/Lundalogik/lime-elements/commit/63c4ccda9f9b79b98c06909da84ddbd2df4d5700))
+
 ## [36.3.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.2...v36.3.0-next.3) (2023-01-20)
 
 
