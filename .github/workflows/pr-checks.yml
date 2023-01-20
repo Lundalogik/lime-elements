@@ -14,6 +14,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  tmp:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger update in lime-crm-building-blocks
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
+        event-type: update-lime-elements
+        repository: Lundalogik/lime-crm-building-blocks
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
