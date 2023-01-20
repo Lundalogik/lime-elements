@@ -1,3 +1,17 @@
+## [36.3.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.3...v36.3.0-next.4) (2023-01-20)
+
+
+### Bug Fixes
+
+* **button:** make sure all buttons have the same transition styles ([63c4ccd](https://github.com/Lundalogik/lime-elements/commit/63c4ccda9f9b79b98c06909da84ddbd2df4d5700))
+
+## [36.3.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.2...v36.3.0-next.3) (2023-01-20)
+
+
+### Bug Fixes
+
+* **switch:** specify color for label to support darkmode better ([26efead](https://github.com/Lundalogik/lime-elements/commit/26efead1f6e2f319f5be1534f32795379d8d2eb7))
+
 ## [36.3.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.1...v36.3.0-next.2) (2023-01-17)
 
 
