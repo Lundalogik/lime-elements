@@ -130,7 +130,7 @@ a {
     );
 
     @supports not (container-type: size) {
-        height: min(20%, 5rem);
+        width: max(10%, 3rem);
     }
 
     .has-circular-progress & {
