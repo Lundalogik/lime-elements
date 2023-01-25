@@ -1,3 +1,10 @@
+## [36.3.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.9...v36.3.0-next.10) (2023-01-25)
+
+
+### Bug Fixes
+
+* **info-tile:** make sure icon does not grow too large on older browsers ([796f7e4](https://github.com/Lundalogik/lime-elements/commit/796f7e4da89407dd1f27460c7a6d87cd5d881647))
+
 ## [36.3.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.8...v36.3.0-next.9) (2023-01-20)
 
 
