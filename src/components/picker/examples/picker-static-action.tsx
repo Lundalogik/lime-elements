@@ -102,7 +102,7 @@ export class PickerStaticActionsExample {
                 actionScrollBehavior={this.actionScrollBehavior?.value}
                 actionPosition={this.actionPosition?.value}
             />,
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-max-columns-width': '10rem' }}
             >
                 <limel-select
@@ -120,8 +120,8 @@ export class PickerStaticActionsExample {
                     value={this.actionPosition}
                     options={this.actionPositions}
                 />
-            </limel-example-controls>,
-            <limel-example-value
+            </kompendium-example-controls>,
+            <kompendium-example-value
                 label="Last pressed action"
                 value={this.lastUsedAction}
             />,

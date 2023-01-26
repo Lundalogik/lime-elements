@@ -47,7 +47,7 @@ export class PickerExample {
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,
-            <limel-example-value value={this.selectedItem} />,
+            <kompendium-example-value value={this.selectedItem} />,
         ];
     }
 

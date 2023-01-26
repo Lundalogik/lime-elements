@@ -39,7 +39,7 @@ export class InputFieldNumberExample {
                 required={this.required}
                 onChange={this.handleChange}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     checked={this.formatNumber}
                     label="Format value"
@@ -60,8 +60,8 @@ export class InputFieldNumberExample {
                     label="Required"
                     onChange={this.setRequired}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

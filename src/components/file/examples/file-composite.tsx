@@ -24,7 +24,7 @@ export class FileCompositeExample {
         language: 'en' as Languages,
     };
 
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private eventPrinter: HTMLKompendiumExampleEventPrinterElement;
 
     public componentWillLoad() {
         this.schema.lime = {
@@ -43,7 +43,7 @@ export class FileCompositeExample {
         return [
             <limel-file {...this.props} onChange={this.handleChange} />,
             this.renderForm(),
-            <limel-example-event-printer
+            <kompendium-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];
@@ -51,7 +51,7 @@ export class FileCompositeExample {
 
     private renderForm() {
         return (
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
                 <limel-form
@@ -59,7 +59,7 @@ export class FileCompositeExample {
                     value={this.props}
                     onChange={this.handleFormChange}
                 />
-            </limel-example-controls>
+            </kompendium-example-controls>
         );
     }
 

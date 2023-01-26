@@ -45,13 +45,13 @@ export class ChipSetChoiceExample {
                 onChange={this.handleChange}
                 value={this.chips}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     label="Disabled"
                     onChange={this.setDisabled}
                     checked={this.disabled}
                 />
-            </limel-example-controls>,
+            </kompendium-example-controls>,
         ];
     }
 

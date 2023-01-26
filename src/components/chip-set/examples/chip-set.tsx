@@ -39,13 +39,13 @@ export class ChipSetExample {
                     },
                 ]}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     label="Disabled"
                     onChange={this.toggleEnabled}
                     checked={this.disabled}
                 />
-            </limel-example-controls>,
+            </kompendium-example-controls>,
         ];
     }
 

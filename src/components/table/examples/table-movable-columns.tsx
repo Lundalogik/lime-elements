@@ -37,7 +37,7 @@ export class TableExampleLocal {
                 movableColumns={true}
                 onChangeColumns={this.handleChangeColumns}
             />,
-            <limel-example-value
+            <kompendium-example-value
                 label="Current column order is"
                 value={columnOrder}
             />,

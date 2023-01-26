@@ -28,7 +28,7 @@ export class FileCustomIconExample {
                 onChange={this.handleChange}
                 value={this.value}
             />,
-            <limel-example-value value={this.value} />,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

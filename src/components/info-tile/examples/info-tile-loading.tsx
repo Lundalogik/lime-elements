@@ -43,13 +43,13 @@ export class InfoTileLoadingExample {
                 link={link}
                 loading={this.loading}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     label="Loading"
                     checked={this.loading}
                     onChange={this.setLoading}
                 />
-            </limel-example-controls>,
+            </kompendium-example-controls>,
         ];
     }
 

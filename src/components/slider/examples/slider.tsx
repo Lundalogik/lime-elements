@@ -32,7 +32,7 @@ export class SliderExample {
                 readonly={this.readonly}
                 onChange={this.handleChange}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -43,8 +43,8 @@ export class SliderExample {
                     label="Readonly"
                     onChange={this.setReadonly}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

@@ -39,7 +39,7 @@ export class SelectMultipleExample {
                 onChange={this.handleChange}
                 multiple={true}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -55,8 +55,8 @@ export class SelectMultipleExample {
                     label="Required"
                     onChange={this.setRequired}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

@@ -28,9 +28,9 @@ export class IconButtonCompositeExample {
                 onClick={this.toggleFavorite}
                 {...this.props}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 {this.renderControls()}
-            </limel-example-controls>,
+            </kompendium-example-controls>,
         ];
     }
 

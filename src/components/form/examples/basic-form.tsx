@@ -40,7 +40,7 @@ export class FormExample {
                 disabled={!this.valid}
                 onClick={this.handleSubmit}
             />,
-            <limel-example-value value={this.formData} />,
+            <kompendium-example-value value={this.formData} />,
         ];
     }
 

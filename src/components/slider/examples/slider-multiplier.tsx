@@ -34,7 +34,7 @@ export class SliderMultiplierExample {
                     valuemin={this.minValue}
                     onChange={this.handleChange}
                 />
-                <limel-example-value value={this.value} />
+                <kompendium-example-value value={this.value} />
             </section>
         );
     }

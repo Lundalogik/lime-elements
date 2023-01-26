@@ -39,7 +39,10 @@ export class TableExampleActivateRow {
                 onActivate={this.onActivateRow}
                 class="has-interactive-rows"
             />,
-            <limel-example-value label="Active row" value={this.activeRow} />,
+            <kompendium-example-value
+                label="Active row"
+                value={this.activeRow}
+            />,
         ];
     }
 

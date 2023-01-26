@@ -46,13 +46,13 @@ export class ButtonCompositeExample {
         ] as Button[],
     };
 
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private eventPrinter: HTMLKompendiumExampleEventPrinterElement;
 
     public render() {
         return [
             <limel-button-group {...this.props} onChange={this.handleChange} />,
             this.renderForm(),
-            <limel-example-event-printer
+            <kompendium-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];
@@ -60,7 +60,7 @@ export class ButtonCompositeExample {
 
     private renderForm() {
         return (
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
                 <limel-form
@@ -68,7 +68,7 @@ export class ButtonCompositeExample {
                     value={this.props}
                     onChange={this.handleFormChange}
                 />
-            </limel-example-controls>
+            </kompendium-example-controls>
         );
     }
 

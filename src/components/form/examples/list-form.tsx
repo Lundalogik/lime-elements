@@ -29,7 +29,7 @@ export class ListFormExample {
                 value={this.formData}
                 schema={schema}
             />,
-            <limel-example-value value={this.formData} />,
+            <kompendium-example-value value={this.formData} />,
         ];
     }
 

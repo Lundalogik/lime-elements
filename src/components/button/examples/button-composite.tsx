@@ -23,7 +23,7 @@ export class ButtonCompositeExample {
         loading: false,
     };
 
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private eventPrinter: HTMLKompendiumExampleEventPrinterElement;
 
     public componentWillLoad() {
         this.schema = {
@@ -40,7 +40,7 @@ export class ButtonCompositeExample {
         return [
             <limel-button {...this.props} onClick={this.handleEvent} />,
             this.renderForm(),
-            <limel-example-event-printer
+            <kompendium-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];
@@ -52,7 +52,7 @@ export class ButtonCompositeExample {
 
     private renderForm() {
         return (
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
                 <limel-form
@@ -60,7 +60,7 @@ export class ButtonCompositeExample {
                     value={this.props}
                     onChange={this.handleChange}
                 />
-            </limel-example-controls>
+            </kompendium-example-controls>
         );
     }
 

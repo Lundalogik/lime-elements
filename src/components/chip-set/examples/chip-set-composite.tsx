@@ -33,7 +33,7 @@ export class ChipSetCompositeExample {
         type: 'choice' as any,
     };
 
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private eventPrinter: HTMLKompendiumExampleEventPrinterElement;
 
     public componentWillLoad() {
         this.schema.lime = {
@@ -57,7 +57,7 @@ export class ChipSetCompositeExample {
         return [
             <limel-chip-set {...this.props} onChange={this.handleChange} />,
             this.renderForm(),
-            <limel-example-event-printer
+            <kompendium-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];
@@ -65,7 +65,7 @@ export class ChipSetCompositeExample {
 
     private renderForm() {
         return (
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
                 <limel-form
@@ -73,7 +73,7 @@ export class ChipSetCompositeExample {
                     value={this.props}
                     onChange={this.handleFormChange}
                 />
-            </limel-example-controls>
+            </kompendium-example-controls>
         );
     }
 

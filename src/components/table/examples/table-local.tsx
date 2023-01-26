@@ -65,11 +65,11 @@ export class TableExampleLocal {
                 onChangePage={this.handleChangePage}
                 onSort={this.handleSort}
             />,
-            <limel-example-value
+            <kompendium-example-value
                 label="Current page is"
                 value={this.currentPage}
             />,
-            <limel-example-value
+            <kompendium-example-value
                 label="Currently sorting on"
                 value={this.currentSorting}
             />,

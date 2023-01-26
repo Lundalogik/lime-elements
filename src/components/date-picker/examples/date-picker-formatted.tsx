@@ -23,7 +23,7 @@ export class DatePickerFormattedExample {
                 value={this.valueNo}
                 onChange={this.handleChangeNo}
             />,
-            <limel-example-value value={this.valueNo} />,
+            <kompendium-example-value value={this.valueNo} />,
             <limel-date-picker
                 language="fi"
                 format="YYYY-MM-DD"
@@ -32,7 +32,7 @@ export class DatePickerFormattedExample {
                 value={this.valueFi}
                 onChange={this.handleChangeFi}
             />,
-            <limel-example-value value={this.valueFi} />,
+            <kompendium-example-value value={this.valueFi} />,
         ];
     }
 

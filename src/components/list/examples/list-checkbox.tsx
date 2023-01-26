@@ -40,7 +40,7 @@ export class ListCheckboxExample {
                 items={this.items}
                 type="checkbox"
             />,
-            <limel-example-value value={this.selectedItems} />,
+            <kompendium-example-value value={this.selectedItems} />,
         ];
     }
 

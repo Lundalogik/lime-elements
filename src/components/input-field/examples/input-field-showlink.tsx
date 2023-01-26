@@ -69,7 +69,7 @@ export class InputFieldShowlinkExample {
                 type="urlAsText"
                 showLink
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -85,10 +85,10 @@ export class InputFieldShowlinkExample {
                     label="Required"
                     onChange={this.setRequired}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.emailValue} />,
-            <limel-example-value value={this.telValue} />,
-            <limel-example-value value={this.urlValue} />,
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.emailValue} />,
+            <kompendium-example-value value={this.telValue} />,
+            <kompendium-example-value value={this.urlValue} />,
         ];
     }
 

@@ -53,8 +53,8 @@ export class DynamicFormExample {
                 value={this.formData}
                 schema={this.schema}
             />,
-            <limel-example-value value={this.formData} />,
-            <limel-example-value label="Errors" value={this.errors} />,
+            <kompendium-example-value value={this.formData} />,
+            <kompendium-example-value label="Errors" value={this.errors} />,
         ];
     }
 

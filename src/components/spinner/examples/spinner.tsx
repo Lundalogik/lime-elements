@@ -22,7 +22,7 @@ export class SpinnerExample {
     public render() {
         return [
             <limel-spinner size="medium" limeBranded={this.limeBranded} />,
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
                 <limel-checkbox
@@ -30,7 +30,7 @@ export class SpinnerExample {
                     label="Lime branded (default design)"
                     onChange={this.renderBranded}
                 />
-            </limel-example-controls>,
+            </kompendium-example-controls>,
         ];
     }
     private renderBranded = (event: CustomEvent<boolean>) => {

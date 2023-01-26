@@ -73,7 +73,7 @@ export class ListRadioButtonIconsExample {
                 items={this.items}
                 type="radio"
             />,
-            <limel-example-value value={this.selectedItem} />,
+            <kompendium-example-value value={this.selectedItem} />,
         ];
     }
 

@@ -31,7 +31,7 @@ export class MenuHotkeysExample {
             <limel-menu items={this.items} onSelect={this.handleSelect}>
                 <limel-button label="Menu" slot="trigger" />
             </limel-menu>,
-            <limel-example-value
+            <kompendium-example-value
                 label="Last selected item"
                 value={this.lastSelectedItem}
             />,

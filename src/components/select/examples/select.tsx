@@ -40,7 +40,7 @@ export class SelectExample {
                 invalid={this.invalid}
                 onChange={this.changeHandler}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -61,8 +61,8 @@ export class SelectExample {
                     label="Invalid"
                     onChange={this.setInvalid}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

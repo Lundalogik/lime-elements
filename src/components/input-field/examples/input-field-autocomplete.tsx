@@ -48,7 +48,7 @@ export class InputFieldAutocompleteExample {
                 readonly={this.readonly}
                 onChange={this.handleChange}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -64,8 +64,8 @@ export class InputFieldAutocompleteExample {
                     label="Required"
                     onChange={this.setRequired}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

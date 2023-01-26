@@ -41,7 +41,7 @@ export class SliderMultiplierPercentageColorsExample {
                 readonly={this.readonly}
                 onChange={this.changeHandler}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -52,8 +52,8 @@ export class SliderMultiplierPercentageColorsExample {
                     label="Readonly"
                     onChange={this.setReadonly}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

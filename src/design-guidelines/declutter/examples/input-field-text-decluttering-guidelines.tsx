@@ -39,7 +39,7 @@ export class InputFieldTextExample {
                 readonly={this.readonly}
                 onChange={this.handleChange}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -55,7 +55,7 @@ export class InputFieldTextExample {
                     label="Required"
                     onChange={this.setRequired}
                 />
-            </limel-example-controls>,
+            </kompendium-example-controls>,
         ];
     }
 

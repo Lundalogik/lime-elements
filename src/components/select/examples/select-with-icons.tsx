@@ -55,7 +55,7 @@ export class SelectExample {
                     options={this.options}
                     onChange={this.handleChange}
                 />
-                <limel-example-value value={this.value} />
+                <kompendium-example-value value={this.value} />
             </section>
         );
     }

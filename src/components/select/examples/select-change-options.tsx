@@ -53,7 +53,7 @@ export class SelectExample {
                 disabled={this.disabled}
                 onChange={this.handleChange}
             />,
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-max-columns-width': '9rem' }}
             >
                 <limel-button
@@ -64,9 +64,9 @@ export class SelectExample {
                     label="Change Options"
                     onClick={this.changeOptionsGroup}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
-            <limel-example-value
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.value} />,
+            <kompendium-example-value
                 label="Currently showing option group"
                 value={`${this.currentOptionGroup + 1} / ${
                     this.optionGroups.length

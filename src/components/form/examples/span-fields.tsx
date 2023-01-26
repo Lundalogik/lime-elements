@@ -171,7 +171,7 @@ export class FormLayoutExample {
 
     public render() {
         return [
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
                 <limel-switch
@@ -179,7 +179,7 @@ export class FormLayoutExample {
                     value={this.dense}
                     onChange={this.handleCheckboxChange}
                 />
-            </limel-example-controls>,
+            </kompendium-example-controls>,
             <limel-form
                 onChange={this.handleFormChange}
                 onValidate={this.handleFormValidate}

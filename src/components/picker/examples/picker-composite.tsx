@@ -34,7 +34,7 @@ export class PickerCompositeExample {
         badgeIcons: true,
     };
 
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private eventPrinter: HTMLKompendiumExampleEventPrinterElement;
 
     private allItems: Array<ListItem<number>> = [
         { text: 'Admiral Swiggins', value: 1 },
@@ -79,7 +79,7 @@ export class PickerCompositeExample {
                 onInteract={this.handleEvent}
             />,
             this.renderForm(),
-            <limel-example-event-printer
+            <kompendium-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];
@@ -127,7 +127,7 @@ export class PickerCompositeExample {
 
     private renderForm() {
         return (
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
                 <limel-form
@@ -135,7 +135,7 @@ export class PickerCompositeExample {
                     value={this.props}
                     onChange={this.handleFormChange}
                 />
-            </limel-example-controls>
+            </kompendium-example-controls>
         );
     }
 

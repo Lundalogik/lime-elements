@@ -69,7 +69,7 @@ export class ChipSetInputExample {
                 emptyInputOnBlur={this.emptyInputOnBlur}
                 delimiter={this.delimiter}
             />,
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-max-columns-width': '9rem' }}
             >
                 <limel-input-field
@@ -108,8 +108,8 @@ export class ChipSetInputExample {
                     onChange={this.useDelimiters}
                     checked={this.delimiter !== null}
                 />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

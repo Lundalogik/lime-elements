@@ -23,7 +23,7 @@ export class DatePickerCompositeExample {
     };
 
     private key = 0;
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private eventPrinter: HTMLKompendiumExampleEventPrinterElement;
 
     public componentWillLoad() {
         this.schema = {
@@ -44,7 +44,7 @@ export class DatePickerCompositeExample {
                 onChange={this.handlePickerChange}
             />,
             this.renderForm(),
-            <limel-example-event-printer
+            <kompendium-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];
@@ -52,7 +52,7 @@ export class DatePickerCompositeExample {
 
     private renderForm() {
         return (
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
                 <limel-form
@@ -60,7 +60,7 @@ export class DatePickerCompositeExample {
                     value={this.props}
                     onChange={this.handleFormChange}
                 />
-            </limel-example-controls>
+            </kompendium-example-controls>
         );
     }
 

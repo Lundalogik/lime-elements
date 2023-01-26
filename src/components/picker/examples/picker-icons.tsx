@@ -122,7 +122,7 @@ export class PickerIconsExample {
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,
-            <limel-example-value value={this.selectedItems} />,
+            <kompendium-example-value value={this.selectedItems} />,
         ];
     }
 

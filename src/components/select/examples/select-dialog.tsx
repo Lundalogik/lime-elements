@@ -83,11 +83,11 @@ export class SelectDialogExample {
                     onClick={this.handleClose}
                 />
             </limel-dialog>,
-            <limel-example-value
+            <kompendium-example-value
                 label="Favorite hero"
                 value={this.heroValue}
             />,
-            <limel-example-value
+            <kompendium-example-value
                 label="Loathed villain"
                 value={this.villainValue}
             />,

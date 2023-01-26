@@ -35,12 +35,12 @@ export class InputFieldTextareaExample {
                 disabled={this.disabled}
                 readonly={this.readonly}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox onChange={this.setDisabled} label="Disabled" />
                 <limel-checkbox onChange={this.setReadonly} label="Readonly" />
                 <limel-checkbox onChange={this.setRequired} label="Required" />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
+            </kompendium-example-controls>,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

@@ -30,7 +30,7 @@ export class PropsFactoryFormExample {
                 schema={schema}
                 propsFactory={this.propsFactory}
             />,
-            <limel-example-value value={this.formData} />,
+            <kompendium-example-value value={this.formData} />,
         ];
     }
 

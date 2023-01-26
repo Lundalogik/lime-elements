@@ -47,7 +47,7 @@ export class TableExampleSelectableRows {
         { title: 'Role', field: 'role' },
     ];
 
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private eventPrinter: HTMLKompendiumExampleEventPrinterElement;
 
     constructor() {
         this.selection = [...this.defaultSelection];
@@ -72,7 +72,7 @@ export class TableExampleSelectableRows {
                 movableColumns={true}
                 class="has-interactive-rows"
             />,
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-max-columns-width': '10rem' }}
             >
                 <limel-button label="Select all" onClick={this.selectAll} />
@@ -81,13 +81,16 @@ export class TableExampleSelectableRows {
                     onClick={this.clearSelection}
                 />
                 <limel-button label="Reset" onClick={this.resetSelection} />
-            </limel-example-controls>,
-            <limel-example-value label="Active row" value={this.activeRow} />,
-            <limel-example-value
+            </kompendium-example-controls>,
+            <kompendium-example-value
+                label="Active row"
+                value={this.activeRow}
+            />,
+            <kompendium-example-value
                 label={`Selected rows: (${this.selection?.length || 0})`}
                 value={this.selection}
             />,
-            <limel-example-event-printer
+            <kompendium-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];

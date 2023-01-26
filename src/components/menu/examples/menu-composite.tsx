@@ -42,7 +42,7 @@ export class MenuCompositeExample {
         gridLayout: false,
     };
 
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private eventPrinter: HTMLKompendiumExampleEventPrinterElement;
 
     public componentWillLoad() {
         this.schema = {
@@ -73,7 +73,7 @@ export class MenuCompositeExample {
             >
                 <limel-button label="Menu" slot="trigger" />
             </limel-menu>,
-            <limel-example-controls
+            <kompendium-example-controls
                 style={{ '--example-controls-column-layout': 'auto-fit' }}
             >
                 <limel-form
@@ -81,8 +81,8 @@ export class MenuCompositeExample {
                     value={this.props}
                     onChange={this.handleChange}
                 />
-            </limel-example-controls>,
-            <limel-example-event-printer
+            </kompendium-example-controls>,
+            <kompendium-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];

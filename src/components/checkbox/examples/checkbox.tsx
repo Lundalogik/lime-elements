@@ -1,4 +1,5 @@
 import { Component, h, State } from '@stencil/core';
+import {} from 'kompendium'; // Leave this here for the compiler to be happy. Otherwise it will not find `HTMLKompendiumExampleEventPrinterElement`.
 
 @Component({
     tag: 'limel-example-checkbox',
@@ -21,7 +22,7 @@ export class CheckboxExample {
     @State()
     private readonly: boolean = false;
 
-    private eventPrinter: HTMLLimelExampleEventPrinterElement;
+    private eventPrinter: HTMLKompendiumExampleEventPrinterElement;
 
     public render() {
         return [
@@ -35,7 +36,7 @@ export class CheckboxExample {
                 onChange={this.handleChange}
                 readonly={this.readonly}
             />,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
@@ -61,13 +62,13 @@ export class CheckboxExample {
                     label="Indeterminate"
                     onChange={this.setIndeterminate}
                 />
-            </limel-example-controls>,
-            <limel-example-value label="Checked" value={this.value} />,
-            <limel-example-value
+            </kompendium-example-controls>,
+            <kompendium-example-value label="Checked" value={this.value} />,
+            <kompendium-example-value
                 label="Indeterminate"
                 value={this.indeterminate}
             />,
-            <limel-example-event-printer
+            <kompendium-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
             />,
         ];

@@ -73,7 +73,7 @@ export class ListCheckboxIconsExample {
                 items={this.items}
                 type="checkbox"
             />,
-            <limel-example-value value={this.selectedItems} />,
+            <kompendium-example-value value={this.selectedItems} />,
         ];
     }
 

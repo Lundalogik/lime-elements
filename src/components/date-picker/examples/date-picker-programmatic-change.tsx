@@ -25,7 +25,7 @@ export class DatePickerExample {
                 value={this.value}
                 onChange={this.handleChange}
             />,
-            <limel-example-value value={this.value} />,
+            <kompendium-example-value value={this.value} />,
         ];
     }
 

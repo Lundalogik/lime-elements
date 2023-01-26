@@ -52,13 +52,13 @@ export class SnackbarExample {
                     onClick={this.triggerSnackbarWithChangingMessage}
                 />
             </section>,
-            <limel-example-controls>
+            <kompendium-example-controls>
                 <limel-checkbox
                     label="Dismissible"
                     checked={this.dismissible}
                     onChange={this.onChange}
                 />
-            </limel-example-controls>,
+            </kompendium-example-controls>,
             <limel-snackbar
                 message="Please do not leave your luggage unattended! It might be taken away!"
                 timeout={SNACKBAR_TIMEOUT}
