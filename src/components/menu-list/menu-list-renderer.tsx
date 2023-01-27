@@ -55,7 +55,7 @@ export class MenuListRenderer {
         return (
             <ul
                 class={classNames}
-                aria-hidden={true}
+                aria-hidden={!this.config.isOpen}
                 role="menu"
                 aria-orientation="vertical"
                 style={{ '--maxLinesSecondaryText': '2' }}
