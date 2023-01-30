@@ -101,7 +101,7 @@
 }
 
 .mdc-tab-scroller__scroll-content {
-    padding: functions.pxToRem(8) $tab-active-outer-edge-curve-size 0
+    padding: 0.25rem $tab-active-outer-edge-curve-size 0
         $tab-active-outer-edge-curve-size;
     background-color: rgb($tab-background-color);
 }
