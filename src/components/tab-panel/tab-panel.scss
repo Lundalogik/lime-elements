@@ -1,4 +1,9 @@
+/**
+* @prop --tab-panel-background-color: Background color of the contents of the tab and the active tab of the tab bar. Defaults to `--contrast-100`.
+*/
+
 :host(limel-tab-panel) {
+    --tab-panel-background-color: rgb(var(--contrast-100));
     display: block;
     height: 100%;
 }
@@ -17,4 +22,5 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
+    background-color: var(--tab-panel-background-color);
 }
