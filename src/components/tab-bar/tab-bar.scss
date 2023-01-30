@@ -5,7 +5,6 @@
 @use '@material/tab-indicator/mdc-tab-indicator';
 @use '@material/tab/mdc-tab';
 
-$tab-content-background-color: rgb(var(--contrast-100));
 $tab-background-color: var(--contrast-300);
 $tab-border-radius: functions.pxToRem(10);
 $tab-active-outer-edge-curve-size: functions.pxToRem(12);
@@ -16,6 +15,10 @@ $tab-scroller-fade-width: 65;
 @import './partial-styles/tab-bar-scroller.scss';
 
 :host(limel-tab-bar) {
+    --limel-active-tab-background-color: var(
+        --tab-panel-background-color,
+        rgb(var(--contrast-100))
+    );
     isolation: isolate;
     display: block;
     position: relative;
@@ -85,7 +88,7 @@ $tab-scroller-fade-width: 65;
 
 .mdc-tab--active {
     border-radius: $tab-border-radius $tab-border-radius 0 0;
-    background-color: $tab-content-background-color;
+    background-color: var(--limel-active-tab-background-color);
     z-index: 2;
 
     &:before,
@@ -96,7 +99,7 @@ $tab-scroller-fade-width: 65;
         height: $tab-active-outer-edge-curve-size;
         position: absolute;
         bottom: 0;
-        background-color: $tab-content-background-color;
+        background-color: var(--limel-active-tab-background-color);
 
         -webkit-mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>"); //For chrome and Safari the browser prefix is needed. (last checked Apr 2020)
         mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>");
