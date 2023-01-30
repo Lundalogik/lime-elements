@@ -1,3 +1,16 @@
+## [36.3.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.10...v36.3.0-next.11) (2023-01-30)
+
+
+### Features
+
+* **tab-panel:** enable changing background color of tab content ([3d3d3e8](https://github.com/Lundalogik/lime-elements/commit/3d3d3e852f32a2367fb17ce34d889ddb13a83dbd))
+
+
+### Bug Fixes
+
+* **tab-bar:** make it slightly shorter in height ([4275d25](https://github.com/Lundalogik/lime-elements/commit/4275d2504eaeec027272e8d781f3183c9852f021))
+* **tab-bar:** vertically center align scroll buttons ([a72f9ab](https://github.com/Lundalogik/lime-elements/commit/a72f9ab1684f97ca926a37def6b576dad9dec328))
+
 ## [36.3.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.9...v36.3.0-next.10) (2023-01-25)
 
 
