@@ -46,6 +46,7 @@
     opacity: 0.7;
     font-size: functions.pxToRem(12);
     top: functions.pxToRem(20);
+    color: shared_input-select-picker.$helper-text-color;
 
     .slider:hover & {
         opacity: 1;
