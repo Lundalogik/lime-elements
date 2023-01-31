@@ -5,7 +5,7 @@
 }
 
 .button {
-    &:first-of-type {
+    &.back {
         // these styles will align the targeted button to the left.
         margin-right: auto;
         margin-top: 0;
@@ -24,7 +24,7 @@
 
 @media screen and (max-width: 760px) {
     .button {
-        &:first-of-type {
+        &.back {
             // these styles will add a gap between "back button" and "discard" in a mobile view
             // and put all buttons in a column.
             margin-top: 1rem;
