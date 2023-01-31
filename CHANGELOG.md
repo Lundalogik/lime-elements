@@ -1,3 +1,10 @@
+## [36.3.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.12...v36.3.0-next.13) (2023-01-31)
+
+
+### Bug Fixes
+
+* **split-button:** make sure the internal limel-button as wide as a container ([9f729f2](https://github.com/Lundalogik/lime-elements/commit/9f729f27fa759abc0809efc23f7a5a2ecc0004de))
+
 ## [36.3.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.11...v36.3.0-next.12) (2023-01-31)
 
 
