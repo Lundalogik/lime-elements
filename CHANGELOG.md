@@ -1,3 +1,10 @@
+## [36.3.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.11...v36.3.0-next.12) (2023-01-31)
+
+
+### Bug Fixes
+
+* **slider:** make min & max labels react to dark mode ([7ece7c7](https://github.com/Lundalogik/lime-elements/commit/7ece7c79b8e3c07872966299ea5c9cefe09bafc2))
+
 ## [36.3.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.10...v36.3.0-next.11) (2023-01-30)
 
 
