@@ -1,9 +1,9 @@
 import 'moment/locale/da';
 import 'moment/locale/fi';
-import 'moment/locale/nb';
-import 'moment/locale/sv';
 import 'moment/locale/fr';
+import 'moment/locale/nb';
 import 'moment/locale/nl';
+import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { DateType } from './date.types';
 
