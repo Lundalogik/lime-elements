@@ -3,6 +3,7 @@ import { FormLayoutOptions, FormLayoutType } from '../form.types';
 import { LimeJSONSchema } from '../internal.types';
 import { renderDescription, renderTitle } from './common';
 import { GridLayout } from './grid-layout';
+import { RowLayout } from './row-layout';
 import { LimeObjectFieldTemplateProps, ObjectFieldProperty } from './types';
 
 export const ObjectFieldTemplate = (props: LimeObjectFieldTemplateProps) => {
@@ -74,6 +75,7 @@ function renderLayout(
     const layouts: Record<FormLayoutType, Function> = {
         default: renderDefaultLayout,
         grid: renderGridLayout,
+        row: renderRowLayout,
     };
 
     return layouts[type](properties, layout);
@@ -98,6 +100,14 @@ function renderGridLayout(
         {
             options: layout,
         },
+        properties.map((element) => element.content)
+    );
+}
+
+function renderRowLayout(properties: ObjectFieldProperty[]) {
+    return React.createElement(
+        RowLayout,
+        {},
         properties.map((element) => element.content)
     );
 }
