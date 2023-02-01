@@ -1,3 +1,10 @@
+## [36.3.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.13...v36.3.0-next.14) (2023-02-01)
+
+
+### Bug Fixes
+
+* **split-button:** do not emit `click` events when button is disabled ([898bda7](https://github.com/Lundalogik/lime-elements/commit/898bda7069541a3b95eb643d568a6bfb0f86acd9)), closes [#2096](https://github.com/Lundalogik/lime-elements/issues/2096)
+
 ## [36.3.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.12...v36.3.0-next.13) (2023-01-31)
 
 
