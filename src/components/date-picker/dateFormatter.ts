@@ -31,7 +31,11 @@ export class DateFormatter {
     }
 
     public getLanguage() {
-        return this.language === 'no' ? 'nb' : this.language;
+        if (this.language === 'no') {
+            return 'nb';
+        }
+
+        return this.language;
     }
 
     public getDateFormat(type: DateType) {
