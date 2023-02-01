@@ -96,11 +96,19 @@ export abstract class Picker {
     }
 
     protected getFlatpickrLang() {
-        return this.language === 'nb' ? 'no' : this.language;
+        if (this.language === 'nb') {
+            return 'no';
+        }
+
+        return this.language;
     }
 
     protected getMomentLang() {
-        return this.language === 'no' ? 'nb' : this.language;
+        if (this.language === 'no') {
+            return 'nb';
+        }
+
+        return this.language;
     }
 
     private getPickerDate(selectedDates) {
