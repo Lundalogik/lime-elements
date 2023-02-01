@@ -1,4 +1,5 @@
 import 'moment/locale/da';
+import 'moment/locale/de';
 import 'moment/locale/fi';
 import 'moment/locale/fr';
 import 'moment/locale/nb';

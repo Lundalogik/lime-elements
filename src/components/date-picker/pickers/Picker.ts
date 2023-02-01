@@ -2,6 +2,7 @@ import flatpickr from 'flatpickr';
 import FlatpickrLanguages from 'flatpickr/dist/l10n';
 import { EventEmitter } from '@stencil/core';
 import 'moment/locale/da';
+import 'moment/locale/de';
 import 'moment/locale/fi';
 import 'moment/locale/fr';
 import 'moment/locale/nb';
