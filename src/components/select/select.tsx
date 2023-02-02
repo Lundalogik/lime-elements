@@ -26,6 +26,7 @@ import { SelectTemplate, triggerIconColorWarning } from './select.template';
 /**
  * @exampleComponent limel-example-select
  * @exampleComponent limel-example-select-with-icons
+ * @exampleComponent limel-example-select-with-secondary-text
  * @exampleComponent limel-example-select-multiple
  * @exampleComponent limel-example-select-with-empty-option
  * @exampleComponent limel-example-select-preselected
