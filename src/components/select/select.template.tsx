@@ -255,13 +255,14 @@ function createMenuItems(
 
     return options.filter(menuOptionFilter).map((option) => {
         const selected = isSelected(option, value);
-        const { text, disabled } = option;
+        const { text, secondaryText, disabled } = option;
         const name = getIconName(option.icon);
         const color = getIconColor(option.icon, option.iconColor);
 
         if (!name) {
             return {
                 text: text,
+                secondaryText: secondaryText,
                 selected: selected,
                 disabled: disabled,
                 value: option,
@@ -270,6 +271,7 @@ function createMenuItems(
 
         return {
             text: text,
+            secondaryText: secondaryText,
             selected: selected,
             disabled: disabled,
             value: option,

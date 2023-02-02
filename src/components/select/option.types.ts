@@ -10,6 +10,11 @@ export interface Option<T extends string = string> {
     text: string;
 
     /**
+     * Additional supporting text to display in under the option text.
+     */
+    secondaryText?: string;
+
+    /**
      * The unique value of the option. Should always be the same for any given
      * option, regardless of localization. The type `T` defaults to `string`,
      * but can be set to any type that extends `string` (using `Option<type>`),
