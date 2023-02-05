@@ -48,6 +48,7 @@ const nativeFormatForType = {
  * @exampleComponent limel-example-date-picker-formatted
  * @exampleComponent limel-example-date-picker-programmatic-change
  * @exampleComponent limel-example-date-picker-composite
+ * @exampleComponent limel-example-date-picker-custom-formatter
  */
 @Component({
     tag: 'limel-date-picker',
@@ -129,6 +130,16 @@ export class DatePicker {
     public language: Languages = 'en';
 
     /**
+     * Custom formatting function. Will be used for date formatting.
+     *
+     * :::note
+     * overrides `format` and `language`
+     * :::
+     */
+    @Prop()
+    public formatter?: (date: Date) => string;
+
+    /**
      * Emitted when the date picker value is changed.
      */
     @Event()
@@ -172,10 +183,7 @@ export class DatePicker {
 
         this.updateInternalFormatAndType();
 
-        this.formattedValue = this.dateFormatter.formatDate(
-            this.value,
-            this.internalFormat
-        );
+        this.formattedValue = this.formatValue(this.value);
     }
 
     public componentWillUpdate() {
@@ -240,6 +248,7 @@ export class DatePicker {
                     value={this.value}
                     ref={(el) => (this.datePickerCalendar = el)}
                     isOpen={this.showPortal}
+                    formatter={this.formatValue}
                     onChange={this.handleCalendarChange}
                 />
             </limel-portal>,
@@ -249,10 +258,7 @@ export class DatePicker {
     @Watch('value')
     protected onValueChange(newValue: string, oldValue: string) {
         if (newValue !== oldValue && newValue !== this.formattedValue) {
-            this.formattedValue = this.dateFormatter.formatDate(
-                this.value,
-                this.internalFormat
-            );
+            this.formattedValue = this.formatValue(this.value);
         }
     }
 
@@ -262,6 +268,8 @@ export class DatePicker {
 
         if (this.useNative) {
             this.internalFormat = this.nativeFormat;
+        } else if (this.formatter) {
+            this.formatValue = this.formatter;
         } else if (this.format) {
             this.internalFormat = this.format;
         } else {
@@ -355,10 +363,7 @@ export class DatePicker {
 
     private handleCalendarChange(event) {
         const date = event.detail;
-        this.formattedValue = this.dateFormatter.formatDate(
-            date,
-            this.internalFormat
-        );
+        this.formattedValue = this.formatValue(date);
         event.stopPropagation();
         if (this.pickerIsAutoClosing()) {
             this.hideCalendar();
@@ -395,4 +400,7 @@ export class DatePicker {
         this.formattedValue = '';
         this.change.emit(null);
     }
+
+    private formatValue = (value: Date): string =>
+        this.dateFormatter.formatDate(value, this.internalFormat);
 }

@@ -7,10 +7,9 @@ import 'moment/locale/nb';
 import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { isAndroidDevice, isIOSDevice } from '../../../util/device';
-import { DateFormatter } from '../dateFormatter';
 
 export abstract class Picker {
-    private dateFormatter: DateFormatter;
+    public formatDate: (date: Date) => string;
 
     protected dateFormat: string;
     protected language: string = 'en';
@@ -30,12 +29,10 @@ export abstract class Picker {
             this.dateFormat = dateFormat;
         }
 
-        this.dateFormatter = new DateFormatter(language);
         this.getWeek = this.getWeek.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleOnClose = this.handleOnClose.bind(this);
         this.parseDate = this.parseDate.bind(this);
-        this.formatDate = this.formatDate.bind(this);
         this.getFlatpickrLang = this.getFlatpickrLang.bind(this);
     }
 
@@ -80,10 +77,6 @@ export abstract class Picker {
     public abstract getConfig(
         useNativePicker: boolean
     ): flatpickr.Options.Options;
-
-    public formatDate(date: Date) {
-        return this.dateFormatter.formatDate(date, this.dateFormat);
-    }
 
     protected handleClose(selectedDates): Promise<any> {
         return new Promise((resolve) => {
