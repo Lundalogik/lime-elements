@@ -1,3 +1,16 @@
+## [36.3.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.14...v36.3.0-next.15) (2023-02-06)
+
+
+### Features
+
+* **date-picker:** add support for locale `de` (German) ([26224e7](https://github.com/Lundalogik/lime-elements/commit/26224e7dc724cfc119e9fa39409c86ca74aade2c))
+
+
+### Bug Fixes
+
+* **date-picker:** add missing locale `fr` (French) ([292e7c6](https://github.com/Lundalogik/lime-elements/commit/292e7c691aa7683271b643b62b2bc54e58c21af1))
+* **date-picker:** add missing locale `nl` (Dutch) ([1e44498](https://github.com/Lundalogik/lime-elements/commit/1e444980d6812ad6854e8f2eb715ffd84a6f64e9))
+
 ## [36.3.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.13...v36.3.0-next.14) (2023-02-01)
 
 
