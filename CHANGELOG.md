@@ -1,3 +1,10 @@
+## [36.3.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.16...v36.3.0-next.17) (2023-02-09)
+
+
+### Bug Fixes
+
+* **form:** make icons in `row` layout visually less dominant ([2cb7685](https://github.com/Lundalogik/lime-elements/commit/2cb7685288337c99afbe841e19914effddd7b904))
+
 ## [36.3.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.15...v36.3.0-next.16) (2023-02-09)
 
 
