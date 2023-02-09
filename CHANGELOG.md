@@ -1,3 +1,10 @@
+## [36.3.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.15...v36.3.0-next.16) (2023-02-09)
+
+
+### Features
+
+* **form:** add new layout type for rendering form fields in rows ([29cec75](https://github.com/Lundalogik/lime-elements/commit/29cec75ab2e2dd5dbd4e755777d1bd77ceef508b))
+
 ## [36.3.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.14...v36.3.0-next.15) (2023-02-06)
 
 
