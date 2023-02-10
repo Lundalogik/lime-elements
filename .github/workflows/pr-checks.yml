@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        if: github.actor != 'dependabot[bot]'
+        if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v5
@@ -68,6 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Block Autosquash Commits
+        if:  github.event_name != 'merge_group'
         uses: xt0rted/block-autosquash-commits-action@v2.2.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -82,15 +83,16 @@ jobs:
       version: "PR-${{ github.event.pull_request.number }}"
       linkToPR: true
       # Only publish docs if the PR comes from a repo owned by Lime.
-      # Also, skip publishing if the PR was created by Dependabot.
-      buildOnly: ${{ github.event.pull_request.head.repo.owner.login != 'Lundalogik' || github.actor == 'dependabot[bot]' }}
+      # Also, skip publishing if the PR was created by Dependabot,
+      # or if this is a merge queue run.
+      buildOnly: ${{ github.event.pull_request.head.repo.owner.login != 'Lundalogik' || github.actor == 'dependabot[bot]' || github.event_name == 'merge_group' }}
     secrets: inherit
 
   autoapprove:
     needs: [lint, build, test, autosquash, docs]
     # Only run job if the PR comes from a repo owned by Lime and the PR was
     # created by Dependabot.
-    if: github.event.pull_request.head.repo.owner.login == 'Lundalogik' && github.actor == 'dependabot[bot]'
+    if: github.event.pull_request.head.repo.owner.login == 'Lundalogik' && github.actor == 'dependabot[bot]' && github.event_name != 'merge_group'
     runs-on: ubuntu-latest
     steps:
       - name: Enable Automerge
