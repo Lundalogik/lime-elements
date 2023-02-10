@@ -61,7 +61,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v5
-        if: github.actor != 'dependabot[bot]'
+        if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
 
   autosquash:
     name: Block Autosquash Commits
