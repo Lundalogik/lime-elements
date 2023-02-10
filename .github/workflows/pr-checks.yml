@@ -1,5 +1,5 @@
 name: Pull Request Checks
-on: [pull_request]
+on: [pull_request, merge_group]
 
 concurrency:
   # Only allow one active run of this workflow, per PR.
