@@ -73,3 +73,37 @@ limel-badge {
     top: -0.125rem;
     right: -0.125rem;
 }
+
+// 👇 Below is a hidden and private hack
+// only for usage in Lime CRM components.
+// It enables our customers to override
+// the default Home icon, using an external URL
+// or an SVG code.
+.icon {
+    position: relative;
+
+    &:before {
+        text-align: center;
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        background: {
+            color: var(--dock-background-color, rgb(var(--contrast-100)));
+            position: center;
+            repeat: no-repeat;
+            size: contain;
+            image: var(--limel-custom-home-icon);
+        }
+        // Since `content` defaults to `undefined`
+        // no pseudo element will be rendered, unless
+        // the consumer defines something.
+        content: var(--limel-custom-home-icon-enabler);
+
+        .button.selected & {
+            background-color: var(
+                --dock-item-background-color--selected,
+                rgb(var(--contrast-200))
+            );
+        }
+    }
+}
