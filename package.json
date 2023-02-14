@@ -58,7 +58,6 @@
     "awesome-debounce-promise": "^2.1.0",
     "codemirror": "^5.65.9",
     "cross-env": "^7.0.3",
-    "cz-conventional-changelog": "^3.3.0",
     "dayjs": "^1.11.7",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
