@@ -1,3 +1,10 @@
+## [36.3.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.18...v36.3.0-next.19) (2023-02-16)
+
+
+### Features
+
+* **date-picker:** add custom formatter option ([d528a62](https://github.com/Lundalogik/lime-elements/commit/d528a62a444d5e96cd6599b1ecb05e8f0c776cfe)), closes [Lundalogik/crm-feature#3164](https://github.com/Lundalogik/crm-feature/issues/3164)
+
 ## [36.3.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.17...v36.3.0-next.18) (2023-02-16)
 
 
