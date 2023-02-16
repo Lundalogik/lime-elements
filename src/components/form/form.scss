@@ -5,6 +5,8 @@
 
 /**
  * @prop --form-body-padding: space around content of the form
+ * @prop --form-background-color-of-even-rows: Background of even rows in the form, when layout type is `row`. Defaults to `transparent`.
+ * @prop --form-background-color-of-odd-rows:Background of odd rows in the form, when layout type is `row`. Defaults to `--contrast-200`.
  */
 
 @include lime-typography.core-styles;
@@ -243,3 +245,5 @@
         }
     }
 }
+
+@import './row/row.scss';

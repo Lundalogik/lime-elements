@@ -15,3 +15,7 @@ export interface LimeObjectFieldTemplateProps extends ObjectFieldTemplateProps {
 export interface Runnable {
     run: (event: any) => void;
 }
+
+export interface RowProps {
+    children?: any;
+}

@@ -2,8 +2,11 @@ import flatpickr from 'flatpickr';
 import FlatpickrLanguages from 'flatpickr/dist/l10n';
 import { EventEmitter } from '@stencil/core';
 import 'moment/locale/da';
+import 'moment/locale/de';
 import 'moment/locale/fi';
+import 'moment/locale/fr';
 import 'moment/locale/nb';
+import 'moment/locale/nl';
 import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { isAndroidDevice, isIOSDevice } from '../../../util/device';
@@ -89,11 +92,19 @@ export abstract class Picker {
     }
 
     protected getFlatpickrLang() {
-        return this.language === 'nb' ? 'no' : this.language;
+        if (this.language === 'nb') {
+            return 'no';
+        }
+
+        return this.language;
     }
 
     protected getMomentLang() {
-        return this.language === 'no' ? 'nb' : this.language;
+        if (this.language === 'no') {
+            return 'nb';
+        }
+
+        return this.language;
     }
 
     private getPickerDate(selectedDates) {

@@ -1,3 +1,37 @@
+## [36.3.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.17...v36.3.0-next.18) (2023-02-16)
+
+
+### Bug Fixes
+
+* **info-tile:** ensure loading indicator is displayed when `value` & `suffix` are empty ([328d9d3](https://github.com/Lundalogik/lime-elements/commit/328d9d3eac38a1555c48792fba6a4ba28a71acde))
+
+## [36.3.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.16...v36.3.0-next.17) (2023-02-09)
+
+
+### Bug Fixes
+
+* **form:** make icons in `row` layout visually less dominant ([2cb7685](https://github.com/Lundalogik/lime-elements/commit/2cb7685288337c99afbe841e19914effddd7b904))
+
+## [36.3.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.15...v36.3.0-next.16) (2023-02-09)
+
+
+### Features
+
+* **form:** add new layout type for rendering form fields in rows ([29cec75](https://github.com/Lundalogik/lime-elements/commit/29cec75ab2e2dd5dbd4e755777d1bd77ceef508b))
+
+## [36.3.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.14...v36.3.0-next.15) (2023-02-06)
+
+
+### Features
+
+* **date-picker:** add support for locale `de` (German) ([26224e7](https://github.com/Lundalogik/lime-elements/commit/26224e7dc724cfc119e9fa39409c86ca74aade2c))
+
+
+### Bug Fixes
+
+* **date-picker:** add missing locale `fr` (French) ([292e7c6](https://github.com/Lundalogik/lime-elements/commit/292e7c691aa7683271b643b62b2bc54e58c21af1))
+* **date-picker:** add missing locale `nl` (Dutch) ([1e44498](https://github.com/Lundalogik/lime-elements/commit/1e444980d6812ad6854e8f2eb715ffd84a6f64e9))
+
 ## [36.3.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.13...v36.3.0-next.14) (2023-02-01)
 
 
