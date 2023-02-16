@@ -1,3 +1,10 @@
+## [36.3.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.17...v36.3.0-next.18) (2023-02-16)
+
+
+### Bug Fixes
+
+* **info-tile:** ensure loading indicator is displayed when `value` & `suffix` are empty ([328d9d3](https://github.com/Lundalogik/lime-elements/commit/328d9d3eac38a1555c48792fba6a4ba28a71acde))
+
 ## [36.3.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.16...v36.3.0-next.17) (2023-02-09)
 
 
