@@ -1,1 +1,1 @@
-import{r as e,h as r}from"./index-5f2797d5.js";const l=class{constructor(r){e(this,r)}render(){return[r("limel-file-viewer",{url:"https://avatars.githubusercontent.com/u/2682464?s=200&v=4",alt:"Lundalogik avatar",filename:"lime-logo.png"})]}};export{l as limel_example_file_viewer_filename}
+import{r as e,h as r}from"./index-a55db97c.js";const a=class{constructor(r){e(this,r)}render(){return[r("limel-file-viewer",{url:"https://avatars.githubusercontent.com/u/2682464?s=200&v=4",alt:"Lundalogik avatar",filename:"lime-logo.png"})]}};export{a as limel_example_file_viewer_filename}
