@@ -4,6 +4,8 @@
 
 .button {
     all: unset;
+    isolation: isolate;
+    position: relative;
 
     cursor: pointer;
     @include mixins.is-flat-inset-clickable(
@@ -15,7 +17,6 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    position: relative;
 
     width: 100%;
     height: var(--dock-item-height);
@@ -66,4 +67,10 @@ limel-popover {
     width: calc(var(--dock-item-height) - 1rem);
     height: calc(var(--dock-item-height) - 1rem);
     color: var(--dock-item-icon-color, var(--limel-dock-item-text-color));
+}
+
+limel-badge {
+    position: absolute;
+    top: -0.125rem;
+    right: -0.125rem;
 }

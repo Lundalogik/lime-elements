@@ -13,6 +13,9 @@
 */
 
 :host(limel-dock) {
+    --badge-background-color: rgb(var(--color-red-default));
+    --badge-text-color: rgb(var(--color-white));
+
     --dock-item-height: 2.75rem;
     --dock-padding: 0.25rem;
     --dock-expand-shrink-button-height: 1rem;
