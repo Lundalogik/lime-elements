@@ -40,6 +40,11 @@ export interface DockItem {
      * Used to specify a custom component to render as a menu for the dock item.
      */
     dockMenu?: DockMenu;
+
+    /**
+     * If specified, will display a notification badge on the buttons in the dock.
+     */
+    badge?: number | string;
 }
 
 export interface DockMenu {

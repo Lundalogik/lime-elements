@@ -1,0 +1,8 @@
+:host(my-custom-menu-with-notifications) {
+    --badge-background-color: rgb(var(--color-red-default));
+    --badge-text-color: rgb(var(--color-white));
+}
+
+limel-list {
+    --gap: 0.25rem;
+}
