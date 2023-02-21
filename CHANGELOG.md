@@ -1,3 +1,10 @@
+## [36.3.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.19...v36.3.0-next.20) (2023-02-21)
+
+
+### Features
+
+* **dock:** enable displaying a notification badge on the buttons ([54dabfa](https://github.com/Lundalogik/lime-elements/commit/54dabfac603d46828a3a716d746836ea57dc50e9))
+
 ## [36.3.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.18...v36.3.0-next.19) (2023-02-16)
 
 
