@@ -25,6 +25,7 @@ import {
  * @exampleComponent limel-example-menu-grid
  * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-secondary-text
+ * @exampleComponent limel-example-menu-notification
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -114,6 +115,7 @@ export class Menu {
         return (
             <div class="mdc-menu-surface--anchor" onClick={this.onTriggerClick}>
                 <slot name="trigger" />
+                {this.renderNotificationBadge()}
                 <limel-portal
                     visible={this.open}
                     containerId={this.portalId}
@@ -194,6 +196,8 @@ export class Menu {
             '--list-grid-item-max-width',
             '--list-grid-item-min-width',
             '--list-grid-gap',
+            '--notification-badge-background-color',
+            '--notification-badge-text-color',
         ];
         const style = getComputedStyle(this.host);
         const values = propertyNames.map((property) => {
@@ -225,4 +229,13 @@ export class Menu {
     private isMenuItem(item: MenuItem | ListSeparator): item is MenuItem {
         return !('separator' in item);
     }
+
+    private renderNotificationBadge = () => {
+        const hasNotificationBadge = (item) =>
+            'badge' in item && item.badge !== undefined;
+
+        if (this.items.some(hasNotificationBadge)) {
+            return <limel-badge />;
+        }
+    };
 }
