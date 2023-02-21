@@ -136,6 +136,7 @@ export class MenuListRenderer {
             >
                 {item.icon ? this.renderIcon(this.config, item) : null}
                 {this.renderText(item)}
+                {this.renderNotification(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
             </li>
         );
@@ -215,6 +216,12 @@ export class MenuListRenderer {
                 size={config.iconSize}
             />
         );
+    };
+
+    private renderNotification = (item: MenuItem) => {
+        if (item.badge !== undefined) {
+            return <limel-badge label={item.badge} />;
+        }
     };
 
     private renderDivider = () => {
