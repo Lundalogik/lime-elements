@@ -124,7 +124,7 @@ export class DockButton {
                     selected: this.item?.selected,
                 }}
                 onClick={handleClick}
-                aria-live={this.item.badge ? 'polite' : 'off'}
+                aria-live="polite"
             >
                 {this.renderIcon()}
                 {this.renderLabel()}
@@ -135,7 +135,7 @@ export class DockButton {
     }
 
     private renderNotification = () => {
-        if (this.item.badge || this.item.badge === '') {
+        if (this.item.badge !== undefined) {
             return <limel-badge label={this.item.badge} />;
         }
     };
