@@ -1,3 +1,15 @@
+## [36.3.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.20...v36.3.0-next.21) (2023-02-22)
+
+
+### Features
+
+* **badge:** make label optional ([1ee298f](https://github.com/Lundalogik/lime-elements/commit/1ee298f553ac73c9c236853ef4304f0aed64c372)), closes [#2140](https://github.com/Lundalogik/lime-elements/issues/2140)
+
+
+### Bug Fixes
+
+* **badge:** prevent stretching through the width of block containers ([847db27](https://github.com/Lundalogik/lime-elements/commit/847db276b5074817febbc4bb251af47bb0cea343))
+
 ## [36.3.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.19...v36.3.0-next.20) (2023-02-21)
 
 
