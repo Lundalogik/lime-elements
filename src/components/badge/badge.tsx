@@ -40,8 +40,14 @@ export class Badge {
     private renderLabel() {
         if (typeof this.label === 'number') {
             return <span>{abbreviate(this.label)}</span>;
-        } else if (typeof this.label === 'string') {
+        }
+
+        if (typeof this.label === 'string') {
             return <span>{this.label}</span>;
+        }
+
+        if (!this.label) {
+            return;
         }
     }
 
