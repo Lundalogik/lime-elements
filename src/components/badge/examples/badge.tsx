@@ -23,6 +23,6 @@ import { Component, h } from '@stencil/core';
 })
 export class BadgeExample {
     public render() {
-        return [<limel-badge />];
+        return <limel-badge />;
     }
 }
