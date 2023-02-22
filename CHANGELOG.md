@@ -1,3 +1,10 @@
+## [36.3.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.21...v36.3.0-next.22) (2023-02-22)
+
+
+### Bug Fixes
+
+* **badge:** render it smaller, when there is no label ([3e67944](https://github.com/Lundalogik/lime-elements/commit/3e679448c3caa2642e64fe5199aa666dc5152b86))
+
 ## [36.3.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.20...v36.3.0-next.21) (2023-02-22)
 
 
