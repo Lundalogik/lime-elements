@@ -12,7 +12,7 @@
     display: none;
 }
 
-:host {
+:host(limel-badge) {
     @include lime-typography.base;
     cursor: default;
     box-sizing: border-box;
@@ -23,12 +23,11 @@
 
     font-size: functions.pxToRem(11);
 
-    height: functions.pxToRem(20);
-    line-height: 1;
-    min-width: functions.pxToRem(20);
-    padding: 0 functions.pxToRem(5);
+    max-height: 1rem;
+    min-width: 0.5rem;
+    min-height: 0.5rem;
 
-    border-radius: functions.pxToRem(20);
+    border-radius: 2rem;
 
     background-color: var(--badge-background-color, rgb(var(--contrast-500)));
     color: var(--badge-text-color, rgb(var(--contrast-1200)));
@@ -36,8 +35,15 @@
 
 span {
     @include mixins.truncate-text;
-    min-width: 0;
-    max-width: 2.25rem;
+    text-align: center;
+
+    &:not(:empty) {
+        min-width: functions.pxToRem(
+            7
+        ); // ensures that a badge with only one character rendered as perfect circle
+        max-width: 2.25rem;
+        margin: 0 functions.pxToRem(4.5);
+    }
 }
 
 :host(.has-large-label) {
