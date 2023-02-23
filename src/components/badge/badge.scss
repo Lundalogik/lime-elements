@@ -13,39 +13,45 @@
 }
 
 :host(limel-badge) {
-    @include lime-typography.base;
-    cursor: default;
-    box-sizing: border-box;
+    --limel-min-badge-size: 1rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-
-    font-size: functions.pxToRem(11);
-
-    max-height: 1rem;
-    min-width: 0.5rem;
-    min-height: 0.5rem;
-
-    border-radius: 2rem;
-
-    background-color: var(--badge-background-color, rgb(var(--contrast-500)));
-    color: var(--badge-text-color, rgb(var(--contrast-1200)));
+    min-height: var(--limel-min-badge-size);
+    min-width: var(--limel-min-badge-size);
 }
 
 span {
+    @include lime-typography.base;
+    cursor: default;
+    box-sizing: border-box;
+
     @include mixins.truncate-text;
     text-align: center;
+    font-size: functions.pxToRem(11);
+    line-height: var(--limel-min-badge-size);
+
+    color: var(--badge-text-color, rgb(var(--contrast-1200)));
+
+    border-radius: var(--limel-min-badge-size);
+    max-height: var(--limel-min-badge-size);
+    min-width: 0.5rem;
+    min-height: 0.5rem;
+
+    background-color: var(--badge-background-color, rgb(var(--contrast-500)));
 
     &:not(:empty) {
-        min-width: functions.pxToRem(
-            7
+        min-width: var(
+            --limel-min-badge-size
         ); // ensures that a badge with only one character rendered as perfect circle
-        max-width: 2.25rem;
-        margin: 0 functions.pxToRem(4.5);
+        max-width: 2.75rem;
+        padding: 0 functions.pxToRem(4.5);
     }
 }
 
 :host(.has-large-label) {
-    cursor: help;
+    span {
+        cursor: help;
+    }
 }
