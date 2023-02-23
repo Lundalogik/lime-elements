@@ -1,3 +1,15 @@
+## [36.3.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.22...v36.3.0-next.23) (2023-02-23)
+
+
+### Features
+
+* **menu:** add notification badge to menu item ([2873a7d](https://github.com/Lundalogik/lime-elements/commit/2873a7d7ab10ee2909017566ae33a79de97e85bb))
+
+
+### Bug Fixes
+
+* **dock-button:** fix notification badge inconsistencies ([3164fcd](https://github.com/Lundalogik/lime-elements/commit/3164fcd5a18ac646befc79fe79c36cbfb5577625))
+
 ## [36.3.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.21...v36.3.0-next.22) (2023-02-22)
 
 
