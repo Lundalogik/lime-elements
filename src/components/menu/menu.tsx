@@ -231,11 +231,11 @@ export class Menu {
     }
 
     private renderNotificationBadge = () => {
-        const hasNotificationBadge = (item) =>
-            'badge' in item && item.badge !== undefined;
-
-        if (this.items.some(hasNotificationBadge)) {
+        if (this.items.some(this.hasNotificationBadge)) {
             return <limel-badge />;
         }
     };
+
+    private hasNotificationBadge = (item: MenuItem | ListSeparator) =>
+        this.isMenuItem(item) && item.badge !== undefined;
 }
