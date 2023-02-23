@@ -15,12 +15,14 @@ import { Component, h } from '@stencil/core';
     shadow: true,
 })
 export class BadgeExample {
+    private label0: string = '·';
     private label1: string = 'NEW';
     private label2: string = 'pretty';
     private label3: string = 'Element';
 
     public render() {
         return [
+            <limel-badge label={this.label0} />,
             <limel-badge label={this.label1} />,
             <limel-badge label={this.label2} />,
             <limel-badge label={this.label3} />,
