@@ -1,3 +1,11 @@
+## [36.3.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.23...v36.3.0-next.24) (2023-02-23)
+
+
+### Bug Fixes
+
+* **badge:** ensure empty badges are center-aligned ([e40696e](https://github.com/Lundalogik/lime-elements/commit/e40696ed5bc9f27047b9235fbe3746cf898f8571))
+* **menu:** adjust placement of the notification badge on the trigger ([bae7921](https://github.com/Lundalogik/lime-elements/commit/bae7921470fad48ffb830ffdce8ca1db22e260cc))
+
 ## [36.3.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.22...v36.3.0-next.23) (2023-02-23)
 
 
