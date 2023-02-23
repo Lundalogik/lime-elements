@@ -32,22 +32,16 @@ export class Badge {
                     'has-large-label': this.labelIsLarge(),
                 }}
             >
-                {this.renderLabel()}
+                <span>{this.renderLabel()}</span>
             </Host>
         );
     }
 
     private renderLabel() {
         if (typeof this.label === 'number') {
-            return <span>{abbreviate(this.label)}</span>;
-        }
-
-        if (typeof this.label === 'string') {
-            return <span>{this.label}</span>;
-        }
-
-        if (!this.label) {
-            return;
+            return abbreviate(this.label);
+        } else if (typeof this.label === 'string') {
+            return this.label;
         }
     }
 
