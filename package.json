@@ -52,7 +52,7 @@
     "@types/puppeteer": "^7.0.4",
     "@types/react": "^18.0.28",
     "@types/tabulator-tables": "^4.9.4",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.53.0",
     "ajv": "^6.12.6",
     "awesome-debounce-promise": "^2.1.0",
