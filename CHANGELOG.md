@@ -1,3 +1,10 @@
+## [36.3.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.24...v36.3.0-next.25) (2023-02-28)
+
+
+### Bug Fixes
+
+* **spinner:** make it show up in iOS ([1fb37e7](https://github.com/Lundalogik/lime-elements/commit/1fb37e74668196ef898d3f7e553274bcba07d60e))
+
 ## [36.3.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.23...v36.3.0-next.24) (2023-02-23)
 
 
