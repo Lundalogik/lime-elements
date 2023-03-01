@@ -9,6 +9,10 @@
 * @prop --dock-item-text-color: Text of dock items, defaults to `--contrast-1100`.
 * @prop --dock-item-text-color--selected: Text color of selected dock item, defaults to `--contrast-1300`.
 * @prop --dock-item-icon-color: Color of the optional icons used in each dock item. Only affects inactive dock items, defaults to text colors for default or selected states.
+* @prop --dock-padding-top: Space of top side of the Dock. Can be used with environment variables, to take into account safe areas on mobile devices with rounded screen corners or those that have a "notch". For instance can be set to `env(safe-area-inset-top)`.
+* @prop --dock-padding-right: Space of the right side of the Dock. Can be used with environment variables, to take into account safe areas on mobile devices with rounded screen corners or those that have a "notch". For instance can be set to `env(safe-area-inset-right)`.
+* @prop --dock-padding-bottom: Space of the bottom side of the Dock. Can be used with environment variables, to take into account safe areas on mobile devices with rounded screen corners or those that have a "notch". For instance can be set to `env(safe-area-inset-bottom)`.
+* @prop --dock-padding-left: Space of the left side of the Dock. Can be used with environment variables, to take into account safe areas on mobile devices with rounded screen corners or those that have a "notch". For instance can be set to `env(safe-area-inset-left)`.
 * @prop --popover-surface-width: Defines the width of the popover that is opened for dock items with custom components. Defaults to `auto`.
 */
 
@@ -37,6 +41,11 @@
 
     background-color: var(--dock-background-color, rgb(var(--contrast-100)));
     box-shadow: var(--shadow-depth-8);
+
+    padding-top: var(--dock-padding-top);
+    padding-right: var(--dock-padding-right);
+    padding-bottom: var(--dock-padding-bottom);
+    padding-left: var(--dock-padding-left);
 }
 
 :host(limel-dock:not(.has-mobile-layout)) {
