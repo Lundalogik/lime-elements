@@ -1,3 +1,9 @@
+---
+name: Question
+about: Any requests for support or troubleshooting, and any other questions
+
+---
+
 <!-- Please be as detailed as possible! -->
 
 ## Environment

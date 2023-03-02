@@ -1,3 +1,9 @@
+---
+name: Bug report
+about: Something not working as expected
+
+---
+
 ## Current behavior
 
 <!-- Describe how the issue manifests. Please add screenshots when possible. -->
