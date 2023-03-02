@@ -1,6 +1,6 @@
 # Lime Elements
 
-This package includes basic components like buttons, loading-spinners, etcetera.
+This package includes basic components like buttons, loading-spinners, etc. For a full list of components, along with live examples, please visit the [documentation](https://lundalogik.github.io/lime-elements/).
 
 To install, run `npm install @limetech/lime-elements`
 
