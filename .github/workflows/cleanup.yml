@@ -10,8 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_USERNAME: lime-ci
-      GH_EMAIL: 617355+lime-ci@users.noreply.github.com
+      GH_USERNAME: lime-opensource
       GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
       CI: true
     steps:
@@ -26,6 +25,6 @@ jobs:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
     - run: npm ci
-    - run: git config --global user.email "$GH_EMAIL"
-    - run: git config --global user.name "$GH_USERNAME"
+    - run: git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
+    - run: git config --global user.name "Lime Technologies OSS"
     - run: npm run docs:publish -- --remove=PR-${{ github.event.pull_request.number }}
