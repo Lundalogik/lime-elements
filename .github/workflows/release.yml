@@ -40,7 +40,7 @@ jobs:
           conventional-changelog-conventionalcommits@5.0.0
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE }}
-        GH_USERNAME: lime-ci
+        GH_USERNAME: lime-opensource
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
         CI: true
@@ -56,7 +56,7 @@ jobs:
         token: ${{ secrets.CREATE_RELEASE }}
     - name: Set Git config
       run: |
-          git config --local user.email "lime-opensource@users.noreply.github.com"
+          git config --local user.email "93315277+lime-opensource@users.noreply.github.com"
           git config --local user.name "Lime Technologies OSS"
     - run: git fetch --unshallow
     - run: git checkout next

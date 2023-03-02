@@ -40,7 +40,7 @@ jobs:
           conventional-changelog-conventionalcommits@5.0.0
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE }}
-        GH_USERNAME: lime-ci
+        GH_USERNAME: lime-opensource
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
         CI: true
