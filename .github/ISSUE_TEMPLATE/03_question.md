@@ -1,6 +1,7 @@
 ---
 name: Question
 about: Any requests for support or troubleshooting, and any other questions
+labels: question
 
 ---
 
