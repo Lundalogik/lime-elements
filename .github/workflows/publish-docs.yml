@@ -37,8 +37,8 @@ jobs:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
     - run: npm ci
-    - run: git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-    - run: git config --global user.name "${GITHUB_ACTOR}"
+    - run: git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
+    - run: git config --global user.name "Lime Technologies OSS"
     - name: Publish docs
       if: inputs.buildOnly == false
       run: npm run docs:publish -- --v=${{ inputs.version }} ${{ inputs.forcePush && '--forcePush' }}
