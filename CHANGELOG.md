@@ -1,3 +1,10 @@
+## [36.3.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.25...v36.3.0-next.26) (2023-03-06)
+
+
+### Bug Fixes
+
+* **input-field:** make possible to use placeholder in textarea type ([3d0c351](https://github.com/Lundalogik/lime-elements/commit/3d0c351f6d429667a2be481533e13bb8b7e96c96))
+
 ## [36.3.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.24...v36.3.0-next.25) (2023-02-28)
 
 
