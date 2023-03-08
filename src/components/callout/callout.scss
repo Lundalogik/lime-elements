@@ -1,0 +1,55 @@
+:host(limel-callout) {
+    display: flex;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    color: rgb(var(--contrast-1100));
+}
+:host([type='note']) {
+    --limel-callout-tint-color: rgb(var(--color-gray-default));
+}
+:host([type='important']) {
+    --limel-callout-tint-color: rgb(var(--color-sky-default));
+}
+:host([type='tip']) {
+    --limel-callout-tint-color: rgb(var(--color-green-default));
+}
+:host([type='caution']) {
+    --limel-callout-tint-color: rgb(var(--color-orange-light));
+}
+:host([type='warning']) {
+    --limel-callout-tint-color: rgb(var(--color-red-dark));
+}
+
+.side {
+    padding: 0.25rem;
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.2;
+        background-color: var(--limel-callout-tint-color);
+    }
+
+    limel-icon {
+        width: 1.5rem;
+        color: var(--limel-callout-tint-color);
+        margin-top: 0.0625rem; // ensures vertical alignment with the `heading`
+    }
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+    background-color: rgb(var(--contrast-300));
+}
+
+.heading {
+    margin: 0;
+    font-size: 1rem;
+}

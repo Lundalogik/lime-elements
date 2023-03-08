@@ -1,4 +1,9 @@
 export default {
+    'callout.note': 'Note',
+    'callout.important': 'Important',
+    'callout.tip': 'Tip',
+    'callout.caution': 'Caution',
+    'callout.warning': 'Warning',
     'date-picker.today': 'Today',
     'date-picker.month.heading': 'Month',
     'date-picker.quarter.heading': 'Quarter',
