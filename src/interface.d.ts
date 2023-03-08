@@ -23,3 +23,4 @@ export * from './components/tab-panel/tab-panel.types';
 export * from './components/table/table.types';
 export * from './components/dock/dock.types';
 export * from './components/info-tile/info-tile.types';
+export * from './components/callout/callout.types';
