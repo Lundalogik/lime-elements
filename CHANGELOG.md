@@ -1,3 +1,15 @@
+## [36.3.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.26...v36.3.0-next.27) (2023-03-10)
+
+
+### Features
+
+* **dock:** add CSS variables for paddings around the dock ([11bccfd](https://github.com/Lundalogik/lime-elements/commit/11bccfd7fcacb5a9788def9f792f6889416eb12a))
+
+
+### Bug Fixes
+
+* **dialog:** respect `env()` variables for safe-areas ([c7b05ff](https://github.com/Lundalogik/lime-elements/commit/c7b05ff6ffaff41adec658bc8ba1044a69b9a34c))
+
 ## [36.3.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.25...v36.3.0-next.26) (2023-03-06)
 
 
