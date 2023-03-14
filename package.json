@@ -48,7 +48,7 @@
     "@types/codemirror": "^5.60.2",
     "@types/html-escaper": "^3.0.0",
     "@types/jest": "^27.4.0",
-    "@types/lodash-es": "^4.17.4",
+    "@types/lodash-es": "^4.17.7",
     "@types/puppeteer": "^7.0.4",
     "@types/react": "^18.0.28",
     "@types/tabulator-tables": "^4.9.4",
