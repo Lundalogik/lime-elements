@@ -88,7 +88,7 @@
     "showdown": "2.1.0",
     "shx": "^0.3.3",
     "tabulator-tables": "^4.9.3",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   },
   "keywords": [
     "lime elements",
