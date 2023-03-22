@@ -39,7 +39,7 @@ module.exports = {
                 labels: false,
                 releasedLabels: false,
                 successComment: false,
-            }
+            },
         ],
     ],
     npmPublish: true,
