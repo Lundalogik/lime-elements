@@ -1,0 +1,1 @@
+import{r as o,h as n}from"./index-a55db97c.js";const r=class{constructor(n){o(this,n)}render(){return n("limel-admonition",{description:"I warn you to not go any further"})}};export{r as limel_example_admonition_info}
