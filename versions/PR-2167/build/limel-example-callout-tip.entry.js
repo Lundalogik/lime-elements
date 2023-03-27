@@ -1,0 +1,1 @@
+import{r as t,h as e}from"./index-a55db97c.js";const s=class{constructor(e){t(this,e)}render(){return e("limel-callout",{type:"tip",description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa."})}};export{s as limel_example_callout_tip}
