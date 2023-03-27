@@ -35,6 +35,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-button-group-icons
  * @exampleComponent limel-example-button-group
  * @exampleComponent limel-example-button-group-mix
+ * @exampleComponent limel-example-button-group-badges
  * @exampleComponent limel-example-button-group-composite
  */
 @Component({
@@ -114,6 +115,7 @@ export class ButtonGroup {
                     />
                     <label htmlFor={buttonId}>
                         {this.renderContent(button)}
+                        {this.renderBadge(button)}
                     </label>
                 </span>
             </div>
@@ -152,6 +154,14 @@ export class ButtonGroup {
             />,
             <limel-tooltip elementId={iconId} label={button.title} />,
         ];
+    }
+
+    private renderBadge(button: Button) {
+        if (!button.badge) {
+            return;
+        }
+
+        return <limel-badge label={button.badge} />;
     }
 
     private onChange(event: Event) {
