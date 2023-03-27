@@ -18,4 +18,9 @@ export interface Button {
      * True if the button should be selected. only first button will be selected.
      */
     selected?: boolean;
+
+    /**
+     * The label displayed in the badge
+     */
+    badge?: number | string;
 }
