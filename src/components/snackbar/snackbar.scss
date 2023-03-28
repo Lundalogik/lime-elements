@@ -9,6 +9,8 @@
 
 .mdc-snackbar__label {
     color: var(--mdc-theme-on-surface);
+    display: flex;
+    justify-content: center;
 }
 
 .mdc-snackbar__actions {
