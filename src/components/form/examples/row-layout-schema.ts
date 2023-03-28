@@ -107,9 +107,6 @@ export const schema: FormSchema<RowLayoutFormData> = {
                                 text: 'Our Terms & Privacy Policies',
                             },
                         },
-                        component: {
-                            name: 'limel-switch',
-                        },
                         layout: {
                             icon: 'filled_message',
                         },

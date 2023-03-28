@@ -106,11 +106,45 @@ export class SchemaField extends React.Component<FieldProps> {
         modified: false,
     };
 
+    private slot = React.createRef<HTMLSlotElement>();
+
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleCustomComponentChange =
             this.handleCustomComponentChange.bind(this);
+    }
+
+    componentDidMount() {
+        const slottedElement = this.findSlottedElement();
+
+        if (!slottedElement) {
+            return;
+        }
+
+        slottedElement.addEventListener('change', this.handleSlottedChange);
+
+        this.updateSlotted(slottedElement as Element & FormComponent);
+    }
+
+    componentDidUpdate() {
+        const slottedElement = this.findSlottedElement();
+
+        if (!slottedElement) {
+            return;
+        }
+
+        this.updateSlotted(slottedElement as Element & FormComponent);
+    }
+
+    componentWillUnmount() {
+        const slottedElement = this.findSlottedElement();
+
+        if (!slottedElement) {
+            return;
+        }
+
+        slottedElement.removeEventListener('change', this.handleSlottedChange);
     }
 
     private hasValue() {
@@ -178,13 +212,21 @@ export class SchemaField extends React.Component<FieldProps> {
         return formData;
     }
 
+    private handleSlottedChange = (event: CustomEvent) => {
+        this.handleCustomComponentChange(event);
+    };
+
     private handleCustomComponentChange(
-        event: React.SyntheticEvent<Element, CustomEvent>
+        event: React.SyntheticEvent<Element, CustomEvent> | CustomEvent
     ) {
         const { schema } = this.props;
         event.stopPropagation();
 
-        let value = event.nativeEvent.detail;
+        if ('nativeEvent' in event) {
+            event = event.nativeEvent;
+        }
+
+        let value = event.detail;
 
         if (shouldChangeToUndefined(value, schema)) {
             value = undefined;
@@ -286,10 +328,52 @@ export class SchemaField extends React.Component<FieldProps> {
             };
         }
 
+        const slotName = this.getSlotName();
+
+        if (!slotName) {
+            return React.createElement(JSONSchemaField, fieldProps);
+        }
+
         return React.createElement(
             'slot',
-            { name: this.props.name },
+            {
+                name: slotName,
+                ref: this.slot,
+            },
             React.createElement(JSONSchemaField, fieldProps)
+        );
+    }
+
+    private findSlottedElement(): Element | undefined {
+        const slottedElement = this.slot.current?.assignedElements()[0];
+
+        if (slottedElement && slottedElement.slot) {
+            return slottedElement;
+        }
+    }
+
+    private updateSlotted(element: FormComponent) {
+        element.value = this.getValue();
+        element.required = this.isRequired();
+        element.disabled = this.props.disabled;
+        (element as any).invalid = this.isInvalid();
+        element.label = this.getLabel();
+        const helperText = this.getHelperText();
+        if (helperText) {
+            element.helperText = helperText;
+        }
+    }
+
+    private getSlotName() {
+        const schemaId: string | undefined = this.props.idSchema?.$id;
+
+        if (schemaId === 'root') {
+            return;
+        }
+
+        return (
+            schemaId &&
+            schemaId.replace('root_', '').replaceAll(/_(\d+_)?/g, '.')
         );
     }
 

@@ -20,7 +20,9 @@ export class FormRowLayoutExample {
                 onChange={this.handleFormChange}
                 value={this.formData}
                 schema={schema}
-            />,
+            >
+                <limel-switch slot="info.notification" />
+            </limel-form>,
         ];
     }
 
