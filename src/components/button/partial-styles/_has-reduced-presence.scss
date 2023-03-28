@@ -34,7 +34,8 @@ $speed-of-reducing-presence: 0.3s;
             }
             limel-icon,
             limel-spinner,
-            svg {
+            svg,
+            .mdc-button__icon {
                 transition: all $speed-of-reducing-presence ease;
                 transition-delay: $speed-of-reducing-presence;
 
