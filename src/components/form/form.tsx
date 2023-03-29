@@ -29,7 +29,7 @@ import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
 import Ajv, { RequiredParams } from 'ajv';
 import { isInteger } from './validators';
-import { mapValues } from 'lodash-es';
+import { keyBy, mapValues } from 'lodash-es';
 
 /**
  * @exampleComponent limel-example-form
@@ -185,6 +185,14 @@ export class Form {
                         schema: this.modifiedSchema,
                         rootValue: this.value,
                         propsFactory: this.propsFactory,
+                        ui: keyBy(
+                            Array.from(
+                                this.host.querySelectorAll('[data-lime]')
+                            ).map((element: HTMLElement) =>
+                                JSON.parse(element.dataset.lime)
+                            ),
+                            'name'
+                        ),
                     },
                     fields: {
                         SchemaField: CustomSchemaField as any,

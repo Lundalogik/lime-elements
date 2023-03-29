@@ -78,6 +78,20 @@ export class Row extends React.Component<RowProps> {
     }
 
     private get icon() {
-        return this.schema?.lime?.layout?.icon;
+        return this.layout?.icon;
+    }
+
+    private get layout() {
+        const fieldProps = this.props.children.props;
+        const schemaId: string | undefined = fieldProps.idSchema?.$id;
+
+        const slotName =
+            schemaId &&
+            schemaId.replace('root_', '').replaceAll(/_(\d+_)?/g, '.');
+
+        const lime =
+            fieldProps.registry.formContext.ui[slotName] || this.schema?.lime;
+
+        return lime?.layout;
     }
 }

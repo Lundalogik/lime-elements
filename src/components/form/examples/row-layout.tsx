@@ -22,7 +22,18 @@ export class FormRowLayoutExample {
                 value={this.formData}
                 schema={schema}
             >
-                <FormField name="info.notification">
+                <FormField
+                    name="info.language"
+                    layout={{
+                        icon: 'globe',
+                    }}
+                />
+                <FormField
+                    name="info.notification"
+                    layout={{
+                        icon: 'filled_message',
+                    }}
+                >
                     <limel-switch />
                 </FormField>
             </limel-form>,
