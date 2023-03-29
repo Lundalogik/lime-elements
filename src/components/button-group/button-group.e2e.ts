@@ -23,6 +23,11 @@ describe('limel-button-group', () => {
                     title: 'Apple',
                     icon: 'unit-test',
                 },
+                {
+                    id: '3',
+                    title: 'Tasks',
+                    badge: 10,
+                },
             ]);
             await page.waitForChanges();
 
@@ -32,7 +37,7 @@ describe('limel-button-group', () => {
         });
 
         it('renders the buttons', () => {
-            expect(buttons.length).toEqual(2);
+            expect(buttons.length).toEqual(3);
             expect(buttons[0]).toEqualText('Lime');
         });
 
