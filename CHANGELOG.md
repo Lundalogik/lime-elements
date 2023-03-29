@@ -1,3 +1,10 @@
+## [36.3.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.28...v36.3.0-next.29) (2023-03-29)
+
+
+### Bug Fixes
+
+* **button:** hide the icon when `has-reduced-presence` class is true & the button is `disabled` ([c52f6f7](https://github.com/Lundalogik/lime-elements/commit/c52f6f7a9272e0a027c5f3ed467f3c3546974f01))
+
 ## [36.3.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.27...v36.3.0-next.28) (2023-03-29)
 
 
