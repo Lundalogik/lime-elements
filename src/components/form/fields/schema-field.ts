@@ -124,17 +124,13 @@ export class SchemaField extends React.Component<FieldProps> {
 
         slottedElement.addEventListener('change', this.handleSlottedChange);
 
-        this.updateSlotted(slottedElement as Element & FormComponent);
+        this.updateSlotted(slottedElement);
     }
 
     componentDidUpdate() {
         const slottedElement = this.findSlottedElement();
 
-        if (!slottedElement) {
-            return;
-        }
-
-        this.updateSlotted(slottedElement as Element & FormComponent);
+        this.updateSlotted(slottedElement);
     }
 
     componentWillUnmount() {
@@ -334,12 +330,18 @@ export class SchemaField extends React.Component<FieldProps> {
             return React.createElement(JSONSchemaField, fieldProps);
         }
 
+        const slotProps = {
+            name: slotName,
+            ref: this.slot,
+        };
+
+        if (this.findSlottedElement()) {
+            return React.createElement('slot', slotProps);
+        }
+
         return React.createElement(
             'slot',
-            {
-                name: slotName,
-                ref: this.slot,
-            },
+            slotProps,
             React.createElement(JSONSchemaField, fieldProps)
         );
     }
@@ -352,7 +354,23 @@ export class SchemaField extends React.Component<FieldProps> {
         }
     }
 
-    private updateSlotted(element: FormComponent) {
+    private updateSlotted(slottedElement: Element | undefined) {
+        if (!slottedElement) {
+            return;
+        }
+
+        let element: FormComponent | null;
+
+        if (slottedElement.matches('.form-group')) {
+            element = slottedElement.querySelector('*') as any;
+        } else {
+            element = slottedElement as Element & FormComponent;
+        }
+
+        if (!element) {
+            return;
+        }
+
         element.value = this.getValue();
         element.required = this.isRequired();
         element.disabled = this.props.disabled;

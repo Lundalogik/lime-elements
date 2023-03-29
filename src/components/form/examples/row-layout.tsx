@@ -1,4 +1,5 @@
 import { Component, h, State } from '@stencil/core';
+import { FormField } from '../form-field';
 import { RowLayoutFormData, schema } from './row-layout-schema';
 
 /**
@@ -21,7 +22,9 @@ export class FormRowLayoutExample {
                 value={this.formData}
                 schema={schema}
             >
-                <limel-switch slot="info.notification" />
+                <FormField name="info.notification">
+                    <limel-switch />
+                </FormField>
             </limel-form>,
         ];
     }
