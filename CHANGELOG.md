@@ -1,3 +1,10 @@
+## [36.3.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.29...v36.3.0-next.30) (2023-03-30)
+
+
+### Bug Fixes
+
+* **snackbar:** make snackbar's label center alignment ([b5c6997](https://github.com/Lundalogik/lime-elements/commit/b5c6997f9ce91f1e7316e75877d192a4d4d58674))
+
 ## [36.3.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.28...v36.3.0-next.29) (2023-03-29)
 
 
