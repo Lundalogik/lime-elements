@@ -43,6 +43,13 @@
     label {
         cursor: pointer;
         transition: color 0.2s ease;
+        display: flex;
+        align-items: center;
+        &:has(> limel-badge) {
+            .mdc-chip__text {
+                padding-right: 0.25rem;
+            }
+        }
     }
 
     input[type='radio'] {
@@ -130,4 +137,13 @@
     &.disabled {
         @include shared_input-select-picker.looks-disabled;
     }
+}
+
+limel-badge {
+    margin-right: 0.25rem;
+    pointer-events: none;
+}
+
+.mdc-chip:not(.mdc-chip--selected) {
+    --badge-background-color: rgb(var(--contrast-200));
 }

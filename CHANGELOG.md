@@ -1,3 +1,18 @@
+## [36.3.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.28...v36.3.0-next.29) (2023-03-29)
+
+
+### Bug Fixes
+
+* **button:** hide the icon when `has-reduced-presence` class is true & the button is `disabled` ([c52f6f7](https://github.com/Lundalogik/lime-elements/commit/c52f6f7a9272e0a027c5f3ed467f3c3546974f01))
+
+## [36.3.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.27...v36.3.0-next.28) (2023-03-29)
+
+
+### Features
+
+* **button-group:** add badge property to button type ([f2dc01b](https://github.com/Lundalogik/lime-elements/commit/f2dc01bbef63d63d3c0add06699ff5b854a5d9d9))
+* **button-group:** add support for badges ([2f9d9d3](https://github.com/Lundalogik/lime-elements/commit/2f9d9d34178b96776e7b9c2d517e6f6392fa7d40))
+
 ## [36.3.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.26...v36.3.0-next.27) (2023-03-10)
 
 
