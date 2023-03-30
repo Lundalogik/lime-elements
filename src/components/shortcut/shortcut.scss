@@ -48,7 +48,6 @@ a {
             )
     );
     @include mixins.visualize-keyboard-focus;
-    cursor: pointer;
     text-align: center;
 
     height: calc(100% - 1rem);
