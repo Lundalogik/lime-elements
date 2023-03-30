@@ -50,6 +50,7 @@
     transition: color 0.2s ease, background-color 0.2s ease,
         box-shadow 0.2s ease, transform 0.1s ease-out;
 
+    cursor: pointer;
     color: $color;
     background-color: $background-color;
     box-shadow: var(--button-shadow-normal);
@@ -77,6 +78,7 @@
     transition: color 0.2s ease, background-color 0.2s ease,
         box-shadow 0.2s ease, transform 0.1s ease-out;
 
+    cursor: pointer;
     color: $color;
     background-color: $background-color;
     box-shadow: var(--button-shadow-normal);
@@ -103,6 +105,7 @@
     transition: color 0.2s ease, background-color 0.2s ease,
         box-shadow 0.2s ease, transform 0.1s ease-out;
 
+    cursor: pointer;
     color: $color;
     background-color: $background-color;
 
@@ -129,6 +132,7 @@
     transition: color 0.2s ease, background-color 0.2s ease,
         box-shadow 0.2s ease, transform 0.1s ease-out;
 
+    cursor: pointer;
     color: $color;
     background-color: $background-color;
 

@@ -269,7 +269,6 @@ svg {
 .datepicker-quarter,
 .datepicker-year {
     @include mixins.is-flat-clickable;
-    cursor: pointer;
     min-width: 0;
     text-align: center;
 

@@ -13,7 +13,6 @@ details {
 }
 
 summary {
-    cursor: pointer;
     @include mixins.is-flat-clickable();
     border-radius: 0.25rem;
     padding: 0.25rem 0.5rem;

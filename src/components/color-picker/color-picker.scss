@@ -42,7 +42,6 @@
 
 .picker-trigger {
     border-radius: 0.5rem;
-    cursor: pointer;
     @include mixins.is-elevated-clickable();
 
     &:after {

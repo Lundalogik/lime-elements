@@ -5,8 +5,6 @@
     @include mixins.is-flat-clickable();
     @include mixins.visualize-keyboard-focus;
 
-    cursor: pointer;
-
     display: flex;
     justify-content: center;
     align-items: center;

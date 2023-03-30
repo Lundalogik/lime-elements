@@ -117,8 +117,6 @@ hr {
     border: none;
     border-radius: functions.pxToRem(4);
 
-    cursor: pointer;
-
     &:focus {
         outline: none;
     }

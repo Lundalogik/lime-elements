@@ -7,7 +7,6 @@
     isolation: isolate;
     position: relative;
 
-    cursor: pointer;
     @include mixins.is-flat-inset-clickable(
         $color: var(--limel-dock-item-text-color),
         $background-color: var(--dock-background-color)
