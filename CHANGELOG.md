@@ -1,3 +1,10 @@
+## [36.3.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.31...v36.3.0-next.32) (2023-03-31)
+
+
+### Features
+
+* **callout:** add new component ([fb53730](https://github.com/Lundalogik/lime-elements/commit/fb53730886079b639aedbc547de6ef76768f4a2c))
+
 ## [36.3.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.30...v36.3.0-next.31) (2023-03-31)
 
 
