@@ -79,7 +79,7 @@ export class Callout {
                 <h1 class="heading">
                     {getHeading(this.heading, this.type, this.language)}
                 </h1>
-                <slot name="content" />
+                <slot />
             </div>,
         ];
     }

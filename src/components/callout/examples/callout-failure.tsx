@@ -13,12 +13,10 @@ export class CalloutInfoExample {
     public render() {
         return (
             <limel-callout type="failure">
-                <span slot="content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nulla et euismod nulla. Curabitur feugiat, tortor non
-                    consequat finibus, justo purus auctor massa, nec semper
-                    lorem quam in massa.
-                </span>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                et euismod nulla. Curabitur feugiat, tortor non consequat
+                finibus, justo purus auctor massa, nec semper lorem quam in
+                massa.
             </limel-callout>
         );
     }

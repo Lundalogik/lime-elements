@@ -58,7 +58,7 @@ export class CalloutCompositeExample {
 
         return [
             <limel-callout {...this.props}>
-                <div slot="content" innerHTML={content}></div>
+                <div innerHTML={content} />
             </limel-callout>,
             this.renderForm(),
         ];
