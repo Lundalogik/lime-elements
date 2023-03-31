@@ -1,3 +1,12 @@
+/**
+ * Note! This file is exported to `dist/scss/` in the published
+ * node module, for consumer projects to import.
+ * That means this file cannot import from any file that isn't
+ * also exported, keeping the same relative path.
+ *
+ * Or, just don't import anything, that works too.
+ */
+
 @mixin visualize-keyboard-focus {
     &:focus {
         outline: none;
