@@ -24,8 +24,6 @@ import { Languages } from '@limetech/lime-elements';
  * @exampleComponent limel-example-callout-tip
  * @exampleComponent limel-example-callout-caution
  * @exampleComponent limel-example-callout-warning
- * @exampleComponent limel-example-callout-custom-component
- * @exampleComponent limel-example-callout-styles
  */
 @Component({
     tag: 'limel-callout',
@@ -42,7 +40,7 @@ export class Callout {
 
     /**
      * Defines the language for translations.
-     * Will translate the default headings for supported languages.
+     * Will translate the headings for supported languages.
      */
     @Prop()
     public language: Languages = 'en';
