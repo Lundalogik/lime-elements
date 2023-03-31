@@ -6,7 +6,10 @@ export const config: Config = {
     outputTargets: [
         {
             type: 'dist',
-            copy: [{ src: 'style/' }],
+            copy: [
+                { src: 'style/' },
+                { src: 'style/mixins.scss', dest: '../scss/mixins.scss' },
+            ],
         },
     ],
     plugins: [sass()],
