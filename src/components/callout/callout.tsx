@@ -22,14 +22,9 @@ import { Languages } from '@limetech/lime-elements';
  *
  * @exampleComponent limel-example-callout-info
  * @exampleComponent limel-example-callout-warning
- * @exampleComponent limel-example-callout-danger
  * @exampleComponent limel-example-callout-note
  * @exampleComponent limel-example-callout-tip
- * @exampleComponent limel-example-callout-success
- * @exampleComponent limel-example-callout-failure
  * @exampleComponent limel-example-callout-example
- * @exampleComponent limel-example-callout-quote
- * @exampleComponent limel-example-callout-question
  * @exampleComponent limel-example-callout-custom-heading
  * @exampleComponent limel-example-callout-custom-icon
  * @exampleComponent limel-example-callout-custom-component

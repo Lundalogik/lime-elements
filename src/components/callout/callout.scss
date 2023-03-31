@@ -17,12 +17,6 @@
         rgb(var(--color-sky-default))
     );
 }
-:host([type='danger']) {
-    --limel-callout-tint-color: var(
-        --callout-color,
-        rgb(var(--color-glaucous-darker))
-    );
-}
 :host([type='note']) {
     --limel-callout-tint-color: var(
         --callout-color,
@@ -45,30 +39,6 @@
     --limel-callout-tint-color: var(
         --callout-color,
         rgb(var(--color-orange-dark))
-    );
-}
-:host([type='quote']) {
-    --limel-callout-tint-color: var(
-        --callout-color,
-        rgb(var(--color-glaucous-default))
-    );
-}
-:host([type='question']) {
-    --limel-callout-tint-color: var(
-        --callout-color,
-        rgb(var(--color-violet-default))
-    );
-}
-:host([type='success']) {
-    --limel-callout-tint-color: var(
-        --callout-color,
-        rgb(var(--color-cyan-default))
-    );
-}
-:host([type='failure']) {
-    --limel-callout-tint-color: var(
-        --callout-color,
-        rgb(var(--color-red-default))
     );
 }
 
