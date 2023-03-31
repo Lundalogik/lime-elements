@@ -1,3 +1,11 @@
+## [36.3.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.30...v36.3.0-next.31) (2023-03-31)
+
+
+### Bug Fixes
+
+* **info-tile:** position the badge more graphically correct ([d54b37d](https://github.com/Lundalogik/lime-elements/commit/d54b37da978bab3c7c1b1cef3f11a41eef5995ab))
+* **shortcut:** position the badge more graphically correct ([688ddf8](https://github.com/Lundalogik/lime-elements/commit/688ddf8a4f34b24f3f2989abafb2ba6010e19d5b))
+
 ## [36.3.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.29...v36.3.0-next.30) (2023-03-30)
 
 
