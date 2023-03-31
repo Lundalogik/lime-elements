@@ -4,11 +4,11 @@
  * and icons can be changed too as long as you provide and icon with the same
  * file name. [Read more](#/component/limel-icon/)
  *
- * - `tip`: useful for displaying tips and how-tos.
- * - `info`: useful for displaying information with low importance.
- * - `note`: useful for displaying information with medium importance.
- * - `warning`: useful for displaying information with high importance, like warnings.
- * - `example`: useful for displaying an example.
+ * - `note`: You might read this, you might not.
+ * - `important`: You should read this.
+ * - `tip`: You want to read this.
+ * - `caution`: I hope you read this.
+ * - `warning`: You need to read this.
  */
 
-export type CalloutType = 'note' | 'tip' | 'info' | 'warning' | 'example';
+export type CalloutType = 'note' | 'important' | 'tip' | 'caution' | 'warning';

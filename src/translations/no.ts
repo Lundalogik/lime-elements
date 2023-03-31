@@ -1,9 +1,9 @@
 export default {
     'callout.note': 'Note',
+    'callout.important': 'Viktig',
     'callout.tip': 'Tip',
-    'callout.info': 'Info',
+    'callout.caution': 'Advarsel',
     'callout.warning': 'Advarsel',
-    'callout.example': 'Eksempel',
     'date-picker.today': 'I dag',
     'date-picker.month.heading': 'Måned',
     'date-picker.quarter.heading': 'Kvartal',

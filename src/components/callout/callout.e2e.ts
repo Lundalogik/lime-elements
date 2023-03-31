@@ -1,15 +1,15 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('limel-callout', () => {
-    it('renders a callout with the default "Info" heading', async () => {
+    it('renders a callout with the default "Note" heading', async () => {
         const page = await newE2EPage({
             html: '<limel-callout></limel-callout>',
         });
 
         const heading = await page.find('limel-callout>>>.heading');
         const icon = await page.find('limel-callout>>>limel-icon');
-        expect(heading.textContent).toEqual('Info');
-        expect(icon.getAttribute('name')).toEqual('info');
+        expect(heading.textContent).toEqual('Note');
+        expect(icon.getAttribute('name')).toEqual('appointment_reminders');
     });
 
     it('renders a callout with the provided heading', async () => {
@@ -31,11 +31,11 @@ describe('limel-callout', () => {
 
     it('renders a callout with the correct icon based on type', async () => {
         const page = await newE2EPage({
-            html: '<limel-callout type="example"></limel-callout>',
+            html: '<limel-callout type="tip"></limel-callout>',
         });
 
         const icon = await page.find('limel-callout>>>limel-icon');
-        expect(icon.getAttribute('name')).toEqual('test_tube');
+        expect(icon.getAttribute('name')).toEqual('idea');
     });
 
     it('renders a callout with the default icon if type is not recognized', async () => {
@@ -44,6 +44,6 @@ describe('limel-callout', () => {
         });
 
         const icon = await page.find('limel-callout>>>limel-icon');
-        expect(icon.getAttribute('name')).toEqual('info');
+        expect(icon.getAttribute('name')).toEqual('appointment_reminders');
     });
 });

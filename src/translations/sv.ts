@@ -1,9 +1,9 @@
 export default {
     'callout.note': 'Obs',
+    'callout.important': 'Viktigt',
     'callout.tip': 'Tips',
-    'callout.info': 'Info',
+    'callout.caution': 'Varning',
     'callout.warning': 'Varning',
-    'callout.example': 'Exempel',
     'date-picker.today': 'Idag',
     'date-picker.month.heading': 'Månad',
     'date-picker.quarter.heading': 'Kvartal',

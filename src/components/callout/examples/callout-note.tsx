@@ -3,7 +3,7 @@ import { Component, h } from '@stencil/core';
 /**
  * Type: `note`
  *
- * Shows how a short description as a warning looks like
+ * This is the default type.
  */
 @Component({
     tag: 'limel-example-callout-note',
@@ -13,10 +13,7 @@ export class CalloutNoteExample {
     public render() {
         return (
             <limel-callout type="note">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                et euismod nulla. Curabitur feugiat, tortor non consequat
-                finibus, justo purus auctor massa, nec semper lorem quam in
-                massa.
+                You might read this, you might not.
             </limel-callout>
         );
     }
