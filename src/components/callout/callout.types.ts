@@ -1,5 +1,6 @@
 /**
  * Each of the supported callout types has a distinct color and icon.
+ * Colors can be changed using provided CSS variables.
  *
  * - `note`: You might read this, you might not.
  * - `important`: You should read this.
