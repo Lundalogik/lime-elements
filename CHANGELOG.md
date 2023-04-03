@@ -1,3 +1,10 @@
+## [36.3.0-next.35](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.34...v36.3.0-next.35) (2023-04-03)
+
+
+### Features
+
+* **callout:** add support for custom colors ([d29df99](https://github.com/Lundalogik/lime-elements/commit/d29df99dcb46441a48ec551c75724d65f92b8a0f))
+
 ## [36.3.0-next.34](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.33...v36.3.0-next.34) (2023-04-03)
 
 
