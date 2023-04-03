@@ -14,7 +14,7 @@ import { Component, h } from '@stencil/core';
 export class CalloutCustomTitleExample {
     public render() {
         return (
-            <limel-callout heading="🥳 yeay!">
+            <limel-callout type="success" heading="🥳 yeay!">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Vestibulum viverra magna non pretium condimentum. Integer a
