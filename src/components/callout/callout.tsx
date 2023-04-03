@@ -24,6 +24,7 @@ import { Languages } from '@limetech/lime-elements';
  * @exampleComponent limel-example-callout-tip
  * @exampleComponent limel-example-callout-caution
  * @exampleComponent limel-example-callout-warning
+ * @exampleComponent limel-example-callout-styles
  */
 @Component({
     tag: 'limel-callout',

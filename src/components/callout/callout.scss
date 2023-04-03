@@ -1,24 +1,45 @@
+/**
+ * @prop --callout-text-color: Text color of the component. Defaults to `--contrast-1100`.
+ * @prop --callout-background-color: Background color of the component. Defaults to `--contrast-300`.
+ * @prop --callout-color: Color used in the UI to add more contextual meaning about the type of the information. This color is different based on the chosen `type`, but you can override it using this prop.
+*/
+
 :host(limel-callout) {
     display: flex;
     border-radius: 0.5rem;
     overflow: hidden;
 
-    color: rgb(var(--contrast-1100));
+    color: var(--callout-text-color, rgb(var(--contrast-1100)));
 }
 :host([type='note']) {
-    --limel-callout-tint-color: rgb(var(--color-gray-default));
+    --limel-callout-tint-color: var(
+        --callout-color,
+        rgb(var(--color-gray-default))
+    );
 }
 :host([type='important']) {
-    --limel-callout-tint-color: rgb(var(--color-sky-default));
+    --limel-callout-tint-color: var(
+        --callout-color,
+        rgb(var(--color-sky-default))
+    );
 }
 :host([type='tip']) {
-    --limel-callout-tint-color: rgb(var(--color-green-default));
+    --limel-callout-tint-color: var(
+        --callout-color,
+        rgb(var(--color-green-default))
+    );
 }
 :host([type='caution']) {
-    --limel-callout-tint-color: rgb(var(--color-orange-light));
+    --limel-callout-tint-color: var(
+        --callout-color,
+        rgb(var(--color-orange-light))
+    );
 }
 :host([type='warning']) {
-    --limel-callout-tint-color: rgb(var(--color-red-dark));
+    --limel-callout-tint-color: var(
+        --callout-color,
+        rgb(var(--color-red-dark))
+    );
 }
 
 .side {
@@ -46,7 +67,7 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.25rem 0.5rem 0.5rem 0.5rem;
-    background-color: rgb(var(--contrast-300));
+    background-color: var(--callout-background-color, rgb(var(--contrast-300)));
 }
 
 .heading {
