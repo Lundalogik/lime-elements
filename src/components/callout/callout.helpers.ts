@@ -8,14 +8,23 @@ const calloutIcons: Record<string, string> = {
     warning: 'error',
 };
 
-export function getIcon(type: string = 'info'): string {
+export function getIcon(icon: string, type: string = 'note'): string {
+    if (icon) {
+        return icon;
+    }
+
     return calloutIcons[type] ?? calloutIcons.note;
 }
 
 export function getHeading(
+    heading: string,
     type: string = 'note',
     language: string = 'en'
 ): string {
+    if (heading) {
+        return heading;
+    }
+
     const key = `callout.${type}`;
 
     try {
