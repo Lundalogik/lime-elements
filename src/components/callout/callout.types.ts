@@ -1,6 +1,8 @@
 /**
  * Each of the supported callout types has a distinct color and icon.
- * Colors can be changed using provided CSS variables.
+ * Colors can be changed using provided CSS variables,
+ * and icons can be changed too as long as you provide and icon with the same
+ * file name. [Read more](#/component/limel-icon/)
  *
  * - `note`: You might read this, you might not.
  * - `important`: You should read this.

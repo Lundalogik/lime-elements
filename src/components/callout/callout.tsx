@@ -25,8 +25,11 @@ import { Languages } from '@limetech/lime-elements';
  * @exampleComponent limel-example-callout-tip
  * @exampleComponent limel-example-callout-caution
  * @exampleComponent limel-example-callout-warning
+ * @exampleComponent limel-example-callout-custom-heading
+ * @exampleComponent limel-example-callout-custom-icon
  * @exampleComponent limel-example-callout-custom-component
  * @exampleComponent limel-example-callout-styles
+ * @exampleComponent limel-example-callout-composite
  */
 @Component({
     tag: 'limel-callout',
@@ -34,6 +37,20 @@ import { Languages } from '@limetech/lime-elements';
     styleUrl: 'callout.scss',
 })
 export class Callout {
+    /**
+     * Heading of the callout, which can be used to override the
+     * default heading which is displayed based on the chosen `type`.
+     */
+    @Prop({ reflect: true })
+    public heading?: string;
+
+    /**
+     * Icon of the callout, which can be used to override the
+     * default icon which is displayed based on the chosen `type`.
+     */
+    @Prop({ reflect: true })
+    public icon?: string;
+
     /**
      * Defines how the component is visualized, for example
      * which heading, color or icon is used in its user interface.
@@ -51,10 +68,12 @@ export class Callout {
     public render() {
         return [
             <div class="side" role="presentation">
-                <limel-icon name={getIcon(this.type)} />
+                <limel-icon name={getIcon(this.icon, this.type)} />
             </div>,
             <div class="main">
-                <h1 class="heading">{getHeading(this.type, this.language)}</h1>
+                <h1 class="heading">
+                    {getHeading(this.heading, this.type, this.language)}
+                </h1>
                 <slot />
             </div>,
         ];
