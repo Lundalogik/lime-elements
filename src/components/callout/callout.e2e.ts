@@ -12,6 +12,23 @@ describe('limel-callout', () => {
         expect(icon.getAttribute('name')).toEqual('info');
     });
 
+    it('renders a callout with the provided heading', async () => {
+        const page = await newE2EPage({
+            html: '<limel-callout heading="Important"></limel-callout>',
+        });
+        const heading = await page.find('limel-callout>>>.heading');
+        expect(heading.textContent).toEqual('Important');
+    });
+
+    it('renders a callout with the provided icon', async () => {
+        const page = await newE2EPage({
+            html: '<limel-callout icon="unit-test"></limel-callout>',
+        });
+
+        const icon = await page.find('limel-callout>>>limel-icon');
+        expect(icon.getAttribute('name')).toEqual('unit-test');
+    });
+
     it('renders a callout with the correct icon based on type', async () => {
         const page = await newE2EPage({
             html: '<limel-callout type="tip"></limel-callout>',
