@@ -1,3 +1,10 @@
+## [36.3.0-next.34](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.33...v36.3.0-next.34) (2023-04-03)
+
+
+### Bug Fixes
+
+* **callout:** add missing Dutch translation of `Caution` ([599ce74](https://github.com/Lundalogik/lime-elements/commit/599ce748b97a5008c7246a79a11c8b574c1f65ac))
+
 ## [36.3.0-next.33](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.32...v36.3.0-next.33) (2023-04-03)
 
 
