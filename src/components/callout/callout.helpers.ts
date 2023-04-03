@@ -9,7 +9,7 @@ const calloutIcons: Record<string, string> = {
 };
 
 export function getIcon(type: string = 'info'): string {
-    return calloutIcons[type] ?? calloutIcons.note;
+    return calloutIcons[type] ?? calloutIcons.info;
 }
 
 export function getHeading(

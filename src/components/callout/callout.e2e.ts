@@ -1,7 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('limel-callout', () => {
-    it('renders a callout with the default "Note" type', async () => {
+    it('renders a callout with the default "Note" heading', async () => {
         const page = await newE2EPage({
             html: '<limel-callout></limel-callout>',
         });
@@ -9,7 +9,7 @@ describe('limel-callout', () => {
         const heading = await page.find('limel-callout>>>.heading');
         const icon = await page.find('limel-callout>>>limel-icon');
         expect(heading.textContent).toEqual('Note');
-        expect(icon.getAttribute('name')).toEqual('info');
+        expect(icon.getAttribute('name')).toEqual('appointment_reminders');
     });
 
     it('renders a callout with the correct icon based on type', async () => {
@@ -27,6 +27,6 @@ describe('limel-callout', () => {
         });
 
         const icon = await page.find('limel-callout>>>limel-icon');
-        expect(icon.getAttribute('name')).toEqual('info');
+        expect(icon.getAttribute('name')).toEqual('appointment_reminders');
     });
 });
