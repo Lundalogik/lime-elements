@@ -1,3 +1,10 @@
+## [36.3.0-next.36](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.35...v36.3.0-next.36) (2023-04-03)
+
+
+### Features
+
+* **callout:** add support for custom heading and icon ([ce8a23f](https://github.com/Lundalogik/lime-elements/commit/ce8a23f000bf1f7299c15428a98bb788f002b917))
+
 ## [36.3.0-next.35](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.34...v36.3.0-next.35) (2023-04-03)
 
 
