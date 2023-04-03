@@ -1,18 +1,20 @@
 import { Component, h } from '@stencil/core';
 
 /**
- * Type: `note`
+ * Type: `info`
  *
- * Shows how a short description as a warning looks like
+ * This is the default type, which means the component will automatically
+ * select it, if no type is specified specified by you.
+ * It is useful for displaying information with low importance.
  */
 @Component({
-    tag: 'limel-example-callout-note',
+    tag: 'limel-example-callout-info',
     shadow: true,
 })
-export class CalloutNoteExample {
+export class CalloutInfoExample {
     public render() {
         return (
-            <limel-callout type="note">
+            <limel-callout>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
                 et euismod nulla. Curabitur feugiat, tortor non consequat
                 finibus, justo purus auctor massa, nec semper lorem quam in

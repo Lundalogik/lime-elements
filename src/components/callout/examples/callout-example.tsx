@@ -1,18 +1,18 @@
 import { Component, h } from '@stencil/core';
 
 /**
- * Type: `note`
+ * Type: `example`
  *
- * Shows how a short description as a warning looks like
+ * This type is useful for displaying tips & tricks, and How-Tos.
  */
 @Component({
-    tag: 'limel-example-callout-note',
+    tag: 'limel-example-callout-example',
     shadow: true,
 })
-export class CalloutNoteExample {
+export class CalloutExampleExample {
     public render() {
         return (
-            <limel-callout type="note">
+            <limel-callout type="example">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
                 et euismod nulla. Curabitur feugiat, tortor non consequat
                 finibus, justo purus auctor massa, nec semper lorem quam in

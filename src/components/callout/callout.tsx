@@ -20,11 +20,11 @@ import { Languages } from '@limetech/lime-elements';
  * rather be displayed when something unusual or remarkable demands
  * users attention.
  *
- * @exampleComponent limel-example-callout-note
- * @exampleComponent limel-example-callout-important
- * @exampleComponent limel-example-callout-tip
- * @exampleComponent limel-example-callout-caution
+ * @exampleComponent limel-example-callout-info
  * @exampleComponent limel-example-callout-warning
+ * @exampleComponent limel-example-callout-note
+ * @exampleComponent limel-example-callout-tip
+ * @exampleComponent limel-example-callout-example
  * @exampleComponent limel-example-callout-custom-heading
  * @exampleComponent limel-example-callout-custom-icon
  * @exampleComponent limel-example-callout-custom-component
@@ -56,7 +56,7 @@ export class Callout {
      * which heading, color or icon is used in its user interface.
      */
     @Prop({ reflect: true })
-    public type?: CalloutType = 'note';
+    public type?: CalloutType = 'info';
 
     /**
      * Defines the language for translations.

@@ -1,11 +1,11 @@
 import translate from '../../global/translations';
 
 const calloutIcons: Record<string, string> = {
-    note: 'info',
-    important: 'exclamation_mark',
+    info: 'info',
+    note: 'appointment_reminders',
     tip: 'idea',
-    caution: 'high_priority',
     warning: 'error',
+    example: 'test_tube',
 };
 
 export function getIcon(icon: string, type: string = 'info'): string {
@@ -18,7 +18,7 @@ export function getIcon(icon: string, type: string = 'info'): string {
 
 export function getHeading(
     heading: string,
-    type: string = 'note',
+    type: string = 'info',
     language: string = 'en'
 ): string {
     if (heading) {

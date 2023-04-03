@@ -11,16 +11,16 @@
 
     color: var(--callout-text-color, rgb(var(--contrast-1100)));
 }
-:host([type='note']) {
-    --limel-callout-tint-color: var(
-        --callout-color,
-        rgb(var(--color-gray-default))
-    );
-}
-:host([type='important']) {
+:host([type='info']) {
     --limel-callout-tint-color: var(
         --callout-color,
         rgb(var(--color-sky-default))
+    );
+}
+:host([type='note']) {
+    --limel-callout-tint-color: var(
+        --callout-color,
+        rgb(var(--color-orange-light))
     );
 }
 :host([type='tip']) {
@@ -29,16 +29,16 @@
         rgb(var(--color-green-default))
     );
 }
-:host([type='caution']) {
-    --limel-callout-tint-color: var(
-        --callout-color,
-        rgb(var(--color-orange-light))
-    );
-}
 :host([type='warning']) {
     --limel-callout-tint-color: var(
         --callout-color,
-        rgb(var(--color-red-dark))
+        rgb(var(--color-pink-default))
+    );
+}
+:host([type='example']) {
+    --limel-callout-tint-color: var(
+        --callout-color,
+        rgb(var(--color-orange-dark))
     );
 }
 
