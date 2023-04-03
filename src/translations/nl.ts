@@ -2,7 +2,7 @@ export default {
     'callout.note': 'Opmerking',
     'callout.important': 'Belangrijk',
     'callout.tip': 'Tip',
-    'callout.example': 'Waarschuwing',
+    'callout.caution': 'Waarschuwing',
     'callout.warning': 'Waarschuwing',
     'date-picker.today': 'Vandaag',
     'date-picker.month.heading': 'Maand',
