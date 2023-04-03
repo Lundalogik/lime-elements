@@ -1,3 +1,10 @@
+## [36.3.0-next.33](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.32...v36.3.0-next.33) (2023-04-03)
+
+
+### Features
+
+* **package:** enable importing `@limetech/lime-elements/dist/scss/mixins.scss` ([88f0859](https://github.com/Lundalogik/lime-elements/commit/88f08591ca22780314f5d0480c52d20d35f2c7ba))
+
 ## [36.3.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.31...v36.3.0-next.32) (2023-03-31)
 
 
