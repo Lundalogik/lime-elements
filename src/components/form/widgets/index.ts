@@ -1,4 +1,5 @@
 import { Checkbox } from './checkbox';
+import { DateOnlyPicker } from './date-only-picker';
 import { DatePicker } from './date-picker';
 import { InputField } from './input-field';
 import { Select } from './select';
@@ -28,7 +29,7 @@ export type WidgetType =
 export const widgets: Partial<Record<WidgetType, any>> = {
     CheckboxWidget: Checkbox,
     DateTimeWidget: DatePicker,
-    DateWidget: DatePicker,
+    DateWidget: DateOnlyPicker,
     EmailWidget: InputField,
     TextWidget: InputField,
     SelectWidget: Select,
