@@ -1,4 +1,5 @@
-import { Component, h } from '@stencil/core';
+import { Button, LimelButtonGroupCustomEvent } from '@limetech/lime-elements';
+import { Component, State, h } from '@stencil/core';
 /**
  * Button group with badges
  *
@@ -17,38 +18,49 @@ import { Component, h } from '@stencil/core';
     shadow: true,
 })
 export class ButtonGroupBadgesExample {
+    @State()
+    private buttons: Button[] = [
+        {
+            id: '1',
+            title: 'Overdue',
+            badge: '50+',
+        },
+        {
+            id: '2',
+            title: 'Today',
+            badge: 9,
+            selected: true,
+        },
+        {
+            id: '3',
+            title: 'Upcoming',
+            badge: 23,
+        },
+        {
+            id: '4',
+            title: 'Future',
+            badge: 62,
+        },
+    ];
+
     public render() {
         return [
             <limel-button-group
                 onChange={this.handleChange}
-                value={[
-                    {
-                        id: '1',
-                        title: 'Overdue',
-                        badge: '50+',
-                    },
-                    {
-                        id: '2',
-                        title: 'Today',
-                        badge: 9,
-                        selected: true,
-                    },
-                    {
-                        id: '3',
-                        title: 'Upcoming',
-                        badge: 23,
-                    },
-                    {
-                        id: '4',
-                        title: 'Future',
-                        badge: 62,
-                    },
-                ]}
+                value={this.buttons}
             />,
         ];
     }
 
-    private handleChange = (event) => {
-        console.log(event.detail);
+    private handleChange = (event: LimelButtonGroupCustomEvent<Button>) => {
+        const changedButton = event.detail;
+        console.log(changedButton);
+
+        this.buttons = this.buttons.map((button) => {
+            return {
+                ...button,
+                selected: button.id === changedButton.id,
+            };
+        });
     };
 }

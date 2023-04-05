@@ -1,4 +1,12 @@
-import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
 import { Button } from '../button/button.types';
 import { createRandomString } from '../../util/random-string';
 
@@ -74,9 +82,7 @@ export class ButtonGroup {
     }
 
     public componentWillLoad() {
-        this.selectedButtonId = this.value.find((button) => {
-            return button.selected;
-        })?.id;
+        this.setSelectedButton();
     }
 
     public render() {
@@ -173,5 +179,16 @@ export class ButtonGroup {
             return item.id === this.selectedButtonId;
         });
         this.change.emit(button);
+    }
+
+    private setSelectedButton = () => {
+        this.selectedButtonId = this.value.find((button) => {
+            return button.selected;
+        })?.id;
+    };
+
+    @Watch('value')
+    protected valueChanged() {
+        this.setSelectedButton();
     }
 }
