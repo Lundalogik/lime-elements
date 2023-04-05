@@ -1,5 +1,6 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { Button } from '../../button/button.types';
+import { LimelButtonGroupCustomEvent } from '@limetech/lime-elements';
 
 /**
  * Composite
@@ -72,19 +73,19 @@ export class ButtonCompositeExample {
         );
     }
 
-    private handleChange = (event: CustomEvent<Button>) => {
+    private handleChange = (event: LimelButtonGroupCustomEvent<Button>) => {
         this.eventPrinter.writeEvent(event);
+        const changedButton = event.detail;
 
-        const index = this.props.value.findIndex(
-            (button) => button === event.detail
-        );
-        if (!index) {
-            return;
-        }
-
-        this.props.value[index] = event.detail;
-        this.props.value = [...this.props.value];
-        this.props = { ...this.props };
+        this.props = {
+            ...this.props,
+            value: this.props.value.map((button) => {
+                return {
+                    ...button,
+                    selected: button.id === changedButton.id,
+                };
+            }),
+        };
     };
 
     private handleFormChange = (event: CustomEvent) => {
