@@ -10,6 +10,8 @@ import {
     Watch,
 } from '@stencil/core';
 import { getPercentageClass } from './getPercentageClass';
+import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
+
 /**
  * @exampleComponent limel-example-slider
  * @exampleComponent limel-example-slider-multiplier
@@ -165,6 +167,9 @@ export class Slider {
         }
 
         this.createMDCSlider();
+
+        const waitForUiToRender = 100;
+        setTimeout(dispatchResizeEvent, waitForUiToRender);
     }
 
     public componentWillLoad() {
