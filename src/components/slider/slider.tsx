@@ -105,7 +105,6 @@ export class Slider {
     private percentageClass: string;
 
     public constructor() {
-        this.inputHandler = this.inputHandler.bind(this);
         this.getContainerClassList = this.getContainerClassList.bind(this);
     }
 
@@ -312,6 +311,7 @@ export class Slider {
             value = this.roundToStep(value, step);
         }
 
+        this.setPercentageClass(value / this.factor);
         this.change.emit(value / this.factor);
     };
 
@@ -326,10 +326,6 @@ export class Slider {
         }
 
         return value;
-    }
-
-    private inputHandler(event) {
-        this.setPercentageClass(event.detail.value / this.factor);
     }
 
     private setPercentageClass(value) {
@@ -391,12 +387,12 @@ export class Slider {
 
         this.mdcSlider = new MDCSlider(element);
         this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
-        this.mdcSlider.listen('MDCSlider:input', this.inputHandler);
+        this.mdcSlider.listen('MDCSlider:input', this.changeHandler);
     }
 
     private destroyMDCSlider() {
         this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
-        this.mdcSlider.unlisten('MDCSlider:input', this.inputHandler);
+        this.mdcSlider.unlisten('MDCSlider:input', this.changeHandler);
         this.mdcSlider.destroy();
         this.mdcSlider = undefined;
     }
