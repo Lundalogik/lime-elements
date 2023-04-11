@@ -1,3 +1,10 @@
+## [36.3.0-next.37](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.36...v36.3.0-next.37) (2023-04-11)
+
+
+### Bug Fixes
+
+* **button-group:** update value from outside ([c803040](https://github.com/Lundalogik/lime-elements/commit/c80304060e71e5a521fdd2ab0d037d0d2a25800d))
+
 ## [36.3.0-next.36](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.35...v36.3.0-next.36) (2023-04-03)
 
 
