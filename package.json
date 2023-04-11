@@ -50,7 +50,7 @@
     "@types/jest": "^27.4.0",
     "@types/lodash-es": "^4.17.7",
     "@types/puppeteer": "^7.0.4",
-    "@types/react": "^18.0.33",
+    "@types/react": "^18.0.34",
     "@types/tabulator-tables": "^4.9.4",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
