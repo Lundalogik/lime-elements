@@ -8,4 +8,7 @@ import { ListItem } from '../list/list-item.types';
  * in the input field of a limel-picker.
  * @returns {Promise<ListItem[]>} The search result.
  */
-export type Searcher = (query: string) => Promise<ListItem[]>;
+export type Searcher = (
+    query: string,
+    useOptionQuery?: boolean
+) => Promise<ListItem[]>;

@@ -599,7 +599,7 @@ export class Picker {
     private async handleInputFieldFocus() {
         this.loading = true;
         const query = this.textValue;
-        const result = await this.searcher(query);
+        const result = await this.searcher(query, false);
         this.handleSearchResult(query, result);
     }
 
