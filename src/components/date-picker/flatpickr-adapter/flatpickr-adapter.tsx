@@ -135,9 +135,7 @@ export class DatePickerCalendar {
     }
 
     public componentDidUpdate() {
-        if (this.flatPickrCreated) {
-            this.redrawFlatpickr();
-        } else {
+        if (!this.flatPickrCreated) {
             this.createFlatpickr();
         }
 
@@ -177,10 +175,6 @@ export class DatePickerCalendar {
 
         this.picker.init(this.inputElement, this.container, this.value);
         this.flatPickrCreated = true;
-    }
-
-    private redrawFlatpickr() {
-        this.picker.redraw();
     }
 
     private destroyFlatpickr() {
