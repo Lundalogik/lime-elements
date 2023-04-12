@@ -19,6 +19,7 @@ import {
 import { handleKeyboardEvent } from './chip-set-input-helpers';
 import translate from '../../global/translations';
 import { getHref, getTarget } from '../../util/link-helper';
+import { isEqual } from 'lodash-es';
 
 const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
 const INPUT_FIELD_TABINDEX = 1;
@@ -315,7 +316,11 @@ export class ChipSet {
     }
 
     @Watch('value')
-    protected handleChangeChips() {
+    protected handleChangeChips(newValue: Chip[], oldValue: Chip[]) {
+        if (isEqual(newValue, oldValue)) {
+            return;
+        }
+
         this.syncEmptyInput();
     }
 
