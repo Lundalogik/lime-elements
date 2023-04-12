@@ -25,11 +25,6 @@
 }
 
 .section__header {
-    @include mixins.visualize-keyboard-focus;
-
-    transition: background-color 0.4s ease, border-radius 0.1s ease;
-    cursor: pointer;
-
     align-items: center;
     display: flex;
     justify-content: space-between;
@@ -65,6 +60,16 @@
             rgb(var(--contrast-300))
         );
     }
+}
+
+.section {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+
+    @include mixins.visualize-keyboard-focus;
+    border-radius: functions.pxToRem(6);
 }
 
 .section__header__title {
@@ -103,11 +108,11 @@
     section.open & {
         opacity: 0.16;
     }
-}
 
-.section__header__actions {
-    justify-self: flex-end;
-    flex-shrink: 0;
+    .section__header__actions {
+        justify-self: flex-end;
+        flex-shrink: 0;
+    }
 }
 
 @keyframes fade-in-section__body {
