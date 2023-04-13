@@ -1,3 +1,10 @@
+## [36.3.0-next.38](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.37...v36.3.0-next.38) (2023-04-13)
+
+
+### Bug Fixes
+
+* **date-picker:** week-picker looks correct when opened repeatedly ([3027af0](https://github.com/Lundalogik/lime-elements/commit/3027af089fa394d7329da09c5a57c8302f92b076))
+
 ## [36.3.0-next.37](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.36...v36.3.0-next.37) (2023-04-11)
 
 
