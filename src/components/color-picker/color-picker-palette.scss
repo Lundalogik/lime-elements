@@ -1,5 +1,4 @@
 @use '../../design-guidelines/color-system/examples/extended-color-palette';
-@use '../../style/mixins';
 @import './color-picker';
 
 :host {
@@ -31,7 +30,21 @@
 }
 
 .swatch:not(.hue) {
-    @include mixins.is-flat-clickable();
+    // We could use the `@include mixins.is-flat-clickable();` mixin
+    // But its `background-color` arguments would interfere with the
+    // styles here. So we just copy/pasted the useful parts of the mixin here
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
+
+    &:hover {
+        box-shadow: var(--button-shadow-hovered);
+    }
+
+    &:active {
+        box-shadow: var(--button-shadow-pressed);
+
+        transform: translate3d(0, 0.08rem, 0);
+    }
     cursor: pointer;
 
     &:focus-visible {

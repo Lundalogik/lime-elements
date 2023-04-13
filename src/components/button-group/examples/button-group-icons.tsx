@@ -1,3 +1,4 @@
+import { Button, LimelButtonGroupCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -24,38 +25,41 @@ export class ButtonGroupIconsExample {
     @State()
     private disabled: boolean = false;
 
+    @State()
+    private buttons: Button[] = [
+        {
+            id: '1',
+            title: 'Clear sky',
+            icon: 'sun',
+        },
+        {
+            id: '2',
+            title: 'Partly cloudy',
+            icon: 'partly_cloudy_day',
+        },
+        {
+            id: '3',
+            title: 'Rain showers',
+            icon: 'rain',
+        },
+        {
+            id: '4',
+            title: 'Thunderstorms',
+            icon: 'cloudshot',
+        },
+        {
+            id: '5',
+            title: 'Snow showers',
+            icon: 'snowflake',
+        },
+    ];
+
     public render() {
         return [
             <limel-button-group
                 disabled={this.disabled}
                 onChange={this.handleChange}
-                value={[
-                    {
-                        id: '1',
-                        title: 'Clear sky',
-                        icon: 'sun',
-                    },
-                    {
-                        id: '2',
-                        title: 'Partly cloudy',
-                        icon: 'partly_cloudy_day',
-                    },
-                    {
-                        id: '3',
-                        title: 'Rain showers',
-                        icon: 'rain',
-                    },
-                    {
-                        id: '4',
-                        title: 'Thunderstorms',
-                        icon: 'cloudshot',
-                    },
-                    {
-                        id: '5',
-                        title: 'Snow showers',
-                        icon: 'snowflake',
-                    },
-                ]}
+                value={this.buttons}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -67,8 +71,16 @@ export class ButtonGroupIconsExample {
         ];
     }
 
-    private handleChange = (event) => {
-        console.log(event.detail);
+    private handleChange = (event: LimelButtonGroupCustomEvent<Button>) => {
+        const changedButton = event.detail;
+        console.log(changedButton);
+
+        this.buttons = this.buttons.map((button) => {
+            return {
+                ...button,
+                selected: button.id === changedButton.id,
+            };
+        });
     };
 
     private toggleEnabled = () => {

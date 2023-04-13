@@ -9,134 +9,133 @@
  * @prop --code-editor-font-size: Defines the font size of the code, defaults to `0.875rem`.
  */
 
+@mixin light-mode-styles {
+    --code-editor-neutral-text-color: var(--contrast-1100);
+    --code-editor-background-color: var(--contrast-200);
+    --code-editor-gutter-background-color: var(--contrast-300);
+    --code-editor-line-number-text-color: var(--contrast-700);
+    --code-editor-cursor-color: var(--color-amber-dark);
+
+    --code-editor-selection-highlight-color: var(--color-cyan-default);
+    --code-editor-selection-lowlight-color: var(--contrast-600);
+
+    .cm-attribute,
+    .cm-property,
+    .cm-keyword {
+        color: rgb(var(--color-violet-light));
+    }
+    .cm-operator {
+        color: rgb(var(--color-sky-dark));
+    }
+    .cm-variable {
+        color: rgb(var(--color-pink-light));
+    }
+    .cm-variable-2 {
+        color: rgb(var(--contrast-1100));
+    }
+    .cm-variable-3,
+    .cm-type {
+        color: rgb(var(--color-amber-darker));
+    }
+    .cm-builtin,
+    .cm-meta {
+        color: rgb(var(--color-amber-default));
+    }
+    .cm-atom {
+        color: rgb(var(--color-coral-default));
+    }
+    .cm-tag,
+    .cm-number {
+        color: rgb(var(--color-magenta-default));
+    }
+    .cm-def {
+        color: rgb(var(--color-sky-default));
+    }
+    .cm-string {
+        color: rgb(var(--color-green-dark));
+    }
+    .cm-string-2 {
+        color: rgb(var(--color-pink-default));
+    }
+    .cm-qualifier {
+        color: rgb(var(--color-grass-default));
+    }
+    .cm-error {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--color-red-default));
+    }
+    .cm-comment {
+        color: rgba(var(--code-editor-neutral-text-color), 0.7);
+    }
+}
+
+@mixin dark-mode-styles {
+    --code-editor-neutral-text-color: var(--contrast-1600);
+    // --code-editor-background-color: { same as light };
+    // --code-editor-gutter-background-color: { same as light };
+    --code-editor-line-number-text-color: var(--contrast-800);
+    --code-editor-cursor-color: var(--color-amber-default);
+
+    --code-editor-selection-highlight-color: var(--color-cyan-light);
+    --code-editor-selection-lowlight-color: var(--contrast-100);
+
+    .cm-attribute,
+    .cm-property,
+    .cm-keyword {
+        color: rgb(var(--color-purple-lighter));
+    }
+    .cm-operator {
+        color: rgb(var(--color-sky-lighter));
+    }
+    // .cm-variable { same as light }
+    // .cm-variable-2 { same as light }
+    .cm-variable-3,
+    .cm-type {
+        color: rgb(var(--color-yellow-light));
+    }
+    // .cm-builtin,
+    // .cm-meta { same as light }
+    .cm-atom {
+        color: rgb(var(--color-coral-light));
+    }
+    .cm-tag,
+    .cm-number {
+        color: rgb(var(--color-magenta-light));
+    }
+    .cm-def {
+        color: rgb(var(--color-sky-light));
+    }
+    .cm-string {
+        color: rgb(var(--color-lime-light));
+    }
+    .cm-string-2 {
+        color: rgb(var(--color-pink-lighter));
+    }
+    .cm-qualifier {
+        color: rgb(var(--color-grass-light));
+    }
+    // .cm-error { same as light }
+    .cm-comment {
+        color: rgba(var(--code-editor-neutral-text-color), 0.4);
+    }
+}
+
 :host {
     display: flex;
     font-size: var(--code-editor-font-size, 0.875rem); // 14px
+    @include light-mode-styles;
+}
+
+@include mixins.in(dark-mode) {
+    :host {
+        @include dark-mode-styles;
+    }
 }
 
 .editor {
     display: flex;
     align-items: stretch;
     width: 100%;
-
-    &.is-light-mode {
-        --code-editor-neutral-text-color: var(--contrast-1100);
-        --code-editor-background-color: var(--contrast-200);
-        --code-editor-gutter-background-color: var(--contrast-300);
-        --code-editor-line-number-text-color: var(--contrast-700);
-        --code-editor-cursor-color: var(--color-amber-dark);
-
-        --code-editor-selection-highlight-color: var(--color-cyan-default);
-        --code-editor-selection-lowlight-color: var(--contrast-600);
-        .cm-attribute,
-        .cm-property,
-        .cm-keyword {
-            color: rgb(var(--color-violet-light));
-        }
-        .cm-operator {
-            color: rgb(var(--color-sky-dark));
-        }
-        .cm-variable {
-            color: rgb(var(--color-pink-light));
-        }
-        .cm-variable-2 {
-            color: rgb(var(--contrast-1100));
-        }
-        .cm-variable-3,
-        .cm-type {
-            color: rgb(var(--color-amber-darker));
-        }
-        .cm-builtin,
-        .cm-meta {
-            color: rgb(var(--color-amber-default));
-        }
-        .cm-atom {
-            color: rgb(var(--color-coral-default));
-        }
-        .cm-tag,
-        .cm-number {
-            color: rgb(var(--color-magenta-default));
-        }
-        .cm-def {
-            color: rgb(var(--color-sky-default));
-        }
-        .cm-string {
-            color: rgb(var(--color-green-dark));
-        }
-        .cm-string-2 {
-            color: rgb(var(--color-pink-default));
-        }
-        .cm-qualifier {
-            color: rgb(var(--color-grass-default));
-        }
-        .cm-error {
-            color: rgb(var(--color-white));
-            background-color: rgb(var(--color-red-default));
-        }
-        .cm-comment {
-            color: rgba(var(--code-editor-neutral-text-color), 0.7);
-        }
-    }
-
-    &.is-dark-mode {
-        --code-editor-neutral-text-color: var(--contrast-200);
-        --code-editor-background-color: var(--contrast-1600);
-        --code-editor-gutter-background-color: var(--contrast-1500);
-        --code-editor-line-number-text-color: var(--contrast-1000);
-        --code-editor-cursor-color: var(--color-amber-default);
-
-        --code-editor-selection-highlight-color: var(--color-cyan-light);
-        --code-editor-selection-lowlight-color: var(--contrast-1700);
-
-        .cm-attribute,
-        .cm-property,
-        .cm-keyword {
-            color: rgb(var(--color-purple-lighter));
-        }
-        .cm-operator {
-            color: rgb(var(--color-sky-lighter));
-        }
-        .cm-variable {
-            color: rgb(var(--color-pink-light));
-        }
-        .cm-variable-2 {
-            color: rgb(var(--contrast-300));
-        }
-        .cm-variable-3,
-        .cm-type {
-            color: rgb(var(--color-yellow-light));
-        }
-        .cm-builtin,
-        .cm-meta {
-            color: rgb(var(--color-amber-default));
-        }
-        .cm-atom {
-            color: rgb(var(--color-coral-light));
-        }
-        .cm-tag,
-        .cm-number {
-            color: rgb(var(--color-magenta-light));
-        }
-        .cm-def {
-            color: rgb(var(--color-sky-light));
-        }
-        .cm-string {
-            color: rgb(var(--color-lime-light));
-        }
-        .cm-string-2 {
-            color: rgb(var(--color-pink-lighter));
-        }
-        .cm-qualifier {
-            color: rgb(var(--color-grass-light));
-        }
-        .cm-error {
-            color: rgb(var(--color-white));
-            background-color: rgb(var(--color-red-default));
-        }
-        .cm-comment {
-            color: rgba(var(--code-editor-neutral-text-color), 0.4);
-        }
-    }
 
     &.readonly {
         .CodeMirror-focused {
@@ -232,22 +231,17 @@
 
     .CodeMirror-foldmarker {
         position: relative;
-        @include mixins.is-elevated-clickable();
-        color: transparent;
+        @include mixins.is-elevated-clickable($color: transparent);
         text-shadow: none;
 
         padding: 0 0.5rem;
         border-radius: 1rem;
 
         background: {
-            image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' xml:space='preserve'><circle cx='16' cy='16' r='2'/><circle cx='26' cy='16' r='2'/><circle cx='6' cy='16' r='2'/></svg>");
+            image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' xml:space='preserve'><circle fill='rgba(186,186,192,0.7)' cx='16' cy='16' r='2'/><circle fill='rgba(186,186,192,0.7)' cx='26' cy='16' r='2'/><circle fill='rgba(186,186,192,0.7)' cx='6' cy='16' r='2'/></svg>");
             size: contain;
             repeat: no-repeat;
             position: center;
-        }
-
-        .is-dark-mode & {
-            background-color: rgb(var(--contrast-1200));
         }
     }
 

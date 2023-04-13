@@ -1,4 +1,3 @@
-@use '../../../style/internal/z-index';
 @use '../../../style/functions';
 
 // .has-rowselector {} // Mabe useful later
@@ -10,7 +9,7 @@
 
 .select-all {
     position: absolute;
-    z-index: z-index.$table--limel-table--row-selector;
+    z-index: $table--limel-table--row-selector;
     left: 0;
     top: functions.pxToRem(6);
     width: functions.pxToRem(41); // width of the selector column
@@ -25,7 +24,7 @@
     left: 0;
     border-width: 0;
     justify-content: center;
-    z-index: z-index.$table--limel-table--row-selector;
+    z-index: $table--limel-table--row-selector;
     padding-right: 0 !important;
     padding-left: 0 !important;
 
@@ -54,8 +53,7 @@
         );
     }
 
-    .tabulator-row.active &,
-    .tabulator-row.active:hover & {
+    .tabulator-row.active & {
         background-image: linear-gradient(
             to right,
             rgb(var(--table-row-background-color--active)) 70%,

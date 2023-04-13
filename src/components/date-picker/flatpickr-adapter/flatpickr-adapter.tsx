@@ -60,6 +60,9 @@ export class DatePickerCalendar {
     @Prop()
     public language: Languages = 'en';
 
+    @Prop()
+    public formatter!: (date: Date) => string;
+
     /**
      * Emitted when the date picker value is changed.
      */
@@ -132,6 +135,8 @@ export class DatePickerCalendar {
                 );
                 break;
         }
+
+        this.picker.formatDate = this.formatter;
     }
 
     public componentDidUpdate() {

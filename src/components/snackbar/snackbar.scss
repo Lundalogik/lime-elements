@@ -3,16 +3,17 @@
 @use '@material/snackbar/mdc-snackbar';
 
 .mdc-snackbar__surface {
+    background-color: var(--lime-elevated-surface-background-color);
     box-shadow: var(--shadow-depth-16);
+}
+
+.mdc-snackbar__label {
+    color: var(--mdc-theme-on-surface);
+    display: flex;
+    justify-content: center;
 }
 
 .mdc-snackbar__actions {
     gap: 0.5rem;
     padding-left: 0.5rem;
-}
-
-limel-button {
-    // This is a bad hack to make the button have the same color as its background.
-    // But will be removed when we get the dark-mode enabled.
-    --contrast-100: #333;
 }

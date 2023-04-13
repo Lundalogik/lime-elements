@@ -59,6 +59,7 @@
     --color-orange-light: 255, 183, 77; // #ffb74d
     --color-orange-default: 255, 152, 0; // #ff9800
 
+}
     @include in(dark-mode) {
         --contrast-100: 0, 0, 0; // #000
         --contrast-200: 25, 25, 44; // #19192c
@@ -93,4 +94,3 @@
         --color-orange-light: 255, 167, 38; // #ffa726
         --color-orange-default: 251, 140, 0; // #fb8c00
     }
-}

@@ -1,4 +1,11 @@
-@use './functions';
+/**
+ * Note! This file is exported to `dist/scss/` in the published
+ * node module, for consumer projects to import.
+ * That means this file cannot import from any file that isn't
+ * also exported, keeping the same relative path.
+ *
+ * Or, just don't import anything, that works too.
+ */
 
 @mixin visualize-keyboard-focus {
     &:focus {
@@ -12,20 +19,54 @@
 }
 
 @mixin in($media) {
+    // ⛔️ As long as we don't have a script that generates a
+    // `.css` files automatically, we cannot use this mixin.
+    // we need to manually write the dark-mode CSS variables
+    // inside this file: /style/color-palette-extended.css
+    //
+    // ⚠️ Also note that this mixin only puts styles
+    // on the `:root` which means the `<html` level.
+    // Therefore, it cannot be used inside components
+    // to generate custom dark-mode styles.
+
     @if $media == dark-mode {
         @media (prefers-color-scheme: dark) {
+            :root:not([data-theme='force-light']) {
+                @content;
+            }
+        }
+        :root[data-theme='force-dark'] {
             @content;
         }
+
+        // @media (prefers-color-scheme: dark) {
+        //     :host(:not([data-theme='force-light'])) & {
+        //         @content;
+        //     }
+        // }
+        // :host([data-theme='force-dark']) & {
+        //     @content;
+        // }
     }
 }
 
-@mixin is-elevated-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+@mixin is-elevated-clickable(
+    $color: var(--mdc-theme-on-surface),
+    $color--hovered: var(--mdc-theme-on-surface),
+    $background-color: var(--lime-elevated-surface-background-color),
+    $background-color--hovered: var(--lime-elevated-surface-background-color)
+) {
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
 
+    cursor: pointer;
+    color: $color;
+    background-color: $background-color;
     box-shadow: var(--button-shadow-normal);
 
     &:hover {
+        color: $color--hovered;
+        background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
@@ -36,27 +77,50 @@
     }
 }
 
-@mixin is-elevated-inset-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+@mixin is-elevated-inset-clickable(
+    $color: var(--mdc-theme-on-surface),
+    $color--hovered: var(--mdc-theme-on-surface),
+    $background-color: var(--lime-elevated-surface-background-color),
+    $background-color--hovered: var(--lime-elevated-surface-background-color),
+    $background-color--inset: var(--mdc-theme-surface)
+) {
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
 
+    cursor: pointer;
+    color: $color;
+    background-color: $background-color;
     box-shadow: var(--button-shadow-normal);
 
     &:hover {
+        color: $color--hovered;
+        background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
     &:active {
+        background-color: $background-color--inset;
         box-shadow: var(--button-shadow-inset-pressed);
         transform: translate3d(0, 0.05rem, 0);
     }
 }
 
-@mixin is-flat-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+@mixin is-flat-clickable(
+    $color: var(--mdc-theme-on-surface),
+    $background-color: transparent,
+    $color--hovered: var(--mdc-theme-on-surface),
+    $background-color--hovered: var(--lime-elevated-surface-background-color)
+) {
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
+
+    cursor: pointer;
+    color: $color;
+    background-color: $background-color;
 
     &:hover {
+        color: $color--hovered;
+        background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
@@ -67,15 +131,28 @@
     }
 }
 
-@mixin is-flat-inset-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+@mixin is-flat-inset-clickable(
+    $color: var(--mdc-theme-on-surface),
+    $background-color: transparent,
+    $color--hovered: var(--mdc-theme-on-surface),
+    $background-color--hovered: var(--lime-elevated-surface-background-color),
+    $background-color--inset: var(--mdc-theme-surface)
+) {
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
+
+    cursor: pointer;
+    color: $color;
+    background-color: $background-color;
 
     &:hover {
+        color: $color--hovered;
+        background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
     &:active {
+        background-color: $background-color--inset;
         box-shadow: var(--button-shadow-inset-pressed);
         transform: translate3d(0, 0.05rem, 0);
     }
@@ -83,24 +160,22 @@
 
 @mixin clear-all-button() {
     // NOTE: you may need to specify "position: absolute" and align the position where you use this mixin
-    @include is-flat-clickable;
+    @include is-flat-clickable(
+        $background-color: rgb(var(--contrast-900)),
+        $background-color--hovered: rgb(var(--contrast-1100))
+    );
 
     cursor: pointer;
 
-    height: functions.pxToRem(20);
-    width: functions.pxToRem(20);
+    height: 1.25rem;
+    width: 1.25rem;
     border-radius: 50%;
 
     background: {
-        color: #babac0;
         repeat: no-repeat;
         position: center;
-        size: functions.pxToRem(12);
+        size: 0.75rem;
         image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs/><path fill='rgb(255,255,255)' d='M7.219 5.781L5.78 7.22 14.563 16 5.78 24.781 7.22 26.22 16 17.437l8.781 8.782 1.438-1.438L17.437 16l8.782-8.781L24.78 5.78 16 14.563z'/></svg>");
-    }
-
-    &:hover {
-        background-color: #757580;
     }
 }
 

@@ -2,8 +2,10 @@ import { Component, Prop, h, Host } from '@stencil/core';
 import { abbreviate } from './format';
 
 /**
- * The Badge component can display both `number` and `string` as `label`.
+ * The Badge component can be used to display a notification badge,
+ * optionally with a number or a text label.
  *
+ * @exampleComponent limel-example-badge
  * @exampleComponent limel-example-badge-number
  * @exampleComponent limel-example-badge-string
  */
@@ -20,7 +22,7 @@ export class Badge {
      * six characters.
      */
     @Prop({ reflect: true })
-    public label: number | string;
+    public label?: number | string;
 
     public render() {
         return (
@@ -30,17 +32,17 @@ export class Badge {
                     'has-large-label': this.labelIsLarge(),
                 }}
             >
-                {this.renderLabel()}
+                <span>{this.renderLabel()}</span>
             </Host>
         );
     }
 
     private renderLabel() {
         if (typeof this.label === 'number') {
-            return <span>{abbreviate(this.label)}</span>;
-        } else if (typeof this.label === 'string') {
-            return <span>{this.label}</span>;
+            return abbreviate(this.label);
         }
+
+        return this.label;
     }
 
     private labelIsLarge() {

@@ -69,6 +69,7 @@
 
 .section__header__title {
     @include lime-typography.typography(headline2);
+    color: var(--mdc-theme-on-surface);
 
     justify-self: flex-start;
     padding-right: functions.pxToRem(12);

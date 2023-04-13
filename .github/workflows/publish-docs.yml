@@ -1,4 +1,4 @@
-name: Pull Request Checks
+name: Docs
 on:
   workflow_call:
     inputs:
@@ -28,17 +28,17 @@ jobs:
     name: Publish Docs
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Read .nvmrc
-      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       id: nvm
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
     - run: npm ci
-    - run: git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-    - run: git config --global user.name "${GITHUB_ACTOR}"
+    - run: git config --global user.email "93315277+lime-opensource@users.noreply.github.com"
+    - run: git config --global user.name "Lime Technologies OSS"
     - name: Publish docs
       if: inputs.buildOnly == false
       run: npm run docs:publish -- --v=${{ inputs.version }} ${{ inputs.forcePush && '--forcePush' }}
@@ -57,8 +57,8 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/github-script@v3
+    - uses: actions/checkout@v3
+    - uses: actions/github-script@v6
       with:
         script: |
           const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/pr-comment.js`);

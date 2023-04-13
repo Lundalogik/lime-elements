@@ -27,6 +27,10 @@
         --lime-text-secondary-on-background-color,
         rgba(var(--contrast-1700), 0.54)
     );
+    --mdc-theme-error: var(
+        --lime-error-background-color,
+        rgb(var(--color-red-dark))
+    );
     --lime-error-text-color: rgb(var(--color-red-darker));
     --mdc-theme-surface: var(
         --lime-surface-background-color,
@@ -34,6 +38,6 @@
     );
     --mdc-theme-on-surface: var(
         --lime-on-surface-color,
-        var(--lime-text-primary-on-background-color)
+        rgb(var(--contrast-1500))
     );
 }

@@ -5,6 +5,8 @@
 
 /**
  * @prop --form-body-padding: space around content of the form
+ * @prop --form-background-color-of-even-rows: Background of even rows in the form, when layout type is `row`. Defaults to `transparent`.
+ * @prop --form-background-color-of-odd-rows:Background of odd rows in the form, when layout type is `row`. Defaults to `--contrast-200`.
  */
 
 @include lime-typography.core-styles;
@@ -159,23 +161,32 @@
 }
 
 .form-group {
+    .mdc-typography--headline1,
+    .mdc-typography--body1 {
+        color: rgb(var(--contrast-1100));
+    }
+
     .mdc-typography--headline1 {
         --mdc-typography-headline1-font-size: 2rem;
         --mdc-typography-headline1-line-height: 2.25rem;
         --mdc-typography-headline1-letter-spacing: -0.0625rem;
         --mdc-typography-headline1-font-weight: 400;
-        color: rgb(var(--contrast-1000));
         margin-top: 1.5rem;
         margin-bottom: 0.5rem;
     }
+
     .form-group {
+        .mdc-typography--headline1,
+        .mdc-typography--body1 {
+            color: rgb(var(--contrast-1200));
+        }
+
         .mdc-typography--headline1 {
             --mdc-typography-headline1-font-size: 1.625rem;
             --mdc-typography-headline1-line-height: 1.25rem;
             --mdc-typography-headline1-font-weight: 300;
             margin-top: 1.25rem;
             margin-bottom: 0.5rem;
-            color: rgb(var(--contrast-1100));
 
             &:before {
                 content: '';
@@ -196,13 +207,17 @@
         }
 
         .form-group {
+            .mdc-typography--headline1,
+            .mdc-typography--body1 {
+                color: rgb(var(--contrast-1300));
+            }
+
             .mdc-typography--headline1 {
                 --mdc-typography-headline1-font-size: 1.375rem;
                 --mdc-typography-headline1-line-height: 1.5rem;
                 --mdc-typography-headline1-font-weight: 300;
                 margin-top: 1rem;
                 margin-bottom: 0.5rem;
-                color: rgb(var(--contrast-1200));
 
                 &:before {
                     display: none;
@@ -210,13 +225,17 @@
             }
 
             .form-group {
+                .mdc-typography--headline1,
+                .mdc-typography--body1 {
+                    color: rgb(var(--contrast-1400));
+                }
+
                 .mdc-typography--headline1 {
                     --mdc-typography-headline1-font-size: 1.25rem;
                     --mdc-typography-headline1-line-height: 1.25rem;
                     --mdc-typography-headline1-font-weight: 300;
                     margin-top: 1rem;
                     margin-bottom: 0.5rem;
-                    color: rgb(var(--contrast-1200));
 
                     &:before {
                         display: none;
@@ -226,3 +245,5 @@
         }
     }
 }
+
+@import './row/row.scss';

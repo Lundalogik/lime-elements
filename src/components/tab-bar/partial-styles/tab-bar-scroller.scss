@@ -49,7 +49,10 @@
 
 .scroll-button {
     --icon-background-color: rgb(var(--contrast-100));
-    top: functions.pxToRem(4);
+    display: flex;
+    align-items: center;
+    top: 0;
+    bottom: 0;
 
     &.left {
         transform: translate3d(
@@ -98,7 +101,7 @@
 }
 
 .mdc-tab-scroller__scroll-content {
-    padding: functions.pxToRem(8) $tab-active-outer-edge-curve-size 0
+    padding: 0.25rem $tab-active-outer-edge-curve-size 0
         $tab-active-outer-edge-curve-size;
     background-color: rgb($tab-background-color);
 }

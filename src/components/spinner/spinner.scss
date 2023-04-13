@@ -32,6 +32,10 @@ $duration: length($colors) * 1s;
 $duration-alt: math.div($duration, length($colors));
 $keyframe: math.div(1, length($colors) * 2) * 100;
 
+:host(limel-spinner) {
+    display: block;
+}
+
 @keyframes spin {
     50% {
         transform: rotate(180deg);

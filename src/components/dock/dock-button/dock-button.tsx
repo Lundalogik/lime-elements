@@ -124,13 +124,21 @@ export class DockButton {
                     selected: this.item?.selected,
                 }}
                 onClick={handleClick}
+                aria-live="polite"
             >
                 {this.renderIcon()}
                 {this.renderLabel()}
                 {this.renderTooltip()}
+                {this.renderNotification()}
             </button>
         );
     }
+
+    private renderNotification = () => {
+        if (this.item.badge !== undefined) {
+            return <limel-badge label={this.item.badge} />;
+        }
+    };
 
     private openPopover = (event: MouseEvent) => {
         event.stopPropagation();

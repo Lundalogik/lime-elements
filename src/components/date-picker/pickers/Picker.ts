@@ -2,15 +2,17 @@ import flatpickr from 'flatpickr';
 import FlatpickrLanguages from 'flatpickr/dist/l10n';
 import { EventEmitter } from '@stencil/core';
 import 'moment/locale/da';
+import 'moment/locale/de';
 import 'moment/locale/fi';
+import 'moment/locale/fr';
 import 'moment/locale/nb';
+import 'moment/locale/nl';
 import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { isAndroidDevice, isIOSDevice } from '../../../util/device';
-import { DateFormatter } from '../dateFormatter';
 
 export abstract class Picker {
-    private dateFormatter: DateFormatter;
+    public formatDate: (date: Date) => string;
 
     protected dateFormat: string;
     protected language: string = 'en';
@@ -30,12 +32,10 @@ export abstract class Picker {
             this.dateFormat = dateFormat;
         }
 
-        this.dateFormatter = new DateFormatter(language);
         this.getWeek = this.getWeek.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleOnClose = this.handleOnClose.bind(this);
         this.parseDate = this.parseDate.bind(this);
-        this.formatDate = this.formatDate.bind(this);
         this.getFlatpickrLang = this.getFlatpickrLang.bind(this);
     }
 
@@ -81,10 +81,6 @@ export abstract class Picker {
         useNativePicker: boolean
     ): flatpickr.Options.Options;
 
-    public formatDate(date: Date) {
-        return this.dateFormatter.formatDate(date, this.dateFormat);
-    }
-
     protected handleClose(selectedDates): Promise<any> {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -96,11 +92,19 @@ export abstract class Picker {
     }
 
     protected getFlatpickrLang() {
-        return this.language === 'nb' ? 'no' : this.language;
+        if (this.language === 'nb') {
+            return 'no';
+        }
+
+        return this.language;
     }
 
     protected getMomentLang() {
-        return this.language === 'no' ? 'nb' : this.language;
+        if (this.language === 'no') {
+            return 'nb';
+        }
+
+        return this.language;
     }
 
     private getPickerDate(selectedDates) {

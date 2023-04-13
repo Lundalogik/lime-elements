@@ -1,5 +1,4 @@
 import { Component, h } from '@stencil/core';
-import { Action } from '@limetech/lime-elements';
 
 /**
  * How default layout of header works
@@ -22,28 +21,8 @@ import { Action } from '@limetech/lime-elements';
 @Component({
     tag: 'limel-example-header',
     shadow: true,
-    styleUrl: 'header.scss',
 })
 export class HeaderExample {
-    private actions = [
-        {
-            id: '1',
-            icon: 'refresh',
-            label: 'Refresh',
-        },
-        {
-            id: '2',
-            icon: 'delete',
-            label: 'Delete',
-            disabled: true,
-        },
-        {
-            id: '3',
-            icon: 'edit',
-            label: 'Edit',
-        },
-    ];
-
     public render() {
         return (
             <limel-header
@@ -52,36 +31,18 @@ export class HeaderExample {
                 subheading="Note"
                 supportingText="Data couldn't be loaded!"
             >
-                {this.renderActions()}
+                <limel-icon-button
+                    slot="actions"
+                    icon="multiply"
+                    label="Close"
+                    onClick={this.handleActionClick()}
+                />
             </limel-header>
         );
     }
 
-    private renderActions() {
-        if (!this.actions) {
-            return;
-        }
-
-        return (
-            <div class="actions">
-                {this.actions.map(this.renderActionButton)}
-            </div>
-        );
-    }
-
-    private renderActionButton = (action: Action) => {
-        return (
-            <limel-icon-button
-                icon={action.icon}
-                label={action.label}
-                disabled={action.disabled}
-                onClick={this.handleActionClick(action)}
-            />
-        );
-    };
-
-    private handleActionClick = (action: Action) => (event: MouseEvent) => {
+    private handleActionClick = () => (event: MouseEvent) => {
         event.stopPropagation();
-        console.log(action);
+        console.log('close');
     };
 }

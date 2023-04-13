@@ -4,6 +4,14 @@
 
 :host(limel-menu-list) {
     display: block;
+    --badge-background-color: var(
+        --notification-badge-background-color,
+        rgb(var(--color-red-default))
+    );
+    --badge-text-color: var(
+        --notification-badge-text-color,
+        rgb(var(--color-white))
+    );
 }
 
 .mdc-menu {
@@ -26,4 +34,8 @@
             display: none;
         }
     }
+}
+
+limel-badge {
+    transform: translateX(0.75rem);
 }

@@ -16,6 +16,7 @@
         --menu-surface-width,
         min(calc(100vw - 2rem), 20rem)
     );
+    background-color: var(--lime-elevated-surface-background-color);
 }
 
 :host(limel-menu-surface.has-grid-layout) {

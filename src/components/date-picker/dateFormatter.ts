@@ -1,9 +1,10 @@
 import 'moment/locale/da';
+import 'moment/locale/de';
 import 'moment/locale/fi';
-import 'moment/locale/nb';
-import 'moment/locale/sv';
 import 'moment/locale/fr';
+import 'moment/locale/nb';
 import 'moment/locale/nl';
+import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { DateType } from './date.types';
 
@@ -31,7 +32,11 @@ export class DateFormatter {
     }
 
     public getLanguage() {
-        return this.language === 'no' ? 'nb' : this.language;
+        if (this.language === 'no') {
+            return 'nb';
+        }
+
+        return this.language;
     }
 
     public getDateFormat(type: DateType) {

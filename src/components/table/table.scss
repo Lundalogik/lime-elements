@@ -9,8 +9,11 @@
 
 $width-of-sorter-arrow: 0.5rem;
 $cell-padding: 0.5rem;
+$table--has-interactive-rows--selectable-row--hover: 2;
+$table--limel-table--row-selector: 1;
 
-:host {
+:host(limel-table) {
+    isolation: isolate;
     display: block;
     --table-header-background-color: var(--contrast-500);
     --table-header-background-color--hover: var(--contrast-400);
@@ -18,11 +21,15 @@ $cell-padding: 0.5rem;
 
     --table-row-background-color--odd: var(--contrast-200);
     --table-row-background-color--even: var(--contrast-100);
-    --table-row-background-color--hover: var(--contrast-100);
-    --table-row-background-color--active: var(--color-teal-lighter);
+    --table-row-background-color--hover: var(
+        --lime-elevated-surface-background-color
+    );
+    --table-row-background-color--active: var(--contrast-300);
 
     --table-arrow-color: var(--contrast-800);
     --table-arrow-color--active: var(--mdc-theme-primary);
+
+    --table-text-color: var(--mdc-theme-text-primary-on-background);
 }
 
 @import './partial-styles/_table-main-layout';
@@ -39,6 +46,16 @@ $cell-padding: 0.5rem;
 }
 
 .tabulator {
+    .tabulator-header {
+        color: var(--table-text-color);
+    }
+    .tabulator-tableHolder {
+        .tabulator-table {
+            color: var(--table-text-color);
+            background-color: transparent;
+        }
+    }
+
     .tabulator-header {
         border-bottom: 0;
         background-color: rgb(var(--table-header-background-color));
@@ -85,23 +102,41 @@ $cell-padding: 0.5rem;
 .tabulator-row {
     &.tabulator-selectable {
         transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: rgb(var(--contrast-300));
+        }
         &:not(.active) {
             &:hover {
                 background-color: rgb(var(--table-header-background-color));
             }
         }
     }
-    &.tabulator-row-odd {
+    &.tabulator-row-odd:not(.active):not(:hover) {
         background-color: rgb(var(--table-row-background-color--odd));
     }
 
-    &.tabulator-row-even {
+    &.tabulator-row-even:not(.active):not(:hover) {
         background-color: rgb(var(--table-row-background-color--even));
     }
 
-    &.active,
-    &.active:hover {
+    &.active {
         background-color: rgb(var(--table-row-background-color--active));
+        box-shadow: var(--button-shadow-inset-pressed);
+
+        &:before {
+            $width-of-selected-row-indicator: 0.2rem;
+            content: '';
+            display: inline-block;
+            box-sizing: border-box;
+            position: sticky;
+            z-index: $table--has-interactive-rows--selectable-row--hover + 1;
+            inset: 0 0 auto 0;
+            border: $width-of-selected-row-indicator solid
+                var(--mdc-theme-primary);
+            border-radius: 1rem;
+            margin-right: -$width-of-selected-row-indicator * 2;
+        }
     }
 
     .tabulator-cell {

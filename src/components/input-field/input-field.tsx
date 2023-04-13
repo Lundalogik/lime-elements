@@ -406,7 +406,9 @@ export class InputField {
 
         return (
             <span class="mdc-text-field__resizer">
-                <textarea {...properties}>{this.value}</textarea>
+                <textarea {...properties} placeholder={this.placeholder}>
+                    {this.value}
+                </textarea>
             </span>
         );
     };

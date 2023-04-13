@@ -219,6 +219,15 @@ export interface GridLayoutOptions
     dense?: boolean;
 }
 
+export interface RowLayoutOptions
+    extends FormLayoutOptions<FormLayoutType.Row> {
+    /**
+     * When specified on a field, the chosen icon will be displayed
+     * on the left side of the row, beside the title.
+     */
+    icon?: string;
+}
+
 export enum FormLayoutType {
     /**
      * The default layout
@@ -229,4 +238,13 @@ export enum FormLayoutType {
      * Render the form fields using a responsive grid layout
      */
     Grid = 'grid',
+
+    /**
+     * Render the form fields in full-width rows.
+     * Each row can have a leading `icon`, and a field.
+     * `title` and `description` provided by the schema will be placed
+     * on the row itself, and not on the field.
+     * This layout is good for creating UIs for user settings pages.
+     */
+    Row = 'row',
 }
