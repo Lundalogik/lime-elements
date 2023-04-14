@@ -8,12 +8,12 @@
 
 $height-of-limel-button: functions.pxToRem(36);
 
-:host([hidden]) {
+limel-icon-button[hidden] {
     display: none;
 }
 
-:host([disabled]) {
-    pointer-events: none;
+limel-icon-button[disabled] {
+    cursor: not-allowed;
 }
 
 .mdc-icon-button {
@@ -35,7 +35,7 @@ $height-of-limel-button: functions.pxToRem(36);
         }
     }
 
-    &:disabled {
+    &[disabled] {
         color: var(--mdc-theme-text-disabled-on-background);
     }
 
