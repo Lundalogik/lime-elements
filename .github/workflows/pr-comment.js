@@ -1,6 +1,6 @@
 module.exports = async ({github, context}) => {
     const message = `Documentation has been published to https://lundalogik.github.io/lime-elements/versions/PR-${context.issue.number}/`;
-    const response = await github.issues.listComments({
+    const response = await github.rest.issues.listComments({
         owner: context.repo.owner,
         repo: context.repo.repo,
         issue_number: context.issue.number,
@@ -13,7 +13,7 @@ module.exports = async ({github, context}) => {
         }
     }
 
-    await github.issues.createComment({
+    await github.rest.issues.createComment({
         owner: context.repo.owner,
         repo: context.repo.repo,
         issue_number: context.issue.number,

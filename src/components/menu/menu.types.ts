@@ -49,6 +49,11 @@ export interface MenuItem<T = any> {
     selected?: boolean;
 
     /**
+     * If specified, will display a notification badge on the buttons in the dock.
+     */
+    badge?: number | string;
+
+    /**
      * Value of the menu item.
      */
     value?: T;

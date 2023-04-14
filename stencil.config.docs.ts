@@ -21,7 +21,6 @@ export const config: Config = {
             dir: 'www',
             baseUrl: '/',
             copy: [
-                { src: 'style/color-palette-extended-light-mode-only.css' },
                 { src: 'style/color-palette-extended.css' },
                 {
                     src: '../node_modules/kompendium/dist/',

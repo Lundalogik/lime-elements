@@ -25,9 +25,10 @@ export class InputFieldTextareaExample {
 
         return [
             <limel-input-field
-                label="Text Field"
+                label="Job description"
                 type="textarea"
-                helperText="Please enter a useful message!"
+                placeholder="What is your dream job? Describe it here..."
+                helperText="This text will be displayed in your profile"
                 maxlength={MAX_LENGTH}
                 value={this.value}
                 required={this.required}

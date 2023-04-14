@@ -8,10 +8,22 @@
  * @prop --list-grid-item-max-width: Maximum width of items in the menu list when `gridLayout={true}`. Defaults to `10rem`.
  * @prop --list-grid-item-min-width: Minimum width of items in the menu list when `gridLayout={true}`. Defaults to `7.5rem`.
  * @prop --list-grid-gap: Distance between the items in the menu list when `gridLayout={true}`. Defaults to `0.75rem`.
+ * @prop --notification-badge-text-color: Defines the text color of notification badges. Defaults to `--color-white`.
+ * @prop --notification-badge-background-color: Defines the background color of notification badges. Defaults to `--color-red-default`.
  */
 
-:host {
+:host(limel-menu) {
+    isolation: isolate;
+    position: relative;
     display: inline-block;
+    --badge-background-color: var(
+        --notification-badge-background-color,
+        rgb(var(--color-red-default))
+    );
+    --badge-text-color: var(
+        --notification-badge-text-color,
+        rgb(var(--color-white))
+    );
 }
 
 :host([hidden]) {
@@ -36,4 +48,10 @@
 
 .mdc-menu-surface--anchor {
     position: relative;
+}
+
+limel-badge {
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
 }

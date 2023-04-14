@@ -26,7 +26,7 @@ svg {
 .flatpickr-calendar {
     isolation: isolate;
     border-radius: 0.25rem;
-    background-color: rgb(var(--contrast-100));
+    background-color: var(--lime-elevated-surface-background-color);
     box-shadow: var(--shadow-depth-16);
 }
 
@@ -136,6 +136,18 @@ svg {
 
 .flatpickr-time {
     border-top: 1px solid rgb(var(--contrast-400));
+
+    input {
+        color: var(--mdc-theme-on-surface);
+    }
+
+    input,
+    .flatpickr-am-pm {
+        &:hover,
+        &:focus {
+            background: rgb(var(--contrast-100));
+        }
+    }
 }
 
 .flatpickr-weekdays {
@@ -204,10 +216,6 @@ svg {
 .arrowDown {
     @include mixins.is-flat-clickable;
     border-radius: 0.25rem;
-
-    &:hover {
-        background-color: rgb(var(--contrast-100)) !important;
-    }
 }
 
 .arrowUp {
@@ -261,7 +269,6 @@ svg {
 .datepicker-quarter,
 .datepicker-year {
     @include mixins.is-flat-clickable;
-    cursor: pointer;
     min-width: 0;
     text-align: center;
 

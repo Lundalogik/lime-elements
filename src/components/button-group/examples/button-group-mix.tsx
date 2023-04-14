@@ -1,3 +1,4 @@
+import { Button, LimelButtonGroupCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 /**
@@ -18,32 +19,35 @@ export class ButtonGroupMixExample {
     @State()
     private disabled: boolean = false;
 
+    @State()
+    private buttons: Button[] = [
+        {
+            id: '1',
+            title: 'All',
+        },
+        {
+            id: '2',
+            title: 'Banana',
+            icon: 'banana',
+        },
+        {
+            id: '3',
+            title: 'Apple',
+            icon: 'apple',
+        },
+        {
+            id: '4',
+            title: 'Pear',
+            icon: 'pear',
+        },
+    ];
+
     public render() {
         return [
             <limel-button-group
                 disabled={this.disabled}
                 onChange={this.handleChange}
-                value={[
-                    {
-                        id: '1',
-                        title: 'All',
-                    },
-                    {
-                        id: '2',
-                        title: 'Banana',
-                        icon: 'banana',
-                    },
-                    {
-                        id: '3',
-                        title: 'Apple',
-                        icon: 'apple',
-                    },
-                    {
-                        id: '4',
-                        title: 'Pear',
-                        icon: 'pear',
-                    },
-                ]}
+                value={this.buttons}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -55,8 +59,16 @@ export class ButtonGroupMixExample {
         ];
     }
 
-    private handleChange = (event) => {
-        console.log(event.detail);
+    private handleChange = (event: LimelButtonGroupCustomEvent<Button>) => {
+        const changedButton = event.detail;
+        console.log(changedButton);
+
+        this.buttons = this.buttons.map((button) => {
+            return {
+                ...button,
+                selected: button.id === changedButton.id,
+            };
+        });
     };
 
     private toggleEnabled = () => {

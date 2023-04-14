@@ -181,21 +181,6 @@ module.exports = {
                 'no-console': 'off',
                 'no-magic-numbers': 'off',
                 'prefer-arrow/prefer-arrow-functions': 'off',
-            },
-        },
-        {
-            files: [
-                'src/**/*.spec.{ts,tsx}',
-                'src/**/*.e2e.{ts,tsx}',
-                'src/**/*.test-wrapper.{ts,tsx}',
-            ],
-            parserOptions: {
-                parserOption: {
-                    jsx: true,
-                },
-                project: 'tsconfig.lint.json',
-            },
-            rules: {
                 'ban/ban': [
                     'error',
                     {

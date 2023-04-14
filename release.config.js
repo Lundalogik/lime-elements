@@ -31,7 +31,14 @@ module.exports = {
                     'chore(release): ${nextRelease.version} [release]\n\n${nextRelease.notes}',
             },
         ],
-        '@semantic-release/github',
+        [
+            '@semantic-release/github',
+            {
+                failComment: false,
+                failTitle: false,
+                labels: false,
+            },
+        ],
     ],
     npmPublish: true,
 };

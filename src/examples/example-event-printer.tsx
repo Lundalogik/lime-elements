@@ -23,14 +23,10 @@ export class ExampleEventPrinter {
     }
 
     public render() {
-        return (
-            <section class="events-display">
-                <header>
-                    <h5>Caught events:</h5>
-                </header>
-                {this.caughtEvents.map(this.formatEvent)}
-            </section>
-        );
+        return [
+            <header>Caught events:</header>,
+            this.caughtEvents.map(this.formatEvent),
+        ];
     }
 
     private formatEvent({ timestamp, event }) {

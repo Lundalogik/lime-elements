@@ -26,8 +26,12 @@ export class DatePickerCompositeExample {
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
 
     public componentWillLoad() {
+        const properties = { ...this.schema.properties };
+        delete properties.formatter;
+
         this.schema = {
             ...this.schema,
+            properties: properties,
             lime: {
                 layout: {
                     type: 'grid',

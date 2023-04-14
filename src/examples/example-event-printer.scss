@@ -1,23 +1,67 @@
 @use './example-value';
-@use '../style/functions';
+@use '../style/mixins';
 
-.events-display {
+:host(limel-example-event-printer) {
+    isolation: isolate;
     max-height: 20rem;
-    overflow: auto;
-}
-
-h5 {
-    margin: 0;
+    overflow-y: auto;
+    padding-bottom: 0.25rem;
 }
 
 details {
-    font-size: functions.pxToRem(14);
+    font-size: 0.875rem; // 14px
 }
 
 summary {
-    cursor: pointer;
+    @include mixins.is-flat-clickable();
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    margin: 0 0.25rem;
+    position: sticky;
+    top: 0;
+    background-color: rgb(var(--kompendium-contrast-100));
+
+    details[open] & {
+        z-index: 1;
+        background-color: var(--lime-elevated-surface-background-color);
+        box-shadow: var(--button-shadow-pressed);
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &:hover {
+        z-index: 1;
+    }
+    &:focus {
+        outline: none;
+    }
+    &:focus-visible {
+        z-index: 1;
+        outline: none;
+        box-shadow: var(--kompendium-shadow-depth-8-focused);
+    }
+
+    &::marker {
+        content: '+';
+        display: block;
+        width: 1.5rem;
+        font-weight: bold;
+        font-size: 1rem;
+        color: rgb(var(--kompendium-color-primary));
+
+        details[open] & {
+            content: '–';
+            color: rgb(var(--kompendium-color-red-default));
+        }
+    }
 }
 
-code {
-    font-size: functions.pxToRem(10);
+pre {
+    margin: 0 0.25rem 0.25rem 0.25rem;
+
+    > code {
+        margin-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
 }

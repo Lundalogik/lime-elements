@@ -1,4 +1,12 @@
-import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
 import { Button } from '../button/button.types';
 import { createRandomString } from '../../util/random-string';
 
@@ -35,6 +43,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-button-group-icons
  * @exampleComponent limel-example-button-group
  * @exampleComponent limel-example-button-group-mix
+ * @exampleComponent limel-example-button-group-badges
  * @exampleComponent limel-example-button-group-composite
  */
 @Component({
@@ -73,9 +82,7 @@ export class ButtonGroup {
     }
 
     public componentWillLoad() {
-        this.selectedButtonId = this.value.find((button) => {
-            return button.selected;
-        })?.id;
+        this.setSelectedButton();
     }
 
     public render() {
@@ -114,6 +121,7 @@ export class ButtonGroup {
                     />
                     <label htmlFor={buttonId}>
                         {this.renderContent(button)}
+                        {this.renderBadge(button)}
                     </label>
                 </span>
             </div>
@@ -154,6 +162,14 @@ export class ButtonGroup {
         ];
     }
 
+    private renderBadge(button: Button) {
+        if (!button.badge) {
+            return;
+        }
+
+        return <limel-badge label={button.badge} />;
+    }
+
     private onChange(event: Event) {
         event.stopPropagation();
         const target = event.target as HTMLInputElement;
@@ -163,5 +179,16 @@ export class ButtonGroup {
             return item.id === this.selectedButtonId;
         });
         this.change.emit(button);
+    }
+
+    private setSelectedButton = () => {
+        this.selectedButtonId = this.value.find((button) => {
+            return button.selected;
+        })?.id;
+    };
+
+    @Watch('value')
+    protected valueChanged() {
+        this.setSelectedButton();
     }
 }

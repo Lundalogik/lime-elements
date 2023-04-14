@@ -60,6 +60,9 @@ export class DatePickerCalendar {
     @Prop()
     public language: Languages = 'en';
 
+    @Prop()
+    public formatter!: (date: Date) => string;
+
     /**
      * Emitted when the date picker value is changed.
      */
@@ -132,12 +135,12 @@ export class DatePickerCalendar {
                 );
                 break;
         }
+
+        this.picker.formatDate = this.formatter;
     }
 
     public componentDidUpdate() {
-        if (this.flatPickrCreated) {
-            this.redrawFlatpickr();
-        } else {
+        if (!this.flatPickrCreated) {
             this.createFlatpickr();
         }
 
@@ -177,10 +180,6 @@ export class DatePickerCalendar {
 
         this.picker.init(this.inputElement, this.container, this.value);
         this.flatPickrCreated = true;
-    }
-
-    private redrawFlatpickr() {
-        this.picker.redraw();
     }
 
     private destroyFlatpickr() {

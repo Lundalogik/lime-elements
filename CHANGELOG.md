@@ -1,3 +1,350 @@
+## [36.3.0-next.38](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.37...v36.3.0-next.38) (2023-04-13)
+
+
+### Bug Fixes
+
+* **date-picker:** week-picker looks correct when opened repeatedly ([3027af0](https://github.com/Lundalogik/lime-elements/commit/3027af089fa394d7329da09c5a57c8302f92b076))
+
+## [36.3.0-next.37](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.36...v36.3.0-next.37) (2023-04-11)
+
+
+### Bug Fixes
+
+* **button-group:** update value from outside ([c803040](https://github.com/Lundalogik/lime-elements/commit/c80304060e71e5a521fdd2ab0d037d0d2a25800d))
+
+## [36.3.0-next.36](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.35...v36.3.0-next.36) (2023-04-03)
+
+
+### Features
+
+* **callout:** add support for custom heading and icon ([ce8a23f](https://github.com/Lundalogik/lime-elements/commit/ce8a23f000bf1f7299c15428a98bb788f002b917))
+
+## [36.3.0-next.35](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.34...v36.3.0-next.35) (2023-04-03)
+
+
+### Features
+
+* **callout:** add support for custom colors ([d29df99](https://github.com/Lundalogik/lime-elements/commit/d29df99dcb46441a48ec551c75724d65f92b8a0f))
+
+## [36.3.0-next.34](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.33...v36.3.0-next.34) (2023-04-03)
+
+
+### Bug Fixes
+
+* **callout:** add missing Dutch translation of `Caution` ([599ce74](https://github.com/Lundalogik/lime-elements/commit/599ce748b97a5008c7246a79a11c8b574c1f65ac))
+
+## [36.3.0-next.33](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.32...v36.3.0-next.33) (2023-04-03)
+
+
+### Features
+
+* **package:** enable importing `@limetech/lime-elements/dist/scss/mixins.scss` ([88f0859](https://github.com/Lundalogik/lime-elements/commit/88f08591ca22780314f5d0480c52d20d35f2c7ba))
+
+## [36.3.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.31...v36.3.0-next.32) (2023-03-31)
+
+
+### Features
+
+* **callout:** add new component ([fb53730](https://github.com/Lundalogik/lime-elements/commit/fb53730886079b639aedbc547de6ef76768f4a2c))
+
+## [36.3.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.30...v36.3.0-next.31) (2023-03-31)
+
+
+### Bug Fixes
+
+* **info-tile:** position the badge more graphically correct ([d54b37d](https://github.com/Lundalogik/lime-elements/commit/d54b37da978bab3c7c1b1cef3f11a41eef5995ab))
+* **shortcut:** position the badge more graphically correct ([688ddf8](https://github.com/Lundalogik/lime-elements/commit/688ddf8a4f34b24f3f2989abafb2ba6010e19d5b))
+
+## [36.3.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.29...v36.3.0-next.30) (2023-03-30)
+
+
+### Bug Fixes
+
+* **snackbar:** make snackbar's label center alignment ([b5c6997](https://github.com/Lundalogik/lime-elements/commit/b5c6997f9ce91f1e7316e75877d192a4d4d58674))
+
+## [36.3.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.28...v36.3.0-next.29) (2023-03-29)
+
+
+### Bug Fixes
+
+* **button:** hide the icon when `has-reduced-presence` class is true & the button is `disabled` ([c52f6f7](https://github.com/Lundalogik/lime-elements/commit/c52f6f7a9272e0a027c5f3ed467f3c3546974f01))
+
+## [36.3.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.27...v36.3.0-next.28) (2023-03-29)
+
+
+### Features
+
+* **button-group:** add badge property to button type ([f2dc01b](https://github.com/Lundalogik/lime-elements/commit/f2dc01bbef63d63d3c0add06699ff5b854a5d9d9))
+* **button-group:** add support for badges ([2f9d9d3](https://github.com/Lundalogik/lime-elements/commit/2f9d9d34178b96776e7b9c2d517e6f6392fa7d40))
+
+## [36.3.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.26...v36.3.0-next.27) (2023-03-10)
+
+
+### Features
+
+* **dock:** add CSS variables for paddings around the dock ([11bccfd](https://github.com/Lundalogik/lime-elements/commit/11bccfd7fcacb5a9788def9f792f6889416eb12a))
+
+
+### Bug Fixes
+
+* **dialog:** respect `env()` variables for safe-areas ([c7b05ff](https://github.com/Lundalogik/lime-elements/commit/c7b05ff6ffaff41adec658bc8ba1044a69b9a34c))
+
+## [36.3.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.25...v36.3.0-next.26) (2023-03-06)
+
+
+### Bug Fixes
+
+* **input-field:** make possible to use placeholder in textarea type ([3d0c351](https://github.com/Lundalogik/lime-elements/commit/3d0c351f6d429667a2be481533e13bb8b7e96c96))
+
+## [36.3.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.24...v36.3.0-next.25) (2023-02-28)
+
+
+### Bug Fixes
+
+* **spinner:** make it show up in iOS ([1fb37e7](https://github.com/Lundalogik/lime-elements/commit/1fb37e74668196ef898d3f7e553274bcba07d60e))
+
+## [36.3.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.23...v36.3.0-next.24) (2023-02-23)
+
+
+### Bug Fixes
+
+* **badge:** ensure empty badges are center-aligned ([e40696e](https://github.com/Lundalogik/lime-elements/commit/e40696ed5bc9f27047b9235fbe3746cf898f8571))
+* **menu:** adjust placement of the notification badge on the trigger ([bae7921](https://github.com/Lundalogik/lime-elements/commit/bae7921470fad48ffb830ffdce8ca1db22e260cc))
+
+## [36.3.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.22...v36.3.0-next.23) (2023-02-23)
+
+
+### Features
+
+* **menu:** add notification badge to menu item ([2873a7d](https://github.com/Lundalogik/lime-elements/commit/2873a7d7ab10ee2909017566ae33a79de97e85bb))
+
+
+### Bug Fixes
+
+* **dock-button:** fix notification badge inconsistencies ([3164fcd](https://github.com/Lundalogik/lime-elements/commit/3164fcd5a18ac646befc79fe79c36cbfb5577625))
+
+## [36.3.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.21...v36.3.0-next.22) (2023-02-22)
+
+
+### Bug Fixes
+
+* **badge:** render it smaller, when there is no label ([3e67944](https://github.com/Lundalogik/lime-elements/commit/3e679448c3caa2642e64fe5199aa666dc5152b86))
+
+## [36.3.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.20...v36.3.0-next.21) (2023-02-22)
+
+
+### Features
+
+* **badge:** make label optional ([1ee298f](https://github.com/Lundalogik/lime-elements/commit/1ee298f553ac73c9c236853ef4304f0aed64c372)), closes [#2140](https://github.com/Lundalogik/lime-elements/issues/2140)
+
+
+### Bug Fixes
+
+* **badge:** prevent stretching through the width of block containers ([847db27](https://github.com/Lundalogik/lime-elements/commit/847db276b5074817febbc4bb251af47bb0cea343))
+
+## [36.3.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.19...v36.3.0-next.20) (2023-02-21)
+
+
+### Features
+
+* **dock:** enable displaying a notification badge on the buttons ([54dabfa](https://github.com/Lundalogik/lime-elements/commit/54dabfac603d46828a3a716d746836ea57dc50e9))
+
+## [36.3.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.18...v36.3.0-next.19) (2023-02-16)
+
+
+### Features
+
+* **date-picker:** add custom formatter option ([d528a62](https://github.com/Lundalogik/lime-elements/commit/d528a62a444d5e96cd6599b1ecb05e8f0c776cfe)), closes [Lundalogik/crm-feature#3164](https://github.com/Lundalogik/crm-feature/issues/3164)
+
+## [36.3.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.17...v36.3.0-next.18) (2023-02-16)
+
+
+### Bug Fixes
+
+* **info-tile:** ensure loading indicator is displayed when `value` & `suffix` are empty ([328d9d3](https://github.com/Lundalogik/lime-elements/commit/328d9d3eac38a1555c48792fba6a4ba28a71acde))
+
+## [36.3.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.16...v36.3.0-next.17) (2023-02-09)
+
+
+### Bug Fixes
+
+* **form:** make icons in `row` layout visually less dominant ([2cb7685](https://github.com/Lundalogik/lime-elements/commit/2cb7685288337c99afbe841e19914effddd7b904))
+
+## [36.3.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.15...v36.3.0-next.16) (2023-02-09)
+
+
+### Features
+
+* **form:** add new layout type for rendering form fields in rows ([29cec75](https://github.com/Lundalogik/lime-elements/commit/29cec75ab2e2dd5dbd4e755777d1bd77ceef508b))
+
+## [36.3.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.14...v36.3.0-next.15) (2023-02-06)
+
+
+### Features
+
+* **date-picker:** add support for locale `de` (German) ([26224e7](https://github.com/Lundalogik/lime-elements/commit/26224e7dc724cfc119e9fa39409c86ca74aade2c))
+
+
+### Bug Fixes
+
+* **date-picker:** add missing locale `fr` (French) ([292e7c6](https://github.com/Lundalogik/lime-elements/commit/292e7c691aa7683271b643b62b2bc54e58c21af1))
+* **date-picker:** add missing locale `nl` (Dutch) ([1e44498](https://github.com/Lundalogik/lime-elements/commit/1e444980d6812ad6854e8f2eb715ffd84a6f64e9))
+
+## [36.3.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.13...v36.3.0-next.14) (2023-02-01)
+
+
+### Bug Fixes
+
+* **split-button:** do not emit `click` events when button is disabled ([898bda7](https://github.com/Lundalogik/lime-elements/commit/898bda7069541a3b95eb643d568a6bfb0f86acd9)), closes [#2096](https://github.com/Lundalogik/lime-elements/issues/2096)
+
+## [36.3.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.12...v36.3.0-next.13) (2023-01-31)
+
+
+### Bug Fixes
+
+* **split-button:** make sure the internal limel-button as wide as a container ([9f729f2](https://github.com/Lundalogik/lime-elements/commit/9f729f27fa759abc0809efc23f7a5a2ecc0004de))
+
+## [36.3.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.11...v36.3.0-next.12) (2023-01-31)
+
+
+### Bug Fixes
+
+* **slider:** make min & max labels react to dark mode ([7ece7c7](https://github.com/Lundalogik/lime-elements/commit/7ece7c79b8e3c07872966299ea5c9cefe09bafc2))
+
+## [36.3.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.10...v36.3.0-next.11) (2023-01-30)
+
+
+### Features
+
+* **tab-panel:** enable changing background color of tab content ([3d3d3e8](https://github.com/Lundalogik/lime-elements/commit/3d3d3e852f32a2367fb17ce34d889ddb13a83dbd))
+
+
+### Bug Fixes
+
+* **tab-bar:** make it slightly shorter in height ([4275d25](https://github.com/Lundalogik/lime-elements/commit/4275d2504eaeec027272e8d781f3183c9852f021))
+* **tab-bar:** vertically center align scroll buttons ([a72f9ab](https://github.com/Lundalogik/lime-elements/commit/a72f9ab1684f97ca926a37def6b576dad9dec328))
+
+## [36.3.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.9...v36.3.0-next.10) (2023-01-25)
+
+
+### Bug Fixes
+
+* **info-tile:** make sure icon does not grow too large on older browsers ([796f7e4](https://github.com/Lundalogik/lime-elements/commit/796f7e4da89407dd1f27460c7a6d87cd5d881647))
+
+## [36.3.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.8...v36.3.0-next.9) (2023-01-20)
+
+
+### Bug Fixes
+
+* **chip-set:** make leading icon color react to dark mode ([8b1e598](https://github.com/Lundalogik/lime-elements/commit/8b1e598538521fefca037bd41775af2ef2054e08))
+* **chipset:** make delimiters text color react to dark mode ([7ea94c5](https://github.com/Lundalogik/lime-elements/commit/7ea94c57ba63ba002e80bd7759c88146fd5a0257))
+
+## [36.3.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.7...v36.3.0-next.8) (2023-01-20)
+
+
+### Bug Fixes
+
+* **collapsible-section:** make header title color respect dark mode ([0dd6dc9](https://github.com/Lundalogik/lime-elements/commit/0dd6dc982b0b6f3df2f4851e082e785bddfebe38))
+
+## [36.3.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.6...v36.3.0-next.7) (2023-01-20)
+
+
+### Features
+
+* **header:** add named slot `actions` and deprecate unnamed slot ([166980f](https://github.com/Lundalogik/lime-elements/commit/166980f464c3c1d69b38b767e1cc6d0230aa58df))
+
+## [36.3.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.5...v36.3.0-next.6) (2023-01-20)
+
+
+### Bug Fixes
+
+* **form:** make headline and body text colors darker for nested sections ([49b43f3](https://github.com/Lundalogik/lime-elements/commit/49b43f3ce88bc7ef7479cae53f9b50594e17a6ec))
+
+## [36.3.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.4...v36.3.0-next.5) (2023-01-20)
+
+
+### Bug Fixes
+
+* **form:** use dark mode friendly CSS variable for headline & body text ([8758d37](https://github.com/Lundalogik/lime-elements/commit/8758d3736ba314369d6b5cc39967831bdd6e8b83))
+
+## [36.3.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.3...v36.3.0-next.4) (2023-01-20)
+
+
+### Bug Fixes
+
+* **button:** make sure all buttons have the same transition styles ([63c4ccd](https://github.com/Lundalogik/lime-elements/commit/63c4ccda9f9b79b98c06909da84ddbd2df4d5700))
+
+## [36.3.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.2...v36.3.0-next.3) (2023-01-20)
+
+
+### Bug Fixes
+
+* **switch:** specify color for label to support darkmode better ([26efead](https://github.com/Lundalogik/lime-elements/commit/26efead1f6e2f319f5be1534f32795379d8d2eb7))
+
+## [36.3.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.1...v36.3.0-next.2) (2023-01-17)
+
+
+### Features
+
+* **list:** add CSS props for background color of even & odd list items ([49cfd6d](https://github.com/Lundalogik/lime-elements/commit/49cfd6d421a2025ef55d8045a336e4241f357882))
+
+
+### Bug Fixes
+
+* **list:** correctly support dark mode in lists with `has-striped-rows` class ([ce2a1f2](https://github.com/Lundalogik/lime-elements/commit/ce2a1f21017c91859d5f758334c5e7d57cd6766f))
+
+## [36.3.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.2.0...v36.3.0-next.1) (2023-01-16)
+
+
+### Features
+
+* **button-group:** add a CSS variable for the group's background ([5c3d4fc](https://github.com/Lundalogik/lime-elements/commit/5c3d4fcc3a176ab1a9370d68346c9d93510b94cb))
+* **checkbox:** add a CSS variable for the border color of the unchecked state ([c7cffe2](https://github.com/Lundalogik/lime-elements/commit/c7cffe2cf2243419374838433567605a52fa761f))
+* **core-styles:** added a CSS theme variable for background color of elevated surfaces ([249bb2c](https://github.com/Lundalogik/lime-elements/commit/249bb2c61af8e968ca039104258b3cf4cbae1cad))
+* **mixins:** give basic dark-mode support to clickable elements in various components ([1492956](https://github.com/Lundalogik/lime-elements/commit/14929569cbbb7100f1cb648c8b8892e8b9897500))
+* **shadows:** add `dark` color-scheme variants of the CSS variables ([b2d7590](https://github.com/Lundalogik/lime-elements/commit/b2d75900eeeefa7a45c3b7d1b0af4597a22369b4))
+* **shadows:** add CSS variables for `focused-state` and `error-state` ([6bbd9dc](https://github.com/Lundalogik/lime-elements/commit/6bbd9dc99ec1a3a28509acba7a77cf492ca93e15))
+* **style:** add new CSS variable to visualize error with a red hue from our palette ([5da388e](https://github.com/Lundalogik/lime-elements/commit/5da388e268d108196548ee782a2831c9cccaee9d))
+* **style:** add new mixin for helper-text-color ([eccde71](https://github.com/Lundalogik/lime-elements/commit/eccde71862d2b546ef90a58d98e5c78b6d2fc98f))
+* **style:** add new mixin for input filed placeholder text ([3f7c01e](https://github.com/Lundalogik/lime-elements/commit/3f7c01e505be083ad95ec604d19a610df2bf65f8))
+
+
+### Bug Fixes
+
+* **button-group:** support dark mode properly ([d97eb66](https://github.com/Lundalogik/lime-elements/commit/d97eb6612dd0a9cd8a6209eff8e4087a25076afb))
+* **button:** support dark mode properly ([2f83603](https://github.com/Lundalogik/lime-elements/commit/2f8360393b5e0f956e35f7e9058021bb50789915))
+* **chip-set:** remove overwritten thus unused `transition` style of the clear-all-button ([80b0f74](https://github.com/Lundalogik/lime-elements/commit/80b0f74abcc4672d6976f9052beb40a6f25e3307))
+* **chip-set:** support dark mode properly ([c2c1769](https://github.com/Lundalogik/lime-elements/commit/c2c1769b436e5178b8407ae9822c79d4f9afc0b2))
+* **code-editor:** support dark mode properly ([c28ae26](https://github.com/Lundalogik/lime-elements/commit/c28ae26d8214a53d53b8a566178f311e91e75976))
+* **color-palette:** slightly lighten up the darkest `--contrast-` swatch ([7892242](https://github.com/Lundalogik/lime-elements/commit/7892242b22e10f0e7862f72643f2afb1501a812b))
+* **color-picker:** support dark mode properly ([a71d3d4](https://github.com/Lundalogik/lime-elements/commit/a71d3d4fc0516227400a3d9ab7956b5b9e3f950a))
+* **date-picker:** support dark mode properly ([f80c82e](https://github.com/Lundalogik/lime-elements/commit/f80c82ee0d58fe8489bfcb003b85158ffc44cf19))
+* **dialog:** support dark mode properly ([5d67478](https://github.com/Lundalogik/lime-elements/commit/5d67478aff458babcad22d475c9d4796ec3e68c6))
+* **dock:** support dark mode properly ([2ba8577](https://github.com/Lundalogik/lime-elements/commit/2ba85778411526f58d4e953628161192849cc767))
+* **icon-button:** use `is-flat-clickable` mixin correctly ([1562c46](https://github.com/Lundalogik/lime-elements/commit/1562c4622bd95dc3197b4d85426da60371b698e0))
+* **info-tile:** decrease space between label rows ([c83534d](https://github.com/Lundalogik/lime-elements/commit/c83534d7b6916358f0e6eee2297010c0778aec18))
+* **info-tile:** fix icon alignment issue on IOS ([ee8efc3](https://github.com/Lundalogik/lime-elements/commit/ee8efc3f152585a89fa17c67190e2365b36f5eff))
+* **info-tile:** make sure icon is on top of circular progress in small containers ([7e3bd1a](https://github.com/Lundalogik/lime-elements/commit/7e3bd1ada6d454b295d2a08e3fdaa19f3a2c805d))
+* **info-tiles:** adjust the layout if no container queries support ([ab6e907](https://github.com/Lundalogik/lime-elements/commit/ab6e9079de5bfe341fd36794a1e159e39f8d59e8))
+* **info-tile:** support dark mode properly ([e3fa102](https://github.com/Lundalogik/lime-elements/commit/e3fa102e0e28a4b353f7f8a8e912d18b65bd0ef7))
+* **input-field:** support dark mode properly ([2cc6583](https://github.com/Lundalogik/lime-elements/commit/2cc65830116013a12dd4f851541dabe881e7b55b))
+* **list:** support dark mode properly ([df4e504](https://github.com/Lundalogik/lime-elements/commit/df4e504839354f57a854886fdaad08275175903e))
+* **menu:** support dark mode properly ([816c800](https://github.com/Lundalogik/lime-elements/commit/816c80075db53aea18c67a2b285e77ea06eb0620))
+* **popover:** support dark mode properly ([d99111a](https://github.com/Lundalogik/lime-elements/commit/d99111a50cb38df3c1d397fe85d3d9fe81f7da4d))
+* **select:** support dark mode properly ([33d3abc](https://github.com/Lundalogik/lime-elements/commit/33d3abc68c526505f1cd5b59180deb1852767d7c))
+* **shortcut:** support dark mode properly ([76f7b13](https://github.com/Lundalogik/lime-elements/commit/76f7b1311965c0f616c06a7d2c520d0fe5239e41))
+* **slider:** support dark mode properly ([5a1a04c](https://github.com/Lundalogik/lime-elements/commit/5a1a04c6c38061720605206942ac965b3dc0436a))
+* **snackbar:** support dark mode properly ([4840471](https://github.com/Lundalogik/lime-elements/commit/4840471fb83ddddbc3e4d3a1d0e0902df0c912bb))
+* **style:** exclude dark-mode-only CSS variables from clients that want light-mode-only ([621b47d](https://github.com/Lundalogik/lime-elements/commit/621b47d465afe3529f60995dc7721c2c2f61a94a))
+* **style:** improve the `in(dark-mode)` mixin to fully support dark mode ([49b1e2c](https://github.com/Lundalogik/lime-elements/commit/49b1e2cbbfafed864687ab030336b1ebfdb0968d))
+* **style:** make `clear-all-button` mixin support dark mode ([92d5607](https://github.com/Lundalogik/lime-elements/commit/92d5607b34122f065a5f7764b514f24e9c882395))
+* **style:** use correct fallback for `--mdc-theme-on-surface` ([ae2a0a5](https://github.com/Lundalogik/lime-elements/commit/ae2a0a57444076f94cb4ef4d1c16b06044fefad5))
+* **switch:** support dark mode properly ([5252064](https://github.com/Lundalogik/lime-elements/commit/52520641a4bf239dc34e812b7c670d40bfba1be3))
+* **tab-bar:** support dark mode properly ([75a078a](https://github.com/Lundalogik/lime-elements/commit/75a078a4f4a8f9e4e86f4291c09c7caf94287854))
+* **table:** give it its own stacking context, using `isolate` styles ([c929b5d](https://github.com/Lundalogik/lime-elements/commit/c929b5d7abff32f5e25305560c7944adbe3d693f))
+* **table:** make pagination buttons fully support dark mode ([d20cd48](https://github.com/Lundalogik/lime-elements/commit/d20cd48139e5c2a8609d63c4a08e6f6072c736f9))
+* **table:** support dark mode properly ([36635a8](https://github.com/Lundalogik/lime-elements/commit/36635a8487cf2f361542f3dc419de51fc1c62d23))
+
 ## [36.2.0](https://github.com/Lundalogik/lime-elements/compare/v36.1.0...v36.2.0) (2023-01-13)
 
 

@@ -21,7 +21,9 @@
 
             .tabulator-page {
                 &:not([disabled]) {
-                    @include mixins.is-flat-clickable;
+                    @include mixins.is-flat-clickable(
+                        $color: rgb(var(--contrast-1200)) !important
+                    );
                 }
                 position: relative;
                 height: functions.pxToRem(28);
@@ -32,15 +34,10 @@
                 border: none;
                 border-radius: functions.pxToRem(40);
 
-                color: rgb(var(--contrast-1200)) !important;
-                background-color: transparent;
-
-                &:hover {
-                    background-color: rgb(var(--contrast-100));
-                }
+                background-color: transparent; // has to be here, otherwise disabled buttons will also get a background
 
                 &.active {
-                    background-color: rgb(var(--contrast-100));
+                    background-color: var(--mdc-theme-surface);
                     box-shadow: var(--button-shadow-inset);
                 }
 
@@ -57,37 +54,55 @@
 }
 
 // Interactivity effects for buttons
-.tabulator-page {
+button.tabulator-page {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
     &[data-page='first'],
     &[data-page='prev'],
     &[data-page='next'],
     &[data-page='last'] {
         font-size: 0;
         color: transparent !important;
+
+        &:before,
         &:after {
+            content: '';
             transition: transform 0.2s ease;
             display: block;
-            opacity: 0.7;
 
             position: absolute;
-            top: functions.pxToRem(2);
-            right: functions.pxToRem(2);
-            bottom: functions.pxToRem(2);
-            left: functions.pxToRem(2);
         }
-    }
 
-    &[data-page='prev'],
-    &[data-page='next'] {
         &:after {
-            content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 100 100'><defs/><path d='M68.714 50L37.286 70V30l31.428 20z'/></svg>");
+            border: {
+                style: solid;
+                color: transparent;
+                width: 0.25rem 0 0.25rem 0.4rem;
+                left-color: var(--mdc-theme-on-surface);
+            }
         }
     }
 
     &[data-page='first'],
     &[data-page='last'] {
-        &:after {
-            content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 100 100'><defs/><path d='M60.714 50L29.286 70V30l31.428 20zM64.714 30h6v40h-6z'/></svg>");
+        &:before {
+            height: 0.5rem;
+            width: 0.125rem;
+            background-color: var(--mdc-theme-on-surface);
+        }
+    }
+
+    &[data-page='first'] {
+        &:before {
+            left: 0.375rem;
+        }
+    }
+
+    &[data-page='last'] {
+        &:before {
+            right: 0.375rem;
         }
     }
 

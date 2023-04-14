@@ -2,16 +2,16 @@ import { Component, h, Prop, State, Watch } from '@stencil/core';
 
 /**
  * @exampleComponent limel-example-button-basic
+ * @exampleComponent limel-example-button-primary
+ * @exampleComponent limel-example-button-outlined
  * @exampleComponent limel-example-button-disabled
  * @exampleComponent limel-example-button-icon
  * @exampleComponent limel-example-button-loading
- * @exampleComponent limel-example-button-outlined
- * @exampleComponent limel-example-button-primary
- * @exampleComponent limel-example-button-composite
  * @exampleComponent limel-example-button-click-success
  * @exampleComponent limel-example-button-click-fail
  * @exampleComponent limel-example-button-reduce-presence
  * @exampleComponent limel-example-button-colors
+ * @exampleComponent limel-example-button-composite
  */
 @Component({
     tag: 'limel-button',
@@ -51,9 +51,7 @@ export class Button {
 
     /**
      * Set to `true` to put the button in the `loading` state.
-     * Please note that this does _not_ disable the button.
-     * If the button should be disabled while loading, the
-     * `disabled` property should be set to `true` as well.
+     * This also disables the button.
      */
     @Prop({ reflect: true })
     public loading = false;
@@ -75,7 +73,6 @@ export class Button {
             <button
                 class={{
                     'mdc-button': true,
-                    'mdc-button--unelevated': this.primary,
                     loading: this.loading,
                     'just-loaded': this.justLoaded && !this.loadingFailed,
                     'just-failed': this.justLoaded && this.loadingFailed,

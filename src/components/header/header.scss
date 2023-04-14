@@ -75,7 +75,7 @@
     }
 }
 
-.actions {
+slot[name='actions'] {
     flex-shrink: 0;
 }
 
@@ -107,7 +107,7 @@
     .headings {
         padding-right: functions.pxToRem(8);
     }
-    .actions {
+    slot[name='actions'] {
         display: flex;
         justify-content: flex-end;
     }

@@ -5,7 +5,9 @@
 
 @use '@material/switch/styles';
 
-:host {
+$scale-factor: 0.8;
+
+:host(limel-switch) {
     display: inline-flex;
     align-items: center;
 
@@ -20,19 +22,75 @@
 
     --mdc-switch-track-height: 1.25rem;
     --mdc-switch-track-shape: var(--mdc-switch-track-height);
+
+    --mdc-switch-unselected-focus-handle-color: var(
+        --lime-elevated-surface-background-color
+    );
+    --mdc-switch-selected-focus-handle-color: var(
+        --lime-elevated-surface-background-color
+    );
+    --mdc-switch-unselected-pressed-handle-color: var(
+        --lime-elevated-surface-background-color
+    );
+    --mdc-switch-selected-pressed-handle-color: var(
+        --lime-elevated-surface-background-color
+    );
+    --mdc-switch-unselected-handle-color: var(
+        --lime-elevated-surface-background-color
+    );
+    --mdc-switch-unselected-hover-handle-color: var(
+        --lime-elevated-surface-background-color
+    );
+    --mdc-switch-selected-handle-color: var(
+        --lime-elevated-surface-background-color
+    );
+    --mdc-switch-selected-hover-handle-color: var(
+        --lime-elevated-surface-background-color
+    );
+
+    --mdc-switch-unselected-track-color: rgb(var(--contrast-700));
+    --mdc-switch-unselected-focus-track-color: rgb(var(--contrast-800));
+    --mdc-switch-unselected-pressed-track-color: rgb(var(--contrast-800));
+    --mdc-switch-unselected-hover-track-color: rgb(var(--contrast-800));
+    --mdc-switch-selected-focus-track-color: var(--mdc-theme-primary);
+    --mdc-switch-selected-pressed-track-color: var(--mdc-theme-primary);
+    --mdc-switch-selected-track-color: var(--mdc-theme-primary);
+    --mdc-switch-selected-hover-track-color: var(--mdc-theme-primary);
+
+    --mdc-switch-handle-elevation: var(--button-shadow-normal);
+    --mdc-switch-disabled-track-opacity: 0.4;
 }
 
 .mdc-switch {
     margin-right: functions.pxToRem(8);
+    &:hover {
+        --mdc-switch-handle-elevation: var(--button-shadow-hovered);
+    }
 }
 
 label {
     @include lime-typography.typography(body2);
+    color: var(--mdc-theme-on-surface);
 
     cursor: pointer;
 
     &.disabled {
         @include shared_input-select-picker.looks-disabled;
+    }
+}
+
+.mdc-switch {
+    &.mdc-switch--selected,
+    &.mdc-switch.mdc-switch--unselected {
+        .mdc-switch__handle {
+            &:after,
+            &:before {
+                transform: scale($scale-factor);
+            }
+        }
+    }
+    .mdc-switch__shadow {
+        transform: scale($scale-factor);
     }
 }
 

@@ -17,7 +17,9 @@ $height-of-limel-button: functions.pxToRem(36);
 }
 
 .mdc-icon-button {
-    @include mixins.is-flat-clickable;
+    @include mixins.is-flat-clickable(
+        $background-color: var(--icon-background-color, transparent)
+    );
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -26,7 +28,6 @@ $height-of-limel-button: functions.pxToRem(36);
     width: $height-of-limel-button;
     padding: functions.pxToRem(2);
     border-radius: 50%;
-    background-color: var(--icon-background-color, transparent);
 
     :host([elevated]) & {
         &:not(:hover):not(:active):not(:focus-visible) {

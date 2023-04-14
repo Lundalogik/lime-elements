@@ -7,4 +7,13 @@ export type DateType =
     | 'quarter'
     | 'year';
 
-export type Languages = 'da' | 'en' | 'fi' | 'nb' | 'no' | 'nl' | 'sv';
+export type Languages =
+    | 'da'
+    | 'de'
+    | 'en'
+    | 'fi'
+    | 'fr'
+    | 'nb'
+    | 'no'
+    | 'nl'
+    | 'sv';

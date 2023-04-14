@@ -642,7 +642,7 @@ export class ChipSet {
                         <path
                             class="mdc-chip__checkmark-path"
                             fill="none"
-                            stroke="black"
+                            stroke="currentColor"
                             d="M1.73,12.91 8.1,19.28 22.79,4.59"
                         />
                     </svg>

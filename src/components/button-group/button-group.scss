@@ -4,15 +4,17 @@
 @use '../../style/mixins';
 
 @use '@material/chips/deprecated/mdc-chips';
+/**
+* @prop --button-group-background-color: Background color of the component. Defaults to `--contrast-400`
+*/
 
 .mdc-chip {
-    @include mixins.is-flat-inset-clickable;
+    @include mixins.is-flat-inset-clickable($background-color: transparent);
     max-width: 100%;
     min-width: functions.pxToRem(32);
     padding: 0 functions.pxToRem(1);
     display: inline-grid;
     grid-auto-flow: column;
-    background-color: transparent;
     margin: functions.pxToRem(2) !important;
     font-size: functions.pxToRem(14);
 
@@ -24,7 +26,11 @@
             height: functions.pxToRem(16);
             width: functions.pxToRem(2);
             border-radius: functions.pxToRem(4);
-            background-color: rgb(var(--contrast-600));
+            background-color: var(
+                --button-group-text-color,
+                rgb(var(--contrast-1200))
+            );
+            opacity: 0.1;
 
             position: absolute;
             right: functions.pxToRem(-3);
@@ -37,6 +43,13 @@
     label {
         cursor: pointer;
         transition: color 0.2s ease;
+        display: flex;
+        align-items: center;
+        &:has(> limel-badge) {
+            .mdc-chip__text {
+                padding-right: 0.25rem;
+            }
+        }
     }
 
     input[type='radio'] {
@@ -89,21 +102,12 @@
         }
     }
 
-    &:hover {
-        background-color: rgb(var(--contrast-100));
-    }
-
     &.mdc-chip--selected {
+        background-color: var(--mdc-theme-surface);
         box-shadow: var(--button-shadow-inset);
 
         &:active {
             box-shadow: var(--button-shadow-inset-pressed);
-        }
-    }
-
-    &.mdc-chip--selected {
-        .mdc-chip-set--choice & {
-            color: rgb(var(--contrast-1300));
         }
     }
 }
@@ -119,7 +123,10 @@
 .mdc-chip-set {
     align-items: center;
     border-radius: functions.pxToRem(60);
-    background-color: rgb(var(--contrast-400));
+    background-color: var(
+        --button-group-background-color,
+        rgb(var(--contrast-400))
+    );
     padding: 0;
 
     width: max-content;
@@ -130,4 +137,13 @@
     &.disabled {
         @include shared_input-select-picker.looks-disabled;
     }
+}
+
+limel-badge {
+    margin-right: 0.25rem;
+    pointer-events: none;
+}
+
+.mdc-chip:not(.mdc-chip--selected) {
+    --badge-background-color: rgb(var(--contrast-200));
 }

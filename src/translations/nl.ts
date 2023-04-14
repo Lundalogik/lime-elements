@@ -1,4 +1,9 @@
 export default {
+    'callout.note': 'Opmerking',
+    'callout.important': 'Belangrijk',
+    'callout.tip': 'Tip',
+    'callout.caution': 'Waarschuwing',
+    'callout.warning': 'Waarschuwing',
     'date-picker.today': 'Vandaag',
     'date-picker.month.heading': 'Maand',
     'date-picker.quarter.heading': 'Kwartaal',
