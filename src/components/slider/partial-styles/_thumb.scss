@@ -80,9 +80,9 @@
     }
 }
 
-.mdc-slider:not(.mdc-slider--disabled),
-.slider.lime-slider--readonly {
-    .mdc-slider__value-indicator {
+.mdc-slider__value-indicator {
+    .mdc-slider:not(.mdc-slider--disabled) &,
+    :host(limel-slider[readonly]) & {
         background-color: var(--mdc-theme-primary);
     }
 }

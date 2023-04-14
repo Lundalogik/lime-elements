@@ -7,28 +7,25 @@
 @use '@material/slider/styles';
 @use '@material/floating-label/mdc-floating-label';
 
-:host([disabled]:not([readonly])) {
-    .slider__label {
-        color: shared_input-select-picker.$label-color-disabled;
-    }
-}
-
-.slider {
+:host(limel-slider) {
+    isolation: isolate;
     position: relative;
+
+    display: flex;
+    flex-direction: column;
+    margin-top: functions.pxToRem(4);
 }
 
 .slider__label {
-    color: shared_input-select-picker.$label-color;
     padding-left: functions.pxToRem(20);
     top: functions.pxToRem(
         9
     ); // To place its label on the same height as other `floating-label`s in a form
-}
 
-.slider__content {
-    display: flex;
-    flex-direction: column;
-    margin-top: functions.pxToRem(4);
+    color: shared_input-select-picker.$label-color;
+    :host(limel-slider.disabled:not(.readonly)) & {
+        color: shared_input-select-picker.$label-color-disabled;
+    }
 }
 
 .slider__content-range-container {
