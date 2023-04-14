@@ -1,7 +1,7 @@
 @use '../../../style/internal/lime-theme';
 @use '../../../style/functions';
 
-.lime-slider--readonly {
+:host(limel-slider.readonly) {
     .mdc-slider.mdc-slider--disabled {
         opacity: 1;
 
