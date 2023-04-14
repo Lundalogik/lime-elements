@@ -1,3 +1,10 @@
+## [36.3.0-next.39](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.38...v36.3.0-next.39) (2023-04-14)
+
+
+### Bug Fixes
+
+* **relation-picker:** do not remove text first time filling in ([461980f](https://github.com/Lundalogik/lime-elements/commit/461980f71437a7f7fd3471c259b3152ddcb589b9))
+
 ## [36.3.0-next.38](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.37...v36.3.0-next.38) (2023-04-13)
 
 
