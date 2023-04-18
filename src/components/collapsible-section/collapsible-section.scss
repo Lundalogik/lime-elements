@@ -24,7 +24,7 @@
     pointer-events: none;
 }
 
-.section__header {
+header {
     @include mixins.visualize-keyboard-focus;
 
     transition: background-color 0.4s ease, border-radius 0.1s ease;
@@ -67,7 +67,7 @@
     }
 }
 
-.section__header__title {
+.title {
     @include lime-typography.typography(headline2);
     color: var(--mdc-theme-on-surface);
 
@@ -90,7 +90,7 @@
     overflow: hidden;
 }
 
-.section__header__divider-line {
+.divider-line {
     transition: opacity 0.3s ease 0.3s;
     flex-grow: 1;
     height: functions.pxToRem(2);
@@ -105,12 +105,12 @@
     }
 }
 
-.section__header__actions {
+.actions {
     justify-self: flex-end;
     flex-shrink: 0;
 }
 
-@keyframes fade-in-section__body {
+@keyframes fade-in-body {
     0% {
         opacity: 0;
     }
@@ -119,8 +119,8 @@
     }
 }
 
-.section__body {
-    animation: fade-in-section__body 0.3s ease-in forwards;
+.body {
+    animation: fade-in-body 0.3s ease-in forwards;
     background-color: var(--body-background-color, var(--contrast-100));
     padding-left: var(--body-padding, functions.pxToRem(20));
     padding-right: var(--body-padding, functions.pxToRem(20));

@@ -57,24 +57,23 @@ export class CollapsibleSection {
         return (
             <section class={`${this.isOpen ? 'open' : ''}`}>
                 <header
-                    class="section__header"
                     onClick={this.onClick}
                     onKeyDown={this.handleKeyDown}
                     tabindex="0"
                 >
-                    <div class="section__header__expand-icon">
-                        <div class="expand-icon__line"></div>
-                        <div class="expand-icon__line"></div>
-                        <div class="expand-icon__line"></div>
-                        <div class="expand-icon__line"></div>
+                    <div class="expand-icon">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
                     </div>
-                    <h2 class="section__header__title mdc-typography mdc-typography--headline2">
+                    <h2 class="title mdc-typography mdc-typography--headline2">
                         {this.header}
                     </h2>
-                    <div class="section__header__divider-line" />
+                    <div class="divider-line" />
                     {this.renderActions()}
                 </header>
-                <div class="section__body">
+                <div class="body">
                     <slot />
                 </div>
             </section>
@@ -113,7 +112,7 @@ export class CollapsibleSection {
         }
 
         return (
-            <div class="section__header__actions">
+            <div class="actions">
                 {this.actions.map(this.renderActionButton)}
             </div>
         );
