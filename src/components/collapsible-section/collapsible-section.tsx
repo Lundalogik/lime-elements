@@ -1,7 +1,6 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { Action } from './action';
-import { ENTER, ENTER_KEY_CODE } from '../../util/keycodes';
 
 /**
  * @slot - Content to put inside the collapsible section
@@ -56,11 +55,8 @@ export class CollapsibleSection {
     public render() {
         return (
             <section class={`${this.isOpen ? 'open' : ''}`}>
-                <header
-                    onClick={this.onClick}
-                    onKeyDown={this.handleKeyDown}
-                    tabindex="0"
-                >
+                <header>
+                    <button class="open-close-toggle" onClick={this.onClick} />
                     <div class="expand-icon">
                         <div class="line" />
                         <div class="line" />
@@ -82,16 +78,6 @@ export class CollapsibleSection {
 
     private onClick = () => {
         this.handleInteraction();
-    };
-
-    private handleKeyDown = (event: KeyboardEvent) => {
-        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
-
-        if (isEnter) {
-            event.stopPropagation();
-            event.preventDefault();
-            this.handleInteraction();
-        }
     };
 
     private handleInteraction = () => {

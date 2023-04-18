@@ -10,6 +10,7 @@ describe('limel-collapsible-section', () => {
     let page: E2EPage;
     let limelCollapsible: E2EElement;
     let collapsibleHeader: E2EElement;
+    let collapsibleToggle: E2EElement;
     let collapsibleBody: E2EElement;
 
     describe('with a header and body', () => {
@@ -21,10 +22,13 @@ describe('limel-collapsible-section', () => {
             `);
             limelCollapsible = await page.find('limel-collapsible-section');
             collapsibleHeader = await page.find(
-                'limel-collapsible-section >>> .section__header'
+                'limel-collapsible-section >>> header'
+            );
+            collapsibleToggle = await page.find(
+                'limel-collapsible-section >>> .open-close-toggle'
             );
             collapsibleBody = await page.find(
-                'limel-collapsible-section >>> .section__body'
+                'limel-collapsible-section >>> .body'
             );
         });
         it('displays the correct header', () => {
@@ -32,18 +36,12 @@ describe('limel-collapsible-section', () => {
         });
         it('has a slot for the body', () => {
             expect(collapsibleBody).toEqualHtml(
-                '<div class="section__body"><slot></slot></div>'
+                '<div class="body"><slot></slot></div>'
             );
         });
         it('is collapsed', async () => {
             expect(await limelCollapsible.getProperty('isOpen')).toEqual(false);
             expect(await collapsibleBody.isVisible()).toBeFalsy();
-        });
-
-        describe('header', () => {
-            it('has `tabindex=0`', async () => {
-                expect(collapsibleHeader).toEqualAttribute('tabindex', '0');
-            });
         });
 
         describe('when changing the header', () => {
@@ -62,7 +60,7 @@ describe('limel-collapsible-section', () => {
             beforeEach(async () => {
                 openEventSpy = await page.spyOnEvent('open');
                 closeEventSpy = await page.spyOnEvent('close');
-                await limelCollapsible.click();
+                await collapsibleToggle.click();
                 await page.waitForChanges();
             });
 
@@ -85,7 +83,7 @@ describe('limel-collapsible-section', () => {
                 beforeEach(async () => {
                     openEventSpy = await page.spyOnEvent('open');
                     closeEventSpy = await page.spyOnEvent('close');
-                    await limelCollapsible.click();
+                    await collapsibleToggle.click();
                     await page.waitForChanges();
                 });
 
@@ -130,13 +128,13 @@ describe('limel-collapsible-section', () => {
             });
         });
 
-        describe('when focusing the header and pressing ENTER', () => {
+        describe('when focusing the open-close-toggle button header and pressing ENTER', () => {
             let openEventSpy: EventSpy;
             let closeEventSpy: EventSpy;
             beforeEach(async () => {
                 openEventSpy = await page.spyOnEvent('open');
                 closeEventSpy = await page.spyOnEvent('close');
-                await collapsibleHeader.focus();
+                await collapsibleToggle.focus();
                 await page.keyboard.press('Enter');
                 await page.waitForChanges();
             });
