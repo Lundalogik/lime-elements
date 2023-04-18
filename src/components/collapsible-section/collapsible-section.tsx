@@ -62,10 +62,10 @@ export class CollapsibleSection {
                     tabindex="0"
                 >
                     <div class="expand-icon">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
+                        <div class="line" />
+                        <div class="line" />
+                        <div class="line" />
+                        <div class="line" />
                     </div>
                     <h2 class="title mdc-typography mdc-typography--headline2">
                         {this.header}
