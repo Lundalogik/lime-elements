@@ -1,6 +1,6 @@
 @use '../../../style/functions';
 
-.section__header__expand-icon {
+.expand-icon {
     position: relative;
     height: functions.pxToRem(30);
     margin: 0 functions.pxToRem(16) 0 functions.pxToRem(8);
@@ -9,7 +9,7 @@
     flex-shrink: 0;
 }
 
-.expand-icon__line {
+.line {
     position: absolute;
     top: 0;
     right: 0;
@@ -41,9 +41,9 @@
     }
 }
 
-.section__header {
+header {
     &:hover {
-        .expand-icon__line {
+        .line {
             &:first-of-type {
                 transform: rotate3d(0, 0, 1, 0deg);
             }
@@ -72,8 +72,8 @@
 }
 
 section.open {
-    .section__header {
-        .expand-icon__line {
+    header {
+        .line {
             &:first-of-type,
             &:last-of-type {
                 transition: opacity 0.2s ease 0.1s, transform 0.4s ease 0.3s;
@@ -103,7 +103,7 @@ section.open {
         }
 
         &:hover {
-            .expand-icon__line {
+            .line {
                 &:first-of-type,
                 &:last-of-type {
                     transition: opacity 0.2s ease 0.4s,
