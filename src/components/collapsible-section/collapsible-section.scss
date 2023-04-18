@@ -11,7 +11,7 @@
  * @prop --body-padding: space around content of the body
  */
 
-:host {
+:host(limel-collapsible-section) {
     --border-radius-of-header: 0.75rem;
     display: block;
 }
@@ -24,25 +24,28 @@
     pointer-events: none;
 }
 
-header {
+.open-close-toggle {
+    all: unset;
+    position: absolute;
+    inset: 0;
+    width: 100%; // for Firefox
     @include mixins.visualize-keyboard-focus;
-
     transition: background-color 0.4s ease, border-radius 0.1s ease;
     cursor: pointer;
-
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-
-    padding-left: functions.pxToRem(10);
-    padding-right: functions.pxToRem(10);
-    height: functions.pxToRem(60);
+    z-index: -1;
 
     background-color: var(
         --closed-header-background-color,
         rgb(var(--contrast-200))
     );
     border-radius: var(--border-radius-of-header);
+
+    &:hover {
+        background-color: var(
+            --open-header-background-color,
+            rgb(var(--contrast-300))
+        );
+    }
 
     section.open & {
         background-color: var(
@@ -58,13 +61,25 @@ header {
             );
         }
     }
+}
 
-    &:hover {
-        background-color: var(
-            --open-header-background-color,
-            rgb(var(--contrast-300))
-        );
-    }
+.title,
+.divider-line,
+.expand-icon {
+    pointer-events: none;
+}
+
+header {
+    isolation: isolate;
+    position: relative;
+
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    padding-left: functions.pxToRem(10);
+    padding-right: functions.pxToRem(10);
+    height: functions.pxToRem(60);
 }
 
 .title {
