@@ -1,5 +1,4 @@
 @use '../../style/functions';
-@use '../../style/internal/shared_input-select-picker';
 @use '../../style/internal/lime-theme';
 @use '../../style/internal/lime-typography';
 
@@ -34,7 +33,7 @@
 
 .limel-form-layout--grid {
     --gap: 1rem;
-    --min-height-of-one-row: 4.71rem;
+    --min-height-of-one-row: 3.5rem;
     display: grid;
     gap: var(--gap);
     padding: var(--form-body-padding, functions.pxToRem(16));
@@ -128,9 +127,7 @@
     limel-switch {
         // This is because we have to align these items to top and
         // make sure they align correctly even in one-columned layouts
-        min-height: calc(
-            var(--min-height-of-one-row) - #{shared_input-select-picker.$height-of-mdc-helper-text-block}
-        );
+        min-height: var(--min-height-of-one-row);
     }
     limel-checkbox {
         margin-top: functions.pxToRem(8);
