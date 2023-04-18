@@ -21,7 +21,7 @@ describe('limel-collapsible-section', () => {
             `);
             limelCollapsible = await page.find('limel-collapsible-section');
             collapsibleHeader = await page.find(
-                'limel-collapsible-section >>> .section__header'
+                'limel-collapsible-section >>> .section'
             );
             collapsibleBody = await page.find(
                 'limel-collapsible-section >>> .section__body'
