@@ -1,3 +1,11 @@
+## [36.3.0-next.40](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.39...v36.3.0-next.40) (2023-04-18)
+
+
+### Bug Fixes
+
+* **collapsible-section:** improve interactivity of the component & simplify structure ([811659c](https://github.com/Lundalogik/lime-elements/commit/811659c695af455e5943071b980286f16df0f8d9))
+* **collapsible-section:** make smaller in height ([19d67fe](https://github.com/Lundalogik/lime-elements/commit/19d67feeaa997bd122dfacbfa86c4ec5d6d94b6e))
+
 ## [36.3.0-next.39](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.38...v36.3.0-next.39) (2023-04-14)
 
 
