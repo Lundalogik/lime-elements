@@ -170,6 +170,11 @@
         --mdc-typography-headline1-letter-spacing: -0.0625rem;
         --mdc-typography-headline1-font-weight: 400;
         margin-top: 1.5rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .mdc-typography--body1 {
+        margin-top: 0;
         margin-bottom: 0.5rem;
     }
 
@@ -183,8 +188,7 @@
             --mdc-typography-headline1-font-size: 1.625rem;
             --mdc-typography-headline1-line-height: 1.25rem;
             --mdc-typography-headline1-font-weight: 300;
-            margin-top: 1.25rem;
-            margin-bottom: 0.5rem;
+            margin-top: 1rem;
 
             &:before {
                 content: '';
@@ -213,9 +217,7 @@
             .mdc-typography--headline1 {
                 --mdc-typography-headline1-font-size: 1.375rem;
                 --mdc-typography-headline1-line-height: 1.5rem;
-                --mdc-typography-headline1-font-weight: 300;
-                margin-top: 1rem;
-                margin-bottom: 0.5rem;
+                margin-top: 0.5rem;
 
                 &:before {
                     display: none;
@@ -231,12 +233,43 @@
                 .mdc-typography--headline1 {
                     --mdc-typography-headline1-font-size: 1.25rem;
                     --mdc-typography-headline1-line-height: 1.25rem;
-                    --mdc-typography-headline1-font-weight: 300;
                     margin-top: 1rem;
-                    margin-bottom: 0.5rem;
 
                     &:before {
                         display: none;
+                    }
+                }
+            }
+            .form-group {
+                .mdc-typography--headline1,
+                .mdc-typography--body1 {
+                    color: rgb(var(--contrast-1400));
+                }
+
+                .mdc-typography--headline1 {
+                    --mdc-typography-headline1-font-size: 1.25rem;
+                    --mdc-typography-headline1-line-height: 1.25rem;
+                    margin-top: 0.25rem;
+
+                    &:before {
+                        display: none;
+                    }
+                }
+
+                .form-group {
+                    .mdc-typography--headline1,
+                    .mdc-typography--body1 {
+                        color: rgb(var(--contrast-1400));
+                    }
+
+                    .mdc-typography--headline1 {
+                        --mdc-typography-headline1-font-size: 1rem;
+                        --mdc-typography-headline1-line-height: 1rem;
+                        margin-top: 0.25rem;
+
+                        &:before {
+                            display: none;
+                        }
                     }
                 }
             }
