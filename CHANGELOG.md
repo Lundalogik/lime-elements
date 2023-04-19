@@ -1,3 +1,10 @@
+## [36.3.0-next.41](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.40...v36.3.0-next.41) (2023-04-19)
+
+
+### Bug Fixes
+
+* **form:** decrease min-height of rows ([50af4ad](https://github.com/Lundalogik/lime-elements/commit/50af4ad82b12243477638f99cac757eb64befeb4))
+
 ## [36.3.0-next.40](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.39...v36.3.0-next.40) (2023-04-18)
 
 
