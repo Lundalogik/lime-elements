@@ -1,4 +1,3 @@
-@use '../../style/functions';
 @use '../../style/internal/lime-theme';
 @use '../../style/internal/lime-typography';
 
@@ -13,7 +12,7 @@
 .limel-form-array-item--simple {
     display: flex;
     align-items: center;
-    margin-right: functions.pxToRem(10);
+    margin-right: 0.625rem;
 
     *:first-child {
         flex-grow: 1;
@@ -28,7 +27,7 @@
     --gap: 1rem;
     display: grid;
     gap: var(--gap);
-    padding: var(--form-body-padding, functions.pxToRem(16));
+    padding: var(--form-body-padding, 1rem);
 }
 
 .limel-form-layout--grid {
@@ -36,7 +35,7 @@
     --min-height-of-one-row: 3.5rem;
     display: grid;
     gap: var(--gap);
-    padding: var(--form-body-padding, functions.pxToRem(16));
+    padding: var(--form-body-padding, 1rem);
 
     // Using `minmax(0, 1fr)` below, instead of just `1fr` ensures that
     // components that are wider than their column don't make the column grow
@@ -130,11 +129,11 @@
         min-height: var(--min-height-of-one-row);
     }
     limel-checkbox {
-        margin-top: functions.pxToRem(8);
+        margin-top: 0.5rem;
         display: block;
     }
     limel-switch {
-        margin-left: functions.pxToRem(8);
+        margin-left: 0.5rem;
     }
 }
 
@@ -192,12 +191,12 @@
                 top: 0;
                 bottom: 0;
                 margin: auto;
-                left: functions.pxToRem(-12);
+                left: -0.75rem;
 
                 background-color: var(--mdc-theme-primary);
-                width: functions.pxToRem(2);
+                width: 0.125rem;
                 height: var(--mdc-typography-headline1-line-height);
-                border-radius: functions.pxToRem(2);
+                border-radius: 0.125rem;
 
                 opacity: 0.6;
             }
