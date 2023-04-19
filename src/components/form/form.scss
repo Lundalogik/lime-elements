@@ -12,6 +12,10 @@
 
 @include lime-typography.core-styles;
 
+.form-group {
+    min-width: 0;
+}
+
 .limel-form-array-item--simple {
     display: flex;
     align-items: center;
