@@ -3,6 +3,9 @@
 
 /**
  * @prop --form-body-padding: space around content of the form. Defaults to `1rem`.
+ * @prop --form-column-gap: defines the vertical space between elements of the form with `grid` and `default` layouts. Defaults to `1rem`.
+ * @prop --form-row-gap: defines the horizontal space between elements of the form with `grid` and `default` layouts. Defaults to `1rem`.
+ * @prop --form-gap: defines the space between elements of the form with `grid` and `default` layouts. Defaults to `1rem`.
  * @prop --form-background-color-of-even-rows: Background of even rows in the form, when layout type is `row`. Defaults to `transparent`.
  * @prop --form-background-color-of-odd-rows:Background of odd rows in the form, when layout type is `row`. Defaults to `--contrast-200`.
  */
@@ -23,17 +26,17 @@
 }
 
 .limel-form-layout--default {
-    --gap: 1rem;
     display: grid;
-    gap: var(--gap);
+    column-gap: var(--form-column-gap, 1rem);
+    row-gap: var(--form-row-gap, 1rem);
     padding: var(--form-body-padding, 1rem);
 }
 
 .limel-form-layout--grid {
-    --gap: 1rem;
     --min-height-of-one-row: 3.5rem;
     display: grid;
-    gap: var(--gap);
+    column-gap: var(--form-column-gap, 1rem);
+    row-gap: var(--form-row-gap, 1rem);
     padding: var(--form-body-padding, 1rem);
 
     // Using `minmax(0, 1fr)` below, instead of just `1fr` ensures that
