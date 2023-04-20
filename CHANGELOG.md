@@ -1,3 +1,18 @@
+## [36.3.0-next.42](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.41...v36.3.0-next.42) (2023-04-20)
+
+
+### Features
+
+* **form:** add a custom property for form gap ([404f318](https://github.com/Lundalogik/lime-elements/commit/404f318305c5267874d8a6a8b27b8fc5d662c08b))
+
+
+### Bug Fixes
+
+* **form:** prevent children from stretching out of the form ([3e4555b](https://github.com/Lundalogik/lime-elements/commit/3e4555b15ce64a84f3ac61c2b6c24373866330b3))
+* **form:** reduce margins of headings and paragraphs to save more space ([ff0b080](https://github.com/Lundalogik/lime-elements/commit/ff0b080942ea73f04d8f876d0cbd1f2ef10bab8e))
+* **form:** remove unneeded `margin-right` from `limel-form-array-item--simple` ([7b6b72c](https://github.com/Lundalogik/lime-elements/commit/7b6b72c4afdee876a26442bed0b2b24a52794741))
+* **form:** use better letter spacing in headings ([5b3493f](https://github.com/Lundalogik/lime-elements/commit/5b3493fa346bee7afca97a108ac7547a1cf1e743))
+
 ## [36.3.0-next.41](https://github.com/Lundalogik/lime-elements/compare/v36.3.0-next.40...v36.3.0-next.41) (2023-04-19)
 
 
