@@ -624,6 +624,8 @@ export class ChipSet {
 
         return (
             <limel-helper-line
+                length={this.value.length}
+                maxLength={this.maxItems}
                 helperText={this.helperText}
                 invalid={this.isInvalid()}
             />
