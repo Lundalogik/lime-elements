@@ -45,6 +45,11 @@ export interface ListItem<T = any> {
      * Component used to render in the list
      */
     primaryComponent?: ListComponent;
+
+    /**
+     * True if the list item should be removable (only works for limel-chips)
+     */
+    removeable?: boolean;
 }
 
 export interface ListSeparator {

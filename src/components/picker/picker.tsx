@@ -321,7 +321,7 @@ export class Picker {
         return {
             id: `${listItem.value}`,
             text: listItem.text,
-            removable: true,
+            removable: listItem.removeable ?? true,
             icon: listItem.icon,
             iconBackgroundColor: listItem.iconColor,
             value: listItem,
