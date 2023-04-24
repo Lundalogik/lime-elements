@@ -40,6 +40,7 @@
         }
 
         &.has-helper-line {
+            // TODO: remove this when helper-line is displayed in portal
             --heightOfHelperText: 0.9375rem;
             height: calc(
                 var(--textarea-height, 100%) - var(--heightOfHelperText)
@@ -109,6 +110,11 @@
 }
 
 :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
+    + limel-helper-line {
+        // TODO: remove when helper-line is displayed in portal
+        opacity: 0;
+    }
+
     .mdc-text-field__input[type='number'] {
         color: transparent;
         -webkit-text-fill-color: transparent;
@@ -169,25 +175,6 @@ input.mdc-text-field__input {
         &:active {
             transform: none; //Makes the "clear-all button" work
         }
-    }
-}
-
-.mdc-text-field-character-counter {
-    transition: opacity 0.2s ease;
-    opacity: 0;
-
-    .mdc-text-field--focused + .mdc-text-field-helper-line & {
-        opacity: 1;
-    }
-
-    &:before {
-        height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
-    }
-}
-
-.mdc-text-field-helper-text {
-    &:before {
-        height: shared_input-select-picker.$height-of-helper-text-pseudo-before;
     }
 }
 
