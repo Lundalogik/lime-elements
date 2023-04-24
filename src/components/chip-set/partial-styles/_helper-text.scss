@@ -1,12 +1,7 @@
-.mdc-text-field-helper-line {
-    flex-basis: 100%;
-}
-
-@include shared_input-select-picker.helper-text-color;
-
-.mdc-text-field-helper-text {
-    &:before {
-        @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
+:not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
+    + limel-helper-line {
+        // TODO: remove when helper-line is displayed in portal
+        opacity: 0;
     }
 }
 
@@ -16,7 +11,7 @@
         &:focus,
         &:focus-visible,
         &:focus-within {
-            .mdc-text-field-helper-text {
+            limel-helper-line {
                 opacity: 1;
             }
         }
@@ -26,10 +21,8 @@
 @media (pointer: coarse) {
     // touchscreen devices
     :host(:not([type='input'])) {
-        .mdc-chip-set {
-            .mdc-text-field-helper-text {
-                opacity: 1;
-            }
+        limel-helper-line {
+            opacity: 1;
         }
     }
 }
