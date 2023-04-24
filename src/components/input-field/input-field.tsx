@@ -454,15 +454,21 @@ export class InputField {
     };
 
     private renderHelperLine = () => {
+        const text: string = this.value || '';
+        const length = text.length;
+
         if (!this.maxlength && !this.hasHelperText()) {
             return;
         }
 
         return (
-            <div tabIndex={-1} class="mdc-text-field-helper-line">
-                {this.renderHelperText()}
-                {this.renderCharacterCounter()}
-            </div>
+            <limel-helper-line
+                helperTextId={helperTextId}
+                helperText={this.helperText}
+                length={length}
+                maxLength={this.maxlength}
+                invalid={this.isInvalid()}
+            />
         );
     };
 
@@ -474,23 +480,6 @@ export class InputField {
                 </span>
             );
         }
-    };
-
-    private renderHelperText = () => {
-        if (!this.hasHelperText()) {
-            return;
-        }
-
-        const classList = {
-            'mdc-text-field-helper-text': true,
-            'mdc-text-field-helper-text--validation-msg': this.isInvalid(),
-        };
-
-        return (
-            <p class={classList} id={helperTextId}>
-                {this.helperText}
-            </p>
-        );
     };
 
     private hasHelperText = () => {
@@ -529,17 +518,6 @@ export class InputField {
 
     private hasPrefix = () => {
         return this.prefix !== null && this.prefix !== undefined;
-    };
-
-    private renderCharacterCounter = () => {
-        if (!this.maxlength || this.type === 'number') {
-            return;
-        }
-
-        const text: string = this.value || '';
-        const label = `${text.length} / ${this.maxlength}`;
-
-        return <div class="mdc-text-field-character-counter">{label}</div>;
     };
 
     private isInvalid = () => {
