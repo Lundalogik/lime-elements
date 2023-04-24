@@ -613,33 +613,21 @@ export class ChipSet {
         );
     }
 
+    private hasHelperText = () => {
+        return this.helperText !== null && this.helperText !== undefined;
+    };
+
     private renderHelperLine = () => {
-        if (!this.hasHelperText()) {
+        if (!this.maxItems && !this.hasHelperText()) {
             return;
         }
 
         return (
-            <div tabIndex={-1} class="mdc-text-field-helper-line">
-                {this.renderHelperText()}
-            </div>
+            <limel-helper-line
+                helperText={this.helperText}
+                invalid={this.isInvalid()}
+            />
         );
-    };
-
-    private renderHelperText = () => {
-        if (!this.hasHelperText()) {
-            return;
-        }
-
-        const classList = {
-            'mdc-text-field-helper-text': true,
-            'mdc-text-field-helper-text--validation-msg': this.isInvalid(),
-        };
-
-        return <p class={classList}>{this.helperText}</p>;
-    };
-
-    private hasHelperText = () => {
-        return this.helperText !== null && this.helperText !== undefined;
     };
 
     private renderFilterChip(chip: Chip) {
