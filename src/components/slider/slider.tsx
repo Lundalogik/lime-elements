@@ -256,11 +256,7 @@ export class Slider {
             return;
         }
 
-        return (
-            <div class="mdc-slider-helper-line">
-                <p class="mdc-slider-helper-text">{this.helperText}</p>
-            </div>
-        );
+        return <limel-helper-line helperText={this.helperText} />;
     }
 
     @Watch('disabled')
