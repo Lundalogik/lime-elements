@@ -28,6 +28,8 @@
 @include shared_input-select-picker.disabled-overrides;
 @include shared_input-select-picker.readonly-overrides;
 @include shared_input-select-picker.leading-icon;
+@include shared_input-select-picker.lime-empty-value-for-readonly;
+@include shared_input-select-picker.lime-looks-like-input-value;
 
 $height-of-chip-set-input: functions.pxToRem(36);
 $leading-icon-space: functions.pxToRem(40);
