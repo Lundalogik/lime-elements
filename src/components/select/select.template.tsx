@@ -65,7 +65,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
                 isValid={isValid}
                 hasEmptyText={hasEmptyText}
             />
-            <HelperText text={props.helperText} />
+            <HelperText text={props.helperText} isValid={!props.invalid} />
             <SelectDropdown {...props} />
         </div>
     );
@@ -149,12 +149,19 @@ const ShowIcon: FunctionalComponent<
     );
 };
 
-const HelperText: FunctionalComponent<{ text: string }> = (props) => {
+const HelperText: FunctionalComponent<{ text: string; isValid: boolean }> = (
+    props
+) => {
     if (typeof props.text !== 'string') {
         return;
     }
 
-    return <limel-helper-line helperText={props.text.trim()} />;
+    return (
+        <limel-helper-line
+            helperText={props.text.trim()}
+            invalid={!props.isValid}
+        />
+    );
 };
 
 const SelectDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
