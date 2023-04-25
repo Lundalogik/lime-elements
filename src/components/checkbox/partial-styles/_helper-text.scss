@@ -1,23 +1,18 @@
-@use '../../../style/internal/shared_input-select-picker';
-
-.limel-checkbox-helper-line {
-    @include shared_input-select-picker.looks-like-helper-line;
-}
-
-.limel-checkbox-helper-text {
-    @include shared_input-select-picker.looks-like-helper-text;
-    color: shared_input-select-picker.$helper-text-color;
-
-    :host(:hover) &,
-    :host(:focus) &,
-    :host(:focus-within) & {
-        opacity: 1;
-    }
+limel-helper-line {
+    opacity: 0;
 }
 
 @media (pointer: coarse) {
     // touchscreen devices
-    .limel-checkbox-helper-text {
+    limel-helper-line {
+        opacity: 1;
+    }
+}
+
+:host(:focus),
+:host(:focus-visible),
+:host(:focus-within) {
+    limel-helper-line {
         opacity: 1;
     }
 }

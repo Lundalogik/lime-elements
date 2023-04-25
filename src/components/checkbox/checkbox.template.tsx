@@ -76,11 +76,5 @@ const HelperText: FunctionalComponent<{ text: string }> = (props) => {
         return;
     }
 
-    return (
-        <div class="limel-checkbox-helper-line">
-            <p class="limel-checkbox-helper-text" aria-hidden="true">
-                {props.text.trim()}
-            </p>
-        </div>
-    );
+    return <limel-helper-line helperText={props.text.trim()} />;
 };
