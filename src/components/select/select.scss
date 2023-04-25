@@ -3,7 +3,6 @@
 @use '../../style/mixins';
 
 @use '@material/select/styles';
-@use '@material/select/helper-text/mdc-select-helper-text';
 @use '@material/floating-label';
 @use '@material/floating-label/mdc-floating-label';
 
@@ -142,8 +141,7 @@
     &.limel-select--invalid {
         .mdc-floating-label,
         .limel-select__selected-option,
-        .invalid-icon,
-        + .mdc-select-helper-line .mdc-select-helper-text {
+        .invalid-icon {
             color: var(--lime-error-text-color);
         }
         .mdc-floating-label:not(.mdc-floating-label--float-above) {
