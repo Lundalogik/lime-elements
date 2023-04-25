@@ -154,16 +154,7 @@ const HelperText: FunctionalComponent<{ text: string }> = (props) => {
         return;
     }
 
-    return (
-        <div class="mdc-select-helper-line">
-            <p
-                class="mdc-select-helper-text mdc-select-helper-text--persistent"
-                aria-hidden="true"
-            >
-                {props.text.trim()}
-            </p>
-        </div>
-    );
+    return <limel-helper-line helperText={props.text.trim()} />;
 };
 
 const SelectDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
