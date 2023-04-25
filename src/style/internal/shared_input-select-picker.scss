@@ -1,3 +1,4 @@
+@use '../../style/internal/z-index';
 @use '../functions';
 
 @use '../../style/internal/lime-theme';
@@ -376,5 +377,24 @@ $cropped-label-hack--font-size: 0.875rem; //14px
 @mixin disabled-overrides {
     .mdc-text-field--disabled {
         background-color: transparent;
+    }
+}
+
+@mixin lime-empty-value-for-readonly {
+    .lime-empty-value-for-readonly {
+        z-index: z-index.$input-field--formatted-value;
+        position: absolute;
+        top: 0.875rem; // 14px
+        left: 1rem;
+    }
+}
+
+@mixin lime-looks-like-input-value {
+    .lime-looks-like-input-value {
+        @include looks-like-input-value;
+
+        .mdc-text-field--disabled & {
+            @include looks-disabled;
+        }
     }
 }
