@@ -139,8 +139,7 @@
     }
 
     &.limel-select--invalid {
-        .mdc-floating-label,
-        .limel-select__selected-option,
+        .limel-select__selected-option__text,
         .invalid-icon {
             color: var(--lime-error-text-color);
         }
