@@ -1,19 +1,12 @@
+limel-helper-line {
+    opacity: 0;
+    order: 3;
+}
+
 :host(:focus),
 :host(:focus-visible),
 :host(:focus-within) {
-    .mdc-slider-helper-text {
+    limel-helper-line {
         opacity: 1;
-    }
-}
-
-.mdc-slider-helper-line {
-    @include shared_input-select-picker.looks-like-helper-line;
-    order: 3;
-}
-.mdc-slider-helper-text {
-    @include shared_input-select-picker.looks-like-helper-text;
-
-    &:before {
-        @include shared_input-select-picker.looks-like-helper-text-pseudo-before;
     }
 }
