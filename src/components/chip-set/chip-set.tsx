@@ -407,9 +407,7 @@ export class ChipSet {
                         'mdc-notched-outline': true,
                         'mdc-notched-outline--upgraded': true,
                         'mdc-text-field--required': this.required,
-                        'lime-notched-outline--notched': !!(
-                            this.value.length || this.editMode
-                        ),
+                        'lime-notched-outline--notched': this.floatLabelAbove(),
                     }}
                     dropzone-tip={this.dropZoneTip()}
                 >
@@ -418,21 +416,29 @@ export class ChipSet {
                     <div class="mdc-notched-outline__trailing" />
                 </div>
                 {this.renderLeadingIcon()}
+                {this.renderEmptyValueForReadonly()}
                 {this.renderClearAllChipsButton()}
             </div>,
             this.renderHelperLine(),
         ];
     }
 
+    private renderEmptyValueForReadonly = () => {
+        if (this.readonly && this.value.length === 0) {
+            return (
+                <span class="lime-empty-value-for-readonly lime-looks-like-input-value">
+                    –
+                </span>
+            );
+        }
+    };
+
     private renderLabel() {
         const labelClassList = {
             'mdc-floating-label': true,
-            'mdc-text-field--no-label': !this.label,
             'mdc-text-field--disabled': this.readonly || this.disabled,
             'mdc-floating-label--required': this.required,
-            'lime-floating-label--float-above': !!(
-                this.value.length || this.editMode
-            ),
+            'lime-floating-label--float-above': this.floatLabelAbove(),
         };
 
         if (!this.label) {
@@ -447,6 +453,12 @@ export class ChipSet {
             </div>
         );
     }
+
+    private floatLabelAbove = () => {
+        if (!!this.value.length || this.editMode || this.readonly) {
+            return true;
+        }
+    };
 
     private dropZoneTip = (): string => {
         return translate.get('file.drag-and-drop-tips', this.language);

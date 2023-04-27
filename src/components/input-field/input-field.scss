@@ -59,6 +59,8 @@
 @include shared_input-select-picker.trailing-icon;
 @include shared_input-select-picker.floating-label-overrides;
 @include shared_input-select-picker.helper-text-color;
+@include shared_input-select-picker.lime-empty-value-for-readonly;
+@include shared_input-select-picker.lime-looks-like-input-value;
 
 .mdc-text-field--with-trailing-icon {
     .mdc-text-field__icon--trailing {
@@ -87,21 +89,6 @@
         .mdc-text-field__icon {
             color: rgb(var(--contrast-700));
         }
-    }
-}
-
-.lime-empty-value-for-readonly {
-    z-index: z-index.$input-field--formatted-value;
-    position: absolute;
-    top: 0.875rem; // 14px
-    left: 1rem;
-}
-
-.lime-looks-like-input-value {
-    @include shared_input-select-picker.looks-like-input-value;
-
-    .mdc-text-field--disabled & {
-        @include shared_input-select-picker.looks-disabled;
     }
 }
 
