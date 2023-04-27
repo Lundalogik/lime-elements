@@ -436,7 +436,6 @@ export class ChipSet {
     private renderLabel() {
         const labelClassList = {
             'mdc-floating-label': true,
-            'mdc-text-field--no-label': !this.label,
             'mdc-text-field--disabled': this.readonly || this.disabled,
             'mdc-floating-label--required': this.required,
             'lime-floating-label--float-above': this.floatLabelAbove(),
