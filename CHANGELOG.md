@@ -1,3 +1,10 @@
+## [36.3.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.3.0...v36.3.1-next.1) (2023-04-27)
+
+
+### Bug Fixes
+
+* **chip-set:** render an empty value for `readonly` ([c6a83a6](https://github.com/Lundalogik/lime-elements/commit/c6a83a6a22ff5ada1185f5eb34b0be8cc4f065c8))
+
 ## [36.3.0](https://github.com/Lundalogik/lime-elements/compare/v36.2.0...v36.3.0) (2023-04-26)
 
 
