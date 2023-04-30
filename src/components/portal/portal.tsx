@@ -7,6 +7,7 @@ import {
     Placement,
 } from '@popperjs/core';
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
+import { ArrowModifier } from '@popperjs/core/lib/modifiers/arrow';
 
 /* eslint-disable jsdoc/check-indentation */
 /**
@@ -18,7 +19,7 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  * Events might not bubble up as expected since the content is moved out to
  *   another DOM node.
  * Any styling that is applied to content from the parent will be lost, if the
- *   content is just another web compoent it will work without any issues.
+ *   content is just another web component it will work without any issues.
  *   Alternatively, use the
  *   `style=""` html attribute.
  * Any component that is placed inside the container must have a style of
@@ -44,19 +45,19 @@ export class Portal {
     /**
      * Decides which direction the portal content should open.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public openDirection: OpenDirection = 'bottom';
 
     /**
      * Position of the content.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public position: 'fixed' | 'absolute' = 'absolute';
 
     /**
      * A unique ID.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public containerId: string;
 
     /**
@@ -75,8 +76,28 @@ export class Portal {
      * Used to make a dropdown have the same width as the trigger, for example
      * in `limel-picker`.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public inheritParentWidth = false;
+
+    /**
+     * Set `showArrow` to `true` to display an arrow pointing to the trigger
+     * element.
+     */
+    @Prop({ reflect: true })
+    public showArrow = false;
+
+    /**
+     * Dynamic styling that can be applied to the arrow element.
+     */
+    @Prop()
+    public arrowStyle: object = {};
+
+    /**
+     * KeyFrames needed for the styles supplied in `containerStyle` or
+     * `arrowStyle` can be injected here.
+     */
+    @Prop({ reflect: true })
+    public keyFramesCss: string;
 
     /**
      * True if the content within the portal should be visible.
@@ -84,7 +105,7 @@ export class Portal {
      * If the content is from within a dialog for instance, this can be set to
      * true from false when the dialog opens to position the content properly.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public visible = false;
 
     private parents: WeakMap<HTMLElement, HTMLElement>;
@@ -109,7 +130,10 @@ export class Portal {
     @Element()
     private host: HTMLLimelPortalElement;
 
+    private shadowedContainer: HTMLElement;
     private container: HTMLElement;
+
+    private arrow: HTMLElement;
 
     private popperInstance: Instance;
 
@@ -170,9 +194,11 @@ export class Portal {
         const content =
             (slot.assignedElements && slot.assignedElements()) || [];
 
+        this.shadowedContainer = document.createElement('div');
+        this.shadowedContainer.attachShadow({ mode: 'open' });
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
-        this.container.setAttribute('class', 'limel-portal--container');
+        this.container.classList.add('limel-portal--container');
         Object.assign(this.container, {
             portalSource: this.host,
         });
@@ -181,28 +207,58 @@ export class Portal {
             this.parents.set(element, element.parentElement);
             this.container.appendChild(element);
         });
+
+        this.arrow = document.createElement('limel-portal-arrow');
+        if (this.showArrow) {
+            this.container.classList.add('has-arrow');
+        }
+
+        if (this.keyFramesCss) {
+            const keyFrames = document.createElement('style');
+            keyFrames.innerHTML = this.keyFramesCss;
+            this.shadowedContainer.shadowRoot.appendChild(keyFrames);
+        }
     }
 
     private attachContainer() {
-        this.parent.appendChild(this.container);
+        this.parent.appendChild(this.shadowedContainer);
+        this.shadowedContainer.shadowRoot.appendChild(this.container);
+
+        if (this.showArrow) {
+            this.container.appendChild(this.arrow);
+        }
     }
 
     private removeContainer() {
-        if (!this.container) {
-            return;
+        if (
+            this.arrow &&
+            this.container &&
+            Array.prototype.includes.apply(this.container.children, this.arrow)
+        ) {
+            this.container.removeChild(this.arrow);
         }
 
-        Array.from(this.container.children).forEach((element: HTMLElement) => {
-            const parent = this.parents.get(element);
-            if (!parent) {
-                return;
-            }
+        if (this.container) {
+            Array.from(this.container.children).forEach(
+                (element: HTMLElement) => {
+                    const parent = this.parents.get(element);
+                    if (!parent) {
+                        return;
+                    }
 
-            parent.appendChild(element);
-        });
+                    parent.appendChild(element);
+                }
+            );
 
-        this.hideContainer();
-        this.container.parentElement.removeChild(this.container);
+            this.hideContainer();
+            this.shadowedContainer.shadowRoot.removeChild(this.container);
+        }
+
+        if (this.shadowedContainer) {
+            this.shadowedContainer.parentElement.removeChild(
+                this.shadowedContainer
+            );
+        }
     }
 
     private hideContainer() {
@@ -235,8 +291,20 @@ export class Portal {
         this.ensureContainerFitsInViewPort();
 
         Object.keys(this.containerStyle).forEach((property) => {
-            this.container.style[property] = this.containerStyle[property];
+            this.container.style.setProperty(
+                property,
+                this.containerStyle[property]
+            );
         });
+
+        if (this.showArrow) {
+            Object.keys(this.arrowStyle).forEach((property) => {
+                this.arrow.style.setProperty(
+                    property,
+                    this.arrowStyle[property]
+                );
+            });
+        }
     }
 
     private getContentWidth(element: HTMLElement | Element) {
@@ -265,13 +333,13 @@ export class Portal {
         this.popperInstance = null;
     }
 
-    private createPopperConfig(): Partial<
-        OptionsGeneric<Partial<FlipModifier>>
-    > {
+    private createPopperConfig() {
         const placement = this.getPlacement(this.openDirection);
         const flipPlacement = this.getFlipPlacement(this.openDirection);
 
-        return {
+        const config: Partial<
+            OptionsGeneric<Partial<FlipModifier | ArrowModifier>>
+        > = {
             strategy: this.position,
             placement: placement,
             modifiers: [
@@ -283,6 +351,17 @@ export class Portal {
                 },
             ],
         };
+
+        if (this.arrow !== undefined) {
+            config.modifiers.push({
+                name: 'arrow',
+                options: {
+                    element: this.arrow,
+                },
+            });
+        }
+
+        return config;
     }
 
     private getPlacement(direction: OpenDirection): Placement {

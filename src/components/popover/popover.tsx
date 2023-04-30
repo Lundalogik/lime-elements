@@ -121,9 +121,6 @@ export class Popover {
 
     public render() {
         const cssProperties = this.getCssProperties();
-        const popoverZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--popover-z-index'
-        );
 
         return (
             <div class="trigger-anchor">
@@ -131,12 +128,12 @@ export class Popover {
                 <limel-portal
                     visible={this.open}
                     containerId={this.portalId}
-                    containerStyle={{ 'z-index': popoverZIndex }}
+                    containerStyle={cssProperties}
                     openDirection={this.openDirection}
+                    showArrow={true}
                 >
                     <limel-popover-surface
                         contentCollection={this.host.children}
-                        style={cssProperties}
                     />
                 </limel-portal>
             </div>
@@ -158,13 +155,19 @@ export class Popover {
             '--popover-surface-width',
             '--popover-body-background-color',
             '--popover-border-radius',
+            '--popover-z-index',
         ];
         const style = getComputedStyle(this.host);
         const values = propertyNames.map((property) => {
             return style.getPropertyValue(property);
         });
 
-        return zipObject(propertyNames, values);
+        const result = zipObject(propertyNames, values);
+
+        result['--portal-arrow-color'] =
+            result['--popover-body-background-color'];
+
+        return result;
     }
 
     private handleGlobalKeyPress = (event: KeyboardEvent) => {

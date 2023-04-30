@@ -29,11 +29,13 @@ beforeEach(async () => {
     tooltip = page.body.querySelector('limel-tooltip');
     content = tooltip.shadowRoot.querySelector('limel-tooltip-content');
     portal = tooltip.shadowRoot.querySelector('limel-portal');
-    portal.removeAttribute('containerid');
-    content.removeAttribute('id');
 });
 
 test('the component renders', () => {
+    portal.removeAttribute('container-id');
+    portal.removeAttribute('key-frames-css');
+    content.removeAttribute('id');
+
     expect(tooltip).toEqualHtml(`
         <limel-tooltip
             element-id="tooltip-test"
@@ -42,7 +44,11 @@ test('the component renders', () => {
         >
             <mock:shadow-root>
                 <div class="trigger-anchor">
-                    <limel-portal>
+                    <limel-portal
+                        open-direction="bottom-start"
+                        position="absolute"
+                        show-arrow=""
+                    >
                         <mock:shadow-root>
                             <slot></slot>
                         </mock:shadow-root>
