@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import { Component, Element, h, Prop, Event } from '@stencil/core';
 
 /**
  * @exampleComponent limel-example-icon-button-basic
@@ -9,7 +9,7 @@ import { Component, Element, h, Prop } from '@stencil/core';
  */
 @Component({
     tag: 'limel-icon-button',
-    shadow: true,
+    shadow: false,
     styleUrl: 'icon-button.scss',
 })
 export class IconButton {
@@ -41,6 +41,9 @@ export class IconButton {
     @Element()
     private host: HTMLLimelIconButtonElement;
 
+    @Event()
+    public newClick: any;
+
     public connectedCallback() {
         this.initialize();
     }
@@ -69,9 +72,14 @@ export class IconButton {
                 aria-label={this.label}
                 title={this.label}
                 {...buttonAttributes}
+                onClick={this.onClick}
             >
                 <limel-icon name={this.icon} badge={true} />
             </button>
         );
     }
+
+    private onClick = () => {
+        this.newClick.emit();
+    };
 }

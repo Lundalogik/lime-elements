@@ -14,7 +14,7 @@ export class IconButtonDisabledExample {
                 label="Add favourite"
                 icon="heart_outlined"
                 disabled={true}
-                onClick={this.onClick}
+                onNewClick={this.onClick}
             />,
         ];
     }

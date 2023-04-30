@@ -25,13 +25,18 @@ export class IconButtonCompositeExample {
             <limel-icon-button
                 label={this.isFavorite ? 'Remove Favorite' : 'Add Favorite'}
                 icon={this.isFavorite ? 'heart_filled' : 'heart_outlined'}
-                onClick={this.toggleFavorite}
+                //  onClick={this.toggleFavorite}
                 {...this.props}
+                onNewClick={this.showWarning}
             />,
             <limel-example-controls>
                 {this.renderControls()}
             </limel-example-controls>,
         ];
+    }
+
+    private showWarning() {
+        console.log('This should never happen, since the button is disabled.');
     }
 
     private renderControls() {
@@ -68,7 +73,7 @@ export class IconButtonCompositeExample {
         };
     };
 
-    private toggleFavorite = () => {
-        this.isFavorite = !this.isFavorite;
-    };
+    // private toggleFavorite = () => {
+    //     this.isFavorite = !this.isFavorite;
+    // };
 }
