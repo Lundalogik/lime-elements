@@ -159,7 +159,7 @@ export interface LimeSchemaOptions {
      * When specified on an object it will render the sub components with the
      * specified layout
      */
-    layout?: FormLayoutOptions<any>;
+    layout?: FormLayoutOptions<any> & (GridLayoutOptions | RowLayoutOptions);
 
     /**
      * Mark the field as disabled
@@ -187,7 +187,7 @@ export interface FormLayoutOptions<T = FormLayoutType.Default> {
     /**
      * The type of layout to use
      */
-    type: T;
+    type?: T;
 }
 
 export interface GridLayoutOptions

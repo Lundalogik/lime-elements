@@ -18,11 +18,6 @@ export const schema = {
                     title: 'Language',
                     description: 'Select the app language',
                     default: 'ua',
-                    lime: {
-                        layout: {
-                            icon: 'globe',
-                        },
-                    },
                     oneOf: [
                         {
                             type: 'string',
@@ -81,14 +76,6 @@ export const schema = {
                 notification: {
                     type: 'boolean',
                     title: 'Receive email notifications',
-                    lime: {
-                        component: {
-                            name: 'limel-switch',
-                        },
-                        layout: {
-                            icon: 'filled_message',
-                        },
-                    },
                 },
                 frequency: {
                     type: 'number',

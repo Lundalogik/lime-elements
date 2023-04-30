@@ -4,11 +4,6 @@ export const schema = {
         hero: {
             type: 'integer',
             title: 'Hero',
-            lime: {
-                component: {
-                    name: 'limel-example-props-factory-picker',
-                },
-            },
         },
     },
 };

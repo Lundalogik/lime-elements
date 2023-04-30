@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import { schema } from './props-factory-schema';
 
 /**
- * Using `propsFactory`
+ * Not using `propsFactory`
  *
  * @link props-factory-schema.ts
  * @link props-factory-picker.tsx
@@ -28,23 +28,16 @@ export class PropsFactoryFormExample {
                 onChange={this.handleFormChange}
                 value={this.formData}
                 schema={schema}
-                propsFactory={this.propsFactory}
-            />,
+            >
+                <limel-example-props-factory-picker
+                    slot="hero"
+                    injectedObject={this.anObjectToInject}
+                    injectedString={this.aStringToInject}
+                />
+            </limel-form>,
             <limel-example-value value={this.formData} />,
         ];
     }
-
-    private propsFactory = (subSchema: Record<string, any>) => {
-        if (
-            subSchema.lime?.component?.name ===
-            'limel-example-props-factory-picker'
-        ) {
-            return {
-                injectedObject: this.anObjectToInject,
-                injectedString: this.aStringToInject,
-            };
-        }
-    };
 
     private handleFormChange = (event: CustomEvent<object>) => {
         this.formData = event.detail;
