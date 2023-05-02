@@ -13,6 +13,8 @@ import translate from '../../global/translations';
 
 /**
  * @exampleComponent limel-example-snackbar
+ * @exampleComponent limel-example-snackbar-with-action
+ * @exampleComponent limel-example-snackbar-with-changing-messages
  */
 @Component({
     tag: 'limel-snackbar',
