@@ -1,6 +1,5 @@
 import { Component, Element, h, State } from '@stencil/core';
 
-const SNACKBAR_TIMEOUT = 5000;
 /**
  * Basic example
  */
@@ -40,7 +39,6 @@ export class SnackbarExample {
             </limel-example-controls>,
             <limel-snackbar
                 message="Please do not leave your luggage unattended! It might be taken away!"
-                timeout={SNACKBAR_TIMEOUT}
                 dismissible={this.dismissible}
                 onHide={this.snackbarWithoutActionOnHide}
             />,

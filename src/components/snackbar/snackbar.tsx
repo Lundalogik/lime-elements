@@ -29,7 +29,7 @@ export class Snackbar {
     public message: string;
 
     /**
-     * The amount of time in milliseconds to show the snackbar.
+     * The amount of time in milliseconds to show the snackbar. Defaults to `5000` (5 seconds).
      */
     @Prop()
     public timeout: number;
