@@ -29,10 +29,11 @@ export class Snackbar {
     public message: string;
 
     /**
-     * The amount of time in milliseconds to show the snackbar. Defaults to `5000` (5 seconds).
+     * The amount of time in milliseconds to show the snackbar.
      */
     @Prop()
-    public timeout: number;
+    // eslint-disable-next-line no-magic-numbers
+    public timeout?: number = 5000;
 
     /**
      * The text to display for the action button.
