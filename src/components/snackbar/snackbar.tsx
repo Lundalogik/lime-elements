@@ -12,10 +12,32 @@ import {
 import translate from '../../global/translations';
 
 /**
+ * A Snackbar –also known as "Toast"– is used to inform the end user
+ * about an action or a process in the system.
+ * The information could vary from announcing that a process has just started,
+ * is taking place now, has ended, or has been interrupted or canceled.
+ *
+ * The information that you provide using a snackbar should be:
+ * - temporary
+ * - contextual
+ * - short
+ * - and most importantly, ignorable.
+ *
+ * It means if the user misses the information, it shouldn't be a big deal.
+ *
+ * :::note
+ * If the information you want to display has a higher importance or priority,
+ * and you need to make sure that the user takes an action to dismiss it,
+ * consider using the [Banner](/#/component/limel-banner/) component instead.
+ * For more complex interactions and for delivering more detailed information,
+ * [Dialog](/#/component/limel-dialog/) is a better choice.
+ * :::
+ *
  * @exampleComponent limel-example-snackbar
  * @exampleComponent limel-example-snackbar-with-action
  * @exampleComponent limel-example-snackbar-with-changing-messages
  */
+
 @Component({
     tag: 'limel-snackbar',
     shadow: true,
