@@ -1,24 +1,23 @@
 import { Component, Element, h, State } from '@stencil/core';
 
-const SNACKBAR_TIMEOUT = 5000;
 /**
- * Basic example
+ * With actions
  */
 @Component({
-    tag: 'limel-example-snackbar',
+    tag: 'limel-example-snackbar-with-action',
     shadow: true,
 })
 export class SnackbarExample {
     @Element()
-    private host: HTMLLimelExampleSnackbarElement;
+    private host: HTMLLimelExampleSnackbarWithActionElement;
 
     @State()
     private dismissible = false;
 
-    private triggerSnackbarWithoutAction: (event: MouseEvent) => void;
+    private triggerSnackbarWithAction: (event: MouseEvent) => void;
 
     constructor() {
-        this.triggerSnackbarWithoutAction = this.triggerSnackbar.bind(
+        this.triggerSnackbarWithAction = this.triggerSnackbar.bind(
             this,
             'limel-snackbar'
         );
@@ -29,7 +28,7 @@ export class SnackbarExample {
         return [
             <limel-button
                 label="Show snackbar"
-                onClick={this.triggerSnackbarWithoutAction}
+                onClick={this.triggerSnackbarWithAction}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -39,10 +38,11 @@ export class SnackbarExample {
                 />
             </limel-example-controls>,
             <limel-snackbar
-                message="Please do not leave your luggage unattended! It might be taken away!"
-                timeout={SNACKBAR_TIMEOUT}
+                message="Your luggage has been taken away!"
+                actionText="Reclaim"
                 dismissible={this.dismissible}
-                onHide={this.snackbarWithoutActionOnHide}
+                onAction={this.snackbarOnAction}
+                onHide={this.snackbarWithActionOnHide}
             />,
         ];
     }
@@ -53,8 +53,12 @@ export class SnackbarExample {
         snackbar.show();
     }
 
-    private snackbarWithoutActionOnHide() {
-        console.log('It will soon be taken away!');
+    private snackbarOnAction() {
+        console.log('You claimed your luggage!');
+    }
+
+    private snackbarWithActionOnHide() {
+        console.log('You were too late. Your luggage has been destroyed!');
     }
 
     private onChange(event: CustomEvent<boolean>) {
