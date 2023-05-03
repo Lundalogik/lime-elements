@@ -22,7 +22,7 @@ export class SnackbarExample {
     public render() {
         return [
             <limel-button
-                label="Show snackbar"
+                label="Spam me"
                 onClick={this.triggerSnackbarWithChangingMessage}
             />,
             <limel-example-controls>
@@ -51,10 +51,10 @@ export class SnackbarExample {
             }, timeoutMs);
         };
 
-        trigger('Your luggage will be taken away in 15 seconds', 0);
-        trigger('Your luggage will be taken away in 10 seconds', 5000);
-        trigger('Your luggage will be taken away in 5 seconds', 10000);
-        trigger('Your luggage has been taken away!', 15000);
+        trigger('We will show you a new message in 15 seconds', 0);
+        trigger('You will see another message in 10 seconds', 5000);
+        trigger('The last message comes in 5 seconds', 10000);
+        trigger('There will be no more messages!', 15000);
     }
 
     private onChange(event: CustomEvent<boolean>) {
