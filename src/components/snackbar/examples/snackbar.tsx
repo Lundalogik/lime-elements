@@ -1,4 +1,4 @@
-import { Component, Element, h, State } from '@stencil/core';
+import { Component, Element, h } from '@stencil/core';
 
 /**
  * Basic example
@@ -24,9 +24,6 @@ export class SnackbarExample {
     @Element()
     private host: HTMLLimelExampleSnackbarElement;
 
-    @State()
-    private dismissible = false;
-
     private triggerSnackbarWithoutAction: (event: MouseEvent) => void;
 
     constructor() {
@@ -34,7 +31,6 @@ export class SnackbarExample {
             this,
             'limel-snackbar'
         );
-        this.onChange = this.onChange.bind(this);
     }
 
     public render() {
@@ -43,16 +39,8 @@ export class SnackbarExample {
                 label="Show snackbar"
                 onClick={this.triggerSnackbarWithoutAction}
             />,
-            <limel-example-controls>
-                <limel-checkbox
-                    label="Dismissible"
-                    checked={this.dismissible}
-                    onChange={this.onChange}
-                />
-            </limel-example-controls>,
             <limel-snackbar
                 message="Quick scan started. It takes a couple of minutes…"
-                dismissible={this.dismissible}
                 onHide={this.snackbarWithoutActionOnHide}
             />,
         ];
@@ -65,10 +53,6 @@ export class SnackbarExample {
     }
 
     private snackbarWithoutActionOnHide() {
-        console.log('It will soon be taken away!');
-    }
-
-    private onChange(event: CustomEvent<boolean>) {
-        this.dismissible = event.detail;
+        console.log('The scan is still going on in the background.');
     }
 }

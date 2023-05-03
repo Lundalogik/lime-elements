@@ -33,6 +33,7 @@ import translate from '../../global/translations';
  * [Dialog](/#/component/limel-dialog/) is a better choice.
  * :::
  * @exampleComponent limel-example-snackbar
+ * @exampleComponent limel-example-snackbar-dismissible
  * @exampleComponent limel-example-snackbar-with-action
  * @exampleComponent limel-example-snackbar-with-changing-messages
  */
@@ -63,10 +64,11 @@ export class Snackbar {
     public actionText: string;
 
     /**
-     * True if the snackbar is dismissible, false otherwise
+     * When `true` displays a dismiss button on the snackbar,
+     * allowing users to close it.
      */
     @Prop()
-    public dismissible: boolean;
+    public dismissible: boolean = true;
 
     /**
      * Whether to show the snackbar with space for multiple lines of text
