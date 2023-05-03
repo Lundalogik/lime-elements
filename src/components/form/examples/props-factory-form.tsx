@@ -3,7 +3,6 @@ import { schema } from './props-factory-schema';
 
 /**
  * Using `propsFactory`
- *
  * @link props-factory-schema.ts
  * @link props-factory-picker.tsx
  */

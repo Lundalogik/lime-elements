@@ -331,7 +331,6 @@ export class Picker {
     /**
      * Renders the dropdown with the items to pick from, or a spinner if the picker
      * is waiting for items to be received
-     *
      * @returns {HTMLElement} picker dropdown
      */
     private renderDropdown() {
@@ -416,7 +415,6 @@ export class Picker {
     /**
      * Returns true if the picker is "full"
      * The picker is considered to be full if it has a value and only one is allowed
-     *
      * @returns {boolean} true if the picker is full
      */
     private isFull(): boolean {
@@ -511,7 +509,6 @@ export class Picker {
 
     /**
      * Check if a descendant still has focus. If not, reset text value and search result.
-     *
      * @returns {void}
      */
     private handleStopEditAndBlur() {
@@ -532,7 +529,6 @@ export class Picker {
 
     /**
      * Input handler for the input field
-     *
      * @param {InputEvent} event event
      * @returns {void}
      */
@@ -551,7 +547,6 @@ export class Picker {
 
     /**
      * Change handler for the list
-     *
      * @param {LimelListCustomEvent<ListItem>} event event
      * @returns {void}
      */
@@ -574,7 +569,6 @@ export class Picker {
 
     /**
      * Change handler for the list
-     *
      * @param {LimelChipSetCustomEvent} event event
      * @returns {void}
      */
@@ -593,7 +587,6 @@ export class Picker {
     /**
      * Focus handler for the chip set
      * Prevent focus if the picker has a value and does not support multiple values
-     *
      * @returns {void}
      */
     private async handleInputFieldFocus() {
@@ -627,7 +620,6 @@ export class Picker {
     /**
      * Key handler for the input field
      * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
-     *
      * @param {KeyboardEvent} event event
      * @returns {void}
      */
@@ -672,7 +664,6 @@ export class Picker {
 
     /**
      * Key handler for the dropdown
-     *
      * @param {KeyboardEvent} event event
      * @returns {void}
      */

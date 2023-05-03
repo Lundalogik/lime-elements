@@ -15,7 +15,6 @@ export class TableSelection {
 
     /**
      * Creates an instance of the TableSelection class
-     *
      * @param {Function} getTable Function that returns the Tabulator instance
      * @param {ElementPool} pool The element pool used to cache the checkbox components
      * @param {EventEmitter<object[]>} selectEvent The event emitter to use when checkboxes are toggled
@@ -46,7 +45,6 @@ export class TableSelection {
 
     /**
      * Sets the selected items
-     *
      * @param {any[]} data The selected items
      */
     public setSelection(data: any[]) {
@@ -63,7 +61,6 @@ export class TableSelection {
 
     /**
      * Prepends a checkbox column used for row selection to the given column definitions
-     *
      * @param {Tabulator.ColumnDefinition[]} columnDefinitions The column definition for the table
      * @returns {Tabulator.ColumnDefinition[]} The column definitions with the checkbox column prepended to it
      */
@@ -107,7 +104,6 @@ export class TableSelection {
      * Tabulator cell click handler that updates the selection for the clicked
      * row and toggles the selection from the last clicked row if the shift key
      * is pressed down.
-     *
      * @param {PointerEvent} ev The pointer event
      * @param {Tabulator.CellComponent} cell The clicked cell component
      */

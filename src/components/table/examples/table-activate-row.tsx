@@ -5,7 +5,6 @@ import { persons, Person } from './persons';
 
 /**
  * Activate a row
- *
  * @link persons.ts
  */
 @Component({

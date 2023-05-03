@@ -41,7 +41,6 @@ const DEFAULT_MAX_LENGTH = 50;
  * use that, not a tooltip.
  * - Make sure to use the tooltip on an element that users naturally and
  * effortlessly recognize can be hovered.
- *
  * @exampleComponent limel-example-tooltip
  * @exampleComponent limel-example-tooltip-max-character
  * @exampleComponent limel-example-tooltip-composite

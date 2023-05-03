@@ -25,7 +25,6 @@ import { FieldTemplate } from '../templates';
  * from the form data I would delete all the text from the name input field. Web components would emit this empty value
  * as '' or null. If the web component tries to emit `undefined`, null would be emitted instead because CustomEvent has
  * a default `detail` value of null
- *
  * @param {any} value the value associated with the schema
  * @param {any} schema the schema for the value
  * @returns {boolean} whether or not null should be changed to undefined
@@ -63,7 +62,6 @@ const getCustomComponent = (
 
 /**
  * Create properties from the factory that is set on `limel-form`
- *
  * @param {*} formContext the form context
  * @param {*} schema the schema for the current field
  * @returns {object} the properties created by the factory
@@ -271,7 +269,6 @@ export class SchemaField extends React.Component<FieldProps> {
 
     /**
      * Gets the path to the current property within the schema
-     *
      * @param {string} schemaId the id of the schema
      * @returns {string[]} an array with the schema path for the current property
      * @example

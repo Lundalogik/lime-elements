@@ -3,7 +3,6 @@ import { schema } from './row-layout-schema';
 
 /**
  * Row layout
- *
  * @link row-layout-schema.ts
  */
 @Component({

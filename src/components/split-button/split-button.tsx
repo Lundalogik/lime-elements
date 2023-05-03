@@ -13,7 +13,6 @@ import { ListSeparator, MenuItem } from '@limetech/lime-elements';
  * The button should only be used for performing commands!
  * - Never use this component instead of a Select or Menu component!
  * :::
- *
  * @exampleComponent limel-example-split-button-basic
  * @exampleComponent limel-example-split-button-repeat-default-command
  */

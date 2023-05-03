@@ -10,25 +10,24 @@ import { schema } from './custom-component-schema';
  *
  * ```ts
  * const schema = {
- *     type: 'object',
- *     properties: {
- *         hero: {
- *             type: 'integer',
- *             title: 'Hero',
- *             lime: {
- *                 component: {
- *                     name: 'my-useful-hero-picker',
- *                 },
- *             },
- *         },
- *     },
+ * type: 'object',
+ * properties: {
+ * hero: {
+ * type: 'integer',
+ * title: 'Hero',
+ * lime: {
+ * component: {
+ * name: 'my-useful-hero-picker',
+ * },
+ * },
+ * },
+ * },
  * };
  * ```
  *
  * While you can, in principle, use any component in a form, your custom form
  * components should implement the [FormComponent](#/type/FormComponent/)
  * interface.
- *
  * @link custom-component-schema.ts
  * @link custom-component-picker.tsx
  */

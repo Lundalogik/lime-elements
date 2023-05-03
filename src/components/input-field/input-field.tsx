@@ -713,7 +713,6 @@ export class InputField {
     /**
      * Key handler for the input field
      * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
-     *
      * @param {KeyboardEvent} event event
      * @returns {void}
      */

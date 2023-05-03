@@ -13,7 +13,6 @@ import { DockItem } from '../dock.types';
  * `.SCSS` file. That defines the width the popover component, which is `auto`
  * by default. But modifying it may be helpful depending on the usage.
  * :::
- *
  * @link my-custom-menu.tsx
  */
 

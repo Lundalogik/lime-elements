@@ -4,7 +4,6 @@ import { schema } from './basic-schema';
 
 /**
  * Basic form with validation
- *
  * @link basic-schema.ts
  */
 @Component({

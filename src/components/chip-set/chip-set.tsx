@@ -217,7 +217,6 @@ export class ChipSet {
 
     /**
      * Used to find out whether the chip-set is in edit mode.
-     *
      * @returns {Promise<boolean>} `true` if the chip-set is in edit mode, `false` otherwise.
      */
     @Method()
@@ -227,7 +226,6 @@ export class ChipSet {
 
     /**
      * Used to set focus to the chip-set input field.
-     *
      * @param {boolean} emptyInput if `true`, any text in the input is discarded
      * @returns {Promise<void>} does not return anything, but methods have to be async
      */
@@ -249,7 +247,6 @@ export class ChipSet {
     /**
      * Used to empty the input field. Used in conjunction with `emptyInputOnBlur` to let the
      * consumer control when the input is emptied.
-     *
      * @returns {Promise<void>} does not return anything, but methods have to be async
      */
     @Method()
@@ -486,7 +483,6 @@ export class ChipSet {
 
     /**
      * Enter edit mode when the text field receives focus. When editMode is true, the input element will be visible
-     *
      * @returns {void}
      */
     private handleTextFieldFocus() {
@@ -505,7 +501,6 @@ export class ChipSet {
     /**
      * Exit edit mode when the input element loses focus. This makes sure the input element does not take up any
      * additional space when the user it not typing anything
-     *
      * @returns {void}
      */
     private handleInputBlur() {

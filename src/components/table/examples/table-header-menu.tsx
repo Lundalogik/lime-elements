@@ -9,7 +9,6 @@ import { persons, Person } from './persons';
  * contrast to custom components used elsewhere in the table, custom components
  * used in the header do not replace the entire content of the cell. Instead,
  * they appear in a slot next to the column sorting icon.
- *
  * @link persons.ts
  * @link header-menu.tsx
  */

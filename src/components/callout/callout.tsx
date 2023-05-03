@@ -18,7 +18,6 @@ import { Languages } from '@limetech/lime-elements';
  * presented. In such cases, a callout should not be used as a static and
  * constantly present element of the UI. Rather, it should be displayed when
  * something unusual or remarkable demands the user's attention.
- *
  * @exampleComponent limel-example-callout-note
  * @exampleComponent limel-example-callout-important
  * @exampleComponent limel-example-callout-tip

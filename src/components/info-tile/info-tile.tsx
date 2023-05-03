@@ -10,7 +10,6 @@ import { Link } from '@limetech/lime-elements';
  * If clicking on the component should navigate the user to
  * a new screen or web page, you need to provide a URL,
  * using the `link` property.
- *
  * @exampleComponent limel-example-info-tile
  * @exampleComponent limel-example-info-tile-badge
  * @exampleComponent limel-example-info-tile-progress

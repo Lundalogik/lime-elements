@@ -11,7 +11,6 @@ export class ElementPool {
 
     /**
      * Get an element from the pool
-     *
      * @param {string} name tag name of the element
      * @returns {HTMLElement} the element
      */
@@ -32,7 +31,6 @@ export class ElementPool {
 
     /**
      * Release an element from the pool so that it can be reused
-     *
      * @param {HTMLElement} element the element to release from the pool
      */
     public release(element: HTMLElement): void {

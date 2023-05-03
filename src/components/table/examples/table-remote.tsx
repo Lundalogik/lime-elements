@@ -7,7 +7,6 @@ const NETWORK_DELAY = 500;
 
 /**
  * Remote sorting and pagination
- *
  * @link birds.ts
  */
 @Component({

@@ -4,7 +4,6 @@ import { schema } from './custom-error-message-schema';
 
 /**
  * Form with custom error message
- *
  * @link custom-error-message-schema.ts
  */
 @Component({

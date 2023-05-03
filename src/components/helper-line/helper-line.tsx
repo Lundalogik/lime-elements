@@ -20,7 +20,6 @@ import { Component, Host, Prop, h } from '@stencil/core';
  * However, to be more resourceful, the parent component can choose not
  * to render the helper-line as well.
  * :::
- *
  * @exampleComponent limel-example-helper-line
  * @exampleComponent limel-example-helper-line-invalid
  * @exampleComponent limel-example-helper-line-long-text
