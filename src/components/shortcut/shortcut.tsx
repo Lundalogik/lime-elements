@@ -9,7 +9,6 @@ import { Link } from '@limetech/lime-elements';
  * By default, this navigation will happen within the same browser tab.
  * However, it is possible to override that behavior, by specifying a `target`
  * for the `link` property
- *
  * @exampleComponent limel-example-shortcut
  * @exampleComponent limel-example-shortcut-notification
  * @exampleComponent limel-example-shortcut-styling

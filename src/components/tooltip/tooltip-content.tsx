@@ -2,7 +2,6 @@ import { Component, h, Prop } from '@stencil/core';
 
 /**
  * This component is used internally by `limel-tooltip`.
- *
  * @private
  */
 @Component({

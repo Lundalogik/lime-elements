@@ -37,7 +37,6 @@ import { invoices, Invoice } from './invoices';
  * `horizontalAlign` on the column headers, to `left` (default), `center`,
  * or `right`. This basically defines the text-alignment for all the cells in that column.
  * :::
- *
  * @link invoices.ts
  */
 @Component({

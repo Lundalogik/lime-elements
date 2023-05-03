@@ -18,14 +18,14 @@ import { schema } from './layout-schema';
  * layout to Lime Elements.
  * ```ts
  * export const schema = {
- *     type: 'object',
- *     lime: {
- *         layout: {
- *             type: 'grid',
- *             columns: 3,
- *         },
- *     },
- *     …
+ * type: 'object',
+ * lime: {
+ * layout: {
+ * type: 'grid',
+ * columns: 3,
+ * },
+ * },
+ * …
  * };
  * ```
  * :::note
@@ -47,7 +47,6 @@ import { schema } from './layout-schema';
  * In this example, each collapsible section has its own `colSpan`.
  * However, since the layout is responsive, make sure to change the browser
  * window size to see how their responsive layout changes.
- *
  * @link layout-schema.ts
  */
 @Component({

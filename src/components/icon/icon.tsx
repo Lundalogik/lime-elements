@@ -53,7 +53,6 @@ import { IconSize } from './icon.types';
  * Search for an icon and **click on it to copy its name to clipboard**.
  *
  * <limel-example-icon-finder />
- *
  * @exampleComponent limel-example-icon
  * @exampleComponent limel-example-icon-background
  */
@@ -105,7 +104,6 @@ export class Icon {
 
     /**
      * Load the SVG data for the icon from the icon cache
-     *
      * @param {string} name name of the icon
      * @returns {string} the icon SVG data
      */

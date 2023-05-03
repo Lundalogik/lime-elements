@@ -4,14 +4,13 @@ import { invoices, Invoice } from './invoices';
 
 /**
  *
- * ````tsx
- * layout="stretchLastColumn"
- * ````
+ *````tsx
+ *layout="stretchLastColumn"
+ *````
  *
- * Works just like `default`, but unlike the default layout
- * which resulted in having an empty last column, in this layout
- * the last existing column will stretch out to fill up the remaining table width.
- *
+ *Works just like `default`, but unlike the default layout
+ *which resulted in having an empty last column, in this layout
+ *the last existing column will stretch out to fill up the remaining table width.
  * @link invoices.ts
  */
 @Component({

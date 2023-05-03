@@ -36,7 +36,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  * visual design including the upload icon hints end-users that this is not a
  * normal input field like other fields in the form for example.
  *
- *:::important
+ * :::important
  * you need to use a descriptive `label` that clarifies the
  * functionality of the file picker, and/or provides users with clear
  * instructions.
@@ -52,8 +52,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  * - Choose a file
  *
  * and similar phrases...
- *:::
- *
+ * :::
  * @exampleComponent limel-example-file
  * @exampleComponent limel-example-file-custom-icon
  * @exampleComponent limel-example-file-accepted-types

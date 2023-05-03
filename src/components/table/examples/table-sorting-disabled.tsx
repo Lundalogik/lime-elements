@@ -11,7 +11,6 @@ import { invoices, Invoice } from './invoices';
  *
  * However, you can disable the sorting possibility in individual columns,
  * by setting the `headerSort` to `false`.
- *
  * @link invoices.ts
  */
 @Component({

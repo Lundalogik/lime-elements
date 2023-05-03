@@ -5,7 +5,6 @@ import { persons, Person } from './persons';
 
 /**
  * Selectable rows with updating aggregates
- *
  * @link persons.ts
  */
 @Component({

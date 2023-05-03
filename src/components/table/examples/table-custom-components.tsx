@@ -13,18 +13,17 @@ import { capitalize } from 'lodash-es';
  *
  * ```ts
  * const columns = [
- *     {
- *         title: 'Food',
- *         field: 'food',
- *         component: { name: 'my-fancy-food-displayer' },
- *     },
+ * {
+ * title: 'Food',
+ * field: 'food',
+ * component: { name: 'my-fancy-food-displayer' },
+ * },
  * ];
  * ```
  *
  * While you can, in principle, use any component in a table, your custom table
  * components should implement the [TableComponent](#/type/TableComponent/)
  * interface.
- *
  * @link birds.ts
  * @link table-food.tsx
  */

@@ -39,7 +39,6 @@ import { Component, h, Prop } from '@stencil/core';
  * Background colors behind icons make them look like "call to action" buttons
  * and take a lot of attention from users.
  * :::
- *
  * @exampleComponent limel-example-header
  * @exampleComponent limel-example-header-colors
  * @exampleComponent limel-example-header-responsive

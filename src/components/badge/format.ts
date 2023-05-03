@@ -2,7 +2,6 @@ import NumAbbr from 'number-abbreviate';
 
 /**
  * Abbreviate a number
- *
  * @param {number} value the number to abbreviate
  * @returns {string} abbreviated number
  */

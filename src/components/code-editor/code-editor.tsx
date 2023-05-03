@@ -21,8 +21,7 @@ import jslint from 'jsonlint-mod';
 
 /**
  * Currently this component support syntax highlighting for `javascript`,
- `json` and `typescript` formats.
- *
+ * `json` and `typescript` formats.
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
  * @exampleComponent limel-example-code-editor-fold-lint

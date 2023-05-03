@@ -5,7 +5,6 @@ import { capitalize } from 'lodash-es';
 
 /**
  * Local sorting and pagination
- *
  * @link birds.ts
  */
 @Component({
