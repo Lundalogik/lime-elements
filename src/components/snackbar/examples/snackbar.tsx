@@ -51,7 +51,7 @@ export class SnackbarExample {
                 />
             </limel-example-controls>,
             <limel-snackbar
-                message="Please do not leave your luggage unattended! It might be taken away!"
+                message="Quick scan started. It takes a couple of minutes…"
                 dismissible={this.dismissible}
                 onHide={this.snackbarWithoutActionOnHide}
             />,
