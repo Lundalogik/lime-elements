@@ -1,3 +1,11 @@
+## [36.3.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.3.1-next.1...v36.3.1-next.2) (2023-05-03)
+
+
+### Bug Fixes
+
+* **chip-set:** display a counter ([ccc81b3](https://github.com/Lundalogik/lime-elements/commit/ccc81b30f46cf9eb90b2e3bf9fa6fb4451aefe0b))
+* **select:** correctly visualize `invalid` styles ([41c7f6f](https://github.com/Lundalogik/lime-elements/commit/41c7f6f97462d7530bde0d796e502e8763178448))
+
 ## [36.3.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.3.0...v36.3.1-next.1) (2023-04-27)
 
 
