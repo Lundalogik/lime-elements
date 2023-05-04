@@ -5,6 +5,7 @@
 .mdc-snackbar__surface {
     background-color: var(--lime-elevated-surface-background-color);
     box-shadow: var(--shadow-depth-16);
+    gap: 0.75rem;
 }
 
 .mdc-snackbar__label {
@@ -15,5 +16,11 @@
 
 .mdc-snackbar__actions {
     gap: 0.5rem;
-    padding-left: 0.5rem;
+}
+
+.mdc-snackbar__actions {
+    limel-icon-button.mdc-snackbar__dismiss {
+        margin: 0;
+        padding: 0;
+    }
 }
