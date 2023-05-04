@@ -3,6 +3,8 @@
 @use '@material/snackbar/mdc-snackbar';
 
 .mdc-snackbar__surface {
+    min-width: unset;
+    max-width: 42rem;
     background-color: var(--lime-elevated-surface-background-color);
     box-shadow: var(--shadow-depth-16);
     gap: 0.75rem;
@@ -10,8 +12,6 @@
 
 .mdc-snackbar__label {
     color: var(--mdc-theme-on-surface);
-    display: flex;
-    justify-content: center;
 }
 
 .mdc-snackbar__actions {
