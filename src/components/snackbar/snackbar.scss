@@ -23,8 +23,44 @@
         var(--contrast-1300)
     ); // background color of the buttons
     limel-icon-button.mdc-snackbar__dismiss {
-        --mdc-theme-on-surface: rgb(var(--contrast-100)); // color of the X icon
+        transform: scale(0.8);
         margin: 0;
         padding: 0;
+    }
+}
+
+.dismiss {
+    --mdc-theme-on-surface: rgb(var(--contrast-100)); // color of the X icon
+    --icon-background-color: var(--lime-elevated-surface-background-color);
+    --fill-color: var(--mdc-theme-primary);
+    --track-color: rgb(var(--contrast-800), 0.2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        position: absolute;
+        transform: rotate(90deg);
+        fill: transparent;
+        stroke-dasharray: 100;
+        stroke-linecap: round;
+
+        .mdc-snackbar--open & {
+            animation: timeout var(--snackbar-timeout) linear forwards;
+        }
+    }
+}
+
+@keyframes timeout {
+    0% {
+        stroke-width: 4;
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+    100% {
+        stroke-width: 1;
+        stroke-dashoffset: -100;
+        opacity: 0.7;
     }
 }
