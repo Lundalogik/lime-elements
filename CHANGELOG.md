@@ -1,3 +1,10 @@
+## [36.3.2-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.3.1...v36.3.2-next.1) (2023-05-09)
+
+
+### Bug Fixes
+
+* **snackbar:** make `dismissible` `true` by default ([a1f27ba](https://github.com/Lundalogik/lime-elements/commit/a1f27ba8e03f2ab4015516e41731fb98e15c6fe1))
+
 ## [36.3.1](https://github.com/Lundalogik/lime-elements/compare/v36.3.0...v36.3.1) (2023-05-04)
 
 
