@@ -1,0 +1,1 @@
+import{r as e,h as l}from"./index-a55db97c.js";const r=class{constructor(l){e(this,l)}render(){return l("limel-help",{text:"I'm so helpful"})}};export{r as limel_example_help}
