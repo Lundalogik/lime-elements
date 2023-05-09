@@ -1,0 +1,38 @@
+:host(limel-example-placement) {
+    --form-padding: 1rem;
+}
+
+ul,
+li {
+    all: unset;
+    display: flex;
+}
+
+ul {
+    flex-direction: column;
+    padding: 0 var(--form-padding);
+}
+
+li {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+}
+
+hr {
+    all: unset;
+    display: block;
+    margin: 1.5rem 0 0 0;
+    border-bottom: 1px solid rgb(var(--contrast-600));
+}
+
+limel-checkbox {
+    margin-right: 0.5rem;
+}
+
+limel-help {
+    &.pull-left {
+        position: absolute;
+        left: calc(var(--form-padding) * -1);
+    }
+}

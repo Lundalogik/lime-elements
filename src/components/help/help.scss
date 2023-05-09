@@ -1,0 +1,33 @@
+@use '../../style/mixins';
+
+limel-popover {
+    display: flex;
+    --popover-surface-width: min(calc(100vw - 4rem), 22rem);
+}
+
+button[slot='trigger'] {
+    all: unset;
+
+    @include mixins.is-flat-clickable(
+        $color--hovered: rgb(var(--color-sky-dark)),
+        $background-color: var(--lime-elevated-surface-background-color)
+    );
+    @include mixins.visualize-keyboard-focus;
+
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(var(--color-sky-default));
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgb(var(--color-sky-lighter), 0.7);
+    width: 0.875rem;
+    height: 0.875rem;
+    font-size: 0.75rem;
+
+    &.is-open {
+        color: rgb(var(--color-white));
+        background-color: rgb(var(--color-sky-default));
+        box-shadow: var(--button-shadow-inset);
+    }
+}
