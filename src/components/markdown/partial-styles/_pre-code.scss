@@ -1,0 +1,33 @@
+@use '../../../style/functions.scss';
+
+code {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.875rem;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+
+    display: inline-block;
+    border-radius: functions.pxToRem(3);
+    padding: functions.pxToRem(1) functions.pxToRem(5);
+    color: rgb(var(--contrast-1300));
+    background-color: rgb(var(--contrast-600));
+}
+
+pre > code {
+    display: block;
+    border-radius: 0.5rem;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    overflow: auto;
+    white-space: pre-wrap;
+
+    color: rgb(var(--contrast-800));
+    background-color: rgb(var(--contrast-1600));
+}
