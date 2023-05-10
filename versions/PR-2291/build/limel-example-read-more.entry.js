@@ -1,0 +1,1 @@
+import{r as e,h as r}from"./index-a55db97c.js";const t=class{constructor(r){e(this,r)}render(){return r("limel-help",{content:"You can get more",readMoreLink:{href:"https://www.wikipedia.org/",title:"Read more in a new window",target:"_blank",text:"Read more..."}})}};export{t as limel_example_read_more}
