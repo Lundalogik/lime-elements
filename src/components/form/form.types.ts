@@ -1,3 +1,4 @@
+import { Components } from '@limetech/lime-elements';
 import { EventEmitter } from '@stencil/core';
 
 export interface ValidationStatus {
@@ -165,6 +166,8 @@ export interface LimeSchemaOptions {
      * Mark the field as disabled
      */
     disabled?: boolean;
+
+    help?: string | Components.LimelHelp;
 }
 
 /**

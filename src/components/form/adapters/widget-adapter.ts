@@ -3,6 +3,7 @@ import { WidgetProps } from '../widgets/types';
 import { LimeElementsAdapter } from './base-adapter';
 import { capitalize } from 'lodash-es';
 import { LimeSchemaOptions } from '../../../interface';
+import { getHelpComponent } from '../help';
 
 interface WidgetAdapterProps {
     name: string;
@@ -109,20 +110,25 @@ export class LimeElementsWidgetAdapter extends React.Component {
             ...events,
         };
 
-        return React.createElement(LimeElementsAdapter, {
-            name: name,
-            elementProps: {
-                value: value,
-                label: this.getLabel(),
-                disabled: disabled,
-                readonly: readonly,
-                required: this.isRequired(),
-                invalid: this.isInvalid(),
-                'helper-text': this.getHelperText(),
-                ...extraProps,
-            },
-            events: newEvents,
-        });
+        return React.createElement(
+            React.Fragment,
+            {},
+            React.createElement(LimeElementsAdapter, {
+                name: name,
+                elementProps: {
+                    value: value,
+                    label: this.getLabel(),
+                    disabled: disabled,
+                    readonly: readonly,
+                    required: this.isRequired(),
+                    invalid: this.isInvalid(),
+                    'helper-text': this.getHelperText(),
+                    ...extraProps,
+                },
+                events: newEvents,
+            }),
+            getHelpComponent(this.props.widgetProps.schema),
+        );
     }
 
     private isDisabled() {

@@ -167,6 +167,14 @@ limel-code-editor {
 }
 
 .form-group {
+    position: relative;
+
+    limel-help {
+        position: absolute;
+        top: calc(var(--form-row-gap, 1rem) * -0.5);
+        left: calc(var(--form-column-gap, 1rem) * -0.5);
+    }
+
     .mdc-typography--headline1,
     .mdc-typography--body1 {
         color: rgb(var(--contrast-1100));
