@@ -189,6 +189,8 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
                     '--mdc-menu-min-width': '100%',
                     'max-height': 'inherit',
                     display: 'flex',
+                    'min-width': '100%',
+                    width: 'fit-content',
                 }}
             >
                 <limel-list
