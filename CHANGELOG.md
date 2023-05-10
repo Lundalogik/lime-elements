@@ -1,3 +1,13 @@
+## [36.3.2-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.1...v36.3.2-next.2) (2023-05-10)
+
+
+### Bug Fixes
+
+* **snackbar:** make it inherit its minimum width from its own content ([e5dde45](https://github.com/Lundalogik/lime-elements/commit/e5dde4510d391aea000c18fa63c21abc44b224eb))
+* **snackbar:** make it stick out more from the rest of the UI ([c15e749](https://github.com/Lundalogik/lime-elements/commit/c15e7496e0926dbd68d04ee48ba475c694d7340f))
+* **snackbar:** make layout more compact ([0db83fc](https://github.com/Lundalogik/lime-elements/commit/0db83fc6ae23b1b60ace5721134ae9b0f8303616))
+* **snackbar:** visualize how much time is left till the snackbar is auto-dismissed ([43afdf0](https://github.com/Lundalogik/lime-elements/commit/43afdf09ad44c6b25e236ecc5a31bcf2d95949f7))
+
 ## [36.3.2-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.3.1...v36.3.2-next.1) (2023-05-09)
 
 
