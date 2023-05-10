@@ -16,9 +16,11 @@ export const schema = {
                 language: {
                     type: 'string',
                     title: 'Language',
-                    description: 'Select the app language',
                     default: 'ua',
                     lime: {
+                        help: {
+                            value: 'This will affect both the language of the user interface of our app, and also the language of the emails we send you.',
+                        },
                         layout: {
                             icon: 'globe',
                         },
@@ -80,8 +82,17 @@ export const schema = {
                 },
                 notification: {
                     type: 'boolean',
-                    title: 'Receive email notifications',
+                    title: 'Receive summary notifications via email',
                     lime: {
+                        help: {
+                            value: 'You can read more about how we handle our communications with you in our Terms & Privacy Policies.',
+                            readMoreLink: {
+                                href: 'https://www.lime-technologies.com/en/av-saas/',
+                                title: 'This link opens in a new tab',
+                                target: '_blank',
+                                text: 'Our Terms & Privacy Policies',
+                            },
+                        },
                         component: {
                             name: 'limel-switch',
                         },
@@ -92,7 +103,7 @@ export const schema = {
                 },
                 frequency: {
                     type: 'number',
-                    title: 'Frequency of notifications',
+                    title: 'Frequency of email notifications',
                     description:
                         'How many times per day can we sent you email notifications at most?',
                     minimum: 0,

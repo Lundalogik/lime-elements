@@ -39,12 +39,26 @@
     }
 
     .main-information {
+        position: relative;
         display: flex;
         flex-direction: row;
         align-items: center;
 
         gap: var(--limel-form-row-main-information-gap);
         min-width: 0;
+    }
+
+    .main-information {
+        // This ensures correct placement for help component
+        position: relative;
+
+        > .form-group.field {
+            position: unset;
+
+            limel-help {
+                top: 0;
+            }
+        }
     }
 
     limel-icon {

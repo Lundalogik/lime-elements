@@ -16,6 +16,9 @@ const helpBetaUpdates =
  *
  * Just make sure the elements are aligned correctly,
  * even when there is no help component beside them.
+ *
+ * Also see how we have implemented this component in the
+ * [Form](#/component/limel-form) component.
  */
 @Component({
     tag: 'limel-example-placement',

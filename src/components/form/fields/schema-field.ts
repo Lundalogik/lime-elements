@@ -5,6 +5,7 @@ import { FieldProps } from './types';
 import { isEmpty, capitalize } from 'lodash-es';
 import { resetDependentFields } from './field-helpers';
 import { FieldTemplate } from '../templates';
+import { getHelpComponent } from '../help';
 
 /**
  * If given a value and schema, check if the value should be translated
@@ -257,6 +258,7 @@ export class SchemaField extends React.Component<FieldProps> {
                 classNames: 'form-group field field-custom',
             },
             component,
+            getHelpComponent(props.schema),
         );
     }
 
