@@ -1,0 +1,30 @@
+blockquote {
+    position: relative;
+    font-weight: 100;
+    font-size: 0.875rem;
+    max-width: 100%;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.05rem 0.75rem;
+    background-color: rgb(var(--contrast-300));
+
+    &:before,
+    &:after {
+        position: absolute;
+        font-size: 2.75rem;
+        opacity: 0.4;
+    }
+
+    &:before {
+        content: '“';
+        left: 0;
+        top: -0.75rem;
+    }
+
+    &:after {
+        content: '”';
+        right: 0;
+        bottom: -2rem;
+    }
+}

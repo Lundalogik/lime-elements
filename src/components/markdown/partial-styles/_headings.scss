@@ -1,0 +1,39 @@
+@use '../../../style/functions.scss';
+
+h1 {
+    font-size: functions.pxToRem(30);
+    line-height: functions.pxToRem(30);
+    margin-top: functions.pxToRem(24);
+    margin-bottom: functions.pxToRem(12);
+    letter-spacing: functions.pxToRem(-1);
+}
+h2 {
+    font-size: functions.pxToRem(26);
+    line-height: functions.pxToRem(26);
+    margin-top: functions.pxToRem(20);
+    margin-bottom: functions.pxToRem(12);
+}
+h3 {
+    font-size: functions.pxToRem(22);
+    line-height: functions.pxToRem(22);
+    margin-top: functions.pxToRem(16);
+    margin-bottom: functions.pxToRem(12);
+}
+h4 {
+    font-size: functions.pxToRem(20);
+    line-height: functions.pxToRem(20);
+    margin-top: functions.pxToRem(12);
+    margin-bottom: functions.pxToRem(8);
+}
+h5 {
+    font-size: functions.pxToRem(18);
+    line-height: functions.pxToRem(18);
+    margin-top: functions.pxToRem(12);
+    margin-bottom: functions.pxToRem(8);
+}
+h6 {
+    font-size: functions.pxToRem(16);
+    line-height: functions.pxToRem(16);
+    margin-top: functions.pxToRem(12);
+    margin-bottom: functions.pxToRem(8);
+}

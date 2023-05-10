@@ -1,0 +1,16 @@
+@import './partial-styles/pre-code.scss';
+@import './partial-styles/headings.scss';
+@import './partial-styles/body-text.scss';
+@import './partial-styles/lists.scss';
+@import './partial-styles/tables.scss';
+@import './partial-styles/blockquotes.scss';
+@import './partial-styles/definition-lists.scss';
+
+// body-text
+hr {
+    border-top: 1px solid rgb(var(--contrast-700));
+}
+
+img {
+    max-width: 100%;
+}
