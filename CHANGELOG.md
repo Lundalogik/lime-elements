@@ -1,3 +1,10 @@
+## [36.3.2-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.2...v36.3.2-next.3) (2023-05-12)
+
+
+### Bug Fixes
+
+* **select:** prevent truncation in dropdown options, when the component has small width ([717d149](https://github.com/Lundalogik/lime-elements/commit/717d1496dbe85822d655826995746226703d13fe))
+
 ## [36.3.2-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.1...v36.3.2-next.2) (2023-05-10)
 
 
