@@ -31,6 +31,7 @@ export class InfoTileProgressExample {
     private progress: InfoTileProgress = {
         value: 76,
         prefix: '↑',
+        displayPercentageColors: true,
     };
 
     public render() {
