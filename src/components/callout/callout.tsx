@@ -27,6 +27,7 @@ import { Languages } from '@limetech/lime-elements';
  * @exampleComponent limel-example-callout-custom-heading
  * @exampleComponent limel-example-callout-custom-icon
  * @exampleComponent limel-example-callout-styles
+ * @exampleComponent limel-example-custom-type
  * @exampleComponent limel-example-callout-composite
  */
 @Component({
