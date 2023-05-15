@@ -1,10 +1,4 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-const index = require('./index-d017bb3a.js');
-
-const markdownExample = `
+export const markdownExample = `
 ## Headings
 
 The following HTML \`<h1>\`—\`<h6>\` elements represent six levels of section headings. \`<h1>\` is the highest section level while \`<h6>\` is the lowest.
@@ -153,14 +147,3 @@ Just for your information…
 :::
 
 `;
-
-const MarkdownExample = class {
-  constructor(hostRef) {
-    index.registerInstance(this, hostRef);
-  }
-  render() {
-    return index.h("kompendium-markdown", { text: markdownExample });
-  }
-};
-
-exports.kompendium_example_markdown = MarkdownExample;
