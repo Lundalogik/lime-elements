@@ -18,6 +18,11 @@ export class CalloutCompositeExample {
         content: 'This is my very nice [type]',
         type: 'tip',
         language: 'en',
+        style: {
+            '--callout-color': '',
+            '--callout-text-color': '',
+            '--callout-background-color': '',
+        },
     };
 
     public componentWillLoad() {
@@ -34,6 +39,42 @@ export class CalloutCompositeExample {
                     component: {
                         props: {
                             type: 'textarea',
+                        },
+                    },
+                },
+            },
+            style: {
+                type: 'object',
+                title: 'Styles',
+                properties: {
+                    '--callout-color': {
+                        type: 'string',
+                        title: 'Callout Color',
+                        description: '--callout-color',
+                        lime: {
+                            component: {
+                                name: 'limel-color-picker',
+                            },
+                        },
+                    },
+                    '--callout-text-color': {
+                        type: 'string',
+                        title: 'Text Color',
+                        description: '--callout-text-color',
+                        lime: {
+                            component: {
+                                name: 'limel-color-picker',
+                            },
+                        },
+                    },
+                    '--callout-background-color': {
+                        type: 'string',
+                        title: 'Background Color',
+                        description: '--callout-background-color',
+                        lime: {
+                            component: {
+                                name: 'limel-color-picker',
+                            },
                         },
                     },
                 },
