@@ -1,3 +1,10 @@
+## [36.3.2-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.3...v36.3.2-next.4) (2023-05-16)
+
+
+### Bug Fixes
+
+* **callout:** support custom types ([c92c397](https://github.com/Lundalogik/lime-elements/commit/c92c39737c3e54e129ad0434043b0fd3cb4877e8))
+
 ## [36.3.2-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.2...v36.3.2-next.3) (2023-05-12)
 
 
