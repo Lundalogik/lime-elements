@@ -45,6 +45,11 @@ a {
             var(
                 --shortcut-background-color,
                 var(--lime-elevated-surface-background-color)
+            ),
+        $background-color--hovered:
+            var(
+                --shortcut-background-color,
+                var(--lime-elevated-surface-background-color)
             )
     );
     @include mixins.visualize-keyboard-focus;
