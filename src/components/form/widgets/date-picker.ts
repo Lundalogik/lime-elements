@@ -61,7 +61,7 @@ export class DatePicker extends React.Component<DateWidgetProps> {
         const formatMapping = {
             'date-time': 'YYYY-MM-DDTHH:mm:ssZ',
             date: 'YYYY-MM-DD',
-            time: 'HH:mm:ss',
+            time: 'HH:mm:ssZ',
         };
         const dateString = moment(event.detail).format(
             formatMapping[props.schema.format],
