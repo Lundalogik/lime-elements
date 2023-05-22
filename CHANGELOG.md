@@ -1,3 +1,10 @@
+## [36.3.2-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.4...v36.3.2-next.5) (2023-05-22)
+
+
+### Bug Fixes
+
+* **shortcut:** keep the same custom background color when hovered ([15d1dc2](https://github.com/Lundalogik/lime-elements/commit/15d1dc217f4c6f28f5d98deed3c4a3c361cf033c))
+
 ## [36.3.2-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.3...v36.3.2-next.4) (2023-05-16)
 
 
