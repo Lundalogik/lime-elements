@@ -44,7 +44,7 @@
     "@popperjs/core": "^2.11.7",
     "@rjsf/core": "^2.4.2",
     "@stencil/core": "^2.19.2",
-    "@stencil/sass": "^3.0.2",
+    "@stencil/sass": "^3.0.3",
     "@types/codemirror": "^5.60.2",
     "@types/html-escaper": "^3.0.0",
     "@types/jest": "^27.4.0",
