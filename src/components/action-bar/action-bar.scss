@@ -1,0 +1,52 @@
+/**
+* @prop --action-bar-item-text-color: Text color of action bar items, defaults to `--contrast-1100`.
+* @prop --action-bar-item-icon-color: Color of the icons displayed on each action bar item. Defaults to the text color. To specify a color for an individual item, use the `iconColor` prop instead.
+* @prop --action-bar-item-max-width: Maximum width of a button in the action bar. Defaults to `10rem`. Keep in mind that the buttons should not appear too big.
+* @prop --action-bar-border-radius: Defines the roundness of the corners of the action bar. Defaults to `0`.
+* @prop --action-bar-background-color: Background color of the whole component. Defaults to `--contrast-100`.
+*/
+
+:host(limel-action-bar) {
+    --action-bar-item-height: 2rem;
+
+    --limel-action-bar-item-text-color: var(
+        --action-bar-item-text-color,
+        rgb(var(--contrast-1100))
+    );
+
+    box-sizing: border-box;
+
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.25rem;
+    max-width: 100%;
+    border-radius: var(--action-bar-border-radius);
+
+    background-color: var(
+        --action-bar-background-color,
+        rgb(var(--contrast-100))
+    );
+
+    gap: 0.25rem;
+    @media (pointer: coarse) {
+        gap: 0.5rem;
+    }
+}
+
+limel-action-bar-button {
+    min-width: 0;
+}
+
+:host(limel-action-bar.is-full-width) {
+    width: 100%;
+}
+
+:host(limel-action-bar.is-floating) {
+    --action-bar-border-radius: 100vw;
+
+    padding-right: 0.125rem;
+    padding-left: 0.125rem;
+
+    max-width: calc(100% - 2rem);
+    box-shadow: var(--shadow-depth-16);
+}

@@ -1,0 +1,101 @@
+@use '../../../style/mixins';
+@use '../../../style/functions';
+
+button {
+    all: unset;
+    position: relative;
+
+    &:not([disabled]) {
+        @include mixins.is-flat-inset-clickable(
+            $color: var(--limel-action-bar-item-text-color),
+            $color--hovered: var(--limel-action-bar-item-text-color),
+            $background-color: var(--action-bar-background-color),
+            $background-color--hovered: var(--action-bar-background-color),
+            $background-color--inset: var(--action-bar-background-color)
+        );
+        @include mixins.visualize-keyboard-focus;
+    }
+
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+
+    width: 100%;
+    min-width: var(--action-bar-item-height);
+    max-width: var(--action-bar-item-max-width, 10rem);
+    height: var(--action-bar-item-height);
+
+    border-radius: var(--action-bar-item-height);
+    font-size: functions.pxToRem(14);
+    padding: 0 0.25rem;
+
+    &:has(.text) {
+        padding: 0 0.5rem;
+    }
+
+    &[disabled] {
+        opacity: 0.4;
+    }
+}
+
+.text {
+    @include mixins.truncate-text();
+    padding: 0 0.25rem;
+}
+
+limel-icon {
+    flex-shrink: 0;
+    width: calc(var(--action-bar-item-height) - 0.75rem);
+    height: calc(var(--action-bar-item-height) - 0.75rem);
+    color: var(
+        --action-bar-item-icon-color,
+        var(--limel-action-bar-item-text-color)
+    );
+}
+
+limel-tooltip {
+    // CSS hack due to the tooltip's placement bug
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+div[role='separator'] {
+    width: 1px;
+    height: 1.5rem;
+    border-radius: var(--action-bar-item-height);
+    background-color: var(--limel-action-bar-item-text-color);
+    opacity: 0.2;
+
+    @media (pointer: fine) {
+        margin: 0 0.5rem;
+    }
+}
+
+// 👇 Overflow menu
+
+limel-menu {
+    --notification-badge-background-color: rgb(var(--contrast-600));
+    --notification-badge-text-color: rgb(var(--contrast-1200));
+}
+
+button[slot='trigger'] {
+    animation: fade-in ease-out 0.5s;
+    font-size: 0.75rem;
+    font-weight: bold;
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes fade-in {
+    0% {
+        scale: 0.8;
+        opacity: 0;
+    }
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}

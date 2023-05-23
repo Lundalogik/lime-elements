@@ -1,0 +1,10 @@
+@import './application';
+
+.application {
+    background-color: rgb(var(--contrast-800));
+}
+
+limel-action-bar {
+    --action-bar-background-color: rgb(var(--color-indigo-dark));
+    --action-bar-item-text-color: rgb(var(--color-white));
+}
