@@ -1,3 +1,10 @@
+## [36.4.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.5...v36.4.0-next.1) (2023-05-24)
+
+
+### Features
+
+* **picker:** fix picker clearing input and search results ([3319451](https://github.com/Lundalogik/lime-elements/commit/33194512328433fa85a3a86929dc10ed1618ca08))
+
 ## [36.3.2-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.4...v36.3.2-next.5) (2023-05-22)
 
 
