@@ -93,7 +93,7 @@ export class InfoTile {
      * Defaults:
      * - `maxValue`: 100
      * - `suffix`: %
-     * - `percentageColors`: false
+     * - `displayPercentageColors`: false
      *
      * Colors change with intervals of 10 %.
      */

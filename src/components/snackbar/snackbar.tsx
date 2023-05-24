@@ -33,6 +33,7 @@ import translate from '../../global/translations';
  * [Dialog](/#/component/limel-dialog/) is a better choice.
  * :::
  * @exampleComponent limel-example-snackbar
+ * @exampleComponent limel-example-snackbar-dismissible
  * @exampleComponent limel-example-snackbar-with-action
  * @exampleComponent limel-example-snackbar-with-changing-messages
  */
@@ -63,10 +64,11 @@ export class Snackbar {
     public actionText: string;
 
     /**
-     * True if the snackbar is dismissible, false otherwise
+     * When `true` displays a dismiss button on the snackbar,
+     * allowing users to close it.
      */
     @Prop()
-    public dismissible: boolean;
+    public dismissible: boolean = true;
 
     /**
      * Whether to show the snackbar with space for multiple lines of text
@@ -146,6 +148,9 @@ export class Snackbar {
                     mdc-snackbar
                     ${this.multiline ? 'mdc-snackbar--stacked' : ''}
                 `}
+                style={{
+                    '--snackbar-timeout': `${this.timeout}ms`,
+                }}
             >
                 <div
                     class="mdc-snackbar__surface"
@@ -201,11 +206,27 @@ export class Snackbar {
         const label = translate.get('snackbar.dismiss', this.language);
 
         return (
-            <limel-icon-button
-                class="mdc-icon-button mdc-snackbar__dismiss"
-                icon="multiply"
-                label={label}
-            />
+            <div class="dismiss">
+                {this.renderTimeoutVisualization()}
+                <limel-icon-button
+                    class="mdc-icon-button mdc-snackbar__dismiss"
+                    icon="multiply"
+                    label={label}
+                />
+            </div>
+        );
+    }
+
+    private renderTimeoutVisualization() {
+        return (
+            <svg width="36" height="36" viewBox="0 0 36 36">
+                <circle r="18" cx="18" cy="18" fill="var(--track-color)" />
+                <path
+                    class="track"
+                    d="M 18,18 m -16,0 a 16,16 0 1,0 32,0 a 16,16 0 1,0 -32,0"
+                    stroke="var(--fill-color)"
+                />
+            </svg>
         );
     }
 }

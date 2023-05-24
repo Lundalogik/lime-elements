@@ -1,4 +1,4 @@
-import { Component, Element, h, State } from '@stencil/core';
+import { Component, Element, h } from '@stencil/core';
 
 /**
  * With actions
@@ -21,9 +21,6 @@ export class SnackbarExample {
     @Element()
     private host: HTMLLimelExampleSnackbarWithActionElement;
 
-    @State()
-    private dismissible = false;
-
     private triggerSnackbarWithAction: (event: MouseEvent) => void;
 
     constructor() {
@@ -31,7 +28,6 @@ export class SnackbarExample {
             this,
             'limel-snackbar'
         );
-        this.onChange = this.onChange.bind(this);
     }
 
     public render() {
@@ -42,18 +38,10 @@ export class SnackbarExample {
                 label="Send"
                 onClick={this.triggerSnackbarWithAction}
             />,
-            <limel-example-controls>
-                <limel-checkbox
-                    label="Dismissible"
-                    checked={this.dismissible}
-                    onChange={this.onChange}
-                />
-            </limel-example-controls>,
             <limel-snackbar
                 message="Your email has been sent."
                 actionText="Undo"
                 timeout={timeout}
-                dismissible={this.dismissible}
                 onAction={this.snackbarOnAction}
                 onHide={this.snackbarWithActionOnHide}
             />,
@@ -74,9 +62,5 @@ export class SnackbarExample {
         console.log(
             'Now the email has really been sent! There is no way to undo this.'
         );
-    }
-
-    private onChange(event: CustomEvent<boolean>) {
-        this.dismissible = event.detail;
     }
 }

@@ -46,6 +46,11 @@ export class SelectExample {
             value: 'leia',
             icon: 'businesswoman',
         },
+        {
+            text: 'R2',
+            value: 'r2',
+            icon: 'robot',
+        },
     ];
 
     public render() {

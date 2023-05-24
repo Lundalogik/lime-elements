@@ -84,4 +84,18 @@ nav {
     }
 }
 
+// 👇 Below is a hidden and private prop
+// only for usage in Lime CRM components.
+// It enables our customers to override
+// the default Home icon, using an external URL
+// or an SVG code.
+limel-dock-button {
+    &:first-of-type {
+        // `--crm-custom-home-icon-enabler`: in the CRM must be set to `''`
+        --limel-custom-home-icon-enabler: var(--crm-custom-home-icon-enabler);
+        // `--crm-custom-home-icon` in the CRM must be set to a url to an image file, or an SVG code
+        --limel-custom-home-icon: var(--crm-custom-home-icon);
+    }
+}
+
 @import './partial-styles/shrink-expand-button';

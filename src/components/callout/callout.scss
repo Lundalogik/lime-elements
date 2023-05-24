@@ -9,6 +9,10 @@
     border-radius: 0.5rem;
     overflow: hidden;
 
+    --limel-callout-tint-color: var(
+        --callout-color,
+        rgb(var(--color-contrast-100))
+    );
     color: var(--callout-text-color, rgb(var(--contrast-1100)));
 }
 :host([type='note']) {

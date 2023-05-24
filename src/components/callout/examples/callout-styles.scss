@@ -3,7 +3,7 @@
     gap: 1rem;
 }
 
-limel-callout[type='example'] {
+limel-callout[type='caution'] {
     --callout-color: rgb(var(--color-pink-default));
     --callout-text-color: rgb(var(--color-orange-lighter));
     --callout-background-color: rgb(var(--color-pink-dark));

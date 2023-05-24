@@ -1,3 +1,41 @@
+## [36.3.2-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.4...v36.3.2-next.5) (2023-05-22)
+
+
+### Bug Fixes
+
+* **shortcut:** keep the same custom background color when hovered ([15d1dc2](https://github.com/Lundalogik/lime-elements/commit/15d1dc217f4c6f28f5d98deed3c4a3c361cf033c))
+
+## [36.3.2-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.3...v36.3.2-next.4) (2023-05-16)
+
+
+### Bug Fixes
+
+* **callout:** support custom types ([c92c397](https://github.com/Lundalogik/lime-elements/commit/c92c39737c3e54e129ad0434043b0fd3cb4877e8))
+
+## [36.3.2-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.2...v36.3.2-next.3) (2023-05-12)
+
+
+### Bug Fixes
+
+* **select:** prevent truncation in dropdown options, when the component has small width ([717d149](https://github.com/Lundalogik/lime-elements/commit/717d1496dbe85822d655826995746226703d13fe))
+
+## [36.3.2-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.1...v36.3.2-next.2) (2023-05-10)
+
+
+### Bug Fixes
+
+* **snackbar:** make it inherit its minimum width from its own content ([e5dde45](https://github.com/Lundalogik/lime-elements/commit/e5dde4510d391aea000c18fa63c21abc44b224eb))
+* **snackbar:** make it stick out more from the rest of the UI ([c15e749](https://github.com/Lundalogik/lime-elements/commit/c15e7496e0926dbd68d04ee48ba475c694d7340f))
+* **snackbar:** make layout more compact ([0db83fc](https://github.com/Lundalogik/lime-elements/commit/0db83fc6ae23b1b60ace5721134ae9b0f8303616))
+* **snackbar:** visualize how much time is left till the snackbar is auto-dismissed ([43afdf0](https://github.com/Lundalogik/lime-elements/commit/43afdf09ad44c6b25e236ecc5a31bcf2d95949f7))
+
+## [36.3.2-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.3.1...v36.3.2-next.1) (2023-05-09)
+
+
+### Bug Fixes
+
+* **snackbar:** make `dismissible` `true` by default ([a1f27ba](https://github.com/Lundalogik/lime-elements/commit/a1f27ba8e03f2ab4015516e41731fb98e15c6fe1))
+
 ## [36.3.1](https://github.com/Lundalogik/lime-elements/compare/v36.3.0...v36.3.1) (2023-05-04)
 
 
