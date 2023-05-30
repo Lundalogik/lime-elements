@@ -1,3 +1,10 @@
+## [36.4.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.1...v36.4.0-next.2) (2023-05-30)
+
+
+### Bug Fixes
+
+* **input-field:** show "clear all" button when field is not empty ([30fc78b](https://github.com/Lundalogik/lime-elements/commit/30fc78b704558505029abb8c458c303b17d5214d))
+
 ## [36.4.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.3.2-next.5...v36.4.0-next.1) (2023-05-24)
 
 
