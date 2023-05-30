@@ -167,13 +167,16 @@ input.mdc-text-field__input {
         -webkit-appearance: none;
 
         position: absolute;
-        right: functions.pxToRem(8);
+        right: 0;
         top: 0;
         bottom: 0;
         margin: auto;
 
         &:active {
             transform: none; //Makes the "clear-all button" work
+        }
+        .mdc-text-field--label-floating & {
+            opacity: 1;
         }
     }
 }
