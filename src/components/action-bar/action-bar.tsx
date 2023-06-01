@@ -97,8 +97,9 @@ export class ActionBar {
     private intersectionObserver: IntersectionObserver;
     private overflowRecalculationScheduled: boolean;
     // eslint-disable-next-line no-magic-numbers
-    private RESIZE_RATE_MS = 800;
+    private RESIZE_RATE_MS = 500;
     private lastOverFlowCutoff: number = this.actionBarItems.length;
+    private lastResize = Date.now();
 
     public componentWillLoad() {
         this.resizeObserver = new ResizeObserver(this.handleResize);
@@ -182,16 +183,26 @@ export class ActionBar {
     };
 
     private handleResize = async () => {
+        this.lastResize = Date.now();
+
         if (!this.overflowRecalculationScheduled) {
             this.lastOverFlowCutoff = this.overflowCutoff;
             this.overflowRecalculationScheduled = true;
             setTimeout(() => {
-                this.overflowCutoff = this.actionBarItems.length;
-                this.calculatingOverflow = true;
-                this.overflowRecalculationScheduled = false;
+                this.doResize();
             }, this.RESIZE_RATE_MS);
         }
     };
+
+    private doResize = () => {
+        if (Date.now() - this.lastResize >= this.RESIZE_RATE_MS) {
+            this.overflowCutoff = this.actionBarItems.length;
+            this.calculatingOverflow = true;
+            this.overflowRecalculationScheduled = false;
+        } else {
+            setTimeout(this.doResize, this.RESIZE_RATE_MS)
+        }
+    }
 
     handleIntersection = (entries: IntersectionObserverEntry[]) => {
         // IntersectionObserver sometimes holds onto leftover entries from last render
