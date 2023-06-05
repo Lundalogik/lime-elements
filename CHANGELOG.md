@@ -1,3 +1,10 @@
+## [36.4.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.2...v36.4.0-next.3) (2023-06-05)
+
+
+### Features
+
+* **list:** add a css prop for margin around the list ([e26d8e4](https://github.com/Lundalogik/lime-elements/commit/e26d8e4fa7d3f260bd00795453aba3fbd951382e))
+
 ## [36.4.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.1...v36.4.0-next.2) (2023-05-30)
 
 
