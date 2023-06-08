@@ -86,6 +86,9 @@ export class Portal {
     @Prop()
     public visible = false;
 
+    @Prop()
+    public autoFocus = false;
+
     private parents: WeakMap<HTMLElement, HTMLElement>;
 
     @Watch('visible')
@@ -94,12 +97,14 @@ export class Portal {
             this.hideContainer();
             this.styleContainer();
             this.destroyPopper();
+            this.setFocus();
 
             return;
         }
 
         this.styleContainer();
         this.createPopper();
+        this.setFocus();
         requestAnimationFrame(() => {
             this.showContainer();
         });
@@ -180,6 +185,20 @@ export class Portal {
             this.parents.set(element, element.parentElement);
             this.container.appendChild(element);
         });
+    }
+
+    private setFocus() {
+        if (!this.autoFocus) {
+            return;
+        }
+
+        const content = Array.from(this.container.children) as HTMLElement[];
+
+        if (this.visible) {
+            content[0]?.focus();
+        } else {
+            content[0]?.blur();
+        }
     }
 
     private attachContainer() {

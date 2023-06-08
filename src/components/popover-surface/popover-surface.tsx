@@ -7,7 +7,9 @@ import { Component, h, Prop, Element } from '@stencil/core';
 
 @Component({
     tag: 'limel-popover-surface',
-    shadow: true,
+    shadow: {
+        delegatesFocus: true,
+    },
     styleUrl: 'popover-surface.scss',
 })
 export class PopoverSurface {

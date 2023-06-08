@@ -80,6 +80,9 @@ export class Popover {
     @Prop({ reflect: true })
     public openDirection: OpenDirection;
 
+    @Prop()
+    public autoFocus = false;
+
     /**
      * Emits an event when the component is closing
      */
@@ -131,6 +134,7 @@ export class Popover {
                     containerId={this.portalId}
                     containerStyle={{ 'z-index': popoverZIndex }}
                     openDirection={this.openDirection}
+                    autoFocus={this.autoFocus}
                 >
                     <limel-popover-surface
                         contentCollection={this.host.children}
