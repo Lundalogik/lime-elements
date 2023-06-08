@@ -69,7 +69,7 @@ test('aria-hidden is set when the owner element is NOT hovered', () => {
 });
 
 test('aria-hidden is removed when the owner element is hovered', async () => {
-    jest.spyOn(page.win, 'setTimeout');
+    const spy = jest.spyOn(page.win, 'setTimeout');
 
     const event = new MouseEvent('mouseover');
     anchor.dispatchEvent(event);
@@ -81,14 +81,15 @@ test('aria-hidden is removed when the owner element is hovered', async () => {
         500
     );
 
-    jest.runAllTimers();
+    const timerHandler = spy.mock.calls[0][0] as Function;
+    timerHandler();
     await page.waitForChanges();
 
     expect(content).not.toHaveAttribute('aria-hidden');
 });
 
 test('limel-portal is opened when the owner element is hovered', async () => {
-    jest.spyOn(page.win, 'setTimeout');
+    const spy = jest.spyOn(page.win, 'setTimeout');
 
     const event = new MouseEvent('mouseover');
     anchor.dispatchEvent(event);
@@ -100,7 +101,8 @@ test('limel-portal is opened when the owner element is hovered', async () => {
         500
     );
 
-    jest.runAllTimers();
+    const timerHandler = spy.mock.calls[0][0] as Function;
+    timerHandler();
     await page.waitForChanges();
 
     expect(portal.visible).toBeTruthy();
