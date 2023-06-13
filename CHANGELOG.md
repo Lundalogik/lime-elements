@@ -1,3 +1,10 @@
+## [36.4.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.3...v36.4.0-next.4) (2023-06-13)
+
+
+### Features
+
+* **action-bar:** add new component ([537aa0f](https://github.com/Lundalogik/lime-elements/commit/537aa0f41326b55859622f3e06cd13e022b326e2)), closes [Lundalogik/crm-feature#3379](https://github.com/Lundalogik/crm-feature/issues/3379)
+
 ## [36.4.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.2...v36.4.0-next.3) (2023-06-05)
 
 
