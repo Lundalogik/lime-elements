@@ -118,6 +118,8 @@ export class ActionBar {
         );
     }
 
+    public connectedCallback() {}
+
     public componentDidRender() {
         if (this.haveItemsChanged()) {
             this.intersectionObserver?.disconnect();
@@ -127,7 +129,9 @@ export class ActionBar {
 
     public disconnectedCallback() {
         this.intersectionObserver?.disconnect();
+        this.intersectionObserver = undefined;
         this.actionBarItems = [];
+        this.connectedCallback = () => this.createIntersectionObserver();
     }
 
     private renderActionBarItem = (item: ActionBarItem, index: number) => {
@@ -194,6 +198,9 @@ export class ActionBar {
             rootMargin: '0px',
             threshold: 1.0,
         };
+
+        this.overflowCutoff = this.actions.length;
+        this.firstRender = true;
 
         this.actionBarItems = [];
 
