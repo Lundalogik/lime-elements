@@ -48,7 +48,7 @@ export interface ListItem<T = any> {
 }
 
 export interface ListSeparator {
-    separator: true;
+    separator: boolean;
 }
 
 export interface ListComponent {
