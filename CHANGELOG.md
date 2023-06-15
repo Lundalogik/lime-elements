@@ -1,3 +1,10 @@
+## [36.4.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.4...v36.4.0-next.5) (2023-06-15)
+
+
+### Bug Fixes
+
+* **action-bar:** add observers on re-connect ([0276698](https://github.com/Lundalogik/lime-elements/commit/02766988267040de54ade105a2c3b59e5d45ed8f))
+
 ## [36.4.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.3...v36.4.0-next.4) (2023-06-13)
 
 
