@@ -1,3 +1,10 @@
+## [36.4.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.5...v36.4.0-next.6) (2023-06-19)
+
+
+### Features
+
+* **icon:** use browser request cache to cache icons ([bdaf181](https://github.com/Lundalogik/lime-elements/commit/bdaf181b0dc656c66226b8e639e14aceb932414b))
+
 ## [36.4.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.4...v36.4.0-next.5) (2023-06-15)
 
 
