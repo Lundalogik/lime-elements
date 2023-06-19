@@ -1,0 +1,15 @@
+:host(limel-example-action-bar-in-list) {
+    order: 2; // ensures that the action bar is rendered on the right side of the list item
+    margin-right: -0.5rem; // compensates for the right padding of the list item
+
+    // ⚠️ NOTE: about these lines, read the docs!
+    --declared-width: 40%;
+    max-width: var(--declared-width);
+    min-width: var(--declared-width);
+    // ⚠️ NOTE end.
+}
+
+limel-action-bar {
+    --action-bar-background-color: transparent;
+    float: right;
+}
