@@ -16,7 +16,7 @@ export class IconCache {
      * Get icon data from the cache
      * @param {string} name name of the icon
      * @param {string} path path on the server where the assets are located
-     * @returns {string} svg markup
+     * @returns {Promise<string>} svg markup
      */
     public async get(name: string, path: string = ''): Promise<string> {
         const cache = await this.cache;
