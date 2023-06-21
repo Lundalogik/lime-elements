@@ -1,3 +1,10 @@
+## [36.4.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.6...v36.4.0-next.7) (2023-06-21)
+
+
+### Bug Fixes
+
+* **list:** correctly enable usage of `--list-margin` variable ([acb21ca](https://github.com/Lundalogik/lime-elements/commit/acb21ca00795a0d03ca814d6b295e0898e08940e))
+
 ## [36.4.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.5...v36.4.0-next.6) (2023-06-19)
 
 
