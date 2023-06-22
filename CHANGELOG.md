@@ -1,3 +1,10 @@
+## [36.4.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.7...v36.4.0-next.8) (2023-06-22)
+
+
+### Bug Fixes
+
+* **popover:** make sure the popover surface never grows out of the availabel screen space ([4ac34ed](https://github.com/Lundalogik/lime-elements/commit/4ac34ed34685099b06d0d1b92828574c854d98de))
+
 ## [36.4.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.6...v36.4.0-next.7) (2023-06-21)
 
 
