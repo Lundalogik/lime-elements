@@ -1,0 +1,2 @@
+const t=()=>{const t=36;const n=2;const c=97;const o=26;return String.fromCharCode(c+Math.floor(Math.random()*o))+Math.random().toString(t).substring(n)+Math.random().toString(t).substring(n)};export{t as c};
+//# sourceMappingURL=random-string-2246b81e.js.map
