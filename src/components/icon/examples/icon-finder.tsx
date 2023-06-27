@@ -47,7 +47,7 @@ export class IconFinder {
                 type="input"
                 value={this.value}
                 onChange={this.chipSetOnChange}
-                onInput={this.onInput}
+                onChipSetInput={this.onInput}
                 onKeyUp={this.onKeyUp}
                 searchLabel="Type and press enter to search"
                 emptyInputOnBlur={true}

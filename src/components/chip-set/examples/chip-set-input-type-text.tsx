@@ -63,7 +63,7 @@ export class ChipSetInputExample {
                 value={this.value}
                 maxItems={this.maxItems}
                 onChange={this.handleChange}
-                onInput={this.handleInput}
+                onChipSetInput={this.handleInput}
                 onKeyUp={this.onKeyUp}
                 emptyInputOnBlur={this.emptyInputOnBlur}
             />,

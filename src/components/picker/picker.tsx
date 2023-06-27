@@ -262,7 +262,7 @@ export class Picker {
                 readonly={this.readonly}
                 required={this.required}
                 searchLabel={this.searchLabel}
-                onInput={this.handleTextInput}
+                onChipSetInput={this.handleTextInput}
                 onKeyDown={this.handleInputKeyDown}
                 onChange={this.handleChange}
                 onInteract={this.handleInteract}

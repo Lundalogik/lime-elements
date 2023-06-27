@@ -63,7 +63,7 @@ export class ChipSetInputExample {
                 leadingIcon={this.hasLeadingIcon ? 'search' : null}
                 maxItems={this.maxItems}
                 onChange={this.handleChange}
-                onInput={this.handleInput}
+                onChipSetInput={this.handleInput}
                 onInteract={this.handleInteraction}
                 onKeyUp={this.onKeyUp}
                 emptyInputOnBlur={this.emptyInputOnBlur}
