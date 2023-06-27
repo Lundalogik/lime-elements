@@ -33,9 +33,6 @@ export class ChipSetInputExample {
     private value: Chip[];
 
     @State()
-    private companyValue: Chip[];
-
-    @State()
     private textValue = '';
 
     @State()
@@ -81,10 +78,6 @@ export class ChipSetInputExample {
         ) {
             this.value = [
                 ...this.value,
-                this.createChip(this.textValue.trim()),
-            ];
-            this.companyValue = [
-                ...this.companyValue,
                 this.createChip(this.textValue.trim()),
             ];
             this.textValue = '';
