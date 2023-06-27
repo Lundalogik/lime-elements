@@ -275,7 +275,7 @@ describe('limel-chip-set', () => {
 
         describe('when typing in the input field', () => {
             beforeEach(async () => {
-                spy = await chipSet.spyOnEvent('input');
+                spy = await chipSet.spyOnEvent('chipSetInput');
 
                 const input: E2EElement = await page.find(
                     'limel-chip-set >>> input'
