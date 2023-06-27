@@ -53,5 +53,4 @@ export const config: Config = {
             '@rjsf/core/lib/(.*)': '@rjsf/core/dist/cjs/$1',
         },
     },
-    sourceMap: true,
 };
