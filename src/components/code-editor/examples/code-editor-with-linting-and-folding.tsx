@@ -30,7 +30,7 @@ export class CodeFoldAndLintExample {
                 lineNumbers={true}
                 lint={true}
                 fold={true}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />
         );
     }

@@ -75,11 +75,17 @@ export class CodeEditor {
     public colorScheme: ColorScheme = 'auto';
 
     /**
+     * @deprecated Use `limelChange` instead
+     */
+    @Event()
+    public change: EventEmitter<string>;
+
+    /**
      * Emitted when the code has changed. Will only be emitted when the code
      * area has lost focus
      */
     @Event()
-    public change: EventEmitter<string>;
+    public limelChange: EventEmitter<string>;
 
     @Element()
     private host: HTMLLimelCodeEditorElement;

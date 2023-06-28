@@ -27,7 +27,7 @@ export class CodeExample {
             <limel-code-editor
                 value={this.json}
                 language="json"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />
         );
     }

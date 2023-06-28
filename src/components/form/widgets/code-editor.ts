@@ -29,6 +29,7 @@ export class CodeEditor extends React.Component {
             },
             events: {
                 change: this.handleChange,
+                limelChange: this.handleLimelChange,
             },
         });
     }
@@ -45,6 +46,24 @@ export class CodeEditor extends React.Component {
             const value = JSON.parse(event.detail);
 
             props.onChange(value);
+            props.onValidate();
+        } catch (e) {
+            props.onValidate('Should be a valid JSON document');
+        }
+    }
+
+    private handleLimelChange(event: CustomEvent<string>) {
+        const props = this.props;
+        event.stopPropagation();
+
+        if (!props.onLimelChange) {
+            return;
+        }
+
+        try {
+            const value = JSON.parse(event.detail);
+
+            props.onLimelChange(value);
             props.onValidate();
         } catch (e) {
             props.onValidate('Should be a valid JSON document');
