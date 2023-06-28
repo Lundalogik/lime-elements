@@ -36,7 +36,7 @@ export class ButtonGroupExample {
         return [
             <limel-button-group
                 disabled={this.disabled}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 value={this.buttons}
             />,
             <limel-example-controls>

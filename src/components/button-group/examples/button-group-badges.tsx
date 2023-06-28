@@ -46,7 +46,7 @@ export class ButtonGroupBadgesExample {
     public render() {
         return [
             <limel-button-group
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 value={this.buttons}
             />,
         ];

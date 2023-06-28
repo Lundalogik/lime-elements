@@ -4,6 +4,7 @@ describe('limel-button-group', () => {
     let page: E2EPage;
     let buttonGroup: E2EElement;
     let buttons: E2EElement[];
+    let spyForDeprecatedEvent;
     let spy;
 
     describe('basic button group', () => {
@@ -33,7 +34,8 @@ describe('limel-button-group', () => {
 
             buttons = await page.findAll('limel-button-group >>> .mdc-chip');
 
-            spy = await buttonGroup.spyOnEvent('change');
+            spyForDeprecatedEvent = await buttonGroup.spyOnEvent('change');
+            spy = await buttonGroup.spyOnEvent('limelChange');
         });
 
         it('renders the buttons', () => {
@@ -46,7 +48,15 @@ describe('limel-button-group', () => {
                 await buttons[0].click();
             });
 
-            it('emits a change event', () => {
+            it('emits a change event (deprecated)', () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEventTimes(1);
+                expect(spyForDeprecatedEvent).toHaveReceivedEventDetail({
+                    id: '1',
+                    title: 'Lime',
+                });
+            });
+
+            it('emits a limelChange event', () => {
                 expect(spy).toHaveReceivedEventTimes(1);
                 expect(spy).toHaveReceivedEventDetail({
                     id: '1',

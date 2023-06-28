@@ -64,10 +64,16 @@ export class ButtonGroup {
     public disabled: boolean = false;
 
     /**
-     * Dispatched when a button is selected/deselected
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     private change: EventEmitter<Button>;
+
+    /**
+     * Dispatched when a button is selected/deselected
+     */
+    @Event()
+    private limelChange: EventEmitter<Button>;
 
     @State()
     private selectedButtonId: string;
@@ -178,6 +184,7 @@ export class ButtonGroup {
             return item.id === this.selectedButtonId;
         });
         this.change.emit(button);
+        this.limelChange.emit(button);
     }
 
     private setSelectedButton = () => {

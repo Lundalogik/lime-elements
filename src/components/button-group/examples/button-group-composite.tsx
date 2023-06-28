@@ -51,7 +51,10 @@ export class ButtonCompositeExample {
 
     public render() {
         return [
-            <limel-button-group {...this.props} onChange={this.handleChange} />,
+            <limel-button-group
+                {...this.props}
+                onLimelChange={this.handleChange}
+            />,
             this.renderForm(),
             <limel-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}
