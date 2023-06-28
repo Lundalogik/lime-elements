@@ -138,7 +138,7 @@ export class ActionBar {
         return (
             <limel-action-bar-item
                 item={item}
-                onSelect={this.handleSelect}
+                onLimelSelect={this.handleSelect}
                 isVisible={this.isVisible(index)}
             />
         );

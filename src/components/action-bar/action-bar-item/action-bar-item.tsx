@@ -22,7 +22,7 @@ export class ActionBarButton {
      * Fired when a action bar item has been clicked.
      */
     @Event()
-    public select: EventEmitter<ActionBarItem | ListSeparator>;
+    public limelSelect: EventEmitter<ActionBarItem | ListSeparator>;
 
     /**
      * When the item is displayed in the available width,
@@ -61,7 +61,7 @@ export class ActionBarButton {
 
     private handleClick = (event: MouseEvent) => {
         event.stopPropagation();
-        this.select.emit(this.item);
+        this.limelSelect.emit(this.item);
     };
 
     private isItem(item: ActionBarItem | ListSeparator): item is ActionBarItem {
