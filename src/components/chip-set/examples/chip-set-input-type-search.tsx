@@ -43,7 +43,7 @@ export class ChipSetInputExample {
                 maxItems={this.maxItems}
                 value={this.value}
                 onChange={this.handleChange}
-                onInput={this.handleInput}
+                onLimelInput={this.handleInput}
                 onKeyUp={this.onKeyUp}
                 emptyInputOnBlur={this.emptyInputOnBlur}
             />,

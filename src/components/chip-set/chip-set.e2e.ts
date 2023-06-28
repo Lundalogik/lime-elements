@@ -5,6 +5,7 @@ describe('limel-chip-set', () => {
     let chipSet: E2EElement;
     let label: E2EElement;
     let chips: E2EElement[];
+    let spyForDeprecatedEvent;
     let spy;
 
     describe('basic chip set', () => {
@@ -275,7 +276,8 @@ describe('limel-chip-set', () => {
 
         describe('when typing in the input field', () => {
             beforeEach(async () => {
-                spy = await chipSet.spyOnEvent('input');
+                spyForDeprecatedEvent = await chipSet.spyOnEvent('input');
+                spy = await chipSet.spyOnEvent('limelInput');
 
                 const input: E2EElement = await page.find(
                     'limel-chip-set >>> input'
@@ -285,7 +287,15 @@ describe('limel-chip-set', () => {
                 await page.waitForChanges();
             });
 
-            it('emits an input event', () => {
+            it('emits an input event (deprecated)', () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEventTimes(6);
+                expect(spyForDeprecatedEvent.events[0].detail).toEqual('B');
+                expect(spyForDeprecatedEvent.events[5].detail).toEqual(
+                    'Banana'
+                );
+            });
+
+            it('emits a limelInput event', () => {
                 expect(spy).toHaveReceivedEventTimes(6);
                 expect(spy.events[0].detail).toEqual('B');
                 expect(spy.events[5].detail).toEqual('Banana');

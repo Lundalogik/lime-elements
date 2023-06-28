@@ -174,10 +174,16 @@ export class ChipSet {
     private stopEdit: EventEmitter<void>;
 
     /**
-     * Dispatched when the input is changed for type `input`
+     * @deprecated Use `limelInput` instead
      */
     @Event()
     private input: EventEmitter<string>;
+
+    /**
+     * Dispatched when the input is changed for type `input`
+     */
+    @Event()
+    private limelInput: EventEmitter<string>;
 
     @Element()
     private host: HTMLLimelChipSetElement;
@@ -537,7 +543,9 @@ export class ChipSet {
         event.stopPropagation();
         this.inputChipIndexSelected = null;
         this.textValue = event.target.value;
-        this.input.emit(event.target.value && event.target.value.trim());
+        const eventValue = event.target.value && event.target.value.trim();
+        this.input.emit(eventValue);
+        this.limelInput.emit(eventValue);
     }
 
     private handleInteractionEvent(event: MDCChipInteractionEvent) {
