@@ -22,5 +22,6 @@ updates:
       - dependency-name: "jest"
       - dependency-name: "jest-cli"
       - dependency-name: "@types/jest"
+      - dependency-name: "puppeteer"
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]

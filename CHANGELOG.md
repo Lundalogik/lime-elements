@@ -1,3 +1,38 @@
+## [36.4.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.7...v36.4.0-next.8) (2023-06-22)
+
+
+### Bug Fixes
+
+* **popover:** make sure the popover surface never grows out of the availabel screen space ([4ac34ed](https://github.com/Lundalogik/lime-elements/commit/4ac34ed34685099b06d0d1b92828574c854d98de))
+
+## [36.4.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.6...v36.4.0-next.7) (2023-06-21)
+
+
+### Bug Fixes
+
+* **list:** correctly enable usage of `--list-margin` variable ([acb21ca](https://github.com/Lundalogik/lime-elements/commit/acb21ca00795a0d03ca814d6b295e0898e08940e))
+
+## [36.4.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.5...v36.4.0-next.6) (2023-06-19)
+
+
+### Features
+
+* **icon:** use browser request cache to cache icons ([bdaf181](https://github.com/Lundalogik/lime-elements/commit/bdaf181b0dc656c66226b8e639e14aceb932414b))
+
+## [36.4.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.4...v36.4.0-next.5) (2023-06-15)
+
+
+### Bug Fixes
+
+* **action-bar:** add observers on re-connect ([0276698](https://github.com/Lundalogik/lime-elements/commit/02766988267040de54ade105a2c3b59e5d45ed8f))
+
+## [36.4.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.3...v36.4.0-next.4) (2023-06-13)
+
+
+### Features
+
+* **action-bar:** add new component ([537aa0f](https://github.com/Lundalogik/lime-elements/commit/537aa0f41326b55859622f3e06cd13e022b326e2)), closes [Lundalogik/crm-feature#3379](https://github.com/Lundalogik/crm-feature/issues/3379)
+
 ## [36.4.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.2...v36.4.0-next.3) (2023-06-05)
 
 
