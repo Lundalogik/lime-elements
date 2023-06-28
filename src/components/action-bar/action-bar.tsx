@@ -153,7 +153,7 @@ export class ActionBar {
             <limel-action-bar-overflow-menu
                 openDirection={this.openDirection}
                 items={items}
-                onSelect={this.handleSelect}
+                onLimelSelect={this.handleSelect}
             />
         );
     };

@@ -32,7 +32,7 @@ export class ActionBarOverflowMenu {
     public openDirection: OpenDirection = 'bottom-end';
 
     @Event()
-    public select: EventEmitter<ActionBarItem>;
+    public limelSelect: EventEmitter<ActionBarItem>;
 
     public render() {
         return [
@@ -52,7 +52,7 @@ export class ActionBarOverflowMenu {
 
     private handleSelect = (event: LimelMenuCustomEvent<MenuItem>) => {
         event.stopPropagation();
-        this.select.emit(event.detail);
+        this.limelSelect.emit(event.detail);
     };
 
     private get numberOfMenuItems() {
