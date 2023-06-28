@@ -1,0 +1,18 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.code-editors {
+    display: flex;
+    flex-flow: row nowrap;
+    display: flex;
+}
+
+.code-editors > limel-code-editor {
+    margin: 5px;
+    width: 380px;
+}

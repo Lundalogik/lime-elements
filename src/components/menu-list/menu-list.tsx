@@ -176,7 +176,7 @@ export class MenuList {
             return !!item.selected;
         });
 
-        if (selectedItem) {
+        if (selectedItem && MenuItems[index] === selectedItem) {
             this.select.emit({ ...selectedItem, selected: false });
         }
 

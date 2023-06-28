@@ -51,8 +51,6 @@ export class InputField extends React.Component {
             value = event.detail;
         } else if (type === 'number') {
             value = null;
-        } else {
-            value = props.required ? null : '';
         }
 
         props.onChange(value);
