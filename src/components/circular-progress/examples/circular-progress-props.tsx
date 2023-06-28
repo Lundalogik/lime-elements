@@ -3,7 +3,12 @@ import { Component, h } from '@stencil/core';
  * Using the props
  * This component is initially designed to visualize a percentage on a scale of
  * zero to 100. However, you can easily visualize a progress in other scales,
- * simply by setting `maxValue`, `prefix` and `suffix`.
+ * simply by setting `maxValue`, `limelPrefix` and `suffix`.
+ *
+ * :::note
+ * Use `limelPrefix` rather than `prefix`. `prefix` is a "reserved public name",
+ * and has therefore been deprecated. It will be removed in a future version.
+ * :::
  *
  * Look at this example to see how the component displays an angle in a
  * 360-degrees scale, a 60-seconds scale, and a 5-stars rating.
@@ -56,7 +61,7 @@ export class CircularProgressPropsExample {
                 value={this.budget}
                 maxValue={this.maxBudget}
                 suffix={this.currency}
-                prefix={this.increase}
+                limelPrefix={this.increase}
             />,
         ];
     }

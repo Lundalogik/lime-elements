@@ -46,10 +46,16 @@ export class CircularProgress {
     public maxValue: number = PERCENT;
 
     /**
-     * The prefix which is displayed before the `value`, must be a few characters characters long.
+     * @deprecated Use `limelPrefix` instead.
      */
     @Prop({ reflect: true })
     public prefix?: string = null;
+
+    /**
+     * The prefix which is displayed before the `value`, must be a few characters characters long.
+     */
+    @Prop({ reflect: true })
+    public limelPrefix?: string = null;
 
     /**
      * The suffix which is displayed after the `value`, must be one or two characters long. Defaults to `%`
@@ -97,8 +103,10 @@ export class CircularProgress {
         );
     }
     private renderPrefix = () => {
-        if (this.prefix) {
-            return <span class="prefix">{this.prefix}</span>;
+        if (this.limelPrefix || this.prefix) {
+            return (
+                <span class="prefix">{this.limelPrefix || this.prefix}</span>
+            );
         }
     };
 }

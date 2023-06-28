@@ -193,7 +193,7 @@ export class InfoTile {
             return (
                 <limel-circular-progress
                     class="progress"
-                    prefix={this.progress.prefix}
+                    limelPrefix={this.progress.prefix}
                     value={this.progress.value}
                     suffix={this.progress.suffix}
                     maxValue={this.progress.maxValue}
