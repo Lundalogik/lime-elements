@@ -80,32 +80,32 @@ export class ChipSetInputExample {
                 />
                 <limel-checkbox
                     label="Empty input on blur"
-                    onChange={this.setEmptyInputOnBlur}
+                    onLimelChange={this.setEmptyInputOnBlur}
                     checked={this.emptyInputOnBlur}
                 />
                 <limel-checkbox
                     label="Disabled"
-                    onChange={this.setDisabled}
+                    onLimelChange={this.setDisabled}
                     checked={this.disabled}
                 />
                 <limel-checkbox
                     label="Readonly"
-                    onChange={this.setReadonly}
+                    onLimelChange={this.setReadonly}
                     checked={this.readonly}
                 />
                 <limel-checkbox
                     label="Required"
-                    onChange={this.setRequired}
+                    onLimelChange={this.setRequired}
                     checked={this.required}
                 />
                 <limel-checkbox
                     label={'Leading icon'}
-                    onChange={this.setLeadingIcon}
+                    onLimelChange={this.setLeadingIcon}
                     checked={this.hasLeadingIcon}
                 />
                 <limel-checkbox
                     label="Use delimiters"
-                    onChange={this.useDelimiters}
+                    onLimelChange={this.useDelimiters}
                     checked={this.delimiter !== null}
                 />
             </limel-example-controls>,

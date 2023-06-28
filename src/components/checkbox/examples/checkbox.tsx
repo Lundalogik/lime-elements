@@ -32,34 +32,34 @@ export class CheckboxExample {
                 checked={this.value}
                 indeterminate={this.indeterminate}
                 required={this.required}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 readonly={this.readonly}
             />,
             <limel-example-controls>
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
-                    onChange={this.setDisabled}
+                    onLimelChange={this.setDisabled}
                 />
                 <limel-checkbox
                     checked={this.required}
                     label="Required"
-                    onChange={this.setRequired}
+                    onLimelChange={this.setRequired}
                 />
                 <limel-checkbox
                     checked={this.value}
                     label="Checked"
-                    onChange={this.setChecked}
+                    onLimelChange={this.setChecked}
                 />
                 <limel-checkbox
                     checked={this.readonly}
                     label="Readonly"
-                    onChange={this.setReadonly}
+                    onLimelChange={this.setReadonly}
                 />
                 <limel-checkbox
                     checked={this.indeterminate}
                     label="Indeterminate"
-                    onChange={this.setIndeterminate}
+                    onLimelChange={this.setIndeterminate}
                 />
             </limel-example-controls>,
             <limel-example-value label="Checked" value={this.value} />,

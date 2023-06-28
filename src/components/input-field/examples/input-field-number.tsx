@@ -43,22 +43,22 @@ export class InputFieldNumberExample {
                 <limel-checkbox
                     checked={this.formatNumber}
                     label="Format value"
-                    onChange={this.setFormatNumber}
+                    onLimelChange={this.setFormatNumber}
                 />
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
-                    onChange={this.setDisabled}
+                    onLimelChange={this.setDisabled}
                 />
                 <limel-checkbox
                     checked={this.readonly}
                     label="Readonly"
-                    onChange={this.setReadonly}
+                    onLimelChange={this.setReadonly}
                 />
                 <limel-checkbox
                     checked={this.required}
                     label="Required"
-                    onChange={this.setRequired}
+                    onLimelChange={this.setRequired}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,

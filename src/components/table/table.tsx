@@ -770,7 +770,7 @@ export class Table {
                 style={{ display: showSelectAll ? 'inline-block' : 'none' }}
             >
                 <limel-checkbox
-                    onChange={this.selectAllOnChange}
+                    onLimelChange={this.selectAllOnChange}
                     disabled={!this.data.length}
                     checked={this.tableSelection?.hasSelection}
                     indeterminate={

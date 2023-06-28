@@ -55,7 +55,7 @@ export class DialogActionButtonsExample {
                         label="It's OK. I'm aware of the consequences of this action."
                         id="confirmation-checkbox"
                         required={true}
-                        onChange={this.confirmed}
+                        onLimelChange={this.confirmed}
                         checked={this.checked}
                     />
                 </div>

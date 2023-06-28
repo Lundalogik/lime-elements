@@ -42,7 +42,7 @@ export class SelectWithEmptyOptionExample {
                     <limel-checkbox
                         checked={this.required}
                         label="Required"
-                        onChange={this.setRequired}
+                        onLimelChange={this.setRequired}
                     />
                 </limel-example-controls>
                 <limel-example-value value={this.value} />

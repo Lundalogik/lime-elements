@@ -103,7 +103,7 @@ export class PaletteExample {
                 </div>
                 <limel-checkbox
                     label="Highlight primary brand colors"
-                    onChange={this.toggleMode}
+                    onLimelChange={this.toggleMode}
                     checked={this.primaryColors}
                 />
             </div>

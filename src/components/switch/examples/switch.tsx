@@ -27,17 +27,17 @@ export class SwitchExample {
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
-                    onChange={this.setDisabled}
+                    onLimelChange={this.setDisabled}
                 />
                 <limel-checkbox
                     checked={this.readonly}
                     label="Readonly"
-                    onChange={this.setReadonly}
+                    onLimelChange={this.setReadonly}
                 />
                 <limel-checkbox
                     checked={this.value}
                     label="Selected"
-                    onChange={this.setChecked}
+                    onLimelChange={this.setChecked}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,

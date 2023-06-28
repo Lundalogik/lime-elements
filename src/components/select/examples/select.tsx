@@ -44,22 +44,22 @@ export class SelectExample {
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
-                    onChange={this.setDisabled}
+                    onLimelChange={this.setDisabled}
                 />
                 <limel-checkbox
                     checked={this.readonly}
                     label="Readonly"
-                    onChange={this.setReadonly}
+                    onLimelChange={this.setReadonly}
                 />
                 <limel-checkbox
                     checked={this.required}
                     label="Required"
-                    onChange={this.setRequired}
+                    onLimelChange={this.setRequired}
                 />
                 <limel-checkbox
                     checked={this.invalid}
                     label="Invalid"
-                    onChange={this.setInvalid}
+                    onLimelChange={this.setInvalid}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,

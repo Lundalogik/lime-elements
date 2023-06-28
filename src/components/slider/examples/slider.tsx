@@ -36,12 +36,12 @@ export class SliderExample {
                 <limel-checkbox
                     checked={this.disabled}
                     label="Disabled"
-                    onChange={this.setDisabled}
+                    onLimelChange={this.setDisabled}
                 />
                 <limel-checkbox
                     checked={this.readonly}
                     label="Readonly"
-                    onChange={this.setReadonly}
+                    onLimelChange={this.setReadonly}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,

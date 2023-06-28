@@ -43,7 +43,7 @@ export class SnackbarExample {
                 <limel-checkbox
                     label="Dismissible"
                     checked={this.dismissible}
-                    onChange={this.onChange}
+                    onLimelChange={this.onChange}
                 />
             </limel-example-controls>,
             <limel-snackbar

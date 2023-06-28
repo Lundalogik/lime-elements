@@ -47,7 +47,7 @@ export class InfoTileLoadingExample {
                 <limel-checkbox
                     label="Loading"
                     checked={this.loading}
-                    onChange={this.setLoading}
+                    onLimelChange={this.setLoading}
                 />
             </limel-example-controls>,
         ];

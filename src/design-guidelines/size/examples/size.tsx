@@ -27,7 +27,7 @@ export class SizeExample {
             </div>,
             <limel-checkbox
                 label="Visualize sizes"
-                onChange={this.toggleMode}
+                onLimelChange={this.toggleMode}
                 checked={this.visualizeSizes}
             />,
         ];

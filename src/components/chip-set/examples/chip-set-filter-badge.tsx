@@ -54,7 +54,7 @@ export class ChipSetFilterBadgeExample {
             <limel-example-controls>
                 <limel-checkbox
                     label="Disabled"
-                    onChange={this.setDisabled}
+                    onLimelChange={this.setDisabled}
                     checked={this.disabled}
                 />
             </limel-example-controls>,

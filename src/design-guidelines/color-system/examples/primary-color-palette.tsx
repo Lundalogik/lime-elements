@@ -42,7 +42,7 @@ export class PaletteExample {
                 </div>
                 <limel-checkbox
                     label="Highlight Lime's brand colors"
-                    onChange={this.toggleMode}
+                    onLimelChange={this.toggleMode}
                     checked={this.brandColors}
                 />
                 <div class="brand-colors-tips">

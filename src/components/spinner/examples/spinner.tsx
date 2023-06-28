@@ -28,7 +28,7 @@ export class SpinnerExample {
                 <limel-checkbox
                     checked={this.limeBranded}
                     label="Lime branded (default design)"
-                    onChange={this.renderBranded}
+                    onLimelChange={this.renderBranded}
                 />
             </limel-example-controls>,
         ];

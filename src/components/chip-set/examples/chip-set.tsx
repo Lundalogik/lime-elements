@@ -42,7 +42,7 @@ export class ChipSetExample {
             <limel-example-controls>
                 <limel-checkbox
                     label="Disabled"
-                    onChange={this.toggleEnabled}
+                    onLimelChange={this.toggleEnabled}
                     checked={this.disabled}
                 />
             </limel-example-controls>,

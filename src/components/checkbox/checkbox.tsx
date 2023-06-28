@@ -72,10 +72,16 @@ export class Checkbox {
     private modified = false;
 
     /**
-     * Emitted when the input value is changed.
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     private change: EventEmitter<boolean>;
+
+    /**
+     * Emitted when the input value is changed.
+     */
+    @Event()
+    private limelChange: EventEmitter<boolean>;
 
     @Element()
     private limelCheckbox: HTMLLimelCheckboxElement;
@@ -156,6 +162,7 @@ export class Checkbox {
     private onChange = (event: Event) => {
         event.stopPropagation();
         this.change.emit(this.mdcCheckbox.checked);
+        this.limelChange.emit(this.mdcCheckbox.checked);
         this.modified = true;
     };
 }

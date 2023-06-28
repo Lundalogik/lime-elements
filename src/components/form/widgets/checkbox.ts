@@ -22,6 +22,7 @@ export class Checkbox extends React.Component {
             },
             events: {
                 change: this.handleChange,
+                limelChange: this.handleLimelChange,
             },
         });
     }
@@ -35,5 +36,16 @@ export class Checkbox extends React.Component {
         }
 
         props.onChange(event.detail);
+    }
+
+    private handleLimelChange(event: CustomEvent<boolean>) {
+        const props = this.props;
+        event.stopPropagation();
+
+        if (!props.onLimelChange) {
+            return;
+        }
+
+        props.onLimelChange(event.detail);
     }
 }

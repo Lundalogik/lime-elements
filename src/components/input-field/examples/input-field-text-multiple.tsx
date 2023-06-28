@@ -36,7 +36,7 @@ export class InputFieldTextExample {
                 </section>
                 <limel-checkbox
                     label="Then click this to add distance between fields"
-                    onChange={this.toggleMode}
+                    onLimelChange={this.toggleMode}
                     checked={this.addDistance}
                 />
             </div>
