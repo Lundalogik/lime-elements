@@ -62,7 +62,7 @@ export class ChipSetInputExample {
                 disabled={this.disabled}
                 leadingIcon={this.hasLeadingIcon ? 'search' : null}
                 maxItems={this.maxItems}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 onLimelInput={this.handleInput}
                 onInteract={this.handleInteraction}
                 onKeyUp={this.onKeyUp}

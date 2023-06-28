@@ -189,7 +189,7 @@ export class File {
                 label={this.label}
                 leadingIcon="upload_to_cloud"
                 language={this.language}
-                onChange={this.handleChipSetChange}
+                onLimelChange={this.handleChipSetChange}
                 onClick={this.handleFileSelection}
                 onInteract={this.handleChipInteract}
                 onKeyDown={this.handleKeyDown}

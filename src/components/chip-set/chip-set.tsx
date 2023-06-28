@@ -156,10 +156,16 @@ export class ChipSet {
     private interact: EventEmitter<Chip>;
 
     /**
-     * Dispatched when a chip is selected/deselected
+     * @deprecated Use `limelChange` instead
      */
     @Event()
     private change: EventEmitter<Chip | Chip[]>;
+
+    /**
+     * Dispatched when a chip is selected/deselected
+     */
+    @Event()
+    private limelChange: EventEmitter<Chip | Chip[]>;
 
     /**
      * Emitted when an input chip set has received focus and editing in the text field has started
@@ -565,6 +571,7 @@ export class ChipSet {
         });
         chip = { ...chip, selected: event.detail.selected };
         this.change.emit(chip);
+        this.limelChange.emit(chip);
     }
 
     private removeChip(id: string | number) {
@@ -572,6 +579,7 @@ export class ChipSet {
             return `${chip.id}` !== `${id}`;
         });
         this.change.emit(newValue);
+        this.limelChange.emit(newValue);
     }
 
     private renderChip(chip: Chip) {
@@ -780,6 +788,7 @@ export class ChipSet {
     private handleDeleteAllIconClick(event: Event) {
         event.preventDefault();
         this.change.emit([]);
+        this.limelChange.emit([]);
     }
 
     private renderDelimiter() {

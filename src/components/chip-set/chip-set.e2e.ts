@@ -320,11 +320,22 @@ describe('limel-chip-set', () => {
 
         describe('when a chip delete button is clicked', () => {
             beforeEach(async () => {
-                spy = await chipSet.spyOnEvent('change');
+                spyForDeprecatedEvent = await chipSet.spyOnEvent('change');
+                spy = await chipSet.spyOnEvent('limelChange');
                 await firstChipRemoveButton.click();
             });
 
-            it('emits a change event where the removed chip is not present', () => {
+            it('emits a change event where the removed chip is not present (deprecated)', () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEventTimes(1);
+                expect(spyForDeprecatedEvent.events[0].detail).toEqual([
+                    {
+                        id: '2',
+                        text: 'Apple',
+                    },
+                ]);
+            });
+
+            it('emits a limelChange event where the removed chip is not present', () => {
                 expect(spy).toHaveReceivedEventTimes(1);
                 expect(spy.events[0].detail).toEqual([
                     {
@@ -383,7 +394,8 @@ describe('limel-chip-set', () => {
 
         describe('when the clear chips button is pressed', () => {
             beforeEach(async () => {
-                spy = await page.spyOnEvent('change');
+                spyForDeprecatedEvent = await page.spyOnEvent('change');
+                spy = await page.spyOnEvent('limelChange');
                 const deleteAllIconButton: E2EElement = await page.find(
                     'limel-chip-set >>> .clear-all-button'
                 );
@@ -391,7 +403,12 @@ describe('limel-chip-set', () => {
                 await deleteAllIconButton.click();
             });
 
-            it('emits a change event where the all chips are removed', () => {
+            it('emits a change event where the all chips are removed (deprecated)', () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEventTimes(1);
+                expect(spyForDeprecatedEvent.events[0].detail).toEqual([]);
+            });
+
+            it('emits a limelChange event where the all chips are removed', () => {
                 expect(spy).toHaveReceivedEventTimes(1);
                 expect(spy.events[0].detail).toEqual([]);
             });

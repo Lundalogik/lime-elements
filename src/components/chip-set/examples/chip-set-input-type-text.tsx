@@ -59,7 +59,7 @@ export class ChipSetInputExample {
                 helperText="For some fruit names, icons are displayed on the chips"
                 value={this.value}
                 maxItems={this.maxItems}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 onLimelInput={this.handleInput}
                 onKeyUp={this.onKeyUp}
                 emptyInputOnBlur={this.emptyInputOnBlur}

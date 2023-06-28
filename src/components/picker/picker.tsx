@@ -264,7 +264,7 @@ export class Picker {
                 searchLabel={this.searchLabel}
                 onLimelInput={this.handleTextInput}
                 onKeyDown={this.handleInputKeyDown}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 onInteract={this.handleInteract}
                 onStartEdit={this.handleInputFieldFocus}
                 onStopEdit={this.handleStopEditAndBlur}

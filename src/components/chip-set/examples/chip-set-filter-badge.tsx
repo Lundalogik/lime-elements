@@ -48,7 +48,7 @@ export class ChipSetFilterBadgeExample {
                 label="Include fruits of type:"
                 disabled={this.disabled}
                 type="filter"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 value={this.chips}
             />,
             <limel-example-controls>

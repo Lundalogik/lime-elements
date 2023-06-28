@@ -42,7 +42,7 @@ export class ChipSetInputExample {
                 label="Suggest three unique names for our newly founded company"
                 maxItems={this.maxItems}
                 value={this.value}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 onLimelInput={this.handleInput}
                 onKeyUp={this.onKeyUp}
                 emptyInputOnBlur={this.emptyInputOnBlur}

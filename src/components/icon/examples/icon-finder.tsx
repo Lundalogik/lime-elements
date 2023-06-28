@@ -46,7 +46,7 @@ export class IconFinder {
                 label="Icon finder"
                 type="input"
                 value={this.value}
-                onChange={this.chipSetOnChange}
+                onLimelChange={this.chipSetOnChange}
                 onLimelInput={this.onInput}
                 onKeyUp={this.onKeyUp}
                 searchLabel="Type and press enter to search"

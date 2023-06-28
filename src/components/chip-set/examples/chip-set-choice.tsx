@@ -42,7 +42,7 @@ export class ChipSetChoiceExample {
                 disabled={this.disabled}
                 type="choice"
                 label="Thirst quencher with a twist of"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 value={this.chips}
             />,
             <limel-example-controls>
