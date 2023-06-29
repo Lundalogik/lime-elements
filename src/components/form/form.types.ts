@@ -86,8 +86,24 @@ export interface FormComponent<T = any> {
 
     /**
      * The event to emit when the value of the current property has changed
+     * @deprecated Components implementing the FormComponent interface should
+     * add the `limelChange` event alongside the `change` event.
+     * In the next major version of lime-elements, the `limelChange` event will
+     * be made required, and the `change` event will be made optional.
+     * In the next major version after that, the `change` event will be removed.
      */
     change: EventEmitter<T>;
+
+    /**
+     * The event to emit when the value of the current property has changed
+     *
+     * Components implementing the FormComponent interface should add the
+     * `limelChange` event alongside the `change` event.
+     * In the next major version of lime-elements, the `limelChange` event will
+     * be made required, and the `change` event will be made optional.
+     * In the next major version after that, the `change` event will be removed.
+     */
+    limelChange?: EventEmitter<T>;
 }
 
 export interface FormInfo {
