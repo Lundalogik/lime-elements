@@ -45,7 +45,7 @@ export class DatePickerCompositeExample {
             <limel-date-picker
                 key={`updateOnFormChange-${this.key}`}
                 {...this.props}
-                onChange={this.handlePickerChange}
+                onLimelChange={this.handlePickerChange}
             />,
             this.renderForm(),
             <limel-example-event-printer

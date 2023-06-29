@@ -21,7 +21,7 @@ export class DatePickerExample {
                     label="date"
                     value={this.value}
                     formatter={this.myCustomFormatter}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                 />
                 <limel-example-value value={this.value} />
             </p>

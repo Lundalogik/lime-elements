@@ -140,10 +140,16 @@ export class DatePicker {
     public formatter?: (date: Date) => string;
 
     /**
-     * Emitted when the date picker value is changed.
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     private change: EventEmitter<Date>;
+
+    /**
+     * Emitted when the date picker value is changed.
+     */
+    @Event()
+    private limelChange: EventEmitter<Date>;
 
     @Element()
     private host: HTMLLimelDatePickerElement;
@@ -285,6 +291,7 @@ export class DatePicker {
         );
         this.formattedValue = event.detail;
         this.change.emit(date);
+        this.limelChange.emit(date);
     }
 
     private showCalendar(event) {
@@ -370,6 +377,7 @@ export class DatePicker {
         }
 
         this.change.emit(date);
+        this.limelChange.emit(date);
     }
 
     private onInputClick(event) {
@@ -399,6 +407,7 @@ export class DatePicker {
     private clearValue() {
         this.formattedValue = '';
         this.change.emit(null);
+        this.limelChange.emit(null);
     }
 
     private formatValue = (value: Date): string =>

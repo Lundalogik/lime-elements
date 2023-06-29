@@ -21,7 +21,7 @@ export class DatePickerFormattedExample {
                 type="datetime"
                 label="Localized date"
                 value={this.valueNo}
-                onChange={this.handleChangeNo}
+                onLimelChange={this.handleChangeNo}
             />,
             <limel-example-value value={this.valueNo} />,
             <limel-date-picker
@@ -30,7 +30,7 @@ export class DatePickerFormattedExample {
                 type="datetime"
                 label="Date with custom format"
                 value={this.valueFi}
-                onChange={this.handleChangeFi}
+                onLimelChange={this.handleChangeFi}
             />,
             <limel-example-value value={this.valueFi} />,
         ];

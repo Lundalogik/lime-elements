@@ -23,6 +23,7 @@ export class DatePicker extends React.Component {
             value: this.getValue(),
             events: {
                 change: this.handleChange,
+                limelChange: this.handleLimelChange,
             },
             widgetProps: props,
             extraProps: {
@@ -62,6 +63,31 @@ export class DatePicker extends React.Component {
             formatMapping[props.schema.format]
         );
         props.onChange(dateString);
+    }
+
+    private handleLimelChange(event: CustomEvent<Date>) {
+        const props = this.props;
+        event.stopPropagation();
+
+        if (!props.onLimelChange) {
+            return;
+        }
+
+        if (!event.detail) {
+            props.onLimelChange(null);
+
+            return;
+        }
+
+        const formatMapping = {
+            'date-time': 'YYYY-MM-DDTHH:mm:ssZ',
+            date: 'YYYY-MM-DD',
+            time: 'HH:mm:ss',
+        };
+        const dateString = moment(event.detail).format(
+            formatMapping[props.schema.format]
+        );
+        props.onLimelChange(dateString);
     }
 }
 

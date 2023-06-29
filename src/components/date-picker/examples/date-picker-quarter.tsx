@@ -18,7 +18,7 @@ export class DatePickerExample {
                     type="quarter"
                     label="quarter"
                     value={this.value}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                 />
                 <limel-example-value value={this.value} />
             </p>
