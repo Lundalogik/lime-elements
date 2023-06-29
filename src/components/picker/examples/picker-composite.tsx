@@ -133,7 +133,7 @@ export class PickerCompositeExample {
                 <limel-form
                     schema={this.schema}
                     value={this.props}
-                    onChange={this.handleFormChange}
+                    onLimelChange={this.handleFormChange}
                 />
             </limel-example-controls>
         );

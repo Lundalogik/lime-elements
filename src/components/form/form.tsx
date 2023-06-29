@@ -92,10 +92,16 @@ export class Form {
     public errors: ValidationError;
 
     /**
-     * Emitted when a change is made within the form
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     public change: EventEmitter<object>;
+
+    /**
+     * Emitted when a change is made within the form
+     */
+    @Event()
+    public limelChange: EventEmitter<object>;
 
     /**
      * Emitted when the validity of the form changes, or when
@@ -193,6 +199,7 @@ export class Form {
 
     private handleChange(event: any) {
         this.change.emit(event.formData);
+        this.limelChange.emit(event.formData);
     }
 
     private validateForm(value: object) {

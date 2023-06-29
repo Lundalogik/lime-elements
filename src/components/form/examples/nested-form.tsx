@@ -16,7 +16,7 @@ export class NestedFormExample {
     public render() {
         return [
             <limel-form
-                onChange={this.handleFormChange}
+                onLimelChange={this.handleFormChange}
                 value={this.formData}
                 schema={schema}
             />,

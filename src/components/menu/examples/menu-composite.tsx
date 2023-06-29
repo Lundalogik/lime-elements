@@ -79,7 +79,7 @@ export class MenuCompositeExample {
                 <limel-form
                     schema={this.schema}
                     value={this.props}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                 />
             </limel-example-controls>,
             <limel-example-event-printer

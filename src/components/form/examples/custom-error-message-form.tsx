@@ -23,7 +23,7 @@ export class CustomErrorMessageFormExample {
         return [
             <limel-form
                 onValidate={this.handleFormValidate}
-                onChange={this.handleFormChange}
+                onLimelChange={this.handleFormChange}
                 value={this.formData}
                 schema={schema}
                 transformErrors={this.transformErrors}

@@ -27,7 +27,7 @@ export class FormExample {
     public render() {
         return [
             <limel-form
-                onChange={this.handleFormChange}
+                onLimelChange={this.handleFormChange}
                 onValidate={this.handleFormValidate}
                 value={this.formData}
                 schema={schema}

@@ -180,7 +180,7 @@ export class FormLayoutExample {
                 />
             </limel-example-controls>,
             <limel-form
-                onChange={this.handleFormChange}
+                onLimelChange={this.handleFormChange}
                 onValidate={this.handleFormValidate}
                 value={this.formData}
                 schema={this.schema}

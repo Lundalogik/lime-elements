@@ -48,7 +48,7 @@ export class DynamicFormExample {
             <textarea onChange={this.handleTextChange}>{this.text}</textarea>,
             <br />,
             <limel-form
-                onChange={this.handleFormChange}
+                onLimelChange={this.handleFormChange}
                 onValidate={this.handleValidate}
                 value={this.formData}
                 schema={this.schema}
