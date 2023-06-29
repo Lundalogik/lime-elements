@@ -37,9 +37,16 @@ export class Palette implements FormComponent {
 
     /**
      * Emits chosen value to the parent component
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     public change: EventEmitter<string>;
+
+    /**
+     * Emits chosen value to the parent component
+     */
+    @Event()
+    public limelChange: EventEmitter<string>;
 
     public render() {
         const background = this.value ? { '--background': this.value } : {};
@@ -85,6 +92,7 @@ export class Palette implements FormComponent {
     private handleChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.change.emit(event.detail);
+        this.limelChange.emit(event.detail);
     };
 
     private handleClick =
@@ -92,5 +100,6 @@ export class Palette implements FormComponent {
             const value = getCssColor(color, brightness);
             event.stopPropagation();
             this.change.emit(value);
+            this.limelChange.emit(value);
         };
 }

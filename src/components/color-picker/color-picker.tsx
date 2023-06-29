@@ -111,7 +111,7 @@ export class ColorPicker implements FormComponent {
                     value={this.value}
                     label={this.label}
                     helperText={this.helperText}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                     required={this.required}
                 />
             </limel-popover>
