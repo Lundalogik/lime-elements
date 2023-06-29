@@ -19,7 +19,7 @@ export class FileAcceptedTypesExample {
         return [
             <limel-file
                 label="Attach only images (png, jpeg)"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 required={this.required}
                 value={this.value}
                 accept="image/jpeg,image/png"

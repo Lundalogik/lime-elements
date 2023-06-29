@@ -108,10 +108,16 @@ export class File {
     public language: Languages = 'en';
 
     /**
-     * Dispatched when a file is selected/deselected
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     private change: EventEmitter<FileInfo>;
+
+    /**
+     * Dispatched when a file is selected/deselected
+     */
+    @Event()
+    private limelChange: EventEmitter<FileInfo>;
 
     /**
      * Dispatched when clicking on a chip
@@ -284,6 +290,7 @@ export class File {
             fileContent: file,
         };
         this.change.emit(limeFile);
+        this.limelChange.emit(limeFile);
         this.chipSet.blur();
         this.mdcTextField.valid = true;
     }
@@ -295,6 +302,7 @@ export class File {
         if (!file) {
             this.fileInput.value = '';
             this.change.emit(file);
+            this.limelChange.emit(file);
             if (this.required) {
                 this.mdcTextField.valid = false;
             }

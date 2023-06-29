@@ -41,7 +41,7 @@ export class FileCompositeExample {
 
     public render() {
         return [
-            <limel-file {...this.props} onChange={this.handleChange} />,
+            <limel-file {...this.props} onLimelChange={this.handleChange} />,
             this.renderForm(),
             <limel-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}

@@ -25,7 +25,7 @@ export class FileExample {
         return [
             <limel-file
                 label="Attach a file"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 required={this.required}
                 value={this.value}
                 disabled={this.disabled}

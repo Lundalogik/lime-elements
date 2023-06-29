@@ -25,7 +25,7 @@ export class FileCustomIconExample {
         return [
             <limel-file
                 label="Attach a file"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 value={this.value}
             />,
             <limel-example-value value={this.value} />,
