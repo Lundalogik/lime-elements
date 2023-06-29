@@ -14,7 +14,7 @@ export class ColorPickerExample {
                 tooltipLabel="Click to pick a color"
                 helperText="You can also type a color name or value to preview it here"
                 label="Chosen color"
-                onChange={this.onChange}
+                onLimelChange={this.onChange}
             />
         );
     }

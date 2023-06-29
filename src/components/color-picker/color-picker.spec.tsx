@@ -12,7 +12,10 @@ beforeEach(async () => {
     page = await newSpecPage({
         components: [ColorPicker, Palette],
         template: () => (
-            <limel-color-picker label="Hair color" onChange={handleChange} />
+            <limel-color-picker
+                label="Hair color"
+                onLimelChange={handleChange}
+            />
         ),
     });
 

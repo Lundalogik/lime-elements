@@ -59,9 +59,16 @@ export class ColorPicker implements FormComponent {
 
     /**
      * Emits chosen value to the parent component
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     public change: EventEmitter<string>;
+
+    /**
+     * Emits chosen value to the parent component
+     */
+    @Event()
+    public limelChange: EventEmitter<string>;
 
     @State()
     private isOpen = false;
@@ -147,5 +154,6 @@ export class ColorPicker implements FormComponent {
     private handleChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.change.emit(event.detail);
+        this.limelChange.emit(event.detail);
     };
 }
