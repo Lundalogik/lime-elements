@@ -1,6 +1,20 @@
+/**
+ * @prop --snackbar-top: Snackbar has `position: fixed;` and uses `--snackbar-top`, which defaults to `auto` for its `top` property. See the examples in the documentations for further info.
+ * @prop --snackbar-right: Snackbar has `position: fixed;` and uses `--snackbar-right`, which defaults to `0` for its `right` property. See the examples in the documentations for further info.
+ * @prop --snackbar-bottom: Snackbar has `position: fixed;` and uses `--snackbar-bottom`, which defaults to `0` for its `bottom` property. See the examples in the documentations for further info.
+ * @prop --snackbar-left: Snackbar has `position: fixed;` and uses `--snackbar-left`, which defaults to `0` for its `left` property. See the examples in the documentations for further info.
+ */
+
 @use '../../style/internal/lime-theme';
 
 @use '@material/snackbar/mdc-snackbar';
+
+.mdc-snackbar {
+    top: var(--snackbar-top, auto);
+    right: var(--snackbar-right, 0);
+    bottom: var(--snackbar-bottom, 0);
+    left: var(--snackbar-left, 0);
+}
 
 .mdc-snackbar__surface {
     min-width: unset;

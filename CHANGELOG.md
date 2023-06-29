@@ -1,3 +1,10 @@
+## [36.4.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.8...v36.4.0-next.9) (2023-06-29)
+
+
+### Features
+
+* **snackbar:** add CSS variables for positioning the snackbar ([826de70](https://github.com/Lundalogik/lime-elements/commit/826de706ef465434ce00aada6bb503a209b0f67f))
+
 ## [36.4.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.7...v36.4.0-next.8) (2023-06-22)
 
 
