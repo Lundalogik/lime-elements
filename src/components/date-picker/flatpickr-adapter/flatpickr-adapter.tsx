@@ -66,7 +66,7 @@ export class DatePickerCalendar {
      * Emitted when the date picker value is changed.
      */
     @Event()
-    public change: EventEmitter<Date>;
+    public limelChange: EventEmitter<Date>;
 
     private picker: Picker;
     private flatPickrCreated: boolean = false;
@@ -79,7 +79,7 @@ export class DatePickerCalendar {
                 this.picker = new DateOnlyPicker(
                     this.format,
                     this.language,
-                    this.change
+                    this.limelChange
                 );
                 break;
 
@@ -87,7 +87,7 @@ export class DatePickerCalendar {
                 this.picker = new TimePicker(
                     this.format,
                     this.language,
-                    this.change
+                    this.limelChange
                 );
                 break;
 
@@ -95,7 +95,7 @@ export class DatePickerCalendar {
                 this.picker = new WeekPicker(
                     this.format,
                     this.language,
-                    this.change
+                    this.limelChange
                 );
                 break;
 
@@ -103,7 +103,7 @@ export class DatePickerCalendar {
                 this.picker = new MonthPicker(
                     this.format,
                     this.language,
-                    this.change,
+                    this.limelChange,
                     translate
                 );
                 break;
@@ -112,7 +112,7 @@ export class DatePickerCalendar {
                 this.picker = new QuarterPicker(
                     this.format,
                     this.language,
-                    this.change,
+                    this.limelChange,
                     translate
                 );
                 break;
@@ -120,7 +120,7 @@ export class DatePickerCalendar {
                 this.picker = new YearPicker(
                     this.format,
                     this.language,
-                    this.change,
+                    this.limelChange,
                     translate
                 );
                 break;
@@ -130,7 +130,7 @@ export class DatePickerCalendar {
                 this.picker = new DatetimePicker(
                     this.format,
                     this.language,
-                    this.change
+                    this.limelChange
                 );
                 break;
         }

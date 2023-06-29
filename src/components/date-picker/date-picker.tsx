@@ -255,7 +255,7 @@ export class DatePicker {
                     ref={(el) => (this.datePickerCalendar = el)}
                     isOpen={this.showPortal}
                     formatter={this.formatValue}
-                    onChange={this.handleCalendarChange}
+                    onLimelChange={this.handleCalendarChange}
                 />
             </limel-portal>,
         ];
