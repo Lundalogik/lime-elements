@@ -35,8 +35,6 @@ interface LinkProperties {
     target?: string;
 }
 
-const helperTextId = 'tf-helper-text';
-
 /**
  * @exampleComponent limel-example-input-field-text
  * @exampleComponent limel-example-input-field-placeholder
@@ -247,12 +245,14 @@ export class InputField {
     private mdcTextField: MDCTextField;
     private completionsList: ListItem[] = [];
     private portalId: string;
+    private helperTextId: string;
 
     constructor() {
         const debounceTimeout = 300;
         this.changeEmitter = debounce(this.changeEmitter, debounceTimeout);
 
         this.portalId = createRandomString();
+        this.helperTextId = createRandomString();
     }
 
     public connectedCallback() {
@@ -291,8 +291,8 @@ export class InputField {
         properties.disabled = this.disabled || this.readonly;
 
         if (this.hasHelperText()) {
-            properties['aria-controls'] = helperTextId;
-            properties['aria-describedby'] = helperTextId;
+            properties['aria-controls'] = this.helperTextId;
+            properties['aria-describedby'] = this.helperTextId;
         }
 
         return [
@@ -463,7 +463,7 @@ export class InputField {
 
         return (
             <limel-helper-line
-                helperTextId={helperTextId}
+                helperTextId={this.helperTextId}
                 helperText={this.helperText}
                 length={length}
                 maxLength={this.maxlength}
