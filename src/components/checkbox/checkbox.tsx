@@ -83,6 +83,7 @@ export class Checkbox {
     private formField: MDCFormField;
     private mdcCheckbox: MDCCheckbox;
     private id: string = createRandomString();
+    private helperTextId: string = createRandomString();
 
     @Watch('checked')
     protected handleCheckedChange(newValue: boolean) {
@@ -126,6 +127,7 @@ export class Checkbox {
                 disabled={this.disabled || this.readonly}
                 label={this.label}
                 helperText={this.helperText}
+                helperTextId={this.helperTextId}
                 checked={this.checked || this.indeterminate}
                 indeterminate={this.indeterminate}
                 required={this.required}

@@ -11,6 +11,7 @@ interface CheckboxTemplateProps {
     onChange?: (event: Event) => void;
     label?: string;
     helperText?: string;
+    helperTextId?: string;
 }
 
 export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
@@ -41,6 +42,8 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                     disabled={props.disabled || props.readonly}
                     required={props.required}
                     onChange={props.onChange}
+                    aria-controls={props.helperTextId}
+                    aria-describedby={props.helperTextId}
                     {...inputProps}
                 />
                 <div class="mdc-checkbox__background">
@@ -67,14 +70,25 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                 {props.label}
             </label>
         </div>,
-        <HelperText text={props.helperText} />,
+        <HelperText
+            text={props.helperText}
+            helperTextId={props.helperTextId}
+        />,
     ];
 };
 
-const HelperText: FunctionalComponent<{ text: string }> = (props) => {
+const HelperText: FunctionalComponent<{
+    helperTextId: string;
+    text: string;
+}> = (props) => {
     if (typeof props.text !== 'string') {
         return;
     }
 
-    return <limel-helper-line helperText={props.text.trim()} />;
+    return (
+        <limel-helper-line
+            helperText={props.text.trim()}
+            helperTextId={props.helperTextId}
+        />
+    );
 };
