@@ -11,6 +11,8 @@ import {
     Watch,
 } from '@stencil/core';
 import { getPercentageClass } from './getPercentageClass';
+import { createRandomString } from '../../util/random-string';
+
 /**
  * @exampleComponent limel-example-slider
  * @exampleComponent limel-example-slider-multiplier
@@ -101,6 +103,7 @@ export class Slider {
     private rootElement: HTMLLimelSliderElement;
 
     private mdcSlider: MDCSlider;
+    private labelId: string;
 
     @State()
     private percentageClass: string;
@@ -108,6 +111,7 @@ export class Slider {
     public constructor() {
         this.inputHandler = this.inputHandler.bind(this);
         this.getContainerClassList = this.getContainerClassList.bind(this);
+        this.labelId = createRandomString();
     }
 
     public connectedCallback() {
@@ -196,7 +200,10 @@ export class Slider {
 
         return (
             <Host class={this.getContainerClassList()}>
-                <label class="slider__label mdc-floating-label mdc-floating-label--float-above">
+                <label
+                    class="slider__label mdc-floating-label mdc-floating-label--float-above"
+                    id={this.labelId}
+                >
                     {this.label}
                 </label>
                 <div class="slider__content-range-container">
@@ -223,7 +230,7 @@ export class Slider {
                         max={this.multiplyByFactor(this.valuemax)}
                         value={this.multiplyByFactor(this.value)}
                         name="volume"
-                        aria-label="Discrete slider demo"
+                        aria-labelledby={this.labelId}
                         {...inputProps}
                     />
                     <div class="mdc-slider__track">
