@@ -104,6 +104,7 @@ export class Slider {
 
     private mdcSlider: MDCSlider;
     private labelId: string;
+    private helperTextId: string;
 
     @State()
     private percentageClass: string;
@@ -112,6 +113,7 @@ export class Slider {
         this.inputHandler = this.inputHandler.bind(this);
         this.getContainerClassList = this.getContainerClassList.bind(this);
         this.labelId = createRandomString();
+        this.helperTextId = createRandomString();
     }
 
     public connectedCallback() {
@@ -231,6 +233,7 @@ export class Slider {
                         value={this.multiplyByFactor(this.value)}
                         name="volume"
                         aria-labelledby={this.labelId}
+                        aria-controls={this.helperTextId}
                         {...inputProps}
                     />
                     <div class="mdc-slider__track">
@@ -263,7 +266,12 @@ export class Slider {
             return;
         }
 
-        return <limel-helper-line helperText={this.helperText} />;
+        return (
+            <limel-helper-line
+                helperText={this.helperText}
+                helperTextId={this.helperTextId}
+            />
+        );
     }
 
     @Watch('disabled')
