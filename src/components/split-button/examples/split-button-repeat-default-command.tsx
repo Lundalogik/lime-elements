@@ -38,7 +38,7 @@ export class SplitButtonRepeatDefaultCommandExample {
                 primary={true}
                 items={this.items}
                 onClick={this.onClick}
-                onSelect={this.handleSelect}
+                onLimelSelect={this.handleSelect}
             />
         );
     }

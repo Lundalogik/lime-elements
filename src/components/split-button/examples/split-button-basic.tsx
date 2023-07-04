@@ -31,7 +31,7 @@ export class SplitButtonBasicExample {
                 icon="send"
                 items={this.items}
                 onClick={this.onClick}
-                onSelect={this.handleSelect}
+                onLimelSelect={this.handleSelect}
             />
         );
     }

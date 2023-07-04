@@ -53,10 +53,16 @@ export class SplitButton {
     public items: Array<MenuItem | ListSeparator> = [];
 
     /**
-     * Is emitted when a menu item is selected.
+     * @deprecated Use `limelSelect` instead.
      */
     @Event()
     public select: EventEmitter<MenuItem>;
+
+    /**
+     * Is emitted when a menu item is selected.
+     */
+    @Event()
+    public limelSelect: EventEmitter<MenuItem>;
 
     render() {
         return (
