@@ -112,7 +112,7 @@ describe('limel-table', () => {
                 '[role="columnheader"]'
             );
             const rowSelectors = await tableContainer.findAll(
-                '.tabulator-table .tabulator-row .tabulator-cell:first-child limel-checkbox'
+                '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox'
             );
 
             expect(rowSelectors.length).toEqual(2);
