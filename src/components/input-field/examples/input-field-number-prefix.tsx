@@ -16,7 +16,7 @@ export class InputFieldPrefixExample {
         return (
             <limel-input-field
                 label="Price per unit"
-                prefix="$"
+                limelPrefix="$"
                 value={this.value}
                 type="number"
                 onChange={this.handleChange}

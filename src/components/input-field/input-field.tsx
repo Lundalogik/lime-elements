@@ -104,11 +104,17 @@ export class InputField {
     public helperText: string;
 
     /**
+     * @deprecated Use `limelPrefix` instead.
+     */
+    @Prop({ reflect: true })
+    public prefix: string;
+
+    /**
      * A short piece of text to display before the value inside the input field.
      * Displayed for all types except `textarea`.
      */
     @Prop({ reflect: true })
-    public prefix: string;
+    public limelPrefix: string;
 
     /**
      * A short piece of text to display after the value inside the input field.
@@ -513,11 +519,14 @@ export class InputField {
             'mdc-text-field__affix--prefix': true,
         };
 
-        return <span class={classList}>{this.prefix}</span>;
+        return <span class={classList}>{this.limelPrefix ?? this.prefix}</span>;
     };
 
     private hasPrefix = () => {
-        return this.prefix !== null && this.prefix !== undefined;
+        return (
+            (this.limelPrefix ?? this.prefix) !== null &&
+            (this.limelPrefix ?? this.prefix) !== undefined
+        );
     };
 
     private isInvalid = () => {
