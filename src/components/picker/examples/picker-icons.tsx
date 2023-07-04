@@ -119,7 +119,7 @@ export class PickerIconsExample {
                 searchLabel={'Search your awesomenaut'}
                 multiple={true}
                 searcher={this.search}
-                onChange={this.onChange}
+                onLimelChange={this.onChange}
                 onInteract={this.onInteract}
             />,
             <limel-example-value value={this.selectedItems} />,

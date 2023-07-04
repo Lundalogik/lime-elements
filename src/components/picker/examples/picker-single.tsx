@@ -36,7 +36,7 @@ export class PickerSingleExample {
                 label="Favorite awesomenaut"
                 value={this.selectedItem}
                 searcher={this.search}
-                onChange={this.onChange}
+                onLimelChange={this.onChange}
                 onInteract={this.onInteract}
             />,
             <limel-example-value value={this.selectedItem} />,

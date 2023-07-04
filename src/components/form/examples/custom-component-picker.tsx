@@ -99,7 +99,7 @@ export class CustomPickerExample implements FormComponent<number> {
                 disabled={this.disabled}
                 readonly={this.readonly}
                 required={this.required}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 searcher={this.search}
                 helperText={this.helperText}
             />

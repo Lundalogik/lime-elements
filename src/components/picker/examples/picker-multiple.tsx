@@ -40,7 +40,7 @@ export class PickerMultipleExample {
                 value={this.selectedItems}
                 multiple={true}
                 searcher={this.search}
-                onChange={this.onChange}
+                onLimelChange={this.onChange}
                 onInteract={this.onInteract}
             />,
             <limel-example-value value={this.selectedItems} />,

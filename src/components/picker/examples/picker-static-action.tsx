@@ -95,7 +95,7 @@ export class PickerStaticActionsExample {
                 value={this.selectedItem}
                 searchLabel={'Search your awesomenaut'}
                 searcher={this.search}
-                onChange={this.onChange}
+                onLimelChange={this.onChange}
                 onInteract={this.onInteract}
                 onAction={this.onAction}
                 actions={this.actions}

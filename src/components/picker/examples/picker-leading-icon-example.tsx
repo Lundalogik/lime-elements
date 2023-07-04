@@ -35,7 +35,7 @@ export class PickerLeadingIconExample {
                 leadingIcon="search"
                 value={this.selectedItem}
                 searcher={this.search}
-                onChange={this.onChange}
+                onLimelChange={this.onChange}
                 onInteract={this.onInteract}
             />,
             <p>

@@ -75,7 +75,7 @@ export class PickerCompositeExample {
             <limel-picker
                 {...this.props}
                 searcher={this.search}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 onInteract={this.handleEvent}
             />,
             this.renderForm(),

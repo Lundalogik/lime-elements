@@ -159,10 +159,18 @@ export class Picker {
     public badgeIcons: boolean = true;
 
     /**
-     * Fired when a new value has been selected from the picker
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     private change: EventEmitter<
+        ListItem<number | string> | Array<ListItem<number | string>>
+    >;
+
+    /**
+     * Fired when a new value has been selected from the picker
+     */
+    @Event()
+    private limelChange: EventEmitter<
         ListItem<number | string> | Array<ListItem<number | string>>
     >;
 
@@ -559,6 +567,7 @@ export class Picker {
             }
 
             this.change.emit(newValue);
+            this.limelChange.emit(newValue);
             this.items = [];
         }
 
@@ -610,6 +619,7 @@ export class Picker {
         }
 
         this.change.emit(newValue);
+        this.limelChange.emit(newValue);
     }
 
     private handleInteract(event: LimelChipSetCustomEvent<Chip>) {

@@ -44,7 +44,7 @@ export class PickerExample {
                 value={this.selectedItem}
                 searcher={this.search}
                 emptyResultMessage="No results"
-                onChange={this.onChange}
+                onLimelChange={this.onChange}
                 onInteract={this.onInteract}
             />,
             <limel-example-value value={this.selectedItem} />,
