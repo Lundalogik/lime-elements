@@ -46,7 +46,8 @@ export class CustomComponentFormExample {
     public render() {
         return [
             <limel-form
-                onLimelChange={this.handleFormChange}
+                onChange={this.handleChange}
+                onLimelChange={this.handleLimelChange}
                 value={this.formData}
                 schema={schema}
             />,
@@ -54,7 +55,13 @@ export class CustomComponentFormExample {
         ];
     }
 
-    private handleFormChange = (event) => {
+    private handleChange = (event) => {
+        console.log('handleChange', event.detail);
+        this.formData = event.detail;
+    };
+
+    private handleLimelChange = (event) => {
+        console.log('handleLimelChange', event.detail);
         this.formData = event.detail;
     };
 }

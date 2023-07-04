@@ -114,6 +114,7 @@ export class LimeElementsWidgetAdapter extends React.Component {
 
         const newEvents = {
             change: this.props.widgetProps.onChange,
+            limelChange: this.props.widgetProps.onLimelChange,
             blur: this.handleBlur,
             ...events,
         };

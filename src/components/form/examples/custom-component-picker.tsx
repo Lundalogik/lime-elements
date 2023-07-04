@@ -44,10 +44,17 @@ export class CustomPickerExample implements FormComponent<number> {
     public helperText?: string;
 
     /**
+     * @deprecated Use `limelChange` instead.
      * Emitted when the value is changed
      */
     @Event()
     public change: EventEmitter<number>;
+
+    /**
+     * Emitted when the value is changed
+     */
+    @Event()
+    public limelChange: EventEmitter<number>;
 
     private heroes: Array<ListItem<number>> = [
         {
@@ -81,6 +88,8 @@ export class CustomPickerExample implements FormComponent<number> {
     ) => {
         event.stopPropagation();
         this.change.emit(event.detail?.value);
+        // When the event below is emitted, the whole form is emptied 😲
+        this.limelChange.emit(event.detail?.value);
     };
 
     private search = async (query: string): Promise<ListItem[]> => {

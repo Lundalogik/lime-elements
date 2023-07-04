@@ -50,10 +50,17 @@ export class PropsFactoryPickerExample implements FormComponent<number> {
     public disabled: boolean;
 
     /**
+     * @deprecated Use `limelChange` instead.
      * Emitted when the value is changed
      */
     @Event()
     public change: EventEmitter<number>;
+
+    /**
+     * Emitted when the value is changed
+     */
+    @Event()
+    public limelChange: EventEmitter<number>;
 
     private heroes: Array<ListItem<number>> = [
         {
@@ -98,6 +105,10 @@ export class PropsFactoryPickerExample implements FormComponent<number> {
     ) => {
         event.stopPropagation();
         this.change.emit(event.detail?.value);
+        // I'm guessing this also doesn't work, just like for
+        // custom-component-picker, but I added it here so we
+        // don't forget about it. /Ads
+        this.limelChange.emit(event.detail?.value);
     };
 
     private search = async (query: string): Promise<ListItem[]> => {

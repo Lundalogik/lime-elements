@@ -171,6 +171,8 @@ export class Form {
                     schema: this.modifiedSchema,
                     formData: this.value,
                     onChange: this.handleChange,
+                    // @ts-ignore
+                    onLimelChange: this.handleLimelChange, // This doesn't seem to do anything /Ads
                     widgets: widgets,
                     liveValidate: true,
                     showErrorList: false,
@@ -199,6 +201,9 @@ export class Form {
 
     private handleChange(event: any) {
         this.change.emit(event.formData);
+    }
+
+    private handleLimelChange(event: any) {
         this.limelChange.emit(event.formData);
     }
 
