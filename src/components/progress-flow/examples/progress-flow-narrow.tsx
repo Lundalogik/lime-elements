@@ -39,7 +39,7 @@ export class ProgressNarrowExample {
         return (
             <limel-progress-flow
                 flowItems={this.flowItems}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 class="is-narrow"
             />
         );

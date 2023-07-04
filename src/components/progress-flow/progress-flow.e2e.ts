@@ -161,10 +161,12 @@ describe('limel-progress-flow', () => {
     });
 
     describe('when a flow item is clicked', () => {
+        let spyForDeprecatedEvent: EventSpy;
         let spy: EventSpy;
 
         beforeEach(async () => {
-            spy = await progressFlow.spyOnEvent('change');
+            spyForDeprecatedEvent = await progressFlow.spyOnEvent('change');
+            spy = await progressFlow.spyOnEvent('limelChange');
         });
 
         describe('when the flow item was not already selected', () => {
@@ -178,7 +180,14 @@ describe('limel-progress-flow', () => {
                 await progressFlowItems[0].click();
             });
 
-            it('emits a change event', async () => {
+            it('emits a change event (deprecated)', async () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEventTimes(1);
+                expect(spyForDeprecatedEvent).toHaveReceivedEventDetail({
+                    text: 'Customer contact',
+                });
+            });
+
+            it('emits a limelChange event', async () => {
                 expect(spy).toHaveReceivedEventTimes(1);
                 expect(spy).toHaveReceivedEventDetail({
                     text: 'Customer contact',
@@ -199,7 +208,11 @@ describe('limel-progress-flow', () => {
                 await progressFlowItems[0].click();
             });
 
-            it('does not emit a change event', () => {
+            it('does not emit a change event (deprecated)', () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEventTimes(0);
+            });
+
+            it('does not emit a limelChange event', () => {
                 expect(spy).toHaveReceivedEventTimes(0);
             });
         });

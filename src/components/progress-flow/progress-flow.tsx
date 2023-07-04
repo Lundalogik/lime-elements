@@ -52,10 +52,16 @@ export class ProgressFlow {
     public readonly = false;
 
     /**
-     * Fired when a new value has been selected from the progress flow
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     public change: EventEmitter<FlowItem>;
+
+    /**
+     * Fired when a new value has been selected from the progress flow
+     */
+    @Event()
+    public limelChange: EventEmitter<FlowItem>;
 
     private selectedItemIndex: number;
 
@@ -131,6 +137,7 @@ export class ProgressFlow {
     private handleFlowItemClick = (flowItem: FlowItem) => () => {
         if (!flowItem.selected && !flowItem.disabled && !this.disabled) {
             this.change.emit(flowItem);
+            this.limelChange.emit(flowItem);
         }
     };
 

@@ -59,7 +59,7 @@ export class ProgressFlowColorsExample {
         return (
             <limel-progress-flow
                 flowItems={this.flowItems}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />
         );
     }

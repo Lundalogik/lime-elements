@@ -39,7 +39,7 @@ export class ProgressFlowBasicExample {
         return [
             <limel-progress-flow
                 flowItems={this.flowItems}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 disabled={this.disabled}
                 readonly={this.readonly}
             />,
