@@ -31,7 +31,7 @@ export class InputFieldIconLeadingExample {
                 minlength={MIN_LENGTH}
                 helperText={`Please enter at least ${MIN_LENGTH} characters!`}
                 leadingIcon="map_marker"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />
         );
     }

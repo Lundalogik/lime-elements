@@ -58,7 +58,7 @@ export class Palette implements FormComponent {
                     label={this.label}
                     helperText={this.helperText}
                     value={this.value}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                     required={this.required}
                 />
                 <div class="chosen-color-preview" style={background} />

@@ -16,7 +16,7 @@ export class LinearProgressExample {
                 label="Value"
                 type="number"
                 value={(this.value * FRACTION).toFixed(0)}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />,
             <p>
                 <limel-linear-progress value={this.value} />

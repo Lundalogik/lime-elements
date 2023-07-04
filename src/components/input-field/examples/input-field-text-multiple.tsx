@@ -25,13 +25,13 @@ export class InputFieldTextExample {
                     <limel-input-field
                         label="Fields shouldn't be too close!"
                         value={this.firstValue}
-                        onChange={this.firstOnChange}
+                        onLimelChange={this.firstOnChange}
                     />
                     <limel-input-field
                         label="Type something here now to see why…"
                         helperText="See how the label covers the previous field? Now add some distance 👇"
                         value={this.secondValue}
-                        onChange={this.secondOnChange}
+                        onLimelChange={this.secondOnChange}
                     />
                 </section>
                 <limel-checkbox

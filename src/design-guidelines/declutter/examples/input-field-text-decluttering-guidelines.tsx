@@ -37,7 +37,7 @@ export class InputFieldTextExample {
                 invalid={this.invalid}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />,
             <limel-example-controls>
                 <limel-checkbox

@@ -81,17 +81,17 @@ export class DialogHeadingExample {
                     required={true}
                     label="Title"
                     value={this.title}
-                    onChange={this.handleTitleChange}
+                    onLimelChange={this.handleTitleChange}
                 />
                 <limel-input-field
                     label="Subtitle"
                     value={this.subtitle}
-                    onChange={this.handleSubtitleChange}
+                    onLimelChange={this.handleSubtitleChange}
                 />
                 <limel-input-field
                     label="Supporting text"
                     value={this.supportingText}
-                    onChange={this.handleSupportingTextChange}
+                    onLimelChange={this.handleSupportingTextChange}
                 />
 
                 <limel-select

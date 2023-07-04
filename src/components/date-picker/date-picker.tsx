@@ -216,7 +216,7 @@ export class DatePicker {
                     required={this.required}
                     value={this.formattedValue}
                     type={this.nativeType}
-                    onChange={this.nativeChangeHandler}
+                    onLimelChange={this.nativeChangeHandler}
                 />
             );
         }
@@ -238,7 +238,7 @@ export class DatePicker {
                 onFocus={this.showCalendar}
                 onBlur={this.hideCalendar}
                 onClick={this.onInputClick}
-                onChange={this.handleInputElementChange}
+                onLimelChange={this.handleInputElementChange}
                 ref={(el) => (this.textField = el)}
                 {...inputProps}
             />,

@@ -35,7 +35,7 @@ export class InputFieldFocusExample {
             <limel-input-field
                 label="Set focus on me!"
                 value={this.value}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 ref={this.getInputFieldRef}
                 tabindex="0"
             />,

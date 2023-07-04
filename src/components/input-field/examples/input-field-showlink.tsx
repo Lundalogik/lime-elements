@@ -35,7 +35,7 @@ export class InputFieldShowlinkExample {
                 required={this.required}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.handleEmailChange}
+                onLimelChange={this.handleEmailChange}
                 type="email"
                 showLink
             />,
@@ -45,7 +45,7 @@ export class InputFieldShowlinkExample {
                 required={this.required}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.handleTelChange}
+                onLimelChange={this.handleTelChange}
                 type="tel"
                 showLink
             />,
@@ -55,7 +55,7 @@ export class InputFieldShowlinkExample {
                 required={this.required}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.handleUrlChange}
+                onLimelChange={this.handleUrlChange}
                 type="url"
                 showLink
             />,
@@ -65,7 +65,7 @@ export class InputFieldShowlinkExample {
                 required={this.required}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.handleUrlChange}
+                onLimelChange={this.handleUrlChange}
                 type="urlAsText"
                 showLink
             />,

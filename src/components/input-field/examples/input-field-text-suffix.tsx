@@ -19,7 +19,7 @@ export class InputFieldSuffixExample {
                 suffix="pcs"
                 value={this.value}
                 type="number"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />
         );
     }

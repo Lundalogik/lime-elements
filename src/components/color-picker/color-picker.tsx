@@ -83,7 +83,7 @@ export class ColorPicker implements FormComponent {
                     label={this.label}
                     helperText={this.helperText}
                     value={this.value}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                     required={this.required}
                     readonly={this.readonly}
                     class="chosen-color-input"

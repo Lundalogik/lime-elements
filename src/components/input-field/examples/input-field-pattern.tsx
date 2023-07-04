@@ -17,7 +17,7 @@ export class InputFieldPatternExample {
                 label="Personal identity number (YYYYMMDD-XXXX)"
                 value={this.value}
                 pattern={'[0-9]{8}[-][0-9]{4}'}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />
         );
     }

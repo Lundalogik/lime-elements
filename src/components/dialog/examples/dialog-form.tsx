@@ -47,7 +47,7 @@ export class DialogFormExample {
                             value={this.name}
                             required={true}
                             invalid={!this.nameValid()}
-                            onChange={this.nameOnChange}
+                            onLimelChange={this.nameOnChange}
                         />
                     </p>
                     <p>
@@ -56,7 +56,7 @@ export class DialogFormExample {
                             value={this.age}
                             required={true}
                             invalid={!this.ageValid()}
-                            onChange={this.ageOnChange}
+                            onLimelChange={this.ageOnChange}
                             type="number"
                         />
                     </p>

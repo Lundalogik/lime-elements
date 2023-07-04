@@ -23,7 +23,7 @@ export class InputFieldErrorIconExample {
                 minlength={MIN_LENGTH}
                 helperText="Please enter at least 6 characters!"
                 value={this.valueNative}
-                onChange={this.onChangeNative}
+                onLimelChange={this.onChangeNative}
             />,
             <limel-input-field
                 label="Text Field with consumer validation"
@@ -31,7 +31,7 @@ export class InputFieldErrorIconExample {
                 invalid={this.isInvalid()}
                 helperText="Please enter an email with the domain 'test.com'"
                 value={this.valueConsumer}
-                onChange={this.onChangeConsumer}
+                onLimelChange={this.onChangeConsumer}
             />,
         ];
     }

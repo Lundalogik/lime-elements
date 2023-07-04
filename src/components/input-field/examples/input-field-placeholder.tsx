@@ -55,7 +55,7 @@ export class InputFieldPlaceholderExample {
                 placeholder="example: 19990101-1234"
                 helperText="Use correct format (12 digits, and a dash after your birth date)"
                 value={this.value}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />
         );
     }

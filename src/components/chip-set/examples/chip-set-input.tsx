@@ -76,7 +76,7 @@ export class ChipSetInputExample {
                     label="Max items"
                     value={this.maxItems.toString()}
                     type="number"
-                    onChange={this.setMaxItems}
+                    onLimelChange={this.setMaxItems}
                 />
                 <limel-checkbox
                     label="Empty input on blur"

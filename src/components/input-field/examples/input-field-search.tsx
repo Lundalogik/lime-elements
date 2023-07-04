@@ -18,7 +18,7 @@ export class InputFieldSearchExample {
                 type="search"
                 leadingIcon="search"
                 value={this.value}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />
         );
     }

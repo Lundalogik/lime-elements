@@ -29,7 +29,7 @@ export class InputFieldIconTrailingExample {
                 type="email"
                 value={this.value}
                 trailingIcon="filled_message"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 onAction={this.onAction}
             />
         );

@@ -50,7 +50,7 @@ export class InfoTileProgressExample {
                     label="Progress value"
                     type="number"
                     value={`${this.progress.value}`}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                 />
             </limel-example-controls>,
         ];

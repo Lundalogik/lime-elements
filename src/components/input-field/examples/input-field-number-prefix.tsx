@@ -19,7 +19,7 @@ export class InputFieldPrefixExample {
                 limelPrefix="$"
                 value={this.value}
                 type="number"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />
         );
     }

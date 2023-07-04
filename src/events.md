@@ -23,7 +23,7 @@ class MyComponent {
         return [
             <limel-input-field
                 value={this.value}
-                onChange={this.handleChange} />,
+                onLimelChange={this.handleChange} />,
             <limel-button
                 label="Submit"
                 onClick={this.handleClick} />

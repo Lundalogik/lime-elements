@@ -17,7 +17,7 @@ export class CircularProgressExample {
                 label="Value"
                 type="number"
                 value={value}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />,
             <limel-circular-progress value={this.value} />,
         ];

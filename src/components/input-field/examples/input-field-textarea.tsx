@@ -32,7 +32,7 @@ export class InputFieldTextareaExample {
                 maxlength={MAX_LENGTH}
                 value={this.value}
                 required={this.required}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 disabled={this.disabled}
                 readonly={this.readonly}
             />,

@@ -19,7 +19,7 @@ export class InputFieldIconBothExample {
                 value={this.value}
                 leadingIcon="globe"
                 trailingIcon="external_link"
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 onAction={this.onAction}
             />
         );

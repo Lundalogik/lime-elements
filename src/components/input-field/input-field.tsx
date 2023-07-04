@@ -226,10 +226,16 @@ export class InputField {
     public showLink = false;
 
     /**
-     * Emitted when the input value is changed.
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     private change: EventEmitter<string>;
+
+    /**
+     * Emitted when the input value is changed.
+     */
+    @Event()
+    private limelChange: EventEmitter<string>;
 
     /**
      * Emitted when `trailingIcon` or `leadingIcon` is set
@@ -897,6 +903,7 @@ export class InputField {
 
     private changeEmitter = (value: string) => {
         this.change.emit(value);
+        this.limelChange.emit(value);
     };
 
     private handleIconClick = () => {
