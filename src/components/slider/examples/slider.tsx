@@ -30,7 +30,7 @@ export class SliderExample {
                 valuemin={this.minValue}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />,
             <limel-example-controls>
                 <limel-checkbox

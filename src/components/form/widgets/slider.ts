@@ -25,6 +25,7 @@ export class Slider extends React.Component {
             value: props.value,
             events: {
                 change: this.handleChange,
+                limelChange: this.handleLimelChange,
             },
             widgetProps: props,
             extraProps: {
@@ -47,6 +48,17 @@ export class Slider extends React.Component {
         }
 
         props.onChange(event.detail);
+    }
+
+    private handleLimelChange(event: CustomEvent<number>) {
+        const props = this.props;
+        event.stopPropagation();
+
+        if (!props.onLimelChange) {
+            return;
+        }
+
+        props.onLimelChange(event.detail);
     }
 }
 

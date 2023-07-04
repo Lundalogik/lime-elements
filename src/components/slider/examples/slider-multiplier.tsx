@@ -32,7 +32,7 @@ export class SliderMultiplierExample {
                     step={this.step}
                     valuemax={this.maxValue}
                     valuemin={this.minValue}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                 />
                 <limel-example-value value={this.value} />
             </section>

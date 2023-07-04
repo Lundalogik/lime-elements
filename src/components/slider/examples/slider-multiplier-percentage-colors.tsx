@@ -39,7 +39,7 @@ export class SliderMultiplierPercentageColorsExample {
                 valuemin={this.minValue}
                 disabled={this.disabled}
                 readonly={this.readonly}
-                onChange={this.changeHandler}
+                onLimelChange={this.changeHandler}
             />,
             <limel-example-controls>
                 <limel-checkbox

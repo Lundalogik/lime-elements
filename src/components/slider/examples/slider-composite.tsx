@@ -37,7 +37,10 @@ export class SliderCompositeExample {
 
     public render() {
         return [
-            <limel-slider {...this.props} onChange={this.handleSliderChange} />,
+            <limel-slider
+                {...this.props}
+                onLimelChange={this.handleSliderChange}
+            />,
             this.renderForm(),
             <limel-example-event-printer
                 ref={(el) => (this.eventPrinter = el)}

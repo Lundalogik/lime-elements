@@ -92,10 +92,16 @@ export class Slider {
     public step: number;
 
     /**
-     * Emitted when the value has been changed
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     private change: EventEmitter<number>;
+
+    /**
+     * Emitted when the value has been changed
+     */
+    @Event()
+    private limelChange: EventEmitter<number>;
 
     @Element()
     private rootElement: HTMLLimelSliderElement;
@@ -307,6 +313,7 @@ export class Slider {
         }
 
         this.change.emit(value / this.factor);
+        this.limelChange.emit(value / this.factor);
     };
 
     private multiplyByFactor(value) {
