@@ -39,7 +39,7 @@ export class InfoTileProgressExample {
             <limel-info-tile
                 label="Won deals this month"
                 icon="money"
-                prefix="Total value"
+                limelPrefix="Total value"
                 value="70,659"
                 suffix="EUR"
                 link={{ href: '#' }}

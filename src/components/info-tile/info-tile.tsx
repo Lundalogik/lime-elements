@@ -42,10 +42,16 @@ export class InfoTile {
     public label?: string = null;
 
     /**
-     * A string of text that is visually placed before the value.
+     * @deprecated Use `limelPrefix` instead.
      */
     @Prop({ reflect: true })
     public prefix?: string;
+
+    /**
+     * A string of text that is visually placed before the value.
+     */
+    @Prop({ reflect: true })
+    public limelPrefix?: string;
 
     /**
      * A string of text that is visually placed after the value.
@@ -102,7 +108,7 @@ export class InfoTile {
 
     public render() {
         const extendedAriaLabel =
-            this.checkProps(this?.prefix) +
+            this.checkProps(this?.limelPrefix || this?.prefix) +
             this.value +
             ' ' +
             this.checkProps(this?.suffix) +
@@ -150,8 +156,10 @@ export class InfoTile {
     }
 
     private renderPrefix = () => {
-        if (this.prefix) {
-            return <span class="prefix">{this.prefix}</span>;
+        if (this.limelPrefix || this.prefix) {
+            return (
+                <span class="prefix">{this.limelPrefix || this.prefix}</span>
+            );
         }
     };
 

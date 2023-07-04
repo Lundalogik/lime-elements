@@ -40,7 +40,7 @@ export class InfoTileStylingExample {
                 value={this.value}
                 suffix="kWh"
                 progress={this.progress}
-                prefix="↑"
+                limelPrefix="↑"
             />,
         ];
     }

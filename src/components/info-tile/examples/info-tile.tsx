@@ -41,7 +41,7 @@ export class InfoTileExample {
                 <limel-info-tile
                     icon="partly_cloudy_rain"
                     label="Partly cloudy with a risk of rain"
-                    prefix="temp"
+                    limelPrefix="temp"
                     value="23"
                     suffix="°C"
                     link={link}
