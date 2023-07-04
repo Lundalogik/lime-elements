@@ -26,7 +26,7 @@ export class SelectExample {
                     label="Favorite hero"
                     value={this.value}
                     options={this.options}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                 />
                 <limel-example-value value={this.value} />
             </section>

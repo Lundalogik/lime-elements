@@ -36,7 +36,7 @@ export class SelectWithEmptyOptionExample {
                     value={this.value}
                     options={this.options}
                     required={this.required}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                 />
                 <limel-example-controls>
                     <limel-checkbox

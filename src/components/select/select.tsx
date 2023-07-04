@@ -102,10 +102,16 @@ export class Select {
     public multiple: boolean = false;
 
     /**
-     * Emitted when the value is changed.
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     private change: EventEmitter<Option | Option[]>;
+
+    /**
+     * Emitted when the value is changed.
+     */
+    @Event()
+    private limelChange: EventEmitter<Option | Option[]>;
 
     @Element()
     private host: HTMLLimelSelectElement;
@@ -256,6 +262,7 @@ export class Select {
             const listItems: ListItem[] = event.detail;
             const options: Option[] = listItems.map((item) => item.value);
             this.change.emit(options);
+            this.limelChange.emit(options);
 
             return;
         }
@@ -271,6 +278,7 @@ export class Select {
         }
 
         this.change.emit(option);
+        this.limelChange.emit(option);
         this.menuOpen = false;
         this.setTriggerFocus();
     }
@@ -279,6 +287,7 @@ export class Select {
         if (this.emitFirstChangeEvent()) {
             this.hasChanged = true;
             this.change.emit(this.options[0]);
+            this.limelChange.emit(this.options[0]);
         }
 
         this.menuOpen = true;
@@ -322,11 +331,13 @@ export class Select {
 
         if (this.multiple) {
             this.change.emit(options);
+            this.limelChange.emit(options);
 
             return;
         }
 
         this.change.emit(options[0]);
+        this.limelChange.emit(options[0]);
         this.menuOpen = false;
     }
 }

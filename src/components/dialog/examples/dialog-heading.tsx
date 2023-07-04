@@ -99,7 +99,7 @@ export class DialogHeadingExample {
                     options={this.icons}
                     label="Icon"
                     value={this.icon}
-                    onChange={this.handleIconChange}
+                    onLimelChange={this.handleIconChange}
                 />
 
                 <limel-button

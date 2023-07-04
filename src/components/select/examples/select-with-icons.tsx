@@ -53,7 +53,7 @@ export class SelectExample {
                     helperText="If you see a lack of diversity, it's our icon-provider's fault"
                     value={this.value}
                     options={this.options}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                 />
                 <limel-example-value value={this.value} />
             </section>

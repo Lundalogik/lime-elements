@@ -64,7 +64,7 @@ export class SelectExample {
                     class="is-narrow"
                     value={this.value}
                     options={this.options}
-                    onChange={this.handleChange}
+                    onLimelChange={this.handleChange}
                 />
             </limel-header>
         );

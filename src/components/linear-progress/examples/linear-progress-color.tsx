@@ -36,7 +36,7 @@ export class LinearProgressExampleColor {
                 label="Color"
                 options={this.colors}
                 value={this.color}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />,
         ];
     }

@@ -108,7 +108,7 @@ export class PickerStaticActionsExample {
                 <limel-select
                     class="is-narrow"
                     label="Action Scroll Behavior"
-                    onChange={this.setBehavior}
+                    onLimelChange={this.setBehavior}
                     value={this.actionScrollBehavior}
                     options={this.actionScrollBehaviors}
                 />
@@ -116,7 +116,7 @@ export class PickerStaticActionsExample {
                 <limel-select
                     class="is-narrow"
                     label="Action Position"
-                    onChange={this.setPosition}
+                    onLimelChange={this.setPosition}
                     value={this.actionPosition}
                     options={this.actionPositions}
                 />

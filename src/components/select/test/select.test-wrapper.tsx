@@ -33,7 +33,7 @@ export class SelectTestWrapper {
                 {...props}
                 label="Favourite Doctor"
                 value={this.value}
-                onChange={this.onChange}
+                onLimelChange={this.onChange}
             />
         );
     }

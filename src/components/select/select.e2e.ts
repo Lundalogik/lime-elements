@@ -317,27 +317,37 @@ describe('limel-select (native)', () => {
         });
 
         describe('when selecting a value', () => {
+            let spyForDeprecatedEvent;
             let spy;
 
             beforeEach(async () => {
-                spy = await page.spyOnEvent('change');
+                spyForDeprecatedEvent = await page.spyOnEvent('change');
+                spy = await page.spyOnEvent('limelChange');
                 const appleOption = await innerSelect.find(
                     'option[value="apple"]'
                 );
                 await appleOption.click();
             });
 
-            it('emits change event', () => {
+            it('emits a change event (deprecated)', () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEvent();
+            });
+
+            it('emits a limelChange event', () => {
                 expect(spy).toHaveReceivedEvent();
             });
 
             it('passes the selected option as the event details', () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEventDetail([
+                    options[0],
+                ]);
                 expect(spy).toHaveReceivedEventDetail([options[0]]);
             });
 
             describe('when selecting another value', () => {
                 beforeEach(async () => {
-                    spy = await page.spyOnEvent('change');
+                    spyForDeprecatedEvent = await page.spyOnEvent('change');
+                    spy = await page.spyOnEvent('limelChange');
                     const appleOption = await innerSelect.find(
                         'option[value="lime"]'
                     );
@@ -345,11 +355,19 @@ describe('limel-select (native)', () => {
                     await appleOption.click();
                 });
 
-                it('emits one change event', () => {
+                it('emits one change event (deprecated)', () => {
+                    expect(spyForDeprecatedEvent).toHaveReceivedEventTimes(1);
+                });
+
+                it('emits one limelChange event', () => {
                     expect(spy).toHaveReceivedEventTimes(1);
                 });
 
                 it('passes the selected option as the event details', () => {
+                    expect(spyForDeprecatedEvent).toHaveReceivedEventDetail([
+                        options[0],
+                        options[1],
+                    ]);
                     expect(spy).toHaveReceivedEventDetail([
                         options[0],
                         options[1],

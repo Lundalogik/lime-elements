@@ -38,7 +38,7 @@ export class SelectExample {
                 readonly={this.readonly}
                 required={this.required}
                 invalid={this.invalid}
-                onChange={this.changeHandler}
+                onLimelChange={this.changeHandler}
             />,
             <limel-example-controls>
                 <limel-checkbox

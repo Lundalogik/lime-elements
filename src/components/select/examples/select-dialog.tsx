@@ -67,13 +67,13 @@ export class SelectDialogExample {
                     label="Favorite hero"
                     value={this.heroValue}
                     options={this.heroOptions}
-                    onChange={this.handleHeroChange}
+                    onLimelChange={this.handleHeroChange}
                 />
                 <limel-select
                     label="Loathed villain"
                     value={this.villainValue}
                     options={this.villainOptions}
-                    onChange={this.handleVillainChange}
+                    onLimelChange={this.handleVillainChange}
                 />
                 <limel-icon name="star_wars" />
                 <limel-button

@@ -70,7 +70,7 @@ export class MenuOpenDirectionExample {
                 label="openDirection"
                 options={this.availableOpenDirections}
                 value={this.selectedOpenDirection}
-                onChange={this.handleNewSelection}
+                onLimelChange={this.handleNewSelection}
             />,
         ];
     }

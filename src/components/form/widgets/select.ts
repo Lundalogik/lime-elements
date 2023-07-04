@@ -33,6 +33,7 @@ export class Select extends React.Component {
             value: value,
             events: {
                 change: this.handleChange,
+                limelChange: this.handleLimelChange,
             },
             widgetProps: props,
             extraProps: {
@@ -59,6 +60,24 @@ export class Select extends React.Component {
         }
 
         props.onChange(event.detail.value);
+    }
+
+    private handleLimelChange(event: CustomEvent<Option | Option[]>) {
+        const props = this.props;
+        event.stopPropagation();
+
+        if (!props.onLimelChange) {
+            return;
+        }
+
+        if (isMultiple(event.detail)) {
+            const value = event.detail.map((option) => option.value);
+            props.onChange(value);
+
+            return;
+        }
+
+        props.onLimelChange(event.detail.value);
     }
 }
 

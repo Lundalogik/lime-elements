@@ -36,7 +36,7 @@ export class SelectMultipleExample {
                 disabled={this.disabled}
                 readonly={this.readonly}
                 required={this.required}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 multiple={true}
             />,
             <limel-example-controls>

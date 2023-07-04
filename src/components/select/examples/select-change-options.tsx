@@ -51,7 +51,7 @@ export class SelectExample {
                 value={this.value}
                 options={this.optionGroups[this.currentOptionGroup]}
                 disabled={this.disabled}
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
             />,
             <limel-example-controls
                 style={{ '--example-controls-max-columns-width': '9rem' }}
