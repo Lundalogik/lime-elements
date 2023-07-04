@@ -39,7 +39,7 @@ export class ActionBarOverflowMenu {
             <limel-menu
                 openDirection={this.openDirection}
                 items={this.items}
-                onSelect={this.handleSelect}
+                onLimelSelect={this.handleSelect}
             >
                 <button slot="trigger">{this.countOverflowedItems()}</button>
             </limel-menu>,

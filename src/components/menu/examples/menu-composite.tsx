@@ -68,7 +68,7 @@ export class MenuCompositeExample {
                 badgeIcons={this.props.badgeIcons}
                 open={this.props.open}
                 gridLayout={this.props.gridLayout}
-                onSelect={this.handleSelect}
+                onLimelSelect={this.handleSelect}
                 onCancel={this.handleCancel}
             >
                 <limel-button label="Menu" slot="trigger" />

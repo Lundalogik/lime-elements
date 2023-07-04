@@ -28,7 +28,7 @@ export class MenuDisabledExample {
             <limel-menu
                 items={this.items}
                 disabled={true}
-                onSelect={this.handleSelect}
+                onLimelSelect={this.handleSelect}
             >
                 <limel-button label="Menu" slot="trigger" />
             </limel-menu>

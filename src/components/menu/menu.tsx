@@ -77,10 +77,16 @@ export class Menu {
     private cancel: EventEmitter<void>;
 
     /**
-     * Is emitted when a menu item is selected.
+     * @deprecated Use `limelSelect` instead.
      */
     @Event()
     private select: EventEmitter<MenuItem | MenuItem[]>;
+
+    /**
+     * Is emitted when a menu item is selected.
+     */
+    @Event()
+    private limelSelect: EventEmitter<MenuItem | MenuItem[]>;
 
     @Element()
     private host: HTMLLimelMenuElement;
@@ -140,6 +146,7 @@ export class Menu {
                             type="menu"
                             badgeIcons={this.badgeIcons}
                             onSelect={this.handleSelect}
+                            onLimelSelect={this.handleLimelSelect}
                             ref={this.setListElement}
                         />
                     </limel-menu-surface>
@@ -186,7 +193,12 @@ export class Menu {
 
     private handleSelect = (event: CustomEvent<MenuItem>) => {
         event.stopPropagation();
+    };
+
+    private handleLimelSelect = (event: CustomEvent<MenuItem>) => {
+        event.stopPropagation();
         this.select.emit(event.detail);
+        this.limelSelect.emit(event.detail);
         this.open = false;
     };
 

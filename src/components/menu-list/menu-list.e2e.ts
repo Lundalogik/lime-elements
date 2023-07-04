@@ -204,10 +204,33 @@ describe('limel-menu-list', () => {
                 const propValue = await limelList.getProperty('type');
                 expect(propValue).toBe('menu');
             });
-            describe('the `select` event', () => {
+            describe('the `select` event (deprecated)', () => {
                 let spy;
                 beforeEach(async () => {
                     spy = await page.spyOnEvent('select');
+                });
+                describe('when an item is selected', () => {
+                    let item;
+                    beforeEach(async () => {
+                        item = await innerList.find('li');
+                        await item.click();
+                        await page.waitForTimeout(20); // Give the event a chance to bubble.
+                    });
+                    it('is emitted', () => {
+                        expect(spy).toHaveReceivedEventTimes(1);
+                    });
+                    it('passes the selected item as the event details but as not selected', () => {
+                        expect(spy).toHaveReceivedEventDetail({
+                            ...items[0],
+                            selected: false,
+                        });
+                    });
+                });
+            });
+            describe('the `limelSelect` event', () => {
+                let spy;
+                beforeEach(async () => {
+                    spy = await page.spyOnEvent('limelSelect');
                 });
                 describe('when an item is selected', () => {
                     let item;

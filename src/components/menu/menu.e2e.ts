@@ -112,9 +112,11 @@ describe('limel-menu', () => {
     });
 
     describe('menu item', () => {
+        let spyForDeprecatedEvent;
         let spy;
         beforeEach(async () => {
-            spy = await page.spyOnEvent('select');
+            spyForDeprecatedEvent = await page.spyOnEvent('select');
+            spy = await page.spyOnEvent('limelSelect');
             limelMenu.setProperty('open', true);
             await page.waitForChanges();
         });
@@ -125,10 +127,16 @@ describe('limel-menu', () => {
                 await list.click();
                 await page.waitForChanges();
             });
-            it('emits the `select` event', () => {
+            it('emits the `select` event (deprecated)', () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEventTimes(1);
+            });
+            it('emits the `limelSelect` event', () => {
                 expect(spy).toHaveReceivedEventTimes(1);
             });
             it('passes the selected item as the event details', () => {
+                expect(spyForDeprecatedEvent).toHaveReceivedEventDetail(
+                    items[0]
+                );
                 expect(spy).toHaveReceivedEventDetail(items[0]);
             });
             it('closes the menu', async () => {

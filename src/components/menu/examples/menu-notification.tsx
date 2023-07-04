@@ -51,7 +51,7 @@ export class MenuNotificationExample {
 
     public render() {
         return (
-            <limel-menu items={this.items} onSelect={this.handleSelect}>
+            <limel-menu items={this.items} onLimelSelect={this.handleSelect}>
                 <limel-icon-button
                     slot="trigger"
                     icon="gender_neutral_user"

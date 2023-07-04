@@ -28,7 +28,7 @@ export class MenuHotkeysExample {
         console.log(this.items);
 
         return [
-            <limel-menu items={this.items} onSelect={this.handleSelect}>
+            <limel-menu items={this.items} onLimelSelect={this.handleSelect}>
                 <limel-button label="Menu" slot="trigger" />
             </limel-menu>,
             <limel-example-value

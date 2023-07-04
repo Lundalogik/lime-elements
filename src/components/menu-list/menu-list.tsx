@@ -77,10 +77,16 @@ export class MenuList {
     private mdcMenu: MDCMenu;
 
     /**
-     * Fired when a new value has been selected from the list.
+     * @deprecated Use `limelSelect` instead.
      */
     @Event()
     private select: EventEmitter<MenuItem>;
+
+    /**
+     * Fired when a new value has been selected from the list.
+     */
+    @Event()
+    private limelSelect: EventEmitter<MenuItem>;
 
     public connectedCallback() {
         this.setup();
@@ -178,10 +184,12 @@ export class MenuList {
 
         if (selectedItem) {
             this.select.emit({ ...selectedItem, selected: false });
+            this.limelSelect.emit({ ...selectedItem, selected: false });
         }
 
         if (MenuItems[index] !== selectedItem) {
             this.select.emit({ ...MenuItems[index], selected: false });
+            this.limelSelect.emit({ ...MenuItems[index], selected: false });
         }
     };
 
