@@ -847,7 +847,7 @@ export class InputField {
 
         return (
             <limel-list
-                onChange={this.handleCompletionChange}
+                onLimelChange={this.handleCompletionChange}
                 onKeyDown={this.handleKeyDownInDropdown}
                 type="selectable"
                 items={filteredCompletions}

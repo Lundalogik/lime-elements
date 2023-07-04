@@ -89,10 +89,16 @@ export class List {
     private selectable: boolean;
 
     /**
-     * Fired when a new value has been selected from the list. Only fired if selectable is set to true
+     * @deprecated Use `limelChange` instead.
      */
     @Event()
     private change: EventEmitter<ListItem | ListItem[]>;
+
+    /**
+     * Fired when a new value has been selected from the list. Only fired if selectable is set to true
+     */
+    @Event()
+    private limelChange: EventEmitter<ListItem | ListItem[]>;
 
     /**
      * Fired when an action has been selected from the action menu of a list item
@@ -231,10 +237,12 @@ export class List {
 
         if (selectedItem) {
             this.change.emit({ ...selectedItem, selected: false });
+            this.limelChange.emit({ ...selectedItem, selected: false });
         }
 
         if (listItems[index] !== selectedItem) {
             this.change.emit({ ...listItems[index], selected: true });
+            this.limelChange.emit({ ...listItems[index], selected: true });
         }
     };
 
@@ -260,6 +268,7 @@ export class List {
             });
 
         this.change.emit(selectedItems);
+        this.limelChange.emit(selectedItems);
     };
 
     private isListItem = (item: ListItem): boolean => {

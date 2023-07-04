@@ -373,7 +373,7 @@ export class Picker {
                 }}
                 badgeIcons={true}
                 type={'selectable'}
-                onChange={this.handleActionListChange}
+                onLimelChange={this.handleActionListChange}
                 items={this.actions.map(this.removeUnusedPropertiesOnAction)}
             />,
         ];
@@ -459,7 +459,7 @@ export class Picker {
         return (
             <limel-list
                 badgeIcons={hasIcons && this.badgeIcons}
-                onChange={this.handleListChange}
+                onLimelChange={this.handleListChange}
                 onKeyDown={this.onListKeyDown}
                 type="selectable"
                 items={this.items}

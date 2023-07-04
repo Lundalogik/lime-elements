@@ -201,10 +201,33 @@ describe('limel-list', () => {
                 const propValue = await limelList.getProperty('type');
                 expect(propValue).toBe('selectable');
             });
-            describe('the `change` event', () => {
+            describe('the `change` event (deprecated)', () => {
                 let spy;
                 beforeEach(async () => {
                     spy = await page.spyOnEvent('change');
+                });
+                describe('when an item is selected', () => {
+                    let item;
+                    beforeEach(async () => {
+                        item = await innerList.find('li');
+                        await item.click();
+                        await page.waitForTimeout(20); // Give the event a chance to bubble.
+                    });
+                    it('is emitted', () => {
+                        expect(spy).toHaveReceivedEventTimes(1);
+                    });
+                    it('passes the selected item as the event details', () => {
+                        expect(spy).toHaveReceivedEventDetail({
+                            ...items[0],
+                            selected: true,
+                        });
+                    });
+                });
+            });
+            describe('the `limelChange` event', () => {
+                let spy;
+                beforeEach(async () => {
+                    spy = await page.spyOnEvent('limelChange');
                 });
                 describe('when an item is selected', () => {
                     let item;

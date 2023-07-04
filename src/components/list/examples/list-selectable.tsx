@@ -26,7 +26,7 @@ export class SelectableListExample {
     public render() {
         return (
             <limel-list
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 type="selectable"
                 items={this.items}
             />

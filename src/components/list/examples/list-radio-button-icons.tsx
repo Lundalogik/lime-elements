@@ -69,7 +69,7 @@ export class ListRadioButtonIconsExample {
     public render() {
         return [
             <limel-list
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 items={this.items}
                 type="radio"
             />,

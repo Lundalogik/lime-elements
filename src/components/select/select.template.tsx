@@ -196,7 +196,7 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
                 <limel-list
                     items={items}
                     type={props.multiple ? 'checkbox' : 'selectable'}
-                    onChange={props.onMenuChange}
+                    onLimelChange={props.onMenuChange}
                 />
             </limel-menu-surface>
         </limel-portal>

@@ -36,7 +36,7 @@ export class ListCheckboxExample {
     public render() {
         return [
             <limel-list
-                onChange={this.handleChange}
+                onLimelChange={this.handleChange}
                 items={this.items}
                 type="checkbox"
             />,
