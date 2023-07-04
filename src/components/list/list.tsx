@@ -101,10 +101,16 @@ export class List {
     private limelChange: EventEmitter<ListItem | ListItem[]>;
 
     /**
-     * Fired when an action has been selected from the action menu of a list item
+     * @deprecated Use `limelSelect` instead.
      */
     @Event()
     protected select: EventEmitter<ListItem | ListItem[]>;
+
+    /**
+     * Fired when an action has been selected from the action menu of a list item
+     */
+    @Event()
+    protected limelSelect: EventEmitter<ListItem | ListItem[]>;
 
     public connectedCallback() {
         this.setup();

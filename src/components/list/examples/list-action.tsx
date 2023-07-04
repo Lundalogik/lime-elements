@@ -28,7 +28,12 @@ export class ListActionExample {
     ];
 
     public render() {
-        return <limel-list items={this.items} onSelect={this.onSelectAction} />;
+        return (
+            <limel-list
+                items={this.items}
+                onLimelSelect={this.onSelectAction}
+            />
+        );
     }
 
     private onSelectAction(event: LimelListCustomEvent<ListItem>) {
