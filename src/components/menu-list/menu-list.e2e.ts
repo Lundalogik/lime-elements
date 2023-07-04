@@ -204,7 +204,7 @@ describe('limel-menu-list', () => {
                 const propValue = await limelList.getProperty('type');
                 expect(propValue).toBe('menu');
             });
-            describe('the `change` event', () => {
+            describe('the `select` event', () => {
                 let spy;
                 beforeEach(async () => {
                     spy = await page.spyOnEvent('select');
