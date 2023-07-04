@@ -1,32 +1,87 @@
 @use '../../../style/mixins';
 @use '../../../style/functions';
 
+.interactive-feedback {
+    // This is a div, injected by us into all rows.
+    // We use it to visualize interactive feedback.
+    position: absolute;
+    inset: 0;
+    min-height: 0.125rem;
+
+    // We could use `@include mixins.is-flat-clickable()`,
+    // But the "arguments" of the mixin would make the CSS for
+    // even and odd row colors and background color very complicated.
+    // So instead, I've copy/pasted the useful parts of the mixin here
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
+}
+
+.tabulator-row:not(.tabulator-calcs) {
+    .tabulator-cell {
+        // We don't want the cells to block
+        // the hovering possibility of `interactive-feedback` div.
+        pointer-events: none;
+        // but we want the content in them
+        // (e.g. links, phone numbers, chips, components)
+        // to remain interactive.
+        > * {
+            pointer-events: auto;
+        }
+    }
+
+    &.tabulator-selectable {
+        &:hover {
+            z-index: $table--has-interactive-rows--selectable-row--hover;
+        }
+
+        &.active {
+            .interactive-feedback {
+                background-color: rgb(
+                    var(--table-row-background-color--active)
+                );
+                box-shadow: var(--button-shadow-inset-pressed);
+            }
+
+            &:before {
+                $width-of-selected-row-indicator: 0.2rem;
+                content: '';
+                display: inline-block;
+                box-sizing: border-box;
+                position: sticky;
+                z-index: $table--has-interactive-rows--selectable-row--hover + 1;
+                inset: 0 0 auto 0;
+                border: $width-of-selected-row-indicator solid
+                    var(--mdc-theme-primary);
+                border-radius: 1rem;
+                margin-right: -$width-of-selected-row-indicator * 2;
+            }
+        }
+    }
+}
+
 :host(.has-interactive-rows) {
     .tabulator-row:not(.tabulator-calcs) {
         &.tabulator-selectable {
-            // We could use `@include mixins.is-flat-clickable()`,
-            // But the "arguments" of the mixin would make the CSS for
-            // even and odd row colors and background color very complicated.
-            // So instead, I've copy/pasted the useful parts of the mixin here
-            transition: color 0.2s ease, background-color 0.2s ease,
-                box-shadow 0.2s ease, transform 0.1s ease-out;
+            .interactive-feedback {
+                &:hover {
+                    box-shadow: var(--button-shadow-hovered);
+                }
+            }
 
             &:active {
-                box-shadow: var(--button-shadow-pressed);
+                .interactive-feedback {
+                    box-shadow: var(--button-shadow-pressed);
 
-                transform: translate3d(0, 0.08rem, 0);
+                    transform: translate3d(0, 0.08rem, 0);
+                }
             }
-
-            &:hover {
-                z-index: $table--has-interactive-rows--selectable-row--hover;
-                box-shadow: var(--button-shadow-hovered);
-            }
-
             &:not(.active) {
-                &:hover {
-                    background-color: rgb(
-                        var(--table-row-background-color--hover)
-                    );
+                .interactive-feedback {
+                    &:hover {
+                        background-color: var(
+                            --table-row-background-color--hover
+                        );
+                    }
                 }
             }
         }
