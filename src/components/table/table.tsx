@@ -683,6 +683,8 @@ export class Table {
         } else {
             row.getElement().classList.remove('active');
         }
+
+        row.getElement().setAttribute('tabindex', '0');
     }
 
     private calculatePageCount(): number {
