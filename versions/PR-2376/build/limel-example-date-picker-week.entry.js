@@ -1,1 +1,0 @@
-import{r as e,h as l}from"./index-a55db97c.js";const t=class{constructor(l){e(this,l),this.handleChange=e=>{this.value=e.detail},this.value=new Date}render(){return l("p",null,l("limel-date-picker",{type:"week",label:"week",value:this.value,onLimelChange:this.handleChange}),l("limel-example-value",{value:this.value}))}};export{t as limel_example_date_picker_week}
