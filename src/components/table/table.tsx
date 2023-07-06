@@ -646,6 +646,26 @@ export class Table {
         this.activate.emit(this.activeRow);
     }
 
+    private onKeyPressRow(
+        ev: KeyboardEvent,
+        row: Tabulator.RowComponent
+    ): void {
+        if (ev.key === 'Enter') {
+            if (typeof row.getPosition === 'undefined') {
+                // Not a data row, probably a CalcComponent
+                return;
+            }
+
+            if (this.activeRow === row.getData()) {
+                this.activeRow = null;
+            } else {
+                this.activeRow = row.getData();
+            }
+
+            this.activate.emit(this.activeRow);
+        }
+    }
+
     private getActiveRows: () => Tabulator.RowComponent[] = () => {
         if (!this.tabulator) {
             return [];
@@ -677,7 +697,7 @@ export class Table {
         this.tabulator.getRows().forEach(this.formatRow);
     }
 
-    private formatRow(row: Tabulator.RowComponent) {
+    private formatRow(row: Tabulator.RowComponent): void {
         if (this.activeRow === row.getData()) {
             row.getElement().classList.add('active');
         } else {
@@ -685,6 +705,9 @@ export class Table {
         }
 
         row.getElement().setAttribute('tabindex', '0');
+        row.getElement().addEventListener('keydown', (ev: KeyboardEvent) => {
+            this.onKeyPressRow(ev, row);
+        });
     }
 
     private calculatePageCount(): number {
