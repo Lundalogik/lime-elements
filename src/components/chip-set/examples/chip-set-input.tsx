@@ -113,8 +113,12 @@ export class ChipSetInputExample {
         ];
     }
 
-    private handleInput = (event: CustomEvent<string>) => {
-        this.textValue = event.detail;
+    private handleInput = (
+        event: LimelChipSetCustomEvent<string> | InputEvent
+    ) => {
+        if (event instanceof CustomEvent) {
+            this.textValue = event.detail;
+        }
     };
 
     private onKeyUp = (event: KeyboardEvent) => {
