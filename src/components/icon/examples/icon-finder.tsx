@@ -81,8 +81,10 @@ export class IconFinder {
         console.log(`copied icon name '${iconName}' to clipboard`);
     }
 
-    private onInput = (event: CustomEvent<string>) => {
-        this.textValue = event.detail;
+    private onInput = (event: LimelChipSetCustomEvent<string> | InputEvent) => {
+        if (event instanceof CustomEvent) {
+            this.textValue = event.detail;
+        }
     };
 
     private onKeyUp = (event: KeyboardEvent) => {
