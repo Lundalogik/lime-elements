@@ -1,3 +1,11 @@
+## [36.4.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.4.0...v36.4.1-next.1) (2023-07-07)
+
+
+### Bug Fixes
+
+* **slider:** correctly label the `input` element, using `aria-labledby` & a unique id ([126c445](https://github.com/Lundalogik/lime-elements/commit/126c445decfc97aa6cf84b24b76b76d20c430c95))
+* **slider:** use a unique id for the helper text & use it by `aria-controls` ([a9a1662](https://github.com/Lundalogik/lime-elements/commit/a9a1662581a22d9f59b022c2d9fdc5ffc5472370))
+
 ## [36.4.0](https://github.com/Lundalogik/lime-elements/compare/v36.3.1...v36.4.0) (2023-07-06)
 
 
