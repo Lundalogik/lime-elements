@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { Component, Listen, h, Prop, State, Watch } from '@stencil/core';
 
 /**
  * @exampleComponent limel-example-button-basic
@@ -66,7 +66,12 @@ export class Button {
     @State()
     private justLoaded = false;
 
+    @State()
+    private isActive = false;
+
     private justLoadedTimeout?: number;
+
+    private hasJustReleasedEnter: boolean = true;
 
     public render() {
         return (
@@ -100,6 +105,37 @@ export class Button {
             this.justLoaded = false;
             window.clearTimeout(this.justLoadedTimeout);
         }
+    }
+
+    @Listen('keydown')
+    handleKeyDown(ev: KeyboardEvent) {
+        if (ev.key === 'Enter' && !this.isActive) {
+            this.isActive = true;
+        }
+    }
+
+    @Listen('keyup')
+    handleKeyUp(ev: KeyboardEvent) {
+        if (ev.key === 'Enter' && this.isActive) {
+            this.isActive = false;
+        }
+
+        this.hasJustReleasedEnter = true;
+    }
+
+    @Listen('click')
+    handleClick(ev: MouseEvent) {
+        if (!this.isActive) {
+            return;
+        }
+
+        if (this.hasJustReleasedEnter) {
+            this.hasJustReleasedEnter = false;
+
+            return;
+        }
+
+        ev.stopImmediatePropagation();
     }
 
     private renderLoadingIcons() {
