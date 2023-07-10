@@ -118,9 +118,8 @@ export class Button {
     handleKeyUp(ev: KeyboardEvent) {
         if (ev.key === 'Enter' && this.isActive) {
             this.isActive = false;
+            this.hasJustReleasedEnter = true;
         }
-
-        this.hasJustReleasedEnter = true;
     }
 
     @Listen('click')
