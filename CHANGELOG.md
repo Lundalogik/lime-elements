@@ -1,3 +1,16 @@
+## [37.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v37.0.0...v37.1.0-next.1) (2023-07-10)
+
+
+### Features
+
+* **getRandomString:** update to use crypto.UUID() ([7d8ce2e](https://github.com/Lundalogik/lime-elements/commit/7d8ce2eb2caeacbc022032cfbc17f02b6057295e))
+
+
+### Bug Fixes
+
+* **input-field:** create unique IDs for each helper text on the page ([4330c31](https://github.com/Lundalogik/lime-elements/commit/4330c31b42f326470fda52ecaf3e3bfca7ca1dec))
+* **input-field:** create unique IDs for each input field's `label` on the page ([8082490](https://github.com/Lundalogik/lime-elements/commit/8082490b9e953d71f8be1c4fe0b2792d7f1826e1))
+
 ## [37.0.0](https://github.com/Lundalogik/lime-elements/compare/v36.4.0...v37.0.0) (2023-07-07)
 
 
