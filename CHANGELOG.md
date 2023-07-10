@@ -1,3 +1,93 @@
+## [37.0.0](https://github.com/Lundalogik/lime-elements/compare/v36.4.0...v37.0.0) (2023-07-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* We have updated StencilJS to v3. In this new version of Stencil,
+`input` events has been strongly typed. This means that your event
+handlers for `input` events may need to be updated.
+
+Example:
+
+```diff
+-    private handleInput = (event: CustomEvent<string>) => {
+-        this.textValue = event.detail;
++    private handleInput = (
++        event: LimelChipSetCustomEvent<string> | InputEvent
++    ) => {
++        if (event instanceof CustomEvent) {
++            this.textValue = event.detail;
++        }
+     };
+```
+
+Here, we not only update the type of the custom event we want to
+listen for from the generic `CustomEvent<string>` to the more
+specific `LimelChipSetCustomEvent<string>`, we also update the
+type of the event to include the type of the native `input` event.
+We then check the actual type of the event, and act on it only if
+it is the kind we are interested in (`CustomEvent`).
+
+This is an improvement of the event handler, since the earlier form
+would have caught any native `input` events too, and tried to act
+on it, with unexpected results.
+
+### Bug Fixes
+
+* **slider:** correctly label the `input` element, using `aria-labledby` & a unique id ([126c445](https://github.com/Lundalogik/lime-elements/commit/126c445decfc97aa6cf84b24b76b76d20c430c95))
+* **slider:** use a unique id for the helper text & use it by `aria-controls` ([a9a1662](https://github.com/Lundalogik/lime-elements/commit/a9a1662581a22d9f59b022c2d9fdc5ffc5472370))
+
+
+### Miscellaneous Chores
+
+* update StencilJS from v2 to v3 ([60578ba](https://github.com/Lundalogik/lime-elements/commit/60578ba0501c9a9cd8d0de10bd1bbfbc207c49af))
+
+## [37.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.4.1-next.1...v37.0.0-next.1) (2023-07-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* We have updated StencilJS to v3. In this new version of Stencil,
+`input` events has been strongly typed. This means that your event
+handlers for `input` events may need to be updated.
+
+Example:
+
+```diff
+-    private handleInput = (event: CustomEvent<string>) => {
+-        this.textValue = event.detail;
++    private handleInput = (
++        event: LimelChipSetCustomEvent<string> | InputEvent
++    ) => {
++        if (event instanceof CustomEvent) {
++            this.textValue = event.detail;
++        }
+     };
+```
+
+Here, we not only update the type of the custom event we want to
+listen for from the generic `CustomEvent<string>` to the more
+specific `LimelChipSetCustomEvent<string>`, we also update the
+type of the event to include the type of the native `input` event.
+We then check the actual type of the event, and act on it only if
+it is the kind we are interested in (`CustomEvent`).
+
+This is an improvement of the event handler, since the earlier form
+would have caught any native `input` events too, and tried to act
+on it, with unexpected results.
+
+### Miscellaneous Chores
+
+* update StencilJS from v2 to v3 ([60578ba](https://github.com/Lundalogik/lime-elements/commit/60578ba0501c9a9cd8d0de10bd1bbfbc207c49af))
+
+## [36.4.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.4.0...v36.4.1-next.1) (2023-07-07)
+
+
+### Bug Fixes
+
+* **slider:** correctly label the `input` element, using `aria-labledby` & a unique id ([126c445](https://github.com/Lundalogik/lime-elements/commit/126c445decfc97aa6cf84b24b76b76d20c430c95))
+* **slider:** use a unique id for the helper text & use it by `aria-controls` ([a9a1662](https://github.com/Lundalogik/lime-elements/commit/a9a1662581a22d9f59b022c2d9fdc5ffc5472370))
+
 ## [36.4.0](https://github.com/Lundalogik/lime-elements/compare/v36.3.1...v36.4.0) (2023-07-06)
 
 
