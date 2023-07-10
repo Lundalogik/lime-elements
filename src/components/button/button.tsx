@@ -1,4 +1,8 @@
-import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { Component, h, Prop, State, Watch, Element } from '@stencil/core';
+import {
+    makeEnterClickable,
+    removeEnterClickable,
+} from '../../util/makeEnterClickable';
 
 /**
  * @exampleComponent limel-example-button-basic
@@ -66,7 +70,18 @@ export class Button {
     @State()
     private justLoaded = false;
 
+    @Element()
+    private host: HTMLElement;
+
     private justLoadedTimeout?: number;
+
+    public componentWillLoad() {
+        makeEnterClickable(this.host);
+    }
+
+    public disconnectedCallback() {
+        removeEnterClickable(this.host);
+    }
 
     public render() {
         return (
