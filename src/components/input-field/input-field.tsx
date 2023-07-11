@@ -35,8 +35,6 @@ interface LinkProperties {
     target?: string;
 }
 
-const helperTextId = 'tf-helper-text';
-
 /**
  * @exampleComponent limel-example-input-field-text
  * @exampleComponent limel-example-input-field-placeholder
@@ -247,12 +245,16 @@ export class InputField {
     private mdcTextField: MDCTextField;
     private completionsList: ListItem[] = [];
     private portalId: string;
+    private helperTextId: string;
+    private labelId: string;
 
     constructor() {
         const debounceTimeout = 300;
         this.changeEmitter = debounce(this.changeEmitter, debounceTimeout);
 
         this.portalId = createRandomString();
+        this.helperTextId = createRandomString();
+        this.labelId = createRandomString();
     }
 
     public connectedCallback() {
@@ -279,9 +281,8 @@ export class InputField {
     }
 
     public render() {
-        const labelId = 'tf-input-label';
         const properties = this.getAdditionalProps();
-        properties['aria-labelledby'] = labelId;
+        properties['aria-labelledby'] = this.labelId;
         properties.class = 'mdc-text-field__input';
         properties.onInput = this.handleChange;
         properties.onFocus = this.onFocus;
@@ -291,15 +292,15 @@ export class InputField {
         properties.disabled = this.disabled || this.readonly;
 
         if (this.hasHelperText()) {
-            properties['aria-controls'] = helperTextId;
-            properties['aria-describedby'] = helperTextId;
+            properties['aria-controls'] = this.helperTextId;
+            properties['aria-describedby'] = this.helperTextId;
         }
 
         return [
             <label class={this.getContainerClassList()}>
                 <span class="mdc-notched-outline" tabindex="-1">
                     <span class="mdc-notched-outline__leading"></span>
-                    {this.renderLabel(labelId)}
+                    {this.renderLabel()}
                     <span class="mdc-notched-outline__trailing"></span>
                 </span>
                 {this.renderLeadingIcon()}
@@ -463,7 +464,7 @@ export class InputField {
 
         return (
             <limel-helper-line
-                helperTextId={helperTextId}
+                helperTextId={this.helperTextId}
                 helperText={this.helperText}
                 length={length}
                 maxLength={this.maxlength}
@@ -552,7 +553,7 @@ export class InputField {
         return this.limelInputField.shadowRoot.querySelector(elementName);
     };
 
-    private renderLabel = (labelId: string) => {
+    private renderLabel = () => {
         const labelClassList = {
             'mdc-floating-label': true,
             'mdc-floating-label--float-above':
@@ -565,7 +566,7 @@ export class InputField {
 
         return (
             <span class="mdc-notched-outline__notch">
-                <span class={labelClassList} id={labelId}>
+                <span class={labelClassList} id={this.labelId}>
                     {this.label}
                 </span>
             </span>

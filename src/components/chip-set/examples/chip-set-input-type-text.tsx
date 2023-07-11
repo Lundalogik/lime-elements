@@ -33,9 +33,6 @@ export class ChipSetInputExample {
     private value: Chip[];
 
     @State()
-    private companyValue: Chip[];
-
-    @State()
     private textValue = '';
 
     @State()
@@ -70,8 +67,12 @@ export class ChipSetInputExample {
         ];
     }
 
-    private handleInput = (event: CustomEvent<string>) => {
-        this.textValue = event.detail;
+    private handleInput = (
+        event: LimelChipSetCustomEvent<string> | InputEvent
+    ) => {
+        if (event instanceof CustomEvent) {
+            this.textValue = event.detail;
+        }
     };
 
     private onKeyUp = (event: KeyboardEvent) => {
@@ -81,10 +82,6 @@ export class ChipSetInputExample {
         ) {
             this.value = [
                 ...this.value,
-                this.createChip(this.textValue.trim()),
-            ];
-            this.companyValue = [
-                ...this.companyValue,
                 this.createChip(this.textValue.trim()),
             ];
             this.textValue = '';

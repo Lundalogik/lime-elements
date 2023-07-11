@@ -20,7 +20,7 @@ $list-mdc-list-item: 0;
  * @prop --list-grid-gap: Distance between items in a list that has `has-grid-layout` class. Defaults to `0.75rem`.
  * @prop --list-background-color-of-odd-interactive-items: Background color of odd list items, when `has-striped-rows` class is applied to the component. Defaults to `--contrast-200`.
  * @prop --list-background-color-of-even-interactive-items:  Background color of even list items, when `has-striped-rows` class is applied to the component. Defaults to `transparent`.
- * @prop --list-margin: Space around the list. Default to `0.25rem`;
+ * @prop --list-margin: Space around the list. Defaults to `0.25rem`, which visualizes keyboard-focused items in a better way, as it adds some space for the outline effect;
  */
 
 :host(limel-list) {
@@ -40,7 +40,7 @@ $list-mdc-list-item: 0;
         --icon-color,
         rgb(var(--contrast-900))
     );
-    margin: (
+    margin: var(
         --list-margin,
         0.25rem
     ); // added space to visualize keyboard-focused items

@@ -22,7 +22,6 @@ describe('limel-input-field', () => {
 
     types.forEach((type) =>
         describe(`with type="${type.name}"`, () => {
-            const expectedLabelId = 'tf-input-label';
             beforeEach(async () => {
                 page = await createPage(`
                     <limel-input-field
@@ -30,6 +29,7 @@ describe('limel-input-field', () => {
                         label="Test"
                     ></limel-input-field>
                 `);
+
                 limelInput = await page.find('limel-input-field');
                 inputContainer = await page.find(
                     'limel-input-field>>>label.mdc-text-field'
@@ -93,12 +93,6 @@ describe('limel-input-field', () => {
                     });
                 }
 
-                it('has the expected value for `aria-labelledby`', () => {
-                    expect(nativeInput).toEqualAttribute(
-                        'aria-labelledby',
-                        expectedLabelId
-                    );
-                });
                 it('has the class `mdc-text-field__input`', () => {
                     expect(nativeInput).toHaveClass('mdc-text-field__input');
                 });
@@ -113,9 +107,6 @@ describe('limel-input-field', () => {
                     expect(label).not.toHaveClass(
                         'mdc-floating-label--float-above'
                     );
-                });
-                it('has the expected id', () => {
-                    expect(label).toEqualAttribute('id', expectedLabelId);
                 });
                 describe('after focusing', () => {
                     beforeEach(async () => {
@@ -137,17 +128,9 @@ describe('limel-input-field', () => {
                     );
                 });
                 it('has the expected structure', () => {
-                    expect(outline).toEqualHtml(`
-                    <span class="mdc-notched-outline mdc-notched-outline--upgraded" tabindex="-1">
-                        <span class="mdc-notched-outline__leading"></span>
-                        <span class="mdc-notched-outline__notch">
-                            <span id="tf-input-label" class="mdc-floating-label">
-                                Test
-                            </span>
-                        </span>
-                        <span class="mdc-notched-outline__trailing"></span>
-                    </span>
-                `);
+                    expect(replaceLabelId(outline.outerHTML)).toEqual(
+                        '<span class="mdc-notched-outline mdc-notched-outline--upgraded" tabindex="-1"><span class="mdc-notched-outline__leading"></span><span class="mdc-notched-outline__notch"><span class="mdc-floating-label" id="tf-input-label">Test</span></span><span class="mdc-notched-outline__trailing"></span></span>'
+                    );
                 });
             });
             describe('when invalid is set to true', () => {
@@ -268,6 +251,17 @@ describe('limel-input-field', () => {
                     show-link="true"
                 ></limel-input-field>
             `);
+
+            await page.evaluate(() => {
+                const elements = document.querySelectorAll(
+                    '.mdc-floating-label'
+                );
+
+                elements.forEach((el) => {
+                    el.id = 'test';
+                });
+            });
+
             limelInput = await page.find('limel-input-field');
             inputContainer = await page.find(
                 'limel-input-field>>>label.mdc-text-field'
@@ -359,4 +353,11 @@ describe('limel-input-field', () => {
 
 async function createPage(content: string) {
     return newE2EPage({ html: content });
+}
+
+function replaceLabelId(HTML: string) {
+    return HTML.replace(
+        /"a_(\d|[a-f]){8}-(\d|[a-f]){4}-(\d|[a-f]){4}-(\d|[a-f]){4}-(\d|[a-f]){12}"/g,
+        '"tf-input-label"'
+    );
 }

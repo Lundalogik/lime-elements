@@ -3,18 +3,18 @@
 
 :host(limel-popover-surface) {
     isolation: isolate;
+
+    position: relative;
+    display: flex;
+
+    width: var(--popover-surface-width, auto);
+    max-height: inherit; // inherits it from the dynamically calculated `max-height` of `limel-portal--container`
+    max-width: calc(100vw - 2rem);
+    margin: 0 0.25rem;
 }
 
 .limel-popover-surface {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-
-    width: var(--popover-surface-width, auto);
-    max-height: calc(100vh - 2rem);
-    max-width: calc(100vw - 2rem);
-    margin: 0 0.25rem;
-
+    flex: 1;
     border-radius: var(--popover-border-radius, functions.pxToRem(12));
     box-shadow: var(--shadow-depth-16);
 
@@ -51,5 +51,15 @@
         &:after {
             opacity: 1;
         }
+    }
+
+    & > * {
+        // this fixes some unwanted layout issues
+        // which might be very hard for consumers to realize
+        // and fix by themselves. Without this code,
+        // if the consumer sets for example paddings in
+        // what they send to the popover, their element
+        // can grow larger than the popover surface
+        box-sizing: border-box;
     }
 }

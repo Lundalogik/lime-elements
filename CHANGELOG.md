@@ -1,3 +1,175 @@
+## [37.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v37.0.0...v37.1.0-next.1) (2023-07-10)
+
+
+### Features
+
+* **getRandomString:** update to use crypto.UUID() ([7d8ce2e](https://github.com/Lundalogik/lime-elements/commit/7d8ce2eb2caeacbc022032cfbc17f02b6057295e))
+
+
+### Bug Fixes
+
+* **input-field:** create unique IDs for each helper text on the page ([4330c31](https://github.com/Lundalogik/lime-elements/commit/4330c31b42f326470fda52ecaf3e3bfca7ca1dec))
+* **input-field:** create unique IDs for each input field's `label` on the page ([8082490](https://github.com/Lundalogik/lime-elements/commit/8082490b9e953d71f8be1c4fe0b2792d7f1826e1))
+
+## [37.0.0](https://github.com/Lundalogik/lime-elements/compare/v36.4.0...v37.0.0) (2023-07-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* We have updated StencilJS to v3. In this new version of Stencil,
+`input` events has been strongly typed. This means that your event
+handlers for `input` events may need to be updated.
+
+Example:
+
+```diff
+-    private handleInput = (event: CustomEvent<string>) => {
+-        this.textValue = event.detail;
++    private handleInput = (
++        event: LimelChipSetCustomEvent<string> | InputEvent
++    ) => {
++        if (event instanceof CustomEvent) {
++            this.textValue = event.detail;
++        }
+     };
+```
+
+Here, we not only update the type of the custom event we want to
+listen for from the generic `CustomEvent<string>` to the more
+specific `LimelChipSetCustomEvent<string>`, we also update the
+type of the event to include the type of the native `input` event.
+We then check the actual type of the event, and act on it only if
+it is the kind we are interested in (`CustomEvent`).
+
+This is an improvement of the event handler, since the earlier form
+would have caught any native `input` events too, and tried to act
+on it, with unexpected results.
+
+### Bug Fixes
+
+* **slider:** correctly label the `input` element, using `aria-labledby` & a unique id ([126c445](https://github.com/Lundalogik/lime-elements/commit/126c445decfc97aa6cf84b24b76b76d20c430c95))
+* **slider:** use a unique id for the helper text & use it by `aria-controls` ([a9a1662](https://github.com/Lundalogik/lime-elements/commit/a9a1662581a22d9f59b022c2d9fdc5ffc5472370))
+
+
+### Miscellaneous Chores
+
+* update StencilJS from v2 to v3 ([60578ba](https://github.com/Lundalogik/lime-elements/commit/60578ba0501c9a9cd8d0de10bd1bbfbc207c49af))
+
+## [37.0.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.4.1-next.1...v37.0.0-next.1) (2023-07-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* We have updated StencilJS to v3. In this new version of Stencil,
+`input` events has been strongly typed. This means that your event
+handlers for `input` events may need to be updated.
+
+Example:
+
+```diff
+-    private handleInput = (event: CustomEvent<string>) => {
+-        this.textValue = event.detail;
++    private handleInput = (
++        event: LimelChipSetCustomEvent<string> | InputEvent
++    ) => {
++        if (event instanceof CustomEvent) {
++            this.textValue = event.detail;
++        }
+     };
+```
+
+Here, we not only update the type of the custom event we want to
+listen for from the generic `CustomEvent<string>` to the more
+specific `LimelChipSetCustomEvent<string>`, we also update the
+type of the event to include the type of the native `input` event.
+We then check the actual type of the event, and act on it only if
+it is the kind we are interested in (`CustomEvent`).
+
+This is an improvement of the event handler, since the earlier form
+would have caught any native `input` events too, and tried to act
+on it, with unexpected results.
+
+### Miscellaneous Chores
+
+* update StencilJS from v2 to v3 ([60578ba](https://github.com/Lundalogik/lime-elements/commit/60578ba0501c9a9cd8d0de10bd1bbfbc207c49af))
+
+## [36.4.1-next.1](https://github.com/Lundalogik/lime-elements/compare/v36.4.0...v36.4.1-next.1) (2023-07-07)
+
+
+### Bug Fixes
+
+* **slider:** correctly label the `input` element, using `aria-labledby` & a unique id ([126c445](https://github.com/Lundalogik/lime-elements/commit/126c445decfc97aa6cf84b24b76b76d20c430c95))
+* **slider:** use a unique id for the helper text & use it by `aria-controls` ([a9a1662](https://github.com/Lundalogik/lime-elements/commit/a9a1662581a22d9f59b022c2d9fdc5ffc5472370))
+
+## [36.4.0](https://github.com/Lundalogik/lime-elements/compare/v36.3.1...v36.4.0) (2023-07-06)
+
+
+### Features
+
+* **action-bar:** add new component ([537aa0f](https://github.com/Lundalogik/lime-elements/commit/537aa0f41326b55859622f3e06cd13e022b326e2)), closes [Lundalogik/crm-feature#3379](https://github.com/Lundalogik/crm-feature/issues/3379)
+* **icon:** use browser request cache to cache icons ([bdaf181](https://github.com/Lundalogik/lime-elements/commit/bdaf181b0dc656c66226b8e639e14aceb932414b))
+* **list:** add a css prop for margin around the list ([e26d8e4](https://github.com/Lundalogik/lime-elements/commit/e26d8e4fa7d3f260bd00795453aba3fbd951382e))
+* **picker:** fix picker clearing input and search results ([3319451](https://github.com/Lundalogik/lime-elements/commit/33194512328433fa85a3a86929dc10ed1618ca08))
+* **snackbar:** add CSS variables for positioning the snackbar ([826de70](https://github.com/Lundalogik/lime-elements/commit/826de706ef465434ce00aada6bb503a209b0f67f))
+
+
+### Bug Fixes
+
+* **action-bar:** add observers on re-connect ([0276698](https://github.com/Lundalogik/lime-elements/commit/02766988267040de54ade105a2c3b59e5d45ed8f))
+* **callout:** support custom types ([c92c397](https://github.com/Lundalogik/lime-elements/commit/c92c39737c3e54e129ad0434043b0fd3cb4877e8))
+* **input-field:** show "clear all" button when field is not empty ([30fc78b](https://github.com/Lundalogik/lime-elements/commit/30fc78b704558505029abb8c458c303b17d5214d))
+* **list:** correctly enable usage of `--list-margin` variable ([acb21ca](https://github.com/Lundalogik/lime-elements/commit/acb21ca00795a0d03ca814d6b295e0898e08940e))
+* **popover:** make sure the popover surface never grows out of the availabel screen space ([4ac34ed](https://github.com/Lundalogik/lime-elements/commit/4ac34ed34685099b06d0d1b92828574c854d98de))
+* **select:** prevent truncation in dropdown options, when the component has small width ([717d149](https://github.com/Lundalogik/lime-elements/commit/717d1496dbe85822d655826995746226703d13fe))
+* **shortcut:** keep the same custom background color when hovered ([15d1dc2](https://github.com/Lundalogik/lime-elements/commit/15d1dc217f4c6f28f5d98deed3c4a3c361cf033c))
+* **snackbar:** make `dismissible` `true` by default ([a1f27ba](https://github.com/Lundalogik/lime-elements/commit/a1f27ba8e03f2ab4015516e41731fb98e15c6fe1))
+* **snackbar:** make it inherit its minimum width from its own content ([e5dde45](https://github.com/Lundalogik/lime-elements/commit/e5dde4510d391aea000c18fa63c21abc44b224eb))
+* **snackbar:** make it stick out more from the rest of the UI ([c15e749](https://github.com/Lundalogik/lime-elements/commit/c15e7496e0926dbd68d04ee48ba475c694d7340f))
+* **snackbar:** make layout more compact ([0db83fc](https://github.com/Lundalogik/lime-elements/commit/0db83fc6ae23b1b60ace5721134ae9b0f8303616))
+* **snackbar:** visualize how much time is left till the snackbar is auto-dismissed ([43afdf0](https://github.com/Lundalogik/lime-elements/commit/43afdf09ad44c6b25e236ecc5a31bcf2d95949f7))
+
+## [36.4.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.8...v36.4.0-next.9) (2023-06-29)
+
+
+### Features
+
+* **snackbar:** add CSS variables for positioning the snackbar ([826de70](https://github.com/Lundalogik/lime-elements/commit/826de706ef465434ce00aada6bb503a209b0f67f))
+
+## [36.4.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.7...v36.4.0-next.8) (2023-06-22)
+
+
+### Bug Fixes
+
+* **popover:** make sure the popover surface never grows out of the availabel screen space ([4ac34ed](https://github.com/Lundalogik/lime-elements/commit/4ac34ed34685099b06d0d1b92828574c854d98de))
+
+## [36.4.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.6...v36.4.0-next.7) (2023-06-21)
+
+
+### Bug Fixes
+
+* **list:** correctly enable usage of `--list-margin` variable ([acb21ca](https://github.com/Lundalogik/lime-elements/commit/acb21ca00795a0d03ca814d6b295e0898e08940e))
+
+## [36.4.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.5...v36.4.0-next.6) (2023-06-19)
+
+
+### Features
+
+* **icon:** use browser request cache to cache icons ([bdaf181](https://github.com/Lundalogik/lime-elements/commit/bdaf181b0dc656c66226b8e639e14aceb932414b))
+
+## [36.4.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.4...v36.4.0-next.5) (2023-06-15)
+
+
+### Bug Fixes
+
+* **action-bar:** add observers on re-connect ([0276698](https://github.com/Lundalogik/lime-elements/commit/02766988267040de54ade105a2c3b59e5d45ed8f))
+
+## [36.4.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.3...v36.4.0-next.4) (2023-06-13)
+
+
+### Features
+
+* **action-bar:** add new component ([537aa0f](https://github.com/Lundalogik/lime-elements/commit/537aa0f41326b55859622f3e06cd13e022b326e2)), closes [Lundalogik/crm-feature#3379](https://github.com/Lundalogik/crm-feature/issues/3379)
+
 ## [36.4.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v36.4.0-next.2...v36.4.0-next.3) (2023-06-05)
 
 
