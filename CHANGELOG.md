@@ -1,3 +1,10 @@
+## [37.1.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.1...v37.1.0-next.2) (2023-07-13)
+
+
+### Features
+
+* **button-like-components:** add helper function for enter clicking ([a245649](https://github.com/Lundalogik/lime-elements/commit/a245649ab659cad54886147830d2f1e82f4a1ea8))
+
 ## [37.1.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v37.0.0...v37.1.0-next.1) (2023-07-10)
 
 
