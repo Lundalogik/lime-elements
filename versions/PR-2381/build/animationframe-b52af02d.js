@@ -20,4 +20,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var n=function(){function n(){this.rafIDs=new Map}return n.prototype.request=function(n,t){var i=this;this.cancel(n);var r=requestAnimationFrame((function(r){i.rafIDs.delete(n),t(r)}));this.rafIDs.set(n,r)},n.prototype.cancel=function(n){var t=this.rafIDs.get(n);t&&(cancelAnimationFrame(t),this.rafIDs.delete(n))},n.prototype.cancelAll=function(){var n=this;this.rafIDs.forEach((function(t,i){n.cancel(i)}))},n.prototype.getQueue=function(){var n=[];return this.rafIDs.forEach((function(t,i){n.push(i)})),n},n}();export{n as A}
+var n=function(){function n(){this.rafIDs=new Map}n.prototype.request=function(n,t){var i=this;this.cancel(n);var r=requestAnimationFrame((function(r){i.rafIDs.delete(n);t(r)}));this.rafIDs.set(n,r)};n.prototype.cancel=function(n){var t=this.rafIDs.get(n);if(t){cancelAnimationFrame(t);this.rafIDs.delete(n)}};n.prototype.cancelAll=function(){var n=this;this.rafIDs.forEach((function(t,i){n.cancel(i)}))};n.prototype.getQueue=function(){var n=[];this.rafIDs.forEach((function(t,i){n.push(i)}));return n};return n}();export{n as A};
+//# sourceMappingURL=animationframe-b52af02d.js.map
