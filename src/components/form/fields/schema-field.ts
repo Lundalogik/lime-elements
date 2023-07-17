@@ -34,7 +34,21 @@ const shouldChangeToUndefined = (value, schema): boolean => {
 };
 
 const hasCustomComponent = (schema): boolean => {
-    return Boolean(schema.lime?.component?.name);
+    const name = schema.lime?.component?.name;
+    if (!name) {
+        return false;
+    }
+
+    try {
+        verifyCustomComponentIsDefined(name);
+    } catch {
+        // eslint-disable-next-line no-console
+        console.warn(`Custom component ${name} not defined`);
+
+        return false;
+    }
+
+    return true;
 };
 
 const verifyCustomComponentIsDefined = (elementName): void => {
