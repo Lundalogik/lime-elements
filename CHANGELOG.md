@@ -1,3 +1,10 @@
+## [37.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.3...v37.1.0-next.4) (2023-07-17)
+
+
+### Bug Fixes
+
+* **schema-field:** throw warning instead of error if a custom component is undefined ([52c603e](https://github.com/Lundalogik/lime-elements/commit/52c603ea2e14ccb9bf62c61a7a9cfedd4e680090))
+
 ## [37.1.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.2...v37.1.0-next.3) (2023-07-17)
 
 
