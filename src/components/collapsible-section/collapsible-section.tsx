@@ -1,6 +1,17 @@
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import {
+    Component,
+    Event,
+    Element,
+    EventEmitter,
+    h,
+    Prop,
+} from '@stencil/core';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { Action } from './action';
+import {
+    makeEnterClickable,
+    removeEnterClickable,
+} from 'src/util/makeEnterClickable';
 
 /**
  * @slot - Content to put inside the collapsible section
@@ -51,6 +62,25 @@ export class CollapsibleSection {
      */
     @Event()
     private action: EventEmitter<Action>;
+
+    @Element()
+    private host: HTMLElement;
+
+    public componentDidRender() {
+        const button = this.host.shadowRoot.querySelector(
+            '.open-close-toggle'
+        ) as HTMLElement;
+
+        makeEnterClickable(button);
+    }
+
+    public disconnectedCallback() {
+        const button = this.host.shadowRoot.querySelector(
+            '.open-close-toggle'
+        ) as HTMLElement;
+
+        removeEnterClickable(button);
+    }
 
     public render() {
         return (
