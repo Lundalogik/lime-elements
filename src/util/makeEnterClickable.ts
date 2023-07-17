@@ -20,7 +20,9 @@ export function makeEnterClickable(element: HTMLElement) {
         if (event.key === 'Enter' && !isActive) {
             isActive = true;
 
-            forceUpdate(element);
+            if (element?.shadowRoot) {
+                forceUpdate(element);
+            }
         }
     };
 
@@ -29,7 +31,9 @@ export function makeEnterClickable(element: HTMLElement) {
             isActive = false;
             hasJustReleasedEnter = true;
 
-            forceUpdate(element);
+            if (element?.shadowRoot) {
+                forceUpdate(element);
+            }
         }
     };
 
