@@ -2,6 +2,12 @@ import { forceUpdate } from '@stencil/core';
 
 const eventHandlers: WeakMap<HTMLElement, CallBacks> = new WeakMap();
 
+/**
+ * Overrides the default browser behavior for clickable elements
+ * When focused and pressing down enter, avoids calling onClick repeatedly
+ * @param {HTMLElement} element the clickable element
+ */
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export function makeEnterClickable(element: HTMLElement) {
     if (eventHandlers.has(element)) {
         return;
