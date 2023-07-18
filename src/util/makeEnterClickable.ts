@@ -1,49 +1,41 @@
 import { forceUpdate } from '@stencil/core';
 
-const eventHandlers: WeakMap<HTMLElement, CallBacks> = new WeakMap();
+const eventHandlers: WeakMap<HTMLElement, EnterClickable> = new WeakMap();
 
-/**
- * Overrides the default browser behavior for clickable elements
- * When focused and pressing down enter, avoids calling onClick repeatedly
- * @param {HTMLElement} element the clickable element
- */
-// eslint-disable-next-line sonarjs/cognitive-complexity
-export function makeEnterClickable(element: HTMLElement) {
-    if (eventHandlers.has(element)) {
-        return;
-    }
+class EnterClickable {
+    private isActive = false;
+    private hasJustReleasedEnter = true;
 
-    let isActive = false;
-    let hasJustReleasedEnter = true;
+    constructor(private element: HTMLElement) {}
 
-    const keydownHandler = (event: KeyboardEvent) => {
-        if (event.key === 'Enter' && !isActive) {
-            isActive = true;
+    private handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'Enter' && !this.isActive) {
+            this.isActive = true;
 
-            if (element?.shadowRoot) {
-                forceUpdate(element);
+            if (this.element?.shadowRoot) {
+                forceUpdate(this.element);
             }
         }
     };
 
-    const keyupHandler = (event: KeyboardEvent) => {
-        if (event.key === 'Enter' && isActive) {
-            isActive = false;
-            hasJustReleasedEnter = true;
+    private handleKeyUp = (event: KeyboardEvent) => {
+        if (event.key === 'Enter' && this.isActive) {
+            this.isActive = false;
+            this.hasJustReleasedEnter = true;
 
-            if (element?.shadowRoot) {
-                forceUpdate(element);
+            if (this.element?.shadowRoot) {
+                forceUpdate(this.element);
             }
         }
     };
 
-    const clickHandler = (event: MouseEvent) => {
-        if (!isActive) {
+    private handleClick = (event: MouseEvent) => {
+        if (!this.isActive) {
             return;
         }
 
-        if (hasJustReleasedEnter) {
-            hasJustReleasedEnter = false;
+        if (this.hasJustReleasedEnter) {
+            this.hasJustReleasedEnter = false;
 
             return;
         }
@@ -51,29 +43,55 @@ export function makeEnterClickable(element: HTMLElement) {
         event.stopImmediatePropagation();
     };
 
-    eventHandlers.set(element, {
-        keydownHandler: keydownHandler,
-        keyupHandler: keyupHandler,
-        clickHandler: clickHandler,
-    });
+    private callbacks: CallBacks = {
+        keydownHandler: this.handleKeyDown.bind(this),
+        keyupHandler: this.handleKeyUp.bind(this),
+        clickHandler: this.handleClick.bind(this),
+    };
 
-    element.addEventListener('keydown', keydownHandler);
-    element.addEventListener('keyup', keyupHandler);
-    element.addEventListener('click', clickHandler, true);
+    public enable() {
+        this.element.addEventListener('keydown', this.callbacks.keydownHandler);
+        this.element.addEventListener('keyup', this.callbacks.keyupHandler);
+        this.element.addEventListener(
+            'click',
+            this.callbacks.clickHandler,
+            true
+        );
+    }
+
+    public disable() {
+        this.element.removeEventListener(
+            'keydown',
+            this.callbacks.keydownHandler
+        );
+        this.element.removeEventListener('keyup', this.callbacks.keyupHandler);
+        this.element.removeEventListener(
+            'click',
+            this.callbacks.clickHandler,
+            true
+        );
+    }
+}
+
+/**
+ * Overrides the default browser behavior for clickable elements
+ * When focused and pressing down enter, avoids calling onClick repeatedly
+ * @param {HTMLElement} element the clickable element
+ */
+export function makeEnterClickable(element: HTMLElement) {
+    if (!eventHandlers.has(element)) {
+        const enterClickable = new EnterClickable(element);
+        enterClickable.enable();
+        eventHandlers.set(element, enterClickable);
+    }
 }
 
 export function removeEnterClickable(element: HTMLElement) {
-    const callBacks: CallBacks = eventHandlers.get(element);
-
-    if (!callBacks || !eventHandlers.has(element)) {
-        return;
+    const enterClickable: EnterClickable = eventHandlers.get(element);
+    if (enterClickable) {
+        enterClickable.disable();
+        eventHandlers.delete(element);
     }
-
-    element.removeEventListener('keydown', callBacks.keydownHandler);
-    element.removeEventListener('keyup', callBacks.keyupHandler);
-    element.removeEventListener('click', callBacks.clickHandler, true);
-
-    eventHandlers.delete(element);
 }
 
 interface CallBacks {
