@@ -19,6 +19,8 @@ import { createRandomString } from '../../util/random-string';
  *
  * The Switch component is widely used in user interfaces to enable users to
  * quickly and intuitively change binary settings.
+ *
+ * <limel-example-switch-vs-checkbox />
  * @exampleComponent limel-example-switch
  */
 @Component({
