@@ -27,7 +27,7 @@ import { CheckboxTemplate } from './checkbox.template';
  *
  * The Indeterminate state is typically used when dealing with checkbox groups
  * that have hierarchical relationships or when the group contains sub-items.
- * This state is used to indicate that some, but not all, of the items in a group are selected.
+ * This state is used to indicate that that some, but not all, of the items in a group are selected.
  *
  * <limel-example-switch-vs-checkbox />
  * @exampleComponent limel-example-checkbox
