@@ -14,6 +14,22 @@ import { createRandomString } from '../../util/random-string';
 import { CheckboxTemplate } from './checkbox.template';
 
 /**
+ * The Checkbox component is a classic and essential element in UI design that allows
+ * users to make multiple selections from a predefined list of options. The Checkbox component is commonly used in forms and settings interfaces to enable users to
+ * select one or more items from a list of choices.
+ *
+ * ## States of a Checkbox
+ * When a user clicks or taps on the box, it toggles between two states:
+ * Checked and Unchecked.
+ *
+ * However, a Checkbox can visualize a third state called the "Indeterminate" state.
+ * In this state, the checkbox appears as a filled box with a horizontal line or dash inside it.
+ *
+ * The Indeterminate state is typically used when dealing with checkbox groups
+ * that have hierarchical relationships or when the group contains sub-items.
+ * This state is used to indicate that some, but not all, of the items in a group are selected.
+ *
+ * <limel-example-switch-vs-checkbox />
  * @exampleComponent limel-example-checkbox
  * @exampleComponent limel-example-checkbox-helper-text
  */
