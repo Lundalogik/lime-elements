@@ -36,7 +36,6 @@ import { isItem } from './isItem';
  * @exampleComponent limel-example-action-bar-floating
  * @exampleComponent limel-example-action-bar-styling
  * @exampleComponent limel-example-action-bar-as-primary-component
- * @private
  */
 @Component({
     tag: 'limel-action-bar',
