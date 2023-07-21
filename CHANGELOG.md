@@ -1,3 +1,10 @@
+## [37.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.6...v37.1.0-next.7) (2023-07-21)
+
+
+### Features
+
+* **action-bar:** add new component ([8faae2a](https://github.com/Lundalogik/lime-elements/commit/8faae2a98f918f9c075d6192ec23d5c0aa28ecfd))
+
 ## [37.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.5...v37.1.0-next.6) (2023-07-21)
 
 
