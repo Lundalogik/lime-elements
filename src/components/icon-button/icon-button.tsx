@@ -1,4 +1,8 @@
 import { Component, Element, h, Prop } from '@stencil/core';
+import {
+    makeEnterClickable,
+    removeEnterClickable,
+} from 'src/util/makeEnterClickable';
 
 /**
  * @exampleComponent limel-example-icon-button-basic
@@ -43,6 +47,14 @@ export class IconButton {
 
     public connectedCallback() {
         this.initialize();
+    }
+
+    public componentWillLoad() {
+        makeEnterClickable(this.host);
+    }
+
+    public disconnectedCallback() {
+        removeEnterClickable(this.host);
     }
 
     public componentDidLoad() {
