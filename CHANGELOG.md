@@ -1,3 +1,17 @@
+## [37.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.6...v37.1.0-next.7) (2023-07-21)
+
+
+### Features
+
+* **action-bar:** add new component ([8faae2a](https://github.com/Lundalogik/lime-elements/commit/8faae2a98f918f9c075d6192ec23d5c0aa28ecfd))
+
+## [37.1.0-next.6](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.5...v37.1.0-next.6) (2023-07-21)
+
+
+### Features
+
+* **switch:** override default browser behavior on clicking enter ([1633f0f](https://github.com/Lundalogik/lime-elements/commit/1633f0fd602ea90cf99a4e02598269116bc3b83b))
+
 ## [37.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.4...v37.1.0-next.5) (2023-07-21)
 
 
