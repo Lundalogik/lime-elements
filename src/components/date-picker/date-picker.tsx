@@ -253,7 +253,7 @@ export class DatePicker {
         }
     }
 
-    private renderFlatPickerAdapter = () => {
+    private renderFlatPickerAdapter = (isOpen: boolean) => {
         return (
             <limel-flatpickr-adapter
                 format={this.internalFormat}
