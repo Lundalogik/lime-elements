@@ -241,7 +241,7 @@ export class DatePicker {
                 visible={this.showPortal}
                 containerStyle={{ 'z-index': dropdownZIndex }}
             >
-                {this.renderFlatPickerAdapter()}
+                {this.renderFlatPickerAdapter(this.showPortal)}
             </limel-portal>,
         ];
     }
@@ -261,7 +261,7 @@ export class DatePicker {
                 type={this.type}
                 value={this.value}
                 ref={(el) => (this.datePickerCalendar = el)}
-                isOpen={this.showPortal}
+                isOpen={isOpen}
                 formatter={this.formatValue}
                 onChange={this.handleCalendarChange}
             />
