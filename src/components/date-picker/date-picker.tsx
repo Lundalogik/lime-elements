@@ -241,16 +241,7 @@ export class DatePicker {
                 visible={this.showPortal}
                 containerStyle={{ 'z-index': dropdownZIndex }}
             >
-                <limel-flatpickr-adapter
-                    format={this.internalFormat}
-                    language={this.language}
-                    type={this.type}
-                    value={this.value}
-                    ref={(el) => (this.datePickerCalendar = el)}
-                    isOpen={this.showPortal}
-                    formatter={this.formatValue}
-                    onChange={this.handleCalendarChange}
-                />
+                {this.renderFlatPickerAdapter()}
             </limel-portal>,
         ];
     }
@@ -261,6 +252,21 @@ export class DatePicker {
             this.formattedValue = this.formatValue(this.value);
         }
     }
+
+    private renderFlatPickerAdapter = () => {
+        return (
+            <limel-flatpickr-adapter
+                format={this.internalFormat}
+                language={this.language}
+                type={this.type}
+                value={this.value}
+                ref={(el) => (this.datePickerCalendar = el)}
+                isOpen={this.showPortal}
+                formatter={this.formatValue}
+                onChange={this.handleCalendarChange}
+            />
+        );
+    };
 
     private updateInternalFormatAndType() {
         this.nativeType = nativeTypeForConsumerType[this.type || 'default'];
