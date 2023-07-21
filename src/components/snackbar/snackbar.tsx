@@ -12,6 +12,7 @@ import {
 import translate from '../../global/translations';
 
 /**
+ * test
  * A Snackbar –also known as "Toast"– is used to inform the end user
  * about an action or a process in the system.
  * The information could vary from announcing that a process has just started,
