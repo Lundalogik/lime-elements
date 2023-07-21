@@ -1,3 +1,15 @@
+## [37.1.0-next.5](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.4...v37.1.0-next.5) (2023-07-21)
+
+
+### Features
+
+* **collapsible-section:** make enter clickable ([a66e820](https://github.com/Lundalogik/lime-elements/commit/a66e820f3a05bae26e42bace2ea5f12f6b4d777d))
+
+
+### Bug Fixes
+
+* **makeEnterClickable:** avoid calling forceUpdate() on non-component elements ([9601867](https://github.com/Lundalogik/lime-elements/commit/96018674c61138803902f794343821a05ec2da74))
+
 ## [37.1.0-next.4](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.3...v37.1.0-next.4) (2023-07-17)
 
 
