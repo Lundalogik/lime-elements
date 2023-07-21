@@ -13,6 +13,7 @@ export default [
             'src/design-guidelines/size/size-rhythms.md',
             'src/design-guidelines/action-buttons/action-buttons.md',
             'src/design-guidelines/declutter/declutter.md',
+            'src/design-guidelines/typography/font-style.md',
         ],
     },
 ] as Guide[];
