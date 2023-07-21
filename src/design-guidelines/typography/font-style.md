@@ -1,4 +1,6 @@
-# Font style
+# Typography
+
+Typography in UI design plays a crucial role in creating an aesthetically pleasing and user-friendly experience. It involves the art and technique of arranging and styling text to make it readable, engaging, and visually appealing. Proper typography enhances the overall design, conveys the right message, and guides users through the content.
 
 Font style is important in web design for several reasons:
 
