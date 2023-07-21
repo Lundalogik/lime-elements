@@ -10,6 +10,10 @@ import {
     Watch,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
+import {
+    makeEnterClickable,
+    removeEnterClickable,
+} from 'src/util/makeEnterClickable';
 
 /**
  * The Switch component is a fundamental element in UI design that serves as a toggle switch
@@ -76,6 +80,10 @@ export class Switch {
         this.initialize();
     }
 
+    public componentWillLoad() {
+        makeEnterClickable(this.host);
+    }
+
     public componentDidLoad() {
         this.initialize();
     }
@@ -92,6 +100,7 @@ export class Switch {
     }
 
     public disconnectedCallback() {
+        removeEnterClickable(this.host);
         this.mdcSwitch?.destroy();
     }
 
