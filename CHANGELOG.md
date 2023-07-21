@@ -1,3 +1,10 @@
+## [37.1.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.7...v37.1.0-next.8) (2023-07-21)
+
+
+### Features
+
+* **icon-button:** override default browser behavior on clicking enter ([6560325](https://github.com/Lundalogik/lime-elements/commit/6560325e9aee66336f64d0c4aff8622b767574a8))
+
 ## [37.1.0-next.7](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.6...v37.1.0-next.7) (2023-07-21)
 
 
