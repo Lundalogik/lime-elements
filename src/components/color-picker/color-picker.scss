@@ -12,6 +12,17 @@
     grid-template-columns: auto 1fr;
 }
 
+.picker-trigger {
+    all: unset;
+    border-radius: 0.5rem;
+    @include mixins.is-elevated-clickable();
+    @include mixins.visualize-keyboard-focus();
+
+    &:after {
+        box-shadow: 0 0 0 0.25rem rgb(var(--contrast-100)) inset;
+    }
+}
+
 .chosen-color-preview,
 .picker-trigger {
     box-sizing: border-box;
@@ -37,15 +48,6 @@
     &:after {
         background: var(--background);
         z-index: 1;
-    }
-}
-
-.picker-trigger {
-    border-radius: 0.5rem;
-    @include mixins.is-elevated-clickable();
-
-    &:after {
-        box-shadow: 0 0 0 0.25rem rgb(var(--contrast-100)) inset;
     }
 }
 
