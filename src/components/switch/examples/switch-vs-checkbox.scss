@@ -1,0 +1,31 @@
+@import '../../../design-guidelines/_generic-example-styles/do-dont';
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    padding: 0 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+limel-switch {
+    margin-top: 0.25rem;
+
+    &:not(:last-child) {
+        margin-bottom: 0.75rem;
+    }
+}
+
+.action-bar {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0 0.5rem 0.5rem 0.5rem;
+    justify-content: flex-end;
+}
+
+hr {
+    opacity: 0.1;
+}

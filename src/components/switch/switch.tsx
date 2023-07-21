@@ -16,6 +16,15 @@ import {
 } from 'src/util/makeEnterClickable';
 
 /**
+ * The Switch component is a fundamental element in UI design that serves as a toggle switch
+ * to control the state of a specific setting or option in an application or website.
+ * The two distinct positions of the Switch are visually indicative of the two states:
+ * ON and OFF; making it easy for users to understand the current state of the controlled feature.
+ *
+ * The Switch component is widely used in user interfaces to enable users to
+ * quickly and intuitively change binary settings.
+ *
+ * <limel-example-switch-vs-checkbox />
  * @exampleComponent limel-example-switch
  */
 @Component({
