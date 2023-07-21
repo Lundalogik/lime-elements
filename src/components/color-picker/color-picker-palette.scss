@@ -1,4 +1,5 @@
 @use '../../design-guidelines/color-system/examples/extended-color-palette';
+@use '../../style/mixins';
 @import './color-picker';
 
 :host {
@@ -30,6 +31,11 @@
 }
 
 .swatch:not(.hue) {
+    border: none;
+    aspect-ratio: 1;
+
+    @include mixins.visualize-keyboard-focus();
+
     // We could use the `@include mixins.is-flat-clickable();` mixin
     // But its `background-color` arguments would interfere with the
     // styles here. So we just copy/pasted the useful parts of the mixin here

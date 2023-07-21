@@ -44,7 +44,7 @@ test('the component renders all colors in the palette', () => {
         brightnesses.forEach((brightness) => {
             const swatchElement = getSwatchElement(color, brightness);
             expect(swatchElement).toEqualHtml(`
-                <div class="--color-${color}-${brightness} swatch" tabindex="0"></div>
+                <button class="--color-${color}-${brightness} swatch"></button>
             `);
         });
     });
