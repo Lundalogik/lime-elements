@@ -140,6 +140,16 @@ export class DatePicker {
     public formatter?: (date: Date) => string;
 
     /**
+     * Defines how the date picker's user interface is visualized.
+     * - `popover` will render a a trigger element which should be clicked
+     * for the interactive date & time options to be displayed in a new layer
+     * on top of the content.
+     * - `inline` will display the date & time options right in the user interface.
+     */
+    @Prop({ reflect: true })
+    public layout?: 'inline' | 'popover' = 'popover';
+
+    /**
      * Emitted when the date picker value is changed.
      */
     @Event()
@@ -213,6 +223,25 @@ export class DatePicker {
                     onChange={this.nativeChangeHandler}
                 />
             );
+        }
+
+        if (this.layout === 'inline') {
+            return [
+                <limel-input-field
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    invalid={this.invalid}
+                    label={this.label}
+                    placeholder={this.placeholder}
+                    helperText={this.helperText}
+                    required={this.required}
+                    value={this.formattedValue}
+                    onChange={this.handleInputElementChange}
+                    ref={(el) => (this.textField = el)}
+                    {...inputProps}
+                />,
+                this.renderFlatPickerAdapter(true),
+            ];
         }
 
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
