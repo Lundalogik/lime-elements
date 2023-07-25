@@ -1,3 +1,10 @@
+## [37.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.9...v37.1.0-next.10) (2023-07-25)
+
+
+### Bug Fixes
+
+* **icon-cache:** can't always open the icon cache ([2feb726](https://github.com/Lundalogik/lime-elements/commit/2feb72657e2f34113513160d4a5e14c787c5065d)), closes [Lundalogik/crm-feature#3546](https://github.com/Lundalogik/crm-feature/issues/3546)
+
 ## [37.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.8...v37.1.0-next.9) (2023-07-24)
 
 
