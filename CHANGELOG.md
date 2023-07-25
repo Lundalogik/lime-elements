@@ -1,3 +1,11 @@
+## [37.1.0-next.9](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.8...v37.1.0-next.9) (2023-07-24)
+
+
+### Bug Fixes
+
+* **color-palette:** make swatches interactive & navigable using the `Tab` & `Enter` keys ([fb7168d](https://github.com/Lundalogik/lime-elements/commit/fb7168d4ee4ecb44e10620d3d3b577badb6e36f7))
+* **color-picker:** enable opening the color palette using the `Enter` key ([b2a323c](https://github.com/Lundalogik/lime-elements/commit/b2a323c237a8f9f6f7ab50004ca24d6a6cae94d3))
+
 ## [37.1.0-next.8](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.7...v37.1.0-next.8) (2023-07-21)
 
 

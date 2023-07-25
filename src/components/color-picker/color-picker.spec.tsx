@@ -28,7 +28,7 @@ test('the component renders', () => {
             <mock:shadow-root>
                     <div class="color-picker">
                         <limel-popover opendirection="bottom-start">
-                            <div class="picker-trigger" id="tooltip-button" role="button" slot="trigger" tabindex="0"></div>
+                            <button class="picker-trigger" id="tooltip-button" role="button" slot="trigger"></button>
                             <limel-color-picker-palette label="Hair color">
                                 <mock:shadow-root></mock:shadow-root>
                             </limel-color-picker-palette>
@@ -44,7 +44,7 @@ test('the component renders all colors in the palette', () => {
         brightnesses.forEach((brightness) => {
             const swatchElement = getSwatchElement(color, brightness);
             expect(swatchElement).toEqualHtml(`
-                <div class="--color-${color}-${brightness} swatch" tabindex="0"></div>
+                <button class="--color-${color}-${brightness} swatch"></button>
             `);
         });
     });

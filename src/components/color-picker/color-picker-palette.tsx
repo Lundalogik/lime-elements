@@ -74,11 +74,10 @@ export class Palette implements FormComponent {
         };
 
         return (
-            <div
+            <button
                 class={classList}
                 onClick={this.handleClick(color, brightness)}
-                tabindex="0"
-            ></div>
+            />
         );
     };
 

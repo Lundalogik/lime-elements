@@ -122,12 +122,11 @@ export class ColorPicker implements FormComponent {
         const background = this.value ? { '--background': this.value } : {};
 
         return (
-            <div
+            <button
                 class="picker-trigger"
                 slot="trigger"
                 style={background}
                 role="button"
-                tabindex="0"
                 onClick={this.openPopover}
                 id="tooltip-button"
             />
