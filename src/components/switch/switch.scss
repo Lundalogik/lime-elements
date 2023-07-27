@@ -8,8 +8,16 @@
 $scale-factor: 0.8;
 
 :host(limel-switch) {
-    display: inline-flex;
+    isolation: isolate;
+
+    display: flex;
     align-items: center;
+    flex-wrap: wrap;
+
+    limel-helper-line {
+        display: flex;
+        flex-basis: 100%;
+    }
 
     --mdc-switch-selected-icon-color: transparent;
     --mdc-switch-unselected-icon-color: transparent;
@@ -95,3 +103,4 @@ label {
 }
 
 @import './partial-styles/_readonly.scss';
+@import './partial-styles/_helper-text.scss';

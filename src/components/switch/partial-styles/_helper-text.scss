@@ -1,0 +1,18 @@
+limel-helper-line {
+    opacity: 0;
+}
+
+@media (pointer: coarse) {
+    // touchscreen devices
+    limel-helper-line {
+        opacity: 1;
+    }
+}
+
+:host(:focus),
+:host(:focus-visible),
+:host(:focus-within) {
+    limel-helper-line {
+        opacity: 1;
+    }
+}
