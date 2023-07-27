@@ -4,6 +4,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    Host,
     h,
     Prop,
     State,
@@ -26,6 +27,7 @@ import {
  *
  * <limel-example-switch-vs-checkbox />
  * @exampleComponent limel-example-switch
+ * @exampleComponent limel-example-switch-helper-text
  */
 @Component({
     tag: 'limel-switch',
@@ -63,6 +65,12 @@ export class Switch {
     public value = false;
 
     /**
+     * Optional helper text to display below the switch
+     */
+    @Prop({ reflect: true })
+    public helperText: string;
+
+    /**
      * Emitted when the value has changed
      */
     @Event()
@@ -70,6 +78,7 @@ export class Switch {
 
     @Element()
     private host: HTMLLimelSwitchElement;
+    private helperTextId: string = createRandomString();
 
     @State()
     private fieldId = createRandomString();
@@ -105,52 +114,58 @@ export class Switch {
     }
 
     public render() {
-        return [
-            <button
-                id={this.fieldId}
-                class={{
-                    'mdc-switch': true,
-                    'lime-switch--readonly': this.readonly,
-                    'mdc-switch--unselected': !this.value,
-                    'mdc-switch--selected': this.value,
-                }}
-                type="button"
-                role="switch"
-                aria-checked={this.value}
-                disabled={this.disabled || this.readonly}
-                onClick={this.handleClick}
-            >
-                <div class="mdc-switch__track" />
-                <div class="mdc-switch__handle-track">
-                    <div class="mdc-switch__handle">
-                        <div class="mdc-switch__shadow">
-                            <div class="mdc-elevation-overlay"></div>
-                        </div>
-                        <div class="mdc-switch__ripple"></div>
-                        <div class="mdc-switch__icons">
-                            <svg
-                                class="mdc-switch__icon mdc-switch__icon--on"
-                                viewBox="0 0 24 24"
-                            >
-                                <path d="M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z" />
-                            </svg>
-                            <svg
-                                class="mdc-switch__icon mdc-switch__icon--off"
-                                viewBox="0 0 24 24"
-                            >
-                                <path d="M20 13H4v-2h16v2z" />
-                            </svg>
+        return (
+            <Host>
+                <button
+                    id={this.fieldId}
+                    class={{
+                        'mdc-switch': true,
+                        'lime-switch--readonly': this.readonly,
+                        'mdc-switch--unselected': !this.value,
+                        'mdc-switch--selected': this.value,
+                    }}
+                    type="button"
+                    role="switch"
+                    aria-checked={this.value}
+                    disabled={this.disabled || this.readonly}
+                    onClick={this.handleClick}
+                    aria-controls={this.helperTextId}
+                >
+                    <div class="mdc-switch__track" />
+                    <div class="mdc-switch__handle-track">
+                        <div class="mdc-switch__handle">
+                            <div class="mdc-switch__shadow">
+                                <div class="mdc-elevation-overlay"></div>
+                            </div>
+                            <div class="mdc-switch__ripple"></div>
+                            <div class="mdc-switch__icons">
+                                <svg
+                                    class="mdc-switch__icon mdc-switch__icon--on"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path d="M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z" />
+                                </svg>
+                                <svg
+                                    class="mdc-switch__icon mdc-switch__icon--off"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path d="M20 13H4v-2h16v2z" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </button>,
-            <label
-                class={`${this.disabled || this.readonly ? 'disabled' : ''}`}
-                htmlFor={this.fieldId}
-            >
-                {this.label}
-            </label>,
-        ];
+                </button>
+                <label
+                    class={`${
+                        this.disabled || this.readonly ? 'disabled' : ''
+                    }`}
+                    htmlFor={this.fieldId}
+                >
+                    {this.label}
+                </label>
+                {this.renderHelperLine()}
+            </Host>
+        );
     }
 
     @Watch('value')
@@ -161,6 +176,23 @@ export class Switch {
 
         this.mdcSwitch.selected = newValue;
     }
+
+    private renderHelperLine = () => {
+        if (!this.hasHelperText()) {
+            return;
+        }
+
+        return (
+            <limel-helper-line
+                helperTextId={this.helperTextId}
+                helperText={this.helperText}
+            />
+        );
+    };
+
+    private hasHelperText = () => {
+        return this.helperText !== null && this.helperText !== undefined;
+    };
 
     private handleClick = (event: MouseEvent) => {
         event.stopPropagation();
