@@ -58,7 +58,7 @@
     "codemirror": "^5.65.9",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.9",
-    "eslint": "^8.45.0",
+    "eslint": "^8.46.0",
     "eslint-config-prettier": "^8.9.0",
     "eslint-plugin-ban": "^1.6.0",
     "eslint-plugin-jsdoc": "^46.4.5",
