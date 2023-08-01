@@ -4,6 +4,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    forceUpdate,
     h,
     Host,
     Prop,
@@ -12,6 +13,7 @@ import {
 } from '@stencil/core';
 import { getPercentageClass } from './getPercentageClass';
 import { createRandomString } from '../../util/random-string';
+import { debounce } from 'lodash-es';
 
 /**
  * @exampleComponent limel-example-slider
@@ -110,14 +112,22 @@ export class Slider {
     private percentageClass: string;
 
     public constructor() {
+        const debounceTimeout = 200;
         this.inputHandler = this.inputHandler.bind(this);
         this.getContainerClassList = this.getContainerClassList.bind(this);
+        this.handleResize = debounce(
+            this.handleResize.bind(this),
+            debounceTimeout
+        );
+
         this.labelId = createRandomString();
         this.helperTextId = createRandomString();
     }
 
     public connectedCallback() {
         this.initialize();
+        window.addEventListener('resize', this.handleResize);
+        window.addEventListener('wheel', this.handleResize);
     }
 
     public componentDidLoad() {
@@ -180,6 +190,8 @@ export class Slider {
 
     public disconnectedCallback() {
         this.destroyMDCSlider();
+        window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener('wheel', this.handleResize);
     }
 
     private getContainerClassList() {
@@ -261,6 +273,10 @@ export class Slider {
         );
     }
 
+    public componentDidRender() {
+        this.mdcSlider.initialSyncWithDOM();
+    }
+
     private renderHelperLine() {
         if (!this.helperText) {
             return;
@@ -304,6 +320,11 @@ export class Slider {
 
         this.reCreateSliderWithStep();
     }
+
+    private handleResize = () => {
+        this.mdcSlider.initialSyncWithDOM();
+        forceUpdate(this.rootElement);
+    };
 
     private updateDisabledState() {
         if (!this.mdcSlider) {
