@@ -118,7 +118,8 @@ export class Slider {
         this.getContainerClassList = this.getContainerClassList.bind(this);
         this.handleResize = debounce(
             this.handleResize.bind(this),
-            debounceTimeout
+            debounceTimeout,
+            { leading: true, trailing: true }
         );
 
         this.labelId = createRandomString();
