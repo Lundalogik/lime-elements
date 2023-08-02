@@ -193,7 +193,6 @@ export class Slider {
 
     public disconnectedCallback() {
         this.destroyMDCSlider();
-        this.observer.unobserve(this.rootElement);
         this.observer.disconnect();
         window.removeEventListener('resize', this.handleResize);
         window.removeEventListener('wheel', this.handleResize);
