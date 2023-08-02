@@ -116,8 +116,8 @@ export class Slider {
         const debounceTimeout = 200;
         this.inputHandler = this.inputHandler.bind(this);
         this.getContainerClassList = this.getContainerClassList.bind(this);
-        this.handleResize = debounce(
-            this.handleResize.bind(this),
+        this.handleZoom = debounce(
+            this.handleZoom.bind(this),
             debounceTimeout,
             { leading: true, trailing: true }
         );
@@ -130,8 +130,8 @@ export class Slider {
         this.initialize();
         this.observer = new ResizeObserver(this.handleResize) as any;
         this.observer.observe(this.rootElement);
-        window.addEventListener('resize', this.handleResize);
-        window.addEventListener('wheel', this.handleResize);
+        window.addEventListener('resize', this.handleZoom);
+        window.addEventListener('wheel', this.handleZoom);
     }
 
     public componentDidLoad() {
@@ -195,8 +195,8 @@ export class Slider {
     public disconnectedCallback() {
         this.destroyMDCSlider();
         this.observer.disconnect();
-        window.removeEventListener('resize', this.handleResize);
-        window.removeEventListener('wheel', this.handleResize);
+        window.removeEventListener('resize', this.handleZoom);
+        window.removeEventListener('wheel', this.handleZoom);
     }
 
     private getContainerClassList() {
@@ -327,8 +327,14 @@ export class Slider {
     }
 
     private handleResize = () => {
-        this.mdcSlider.initialSyncWithDOM();
+        this.handleZoom();
+    };
+
+    private handleZoom = (event?: Event) => {
         forceUpdate(this.rootElement);
+        if (event) {
+            event.stopPropagation();
+        }
     };
 
     private updateDisabledState() {
