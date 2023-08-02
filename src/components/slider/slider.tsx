@@ -107,6 +107,7 @@ export class Slider {
     private mdcSlider: MDCSlider;
     private labelId: string;
     private helperTextId: string;
+    private observer: ResizeObserver;
 
     @State()
     private percentageClass: string;
@@ -126,6 +127,8 @@ export class Slider {
 
     public connectedCallback() {
         this.initialize();
+        this.observer = new ResizeObserver(this.handleResize) as any;
+        this.observer.observe(this.rootElement);
         window.addEventListener('resize', this.handleResize);
         window.addEventListener('wheel', this.handleResize);
     }
@@ -190,6 +193,8 @@ export class Slider {
 
     public disconnectedCallback() {
         this.destroyMDCSlider();
+        this.observer.unobserve(this.rootElement);
+        this.observer.disconnect();
         window.removeEventListener('resize', this.handleResize);
         window.removeEventListener('wheel', this.handleResize);
     }
