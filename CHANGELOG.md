@@ -1,3 +1,10 @@
+## [37.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.10...v37.1.0-next.11) (2023-08-03)
+
+
+### Features
+
+* **switch:** add possibility to have a `helperText` ([9e44bc2](https://github.com/Lundalogik/lime-elements/commit/9e44bc2a6a59134b83b77b233440a042e4b3536a))
+
 ## [37.1.0-next.10](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.9...v37.1.0-next.10) (2023-07-25)
 
 
