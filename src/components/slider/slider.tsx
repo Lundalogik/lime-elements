@@ -105,6 +105,7 @@ export class Slider {
     private mdcSlider: MDCSlider;
     private labelId: string;
     private helperTextId: string;
+    private observer: ResizeObserver;
 
     @State()
     private percentageClass: string;
@@ -118,6 +119,8 @@ export class Slider {
 
     public connectedCallback() {
         this.initialize();
+        this.observer = new ResizeObserver(this.resizeObserverCallback);
+        this.observer.observe(this.rootElement);
     }
 
     public componentDidLoad() {
@@ -180,6 +183,7 @@ export class Slider {
 
     public disconnectedCallback() {
         this.destroyMDCSlider();
+        this.observer.disconnect();
     }
 
     private getContainerClassList() {
@@ -304,6 +308,10 @@ export class Slider {
 
         this.reCreateSliderWithStep();
     }
+
+    private resizeObserverCallback = () => {
+        this.mdcSlider?.layout();
+    };
 
     private updateDisabledState() {
         if (!this.mdcSlider) {
