@@ -102,13 +102,13 @@ export class Slider {
     @Element()
     private rootElement: HTMLLimelSliderElement;
 
+    @State()
+    private percentageClass: string;
+
     private mdcSlider: MDCSlider;
     private labelId: string;
     private helperTextId: string;
     private observer: ResizeObserver;
-
-    @State()
-    private percentageClass: string;
 
     public constructor() {
         this.inputHandler = this.inputHandler.bind(this);
@@ -123,75 +123,17 @@ export class Slider {
         this.observer.observe(this.rootElement);
     }
 
-    public componentDidLoad() {
-        this.initialize();
-    }
-
-    private initialize() {
-        const inputElement = this.getInputElement();
-        if (!inputElement) {
-            return;
-        }
-
-        const value = this.getValue();
-
-        /*
-        For some reason the input element's `value` attribute is removed
-        (probably by Stencil) when the element is first rendered. But if the
-        attribute is missing when MDCSlider is initialized (MDC v11.0.0),
-        MDCSlider crashes.
-        So we add the attribute right before initializing MDCSlider. /Ads
-        */
-        inputElement.setAttribute('value', `${this.multiplyByFactor(value)}`);
-
-        /*
-        When creating the `mdcSlider` component, its important that the value set in
-        the input field obeys the range and the step size.
-
-        The MDCSlider will throw an exception unless the value in the input element
-        is dividible by the step value and is in the provided range.
-        If an exception occurs, this component will crash and it will be impossible to change
-        its value.
-        The logic below ensures that the component will render even though the
-        provided value is wrong.
-        This could be considered wrong, but it at least fixes so that it's possible
-        to change the value from the UI.
-        */
-        const greaterThanOrEqualMin = value >= this.valuemin;
-        const lessThanOrEqualMax = value <= this.valuemax;
-
-        if (!greaterThanOrEqualMin) {
-            const newMin = this.multiplyByFactor(value);
-            inputElement.setAttribute('min', `${newMin}`);
-        }
-
-        if (!lessThanOrEqualMax) {
-            const newMax = this.multiplyByFactor(value);
-            inputElement.setAttribute('max', `${newMax}`);
-        }
-
-        if (!this.isMultipleOfStep(value, this.step)) {
-            inputElement.removeAttribute('step');
-        }
-
-        this.createMDCSlider();
-    }
-
     public componentWillLoad() {
         this.setPercentageClass(this.value);
+    }
+
+    public componentDidLoad() {
+        this.initialize();
     }
 
     public disconnectedCallback() {
         this.destroyMDCSlider();
         this.observer.disconnect();
-    }
-
-    private getContainerClassList() {
-        return {
-            [this.percentageClass]: true,
-            disabled: this.disabled || this.readonly,
-            readonly: this.readonly,
-        };
     }
 
     public render() {
@@ -265,19 +207,6 @@ export class Slider {
         );
     }
 
-    private renderHelperLine() {
-        if (!this.helperText) {
-            return;
-        }
-
-        return (
-            <limel-helper-line
-                helperText={this.helperText}
-                helperTextId={this.helperTextId}
-            />
-        );
-    }
-
     @Watch('disabled')
     protected watchDisabled() {
         this.updateDisabledState();
@@ -307,6 +236,77 @@ export class Slider {
         }
 
         this.reCreateSliderWithStep();
+    }
+
+    private renderHelperLine() {
+        if (!this.helperText) {
+            return;
+        }
+
+        return (
+            <limel-helper-line
+                helperText={this.helperText}
+                helperTextId={this.helperTextId}
+            />
+        );
+    }
+
+    private initialize() {
+        const inputElement = this.getInputElement();
+        if (!inputElement) {
+            return;
+        }
+
+        const value = this.getValue();
+
+        /*
+        For some reason the input element's `value` attribute is removed
+        (probably by Stencil) when the element is first rendered. But if the
+        attribute is missing when MDCSlider is initialized (MDC v11.0.0),
+        MDCSlider crashes.
+        So we add the attribute right before initializing MDCSlider. /Ads
+        */
+        inputElement.setAttribute('value', `${this.multiplyByFactor(value)}`);
+
+        /*
+        When creating the `mdcSlider` component, its important that the value set in
+        the input field obeys the range and the step size.
+
+        The MDCSlider will throw an exception unless the value in the input element
+        is dividible by the step value and is in the provided range.
+        If an exception occurs, this component will crash and it will be impossible to change
+        its value.
+        The logic below ensures that the component will render even though the
+        provided value is wrong.
+        This could be considered wrong, but it at least fixes so that it's possible
+        to change the value from the UI.
+        */
+        const greaterThanOrEqualMin = value >= this.valuemin;
+        const lessThanOrEqualMax = value <= this.valuemax;
+
+        if (!greaterThanOrEqualMin) {
+            const newMin = this.multiplyByFactor(value);
+            inputElement.setAttribute('min', `${newMin}`);
+        }
+
+        if (!lessThanOrEqualMax) {
+            const newMax = this.multiplyByFactor(value);
+            inputElement.setAttribute('max', `${newMax}`);
+        }
+
+        if (!this.isMultipleOfStep(value, this.step)) {
+            inputElement.removeAttribute('step');
+        }
+
+        this.createMDCSlider();
+    }
+
+    private getContainerClassList() {
+        return {
+            [this.percentageClass]: true,
+            disabled: this.disabled || this.readonly,
+            readonly: this.readonly,
+        };
     }
 
     private resizeObserverCallback = () => {
