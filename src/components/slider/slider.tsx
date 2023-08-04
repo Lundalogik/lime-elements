@@ -111,8 +111,6 @@ export class Slider {
     private observer: ResizeObserver;
 
     public constructor() {
-        this.inputHandler = this.inputHandler.bind(this);
-        this.getContainerClassList = this.getContainerClassList.bind(this);
         this.labelId = createRandomString();
         this.helperTextId = createRandomString();
     }
@@ -301,13 +299,13 @@ export class Slider {
         this.createMDCSlider();
     }
 
-    private getContainerClassList() {
+    private getContainerClassList = () => {
         return {
             [this.percentageClass]: true,
             disabled: this.disabled || this.readonly,
             readonly: this.readonly,
         };
-    }
+    };
 
     private resizeObserverCallback = () => {
         this.mdcSlider?.layout();
@@ -345,9 +343,9 @@ export class Slider {
         return value;
     }
 
-    private inputHandler(event) {
+    private inputHandler = (event) => {
         this.setPercentageClass(event.detail.value / this.factor);
-    }
+    };
 
     private setPercentageClass(value) {
         this.percentageClass = getPercentageClass(
