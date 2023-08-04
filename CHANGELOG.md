@@ -1,3 +1,10 @@
+## [37.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.11...v37.1.0-next.12) (2023-08-04)
+
+
+### Bug Fixes
+
+* **slider:** fix bug where slider might break if the component is resized ([3ef298a](https://github.com/Lundalogik/lime-elements/commit/3ef298aa07ae3f0444bd2530ad4c106827ed7cca)), closes [Lundalogik/crm-feature#3550](https://github.com/Lundalogik/crm-feature/issues/3550) [Lundalogik/crm-feature#3287](https://github.com/Lundalogik/crm-feature/issues/3287) [#1850](https://github.com/Lundalogik/lime-elements/issues/1850)
+
 ## [37.1.0-next.11](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.10...v37.1.0-next.11) (2023-08-03)
 
 
