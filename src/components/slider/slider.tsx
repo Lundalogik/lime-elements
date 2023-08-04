@@ -13,6 +13,10 @@ import {
 import { getPercentageClass } from './getPercentageClass';
 import { createRandomString } from '../../util/random-string';
 
+const DEFAULT_FACTOR = 1;
+const DEFAULT_MAX_VALUE = 100;
+const DEFAULT_MIN_VALUE = 0;
+
 /**
  * @exampleComponent limel-example-slider-basic
  * @exampleComponent limel-example-slider-multiplier
@@ -49,7 +53,7 @@ export class Slider {
      * so the original format stays the same.
      */
     @Prop({ reflect: true })
-    public factor: number = 1;
+    public factor: number = DEFAULT_FACTOR;
 
     /**
      * Label to display next to the input
@@ -79,13 +83,13 @@ export class Slider {
      * The maximum value allowed
      */
     @Prop({ reflect: true })
-    public valuemax: number = 100; // eslint-disable-line no-magic-numbers
+    public valuemax: number = DEFAULT_MAX_VALUE;
 
     /**
      * The minimum value allowed
      */
     @Prop({ reflect: true })
-    public valuemin: number = 0;
+    public valuemin: number = DEFAULT_MIN_VALUE;
 
     /**
      * The stepping interval to use when adjusting the value
