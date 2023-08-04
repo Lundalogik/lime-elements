@@ -236,7 +236,7 @@ export class Slider {
         this.reCreateSliderWithStep();
     }
 
-    private renderHelperLine() {
+    private renderHelperLine = () => {
         if (!this.helperText) {
             return;
         }
@@ -247,9 +247,9 @@ export class Slider {
                 helperTextId={this.helperTextId}
             />
         );
-    }
+    };
 
-    private initialize() {
+    private initialize = () => {
         const inputElement = this.getInputElement();
         if (!inputElement) {
             return;
@@ -297,7 +297,7 @@ export class Slider {
         }
 
         this.createMDCSlider();
-    }
+    };
 
     private getContainerClassList = () => {
         return {
@@ -311,13 +311,13 @@ export class Slider {
         this.mdcSlider?.layout();
     };
 
-    private updateDisabledState() {
+    private updateDisabledState = () => {
         if (!this.mdcSlider) {
             return;
         }
 
         this.mdcSlider.setDisabled(this.disabled || this.readonly);
-    }
+    };
 
     private changeHandler = (event) => {
         let value = event.detail.value;
@@ -330,55 +330,55 @@ export class Slider {
         this.change.emit(value / this.factor);
     };
 
-    private multiplyByFactor(value) {
+    private multiplyByFactor = (value) => {
         return Math.round(value * this.factor);
-    }
+    };
 
-    private getValue() {
+    private getValue = () => {
         let value = this.value;
         if (!isFinite(value)) {
             value = this.valuemin;
         }
 
         return value;
-    }
+    };
 
     private inputHandler = (event) => {
         this.setPercentageClass(event.detail.value / this.factor);
     };
 
-    private setPercentageClass(value) {
+    private setPercentageClass = (value) => {
         this.percentageClass = getPercentageClass(
             (value - this.valuemin) / (this.valuemax - this.valuemin)
         );
-    }
+    };
 
-    private isMultipleOfStep(value: number, step: number): boolean {
+    private isMultipleOfStep = (value: number, step: number): boolean => {
         if (!step) {
             return true;
         }
 
         return value % step === 0;
-    }
+    };
 
-    private roundToStep(value: number, step: number): number {
+    private roundToStep = (value: number, step: number): number => {
         return Math.round(value / step) * step;
-    }
+    };
 
-    private getRootElement(): HTMLElement | undefined {
+    private getRootElement = (): HTMLElement | undefined => {
         return this.rootElement.shadowRoot.querySelector('.mdc-slider');
-    }
+    };
 
-    private getInputElement(): HTMLInputElement | undefined {
+    private getInputElement = (): HTMLInputElement | undefined => {
         const element = this.getRootElement();
         if (!element) {
             return;
         }
 
         return element.querySelector('input');
-    }
+    };
 
-    private isStepConfigured(): boolean {
+    private isStepConfigured = (): boolean => {
         if (!this.step) {
             return true;
         }
@@ -389,9 +389,9 @@ export class Slider {
         }
 
         return input.hasAttribute('step');
-    }
+    };
 
-    private reCreateSliderWithStep() {
+    private reCreateSliderWithStep = () => {
         const inputElement = this.getInputElement();
         const step = `${this.multiplyByFactor(this.step)}`;
 
@@ -399,15 +399,15 @@ export class Slider {
 
         this.destroyMDCSlider();
         this.createMDCSlider();
-    }
+    };
 
-    private createMDCSlider() {
+    private createMDCSlider = () => {
         const element = this.getRootElement();
 
         this.mdcSlider = new MDCSlider(element);
         this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
         this.mdcSlider.listen('MDCSlider:input', this.inputHandler);
-    }
+    };
 
     private destroyMDCSlider() {
         this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
