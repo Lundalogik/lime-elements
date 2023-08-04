@@ -4,10 +4,10 @@ import { Component, h, State } from '@stencil/core';
  * Basic example
  */
 @Component({
-    tag: 'limel-example-slider',
+    tag: 'limel-example-slider-basic',
     shadow: true,
 })
-export class SliderExample {
+export class SliderBasicExample {
     @State()
     private disabled = false;
 

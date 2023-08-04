@@ -14,7 +14,7 @@ import { getPercentageClass } from './getPercentageClass';
 import { createRandomString } from '../../util/random-string';
 
 /**
- * @exampleComponent limel-example-slider
+ * @exampleComponent limel-example-slider-basic
  * @exampleComponent limel-example-slider-multiplier
  * @exampleComponent limel-example-slider-multiplier-percentage-colors
  * @exampleComponent limel-example-slider-composite
