@@ -1,4 +1,4 @@
-import { MDCSlider } from '@material/slider';
+import { MDCSlider, MDCSliderChangeEventDetail } from '@material/slider';
 import {
     Component,
     Element,
@@ -319,7 +319,9 @@ export class Slider {
         this.mdcSlider.setDisabled(this.disabled || this.readonly);
     };
 
-    private changeHandler = (event) => {
+    private changeHandler = (
+        event: CustomEvent<MDCSliderChangeEventDetail>
+    ) => {
         let value = event.detail.value;
         const step = this.multiplyByFactor(this.step);
 
@@ -330,7 +332,7 @@ export class Slider {
         this.change.emit(value / this.factor);
     };
 
-    private multiplyByFactor = (value) => {
+    private multiplyByFactor = (value: number) => {
         return Math.round(value * this.factor);
     };
 
@@ -343,11 +345,11 @@ export class Slider {
         return value;
     };
 
-    private inputHandler = (event) => {
+    private inputHandler = (event: CustomEvent<MDCSliderChangeEventDetail>) => {
         this.setPercentageClass(event.detail.value / this.factor);
     };
 
-    private setPercentageClass = (value) => {
+    private setPercentageClass = (value: number) => {
         this.percentageClass = getPercentageClass(
             (value - this.valuemin) / (this.valuemax - this.valuemin)
         );
