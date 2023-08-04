@@ -303,6 +303,48 @@ export class Slider {
         this.createMDCSlider();
     };
 
+    private reCreateSliderWithStep = () => {
+        const inputElement = this.getInputElement();
+        const step = `${this.multiplyByFactor(this.step)}`;
+
+        inputElement.setAttribute('step', step);
+
+        this.destroyMDCSlider();
+        this.createMDCSlider();
+    };
+
+    private createMDCSlider = () => {
+        const element = this.getRootElement();
+
+        this.mdcSlider = new MDCSlider(element);
+        this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
+        this.mdcSlider.listen('MDCSlider:input', this.inputHandler);
+    };
+
+    private destroyMDCSlider() {
+        this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
+        this.mdcSlider.unlisten('MDCSlider:input', this.inputHandler);
+        this.mdcSlider.destroy();
+        this.mdcSlider = undefined;
+    }
+
+    private changeHandler = (
+        event: CustomEvent<MDCSliderChangeEventDetail>
+    ) => {
+        let value = event.detail.value;
+        const step = this.multiplyByFactor(this.step);
+
+        if (!this.isMultipleOfStep(value, step)) {
+            value = this.roundToStep(value, step);
+        }
+
+        this.change.emit(value / this.factor);
+    };
+
+    private inputHandler = (event: CustomEvent<MDCSliderChangeEventDetail>) => {
+        this.setPercentageClass(event.detail.value / this.factor);
+    };
+
     private getContainerClassList = () => {
         return {
             [this.percentageClass]: true,
@@ -320,20 +362,7 @@ export class Slider {
             return;
         }
 
-        this.mdcSlider.setDisabled(this.disabled || this.readonly);
-    };
-
-    private changeHandler = (
-        event: CustomEvent<MDCSliderChangeEventDetail>
-    ) => {
-        let value = event.detail.value;
-        const step = this.multiplyByFactor(this.step);
-
-        if (!this.isMultipleOfStep(value, step)) {
-            value = this.roundToStep(value, step);
-        }
-
-        this.change.emit(value / this.factor);
+        this.mdcSlider?.setDisabled(this.disabled || this.readonly);
     };
 
     private multiplyByFactor = (value: number) => {
@@ -347,10 +376,6 @@ export class Slider {
         }
 
         return value;
-    };
-
-    private inputHandler = (event: CustomEvent<MDCSliderChangeEventDetail>) => {
-        this.setPercentageClass(event.detail.value / this.factor);
     };
 
     private setPercentageClass = (value: number) => {
@@ -396,29 +421,4 @@ export class Slider {
 
         return input.hasAttribute('step');
     };
-
-    private reCreateSliderWithStep = () => {
-        const inputElement = this.getInputElement();
-        const step = `${this.multiplyByFactor(this.step)}`;
-
-        inputElement.setAttribute('step', step);
-
-        this.destroyMDCSlider();
-        this.createMDCSlider();
-    };
-
-    private createMDCSlider = () => {
-        const element = this.getRootElement();
-
-        this.mdcSlider = new MDCSlider(element);
-        this.mdcSlider.listen('MDCSlider:change', this.changeHandler);
-        this.mdcSlider.listen('MDCSlider:input', this.inputHandler);
-    };
-
-    private destroyMDCSlider() {
-        this.mdcSlider.unlisten('MDCSlider:change', this.changeHandler);
-        this.mdcSlider.unlisten('MDCSlider:input', this.inputHandler);
-        this.mdcSlider.destroy();
-        this.mdcSlider = undefined;
-    }
 }
