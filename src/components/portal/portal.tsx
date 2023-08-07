@@ -86,34 +86,13 @@ export class Portal {
     @Prop({ reflect: true })
     public visible = false;
 
-    private parents: WeakMap<HTMLElement, HTMLElement>;
-
-    @Watch('visible')
-    protected onVisible() {
-        if (!this.visible) {
-            this.hideContainer();
-            this.styleContainer();
-            this.destroyPopper();
-
-            return;
-        }
-
-        this.styleContainer();
-        this.createPopper();
-        requestAnimationFrame(() => {
-            this.showContainer();
-        });
-    }
-
     @Element()
     private host: HTMLLimelPortalElement;
 
+    private parents: WeakMap<HTMLElement, HTMLElement>;
     private container: HTMLElement;
-
     private popperInstance: Instance;
-
     private loaded = false;
-
     private observer: ResizeObserver;
 
     constructor() {
@@ -161,6 +140,23 @@ export class Portal {
 
     public render() {
         return <slot />;
+    }
+
+    @Watch('visible')
+    protected onVisible() {
+        if (!this.visible) {
+            this.hideContainer();
+            this.styleContainer();
+            this.destroyPopper();
+
+            return;
+        }
+
+        this.styleContainer();
+        this.createPopper();
+        requestAnimationFrame(() => {
+            this.showContainer();
+        });
     }
 
     private createContainer() {
