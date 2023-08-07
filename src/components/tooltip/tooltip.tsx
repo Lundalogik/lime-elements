@@ -1,4 +1,5 @@
 import { Component, h, Prop, Element, State } from '@stencil/core';
+import { JSX } from 'react';
 import { createRandomString } from '../../util/random-string';
 
 const DEFAULT_MAX_LENGTH = 50;
@@ -105,7 +106,7 @@ export class Tooltip {
         this.removeListeners();
     }
 
-    public render() {
+    public render(): JSX.Element {
         const tooltipZIndex = getComputedStyle(this.host).getPropertyValue(
             '--tooltip-z-index'
         );
