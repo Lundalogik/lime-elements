@@ -44,38 +44,38 @@ export class Portal {
      * Decides which direction the portal content should open.
      */
     @Prop({ reflect: true })
-    public openDirection: OpenDirection = 'bottom';
+    public openDirection?: OpenDirection = 'bottom';
 
     /**
      * Position of the content.
      */
     @Prop({ reflect: true })
-    public position: 'fixed' | 'absolute' = 'absolute';
+    public position?: 'fixed' | 'absolute' = 'absolute';
 
     /**
      * A unique ID.
      */
     @Prop({ reflect: true })
-    public containerId: string;
+    public containerId!: string;
 
     /**
      * Dynamic styling that can be applied to the container holding the content.
      */
     @Prop()
-    public containerStyle: object = {};
+    public containerStyle?: object = {};
 
     /**
      * Parent element to move the content to.
      */
     @Prop()
-    public parent: HTMLElement = document.body;
+    public parent?: HTMLElement = document.body;
 
     /**
      * Used to make a dropdown have the same width as the trigger, for example
      * in `limel-picker`.
      */
     @Prop({ reflect: true })
-    public inheritParentWidth = false;
+    public inheritParentWidth? = false;
 
     /**
      * True if the content within the portal should be visible.
@@ -84,7 +84,7 @@ export class Portal {
      * true from false when the dialog opens to position the content properly.
      */
     @Prop({ reflect: true })
-    public visible = false;
+    public visible? = false;
 
     private parents: WeakMap<HTMLElement, HTMLElement>;
 
