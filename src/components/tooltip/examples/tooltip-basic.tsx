@@ -4,10 +4,10 @@ import { Component, h } from '@stencil/core';
  * Basic example
  */
 @Component({
-    tag: 'limel-example-tooltip',
+    tag: 'limel-example-tooltip-basic',
     shadow: true,
 })
-export class TooltipExample {
+export class TooltipBasicExample {
     public render() {
         return [
             <limel-button icon="search" id="tooltip-example" />,
