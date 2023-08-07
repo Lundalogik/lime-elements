@@ -1,7 +1,7 @@
 import { h } from '@stencil/core';
 import { SpecPage, newSpecPage } from '@stencil/core/testing';
 import { Portal } from '../portal/portal';
-import { TooltipExample } from './examples/tooltip';
+import { TooltipBasicExample } from './examples/tooltip-basic';
 import { Tooltip } from './tooltip';
 
 let page: SpecPage;
@@ -12,7 +12,7 @@ let anchor: HTMLAnchorElement;
 
 beforeEach(async () => {
     page = await newSpecPage({
-        components: [Tooltip, TooltipExample, Portal],
+        components: [Tooltip, TooltipBasicExample, Portal],
         template: () => {
             return (
                 <div>
