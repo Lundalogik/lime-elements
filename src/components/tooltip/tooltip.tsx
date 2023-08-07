@@ -82,11 +82,11 @@ export class Tooltip {
     @Prop({ reflect: true })
     public maxlength?: number = DEFAULT_MAX_LENGTH;
 
-    @State()
-    private open: boolean;
-
     @Element()
     private host: HTMLLimelTooltipElement;
+
+    @State()
+    private open: boolean;
 
     private portalId: string;
     private tooltipId: string;
