@@ -1,0 +1,2 @@
+import{r as t,h as e}from"./index-6156b4fd.js";const i=class{constructor(e){t(this,e);this.toggleFavorite=()=>{this.isFavorite=!this.isFavorite};this.isFavorite=false}render(){return e("limel-icon-button",{label:this.isFavorite?"Remove Favorite":"Add Favorite",icon:this.isFavorite?"heart_filled":"heart_outlined",onClick:this.toggleFavorite})}};export{i as limel_example_icon_button_toggle_state};
+//# sourceMappingURL=limel-example-icon-button-toggle-state.entry.js.map
