@@ -86,6 +86,13 @@ export class Portal {
     @Prop({ reflect: true })
     public visible = false;
 
+    /**
+     * The element that the content should be positioned relative to.
+     * Defaults to the limel-portal element.
+     */
+    @Prop()
+    public anchor?: HTMLElement = null;
+
     @Element()
     private host: HTMLLimelPortalElement;
 
@@ -252,7 +259,11 @@ export class Portal {
     private createPopper() {
         const config = this.createPopperConfig();
 
-        this.popperInstance = createPopper(this.host, this.container, config);
+        this.popperInstance = createPopper(
+            this.anchor || this.host,
+            this.container,
+            config
+        );
     }
 
     private destroyPopper() {
