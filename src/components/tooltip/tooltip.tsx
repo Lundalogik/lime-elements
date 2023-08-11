@@ -91,6 +91,7 @@ export class Tooltip {
     private portalId: string;
     private tooltipId: string;
     private showTooltipTimeoutHandle: number;
+    private ownerElement: HTMLElement;
 
     public constructor() {
         this.portalId = createRandomString();
@@ -98,6 +99,7 @@ export class Tooltip {
     }
 
     public connectedCallback() {
+        this.ownerElement = this.getOwnerElement();
         this.setOwnerAriaLabel();
         this.addListeners();
     }
@@ -136,22 +138,19 @@ export class Tooltip {
     }
 
     private setOwnerAriaLabel() {
-        const owner = this.getOwnerElement();
-        owner?.setAttribute('aria-describedby', this.tooltipId);
+        this.ownerElement?.setAttribute('aria-describedby', this.tooltipId);
     }
 
     private addListeners() {
-        const owner = this.getOwnerElement();
-        owner?.addEventListener('mouseover', this.showTooltip);
-        owner?.addEventListener('mouseout', this.hideTooltip);
-        owner?.addEventListener('click', this.hideTooltip);
+        this.ownerElement?.addEventListener('mouseover', this.showTooltip);
+        this.ownerElement?.addEventListener('mouseout', this.hideTooltip);
+        this.ownerElement?.addEventListener('click', this.hideTooltip);
     }
 
     private removeListeners() {
-        const owner = this.getOwnerElement();
-        owner?.removeEventListener('mouseover', this.showTooltip);
-        owner?.removeEventListener('mouseout', this.hideTooltip);
-        owner?.removeEventListener('click', this.hideTooltip);
+        this.ownerElement?.removeEventListener('mouseover', this.showTooltip);
+        this.ownerElement?.removeEventListener('mouseout', this.hideTooltip);
+        this.ownerElement?.removeEventListener('click', this.hideTooltip);
     }
 
     private showTooltip = () => {
