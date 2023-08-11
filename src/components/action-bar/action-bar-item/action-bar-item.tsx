@@ -12,7 +12,7 @@ import { ListSeparator } from 'src/interface';
 import {
     makeEnterClickable,
     removeEnterClickable,
-} from 'src/util/makeEnterClickable';
+} from 'src/util/make-enter-clickable';
 
 /**
  * @private

@@ -11,7 +11,7 @@ import { Action } from './action';
 import {
     makeEnterClickable,
     removeEnterClickable,
-} from 'src/util/makeEnterClickable';
+} from 'src/util/make-enter-clickable';
 
 /**
  * @slot - Content to put inside the collapsible section

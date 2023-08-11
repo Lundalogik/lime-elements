@@ -2,7 +2,7 @@ import { Component, Element, h, Prop } from '@stencil/core';
 import {
     makeEnterClickable,
     removeEnterClickable,
-} from 'src/util/makeEnterClickable';
+} from 'src/util/make-enter-clickable';
 
 /**
  * @exampleComponent limel-example-icon-button-basic
