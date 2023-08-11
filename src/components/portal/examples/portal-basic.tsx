@@ -7,10 +7,10 @@ import { Component, h, Element, State } from '@stencil/core';
  * then add it back again without breaking it
  */
 @Component({
-    tag: 'limel-example-portal',
+    tag: 'limel-example-portal-basic',
     shadow: true,
 })
-export class PortalExample {
+export class PortalBasicExample {
     @State()
     private isOpen = false;
 
