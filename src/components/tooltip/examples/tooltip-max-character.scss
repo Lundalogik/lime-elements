@@ -1,7 +1,5 @@
 :host(limel-example-tooltip-max-character) {
     display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-    column-gap: 1rem;
-    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
 }
