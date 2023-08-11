@@ -20,8 +20,9 @@ const DEFAULT_MAX_LENGTH = 50;
  *
  * :::note
  * In order to display the tooltip, the tooltip element and its trigger element
- * must be within the same document or document fragment.
- * A good practice is to just place them next to each other like below:
+ * must be within the same document or document fragment (the same shadowRoot).
+ * Often, it's easiest to just place them next to each other like in the example
+ * below, but if you need to, you can place them differently.
  *
  * ```html
  * <limel-button icon="search" id="tooltip-example" />
@@ -123,6 +124,7 @@ export class Tooltip {
                         'z-index': tooltipZIndex,
                         'pointer-events': 'none',
                     }}
+                    anchor={this.ownerElement}
                 >
                     <limel-tooltip-content
                         label={this.label}

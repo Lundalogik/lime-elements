@@ -2,6 +2,14 @@
  * @prop --tooltip-z-index: z-index of the tooltip.
  */
 
-.trigger-anchor {
-    position: relative;
+:host(limel-tooltip) {
+    // Absolutely positioning ensures that this invisible element
+    // does not occupy visible space in the UI.
+    // Without this, `limel-tooltip` could in many cases
+    // mess up the layout, where it is used.
+    // For example, inside a `grid` or `flex` section,
+    // every instance of the tooltip would take some space,
+    // creating gaps and empty holes.
+    position: absolute;
+    pointer-events: none;
 }
