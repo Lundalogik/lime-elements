@@ -31,7 +31,7 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  * `connectedCallback`.
  * @slot - Content to put inside the portal
  * @private
- * @exampleComponent limel-example-portal
+ * @exampleComponent limel-example-portal-basic
  */
 /* eslint-enable jsdoc/check-indentation */
 @Component({
