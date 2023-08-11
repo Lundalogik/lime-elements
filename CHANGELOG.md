@@ -1,3 +1,10 @@
+## [37.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.12...v37.1.0-next.13) (2023-08-11)
+
+
+### Bug Fixes
+
+* **portal:** reflect primitive properties as attributes ([c63bce7](https://github.com/Lundalogik/lime-elements/commit/c63bce79b465c7e595f1151b59139a5e52bc1d0f))
+
 ## [37.1.0-next.12](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.11...v37.1.0-next.12) (2023-08-04)
 
 
