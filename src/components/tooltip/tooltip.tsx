@@ -46,7 +46,6 @@ const DEFAULT_MAX_LENGTH = 50;
  * @exampleComponent limel-example-tooltip-basic
  * @exampleComponent limel-example-tooltip-max-character
  * @exampleComponent limel-example-tooltip-composite
- * @private
  */
 @Component({
     tag: 'limel-tooltip',
