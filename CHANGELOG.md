@@ -1,3 +1,15 @@
+## [37.1.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.14...v37.1.0-next.15) (2023-08-16)
+
+
+### Features
+
+* **tooltip:** add `openDirection` prop ([4f3d740](https://github.com/Lundalogik/lime-elements/commit/4f3d740416a86ac75578c9f51f07ce016db9710c))
+
+
+### Bug Fixes
+
+* **dock:** render tooltips in a better place ([8b12daa](https://github.com/Lundalogik/lime-elements/commit/8b12daa7414c707a42b8ff8502f3b72225a7cdf7))
+
 ## [37.1.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.13...v37.1.0-next.14) (2023-08-16)
 
 
