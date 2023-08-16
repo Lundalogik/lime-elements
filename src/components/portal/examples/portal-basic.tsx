@@ -15,7 +15,7 @@ export class PortalBasicExample {
     private isOpen = false;
 
     @Element()
-    private host: HTMLLimelExamplePortalElement;
+    private host: HTMLLimelExamplePortalBasicElement;
 
     @State()
     private container: HTMLElement;
