@@ -65,14 +65,6 @@ limel-icon {
     );
 }
 
-limel-tooltip {
-    // CSS hack due to the tooltip's placement bug
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
 div[role='separator'] {
     width: 1px;
     height: 1.5rem;
