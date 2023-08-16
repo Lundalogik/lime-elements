@@ -32,8 +32,6 @@ Instead of this 👇, we can use that 👆 again. / Kia
 
 However, sometimes such design decisions depend on the context and it is only you who are designing the UI that can judge. Examples of these follow below.
 
-<!--
-NOTE: this should be uncommented when we make `limel-tooltip` a public component.
 ### Tooltips
 Tooltips are also helpful components in creating a clean UI, by hiding away supplemental
 but disposable pieces of information.
@@ -42,7 +40,6 @@ Users may need such information only once (usually for the first time they
 use a UI) or occasionally. Therefore instead of constantly showing them
 in the user interface, a tooltip can be used to hide them away and display them once needed.
 <limel-example-tooltip-declutter></limel-example-tooltip-declutter>
--->
 
 ### Buttons
 Buttons are particularly strong elements in the UI, since they are meant to perform important actions. Thus, an effective way of reducing clutter is to hide buttons that aren't useful at the moment. This most commonly applies to disabled buttons.
