@@ -181,6 +181,7 @@ export class DockButton {
                     elementId={this.tooltipId}
                     label={this.item.label}
                     helperLabel={this.item.helperLabel}
+                    openDirection={this.getOpenDirection()}
                 />
             );
         }
@@ -190,6 +191,7 @@ export class DockButton {
                 <limel-tooltip
                     elementId={this.tooltipId}
                     label={this.item.helperLabel}
+                    openDirection={this.getOpenDirection()}
                 />
             );
         }
@@ -199,5 +201,13 @@ export class DockButton {
         if (this.customComponentElement?.shadowRoot?.delegatesFocus) {
             this.customComponentElement?.focus();
         }
+    };
+
+    private getOpenDirection = () => {
+        if (this.useMobileLayout) {
+            return 'top';
+        }
+
+        return 'right';
     };
 }

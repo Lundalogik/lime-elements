@@ -45,10 +45,11 @@ test('the component renders', () => {
             element-id="tooltip-test"
             label="Description"
             maxlength="50"
+            open-direction="top"
         >
             <mock:shadow-root>
                 <div class="trigger-anchor">
-                    <limel-portal container-id="${containerId}" open-direction="bottom-start" position="absolute">
+                    <limel-portal container-id="${containerId}" open-direction="top" position="absolute">
                         <mock:shadow-root>
                             <slot></slot>
                         </mock:shadow-root>
