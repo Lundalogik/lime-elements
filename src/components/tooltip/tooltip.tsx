@@ -1,6 +1,7 @@
 import { Component, h, Prop, Element, State } from '@stencil/core';
 import { JSX } from 'react';
 import { createRandomString } from '../../util/random-string';
+import { OpenDirection } from '../menu/menu.types';
 
 const DEFAULT_MAX_LENGTH = 50;
 
@@ -82,6 +83,12 @@ export class Tooltip {
     @Prop({ reflect: true })
     public maxlength?: number = DEFAULT_MAX_LENGTH;
 
+    /**
+     * Decides the tooltip's location in relation to its trigger.
+     */
+    @Prop({ reflect: true })
+    public openDirection: OpenDirection = 'top';
+
     @Element()
     private host: HTMLLimelTooltipElement;
 
@@ -116,7 +123,7 @@ export class Tooltip {
         return (
             <div class="trigger-anchor">
                 <limel-portal
-                    openDirection="bottom-start"
+                    openDirection={this.openDirection}
                     visible={this.open}
                     containerId={this.portalId}
                     containerStyle={{
