@@ -1,3 +1,10 @@
+## [37.1.0-next.14](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.13...v37.1.0-next.14) (2023-08-16)
+
+
+### Features
+
+* **tooltip:** add new component `limel-tooltip` ([df4f393](https://github.com/Lundalogik/lime-elements/commit/df4f3938935b655ca4d92c2abb15776abfe06a3c))
+
 ## [37.1.0-next.13](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.12...v37.1.0-next.13) (2023-08-11)
 
 
