@@ -1,3 +1,4 @@
+import { CellComponent, RowComponent } from 'tabulator-tables';
 import { ElementPool } from './element-pool';
 import { TableSelection } from './table-selection';
 
@@ -37,7 +38,7 @@ describe('table selection', () => {
         ...rowData: any[]
     ) => Map<any, { checked: boolean }> = (...rowData: any[]) => {
         const rowCheckboxMap = new Map<any, { checked: boolean }>();
-        const makeCell: (row: any, data: any) => Tabulator.CellComponent = (
+        const makeCell: (row: any, data: any) => CellComponent = (
             row: any,
             data: any
         ) => {
@@ -53,11 +54,11 @@ describe('table selection', () => {
             return cell as any;
         };
 
-        const makeRow: (
-            data: any,
-            position: number
-        ) => Tabulator.RowComponent = (data, position) => {
-            const row: Partial<Tabulator.RowComponent> = {
+        const makeRow: (data: any, position: number) => RowComponent = (
+            data,
+            position
+        ) => {
+            const row: Partial<RowComponent> = {
                 getData: () => data,
                 getPosition: () => position,
             };
