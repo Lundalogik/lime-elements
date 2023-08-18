@@ -1,4 +1,7 @@
 /* eslint-env node */
+const { readFileSync } = require('fs');
+const { join } = require('path');
+
 module.exports = {
     branches: [
         'main',
@@ -18,7 +21,12 @@ module.exports = {
         [
             '@semantic-release/release-notes-generator',
             {
-                preset: 'conventionalcommits',
+                writerOpts: {
+                    commitPartial: readFileSync(
+                        join(__dirname, 'commit.hbs'),
+                        'utf-8'
+                    ),
+                },
             },
         ],
         '@semantic-release/changelog',
