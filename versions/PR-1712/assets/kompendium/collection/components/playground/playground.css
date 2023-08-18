@@ -156,22 +156,6 @@ section.example .code {
   border: 1px solid rgb(var(--kompendium-contrast-300));
   box-shadow: var(--shadow-showcase);
 }
-@media (prefers-color-scheme: dark) {
-  .show-case_component:not([data-theme=force-light]) {
-    background-color: rgb(var(--kompendium-contrast-200));
-  }
-}
-.show-case_component[data-theme=force-dark] {
-  background-color: rgb(var(--kompendium-contrast-200));
-}
-@media (prefers-color-scheme: dark) {
-  :host(:not([data-theme=force-light])) .show-case_component {
-    background-color: rgb(var(--kompendium-contrast-200));
-  }
-}
-:host([data-theme=force-dark]) .show-case_component {
-  background-color: rgb(var(--kompendium-contrast-200));
-}
 
 .debug {
   display: flex;
@@ -194,6 +178,13 @@ section.example .code {
 .debug a.debug-link:active {
   box-shadow: var(--kompendium-button-shadow-pressed);
   transform: translate3d(0, 0.08rem, 0);
+}
+.debug a.debug-link:focus {
+  outline: none;
+}
+.debug a.debug-link:focus-visible {
+  outline: none;
+  box-shadow: var(--kompendium-shadow-depth-8-focused);
 }
 .debug a.debug-link:hover {
   opacity: 1;

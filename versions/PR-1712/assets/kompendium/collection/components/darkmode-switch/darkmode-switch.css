@@ -81,6 +81,14 @@ input[type=checkbox] {
   height: 100%;
   margin: 0;
   cursor: pointer;
+  border-radius: 0.125rem;
+}
+input[type=checkbox]:focus {
+  outline: none;
+}
+input[type=checkbox]:focus-visible {
+  outline: none;
+  box-shadow: var(--kompendium-shadow-depth-8-focused);
 }
 input[type=checkbox]:not(:checked) + .mode-visualization .circle {
   background-color: rgba(var(--kompendium-color-orange-default), 1);

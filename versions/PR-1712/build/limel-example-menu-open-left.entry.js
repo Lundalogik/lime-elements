@@ -1,1 +1,0 @@
-import{r as e,h as t}from"./index-7dccb886.js";const r=class{constructor(t){e(this,t),this.items=[{text:"Copy"},{text:"Cut"},{separator:!0},{text:"Paste"}]}render(){return t("limel-menu",{items:this.items,openDirection:"left"},t("limel-button",{label:"Menu",slot:"trigger"}))}};export{r as limel_example_menu_open_left}
