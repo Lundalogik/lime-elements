@@ -1,5 +1,12 @@
 import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
-import { Tabulator } from 'tabulator-tables';
+import {
+    CellComponent,
+    ColumnCalc,
+    ColumnComponent,
+    ColumnDefinition,
+    Formatter,
+    SorterFromTable,
+} from 'tabulator-tables';
 import { escape } from 'html-escaper';
 import { ElementPool } from './element-pool';
 import { pickBy, negate } from 'lodash-es';
@@ -12,10 +19,10 @@ export class ColumnDefinitionFactory {
     /**
      * Create Tabulator column definitions from a limel-table column configuration
      * @param {Column} column config describing the column
-     * @returns {Tabulator.ColumnDefinition} Tabulator column
+     * @returns {ColumnDefinition} Tabulator column
      */
-    public create(column: Column<object>): Tabulator.ColumnDefinition {
-        const definition: Tabulator.ColumnDefinition = {
+    public create(column: Column<object>): ColumnDefinition {
+        const definition: ColumnDefinition = {
             title: column.title,
             field: column.field,
             hozAlign: column.horizontalAlign,
@@ -76,12 +83,9 @@ export const formatHeader = (column: Column) => (): string | HTMLElement => {
  * Create a formatter to be used to format values in a column
  * @param {Column} column config describing the column
  * @param {ElementPool} pool pool to get custom components from
- * @returns {Tabulator.Formatter} Tabulator formatter
+ * @returns {Formatter} Tabulator formatter
  */
-export function createFormatter(
-    column: Column,
-    pool: ElementPool
-): Tabulator.Formatter {
+export function createFormatter(column: Column, pool: ElementPool): Formatter {
     if (!column.component?.name) {
         return formatCell;
     }
@@ -97,7 +101,7 @@ export function createFormatter(
         return formatCell;
     }
 
-    return (cell: Tabulator.CellComponent) => {
+    return (cell: CellComponent) => {
         const value = formatCell(cell, column);
 
         return createCustomComponent(cell, column, value, pool);
@@ -118,14 +122,11 @@ function columnElementExists(column: Column<any>) {
 
 /**
  * Format the value of a cell in the table
- * @param {Tabulator.CellComponent} cell the cell being rendered in the table
+ * @param {CellComponent} cell the cell being rendered in the table
  * @param {Column} column configuration for the current column
  * @returns {string} the formatted value
  */
-export function formatCell(
-    cell: Tabulator.CellComponent,
-    column: Column
-): string {
+export function formatCell(cell: CellComponent, column: Column): string {
     const data = cell.getData();
     let value = cell.getValue();
 
@@ -142,14 +143,14 @@ export function formatCell(
 
 /**
  * Create a custom component that renders a cell value
- * @param {Tabulator.CellComponent} cell Tabulator cell
+ * @param {CellComponent} cell Tabulator cell
  * @param {Column} column lime-elements column configuration
  * @param {string} value the value of the cell being rendered
  * @param {ElementPool} pool pool to get custom components from
  * @returns {HTMLElement} custom component that renders a value in the table
  */
 export function createCustomComponent(
-    cell: Tabulator.CellComponent,
+    cell: CellComponent,
     column: Column,
     value: string,
     pool: ElementPool
@@ -226,10 +227,7 @@ function getEventName(eventListener: string): string {
     return eventListener.charAt(2).toLowerCase() + eventListener.slice(3);
 }
 
-function createResizeObserver(
-    element: HTMLElement,
-    column: Tabulator.ColumnComponent
-) {
+function createResizeObserver(element: HTMLElement, column: ColumnComponent) {
     if (!('ResizeObserver' in window)) {
         return;
     }
@@ -263,7 +261,7 @@ function createResizeObserver(
  */
 export const createColumnSorter =
     (columns: Column[]) =>
-    (sorter: Tabulator.SorterFromTable): ColumnSorter => {
+    (sorter: SorterFromTable): ColumnSorter => {
         const column = columns.find((col) => col.field === sorter.field);
         const direction = sorter.dir.toUpperCase() as 'ASC' | 'DESC';
 
@@ -273,7 +271,7 @@ export const createColumnSorter =
         };
     };
 
-export function getColumnAggregator(column: Column): Tabulator.ColumnCalc {
+export function getColumnAggregator(column: Column): ColumnCalc {
     const aggregator = column.aggregator;
     if (isAggregatorFunction(aggregator)) {
         return (values: any[], data: object[]) => {

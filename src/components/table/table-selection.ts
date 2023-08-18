@@ -1,5 +1,10 @@
 import { EventEmitter } from '@stencil/core';
-import { Tabulator } from 'tabulator-tables';
+import {
+    CellComponent,
+    ColumnDefinition,
+    RowComponent,
+    Tabulator,
+} from 'tabulator-tables';
 import { setElementProperties } from './columns';
 import { ElementPool } from './element-pool';
 import { Selection, SelectionChangeSet } from './selection';
@@ -61,16 +66,16 @@ export class TableSelection {
 
     /**
      * Prepends a checkbox column used for row selection to the given column definitions
-     * @param {Tabulator.ColumnDefinition[]} columnDefinitions The column definition for the table
-     * @returns {Tabulator.ColumnDefinition[]} The column definitions with the checkbox column prepended to it
+     * @param {ColumnDefinition[]} columnDefinitions The column definition for the table
+     * @returns {ColumnDefinition[]} The column definitions with the checkbox column prepended to it
      */
     public getColumnDefinitions(
-        columnDefinitions: Tabulator.ColumnDefinition[]
-    ): Tabulator.ColumnDefinition[] {
+        columnDefinitions: ColumnDefinition[]
+    ): ColumnDefinition[] {
         return [this.getRowSelectorColumnDefinition(), ...columnDefinitions];
     }
 
-    private getRowSelectorColumnDefinition(): Tabulator.ColumnDefinition {
+    private getRowSelectorColumnDefinition(): ColumnDefinition {
         return {
             title: '',
             formatter: this.getRowSelectorFormatter(),
@@ -89,7 +94,7 @@ export class TableSelection {
     }
 
     private getRowSelectorFormatter() {
-        return (cell: Tabulator.CellComponent) => {
+        return (cell: CellComponent) => {
             const element = this.pool.get(LIMEL_CHECKBOX);
             setElementProperties(element, {
                 checked: this.selection.has(cell.getData()),
@@ -105,17 +110,21 @@ export class TableSelection {
      * row and toggles the selection from the last clicked row if the shift key
      * is pressed down.
      * @param {PointerEvent} ev The pointer event
-     * @param {Tabulator.CellComponent} cell The clicked cell component
+     * @param {CellComponent} cell The clicked cell component
      */
     protected rowSelectorCellClick = (
         ev: PointerEvent,
-        cell: Tabulator.CellComponent
+        cell: CellComponent
     ) => {
         ev.stopPropagation();
         ev.preventDefault();
 
         const clickedRow = cell.getRow();
         const rowPosition = clickedRow.getPosition(true);
+
+        if (rowPosition === false) {
+            return;
+        }
 
         if (ev.shiftKey) {
             this.updateRowSelectors(
@@ -136,10 +145,7 @@ export class TableSelection {
             .forEach((row) => this.updateRowSelector(row, changeSet.selected));
     };
 
-    private updateRowSelector = (
-        row: Tabulator.RowComponent,
-        checked: boolean
-    ) => {
+    private updateRowSelector = (row: RowComponent, checked: boolean) => {
         const cell = row.getCells()[0];
         if (cell) {
             const checkBox = cell.getElement().querySelector(LIMEL_CHECKBOX);
@@ -147,7 +153,7 @@ export class TableSelection {
         }
     };
 
-    private getActiveRows: () => Tabulator.RowComponent[] = () => {
+    private getActiveRows: () => RowComponent[] = () => {
         const table = this.getTable();
         if (!table) {
             return [];
