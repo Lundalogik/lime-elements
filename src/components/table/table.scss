@@ -130,6 +130,10 @@ $table--limel-table--row-selector: 1;
             justify-content: center;
         }
     }
+
+    .tabulator-col-resize-handle {
+        display: none;
+    }
 }
 
 .tabulator-col,
