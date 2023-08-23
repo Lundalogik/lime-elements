@@ -1,3 +1,11 @@
+## [37.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.15...v37.1.0-next.16) (2023-08-23)
+
+
+### Bug Fixes
+
+* **table:** avoid flickering of cursor while hovering & moving the cursor on rows ([8a1ef7c](https://github.com/Lundalogik/lime-elements/commit/8a1ef7c4a63a4b47604e1182b3de0b3a6ca03dcb))
+* **table:** differentiate interactivity of rows vs. components in cells ([000c070](https://github.com/Lundalogik/lime-elements/commit/000c070aecabd1f72a26c1dcc06496e3192977d2))
+
 ## [37.1.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.14...v37.1.0-next.15) (2023-08-16)
 
 
