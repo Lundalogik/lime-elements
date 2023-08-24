@@ -89,7 +89,8 @@ export class List {
     private selectable: boolean;
 
     /**
-     * Fired when a new value has been selected from the list. Only fired if selectable is set to true
+     * Fired when a new value has been selected from the list.
+     * Only fired if `type` is set to `selectable`, `radio` or `checkbox`.
      */
     @Event()
     private change: EventEmitter<ListItem | ListItem[]>;
