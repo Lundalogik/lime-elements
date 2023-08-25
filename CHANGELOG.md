@@ -1,3 +1,10 @@
+## [37.1.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.16...v37.1.0-next.17) (2023-08-25)
+
+
+### Features
+
+* **action-bar-icon-interface:** make `icon` field required when `iconOnly` is true ([52ed447](https://github.com/Lundalogik/lime-elements/commit/52ed4479e09d8ce93ef1d86ca6d44f2f2cf94112))
+
 ## [37.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.15...v37.1.0-next.16) (2023-08-23)
 
 
