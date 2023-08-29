@@ -56,6 +56,10 @@ export class LinearProgress {
     }
 
     public render() {
+        if (!this.isFinite(this.value)) {
+            return;
+        }
+
         const classList = {
             'mdc-linear-progress': true,
             'mdc-linear-progress--indeterminate': this.indeterminate,
@@ -85,10 +89,14 @@ export class LinearProgress {
 
     @Watch('value')
     protected watchValue(newValue) {
-        if (!this.mdcLinearProgress) {
+        if (!this.mdcLinearProgress || !this.isFinite(newValue)) {
             return;
         }
 
         this.mdcLinearProgress.progress = newValue;
+    }
+
+    private isFinite(value: unknown) {
+        return Number.isFinite(value);
     }
 }
