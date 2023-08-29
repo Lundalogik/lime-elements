@@ -1,3 +1,10 @@
+## [37.1.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.17...v37.1.0-next.18) (2023-08-29)
+
+
+### Bug Fixes
+
+* **linear-progress:** avoid rendering the component unless the value is a number ([30ede63](https://github.com/Lundalogik/lime-elements/commit/30ede632321043e928703e62ce7fae98ee5d205a)), closes [Lundalogik/crm-feature#3585](https://github.com/Lundalogik/crm-feature/issues/3585)
+
 ## [37.1.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.16...v37.1.0-next.17) (2023-08-25)
 
 
