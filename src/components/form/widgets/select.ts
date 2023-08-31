@@ -1,5 +1,5 @@
 import React from 'react';
-import { Option } from '@limetech/lime-elements';
+import { Option } from '../../select/option.types';
 import { isMultiple } from '../../../util/multiple';
 import { LimeElementsWidgetAdapter } from '../adapters';
 import { WidgetProps } from './types';
@@ -62,10 +62,15 @@ export class Select extends React.Component {
     }
 }
 
-function createOption(item: { label: string; value: string }): Option {
+function createOption(item: {
+    label: string;
+    value: string;
+    schema: Record<string, unknown>;
+}): Option {
     return {
         text: item.label,
         value: item.value,
+        disabled: !!item.schema.readOnly,
     };
 }
 
