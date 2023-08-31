@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-6156b4fd.js";const s=class{constructor(t){e(this,t);this.items=[{name:"shortcut",icon:"add_shopping_cart",url:"https://lundalogik.github.io/lime-elements/versions/37.1.0/#/component/limel-shortcut/"},{name:"Step 2",icon:"add_shopping_cart"},{name:"Step 3",icon:"add_shopping_cart"}]}render(){return t("limel-breadcrumbs",{items:this.items})}};export{s as limel_example_breadcrumbs_basic};
+//# sourceMappingURL=limel-example-breadcrumbs-basic.entry.js.map
