@@ -1,0 +1,2 @@
+import{r as t,h as e}from"./index-6156b4fd.js";const s=class{constructor(e){t(this,e);this.items=[{text:"step 1",icon:"fish"},{text:"Step 2",icon:"cat"},{text:"Step 3",icon:"dog"},{text:"Step 4",icon:"horse"}]}render(){return e("limel-breadcrumbs",{items:this.items})}};export{s as limel_example_breadcrumbs_buttons};
+//# sourceMappingURL=limel-example-breadcrumbs-buttons.entry.js.map
