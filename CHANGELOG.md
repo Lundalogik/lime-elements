@@ -1,3 +1,10 @@
+## [37.1.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.18...v37.1.0-next.19) (2023-09-01)
+
+
+### Features
+
+* **form:** add support for disabled options when using a select ([e9d446c](https://github.com/Lundalogik/lime-elements/commit/e9d446ce04989d9fac61fcc7e3daf3093df7d3d6))
+
 ## [37.1.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.17...v37.1.0-next.18) (2023-08-29)
 
 
