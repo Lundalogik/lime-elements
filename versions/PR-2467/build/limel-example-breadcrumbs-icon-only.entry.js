@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-6156b4fd.js";const r=class{constructor(t){e(this,t);this.items=[{text:"Home",icon:"home",iconOnly:true},{text:"Products"},{text:"Phone"},{text:"Accessories"}]}render(){return t("limel-breadcrumbs",{items:this.items})}};export{r as limel_example_breadcrumbs_icon_only};
+//# sourceMappingURL=limel-example-breadcrumbs-icon-only.entry.js.map
