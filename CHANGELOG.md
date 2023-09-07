@@ -1,3 +1,10 @@
+## [37.1.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.19...v37.1.0-next.20) (2023-09-07)
+
+
+### Bug Fixes
+
+* **action-bar-item:** make disabled button visible ([0226863](https://github.com/Lundalogik/lime-elements/commit/02268631157fe1b99c6744250febe96eb55461dd))
+
 ## [37.1.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.18...v37.1.0-next.19) (2023-09-01)
 
 
