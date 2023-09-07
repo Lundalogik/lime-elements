@@ -36,6 +36,7 @@ button {
     min-width: var(--action-bar-item-height);
     max-width: var(--action-bar-item-max-width, 10rem);
     height: var(--action-bar-item-height);
+    color: var(--limel-action-bar-item-text-color);
 
     border-radius: var(--action-bar-item-height);
     font-size: functions.pxToRem(14);
