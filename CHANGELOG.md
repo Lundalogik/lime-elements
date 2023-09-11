@@ -1,3 +1,10 @@
+## [37.1.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.20...v37.1.0-next.21) (2023-09-11)
+
+
+### Bug Fixes
+
+* **form:** separate code editor from other elements ([6251e16](https://github.com/Lundalogik/lime-elements/commit/6251e16f718d4f14aa39f0f50863867107e41434))
+
 ## [37.1.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.19...v37.1.0-next.20) (2023-09-07)
 
 
