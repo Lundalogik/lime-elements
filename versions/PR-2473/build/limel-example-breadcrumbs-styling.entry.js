@@ -1,0 +1,2 @@
+import{r,h as e}from"./index-6156b4fd.js";const o="limel-breadcrumbs{--breadcrumbs-item-text-color:rgb(var(--color-white));background-color:rgb(var(--color-blue-darker))}";const t=class{constructor(e){r(this,e);this.items=[{text:"Home",icon:"home",iconColor:"rgb(var(--color-cyan-light))"},{text:"Products",icon:"menu"},{text:"Phones",icon:"google_mobile_copyrighted"},{text:"Accessories"}]}render(){return e("limel-breadcrumbs",{items:this.items})}};t.style=o;export{t as limel_example_breadcrumbs_styling};
+//# sourceMappingURL=limel-example-breadcrumbs-styling.entry.js.map
