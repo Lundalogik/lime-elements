@@ -2,15 +2,16 @@
 @use '@material/elevation';
 @use '@material/menu';
 
-:host {
+:host(limel-menu-surface) {
     display: block;
+    max-height: inherit;
 }
 
 @include menu-surface.core-styles;
 @include menu.core-styles;
 
 .mdc-menu-surface {
-    max-height: 100%;
+    max-height: inherit;
     position: relative;
     --mdc-menu-max-width: var(
         --menu-surface-width,
