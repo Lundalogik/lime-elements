@@ -1,2 +1,0 @@
-import{r as e,h as o}from"./index-6156b4fd.js";const t=class{constructor(o){e(this,o);this.items=[{text:"Home",icon:"home",iconOnly:true},{text:"Products",icon:"shop"},{text:"Phones",icon:"google_mobile_copyrighted"},{text:"Accessories"}]}render(){return o("limel-breadcrumbs",{items:this.items})}};export{t as limel_example_breadcrumbs_icons};
-//# sourceMappingURL=limel-example-breadcrumbs-icons.entry.js.map
