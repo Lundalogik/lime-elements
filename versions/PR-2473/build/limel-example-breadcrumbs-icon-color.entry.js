@@ -1,0 +1,2 @@
+import{r as o,h as r}from"./index-f1b3d5fb.js";const e=class{constructor(r){o(this,r);this.items=[{text:"step 1",icon:"fish",iconColor:"rgb(var(--color-red-default))"},{text:"Step 2",icon:"cat",iconColor:"rgb(var(--color-orange-default))"},{text:"Step 3",icon:"dog",iconColor:"rgb(var(--color-blue-default))"}]}render(){return r("limel-breadcrumbs",{items:this.items})}};export{e as limel_example_breadcrumbs_icon_color};
+//# sourceMappingURL=limel-example-breadcrumbs-icon-color.entry.js.map
