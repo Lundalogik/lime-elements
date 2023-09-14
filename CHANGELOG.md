@@ -1,3 +1,12 @@
+## [37.1.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.22...v37.1.0-next.23) (2023-09-14)
+
+
+### Bug Fixes
+
+* **checkbox:** make `readonly` styles less confusing for end-users ([9361b7b](https://github.com/Lundalogik/lime-elements/commit/9361b7bd777a34a81b2a9c4fc7705c972aca138d))
+* **switch:** improve `disabled` styles ([c30c8cb](https://github.com/Lundalogik/lime-elements/commit/c30c8cbbbbf426a9a68ce86e2be86c9c6ba38bc4))
+* **switch:** make `readonly` styles less confusing for end-users ([e076395](https://github.com/Lundalogik/lime-elements/commit/e076395dcef5ba7e7b8537c30425ed5314fcded5))
+
 ## [37.1.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.21...v37.1.0-next.22) (2023-09-14)
 
 
