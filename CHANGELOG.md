@@ -1,3 +1,10 @@
+## [37.1.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.21...v37.1.0-next.22) (2023-09-14)
+
+
+### Bug Fixes
+
+* **menu:** prevent long menus to overflow out of the screen ([57ef0e4](https://github.com/Lundalogik/lime-elements/commit/57ef0e4a436223dc2ccc78503bae2166b58a20f4))
+
 ## [37.1.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.20...v37.1.0-next.21) (2023-09-11)
 
 
