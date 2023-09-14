@@ -1,14 +1,13 @@
 .mdc-switch {
     &.lime-switch--readonly {
-        --mdc-switch-disabled-selected-track-color: var(--mdc-theme-primary);
-        --mdc-switch-disabled-unselected-track-color: rgb(
-            var(--color-red-default)
-        );
+        --mdc-switch-disabled-selected-track-color: rgb(var(--contrast-1000));
+        --mdc-switch-disabled-unselected-track-color: rgb(var(--contrast-900));
         --mdc-switch-handle-surface-color: transparent;
         --mdc-switch-disabled-selected-handle-color: transparent;
         --mdc-switch-disabled-unselected-handle-color: transparent;
 
         --mdc-switch-disabled-track-opacity: 1;
+        --mdc-switch-track-width: 1.25rem;
 
         + label.disabled {
             cursor: default;
