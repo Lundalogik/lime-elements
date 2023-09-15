@@ -108,7 +108,11 @@ export class MenuList {
     }
 
     @Watch('items')
-    protected itemsChanged() {}
+    protected itemsChanged() {
+        setTimeout(() => {
+            this.setup();
+        }, 0);
+    }
 
     private setup = () => {
         this.setupMenu();
@@ -116,6 +120,11 @@ export class MenuList {
     };
 
     private setupMenu = () => {
+        if (this.mdcMenu) {
+            this.teardown();
+            this.mdcMenu = null;
+        }
+
         const element = this.element.shadowRoot.querySelector('.mdc-menu');
         if (!element) {
             return;
