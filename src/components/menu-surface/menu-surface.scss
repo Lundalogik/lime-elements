@@ -2,6 +2,11 @@
 @use '@material/elevation';
 @use '@material/menu';
 
+/**
+* @prop --limel-menu-surface-display: defines whether the surface is treated as a block, flex or grid. It affects layout used to display its children. Defaults to `block`.
+* @prop --limel-menu-surface-flex-direction: defines the direction of menu-surface layout.
+*/
+
 :host(limel-menu-surface) {
     display: block;
     max-height: inherit;
@@ -11,6 +16,8 @@
 @include menu.core-styles;
 
 .mdc-menu-surface {
+    display: var(--limel-menu-surface-display, block);
+    flex-direction: var(--limel-menu-surface-flex-direction, row);
     max-height: inherit;
     position: relative;
     --mdc-menu-max-width: var(
