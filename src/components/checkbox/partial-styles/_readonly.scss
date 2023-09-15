@@ -2,7 +2,7 @@
     opacity: 1;
     --mdc-ripple-press-opacity: 1;
     --mdc-checkbox-disabled-color: rgb(var(--contrast-1000));
-    --mdc-checkbox-ink-color: rgb(var(--color-white));
+    --mdc-checkbox-ink-color: var(--mdc-theme-on-primary);
 
     .mdc-checkbox__background {
         border-radius: 50%;
@@ -20,7 +20,7 @@
 
             &:after {
                 content: '–';
-                color: rgb(var(--color-white));
+                color: var(--mdc-theme-on-primary);
                 font-size: 1.25rem;
                 position: absolute;
             }
