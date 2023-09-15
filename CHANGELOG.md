@@ -1,3 +1,10 @@
+## [37.1.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.23...v37.1.0-next.24) (2023-09-15)
+
+
+### Bug Fixes
+
+* **checkbox:** make color of icons in `readonly` more dark ([d344015](https://github.com/Lundalogik/lime-elements/commit/d344015fd3a09cbe92c64c832ef6f1fd3cdc629c))
+
 ## [37.1.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.22...v37.1.0-next.23) (2023-09-14)
 
 
