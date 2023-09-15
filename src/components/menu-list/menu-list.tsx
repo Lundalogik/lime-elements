@@ -4,10 +4,8 @@ import {
     MenuItem,
     MenuListType,
 } from '../../interface';
-import { MDCList, MDCListActionEvent } from '@material/list';
 import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
 import { MDCRipple } from '@material/ripple';
-import { strings as listStrings } from '@material/list/constants';
 import { strings as menuStrings } from '@material/menu/constants';
 import {
     Component,
@@ -21,7 +19,6 @@ import {
 import { MenuListRenderer } from './menu-list-renderer';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
 
-const { ACTION_EVENT } = listStrings;
 const { SELECTED_EVENT } = menuStrings;
 
 /**
@@ -73,7 +70,6 @@ export class MenuList {
 
     private config: MenuListRendererConfig;
     private MenuListRenderer = new MenuListRenderer();
-    private mdcList: MDCList;
     private mdcMenu: MDCMenu;
 
     /**
@@ -112,17 +108,7 @@ export class MenuList {
     }
 
     @Watch('items')
-    protected itemsChanged() {
-        if (!this.mdcList) {
-            return;
-        }
-
-        const MenuItems = this.items.filter(this.isMenuItem);
-
-        this.mdcList.selectedIndex = MenuItems.findIndex(
-            (item: MenuItem) => item.selected
-        );
-    }
+    protected itemsChanged() {}
 
     private setup = () => {
         this.setupMenu();
@@ -151,15 +137,8 @@ export class MenuList {
     };
 
     private teardown = () => {
-        this.mdcList?.unlisten(ACTION_EVENT, this.handleAction);
-        this.mdcList?.destroy();
-
         this.mdcMenu?.unlisten(SELECTED_EVENT, this.handleMenuSelect);
         this.mdcMenu?.destroy();
-    };
-
-    private handleAction = (event: MDCListActionEvent) => {
-        this.handleSingleSelect(event.detail.index);
     };
 
     private handleMenuSelect = (event: MDCMenuItemEvent) => {
