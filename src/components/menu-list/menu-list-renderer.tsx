@@ -2,6 +2,7 @@ import { ListSeparator, MenuItem } from '../../interface';
 import { h } from '@stencil/core';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
 import { getIconColor, getIconName } from '../icon/get-icon-props';
+import { isFunction } from 'lodash-es';
 
 export class MenuListRenderer {
     private defaultConfig: MenuListRendererConfig = {
@@ -257,6 +258,9 @@ export class MenuListRenderer {
     };
 
     private hasSubItems = (item: MenuItem): boolean => {
-        return Array.isArray(item.items) && item.items.length > 0;
+        return (
+            (Array.isArray(item.items) && item.items.length > 0) ||
+            isFunction(item.items)
+        );
     };
 }

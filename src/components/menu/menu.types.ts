@@ -89,7 +89,11 @@ export interface MenuItem<T = any> {
 
     /**
      * A way of defining a sub-menu for an item.
-     * Set it to an array of `MenuItem`s
+     *
+     * Either set it to an array of `MenuItem`:s or use lazy loading by setting
+     * it to a function of type `MenuLoader`.
+     * If `myMenuItem.items` is undefined or null, `myMenuItem` will be
+     * considered an item without a sub-menu.
      */
     items?: Array<MenuItem<T> | ListSeparator> | MenuLoader;
 
@@ -110,8 +114,7 @@ export interface MenuItem<T = any> {
  * a promise that will eventually be resolved with an array of `MenuItem`:s,
  * that is the sub-menu of the given item.
  * @param {MenuItem} item The parent item to load the sub-menu for.
- * @returns {Promise<MenuItem[]>} The sub-menu's items of the given item
- * @internal
+ * @returns {Promise<MenuItem[]>} The sub-menu's items of the given item.
  */
 export type MenuLoader = (
     item: MenuItem
