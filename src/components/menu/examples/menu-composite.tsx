@@ -55,6 +55,7 @@ export class MenuCompositeExample {
         };
 
         delete this.schema.properties.label;
+        delete this.schema.properties.loadSubItems;
     }
 
     public render() {

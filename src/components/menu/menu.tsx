@@ -7,10 +7,36 @@ import {
     Prop,
     Element,
     Watch,
+    State,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
-import { ListSeparator, MenuItem, OpenDirection } from '../../interface';
+import {
+    BreadcrumbsItem,
+    LimelBreadcrumbsCustomEvent,
+    LimelInputFieldCustomEvent,
+    ListSeparator,
+    OpenDirection,
+    MenuItem,
+    SubItemsLoader,
+} from '@limetech/lime-elements';
+
+import {
+    ARROW_DOWN,
+    ARROW_DOWN_KEY_CODE,
+    ARROW_LEFT,
+    ARROW_LEFT_KEY_CODE,
+    ARROW_RIGHT,
+    ARROW_RIGHT_KEY_CODE,
+    ARROW_UP,
+    ARROW_UP_KEY_CODE,
+    TAB,
+    TAB_KEY_CODE,
+} from '../../util/keycodes';
+
+interface MenuCrumbItem extends BreadcrumbsItem {
+    menuItem: MenuItem;
+}
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.
@@ -24,6 +50,8 @@ import { ListSeparator, MenuItem, OpenDirection } from '../../interface';
  * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-secondary-text
  * @exampleComponent limel-example-menu-notification
+ * @exampleComponent limel-example-menu-subitems
+ * @exampleComponent limel-example-menu-subitems-lazy-loading
  * @exampleComponent limel-example-menu-size
  * @exampleComponent limel-example-menu-composite
  */
@@ -69,6 +97,15 @@ export class Menu {
     @Prop({ reflect: true })
     public gridLayout = false;
 
+    @Prop()
+    public loadSubItems: SubItemsLoader;
+
+    @Prop()
+    public lazyLoadItems: boolean;
+
+    @Prop()
+    public loading: boolean;
+
     /**
      * Is emitted when the menu is cancelled.
      */
@@ -79,34 +116,72 @@ export class Menu {
      * Is emitted when a menu item is selected.
      */
     @Event()
-    private select: EventEmitter<MenuItem | MenuItem[]>;
+    public select: EventEmitter<MenuItem | MenuItem[]>;
+
+    @Event()
+    public parentSelect: EventEmitter<MenuItem>;
 
     @Element()
     private host: HTMLLimelMenuElement;
+
+    @State()
+    private loadingSubItems: boolean;
+
+    @State()
+    private currentItems: Array<MenuItem | ListSeparator> = null;
 
     private list: HTMLLimelMenuListElement;
 
     private portalId: string;
 
+    private get visibleItems(): Array<MenuItem | ListSeparator> {
+        if (Array.isArray(this.currentItems)) {
+            return this.currentItems;
+        }
+
+        return this.items;
+    }
+
     constructor() {
         this.portalId = createRandomString();
+    }
+
+    @Watch('items')
+    protected itemsWatcher() {
+        this.currentItems = null;
+
+        this.setFocus();
+    }
+
+    @Watch('currentItems')
+    protected currentItemsWatcher() {
+        this.setFocus();
     }
 
     @Watch('open')
     protected openWatcher() {
         if (!this.open) {
+            this.currentItems = null;
+
             return;
         }
 
-        const observer = new IntersectionObserver(() => {
-            observer.unobserve(this.list);
-            this.focusMenuItem();
-        });
-        observer.observe(this.list);
+        this.setFocus();
     }
+
+    private setFocus = () => {
+        setTimeout(() => {
+            const observer = new IntersectionObserver(() => {
+                observer.unobserve(this.list);
+                this.focusMenuItem();
+            });
+            observer.observe(this.list);
+        }, 0);
+    };
 
     public render() {
         const cssProperties = this.getCssProperties();
+
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
             '--dropdown-z-index'
         );
@@ -136,17 +211,9 @@ export class Menu {
                             'has-grid-layout': this.gridLayout,
                         }}
                     >
-                        <limel-menu-list
-                            class={{
-                                'has-grid-layout has-interactive-items':
-                                    this.gridLayout,
-                            }}
-                            items={this.items}
-                            type="menu"
-                            badgeIcons={this.badgeIcons}
-                            onSelect={this.handleSelect}
-                            ref={this.setListElement}
-                        />
+                        {this.renderBreadcrumb()}
+                        {this.renderLoader()}
+                        {this.renderMenuList()}
                     </limel-menu-surface>
                 </limel-portal>
             </div>
@@ -157,6 +224,174 @@ export class Menu {
         const slotElement = this.host.shadowRoot.querySelector('slot');
         slotElement.assignedElements().forEach(this.setTriggerAttributes);
     }
+
+    private renderLoader = () => {
+        if (!this.loadingSubItems && !this.loading) {
+            return;
+        }
+
+        const cssProperties = this.getCssProperties();
+
+        return (
+            <div
+                style={{
+                    width: cssProperties['--menu-surface-width'],
+                    display: 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    padding: '0.5rem 0',
+                }}
+            >
+                <limel-spinner size="mini" limeBranded={false} />
+            </div>
+        );
+    };
+
+    private renderBreadcrumb = () => {
+        const leafNode = this.visibleItems?.find(this.isMenuItem) as MenuItem;
+        if (!leafNode) {
+            return;
+        }
+
+        const breadCrumbItems: MenuCrumbItem[] = [];
+        let currentItem = leafNode?.parentItem;
+        while (currentItem) {
+            breadCrumbItems.unshift({
+                text: currentItem.text,
+                icon: {
+                    name: currentItem.icon,
+                    color: currentItem.iconColor,
+                },
+                menuItem: currentItem,
+            });
+            currentItem = currentItem.parentItem;
+        }
+
+        if (!breadCrumbItems.length) {
+            return;
+        }
+
+        return (
+            <limel-breadcrumbs
+                style={{
+                    'border-bottom': 'solid 1px rgb(var(--contrast-500))',
+                }}
+                onSelect={(
+                    event: LimelBreadcrumbsCustomEvent<MenuCrumbItem>
+                ) => {
+                    if (!event.detail.menuItem) {
+                        this.currentItems = null;
+                        this.parentSelect.emit(null);
+
+                        return;
+                    }
+
+                    this.handleSelect(event.detail.menuItem);
+                }}
+                items={[
+                    {
+                        text: '',
+                        icon: {
+                            name: 'home',
+                        },
+                        type: 'icon-only',
+                    },
+                    ...breadCrumbItems,
+                ]}
+            />
+        );
+    };
+
+    private renderMenuList = () => {
+        let items = this.visibleItems;
+        if (this.loadingSubItems || this.loading) {
+            items = [];
+        }
+
+        return (
+            <limel-menu-list
+                tabindex="1"
+                style={{
+                    'overflow-y': 'auto',
+                    'flex-grow': '1',
+                }}
+                class={{
+                    'has-grid-layout has-interactive-items': this.gridLayout,
+                }}
+                items={items}
+                type="menu"
+                lazyLoadItems={this.lazyLoadItems}
+                badgeIcons={this.badgeIcons}
+                onSelect={this.onSelect}
+                ref={this.setListElement}
+                onKeyDown={this.handleMenuKeyDown}
+            />
+        );
+    };
+
+    /**
+     * Key handler for the menu list
+     * Can go forward/back with righ/left arrow keys
+     * @param {KeyboardEvent} event event
+     * @returns {void}
+     */
+    private handleMenuKeyDown = (event: KeyboardEvent) => {
+        const isLeft =
+            event.key === ARROW_LEFT || event.keyCode === ARROW_LEFT_KEY_CODE;
+
+        const isRight =
+            event.key === ARROW_RIGHT || event.keyCode === ARROW_RIGHT_KEY_CODE;
+
+        if (!isLeft && !isRight) {
+            return;
+        }
+
+        if (!this.gridLayout) {
+            const currentItem = this.getCurrentItem();
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (isRight) {
+                this.goForward(currentItem);
+            } else if (isLeft) {
+                this.goBack(currentItem);
+            }
+        }
+    };
+
+    private getCurrentItem = (): MenuItem => {
+        const activeItem = this.list?.shadowRoot?.querySelector(
+            '[role="menuitem"][tabindex="0"]'
+        );
+        const attrIndex = activeItem?.attributes?.getNamedItem('data-index');
+        const dataIndex = parseInt(attrIndex?.value || '0', 10);
+
+        return this.visibleItems[dataIndex] as MenuItem;
+    };
+
+    private goForward = (currentItem: MenuItem) => {
+        this.handleSelect(currentItem, false);
+    };
+
+    private goBack = (currentItem: MenuItem) => {
+        const parentItem = currentItem?.parentItem;
+        if (!parentItem) {
+            // Already in the root of the menu
+            return;
+        }
+
+        const grandParent = parentItem.parentItem;
+        if (!grandParent) {
+            // Is only one step down, go to the root of the menu.
+            // No need to load sub items.
+            this.currentItems = null;
+            this.parentSelect.emit(null);
+
+            return;
+        }
+
+        this.handleSelect(grandParent);
+    };
 
     private setTriggerAttributes = (element: HTMLElement) => {
         const attributes = {
@@ -189,10 +424,46 @@ export class Menu {
         this.open = !this.open;
     };
 
-    private handleSelect = (event: CustomEvent<MenuItem>) => {
-        event.stopPropagation();
-        this.select.emit(event.detail);
+    private handleSelect = async (
+        menuItem: MenuItem,
+        selectOnEmptyChildren: boolean = true
+    ) => {
+        if (menuItem?.subItems?.length) {
+            this.parentSelect.emit(menuItem);
+            this.currentItems = menuItem.subItems.map((item) => ({
+                ...item,
+                parentItem: menuItem,
+            }));
+
+            return;
+        } else if (this.lazyLoadItems) {
+            this.loadingSubItems = true;
+            const subItems = await this.loadSubItems(menuItem);
+            this.loadingSubItems = false;
+
+            if (subItems?.length) {
+                this.parentSelect.emit(menuItem);
+                this.currentItems = subItems.map((item) => ({
+                    ...item,
+                    parentItem: menuItem,
+                }));
+
+                return;
+            }
+        }
+
+        if (!selectOnEmptyChildren) {
+            return;
+        }
+
+        this.currentItems = null;
+        this.select.emit(menuItem);
         this.open = false;
+    };
+
+    private onSelect = (event: CustomEvent<MenuItem>) => {
+        event.stopPropagation();
+        this.handleSelect(event.detail);
     };
 
     private getCssProperties() {
@@ -219,10 +490,14 @@ export class Menu {
     };
 
     private focusMenuItem = () => {
+        if (!this.list) {
+            return;
+        }
+
         const activeElement = this.list.shadowRoot.activeElement as HTMLElement;
         activeElement?.blur();
 
-        const MenuItems = this.items.filter(this.isMenuItem);
+        const MenuItems = this.visibleItems.filter(this.isMenuItem);
         const selectedIndex = Math.max(
             MenuItems.findIndex((item) => item.selected),
             0

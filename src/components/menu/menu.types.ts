@@ -57,4 +57,26 @@ export interface MenuItem<T = any> {
      * Value of the menu item.
      */
     value?: T;
+
+    /**
+     * What sub items the item contains
+     * Don't set if using lazy loading.
+     */
+    subItems?: Array<MenuItem<T>>;
+
+    /**
+     * What parent the item has.
+     * It's used to render the breadcrumbs history
+     * Mostly handled by the menu itself
+     */
+    parentItem?: MenuItem<T>;
+
+    /**
+     * Only used if using lazyLoading
+     * It prevents the menu from rendering the carret icon
+     * that visualize sub items
+     */
+    isLeafNode?: boolean;
 }
+
+export type SubItemsLoader = (item: MenuItem) => Promise<MenuItem[]>;

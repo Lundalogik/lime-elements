@@ -139,6 +139,7 @@ export class MenuListRenderer {
             >
                 {item.icon ? this.renderIcon(this.config, item) : null}
                 {this.renderText(item)}
+                {this.renderSubMenuIcon(item)}
                 {this.renderNotification(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
             </li>
@@ -172,10 +173,12 @@ export class MenuListRenderer {
         );
     };
 
-    private rendertext = (item: ListSeparator) => {
-        if ('text' in item) {
-            return <h2 class="limel-list-divider-title">{item.text}</h2>;
+    private renderSubMenuIcon = (item: MenuItem) => {
+        if (!this.hasSubItems(item)) {
+            return;
         }
+
+        return <limel-icon class="sub-menu-icon" name="-lime-caret-right" />;
     };
 
     private renderCommandText = (item: MenuItem) => {
@@ -241,5 +244,12 @@ export class MenuListRenderer {
         }
 
         return <hr class={classes} />;
+    };
+
+    private hasSubItems = (item: MenuItem): boolean => {
+        return (
+            !item.isLeafNode &&
+            (this.config.lazyLoadItems || item.subItems?.length)
+        );
     };
 }
