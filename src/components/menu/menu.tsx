@@ -17,10 +17,12 @@ import {
     LimelInputFieldCustomEvent,
     ListSeparator,
     OpenDirection,
+    MenuSearcher,
     MenuItem,
     SubItemsLoader,
 } from '@limetech/lime-elements';
 
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import {
     ARROW_DOWN,
     ARROW_DOWN_KEY_CODE,
@@ -38,6 +40,8 @@ interface MenuCrumbItem extends BreadcrumbsItem {
     menuItem: MenuItem;
 }
 
+const SEARCH_DEBOUNCE = 500;
+
 /**
  * @slot trigger - Element to use as a trigger for the menu.
  * @exampleComponent limel-example-menu-basic
@@ -51,6 +55,7 @@ interface MenuCrumbItem extends BreadcrumbsItem {
  * @exampleComponent limel-example-menu-secondary-text
  * @exampleComponent limel-example-menu-notification
  * @exampleComponent limel-example-menu-subitems
+ * @exampleComponent limel-example-menu-searchable
  * @exampleComponent limel-example-menu-subitems-lazy-loading
  * @exampleComponent limel-example-menu-size
  * @exampleComponent limel-example-menu-composite
@@ -97,6 +102,17 @@ export class Menu {
     @Prop({ reflect: true })
     public gridLayout = false;
 
+    /**
+     * A search function that takes a search-string as an argument,
+     * and returns a promise that will eventually be resolved with
+     * an array of `MenuItem`:s.
+     *
+     * See the docs for the type `Searcher` for type information on
+     * the searcher function itself.
+     */
+    @Prop()
+    public searcher: MenuSearcher;
+
     @Prop()
     public loadSubItems: SubItemsLoader;
 
@@ -105,6 +121,9 @@ export class Menu {
 
     @Prop()
     public loading: boolean;
+
+    @Prop()
+    public emptyResultMessage?: string;
 
     /**
      * Is emitted when the menu is cancelled.
@@ -125,14 +144,19 @@ export class Menu {
     private host: HTMLLimelMenuElement;
 
     @State()
+    private searchValue: string;
+
+    @State()
     private loadingSubItems: boolean;
 
     @State()
     private currentItems: Array<MenuItem | ListSeparator> = null;
 
     private list: HTMLLimelMenuListElement;
+    private searchInput: HTMLLimelInputFieldElement;
 
     private portalId: string;
+    private debouncedSearch: MenuSearcher;
 
     private get visibleItems(): Array<MenuItem | ListSeparator> {
         if (Array.isArray(this.currentItems)) {
@@ -143,11 +167,13 @@ export class Menu {
     }
 
     constructor() {
+        this.createDebouncedSearcher = this.createDebouncedSearcher.bind(this);
         this.portalId = createRandomString();
     }
 
     @Watch('items')
     protected itemsWatcher() {
+        this.searchValue = '';
         this.currentItems = null;
 
         this.setFocus();
@@ -155,12 +181,15 @@ export class Menu {
 
     @Watch('currentItems')
     protected currentItemsWatcher() {
-        this.setFocus();
+        if (!this.searchValue) {
+            this.setFocus();
+        }
     }
 
     @Watch('open')
     protected openWatcher() {
         if (!this.open) {
+            this.searchValue = '';
             this.currentItems = null;
 
             return;
@@ -171,13 +200,41 @@ export class Menu {
 
     private setFocus = () => {
         setTimeout(() => {
-            const observer = new IntersectionObserver(() => {
-                observer.unobserve(this.list);
-                this.focusMenuItem();
-            });
-            observer.observe(this.list);
+            if (this.searchInput && this.searcher) {
+                const observer = new IntersectionObserver(() => {
+                    observer.unobserve(this.searchInput);
+                    if (this.searchInput === window.document.activeElement) {
+                        return;
+                    }
+
+                    this.searchInput.focus();
+                });
+                observer.observe(this.searchInput);
+            } else if (this.list) {
+                const observer = new IntersectionObserver(() => {
+                    observer.unobserve(this.list);
+                    this.focusMenuItem();
+                });
+                observer.observe(this.list);
+            }
         }, 0);
     };
+
+    @Watch('searcher')
+    protected createDebouncedSearcher(newValue: MenuSearcher) {
+        if (typeof newValue !== 'function') {
+            return;
+        }
+
+        this.debouncedSearch = AwesomeDebouncePromise(
+            newValue,
+            SEARCH_DEBOUNCE
+        );
+    }
+
+    public componentDidLoad() {
+        this.createDebouncedSearcher(this.searcher);
+    }
 
     public render() {
         const cssProperties = this.getCssProperties();
@@ -211,8 +268,10 @@ export class Menu {
                             'has-grid-layout': this.gridLayout,
                         }}
                     >
+                        {this.renderSearchField()}
                         {this.renderBreadcrumb()}
                         {this.renderLoader()}
+                        {this.renderEmptyMessage()}
                         {this.renderMenuList()}
                     </limel-menu-surface>
                 </limel-portal>
@@ -249,7 +308,7 @@ export class Menu {
 
     private renderBreadcrumb = () => {
         const leafNode = this.visibleItems?.find(this.isMenuItem) as MenuItem;
-        if (!leafNode) {
+        if (!leafNode || this.searchValue) {
             return;
         }
 
@@ -302,6 +361,51 @@ export class Menu {
         );
     };
 
+    private renderSearchField = () => {
+        if (!this.searcher) {
+            return;
+        }
+
+        return (
+            <limel-input-field
+                tabindex="0"
+                ref={this.setSearchElement}
+                type="search"
+                leadingIcon="search"
+                style={{
+                    padding: '0.25rem',
+                    'box-sizing': 'border-box',
+                }}
+                value={this.searchValue}
+                onChange={this.handlerTextInput}
+                onKeyDown={this.handleInputKeyDown}
+            />
+        );
+    };
+
+    private renderEmptyMessage = () => {
+        if (
+            this.loading ||
+            this.loadingSubItems ||
+            !this.emptyResultMessage ||
+            !Array.isArray(this.currentItems) ||
+            this.currentItems?.length
+        ) {
+            return null;
+        }
+
+        return (
+            <p
+                style={{
+                    padding: '0 1rem',
+                    'text-align': 'center',
+                }}
+            >
+                {this.emptyResultMessage}
+            </p>
+        );
+    };
+
     private renderMenuList = () => {
         let items = this.visibleItems;
         if (this.loadingSubItems || this.loading) {
@@ -330,23 +434,105 @@ export class Menu {
     };
 
     /**
+     * Input handler for the input field
+     * @param {InputEvent} event event
+     * @returns {void}
+     */
+    private handlerTextInput = async (
+        event: LimelInputFieldCustomEvent<string>
+    ) => {
+        event.stopPropagation();
+
+        const query = event.detail;
+        this.searchValue = query;
+        if (query === '') {
+            this.currentItems = null;
+
+            return;
+        }
+
+        this.loadingSubItems = true;
+
+        const result = await this.debouncedSearch(query);
+
+        this.currentItems = result;
+        this.loadingSubItems = false;
+    };
+
+    /**
+     * Key handler for the input search field
+     * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
+     * @param {KeyboardEvent} event event
+     * @returns {void}
+     */
+    private handleInputKeyDown = (event: KeyboardEvent) => {
+        const isForwardTab =
+            (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
+            !event.altKey &&
+            !event.metaKey &&
+            !event.shiftKey;
+        const isUp =
+            event.key === ARROW_UP || event.keyCode === ARROW_UP_KEY_CODE;
+        const isDown =
+            event.key === ARROW_DOWN || event.keyCode === ARROW_DOWN_KEY_CODE;
+
+        if (!isForwardTab && !isUp && !isDown) {
+            return;
+        }
+
+        if (!this.list) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (isForwardTab || isDown) {
+            const listElement: HTMLElement = this.list.shadowRoot.querySelector(
+                '.mdc-deprecated-list-item:first-child'
+            );
+            listElement.focus();
+
+            return;
+        }
+
+        if (isUp) {
+            const listElement: HTMLElement = this.list.shadowRoot.querySelector(
+                '.mdc-deprecated-list-item:last-child'
+            );
+            listElement.focus();
+        }
+    };
+
+    /**
      * Key handler for the menu list
-     * Can go forward/back with righ/left arrow keys
+     * Will change focus to the search field if using shift+tab
+     * And can go forward/back with righ/left arrow keys
      * @param {KeyboardEvent} event event
      * @returns {void}
      */
     private handleMenuKeyDown = (event: KeyboardEvent) => {
+        const isBackwardTab =
+            (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
+            !event.altKey &&
+            !event.metaKey &&
+            event.shiftKey;
+
         const isLeft =
             event.key === ARROW_LEFT || event.keyCode === ARROW_LEFT_KEY_CODE;
 
         const isRight =
             event.key === ARROW_RIGHT || event.keyCode === ARROW_RIGHT_KEY_CODE;
 
-        if (!isLeft && !isRight) {
+        if (!isBackwardTab && !isLeft && !isRight) {
             return;
         }
 
-        if (!this.gridLayout) {
+        if (isBackwardTab) {
+            event.stopPropagation();
+            event.preventDefault();
+            this.searchInput?.focus();
+        } else if (!this.gridLayout) {
             const currentItem = this.getCurrentItem();
 
             event.stopPropagation();
@@ -456,6 +642,7 @@ export class Menu {
             return;
         }
 
+        this.searchValue = '';
         this.currentItems = null;
         this.select.emit(menuItem);
         this.open = false;
@@ -487,6 +674,10 @@ export class Menu {
 
     private setListElement = (element: HTMLLimelMenuListElement) => {
         this.list = element;
+    };
+
+    private setSearchElement = (element: HTMLLimelInputFieldElement) => {
+        this.searchInput = element;
     };
 
     private focusMenuItem = () => {

@@ -79,4 +79,6 @@ export interface MenuItem<T = any> {
     isLeafNode?: boolean;
 }
 
+export type MenuSearcher = (query: string) => Promise<MenuItem[]>;
+
 export type SubItemsLoader = (item: MenuItem) => Promise<MenuItem[]>;
