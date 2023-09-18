@@ -55,9 +55,10 @@ export class MenuCompositeExample {
             },
         };
 
-        delete this.schema.properties.label;
         delete this.schema.properties.selectedMenuItem;
+        delete this.schema.properties.searcher;
         delete this.schema.properties.loadSubItems;
+        delete this.schema.properties.surfaceWidth;
     }
 
     public render() {
@@ -69,6 +70,7 @@ export class MenuCompositeExample {
                 items={this.props.items}
                 disabled={this.props.disabled}
                 openDirection={this.props.openDirection}
+                surfaceWidth={this.props.surfaceWidth}
                 badgeIcons={this.props.badgeIcons}
                 open={this.props.open}
                 gridLayout={this.props.gridLayout}

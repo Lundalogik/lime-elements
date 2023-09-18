@@ -92,6 +92,8 @@ export interface MenuItem<T = any> {
     parentItem?: MenuItem<T>;
 }
 
+export type MenuSearcher = (query: string) => Promise<MenuItem[]>;
+
 export type MenuLoader = (
     item: MenuItem
 ) => Promise<Array<MenuItem | ListSeparator>>;
