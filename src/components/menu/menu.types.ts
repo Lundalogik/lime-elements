@@ -1,3 +1,5 @@
+import { ListSeparator } from '../../interface';
+
 export type OpenDirection =
     | 'left-start'
     | 'left'
@@ -75,4 +77,30 @@ export interface MenuItem<T = any> {
      * Value of the menu item.
      */
     value?: T;
+
+    /**
+     * A way of defining a sub-menu for an item.
+     * Either set it to an array of `MenuItem`s
+     * Or use Lazy loading by setting it to a function of type `MenuLoader`
+     * If it's undefined/null it will be considered an item without a sub-menu
+     */
+    items?: Array<MenuItem<T> | ListSeparator> | MenuLoader;
+
+    /**
+     * What parent the item has.
+     * It's used to render the breadcrumbs history
+     * Mostly handled by the menu itself
+     */
+    parentItem?: MenuItem<T>;
 }
+
+/**
+ * A loader function that takes a `MenuItem` as an argument, and returns
+ * a promise that will eventually be resolved with an array of `MenuItem`:s,
+ * that is the sub-menu of the given item.
+ * @param {MenuItem} item The parent item to load the sub-menu for.
+ * @returns {Promise<MenuItem[]>} The sub-menu's items of the given item
+ */
+export type MenuLoader = (
+    item: MenuItem
+) => Promise<Array<MenuItem | ListSeparator>>;
