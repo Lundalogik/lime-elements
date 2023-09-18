@@ -1,3 +1,5 @@
+import { ListSeparator } from '../../interface';
+
 export type OpenDirection =
     | 'left-start'
     | 'left'
@@ -75,4 +77,21 @@ export interface MenuItem<T = any> {
      * Value of the menu item.
      */
     value?: T;
+
+    /**
+     * What sub items the item contains
+     * Don't set if using lazy loading.
+     */
+    items?: Array<MenuItem<T> | ListSeparator> | MenuLoader;
+
+    /**
+     * What parent the item has.
+     * It's used to render the breadcrumbs history
+     * Mostly handled by the menu itself
+     */
+    parentItem?: MenuItem<T>;
 }
+
+export type MenuLoader = (
+    item: MenuItem
+) => Promise<Array<MenuItem | ListSeparator>>;
