@@ -1,0 +1,33 @@
+:host(limel-example-menu-surface-width) {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.is-resizable {
+    position: relative;
+    resize: horizontal;
+    overflow: auto;
+    width: clamp(10rem, 30rem, 100%);
+
+    padding: 0.5rem 0.5rem 3rem 0.5rem;
+    border: 1px solid rgb(var(--contrast-500));
+
+    &::after {
+        content: 'Resize me ⤵';
+        font-size: 0.75rem;
+        position: absolute;
+        right: 0.25rem;
+        bottom: 0.25rem;
+    }
+}
+
+limel-menu {
+    width: 100%;
+}
+
+.highlight-limel-menu {
+    box-sizing: border-box;
+    border: 1px dashed rgb(var(--color-orange-light));
+}

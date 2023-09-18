@@ -12,6 +12,24 @@ export type OpenDirection =
     | 'bottom'
     | 'bottom-end';
 
+/**
+ * Any element in the UI can be configured to open a menu.
+ * By default width of menu's dropdown is based on the items in the dropdown.
+ * However, size of the dropdown menu that opens can be controlled
+ * based on design requirements.
+ * - `inherit-from-items`: This is the default layout in which the widest item
+ * in the menu list sets the width of the dropdown menu.
+ * - `inherit-from-trigger`: Width of the dropdown menu will as wide as the
+ * width of the element that triggers the menu.
+ * - `inherit-from-menu`: Width of the dropdown menu will be as wide as the
+ * width of the `limel-menu` element itself. Useful when a menu surface needs
+ * to be opened programmatically, without a visible UI element.
+ */
+export type SurfaceWidth =
+    | 'inherit-from-items'
+    | 'inherit-from-trigger'
+    | 'inherit-from-menu';
+
 export interface MenuItem<T = any> {
     /**
      * The additional supporting text is used for shortcut commands and displayed in the menu item.

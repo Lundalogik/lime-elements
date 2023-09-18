@@ -9,13 +9,19 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
-import { ListSeparator, MenuItem, OpenDirection } from '../../interface';
+import {
+    ListSeparator,
+    MenuItem,
+    OpenDirection,
+    SurfaceWidth,
+} from '../../interface';
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.
  * @exampleComponent limel-example-menu-basic
  * @exampleComponent limel-example-menu-disabled
  * @exampleComponent limel-example-menu-open-direction
+ * @exampleComponent limel-example-menu-surface-width
  * @exampleComponent limel-example-menu-separators
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
@@ -48,6 +54,12 @@ export class Menu {
      */
     @Prop({ reflect: true })
     public openDirection: OpenDirection = 'bottom-start';
+
+    /**
+     * Decides the width of menu's dropdown
+     */
+    @Prop({ reflect: true })
+    public surfaceWidth: SurfaceWidth = 'inherit-from-items';
 
     /**
      * Sets the open state of the menu.
@@ -85,6 +97,7 @@ export class Menu {
     private list: HTMLLimelMenuListElement;
 
     private portalId: string;
+    private triggerElement: HTMLSlotElement;
 
     constructor() {
         this.portalId = createRandomString();
@@ -109,9 +122,13 @@ export class Menu {
             '--dropdown-z-index'
         );
 
+        const menuSurfaceWidth = this.getMenuSurfaceWidth(
+            cssProperties['--menu-surface-width']
+        );
+
         return (
             <div class="mdc-menu-surface--anchor" onClick={this.onTriggerClick}>
-                <slot name="trigger" />
+                <slot ref={this.setTriggerRef} name="trigger" />
                 {this.renderNotificationBadge()}
                 <limel-portal
                     visible={this.open}
@@ -123,7 +140,12 @@ export class Menu {
                     <limel-menu-surface
                         open={this.open}
                         onDismiss={this.onClose}
-                        style={cssProperties}
+                        style={{
+                            ...cssProperties,
+                            '--mdc-menu-min-width': menuSurfaceWidth,
+                            '--limel-menu-surface-display': 'flex',
+                            '--limel-menu-surface-flex-direction': 'column',
+                        }}
                         class={{
                             'has-grid-layout': this.gridLayout,
                         }}
@@ -195,13 +217,15 @@ export class Menu {
             '--list-grid-gap',
             '--notification-badge-background-color',
             '--notification-badge-text-color',
-        ];
+        ] as const;
         const style = getComputedStyle(this.host);
         const values = propertyNames.map((property) => {
             return style.getPropertyValue(property);
         });
 
-        return zipObject(propertyNames, values);
+        type PropName = (typeof propertyNames)[number];
+
+        return zipObject(propertyNames, values) as Record<PropName, string>;
     }
 
     private setListElement = (element: HTMLLimelMenuListElement) => {
@@ -235,4 +259,35 @@ export class Menu {
 
     private hasNotificationBadge = (item: MenuItem | ListSeparator) =>
         this.isMenuItem(item) && item.badge !== undefined;
+
+    private setTriggerRef = (elm?: HTMLSlotElement) => {
+        this.triggerElement = elm;
+    };
+
+    private getMenuSurfaceWidth(customWidth: string): string {
+        if (customWidth) {
+            return customWidth;
+        }
+
+        if (this.surfaceWidth === 'inherit-from-trigger') {
+            const assignedTriggers = this.triggerElement?.assignedElements();
+
+            if (
+                !assignedTriggers?.length ||
+                !assignedTriggers[0]?.clientWidth
+            ) {
+                return '';
+            }
+
+            return `${assignedTriggers[0].clientWidth}px`;
+        } else if (this.surfaceWidth === 'inherit-from-menu') {
+            if (!this.host?.clientWidth) {
+                return '';
+            }
+
+            return `${this.host?.clientWidth}px`;
+        }
+
+        return '';
+    }
 }
