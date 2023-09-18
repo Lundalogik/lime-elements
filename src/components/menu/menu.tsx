@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import {
     Component,
     Event,
@@ -23,6 +24,7 @@ import { ListSeparator, MenuItem, OpenDirection } from '../../interface';
  * @exampleComponent limel-example-menu-hotkeys
  * @exampleComponent limel-example-menu-secondary-text
  * @exampleComponent limel-example-menu-notification
+ * @exampleComponent limel-example-menu-size
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -123,7 +125,13 @@ export class Menu {
                     <limel-menu-surface
                         open={this.open}
                         onDismiss={this.onClose}
-                        style={cssProperties}
+                        style={{
+                            ...cssProperties,
+                            '--mdc-menu-min-width':
+                                cssProperties['--menu-surface-width'],
+                            '--limel-menu-surface-display': 'flex',
+                            '--limel-menu-surface-flex-direction': 'column',
+                        }}
                         class={{
                             'has-grid-layout': this.gridLayout,
                         }}
@@ -195,13 +203,15 @@ export class Menu {
             '--list-grid-gap',
             '--notification-badge-background-color',
             '--notification-badge-text-color',
-        ];
+        ] as const;
         const style = getComputedStyle(this.host);
         const values = propertyNames.map((property) => {
             return style.getPropertyValue(property);
         });
 
-        return zipObject(propertyNames, values);
+        type PropName = (typeof propertyNames)[number];
+
+        return zipObject(propertyNames, values) as Record<PropName, string>;
     }
 
     private setListElement = (element: HTMLLimelMenuListElement) => {
