@@ -61,8 +61,8 @@ export class MenuCompositeExample {
             },
         };
 
-        delete this.schema.properties.label;
         delete this.schema.properties.currentSubMenu;
+        delete this.schema.properties.searcher;
         delete this.schema.properties.loadSubItems;
         delete this.schema.properties.surfaceWidth;
     }
