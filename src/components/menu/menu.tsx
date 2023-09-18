@@ -10,12 +10,17 @@ import {
     State,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
-import { zipObject } from 'lodash-es';
+import { zipObject, isFunction } from 'lodash-es';
 import { LimelBreadcrumbsCustomEvent } from '@limetech/lime-elements';
 
 import { BreadcrumbsItem } from '../breadcrumbs/breadcrumbs.types';
 import { ListSeparator } from '../list/list-item.types';
-import { OpenDirection, MenuItem, SurfaceWidth } from './menu.types';
+import {
+    OpenDirection,
+    MenuItem,
+    MenuLoader,
+    SurfaceWidth,
+} from './menu.types';
 
 import {
     ARROW_LEFT,
@@ -42,6 +47,8 @@ interface MenuCrumbItem extends BreadcrumbsItem {
  * @exampleComponent limel-example-menu-secondary-text
  * @exampleComponent limel-example-menu-notification
  * @exampleComponent limel-example-menu-sub-menus
+ * @exampleComponent limel-example-menu-sub-menu-lazy-loading
+ * @exampleComponent limel-example-menu-sub-menu-lazy-loading-infinite
  * @exampleComponent limel-example-menu-composite
  */
 @Component({
@@ -101,6 +108,18 @@ export class Menu {
      * :::
      * @internal
      */
+    @Prop({ reflect: true })
+    public loading = false;
+
+    /**
+     * :::warning Internal Use Only
+     * This property is for internal use only. We need it for now, but want to
+     * find a better implementation of the functionality it currently enables.
+     * If and when we do so, this property will be removed without prior
+     * notice. If you use it, your code _will_ break in the future.
+     * :::
+     * @internal
+     */
     @Prop({ mutable: true })
     public currentSubMenu: MenuItem;
 
@@ -124,6 +143,9 @@ export class Menu {
 
     @Element()
     private host: HTMLLimelMenuElement;
+
+    @State()
+    private loadingSubItems: boolean;
 
     @State()
     private menuBreadCrumb: MenuCrumbItem[] = [];
@@ -177,6 +199,7 @@ export class Menu {
                         }}
                     >
                         {this.renderBreadcrumb()}
+                        {this.renderLoader()}
                         {this.renderMenuList()}
                     </limel-menu-surface>
                 </limel-portal>
@@ -222,6 +245,28 @@ export class Menu {
         this.menuBreadCrumb = breadCrumbItems.reverse();
     }
 
+    private renderLoader = () => {
+        if (!this.loadingSubItems && !this.loading) {
+            return;
+        }
+
+        const cssProperties = this.getCssProperties();
+
+        return (
+            <div
+                style={{
+                    width: cssProperties['--menu-surface-width'],
+                    display: 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    padding: '0.5rem 0',
+                }}
+            >
+                <limel-spinner size="mini" limeBranded={false} />
+            </div>
+        );
+    };
+
     private renderBreadcrumb = () => {
         if (!this.menuBreadCrumb?.length) {
             return;
@@ -246,6 +291,8 @@ export class Menu {
             this.currentSubMenu = null;
             this.navigateMenu.emit(null);
 
+            this.setFocus();
+
             return;
         }
 
@@ -253,7 +300,10 @@ export class Menu {
     };
 
     private renderMenuList = () => {
-        const items = this.visibleItems;
+        let items = this.visibleItems;
+        if (this.loadingSubItems || this.loading) {
+            items = [];
+        }
 
         return (
             <limel-menu-list
@@ -331,6 +381,8 @@ export class Menu {
             this.currentSubMenu = null;
             this.navigateMenu.emit(null);
 
+            this.setFocus();
+
             return;
         }
 
@@ -369,7 +421,7 @@ export class Menu {
         this.open = !this.open;
     };
 
-    private handleSelect = (
+    private handleSelect = async (
         menuItem: MenuItem,
         selectOnEmptyChildren: boolean = true
     ) => {
@@ -377,7 +429,24 @@ export class Menu {
             this.currentSubMenu = menuItem;
             this.navigateMenu.emit(menuItem);
 
+            this.setFocus();
+
             return;
+        } else if (isFunction(menuItem?.items)) {
+            const menuLoader = menuItem.items as MenuLoader;
+            this.loadingSubItems = true;
+            const subItems = await menuLoader(menuItem);
+            menuItem.items = subItems;
+            this.loadingSubItems = false;
+
+            if (subItems?.length) {
+                this.currentSubMenu = menuItem;
+                this.navigateMenu.emit(menuItem);
+
+                this.setFocus();
+
+                return;
+            }
         }
 
         if (!selectOnEmptyChildren) {
@@ -387,6 +456,7 @@ export class Menu {
         this.select.emit(menuItem);
         this.open = false;
         this.currentSubMenu = null;
+        this.setFocus();
     };
 
     private onSelect = (event: CustomEvent<MenuItem>) => {
@@ -435,9 +505,9 @@ export class Menu {
         const activeElement = this.list.shadowRoot.activeElement as HTMLElement;
         activeElement?.blur();
 
-        const MenuItems = this.visibleItems.filter(this.isMenuItem);
+        const menuItems = this.visibleItems.filter(this.isMenuItem);
         const selectedIndex = Math.max(
-            MenuItems.findIndex((item) => item.selected),
+            menuItems.findIndex((item) => item.selected),
             0
         );
         const menuElements: HTMLElement[] = Array.from(
