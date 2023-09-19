@@ -100,43 +100,20 @@ $table--limel-table--row-selector: 1;
 }
 
 .tabulator-row {
-    &.tabulator-selectable {
-        transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease;
 
-        &:hover {
-            background-color: rgb(var(--contrast-300));
-        }
-        &:not(.active) {
-            &:hover {
-                background-color: rgb(var(--table-header-background-color));
-            }
-        }
+    &:hover {
+        transition: background-color 0.1s ease;
     }
-    &.tabulator-row-odd:not(.active):not(:hover) {
+
+    &.tabulator-row-odd,
+    &.tabulator-row-odd:hover {
         background-color: rgb(var(--table-row-background-color--odd));
     }
 
-    &.tabulator-row-even:not(.active):not(:hover) {
+    &.tabulator-row-even,
+    &.tabulator-row-even:hover {
         background-color: rgb(var(--table-row-background-color--even));
-    }
-
-    &.active {
-        background-color: rgb(var(--table-row-background-color--active));
-        box-shadow: var(--button-shadow-inset-pressed);
-
-        &:before {
-            $width-of-selected-row-indicator: 0.2rem;
-            content: '';
-            display: inline-block;
-            box-sizing: border-box;
-            position: sticky;
-            z-index: $table--has-interactive-rows--selectable-row--hover + 1;
-            inset: 0 0 auto 0;
-            border: $width-of-selected-row-indicator solid
-                var(--mdc-theme-primary);
-            border-radius: 1rem;
-            margin-right: -$width-of-selected-row-indicator * 2;
-        }
     }
 
     .tabulator-cell {
@@ -152,6 +129,10 @@ $table--limel-table--row-selector: 1;
         &[style*='text-align: center;'] {
             justify-content: center;
         }
+    }
+
+    .tabulator-col-resize-handle {
+        display: none;
     }
 }
 

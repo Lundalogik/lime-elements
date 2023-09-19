@@ -1,3 +1,69 @@
+## [37.1.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.23...v37.1.0-next.24) (2023-09-15)
+
+
+### Bug Fixes
+
+* **checkbox:** make color of icons in `readonly` more dark ([d344015](https://github.com/Lundalogik/lime-elements/commit/d344015fd3a09cbe92c64c832ef6f1fd3cdc629c))
+
+## [37.1.0-next.23](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.22...v37.1.0-next.23) (2023-09-14)
+
+
+### Bug Fixes
+
+* **checkbox:** make `readonly` styles less confusing for end-users ([9361b7b](https://github.com/Lundalogik/lime-elements/commit/9361b7bd777a34a81b2a9c4fc7705c972aca138d))
+* **switch:** improve `disabled` styles ([c30c8cb](https://github.com/Lundalogik/lime-elements/commit/c30c8cbbbbf426a9a68ce86e2be86c9c6ba38bc4))
+* **switch:** make `readonly` styles less confusing for end-users ([e076395](https://github.com/Lundalogik/lime-elements/commit/e076395dcef5ba7e7b8537c30425ed5314fcded5))
+
+## [37.1.0-next.22](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.21...v37.1.0-next.22) (2023-09-14)
+
+
+### Bug Fixes
+
+* **menu:** prevent long menus to overflow out of the screen ([57ef0e4](https://github.com/Lundalogik/lime-elements/commit/57ef0e4a436223dc2ccc78503bae2166b58a20f4))
+
+## [37.1.0-next.21](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.20...v37.1.0-next.21) (2023-09-11)
+
+
+### Bug Fixes
+
+* **form:** separate code editor from other elements ([6251e16](https://github.com/Lundalogik/lime-elements/commit/6251e16f718d4f14aa39f0f50863867107e41434))
+
+## [37.1.0-next.20](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.19...v37.1.0-next.20) (2023-09-07)
+
+
+### Bug Fixes
+
+* **action-bar-item:** make disabled button visible ([0226863](https://github.com/Lundalogik/lime-elements/commit/02268631157fe1b99c6744250febe96eb55461dd))
+
+## [37.1.0-next.19](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.18...v37.1.0-next.19) (2023-09-01)
+
+
+### Features
+
+* **form:** add support for disabled options when using a select ([e9d446c](https://github.com/Lundalogik/lime-elements/commit/e9d446ce04989d9fac61fcc7e3daf3093df7d3d6))
+
+## [37.1.0-next.18](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.17...v37.1.0-next.18) (2023-08-29)
+
+
+### Bug Fixes
+
+* **linear-progress:** avoid rendering the component unless the value is a number ([30ede63](https://github.com/Lundalogik/lime-elements/commit/30ede632321043e928703e62ce7fae98ee5d205a)), closes [Lundalogik/crm-feature#3585](https://github.com/Lundalogik/crm-feature/issues/3585)
+
+## [37.1.0-next.17](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.16...v37.1.0-next.17) (2023-08-25)
+
+
+### Features
+
+* **action-bar-icon-interface:** make `icon` field required when `iconOnly` is true ([52ed447](https://github.com/Lundalogik/lime-elements/commit/52ed4479e09d8ce93ef1d86ca6d44f2f2cf94112))
+
+## [37.1.0-next.16](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.15...v37.1.0-next.16) (2023-08-23)
+
+
+### Bug Fixes
+
+* **table:** avoid flickering of cursor while hovering & moving the cursor on rows ([8a1ef7c](https://github.com/Lundalogik/lime-elements/commit/8a1ef7c4a63a4b47604e1182b3de0b3a6ca03dcb))
+* **table:** differentiate interactivity of rows vs. components in cells ([000c070](https://github.com/Lundalogik/lime-elements/commit/000c070aecabd1f72a26c1dcc06496e3192977d2))
+
 ## [37.1.0-next.15](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.14...v37.1.0-next.15) (2023-08-16)
 
 

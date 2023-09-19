@@ -67,6 +67,9 @@ $scale-factor: 0.8;
 
     --mdc-switch-handle-elevation: var(--button-shadow-normal);
     --mdc-switch-disabled-track-opacity: 0.4;
+
+    --mdc-switch-disabled-selected-handle-color: rgb(var(--contrast-1000));
+    --mdc-switch-disabled-unselected-handle-color: rgb(var(--contrast-1000));
 }
 
 .mdc-switch {

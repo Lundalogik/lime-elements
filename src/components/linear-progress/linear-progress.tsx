@@ -15,13 +15,13 @@ export class LinearProgress {
     /**
      * The value of the progress bar. Should be between `0` and `1`.
      */
-    @Prop()
+    @Prop({ reflect: true })
     public value: number = 0;
 
     /**
      * Puts the progress bar in an indeterminate state
      */
-    @Prop()
+    @Prop({ reflect: true })
     public indeterminate: boolean = false;
 
     @Element()
@@ -56,6 +56,10 @@ export class LinearProgress {
     }
 
     public render() {
+        if (!this.isFinite(this.value)) {
+            return;
+        }
+
         const classList = {
             'mdc-linear-progress': true,
             'mdc-linear-progress--indeterminate': this.indeterminate,
@@ -85,10 +89,14 @@ export class LinearProgress {
 
     @Watch('value')
     protected watchValue(newValue) {
-        if (!this.mdcLinearProgress) {
+        if (!this.mdcLinearProgress || !this.isFinite(newValue)) {
             return;
         }
 
         this.mdcLinearProgress.progress = newValue;
+    }
+
+    private isFinite(value: unknown) {
+        return Number.isFinite(value);
     }
 }

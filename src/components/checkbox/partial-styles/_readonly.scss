@@ -1,18 +1,26 @@
 .lime-checkbox--readonly.mdc-checkbox--disabled {
     opacity: 1;
     --mdc-ripple-press-opacity: 1;
-    --mdc-checkbox-disabled-color: transparent;
-    --mdc-checkbox-ink-color: var(--mdc-theme-primary);
+    --mdc-checkbox-disabled-color: rgb(var(--contrast-1000));
+    --mdc-checkbox-ink-color: var(--mdc-theme-on-primary);
+
+    .mdc-checkbox__background {
+        border-radius: 50%;
+    }
+
+    .mdc-checkbox__checkmark {
+        scale: 0.8;
+    }
 
     :not(:checked):not(:indeterminate) {
         ~ .mdc-checkbox__background {
             --mdc-checkbox-disabled-color: transparent;
             --mdc-checkbox-ink-color: transparent;
-            --lime-checkbox-unchecked-color: transparent;
+            --lime-checkbox-unchecked-color: rgb(var(--contrast-900));
 
             &:after {
-                color: rgb(var(--color-red-default));
-                content: '×';
+                content: '–';
+                color: var(--mdc-theme-on-primary);
                 font-size: 1.25rem;
                 position: absolute;
             }
