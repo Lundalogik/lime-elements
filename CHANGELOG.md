@@ -1,3 +1,11 @@
+# [37.1.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.24...v37.1.0-next.25) (2023-09-19)
+
+
+### Bug Fixes
+
+
+* **popover:** prevent large content to overflow the component's surface ([93ecbd9](https://github.com/Lundalogik/lime-elements/commit/93ecbd98faee4a9f75067054e4cf41f29ecdc9b6))
+
 ## [37.1.0-next.24](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.23...v37.1.0-next.24) (2023-09-15)
 
 
