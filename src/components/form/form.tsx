@@ -8,7 +8,6 @@ import {
     Watch,
 } from '@stencil/core';
 import React from 'react';
-import { unmountComponentAtNode } from 'react-dom';
 import { createRoot, Root } from 'react-dom/client';
 import JSONSchemaForm, { AjvError } from '@rjsf/core';
 import retargetEvents from 'react-shadow-dom-retarget-events';
@@ -148,9 +147,9 @@ export class Form {
     }
 
     public disconnectedCallback() {
-        const rootElement = this.host.shadowRoot.querySelector('.root');
-        if (rootElement) {
-            unmountComponentAtNode(rootElement);
+        if (this.root) {
+            this.root.unmount();
+            this.root = undefined;
         }
     }
 
