@@ -1,3 +1,11 @@
+# [37.1.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.26...v37.1.0-next.27) (2023-09-20)
+
+
+### Bug Fixes
+
+
+* **form:** unmount root using correct API ([d0ac79f](https://github.com/Lundalogik/lime-elements/commit/d0ac79f4f6452960413e9c446668887f9c7685a6))
+
 # [37.1.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.25...v37.1.0-next.26) (2023-09-20)
 
 
