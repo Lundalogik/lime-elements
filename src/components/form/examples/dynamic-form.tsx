@@ -19,7 +19,7 @@ export class DynamicFormExample {
 
     @State()
     private schema: any = {
-        id: 'test',
+        $id: 'test',
         title: 'My form',
         description: 'Lorem ipsum dolor sit amet',
         type: 'object',
