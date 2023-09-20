@@ -1,3 +1,13 @@
+# [37.1.0-next.26](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.25...v37.1.0-next.26) (2023-09-20)
+
+
+### Bug Fixes
+
+
+* **form:** make form compatible with Ajv version 8 ([dfda466](https://github.com/Lundalogik/lime-elements/commit/dfda46666d7ca8767dc6ba20954eae903015a78d)), closes [Lundalogik/crm-feature#3625](https://github.com/Lundalogik/crm-feature/issues/3625)
+* **form:** replace id with $id in schema ([e0f4efd](https://github.com/Lundalogik/lime-elements/commit/e0f4efde038878ab6e33a3ea3ae5071f8f8c4bff))
+* **form:** use React 18 compatible API ([681bae7](https://github.com/Lundalogik/lime-elements/commit/681bae77ed42200ab98073330555c03cbc1ebe61))
+
 # [37.1.0-next.25](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.24...v37.1.0-next.25) (2023-09-19)
 
 
