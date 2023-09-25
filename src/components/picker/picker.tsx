@@ -693,10 +693,6 @@ export class Picker {
     }
 
     private handleCloseMenu() {
-        if (this.items.length > 0) {
-            return;
-        }
-
         this.clearInputField();
     }
 
