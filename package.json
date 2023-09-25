@@ -52,7 +52,7 @@
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.0",
     "@types/tabulator-tables": "^4.9.4",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^5.62.0",
     "ajv": "^8.10.0",
     "ajv-formats": "^2.1.1",
