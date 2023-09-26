@@ -76,7 +76,6 @@ export class IconButton {
 
         return (
             <button
-                class="mdc-icon-button"
                 disabled={this.disabled}
                 aria-label={this.label}
                 title={this.label}
