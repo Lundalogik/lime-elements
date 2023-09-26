@@ -5,6 +5,7 @@
 
 /*
 * @prop --table-max-column-width: defines a maximum width for columns using standard size units, to prevent the table from growing too wide. Set to `auto` if you do not need this limitation. Defaults to `40rem`.
+* @prop --table-scrollable-area-padding-bottom: Allows adding extra space at the bottom of the scrollable area of the table. This space will be added between the last row and the aggregations row (if present), or the bottom edge of the table. Defaults to `0`.
 */
 
 $width-of-sorter-arrow: 0.5rem;
@@ -50,6 +51,10 @@ $table--limel-table--row-selector: 1;
         color: var(--table-text-color);
     }
     .tabulator-tableHolder {
+        padding-bottom: calc(
+            var(--table-scrollable-area-padding-bottom, 0rem) +
+                var(--limel-table-height-of-aggregations-row, 0rem)
+        );
         .tabulator-table {
             color: var(--table-text-color);
             background-color: transparent;
