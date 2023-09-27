@@ -1,3 +1,5 @@
+@import '~diff2html/bundles/css/diff2html.min.css';
+
 :host {
     display: flex;
     justify-content: center;
@@ -12,7 +14,31 @@
     display: flex;
 }
 
-.code-editors > limel-code-editor {
-    margin: 5px;
-    width: 380px;
+.diff__viewer {
+
+    // "Renamed" badge
+    .d2h-moved-tag {
+        display: none;
+    }
+
+    max-width: 75%;
+    margin-left: 12rem;
+
+    .d2h-file-header,
+    .d2h-file-name-wrapper {
+        position: sticky;
+        top: 2rem;
+        z-index: 1000 !important;
+    }
+
+    &--single {
+        .d2h-code-line-prefix {
+            display: none;
+        }
+
+        .d2h-ins {
+            background-color: unset;
+            border-color: unset;
+        }
+    }
 }
