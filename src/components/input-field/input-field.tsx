@@ -328,6 +328,11 @@ export class InputField {
         }
     }
 
+    @Watch('completions')
+    protected completionsWatcher() {
+        this.mapCompletions();
+    }
+
     private initialize = () => {
         const element =
             this.limelInputField.shadowRoot.querySelector('.mdc-text-field');
@@ -337,12 +342,16 @@ export class InputField {
 
         this.mdcTextField = new MDCTextField(element);
 
-        this.completionsList = [...this.completions].map((item) => {
-            return { text: item };
-        });
+        this.mapCompletions();
 
         window.addEventListener('resize', this.layout, { passive: true });
         this.limelInputField.addEventListener('focus', this.setFocus);
+    };
+
+    private mapCompletions = () => {
+        this.completionsList = [...this.completions].map((item) => {
+            return { text: item };
+        });
     };
 
     private setFocus = () => {
