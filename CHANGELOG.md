@@ -1,3 +1,11 @@
+# [37.1.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.27...v37.1.0-next.28) (2023-09-25)
+
+
+### Bug Fixes
+
+
+* **form:** only log schema validation errors ([ee33caa](https://github.com/Lundalogik/lime-elements/commit/ee33caa90db83afe52d744b699aa533be42a6e2f))
+
 # [37.1.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.26...v37.1.0-next.27) (2023-09-20)
 
 
