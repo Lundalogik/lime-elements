@@ -6,24 +6,18 @@
 */
 
 $padding: 0.5rem;
-$mask: linear-gradient(
-    to right,
-    transparent 0%,
-    black calc(0% + #{$padding}),
-    black calc(100% - #{$padding}),
-    transparent 100%
-);
 
 :host(limel-breadcrumbs) {
-    --limel-breadcrumbs-item-height: 1.5rem; // for internal use
-    --limel-breadcrumbs-gap: 0.75rem; // for internal use
-    --limel-breadcrumbs-gap: 0.75rem; // for internal use
+    --limel-breadcrumbs-item-height: 1.5rem;
+    --limel-breadcrumbs-gap: 0.75rem;
+    --limel-breadcrumbs-gap: 0.75rem;
     --limel-breadcrumbs-item-text-color: var(
         --breadcrumbs-item-text-color,
         rgb(var(--contrast-1500))
-    ); // for internal use
-    -webkit-mask-image: $mask;
-    mask-image: $mask;
+    );
+    @include mixins.fade-out-overflowed-content-on-edges(horizontally);
+    --limel-left-edge-fade-width: #{$padding};
+    --limel-right-edge-fade-width: #{$padding};
 }
 
 ol,
