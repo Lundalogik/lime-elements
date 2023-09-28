@@ -20,6 +20,7 @@ import {
  * @exampleComponent limel-example-menu-basic
  * @exampleComponent limel-example-menu-disabled
  * @exampleComponent limel-example-menu-open-direction
+ * @exampleComponent limel-example-menu-separators
  * @exampleComponent limel-example-menu-icons
  * @exampleComponent limel-example-menu-badge-icons
  * @exampleComponent limel-example-menu-grid
