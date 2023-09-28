@@ -24,6 +24,7 @@ const { ACTION_EVENT } = listStrings;
 /**
  * @exampleComponent limel-example-list
  * @exampleComponent limel-example-list-secondary
+ * @exampleComponent limel-example-list-separator
  * @exampleComponent limel-example-list-selectable
  * @exampleComponent limel-example-list-icons
  * @exampleComponent limel-example-list-badge-icons
