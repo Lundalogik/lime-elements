@@ -48,7 +48,27 @@ $list-mdc-list-item: 0;
     border-radius: $list-border-radius;
 
     .mdc-deprecated-list-divider {
-        border-bottom-color: rgb(var(--contrast-400));
+        border-bottom-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        height: auto;
+        padding: 0 0.5rem;
+    }
+
+    .limel-list-divider-line {
+        background-color: rgb(var(--contrast-400));
+        height: 0.125rem;
+        border-radius: 1rem;
+        min-width: 1rem;
+        flex-grow: 1;
+    }
+
+    .limel-list-divider-title {
+        all: unset;
+        @include mixins.truncate-text;
+        color: rgb(var(--contrast-900));
+        font-size: 0.8125rem; // 13px
     }
 
     .mdc-deprecated-list-item {
