@@ -1,3 +1,11 @@
+# [37.1.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.30...v37.1.0-next.31) (2023-09-29)
+
+
+### Features
+
+
+* **markdown:** create markdown component ([1d65586](https://github.com/Lundalogik/lime-elements/commit/1d6558681e5bb11f66742b852ae7b77a7bbdf1df))
+
 # [37.1.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.29...v37.1.0-next.30) (2023-09-29)
 
 
