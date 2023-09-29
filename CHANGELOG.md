@@ -1,3 +1,12 @@
+# [37.1.0-next.34](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.33...v37.1.0-next.34) (2023-09-29)
+
+
+### Features
+
+
+* **list:** enable adding titles to separators ([c3d4f01](https://github.com/Lundalogik/lime-elements/commit/c3d4f017e86f2b12d1180bdeaf50352ab2c10865))
+* **menu:** enable adding titles to separators ([edf9d22](https://github.com/Lundalogik/lime-elements/commit/edf9d226081432380848cbc9551841d8cd3393d5))
+
 # [37.1.0-next.33](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.32...v37.1.0-next.33) (2023-09-29)
 
 
