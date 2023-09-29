@@ -1,3 +1,11 @@
+# [37.1.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.31...v37.1.0-next.32) (2023-09-29)
+
+
+### Bug Fixes
+
+
+* **picker:** don't display clear all button when the suggestions are being shown ([e0a89e7](https://github.com/Lundalogik/lime-elements/commit/e0a89e7ce4736517b1ce73d1a100d1f09b462a57))
+
 # [37.1.0-next.31](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.30...v37.1.0-next.31) (2023-09-29)
 
 
