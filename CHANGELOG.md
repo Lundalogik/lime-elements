@@ -1,3 +1,11 @@
+# [37.1.0-next.33](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.32...v37.1.0-next.33) (2023-09-29)
+
+
+### Bug Fixes
+
+
+* **input-field:** handle completions changing after component is loaded ([0d3ff50](https://github.com/Lundalogik/lime-elements/commit/0d3ff504f9f51ca6cf3df0483ddd82bf80426bfd))
+
 # [37.1.0-next.32](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.31...v37.1.0-next.32) (2023-09-29)
 
 
