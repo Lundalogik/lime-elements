@@ -90,7 +90,7 @@
     "rehype-sanitize": "^4.0.0",
     "rehype-stringify": "^8.0.0",
     "remark-footnotes": "^3.0.0",
-    "remark-gfm": "^1.0.0",
+    "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^8.1.0",
     "replace-in-file": "^7.0.1",
