@@ -8,9 +8,7 @@ describe('limel-icon-button', () => {
             page = await createPage(`
                 <limel-icon-button icon="unit-test" label="Add favorite"></limel-icon-button>
             `);
-            mdcIconButton = await page.find(
-                'limel-icon-button >>> .mdc-icon-button'
-            );
+            mdcIconButton = await page.find('limel-icon-button >>> button');
         });
         it('displays the correct label', () => {
             expect(mdcIconButton).toEqualAttribute(

@@ -1,0 +1,156 @@
+@use '../../style/mixins';
+
+/**
+* @prop --breadcrumbs-item-text-color: Text color of breadcrumbs items, defaults to `--contrast-1100`.
+* @prop --breadcrumbs-item-max-width: Maximum width of a button in the breadcrumbs. Defaults to `10rem`. Keep in mind that the buttons should not appear too big.
+*/
+
+$padding: 0.5rem;
+
+:host(limel-breadcrumbs) {
+    --limel-breadcrumbs-item-height: 1.5rem;
+    --limel-breadcrumbs-gap: 0.75rem;
+    --limel-breadcrumbs-gap: 0.75rem;
+    --limel-breadcrumbs-item-text-color: var(
+        --breadcrumbs-item-text-color,
+        rgb(var(--contrast-1500))
+    );
+    @include mixins.fade-out-overflowed-content-on-edges(horizontally);
+    --limel-left-edge-fade-width: #{$padding};
+    --limel-right-edge-fade-width: #{$padding};
+}
+
+ol,
+li,
+.step {
+    all: unset;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ol {
+    padding: $padding; // needed for the focus and hover effects, since we are using overflow
+    gap: var(--limel-breadcrumbs-gap);
+}
+
+.step {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+
+    max-width: var(--breadcrumbs-item-max-width, 10rem);
+    height: var(--limel-breadcrumbs-item-height);
+
+    color: var(--limel-breadcrumbs-item-text-color);
+    border-radius: 100vw;
+    font-size: 0.875rem;
+    padding: 0 0.25rem;
+
+    &:not(:has(.text)) {
+        padding: 0 0.125rem;
+    }
+
+    &:not(.last) {
+        @include mixins.visualize-keyboard-focus;
+
+        &:after {
+            content: var(--limel-breadcrumbs-divider);
+            width: var(--limel-breadcrumbs-gap);
+
+            position: absolute;
+            top: 0;
+            right: calc(var(--limel-breadcrumbs-gap) * -1);
+            bottom: 0;
+            left: auto;
+
+            text-align: center;
+        }
+    }
+}
+
+a.step {
+    cursor: pointer;
+    transition: color 0.2s ease;
+    &:before {
+        transition: opacity 0.2s ease, transform 0.3s ease-out;
+        content: '';
+        position: absolute;
+        inset: auto 0 0 0;
+        width: calc(100% - 0.5rem);
+        margin: auto;
+        height: 0.125rem;
+        border-radius: 1rem;
+
+        background-color: currentColor;
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    &:hover {
+        --limel-breadcrumbs-item-text-color: rgb(var(--color-blue-default));
+        &:before {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+    }
+}
+
+button.step {
+    &:not(.last) {
+        @include mixins.is-flat-clickable(
+            $color: var(--limel-breadcrumbs-item-text-color)
+        );
+    }
+}
+
+limel-icon {
+    flex-shrink: 0;
+    width: calc(var(--limel-breadcrumbs-item-height) - 0.25rem);
+    height: calc(var(--limel-breadcrumbs-item-height) - 0.25rem);
+}
+
+.text {
+    @include mixins.truncate-text;
+    padding: 0 0.25rem;
+}
+
+.last {
+    opacity: 0.7;
+}
+
+// LAYOUT:
+// The code below makes sure that the last item is always visible,
+// and previous items overflow out of the container
+// while keeping the container scrollable.
+// All without any additional scripts in the component code.
+
+:host(limel-breadcrumbs) {
+    box-sizing: border-box;
+
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none; // This hides the scrollbars appearing under in Firefox
+    -ms-overflow-style: none; // Same as above for IE 11
+    &::-webkit-scrollbar {
+        display: none; // This hides the scrollbars appearing under in Chrome
+    }
+
+    direction: rtl;
+}
+
+ol {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin-right: auto;
+}
+
+.step {
+    direction: ltr;
+}

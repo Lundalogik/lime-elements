@@ -164,7 +164,7 @@ export class Dialog {
                         <input type="text" id="initialFocusElement" />
                         {this.renderHeading()}
                         <div
-                            class="mdc-dialog__content scrollbox"
+                            class="mdc-dialog__content"
                             id={'limel-dialog-content-' + this.id}
                         >
                             <slot />

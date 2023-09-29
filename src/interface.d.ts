@@ -16,3 +16,4 @@ export * from './components/dock/dock.types';
 export * from './components/action-bar/action-bar.types';
 export * from './components/info-tile/info-tile.types';
 export * from './components/callout/callout.types';
+export * from './components/breadcrumbs/breadcrumbs.types';
