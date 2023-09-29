@@ -269,7 +269,7 @@ export class Picker {
                 onStartEdit={this.handleInputFieldFocus}
                 onStopEdit={this.handleStopEditAndBlur}
                 emptyInputOnBlur={false}
-                clearAllButton={this.multiple}
+                clearAllButton={this.multiple && !this.chipSetEditMode}
                 {...props}
             />,
             this.renderDropdown(),
