@@ -9,6 +9,7 @@ limel-action-bar-item {
 
     &:not([is-visible]) {
         opacity: 0;
+        pointer-events: none;
     }
 }
 
