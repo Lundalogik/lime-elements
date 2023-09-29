@@ -2,6 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { kompendium } from 'kompendium';
 import guides from './guides';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 export const config: Config = {
     hashFileNames: false,
@@ -34,6 +35,9 @@ export const config: Config = {
         },
     ],
     plugins: [sass()],
+    rollupPlugins: {
+        after: [nodePolyfills()],
+    },
     tsconfig: './tsconfig.docs.json',
     globalStyle: 'src/global/core-styles.scss',
 };

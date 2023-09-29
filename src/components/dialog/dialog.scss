@@ -1,4 +1,5 @@
 @use '../../style/functions';
+@use '../../style/mixins';
 
 @use '../../style/internal/lime-theme';
 
@@ -16,7 +17,7 @@
  * @prop --dialog-max-width: Max width of the dialog.
  * @prop --dialog-max-height: Max height of the dialog.
  * @prop --dialog-border-radius: Border radius of the dialog corners
- * @prop --dialog-padding-top-bottom: Padding on top and bottom of dialog content. Defaults to `1.5rem`.
+ * @prop --dialog-padding-top-bottom: Padding on top and bottom of dialog content. Affects the height of fade-out effects on top and bottom edges when the content is scrollable and has overflowed out of the content area. Defaults to `1.5rem`. Note that if you use this variable and set it to numbers smaller than 1rem, you will loose the fade-out effects on the edges. If you have set these paddings to `0`, losing the fade out effects should be however fine for your use case! Because in such a case your intention is to handle the `overflow` internally in the component that is displayed in the dialog's content.
  * @prop --dialog-padding-left-right: Padding on the sides of dialog content. Defaults to `1.25rem`.
  */
 
@@ -74,59 +75,23 @@ $responsive-body-padding: 3vw; // 3% of viewport's width
     }
 
     .mdc-dialog__content {
+        --limel-top-edge-fade-height: var(--dialog-padding-top-bottom, 1.5rem);
+        --limel-bottom-edge-fade-height: var(
+            --dialog-padding-top-bottom,
+            1.5rem
+        );
+        @include mixins.fade-out-overflowed-content-on-edges(vertically);
+
         color: var(--mdc-theme-on-surface);
-        padding: var(
-                --dialog-padding-top-bottom,
-                min(1.5rem, $responsive-body-padding)
-            )
-            var(
-                --dialog-padding-left-right,
-                min(1.25rem, $responsive-body-padding)
-            );
+        padding-left: var(
+            --dialog-padding-left-right,
+            min(1.25rem, $responsive-body-padding)
+        );
+        padding-right: var(
+            --dialog-padding-left-right,
+            min(1.25rem, $responsive-body-padding)
+        );
     }
-}
-
-.scrollbox {
-    --dialog-background-color-transparent: rgba(var(--contrast-100), 0);
-    --dialog-scroll-shadow-color: rgba(var(--color-black), 0.2);
-    --dialog-scroll-shadow-color-transparent: rgba(var(--color-black), 0);
-
-    // Credit to the ever fantastic Lea Verou!
-    // http://lea.verou.me/2012/04/background-attachment-local/
-
-    /* prettier-ignore */
-    background:
-        /* Shadow covers */
-        linear-gradient(
-            var(--dialog-background-color) 30%,
-            var(--dialog-background-color-transparent)
-        ),
-        linear-gradient(
-            var(--dialog-background-color-transparent),
-            var(--dialog-background-color) 70%
-        )
-        0 100%,
-
-        /* Shadows */
-        radial-gradient(
-            farthest-side at 50% 0,
-            var(--dialog-scroll-shadow-color),
-            var(--dialog-scroll-shadow-color-transparent)
-        ),
-        radial-gradient(
-            farthest-side at 50% 100%,
-            var(--dialog-scroll-shadow-color),
-            var(--dialog-scroll-shadow-color-transparent)
-        )
-        0 100%;
-
-    background-repeat: no-repeat;
-    background-color: var(--dialog-background-color);
-    background-size: 100% functions.pxToRem(40), 100% functions.pxToRem(40),
-        100% functions.pxToRem(14), 100% functions.pxToRem(14);
-
-    /* Opera doesn't support this in the shorthand */
-    background-attachment: local, local, scroll, scroll;
 }
 
 #initialFocusElement {

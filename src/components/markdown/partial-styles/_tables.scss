@@ -1,0 +1,50 @@
+table {
+    table-layout: auto;
+    min-width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: transparent;
+    margin: 0.75rem 0;
+
+    border: 1px solid rgb(var(--contrast-400));
+}
+
+th,
+td {
+    text-align: left;
+    vertical-align: top;
+    transition: background-color 0.2s ease;
+    font-size: 0.875rem; // 14px
+}
+
+td {
+    padding: 0.5rem 0.375rem 0.75rem 0.375rem;
+}
+
+tr {
+    th {
+        background-color: rgb(var(--contrast-400));
+        padding: 0.25rem 0.375rem;
+        font-weight: normal;
+
+        &:only-child {
+            text-align: center;
+        }
+    }
+}
+
+tbody {
+    tr {
+        &:nth-child(odd) {
+            td {
+                background-color: rgb(var(--contrast-200));
+            }
+        }
+
+        &:hover {
+            td {
+                background-color: rgb(var(--contrast-300));
+            }
+        }
+    }
+}

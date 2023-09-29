@@ -184,3 +184,64 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+/**
+ * This mixin will mask out the content that is close to
+ * the edges of a scrollable area.
+ * - If the scrollable content has `overflow-y`, use `vertically`
+ * as an argument for `$direction`.
+ - If the scrollable content has `overflow-x`, use `horizontally`
+ * as an argument for `$direction`.
+ *
+ * For the visual effect to work smoothly, we need to make sure that
+ * the size of the fade-out edge effect is the same as the
+ * internal paddings of the scrollable area. Otherwise, content of a
+ * scrollable area that does not have a padding will fade out before
+ * any scrolling has been done.
+ * This is why this mixin already adds paddings, which automatically
+ * default to the size of the fade-out effect.
+ * This size defaults to `1rem`, but to override the size use
+ * `--limel-top-edge-fade-height` & `--limel-bottom-edge-fade-height`
+ * when `vertically` argument is set, and use
+ * `--limel-left-edge-fade-width` & `--limel-right-edge-fade-width`
+ * when `horizontally` argument is set.
+ * Of course you can also programmatically increase and decrease the
+ * size of these variables for each edge, based on the amount of
+ * scrolling that has been done by the user. In this case, make sure
+ * to add a custom padding where the mixin is used, to override
+ * the paddings that are automatically added by the mixin in the
+ * compiled CSS code.
+ */
+@mixin fade-out-overflowed-content-on-edges($direction) {
+    @if $direction == vertically {
+        --limel-overflow-mask-vertical: linear-gradient(
+            to bottom,
+            transparent 0%,
+            black calc(0% + var(--limel-top-edge-fade-height, 1rem)),
+            black calc(100% - var(--limel-bottom-edge-fade-height, 1rem)),
+            transparent 100%
+        );
+
+        -webkit-mask-image: var(--limel-overflow-mask-vertical);
+        mask-image: var(--limel-overflow-mask-vertical);
+
+        padding-top: var(--limel-top-edge-fade-height, 1rem);
+        padding-bottom: var(--limel-bottom-edge-fade-height, 1rem);
+    } @else if $direction == horizontally {
+        --limel-overflow-mask-horizontal: linear-gradient(
+            to right,
+            transparent 0%,
+            black calc(0% + var(--limel-left-edge-fade-width, 1rem)),
+            black calc(100% - var(--limel-right-edge-fade-width, 1rem)),
+            transparent 100%
+        );
+
+        -webkit-mask-image: var(--limel-overflow-mask-horizontal);
+        mask-image: var(--limel-overflow-mask-horizontal);
+
+        padding-left: var(--limel-left-edge-fade-width, 1rem);
+        padding-right: var(--limel-right-edge-fade-width, 1rem);
+    } @else {
+        @error "Please specify the direction #{$direction}!";
+    }
+}

@@ -1,0 +1,30 @@
+p,
+a,
+li {
+    font-size: 0.875rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+
+    &:only-child {
+        margin-bottom: 0;
+    }
+}
+
+a {
+    transition: color 0.2s ease;
+    color: rgb(var(--color-blue-dark));
+    text-decoration: none;
+
+    &:hover {
+        color: rgb(var(--color-blue-default));
+    }
+}
+
+hr {
+    margin: 1.75rem 0 2rem 0;
+    border-width: 0;
+    border-top: 1px solid rgb(var(--contrast-500));
+}

@@ -1,6 +1,6 @@
 {
   "name": "@limetech/lime-elements",
-  "version": "37.1.0-next.29",
+  "version": "37.1.0-next.31",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "Apache-2.0",
@@ -43,6 +43,7 @@
     "@commitlint/config-conventional": "^17.7.0",
     "@popperjs/core": "^2.11.8",
     "@rjsf/core": "^2.4.2",
+    "@rollup/plugin-node-resolve": "^15.2.1",
     "@stencil/core": "^3.4.1",
     "@stencil/sass": "^3.0.5",
     "@types/codemirror": "^5.60.2",
@@ -84,12 +85,23 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-shadow-dom-retarget-events": "^1.1.0",
+    "rehype-external-links": "^2.1.0",
+    "rehype-raw": "^5.1.0",
+    "rehype-sanitize": "^4.0.0",
+    "rehype-stringify": "^8.0.0",
+    "remark-footnotes": "^3.0.0",
+    "remark-gfm": "^1.0.0",
+    "remark-parse": "^9.0.0",
+    "remark-rehype": "^8.1.0",
     "replace-in-file": "^7.0.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
     "shelljs": "0.8.5",
     "showdown": "2.1.0",
     "shx": "^0.3.3",
     "tabulator-tables": "^4.9.3",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "unified": "^9.2.2"
   },
   "keywords": [
     "lime elements",
@@ -108,5 +120,9 @@
   "bugs": {
     "url": "https://github.com/Lundalogik/lime-elements/issues"
   },
-  "homepage": "https://github.com/Lundalogik/lime-elements#readme"
+  "homepage": "https://github.com/Lundalogik/lime-elements#readme",
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "rollup": "^3.29.3"
+  }
 }
