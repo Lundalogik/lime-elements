@@ -1,3 +1,27 @@
+# [37.1.0-next.30](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.29...v37.1.0-next.30) (2023-09-29)
+
+
+### Bug Fixes
+
+
+* **dialog:** fade out top & bottom edges of the scrolling content ([5589d59](https://github.com/Lundalogik/lime-elements/commit/5589d598d981907e3d44aa191415cf2d04fc7bbf))
+
+# [37.1.0-next.29](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.28...v37.1.0-next.29) (2023-09-27)
+
+
+### Features
+
+
+* **breadcrumbs:** add new component ([9531e7a](https://github.com/Lundalogik/lime-elements/commit/9531e7a77c86ecc01492d0f98d932b766bea4d08)), closes [Lundalogik/crm-feature#3042](https://github.com/Lundalogik/crm-feature/issues/3042)
+
+# [37.1.0-next.28](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.27...v37.1.0-next.28) (2023-09-25)
+
+
+### Bug Fixes
+
+
+* **form:** only log schema validation errors ([ee33caa](https://github.com/Lundalogik/lime-elements/commit/ee33caa90db83afe52d744b699aa533be42a6e2f))
+
 # [37.1.0-next.27](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.26...v37.1.0-next.27) (2023-09-20)
 
 
