@@ -1,6 +1,6 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
-import nodePolyfills from 'rollup-plugin-node-polyfills';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export const config: Config = {
     namespace: 'lime-elements',
@@ -15,7 +15,7 @@ export const config: Config = {
     ],
     plugins: [sass()],
     rollupPlugins: {
-        after: [nodePolyfills()],
+        before: [nodeResolve()],
     },
     tsconfig: './tsconfig.dist.json',
     globalStyle: 'src/global/core-styles.scss',

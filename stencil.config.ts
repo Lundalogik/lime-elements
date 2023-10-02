@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { kompendium } from 'kompendium';
-import nodePolyfills from 'rollup-plugin-node-polyfills';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 import guides from './guides';
 
@@ -10,7 +10,7 @@ export const config: Config = {
     namespace: 'lime-elements',
     plugins: [sass()],
     rollupPlugins: {
-        after: [nodePolyfills()],
+        before: [nodeResolve()],
     },
     outputTargets: [
         {
