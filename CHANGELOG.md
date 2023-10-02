@@ -1,3 +1,11 @@
+# [37.1.0-next.35](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.34...v37.1.0-next.35) (2023-10-02)
+
+
+### Bug Fixes
+
+
+* **action-bar:** do not display tooltip of invisible action buttons ([1abc7a2](https://github.com/Lundalogik/lime-elements/commit/1abc7a2324be66f509bacdb147f7d2557206fa80))
+
 # [37.1.0-next.34](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.33...v37.1.0-next.34) (2023-09-29)
 
 
