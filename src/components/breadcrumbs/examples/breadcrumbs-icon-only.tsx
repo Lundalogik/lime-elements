@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import { BreadcrumbsItem } from '../breadcrumbs.types';
+import { BreadcrumbsItem } from '@limetech/lime-elements';
 
 /**
  * Using icons

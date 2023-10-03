@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import { ValidationError } from '../form.types';
+import { ValidationError } from '@limetech/lime-elements';
 import { schema } from './list-schema';
 
 /**

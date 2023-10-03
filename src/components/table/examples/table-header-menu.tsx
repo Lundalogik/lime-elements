@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import { Column } from '../table.types';
+import { Column } from '@limetech/lime-elements';
 import { persons, Person } from './persons';
 
 /**

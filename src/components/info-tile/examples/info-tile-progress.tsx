@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { InfoTileProgress } from '../info-tile.types';
+import { InfoTileProgress } from '@limetech/lime-elements';
 
 /**
  * Displaying a progress bar

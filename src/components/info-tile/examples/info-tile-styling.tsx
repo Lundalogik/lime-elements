@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import { InfoTileProgress } from '../info-tile.types';
+import { InfoTileProgress } from '@limetech/lime-elements';
 
 /**
  * How to style the Info tile

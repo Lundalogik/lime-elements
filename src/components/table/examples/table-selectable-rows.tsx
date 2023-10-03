@@ -1,6 +1,9 @@
-import { LimelTableCustomEvent } from '@limetech/lime-elements';
+import {
+    Column,
+    ColumnAggregate,
+    LimelTableCustomEvent,
+} from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { Column, ColumnAggregate } from '../table.types';
 import { persons, Person } from './persons';
 
 /**

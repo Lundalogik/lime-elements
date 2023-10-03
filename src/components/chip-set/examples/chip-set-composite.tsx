@@ -1,6 +1,5 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { Languages } from '../../date-picker/date.types';
-import { Chip } from '../chip.types';
+import { Chip, Languages } from '@limetech/lime-elements';
 
 /**
  * Composite
