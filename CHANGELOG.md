@@ -1,3 +1,11 @@
+# [37.1.0-next.37](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.36...v37.1.0-next.37) (2023-10-03)
+
+
+### Bug Fixes
+
+
+* **types:** ensure exported types work as expected ([8422c4f](https://github.com/Lundalogik/lime-elements/commit/8422c4f1d116ab1661120c08882efcfb777909df))
+
 # [37.1.0-next.36](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.35...v37.1.0-next.36) (2023-10-03)
 
 
