@@ -1,2 +1,0 @@
-import{S as r}from"./_baseGetTag-044c3941.js";import{a as i}from"./_arrayMap-e86f6dbb.js";import{i as t}from"./isArray-80298bc7.js";import{i as a}from"./isSymbol-bbb65e88.js";var e=1/0;var n=r?r.prototype:undefined,f=n?n.toString:undefined;function o(r){if(typeof r=="string"){return r}if(t(r)){return i(r,o)+""}if(a(r)){return f?f.call(r):""}var n=r+"";return n=="0"&&1/r==-e?"-0":n}function s(r){return r==null?"":o(r)}export{s as t};
-//# sourceMappingURL=toString-8e74de73.js.map
