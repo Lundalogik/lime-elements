@@ -2,7 +2,7 @@ import React from 'react';
 import { WidgetProps } from '../widgets/types';
 import { LimeElementsAdapter } from './base-adapter';
 import { capitalize } from 'lodash-es';
-import { LimeSchemaOptions } from '../form.types';
+import { LimeSchemaOptions } from '../../../interface';
 
 interface WidgetAdapterProps {
     name: string;

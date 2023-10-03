@@ -1,2 +1,4 @@
 export * from './components';
-export * from './interface';
+
+export { FormComponent, TabPanelComponent, TableComponent } from './interface';
+export { ColumnAggregatorType } from './components/table/table.types';

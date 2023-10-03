@@ -1,6 +1,6 @@
 /* eslint-disable multiline-ternary */
 import { Component, h, Prop, State, Event, EventEmitter } from '@stencil/core';
-import { FormComponent } from '../form/form.types';
+import { FormComponent } from '../../interface';
 
 /**
  * This component enables you to select a swatch from out color palette, simply

@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { isAndroidDevice, isIOSDevice } from '../../util/device';
-import { DateType, InputType, Languages } from '@limetech/lime-elements';
+import { DateType, InputType, Languages } from '../../interface';
 import { DateFormatter } from './dateFormatter';
 import { MDCTextField } from '@material/textfield';
 

@@ -1,4 +1,4 @@
-import { FileInfo } from '@limetech/lime-elements';
+import { FileInfo } from '../../interface';
 import { getIconForFile } from './icons';
 import { getIconFillColorForFile } from './icon-fill-colors';
 import { getIconBackgroundColorForFile } from './icon-background-colors';

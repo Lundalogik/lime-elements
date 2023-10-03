@@ -1,5 +1,5 @@
 import translate from '../../global/translations';
-import { Chip, FileInfo, Languages } from '@limetech/lime-elements';
+import { Chip, FileInfo, Languages } from '../../interface';
 import { MDCTextField } from '@material/textfield';
 import {
     Component,

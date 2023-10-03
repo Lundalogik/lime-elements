@@ -9,11 +9,7 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
-import {
-    ListSeparator,
-    MenuItem,
-    OpenDirection,
-} from '@limetech/lime-elements';
+import { ListSeparator, MenuItem, OpenDirection } from '../../interface';
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.

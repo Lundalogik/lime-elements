@@ -1,9 +1,4 @@
-import {
-    IconSize,
-    ListItem,
-    ListSeparator,
-    ListType,
-} from '@limetech/lime-elements';
+import { IconSize, ListItem, ListSeparator, ListType } from '../../interface';
 import { MDCList, MDCListActionEvent } from '@material/list';
 import { strings as listStrings } from '@material/list/constants';
 import {

@@ -24,11 +24,11 @@ import {
     TAB,
     TAB_KEY_CODE,
 } from '../../util/keycodes';
-import { InputType } from './input-field.types';
-import { LimelListCustomEvent, ListItem } from '@limetech/lime-elements';
+import { InputType, ListItem } from '../../interface';
 import { getHref, getTarget } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
+import { LimelListCustomEvent } from 'src/components';
 
 interface LinkProperties {
     href: string;

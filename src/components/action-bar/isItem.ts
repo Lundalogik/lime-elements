@@ -1,5 +1,4 @@
-import { ListSeparator } from '../list/list-item.types';
-import { ActionBarItem } from './action-bar.types';
+import { ActionBarItem, ListSeparator } from '../../interface';
 
 export function isItem(
     item: ActionBarItem | ListSeparator

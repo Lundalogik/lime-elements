@@ -6,9 +6,8 @@ import {
     h,
     Prop,
 } from '@stencil/core';
-import { ActionBarItem } from '../action-bar.types';
+import { ActionBarItem, ListSeparator } from '../../../interface';
 import { createRandomString } from '../../../util/random-string';
-import { ListSeparator } from 'src/interface';
 import {
     makeEnterClickable,
     removeEnterClickable,

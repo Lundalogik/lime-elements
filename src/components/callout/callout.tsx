@@ -1,7 +1,6 @@
 import { Component, h, Prop } from '@stencil/core';
-import { CalloutType } from './callout.types';
+import { CalloutType, Languages } from '../../interface';
 import { getHeading, getIcon } from './callout.helpers';
-import { Languages } from '@limetech/lime-elements';
 
 /**
  * Callouts—also known as Admonitions—are useful for including supportive or

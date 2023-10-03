@@ -1,4 +1,4 @@
-import { ListItem, Option } from '@limetech/lime-elements';
+import { ListItem, Option } from '../../interface';
 import { MDCFloatingLabel } from '@material/floating-label';
 import { MDCSelectHelperText } from '@material/select/helper-text';
 import {

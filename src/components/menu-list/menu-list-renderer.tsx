@@ -1,4 +1,4 @@
-import { ListSeparator, MenuItem } from '@limetech/lime-elements';
+import { ListSeparator, MenuItem } from '../../interface';
 import { h } from '@stencil/core';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
 

@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, Host, h, Prop } from '@stencil/core';
-import { ListSeparator, MenuItem } from '@limetech/lime-elements';
+import { ListSeparator, MenuItem } from '../../interface';
 
 /**
  * A split button is a button with two components:

@@ -1,5 +1,5 @@
 import { EventEmitter } from '@stencil/core';
-import { Tab } from '../tab-bar/tab.types';
+import { Tab } from '../../interface';
 
 /**
  * Interface for components rendered inside a `limel-tab-panel`

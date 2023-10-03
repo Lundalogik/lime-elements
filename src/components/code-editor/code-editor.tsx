@@ -8,7 +8,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { ColorScheme, Language } from './code-editor.types';
+import { ColorScheme, Language } from '../../interface';
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/selection/active-line';

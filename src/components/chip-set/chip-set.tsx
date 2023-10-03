@@ -1,4 +1,4 @@
-import { Chip, Languages } from '@limetech/lime-elements';
+import { Chip, Languages } from '../../interface';
 import {
     MDCChipInteractionEvent,
     MDCChipSelectionEvent,

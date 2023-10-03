@@ -7,7 +7,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { Button } from '../button/button.types';
+import { Button } from '../../interface';
 import { createRandomString } from '../../util/random-string';
 
 /**

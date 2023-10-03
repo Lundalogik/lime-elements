@@ -1,4 +1,4 @@
-import { MenuItem } from '../menu/menu.types';
+import { MenuItem } from '../../interface';
 
 export interface ListItem<T = any> {
     /**

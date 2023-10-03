@@ -1,4 +1,4 @@
-import { Action } from '@limetech/lime-elements';
+import { Action } from '../../collapsible-section/action';
 import React from 'react';
 import { findTitle } from './common';
 import { ArrayFieldItem, Runnable } from './types';

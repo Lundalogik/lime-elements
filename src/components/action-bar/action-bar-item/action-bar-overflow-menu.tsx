@@ -1,11 +1,11 @@
 import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
 import {
-    MenuItem,
-    LimelMenuCustomEvent,
-    ListSeparator,
     ActionBarItem,
+    ListSeparator,
+    MenuItem,
     OpenDirection,
-} from '@limetech/lime-elements';
+} from '../../../interface';
+import { LimelMenuCustomEvent } from 'src/components';
 
 /**
  * @private

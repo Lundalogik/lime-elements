@@ -1,9 +1,9 @@
 import {
     IconSize,
-    MenuItem,
     ListSeparator,
+    MenuItem,
     MenuListType,
-} from '@limetech/lime-elements';
+} from '../../interface';
 import { MDCList, MDCListActionEvent } from '@material/list';
 import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
 import { MDCRipple } from '@material/ripple';
