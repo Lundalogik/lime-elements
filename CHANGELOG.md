@@ -1,3 +1,11 @@
+# [37.1.0-next.36](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.35...v37.1.0-next.36) (2023-10-03)
+
+
+### Bug Fixes
+
+
+* **markdown:** update remark versions to latest ([fa6e7dc](https://github.com/Lundalogik/lime-elements/commit/fa6e7dc4273e5c75571fdc01c8c0d39760c9ac7e))
+
 # [37.1.0-next.35](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.34...v37.1.0-next.35) (2023-10-02)
 
 
