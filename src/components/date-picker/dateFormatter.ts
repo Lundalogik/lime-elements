@@ -6,7 +6,7 @@ import 'moment/locale/nb';
 import 'moment/locale/nl';
 import 'moment/locale/sv';
 import moment from 'moment/moment';
-import { DateType } from './date.types';
+import { DateType } from '../../interface';
 
 export class DateFormatter {
     private language: string;

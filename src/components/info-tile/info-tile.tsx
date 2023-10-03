@@ -1,6 +1,5 @@
 import { Component, Prop, h } from '@stencil/core';
-import { InfoTileProgress } from './info-tile.types';
-import { Link } from '@limetech/lime-elements';
+import { InfoTileProgress, Link } from '../../interface';
 
 /**
  * This component can be used on places such as a start page or a dashboard.

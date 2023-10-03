@@ -1,4 +1,4 @@
-import { ListItem, Option } from '@limetech/lime-elements';
+import { ListItem, Option } from '../../interface';
 import { FunctionalComponent, h } from '@stencil/core';
 import { isMultiple } from '../../util/multiple';
 

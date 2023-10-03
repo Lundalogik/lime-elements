@@ -1,4 +1,4 @@
-import { IconSize, ListType } from '@limetech/lime-elements';
+import { IconSize, ListType } from '../../interface';
 
 export interface ListRendererConfig {
     isOpen?: boolean;

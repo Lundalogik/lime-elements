@@ -1,5 +1,4 @@
-import { Link } from '@limetech/lime-elements';
-import { Icon } from 'src/global/shared-types/icon.types';
+import { Icon, Link } from '../../interface';
 
 export interface BreadcrumbsItem {
     /**

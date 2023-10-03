@@ -2,7 +2,7 @@ import {
     FlexContainerAlign,
     FlexContainerDirection,
     FlexContainerJustify,
-} from '@limetech/lime-elements';
+} from '../../interface';
 import { Component, h, Prop } from '@stencil/core';
 
 /**

@@ -6,7 +6,7 @@ import {
     h,
     Prop,
 } from '@stencil/core';
-import { FlowItem } from '../progress-flow.types';
+import { FlowItem } from '../../../interface';
 
 /**
  * @private

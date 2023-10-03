@@ -11,7 +11,7 @@ import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
 import { portalContains } from '../portal/contains';
 import { ESCAPE } from '../../util/keycodes';
-import { OpenDirection } from '../menu/menu.types';
+import { OpenDirection } from '../../interface';
 
 /**
  * A popover is an impermanent layer that is displayed on top of other content

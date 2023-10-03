@@ -1,4 +1,4 @@
-import { DialogHeading, ClosingActions } from '@limetech/lime-elements';
+import { DialogHeading, ClosingActions } from '../../interface';
 import { MDCDialog } from '@material/dialog';
 import {
     Component,

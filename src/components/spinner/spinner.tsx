@@ -1,4 +1,4 @@
-import { SpinnerSize } from '@limetech/lime-elements';
+import { SpinnerSize } from '../../interface';
 import { Component, Prop, h } from '@stencil/core';
 
 /**

@@ -1,4 +1,8 @@
-import { Column, ColumnSorter, ColumnAggregatorFunction } from './table.types';
+import {
+    Column,
+    ColumnSorter,
+    ColumnAggregatorFunction,
+} from '../../interface';
 import Tabulator from 'tabulator-tables';
 import { escape } from 'html-escaper';
 import { ElementPool } from './element-pool';

@@ -1,5 +1,5 @@
 import { Component, Prop, h } from '@stencil/core';
-import { Link } from '@limetech/lime-elements';
+import { Link } from '../../interface';
 
 /**
  * This component can be used on places such as a start page or a dashboard.

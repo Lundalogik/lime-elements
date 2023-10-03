@@ -1,4 +1,4 @@
-import { IconSize, MenuListType } from '@limetech/lime-elements';
+import { IconSize, MenuListType } from '../../interface';
 
 export interface MenuListRendererConfig {
     isOpen?: boolean;

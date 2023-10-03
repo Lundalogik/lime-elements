@@ -1,4 +1,4 @@
-import { ListItem, ListSeparator, MenuItem } from '@limetech/lime-elements';
+import { ListItem, ListSeparator, MenuItem } from '../../interface';
 import { h } from '@stencil/core';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { ListRendererConfig } from './list-renderer-config';

@@ -1,11 +1,11 @@
 import {
     Action,
+    ActionPosition,
+    ActionScrollBehavior,
     Chip,
-    LimelChipSetCustomEvent,
-    LimelListCustomEvent,
     ListItem,
     Searcher,
-} from '@limetech/lime-elements';
+} from '../../interface';
 import {
     Component,
     Element,
@@ -31,7 +31,7 @@ import {
     TAB_KEY_CODE,
 } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
-import { ActionScrollBehavior, ActionPosition } from './actions.types';
+import { LimelChipSetCustomEvent, LimelListCustomEvent } from 'src/components';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';

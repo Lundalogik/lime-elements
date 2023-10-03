@@ -1,4 +1,4 @@
-import { Languages } from '@limetech/lime-elements';
+import { Languages } from '../../interface';
 import { MDCSnackbar, MDCSnackbarCloseEvent } from '@material/snackbar';
 import {
     Component,
