@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { Column, TableParams, ColumnSorter } from '../table.types';
+import { Column, TableParams, ColumnSorter } from '@limetech/lime-elements';
 import { data, Bird } from './birds';
 import { capitalize } from 'lodash-es';
 

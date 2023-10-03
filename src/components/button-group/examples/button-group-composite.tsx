@@ -1,6 +1,5 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { Button } from '../../button/button.types';
-import { LimelButtonGroupCustomEvent } from '@limetech/lime-elements';
+import { Button, LimelButtonGroupCustomEvent } from '@limetech/lime-elements';
 
 /**
  * Composite

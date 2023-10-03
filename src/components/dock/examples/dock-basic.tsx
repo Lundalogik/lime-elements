@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { DockItem } from '../dock.types';
+import { DockItem } from '@limetech/lime-elements';
 
 /**
  * Basic Example

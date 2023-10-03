@@ -1,12 +1,13 @@
 import {
     Action,
+    ActionPosition,
+    ActionScrollBehavior,
     LimelPickerCustomEvent,
     LimelSelectCustomEvent,
     ListItem,
     Option,
 } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { ActionScrollBehavior, ActionPosition } from '../actions.types';
 
 /**
  * With static actions

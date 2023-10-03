@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { FlowItem } from '../progress-flow.types';
+import { FlowItem } from '@limetech/lime-elements';
 
 /**
  * Example with off-progress steps

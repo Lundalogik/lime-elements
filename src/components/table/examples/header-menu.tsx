@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { ListItem } from '../../list/list-item.types';
+import { ListItem } from '@limetech/lime-elements';
 
 @Component({
     tag: 'limel-example-header-menu',

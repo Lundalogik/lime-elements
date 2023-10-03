@@ -1,6 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { ActionBarItem } from '../action-bar.types';
-import { ListSeparator } from 'src/interface';
+import { ActionBarItem, ListSeparator } from '@limetech/lime-elements';
 
 /**
  * Floating Example
