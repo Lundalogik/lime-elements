@@ -43,7 +43,7 @@
     "@commitlint/config-conventional": "^17.7.0",
     "@popperjs/core": "^2.11.8",
     "@rjsf/core": "^2.4.2",
-    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-node-resolve": "^15.2.1",
     "@stencil/core": "^3.4.1",
     "@stencil/sass": "^3.0.6",
     "@types/codemirror": "^5.60.2",
