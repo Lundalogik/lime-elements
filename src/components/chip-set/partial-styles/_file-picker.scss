@@ -31,6 +31,7 @@
                 padding: 0 functions.pxToRem(12);
 
                 font-size: functions.pxToRem(13);
+                line-height: 1;
                 color: var(--mdc-theme-text-secondary-on-background);
             }
 
@@ -60,7 +61,7 @@
 }
 
 // below block prevents overlapping of `label` and dropzone tip text
-$max-width-of-dropzone-tip: 58%;
+$max-width-of-dropzone-tip: 50%;
 $max-width-of-label-when-not-readonly: 40%;
 
 :host(.is-file-picker.shows-dropzone) {
