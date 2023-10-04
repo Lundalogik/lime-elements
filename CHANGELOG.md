@@ -1,3 +1,11 @@
+# [37.1.0-next.38](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.37...v37.1.0-next.38) (2023-10-04)
+
+
+### Bug Fixes
+
+
+* **file:** render dropzone help text better when file picker has a small width ([0de38f2](https://github.com/Lundalogik/lime-elements/commit/0de38f283a652cb217fa62330bdc44832b831287))
+
 # [37.1.0-next.37](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.36...v37.1.0-next.37) (2023-10-03)
 
 
