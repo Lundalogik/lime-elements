@@ -144,23 +144,27 @@ export class List {
             return;
         }
 
-        const listItems = this.items.filter(this.isListItem);
+        setTimeout(() => {
+            this.setup();
 
-        if (this.multiple) {
-            this.mdcList.selectedIndex = listItems
-                .filter((item: ListItem) => item.selected)
-                .map((item: ListItem) => listItems.indexOf(item));
-        } else {
-            const selectedIndex = listItems.findIndex(
-                (item: ListItem) => item.selected
-            );
+            const listItems = this.items.filter(this.isListItem);
 
-            if (selectedIndex === -1) {
-                this.mdcList.initializeListType();
+            if (this.multiple) {
+                this.mdcList.selectedIndex = listItems
+                    .filter((item: ListItem) => item.selected)
+                    .map((item: ListItem) => listItems.indexOf(item));
             } else {
-                this.mdcList.selectedIndex = selectedIndex;
+                const selectedIndex = listItems.findIndex(
+                    (item: ListItem) => item.selected
+                );
+
+                if (selectedIndex === -1) {
+                    this.mdcList.initializeListType();
+                } else {
+                    this.mdcList.selectedIndex = selectedIndex;
+                }
             }
-        }
+        }, 0);
     }
 
     private setup = () => {
@@ -170,6 +174,11 @@ export class List {
     };
 
     private setupList = () => {
+        if (this.mdcList) {
+            this.teardown();
+            this.mdcList = null;
+        }
+
         const element = this.element.shadowRoot.querySelector(
             '.mdc-deprecated-list'
         );
