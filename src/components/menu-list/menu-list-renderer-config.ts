@@ -5,5 +5,4 @@ export interface MenuListRendererConfig {
     badgeIcons?: boolean;
     type?: MenuListType;
     iconSize?: IconSize;
-    lazyLoadItems?: boolean;
 }

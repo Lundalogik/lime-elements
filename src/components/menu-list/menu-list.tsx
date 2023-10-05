@@ -59,9 +59,6 @@ export class MenuList {
     @Prop()
     public type: MenuListType;
 
-    @Prop()
-    public lazyLoadItems: boolean;
-
     /**
      * By default, lists will display 3 lines of text, and then truncate the rest.
      * Consumers can increase or decrease this number by specifying
@@ -102,7 +99,6 @@ export class MenuList {
             badgeIcons: this.badgeIcons,
             type: this.type,
             iconSize: this.iconSize,
-            lazyLoadItems: this.lazyLoadItems,
         };
 
         const html = this.MenuListRenderer.render(this.items, this.config);

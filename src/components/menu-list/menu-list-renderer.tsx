@@ -1,6 +1,7 @@
 import { ListSeparator, MenuItem } from '../../interface';
 import { h } from '@stencil/core';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
+import { isFunction } from 'lodash-es';
 
 export class MenuListRenderer {
     private defaultConfig: MenuListRendererConfig = {
@@ -181,6 +182,12 @@ export class MenuListRenderer {
         return <limel-icon class="sub-menu-icon" name="-lime-caret-right" />;
     };
 
+    private rendertext = (item: ListSeparator) => {
+        if ('text' in item) {
+            return <h2 class="limel-list-divider-title">{item.text}</h2>;
+        }
+    };
+
     private renderCommandText = (item: MenuItem) => {
         if (!('commandText' in item)) {
             return;
@@ -248,8 +255,8 @@ export class MenuListRenderer {
 
     private hasSubItems = (item: MenuItem): boolean => {
         return (
-            !item.isLeafNode &&
-            (this.config.lazyLoadItems || item.subItems?.length)
+            (Array.isArray(item.items) && item.items.length > 0) ||
+            isFunction(item.items)
         );
     };
 }

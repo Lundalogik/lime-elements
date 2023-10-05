@@ -1,3 +1,5 @@
+import { ListSeparator } from '../../interface';
+
 export type OpenDirection =
     | 'left-start'
     | 'left'
@@ -62,23 +64,18 @@ export interface MenuItem<T = any> {
      * What sub items the item contains
      * Don't set if using lazy loading.
      */
-    subItems?: Array<MenuItem<T>>;
+    items?: Array<MenuItem<T> | ListSeparator> | SubItemsLoader;
 
     /**
      * What parent the item has.
      * It's used to render the breadcrumbs history
-     * Mostly handled by the menu itself
+     * Mostl y handled by the menu itself
      */
     parentItem?: MenuItem<T>;
-
-    /**
-     * Only used if using lazyLoading
-     * It prevents the menu from rendering the carret icon
-     * that visualize sub items
-     */
-    isLeafNode?: boolean;
 }
 
 export type MenuSearcher = (query: string) => Promise<MenuItem[]>;
 
-export type SubItemsLoader = (item: MenuItem) => Promise<MenuItem[]>;
+export type SubItemsLoader = (
+    item: MenuItem
+) => Promise<Array<MenuItem | ListSeparator>>;

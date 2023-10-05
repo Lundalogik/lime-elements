@@ -10,17 +10,20 @@ import {
     State,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
-import { zipObject } from 'lodash-es';
+import { zipObject, isFunction } from 'lodash-es';
 import {
-    BreadcrumbsItem,
     LimelBreadcrumbsCustomEvent,
     LimelInputFieldCustomEvent,
-    ListSeparator,
+} from '@limetech/lime-elements';
+
+import { BreadcrumbsItem } from '../breadcrumbs/breadcrumbs.types';
+import { ListSeparator } from '../list/list-item.types';
+import {
     OpenDirection,
     MenuSearcher,
     MenuItem,
     SubItemsLoader,
-} from '@limetech/lime-elements';
+} from './menu.types';
 
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import {
@@ -73,7 +76,7 @@ export class Menu {
     public items: Array<MenuItem | ListSeparator> = [];
 
     /**
-     * Sets the disabled state of the menu.
+     * Sets the disabled st ate of the menu.
      */
     @Prop({ reflect: true })
     public disabled = false;
@@ -85,7 +88,7 @@ export class Menu {
     public openDirection: OpenDirection = 'bottom-start';
 
     /**
-     * Sets the open state of the menu.
+     * Sets the open state of the  menu.
      */
     @Prop({ mutable: true, reflect: true })
     public open = false;
@@ -113,15 +116,16 @@ export class Menu {
     @Prop()
     public searcher: MenuSearcher;
 
-    @Prop()
-    public loadSubItems: SubItemsLoader;
-
-    @Prop()
-    public lazyLoadItems: boolean;
-
+    /**
+     * Making it possible for a consumer to tell the component that it's waiting for something.
+     * For example loading items/root items.
+     */
     @Prop()
     public loading: boolean;
 
+    /**
+     * Message to display when search returns 0 results.
+     */
     @Prop()
     public emptyResultMessage?: string;
 
@@ -135,20 +139,32 @@ export class Menu {
      * Is emitted when a menu item is selected.
      */
     @Event()
-    public select: EventEmitter<MenuItem | MenuItem[]>;
+    public select: EventEmitter<MenuItem>;
 
+    /**
+     * Is emitted when a menu item with sub items is selected.
+     */
     @Event()
     public parentSelect: EventEmitter<MenuItem>;
 
     @Element()
     private host: HTMLLimelMenuElement;
 
+    /**
+     * Contains the search string
+     */
     @State()
     private searchValue: string;
 
+    /**
+     * True while sub items are loading.
+     */
     @State()
     private loadingSubItems: boolean;
 
+    /**
+     * The current items in the menu list
+     */
     @State()
     private currentItems: Array<MenuItem | ListSeparator> = null;
 
@@ -424,7 +440,6 @@ export class Menu {
                 }}
                 items={items}
                 type="menu"
-                lazyLoadItems={this.lazyLoadItems}
                 badgeIcons={this.badgeIcons}
                 onSelect={this.onSelect}
                 ref={this.setListElement}
@@ -461,7 +476,7 @@ export class Menu {
 
     /**
      * Key handler for the input search field
-     * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
+     * Will cha nge focus to the first/last item in the dropdown list to enable selection with the keyboard
      * @param {KeyboardEvent} event event
      * @returns {void}
      */
@@ -614,17 +629,18 @@ export class Menu {
         menuItem: MenuItem,
         selectOnEmptyChildren: boolean = true
     ) => {
-        if (menuItem?.subItems?.length) {
+        if (Array.isArray(menuItem?.items) && menuItem.items.length > 0) {
             this.parentSelect.emit(menuItem);
-            this.currentItems = menuItem.subItems.map((item) => ({
+            this.currentItems = menuItem.items.map((item) => ({
                 ...item,
                 parentItem: menuItem,
             }));
 
             return;
-        } else if (this.lazyLoadItems) {
+        } else if (isFunction(menuItem?.items)) {
+            const subItemsLoader = menuItem.items as SubItemsLoader;
             this.loadingSubItems = true;
-            const subItems = await this.loadSubItems(menuItem);
+            const subItems = await subItemsLoader(menuItem);
             this.loadingSubItems = false;
 
             if (subItems?.length) {

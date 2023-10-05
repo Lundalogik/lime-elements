@@ -2,8 +2,9 @@ import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 import { Component, Element, Host, State, h } from '@stencil/core';
 
 /**
- * Resize the menu drop-down
+ * Set custom width of drop-dow
  */
+
 @Component({
     tag: 'limel-example-menu-size',
     styleUrl: 'menu-size.scss',
@@ -13,7 +14,7 @@ export class MenuSubItemsExample {
     private items: Array<MenuItem | ListSeparator> = [
         {
             text: 'Real super heroes',
-            subItems: [
+            items: [
                 { text: 'Superman' },
                 { text: 'Iron Man' },
                 { text: 'Spider-Man' },
@@ -28,7 +29,7 @@ export class MenuSubItemsExample {
         },
         {
             text: 'Fake super heroes',
-            subItems: [
+            items: [
                 { text: 'Tech Titan' },
                 { text: 'Data Dynamo' },
                 { text: 'Code Crusader' },
