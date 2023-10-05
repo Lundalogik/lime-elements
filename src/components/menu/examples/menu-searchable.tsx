@@ -18,7 +18,7 @@ export class MenuSubItemsExample {
     private items: Array<MenuItem | ListSeparator> = [
         {
             text: 'Format',
-            subItems: [
+            items: [
                 {
                     text: 'Bold',
                     icon: 'bold',
@@ -30,7 +30,7 @@ export class MenuSubItemsExample {
                 {
                     text: 'Bullets and numbering',
                     icon: 'bulleted_list',
-                    subItems: [
+                    items: [
                         {
                             text: 'Numbered list',
                             icon: 'numbered_list',
@@ -49,7 +49,7 @@ export class MenuSubItemsExample {
         },
         {
             text: 'Edit',
-            subItems: [
+            items: [
                 {
                     text: 'Copy',
                     icon: 'copy',
@@ -67,7 +67,7 @@ export class MenuSubItemsExample {
         },
         {
             text: 'Long sub list',
-            subItems: Array.from(Array(50), (_value, index) => {
+            items: Array.from(Array(50), (_value, index) => {
                 return {
                     text: `Item ${index + 1}`,
                 };

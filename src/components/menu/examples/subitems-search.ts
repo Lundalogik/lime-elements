@@ -12,25 +12,32 @@ export function SearchMenuItems(
     const flattenedItems = flattenMenuItems(menuItems);
 
     return flattenedItems.filter(
-        (i) => !i.separator && i.text?.toLowerCase().includes(searchValue)
+        (i) =>
+            !('separator' in i) && i.text?.toLowerCase().includes(searchValue)
     );
 }
 
-function flattenMenuItems(menuItems: MenuItem[]): MenuItem[] {
+function flattenMenuItems(
+    menuItems: Array<MenuItem | ListSeparator>
+): MenuItem[] {
     const flattenedItems: MenuItem[] = [];
 
     function flatten(menuItem: MenuItem) {
         flattenedItems.push(menuItem);
 
-        if (menuItem.subItems) {
-            for (const subItem of menuItem.subItems) {
-                flatten(subItem);
+        if (Array.isArray(menuItem.items)) {
+            for (const subItem of menuItem.items) {
+                if (!('separator' in subItem)) {
+                    flatten(subItem as MenuItem);
+                }
             }
         }
     }
 
     for (const menuItem of menuItems) {
-        flatten(menuItem);
+        if (!('separator' in menuItem)) {
+            flatten(menuItem as MenuItem);
+        }
     }
 
     return flattenedItems;
