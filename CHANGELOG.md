@@ -1,3 +1,11 @@
+# [37.1.0-next.39](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.38...v37.1.0-next.39) (2023-10-10)
+
+
+### Bug Fixes
+
+
+* **list:** recreate the mdcList on item change ([d7477fd](https://github.com/Lundalogik/lime-elements/commit/d7477fdcfb5cab3c2019d33f0162809ce1acedf1))
+
 # [37.1.0-next.38](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.37...v37.1.0-next.38) (2023-10-04)
 
 
