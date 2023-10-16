@@ -1,6 +1,7 @@
 import { ListSeparator, MenuItem } from '../../interface';
 import { h } from '@stencil/core';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
+import { getIconColor, getIconName } from '../icon/get-icon-props';
 
 export class MenuListRenderer {
     private defaultConfig: MenuListRendererConfig = {
@@ -206,11 +207,14 @@ export class MenuListRenderer {
      */
     private renderIcon = (config: MenuListRendererConfig, item: MenuItem) => {
         const style: any = {};
-        if (item.iconColor) {
+        const name = getIconName(item.icon);
+        const color = getIconColor(item.icon, item.iconColor);
+
+        if (color) {
             if (config.badgeIcons) {
-                style['--icon-background-color'] = item.iconColor;
+                style['--icon-background-color'] = color;
             } else {
-                style.color = item.iconColor;
+                style.color = color;
             }
         }
 
@@ -218,7 +222,7 @@ export class MenuListRenderer {
             <limel-icon
                 badge={config.badgeIcons}
                 class="mdc-deprecated-list-item__graphic"
-                name={item.icon}
+                name={name}
                 style={style}
                 size={config.iconSize}
             />

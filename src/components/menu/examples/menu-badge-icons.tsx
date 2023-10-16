@@ -12,15 +12,25 @@ export class MenuBadgeIconsExample {
     private items: Array<MenuItem | ListSeparator> = [
         {
             text: 'Copy',
-            icon: 'copy',
-            iconColor: 'rgb(var(--color-lime-light))',
+            icon: {
+                name: 'copy',
+                color: 'rgb(var(--color-lime-light))',
+            },
         },
-        { text: 'Cut', icon: 'cut', iconColor: 'rgb(var(--color-red-light))' },
+        {
+            text: 'Cut',
+            icon: {
+                name: 'cut',
+                color: 'rgb(var(--color-red-light))',
+            },
+        },
         { separator: true },
         {
             text: 'Paste',
-            icon: 'paste',
-            iconColor: 'rgb(var(--color-amber-default))',
+            icon: {
+                name: 'paste',
+                color: 'rgb(var(--color-amber-default))',
+            },
         },
     ];
 
