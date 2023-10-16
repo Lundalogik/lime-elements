@@ -40,7 +40,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^17.7.0",
+    "@commitlint/config-conventional": "^17.8.0",
     "@popperjs/core": "^2.11.8",
     "@rjsf/core": "^2.4.2",
     "@rollup/plugin-node-resolve": "^13.3.0",
