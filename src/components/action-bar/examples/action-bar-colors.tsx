@@ -4,7 +4,7 @@ import { ActionBarItem, ListSeparator } from '@limetech/lime-elements';
 /**
  * Using colors
  *
- * You can specify colors for single actions, by setting `iconColor`.
+ * You can specify colors for single actions, by setting `color` on the `icon`.
  *
  * :::note
  * Make sure not to overuse colors!
@@ -22,9 +22,11 @@ export class ActionBarColorsExample {
     private actionBarItems: Array<ActionBarItem | ListSeparator> = [
         {
             text: 'Record',
-            icon: 'dot_circle',
+            icon: {
+                name: 'dot_circle',
+                color: 'rgb(var(--color-red-default))',
+            },
             iconOnly: true,
-            iconColor: 'rgb(var(--color-red-default))',
         },
         {
             text: 'Stop',
