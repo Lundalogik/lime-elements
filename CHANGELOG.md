@@ -1,3 +1,11 @@
+# [37.1.0-next.41](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.40...v37.1.0-next.41) (2023-10-16)
+
+
+### Features
+
+
+* **src:** export `Link` & `Icon` interfaces ([a13f668](https://github.com/Lundalogik/lime-elements/commit/a13f66888a6c5e2c36783ca0ed83f2e68c915cbd))
+
 # [37.1.0-next.40](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.39...v37.1.0-next.40) (2023-10-12)
 
 
