@@ -1,5 +1,6 @@
 export class Config {
     public iconPath = '';
+    public defaultLocale = navigator.language;
     public featureSwitches: any = getFeatureSwitches(localStorage);
 }
 
