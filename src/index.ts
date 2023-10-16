@@ -7,5 +7,7 @@ export {
     GridLayoutOptions,
     TabPanelComponent,
     TableComponent,
+    Icon,
+    Link,
 } from './interface';
 export { ColumnAggregatorType } from './components/table/table.types';
