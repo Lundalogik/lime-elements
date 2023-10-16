@@ -1,3 +1,16 @@
+# [37.1.0-next.42](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.41...v37.1.0-next.42) (2023-10-16)
+
+
+### Bug Fixes
+
+
+* **input-field:** apply the user's locale when formatting numbers ([600b8d3](https://github.com/Lundalogik/lime-elements/commit/600b8d3ce604c18899e89ae3065135afd503df74)), closes [Lundalogik/crm-feature#3673](https://github.com/Lundalogik/crm-feature/issues/3673)
+
+### Features
+
+
+* **config:** provide better type for setting global config ([22a8d13](https://github.com/Lundalogik/lime-elements/commit/22a8d137972c38037cfd2244076be57fb7d10443))
+
 # [37.1.0-next.41](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.40...v37.1.0-next.41) (2023-10-16)
 
 
