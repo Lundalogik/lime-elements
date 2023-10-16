@@ -13,7 +13,7 @@ export class Config {
      * Global configuration for Lime Elements
      */
     @Prop()
-    public config: object;
+    public config: Partial<typeof globalConfig>;
 
     public componentDidLoad() {
         this.setGlobalConfig();
