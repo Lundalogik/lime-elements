@@ -9,7 +9,7 @@ import { ActionBarItem, ListSeparator } from '@limetech/lime-elements';
  *
  * :::note
  * The `--action-bar-item-icon-color` affects all icons.
- * However, the `iconColor` specified on individual items
+ * However, the `color` specified for `icon` for individual items
  * will override that.
  * :::
  */
@@ -36,8 +36,10 @@ export class ActionBarStylingExample {
         { separator: true },
         {
             text: 'Delete',
-            icon: 'trash',
-            iconColor: 'rgb(var(--color-red-default))',
+            icon: {
+                name: 'trash',
+                color: 'rgb(var(--color-red-default))',
+            },
         },
     ];
 

@@ -12,6 +12,7 @@ import {
     makeEnterClickable,
     removeEnterClickable,
 } from 'src/util/make-enter-clickable';
+import { getIconColor, getIconName } from '../../icon/get-icon-props';
 
 /**
  * @private
@@ -55,6 +56,10 @@ export class ActionBarButton {
 
     public componentWillLoad() {
         makeEnterClickable(this.host);
+    }
+
+    public componentDidLoad() {
+        this.triggerIconColorWarning();
     }
 
     public disconnectedCallback() {
@@ -105,11 +110,14 @@ export class ActionBarButton {
         }
 
         if ('icon' in this.item) {
+            const name = getIconName(this.item.icon);
+            const color = getIconColor(this.item.icon, this.item.iconColor);
+
             return (
                 <limel-icon
-                    name={this.item.icon}
+                    name={name}
                     style={{
-                        '--action-bar-item-icon-color': `${this.item.iconColor}`,
+                        '--action-bar-item-icon-color': `${color}`,
                     }}
                 />
             );
@@ -145,6 +153,15 @@ export class ActionBarButton {
                     elementId={this.tooltipId}
                     label={this.item.commandText}
                 />
+            );
+        }
+    }
+
+    private triggerIconColorWarning() {
+        if (this.isItem(this.item) && this.item.iconColor) {
+            /* eslint-disable-next-line no-console */
+            console.warn(
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
             );
         }
     }

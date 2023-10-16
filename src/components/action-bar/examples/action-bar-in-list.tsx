@@ -11,8 +11,10 @@ export class ActionBarInListExample {
     private actionBarItems: Array<ActionBarItem | ListSeparator> = [
         {
             text: 'Mark as Done',
-            icon: 'checkmark',
-            iconColor: 'rgb(var(--color-sky-default))',
+            icon: {
+                name: 'checkmark',
+                color: 'rgb(var(--color-sky-default))',
+            },
             iconOnly: true,
         },
         {
@@ -28,8 +30,10 @@ export class ActionBarInListExample {
         },
         {
             text: 'Call',
-            icon: 'phone',
-            iconColor: 'rgb(var(--color-green-default))',
+            icon: {
+                name: 'phone',
+                color: 'rgb(var(--color-green-default))',
+            },
             iconOnly: true,
         },
     ];
