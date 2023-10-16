@@ -10,8 +10,10 @@ export class MyCustomMenuWithNotifications {
     private items: Array<ListItem<number>> = [
         {
             text: 'Preferences',
-            icon: 'horizontal_settings_mixer',
-            iconColor: 'rgb(var(--color-blue-default)',
+            icon: {
+                name: 'horizontal_settings_mixer',
+                color: 'rgb(var(--color-blue-default)',
+            },
             primaryComponent: {
                 name: 'limel-badge',
                 props: {
@@ -24,8 +26,10 @@ export class MyCustomMenuWithNotifications {
         },
         {
             text: "What's new",
-            icon: 'new',
-            iconColor: 'rgb(var(--color-orange-default)',
+            icon: {
+                name: 'new',
+                color: 'rgb(var(--color-orange-default)',
+            },
             primaryComponent: {
                 name: 'limel-badge',
                 props: {
@@ -38,8 +42,10 @@ export class MyCustomMenuWithNotifications {
         },
         {
             text: 'Sign out',
-            icon: 'shutdown',
-            iconColor: 'rgb(var(--color-red-default))',
+            icon: {
+                name: 'shutdown',
+                color: 'rgb(var(--color-red-default))',
+            },
         },
     ];
 

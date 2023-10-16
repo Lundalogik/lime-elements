@@ -21,20 +21,26 @@ export class MenuCompositeExample {
         items: [
             {
                 text: 'Copy',
-                icon: 'copy',
-                iconColor: 'rgb(var(--color-lime-light))',
+                icon: {
+                    name: 'copy',
+                    color: 'rgb(var(--color-lime-light))',
+                },
             },
             {
                 text: 'Cut',
-                icon: 'cut',
-                iconColor: 'rgb(var(--color-red-light))',
+                icon: {
+                    name: 'cut',
+                    color: 'rgb(var(--color-red-light))',
+                },
             },
             { separator: true },
             {
                 text: 'Paste',
                 disabled: true,
-                icon: 'paste',
-                iconColor: 'rgb(var(--color-amber-default))',
+                icon: {
+                    name: 'paste',
+                    color: 'rgb(var(--color-amber-default))',
+                },
             },
         ],
         open: false,
