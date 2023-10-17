@@ -15,33 +15,43 @@ export class SelectExample {
         {
             text: 'Batman',
             value: 'bat',
-            icon: 'batman_old',
-            iconColor: 'rgb(var(--color-black))',
+            icon: {
+                name: 'batman_old',
+                color: 'rgb(var(--color-black))',
+            },
         },
         {
             text: 'Iron Man',
             value: 'iron',
             disabled: true,
-            icon: 'iron_man',
-            iconColor: 'rgb(var(--color-coral-default))',
+            icon: {
+                name: 'iron_man',
+                color: 'rgb(var(--color-coral-default))',
+            },
         },
         {
             text: 'Spider-Man',
             value: 'spider',
-            icon: 'spiderman_head',
-            iconColor: 'rgb(var(--color-red-default))',
+            icon: {
+                name: 'spiderman_head',
+                color: 'rgb(var(--color-red-default))',
+            },
         },
         {
             text: 'Superman',
             value: 'super',
-            icon: 'superman',
-            iconColor: 'rgb(var(--color-blue-default))',
+            icon: {
+                name: 'superman',
+                color: 'rgb(var(--color-blue-default))',
+            },
         },
         {
             text: 'Wonder Woman',
             value: 'wonder',
-            icon: 'wonder_woman',
-            iconColor: 'rgb(var(--color-yellow-darker))',
+            icon: {
+                name: 'wonder_woman',
+                color: 'rgb(var(--color-yellow-darker))',
+            },
         },
     ];
 

@@ -1,3 +1,4 @@
+import { Icon } from '../../interface';
 /**
  * Describes an option for limel-select.
  */
@@ -29,10 +30,19 @@ export interface Option<T extends string = string> {
     /**
      * Displays an icon beside the name of the option.
      */
-    icon?: string;
+    icon?: string | Icon;
 
     /**
      * Adds a color to the icon.
+     * @deprecated This property is deprecated and will be removed soon!
+     *
+     * Use the new `Icon` interface instead and write:
+     * ```
+     * icon {
+     *    name: string,
+     *    color: string,
+     * },
+     * ```
      */
     iconColor?: string;
 }
