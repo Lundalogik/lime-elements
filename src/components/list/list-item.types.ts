@@ -1,4 +1,4 @@
-import { MenuItem } from '../../interface';
+import { MenuItem, Icon } from '../../interface';
 
 export interface ListItem<T = any> {
     /**
@@ -19,10 +19,19 @@ export interface ListItem<T = any> {
     /**
      * Name of the icon to use.
      */
-    icon?: string;
+    icon?: string | Icon;
 
     /**
      * Background color of the icon. Overrides `--icon-background-color`.
+     * @deprecated This property is deprecated and will be removed soon!
+     *
+     * Use the new `Icon` interface instead and write:
+     * ```
+     * icon {
+     *    name: string,
+     *    color: string,
+     * },
+     * ```
      */
     iconColor?: string;
 
