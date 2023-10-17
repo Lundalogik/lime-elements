@@ -1,0 +1,2 @@
+function r(r){if(!r){return}if(typeof r==="string"){return r}return r.name}function t(r,t){if(!t){return}if(typeof r==="string"){return t}return r.color}export{t as a,r as g};
+//# sourceMappingURL=get-icon-props-68f69eb4.js.map
