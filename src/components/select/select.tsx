@@ -20,7 +20,7 @@ import {
 } from '../../util/keycodes';
 import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
-import { SelectTemplate } from './select.template';
+import { SelectTemplate, triggerIconColorWarning } from './select.template';
 
 /**
  * @exampleComponent limel-example-select
@@ -147,6 +147,7 @@ export class Select {
 
     public componentDidLoad() {
         this.initialize();
+        triggerIconColorWarning(this.options);
     }
 
     private initialize() {
