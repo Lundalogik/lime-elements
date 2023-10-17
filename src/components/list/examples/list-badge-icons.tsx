@@ -21,29 +21,37 @@ export class BadgeIconsListExample {
             text: 'Smash Up!',
             secondaryText: '2-4 players',
             value: 2,
-            icon: 'alien',
-            iconColor: 'rgb(var(--color-lime-light))',
+            icon: {
+                name: 'alien',
+                color: 'rgb(var(--color-lime-light))',
+            },
         },
         {
             text: 'Pandemic',
             secondaryText: '2-4 players',
             value: 3,
-            icon: 'virus',
-            iconColor: 'rgb(var(--color-red-light))',
+            icon: {
+                name: 'virus',
+                color: 'rgb(var(--color-red-light))',
+            },
         },
         {
             text: 'Catan',
             secondaryText: '3-4 players',
             value: 4,
-            icon: 'wheat',
-            iconColor: 'rgb(var(--color-amber-default))',
+            icon: {
+                name: 'wheat',
+                color: 'rgb(var(--color-amber-default))',
+            },
         },
         {
             text: 'Ticket to Ride',
             secondaryText: '2-5 players',
             value: 5,
-            icon: 'steam_engine',
-            iconColor: 'rgb(var(--color-glaucous-default))',
+            icon: {
+                name: 'steam_engine',
+                color: 'rgb(var(--color-glaucous-default))',
+            },
         },
     ];
 

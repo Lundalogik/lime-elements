@@ -15,45 +15,57 @@ export class ListRadioButtonIconsExample {
             text: 'Pikachu',
             value: 1,
             selected: false,
-            icon: 'pokemon',
-            iconColor: 'var(--lime-yellow)',
+            icon: {
+                name: 'pokemon',
+                color: 'var(--lime-yellow)',
+            },
         },
         {
             text: 'Charmander',
             value: 2,
             selected: false,
             disabled: true,
-            icon: 'fire_element',
-            iconColor: 'var(--lime-red)',
+            icon: {
+                name: 'fire_element',
+                color: 'var(--lime-red)',
+            },
         },
         {
             text: 'Super Mario',
             value: 3,
             selected: false,
-            icon: 'super_mario',
-            iconColor: 'var(--lime-deep-red)',
+            icon: {
+                name: 'super_mario',
+                color: 'var(--lime-deep-red)',
+            },
         },
         {
             text: 'Yoshi',
             value: 4,
             selected: false,
             disabled: true,
-            icon: 'easter_egg',
-            iconColor: 'var(--lime-green)',
+            icon: {
+                name: 'easter_egg',
+                color: 'var(--lime-green)',
+            },
         },
         {
             text: 'Minion',
             value: 6,
             selected: true,
-            icon: 'minion_1',
-            iconColor: 'var(--lime-blue)',
+            icon: {
+                name: 'minion_1',
+                color: 'var(--lime-blue)',
+            },
         },
         {
             text: 'Pokéball',
             value: 5,
             selected: false,
-            icon: 'pokeball',
-            iconColor: 'var(--lime-magenta)',
+            icon: {
+                name: 'pokeball',
+                color: 'var(--lime-magenta)',
+            },
         },
     ];
 
