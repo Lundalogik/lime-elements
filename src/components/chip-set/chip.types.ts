@@ -1,3 +1,5 @@
+import { Icon } from '../../interface';
+
 export interface Chip<T = any> {
     /**
      * ID of the chip. Must be unique.
@@ -12,20 +14,47 @@ export interface Chip<T = any> {
     /**
      * Name of the icon to use. Not valid for `filter`.
      */
-    icon?: string;
+    icon?: string | Icon;
 
     /**
      * Color of the icon. Overrides `--icon-color`.
+     * @deprecated This property is deprecated and will be removed soon!
+     *
+     * Use the new `Icon` interface instead and write:
+     * ```
+     * icon {
+     *    name: string,
+     *    color: string,
+     * },
+     * ```
      */
     iconFillColor?: string;
 
     /**
      * `title` attribute of the icon
+     * @deprecated This property is deprecated and will be removed soon!
+     *
+     * Use the new `Icon` interface instead and write:
+     * ```
+     * icon {
+     *    name: string,
+     *    title: string,
+     * },
+     * ```
      */
     iconTitle?: string;
 
     /**
      * Background color of the icon. Overrides `--icon-background-color`.
+     * @deprecated This property is deprecated and will be removed soon!
+     *
+     * Use the new `Icon` interface instead and write:
+     * ```
+     * icon {
+     *    name: string,
+     *    backgroundColor: string,
+     * },
+     * ```
      */
     iconBackgroundColor?: string;
 
