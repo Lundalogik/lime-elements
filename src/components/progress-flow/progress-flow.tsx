@@ -7,6 +7,7 @@ import {
     Prop,
 } from '@stencil/core';
 import { FlowItem } from '../../interface';
+import { getIconColor } from '../icon/get-icon-props';
 
 /**
  * @exampleComponent limel-example-progress-flow-basic
@@ -61,6 +62,10 @@ export class ProgressFlow {
 
     public componentDidRender() {
         this.scrollToSelectedItem();
+    }
+
+    public componentDidLoad() {
+        this.triggerIconColorWarning();
     }
 
     public render() {
@@ -135,7 +140,9 @@ export class ProgressFlow {
     };
 
     private getItemStyle(flowItem: FlowItem) {
+        const color = getIconColor(flowItem.icon, flowItem.iconColor);
         const style: any = {};
+
         if (flowItem?.selectedColor) {
             style['--progress-flow-step-background-color--selected'] =
                 flowItem.selectedColor;
@@ -146,8 +153,8 @@ export class ProgressFlow {
                 flowItem.passedColor;
         }
 
-        if (flowItem?.iconColor) {
-            style['--progress-flow-icon-color--inactive'] = flowItem.iconColor;
+        if (color) {
+            style['--progress-flow-icon-color--inactive'] = color;
         }
 
         return style;
@@ -174,5 +181,16 @@ export class ProgressFlow {
 
     private getElementForSelectedItem(): HTMLLimelProgressFlowItemElement {
         return this.element.shadowRoot.querySelector('.flow-item.selected');
+    }
+
+    private triggerIconColorWarning() {
+        for (const flowItem of this.flowItems) {
+            if (flowItem.iconColor) {
+                /* eslint-disable-next-line no-console */
+                console.warn(
+                    "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
+                );
+            }
+        }
     }
 }
