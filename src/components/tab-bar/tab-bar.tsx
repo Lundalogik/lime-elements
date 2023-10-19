@@ -14,6 +14,7 @@ import { strings } from '@material/tab-bar/constants';
 import { Tab } from '../../interface';
 import { isEqual, difference } from 'lodash-es';
 import { setActiveTab } from './tabs';
+import { getIconColor, getIconName } from '../icon/get-icon-props';
 
 const { TAB_ACTIVATED_EVENT } = strings;
 const SCROLL_DISTANCE_ON_CLICK_PX = 150;
@@ -84,6 +85,7 @@ export class TabBar {
 
     public componentDidLoad() {
         this.setup();
+        this.triggerIconColorWarning();
     }
 
     public componentDidUpdate() {
@@ -259,16 +261,18 @@ export class TabBar {
             return;
         }
 
+        const name = getIconName(tab.icon);
+        const color = getIconColor(tab.icon, tab.iconColor);
         const style = { color: '' };
 
-        if (tab.iconColor) {
-            style.color = tab.iconColor;
+        if (color) {
+            style.color = color;
         }
 
         return (
             <limel-icon
                 class="mdc-tab__icon"
-                name={tab.icon}
+                name={name}
                 style={style}
                 size="small"
                 aria-hidden="true"
@@ -303,5 +307,14 @@ export class TabBar {
                 <span class="mdc-tab__ripple" />
             </button>
         );
+    }
+
+    private triggerIconColorWarning() {
+        if (this.tabs.some((tab) => tab.iconColor)) {
+            /* eslint-disable-next-line no-console */
+            console.warn(
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
+            );
+        }
     }
 }

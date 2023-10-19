@@ -41,7 +41,7 @@ export class TabPanelContentExample implements TabPanelComponent {
         }
 
         const style = {
-            backgroundColor: this.tab.iconColor,
+            backgroundColor: this.tab.icon.color,
             color: 'white',
         };
 
@@ -51,7 +51,7 @@ export class TabPanelContentExample implements TabPanelComponent {
                     <limel-icon
                         badge={true}
                         size="large"
-                        name={this.tab.icon}
+                        name={this.tab.icon.name}
                         style={style}
                     />
                     <p>

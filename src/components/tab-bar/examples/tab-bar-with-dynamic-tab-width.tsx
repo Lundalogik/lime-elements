@@ -20,21 +20,27 @@ export class TabBarExample {
         {
             id: 1,
             text: 'Cats',
-            icon: 'black_cat',
+            icon: {
+                name: 'black_cat',
+                color: 'var(--lime-dark-grey)',
+            },
             active: true,
-            iconColor: 'var(--lime-dark-grey)',
         },
         {
             id: 2,
             text: 'Dogs',
-            icon: 'dog',
-            iconColor: 'var(--lime-blue)',
+            icon: {
+                name: 'dog',
+                color: 'var(--lime-blue)',
+            },
         },
         {
             id: 3,
             text: 'Birds',
-            icon: 'bird',
-            iconColor: 'var(--lime-red)',
+            icon: {
+                name: 'bird',
+                color: 'var(--lime-red)',
+            },
         },
     ];
 

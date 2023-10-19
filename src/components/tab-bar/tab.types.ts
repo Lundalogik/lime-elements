@@ -1,3 +1,5 @@
+import { Icon } from '../../interface';
+
 export interface Tab {
     /**
      * Id of the tab. Must be unique.
@@ -12,7 +14,7 @@ export interface Tab {
     /**
      * Name of the icon to use.
      */
-    icon?: string;
+    icon?: string | Icon;
 
     /**
      * True if the tab should be selected.
@@ -21,6 +23,15 @@ export interface Tab {
 
     /**
      * Color of the icon.
+     * @deprecated This property is deprecated and will be removed soon!
+     *
+     * Use the new `Icon` interface instead and write:
+     * ```
+     * icon {
+     *    name: string,
+     *    color: string,
+     * },
+     * ```
      */
     iconColor?: string;
 

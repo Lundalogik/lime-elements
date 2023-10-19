@@ -22,21 +22,27 @@ export class TabPanelExample {
         {
             id: 'joker',
             text: 'Joker',
-            icon: 'joker',
+            icon: {
+                name: 'joker',
+                color: 'var(--lime-green)',
+            },
             active: true,
-            iconColor: 'var(--lime-green)',
         },
         {
             id: 'parasite',
             text: 'Parasite',
-            icon: 'insect',
-            iconColor: 'var(--lime-magenta)',
+            icon: {
+                name: 'insect',
+                color: 'var(--lime-magenta)',
+            },
         },
         {
             id: 'harriet',
             text: 'Harriet',
-            icon: 'administrator_female',
-            iconColor: 'var(--lime-orange)',
+            icon: {
+                name: 'administrator_female',
+                color: 'var(--lime-orange)',
+            },
         },
     ];
 
