@@ -14,50 +14,64 @@ export class TabBarExample {
         {
             id: 1,
             text: 'Joker',
-            icon: 'joker',
+            icon: {
+                name: 'joker',
+                color: 'var(--lime-green)',
+            },
             active: true,
-            iconColor: 'var(--lime-green)',
         },
         {
             id: 2,
             text: 'Parasite',
-            icon: 'insect',
-            iconColor: 'var(--lime-magenta)',
+            icon: {
+                name: 'insect',
+                color: 'var(--lime-magenta)',
+            },
             badge: 999,
         },
         {
             id: 3,
             text: 'Harriet',
-            icon: 'administrator_female',
-            iconColor: 'var(--lime-orange)',
+            icon: {
+                name: 'administrator_female',
+                color: 'var(--lime-orange)',
+            },
             badge: 99940,
         },
         {
             id: 4,
             text: 'Bombshell',
-            icon: 'surprised',
-            iconColor: 'var(--lime-blue)',
+            icon: {
+                name: 'surprised',
+                color: 'var(--lime-blue)',
+            },
             badge: 999990,
         },
         {
             id: 5,
             text: 'Judy',
-            icon: 'female',
-            iconColor: 'var(--lime-deep-red)',
+            icon: {
+                name: 'female',
+                color: 'var(--lime-deep-red)',
+            },
             badge: 940000,
         },
         {
             id: 6,
             text: 'Friends',
-            icon: 'friends',
-            iconColor: 'var(--lime-yellow)',
+            icon: {
+                name: 'friends',
+                color: 'var(--lime-yellow)',
+            },
             badge: 1290000,
         },
         {
             id: 7,
             text: 'Little Women',
-            icon: 'female',
-            iconColor: 'var(--lime-deep-red)',
+            icon: {
+                name: 'female',
+                color: 'var(--lime-deep-red)',
+            },
             badge: 4,
         },
         {
