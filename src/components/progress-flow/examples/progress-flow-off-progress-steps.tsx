@@ -48,16 +48,20 @@ export class ProgressFlowOffProgressStepsExample {
             text: 'Rejected',
             isOffProgress: true,
             selectedColor: 'rgb(var(--color-red-dark))',
-            icon: 'do_not_disturb',
-            iconColor: 'rgb(var(--color-red-dark))',
+            icon: {
+                name: 'do_not_disturb',
+                color: 'rgb(var(--color-red-dark))',
+            },
         },
         {
             value: 'onhold',
             text: 'On hold',
             isOffProgress: true,
             selectedColor: 'rgb(var(--color-coral-default))',
-            icon: 'circled_pause',
-            iconColor: 'rgb(var(--color-coral-default))',
+            icon: {
+                name: 'circled_pause',
+                color: 'rgb(var(--color-coral-default))',
+            },
         },
     ];
 
