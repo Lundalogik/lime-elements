@@ -46,14 +46,18 @@ export class PickerStaticActionsExample {
     private actions: Array<ListItem<Action>> = [
         {
             text: 'Add a dog',
-            icon: 'dog',
-            iconColor: 'rgb(var(--color-orange-default))',
+            icon: {
+                name: 'dog',
+                color: 'rgb(var(--color-orange-default))',
+            },
             value: { id: 'dog' },
         },
         {
             text: 'Add a cat',
-            icon: 'cat',
-            iconColor: 'rgb(var(--color-green-default))',
+            icon: {
+                name: 'cat',
+                color: 'rgb(var(--color-green-default))',
+            },
             value: { id: 'cat' },
         },
     ];

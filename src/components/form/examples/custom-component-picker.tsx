@@ -56,26 +56,34 @@ export class CustomPickerExample implements FormComponent<number> {
         {
             text: 'Superman',
             value: 1001,
-            icon: 'superman',
-            iconColor: 'var(--lime-deep-red)',
+            icon: {
+                name: 'superman',
+                color: 'var(--lime-deep-red)',
+            },
         },
         {
             text: 'Squirrel Girl',
             value: 1002,
-            icon: 'squirrel',
-            iconColor: 'var(--lime-orange)',
+            icon: {
+                name: 'squirrel',
+                color: 'var(--lime-orange)',
+            },
         },
         {
             text: 'Captain America',
             value: 1003,
-            icon: 'captain_america',
-            iconColor: 'var(--lime-blue)',
+            icon: {
+                name: 'captain_america',
+                color: 'var(--lime-blue)',
+            },
         },
         {
             text: 'Black Widow',
             value: 1004,
-            icon: 'spider',
-            iconColor: 'var(--lime-dark-grey)',
+            icon: {
+                name: 'spider',
+                color: 'var(--lime-dark-grey)',
+            },
         },
     ];
 
