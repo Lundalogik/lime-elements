@@ -1,0 +1,2 @@
+function r(r){if(!r){return}if(typeof r==="string"){return r}return r.name}function n(r,n){if(!n){return}if(typeof r==="string"){return n}return r.color}function t(r,n){if(!n){return undefined}if(typeof r==="string"){return n}return r.backgroundColor}function e(r,n){if(!n){return}if(typeof r==="string"){return n}return r.title}export{n as a,t as b,e as c,r as g};
+//# sourceMappingURL=get-icon-props-66383aa8.js.map
