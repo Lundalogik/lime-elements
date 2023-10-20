@@ -32,12 +32,14 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-dialog
  * @exampleComponent limel-example-dialog-nested-close-events
  * @exampleComponent limel-example-dialog-heading
+ * @exampleComponent limel-example-dialog-heading-actions
  * @exampleComponent limel-example-dialog-form
  * @exampleComponent limel-example-dialog-size
  * @exampleComponent limel-example-dialog-fullscreen
  * @exampleComponent limel-example-dialog-closing-actions
  * @exampleComponent limel-example-dialog-action-buttons
  * @slot - Content to put inside the dialog
+ * @slot header-actions - The dialog header buttons
  * @slot button - The dialog buttons
  */
 @Component({
@@ -243,7 +245,9 @@ export class Dialog {
                     heading={title}
                     subheading={subtitle}
                     supportingText={supportingText}
-                ></limel-header>
+                >
+                    <slot name="header-actions" slot="actions" />
+                </limel-header>
             );
         } else if (typeof this.heading === 'string') {
             return <limel-header heading={this.heading}></limel-header>;
