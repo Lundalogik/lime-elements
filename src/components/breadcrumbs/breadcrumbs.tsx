@@ -154,7 +154,7 @@ export class Breadcrumbs {
     };
 
     private renderIcon = (item: BreadcrumbsItem) => {
-        if (!item.icon) {
+        if (!item.icon?.name) {
             return;
         }
 
