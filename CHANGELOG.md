@@ -1,3 +1,11 @@
+# [37.1.0-next.43](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.42...v37.1.0-next.43) (2023-10-23)
+
+
+### Features
+
+
+* **dialog:** add actions to the heading area ([a8b7759](https://github.com/Lundalogik/lime-elements/commit/a8b775943b73a8a14b7a8cd80d9e446018a1326d))
+
 # [37.1.0-next.42](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.41...v37.1.0-next.42) (2023-10-16)
 
 
