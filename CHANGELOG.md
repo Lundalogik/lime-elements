@@ -1,3 +1,11 @@
+# [37.1.0-next.44](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.43...v37.1.0-next.44) (2023-10-23)
+
+
+### Bug Fixes
+
+
+* **breadcrumbs:** don't render icon if name isn't specified ([6494574](https://github.com/Lundalogik/lime-elements/commit/64945745dd5cbb52f61650dbc613f32e78e6a37b))
+
 # [37.1.0-next.43](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.42...v37.1.0-next.43) (2023-10-23)
 
 
