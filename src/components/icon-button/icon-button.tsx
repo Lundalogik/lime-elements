@@ -3,6 +3,7 @@ import {
     makeEnterClickable,
     removeEnterClickable,
 } from 'src/util/make-enter-clickable';
+import { createRandomString } from '../../util/random-string';
 
 /**
  * @exampleComponent limel-example-icon-button-basic
@@ -70,6 +71,8 @@ export class IconButton {
 
     public render() {
         const buttonAttributes: { tabindex?: string } = {};
+        const tooltipId = createRandomString();
+
         if (this.host.hasAttribute('tabindex')) {
             buttonAttributes.tabindex = this.host.getAttribute('tabindex');
         }
@@ -77,12 +80,17 @@ export class IconButton {
         return (
             <button
                 disabled={this.disabled}
-                aria-label={this.label}
-                title={this.label}
+                id={tooltipId}
                 {...buttonAttributes}
             >
                 <limel-icon name={this.icon} badge={true} />
+                {this.renderTooltip(tooltipId)}
             </button>
         );
+    }
+    private renderTooltip(tooltipId) {
+        if (this.label) {
+            return <limel-tooltip elementId={tooltipId} label={this.label} />;
+        }
     }
 }
