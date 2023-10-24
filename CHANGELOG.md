@@ -1,3 +1,11 @@
+# [37.1.0-next.45](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.44...v37.1.0-next.45) (2023-10-24)
+
+
+### Features
+
+
+* **code-editor:** add jinja2 language mode type ([d43ddb2](https://github.com/Lundalogik/lime-elements/commit/d43ddb25423aed26ceb62b63cf371b233bf28cda))
+
 # [37.1.0-next.44](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.43...v37.1.0-next.44) (2023-10-23)
 
 
