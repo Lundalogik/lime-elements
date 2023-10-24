@@ -1,3 +1,11 @@
+# [37.1.0-next.47](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.46...v37.1.0-next.47) (2023-10-24)
+
+
+### Bug Fixes
+
+
+* trigger release (to trigger publishing of docs) ([eac14b8](https://github.com/Lundalogik/lime-elements/commit/eac14b82fb381e7789d0dd2a3d8b730160cdac52))
+
 # [37.1.0-next.46](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.45...v37.1.0-next.46) (2023-10-24)
 
 
