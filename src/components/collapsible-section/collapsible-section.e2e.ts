@@ -34,14 +34,14 @@ describe('limel-collapsible-section', () => {
         it('displays the correct header', () => {
             expect(collapsibleHeader).toEqualText('Header text');
         });
-        it('has a slot for the body', () => {
-            expect(collapsibleBody).toEqualHtml(
-                '<div class="body"><slot></slot></div>'
-            );
+        it('has a slot for the body', async () => {
+            const slot = await collapsibleBody.find('slot');
+            expect(slot).toEqualHtml('<slot></slot>');
         });
         it('is collapsed', async () => {
             expect(await limelCollapsible.getProperty('isOpen')).toEqual(false);
-            expect(await collapsibleBody.isVisible()).toBeFalsy();
+            const slot = await collapsibleBody.find('slot');
+            expect(await slot.isVisible()).toBeFalsy();
         });
 
         describe('when changing the header', () => {
@@ -68,7 +68,9 @@ describe('limel-collapsible-section', () => {
                 expect(await limelCollapsible.getProperty('isOpen')).toEqual(
                     true
                 );
-                expect(await collapsibleBody.isVisible()).toBeTruthy();
+                await new Promise((resolve) => setTimeout(resolve, 300));
+                const slot = await collapsibleBody.find('slot');
+                expect(await slot.isVisible()).toBeTruthy();
             });
 
             it('emits `open` event', async () => {
@@ -91,7 +93,8 @@ describe('limel-collapsible-section', () => {
                     expect(
                         await limelCollapsible.getProperty('isOpen')
                     ).toEqual(false);
-                    expect(await collapsibleBody.isVisible()).toBeFalsy();
+                    const slot = await collapsibleBody.find('slot');
+                    expect(await slot.isVisible()).toBeFalsy();
                 });
 
                 it('does NOT emit `open` event', async () => {
@@ -115,7 +118,8 @@ describe('limel-collapsible-section', () => {
                     expect(
                         await limelCollapsible.getProperty('isOpen')
                     ).toEqual(true);
-                    expect(await collapsibleBody.isVisible()).toBeTruthy();
+                    const slot = await collapsibleBody.find('slot');
+                    expect(await slot.isVisible()).toBeTruthy();
                 });
 
                 it('does NOT emit `open` event', async () => {
@@ -143,7 +147,9 @@ describe('limel-collapsible-section', () => {
                 expect(await limelCollapsible.getProperty('isOpen')).toEqual(
                     true
                 );
-                expect(await collapsibleBody.isVisible()).toBeTruthy();
+                const slot = await collapsibleBody.find('slot');
+                await new Promise((resolve) => setTimeout(resolve, 300));
+                expect(await slot.isVisible()).toBeTruthy();
             });
 
             it('emits `open` event', async () => {
@@ -166,7 +172,8 @@ describe('limel-collapsible-section', () => {
                     expect(
                         await limelCollapsible.getProperty('isOpen')
                     ).toEqual(false);
-                    expect(await collapsibleBody.isVisible()).toBeFalsy();
+                    const slot = await collapsibleBody.find('slot');
+                    expect(await slot.isVisible()).toBeFalsy();
                 });
 
                 it('does NOT emit `open` event', async () => {
@@ -192,7 +199,8 @@ describe('limel-collapsible-section', () => {
                     expect(
                         await limelCollapsible.getProperty('isOpen')
                     ).toEqual(true);
-                    expect(await collapsibleBody.isVisible()).toBeTruthy();
+                    const slot = await collapsibleBody.find('slot');
+                    expect(await slot.isVisible()).toBeTruthy();
                 });
 
                 it('does NOT emit `open` event', async () => {
@@ -224,7 +232,9 @@ describe('limel-collapsible-section', () => {
                 expect(await limelCollapsible.getProperty('isOpen')).toEqual(
                     true
                 );
-                expect(await collapsibleBody.isVisible()).toBeTruthy();
+                const slot = await collapsibleBody.find('slot');
+                await new Promise((resolve) => setTimeout(resolve, 300));
+                expect(await slot.isVisible()).toBeTruthy();
             });
 
             it('does NOT emit `open` event', async () => {
@@ -252,7 +262,8 @@ describe('limel-collapsible-section', () => {
                     expect(
                         await limelCollapsible.getProperty('isOpen')
                     ).toEqual(false);
-                    expect(await collapsibleBody.isVisible()).toBeFalsy();
+                    const slot = await collapsibleBody.find('slot');
+                    expect(await slot.isVisible()).toBeFalsy();
                 });
 
                 it('does NOT emit `open` event', async () => {
