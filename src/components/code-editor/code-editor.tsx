@@ -11,6 +11,7 @@ import {
 import { ColorScheme, Language } from '../../interface';
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/jinja2/jinja2';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/lint/lint';
