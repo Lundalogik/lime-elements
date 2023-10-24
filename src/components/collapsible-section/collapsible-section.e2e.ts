@@ -40,6 +40,9 @@ describe('limel-collapsible-section', () => {
         });
         it('is collapsed', async () => {
             expect(await limelCollapsible.getProperty('isOpen')).toEqual(false);
+            expect(await collapsibleBody.getAttribute('aria-hidden')).toEqual(
+                'true'
+            );
             const slot = await collapsibleBody.find('slot');
             expect(await slot.isVisible()).toBeFalsy();
         });
@@ -68,6 +71,9 @@ describe('limel-collapsible-section', () => {
                 expect(await limelCollapsible.getProperty('isOpen')).toEqual(
                     true
                 );
+                expect(
+                    await collapsibleBody.getAttribute('aria-hidden')
+                ).toEqual('false');
                 await new Promise((resolve) => setTimeout(resolve, 300));
                 const slot = await collapsibleBody.find('slot');
                 expect(await slot.isVisible()).toBeTruthy();

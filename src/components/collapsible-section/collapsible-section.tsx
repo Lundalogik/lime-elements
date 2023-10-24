@@ -99,7 +99,7 @@ export class CollapsibleSection {
                     <div class="divider-line" />
                     {this.renderActions()}
                 </header>
-                <div class="body">
+                <div class="body" aria-hidden={String(!this.isOpen)}>
                     <slot />
                 </div>
             </section>
