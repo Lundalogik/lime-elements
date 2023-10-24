@@ -12,6 +12,7 @@ import {
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
 import { createRandomString } from '../../util/random-string';
+import { getIconColor, getIconName } from '../icon/get-icon-props';
 
 /**
  * A Breadcrumb consists of a list of distinct "places" that a user has gone through,
@@ -154,16 +155,19 @@ export class Breadcrumbs {
     };
 
     private renderIcon = (item: BreadcrumbsItem) => {
-        if (!item.icon?.name) {
+        const name = getIconName(item.icon);
+        const color = getIconColor(item.icon);
+
+        if (!name) {
             return;
         }
 
         return (
             <limel-icon
                 style={{
-                    color: `${item.icon.color}`,
+                    color: `${color}`,
                 }}
-                name={item.icon.name}
+                name={name}
             />
         );
     };

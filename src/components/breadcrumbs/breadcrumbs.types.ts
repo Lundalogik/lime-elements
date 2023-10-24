@@ -9,7 +9,7 @@ export interface BreadcrumbsItem {
     /**
      * Icon of the step.
      */
-    icon?: Omit<Icon, 'backgroundColor'>;
+    icon?: string | Omit<Icon, 'backgroundColor'>;
 
     /**
      * If set to `icon-only`, the `text` will be rendered as a tooltip
