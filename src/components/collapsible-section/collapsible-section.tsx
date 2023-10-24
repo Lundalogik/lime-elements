@@ -12,6 +12,7 @@ import {
     makeEnterClickable,
     removeEnterClickable,
 } from 'src/util/make-enter-clickable';
+import { createRandomString } from 'src/util/random-string';
 
 /**
  * @slot - Content to put inside the collapsible section
@@ -66,6 +67,8 @@ export class CollapsibleSection {
     @Element()
     private host: HTMLElement;
 
+    private bodyId = createRandomString();
+
     public componentDidRender() {
         const button = this.host.shadowRoot.querySelector(
             '.open-close-toggle'
@@ -86,7 +89,11 @@ export class CollapsibleSection {
         return (
             <section class={`${this.isOpen ? 'open' : ''}`}>
                 <header>
-                    <button class="open-close-toggle" onClick={this.onClick} />
+                    <button
+                        class="open-close-toggle"
+                        onClick={this.onClick}
+                        aria-controls={this.bodyId}
+                    />
                     <div class="expand-icon">
                         <div class="line" />
                         <div class="line" />
@@ -99,7 +106,11 @@ export class CollapsibleSection {
                     <div class="divider-line" />
                     {this.renderActions()}
                 </header>
-                <div class="body" aria-hidden={String(!this.isOpen)}>
+                <div
+                    class="body"
+                    aria-hidden={String(!this.isOpen)}
+                    id={this.bodyId}
+                >
                     <slot />
                 </div>
             </section>
