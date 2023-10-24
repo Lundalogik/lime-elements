@@ -29,20 +29,20 @@ export class BreadcrumbsIconsExample {
         {
             text: 'Home',
             type: 'icon-only',
-            icon: { name: 'smart_home' },
+            icon: 'smart_home',
         },
         {
             text: 'Products',
-            icon: { name: 'shop' },
+            icon: 'shop',
         },
         {
             text: 'Phones',
-            icon: { name: 'iphone_x' },
+            icon: 'iphone_x',
         },
         {
             text: 'Accessories',
             type: 'icon-only',
-            icon: { name: 'headphones' },
+            icon: 'headphones',
         },
     ];
 
