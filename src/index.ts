@@ -9,5 +9,6 @@ export {
     TableComponent,
     Icon,
     Link,
+    LimeSchemaOptions,
 } from './interface';
 export { ColumnAggregatorType } from './components/table/table.types';
