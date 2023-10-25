@@ -1,2 +1,0 @@
-import{r as n,h as e}from"./index-6156b4fd.js";const t=`\n# H1\n## H2\n### H3\n#### H4\n##### H5\n###### H6\n\nAlternatively, H1 and H2 can be typed underline-ish style like this:\n\nAlt-H1\n===\n\nAlt-H2\n---\n`;const l=class{constructor(e){n(this,e)}render(){return e("limel-markdown",{value:t})}};export{l as limel_example_markdown_headings};
-//# sourceMappingURL=limel-example-markdown-headings.entry.js.map
