@@ -62,6 +62,8 @@ export class IconButton {
         this.initialize();
     }
 
+    private tooltipId = createRandomString();
+
     private initialize() {
         const element = this.host.shadowRoot.querySelector('.mdc-icon-button');
         if (!element) {
@@ -71,7 +73,6 @@ export class IconButton {
 
     public render() {
         const buttonAttributes: { tabindex?: string } = {};
-        const tooltipId = createRandomString();
 
         if (this.host.hasAttribute('tabindex')) {
             buttonAttributes.tabindex = this.host.getAttribute('tabindex');
@@ -80,11 +81,11 @@ export class IconButton {
         return (
             <button
                 disabled={this.disabled}
-                id={tooltipId}
+                id={this.tooltipId}
                 {...buttonAttributes}
             >
                 <limel-icon name={this.icon} badge={true} />
-                {this.renderTooltip(tooltipId)}
+                {this.renderTooltip(this.tooltipId)}
             </button>
         );
     }
