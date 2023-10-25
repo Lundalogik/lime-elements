@@ -1,3 +1,13 @@
+# [37.1.0-next.48](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.47...v37.1.0-next.48) (2023-10-25)
+
+
+### Bug Fixes
+
+
+* **collapsible-section:** animate the transition of opening & closing ([01bcd83](https://github.com/Lundalogik/lime-elements/commit/01bcd832895397593bfefb57b62c53b3694efa7d))
+* **collapsible-section:** improve accessibility using `aria-controls` ([bb2032b](https://github.com/Lundalogik/lime-elements/commit/bb2032ba85000dd0d56b15ea47264bdd8ac08b2f))
+* **collapsible-section:** improve accessibility using `aria-hidden` ([19a2eed](https://github.com/Lundalogik/lime-elements/commit/19a2eed8926e24de11dce6728ed6a548a01b0c9f))
+
 # [37.1.0-next.47](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.46...v37.1.0-next.47) (2023-10-24)
 
 
