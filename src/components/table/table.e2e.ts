@@ -81,20 +81,20 @@ describe('limel-table', () => {
             headerA.click();
             await page.waitForChanges();
             rowData = await getFirstRowContent();
-            expect(rowData[0]).toEqual('1');
+            expect(rowData[0]).toEqual('2');
             headerA.click();
             await page.waitForChanges();
             rowData = await getFirstRowContent();
-            expect(rowData[0]).toEqual('2');
+            expect(rowData[0]).toEqual('1');
 
             headerB.click();
             await page.waitForChanges();
             rowData = await getFirstRowContent();
-            expect(rowData[1]).toEqual('ascending');
+            expect(rowData[1]).toEqual('descending');
             headerB.click();
             await page.waitForChanges();
             rowData = await getFirstRowContent();
-            expect(rowData[1]).toEqual('descending');
+            expect(rowData[1]).toEqual('ascending');
         });
     });
 

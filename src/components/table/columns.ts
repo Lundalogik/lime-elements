@@ -24,6 +24,7 @@ export class ColumnDefinitionFactory {
             field: column.field,
             hozAlign: column.horizontalAlign,
             headerSort: column.headerSort,
+            headerSortStartingDir: 'desc',
         };
 
         if (column.headerComponent) {
