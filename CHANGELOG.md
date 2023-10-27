@@ -1,3 +1,11 @@
+# [37.1.0-next.49](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.48...v37.1.0-next.49) (2023-10-27)
+
+
+### Features
+
+
+* **column sorting:** set default sort direction to descending ([2ed7525](https://github.com/Lundalogik/lime-elements/commit/2ed75250392a3b378b6780d1c6ee0add7b500a6a))
+
 # [37.1.0-next.48](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.47...v37.1.0-next.48) (2023-10-25)
 
 
