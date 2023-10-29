@@ -77,7 +77,9 @@ a.step {
     cursor: pointer;
     transition: color 0.2s ease;
     &:before {
-        transition: opacity 0.2s ease, transform 0.3s ease-out;
+        transition:
+            opacity 0.2s ease,
+            transform 0.3s ease-out;
         content: '';
         position: absolute;
         inset: auto 0 0 0;

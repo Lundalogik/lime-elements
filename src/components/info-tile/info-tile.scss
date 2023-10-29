@@ -193,8 +193,8 @@ limel-linear-progress {
 
 .value-and-suffix,
 .label {
-    text-shadow: 0 0 0.5rem
-            var(--info-tile-background-color, rgb(var(--contrast-100))),
+    text-shadow:
+        0 0 0.5rem var(--info-tile-background-color, rgb(var(--contrast-100))),
         0 0 0.25rem var(--info-tile-background-color, rgb(var(--contrast-100)));
 }
 
@@ -223,7 +223,8 @@ limel-linear-progress {
 }
 
 .value {
-    transition: opacity 0.2s ease,
+    transition:
+        opacity 0.2s ease,
         transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.95);
     transform-origin: left;
     transform: translate3d(0, 0, 0) scale(1);
