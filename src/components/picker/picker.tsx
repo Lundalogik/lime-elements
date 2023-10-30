@@ -452,13 +452,9 @@ export class Picker {
     }
 
     private renderListResult() {
-        const hasIcons = this.items.some((item) => {
-            return 'icon' in item && !!item.icon;
-        });
-
         return (
             <limel-list
-                badgeIcons={hasIcons && this.badgeIcons}
+                badgeIcons={this.badgeIcons}
                 onChange={this.handleListChange}
                 onKeyDown={this.onListKeyDown}
                 type="selectable"
