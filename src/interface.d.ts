@@ -23,7 +23,6 @@ export * from './components/picker/actions.types';
 export * from './components/picker/searcher.types';
 export * from './components/progress-flow/progress-flow.types';
 export * from './components/select/option.types';
-export * from './components/select/option.types';
 export * from './components/spinner/spinner.types';
 export * from './components/tab-bar/tab.types';
 export * from './components/tab-panel/tab-panel.types';
