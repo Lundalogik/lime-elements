@@ -16,6 +16,8 @@
     "CHANGELOG.md"
   ],
   "scripts": {
+    "api:update": "npm run build && api-extractor run --local --verbose",
+    "api:verify": "api-extractor run",
     "build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
     "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs\"",
     "watch": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --watch --docs --serve\"",
@@ -42,6 +44,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^18.4.4",
+    "@microsoft/api-extractor": "^7.38.5",
     "@popperjs/core": "^2.11.8",
     "@rjsf/core": "^2.4.2",
     "@rollup/plugin-node-resolve": "^13.3.0",
