@@ -115,6 +115,33 @@ To ensure consistency and quality throughout the source code, before being accep
 **Please note**:
 We will be happy to help you out in meeting these requirements. Don't be afraid to share your code in a pull request even if it doesn't meet the requirements yet.
 
+#### Code Structure
+
+We try to follow a practice known as the "Newspaper code structure", which in short means putting all non-function properties on top; and ordering them with public properties first, then more important private properties, then less important private properties.
+
+So that gives us roughly:
+1. `@Prop` properties. (Typically all public properties are decorated with `@Prop`.)
+2. `@Event` properties. These are event emitters, and while the emitter itself might not be public, the event _is_, so it's an important part of the component's public API.
+3. `@Element` property, if there is one. This isn't necessarily more important than the `@State` properties, but it's unique, so it goes on top.
+4. `@State` properties.
+5. Any private properties that are _not_ decorated with `@State`. These do not trigger re-renders, so, presumably, they are less central to the functioning of the component.
+
+After the properties, we have the component's functions. To keep some consistency, we typically use something like this order:
+1. `constructor`, if there is one.
+2. Any of Stencil's lifecycle methods, except for `render`, somewhat in the order we would expect them to be called:
+    1. `connectedCallback`
+    2. `componentWillLoad`
+    3. `componentWillRender`
+    4. `componentDidRender`
+    5. `componentDidLoad`
+    6. `componentShouldUpdate`
+    7. `componentWillUpdate`
+    8. `componentDidUpdate`
+3. `render`. The reason we keep `render` separate is that it is typically a bigger function, and it's special in that almost all components will have one. We put it after the other lifecycle methods because of its size and because it often calls private "sub-render" methods.
+4. Currently, we tend to place `@Watch` methods here. There is an argument that each `@Watch` method should come right after the property it watches, but that can easily make the list of public properties harder to read. We might consider placing them all in a group above the other lifecycle methods though. The reason they originally ended up here was that they aren't really meant to be publically callable, but if you make them `private`, the linter will complain that they are declared but never called. So we started making them `protected`, and, following the newspaper code structure principles, it makes sense that `protected` methods should go between `public` ones and `private` ones.
+5. Any private methods that return JSX. These are typically called `render[Something]`. For example, `renderActionButtons`.
+6. Other private methods. Typically somewhat in the order calls to them appear in the code above.
+
 ### Commit Message Guidelines
 
 #### Atomic commits
