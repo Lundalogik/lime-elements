@@ -2,7 +2,9 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
-    "declaration": false,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "experimentalDecorators": true,
     "lib": ["dom", "es7"],
     "moduleResolution": "node",

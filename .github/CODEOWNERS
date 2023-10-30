@@ -1,3 +1,6 @@
 # Maintainer team should monitor all changes to files in the .github folder,
 # like our GitHub Actions workflows and this CODEOWNERS file.
-/.github/ @Lundalogik/lime-elements-maintainers
+/.github/   @Lundalogik/lime-elements-maintainers
+
+# The maintainer team should also monitor all changes to the public API.
+etc/*       @Lundalogik/lime-elements-maintainers

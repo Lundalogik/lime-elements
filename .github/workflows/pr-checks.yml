@@ -36,6 +36,7 @@ jobs:
     - run: node -v && npm -v
     - run: npm ci
     - run: npm run build
+    - run: npm run api:verify
 
   test:
     name: Test
