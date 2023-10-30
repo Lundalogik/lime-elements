@@ -1,7 +1,7 @@
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
 import config from '../../global/config';
 import iconCache from '../../global/icon-cache/factory';
-import { IconSize } from '../../interface';
+import { IconSize } from './icon.types';
 
 /**
  * Search for an icon and **click on it to copy its name to clipboard**.

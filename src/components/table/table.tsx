@@ -14,7 +14,7 @@ import {
     TableParams,
     ColumnSorter,
     ColumnAggregate,
-} from '../../interface';
+} from './table.types';
 import { ColumnDefinitionFactory, createColumnSorter } from './columns';
 import { isEqual, has } from 'lodash-es';
 import { ElementPool } from './element-pool';

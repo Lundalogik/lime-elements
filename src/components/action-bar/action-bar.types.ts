@@ -1,4 +1,5 @@
-import { Icon, MenuItem } from '../../interface';
+import { Icon } from '../../global/shared-types/icon.types';
+import { MenuItem } from '../menu/menu.types';
 
 /**
  * Renders the button in the action bar without their labels.

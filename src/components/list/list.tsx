@@ -1,4 +1,6 @@
-import { IconSize, ListItem, ListSeparator, ListType } from '../../interface';
+import { IconSize } from '../icon/icon.types';
+import { ListItem, ListSeparator } from './list-item.types';
+import { ListType } from './list.types';
 import { MDCList, MDCListActionEvent } from '@material/list';
 import { strings as listStrings } from '@material/list/constants';
 import {

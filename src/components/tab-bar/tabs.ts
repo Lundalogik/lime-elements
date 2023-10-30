@@ -1,4 +1,4 @@
-import { Tab } from '../../interface';
+import { Tab } from './tab.types';
 
 /**
  * Set a tabs `active` state to true in a list of tabs. The previous tab with

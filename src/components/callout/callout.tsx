@@ -1,5 +1,6 @@
 import { Component, h, Prop } from '@stencil/core';
-import { CalloutType, Languages } from '../../interface';
+import { CalloutType } from '../callout/callout.types';
+import { Languages } from '../date-picker/date.types';
 import { getHeading, getIcon } from './callout.helpers';
 
 /**

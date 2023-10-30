@@ -1,4 +1,5 @@
-import { Chip, Languages } from '../../interface';
+import { Chip } from '../chip-set/chip.types';
+import { Languages } from '../date-picker/date.types';
 import {
     MDCChipInteractionEvent,
     MDCChipSelectionEvent,

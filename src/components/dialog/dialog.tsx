@@ -1,4 +1,4 @@
-import { DialogHeading, ClosingActions } from '../../interface';
+import { DialogHeading, ClosingActions } from './dialog.types';
 import { MDCDialog } from '@material/dialog';
 import {
     Component,

@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
-import { DateType, Languages } from '../../../interface';
+import { DateType, Languages } from '../../date-picker/date.types';
 import translate from '../../../global/translations';
 import { DatePicker as DateOnlyPicker } from '../pickers/DatePicker';
 import { DatetimePicker } from '../pickers/DatetimePicker';

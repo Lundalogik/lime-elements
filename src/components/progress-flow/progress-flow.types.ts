@@ -1,4 +1,4 @@
-import { ListItem } from '../../interface';
+import { ListItem } from '../list/list-item.types';
 
 export interface FlowItem extends ListItem {
     /**

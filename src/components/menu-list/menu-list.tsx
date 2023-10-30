@@ -1,9 +1,7 @@
-import {
-    IconSize,
-    ListSeparator,
-    MenuItem,
-    MenuListType,
-} from '../../interface';
+import { IconSize } from '../icon/icon.types';
+import { ListSeparator } from '../list/list-item.types';
+import { MenuItem } from '../menu/menu.types';
+import { MenuListType } from '../menu-list/menu-list.types';
 import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
 import { MDCRipple } from '@material/ripple';
 import { strings as menuStrings } from '@material/menu/constants';

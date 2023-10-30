@@ -6,7 +6,7 @@ import {
     EventEmitter,
     Prop,
 } from '@stencil/core';
-import { BreadcrumbsItem } from '../../interface';
+import { BreadcrumbsItem } from './breadcrumbs.types';
 import {
     makeEnterClickable,
     removeEnterClickable,

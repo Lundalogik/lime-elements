@@ -1,4 +1,5 @@
-import { ListItem, Option } from '../../interface';
+import { ListItem } from '../list/list-item.types';
+import { Option } from '../select/option.types';
 import { MDCFloatingLabel } from '@material/floating-label';
 import { MDCSelectHelperText } from '@material/select/helper-text';
 import {

@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { GridLayoutOptions } from '../../../interface';
+import { GridLayoutOptions } from '../form.types';
 import { isObjectType } from '../schema';
 
 export const FieldTemplate = (props) => {

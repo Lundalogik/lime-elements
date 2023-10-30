@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 import { MDCTabBar, MDCTabBarActivatedEvent } from '@material/tab-bar';
 import { strings } from '@material/tab-bar/constants';
-import { Tab } from '../../interface';
+import { Tab } from './tab.types';
 import { isEqual, difference } from 'lodash-es';
 import { setActiveTab } from './tabs';
 import { getIconColor, getIconName } from '../icon/get-icon-props';

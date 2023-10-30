@@ -8,12 +8,9 @@ import {
     State,
     Element,
 } from '@stencil/core';
-import {
-    ActionBarItem,
-    MenuItem,
-    OpenDirection,
-    ListSeparator,
-} from '../../interface';
+import { ListSeparator } from '../list/list-item.types';
+import { MenuItem, OpenDirection } from '../menu/menu.types';
+import { ActionBarItem } from './action-bar.types';
 import { isItem } from './isItem';
 
 /**

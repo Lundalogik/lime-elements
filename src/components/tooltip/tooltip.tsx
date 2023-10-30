@@ -1,7 +1,7 @@
 import { Component, h, Prop, Element, State } from '@stencil/core';
 import { JSX } from 'react';
 import { createRandomString } from '../../util/random-string';
-import { OpenDirection } from '../../interface';
+import { OpenDirection } from '../menu/menu.types';
 
 const DEFAULT_MAX_LENGTH = 50;
 

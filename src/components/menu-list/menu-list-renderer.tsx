@@ -1,4 +1,5 @@
-import { ListSeparator, MenuItem } from '../../interface';
+import { ListSeparator } from '../list/list-item.types';
+import { MenuItem } from '../menu/menu.types';
 import { h } from '@stencil/core';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
 import { getIconColor, getIconName } from '../icon/get-icon-props';

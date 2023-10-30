@@ -1,4 +1,5 @@
-import { ListItem, Option } from '../../interface';
+import { ListItem } from '../list/list-item.types';
+import { Option } from '../select/option.types';
 import { FunctionalComponent, h } from '@stencil/core';
 import { isMultiple } from '../../util/multiple';
 import { getIconColor, getIconName } from '../icon/get-icon-props';

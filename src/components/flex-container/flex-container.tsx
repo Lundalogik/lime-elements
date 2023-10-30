@@ -2,7 +2,7 @@ import {
     FlexContainerAlign,
     FlexContainerDirection,
     FlexContainerJustify,
-} from '../../interface';
+} from './flex-container.types';
 import { Component, h, Prop } from '@stencil/core';
 
 /**

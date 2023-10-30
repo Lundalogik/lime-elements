@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormLayoutOptions, GridLayoutOptions } from '../../../interface';
+import { FormLayoutOptions, GridLayoutOptions } from '../form.types';
 
 const MAX_COLUMNS = 5;
 const MAX_COLUMN_WIDTH = 15;

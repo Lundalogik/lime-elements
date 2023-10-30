@@ -1,4 +1,4 @@
-import { ListItem } from '../../interface';
+import { ListItem } from '../list/list-item.types';
 
 /**
  * A search function that takes a search-string as an argument, and returns
