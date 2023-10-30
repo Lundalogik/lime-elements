@@ -240,11 +240,13 @@ export class File {
                 ...DEFAULT_FILE_CHIP,
                 text: this.value.filename,
                 id: this.value.id,
-                icon: getFileIcon(this.value),
-                iconFillColor: getFileColor(this.value),
-                iconBackgroundColor: getFileBackgroundColor(this.value),
+                icon: {
+                    name: getFileIcon(this.value),
+                    title: getFileExtensionTitle(this.value),
+                    color: getFileColor(this.value),
+                    backgroundColor: getFileBackgroundColor(this.value),
+                },
                 href: this.value.href,
-                iconTitle: getFileExtensionTitle(this.value),
             },
         ];
     }
