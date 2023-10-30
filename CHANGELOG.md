@@ -1,3 +1,12 @@
+# [37.1.0-next.50](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.49...v37.1.0-next.50) (2023-10-30)
+
+
+### Bug Fixes
+
+
+* **picker:** don't apply the defined icon color to the background color of chips ([dcc41ac](https://github.com/Lundalogik/lime-elements/commit/dcc41ac4a9207e697d23c542f80263b20c6cb4cd))
+* **picker:** don't render `badgeIcons` UI by default ([9706975](https://github.com/Lundalogik/lime-elements/commit/970697510c86a7edc11749d99dec23b3a2d0c3ff))
+
 # [37.1.0-next.49](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.48...v37.1.0-next.49) (2023-10-27)
 
 
