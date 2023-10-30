@@ -235,12 +235,6 @@ export class Picker {
     }
 
     public render() {
-        this.chips.forEach((chip: Chip) => {
-            if ('iconBackgroundColor' in chip && !!chip.iconBackgroundColor) {
-                chip.iconFillColor = 'rgb(var(--color-white))';
-            }
-        });
-
         const props: {
             maxItems?: number;
         } = {};
@@ -323,7 +317,7 @@ export class Picker {
             text: listItem.text,
             removable: true,
             icon: listItem.icon,
-            iconBackgroundColor: listItem.iconColor,
+            iconFillColor: listItem.iconColor,
             value: listItem,
         };
     }
