@@ -1,4 +1,5 @@
-import { Icon, Link } from '../../interface';
+import { Icon } from '../../global/shared-types/icon.types';
+import { Link } from '../../global/shared-types/link.types';
 
 export interface BreadcrumbsItem {
     /**

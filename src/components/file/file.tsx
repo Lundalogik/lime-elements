@@ -1,5 +1,7 @@
 import translate from '../../global/translations';
-import { Chip, FileInfo, Languages } from '../../interface';
+import { Chip } from '../chip-set/chip.types';
+import { FileInfo } from '../file/file.types';
+import { Languages } from '../date-picker/date.types';
 import { MDCTextField } from '@material/textfield';
 import {
     Component,

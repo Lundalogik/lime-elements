@@ -1,4 +1,5 @@
-import { IconSize, MenuListType } from '../../interface';
+import { IconSize } from '../icon/icon.types';
+import { MenuListType } from './menu-list.types';
 
 export interface MenuListRendererConfig {
     isOpen?: boolean;

@@ -1,5 +1,6 @@
 import { Component, Event, EventEmitter, Host, h, Prop } from '@stencil/core';
-import { ListSeparator, MenuItem } from '../../interface';
+import { ListSeparator } from '../list/list-item.types';
+import { MenuItem } from '../menu/menu.types';
 
 /**
  * A split button is a button with two components:

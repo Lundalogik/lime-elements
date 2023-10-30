@@ -7,7 +7,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { DockItem } from '../../../interface';
+import { DockItem } from '../dock.types';
 import { createRandomString } from '../../../util/random-string';
 
 /**

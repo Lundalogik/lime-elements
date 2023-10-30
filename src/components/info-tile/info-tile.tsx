@@ -1,5 +1,6 @@
 import { Component, Prop, h } from '@stencil/core';
-import { InfoTileProgress, Link } from '../../interface';
+import { InfoTileProgress } from '../info-tile/info-tile.types';
+import { Link } from '../../global/shared-types/link.types';
 
 /**
  * This component can be used on places such as a start page or a dashboard.

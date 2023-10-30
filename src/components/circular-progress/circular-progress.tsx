@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { CircularProgressSize } from '../../interface';
+import { CircularProgressSize } from '../circular-progress/circular-progress.types';
 import { abbreviate } from '../badge/format';
 
 const PERCENT = 100;

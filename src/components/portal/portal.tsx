@@ -1,5 +1,5 @@
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
-import { OpenDirection } from '../../interface';
+import { OpenDirection } from '../menu/menu.types';
 import {
     createPopper,
     Instance,

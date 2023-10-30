@@ -1,5 +1,5 @@
 import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
-import { FormComponent } from '../../interface';
+import { FormComponent } from '../form/form.types';
 import { brightnesses, colors, getColorName, getCssColor } from './swatches';
 
 /**

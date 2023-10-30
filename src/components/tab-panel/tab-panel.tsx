@@ -8,7 +8,7 @@ import {
     Host,
     Watch,
 } from '@stencil/core';
-import { Tab } from '../../interface';
+import { Tab } from '../tab-bar/tab.types';
 import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 
 /**

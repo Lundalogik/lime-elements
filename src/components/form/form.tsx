@@ -11,7 +11,7 @@ import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import JSONSchemaForm, { AjvError } from '@rjsf/core';
 import retargetEvents from 'react-shadow-dom-retarget-events';
-import { FormError, ValidationError, ValidationStatus } from '../../interface';
+import { FormError, ValidationError, ValidationStatus } from './form.types';
 import {
     ArrayFieldTemplate,
     FieldTemplate,

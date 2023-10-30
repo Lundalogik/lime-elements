@@ -24,7 +24,8 @@ import {
     TAB,
     TAB_KEY_CODE,
 } from '../../util/keycodes';
-import { InputType, ListItem } from '../../interface';
+import { InputType } from '../input-field/input-field.types';
+import { ListItem } from '../list/list-item.types';
 import { getHref, getTarget } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';

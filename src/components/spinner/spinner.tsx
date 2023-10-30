@@ -1,4 +1,4 @@
-import { SpinnerSize } from '../../interface';
+import { SpinnerSize } from './spinner.types';
 import { Component, Prop, h } from '@stencil/core';
 
 /**

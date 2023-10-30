@@ -1,4 +1,4 @@
-import { Option } from '@limetech/lime-elements';
+import { Option } from '../option.types';
 import { Component, h, Prop } from '@stencil/core';
 
 /**

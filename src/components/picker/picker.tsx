@@ -1,11 +1,8 @@
-import {
-    Action,
-    ActionPosition,
-    ActionScrollBehavior,
-    Chip,
-    ListItem,
-    Searcher,
-} from '../../interface';
+import { Action } from '../collapsible-section/action';
+import { ActionPosition, ActionScrollBehavior } from '../picker/actions.types';
+import { Chip } from '../chip-set/chip.types';
+import { ListItem } from '../list/list-item.types';
+import { Searcher } from '../picker/searcher.types';
 import {
     Component,
     Element,

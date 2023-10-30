@@ -1,4 +1,4 @@
-import { Languages } from '../../interface';
+import { Languages } from '../date-picker/date.types';
 import { MDCSnackbar, MDCSnackbarCloseEvent } from '@material/snackbar';
 import {
     Component,

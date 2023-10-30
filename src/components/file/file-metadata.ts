@@ -1,4 +1,4 @@
-import { FileInfo } from '../../interface';
+import { FileInfo } from './file.types';
 import { getIconForFile } from './icons';
 import { getIconFillColorForFile } from './icon-fill-colors';
 import { getIconBackgroundColorForFile } from './icon-background-colors';

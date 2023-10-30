@@ -8,7 +8,7 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { ColorScheme, Language } from '../../interface';
+import { ColorScheme, Language } from './code-editor.types';
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jinja2/jinja2';

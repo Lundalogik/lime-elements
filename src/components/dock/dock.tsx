@@ -7,7 +7,7 @@ import {
     Prop,
     State,
 } from '@stencil/core';
-import { DockItem } from '../../interface';
+import { DockItem } from './dock.types';
 
 const DEFAULT_MOBILE_BREAKPOINT = 700;
 
