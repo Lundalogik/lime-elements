@@ -156,7 +156,7 @@ export class Picker {
      * Whether badge icons should be used in the result list or not
      */
     @Prop({ reflect: true })
-    public badgeIcons: boolean = true;
+    public badgeIcons: boolean = false;
 
     /**
      * Fired when a new value has been selected from the picker
