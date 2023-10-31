@@ -238,7 +238,6 @@ export class Form {
             multipleOfPrecision: 2,
             allowUnionTypes: true,
             strict: 'log',
-            validateSchema: 'log',
             keywords: ['lime', 'many', 'inline'],
             formats: {
                 integer: isInteger,
