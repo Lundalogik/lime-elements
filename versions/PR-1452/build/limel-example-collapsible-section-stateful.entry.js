@@ -1,1 +1,0 @@
-import{r as e,h as l}from"./index-a7da85d2.js";let s=class{constructor(l){e(this,l)}render(){return l("div",null,l("limel-collapsible-section-stateful",{header:"Open me!",stateKey:"yourKeyShouldBeUnique"},l("p",null,"This element remembers its open-state across page-loads.")))}};export{s as limel_example_collapsible_section_stateful}
