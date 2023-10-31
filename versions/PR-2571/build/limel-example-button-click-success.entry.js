@@ -1,0 +1,2 @@
+import{r as s,h as t}from"./index-6156b4fd.js";const e=class{constructor(t){s(this,t);this.loading=false;this.disabled=false}render(){return t("limel-button",{label:"Click me!",primary:true,loading:this.loading,disabled:this.disabled,onClick:this.onClick})}onClick(){this.loading=true;const s=1e3;const t=5e3;setTimeout((()=>{this.loading=false;this.disabled=true;setTimeout((()=>{this.disabled=false}),t)}),s)}};export{e as limel_example_button_click_success};
+//# sourceMappingURL=limel-example-button-click-success.entry.js.map
