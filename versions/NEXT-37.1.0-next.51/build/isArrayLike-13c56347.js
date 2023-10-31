@@ -1,2 +1,0 @@
-import{i as r}from"./eq-1533d1d3.js";var n=9007199254740991;var t=/^(?:0|[1-9]\d*)$/;function u(r,u){var a=typeof r;u=u==null?n:u;return!!u&&(a=="number"||a!="symbol"&&t.test(r))&&(r>-1&&r%1==0&&r<u)}var a=9007199254740991;function e(r){return typeof r=="number"&&r>-1&&r%1==0&&r<=a}function o(n){return n!=null&&e(n.length)&&!r(n)}export{u as a,o as b,e as i};
-//# sourceMappingURL=isArrayLike-13c56347.js.map
