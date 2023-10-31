@@ -1,3 +1,11 @@
+# [37.1.0-next.51](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.50...v37.1.0-next.51) (2023-10-31)
+
+
+### Features
+
+
+* **menu:** support setting custom width of dropdown ([c818e90](https://github.com/Lundalogik/lime-elements/commit/c818e9080f236e28076e8296e0af161eec1b1c18))
+
 # [37.1.0-next.50](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.49...v37.1.0-next.50) (2023-10-30)
 
 
