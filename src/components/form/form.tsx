@@ -22,9 +22,8 @@ import { ArrayField as CustomArrayField } from './fields/array-field';
 import { ObjectField as CustomObjectField } from './fields/object-field';
 import { widgets } from './widgets';
 import { createRandomString } from '../../util/random-string';
-import Ajv, { ErrorObject, ValidateFunction } from 'ajv';
-import addFormats from 'ajv-formats';
-import { isInteger, isNumber } from './validators';
+import Ajv, { RequiredParams } from 'ajv';
+import { isInteger } from './validators';
 import { mapValues } from 'lodash-es';
 
 /**
@@ -110,7 +109,7 @@ export class Form {
 
     private isValid = true;
     private modifiedSchema: object;
-    private validator: ValidateFunction;
+    private validator: Ajv.ValidateFunction;
     private root: Root;
 
     public constructor() {
@@ -234,27 +233,20 @@ export class Form {
 
     private createValidator() {
         const validator = new Ajv({
+            unknownFormats: 'ignore',
             allErrors: true,
             multipleOfPrecision: 2,
-            allowUnionTypes: true,
-            strict: 'log',
-            keywords: ['lime', 'many', 'inline'],
-            formats: {
-                integer: isInteger,
-                decimal: isNumber,
-            },
-        });
-        addFormats(validator);
+        }).addFormat('integer', isInteger);
         this.validator = validator.compile(this.schema);
     }
 
     private getValidationErrors(): FormError[] {
         const errors = this.validator.errors || [];
 
-        return errors.map((error: ErrorObject): FormError => {
-            let property = error.instancePath;
+        return errors.map((error: Ajv.ErrorObject): FormError => {
+            let property = error.dataPath;
             if (error.keyword === 'required') {
-                property = error.params.missingProperty;
+                property = (error.params as RequiredParams).missingProperty;
             }
 
             return {
