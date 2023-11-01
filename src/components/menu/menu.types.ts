@@ -1,4 +1,4 @@
-import { Icon } from '../../interface';
+import { Icon, ListSeparator } from '../../interface';
 
 export type OpenDirection =
     | 'left-start'
@@ -86,4 +86,21 @@ export interface MenuItem<T = any> {
      * Value of the menu item.
      */
     value?: T;
+
+    /**
+     * A way of defining a sub-menu for an item.
+     * Set it to an array of `MenuItem`s
+     */
+    items?: Array<MenuItem<T> | ListSeparator>;
+
+    /**
+     * :::warning Internal Use Only
+     * This property is for internal use only. We need it for now, but want to
+     * find a better implementation of the functionality it currently enables.
+     * If and when we do so, this property will be removed without prior
+     * notice. If you use it, your code _will_ break in the future.
+     * :::
+     * @internal
+     */
+    parentItem?: MenuItem;
 }

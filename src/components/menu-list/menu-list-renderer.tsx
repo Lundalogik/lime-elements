@@ -140,6 +140,7 @@ export class MenuListRenderer {
             >
                 {item.icon ? this.renderIcon(this.config, item) : null}
                 {this.renderText(item)}
+                {this.renderSubMenuIcon(item)}
                 {this.renderNotification(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
             </li>
@@ -171,6 +172,14 @@ export class MenuListRenderer {
                 </div>
             </div>
         );
+    };
+
+    private renderSubMenuIcon = (item: MenuItem) => {
+        if (!this.hasSubItems(item)) {
+            return;
+        }
+
+        return <limel-icon class="sub-menu-icon" name="-lime-caret-right" />;
     };
 
     private rendertext = (item: ListSeparator) => {
@@ -245,5 +254,9 @@ export class MenuListRenderer {
         }
 
         return <hr class={classes} />;
+    };
+
+    private hasSubItems = (item: MenuItem): boolean => {
+        return Array.isArray(item.items) && item.items.length > 0;
     };
 }
