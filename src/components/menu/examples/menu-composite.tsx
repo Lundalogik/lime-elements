@@ -1,3 +1,4 @@
+import { Components } from '@limetech/lime-elements';
 import { Component, h, Prop, State } from '@stencil/core';
 
 /**
@@ -46,7 +47,7 @@ export class MenuCompositeExample {
         open: false,
         openDirection: 'right',
         gridLayout: false,
-    };
+    } as Components.LimelMenu;
 
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
 
@@ -61,6 +62,9 @@ export class MenuCompositeExample {
         };
 
         delete this.schema.properties.label;
+        delete this.schema.properties.currentSubMenu;
+        delete this.schema.properties.loadSubItems;
+        delete this.schema.properties.surfaceWidth;
     }
 
     public render() {
@@ -68,9 +72,9 @@ export class MenuCompositeExample {
 
         return [
             <limel-menu
-                items={this.props.items as any}
+                items={this.props.items}
                 disabled={this.props.disabled}
-                openDirection={this.props.openDirection as any}
+                openDirection={this.props.openDirection}
                 badgeIcons={this.props.badgeIcons}
                 open={this.props.open}
                 gridLayout={this.props.gridLayout}
