@@ -802,10 +802,6 @@ export class InputField {
             return;
         }
 
-        return this.renderDropdown();
-    };
-
-    private renderPortal = (content = null) => {
         const dropdownZIndex = getComputedStyle(
             this.limelInputField
         ).getPropertyValue('--dropdown-z-index');
@@ -827,16 +823,10 @@ export class InputField {
                     }}
                     onDismiss={this.handleCloseMenu}
                 >
-                    {content}
+                    {this.renderListResult()}
                 </limel-menu-surface>
             </limel-portal>
         );
-    };
-
-    private renderDropdown = () => {
-        const content = this.renderListResult();
-
-        return this.renderPortal(content);
     };
 
     private renderListResult = () => {
