@@ -16,6 +16,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
  * @exampleComponent limel-example-helper-line-long-text-no-counter
  * @exampleComponent limel-example-helper-line-character-counter
  * @exampleComponent limel-example-helper-line-empty
+ * @exampleComponent limel-example-helper-line-animation
  * @private
  */
 @Component({
@@ -68,8 +69,10 @@ export class HelperLine {
                 style={!this.hasContent() ? { display: 'none' } : {}}
                 aria-hidden={!this.hasContent()}
             >
-                {this.renderHelperText()}
-                {this.renderCharacterCounter()}
+                <div>
+                    {this.renderHelperText()}
+                    {this.renderCharacterCounter()}
+                </div>
             </Host>
         );
     }
