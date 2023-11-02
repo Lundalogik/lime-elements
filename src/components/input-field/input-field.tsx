@@ -320,7 +320,7 @@ export class InputField {
                 {this.renderTrailingLinkOrButton()}
             </label>,
             this.renderHelperLine(),
-            this.renderAutocompleteList(),
+            this.renderPortal(),
         ];
     }
 
@@ -797,7 +797,7 @@ export class InputField {
         this.changeEmitter(event.detail.text);
     };
 
-    private renderAutocompleteList = () => {
+    private renderPortal = () => {
         if (this.type === 'textarea' || !this.completions.length) {
             return;
         }
