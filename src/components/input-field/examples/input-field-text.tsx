@@ -60,6 +60,7 @@ export class InputFieldTextExample {
     }
 
     @Watch('required')
+    @Watch('value')
     protected checkValidity() {
         this.invalid = this.required && !this.value;
     }
