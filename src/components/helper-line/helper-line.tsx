@@ -10,21 +10,12 @@ import { Component, Host, Prop, h } from '@stencil/core';
  *
  * Also this enables us to open the helper line in limel-portal,
  * more easily without having to send the styles to the portal.
- *
- * :::note
- * When the component has no content, it will get a `display: none`
- * as styles to avoid creating empty holes in the UI of the parent component.
- * For example, in a `flex` or `grid` component that has a `gap`,
- * we don't want the empty `limel-helper-line` to render and cause unnecessary
- * gaps in the UI.
- * However, to be more resourceful, the parent component can choose not
- * to render the helper-line as well.
- * :::
  * @exampleComponent limel-example-helper-line
  * @exampleComponent limel-example-helper-line-invalid
  * @exampleComponent limel-example-helper-line-long-text
  * @exampleComponent limel-example-helper-line-long-text-no-counter
  * @exampleComponent limel-example-helper-line-character-counter
+ * @exampleComponent limel-example-helper-line-empty
  * @private
  */
 @Component({
@@ -73,8 +64,8 @@ export class HelperLine {
                 tabIndex={-1}
                 class={{
                     invalid: this.invalid,
-                    show: this.hasContent(),
                 }}
+                style={!this.hasContent() ? { display: 'none' } : {}}
                 aria-hidden={!this.hasContent()}
             >
                 {this.renderHelperText()}
@@ -84,14 +75,10 @@ export class HelperLine {
     }
 
     private hasContent = () => {
-        if (
-            this.maxLength ||
-            this.helperText.length > 0 ||
-            this.helperText !== null ||
-            this.helperText !== undefined
-        ) {
-            return true;
-        }
+        return !!(
+            this.maxLength > 0 ||
+            (this.helperText && this.helperText.length > 0)
+        );
     };
 
     private renderHelperText = () => {
