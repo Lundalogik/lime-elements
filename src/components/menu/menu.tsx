@@ -95,7 +95,6 @@ export class Menu {
     private host: HTMLLimelMenuElement;
 
     private list: HTMLLimelMenuListElement;
-
     private portalId: string;
     private triggerElement: HTMLSlotElement;
 
@@ -103,17 +102,9 @@ export class Menu {
         this.portalId = createRandomString();
     }
 
-    @Watch('open')
-    protected openWatcher() {
-        if (!this.open) {
-            return;
-        }
-
-        const observer = new IntersectionObserver(() => {
-            observer.unobserve(this.list);
-            this.focusMenuItem();
-        });
-        observer.observe(this.list);
+    public componentDidRender() {
+        const slotElement = this.host.shadowRoot.querySelector('slot');
+        slotElement.assignedElements().forEach(this.setTriggerAttributes);
     }
 
     public render() {
@@ -167,9 +158,17 @@ export class Menu {
         );
     }
 
-    public componentDidRender() {
-        const slotElement = this.host.shadowRoot.querySelector('slot');
-        slotElement.assignedElements().forEach(this.setTriggerAttributes);
+    @Watch('open')
+    protected openWatcher() {
+        if (!this.open) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(() => {
+            observer.unobserve(this.list);
+            this.focusMenuItem();
+        });
+        observer.observe(this.list);
     }
 
     private setTriggerAttributes = (element: HTMLElement) => {
