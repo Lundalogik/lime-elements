@@ -3,7 +3,7 @@
 
     box-sizing: border-box;
 
-    display: none;
+    display: flex;
     justify-content: space-between;
     gap: 0.75rem;
 
@@ -20,10 +20,6 @@
     line-height: normal;
 
     color: rgb(var(--contrast-1200));
-}
-
-:host(limel-helper-line.show) {
-    display: flex;
 }
 
 :host(limel-helper-line.invalid) {
