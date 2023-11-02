@@ -381,8 +381,6 @@ export class InputField {
 
         if (this.type === 'textarea') {
             classList['mdc-text-field--textarea'] = true;
-            classList['has-helper-line'] =
-                !!this.helperText || !!this.maxlength;
         } else {
             classList['mdc-text-field--with-leading-icon'] = !!this.leadingIcon;
             classList['mdc-text-field--with-trailing-icon'] =
@@ -478,8 +476,13 @@ export class InputField {
             return;
         }
 
+        const hideHelperLine = !(this.isFocused || this.isInvalid());
+
         return (
             <limel-helper-line
+                class={{
+                    hide: hideHelperLine,
+                }}
                 helperTextId={this.helperTextId}
                 helperText={this.helperText}
                 length={length}
