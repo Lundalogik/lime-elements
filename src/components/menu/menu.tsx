@@ -83,13 +83,13 @@ export class Menu {
      * Is emitted when the menu is cancelled.
      */
     @Event()
-    private cancel: EventEmitter<void>;
+    public cancel: EventEmitter<void>;
 
     /**
      * Is emitted when a menu item is selected.
      */
     @Event()
-    private select: EventEmitter<MenuItem>;
+    public select: EventEmitter<MenuItem>;
 
     @Element()
     private host: HTMLLimelMenuElement;
