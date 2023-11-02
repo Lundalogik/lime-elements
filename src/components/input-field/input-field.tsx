@@ -319,7 +319,6 @@ export class InputField {
                 {this.renderTextarea(properties)}
                 {this.renderTrailingLinkOrButton()}
             </label>,
-            this.renderHelperLine(),
             this.renderPortal(),
         ];
     }
@@ -796,20 +795,16 @@ export class InputField {
     };
 
     private renderPortal = () => {
-        if (this.type === 'textarea' || !this.completions.length) {
-            return;
-        }
-
         const dropdownZIndex = getComputedStyle(
             this.limelInputField
         ).getPropertyValue('--dropdown-z-index');
 
-        if (
-            !this.completions.length ||
-            (!this.maxlength && !this.hasHelperText())
-        ) {
-            return;
-        }
+        // if (
+        //     (!this.maxlength && !this.hasHelperText()) ||
+        //     !this.completions.length
+        // ) {
+        //     return;
+        // }
 
         return (
             <limel-portal
@@ -818,23 +813,17 @@ export class InputField {
                 inheritParentWidth={true}
                 containerStyle={{ 'z-index': dropdownZIndex }}
             >
-                <limel-menu-surface
-                    open={this.showCompletions}
-                    allowClicksElement={this.limelInputField}
-                    style={{
-                        '--mdc-menu-min-width': '100%',
-                        'max-height': 'inherit',
-                        display: 'flex',
-                    }}
-                    onDismiss={this.handleCloseMenu}
-                >
-                    {this.renderListResult()}
-                </limel-menu-surface>
+                {this.renderHelperLine()}
+                {this.renderListResult()}
             </limel-portal>
         );
     };
 
     private renderListResult = () => {
+        if (this.type === 'textarea' || !this.completions.length) {
+            return;
+        }
+
         const filteredCompletions: ListItem[] = this.filterCompletions(
             this.value
         );
@@ -843,12 +832,23 @@ export class InputField {
         }
 
         return (
-            <limel-list
-                onChange={this.handleCompletionChange}
-                onKeyDown={this.handleKeyDownInDropdown}
-                type="selectable"
-                items={filteredCompletions}
-            />
+            <limel-menu-surface
+                open={this.showCompletions}
+                allowClicksElement={this.limelInputField}
+                style={{
+                    '--mdc-menu-min-width': '100%',
+                    'max-height': 'inherit',
+                    display: 'flex',
+                }}
+                onDismiss={this.handleCloseMenu}
+            >
+                <limel-list
+                    onChange={this.handleCompletionChange}
+                    onKeyDown={this.handleKeyDownInDropdown}
+                    type="selectable"
+                    items={filteredCompletions}
+                />
+            </limel-menu-surface>
         );
     };
 
