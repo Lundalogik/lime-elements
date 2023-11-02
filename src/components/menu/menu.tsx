@@ -89,7 +89,7 @@ export class Menu {
      * Is emitted when a menu item is selected.
      */
     @Event()
-    private select: EventEmitter<MenuItem | MenuItem[]>;
+    private select: EventEmitter<MenuItem>;
 
     @Element()
     private host: HTMLLimelMenuElement;
