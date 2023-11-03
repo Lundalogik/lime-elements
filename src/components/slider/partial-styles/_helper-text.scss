@@ -1,12 +1,10 @@
 limel-helper-line {
-    opacity: 0;
     order: 3;
 }
 
-:host(:focus),
-:host(:focus-visible),
-:host(:focus-within) {
+:host(limel-slider:hover),
+:host(limel-slider:focus-within) {
     limel-helper-line {
-        opacity: 1;
+        will-change: grid-template-rows;
     }
 }

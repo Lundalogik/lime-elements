@@ -109,6 +109,9 @@ export class Slider {
     @State()
     private percentageClass: string;
 
+    @State()
+    private isFocused: boolean = false;
+
     private mdcSlider: MDCSlider;
     private labelId: string;
     private helperTextId: string;
@@ -123,6 +126,9 @@ export class Slider {
         this.initialize();
         this.observer = new ResizeObserver(this.resizeObserverCallback);
         this.observer.observe(this.rootElement);
+
+        this.rootElement.addEventListener('focus', this.handleFocus);
+        this.rootElement.addEventListener('blur', this.handleBlur);
     }
 
     public componentWillLoad() {
@@ -247,10 +253,21 @@ export class Slider {
 
         return (
             <limel-helper-line
+                class={{
+                    hide: !this.isFocused,
+                }}
                 helperText={this.helperText}
                 helperTextId={this.helperTextId}
             />
         );
+    };
+
+    private handleFocus = () => {
+        this.isFocused = true;
+    };
+
+    private handleBlur = () => {
+        this.isFocused = false;
     };
 
     private initialize = () => {
