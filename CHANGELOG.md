@@ -1,3 +1,11 @@
+# [37.1.0-next.53](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.52...v37.1.0-next.53) (2023-11-03)
+
+
+### Bug Fixes
+
+
+* **helper-line:** when hidden, it should not have any height ([0d68c6d](https://github.com/Lundalogik/lime-elements/commit/0d68c6d0d27f4b433d6c57f0ad33fe505e606847))
+
 # [37.1.0-next.52](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.51...v37.1.0-next.52) (2023-10-31)
 
 
