@@ -4,7 +4,6 @@
     box-sizing: border-box;
     display: grid;
 
-    padding: 0.125rem 1rem 0 1rem;
     min-width: 0; // prevents overflowing, if component is placed in flex containers
 
     font-family: Roboto, sans-serif;
@@ -23,6 +22,7 @@ div {
     justify-content: space-between;
     gap: 0.75rem;
     overflow: hidden;
+    padding: 0 1rem;
 }
 
 :host(limel-helper-line.invalid) {
@@ -34,6 +34,11 @@ div {
 .counter {
     flex-shrink: 0;
     margin-left: auto;
+}
+
+.helper-text,
+.counter {
+    padding-top: 0.125rem;
 }
 
 // This animates height of the helper line, from `0` to `auto`.
