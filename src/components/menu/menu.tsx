@@ -117,55 +117,64 @@ export class Menu {
     }
 
     public render() {
+        return (
+            <div class="mdc-menu-surface--anchor" onClick={this.onTriggerClick}>
+                <slot ref={this.setTriggerRef} name="trigger" />
+                {this.renderNotificationBadge()}
+                {this.renderPortal()}
+            </div>
+        );
+    }
+
+    private renderPortal = () => {
+        if (!this.open) {
+            return;
+        }
+
         const cssProperties = this.getCssProperties();
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
             '--dropdown-z-index'
         );
-
         const menuSurfaceWidth = this.getMenuSurfaceWidth(
             cssProperties['--menu-surface-width']
         );
 
         return (
-            <div class="mdc-menu-surface--anchor" onClick={this.onTriggerClick}>
-                <slot ref={this.setTriggerRef} name="trigger" />
-                {this.renderNotificationBadge()}
-                <limel-portal
-                    visible={this.open}
-                    containerId={this.portalId}
-                    openDirection={this.openDirection}
-                    position="absolute"
-                    containerStyle={{ 'z-index': dropdownZIndex }}
+            <limel-portal
+                visible={this.open}
+                containerId={this.portalId}
+                openDirection={this.openDirection}
+                position="absolute"
+                containerStyle={{ 'z-index': dropdownZIndex }}
+            >
+                <limel-menu-surface
+                    open={this.open}
+                    onDismiss={this.onClose}
+                    style={{
+                        ...cssProperties,
+                        '--mdc-menu-min-width': menuSurfaceWidth,
+                        '--limel-menu-surface-display': 'flex',
+                        '--limel-menu-surface-flex-direction': 'column',
+                    }}
+                    class={{
+                        'has-grid-layout': this.gridLayout,
+                    }}
                 >
-                    <limel-menu-surface
-                        open={this.open}
-                        onDismiss={this.onClose}
-                        style={{
-                            ...cssProperties,
-                            '--mdc-menu-min-width': menuSurfaceWidth,
-                            '--limel-menu-surface-display': 'flex',
-                            '--limel-menu-surface-flex-direction': 'column',
-                        }}
+                    <limel-menu-list
                         class={{
-                            'has-grid-layout': this.gridLayout,
+                            'has-grid-layout has-interactive-items':
+                                this.gridLayout,
                         }}
-                    >
-                        <limel-menu-list
-                            class={{
-                                'has-grid-layout has-interactive-items':
-                                    this.gridLayout,
-                            }}
-                            items={this.items}
-                            type="menu"
-                            badgeIcons={this.badgeIcons}
-                            onSelect={this.handleSelect}
-                            ref={this.setListElement}
-                        />
-                    </limel-menu-surface>
-                </limel-portal>
-            </div>
+                        items={this.items}
+                        type="menu"
+                        badgeIcons={this.badgeIcons}
+                        onSelect={this.handleSelect}
+                        ref={this.setListElement}
+                    />
+                </limel-menu-surface>
+            </limel-portal>
         );
-    }
+    };
 
     public componentDidRender() {
         const slotElement = this.host.shadowRoot.querySelector('slot');
