@@ -1,12 +1,6 @@
-limel-helper-line {
-    opacity: 0;
-    order: 3;
-}
+@use '../../../style/mixins';
+@include mixins.hide-helper-line-when-not-needed(limel-slider);
 
-:host(:focus),
-:host(:focus-visible),
-:host(:focus-within) {
-    limel-helper-line {
-        opacity: 1;
-    }
+limel-helper-line {
+    order: 3;
 }
