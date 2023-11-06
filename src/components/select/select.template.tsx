@@ -173,6 +173,10 @@ const SelectDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
 };
 
 const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
+    if (!props.isOpen) {
+        return;
+    }
+
     const items = createMenuItems(props.options, props.value, props.required);
 
     return (
