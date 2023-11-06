@@ -50,11 +50,11 @@ div {
     transition: grid-template-rows
         var(--limel-h-l-grid-template-rows-transition-speed)
         cubic-bezier(1, 0.09, 0, 0.89);
-    grid-template-rows: 1fr;
+    grid-template-rows: var(--limel-h-l-grid-template-rows, 1fr);
 }
 
 :host(limel-helper-line.hide) {
     --limel-h-l-grid-template-rows-transition-speed: 0.3s;
-    grid-template-rows: 0fr;
+    --limel-h-l-grid-template-rows: 0fr;
 }
 // End: animating height
