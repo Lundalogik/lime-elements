@@ -1,3 +1,14 @@
+# [37.1.0-next.54](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.53...v37.1.0-next.54) (2023-11-06)
+
+
+### Reverts
+
+
+* "chore(deps-dev): bump ajv from 6.12.6 to 8.10.0" ([bf78916](https://github.com/Lundalogik/lime-elements/commit/bf789168d7217257a1ba87ce42ec4ce4d5a6fb07))
+* "fix(form): make form compatible with Ajv version 8" ([524527c](https://github.com/Lundalogik/lime-elements/commit/524527cf68a9d896e473ef4b94b724d5fb746a79))
+* "fix(form): only log schema validation errors" ([fc32a02](https://github.com/Lundalogik/lime-elements/commit/fc32a02954d816c9799feda2150cb5e7a2cc64a8))
+* add ajv-formats ([7001cab](https://github.com/Lundalogik/lime-elements/commit/7001cab238b86fa7416ae715ab33ccb38b2fafca))
+
 # [37.1.0-next.53](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.52...v37.1.0-next.53) (2023-11-03)
 
 
