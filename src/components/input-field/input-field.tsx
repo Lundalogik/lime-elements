@@ -802,6 +802,13 @@ export class InputField {
             return;
         }
 
+        const filteredCompletions: ListItem[] = this.filterCompletions(
+            this.value
+        );
+        if (!filteredCompletions || filteredCompletions.length === 0) {
+            return null;
+        }
+
         const dropdownZIndex = getComputedStyle(
             this.limelInputField
         ).getPropertyValue('--dropdown-z-index');
@@ -830,19 +837,12 @@ export class InputField {
     };
 
     private renderListResult = () => {
-        const filteredCompletions: ListItem[] = this.filterCompletions(
-            this.value
-        );
-        if (!filteredCompletions || filteredCompletions.length === 0) {
-            return null;
-        }
-
         return (
             <limel-list
                 onChange={this.handleCompletionChange}
                 onKeyDown={this.handleKeyDownInDropdown}
                 type="selectable"
-                items={filteredCompletions}
+                items={this.filterCompletions(this.value)}
             />
         );
     };
