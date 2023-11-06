@@ -2,13 +2,8 @@
     transition: opacity 0.2s ease;
 
     box-sizing: border-box;
+    display: grid;
 
-    display: none;
-    justify-content: space-between;
-    gap: 0.75rem;
-
-    // padding: 0.25rem 1rem; // TODO: use this padding, when helper line is opened in portal
-    padding: 0.125rem 1rem 0 1rem;
     min-width: 0; // prevents overflowing, if component is placed in flex containers
 
     font-family: Roboto, sans-serif;
@@ -22,8 +17,12 @@
     color: rgb(var(--contrast-1200));
 }
 
-:host(limel-helper-line.show) {
+div {
     display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    overflow: hidden;
+    padding: 0 1rem;
 }
 
 :host(limel-helper-line.invalid) {
@@ -36,3 +35,26 @@
     flex-shrink: 0;
     margin-left: auto;
 }
+
+.helper-text,
+.counter {
+    padding-top: 0.125rem;
+}
+
+// This animates height of the helper line, from `0` to `auto`.
+// To get this animation effect, the consumer component should
+// add `hide` classed accordingly.
+:host(limel-helper-line) {
+    --limel-h-l-grid-template-rows-transition-speed: 0.46s; // for internal use only!
+
+    transition: grid-template-rows
+        var(--limel-h-l-grid-template-rows-transition-speed)
+        cubic-bezier(1, 0.09, 0, 0.89);
+    grid-template-rows: 1fr;
+}
+
+:host(limel-helper-line.hide) {
+    --limel-h-l-grid-template-rows-transition-speed: 0.3s;
+    grid-template-rows: 0fr;
+}
+// End: animating height

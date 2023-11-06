@@ -470,11 +470,19 @@ export class InputField {
         this.isModified = true;
     };
 
+    private hasHelperText = () => {
+        return this.helperText !== null && this.helperText !== undefined;
+    };
+
+    private hasHelperLine = () => {
+        return this.maxlength || this.hasHelperText();
+    };
+
     private renderHelperLine = () => {
         const text: string = this.value || '';
         const length = text.length;
 
-        if (!this.maxlength && !this.hasHelperText()) {
+        if (!this.hasHelperLine()) {
             return;
         }
 
@@ -497,10 +505,6 @@ export class InputField {
                 </span>
             );
         }
-    };
-
-    private hasHelperText = () => {
-        return this.helperText !== null && this.helperText !== undefined;
     };
 
     private renderSuffix = () => {
@@ -802,10 +806,6 @@ export class InputField {
             return;
         }
 
-        return this.renderDropdown();
-    };
-
-    private renderPortal = (content = null) => {
         const dropdownZIndex = getComputedStyle(
             this.limelInputField
         ).getPropertyValue('--dropdown-z-index');
@@ -827,16 +827,10 @@ export class InputField {
                     }}
                     onDismiss={this.handleCloseMenu}
                 >
-                    {content}
+                    {this.renderListResult()}
                 </limel-menu-surface>
             </limel-portal>
         );
-    };
-
-    private renderDropdown = () => {
-        const content = this.renderListResult();
-
-        return this.renderPortal(content);
     };
 
     private renderListResult = () => {
