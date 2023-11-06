@@ -105,7 +105,7 @@ export class MenuSurface {
     };
 
     private handleDocumentClick = (event) => {
-        const elementPath = event.path || [];
+        const elementPath = event.composedPath ? event.composedPath() : [];
 
         if (!this.open) {
             return;
