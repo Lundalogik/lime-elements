@@ -245,3 +245,33 @@
         @error "Please specify the direction #{$direction}!";
     }
 }
+
+@mixin hide-helper-line-when-not-needed($component-tag) {
+    // This is when:
+    // - the component is not focused, or
+    // - an interactive element within the component is not focused, or
+    // - the component is valid
+
+    :host(#{$component-tag}:focus),
+    :host(#{$component-tag}:focus-visible),
+    :host(#{$component-tag}:focus-within),
+    :host(#{$component-tag}[invalid]) {
+        --limel-h-l-grid-template-rows-transition-speed: 0.46s;
+        --limel-h-l-grid-template-rows: 1fr;
+    }
+
+    :host(#{$component-tag}),
+    :host(#{$component-tag}[invalid='false']) {
+        --limel-h-l-grid-template-rows-transition-speed: 0.3s;
+        --limel-h-l-grid-template-rows: 0fr;
+    }
+
+    :host(#{$component-tag}:focus),
+    :host(#{$component-tag}:focus-visible),
+    :host(#{$component-tag}:focus-within),
+    :host(#{$component-tag}:hover) {
+        limel-helper-line {
+            will-change: grid-template-rows;
+        }
+    }
+}
