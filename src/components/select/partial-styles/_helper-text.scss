@@ -1,19 +1,8 @@
-limel-helper-line {
-    opacity: 0;
-}
+@use '../../../style/mixins';
+@include mixins.hide-helper-line-when-not-needed(limel-select);
 
-.limel-select--focused {
-    // TODO: remove when helper-line is displayed in portal
-    + limel-helper-line {
-        opacity: 1;
-    }
-}
-
-:host(:focus),
-:host(:focus-visible),
-:host(:focus-within),
-.limel-select--invalid {
-    limel-helper-line {
-        opacity: 1;
-    }
+.limel-select--focused + limel-helper-line,
+.limel-select--invalid limel-helper-line {
+    --limel-h-l-grid-template-rows-transition-speed: 0.46s;
+    --limel-h-l-grid-template-rows: 1fr;
 }
