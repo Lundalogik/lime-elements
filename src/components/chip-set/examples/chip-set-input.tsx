@@ -26,6 +26,9 @@ export class ChipSetInputExample {
     private readonly: boolean = false;
 
     @State()
+    private invalid: boolean = false;
+
+    @State()
     private disabled: boolean = false;
 
     @State()
@@ -59,6 +62,7 @@ export class ChipSetInputExample {
                 value={this.value}
                 required={this.required}
                 readonly={this.readonly}
+                invalid={this.invalid}
                 disabled={this.disabled}
                 leadingIcon={this.hasLeadingIcon ? 'search' : null}
                 maxItems={this.maxItems}
@@ -97,6 +101,11 @@ export class ChipSetInputExample {
                     label="Required"
                     onChange={this.setRequired}
                     checked={this.required}
+                />
+                <limel-checkbox
+                    label="Invalid"
+                    onChange={this.setInvalid}
+                    checked={this.invalid}
                 />
                 <limel-checkbox
                     label={'Leading icon'}
@@ -162,6 +171,10 @@ export class ChipSetInputExample {
 
     private setRequired = (event: CustomEvent<boolean>) => {
         this.required = event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        this.invalid = event.detail;
     };
 
     private setEmptyInputOnBlur = (event: CustomEvent<boolean>) => {

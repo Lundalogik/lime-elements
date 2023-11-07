@@ -92,6 +92,13 @@ export class ChipSet {
     public readonly: boolean = false;
 
     /**
+     * Set to `true` to indicate that the current value of the input field is
+     * invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
+
+    /**
      * For chip-sets of type `input`. Value to use for the `type` attribute on the
      * input field inside the chip-set.
      */
@@ -466,6 +473,15 @@ export class ChipSet {
     }
 
     private isInvalid() {
+        if (this.readonly) {
+            // A readonly field can never be invalid.
+            return false;
+        }
+
+        if (this.invalid) {
+            return true;
+        }
+
         if (!this.required) {
             return false;
         }
