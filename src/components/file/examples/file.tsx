@@ -21,6 +21,9 @@ export class FileExample {
     @State()
     private readonly = false;
 
+    @State()
+    private invalid = false;
+
     public render() {
         return [
             <limel-file
@@ -30,6 +33,7 @@ export class FileExample {
                 value={this.value}
                 disabled={this.disabled}
                 readonly={this.readonly}
+                invalid={this.invalid}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -46,6 +50,11 @@ export class FileExample {
                     checked={this.required}
                     label="Required"
                     onChange={this.setRequired}
+                />
+                <limel-checkbox
+                    checked={this.invalid}
+                    label="Invalid"
+                    onChange={this.setInvalid}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,
@@ -70,5 +79,10 @@ export class FileExample {
     private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = !!event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.invalid = event.detail;
     };
 }
