@@ -1,0 +1,50 @@
+@import '../../../design-guidelines/_generic-example-styles/do-dont';
+
+.do,
+.do-not {
+    width: 30rem;
+    margin: 1rem 0 2rem 0;
+    background-color: rgb(var(--contrast-200));
+
+    limel-button {
+        padding: 0 0 1rem 0.5rem;
+    }
+
+    .relevant-button {
+        margin-top: 1rem;
+    }
+
+    .assign {
+        padding-bottom: 0;
+    }
+}
+
+#tooltip-example {
+    margin-top: 1rem;
+    width: 5rem;
+}
+
+#tooltip {
+    cursor: help;
+}
+
+.button-icon {
+    display: flex;
+    align-items: center;
+
+    .disabled-button {
+        padding-right: 0.5rem;
+        margin-top: 1rem;
+    }
+}
+
+.split-example,
+.relevan-buttons-example {
+    display: flex;
+    gap: 5rem;
+
+    limel-split-button {
+        margin-top: 1rem;
+        padding: 0 0 1rem 0.5rem;
+    }
+}

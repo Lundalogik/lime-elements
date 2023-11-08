@@ -2,6 +2,9 @@ import { Component, h } from '@stencil/core';
 
 /**
  * Disabled
+ * :::note
+ * Discover when to utilize the disabled state and when it is preferable to hide a button by reading our guidelines [Disabled vs. Hidden](#/DesignGuidelines/disabled-hidden.md/).
+ * :::
  */
 @Component({
     tag: 'limel-example-button-disabled',
