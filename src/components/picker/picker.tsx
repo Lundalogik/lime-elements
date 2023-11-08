@@ -337,7 +337,7 @@ export class Picker {
      * Renders the dropdown with the items to pick from, or a spinner if the picker
      * is waiting for items to be received
      *
-     * @returns {HTMLElement} picker dropdown
+     * @returns picker dropdown
      */
     private renderDropdown() {
         const dropDownContent = this.getDropdownContent();
@@ -422,7 +422,7 @@ export class Picker {
      * Returns true if the picker is "full"
      * The picker is considered to be full if it has a value and only one is allowed
      *
-     * @returns {boolean} true if the picker is full
+     * @returns true if the picker is full
      */
     private isFull(): boolean {
         return !this.multiple && !!this.value;
@@ -512,8 +512,6 @@ export class Picker {
 
     /**
      * Check if a descendant still has focus. If not, reset text value and search result.
-     *
-     * @returns {void}
      */
     private handleStopEditAndBlur() {
         // In browsers where shadow DOM is not supported activeElement on shadowRoot will return null
@@ -534,8 +532,7 @@ export class Picker {
     /**
      * Input handler for the input field
      *
-     * @param {InputEvent} event event
-     * @returns {void}
+     * @param event - event
      */
     private async handleTextInput(event) {
         event.stopPropagation();
@@ -553,8 +550,7 @@ export class Picker {
     /**
      * Change handler for the list
      *
-     * @param {LimelListCustomEvent<ListItem>} event event
-     * @returns {void}
+     * @param event - event
      */
     private handleListChange(event: LimelListCustomEvent<ListItem>) {
         event.stopPropagation();
@@ -576,8 +572,7 @@ export class Picker {
     /**
      * Change handler for the list
      *
-     * @param {LimelChipSetCustomEvent} event event
-     * @returns {void}
+     * @param event - event
      */
     private handleActionListChange(
         event: LimelListCustomEvent<ListItem<Action>>,
@@ -594,8 +589,6 @@ export class Picker {
     /**
      * Focus handler for the chip set
      * Prevent focus if the picker has a value and does not support multiple values
-     *
-     * @returns {void}
      */
     private async handleInputFieldFocus() {
         this.loading = true;
@@ -629,8 +622,7 @@ export class Picker {
      * Key handler for the input field
      * Will change focus to the first/last item in the dropdown list to enable selection with the keyboard
      *
-     * @param {KeyboardEvent} event event
-     * @returns {void}
+     * @param event - event
      */
     private handleInputKeyDown(event: KeyboardEvent) {
         const isForwardTab =
@@ -674,8 +666,7 @@ export class Picker {
     /**
      * Key handler for the dropdown
      *
-     * @param {KeyboardEvent} event event
-     * @returns {void}
+     * @param event - event
      */
     private handleDropdownKeyDown(event: KeyboardEvent) {
         const isEscape =

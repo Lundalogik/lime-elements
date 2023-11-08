@@ -8,7 +8,6 @@ import {
 } from '@popperjs/core';
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 
-/* eslint-disable jsdoc/check-indentation */
 /**
  * The portal component provides a way to render children into a DOM node that
  * exist outside the DOM hierarchy of the parent component.
@@ -34,7 +33,6 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  * @private
  * @exampleComponent limel-example-portal-basic
  */
-/* eslint-enable jsdoc/check-indentation */
 @Component({
     tag: 'limel-portal',
     shadow: true,

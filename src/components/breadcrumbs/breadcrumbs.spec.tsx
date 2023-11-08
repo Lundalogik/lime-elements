@@ -164,9 +164,8 @@ describe('limel-breadcrumbs', () => {
  * are inside the breadcrumbs component. But we can get them this way.
  * Retrieves ids via inorder traversal
  *
- * @param {Element} node base node
- * @param {string[]} ids id array that you wish to populate
- * @return void
+ * @param node - base node
+ * @param ids - id array that you wish to populate
  */
 function getIDs(node: Element, ids: string[]) {
     if (node.children && node.id) {

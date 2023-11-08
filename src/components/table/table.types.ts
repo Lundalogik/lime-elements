@@ -73,10 +73,10 @@ export interface TableComponentDefinition {
      * The properties returned from this function will be merged with the
      * `props` properties when the component is created.
      *
-     * When the propsFactory is used for header components there will be no data available
+     * When the propsFactory is used for header components there will be no data available.
      *
-     * @param {*} data the data for the current row
-     * @returns {object} properties for the component
+     * @param data - The data for the current row
+     * @returns Properties for the component
      */
     propsFactory?: (data: object) => Record<string, any>;
 }
@@ -152,10 +152,10 @@ export enum ColumnAggregatorType {
 /**
  * Calculate an aggregated value for a column
  *
- * @param {Column} column the configuration for the column
- * @param {*[]} values list of all values to be aggregated
- * @param {T[]} data list of all objects to be aggregated
- * @returns {*} the aggregated data
+ * @param column - the configuration for the column
+ * @param values - list of all values to be aggregated
+ * @param data - list of all objects to be aggregated
+ * @returns the aggregated data
  */
 export type ColumnAggregatorFunction<T = object> = (
     column?: Column,

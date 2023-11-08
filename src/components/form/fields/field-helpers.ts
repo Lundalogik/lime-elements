@@ -5,9 +5,9 @@ import { retrieveSchema, ADDITIONAL_PROPERTY_FLAG } from '@rjsf/core/lib/utils';
  * Given two objects, get a list of keys for each value that is different between
  * the two objects. Compares using deep comparison
  *
- * @param {object} a first object
- * @param {object} b second object
- * @returns {any[]} the array of keys
+ * @param a - first object
+ * @param b - second object
+ * @returns the array of keys
  */
 const getDifferentKeys = (a: object = {}, b: object = {}): any[] => {
     const keys = union(Object.keys(a), Object.keys(b));
@@ -23,11 +23,10 @@ const getDifferentKeys = (a: object = {}, b: object = {}): any[] => {
  * (by deleting them from the data so that their defaults are populated on the next rerender).
  * Call onChange with the updated data
  *
- * @param {any} oldData The previous data before a data change event
- * @param {any} newData The form data from a change event
- * @param {object} schema The schema associated with the data
- * @param {object} rootSchema The root schema
- * @returns {void}
+ * @param oldData - The previous data before a data change event
+ * @param newData - The form data from a change event
+ * @param schema - The schema associated with the data
+ * @param rootSchema - The root schema
  */
 export const resetDependentFields = (oldData, newData, schema, rootSchema) => {
     // Dependencies only exist on object types
@@ -66,8 +65,8 @@ export const resetDependentFields = (oldData, newData, schema, rootSchema) => {
 /**
  * Check if the schema is of type object and have no declared properties
  *
- * @param {any} schema the schema
- * @returns {boolean} true if the schema is for a custom object
+ * @param schema - the schema
+ * @returns true if the schema is for a custom object
  */
 export function isCustomObjectSchema(schema: any) {
     if (!schema.additionalProperties) {

@@ -31,25 +31,25 @@ import { Help as HelpInterface } from './help.types';
 })
 export class Help implements HelpInterface {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Prop()
     public value: string;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Prop()
     public trigger: string = '?';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Prop()
     public readMoreLink?: Link;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Prop({ reflect: true })
     public openDirection: OpenDirection = 'top-start';

@@ -32,28 +32,28 @@ export class Selection {
      * selected items when selection is toggled by using the item index,
      * which can be the row position in a table.
      *
-     * @param {Function} getDataByIndex A function that returns the data at the given index
+     * @param getDataByIndex - A function that returns the data at the given index
      */
-    constructor(private getDataByIndex: (number) => any) {
+    constructor(private getDataByIndex: (index: number) => any) {
         this.clear();
     }
 
     /**
-     * @returns {number} The size of the selection
+     * @returns The size of the selection
      */
     get size(): number {
         return this.selectedItems.size;
     }
 
     /**
-     * @returns {any[]} The selected items
+     * @returns The selected items
      */
     get items(): any[] {
         return Array.from(this.selectedItems);
     }
 
     /**
-     * @param {any[]} items The selected items
+     * @param items - The selected items
      */
     set items(items: any[]) {
         this.selectedItems = new Set(items);
@@ -63,8 +63,8 @@ export class Selection {
     /**
      * Checks whether the given item exist in the selection
      *
-     * @param {any} data The data to look up
-     * @returns {boolean} `true` if the given data exist in the selection, otherwise `false`
+     * @param data - The data to look up
+     * @returns `true` if the given data exist in the selection, otherwise `false`
      */
     public has(data: any) {
         return this.selectedItems.has(data);
@@ -73,8 +73,8 @@ export class Selection {
     /**
      * Toggles the item at the given index in the selection
      *
-     * @param {number} index The index of the item to toggle
-     * @returns {SelectionChangeSet} The changes made to the selection
+     * @param index - The index of the item to toggle
+     * @returns The changes made to the selection
      */
     public toggleSelection(index: number): SelectionChangeSet {
         return this.toggleRange(index, index);
@@ -87,8 +87,8 @@ export class Selection {
      * Initially, when no last toggled index exist, this function behaves like
      * `toggleSelection`.
      *
-     * @param {number} index The index of the item to toggle
-     * @returns {SelectionChangeSet} The changes made to the selection
+     * @param index - The index of the item to toggle
+     * @returns The changes made to the selection
      */
     public toggleSelectionFromLastIndex(index: number): SelectionChangeSet {
         if (this.lastToggledIndex < 0) {
