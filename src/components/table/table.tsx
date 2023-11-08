@@ -388,7 +388,7 @@ export class Table {
      * @param table {HTMLElement}
      * @param options {Tabulator.Options}
      *
-     * @returns {void}
+
      */
     private initTabulatorComponent(
         table: HTMLElement,

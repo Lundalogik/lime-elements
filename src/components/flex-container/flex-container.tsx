@@ -10,7 +10,7 @@ import { Component, h, Prop } from '@stencil/core';
  * Lime Elements. Please use CSS for your flexible container needs 🙂
  * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox
  *
- * @deprecated
+ * @deprecated - Please use CSS instead https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox
  * @private
  * @slot - Container content
  */

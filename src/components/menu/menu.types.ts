@@ -115,9 +115,9 @@ export interface MenuItem<T = any> {
  * A search function that takes a search-string as an argument, and returns
  * a promise that will eventually be resolved with an array of `MenuItem`:s.
  *
- * @param {string} query A search query. What the user has written
+ * @param query - A search query. What the user has written
  * in the input field of a limel-menu.
- * @returns {Promise<Array<MenuItem | ListSeparator>>} The search result.
+ * @returns The search result.
  */
 export type MenuSearcher = (
     query: string,
@@ -128,8 +128,8 @@ export type MenuSearcher = (
  * a promise that will eventually be resolved with an array of `MenuItem`:s,
  * that is the sub-menu of the given item.
  *
- * @param {MenuItem} item The parent item to load the sub-menu for.
- * @returns {Promise<MenuItem[]>} The sub-menu's items of the given item.
+ * @param item - The parent item to load the sub-menu for.
+ * @returns The sub-menu's items of the given item.
  */
 export type MenuLoader = (
     item: MenuItem,

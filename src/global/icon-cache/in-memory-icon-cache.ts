@@ -12,11 +12,11 @@ export class InMemoryIconCache {
     /**
      * Get icon data from the cache
      *
-     * @param {string} name name of the icon
-     * @param {string} path path on the server where the assets are located
-     * @returns {string} svg markup
+     * @param name - Name of the icon
+     * @param path - Path on the server where the assets are located
+     * @returns SVG markup
      */
-    public async get(name, path = '') {
+    public async get(name: string, path = ''): Promise<string> {
         if (!this.cache[name]) {
             this.cache[name] = await this.getIcon(name, path);
         }

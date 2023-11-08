@@ -20,16 +20,16 @@ import { getHelpComponent } from '../help';
  * and its purpose.
  *
  * Example:
- * If I have an object { name?: string, email?: string } that I am using a custom web component for `name`,
- * then initially, the formData will be {} which is fine because neither name or email are required. Then if i input a
- * value for name the formData will be { name: 'some_value' } which is also fine. But then if I want to remove name
+ * If I have an object `{ name?: string, email?: string }` that I am using a custom web component for `name`,
+ * then initially, the formData will be `{}` which is fine because neither name or email are required. Then if i input a
+ * value for name the formData will be `{ name: 'some_value' }` which is also fine. But then if I want to remove name
  * from the form data I would delete all the text from the name input field. Web components would emit this empty value
  * as '' or null. If the web component tries to emit `undefined`, null would be emitted instead because CustomEvent has
  * a default `detail` value of null
  *
- * @param {any} value the value associated with the schema
- * @param {any} schema the schema for the value
- * @returns {boolean} whether or not null should be changed to undefined
+ * @param value - the value associated with the schema
+ * @param schema - the schema for the value
+ * @returns whether or not null should be changed to undefined
  */
 const shouldChangeToUndefined = (value, schema): boolean => {
     return value === null && !schema.type.includes('null');
@@ -79,9 +79,9 @@ const getCustomComponent = (
 /**
  * Create properties from the factory that is set on `limel-form`
  *
- * @param {*} formContext the form context
- * @param {*} schema the schema for the current field
- * @returns {object} the properties created by the factory
+ * @param formContext - the form context
+ * @param schema - the schema for the current field
+ * @returns the properties created by the factory
  */
 export function getFactoryProps(
     formContext: any,
@@ -280,12 +280,12 @@ export class SchemaField extends React.Component<FieldProps> {
     /**
      * Gets the path to the current property within the schema
      *
-     * @param {string} schemaId the id of the schema
-     * @returns {string[]} an array with the schema path for the current property
+     * @param schemaId - the id of the schema
+     * @returns an array with the schema path for the current property
      * @example
      * const schemaId = 'root_sections_0_controls_0_name';
      * const schemaPath = getSchemaPath(schemaId);
-     * // => ['sections', '0', 'controls', '0', 'name']
+     * // ➡ ['sections', '0', 'controls', '0', 'name']
      */
     private getSchemaPath(schemaId: string): string[] {
         if (schemaId === undefined) {

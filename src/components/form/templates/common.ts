@@ -33,10 +33,10 @@ export function renderDescription(description: string) {
  * If 'title' nor 'name' is found, a required item will be considered.
  * Otherwise the first occurrence of a nonempty string is chosen.
  *
- * @param {*} data the data to find the title for
- * @param {*} fieldSchema schema for the item
- * @param {*} formSchema schema for the form
- * @returns {string} describing title of the data
+ * @param data - the data to find the title for
+ * @param fieldSchema - schema for the item
+ * @param formSchema - schema for the form
+ * @returns describing title of the data
  */
 export function findTitle(data: any, fieldSchema: any, formSchema: any) {
     if (!data) {

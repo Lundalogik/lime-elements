@@ -82,8 +82,8 @@ export class Icon {
     /**
      * Load the SVG data for the icon from the icon cache
      *
-     * @param {string} name name of the icon
-     * @returns {string} the icon SVG data
+     * @param name - name of the icon
+     * @returns the icon SVG data
      */
     private loadSvg(name: string) {
         return iconCache.get(name, config.iconPath);

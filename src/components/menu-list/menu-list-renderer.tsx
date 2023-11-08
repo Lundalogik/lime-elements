@@ -73,8 +73,8 @@ export class MenuListRenderer {
      * Returns `undefined` if no item should have the attribute set.
      * See https://github.com/material-components/material-components-web/tree/e66a43a75fef4f9179e24856649518e15e279a04/packages/mdc-list#accessibility
      *
-     * @param {Array<MenuItem | ListSeparator>} items the items of the list, including any `ListSeparator`:s
-     * @returns {number} the index as per the description
+     * @param items - the items of the list, including any `ListSeparator`:s
+     * @returns the index as per the description
      */
     private getIndexForWhichToApplyTabIndex = (
         items: Array<MenuItem | ListSeparator>,
@@ -104,9 +104,9 @@ export class MenuListRenderer {
     /**
      * Render a single list item
      *
-     * @param {MenuItem | ListSeparator} item the item to render
-     * @param {number} index the index the item had in the `items` array
-     * @returns {HTMLElement} the list item
+     * @param item - the item to render
+     * @param index - the index the item had in the `items` array
+     * @returns the list item
      */
     private renderMenuItem = (
         item: MenuItem | ListSeparator,
@@ -153,8 +153,8 @@ export class MenuListRenderer {
     /**
      * Render the text of the list item
      *
-     * @param {MenuItem} item the list item
-     * @returns {HTMLElement | string} the text for the list item
+     * @param item - the list item
+     * @returns the text for the list item
      */
     private renderText = (item: MenuItem) => {
         if (this.isSimpleItem(item)) {
@@ -215,9 +215,9 @@ export class MenuListRenderer {
     /**
      * Render an icon for a list item
      *
-     * @param {MenuListRendererConfig} config the config object, passed on from the `renderMenuItem` function
-     * @param {MenuItem} item the list item
-     * @returns {HTMLElement | undefined} the icon element
+     * @param config - the config object, passed on from the `renderMenuItem` function
+     * @param item - the list item
+     * @returns the icon element
      */
     private renderIcon = (config: MenuListRendererConfig, item: MenuItem) => {
         const style: any = {};

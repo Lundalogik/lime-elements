@@ -16,8 +16,8 @@ export class ColumnDefinitionFactory {
     /**
      * Create Tabulator column definitions from a limel-table column configuration
      *
-     * @param {Column} column config describing the column
-     * @returns {Tabulator.ColumnDefinition} Tabulator column
+     * @param column - config describing the column
+     * @returns Tabulator column
      */
     public create(column: Column<object>): Tabulator.ColumnDefinition {
         const definition: Tabulator.ColumnDefinition = {
@@ -48,8 +48,8 @@ export class ColumnDefinitionFactory {
 /**
  * Formats the header of the column
  *
- * @param {Column} column the configuration for the column
- * @returns {string | HTMLElement} custom component that renders a column header
+ * @param column - the configuration for the column
+ * @returns custom component that renders a column header
  */
 export const formatHeader = (column: Column) => (): string | HTMLElement => {
     const headerElement = document.createElement('div');
@@ -82,9 +82,9 @@ export const formatHeader = (column: Column) => (): string | HTMLElement => {
 /**
  * Create a formatter to be used to format values in a column
  *
- * @param {Column} column config describing the column
- * @param {ElementPool} pool pool to get custom components from
- * @returns {Tabulator.Formatter} Tabulator formatter
+ * @param column - config describing the column
+ * @param pool - pool to get custom components from
+ * @returns Tabulator formatter
  */
 export function createFormatter(
     column: Column,
@@ -127,9 +127,9 @@ function columnElementExists(column: Column<any>) {
 /**
  * Format the value of a cell in the table
  *
- * @param {Tabulator.CellComponent} cell the cell being rendered in the table
- * @param {Column} column configuration for the current column
- * @returns {string} the formatted value
+ * @param cell - the cell being rendered in the table
+ * @param column - configuration for the current column
+ * @returns the formatted value
  */
 export function formatCell(
     cell: Tabulator.CellComponent,
@@ -152,11 +152,11 @@ export function formatCell(
 /**
  * Create a custom component that renders a cell value
  *
- * @param {Tabulator.CellComponent} cell Tabulator cell
- * @param {Column} column lime-elements column configuration
- * @param {string} value the value of the cell being rendered
- * @param {ElementPool} pool pool to get custom components from
- * @returns {HTMLElement} custom component that renders a value in the table
+ * @param cell - Tabulator cell
+ * @param column - lime-elements column configuration
+ * @param value - the value of the cell being rendered
+ * @param pool - pool to get custom components from
+ * @returns custom component that renders a value in the table
  */
 export function createCustomComponent(
     cell: Tabulator.CellComponent,
@@ -194,8 +194,8 @@ export function createCustomComponent(
 /**
  * Set all properties for a custom element, including event listeners
  *
- * @param {HTMLElement} element the custom element
- * @param {object} props object of properties and event listeners
+ * @param element - the custom element
+ * @param props - object of properties and event listeners
  */
 export function setElementProperties(element: HTMLElement, props: object) {
     const properties = pickBy(props, negate(isEventListener));
@@ -214,9 +214,9 @@ export function setElementProperties(element: HTMLElement, props: object) {
  * An event listener has to be a function and its property name have to start
  * with "on" followed by the name of the event in camel case, e.g. "onEventName"
  *
- * @param {any} value the value to check
- * @param {string} key name of the property
- * @returns {boolean} true if the property of the object is an event listener
+ * @param value - the value to check
+ * @param key - name of the property
+ * @returns true if the property of the object is an event listener
  */
 function isEventListener(value: any, key: string): boolean {
     if (typeof value !== 'function') {
@@ -231,8 +231,8 @@ function isEventListener(value: any, key: string): boolean {
  *
  * E.g. "onMyEvent" will return "myEvent"
  *
- * @param {string} eventListener name of the event listener
- * @returns {string} the name of the event
+ * @param eventListener - name of the event listener
+ * @returns the name of the event
  */
 function getEventName(eventListener: string): string {
     // eslint-disable-next-line no-magic-numbers
@@ -278,8 +278,8 @@ interface TabulatorSorter extends Tabulator.Sorter {
 /**
  * Create a column sorter from a tabulator sorter
  *
- * @param {Column[]} columns all available columns in the table
- * @returns {Function} function that creates a sorter from a tabulator sorter
+ * @param columns - all available columns in the table
+ * @returns function that creates a sorter from a tabulator sorter
  */
 export const createColumnSorter =
     (columns: Column[]) =>
