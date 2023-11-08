@@ -4,15 +4,15 @@ import { invoices, Invoice } from './invoices';
 
 /**
  *
- *````tsx
+ *```tsx
  *layout="stretchColumns"
- *````
+ *```
  *
  *With this layout, the table stretches columns so that all
  *fit perfectly in the table container, when extra space is available.
  *If all columns cannot fit within the available width,
  *then a horizontal scrollbar will appear.
- * @link invoices.ts
+ * @sourceFileLink invoices.ts
  */
 @Component({
     tag: 'limel-example-table-layout-stretch-columns',

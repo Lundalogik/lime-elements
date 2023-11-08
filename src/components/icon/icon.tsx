@@ -13,8 +13,8 @@ import { IconSize } from '../../interface';
  * standard sizes defined that can be used with the `size` property.
  *
  * ### Setup
- * To use **@lundalogik/lime-icons8**, the `/assets` folder from
- * __@lundalogik/lime-icons8__ must be made available on the webserver.
+ * To use `@lundalogik/lime-icons8`, the `/assets` folder from
+ * `@lundalogik/lime-icons8` must be made available on the webserver.
  * To use a different icon set, the icons must be placed in a folder structure
  * that looks like this: `assets/icons/<name-of-icon>.svg`
  *
@@ -36,7 +36,7 @@ import { IconSize } from '../../interface';
  * ```
  *
  * ### Lime icons
- * There are icons included in the **@lundalogik/lime-icons8** package which are
+ * There are icons included in the `@lundalogik/lime-icons8` package which are
  * designed by our designers at Lime.
  * The names of these icons start with `-lime-`, which makes them easy to
  * find using the Icon Finder tool below.
@@ -104,8 +104,8 @@ export class Icon {
 
     /**
      * Load the SVG data for the icon from the icon cache
-     * @param {string} name name of the icon
-     * @returns {string} the icon SVG data
+     * @param name - name of the icon
+     * @returns the icon SVG data
      */
     private loadSvg(name: string) {
         return iconCache.get(name, config.iconPath);

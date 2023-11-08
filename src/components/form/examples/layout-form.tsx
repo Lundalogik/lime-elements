@@ -47,7 +47,7 @@ import { schema } from './layout-schema';
  * In this example, each collapsible section has its own `colSpan`.
  * However, since the layout is responsive, make sure to change the browser
  * window size to see how their responsive layout changes.
- * @link layout-schema.ts
+ * @sourceFileLink layout-schema.ts
  */
 @Component({
     tag: 'limel-example-form-layout',

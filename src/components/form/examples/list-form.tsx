@@ -3,7 +3,7 @@ import { schema } from './list-schema';
 
 /**
  * List data
- * @link list-schema.ts
+ * @sourceFileLink list-schema.ts
  */
 @Component({
     tag: 'limel-example-list-form',

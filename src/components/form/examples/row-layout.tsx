@@ -3,7 +3,7 @@ import { schema } from './row-layout-schema';
 
 /**
  * Row layout
- * @link row-layout-schema.ts
+ * @sourceFileLink row-layout-schema.ts
  */
 @Component({
     tag: 'limel-example-form-row-layout',

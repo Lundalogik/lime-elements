@@ -9,9 +9,9 @@ import { invoices, Invoice } from './invoices';
  * rendering, choose one of the available `layout` properties.
  *
  *
- * ````tsx
+ * ```tsx
  * layout="default"
- * ````
+ * ```
  * The default layout resizes the table's columns,
  * in a way that each column becomes as wide as the data it holds.
  *
@@ -37,7 +37,7 @@ import { invoices, Invoice } from './invoices';
  * `horizontalAlign` on the column headers, to `left` (default), `center`,
  * or `right`. This basically defines the text-alignment for all the cells in that column.
  * :::
- * @link invoices.ts
+ * @sourceFileLink invoices.ts
  */
 @Component({
     tag: 'limel-example-table-layout-default',

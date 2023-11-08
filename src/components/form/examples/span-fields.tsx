@@ -149,7 +149,7 @@ import { schema } from './span-fields-schema';
  * }
  * ```
  * :::
- * @link span-fields-schema.ts
+ * @sourceFileLink span-fields-schema.ts
  */
 @Component({
     tag: 'limel-example-form-span-fields',

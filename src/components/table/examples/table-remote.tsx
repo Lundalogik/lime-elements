@@ -7,7 +7,7 @@ const NETWORK_DELAY = 500;
 
 /**
  * Remote sorting and pagination
- * @link birds.ts
+ * @sourceFileLink birds.ts
  */
 @Component({
     tag: 'limel-example-table-remote',

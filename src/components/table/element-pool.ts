@@ -11,8 +11,8 @@ export class ElementPool {
 
     /**
      * Get an element from the pool
-     * @param {string} name tag name of the element
-     * @returns {HTMLElement} the element
+     * @param name - tag name of the element
+     * @returns the element
      */
     public get(name: string): HTMLElement {
         let element = this.pool[name]?.find(this.isFree);
@@ -31,7 +31,7 @@ export class ElementPool {
 
     /**
      * Release an element from the pool so that it can be reused
-     * @param {HTMLElement} element the element to release from the pool
+     * @param element - the element to release from the pool
      */
     public release(element: HTMLElement): void {
         this.usedElements.delete(element);
