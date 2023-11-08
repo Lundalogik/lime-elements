@@ -101,6 +101,13 @@ export class Picker {
     public required: boolean = false;
 
     /**
+     * Set to `true` to indicate that the current value of the input field is
+     * invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
+
+    /**
      * Currently selected value or values
      */
     @Prop()
@@ -252,6 +259,7 @@ export class Picker {
                 leadingIcon={this.leadingIcon}
                 value={this.chips}
                 disabled={this.disabled}
+                invalid={this.invalid}
                 delimiter={this.renderDelimiter()}
                 readonly={this.readonly}
                 required={this.required}
