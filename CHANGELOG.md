@@ -1,3 +1,13 @@
+# [37.1.0-next.55](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.54...v37.1.0-next.55) (2023-11-08)
+
+
+### Features
+
+
+* **chip-set:** enable consumers to make it `invalid` ([ff09716](https://github.com/Lundalogik/lime-elements/commit/ff09716acde94b4006bd999badaea881667d5777))
+* **file:** enable consumers to make it `invalid` ([af1780c](https://github.com/Lundalogik/lime-elements/commit/af1780c5e7cd1bc378147fc9e9f33692dc4d83b6))
+* **picker:** enable consumers to make it `invalid` ([c2171fa](https://github.com/Lundalogik/lime-elements/commit/c2171fad2e557898a87fc18eba4a44bef18cdc80))
+
 # [37.1.0-next.54](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.53...v37.1.0-next.54) (2023-11-06)
 
 
