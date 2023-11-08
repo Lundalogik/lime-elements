@@ -64,7 +64,9 @@ export class LimeElementsWidgetAdapter extends React.Component {
         const { modified } = this.state;
         const { rawErrors } = this.props.widgetProps;
 
-        return !!rawErrors && (modified || this.hasValue());
+        return (
+            !!rawErrors && (modified || this.hasValue() || !this.isRequired())
+        );
     }
 
     private isRequired() {

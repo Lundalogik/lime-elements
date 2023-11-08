@@ -137,7 +137,10 @@ export class SchemaField extends React.Component<FieldProps> {
         const { modified } = this.state;
         const { errorSchema } = this.props;
 
-        return (modified || this.hasValue()) && !isEmpty(errorSchema);
+        return (
+            (modified || this.hasValue() || !this.isRequired()) &&
+            !isEmpty(errorSchema)
+        );
     }
 
     private isRequired() {
