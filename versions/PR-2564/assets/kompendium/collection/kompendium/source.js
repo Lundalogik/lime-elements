@@ -13,7 +13,7 @@ export async function getSources(component) {
   const source = await readFile(component.filePath);
   const styleNames = getStyleFiles(source);
   const styles = await Promise.all(styleNames.map(getStyle(component.dirPath)));
-  const links = await getLinks(component);
+  const links = await getSourceFileLinks(component);
   return [
     {
       filename: component.fileName,
@@ -47,9 +47,16 @@ const getStyle = (path) => async (name) => {
     source: source,
   };
 };
-async function getLinks(component) {
-  const linkTags = component.docsTags.filter((tag) => tag.name === 'link');
-  return Promise.all(linkTags.map(getLink(component)));
+async function getSourceFileLinks(component) {
+  const deprecatedLinkTags = component.docsTags.filter((tag) => tag.name === 'link');
+  if (deprecatedLinkTags.length > 0) {
+    // eslint-disable-next-line no-console
+    console.warn('Using the @link tag to link source files for display alongside examples is deprecated. ' +
+      'Use @sourceFileLink instead.');
+  }
+  const linkTags = component.docsTags.filter((tag) => tag.name === 'sourceFileLink');
+  const backwardsCompatibleLinkTags = [...linkTags, ...deprecatedLinkTags];
+  return Promise.all(backwardsCompatibleLinkTags.map(getLink(component)));
 }
 const getLink = (component) => async (tag) => {
   let source;
