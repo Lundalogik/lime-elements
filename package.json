@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^18.1.0",
-    "@limetech/eslint-config": "^2.0.1",
+    "@limetech/eslint-config": "^2.1.0-tsdoc.1",
     "@popperjs/core": "^2.11.8",
     "@rjsf/core": "^2.4.2",
     "@rollup/plugin-node-resolve": "^13.3.0",
