@@ -136,7 +136,7 @@ export class FileViewer {
     private isFullscreen: boolean = false;
 
     @State()
-    public fileType: FileType;
+    private fileType: FileType;
 
     constructor() {
         this.fullscreen = new Fullscreen(this.HostElement);
