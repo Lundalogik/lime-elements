@@ -1,2 +1,2 @@
-import{r as e,h as o}from"./index-6156b4fd.js";const r=class{constructor(o){e(this,o)}render(){return o("limel-help",{openDirection:"right",value:"This help is opened on top"})}};export{r as limel_example_open_direction};
+import{r as e,h as o}from"./index-6156b4fd.js";const r=class{constructor(o){e(this,o)}render(){return o("limel-help",{openDirection:"top",value:"This help is opened on top"})}};export{r as limel_example_open_direction};
 //# sourceMappingURL=limel-example-open-direction.entry.js.map
