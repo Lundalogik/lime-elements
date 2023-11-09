@@ -1,1 +1,2 @@
-import{g as r}from"./_getNative-4698fd71.js";var t=function(){try{var t=r(Object,"defineProperty");return t({},"",{}),t}catch(r){}}();export{t as d}
+import{g as r}from"./_getNative-4698fd71.js";var t=function(){try{var t=r(Object,"defineProperty");t({},"",{});return t}catch(r){}}();export{t as d};
+//# sourceMappingURL=_defineProperty-6dda4257.js.map

@@ -1,1 +1,2 @@
-function r(r,e){if(!e)return!1;if(e.contains(r))return!0;let t=r,n=0;for(;n<1e3&&t&&"#document-fragment"===t.getRootNode().nodeName;){if(t=t.getRootNode().host,e.contains(t))return!0;n+=1}return e.contains(t)}export{r as i}
+function e(e,t){if(!t){return false}if(t.contains(e)){return true}let r=e;let n=0;const u=1e3;while(n<u&&r&&r.getRootNode().nodeName==="#document-fragment"){r=r.getRootNode().host;if(t.contains(r)){return true}n+=1}return t.contains(r)}export{e as i};
+//# sourceMappingURL=dom-2fe617e7.js.map

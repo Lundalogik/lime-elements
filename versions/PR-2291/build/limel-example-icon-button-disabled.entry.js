@@ -1,1 +1,2 @@
-import{r as e,h as i}from"./index-a55db97c.js";const o=class{constructor(i){e(this,i)}render(){return[i("limel-icon-button",{label:"Add favourite",icon:"heart_outlined",disabled:!0,onClick:this.onClick})]}onClick(){console.log("This should never happen, since the button is disabled.")}};export{o as limel_example_icon_button_disabled}
+import{r as e,h as i}from"./index-6156b4fd.js";const o=class{constructor(i){e(this,i)}render(){return[i("limel-icon-button",{label:"Add favourite",icon:"heart_outlined",disabled:true,onClick:this.onClick})]}onClick(){console.log("This should never happen, since the button is disabled.")}};export{o as limel_example_icon_button_disabled};
+//# sourceMappingURL=limel-example-icon-button-disabled.entry.js.map
