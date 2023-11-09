@@ -205,13 +205,16 @@ export class FileViewer {
     };
 
     private renderImage = () => {
-        return [this.renderButtons(), <img src={this.url} alt={this.alt} />];
+        return [
+            this.renderButtons(),
+            <img src={this.fileUrl} alt={this.alt} />,
+        ];
     };
 
     private renderVideo = () => {
         return (
             <video controls>
-                <source src={this.url} />
+                <source src={this.fileUrl} />
             </video>
         );
     };
@@ -219,7 +222,7 @@ export class FileViewer {
     private renderAudio = () => {
         return (
             <audio controls>
-                <source src={this.url} />
+                <source src={this.fileUrl} />
             </audio>
         );
     };
@@ -227,7 +230,7 @@ export class FileViewer {
     private renderText = () => {
         return [
             this.renderButtons(),
-            <object data={this.url} type="text/plain" />,
+            <object data={this.fileUrl} type="text/plain" />,
         ];
     };
 
@@ -237,7 +240,9 @@ export class FileViewer {
                 {this.renderActionMenu()}
             </div>,
             <iframe
-                src={this.getOfficeViewerUrl() + this.url + '&embedded=true'}
+                src={
+                    this.getOfficeViewerUrl() + this.fileUrl + '&embedded=true'
+                }
                 frameborder="0"
             />,
         ];
@@ -246,7 +251,10 @@ export class FileViewer {
     private isOfficeFileAccessibleViaURL = () => {
         return (
             this.fileType === 'office' &&
-            !(this.url.startsWith('http://') || this.url.startsWith('https://'))
+            !(
+                this.fileUrl.startsWith('http://') ||
+                this.fileUrl.startsWith('https://')
+            )
         );
     };
 
@@ -326,7 +334,7 @@ export class FileViewer {
                 id="tooltip-download"
                 role="button"
                 download={this.filename ? this.filename : ''}
-                href={this.url}
+                href={this.fileUrl}
                 target="_blank"
             >
                 <limel-icon name="download_2" />
@@ -349,7 +357,7 @@ export class FileViewer {
                 class="button--new-tab"
                 id="tooltip-new-tab"
                 role="button"
-                href={this.url}
+                href={this.fileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
             >
