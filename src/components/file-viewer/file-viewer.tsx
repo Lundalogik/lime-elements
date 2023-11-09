@@ -138,9 +138,22 @@ export class FileViewer {
     @State()
     private fileType: FileType;
 
+    /**
+     * True while the file is being loaded.
+     */
+    @State()
+    private loading: boolean = true;
+
+    @State()
+    private fileUrl: string = '';
+
     constructor() {
         this.fullscreen = new Fullscreen(this.HostElement);
+    }
+
+    public async componentWillLoad() {
         this.fileType = detectExtension(this.filename, this.url);
+        await this.createURL(this.url);
     }
 
     public render() {
@@ -148,16 +161,22 @@ export class FileViewer {
             return this.renderNoFileSupportMessage();
         }
 
+        if (this.loading) {
+            return <limel-spinner size="x-small" limeBranded={false} />;
+        }
+
         return this.renderFileViewer();
     }
 
     @Watch('url')
-    protected watchUrl(newUrl: string, oldUrl: string) {
+    protected async watchUrl(newUrl: string, oldUrl: string) {
         if (newUrl === oldUrl) {
             return;
         }
 
-        this.fileType = detectExtension(this.filename, this.url);
+        this.loading = true;
+        this.fileType = detectExtension(this.filename, this.fileUrl);
+        await this.createURL(this.fileType);
     }
 
     private renderFileViewer() {
@@ -181,7 +200,7 @@ export class FileViewer {
             <div class="action-menu-for-pdf-files">
                 {this.renderActionMenu()}
             </div>,
-            <object data={this.url} type="application/pdf" />,
+            <iframe src={this.fileUrl} />,
         ];
     };
 
@@ -371,6 +390,19 @@ export class FileViewer {
                 </button>
             </limel-menu>
         );
+    };
+
+    private createURL = async (fileType: string) => {
+        if (['pdf'].includes(fileType)) {
+            const response = await fetch(this.url);
+            const blob = await response.blob();
+
+            this.fileUrl = URL.createObjectURL(blob);
+        } else {
+            this.fileUrl = this.url;
+        }
+
+        this.loading = false;
     };
 
     private handleToggleFullscreen = () => {
