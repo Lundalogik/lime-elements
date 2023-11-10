@@ -1,4 +1,5 @@
 import { Component, h } from '@stencil/core';
+
 /**
  * Spinner sizes
  */

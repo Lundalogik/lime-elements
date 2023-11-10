@@ -1,6 +1,9 @@
 import { Help } from '../help/help.types';
 import { EventEmitter } from '@stencil/core';
 
+/**
+ * @public
+ */
 export interface ValidationStatus {
     /**
      * True if the form is valid, false otherwise
@@ -15,6 +18,9 @@ export interface ValidationStatus {
     errors?: FormError[];
 }
 
+/**
+ * @public
+ */
 export interface FormError {
     /**
      * Name of the error
@@ -42,6 +48,9 @@ export interface FormError {
     message: string;
 }
 
+/**
+ * @public
+ */
 export type ValidationError = {
     /**
      * Name of the field the error belongs to
@@ -49,6 +58,9 @@ export type ValidationError = {
     [key: string]: string[] | ValidationError;
 };
 
+/**
+ * @public
+ */
 export interface FormComponent<T = any> {
     /**
      * The value of the current property
@@ -91,6 +103,9 @@ export interface FormComponent<T = any> {
     change: EventEmitter<T>;
 }
 
+/**
+ * @public
+ */
 export interface FormInfo {
     /**
      * The schema of the current property
@@ -135,6 +150,8 @@ export interface FormInfo {
  *     },
  * };
  * ```
+ *
+ * @public
  */
 export interface LimeSchemaOptions {
     /**
@@ -172,6 +189,8 @@ export interface LimeSchemaOptions {
 
 /**
  * Options for a component to be rendered inside a form
+ *
+ * @public
  */
 export interface FormComponentOptions {
     /**
@@ -186,6 +205,9 @@ export interface FormComponentOptions {
     props?: Record<string, any>;
 }
 
+/**
+ * @public
+ */
 export interface FormLayoutOptions<T = FormLayoutType.Default> {
     /**
      * The type of layout to use
@@ -193,6 +215,9 @@ export interface FormLayoutOptions<T = FormLayoutType.Default> {
     type: T;
 }
 
+/**
+ * @public
+ */
 export interface GridLayoutOptions
     extends FormLayoutOptions<FormLayoutType.Grid> {
     /**
@@ -222,6 +247,9 @@ export interface GridLayoutOptions
     dense?: boolean;
 }
 
+/**
+ * @public
+ */
 export interface RowLayoutOptions
     extends FormLayoutOptions<FormLayoutType.Row> {
     /**
@@ -231,6 +259,9 @@ export interface RowLayoutOptions
     icon?: string;
 }
 
+/**
+ * @public
+ */
 export enum FormLayoutType {
     /**
      * The default layout

@@ -1,5 +1,22 @@
-import { Icon, ListSeparator } from '../../interface';
+import { Icon } from '../../global/shared-types/icon.types';
+import { ListSeparator } from '../list/list-item.types';
 
+/**
+ * The direction in which the menu should open.
+ * - `left-start`: Menu opens to the left, aligned with the start of the trigger.
+ * - `left`: Menu opens to the left, aligned with the center of the trigger.
+ * - `left-end`: Menu opens to the left, aligned with the end of the trigger.
+ * - `right-start`: Menu opens to the right, aligned with the start of the trigger.
+ * - `right`: Menu opens to the right, aligned with the center of the trigger.
+ * - `right-end`: Menu opens to the right, aligned with the end of the trigger.
+ * - `top-start`: Menu opens to the top, aligned with the start of the trigger.
+ * - `top`: Menu opens to the top, aligned with the center of the trigger.
+ * - `top-end`: Menu opens to the top, aligned with the end of the trigger.
+ * - `bottom-start`: Menu opens to the bottom, aligned with the start of the trigger.
+ * - `bottom`: Menu opens to the bottom, aligned with the center of the trigger.
+ * - `bottom-end`: Menu opens to the bottom, aligned with the end of the trigger.
+ * @public
+ */
 export type OpenDirection =
     | 'left-start'
     | 'left'
@@ -26,12 +43,17 @@ export type OpenDirection =
  * - `inherit-from-menu`: Width of the dropdown menu will be as wide as the
  * width of the `limel-menu` element itself. Useful when a menu surface needs
  * to be opened programmatically, without a visible UI element.
+ * @public
  */
 export type SurfaceWidth =
     | 'inherit-from-items'
     | 'inherit-from-trigger'
     | 'inherit-from-menu';
 
+/**
+ * Menu item.
+ * @public
+ */
 export interface MenuItem<T = any> {
     /**
      * The additional supporting text is used for shortcut commands and displayed in the menu item.
@@ -118,6 +140,7 @@ export interface MenuItem<T = any> {
  * @param query - A search query. What the user has written
  * in the input field of a limel-menu.
  * @returns The search result.
+ * @public
  */
 export type MenuSearcher = (
     query: string,
@@ -130,6 +153,7 @@ export type MenuSearcher = (
  *
  * @param item - The parent item to load the sub-menu for.
  * @returns The sub-menu's items of the given item.
+ * @public
  */
 export type MenuLoader = (
     item: MenuItem,

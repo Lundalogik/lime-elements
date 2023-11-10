@@ -1,5 +1,9 @@
 import { ListItem } from '../list/list-item.types';
 
+/**
+ * A step in a progress flow.
+ * @public
+ */
 export interface FlowItem extends ListItem {
     /**
      * Determines whether a step should be a part of the flow,

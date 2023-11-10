@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export type InputType =
     | 'date'
     | 'datetime-local'

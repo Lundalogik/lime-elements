@@ -1,5 +1,8 @@
 import { Icon } from '../../interface';
 
+/**
+ * @public
+ */
 export interface Chip<T = any> {
     /**
      * ID of the chip. Must be unique.
