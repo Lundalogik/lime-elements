@@ -1,3 +1,11 @@
+# [37.1.0-next.56](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.55...v37.1.0-next.56) (2023-11-10)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** ensure PDFs are loaded properly ([194738c](https://github.com/Lundalogik/lime-elements/commit/194738c23c601f3195a4c25da10d70840158e57d))
+
 # [37.1.0-next.55](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.54...v37.1.0-next.55) (2023-11-08)
 
 
