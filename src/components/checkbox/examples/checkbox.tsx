@@ -21,6 +21,9 @@ export class CheckboxExample {
     @State()
     private readonly: boolean = false;
 
+    @State()
+    private invalid: boolean = false;
+
     private eventPrinter: HTMLLimelExampleEventPrinterElement;
 
     public render() {
@@ -32,6 +35,7 @@ export class CheckboxExample {
                 checked={this.value}
                 indeterminate={this.indeterminate}
                 required={this.required}
+                invalid={this.invalid}
                 onChange={this.handleChange}
                 readonly={this.readonly}
             />,
@@ -45,6 +49,11 @@ export class CheckboxExample {
                     checked={this.required}
                     label="Required"
                     onChange={this.setRequired}
+                />
+                <limel-checkbox
+                    checked={this.invalid}
+                    label="Invalid"
+                    onChange={this.setInvalid}
                 />
                 <limel-checkbox
                     checked={this.value}
@@ -93,6 +102,11 @@ export class CheckboxExample {
     private setRequired = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.required = event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.invalid = event.detail;
     };
 
     private setChecked = (event: CustomEvent<boolean>) => {

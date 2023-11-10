@@ -55,6 +55,12 @@ export class Checkbox {
     public readonly = false;
 
     /**
+     * Set to `true` to indicate that the current value is invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid: boolean;
+
+    /**
      * The checkbox label.
      */
     @Prop({ reflect: true })
@@ -148,12 +154,22 @@ export class Checkbox {
                 indeterminate={this.indeterminate}
                 required={this.required}
                 readonly={this.readonly}
-                invalid={this.required && this.modified && !this.checked}
+                invalid={this.isInvalid()}
                 onChange={this.onChange}
                 id={this.id}
             />
         );
     }
+
+    private isInvalid = () => {
+        if (this.invalid) {
+            return true;
+        }
+
+        if (this.required && this.modified && !this.checked) {
+            return true;
+        }
+    };
 
     private initialize = () => {
         const element =
