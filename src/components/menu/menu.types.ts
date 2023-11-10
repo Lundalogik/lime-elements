@@ -91,7 +91,7 @@ export interface MenuItem<T = any> {
      * A way of defining a sub-menu for an item.
      * Set it to an array of `MenuItem`s
      */
-    items?: Array<MenuItem<T> | ListSeparator>;
+    items?: Array<MenuItem<T> | ListSeparator> | MenuLoader;
 
     /**
      * :::warning Internal Use Only
@@ -104,3 +104,15 @@ export interface MenuItem<T = any> {
      */
     parentItem?: MenuItem;
 }
+
+/**
+ * A loader function that takes a `MenuItem` as an argument, and returns
+ * a promise that will eventually be resolved with an array of `MenuItem`:s,
+ * that is the sub-menu of the given item.
+ * @param {MenuItem} item The parent item to load the sub-menu for.
+ * @returns {Promise<MenuItem[]>} The sub-menu's items of the given item
+ * @internal
+ */
+export type MenuLoader = (
+    item: MenuItem
+) => Promise<Array<MenuItem | ListSeparator>>;

@@ -86,15 +86,15 @@ export class MenuOpenSubMenuProgrammaticallyExample {
             (i) => i.text === 'Format'
         ) as MenuItem;
 
-        const menuToOpen = formatMenuItem.items.find(
-            (i) => i.text === 'Bullets and numbering'
-        ) as MenuItem;
+        const menuToOpen = (
+            formatMenuItem.items as Array<MenuItem | ListSeparator>
+        ).find((i) => i.text === 'Bullets and numbering') as MenuItem;
 
         this.currentSubMenu = {
             ...menuToOpen,
             parentItem: formatMenuItem,
         };
-        this.items = menuToOpen.items;
+        this.items = menuToOpen.items as Array<MenuItem | ListSeparator>;
         this.openMenu = true;
     };
 
