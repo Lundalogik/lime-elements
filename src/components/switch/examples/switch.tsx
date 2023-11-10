@@ -14,6 +14,9 @@ export class SwitchExample {
     @State()
     private readonly = false;
 
+    @State()
+    private invalid = false;
+
     public render() {
         return [
             <limel-switch
@@ -22,6 +25,7 @@ export class SwitchExample {
                 disabled={this.disabled}
                 readonly={this.readonly}
                 onChange={this.changeHandler}
+                invalid={this.invalid}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -33,6 +37,11 @@ export class SwitchExample {
                     checked={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
+                />
+                <limel-checkbox
+                    checked={this.invalid}
+                    label="Invalid"
+                    onChange={this.setInvalid}
                 />
                 <limel-checkbox
                     checked={this.value}
@@ -61,5 +70,10 @@ export class SwitchExample {
     private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.invalid = event.detail;
     };
 }

@@ -59,6 +59,12 @@ export class Switch {
     public readonly = false;
 
     /**
+     * Set to `true` to indicate that the current value is invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid: boolean;
+
+    /**
      * The value of the switch
      */
     @Prop({ reflect: true })
