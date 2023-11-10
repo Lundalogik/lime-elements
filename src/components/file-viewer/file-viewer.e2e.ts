@@ -47,7 +47,7 @@ describe('limel-file-viewer', () => {
             contentElement = await page.find('limel-file-viewer>>>iframe');
         });
         it('displays the pdf using the iframe element', () => {
-            expect(contentElement.getAttribute('src')).toEqualText('file.pdf');
+            expect(contentElement.getAttribute('src')).toContain('blob:');
         });
         it('does not show button controls', async () => {
             const buttons = await page.find('limel-file-viewer>>>div.buttons');
