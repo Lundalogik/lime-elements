@@ -2,10 +2,17 @@ import { FileInfo } from '../../interface';
 import { getIconForFile } from './icons';
 import { getIconFillColorForFile } from './icon-fill-colors';
 import { getIconBackgroundColorForFile } from './icon-background-colors';
+import {
+    getIconBackgroundColor,
+    getIconColor,
+    getIconName,
+} from '../icon/get-icon-props';
 
 export function getFileIcon(file: FileInfo) {
-    if (file?.icon) {
-        return file.icon;
+    const name = getIconName(file.icon);
+
+    if (name) {
+        return name;
     }
 
     const extension = getExtension(file);
@@ -17,8 +24,10 @@ export function getFileIcon(file: FileInfo) {
 }
 
 export function getFileColor(file: FileInfo) {
-    if (file?.iconColor) {
-        return file.iconColor;
+    const color = getIconColor(file.icon, file.iconColor);
+
+    if (color) {
+        return color;
     }
 
     const extension = getExtension(file);
@@ -30,8 +39,13 @@ export function getFileColor(file: FileInfo) {
 }
 
 export function getFileBackgroundColor(file: FileInfo) {
-    if (file?.iconBackgroundColor) {
-        return file.iconBackgroundColor;
+    const backgroundColor = getIconBackgroundColor(
+        file.icon,
+        file.iconBackgroundColor
+    );
+
+    if (backgroundColor) {
+        return backgroundColor;
     }
 
     const extension = getExtension(file);
@@ -43,8 +57,10 @@ export function getFileBackgroundColor(file: FileInfo) {
 }
 
 export function getFileExtensionTitle(file: FileInfo) {
-    if (file?.icon) {
-        return file.icon;
+    const name = getIconName(file.icon);
+
+    if (name) {
+        return name;
     }
 
     return getExtension(file);

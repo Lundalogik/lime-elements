@@ -24,11 +24,11 @@ export class BreadcrumbsStylingExample {
         },
         {
             text: 'Products',
-            icon: { name: 'menu' },
+            icon: 'menu',
         },
         {
             text: 'Phones',
-            icon: { name: 'iphone_x' },
+            icon: 'iphone_x',
         },
         {
             text: 'Accessories',

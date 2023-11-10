@@ -3,6 +3,7 @@ import { h } from '@stencil/core';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { ListRendererConfig } from './list-renderer-config';
 import { RadioButtonTemplate } from './radio-button/radio-button.template';
+import { getIconColor, getIconName } from '../icon/get-icon-props';
 
 export class ListRenderer {
     private defaultConfig: ListRendererConfig = {
@@ -214,11 +215,14 @@ export class ListRenderer {
      */
     private renderIcon = (config: ListRendererConfig, item: ListItem) => {
         const style: any = {};
-        if (item.iconColor) {
+        const name = getIconName(item.icon);
+        const color = getIconColor(item.icon, item.iconColor);
+
+        if (color) {
             if (config.badgeIcons) {
-                style['--icon-background-color'] = item.iconColor;
+                style['--icon-background-color'] = color;
             } else {
-                style.color = item.iconColor;
+                style.color = color;
             }
         }
 
@@ -226,7 +230,7 @@ export class ListRenderer {
             <limel-icon
                 badge={config.badgeIcons}
                 class="mdc-deprecated-list-item__graphic"
-                name={item.icon}
+                name={name}
                 style={style}
                 size={config.iconSize}
             />

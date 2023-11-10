@@ -88,6 +88,7 @@ export class MenuList {
 
     public componentDidLoad() {
         this.setup();
+        this.triggerIconColorWarning();
     }
 
     public render() {
@@ -176,4 +177,13 @@ export class MenuList {
     private isMenuItem = (item: MenuItem): boolean => {
         return !('separator' in item);
     };
+
+    private triggerIconColorWarning() {
+        if (this.items.some((item) => 'iconColor' in item)) {
+            /* eslint-disable-next-line no-console */
+            console.warn(
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
+            );
+        }
+    }
 }

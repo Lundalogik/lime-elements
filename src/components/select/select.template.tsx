@@ -1,6 +1,7 @@
 import { ListItem, Option } from '../../interface';
 import { FunctionalComponent, h } from '@stencil/core';
 import { isMultiple } from '../../util/multiple';
+import { getIconColor, getIconName } from '../icon/get-icon-props';
 
 interface SelectTemplateProps {
     disabled?: boolean;
@@ -254,14 +255,18 @@ function createMenuItems(
     return options.filter(menuOptionFilter).map((option) => {
         const selected = isSelected(option, value);
         const { text, disabled } = option;
+        const name = getIconName(option.icon);
+        const color = getIconColor(option.icon, option.iconColor);
 
         return {
             text: text,
             selected: selected,
             disabled: disabled,
             value: option,
-            icon: option.icon,
-            iconColor: option.iconColor,
+            icon: {
+                name: name,
+                color: color,
+            },
         };
     });
 }
@@ -305,17 +310,30 @@ function getSelectedIcon(value: any) {
         return '';
     }
 
+    const name = getIconName(value.icon);
+    const color = getIconColor(value.icon, value.iconColor);
     const style: any = {};
-    if (value.iconColor) {
-        style.color = value.iconColor;
+    if (color) {
+        style.color = color;
     }
 
     return (
         <limel-icon
             class="limel-select__selected-option__icon"
-            name={value.icon}
+            name={name}
             size="medium"
             style={style}
         />
     );
+}
+
+export function triggerIconColorWarning(options: Option[]) {
+    options.forEach((option) => {
+        if (option.iconColor) {
+            /* eslint-disable-next-line no-console */
+            console.warn(
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
+            );
+        }
+    });
 }

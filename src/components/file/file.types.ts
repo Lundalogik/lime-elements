@@ -1,3 +1,5 @@
+import { Icon } from '../../interface';
+
 export interface FileInfo {
     /**
      * ID of the file. Must be unique.
@@ -37,15 +39,31 @@ export interface FileInfo {
     /**
      * Name of the icon to use.
      */
-    icon?: string;
+    icon?: string | Icon;
 
     /**
      * Icon color. Overrides `--icon-color`.
+     * @deprecated This property is deprecated and will be removed soon!
+     *
+     * Use the new `Icon` interface instead and write:
+     * ```
+     * icon {
+     *    name: string,
+     *    color: string,
+     * },
      */
     iconColor?: string;
 
     /**
      * Background color of the icon. Overrides `--icon-background-color`.
+     * @deprecated This property is deprecated and will be removed soon!
+     *
+     * Use the new `Icon` interface instead and write:
+     * ```
+     * icon {
+     *    name: string,
+     *    backgroundColor: string,
+     * },
      */
     iconBackgroundColor?: string;
 

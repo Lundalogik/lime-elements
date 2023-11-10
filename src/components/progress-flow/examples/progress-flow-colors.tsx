@@ -27,31 +27,39 @@ export class ProgressFlowColorsExample {
             text: 'Magenta step',
             selectedColor: 'rgb(var(--color-magenta-default)',
             passedColor: 'rgb(var(--color-green-light))',
-            icon: 'roller_brush',
-            iconColor: 'rgb(var(--color-magenta-default)',
+            icon: {
+                name: 'roller_brush',
+                color: 'rgb(var(--color-magenta-default)',
+            },
         },
         {
             value: 'purple',
             text: 'Purple step',
             selectedColor: 'rgb(var(--color-purple-default))',
             passedColor: 'rgb(var(--color-green-default))',
-            icon: 'brush',
-            iconColor: 'rgb(var(--color-purple-default))',
+            icon: {
+                name: 'brush',
+                color: 'rgb(var(--color-purple-default))',
+            },
         },
         {
             value: 'organge',
             text: 'Blue step',
             selectedColor: 'rgb(var(--color-blue-default))',
             passedColor: 'rgb(var(--color-green-dark))',
-            icon: 'paint_brush',
-            iconColor: 'rgb(var(--color-blue-default))',
+            icon: {
+                name: 'paint_brush',
+                color: 'rgb(var(--color-blue-default))',
+            },
         },
         {
             value: 'red',
             text: 'Green step',
             selectedColor: 'rgb(var(--color-green-darker))',
-            icon: 'cosmetic_brush',
-            iconColor: 'rgb(var(--color-green-darker))',
+            icon: {
+                name: 'cosmetic_brush',
+                color: 'rgb(var(--color-green-darker))',
+            },
         },
     ];
 
