@@ -1,3 +1,12 @@
+# [37.1.0-next.59](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.58...v37.1.0-next.59) (2023-11-10)
+
+
+### Bug Fixes
+
+
+* **form:** make non-empty fields with errors invalid ([fa76bb4](https://github.com/Lundalogik/lime-elements/commit/fa76bb44c995426e6ce301a7aceaf3519376bb14)), closes [Lundalogik/crm-feature#3478](https://github.com/Lundalogik/crm-feature/issues/3478)
+* **form:** make optional fields with errors invalid ([a4ed0b3](https://github.com/Lundalogik/lime-elements/commit/a4ed0b382e3d0792f80c50edb279abaf343d7b51))
+
 # [37.1.0-next.58](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.57...v37.1.0-next.58) (2023-11-10)
 
 
