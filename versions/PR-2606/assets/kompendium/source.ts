@@ -42,7 +42,7 @@ export async function getSources(
     const styles = await Promise.all(
         styleNames.map(getStyle(component.dirPath))
     );
-    const links = await getLinks(component);
+    const links = await getLinkedSourceFiles(component);
 
     return [
         {
@@ -87,12 +87,28 @@ const getStyle =
         };
     };
 
-async function getLinks(
+async function getLinkedSourceFiles(
     component: JsonDocsComponent
 ): Promise<JsonDocsSource[]> {
-    const linkTags = component.docsTags.filter((tag) => tag.name === 'link');
+    const deprecatedLinkTags = component.docsTags.filter(
+        (tag) => tag.name === 'link'
+    );
+    if (deprecatedLinkTags.length > 0) {
+        // eslint-disable-next-line no-console
+        console.warn(
+            'Using the @link tag to link source files for display alongside examples is deprecated. ' +
+                'Use @sourceFile instead.'
+        );
+    }
 
-    return Promise.all<JsonDocsSource>(linkTags.map(getLink(component)));
+    const linkTags = component.docsTags.filter(
+        (tag) => tag.name === 'sourceFile'
+    );
+    const backwardsCompatibleLinkTags = [...linkTags, ...deprecatedLinkTags];
+
+    return Promise.all<JsonDocsSource>(
+        backwardsCompatibleLinkTags.map(getLink(component))
+    );
 }
 
 const getLink =
