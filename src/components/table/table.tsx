@@ -388,7 +388,7 @@ export class Table {
      * @param table {HTMLElement}
      * @param options {Tabulator.Options}
      *
-     * @returns {void}
+
      */
     private initTabulatorComponent(
         table: HTMLElement,
@@ -497,9 +497,8 @@ export class Table {
                     return undefined;
                 }
 
-                const value = this.aggregates.find(
-                    (a) => a.field === col.field
-                )?.value;
+                const value = this.aggregates.find((a) => a.field === col.field)
+                    ?.value;
 
                 if (col.formatter) {
                     return col.formatter(value);

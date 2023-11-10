@@ -15,9 +15,9 @@ export class TableSelection {
 
     /**
      * Creates an instance of the TableSelection class
-     * @param {Function} getTable Function that returns the Tabulator instance
-     * @param {ElementPool} pool The element pool used to cache the checkbox components
-     * @param {EventEmitter<object[]>} selectEvent The event emitter to use when checkboxes are toggled
+     * @param getTable - Function that returns the Tabulator instance
+     * @param pool - The element pool used to cache the checkbox components
+     * @param selectEvent - The event emitter to use when checkboxes are toggled
      */
     constructor(
         private getTable: () => Tabulator,
@@ -30,7 +30,7 @@ export class TableSelection {
     }
 
     /**
-     * @returns {boolean} Returns `true` when the selection is non-empty, otherwise `false`
+     * @returns Returns `true` when the selection is non-empty, otherwise `false`
      */
     get hasSelection(): boolean {
         return this.selection.size > 0;
@@ -39,15 +39,15 @@ export class TableSelection {
     /**
      * Clears the selection
      */
-    public clear() {
+    public clear(): void {
         this.selection.clear();
     }
 
     /**
      * Sets the selected items
-     * @param {any[]} data The selected items
+     * @param data - The selected items
      */
-    public setSelection(data: any[]) {
+    public setSelection(data: any[]): void {
         if (isEqual(this.selection.items, data)) {
             return;
         }
@@ -61,8 +61,8 @@ export class TableSelection {
 
     /**
      * Prepends a checkbox column used for row selection to the given column definitions
-     * @param {Tabulator.ColumnDefinition[]} columnDefinitions The column definition for the table
-     * @returns {Tabulator.ColumnDefinition[]} The column definitions with the checkbox column prepended to it
+     * @param columnDefinitions - The column definition for the table
+     * @returns The column definitions with the checkbox column prepended to it
      */
     public getColumnDefinitions(
         columnDefinitions: Tabulator.ColumnDefinition[]
@@ -84,7 +84,7 @@ export class TableSelection {
         };
     }
 
-    private headerClick(ev: Event) {
+    private headerClick(ev: Event): void {
         ev.stopPropagation();
     }
 
@@ -104,13 +104,13 @@ export class TableSelection {
      * Tabulator cell click handler that updates the selection for the clicked
      * row and toggles the selection from the last clicked row if the shift key
      * is pressed down.
-     * @param {PointerEvent} ev The pointer event
-     * @param {Tabulator.CellComponent} cell The clicked cell component
+     * @param ev - The pointer event
+     * @param cell - The clicked cell component
      */
     protected rowSelectorCellClick = (
         ev: PointerEvent,
         cell: Tabulator.CellComponent
-    ) => {
+    ): void => {
         ev.stopPropagation();
         ev.preventDefault();
 
@@ -130,7 +130,7 @@ export class TableSelection {
         this.selectEvent.emit(this.selection.items);
     };
 
-    private updateRowSelectors = (changeSet: SelectionChangeSet) => {
+    private updateRowSelectors = (changeSet: SelectionChangeSet): void => {
         changeSet.indexes
             .map(this.getRowByIndex)
             .forEach((row) => this.updateRowSelector(row, changeSet.selected));
@@ -139,7 +139,7 @@ export class TableSelection {
     private updateRowSelector = (
         row: Tabulator.RowComponent,
         checked: boolean
-    ) => {
+    ): void => {
         const cell = row.getCells()[0];
         if (cell) {
             const checkBox = cell.getElement().querySelector(LIMEL_CHECKBOX);

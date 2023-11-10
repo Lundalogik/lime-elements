@@ -30,7 +30,7 @@ export interface DockItem {
      * item is pointing at, or
      * - the user interface is showing a page which is a sub-location of the
      * top-level location. For example, when user is at
-     * _My Account > Notification Settings_, the dock item of _My Account_
+     * _My Account ➡ Notification Settings_, the dock item of _My Account_
      * should have the `selected` state.
      */
     selected?: boolean;

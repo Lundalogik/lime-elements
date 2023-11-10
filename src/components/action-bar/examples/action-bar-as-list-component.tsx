@@ -15,8 +15,8 @@ import { Component, h } from '@stencil/core';
  * There should be a `min-width` and `max-width` on the component in order to prevent
  * the overflow menu to cause infinite rendering loops.
  * :::
- * @link action-bar-in-list.tsx
- * @link action-bar-in-list.scss
+ * @sourceFileLink action-bar-in-list.tsx
+ * @sourceFileLink action-bar-in-list.scss
  */
 @Component({
     tag: 'limel-example-action-bar-as-primary-component',

@@ -4,7 +4,7 @@ import { persons, Person } from './persons';
 
 /**
  * Activate a row
- * @link persons.ts
+ * @sourceFileLink persons.ts
  */
 @Component({
     tag: 'limel-example-table-activate-row',

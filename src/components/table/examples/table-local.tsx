@@ -9,7 +9,7 @@ import { capitalize } from 'lodash-es';
 
 /**
  * Local sorting and pagination
- * @link birds.ts
+ * @sourceFileLink birds.ts
  */
 @Component({
     tag: 'limel-example-table-local',

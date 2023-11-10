@@ -4,9 +4,9 @@ import { invoices, Invoice } from './invoices';
 
 /**
  *
- *````tsx
+ *```tsx
  *layout="lowDensity"
- *````
+ *```
  *By using this layout option, you can easily convert the table into an airy list of items.
  *
  *This type of UI is suitable for generating minimalist lists of items with
@@ -25,7 +25,7 @@ import { invoices, Invoice } from './invoices';
  *task is processing the presented data and making sense of it. For such views,
  *use the table component with its normal density.
  *:::
- * @link invoices.ts
+ * @sourceFileLink invoices.ts
  */
 @Component({
     tag: 'limel-example-table-layout-low-density',

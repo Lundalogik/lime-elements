@@ -1,6 +1,8 @@
 .tabulator {
     .tabulator-footer {
-        transition: transform 0.5s ease-out, opacity 0.35s ease; //For some reason the footer is not animated when it gets hidden/removed
+        transition:
+            transform 0.5s ease-out,
+            opacity 0.35s ease; //For some reason the footer is not animated when it gets hidden/removed
         padding-top: 0;
         padding-bottom: 0;
         color: var(--table-text-color);

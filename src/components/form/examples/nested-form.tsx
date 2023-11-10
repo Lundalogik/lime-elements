@@ -3,7 +3,7 @@ import { schema } from './nested-schema';
 
 /**
  * Nested data
- * @link nested-schema.ts
+ * @sourceFileLink nested-schema.ts
  */
 @Component({
     tag: 'limel-example-nested-form',

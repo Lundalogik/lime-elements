@@ -24,8 +24,8 @@ import { capitalize } from 'lodash-es';
  * While you can, in principle, use any component in a table, your custom table
  * components should implement the [TableComponent](#/type/TableComponent/)
  * interface.
- * @link birds.ts
- * @link table-food.tsx
+ * @sourceFileLink birds.ts
+ * @sourceFileLink table-food.tsx
  */
 @Component({
     tag: 'limel-example-table-custom-components',

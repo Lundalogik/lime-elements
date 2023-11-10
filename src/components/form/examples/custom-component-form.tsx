@@ -28,8 +28,8 @@ import { schema } from './custom-component-schema';
  * While you can, in principle, use any component in a form, your custom form
  * components should implement the [FormComponent](#/type/FormComponent/)
  * interface.
- * @link custom-component-schema.ts
- * @link custom-component-picker.tsx
+ * @sourceFileLink custom-component-schema.ts
+ * @sourceFileLink custom-component-picker.tsx
  */
 @Component({
     tag: 'limel-example-custom-component-form',

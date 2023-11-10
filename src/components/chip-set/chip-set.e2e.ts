@@ -330,12 +330,10 @@ describe('limel-chip-set', () => {
                 chipSet.setAttribute('disabled', true);
                 await page.waitForChanges();
 
-                firstChipRemoveButton = await chips[0].find(
-                    'div[role="button"]'
-                );
-                secondChipRemoveButton = await chips[1].find(
-                    'div[role="button"]'
-                );
+                firstChipRemoveButton =
+                    await chips[0].find('div[role="button"]');
+                secondChipRemoveButton =
+                    await chips[1].find('div[role="button"]');
             });
 
             it('renders the chips without delete-buttons', async () => {
@@ -353,12 +351,10 @@ describe('limel-chip-set', () => {
                 chipSet.setAttribute('readonly', true);
                 await page.waitForChanges();
 
-                firstChipRemoveButton = await chips[0].find(
-                    'div[role="button"]'
-                );
-                secondChipRemoveButton = await chips[1].find(
-                    'div[role="button"]'
-                );
+                firstChipRemoveButton =
+                    await chips[0].find('div[role="button"]');
+                secondChipRemoveButton =
+                    await chips[1].find('div[role="button"]');
             });
 
             it('renders the chips without delete-buttons', async () => {
