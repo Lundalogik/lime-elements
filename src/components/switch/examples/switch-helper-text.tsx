@@ -24,6 +24,9 @@ export class SwitchExampleHelperText {
     @State()
     private readonly = false;
 
+    @State()
+    private invalid = false;
+
     public render() {
         return [
             <limel-switch
@@ -31,6 +34,7 @@ export class SwitchExampleHelperText {
                 value={this.value}
                 disabled={this.disabled}
                 readonly={this.readonly}
+                invalid={this.invalid}
                 onChange={this.changeHandler}
                 helperText={'Siri helps you get things done, just by asking.'}
             />,
@@ -44,6 +48,11 @@ export class SwitchExampleHelperText {
                     checked={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
+                />
+                <limel-checkbox
+                    checked={this.invalid}
+                    label="Invalid"
+                    onChange={this.setInvalid}
                 />
                 <limel-checkbox
                     checked={this.value}
@@ -72,5 +81,10 @@ export class SwitchExampleHelperText {
     private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.invalid = event.detail;
     };
 }
