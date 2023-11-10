@@ -1,3 +1,11 @@
+# [37.1.0-next.57](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.56...v37.1.0-next.57) (2023-11-10)
+
+
+### Bug Fixes
+
+
+* **breadcrumbs:** support both `icon: string` & `icon: {name: string}` ([34753cf](https://github.com/Lundalogik/lime-elements/commit/34753cfeaf2ac789bc0782ba72c2076c7a70b98c))
+
 # [37.1.0-next.56](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.55...v37.1.0-next.56) (2023-11-10)
 
 
