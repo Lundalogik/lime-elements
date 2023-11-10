@@ -153,7 +153,7 @@ export class FileViewer {
 
     public async componentWillLoad() {
         this.fileType = detectExtension(this.filename, this.url);
-        await this.createURL(this.url);
+        await this.createURL(this.fileType);
     }
 
     public render() {
