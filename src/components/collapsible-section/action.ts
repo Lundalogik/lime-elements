@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export interface Action {
     id: string;
     icon?: string;

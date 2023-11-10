@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export type FileType =
     | 'pdf'
     | 'image'
@@ -7,4 +10,7 @@ export type FileType =
     | 'office'
     | 'unknown';
 
+/**
+ * @public
+ */
 export type OfficeViewer = 'microsoft-office' | 'google-drive';

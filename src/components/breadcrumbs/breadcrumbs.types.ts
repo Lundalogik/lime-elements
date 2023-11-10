@@ -1,6 +1,10 @@
 import { Icon } from '../../global/shared-types/icon.types';
 import { Link } from '../../global/shared-types/link.types';
 
+/**
+ * Breadcrumbs component props.
+ * @public
+ */
 export interface BreadcrumbsItem {
     /**
      * label displayed on the step.

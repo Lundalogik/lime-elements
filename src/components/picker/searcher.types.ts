@@ -7,5 +7,6 @@ import { ListItem } from '../list/list-item.types';
  * @param query - A search query. Typically what the user has written
  * in the input field of a limel-picker.
  * @returns The search result.
+ * @public
  */
 export type Searcher = (query: string) => Promise<ListItem[]>;

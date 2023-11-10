@@ -1,3 +1,8 @@
+/**
+ * This interface is used to specify which icon to use in many components,
+ * along with related properties, like color.
+ * @public
+ */
 export interface Icon {
     /**
      * Name of the icon, refers to the icon's filename in lime-icons8 repository.

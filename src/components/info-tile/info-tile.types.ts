@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export interface InfoTileProgress {
     /**
      * The value of the progress bar.

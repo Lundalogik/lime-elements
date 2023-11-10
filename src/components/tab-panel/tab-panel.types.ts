@@ -3,6 +3,7 @@ import { Tab } from '../tab-bar/tab.types';
 
 /**
  * Interface for components rendered inside a `limel-tab-panel`
+ * @public
  */
 export interface TabPanelComponent {
     /**

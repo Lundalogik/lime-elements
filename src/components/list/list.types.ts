@@ -3,5 +3,7 @@
  * `selectable`: regular list with single selection.
  * `radio`: radio button list with single selection.
  * `checkbox`: checkbox list with multiple selection.
+ *
+ * @public
  */
 export type ListType = 'selectable' | 'radio' | 'checkbox';

@@ -7,6 +7,7 @@
  * - `tip`: You want to read this.
  * - `caution`: I hope you read this.
  * - `warning`: You need to read this.
+ *
+ * @public
  */
-
 export type CalloutType = 'note' | 'important' | 'tip' | 'caution' | 'warning';

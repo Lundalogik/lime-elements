@@ -82,6 +82,7 @@ export class ActionBar {
 
     /**
      * Fired when a action bar item has been clicked.
+     * @public
      */
     @Event()
     public itemSelected: EventEmitter<ActionBarItem>;

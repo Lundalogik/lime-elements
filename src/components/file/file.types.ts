@@ -1,5 +1,8 @@
 import { Icon } from '../../interface';
 
+/**
+ * @public
+ */
 export interface FileInfo {
     /**
      * ID of the file. Must be unique.

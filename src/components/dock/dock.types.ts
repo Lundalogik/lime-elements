@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export interface DockItem {
     /**
      * A non-changing value to uniquely identify each item.
@@ -47,6 +50,9 @@ export interface DockItem {
     badge?: number | string;
 }
 
+/**
+ * @public
+ */
 export interface DockMenu {
     /**
      * The tag name of a custom component to be displayed in a popover when

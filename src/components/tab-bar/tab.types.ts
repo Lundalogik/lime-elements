@@ -1,5 +1,9 @@
-import { Icon } from '../../interface';
+import { Icon } from '../../global/shared-types/icon.types';
 
+/**
+ * Tab interface.
+ * @public
+ */
 export interface Tab {
     /**
      * Id of the tab. Must be unique.

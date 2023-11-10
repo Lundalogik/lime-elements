@@ -1,3 +1,7 @@
+/**
+ * Interface for a link.
+ * @public
+ */
 export interface Link {
     /**
      * The url the link should point to.

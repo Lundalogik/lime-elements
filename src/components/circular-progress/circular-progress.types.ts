@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export type CircularProgressSize =
     | 'x-small'
     | 'small'

@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export type DateType =
     | 'datetime'
     | 'date'
@@ -7,6 +10,9 @@ export type DateType =
     | 'quarter'
     | 'year';
 
+/**
+ * @public
+ */
 export type Languages =
     | 'da'
     | 'de'

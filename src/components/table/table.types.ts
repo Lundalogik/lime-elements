@@ -1,3 +1,7 @@
+/**
+ * Defines the data for a table
+ * @public
+ */
 export interface Column<T extends object = any> {
     /**
      * Column title to be displayed
@@ -40,10 +44,18 @@ export interface Column<T extends object = any> {
     headerSort?: boolean;
 }
 
+/**
+ * Definition for a formatter function
+ * @param value - The value to be formatted
+ * @param data - The data for the current row
+ * @returns The formatted value
+ * @public
+ */
 export type TableFormatter = (value: any, data?: object) => string;
 
 /**
- * Definition for a component to be displayed in a cell in the table
+ * The `component` key in the schema uses this interface to define a
+ * component to be rendered inside a cell in the table.
  *
  * @note The table will display the component as `inline-block` in order
  * to give the column the correct size. If the component should have the
@@ -55,6 +67,7 @@ export type TableFormatter = (value: any, data?: object) => string;
  *     display: block !important;
  * }
  * ```
+ * @public
  */
 export interface TableComponentDefinition {
     /**
@@ -81,6 +94,10 @@ export interface TableComponentDefinition {
     propsFactory?: (data: object) => Record<string, any>;
 }
 
+/**
+ * Interface for custom components rendered inside a `limel-table`.
+ * @public
+ */
 export interface TableComponent<T extends object = any> {
     /**
      * Name of the field being rendered
@@ -98,6 +115,10 @@ export interface TableComponent<T extends object = any> {
     data?: T;
 }
 
+/**
+ * Indicates whether the specified column is sorted ascending or descending.
+ * @public
+ */
 export interface ColumnSorter {
     /**
      * The column being sorted
@@ -110,6 +131,10 @@ export interface ColumnSorter {
     direction: 'ASC' | 'DESC';
 }
 
+/**
+ * Specifies the current page, and which columns the table is currently sorted on.
+ * @public
+ */
 export interface TableParams {
     /**
      * The current page being set
@@ -122,6 +147,10 @@ export interface TableParams {
     sorters?: ColumnSorter[];
 }
 
+/**
+ * The built-in aggregators available for columns
+ * @public
+ */
 export enum ColumnAggregatorType {
     /**
      * Calculates the average value of all numerical cells in the column
@@ -150,12 +179,15 @@ export enum ColumnAggregatorType {
 }
 
 /**
- * Calculate an aggregated value for a column
+ * Instead of using one of the built-in aggregators, it is possible to
+ * define a custom aggregator function.
  *
  * @param column - the configuration for the column
  * @param values - list of all values to be aggregated
  * @param data - list of all objects to be aggregated
  * @returns the aggregated data
+ *
+ * @public
  */
 export type ColumnAggregatorFunction<T = object> = (
     column?: Column,
@@ -165,6 +197,7 @@ export type ColumnAggregatorFunction<T = object> = (
 
 /**
  * Defines aggregate values for columns
+ * @public
  */
 export interface ColumnAggregate {
     /**

@@ -28,6 +28,10 @@ export class ActionBarOverflowMenu {
     @Prop({ reflect: true })
     public openDirection: OpenDirection = 'bottom-end';
 
+    /**
+     * Fired when an item in the action bar overflow menu has been clicked.
+     * @public
+     */
     @Event()
     public select: EventEmitter<ActionBarItem>;
 

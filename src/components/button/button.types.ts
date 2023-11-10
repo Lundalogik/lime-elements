@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export interface Button {
     /**
      * ID of the button. Must be unique.
