@@ -1,3 +1,11 @@
+# [37.1.0-next.58](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.57...v37.1.0-next.58) (2023-11-10)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** use fileType to create a URL for the file ([26c8b5b](https://github.com/Lundalogik/lime-elements/commit/26c8b5b7f0e9f1ac052007655a49eddad2c25aaa))
+
 # [37.1.0-next.57](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.56...v37.1.0-next.57) (2023-11-10)
 
 
