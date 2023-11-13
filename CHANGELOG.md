@@ -1,3 +1,11 @@
+# [37.1.0-next.60](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.59...v37.1.0-next.60) (2023-11-13)
+
+
+### Bug Fixes
+
+
+* **menu:** allow clicks for permitted elements from open menu surface ([bbeb70d](https://github.com/Lundalogik/lime-elements/commit/bbeb70d25ba7da7121c9beab37fe3c7c6287f8bd))
+
 # [37.1.0-next.59](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.58...v37.1.0-next.59) (2023-11-10)
 
 
