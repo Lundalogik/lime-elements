@@ -1,3 +1,20 @@
+# [37.1.0-next.61](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.60...v37.1.0-next.61) (2023-11-13)
+
+
+### Bug Fixes
+
+
+* **menu:** fix typing of the `select` event ([6f0bf6a](https://github.com/Lundalogik/lime-elements/commit/6f0bf6a9a6f4cb8d079cd8b3d86f93756785299f))
+It's not possible to simultaneously select multiple menu items in
+limel-menu, so there is no reason for the `select` event to be
+typed as `MenuItem | MenuItem[]`. It is now typed as `MenuItem`
+instead.
+
+### Features
+
+
+* **menu:** enable having nested menus (sub-menus) ([75fe6ec](https://github.com/Lundalogik/lime-elements/commit/75fe6ec1496a3bde31caa80e5bcabbd1579b89ad))
+
 # [37.1.0-next.60](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.59...v37.1.0-next.60) (2023-11-13)
 
 
