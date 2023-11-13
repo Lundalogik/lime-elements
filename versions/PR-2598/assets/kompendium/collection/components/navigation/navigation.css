@@ -89,8 +89,7 @@ header a {
 }
 
 .nav-panel {
-  transition: margin 0.2s ease, background-color 0.3s ease;
-  z-index: 100;
+  transition: transform 0.44s cubic-bezier(1, 0.12, 0.2, 0.88), background-color 0.3s ease;
   width: var(--width-nav-panel);
   height: 100vh;
   position: fixed;
@@ -110,6 +109,9 @@ header a {
 }
 .nav-panel .panel-list:not(.chapters) {
   padding: 0 0.75rem 2rem 0.75rem;
+}
+.nav-panel.display-nav-panel {
+  z-index: 100;
 }
 
 .branding-and-mode {
@@ -246,10 +248,10 @@ header a {
   }
 
   .nav-panel {
-    margin-left: calc(var(--width-nav-panel) * -1);
+    transform: translate3d(calc(var(--width-nav-panel) * -1), 0, 0);
   }
   .nav-panel.display-nav-panel {
-    margin-left: 0;
+    transform: translate3d(0, 0, 0);
     box-shadow: 0 0.09375rem 0.225rem 0 rgba(0, 0, 0, 0.232), 0 0.01875rem 0.05625rem 0 rgba(0, 0, 0, 0.208);
   }
   .nav-panel.display-nav-panel .nav-panel__responsive-menu {
