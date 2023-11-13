@@ -200,14 +200,14 @@ export class FileViewer {
             <div class="action-menu-for-pdf-files">
                 {this.renderActionMenu()}
             </div>,
-            <iframe src={this.fileUrl} />,
+            <iframe src={this.fileUrl} loading="lazy" />,
         ];
     };
 
     private renderImage = () => {
         return [
             this.renderButtons(),
-            <img src={this.fileUrl} alt={this.alt} />,
+            <img src={this.fileUrl} alt={this.alt} loading="lazy" />,
         ];
     };
 
@@ -244,6 +244,7 @@ export class FileViewer {
                     this.getOfficeViewerUrl() + this.fileUrl + '&embedded=true'
                 }
                 frameborder="0"
+                loading="lazy"
             />,
         ];
     };
