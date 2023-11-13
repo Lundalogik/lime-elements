@@ -243,7 +243,6 @@ export class FileViewer {
                 src={
                     this.getOfficeViewerUrl() + this.fileUrl + '&embedded=true'
                 }
-                frameborder="0"
                 loading="lazy"
             />,
         ];
