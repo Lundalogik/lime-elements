@@ -1,4 +1,4 @@
-import { MenuItem } from '../../interface';
+import { Icon, MenuItem } from '../../interface';
 
 /**
  * Renders the button in the action bar without their labels.
@@ -8,7 +8,7 @@ export type ActionBarItem = ActionBarItemOnlyIcon | ActionBarItemWithLabel;
 
 interface ActionBarItemOnlyIcon extends MenuItem {
     iconOnly: true;
-    icon: string;
+    icon: string | Icon;
 }
 
 interface ActionBarItemWithLabel extends MenuItem {

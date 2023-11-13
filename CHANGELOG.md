@@ -1,3 +1,65 @@
+# [37.1.0-next.59](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.58...v37.1.0-next.59) (2023-11-10)
+
+
+### Bug Fixes
+
+
+* **form:** make non-empty fields with errors invalid ([fa76bb4](https://github.com/Lundalogik/lime-elements/commit/fa76bb44c995426e6ce301a7aceaf3519376bb14)), closes [Lundalogik/crm-feature#3478](https://github.com/Lundalogik/crm-feature/issues/3478)
+* **form:** make optional fields with errors invalid ([a4ed0b3](https://github.com/Lundalogik/lime-elements/commit/a4ed0b382e3d0792f80c50edb279abaf343d7b51))
+
+# [37.1.0-next.58](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.57...v37.1.0-next.58) (2023-11-10)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** use fileType to create a URL for the file ([26c8b5b](https://github.com/Lundalogik/lime-elements/commit/26c8b5b7f0e9f1ac052007655a49eddad2c25aaa))
+
+# [37.1.0-next.57](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.56...v37.1.0-next.57) (2023-11-10)
+
+
+### Bug Fixes
+
+
+* **breadcrumbs:** support both `icon: string` & `icon: {name: string}` ([34753cf](https://github.com/Lundalogik/lime-elements/commit/34753cfeaf2ac789bc0782ba72c2076c7a70b98c))
+
+# [37.1.0-next.56](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.55...v37.1.0-next.56) (2023-11-10)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** ensure PDFs are loaded properly ([194738c](https://github.com/Lundalogik/lime-elements/commit/194738c23c601f3195a4c25da10d70840158e57d))
+
+# [37.1.0-next.55](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.54...v37.1.0-next.55) (2023-11-08)
+
+
+### Features
+
+
+* **chip-set:** enable consumers to make it `invalid` ([ff09716](https://github.com/Lundalogik/lime-elements/commit/ff09716acde94b4006bd999badaea881667d5777))
+* **file:** enable consumers to make it `invalid` ([af1780c](https://github.com/Lundalogik/lime-elements/commit/af1780c5e7cd1bc378147fc9e9f33692dc4d83b6))
+* **picker:** enable consumers to make it `invalid` ([c2171fa](https://github.com/Lundalogik/lime-elements/commit/c2171fad2e557898a87fc18eba4a44bef18cdc80))
+
+# [37.1.0-next.54](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.53...v37.1.0-next.54) (2023-11-06)
+
+
+### Reverts
+
+
+* "chore(deps-dev): bump ajv from 6.12.6 to 8.10.0" ([bf78916](https://github.com/Lundalogik/lime-elements/commit/bf789168d7217257a1ba87ce42ec4ce4d5a6fb07))
+* "fix(form): make form compatible with Ajv version 8" ([524527c](https://github.com/Lundalogik/lime-elements/commit/524527cf68a9d896e473ef4b94b724d5fb746a79))
+* "fix(form): only log schema validation errors" ([fc32a02](https://github.com/Lundalogik/lime-elements/commit/fc32a02954d816c9799feda2150cb5e7a2cc64a8))
+* add ajv-formats ([7001cab](https://github.com/Lundalogik/lime-elements/commit/7001cab238b86fa7416ae715ab33ccb38b2fafca))
+
+# [37.1.0-next.53](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.52...v37.1.0-next.53) (2023-11-03)
+
+
+### Bug Fixes
+
+
+* **helper-line:** when hidden, it should not have any height ([0d68c6d](https://github.com/Lundalogik/lime-elements/commit/0d68c6d0d27f4b433d6c57f0ad33fe505e606847))
+
 # [37.1.0-next.52](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.51...v37.1.0-next.52) (2023-10-31)
 
 

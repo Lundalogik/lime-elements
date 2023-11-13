@@ -7,6 +7,7 @@ import {
     Prop,
 } from '@stencil/core';
 import { FlowItem } from '../../../interface';
+import { getIconName } from 'src/components/icon/get-icon-props';
 
 /**
  * @private
@@ -100,7 +101,9 @@ export class ProgressFlowItem {
             return;
         }
 
-        return <limel-icon name={this.item.icon} size="small" class="icon" />;
+        const name = getIconName(this.item.icon);
+
+        return <limel-icon name={name} size="small" class="icon" />;
     }
 
     private renderDivider() {

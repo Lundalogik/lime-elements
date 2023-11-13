@@ -26,26 +26,34 @@ export class ListGridExample {
         {
             text: 'Smash Up!',
             value: 2,
-            icon: 'alien',
-            iconColor: 'rgb(var(--color-lime-light))',
+            icon: {
+                name: 'alien',
+                color: 'rgb(var(--color-lime-light))',
+            },
         },
         {
             text: 'Pandemic',
             value: 3,
-            icon: 'virus',
-            iconColor: 'rgb(var(--color-red-light))',
+            icon: {
+                name: 'virus',
+                color: 'rgb(var(--color-red-light))',
+            },
         },
         {
             text: 'Catan',
             value: 4,
-            icon: 'wheat',
-            iconColor: 'rgb(var(--color-amber-default))',
+            icon: {
+                name: 'wheat',
+                color: 'rgb(var(--color-amber-default))',
+            },
         },
         {
             text: 'Ticket to Ride',
             value: 5,
-            icon: 'steam_engine',
-            iconColor: 'rgb(var(--color-glaucous-default))',
+            icon: {
+                name: 'steam_engine',
+                color: 'rgb(var(--color-glaucous-default))',
+            },
         },
     ];
 

@@ -32,6 +32,7 @@ import {
 } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
 import { LimelChipSetCustomEvent, LimelListCustomEvent } from 'src/components';
+import { getIconFillColor, getIconName } from '../icon/get-icon-props';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
@@ -99,6 +100,13 @@ export class Picker {
      */
     @Prop()
     public required: boolean = false;
+
+    /**
+     * Set to `true` to indicate that the current value of the input field is
+     * invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
 
     /**
      * Currently selected value or values
@@ -252,6 +260,7 @@ export class Picker {
                 leadingIcon={this.leadingIcon}
                 value={this.chips}
                 disabled={this.disabled}
+                invalid={this.invalid}
                 delimiter={this.renderDelimiter()}
                 readonly={this.readonly}
                 required={this.required}
@@ -312,12 +321,15 @@ export class Picker {
     }
 
     private createChip(listItem: ListItem): Chip {
+        const name = getIconName(listItem.icon);
+        const color = getIconFillColor(listItem.icon, listItem.iconColor);
+
         return {
             id: `${listItem.value}`,
             text: listItem.text,
             removable: true,
-            icon: listItem.icon,
-            iconFillColor: listItem.iconColor,
+            icon: name,
+            iconFillColor: color,
             value: listItem,
         };
     }

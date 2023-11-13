@@ -23,21 +23,27 @@ export class ChipIconColorExample {
                     {
                         id: 2,
                         text: 'Elephant',
-                        icon: 'elephant',
-                        iconFillColor: 'rgb(var(--color-magenta-default))',
+                        icon: {
+                            name: 'elephant',
+                            color: 'rgb(var(--color-magenta-default))',
+                        },
                     },
                     {
                         id: 3,
                         text: 'Caterpillar',
-                        icon: 'caterpillar',
-                        iconBackgroundColor: 'rgb(var(--color-orange-default))',
+                        icon: {
+                            name: 'caterpillar',
+                            backgroundColor: 'rgb(var(--color-orange-default))',
+                        },
                     },
                     {
                         id: 4,
                         text: 'Fish',
-                        icon: 'fish',
-                        iconFillColor: 'rgb(var(--color-yellow-light))',
-                        iconBackgroundColor: 'rgb(var(--color-indigo-darker))',
+                        icon: {
+                            name: 'fish',
+                            color: 'rgb(var(--color-yellow-light))',
+                            backgroundColor: 'rgb(var(--color-indigo-darker))',
+                        },
                     },
                 ]}
             />,

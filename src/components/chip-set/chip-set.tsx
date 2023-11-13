@@ -20,6 +20,12 @@ import { handleKeyboardEvent } from './chip-set-input-helpers';
 import translate from '../../global/translations';
 import { getHref, getTarget } from '../../util/link-helper';
 import { isEqual } from 'lodash-es';
+import {
+    getIconBackgroundColor,
+    getIconColor,
+    getIconName,
+    getIconTitle,
+} from '../icon/get-icon-props';
 
 const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
 const INPUT_FIELD_TABINDEX = 1;
@@ -90,6 +96,13 @@ export class ChipSet {
      */
     @Prop({ reflect: true })
     public readonly: boolean = false;
+
+    /**
+     * Set to `true` to indicate that the current value of the input field is
+     * invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
 
     /**
      * For chip-sets of type `input`. Value to use for the `type` attribute on the
@@ -255,6 +268,8 @@ export class ChipSet {
     }
 
     public componentDidLoad() {
+        this.triggerIconColorWarning(this.value);
+
         if (this.type === 'input') {
             this.mdcTextField = new MDCTextField(
                 this.host.shadowRoot.querySelector('.mdc-text-field')
@@ -466,6 +481,15 @@ export class ChipSet {
     }
 
     private isInvalid() {
+        if (this.readonly) {
+            // A readonly field can never be invalid.
+            return false;
+        }
+
+        if (this.invalid) {
+            return true;
+        }
+
         if (!this.required) {
             return false;
         }
@@ -684,23 +708,30 @@ export class ChipSet {
     }
 
     private renderChipIcon(chip: Chip) {
+        const name = getIconName(chip.icon);
+        const color = getIconColor(chip.icon, chip.iconFillColor);
+        const backgroundColor = getIconBackgroundColor(
+            chip.icon,
+            chip.iconBackgroundColor
+        );
+        const title = getIconTitle(chip.icon, chip.iconTitle);
         const style = {};
-        if (chip.iconFillColor) {
-            style['--icon-color'] = chip.iconFillColor;
+        if (color) {
+            style['--icon-color'] = color;
         }
 
-        if (chip.iconBackgroundColor) {
-            style['--icon-background-color'] = chip.iconBackgroundColor;
+        if (backgroundColor) {
+            style['--icon-background-color'] = backgroundColor;
         }
 
         return (
             <limel-icon
                 class="mdc-chip__icon mdc-chip__icon--leading"
-                name={chip.icon}
+                name={name}
                 style={style}
                 size="small"
                 badge={true}
-                title={chip.iconTitle}
+                title={title}
             />
         );
     }
@@ -788,5 +819,21 @@ export class ChipSet {
         }
 
         return <limel-badge label={chip.badge} />;
+    }
+
+    private triggerIconColorWarning(value: Chip[]) {
+        for (const chip of value) {
+            if (
+                chip.icon &&
+                (chip.iconFillColor ||
+                    chip.iconBackgroundColor ||
+                    chip.iconTitle)
+            ) {
+                /* eslint-disable-next-line no-console */
+                console.warn(
+                    "The `iconFillColor`, `iconBackgroundColor`, and `iconTitle` props are deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name', `iconBackgroundColor: 'color-name', and `iconTitle: 'title'`, write `icon { name: 'icon-name', color: 'color-name', backgroundColor: 'color-name', title: 'title' }`."
+                );
+            }
+        }
     }
 }

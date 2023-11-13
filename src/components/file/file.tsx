@@ -96,6 +96,13 @@ export class File {
     public readonly: boolean = false;
 
     /**
+     * Set to `true` to indicate that the current value of the chosen file is
+     * invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
+
+    /**
      * The [accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers)
      */
     @Prop({ reflect: true })
@@ -186,6 +193,7 @@ export class File {
                 }}
                 disabled={this.disabled}
                 readonly={this.readonly}
+                invalid={this.invalid}
                 label={this.label}
                 leadingIcon="upload_to_cloud"
                 language={this.language}
@@ -232,11 +240,13 @@ export class File {
                 ...DEFAULT_FILE_CHIP,
                 text: this.value.filename,
                 id: this.value.id,
-                icon: getFileIcon(this.value),
-                iconFillColor: getFileColor(this.value),
-                iconBackgroundColor: getFileBackgroundColor(this.value),
+                icon: {
+                    name: getFileIcon(this.value),
+                    title: getFileExtensionTitle(this.value),
+                    color: getFileColor(this.value),
+                    backgroundColor: getFileBackgroundColor(this.value),
+                },
                 href: this.value.href,
-                iconTitle: getFileExtensionTitle(this.value),
             },
         ];
     }

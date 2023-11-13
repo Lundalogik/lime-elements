@@ -108,13 +108,6 @@ export class SchemaField extends React.Component<FieldProps> {
         this.handleChange = this.handleChange.bind(this);
         this.handleCustomComponentChange =
             this.handleCustomComponentChange.bind(this);
-        this.initState();
-    }
-
-    private initState() {
-        if (this.hasValue()) {
-            this.state.modified = true;
-        }
     }
 
     private hasValue() {
@@ -144,11 +137,10 @@ export class SchemaField extends React.Component<FieldProps> {
         const { modified } = this.state;
         const { errorSchema } = this.props;
 
-        if (!modified) {
-            return false;
-        }
-
-        return !isEmpty(errorSchema);
+        return (
+            (modified || this.hasValue() || !this.isRequired()) &&
+            !isEmpty(errorSchema)
+        );
     }
 
     private isRequired() {

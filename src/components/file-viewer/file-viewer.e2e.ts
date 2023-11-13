@@ -44,10 +44,10 @@ describe('limel-file-viewer', () => {
             page = await createPage(`
                 <limel-file-viewer url="file.pdf"></limel-file-viewer>
             `);
-            contentElement = await page.find('limel-file-viewer>>>object');
+            contentElement = await page.find('limel-file-viewer>>>iframe');
         });
-        it('displays the pdf using the object element', () => {
-            expect(contentElement.getAttribute('data')).toEqualText('file.pdf');
+        it('displays the pdf using the iframe element', () => {
+            expect(contentElement.getAttribute('src')).toContain('blob:');
         });
         it('does not show button controls', async () => {
             const buttons = await page.find('limel-file-viewer>>>div.buttons');

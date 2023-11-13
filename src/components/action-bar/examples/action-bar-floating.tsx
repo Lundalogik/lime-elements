@@ -48,13 +48,17 @@ export class ActionBarFloatingExample {
         },
         {
             text: 'Park',
-            icon: 'circled_pause',
-            iconColor: 'rgb(var(--color-orange-default))',
+            icon: {
+                name: 'circled_pause',
+                color: 'rgb(var(--color-orange-default))',
+            },
         },
         {
             text: 'Close',
-            icon: 'do_not_disturb',
-            iconColor: 'rgb(var(--color-red-default))',
+            icon: {
+                name: 'do_not_disturb',
+                color: 'rgb(var(--color-red-default))',
+            },
         },
     ];
 

@@ -136,11 +136,24 @@ export class FileViewer {
     private isFullscreen: boolean = false;
 
     @State()
-    public fileType: FileType;
+    private fileType: FileType;
+
+    /**
+     * True while the file is being loaded.
+     */
+    @State()
+    private loading: boolean = true;
+
+    @State()
+    private fileUrl: string = '';
 
     constructor() {
         this.fullscreen = new Fullscreen(this.HostElement);
+    }
+
+    public async componentWillLoad() {
         this.fileType = detectExtension(this.filename, this.url);
+        await this.createURL(this.fileType);
     }
 
     public render() {
@@ -148,16 +161,22 @@ export class FileViewer {
             return this.renderNoFileSupportMessage();
         }
 
+        if (this.loading) {
+            return <limel-spinner size="x-small" limeBranded={false} />;
+        }
+
         return this.renderFileViewer();
     }
 
     @Watch('url')
-    protected watchUrl(newUrl: string, oldUrl: string) {
+    protected async watchUrl(newUrl: string, oldUrl: string) {
         if (newUrl === oldUrl) {
             return;
         }
 
-        this.fileType = detectExtension(this.filename, this.url);
+        this.loading = true;
+        this.fileType = detectExtension(this.filename, this.fileUrl);
+        await this.createURL(this.fileType);
     }
 
     private renderFileViewer() {
@@ -181,18 +200,21 @@ export class FileViewer {
             <div class="action-menu-for-pdf-files">
                 {this.renderActionMenu()}
             </div>,
-            <object data={this.url} type="application/pdf" />,
+            <iframe src={this.fileUrl} />,
         ];
     };
 
     private renderImage = () => {
-        return [this.renderButtons(), <img src={this.url} alt={this.alt} />];
+        return [
+            this.renderButtons(),
+            <img src={this.fileUrl} alt={this.alt} />,
+        ];
     };
 
     private renderVideo = () => {
         return (
             <video controls>
-                <source src={this.url} />
+                <source src={this.fileUrl} />
             </video>
         );
     };
@@ -200,7 +222,7 @@ export class FileViewer {
     private renderAudio = () => {
         return (
             <audio controls>
-                <source src={this.url} />
+                <source src={this.fileUrl} />
             </audio>
         );
     };
@@ -208,7 +230,7 @@ export class FileViewer {
     private renderText = () => {
         return [
             this.renderButtons(),
-            <object data={this.url} type="text/plain" />,
+            <object data={this.fileUrl} type="text/plain" />,
         ];
     };
 
@@ -218,7 +240,9 @@ export class FileViewer {
                 {this.renderActionMenu()}
             </div>,
             <iframe
-                src={this.getOfficeViewerUrl() + this.url + '&embedded=true'}
+                src={
+                    this.getOfficeViewerUrl() + this.fileUrl + '&embedded=true'
+                }
                 frameborder="0"
             />,
         ];
@@ -227,7 +251,10 @@ export class FileViewer {
     private isOfficeFileAccessibleViaURL = () => {
         return (
             this.fileType === 'office' &&
-            !(this.url.startsWith('http://') || this.url.startsWith('https://'))
+            !(
+                this.fileUrl.startsWith('http://') ||
+                this.fileUrl.startsWith('https://')
+            )
         );
     };
 
@@ -307,7 +334,7 @@ export class FileViewer {
                 id="tooltip-download"
                 role="button"
                 download={this.filename ? this.filename : ''}
-                href={this.url}
+                href={this.fileUrl}
                 target="_blank"
             >
                 <limel-icon name="download_2" />
@@ -330,7 +357,7 @@ export class FileViewer {
                 class="button--new-tab"
                 id="tooltip-new-tab"
                 role="button"
-                href={this.url}
+                href={this.fileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
             >
@@ -371,6 +398,19 @@ export class FileViewer {
                 </button>
             </limel-menu>
         );
+    };
+
+    private createURL = async (fileType: string) => {
+        if (['pdf'].includes(fileType)) {
+            const response = await fetch(this.url);
+            const blob = await response.blob();
+
+            this.fileUrl = URL.createObjectURL(blob);
+        } else {
+            this.fileUrl = this.url;
+        }
+
+        this.loading = false;
     };
 
     private handleToggleFullscreen = () => {

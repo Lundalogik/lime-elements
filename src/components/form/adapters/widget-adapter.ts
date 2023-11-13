@@ -31,13 +31,6 @@ export class LimeElementsWidgetAdapter extends React.Component {
         super(props);
 
         this.handleBlur = this.handleBlur.bind(this);
-        this.initState();
-    }
-
-    private initState() {
-        if (this.hasValue()) {
-            this.state.modified = true;
-        }
     }
 
     private hasValue() {
@@ -71,11 +64,9 @@ export class LimeElementsWidgetAdapter extends React.Component {
         const { modified } = this.state;
         const { rawErrors } = this.props.widgetProps;
 
-        if (!modified) {
-            return false;
-        }
-
-        return !!rawErrors;
+        return (
+            !!rawErrors && (modified || this.hasValue() || !this.isRequired())
+        );
     }
 
     private isRequired() {
