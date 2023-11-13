@@ -1,3 +1,12 @@
+# [37.1.0-next.62](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.61...v37.1.0-next.62) (2023-11-13)
+
+
+### Features
+
+
+* **checkbox:** allow making it invalid ([dab9da9](https://github.com/Lundalogik/lime-elements/commit/dab9da97d04c1b8b8952cabedf7235169a837655))
+* **switch:** allow making it invalid ([e8a08b4](https://github.com/Lundalogik/lime-elements/commit/e8a08b48b698da04e3e30852a3acdee6aad97bee))
+
 # [37.1.0-next.61](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.60...v37.1.0-next.61) (2023-11-13)
 
 
