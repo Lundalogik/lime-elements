@@ -1,3 +1,11 @@
+# [37.1.0-next.63](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.62...v37.1.0-next.63) (2023-11-14)
+
+
+### Bug Fixes
+
+
+* **fiel-viewer:** add basic lazy loading to `img`s and `iframe`s ([b2e3f89](https://github.com/Lundalogik/lime-elements/commit/b2e3f8993e215c37fab6ef4b8e67e3f57c40635a))
+
 # [37.1.0-next.62](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.61...v37.1.0-next.62) (2023-11-13)
 
 
