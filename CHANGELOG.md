@@ -1,3 +1,16 @@
+# [37.1.0-next.64](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.63...v37.1.0-next.64) (2023-11-14)
+
+
+### Bug Fixes
+
+
+* **checkbox:** prevent helper line to occupy screen space when hidden ([fb6111f](https://github.com/Lundalogik/lime-elements/commit/fb6111f2635abf8de0070c1518cd0006a032691d))
+* **chip-set:** prevent helper line to occupy screen space when hidden ([c8df2ee](https://github.com/Lundalogik/lime-elements/commit/c8df2ee1a6b7cf505e3d37f39ffbe8a1fe2ad911))
+* **input-field:** prevent helper line to occupy screen space when hidden ([1c28a93](https://github.com/Lundalogik/lime-elements/commit/1c28a933c7c3fc0c16de184b7abea45dd3a415d0))
+* **select:** prevent helper line to occupy screen space when hidden ([4d6684a](https://github.com/Lundalogik/lime-elements/commit/4d6684a10328985db7f4b8fe88fbf9beb43f6add))
+* **slider:** prevent helper line to occupy screen space when hidden ([79169e3](https://github.com/Lundalogik/lime-elements/commit/79169e340de2c9f25503996189fd97a0a36e63b4))
+* **switch:** prevent helper line to occupy screen space when hidden ([5e3ae97](https://github.com/Lundalogik/lime-elements/commit/5e3ae9795da1cea7a1c6503354ecb7a8ed38aea7))
+
 # [37.1.0-next.63](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.62...v37.1.0-next.63) (2023-11-14)
 
 
