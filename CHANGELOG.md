@@ -1,3 +1,11 @@
+# [37.1.0-next.67](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.66...v37.1.0-next.67) (2023-11-16)
+
+
+### Features
+
+
+* **menu:** add search functionality ([2282c9e](https://github.com/Lundalogik/lime-elements/commit/2282c9e5f35e92a15be98245dcd4938dbb898b8e))
+
 # [37.1.0-next.66](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.65...v37.1.0-next.66) (2023-11-16)
 
 
