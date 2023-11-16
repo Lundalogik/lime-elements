@@ -1,3 +1,11 @@
+# [37.1.0-next.66](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.65...v37.1.0-next.66) (2023-11-16)
+
+
+### Features
+
+
+* **menu:** support lazy loading of menu items ([8c64a49](https://github.com/Lundalogik/lime-elements/commit/8c64a4978832cf9c03b857ef890c0f81a0f27f3e))
+
 # [37.1.0-next.65](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.64...v37.1.0-next.65) (2023-11-16)
 
 
