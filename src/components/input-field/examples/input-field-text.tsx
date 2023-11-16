@@ -54,6 +54,11 @@ export class InputFieldTextExample {
                     label="Required"
                     onChange={this.setRequired}
                 />
+                <limel-checkbox
+                    checked={this.invalid}
+                    label="Invalid"
+                    onChange={this.setInvalid}
+                />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,
         ];
@@ -82,5 +87,10 @@ export class InputFieldTextExample {
     private setRequired = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.required = event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.invalid = event.detail;
     };
 }
