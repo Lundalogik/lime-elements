@@ -1,3 +1,11 @@
+# [37.1.0-next.65](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.64...v37.1.0-next.65) (2023-11-16)
+
+
+### Bug Fixes
+
+
+* **form:** ensure input fields display `helperText` correctly ([c883c5f](https://github.com/Lundalogik/lime-elements/commit/c883c5fa61842192cfeb3287506c54bb1a34e97f))
+
 # [37.1.0-next.64](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.63...v37.1.0-next.64) (2023-11-14)
 
 
