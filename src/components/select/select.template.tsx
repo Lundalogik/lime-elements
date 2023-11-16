@@ -258,6 +258,15 @@ function createMenuItems(
         const name = getIconName(option.icon);
         const color = getIconColor(option.icon, option.iconColor);
 
+        if (!name) {
+            return {
+                text: text,
+                selected: selected,
+                disabled: disabled,
+                value: option,
+            };
+        }
+
         return {
             text: text,
             selected: selected,
