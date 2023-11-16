@@ -255,13 +255,13 @@
     :host(#{$component-tag}:focus),
     :host(#{$component-tag}:focus-visible),
     :host(#{$component-tag}:focus-within),
-    :host(#{$component-tag}[invalid]) {
+    :host(#{$component-tag}[invalid]:not([invalid='false'])),
+    :host(#{$component-tag}[invalid='true']) {
         --limel-h-l-grid-template-rows-transition-speed: 0.46s;
         --limel-h-l-grid-template-rows: 1fr;
     }
 
-    :host(#{$component-tag}),
-    :host(#{$component-tag}[invalid='false']) {
+    :host(#{$component-tag}) {
         --limel-h-l-grid-template-rows-transition-speed: 0.3s;
         --limel-h-l-grid-template-rows: 0fr;
     }
