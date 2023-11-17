@@ -1,3 +1,11 @@
+# [37.1.0-next.68](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.67...v37.1.0-next.68) (2023-11-17)
+
+
+### Bug Fixes
+
+
+* **select:** don't render empty icons ([3140035](https://github.com/Lundalogik/lime-elements/commit/31400355e8f59271b10c2296723defc43dbd081e))
+
 # [37.1.0-next.67](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.66...v37.1.0-next.67) (2023-11-16)
 
 
