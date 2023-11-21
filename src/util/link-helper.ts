@@ -33,7 +33,16 @@ function isValid(href: string) {
 }
 
 function hasKnownProtocol(input: string) {
-    const knownProtocols = ['ftp', 'ftps', 'https', 'http'];
+    const knownProtocols = [
+        'ftp',
+        'ftps',
+        'https',
+        'http',
+
+        // m-files is a protocol used by the M-Files desktop app or something.
+        // It's not a web protocol, but it allows open M-Files links in their app.
+        'm-files',
+    ];
 
     return knownProtocols.some((knownProtocol) => {
         return input.indexOf(knownProtocol + '://') === 0;
