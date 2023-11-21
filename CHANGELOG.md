@@ -1,3 +1,11 @@
+# [37.1.0-next.69](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.68...v37.1.0-next.69) (2023-11-21)
+
+
+### Bug Fixes
+
+
+* add support for `m-files://` links ([da6420e](https://github.com/Lundalogik/lime-elements/commit/da6420e45bf5430fa96ee558bab1126085ac715a))
+
 # [37.1.0-next.68](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.67...v37.1.0-next.68) (2023-11-17)
 
 
