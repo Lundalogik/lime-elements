@@ -40,6 +40,12 @@ export class ProgressFlowItem {
     public readonly = false;
 
     /**
+     * True for current step
+     */
+    @Prop()
+    public currentStep: boolean = false;
+
+    /**
      * Fired when clicking on the flow item
      */
     @Event()
@@ -63,6 +69,7 @@ export class ProgressFlowItem {
                 }}
                 onClick={this.handleClick}
                 disabled={this.isDisabled()}
+                aria-current={this.currentStep ? 'step' : null}
             >
                 {this.renderIcon()}
                 <span class="text">{this.item.text}</span>
