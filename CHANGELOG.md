@@ -1,3 +1,11 @@
+# [37.1.0-next.70](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.69...v37.1.0-next.70) (2023-11-23)
+
+
+### Bug Fixes
+
+
+* **progress-flow:** improve accessibility, using `aria-current="true"` on current step ([2be39a6](https://github.com/Lundalogik/lime-elements/commit/2be39a6f12b188838f7d45118afd5d139971682d))
+
 # [37.1.0-next.69](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.68...v37.1.0-next.69) (2023-11-21)
 
 
