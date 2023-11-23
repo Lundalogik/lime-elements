@@ -105,6 +105,7 @@ export class ProgressFlow {
                 item={item}
                 onInteract={this.handleFlowItemClick(item)}
                 data-tracking-value={item.value}
+                currentStep={index === this.selectedItemIndex}
             />
         );
     };
