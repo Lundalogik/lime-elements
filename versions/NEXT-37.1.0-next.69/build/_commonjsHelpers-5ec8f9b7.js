@@ -1,2 +1,0 @@
-var e=typeof globalThis!=="undefined"?globalThis:typeof window!=="undefined"?window:typeof global!=="undefined"?global:typeof self!=="undefined"?self:{};function n(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e["default"]:e}function o(e,n,o){return o={path:n,exports:{},require:function(e,n){return r()}},e(o,o.exports),o.exports}function r(){throw new Error("Dynamic requires are not currently supported by @rollup/plugin-commonjs")}export{e as a,r as b,o as c,n as g};
-//# sourceMappingURL=_commonjsHelpers-5ec8f9b7.js.map
