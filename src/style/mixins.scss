@@ -275,3 +275,41 @@
         }
     }
 }
+
+/**
+* This mixin will add an animated underline to the bottom of an `a` elements.
+* Note that you may need to add `all: unset;` –depending on your use case–
+* before using this mixin.
+*/
+@mixin hyperlink(
+    $color: rgb(var(--color-blue-default)),
+    $color--hovered: rgb(var(--color-blue-default))
+) {
+    position: relative;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    color: $color;
+
+    &:before {
+        transition: opacity 0.2s ease, transform 0.3s ease-out;
+        content: '';
+        position: absolute;
+        inset: auto 0 0 0;
+        width: calc(100% - 0.5rem);
+        margin: auto;
+        height: 0.125rem;
+        border-radius: 1rem;
+
+        background-color: currentColor;
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    &:hover {
+        color: $color--hovered;
+        &:before {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+    }
+}
