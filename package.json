@@ -53,7 +53,7 @@
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "@types/tabulator-tables": "^4.9.4",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^5.62.0",
     "awesome-debounce-promise": "^2.1.0",
     "codemirror": "^5.65.9",
