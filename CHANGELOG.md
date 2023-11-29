@@ -1,3 +1,11 @@
+# [37.1.0-next.71](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.70...v37.1.0-next.71) (2023-11-29)
+
+
+### Bug Fixes
+
+
+* **menu:** be able to use ListSeparator in search result ([870a17b](https://github.com/Lundalogik/lime-elements/commit/870a17b047957ae6d43caeaa3737228ed6d86b14))
+
 # [37.1.0-next.70](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.69...v37.1.0-next.70) (2023-11-23)
 
 
