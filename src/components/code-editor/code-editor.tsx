@@ -102,7 +102,7 @@ export class CodeEditor {
 
     public disconnectedCallback() {
         this.observer.unobserve(this.host);
-        this.editor.off('change', this.handleChange);
+        this.editor?.off('change', this.handleChange);
         this.editor = null;
 
         this.darkMode.removeEventListener('change', this.handleChangeDarkMode);
