@@ -1,3 +1,11 @@
+# [37.1.0-next.72](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.71...v37.1.0-next.72) (2023-11-30)
+
+
+### Features
+
+
+* **markdown:** add a `private` feature for truncating `p` elements ([11a0930](https://github.com/Lundalogik/lime-elements/commit/11a09306aad0d01d79fd8c417817efa5a1124c20))
+
 # [37.1.0-next.71](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.70...v37.1.0-next.71) (2023-11-29)
 
 
