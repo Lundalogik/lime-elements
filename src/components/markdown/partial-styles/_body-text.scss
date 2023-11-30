@@ -1,3 +1,13 @@
+:host(limel-markdown.truncate-paragraphs) {
+    // This is not a public feature.
+    // We use it only in CRM, in limebb-feed header.
+    p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
 p,
 a,
 li {
