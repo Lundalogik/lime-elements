@@ -1,3 +1,11 @@
+# [37.1.0-next.73](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.72...v37.1.0-next.73) (2023-11-30)
+
+
+### Bug Fixes
+
+
+* **code-editor:** avoid potential attempt at reading property of undefined ([7085e56](https://github.com/Lundalogik/lime-elements/commit/7085e5651472ba69c4ab6d5b730bfd83ae8cfd36))
+
 # [37.1.0-next.72](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.71...v37.1.0-next.72) (2023-11-30)
 
 
