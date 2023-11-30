@@ -1,2 +1,0 @@
-import{r as e,h as s}from"./index-6156b4fd.js";import{d as t}from"./birds-a0b078f9.js";const o=":host{--code-editor-max-height:20rem}";const r=class{constructor(s){e(this,s);this.handleChange=e=>{this.json=e.detail};this.json=JSON.stringify(t,null,"    ")}render(){return s("limel-code-editor",{value:this.json,language:"json",onChange:this.handleChange})}};r.style=o;export{r as limel_example_code_editor};
-//# sourceMappingURL=limel-example-code-editor.entry.js.map
