@@ -1,3 +1,8 @@
+/**
+* @prop --markdown-hyperlink-color: color of text for hyperlinks. Defaults to `--color-blue-dark`;
+* @prop --markdown-hyperlink-color--hovered: color of text for hyperlinks when hovered. Defaults to `--color-blue-default`;
+*/
+
 @import './partial-styles/pre-code.scss';
 @import './partial-styles/headings.scss';
 @import './partial-styles/body-text.scss';

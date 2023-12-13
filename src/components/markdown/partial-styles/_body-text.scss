@@ -25,11 +25,14 @@ p {
 
 a {
     transition: color 0.2s ease;
-    color: rgb(var(--color-blue-dark));
+    color: var(--markdown-hyperlink-color, rgb(var(--color-blue-dark)));
     text-decoration: none;
 
     &:hover {
-        color: rgb(var(--color-blue-default));
+        color: var(
+            --markdown-hyperlink-color--hovered,
+            rgb(var(--color-blue-default))
+        );
     }
 }
 
