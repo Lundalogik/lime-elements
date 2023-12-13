@@ -1,3 +1,11 @@
+# [37.1.0-next.74](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.73...v37.1.0-next.74) (2023-12-13)
+
+
+### Features
+
+
+* **markdown:** add CSS props for hyperlinks colors ([4a0581e](https://github.com/Lundalogik/lime-elements/commit/4a0581eae96dd1c10bcbd36e988a1322c6d822be))
+
 # [37.1.0-next.73](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.72...v37.1.0-next.73) (2023-11-30)
 
 
