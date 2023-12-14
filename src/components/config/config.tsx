@@ -1,5 +1,5 @@
 import { Component, Prop } from '@stencil/core';
-import globalConfig from '../../global/config';
+import { globalConfig } from '../../global/config';
 
 /**
  * @private
