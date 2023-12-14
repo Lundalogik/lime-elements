@@ -13,7 +13,11 @@ export class Config {
      * Global configuration for Lime Elements
      */
     @Prop()
-    public config: Partial<typeof globalConfig>;
+    public config: {
+        iconPath?: string;
+        defaultLocale?: string;
+        featureSwitches: any;
+    };
 
     public componentDidLoad() {
         this.setGlobalConfig();
