@@ -14,6 +14,7 @@ import translate from '../../global/translations';
 import { detectExtension } from './extension-mapping';
 import { Fullscreen } from './fullscreen';
 import { FileType, OfficeViewer } from './file-viewer.types';
+import { LimelMenuCustomEvent } from 'src/components';
 
 /**
  * This is a smart component that automatically detects
@@ -422,7 +423,7 @@ export class FileViewer {
         }
     };
 
-    private emitOnAction = (event: CustomEvent<ListItem>) => {
+    private emitOnAction = (event: LimelMenuCustomEvent<ListItem>) => {
         event.stopPropagation();
         this.action.emit(event.detail);
     };
