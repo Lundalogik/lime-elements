@@ -30,7 +30,7 @@ import { getHref, getTarget } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
 import { LimelListCustomEvent } from 'src/components';
-import config from '../../global/config';
+import { globalConfig } from '../../global/config';
 
 interface LinkProperties {
     href: string;
@@ -223,7 +223,7 @@ export class InputField {
      * The locale to use for formatting numbers.
      */
     @Prop({ reflect: true })
-    public locale: string = config.defaultLocale;
+    public locale: string = globalConfig.defaultLocale;
 
     /**
      * Emitted when the input value is changed.

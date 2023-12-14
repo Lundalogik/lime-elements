@@ -1,5 +1,5 @@
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
-import config from '../../global/config';
+import { globalConfig } from '../../global/config';
 import iconCache from '../../global/icon-cache/factory';
 import { IconSize } from './icon.types';
 
@@ -86,7 +86,7 @@ export class Icon {
      * @returns the icon SVG data
      */
     private loadSvg(name: string) {
-        return iconCache.get(name, config.iconPath);
+        return iconCache.get(name, globalConfig.iconPath);
     }
 
     /*

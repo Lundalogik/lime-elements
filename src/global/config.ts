@@ -21,6 +21,6 @@ function getFeatureSwitches(storage: Storage) {
 }
 
 const config = new Config();
-export default (() => {
+export const globalConfig = (() => {
     return config;
 })();
