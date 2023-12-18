@@ -4,7 +4,7 @@ import { schema } from './list-schema';
 
 /**
  * Form with server validation
- * @link list-schema.ts
+ * @sourceFile list-schema.ts
  */
 @Component({
     tag: 'limel-example-server-errors',

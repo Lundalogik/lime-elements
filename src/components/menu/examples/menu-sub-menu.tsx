@@ -44,7 +44,7 @@ import { CascadingMenuItems } from './item-constants';
  * - pressing the <kbd>→</kbd> key on a menu item that has sub-menu opens a nested menu,
  * - and pressing the <kbd>←</kbd> key takes the user back to the previous/parent menu.
  * :::
- * @link item-constants.ts
+ * @sourceFile item-constants.ts
  */
 @Component({
     tag: 'limel-example-menu-sub-menus',

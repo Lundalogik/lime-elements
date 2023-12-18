@@ -9,8 +9,8 @@ import { CascadingMenuItems } from './item-constants';
 
 /**
  * Searchable items
- * @link subitems-search.ts
- * @link item-constants.ts
+ * @sourceFile subitems-search.ts
+ * @sourceFile item-constants.ts
  */
 @Component({
     tag: 'limel-example-menu-searchable',

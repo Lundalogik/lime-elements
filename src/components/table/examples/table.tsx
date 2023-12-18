@@ -4,7 +4,7 @@ import { Person, persons } from './persons';
 
 /**
  *
- * @link persons.ts
+ * @sourceFile persons.ts
  */
 @Component({
     tag: 'limel-example-table',

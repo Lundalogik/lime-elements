@@ -3,8 +3,8 @@ import { schema } from './props-factory-schema';
 
 /**
  * Using `propsFactory`
- * @link props-factory-schema.ts
- * @link props-factory-picker.tsx
+ * @sourceFile props-factory-schema.ts
+ * @sourceFile props-factory-picker.tsx
  */
 @Component({
     tag: 'limel-example-props-factory-form',

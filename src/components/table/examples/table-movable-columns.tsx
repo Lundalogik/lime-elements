@@ -5,7 +5,7 @@ import { capitalize } from 'lodash-es';
 
 /**
  * Movable columns
- * @link birds.ts
+ * @sourceFile birds.ts
  */
 @Component({
     tag: 'limel-example-table-movable-columns',
