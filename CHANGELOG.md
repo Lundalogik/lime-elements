@@ -1,3 +1,11 @@
+# [37.1.0-next.75](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.74...v37.1.0-next.75) (2023-12-18)
+
+
+### Features
+
+
+* **help:** add new component ([431db0f](https://github.com/Lundalogik/lime-elements/commit/431db0f3e0eb24ba848e7ff2ab206942c9796324))
+
 # [37.1.0-next.74](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.73...v37.1.0-next.74) (2023-12-13)
 
 
