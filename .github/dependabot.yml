@@ -13,6 +13,13 @@ updates:
       - npm-github
     schedule:
       interval: "daily"
+    groups:
+      lint:
+        patterns:
+          - "@typescript-eslint/*"
+          - "eslint"
+          - "eslint-*"
+          - "prettier"
     ignore:
       - dependency-name: "@rjsf/core"
         update-types: ["version-update:semver-major"]
