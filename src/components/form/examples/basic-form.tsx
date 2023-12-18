@@ -4,7 +4,7 @@ import { schema } from './basic-schema';
 
 /**
  * Basic form with validation
- * @link basic-schema.ts
+ * @sourceFile basic-schema.ts
  */
 @Component({
     tag: 'limel-example-form',

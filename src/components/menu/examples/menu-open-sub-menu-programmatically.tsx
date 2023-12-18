@@ -13,7 +13,7 @@ import { CascadingMenuItems } from './item-constants';
  *
  * It is possible to open any sub-menu in the menu-hierarchy.
  * This is done by using the parentItem property of the MenuItem class.
- * @link item-constants.ts
+ * @sourceFile item-constants.ts
  */
 @Component({
     tag: 'limel-example-menu-open-sub-menu-programmatically',

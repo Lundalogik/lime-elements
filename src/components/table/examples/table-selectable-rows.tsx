@@ -8,7 +8,7 @@ import { persons, Person } from './persons';
 
 /**
  * Selectable rows with updating aggregates
- * @link persons.ts
+ * @sourceFile persons.ts
  */
 @Component({
     tag: 'limel-example-table-selectable-rows',

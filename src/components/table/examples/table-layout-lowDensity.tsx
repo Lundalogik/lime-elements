@@ -25,7 +25,7 @@ import { invoices, Invoice } from './invoices';
  *task is processing the presented data and making sense of it. For such views,
  *use the table component with its normal density.
  *:::
- * @link invoices.ts
+ * @sourceFile invoices.ts
  */
 @Component({
     tag: 'limel-example-table-layout-low-density',

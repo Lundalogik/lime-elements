@@ -4,7 +4,7 @@ import { schema } from './custom-error-message-schema';
 
 /**
  * Form with custom error message
- * @link custom-error-message-schema.ts
+ * @sourceFile custom-error-message-schema.ts
  */
 @Component({
     tag: 'limel-example-custom-error-message',

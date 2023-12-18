@@ -8,7 +8,7 @@ import { LazyLoader } from './menu-sub-menu-lazy-loading-service-mock';
 
 /**
  * Lazy loading items in sub-menus
- * @link menu-sub-menu-lazy-loading-service-mock.ts
+ * @sourceFile menu-sub-menu-lazy-loading-service-mock.ts
  */
 @Component({
     tag: 'limel-example-menu-sub-menu-lazy-loading',

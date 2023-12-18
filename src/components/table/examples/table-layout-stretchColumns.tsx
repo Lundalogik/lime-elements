@@ -12,7 +12,7 @@ import { invoices, Invoice } from './invoices';
  *fit perfectly in the table container, when extra space is available.
  *If all columns cannot fit within the available width,
  *then a horizontal scrollbar will appear.
- * @link invoices.ts
+ * @sourceFile invoices.ts
  */
 @Component({
     tag: 'limel-example-table-layout-stretch-columns',

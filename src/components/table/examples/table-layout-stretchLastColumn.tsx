@@ -11,7 +11,7 @@ import { invoices, Invoice } from './invoices';
  *Works just like `default`, but unlike the default layout
  *which resulted in having an empty last column, in this layout
  *the last existing column will stretch out to fill up the remaining table width.
- * @link invoices.ts
+ * @sourceFile invoices.ts
  */
 @Component({
     tag: 'limel-example-table-layout-stretch-last-column',
