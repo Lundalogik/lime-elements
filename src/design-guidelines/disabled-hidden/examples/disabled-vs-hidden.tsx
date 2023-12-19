@@ -48,18 +48,23 @@ export class ButtonDisabledVsHideExample {
                 cases, users should be able to do something to enable the
                 <code>disabled</code> element!
             </p>,
-            <div class="do">
-                <limel-header icon="ok" heading="Disabled button in the form" />
-                <limel-checkbox
-                    label="Accept terms and conditions"
-                    required
-                    onChange={this.setChecked}
-                    checked={this.value}
-                />
-                <limel-button
-                    label="Submit"
-                    disabled={this.value ? false : true}
-                />
+            <div class="do-dont-container">
+                <div class="do">
+                    <limel-header
+                        icon="ok"
+                        heading="Disabled button in the form"
+                    />
+                    <limel-checkbox
+                        label="Accept terms and conditions"
+                        required
+                        onChange={this.setChecked}
+                        checked={this.value}
+                    />
+                    <limel-button
+                        label="Submit"
+                        disabled={this.value ? false : true}
+                    />
+                </div>
             </div>,
             <p>
                 Simply showing a disabled element in the user interface might
@@ -69,25 +74,22 @@ export class ButtonDisabledVsHideExample {
                 buttons for instance, could have a tooltip or message explaining
                 why they are disabled.
             </p>,
-
-            <div class="do">
-                <limel-header
-                    icon="ok"
-                    heading="Disabled button together with a Tooltip"
-                />
-                <div id="tooltip-example">
-                    <limel-button
-                        class="disabled-button"
-                        disabled
-                        icon="phone"
-                        label="Call"
+            <div class="do-dont-container">
+                <div class="do">
+                    <limel-header
+                        icon="ok"
+                        heading="Disabled button together with a Tooltip"
+                    />
+                    <div id="tooltip-example">
+                        <limel-button disabled icon="phone" label="Call" />
+                    </div>
+                    <limel-tooltip
+                        label="Select a recipient to make a call"
+                        elementId="tooltip-example"
                     />
                 </div>
-                <limel-tooltip
-                    label="Select a recipient to make a call"
-                    elementId="tooltip-example"
-                />
             </div>,
+
             <p>
                 Another idea could be to display a more noticeable visual
                 element next to the disabled element, which hints about an
@@ -95,24 +97,26 @@ export class ButtonDisabledVsHideExample {
                 the user that they need to complete a certain step or meet
                 specific conditions before proceeding.
             </p>,
-            <div class="do">
-                <limel-header
-                    icon="ok"
-                    heading="Disabled button together with an info icon"
-                />
-                <div class="button-icon">
-                    <limel-button
-                        class="disabled-button"
-                        disabled
-                        icon="plus_math"
-                        label="Add recipient"
+
+            <div class="do-dont-container">
+                <div class="do">
+                    <limel-header
+                        icon="ok"
+                        heading="Disabled button together with an info icon"
                     />
-                    <limel-icon name="info" id="tooltip" size="x-small" />
+                    <div class="button-icon">
+                        <limel-button
+                            disabled
+                            icon="plus_math"
+                            label="Add recipient"
+                        />
+                        <limel-icon name="info" id="tooltip" size="x-small" />
+                    </div>
+                    <limel-tooltip
+                        label="To activate this feature, call our support!"
+                        elementId="tooltip"
+                    />
                 </div>
-                <limel-tooltip
-                    label="To activate this feature, call our support!"
-                    elementId="tooltip"
-                />
             </div>,
             <h3>Hiding an interactive element:</h3>,
             <p>
@@ -127,7 +131,7 @@ export class ButtonDisabledVsHideExample {
                 button, it is better to show the <b> unassign</b> button
                 instead.
             </p>,
-            <div class="relevan-buttons-example">
+            <div class="do-dont-container relevant-buttons-example">
                 <div class="do-not">
                     <limel-header icon="brake_warning" heading="Don't" />
                     <limel-button
@@ -160,7 +164,7 @@ export class ButtonDisabledVsHideExample {
                 particular user role (e.g., an admin-only action), it's best to
                 hide the button rather than disabling it.
             </p>,
-            <div class="split-example">
+            <div class="do-dont-container split-example">
                 <div class="do-not">
                     <limel-header
                         icon="brake_warning"
