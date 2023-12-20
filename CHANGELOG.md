@@ -1,3 +1,11 @@
+# [37.1.0-next.78](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.77...v37.1.0-next.78) (2023-12-20)
+
+
+### Features
+
+
+* **input-field:** add support for `file://` protocol ([0fe04d5](https://github.com/Lundalogik/lime-elements/commit/0fe04d561b63d33ccd3fdb37254f26afb9bda5c3))
+
 # [37.1.0-next.77](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.76...v37.1.0-next.77) (2023-12-20)
 
 
