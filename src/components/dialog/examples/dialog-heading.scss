@@ -9,21 +9,15 @@
 
     limel-dialog {
         &.company {
-            --dialog-heading-icon-background-color: rgb(
-                var(--color-sky-default)
-            );
+            --dialog-heading-icon-color: rgb(var(--color-sky-default));
         }
 
         &.person {
-            --dialog-heading-icon-background-color: rgb(
-                var(--color-orange-default)
-            );
+            --dialog-heading-icon-color: rgb(var(--color-orange-default));
         }
 
         &.deal {
-            --dialog-heading-icon-background-color: rgb(
-                var(--color-green-default)
-            );
+            --dialog-heading-icon-color: rgb(var(--color-green-default));
         }
 
         &.todo {
