@@ -39,6 +39,9 @@ function hasKnownProtocol(input: string) {
         'https',
         'http',
 
+        // `file` may or may not work, due to cross-origin restrictions and browser settings.
+        'file',
+
         // m-files is a protocol used by the M-Files desktop app or something.
         // It's not a web protocol, but it allows open M-Files links in their app.
         'm-files',
