@@ -48,7 +48,7 @@ export class DialogHeadingActionsExample {
                     icon="multiply"
                     slot="header-actions"
                     onClick={this.closeDialog}
-                ></limel-icon-button>
+                />
                 <p>This is a dialog with an action in the header.</p>
                 <limel-button
                     label="Ok"
