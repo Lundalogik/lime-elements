@@ -1,3 +1,11 @@
+# [37.1.0-next.77](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.76...v37.1.0-next.77) (2023-12-20)
+
+
+### Bug Fixes
+
+
+* **disabled-vs-hidden:** make the guidelines responsible ([2860acf](https://github.com/Lundalogik/lime-elements/commit/2860acf1fa0b2b9f3d056de83d13eb22b82bb62f))
+
 # [37.1.0-next.76](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.75...v37.1.0-next.76) (2023-12-20)
 
 
