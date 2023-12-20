@@ -1,4 +1,6 @@
 import { Component, h, Prop } from '@stencil/core';
+import { Icon } from '../../interface';
+import { getIconName } from '../icon/get-icon-props';
 
 /**
  * A header is the top most visual element in a component, page, card, or a view.
@@ -60,7 +62,7 @@ export class Header {
      * Icon to display
      */
     @Prop()
-    public icon: string;
+    public icon: string | Icon;
 
     /**
      * Title to display
@@ -105,7 +107,9 @@ export class Header {
             return;
         }
 
-        return <limel-icon class="icon" badge={true} name={this.icon} />;
+        const icon = getIconName(this.icon);
+
+        return <limel-icon class="icon" badge={true} name={icon} />;
     }
 
     private renderSupportingText() {
