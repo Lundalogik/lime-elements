@@ -1,3 +1,12 @@
+# [37.1.0-next.76](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.75...v37.1.0-next.76) (2023-12-20)
+
+
+### Features
+
+
+* **dialog:** enable `Icon` interface ([e394863](https://github.com/Lundalogik/lime-elements/commit/e394863e9febdbd4d34c9a5e2937fada8b3dcc41))
+* **header:** enable `Icon` interface ([9e6a51a](https://github.com/Lundalogik/lime-elements/commit/9e6a51aeb0cbd0ab9edbfb91a0f2e77207d734dd))
+
 # [37.1.0-next.75](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.74...v37.1.0-next.75) (2023-12-18)
 
 
