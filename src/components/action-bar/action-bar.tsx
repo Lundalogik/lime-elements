@@ -165,7 +165,7 @@ export class ActionBar {
     }
 
     private handleSelect = (
-        event: CustomEvent<ActionBarItem | ListSeparator>
+        event: CustomEvent<ActionBarItem | ListSeparator>,
     ) => {
         event.stopPropagation();
         if (isItem(event.detail)) {
@@ -175,11 +175,11 @@ export class ActionBar {
 
     private handleIntersection = (entries: IntersectionObserverEntry[]) => {
         const intersectingItems = entries.filter(
-            (entry) => entry.isIntersecting
+            (entry) => entry.isIntersecting,
         );
 
         const notIntersectingItems = entries.filter(
-            (entry) => !entry.isIntersecting
+            (entry) => !entry.isIntersecting,
         );
 
         if (this.firstRender) {
@@ -208,7 +208,7 @@ export class ActionBar {
 
         this.intersectionObserver = new IntersectionObserver(
             this.handleIntersection,
-            options
+            options,
         );
 
         this.host.shadowRoot
@@ -226,14 +226,14 @@ export class ActionBar {
     private haveItemsChanged() {
         const someItemRemoved = this.actionBarItems.some(
             (actionBarItem: HTMLLimelActionBarItemElement) =>
-                !this.host.shadowRoot.contains(actionBarItem)
+                !this.host.shadowRoot.contains(actionBarItem),
         );
 
         const someItemAdded = Array.from(
-            this.host.shadowRoot.querySelectorAll('limel-action-bar-item')
+            this.host.shadowRoot.querySelectorAll('limel-action-bar-item'),
         ).some(
             (actionBarItem: HTMLLimelActionBarItemElement) =>
-                !this.actionBarItems.includes(actionBarItem)
+                !this.actionBarItems.includes(actionBarItem),
         );
 
         return someItemRemoved || someItemAdded;

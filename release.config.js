@@ -25,7 +25,7 @@ module.exports = {
                 writerOpts: {
                     commitPartial: readFileSync(
                         join(__dirname, 'commit.hbs'),
-                        'utf-8'
+                        'utf-8',
                     ),
                 },
             },

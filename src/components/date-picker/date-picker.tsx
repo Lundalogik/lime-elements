@@ -216,7 +216,7 @@ export class DatePicker {
         }
 
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index'
+            '--dropdown-z-index',
         );
 
         return [
@@ -281,7 +281,7 @@ export class DatePicker {
         event.stopPropagation();
         const date = this.dateFormatter.parseDate(
             event.detail,
-            this.internalFormat
+            this.internalFormat,
         );
         this.formattedValue = event.detail;
         this.change.emit(date);
@@ -307,7 +307,7 @@ export class DatePicker {
             this.preventBlurFromCalendarContainer,
             {
                 capture: true,
-            }
+            },
         );
     }
 
@@ -330,7 +330,7 @@ export class DatePicker {
         document.removeEventListener('keydown', this.documentClickListener);
         document.removeEventListener(
             'blur',
-            this.preventBlurFromCalendarContainer
+            this.preventBlurFromCalendarContainer,
         );
 
         if (!this.pickerIsAutoClosing()) {
@@ -342,7 +342,7 @@ export class DatePicker {
         // Flatpickr removes the focus from the input field
         // but the 'visual focus' is still there
         const mdcTextField = new MDCTextField(
-            this.textField.shadowRoot.querySelector('.mdc-text-field')
+            this.textField.shadowRoot.querySelector('.mdc-text-field'),
         );
         mdcTextField.getDefaultFoundation().deactivateFocus();
     }

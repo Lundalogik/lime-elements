@@ -189,8 +189,8 @@ export class Form {
                         ObjectField: CustomObjectField as any,
                     },
                 },
-                []
-            )
+                [],
+            ),
         );
     }
 

@@ -117,7 +117,7 @@ export class Tooltip {
 
     public render(): JSX.Element {
         const tooltipZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--tooltip-z-index'
+            '--tooltip-z-index',
         );
 
         return (

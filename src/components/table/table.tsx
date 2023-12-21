@@ -294,7 +294,7 @@ export class Table {
             .filter((c) => c.getField());
 
         const oldColumnsInTable = columnsInTable.map((c) =>
-            oldColumns.find((old) => old.field === c.getField())
+            oldColumns.find((old) => old.field === c.getField()),
         );
 
         if (this.areSameColumns(newColumns, oldColumnsInTable)) {
@@ -309,7 +309,7 @@ export class Table {
     @Watch('aggregates')
     protected updateAggregates(
         newAggregates: ColumnAggregate[],
-        oldAggregates: ColumnAggregate[]
+        oldAggregates: ColumnAggregate[],
     ) {
         if (!this.tabulator) {
             return;
@@ -357,7 +357,7 @@ export class Table {
 
     private haveSameAggregateFields(
         newAggregates: ColumnAggregate[],
-        oldAggregates: ColumnAggregate[]
+        oldAggregates: ColumnAggregate[],
     ) {
         const oldAggregateFields = oldAggregates?.map((a) => a.field) || [];
 
@@ -392,7 +392,7 @@ export class Table {
      */
     private initTabulatorComponent(
         table: HTMLElement,
-        options: Tabulator.Options
+        options: Tabulator.Options,
     ) {
         // Some browsers do not implement the ResizeObserver API...
         // If that's the case lets just create the table no
@@ -417,7 +417,7 @@ export class Table {
             this.tableSelection = new TableSelection(
                 () => this.tabulator,
                 this.pool,
-                this.select
+                this.select,
             );
             this.tableSelection.setSelection(this.selection);
         }
@@ -491,15 +491,14 @@ export class Table {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 _values?: any[],
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                _data?: any[]
+                _data?: any[],
             ) => {
                 if (!col) {
                     return undefined;
                 }
 
-                const value = this.aggregates.find(
-                    (a) => a.field === col.field
-                )?.value;
+                const value = this.aggregates.find((a) => a.field === col.field)
+                    ?.value;
 
                 if (col.formatter) {
                     return col.formatter(value);

@@ -59,7 +59,7 @@ describe('limel-chip-set', () => {
     describe('choice chip set', () => {
         beforeEach(async () => {
             page = await createPage(
-                '<limel-chip-set type="choice"></limel-chip-set>'
+                '<limel-chip-set type="choice"></limel-chip-set>',
             );
 
             chipSet = await page.find('limel-chip-set');
@@ -151,7 +151,7 @@ describe('limel-chip-set', () => {
     describe('filter chip set', () => {
         beforeEach(async () => {
             page = await createPage(
-                '<limel-chip-set type="filter"></limel-chip-set>'
+                '<limel-chip-set type="filter"></limel-chip-set>',
             );
 
             chipSet = await page.find('limel-chip-set');
@@ -236,7 +236,7 @@ describe('limel-chip-set', () => {
 
         beforeEach(async () => {
             page = await createPage(
-                '<limel-chip-set type="input"></limel-chip-set>'
+                '<limel-chip-set type="input"></limel-chip-set>',
             );
 
             chipSet = await page.find('limel-chip-set');
@@ -257,10 +257,10 @@ describe('limel-chip-set', () => {
             chips = await page.findAll('limel-chip-set >>> .mdc-chip');
 
             firstChipRemoveButton = await chips[0].find(
-                'button.mdc-deprecated-chip-trailing-action'
+                'button.mdc-deprecated-chip-trailing-action',
             );
             secondChipRemoveButton = await chips[1].find(
-                'button.mdc-deprecated-chip-trailing-action'
+                'button.mdc-deprecated-chip-trailing-action',
             );
         });
 
@@ -278,7 +278,7 @@ describe('limel-chip-set', () => {
                 spy = await chipSet.spyOnEvent('input');
 
                 const input: E2EElement = await page.find(
-                    'limel-chip-set >>> input'
+                    'limel-chip-set >>> input',
                 );
                 await input.focus();
                 await input.type('Banana');
@@ -330,12 +330,10 @@ describe('limel-chip-set', () => {
                 chipSet.setAttribute('disabled', true);
                 await page.waitForChanges();
 
-                firstChipRemoveButton = await chips[0].find(
-                    'div[role="button"]'
-                );
-                secondChipRemoveButton = await chips[1].find(
-                    'div[role="button"]'
-                );
+                firstChipRemoveButton =
+                    await chips[0].find('div[role="button"]');
+                secondChipRemoveButton =
+                    await chips[1].find('div[role="button"]');
             });
 
             it('renders the chips without delete-buttons', async () => {
@@ -353,12 +351,10 @@ describe('limel-chip-set', () => {
                 chipSet.setAttribute('readonly', true);
                 await page.waitForChanges();
 
-                firstChipRemoveButton = await chips[0].find(
-                    'div[role="button"]'
-                );
-                secondChipRemoveButton = await chips[1].find(
-                    'div[role="button"]'
-                );
+                firstChipRemoveButton =
+                    await chips[0].find('div[role="button"]');
+                secondChipRemoveButton =
+                    await chips[1].find('div[role="button"]');
             });
 
             it('renders the chips without delete-buttons', async () => {
@@ -375,7 +371,7 @@ describe('limel-chip-set', () => {
             beforeEach(async () => {
                 spy = await page.spyOnEvent('change');
                 const deleteAllIconButton: E2EElement = await page.find(
-                    'limel-chip-set >>> .clear-all-button'
+                    'limel-chip-set >>> .clear-all-button',
                 );
                 await chipSet.hover();
                 await deleteAllIconButton.click();

@@ -88,7 +88,7 @@ export class ProgressFlow {
     private renderRegularFlowItem = (
         item: FlowItem,
         index: number,
-        array: FlowItem[]
+        array: FlowItem[],
     ) => {
         return (
             <limel-progress-flow-item
@@ -113,7 +113,7 @@ export class ProgressFlow {
     private renderEndPhaseItem = (
         item: FlowItem,
         index: number,
-        array: FlowItem[]
+        array: FlowItem[],
     ) => {
         return (
             <limel-progress-flow-item
@@ -189,7 +189,7 @@ export class ProgressFlow {
             if (flowItem.iconColor) {
                 /* eslint-disable-next-line no-console */
                 console.warn(
-                    "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
+                    "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`.",
                 );
             }
         }

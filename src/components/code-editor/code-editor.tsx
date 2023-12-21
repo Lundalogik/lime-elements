@@ -162,7 +162,7 @@ export class CodeEditor {
 
         const editor = CodeMirror(
             this.host.shadowRoot.querySelector('.editor'),
-            options
+            options,
         );
 
         editor.on('change', this.handleChange);
@@ -172,7 +172,7 @@ export class CodeEditor {
         editor.setOption('extraKeys', {
             Tab: (codeMirror) => {
                 const spaces = Array(
-                    codeMirror.getOption('indentUnit') + 1
+                    codeMirror.getOption('indentUnit') + 1,
                 ).join(' ');
                 codeMirror.replaceSelection(spaces);
             },

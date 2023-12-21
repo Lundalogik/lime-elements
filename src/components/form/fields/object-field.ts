@@ -34,7 +34,7 @@ export class ObjectField extends React.Component<FieldProps, any> {
                 ...this.props,
                 onValidate: this.handleValidation,
             } as any),
-            this.renderErrors()
+            this.renderErrors(),
         );
     }
 
@@ -49,7 +49,7 @@ export class ObjectField extends React.Component<FieldProps, any> {
                 role: 'alert',
                 className: 'form-error',
             },
-            this.state.error
+            this.state.error,
         );
     }
 }

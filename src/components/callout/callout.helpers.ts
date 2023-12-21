@@ -19,7 +19,7 @@ export function getIcon(icon: string, type: string = 'note'): string {
 export function getHeading(
     heading: string,
     type: string = 'note',
-    language: string = 'en'
+    language: string = 'en',
 ): string {
     if (heading) {
         return heading;

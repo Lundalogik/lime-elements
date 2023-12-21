@@ -68,7 +68,7 @@ describe('action-bar', () => {
 
     it('observes all actions in the intersection observer', () => {
         expect(
-            intersectionObserverMockedFunctions.observe
+            intersectionObserverMockedFunctions.observe,
         ).toHaveBeenCalledTimes(5);
     });
 
@@ -77,7 +77,7 @@ describe('action-bar', () => {
         await page.waitForChanges();
 
         expect(
-            intersectionObserverMockedFunctions.disconnect
+            intersectionObserverMockedFunctions.disconnect,
         ).toHaveBeenCalledTimes(1);
     });
 
@@ -89,7 +89,7 @@ describe('action-bar', () => {
         page.body.appendChild(page.root);
         await page.waitForChanges();
         expect(
-            intersectionObserverMockedFunctions.observe
+            intersectionObserverMockedFunctions.observe,
         ).toHaveBeenCalledTimes(5);
     });
 
@@ -170,10 +170,10 @@ const triggerIntersection = (intersectingElements: boolean[]) => {
 
 const getNumVisibleActions = (): number => {
     const actions = page.root.shadowRoot.querySelectorAll(
-        'limel-action-bar-item'
+        'limel-action-bar-item',
     );
     const visibleActions = Array.from(actions).filter((action) =>
-        action.hasAttribute('isvisible')
+        action.hasAttribute('isvisible'),
     );
 
     return visibleActions.length;
@@ -181,7 +181,7 @@ const getNumVisibleActions = (): number => {
 
 const hasOverflowMenu = () => {
     const overflowMenu = page.root.shadowRoot.querySelector(
-        'limel-action-bar-overflow-menu'
+        'limel-action-bar-overflow-menu',
     );
 
     return !!overflowMenu;

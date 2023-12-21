@@ -35,7 +35,7 @@ export class GridLayout extends React.Component<LayoutProps, LayoutState> {
         const width = element.getBoundingClientRect().width;
         const maxColumns = Math.min(
             MAX_COLUMNS,
-            Math.max(1, Math.floor(width / (MAX_COLUMN_WIDTH * PX_PER_REM)))
+            Math.max(1, Math.floor(width / (MAX_COLUMN_WIDTH * PX_PER_REM))),
         );
 
         const columns = this.getColumnCount(maxColumns);
@@ -65,7 +65,7 @@ export class GridLayout extends React.Component<LayoutProps, LayoutState> {
                 className: classes.join(' '),
                 ref: this.elementRef,
             },
-            this.props.children
+            this.props.children,
         );
     }
 

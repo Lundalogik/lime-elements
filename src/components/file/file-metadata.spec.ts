@@ -64,14 +64,14 @@ describe('file metadata', () => {
             describe('getFileColor', () => {
                 it('returns the expected color', () => {
                     expect(getFileColor(input)).toEqual(
-                        expectedOutput.iconColor
+                        expectedOutput.iconColor,
                     );
                 });
             });
             describe('getFileBackgroundColor', () => {
                 it('returns the expected color', () => {
                     expect(getFileBackgroundColor(input)).toEqual(
-                        expectedOutput.iconBackgroundColor
+                        expectedOutput.iconBackgroundColor,
                     );
                 });
             });

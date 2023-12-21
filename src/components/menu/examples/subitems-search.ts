@@ -2,7 +2,7 @@ import { MenuItem, ListSeparator } from '@limetech/lime-elements';
 
 export function SearchMenuItems(
     searchValue: string,
-    menuItems: Array<MenuItem | ListSeparator>
+    menuItems: Array<MenuItem | ListSeparator>,
 ): MenuItem[] {
     if (!searchValue) {
         return [];
@@ -13,12 +13,12 @@ export function SearchMenuItems(
 
     return flattenedItems.filter(
         (i) =>
-            !('separator' in i) && i.text?.toLowerCase().includes(searchValue)
+            !('separator' in i) && i.text?.toLowerCase().includes(searchValue),
     );
 }
 
 function flattenMenuItems(
-    menuItems: Array<MenuItem | ListSeparator>
+    menuItems: Array<MenuItem | ListSeparator>,
 ): MenuItem[] {
     const flattenedItems: MenuItem[] = [];
 
