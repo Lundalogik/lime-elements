@@ -44,25 +44,28 @@ jobs:
         CI: true
     - name: Trigger update in lime-crm-building-blocks
       if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'next'
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
         event-type: update-lime-elements
         repository: Lundalogik/lime-crm-building-blocks
+        client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
     - name: Trigger update in lime-crm-components
       if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'next'
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
         event-type: update-lime-elements
         repository: Lundalogik/lime-crm-components
+        client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
     - name: Trigger update in lime-webclient
       if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'next'
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
         event-type: update-lime-elements
         repository: Lundalogik/lime-webclient
+        client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
 
   docs:
     needs: semantic-release
