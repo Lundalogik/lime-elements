@@ -21,6 +21,7 @@ module.exports = {
         [
             '@semantic-release/release-notes-generator',
             {
+                preset: 'conventionalcommits',
                 writerOpts: {
                     commitPartial: readFileSync(
                         join(__dirname, 'commit.hbs'),
