@@ -16,7 +16,7 @@ export class MonthPicker extends Picker {
         dateFormat: string = 'MM/YYYY',
         language: string,
         change: EventEmitter<Date>,
-        private translations: Translations
+        private translations: Translations,
     ) {
         super(dateFormat, language, change);
         this.handleChange = this.handleChange.bind(this);
@@ -31,11 +31,11 @@ export class MonthPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr.prevMonthNav.addEventListener(
                 'mousedown',
-                this.prevYear
+                this.prevYear,
             );
             this.flatpickr.nextMonthNav.addEventListener(
                 'mousedown',
-                this.nextYear
+                this.nextYear,
             );
         }
     }
@@ -45,11 +45,11 @@ export class MonthPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr?.prevMonthNav?.removeEventListener(
                 'mousedown',
-                this.prevYear
+                this.prevYear,
             );
             this.flatpickr?.nextMonthNav?.removeEventListener(
                 'mousedown',
-                this.nextYear
+                this.nextYear,
             );
         }
     }
@@ -76,7 +76,7 @@ export class MonthPicker extends Picker {
             this.selectMonth(
                 this.flatpickr.selectedDates,
                 this.flatpickr.input.value,
-                this.flatpickr
+                this.flatpickr,
             );
         });
     }
@@ -107,7 +107,7 @@ export class MonthPicker extends Picker {
     private getLocalizedHeading() {
         return this.translations.get(
             'date-picker.month.heading',
-            this.language
+            this.language,
         );
     }
 
@@ -154,7 +154,7 @@ export class MonthPicker extends Picker {
                 selectedDates[0].getFullYear() === fp.currentYear
             ) {
                 this.months[selectedDates[0].getMonth()].classList.add(
-                    'selected'
+                    'selected',
                 );
             }
         }

@@ -6,7 +6,7 @@ export class TimePicker extends Picker {
     public constructor(
         dateFormat: string = 'LT',
         language: string,
-        change: EventEmitter
+        change: EventEmitter,
     ) {
         super(dateFormat, language, change);
     }

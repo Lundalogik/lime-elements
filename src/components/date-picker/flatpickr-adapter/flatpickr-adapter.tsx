@@ -79,7 +79,7 @@ export class DatePickerCalendar {
                 this.picker = new DateOnlyPicker(
                     this.format,
                     this.language,
-                    this.change
+                    this.change,
                 );
                 break;
 
@@ -87,7 +87,7 @@ export class DatePickerCalendar {
                 this.picker = new TimePicker(
                     this.format,
                     this.language,
-                    this.change
+                    this.change,
                 );
                 break;
 
@@ -95,7 +95,7 @@ export class DatePickerCalendar {
                 this.picker = new WeekPicker(
                     this.format,
                     this.language,
-                    this.change
+                    this.change,
                 );
                 break;
 
@@ -104,7 +104,7 @@ export class DatePickerCalendar {
                     this.format,
                     this.language,
                     this.change,
-                    translate
+                    translate,
                 );
                 break;
 
@@ -113,7 +113,7 @@ export class DatePickerCalendar {
                     this.format,
                     this.language,
                     this.change,
-                    translate
+                    translate,
                 );
                 break;
             case 'year':
@@ -121,7 +121,7 @@ export class DatePickerCalendar {
                     this.format,
                     this.language,
                     this.change,
-                    translate
+                    translate,
                 );
                 break;
 
@@ -130,7 +130,7 @@ export class DatePickerCalendar {
                 this.picker = new DatetimePicker(
                     this.format,
                     this.language,
-                    this.change
+                    this.change,
                 );
                 break;
         }
@@ -158,7 +158,7 @@ export class DatePickerCalendar {
             setTimeout(() => {
                 if (this.isOpen) {
                     const flatpickrElement = this.container.querySelector(
-                        'div.flatpickr-calendar'
+                        'div.flatpickr-calendar',
                     );
                     const { width } = flatpickrElement.getBoundingClientRect();
                     if (width < TEN_PIXELS) {

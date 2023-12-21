@@ -23,7 +23,7 @@ export abstract class Picker {
     public constructor(
         dateFormat: string,
         language: string,
-        protected change: EventEmitter<Date>
+        protected change: EventEmitter<Date>,
     ) {
         this.language = language;
         const isMobile = isIOSDevice() || isAndroidDevice();
@@ -78,7 +78,7 @@ export abstract class Picker {
     }
 
     public abstract getConfig(
-        useNativePicker: boolean
+        useNativePicker: boolean,
     ): flatpickr.Options.Options;
 
     protected handleClose(selectedDates): Promise<any> {

@@ -25,7 +25,7 @@ function renderFieldWithTitle(props: LimeObjectFieldTemplateProps) {
         {},
         renderTitle(props.title),
         renderDescription(props.description),
-        renderProperties(props.properties, props.schema)
+        renderProperties(props.properties, props.schema),
     );
 }
 
@@ -38,12 +38,12 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
             header: props.title,
             id: getSchemaObjectPropertyPath(
                 props.formContext.schema,
-                props.idSchema
+                props.idSchema,
             ),
             'is-open': defaultOpen,
         },
         renderDescription(props.description),
-        renderProperties(props.properties, props.schema)
+        renderProperties(props.properties, props.schema),
     );
 }
 
@@ -60,7 +60,7 @@ function getSchemaObjectPropertyPath(schema: any, subSchema: LimeJSONSchema) {
 
 function renderProperties(
     properties: ObjectFieldProperty[],
-    schema: LimeJSONSchema
+    schema: LimeJSONSchema,
 ) {
     const layout: FormLayoutOptions = schema.lime?.layout;
 
@@ -69,7 +69,7 @@ function renderProperties(
 
 function renderLayout(
     properties: ObjectFieldProperty[],
-    layout: FormLayoutOptions
+    layout: FormLayoutOptions,
 ) {
     const type = layout?.type || FormLayoutType.Default;
     const layouts: Record<FormLayoutType, Function> = {
@@ -87,20 +87,20 @@ function renderDefaultLayout(properties: ObjectFieldProperty[]) {
         {
             className: 'limel-form-layout--default',
         },
-        properties.map((element) => element.content)
+        properties.map((element) => element.content),
     );
 }
 
 function renderGridLayout(
     properties: ObjectFieldProperty[],
-    layout: FormLayoutOptions
+    layout: FormLayoutOptions,
 ) {
     return React.createElement(
         GridLayout,
         {
             options: layout,
         },
-        properties.map((element) => element.content)
+        properties.map((element) => element.content),
     );
 }
 
@@ -108,7 +108,7 @@ function renderRowLayout(properties: ObjectFieldProperty[]) {
     return React.createElement(
         RowLayout,
         {},
-        properties.map((element) => element.content)
+        properties.map((element) => element.content),
     );
 }
 

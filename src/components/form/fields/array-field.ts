@@ -76,7 +76,7 @@ export class ArrayField extends React.Component<ArrayProps> {
                 oldData[i],
                 newData[i],
                 schema.items,
-                rootSchema
+                rootSchema,
             );
         }
 

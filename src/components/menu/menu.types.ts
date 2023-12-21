@@ -117,7 +117,7 @@ export interface MenuItem<T = any> {
  * @returns {Promise<Array<MenuItem | ListSeparator>>} The search result.
  */
 export type MenuSearcher = (
-    query: string
+    query: string,
 ) => Promise<Array<MenuItem | ListSeparator>>;
 
 /**
@@ -128,5 +128,5 @@ export type MenuSearcher = (
  * @returns {Promise<MenuItem[]>} The sub-menu's items of the given item.
  */
 export type MenuLoader = (
-    item: MenuItem
+    item: MenuItem,
 ) => Promise<Array<MenuItem | ListSeparator>>;

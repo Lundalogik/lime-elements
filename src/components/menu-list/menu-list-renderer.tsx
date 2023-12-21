@@ -21,7 +21,7 @@ export class MenuListRenderer {
 
     public render(
         items: Array<MenuItem | ListSeparator>,
-        config: MenuListRendererConfig = {}
+        config: MenuListRendererConfig = {},
     ) {
         items = items || [];
         this.config = { ...this.defaultConfig, ...config };
@@ -76,7 +76,7 @@ export class MenuListRenderer {
      * @returns {number} the index as per the description
      */
     private getIndexForWhichToApplyTabIndex = (
-        items: Array<MenuItem | ListSeparator>
+        items: Array<MenuItem | ListSeparator>,
     ) => {
         let result;
         for (let i = 0, max = items.length; i < max; i += 1) {
@@ -108,7 +108,7 @@ export class MenuListRenderer {
      */
     private renderMenuItem = (
         item: MenuItem | ListSeparator,
-        index: number
+        index: number,
     ) => {
         if ('separator' in item) {
             return (

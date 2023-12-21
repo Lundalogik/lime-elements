@@ -17,7 +17,7 @@ export class QuarterPicker extends Picker {
         dateFormat: string = '[Q]Q YYYY',
         language: string,
         protected change: EventEmitter<Date>,
-        private translations: Translations
+        private translations: Translations,
     ) {
         super(dateFormat, language, change);
         this.handleChange = this.handleChange.bind(this);
@@ -32,11 +32,11 @@ export class QuarterPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr.prevMonthNav.addEventListener(
                 'mousedown',
-                this.prevYear
+                this.prevYear,
             );
             this.flatpickr.nextMonthNav.addEventListener(
                 'mousedown',
-                this.nextYear
+                this.nextYear,
             );
         }
     }
@@ -46,11 +46,11 @@ export class QuarterPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr?.prevMonthNav?.removeEventListener(
                 'mousedown',
-                this.prevYear
+                this.prevYear,
             );
             this.flatpickr?.nextMonthNav?.removeEventListener(
                 'mousedown',
-                this.nextYear
+                this.nextYear,
             );
         }
     }
@@ -77,7 +77,7 @@ export class QuarterPicker extends Picker {
             this.selectQuarter(
                 this.flatpickr.selectedDates,
                 this.flatpickr.input.value,
-                this.flatpickr
+                this.flatpickr,
             );
         });
     }
@@ -108,7 +108,7 @@ export class QuarterPicker extends Picker {
     private getLocalizedHeading() {
         return this.translations.get(
             'date-picker.quarter.heading',
-            this.language
+            this.language,
         );
     }
 
@@ -172,7 +172,7 @@ export class QuarterPicker extends Picker {
                 selectedDates[0].getFullYear() === fp.currentYear
             ) {
                 const i = Math.floor(
-                    selectedDates[0].getMonth() / MONTHSPERQUARTER
+                    selectedDates[0].getMonth() / MONTHSPERQUARTER,
                 );
                 const selectedQuarter = this.quarters[i];
                 selectedQuarter.classList.add('selected');

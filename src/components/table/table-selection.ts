@@ -22,10 +22,10 @@ export class TableSelection {
     constructor(
         private getTable: () => Tabulator,
         private pool: ElementPool,
-        private selectEvent: EventEmitter<object[]>
+        private selectEvent: EventEmitter<object[]>,
     ) {
         this.selection = new Selection((index) =>
-            this.getRowByIndex(index).getData()
+            this.getRowByIndex(index).getData(),
         );
     }
 
@@ -55,7 +55,7 @@ export class TableSelection {
         this.selection.items = data;
         const rows = this.getActiveRows();
         rows.forEach((row) =>
-            this.updateRowSelector(row, this.selection.has(row.getData()))
+            this.updateRowSelector(row, this.selection.has(row.getData())),
         );
     }
 
@@ -65,7 +65,7 @@ export class TableSelection {
      * @returns {Tabulator.ColumnDefinition[]} The column definitions with the checkbox column prepended to it
      */
     public getColumnDefinitions(
-        columnDefinitions: Tabulator.ColumnDefinition[]
+        columnDefinitions: Tabulator.ColumnDefinition[],
     ): Tabulator.ColumnDefinition[] {
         return [this.getRowSelectorColumnDefinition(), ...columnDefinitions];
     }
@@ -109,7 +109,7 @@ export class TableSelection {
      */
     protected rowSelectorCellClick = (
         ev: PointerEvent,
-        cell: Tabulator.CellComponent
+        cell: Tabulator.CellComponent,
     ) => {
         ev.stopPropagation();
         ev.preventDefault();
@@ -119,11 +119,11 @@ export class TableSelection {
 
         if (ev.shiftKey) {
             this.updateRowSelectors(
-                this.selection.toggleSelectionFromLastIndex(rowPosition)
+                this.selection.toggleSelectionFromLastIndex(rowPosition),
             );
         } else {
             this.updateRowSelectors(
-                this.selection.toggleSelection(rowPosition)
+                this.selection.toggleSelection(rowPosition),
             );
         }
 
@@ -138,7 +138,7 @@ export class TableSelection {
 
     private updateRowSelector = (
         row: Tabulator.RowComponent,
-        checked: boolean
+        checked: boolean,
     ) => {
         const cell = row.getCells()[0];
         if (cell) {

@@ -179,7 +179,9 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
 .mdc-chip__icon {
     &.mdc-chip__icon--trailing {
-        transition: background-color 0.2s ease, color 0.2s ease;
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease;
 
         color: var(--mdc-theme-on-surface);
         margin-left: 0;

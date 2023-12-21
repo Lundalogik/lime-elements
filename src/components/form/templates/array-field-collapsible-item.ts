@@ -71,7 +71,7 @@ export class CollapsibleItemTemplate extends React.Component {
                 ref: 'section',
                 'is-open': this.isOpen,
             },
-            this.props.item.children
+            this.props.item.children,
         );
     }
 

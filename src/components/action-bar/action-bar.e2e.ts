@@ -32,7 +32,7 @@ describe('action-bar', () => {
         page = await newE2EPage();
         await page.setViewport({ width: 800, height: 600 });
         await page.setContent(
-            '<div><limel-action-bar layout="fullWidth" accessible-label="Action bar">test test hello</limel-action-bar></div>'
+            '<div><limel-action-bar layout="fullWidth" accessible-label="Action bar">test test hello</limel-action-bar></div>',
         );
         actionBar = await page.find('limel-action-bar');
     });

@@ -10,7 +10,7 @@ export function renderTitle(title: string) {
     return React.createElement(
         'h1',
         { className: 'mdc-typography mdc-typography--headline1' },
-        title
+        title,
     );
 }
 
@@ -22,7 +22,7 @@ export function renderDescription(description: string) {
     return React.createElement(
         'p',
         { className: 'mdc-typography mdc-typography--body1' },
-        description
+        description,
     );
 }
 
@@ -100,7 +100,7 @@ function getRequiredEntry(data: any, subSchema: any) {
     }
 
     const firstNonEmptyRequiredKey = Object.keys(data).find((key) =>
-        subSchema.required.includes(key)
+        subSchema.required.includes(key),
     );
     if (!firstNonEmptyRequiredKey) {
         return [null, null];

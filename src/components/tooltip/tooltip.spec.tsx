@@ -85,7 +85,7 @@ test('aria-hidden is removed when the owner element is hovered', async () => {
     expect(page.win.setTimeout).toHaveBeenCalledTimes(1);
     expect(page.win.setTimeout).toHaveBeenLastCalledWith(
         expect.any(Function),
-        500
+        500,
     );
 
     const timerHandler = spy.mock.calls[0][0] as Function;
@@ -105,7 +105,7 @@ test('limel-portal is opened when the owner element is hovered', async () => {
     expect(page.win.setTimeout).toHaveBeenCalledTimes(1);
     expect(page.win.setTimeout).toHaveBeenLastCalledWith(
         expect.any(Function),
-        500
+        500,
     );
 
     const timerHandler = spy.mock.calls[0][0] as Function;

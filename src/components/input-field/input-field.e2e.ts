@@ -32,46 +32,46 @@ describe('limel-input-field', () => {
 
                 limelInput = await page.find('limel-input-field');
                 inputContainer = await page.find(
-                    'limel-input-field>>>label.mdc-text-field'
+                    'limel-input-field>>>label.mdc-text-field',
                 );
             });
             if (type.name === 'textarea') {
                 it('uses the `textarea` style', () => {
                     expect(inputContainer).toHaveClass(
-                        'mdc-text-field--textarea'
+                        'mdc-text-field--textarea',
                     );
                 });
             } else {
                 it('uses the `outlined` style', () => {
                     expect(inputContainer).toHaveClass(
-                        'mdc-text-field--outlined'
+                        'mdc-text-field--outlined',
                     );
                 });
             }
 
             it('is NOT considered invalid', () => {
                 expect(inputContainer).not.toHaveClass(
-                    'mdc-text-field--invalid'
+                    'mdc-text-field--invalid',
                 );
             });
             it('is NOT disabled', () => {
                 expect(inputContainer).not.toHaveClass(
-                    'mdc-text-field--disabled'
+                    'mdc-text-field--disabled',
                 );
             });
             it('is NOT required', () => {
                 expect(inputContainer).not.toHaveClass(
-                    'mdc-text-field--required'
+                    'mdc-text-field--required',
                 );
             });
             it('does NOT have a leading icon', () => {
                 expect(inputContainer).not.toHaveClass(
-                    'mdc-text-field--with-leading-icon'
+                    'mdc-text-field--with-leading-icon',
                 );
             });
             it('does NOT have a trailing icon', () => {
                 expect(inputContainer).not.toHaveClass(
-                    'mdc-text-field--with-trailing-icon'
+                    'mdc-text-field--with-trailing-icon',
                 );
             });
             describe('the native input', () => {
@@ -100,12 +100,12 @@ describe('limel-input-field', () => {
             describe('the label', () => {
                 beforeEach(async () => {
                     label = await page.find(
-                        'limel-input-field>>>.mdc-floating-label'
+                        'limel-input-field>>>.mdc-floating-label',
                     );
                 });
                 it('is NOT floating', () => {
                     expect(label).not.toHaveClass(
-                        'mdc-floating-label--float-above'
+                        'mdc-floating-label--float-above',
                     );
                 });
                 describe('after focusing', () => {
@@ -116,7 +116,7 @@ describe('limel-input-field', () => {
                     });
                     it('IS floating', () => {
                         expect(label).toHaveClass(
-                            'mdc-floating-label--float-above'
+                            'mdc-floating-label--float-above',
                         );
                     });
                 });
@@ -124,12 +124,12 @@ describe('limel-input-field', () => {
             describe('the outline', () => {
                 beforeEach(async () => {
                     outline = await page.find(
-                        'limel-input-field>>>.mdc-notched-outline'
+                        'limel-input-field>>>.mdc-notched-outline',
                     );
                 });
                 it('has the expected structure', () => {
                     expect(replaceLabelId(outline.outerHTML)).toEqual(
-                        '<span class="mdc-notched-outline mdc-notched-outline--upgraded" tabindex="-1"><span class="mdc-notched-outline__leading"></span><span class="mdc-notched-outline__notch"><span class="mdc-floating-label" id="tf-input-label">Test</span></span><span class="mdc-notched-outline__trailing"></span></span>'
+                        '<span class="mdc-notched-outline mdc-notched-outline--upgraded" tabindex="-1"><span class="mdc-notched-outline__leading"></span><span class="mdc-notched-outline__notch"><span class="mdc-floating-label" id="tf-input-label">Test</span></span><span class="mdc-notched-outline__trailing"></span></span>',
                     );
                 });
             });
@@ -140,18 +140,18 @@ describe('limel-input-field', () => {
                 });
                 it('IS invalid', () => {
                     expect(inputContainer).toHaveClass(
-                        'mdc-text-field--invalid'
+                        'mdc-text-field--invalid',
                     );
                 });
                 if (type.name !== 'textarea') {
                     it('has a trailing icon indicating the field is invalid', async () => {
                         const limelIcon = await page.find(
-                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
+                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon',
                         );
                         expect(limelIcon).toBeTruthy();
                         expect(limelIcon).toEqualAttribute(
                             'name',
-                            'high_importance'
+                            'high_importance',
                         );
                     });
                 }
@@ -163,7 +163,7 @@ describe('limel-input-field', () => {
                 });
                 it('IS disabled', () => {
                     expect(inputContainer).toHaveClass(
-                        'mdc-text-field--disabled'
+                        'mdc-text-field--disabled',
                     );
                 });
             });
@@ -174,7 +174,7 @@ describe('limel-input-field', () => {
                 });
                 it('IS required', () => {
                     expect(inputContainer).toHaveClass(
-                        'mdc-text-field--required'
+                        'mdc-text-field--required',
                     );
                 });
             });
@@ -186,12 +186,12 @@ describe('limel-input-field', () => {
                     });
                     it('has the correct leading icon', async () => {
                         const leadingIcon = await page.find(
-                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon'
+                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon',
                         );
                         expect(leadingIcon).toBeTruthy();
                         expect(leadingIcon).toEqualAttribute(
                             'name',
-                            'unit-test'
+                            'unit-test',
                         );
                     });
                 });
@@ -202,12 +202,12 @@ describe('limel-input-field', () => {
                     });
                     it('has the correct trailing icon', async () => {
                         const trailingIcon = await page.find(
-                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
+                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon',
                         );
                         expect(trailingIcon).toBeTruthy();
                         expect(trailingIcon).toEqualAttribute(
                             'name',
-                            'unit-test'
+                            'unit-test',
                         );
                     });
                 });
@@ -219,27 +219,27 @@ describe('limel-input-field', () => {
                     });
                     it('has the correct leading icon', async () => {
                         const leadingIcon = await page.find(
-                            'limel-input-field>>>.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon'
+                            'limel-input-field>>>.mdc-text-field__icon.mdc-text-field__icon--leading>limel-icon',
                         );
                         expect(leadingIcon).toBeTruthy();
                         expect(leadingIcon).toEqualAttribute(
                             'name',
-                            'angle_left'
+                            'angle_left',
                         );
                     });
                     it('has the correct trailing icon', async () => {
                         const trailingIcon = await page.find(
-                            'limel-input-field>>>.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon'
+                            'limel-input-field>>>.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon',
                         );
                         expect(trailingIcon).toBeTruthy();
                         expect(trailingIcon).toEqualAttribute(
                             'name',
-                            'angle_right'
+                            'angle_right',
                         );
                     });
                 });
             }
-        })
+        }),
     );
 
     describe('with type="urlAsText" and show-link=true', () => {
@@ -254,7 +254,7 @@ describe('limel-input-field', () => {
 
             await page.evaluate(() => {
                 const elements = document.querySelectorAll(
-                    '.mdc-floating-label'
+                    '.mdc-floating-label',
                 );
 
                 elements.forEach((el) => {
@@ -264,14 +264,14 @@ describe('limel-input-field', () => {
 
             limelInput = await page.find('limel-input-field');
             inputContainer = await page.find(
-                'limel-input-field>>>label.mdc-text-field'
+                'limel-input-field>>>label.mdc-text-field',
             );
         });
 
         describe('with an empty value', () => {
             beforeEach(async () => {
                 const nativeInput = await page.find(
-                    'limel-input-field>>>input'
+                    'limel-input-field>>>input',
                 );
                 nativeInput.focus();
                 limelInput.setProperty('value', '');
@@ -280,12 +280,12 @@ describe('limel-input-field', () => {
             });
             it('is NOT considered invalid', () => {
                 expect(inputContainer).not.toHaveClass(
-                    'mdc-text-field--invalid'
+                    'mdc-text-field--invalid',
                 );
             });
             it('has a trailing icon indicating that the link can be opened', async () => {
                 const trailingIcon = await page.find(
-                    'limel-input-field>>>.mdc-text-field__icon.lime-trailing-icon-for-link>limel-icon'
+                    'limel-input-field>>>.mdc-text-field__icon.lime-trailing-icon-for-link>limel-icon',
                 );
                 expect(trailingIcon).toBeTruthy();
                 expect(trailingIcon).toEqualAttribute('name', 'external_link');
@@ -322,7 +322,7 @@ describe('limel-input-field', () => {
             describe(`with a value of '${url.input}'`, () => {
                 beforeEach(async () => {
                     const nativeInput = await page.find(
-                        'limel-input-field>>>input'
+                        'limel-input-field>>>input',
                     );
                     nativeInput.focus();
                     limelInput.setProperty('value', url.input);
@@ -331,22 +331,22 @@ describe('limel-input-field', () => {
                 });
                 it('is NOT considered invalid', () => {
                     expect(inputContainer).not.toHaveClass(
-                        'mdc-text-field--invalid'
+                        'mdc-text-field--invalid',
                     );
                 });
                 it(`has a link with the href '${url.expectedHref}'`, async () => {
                     const link = await page.find(
-                        'limel-input-field>>>.mdc-text-field__icon.lime-trailing-icon-for-link'
+                        'limel-input-field>>>.mdc-text-field__icon.lime-trailing-icon-for-link',
                     );
                     expect(link).toEqualAttribute('href', url.expectedHref);
                 });
                 it('has a trailing icon indicating that the link can be opened', async () => {
                     const icon = await page.find(
-                        'limel-input-field>>>.mdc-text-field__icon.lime-trailing-icon-for-link>limel-icon'
+                        'limel-input-field>>>.mdc-text-field__icon.lime-trailing-icon-for-link>limel-icon',
                     );
                     expect(icon).toEqualAttribute('name', 'external_link');
                 });
-            })
+            }),
         );
     });
 });
@@ -358,6 +358,6 @@ async function createPage(content: string) {
 function replaceLabelId(HTML: string) {
     return HTML.replace(
         /"a_(\d|[a-f]){8}-(\d|[a-f]){4}-(\d|[a-f]){4}-(\d|[a-f]){4}-(\d|[a-f]){12}"/g,
-        '"tf-input-label"'
+        '"tf-input-label"',
     );
 }
