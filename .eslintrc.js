@@ -52,16 +52,7 @@ module.exports = {
         '@typescript-eslint/no-unused-expressions': 'error',
         'no-unused-vars': 'off',
         camelcase: 'error',
-        'comma-dangle': [
-            'error',
-            {
-                arrays: 'always-multiline',
-                functions: 'never',
-                objects: 'always-multiline',
-                imports: 'always-multiline',
-                exports: 'always-multiline',
-            },
-        ],
+        'comma-dangle': 'off', // prettier takes care of this
         curly: 'error',
         'default-case': 'error',
         eqeqeq: ['error', 'always'],
