@@ -95,7 +95,7 @@ export class Button {
                 disabled={this.disabled || this.loading}
             >
                 {this.renderIcon()}
-                <span class="label">{this.label}</span>
+                {this.renderLabel()}
                 <limel-spinner limeBranded={false} />
                 <svg viewBox="0 0 30 30">{this.renderLoadingIcons()}</svg>
             </button>
@@ -130,18 +130,19 @@ export class Button {
         ];
     }
 
-    private renderIcon(): HTMLElement {
+    private renderIcon() {
         if (!this.icon) {
             return;
         }
 
-        let withoutLabelClass = '';
+        return <limel-icon class="icon" name={this.icon} />;
+    }
+
+    private renderLabel() {
         if (!this.label) {
-            withoutLabelClass = 'no-label';
+            return;
         }
 
-        return (
-            <limel-icon class={`icon ${withoutLabelClass}`} name={this.icon} />
-        );
+        return <span class="label">{this.label}</span>;
     }
 }
