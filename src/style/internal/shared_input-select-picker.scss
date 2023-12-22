@@ -247,9 +247,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
 @mixin trailing-icon {
     .mdc-text-field--with-trailing-icon {
         .mdc-text-field__icon--trailing {
-            transition:
-                background-color 0.2s ease,
-                box-shadow 0.3s ease;
+            transition: background-color 0.2s ease, box-shadow 0.3s ease;
             border-radius: 50%;
             padding: functions.pxToRem(8);
 

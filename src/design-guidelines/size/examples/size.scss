@@ -26,8 +26,7 @@
 
     font-size: functions.pxToRem(16);
     background-color: rgb(var(--contrast-200));
-    box-shadow:
-        0 #{functions.pxToRem(1.5)} #{functions.pxToRem(3.6)} 0
+    box-shadow: 0 #{functions.pxToRem(1.5)} #{functions.pxToRem(3.6)} 0
             rgba(0, 0, 0, 0.232),
         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
             rgba(0, 0, 0, 0.208);

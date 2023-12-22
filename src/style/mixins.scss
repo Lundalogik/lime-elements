@@ -56,11 +56,8 @@
     $background-color: var(--lime-elevated-surface-background-color),
     $background-color--hovered: var(--lime-elevated-surface-background-color)
 ) {
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
 
     cursor: pointer;
     color: $color;
@@ -87,11 +84,8 @@
     $background-color--hovered: var(--lime-elevated-surface-background-color),
     $background-color--inset: var(--mdc-theme-surface)
 ) {
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
 
     cursor: pointer;
     color: $color;
@@ -117,11 +111,8 @@
     $color--hovered: var(--mdc-theme-on-surface),
     $background-color--hovered: var(--lime-elevated-surface-background-color)
 ) {
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
 
     cursor: pointer;
     color: $color;
@@ -147,11 +138,8 @@
     $background-color--hovered: var(--lime-elevated-surface-background-color),
     $background-color--inset: var(--mdc-theme-surface)
 ) {
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
 
     cursor: pointer;
     color: $color;
@@ -303,9 +291,7 @@
     color: $color;
 
     &:before {
-        transition:
-            opacity 0.2s ease,
-            transform 0.3s ease-out;
+        transition: opacity 0.2s ease, transform 0.3s ease-out;
         content: '';
         position: absolute;
         inset: auto 0 0 0;
