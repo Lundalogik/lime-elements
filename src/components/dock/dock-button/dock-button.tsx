@@ -85,7 +85,7 @@ export class DockButton {
         }
 
         const observer = new IntersectionObserver(
-            this.focusCustomComponentElement,
+            this.focusCustomComponentElement
         );
         observer.observe(this.customComponentElement);
     }
@@ -111,7 +111,7 @@ export class DockButton {
 
     private renderButton(
         handleClick: (event: MouseEvent) => void,
-        slot?: string,
+        slot?: string
     ) {
         return (
             <button

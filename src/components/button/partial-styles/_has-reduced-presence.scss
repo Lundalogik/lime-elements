@@ -16,8 +16,7 @@ $speed-of-reducing-presence: 0.3s;
         &[disabled]:not(.loading):not(.just-loaded) {
             animation: reduced-presence $speed-of-reducing-presence ease
                 forwards;
-            transition:
-                padding $speed-of-reducing-presence ease,
+            transition: padding $speed-of-reducing-presence ease,
                 min-width $speed-of-reducing-presence ease;
             transition-delay: $speed-of-reducing-presence;
 

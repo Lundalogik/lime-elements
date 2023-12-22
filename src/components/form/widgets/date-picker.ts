@@ -59,7 +59,7 @@ export class DatePicker extends React.Component {
             time: 'HH:mm:ss',
         };
         const dateString = moment(event.detail).format(
-            formatMapping[props.schema.format],
+            formatMapping[props.schema.format]
         );
         props.onChange(dateString);
     }

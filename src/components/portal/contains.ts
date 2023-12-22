@@ -10,7 +10,7 @@
  */
 export function portalContains(
     element: HTMLElement,
-    child: HTMLElement,
+    child: HTMLElement
 ): boolean {
     if (element.contains(child) || element.shadowRoot?.contains(child)) {
         return true;

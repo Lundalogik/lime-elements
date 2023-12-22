@@ -183,7 +183,7 @@ export class Select {
 
     public render() {
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
+            '--dropdown-z-index'
         );
 
         return (
@@ -230,7 +230,7 @@ export class Select {
 
         setTimeout(() => {
             const list: HTMLElement = document.querySelector(
-                `#${this.portalId} limel-menu-surface limel-list`,
+                `#${this.portalId} limel-menu-surface limel-list`
             );
             const firstItem: HTMLElement =
                 list?.shadowRoot?.querySelector('[tabindex]');
@@ -243,13 +243,13 @@ export class Select {
 
     private setTriggerFocus() {
         const trigger: HTMLElement = this.host.shadowRoot.querySelector(
-            '.limel-select-trigger',
+            '.limel-select-trigger'
         );
         trigger.focus();
     }
 
     private handleMenuChange(
-        event: CustomEvent<Array<ListItem<Option>> | ListItem<Option>>,
+        event: CustomEvent<Array<ListItem<Option>> | ListItem<Option>>
     ) {
         event.stopPropagation();
 
@@ -309,7 +309,7 @@ export class Select {
         event.stopPropagation();
 
         const element: HTMLSelectElement = this.host.shadowRoot.querySelector(
-            'select.limel-select__native-control',
+            'select.limel-select__native-control'
         );
         const options = Array.apply(null, element.options) // eslint-disable-line prefer-spread
             .filter((optionElement: HTMLOptionElement) => {
@@ -317,7 +317,7 @@ export class Select {
             })
             .map((optionElement: HTMLOptionElement) => {
                 return this.options.find(
-                    (o) => o.value === optionElement.value,
+                    (o) => o.value === optionElement.value
                 );
             });
 

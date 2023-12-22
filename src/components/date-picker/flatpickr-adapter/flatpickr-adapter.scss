@@ -106,9 +106,7 @@ svg {
         }
 
         &:before {
-            transition:
-                opacity 0.2s ease,
-                top 0.2s ease;
+            transition: opacity 0.2s ease, top 0.2s ease;
 
             pointer-events: none;
             content: var(--today-label);

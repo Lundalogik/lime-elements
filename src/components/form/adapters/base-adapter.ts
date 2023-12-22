@@ -59,7 +59,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
             name: string;
             events?: any;
             elementProps?: any;
-        },
+        }
     ) {
         super(props);
 
@@ -134,7 +134,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
     getEventsToRemove(prevEvents: object, nextEvents: object): object {
         return pickBy(
             prevEvents,
-            (value, key) => !has(nextEvents, key) || nextEvents[key] !== value,
+            (value, key) => !has(nextEvents, key) || nextEvents[key] !== value
         );
     }
 
@@ -147,7 +147,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
     getEventsToAdd(prevEvents: object, nextEvents: object): object {
         return pickBy(
             nextEvents,
-            (value, key) => !has(prevEvents, key) || prevEvents[key] !== value,
+            (value, key) => !has(prevEvents, key) || prevEvents[key] !== value
         );
     }
 
@@ -211,11 +211,11 @@ export class LimeElementsAdapter extends React.Component<any, any> {
      */
     getChangedNonPrimitiveProps(
         prevNonPrimitiveProps: object,
-        nextNonPrimitiveProps: object,
+        nextNonPrimitiveProps: object
     ): object {
         return pickBy(
             nextNonPrimitiveProps,
-            (value, key) => prevNonPrimitiveProps[key] !== value,
+            (value, key) => prevNonPrimitiveProps[key] !== value
         );
     }
 
@@ -231,7 +231,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
      */
     setNonPrimitives(elementProps: object): void {
         toPairs(elementProps).forEach(([key, value]) =>
-            this.setComponentProperty(key, value),
+            this.setComponentProperty(key, value)
         );
     }
 
@@ -252,10 +252,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
         const { elementProps: prevElementProps } = prevProps;
 
         this.setNonPrimitives(
-            this.getChangedNonPrimitiveProps(
-                prevElementProps,
-                nextElementProps,
-            ),
+            this.getChangedNonPrimitiveProps(prevElementProps, nextElementProps)
         );
 
         this.updateEvents();

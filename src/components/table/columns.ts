@@ -85,7 +85,7 @@ export const formatHeader = (column: Column) => (): string | HTMLElement => {
  */
 export function createFormatter(
     column: Column,
-    pool: ElementPool,
+    pool: ElementPool
 ): Tabulator.Formatter {
     if (!column.component?.name) {
         return formatCell;
@@ -96,7 +96,7 @@ export function createFormatter(
         console.warn(
             `Failed to render custom component for column "${column.field.toString()}". Custom element <${
                 column.component.name
-            }/> does not exist. Using the default formatter.`,
+            }/> does not exist. Using the default formatter.`
         );
 
         return formatCell;
@@ -129,7 +129,7 @@ function columnElementExists(column: Column<any>) {
  */
 export function formatCell(
     cell: Tabulator.CellComponent,
-    column: Column,
+    column: Column
 ): string {
     const data = cell.getData();
     let value = cell.getValue();
@@ -157,7 +157,7 @@ export function createCustomComponent(
     cell: Tabulator.CellComponent,
     column: Column,
     value: string,
-    pool: ElementPool,
+    pool: ElementPool
 ): HTMLElement {
     const field = cell.getField();
     const data = cell.getData();
@@ -233,7 +233,7 @@ function getEventName(eventListener: string): string {
 
 function createResizeObserver(
     element: HTMLElement,
-    column: Tabulator.ColumnComponent,
+    column: Tabulator.ColumnComponent
 ) {
     if (!('ResizeObserver' in window)) {
         return;

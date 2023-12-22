@@ -39,7 +39,7 @@ export class LinearProgress {
 
     private initialize() {
         const element = this.host.shadowRoot.querySelector(
-            '.mdc-linear-progress',
+            '.mdc-linear-progress'
         );
         if (!element) {
             return;

@@ -292,7 +292,7 @@ export class Picker {
 
         this.debouncedSearch = AwesomeDebouncePromise(
             newValue,
-            SEARCH_DEBOUNCE,
+            SEARCH_DEBOUNCE
         );
     }
 
@@ -386,7 +386,7 @@ export class Picker {
     }
 
     private removeUnusedPropertiesOnAction(
-        action: ListItem<Action>,
+        action: ListItem<Action>
     ): ListItem<Action> {
         return {
             ...action,
@@ -483,7 +483,7 @@ export class Picker {
 
     private renderPortal(content: any[] = []) {
         const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
+            '--dropdown-z-index'
         );
 
         return (
@@ -575,7 +575,7 @@ export class Picker {
      * @returns {void}
      */
     private handleActionListChange(
-        event: LimelListCustomEvent<ListItem<Action>>,
+        event: LimelListCustomEvent<ListItem<Action>>
     ) {
         event.stopPropagation();
         if (!event.detail) {
@@ -649,7 +649,7 @@ export class Picker {
 
         if (isForwardTab || isDown) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:first-child',
+                '.mdc-deprecated-list-item:first-child'
             );
             listElement.focus();
 
@@ -658,7 +658,7 @@ export class Picker {
 
         if (isUp) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:last-child',
+                '.mdc-deprecated-list-item:last-child'
             );
             listElement.focus();
         }

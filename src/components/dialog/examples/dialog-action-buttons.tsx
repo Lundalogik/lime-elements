@@ -93,7 +93,7 @@ export class DialogActionButtonsExample {
 
     private displayFeedback = () => {
         alert(
-            '2345 items are being updated in the background. This may take a few seconds…',
+            '2345 items are being updated in the background. This may take a few seconds…'
         );
         this.closeDialog();
     };

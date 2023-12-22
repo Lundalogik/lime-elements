@@ -46,7 +46,7 @@ export class FlexContainer {
     public componentWillLoad() {
         /* eslint-disable-next-line no-console */
         console.warn(
-            'limel-flex-container is deprecated, please use CSS instead: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox',
+            'limel-flex-container is deprecated, please use CSS instead: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox'
         );
     }
 

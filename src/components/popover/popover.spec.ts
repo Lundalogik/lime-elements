@@ -27,7 +27,7 @@ describe('popover', () => {
             // thus we need find the portal its inside instead and not
             // limel-popover
             const elem: HTMLElement = page.body.querySelector(
-                '.limel-portal--container',
+                '.limel-portal--container'
             );
             elem.click();
             await page.waitForChanges();

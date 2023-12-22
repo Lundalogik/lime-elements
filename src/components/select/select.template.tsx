@@ -29,7 +29,7 @@ interface SelectTemplateProps {
 }
 
 export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
-    props,
+    props
 ) => {
     const value = props.value;
     let hasValue = !!props.value;
@@ -151,7 +151,7 @@ const ShowIcon: FunctionalComponent<
 };
 
 const HelperText: FunctionalComponent<{ text: string; isValid: boolean }> = (
-    props,
+    props
 ) => {
     if (typeof props.text !== 'string') {
         return;
@@ -248,7 +248,7 @@ function isSelected(option: Option, value: Option | Option[]): boolean {
 function createMenuItems(
     options: Option[],
     value: Option | Option[],
-    selectIsRequired = false,
+    selectIsRequired = false
 ): Array<ListItem<Option>> {
     const menuOptionFilter = getMenuOptionFilter(selectIsRequired);
 
@@ -341,7 +341,7 @@ export function triggerIconColorWarning(options: Option[]) {
         if (option.iconColor) {
             /* eslint-disable-next-line no-console */
             console.warn(
-                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`.",
+                "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`."
             );
         }
     });

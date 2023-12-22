@@ -22,7 +22,7 @@ import rehypeRaw from 'rehype-raw';
  */
 export async function markdownToHTML(
     text: string,
-    options?: markdownToHTMLOptions,
+    options?: markdownToHTMLOptions
 ): Promise<string> {
     if (options?.forceHardLineBreaks) {
         text = text.replace(/([\n\r])/g, '  $1');

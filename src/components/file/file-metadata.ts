@@ -41,7 +41,7 @@ export function getFileColor(file: FileInfo) {
 export function getFileBackgroundColor(file: FileInfo) {
     const backgroundColor = getIconBackgroundColor(
         file.icon,
-        file.iconBackgroundColor,
+        file.iconBackgroundColor
     );
 
     if (backgroundColor) {

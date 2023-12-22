@@ -38,7 +38,7 @@ export class MenuDisabledExample {
     private handleSelect = (event: LimelMenuCustomEvent<MenuItem>) => {
         console.error(
             'This should never happen, since the menu is disabled.',
-            event,
+            event
         );
     };
 }

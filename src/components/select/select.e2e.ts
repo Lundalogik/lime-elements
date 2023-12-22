@@ -162,7 +162,7 @@ describe('limel-select (native)', () => {
             });
             it.skip('label is not floating', () => {
                 expect(label).not.toHaveClass(
-                    'mdc-floating-label--float-above',
+                    'mdc-floating-label--float-above'
                 );
             });
 
@@ -177,7 +177,7 @@ describe('limel-select (native)', () => {
                 });
                 it('label is not floating', () => {
                     expect(label).not.toHaveClass(
-                        'mdc-floating-label--float-above',
+                        'mdc-floating-label--float-above'
                     );
                 });
             });
@@ -190,7 +190,7 @@ describe('limel-select (native)', () => {
                             { text: 'Matt Smith', value: '11' },
                         ],
                         { text: 'David Tennant', value: '10' },
-                        true,
+                        true
                     );
 
                     describe('and then changed to a different populated array', () => {
@@ -201,7 +201,7 @@ describe('limel-select (native)', () => {
                                     { text: 'Jodie Witthaker', value: '13' },
                                 ],
                                 { text: 'Peter Capaldi', value: '12' },
-                                true,
+                                true
                             );
                         });
                         describe('with an empty first option', () => {
@@ -212,7 +212,7 @@ describe('limel-select (native)', () => {
                                     { text: 'Peter Capaldi', value: '12' },
                                 ],
                                 null,
-                                false,
+                                false
                             );
                         });
                         describe('with an empty and disabled first option', () => {
@@ -222,7 +222,7 @@ describe('limel-select (native)', () => {
                                     { text: 'Jodie Witthaker', value: '13' },
                                 ],
                                 null,
-                                false,
+                                false
                             );
                         });
                     });
@@ -232,7 +232,7 @@ describe('limel-select (native)', () => {
             function testSettingOptions(
                 options,
                 expectedValue,
-                expectFloating: boolean,
+                expectFloating: boolean
             ) {
                 beforeEach(async () => {
                     await testWrapper.setProperty('onChangeCalledTimes', 0);
@@ -249,11 +249,11 @@ describe('limel-select (native)', () => {
                     async () => {
                         const v = await testWrapper.getProperty('value');
                         expect(v).toEqual(expectedValue);
-                    },
+                    }
                 );
                 it.skip('onChange was called', async () => {
                     const c = await testWrapper.getProperty(
-                        'onChangeCalledTimes',
+                        'onChangeCalledTimes'
                     );
                     expect(c).toEqual(1);
                 });
@@ -262,10 +262,10 @@ describe('limel-select (native)', () => {
                         JSON.stringify(expectedValue),
                     async () => {
                         const d = await testWrapper.getProperty(
-                            'onChangeLastEventDetails',
+                            'onChangeLastEventDetails'
                         );
                         expect(d).toEqual(expectedValue);
-                    },
+                    }
                 );
                 let name = 'label is not floating';
                 if (expectFloating) {
@@ -275,11 +275,11 @@ describe('limel-select (native)', () => {
                 it.skip(name, () => {
                     if (expectFloating) {
                         expect(label).toHaveClass(
-                            'mdc-floating-label--float-above',
+                            'mdc-floating-label--float-above'
                         );
                     } else {
                         expect(label).not.toHaveClass(
-                            'mdc-floating-label--float-above',
+                            'mdc-floating-label--float-above'
                         );
                     }
                 });
@@ -322,7 +322,7 @@ describe('limel-select (native)', () => {
             beforeEach(async () => {
                 spy = await page.spyOnEvent('change');
                 const appleOption = await innerSelect.find(
-                    'option[value="apple"]',
+                    'option[value="apple"]'
                 );
                 await appleOption.click();
             });
@@ -339,7 +339,7 @@ describe('limel-select (native)', () => {
                 beforeEach(async () => {
                     spy = await page.spyOnEvent('change');
                     const appleOption = await innerSelect.find(
-                        'option[value="lime"]',
+                        'option[value="lime"]'
                     );
                     await page.keyboard.down('Shift');
                     await appleOption.click();
@@ -509,7 +509,7 @@ describe('limel-select (menu)', () => {
             });
             it.skip('label is not floating', () => {
                 expect(label).not.toHaveClass(
-                    'mdc-floating-label--float-above',
+                    'mdc-floating-label--float-above'
                 );
             });
 
@@ -524,7 +524,7 @@ describe('limel-select (menu)', () => {
                 });
                 it('label is not floating', () => {
                     expect(label).not.toHaveClass(
-                        'mdc-floating-label--float-above',
+                        'mdc-floating-label--float-above'
                     );
                 });
             });
@@ -569,7 +569,7 @@ describe('limel-select (menu)', () => {
                 });
                 it('has options', async () => {
                     const child = await page.find(
-                        'limel-select >>> limel-list >>> li',
+                        'limel-select >>> limel-list >>> li'
                     );
                     expect(child).toBeTruthy();
                 });

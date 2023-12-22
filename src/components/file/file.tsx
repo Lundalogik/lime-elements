@@ -153,7 +153,7 @@ export class File {
 
     public componentDidLoad() {
         this.fileInput = this.element.shadowRoot.getElementById(
-            this.fileInputId,
+            this.fileInputId
         ) as HTMLInputElement;
         this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
         this.initialize();
@@ -165,7 +165,7 @@ export class File {
         }
 
         this.mdcTextField = new MDCTextField(
-            this.chipSet.shadowRoot.querySelector('.mdc-text-field'),
+            this.chipSet.shadowRoot.querySelector('.mdc-text-field')
         );
     }
 

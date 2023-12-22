@@ -25,9 +25,9 @@ export class RowLayout extends React.Component<RowProps> {
                     {
                         key: index.toString(),
                     },
-                    child,
+                    child
                 );
-            }),
+            })
         );
     }
 }

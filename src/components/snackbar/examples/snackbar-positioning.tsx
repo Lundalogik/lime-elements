@@ -34,7 +34,7 @@ export class SnackbarPositioningExample {
     constructor() {
         this.triggerSnackbarWithoutAction = this.triggerSnackbar.bind(
             this,
-            'limel-snackbar',
+            'limel-snackbar'
         );
     }
 

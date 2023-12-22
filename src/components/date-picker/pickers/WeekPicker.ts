@@ -7,7 +7,7 @@ export class WeekPicker extends Picker {
     public constructor(
         dateFormat: string = '[w] W GGGG',
         language: string,
-        change: EventEmitter,
+        change: EventEmitter
     ) {
         super(dateFormat, language, change);
     }

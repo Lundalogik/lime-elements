@@ -272,7 +272,7 @@ export class ChipSet {
 
         if (this.type === 'input') {
             this.mdcTextField = new MDCTextField(
-                this.host.shadowRoot.querySelector('.mdc-text-field'),
+                this.host.shadowRoot.querySelector('.mdc-text-field')
             );
         }
 
@@ -338,13 +338,13 @@ export class ChipSet {
 
     private createMDCChipSet() {
         this.mdcChipSet = new MDCChipSet(
-            this.host.shadowRoot.querySelector('.mdc-chip-set'),
+            this.host.shadowRoot.querySelector('.mdc-chip-set')
         );
 
         if (!this.type || this.type === 'input') {
             this.mdcChipSet.listen(
                 'MDCChip:interaction',
-                this.handleInteractionEvent,
+                this.handleInteractionEvent
             );
         }
 
@@ -357,7 +357,7 @@ export class ChipSet {
         if (this.mdcChipSet) {
             this.mdcChipSet.unlisten(
                 'MDCChip:interaction',
-                this.handleInteractionEvent,
+                this.handleInteractionEvent
             );
             this.mdcChipSet.unlisten('MDCChip:selection', this.handleSelection);
 
@@ -712,7 +712,7 @@ export class ChipSet {
         const color = getIconColor(chip.icon, chip.iconFillColor);
         const backgroundColor = getIconBackgroundColor(
             chip.icon,
-            chip.iconBackgroundColor,
+            chip.iconBackgroundColor
         );
         const title = getIconTitle(chip.icon, chip.iconTitle);
         const style = {};
@@ -831,7 +831,7 @@ export class ChipSet {
             ) {
                 /* eslint-disable-next-line no-console */
                 console.warn(
-                    "The `iconFillColor`, `iconBackgroundColor`, and `iconTitle` props are deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name', `iconBackgroundColor: 'color-name', and `iconTitle: 'title'`, write `icon { name: 'icon-name', color: 'color-name', backgroundColor: 'color-name', title: 'title' }`.",
+                    "The `iconFillColor`, `iconBackgroundColor`, and `iconTitle` props are deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name', `iconBackgroundColor: 'color-name', and `iconTitle: 'title'`, write `icon { name: 'icon-name', color: 'color-name', backgroundColor: 'color-name', title: 'title' }`."
                 );
             }
         }

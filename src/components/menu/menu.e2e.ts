@@ -60,10 +60,10 @@ describe('limel-menu', () => {
             });
             it('sets the correct aria attributes on the trigger element', async () => {
                 expect(
-                    defaultButton.getAttribute('aria-haspopup'),
+                    defaultButton.getAttribute('aria-haspopup')
                 ).toBeTruthy();
                 expect(
-                    defaultButton.getAttribute('aria-expanded'),
+                    defaultButton.getAttribute('aria-expanded')
                 ).toBeTruthy();
             });
 

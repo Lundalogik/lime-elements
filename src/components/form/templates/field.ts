@@ -25,7 +25,7 @@ export const FieldTemplate = (props) => {
             className: classNames,
             style: style,
         },
-        props.children,
+        props.children
     );
 };
 

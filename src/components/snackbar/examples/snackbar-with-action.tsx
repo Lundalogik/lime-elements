@@ -26,7 +26,7 @@ export class SnackbarExample {
     constructor() {
         this.triggerSnackbarWithAction = this.triggerSnackbar.bind(
             this,
-            'limel-snackbar',
+            'limel-snackbar'
         );
     }
 
@@ -60,7 +60,7 @@ export class SnackbarExample {
 
     private snackbarWithActionOnHide() {
         console.log(
-            'Now the email has really been sent! There is no way to undo this.',
+            'Now the email has really been sent! There is no way to undo this.'
         );
     }
 }

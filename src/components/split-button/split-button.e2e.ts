@@ -27,7 +27,7 @@ describe('limel-split-button', () => {
             });
             it('inner limel-button renders the new label', () => {
                 expect(limelButton.getAttribute('label')).toEqualText(
-                    'new Label',
+                    'new Label'
                 );
             });
         });
@@ -41,7 +41,7 @@ describe('limel-split-button', () => {
                 `);
 
                 limelButton = await page.find(
-                    'limel-split-button>>>limel-button',
+                    'limel-split-button>>>limel-button'
                 );
             });
 
@@ -58,7 +58,7 @@ describe('limel-split-button', () => {
                 `);
 
                 limelButton = await page.find(
-                    'limel-split-button>>>limel-button',
+                    'limel-split-button>>>limel-button'
                 );
             });
 
@@ -77,7 +77,7 @@ describe('limel-split-button', () => {
                 `);
 
                 limelButton = await page.find(
-                    'limel-split-button>>>limel-button',
+                    'limel-split-button>>>limel-button'
                 );
             });
 
@@ -94,7 +94,7 @@ describe('limel-split-button', () => {
                 `);
 
                 limelButton = await page.find(
-                    'limel-split-button>>>limel-button',
+                    'limel-split-button>>>limel-button'
                 );
             });
 
@@ -113,7 +113,7 @@ describe('limel-split-button', () => {
                 `);
 
                 limelButton = await page.find(
-                    'limel-split-button>>>limel-button',
+                    'limel-split-button>>>limel-button'
                 );
             });
 
@@ -130,7 +130,7 @@ describe('limel-split-button', () => {
                 `);
 
                 limelButton = await page.find(
-                    'limel-split-button>>>limel-button',
+                    'limel-split-button>>>limel-button'
                 );
             });
 

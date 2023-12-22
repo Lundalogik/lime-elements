@@ -393,7 +393,7 @@ export class InputField {
     };
 
     private renderInput = (
-        properties: JSXBase.InputHTMLAttributes<HTMLInputElement>,
+        properties: JSXBase.InputHTMLAttributes<HTMLInputElement>
     ) => {
         if (this.type === 'textarea') {
             return;
@@ -415,7 +415,7 @@ export class InputField {
     };
 
     private renderTextarea = (
-        properties: JSXBase.TextareaHTMLAttributes<HTMLTextAreaElement>,
+        properties: JSXBase.TextareaHTMLAttributes<HTMLTextAreaElement>
     ) => {
         if (this.type !== 'textarea') {
             return;
@@ -720,7 +720,7 @@ export class InputField {
         let renderValue = this.value;
         if (this.formatNumber && this.value) {
             renderValue = new Intl.NumberFormat(this.locale).format(
-                Number(this.value),
+                Number(this.value)
             );
         }
 
@@ -767,7 +767,7 @@ export class InputField {
         event.preventDefault();
         if (isForwardTab || isDown) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:first-child',
+                '.mdc-deprecated-list-item:first-child'
             );
             listElement.focus();
 
@@ -776,14 +776,14 @@ export class InputField {
 
         if (isUp) {
             const listElement: HTMLElement = list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:last-child',
+                '.mdc-deprecated-list-item:last-child'
             );
             listElement.focus();
         }
     };
 
     private handleCompletionChange = (
-        event: LimelListCustomEvent<ListItem>,
+        event: LimelListCustomEvent<ListItem>
     ) => {
         event.stopPropagation();
         if (!event.detail) {
@@ -807,7 +807,7 @@ export class InputField {
         }
 
         const dropdownZIndex = getComputedStyle(
-            this.limelInputField,
+            this.limelInputField
         ).getPropertyValue('--dropdown-z-index');
 
         return (
@@ -835,7 +835,7 @@ export class InputField {
 
     private renderListResult = () => {
         const filteredCompletions: ListItem[] = this.filterCompletions(
-            this.value,
+            this.value
         );
         if (!filteredCompletions || filteredCompletions.length === 0) {
             return null;
@@ -874,8 +874,7 @@ export class InputField {
 
         return this.completionsList.filter(
             (completion) =>
-                completion.text.toLowerCase().indexOf(filter.toLowerCase()) >
-                -1,
+                completion.text.toLowerCase().indexOf(filter.toLowerCase()) > -1
         );
     };
 

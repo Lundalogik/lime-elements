@@ -39,11 +39,8 @@
     // We could use the `@include mixins.is-flat-clickable();` mixin
     // But its `background-color` arguments would interfere with the
     // styles here. So we just copy/pasted the useful parts of the mixin here
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+    transition: color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.1s ease-out;
 
     &:hover {
         box-shadow: var(--button-shadow-hovered);
@@ -57,8 +54,7 @@
     cursor: pointer;
 
     &:focus-visible {
-        box-shadow:
-            var(--shadow-depth-8-focused),
+        box-shadow: var(--shadow-depth-8-focused),
             0 0 0 0.25rem rgb(var(--contrast-100)) inset;
     }
 }

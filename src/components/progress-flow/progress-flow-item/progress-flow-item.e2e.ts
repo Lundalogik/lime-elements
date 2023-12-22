@@ -74,7 +74,7 @@ describe('limel-progress-flow-item', () => {
 
         it('adds the secondary text to the title of the button', () => {
             expect(button.title).toEqual(
-                'Customer contact · Via phone support',
+                'Customer contact · Via phone support'
             );
         });
 

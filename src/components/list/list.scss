@@ -139,9 +139,8 @@ $list-mdc-list-item: 0;
                 --list-right-padding: #{functions.pxToRem(12)};
                 right: 0;
                 width: calc(
-                    100% - var(--icon-width) - var(--icon-right-padding) - var(
-                            --list-right-padding
-                        )
+                    100% - var(--icon-width) - var(--icon-right-padding) -
+                        var(--list-right-padding)
                 );
 
                 &.x-small {

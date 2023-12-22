@@ -34,7 +34,7 @@ export class IconFinder {
 
     private loadIconIndex = async () => {
         const response = await fetch(
-            'https://lundalogik.github.io/lime-icons8/assets/icon-index.json',
+            'https://lundalogik.github.io/lime-icons8/assets/icon-index.json'
         );
         const json = await response?.json?.();
         this.indexedIcons = json;
@@ -106,7 +106,7 @@ export class IconFinder {
         this.indexedIcons.forEach((icon: Icon) => {
             this.value.forEach((search: Chip) => {
                 const hits = icon.tags.filter((tag) =>
-                    tag.includes(search.text),
+                    tag.includes(search.text)
                 );
                 if (hits.length || icon.id.includes(search.text)) {
                     this.icons.push(icon);

@@ -16,7 +16,7 @@ export class YearPicker extends Picker {
         dateFormat: string = 'YYYY',
         language: string,
         change: EventEmitter<Date>,
-        private translations: Translations,
+        private translations: Translations
     ) {
         super(dateFormat, language, change);
         this.handleChange = this.handleChange.bind(this);
@@ -29,11 +29,11 @@ export class YearPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr.prevMonthNav.addEventListener(
                 'mousedown',
-                this.prevYears,
+                this.prevYears
             );
             this.flatpickr.nextMonthNav.addEventListener(
                 'mousedown',
-                this.nextYears,
+                this.nextYears
             );
         }
     }
@@ -43,11 +43,11 @@ export class YearPicker extends Picker {
         if (!this.nativePicker) {
             this.flatpickr?.prevMonthNav?.removeEventListener(
                 'mousedown',
-                this.prevYears,
+                this.prevYears
             );
             this.flatpickr?.nextMonthNav?.removeEventListener(
                 'mousedown',
-                this.nextYears,
+                this.nextYears
             );
         }
     }
@@ -104,7 +104,7 @@ export class YearPicker extends Picker {
         return super.handleClose(selectedDates).then(() => {
             this.selectYear(
                 this.flatpickr.selectedDates,
-                this.flatpickr.input.value,
+                this.flatpickr.input.value
             );
         });
     }

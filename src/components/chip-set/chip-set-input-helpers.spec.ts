@@ -17,7 +17,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'ArrowLeft',
-                    }),
+                    })
                 );
             });
             it('selects the last chip', () => {
@@ -30,7 +30,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'ArrowRight',
-                    }),
+                    })
                 );
             });
             it('selects the first chip', () => {
@@ -43,7 +43,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'Enter',
-                    }),
+                    })
                 );
             });
             it('does NOT call `host.emitInteraction`', () => {
@@ -56,7 +56,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'Delete',
-                    }),
+                    })
                 );
             });
             it('does NOT call `host.removeChip`', () => {
@@ -70,7 +70,7 @@ describe('handleKeyboardEvent', () => {
                     new KeyboardEvent('keydown', {
                         key: 'Backspace',
                         repeat: false,
-                    }),
+                    })
                 );
             });
             it('does NOT call `host.removeChip`', () => {
@@ -87,7 +87,7 @@ describe('handleKeyboardEvent', () => {
                     new KeyboardEvent('keydown', {
                         key: 'Backspace',
                         repeat: true,
-                    }),
+                    })
                 );
             });
             it('does NOT call `host.removeChip`', () => {
@@ -109,7 +109,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'ArrowLeft',
-                    }),
+                    })
                 );
             });
             it('selects the preceding chip', () => {
@@ -122,7 +122,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'ArrowRight',
-                    }),
+                    })
                 );
             });
             it('selects the succeeding chip', () => {
@@ -135,12 +135,12 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'Enter',
-                    }),
+                    })
                 );
             });
             it('calls `host.emitInteraction` with the selected chip', () => {
                 expect(host.emitInteraction).toHaveBeenCalledWith(
-                    host.value[1],
+                    host.value[1]
                 );
             });
         });
@@ -150,7 +150,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'Delete',
-                    }),
+                    })
                 );
             });
             it('calls `host.removeChip` with the id of the selected chip', () => {
@@ -167,7 +167,7 @@ describe('handleKeyboardEvent', () => {
                     new KeyboardEvent('keydown', {
                         key: 'Backspace',
                         repeat: false,
-                    }),
+                    })
                 );
             });
             it('calls `host.removeChip` with the id of the selected chip', () => {
@@ -184,7 +184,7 @@ describe('handleKeyboardEvent', () => {
                     new KeyboardEvent('keydown', {
                         key: 'Backspace',
                         repeat: true,
-                    }),
+                    })
                 );
             });
             it('calls `host.removeChip` with the id of the selected chip', () => {
@@ -200,7 +200,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'Escape',
-                    }),
+                    })
                 );
             });
             it('resets selection', () => {
@@ -219,7 +219,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'ArrowLeft',
-                    }),
+                    })
                 );
             });
             it('does NOT change the selection', () => {
@@ -232,7 +232,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'ArrowRight',
-                    }),
+                    })
                 );
             });
             it('selects the second chip', () => {
@@ -251,7 +251,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'ArrowLeft',
-                    }),
+                    })
                 );
             });
             it('selects the second-to-last chip', () => {
@@ -264,7 +264,7 @@ describe('handleKeyboardEvent', () => {
                 host.handleKeyDown(
                     new KeyboardEvent('keydown', {
                         key: 'ArrowRight',
-                    }),
+                    })
                 );
             });
             it('does NOT change the selection', () => {
@@ -279,7 +279,7 @@ function createHostComponent(
         { id: 123, name: 'Chip 1' },
         { id: 456, name: 'Chip 2' },
         { id: 789, name: 'Chip 3' },
-    ],
+    ]
 ) {
     return {
         emitInteraction: jest.fn(),

@@ -9,7 +9,7 @@ describe('limel-icon-button', () => {
                 <limel-icon-button icon="unit-test" label="Add favorite"></limel-icon-button>
             `);
             mdcIconButton = await page.find(
-                'limel-icon-button >>> limel-tooltip',
+                'limel-icon-button >>> limel-tooltip'
             );
         });
         it('displays the correct label', () => {

@@ -117,7 +117,7 @@ export class MenuSurface {
 
         if (this.allowClicksElement) {
             const clickedInAllowedElement = elementPath.includes(
-                this.allowClicksElement,
+                this.allowClicksElement
             );
 
             if (clickedInAllowedElement) {
@@ -162,7 +162,7 @@ export class MenuSurface {
             },
             {
                 once: true,
-            },
+            }
         );
     };
 

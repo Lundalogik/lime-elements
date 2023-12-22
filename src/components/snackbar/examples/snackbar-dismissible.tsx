@@ -29,7 +29,7 @@ export class SnackbarExample {
     constructor() {
         this.triggerSnackbarWithoutAction = this.triggerSnackbar.bind(
             this,
-            'limel-snackbar',
+            'limel-snackbar'
         );
     }
 

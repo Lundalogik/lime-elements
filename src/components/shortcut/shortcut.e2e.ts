@@ -70,7 +70,7 @@ describe('limel-shortcut', () => {
             it('updates `aria-label`', () => {
                 expect(link).toEqualAttribute(
                     'aria-label',
-                    'I need a cup of tea',
+                    'I need a cup of tea'
                 );
             });
         });
@@ -95,7 +95,7 @@ describe('limel-shortcut', () => {
         it('uses both the `label` and the `link` `title` to construct the `aria-label`', () => {
             expect(link).toEqualAttribute(
                 'aria-label',
-                'iSpiffy. Open the iSpiffy app',
+                'iSpiffy. Open the iSpiffy app'
             );
         });
 
@@ -107,7 +107,7 @@ describe('limel-shortcut', () => {
             it('updates `aria-label`', () => {
                 expect(link).toEqualAttribute(
                     'aria-label',
-                    'imTired. Open the iSpiffy app',
+                    'imTired. Open the iSpiffy app'
                 );
             });
         });
@@ -122,7 +122,7 @@ describe('limel-shortcut', () => {
             it('updates `aria-label`', () => {
                 expect(link).toEqualAttribute(
                     'aria-label',
-                    'iSpiffy. I need a cup of tea',
+                    'iSpiffy. I need a cup of tea'
                 );
             });
         });
