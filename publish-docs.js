@@ -125,7 +125,7 @@ function cloneDocsRepo() {
 
     if (
         shell.exec(
-            'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist',
+            'git clone --single-branch --branch gh-pages https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git docsDist'
         ).code !== 0
     ) {
         shell.echo('git clone failed!');
@@ -226,7 +226,7 @@ function copyBuildOutput() {
         shell.cp(
             '-R',
             `www${BASE_URL}versions/${version}`,
-            'docsDist/versions/',
+            'docsDist/versions/'
         ).code !== 0
     ) {
         shell.echo('copying output failed!');
@@ -248,7 +248,7 @@ function copyBuildOutput() {
         shell.cp('docs-index.html', `docsDist/versions/${version}/`).code !== 0
     ) {
         shell.echo(
-            '[WARNING] Copying docs-index.html failed. Not critical, continuing.',
+            '[WARNING] Copying docs-index.html failed. Not critical, continuing.'
         );
     }
 
@@ -259,11 +259,11 @@ function copyBuildOutput() {
         shell.cp(
             '-f',
             'docsDist/versions/next/docs-index.html',
-            'docsDist/index.html',
+            'docsDist/index.html'
         ).code !== 0
     ) {
         shell.echo(
-            '[WARNING] Copying docs-index.html from most recent `next` failed. Not critical, continuing.',
+            '[WARNING] Copying docs-index.html from most recent `next` failed. Not critical, continuing.'
         );
     }
 }
@@ -283,7 +283,7 @@ function updateVersionList() {
         .filter((file) => file !== 'latest' && file !== 'next');
     fs.writeFileSync(
         'versions.js',
-        `window.versions = ${JSON.stringify(files)};`,
+        `window.versions = ${JSON.stringify(files)};`
     );
 
     shell.cd('..');
@@ -437,7 +437,7 @@ function push() {
         shell.exec(
             `git push ${
                 forcePush ? '--force' : ''
-            } https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages`,
+            } https://$GH_TOKEN@github.com/Lundalogik/lime-elements.git HEAD:gh-pages`
         ).code !== 0
     ) {
         shell.echo('git push failed!');
@@ -452,7 +452,7 @@ function push() {
 function teardown(finished) {
     if (finished || cleanOnFail) {
         shell.exec(
-            'git checkout src/index.html src/index.md stencil.config.docs.ts',
+            'git checkout src/index.html src/index.md stencil.config.docs.ts'
         );
         shell.echo('Removing docs repo clone in docsDist.');
         shell.exec('rm -rf docsDist');
