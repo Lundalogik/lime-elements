@@ -34,6 +34,12 @@ button {
     min-height: functions.pxToRem(36);
     width: 100%;
 
+    &:disabled {
+        &.outlined {
+            border-color: rgba(var(--contrast-1700), 0.2);
+        }
+    }
+
     &:not(:disabled) {
         @include mixins.visualize-keyboard-focus;
         @include mixins.is-elevated-clickable();
@@ -61,91 +67,85 @@ button {
             background-color: rgba(var(--contrast-1600), 0.1);
         }
     }
+}
 
-    &:disabled {
-        &.outlined {
-            border-color: rgba(var(--contrast-1700), 0.2);
-        }
+.icon {
+    width: 1.25rem;
+    flex-shrink: 0;
+    margin-left: functions.pxToRem(-4);
+
+    &.no-label {
+        margin-right: functions.pxToRem(-10);
     }
+}
 
-    .icon {
-        width: 1.25rem;
-        flex-shrink: 0;
-        margin-left: functions.pxToRem(-4);
+.label {
+    font-family: Roboto, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: functions.pxToRem(1);
+    opacity: 1;
+}
 
-        &.no-label {
-            margin-right: functions.pxToRem(-10);
-        }
+limel-spinner {
+    opacity: 0;
+    display: none;
+    position: absolute;
+}
+
+limel-icon {
+    vertical-align: top;
+}
+
+svg {
+    height: functions.pxToRem(30);
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    width: functions.pxToRem(30);
+
+    line {
+        stroke: rgb(var(--color-white));
+        stroke-width: 2;
     }
+}
 
+limel-icon,
+.label,
+limel-spinner,
+svg {
+    transition: opacity 300ms ease-in-out;
+}
+
+.loading {
+    limel-icon,
     .label {
-        font-family: Roboto, sans-serif;
-        font-size: 0.875rem;
-        font-weight: 500;
-        letter-spacing: functions.pxToRem(1);
+        opacity: 0;
+    }
+    limel-spinner {
+        opacity: 1;
+        display: block;
+    }
+}
+
+.just-loaded,
+.just-failed {
+    limel-icon,
+    .label {
+        opacity: 0;
+    }
+    svg {
         opacity: 1;
     }
-
     limel-spinner {
-        opacity: 0;
-        display: none;
-        position: absolute;
+        display: block;
+        animation: fade-out-spinner 0.3s ease;
     }
+}
 
-    limel-icon {
-        vertical-align: top;
-    }
-
-    svg {
-        height: functions.pxToRem(30);
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        width: functions.pxToRem(30);
-
-        line {
-            stroke: rgb(var(--color-white));
-            stroke-width: 2;
-        }
-    }
-
-    limel-icon,
-    .label,
-    limel-spinner,
-    svg {
-        transition: opacity 300ms ease-in-out;
-    }
-
-    &.loading {
-        limel-icon,
-        .label {
-            opacity: 0;
-        }
-        limel-spinner {
-            opacity: 1;
-            display: block;
-        }
-    }
-
-    &.just-loaded,
-    &.just-failed {
-        limel-icon,
-        .label {
-            opacity: 0;
-        }
-        svg {
-            opacity: 1;
-        }
-        limel-spinner {
-            display: block;
-            animation: fade-out-spinner 0.3s ease;
-        }
-    }
-
-    &.just-failed {
-        background-color: var(--lime-error-text-color) !important;
-        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-    }
+.just-failed {
+    background-color: var(--lime-error-text-color) !important;
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
 .outlined {
