@@ -96,7 +96,7 @@ export class Button {
             >
                 {this.renderIcon()}
                 {this.renderLabel()}
-                <limel-spinner limeBranded={false} />
+                {this.renderSpinner()}
                 <svg viewBox="0 0 30 30">{this.renderLoadingIcons()}</svg>
             </button>
         );
@@ -144,5 +144,13 @@ export class Button {
         }
 
         return <span class="label">{this.label}</span>;
+    }
+
+    private renderSpinner() {
+        if (!this.loading) {
+            return;
+        }
+
+        return <limel-spinner limeBranded={false} />;
     }
 }

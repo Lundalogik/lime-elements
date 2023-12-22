@@ -83,8 +83,6 @@ button {
 }
 
 limel-spinner {
-    opacity: 0;
-    display: none;
     position: absolute;
 }
 
@@ -119,7 +117,6 @@ svg {
     }
     limel-spinner {
         opacity: 1;
-        display: block;
     }
 }
 
@@ -132,10 +129,6 @@ svg {
     svg {
         opacity: 1;
     }
-    limel-spinner {
-        display: block;
-        animation: fade-out-spinner 0.3s ease;
-    }
 }
 
 .just-failed {
@@ -146,17 +139,6 @@ svg {
 .outlined {
     border: 1px solid;
     border-color: var(--mdc-theme-primary);
-}
-
-@keyframes fade-out-spinner {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(1.5);
-    }
 }
 
 @keyframes shake {
