@@ -119,14 +119,14 @@ export class Button {
     private renderLoadingIcons() {
         if (this.loadingFailed) {
             return [
-                <line x1="9" y1="9" x2="21" y2="21"></line>,
-                <line x1="21" y1="9" x2="9" y2="21"></line>,
+                <line x1="9" y1="9" x2="21" y2="21" />,
+                <line x1="21" y1="9" x2="9" y2="21" />,
             ];
         }
 
         return [
-            <line x1="8" y1="14" x2="15" y2="20"></line>,
-            <line x1="23" y1="9" x2="14" y2="20"></line>,
+            <line x1="8" y1="14" x2="15" y2="20" />,
+            <line x1="23" y1="9" x2="14" y2="20" />,
         ];
     }
 
