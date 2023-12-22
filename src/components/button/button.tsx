@@ -87,16 +87,15 @@ export class Button {
         return (
             <button
                 class={{
-                    'mdc-button': true,
                     loading: this.loading,
                     'just-loaded': this.justLoaded && !this.loadingFailed,
                     'just-failed': this.justLoaded && this.loadingFailed,
-                    'mdc-button--outlined': this.outlined,
+                    outlined: this.outlined,
                 }}
                 disabled={this.disabled || this.loading}
             >
                 {this.renderIcon()}
-                <span class="label mdc-button__label">{this.label}</span>
+                <span class="label">{this.label}</span>
                 <limel-spinner limeBranded={false} />
                 <svg viewBox="0 0 30 30">{this.renderLoadingIcons()}</svg>
             </button>
@@ -142,9 +141,7 @@ export class Button {
         }
 
         return (
-            <i class={`mdc-button__icon ${withoutLabelClass}`}>
-                <limel-icon name={this.icon} />
-            </i>
+            <limel-icon class={`icon ${withoutLabelClass}`} name={this.icon} />
         );
     }
 }
