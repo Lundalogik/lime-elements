@@ -30,6 +30,18 @@ $tab-scroller-fade-width: 65;
     }
 }
 
+.mdc-tab {
+    // As long as this component is depended on MDC,
+    // we need to force it to be font-agnostic.
+    // When MDC-dependency is removed, this block can also be removed.
+    // However, on removal of MDC-dependency, we should also make sure to check
+    // other font-related styles that might be set by MDC,
+    // such as `letter-spacing` or `font-size`.
+    font-family: inherit;
+    font-weight: 400;
+    letter-spacing: normal;
+}
+
 .mdc-tab-indicator {
     .mdc-tab-indicator__content {
         border: none;
@@ -54,7 +66,6 @@ $tab-scroller-fade-width: 65;
 
 .mdc-tab {
     border-radius: 0;
-    letter-spacing: normal;
     padding-right: functions.pxToRem(20);
     padding-left: functions.pxToRem(20);
     min-width: functions.pxToRem(40);

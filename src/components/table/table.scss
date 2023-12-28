@@ -1,6 +1,5 @@
 @use '../../style/mixins';
 @use '../../style/functions';
-@use '../../style/internal/lime-typography';
 @import '../../../node_modules/tabulator-tables/src/scss/tabulator.scss';
 
 /*
@@ -40,7 +39,6 @@ $table--limel-table--row-selector: 1;
 
 #tabulator-container,
 #tabulator-table {
-    @include lime-typography.base;
     background-color: transparent;
     border: none;
 }

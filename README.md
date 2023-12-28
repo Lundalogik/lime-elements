@@ -22,7 +22,25 @@ For a full list of components, along with live examples, please visit the [docum
 
 #### 1. Font
 
-The "Roboto" font is included for development purposes, but is not included in the published package. This font should be supplied by the consuming application. If not supplied, texts will fall back to suitable alternatives.
+To achieve a blazing fast rendering, our components' user interface utilizes a default cross-browser sans-serif font stack. As web components typically inherit font-related styles such as `font-family`, `font-size`, and `color`, we recommend defining these styles at a higher level, such as the `<body>` element. This is because we do not specify these defaults on each individual component.
+
+To maintain consistency with the look & feel demonstrated in this documentation, we suggest incorporating the following styles into your project:
+
+```css
+font-family: ui-sans-serif, system-ui, sans-serif;
+font-size: 0.875rem;
+font-style: normal;
+font-weight: 400;
+color: rgb(var(--contrast-1500));
+```
+
+💡 About the `color` specified above, read more on [our color system](/#/DesignGuidelines/color-system.md/).
+
+Feel free to customize the font-family and related styles to suit your project's needs. For example, you might prefer a different typeface like below:
+
+```css
+font-family: 'Roboto', Arial, Verdana, sans-serif;
+```
 
 #### 2. Icons
 

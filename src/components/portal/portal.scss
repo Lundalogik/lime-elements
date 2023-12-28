@@ -1,3 +1,7 @@
+/**
+ * @prop --limel-portal-font-family: Font family override for the portal. Because the portal is a direct descendant of the body element, any component placed in the portal inherits its font from the body element. If the body's font is not what should be used for the component in the portal, this property can be used to override the font.
+ */
+
 :host(limel-portal) {
     display: block;
     position: absolute;

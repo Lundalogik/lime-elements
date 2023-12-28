@@ -21,11 +21,19 @@
 :host([size='x-small']) {
     --circular-progress-size: 1.5rem;
     font-weight: bold;
+
+    .value {
+        letter-spacing: functions.pxToRem(-1);
+    }
 }
 
 :host([size='small']) {
     --circular-progress-size: 2rem;
     font-weight: bold;
+
+    .value {
+        letter-spacing: functions.pxToRem(-0.5);
+    }
 }
 
 :host([size='medium']) {

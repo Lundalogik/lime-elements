@@ -6,13 +6,9 @@
 
     min-width: 0; // prevents overflowing, if component is placed in flex containers
 
-    font-family: Roboto, sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-size: 0.6875rem;
-    font-weight: 400;
-    letter-spacing: 0.0333333333em; // keeping this for now for consistency, until we get rid of all of them
-    line-height: normal;
 
     color: rgb(var(--contrast-1200));
 }
