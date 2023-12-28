@@ -345,6 +345,11 @@
 * This mixin creates a cross-browser font stack.
 * - `sans-serif` can be used for the UI of the components.
 * - `monospace` can be used for code.
+*
+* ⚠️ If we change the font stacks, we need to update
+* 1. the consumer documentation in `README.md`, and
+* 2. the CSS variables of `--kompendium-example-font-family`
+* in the `<style>` tag of `index.html`.
 */
 @mixin font-family($letterform) {
     @if $letterform == sans-serif {

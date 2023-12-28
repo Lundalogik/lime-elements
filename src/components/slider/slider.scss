@@ -16,6 +16,17 @@
     margin-top: functions.pxToRem(4);
 }
 
+.mdc-floating-label,
+.mdc-slider .mdc-slider__value-indicator-text {
+    // As long as this component is depended on MDC,
+    // we need to force it to be font-agnostic.
+    // When MDC-dependency is removed, this block can also be removed.
+    // However, on removal of MDC-dependency, we should also make sure to check
+    // other font-related styles that might be set by MDC,
+    // such as `letter-spacing` or `font-size`.
+    font-family: inherit;
+}
+
 .slider__label {
     padding-left: functions.pxToRem(20);
     top: functions.pxToRem(

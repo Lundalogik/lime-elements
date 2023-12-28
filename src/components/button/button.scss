@@ -17,6 +17,16 @@
 
 @include mixins.visualize-aria-expanded('button');
 
+button.mdc-button {
+    // As long as this component is depended on MDC,
+    // we need to force it to be font-agnostic.
+    // When MDC-dependency is removed, this block can also be removed.
+    // However, on removal of MDC-dependency, we should also make sure to check
+    // other font-related styles that might be set by MDC,
+    // such as `letter-spacing` or `font-size`.
+    font-family: inherit;
+}
+
 button {
     display: flex;
     align-items: center;
@@ -76,11 +86,9 @@ button {
 }
 
 .label {
-    font-family: Roboto, sans-serif;
     font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: functions.pxToRem(1);
-    opacity: 1;
+    font-weight: 600;
+    letter-spacing: functions.pxToRem(0.5);
     padding: 0 0.25rem;
 }
 

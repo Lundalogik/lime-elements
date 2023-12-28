@@ -6,7 +6,7 @@
 
 /**
  * @prop --code-editor-max-height: Defines how tall the code editor can get before content becomes scrollable, defaults to `10rem`.
- * @prop --code-editor-font-size: Defines the font size of the code, defaults to `0.875rem`.
+ * @prop --code-editor-font-size: Defines the font size of the code, defaults to `0.8125rem`.
  */
 
 @mixin light-mode-styles {
@@ -122,7 +122,7 @@
 
 :host {
     display: flex;
-    font-size: var(--code-editor-font-size, 0.875rem); // 14px
+    font-size: var(--code-editor-font-size, 0.8125rem); // 13px
     @include light-mode-styles;
 }
 
@@ -148,6 +148,7 @@
 
 .cm-s-lime {
     &.CodeMirror {
+        @include mixins.font-family(monospace);
         color: rgb(var(--code-editor-neutral-text-color));
         background-color: rgb(var(--code-editor-background-color));
         border-radius: 0.25rem;

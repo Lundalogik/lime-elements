@@ -1,5 +1,4 @@
 @use '../../style/internal/lime-theme';
-@use '../../style/internal/lime-typography';
 @use '../../style/mixins';
 
 /**
@@ -84,7 +83,8 @@ header {
 }
 
 .title {
-    @include lime-typography.typography(headline2);
+    font-size: 1rem;
+    font-weight: 300;
     color: var(--mdc-theme-on-surface);
 
     justify-self: flex-start;

@@ -60,6 +60,10 @@ ol {
 
         &:after {
             content: var(--limel-breadcrumbs-divider);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             width: var(--limel-breadcrumbs-gap);
 
             position: absolute;

@@ -1,6 +1,5 @@
 @use '../../style/functions';
 @use '../../style/internal/lime-theme';
-@use '../../style/internal/lime-typography';
 @use '../../style/mixins';
 
 /**
@@ -23,7 +22,6 @@
 }
 
 span {
-    @include lime-typography.base;
     cursor: default;
     box-sizing: border-box;
 

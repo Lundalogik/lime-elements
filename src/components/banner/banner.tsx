@@ -49,7 +49,7 @@ export class Banner {
                 <div class="lime-banner__surface">
                     <div class="lime-banner__content">
                         {this.renderIcon()}
-                        <div class="mdc-typography--body2">{this.message}</div>
+                        <div>{this.message}</div>
                         <div class="lime-banner__actions">
                             <slot name="buttons" />
                         </div>
