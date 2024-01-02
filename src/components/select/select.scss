@@ -129,6 +129,11 @@
                     transform: rotate(-180deg);
                 }
             }
+
+            &[aria-expanded]:not([aria-expanded='false']),
+            &[aria-expanded='true'] {
+                box-shadow: var(--button-shadow-inset-pressed);
+            }
         }
     }
 
