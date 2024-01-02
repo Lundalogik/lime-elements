@@ -14,17 +14,17 @@ For a full list of components, along with live examples, please visit the [docum
 
 [![Version](https://img.shields.io/npm/v/@limetech/lime-elements.svg)](https://www.npmjs.com/package/@limetech/lime-elements) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# Getting started
+## Getting Started
 
 -   To install, run `npm install @limetech/lime-elements`.
 
-## Requirements
+### Requirements
 
-### 1. Font
+#### 1. Font
 
 The "Roboto" font is included for development purposes, but is not included in the published package. This font should be supplied by the consuming application. If not supplied, texts will fall back to suitable alternatives.
 
-### 2. Icons
+#### 2. Icons
 
 At Lime, we utilize the [_Windows 10_ icon set from **Icons8**](https://icons8.com/icons/windows). You may notice these icons in our components, such as the magnifying glass icon displayed as a leading icon on an input field.
 
@@ -32,7 +32,7 @@ If you're using Lime Elements in a non-Lime product, you'll need to provide your
 
 Providing your own icons is crucial as many of our components use an `Icon` interface. This interface allows you to specify an icon name, which corresponds to the filename of an SVG icon. For example, you can use this to display an icon on a button.
 
-#### How to Setup your icons folder:
+##### How to Set Up Your Icons Folder
 
 -   **For _Lime_ products:**
 
@@ -56,11 +56,11 @@ Providing your own icons is crucial as many of our components use an `Icon` inte
     <limel-config config={{iconPath: '/my/parent/path/'}} />
     ```
 
-## Get help
+## Getting help
 
 -   If you have a general question, or are in need of support, please open a [Question issue](https://github.com/Lundalogik/lime-elements/issues/new?template=03_question.md) on GitHub.
 
-# Contributing
+## Contributing
 
 -   To build and run the documentation locally on your machine, run `npm start`.
 -   To see what other scripts are available, run `npm run`.
