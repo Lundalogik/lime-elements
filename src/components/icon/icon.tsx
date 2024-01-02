@@ -4,55 +4,30 @@ import iconCache from '../../global/icon-cache/factory';
 import { IconSize } from '../../interface';
 
 /**
- * The recommended icon library for use with Lime Elements is the Windows 10 set
- * from Icons8 (https://icons8.com/icons/windows). This set is included in the
- * relevant Lime products. If you are using Lime Elements in a non-Lime product,
- * you will have to supply your own icons.
+ * Search for an icon and **click on it to copy its name to clipboard**.
+ * <limel-example-icon-finder />
  *
- * The size and color of the icon is set in CSS, however there are a few
+ * *******
+ *
+ * :::important
+ * To install your icon set correctly, please read the [documentation here](#/).
+ * :::
+ *
+ * The size and color of the icon is normally set in CSS, however there are a few
  * standard sizes defined that can be used with the `size` property.
  *
- * ### Setup
- * To use **@lundalogik/lime-icons8**, the `/assets` folder from
- * __@lundalogik/lime-icons8__ must be made available on the webserver.
- * To use a different icon set, the icons must be placed in a folder structure
- * that looks like this: `assets/icons/<name-of-icon>.svg`
- *
- * If `assets` is placed in the root, no other setup is needed. The icons will
- * be fetched with a relative URL from `/assets/icons/<name-of-icon>.svg`.
- *
- * If `assets` is placed in a sub-folder somewhere, the easiest way to make the
- * icons available is to use the HTML `base` element:
- *
- * ```
- * <base href="/my/parent/path/">
- * ```
- *
- * If this is not enough, or if the `base` element is already in use for
- * something else, a global icon path can be configured with the `limel-config`
- * element:
- * ```
- * <limel-config config={{iconPath: '/my/parent/path/'}} />
- * ```
- *
- * ### Lime icons
- * There are icons included in the **@lundalogik/lime-icons8** package which are
+ * :::note
+ * There are icons included in the `@lundalogik/lime-icons8` package which are
  * designed by our designers at Lime.
  * The names of these icons start with `-lime-`, which makes them easy to
  * find using the Icon Finder tool below.
- * :::note
- * Some of the `-lime-` icons have multiple colors and use our own CSS variables
- * instead of HEX or RGB values to visualize their colors. Thus, you must import
+ *
+ * Some of the multi-colored `-lime-` icons use our own CSS variables
+ * (instead of HEX or RGB) values to visualize their colors. Thus, you must import
  * our color palette css files into your project to render the icons properly.
  * Read more about our [Color System](#/DesignGuidelines/color-system.md/)
  * and how to do this.
  * :::
- *
- * ### Icon Finder
- *
- * Search for an icon and **click on it to copy its name to clipboard**.
- *
- * <limel-example-icon-finder />
  * @exampleComponent limel-example-icon
  * @exampleComponent limel-example-icon-background
  */
