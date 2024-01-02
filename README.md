@@ -20,7 +20,41 @@ For a full list of components, along with live examples, please visit the [docum
 
 ## Requirements
 
+### 1. Font
+
 The "Roboto" font is included for development purposes, but is not included in the published package. This font should be supplied by the consuming application. If not supplied, texts will fall back to suitable alternatives.
+
+### 2. Icons
+
+At Lime, we utilize the [_Windows 10_ icon set from **Icons8**](https://icons8.com/icons/windows). You may notice these icons in our components, such as the magnifying glass icon displayed as a leading icon on an input field.
+
+If you're using Lime Elements in a non-Lime product, you'll need to provide your own icons. We're unable to redistribute Icons8's assets with our package due to licensing restrictions.
+
+Providing your own icons is crucial as many of our components use an `Icon` interface. This interface allows you to specify an icon name, which corresponds to the filename of an SVG icon. For example, you can use this to display an icon on a button.
+
+#### How to Setup your icons folder:
+
+-   **For _Lime_ products:**
+
+    To use `@lundalogik/lime-icons8`, the `/assets` folder from `@lundalogik/lime-icons8` must be made available on the web-server.
+
+-   **For _non-Lime_ products:**
+
+    To use a different icon set, the icons must be placed in a folder structure that looks like this: `assets/icons/<name-of-icon>.svg`
+
+    If `assets` is placed in the root, no other setup is needed. The icons will be fetched with a relative URL from `/assets/icons/<name-of-icon>.svg`.
+
+    If `assets` is placed in a sub-folder somewhere, the easiest way to make the icons available is to use the HTML `base` element:
+
+    ```html
+    <base href="/my/parent/path/" />
+    ```
+
+    If this is not enough, or if the `base` element is already in use for something else, a global icon path can be configured with the `limel-config` element:
+
+    ```ts
+    <limel-config config={{iconPath: '/my/parent/path/'}} />
+    ```
 
 ## Get help
 
