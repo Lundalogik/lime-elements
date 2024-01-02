@@ -18,6 +18,19 @@
     }
 }
 
+/**
+* This can be used on a trigger element that opens a dropdown menu or a popover.
+*/
+
+@mixin visualize-aria-expanded($trigger-element) {
+    :host([aria-expanded='true']),
+    :host([aria-expanded]:not([aria-expanded='false'])) {
+        #{$trigger-element} {
+            box-shadow: var(--button-shadow-inset-pressed) !important;
+        }
+    }
+}
+
 @mixin in($media) {
     // ⛔️ As long as we don't have a script that generates a
     // `.css` files automatically, we cannot use this mixin.
