@@ -1,3 +1,11 @@
+## [37.1.0-next.79](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.78...v37.1.0-next.79) (2024-01-02)
+
+
+### Performance Improvements
+
+
+* **button:** don't render the spinner if `loading` is false ([a34bac1](https://github.com/Lundalogik/lime-elements/commit/a34bac109a691b95136268d835b1295d5cc9d7e2))
+
 # [37.1.0-next.78](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.77...v37.1.0-next.78) (2023-12-20)
 
 
