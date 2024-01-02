@@ -30,7 +30,7 @@ button {
         left: var(--button-padding-left, 0.5rem);
     }
 
-    min-height: functions.pxToRem(36);
+    min-height: 2.25rem;
     width: 100%;
 
     &:disabled {
