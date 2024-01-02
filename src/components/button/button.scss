@@ -15,6 +15,8 @@
     pointer-events: none;
 }
 
+@include mixins.visualize-aria-expanded('button');
+
 button {
     display: flex;
     align-items: center;
