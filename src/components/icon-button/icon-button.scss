@@ -12,6 +12,8 @@
     pointer-events: none;
 }
 
+@include mixins.visualize-aria-expanded('button');
+
 button {
     all: unset;
     @include mixins.is-flat-clickable(
