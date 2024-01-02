@@ -1,3 +1,13 @@
+## [37.1.0-next.80](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.79...v37.1.0-next.80) (2024-01-02)
+
+
+### Bug Fixes
+
+
+* **button:** visualise open dropdown state when used as a trigger element ([fc0eadf](https://github.com/Lundalogik/lime-elements/commit/fc0eadfe9e2c9ff2cc828a4a3c7e7c16118d1179))
+* **icon-button:** visualise open dropdown state when used as a trigger element ([134113e](https://github.com/Lundalogik/lime-elements/commit/134113eb1ba80bb4e3161a659636fc9d5f62d677))
+* **select:** visualise open dropdown state when used as a trigger element ([1f94cc8](https://github.com/Lundalogik/lime-elements/commit/1f94cc84021dcf9d49404a37e3c251953124a8a3))
+
 ## [37.1.0-next.79](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.78...v37.1.0-next.79) (2024-01-02)
 
 
