@@ -6,6 +6,12 @@ const playgroundCss = ":root{--width-nav-panel:16rem}:host{display:block}.tab-pa
 const Playground = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
+    /**
+     * Factory for creating props for example components
+     *
+     * @returns {Record<string, unknown>} props
+     */
+    this.propsFactory = () => ({});
     this.activateTab = (id) => () => {
       this.activeTab = id;
     };
@@ -45,9 +51,8 @@ const Playground = class {
   renderResult() {
     const ExampleComponent = this.component.tag;
     const text = '##### ' + this.component.docs;
-    const props = {
-      schema: this.schema,
-    };
+    const factory = this.propsFactory;
+    const props = Object.assign({ schema: this.schema }, factory(ExampleComponent));
     return (h("div", { class: "show-case" }, h("div", { class: "show-case_description" }, h("kompendium-markdown", { text: text })), h("div", { class: "show-case_component" }, this.renderDebugButton(this.component.tag), h(ExampleComponent, Object.assign({}, props)))));
   }
   renderItem(source, index) {

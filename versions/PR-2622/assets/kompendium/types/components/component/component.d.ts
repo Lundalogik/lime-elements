@@ -1,5 +1,6 @@
 import { JsonDocs } from '../../stencil-public-runtime';
 import { MatchResults } from '@stencil/router';
+import { PropsFactory } from '../playground/playground.types';
 export declare class KompendiumComponent {
   /**
    * The generated documentation data
@@ -13,6 +14,10 @@ export declare class KompendiumComponent {
    * Matched route parameters
    */
   match: MatchResults;
+  /**
+   * Factory for creating props for example components
+   */
+  examplePropsFactory: PropsFactory;
   private host;
   private scrollToOnNextUpdate;
   constructor();

@@ -1847,6 +1847,7 @@ const App = class {
       }, exact: true }), h("stencil-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
         docs: this.data.docs,
         schemas: this.data.schemas,
+        examplePropsFactory: this.examplePropsFactory,
       } }), h("stencil-route", { url: "/type/:name", component: "kompendium-type", componentProps: {
         types: this.data.types,
       } }), h("stencil-route", { url: "/debug/:name", component: "kompendium-debug", componentProps: {

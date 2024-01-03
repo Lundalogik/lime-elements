@@ -1,4 +1,5 @@
 import { JsonDocsComponent } from '../../stencil-public-runtime';
+import { PropsFactory } from './playground.types';
 export declare class Playground {
   /**
    * The component to display
@@ -8,6 +9,12 @@ export declare class Playground {
    * Schema for the component
    */
   schema: Record<string, any>;
+  /**
+   * Factory for creating props for example components
+   *
+   * @returns {Record<string, unknown>} props
+   */
+  propsFactory?: PropsFactory;
   private activeTab;
   private theme;
   constructor();
