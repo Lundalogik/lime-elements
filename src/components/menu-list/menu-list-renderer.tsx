@@ -139,7 +139,7 @@ export class MenuListRenderer {
                 data-index={index}
                 {...attributes}
             >
-                {item.icon ? this.renderIcon(this.config, item) : null}
+                {this.renderIcon(this.config, item)}
                 {this.renderText(item)}
                 {this.renderSubMenuIcon(item)}
                 {this.renderNotification(item)}
@@ -213,11 +213,15 @@ export class MenuListRenderer {
      * Render an icon for a list item
      * @param {MenuListRendererConfig} config the config object, passed on from the `renderMenuItem` function
      * @param {MenuItem} item the list item
-     * @returns {HTMLElement} the icon element
+     * @returns {HTMLElement | undefined} the icon element
      */
     private renderIcon = (config: MenuListRendererConfig, item: MenuItem) => {
         const style: any = {};
         const name = getIconName(item.icon);
+        if (!name) {
+            return;
+        }
+
         const color = getIconColor(item.icon, item.iconColor);
 
         if (color) {
