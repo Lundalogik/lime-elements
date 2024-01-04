@@ -321,15 +321,14 @@ export class Picker {
     }
 
     private createChip(listItem: ListItem): Chip {
-        const name = getIconName(listItem.icon);
-        const color = getIconFillColor(listItem.icon, listItem.iconColor);
-
         return {
             id: `${listItem.value}`,
             text: listItem.text,
             removable: true,
-            icon: name,
-            iconFillColor: color,
+            icon: {
+                name: getIconName(listItem.icon),
+                color: getIconFillColor(listItem.icon, listItem.iconColor),
+            },
             value: listItem,
         };
     }
