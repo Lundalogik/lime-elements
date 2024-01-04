@@ -1,3 +1,13 @@
+## [37.1.0-next.81](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.80...v37.1.0-next.81) (2024-01-04)
+
+
+### Bug Fixes
+
+
+* **header:** make sure icon name exist before rendering the icon ([083a7aa](https://github.com/Lundalogik/lime-elements/commit/083a7aabc17278a4a79fe7e3996c7149e02e875b))
+* **list:** avoid rendering icon when icon.name is undefined ([c186b51](https://github.com/Lundalogik/lime-elements/commit/c186b5118089634d0a1b369e5f1148d6d363335b))
+* **menu:** avoid rendering icon when icon.name is undefined ([1d9b819](https://github.com/Lundalogik/lime-elements/commit/1d9b819e740dbad8705fc7d86e3f5d1205d535e4))
+
 ## [37.1.0-next.80](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.79...v37.1.0-next.80) (2024-01-02)
 
 
