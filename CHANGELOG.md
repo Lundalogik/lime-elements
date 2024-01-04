@@ -1,3 +1,11 @@
+## [37.1.0-next.82](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.81...v37.1.0-next.82) (2024-01-04)
+
+
+### Bug Fixes
+
+
+* **help:** enable scrolling in popover for tall content ([ff3da3d](https://github.com/Lundalogik/lime-elements/commit/ff3da3d9f33237bc7453bff8cfc116874ff21f2e))
+
 ## [37.1.0-next.81](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.80...v37.1.0-next.81) (2024-01-04)
 
 
