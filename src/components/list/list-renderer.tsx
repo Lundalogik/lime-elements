@@ -147,7 +147,7 @@ export class ListRenderer {
                 data-index={index}
                 {...attributes}
             >
-                {item.icon ? this.renderIcon(this.config, item) : null}
+                {this.renderIcon(this.config, item)}
                 {this.getPrimaryComponent(item)}
                 {this.renderText(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
@@ -211,11 +211,15 @@ export class ListRenderer {
      * Render an icon for a list item
      * @param {ListRendererConfig} config the config object, passed on from the `renderListItem` function
      * @param {ListItem} item the list item
-     * @returns {HTMLElement} the icon element
+     * @returns {HTMLElement | undefined} the icon element
      */
     private renderIcon = (config: ListRendererConfig, item: ListItem) => {
         const style: any = {};
         const name = getIconName(item.icon);
+        if (!name) {
+            return;
+        }
+
         const color = getIconColor(item.icon, item.iconColor);
 
         if (color) {
