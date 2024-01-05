@@ -103,11 +103,11 @@ export class Header {
     }
 
     private renderIcon() {
-        if (!this.icon) {
+        const icon = getIconName(this.icon);
+
+        if (!icon) {
             return;
         }
-
-        const icon = getIconName(this.icon);
 
         return <limel-icon class="icon" badge={true} name={icon} />;
     }
