@@ -106,6 +106,11 @@ export class Popover {
         this.setupGlobalHandlers();
     }
 
+    public componentDidRender() {
+        const slotElement = this.host.shadowRoot.querySelector('slot');
+        slotElement.assignedElements().forEach(this.setTriggerAttributes);
+    }
+
     private setupGlobalHandlers() {
         if (this.open) {
             document.addEventListener('click', this.globalClickListener, {
@@ -126,7 +131,7 @@ export class Popover {
 
         return (
             <div class="trigger-anchor">
-                <slot name="trigger"></slot>
+                <slot name="trigger" />
                 <limel-portal
                     visible={this.open}
                     containerId={this.portalId}
@@ -174,5 +179,21 @@ export class Popover {
         event.stopPropagation();
         event.preventDefault();
         this.close.emit();
+    };
+
+    private setTriggerAttributes = (element: HTMLElement) => {
+        const attributes = {
+            'aria-haspopup': true,
+            'aria-expanded': this.open,
+            role: 'button',
+        };
+
+        for (const [key, value] of Object.entries(attributes)) {
+            if (!value) {
+                element.removeAttribute(key);
+            } else {
+                element.setAttribute(key, String(value));
+            }
+        }
     };
 }
