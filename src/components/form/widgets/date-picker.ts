@@ -2,21 +2,25 @@ import moment from 'moment/moment';
 import React from 'react';
 import { WidgetProps } from './types';
 import { LimeElementsWidgetAdapter } from '../adapters';
+import { DateType } from '@limetech/lime-elements';
 
-export class DatePicker extends React.Component {
+type DateWidgetProps = WidgetProps & {
+    type?: DateType;
+};
+
+export class DatePicker extends React.Component<DateWidgetProps> {
     public refs: any;
     public state = {
         modified: false,
     };
 
-    constructor(public props: WidgetProps) {
+    constructor(public props: DateWidgetProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 
     public render() {
-        const props: WidgetProps = this.props;
-        const additionalProps = getAdditionalProps(props.schema);
+        const { type = 'datetime', ...props } = this.props;
 
         return React.createElement(LimeElementsWidgetAdapter, {
             name: 'limel-date-picker',
@@ -26,7 +30,8 @@ export class DatePicker extends React.Component {
             },
             widgetProps: props,
             extraProps: {
-                ...additionalProps,
+                type: type,
+                ...props.schema.lime?.component?.props,
             },
         });
     }
@@ -56,21 +61,11 @@ export class DatePicker extends React.Component {
         const formatMapping = {
             'date-time': 'YYYY-MM-DDTHH:mm:ssZ',
             date: 'YYYY-MM-DD',
-            time: 'HH:mm:ss',
+            time: 'HH:mm:ssZ',
         };
         const dateString = moment(event.detail).format(
             formatMapping[props.schema.format],
         );
         props.onChange(dateString);
     }
-}
-
-function getAdditionalProps(schema: any) {
-    let props: any = {};
-
-    if (schema.lime?.component?.props) {
-        props = schema.lime.component.props;
-    }
-
-    return props;
 }

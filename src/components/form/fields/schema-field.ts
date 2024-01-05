@@ -5,6 +5,7 @@ import { FieldProps } from './types';
 import { isEmpty, capitalize } from 'lodash-es';
 import { resetDependentFields } from './field-helpers';
 import { FieldTemplate } from '../templates';
+import { TimePicker } from '../widgets/time-picker';
 
 /**
  * If given a value and schema, check if the value should be translated
@@ -269,6 +270,13 @@ export class SchemaField extends React.Component<FieldProps> {
             ...this.props,
             onChange: this.handleChange,
         };
+
+        if (this.props.schema.format === 'time') {
+            fieldProps.uiSchema = {
+                'ui:widget': TimePicker,
+                ...fieldProps.uiSchema,
+            };
+        }
 
         return React.createElement(JSONSchemaField, fieldProps);
     }
