@@ -1,3 +1,11 @@
+## [37.1.0-next.84](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.83...v37.1.0-next.84) (2024-01-05)
+
+
+### Features
+
+
+* remove Roboto and make it possible to define custom font, default to system font ([aab0740](https://github.com/Lundalogik/lime-elements/commit/aab07401bb27ae5f59bc6ce84599a62ae8f2e203))
+
 ## [37.1.0-next.83](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.82...v37.1.0-next.83) (2024-01-05)
 
 
