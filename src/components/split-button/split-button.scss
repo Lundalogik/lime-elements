@@ -81,7 +81,10 @@ limel-menu {
     width: 1rem;
 
     &:not(:disabled) {
-        @include is-flat-clickable();
+        @include is-flat-clickable(
+            $color: 'inherit',
+            $color--hovered: 'inherit'
+        );
         @include visualize-keyboard-focus();
         cursor: pointer;
 
