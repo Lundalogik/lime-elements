@@ -1,3 +1,11 @@
+## [37.1.0-next.83](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.82...v37.1.0-next.83) (2024-01-05)
+
+
+### Bug Fixes
+
+
+* **split-button:** use the same color for the menu trigger ([05e4ee6](https://github.com/Lundalogik/lime-elements/commit/05e4ee6f332eaf85f2101b9a827e7307742afeee))
+
 ## [37.1.0-next.82](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.81...v37.1.0-next.82) (2024-01-04)
 
 
