@@ -44,7 +44,7 @@ export class ActionBarFloatingExample {
         {
             text: 'Assign me',
             commandText: 'Cmd + H',
-            icon: 'whole_hand',
+            icon: 'whole_hand_right',
         },
         {
             text: 'Park',
