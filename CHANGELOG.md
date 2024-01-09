@@ -1,3 +1,11 @@
+## [37.1.0-next.86](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.85...v37.1.0-next.86) (2024-01-09)
+
+
+### Features
+
+
+* **form:** enable providing rich help next to form fields ([dfa8605](https://github.com/Lundalogik/lime-elements/commit/dfa86055a8c0a2f46fe5eae3acc05480a1c675fe))
+
 ## [37.1.0-next.85](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.84...v37.1.0-next.85) (2024-01-09)
 
 
