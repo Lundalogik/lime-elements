@@ -1,3 +1,12 @@
+## [37.1.0-next.85](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.84...v37.1.0-next.85) (2024-01-09)
+
+
+### Bug Fixes
+
+
+* **markdown:** improve rendering of codes & code blocks ([b01cae5](https://github.com/Lundalogik/lime-elements/commit/b01cae50b813b692a02b7801e80fd4e089d9ee4f))
+* **markdown:** render `code` using our cross-browser font stack ([20daaf0](https://github.com/Lundalogik/lime-elements/commit/20daaf06767eba424623bad3bb4282ab65ac821d))
+
 ## [37.1.0-next.84](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.83...v37.1.0-next.84) (2024-01-05)
 
 
