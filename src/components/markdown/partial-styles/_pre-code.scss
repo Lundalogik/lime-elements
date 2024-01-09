@@ -1,8 +1,9 @@
+@use '../../../style/mixins.scss';
 @use '../../../style/functions.scss';
 
 code {
-    font-family: 'Source Code Pro', monospace;
     font-size: 0.875rem;
+    @include mixins.font-family(monospace);
 
     -moz-tab-size: 4;
     -o-tab-size: 4;
