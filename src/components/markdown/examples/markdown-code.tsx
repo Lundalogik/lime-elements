@@ -12,7 +12,7 @@ alert(a);
 ~~~
 
 Even if the language is indicated, we can only render
-the code blocks without syntax highlighting.
+the <code>code</code> blocks without syntax highlighting.
 `;
 
 /**
