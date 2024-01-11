@@ -90,7 +90,7 @@
     "rehype-stringify": "^10.0.0",
     "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
-    "remark-rehype": "^11.0.0",
+    "remark-rehype": "^11.1.0",
     "replace-in-file": "^7.1.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
