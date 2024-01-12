@@ -270,12 +270,6 @@ export class Menu {
 
     @Watch('currentSubMenu')
     protected currentSubMenuWatcher() {
-        if (this.searchValue) {
-            this.menuBreadCrumb = [];
-
-            return;
-        }
-
         const breadCrumbItems: MenuCrumbItem[] = [];
         let currentItem = this.currentSubMenu;
         while (currentItem) {
