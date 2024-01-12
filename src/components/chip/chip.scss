@@ -1,0 +1,183 @@
+@use '../../style/mixins';
+
+/**
+* @prop --chip-max-width: Maximum width of the chip. Defaults to `10rem`. Keep in mind that the chips should not appear too big.
+*/
+
+:host(limel-chip) {
+    --limel-chip-height: 1.75rem;
+    --limel-chip-gap: 0.5rem;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.chip {
+    all: unset;
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+
+    max-width: var(--chip-max-width, 10rem);
+    height: var(--limel-chip-height);
+
+    border-radius: var(--limel-chip-height);
+    font-size: 0.875rem;
+    padding: 0 0.125rem;
+
+    &:has(limel-icon) {
+        .text {
+            padding-left: 0.25rem;
+        }
+    }
+
+    &:not([disabled]) {
+        @include mixins.visualize-keyboard-focus;
+        @include mixins.is-elevated-inset-clickable;
+    }
+
+    &:has(limel-badge) {
+        padding-right: 0.375rem;
+
+        .text {
+            padding-right: 0;
+        }
+    }
+
+    &:has(+ .remove-button:hover) {
+        box-shadow: var(--shadow-depth-8-error);
+    }
+}
+
+:host(limel-chip[disabled]) {
+    .chip {
+        // Similar to `limel-button[disabled]`
+        color: rgba(var(--contrast-1600), 0.37);
+        background-color: rgba(var(--contrast-1600), 0.1);
+        box-shadow: none;
+    }
+}
+
+:host(limel-chip[readonly]) {
+    .chip {
+        box-shadow: 0 0 0 1px rgba(var(--contrast-800), 0.5);
+    }
+}
+
+:host(limel-chip[selected]) {
+    .chip {
+        box-shadow: var(--button-shadow-inset);
+
+        &:focus-visible {
+            box-shadow: var(--button-shadow-inset),
+                var(--shadow-depth-8-focused);
+        }
+
+        &:active {
+            box-shadow: var(--button-shadow-inset-pressed);
+        }
+    }
+    .text {
+        color: var(--mdc-theme-primary);
+    }
+}
+
+:host(limel-chip[removable]) {
+    .chip:not([disabled]) {
+        padding-right: calc(var(--limel-chip-height) + 0.125rem);
+
+        .text {
+            padding-right: 0;
+        }
+    }
+}
+
+:host(limel-chip[type='filter']) {
+    .chip {
+        border-top-left-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+
+        &:after {
+            content: '';
+            transition:
+                background-color 0.4s ease 0.2s,
+                box-shadow 0.6s ease 0.2s;
+            box-sizing: border-box;
+            position: absolute;
+            bottom: 0.125rem;
+            left: 0.125rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: rgb(var(--contrast-800), 0.8);
+            box-shadow: 0 0 0 1px rgb(var(--color-white)) inset;
+        }
+    }
+}
+
+:host(limel-chip[type='filter'][selected]) {
+    .chip {
+        &:after {
+            background-color: rgb(var(--color-green-default));
+            box-shadow:
+                0 0 0.375rem 0 rgb(var(--color-green-light)),
+                0 0 0 1px rgb(var(--color-white)) inset;
+        }
+    }
+}
+
+limel-icon {
+    flex-shrink: 0;
+    width: calc(var(--limel-chip-height) - 0.25rem);
+    height: calc(var(--limel-chip-height) - 0.25rem);
+    padding: 0.0625rem;
+}
+
+limel-badge {
+    pointer-events: none;
+}
+
+.text {
+    @include mixins.truncate-text;
+    line-height: 1.2;
+    padding: 0 0.5rem;
+}
+
+.trailing-button {
+    all: unset;
+    @include mixins.is-flat-clickable(
+        $color--hovered: rgb(var(--color-red-dark))
+    );
+
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: calc(var(--limel-chip-height) * -1 + 0.125rem);
+    margin-right: 0.125rem;
+    width: calc(var(--limel-chip-height) - 0.25rem);
+    height: calc(var(--limel-chip-height) - 0.25rem);
+
+    border-radius: 50%;
+
+    svg {
+        transition:
+            color 0.2s ease,
+            transform 0.2s ease;
+        width: 1.25rem;
+    }
+
+    &:hover {
+        svg {
+            transform: scale(0.8);
+        }
+    }
+}
