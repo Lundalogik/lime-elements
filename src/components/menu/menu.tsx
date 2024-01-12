@@ -350,6 +350,7 @@ export class Menu {
     ) => {
         if (!event.detail.menuItem) {
             this.currentSubMenu = null;
+            this.clearSearch();
             this.navigateMenu.emit(null);
 
             this.setFocus();
@@ -565,6 +566,7 @@ export class Menu {
             // If only one step down, go to the root of the menu.
             // No need to load a sub-menu.
             this.currentSubMenu = null;
+            this.clearSearch();
             this.navigateMenu.emit(null);
 
             this.setFocus();
@@ -628,6 +630,7 @@ export class Menu {
 
             if (subItems?.length) {
                 this.currentSubMenu = menuItem;
+                this.clearSearch();
                 this.navigateMenu.emit(menuItem);
 
                 this.setFocus();
