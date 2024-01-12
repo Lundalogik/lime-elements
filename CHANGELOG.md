@@ -1,3 +1,11 @@
+## [37.1.0-next.88](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.87...v37.1.0-next.88) (2024-01-12)
+
+
+### Bug Fixes
+
+
+* **menu:** show empty result when no search hits ([81b3e22](https://github.com/Lundalogik/lime-elements/commit/81b3e225f6252aceaccad446e4278dfa1ae7793f))
+
 ## [37.1.0-next.87](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.86...v37.1.0-next.87) (2024-01-12)
 
 
