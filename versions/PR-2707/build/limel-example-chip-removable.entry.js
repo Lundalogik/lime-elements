@@ -1,0 +1,2 @@
+import{r as e,h as r}from"./index-6156b4fd.js";const t=class{constructor(r){e(this,r)}render(){return[r("limel-chip",{id:"a",text:"Batman",removable:true}),r("limel-example-value",{value:"get the remove event"})]}};export{t as limel_example_chip_removable};
+//# sourceMappingURL=limel-example-chip-removable.entry.js.map
