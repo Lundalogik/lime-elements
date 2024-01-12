@@ -409,7 +409,7 @@ export class Menu {
     private renderMenuList = () => {
         let items = this.visibleItems;
 
-        if (this.searchResults?.length) {
+        if (Array.isArray(this.searchResults) && this.searchValue) {
             items = this.searchResults;
         }
 

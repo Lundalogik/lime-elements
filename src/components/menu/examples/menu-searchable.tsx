@@ -38,6 +38,7 @@ export class MenuSubItemsExample {
                 items={this.items}
                 searcher={this.handleSearch}
                 onSelect={this.handleSelect}
+                emptyResultMessage="No items found"
             >
                 <limel-button label="Menu" slot="trigger" />
             </limel-menu>,
