@@ -497,8 +497,9 @@ export class Table {
                     return undefined;
                 }
 
-                const value = this.aggregates.find((a) => a.field === col.field)
-                    ?.value;
+                const value = this.aggregates.find(
+                    (a) => a.field === col.field,
+                )?.value;
 
                 if (col.formatter) {
                     return col.formatter(value);
