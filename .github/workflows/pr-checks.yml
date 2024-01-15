@@ -99,6 +99,6 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ secrets.ENABLE_AUTOMERGE }}
       - name: Autoapprove
-        uses: hmarr/auto-approve-action@v2.1.0
+        uses: hmarr/auto-approve-action@v3.2.1
         with:
           github-token: ${{ secrets.APPROVE_AUTOMATIC_PRS }}
