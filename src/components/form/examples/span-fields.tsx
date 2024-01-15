@@ -149,6 +149,7 @@ import { schema } from './span-fields-schema';
  * }
  * ```
  * :::
+ *
  * @sourceFile span-fields-schema.ts
  */
 @Component({

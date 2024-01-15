@@ -31,6 +31,7 @@ export class Selection {
      * The provided function `getDataByIndex` is used to provide data for the
      * selected items when selection is toggled by using the item index,
      * which can be the row position in a table.
+     *
      * @param {Function} getDataByIndex A function that returns the data at the given index
      */
     constructor(private getDataByIndex: (number) => any) {
@@ -61,6 +62,7 @@ export class Selection {
 
     /**
      * Checks whether the given item exist in the selection
+     *
      * @param {any} data The data to look up
      * @returns {boolean} `true` if the given data exist in the selection, otherwise `false`
      */
@@ -70,6 +72,7 @@ export class Selection {
 
     /**
      * Toggles the item at the given index in the selection
+     *
      * @param {number} index The index of the item to toggle
      * @returns {SelectionChangeSet} The changes made to the selection
      */
@@ -83,6 +86,7 @@ export class Selection {
      * their current state in the selection.
      * Initially, when no last toggled index exist, this function behaves like
      * `toggleSelection`.
+     *
      * @param {number} index The index of the item to toggle
      * @returns {SelectionChangeSet} The changes made to the selection
      */

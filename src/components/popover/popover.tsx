@@ -59,6 +59,7 @@ import { OpenDirection } from '../../interface';
  * Do not make a popover too big. They should never take over the entire screen.
  * If your content is that big, you should probably be using a Modal instead.
  * :::
+ *
  * @slot - Content to put inside the surface
  * @exampleComponent limel-example-popover
  */

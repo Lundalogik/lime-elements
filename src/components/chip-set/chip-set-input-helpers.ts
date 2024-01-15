@@ -16,6 +16,7 @@ import {
 /**
  * Key handler for the input field.
  * Lets the user select, activate, and remove chips with the keyboard.
+ *
  * @param {KeyboardEvent} event event
  * @returns {void}
  */

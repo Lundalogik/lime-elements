@@ -32,6 +32,7 @@ import { schema } from './help-form-schema';
  * the field is instead marked as invalid with an error message that is displayed
  * in the place of the helper text.
  * :::
+ *
  * @link help-form-schema.ts
  */
 @Component({

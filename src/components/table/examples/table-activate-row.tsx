@@ -4,6 +4,7 @@ import { persons, Person } from './persons';
 
 /**
  * Activate a row
+ *
  * @sourceFile persons.ts
  */
 @Component({

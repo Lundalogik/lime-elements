@@ -39,6 +39,7 @@ import { createRandomString } from '../../util/random-string';
  *
  * Within the group, icon buttons will all have the same width, while each text button
  * inherits its width from its content.
+ *
  * @exampleComponent limel-example-button-group-icons
  * @exampleComponent limel-example-button-group
  * @exampleComponent limel-example-button-group-mix

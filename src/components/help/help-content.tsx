@@ -7,6 +7,7 @@ import { Link } from '../../interface';
  * Moved here mostly to avoid having inlined styles in the parent component.
  * Since you cannot send styles to the Portal component, we need to have this
  * child component.
+ *
  * @private
  */
 @Component({

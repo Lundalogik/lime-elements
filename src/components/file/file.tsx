@@ -53,6 +53,7 @@ const DEFAULT_FILE_CHIP: Chip = {
  *
  * and similar phrases...
  * :::
+ *
  * @exampleComponent limel-example-file
  * @exampleComponent limel-example-file-custom-icon
  * @exampleComponent limel-example-file-accepted-types

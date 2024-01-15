@@ -60,6 +60,7 @@ export interface MenuItem<T = any> {
 
     /**
      * Background color of the icon. Overrides `--icon-background-color`.
+     *
      * @deprecated This property is deprecated and will be removed soon!
      *
      * Use the new `Icon` interface instead and write:
@@ -104,6 +105,7 @@ export interface MenuItem<T = any> {
      * If and when we do so, this property will be removed without prior
      * notice. If you use it, your code _will_ break in the future.
      * :::
+     *
      * @internal
      */
     parentItem?: MenuItem;
@@ -112,6 +114,7 @@ export interface MenuItem<T = any> {
 /**
  * A search function that takes a search-string as an argument, and returns
  * a promise that will eventually be resolved with an array of `MenuItem`:s.
+ *
  * @param {string} query A search query. What the user has written
  * in the input field of a limel-menu.
  * @returns {Promise<Array<MenuItem | ListSeparator>>} The search result.
@@ -124,6 +127,7 @@ export type MenuSearcher = (
  * A loader function that takes a `MenuItem` as an argument, and returns
  * a promise that will eventually be resolved with an array of `MenuItem`:s,
  * that is the sub-menu of the given item.
+ *
  * @param {MenuItem} item The parent item to load the sub-menu for.
  * @returns {Promise<MenuItem[]>} The sub-menu's items of the given item.
  */

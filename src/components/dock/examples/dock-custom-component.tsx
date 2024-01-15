@@ -13,6 +13,7 @@ import { DockItem } from '@limetech/lime-elements';
  * `.SCSS` file. That defines the width the popover component, which is `auto`
  * by default. But modifying it may be helpful depending on the usage.
  * :::
+ *
  * @sourceFile my-custom-menu.tsx
  */
 

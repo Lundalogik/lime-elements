@@ -4,6 +4,7 @@ import { markdownToHTML } from './markdown-parser';
 /**
  * The Markdown component receives markdown syntax
  * and renders it as HTML.
+ *
  * @exampleComponent limel-example-markdown-headings
  * @exampleComponent limel-example-markdown-emphasis
  * @exampleComponent limel-example-markdown-lists

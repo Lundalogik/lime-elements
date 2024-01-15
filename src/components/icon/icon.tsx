@@ -28,6 +28,7 @@ import { IconSize } from '../../interface';
  * Read more about our [Color System](#/DesignGuidelines/color-system.md/)
  * and how to do this.
  * :::
+ *
  * @exampleComponent limel-example-icon
  * @exampleComponent limel-example-icon-background
  */
@@ -79,6 +80,7 @@ export class Icon {
 
     /**
      * Load the SVG data for the icon from the icon cache
+     *
      * @param {string} name name of the icon
      * @returns {string} the icon SVG data
      */

@@ -35,6 +35,7 @@ const HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX = 40;
  * Avoid having long labels for tabs.
  * A tab will never be removed or get disabled, even if there is no content under it.
  * :::
+ *
  * @exampleComponent limel-example-tab-bar
  * @exampleComponent limel-example-tab-bar-with-dynamic-tab-width
  * @exampleComponent limel-example-tab-bar-with-equal-tab-width

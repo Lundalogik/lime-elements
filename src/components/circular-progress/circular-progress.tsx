@@ -21,6 +21,7 @@ const PERCENT = 100;
  * Of course such numbers, if bigger than `maxValue` will be visualized as a
  * full progress.
  * :::
+ *
  * @exampleComponent limel-example-circular-progress
  * @exampleComponent limel-example-circular-progress-sizes
  * @exampleComponent limel-example-circular-progress-props

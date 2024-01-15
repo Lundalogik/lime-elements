@@ -32,6 +32,7 @@ import { getIconColor, getIconName } from '../icon/get-icon-props';
  * :::
  *
  * Breadcrumbs are often placed horizontally before the main content of the current screen.
+ *
  * @exampleComponent limel-example-breadcrumbs-links
  * @exampleComponent limel-example-breadcrumbs-buttons
  * @exampleComponent limel-example-breadcrumbs-icons

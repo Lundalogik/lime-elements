@@ -3,6 +3,7 @@ import { schema } from './list-schema';
 
 /**
  * List data
+ *
  * @sourceFile list-schema.ts
  */
 @Component({

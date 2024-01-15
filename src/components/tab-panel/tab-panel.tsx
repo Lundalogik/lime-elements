@@ -25,6 +25,7 @@ import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
  *
  * The slotted components can also emit the `changeTab` event to update anything
  * inside the actual tab, e.g. to change the icon, color or badge.
+ *
  * @slot - Content to put inside the `limel-tab-panel`. Each slotted element
  * must have the `id` attribute equal to the id of the tab it belongs to.
  * @exampleComponent limel-example-tab-panel

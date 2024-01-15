@@ -120,6 +120,7 @@ export class Menu {
      * If and when we do so, this property will be removed without prior
      * notice. If you use it, your code _will_ break in the future.
      * :::
+     *
      * @internal
      */
     @Prop({ reflect: true })
@@ -132,6 +133,7 @@ export class Menu {
      * If and when we do so, this property will be removed without prior
      * notice. If you use it, your code _will_ break in the future.
      * :::
+     *
      * @internal
      */
     @Prop({ mutable: true })

@@ -8,6 +8,7 @@ import { persons, Person } from './persons';
 
 /**
  * Selectable rows with updating aggregates
+ *
  * @sourceFile persons.ts
  */
 @Component({

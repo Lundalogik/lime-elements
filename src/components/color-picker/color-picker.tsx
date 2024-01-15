@@ -12,6 +12,7 @@ import { FormComponent } from '../../interface';
  * :::note
  * Make sure to read our [guidelines about usage of colors](/#/DesignGuidelines/color-system.md/) from our palette.
  * :::
+ *
  * @exampleComponent limel-example-color-picker
  * @exampleComponent limel-example-color-picker-readonly
  */

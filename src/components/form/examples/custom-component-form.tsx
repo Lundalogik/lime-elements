@@ -28,6 +28,7 @@ import { schema } from './custom-component-schema';
  * While you can, in principle, use any component in a form, your custom form
  * components should implement the [FormComponent](#/type/FormComponent/)
  * interface.
+ *
  * @sourceFile custom-component-schema.ts
  * @sourceFile custom-component-picker.tsx
  */

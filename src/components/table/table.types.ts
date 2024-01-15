@@ -44,6 +44,7 @@ export type TableFormatter = (value: any, data?: object) => string;
 
 /**
  * Definition for a component to be displayed in a cell in the table
+ *
  * @note The table will display the component as `inline-block` in order
  * to give the column the correct size. If the component should have the
  * full width of the column, this might have to be overridden by setting
@@ -73,6 +74,7 @@ export interface TableComponentDefinition {
      * `props` properties when the component is created.
      *
      * When the propsFactory is used for header components there will be no data available
+     *
      * @param {*} data the data for the current row
      * @returns {object} properties for the component
      */
@@ -149,6 +151,7 @@ export enum ColumnAggregatorType {
 
 /**
  * Calculate an aggregated value for a column
+ *
  * @param {Column} column the configuration for the column
  * @param {*[]} values list of all values to be aggregated
  * @param {T[]} data list of all objects to be aggregated

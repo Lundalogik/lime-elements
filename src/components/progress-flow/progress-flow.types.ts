@@ -20,6 +20,7 @@ export interface FlowItem extends ListItem {
     /**
      * Fill color of the icon on the step,
      * when it is neither selected nor passed.
+     *
      * @deprecated This property is deprecated and will be removed soon!
      *
      * Use the new `Icon` interface instead and write:

@@ -26,6 +26,7 @@ import {
  * quickly and intuitively change binary settings.
  *
  * <limel-example-switch-vs-checkbox />
+ *
  * @exampleComponent limel-example-switch
  * @exampleComponent limel-example-switch-helper-text
  */

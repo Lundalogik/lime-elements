@@ -23,6 +23,7 @@ export interface Tab {
 
     /**
      * Color of the icon.
+     *
      * @deprecated This property is deprecated and will be removed soon!
      *
      * Use the new `Icon` interface instead and write:

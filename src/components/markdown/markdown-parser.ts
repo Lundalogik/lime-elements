@@ -16,6 +16,7 @@ import rehypeRaw from 'rehype-raw';
  *
  * If the text already is in HTML it will be sanitized and
  * "dangerous" tags such as <script> will be removed.
+ *
  * @param {string} text The string to convert.
  * @param {markdownToHTMLOptions} [options] Options for the conversions.
  * @returns {Promise<string>} The resulting HTML.

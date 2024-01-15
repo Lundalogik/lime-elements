@@ -76,6 +76,7 @@ export class ListRenderer {
      * and return the index at which that ListItem is located in `items`.
      * Returns `undefined` if no item should have the attribute set.
      * See https://github.com/material-components/material-components-web/tree/e66a43a75fef4f9179e24856649518e15e279a04/packages/mdc-list#accessibility
+     *
      * @param {Array<ListItem | ListSeparator>} items the items of the list, including any `ListSeparator`:s
      * @returns {number} the index as per the description
      */
@@ -106,6 +107,7 @@ export class ListRenderer {
 
     /**
      * Render a single list item
+     *
      * @param {ListItem | ListSeparator} item the item to render
      * @param {number} index the index the item had in the `items` array
      * @returns {HTMLElement} the list item
@@ -179,6 +181,7 @@ export class ListRenderer {
 
     /**
      * Render the text of the list item
+     *
      * @param {ListItem} item the list item
      * @returns {HTMLElement | string} the text for the list item
      */
@@ -209,6 +212,7 @@ export class ListRenderer {
 
     /**
      * Render an icon for a list item
+     *
      * @param {ListRendererConfig} config the config object, passed on from the `renderListItem` function
      * @param {ListItem} item the list item
      * @returns {HTMLElement | undefined} the icon element

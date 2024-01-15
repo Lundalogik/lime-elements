@@ -12,6 +12,7 @@ export class CacheStorageIconCache {
 
     /**
      * Get icon data from the cache
+     *
      * @param {string} name name of the icon
      * @param {string} path path on the server where the assets are located
      * @returns {Promise<string>} svg markup

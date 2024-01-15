@@ -1,5 +1,6 @@
 /**
  * Check if an element is a descendant of another, even if it is located within a shadow root
+ *
  * @param {Node} element the element to check
  * @param {Node} parent the parent element
  * @returns {boolean} true if the element is a descendant of the parent element, false otherwise

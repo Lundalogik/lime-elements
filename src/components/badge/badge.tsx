@@ -4,6 +4,7 @@ import { abbreviate } from './format';
 /**
  * The Badge component can be used to display a notification badge,
  * optionally with a number or a text label.
+ *
  * @exampleComponent limel-example-badge
  * @exampleComponent limel-example-badge-number
  * @exampleComponent limel-example-badge-string

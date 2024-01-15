@@ -12,6 +12,7 @@ import { invoices, Invoice } from './invoices';
  *fit perfectly in the table container, when extra space is available.
  *If all columns cannot fit within the available width,
  *then a horizontal scrollbar will appear.
+ *
  * @sourceFile invoices.ts
  */
 @Component({

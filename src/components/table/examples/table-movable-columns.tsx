@@ -5,6 +5,7 @@ import { capitalize } from 'lodash-es';
 
 /**
  * Movable columns
+ *
  * @sourceFile birds.ts
  */
 @Component({

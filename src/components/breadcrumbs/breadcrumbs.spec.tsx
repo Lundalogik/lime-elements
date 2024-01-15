@@ -163,6 +163,7 @@ describe('limel-breadcrumbs', () => {
  * Ids are randomly generated and we do not have access to them as they
  * are inside the breadcrumbs component. But we can get them this way.
  * Retrieves ids via inorder traversal
+ *
  * @param {Element} node base node
  * @param {string[]} ids id array that you wish to populate
  * @return void

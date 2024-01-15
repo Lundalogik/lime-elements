@@ -3,6 +3,7 @@ import { schema } from './nested-schema';
 
 /**
  * Nested data
+ *
  * @sourceFile nested-schema.ts
  */
 @Component({

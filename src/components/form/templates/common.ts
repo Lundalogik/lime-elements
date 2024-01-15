@@ -32,6 +32,7 @@ export function renderDescription(description: string) {
  * If an object has the key 'title' it will have priority, followed by the key 'name'.
  * If 'title' nor 'name' is found, a required item will be considered.
  * Otherwise the first occurrence of a nonempty string is chosen.
+ *
  * @param {*} data the data to find the title for
  * @param {*} fieldSchema schema for the item
  * @param {*} formSchema schema for the form

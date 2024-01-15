@@ -8,6 +8,7 @@ import { Tab } from '@limetech/lime-elements';
  * activated and then display the actual content. If the button is pressed, the
  * component will emit the `changeTab` event to change the badge inside the
  * corresponding tab.
+ *
  * @sourceFile tab-panel-content.tsx
  * @sourceFile tab-panel-content.scss
  */

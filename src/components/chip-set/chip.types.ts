@@ -18,6 +18,7 @@ export interface Chip<T = any> {
 
     /**
      * Color of the icon. Overrides `--icon-color`.
+     *
      * @deprecated This property is deprecated and will be removed soon!
      *
      * Use the new `Icon` interface instead and write:
@@ -32,6 +33,7 @@ export interface Chip<T = any> {
 
     /**
      * `title` attribute of the icon
+     *
      * @deprecated This property is deprecated and will be removed soon!
      *
      * Use the new `Icon` interface instead and write:
@@ -46,6 +48,7 @@ export interface Chip<T = any> {
 
     /**
      * Background color of the icon. Overrides `--icon-background-color`.
+     *
      * @deprecated This property is deprecated and will be removed soon!
      *
      * Use the new `Icon` interface instead and write:

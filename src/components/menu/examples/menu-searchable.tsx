@@ -9,6 +9,7 @@ import { CascadingMenuItems } from './item-constants';
 
 /**
  * Searchable items
+ *
  * @sourceFile subitems-search.ts
  * @sourceFile item-constants.ts
  */

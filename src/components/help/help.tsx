@@ -17,6 +17,7 @@ import { Link } from '../../interface';
  * Using this component designers empower users to grasp the functionality
  * of an app more effortlessly, minimizes the learning curve,
  * transforming complex features into accessible opportunities for exploration.
+ *
  * @exampleComponent limel-example-help
  * @exampleComponent limel-example-read-more
  * @exampleComponent limel-example-open-direction

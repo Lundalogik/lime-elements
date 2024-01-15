@@ -15,6 +15,7 @@ import { Component, h } from '@stencil/core';
  * There should be a `min-width` and `max-width` on the component in order to prevent
  * the overflow menu to cause infinite rendering loops.
  * :::
+ *
  * @sourceFile action-bar-in-list.tsx
  * @sourceFile action-bar-in-list.scss
  */

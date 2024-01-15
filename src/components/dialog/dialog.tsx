@@ -29,6 +29,7 @@ import { createRandomString } from '../../util/random-string';
  * you should use the [DialogService](https://lundalogik.github.io/lime-web-components/versions/latest/#/api/dialog-service)
  * from Lime Web Components to open dialogs in Lime CRM.
  * :::
+ *
  * @exampleComponent limel-example-dialog
  * @exampleComponent limel-example-dialog-nested-close-events
  * @exampleComponent limel-example-dialog-heading

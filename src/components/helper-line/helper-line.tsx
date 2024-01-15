@@ -10,6 +10,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
  *
  * Also this enables us to open the helper line in limel-portal,
  * more easily without having to send the styles to the portal.
+ *
  * @exampleComponent limel-example-helper-line
  * @exampleComponent limel-example-helper-line-invalid
  * @exampleComponent limel-example-helper-line-long-text

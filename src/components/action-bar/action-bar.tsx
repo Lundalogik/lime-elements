@@ -33,6 +33,7 @@ import { isItem } from './isItem';
  * The action bar's design and layout can vary based on the platform or application,
  * but its primary goal remains consistent—to
  * empower users to interact with the software and perform desired actions effortlessly.
+ *
  * @exampleComponent limel-example-action-bar
  * @exampleComponent limel-example-action-bar-overflow-menu
  * @exampleComponent limel-example-action-bar-colors

@@ -4,6 +4,7 @@ import { schema } from './list-schema';
 
 /**
  * Form with server validation
+ *
  * @sourceFile list-schema.ts
  */
 @Component({

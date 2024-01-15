@@ -34,6 +34,7 @@ import { FileType, OfficeViewer } from './file-viewer.types';
  * This will allow users to preview the file in a fullscreen mode with the
  * browser and take advantage of for example native zooming and panning
  * functionalities.
+ *
  * @exampleComponent limel-example-file-viewer
  * @exampleComponent limel-example-file-viewer-office
  * @exampleComponent limel-example-file-viewer-filename

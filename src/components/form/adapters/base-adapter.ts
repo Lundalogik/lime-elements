@@ -21,6 +21,7 @@ import {
  * the real definition of a primitive in javascript. In this context, primitive
  * really means "can be properly rendered to the dom by react". It just so
  * happens that react can render most primitives to the dom correctly.
+ *
  * @see https://developer.mozilla.org/en-US/docs/Glossary/Primitive
  * @param {any} value the value to check
  * @returns {boolean} Whether or not the value is primitive
@@ -75,6 +76,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
     /**
      * Given a key a value set the value of property named `key` to
      * the value of `value`
+     *
      * @param {string} key The name of the property
      * @param {any} value The value of the property
      * @returns {void}
@@ -89,6 +91,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
      *
      * Events must be bound using this function otherwise events will bubble up too far
      * since react events are different that native dom events
+     *
      * @param {string} eventName the name of the event to get the handler for
      * @returns {any} the handler to bind to the component for the event name
      */
@@ -103,6 +106,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
 
     /**
      * Set events on the web component
+     *
      * @param {object} events Event names to handlers
      * @returns {void}
      */
@@ -115,6 +119,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
 
     /**
      * Remove events on the web component
+     *
      * @param {object} events Event names to handlers
      * @returns {void}
      */
@@ -127,6 +132,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
 
     /**
      * Get the events to remove from the component
+     *
      * @param {object} prevEvents previous events
      * @param {object} nextEvents new events
      * @returns {object} the events to remove
@@ -140,6 +146,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
 
     /**
      * Get the events to add to the component
+     *
      * @param {object} prevEvents previous events
      * @param {object} nextEvents new events
      * @returns {object} the events to add
@@ -155,6 +162,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
      * Detect if event handlers have changed. If they
      * have changed, store them in the state, and remove and
      * re-add the changed event handlers
+     *
      * @returns {void}
      */
     updateEvents() {
@@ -185,6 +193,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
 
     /**
      * Get non primitive props. i.e. object, function, array, etc
+     *
      * @param {object} elementProps the props to pass the webcomponet
      * @returns {object} non primitive props
      */
@@ -194,6 +203,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
 
     /**
      * Get primitive props. i.e. integer, boolean, etc
+     *
      * @param {object} elementProps the props to pass the webcomponet
      * @returns {object} primitive props
      */
@@ -205,6 +215,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
      * Given the previous renders props and the next renders props,
      * check if any of the property values have changed and return an
      * object with only those values
+     *
      * @param {object} prevNonPrimitiveProps the previous renders non primitive props
      * @param {object} nextNonPrimitiveProps the current renders non primitive props
      * @returns {object} the changed primitive props
@@ -226,6 +237,7 @@ export class LimeElementsAdapter extends React.Component<any, any> {
      * instead of passing them as props the the React.createElement
      * function because non primitive props are not passed properly to the web
      * component via React.createElement
+     *
      * @param {object} elementProps element props to set
      * @returns {void}
      */

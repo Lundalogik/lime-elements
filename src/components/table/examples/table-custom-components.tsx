@@ -24,6 +24,7 @@ import { capitalize } from 'lodash-es';
  * While you can, in principle, use any component in a table, your custom table
  * components should implement the [TableComponent](#/type/TableComponent/)
  * interface.
+ *
  * @sourceFile birds.ts
  * @sourceFile table-food.tsx
  */

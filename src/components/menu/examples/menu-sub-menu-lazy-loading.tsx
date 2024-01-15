@@ -8,6 +8,7 @@ import { LazyLoader } from './menu-sub-menu-lazy-loading-service-mock';
 
 /**
  * Lazy loading items in sub-menus
+ *
  * @sourceFile menu-sub-menu-lazy-loading-service-mock.ts
  */
 @Component({

@@ -29,6 +29,7 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  * `connectedCallback` will be invoked, so if `disconnectedCallback` is used
  * to do any tear-down, the appropriate setup will have to be done again on
  * `connectedCallback`.
+ *
  * @slot - Content to put inside the portal
  * @private
  * @exampleComponent limel-example-portal-basic

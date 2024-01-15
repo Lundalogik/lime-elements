@@ -23,6 +23,7 @@ export interface ListItem<T = any> {
 
     /**
      * Background color of the icon. Overrides `--icon-background-color`.
+     *
      * @deprecated This property is deprecated and will be removed soon!
      *
      * Use the new `Icon` interface instead and write:

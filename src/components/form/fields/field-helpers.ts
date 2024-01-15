@@ -4,6 +4,7 @@ import { retrieveSchema, ADDITIONAL_PROPERTY_FLAG } from '@rjsf/core/lib/utils';
 /**
  * Given two objects, get a list of keys for each value that is different between
  * the two objects. Compares using deep comparison
+ *
  * @param {object} a first object
  * @param {object} b second object
  * @returns {any[]} the array of keys
@@ -21,6 +22,7 @@ const getDifferentKeys = (a: object = {}, b: object = {}): any[] => {
  * has any other fields that are dependent on it, and if so reset those dependent fields
  * (by deleting them from the data so that their defaults are populated on the next rerender).
  * Call onChange with the updated data
+ *
  * @param {any} oldData The previous data before a data change event
  * @param {any} newData The form data from a change event
  * @param {object} schema The schema associated with the data
@@ -63,6 +65,7 @@ export const resetDependentFields = (oldData, newData, schema, rootSchema) => {
 
 /**
  * Check if the schema is of type object and have no declared properties
+ *
  * @param {any} schema the schema
  * @returns {boolean} true if the schema is for a custom object
  */

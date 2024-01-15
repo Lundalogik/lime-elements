@@ -76,6 +76,7 @@ class EnterClickable {
 /**
  * Overrides the default browser behavior for clickable elements
  * When focused and pressing down enter, avoids calling onClick repeatedly
+ *
  * @param {HTMLElement} element the clickable element
  */
 export function makeEnterClickable(element: HTMLElement) {

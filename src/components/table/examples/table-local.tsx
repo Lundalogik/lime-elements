@@ -9,6 +9,7 @@ import { capitalize } from 'lodash-es';
 
 /**
  * Local sorting and pagination
+ *
  * @sourceFile birds.ts
  */
 @Component({

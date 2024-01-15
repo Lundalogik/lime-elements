@@ -9,6 +9,7 @@ import { helpAndDocumentation, link } from './help-and-documentation';
  * use the read more link. Because it will always be displayed at the bottom
  * of the popover after the content, does not scroll away with the content,
  * and it will be styled in a consistent way.
+ *
  * @link help-and-documentation.ts
  */
 
