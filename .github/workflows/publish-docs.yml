@@ -58,7 +58,7 @@ jobs:
       pull-requests: write
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/github-script@v6
+    - uses: actions/github-script@v7
       with:
         script: |
           const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/pr-comment.js`);
