@@ -1,2 +1,2 @@
-import{r as e,h as r}from"./index-6156b4fd.js";const t=class{constructor(r){e(this,r)}render(){return[r("limel-chip",{id:"a",text:"Batman",removable:true}),r("limel-example-value",{value:"get the remove event"})]}};export{t as limel_example_chip_removable};
+import{r as e,h as l}from"./index-6156b4fd.js";const t=class{constructor(l){e(this,l);this.handleRemove=()=>{this.removeButtonClicked=true};this.removeButtonClicked=false}render(){return[l("limel-chip",{id:"a",text:"My filter",badge:123,removable:true,onRemove:this.handleRemove}),l("limel-example-value",{label:"Remove",value:this.removeButtonClicked})]}};export{t as limel_example_chip_removable};
 //# sourceMappingURL=limel-example-chip-removable.entry.js.map
