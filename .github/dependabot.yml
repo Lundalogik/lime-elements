@@ -32,3 +32,8 @@ updates:
       - dependency-name: "puppeteer"
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 5
