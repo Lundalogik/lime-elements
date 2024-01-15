@@ -10,18 +10,18 @@ import { schema } from './custom-component-schema';
  *
  * ```ts
  * const schema = {
- * type: 'object',
- * properties: {
- * hero: {
- * type: 'integer',
- * title: 'Hero',
- * lime: {
- * component: {
- * name: 'my-useful-hero-picker',
- * },
- * },
- * },
- * },
+ *     type: 'object',
+ *     properties: {
+ *         hero: {
+ *             type: 'integer',
+ *             title: 'Hero',
+ *             lime: {
+ *                 component: {
+ *                     name: 'my-useful-hero-picker',
+ *                 },
+ *             },
+ *         },
+ *     },
  * };
  * ```
  *

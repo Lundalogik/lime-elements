@@ -27,20 +27,20 @@ import { schema } from './span-fields-schema';
  *
  * ```ts
  * export const schema = {
- * …
- * properties: {
- * name: {
- * type: 'string',
- * title: 'Comment',
- * lime: {
- * layout: {
- * colSpan: 'all',
- * },
- * },
- * },
- * …
- * },
- * …
+ *     …
+ *     properties: {
+ *         name: {
+ *             type: 'string',
+ *             title: 'Comment',
+ *             lime: {
+ *                 layout: {
+ *                       colSpan: 'all',
+ *                   },
+ *               },
+ *         },
+ *         …
+ *     },
+ *     …
  * };
  * ```
  *
@@ -65,13 +65,13 @@ import { schema } from './span-fields-schema';
  *
  * ```ts
  * export const schema = {
- * type: 'object',
- * lime: {
- * layout: {
- * type: 'grid',
- * dense: false,
- * },
- * },
+ *     type: 'object',
+ *     lime: {
+ *         layout: {
+ *             type: 'grid',
+ *             dense: false,
+ *         },
+ *     },
  * };
  * ```
  *
@@ -99,24 +99,24 @@ import { schema } from './span-fields-schema';
  * can use `rowSpan` to increase the height of your custom component.
  * ```ts
  * export const schema = {
- * type: 'object',
- * properties: {
- * comment: {
- * type: 'string',
- * title: 'Comment',
- * lime: {
- * component: {
- * props: {
- * type: 'textarea',
- * },
- * },
- * layout: {
- * colSpan: 3,
- * rowSpan: 2,
- * },
- * },
- * },
- * },
+ *     type: 'object',
+ *     properties: {
+ *         comment: {
+ *             type: 'string',
+ *             title: 'Comment',
+ *             lime: {
+ *                 component: {
+ *                     props: {
+ *                         type: 'textarea',
+ *                     },
+ *                 },
+ *                 layout: {
+ *                       colSpan: 3,
+ *                       rowSpan: 2,
+ *                 },
+ *             },
+ *         },
+ *     },
  * };
  * ```
  *
@@ -136,16 +136,16 @@ import { schema } from './span-fields-schema';
  * and that their `:host` and any potential wrapping container has the following styles:
  * ```scss
  * :host {
- * display: block; // or another suitable property
- * width: 100%;
- * height: 100%;
+ *     display: block; // or another suitable property
+ *     width: 100%;
+ *     height: 100%;
  * }
  * :host([hidden]) {
- * display: none;
+ *     display: none;
  * }
  * .my-component {
- * width: 100%;
- * height: 100%;
+ *     width: 100%;
+ *     height: 100%;
  * }
  * ```
  * :::

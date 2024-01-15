@@ -13,11 +13,11 @@ import { capitalize } from 'lodash-es';
  *
  * ```ts
  * const columns = [
- * {
- * title: 'Food',
- * field: 'food',
- * component: { name: 'my-fancy-food-displayer' },
- * },
+ *     {
+ *         title: 'Food',
+ *         field: 'food',
+ *         component: { name: 'my-fancy-food-displayer' },
+ *     },
  * ];
  * ```
  *

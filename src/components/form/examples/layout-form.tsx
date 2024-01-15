@@ -18,14 +18,14 @@ import { schema } from './layout-schema';
  * layout to Lime Elements.
  * ```ts
  * export const schema = {
- * type: 'object',
- * lime: {
- * layout: {
- * type: 'grid',
- * columns: 3,
- * },
- * },
- * …
+ *     type: 'object',
+ *     lime: {
+ *         layout: {
+ *             type: 'grid',
+ *             columns: 3,
+ *         },
+ *     },
+ *     …
  * };
  * ```
  * :::note
