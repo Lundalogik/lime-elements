@@ -62,6 +62,7 @@ module.exports = {
         'jsdoc/require-jsdoc': 'off',
         'jsdoc/no-undefined-types': 'off',
         'jsdoc/check-tag-names': 'off',
+        'jsdoc/tag-lines': ['error', 'always', { count: 0, startLines: 1 }],
         'max-classes-per-file': ['error', 1],
         'multiline-ternary': ['error', 'never'],
         'no-bitwise': 'error',
