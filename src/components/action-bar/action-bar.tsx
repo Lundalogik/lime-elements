@@ -112,8 +112,9 @@ export class ActionBar {
                     'is-full-width': this.layout === 'fullWidth',
                     'is-floating': this.layout === 'floating',
                 }}
+                role="grid"
             >
-                <div class="items">
+                <div class="items" role="rowgroup">
                     {this.actions.map(this.renderActionBarItem)}
                 </div>
                 {this.renderOverflowMenu(overflowActions)}
@@ -143,6 +144,7 @@ export class ActionBar {
                 item={item}
                 onSelect={this.handleSelect}
                 isVisible={this.isVisible(index)}
+                role="gridcell"
             />
         );
     };
@@ -157,6 +159,7 @@ export class ActionBar {
                 openDirection={this.openDirection}
                 items={items}
                 onSelect={this.handleSelect}
+                role="gridcell"
             />
         );
     };
