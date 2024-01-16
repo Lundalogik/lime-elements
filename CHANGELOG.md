@@ -1,3 +1,11 @@
+## [37.1.0-next.89](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.88...v37.1.0-next.89) (2024-01-16)
+
+
+### Bug Fixes
+
+
+* **action-bar:** improve accessibility, using ARIA roles ([80fa73a](https://github.com/Lundalogik/lime-elements/commit/80fa73a4e8d6f327223f84af2d1d55acedbfd2ea))
+
 ## [37.1.0-next.88](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.87...v37.1.0-next.88) (2024-01-12)
 
 
