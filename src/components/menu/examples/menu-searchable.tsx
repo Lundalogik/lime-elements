@@ -19,6 +19,10 @@ import { CascadingMenuItems } from './item-constants';
 })
 export class MenuSubItemsExample {
     private items: Array<MenuItem | ListSeparator> = [
+        {
+            separator: true,
+            text: 'Example items',
+        },
         ...CascadingMenuItems,
         {
             text: 'Long sub list',
