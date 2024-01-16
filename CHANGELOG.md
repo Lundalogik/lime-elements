@@ -1,3 +1,12 @@
+## [37.1.0-next.90](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.89...v37.1.0-next.90) (2024-01-16)
+
+
+### Bug Fixes
+
+
+* **menu:** keyboard navigation in search results ([e202ea5](https://github.com/Lundalogik/lime-elements/commit/e202ea5b937caf2d0ea810fdb05bcc2964cb7343))
+* **menu:** keyboard navigation when last/first list item is a separator ([4c6d5f8](https://github.com/Lundalogik/lime-elements/commit/4c6d5f8e01293587ffe53620baa416ce547ba3f6))
+
 ## [37.1.0-next.89](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.88...v37.1.0-next.89) (2024-01-16)
 
 
