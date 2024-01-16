@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-6156b4fd.js";const i=6;const n=class{constructor(t){e(this,t);this.handleChange=e=>{this.value=e.detail};this.value=undefined}render(){return t("limel-input-field",{label:"Address",value:this.value,minlength:i,helperText:`Please enter at least ${i} characters!`,leadingIcon:"map_marker",onChange:this.handleChange})}};export{n as limel_example_input_field_icon_leading};
+//# sourceMappingURL=limel-example-input-field-icon-leading.entry.js.map
