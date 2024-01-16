@@ -411,10 +411,6 @@ export class Menu {
     private renderMenuList = () => {
         let items = this.visibleItems;
 
-        if (Array.isArray(this.searchResults) && this.searchValue) {
-            items = this.searchResults;
-        }
-
         if (this.loadingSubItems || this.loading) {
             items = [];
         }
@@ -769,7 +765,9 @@ export class Menu {
     }
 
     private get visibleItems(): Array<MenuItem | ListSeparator> {
-        if (Array.isArray(this.currentSubMenu?.items)) {
+        if (Array.isArray(this.searchResults) && this.searchValue) {
+            return this.searchResults;
+        } else if (Array.isArray(this.currentSubMenu?.items)) {
             return this.currentSubMenu.items.map((item) => ({
                 ...item,
                 parentItem: this.currentSubMenu,
