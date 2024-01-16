@@ -481,19 +481,23 @@ export class Menu {
         event.preventDefault();
 
         if (isForwardTab || isDown) {
-            const listElement: HTMLElement = this.list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:first-child',
-            );
-            listElement.focus();
+            const listItems =
+                this.list.shadowRoot.querySelectorAll<HTMLElement>(
+                    '.mdc-deprecated-list-item',
+                );
+            const listElement = listItems[0];
+            listElement?.focus();
 
             return;
         }
 
         if (isUp) {
-            const listElement: HTMLElement = this.list.shadowRoot.querySelector(
-                '.mdc-deprecated-list-item:last-child',
-            );
-            listElement.focus();
+            const listItems =
+                this.list.shadowRoot.querySelectorAll<HTMLElement>(
+                    '.mdc-deprecated-list-item',
+                );
+            const listElement = listItems[listItems.length - 1];
+            listElement?.focus();
         }
     };
 
