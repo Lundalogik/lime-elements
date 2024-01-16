@@ -16,6 +16,7 @@ import { markdownToHTML } from './markdown-parser';
  * @exampleComponent limel-example-markdown-html
  * @exampleComponent limel-example-markdown-blockquotes
  * @exampleComponent limel-example-markdown-horizontal-rule
+ * @exampleComponent limel-example-markdown-composite
  */
 @Component({
     tag: 'limel-markdown',

@@ -1,0 +1,21 @@
+:host(limel-example-markdown-composite) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    limel-input-field {
+        height: 10rem;
+    }
+
+    fieldset {
+        padding-block: 1rem;
+        padding-inline: 1rem;
+        margin-inline: 0;
+        border: 0.125rem dashed rgb(var(--contrast-700));
+
+        legend {
+            color: rgb(var(--contrast-1000));
+            text-align: center;
+        }
+    }
+}
