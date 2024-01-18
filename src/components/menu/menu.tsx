@@ -14,7 +14,7 @@ import { zipObject, isFunction } from 'lodash-es';
 import {
     LimelBreadcrumbsCustomEvent,
     LimelInputFieldCustomEvent,
-} from '@limetech/lime-elements';
+} from '../../components';
 
 import { BreadcrumbsItem } from '../breadcrumbs/breadcrumbs.types';
 import { ListSeparator } from '../list/list-item.types';
