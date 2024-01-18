@@ -1,3 +1,11 @@
+## [37.1.0-next.91](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.90...v37.1.0-next.91) (2024-01-18)
+
+
+### Bug Fixes
+
+
+* **types:** some exported types were exported as `any` ([88c730b](https://github.com/Lundalogik/lime-elements/commit/88c730b42a3be4f9dc6a95e492e958552f44ee20))
+
 ## [37.1.0-next.90](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.89...v37.1.0-next.90) (2024-01-16)
 
 
