@@ -119,7 +119,7 @@ export class Header {
         }
 
         return (
-            <span class="information__headings__subheading__supporting-text">
+            <span class="subheading__supporting-text">
                 <span>·</span> {this.supportingText}
             </span>
         );
