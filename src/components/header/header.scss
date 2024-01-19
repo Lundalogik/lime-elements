@@ -58,20 +58,20 @@
 
 .heading {
     color: var(--header-heading-color, rgb(var(--contrast-1100)));
-    font-size: functions.pxToRem(17);
+    font-size: functions.pxToRem(16);
     font-weight: 500;
 }
 
 .subheading {
     color: var(--header-subheading-color, rgb(var(--contrast-900)));
-    font-size: functions.pxToRem(14);
+    font-size: functions.pxToRem(13);
     font-weight: 400;
 }
 
 .subheading__supporting-text {
     color: var(--header-supporting-text-color, var(--header-subheading-color));
     span {
-        margin: 0 0.25rem;
+        margin: 0 0.125rem;
     }
 }
 
