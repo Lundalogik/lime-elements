@@ -9,9 +9,9 @@ import { invoices, Invoice } from './invoices';
  * rendering, choose one of the available `layout` properties.
  *
  *
- * ````tsx
+ * ```tsx
  * layout="default"
- * ````
+ * ```
  * The default layout resizes the table's columns,
  * in a way that each column becomes as wide as the data it holds.
  *

@@ -3,14 +3,15 @@ import { Column } from '@limetech/lime-elements';
 import { invoices, Invoice } from './invoices';
 
 /**
+ * stretchLastColumn
  *
- *````tsx
- *layout="stretchLastColumn"
- *````
+ * ```tsx
+ * layout="stretchLastColumn"
+ * ```
  *
- *Works just like `default`, but unlike the default layout
- *which resulted in having an empty last column, in this layout
- *the last existing column will stretch out to fill up the remaining table width.
+ * Works just like `default`, but unlike the default layout
+ * which resulted in having an empty last column, in this layout
+ * the last existing column will stretch out to fill up the remaining table width.
  *
  * @sourceFile invoices.ts
  */

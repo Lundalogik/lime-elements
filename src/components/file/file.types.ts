@@ -50,11 +50,12 @@ export interface FileInfo {
      * @deprecated This property is deprecated and will be removed soon!
      *
      * Use the new `Icon` interface instead and write:
-     * ```
-     * icon {
+     * ```ts
+     * icon: {
      *    name: string,
      *    color: string,
      * },
+     * ```
      */
     iconColor?: string;
 
@@ -64,11 +65,12 @@ export interface FileInfo {
      * @deprecated This property is deprecated and will be removed soon!
      *
      * Use the new `Icon` interface instead and write:
-     * ```
-     * icon {
+     * ```ts
+     * icon: {
      *    name: string,
      *    backgroundColor: string,
      * },
+     * ```
      */
     iconBackgroundColor?: string;
 

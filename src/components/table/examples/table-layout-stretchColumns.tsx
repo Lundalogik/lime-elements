@@ -3,15 +3,16 @@ import { Column } from '@limetech/lime-elements';
 import { invoices, Invoice } from './invoices';
 
 /**
+ * stretchColumns
  *
- *````tsx
- *layout="stretchColumns"
- *````
+ * ```tsx
+ * layout="stretchColumns"
+ * ```
  *
- *With this layout, the table stretches columns so that all
- *fit perfectly in the table container, when extra space is available.
- *If all columns cannot fit within the available width,
- *then a horizontal scrollbar will appear.
+ * With this layout, the table stretches columns so that all
+ * fit perfectly in the table container, when extra space is available.
+ * If all columns cannot fit within the available width,
+ * then a horizontal scrollbar will appear.
  *
  * @sourceFile invoices.ts
  */
