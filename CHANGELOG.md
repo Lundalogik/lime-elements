@@ -1,3 +1,17 @@
+## [37.1.0-next.92](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.91...v37.1.0-next.92) (2024-01-19)
+
+
+### Features
+
+
+* **header:** enable customizing the divider of the subheading ([8653fd3](https://github.com/Lundalogik/lime-elements/commit/8653fd3515ad0ebb81989eb5526849c859419b42))
+
+### Bug Fixes
+
+
+* **header:** make sure `--header-supporting-text-color` style gets applied ([9eb8e50](https://github.com/Lundalogik/lime-elements/commit/9eb8e50d90b4b27ee0b40b30184192f8396f03c3))
+* **header:** make the text render slightly smaller ([ad9d984](https://github.com/Lundalogik/lime-elements/commit/ad9d9841bb815b00b1857a6e68b04666294606dd))
+
 ## [37.1.0-next.91](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.90...v37.1.0-next.91) (2024-01-18)
 
 
