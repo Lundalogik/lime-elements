@@ -71,8 +71,7 @@
 .subheading__supporting-text {
     color: var(--header-supporting-text-color, var(--header-subheading-color));
     span {
-        margin: 0 functions.pxToRem(8);
-        font-weight: bold;
+        margin: 0 0.25rem;
     }
 }
 

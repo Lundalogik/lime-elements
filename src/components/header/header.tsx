@@ -83,6 +83,13 @@ export class Header {
     @Prop()
     public supportingText: string;
 
+    /**
+     * The visual divider that separates the `subheading` and the `supportingText`.
+     * It must be a single character such as `-` or `,`.
+     */
+    @Prop()
+    public subheadingDivider: string = '·';
+
     public render() {
         return [
             <div class="information">
@@ -120,7 +127,8 @@ export class Header {
 
         return (
             <span class="subheading__supporting-text">
-                <span>·</span> {this.supportingText}
+                <span>{this.subheadingDivider}</span>
+                {this.supportingText}
             </span>
         );
     }
