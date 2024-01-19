@@ -16,7 +16,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "api:update": "npm run build && api-extractor run --local --verbose",
+    "api:update": "npm run build && ./api-update.sh",
     "api:verify": "api-extractor run",
     "build": "cross-env-shell NODE_ENV=prod SASS_PATH=node_modules \"stencil build --config stencil.config.dist.ts\"",
     "dev": "cross-env-shell SASS_PATH=node_modules \"stencil build --dev --docs\"",
