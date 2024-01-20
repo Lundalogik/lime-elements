@@ -116,6 +116,8 @@ export interface ColumnSorter {
     direction: 'ASC' | 'DESC';
 }
 
+// Warning: (ae-missing-release-tag) "Components" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export namespace Components {
     export interface LimelActionBar {
@@ -778,6 +780,8 @@ export interface InfoTileProgress {
 // @public (undocumented)
 export type InputType = 'date' | 'datetime-local' | 'email' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'textarea' | 'time' | 'url' | 'urlAsText' | 'week';
 
+// Warning: (ae-missing-release-tag) "LocalJSX" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 namespace JSX_2 {
     // (undocumented)
@@ -1470,6 +1474,8 @@ export { Languages as Languages1 }
 // @public
 export type Layout = 'default' | 'stretchLastColumn' | 'stretchColumns' | 'lowDensity';
 
+// Warning: (ae-missing-release-tag) "LimelActionBarCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelActionBarCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1478,6 +1484,8 @@ export interface LimelActionBarCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelActionBarElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelActionBarItemCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelActionBarItemCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1486,6 +1494,8 @@ export interface LimelActionBarItemCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelActionBarItemElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelActionBarOverflowMenuCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelActionBarOverflowMenuCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1494,6 +1504,8 @@ export interface LimelActionBarOverflowMenuCustomEvent<T> extends CustomEvent<T>
     target: HTMLLimelActionBarOverflowMenuElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelBreadcrumbsCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelBreadcrumbsCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1502,6 +1514,8 @@ export interface LimelBreadcrumbsCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelBreadcrumbsElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelButtonGroupCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelButtonGroupCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1510,6 +1524,8 @@ export interface LimelButtonGroupCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelButtonGroupElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelCheckboxCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelCheckboxCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1518,6 +1534,8 @@ export interface LimelCheckboxCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelCheckboxElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelChipCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelChipCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1526,6 +1544,8 @@ export interface LimelChipCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelChipElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelChipSetCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelChipSetCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1534,6 +1554,8 @@ export interface LimelChipSetCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelChipSetElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelCodeEditorCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelCodeEditorCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1542,6 +1564,8 @@ export interface LimelCodeEditorCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelCodeEditorElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelCollapsibleSectionCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelCollapsibleSectionCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1550,6 +1574,8 @@ export interface LimelCollapsibleSectionCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelCollapsibleSectionElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelColorPickerCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelColorPickerCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1558,6 +1584,8 @@ export interface LimelColorPickerCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelColorPickerElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelColorPickerPaletteCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelColorPickerPaletteCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1566,6 +1594,8 @@ export interface LimelColorPickerPaletteCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelColorPickerPaletteElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelDatePickerCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelDatePickerCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1574,6 +1604,8 @@ export interface LimelDatePickerCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelDatePickerElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelDialogCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelDialogCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1582,6 +1614,8 @@ export interface LimelDialogCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelDialogElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelDockButtonCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelDockButtonCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1590,6 +1624,8 @@ export interface LimelDockButtonCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelDockButtonElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelDockCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelDockCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1598,6 +1634,8 @@ export interface LimelDockCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelDockElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelFileCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelFileCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1606,6 +1644,8 @@ export interface LimelFileCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelFileElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelFileViewerCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelFileViewerCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1614,6 +1654,8 @@ export interface LimelFileViewerCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelFileViewerElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelFlatpickrAdapterCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelFlatpickrAdapterCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1622,6 +1664,8 @@ export interface LimelFlatpickrAdapterCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelFlatpickrAdapterElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelFormCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelFormCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1630,6 +1674,8 @@ export interface LimelFormCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelFormElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelInputFieldCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelInputFieldCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1638,6 +1684,8 @@ export interface LimelInputFieldCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelInputFieldElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelListCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelListCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1646,6 +1694,8 @@ export interface LimelListCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelListElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelMenuCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelMenuCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1654,6 +1704,8 @@ export interface LimelMenuCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelMenuElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelMenuListCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelMenuListCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1662,6 +1714,8 @@ export interface LimelMenuListCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelMenuListElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelMenuSurfaceCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelMenuSurfaceCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1670,6 +1724,8 @@ export interface LimelMenuSurfaceCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelMenuSurfaceElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelPickerCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelPickerCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1678,6 +1734,8 @@ export interface LimelPickerCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelPickerElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelPopoverCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelPopoverCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1686,6 +1744,8 @@ export interface LimelPopoverCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelPopoverElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelProgressFlowCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelProgressFlowCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1694,6 +1754,8 @@ export interface LimelProgressFlowCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelProgressFlowElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelProgressFlowItemCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelProgressFlowItemCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1702,6 +1764,8 @@ export interface LimelProgressFlowItemCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelProgressFlowItemElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelSelectCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelSelectCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1710,6 +1774,8 @@ export interface LimelSelectCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelSelectElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelSliderCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelSliderCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1718,6 +1784,8 @@ export interface LimelSliderCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelSliderElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelSnackbarCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelSnackbarCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1726,6 +1794,8 @@ export interface LimelSnackbarCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelSnackbarElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelSplitButtonCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelSplitButtonCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1734,6 +1804,8 @@ export interface LimelSplitButtonCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelSplitButtonElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelSwitchCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelSwitchCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1742,6 +1814,8 @@ export interface LimelSwitchCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelSwitchElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelTabBarCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelTabBarCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1750,6 +1824,8 @@ export interface LimelTabBarCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelTabBarElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelTableCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelTableCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
@@ -1758,6 +1834,8 @@ export interface LimelTableCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelTableElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelTabPanelCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public (undocumented)
 export interface LimelTabPanelCustomEvent<T> extends CustomEvent<T> {
     // (undocumented)
