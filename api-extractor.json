@@ -393,6 +393,19 @@
       "default": {
         "logLevel": "warning"
         // "addToApiReportFile": false
+      },
+
+      "ae-missing-release-tag": {
+        "logLevel": "warning",
+        // By setting `addToApiReportFile` to true, the message will be written
+        // to the API report file, but not to the tool's output log. This makes
+        // the verification step pass, but any new instances of this message
+        // will show up in the pull request as a diff.
+        // See https://github.com/microsoft/rushstack/issues/1235#issuecomment-483508664
+        // We need to do this because Stencil generates a bunch of CustomEvents
+        // in `components.d.ts`, and there's no simple way to add a release tag
+        // to those.
+        "addToApiReportFile": true
       }
 
       // "ae-extra-release-tag": {
