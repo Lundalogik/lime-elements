@@ -63,32 +63,32 @@ export class Header {
      * Icon to display
      */
     @Prop()
-    public icon: string | Icon;
+    public icon?: string | Icon;
 
     /**
      * Title to display
      */
     @Prop()
-    public heading: string;
+    public heading?: string;
 
     /**
      * Subheading to display
      */
     @Prop()
-    public subheading: string;
+    public subheading?: string;
 
     /**
      * An extra string of text to display along with with the Subheading
      */
     @Prop()
-    public supportingText: string;
+    public supportingText?: string;
 
     /**
      * The visual divider that separates the `subheading` and the `supportingText`.
      * It must be a single character such as `-` or `,`.
      */
     @Prop()
-    public subheadingDivider: string = '·';
+    public subheadingDivider?: string = '·';
 
     public render() {
         return [
