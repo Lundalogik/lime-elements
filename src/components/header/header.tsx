@@ -127,9 +127,17 @@ export class Header {
 
         return (
             <span class="subheading__supporting-text">
-                <span>{this.subheadingDivider}</span>
+                {this.renderSubheadingDivider()}
                 {this.supportingText}
             </span>
         );
+    }
+
+    private renderSubheadingDivider() {
+        if (!this.subheadingDivider) {
+            return;
+        }
+
+        return <span>{this.subheadingDivider}</span>;
     }
 }
