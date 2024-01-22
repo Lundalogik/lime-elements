@@ -1,3 +1,12 @@
+## [37.1.0-next.93](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.92...v37.1.0-next.93) (2024-01-22)
+
+
+### Bug Fixes
+
+
+* **header:** correctly declare all the props as optional ([664088f](https://github.com/Lundalogik/lime-elements/commit/664088f7ef8255f05204f12709ca4138580c1043))
+* **header:** do not render subheading's divider, when it is not provided ([038b071](https://github.com/Lundalogik/lime-elements/commit/038b071d9c687ec18b4bca077c84c0dcd1463e33))
+
 ## [37.1.0-next.92](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.91...v37.1.0-next.92) (2024-01-19)
 
 
