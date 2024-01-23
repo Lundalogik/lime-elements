@@ -1,3 +1,11 @@
+## [37.1.0-next.94](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.93...v37.1.0-next.94) (2024-01-23)
+
+
+### Bug Fixes
+
+
+* **popover:** add `aria-haspopup` & `aria-expanded` attributes to trigger element ([3d17839](https://github.com/Lundalogik/lime-elements/commit/3d178391037a34bccf325deb42eb7746c1ae6cba))
+
 ## [37.1.0-next.93](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.92...v37.1.0-next.93) (2024-01-22)
 
 
