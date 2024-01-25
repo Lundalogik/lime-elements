@@ -1,3 +1,11 @@
+## [37.1.0-next.95](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.94...v37.1.0-next.95) (2024-01-25)
+
+
+### Features
+
+
+* **action-bar:** make `ActionBarItem` generic ([b0f9e35](https://github.com/Lundalogik/lime-elements/commit/b0f9e3581b3b7c6b0703266501d9272a24b4b9f2))
+
 ## [37.1.0-next.94](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.93...v37.1.0-next.94) (2024-01-23)
 
 
