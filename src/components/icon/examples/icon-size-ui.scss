@@ -1,0 +1,43 @@
+:host(limel-example-icon-size) {
+    display: flex;
+    text-align: left;
+    border-radius: 0.5rem;
+    background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill='rgba(186,186,192,0.2)' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
+    background-size: 0.5rem;
+}
+
+limel-icon {
+    margin-right: 0.25rem;
+    background-color: rgb(var(--contrast-100));
+    box-shadow: 0 0 0 1px rgb(var(--contrast-600));
+}
+
+th,
+td {
+    padding: 0.25rem 0.5rem;
+
+    &:not(:first-child) {
+        border-left: 1px dotted rgb(var(--contrast-700));
+    }
+}
+
+th:first-child {
+    width: 4rem;
+}
+
+p,
+code {
+    font-size: 0.75rem;
+}
+
+code {
+    background: rgba(var(--kompendium-contrast-400));
+    border: 1px solid rgba(var(--kompendium-contrast-1100), 0.3);
+    padding: 0.125rem 0.3125rem;
+    margin: 0px 0.125rem;
+    white-space: pre-wrap;
+    color: rgb(var(--kompendium-contrast-1100));
+    font-family: var(--kompendium-font-code);
+    border-radius: 0.25rem;
+    font-size: 0.6875rem;
+}
