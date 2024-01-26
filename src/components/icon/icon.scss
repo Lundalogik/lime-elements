@@ -17,6 +17,10 @@
         pointer-events: none;
         width: 100%;
     }
+
+    div {
+        margin: var(--limel-icon-svg-margin, 0);
+    }
 }
 
 :host([hidden]) {
@@ -44,31 +48,23 @@
     height: functions.pxToRem(23) !important;
     width: functions.pxToRem(23) !important;
 
-    > div {
-        margin: functions.pxToRem(4);
-    }
+    --limel-icon-svg-margin: #{functions.pxToRem(4)};
 }
 :host([badge][size='small']) {
     height: functions.pxToRem(30) !important;
     width: functions.pxToRem(30) !important;
 
-    > div {
-        margin: functions.pxToRem(5);
-    }
+    --limel-icon-svg-margin: #{functions.pxToRem(5)};
 }
 :host([badge][size='medium']) {
     height: functions.pxToRem(40) !important;
     width: functions.pxToRem(40) !important;
 
-    > div {
-        margin: functions.pxToRem(8);
-    }
+    --limel-icon-svg-margin: #{functions.pxToRem(8)};
 }
 :host([badge][size='large']) {
     height: functions.pxToRem(46) !important;
     width: functions.pxToRem(46) !important;
 
-    > div {
-        margin: functions.pxToRem(8);
-    }
+    --limel-icon-svg-margin: #{functions.pxToRem(8)};
 }
