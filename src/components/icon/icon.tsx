@@ -29,8 +29,9 @@ import { IconSize } from '../../interface';
  * and how to do this.
  * :::
  *
- * @exampleComponent limel-example-icon
- * @exampleComponent limel-example-icon-background
+ * @exampleComponent limel-example-icon-name
+ * @exampleComponent limel-example-icon-size
+ * @exampleComponent limel-example-icon-color
  */
 @Component({
     tag: 'limel-icon',
