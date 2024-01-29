@@ -37,11 +37,12 @@
 }
 
 .icon {
+    --limel-icon-svg-margin: 0.25rem;
     flex-shrink: 0;
     color: var(--header-icon-color, rgb(var(--contrast-1100)));
     background-color: var(--header-icon-background-color, transparent);
-    width: functions.pxToRem(28);
-    margin: 0 functions.pxToRem(8);
+    width: 2.25rem;
+    border-radius: 0.56rem;
 }
 
 .headings {
@@ -83,9 +84,10 @@ slot[name='actions'] {
     padding: functions.pxToRem(2) functions.pxToRem(4);
 
     .icon {
-        margin-right: functions.pxToRem(2);
+        --limel-icon-svg-margin: 0;
         width: functions.pxToRem(20);
     }
+
     .heading {
         font-size: functions.pxToRem(15);
     }
