@@ -1,3 +1,11 @@
+## [37.1.0-next.96](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.95...v37.1.0-next.96) (2024-01-29)
+
+
+### Bug Fixes
+
+
+* **header:** make the icon badge look nicer ([c96a21e](https://github.com/Lundalogik/lime-elements/commit/c96a21ef62aa6735333c47f7f1eb354c8dc7e9dd))
+
 ## [37.1.0-next.95](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.94...v37.1.0-next.95) (2024-01-25)
 
 
