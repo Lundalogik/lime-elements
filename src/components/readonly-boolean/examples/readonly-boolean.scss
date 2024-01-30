@@ -1,0 +1,10 @@
+:host(limel-example-readonly-boolean) {
+    --example-controls-column-layout: auto-fit;
+    display: grid;
+    gap: 1rem;
+}
+
+hr {
+    all: unset;
+    border-top: 1px solid rgb(var(--contrast-400));
+}
