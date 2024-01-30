@@ -71,9 +71,6 @@ export class Breadcrumbs {
     @Element()
     private host: HTMLLimelBreadcrumbsElement;
 
-    private button: HTMLButtonElement;
-    private anchor: HTMLAnchorElement;
-
     public render() {
         return (
             <ol
@@ -92,7 +89,7 @@ export class Breadcrumbs {
     }
 
     public disconnectedCallback() {
-        this.removeEnterClickable();
+        removeEnterClickable(this.host);
     }
 
     private renderSteps = () => {
@@ -195,9 +192,4 @@ export class Breadcrumbs {
         event.stopPropagation();
         this.select.emit(item);
     };
-
-    private removeEnterClickable() {
-        const element = this.button ?? this.anchor;
-        removeEnterClickable(element);
-    }
 }
