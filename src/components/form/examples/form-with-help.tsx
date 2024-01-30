@@ -33,7 +33,7 @@ import { schema } from './help-form-schema';
  * in the place of the helper text.
  * :::
  *
- * @link help-form-schema.ts
+ * @sourceFile help-form-schema.ts
  */
 @Component({
     tag: 'limel-example-form-with-help',
