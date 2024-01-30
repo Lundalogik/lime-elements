@@ -1,4 +1,4 @@
-import { Components } from '../../components';
+import { Help } from '../help/help.types';
 import { EventEmitter } from '@stencil/core';
 
 export interface ValidationStatus {
@@ -167,7 +167,7 @@ export interface LimeSchemaOptions {
      */
     disabled?: boolean;
 
-    help?: string | Components.LimelHelp;
+    help?: string | Help;
 }
 
 /**
