@@ -312,6 +312,12 @@ export namespace Components {
         "item": DockItem;
         "useMobileLayout"?: boolean;
     }
+    // @beta
+    export interface LimelDynamicLabel {
+        "defaultLabel": Omit<Label, 'value'>;
+        "labels": Label[];
+        "value": LabelValue;
+    }
     export interface LimelFile {
         "accept": string;
         "disabled": boolean;
@@ -896,6 +902,8 @@ namespace JSX_2 {
         // (undocumented)
         "limel-dock-button": LimelDockButton;
         // (undocumented)
+        "limel-dynamic-label": LimelDynamicLabel;
+        // (undocumented)
         "limel-file": LimelFile;
         // (undocumented)
         "limel-file-dropzone": LimelFileDropzone;
@@ -1174,6 +1182,12 @@ namespace JSX_2 {
         "onItemSelected"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "onMenuOpen"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "useMobileLayout"?: boolean;
+    }
+    // @beta
+    interface LimelDynamicLabel {
+        "defaultLabel"?: Omit<Label, 'value'>;
+        "labels"?: Label[];
+        "value"?: LabelValue;
     }
     interface LimelFile {
         "accept"?: string;
@@ -1541,6 +1555,18 @@ namespace JSX_2 {
     }
 }
 export { JSX_2 as JSX }
+
+// @beta (undocumented)
+export interface Label<T = LabelValue> {
+    icon?: string | Icon;
+    text?: string;
+    value: T;
+}
+
+// Warning: (ae-missing-release-tag) "LabelValue" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type LabelValue = string | number | boolean | null | undefined;
 
 // @public (undocumented)
 export type Language = 'javascript' | 'jinja2' | 'json' | 'typescript';
