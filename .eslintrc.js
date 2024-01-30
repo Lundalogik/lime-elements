@@ -121,6 +121,14 @@ module.exports = {
                 markers: ['/'],
             },
         ],
+        'no-restricted-imports': [
+            'error',
+            {
+                name: '@limetech/lime-elements',
+                message:
+                    'Production code should not import from `@limetech/lime-elements`. Please import from a relative path instead.',
+            },
+        ],
     },
     overrides: [
         {
@@ -185,6 +193,7 @@ module.exports = {
                     { name: ['test', 'only'], message: "don't focus tests" },
                     { name: 'ftest', message: "don't focus tests" },
                 ],
+                'no-restricted-imports': 'off',
             },
         },
     ],
