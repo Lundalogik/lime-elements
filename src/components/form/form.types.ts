@@ -1,4 +1,4 @@
-import { Components } from '@limetech/lime-elements';
+import { Components } from '../../components';
 import { EventEmitter } from '@stencil/core';
 
 export interface ValidationStatus {
