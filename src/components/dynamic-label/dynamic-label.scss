@@ -1,0 +1,32 @@
+@use '../../style/mixins.scss';
+
+* {
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+:host(limel-dynamic-label) {
+    --limel-dynamic-label-min-height: 1.75rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    min-width: 0;
+}
+
+limel-icon {
+    --limel-icon-svg-margin: 0.125rem;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+    width: var(--limel-dynamic-label-min-height);
+    color: rgb(
+        var(--contrast-900)
+    ); // The default `false` color. Will be overwritten by `Icon`
+}
+
+span {
+    @include mixins.truncate-text;
+    flex-grow: 1;
+    font-size: 0.8125rem; // `13px`, Like Checkbox & Switch
+    color: var(--mdc-theme-on-surface);
+}
