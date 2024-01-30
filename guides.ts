@@ -14,6 +14,7 @@ export default [
             'src/design-guidelines/action-buttons/action-buttons.md',
             'src/design-guidelines/declutter/declutter.md',
             'src/design-guidelines/disabled-hidden/disabled-hidden.md',
+            'src/design-guidelines/disabled-vs-readonly/disabled-vs-readonly.md',
         ],
     },
 ] as Guide[];
