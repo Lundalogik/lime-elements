@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { OpenDirection } from '../menu/menu.types';
 import { Link } from '../../interface';
+import { Help as HelpInterface } from './help.types';
 
 /**
  * A good design is self-explanatory! However, sometimes concepts are
@@ -28,35 +29,27 @@ import { Link } from '../../interface';
     shadow: true,
     styleUrl: 'help.scss',
 })
-export class Help {
+export class Help implements HelpInterface {
     /**
-     * The markdown content that will be displayed in the popover.
+     * @inheritdoc
      */
     @Prop()
     public value: string;
 
     /**
-     * Visualizes the trigger element. Defaults to: **?**
-     * :::important
-     * Be consistent across the product if you want to change it to a custom character.
-     * All instances of the help component should have the same trigger visualization.
-     * :::
+     * @inheritdoc
      */
     @Prop()
     public trigger: string = '?';
 
     /**
-     * If supplied, it will render a "Read more" link at the bottom of the content.
-     * Even though you can add a link anywhere in the content, it is recommended to
-     * use the read more link. Because it will always be displayed at the bottom
-     * of the popover after the content, does not scroll away with the content,
-     * and it will be styled in a consistent way.
+     * @inheritdoc
      */
     @Prop()
     public readMoreLink?: Link;
 
     /**
-     * Decides the popover's location in relation to the trigger.
+     * @inheritdoc
      */
     @Prop({ reflect: true })
     public openDirection: OpenDirection = 'top-start';
