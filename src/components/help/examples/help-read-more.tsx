@@ -10,7 +10,7 @@ import { helpAndDocumentation, link } from './help-and-documentation';
  * of the popover after the content, does not scroll away with the content,
  * and it will be styled in a consistent way.
  *
- * @link help-and-documentation.ts
+ * @sourceFile help-and-documentation.ts
  */
 
 @Component({
