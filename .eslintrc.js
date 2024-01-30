@@ -128,6 +128,16 @@ module.exports = {
                 message:
                     'Production code should not import from `@limetech/lime-elements`. Please import from a relative path instead.',
             },
+            {
+                name: 'lodash',
+                message:
+                    'Import from lodash-es instead. This will reduce the bundle size.',
+            },
+            {
+                name: 'underscore',
+                message:
+                    'This project uses lodash instead of underscore. Please import from lodash-es instead. This will reduce the bundle size.',
+            },
         ],
     },
     overrides: [
@@ -193,7 +203,19 @@ module.exports = {
                     { name: ['test', 'only'], message: "don't focus tests" },
                     { name: 'ftest', message: "don't focus tests" },
                 ],
-                'no-restricted-imports': 'off',
+                'no-restricted-imports': [
+                    'error',
+                    {
+                        name: 'lodash',
+                        message:
+                            'Import from lodash-es instead. This will reduce the bundle size.',
+                    },
+                    {
+                        name: 'underscore',
+                        message:
+                            'This project uses lodash instead of underscore. Please import from lodash-es instead. This will reduce the bundle size.',
+                    },
+                ],
             },
         },
     ],
