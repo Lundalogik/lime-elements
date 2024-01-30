@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputType } from '@limetech/lime-elements';
+import { InputType } from '../../input-field/input-field.types';
 import { isIntegerType, isNumberType } from '../schema';
 import { WidgetProps } from './types';
 import { LimeElementsWidgetAdapter } from '../adapters';
