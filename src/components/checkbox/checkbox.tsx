@@ -29,7 +29,10 @@ import { CheckboxTemplate } from './checkbox.template';
  * that have hierarchical relationships or when the group contains sub-items.
  * This state is used to indicate that that some, but not all, of the items in a group are selected.
  *
- * <limel-example-switch-vs-checkbox />
+ * :::important
+ * Checkboxes are sometimes used interchangeably with switches in user interfaces.
+ * But there is an important difference between the two! Please read our guidelines about
+ * [Switch vs. Checkbox](/#/DesignGuidelines/switch-vs-checkbox.md/).
  *
  * @exampleComponent limel-example-checkbox
  * @exampleComponent limel-example-checkbox-helper-text
