@@ -25,7 +25,10 @@ import {
  * The Switch component is widely used in user interfaces to enable users to
  * quickly and intuitively change binary settings.
  *
- * <limel-example-switch-vs-checkbox />
+ * :::important
+ * Checkboxes are sometimes used interchangeably with switches in user interfaces.
+ * But there is an important difference between the two! Please read our guidelines about
+ * [Switch vs. Checkbox](/#/DesignGuidelines/switch-vs-checkbox.md/).
  *
  * @exampleComponent limel-example-switch
  * @exampleComponent limel-example-switch-helper-text

@@ -15,6 +15,7 @@ export default [
             'src/design-guidelines/declutter/declutter.md',
             'src/design-guidelines/disabled-hidden/disabled-hidden.md',
             'src/design-guidelines/disabled-vs-readonly/disabled-vs-readonly.md',
+            'src/design-guidelines/boolean/switch-vs-checkbox.md',
         ],
     },
 ] as Guide[];
