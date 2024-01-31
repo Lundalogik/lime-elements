@@ -80,6 +80,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
 const HelperText: FunctionalComponent<{
     helperTextId: string;
     text: string;
+    invalid?: boolean;
 }> = (props) => {
     if (typeof props.text !== 'string') {
         return;
@@ -89,6 +90,7 @@ const HelperText: FunctionalComponent<{
         <limel-helper-line
             helperText={props.text.trim()}
             helperTextId={props.helperTextId}
+            invalid={props.invalid}
         />
     );
 };
