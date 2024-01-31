@@ -10,7 +10,7 @@ import { Icon } from '../../interface';
 export function getIconName(
     icon: string | Icon | undefined,
 ): string | undefined {
-    if (typeof icon === 'object' && 'name' in icon) {
+    if (!!icon && typeof icon === 'object' && 'name' in icon) {
         return icon.name;
     }
 
@@ -35,7 +35,7 @@ export function getIconColor(
     icon: string | Icon | undefined,
     iconColor?: string | undefined,
 ): string | undefined {
-    if (typeof icon === 'object' && 'color' in icon) {
+    if (!!icon && typeof icon === 'object' && 'color' in icon) {
         return icon.color;
     }
 
@@ -59,8 +59,8 @@ export function getIconColor(
 export function getIconFillColor(
     icon: string | Icon | undefined,
     iconFillColor?: string | undefined,
-): string {
-    if (typeof icon === 'object' && 'color' in icon) {
+): string | undefined {
+    if (!!icon && typeof icon === 'object' && 'color' in icon) {
         return icon.color;
     }
 
@@ -83,7 +83,7 @@ export function getIconBackgroundColor(
     icon: string | Icon | undefined,
     iconBackgroundColor?: string | undefined,
 ): string | undefined {
-    if (typeof icon === 'object' && 'backgroundColor' in icon) {
+    if (!!icon && typeof icon === 'object' && 'backgroundColor' in icon) {
         return icon.backgroundColor;
     }
 
@@ -105,7 +105,7 @@ export function getIconTitle(
     icon: string | Icon | undefined,
     iconTitle?: string | undefined,
 ): string | undefined {
-    if (typeof icon === 'object' && 'title' in icon) {
+    if (!!icon && typeof icon === 'object' && 'title' in icon) {
         return icon.title;
     }
 
