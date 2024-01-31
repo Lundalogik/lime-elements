@@ -194,6 +194,8 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
+        // @beta
+        "readonlyLabels"?: Array<Label<boolean>>;
         "required": boolean;
     }
     export interface LimelChip {
@@ -1048,6 +1050,8 @@ namespace JSX_2 {
         "label"?: string;
         "onChange"?: (event: LimelCheckboxCustomEvent<boolean>) => void;
         "readonly"?: boolean;
+        // @beta
+        "readonlyLabels"?: Array<Label<boolean>>;
         "required"?: boolean;
     }
     interface LimelChip {

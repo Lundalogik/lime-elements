@@ -1,4 +1,6 @@
 import { FunctionalComponent, h } from '@stencil/core';
+import { Label } from '../dynamic-label/label.types';
+import { Icon } from '../../interface';
 
 interface CheckboxTemplateProps {
     disabled?: boolean;
@@ -12,12 +14,37 @@ interface CheckboxTemplateProps {
     label?: string;
     helperText?: string;
     helperTextId?: string;
+    readonlyLabels?: Array<Label<boolean>>;
 }
 
 export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
     props,
 ) => {
     const inputProps = {};
+    if (props.readonly) {
+        let icon: string | Icon = 'minus';
+        if (props.checked) {
+            icon = {
+                name: 'ok',
+                color: 'var(--mdc-theme-primary)',
+            };
+        }
+
+        return [
+            <limel-dynamic-label
+                value={props.checked}
+                aria-controls={props.helperTextId}
+                defaultLabel={{ text: props.label, icon: icon }}
+                labels={props.readonlyLabels}
+            />,
+            <HelperText
+                text={props.helperText}
+                helperTextId={props.helperTextId}
+                invalid={props.invalid}
+            />,
+        ];
+    }
+
     if (props.indeterminate) {
         inputProps['data-indeterminate'] = 'true';
     }
@@ -73,6 +100,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
         <HelperText
             text={props.helperText}
             helperTextId={props.helperTextId}
+            invalid={props.invalid}
         />,
     ];
 };
