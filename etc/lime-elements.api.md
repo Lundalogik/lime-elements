@@ -608,6 +608,8 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
+        // @beta
+        "readonlyLabels"?: Array<Label<boolean>>;
         "value": boolean;
     }
     export interface LimelTabBar {
@@ -1506,6 +1508,8 @@ namespace JSX_2 {
         "label"?: string;
         "onChange"?: (event: LimelSwitchCustomEvent<boolean>) => void;
         "readonly"?: boolean;
+        // @beta
+        "readonlyLabels"?: Array<Label<boolean>>;
         "value"?: boolean;
     }
     interface LimelTabBar {
