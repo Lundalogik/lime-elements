@@ -1,3 +1,11 @@
+## [37.1.0-next.97](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.96...v37.1.0-next.97) (2024-01-31)
+
+
+### Bug Fixes
+
+
+* **limel-picker:** don't show an empty icon if no icon is provided ([c790bce](https://github.com/Lundalogik/lime-elements/commit/c790bce606ec9846ba03c44b520bfb0f6c73daa1))
+
 ## [37.1.0-next.96](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.95...v37.1.0-next.96) (2024-01-29)
 
 
