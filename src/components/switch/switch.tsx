@@ -4,7 +4,6 @@ import {
     Element,
     Event,
     EventEmitter,
-    Host,
     h,
     Prop,
     State,
@@ -15,6 +14,8 @@ import {
     makeEnterClickable,
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
+import { Label } from '../dynamic-label/label.types';
+import { Icon } from '../../interface';
 
 /**
  * The Switch component is a fundamental element in UI design that serves as a toggle switch
@@ -81,6 +82,14 @@ export class Switch {
     public helperText: string;
 
     /**
+     * The labels to use to clarify what kind of data is being visualized,
+     * when the component is `readonly`.
+     * @beta
+     */
+    @Prop()
+    public readonlyLabels?: Array<Label<boolean>> = [];
+
+    /**
      * Emitted when the value has changed
      */
     @Event()
@@ -124,58 +133,73 @@ export class Switch {
     }
 
     public render() {
-        return (
-            <Host>
-                <button
-                    id={this.fieldId}
-                    class={{
-                        'mdc-switch': true,
-                        'lime-switch--readonly': this.readonly,
-                        'mdc-switch--unselected': !this.value,
-                        'mdc-switch--selected': this.value,
-                    }}
-                    type="button"
-                    role="switch"
-                    aria-checked={this.value}
-                    disabled={this.disabled || this.readonly}
-                    onClick={this.handleClick}
+        if (this.readonly) {
+            let icon: string | Icon = 'minus';
+            if (this.value) {
+                icon = {
+                    name: 'ok',
+                    color: 'var(--mdc-theme-primary)',
+                };
+            }
+
+            return [
+                <limel-dynamic-label
+                    value={this.value}
                     aria-controls={this.helperTextId}
-                >
-                    <div class="mdc-switch__track" />
-                    <div class="mdc-switch__handle-track">
-                        <div class="mdc-switch__handle">
-                            <div class="mdc-switch__shadow">
-                                <div class="mdc-elevation-overlay"></div>
-                            </div>
-                            <div class="mdc-switch__ripple"></div>
-                            <div class="mdc-switch__icons">
-                                <svg
-                                    class="mdc-switch__icon mdc-switch__icon--on"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path d="M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z" />
-                                </svg>
-                                <svg
-                                    class="mdc-switch__icon mdc-switch__icon--off"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path d="M20 13H4v-2h16v2z" />
-                                </svg>
-                            </div>
+                    defaultLabel={{ text: this.label, icon: icon }}
+                    labels={this.readonlyLabels}
+                />,
+                this.renderHelperLine(),
+            ];
+        }
+
+        return [
+            <button
+                id={this.fieldId}
+                class={{
+                    'mdc-switch': true,
+                    'mdc-switch--unselected': !this.value,
+                    'mdc-switch--selected': this.value,
+                }}
+                type="button"
+                role="switch"
+                aria-checked={this.value}
+                disabled={this.disabled}
+                onClick={this.handleClick}
+                aria-controls={this.helperTextId}
+            >
+                <div class="mdc-switch__track" />
+                <div class="mdc-switch__handle-track">
+                    <div class="mdc-switch__handle">
+                        <div class="mdc-switch__shadow">
+                            <div class="mdc-elevation-overlay"></div>
+                        </div>
+                        <div class="mdc-switch__ripple"></div>
+                        <div class="mdc-switch__icons">
+                            <svg
+                                class="mdc-switch__icon mdc-switch__icon--on"
+                                viewBox="0 0 24 24"
+                            >
+                                <path d="M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z" />
+                            </svg>
+                            <svg
+                                class="mdc-switch__icon mdc-switch__icon--off"
+                                viewBox="0 0 24 24"
+                            >
+                                <path d="M20 13H4v-2h16v2z" />
+                            </svg>
                         </div>
                     </div>
-                </button>
-                <label
-                    class={`${
-                        this.disabled || this.readonly ? 'disabled' : ''
-                    }`}
-                    htmlFor={this.fieldId}
-                >
-                    {this.label}
-                </label>
-                {this.renderHelperLine()}
-            </Host>
-        );
+                </div>
+            </button>,
+            <label
+                class={`${this.disabled ? 'disabled' : ''}`}
+                htmlFor={this.fieldId}
+            >
+                {this.label}
+            </label>,
+            this.renderHelperLine(),
+        ];
     }
 
     @Watch('value')
