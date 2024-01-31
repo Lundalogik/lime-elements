@@ -196,6 +196,7 @@ export class Switch {
             <limel-helper-line
                 helperTextId={this.helperTextId}
                 helperText={this.helperText}
+                invalid={this.invalid}
             />
         );
     };
