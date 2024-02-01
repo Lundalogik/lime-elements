@@ -1,3 +1,12 @@
+## [37.1.0-next.99](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.98...v37.1.0-next.99) (2024-02-01)
+
+
+### Bug Fixes
+
+
+* **checkbox:** make helperText red, when field is invalid ([5b113c8](https://github.com/Lundalogik/lime-elements/commit/5b113c839bd6149ba557e21fa66d24fe5b6c61ff))
+* **switch:** make helperText red, when field is invalid ([47717b8](https://github.com/Lundalogik/lime-elements/commit/47717b868ca9282c64eb6a6b7944ca94972b8bd3))
+
 ## [37.1.0-next.98](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.97...v37.1.0-next.98) (2024-02-01)
 
 
