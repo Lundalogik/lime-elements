@@ -33,6 +33,7 @@ import { Icon } from '../../interface';
  *
  * @exampleComponent limel-example-switch
  * @exampleComponent limel-example-switch-helper-text
+ * @exampleComponent limel-example-switch-readonly
  */
 @Component({
     tag: 'limel-switch',
