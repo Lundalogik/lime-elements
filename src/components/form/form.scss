@@ -19,6 +19,7 @@
 .limel-form-array-item--simple {
     display: flex;
     align-items: center;
+    padding-bottom: var(--form-row-gap, 1rem);
 
     *:first-child {
         flex-grow: 1;
