@@ -30,8 +30,8 @@ export class CheckboxExample {
         return [
             <limel-checkbox
                 disabled={this.disabled}
-                label="My fab checkbox"
-                id="fab"
+                label="Subscribe to email newsletters"
+                id="1"
                 checked={this.value}
                 indeterminate={this.indeterminate}
                 required={this.required}

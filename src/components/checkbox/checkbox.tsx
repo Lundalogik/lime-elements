@@ -37,6 +37,7 @@ import { Label } from '../dynamic-label/label.types';
  *
  * @exampleComponent limel-example-checkbox
  * @exampleComponent limel-example-checkbox-helper-text
+ * @exampleComponent limel-example-checkbox-readonly
  */
 @Component({
     tag: 'limel-checkbox',
