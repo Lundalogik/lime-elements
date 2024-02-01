@@ -1,0 +1,2 @@
+function e(e,t){if(!t){return false}if(t.contains(e)){return true}let r=e;let n=0;const u=1e3;while(n<u&&r&&r.getRootNode().nodeName==="#document-fragment"){r=r.getRootNode().host;if(t.contains(r)){return true}n+=1}return t.contains(r)}export{e as i};
+//# sourceMappingURL=dom-0f79cbe7.js.map
