@@ -37,6 +37,7 @@ import { CheckboxTemplate } from './checkbox.template';
  *
  * @exampleComponent limel-example-checkbox
  * @exampleComponent limel-example-checkbox-helper-text
+ * @exampleComponent limel-example-checkbox-readonly
  */
 @Component({
     tag: 'limel-checkbox',

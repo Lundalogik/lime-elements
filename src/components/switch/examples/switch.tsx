@@ -20,7 +20,7 @@ export class SwitchExample {
     public render() {
         return [
             <limel-switch
-                label={`Current value: ${this.value.toString()}`}
+                label="Bluetooth"
                 value={this.value}
                 disabled={this.disabled}
                 readonly={this.readonly}

@@ -1,0 +1,24 @@
+:host {
+    --example-controls-column-layout: auto-fit;
+    display: block;
+    font-family: var(--kompendium-example-font-family, inherit);
+    font-size: var(--kompendium-example-font-size, inherit);
+    line-height: var(--kompendium-example-line-height, inherit);
+    color: var(--kompendium-example-color, inherit);
+    padding: 1.25rem;
+    margin: 1rem;
+    border-radius: 0.875rem;
+    background-color: rgb(var(--kompendium-contrast-100));
+    border: 1px solid rgb(var(--kompendium-contrast-300));
+    box-shadow: var(--shadow-showcase);
+}
+
+table {
+    text-align: left;
+    width: 100%;
+}
+
+td {
+    padding: 0.5rem 0;
+    width: 50%;
+}

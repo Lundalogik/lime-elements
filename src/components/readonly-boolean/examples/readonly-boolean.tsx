@@ -83,6 +83,13 @@ export class ReadonlyBooleanExample {
                 trueLabel="You're muted"
                 falseLabel="Microphone is active…"
             />,
+            <hr></hr>,
+            <p>Used in Checkbox and Switch</p>,
+            <limel-checkbox
+                checked={this.value}
+                readonly={true}
+                label="Checkbox"
+            />,
             <limel-switch value={this.value} readonly={true} label="Switch" />,
             <limel-example-controls>
                 <limel-checkbox
