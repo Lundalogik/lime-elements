@@ -1,3 +1,33 @@
+## [37.2.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v37.1.0...v37.2.0-next.1) (2024-02-02)
+
+
+### Features
+
+
+* **action-bar:** make `ActionBarItem` generic ([b0f9e35](https://github.com/Lundalogik/lime-elements/commit/b0f9e3581b3b7c6b0703266501d9272a24b4b9f2))
+* **header:** enable customizing the divider of the subheading ([8653fd3](https://github.com/Lundalogik/lime-elements/commit/8653fd3515ad0ebb81989eb5526849c859419b42))
+
+### Bug Fixes
+
+
+* **action-bar:** improve accessibility, using ARIA roles ([80fa73a](https://github.com/Lundalogik/lime-elements/commit/80fa73a4e8d6f327223f84af2d1d55acedbfd2ea))
+* **checkbox:** make helperText red, when field is invalid ([5b113c8](https://github.com/Lundalogik/lime-elements/commit/5b113c839bd6149ba557e21fa66d24fe5b6c61ff))
+* **header:** correctly declare all the props as optional ([664088f](https://github.com/Lundalogik/lime-elements/commit/664088f7ef8255f05204f12709ca4138580c1043))
+* **header:** do not render subheading's divider, when it is not provided ([038b071](https://github.com/Lundalogik/lime-elements/commit/038b071d9c687ec18b4bca077c84c0dcd1463e33))
+* **header:** make sure `--header-supporting-text-color` style gets applied ([9eb8e50](https://github.com/Lundalogik/lime-elements/commit/9eb8e50d90b4b27ee0b40b30184192f8396f03c3))
+* **header:** make the icon badge look nicer ([c96a21e](https://github.com/Lundalogik/lime-elements/commit/c96a21ef62aa6735333c47f7f1eb354c8dc7e9dd))
+* **header:** make the text render slightly smaller ([ad9d984](https://github.com/Lundalogik/lime-elements/commit/ad9d9841bb815b00b1857a6e68b04666294606dd))
+* **icon:** do not crash if icon is `null` ([64fc973](https://github.com/Lundalogik/lime-elements/commit/64fc9732c5a07365a6b457ba809c0c77fc0979e7)), closes [#2752](https://github.com/Lundalogik/lime-elements/issues/2752)
+* **limel-picker:** don't show an empty icon if no icon is provided ([c790bce](https://github.com/Lundalogik/lime-elements/commit/c790bce606ec9846ba03c44b520bfb0f6c73daa1))
+* **menu:** calculate currentSubMenu even when searching ([6da2af4](https://github.com/Lundalogik/lime-elements/commit/6da2af4a25d039ab2775e451eb36886fda43e635))
+* **menu:** clear search when navigating the menu ([baa4d25](https://github.com/Lundalogik/lime-elements/commit/baa4d25c3e29f92d850c0d1719e94fab21c4c636))
+* **menu:** keyboard navigation in search results ([e202ea5](https://github.com/Lundalogik/lime-elements/commit/e202ea5b937caf2d0ea810fdb05bcc2964cb7343))
+* **menu:** keyboard navigation when last/first list item is a separator ([4c6d5f8](https://github.com/Lundalogik/lime-elements/commit/4c6d5f8e01293587ffe53620baa416ce547ba3f6))
+* **menu:** show empty result when no search hits ([81b3e22](https://github.com/Lundalogik/lime-elements/commit/81b3e225f6252aceaccad446e4278dfa1ae7793f))
+* **popover:** add `aria-haspopup` & `aria-expanded` attributes to trigger element ([3d17839](https://github.com/Lundalogik/lime-elements/commit/3d178391037a34bccf325deb42eb7746c1ae6cba))
+* **switch:** make helperText red, when field is invalid ([47717b8](https://github.com/Lundalogik/lime-elements/commit/47717b868ca9282c64eb6a6b7944ca94972b8bd3))
+* **types:** some exported types were exported as `any` ([88c730b](https://github.com/Lundalogik/lime-elements/commit/88c730b42a3be4f9dc6a95e492e958552f44ee20))
+
 ## [37.1.0-next.99](https://github.com/Lundalogik/lime-elements/compare/v37.1.0-next.98...v37.1.0-next.99) (2024-02-01)
 
 
