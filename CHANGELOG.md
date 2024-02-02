@@ -142,6 +142,14 @@
 * **menu:** calculate currentSubMenu even when searching ([6da2af4](https://github.com/Lundalogik/lime-elements/commit/6da2af4a25d039ab2775e451eb36886fda43e635))
 * **menu:** clear search when navigating the menu ([baa4d25](https://github.com/Lundalogik/lime-elements/commit/baa4d25c3e29f92d850c0d1719e94fab21c4c636))
 
+## [37.1.1](https://github.com/Lundalogik/lime-elements/compare/v37.1.0...v37.1.1) (2024-02-02)
+
+
+### Bug Fixes
+
+
+* **icon:** do not crash if icon is `null` ([f8699a9](https://github.com/Lundalogik/lime-elements/commit/f8699a929317eb699e2e9e46558fe8c98cc070fd)), closes [#2752](https://github.com/Lundalogik/lime-elements/issues/2752)
+
 ## [37.1.0](https://github.com/Lundalogik/lime-elements/compare/v37.0.0...v37.1.0) (2024-02-02)
 
 
