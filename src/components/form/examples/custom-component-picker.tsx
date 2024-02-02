@@ -17,25 +17,25 @@ export class CustomPickerExample implements FormComponent<number> {
     public value: number;
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc FormComponent.label}
      */
     @Prop({ reflect: true })
     public label: string;
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc FormComponent.required}
      */
     @Prop({ reflect: true })
     public required: boolean;
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc FormComponent.readonly}
      */
     @Prop({ reflect: true })
     public readonly: boolean;
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc FormComponent.disabled}
      */
     @Prop({ reflect: true })
     public disabled: boolean;

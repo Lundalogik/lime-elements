@@ -1,7 +1,6 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { OpenDirection } from '../menu/menu.types';
-import { Link } from '../../interface';
-import { Help as HelpInterface } from './help.types';
+import { Help, Link } from '../../interface';
 
 /**
  * A good design is self-explanatory! However, sometimes concepts are
@@ -29,27 +28,27 @@ import { Help as HelpInterface } from './help.types';
     shadow: true,
     styleUrl: 'help.scss',
 })
-export class Help implements HelpInterface {
+export class HelpComponent implements Help {
     /**
-     * {@inheritdoc}
+     * {@inheritdoc Help.value}
      */
     @Prop()
     public value: string;
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc Help.trigger}
      */
     @Prop()
     public trigger: string = '?';
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc Help.readMoreLink}
      */
     @Prop()
     public readMoreLink?: Link;
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc Help.openDirection}
      */
     @Prop({ reflect: true })
     public openDirection: OpenDirection = 'top-start';
