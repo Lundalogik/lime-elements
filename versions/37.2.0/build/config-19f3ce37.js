@@ -1,0 +1,2 @@
+class t{constructor(){this.iconPath="";this.defaultLocale=navigator.language;this.featureSwitches=o(localStorage)}}function o(t){const o={};for(let n=0;n<t.length;n++){const s=t.key(n);const c=t.getItem(s);if(!["true","false"].includes(c)){continue}o[s]=c==="true"}return o}const n=new t;const s=(()=>n)();export{s as g};
+//# sourceMappingURL=config-19f3ce37.js.map
