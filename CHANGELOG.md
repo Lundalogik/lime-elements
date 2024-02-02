@@ -1,3 +1,11 @@
+## [37.2.0-next.3](https://github.com/Lundalogik/lime-elements/compare/v37.2.0-next.2...v37.2.0-next.3) (2024-02-02)
+
+
+### Bug Fixes
+
+
+* **LimeSchemaOptions:** replace use of internal type `Components.LimelHelp` with interface `Help` ([eb1d0f4](https://github.com/Lundalogik/lime-elements/commit/eb1d0f4afeb8c3c3f5bb866c3c5f168eb96dd8f0))
+
 ## [37.2.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v37.2.0-next.1...v37.2.0-next.2) (2024-02-02)
 
 
