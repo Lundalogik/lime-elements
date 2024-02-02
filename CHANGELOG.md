@@ -1,3 +1,11 @@
+## [37.2.0-next.2](https://github.com/Lundalogik/lime-elements/compare/v37.2.0-next.1...v37.2.0-next.2) (2024-02-02)
+
+
+### Bug Fixes
+
+
+* **icon:** do not crash if icon is `null` ([f8699a9](https://github.com/Lundalogik/lime-elements/commit/f8699a929317eb699e2e9e46558fe8c98cc070fd)), closes [#2752](https://github.com/Lundalogik/lime-elements/issues/2752)
+
 ## [37.2.0-next.1](https://github.com/Lundalogik/lime-elements/compare/v37.1.0...v37.2.0-next.1) (2024-02-02)
 
 
