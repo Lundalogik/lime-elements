@@ -1,3 +1,16 @@
+## [37.2.1](https://github.com/Lundalogik/lime-elements/compare/v37.2.0...v37.2.1) (2024-02-05)
+
+
+### Bug Fixes
+
+
+* **form:** add gap between rows in array items ([d140934](https://github.com/Lundalogik/lime-elements/commit/d140934b5b5909f8b9181b8b221b4821c9df2161))
+
+### Performance Improvements
+
+
+* **breadcrumbs:** fix minor memory leak in limel-breadcrumbs ([12ae92b](https://github.com/Lundalogik/lime-elements/commit/12ae92b669ea820e79373a91f268fa0d85c7075f))
+
 ## [37.2.1-next.2](https://github.com/Lundalogik/lime-elements/compare/v37.2.1-next.1...v37.2.1-next.2) (2024-02-05)
 
 
