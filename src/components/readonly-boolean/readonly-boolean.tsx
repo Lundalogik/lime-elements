@@ -48,9 +48,9 @@ export class ReadonlyBoolean {
     private renderIcon() {
         let icon;
         if (this.value) {
-            icon = this.readonlyProps.trueIcon || 'ok';
+            icon = this.readonlyProps?.trueIcon || 'ok';
         } else {
-            icon = this.readonlyProps.falseIcon || 'minus';
+            icon = this.readonlyProps?.falseIcon || 'minus';
         }
 
         const iconName = getIconName(icon);
@@ -82,7 +82,11 @@ export class ReadonlyBoolean {
     private renderLabel() {
         let label;
 
-        if (this.readonlyProps.trueLabel && this.readonlyProps.falseLabel) {
+        if (
+            this.readonlyProps &&
+            this.readonlyProps.trueLabel &&
+            this.readonlyProps.falseLabel
+        ) {
             label = this.value
                 ? this.readonlyProps.trueLabel
                 : this.readonlyProps.falseLabel;
