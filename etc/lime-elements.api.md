@@ -178,6 +178,10 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
+        "readonlyFalseIcon"?: string | Icon;
+        "readonlyFalseLabel"?: string;
+        "readonlyTrueIcon"?: string | Icon;
+        "readonlyTrueLabel"?: string;
         "required": boolean;
     }
     export interface LimelChip {
@@ -520,6 +524,14 @@ export namespace Components {
         "item": FlowItem;
         "readonly": boolean;
     }
+    export interface LimelReadonlyBoolean {
+        "falseIcon"?: string | Icon;
+        "falseLabel"?: string;
+        "label": string;
+        "trueIcon"?: string | Icon;
+        "trueLabel"?: string;
+        "value": boolean;
+    }
     // (undocumented)
     export interface LimelSelect {
         "disabled": boolean;
@@ -579,6 +591,10 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
+        "readonlyFalseIcon"?: string | Icon;
+        "readonlyFalseLabel"?: string;
+        "readonlyTrueIcon"?: string | Icon;
+        "readonlyTrueLabel"?: string;
         "value": boolean;
     }
     export interface LimelTabBar {
@@ -883,6 +899,8 @@ namespace JSX_2 {
         // (undocumented)
         "limel-progress-flow-item": LimelProgressFlowItem;
         // (undocumented)
+        "limel-readonly-boolean": LimelReadonlyBoolean;
+        // (undocumented)
         "limel-select": LimelSelect;
         // (undocumented)
         "limel-shortcut": LimelShortcut;
@@ -969,6 +987,10 @@ namespace JSX_2 {
         "label"?: string;
         "onChange"?: (event: LimelCheckboxCustomEvent<boolean>) => void;
         "readonly"?: boolean;
+        "readonlyFalseIcon"?: string | Icon;
+        "readonlyFalseLabel"?: string;
+        "readonlyTrueIcon"?: string | Icon;
+        "readonlyTrueLabel"?: string;
         "required"?: boolean;
     }
     interface LimelChip {
@@ -1349,6 +1371,14 @@ namespace JSX_2 {
         "onInteract"?: (event: LimelProgressFlowItemCustomEvent<void>) => void;
         "readonly"?: boolean;
     }
+    interface LimelReadonlyBoolean {
+        "falseIcon"?: string | Icon;
+        "falseLabel"?: string;
+        "label"?: string;
+        "trueIcon"?: string | Icon;
+        "trueLabel"?: string;
+        "value"?: boolean;
+    }
     // (undocumented)
     interface LimelSelect {
         "disabled"?: boolean;
@@ -1413,6 +1443,10 @@ namespace JSX_2 {
         "label"?: string;
         "onChange"?: (event: LimelSwitchCustomEvent<boolean>) => void;
         "readonly"?: boolean;
+        "readonlyFalseIcon"?: string | Icon;
+        "readonlyFalseLabel"?: string;
+        "readonlyTrueIcon"?: string | Icon;
+        "readonlyTrueLabel"?: string;
         "value"?: boolean;
     }
     interface LimelTabBar {
