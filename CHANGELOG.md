@@ -1,3 +1,12 @@
+## [37.2.2](https://github.com/Lundalogik/lime-elements/compare/v37.2.1...v37.2.2) (2024-02-05)
+
+
+### Reverts
+
+
+* Revert "ci(release.config.js): temporarily re-add release-config for branch `next`" ([6d61747](https://github.com/Lundalogik/lime-elements/commit/6d61747e10486df78b5f3edcee3252962e8f84b2))
+* Revert "ci(release config): trying some stuff to get branch renaming to work" ([0695c76](https://github.com/Lundalogik/lime-elements/commit/0695c765760e121996f6443b01787abf43b16d59))
+
 ## [37.2.1](https://github.com/Lundalogik/lime-elements/compare/v37.2.0...v37.2.1) (2024-02-05)
 
 
