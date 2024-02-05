@@ -35,18 +35,20 @@ export class ReadonlyPropsExample {
                                 readonly={this.readonly}
                                 label="Debt"
                                 checked={this.value}
-                                readonlyTrueIcon={{
-                                    name: 'error',
-                                    color: 'rgb(var(--color-red-default))',
-                                    backgroundColor:
-                                        'rgb(var(--color-yellow-default))',
+                                readonlyProps={{
+                                    trueIcon: {
+                                        name: 'error',
+                                        color: 'rgb(var(--color-red-default))',
+                                        backgroundColor:
+                                            'rgb(var(--color-yellow-default))',
+                                    },
+                                    falseIcon: {
+                                        name: 'ok',
+                                        color: 'rgb(var(--color-green-default))',
+                                    },
+                                    trueLabel: 'Has debts',
+                                    falseLabel: 'Does not have debts',
                                 }}
-                                readonlyFalseIcon={{
-                                    name: 'ok',
-                                    color: 'rgb(var(--color-green-default))',
-                                }}
-                                readonlyTrueLabel="Has debts"
-                                readonlyFalseLabel="Does not have debts"
                             />
                         </td>
                     </tr>
@@ -63,16 +65,18 @@ export class ReadonlyPropsExample {
                                 readonly={this.readonly}
                                 label="Quit"
                                 checked={this.value}
-                                readonlyTrueIcon={{
-                                    name: 'inactive_state',
-                                    color: 'rgb(var(--color-gray-default))',
+                                readonlyProps={{
+                                    trueIcon: {
+                                        name: 'inactive_state',
+                                        color: 'rgb(var(--color-gray-default))',
+                                    },
+                                    falseIcon: {
+                                        name: 'in_progress',
+                                        color: 'rgb(var(--color-sky-default))',
+                                    },
+                                    trueLabel: 'Has quit their job',
+                                    falseLabel: 'Still works here',
                                 }}
-                                readonlyFalseIcon={{
-                                    name: 'in_progress',
-                                    color: 'rgb(var(--color-sky-default))',
-                                }}
-                                readonlyTrueLabel="Has quit their job"
-                                readonlyFalseLabel="Still works here"
                             />
                         </td>
                     </tr>
@@ -89,13 +93,16 @@ export class ReadonlyPropsExample {
                                 readonly={this.readonly}
                                 label="Newsletter"
                                 value={this.value}
-                                readonlyTrueIcon="news"
-                                readonlyFalseIcon={{
-                                    name: 'cancel_subscription',
-                                    color: 'rgb(var(--color-orange-default))',
+                                readonlyProps={{
+                                    trueIcon: 'news',
+                                    falseIcon: {
+                                        name: 'cancel_subscription',
+                                        color: 'rgb(var(--color-orange-default))',
+                                    },
+                                    trueLabel:
+                                        'Subscribed to receive newsletters',
+                                    falseLabel: 'Unsubscribed from newsletters',
                                 }}
-                                readonlyTrueLabel="Subscribed to receive newsletters"
-                                readonlyFalseLabel="Unsubscribed from newsletters"
                             />
                         </td>
                     </tr>
@@ -112,13 +119,15 @@ export class ReadonlyPropsExample {
                                 readonly={this.readonly}
                                 label="Mute"
                                 value={this.value}
-                                readonlyTrueIcon={{
-                                    name: 'no_microphone',
-                                    color: 'rgb(var(--color-gray-light))',
+                                readonlyProps={{
+                                    trueIcon: {
+                                        name: 'no_microphone',
+                                        color: 'rgb(var(--color-gray-light))',
+                                    },
+                                    falseIcon: 'microphone',
+                                    trueLabel: "You're muted",
+                                    falseLabel: 'Microphone is active…',
                                 }}
-                                readonlyFalseIcon="microphone"
-                                readonlyTrueLabel="You're muted"
-                                readonlyFalseLabel="Microphone is active…"
                             />
                         </td>
                     </tr>

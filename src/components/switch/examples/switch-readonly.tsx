@@ -15,9 +15,9 @@ import { Component, h, State } from '@stencil/core';
  * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
  * :::
  *
- * Using the readonly-related optional props of `readonlyTrueLabel`, and `readonlyFalseLabel`,
+ * Using the readonly-related optional props of `trueLabel`, and `falseLabel`,
  * you can override the `label` and customize it accordingly.
- * Additionally, by using the `readonlyTrueIcon` and `readonlyFalseIcon` props,
+ * Additionally, by using the `trueIcon` and `falseIcon` props,
  * you can override the default icons and their colors.
  */
 
@@ -42,13 +42,15 @@ export class SwitchReadonlyExample {
         return [
             <limel-switch
                 label="Subscribe to email newsletters"
-                readonlyTrueIcon="news"
-                readonlyFalseIcon={{
-                    name: 'cancel_subscription',
-                    color: 'rgb(var(--color-orange-default))',
+                readonlyProps={{
+                    trueIcon: 'news',
+                    falseIcon: {
+                        name: 'cancel_subscription',
+                        color: 'rgb(var(--color-orange-default))',
+                    },
+                    trueLabel: 'Is subscribed to receive newsletters',
+                    falseLabel: 'Is unsubscribed from newsletters',
                 }}
-                readonlyTrueLabel="Is subscribed to receive newsletters"
-                readonlyFalseLabel="Is unsubscribed from newsletters"
                 helperText={this.invalid ? 'Something is wrong' : ''}
                 value={this.value}
                 disabled={this.disabled}
