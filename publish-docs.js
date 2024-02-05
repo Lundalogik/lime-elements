@@ -46,7 +46,7 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
                     runs, like those publishing the docs for a pull request,
                     should NOT use this flag.
     --noPruneOutdated
-                    Do not remove docs for outdated patch- and next-versions.
+                    Do not remove docs for outdated patch versions.
     --noTeardown    Run no cleanup at end of script. Implies --noCleanOnFail.
     --noCleanOnFail Do not run cleanup if script fails. Unless --noTeardown
                     is set, cleanup will still be run if script is successful.
@@ -105,7 +105,7 @@ usage: npm run docs:publish [-- [--v=<version>] [--remove=<pattern>]
     }
 
     if (pruneOutdated) {
-        pruneOldPatchAndNextVersions();
+        pruneOldPatchVersions();
     }
 
     if (runPush) {
@@ -254,16 +254,16 @@ function copyBuildOutput() {
 
     updateVersionList();
 
-    shell.echo('Copying docs-index.html from most recent `next` version');
+    shell.echo('Copying docs-index.html from `latest` version');
     if (
         shell.cp(
             '-f',
-            'docsDist/versions/next/docs-index.html',
+            'docsDist/versions/latest/docs-index.html',
             'docsDist/index.html',
         ).code !== 0
     ) {
         shell.echo(
-            '[WARNING] Copying docs-index.html from most recent `next` failed. Not critical, continuing.',
+            '[WARNING] Copying docs-index.html from `latest` failed. Not critical, continuing.',
         );
     }
 }
@@ -280,6 +280,10 @@ function updateVersionList() {
 
     const files = fs
         .readdirSync('versions')
+        // We need to filter out the symlinks to `latest` and `next` since they
+        // are not actual versions. We don't use `next` anymore, but we have a
+        // static symlink pointing to `latest`, to avoid breaking existing
+        // links to `next`.
         .filter((file) => file !== 'latest' && file !== 'next');
     fs.writeFileSync(
         'versions.js',
@@ -293,16 +297,13 @@ function updateVersionList() {
     // eligible as "Latest".
     const fullVersions = files.filter((file) => file.match(/^[0-9].*/));
     createSymlinkForRelease(fullVersions, 'latest');
-
-    // Keep only versions that begin with `NEXT-`.
-    const nextVersions = files.filter((file) => file.match(/^NEXT-.*/));
-    createSymlinkForRelease(nextVersions, 'next');
 }
 
-function pruneOldPatchAndNextVersions() {
+function pruneOldPatchVersions() {
     shell.cd('docsDist');
     const files = fs
         .readdirSync('versions')
+        // Never prune the `latest` and `next` symlinks.
         .filter((file) => file !== 'latest' && file !== 'next');
     shell.cd('..');
 
@@ -332,22 +333,6 @@ function pruneOldPatchAndNextVersions() {
 
         lastCheckedVersion = item;
     });
-    // -------
-
-    // -------
-    // For any next-versions, only keep the latest one.
-    const nextVersionRegex = /^NEXT-(\d*)\.(\d*)\.(\d*)(.*)/;
-    const nextVersions = files.filter((file) => file.match(nextVersionRegex));
-
-    if (nextVersions.length > 1) {
-        nextVersions.sort(collator.compare);
-        nextVersions.reverse();
-        nextVersions.shift();
-
-        nextVersions.forEach((item) => {
-            versionsToDelete.push(item);
-        });
-    }
     // -------
 
     versionsToDelete.forEach((item) => {
