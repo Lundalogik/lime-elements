@@ -1,6 +1,6 @@
-import { Icon } from '../../interface';
 import { getIconName } from '../icon/get-icon-props';
 import { Component, Prop, h } from '@stencil/core';
+import { ReadonlyProps } from './readonly-boolean.types';
 
 /**
  * This component enhances the visualization of a `boolean` field
@@ -36,28 +36,10 @@ export class ReadonlyBoolean {
     public label: string;
 
     /**
-     * The text to show, when the `value` is `true`.
+     * The properties to use to clarify what kind of data is being visualized.
      */
     @Prop({ reflect: true })
-    public trueLabel?: string;
-
-    /**
-     * The text to show, when the `value` is `false`.
-     */
-    @Prop({ reflect: true })
-    public falseLabel?: string;
-
-    /**
-     * The icon to show, when the `value` is `true`.
-     */
-    @Prop({ reflect: true })
-    public trueIcon?: string | Icon = 'ok';
-
-    /**
-     * The icon to show, when the `value` is `false`.
-     */
-    @Prop({ reflect: true })
-    public falseIcon?: string | Icon = 'minus';
+    public readonlyProps?: ReadonlyProps;
 
     public render() {
         return [this.renderIcon(), this.renderLabel()];
@@ -66,9 +48,9 @@ export class ReadonlyBoolean {
     private renderIcon() {
         let icon;
         if (this.value) {
-            icon = this.trueIcon;
+            icon = this.readonlyProps.trueIcon || 'ok';
         } else {
-            icon = this.falseIcon;
+            icon = this.readonlyProps.falseIcon || 'minus';
         }
 
         const iconName = getIconName(icon);
@@ -100,8 +82,10 @@ export class ReadonlyBoolean {
     private renderLabel() {
         let label;
 
-        if (this.trueLabel && this.falseLabel) {
-            label = this.value ? this.trueLabel : this.falseLabel;
+        if (this.readonlyProps.trueLabel && this.readonlyProps.falseLabel) {
+            label = this.value
+                ? this.readonlyProps.trueLabel
+                : this.readonlyProps.falseLabel;
         } else {
             label = this.label;
         }

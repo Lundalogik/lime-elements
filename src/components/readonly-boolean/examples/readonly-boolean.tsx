@@ -35,53 +35,61 @@ export class ReadonlyBooleanExample {
             <limel-readonly-boolean
                 label="Debt"
                 value={this.value}
-                trueIcon={{
-                    name: 'error',
-                    color: 'rgb(var(--color-red-default))',
-                    backgroundColor: 'rgb(var(--color-yellow-default))',
+                readonlyProps={{
+                    trueIcon: {
+                        name: 'error',
+                        color: 'rgb(var(--color-red-default))',
+                        backgroundColor: 'rgb(var(--color-yellow-default))',
+                    },
+                    falseIcon: {
+                        name: 'ok',
+                        color: 'rgb(var(--color-green-default))',
+                    },
+                    trueLabel: 'Has debts',
+                    falseLabel: 'Does not have debts',
                 }}
-                falseIcon={{
-                    name: 'ok',
-                    color: 'rgb(var(--color-green-default))',
-                }}
-                trueLabel="Has debts"
-                falseLabel="Does not have debts"
             />,
             <limel-readonly-boolean
                 label="Newsletter"
                 value={this.value}
-                trueIcon="news"
-                falseIcon={{
-                    name: 'cancel_subscription',
-                    color: 'rgb(var(--color-orange-default))',
+                readonlyProps={{
+                    trueIcon: 'news',
+                    falseIcon: {
+                        name: 'cancel_subscription',
+                        color: 'rgb(var(--color-orange-default))',
+                    },
+                    trueLabel: 'Subscribed to receive newsletters',
+                    falseLabel: 'Unsubscribed from newsletters',
                 }}
-                trueLabel="Subscribed to receive newsletters"
-                falseLabel="Unsubscribed from newsletters"
             />,
             <limel-readonly-boolean
                 label="Quit"
                 value={this.value}
-                trueIcon={{
-                    name: 'inactive_state',
-                    color: 'rgb(var(--color-gray-default))',
+                readonlyProps={{
+                    trueIcon: {
+                        name: 'inactive_state',
+                        color: 'rgb(var(--color-gray-default))',
+                    },
+                    falseIcon: {
+                        name: 'in_progress',
+                        color: 'rgb(var(--color-sky-default))',
+                    },
+                    trueLabel: 'Has quit their job',
+                    falseLabel: 'Still works here',
                 }}
-                falseIcon={{
-                    name: 'in_progress',
-                    color: 'rgb(var(--color-sky-default))',
-                }}
-                trueLabel="Has quit their job"
-                falseLabel="Still works here"
             />,
             <limel-readonly-boolean
                 label="Mute"
                 value={this.value}
-                trueIcon={{
-                    name: 'no_microphone',
-                    color: 'rgb(var(--color-gray-light))',
+                readonlyProps={{
+                    trueIcon: {
+                        name: 'no_microphone',
+                        color: 'rgb(var(--color-gray-light))',
+                    },
+                    falseIcon: 'microphone',
+                    trueLabel: "You're muted",
+                    falseLabel: 'Microphone is active…',
                 }}
-                falseIcon="microphone"
-                trueLabel="You're muted"
-                falseLabel="Microphone is active…"
             />,
             <hr></hr>,
             <p>Used in Checkbox and Switch</p>,
