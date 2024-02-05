@@ -10,11 +10,11 @@ import {
     Watch,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
-import { Icon } from '../../interface';
 import {
     makeEnterClickable,
     removeEnterClickable,
 } from 'src/util/make-enter-clickable';
+import { ReadonlyProps } from '../readonly-boolean/readonly-boolean.types';
 
 /**
  * The Switch component is a fundamental element in UI design that serves as a toggle switch
@@ -82,38 +82,11 @@ export class Switch {
     public helperText: string;
 
     /**
-     * The label to show, when the component is `readonly` and its `value` is `true`.
-     * This can be used to clarify what kind of data is being visualized.
-     * If not set, the `label` property will be used.
+     * The properties to use to clarify what kind of data is being visualized.
+     * when the component is `readonly.
      */
     @Prop({ reflect: true })
-    public readonlyTrueLabel?: string;
-
-    /**
-     * The label to show, when the component is `readonly` and its `value` is `false`.
-     * This can be used to clarify what kind of data is being visualized.
-     * If not set, the `label` property will be used.
-     */
-    @Prop({ reflect: true })
-    public readonlyFalseLabel?: string;
-
-    /**
-     * The icon to show, when the component is `readonly` and its `value` is `true`.
-     * This can be used to clarify what kind of data is being visualized.
-     * If not set, a default icon with a default color will be used.
-     * Colors can be customized using the `Icon` interface.
-     */
-    @Prop({ reflect: true })
-    public readonlyTrueIcon?: string | Icon;
-
-    /**
-     * The icon to show, when the component is `readonly` and its `value` is `false`.
-     * This can be used to clarify what kind of data is being visualized.
-     * If not set, a default icon with a default color will be used.
-     * Colors can be customized using the `Icon` interface.
-     */
-    @Prop({ reflect: true })
-    public readonlyFalseIcon?: string | Icon;
+    public readonlyProps?: ReadonlyProps;
 
     /**
      * Emitted when the value has changed
@@ -165,10 +138,7 @@ export class Switch {
                     value={this.value}
                     aria-controls={this.helperTextId}
                     label={this.label}
-                    trueLabel={this.readonlyTrueLabel}
-                    falseLabel={this.readonlyFalseLabel}
-                    trueIcon={this.readonlyTrueIcon}
-                    falseIcon={this.readonlyFalseIcon}
+                    readonlyProps={this.readonlyProps}
                 />,
                 this.renderHelperLine(),
             ];
