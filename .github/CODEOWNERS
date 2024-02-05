@@ -3,4 +3,4 @@
 /.github/   @Lundalogik/lime-elements-maintainers
 
 # The maintainer team should also monitor all changes to the public API.
-etc/*       @Lundalogik/lime-elements-maintainers
+/etc/*      @Lundalogik/lime-elements-maintainers
