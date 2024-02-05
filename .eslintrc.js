@@ -165,8 +165,8 @@ module.exports = {
         {
             files: [
                 'src/examples/*.{ts,tsx}',
-                'src/components/**/examples/*.{ts,tsx}',
-                'src/components/**/examples/**/*.{ts,tsx}',
+                'src/**/examples/*.{ts,tsx}',
+                'src/**/examples/**/*.{ts,tsx}',
                 'src/**/*.spec.{ts,tsx}',
                 'src/**/*.e2e.{ts,tsx}',
                 'src/**/*.test-wrapper.{ts,tsx}',
