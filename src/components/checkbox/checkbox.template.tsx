@@ -1,5 +1,5 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { Icon } from '../../interface';
+import { ReadonlyProps } from '../readonly-boolean/readonly-boolean.types';
 
 interface CheckboxTemplateProps {
     disabled?: boolean;
@@ -13,10 +13,7 @@ interface CheckboxTemplateProps {
     label?: string;
     helperText?: string;
     helperTextId?: string;
-    readonlyTrueLabel?: string;
-    readonlyFalseLabel?: string;
-    readonlyTrueIcon?: string | Icon;
-    readonlyFalseIcon?: string | Icon;
+    readonlyProps?: ReadonlyProps;
 }
 
 export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
@@ -29,10 +26,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
                 value={props.checked}
                 aria-controls={props.helperTextId}
                 label={props.label}
-                trueLabel={props.readonlyTrueLabel}
-                falseLabel={props.readonlyFalseLabel}
-                trueIcon={props.readonlyTrueIcon}
-                falseIcon={props.readonlyFalseIcon}
+                readonlyProps={props.readonlyProps}
             />,
             <HelperText
                 text={props.helperText}

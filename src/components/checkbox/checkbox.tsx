@@ -11,8 +11,8 @@ import {
     Watch,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
-import { Icon } from '../../interface';
 import { CheckboxTemplate } from './checkbox.template';
+import { ReadonlyProps } from '../readonly-boolean/readonly-boolean.types';
 
 /**
  * The Checkbox component is a classic and essential element in UI design that allows
@@ -97,38 +97,11 @@ export class Checkbox {
     public required: boolean = false;
 
     /**
-     * The label to show, when the component is `readonly` and its `value` is `true`.
-     * This can be used to clarify what kind of data is being visualized.
-     * If not set, the `label` property will be used.
+     * The properties to use to clarify what kind of data is being visualized,
+     * when the component is `readonly.
      */
     @Prop({ reflect: true })
-    public readonlyTrueLabel?: string;
-
-    /**
-     * The label to show, when the component is `readonly` and its `value` is `false`.
-     * This can be used to clarify what kind of data is being visualized.
-     * If not set, the `label` property will be used.
-     */
-    @Prop({ reflect: true })
-    public readonlyFalseLabel?: string;
-
-    /**
-     * The icon to show, when the component is `readonly` and its `value` is `true`.
-     * This can be used to clarify what kind of data is being visualized.
-     * If not set, a default icon with a default color will be used.
-     * Colors can be customized using the `Icon` interface.
-     */
-    @Prop({ reflect: true })
-    public readonlyTrueIcon?: string | Icon;
-
-    /**
-     * The icon to show, when the component is `readonly` and its `value` is `false`.
-     * This can be used to clarify what kind of data is being visualized.
-     * If not set, a default icon with a default color will be used.
-     * Colors can be customized using the `Icon` interface.
-     */
-    @Prop({ reflect: true })
-    public readonlyFalseIcon?: string | Icon;
+    public readonlyProps?: ReadonlyProps;
 
     @State()
     private modified = false;
@@ -188,10 +161,7 @@ export class Checkbox {
             <CheckboxTemplate
                 disabled={this.disabled || this.readonly}
                 label={this.label}
-                readonlyTrueLabel={this.readonlyTrueLabel}
-                readonlyFalseLabel={this.readonlyFalseLabel}
-                readonlyFalseIcon={this.readonlyFalseIcon}
-                readonlyTrueIcon={this.readonlyTrueIcon}
+                readonlyProps={this.readonlyProps}
                 helperText={this.helperText}
                 helperTextId={this.helperTextId}
                 checked={this.checked || this.indeterminate}
