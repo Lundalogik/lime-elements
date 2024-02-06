@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Watch, Element } from '@stencil/core';
+import { Component, h, Prop, State, Watch, Element, Host } from '@stencil/core';
 import {
     makeEnterClickable,
     removeEnterClickable,
@@ -85,20 +85,22 @@ export class Button {
 
     public render() {
         return (
-            <button
-                class={{
-                    loading: this.loading,
-                    'just-loaded': this.justLoaded && !this.loadingFailed,
-                    'just-failed': this.justLoaded && this.loadingFailed,
-                    outlined: this.outlined,
-                }}
-                disabled={this.disabled || this.loading}
-            >
-                {this.renderIcon()}
-                {this.renderLabel()}
-                {this.renderSpinner()}
-                <svg viewBox="0 0 30 30">{this.renderLoadingIcons()}</svg>
-            </button>
+            <Host onClick={this.filterClickWhenDisabled}>
+                <button
+                    class={{
+                        loading: this.loading,
+                        'just-loaded': this.justLoaded && !this.loadingFailed,
+                        'just-failed': this.justLoaded && this.loadingFailed,
+                        outlined: this.outlined,
+                    }}
+                    disabled={this.disabled || this.loading}
+                >
+                    {this.renderIcon()}
+                    {this.renderLabel()}
+                    {this.renderSpinner()}
+                    <svg viewBox="0 0 30 30">{this.renderLoadingIcons()}</svg>
+                </button>
+            </Host>
         );
     }
 
@@ -153,4 +155,10 @@ export class Button {
 
         return <limel-spinner limeBranded={false} />;
     }
+
+    private filterClickWhenDisabled = (e) => {
+        if (this.disabled) {
+            e.preventDefault();
+        }
+    };
 }
