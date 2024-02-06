@@ -125,7 +125,7 @@ export class Breadcrumbs {
         return [
             <a
                 role="listitem"
-                id={createRandomString()}
+                id={tooltipId}
                 class="step"
                 href={item.link.href}
                 title={item.link.title}
