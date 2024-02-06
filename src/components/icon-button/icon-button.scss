@@ -8,18 +8,16 @@
     display: none;
 }
 
-:host([disabled]) {
-    pointer-events: none;
-}
-
 @include mixins.visualize-aria-expanded('button');
 
 button {
     all: unset;
-    @include mixins.is-flat-clickable(
-        $background-color: var(--icon-background-color, transparent)
-    );
-    @include mixins.visualize-keyboard-focus;
+    &:not(:disabled) {
+        @include mixins.is-flat-clickable(
+            $background-color: var(--icon-background-color, transparent)
+        );
+        @include mixins.visualize-keyboard-focus;
+    }
 
     display: inline-flex;
     align-items: center;
@@ -29,14 +27,19 @@ button {
     width: 2.25rem;
     border-radius: 50%;
 
-    :host([elevated]) & {
-        &:not(:hover):not(:active):not(:focus-visible) {
+    &:disabled {
+        cursor: not-allowed;
+
+        color: var(--mdc-theme-text-disabled-on-background);
+    }
+}
+
+:host([elevated]) {
+    button {
+        box-shadow: var(--button-shadow-normal);
+        &:disabled {
             box-shadow: var(--button-shadow-normal);
         }
-    }
-
-    &:disabled {
-        color: var(--mdc-theme-text-disabled-on-background);
     }
 }
 
