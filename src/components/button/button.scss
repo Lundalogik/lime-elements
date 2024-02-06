@@ -11,10 +11,6 @@
     display: none;
 }
 
-:host([disabled]) {
-    pointer-events: none;
-}
-
 @include mixins.visualize-aria-expanded('button');
 
 button.mdc-button {
@@ -46,6 +42,8 @@ button {
     width: 100%;
 
     &:disabled {
+        cursor: not-allowed;
+
         &.outlined {
             border-color: rgba(var(--contrast-1700), 0.2);
         }
