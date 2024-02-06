@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import { Component, Element, h, Host, Prop } from '@stencil/core';
 import {
     makeEnterClickable,
     removeEnterClickable,
@@ -79,14 +79,16 @@ export class IconButton {
         }
 
         return (
-            <button
-                disabled={this.disabled}
-                id={this.tooltipId}
-                {...buttonAttributes}
-            >
-                <limel-icon name={this.icon} badge={true} />
-                {this.renderTooltip(this.tooltipId)}
-            </button>
+            <Host onClick={this.filterClickWhenDisabled}>
+                <button
+                    disabled={this.disabled}
+                    id={this.tooltipId}
+                    {...buttonAttributes}
+                >
+                    <limel-icon name={this.icon} badge={true} />
+                    {this.renderTooltip(this.tooltipId)}
+                </button>
+            </Host>
         );
     }
     private renderTooltip(tooltipId) {
@@ -94,4 +96,10 @@ export class IconButton {
             return <limel-tooltip elementId={tooltipId} label={this.label} />;
         }
     }
+
+    private filterClickWhenDisabled = (e) => {
+        if (this.disabled) {
+            e.preventDefault();
+        }
+    };
 }
