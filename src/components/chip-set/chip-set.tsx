@@ -731,8 +731,6 @@ export class ChipSet {
                 class="mdc-chip__icon mdc-chip__icon--leading"
                 name={name}
                 style={style}
-                size="small"
-                badge={true}
                 title={title}
             />
         );

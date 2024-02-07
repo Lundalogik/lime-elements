@@ -84,7 +84,7 @@ export class IconButton {
                 id={this.tooltipId}
                 {...buttonAttributes}
             >
-                <limel-icon name={this.icon} badge={true} />
+                <limel-icon name={this.icon} />
                 {this.renderTooltip(this.tooltipId)}
             </button>
         );

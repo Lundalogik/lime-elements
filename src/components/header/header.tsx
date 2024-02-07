@@ -117,7 +117,7 @@ export class Header {
             return;
         }
 
-        return <limel-icon class="icon" badge={true} name={icon} />;
+        return <limel-icon class="icon" name={icon} />;
     }
 
     private renderSupportingText() {

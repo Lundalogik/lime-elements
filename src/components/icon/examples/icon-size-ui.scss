@@ -14,7 +14,7 @@ limel-icon {
 
 th,
 td {
-    padding: 0.25rem 0.5rem;
+    padding: 0 0.5rem;
 
     &:not(:first-child) {
         border-left: 1px dotted rgb(var(--contrast-700));
@@ -22,7 +22,7 @@ td {
 }
 
 th:first-child {
-    width: 4rem;
+    width: 5rem;
 }
 
 p,

@@ -50,7 +50,7 @@ export class TableFood implements TableComponent<Bird> {
                 title={capitalize(value)}
                 badge={true}
                 name={nameMap[value]}
-                size="x-small"
+                size="small"
             />
         );
     }

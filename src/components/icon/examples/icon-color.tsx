@@ -8,7 +8,6 @@ import { Component, h } from '@stencil/core';
  *:::note
  * Note that `badge` is set to `true` to provide more space around the icon,
  * and make sure the background color is nicely displayed.
- * But the `bade` has effect, only when the `size` attribute is also set.
  *:::
  */
 @Component({

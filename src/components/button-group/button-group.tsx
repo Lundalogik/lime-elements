@@ -155,8 +155,6 @@ export class ButtonGroup {
                 class="mdc-chip__icon"
                 aria-label={button.title}
                 name={button.icon}
-                size="small"
-                badge={true}
             />,
             <limel-tooltip elementId={iconId} label={button.title} />,
         ];

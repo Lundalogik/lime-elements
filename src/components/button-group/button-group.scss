@@ -55,6 +55,8 @@
         transition: color 0.2s ease;
         display: flex;
         align-items: center;
+        justify-content: center;
+
         &:has(> limel-badge) {
             .mdc-chip__text {
                 padding-right: 0.25rem;
@@ -147,6 +149,10 @@
     &.disabled {
         @include shared_input-select-picker.looks-disabled;
     }
+}
+
+limel-icon {
+    width: 1.25rem;
 }
 
 limel-badge {

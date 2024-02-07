@@ -139,8 +139,10 @@ limel-badge {
 
 limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     background-color: var(--icon-background-color, transparent);
-    margin: 0 !important;
+    margin: 0 0 0 0.25rem !important;
     color: var(--icon-color, rgb(var(--contrast-1100)));
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 .mdc-chip-set {
