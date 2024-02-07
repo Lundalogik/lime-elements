@@ -1,3 +1,11 @@
+## [37.2.3](https://github.com/Lundalogik/lime-elements/compare/v37.2.2...v37.2.3) (2024-02-07)
+
+
+### Bug Fixes
+
+
+* **breadcrumbs:** use the same `id` for items & their tooltips… ([aa83b83](https://github.com/Lundalogik/lime-elements/commit/aa83b83a6719848bed73c9f3153fdb1dde237008))
+
 ## [37.2.2](https://github.com/Lundalogik/lime-elements/compare/v37.2.1...v37.2.2) (2024-02-05)
 
 
