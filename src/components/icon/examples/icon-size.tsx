@@ -3,8 +3,8 @@ import { Component, h } from '@stencil/core';
  * Size
  * There are preset sizes.
  * :::note
- * Setting the `bade` prop to `true` affects how big the icon is rendered,
- * but only when the `size` attribute is also set.
+ * Setting the `bade` prop to `true` adds some space around the visual motif,
+ * of the component, naturally resulting in smaller visual appearance.
  * :::
  */
 @Component({
@@ -31,6 +31,7 @@ export class IconSizeExample {
                     <tr>
                         <td>
                             <code>x-small</code>
+                            <p>1rem</p>
                         </td>
                         <td>
                             <limel-icon
@@ -76,6 +77,7 @@ export class IconSizeExample {
                     <tr>
                         <td>
                             <code>small</code>
+                            <p>1.5rem</p>
                         </td>
                         <td>
                             <limel-icon
@@ -117,6 +119,7 @@ export class IconSizeExample {
                     <tr>
                         <td>
                             <code>medium</code>
+                            <p>1.75rem</p>
                         </td>
                         <td>
                             <limel-icon
@@ -161,6 +164,7 @@ export class IconSizeExample {
                     <tr>
                         <td>
                             <code>large</code>
+                            <p>2rem</p>
                         </td>
                         <td>
                             <limel-icon name="frog" size="large" badge={true} />

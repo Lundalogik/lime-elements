@@ -4,22 +4,19 @@
  * @prop --icon-background-color: Background color when attribute `badge` is set to `true`. Defaults to `transparent`.
  */
 
-:host {
+:host(limel-icon) {
     background-color: var(--icon-background-color, transparent);
     border-radius: 50%;
     display: inline-block;
     line-height: 0;
     box-sizing: border-box;
+    padding: var(--limel-icon-svg-margin, 0);
 
     svg {
         fill: currentColor;
         height: 100%;
         pointer-events: none;
         width: 100%;
-    }
-
-    div {
-        margin: var(--limel-icon-svg-margin, 0);
     }
 }
 
@@ -28,43 +25,29 @@
 }
 
 :host([size='x-small']) {
-    height: functions.pxToRem(15) !important;
-    width: functions.pxToRem(15) !important;
+    height: 1rem;
+    width: 1rem;
 }
 :host([size='small']) {
-    height: functions.pxToRem(20) !important;
-    width: functions.pxToRem(20) !important;
+    height: 1.5rem;
+    width: 1.5rem;
 }
 :host([size='medium']) {
-    height: functions.pxToRem(25) !important;
-    width: functions.pxToRem(25) !important;
+    height: 1.75rem;
+    width: 1.75rem;
 }
 :host([size='large']) {
-    height: functions.pxToRem(30) !important;
-    width: functions.pxToRem(30) !important;
+    height: 2rem;
+    width: 2rem;
 }
 
+:host([badge]) {
+    --limel-icon-svg-margin: 0.25rem;
+}
 :host([badge][size='x-small']) {
-    height: functions.pxToRem(23) !important;
-    width: functions.pxToRem(23) !important;
-
-    --limel-icon-svg-margin: #{functions.pxToRem(4)};
+    --limel-icon-svg-margin: 0.0625rem;
 }
-:host([badge][size='small']) {
-    height: functions.pxToRem(30) !important;
-    width: functions.pxToRem(30) !important;
-
-    --limel-icon-svg-margin: #{functions.pxToRem(5)};
-}
+:host([badge][size='small']),
 :host([badge][size='medium']) {
-    height: functions.pxToRem(40) !important;
-    width: functions.pxToRem(40) !important;
-
-    --limel-icon-svg-margin: #{functions.pxToRem(8)};
-}
-:host([badge][size='large']) {
-    height: functions.pxToRem(46) !important;
-    width: functions.pxToRem(46) !important;
-
-    --limel-icon-svg-margin: #{functions.pxToRem(8)};
+    --limel-icon-svg-margin: 0.125rem;
 }
