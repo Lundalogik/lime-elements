@@ -105,6 +105,7 @@
     &.mdc-select--disabled {
         .limel-select-trigger {
             @include shared_input-select-picker.looks-disabled;
+            box-shadow: var(--button-shadow-normal);
         }
         .mdc-select__dropdown-icon {
             svg {
