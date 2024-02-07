@@ -78,10 +78,8 @@ label {
     @include lime-typography.typography(body2);
     color: var(--mdc-theme-on-surface);
 
-    cursor: pointer;
-
-    &.disabled {
-        @include shared_input-select-picker.looks-disabled;
+    &:not(.disabled) {
+        cursor: pointer;
     }
 }
 
