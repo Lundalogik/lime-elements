@@ -184,6 +184,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
     &.disabled:not(.mdc-chip-set--input) {
         @include shared_input-select-picker.looks-disabled;
+        pointer-events: none;
     }
 }
 
@@ -256,6 +257,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
     &.disabled {
         @include shared_input-select-picker.looks-disabled;
+        pointer-events: none;
     }
 }
 

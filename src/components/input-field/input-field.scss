@@ -65,6 +65,7 @@
 .lime-text-field--empty {
     .mdc-text-field__icon--trailing {
         @include shared_input-select-picker.looks-disabled;
+        pointer-events: none;
         box-shadow: none !important;
     }
 }

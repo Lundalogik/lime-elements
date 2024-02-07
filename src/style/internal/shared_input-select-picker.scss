@@ -35,7 +35,6 @@ $cropped-label-hack--font-size: 0.875rem; //14px
 
 @mixin looks-disabled() {
     cursor: not-allowed;
-    pointer-events: none;
     opacity: 0.4;
 }
 
