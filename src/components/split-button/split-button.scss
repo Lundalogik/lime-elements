@@ -13,10 +13,6 @@
     }
 }
 
-:host([disabled]) {
-    pointer-events: none;
-}
-
 limel-button {
     width: 100%;
 }

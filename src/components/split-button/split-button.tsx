@@ -66,6 +66,7 @@ export class SplitButton {
                 class={{
                     'has-menu': !!this.items.length,
                 }}
+                onClick={this.filterClickWhenDisabled}
             >
                 <limel-button
                     label={this.label}
@@ -101,5 +102,11 @@ export class SplitButton {
                 </button>
             </limel-menu>
         );
+    };
+
+    private filterClickWhenDisabled = (e) => {
+        if (this.disabled) {
+            e.preventDefault();
+        }
     };
 }
