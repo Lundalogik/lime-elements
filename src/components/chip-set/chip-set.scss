@@ -9,7 +9,6 @@
 @use '@material/notched-outline/mdc-notched-outline';
 @use '@material/floating-label';
 @use '@material/floating-label/mdc-floating-label';
-@use '@material/chips/deprecated/mdc-chips';
 
 /**
  * @prop --icon-background-color: Background color of the icon. Defaults to transparent.
@@ -33,118 +32,15 @@
 
 $height-of-chip-set-input: functions.pxToRem(36);
 $leading-icon-space: functions.pxToRem(40);
-$background-color-of-remove-chip-buton-when-hovered: rgba(
-    var(--color-red-default),
-    0.2
-);
-$scale-of-remove-chip-x-when-hovered: scale(0.7);
 
 :host(limel-chip-set) {
     isolation: isolate;
 }
 
-.mdc-chip {
-    // As long as this component is depended on MDC,
-    // we need to force it to be font-agnostic.
-    // When MDC-dependency is removed, this block can also be removed.
-    // However, on removal of MDC-dependency, we should also make sure to check
-    // other font-related styles that might be set by MDC,
-    // such as `letter-spacing` or `font-size`.
-    font-family: inherit;
-}
-
-.mdc-chip {
-    @include mixins.is-elevated-inset-clickable();
-    max-width: 100%;
-    min-width: functions.pxToRem(32);
-    padding: 0 functions.pxToRem(1);
-    display: inline-grid;
-    grid-auto-flow: column;
-
-    span[role='gridcell'] {
-        min-width: 0; // This is needed to force mdc-chip__text (which is inside this span) to truncate
-
-        &:only-child {
-            .mdc-chip__text {
-                padding-left: functions.pxToRem(12);
-            }
-        }
-
-        &:first-child {
-            .mdc-chip__text {
-                padding-left: functions.pxToRem(12);
-            }
-        }
-
-        a[role='button'],
-        span[role='checkbox'] {
-            &:focus-visible {
-                &:after {
-                    // visualizes keyboard navigation on Chrome & Firefox
-                    // only when non-pointer input is being used,
-                    // e.g. tabbed into using keyboard
-                    content: '';
-                    display: block;
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    border-radius: functions.pxToRem(60);
-                    box-shadow: var(--shadow-depth-8-focused);
-                }
-            }
-        }
-    }
-
-    &.mdc-chip--selected {
-        color: var(--mdc-theme-primary) !important;
-        background-color: var(--mdc-theme-surface) !important;
-        box-shadow: var(--button-shadow-inset);
-
-        &:active {
-            box-shadow: var(--button-shadow-inset-pressed);
-        }
-
-        .mdc-chip__icon--leading {
-            color: var(--mdc-theme-primary) !important;
-        }
-    }
-}
-
-.mdc-chip.mdc-chip--selected .mdc-chip__checkmark,
-.mdc-chip__checkmark {
-    margin-right: functions.pxToRem(4);
-    margin-left: functions.pxToRem(8);
-}
-
-limel-badge {
-    margin-right: functions.pxToRem(4);
-    margin-left: functions.pxToRem(-4);
-}
-
-.mdc-chip__text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-    padding: 0 functions.pxToRem(12) 0 functions.pxToRem(4);
-    color: inherit;
-    text-decoration: none;
-
-    &:focus,
-    &:focus-visible {
-        outline: none;
-    }
-}
-
-limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
-    background-color: var(--icon-background-color, transparent);
-    margin: 0 !important;
-    color: var(--icon-color, rgb(var(--contrast-1100)));
-}
-
 .mdc-chip-set {
+    display: flex;
     align-items: center;
+    gap: 0.5rem;
     min-height: shared_input-select-picker.$height-of-mdc-text-field;
     position: relative;
 
@@ -158,20 +54,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         padding: functions.pxToRem(8);
 
         width: 100%;
-
-        .mdc-chip--selected {
-            // When chip is selected with keyboard (backspace / arrow-keys) to be deleted
-            box-shadow: var(--shadow-depth-8-error);
-
-            .mdc-chip__icon--trailing {
-                color: rgb(var(--color-red-dark));
-                background-color: $background-color-of-remove-chip-buton-when-hovered;
-
-                svg {
-                    transform: $scale-of-remove-chip-x-when-hovered;
-                }
-            }
-        }
     }
 
     &.has-clear-all-button {
@@ -183,45 +65,16 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     }
 }
 
-.mdc-chip__icon {
-    &.mdc-chip__icon--trailing {
-        transition:
-            background-color 0.2s ease,
-            color 0.2s ease;
-
-        color: var(--mdc-theme-on-surface);
-        margin-left: 0;
-        margin-right: functions.pxToRem(5);
-
-        width: functions.pxToRem(22);
-        height: functions.pxToRem(22);
-
-        &:hover {
-            background-color: $background-color-of-remove-chip-buton-when-hovered;
-
-            svg {
-                transform: $scale-of-remove-chip-x-when-hovered;
-            }
-        }
-
-        svg {
-            transition: transform 0.2s ease;
-            display: block;
-            transform: scale(0.9);
-        }
-    }
-}
-
 .mdc-text-field {
     height: auto;
     cursor: text;
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
 
     .mdc-text-field__input {
         @include shared_input-select-picker.input-field-placeholder;
 
         width: auto;
-        height: $height-of-chip-set-input;
-        line-height: $height-of-chip-set-input;
         padding: 0 functions.pxToRem(12);
 
         flex-grow: 1;
@@ -244,15 +97,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
                 display: none; // removes the default X button
             }
         }
-    }
-}
-
-.mdc-text-field--disabled .mdc-chip {
-    pointer-events: all;
-
-    &.disabled {
-        @include shared_input-select-picker.looks-disabled;
-        pointer-events: none;
     }
 }
 
@@ -328,7 +172,7 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         }
     }
 
-    .mdc-chip {
+    limel-chip {
         &:first-of-type {
             margin-left: 40px;
         }
@@ -350,6 +194,15 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     opacity: 0.5;
     padding: 0 functions.pxToRem(2);
     color: var(--mdc-theme-on-surface);
+}
+
+limel-chip {
+    border-radius: 2rem;
+
+    &.can-be-removed {
+        // When chip is selected with keyboard (backspace / arrow-keys) to be deleted
+        box-shadow: var(--shadow-depth-8-error);
+    }
 }
 
 @import './partial-styles/_readonly';

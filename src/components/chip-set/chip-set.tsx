@@ -1,10 +1,5 @@
-import { Chip } from '../chip-set/chip.types';
+import { Chip, ChipType } from '../chip-set/chip.types';
 import { Languages } from '../date-picker/date.types';
-import {
-    MDCChipInteractionEvent,
-    MDCChipSelectionEvent,
-    MDCChipSet,
-} from '@material/chips/deprecated';
 import { MDCTextField } from '@material/textfield';
 import {
     Component,
@@ -21,14 +16,8 @@ import { handleKeyboardEvent } from './chip-set-input-helpers';
 import translate from '../../global/translations';
 import { getHref, getTarget } from '../../util/link-helper';
 import { isEqual } from 'lodash-es';
-import {
-    getIconBackgroundColor,
-    getIconColor,
-    getIconName,
-    getIconTitle,
-} from '../icon/get-icon-props';
+import { LimelChipCustomEvent } from 'src/components';
 
-const SELECTED_CHIP_CLASS = 'mdc-chip--selected';
 const INPUT_FIELD_TABINDEX = 1;
 
 /**
@@ -58,7 +47,7 @@ export class ChipSet {
      * Type of chip set
      *
      * - `choice` renders a set of selectable chips where only one is selectable. The `removable` property is ignored
-     * - `filter` renders a set of selectable chips where all are selectable. The `icon` property is ignored
+     * - `filter` renders a set of selectable chips where all are selectable.
      * - `input` renders a set of chips that can be used in conjunction with an input field
      *
      * If no type is set, a basic set of chips without additional functionality will be rendered
@@ -208,7 +197,9 @@ export class ChipSet {
     @State()
     private inputChipIndexSelected: number = null;
 
-    private mdcChipSet: MDCChipSet;
+    @State()
+    private selectedChipIds: Array<string | number>;
+
     private mdcTextField: MDCTextField;
     private handleKeyDown = handleKeyboardEvent;
 
@@ -216,8 +207,6 @@ export class ChipSet {
         this.renderChip = this.renderChip.bind(this);
         this.renderInputChip = this.renderInputChip.bind(this);
         this.isFull = this.isFull.bind(this);
-        this.handleInteractionEvent = this.handleInteractionEvent.bind(this);
-        this.handleSelection = this.handleSelection.bind(this);
         this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
         this.handleInputBlur = this.handleInputBlur.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
@@ -227,6 +216,18 @@ export class ChipSet {
         this.handleDeleteAllIconClick =
             this.handleDeleteAllIconClick.bind(this);
         this.renderDelimiter = this.renderDelimiter.bind(this);
+    }
+
+    public connectedCallback() {
+        this.initialize();
+    }
+
+    private initialize() {
+        if (this.value.length) {
+            this.selectedChipIds = this.value
+                .filter((chip) => chip.selected)
+                .map((chip) => chip.id);
+        }
     }
 
     /**
@@ -279,16 +280,9 @@ export class ChipSet {
                 this.host.shadowRoot.querySelector('.mdc-text-field'),
             );
         }
-
-        this.createMDCChipSet();
-    }
-
-    public componentWillUpdate() {
-        this.destroyMDCChipSet();
     }
 
     public componentDidUpdate() {
-        this.createMDCChipSet();
         const input = this.host.shadowRoot.querySelector('input');
         if (input && this.editMode) {
             input.focus();
@@ -296,8 +290,6 @@ export class ChipSet {
     }
 
     public disconnectedCallback() {
-        this.destroyMDCChipSet();
-
         if (this.mdcTextField) {
             this.mdcTextField.destroy();
         }
@@ -322,14 +314,25 @@ export class ChipSet {
             classes['chip-set--with-label'] = true;
         }
 
+        const value = this.getValue();
+
         return (
             <div class={classes} role="grid">
                 {chipSetLabel}
-                {this.value.map(this.renderChip)}
+                {value.map(this.renderChip)}
                 {this.renderHelperLine()}
             </div>
         );
     }
+
+    private getValue = () => {
+        return this.value.map((chip) => ({
+            ...chip,
+            ...(this.type && {
+                selected: this.selectedChipIds.includes(chip.id),
+            }),
+        }));
+    };
 
     @Watch('value')
     protected handleChangeChips(newValue: Chip[], oldValue: Chip[]) {
@@ -338,35 +341,7 @@ export class ChipSet {
         }
 
         this.syncEmptyInput();
-    }
-
-    private createMDCChipSet() {
-        this.mdcChipSet = new MDCChipSet(
-            this.host.shadowRoot.querySelector('.mdc-chip-set'),
-        );
-
-        if (!this.type || this.type === 'input') {
-            this.mdcChipSet.listen(
-                'MDCChip:interaction',
-                this.handleInteractionEvent,
-            );
-        }
-
-        if (this.type === 'choice' || this.type === 'filter') {
-            this.mdcChipSet.listen('MDCChip:selection', this.handleSelection);
-        }
-    }
-
-    private destroyMDCChipSet() {
-        if (this.mdcChipSet) {
-            this.mdcChipSet.unlisten(
-                'MDCChip:interaction',
-                this.handleInteractionEvent,
-            );
-            this.mdcChipSet.unlisten('MDCChip:selection', this.handleSelection);
-
-            this.mdcChipSet.destroy();
-        }
+        this.initialize();
     }
 
     private renderChipSetLabel() {
@@ -566,72 +541,17 @@ export class ChipSet {
         this.input.emit(event.target.value && event.target.value.trim());
     }
 
-    private handleInteractionEvent(event: MDCChipInteractionEvent) {
-        const chip = this.value.find((item) => {
-            return `${item.id}` === event.detail.chipId;
-        });
-        this.emitInteraction(chip);
-    }
-
     private emitInteraction(chip: Chip) {
         this.interact.emit(chip);
     }
 
-    private handleSelection(event: MDCChipSelectionEvent) {
-        let chip = this.value.find((item) => {
-            return `${item.id}` === event.detail.chipId;
-        });
-        chip = { ...chip, selected: event.detail.selected };
-        this.change.emit(chip);
-    }
-
-    private removeChip(id: string | number) {
-        const newValue = this.value.filter((chip) => {
-            return `${chip.id}` !== `${id}`;
-        });
-        this.change.emit(newValue);
-    }
-
     private renderChip(chip: Chip) {
-        if (this.type === 'filter') {
-            return this.renderFilterChip(chip);
-        }
+        const chipType: ChipType =
+            this.type === 'filter' ? 'filter' : 'default';
 
-        return this.renderDefaultChip(chip);
-    }
+        const chipProps = this.getChipProps(chip, chipType);
 
-    private renderDefaultChip(chip: Chip) {
-        return (
-            <div
-                class={`mdc-chip ${chip.selected ? SELECTED_CHIP_CLASS : ''}`}
-                role="row"
-                id={`${chip.id}`}
-            >
-                {chip.icon ? this.renderChipIcon(chip) : null}
-                {chip.text ? this.renderChipLabel(chip) : null}
-            </div>
-        );
-    }
-
-    private renderChipLabel(chip: Chip<any>) {
-        const attributes: any = {};
-        if (chip.href) {
-            attributes.href = getHref(chip.href);
-            attributes.target = getTarget(chip.href);
-        }
-
-        return (
-            <span role="gridcell">
-                <a
-                    role="button"
-                    tabindex={this.disabled ? '-1' : '0'}
-                    class="mdc-chip__text"
-                    {...attributes}
-                >
-                    {chip.text}
-                </a>
-            </span>
-        );
+        return <limel-chip {...chipProps} />;
     }
 
     private hasHelperText = () => {
@@ -653,90 +573,107 @@ export class ChipSet {
         );
     };
 
-    private renderFilterChip(chip: Chip) {
-        return (
-            <div
-                class={`mdc-chip ${chip.selected ? SELECTED_CHIP_CLASS : ''}`}
-                role="row"
-                id={`${chip.id}`}
-            >
-                <span class="mdc-chip__checkmark">
-                    <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
-                        <path
-                            class="mdc-chip__checkmark-path"
-                            fill="none"
-                            stroke="currentColor"
-                            d="M1.73,12.91 8.1,19.28 22.79,4.59"
-                        />
-                    </svg>
-                </span>
-                <span role="gridcell">
-                    <span
-                        role="checkbox"
-                        tabindex={this.disabled ? '-1' : '0'}
-                        aria-checked="false"
-                        class="mdc-chip__text"
-                    >
-                        {chip.text}
-                    </span>
-                </span>
-                {this.renderBadge(chip)}
-            </div>
-        );
-    }
-
     private renderInputChip(chip: Chip, index: number) {
+        const chipProps = this.getChipProps(chip, 'default');
+
         return [
-            <div
+            <limel-chip
+                key={chip.id}
                 class={{
-                    'mdc-chip': true,
-                    'mdc-chip--selected': this.inputChipIndexSelected === index,
-                    disabled: this.disabled,
+                    'can-be-removed': this.inputChipIndexSelected === index,
                 }}
-                role="row"
-                id={`${chip.id}`}
-                onClick={this.catchInputChipClicks}
-            >
-                {chip.icon ? this.renderChipIcon(chip) : null}
-                {this.renderChipLabel(chip)}
-                {this.renderChipRemoveButton(chip)}
-            </div>,
+                {...chipProps}
+            />,
             this.renderDelimiter(),
         ];
     }
 
-    private catchInputChipClicks(event) {
-        event.stopPropagation();
+    private getChipProps(chip: Chip, chipType: ChipType) {
+        const removable = this.type === 'input' && chip.removable;
+
+        return {
+            role: 'row',
+            identifier: chip.id,
+            text: chip.text,
+            icon: chip.icon,
+            badge: chip.badge,
+            selected: chip.selected,
+            disabled: this.disabled,
+            readonly: this.readonly,
+            type: chipType,
+            removable: removable,
+            onClick: this.catchInputChipClicks(chip),
+            onRemove: this.handleRemoveChip,
+            ...(chip.href && {
+                link: {
+                    href: getHref(chip.href),
+                    target: getTarget(chip.href),
+                },
+            }),
+        };
     }
 
-    private renderChipIcon(chip: Chip) {
-        const name = getIconName(chip.icon);
-        const color = getIconColor(chip.icon, chip.iconFillColor);
-        const backgroundColor = getIconBackgroundColor(
-            chip.icon,
-            chip.iconBackgroundColor,
-        );
-        const title = getIconTitle(chip.icon, chip.iconTitle);
-        const style = {};
-        if (color) {
-            style['--icon-color'] = color;
+    private catchInputChipClicks = (chip: Chip) => () => {
+        if (this.isSelectableChip(chip)) {
+            this.updateSelectedChipIds(chip);
+            this.change.emit(chip);
         }
 
-        if (backgroundColor) {
-            style['--icon-background-color'] = backgroundColor;
-        }
+        this.emitInteraction(chip);
+    };
 
-        return (
-            <limel-icon
-                class="mdc-chip__icon mdc-chip__icon--leading"
-                name={name}
-                style={style}
-                size="small"
-                badge={true}
-                title={title}
-            />
+    private isSelectableChip(chip: Chip): boolean {
+        return this.type !== 'input' && 'selected' in chip;
+    }
+
+    private updateSelectedChipIds(chip: Chip): void {
+        chip.selected = !chip.selected;
+        const id = chip.id;
+        if (this.type === 'choice') {
+            this.updateChoiceTypeSelectedIds(id);
+        } else {
+            this.updateFilterTypeSelectedIds(id);
+        }
+    }
+
+    private updateChoiceTypeSelectedIds(id: number | string): void {
+        this.selectedChipIds = this.isChipSelected(id) ? [] : [id];
+    }
+
+    private isChipSelected(id: number | string): boolean {
+        return !!this.selectedChipIds.find((chipId) => chipId === id);
+    }
+
+    private updateFilterTypeSelectedIds(id: number | string): void {
+        if (this.isChipSelected(id)) {
+            this.removeChipIdFromSelectedChipIds(id);
+        } else {
+            this.addChipIdToSelectedChipIds(id);
+        }
+    }
+
+    private removeChipIdFromSelectedChipIds(id: number | string): void {
+        this.selectedChipIds = this.selectedChipIds.filter(
+            (chipId) => chipId !== id,
         );
     }
+
+    private addChipIdToSelectedChipIds(id: number | string): void {
+        this.selectedChipIds = [...this.selectedChipIds, id];
+    }
+
+    private handleRemoveChip = (
+        event: LimelChipCustomEvent<string | number>,
+    ) => {
+        this.removeChip(event.detail);
+    };
+
+    private removeChip = (identifier: string | number) => {
+        const newValue = this.value.filter((chip) => {
+            return chip.id !== identifier;
+        });
+        this.change.emit(newValue);
+    };
 
     private renderLeadingIcon() {
         if (!this.leadingIcon) {
@@ -747,32 +684,6 @@ export class ChipSet {
             <i class="mdc-text-field__icon search-icon">
                 <limel-icon name={this.leadingIcon} />
             </i>
-        );
-    }
-
-    private renderChipRemoveButton(chip: Chip) {
-        if (!chip.removable || this.readonly || this.disabled) {
-            return;
-        }
-
-        const svgData = `<svg style="height:100%;width:100%;" width="32" height="32" x="0px" y="0px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-    <line fill="none" id="svg_1" stroke="currentColor" stroke-width="2" x1="8" x2="24" y1="8" y2="24"/>
-    <line fill="none" id="svg_2" stroke="currentColor" stroke-width="2" x1="24" x2="8" y1="8" y2="24"/>
-</svg>`;
-
-        const removeFunc = (event: MouseEvent) => {
-            event.stopPropagation();
-            this.removeChip(chip.id);
-        };
-
-        return (
-            <button
-                class="mdc-chip__icon mdc-chip__icon--trailing mdc-deprecated-chip-trailing-action"
-                aria-label={this.removeChipLabel}
-                tabindex="-1"
-                innerHTML={svgData}
-                onClick={removeFunc}
-            />
         );
     }
 
@@ -798,10 +709,6 @@ export class ChipSet {
         return translate.get('chip-set.clear-all', this.language);
     };
 
-    private removeChipLabel = (): string => {
-        return translate.get('chip-set.remove-chip', this.language);
-    };
-
     private handleDeleteAllIconClick(event: Event) {
         event.preventDefault();
         this.change.emit([]);
@@ -813,14 +720,6 @@ export class ChipSet {
         }
 
         return <div class="delimiter">{this.delimiter}</div>;
-    }
-
-    private renderBadge(chip: Chip) {
-        if (!chip.badge) {
-            return;
-        }
-
-        return <limel-badge label={chip.badge} />;
     }
 
     private triggerIconColorWarning(value: Chip[]) {

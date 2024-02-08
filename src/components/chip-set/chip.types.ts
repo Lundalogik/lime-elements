@@ -80,7 +80,7 @@ export interface Chip<T = any> {
     value?: T;
 
     /**
-     * The value of the badge. Only valid for `filter`.
+     * The value of the badge.
      */
     badge?: number;
 

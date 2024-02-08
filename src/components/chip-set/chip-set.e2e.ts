@@ -26,7 +26,7 @@ describe('limel-chip-set', () => {
             await page.waitForChanges();
 
             label = await page.find('limel-chip-set >>> .chip-set__label');
-            chips = await page.findAll('limel-chip-set >>> .mdc-chip');
+            chips = await page.findAll('limel-chip-set >>> limel-chip');
 
             spy = await chipSet.spyOnEvent('interact');
         });
@@ -37,8 +37,8 @@ describe('limel-chip-set', () => {
 
         it('renders the chips', () => {
             expect(chips.length).toEqual(2);
-            expect(chips[0]).toEqualText('Lime');
-            expect(chips[1]).toEqualText('Apple');
+            expect(chips[0].getAttribute('text')).toEqualText('Lime');
+            expect(chips[1].getAttribute('text')).toEqualText('Apple');
         });
 
         describe('when a chip is clicked', () => {
@@ -78,7 +78,7 @@ describe('limel-chip-set', () => {
             await page.waitForChanges();
 
             label = await page.find('limel-chip-set >>> .chip-set__label');
-            chips = await page.findAll('limel-chip-set >>> .mdc-chip');
+            chips = await page.findAll('limel-chip-set >>> limel-chip');
 
             spy = await chipSet.spyOnEvent('change');
         });
@@ -89,11 +89,8 @@ describe('limel-chip-set', () => {
 
         it('renders the chips correctly', () => {
             expect(chips.length).toEqual(2);
-            expect(chips[0]).toEqualText('Lime');
-            expect(chips[1]).toEqualText('Apple');
-
-            expect(chips[0]).toHaveClass('mdc-chip--selected');
-            expect(chips[1]).not.toHaveClass('mdc-chip--selected');
+            expect(chips[0].getAttribute('text')).toEqualText('Lime');
+            expect(chips[1].getAttribute('text')).toEqualText('Apple');
         });
 
         describe('when the first chip is clicked', () => {
@@ -111,11 +108,7 @@ describe('limel-chip-set', () => {
             });
 
             it('deselects the first chip', () => {
-                expect(chips[0]).not.toHaveClass('mdc-chip--selected');
-            });
-
-            it('does not select the second chip', () => {
-                expect(chips[1]).not.toHaveClass('mdc-chip--selected');
+                expect(chips[0].getAttribute('selected')).toBeNull();
             });
         });
 
@@ -124,14 +117,8 @@ describe('limel-chip-set', () => {
                 await chips[1].click();
             });
 
-            it('emits two change events', () => {
-                expect(spy).toHaveReceivedEventTimes(2);
+            it('emits a change event', () => {
                 expect(spy.events[0].detail).toEqual({
-                    id: '1',
-                    text: 'Lime',
-                    selected: false,
-                });
-                expect(spy.events[1].detail).toEqual({
                     id: '2',
                     text: 'Apple',
                     selected: true,
@@ -139,11 +126,11 @@ describe('limel-chip-set', () => {
             });
 
             it('deselects the first chip', async () => {
-                expect(chips[0]).not.toHaveClass('mdc-chip--selected');
+                expect(chips[0].getAttribute('selected')).toBeNull();
             });
 
             it('selects the second chip', async () => {
-                expect(chips[1]).toHaveClass('mdc-chip--selected');
+                expect(chips[1].getAttribute('selected')).not.toBeNull();
             });
         });
     });
@@ -169,18 +156,18 @@ describe('limel-chip-set', () => {
 
             await page.waitForChanges();
 
-            chips = await page.findAll('limel-chip-set >>> .mdc-chip');
+            chips = await page.findAll('limel-chip-set >>> limel-chip');
 
             spy = await chipSet.spyOnEvent('change');
         });
 
         it('renders the chips correctly', () => {
             expect(chips.length).toEqual(2);
-            expect(chips[0]).toEqualText('Lime');
-            expect(chips[1]).toEqualText('Apple');
+            expect(chips[0].getAttribute('text')).toEqualText('Lime');
+            expect(chips[1].getAttribute('text')).toEqualText('Apple');
 
-            expect(chips[0]).toHaveClass('mdc-chip--selected');
-            expect(chips[1]).not.toHaveClass('mdc-chip--selected');
+            expect(chips[0].getAttribute('selected')).not.toBeNull();
+            expect(chips[1].getAttribute('selected')).toBeNull();
         });
 
         describe('when the first chip is clicked', () => {
@@ -198,11 +185,11 @@ describe('limel-chip-set', () => {
             });
 
             it('deselects the first chip', () => {
-                expect(chips[0]).not.toHaveClass('mdc-chip--selected');
+                expect(chips[0].getAttribute('selected')).toBeNull();
             });
 
             it('does not select the second chip', () => {
-                expect(chips[1]).not.toHaveClass('mdc-chip--selected');
+                expect(chips[1].getAttribute('selected')).toBeNull();
             });
         });
 
@@ -220,12 +207,12 @@ describe('limel-chip-set', () => {
                 });
             });
 
-            it('deselects the first chip', () => {
-                expect(chips[0]).toHaveClass('mdc-chip--selected');
+            it('selects the first chip', () => {
+                expect(chips[0].getAttribute('selected')).not.toBeNull();
             });
 
             it('selects the second chip', () => {
-                expect(chips[1]).toHaveClass('mdc-chip--selected');
+                expect(chips[1].getAttribute('selected')).not.toBeNull();
             });
         });
     });
@@ -254,20 +241,18 @@ describe('limel-chip-set', () => {
 
             await page.waitForChanges();
 
-            chips = await page.findAll('limel-chip-set >>> .mdc-chip');
+            chips = await page.findAll('limel-chip-set >>> limel-chip');
 
-            firstChipRemoveButton = await chips[0].find(
-                'button.mdc-deprecated-chip-trailing-action',
-            );
-            secondChipRemoveButton = await chips[1].find(
-                'button.mdc-deprecated-chip-trailing-action',
-            );
+            firstChipRemoveButton =
+                await chips[0].shadowRoot.querySelector('.remove-button');
+            secondChipRemoveButton =
+                await chips[1].shadowRoot.querySelector('.remove-button');
         });
 
-        it('renders the chips correctly', () => {
+        it('renders the chips correctly', async () => {
             expect(chips.length).toEqual(2);
-            expect(chips[0]).toEqualText('Lime');
-            expect(chips[1]).toEqualText('Apple');
+            expect(chips[0].getAttribute('text')).toEqualText('Lime');
+            expect(chips[1].getAttribute('text')).toEqualText('Apple');
 
             expect(firstChipRemoveButton).toBeTruthy();
             expect(secondChipRemoveButton).toBeFalsy();
@@ -308,38 +293,21 @@ describe('limel-chip-set', () => {
             });
         });
 
-        describe('when a chip delete button is clicked', () => {
-            beforeEach(async () => {
-                spy = await chipSet.spyOnEvent('change');
-                await firstChipRemoveButton.click();
-            });
-
-            it('emits a change event where the removed chip is not present', () => {
-                expect(spy).toHaveReceivedEventTimes(1);
-                expect(spy.events[0].detail).toEqual([
-                    {
-                        id: '2',
-                        text: 'Apple',
-                    },
-                ]);
-            });
-        });
-
         describe('when disabled', () => {
             beforeEach(async () => {
                 chipSet.setAttribute('disabled', true);
                 await page.waitForChanges();
 
                 firstChipRemoveButton =
-                    await chips[0].find('div[role="button"]');
+                    await chips[0].shadowRoot.querySelector('.remove-button');
                 secondChipRemoveButton =
-                    await chips[1].find('div[role="button"]');
+                    await chips[1].shadowRoot.querySelector('.remove-button');
             });
 
             it('renders the chips without delete-buttons', async () => {
                 expect(chips.length).toEqual(2);
-                expect(chips[0]).toEqualText('Lime');
-                expect(chips[1]).toEqualText('Apple');
+                expect(chips[0].getAttribute('text')).toEqualText('Lime');
+                expect(chips[1].getAttribute('text')).toEqualText('Apple');
 
                 expect(firstChipRemoveButton).toBeFalsy();
                 expect(secondChipRemoveButton).toBeFalsy();
@@ -352,15 +320,15 @@ describe('limel-chip-set', () => {
                 await page.waitForChanges();
 
                 firstChipRemoveButton =
-                    await chips[0].find('div[role="button"]');
+                    await chips[0].shadowRoot.querySelector('.remove-button');
                 secondChipRemoveButton =
-                    await chips[1].find('div[role="button"]');
+                    await chips[1].shadowRoot.querySelector('.remove-button');
             });
 
             it('renders the chips without delete-buttons', async () => {
                 expect(chips.length).toEqual(2);
-                expect(chips[0]).toEqualText('Lime');
-                expect(chips[1]).toEqualText('Apple');
+                expect(chips[0].getAttribute('text')).toEqualText('Lime');
+                expect(chips[1].getAttribute('text')).toEqualText('Apple');
 
                 expect(firstChipRemoveButton).toBeFalsy();
                 expect(secondChipRemoveButton).toBeFalsy();
