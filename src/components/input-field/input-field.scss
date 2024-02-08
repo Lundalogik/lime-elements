@@ -56,12 +56,6 @@
 @include shared_input-select-picker.lime-empty-value-for-readonly;
 @include shared_input-select-picker.lime-looks-like-input-value;
 
-.mdc-text-field--with-trailing-icon {
-    .mdc-text-field__icon--trailing {
-        margin-right: functions.pxToRem(8);
-    }
-}
-
 .lime-text-field--empty {
     .mdc-text-field__icon--trailing {
         @include shared_input-select-picker.looks-disabled;
@@ -172,3 +166,24 @@ input.mdc-text-field__input {
 
 @import './partial-styles/trailing-icon.scss';
 @import './partial-styles/readonly';
+
+// To make the input field render smaller than the default MDC UI
+.mdc-text-field {
+    &.mdc-text-field--outlined {
+        height: shared_input-select-picker.$height-of-mdc-text-field;
+    }
+}
+.mdc-text-field--with-trailing-icon {
+    .mdc-text-field__icon--trailing {
+        padding: 0.25rem;
+        margin-right: 0.25rem;
+    }
+}
+.mdc-text-field--outlined.mdc-text-field--with-leading-icon {
+    .mdc-text-field__icon--leading {
+        margin-left: 0.25rem;
+    }
+    .mdc-floating-label {
+        left: 1.5rem;
+    }
+}

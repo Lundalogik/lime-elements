@@ -25,7 +25,7 @@ $input-text-leading-icon-color: rgb(var(--contrast-900));
 $input-text-color-disabled: rgba(var(--contrast-1400), 0.5);
 $helper-text-color: $label-color;
 
-$height-of-mdc-text-field: 3.5rem; //This is written directly in rem, beucase the vaiable used to calculate things elsewhere
+$height-of-mdc-text-field: 2.5rem; //This is written directly in `rem`, becurse the variable used to calculate things elsewhere
 $height-of-mdc-helper-text-block: 0.9375rem;
 
 $mdc-chip-background-color: rgb(var(--contrast-100));
@@ -117,6 +117,15 @@ $cropped-label-hack--font-size: 0.875rem; //14px
             .mdc-text-field__input {
                 color: $input-text-color-disabled;
             }
+        }
+    }
+
+    .mdc-floating-label--float-above {
+        transform: translateY(#{functions.pxToRem(-27)}) scale(0.75) !important;
+
+        .mdc-text-field--with-leading-icon & {
+            transform: translateY(#{functions.pxToRem(-25)})
+                translateX(#{functions.pxToRem(-20)}) scale(0.75) !important;
         }
     }
 }
@@ -325,7 +334,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
 
                 limel-icon {
                     width: 1.5rem;
-                    margin-right: 0.5rem;
+                    margin-right: 0.25rem;
                 }
             }
 

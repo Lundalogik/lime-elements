@@ -42,6 +42,9 @@
 }
 
 .mdc-slider {
+    .mdc-slider__thumb {
+        top: -0.25rem;
+    }
     .mdc-slider__value-indicator-container {
         z-index: 1; //FIXME
     }

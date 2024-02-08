@@ -49,10 +49,12 @@
 
     align-self: center;
     min-width: 0; // makes it truncate and prevents the select to grow wider than its container
+    padding: 0 0.25rem 0 1rem;
 }
 
 .limel-select__selected-option__icon {
     margin-right: functions.pxToRem(8);
+    margin-left: functions.pxToRem(-8);
     flex-shrink: 0;
 }
 
@@ -73,6 +75,10 @@
         }
     }
 
+    .mdc-select__anchor {
+        height: functions.pxToRem(36);
+        padding-left: functions.pxToRem(0);
+    }
     .limel-select-trigger {
         border: none;
         height: shared_input-select-picker.$height-of-mdc-text-field;
@@ -88,7 +94,7 @@
             ); //This forces the label to truncate when container is too little.
             &.mdc-floating-label--float-above {
                 font-size: shared_input-select-picker.$cropped-label-hack--font-size;
-                transform: translateY(functions.pxToRem(-34.75)) scale(0.75);
+                transform: translateY(functions.pxToRem(-27)) scale(0.75);
             }
         }
     }
@@ -99,6 +105,7 @@
     }
 
     .mdc-select__dropdown-icon {
+        margin-right: 0.25rem;
         margin-left: 0.25rem;
     }
 
@@ -182,33 +189,6 @@ select.limel-select__native-control {
     height: 100%;
     opacity: 0;
     border: 0;
-}
-
-:host(.is-narrow) {
-    .limel-select {
-        .mdc-select__anchor {
-            height: functions.pxToRem(36);
-            padding-left: functions.pxToRem(0);
-        }
-
-        .mdc-select__dropdown-icon {
-            margin-right: 0.25rem;
-        }
-    }
-
-    .mdc-floating-label {
-        &.mdc-floating-label--float-above {
-            top: functions.pxToRem(28);
-        }
-    }
-
-    .limel-select__selected-option {
-        padding: 0 0.25rem 0 1rem;
-    }
-
-    .limel-select__selected-option__icon {
-        margin-left: functions.pxToRem(-8);
-    }
 }
 
 @import './partial-styles/_readonly';

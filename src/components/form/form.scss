@@ -1,5 +1,6 @@
 @use '../../style/internal/lime-theme';
 @use '../../style/internal/lime-typography';
+@use '../../style/internal/shared_input-select-picker';
 
 /**
  * @prop --form-body-padding: space around content of the form. Defaults to `1rem`.
@@ -42,7 +43,7 @@ limel-code-editor {
 }
 
 .limel-form-layout--grid {
-    --min-height-of-one-row: 3.5rem;
+    --min-height-of-one-row: #{shared_input-select-picker.$height-of-mdc-text-field};
     display: grid;
     column-gap: var(--form-column-gap, 1rem);
     row-gap: var(--form-row-gap, 1rem);
@@ -140,7 +141,7 @@ limel-code-editor {
         min-height: var(--min-height-of-one-row);
     }
     limel-checkbox {
-        margin-top: 0.5rem;
+        //  margin-top: 0.5rem;
         display: block;
     }
     limel-switch {
