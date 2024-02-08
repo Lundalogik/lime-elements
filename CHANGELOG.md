@@ -1,3 +1,15 @@
+## [37.2.4](https://github.com/Lundalogik/lime-elements/compare/v37.2.3...v37.2.4) (2024-02-08)
+
+
+### Bug Fixes
+
+
+* **button:** don't block all pointer events on a `disabled` button ([fa9ed2b](https://github.com/Lundalogik/lime-elements/commit/fa9ed2b9e0266a540cd91099ee4267c6b7c7294a))
+* **icon-button:** don't block all pointer events on a `disabled` button ([9f79d3c](https://github.com/Lundalogik/lime-elements/commit/9f79d3c03ed321d283f7ac1882e4fed7faeb3cfb))
+* **select:** better visualize `disabled` state ([b631a07](https://github.com/Lundalogik/lime-elements/commit/b631a073b63da4bcc0fa9fb1448699c9bfb88191))
+* **split-button:** don't block all pointer events on a `disabled` button ([099362f](https://github.com/Lundalogik/lime-elements/commit/099362fb697852217134235b656a8ae828fb3c38))
+* **switch:** better visualize `disabled` state ([db2388e](https://github.com/Lundalogik/lime-elements/commit/db2388e4964c9ed31643441127baa470ac8544d5))
+
 ## [37.2.3](https://github.com/Lundalogik/lime-elements/compare/v37.2.2...v37.2.3) (2024-02-07)
 
 
