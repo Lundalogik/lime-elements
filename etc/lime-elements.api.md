@@ -183,14 +183,14 @@ export namespace Components {
     export interface LimelChip {
         "badge"?: string | number;
         "disabled": boolean;
-        "icon": string | Icon;
+        "icon"?: string | Icon;
         "language": Languages;
         "link"?: Omit<Link, 'text'>;
         "readonly": boolean;
         "removable": boolean;
         "selected": boolean;
         "text": string;
-        "type": 'filter';
+        "type"?: 'filter';
     }
     // (undocumented)
     export interface LimelChipSet {
