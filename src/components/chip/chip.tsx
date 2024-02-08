@@ -90,7 +90,7 @@ export class Chip implements ChipInterface {
      * Icon of the chip.
      */
     @Prop()
-    public icon: string | Icon;
+    public icon?: string | Icon;
 
     /**
      * If supplied, the chip will become a clickable link.
@@ -136,7 +136,7 @@ export class Chip implements ChipInterface {
      * suitable for visualizing filters.
      */
     @Prop({ reflect: true })
-    public type: 'filter';
+    public type?: 'filter';
 
     /**
      * Fired when clicking on the remove button of a `removable` chip.
