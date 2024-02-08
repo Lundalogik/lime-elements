@@ -54,6 +54,14 @@
     &:has(+ .remove-button:hover) {
         box-shadow: var(--shadow-depth-8-error);
     }
+
+    &:has(+ .trailing-button) {
+        padding-right: calc(var(--limel-chip-height) + 0.125rem);
+
+        .text {
+            padding-right: 0;
+        }
+    }
 }
 
 :host(limel-chip[disabled]) {
@@ -86,16 +94,6 @@
     }
     .text {
         color: var(--mdc-theme-primary);
-    }
-}
-
-:host(limel-chip[removable]) {
-    .chip:not([disabled]) {
-        padding-right: calc(var(--limel-chip-height) + 0.125rem);
-
-        .text {
-            padding-right: 0;
-        }
     }
 }
 
