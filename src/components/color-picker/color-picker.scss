@@ -1,14 +1,16 @@
 @use '../../style/mixins';
+@use '../../style/internal/shared_input-select-picker';
 @import './partial-styles/lime-admin-hack';
 
 :host {
+    position: relative;
     --popover-surface-width: 50rem;
     --color-picker-default-background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill='rgba(186,186,192,0.16)' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
 }
 
 .color-picker {
     display: grid;
-    gap: 0.5rem;
+    gap: 0.25rem;
     grid-template-columns: auto 1fr;
 }
 
@@ -28,8 +30,8 @@
     box-sizing: border-box;
     position: relative;
     isolation: isolate;
-    width: 3.5rem;
-    height: 3.5rem;
+    width: shared_input-select-picker.$height-of-mdc-text-field;
+    height: shared_input-select-picker.$height-of-mdc-text-field;
 
     &:before,
     &:after {
@@ -63,5 +65,12 @@
 }
 
 .chosen-color-input[readonly] {
-    transform: translateY(1rem);
+    transform: translateX(
+            calc(
+                #{shared_input-select-picker.$height-of-mdc-text-field} / 4 * -1
+            )
+        )
+        translateY(
+            calc(#{shared_input-select-picker.$height-of-mdc-text-field} / 4)
+        );
 }

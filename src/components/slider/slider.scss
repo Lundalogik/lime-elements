@@ -13,7 +13,11 @@
 
     display: flex;
     flex-direction: column;
-    margin-top: functions.pxToRem(4);
+}
+
+.mdc-slider {
+    height: shared_input-select-picker.$height-of-mdc-text-field;
+    margin: 0 0.75rem;
 }
 
 .mdc-floating-label,
@@ -29,9 +33,7 @@
 
 .slider__label {
     padding-left: functions.pxToRem(20);
-    top: functions.pxToRem(
-        9
-    ); // To place its label on the same height as other `floating-label`s in a form
+    top: 0.75rem; // To place its label on the same height as other `floating-label`s in a form
 
     color: shared_input-select-picker.$label-color;
     :host(limel-slider.disabled:not(.readonly)) & {
@@ -43,22 +45,18 @@
     display: flex;
     order: 2;
     justify-content: space-between;
-    width: calc(100% - #{functions.pxToRem(24)});
     margin: 0 auto;
-    margin-top: functions.pxToRem(-16);
+    margin-top: -0.75rem;
+    width: 100%;
 }
 
 .slider__content-min-label,
 .slider__content-max-label {
+    line-height: 1;
     transition: opacity 0.2s ease;
     opacity: 0.7;
     font-size: functions.pxToRem(12);
-    top: functions.pxToRem(20);
     color: shared_input-select-picker.$helper-text-color;
-
-    .slider:hover & {
-        opacity: 1;
-    }
 }
 
 .mdc-slider__track {

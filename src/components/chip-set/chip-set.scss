@@ -31,7 +31,7 @@
 @include shared_input-select-picker.lime-looks-like-input-value;
 
 $height-of-chip-set-input: functions.pxToRem(36);
-$leading-icon-space: functions.pxToRem(40);
+$leading-icon-space: 1.5rem;
 
 :host(limel-chip-set) {
     isolation: isolate;
@@ -51,8 +51,7 @@ $leading-icon-space: functions.pxToRem(40);
     }
 
     &.mdc-chip-set--input {
-        padding: functions.pxToRem(8);
-
+        padding: 0.4rem 0.5rem;
         width: 100%;
     }
 
@@ -123,7 +122,7 @@ $leading-icon-space: functions.pxToRem(40);
             // vertically, when there are multiple rows of chips.
             top: functions.pxToRem(27);
 
-            transform: translateY(-34.75px) scale(0.75);
+            transform: translateY(-34.75px) scale(0.75) !important;
             font-size: shared_input-select-picker.$cropped-label-hack--font-size;
         }
     }
@@ -138,8 +137,8 @@ $leading-icon-space: functions.pxToRem(40);
     @include mixins.visualize-keyboard-focus;
 
     position: absolute;
-    right: functions.pxToRem(8);
-    top: functions.pxToRem(18);
+    right: 0.5rem;
+    top: calc(#{shared_input-select-picker.$height-of-mdc-text-field} / 4);
 
     opacity: 0; // Is hidden, but can receive focus (such as when navigating through tab indexes).
 
@@ -174,15 +173,15 @@ $leading-icon-space: functions.pxToRem(40);
 
     limel-chip {
         &:first-of-type {
-            margin-left: 40px;
+            margin-left: 1.5rem;
         }
     }
 
     .search-icon {
         transition: transform 0.2s ease;
         position: absolute;
-        top: functions.pxToRem(16);
-        left: functions.pxToRem(16);
+        top: functions.pxToRem(9);
+        left: 0.25rem;
     }
 
     limel-icon {
@@ -208,3 +207,10 @@ limel-chip {
 @import './partial-styles/_readonly';
 @import './partial-styles/_file-picker';
 @import './partial-styles/_helper-text';
+
+// To make the input field render smaller than the default MDC UI
+.mdc-text-field {
+    &.mdc-text-field--outlined {
+        min-height: shared_input-select-picker.$height-of-mdc-text-field;
+    }
+}

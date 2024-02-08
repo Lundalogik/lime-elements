@@ -1,5 +1,6 @@
 @use '../../style/internal/lime-theme';
 @use '../../style/mixins';
+@use '../../style/internal/shared_input-select-picker';
 
 /**
  * @prop --closed-header-background-color: background color for header when closed
@@ -74,8 +75,7 @@ header {
     justify-content: space-between;
 
     padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    height: 3rem;
+    height: shared_input-select-picker.$height-of-mdc-text-field;
 }
 
 .title {
