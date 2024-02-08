@@ -20,7 +20,7 @@ import {
     DELETE,
     DELETE_KEY_CODE,
 } from '../../util/keycodes';
-import { Chip as OldChipInterface } from '../chip-set/chip.types';
+import { ChipType, Chip as OldChipInterface } from '../chip-set/chip.types';
 
 interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
     /**
@@ -142,9 +142,11 @@ export class Chip implements ChipInterface {
     /**
      * Set to `filter` to render the chip with a distinct style
      * suitable for visualizing filters.
+     *
+     * @beta
      */
     @Prop({ reflect: true })
-    public type?: 'filter';
+    public type?: ChipType = 'default';
 
     /**
      * Identifier for the chip. Must be unique.

@@ -66,6 +66,9 @@ export interface Chip<T = any> {
     value?: T;
 }
 
+// @beta
+export type ChipType = 'default' | 'filter';
+
 // @public (undocumented)
 export type CircularProgressSize = 'x-small' | 'small' | 'medium' | 'large' | 'x-large';
 
@@ -191,7 +194,8 @@ export namespace Components {
         "removable": boolean;
         "selected": boolean;
         "text": string;
-        "type"?: 'filter';
+        // @beta
+        "type"?: ChipType;
     }
     // (undocumented)
     export interface LimelChipSet {
@@ -993,7 +997,8 @@ namespace JSX_2 {
         "removable"?: boolean;
         "selected"?: boolean;
         "text"?: string;
-        "type"?: 'filter';
+        // @beta
+        "type"?: ChipType;
     }
     // (undocumented)
     interface LimelChipSet {
