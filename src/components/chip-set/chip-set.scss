@@ -181,11 +181,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
             ); // This leaves space for "clear all" button and avoids overlapping with chips
         }
     }
-
-    &.disabled:not(.mdc-chip-set--input) {
-        @include shared_input-select-picker.looks-disabled;
-        pointer-events: none;
-    }
 }
 
 .mdc-chip__icon {
