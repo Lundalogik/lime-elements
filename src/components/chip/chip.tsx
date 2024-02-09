@@ -155,6 +155,8 @@ export class Chip implements ChipInterface {
         removeEnterClickable(this.host);
     }
 
+    private chipId = 'chip-' + crypto.randomUUID();
+
     public render() {
         return (
             <Host onClick={this.filterClickWhenDisabled}>
@@ -166,6 +168,7 @@ export class Chip implements ChipInterface {
     private renderAsButton = () => {
         return [
             <button
+                id={this.chipId}
                 class="chip"
                 role="button"
                 disabled={this.disabled || this.readonly}
@@ -182,6 +185,7 @@ export class Chip implements ChipInterface {
     private renderAsLink = () => {
         return [
             <a
+                id={this.chipId}
                 class="chip"
                 href={this.link.href}
                 title={this.link.title}
@@ -244,6 +248,7 @@ export class Chip implements ChipInterface {
                 class="trailing-button remove-button"
                 tabIndex={-1}
                 aria-label={this.removeChipLabel}
+                aria-controls={this.chipId}
                 innerHTML={svgData}
                 onClick={this.handleRemoveClick}
             />

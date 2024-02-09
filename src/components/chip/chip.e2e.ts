@@ -16,25 +16,18 @@ describe('limel-chip', () => {
     });
 
     it('renders as a link when the link prop is provided', async () => {
-        await page.setContent(
-            '<limel-chip text="Test chip" link="{ href: \'https://example.com\' }"></limel-chip>',
-        );
+        await page.setContent('<limel-chip></limel-chip>');
 
         const element = await page.find('limel-chip');
-        element.setProperty('link', { href: 'https://example.com' });
-
+        element.setProperty('link', { href: 'http://example.com' });
         await page.waitForChanges();
 
-        expect(element)
-            .toEqualHtml(`<limel-chip class="hydrated" language="en" link="{ href: 'https://example.com' }" text="Test chip">
-        <mock:shadow-root>
-          <a class="chip" href="https://example.com" tabindex="0">
-            <span class="text">
-              Test chip
-            </span>
-          </a>
-        </mock:shadow-root>
-      </limel-chip>`);
+        const linkElement = await page.find('limel-chip >>> a');
+        expect(linkElement).toBeTruthy();
+
+        // Check if id starts with "chip-"
+        const id = await linkElement.getAttribute('id');
+        expect(id).toMatch(/^chip-/);
     });
 
     it('renders with a badge when the badge prop is provided', async () => {
