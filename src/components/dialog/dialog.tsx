@@ -164,7 +164,7 @@ export class Dialog {
                             the focus trap to use. Read more here:
                             https://github.com/material-components/material-components-web/tree/v11.0.0/packages/mdc-dialog#handling-focus-trapping
                         */}
-                        <input type="text" id="initialFocusElement" />
+                        <input type="button" id="initialFocusElement" />
                         {this.renderHeading()}
                         <div
                             class="mdc-dialog__content"
