@@ -1,5 +1,5 @@
 import { Component, Prop } from '@stencil/core';
-import { globalConfig } from '../../global/config';
+import { Config, globalConfig } from '../../global/config';
 
 /**
  * @private
@@ -8,16 +8,12 @@ import { globalConfig } from '../../global/config';
     tag: 'limel-config',
     shadow: true,
 })
-export class Config {
+export class ConfigComponent {
     /**
-     * Global configuration for Lime Elements
+     * Global configuration for Lime Elements.
      */
     @Prop()
-    public config: {
-        iconPath?: string;
-        defaultLocale?: string;
-        featureSwitches: any;
-    };
+    public config: Config;
 
     public componentDidLoad() {
         this.setGlobalConfig();

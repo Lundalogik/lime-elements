@@ -1,4 +1,26 @@
-export class Config {
+/**
+ * Configuration options for limel-config.
+ *
+ * @public
+ */
+export type Config = {
+    /**
+     * The path to where the icon library used by limel-icon is located.
+     */
+    iconPath?: string;
+
+    /**
+     * The default locale to use for components that support localization.
+     */
+    defaultLocale?: string;
+
+    /**
+     * @internal
+     */
+    featureSwitches?: any;
+};
+
+class ConfigClass implements Config {
     public iconPath = '';
     public defaultLocale = navigator.language;
     public featureSwitches: any = getFeatureSwitches(localStorage);
@@ -20,7 +42,7 @@ function getFeatureSwitches(storage: Storage) {
     return features;
 }
 
-const config = new Config();
+const config = new ConfigClass();
 export const globalConfig = (() => {
     return config;
 })();
