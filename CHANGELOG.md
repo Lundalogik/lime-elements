@@ -1,3 +1,11 @@
+## [37.2.6](https://github.com/Lundalogik/lime-elements/compare/v37.2.5...v37.2.6) (2024-02-12)
+
+
+### Bug Fixes
+
+
+* **dialog:** avoid keyboard automatically opening when dialog opens on android ([6e8a624](https://github.com/Lundalogik/lime-elements/commit/6e8a62496bb78e2438f5d99f58602e5c70e14c7b))
+
 ## [37.2.5](https://github.com/Lundalogik/lime-elements/compare/v37.2.4...v37.2.5) (2024-02-12)
 
 
