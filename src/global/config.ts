@@ -17,7 +17,7 @@ export type Config = {
     /**
      * @internal
      */
-    featureSwitches?: any;
+    featureSwitches?: Record<string, boolean>;
 };
 
 class ConfigClass implements Config {
