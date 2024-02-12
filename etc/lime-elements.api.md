@@ -253,7 +253,6 @@ export namespace Components {
         "required": boolean;
         "value": string;
     }
-    // (undocumented)
     export interface LimelConfig {
         "config": Config;
     }
@@ -1056,7 +1055,6 @@ namespace JSX_2 {
         "required"?: boolean;
         "value"?: string;
     }
-    // (undocumented)
     interface LimelConfig {
         "config"?: Config;
     }
