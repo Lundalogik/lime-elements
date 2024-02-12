@@ -1,3 +1,13 @@
+## [37.2.5](https://github.com/Lundalogik/lime-elements/compare/v37.2.4...v37.2.5) (2024-02-12)
+
+
+### Bug Fixes
+
+
+* **chip:** improve accessibility using `aria-controls` on the remove button ([87d3181](https://github.com/Lundalogik/lime-elements/commit/87d318161834f21e556d5e0b61322ebc16f8a931))
+* **chip:** mark optional props as optional ([6451e02](https://github.com/Lundalogik/lime-elements/commit/6451e02db2d302130d9c05c12b2e4739e50b7fad))
+* **chip:** prevent extra padding on `disabled` & `removable` chip ([bfba0cb](https://github.com/Lundalogik/lime-elements/commit/bfba0cb8d150dbf3a7e33c5954794b8294423c59))
+
 ## [37.2.4](https://github.com/Lundalogik/lime-elements/compare/v37.2.3...v37.2.4) (2024-02-08)
 
 
