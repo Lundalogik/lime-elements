@@ -618,7 +618,7 @@ export namespace Components {
 export type Config = {
     iconPath?: string;
     defaultLocale?: string;
-    featureSwitches?: any;
+    featureSwitches?: Record<string, boolean>;
 };
 
 // @public (undocumented)
