@@ -482,7 +482,14 @@ export namespace Components {
         "required": boolean;
         "searcher": Searcher;
         "searchLabel": string;
-        "value": ListItem<number | string> | Array<ListItem<number | string>>;
+        "value": | ListItem<
+        number | string | { id: string | number; [key: string]: any }
+        >
+        | Array<
+        ListItem<
+        number | string | { id: string | number; [key: string]: any }
+        >
+        >;
     }
     export interface LimelPopover {
         "open": boolean;
@@ -1310,7 +1317,14 @@ namespace JSX_2 {
         "required"?: boolean;
         "searcher"?: Searcher;
         "searchLabel"?: string;
-        "value"?: ListItem<number | string> | Array<ListItem<number | string>>;
+        "value"?: | ListItem<
+        number | string | { id: string | number; [key: string]: any }
+        >
+        | Array<
+        ListItem<
+        number | string | { id: string | number; [key: string]: any }
+        >
+        >;
     }
     interface LimelPopover {
         "onClose"?: (event: LimelPopoverCustomEvent<void>) => void;
