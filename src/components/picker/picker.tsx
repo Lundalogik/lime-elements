@@ -38,6 +38,7 @@ const CHIP_SET_TAG_NAME = 'limel-chip-set';
  * @exampleComponent limel-example-picker-single
  * @exampleComponent limel-example-picker-multiple
  * @exampleComponent limel-example-picker-icons
+ * @exampleComponent limel-example-picker-value-as-object
  * @exampleComponent limel-example-picker-empty-suggestions
  * @exampleComponent limel-example-picker-leading-icon
  * @exampleComponent limel-example-picker-static-actions
@@ -106,10 +107,18 @@ export class Picker {
     public invalid = false;
 
     /**
-     * Currently selected value or values
+     * Currently selected value or values. Where the value can be an object.
      */
     @Prop()
-    public value: ListItem<number | string> | Array<ListItem<number | string>>;
+    public value:
+        | ListItem<
+              number | string | { id: string | number; [key: string]: any }
+          >
+        | Array<
+              ListItem<
+                  number | string | { id: string | number; [key: string]: any }
+              >
+          >;
 
     /**
      * A search function that takes a search-string as an argument,
@@ -301,7 +310,16 @@ export class Picker {
         return null;
     }
 
-    private createChips(value: ListItem | ListItem[]): Chip[] {
+    private getValueId = (item: ListItem) => {
+        const value = item.value;
+        if (!!value && typeof value === 'object') {
+            return value.id;
+        }
+
+        return value;
+    };
+
+    private createChips = (value: ListItem | ListItem[]): Chip[] => {
         if (!value) {
             return [];
         }
@@ -315,20 +333,21 @@ export class Picker {
         const listItem: ListItem = value as ListItem;
 
         return [this.createChip(listItem)];
-    }
+    };
 
-    private createChip(listItem: ListItem): Chip {
+    private createChip = (listItem: ListItem): Chip => {
         const name = getIconName(listItem.icon);
         const color = getIconFillColor(listItem.icon, listItem.iconColor);
+        const valueId = this.getValueId(listItem);
 
         return {
-            id: `${listItem.value}`,
+            id: `${valueId}`,
             text: listItem.text,
             removable: true,
             icon: name ? { name: name, color: color } : undefined,
             value: listItem,
         };
-    }
+    };
 
     /**
      * Renders the dropdown with the items to pick from, or a spinner if the picker
@@ -602,7 +621,9 @@ export class Picker {
             const chips = event.detail as Chip[];
             newValue = chips.map((chip) => {
                 return (this.value as ListItem[]).find((item) => {
-                    return `${item.value}` === chip.id;
+                    const valueId = this.getValueId(item);
+
+                    return `${valueId}` === chip.id;
                 });
             });
         }
