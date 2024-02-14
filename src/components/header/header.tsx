@@ -43,6 +43,7 @@ import { getIconName } from '../icon/get-icon-props';
  * :::
  *
  * @exampleComponent limel-example-header
+ * @exampleComponent limel-example-header-slot-actions
  * @exampleComponent limel-example-header-colors
  * @exampleComponent limel-example-header-responsive
  * @exampleComponent limel-example-header-narrow

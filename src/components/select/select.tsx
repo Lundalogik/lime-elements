@@ -30,7 +30,6 @@ import { SelectTemplate, triggerIconColorWarning } from './select.template';
  * @exampleComponent limel-example-select-with-empty-option
  * @exampleComponent limel-example-select-preselected
  * @exampleComponent limel-example-select-change-options
- * @exampleComponent limel-example-select-narrow
  * @exampleComponent limel-example-select-dialog
  */
 @Component({
