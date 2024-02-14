@@ -1,3 +1,11 @@
+## [37.2.7](https://github.com/Lundalogik/lime-elements/compare/v37.2.6...v37.2.7) (2024-02-14)
+
+
+### Bug Fixes
+
+
+* **config:** revert unintentional breaking change in 37.2.0 ([49d74b4](https://github.com/Lundalogik/lime-elements/commit/49d74b4ab0d6c6a9b44abc9a8f689ac197b05a9c)), closes [#2781](https://github.com/Lundalogik/lime-elements/issues/2781)
+
 ## [37.2.6](https://github.com/Lundalogik/lime-elements/compare/v37.2.5...v37.2.6) (2024-02-12)
 
 

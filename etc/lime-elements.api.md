@@ -253,13 +253,8 @@ export namespace Components {
         "required": boolean;
         "value": string;
     }
-    // (undocumented)
     export interface LimelConfig {
-        "config": {
-            iconPath?: string;
-            defaultLocale?: string;
-            featureSwitches: any;
-        };
+        "config": Config;
     }
     // (undocumented)
     export interface LimelDatePicker {
@@ -625,6 +620,13 @@ export namespace Components {
         "maxlength"?: number;
     }
 }
+
+// @public
+export type Config = {
+    iconPath?: string;
+    defaultLocale?: string;
+    featureSwitches?: Record<string, boolean>;
+};
 
 // @public (undocumented)
 export type DateType = 'datetime' | 'date' | 'time' | 'week' | 'month' | 'quarter' | 'year';
@@ -1060,13 +1062,8 @@ namespace JSX_2 {
         "required"?: boolean;
         "value"?: string;
     }
-    // (undocumented)
     interface LimelConfig {
-        "config"?: {
-            iconPath?: string;
-            defaultLocale?: string;
-            featureSwitches: any;
-        };
+        "config"?: Config;
     }
     // (undocumented)
     interface LimelDatePicker {

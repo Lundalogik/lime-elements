@@ -1,23 +1,31 @@
 import { Component, Prop } from '@stencil/core';
-import { globalConfig } from '../../global/config';
+import { Config, globalConfig } from '../../global/config';
 
 /**
+ * Component used to set global configuration for Lime Elements.
+ *
+ * :::warning
+ * **Building something for Lime CRM?** Then you should _NOT_ use this component.
+ * Lime CRM already uses this component to set the global configuration for
+ * Lime Elements. No matter what problem you are facing at the moment, using
+ * this component will not help, and might cause other problems.
+ * :::
+ *
+ * Building your own software, which is using Lime Elements?
+ * Then you _might_ need to use this component.
+ *
  * @private
  */
 @Component({
     tag: 'limel-config',
     shadow: true,
 })
-export class Config {
+export class ConfigComponent {
     /**
-     * Global configuration for Lime Elements
+     * Global configuration for Lime Elements.
      */
     @Prop()
-    public config: {
-        iconPath?: string;
-        defaultLocale?: string;
-        featureSwitches: any;
-    };
+    public config: Config;
 
     public componentDidLoad() {
         this.setGlobalConfig();
