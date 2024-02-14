@@ -1,3 +1,11 @@
+## [37.2.8](https://github.com/Lundalogik/lime-elements/compare/v37.2.7...v37.2.8) (2024-02-14)
+
+
+### Bug Fixes
+
+
+* **picker:** be able to have value as object ([a1319ba](https://github.com/Lundalogik/lime-elements/commit/a1319ba86799663dcb6c3c332995de3f2555b3e0))
+
 ## [37.2.7](https://github.com/Lundalogik/lime-elements/compare/v37.2.6...v37.2.7) (2024-02-14)
 
 
