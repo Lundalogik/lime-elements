@@ -1,28 +1,24 @@
 import { Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 /**
- * Narrow layout
- * The `limel-select` component has the same height and layout as other input types
- * in Lime elements. This makes the UI nice and tidy, when elements are placed
- * beside or on top of each other; for instance in a form.
+ * Using the "actions" slot
+ * The component offers a place for including custom actions, or
+ * any other component that you want to include in the header.
+ * To include any component in the `actions` area,
+ * you can simply use the `slot="actions"` attribute.
  *
- * However, sometimes you may need to render the `limel-select` component with a
- * narrower layout (smaller in height). For instance when the component is used
- * in a header, or when it is placed beside a component like `limel-button-group`.
- *
- * For such cases, you can simply apply the class of `is-narrow` to your component.
- * :::tip
- * In such use cases, the select usually does not need a `label`. Consider having
- * its first `option` pre-chosen and displayed by default instead. Also avoid using
- * `helperText` if possible.
- * :::
+ * :::note
+ * In small containers when having the default layout, the `actions` area
+ * wins the battle of limited space! It means, if you have a very wide
+ * component in the actions area, it will never shrink in size, and instead
+ * forces the headings to truncate.
+ *:::
  */
 @Component({
     shadow: true,
-    tag: 'limel-example-select-narrow',
-    styleUrl: 'select-narrow.scss',
+    tag: 'limel-example-header-slot-actions',
 })
-export class SelectExample {
+export class HeaderSlotActionsExample {
     @State()
     public value: Option = {
         text: 'select a colleague',
@@ -61,7 +57,7 @@ export class SelectExample {
                 subheading="Choose a colleague to see their statistics"
             >
                 <limel-select
-                    class="is-narrow"
+                    slot="actions"
                     value={this.value}
                     options={this.options}
                     onChange={this.handleChange}
