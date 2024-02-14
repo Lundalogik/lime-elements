@@ -147,17 +147,11 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     align-items: center;
     min-height: shared_input-select-picker.$height-of-mdc-text-field;
     position: relative;
-
-    &.chip-set--with-label {
-        .lime-floating-label--float-above {
-            padding-left: functions.pxToRem(4);
-        }
-    }
+    width: 100%;
 
     &.mdc-chip-set--input {
-        padding: functions.pxToRem(8);
-
-        width: 100%;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
 
         .mdc-chip--selected {
             // When chip is selected with keyboard (backspace / arrow-keys) to be deleted
@@ -222,7 +216,6 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
         width: auto;
         height: $height-of-chip-set-input;
         line-height: $height-of-chip-set-input;
-        padding: 0 functions.pxToRem(12);
 
         flex-grow: 1;
         flex-shrink: 0;
@@ -244,6 +237,12 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
                 display: none; // removes the default X button
             }
         }
+    }
+}
+
+.has-chips {
+    .mdc-text-field__input {
+        padding-left: 0.75rem;
     }
 }
 
@@ -281,6 +280,10 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
 
             transform: translateY(-34.75px) scale(0.75);
             font-size: shared_input-select-picker.$cropped-label-hack--font-size;
+
+            .mdc-text-field--with-leading-icon & {
+                transform: translateY(-34.75px) translateX(-32px) scale(0.75);
+            }
         }
     }
 }
@@ -312,37 +315,18 @@ limel-icon.mdc-chip__icon.mdc-chip__icon--leading {
     }
 }
 
-.has-leading-icon {
-    &:not(.has-chips) {
-        .mdc-text-field__input {
-            padding-left: $leading-icon-space;
-        }
+.mdc-text-field--with-leading-icon {
+    padding-left: 1rem !important;
+    .mdc-text-field__icon--leading {
+        margin-left: 0;
+    }
 
+    &:not(.has-chips) {
         .mdc-floating-label {
             &:not(.lime-floating-label--float-above) {
                 left: $leading-icon-space;
             }
-            &.mdc-floating-label--float-above {
-                left: functions.pxToRem(4);
-            }
         }
-    }
-
-    .mdc-chip {
-        &:first-of-type {
-            margin-left: 40px;
-        }
-    }
-
-    .search-icon {
-        transition: transform 0.2s ease;
-        position: absolute;
-        top: functions.pxToRem(16);
-        left: functions.pxToRem(16);
-    }
-
-    limel-icon {
-        background-color: transparent;
     }
 }
 

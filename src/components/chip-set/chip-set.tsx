@@ -390,13 +390,29 @@ export class ChipSet {
                     'force-invalid': this.isInvalid(),
                     'mdc-text-field--disabled': this.readonly || this.disabled,
                     'lime-text-field--readonly': this.readonly,
-                    'has-chips mdc-text-field--label-floating':
-                        this.value.length !== 0,
-                    'has-leading-icon': this.leadingIcon !== null,
+                    'has-chips': this.value.length !== 0,
+                    'mdc-text-field--label-floating':
+                        this.value.length !== 0 || this.editMode,
+                    'mdc-text-field--with-leading-icon':
+                        this.leadingIcon !== null,
                     'has-clear-all-button': this.clearAllButton,
                 }}
                 onClick={this.handleTextFieldFocus}
             >
+                <div
+                    class={{
+                        'mdc-notched-outline': true,
+                        'mdc-notched-outline--upgraded': true,
+                        'mdc-text-field--required': this.required,
+                        'lime-notched-outline--notched': this.floatLabelAbove(),
+                    }}
+                    dropzone-tip={this.dropZoneTip()}
+                >
+                    <div class="mdc-notched-outline__leading" />
+                    {this.renderLabel()}
+                    <div class="mdc-notched-outline__trailing" />
+                </div>
+                {this.renderLeadingIcon()}
                 {this.value.map(this.renderInputChip)}
                 <input
                     tabIndex={INPUT_FIELD_TABINDEX}
@@ -418,20 +434,6 @@ export class ChipSet {
                     placeholder={this.isFull() ? '' : this.searchLabel}
                     readonly={this.isFull()}
                 />
-                <div
-                    class={{
-                        'mdc-notched-outline': true,
-                        'mdc-notched-outline--upgraded': true,
-                        'mdc-text-field--required': this.required,
-                        'lime-notched-outline--notched': this.floatLabelAbove(),
-                    }}
-                    dropzone-tip={this.dropZoneTip()}
-                >
-                    <div class="mdc-notched-outline__leading" />
-                    {this.renderLabel()}
-                    <div class="mdc-notched-outline__trailing" />
-                </div>
-                {this.renderLeadingIcon()}
                 {this.renderEmptyValueForReadonly()}
                 {this.renderClearAllChipsButton()}
             </div>,
@@ -744,7 +746,7 @@ export class ChipSet {
         }
 
         return (
-            <i class="mdc-text-field__icon search-icon">
+            <i class="material-icons mdc-text-field__icon mdc-text-field__icon--leading">
                 <limel-icon name={this.leadingIcon} />
             </i>
         );
