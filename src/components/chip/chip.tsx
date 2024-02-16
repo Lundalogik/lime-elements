@@ -24,6 +24,11 @@ import { Chip as OldChipInterface } from '../chip-set/chip.types';
 
 interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
     /**
+     * Identifier for the chip. Must be unique.
+     */
+    identifier?: number | string;
+
+    /**
      * The value of the badge.
      */
     badge?: string | number;
@@ -142,10 +147,17 @@ export class Chip implements ChipInterface {
     public type?: 'filter';
 
     /**
+     * Identifier for the chip. Must be unique.
+     */
+    @Prop({ reflect: true })
+    public identifier?: number | string = crypto.randomUUID();
+
+    /**
      * Fired when clicking on the remove button of a `removable` chip.
+     * The value of `identifier` is emitted as the event detail.
      */
     @Event()
-    public remove: EventEmitter<void>;
+    public remove: EventEmitter<number | string>;
 
     @Element()
     private host: HTMLLimelChipElement;
@@ -158,8 +170,6 @@ export class Chip implements ChipInterface {
         removeEnterClickable(this.host);
     }
 
-    private chipId = 'chip-' + crypto.randomUUID();
-
     public render() {
         return (
             <Host onClick={this.filterClickWhenDisabled}>
@@ -171,7 +181,7 @@ export class Chip implements ChipInterface {
     private renderAsButton = () => {
         return [
             <button
-                id={this.chipId}
+                id={'chip-' + this.identifier}
                 class="chip"
                 role="button"
                 disabled={this.disabled || this.readonly}
@@ -188,7 +198,7 @@ export class Chip implements ChipInterface {
     private renderAsLink = () => {
         return [
             <a
-                id={this.chipId}
+                id={'chip-' + this.identifier}
                 class="chip"
                 href={this.link.href}
                 title={this.link.title}
@@ -251,7 +261,7 @@ export class Chip implements ChipInterface {
                 class="trailing-button remove-button"
                 tabIndex={-1}
                 aria-label={this.removeChipLabel}
-                aria-controls={this.chipId}
+                aria-controls={'chip-' + this.identifier}
                 innerHTML={svgData}
                 onClick={this.handleRemoveClick}
             />
@@ -266,7 +276,7 @@ export class Chip implements ChipInterface {
 
     private handleRemoveClick = (event: MouseEvent | KeyboardEvent) => {
         event.stopPropagation();
-        this.remove.emit();
+        this.remove.emit(this.identifier);
     };
 
     private handleDeleteKeyDown = (event: KeyboardEvent) => {

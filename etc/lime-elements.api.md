@@ -184,6 +184,7 @@ export namespace Components {
         "badge"?: string | number;
         "disabled": boolean;
         "icon"?: string | Icon;
+        "identifier"?: number | string;
         "language": Languages;
         "link"?: Omit<Link, 'text'>;
         "readonly": boolean;
@@ -984,9 +985,10 @@ namespace JSX_2 {
         "badge"?: string | number;
         "disabled"?: boolean;
         "icon"?: string | Icon;
+        "identifier"?: number | string;
         "language"?: Languages;
         "link"?: Omit<Link, 'text'>;
-        "onRemove"?: (event: LimelChipCustomEvent<void>) => void;
+        "onRemove"?: (event: LimelChipCustomEvent<number | string>) => void;
         "readonly"?: boolean;
         "removable"?: boolean;
         "selected"?: boolean;
