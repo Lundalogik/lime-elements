@@ -23,6 +23,9 @@ import {
 import { Chip as OldChipInterface } from '../chip-set/chip.types';
 
 interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
+    /**
+     * The value of the badge.
+     */
     badge?: string | number;
 }
 
