@@ -1,3 +1,11 @@
+## [37.3.0](https://github.com/Lundalogik/lime-elements/compare/v37.2.8...v37.3.0) (2024-02-16)
+
+
+### Features
+
+
+* **chip:** introduce a `ChipType` ([26731ba](https://github.com/Lundalogik/lime-elements/commit/26731baa94378516e6bde16b24bc1f1ec766c58a))
+
 ## [37.2.8](https://github.com/Lundalogik/lime-elements/compare/v37.2.7...v37.2.8) (2024-02-14)
 
 
