@@ -10,6 +10,7 @@
     isolation: isolate;
     display: inline-flex;
     align-items: center;
+    min-width: 0;
 }
 
 * {
@@ -20,6 +21,7 @@
     all: unset;
     position: relative;
 
+    min-width: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -155,6 +157,7 @@ limel-badge {
     );
 
     z-index: 1;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
