@@ -39,6 +39,7 @@ $leading-icon-space: 1.5rem;
 
 .mdc-chip-set {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
     min-height: shared_input-select-picker.$height-of-mdc-text-field;
