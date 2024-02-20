@@ -1,3 +1,30 @@
+## [37.4.0](https://github.com/Lundalogik/lime-elements/compare/v37.3.0...v37.4.0) (2024-02-20)
+
+
+### Features
+
+
+* **components:** decrease the height & deadspace of input elements ([8be3a8d](https://github.com/Lundalogik/lime-elements/commit/8be3a8d49f15a5b831b4247e6028ba473c227120))
+If you have layout designs with hardcoded size
+values (for instance heights, margins or
+paddings) which are added only for the purpose of
+horizontally or vertically aligning the elements
+in the UI, there is a big chance that your
+layouts now will render in a messy way after this
+change and elements will not align as before.
+Note that for UI designs nowadays, you should not
+need to have hardcoded values. You must rather
+think "responsive design", and incorporate `flex`
+or `grid` to achieve a more flawless, smooth and
+responsive layout.
+
+### Bug Fixes
+
+
+* **chip-set:** ensure several chips lay themselves out in multiple rows ([3779cdf](https://github.com/Lundalogik/lime-elements/commit/3779cdff40378ea619deafe74bac62a625a32f1f))
+* **chip:** prevent overflowing the parent ([213114d](https://github.com/Lundalogik/lime-elements/commit/213114d8769adc6b6b7444d13b6b5b0cb2993bd9))
+* **form:** prevent helper text from creating large gaps between fields ([8fb3ec1](https://github.com/Lundalogik/lime-elements/commit/8fb3ec19f58f89dc8df5fd7ff0fd99af1a80391c))
+
 ## [37.3.0](https://github.com/Lundalogik/lime-elements/compare/v37.2.8...v37.3.0) (2024-02-16)
 
 
