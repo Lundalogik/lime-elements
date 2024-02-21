@@ -1,3 +1,11 @@
+## [37.4.1](https://github.com/Lundalogik/lime-elements/compare/v37.4.0...v37.4.1) (2024-02-21)
+
+
+### Bug Fixes
+
+
+* **chip-set:** keep chips clickable when `type` is `input` & `readonly` is `true` ([6e8b79a](https://github.com/Lundalogik/lime-elements/commit/6e8b79ace56c52749ffce470015b99de2d0b999f))
+
 ## [37.4.0](https://github.com/Lundalogik/lime-elements/compare/v37.3.0...v37.4.0) (2024-02-20)
 
 
