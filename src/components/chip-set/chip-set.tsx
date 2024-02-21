@@ -589,7 +589,9 @@ export class ChipSet {
     }
 
     private getChipProps(chip: Chip, chipType: ChipType) {
-        const removable = this.type === 'input' && chip.removable;
+        const removable =
+            this.type === 'input' && chip.removable && !this.readonly;
+        const readonly = this.readonly && this.type !== 'input';
 
         return {
             role: 'row',
@@ -599,7 +601,7 @@ export class ChipSet {
             badge: chip.badge,
             selected: chip.selected,
             disabled: this.disabled,
-            readonly: this.readonly,
+            readonly: readonly,
             type: chipType,
             removable: removable,
             onClick: this.catchInputChipClicks(chip),
