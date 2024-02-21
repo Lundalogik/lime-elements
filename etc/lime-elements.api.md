@@ -190,6 +190,7 @@ export namespace Components {
         "identifier"?: number | string;
         "language": Languages;
         "link"?: Omit<Link, 'text'>;
+        "loading"?: boolean;
         "readonly": boolean;
         "removable": boolean;
         "selected": boolean;
@@ -991,6 +992,7 @@ namespace JSX_2 {
         "identifier"?: number | string;
         "language"?: Languages;
         "link"?: Omit<Link, 'text'>;
+        "loading"?: boolean;
         "onRemove"?: (event: LimelChipCustomEvent<number | string>) => void;
         "readonly"?: boolean;
         "removable"?: boolean;
