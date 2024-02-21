@@ -7,6 +7,12 @@ import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
  *
  * Useful for collections of tags or labels. Can also be used as an advanced
  * search input, with leading icon and a delimiter between search terms.
+ *
+ * :::note
+ * Setting `readonly` to `true` when the `type="input"`, the chips that are displayed
+ * will remain interactive. This means that the user can still click on them.
+ * However, the chips cannot be removed or added in `readonly` mode.
+ * :::
  */
 @Component({
     tag: 'limel-example-chip-set-input',

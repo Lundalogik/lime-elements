@@ -9,3 +9,11 @@
         }
     }
 }
+
+:host(limel-chip-set[readonly]) {
+    .mdc-text-field {
+        &.mdc-text-field--disabled {
+            pointer-events: auto;
+        }
+    }
+}
