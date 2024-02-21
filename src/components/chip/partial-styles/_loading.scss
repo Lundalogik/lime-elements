@@ -1,0 +1,35 @@
+.text {
+    transition: padding-left 0.4s ease;
+}
+
+limel-linear-progress {
+    position: absolute;
+    z-index: 1;
+    margin: auto;
+    left: 0.25rem;
+
+    width: 1.25rem;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+:host(limel-chip[loading]) {
+    .chip {
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: var(--limel-chip-height);
+            height: var(--limel-chip-height);
+            border-radius: 50%;
+            scale: 0.9;
+            background-color: rgba(var(--contrast-600), 0.8);
+        }
+
+        &:not(:has(limel-icon)) {
+            .text {
+                padding-left: calc(var(--limel-chip-height) + 0.25rem);
+            }
+        }
+    }
+}

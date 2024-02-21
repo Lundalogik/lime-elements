@@ -73,6 +73,7 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  * @exampleComponent limel-example-chip-badge
  * @exampleComponent limel-example-chip-filter
  * @exampleComponent limel-example-chip-removable
+ * @exampleComponent limel-example-chip-loading
  * @exampleComponent limel-example-chip-aria-role
  */
 @Component({
@@ -149,6 +150,14 @@ export class Chip implements ChipInterface {
     public type?: ChipType = 'default';
 
     /**
+     * Set to `true` to put the component in the `loading` state,
+     * and render an indeterminate progress indicator inside the chip.
+     * This does _not_ disable the interactivity of the chip!
+     */
+    @Prop({ reflect: true })
+    public loading? = false;
+
+    /**
      * Identifier for the chip. Must be unique.
      */
     @Prop({ reflect: true })
@@ -189,6 +198,7 @@ export class Chip implements ChipInterface {
                 disabled={this.disabled || this.readonly}
                 onKeyDown={this.handleDeleteKeyDown}
             >
+                {this.renderSpinner()}
                 {this.renderIcon()}
                 {this.renderLabel()}
                 {this.renderBadge()}
@@ -209,6 +219,7 @@ export class Chip implements ChipInterface {
                 tabindex={this.disabled || this.readonly ? -1 : 0}
                 onKeyDown={this.handleDeleteKeyDown}
             >
+                {this.renderSpinner()}
                 {this.renderIcon()}
                 {this.renderLabel()}
                 {this.renderBadge()}
@@ -296,5 +307,13 @@ export class Chip implements ChipInterface {
 
     private removeChipLabel = (): string => {
         return translate.get('chip-set.remove-chip', this.language);
+    };
+
+    private renderSpinner() {
+        if (!this.loading) {
+            return;
+        }
+
+        return <limel-linear-progress indeterminate={true} />;
     };
 }
