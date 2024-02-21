@@ -1,4 +1,6 @@
-export const schema = {
+import { FormSchema } from '@limetech/lime-elements';
+
+export const schema: FormSchema = {
     title: 'Registration form',
     description:
         'This main form has no specified layout, so it gets the default 1 column.',

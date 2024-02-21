@@ -1,5 +1,6 @@
 import { Component, h, State } from '@stencil/core';
 import { schema } from './props-factory-schema';
+import { FormSchema } from '@limetech/lime-elements';
 
 /**
  * Using `propsFactory`
@@ -34,7 +35,7 @@ export class PropsFactoryFormExample {
         ];
     }
 
-    private propsFactory = (subSchema: Record<string, any>) => {
+    private propsFactory = (subSchema: FormSchema) => {
         if (
             subSchema.lime?.component?.name ===
             'limel-example-props-factory-picker'

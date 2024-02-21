@@ -1,4 +1,6 @@
-export const schema = {
+import { FormSchema } from '@limetech/lime-elements';
+
+export const schema: FormSchema = {
     title: 'Personal identity number form',
     description: 'Please enter your personal identity number',
     type: 'object',

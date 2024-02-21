@@ -4,6 +4,8 @@
 
 ```ts
 
+import { JSONSchema7 } from 'json-schema';
+
 // @public (undocumented)
 export interface Action {
     // (undocumented)
@@ -341,11 +343,8 @@ export namespace Components {
     export interface LimelForm {
         "disabled": boolean;
         "errors": ValidationError;
-        "propsFactory"?: (schema: Record<string, any>) => Record<string, any>;
-        "schema": {
-            id?: string;
-            [key: string]: any;
-        };
+        "propsFactory"?: (schema: FormSchema) => Record<string, any>;
+        "schema": FormSchema;
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value": object;
     }
@@ -737,26 +736,30 @@ export interface FormError {
 export interface FormInfo {
     errorSchema?: object;
     name?: string;
-    rootSchema?: object;
+    rootSchema?: FormSchema;
     rootValue?: any;
-    schema?: object;
+    schema?: FormSchema;
     schemaPath?: string[];
 }
 
 // @public (undocumented)
-export interface FormLayoutOptions<T = FormLayoutType.Default> {
+export interface FormLayoutOptions<T extends FormLayoutType | `${FormLayoutType}` = FormLayoutType.Default> {
     type: T;
 }
 
-// @public (undocumented)
+// @public
 export enum FormLayoutType {
     Default = "default",
     Grid = "grid",
     Row = "row"
 }
 
-// @public (undocumented)
-export interface GridLayoutOptions extends FormLayoutOptions<FormLayoutType.Grid> {
+// @public
+export interface FormSchema extends JSONSchema7 {
+}
+
+// @public
+export interface GridLayoutOptions extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
     colSpan?: 1 | 2 | 3 | 4 | 5 | 'all';
     columns?: 1 | 2 | 3 | 4 | 5;
     dense?: boolean;
@@ -1170,11 +1173,8 @@ namespace JSX_2 {
         "errors"?: ValidationError;
         "onChange"?: (event: LimelFormCustomEvent<object>) => void;
         "onValidate"?: (event: LimelFormCustomEvent<ValidationStatus>) => void;
-        "propsFactory"?: (schema: Record<string, any>) => Record<string, any>;
-        "schema"?: {
-            id?: string;
-            [key: string]: any;
-        };
+        "propsFactory"?: (schema: FormSchema) => Record<string, any>;
+        "schema"?: FormSchema;
         "transformErrors"?: (errors: FormError[]) => FormError[];
         "value"?: object;
     }
@@ -1526,6 +1526,9 @@ export interface LimelActionBarOverflowMenuCustomEvent<T> extends CustomEvent<T>
     target: HTMLLimelActionBarOverflowMenuElement;
 }
 
+// @public
+export type LimeLayoutOptions = GridLayoutOptions & RowLayoutOptions;
+
 // Warning: (ae-missing-release-tag) "LimelBreadcrumbsCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -1873,8 +1876,8 @@ export interface LimeSchemaOptions {
     component?: FormComponentOptions;
     disabled?: boolean;
     // (undocumented)
-    help?: string | Help;
-    layout?: FormLayoutOptions<any>;
+    help?: string | Partial<Help>;
+    layout?: LimeLayoutOptions;
 }
 
 // @public
@@ -1961,8 +1964,8 @@ interface Option_2<T extends string = string> {
 }
 export { Option_2 as Option }
 
-// @public (undocumented)
-export interface RowLayoutOptions extends FormLayoutOptions<FormLayoutType.Row> {
+// @public
+export interface RowLayoutOptions extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
     icon?: string;
 }
 

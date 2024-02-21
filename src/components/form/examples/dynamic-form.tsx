@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { ValidationStatus } from '@limetech/lime-elements';
+import { FormSchema, ValidationStatus } from '@limetech/lime-elements';
 
 /**
  * Dynamic schema
@@ -18,7 +18,7 @@ export class DynamicFormExample {
     private errors = null;
 
     @State()
-    private schema: any = {
+    private schema: FormSchema = {
         $id: 'test',
         title: 'My form',
         description: 'Lorem ipsum dolor sit amet',

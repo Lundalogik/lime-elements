@@ -2,7 +2,6 @@ import React from 'react';
 import { WidgetProps } from '../widgets/types';
 import { LimeElementsAdapter } from './base-adapter';
 import { capitalize } from 'lodash-es';
-import { LimeSchemaOptions } from '../form.types';
 import { getHelpComponent } from '../help';
 
 interface WidgetAdapterProps {
@@ -133,7 +132,7 @@ export class LimeElementsWidgetAdapter extends React.Component {
 
     private isDisabled() {
         const widgetProps = this.props.widgetProps;
-        const options: LimeSchemaOptions = widgetProps.schema.lime;
+        const options = widgetProps.schema.lime;
 
         return (
             widgetProps.disabled ||

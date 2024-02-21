@@ -1,4 +1,6 @@
-export const schema = {
+import { FormSchema } from '@limetech/lime-elements';
+
+export const schema: FormSchema = {
     type: 'object',
     properties: {
         name: {

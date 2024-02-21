@@ -1,8 +1,8 @@
 import React from 'react';
 import { LimeElementsAdapter } from '../adapters/base-adapter';
-import { LimeJSONSchema } from '../internal.types';
+import { FormSchema } from '../form.types';
 
-export function getHelpComponent(schema: LimeJSONSchema) {
+export function getHelpComponent(schema: FormSchema) {
     const help = schema.lime?.help;
 
     if (!help) {

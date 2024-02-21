@@ -1,6 +1,10 @@
 import React from 'react';
-import { FormLayoutOptions, FormLayoutType } from '../form.types';
-import { LimeJSONSchema } from '../internal.types';
+import {
+    FormLayoutType,
+    FormSchema,
+    LimeLayoutOptions,
+    FormLayoutOptions,
+} from '../form.types';
 import { renderDescription, renderTitle } from './common';
 import { GridLayout } from './grid-layout';
 import { RowLayout } from './row-layout';
@@ -47,7 +51,7 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
     );
 }
 
-function getSchemaObjectPropertyPath(schema: any, subSchema: LimeJSONSchema) {
+function getSchemaObjectPropertyPath(schema: any, subSchema: FormSchema) {
     const refPrefixLength = 2;
     const matchAllForwardSlashes = /\//g;
     const rootPath = (schema.$ref as string)
@@ -60,18 +64,18 @@ function getSchemaObjectPropertyPath(schema: any, subSchema: LimeJSONSchema) {
 
 function renderProperties(
     properties: ObjectFieldProperty[],
-    schema: LimeJSONSchema,
+    schema: FormSchema,
 ) {
-    const layout: FormLayoutOptions = schema.lime?.layout;
+    const layout = schema.lime?.layout;
 
     return renderLayout(properties, layout);
 }
 
 function renderLayout(
     properties: ObjectFieldProperty[],
-    layout: FormLayoutOptions,
+    layout: Partial<LimeLayoutOptions>,
 ) {
-    const type = layout?.type || FormLayoutType.Default;
+    const type = layout?.type || 'default';
     const layouts: Record<FormLayoutType, Function> = {
         default: renderDefaultLayout,
         grid: renderGridLayout,
@@ -112,10 +116,10 @@ function renderRowLayout(properties: ObjectFieldProperty[]) {
     );
 }
 
-function isCollapsible(schema: LimeJSONSchema) {
+function isCollapsible(schema: FormSchema) {
     return !!schema.lime?.collapsible;
 }
 
-function isCollapsed(schema: LimeJSONSchema) {
+function isCollapsed(schema: FormSchema) {
     return schema.lime.collapsed !== false;
 }
