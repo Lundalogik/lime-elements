@@ -1,5 +1,23 @@
+import { JSONSchema7 } from 'json-schema';
 import { Help } from '../help/help.types';
 import { EventEmitter } from '@stencil/core';
+
+declare module 'json-schema' {
+    interface JSONSchema7 {
+        /**
+         * @internal
+         * Unique identifier for the schema
+         */
+        id?: string;
+
+        /**
+         * Lime elements specific options that can be specified in a schema
+         */
+        lime?: Omit<LimeSchemaOptions, 'layout'> & {
+            layout?: Partial<LimeLayoutOptions>;
+        };
+    }
+}
 
 /**
  * @public
@@ -110,12 +128,12 @@ export interface FormInfo {
     /**
      * The schema of the current property
      */
-    schema?: object;
+    schema?: FormSchema;
 
     /**
      * The schema of the whole form
      */
-    rootSchema?: object;
+    rootSchema?: FormSchema;
 
     /**
      * A tree of errors for this property and its children
@@ -177,15 +195,21 @@ export interface LimeSchemaOptions {
      * When specified on an object it will render the sub components with the
      * specified layout
      */
-    layout?: FormLayoutOptions<any>;
+    layout?: LimeLayoutOptions;
 
     /**
      * Mark the field as disabled
      */
     disabled?: boolean;
 
-    help?: string | Help;
+    help?: string | Partial<Help>;
 }
+
+/**
+ * @public
+ * Options for a layout to be used in a form
+ */
+export type LimeLayoutOptions = GridLayoutOptions & RowLayoutOptions;
 
 /**
  * Options for a component to be rendered inside a form
@@ -208,7 +232,9 @@ export interface FormComponentOptions {
 /**
  * @public
  */
-export interface FormLayoutOptions<T = FormLayoutType.Default> {
+export interface FormLayoutOptions<
+    T extends FormLayoutType | `${FormLayoutType}` = FormLayoutType.Default,
+> {
     /**
      * The type of layout to use
      */
@@ -217,9 +243,10 @@ export interface FormLayoutOptions<T = FormLayoutType.Default> {
 
 /**
  * @public
+ * Layout options for a grid layout
  */
 export interface GridLayoutOptions
-    extends FormLayoutOptions<FormLayoutType.Grid> {
+    extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
     /**
      * When specified on a component within the grid, the component will take
      * up the the specified number of columns in the form
@@ -249,9 +276,10 @@ export interface GridLayoutOptions
 
 /**
  * @public
+ * Layout options for a row layout
  */
 export interface RowLayoutOptions
-    extends FormLayoutOptions<FormLayoutType.Row> {
+    extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
     /**
      * When specified on a field, the chosen icon will be displayed
      * on the left side of the row, beside the title.
@@ -261,6 +289,7 @@ export interface RowLayoutOptions
 
 /**
  * @public
+ * Represents the layout types for a form.
  */
 export enum FormLayoutType {
     /**
@@ -282,3 +311,9 @@ export enum FormLayoutType {
      */
     Row = 'row',
 }
+
+/**
+ * @public
+ * Represents the JSON schema with Lime specific options
+ */
+export interface FormSchema extends JSONSchema7 {}

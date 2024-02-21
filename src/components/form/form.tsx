@@ -11,7 +11,12 @@ import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import JSONSchemaForm, { AjvError } from '@rjsf/core';
 import retargetEvents from 'react-shadow-dom-retarget-events';
-import { FormError, ValidationError, ValidationStatus } from './form.types';
+import {
+    FormError,
+    FormSchema,
+    ValidationError,
+    ValidationStatus,
+} from './form.types';
 import {
     ArrayFieldTemplate,
     FieldTemplate,
@@ -50,10 +55,7 @@ export class Form {
      * The schema used to render the form
      */
     @Prop()
-    public schema: {
-        id?: string;
-        [key: string]: any;
-    } = {};
+    public schema: FormSchema = {};
 
     /**
      * Value of the form
@@ -77,7 +79,7 @@ export class Form {
      * that should be set, along with its value.
      */
     @Prop()
-    public propsFactory?: (schema: Record<string, any>) => Record<string, any>;
+    public propsFactory?: (schema: FormSchema) => Record<string, any>;
 
     /**
      * Custom function to customize the default error messages
@@ -109,7 +111,7 @@ export class Form {
     private host: HTMLLimelFormElement;
 
     private isValid = true;
-    private modifiedSchema: object;
+    private modifiedSchema: FormSchema;
     private validator: Ajv.ValidateFunction;
     private root: Root;
 

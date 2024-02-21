@@ -1,4 +1,6 @@
-export const schema = {
+import { FormSchema } from '../form.types';
+
+export const schema: FormSchema = {
     description: 'This form has the row layout',
     type: 'object',
     properties: {
