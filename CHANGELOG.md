@@ -1,3 +1,11 @@
+## [37.4.2](https://github.com/Lundalogik/lime-elements/compare/v37.4.1...v37.4.2) (2024-02-22)
+
+
+### Bug Fixes
+
+
+* **file:** fix bug where links on chips could not be opened ([5a43cc7](https://github.com/Lundalogik/lime-elements/commit/5a43cc707a45451285fc8160fae3ac7b13104b36)), closes [#2793](https://github.com/Lundalogik/lime-elements/issues/2793)
+
 ## [37.4.1](https://github.com/Lundalogik/lime-elements/compare/v37.4.0...v37.4.1) (2024-02-21)
 
 
