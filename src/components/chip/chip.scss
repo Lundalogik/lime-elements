@@ -2,6 +2,7 @@
 
 /**
 * @prop --chip-max-width: Maximum width of the chip. Defaults to `10rem`. Keep in mind that the chips should not appear too big.
+* @prop --chip-progress-color: Color of the progress bar. Defaults to `rgb(var(--contrast-700))`.
 */
 
 :host(limel-chip) {
@@ -184,3 +185,4 @@ limel-badge {
 }
 
 @import './partial-styles/_loading.scss';
+@import './partial-styles/_progress.scss';
