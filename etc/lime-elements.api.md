@@ -197,7 +197,6 @@ export namespace Components {
         // @beta
         "type"?: ChipType;
     }
-    // (undocumented)
     export interface LimelChipSet {
         "clearAllButton": boolean;
         "delimiter": string;
@@ -1000,7 +999,6 @@ namespace JSX_2 {
         // @beta
         "type"?: ChipType;
     }
-    // (undocumented)
     interface LimelChipSet {
         "clearAllButton"?: boolean;
         "delimiter"?: string;

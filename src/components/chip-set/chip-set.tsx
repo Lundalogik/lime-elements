@@ -21,6 +21,36 @@ import { LimelChipCustomEvent } from 'src/components';
 const INPUT_FIELD_TABINDEX = 1;
 
 /**
+ * :::note
+ * **Regarding `click` and `interact` events:**
+ *
+ * The `interact` event is emitted when a chip is interacted with, and is
+ * the recommended way to listen for chip interactions.
+ *
+ * However, if you need to handle clicks differently depending on which chip
+ * was clicked, or whether the click was on a chip or elsewhere, you need to
+ * listen to the native `click` event instead.
+ *
+ * Native `click` events are passed through, and if the click came from
+ * a chip, the chip object is available in the event object under
+ * `<event object>.Lime.chip`.
+ *
+ * Example usage:
+ * ```ts
+ * private handleClick(event: Event) {
+ *     if (event && 'Lime' in event && (event.Lime as any).chip) {
+ *         if ((event.Lime as { chip: Chip }).chip.href) {
+ *             // Chip has href, so let the browser open the link.
+ *             return;
+ *         }
+ *         // handle click on chip without href
+ *     } else {
+ *         // handle click elsewhere
+ *     }
+ * }
+ * ```
+ * :::
+ *
  * @exampleComponent limel-example-chip-set
  * @exampleComponent limel-example-chip-set-choice
  * @exampleComponent limel-example-chip-set-filter
@@ -615,7 +645,20 @@ export class ChipSet {
         };
     }
 
-    private catchInputChipClicks = (chip: Chip) => () => {
+    private catchInputChipClicks = (chip: Chip) => (event: Event) => {
+        /*
+         * We need to add the `chip` to the event object so that the consumer
+         * can get the chip object when the chip is clicked.
+         * This is necessary for the consumer to be able to handle the click
+         * event itself, based on which chip was clicked, or whether the click
+         * was on a chip or elsewhere. The reason the consumer can't just look
+         * at the event target is that that information is hidden by the
+         * shadow DOM.
+         *
+         * See documentation for the `interact` event for more information.
+         */
+        (event as any).Lime = { chip: chip };
+
         if (this.isSelectableChip(chip)) {
             this.updateSelectedChipIds(chip);
             this.change.emit(chip);
