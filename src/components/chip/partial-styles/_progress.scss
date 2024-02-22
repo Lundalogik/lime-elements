@@ -1,0 +1,68 @@
+div[role='progressbar'] {
+    --limel-chip-progressbar-offset: 0.1875rem;
+    --limel-chip-progressbar-stripe-color: rgb(var(--contrast-100), 0.3);
+    --limel-chip-progressbar-stripe-size: 1.5rem;
+
+    pointer-events: none;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    inset: var(--limel-chip-progressbar-offset);
+    max-width: calc(100% - calc(var(--limel-chip-progressbar-offset) * 2));
+
+    border-radius: inherit;
+    background-color: var(--chip-progress-color, rgb(var(--contrast-700)));
+    width: var(--limel-chip-progress-percentage);
+    opacity: 0.8;
+
+    mix-blend-mode: var(--limel-chip-progress-mix-blend-mode);
+
+    span {
+        padding: 0 0.125rem;
+        border-radius: inherit;
+        height: 100%;
+        font-size: 0.625rem;
+        text-align: center;
+        transform: translateY(calc(-50% - 0.125rem));
+    }
+
+    &:after {
+        content: '';
+        transform: translate3d(0, 0, 0);
+        position: absolute;
+        inset: 1px;
+        background-image: linear-gradient(
+            -45deg,
+            var(--limel-chip-progressbar-stripe-color) 25%,
+            transparent 25%,
+            transparent 50%,
+            var(--limel-chip-progressbar-stripe-color) 50%,
+            var(--limel-chip-progressbar-stripe-color) 75%,
+            transparent 75%,
+            transparent
+        );
+        z-index: 1;
+        background-size: var(--limel-chip-progressbar-stripe-size)
+            var(--limel-chip-progressbar-stripe-size);
+        animation: move 2.5s linear infinite;
+        border-radius: inherit;
+
+        @media (prefers-reduced-motion) {
+            animation: none;
+        }
+    }
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: calc(
+                var(--limel-chip-progressbar-stripe-size) * -1
+            )
+            calc(var(--limel-chip-progressbar-stripe-size) * -1);
+    }
+}

@@ -74,6 +74,7 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  * @exampleComponent limel-example-chip-filter
  * @exampleComponent limel-example-chip-removable
  * @exampleComponent limel-example-chip-loading
+ * @exampleComponent limel-example-chip-progress
  * @exampleComponent limel-example-chip-aria-role
  */
 @Component({
@@ -158,6 +159,14 @@ export class Chip implements ChipInterface {
     public loading? = false;
 
     /**
+     * Reflects the current value of a progress bar on the chip,
+     * visualizing the percentage of an ongoing process.
+     * Must be a number between `0` and `100`.
+     */
+    @Prop({ reflect: true })
+    public progress?: number;
+
+    /**
      * Identifier for the chip. Must be unique.
      */
     @Prop({ reflect: true })
@@ -202,6 +211,7 @@ export class Chip implements ChipInterface {
                 {this.renderIcon()}
                 {this.renderLabel()}
                 {this.renderBadge()}
+                {this.renderProgressBar()}
             </button>,
             this.renderRemoveButton(),
         ];
@@ -223,6 +233,7 @@ export class Chip implements ChipInterface {
                 {this.renderIcon()}
                 {this.renderLabel()}
                 {this.renderBadge()}
+                {this.renderProgressBar()}
             </a>,
             this.renderRemoveButton(),
         ];
@@ -315,5 +326,29 @@ export class Chip implements ChipInterface {
         }
 
         return <limel-linear-progress indeterminate={true} />;
-    };
+    }
+
+    private renderProgressBar() {
+        if (!this.progress) {
+            return;
+        }
+
+        const currentPercentage = this.progress + '%';
+        const progress = Math.round(this.progress);
+
+        return (
+            <div
+                role="progressbar"
+                aria-label="%"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow={this.progress}
+                style={{
+                    '--limel-chip-progress-percentage': currentPercentage,
+                }}
+            >
+                <span>{progress}%</span>
+            </div>
+        );
+    }
 }
