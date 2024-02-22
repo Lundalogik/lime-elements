@@ -279,6 +279,17 @@ describe('limel-chip-set', () => {
 
         describe('when a chip is clicked', () => {
             beforeEach(async () => {
+                await page.evaluate(() => {
+                    (window as any).customEventTestResults = {};
+                    document.addEventListener('click', (e) => {
+                        const hasCustomProperty =
+                            !!(e as any).Lime && !!(e as any).Lime.chip;
+                        (
+                            window as any
+                        ).customEventTestResults.clickCustomProperty =
+                            hasCustomProperty;
+                    });
+                });
                 spy = await chipSet.spyOnEvent('interact');
                 await chips[0].click();
             });
@@ -290,6 +301,15 @@ describe('limel-chip-set', () => {
                     text: 'Lime',
                     removable: true,
                 });
+            });
+
+            it('attaches the chip to the click event', async () => {
+                const hasCustomProperty = await page.evaluate(
+                    () =>
+                        (window as any).customEventTestResults
+                            .clickCustomProperty,
+                );
+                expect(hasCustomProperty).toBeTruthy();
             });
         });
 

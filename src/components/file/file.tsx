@@ -201,7 +201,7 @@ export class File {
                 leadingIcon="upload_to_cloud"
                 language={this.language}
                 onChange={this.handleChipSetChange}
-                onClick={this.handleFileSelection}
+                onClick={this.handleClick}
                 onInteract={this.handleChipInteract}
                 onKeyDown={this.handleKeyDown}
                 onKeyUp={this.handleKeyUp}
@@ -272,6 +272,15 @@ export class File {
             this.fileInput.click();
         }
     }
+
+    private handleClick = (event: Event) => {
+        if (event && 'Lime' in event && (event.Lime as any).chip) {
+            // This is a click on a chip, so we don't need to do anything here.
+            return;
+        }
+
+        this.handleFileSelection(event);
+    };
 
     private handleFileSelection(event: Event) {
         event.stopPropagation();
