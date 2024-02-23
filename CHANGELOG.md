@@ -1,3 +1,12 @@
+## [37.5.0](https://github.com/Lundalogik/lime-elements/compare/v37.4.2...v37.5.0) (2024-02-23)
+
+
+### Features
+
+
+* **chip:** add progress indicator ([9bfef3e](https://github.com/Lundalogik/lime-elements/commit/9bfef3e19e9be307a4a663ed08c19d6b1d8cecd8))
+* **chip:** enable `loading` state ([173caa4](https://github.com/Lundalogik/lime-elements/commit/173caa43666b297feca28c065c136b0b94119bc5))
+
 ## [37.4.2](https://github.com/Lundalogik/lime-elements/compare/v37.4.1...v37.4.2) (2024-02-22)
 
 
