@@ -56,6 +56,7 @@ const DEBOUNCE_TIMEOUT = 300;
  * @exampleComponent limel-example-input-field-search
  * @exampleComponent limel-example-input-field-pattern
  * @exampleComponent limel-example-input-field-focus
+ * @exampleComponent limel-example-input-field-textarea-resize
  */
 @Component({
     tag: 'limel-input-field',

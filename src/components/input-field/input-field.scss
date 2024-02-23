@@ -17,6 +17,7 @@
 
 /**
  * @prop --textarea-height: Height of the field when type is set to `textarea`
+ * @prop --textarea-resize: Determines if the textarea should be resizable, and if so on which axis.
  */
 
 :host {
@@ -79,6 +80,10 @@
         .mdc-text-field__icon {
             color: rgb(var(--contrast-700));
         }
+    }
+
+    .mdc-text-field__resizer {
+        resize: var(--textarea-resize, both);
     }
 }
 
