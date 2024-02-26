@@ -1,6 +1,5 @@
 import translate from '../../global/translations';
 import { Chip } from '../chip-set/chip.types';
-import { FileInfo } from '../file/file.types';
 import { Languages } from '../date-picker/date.types';
 import { MDCTextField } from '@material/textfield';
 import {
@@ -19,6 +18,7 @@ import {
     getFileExtensionTitle,
     getFileIcon,
 } from '../../util/file-metadata';
+import { FileInfo } from '../../global/shared-types/file.types';
 
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 const DEFAULT_FILE_CHIP: Chip = {

@@ -9,7 +9,7 @@ export * from './components/collapsible-section/action';
 export * from './components/date-picker/date.types';
 export * from './components/dialog/dialog.types';
 export * from './components/dock/dock.types';
-export * from './components/file/file.types';
+export * from './global/shared-types/file.types';
 export * from './components/flex-container/flex-container.types';
 export * from './components/form/form.types';
 export * from './components/help/help.types';
