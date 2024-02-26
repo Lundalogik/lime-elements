@@ -1,4 +1,4 @@
-import { FileInfo } from '../components/file/file.types';
+import { FileInfo } from '../global/shared-types/file.types';
 import { getIconBackgroundColorForFile } from '../components/file/icon-background-colors';
 import { getIconFillColorForFile } from '../components/file/icon-fill-colors';
 import { getIconForFile } from '../components/file/icons';
