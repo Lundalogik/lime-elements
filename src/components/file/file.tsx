@@ -18,7 +18,7 @@ import {
     getFileColor,
     getFileExtensionTitle,
     getFileIcon,
-} from './file-metadata';
+} from '../../util/file-metadata';
 
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 const DEFAULT_FILE_CHIP: Chip = {

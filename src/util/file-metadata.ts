@@ -1,12 +1,12 @@
-import { FileInfo } from './file.types';
-import { getIconForFile } from './icons';
-import { getIconFillColorForFile } from './icon-fill-colors';
-import { getIconBackgroundColorForFile } from './icon-background-colors';
+import { FileInfo } from '../components/file/file.types';
+import { getIconBackgroundColorForFile } from '../components/file/icon-background-colors';
+import { getIconFillColorForFile } from '../components/file/icon-fill-colors';
+import { getIconForFile } from '../components/file/icons';
 import {
     getIconBackgroundColor,
     getIconColor,
     getIconName,
-} from '../icon/get-icon-props';
+} from '../components/icon/get-icon-props';
 
 export function getFileIcon(file: FileInfo) {
     const name = getIconName(file.icon);
