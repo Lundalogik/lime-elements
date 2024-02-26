@@ -136,6 +136,12 @@ export class Chip implements ChipInterface {
     public selected = false;
 
     /**
+     * Set to `true` to visualize the chip in an "invalid" or "error" state.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
+
+    /**
      * Set to `true` to render a remove button on the chip.
      */
     @Prop({ reflect: true })

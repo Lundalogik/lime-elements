@@ -23,6 +23,9 @@ export class ChipButtonExample {
     @State()
     private readonly: boolean = false;
 
+    @State()
+    private invalid: boolean = false;
+
     public render() {
         return [
             <limel-chip
@@ -32,6 +35,7 @@ export class ChipButtonExample {
                 disabled={this.disabled}
                 selected={this.selected}
                 readonly={this.readonly}
+                invalid={this.invalid}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -48,6 +52,11 @@ export class ChipButtonExample {
                     checked={this.selected}
                     label="Selected"
                     onChange={this.setSelected}
+                />
+                <limel-checkbox
+                    checked={this.invalid}
+                    label="Invalid"
+                    onChange={this.setInvalid}
                 />
             </limel-example-controls>,
         ];
@@ -70,5 +79,10 @@ export class ChipButtonExample {
     private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.invalid = event.detail;
     };
 }
