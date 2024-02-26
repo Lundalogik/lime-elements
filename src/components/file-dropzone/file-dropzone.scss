@@ -1,0 +1,65 @@
+:host(limel-file-dropzone) {
+    display: grid;
+    position: relative;
+}
+
+.has-file-to-drop {
+    animation: display-drop-zone 0.6s ease forwards;
+
+    box-sizing: border-box;
+    isolation: isolate;
+    z-index: 1;
+    position: absolute;
+    inset: 0.25rem;
+
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+
+    color: rgb(var(--contrast-700));
+
+    border: 0.125rem dashed rgb(var(--color-cyan-light));
+    border-radius: 0.75rem;
+}
+
+.text-helpertext {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.icon {
+    width: clamp(2rem, 5vh, 7rem);
+}
+
+.text {
+    font-size: clamp(1rem, 2vh, 1.75rem);
+}
+
+.helper-text {
+    font-size: clamp(0.75rem, 1.5vh, 1rem);
+}
+
+@keyframes display-drop-zone {
+    0% {
+        background-color: rgb(var(--contrast-1100), 0);
+        backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
+        scale: 0.9;
+        opacity: 0;
+    }
+
+    50% {
+        scale: 1;
+        opacity: 1;
+    }
+
+    100% {
+        background-color: rgb(var(--contrast-1100), 0.8);
+        backdrop-filter: blur(0.25rem);
+        -webkit-backdrop-filter: blur(0.25rem);
+    }
+}
