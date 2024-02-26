@@ -31,6 +31,9 @@ export class ChipLoadingExample {
     private readonly: boolean = false;
 
     @State()
+    private invalid: boolean = false;
+
+    @State()
     public loading = false;
 
     public render() {
@@ -41,6 +44,7 @@ export class ChipLoadingExample {
                 onClick={this.onClick}
                 disabled={this.disabled}
                 readonly={this.readonly}
+                invalid={this.invalid}
                 loading={this.loading}
                 badge={this.loading ? null : '123'}
             />,
@@ -50,6 +54,7 @@ export class ChipLoadingExample {
                 disabled={this.disabled}
                 removable={true}
                 readonly={this.readonly}
+                invalid={this.invalid}
                 loading={this.loading}
                 aria-live="polite"
             />,
@@ -68,6 +73,11 @@ export class ChipLoadingExample {
                     checked={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
+                />
+                <limel-checkbox
+                    checked={this.invalid}
+                    label="Invalid"
+                    onChange={this.setInvalid}
                 />
             </limel-example-controls>,
         ];
@@ -90,5 +100,10 @@ export class ChipLoadingExample {
     private setLoading = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.loading = event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.invalid = event.detail;
     };
 }

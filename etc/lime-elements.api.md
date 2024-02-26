@@ -188,6 +188,7 @@ export namespace Components {
         "disabled": boolean;
         "icon"?: string | Icon;
         "identifier"?: number | string;
+        "invalid": boolean;
         "language": Languages;
         "link"?: Omit<Link, 'text'>;
         "loading"?: boolean;
@@ -991,6 +992,7 @@ namespace JSX_2 {
         "disabled"?: boolean;
         "icon"?: string | Icon;
         "identifier"?: number | string;
+        "invalid"?: boolean;
         "language"?: Languages;
         "link"?: Omit<Link, 'text'>;
         "loading"?: boolean;
