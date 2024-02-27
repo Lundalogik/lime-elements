@@ -328,6 +328,11 @@ export namespace Components {
         "helperText"?: string;
         "text": string;
     }
+    export interface LimelFileInput {
+        "accept": string;
+        "disabled": boolean;
+        "multiple": boolean;
+    }
     export interface LimelFileViewer {
         "actions": ListItem[];
         "allowDownload"?: boolean;
@@ -894,6 +899,8 @@ namespace JSX_2 {
         // (undocumented)
         "limel-file-dropzone": LimelFileDropzone;
         // (undocumented)
+        "limel-file-input": LimelFileInput;
+        // (undocumented)
         "limel-file-viewer": LimelFileViewer;
         // (undocumented)
         "limel-flatpickr-adapter": LimelFlatpickrAdapter;
@@ -1186,6 +1193,12 @@ namespace JSX_2 {
         "onFilesRejected"?: (event: LimelFileDropzoneCustomEvent<FileInfo[]>) => void;
         "onFilesSelected"?: (event: LimelFileDropzoneCustomEvent<FileInfo[]>) => void;
         "text"?: string;
+    }
+    interface LimelFileInput {
+        "accept"?: string;
+        "disabled"?: boolean;
+        "multiple"?: boolean;
+        "onFilesSelected"?: (event: LimelFileInputCustomEvent<FileInfo[]>) => void;
     }
     interface LimelFileViewer {
         "actions"?: ListItem[];
@@ -1717,6 +1730,16 @@ export interface LimelFileDropzoneCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelFileDropzoneElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelFileInputCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelFileInputCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelFileInputElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelFileViewerCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
