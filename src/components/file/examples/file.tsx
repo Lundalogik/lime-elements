@@ -10,7 +10,11 @@ import { Component, h, State } from '@stencil/core';
 })
 export class FileExample {
     @State()
-    private value: FileInfo = { filename: 'letter.docx', id: 123 };
+    private value: FileInfo = {
+        filename: 'cute-cat.jpg',
+        id: 123,
+        href: 'https://www.boredpanda.com/blog/wp-content/uploads/2014/02/funny-wet-cats-36.jpg',
+    };
 
     @State()
     private required = false;

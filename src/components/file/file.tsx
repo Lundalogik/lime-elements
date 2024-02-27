@@ -9,9 +9,7 @@ import {
     EventEmitter,
     h,
     Prop,
-    State,
 } from '@stencil/core';
-import { createRandomString } from '../../util/random-string';
 import {
     getFileBackgroundColor,
     getFileColor,
@@ -132,32 +130,14 @@ export class File {
     @Element()
     private element: HTMLLimelFileElement;
 
-    @State()
-    private isDraggingOverDropZone = false;
-
-    private fileInput: HTMLInputElement;
-    private fileInputId = createRandomString();
     private chipSet;
     private mdcTextField;
-
-    constructor() {
-        this.handleFileSelection = this.handleFileSelection.bind(this);
-        this.handleFileChange = this.handleFileChange.bind(this);
-        this.handleChipSetChange = this.handleChipSetChange.bind(this);
-        this.handleFileDrop = this.handleFileDrop.bind(this);
-        this.handleKeyDown = this.handleKeyDown.bind(this);
-        this.handleKeyUp = this.handleKeyUp.bind(this);
-        this.handleChipInteract = this.handleChipInteract.bind(this);
-    }
 
     public connectedCallback() {
         this.initialize();
     }
 
     public componentDidLoad() {
-        this.fileInput = this.element.shadowRoot.getElementById(
-            this.fileInputId,
-        ) as HTMLInputElement;
         this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
         this.initialize();
     }
@@ -179,61 +159,23 @@ export class File {
     }
 
     public render() {
-        return [
-            <input
-                hidden={true}
-                id={this.fileInputId}
-                onChange={this.handleFileChange}
-                type="file"
+        return (
+            <limel-file-dropzone
+                disabled={this.disabled || this.readonly || !!this.value}
                 accept={this.accept}
-                disabled={this.disabled || this.readonly}
-            />,
-            <limel-chip-set
-                class={{
-                    'is-file-picker': true,
-                    'shows-dropzone': true,
-                    'highlight-dropzone': this.isDraggingOverDropZone,
-                }}
-                disabled={this.disabled}
-                readonly={this.readonly}
-                invalid={this.invalid}
-                label={this.label}
-                leadingIcon="upload_to_cloud"
-                language={this.language}
-                onChange={this.handleChipSetChange}
-                onClick={this.handleClick}
-                onInteract={this.handleChipInteract}
-                onKeyDown={this.handleKeyDown}
-                onKeyUp={this.handleKeyUp}
-                required={this.required}
-                type="input"
-                value={this.chipArray}
-                title={this.getTranslation('drag-and-drop-tips')}
-                onDragEnter={this.handleDragEnter}
-                onDragOver={this.preventAndStop}
-                onDragLeave={this.handleDragLeave}
-                onDrop={this.handleFileDrop}
-            />,
-        ];
+                onFilesSelected={this.handleNewFiles}
+            >
+                {this.renderChipset()}
+            </limel-file-dropzone>
+        );
     }
 
-    private handleDragEnter = (event: DragEvent) => {
-        this.isDraggingOverDropZone = true;
+    private handleNewFiles = (event: CustomEvent<FileInfo[]>) => {
         this.preventAndStop(event);
+        this.change.emit(event.detail[0]);
     };
 
-    private handleDragLeave = () => {
-        this.isDraggingOverDropZone = false;
-    };
-
-    private handleFileDrop = (event: DragEvent) => {
-        this.preventAndStop(event);
-        this.isDraggingOverDropZone = false;
-        const dataTransfer = event.dataTransfer;
-        this.handleFile(dataTransfer.files[0]);
-    };
-
-    private get chipArray() {
+    private getChipArray(): Chip[] {
         if (!this.value) {
             return [];
         }
@@ -254,80 +196,54 @@ export class File {
         ];
     }
 
-    private handleKeyDown(event: KeyboardEvent) {
-        if (
-            event.code === 'Tab' ||
-            event.code === 'Backspace' ||
-            event.code === 'Enter'
-        ) {
-            return;
+    private renderChipset() {
+        const chipset = (
+            <limel-chip-set
+                disabled={this.disabled}
+                readonly={this.readonly}
+                invalid={this.invalid}
+                label={this.label}
+                leadingIcon="upload_to_cloud"
+                language={this.language}
+                onChange={this.handleChipSetChange}
+                onInteract={this.handleChipInteract}
+                required={this.required}
+                type="input"
+                value={this.getChipArray()}
+                title={this.getTranslation('drag-and-drop-tips')}
+            />
+        );
+
+        if (this.value) {
+            return chipset;
         }
 
-        event.preventDefault();
-        event.stopPropagation();
+        return (
+            <limel-file-input
+                accept={this.accept}
+                disabled={this.disabled || this.readonly}
+            >
+                {chipset}
+            </limel-file-input>
+        );
     }
 
-    private handleKeyUp(event: KeyboardEvent) {
-        if (event.code === 'Enter' && !this.value) {
-            this.fileInput.click();
-        }
-    }
-
-    private handleClick = (event: Event) => {
-        if (event && 'Lime' in event && (event.Lime as any).chip) {
-            // This is a click on a chip, so we don't need to do anything here.
-            return;
-        }
-
-        this.handleFileSelection(event);
-    };
-
-    private handleFileSelection(event: Event) {
-        event.stopPropagation();
-        event.preventDefault();
-        if (!this.value) {
-            this.fileInput.click();
-        }
-    }
-
-    private handleFileChange(event: Event) {
-        if (this.fileInput.files.length > 0) {
-            event.stopPropagation();
-            this.handleFile(this.fileInput.files[0]);
-        }
-    }
-
-    private handleFile(file) {
-        const limeFile: FileInfo = {
-            id: createRandomString(),
-            filename: file.name,
-            contentType: file.type,
-            size: file.size,
-            fileContent: file,
-        };
-        this.change.emit(limeFile);
-        this.chipSet.blur();
-        this.mdcTextField.valid = true;
-    }
-
-    private handleChipSetChange(event: CustomEvent) {
+    private handleChipSetChange = (event: CustomEvent) => {
         event.stopPropagation();
         const file = !event.detail.length ? event.detail[0] : null;
         this.chipSet.blur();
         if (!file) {
-            this.fileInput.value = '';
             this.change.emit(file);
             if (this.required) {
                 this.mdcTextField.valid = false;
             }
         }
-    }
+    };
 
-    private handleChipInteract(event: CustomEvent<Chip>) {
-        event.stopPropagation();
-        event.preventDefault();
+    private handleChipInteract = (event: CustomEvent<Chip>) => {
+        this.preventAndStop(event);
         this.interact.emit(event.detail.id);
-    }
+    };
 
     private preventAndStop(event: Event) {
         event.stopPropagation();
