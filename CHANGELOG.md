@@ -1,3 +1,11 @@
+## [37.6.0](https://github.com/Lundalogik/lime-elements/compare/v37.5.0...v37.6.0) (2024-02-28)
+
+
+### Features
+
+
+* **chip:** add `invalid` state ([08790d7](https://github.com/Lundalogik/lime-elements/commit/08790d7c3fdff176c7a9a6c46265103019cd0e5d))
+
 ## [37.5.0](https://github.com/Lundalogik/lime-elements/compare/v37.4.2...v37.5.0) (2024-02-23)
 
 
