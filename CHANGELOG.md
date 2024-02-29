@@ -1,3 +1,11 @@
+## [37.7.0](https://github.com/Lundalogik/lime-elements/compare/v37.6.0...v37.7.0) (2024-02-29)
+
+
+### Features
+
+
+* **form:** expose json schema interface ([e9c426f](https://github.com/Lundalogik/lime-elements/commit/e9c426fcc1b6a62ef97133b971fd13f8dd472520))
+
 ## [37.6.0](https://github.com/Lundalogik/lime-elements/compare/v37.5.0...v37.6.0) (2024-02-28)
 
 
