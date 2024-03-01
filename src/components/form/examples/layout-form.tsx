@@ -1,6 +1,6 @@
 import { ValidationStatus } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { schema } from './layout-schema';
+import { LayoutFormData, schema } from './layout-schema';
 
 /**
  * Layout
@@ -56,7 +56,7 @@ import { schema } from './layout-schema';
 })
 export class FormLayoutExample {
     @State()
-    private formData: object = {};
+    private formData: LayoutFormData = {};
 
     @State()
     private valid = true;

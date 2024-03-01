@@ -1,6 +1,16 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+export interface SpanFieldsFormData {
+    field1?: string;
+    field2?: number;
+    field3?: string;
+    field4?: string;
+    field5?: number;
+    field6?: string;
+    field7?: number;
+}
+
+export const schema: FormSchema<SpanFieldsFormData> = {
     title: 'A form with fields that span columns and rows',
     description:
         'This main form has a grid layout with 5 columns. Notice how fields reorder to fill holes when the "Dense layout" is enabled. You may need to resize your browser window to see this responsive layout in effect.',

@@ -1,6 +1,6 @@
 import { ValidationStatus, FormError } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { schema } from './custom-error-message-schema';
+import { CustomErrorFormData, schema } from './custom-error-message-schema';
 
 /**
  * Form with custom error message
@@ -13,7 +13,7 @@ import { schema } from './custom-error-message-schema';
 })
 export class CustomErrorMessageFormExample {
     @State()
-    private formData: object = {
+    private formData: CustomErrorFormData = {
         personalIdentityNumber: '',
     };
 

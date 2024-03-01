@@ -1,6 +1,10 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+export interface CustomErrorFormData {
+    personalIdentityNumber: string;
+}
+
+export const schema: FormSchema<CustomErrorFormData> = {
     title: 'Personal identity number form',
     description: 'Please enter your personal identity number',
     type: 'object',

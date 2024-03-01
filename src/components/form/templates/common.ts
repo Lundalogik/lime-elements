@@ -1,6 +1,8 @@
 import { get, isEmpty } from 'lodash-es';
 import React from 'react';
 import { isArrayType, isObjectType } from '../schema';
+import { FormSchema } from '../form.types';
+import { JSONSchema7 } from 'json-schema';
 
 export function renderTitle(title: string) {
     if (!title) {
@@ -38,12 +40,16 @@ export function renderDescription(description: string) {
  * @param formSchema - schema for the form
  * @returns describing title of the data
  */
-export function findTitle(data: any, fieldSchema: any, formSchema: any) {
+export function findTitle(
+    data: any,
+    fieldSchema: JSONSchema7,
+    formSchema: JSONSchema7,
+) {
     if (!data) {
         return null;
     }
 
-    if (Array.isArray(data) && isObjectType(fieldSchema.items)) {
+    if (Array.isArray(data) && isObjectType(fieldSchema.items as FormSchema)) {
         return findTitle(data[0], fieldSchema, formSchema);
     }
 
@@ -51,7 +57,10 @@ export function findTitle(data: any, fieldSchema: any, formSchema: any) {
         return findSchemaTitle(data, fieldSchema);
     }
 
-    const subSchema = findSubSchema(fieldSchema, formSchema);
+    const subSchema = findSubSchema(
+        fieldSchema as FormSchema,
+        formSchema as FormSchema,
+    );
 
     data = sortDataByProperties(data, subSchema.properties);
 
@@ -80,7 +89,7 @@ function sortDataByProperties(data: any, properties: object) {
     return newData;
 }
 
-function findFirstEntry(data: any, subSchema: any) {
+function findFirstEntry(data: any, subSchema: FormSchema) {
     const entries = [
         ['title', data.title],
         ['name', data.name],
@@ -95,7 +104,7 @@ function findFirstEntry(data: any, subSchema: any) {
     })[0];
 }
 
-function getRequiredEntry(data: any, subSchema: any) {
+function getRequiredEntry(data: any, subSchema: FormSchema) {
     if (!('required' in subSchema)) {
         return [null, null];
     }
@@ -110,10 +119,10 @@ function getRequiredEntry(data: any, subSchema: any) {
     return [firstNonEmptyRequiredKey, data[firstNonEmptyRequiredKey]];
 }
 
-function findSubSchema(schema: any, formSchema: any) {
+function findSubSchema(schema: FormSchema, formSchema: FormSchema) {
     let subSchema = schema;
     if (isArrayType(schema)) {
-        subSchema = schema.items;
+        subSchema = schema.items as FormSchema;
     }
 
     if (subSchema.$ref) {
@@ -124,9 +133,12 @@ function findSubSchema(schema: any, formSchema: any) {
     return subSchema;
 }
 
-function findSchemaTitle(value: any, schema: any) {
-    if (isArrayType(schema) && schema.items.anyOf) {
-        const titles = schema.items.anyOf
+function findSchemaTitle(value: any, schema: JSONSchema7) {
+    if (
+        isArrayType(schema as FormSchema) &&
+        (schema.items as JSONSchema7).anyOf
+    ) {
+        const titles = ((schema.items as JSONSchema7).anyOf as JSONSchema7[])
             .filter((item) => value.includes(item.const))
             .map((item) => item.title);
 
@@ -135,8 +147,8 @@ function findSchemaTitle(value: any, schema: any) {
 
     if (schema.oneOf) {
         return (
-            schema.oneOf.find((item) => value === item.const)?.title ||
-            `${value} is an invalid option`
+            (schema.oneOf as JSONSchema7[]).find((item) => value === item.const)
+                ?.title || `${value} is an invalid option`
         );
     }
 

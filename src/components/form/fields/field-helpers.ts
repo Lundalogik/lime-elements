@@ -1,5 +1,6 @@
 import { union, isEqual, isPlainObject, negate } from 'lodash-es';
 import { retrieveSchema, ADDITIONAL_PROPERTY_FLAG } from '@rjsf/core/lib/utils';
+import { FormSchema } from '../form.types';
 
 /**
  * Given two objects, get a list of keys for each value that is different between
@@ -68,7 +69,7 @@ export const resetDependentFields = (oldData, newData, schema, rootSchema) => {
  * @param schema - the schema
  * @returns true if the schema is for a custom object
  */
-export function isCustomObjectSchema(schema: any) {
+export function isCustomObjectSchema(schema: FormSchema) {
     if (!schema.additionalProperties) {
         return false;
     }
@@ -82,6 +83,6 @@ export function isCustomObjectSchema(schema: any) {
     return properties.filter(negate(isAdditionalProperty)).length === 0;
 }
 
-function isAdditionalProperty(schema: any): boolean {
+function isAdditionalProperty(schema: FormSchema): boolean {
     return schema[ADDITIONAL_PROPERTY_FLAG] === true;
 }

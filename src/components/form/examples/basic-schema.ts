@@ -1,6 +1,30 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+type SideKick =
+    | 'super'
+    | 'widow'
+    | 'america'
+    | 'squirrel'
+    | 'devil'
+    | 'marvel'
+    | 'fantastic';
+
+type Color = 'red' | 'yellow' | 'green' | 'blue' | 'black';
+
+export interface BasicFormData {
+    name?: string;
+    home?: string;
+    sidekicks?: SideKick[];
+    newsletters?: boolean;
+    params?: Record<string, any>;
+    date?: string;
+    email?: string;
+    happiness?: number;
+    bananas?: number;
+    color?: Color;
+}
+
+export const schema: FormSchema<BasicFormData> = {
     title: 'Registration form',
     description: 'Please enter your personal information',
     type: 'object',

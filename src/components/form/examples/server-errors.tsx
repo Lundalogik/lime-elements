@@ -1,6 +1,6 @@
 import { Component, h } from '@stencil/core';
 import { ValidationError } from '@limetech/lime-elements';
-import { schema } from './list-schema';
+import { schema, ListFormData } from './list-schema';
 
 /**
  * Form with server validation
@@ -12,11 +12,11 @@ import { schema } from './list-schema';
     shadow: true,
 })
 export class FormErrorExample {
-    private formData: object = {
+    private formData: ListFormData = {
         villains: ['Joker', 'Doctor Strange', 'Green Goblin'],
         squad: [
             {
-                powers: ['eating'],
+                powers: ['strength'],
                 name: 'Thanos',
             },
         ],

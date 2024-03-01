@@ -1,10 +1,12 @@
+import { FormSchema } from '../form.types';
+
 export interface FieldProps {
     readonly: boolean;
     title?: string;
     disabled: boolean;
     required: boolean;
     name: string;
-    schema: any;
+    schema: FormSchema;
     uiSchema: any;
     idSchema: any;
     formData: any;
@@ -26,7 +28,7 @@ export interface ArrayProps {
     readonly: boolean;
     registry: any;
     required: boolean;
-    schema: any;
+    schema: FormSchema;
     uiSchema: any;
     wasPropertyKeyModified: boolean;
     onChange: (formData: any, errorSchema: any) => void;
@@ -35,7 +37,7 @@ export interface ArrayProps {
 export interface Registry {
     fields: any;
     widgets: any;
-    rootSchema: any;
+    rootSchema: FormSchema;
     formContext: any;
     definitions: any;
 }
