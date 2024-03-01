@@ -1,5 +1,8 @@
+import { ListSeparator } from '../../global/shared-types/separator.types';
 import { Icon } from '../../global/shared-types/icon.types';
 import { MenuItem } from '../menu/menu.types';
+
+export { ListSeparator };
 
 /**
  * List item.
@@ -60,24 +63,6 @@ export interface ListItem<T = any> {
      * Component used to render the list item.
      */
     primaryComponent?: ListComponent;
-}
-
-/**
- * Indicates that a separator should be rendered in the list.
- * @public
- */
-export interface ListSeparator {
-    /**
-     * Indicates that a separator should be rendered in the list.
-     */
-    separator: true;
-
-    /**
-     * Text to display in the separator.
-     * This can be used as a label for the section of the list following the separator.
-     * If not specified, the separator will be rendered without a label.
-     */
-    text?: string;
 }
 
 /**

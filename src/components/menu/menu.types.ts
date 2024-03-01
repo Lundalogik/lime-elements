@@ -1,5 +1,5 @@
+import { ListSeparator } from '../../global/shared-types/separator.types';
 import { Icon } from '../../global/shared-types/icon.types';
-import { ListSeparator } from '../list/list-item.types';
 
 /**
  * The direction in which the menu should open.
