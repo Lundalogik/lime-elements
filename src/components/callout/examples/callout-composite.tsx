@@ -1,3 +1,4 @@
+import { FormSchema } from '@limetech/lime-elements';
 import { Component, h, Prop, State } from '@stencil/core';
 
 /**
@@ -9,7 +10,7 @@ import { Component, h, Prop, State } from '@stencil/core';
 })
 export class CalloutCompositeExample {
     @Prop()
-    public schema: any;
+    public schema: FormSchema;
 
     @State()
     private props: any = {
