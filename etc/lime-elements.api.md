@@ -766,9 +766,7 @@ export interface GridLayoutOptions extends FormLayoutOptions<FormLayoutType | `$
     rowSpan?: number;
 }
 
-// Warning: (ae-missing-release-tag) "Help" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export interface Help {
     openDirection: OpenDirection;
     readMoreLink?: Link;
