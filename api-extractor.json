@@ -363,7 +363,7 @@
          *
          * DEFAULT VALUE: "warning"
          */
-        "logLevel": "error"
+        "logLevel": "error",
 
         /**
          * When addToApiReportFile is true:  If API Extractor is configured to write an API report file (.api.md),
@@ -372,7 +372,7 @@
          *
          * DEFAULT VALUE: false
          */
-        // "addToApiReportFile": false
+        "addToApiReportFile": false
       }
 
       // "TS2551": {
@@ -392,10 +392,21 @@
      */
     "extractorMessageReporting": {
       "default": {
-        "logLevel": "error"
-        // "addToApiReportFile": false
+        "logLevel": "error",
+        "addToApiReportFile": false
       },
-
+      "ae-forgotten-export": {
+        "logLevel": "error",
+        "addToApiReportFile": false
+      },
+      "ae-incompatible-release-tags": {
+        "logLevel": "error",
+        "addToApiReportFile": false
+      },
+      "ae-internal-missing-underscore": {
+        "logLevel": "error",
+        "addToApiReportFile": false
+      },
       "ae-missing-release-tag": {
         "logLevel": "warning",
         // By setting `addToApiReportFile` to true, the message will be written
@@ -407,14 +418,15 @@
         // in `components.d.ts`, and there's no simple way to add a release tag
         // to those.
         "addToApiReportFile": true
+      },
+      "ae-unresolved-inheritdoc-base": {
+        "logLevel": "error",
+        "addToApiReportFile": false
+      },
+      "ae-unresolved-inheritdoc-reference": {
+        "logLevel": "error",
+        "addToApiReportFile": false
       }
-
-      // "ae-extra-release-tag": {
-      //   "logLevel": "warning",
-      //   "addToApiReportFile": true
-      // },
-      //
-      // . . .
     },
 
     /**
@@ -426,8 +438,8 @@
      */
     "tsdocMessageReporting": {
       "default": {
-        "logLevel": "error"
-        // "addToApiReportFile": false
+        "logLevel": "error",
+        "addToApiReportFile": false
       }
 
       // "tsdoc-link-tag-unescaped-text": {

@@ -18,11 +18,22 @@ export interface Action {
     label?: string;
 }
 
-// Warning: (ae-forgotten-export) The symbol "ActionBarItemOnlyIcon" needs to be exported by the entry point index.d.ts
-// Warning: (ae-forgotten-export) The symbol "ActionBarItemWithLabel" needs to be exported by the entry point index.d.ts
-//
 // @public
 export type ActionBarItem<T = any> = ActionBarItemOnlyIcon<T> | ActionBarItemWithLabel<T>;
+
+// @public
+export interface ActionBarItemOnlyIcon<T> extends MenuItem<T> {
+    // (undocumented)
+    icon: string | Icon;
+    // (undocumented)
+    iconOnly: true;
+}
+
+// @public
+export interface ActionBarItemWithLabel<T> extends MenuItem<T> {
+    // (undocumented)
+    iconOnly?: false;
+}
 
 // @public
 export type ActionPosition = 'top' | 'bottom';
@@ -462,7 +473,6 @@ export namespace Components {
         "iconSize": IconSize;
         "items": Array<MenuItem | ListSeparator>;
         "maxLinesSecondaryText": number;
-        // Warning: (ae-incompatible-release-tags) The symbol "type" is marked as @public, but its signature references "MenuListType" which is marked as @internal
         "type": MenuListType;
     }
     // (undocumented)
@@ -669,6 +679,14 @@ export interface DockMenu {
     };
 }
 
+// Warning: (ae-missing-release-tag) "EventEmitter" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface EventEmitter<T = any> {
+    // (undocumented)
+    emit: (data?: T) => CustomEvent<T>;
+}
+
 // @public (undocumented)
 export interface FileInfo {
     contentType?: string;
@@ -706,7 +724,6 @@ export interface FlowItem extends ListItem {
 
 // @public (undocumented)
 export interface FormComponent<T = any> {
-    // Warning: (ae-forgotten-export) The symbol "EventEmitter" needs to be exported by the entry point index.d.ts
     change: EventEmitter<T>;
     disabled?: boolean;
     formInfo?: FormInfo;
@@ -1296,7 +1313,6 @@ namespace JSX_2 {
         "items"?: Array<MenuItem | ListSeparator>;
         "maxLinesSecondaryText"?: number;
         "onSelect"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
-        // Warning: (ae-incompatible-release-tags) The symbol "type" is marked as @public, but its signature references "MenuListType" which is marked as @internal
         "type"?: MenuListType;
     }
     // (undocumented)
@@ -1930,9 +1946,7 @@ export interface MenuItem<T = any> {
     value?: T;
 }
 
-// Warning: (ae-internal-missing-underscore) The name "MenuListType" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal @deprecated
+// @public @deprecated
 export type MenuListType = 'menu';
 
 // @public

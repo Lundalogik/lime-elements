@@ -3,8 +3,7 @@
  * Available types are:
  * `menu`: regular vertical menu.
  *
- * @internal
  * @deprecated This type is no longer used.
- * @private
+ * @public
  */
 export type MenuListType = 'menu';
