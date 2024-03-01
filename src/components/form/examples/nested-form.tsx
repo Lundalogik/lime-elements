@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { schema } from './nested-schema';
+import { NestedFormData, schema } from './nested-schema';
 
 /**
  * Nested data
@@ -12,7 +12,7 @@ import { schema } from './nested-schema';
 })
 export class NestedFormExample {
     @State()
-    private formData: object = {};
+    private formData: NestedFormData = {};
 
     public render() {
         return [

@@ -1,6 +1,18 @@
 import { FormSchema } from '../form.types';
 
-export const schema: FormSchema = {
+type Language = 'sv' | 'ua' | 'en' | 'am' | 'fa';
+
+export interface RowLayoutFormData {
+    info?: {
+        language?: Language;
+        date?: string;
+        notification?: boolean;
+        frequency?: number;
+        personalNumber?: number;
+    };
+}
+
+export const schema: FormSchema<RowLayoutFormData> = {
     description: 'This form has the row layout',
     type: 'object',
     properties: {

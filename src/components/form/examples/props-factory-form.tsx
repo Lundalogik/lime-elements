@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { schema } from './props-factory-schema';
+import { PropsFactoryFormData, schema } from './props-factory-schema';
 import { FormSchema } from '@limetech/lime-elements';
 
 /**
@@ -14,7 +14,7 @@ import { FormSchema } from '@limetech/lime-elements';
 })
 export class PropsFactoryFormExample {
     @State()
-    private formData: object = {
+    private formData: PropsFactoryFormData = {
         hero: 1001,
     };
 

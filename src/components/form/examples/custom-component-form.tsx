@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { schema } from './custom-component-schema';
+import { CustomComponentFormData, schema } from './custom-component-schema';
 
 /**
  * Custom form component
@@ -38,7 +38,7 @@ import { schema } from './custom-component-schema';
 })
 export class CustomComponentFormExample {
     @State()
-    private formData: object = {
+    private formData: CustomComponentFormData = {
         name: 'My superhero deal',
         value: 1000000,
         hero: 1001,

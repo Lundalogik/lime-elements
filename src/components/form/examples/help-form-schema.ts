@@ -1,6 +1,16 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+type Race = 'search' | 'recommendation' | 'ads' | 'work' | 'workshop';
+export interface HelpFormData {
+    address?: {
+        planet?: string;
+        galaxy?: string;
+        email?: string;
+        race?: Race;
+    };
+}
+
+export const schema: FormSchema<HelpFormData> = {
     type: 'object',
     properties: {
         address: {

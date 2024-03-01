@@ -1,6 +1,46 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+type Race =
+    | 'angel'
+    | 'dragon'
+    | 'elf'
+    | 'yeti'
+    | 'vampire'
+    | 'warewolf'
+    | 'orc'
+    | 'wizard';
+
+type PlaceOfBirth =
+    | 'palight'
+    | 'ekudshire'
+    | 'blarc'
+    | 'kamond'
+    | 'blodholm'
+    | 'wuacross'
+    | 'bruhgnathal'
+    | 'orasas';
+
+export interface LayoutFormData {
+    info?: {
+        name?: string;
+        age?: number;
+        race?: Race;
+        placeOfBirth?: PlaceOfBirth;
+    };
+    address?: {
+        city?: string;
+        country?: string;
+    };
+    emails?: {
+        email1?: string;
+        email2?: string;
+        email3?: string;
+        email4?: string;
+        email5?: string;
+    };
+}
+
+export const schema: FormSchema<LayoutFormData> = {
     title: 'Registration form',
     description:
         'This main form has no specified layout, so it gets the default 1 column.',
