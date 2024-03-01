@@ -2,6 +2,13 @@ import { JSONSchema7 } from 'json-schema';
 import { Help } from '../help/help.types';
 import { EventEmitter } from '@stencil/core';
 
+/**
+ * EventEmitter from `@stencil/core`.
+ *
+ * @public
+ */
+export { EventEmitter } from '@stencil/core';
+
 declare module 'json-schema' {
     interface JSONSchema7 {
         /**

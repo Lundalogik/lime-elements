@@ -14,7 +14,7 @@ export type ActionBarItem<T = any> =
  * Action bar item that only displays an icon.
  * @public
  */
-interface ActionBarItemOnlyIcon<T> extends MenuItem<T> {
+export interface ActionBarItemOnlyIcon<T> extends MenuItem<T> {
     iconOnly: true;
     icon: string | Icon;
 }
@@ -23,6 +23,6 @@ interface ActionBarItemOnlyIcon<T> extends MenuItem<T> {
  * Action bar item that displays an icon and a label.
  * @public
  */
-interface ActionBarItemWithLabel<T> extends MenuItem<T> {
+export interface ActionBarItemWithLabel<T> extends MenuItem<T> {
     iconOnly?: false;
 }
