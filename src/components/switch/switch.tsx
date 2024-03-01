@@ -14,7 +14,7 @@ import { createRandomString } from '../../util/random-string';
 import {
     makeEnterClickable,
     removeEnterClickable,
-} from 'src/util/make-enter-clickable';
+} from '../../util/make-enter-clickable';
 
 /**
  * The Switch component is a fundamental element in UI design that serves as a toggle switch

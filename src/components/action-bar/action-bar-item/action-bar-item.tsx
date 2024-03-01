@@ -12,7 +12,7 @@ import { createRandomString } from '../../../util/random-string';
 import {
     makeEnterClickable,
     removeEnterClickable,
-} from 'src/util/make-enter-clickable';
+} from '../../../util/make-enter-clickable';
 import { getIconColor, getIconName } from '../../icon/get-icon-props';
 
 /**

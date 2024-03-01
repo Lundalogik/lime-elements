@@ -1489,9 +1489,7 @@ export { JSX_2 as JSX }
 export type Language = 'javascript' | 'jinja2' | 'json' | 'typescript';
 
 // @public (undocumented)
-type Languages = 'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';
-export { Languages }
-export { Languages as Languages1 }
+export type Languages = 'da' | 'de' | 'en' | 'fi' | 'fr' | 'nb' | 'no' | 'nl' | 'sv';
 
 // @public
 export type Layout = 'default' | 'stretchLastColumn' | 'stretchColumns' | 'lowDensity';
@@ -1881,14 +1879,12 @@ export interface LimeSchemaOptions {
 }
 
 // @public
-interface Link {
+export interface Link {
     href: string;
     target?: string;
     text?: string;
     title?: string;
 }
-export { Link }
-export { Link as Link1 }
 
 // @public
 export interface ListComponent {

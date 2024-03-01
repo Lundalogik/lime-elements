@@ -1,5 +1,6 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import { ListSeparator, MenuItem } from 'src/interface';
+import { ListSeparator } from '../list/list-item.types';
+import { MenuItem } from '../menu/menu.types';
 
 describe('limel-split-button', () => {
     let page: E2EPage;

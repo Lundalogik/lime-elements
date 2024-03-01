@@ -1,5 +1,5 @@
 import { Component, Prop, h } from '@stencil/core';
-import { Link } from '../../interface';
+import { Link } from '../../global/shared-types/link.types';
 
 /**
  * Help content

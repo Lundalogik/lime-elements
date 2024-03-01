@@ -11,8 +11,8 @@ import { Action } from './action';
 import {
     makeEnterClickable,
     removeEnterClickable,
-} from 'src/util/make-enter-clickable';
-import { createRandomString } from 'src/util/random-string';
+} from '../../util/make-enter-clickable';
+import { createRandomString } from '../../util/random-string';
 
 /**
  * @slot - Content to put inside the collapsible section

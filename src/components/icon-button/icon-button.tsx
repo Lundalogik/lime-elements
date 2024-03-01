@@ -2,7 +2,7 @@ import { Component, Element, h, Host, Prop } from '@stencil/core';
 import {
     makeEnterClickable,
     removeEnterClickable,
-} from 'src/util/make-enter-clickable';
+} from '../../util/make-enter-clickable';
 import { createRandomString } from '../../util/random-string';
 
 /**

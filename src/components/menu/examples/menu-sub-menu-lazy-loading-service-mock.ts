@@ -1,4 +1,4 @@
-import { ListSeparator } from 'src/interface';
+import { ListSeparator } from '../../list/list-item.types';
 import { MenuItem } from '../menu.types';
 import { fakeServer } from './menu-sub-menu-lazy-loading-service-mock-server';
 
