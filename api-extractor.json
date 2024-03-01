@@ -114,9 +114,10 @@
      *
      * DEFAULT VALUE: no overrideTsconfig section
      */
-    // "overrideTsconfig": {
-    //   . . .
-    // }
+    "overrideTsconfig": {
+      "extends": "./tsconfig.dist.json",
+      "include": ["dist/types/index.d.ts"]
+    }
     /**
      * This option causes the compiler to be invoked with the --skipLibCheck option. This option is not recommended
      * and may cause API Extractor to produce incomplete or incorrect declarations, but it may be required when
