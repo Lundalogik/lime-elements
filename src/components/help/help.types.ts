@@ -1,6 +1,12 @@
 import { OpenDirection } from '../menu/menu.types';
 import { Link } from '../../global/shared-types/link.types';
 
+/**
+ * This interface represents the properties that can be passed to the
+ * `limel-help` component.
+ *
+ * @public
+ */
 export interface Help {
     /**
      * Decides the popover's location in relation to the trigger.
