@@ -1,6 +1,5 @@
 import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
 import { Component, h, Host, State } from '@stencil/core';
-import { createRandomString } from 'src/util/random-string';
 
 /**
  * Changing Available Options
@@ -30,7 +29,7 @@ export class SelectExample {
     private currentOptionGroup = 0;
 
     @State()
-    private key = createRandomString();
+    private key = crypto.randomUUID();
 
     private optionGroups: Option[][] = [
         [
@@ -146,6 +145,9 @@ export class SelectExample {
     };
 
     private reinitialize = () => {
-        this.key = createRandomString();
+        // We need to change the key to force destruction and recreation of the
+        // component. This is necessary to ensure that the component can handle
+        // being reinitialized with an empty set of options.
+        this.key = crypto.randomUUID();
     };
 }
