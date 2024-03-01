@@ -1,5 +1,9 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { Button, LimelButtonGroupCustomEvent } from '@limetech/lime-elements';
+import {
+    Button,
+    FormSchema,
+    LimelButtonGroupCustomEvent,
+} from '@limetech/lime-elements';
 
 /**
  * Composite
@@ -12,7 +16,7 @@ import { Button, LimelButtonGroupCustomEvent } from '@limetech/lime-elements';
 })
 export class ButtonCompositeExample {
     @Prop()
-    public schema: any;
+    public schema: FormSchema;
 
     @State()
     private props = {

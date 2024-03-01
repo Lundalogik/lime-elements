@@ -1,6 +1,6 @@
 import { ValidationStatus } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { schema, SpanFieldsFormData } from './span-fields-schema';
+import { schema } from './span-fields-schema';
 
 /**
  * Stretching fields in a form
@@ -158,7 +158,7 @@ import { schema, SpanFieldsFormData } from './span-fields-schema';
 })
 export class FormLayoutExample {
     @State()
-    private formData: SpanFieldsFormData = {};
+    private formData: Record<string, string> = {};
 
     @State()
     private valid = true;

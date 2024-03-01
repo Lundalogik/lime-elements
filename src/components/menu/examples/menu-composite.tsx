@@ -1,4 +1,4 @@
-import { Components } from '@limetech/lime-elements';
+import { Components, FormSchema } from '@limetech/lime-elements';
 import { Component, h, Prop, State } from '@stencil/core';
 
 /**
@@ -13,7 +13,7 @@ import { Component, h, Prop, State } from '@stencil/core';
 })
 export class MenuCompositeExample {
     @Prop()
-    public schema: any;
+    public schema: FormSchema;
 
     @State()
     private props = {
