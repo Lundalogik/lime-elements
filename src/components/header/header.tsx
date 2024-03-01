@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { Icon } from '../../interface';
+import { Icon } from '../../global/shared-types/icon.types';
 import { getIconName } from '../icon/get-icon-props';
 
 /**

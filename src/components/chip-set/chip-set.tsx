@@ -16,7 +16,7 @@ import { handleKeyboardEvent } from './chip-set-input-helpers';
 import translate from '../../global/translations';
 import { getHref, getTarget } from '../../util/link-helper';
 import { isEqual } from 'lodash-es';
-import { LimelChipCustomEvent } from 'src/components';
+import { LimelChipCustomEvent } from '../../components';
 
 const INPUT_FIELD_TABINDEX = 1;
 

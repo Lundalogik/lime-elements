@@ -7,7 +7,9 @@ import {
     Host,
     Prop,
 } from '@stencil/core';
-import { Icon, Languages, Link } from '../../interface';
+import { Icon } from '../../global/shared-types/icon.types';
+import { Languages } from '../date-picker/date.types';
+import { Link } from '../../global/shared-types/link.types';
 import { getIconName } from '../icon/get-icon-props';
 import {
     makeEnterClickable,

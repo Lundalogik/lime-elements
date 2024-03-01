@@ -7,7 +7,7 @@ import {
     Prop,
 } from '@stencil/core';
 import { FlowItem } from '../progress-flow.types';
-import { getIconName } from 'src/components/icon/get-icon-props';
+import { getIconName } from '../../icon/get-icon-props';
 
 /**
  * @private

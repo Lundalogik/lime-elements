@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { OpenDirection } from '../menu/menu.types';
-import { Help, Link } from '../../interface';
+import { Help } from '../help/help.types';
+import { Link } from '../../global/shared-types/link.types';
 
 /**
  * A good design is self-explanatory! However, sometimes concepts are

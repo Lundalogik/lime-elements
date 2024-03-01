@@ -29,7 +29,7 @@ import { ListItem } from '../list/list-item.types';
 import { getHref, getTarget } from '../../util/link-helper';
 import { JSXBase } from '@stencil/core/internal';
 import { createRandomString } from '../../util/random-string';
-import { LimelListCustomEvent } from 'src/components';
+import { LimelListCustomEvent } from '../../components';
 import { globalConfig } from '../../global/config';
 
 interface LinkProperties {

@@ -2,7 +2,7 @@ import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
 import { ActionBarItem } from '../../action-bar/action-bar.types';
 import { ListSeparator } from '../../list/list-item.types';
 import { MenuItem, OpenDirection } from '../../menu/menu.types';
-import { LimelMenuCustomEvent } from 'src/components';
+import { LimelMenuCustomEvent } from '../../../components';
 
 /**
  * @private

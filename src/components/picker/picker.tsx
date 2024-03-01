@@ -28,7 +28,10 @@ import {
     TAB_KEY_CODE,
 } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
-import { LimelChipSetCustomEvent, LimelListCustomEvent } from 'src/components';
+import {
+    LimelChipSetCustomEvent,
+    LimelListCustomEvent,
+} from '../../components';
 import { getIconFillColor, getIconName } from '../icon/get-icon-props';
 
 const SEARCH_DEBOUNCE = 500;

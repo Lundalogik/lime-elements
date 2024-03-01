@@ -1,5 +1,5 @@
 import { OpenDirection } from '../menu/menu.types';
-import { Link } from '../../interface';
+import { Link } from '../../global/shared-types/link.types';
 
 export interface Help {
     /**

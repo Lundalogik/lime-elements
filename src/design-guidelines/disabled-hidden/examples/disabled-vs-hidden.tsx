@@ -1,5 +1,6 @@
 import { Component, h, State } from '@stencil/core';
-import { ListSeparator, MenuItem } from 'src/interface';
+import { ListSeparator } from '../../../components/list/list-item.types';
+import { MenuItem } from '../../../components/menu/menu.types';
 
 @Component({
     tag: 'limel-example-button-disabled-vs-hidden',

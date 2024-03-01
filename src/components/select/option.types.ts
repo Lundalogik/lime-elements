@@ -1,4 +1,4 @@
-import { Icon } from '../../interface';
+import { Icon } from '../../global/shared-types/icon.types';
 /**
  * Describes an option for limel-select.
  * @public
