@@ -1,4 +1,5 @@
-import { ListItem, ListSeparator } from '../list/list-item.types';
+import { ListItem } from './list-item.types';
+import { ListSeparator } from '../../global/shared-types/separator.types';
 import { MenuItem } from '../menu/menu.types';
 import { h } from '@stencil/core';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
