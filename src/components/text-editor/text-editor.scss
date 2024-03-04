@@ -1,0 +1,10 @@
+@import './toastui-editor.css';
+
+:host(limel-text-editor) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-width: 45rem;
+    min-width: 10rem;
+    height: 20rem;
+}
