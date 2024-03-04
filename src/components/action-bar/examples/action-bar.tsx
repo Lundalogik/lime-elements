@@ -71,7 +71,7 @@ export class ActionBarBasicExample {
     ];
 
     public render() {
-        return (
+        return [
             <div class="application">
                 <limel-action-bar
                     accessibleLabel="Action bar"
@@ -79,8 +79,17 @@ export class ActionBarBasicExample {
                     onItemSelected={this.handleSelected}
                     layout="fullWidth"
                 />
-            </div>
-        );
+            </div>,
+            <br />,
+            <br />,
+            <div>
+                UA string: {navigator.userAgent}<br />
+                <br />
+                userAgentData: <limel-markdown value={'```\n' + JSON.stringify(navigator['userAgentData'], null, 2) + '\n```'} /><br />
+                <br />
+                crypto.randomUUID(): {crypto.randomUUID()}
+            </div>,
+        ];
     }
 
     private handleSelected = (event: CustomEvent<ActionBarItem>) => {
