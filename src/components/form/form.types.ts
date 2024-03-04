@@ -213,8 +213,8 @@ export interface LimeSchemaOptions {
 }
 
 /**
- * @public
  * Options for a layout to be used in a form
+ * @public
  */
 export type LimeLayoutOptions = GridLayoutOptions & RowLayoutOptions;
 
@@ -249,8 +249,8 @@ export interface FormLayoutOptions<
 }
 
 /**
- * @public
  * Layout options for a grid layout
+ * @public
  */
 export interface GridLayoutOptions
     extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
@@ -282,8 +282,8 @@ export interface GridLayoutOptions
 }
 
 /**
- * @public
  * Layout options for a row layout
+ * @public
  */
 export interface RowLayoutOptions
     extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
@@ -295,8 +295,8 @@ export interface RowLayoutOptions
 }
 
 /**
- * @public
  * Represents the layout types for a form.
+ * @public
  */
 export enum FormLayoutType {
     /**
@@ -320,8 +320,8 @@ export enum FormLayoutType {
 }
 
 /**
- * @public
  * Represents the JSON schema with Lime specific options
+ * @public
  */
 export interface FormSchema<T extends Record<string, any> = any>
     extends JSONSchema7 {
