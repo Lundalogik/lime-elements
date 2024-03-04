@@ -74,11 +74,11 @@ function getInputType(schema: FormSchema): InputType {
 
 function getStepSize(schema: FormSchema): 'any' | number {
     if (isNumberType(schema) && schema.multipleOf) {
-        return parseFloat(String(schema.multipleOf)) || 'any';
+        return +schema.multipleOf || 'any';
     }
 
     if (isIntegerType(schema)) {
-        return parseInt(String(schema.multipleOf), 10) || 1;
+        return Math.floor(+schema.multipleOf) || 1;
     }
 
     return 'any';
