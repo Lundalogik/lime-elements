@@ -1,0 +1,2 @@
+var a;(function(a){a["Default"]="default";a["Grid"]="grid";a["Row"]="row"})(a||(a={}));var n;(function(a){a["Average"]="avg";a["Maximum"]="max";a["Minimum"]="min";a["Sum"]="sum";a["Count"]="count"})(n||(n={}));export{n as C,a as F};
+//# sourceMappingURL=table.types-43447fba.js.map
