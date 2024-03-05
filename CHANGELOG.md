@@ -1,3 +1,11 @@
+## [37.7.1](https://github.com/Lundalogik/lime-elements/compare/v37.7.0...v37.7.1) (2024-03-05)
+
+
+### Bug Fixes
+
+
+* **chip:** don't specify the exact number of percentages above the progress bar ([3c6fcd0](https://github.com/Lundalogik/lime-elements/commit/3c6fcd08a88f7289e3c7ab357672c8f82c527285))
+
 ## [37.7.0](https://github.com/Lundalogik/lime-elements/compare/v37.6.0...v37.7.0) (2024-02-29)
 
 
