@@ -1,3 +1,11 @@
+## [37.8.0](https://github.com/Lundalogik/lime-elements/compare/v37.7.1...v37.8.0) (2024-03-05)
+
+
+### Features
+
+
+* **form:** add generic schema support ([d73f48b](https://github.com/Lundalogik/lime-elements/commit/d73f48bc9e115fe8e6ff4415290966960486d53f))
+
 ## [37.7.1](https://github.com/Lundalogik/lime-elements/compare/v37.7.0...v37.7.1) (2024-03-05)
 
 
