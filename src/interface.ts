@@ -11,7 +11,24 @@ export * from './components/dialog/dialog.types';
 export * from './components/dock/dock.types';
 export * from './components/file/file.types';
 export * from './components/flex-container/flex-container.types';
-export * from './components/form/form.types';
+export {
+    EventEmitter,
+    ValidationStatus,
+    FormError,
+    ValidationError,
+    FormComponent,
+    FormInfo,
+    LimeSchemaOptions,
+    LimeLayoutOptions,
+    FormComponentOptions,
+    FormLayoutOptions,
+    GridLayoutOptions,
+    RowLayoutOptions,
+    FormLayoutType,
+    ReplaceObjectType,
+    FormSchemaArrayItem,
+    FormSubKeySchema,
+} from './components/form/form.types';
 export * from './components/help/help.types';
 export * from './components/icon/icon.types';
 export * from './components/info-tile/info-tile.types';
