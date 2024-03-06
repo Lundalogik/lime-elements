@@ -10,4 +10,6 @@ import { ListSeparator } from '../../global/shared-types/separator.types';
  * @returns The search result.
  * @public
  */
-export type Searcher = (query: string) => Promise<ListItem[] | ListSeparator>;
+export type Searcher = (
+    query: string,
+) => Promise<Array<ListItem | ListSeparator>>;
