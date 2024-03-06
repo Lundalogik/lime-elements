@@ -1,3 +1,11 @@
+## [37.8.2](https://github.com/Lundalogik/lime-elements/compare/v37.8.1...v37.8.2) (2024-03-06)
+
+
+### Bug Fixes
+
+
+* **input-field:** make a placeholder text visible in dark mode ([914094e](https://github.com/Lundalogik/lime-elements/commit/914094ec169312ee87e3ba9f26702f01a26f054a))
+
 ## [37.8.1](https://github.com/Lundalogik/lime-elements/compare/v37.8.0...v37.8.1) (2024-03-06)
 
 
