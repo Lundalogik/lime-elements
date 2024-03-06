@@ -1,3 +1,11 @@
+## [37.10.1](https://github.com/Lundalogik/lime-elements/compare/v37.10.0...v37.10.1) (2024-03-06)
+
+
+### Bug Fixes
+
+
+* **limel-picker:** searcher returns array of ListItem or ListSeparator ([762216a](https://github.com/Lundalogik/lime-elements/commit/762216a12c6eada80233d9f51798dbe69b2a178d))
+
 ## [37.10.0](https://github.com/Lundalogik/lime-elements/compare/v37.9.0...v37.10.0) (2024-03-06)
 
 
