@@ -33,6 +33,7 @@ import {
     LimelListCustomEvent,
 } from '../../components';
 import { getIconFillColor, getIconName } from '../icon/get-icon-props';
+import { PickerValue } from './value.types';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
@@ -113,15 +114,7 @@ export class Picker {
      * Currently selected value or values. Where the value can be an object.
      */
     @Prop()
-    public value:
-        | ListItem<
-              number | string | { id: string | number; [key: string]: any }
-          >
-        | Array<
-              ListItem<
-                  number | string | { id: string | number; [key: string]: any }
-              >
-          >;
+    public value: ListItem<PickerValue> | Array<ListItem<PickerValue>>;
 
     /**
      * A search function that takes a search-string as an argument,
@@ -180,14 +173,14 @@ export class Picker {
      */
     @Event()
     private change: EventEmitter<
-        ListItem<number | string> | Array<ListItem<number | string>>
+        ListItem<PickerValue> | Array<ListItem<PickerValue>>
     >;
 
     /**
      * Fired when clicking on a selected value
      */
     @Event()
-    private interact: EventEmitter<ListItem<number | string>>;
+    private interact: EventEmitter<ListItem<PickerValue>>;
 
     /**
      * Emitted when the user selects an action.
@@ -562,7 +555,7 @@ export class Picker {
 
         // If the search-query is an empty string, bypass debouncing.
         const searchFn = query === '' ? this.searcher : this.debouncedSearch;
-        const result = await searchFn(query);
+        const result = (await searchFn(query)) as Array<ListItem<PickerValue>>;
         this.handleSearchResult(query, result);
     }
 
@@ -571,12 +564,18 @@ export class Picker {
      *
      * @param event - event
      */
-    private handleListChange(event: LimelListCustomEvent<ListItem>) {
+    private handleListChange(
+        event: LimelListCustomEvent<ListItem<PickerValue>>,
+    ) {
         event.stopPropagation();
         if (!this.value || this.value !== event.detail) {
-            let newValue: ListItem | ListItem[] = event.detail;
+            let newValue: ListItem<PickerValue> | Array<ListItem<PickerValue>> =
+                event.detail;
             if (this.multiple) {
-                newValue = [...(this.value as ListItem[]), event.detail];
+                newValue = [
+                    ...(this.value as Array<ListItem<PickerValue>>),
+                    event.detail,
+                ];
             }
 
             this.change.emit(newValue);
@@ -612,7 +611,9 @@ export class Picker {
     private async handleInputFieldFocus() {
         this.loading = true;
         const query = this.textValue;
-        const result = await this.searcher(query);
+        const result = (await this.searcher(query)) as Array<
+            ListItem<PickerValue>
+        >;
         this.handleSearchResult(query, result);
     }
 

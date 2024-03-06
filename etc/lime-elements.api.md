@@ -504,14 +504,7 @@ export namespace Components {
         "required": boolean;
         "searcher": Searcher;
         "searchLabel": string;
-        "value": | ListItem<
-        number | string | { id: string | number; [key: string]: any }
-        >
-        | Array<
-        ListItem<
-        number | string | { id: string | number; [key: string]: any }
-        >
-        >;
+        "value": ListItem<PickerValue> | Array<ListItem<PickerValue>>;
     }
     export interface LimelPopover {
         "open": boolean;
@@ -1378,20 +1371,13 @@ namespace JSX_2 {
         "leadingIcon"?: string;
         "multiple"?: boolean;
         "onAction"?: (event: LimelPickerCustomEvent<Action>) => void;
-        "onChange"?: (event: LimelPickerCustomEvent<ListItem<number | string> | Array<ListItem<number | string>>>) => void;
-        "onInteract"?: (event: LimelPickerCustomEvent<ListItem<number | string>>) => void;
+        "onChange"?: (event: LimelPickerCustomEvent<ListItem<PickerValue> | Array<ListItem<PickerValue>>>) => void;
+        "onInteract"?: (event: LimelPickerCustomEvent<ListItem<PickerValue>>) => void;
         "readonly"?: boolean;
         "required"?: boolean;
         "searcher"?: Searcher;
         "searchLabel"?: string;
-        "value"?: | ListItem<
-        number | string | { id: string | number; [key: string]: any }
-        >
-        | Array<
-        ListItem<
-        number | string | { id: string | number; [key: string]: any }
-        >
-        >;
+        "value"?: ListItem<PickerValue> | Array<ListItem<PickerValue>>;
     }
     interface LimelPopover {
         "onClose"?: (event: LimelPopoverCustomEvent<void>) => void;
@@ -2025,6 +2011,12 @@ interface Option_2<T extends string = string> {
 export { Option_2 as Option }
 
 // @public
+export type PickerValue = number | string | {
+    id: string | number;
+    [key: string]: any;
+};
+
+// @public
 export type ReplaceObjectType<T, AllowedType, ElseType> = T extends any[] ? ElseType : T extends Record<string, any> ? AllowedType : ElseType;
 
 // @public
@@ -2033,7 +2025,7 @@ export interface RowLayoutOptions extends FormLayoutOptions<FormLayoutType | `${
 }
 
 // @public
-export type Searcher = (query: string) => Promise<ListItem[]>;
+export type Searcher = (query: string) => Promise<ListItem[] | ListSeparator>;
 
 // @public
 export type SpinnerSize = 'mini' | 'x-small' | 'small' | 'medium' | 'large';
