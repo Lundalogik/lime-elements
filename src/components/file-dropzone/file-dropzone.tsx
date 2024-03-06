@@ -104,7 +104,7 @@ export class FileDropzone {
     }
 
     private renderOnDragLayout = () => {
-        if (!this.hasFileToDrop) {
+        if (this.disabled || !this.hasFileToDrop) {
             return;
         }
 
