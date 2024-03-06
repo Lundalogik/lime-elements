@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { GridLayoutOptions } from '../form.types';
+import { FormSchema } from '../form.types';
 import { isObjectType } from '../schema';
 
 export const FieldTemplate = (props) => {
@@ -29,8 +29,8 @@ export const FieldTemplate = (props) => {
     );
 };
 
-function getColSpan(schema: any) {
-    const layout: GridLayoutOptions = schema.lime?.layout;
+function getColSpan(schema: FormSchema) {
+    const layout = schema.lime?.layout;
     const colSpan = layout?.colSpan;
 
     if (!colSpan && isObjectType(schema)) {
@@ -40,8 +40,8 @@ function getColSpan(schema: any) {
     return colSpan;
 }
 
-function getRowSpan(schema: any) {
-    const layout: GridLayoutOptions = schema.lime?.layout;
+function getRowSpan(schema: FormSchema) {
+    const layout = schema.lime?.layout;
 
     return layout?.rowSpan;
 }

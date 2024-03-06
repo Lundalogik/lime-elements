@@ -3,6 +3,7 @@ import React from 'react';
 import { findTitle } from './common';
 import { ArrayFieldItem, Runnable } from './types';
 import { isEmpty } from 'lodash-es';
+import { JSONSchema7 } from 'json-schema';
 
 interface CollapsibleItemProps {
     /**
@@ -23,12 +24,12 @@ interface CollapsibleItemProps {
     /**
      * Schema for the field
      */
-    schema: any;
+    schema: JSONSchema7;
 
     /**
      * Schema for the entire form
      */
-    formSchema: any;
+    formSchema: JSONSchema7;
 }
 
 export class CollapsibleItemTemplate extends React.Component {

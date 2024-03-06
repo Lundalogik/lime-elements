@@ -1,6 +1,10 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+export interface PropsFactoryFormData {
+    hero?: number;
+}
+
+export const schema: FormSchema<PropsFactoryFormData> = {
     type: 'object',
     properties: {
         hero: {

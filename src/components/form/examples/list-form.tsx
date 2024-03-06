@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { schema } from './list-schema';
+import { ListFormData, schema } from './list-schema';
 
 /**
  * List data
@@ -12,7 +12,7 @@ import { schema } from './list-schema';
 })
 export class ListFormExample {
     @State()
-    private formData: object = {
+    private formData: ListFormData = {
         villains: ['Joker', 'Thanos', 'Green Goblin'],
         squad: [
             {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { LimeElementsWidgetAdapter } from '../adapters';
 import { WidgetProps } from './types';
+import { FormSchema } from '../form.types';
 
 export class Slider extends React.Component {
     constructor(public props: WidgetProps) {
@@ -50,13 +51,13 @@ export class Slider extends React.Component {
     }
 }
 
-function isPercent(schema: any): boolean {
+function isPercent(schema: FormSchema): boolean {
     return (
         schema.multipleOf < 1 && schema.minimum === 0 && schema.maximum === 1
     );
 }
 
-function getAdditionalProps(schema: any) {
+function getAdditionalProps(schema: FormSchema) {
     let props: any = {};
 
     if (schema.lime?.component?.props) {

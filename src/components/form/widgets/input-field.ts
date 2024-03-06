@@ -4,6 +4,7 @@ import { isIntegerType, isNumberType } from '../schema';
 import { WidgetProps } from './types';
 import { LimeElementsWidgetAdapter } from '../adapters';
 import { Slider } from './slider';
+import { FormSchema } from '../form.types';
 
 export class InputField extends React.Component {
     constructor(public props: WidgetProps) {
@@ -59,7 +60,7 @@ export class InputField extends React.Component {
     }
 }
 
-function getInputType(schema: any): InputType {
+function getInputType(schema: FormSchema): InputType {
     if (isNumberType(schema) || isIntegerType(schema)) {
         return 'number';
     }
@@ -71,19 +72,19 @@ function getInputType(schema: any): InputType {
     return 'text';
 }
 
-function getStepSize(schema: any): 'any' | number {
+function getStepSize(schema: FormSchema): 'any' | number {
     if (isNumberType(schema) && schema.multipleOf) {
-        return parseFloat(schema.multipleOf) || 'any';
+        return +schema.multipleOf || 'any';
     }
 
     if (isIntegerType(schema)) {
-        return parseInt(schema.multipleOf, 10) || 1;
+        return Math.floor(+schema.multipleOf) || 1;
     }
 
     return 'any';
 }
 
-function getAdditionalProps(schema: any) {
+function getAdditionalProps(schema: FormSchema) {
     let props: any = {};
 
     if (schema.minimum) {
@@ -112,7 +113,7 @@ function getAdditionalProps(schema: any) {
     return props;
 }
 
-function isRange(schema: any): boolean {
+function isRange(schema: FormSchema): boolean {
     if (!isNumberType(schema) && !isIntegerType(schema)) {
         return false;
     }

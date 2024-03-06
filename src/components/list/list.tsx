@@ -239,6 +239,7 @@ export class List {
         });
 
         if (selectedItem) {
+            this.mdcList.selectedIndex = -1;
             this.change.emit({ ...selectedItem, selected: false });
         }
 

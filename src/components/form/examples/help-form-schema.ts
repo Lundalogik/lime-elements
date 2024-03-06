@@ -1,13 +1,23 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+type Source = 'search' | 'recommendation' | 'ads' | 'work' | 'workshop';
+export interface HelpFormData {
+    address?: {
+        name?: string;
+        company?: string;
+        email?: string;
+        source?: Source;
+    };
+}
+
+export const schema: FormSchema<HelpFormData> = {
     type: 'object',
     properties: {
         address: {
             type: 'object',
             title: 'Book a demo',
             properties: {
-                planet: {
+                name: {
                     type: 'string',
                     title: 'Name',
                     description: 'Please write your name & surname',
@@ -23,7 +33,7 @@ export const schema: FormSchema = {
                         },
                     },
                 },
-                galaxy: {
+                company: {
                     type: 'string',
                     title: 'Company',
                     description: 'Please write your company name',
@@ -44,7 +54,7 @@ export const schema: FormSchema = {
                         },
                     },
                 },
-                race: {
+                source: {
                     type: 'string',
                     title: 'How did you hear about Lime CRM?',
                     oneOf: [

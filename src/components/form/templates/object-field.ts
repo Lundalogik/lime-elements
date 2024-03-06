@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     FormLayoutType,
-    FormSchema,
     LimeLayoutOptions,
     FormLayoutOptions,
 } from '../form.types';
@@ -9,6 +8,7 @@ import { renderDescription, renderTitle } from './common';
 import { GridLayout } from './grid-layout';
 import { RowLayout } from './row-layout';
 import { LimeObjectFieldTemplateProps, ObjectFieldProperty } from './types';
+import { JSONSchema7 } from 'json-schema';
 
 export const ObjectFieldTemplate = (props: LimeObjectFieldTemplateProps) => {
     const id = props.idSchema.$id;
@@ -51,7 +51,10 @@ function renderCollapsibleField(props: LimeObjectFieldTemplateProps) {
     );
 }
 
-function getSchemaObjectPropertyPath(schema: any, subSchema: FormSchema) {
+function getSchemaObjectPropertyPath(
+    schema: JSONSchema7,
+    subSchema: JSONSchema7,
+) {
     const refPrefixLength = 2;
     const matchAllForwardSlashes = /\//g;
     const rootPath = (schema.$ref as string)
@@ -64,7 +67,7 @@ function getSchemaObjectPropertyPath(schema: any, subSchema: FormSchema) {
 
 function renderProperties(
     properties: ObjectFieldProperty[],
-    schema: FormSchema,
+    schema: JSONSchema7,
 ) {
     const layout = schema.lime?.layout;
 
@@ -116,10 +119,10 @@ function renderRowLayout(properties: ObjectFieldProperty[]) {
     );
 }
 
-function isCollapsible(schema: FormSchema) {
+function isCollapsible(schema: JSONSchema7) {
     return !!schema.lime?.collapsible;
 }
 
-function isCollapsed(schema: FormSchema) {
+function isCollapsed(schema: JSONSchema7) {
     return schema.lime.collapsed !== false;
 }

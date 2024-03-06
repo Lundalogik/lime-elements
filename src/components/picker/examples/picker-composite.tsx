@@ -1,5 +1,5 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { ListItem } from '@limetech/lime-elements';
+import { FormSchema, ListItem } from '@limetech/lime-elements';
 
 /**
  * Composite
@@ -12,7 +12,7 @@ import { ListItem } from '@limetech/lime-elements';
 })
 export class PickerCompositeExample {
     @Prop({ mutable: true })
-    public schema: any;
+    public schema: FormSchema;
 
     @State()
     private props: {

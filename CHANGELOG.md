@@ -1,3 +1,35 @@
+## [37.8.2](https://github.com/Lundalogik/lime-elements/compare/v37.8.1...v37.8.2) (2024-03-06)
+
+
+### Bug Fixes
+
+
+* **input-field:** make a placeholder text visible in dark mode ([914094e](https://github.com/Lundalogik/lime-elements/commit/914094ec169312ee87e3ba9f26702f01a26f054a))
+
+## [37.8.1](https://github.com/Lundalogik/lime-elements/compare/v37.8.0...v37.8.1) (2024-03-06)
+
+
+### Bug Fixes
+
+
+* **list:** make sure deselected item is rendered as deselected ([7c7827f](https://github.com/Lundalogik/lime-elements/commit/7c7827ffbf084ccfc77c247bd894201689e8a25e))
+
+## [37.8.0](https://github.com/Lundalogik/lime-elements/compare/v37.7.1...v37.8.0) (2024-03-05)
+
+
+### Features
+
+
+* **form:** add generic schema support ([d73f48b](https://github.com/Lundalogik/lime-elements/commit/d73f48bc9e115fe8e6ff4415290966960486d53f))
+
+## [37.7.1](https://github.com/Lundalogik/lime-elements/compare/v37.7.0...v37.7.1) (2024-03-05)
+
+
+### Bug Fixes
+
+
+* **chip:** don't specify the exact number of percentages above the progress bar ([3c6fcd0](https://github.com/Lundalogik/lime-elements/commit/3c6fcd08a88f7289e3c7ab357672c8f82c527285))
+
 ## [37.7.0](https://github.com/Lundalogik/lime-elements/compare/v37.6.0...v37.7.0) (2024-02-29)
 
 

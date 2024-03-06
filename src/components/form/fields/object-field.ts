@@ -4,6 +4,7 @@ import { FieldProps } from '@rjsf/core';
 import { CodeEditor } from '../widgets/code-editor';
 import { renderDescription, renderTitle } from '../templates/common';
 import { isCustomObjectSchema } from './field-helpers';
+import { FormSchema } from '../form.types';
 
 export class ObjectField extends React.Component<FieldProps, any> {
     constructor(props) {
@@ -21,7 +22,7 @@ export class ObjectField extends React.Component<FieldProps, any> {
     };
 
     render() {
-        if (!isCustomObjectSchema(this.props.schema)) {
+        if (!isCustomObjectSchema(this.props.schema as FormSchema)) {
             return React.createElement(JSONObjectField, this.props);
         }
 

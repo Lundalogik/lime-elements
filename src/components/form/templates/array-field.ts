@@ -4,6 +4,7 @@ import { CollapsibleItemTemplate } from './array-field-collapsible-item';
 import { SimpleItemTemplate } from './array-field-simple-item';
 import { renderDescription, renderTitle } from './common';
 import { ArrayFieldItem, ArrayFieldTemplateProps } from './types';
+import { FormSchema } from '../form.types';
 
 export class ArrayFieldTemplate extends React.Component {
     constructor(public props: ArrayFieldTemplateProps) {
@@ -39,7 +40,7 @@ export class ArrayFieldTemplate extends React.Component {
     private renderItem(item: ArrayFieldItem, index: number) {
         const { schema, formData, formContext } = this.props;
 
-        if (isObjectType(schema.items)) {
+        if (isObjectType(schema.items as FormSchema)) {
             return React.createElement(CollapsibleItemTemplate, {
                 key: item.key,
                 item: item,

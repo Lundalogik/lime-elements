@@ -158,7 +158,7 @@ import { schema } from './span-fields-schema';
 })
 export class FormLayoutExample {
     @State()
-    private formData: object = {};
+    private formData: Record<string, string> = {};
 
     @State()
     private valid = true;

@@ -1,5 +1,5 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { Chip, Languages } from '@limetech/lime-elements';
+import { Chip, FormSchema, Languages } from '@limetech/lime-elements';
 
 /**
  * Composite
@@ -12,7 +12,7 @@ import { Chip, Languages } from '@limetech/lime-elements';
 })
 export class ChipSetCompositeExample {
     @Prop()
-    public schema: any;
+    public schema: FormSchema;
 
     @State()
     private props = {
