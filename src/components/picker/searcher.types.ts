@@ -1,4 +1,5 @@
 import { ListItem } from '../list/list-item.types';
+import { ListSeparator } from '../../global/shared-types/separator.types';
 
 /**
  * A search function that takes a search-string as an argument, and returns
@@ -9,4 +10,4 @@ import { ListItem } from '../list/list-item.types';
  * @returns The search result.
  * @public
  */
-export type Searcher = (query: string) => Promise<ListItem[]>;
+export type Searcher = (query: string) => Promise<ListItem[] | ListSeparator>;
