@@ -1,3 +1,16 @@
+## [37.9.0](https://github.com/Lundalogik/lime-elements/compare/v37.8.2...v37.9.0) (2024-03-06)
+
+
+### Features
+
+
+* **picker:** allow searcher to return `ListSeparator` as well as `ListItem` ([9f8e61b](https://github.com/Lundalogik/lime-elements/commit/9f8e61ba2604a4834ab5383cb0318130c784db8f))
+
+### Bug Fixes
+
+
+* **limel-picker:** align event types with values types ([4ba4ae0](https://github.com/Lundalogik/lime-elements/commit/4ba4ae0665bebf71e8c73bd0fe67ac3ce18f98b0))
+
 ## [37.8.2](https://github.com/Lundalogik/lime-elements/compare/v37.8.1...v37.8.2) (2024-03-06)
 
 
