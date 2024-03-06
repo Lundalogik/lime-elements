@@ -1,3 +1,12 @@
+## [37.10.0](https://github.com/Lundalogik/lime-elements/compare/v37.9.0...v37.10.0) (2024-03-06)
+
+
+### Features
+
+
+* **file-dropzone:** add new component ([ac54d2a](https://github.com/Lundalogik/lime-elements/commit/ac54d2a387c7f9f1fec162989ef62adcd3f965d2))
+* **files:** add helper function ([e0b26d3](https://github.com/Lundalogik/lime-elements/commit/e0b26d30480c2d4b6d80cd78c4fb4155a9931197))
+
 ## [37.9.0](https://github.com/Lundalogik/lime-elements/compare/v37.8.2...v37.9.0) (2024-03-06)
 
 
