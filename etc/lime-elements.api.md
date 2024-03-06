@@ -2025,7 +2025,7 @@ export interface RowLayoutOptions extends FormLayoutOptions<FormLayoutType | `${
 }
 
 // @public
-export type Searcher = (query: string) => Promise<ListItem[] | ListSeparator>;
+export type Searcher = (query: string) => Promise<Array<ListItem | ListSeparator>>;
 
 // @public
 export type SpinnerSize = 'mini' | 'x-small' | 'small' | 'medium' | 'large';
