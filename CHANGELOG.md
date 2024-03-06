@@ -1,3 +1,11 @@
+## [37.8.1](https://github.com/Lundalogik/lime-elements/compare/v37.8.0...v37.8.1) (2024-03-06)
+
+
+### Bug Fixes
+
+
+* **list:** make sure deselected item is rendered as deselected ([7c7827f](https://github.com/Lundalogik/lime-elements/commit/7c7827ffbf084ccfc77c247bd894201689e8a25e))
+
 ## [37.8.0](https://github.com/Lundalogik/lime-elements/compare/v37.7.1...v37.8.0) (2024-03-05)
 
 
