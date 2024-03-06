@@ -6,6 +6,7 @@ import { isEmpty, capitalize } from 'lodash-es';
 import { resetDependentFields } from './field-helpers';
 import { FieldTemplate } from '../templates';
 import { getHelpComponent } from '../help';
+import { FormSchema } from '../form.types';
 
 /**
  * If given a value and schema, check if the value should be translated
@@ -85,9 +86,9 @@ const getCustomComponent = (
  */
 export function getFactoryProps(
     formContext: any,
-    schema: any,
+    schema: FormSchema,
 ): Record<string, any> {
-    const factory: (schema: any) => Record<string, any> =
+    const factory: (schema: FormSchema) => Record<string, any> =
         formContext.propsFactory;
     if (typeof factory !== 'function') {
         return {};

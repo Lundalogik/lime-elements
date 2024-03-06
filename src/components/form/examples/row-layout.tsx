@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { schema } from './row-layout-schema';
+import { RowLayoutFormData, schema } from './row-layout-schema';
 
 /**
  * Row layout
@@ -12,7 +12,7 @@ import { schema } from './row-layout-schema';
 })
 export class FormRowLayoutExample {
     @State()
-    private formData: object = {};
+    private formData: RowLayoutFormData = {};
 
     public render() {
         return [

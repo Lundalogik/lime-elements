@@ -342,7 +342,6 @@ export class Chip implements ChipInterface {
         }
 
         const currentPercentage = this.progress + '%';
-        const progress = Math.round(this.progress);
 
         return (
             <div
@@ -354,9 +353,7 @@ export class Chip implements ChipInterface {
                 style={{
                     '--limel-chip-progress-percentage': currentPercentage,
                 }}
-            >
-                <span>{progress}%</span>
-            </div>
+            />
         );
     }
 }

@@ -1,3 +1,19 @@
+## [37.8.0](https://github.com/Lundalogik/lime-elements/compare/v37.7.1...v37.8.0) (2024-03-05)
+
+
+### Features
+
+
+* **form:** add generic schema support ([d73f48b](https://github.com/Lundalogik/lime-elements/commit/d73f48bc9e115fe8e6ff4415290966960486d53f))
+
+## [37.7.1](https://github.com/Lundalogik/lime-elements/compare/v37.7.0...v37.7.1) (2024-03-05)
+
+
+### Bug Fixes
+
+
+* **chip:** don't specify the exact number of percentages above the progress bar ([3c6fcd0](https://github.com/Lundalogik/lime-elements/commit/3c6fcd08a88f7289e3c7ab357672c8f82c527285))
+
 ## [37.7.0](https://github.com/Lundalogik/lime-elements/compare/v37.6.0...v37.7.0) (2024-02-29)
 
 

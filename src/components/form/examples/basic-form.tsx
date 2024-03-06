@@ -1,6 +1,6 @@
 import { ValidationStatus } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { schema } from './basic-schema';
+import { schema, BasicFormData } from './basic-schema';
 
 /**
  * Basic form with validation
@@ -13,7 +13,7 @@ import { schema } from './basic-schema';
 })
 export class FormExample {
     @State()
-    private formData: object = {
+    private formData: BasicFormData = {
         date: '1922-12-28',
         params: {
             secretHideout: 'Cave',

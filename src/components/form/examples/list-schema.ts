@@ -1,6 +1,17 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+type HeroPower = 'strength' | 'speed' | 'invisibility' | 'vision' | 'flight';
+
+interface Hero {
+    name?: string;
+    powers?: HeroPower[];
+}
+export interface ListFormData {
+    villains?: string[];
+    squad?: Hero[];
+}
+
+export const schema: FormSchema<ListFormData> = {
     type: 'object',
     properties: {
         villains: {

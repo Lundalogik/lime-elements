@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { schema } from './help-form-schema';
+import { HelpFormData, schema } from './help-form-schema';
 
 /**
  * Form fields with help
@@ -41,7 +41,7 @@ import { schema } from './help-form-schema';
 })
 export class NestedFormExample {
     @State()
-    private formData: object = {};
+    private formData: HelpFormData = {};
 
     public render() {
         return [

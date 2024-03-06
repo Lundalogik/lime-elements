@@ -2,6 +2,7 @@ import moment from 'moment/moment';
 import React from 'react';
 import { WidgetProps } from './types';
 import { LimeElementsWidgetAdapter } from '../adapters';
+import { FormSchema } from '../form.types';
 
 export class DatePicker extends React.Component {
     public refs: any;
@@ -65,7 +66,7 @@ export class DatePicker extends React.Component {
     }
 }
 
-function getAdditionalProps(schema: any) {
+function getAdditionalProps(schema: FormSchema) {
     let props: any = {};
 
     if (schema.lime?.component?.props) {

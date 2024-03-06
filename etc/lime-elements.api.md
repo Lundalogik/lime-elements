@@ -772,8 +772,34 @@ export enum FormLayoutType {
 }
 
 // @public
-export interface FormSchema extends JSONSchema7 {
+export interface FormSchema<T extends Record<string, any> = any> extends JSONSchema7 {
+    $defs?: Record<string, FormSchema>;
+    additionalItems?: FormSchemaArrayItem<T>;
+    additionalProperties?: FormSchema | boolean;
+    allOf?: Array<FormSchemaArrayItem<T>>;
+    anyOf?: Array<FormSchemaArrayItem<T>>;
+    contains?: FormSchemaArrayItem<T>;
+    definitions?: Record<string, FormSchema>;
+    dependencies?: Record<string, FormSchema | string[]>;
+    else?: FormSchema;
+    if?: FormSchema;
+    items?: FormSchemaArrayItem<T> | Array<FormSchemaArrayItem<T>>;
+    not?: FormSchema;
+    oneOf?: Array<FormSchemaArrayItem<T>>;
+    patternProperties?: Record<string, FormSchema>;
+    properties?: ReplaceObjectType<T, FormSubKeySchema<T>, Record<string, FormSchema>>;
+    propertyNames?: FormSchema;
+    required?: Array<ReplaceObjectType<T, Extract<keyof T, string>, string>>;
+    then?: FormSchema;
 }
+
+// @public
+export type FormSchemaArrayItem<T> = T extends any[] ? FormSchema<T[Extract<keyof T, number>]> : FormSchema;
+
+// @public
+export type FormSubKeySchema<TObj> = Partial<{
+    [Key in Extract<keyof TObj, any>]: FormSchema<TObj[Key]>;
+}>;
 
 // @public
 export interface GridLayoutOptions extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
@@ -1971,6 +1997,9 @@ interface Option_2<T extends string = string> {
     value: T;
 }
 export { Option_2 as Option }
+
+// @public
+export type ReplaceObjectType<T, AllowedType, ElseType> = T extends any[] ? ElseType : T extends Record<string, any> ? AllowedType : ElseType;
 
 // @public
 export interface RowLayoutOptions extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {

@@ -1,6 +1,19 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+export interface NestedFormData {
+    name?: string;
+    age?: number;
+    address?: {
+        city?: string;
+        country?: string;
+    };
+    data?: {
+        eyeColor?: string;
+        shoeSize?: number;
+    };
+}
+
+export const schema: FormSchema<NestedFormData> = {
     type: 'object',
     properties: {
         name: {

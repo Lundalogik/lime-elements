@@ -1,6 +1,12 @@
 import { FormSchema } from '@limetech/lime-elements';
 
-export const schema: FormSchema = {
+export interface CustomComponentFormData {
+    name?: string;
+    value?: number;
+    hero?: number;
+}
+
+export const schema: FormSchema<CustomComponentFormData> = {
     type: 'object',
     properties: {
         name: {

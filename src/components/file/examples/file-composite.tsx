@@ -1,4 +1,4 @@
-import { FileInfo, Languages } from '@limetech/lime-elements';
+import { FileInfo, FormSchema, Languages } from '@limetech/lime-elements';
 import { Component, h, Prop, State } from '@stencil/core';
 
 /**
@@ -12,7 +12,7 @@ import { Component, h, Prop, State } from '@stencil/core';
 })
 export class FileCompositeExample {
     @Prop()
-    public schema: any;
+    public schema: FormSchema;
 
     @State()
     private props = {

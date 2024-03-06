@@ -1,6 +1,7 @@
+import { FormSchema } from '../form.types';
 import { findTitle } from './common';
 
-const schema = {
+const schema: FormSchema = {
     type: 'object',
     definitions: {
         nested: {
@@ -53,7 +54,7 @@ const schema = {
     },
 };
 
-const nestedFirstSchema: any = { ...schema };
+const nestedFirstSchema: FormSchema = { ...schema };
 nestedFirstSchema.properties = {
     nested: {
         type: 'object',
@@ -64,7 +65,7 @@ nestedFirstSchema.properties = {
     },
 };
 
-const nestedFirstWithTitleSchema: any = { ...schema };
+const nestedFirstWithTitleSchema: FormSchema = { ...schema };
 nestedFirstWithTitleSchema.properties = {
     nested: {
         type: 'object',
@@ -78,7 +79,7 @@ nestedFirstWithTitleSchema.properties = {
     },
 };
 
-const list1FirstSchema: any = { ...schema };
+const list1FirstSchema: FormSchema = { ...schema };
 list1FirstSchema.properties = {
     list1: {
         type: 'array',
@@ -100,7 +101,7 @@ list1FirstSchema.properties = {
     },
 };
 
-const list2FirstSchema: any = { ...schema };
+const list2FirstSchema: FormSchema = { ...schema };
 list2FirstSchema.properties = {
     list2: {
         type: 'array',
