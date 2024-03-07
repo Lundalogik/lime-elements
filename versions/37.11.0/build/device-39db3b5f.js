@@ -1,0 +1,2 @@
+const n=window.navigator.userAgent;function i(){return/iPad|iPhone|iPod/i.test(n)&&!window.MSStream}function o(){return/Android/i.test(n)}function r(){return o()||i()}export{o as a,r as b,i};
+//# sourceMappingURL=device-39db3b5f.js.map
