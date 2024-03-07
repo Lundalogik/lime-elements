@@ -1,3 +1,11 @@
+## [37.11.0](https://github.com/Lundalogik/lime-elements/compare/v37.10.2...v37.11.0) (2024-03-07)
+
+
+### Features
+
+
+* **file-input:** add new component ([bf718a0](https://github.com/Lundalogik/lime-elements/commit/bf718a0dec18bbf997bab5504748f12f036592f9))
+
 ## [37.10.2](https://github.com/Lundalogik/lime-elements/compare/v37.10.1...v37.10.2) (2024-03-06)
 
 
