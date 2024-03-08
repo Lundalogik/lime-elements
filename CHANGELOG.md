@@ -1,3 +1,11 @@
+## [37.11.1](https://github.com/Lundalogik/lime-elements/compare/v37.11.0...v37.11.1) (2024-03-08)
+
+
+### Bug Fixes
+
+
+* **file-dropzone:** improve examples ([f41b46a](https://github.com/Lundalogik/lime-elements/commit/f41b46ad6a66585c750583138376a6be324a010e))
+
 ## [37.11.0](https://github.com/Lundalogik/lime-elements/compare/v37.10.2...v37.11.0) (2024-03-07)
 
 
