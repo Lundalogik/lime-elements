@@ -26,9 +26,23 @@ export class FileDropzoneTypeFilteringExample {
     private files: FileInfo[] = [];
 
     @State()
+    private required = false;
+
+    @State()
+    private disabled = false;
+
+    @State()
+    private readonly = false;
+
+    @State()
+    private value: string;
+
+    @State()
     private rejectedFiles: FileInfo[] = [];
 
     public render() {
+        const MAX_LENGTH = 500;
+
         return [
             <limel-file-dropzone
                 onFilesSelected={this.handleAcceptedFiles}
@@ -41,6 +55,12 @@ export class FileDropzoneTypeFilteringExample {
                     type="textarea"
                     placeholder="What is your dream pet? Describe it here and attach a picture of it."
                     helperText="To attach files, simply drag & drop them here!"
+                    maxlength={MAX_LENGTH}
+                    value={this.value}
+                    required={this.required}
+                    onChange={this.handleChange}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
                 />
             </limel-file-dropzone>,
             <limel-file-dropzone
@@ -61,6 +81,10 @@ export class FileDropzoneTypeFilteringExample {
             <limel-example-value value={this.rejectedFiles} />,
         ];
     }
+
+    private handleChange = (event: CustomEvent<string>) => {
+        this.value = event.detail;
+    };
 
     private handleAcceptedFiles = (event: CustomEvent<FileInfo[]>) => {
         this.files = [...this.files.concat(event.detail)];
