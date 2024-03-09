@@ -1,3 +1,11 @@
+## [37.11.2](https://github.com/Lundalogik/lime-elements/compare/v37.11.1...v37.11.2) (2024-03-09)
+
+
+### Bug Fixes
+
+
+* **file-dropzone:** no highlight on disable ([f715d3f](https://github.com/Lundalogik/lime-elements/commit/f715d3fbf397baa1f4aeb811c94861cc80a6158c))
+
 ## [37.11.1](https://github.com/Lundalogik/lime-elements/compare/v37.11.0...v37.11.1) (2024-03-08)
 
 
