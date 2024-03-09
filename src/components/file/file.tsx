@@ -1,15 +1,7 @@
 import translate from '../../global/translations';
 import { Chip } from '../chip-set/chip.types';
 import { Languages } from '../date-picker/date.types';
-import { MDCTextField } from '@material/textfield';
-import {
-    Component,
-    Element,
-    Event,
-    EventEmitter,
-    h,
-    Prop,
-} from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import {
     getFileBackgroundColor,
     getFileColor,
@@ -18,7 +10,6 @@ import {
 } from '../../util/file-metadata';
 import { FileInfo } from '../../global/shared-types/file.types';
 
-const CHIP_SET_TAG_NAME = 'limel-chip-set';
 const DEFAULT_FILE_CHIP: Chip = {
     id: null,
     text: null,
@@ -127,37 +118,6 @@ export class File {
     @Event()
     private interact: EventEmitter<number | string>;
 
-    @Element()
-    private element: HTMLLimelFileElement;
-
-    private chipSet;
-    private mdcTextField;
-
-    public connectedCallback() {
-        this.initialize();
-    }
-
-    public componentDidLoad() {
-        this.chipSet = this.element.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
-        this.initialize();
-    }
-
-    private initialize() {
-        if (!this.chipSet) {
-            return;
-        }
-
-        this.mdcTextField = new MDCTextField(
-            this.chipSet.shadowRoot.querySelector('.mdc-text-field'),
-        );
-    }
-
-    public disconnectedCallback() {
-        if (this.mdcTextField) {
-            this.mdcTextField.destroy();
-        }
-    }
-
     public render() {
         return (
             <limel-file-dropzone
@@ -231,12 +191,8 @@ export class File {
     private handleChipSetChange = (event: CustomEvent) => {
         event.stopPropagation();
         const file = !event.detail.length ? event.detail[0] : null;
-        this.chipSet.blur();
         if (!file) {
             this.change.emit(file);
-            if (this.required) {
-                this.mdcTextField.valid = false;
-            }
         }
     };
 
