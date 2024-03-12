@@ -99,14 +99,13 @@ export class TextEditor {
             ref: this.editorRef,
 
             onChange: this.handleChange,
+            onChangeMode: this.handleChangeMode,
         };
 
         ReactDOM.render(
             createElement(Editor, props),
             this.host.shadowRoot.querySelector('#editor'),
         );
-
-        this.editor.on('changeMode', this.handleChangeMode);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -117,7 +116,7 @@ export class TextEditor {
         });
     };
 
-    private handleChangeMode = (editorType: EditorType) => {
+    private handleChangeMode = (editorType: EditorType): void => {
         this.changeMode.emit(editorType);
     };
 
