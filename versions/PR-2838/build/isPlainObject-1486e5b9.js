@@ -1,0 +1,2 @@
+import{b as r}from"./_baseGetTag-49d0259e.js";import{g as t}from"./_getPrototype-5f42b89c.js";import{i as e}from"./isObjectLike-38996507.js";var o="[object Object]";var a=Function.prototype,i=Object.prototype;var n=a.toString;var c=i.hasOwnProperty;var s=n.call(Object);function f(a){if(!e(a)||r(a)!=o){return false}var i=t(a);if(i===null){return true}var f=c.call(i,"constructor")&&i.constructor;return typeof f=="function"&&f instanceof f&&n.call(f)==s}export{f as i};
+//# sourceMappingURL=isPlainObject-1486e5b9.js.map
