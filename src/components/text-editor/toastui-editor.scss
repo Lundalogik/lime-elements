@@ -5,33 +5,120 @@
  * @author NHN Cloud FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
+$PROSEMIRROR-color_1: #222;
+$PROSEMIRROR-color_2: #999;
+$PROSEMIRROR-font-family_1: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
+    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
+    sans-serif;
 
-/* height */
-.auto-height {
-    height: auto;
-    .toastui-editor-defaultUI {
-        height: auto;
-    }
-    .toastui-editor-md-container {
-        position: relative;
-    }
-}
-:not(.auto-height) {
-    > .toastui-editor-defaultUI {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        > .toastui-editor-main {
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            -ms-flex: 1;
-            flex: 1;
-        }
-    }
-}
+$ui_style_color_1: #333;
+$ui_style_color_2: #fff;
+$ui_style_color_3: #e4e7ee;
+$font-family_1: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
+    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
+    sans-serif;
+$ui_style_background-color_1: #00a9ff;
+$ui_style_background-color_2: #009bf2;
+$ui_style_background-color_3: #f7f9fc;
+$ui_style_border-color_1: #cbcfdb;
+$ui_style_outline-color_1: #009bf2;
+$ui_style_outline-color_2: #cbcfdb;
+
+$tab-switch-mode-color_1: #969aa5;
+$tab-switch-mode-color_2: #555;
+$tab-switch-mode-background-color_1: #fff;
+
+$markdown-tab-color_1: #969aa5;
+$markdown-tab-color_2: #555;
+$markdown-tab-background-color_1: #fff;
+
+$toolbar-color_1: #81858f;
+$toolbar-color_2: #00a9ff;
+$toolbar-background-color_1: #f7f9fc;
+$toolbar-background-color_2: #e1e3e9;
+$toolbar-background-color_3: #fff;
+$toolbar-background-color_4: #d6d8de;
+$toolbar-background-color_5: #acddfa;
+$toolbar-background-color_6: #94979f;
+$toolbar-background-color_7: #00a9ff;
+
+$TOOLBAR-POPUP-color_1: #555;
+$TOOLBAR-POPUP-color_2: #333;
+$TOOLBAR-POPUP-color_3: #969aa5;
+$TOOLBAR-POPUP-color_4: #00a9ff;
+$TOOLBAR-POPUP-color_5: #dadde6;
+$TOOLBAR-POPUP-background-color_1: #f7f9fc;
+$TOOLBAR-POPUP-background-color_2: #dff4ff;
+$TOOLBAR-POPUP-border-color_1: transparent;
+$TOOLBAR-POPUP-border-color_2: #e1e3e9;
+$TOOLBAR-POPUP-border-color_3: #fa2828;
+$TOOLBAR-POPUP-border-color_4: #cbcfdb;
+
+$editor_color_1: #222;
+$editor_background-color_1: #ebedf2;
+$editor_background-color_2: #fff;
+$editor_background-color_3: #f7f9fc;
+$editor_background-color_4: #eaedf1;
+
+$editor-content-color_1: #222;
+$editor-content-color_2: #999;
+$editor-content-color_3: #c1798b;
+$editor-content-color_4: inherit;
+$editor-content-color_5: #fff;
+$editor-content-color_6: #aaa;
+$editor-content-color_7: #4b96e6;
+$editor-content-color_8: #1f70de;
+$editor-content-color_9: #452d6b;
+$editor-content-color_10: #5200d0;
+$editor-content-color_11: #333;
+$editor-content-color_12: grey;
+$editor-content-font-family_1: 'Open Sans', 'Helvetica Neue', 'Helvetica',
+    'Arial', '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
+    sans-serif;
+$editor-content-font-family_2:
+    Consolas,
+    Courier,
+    'Apple SD 산돌고딕 Neo',
+    -apple-system,
+    'Lucida Grande',
+    'Apple SD Gothic Neo',
+    '맑은 고딕',
+    'Malgun Gothic',
+    'Segoe UI',
+    '돋움',
+    dotum,
+    sans-serif;
+$editor-content-background-color_1: #f4f7f8;
+$editor-content-background-color_2: #f9f2f4;
+$editor-content-background-color_3: transparent;
+$editor-content-background-color_4: #555;
+$editor-content-background-color_5: #d8dfec;
+$editor-content-background-color_6: #908f8f;
+$editor-content-background-color_7: #ccc;
+$editor-content-background-color_8: #fff;
+$editor-content-background-color_9: rgba(255, 245, 131, 0.5);
+
+$editor-context-menu-color_1: #333;
+$editor-context-menu-color_2: #c9ccd5;
+$editor-context-menu-background-color_1: #fff;
+$editor-context-menu-background-color_2: #dff4ff;
+
+$editor-md-color_1: #ccc;
+$editor-md-color_2: #aaa;
+$editor-md-color_3: #999;
+$editor-md-color_4: #555;
+$editor-md-color_5: #222;
+$editor-md-color_6: #4b96e6;
+$editor-md-color_7: #cb4848;
+$editor-md-color_8: #c1798b;
+$editor-md-color_9: #452d6b;
+$editor-md-color_10: #b8b3c0;
+$editor-md-color_11: #5200d0;
+$editor-md-font-family_1: Consolas, Courier, 'Lucida Grande', '나눔바른고딕',
+    'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
+$editor-md-background-color_1: rgba(243, 229, 233, 0.5);
+$editor-md-background-color_2: #f5f7f8;
+$editor-md-background-color_3: #f9f7fd;
 
 @import './partial-styles/ProseMirror';
 @import './partial-styles/ui-styles';

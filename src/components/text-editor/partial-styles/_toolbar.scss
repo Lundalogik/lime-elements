@@ -1,13 +1,4 @@
 /* toolbar */
-$toolbar-color_1: #81858f;
-$toolbar-color_2: #00a9ff;
-$toolbar-background-color_1: #f7f9fc;
-$toolbar-background-color_2: #e1e3e9;
-$toolbar-background-color_3: #fff;
-$toolbar-background-color_4: #d6d8de;
-$toolbar-background-color_5: #acddfa;
-$toolbar-background-color_6: #94979f;
-$toolbar-background-color_7: #00a9ff;
 
 .toastui-editor-defaultUI-toolbar {
     display: -ms-flexbox;
@@ -15,7 +6,7 @@ $toolbar-background-color_7: #00a9ff;
     padding: 0 25px;
     height: 45px;
     background-color: $toolbar-background-color_1;
-    border-bottom: 1px solid #ebedf2;
+    border-bottom: 1px solid $editor_background-color_1;
     border-radius: 3px 3px 0 0;
     button {
         box-sizing: border-box;
@@ -25,10 +16,10 @@ $toolbar-background-color_7: #00a9ff;
         padding: 0;
         border-radius: 3px;
         margin: 7px 5px;
-        border: 1px solid #f7f9fc;
+        border: 1px solid $TOOLBAR-POPUP-background-color_1;
         &:not(:disabled) {
             &:hover {
-                border: 1px solid #e4e7ee;
+                border: 1px solid $ui_style_color_3;
                 background-color: $toolbar-background-color_3;
             }
         }
@@ -123,7 +114,7 @@ $toolbar-background-color_7: #00a9ff;
     z-index: 30;
     border-radius: 2px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-    border: 1px solid #dadde6;
+    border: 1px solid $TOOLBAR-POPUP-color_5;
     background-color: $toolbar-background-color_1;
     display: -ms-flexbox;
     display: flex;

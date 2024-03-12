@@ -1,23 +1,37 @@
 /* toastui ui styles */
 
-$ui_style_color_1: #333;
-$ui_style_color_2: #fff;
-$font-family_1: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
-    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
-$ui_style_background-color_1: #00a9ff;
-$ui_style_background-color_2: #009bf2;
-$ui_style_background-color_3: #f7f9fc;
-$ui_style_border-color_1: #cbcfdb;
-$ui_style_outline-color_1: #009bf2;
-$ui_style_outline-color_2: #cbcfdb;
+.auto-height {
+    height: auto;
+    .toastui-editor-defaultUI {
+        height: auto;
+    }
+    .toastui-editor-md-container {
+        position: relative;
+    }
+}
+:not(.auto-height) {
+    > .toastui-editor-defaultUI {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        > .toastui-editor-main {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -ms-flex: 1;
+            flex: 1;
+        }
+    }
+}
 
 .toastui-editor-defaultUI {
     .ProseMirror {
         padding: 18px 25px;
     }
     position: relative;
-    border: 1px solid #dadde6;
+    border: 1px solid $TOOLBAR-POPUP-color_5;
     height: 100%;
     font-family: $font-family_1;
     border-radius: 4px;
@@ -43,7 +57,7 @@ $ui_style_outline-color_2: #cbcfdb;
         min-width: 63px;
         height: 32px;
         background-color: $ui_style_background-color_3;
-        border: 1px solid #dadde6;
+        border: 1px solid $TOOLBAR-POPUP-color_5;
         margin-right: 5px;
         outline-color: $ui_style_outline-color_2;
         &:hover {

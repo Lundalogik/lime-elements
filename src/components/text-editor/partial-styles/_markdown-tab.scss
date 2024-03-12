@@ -1,15 +1,12 @@
 /* markdown tab */
-$markdown-tab-color_1: #969aa5;
-$markdown-tab-color_2: #555;
-$markdown-tab-background-color_1: #fff;
 
 .toastui-editor-defaultUI {
     .toastui-editor-md-tab-container {
         float: left;
         height: 45px;
         font-size: 13px;
-        background: #f7f9fc;
-        border-bottom: 1px solid #ebedf2;
+        background: $editor_background-color_3;
+        border-bottom: 1px solid $editor_background-color_1;
         border-top-left-radius: 3px;
     }
 }
@@ -26,10 +23,10 @@ $markdown-tab-background-color_1: #fff;
         font-size: 12px;
         font-weight: 500;
         text-align: center;
-        background: #eaedf1;
+        background: $editor_background-color_4;
         color: $markdown-tab-color_1;
         cursor: pointer;
-        border: 1px solid #dadde6;
+        border: 1px solid $TOOLBAR-POPUP-color_5;
         border-radius: 4px 4px 0 0;
         box-sizing: border-box;
         margin-top: 13px;
@@ -38,7 +35,7 @@ $markdown-tab-background-color_1: #fff;
         }
     }
     .tab-item.active {
-        border-bottom: 1px solid #fff;
+        border-bottom: 1px solid $ui_style_color_2;
         background-color: $markdown-tab-background-color_1;
         color: $markdown-tab-color_2;
     }

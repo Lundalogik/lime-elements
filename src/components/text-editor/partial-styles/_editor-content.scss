@@ -4,44 +4,6 @@
 // 30 - wysiwyg code block language editor, popup, context menu
 // 40 - tooltip
 
-$editor-content-color_1: #222;
-$editor-content-color_2: #999;
-$editor-content-color_3: #c1798b;
-$editor-content-color_4: inherit;
-$editor-content-color_5: #fff;
-$editor-content-color_6: #aaa;
-$editor-content-color_7: #4b96e6;
-$editor-content-color_8: #1f70de;
-$editor-content-color_9: #452d6b;
-$editor-content-color_10: #5200d0;
-$editor-content-color_11: #333;
-$editor-content-color_12: grey;
-$editor-content-font-family_1: 'Open Sans', 'Helvetica Neue', 'Helvetica',
-    'Arial', '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
-    sans-serif;
-$editor-content-font-family_2:
-    Consolas,
-    Courier,
-    'Apple SD 산돌고딕 Neo',
-    -apple-system,
-    'Lucida Grande',
-    'Apple SD Gothic Neo',
-    '맑은 고딕',
-    'Malgun Gothic',
-    'Segoe UI',
-    '돋움',
-    dotum,
-    sans-serif;
-$editor-content-background-color_1: #f4f7f8;
-$editor-content-background-color_2: #f9f2f4;
-$editor-content-background-color_3: transparent;
-$editor-content-background-color_4: #555;
-$editor-content-background-color_5: #d8dfec;
-$editor-content-background-color_6: #908f8f;
-$editor-content-background-color_7: #ccc;
-$editor-content-background-color_8: #fff;
-$editor-content-background-color_9: rgba(255, 245, 131, 0.5);
-
 .toastui-editor-contents {
     margin: 0;
     padding: 0;

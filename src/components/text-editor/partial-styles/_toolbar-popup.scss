@@ -1,15 +1,4 @@
 /* toolbar popup */
-$TOOLBAR-POPUP-color_1: #555;
-$TOOLBAR-POPUP-color_2: #333;
-$TOOLBAR-POPUP-color_3: #969aa5;
-$TOOLBAR-POPUP-color_4: #00a9ff;
-$TOOLBAR-POPUP-color_5: #dadde6;
-$TOOLBAR-POPUP-background-color_1: #f7f9fc;
-$TOOLBAR-POPUP-background-color_2: #dff4ff;
-$TOOLBAR-POPUP-border-color_1: transparent;
-$TOOLBAR-POPUP-border-color_2: #e1e3e9;
-$TOOLBAR-POPUP-border-color_3: #fa2828;
-$TOOLBAR-POPUP-border-color_4: #cbcfdb;
 
 .toastui-editor-popup {
     width: 400px;
@@ -19,7 +8,7 @@ $TOOLBAR-POPUP-border-color_4: #cbcfdb;
     position: absolute;
     border-radius: 2px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-    border: 1px solid #dadde6;
+    border: 1px solid $TOOLBAR-POPUP-color_5;
 }
 .toastui-editor-popup-body {
     padding: 15px;
@@ -83,7 +72,7 @@ $TOOLBAR-POPUP-border-color_4: #cbcfdb;
             width: 60px;
             height: 40px;
             line-height: 40px;
-            border-bottom: 1px solid #dadde6;
+            border-bottom: 1px solid $TOOLBAR-POPUP-color_5;
             color: $TOOLBAR-POPUP-color_2;
             font-size: 13px;
             font-weight: 600;
@@ -121,7 +110,7 @@ $TOOLBAR-POPUP-border-color_4: #cbcfdb;
         margin-left: 5px;
         height: 32px;
         border-radius: 2px;
-        border: 1px solid #dadde6;
+        border: 1px solid $TOOLBAR-POPUP-color_5;
         background-color: $TOOLBAR-POPUP-background-color_1;
         vertical-align: top;
         &:hover {
@@ -143,7 +132,7 @@ $TOOLBAR-POPUP-border-color_4: #cbcfdb;
         box-sizing: border-box;
     }
     .toastui-editor-table-cell.header {
-        background: #f7f9fc;
+        background: $TOOLBAR-POPUP-background-color_1;
     }
     .toastui-editor-table-row {
         display: table-row;
