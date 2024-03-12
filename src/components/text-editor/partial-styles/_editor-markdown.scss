@@ -1,0 +1,147 @@
+$editor-md-color_1: #ccc;
+$editor-md-color_2: #aaa;
+$editor-md-color_3: #999;
+$editor-md-color_4: #555;
+$editor-md-color_5: #222;
+$editor-md-color_6: #4b96e6;
+$editor-md-color_7: #cb4848;
+$editor-md-color_8: #c1798b;
+$editor-md-color_9: #452d6b;
+$editor-md-color_10: #b8b3c0;
+$editor-md-color_11: #5200d0;
+$editor-md-font-family_1: Consolas, Courier, 'Lucida Grande', '나눔바른고딕',
+    'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic', sans-serif;
+$editor-md-background-color_1: rgba(243, 229, 233, 0.5);
+$editor-md-background-color_2: #f5f7f8;
+$editor-md-background-color_3: #f9f7fd;
+
+.toastui-editor-md-heading1 {
+    font-size: 24px;
+}
+.toastui-editor-md-heading2 {
+    font-size: 22px;
+}
+.toastui-editor-md-heading3 {
+    font-size: 20px;
+}
+.toastui-editor-md-heading4 {
+    font-size: 18px;
+}
+.toastui-editor-md-heading5 {
+    font-size: 16px;
+}
+.toastui-editor-md-heading6 {
+    font-size: 14px;
+}
+.toastui-editor-md-heading.toastui-editor-md-delimiter.setext {
+    line-height: 15px;
+}
+.toastui-editor-md-strong {
+    font-weight: bold;
+}
+.toastui-editor-md-heading {
+    font-weight: bold;
+}
+.toastui-editor-md-list-item-style {
+    font-weight: bold;
+}
+.toastui-editor-md-list-item {
+    .toastui-editor-md-meta {
+        font-weight: bold;
+        color: $editor-md-color_4;
+    }
+}
+.toastui-editor-md-emph {
+    font-style: italic;
+}
+.toastui-editor-md-strike {
+    text-decoration: line-through;
+}
+.toastui-editor-md-strike.toastui-editor-md-delimiter {
+    text-decoration: none;
+}
+.toastui-editor-md-delimiter {
+    color: $editor-md-color_1;
+}
+.toastui-editor-md-thematic-break {
+    color: $editor-md-color_1;
+}
+.toastui-editor-md-link {
+    color: $editor-md-color_1;
+}
+.toastui-editor-md-table {
+    color: $editor-md-color_1;
+    .toastui-editor-md-table-cell {
+        color: $editor-md-color_5;
+    }
+}
+.toastui-editor-md-block-quote {
+    color: $editor-md-color_1;
+    .toastui-editor-md-marked-text {
+        color: $editor-md-color_4;
+    }
+}
+.toastui-editor-md-code.toastui-editor-md-delimiter {
+    color: $editor-md-color_2;
+}
+.toastui-editor-md-meta {
+    color: $editor-md-color_3;
+}
+.toastui-editor-md-html {
+    color: $editor-md-color_3;
+}
+.toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text {
+    color: $editor-md-color_3;
+}
+.toastui-editor-md-link.toastui-editor-md-link-desc.toastui-editor-md-marked-text {
+    color: $editor-md-color_6;
+}
+.toastui-editor-md-list-item-style.toastui-editor-md-list-item-odd {
+    color: $editor-md-color_6;
+}
+.toastui-editor-md-list-item-style.toastui-editor-md-list-item-even {
+    color: $editor-md-color_7;
+}
+.toastui-editor-md-code.toastui-editor-md-marked-text {
+    color: $editor-md-color_8;
+}
+.toastui-editor-md-code {
+    background-color: $editor-md-background-color_1;
+    padding: 2px 0;
+    letter-spacing: -0.3px;
+    font-family: $editor-md-font-family_1;
+}
+.toastui-editor-md-code.toastui-editor-md-start {
+    padding-left: 2px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+.toastui-editor-md-code.toastui-editor-md-end {
+    padding-right: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+.toastui-editor-md-code-block-line-background {
+    background-color: $editor-md-background-color_2;
+}
+.toastui-editor-md-code-block-line-background.start {
+    margin-top: 2px;
+}
+.toastui-editor-md-custom-block-line-background.start {
+    margin-top: 2px;
+}
+.toastui-editor-md-code-block {
+    font-family: $editor-md-font-family_1;
+}
+.toastui-editor-md-custom-block {
+    color: $editor-md-color_9;
+    .toastui-editor-md-delimiter {
+        color: $editor-md-color_10;
+    }
+    .toastui-editor-md-meta {
+        color: $editor-md-color_11;
+    }
+}
+.toastui-editor-md-custom-block-line-background {
+    background-color: $editor-md-background-color_3;
+}

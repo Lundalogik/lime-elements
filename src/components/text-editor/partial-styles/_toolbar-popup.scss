@@ -1,0 +1,221 @@
+/* toolbar popup */
+$TOOLBAR-POPUP-color_1: #555;
+$TOOLBAR-POPUP-color_2: #333;
+$TOOLBAR-POPUP-color_3: #969aa5;
+$TOOLBAR-POPUP-color_4: #00a9ff;
+$TOOLBAR-POPUP-color_5: #dadde6;
+$TOOLBAR-POPUP-background-color_1: #f7f9fc;
+$TOOLBAR-POPUP-background-color_2: #dff4ff;
+$TOOLBAR-POPUP-border-color_1: transparent;
+$TOOLBAR-POPUP-border-color_2: #e1e3e9;
+$TOOLBAR-POPUP-border-color_3: #fa2828;
+$TOOLBAR-POPUP-border-color_4: #cbcfdb;
+
+.toastui-editor-popup {
+    width: 400px;
+    margin-right: auto;
+    background: #fff;
+    z-index: 30;
+    position: absolute;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    border: 1px solid #dadde6;
+}
+.toastui-editor-popup-body {
+    padding: 15px;
+    font-size: 12px;
+    label {
+        font-weight: 600;
+        color: $TOOLBAR-POPUP-color_1;
+        display: block;
+        margin: 20px 0 5px;
+    }
+    .toastui-editor-button-container {
+        text-align: right;
+        margin-top: 20px;
+    }
+    input[type='text'] {
+        width: calc(100% - 26px);
+        height: 30px;
+        padding: 0 12px;
+        border-radius: 2px;
+        border: 1px solid #e1e3e9;
+        color: $TOOLBAR-POPUP-color_2;
+        &:focus {
+            outline: 1px solid #00a9ff;
+            border-color: $TOOLBAR-POPUP-border-color_1;
+        }
+    }
+    input[type='text'].disabled {
+        background-color: $TOOLBAR-POPUP-background-color_1;
+        border-color: $TOOLBAR-POPUP-border-color_2;
+        color: $TOOLBAR-POPUP-color_3;
+    }
+    input[type='file'] {
+        opacity: 0;
+        border: none;
+        width: 1px;
+        height: 1px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    input.wrong {
+        border-color: $TOOLBAR-POPUP-border-color_3;
+    }
+    span.wrong {
+        border-color: $TOOLBAR-POPUP-border-color_3;
+    }
+}
+.toastui-editor-popup-add-link {
+    .toastui-editor-popup-body {
+        padding: 0 20px 20px;
+    }
+}
+.toastui-editor-popup-add-image {
+    .toastui-editor-popup-body {
+        padding: 0 20px 20px;
+    }
+    .toastui-editor-tabs {
+        margin: 5px 0 10px;
+        .tab-item {
+            display: inline-block;
+            width: 60px;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #dadde6;
+            color: $TOOLBAR-POPUP-color_2;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            box-sizing: border-box;
+            &:hover {
+                border-bottom: 1px solid #cbcfdb;
+            }
+        }
+        .tab-item.active {
+            color: $TOOLBAR-POPUP-color_4;
+            border-bottom: 2px solid #00a9ff;
+        }
+    }
+    .toastui-editor-file-name {
+        width: 58%;
+        display: inline-block;
+        border-radius: 2px;
+        border: 1px solid #e1e3e9;
+        color: $TOOLBAR-POPUP-color_5;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    .toastui-editor-file-name.has-file {
+        color: $TOOLBAR-POPUP-color_2;
+    }
+    .toastui-editor-file-select-button {
+        width: 33%;
+        margin-left: 5px;
+        height: 32px;
+        border-radius: 2px;
+        border: 1px solid #dadde6;
+        background-color: $TOOLBAR-POPUP-background-color_1;
+        vertical-align: top;
+        &:hover {
+            border-color: $TOOLBAR-POPUP-border-color_4;
+        }
+    }
+}
+.toastui-editor-popup-add-table {
+    width: auto;
+    .toastui-editor-table-selection {
+        position: relative;
+    }
+    .toastui-editor-table-cell {
+        display: table-cell;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #e1e3e9;
+        background: #fff;
+        box-sizing: border-box;
+    }
+    .toastui-editor-table-cell.header {
+        background: #f7f9fc;
+    }
+    .toastui-editor-table-row {
+        display: table-row;
+    }
+    .toastui-editor-table {
+        display: table;
+        border-collapse: collapse;
+    }
+    .toastui-editor-table-selection-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid #00a9ff;
+        background: rgba(0, 169, 255, 0.1);
+        z-index: 30;
+    }
+    .toastui-editor-table-description {
+        margin: 5px 0 0;
+        text-align: center;
+        color: $TOOLBAR-POPUP-color_2;
+    }
+}
+.toastui-editor-popup-add-heading {
+    width: auto;
+    .toastui-editor-popup-body {
+        padding: 0;
+    }
+    h1 {
+        padding: 0;
+        margin: 0;
+        font-size: 24px;
+    }
+    h2 {
+        padding: 0;
+        margin: 0;
+        font-size: 22px;
+    }
+    h3 {
+        padding: 0;
+        margin: 0;
+        font-size: 20px;
+    }
+    h4 {
+        padding: 0;
+        margin: 0;
+        font-size: 18px;
+    }
+    h5 {
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+    }
+    h6 {
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+    }
+    ul {
+        padding: 0;
+        margin: 0;
+        padding: 5px 0;
+        list-style: none;
+        li {
+            padding: 4px 12px;
+            cursor: pointer;
+            &:hover {
+                background-color: $TOOLBAR-POPUP-background-color_2;
+            }
+        }
+    }
+    p {
+        padding: 0;
+        margin: 0;
+    }
+}

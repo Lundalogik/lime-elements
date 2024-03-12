@@ -1,0 +1,84 @@
+$PROSEMIRROR-color_1: #222;
+$PROSEMIRROR-color_2: #999;
+$PROSEMIRROR-font-family_1: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
+    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
+    sans-serif;
+
+.ProseMirror {
+    position: relative;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    white-space: break-spaces;
+    -webkit-font-variant-ligatures: none;
+    font-variant-ligatures: none;
+    font-feature-settings: 'liga' 0;
+    pre {
+        white-space: pre-wrap;
+    }
+    li {
+        position: relative;
+    }
+}
+
+.ProseMirror {
+    font-family: $PROSEMIRROR-font-family_1;
+    color: $PROSEMIRROR-color_1;
+    font-size: 13px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100% - 36px);
+    .placeholder {
+        color: $PROSEMIRROR-color_2;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+.ProseMirror-selectednode {
+    outline: none;
+}
+table.ProseMirror-selectednode {
+    border-radius: 2px;
+    outline: 2px solid #00a9ff;
+}
+.html-block.ProseMirror-selectednode {
+    border-radius: 2px;
+    outline: 2px solid #00a9ff;
+}
+
+.ProseMirror-hideselection {
+    * {
+        &::selection {
+            background: transparent;
+        }
+        &::-moz-selection {
+            background: transparent;
+        }
+    }
+    caret-color: transparent;
+}
+.ProseMirror-selectednode {
+    outline: 2px solid #8cf;
+}
+
+/* Make sure li selections wrap around markers */
+li.ProseMirror-selectednode {
+    outline: none;
+    &:after {
+        content: '';
+        position: absolute;
+        left: -32px;
+        right: -2px;
+        top: -2px;
+        bottom: -2px;
+        border: 2px solid #8cf;
+        pointer-events: none;
+    }
+}
+
+/* Protect against generic img rules */
+img.ProseMirror-separator {
+    display: inline !important;
+    border: none !important;
+    margin: 0 !important;
+}

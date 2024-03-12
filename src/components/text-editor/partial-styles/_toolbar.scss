@@ -1,0 +1,135 @@
+/* toolbar */
+$toolbar-color_1: #81858f;
+$toolbar-color_2: #00a9ff;
+$toolbar-background-color_1: #f7f9fc;
+$toolbar-background-color_2: #e1e3e9;
+$toolbar-background-color_3: #fff;
+$toolbar-background-color_4: #d6d8de;
+$toolbar-background-color_5: #acddfa;
+$toolbar-background-color_6: #94979f;
+$toolbar-background-color_7: #00a9ff;
+
+.toastui-editor-defaultUI-toolbar {
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 25px;
+    height: 45px;
+    background-color: $toolbar-background-color_1;
+    border-bottom: 1px solid #ebedf2;
+    border-radius: 3px 3px 0 0;
+    button {
+        box-sizing: border-box;
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border-radius: 3px;
+        margin: 7px 5px;
+        border: 1px solid #f7f9fc;
+        &:not(:disabled) {
+            &:hover {
+                border: 1px solid #e4e7ee;
+                background-color: $toolbar-background-color_3;
+            }
+        }
+    }
+    .scroll-sync {
+        display: inline-block;
+        position: relative;
+        width: 70px;
+        height: 10px;
+        text-align: center;
+        line-height: 10px;
+        color: $toolbar-color_1;
+        cursor: pointer;
+        &::before {
+            content: 'Scroll';
+            position: absolute;
+            left: 0;
+            font-size: 14px;
+        }
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+    }
+    .scroll-sync.active {
+        &::before {
+            color: $toolbar-color_2;
+        }
+    }
+    .switch {
+        position: absolute;
+        top: 0;
+        left: 45px;
+        right: 0;
+        bottom: 0;
+        background-color: $toolbar-background-color_4;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        border-radius: 50px;
+        &::before {
+            position: absolute;
+            content: '';
+            height: 14px;
+            width: 14px;
+            left: 0px;
+            bottom: -2px;
+            background-color: $toolbar-background-color_6;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+    }
+    input {
+        &:checked {
+            + {
+                .switch {
+                    background-color: $toolbar-background-color_5;
+                    &::before {
+                        background-color: $toolbar-background-color_7;
+                        -webkit-transform: translateX(12px);
+                        -moz-transform: translateX(12px);
+                        -ms-transform: translateX(12px);
+                        transform: translateX(12px);
+                    }
+                }
+            }
+        }
+    }
+}
+.toastui-editor-toolbar {
+    height: 46px;
+    box-sizing: border-box;
+}
+.toastui-editor-toolbar-divider {
+    display: inline-block;
+    width: 1px;
+    height: 18px;
+    background-color: $toolbar-background-color_2;
+    margin: 14px 12px;
+}
+.toastui-editor-toolbar-group {
+    display: -ms-flexbox;
+    display: flex;
+}
+.toastui-editor-dropdown-toolbar {
+    .scroll-sync {
+        margin: 0 5px;
+    }
+    position: absolute;
+    height: 46px;
+    z-index: 30;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    border: 1px solid #dadde6;
+    background-color: $toolbar-background-color_1;
+    display: -ms-flexbox;
+    display: flex;
+}
+.toastui-editor-toolbar-item-wrapper {
+    margin: 7px 5px;
+    height: 32px;
+    line-height: 32px;
+}

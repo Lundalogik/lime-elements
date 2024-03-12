@@ -1,0 +1,35 @@
+/* mode switch tab */
+$tab-switch-mode-color_1: #969aa5;
+$tab-switch-mode-color_2: #555;
+$tab-switch-mode-background-color_1: #fff;
+
+.toastui-editor-mode-switch {
+    background-color: $tab-switch-mode-background-color_1;
+    border-top: 1px solid #dadde6;
+    font-size: 12px;
+    text-align: right;
+    height: 28px;
+    padding-right: 10px;
+    border-radius: 0 0 3px 3px;
+    .tab-item {
+        display: inline-block;
+        width: 96px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        background: #f7f9fc;
+        color: $tab-switch-mode-color_1;
+        margin-top: -1px;
+        margin-right: -1px;
+        cursor: pointer;
+        border: 1px solid #dadde6;
+        border-radius: 0 0 4px 4px;
+        font-weight: 500;
+        box-sizing: border-box;
+    }
+    .tab-item.active {
+        border-top: 1px solid #fff;
+        background-color: $tab-switch-mode-background-color_1;
+        color: $tab-switch-mode-color_2;
+    }
+}

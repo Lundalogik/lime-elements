@@ -1,0 +1,146 @@
+/* toastui editor */
+$editor_color_1: #222;
+$editor_background-color_1: #ebedf2;
+$editor_background-color_2: #fff;
+
+.toastui-editor-md-container {
+    &::after {
+        content: '';
+        display: block;
+        height: 0;
+        clear: both;
+    }
+    display: none;
+    overflow: hidden;
+    height: 100%;
+    .toastui-editor {
+        line-height: 1.5;
+        position: relative;
+        box-sizing: border-box;
+        padding: 0;
+        height: inherit;
+    }
+    .toastui-editor-md-preview {
+        box-sizing: border-box;
+        padding: 0;
+        height: inherit;
+        overflow: auto;
+        padding: 0 25px;
+        height: 100%;
+        > p {
+            &:first-child {
+                margin-top: 0 !important;
+            }
+        }
+        .toastui-editor-contents {
+            padding-top: 8px;
+        }
+    }
+}
+.toastui-editor-defaultUI-toolbar {
+    &::after {
+        content: '';
+        display: block;
+        height: 0;
+        clear: both;
+    }
+}
+.toastui-editor-main {
+    min-height: 0px;
+    position: relative;
+    height: inherit;
+    box-sizing: border-box;
+    .toastui-editor-md-tab-style {
+        > .toastui-editor {
+            width: 100%;
+            display: none;
+        }
+        > .toastui-editor-md-preview {
+            width: 100%;
+            display: none;
+        }
+        > .active {
+            display: block;
+        }
+        > .toastui-editor-tabs {
+            display: block;
+        }
+    }
+    .toastui-editor-md-vertical-style {
+        > .toastui-editor-tabs {
+            display: none;
+        }
+        .toastui-editor {
+            width: 50%;
+        }
+        .toastui-editor-md-preview {
+            width: 50%;
+        }
+        .toastui-editor-md-splitter {
+            display: block;
+        }
+    }
+    .toastui-editor-md-splitter {
+        display: none;
+        height: 100%;
+        width: 1px;
+        background-color: $editor_background-color_1;
+        position: absolute;
+        left: 50%;
+    }
+}
+.toastui-editor-ww-container {
+    display: none;
+    overflow: hidden;
+    height: inherit;
+    background-color: $editor_background-color_2;
+    > .toastui-editor {
+        height: inherit;
+        position: relative;
+        width: 100%;
+    }
+    .toastui-editor-contents {
+        overflow: auto;
+        box-sizing: border-box;
+        margin: 0px;
+        padding: 16px 25px 0px 25px;
+        height: inherit;
+        p {
+            margin: 0;
+        }
+    }
+}
+.auto-height {
+    .toastui-editor-main-container {
+        position: relative;
+    }
+}
+.toastui-editor-main-container {
+    position: absolute;
+    line-height: 1;
+    color: $editor_color_1;
+    width: 100%;
+    height: inherit;
+}
+.toastui-editor-md-mode {
+    .toastui-editor-md-container {
+        display: block;
+        z-index: 20;
+    }
+    .toastui-editor-md-vertical-style {
+        display: -ms-flexbox;
+        display: flex;
+    }
+}
+.toastui-editor-ww-mode {
+    .toastui-editor-ww-container {
+        display: block;
+        z-index: 20;
+    }
+}
+.toastui-editor-main.hidden {
+    display: none;
+}
+.toastui-editor-defaultUI.hidden {
+    display: none;
+}

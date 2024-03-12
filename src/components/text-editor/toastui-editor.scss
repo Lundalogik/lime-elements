@@ -1,0 +1,60 @@
+/*!
+ * Based on:
+ * @toast-ui/editor
+ * @version 3.2.2 | Fri Feb 17 2023
+ * @author NHN Cloud FE Development Lab <dl_javascript@nhn.com>
+ * @license MIT
+ */
+
+/* height */
+.auto-height {
+    height: auto;
+    .toastui-editor-defaultUI {
+        height: auto;
+    }
+    .toastui-editor-md-container {
+        position: relative;
+    }
+}
+:not(.auto-height) {
+    > .toastui-editor-defaultUI {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        > .toastui-editor-main {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -ms-flex: 1;
+            flex: 1;
+        }
+    }
+}
+
+@import './partial-styles/ProseMirror';
+@import './partial-styles/ui-styles';
+@import './partial-styles/tab-switch-mode';
+@import './partial-styles/markdown-tab';
+
+@import './partial-styles/toolbar';
+@import './partial-styles/toolbar-popup';
+@import './partial-styles/toolbar-icons';
+
+@import './partial-styles/editor';
+@import './partial-styles/editor-content';
+@import './partial-styles/editor-context-menu';
+@import './partial-styles/editor-tooltip';
+@import './partial-styles/editor-markdown';
+
+@media only screen and (max-width: 480px) {
+    .toastui-editor-popup {
+        max-width: 300px;
+        margin-left: -150px;
+    }
+
+    .toastui-editor-dropdown-toolbar {
+        max-width: none;
+    }
+}

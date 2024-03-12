@@ -1,0 +1,53 @@
+/* toastui ui styles */
+
+$ui_style_color_1: #333;
+$ui_style_color_2: #fff;
+$font-family_1: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
+    '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
+    sans-serif;
+$ui_style_background-color_1: #00a9ff;
+$ui_style_background-color_2: #009bf2;
+$ui_style_background-color_3: #f7f9fc;
+$ui_style_border-color_1: #cbcfdb;
+$ui_style_outline-color_1: #009bf2;
+$ui_style_outline-color_2: #cbcfdb;
+
+.toastui-editor-defaultUI {
+    .ProseMirror {
+        padding: 18px 25px;
+    }
+    position: relative;
+    border: 1px solid #dadde6;
+    height: 100%;
+    font-family: $font-family_1;
+    border-radius: 4px;
+    button {
+        color: $ui_style_color_1;
+        height: 28px;
+        font-size: 13px;
+        cursor: pointer;
+        border: none;
+        border-radius: 2px;
+    }
+    .toastui-editor-ok-button {
+        min-width: 63px;
+        height: 32px;
+        background-color: $ui_style_background-color_1;
+        color: $ui_style_color_2;
+        outline-color: $ui_style_outline-color_1;
+        &:hover {
+            background-color: $ui_style_background-color_2;
+        }
+    }
+    .toastui-editor-close-button {
+        min-width: 63px;
+        height: 32px;
+        background-color: $ui_style_background-color_3;
+        border: 1px solid #dadde6;
+        margin-right: 5px;
+        outline-color: $ui_style_outline-color_2;
+        &:hover {
+            border-color: $ui_style_border-color_1;
+        }
+    }
+}
