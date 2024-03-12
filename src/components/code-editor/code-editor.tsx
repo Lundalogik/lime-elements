@@ -1,26 +1,36 @@
 import {
     Component,
-    h,
-    Prop,
     Element,
     Event,
     EventEmitter,
+    Prop,
     State,
     Watch,
+    h,
 } from '@stencil/core';
-import { ColorScheme, Language } from './code-editor.types';
-import CodeMirror from 'codemirror';
+import CodeMirror, {
+    AsyncHintFunction,
+    Editor,
+    HintFunction,
+    HintFunctionResolver,
+    Hints,
+    ShowHintOptions,
+} from 'codemirror';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/fold/brace-fold';
+import 'codemirror/addon/fold/foldgutter';
+import 'codemirror/addon/hint/show-hint';
+import 'codemirror/addon/lint/json-lint';
+import 'codemirror/addon/lint/lint';
+import 'codemirror/addon/selection/active-line';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jinja2/jinja2';
-import 'codemirror/addon/selection/active-line';
-import 'codemirror/addon/edit/matchbrackets';
-import 'codemirror/addon/lint/lint';
-import 'codemirror/addon/lint/json-lint';
-import 'codemirror/addon/fold/foldgutter';
-import 'codemirror/addon/fold/brace-fold';
 import jslint from 'jsonlint-mod';
+import { isPlainObject } from 'lodash-es';
+import { ColorScheme, HintOptions, Language } from './code-editor.types';
 
 /**
+ * @exampleComponent limel-example-code-editor-autocomplete
  * @exampleComponent limel-example-code-editor
  * @exampleComponent limel-example-code-editor-readonly-with-line-numbers
  * @exampleComponent limel-example-code-editor-fold-lint
@@ -66,6 +76,12 @@ export class CodeEditor {
      */
     @Prop()
     public lint: boolean = false;
+
+    @Prop()
+    public hint: boolean = false;
+
+    @Prop()
+    public hintOptions: HintOptions;
 
     /**
      * Select color scheme for the editor
@@ -170,6 +186,7 @@ export class CodeEditor {
         // Replace tab with spaces and use the actual indent setting for
         // the space count
         editor.setOption('extraKeys', {
+            'Ctrl-Space': 'autocomplete',
             Tab: (codeMirror) => {
                 const spaces = Array(
                     codeMirror.getOption('indentUnit') + 1,
@@ -214,6 +231,16 @@ export class CodeEditor {
             gutters.push('CodeMirror-foldgutter');
         }
 
+        let hintOptions: ShowHintOptions = undefined;
+        // let extraKeys: { 'Ctrl-Space': 'autocomplete' };
+        if (this.hint) {
+            hintOptions = {
+                hint: this.createHintFunction(this.hintOptions),
+                completeSingle: false,
+                container: this.host.shadowRoot.querySelector('.editor'),
+            };
+        }
+
         return {
             mode: mode,
             value: this.value || '',
@@ -227,6 +254,8 @@ export class CodeEditor {
             lint: this.lint,
             foldGutter: this.fold,
             gutters: gutters,
+            hintOptions: hintOptions,
+            // extraKeys: { 'Ctrl-Space': 'autocomplete' },
         };
     }
 
@@ -255,5 +284,138 @@ export class CodeEditor {
 
     private get darkMode(): MediaQueryList {
         return matchMedia('(prefers-color-scheme: dark)');
+    }
+
+    private createHintFunction(
+        options: HintOptions,
+    ): HintFunction | AsyncHintFunction | HintFunctionResolver | undefined {
+        return (
+            editor: Editor,
+            showHintOptions: ShowHintOptions,
+        ): Promise<Hints | null | undefined> => {
+            return this.getHints(editor, showHintOptions, options);
+        };
+    }
+
+    // (cm: Editor, options: ShowHintOptions): Hints | null | undefined | PromiseLike<Hints | null | undefined>
+    private getHints(
+        editor: Editor,
+        showHintOptions: ShowHintOptions,
+        options: HintOptions,
+    ): Promise<Hints | null | undefined> {
+        if (!options.context) {
+            return null;
+        }
+
+        // console.info(editor, showHintOptions, options);
+
+        const DELAY = 100;
+        const BLOCK_START = '{{';
+        const BLOCK_END = '}}';
+
+        return new Promise((accept) => {
+            setTimeout(() => {
+                const cursor = editor.getCursor();
+                const line = editor.getLine(cursor.line);
+                const start = cursor.ch;
+                const end = cursor.ch;
+
+                let searchStart = start;
+                while (
+                    searchStart &&
+                    /[\w\\.]/.test(line.charAt(searchStart - 1))
+                ) {
+                    searchStart--;
+                }
+
+                let someEnd = end;
+                while (
+                    someEnd < line.length - 1 &&
+                    /\w/.test(line.charAt(someEnd))
+                ) {
+                    someEnd++;
+                }
+
+                const word = line.slice(searchStart, end);
+                const theEndWord = line.slice(end, someEnd);
+                const wordEndsWithDot = word.endsWith('.');
+
+                console.info('line:', line);
+                console.info('word:', word);
+                console.info('the end word:', theEndWord);
+
+                let ctx = options.context;
+
+                const wts = word.split('.');
+                let i = 0;
+                let currentToken = '';
+                let currentTokenDelta = 0;
+                for (const wt of wts) {
+                    console.info(wt);
+                    if (wt && wt in ctx && ctx[wt]) {
+                        i++;
+                        currentToken = wt;
+                        currentTokenDelta += currentToken.length;
+                        ctx = ctx[wt];
+                    } else {
+                        break;
+                    }
+                }
+
+                if (currentToken) {
+                    console.info('current token:', currentToken);
+                    console.info('current token delta:', currentTokenDelta);
+                }
+
+                const tokenDiff = wts.length - i;
+
+                console.info('token diff:', tokenDiff);
+                console.info(ctx);
+
+                let list = [];
+
+                if (tokenDiff === 0 && wordEndsWithDot && isPlainObject(ctx)) {
+                    console.info('Return all keys of context object');
+                    const keys = Object.keys(ctx);
+                    console.info(keys);
+                    list = keys.map((key) => {
+                        return {
+                            text: key,
+                            displayText: key,
+                        };
+                    });
+                } else if (tokenDiff === 1) {
+                    const str = wts[wts.length - 1];
+                    console.info(
+                        `Return all keys of context object starting with ${str}`,
+                    );
+                    const keys = Object.keys(ctx);
+                    console.info(keys);
+                    list = keys
+                        .filter((key) => key.startsWith(str))
+                        .map((key) => {
+                            return {
+                                text: key,
+                                displayText: key,
+                            };
+                        });
+                } else {
+                    console.info('No context match, what do we do?!!!!');
+                    // list = [];
+                }
+
+                console.info(list);
+
+                if (list.length) {
+                    accept({
+                        list: list,
+                        from: { line: cursor.line, ch: start },
+                        to: { line: cursor.line, ch: end },
+                    });
+                } else {
+                    accept(null);
+                }
+            }, DELAY);
+        });
     }
 }
