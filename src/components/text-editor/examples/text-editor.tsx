@@ -32,30 +32,26 @@ export class TextEditor {
 
     public render() {
         return [
-            this.renderInputFields(),
             <limel-text-editor
                 editType={this.editType}
                 onChange={this.handleChange}
                 onChangeMode={this.handleChangeMode}
                 placeholder={this.placeholder}
             />,
+            <limel-example-controls>
+                <limel-select
+                    label="editType"
+                    value={this.getEditTypeOption()}
+                    onChange={this.handleChangeEditType}
+                    options={EDIT_TYPE_OPTIONS}
+                />
+                <limel-input-field
+                    label="placeholder"
+                    value={this.placeholder}
+                    onChange={this.handleChangePlaceholder}
+                />
+            </limel-example-controls>,
             <limel-example-value value={this.text} />,
-        ];
-    }
-
-    private renderInputFields() {
-        return [
-            <limel-select
-                label="editType"
-                value={this.getEditTypeOption()}
-                onChange={this.handleChangeEditType}
-                options={EDIT_TYPE_OPTIONS}
-            />,
-            <limel-input-field
-                label="placeholder"
-                value={this.placeholder}
-                onChange={this.handleChangePlaceholder}
-            />,
         ];
     }
 

@@ -1,0 +1,6 @@
+:host(limel-example-text-editor) {
+    --example-controls-column-layout: auto-fit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
