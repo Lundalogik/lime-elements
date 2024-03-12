@@ -43,7 +43,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^19.0.3",
+    "@commitlint/config-conventional": "^19.1.0",
     "@microsoft/api-extractor": "^7.42.3",
     "@popperjs/core": "^2.11.8",
     "@rjsf/core": "^2.4.2",
