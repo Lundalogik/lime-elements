@@ -38,13 +38,10 @@ import {
     TAB,
     TAB_KEY_CODE,
 } from '../../util/keycodes';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
     menuItem: MenuItem;
 }
-
-const SEARCH_DEBOUNCE = 500;
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.
@@ -193,15 +190,9 @@ export class Menu {
     private searchInput: HTMLLimelInputFieldElement;
     private portalId: string;
     private triggerElement: HTMLSlotElement;
-    private debouncedSearch: MenuSearcher;
 
     constructor() {
-        this.createDebouncedSearcher = this.createDebouncedSearcher.bind(this);
         this.portalId = createRandomString();
-    }
-
-    public componentDidLoad() {
-        this.createDebouncedSearcher(this.searcher);
     }
 
     public componentDidRender() {
@@ -294,18 +285,6 @@ export class Menu {
         }
 
         this.menuBreadCrumb = breadCrumbItems.reverse();
-    }
-
-    @Watch('searcher')
-    protected createDebouncedSearcher(newValue: MenuSearcher) {
-        if (typeof newValue !== 'function') {
-            return;
-        }
-
-        this.debouncedSearch = AwesomeDebouncePromise(
-            newValue,
-            SEARCH_DEBOUNCE,
-        );
     }
 
     private renderLoader = () => {
@@ -443,13 +422,18 @@ export class Menu {
         this.searchValue = query;
         if (query === '') {
             this.searchResults = null;
+            this.loadingSubItems = false;
 
             return;
         }
 
         this.loadingSubItems = true;
 
-        const result = await this.debouncedSearch(query);
+        const result = await this.searcher(query);
+
+        if (this.searchValue !== query) {
+            return;
+        }
 
         this.searchResults = result;
         this.loadingSubItems = false;
@@ -541,6 +525,7 @@ export class Menu {
     private clearSearch = () => {
         this.searchValue = '';
         this.searchResults = null;
+        this.loadingSubItems = false;
     };
 
     private getCurrentItem = (): MenuItem => {
