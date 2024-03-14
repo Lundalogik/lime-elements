@@ -59,7 +59,6 @@
     "@types/tabulator-tables": "^4.9.4",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
-    "awesome-debounce-promise": "^2.1.0",
     "codemirror": "^5.65.9",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.10",
