@@ -1347,7 +1347,7 @@ namespace JSX_2 {
         "gridLayout"?: boolean;
         "items"?: Array<MenuItem | ListSeparator>;
         "onCancel"?: (event: LimelMenuCustomEvent<void>) => void;
-        "onNavigateMenu"?: (event: LimelMenuCustomEvent<MenuItem>) => void;
+        "onNavigateMenu"?: (event: LimelMenuCustomEvent<MenuItem | null>) => void;
         "onSelect"?: (event: LimelMenuCustomEvent<MenuItem>) => void;
         "open"?: boolean;
         "openDirection"?: OpenDirection;
