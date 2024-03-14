@@ -475,6 +475,7 @@ export namespace Components {
         "loading": boolean;
         "open": boolean;
         "openDirection": OpenDirection;
+        "rootItem": BreadcrumbsItem;
         "searcher": MenuSearcher;
         "surfaceWidth": SurfaceWidth;
     }
@@ -1351,6 +1352,7 @@ namespace JSX_2 {
         "onSelect"?: (event: LimelMenuCustomEvent<MenuItem>) => void;
         "open"?: boolean;
         "openDirection"?: OpenDirection;
+        "rootItem"?: BreadcrumbsItem;
         "searcher"?: MenuSearcher;
         "surfaceWidth"?: SurfaceWidth;
     }
