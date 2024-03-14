@@ -1,3 +1,11 @@
+## [37.11.3](https://github.com/Lundalogik/lime-elements/compare/v37.11.2...v37.11.3) (2024-03-14)
+
+
+### Bug Fixes
+
+
+* **tab-bar:** ensure component is initialized before handling resize event ([05887f5](https://github.com/Lundalogik/lime-elements/commit/05887f56063de0c69c7775f9165bba376f53ff15))
+
 ## [37.11.2](https://github.com/Lundalogik/lime-elements/compare/v37.11.1...v37.11.2) (2024-03-09)
 
 
