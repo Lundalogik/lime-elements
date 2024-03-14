@@ -40,8 +40,16 @@ import {
 } from '../../util/keycodes';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
-    menuItem: MenuItem;
+    menuItem?: MenuItem;
 }
+
+const DEFAULT_ROOT_BREADCRUMBS_ITEM: BreadcrumbsItem = {
+    text: '',
+    icon: {
+        name: 'home',
+    },
+    type: 'icon-only',
+};
 
 /**
  * @slot trigger - Element to use as a trigger for the menu.
@@ -137,6 +145,13 @@ export class Menu {
     public currentSubMenu: MenuItem;
 
     /**
+     * A root breadcrumb item to show above the menu items.
+     * Clicking it navigates back from a sub-menu to the root menu.
+     */
+    @Prop()
+    public rootItem: BreadcrumbsItem = DEFAULT_ROOT_BREADCRUMBS_ITEM;
+
+    /**
      * Is emitted when the menu is cancelled.
      */
     @Event()
@@ -176,9 +191,6 @@ export class Menu {
 
     @State()
     private loadingSubItems: boolean;
-
-    @State()
-    private menuBreadCrumb: MenuCrumbItem[] = [];
 
     @State()
     private searchValue: string;
@@ -262,8 +274,7 @@ export class Menu {
         }
     }
 
-    @Watch('currentSubMenu')
-    protected currentSubMenuWatcher() {
+    private getBreadcrumbsItems() {
         const breadCrumbItems: MenuCrumbItem[] = [];
         let currentItem = this.currentSubMenu;
         while (currentItem) {
@@ -275,17 +286,14 @@ export class Menu {
             currentItem = currentItem.parentItem;
         }
 
-        if (breadCrumbItems.length) {
-            breadCrumbItems.push({
-                text: '',
-                icon: {
-                    name: 'home',
-                },
-                type: 'icon-only',
-            } as MenuCrumbItem);
+        if (
+            breadCrumbItems.length ||
+            this.rootItem !== DEFAULT_ROOT_BREADCRUMBS_ITEM
+        ) {
+            breadCrumbItems.push(this.rootItem);
         }
 
-        this.menuBreadCrumb = breadCrumbItems.reverse();
+        return breadCrumbItems.reverse();
     }
 
     private renderLoader = () => {
@@ -311,7 +319,8 @@ export class Menu {
     };
 
     private renderBreadcrumb = () => {
-        if (!this.menuBreadCrumb?.length) {
+        const breadcrumbsItems = this.getBreadcrumbsItems();
+        if (!breadcrumbsItems.length) {
             return;
         }
 
@@ -322,7 +331,7 @@ export class Menu {
                     'flex-shrink': '0',
                 }}
                 onSelect={this.handleBreadcrumbsSelect}
-                items={this.menuBreadCrumb}
+                items={breadcrumbsItems}
             />
         );
     };
