@@ -1,3 +1,13 @@
+## [37.11.4](https://github.com/Lundalogik/lime-elements/compare/v37.11.3...v37.11.4) (2024-03-14)
+
+
+### Bug Fixes
+
+
+* **menu:** fix typing of navigateMenu event ([fa3906f](https://github.com/Lundalogik/lime-elements/commit/fa3906f5c3115768cff38dd20a1f56abe6aae9ae))
+* **menu:** handle selecting while loading sub items ([1a40362](https://github.com/Lundalogik/lime-elements/commit/1a403622b47312aa17a6a1143a636a6689ed973a))
+* **menu:** remove search debouncing ([1658310](https://github.com/Lundalogik/lime-elements/commit/16583105db97493fa048745a7e55a91e7ab1918d))
+
 ## [37.11.3](https://github.com/Lundalogik/lime-elements/compare/v37.11.2...v37.11.3) (2024-03-14)
 
 
