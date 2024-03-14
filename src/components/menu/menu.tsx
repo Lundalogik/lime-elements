@@ -190,6 +190,7 @@ export class Menu {
     private searchInput: HTMLLimelInputFieldElement;
     private portalId: string;
     private triggerElement: HTMLSlotElement;
+    private selectedMenuItem?: MenuItem;
 
     constructor() {
         this.portalId = createRandomString();
@@ -601,6 +602,7 @@ export class Menu {
         selectOnEmptyChildren: boolean = true,
     ) => {
         if (Array.isArray(menuItem?.items) && menuItem.items.length > 0) {
+            this.selectedMenuItem = menuItem;
             this.clearSearch();
             this.currentSubMenu = menuItem;
             this.navigateMenu.emit(menuItem);
@@ -610,8 +612,14 @@ export class Menu {
             return;
         } else if (isFunction(menuItem?.items)) {
             const menuLoader = menuItem.items as MenuLoader;
+            this.selectedMenuItem = menuItem;
             this.loadingSubItems = true;
             const subItems = await menuLoader(menuItem);
+
+            if (this.selectedMenuItem !== menuItem) {
+                return;
+            }
+
             menuItem.items = subItems;
             this.loadingSubItems = false;
 
@@ -629,6 +637,9 @@ export class Menu {
         if (!selectOnEmptyChildren) {
             return;
         }
+
+        this.selectedMenuItem = menuItem;
+        this.loadingSubItems = false;
 
         this.select.emit(menuItem);
         this.open = false;
