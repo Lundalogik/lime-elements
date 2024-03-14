@@ -13,7 +13,6 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { isDescendant } from '../../util/dom';
 import {
     ARROW_DOWN,
@@ -34,6 +33,7 @@ import {
 } from '../../components';
 import { getIconFillColor, getIconName } from '../icon/get-icon-props';
 import { PickerValue } from './value.types';
+import { DebouncedFunc, debounce } from 'lodash-es';
 
 const SEARCH_DEBOUNCE = 500;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
@@ -207,7 +207,7 @@ export class Picker {
     // should not trigger a re-render by itself.
     private chipSetEditMode = false;
 
-    private debouncedSearch: Searcher;
+    private debouncedSearch: DebouncedFunc<(query: string) => Promise<void>>;
     private chipSet: HTMLLimelChipSetElement;
     private portalId: string;
 
@@ -221,11 +221,11 @@ export class Picker {
         this.handleListChange = this.handleListChange.bind(this);
         this.handleActionListChange = this.handleActionListChange.bind(this);
         this.handleStopEditAndBlur = this.handleStopEditAndBlur.bind(this);
-        this.createDebouncedSearcher = this.createDebouncedSearcher.bind(this);
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
         this.onListKeyDown = this.onListKeyDown.bind(this);
 
         this.portalId = createRandomString();
+        this.debouncedSearch = debounce(this.search, SEARCH_DEBOUNCE);
     }
 
     public componentWillLoad() {
@@ -233,7 +233,6 @@ export class Picker {
     }
 
     public componentDidLoad() {
-        this.createDebouncedSearcher(this.searcher);
         this.chipSet = this.host.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
     }
 
@@ -284,18 +283,6 @@ export class Picker {
     @Watch('value')
     protected onChangeValue() {
         this.chips = this.createChips(this.value);
-    }
-
-    @Watch('searcher')
-    protected createDebouncedSearcher(newValue: Searcher) {
-        if (typeof newValue !== 'function') {
-            return;
-        }
-
-        this.debouncedSearch = AwesomeDebouncePromise(
-            newValue,
-            SEARCH_DEBOUNCE,
-        );
     }
 
     private renderDelimiter() {
@@ -551,13 +538,24 @@ export class Picker {
 
         const query = event.detail;
         this.textValue = query;
-        this.loading = true;
 
+        this.debouncedSearch(query);
         // If the search-query is an empty string, bypass debouncing.
-        const searchFn = query === '' ? this.searcher : this.debouncedSearch;
-        const result = (await searchFn(query)) as Array<ListItem<PickerValue>>;
-        this.handleSearchResult(query, result);
+        if (query === '') {
+            this.debouncedSearch.flush();
+        }
     }
+
+    private search = async (query: string) => {
+        const timeoutId = setTimeout(() => {
+            this.loading = true;
+        });
+        const result = (await this.searcher(this.textValue)) as Array<
+            ListItem<PickerValue>
+        >;
+        clearTimeout(timeoutId);
+        this.handleSearchResult(query, result);
+    };
 
     /**
      * Change handler for the list
@@ -608,13 +606,9 @@ export class Picker {
      * Focus handler for the chip set
      * Prevent focus if the picker has a value and does not support multiple values
      */
-    private async handleInputFieldFocus() {
-        this.loading = true;
+    private handleInputFieldFocus() {
         const query = this.textValue;
-        const result = (await this.searcher(query)) as Array<
-            ListItem<PickerValue>
-        >;
-        this.handleSearchResult(query, result);
+        this.debouncedSearch(query);
     }
 
     private handleChange(event: LimelChipSetCustomEvent<Chip | Chip[]>) {
@@ -727,5 +721,6 @@ export class Picker {
         this.chipSet.emptyInput();
         this.textValue = '';
         this.handleSearchResult('', []);
+        this.debouncedSearch.cancel();
     }
 }
