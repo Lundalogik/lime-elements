@@ -28,7 +28,7 @@
     justify-content: center;
     gap: 0.25rem;
 
-    max-width: var(--chip-max-width, 10rem);
+    max-width: min(var(--chip-max-width, 100%), 25rem);
     height: var(--limel-chip-height);
 
     border-radius: var(--limel-chip-height);
