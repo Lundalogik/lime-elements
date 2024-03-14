@@ -4,16 +4,11 @@
     gap: 1.5rem;
 }
 
-limel-input-field,
-div {
-    min-height: 10rem;
-    background-color: rgb(var(--contrast-100));
-    border-radius: 0.5rem;
-}
-
 div {
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid rgb(var(--contrast-800));
+    border-radius: 0.5rem;
+    min-height: 10rem;
 }
