@@ -1,0 +1,67 @@
+/* toastui ui styles */
+
+.auto-height {
+    height: auto;
+    .toastui-editor-defaultUI {
+        height: auto;
+    }
+    .toastui-editor-md-container {
+        position: relative;
+    }
+}
+:not(.auto-height) {
+    > .toastui-editor-defaultUI {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        > .toastui-editor-main {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -ms-flex: 1;
+            flex: 1;
+        }
+    }
+}
+
+.toastui-editor-defaultUI {
+    .ProseMirror {
+        padding: 18px 25px;
+    }
+    position: relative;
+    border: 1px solid $TOOLBAR-POPUP-color_5;
+    height: 100%;
+    font-family: $font-family_1;
+    border-radius: 4px;
+    button {
+        color: $ui_style_color_1;
+        height: 28px;
+        font-size: 13px;
+        cursor: pointer;
+        border: none;
+        border-radius: 2px;
+    }
+    .toastui-editor-ok-button {
+        min-width: 63px;
+        height: 32px;
+        background-color: $ui_style_background-color_1;
+        color: $ui_style_color_2;
+        outline-color: $ui_style_outline-color_1;
+        &:hover {
+            background-color: $ui_style_background-color_2;
+        }
+    }
+    .toastui-editor-close-button {
+        min-width: 63px;
+        height: 32px;
+        background-color: $ui_style_background-color_3;
+        border: 1px solid $TOOLBAR-POPUP-color_5;
+        margin-right: 5px;
+        outline-color: $ui_style_outline-color_2;
+        &:hover {
+            border-color: $ui_style_border-color_1;
+        }
+    }
+}

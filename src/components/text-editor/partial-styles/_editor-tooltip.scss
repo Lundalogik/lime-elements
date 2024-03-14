@@ -1,0 +1,29 @@
+.toastui-editor-tooltip {
+    position: absolute;
+    background-color: #444;
+    z-index: 40;
+    padding: 4px 7px;
+    font-size: 12px;
+    border-radius: 3px;
+    color: #fff;
+    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
+        '나눔바른고딕', 'Nanum Barun Gothic', '맑은고딕', 'Malgun Gothic',
+        sans-serif;
+
+    .arrow {
+        content: '';
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: #444;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+        position: absolute;
+        top: -3px;
+        left: 6px;
+        z-index: -1;
+    }
+}
