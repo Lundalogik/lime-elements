@@ -159,6 +159,10 @@ export class TabBar {
 
     @Listen('resize', { passive: true, target: 'window' })
     protected handleWindowResize() {
+        if (!this.scrollArea) {
+            return;
+        }
+
         this.handleScroll();
     }
 
