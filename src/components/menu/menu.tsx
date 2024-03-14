@@ -169,7 +169,7 @@ export class Menu {
      * Is emitted when a menu item with a sub-menu is selected.
      */
     @Event()
-    public navigateMenu: EventEmitter<MenuItem>;
+    public navigateMenu: EventEmitter<MenuItem | null>;
 
     @Element()
     private host: HTMLLimelMenuElement;
@@ -184,7 +184,7 @@ export class Menu {
     private searchValue: string;
 
     @State()
-    private searchResults: Array<MenuItem | ListSeparator>;
+    private searchResults: Array<MenuItem | ListSeparator> | null;
 
     private list: HTMLLimelMenuListElement;
     private searchInput: HTMLLimelInputFieldElement;
