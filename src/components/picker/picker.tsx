@@ -35,7 +35,7 @@ import { getIconFillColor, getIconName } from '../icon/get-icon-props';
 import { PickerValue } from './value.types';
 import { DebouncedFunc, debounce } from 'lodash-es';
 
-const SEARCH_DEBOUNCE = 500;
+const SEARCH_DEBOUNCE = 300;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
 
 /**
