@@ -1,4 +1,11 @@
-import { Component, Element, State, h } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    State,
+    h,
+} from '@stencil/core';
 
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
@@ -25,6 +32,9 @@ export class TextEditor {
 
     @State()
     private view: EditorView;
+
+    @Event()
+    private change: EventEmitter<{ html: string }>;
 
     public render() {
         return [
@@ -60,6 +70,12 @@ export class TextEditor {
                     ),
                     plugins: exampleSetup({ schema: mySchema }),
                 }),
+                dispatchTransaction: (transaction) => {
+                    const newState = this.view.state.apply(transaction);
+                    this.view.updateState(newState);
+
+                    this.change.emit({ html: this.view.dom.innerHTML });
+                },
             },
         );
     }
