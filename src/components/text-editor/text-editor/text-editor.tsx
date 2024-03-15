@@ -1,4 +1,4 @@
-import { Component, Element, h } from '@stencil/core';
+import { Component, Element, State, h } from '@stencil/core';
 
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
@@ -6,6 +6,7 @@ import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
+import { defaultTextEditorMenu } from './constants';
 
 /**
  * The `limel-text-editor` component wraps the toast-ui react editor. This editor
@@ -22,8 +23,24 @@ export class TextEditor {
     @Element()
     private host: HTMLLimelTextEditorElement;
 
+    @State()
+    private view: EditorView;
+
     public render() {
-        return [<div id="editor"></div>, <div id="content"></div>];
+        return [
+            this.renderMenu(),
+            <div id="editor"></div>,
+            <div id="content"></div>,
+        ];
+    }
+
+    public renderMenu() {
+        return (
+            <limel-text-editor-menu
+                menu={defaultTextEditorMenu}
+                editorView={this.view}
+            ></limel-text-editor-menu>
+        );
     }
 
     public componentDidLoad() {
@@ -34,7 +51,7 @@ export class TextEditor {
             marks: schema.spec.marks,
         });
 
-        (window as any).view = new EditorView(
+        this.view = new EditorView(
             this.host.shadowRoot.querySelector('#editor'),
             {
                 state: EditorState.create({
