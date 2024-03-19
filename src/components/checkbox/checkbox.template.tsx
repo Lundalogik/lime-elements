@@ -1,5 +1,6 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { ReadonlyProps } from '../readonly-boolean/readonly-boolean.types';
+import { Label } from '../label/label.types';
+import { Icon } from '../../interface';
 
 interface CheckboxTemplateProps {
     disabled?: boolean;
@@ -13,7 +14,7 @@ interface CheckboxTemplateProps {
     label?: string;
     helperText?: string;
     helperTextId?: string;
-    readonlyProps?: ReadonlyProps;
+    readonlyLabels?: Array<Label<boolean>>;
 }
 
 export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
@@ -21,12 +22,20 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
 ) => {
     const inputProps = {};
     if (props.readonly) {
+        let icon: string | Icon = 'minus';
+        if (props.checked) {
+            icon = {
+                name: 'ok',
+                color: 'var(--mdc-theme-primary)',
+            };
+        }
+
         return [
-            <limel-readonly-boolean
+            <limel-label
                 value={props.checked}
                 aria-controls={props.helperTextId}
-                label={props.label}
-                readonlyProps={props.readonlyProps}
+                defaultLabel={{ text: props.label, icon: icon }}
+                labels={props.readonlyLabels}
             />,
             <HelperText
                 text={props.helperText}

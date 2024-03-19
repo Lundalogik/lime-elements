@@ -12,7 +12,7 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { CheckboxTemplate } from './checkbox.template';
-import { ReadonlyProps } from '../readonly-boolean/readonly-boolean.types';
+import { Label } from '../label/label.types';
 
 /**
  * The Checkbox component is a classic and essential element in UI design that allows
@@ -97,11 +97,12 @@ export class Checkbox {
     public required: boolean = false;
 
     /**
-     * The properties to use to clarify what kind of data is being visualized,
-     * when the component is `readonly.
+     * The labels to use to clarify what kind of data is being visualized,
+     * when the component is `readonly`.
+     * @beta
      */
     @Prop({ reflect: true })
-    public readonlyProps?: ReadonlyProps;
+    public readonlyLabels?: Array<Label<boolean>> = [];
 
     @State()
     private modified = false;
@@ -122,6 +123,10 @@ export class Checkbox {
 
     @Watch('checked')
     protected handleCheckedChange(newValue: boolean) {
+        if (!this.mdcCheckbox) {
+            return;
+        }
+
         this.mdcCheckbox.checked = newValue;
     }
 
@@ -161,7 +166,7 @@ export class Checkbox {
             <CheckboxTemplate
                 disabled={this.disabled || this.readonly}
                 label={this.label}
-                readonlyProps={this.readonlyProps}
+                readonlyLabels={this.readonlyLabels}
                 helperText={this.helperText}
                 helperTextId={this.helperTextId}
                 checked={this.checked || this.indeterminate}
