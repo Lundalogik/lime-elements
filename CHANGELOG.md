@@ -1,3 +1,11 @@
+## [37.12.0](https://github.com/Lundalogik/lime-elements/compare/v37.11.5...v37.12.0) (2024-03-19)
+
+
+### Features
+
+
+* **menu:** allow overriding home item in breadcrumbs ([2cb1c4e](https://github.com/Lundalogik/lime-elements/commit/2cb1c4ef47ef4fc777700dbaebe6a3f8396777f0))
+
 ## [37.11.5](https://github.com/Lundalogik/lime-elements/compare/v37.11.4...v37.11.5) (2024-03-15)
 
 
