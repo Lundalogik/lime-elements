@@ -53,7 +53,7 @@ The subtle details of icons and colors significantly impact user perception. How
 In the example below, some fields are `true` and some are `false`. Notice how much better the elaborated labels are in this example, and how everything makes more sense for a reader when the fields are `readonly`. They are still not perfect, but certainly clearer than the previous example.
 <limel-example-audition-form-readonly><limel-example-audition-form-readonly />
 
-Next example shows how the additional readonly-related props of [Checkbox](#/components/limel-checkbox/) and [Switch](#/components/limel-switch/) (`trueLabel`, `falseLabel`, `trueIcon` and `falseIcon` from the `ReadonlyProps` interface) can be used to enhance the perception and experience of the users.
+Next example shows how the additional readonly-related props of [Checkbox](#/components/limel-checkbox/) and [Switch](#/components/limel-switch/) (`value`, `text` and `icon` from the `Label` interface) can be used to enhance the perception and experience of the users.
 
 <limel-example-readonly-props><limel-example-readonly-props/>
 
@@ -69,4 +69,4 @@ The name or label of a boolean field should be as descriptive as possible. But a
 1. **Be Specific:** The name should clearly indicate what the variable represents. For example, "Subscribed for newsletters" is way better than "Newsletter".
 1. **Use Prefixes:** It's common to prefix boolean variables with **is**, **has**, **can**, or **should**. This makes it clear that the variable is a boolean and what it represents. For example, "Has dept", "Has permission".
 1. **Consider the Context:** The name should make sense in the context where it's used. For example, if you have collapsible section called _Coworker_, a boolean name of "Is active" does not makes sense in that section. It is better to name the field as "Is still working". While if the collapsible section is called _Subscription_, then "Is active" makes sense.
-1. **For `readonly` mode, consider providing two labels:** Consider using `trueLabel` and `falseLabel`, to make it crystal clear to the reader what the data is about.
+1. **For `readonly` mode, consider providing two labels:** Consider using `readonlyLabels` to make it crystal clear to the reader what the data is about.

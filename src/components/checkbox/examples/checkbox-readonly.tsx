@@ -15,10 +15,9 @@ import { Component, h, State } from '@stencil/core';
  * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
  * :::
  *
- * Using the readonly-related optional props of `trueLabel`, and `falseLabel`,
- * you can override the `label` and customize it accordingly.
- * Additionally, by using the `trueIcon` and `falseIcon` props,
- * you can override the default icons and their colors.
+ * Using the `readonlyLabels` optional prop, you can override the `label` and
+ * customize it accordingly. Additionally, by using the `icon` prop, you can
+ * override the default icons and their colors.
  */
 @Component({
     tag: 'limel-example-checkbox-readonly',
@@ -45,15 +44,21 @@ export class CheckboxReadonlyExample {
             <limel-checkbox
                 disabled={this.disabled}
                 label="Subscribe to email newsletters"
-                readonlyProps={{
-                    trueIcon: 'news',
-                    falseIcon: {
-                        name: 'cancel_subscription',
-                        color: 'rgb(var(--color-orange-default))',
+                readonlyLabels={[
+                    {
+                        value: true,
+                        icon: 'news',
+                        text: 'Is subscribed to receive newsletters',
                     },
-                    trueLabel: 'Is subscribed to receive newsletters',
-                    falseLabel: 'Is unsubscribed from newsletters',
-                }}
+                    {
+                        value: false,
+                        icon: {
+                            name: 'cancel_subscription',
+                            color: 'rgb(var(--color-orange-default))',
+                        },
+                        text: 'Is unsubscribed from newsletters',
+                    },
+                ]}
                 helperText={this.invalid ? 'Something is wrong' : ''}
                 id="1"
                 checked={this.value}
