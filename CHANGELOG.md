@@ -1,3 +1,11 @@
+## [37.11.5](https://github.com/Lundalogik/lime-elements/compare/v37.11.4...v37.11.5) (2024-03-15)
+
+
+### Bug Fixes
+
+
+* **file-dropzone:** display the component as a block element ([38b9325](https://github.com/Lundalogik/lime-elements/commit/38b93254b1a6f7d0fd6211a1fef6bf46c2e4014e))
+
 ## [37.11.4](https://github.com/Lundalogik/lime-elements/compare/v37.11.3...v37.11.4) (2024-03-14)
 
 
