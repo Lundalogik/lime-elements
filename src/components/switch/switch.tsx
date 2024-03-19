@@ -14,7 +14,8 @@ import {
     makeEnterClickable,
     removeEnterClickable,
 } from 'src/util/make-enter-clickable';
-import { ReadonlyProps } from '../readonly-boolean/readonly-boolean.types';
+import { Label } from '../label/label.types';
+import { Icon } from '../../interface';
 
 /**
  * The Switch component is a fundamental element in UI design that serves as a toggle switch
@@ -82,11 +83,12 @@ export class Switch {
     public helperText: string;
 
     /**
-     * The properties to use to clarify what kind of data is being visualized.
-     * when the component is `readonly.
+     * The labels to use to clarify what kind of data is being visualized,
+     * when the component is `readonly`.
+     * @beta
      */
     @Prop({ reflect: true })
-    public readonlyProps?: ReadonlyProps;
+    public readonlyLabels?: Array<Label<boolean>> = [];
 
     /**
      * Emitted when the value has changed
@@ -133,12 +135,20 @@ export class Switch {
 
     public render() {
         if (this.readonly) {
+            let icon: string | Icon = 'minus';
+            if (this.value) {
+                icon = {
+                    name: 'ok',
+                    color: 'var(--mdc-theme-primary)',
+                };
+            }
+
             return [
-                <limel-readonly-boolean
+                <limel-label
                     value={this.value}
                     aria-controls={this.helperTextId}
-                    label={this.label}
-                    readonlyProps={this.readonlyProps}
+                    defaultLabel={{ text: this.label, icon: icon }}
+                    labels={this.readonlyLabels}
                 />,
                 this.renderHelperLine(),
             ];
