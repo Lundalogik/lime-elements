@@ -5,8 +5,8 @@
     min-width: 0;
 }
 
-:host(limel-readonly-boolean) {
-    --limel-readonly-min-height: 1.75rem;
+:host(limel-label) {
+    --limel-label-min-height: 1.75rem;
     display: flex;
     gap: 0.5rem;
     align-items: center;
@@ -18,7 +18,7 @@ limel-icon {
     --limel-icon-svg-margin: 0.125rem;
     border-radius: 0.25rem;
     flex-shrink: 0;
-    width: var(--limel-readonly-min-height);
+    width: var(--limel-label-min-height);
     color: rgb(
         var(--contrast-900)
     ); // The default `false` color. Will be overwritten by `Icon`
@@ -29,13 +29,4 @@ span {
     flex-grow: 1;
     font-size: 0.8125rem; // `13px`, Like Checkbox & Switch
     color: var(--mdc-theme-on-surface);
-}
-
-:host(limel-readonly-boolean[value]),
-:host(limel-readonly-boolean[value='true']:not([value='false'])) {
-    limel-icon {
-        color: var(
-            --mdc-theme-primary
-        ); // The default `true` color. Will be overwritten by `Icon`
-    }
 }

@@ -20,6 +20,7 @@ export {
     ListComponent,
     ListSeparator,
 } from './components/list/list-item.types';
+export * from './components/label/label.types';
 export * from './components/list/list.types';
 export * from './components/menu/menu.types';
 export * from './components/menu-list/menu-list.types';
