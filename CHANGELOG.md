@@ -1,3 +1,12 @@
+## [37.12.2](https://github.com/Lundalogik/lime-elements/compare/v37.12.1...v37.12.2) (2024-03-20)
+
+
+### Bug Fixes
+
+
+* **picker:** change search debounce time to 300 ms ([83f1f96](https://github.com/Lundalogik/lime-elements/commit/83f1f96d89e77a6bcf950debce687d44880e49e1))
+* **picker:** improve debounced search behaviour ([a77051a](https://github.com/Lundalogik/lime-elements/commit/a77051adc8c70ec28ead5dae62c160f6603fe13f))
+
 ## [37.12.1](https://github.com/Lundalogik/lime-elements/compare/v37.12.0...v37.12.1) (2024-03-20)
 
 
