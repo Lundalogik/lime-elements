@@ -1,3 +1,11 @@
+## [37.12.1](https://github.com/Lundalogik/lime-elements/compare/v37.12.0...v37.12.1) (2024-03-20)
+
+
+### Bug Fixes
+
+
+* **chip:** increase max-width of a chip ([c9fd4b5](https://github.com/Lundalogik/lime-elements/commit/c9fd4b5ef699e9eeec726b87f6ec9d5141daa1d2))
+
 ## [37.12.0](https://github.com/Lundalogik/lime-elements/compare/v37.11.5...v37.12.0) (2024-03-19)
 
 
