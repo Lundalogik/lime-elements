@@ -20,7 +20,7 @@ import { Icon } from '../../interface';
  * @beta
  */
 @Component({
-    tag: 'limel-label',
+    tag: 'limel-dynamic-label',
     shadow: true,
     styleUrl: 'label.scss',
 })

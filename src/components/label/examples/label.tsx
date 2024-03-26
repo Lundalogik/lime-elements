@@ -30,10 +30,12 @@ export class LabelExample {
     public render() {
         return [
             <p>Default</p>,
-            <limel-label defaultLabel={{ text: 'Debt', icon: 'minus' }} />,
+            <limel-dynamic-label
+                defaultLabel={{ text: 'Debt', icon: 'minus' }}
+            />,
             <hr></hr>,
             <p>Customized</p>,
-            <limel-label
+            <limel-dynamic-label
                 defaultLabel={{ text: 'Debt' }}
                 value={this.value}
                 labels={[
@@ -56,7 +58,7 @@ export class LabelExample {
                     },
                 ]}
             />,
-            <limel-label
+            <limel-dynamic-label
                 defaultLabel={{ text: 'Newsletter' }}
                 value={this.value}
                 labels={[
@@ -75,7 +77,7 @@ export class LabelExample {
                     },
                 ]}
             />,
-            <limel-label
+            <limel-dynamic-label
                 defaultLabel={{ text: 'Quit' }}
                 value={this.value}
                 labels={[
@@ -97,7 +99,7 @@ export class LabelExample {
                     },
                 ]}
             />,
-            <limel-label
+            <limel-dynamic-label
                 defaultLabel={{ text: 'Mute' }}
                 value={this.value}
                 labels={[
