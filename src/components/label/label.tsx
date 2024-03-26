@@ -4,7 +4,7 @@ import { Label, LabelValue } from './label.types';
 import { Icon } from '../../interface';
 
 /**
- * This components diplays a different label depending on the current given
+ * This components displays a different label depending on the current given
  * value. A label can consist of a text and an icon. If no matching label is
  * found, the default label will be displayed.
  *
