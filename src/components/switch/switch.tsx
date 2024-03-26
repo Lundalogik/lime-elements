@@ -144,7 +144,7 @@ export class Switch {
             }
 
             return [
-                <limel-label
+                <limel-dynamic-label
                     value={this.value}
                     aria-controls={this.helperTextId}
                     defaultLabel={{ text: this.label, icon: icon }}
