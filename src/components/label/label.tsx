@@ -31,7 +31,7 @@ export class DynamicLabel {
      * The value will be matched with the given labels to determine what label
      * to display
      */
-    @Prop({ reflect: true })
+    @Prop()
     public value: LabelValue;
 
     /**
