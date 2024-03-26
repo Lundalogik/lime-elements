@@ -31,7 +31,7 @@ export const CheckboxTemplate: FunctionalComponent<CheckboxTemplateProps> = (
         }
 
         return [
-            <limel-label
+            <limel-dynamic-label
                 value={props.checked}
                 aria-controls={props.helperTextId}
                 defaultLabel={{ text: props.label, icon: icon }}
