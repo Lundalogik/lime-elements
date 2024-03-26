@@ -5,7 +5,7 @@ import { Icon } from '../../interface';
 
 /**
  * This components displays a different label depending on the current given
- * value. A label can consist of a text and an icon. If no matching label is
+ * value. A label can consist of a text and an optional icon. If no matching label is
  * found, the default label will be displayed.
  *
  * One use case of the component is to enhance the visualization of a `boolean`
