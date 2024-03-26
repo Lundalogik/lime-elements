@@ -9,7 +9,7 @@ import { Component, h, State } from '@stencil/core';
  * confusion and negatively affecting the end-users' experience.
  *
  * :::important
- * Before reading the documentations below, make sure read
+ * Before reading the documentations below, make sure to read
  * 1. our guides about the difference between
  * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
  * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
