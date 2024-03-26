@@ -26,22 +26,26 @@ import { Icon } from '../../interface';
 })
 export class DynamicLabel {
     /**
-     * The value of the component.
+     * The current value of the component which is used to match with the given
+     * `labels` to determine what label to display.
      *
-     * The value will be matched with the given labels to determine what label
-     * to display
+     * If not matching label is found, the `defaultLabel` is displayed.
      */
     @Prop()
     public value: LabelValue;
 
     /**
-     * Default label to display if no label with corresponding value is found
+     * The label to display when no matching value is found in the `labels`
+     * array. This is a fallback label that ensures there's always a label
+     * displayed for the component.
      */
     @Prop({ reflect: true })
     public defaultLabel: Omit<Label, 'value'> = {};
 
     /**
-     * Available labels
+     * A list of available labels. Each label has a corresponding value that
+     * will be matched with the current `value` of the component to determine
+     * what label to display.
      */
     @Prop()
     public labels: Label[] = [];
