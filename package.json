@@ -96,7 +96,7 @@
     "replace-in-file": "^7.1.0",
     "shelljs": "0.8.5",
     "shx": "^0.3.3",
-    "tabulator-tables": "^4.9.3",
+    "tabulator-tables": "^6.1.0",
     "typescript": "^4.9.5",
     "unified": "^11.0.4"
   },
