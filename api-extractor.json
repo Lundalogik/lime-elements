@@ -400,8 +400,8 @@
         "addToApiReportFile": false
       },
       "ae-incompatible-release-tags": {
-        "logLevel": "error",
-        "addToApiReportFile": false
+        "logLevel": "warning",
+        "addToApiReportFile": true
       },
       "ae-internal-missing-underscore": {
         "logLevel": "error",

@@ -905,6 +905,8 @@ namespace JSX_2 {
         "limel-dock": LimelDock;
         // (undocumented)
         "limel-dock-button": LimelDockButton;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-dynamic-label"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
         // (undocumented)
         "limel-dynamic-label": LimelDynamicLabel;
         // (undocumented)
