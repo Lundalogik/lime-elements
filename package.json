@@ -76,7 +76,7 @@
     "jest-cli": "^27.5.1",
     "jsonlint-mod": "^1.7.6",
     "jsx-dom": "^8.1.4",
-    "kompendium": "^0.14.1",
+    "kompendium": "^0.14.2",
     "lodash-es": "^4.17.21",
     "material-components-web": "^13.0.0",
     "moment": "^2.30.1",
