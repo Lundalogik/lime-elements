@@ -33,7 +33,7 @@ export async function markdownToHTML(
         .use(remarkParse)
         .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeExternalLinks as any, { target: '_blank' })
+        .use(rehypeExternalLinks, { target: '_blank' })
         .use(rehypeRaw)
         .use(rehypeSanitize)
         .use(rehypeStringify)
