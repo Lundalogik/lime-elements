@@ -17,6 +17,15 @@ export class DialogExample {
             />,
             <limel-dialog open={this.isOpen} onClose={this.closeDialog}>
                 <p>This is a simple alert-dialog.</p>
+                <limel-dialog open={this.isOpen} onClose={this.closeDialog}>
+                    <p>This is a dialog, inside another dialog!</p>
+                    <limel-button
+                        label="Oh no..."
+                        onClick={this.closeDialog}
+                        slot="button"
+                    />
+                </limel-dialog>
+                ,
                 <limel-button
                     label="Ok"
                     onClick={this.closeDialog}
