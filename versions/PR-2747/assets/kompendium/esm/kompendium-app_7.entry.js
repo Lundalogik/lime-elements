@@ -1,9 +1,9 @@
-import { r as registerInstance, h, g as getElement, a as getContext } from './index-a0810d83.js';
+import { r as registerInstance, h, g as getElement, a as getContext } from './index-3601b4dc.js';
 import { s as setTypes } from './markdown-types-d1662a6a.js';
 import { T as THEME_EVENT_NAME } from './types-1752e047.js';
 import { c as commonjsGlobal } from './_commonjsHelpers-73699516.js';
 import { m as matchPath, a as matchesAreEqual, s as storageAvailable, b as supportsHistory, c as supportsPopStateOnHashChange, d as stripTrailingSlash, e as addLeadingSlash, f as createLocation, g as createKey$1, h as hasBasename, i as stripBasename, j as createPath, k as getConfirmation, l as isExtraneousPopstateEvent, n as supportsGoWithoutReloadUsingHash, o as stripLeadingSlash, p as locationsAreEqual } from './dom-utils-96bcc231.js';
-import { A as ActiveRouter } from './active-router-7a57cf1c.js';
+import { A as ActiveRouter } from './active-router-ec25355b.js';
 
 /**
  * Fuse.js v6.4.6 - Lightweight fuzzy-search (http://fusejs.io)

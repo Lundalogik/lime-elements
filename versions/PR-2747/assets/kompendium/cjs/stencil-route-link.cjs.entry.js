@@ -2,9 +2,9 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-d017bb3a.js');
+const index = require('./index-4264cbf1.js');
 const domUtils = require('./dom-utils-384f57f3.js');
-const activeRouter = require('./active-router-81476b7c.js');
+const activeRouter = require('./active-router-64317b4c.js');
 
 const getUrl = (url, root) => {
   // Don't allow double slashes

@@ -1,5 +1,5 @@
-import { h, r as registerInstance, g as getElement } from './index-a0810d83.js';
-import { P as PropertyList, M as MethodList } from './methods-383896f0.js';
+import { h, r as registerInstance, g as getElement } from './index-3601b4dc.js';
+import { P as PropertyList, M as MethodList } from './methods-6b30f69d.js';
 
 function EventList({ events, id, }) {
   if (!events.length) {
