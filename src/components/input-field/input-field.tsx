@@ -37,6 +37,8 @@ interface LinkProperties {
     target?: string;
 }
 
+const DEBOUNCE_TIMEOUT = 300;
+
 /**
  * @exampleComponent limel-example-input-field-text
  * @exampleComponent limel-example-input-field-placeholder
@@ -256,10 +258,9 @@ export class InputField {
     private helperTextId: string;
     private labelId: string;
 
-    constructor() {
-        const debounceTimeout = 300;
-        this.changeEmitter = debounce(this.changeEmitter, debounceTimeout);
+    private changeWaiting = false;
 
+    constructor() {
         this.portalId = createRandomString();
         this.helperTextId = createRandomString();
         this.labelId = createRandomString();
@@ -294,7 +295,8 @@ export class InputField {
         const properties = this.getAdditionalProps();
         properties['aria-labelledby'] = this.labelId;
         properties.class = 'mdc-text-field__input';
-        properties.onInput = this.handleChange;
+        properties.onInput = this.handleInput;
+        properties.onChange = this.handleChange;
         properties.onFocus = this.onFocus;
         properties.onBlur = this.onBlur;
         properties.required = this.required;
@@ -347,6 +349,10 @@ export class InputField {
             return;
         }
 
+        if (this.changeWaiting) {
+            return;
+        }
+
         if (newValue !== this.mdcTextField.value) {
             this.mdcTextField.value = newValue || '';
         }
@@ -365,6 +371,9 @@ export class InputField {
         }
 
         this.mdcTextField = new MDCTextField(element);
+        if (this.value) {
+            this.mdcTextField.value = this.value;
+        }
 
         this.mapCompletions();
 
@@ -425,7 +434,6 @@ export class InputField {
                 pattern={this.pattern}
                 onWheel={this.handleWheel}
                 onKeyDown={this.onKeyDown}
-                value={this.value}
                 placeholder={this.placeholder}
             />
         );
@@ -440,9 +448,10 @@ export class InputField {
 
         return (
             <span class="mdc-text-field__resizer">
-                <textarea {...properties} placeholder={this.placeholder}>
-                    {this.value}
-                </textarea>
+                <textarea
+                    {...properties}
+                    placeholder={this.placeholder}
+                ></textarea>
             </span>
         );
     };
@@ -485,6 +494,7 @@ export class InputField {
     private onBlur = () => {
         this.isFocused = false;
         this.isModified = true;
+        this.changeEmitter.flush();
     };
 
     private hasHelperText = () => {
@@ -818,6 +828,7 @@ export class InputField {
          the same debounced emitter function. /Ads
          */
         this.changeEmitter(event.detail.text);
+        this.changeEmitter.flush();
     };
 
     private renderAutocompleteList = () => {
@@ -898,7 +909,7 @@ export class InputField {
         );
     };
 
-    private handleChange = (event) => {
+    private handleInput = (event) => {
         event.stopPropagation();
         let value = event.target.value;
 
@@ -914,11 +925,18 @@ export class InputField {
             }
         }
 
+        this.changeWaiting = true;
         this.changeEmitter(value);
     };
 
-    private changeEmitter = (value: string) => {
+    private changeEmitter = debounce((value: string) => {
         this.change.emit(value);
+        this.changeWaiting = false;
+    }, DEBOUNCE_TIMEOUT);
+
+    private handleChange = (event: Event) => {
+        event.stopPropagation();
+        this.changeEmitter.flush();
     };
 
     private handleIconClick = () => {
