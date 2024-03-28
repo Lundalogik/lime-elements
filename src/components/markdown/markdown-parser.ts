@@ -6,6 +6,8 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
+import { visit } from 'unist-util-visit';
+import { sanitizeStyle } from './sanitize-style';
 
 /**
  * Takes a string as input and returns a new string
@@ -33,9 +35,18 @@ export async function markdownToHTML(
         .use(remarkParse)
         .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeExternalLinks as any, { target: '_blank' })
+        .use(rehypeExternalLinks, { target: '_blank' })
         .use(rehypeRaw)
-        .use(rehypeSanitize)
+        .use(rehypeSanitize, {
+            attributes: {
+                '*': ['style'],
+            },
+        })
+        .use(() => {
+            return (tree: any) => {
+                visit(tree, 'element', sanitizeStyle);
+            };
+        })
         .use(rehypeStringify)
         .process(text);
 
