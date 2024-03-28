@@ -6,10 +6,8 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
-import parse from 'style-to-object';
 import { visit } from 'unist-util-visit';
-import { allowedCssProperties } from './allowed-css-properties';
-import parseCSSColor from 'parse-css-color';
+import { sanitizeStyle } from './sanitize-style';
 
 /**
  * Takes a string as input and returns a new string
@@ -63,35 +61,4 @@ export interface markdownToHTMLOptions {
      * Set to `true` to convert all soft line breaks to hard line breaks.
      */
     forceHardLineBreaks?: boolean;
-}
-
-function sanitizeStyle(node: any) {
-    if (node.tagName && node.properties && node.properties.style) {
-        // Sanitize the 'style' attribute of the node.
-        node.properties.style = sanitizeStyleValue(node.properties.style);
-    }
-}
-
-function sanitizeStyleValue(styleValue: string): string {
-    try {
-        const css = parse(styleValue);
-        if ('background' in css) {
-            const color = parseCSSColor(css.background);
-            if (color) {
-                css['background-color'] = css.background;
-            }
-
-            delete css.background;
-        }
-
-        return Object.entries(css)
-            .filter(([key]) => allowedCssProperties.includes(key))
-            .map(([key, value]) => `${key}: ${value}`)
-            .join('; ');
-    } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('Failed to parse style value', styleValue, error);
-
-        return '';
-    }
 }

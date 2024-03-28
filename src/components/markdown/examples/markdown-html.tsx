@@ -24,10 +24,10 @@ const markdown = `
   <dt>Can you use background images?</dt>
   <dd style="background-image: url(https://lundalogik.github.io/lime-icons8/assets/icons/poison.svg)">No, you should not be able to, so if there's a skull and crossbones background here, something is wrong.</dd>
 
-  <dt>Can you use \`background\` with a color value?</dt>
-  <dd style="background: #4ca250">Yes</dd>
+  <dt>Can you use <code>background</code> with a color value?</dt>
+  <dd style="background: #4ca250">Yes. If the value is recognized as a color value, the value will be moved to <code>background-color</code></dd>
 
-  <dt>Can you sneakily use \`background\` to insert an image?</dt>
+  <dt>Can you sneakily use <code>background</code> to insert an image?</dt>
   <dd style="background: #4ca250 url(https://lundalogik.github.io/lime-icons8/assets/icons/poison.svg)">No. If the value is not recognized as a color value, the background property will be stripped.</dd>
 </dl>
 `;

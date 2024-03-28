@@ -1,6 +1,5 @@
 export const allowedCssProperties = [
     'background-color',
-    'background',
     'color',
     'font-style',
     'font-weight',
