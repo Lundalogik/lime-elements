@@ -194,6 +194,8 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
+        // @beta
+        "readonlyLabels"?: Array<Label<boolean>>;
         "required": boolean;
     }
     export interface LimelChip {
@@ -311,6 +313,12 @@ export namespace Components {
         "expanded"?: boolean;
         "item": DockItem;
         "useMobileLayout"?: boolean;
+    }
+    // @beta
+    export interface LimelDynamicLabel {
+        "defaultLabel": Omit<Label, 'value'>;
+        "labels": Label[];
+        "value": LabelValue;
     }
     export interface LimelFile {
         "accept": string;
@@ -602,6 +610,8 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "readonly": boolean;
+        // @beta
+        "readonlyLabels"?: Array<Label<boolean>>;
         "value": boolean;
     }
     export interface LimelTabBar {
@@ -895,6 +905,10 @@ namespace JSX_2 {
         "limel-dock": LimelDock;
         // (undocumented)
         "limel-dock-button": LimelDockButton;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-dynamic-label"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-dynamic-label": LimelDynamicLabel;
         // (undocumented)
         "limel-file": LimelFile;
         // (undocumented)
@@ -1038,6 +1052,8 @@ namespace JSX_2 {
         "label"?: string;
         "onChange"?: (event: LimelCheckboxCustomEvent<boolean>) => void;
         "readonly"?: boolean;
+        // @beta
+        "readonlyLabels"?: Array<Label<boolean>>;
         "required"?: boolean;
     }
     interface LimelChip {
@@ -1174,6 +1190,12 @@ namespace JSX_2 {
         "onItemSelected"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "onMenuOpen"?: (event: LimelDockButtonCustomEvent<DockItem>) => void;
         "useMobileLayout"?: boolean;
+    }
+    // @beta
+    interface LimelDynamicLabel {
+        "defaultLabel"?: Omit<Label, 'value'>;
+        "labels"?: Label[];
+        "value"?: LabelValue;
     }
     interface LimelFile {
         "accept"?: string;
@@ -1492,6 +1514,8 @@ namespace JSX_2 {
         "label"?: string;
         "onChange"?: (event: LimelSwitchCustomEvent<boolean>) => void;
         "readonly"?: boolean;
+        // @beta
+        "readonlyLabels"?: Array<Label<boolean>>;
         "value"?: boolean;
     }
     interface LimelTabBar {
@@ -1541,6 +1565,18 @@ namespace JSX_2 {
     }
 }
 export { JSX_2 as JSX }
+
+// @beta (undocumented)
+export interface Label<T = LabelValue> {
+    icon?: string | Icon;
+    text?: string;
+    value: T;
+}
+
+// Warning: (ae-missing-release-tag) "LabelValue" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type LabelValue = string | number | boolean | null | undefined;
 
 // @public (undocumented)
 export type Language = 'javascript' | 'jinja2' | 'json' | 'typescript';

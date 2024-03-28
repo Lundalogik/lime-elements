@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { CheckboxTemplate } from './checkbox.template';
+import { Label } from '../dynamic-label/label.types';
 
 /**
  * The Checkbox component is a classic and essential element in UI design that allows
@@ -36,6 +37,7 @@ import { CheckboxTemplate } from './checkbox.template';
  *
  * @exampleComponent limel-example-checkbox
  * @exampleComponent limel-example-checkbox-helper-text
+ * @exampleComponent limel-example-checkbox-readonly
  */
 @Component({
     tag: 'limel-checkbox',
@@ -94,6 +96,14 @@ export class Checkbox {
     @Prop({ reflect: true })
     public required: boolean = false;
 
+    /**
+     * The labels to use to clarify what kind of data is being visualized,
+     * when the component is `readonly`.
+     * @beta
+     */
+    @Prop({ reflect: true })
+    public readonlyLabels?: Array<Label<boolean>> = [];
+
     @State()
     private modified = false;
 
@@ -113,6 +123,10 @@ export class Checkbox {
 
     @Watch('checked')
     protected handleCheckedChange(newValue: boolean) {
+        if (!this.mdcCheckbox) {
+            return;
+        }
+
         this.mdcCheckbox.checked = newValue;
     }
 
@@ -152,6 +166,7 @@ export class Checkbox {
             <CheckboxTemplate
                 disabled={this.disabled || this.readonly}
                 label={this.label}
+                readonlyLabels={this.readonlyLabels}
                 helperText={this.helperText}
                 helperTextId={this.helperTextId}
                 checked={this.checked || this.indeterminate}
