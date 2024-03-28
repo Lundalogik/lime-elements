@@ -1,4 +1,4 @@
-import { h } from './index-a0810d83.js';
+import { h } from './index-3601b4dc.js';
 
 function PropertyList({ props, id, }) {
   if (!props.length) {

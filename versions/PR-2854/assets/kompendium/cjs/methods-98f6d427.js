@@ -1,6 +1,6 @@
 'use strict';
 
-const index = require('./index-d017bb3a.js');
+const index = require('./index-4264cbf1.js');
 
 function PropertyList({ props, id, }) {
   if (!props.length) {

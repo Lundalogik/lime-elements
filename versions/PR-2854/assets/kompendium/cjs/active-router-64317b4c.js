@@ -1,6 +1,6 @@
 'use strict';
 
-const index = require('./index-d017bb3a.js');
+const index = require('./index-4264cbf1.js');
 
 const createProviderConsumer = (defaultState, consumerRender) => {
     let listeners = new Map();

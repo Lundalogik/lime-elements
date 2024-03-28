@@ -1678,7 +1678,6 @@ const writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
 
 exports.Host = Host;
 exports.bootstrapLazy = bootstrapLazy;
-exports.getAssetPath = getAssetPath;
 exports.getContext = getContext;
 exports.getElement = getElement;
 exports.h = h;

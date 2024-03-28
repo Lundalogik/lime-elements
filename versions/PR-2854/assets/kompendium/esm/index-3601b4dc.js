@@ -1654,4 +1654,4 @@ const nextTick = /*@__PURE__*/ (cb) => promiseResolve().then(cb);
 const readTask = /*@__PURE__*/ queueTask(queueDomReads, false);
 const writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
 
-export { Host as H, getContext as a, bootstrapLazy as b, getAssetPath as c, getElement as g, h, promiseResolve as p, registerInstance as r };
+export { Host as H, getContext as a, bootstrapLazy as b, getElement as g, h, promiseResolve as p, registerInstance as r };
