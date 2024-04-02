@@ -70,7 +70,12 @@ export class Banner {
 
         return (
             <div class="lime-banner__icon">
-                <limel-icon name={name} badge={true} size="large" />
+                <limel-icon
+                    name={name}
+                    src={(this.icon as Icon)?.src}
+                    badge={true}
+                    size="large"
+                />
             </div>
         );
     }
