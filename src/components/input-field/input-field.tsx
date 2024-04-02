@@ -402,7 +402,7 @@ export class InputField {
             'mdc-text-field--disabled': this.disabled || this.readonly,
             'lime-text-field--readonly': this.readonly,
             'mdc-text-field--required': this.required,
-            'lime-text-field--empty': !this.value,
+            'lime-text-field--empty': this.isEmpty(),
             'lime-has-prefix': this.hasPrefix(),
             'lime-has-suffix': this.hasSuffix(),
         };
@@ -418,6 +418,28 @@ export class InputField {
         }
 
         return classList;
+    };
+
+    private isEmpty = () => {
+        if (this.type === 'number') {
+            const element = this.getInputElement();
+            if (element && element.validity.badInput) {
+                return false;
+            }
+        }
+
+        return !this.getCurrentValue();
+    };
+
+    private getCurrentValue = () => {
+        if (this.changeWaiting) {
+            const element = this.getInputElement();
+            if (element) {
+                return element.value;
+            }
+        }
+
+        return this.value;
     };
 
     private renderInput = (
@@ -508,7 +530,7 @@ export class InputField {
     };
 
     private renderHelperLine = () => {
-        const text: string = this.value || '';
+        const text: string = this.getCurrentValue() || '';
         const length = text.length;
 
         if (!this.hasHelperLine()) {
@@ -527,7 +549,7 @@ export class InputField {
     };
 
     private renderEmptyValueForReadonly = () => {
-        if (this.readonly && !this.value) {
+        if (this.readonly && this.isEmpty()) {
             return (
                 <span class="lime-empty-value-for-readonly lime-looks-like-input-value">
                     –
@@ -617,7 +639,7 @@ export class InputField {
         const labelClassList = {
             'mdc-floating-label': true,
             'mdc-floating-label--float-above':
-                !!this.value || this.isFocused || this.readonly,
+                !this.isEmpty() || this.isFocused || this.readonly,
         };
 
         if (!this.label) {
@@ -699,7 +721,7 @@ export class InputField {
             <a
                 {...linkProps}
                 class="material-icons mdc-text-field__icon lime-trailing-icon-for-link"
-                tabindex={this.disabled || !this.value ? '-1' : '0'}
+                tabindex={this.disabled || this.isEmpty() ? '-1' : '0'}
                 role="button"
             >
                 <limel-icon name={icon} />
@@ -762,6 +784,9 @@ export class InputField {
             renderValue = new Intl.NumberFormat(this.locale).format(
                 Number(this.value),
             );
+            if (renderValue === 'NaN') {
+                return;
+            }
         }
 
         return (
@@ -876,7 +901,7 @@ export class InputField {
 
     private renderListResult = () => {
         const filteredCompletions: ListItem[] = this.filterCompletions(
-            this.value,
+            this.getCurrentValue(),
         );
         if (!filteredCompletions || filteredCompletions.length === 0) {
             return null;
