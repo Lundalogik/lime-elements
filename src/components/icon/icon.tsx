@@ -1,7 +1,6 @@
 import { Component, Element, h, Prop, Watch } from '@stencil/core';
-import { globalConfig } from '../../global/config';
-import iconCache from '../../global/icon-cache/factory';
 import { IconSize } from './icon.types';
+import { loadSvg } from './loadSvg';
 
 /**
  * Search for an icon and **click on it to copy its name to clipboard**.
@@ -75,18 +74,8 @@ export class Icon {
             return;
         }
 
-        const svgData = await this.loadSvg(name);
+        const svgData = await loadSvg(name);
         this.renderSvg(svgData);
-    }
-
-    /**
-     * Load the SVG data for the icon from the icon cache
-     *
-     * @param name - name of the icon
-     * @returns the icon SVG data
-     */
-    private loadSvg(name: string) {
-        return iconCache.get(name, globalConfig.iconPath);
     }
 
     /*
