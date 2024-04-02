@@ -247,7 +247,7 @@ export class InputField {
     private isFocused: boolean = false;
 
     @State()
-    private isModified: boolean = false;
+    private wasInvalid: boolean = false;
 
     @State()
     public showCompletions: boolean = false;
@@ -355,6 +355,10 @@ export class InputField {
 
         if (newValue !== this.mdcTextField.value) {
             this.mdcTextField.value = newValue || '';
+        }
+
+        if (this.wasInvalid) {
+            this.validate();
         }
     }
 
@@ -493,7 +497,7 @@ export class InputField {
 
     private onBlur = () => {
         this.isFocused = false;
-        this.isModified = true;
+        this.validate();
         this.changeEmitter.flush();
     };
 
@@ -582,16 +586,27 @@ export class InputField {
             return true;
         }
 
-        if (!this.isModified) {
-            return false;
+        return this.wasInvalid;
+    };
+
+    private validate = () => {
+        if (this.readonly || this.invalid) {
+            this.wasInvalid = false;
+
+            return;
         }
 
         const element = this.getInputElement();
 
-        return !(element && element.checkValidity());
+        if (element) {
+            this.wasInvalid = !element.checkValidity();
+        }
     };
 
-    private getInputElement = (): HTMLInputElement | HTMLTextAreaElement => {
+    private getInputElement = ():
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | null => {
         let elementName = 'input';
         if (this.type === 'textarea') {
             elementName = 'textarea';
