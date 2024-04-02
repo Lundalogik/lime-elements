@@ -1,3 +1,18 @@
+## [37.13.0](https://github.com/Lundalogik/lime-elements/compare/v37.12.2...v37.13.0) (2024-04-02)
+
+
+### Features
+
+
+* **checkbox:** allow customizing the visualization of `readonly` state ([0200110](https://github.com/Lundalogik/lime-elements/commit/02001102e739fc01dba0a9c52cfa847a641853ce))
+* **dynamic-label:** add new component ([226c536](https://github.com/Lundalogik/lime-elements/commit/226c53683838d08bbb09c2a42d85675c3c1eb3d7))
+* **switch:** allow customizing the visualization of `readonly` state ([de01a42](https://github.com/Lundalogik/lime-elements/commit/de01a429a85d1713d231b40860a235dc648a3c00))
+
+### Bug Fixes
+
+
+* **form:** allow additional properties for boolean fields ([6113e6e](https://github.com/Lundalogik/lime-elements/commit/6113e6ef160c4342166eae6a37273fd872a8115b))
+
 ## [37.12.2](https://github.com/Lundalogik/lime-elements/compare/v37.12.1...v37.12.2) (2024-03-20)
 
 
