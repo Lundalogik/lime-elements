@@ -130,14 +130,22 @@ describe('limel-icon', () => {
         expect(imgElement).toBeTruthy();
         expect(imgElement.getAttribute('src')).toEqual(imageUrl);
 
-        // Step 5: Remove the src prop, reverting to SVG icon
+        // Step 5: Change the name prop to display a different SVG icon
+        element.setProperty('name', 'angle_right');
+        await page.waitForChanges();
+
+        // Step 6: Verify that the <img> is still rendered with the correct src attribute
+        expect(imgElement).toBeTruthy();
+        expect(imgElement.getAttribute('src')).toEqual(imageUrl);
+
+        // Step 7: Remove the src prop, reverting to SVG icon
         element.setProperty('src', null);
         await page.waitForChanges();
 
-        // Step 6: Verify that the SVG icon is rendered again
+        // Step 8: Verify that the SVG icon is rendered again
         svgElement = await page.find('limel-icon >>> svg');
         titleElement = await page.find('limel-icon >>> svg title');
         expect(svgElement).toBeTruthy();
-        expect(titleElement.textContent).toEqual('Angle Left');
+        expect(titleElement.textContent).toEqual('Angle Right');
     });
 });

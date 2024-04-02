@@ -73,27 +73,36 @@ export class Icon {
     private host: HTMLLimelIconElement;
 
     public componentDidLoad() {
-        this.loadIcon(this.name);
+        this.renderContent();
     }
 
     public render() {
-        return <div class="container">{this.renderImg()}</div>;
+        return <div class="container" />;
     }
 
     @Watch('name')
-    protected async loadIcon(name: string) {
-        if (this.src || name === undefined || name === '') {
+    protected nameWatcher() {
+        this.renderContent();
+    }
+
+    @Watch('src')
+    protected srcWatcher() {
+        this.renderContent();
+    }
+
+    private async renderContent() {
+        if (this.src) {
+            this.renderImg(this.src);
+
             return;
         }
 
-        const svgData = await loadSvg(name);
-        this.renderSvg(svgData);
-    }
-
-    private renderImg() {
-        if (this.src) {
-            return <img src={this.src} />;
+        if (this.name === undefined || this.name === '') {
+            return;
         }
+
+        const svgData = await loadSvg(this.name);
+        this.renderSvg(svgData);
     }
 
     /*
@@ -103,13 +112,16 @@ export class Icon {
      * Therefore we inject the svg as inline markup instead.
      */
     private renderSvg(svgData: string) {
-        if (this.src || this.name === undefined || this.name === '') {
-            return;
-        }
-
         const container = this.host.shadowRoot.querySelector('div.container');
         if (container) {
             container.innerHTML = svgData;
+        }
+    }
+
+    private renderImg(src: string) {
+        const container = this.host.shadowRoot.querySelector('div.container');
+        if (container) {
+            container.innerHTML = `<img src="${src}" />`;
         }
     }
 }
