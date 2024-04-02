@@ -262,6 +262,7 @@ export class Chip implements ChipInterface {
             <limel-icon
                 badge={true}
                 name={icon}
+                src={(this.icon as Icon)?.src}
                 style={{
                     color: `${(this.icon as Icon)?.color}`,
                     'background-color': `${
