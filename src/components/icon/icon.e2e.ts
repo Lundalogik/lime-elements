@@ -51,4 +51,49 @@ describe('limel-icon', () => {
         const badgeElement = await page.find('limel-icon[badge]');
         expect(badgeElement).toBeTruthy();
     });
+
+    describe('when given a relative url instead of an icon name', () => {
+        it('renders an img element', async () => {
+            const testUrl =
+                '/assets/avatars/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png';
+            await page.setContent(
+                `<limel-icon name="${testUrl}"></limel-icon>`,
+            );
+            await page.waitForChanges();
+
+            const imgElement = await page.find('limel-icon >>> img');
+            expect(imgElement).toBeTruthy();
+            expect(await imgElement.getAttribute('src')).toEqual(testUrl);
+        });
+    });
+
+    describe('when given an absolute url instead of an icon name', () => {
+        it('renders an img element', async () => {
+            const testUrl =
+                'http://localhost:3333/assets/avatars/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png';
+            await page.setContent(
+                `<limel-icon name="${testUrl}"></limel-icon>`,
+            );
+            await page.waitForChanges();
+
+            const imgElement = await page.find('limel-icon >>> img');
+            expect(imgElement).toBeTruthy();
+            expect(await imgElement.getAttribute('src')).toEqual(testUrl);
+        });
+    });
+
+    describe('when given a protocol-relative url instead of an icon name', () => {
+        it('renders an img element', async () => {
+            const testUrl =
+                '//localhost:3333/assets/avatars/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png';
+            await page.setContent(
+                `<limel-icon name="${testUrl}"></limel-icon>`,
+            );
+            await page.waitForChanges();
+
+            const imgElement = await page.find('limel-icon >>> img');
+            expect(imgElement).toBeTruthy();
+            expect(await imgElement.getAttribute('src')).toEqual(testUrl);
+        });
+    });
 });

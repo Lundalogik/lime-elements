@@ -31,6 +31,7 @@ import { loadSvg } from './loadSvg';
  * @exampleComponent limel-example-icon-name
  * @exampleComponent limel-example-icon-size
  * @exampleComponent limel-example-icon-color
+ * @exampleComponent limel-example-icon-image
  */
 @Component({
     tag: 'limel-icon',
@@ -45,7 +46,7 @@ export class Icon {
     public size: IconSize;
 
     /**
-     * Name of the icon
+     * Name of the icon, or URL of image to display
      */
     @Prop({ reflect: true })
     public name: string;
@@ -74,6 +75,16 @@ export class Icon {
             return;
         }
 
+        if (
+            name.startsWith('/') ||
+            name.startsWith('http://') ||
+            name.startsWith('https://')
+        ) {
+            this.renderImg(name);
+
+            return;
+        }
+
         const svgData = await loadSvg(name);
         this.renderSvg(svgData);
     }
@@ -88,6 +99,13 @@ export class Icon {
         const container = this.host.shadowRoot.querySelector('div.container');
         if (container) {
             container.innerHTML = svgData;
+        }
+    }
+
+    private renderImg(src: string) {
+        const container = this.host.shadowRoot.querySelector('div.container');
+        if (container) {
+            container.innerHTML = `<img src="${src}" />`;
         }
     }
 }
