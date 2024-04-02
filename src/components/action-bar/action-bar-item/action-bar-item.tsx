@@ -14,6 +14,7 @@ import {
     removeEnterClickable,
 } from '../../../util/make-enter-clickable';
 import { getIconColor, getIconName } from '../../icon/get-icon-props';
+import { Icon } from 'src/global/shared-types/icon.types';
 
 /**
  * @private
@@ -118,6 +119,7 @@ export class ActionBarButton {
             return (
                 <limel-icon
                     name={name}
+                    src={(this.item.icon as Icon)?.src}
                     style={{
                         '--action-bar-item-icon-color': `${color}`,
                     }}
