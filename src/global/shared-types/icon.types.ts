@@ -10,6 +10,16 @@ export interface Icon {
     name: string;
 
     /**
+     * URL of image to display.
+     *
+     * If given, this takes precedence over the `name` attribute.
+     * Note that the image will be rendered as an `<img>` tag, and not as an
+     * inline SVG. This means that, while you can render an external SVG file,
+     * you will not be able to change its color using CSS.
+     */
+    src?: string;
+
+    /**
      * Color of the icon.
      */
     color?: string;

@@ -1,4 +1,5 @@
 import { E2EPage, newE2EPage } from '@stencil/core/testing';
+import { avatarAsDataUri } from './examples/avatarAsDataUri';
 
 describe('limel-icon', () => {
     let page: E2EPage;
@@ -56,14 +57,12 @@ describe('limel-icon', () => {
         it('renders an img element', async () => {
             const testUrl =
                 '/assets/avatars/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png';
-            await page.setContent(
-                `<limel-icon name="${testUrl}"></limel-icon>`,
-            );
+            await page.setContent(`<limel-icon src="${testUrl}"></limel-icon>`);
             await page.waitForChanges();
 
             const imgElement = await page.find('limel-icon >>> img');
             expect(imgElement).toBeTruthy();
-            expect(await imgElement.getAttribute('src')).toEqual(testUrl);
+            expect(imgElement.getAttribute('src')).toEqual(testUrl);
         });
     });
 
@@ -71,14 +70,12 @@ describe('limel-icon', () => {
         it('renders an img element', async () => {
             const testUrl =
                 'http://localhost:3333/assets/avatars/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png';
-            await page.setContent(
-                `<limel-icon name="${testUrl}"></limel-icon>`,
-            );
+            await page.setContent(`<limel-icon src="${testUrl}"></limel-icon>`);
             await page.waitForChanges();
 
             const imgElement = await page.find('limel-icon >>> img');
             expect(imgElement).toBeTruthy();
-            expect(await imgElement.getAttribute('src')).toEqual(testUrl);
+            expect(imgElement.getAttribute('src')).toEqual(testUrl);
         });
     });
 
@@ -86,14 +83,61 @@ describe('limel-icon', () => {
         it('renders an img element', async () => {
             const testUrl =
                 '//localhost:3333/assets/avatars/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png';
+            await page.setContent(`<limel-icon src="${testUrl}"></limel-icon>`);
+            await page.waitForChanges();
+
+            const imgElement = await page.find('limel-icon >>> img');
+            expect(imgElement).toBeTruthy();
+            expect(imgElement.getAttribute('src')).toEqual(testUrl);
+        });
+    });
+
+    describe('when given a data-URI instead of an icon name', () => {
+        it('renders an img element', async () => {
             await page.setContent(
-                `<limel-icon name="${testUrl}"></limel-icon>`,
+                `<limel-icon src="${avatarAsDataUri}"></limel-icon>`,
             );
             await page.waitForChanges();
 
             const imgElement = await page.find('limel-icon >>> img');
             expect(imgElement).toBeTruthy();
-            expect(await imgElement.getAttribute('src')).toEqual(testUrl);
+            expect(imgElement.getAttribute('src')).toEqual(avatarAsDataUri);
         });
+    });
+
+    it('switches between icon and image rendering based on src prop', async () => {
+        const iconName = 'angle_left';
+        const imageUrl =
+            '/assets/avatars/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png';
+
+        // Step 1: Set the name prop to display an SVG icon
+        await page.setContent(`<limel-icon name="${iconName}"></limel-icon>`);
+        await page.waitForChanges();
+
+        // Step 2: Verify that the SVG icon is rendered
+        let svgElement = await page.find('limel-icon >>> svg');
+        let titleElement = await page.find('limel-icon >>> svg title');
+        expect(svgElement).toBeTruthy();
+        expect(titleElement.textContent).toEqual('Angle Left');
+
+        // Step 3: Set the src prop to a URL
+        const element = await page.find('limel-icon');
+        element.setProperty('src', imageUrl);
+        await page.waitForChanges();
+
+        // Step 4: Verify that the <img> is rendered with the correct src attribute
+        const imgElement = await page.find('limel-icon >>> img');
+        expect(imgElement).toBeTruthy();
+        expect(imgElement.getAttribute('src')).toEqual(imageUrl);
+
+        // Step 5: Remove the src prop, reverting to SVG icon
+        element.setProperty('src', null);
+        await page.waitForChanges();
+
+        // Step 6: Verify that the SVG icon is rendered again
+        svgElement = await page.find('limel-icon >>> svg');
+        titleElement = await page.find('limel-icon >>> svg title');
+        expect(svgElement).toBeTruthy();
+        expect(titleElement.textContent).toEqual('Angle Left');
     });
 });

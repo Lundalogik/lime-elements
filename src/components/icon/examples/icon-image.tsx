@@ -1,4 +1,5 @@
 import { Component, h } from '@stencil/core';
+import { avatarAsDataUri } from './avatarAsDataUri';
 
 /**
  * Displaying an image instead of an icon
@@ -8,17 +9,14 @@ import { Component, h } from '@stencil/core';
  * This makes it possible to display a user avatar, for example, anywhere that
  * an icon is used.
  *
- * To render an image, simply provide the URL to the image as the `name`
- * property.
- *
- * Supported url formats are:
- * - Absolute URL (beginning with `https://` or `http://`)
- * - Relative URL (beginning with a single slash)
- * - Protocol-relative URL (beginning with double slashes)
+ * To render an image, simply provide the URL to the image as the `src`
+ * property. Data-URIs are also supported.
  *
  * :::note
  * If the URL points to an SVG image, it will be rendered, but it will not be
  * possible to change its color using CSS.
+ *
+ * @sourceFile avatarAsDataUri.ts
  */
 @Component({
     tag: 'limel-example-icon-image',
@@ -47,14 +45,14 @@ export class IconSizeExample {
                         </td>
                         <td>
                             <limel-icon
-                                name="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
+                                src="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
                                 size="x-small"
                                 badge={true}
                             />
                         </td>
                         <td>
                             <limel-icon
-                                name="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
+                                src="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
                                 size="x-small"
                             />
                         </td>
@@ -65,14 +63,14 @@ export class IconSizeExample {
                         </td>
                         <td>
                             <limel-icon
-                                name="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
+                                src="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
                                 size="small"
                                 badge={true}
                             />
                         </td>
                         <td>
                             <limel-icon
-                                name="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
+                                src="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
                                 size="small"
                             />
                         </td>
@@ -83,14 +81,14 @@ export class IconSizeExample {
                         </td>
                         <td>
                             <limel-icon
-                                name="https://lundalogik.github.io/lime-elements/2e86c284-d190-4c41-8da2-4de50103a0cd.png"
+                                src="https://lundalogik.github.io/lime-elements/2e86c284-d190-4c41-8da2-4de50103a0cd.png"
                                 size="medium"
                                 badge={true}
                             />
                         </td>
                         <td>
                             <limel-icon
-                                name="https://lundalogik.github.io/lime-elements/2e86c284-d190-4c41-8da2-4de50103a0cd.png"
+                                src="https://lundalogik.github.io/lime-elements/2e86c284-d190-4c41-8da2-4de50103a0cd.png"
                                 size="medium"
                             />
                         </td>
@@ -101,14 +99,14 @@ export class IconSizeExample {
                         </td>
                         <td>
                             <limel-icon
-                                name="https://lundalogik.github.io/lime-elements/780af2a6-d3d1-4593-8642-f03210d09271.png"
+                                src="https://lundalogik.github.io/lime-elements/780af2a6-d3d1-4593-8642-f03210d09271.png"
                                 size="large"
                                 badge={true}
                             />
                         </td>
                         <td>
                             <limel-icon
-                                name="https://lundalogik.github.io/lime-elements/780af2a6-d3d1-4593-8642-f03210d09271.png"
+                                src="https://lundalogik.github.io/lime-elements/780af2a6-d3d1-4593-8642-f03210d09271.png"
                                 size="large"
                             />
                         </td>
@@ -121,23 +119,23 @@ export class IconSizeExample {
                         <td>
                             <limel-icon
                                 class="custom-size"
-                                name="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
+                                src="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
                                 badge={true}
                             />
                             <limel-icon
                                 class="custom-size"
-                                name="https://lundalogik.github.io/lime-elements/780af2a6-d3d1-4593-8642-f03210d09271.png"
+                                src="https://lundalogik.github.io/lime-elements/780af2a6-d3d1-4593-8642-f03210d09271.png"
                                 badge={true}
                             />
                         </td>
                         <td>
                             <limel-icon
                                 class="custom-size"
-                                name="https://lundalogik.github.io/lime-elements/0e6f74c0-11d9-465b-aac6-44f33da3cb7c.png"
+                                src={avatarAsDataUri}
                             />
                             <limel-icon
                                 class="custom-size"
-                                name="https://lundalogik.github.io/lime-elements/780af2a6-d3d1-4593-8642-f03210d09271.png"
+                                src="https://lundalogik.github.io/lime-elements/780af2a6-d3d1-4593-8642-f03210d09271.png"
                             />
                         </td>
                     </tr>

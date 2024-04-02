@@ -46,10 +46,21 @@ export class Icon {
     public size: IconSize;
 
     /**
-     * Name of the icon, or URL of image to display
+     * Name of the icon
      */
     @Prop({ reflect: true })
     public name: string;
+
+    /**
+     * URL of image to display
+     *
+     * If given, this takes precedence over the `name` attribute.
+     * Note that the image will be rendered as an `<img>` tag, and not as an
+     * inline SVG. This means that, while you can render an external SVG file,
+     * you will not be able to change its color using CSS.
+     */
+    @Prop({ reflect: true })
+    public src?: string = null;
 
     /**
      * Set to `true` to give the icon a round background with some padding.
@@ -62,7 +73,7 @@ export class Icon {
     private host: HTMLLimelIconElement;
 
     public componentDidLoad() {
-        this.loadIcon(this.name);
+        this.renderContent();
     }
 
     public render() {
@@ -70,22 +81,27 @@ export class Icon {
     }
 
     @Watch('name')
-    protected async loadIcon(name: string) {
-        if (name === undefined || name === '') {
+    protected nameWatcher() {
+        this.renderContent();
+    }
+
+    @Watch('src')
+    protected srcWatcher() {
+        this.renderContent();
+    }
+
+    private async renderContent() {
+        if (this.src) {
+            this.renderImg(this.src);
+
             return;
         }
 
-        if (
-            name.startsWith('/') ||
-            name.startsWith('http://') ||
-            name.startsWith('https://')
-        ) {
-            this.renderImg(name);
-
+        if (this.name === undefined || this.name === '') {
             return;
         }
 
-        const svgData = await loadSvg(name);
+        const svgData = await loadSvg(this.name);
         this.renderSvg(svgData);
     }
 
