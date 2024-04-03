@@ -299,9 +299,23 @@ export class InputField {
         properties.readonly = this.readonly;
         properties.disabled = this.disabled || this.readonly;
 
+        let ariaControls = '';
+
         if (this.hasHelperText()) {
-            properties['aria-controls'] = this.helperTextId;
+            ariaControls += this.helperTextId;
             properties['aria-describedby'] = this.helperTextId;
+        }
+
+        if (this.renderAutocompleteList()) {
+            if (ariaControls) {
+                ariaControls += ' ';
+            }
+
+            ariaControls += this.portalId;
+        }
+
+        if (ariaControls) {
+            properties['aria-controls'] = ariaControls;
         }
 
         return [
