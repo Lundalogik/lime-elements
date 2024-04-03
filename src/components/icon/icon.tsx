@@ -121,7 +121,7 @@ export class Icon {
     private renderImg(src: string) {
         const container = this.host.shadowRoot.querySelector('div.container');
         if (container) {
-            container.innerHTML = `<img src="${src}" />`;
+container.innerHTML = `<img loading="lazy" src="${src}" />`;
         }
     }
 }
