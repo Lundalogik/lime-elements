@@ -16,7 +16,7 @@ export class InputFieldPatternExample {
             <limel-input-field
                 label="Personal identity number (YYYYMMDD-XXXX)"
                 value={this.value}
-                pattern={'[0-9]{8}[-][0-9]{4}'}
+                pattern={'[0-9]{8}-[0-9]{4}'}
                 onChange={this.handleChange}
             />
         );
