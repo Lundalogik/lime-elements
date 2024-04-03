@@ -355,6 +355,14 @@ export class InputField {
             return;
         }
 
+        if (
+            this.type === 'number' &&
+            this.isFocused &&
+            Number(newValue) === Number(this.mdcTextField.value)
+        ) {
+            return;
+        }
+
         if (newValue !== this.mdcTextField.value) {
             this.mdcTextField.value = newValue || '';
         }
