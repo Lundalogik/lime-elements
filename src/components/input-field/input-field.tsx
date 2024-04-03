@@ -252,6 +252,7 @@ export class InputField {
     @State()
     public showCompletions: boolean = false;
 
+    private inputElement?: HTMLInputElement | HTMLTextAreaElement;
     private mdcTextField: MDCTextField;
     private completionsList: ListItem[] = [];
     private portalId: string;
@@ -295,6 +296,7 @@ export class InputField {
         const properties = this.getAdditionalProps();
         properties['aria-labelledby'] = this.labelId;
         properties.class = 'mdc-text-field__input';
+        properties.ref = this.setInputElement;
         properties.onInput = this.handleInput;
         properties.onChange = this.handleChange;
         properties.onFocus = this.onFocus;
@@ -423,22 +425,16 @@ export class InputField {
     };
 
     private isEmpty = () => {
-        if (this.type === 'number') {
-            const element = this.getInputElement();
-            if (element && element.validity.badInput) {
-                return false;
-            }
+        if (this.type === 'number' && this.inputElement?.validity.badInput) {
+            return false;
         }
 
         return !this.getCurrentValue();
     };
 
     private getCurrentValue = () => {
-        if (this.changeWaiting) {
-            const element = this.getInputElement();
-            if (element) {
-                return element.value;
-            }
+        if (this.changeWaiting && this.inputElement) {
+            return this.inputElement.value;
         }
 
         return this.value;
@@ -618,23 +614,17 @@ export class InputField {
             return;
         }
 
-        const element = this.getInputElement();
-
-        if (element) {
-            this.wasInvalid = !element.checkValidity();
+        if (this.inputElement) {
+            this.wasInvalid = !this.inputElement.checkValidity();
         }
     };
 
-    private getInputElement = ():
-        | HTMLInputElement
-        | HTMLTextAreaElement
-        | null => {
-        let elementName = 'input';
-        if (this.type === 'textarea') {
-            elementName = 'textarea';
+    private setInputElement = (
+        element?: HTMLInputElement | HTMLTextAreaElement,
+    ) => {
+        if (element) {
+            this.inputElement = element;
         }
-
-        return this.limelInputField.shadowRoot.querySelector(elementName);
     };
 
     private renderLabel = () => {
