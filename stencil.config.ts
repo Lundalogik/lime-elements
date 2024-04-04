@@ -32,12 +32,8 @@ export const config: Config = {
             copy: [
                 { src: 'style/color-palette-extended.css' },
                 {
-                    /*
-                     * Public domain svg files that can be used in tests
-                     * https://freesvg.org/yoga-exercise-low-poly-silhouette
-                     */
-                    src: 'icons/',
-                    dest: 'assets/icons/',
+                    src: 'test-assets/',
+                    dest: 'assets/',
                 },
                 {
                     src: '../node_modules/kompendium/dist/',
