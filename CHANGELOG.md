@@ -1,3 +1,11 @@
+## [37.13.1](https://github.com/Lundalogik/lime-elements/compare/v37.13.0...v37.13.1) (2024-04-04)
+
+
+### Bug Fixes
+
+
+* **color-picker:** set focus on swatches when the palette popover is opened ([fe7d91a](https://github.com/Lundalogik/lime-elements/commit/fe7d91aa00befd5f18cad209b5b1ad527d7ddaa2))
+
 ## [37.13.0](https://github.com/Lundalogik/lime-elements/compare/v37.12.2...v37.13.0) (2024-04-02)
 
 
