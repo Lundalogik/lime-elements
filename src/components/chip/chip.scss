@@ -35,9 +35,10 @@
     font-size: 0.875rem;
     padding: 0 0.125rem;
 
-    &:has(limel-icon) {
+    &:has(limel-icon),
+    &:has(img) {
         .text {
-            padding-left: 0.25rem;
+            padding-left: 0;
         }
     }
 
@@ -146,10 +147,18 @@
     }
 }
 
+img,
 limel-icon {
     flex-shrink: 0;
     width: calc(var(--limel-chip-height) - 0.25rem);
     height: calc(var(--limel-chip-height) - 0.25rem);
+}
+
+img {
+    border-radius: 50%;
+}
+
+limel-icon {
     padding: 0.0625rem;
 }
 
