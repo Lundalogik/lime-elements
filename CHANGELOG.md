@@ -1,3 +1,11 @@
+## [37.13.2](https://github.com/Lundalogik/lime-elements/compare/v37.13.1...v37.13.2) (2024-04-04)
+
+
+### Bug Fixes
+
+
+* **input-field:** ensure `aria-controls` get ids of both helper text & portal ([26d26ac](https://github.com/Lundalogik/lime-elements/commit/26d26ac3e1d13e2a294156762428777d344f2607))
+
 ## [37.13.1](https://github.com/Lundalogik/lime-elements/compare/v37.13.0...v37.13.1) (2024-04-04)
 
 
