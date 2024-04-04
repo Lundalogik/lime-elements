@@ -185,6 +185,7 @@ export class Popover {
         const attributes = {
             'aria-haspopup': true,
             'aria-expanded': this.open,
+            'aria-controls': this.portalId,
             role: 'button',
         };
 
