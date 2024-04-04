@@ -1,7 +1,7 @@
 import JSONSchemaField from '@rjsf/core/lib/components/fields/SchemaField';
 import React from 'react';
 import { FieldProps } from './types';
-import { isEmpty, capitalize } from 'lodash-es';
+import { isEmpty, capitalize, has } from 'lodash-es';
 import { resetDependentFields } from './field-helpers';
 import { FieldTemplate } from '../templates';
 import { getHelpComponent } from '../help';
@@ -305,6 +305,58 @@ export class SchemaField extends React.Component<FieldProps> {
             return undefined;
         }
 
-        return schemaId.replace('root_', '').split('_');
+        let path: string[] = [];
+        const idSeparator = '_';
+        const startIndex = schemaId.indexOf(idSeparator) + 1;
+        const endIndex = schemaId.lastIndexOf(idSeparator + this.props.name);
+
+        if (endIndex > startIndex) {
+            path = this.splitSchemaId(
+                schemaId.slice(startIndex, endIndex),
+                idSeparator,
+            );
+        }
+
+        path.push(this.props.name);
+
+        return path;
+    }
+
+    // Splits schemaId into a property path array,
+    // preserving property names that contain the separator
+    private splitSchemaId(schemaId: string, separator: string): string[] {
+        const idParts = schemaId.split(separator);
+        let formData = this.props.registry.formContext.rootValue;
+
+        if (has(formData, idParts)) {
+            return idParts;
+        }
+
+        const path = [];
+
+        // Finds the next key to add to the path,
+        // while removing elements from the beginning of the idParts array
+        const nextKey = () => {
+            let count = idParts.length;
+            while (
+                count > 1 &&
+                !(idParts.slice(0, count).join(separator) in formData)
+            ) {
+                count--;
+            }
+
+            return idParts.splice(0, count).join(separator);
+        };
+
+        while (formData && typeof formData === 'object' && idParts.length > 0) {
+            const key = nextKey();
+
+            path.push(key);
+            formData = formData[key];
+        }
+
+        path.push(...idParts);
+
+        return path;
     }
 }
