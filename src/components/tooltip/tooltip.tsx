@@ -153,13 +153,15 @@ export class Tooltip {
     private addListeners() {
         this.ownerElement?.addEventListener('mouseover', this.showTooltip);
         this.ownerElement?.addEventListener('mouseout', this.hideTooltip);
-        this.ownerElement?.addEventListener('click', this.hideTooltip);
+        this.ownerElement?.addEventListener('focus', this.showTooltip);
+        this.ownerElement?.addEventListener('blur', this.hideTooltip);
     }
 
     private removeListeners() {
         this.ownerElement?.removeEventListener('mouseover', this.showTooltip);
         this.ownerElement?.removeEventListener('mouseout', this.hideTooltip);
-        this.ownerElement?.removeEventListener('click', this.hideTooltip);
+        this.ownerElement?.removeEventListener('focus', this.showTooltip);
+        this.ownerElement?.removeEventListener('blur', this.hideTooltip);
     }
 
     private showTooltip = () => {
