@@ -7,7 +7,7 @@ import { brightnesses, colors, getColorName, getCssColor } from './swatches';
  */
 @Component({
     tag: 'limel-color-picker-palette',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'color-picker-palette.scss',
 })
 export class Palette implements FormComponent {

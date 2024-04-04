@@ -67,6 +67,17 @@ export class ColorPicker implements FormComponent {
     @State()
     private isOpen = false;
 
+    public componentDidRender() {
+        if (this.shouldFocus && this.isOpen) {
+            this.shouldFocus = false;
+            this.contentElement?.focus();
+        }
+    }
+
+    private contentElement?: HTMLLimelColorPickerPaletteElement;
+
+    private shouldFocus = false;
+
     public render() {
         return [
             this.renderTooltip(),
@@ -109,6 +120,7 @@ export class ColorPicker implements FormComponent {
             >
                 {this.renderPickerTrigger()}
                 <limel-color-picker-palette
+                    ref={this.setColorPickerPaletteElement}
                     value={this.value}
                     label={this.label}
                     helperText={this.helperText}
@@ -134,9 +146,17 @@ export class ColorPicker implements FormComponent {
         );
     };
 
+    private setColorPickerPaletteElement = (
+        element: HTMLLimelColorPickerPaletteElement,
+    ) => {
+        this.contentElement = element;
+    };
+
     private openPopover = (event: MouseEvent) => {
         event.stopPropagation();
         this.isOpen = true;
+
+        this.shouldFocus = this.isOpen;
     };
 
     private onPopoverClose = (event: CustomEvent) => {
