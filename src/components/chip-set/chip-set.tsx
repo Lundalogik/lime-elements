@@ -59,6 +59,7 @@ const INPUT_FIELD_TABINDEX = 1;
  * @exampleComponent limel-example-chip-set-input-type-text
  * @exampleComponent limel-example-chip-set-input-type-search
  * @exampleComponent limel-example-chip-icon-color
+ * @exampleComponent limel-example-chip-set-image
  * @exampleComponent limel-example-chip-set-composite
  */
 @Component({
@@ -631,6 +632,7 @@ export class ChipSet {
             identifier: chip.id,
             text: chip.text,
             icon: chip.icon,
+            image: chip.image,
             badge: chip.badge,
             selected: chip.selected,
             disabled: this.disabled,
