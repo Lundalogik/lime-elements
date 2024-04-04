@@ -23,6 +23,8 @@ import {
     DELETE_KEY_CODE,
 } from '../../util/keycodes';
 import { ChipType, Chip as OldChipInterface } from '../chip-set/chip.types';
+import { Image } from '../../global/shared-types/image.types';
+import { isEmpty } from 'lodash-es';
 
 interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
     /**
@@ -72,6 +74,7 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  * @exampleComponent limel-example-chip-button
  * @exampleComponent limel-example-chip-link
  * @exampleComponent limel-example-chip-icon-colors
+ * @exampleComponent limel-example-chip-image
  * @exampleComponent limel-example-chip-badge
  * @exampleComponent limel-example-chip-filter
  * @exampleComponent limel-example-chip-removable
@@ -103,6 +106,12 @@ export class Chip implements ChipInterface {
      */
     @Prop()
     public icon?: string | Icon;
+
+    /**
+     * A picture to be displayed instead of the icon on the chip.
+     */
+    @Prop()
+    public image?: Image;
 
     /**
      * If supplied, the chip will become a clickable link.
@@ -216,7 +225,7 @@ export class Chip implements ChipInterface {
                 onKeyDown={this.handleDeleteKeyDown}
             >
                 {this.renderSpinner()}
-                {this.renderIcon()}
+                {this.renderPicture()}
                 {this.renderLabel()}
                 {this.renderBadge()}
                 {this.renderProgressBar()}
@@ -238,7 +247,7 @@ export class Chip implements ChipInterface {
                 onKeyDown={this.handleDeleteKeyDown}
             >
                 {this.renderSpinner()}
-                {this.renderIcon()}
+                {this.renderPicture()}
                 {this.renderLabel()}
                 {this.renderBadge()}
                 {this.renderProgressBar()}
@@ -251,11 +260,17 @@ export class Chip implements ChipInterface {
         return <span class="text">{this.text}</span>;
     };
 
-    private renderIcon() {
+    private renderPicture() {
         const icon = getIconName(this.icon);
 
-        if (!icon) {
+        if (!icon && !this.image) {
             return;
+        }
+
+        if (!isEmpty(this.image)) {
+            return (
+                <img src={this.image.src} alt={this.image.alt} loading="lazy" />
+            );
         }
 
         return (
