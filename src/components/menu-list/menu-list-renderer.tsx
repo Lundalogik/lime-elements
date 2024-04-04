@@ -58,7 +58,6 @@ export class MenuListRenderer {
         return (
             <ul
                 class={classNames}
-                aria-hidden={true}
                 role="menu"
                 aria-orientation="vertical"
                 style={{ '--maxLinesSecondaryText': '2' }}
