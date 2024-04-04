@@ -35,8 +35,7 @@
                 return b[2].substring(0, 1) > a[2].substring(0, 1) ? 1 : -1;
             }
         });
-        createLink(`versions/latest/`, 'Latest Official Release');
-        createLink(`versions/next/`, 'Latest nightly (Used by the Lime CRM Web Client)');
+        createLink(`versions/latest/`, 'Latest Release');
         window.versions.forEach(function(version, index) {
             createLink(`versions/${version}/`, version);
         });
