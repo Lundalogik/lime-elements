@@ -1,4 +1,4 @@
-:host{--mdc-theme-primary:var(
+@charset "UTF-8";:host{--mdc-theme-primary:var(
       --lime-primary-color,
       rgb(var(--color-teal-default))
   );--mdc-theme-secondary:var(

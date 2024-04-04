@@ -7,6 +7,7 @@
  */
 
 :root {
+    --limel-chip-progress-mix-blend-mode: multiply;
     /* Lime Technologies Brand Colors (Do not have dark/light mode variants) */
     --lime-brand-color-deep-red: 240, 87, 80; /* #f05750 */
     --lime-brand-color-sellable-orange: 255, 112, 67; /* #ff7043 (FIXME: or 247-107-7; // #f76b07 ? --> can be replaced with orange-dark in light mode in this case) */
@@ -166,6 +167,8 @@
 }
 
 :root[data-theme="force-dark"] {
+    --limel-chip-progress-mix-blend-mode: screen;
+
     --contrast-100: 20, 20, 42; /* #14142a */
     --contrast-200: 25, 25, 44; /* #19192c */
     --contrast-300: 35, 35, 53; /* #232335 */
@@ -322,6 +325,8 @@
 
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="force-light"]) {
+        --limel-chip-progress-mix-blend-mode: screen;
+
         --contrast-100: 20, 20, 37; /* #141425 */
         --contrast-200: 25, 25, 44; /* #19192c */
         --contrast-300: 35, 35, 53; /* #232335 */

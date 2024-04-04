@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-d017bb3a.js');
+const index = require('./index-4264cbf1.js');
 const _commonjsHelpers = require('./_commonjsHelpers-206db00d.js');
 
 var prism = _commonjsHelpers.createCommonjsModule(function (module) {

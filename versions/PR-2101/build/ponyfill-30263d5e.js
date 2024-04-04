@@ -20,4 +20,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-function r(r,t){if(r.closest)return r.closest(t);for(var u=r;u;){if(n(u,t))return u;u=u.parentElement}return null}function n(r,n){return(r.matches||r.webkitMatchesSelector||r.msMatchesSelector).call(r,n)}function t(r){if(null!==r.offsetParent)return r.scrollWidth;var n=r.cloneNode(!0);n.style.setProperty("position","absolute"),n.style.setProperty("transform","translate(-9999px, -9999px)"),document.documentElement.appendChild(n);var t=n.scrollWidth;return document.documentElement.removeChild(n),t}export{r as c,t as e,n as m}
+function r(r,t){if(r.closest){return r.closest(t)}var u=r;while(u){if(n(u,t)){return u}u=u.parentElement}return null}function n(r,n){var t=r.matches||r.webkitMatchesSelector||r.msMatchesSelector;return t.call(r,n)}function t(r){var n=r;if(n.offsetParent!==null){return n.scrollWidth}var t=n.cloneNode(true);t.style.setProperty("position","absolute");t.style.setProperty("transform","translate(-9999px, -9999px)");document.documentElement.appendChild(t);var u=t.scrollWidth;document.documentElement.removeChild(t);return u}export{r as c,t as e,n as m};
+//# sourceMappingURL=ponyfill-30263d5e.js.map
