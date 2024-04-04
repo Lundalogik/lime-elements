@@ -861,6 +861,14 @@ export interface Icon {
 // @public (undocumented)
 export type IconSize = 'x-small' | 'small' | 'medium' | 'large';
 
+// @public
+interface Image_2 {
+    alt: string;
+    loading?: 'lazy' | 'eager';
+    src: string;
+}
+export { Image_2 as Image }
+
 // @public (undocumented)
 export interface InfoTileProgress {
     displayPercentageColors?: boolean;

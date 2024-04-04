@@ -50,3 +50,4 @@ export * from './components/tab-panel/tab-panel.types';
 export * from './components/table/table.types';
 export * from './global/shared-types/separator.types';
 export * from './global/shared-types/icon.types';
+export * from './global/shared-types/image.types';
