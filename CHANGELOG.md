@@ -1,3 +1,13 @@
+## [37.13.3](https://github.com/Lundalogik/lime-elements/compare/v37.13.2...v37.13.3) (2024-04-04)
+
+
+### Bug Fixes
+
+
+* **menu:** clarify for assistive tech, which menu trigger opens which menu list ([a3360c2](https://github.com/Lundalogik/lime-elements/commit/a3360c2b739952d805afde1eaa9f380686b35a06))
+* **menu:** ensure that the list of menu items is visible to assistive tech ([ef41af2](https://github.com/Lundalogik/lime-elements/commit/ef41af24f7d03d29f1f9baf3f8d3f15c6233a1a0))
+* **popover:** clarify for assistive tech, which popover trigger opens which popover content ([27db975](https://github.com/Lundalogik/lime-elements/commit/27db975067af5b676f1389d2774254b81059d9a4))
+
 ## [37.13.2](https://github.com/Lundalogik/lime-elements/compare/v37.13.1...v37.13.2) (2024-04-04)
 
 
