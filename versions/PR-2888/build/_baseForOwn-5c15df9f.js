@@ -1,0 +1,2 @@
+import{k as r}from"./_baseIsEqual-bb328657.js";function a(r){return function(a,e,n){var t=-1,u=Object(a),b=n(a),f=b.length;while(f--){var i=b[r?f:++t];if(e(u[i],i,u)===false){break}}return a}}var e=a();function n(a,n){return a&&e(a,n,r)}export{n as b};
+//# sourceMappingURL=_baseForOwn-5c15df9f.js.map
