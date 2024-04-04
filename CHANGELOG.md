@@ -1,3 +1,11 @@
+## [37.14.0](https://github.com/Lundalogik/lime-elements/compare/v37.13.3...v37.14.0) (2024-04-04)
+
+
+### Features
+
+
+* **select:** enable displaying a secondary text for options ([a728168](https://github.com/Lundalogik/lime-elements/commit/a728168fa2ece5f3551f46a286650cb022c7fa82))
+
 ## [37.13.3](https://github.com/Lundalogik/lime-elements/compare/v37.13.2...v37.13.3) (2024-04-04)
 
 
