@@ -1,6 +1,6 @@
 {
   "name": "@limetech/lime-elements",
-  "version": "37.13.1",
+  "version": "37.14.1",
   "description": "Lime Elements",
   "author": "Lime Technologies",
   "license": "Apache-2.0",
@@ -55,7 +55,7 @@
     "@types/jest": "^27.4.0",
     "@types/lodash-es": "^4.17.12",
     "@types/react": "^18.2.74",
-    "@types/react-dom": "^18.2.23",
+    "@types/react-dom": "^18.2.24",
     "@types/tabulator-tables": "^4.9.4",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",

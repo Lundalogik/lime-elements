@@ -1,3 +1,37 @@
+## [37.14.1](https://github.com/Lundalogik/lime-elements/compare/v37.14.0...v37.14.1) (2024-04-05)
+
+
+### Bug Fixes
+
+
+* **tooltip:** display the tooltip, when the element is focused using keyboard ([2c677a7](https://github.com/Lundalogik/lime-elements/commit/2c677a7db626b914dc5de1b131743975c1b9b870))
+
+## [37.14.0](https://github.com/Lundalogik/lime-elements/compare/v37.13.3...v37.14.0) (2024-04-04)
+
+
+### Features
+
+
+* **select:** enable displaying a secondary text for options ([a728168](https://github.com/Lundalogik/lime-elements/commit/a728168fa2ece5f3551f46a286650cb022c7fa82))
+
+## [37.13.3](https://github.com/Lundalogik/lime-elements/compare/v37.13.2...v37.13.3) (2024-04-04)
+
+
+### Bug Fixes
+
+
+* **menu:** clarify for assistive tech, which menu trigger opens which menu list ([a3360c2](https://github.com/Lundalogik/lime-elements/commit/a3360c2b739952d805afde1eaa9f380686b35a06))
+* **menu:** ensure that the list of menu items is visible to assistive tech ([ef41af2](https://github.com/Lundalogik/lime-elements/commit/ef41af24f7d03d29f1f9baf3f8d3f15c6233a1a0))
+* **popover:** clarify for assistive tech, which popover trigger opens which popover content ([27db975](https://github.com/Lundalogik/lime-elements/commit/27db975067af5b676f1389d2774254b81059d9a4))
+
+## [37.13.2](https://github.com/Lundalogik/lime-elements/compare/v37.13.1...v37.13.2) (2024-04-04)
+
+
+### Bug Fixes
+
+
+* **input-field:** ensure `aria-controls` get ids of both helper text & portal ([26d26ac](https://github.com/Lundalogik/lime-elements/commit/26d26ac3e1d13e2a294156762428777d344f2607))
+
 ## [37.13.1](https://github.com/Lundalogik/lime-elements/compare/v37.13.0...v37.13.1) (2024-04-04)
 
 
