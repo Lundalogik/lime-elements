@@ -1,3 +1,11 @@
+## [37.14.1](https://github.com/Lundalogik/lime-elements/compare/v37.14.0...v37.14.1) (2024-04-05)
+
+
+### Bug Fixes
+
+
+* **tooltip:** display the tooltip, when the element is focused using keyboard ([2c677a7](https://github.com/Lundalogik/lime-elements/commit/2c677a7db626b914dc5de1b131743975c1b9b870))
+
 ## [37.14.0](https://github.com/Lundalogik/lime-elements/compare/v37.13.3...v37.14.0) (2024-04-04)
 
 
