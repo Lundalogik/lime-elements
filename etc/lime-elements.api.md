@@ -2066,6 +2066,7 @@ interface Option_2<T extends string = string> {
     icon?: string | Icon;
     // @deprecated
     iconColor?: string;
+    secondaryText?: string;
     text: string;
     value: T;
 }

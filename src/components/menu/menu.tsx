@@ -578,6 +578,7 @@ export class Menu {
         const attributes = {
             'aria-haspopup': true,
             'aria-expanded': this.open,
+            'aria-controls': this.portalId,
             disabled: this.disabled,
             role: 'button',
         };
