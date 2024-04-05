@@ -1,3 +1,11 @@
+## [37.15.0](https://github.com/Lundalogik/lime-elements/compare/v37.14.1...v37.15.0) (2024-04-05)
+
+
+### Features
+
+
+* **markdown:** support certain whitelisted inline css styles ([43e89bf](https://github.com/Lundalogik/lime-elements/commit/43e89bfc4e936e4d1c2c300820ac87888d3aa6ec)), closes [Lundalogik/limepkg-email#590](https://github.com/Lundalogik/limepkg-email/issues/590)
+
 ## [37.14.1](https://github.com/Lundalogik/lime-elements/compare/v37.14.0...v37.14.1) (2024-04-05)
 
 
