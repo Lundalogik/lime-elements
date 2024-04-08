@@ -120,5 +120,9 @@
   "bugs": {
     "url": "https://github.com/Lundalogik/lime-elements/issues"
   },
-  "homepage": "https://github.com/Lundalogik/lime-elements#readme"
+  "homepage": "https://github.com/Lundalogik/lime-elements#readme",
+  "dependencies": {
+    "prosemirror-example-setup": "^1.2.2",
+    "prosemirror-schema-basic": "^1.2.2"
+  }
 }
