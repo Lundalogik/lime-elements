@@ -8,6 +8,7 @@ import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
 import { visit } from 'unist-util-visit';
 import { sanitizeStyle } from './sanitize-style';
+import { Node } from 'unist';
 
 /**
  * Takes a string as input and returns a new string
@@ -46,7 +47,7 @@ export async function markdownToHTML(
             },
         })
         .use(() => {
-            return (tree: any) => {
+            return (tree: Node) => {
                 // Run the sanitizeStyle function on all elements, to sanitize
                 // the value of the `style` attribute, if there is one.
                 visit(tree, 'element', sanitizeStyle);
