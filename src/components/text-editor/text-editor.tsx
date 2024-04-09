@@ -18,6 +18,7 @@ import { exampleSetup } from 'prosemirror-example-setup';
  *
  * @exampleComponent limel-example-text-editor
  * @beta
+ * @private
  */
 @Component({
     tag: 'limel-text-editor',
