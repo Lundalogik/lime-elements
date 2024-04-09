@@ -16,7 +16,7 @@ import { exampleSetup } from 'prosemirror-example-setup';
  * The `limel-text-editor` component wraps the toast-ui react editor. This editor
  * allows a rich text editing experience with markdown support.
  *
- * @exampleComponent limel-example-basic-text-editor
+ * @exampleComponent limel-example-text-editor
  * @beta
  */
 @Component({
