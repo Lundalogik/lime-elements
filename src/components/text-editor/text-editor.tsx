@@ -37,7 +37,7 @@ export class TextEditor {
     public componentWillLoad() {}
 
     public render() {
-        return [<div id="editor"></div>, <div id="content"></div>];
+        return [<div id="editor" />, <div id="content" />];
     }
 
     public componentDidLoad() {

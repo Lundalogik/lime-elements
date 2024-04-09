@@ -1,0 +1,164 @@
+.ProseMirror-textblock-dropdown {
+    min-width: 3em;
+}
+
+.ProseMirror-tooltip .ProseMirror-menu {
+    width: -webkit-fit-content;
+    width: fit-content;
+    white-space: pre;
+}
+
+.ProseMirror-menuitem {
+    margin-right: 0.25rem;
+    display: inline-block;
+}
+
+.ProseMirror-menuseparator {
+    border-right: 1px solid rgb(var(--contrast-600));
+    margin-right: 0.25rem;
+}
+
+.ProseMirror-menu-dropdown,
+.ProseMirror-menu-dropdown-menu {
+    font-size: 90%;
+    white-space: nowrap;
+}
+
+.ProseMirror-menu-dropdown {
+    vertical-align: 1px;
+    cursor: pointer;
+    position: relative;
+    padding-right: 1rem;
+}
+
+.ProseMirror-menu-dropdown-wrap {
+    padding: 1px 0 1px 4px;
+    display: inline-block;
+    position: relative;
+}
+
+.ProseMirror-menu-dropdown:after {
+    content: '';
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid currentColor;
+    opacity: 0.6;
+    position: absolute;
+    right: 4px;
+    top: calc(50% - 2px);
+}
+
+.ProseMirror-menu-dropdown-menu,
+.ProseMirror-menu-submenu {
+    position: absolute;
+    background: rgb(var(--contrast-100));
+    // color: #666;
+    border-radius: 0.25rem;
+    padding: 2px;
+}
+
+.ProseMirror-menu-dropdown-menu {
+    // z-index: 15;
+    width: auto;
+    margin: 0.25rem;
+    box-shadow: 0 0.1875rem 0.375rem rgb(var(--contrast-900));
+}
+
+.ProseMirror-menu-dropdown-item {
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 0.375rem;
+    font-size: 0.8125rem;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.ProseMirror-menu-dropdown-item:hover {
+    background: rgb(var(--contrast-300));
+}
+
+.ProseMirror-menu-submenu-wrap {
+    position: relative;
+    margin-right: -4px;
+}
+
+.ProseMirror-menu-submenu-label:after {
+    content: '';
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid currentColor;
+    opacity: 0.6;
+    position: absolute;
+    margin-left: 0.5rem;
+    top: calc(50% - 0.1875rem);
+}
+
+.ProseMirror-menu-submenu {
+    display: none;
+    min-width: 4em;
+    left: 100%;
+    top: -3px;
+}
+
+.ProseMirror-menu-active {
+    background: #eee;
+    border-radius: 4px;
+}
+
+.ProseMirror-menu-disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.ProseMirror-menu-submenu-wrap:hover .ProseMirror-menu-submenu,
+.ProseMirror-menu-submenu-wrap-active .ProseMirror-menu-submenu {
+    display: block;
+}
+
+.ProseMirror-menubar {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    position: relative;
+    min-height: 2rem;
+    padding: 0.25rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid rgb(var(--contrast-800));
+
+    z-index: 10;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: visible;
+    background-color: rgb(var(--contrast-100));
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.ProseMirror-icon {
+    display: inline-block;
+    line-height: 0.8;
+    vertical-align: -2px; /* Compensate for padding */
+    padding: 0.25rem 0.625rem;
+    cursor: pointer;
+}
+
+.ProseMirror-icon:not(:disabled):hover {
+    background: rgb(var(--contrast-300));
+    border-radius: 0.25rem;
+}
+
+.ProseMirror-menu-disabled.ProseMirror-icon {
+    cursor: default;
+}
+
+.ProseMirror-icon svg {
+    fill: currentColor;
+    height: 1em;
+}
+
+.ProseMirror-icon span {
+    vertical-align: text-top;
+}
