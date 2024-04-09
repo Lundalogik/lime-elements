@@ -1,9 +1,16 @@
 :host(limel-text-editor) {
     isolation: isolate;
+    display: block;
+    border-radius: 0.25rem;
 }
 
 * {
     box-sizing: border-box;
+}
+
+.ProseMirror-menubar-wrapper {
+    display: grid;
+    grid-template-rows: auto 1fr;
 }
 
 .ProseMirror-textblock-dropdown {

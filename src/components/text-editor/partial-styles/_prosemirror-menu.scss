@@ -2,6 +2,21 @@
 
 $size-of-caret: 0.25rem;
 
+div#editor {
+    .ProseMirror-menubar {
+        position: sticky !important;
+        z-index: 1;
+        top: 0;
+
+        &[style*='position: fixed'] {
+            // They add this dynamically as soon as you scroll.
+            // I want to catch this to detect the scroll,
+            // to add proper styles. This is a hack.
+            box-shadow: 0 0.25rem 0.5rem -0.5rem rgb(var(--color-black), 0.8);
+        }
+    }
+}
+
 .ProseMirror-menubar {
     position: relative;
     z-index: 1;
@@ -12,7 +27,8 @@ $size-of-caret: 0.25rem;
 
     padding: 0.125rem;
     background-color: rgb(var(--contrast-100));
-    border-radius: inherit inherit 0 0;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
 }
 
 .ProseMirror-menuitem {
