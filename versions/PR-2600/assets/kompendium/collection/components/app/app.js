@@ -67,6 +67,7 @@ export class App {
             h("stencil-route", { url: "/component/:name/:section?", component: "kompendium-component", componentProps: {
                 docs: this.data.docs,
                 schemas: this.data.schemas,
+                examplePropsFactory: this.examplePropsFactory,
               } }),
             h("stencil-route", { url: "/type/:name", component: "kompendium-type", componentProps: {
                 types: this.data.types,
@@ -105,6 +106,26 @@ export class App {
       "attribute": "path",
       "reflect": false,
       "defaultValue": "'/kompendium.json'"
+    },
+    "examplePropsFactory": {
+      "type": "unknown",
+      "mutable": false,
+      "complexType": {
+        "original": "PropsFactory",
+        "resolved": "(name: string) => Record<string, unknown>",
+        "references": {
+          "PropsFactory": {
+            "location": "import",
+            "path": "../playground/playground.types"
+          }
+        }
+      },
+      "required": false,
+      "optional": true,
+      "docs": {
+        "tags": [],
+        "text": "Factory for creating props for example components"
+      }
     }
   }; }
   static get states() { return {

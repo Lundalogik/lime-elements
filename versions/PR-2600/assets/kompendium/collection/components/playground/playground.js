@@ -2,6 +2,12 @@ import { Component, h, Host, Prop, State } from '@stencil/core';
 import { THEME_EVENT_NAME } from '../darkmode-switch/types';
 export class Playground {
   constructor() {
+    /**
+     * Factory for creating props for example components
+     *
+     * @returns {Record<string, unknown>} props
+     */
+    this.propsFactory = () => ({});
     this.activateTab = (id) => () => {
       this.activeTab = id;
     };
@@ -47,9 +53,8 @@ export class Playground {
   renderResult() {
     const ExampleComponent = this.component.tag;
     const text = '##### ' + this.component.docs;
-    const props = {
-      schema: this.schema,
-    };
+    const factory = this.propsFactory;
+    const props = Object.assign({ schema: this.schema }, factory(ExampleComponent));
     return (h("div", { class: "show-case" },
       h("div", { class: "show-case_description" },
         h("kompendium-markdown", { text: text })),
@@ -132,6 +137,30 @@ export class Playground {
         "tags": [],
         "text": "Schema for the component"
       }
+    },
+    "propsFactory": {
+      "type": "unknown",
+      "mutable": false,
+      "complexType": {
+        "original": "PropsFactory",
+        "resolved": "(name: string) => Record<string, unknown>",
+        "references": {
+          "PropsFactory": {
+            "location": "import",
+            "path": "./playground.types"
+          }
+        }
+      },
+      "required": false,
+      "optional": true,
+      "docs": {
+        "tags": [{
+            "text": "props",
+            "name": "returns"
+          }],
+        "text": "Factory for creating props for example components"
+      },
+      "defaultValue": "() => ({})"
     }
   }; }
   static get states() { return {
