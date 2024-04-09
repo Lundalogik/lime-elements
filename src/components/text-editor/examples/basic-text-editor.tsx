@@ -25,7 +25,7 @@ export class BasicTextEditorExample {
         );
     }
 
-    handleChange = (
+    private handleChange = (
         event: LimelTextEditorCustomEvent<{ html: string }>,
     ): void => {
         event.stopPropagation();
