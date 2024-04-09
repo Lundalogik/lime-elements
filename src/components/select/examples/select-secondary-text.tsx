@@ -1,4 +1,4 @@
-import { Option } from '@limetech/lime-elements';
+import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 /**
  * Select with secondary text for options
