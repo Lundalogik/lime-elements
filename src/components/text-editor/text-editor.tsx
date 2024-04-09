@@ -17,6 +17,7 @@ import { exampleSetup } from 'prosemirror-example-setup';
  * allows a rich text editing experience with markdown support.
  *
  * @exampleComponent limel-example-text-editor
+ * @exampleComponent limel-example-text-editor-prefilled-value
  * @beta
  */
 @Component({
