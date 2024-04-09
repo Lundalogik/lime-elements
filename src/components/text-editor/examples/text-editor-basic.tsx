@@ -1,4 +1,8 @@
-import { LimelTextEditorCustomEvent } from '@limetech/lime-elements';
+import {
+    LimelCheckboxCustomEvent,
+    LimelInputFieldCustomEvent,
+    LimelTextEditorCustomEvent,
+} from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 /**
  * A basic example
@@ -15,9 +19,40 @@ export class BasicTextEditorBasicExample {
     @State()
     private text: { html: string } = { html: '' };
 
+    @State()
+    private disabled: boolean;
+
+    @State()
+    private placeholder: string;
+
+    @State()
+    private readonly: boolean;
+
     public render() {
         return [
-            <limel-text-editor onChange={this.handleChange} />,
+            <limel-example-controls>
+                <limel-input-field
+                    label="Placeholder"
+                    value={this.placeholder}
+                    onChange={this.handlePlaceholderChange}
+                />
+                <limel-checkbox
+                    label="readonly"
+                    checked={this.readonly}
+                    onChange={this.handleChangeReadonly}
+                />
+                <limel-checkbox
+                    label="disabled"
+                    checked={this.disabled}
+                    onChange={this.handleChangeDisabled}
+                />
+            </limel-example-controls>,
+            <limel-text-editor
+                onChange={this.handleChange}
+                placeholder={this.placeholder}
+                readonly={this.readonly}
+                disabled={this.disabled}
+            />,
             <hr />,
             <h2>Preview using limel-markdown:</h2>,
             <limel-markdown value={this.text.html} />,
@@ -31,5 +66,26 @@ export class BasicTextEditorBasicExample {
     ): void => {
         event.stopPropagation();
         this.text = event.detail;
+    };
+
+    private handleChangeDisabled = (
+        event: LimelCheckboxCustomEvent<boolean>,
+    ) => {
+        event.stopPropagation();
+        this.disabled = event.detail;
+    };
+
+    private handlePlaceholderChange = (
+        event: LimelInputFieldCustomEvent<string>,
+    ) => {
+        event.stopPropagation();
+        this.placeholder = event.detail;
+    };
+
+    private handleChangeReadonly = (
+        event: LimelCheckboxCustomEvent<boolean>,
+    ) => {
+        event.stopPropagation();
+        this.readonly = event.detail;
     };
 }
