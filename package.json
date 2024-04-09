@@ -83,6 +83,8 @@
     "number-abbreviate": "^2.0.0",
     "parse-css-color": "^0.2.1",
     "prettier": "^3.2.5",
+    "prosemirror-example-setup": "^1.2.2",
+    "prosemirror-schema-basic": "^1.2.2",
     "puppeteer": "^19.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -120,9 +122,5 @@
   "bugs": {
     "url": "https://github.com/Lundalogik/lime-elements/issues"
   },
-  "homepage": "https://github.com/Lundalogik/lime-elements#readme",
-  "dependencies": {
-    "prosemirror-example-setup": "^1.2.2",
-    "prosemirror-schema-basic": "^1.2.2"
-  }
+  "homepage": "https://github.com/Lundalogik/lime-elements#readme"
 }
