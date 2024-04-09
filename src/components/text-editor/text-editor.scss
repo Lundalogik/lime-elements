@@ -1,6 +1,22 @@
+:host(limel-text-editor) {
+    isolation: isolate;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.ProseMirror-textblock-dropdown {
+    min-width: 3em;
+}
+
+.ProseMirror-tooltip {
+    .ProseMirror-menu {
+        width: -webkit-fit-content;
+        width: fit-content;
+        white-space: pre;
+    }
+}
+
 @import './partial-styles/_prosemirror.scss';
 @import './partial-styles/_prosemirror-menu.scss';
-
-.ProseMirror-example-setup-style {
-    min-height: 10rem;
-}

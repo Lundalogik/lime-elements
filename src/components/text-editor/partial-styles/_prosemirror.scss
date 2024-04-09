@@ -1,63 +1,63 @@
+$background-color_1: rgb(var(--contrast-100));
+
+/* Make sure li selections wrap around markers */
+/* Protect against generic img rules */
 .ProseMirror {
     position: relative;
-}
-
-.ProseMirror {
     word-wrap: break-word;
     white-space: pre-wrap;
     white-space: break-spaces;
     -webkit-font-variant-ligatures: none;
     font-variant-ligatures: none;
-    font-feature-settings: 'liga' 0; /* the above doesn't seem to work in Edge */
-    background-color: rgb(var(--contrast-100));
+    font-feature-settings: 'liga' 0;
+    background-color: $background-color_1;
     border-radius: 0 0 0.5rem 0.5rem;
+
+    pre {
+        white-space: pre-wrap;
+    }
+
+    li {
+        position: relative;
+    }
+
+    [draggable][contenteditable='false'] {
+        user-select: text;
+    }
 }
 
-.ProseMirror pre {
-    white-space: pre-wrap;
-}
-
-.ProseMirror li {
-    position: relative;
-}
-
-.ProseMirror-hideselection *::selection {
-    background: transparent;
-}
-.ProseMirror-hideselection *::-moz-selection {
-    background: transparent;
-}
 .ProseMirror-hideselection {
+    * {
+        &::selection {
+            background: transparent;
+        }
+
+        &::-moz-selection {
+            background: transparent;
+        }
+    }
+
     caret-color: transparent;
 }
 
-/* See https://github.com/ProseMirror/prosemirror/issues/1421#issuecomment-1759320191 */
-.ProseMirror [draggable][contenteditable='false'] {
-    user-select: text;
-}
-
 .ProseMirror-selectednode {
-    outline: 2px solid #8cf;
+    outline: 0.125rem solid rgb(var(--color-sky-light));
 }
-
-/* Make sure li selections wrap around markers */
 
 li.ProseMirror-selectednode {
     outline: none;
-}
 
-li.ProseMirror-selectednode:after {
-    content: '';
-    position: absolute;
-    left: -32px;
-    right: -2px;
-    top: -2px;
-    bottom: -2px;
-    border: 2px solid #8cf;
-    pointer-events: none;
+    &:after {
+        content: '';
+        position: absolute;
+        left: -2rem;
+        right: -0.125rem;
+        top: -0.125rem;
+        bottom: -0.125rem;
+        border: 0.125rem solid rgb(var(--color-sky-light));
+        pointer-events: none;
+    }
 }
-
-/* Protect against generic img rules */
 
 img.ProseMirror-separator {
     display: inline !important;

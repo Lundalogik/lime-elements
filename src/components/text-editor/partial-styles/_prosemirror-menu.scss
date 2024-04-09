@@ -1,111 +1,155 @@
-.ProseMirror-textblock-dropdown {
-    min-width: 3em;
-}
+@use '../../../style/mixins';
 
-.ProseMirror-tooltip .ProseMirror-menu {
-    width: -webkit-fit-content;
-    width: fit-content;
-    white-space: pre;
+$size-of-caret: 0.25rem;
+
+.ProseMirror-menubar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    align-items: center;
+
+    padding: 0.125rem;
+    background-color: rgb(var(--contrast-100));
+    border-radius: inherit inherit 0 0;
 }
 
 .ProseMirror-menuitem {
-    margin-right: 0.25rem;
-    display: inline-block;
+    &:not(:has(.ProseMirror-menu-disabled)) {
+        @include mixins.is-flat-clickable;
+    }
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    white-space: nowrap;
+    line-height: 1;
+
+    min-height: 1.5rem;
+    min-width: 1.5rem;
+    border-radius: 0.25rem;
+    color: rgb(var(--contrast-1100));
+    font-size: 0.8125rem;
+
+    &:has(.ProseMirror-menu-active) {
+        box-shadow: var(--button-shadow-inset);
+        color: var(--mdc-theme-primary);
+
+        svg {
+            color: var(--mdc-theme-primary);
+        }
+    }
+
+    &:has(.ProseMirror-menu-dropdown-menu) {
+        box-shadow: var(--button-shadow-inset);
+    }
+
+    svg {
+        fill: currentColor;
+        height: 1rem;
+        color: rgb(var(--contrast-1100));
+    }
 }
 
 .ProseMirror-menuseparator {
-    border-right: 1px solid rgb(var(--contrast-600));
-    margin-right: 0.25rem;
-}
-
-.ProseMirror-menu-dropdown,
-.ProseMirror-menu-dropdown-menu {
-    font-size: 90%;
-    white-space: nowrap;
+    border-radius: 1rem;
+    background-color: rgb(var(--contrast-600));
+    width: 0.125rem;
+    height: 1rem;
 }
 
 .ProseMirror-menu-dropdown {
-    vertical-align: 1px;
-    cursor: pointer;
     position: relative;
-    padding-right: 1rem;
-}
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
 
-.ProseMirror-menu-dropdown-wrap {
-    padding: 1px 0 1px 4px;
-    display: inline-block;
-    position: relative;
-}
-
-.ProseMirror-menu-dropdown:after {
-    content: '';
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4px solid currentColor;
-    opacity: 0.6;
-    position: absolute;
-    right: 4px;
-    top: calc(50% - 2px);
+    &:after {
+        content: '';
+        border-left: $size-of-caret solid transparent;
+        border-right: $size-of-caret solid transparent;
+        border-top: $size-of-caret solid currentColor;
+    }
 }
 
 .ProseMirror-menu-dropdown-menu,
 .ProseMirror-menu-submenu {
-    position: absolute;
-    background: rgb(var(--contrast-100));
-    // color: #666;
-    border-radius: 0.25rem;
-    padding: 2px;
+    //the same shadow as limel-menu
+    box-shadow:
+        0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .ProseMirror-menu-dropdown-menu {
-    // z-index: 15;
-    width: auto;
-    margin: 0.25rem;
-    box-shadow: 0 0.1875rem 0.375rem rgb(var(--contrast-900));
+    position: absolute;
+    top: 100%;
+    background: rgb(var(--contrast-100));
+    border-radius: 0.25rem;
+    padding: 0.125rem;
+}
+
+.ProseMirror-menu-submenu {
+    position: absolute;
+    background: rgb(var(--contrast-100));
+    border-radius: 0.25rem;
+    padding: 0.125rem;
+    display: none;
+    min-width: 4em;
+    left: 100%;
+    top: -0.75rem;
 }
 
 .ProseMirror-menu-dropdown-item {
+    transition: background-color 0.2s ease;
     cursor: pointer;
-    box-sizing: border-box;
     border-radius: 0.375rem;
-    font-size: 0.8125rem;
+
     min-height: 2.5rem;
     display: flex;
     align-items: center;
-    padding: 0 1rem;
     width: 100%;
-}
 
-.ProseMirror-menu-dropdown-item:hover {
-    background: rgb(var(--contrast-300));
+    > div {
+        padding: 0 1rem;
+        width: 100%;
+    }
+
+    &:not(:has(.ProseMirror-menu-disabled)) {
+        &:hover {
+            background-color: rgb(var(--contrast-300));
+        }
+    }
 }
 
 .ProseMirror-menu-submenu-wrap {
     position: relative;
-    margin-right: -4px;
+    margin-right: -0.25rem;
+
+    &:hover {
+        .ProseMirror-menu-submenu {
+            display: block;
+        }
+    }
 }
 
-.ProseMirror-menu-submenu-label:after {
-    content: '';
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    border-left: 4px solid currentColor;
-    opacity: 0.6;
-    position: absolute;
-    margin-left: 0.5rem;
-    top: calc(50% - 0.1875rem);
-}
+.ProseMirror-menu-submenu-label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
 
-.ProseMirror-menu-submenu {
-    display: none;
-    min-width: 4em;
-    left: 100%;
-    top: -3px;
-}
-
-.ProseMirror-menu-active {
-    background: #eee;
-    border-radius: 4px;
+    &:after {
+        content: '';
+        border-top: $size-of-caret solid transparent;
+        border-bottom: $size-of-caret solid transparent;
+        border-left: $size-of-caret solid currentColor;
+    }
 }
 
 .ProseMirror-menu-disabled {
@@ -113,52 +157,8 @@
     cursor: default;
 }
 
-.ProseMirror-menu-submenu-wrap:hover .ProseMirror-menu-submenu,
-.ProseMirror-menu-submenu-wrap-active .ProseMirror-menu-submenu {
-    display: block;
-}
-
-.ProseMirror-menubar {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
-    position: relative;
-    min-height: 2rem;
-    padding: 0.25rem;
-    top: 0;
-    left: 0;
-    right: 0;
-    border-bottom: 1px solid rgb(var(--contrast-800));
-
-    z-index: 10;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow: visible;
-    background-color: rgb(var(--contrast-100));
-    border-radius: 0.5rem 0.5rem 0 0;
-}
-
-.ProseMirror-icon {
-    display: inline-block;
-    line-height: 0.8;
-    vertical-align: -2px; /* Compensate for padding */
-    padding: 0.25rem 0.625rem;
-    cursor: pointer;
-}
-
-.ProseMirror-icon:not(:disabled):hover {
-    background: rgb(var(--contrast-300));
-    border-radius: 0.25rem;
-}
-
-.ProseMirror-menu-disabled.ProseMirror-icon {
-    cursor: default;
-}
-
-.ProseMirror-icon svg {
-    fill: currentColor;
-    height: 1em;
-}
-
-.ProseMirror-icon span {
-    vertical-align: text-top;
+.ProseMirror-menu-submenu-wrap-active {
+    .ProseMirror-menu-submenu {
+        display: block;
+    }
 }
