@@ -13,15 +13,16 @@ export class BasicTextEditorExample {
     private text: { html: string } = { html: '' };
 
     public render() {
-        return [this.renderTextEditor(), this.renderEventPreview()];
-    }
-
-    private renderTextEditor() {
-        return <limel-text-editor onChange={this.handleChange} />;
-    }
-
-    private renderEventPreview() {
-        return <limel-example-value value={this.text} />;
+        return (
+            <div>
+                <limel-text-editor onChange={this.handleChange} />
+                <hr />
+                <h2>Preview using limel-markdown:</h2>
+                <limel-markdown value={this.text.html} />
+                <hr />
+                <limel-example-value value={this.text} />
+            </div>
+        );
     }
 
     handleChange = (
