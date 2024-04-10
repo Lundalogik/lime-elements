@@ -2,6 +2,7 @@ import { Component, h, Prop, Element, State } from '@stencil/core';
 import { JSX } from 'react';
 import { createRandomString } from '../../util/random-string';
 import { OpenDirection } from '../menu/menu.types';
+import { getOwnerElement } from './getOwnerElement';
 
 const DEFAULT_MAX_LENGTH = 50;
 
@@ -107,7 +108,7 @@ export class Tooltip {
     }
 
     public connectedCallback() {
-        this.ownerElement = this.getOwnerElement();
+        this.ownerElement = getOwnerElement(this.elementId, this.host);
         this.setOwnerAriaLabel();
         this.addListeners();
     }
@@ -175,18 +176,4 @@ export class Tooltip {
         clearTimeout(this.showTooltipTimeoutHandle);
         this.open = false;
     };
-
-    private getOwnerElement(): HTMLElement | undefined {
-        let element: Node = this.host;
-
-        do {
-            element = element.parentNode;
-        } while (
-            element &&
-            element.nodeType !== Node.DOCUMENT_FRAGMENT_NODE &&
-            element.nodeType !== Node.DOCUMENT_NODE
-        );
-
-        return (element as ShadowRoot)?.getElementById(this.elementId);
-    }
 }
