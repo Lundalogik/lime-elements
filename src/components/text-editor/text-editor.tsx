@@ -21,7 +21,7 @@ import { exampleSetup } from 'prosemirror-example-setup';
  * Naturally, you can use standard keyboard hotkeys such as <kbd>Ctrl</kbd> + <kbd>B</kbd>
  * to toggle bold text, <kbd>Ctrl</kbd> + <kbd>I</kbd> to toggle italic text, and so on.
  *
- * @exampleComponent limel-example-text-editor
+ * @exampleComponent limel-example-text-editor-basic
  * @beta
  * @private
  */
@@ -46,7 +46,7 @@ export class TextEditor {
     public componentWillLoad() {}
 
     public render() {
-        return [<div id="editor" />];
+        return <div id="editor" />;
     }
 
     public componentDidLoad() {
