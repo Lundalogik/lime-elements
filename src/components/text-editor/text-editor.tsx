@@ -3,6 +3,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    Prop,
     State,
     h,
 } from '@stencil/core';
@@ -12,7 +13,8 @@ import { MenuItem, MenuElement } from 'prosemirror-menu';
 import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
 import { exampleSetup, buildMenuItems } from 'prosemirror-example-setup';
-import { getFilteredMenu } from './menu';
+import { getFilteredMenu } from './menu/menu';
+import { EditorButton } from './menu/types';
 
 /**
  * This editor offers a rich text editing experience with markdown support,
@@ -45,6 +47,12 @@ export class TextEditor {
     @Event()
     private change: EventEmitter<{ html: string }>;
 
+    /**
+     * The menu items to display in the editor toolbar
+     */
+    @Prop()
+    private menuItems: EditorButton[];
+
     public componentWillLoad() {}
 
     public render() {
@@ -58,7 +66,9 @@ export class TextEditor {
         });
 
         const menu: MenuElement[][] = buildMenuItems(mySchema)
-            .fullMenu.map((items) => getFilteredMenu(items))
+            .fullMenu.map((items) =>
+                getFilteredMenu(items, this.menuItems || undefined),
+            )
             .filter((items) => items.length);
 
         this.view = new EditorView(
