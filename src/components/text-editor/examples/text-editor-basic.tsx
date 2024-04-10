@@ -1,13 +1,17 @@
 import { LimelTextEditorCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 /**
- * A basic text editor example.
+ * A basic example
+ *
+ * Try typing and editing text, or copy & paste in some rendered HTML code
+ * from your browser into the editor to see how it is rendered and what you get
+ * as an output value.
  */
 @Component({
-    tag: 'limel-example-text-editor',
+    tag: 'limel-example-text-editor-basic',
     shadow: true,
 })
-export class BasicTextEditorExample {
+export class BasicTextEditorBasicExample {
     @State()
     private text: { html: string } = { html: '' };
 
