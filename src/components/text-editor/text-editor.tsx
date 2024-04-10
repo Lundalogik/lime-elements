@@ -46,7 +46,7 @@ export class TextEditor {
     public componentWillLoad() {}
 
     public render() {
-        return [<div id="editor" />, <div id="content" />];
+        return [<div id="editor" />];
     }
 
     public componentDidLoad() {
@@ -60,7 +60,7 @@ export class TextEditor {
             {
                 state: EditorState.create({
                     doc: DOMParser.fromSchema(mySchema).parse(
-                        this.host.shadowRoot.querySelector('#content'),
+                        this.host.shadowRoot.querySelector('#editor'),
                     ),
                     plugins: exampleSetup({ schema: mySchema }),
                 }),
