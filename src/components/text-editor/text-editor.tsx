@@ -35,6 +35,12 @@ import { EditorButton } from './menu/types';
     styleUrl: 'text-editor.scss',
 })
 export class TextEditor {
+    /**
+     * The menu items to display in the editor toolbar
+     */
+    @Prop()
+    public menuItems: EditorButton[];
+
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -46,12 +52,6 @@ export class TextEditor {
      */
     @Event()
     private change: EventEmitter<{ html: string }>;
-
-    /**
-     * The menu items to display in the editor toolbar
-     */
-    @Prop()
-    private menuItems: EditorButton[];
 
     public componentWillLoad() {}
 
