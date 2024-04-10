@@ -1,7 +1,8 @@
+@use '../../style/internal/shared_input-select-picker.scss';
+
 :host(limel-text-editor) {
     isolation: isolate;
     display: block;
-    border-radius: 0.25rem;
 }
 
 * {
@@ -9,8 +10,20 @@
 }
 
 .ProseMirror-menubar-wrapper {
+    transition: border 0.2s ease;
     display: grid;
     grid-template-rows: auto 1fr;
+    border-radius: 0.25rem;
+    border: 1px solid;
+    border-color: shared_input-select-picker.$lime-text-field-outline-color;
+
+    &:hover {
+        border-color: shared_input-select-picker.$lime-text-field-outline-color--hovered;
+    }
+
+    &:focus-within {
+        border-color: shared_input-select-picker.$lime-text-field-outline-color--focused;
+    }
 }
 
 .ProseMirror-textblock-dropdown {
