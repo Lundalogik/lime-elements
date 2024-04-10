@@ -160,7 +160,9 @@ export class TextEditor implements FormComponent<{ html: string }> {
                     const newState = this.view.state.apply(transaction);
                     this.view.updateState(newState);
 
-                    this.change.emit({ html: this.view.dom.innerHTML });
+                    this.change.emit({
+                        html: this.getHTML(),
+                    });
                 },
             },
         );
@@ -169,6 +171,18 @@ export class TextEditor implements FormComponent<{ html: string }> {
             this.view.dom.innerHTML = this.value.html;
         }
     }
+
+    private getHTML = (): string => {
+        if (
+            this.view.dom.textContent === '' ||
+            (this.view.dom.textContent === this.placeholder &&
+                this.view.dom.innerHTML !== `<p>${this.placeholder}</p>`) // TODO: this is a little too coupled to the placeholder plugin
+        ) {
+            return '';
+        } else {
+            return this.view.dom.innerHTML;
+        }
+    };
 
     private getPlugins = (mySchema: Schema): Plugin[] => {
         const disabledPlugin = createDisabledPlugin(
