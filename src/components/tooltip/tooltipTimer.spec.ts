@@ -70,4 +70,39 @@ describe('TooltipTimer', () => {
         jest.advanceTimersByTime(delayForShowing + 1);
         expect(showCallback).toHaveBeenCalledTimes(2); // Verify showCallback is called again after the delay
     });
+
+    describe('when showAfterDelay is called multiple times before the delay elapses', () => {
+        let tooltipTimer: TooltipTimer;
+
+        beforeEach(() => {
+            tooltipTimer = new TooltipTimer(
+                showCallback,
+                hideCallback,
+                delayForShowing,
+            );
+
+            tooltipTimer.showAfterDelay();
+            jest.advanceTimersByTime(delayForShowing / 2); // Advance half the time
+            tooltipTimer.showAfterDelay(); // Show again before the delay passes
+        });
+        it('calls the showCallback only once after the delay', () => {
+            jest.advanceTimersByTime(delayForShowing + 1);
+            expect(showCallback).toHaveBeenCalledTimes(1); // Verify showCallback is called only once
+        });
+        it('calls the showCallback when the delay has elapsed since the first call (it does not start the delay over)', () => {
+            jest.advanceTimersByTime(delayForShowing / 2 + 1); // Advance the rest of the time
+            expect(showCallback).toHaveBeenCalledTimes(1);
+        });
+
+        describe('and hide is called before the delay elapses', () => {
+            beforeEach(() => {
+                tooltipTimer.hide(); // Hide before the delay passes
+            });
+
+            it('does not call the showCallback after the delay', () => {
+                jest.advanceTimersByTime(delayForShowing + 1);
+                expect(showCallback).not.toHaveBeenCalled(); // The show callback should not be called
+            });
+        });
+    });
 });
