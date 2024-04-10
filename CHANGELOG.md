@@ -1,3 +1,11 @@
+## [37.15.1](https://github.com/Lundalogik/lime-elements/compare/v37.15.0...v37.15.1) (2024-04-10)
+
+
+### Bug Fixes
+
+
+* **tooltip:** avoid tooltip sometimes getting stuck showing ([1e8e45b](https://github.com/Lundalogik/lime-elements/commit/1e8e45b06bd4c0f91b931005489f84d076b81d1d)), closes [#2898](https://github.com/Lundalogik/lime-elements/issues/2898)
+
 ## [37.15.0](https://github.com/Lundalogik/lime-elements/compare/v37.14.1...v37.15.0) (2024-04-05)
 
 
