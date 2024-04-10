@@ -1,3 +1,16 @@
+jest.mock('./tooltipTimer', () => {
+    return {
+        TooltipTimer: jest
+            .fn()
+            .mockImplementation((showCallback, hideCallback) => {
+                return {
+                    showAfterDelay: jest.fn(() => showCallback()),
+                    hide: jest.fn(() => hideCallback()),
+                };
+            }),
+    };
+});
+
 import { h } from '@stencil/core';
 import { SpecPage, newSpecPage } from '@stencil/core/testing';
 import { Portal } from '../portal/portal';
@@ -77,40 +90,16 @@ describe('limel-tooltip', () => {
     });
 
     test('aria-hidden is removed when the owner element is hovered', async () => {
-        const spy = jest.spyOn(page.win, 'setTimeout');
-
         const event = new MouseEvent('mouseover');
         anchor.dispatchEvent(event);
-        await page.waitForChanges();
-
-        expect(page.win.setTimeout).toHaveBeenCalledTimes(1);
-        expect(page.win.setTimeout).toHaveBeenLastCalledWith(
-            expect.any(Function),
-            500,
-        );
-
-        const timerHandler = spy.mock.calls[0][0] as Function;
-        timerHandler();
         await page.waitForChanges();
 
         expect(content).not.toHaveAttribute('aria-hidden');
     });
 
     test('limel-portal is opened when the owner element is hovered', async () => {
-        const spy = jest.spyOn(page.win, 'setTimeout');
-
         const event = new MouseEvent('mouseover');
         anchor.dispatchEvent(event);
-        await page.waitForChanges();
-
-        expect(page.win.setTimeout).toHaveBeenCalledTimes(1);
-        expect(page.win.setTimeout).toHaveBeenLastCalledWith(
-            expect.any(Function),
-            500,
-        );
-
-        const timerHandler = spy.mock.calls[0][0] as Function;
-        timerHandler();
         await page.waitForChanges();
 
         expect(portal.visible).toBeTruthy();
