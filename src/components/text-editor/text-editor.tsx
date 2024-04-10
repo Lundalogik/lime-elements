@@ -37,6 +37,9 @@ export class TextEditor {
     @State()
     private view: EditorView;
 
+    /**
+     * Dispatched when a change is made to the editor
+     */
     @Event()
     private change: EventEmitter<{ html: string }>;
 
