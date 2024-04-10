@@ -638,6 +638,9 @@ export namespace Components {
     export interface LimelTabPanel {
         "tabs": Tab[];
     }
+    // @beta
+    export interface LimelTextEditor {
+    }
     export interface LimelTooltip {
         "elementId": string;
         "helperLabel"?: string;
@@ -985,6 +988,10 @@ namespace JSX_2 {
         "limel-tab-panel": LimelTabPanel;
         // (undocumented)
         "limel-table": LimelTable;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-text-editor"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-text-editor": LimelTextEditor;
         // (undocumented)
         "limel-tooltip": LimelTooltip;
         // (undocumented)
@@ -1551,6 +1558,10 @@ namespace JSX_2 {
         "onChangeTab"?: (event: LimelTabPanelCustomEvent<Tab>) => void;
         "tabs"?: Tab[];
     }
+    // @beta
+    interface LimelTextEditor {
+        "onChange"?: (event: LimelTextEditorCustomEvent<{ html: string }>) => void;
+    }
     interface LimelTooltip {
         "elementId": string;
         "helperLabel"?: string;
@@ -1978,6 +1989,16 @@ export interface LimelTabPanelCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelTabPanelElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelTextEditorCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelTextEditorCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelTextEditorElement;
 }
 
 // @public
