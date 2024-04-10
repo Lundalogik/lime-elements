@@ -13,8 +13,13 @@ import { schema } from 'prosemirror-schema-basic';
 import { exampleSetup } from 'prosemirror-example-setup';
 
 /**
- * The `limel-text-editor` component wraps the toast-ui react editor. This editor
- * allows a rich text editing experience with markdown support.
+ * This editor offers a rich text editing experience with markdown support,
+ * in the sense that you can easily type markdown syntax and see the rendered
+ * result as rich text in real-time. For instance, you can type `# Hello, world!`
+ * and see it directly turning to a heading 1 (an `<h1>` HTML element).
+ *
+ * Naturally, you can use standard keyboard hotkeys such as <kbd>Ctrl</kbd> + <kbd>B</kbd>
+ * to toggle bold text, <kbd>Ctrl</kbd> + <kbd>I</kbd> to toggle italic text, and so on.
  *
  * @exampleComponent limel-example-text-editor
  * @beta
