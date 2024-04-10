@@ -17,11 +17,17 @@ export class TooltipTimer {
     }
 
     showAfterDelay(): void {
-        this.timerHandle = setTimeout(this.showCallback, this.delayForShowing);
+        if (!this.timerHandle) {
+            this.timerHandle = setTimeout(
+                this.showCallback,
+                this.delayForShowing,
+            );
+        }
     }
 
     hide(): void {
         clearTimeout(this.timerHandle);
+        this.timerHandle = null;
         this.hideCallback();
     }
 }
