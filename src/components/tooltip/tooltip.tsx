@@ -3,6 +3,7 @@ import { JSX } from 'react';
 import { createRandomString } from '../../util/random-string';
 import { OpenDirection } from '../menu/menu.types';
 import { getOwnerElement } from './getOwnerElement';
+import { TooltipTimer } from './tooltipTimer';
 
 const DEFAULT_MAX_LENGTH = 50;
 
@@ -99,12 +100,16 @@ export class Tooltip {
 
     private portalId: string;
     private tooltipId: string;
-    private showTooltipTimeoutHandle: number;
     private ownerElement: HTMLElement;
+    private tooltipTimer: TooltipTimer;
 
     public constructor() {
         this.portalId = createRandomString();
         this.tooltipId = createRandomString();
+        this.tooltipTimer = new TooltipTimer(
+            () => (this.open = true),
+            () => (this.open = false),
+        );
     }
 
     public connectedCallback() {
@@ -166,14 +171,10 @@ export class Tooltip {
     }
 
     private showTooltip = () => {
-        const tooltipDelay = 500;
-        this.showTooltipTimeoutHandle = window.setTimeout(() => {
-            this.open = true;
-        }, tooltipDelay);
+        this.tooltipTimer.showAfterDelay();
     };
 
     private hideTooltip = () => {
-        clearTimeout(this.showTooltipTimeoutHandle);
-        this.open = false;
+        this.tooltipTimer.hide();
     };
 }
