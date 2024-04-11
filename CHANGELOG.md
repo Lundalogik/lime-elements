@@ -1,3 +1,11 @@
+## [37.17.0](https://github.com/Lundalogik/lime-elements/compare/v37.16.0...v37.17.0) (2024-04-11)
+
+
+### Features
+
+
+* **text-editor:** add buttons for lists ([50a1020](https://github.com/Lundalogik/lime-elements/commit/50a1020de0d9e60c37eb333f06d98c8c25efd4e7))
+
 ## [37.16.0](https://github.com/Lundalogik/lime-elements/compare/v37.15.1...v37.16.0) (2024-04-11)
 
 
