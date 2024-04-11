@@ -640,13 +640,6 @@ export namespace Components {
     }
     // @beta
     export interface LimelTextEditor {
-        "disabled"?: boolean;
-        "helperText"?: string;
-        "invalid"?: boolean;
-        "label"?: string;
-        "placeholder"?: string;
-        "readonly"?: boolean;
-        "value": { html: string };
     }
     export interface LimelTooltip {
         "elementId": string;
@@ -1567,14 +1560,7 @@ namespace JSX_2 {
     }
     // @beta
     interface LimelTextEditor {
-        "disabled"?: boolean;
-        "helperText"?: string;
-        "invalid"?: boolean;
-        "label"?: string;
         "onChange"?: (event: LimelTextEditorCustomEvent<{ html: string }>) => void;
-        "placeholder"?: string;
-        "readonly"?: boolean;
-        "value"?: { html: string };
     }
     interface LimelTooltip {
         "elementId": string;

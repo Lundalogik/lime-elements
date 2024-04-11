@@ -1,0 +1,31 @@
+@use '../../../style/internal/shared_input-select-picker.scss';
+@use '../../../style/functions.scss';
+@use '../../../style/mixins.scss';
+
+label {
+    // Trying to mimic the styles of `mdc-floating-label--float-above`
+    // We don't have a proper mixins for it just to use out of the box.
+    // So mostly recrating them.
+    @include mixins.truncate-text();
+
+    pointer-events: none;
+    position: absolute;
+    left: functions.pxToRem(10);
+    padding: 0 0.5rem;
+    z-index: 2;
+    max-width: 100%;
+
+    transform-origin: left;
+    transform: translateY(#{functions.pxToRem(-8)}) scale(0.75);
+
+    font-size: shared_input-select-picker.$cropped-label-hack--font-size;
+    color: shared_input-select-picker.$label-color;
+
+    // This is an ugly hack to geth rid of the outline (borders)
+    // which are below the label. This is to avoid bringing in the complex
+    // outline styles and corresponding HTML structure of the MDC text field.
+    // As we don't really expect users to use `label` in the text editor,
+    // this lazy cheat is OK.
+    backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
+}
