@@ -1,2 +1,0 @@
-const t=["background-color","color","font-style","font-weight","text-decoration-color","text-decoration-line","text-decoration-skip-ink","text-decoration-style","text-decoration-thickness","text-decoration"];export{t as a};
-//# sourceMappingURL=allowed-css-properties-4afde0d2.js.map
