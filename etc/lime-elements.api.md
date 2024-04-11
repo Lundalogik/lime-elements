@@ -641,6 +641,17 @@ export namespace Components {
     // @beta
     export interface LimelTextEditor {
     }
+    // @beta
+    export interface LimelTextEditorFormComponent {
+        "disabled"?: boolean;
+        "helperText"?: string;
+        "invalid"?: boolean;
+        "label"?: string;
+        "menuItems": EditorButton[];
+        "placeholder"?: string;
+        "readonly"?: boolean;
+        "value": { html: string };
+    }
     export interface LimelTooltip {
         "elementId": string;
         "helperLabel"?: string;
@@ -992,6 +1003,10 @@ namespace JSX_2 {
         //
         // (undocumented)
         "limel-text-editor": LimelTextEditor;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-text-editor-form-component"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-text-editor-form-component": LimelTextEditorFormComponent;
         // (undocumented)
         "limel-tooltip": LimelTooltip;
         // (undocumented)
@@ -1562,6 +1577,18 @@ namespace JSX_2 {
     interface LimelTextEditor {
         "onChange"?: (event: LimelTextEditorCustomEvent<{ html: string }>) => void;
     }
+    // @beta
+    interface LimelTextEditorFormComponent {
+        "disabled"?: boolean;
+        "helperText"?: string;
+        "invalid"?: boolean;
+        "label"?: string;
+        "menuItems"?: EditorButton[];
+        "onChange"?: (event: LimelTextEditorFormComponentCustomEvent<{ html: string }>) => void;
+        "placeholder"?: string;
+        "readonly"?: boolean;
+        "value"?: { html: string };
+    }
     interface LimelTooltip {
         "elementId": string;
         "helperLabel"?: string;
@@ -1999,6 +2026,16 @@ export interface LimelTextEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelTextEditorElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelTextEditorFormComponentCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelTextEditorFormComponentCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelTextEditorFormComponentElement;
 }
 
 // @public
