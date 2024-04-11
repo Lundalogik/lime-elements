@@ -640,6 +640,7 @@ export namespace Components {
     }
     // @beta
     export interface LimelTextEditor {
+        "menuItems": EditorButton[];
     }
     export interface LimelTooltip {
         "elementId": string;
@@ -696,6 +697,11 @@ export interface DockMenu {
         [key: string]: any;
     };
 }
+
+// Warning: (ae-missing-release-tag) "EditorButton" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public
+export type EditorButton = 'strong' | 'emphasis' | 'code' | 'link' | 'horizontal rule' | 'paragraph' | 'code block' | 'heading 1' | 'heading 2' | 'heading 3' | 'heading 4' | 'heading 5' | 'heading 6' | 'undo' | 'redo' | 'block quote' | 'join above' | 'lift out';
 
 // Warning: (ae-missing-release-tag) "EventEmitter" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -1560,6 +1566,7 @@ namespace JSX_2 {
     }
     // @beta
     interface LimelTextEditor {
+        "menuItems"?: EditorButton[];
         "onChange"?: (event: LimelTextEditorCustomEvent<{ html: string }>) => void;
     }
     interface LimelTooltip {

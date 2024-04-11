@@ -3,14 +3,18 @@ import {
     Element,
     Event,
     EventEmitter,
+    Prop,
     State,
     h,
 } from '@stencil/core';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+import { MenuItem, MenuElement } from 'prosemirror-menu';
 import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
-import { exampleSetup } from 'prosemirror-example-setup';
+import { exampleSetup, buildMenuItems } from 'prosemirror-example-setup';
+import { getFilteredMenu } from './menu/menu';
+import { EditorButton } from './menu/types';
 
 /**
  * This editor offers a rich text editing experience with markdown support,
@@ -31,6 +35,12 @@ import { exampleSetup } from 'prosemirror-example-setup';
     styleUrl: 'text-editor.scss',
 })
 export class TextEditor {
+    /**
+     * The menu items to display in the editor toolbar
+     */
+    @Prop()
+    public menuItems: EditorButton[];
+
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -55,6 +65,12 @@ export class TextEditor {
             marks: schema.spec.marks,
         });
 
+        const menu: MenuElement[][] = buildMenuItems(mySchema)
+            .fullMenu.map((items) =>
+                getFilteredMenu(items, this.menuItems || undefined),
+            )
+            .filter((items) => items.length);
+
         this.view = new EditorView(
             this.host.shadowRoot.querySelector('#editor'),
             {
@@ -62,7 +78,10 @@ export class TextEditor {
                     doc: DOMParser.fromSchema(mySchema).parse(
                         this.host.shadowRoot.querySelector('#editor'),
                     ),
-                    plugins: exampleSetup({ schema: mySchema }),
+                    plugins: exampleSetup({
+                        schema: mySchema,
+                        menuContent: menu as MenuItem[][],
+                    }),
                 }),
                 dispatchTransaction: (transaction) => {
                     const newState = this.view.state.apply(transaction);
