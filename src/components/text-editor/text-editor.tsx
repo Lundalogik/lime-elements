@@ -79,9 +79,17 @@ export class TextEditor {
                     const newState = this.view.state.apply(transaction);
                     this.view.updateState(newState);
 
-                    this.change.emit({ html: this.view.dom.innerHTML });
+                    this.change.emit({ html: this.getHTML() });
                 },
             },
         );
     }
+
+    private getHTML = (): string => {
+        if (this.view.dom.textContent === '') {
+            return '';
+        } else {
+            return this.view.dom.innerHTML;
+        }
+    };
 }
