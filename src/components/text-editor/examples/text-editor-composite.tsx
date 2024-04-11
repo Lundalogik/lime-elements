@@ -18,10 +18,14 @@ export class BasicTextEditorCompositeExample {
     @State()
     private label: string;
 
+    @State()
+    private placeholder: string;
+
     public render() {
         return [
             <limel-text-editor
                 label={this.label}
+                placeholder={this.placeholder}
                 onChange={this.handleChange}
             />,
             <limel-example-controls>
@@ -29,6 +33,11 @@ export class BasicTextEditorCompositeExample {
                     label="Label"
                     value={this.label}
                     onChange={this.handleLabelChange}
+                />
+                <limel-input-field
+                    label="Placeholder"
+                    value={this.placeholder}
+                    onChange={this.handlePlaceholderChange}
                 />
             </limel-example-controls>,
             <hr />,
@@ -46,5 +55,12 @@ export class BasicTextEditorCompositeExample {
     private handleLabelChange = (event: LimelInputFieldCustomEvent<string>) => {
         event.stopPropagation();
         this.label = event.detail;
+    };
+
+    private handlePlaceholderChange = (
+        event: LimelInputFieldCustomEvent<string>,
+    ) => {
+        event.stopPropagation();
+        this.placeholder = event.detail;
     };
 }
