@@ -50,6 +50,10 @@ h3,
 h4,
 h5,
 h6 {
+    word-break: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+
     :not([contenteditable='true']) & {
         text-wrap: balance;
     }
