@@ -12,6 +12,8 @@ import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
+import { MenuElement, MenuItem } from 'prosemirror-menu';
+import { buildDefaultMenu } from './menu/default-menu';
 
 /**
  * This editor offers a rich text editing experience with markdown support,
@@ -56,6 +58,8 @@ export class TextEditor {
             marks: schema.spec.marks,
         });
 
+        const menu: MenuElement[][] = buildDefaultMenu(mySchema);
+
         this.view = new EditorView(
             this.host.shadowRoot.querySelector('#editor'),
             {
@@ -63,7 +67,10 @@ export class TextEditor {
                     doc: DOMParser.fromSchema(mySchema).parse(
                         this.host.shadowRoot.querySelector('#editor'),
                     ),
-                    plugins: exampleSetup({ schema: mySchema }),
+                    plugins: exampleSetup({
+                        schema: mySchema,
+                        menuContent: menu as MenuItem[][],
+                    }),
                 }),
                 dispatchTransaction: (transaction) => {
                     const newState = this.view.state.apply(transaction);
