@@ -640,6 +640,7 @@ export namespace Components {
     }
     // @beta
     export interface LimelTextEditor {
+        "value": { html: string };
     }
     // @beta
     export interface LimelTextEditorFormComponent {
@@ -647,7 +648,6 @@ export namespace Components {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
-        "menuItems": EditorButton[];
         "placeholder"?: string;
         "readonly"?: boolean;
         "value": { html: string };
@@ -1576,6 +1576,7 @@ namespace JSX_2 {
     // @beta
     interface LimelTextEditor {
         "onChange"?: (event: LimelTextEditorCustomEvent<{ html: string }>) => void;
+        "value"?: { html: string };
     }
     // @beta
     interface LimelTextEditorFormComponent {
@@ -1583,7 +1584,6 @@ namespace JSX_2 {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
-        "menuItems"?: EditorButton[];
         "onChange"?: (event: LimelTextEditorFormComponentCustomEvent<{ html: string }>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
