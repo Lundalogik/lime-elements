@@ -1,3 +1,11 @@
+## [37.16.0](https://github.com/Lundalogik/lime-elements/compare/v37.15.1...v37.16.0) (2024-04-11)
+
+
+### Features
+
+
+* **text-editor:** add basic text editor (private component in beta, at the moment) ([32d3bf3](https://github.com/Lundalogik/lime-elements/commit/32d3bf3affd9835b06f6cf19c287daeeb3bd9402))
+
 ## [37.15.1](https://github.com/Lundalogik/lime-elements/compare/v37.15.0...v37.15.1) (2024-04-10)
 
 
