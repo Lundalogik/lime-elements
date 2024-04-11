@@ -43,3 +43,18 @@ h6 {
     margin-bottom: 0.125rem;
     font-weight: 600;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    :not([contenteditable='true']) & {
+        text-wrap: balance;
+    }
+
+    [contenteditable='true'] & {
+        text-wrap: initial;
+    }
+}
