@@ -1,6 +1,5 @@
 import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
-import { EditorButton } from './menu/types';
 /**
  * This wrapper component is a shorthand for the `limel-text-editor` component
  * when intended to be used as a form field
@@ -17,12 +16,6 @@ import { EditorButton } from './menu/types';
 export class TextEditorFormComponent
     implements FormComponent<{ html: string }>
 {
-    /**
-     * The menu items to display in the editor toolbar
-     */
-    @Prop()
-    public menuItems: EditorButton[];
-
     /**
      * Set to `true` to disable the field.
      * Use `disabled` to indicate that the field can normally be interacted
@@ -85,8 +78,8 @@ export class TextEditorFormComponent
     public render() {
         return (
             <limel-text-editor
-                menuItems={this.menuItems}
                 onChange={this.handleChange}
+                value={this.value}
             />
         );
     }

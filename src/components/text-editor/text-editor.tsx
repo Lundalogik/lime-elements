@@ -3,6 +3,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    Prop,
     State,
     h,
 } from '@stencil/core';
@@ -35,6 +36,12 @@ import { getFilteredMenu } from './menu/menu-filter';
     styleUrl: 'text-editor.scss',
 })
 export class TextEditor {
+    /**
+     * The value of the editor
+     */
+    @Prop()
+    public value: { html: string };
+
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -83,6 +90,10 @@ export class TextEditor {
                 },
             },
         );
+
+        if (this.value) {
+            this.view.dom.innerHTML = this.value.html;
+        }
     }
 
     private getHTML = (): string => {
