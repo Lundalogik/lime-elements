@@ -641,6 +641,8 @@ export namespace Components {
     // @beta
     export interface LimelTextEditor {
         "label"?: string;
+        "placeholder"?: string;
+        "value": { html: string };
     }
     export interface LimelTooltip {
         "elementId": string;
@@ -1563,6 +1565,8 @@ namespace JSX_2 {
     interface LimelTextEditor {
         "label"?: string;
         "onChange"?: (event: LimelTextEditorCustomEvent<{ html: string }>) => void;
+        "placeholder"?: string;
+        "value"?: { html: string };
     }
     interface LimelTooltip {
         "elementId": string;
