@@ -1,3 +1,11 @@
+## [37.17.1](https://github.com/Lundalogik/lime-elements/compare/v37.17.0...v37.17.1) (2024-04-12)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure menubar items won't grow tall ([314dca9](https://github.com/Lundalogik/lime-elements/commit/314dca9c6313ea7bf75d7b85499ac05830019674))
+
 ## [37.17.0](https://github.com/Lundalogik/lime-elements/compare/v37.16.0...v37.17.0) (2024-04-11)
 
 
