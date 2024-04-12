@@ -222,8 +222,18 @@ describe('createCustomComponent', () => {
                 name: 'not-existing-component',
             };
 
+            // Mock console.warn to avoid the warning message in the test output
+            const consoleWarnSpy = jest
+                .spyOn(console, 'warn')
+                .mockImplementation(() => {});
+
             const definition = factory.create(column);
             expect(definition.formatter).toBe(formatCell);
+
+            // Fail if there are unexpected warnings
+            expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+
+            jest.restoreAllMocks();
         });
 
         it('uses the default formatter if the custom component misses a name prop', () => {
