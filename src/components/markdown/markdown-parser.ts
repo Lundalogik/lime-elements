@@ -3,7 +3,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkGfm from 'remark-gfm';
 import rehypeExternalLinks from 'rehype-external-links';
-import rehypeSanitize from 'rehype-sanitize';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
 import { visit } from 'unist-util-visit';
@@ -38,8 +38,10 @@ export async function markdownToHTML(
         .use(rehypeExternalLinks, { target: '_blank' })
         .use(rehypeRaw)
         .use(rehypeSanitize, {
+            ...defaultSchema,
             // Allow the `style` attribute on all elements
             attributes: {
+                ...defaultSchema.attributes,
                 '*': ['style'],
             },
         })
