@@ -9,9 +9,15 @@
 }
 
 p,
-a,
 li {
     font-size: 0.875rem;
+    word-break: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+}
+
+a {
+    word-break: break-all;
 }
 
 p {
