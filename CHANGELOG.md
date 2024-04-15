@@ -1,3 +1,15 @@
+## [37.17.2](https://github.com/Lundalogik/lime-elements/compare/v37.17.1...v37.17.2) (2024-04-15)
+
+
+### Bug Fixes
+
+
+* **markdown:** balance headings that are multiple lines ([9d5d19d](https://github.com/Lundalogik/lime-elements/commit/9d5d19d64260976d6a2706b05d5cd8b3b425f748))
+* **markdown:** better heading styles ([f21bfe6](https://github.com/Lundalogik/lime-elements/commit/f21bfe61c8e0a98361fc7055a9d2003c2acda242))
+* **markdown:** don't hard-code links' `font-size` ([360ef30](https://github.com/Lundalogik/lime-elements/commit/360ef308003f6ef8d6c43cc55f2c0e35d38e83f4))
+* **markdown:** make it possible to see bold text in headings ([d5887c3](https://github.com/Lundalogik/lime-elements/commit/d5887c38638bdd2ab7fda09ee5508f597da15b03))
+* **markdown:** prevent overflowing text caused by long words ([195d2b1](https://github.com/Lundalogik/lime-elements/commit/195d2b19453f58bd18d167314a7f03c4605de330))
+
 ## [37.17.1](https://github.com/Lundalogik/lime-elements/compare/v37.17.0...v37.17.1) (2024-04-12)
 
 
