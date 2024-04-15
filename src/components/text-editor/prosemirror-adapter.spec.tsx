@@ -1,16 +1,16 @@
 import { h } from '@stencil/core';
 import { newSpecPage, SpecPage } from '@stencil/core/testing';
-import { TextEditor } from './text-editor';
+import { ProsemirrorAdapter } from './prosemirror-adapter';
 
 let page: SpecPage;
 
-describe('limel-text-editor', () => {
+describe('prosemirror-adapter', () => {
     let editor: HTMLElement;
 
     beforeEach(async () => {
         page = await newSpecPage({
-            components: [TextEditor],
-            template: () => <limel-text-editor />,
+            components: [ProsemirrorAdapter],
+            template: () => <limel-prosemirror-adapter />,
         });
 
         editor = page.root.shadowRoot.querySelector('#editor');

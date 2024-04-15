@@ -1,30 +1,8 @@
-import {
-    Component,
-    Element,
-    Event,
-    EventEmitter,
-    Prop,
-    State,
-    h,
-} from '@stencil/core';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { Schema, DOMParser } from 'prosemirror-model';
-import { schema } from 'prosemirror-schema-basic';
-import { addListNodes } from 'prosemirror-schema-list';
-import { exampleSetup } from 'prosemirror-example-setup';
-import { MenuElement, MenuItem } from 'prosemirror-menu';
-import { buildFullMenu } from './menu/full-menu';
-import { getFilteredMenu } from './menu/menu-filter';
-
+import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import { FormComponent } from '../form/form.types';
 /**
- * This editor offers a rich text editing experience with markdown support,
- * in the sense that you can easily type markdown syntax and see the rendered
- * result as rich text in real-time. For instance, you can type `# Hello, world!`
- * and see it directly turning to a heading 1 (an `<h1>` HTML element).
- *
- * Naturally, you can use standard keyboard hotkeys such as <kbd>Ctrl</kbd> + <kbd>B</kbd>
- * to toggle bold text, <kbd>Ctrl</kbd> + <kbd>I</kbd> to toggle italic text, and so on.
+ * A rich text editor that allows the user to input and format text
+ * The `limel-text-editor` can be used as a form field
  *
  * @exampleComponent limel-example-text-editor-basic
  * @beta
@@ -35,72 +13,77 @@ import { getFilteredMenu } from './menu/menu-filter';
     shadow: true,
     styleUrl: 'text-editor.scss',
 })
-export class TextEditor {
+export class TextEditor implements FormComponent<{ html: string }> {
     /**
-     * The value of the editor
+     * Set to `true` to disable the field.
+     * Use `disabled` to indicate that the field can normally be interacted
+     * with, but is currently disabled. This tells the user that if certain
+     * requirements are met, the field may become enabled again.
      */
-    @Prop()
+    @Prop({ reflect: true })
+    public disabled?: boolean;
+
+    /**
+     * Set to `true` to make the component read-only.
+     * Use `readonly` when the field is only there to present the data it holds,
+     * and will not become possible for the current user to edit.
+     * :::note
+     * Consider that it might be better to use `limel-markdown`
+     * instead of `limel-text-editor` when the goal is visualizing data.
+     * :::
+     */
+    @Prop({ reflect: true })
+    public readonly?: boolean;
+
+    /**
+     * Optional helper text to display below the input field when it has focus
+     */
+    @Prop({ reflect: true })
+    public helperText?: string;
+
+    /**
+     * The placeholder text shown inside the input field,
+     * when the field is empty.
+     */
+    @Prop({ reflect: true })
+    public placeholder?: string;
+
+    /**
+     * The label of the editor
+     */
+    @Prop({ reflect: true })
+    public label?: string;
+
+    /**
+     * Set to `true` to indicate that the current value of the editor is
+     * invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid?: boolean;
+
+    /**
+     * Description of the text inside the editor
+     */
+    @Prop({ reflect: true })
     public value: { html: string };
-
-    @Element()
-    private host: HTMLLimelTextEditorElement;
-
-    @State()
-    private view: EditorView;
 
     /**
      * Dispatched when a change is made to the editor
      */
     @Event()
-    private change: EventEmitter<{ html: string }>;
-
-    public componentWillLoad() {}
+    public change: EventEmitter<{ html: string }>;
 
     public render() {
-        return <div id="editor" />;
-    }
-
-    public componentDidLoad() {
-        const mySchema = new Schema({
-            nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
-            marks: schema.spec.marks,
-        });
-
-        const menu: MenuElement[][] = buildFullMenu(mySchema)
-            .map((items) => getFilteredMenu(items, undefined))
-            .filter((items) => items.length);
-
-        this.view = new EditorView(
-            this.host.shadowRoot.querySelector('#editor'),
-            {
-                state: EditorState.create({
-                    doc: DOMParser.fromSchema(mySchema).parse(
-                        this.host.shadowRoot.querySelector('#editor'),
-                    ),
-                    plugins: exampleSetup({
-                        schema: mySchema,
-                        menuContent: menu as MenuItem[][],
-                    }),
-                }),
-                dispatchTransaction: (transaction) => {
-                    const newState = this.view.state.apply(transaction);
-                    this.view.updateState(newState);
-
-                    this.change.emit({ html: this.getHTML() });
-                },
-            },
+        return (
+            <limel-prosemirror-adapter
+                onChange={this.handleChange}
+                value={this.value}
+            />
         );
-
-        if (this.value) {
-            this.view.dom.innerHTML = this.value.html;
-        }
     }
 
-    private getHTML = (): string => {
-        if (this.view.dom.textContent === '') {
-            return '';
-        } else {
-            return this.view.dom.innerHTML;
-        }
+    private handleChange = () => (event: CustomEvent<{ html: string }>) => {
+        event.stopPropagation();
+        this.change.emit(event.detail);
     };
 }
