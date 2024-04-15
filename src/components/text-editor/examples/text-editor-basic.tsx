@@ -1,31 +1,37 @@
-import { LimelTextEditorCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
+import { FormComponentFormData, schema } from './text-editor-form-data';
 /**
  * Basic example
  *
- * Try typing and editing text, or copy & paste in some rendered HTML code
- * from your browser into the editor to see how it is rendered and what you get
- * as an output value.
+ * Here we have a simple form that uses the `limel-text-editor` component
+ * @sourceFile text-editor-form-data.ts
  */
 @Component({
     tag: 'limel-example-text-editor-basic',
     shadow: true,
 })
-export class BasicTextEditorBasicExample {
+export class TextEditorBasicExample {
     @State()
-    private text: { html: string } = { html: '' };
+    private formData: FormComponentFormData = {
+        name: 'Ali',
+        value: {
+            html: '<p>I am the greatest</p>',
+        },
+    };
 
     public render() {
         return [
-            <limel-text-editor onChange={this.handleChange} />,
-            <limel-example-value value={this.text} />,
+            <limel-form
+                onChange={this.handleFormChange}
+                value={this.formData}
+                schema={schema}
+            />,
+            <limel-example-value value={this.formData} />,
         ];
     }
 
-    private handleChange = (
-        event: LimelTextEditorCustomEvent<{ html: string }>,
-    ): void => {
+    private handleFormChange = (event: CustomEvent<FormComponentFormData>) => {
         event.stopPropagation();
-        this.text = event.detail;
+        this.formData = event.detail;
     };
 }

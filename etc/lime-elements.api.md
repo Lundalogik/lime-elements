@@ -551,6 +551,10 @@ export namespace Components {
         "item": FlowItem;
         "readonly": boolean;
     }
+    // @beta
+    export interface LimelProsemirrorAdapter {
+        "value": { html: string };
+    }
     // (undocumented)
     export interface LimelSelect {
         "disabled": boolean;
@@ -640,10 +644,6 @@ export namespace Components {
     }
     // @beta
     export interface LimelTextEditor {
-        "value": { html: string };
-    }
-    // @beta
-    export interface LimelTextEditorFormComponent {
         "disabled"?: boolean;
         "helperText"?: string;
         "invalid"?: boolean;
@@ -979,6 +979,10 @@ namespace JSX_2 {
         "limel-progress-flow": LimelProgressFlow;
         // (undocumented)
         "limel-progress-flow-item": LimelProgressFlowItem;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-prosemirror-adapter"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-prosemirror-adapter": LimelProsemirrorAdapter;
         // (undocumented)
         "limel-select": LimelSelect;
         // (undocumented)
@@ -1003,10 +1007,6 @@ namespace JSX_2 {
         //
         // (undocumented)
         "limel-text-editor": LimelTextEditor;
-        // Warning: (ae-incompatible-release-tags) The symbol ""limel-text-editor-form-component"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
-        //
-        // (undocumented)
-        "limel-text-editor-form-component": LimelTextEditorFormComponent;
         // (undocumented)
         "limel-tooltip": LimelTooltip;
         // (undocumented)
@@ -1472,6 +1472,11 @@ namespace JSX_2 {
         "onInteract"?: (event: LimelProgressFlowItemCustomEvent<void>) => void;
         "readonly"?: boolean;
     }
+    // @beta
+    interface LimelProsemirrorAdapter {
+        "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<{ html: string }>) => void;
+        "value"?: { html: string };
+    }
     // (undocumented)
     interface LimelSelect {
         "disabled"?: boolean;
@@ -1575,16 +1580,11 @@ namespace JSX_2 {
     }
     // @beta
     interface LimelTextEditor {
-        "onChange"?: (event: LimelTextEditorCustomEvent<{ html: string }>) => void;
-        "value"?: { html: string };
-    }
-    // @beta
-    interface LimelTextEditorFormComponent {
         "disabled"?: boolean;
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
-        "onChange"?: (event: LimelTextEditorFormComponentCustomEvent<{ html: string }>) => void;
+        "onChange"?: (event: LimelTextEditorCustomEvent<{ html: string }>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
         "value"?: { html: string };
@@ -1938,6 +1938,16 @@ export interface LimelProgressFlowItemCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelProgressFlowItemElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelProsemirrorAdapterCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelProsemirrorAdapterCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelProsemirrorAdapterElement;
+}
+
 // Warning: (ae-missing-release-tag) "LimelSelectCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -2026,16 +2036,6 @@ export interface LimelTextEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelTextEditorElement;
-}
-
-// Warning: (ae-missing-release-tag) "LimelTextEditorFormComponentCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export interface LimelTextEditorFormComponentCustomEvent<T> extends CustomEvent<T> {
-    // (undocumented)
-    detail: T;
-    // (undocumented)
-    target: HTMLLimelTextEditorFormComponentElement;
 }
 
 // @public

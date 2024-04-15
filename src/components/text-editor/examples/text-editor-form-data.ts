@@ -16,12 +16,12 @@ export const schema: FormSchema<FormComponentFormData> = {
             description: 'Your name',
         },
         value: {
-            type: 'text-editor',
+            type: 'object',
             title: 'Description',
             description: 'A personal description',
             lime: {
                 component: {
-                    name: 'limel-text-editor-form-component',
+                    name: 'limel-text-editor',
                     props: {},
                 },
             },
