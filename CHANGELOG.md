@@ -1,3 +1,11 @@
+## [37.17.3](https://github.com/Lundalogik/lime-elements/compare/v37.17.2...v37.17.3) (2024-04-15)
+
+
+### Bug Fixes
+
+
+* **markdown:** fix sanitization accidentally removing images ([c452f30](https://github.com/Lundalogik/lime-elements/commit/c452f3076e1c7dbe36539adb83d684c046f86062)), closes [Lundalogik/limepkg-email#668](https://github.com/Lundalogik/limepkg-email/issues/668)
+
 ## [37.17.2](https://github.com/Lundalogik/lime-elements/compare/v37.17.1...v37.17.2) (2024-04-15)
 
 
