@@ -1,3 +1,11 @@
+## [37.18.0](https://github.com/Lundalogik/lime-elements/compare/v37.17.3...v37.18.0) (2024-04-16)
+
+
+### Features
+
+
+* **editor:** change default menu ([8b81aef](https://github.com/Lundalogik/lime-elements/commit/8b81aef3e5327aad63836ef65de9952c4f3467be))
+
 ## [37.17.3](https://github.com/Lundalogik/lime-elements/compare/v37.17.2...v37.17.3) (2024-04-15)
 
 
