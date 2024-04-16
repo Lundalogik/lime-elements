@@ -1,19 +1,19 @@
 import { Component, h } from '@stencil/core';
 
 const markdown = `
-# H1
-## H2
-### H3
-#### H4
-##### H5
-###### H6
+# Headline 1
+## Headline 2
+### Headline 3
+#### Headline 4
+##### Headline 5
+###### Headline 6
 
 Alternatively, H1 and H2 can be typed underline-ish style like this:
 
-Alt-H1
+Alternative H1
 ===
 
-Alt-H2
+Alternative H2
 ---
 `;
 
