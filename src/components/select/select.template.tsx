@@ -1,4 +1,4 @@
-import { ListItem } from '../list/list-item.types';
+import { ListItem, ListSeparator } from '../list/list-item.types';
 import { Option } from '../select/option.types';
 import { FunctionalComponent, h } from '@stencil/core';
 import { isMultiple } from '../../util/multiple';
@@ -9,7 +9,7 @@ interface SelectTemplateProps {
     readonly?: boolean;
     required?: boolean;
     invalid?: boolean;
-    options: Option[];
+    options: Array<Option | ListSeparator>;
     value: Option | Option[];
     label?: string;
     helperText?: string;
@@ -206,6 +206,10 @@ const MenuDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
 };
 
 const NativeDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
+    const options = props.options
+        .filter((option): option is Option => !('separator' in option))
+        .map(renderOption(props.value));
+
     return (
         <select
             required={props.required}
@@ -218,20 +222,26 @@ const NativeDropdown: FunctionalComponent<SelectTemplateProps> = (props) => {
             disabled={props.disabled}
             multiple={props.multiple}
         >
-            {props.options.map((option) => {
-                return (
-                    <option
-                        key={option.value}
-                        value={option.value}
-                        selected={isSelected(option, props.value)}
-                        disabled={option.disabled}
-                    >
-                        {option.text}
-                    </option>
-                );
-            })}
+            {options}
         </select>
     );
+};
+
+const renderOption = (selectedOption: Option | Option[]) => {
+    return (option: Option) => {
+        const { value, disabled, text } = option;
+
+        return (
+            <option
+                key={value}
+                value={value}
+                selected={isSelected(option, selectedOption)}
+                disabled={disabled}
+            >
+                {text}
+            </option>
+        );
+    };
 };
 
 function isSelected(option: Option, value: Option | Option[]): boolean {
@@ -247,13 +257,20 @@ function isSelected(option: Option, value: Option | Option[]): boolean {
 }
 
 function createMenuItems(
-    options: Option[],
+    options: Array<Option | ListSeparator>,
     value: Option | Option[],
     selectIsRequired = false,
-): Array<ListItem<Option>> {
+): Array<ListItem<Option> | ListSeparator> {
     const menuOptionFilter = getMenuOptionFilter(selectIsRequired);
 
     return options.filter(menuOptionFilter).map((option) => {
+        if ('separator' in option) {
+            return {
+                text: option.text,
+                separator: true,
+            };
+        }
+
         const selected = isSelected(option, value);
         const { text, secondaryText, disabled } = option;
         const name = getIconName(option.icon);
@@ -284,7 +301,7 @@ function createMenuItems(
 }
 
 function getMenuOptionFilter(selectIsRequired: boolean) {
-    return (option: Option) => {
+    return (option: Option | ListSeparator) => {
         if (!selectIsRequired) {
             // If the select component is NOT required, we keep all options.
             return true;
@@ -296,6 +313,10 @@ function getMenuOptionFilter(selectIsRequired: boolean) {
             // some systems use an "empty option" that will have a value for
             // the `value` property, to signify "no option selected". Such
             // an option should be treated as "empty".
+            return true;
+        }
+
+        if ('separator' in option) {
             return true;
         }
     };

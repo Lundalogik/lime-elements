@@ -1,4 +1,4 @@
-import { ListItem } from '../list/list-item.types';
+import { ListItem, ListSeparator } from '../list/list-item.types';
 import { Option } from '../select/option.types';
 import { MDCFloatingLabel } from '@material/floating-label';
 import { MDCSelectHelperText } from '@material/select/helper-text';
@@ -26,6 +26,7 @@ import { SelectTemplate, triggerIconColorWarning } from './select.template';
 /**
  * @exampleComponent limel-example-select
  * @exampleComponent limel-example-select-with-icons
+ * @exampleComponent limel-example-select-with-separators
  * @exampleComponent limel-example-select-with-secondary-text
  * @exampleComponent limel-example-select-multiple
  * @exampleComponent limel-example-select-with-empty-option
@@ -94,7 +95,7 @@ export class Select {
      * List of options.
      */
     @Prop()
-    public options: Option[] = [];
+    public options: Array<Option | ListSeparator> = [];
 
     /**
      * Set to `true` to allow multiple values to be selected.
@@ -148,7 +149,7 @@ export class Select {
 
     public componentDidLoad() {
         this.initialize();
-        triggerIconColorWarning(this.options);
+        triggerIconColorWarning(this.getOptionsExcludingSeparators());
     }
 
     private initialize() {
@@ -280,7 +281,7 @@ export class Select {
     private openMenu() {
         if (this.emitFirstChangeEvent()) {
             this.hasChanged = true;
-            this.change.emit(this.options[0]);
+            this.change.emit(this.getOptionsExcludingSeparators()[0]);
         }
 
         this.menuOpen = true;
@@ -317,7 +318,7 @@ export class Select {
                 return !!optionElement.selected;
             })
             .map((optionElement: HTMLOptionElement) => {
-                return this.options.find(
+                return this.getOptionsExcludingSeparators().find(
                     (o) => o.value === optionElement.value,
                 );
             });
@@ -330,5 +331,11 @@ export class Select {
 
         this.change.emit(options[0]);
         this.menuOpen = false;
+    }
+
+    private getOptionsExcludingSeparators(): Option[] {
+        return this.options.filter(
+            (option): option is Option => !('separator' in option),
+        );
     }
 }
