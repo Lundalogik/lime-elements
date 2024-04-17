@@ -1,2 +1,0 @@
-import{r as e,h as t}from"./index-6156b4fd.js";const i=class{constructor(t){e(this,t);this.handleChange=e=>{e.stopPropagation();this.text=e.detail};this.text={html:""}}render(){const e=["strong","emphasis","heading 1","heading 2","heading 3","undo","redo","bullet list","ordered list","block quote","join above","lift out"];return[t("limel-text-editor",{onChange:this.handleChange,menuItems:e}),t("limel-example-value",{value:this.text})]}};export{i as limel_example_text_editor_with_custom_menu};
-//# sourceMappingURL=limel-example-text-editor-with-custom-menu.entry.js.map
