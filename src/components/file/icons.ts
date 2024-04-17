@@ -124,6 +124,15 @@ const filetypeIconTable: Record<string, string> = {
     dbf: DATA_ICON,
 };
 
+/**
+ * Takes a file extension as argument and returns the corresponding icon name.
+ * Uses the names from the private icon package `lime-icons8`. If you are using
+ * a different icon package, this functions is probably not useful for you.
+ *
+ * @param extension - The file extension (without the dot).
+ * @returns The name of the icon to use.
+ * @public
+ */
 export function getIconForFile(extension: string): string {
     return filetypeIconTable[extension.toLowerCase()] || DEFAULT_ICON;
 }
