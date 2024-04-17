@@ -1,3 +1,11 @@
+## [37.19.0-dev.1](https://github.com/Lundalogik/lime-elements/compare/v37.18.0...v37.19.0-dev.1) (2024-04-17)
+
+
+### Features
+
+
+* export functions `getIconForFile`, `getIconFillColorForFile`, `getIconBackgroundColorForFile` ([27fb9e9](https://github.com/Lundalogik/lime-elements/commit/27fb9e9c4bdd84c40f090cf06eec63e1e7367b4c))
+
 ## [37.18.0](https://github.com/Lundalogik/lime-elements/compare/v37.17.3...v37.18.0) (2024-04-16)
 
 
