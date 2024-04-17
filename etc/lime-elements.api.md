@@ -820,6 +820,15 @@ export type FormSubKeySchema<TObj> = Partial<{
 }>;
 
 // @public
+export function getIconBackgroundColorForFile(extension: string): string;
+
+// @public
+export function getIconFillColorForFile(extension: string): string;
+
+// @public
+export function getIconForFile(extension: string): string;
+
+// @public
 export interface GridLayoutOptions extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {
     colSpan?: 1 | 2 | 3 | 4 | 5 | 'all';
     columns?: 1 | 2 | 3 | 4 | 5;

@@ -127,6 +127,17 @@ const filetypeBackgroundColorTable: Record<string, string> = {
     dbf: DATA_ICON_BACKGROUND_COLOR,
 };
 
+/**
+ * Takes a file extension as argument and returns the background color to use.
+ * While some file types have a fairly universally accepted icon color, like
+ * blue for Word documents, others are more arbitrary. This function provides
+ * a convention that we use at Lime. If you are using this code in your own
+ * project, you may or may not find this helper useful.
+ *
+ * @param extension - The file extension (without the dot).
+ * @returns The color to use for the icon.
+ * @public
+ */
 export function getIconBackgroundColorForFile(extension: string): string {
     return (
         filetypeBackgroundColorTable[extension.toLowerCase()] ||
