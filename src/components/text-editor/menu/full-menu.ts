@@ -3,13 +3,13 @@ import { MenuElement, Dropdown, MenuItem } from 'prosemirror-menu';
 import { buildMenuItems } from 'prosemirror-example-setup';
 
 /**
- * Creates the default menu for the text editor
+ * Creates the full menu for the text editor
  * based on the default menu already in prosemirror-example-setup
  * @param schema - the schema to use for the menu
  *
  * @returns the default menu for the text editor
  */
-export const buildDefaultMenu = (schema: Schema): MenuElement[][] => {
+export const buildFullMenu = (schema: Schema): MenuElement[][] => {
     const menuItems = buildMenuItems(schema) as unknown as {
         blockMenu: MenuElement[][];
         fullMenu: MenuElement[][];
@@ -23,6 +23,7 @@ export const buildDefaultMenu = (schema: Schema): MenuElement[][] => {
     const typeMenu = getNewMenu(menuItems.typeMenu);
     const newHorizontalRule = new MenuItem({
         ...insertHorizontalRule.spec,
+        title: 'hr',
         label: 'hr',
     });
     const historyButtons = menuItems.fullMenu[2];
