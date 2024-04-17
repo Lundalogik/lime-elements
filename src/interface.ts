@@ -9,7 +9,6 @@ export * from './components/collapsible-section/action';
 export * from './components/date-picker/date.types';
 export * from './components/dialog/dialog.types';
 export * from './components/dock/dock.types';
-export * from './global/shared-types/file.types';
 export * from './components/flex-container/flex-container.types';
 export {
     EventEmitter,
@@ -48,5 +47,6 @@ export * from './components/select/option.types';
 export * from './components/spinner/spinner.types';
 export * from './components/tab-panel/tab-panel.types';
 export * from './components/table/table.types';
-export * from './global/shared-types/separator.types';
+export * from './global/shared-types/file.types';
 export * from './global/shared-types/icon.types';
+export * from './global/shared-types/separator.types';
