@@ -3,7 +3,9 @@ import {
     Element,
     Event,
     EventEmitter,
+    Prop,
     State,
+    Watch,
     h,
 } from '@stencil/core';
 import { EditorState } from 'prosemirror-state';
@@ -38,11 +40,27 @@ export class TextEditor {
     @State()
     private view: EditorView;
 
+    @Prop()
+    clearEditor: boolean;
+
+    @Watch('clearEditor')
+    clearnContentHandler(newValue: boolean, oldValue: boolean) {
+        if (newValue === true && oldValue === false) {
+            this.clearContent();
+        }
+    }
+
     /**
      * Dispatched when a change is made to the editor
      */
     @Event()
     private change: EventEmitter<{ html: string }>;
+
+    /**
+     * Dispatched when the editor has been cleared
+     */
+    @Event()
+    private contentCleared: EventEmitter<void>;
 
     public componentWillLoad() {}
 
@@ -73,5 +91,21 @@ export class TextEditor {
                 },
             },
         );
+    }
+
+    private clearContent() {
+        const emptyParagraph =
+            this.view.state.schema.nodes.paragraph.createChecked();
+        const emptyDoc = this.view.state.schema.nodes.doc.createChecked(
+            {},
+            emptyParagraph,
+        );
+        const transaction = this.view.state.tr.replaceWith(
+            0,
+            this.view.state.doc.content.size,
+            emptyDoc,
+        );
+        this.view.dispatch(transaction);
+        this.contentCleared.emit();
     }
 }
