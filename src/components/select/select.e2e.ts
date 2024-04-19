@@ -3,6 +3,22 @@ import { newE2EPage } from '@stencil/core/testing';
 
 describe('limel-select (native)', () => {
     let page;
+
+    beforeAll(() => {
+        const originalConsoleError = console.error;
+        jest.spyOn(console, 'error')
+            .mockImplementation((msg: string) => {
+                if (msg.startsWith('JSHandle@error')) {
+                    return;
+                }
+                originalConsoleError(msg);
+            });
+    });
+
+    afterAll(() => {
+        jest.restoreAllMocks();
+    });
+
     describe('with a label', () => {
         let limelSelect;
         let label;
@@ -362,6 +378,22 @@ describe('limel-select (native)', () => {
 
 describe('limel-select (menu)', () => {
     let page;
+
+    beforeAll(() => {
+        const originalConsoleError = console.error;
+        jest.spyOn(console, 'error')
+            .mockImplementation((msg: string) => {
+                if (msg.startsWith('JSHandle@error')) {
+                    return;
+                }
+                originalConsoleError(msg);
+            });
+    });
+
+    afterAll(() => {
+        jest.restoreAllMocks();
+    });
+
     describe('with a label', () => {
         let limelSelect;
         let label;
