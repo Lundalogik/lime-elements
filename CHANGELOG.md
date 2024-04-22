@@ -1,3 +1,11 @@
+## [37.19.0](https://github.com/Lundalogik/lime-elements/compare/v37.18.0...v37.19.0) (2024-04-22)
+
+
+### Features
+
+
+* **editor:** add prop menuItems ([1fee704](https://github.com/Lundalogik/lime-elements/commit/1fee704753cda649be974c902579f8b29ea3e844))
+
 ## [37.18.0](https://github.com/Lundalogik/lime-elements/compare/v37.17.3...v37.18.0) (2024-04-16)
 
 
