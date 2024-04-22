@@ -1,0 +1,30 @@
+name: 'Upload frontend build to AWS'
+description: 'Configures AWS credentials and uploads files to S3'
+inputs:
+  aws-role:
+    description: 'The role to assume when interacting with AWS'
+    required: true
+  frontend-path:
+    default: './frontend'
+    description: 'Path to the frontend folder in relation to the repo root (defaults to ./frontend)'
+    required: false
+  package-version:
+    description: 'The newly created package version, as output by semantic-release'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Configure AWS Credentials
+    uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
+    with:
+      role-to-assume: ${{ inputs.aws-role }}
+      aws-region: eu-west-1
+  - name: Upload to S3
+    working-directory: ${{ inputs.frontend-path }}
+    shell: bash
+    run: |
+      PKG_NAME=$(npm pkg get name | tr -d '"')
+      FILENAME=$(npm pack | tail -n1)
+      tar -xvf $FILENAME
+      aws s3 sync package s3://limecloud-static-files/packages/$PKG_NAME/${{ inputs.package-version }} --follow-symlinks --delete
