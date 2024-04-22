@@ -48,10 +48,11 @@
 
 :host(limel-action-bar.is-floating) {
     --action-bar-border-radius: 100vw;
+    border: 1px solid rgb(var(--contrast-400));
 
     padding-right: 0.125rem;
     padding-left: 0.125rem;
 
     max-width: calc(100% - 2rem);
-    box-shadow: var(--shadow-depth-16);
+    box-shadow: var(--shadow-depth-16), var(--shadow-depth-8);
 }
