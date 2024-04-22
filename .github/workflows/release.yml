@@ -51,24 +51,13 @@ jobs:
         GH_TOKEN: ${{ secrets.CREATE_RELEASE }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN_ads }}
         CI: true
-    - name: Configure AWS Credentials
+    - name: Configure AWS and Upload to S3
       if: steps.semantic.outputs.new_release_published == 'true'
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: ./.github/actions/upload-frontend-build-output-to-s3
       with:
-        role-to-assume: ${{ secrets.AWS_SHARED_LIMECLOUD_WRITE_STATIC_FILES_ROLE }}
-        aws-region: eu-west-1
-    - name: Upload to S3
-      if: steps.semantic.outputs.new_release_published == 'true'
-      run: |
-        PKG_NAME=$(npm pkg get name | tr -d '"')
-        FILENAME=$(npm pack | tail -n1)
-        tar -xvf $FILENAME
-
-        # The "package" directory referenced in the sync command below is
-        # created by `npm pack`. According to ChatGPT, this is consistent
-        # across npm versions. Should this step fail here, it's advisable to
-        # double check the contents of the tarball.
-        aws s3 sync package s3://limecloud-static-files/packages/$PKG_NAME/${{ steps.semantic.outputs.new_release_version }} --follow-symlinks --delete
+        aws-role: ${{ secrets.AWS_SHARED_LIMECLOUD_WRITE_STATIC_FILES_ROLE }}
+        frontend-path: ./
+        package-version: ${{ steps.semantic.outputs.new_release_version }}
     - name: Trigger update in lime-crm-building-blocks
       if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'main'
       uses: peter-evans/repository-dispatch@v2
