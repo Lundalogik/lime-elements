@@ -42,7 +42,7 @@ export async function markdownToHTML(
             // Allow the `style` attribute on all elements
             attributes: {
                 ...defaultSchema.attributes,
-                '*': ['style'],
+                '*': ['height', 'style', 'width'],
             },
         })
         .use(() => {
