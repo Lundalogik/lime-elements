@@ -27,6 +27,7 @@ import { getFilteredMenu } from './menu/menu-filter';
  * to toggle bold text, <kbd>Ctrl</kbd> + <kbd>I</kbd> to toggle italic text, and so on.
  *
  * @exampleComponent limel-example-prosemirror-adapter-basic
+ * @exampleComponent limel-example-prosemirror-adapter-with-custom-menu
  * @beta
  * @private
  */
