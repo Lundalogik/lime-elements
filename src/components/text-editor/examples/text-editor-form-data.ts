@@ -22,7 +22,9 @@ export const schema: FormSchema<FormComponentFormData> = {
             lime: {
                 component: {
                     name: 'limel-text-editor',
-                    props: {},
+                    props: {
+                        placeholder: 'Enter a personal description',
+                    },
                 },
             },
         },
