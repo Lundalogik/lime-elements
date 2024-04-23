@@ -1,3 +1,11 @@
+## [37.19.1](https://github.com/Lundalogik/lime-elements/compare/v37.19.0...v37.19.1) (2024-04-23)
+
+
+### Bug Fixes
+
+
+* **action-bar:** highlight the floating action bar ([9f2fa3e](https://github.com/Lundalogik/lime-elements/commit/9f2fa3e87aa48398585626a233848d5e92a3e48c))
+
 ## [37.19.0](https://github.com/Lundalogik/lime-elements/compare/v37.18.0...v37.19.0) (2024-04-22)
 
 
