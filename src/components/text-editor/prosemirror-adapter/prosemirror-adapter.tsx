@@ -9,7 +9,11 @@ import {
 } from '@stencil/core';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { Schema, DOMParser } from 'prosemirror-model';
+import { Schema, DOMParser, Node } from 'prosemirror-model';
+import {
+    defaultMarkdownSerializer,
+    defaultMarkdownParser,
+} from 'prosemirror-markdown';
 import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
@@ -34,7 +38,7 @@ import { textEditorMenuItems } from './menu/menu-items';
 })
 export class ProsemirrorAdapter {
     /**
-     * The value of the editor, expected to be serialised HTML
+     * The value of the editor, expected to be markdown
      */
     @Prop()
     public value: string;
@@ -98,23 +102,35 @@ export class ProsemirrorAdapter {
                     const newState = this.view.state.apply(transaction);
                     this.view.updateState(newState);
 
-                    this.change.emit(this.getHTML());
+                    this.change.emit(this.getMarkdown());
                 },
             },
         );
 
         this.menuCommandFactory = new MenuCommandFactory(mySchema);
 
-        if (this.value) {
-            this.view.dom.innerHTML = this.value;
+        const doc: Node = defaultMarkdownParser.parse(this.value);
+        if (this.value && doc) {
+            this.setDocument(doc);
         }
     };
 
-    private getHTML = (): string => {
+    private setDocument = (doc: Node) => {
+        const newState = EditorState.create({
+            doc: doc,
+            schema: this.view.state.schema,
+            plugins: this.view.state.plugins,
+            storedMarks: this.view.state.storedMarks,
+        });
+
+        this.view.updateState(newState);
+    };
+
+    private getMarkdown = (): string => {
         if (this.view.dom.textContent === '') {
             return '';
         } else {
-            return this.view.dom.innerHTML;
+            return defaultMarkdownSerializer.serialize(this.view.state.doc);
         }
     };
 

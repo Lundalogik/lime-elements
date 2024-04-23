@@ -70,7 +70,7 @@ export class TextEditor implements FormComponent<string> {
     public invalid?: boolean;
 
     /**
-     * Description of the text inside the editor as serialised HTML
+     * Description of the text inside the editor as markdown
      */
     @Prop({ reflect: true })
     public value: string;
