@@ -1,3 +1,14 @@
+## [37.21.0](https://github.com/Lundalogik/lime-elements/compare/v37.20.0...v37.21.0) (2024-04-23)
+
+
+### Features
+
+
+* **text-editor:** add value prop ([6489ffb](https://github.com/Lundalogik/lime-elements/commit/6489ffb360b465694ca352249a21bc51e9123dcb))
+* **text-editor:** enable using it as a standard input field ([3c9378d](https://github.com/Lundalogik/lime-elements/commit/3c9378d8ea8a57b3e135eb3511ed9e1b0018128a))
+* **text-editor:** rename text-editor and text-editor-form-component ([b95213c](https://github.com/Lundalogik/lime-elements/commit/b95213c115f1f9ca7a9b0da246b7b65d72a3c87a))
+* **text-editor:** set default emitted value to empty string ([3045c41](https://github.com/Lundalogik/lime-elements/commit/3045c411aff48008280344732e56682ad8d59c2b))
+
 ## [37.20.0](https://github.com/Lundalogik/lime-elements/compare/v37.19.1...v37.20.0) (2024-04-23)
 
 
