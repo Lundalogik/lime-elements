@@ -18,13 +18,8 @@ import { buildFullMenu } from './menu/full-menu';
 import { getFilteredMenu } from './menu/menu-filter';
 
 /**
- * The ProseMirror adapter offers a rich text editing experience with markdown support,
- * in the sense that you can easily type markdown syntax and see the rendered
- * result as rich text in real-time. For instance, you can type `# Hello, world!`
- * and see it directly turning to a heading 1 (an `<h1>` HTML element).
- *
- * Naturally, you can use standard keyboard hotkeys such as <kbd>Ctrl</kbd> + <kbd>B</kbd>
- * to toggle bold text, <kbd>Ctrl</kbd> + <kbd>I</kbd> to toggle italic text, and so on.
+ * The ProseMirror adapter offers a rich text editing experience with markdown support.
+ * [Read more...](https://prosemirror.net/)
  *
  * @exampleComponent limel-example-prosemirror-adapter-basic
  * @exampleComponent limel-example-prosemirror-adapter-with-custom-menu
