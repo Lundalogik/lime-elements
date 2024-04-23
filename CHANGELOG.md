@@ -1,3 +1,19 @@
+## [37.20.0](https://github.com/Lundalogik/lime-elements/compare/v37.19.1...v37.20.0) (2024-04-23)
+
+
+### Features
+
+
+* **markdown:** allow `height` and `width` in inline `style` attribute ([b79a38d](https://github.com/Lundalogik/lime-elements/commit/b79a38d741c03c9bedbc54f6d4146bc49957a9a5)), closes [Lundalogik/limepkg-email#695](https://github.com/Lundalogik/limepkg-email/issues/695)
+
+## [37.19.1](https://github.com/Lundalogik/lime-elements/compare/v37.19.0...v37.19.1) (2024-04-23)
+
+
+### Bug Fixes
+
+
+* **action-bar:** highlight the floating action bar ([9f2fa3e](https://github.com/Lundalogik/lime-elements/commit/9f2fa3e87aa48398585626a233848d5e92a3e48c))
+
 ## [37.19.0](https://github.com/Lundalogik/lime-elements/compare/v37.18.0...v37.19.0) (2024-04-22)
 
 
