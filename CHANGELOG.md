@@ -1,3 +1,11 @@
+## [37.20.0](https://github.com/Lundalogik/lime-elements/compare/v37.19.1...v37.20.0) (2024-04-23)
+
+
+### Features
+
+
+* **markdown:** allow `height` and `width` in inline `style` attribute ([b79a38d](https://github.com/Lundalogik/lime-elements/commit/b79a38d741c03c9bedbc54f6d4146bc49957a9a5)), closes [Lundalogik/limepkg-email#695](https://github.com/Lundalogik/limepkg-email/issues/695)
+
 ## [37.19.1](https://github.com/Lundalogik/lime-elements/compare/v37.19.0...v37.19.1) (2024-04-23)
 
 
