@@ -78,6 +78,7 @@ export class TextEditor implements FormComponent<{ html: string }> {
             <limel-prosemirror-adapter
                 onChange={this.handleChange}
                 value={this.value}
+                placeholder={this.placeholder}
             />
         );
     }
