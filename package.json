@@ -84,6 +84,7 @@
     "parse-css-color": "^0.2.1",
     "prettier": "^3.2.5",
     "prosemirror-example-setup": "^1.2.2",
+    "prosemirror-markdown": "^1.12.0",
     "prosemirror-schema-basic": "^1.2.2",
     "puppeteer": "^19.11.1",
     "react": "^18.2.0",
