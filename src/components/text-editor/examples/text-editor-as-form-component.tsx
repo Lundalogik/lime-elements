@@ -1,20 +1,28 @@
 import { Component, h, State } from '@stencil/core';
 import { FormComponentFormData, schema } from './text-editor-form-data';
 /**
- * Basic example
+ * Using the text editor as a form component
  *
- * Here we have a simple form that uses the `limel-text-editor` component
+ * Here we have a simple form that uses the `limel-text-editor` component,
+ * instead of a regular text input field.
+ *
+ * :::note
+ * This allows the user to write rich text, with markdown support, in the form.
+ * But keep in mind that the value will be saved as a markdown string,
+ * and can also contain HTML tags, depending on what the users input
+ * in the filed.
+ * :::
  * @sourceFile text-editor-form-data.ts
  */
 @Component({
-    tag: 'limel-example-text-editor-basic',
+    tag: 'limel-example-text-editor-as-form-component',
     shadow: true,
 })
-export class TextEditorBasicExample {
+export class TextEditorAsFormComponentExample {
     @State()
     private formData: FormComponentFormData = {
-        name: 'Ali',
-        value: '<p>I am the greatest</p>',
+        name: 'Muhammad Ali',
+        value: '<p>I am the <b>greatest</b>.</p>',
     };
 
     public render() {
