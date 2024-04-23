@@ -1,3 +1,11 @@
+## [37.22.0](https://github.com/Lundalogik/lime-elements/compare/v37.21.0...v37.22.0) (2024-04-23)
+
+
+### Features
+
+
+* **text-editor:** make emitted value of type 'string' not '{html: string}' ([b0607d7](https://github.com/Lundalogik/lime-elements/commit/b0607d73b7944f309f8a4c1e0c2b53ddc6becdc1))
+
 ## [37.21.0](https://github.com/Lundalogik/lime-elements/compare/v37.20.0...v37.21.0) (2024-04-23)
 
 
