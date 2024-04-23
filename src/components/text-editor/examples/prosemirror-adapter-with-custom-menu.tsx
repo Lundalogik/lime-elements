@@ -9,7 +9,7 @@ import { Component, h, State } from '@stencil/core';
 })
 export class ProsemirrorAdapterWithCustomMenuExample {
     @State()
-    private text: { html: string } = { html: '' };
+    private text: string = '';
 
     public render() {
         // const menuItems: EditorPluginButton[] = ['undo', 'redo'];
@@ -24,9 +24,10 @@ export class ProsemirrorAdapterWithCustomMenuExample {
     }
 
     private handleChange = (
-        event: LimelProsemirrorAdapterCustomEvent<{ html: string }>,
+        event: LimelProsemirrorAdapterCustomEvent<string>,
     ): void => {
         event.stopPropagation();
+
         this.text = event.detail;
     };
 }

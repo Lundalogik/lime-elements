@@ -13,7 +13,7 @@ import { FormComponent } from '../form/form.types';
     shadow: true,
     styleUrl: 'text-editor.scss',
 })
-export class TextEditor implements FormComponent<{ html: string }> {
+export class TextEditor implements FormComponent<string> {
     /**
      * Set to `true` to disable the field.
      * Use `disabled` to indicate that the field can normally be interacted
@@ -62,16 +62,16 @@ export class TextEditor implements FormComponent<{ html: string }> {
     public invalid?: boolean;
 
     /**
-     * Description of the text inside the editor
+     * Description of the text inside the editor as serialised HTML
      */
     @Prop({ reflect: true })
-    public value: { html: string };
+    public value: string;
 
     /**
      * Dispatched when a change is made to the editor
      */
     @Event()
-    public change: EventEmitter<{ html: string }>;
+    public change: EventEmitter<string>;
 
     public render() {
         return (
@@ -82,7 +82,7 @@ export class TextEditor implements FormComponent<{ html: string }> {
         );
     }
 
-    private handleChange = () => (event: CustomEvent<{ html: string }>) => {
+    private handleChange = () => (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.change.emit(event.detail);
     };

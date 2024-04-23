@@ -553,7 +553,7 @@ export namespace Components {
     }
     // @beta
     export interface LimelProsemirrorAdapter {
-        "value": { html: string };
+        "value": string;
     }
     // (undocumented)
     export interface LimelSelect {
@@ -650,7 +650,7 @@ export namespace Components {
         "label"?: string;
         "placeholder"?: string;
         "readonly"?: boolean;
-        "value": { html: string };
+        "value": string;
     }
     export interface LimelTooltip {
         "elementId": string;
@@ -1474,8 +1474,8 @@ namespace JSX_2 {
     }
     // @beta
     interface LimelProsemirrorAdapter {
-        "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<{ html: string }>) => void;
-        "value"?: { html: string };
+        "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
+        "value"?: string;
     }
     // (undocumented)
     interface LimelSelect {
@@ -1584,10 +1584,10 @@ namespace JSX_2 {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
-        "onChange"?: (event: LimelTextEditorCustomEvent<{ html: string }>) => void;
+        "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
-        "value"?: { html: string };
+        "value"?: string;
     }
     interface LimelTooltip {
         "elementId": string;
