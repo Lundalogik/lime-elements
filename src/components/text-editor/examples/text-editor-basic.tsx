@@ -14,9 +14,7 @@ export class TextEditorBasicExample {
     @State()
     private formData: FormComponentFormData = {
         name: 'Ali',
-        value: {
-            html: '<p>I am the greatest</p>',
-        },
+        value: '<p>I am the greatest</p>',
     };
 
     public render() {

@@ -2,9 +2,7 @@ import { FormSchema } from '@limetech/lime-elements';
 
 export interface FormComponentFormData {
     name?: string;
-    value?: {
-        html: string;
-    };
+    value?: string;
 }
 
 export const schema: FormSchema<FormComponentFormData> = {

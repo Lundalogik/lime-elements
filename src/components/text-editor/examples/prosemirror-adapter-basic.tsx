@@ -13,7 +13,7 @@ import { Component, h, State } from '@stencil/core';
 })
 export class ProsemirrorAdapterBasicExample {
     @State()
-    private text: { html: string } = { html: '' };
+    private text: string = '';
 
     public render() {
         return [
@@ -23,9 +23,10 @@ export class ProsemirrorAdapterBasicExample {
     }
 
     private handleChange = (
-        event: LimelProsemirrorAdapterCustomEvent<{ html: string }>,
+        event: LimelProsemirrorAdapterCustomEvent<string>,
     ): void => {
         event.stopPropagation();
+
         this.text = event.detail;
     };
 }

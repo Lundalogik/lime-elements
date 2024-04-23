@@ -37,10 +37,10 @@ import { getFilteredMenu } from './menu/menu-filter';
 })
 export class ProsemirrorAdapter {
     /**
-     * The value of the editor
+     * The value of the editor, expected to be serialised HTML
      */
     @Prop()
-    public value: { html: string };
+    public value: string;
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -52,7 +52,7 @@ export class ProsemirrorAdapter {
      * Dispatched when a change is made to the editor
      */
     @Event()
-    private change: EventEmitter<{ html: string }>;
+    private change: EventEmitter<string>;
 
     public componentWillLoad() {}
 
@@ -86,13 +86,13 @@ export class ProsemirrorAdapter {
                     const newState = this.view.state.apply(transaction);
                     this.view.updateState(newState);
 
-                    this.change.emit({ html: this.getHTML() });
+                    this.change.emit(this.getHTML());
                 },
             },
         );
 
         if (this.value) {
-            this.view.dom.innerHTML = this.value.html;
+            this.view.dom.innerHTML = this.value;
         }
     }
 
