@@ -9,7 +9,7 @@ import { FormComponent } from '../form/form.types';
  * Naturally, you can use standard keyboard hotkeys such as <kbd>Ctrl</kbd> + <kbd>B</kbd>
  * to toggle bold text, <kbd>Ctrl</kbd> + <kbd>I</kbd> to toggle italic text, and so on.
  *
- * @exampleComponent limel-example-text-editor-basic
+ * @exampleComponent limel-example-text-editor-as-form-component
  * @beta
  * @private
  */
