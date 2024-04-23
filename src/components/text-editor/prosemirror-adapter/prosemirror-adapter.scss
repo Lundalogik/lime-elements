@@ -1,4 +1,4 @@
-@use '../../style/internal/shared_input-select-picker.scss';
+@use '../../../style/internal/shared_input-select-picker.scss';
 
 :host(limel-text-editor) {
     isolation: isolate;
@@ -41,10 +41,10 @@
 @import './partial-styles/prosemirror.scss';
 @import './partial-styles/prosemirror-menu.scss';
 
-@import '../markdown/partial-styles/blockquotes';
-@import '../markdown/partial-styles/body-text';
-@import '../markdown/partial-styles/definition-lists';
-@import '../markdown/partial-styles/headings';
-@import '../markdown/partial-styles/lists';
-@import '../markdown/partial-styles/pre-code';
-@import '../markdown/partial-styles/tables';
+@import '../../markdown/partial-styles/blockquotes';
+@import '../../markdown/partial-styles/body-text';
+@import '../../markdown/partial-styles/definition-lists';
+@import '../../markdown/partial-styles/headings';
+@import '../../markdown/partial-styles/lists';
+@import '../../markdown/partial-styles/pre-code';
+@import '../../markdown/partial-styles/tables';
