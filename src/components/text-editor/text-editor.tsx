@@ -81,7 +81,12 @@ export class TextEditor implements FormComponent<string> {
     public change: EventEmitter<string>;
 
     public render() {
-        return this.renderEditor();
+        return (
+            <fieldset disabled={this.readonly || this.disabled}>
+                {this.renderLabel()}
+                {this.renderEditor()}
+            </fieldset>
+        );
     }
 
     private renderEditor() {
@@ -95,6 +100,14 @@ export class TextEditor implements FormComponent<string> {
                 value={this.value}
             />
         );
+    }
+
+    private renderLabel() {
+        if (!this.label) {
+            return;
+        }
+
+        return <legend>{this.label}</legend>;
     }
 
     private handleChange = () => (event: CustomEvent<string>) => {
