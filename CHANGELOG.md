@@ -1,3 +1,11 @@
+## [37.24.0](https://github.com/Lundalogik/lime-elements/compare/v37.23.0...v37.24.0) (2024-04-24)
+
+
+### Features
+
+
+* **select:** enable separators in dropdown list items ([7cd994e](https://github.com/Lundalogik/lime-elements/commit/7cd994ee14301934e379bc7dc7fe5f01c1dbe911))
+
 ## [37.23.0](https://github.com/Lundalogik/lime-elements/compare/v37.22.0...v37.23.0) (2024-04-24)
 
 
