@@ -1,0 +1,8 @@
+:host(limel-text-editor) {
+    --limel-text-editor-padding: 0.5rem 1rem;
+}
+
+limel-markdown {
+    display: block;
+    padding: var(--limel-text-editor-padding);
+}
