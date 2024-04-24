@@ -1,10 +1,6 @@
 import { Component, h, State } from '@stencil/core';
-import { FormComponentFormData, schema } from './text-editor-form-data';
 /**
  * Basic example
- *
- * Here we have a simple form that uses the `limel-text-editor` component
- * @sourceFile text-editor-form-data.ts
  */
 @Component({
     tag: 'limel-example-text-editor-basic',
@@ -12,24 +8,19 @@ import { FormComponentFormData, schema } from './text-editor-form-data';
 })
 export class TextEditorBasicExample {
     @State()
-    private formData: FormComponentFormData = {
-        name: 'Ali',
-        value: '<p>I am the greatest</p>',
-    };
+    private value: string;
 
     public render() {
         return [
-            <limel-form
-                onChange={this.handleFormChange}
-                value={this.formData}
-                schema={schema}
+            <limel-text-editor
+                value={this.value}
+                onChange={this.handleChange}
             />,
-            <limel-example-value value={this.formData} />,
+            <limel-example-value value={this.value} />,
         ];
     }
 
-    private handleFormChange = (event: CustomEvent<FormComponentFormData>) => {
-        event.stopPropagation();
-        this.formData = event.detail;
+    private handleChange = (event: CustomEvent<string>) => {
+        this.value = event.detail;
     };
 }

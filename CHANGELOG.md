@@ -1,3 +1,16 @@
+## [37.23.0](https://github.com/Lundalogik/lime-elements/compare/v37.22.0...v37.23.0) (2024-04-24)
+
+
+### Features
+
+
+* **text-editor:** implement `readonly` prop ([6eee2c6](https://github.com/Lundalogik/lime-elements/commit/6eee2c65541da91ca7abdfb3acb2a3c94b3aad2d))
+
+### Bug Fixes
+
+
+* **text-editor:** prevent layout shifts & jumping menubar while scrolling ([03ea208](https://github.com/Lundalogik/lime-elements/commit/03ea20887dad856290a0b11c98a78d072573b168))
+
 ## [37.22.0](https://github.com/Lundalogik/lime-elements/compare/v37.21.0...v37.22.0) (2024-04-23)
 
 
