@@ -13,9 +13,13 @@ export class TextEditorCompositeExample {
     @State()
     private readonly = false;
 
+    @State()
+    private label: string;
+
     public render() {
         return [
             <limel-text-editor
+                label={this.label}
                 value={this.value}
                 onChange={this.handleChange}
                 readonly={this.readonly}
@@ -26,6 +30,11 @@ export class TextEditorCompositeExample {
                     label="Readonly"
                     onChange={this.setReadonly}
                 />
+                <limel-input-field
+                    label="Label"
+                    value={this.label}
+                    onChange={this.handleLabelChange}
+                />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,
         ];
@@ -34,6 +43,11 @@ export class TextEditorCompositeExample {
     private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
+    };
+
+    private handleLabelChange = (event: CustomEvent<string>) => {
+        event.stopPropagation();
+        this.label = event.detail;
     };
 
     private handleChange = (event: CustomEvent<string>) => {
