@@ -381,6 +381,10 @@ export class InputField {
             this.mdcTextField.value = this.value;
         }
 
+        if (this.invalid) {
+            this.mdcTextField.valid = false;
+        }
+
         this.mapCompletions();
 
         window.addEventListener('resize', this.layout, { passive: true });
