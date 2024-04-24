@@ -9,11 +9,7 @@ import {
 } from '@stencil/core';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { Schema, DOMParser, Node } from 'prosemirror-model';
-import {
-    defaultMarkdownSerializer,
-    defaultMarkdownParser,
-} from 'prosemirror-markdown';
+import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
@@ -21,6 +17,9 @@ import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
 import { textEditorMenuItems } from './menu/menu-items';
+import { ContentTypeConverter } from '../utils/content-type-converter';
+import { markdownConverter } from '../utils/markdown-converter';
+import { HTMLConverter } from '../utils/html-converter';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -37,6 +36,14 @@ import { textEditorMenuItems } from './menu/menu-items';
     styleUrl: 'prosemirror-adapter.scss',
 })
 export class ProsemirrorAdapter {
+    /**
+     * The type of content that the editor should handle and emit, defaults to `markdown`
+     *
+     * Assumed to be set only once, so not reactive to changes
+     */
+    @Prop()
+    public contentType: 'markdown' | 'html' = 'markdown';
+
     /**
      * The value of the editor, expected to be markdown
      */
@@ -60,7 +67,15 @@ export class ProsemirrorAdapter {
     @Event()
     private change: EventEmitter<string>;
 
-    public componentDidLoad() {
+    private contentConverter: ContentTypeConverter;
+
+    public componentWillLoad() {
+        if (this.contentType === 'markdown') {
+            this.contentConverter = new markdownConverter();
+        } else if (this.contentType === 'html') {
+            this.contentConverter = new HTMLConverter();
+        }
+
         // Stencil complains loudly about triggering rerenders in
         // componentDidLoad, but we have to, so we're using setTimeout to
         // suppress the warning. /Ads
@@ -102,37 +117,30 @@ export class ProsemirrorAdapter {
                     const newState = this.view.state.apply(transaction);
                     this.view.updateState(newState);
 
-                    this.change.emit(this.getMarkdown());
+                    this.change.emit(
+                        this.contentConverter.serialize(this.view, schema),
+                    );
                 },
             },
         );
 
         this.menuCommandFactory = new MenuCommandFactory(mySchema);
 
-        const doc: Node = defaultMarkdownParser.parse(this.value);
-        if (this.value && doc) {
-            this.setDocument(doc);
+        if (!this.value) {
+            return;
         }
+
+        this.setContent();
     };
 
-    private setDocument = (doc: Node) => {
-        const newState = EditorState.create({
-            doc: doc,
-            schema: this.view.state.schema,
-            plugins: this.view.state.plugins,
-            storedMarks: this.view.state.storedMarks,
-        });
+    async setContent() {
+        const html = await this.contentConverter.parseAsHTML(
+            this.value,
+            schema,
+        );
 
-        this.view.updateState(newState);
-    };
-
-    private getMarkdown = (): string => {
-        if (this.view.dom.textContent === '') {
-            return '';
-        } else {
-            return defaultMarkdownSerializer.serialize(this.view.state.doc);
-        }
-    };
+        this.view.dom.innerHTML = html;
+    }
 
     private handleActionBarItem = (event: CustomEvent<ActionBarItem>) => {
         event.preventDefault();

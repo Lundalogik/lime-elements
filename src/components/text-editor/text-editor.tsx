@@ -22,6 +22,13 @@ import { FormComponent } from '../form/form.types';
     styleUrl: 'text-editor.scss',
 })
 export class TextEditor implements FormComponent<string> {
+    /** The type of content that the editor should handle and emit, defaults to `markdown`
+     *
+     * Assumed to be set only once, so not reactive to changes
+     */
+    @Prop()
+    public contentType: 'markdown' | 'html' = 'markdown';
+
     /**
      * Set to `true` to disable the field.
      * Use `disabled` to indicate that the field can normally be interacted
@@ -107,6 +114,7 @@ export class TextEditor implements FormComponent<string> {
 
         return (
             <limel-prosemirror-adapter
+                contentType={this.contentType}
                 onChange={this.handleChange}
                 value={this.value}
             />
