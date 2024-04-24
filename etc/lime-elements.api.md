@@ -553,6 +553,7 @@ export namespace Components {
     }
     // @beta
     export interface LimelProsemirrorAdapter {
+        "contentType": 'markdown' | 'html';
         "value": string;
     }
     // (undocumented)
@@ -644,6 +645,7 @@ export namespace Components {
     }
     // @beta
     export interface LimelTextEditor {
+        "contentType": 'markdown' | 'html';
         "disabled"?: boolean;
         "helperText"?: string;
         "invalid"?: boolean;
@@ -1474,6 +1476,7 @@ namespace JSX_2 {
     }
     // @beta
     interface LimelProsemirrorAdapter {
+        "contentType"?: 'markdown' | 'html';
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
         "value"?: string;
     }
@@ -1580,6 +1583,7 @@ namespace JSX_2 {
     }
     // @beta
     interface LimelTextEditor {
+        "contentType"?: 'markdown' | 'html';
         "disabled"?: boolean;
         "helperText"?: string;
         "invalid"?: boolean;
