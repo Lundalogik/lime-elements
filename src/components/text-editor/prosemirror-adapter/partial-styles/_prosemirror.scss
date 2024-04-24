@@ -10,7 +10,7 @@
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
 
-    padding: 0.5rem 1rem;
+    padding: var(--limel-text-editor-padding);
     background-color: rgb(var(--contrast-100));
 
     [draggable][contenteditable='false'] {

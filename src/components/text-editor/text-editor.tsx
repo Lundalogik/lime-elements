@@ -11,6 +11,7 @@ import { FormComponent } from '../form/form.types';
  *
  * @exampleComponent limel-example-text-editor-basic
  * @exampleComponent limel-example-text-editor-as-form-component
+ * @exampleComponent limel-example-text-editor-composite
  * @beta
  * @private
  */
@@ -80,6 +81,14 @@ export class TextEditor implements FormComponent<string> {
     public change: EventEmitter<string>;
 
     public render() {
+        return this.renderEditor();
+    }
+
+    private renderEditor() {
+        if (this.readonly) {
+            return <limel-markdown value={this.value} />;
+        }
+
         return (
             <limel-prosemirror-adapter
                 onChange={this.handleChange}
