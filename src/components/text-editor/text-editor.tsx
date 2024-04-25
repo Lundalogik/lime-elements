@@ -90,6 +90,14 @@ export class TextEditor implements FormComponent<string> {
     }
 
     private renderEditor() {
+        if (this.readonly && !this.value) {
+            return (
+                <span class="lime-empty-value-for-readonly lime-looks-like-input-value">
+                    –
+                </span>
+            );
+        }
+
         if (this.readonly) {
             return <limel-markdown value={this.value} />;
         }

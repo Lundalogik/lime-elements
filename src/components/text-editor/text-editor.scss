@@ -1,7 +1,13 @@
+@use '../../style/internal/shared_input-select-picker';
+
+@include shared_input-select-picker.lime-empty-value-for-readonly;
+@include shared_input-select-picker.lime-looks-like-input-value;
+
 :host(limel-text-editor) {
     display: flex;
     flex-direction: column;
     width: 100%;
+    position: relative;
 }
 
 fieldset {
