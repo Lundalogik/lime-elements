@@ -7,7 +7,7 @@
     font-variant-ligatures: none;
     font-feature-settings: 'liga' 0;
 
-    padding-top: 0.75rem;
+    padding: var(--limel-text-editor-padding);
 
     [draggable][contenteditable='false'] {
         user-select: text;
