@@ -57,7 +57,7 @@
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
     "@types/tabulator-tables": "^4.9.4",
-    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.5.0",
     "codemirror": "^5.65.9",
     "cross-env": "^7.0.3",
