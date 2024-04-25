@@ -82,12 +82,14 @@ export class TextEditor implements FormComponent<string> {
     public change: EventEmitter<string>;
 
     public render() {
-        return (
-            <fieldset disabled={this.readonly || this.disabled}>
+        return [
+            <span class="notched-outline">
+                <span class="leading-outline" />
                 {this.renderLabel()}
-                {this.renderEditor()}
-            </fieldset>
-        );
+                <span class="trailing-outline" />
+            </span>,
+            this.renderEditor(),
+        ];
     }
 
     private renderEditor() {
@@ -116,7 +118,11 @@ export class TextEditor implements FormComponent<string> {
             return;
         }
 
-        return <legend>{this.label}</legend>;
+        return (
+            <span class="notch">
+                <label>{this.label}</label>
+            </span>
+        );
     }
 
     private handleChange = () => (event: CustomEvent<string>) => {

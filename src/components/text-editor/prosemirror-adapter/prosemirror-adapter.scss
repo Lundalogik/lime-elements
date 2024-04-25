@@ -30,19 +30,15 @@ limel-action-bar {
 
     position: sticky;
     z-index: 1;
-    top: 0;
+    top: 1px;
     background-color: shared_input-select-picker.$background-color-normal;
     backdrop-filter: blur(0.5rem);
     -webkit-backdrop-filter: blur(0.5rem);
 
     // prevents visual defects that can appears
     // due to the backdrop-filter and closeness to borders
-    margin: 1px;
+    margin: 0 1px;
     width: calc(100% - 2px);
-}
-
-div#editor {
-    padding: 0 0.75rem;
 }
 
 @import './partial-styles/prosemirror.scss';
