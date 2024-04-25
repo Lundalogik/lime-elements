@@ -4,6 +4,8 @@
 @include shared_input-select-picker.lime-looks-like-input-value;
 
 :host(limel-text-editor) {
+    position: relative;
+    isolation: isolate;
     display: flex;
     flex-direction: column;
     width: 100%;
