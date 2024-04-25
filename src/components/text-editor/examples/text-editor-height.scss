@@ -1,0 +1,21 @@
+:host(limel-example-text-editor-height) {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+
+    overflow: auto;
+    resize: both;
+    max-width: 100%;
+
+    border: 1px dashed rgb(var(--contrast-700));
+    padding: 0.75rem;
+    padding-bottom: 2rem;
+
+    &::after {
+        content: 'Resize me ⤵';
+        font-size: 0.75rem;
+        position: absolute;
+        right: 0.25rem;
+        bottom: 0.25rem;
+    }
+}
