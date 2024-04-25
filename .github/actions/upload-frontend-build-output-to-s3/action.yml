@@ -27,4 +27,4 @@ runs:
       PKG_NAME=$(npm pkg get name | tr -d '"')
       FILENAME=$(npm pack | tail -n1)
       tar -xvf $FILENAME
-      aws s3 sync package s3://limecloud-static-files/packages/$PKG_NAME/${{ inputs.package-version }} --follow-symlinks --delete
+      aws s3 cp package s3://limecloud-static-files/packages/$PKG_NAME/${{ inputs.package-version }} --recursive --follow-symlinks
