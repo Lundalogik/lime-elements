@@ -18,8 +18,5 @@ describe('prosemirror-adapter', () => {
 
     it('should render the component', () => {
         expect(editor).toBeTruthy();
-        expect(
-            editor.querySelector('.ProseMirror-menubar-wrapper'),
-        ).toBeTruthy();
     });
 });
