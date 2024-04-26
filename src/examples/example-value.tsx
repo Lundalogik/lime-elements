@@ -10,7 +10,7 @@ export class ExampleValue {
      * A label describing the value.
      */
     @Prop({ reflect: true })
-    public label: string = 'Value';
+    public label? = 'Value';
 
     /**
      * The value that should be displayed.

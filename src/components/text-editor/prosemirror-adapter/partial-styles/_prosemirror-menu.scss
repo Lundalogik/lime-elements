@@ -1,4 +1,5 @@
 @use '../../../../style/mixins';
+@use '../../../style/internal/shared_input-select-picker.scss';
 
 $size-of-caret: 0.25rem;
 
@@ -7,6 +8,11 @@ div#editor {
         position: sticky !important;
         z-index: 1;
         top: 0;
+        margin-left: -0.75rem;
+        margin-right: -0.75rem;
+        background-color: shared_input-select-picker.$background-color-normal;
+        backdrop-filter: blur(0.25rem);
+        -webkit-backdrop-filter: blur(0.25rem);
 
         &[style*='position: fixed'] {
             // They add this dynamically as soon as you scroll.
@@ -34,7 +40,6 @@ div#editor {
     align-items: center;
 
     padding: 0.125rem;
-    background-color: rgb(var(--contrast-100));
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
 }

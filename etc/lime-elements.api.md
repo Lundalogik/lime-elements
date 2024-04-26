@@ -562,7 +562,7 @@ export namespace Components {
         "invalid": boolean;
         "label": string;
         "multiple": boolean;
-        "options": Option_2[];
+        "options": Array<Option_2 | ListSeparator>;
         "readonly": boolean;
         "required": boolean;
         "value": Option_2 | Option_2[];
@@ -1485,7 +1485,7 @@ namespace JSX_2 {
         "label"?: string;
         "multiple"?: boolean;
         "onChange"?: (event: LimelSelectCustomEvent<Option_2 | Option_2[]>) => void;
-        "options"?: Option_2[];
+        "options"?: Array<Option_2 | ListSeparator>;
         "readonly"?: boolean;
         "required"?: boolean;
         "value"?: Option_2 | Option_2[];

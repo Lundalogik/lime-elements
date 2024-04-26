@@ -1,3 +1,24 @@
+## [37.25.0](https://github.com/Lundalogik/lime-elements/compare/v37.24.0...v37.25.0) (2024-04-25)
+
+
+### Features
+
+
+* **text-editor:** implement `label` prop ([37fbdc5](https://github.com/Lundalogik/lime-elements/commit/37fbdc5d9b24490177f9ae5af8a3f5be05898647))
+
+### Bug Fixes
+
+
+* **text-editor:** ensure clicking anywhere on the text editor activates editing ([906707a](https://github.com/Lundalogik/lime-elements/commit/906707a65c0f2034ef43335709ad47dc06e5fc47))
+
+## [37.24.0](https://github.com/Lundalogik/lime-elements/compare/v37.23.0...v37.24.0) (2024-04-24)
+
+
+### Features
+
+
+* **select:** enable separators in dropdown list items ([7cd994e](https://github.com/Lundalogik/lime-elements/commit/7cd994ee14301934e379bc7dc7fe5f01c1dbe911))
+
 ## [37.23.0](https://github.com/Lundalogik/lime-elements/compare/v37.22.0...v37.23.0) (2024-04-24)
 
 

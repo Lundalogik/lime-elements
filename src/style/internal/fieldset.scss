@@ -1,0 +1,62 @@
+@use './shared_input-select-picker.scss';
+@use '../mixins.scss';
+
+$_thickness-of-the-border: 1px;
+
+fieldset {
+    box-sizing: border-box;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+    border: $_thickness-of-the-border solid;
+    border-radius: 0.25rem;
+
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-block-start: 0;
+    padding-inline-start: 0.75rem;
+    padding-inline-end: 0.75rem;
+    padding-block-end: 0.75rem;
+
+    &:not([disabled]) {
+        border-color: shared_input-select-picker.$lime-text-field-outline-color;
+        background-color: shared_input-select-picker.$background-color-normal;
+
+        &:hover {
+            border-color: shared_input-select-picker.$lime-text-field-outline-color--hovered;
+            background-color: shared_input-select-picker.$background-color-hovered;
+        }
+
+        &:focus-within {
+            border-color: shared_input-select-picker.$lime-text-field-outline-color--focused;
+        }
+    }
+
+    &[disabled] {
+        border-color: transparent;
+    }
+
+    &:has(legend) {
+        // In input fields, the `label`s are optional,
+        // and we use the `legend` to render the `label`.
+        // This ensures that when or if the label appears,
+        // the field doesn't visually move down in the DOM.
+        $_height-of-the-legend: -0.75rem;
+        margin-top: calc(
+            (#{$_height-of-the-legend} / 2) + (#{$_thickness-of-the-border} / 2)
+        );
+    }
+}
+
+legend {
+    box-sizing: border-box;
+    @include mixins.truncate-text;
+    max-width: 100%;
+
+    color: shared_input-select-picker.$label-color;
+    font-size: 0.65rem; // `10.4px` similar to MDC's floating label
+    letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
+
+    padding-inline-start: 0.25rem;
+    padding-inline-end: 0.25rem;
+}

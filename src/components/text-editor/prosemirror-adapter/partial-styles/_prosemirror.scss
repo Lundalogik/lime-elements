@@ -7,11 +7,7 @@
     font-variant-ligatures: none;
     font-feature-settings: 'liga' 0;
 
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-
-    padding: var(--limel-text-editor-padding);
-    background-color: rgb(var(--contrast-100));
+    padding-top: 0.75rem;
 
     [draggable][contenteditable='false'] {
         user-select: text;
