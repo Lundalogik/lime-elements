@@ -1,3 +1,11 @@
+## [37.26.0](https://github.com/Lundalogik/lime-elements/compare/v37.25.0...v37.26.0) (2024-04-26)
+
+
+### Features
+
+
+* **text editor:** Add custom menu using action bar ([18289f1](https://github.com/Lundalogik/lime-elements/commit/18289f1aa9504cf492f1c8d447fdccfa5dd7d4f5))
+
 ## [37.25.0](https://github.com/Lundalogik/lime-elements/compare/v37.24.0...v37.25.0) (2024-04-25)
 
 
