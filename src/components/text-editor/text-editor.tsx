@@ -12,6 +12,8 @@ import { FormComponent } from '../form/form.types';
  * @exampleComponent limel-example-text-editor-basic
  * @exampleComponent limel-example-text-editor-as-form-component
  * @exampleComponent limel-example-text-editor-composite
+ * @exampleComponent limel-example-text-editor-with-markdown
+ * @exampleComponent limel-example-text-editor-with-html
  * @exampleComponent limel-example-text-editor-height
  * @beta
  * @private
