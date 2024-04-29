@@ -3,7 +3,6 @@ export const allowedCssProperties = [
     'color',
     'font-style',
     'font-weight',
-    'height',
     'text-decoration-color',
     'text-decoration-line',
     'text-decoration-skip-ink',
