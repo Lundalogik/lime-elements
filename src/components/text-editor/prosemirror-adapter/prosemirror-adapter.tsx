@@ -57,17 +57,14 @@ export class ProsemirrorAdapter {
     private change: EventEmitter<string>;
 
     public render() {
-        return (
-            <div>
-                <limel-action-bar
-                    accessibleLabel="Toolbar"
-                    actions={this.actionBarItems}
-                    layout="fullWidth"
-                    onItemSelected={this.handleActionBarItem}
-                />
-                <div id="editor" />
-            </div>
-        );
+        return [
+            <limel-action-bar
+                accessibleLabel="Toolbar"
+                actions={this.actionBarItems}
+                onItemSelected={this.handleActionBarItem}
+            />,
+            <div id="editor" />,
+        ];
     }
 
     public componentDidLoad() {
