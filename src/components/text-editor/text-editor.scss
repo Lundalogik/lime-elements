@@ -30,6 +30,7 @@
 
 :host(limel-text-editor[readonly]) {
     --limel-text-editor-outline-color: transparent;
+    min-height: shared_input-select-picker.$height-of-mdc-text-field;
 
     limel-markdown {
         display: block;
