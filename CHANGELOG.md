@@ -1,3 +1,11 @@
+## [37.26.2](https://github.com/Lundalogik/lime-elements/compare/v37.26.1...v37.26.2) (2024-04-30)
+
+
+### Bug Fixes
+
+
+* **markdown:** don't use height as a property to render an image ([fd74bbf](https://github.com/Lundalogik/lime-elements/commit/fd74bbff8eb914109fbc1a8b8f40a06b8b97cbe1))
+
 ## [37.26.1](https://github.com/Lundalogik/lime-elements/compare/v37.26.0...v37.26.1) (2024-04-30)
 
 
