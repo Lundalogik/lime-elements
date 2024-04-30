@@ -57,7 +57,10 @@ export class ProsemirrorAdapter {
     private change: EventEmitter<string>;
 
     public componentDidLoad() {
-        this.initializeEditor();
+        // Stencil complains loudly about triggering rerenders in
+        // componentDidLoad, but we have to, so we're using setTimeout to
+        // suppress the warning. /Ads
+        setTimeout(this.initializeEditor, 0);
     }
 
     public render() {
@@ -71,7 +74,7 @@ export class ProsemirrorAdapter {
         ];
     }
 
-    private initializeEditor() {
+    private initializeEditor = () => {
         this.actionBarItems = textEditorMenuItems;
 
         const mySchema = new Schema({
@@ -105,7 +108,7 @@ export class ProsemirrorAdapter {
         if (this.value) {
             this.view.dom.innerHTML = this.value;
         }
-    }
+    };
 
     private getHTML = (): string => {
         if (this.view.dom.textContent === '') {
