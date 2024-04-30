@@ -56,6 +56,10 @@ export class ProsemirrorAdapter {
     @Event()
     private change: EventEmitter<string>;
 
+    public componentDidLoad() {
+        this.initializeEditor();
+    }
+
     public render() {
         return [
             <limel-action-bar
@@ -67,7 +71,7 @@ export class ProsemirrorAdapter {
         ];
     }
 
-    public componentDidLoad() {
+    private initializeEditor() {
         this.actionBarItems = textEditorMenuItems;
 
         const mySchema = new Schema({
