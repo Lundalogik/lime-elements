@@ -1,3 +1,12 @@
+## [37.26.3](https://github.com/Lundalogik/lime-elements/compare/v37.26.2...v37.26.3) (2024-04-30)
+
+
+### Bug Fixes
+
+
+* **text-editor:** correctly layout the action bar ([86bd41a](https://github.com/Lundalogik/lime-elements/commit/86bd41ab9cef30d7eed2d75fe3dbcd4334022312))
+* **text-editor:** make the editor fills in its container's ([271bca7](https://github.com/Lundalogik/lime-elements/commit/271bca7c2c7b43a3813330223ce48cd1f709b8ae))
+
 ## [37.26.2](https://github.com/Lundalogik/lime-elements/compare/v37.26.1...v37.26.2) (2024-04-30)
 
 
