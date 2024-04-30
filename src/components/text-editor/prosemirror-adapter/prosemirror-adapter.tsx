@@ -75,11 +75,13 @@ export class ProsemirrorAdapter {
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter();
         }
+    }
 
+    public componentDidLoad() {
         // Stencil complains loudly about triggering rerenders in
         // componentDidLoad, but we have to, so we're using setTimeout to
         // suppress the warning. /Ads
-        setTimeout(this.initializeEditor, 0);
+        setTimeout(this.initializeTextEditor, 0);
     }
 
     public render() {
@@ -93,7 +95,7 @@ export class ProsemirrorAdapter {
         ];
     }
 
-    private initializeEditor = () => {
+    private async initializeTextEditor() {
         this.actionBarItems = textEditorMenuItems;
 
         const mySchema = new Schema({
@@ -101,13 +103,23 @@ export class ProsemirrorAdapter {
             marks: schema.spec.marks,
         });
 
+        // Parse initial content directly if 'value' is provided
+        const initialContentElement = document.createElement('div');
+        initialContentElement.innerHTML = '<p></p>';
+        if (this.value) {
+            initialContentElement.innerHTML =
+                await this.contentConverter.parseAsHTML(this.value, schema);
+        }
+
+        const initialDoc = DOMParser.fromSchema(mySchema).parse(
+            initialContentElement,
+        );
+
         this.view = new EditorView(
             this.host.shadowRoot.querySelector('#editor'),
             {
                 state: EditorState.create({
-                    doc: DOMParser.fromSchema(mySchema).parse(
-                        this.host.shadowRoot.querySelector('#editor'),
-                    ),
+                    doc: initialDoc,
                     plugins: exampleSetup({
                         schema: mySchema,
                         menuBar: false,
@@ -125,21 +137,6 @@ export class ProsemirrorAdapter {
         );
 
         this.menuCommandFactory = new MenuCommandFactory(mySchema);
-
-        if (!this.value) {
-            return;
-        }
-
-        this.setContent();
-    };
-
-    async setContent() {
-        const html = await this.contentConverter.parseAsHTML(
-            this.value,
-            schema,
-        );
-
-        this.view.dom.innerHTML = html;
     }
 
     private handleActionBarItem = (event: CustomEvent<ActionBarItem>) => {
