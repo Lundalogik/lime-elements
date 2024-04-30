@@ -1,3 +1,11 @@
+## [37.26.1](https://github.com/Lundalogik/lime-elements/compare/v37.26.0...v37.26.1) (2024-04-30)
+
+
+### Bug Fixes
+
+
+* **text-editor:** render an empty value for `readonly` ([099707e](https://github.com/Lundalogik/lime-elements/commit/099707e1197730176b1a9e9d2cbfb918d29e19e8))
+
 ## [37.26.0](https://github.com/Lundalogik/lime-elements/compare/v37.25.0...v37.26.0) (2024-04-26)
 
 
