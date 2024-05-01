@@ -5,6 +5,7 @@ import {
     EventEmitter,
     Prop,
     State,
+    Watch,
     h,
 } from '@stencil/core';
 import { EditorState } from 'prosemirror-state';
@@ -66,6 +67,18 @@ export class ProsemirrorAdapter {
      */
     @Event()
     private change: EventEmitter<string>;
+
+    @Watch('value')
+    protected watchValue(newValue: string) {
+        if (
+            !this.view ||
+            newValue === this.contentConverter.serialize(this.view, schema)
+        ) {
+            return;
+        }
+
+        this.updateView(newValue);
+    }
 
     private contentConverter: ContentTypeConverter;
 
@@ -137,6 +150,32 @@ export class ProsemirrorAdapter {
         );
 
         this.menuCommandFactory = new MenuCommandFactory(mySchema);
+
+        if (this.value) {
+            this.view.dom.innerHTML = this.value;
+        }
+    };
+
+    private async updateView(content: string) {
+        const html = await this.contentConverter.parseAsHTML(content, schema);
+        const prosemirrorDOMparser = DOMParser.fromSchema(
+            this.view.state.schema,
+        );
+        const domParser = new window.DOMParser();
+        const doc = domParser.parseFromString(html, 'text/html');
+        const prosemirrorDoc = prosemirrorDOMparser.parse(doc.body);
+        const tr = this.view.state.tr;
+        tr.replaceWith(0, tr.doc.content.size, prosemirrorDoc.content);
+
+        this.view.dispatch(tr);
+    }
+
+    private getHTML = (): string => {
+        if (this.view.dom.textContent === '') {
+            return '';
+        } else {
+            return this.view.dom.innerHTML;
+        }
     };
 
     private handleActionBarItem = (event: CustomEvent<ActionBarItem>) => {
