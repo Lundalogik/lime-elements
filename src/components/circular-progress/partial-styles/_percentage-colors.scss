@@ -1,42 +1,16 @@
-.displays-percentage-colors {
-    &[style^='--percentage:1'] {
-        --circular-progress-fill-color: var(--color-percent--10to20);
+@for $i from 0 through 100 {
+    .displays-percentage-colors {
+        &[style*='--percentage: #{$i}%'] {
+            $range: floor($i / 10) * 10;
+            --circular-progress-fill-color: var(
+                --color-percent--#{$range}to#{($range + 10)}
+            );
+        }
     }
-    &[style^='--percentage:2'] {
-        --circular-progress-fill-color: var(--color-percent--20to30);
-    }
-    &[style^='--percentage:3'] {
-        --circular-progress-fill-color: var(--color-percent--30to40);
-    }
-    &[style^='--percentage:4'] {
-        --circular-progress-fill-color: var(--color-percent--40to50);
-    }
-    &[style^='--percentage:5'] {
-        --circular-progress-fill-color: var(--color-percent--50to60);
-    }
-    &[style^='--percentage:6'] {
-        --circular-progress-fill-color: var(--color-percent--60to70);
-    }
-    &[style^='--percentage:7'] {
-        --circular-progress-fill-color: var(--color-percent--70to80);
-    }
-    &[style^='--percentage:8'] {
-        --circular-progress-fill-color: var(--color-percent--80to90);
-    }
-    &[style^='--percentage:9'],
-    &[style='--percentage:100%;'] {
-        --circular-progress-fill-color: var(--color-percent--90to100);
-    }
+}
 
-    &[style='--percentage:1%;'],
-    &[style='--percentage:2%;'],
-    &[style='--percentage:3%;'],
-    &[style='--percentage:4%;'],
-    &[style='--percentage:5%;'],
-    &[style='--percentage:6%;'],
-    &[style='--percentage:7%;'],
-    &[style='--percentage:8%;'],
-    &[style='--percentage:9%;'] {
-        --circular-progress-fill-color: var(--color-percent--0to10);
+.displays-percentage-colors {
+    &[style='--percentage: 100%;'] {
+        --circular-progress-fill-color: var(--color-percent--100);
     }
 }
