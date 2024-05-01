@@ -152,7 +152,7 @@ export class ProsemirrorAdapter {
         this.menuCommandFactory = new MenuCommandFactory(mySchema);
 
         if (this.value) {
-            this.view.dom.innerHTML = this.value;
+            this.updateView(this.value);
         }
     };
 
@@ -169,14 +169,6 @@ export class ProsemirrorAdapter {
 
         this.view.dispatch(tr);
     }
-
-    private getHTML = (): string => {
-        if (this.view.dom.textContent === '') {
-            return '';
-        } else {
-            return this.view.dom.innerHTML;
-        }
-    };
 
     private handleActionBarItem = (event: CustomEvent<ActionBarItem>) => {
         event.preventDefault();
