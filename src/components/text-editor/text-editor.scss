@@ -1,8 +1,10 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../../src/style/mixins.scss';
 
-@include shared_input-select-picker.lime-empty-value-for-readonly;
 @include shared_input-select-picker.lime-looks-like-input-value;
+.lime-looks-like-input-value {
+    padding: var(--limel-text-editor-padding);
+}
 
 * {
     box-sizing: border-box;
@@ -34,7 +36,6 @@
 :host(limel-text-editor[readonly]) {
     --limel-text-editor-placeholder-top: 0;
     --limel-text-editor-outline-color: transparent;
-    min-height: shared_input-select-picker.$height-of-mdc-text-field;
 
     limel-markdown {
         display: block;
