@@ -1,3 +1,11 @@
+## [37.31.1](https://github.com/Lundalogik/lime-elements/compare/v37.31.0...v37.31.1) (2024-05-02)
+
+
+### Bug Fixes
+
+
+* **text-editor:** improve accessibility of `label` ([23700af](https://github.com/Lundalogik/lime-elements/commit/23700af72c16f0a61d602e56714f64b7409fd337))
+
 ## [37.31.0](https://github.com/Lundalogik/lime-elements/compare/v37.30.0...v37.31.0) (2024-05-02)
 
 
