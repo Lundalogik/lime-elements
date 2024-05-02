@@ -16,10 +16,14 @@ export class TextEditorCompositeExample {
     @State()
     private label: string;
 
+    @State()
+    private helperText: string;
+
     public render() {
         return [
             <limel-text-editor
                 label={this.label}
+                helperText={this.helperText}
                 value={this.value}
                 onChange={this.handleChange}
                 readonly={this.readonly}
@@ -31,9 +35,14 @@ export class TextEditorCompositeExample {
                     onChange={this.setReadonly}
                 />
                 <limel-input-field
-                    label="Label"
+                    label="label"
                     value={this.label}
                     onChange={this.handleLabelChange}
+                />
+                <limel-input-field
+                    label="helperText"
+                    value={this.helperText}
+                    onChange={this.handleHelperTextChange}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,
@@ -48,6 +57,11 @@ export class TextEditorCompositeExample {
     private handleLabelChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.label = event.detail;
+    };
+
+    private handleHelperTextChange = (event: CustomEvent<string>) => {
+        event.stopPropagation();
+        this.helperText = event.detail;
     };
 
     private handleChange = (event: CustomEvent<string>) => {

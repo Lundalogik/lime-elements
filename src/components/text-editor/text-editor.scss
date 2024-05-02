@@ -41,9 +41,14 @@
 .notched-outline {
     position: absolute;
     inset: 0;
+    bottom: var(--limel-text-editor-notched-outline-bottom, 0);
 
     display: flex;
     background-color: var(--limel-text-editor-background-color);
+
+    :host(limel-text-editor.has-helper-text) & {
+        --limel-text-editor-notched-outline-bottom: 1rem;
+    }
 }
 
 .leading-outline,

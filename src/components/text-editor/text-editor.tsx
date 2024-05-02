@@ -1,5 +1,6 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
+import { createRandomString } from 'src/util/random-string';
 /**
  * A rich text editor that offers a rich text editing experience with markdown support,
  * in the sense that you can easily type markdown syntax and see the rendered
@@ -90,15 +91,27 @@ export class TextEditor implements FormComponent<string> {
     @Event()
     public change: EventEmitter<string>;
 
+    private helperTextId: string;
+
+    public constructor() {
+        this.helperTextId = createRandomString();
+    }
+
     public render() {
-        return [
-            <span class="notched-outline">
-                <span class="leading-outline" />
-                {this.renderLabel()}
-                <span class="trailing-outline" />
-            </span>,
-            this.renderEditor(),
-        ];
+        return (
+            <Host
+                class={{
+                    'has-helper-text': !!this.helperText,
+                }}
+            >
+                <span class="notched-outline">
+                    <span class="leading-outline" />
+                    {this.renderLabel()}
+                    <span class="trailing-outline" />
+                </span>
+                {this.renderEditor()}
+            </Host>
+        );
     }
 
     private renderEditor() {
@@ -111,16 +124,24 @@ export class TextEditor implements FormComponent<string> {
         }
 
         if (this.readonly) {
-            return <limel-markdown value={this.value} />;
+            return [
+                <limel-markdown
+                    value={this.value}
+                    aria-controls={this.helperTextId}
+                />,
+                this.renderHelperLine(),
+            ];
         }
 
-        return (
+        return [
             <limel-prosemirror-adapter
                 contentType={this.contentType}
                 onChange={this.handleChange}
                 value={this.value}
-            />
-        );
+                aria-controls={this.helperTextId}
+            />,
+            this.renderHelperLine(),
+        ];
     }
 
     private renderLabel() {
@@ -134,6 +155,19 @@ export class TextEditor implements FormComponent<string> {
             </span>
         );
     }
+
+    private renderHelperLine = () => {
+        if (!this.helperText) {
+            return;
+        }
+
+        return (
+            <limel-helper-line
+                helperText={this.helperText}
+                helperTextId={this.helperTextId}
+            />
+        );
+    };
 
     private handleChange = () => (event: CustomEvent<string>) => {
         event.stopPropagation();
