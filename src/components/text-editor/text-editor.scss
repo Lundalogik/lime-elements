@@ -11,6 +11,9 @@
 }
 
 :host(limel-text-editor) {
+    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color};
+    --limel-text-editor-background-color: #{shared_input-select-picker.$background-color-normal};
+    --limel-text-editor-label-color: #{shared_input-select-picker.$label-color};
     --limel-text-editor-padding: 0.75rem 1rem;
     position: relative;
     isolation: isolate;
@@ -22,12 +25,6 @@
     min-height: 5rem;
     height: 100%;
     max-height: 100%;
-}
-
-:host(limel-text-editor:not([readonly])) {
-    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color};
-    --limel-text-editor-background-color: #{shared_input-select-picker.$background-color-normal};
-    --limel-text-editor-label-color: #{shared_input-select-picker.$label-color};
 }
 
 :host(limel-text-editor:hover) {
