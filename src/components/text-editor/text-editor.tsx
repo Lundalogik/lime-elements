@@ -40,7 +40,7 @@ export class TextEditor implements FormComponent<string> {
      * requirements are met, the field may become enabled again.
      */
     @Prop({ reflect: true })
-    public disabled?: boolean;
+    public disabled?: boolean = false;
 
     /**
      * Set to `true` to make the component read-only.
@@ -164,6 +164,8 @@ export class TextEditor implements FormComponent<string> {
                 value={this.value}
                 aria-controls={this.helperTextId}
                 id={this.editorId}
+                tabindex={this.disabled ? -1 : 0}
+                aria-disabled={this.disabled}
             />,
             this.renderPlaceholder(),
             this.renderHelperLine(),
