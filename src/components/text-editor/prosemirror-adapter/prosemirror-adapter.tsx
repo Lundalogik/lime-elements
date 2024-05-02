@@ -95,7 +95,7 @@ export class ProsemirrorAdapter {
         ];
     }
 
-    private async initializeTextEditor() {
+    initializeTextEditor = async () => {
         this.actionBarItems = textEditorMenuItems;
 
         const mySchema = new Schema({
@@ -137,7 +137,7 @@ export class ProsemirrorAdapter {
         );
 
         this.menuCommandFactory = new MenuCommandFactory(mySchema);
-    }
+    };
 
     private handleActionBarItem = (event: CustomEvent<ActionBarItem>) => {
         event.preventDefault();
