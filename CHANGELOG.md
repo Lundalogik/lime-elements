@@ -1,3 +1,20 @@
+## [37.26.5](https://github.com/Lundalogik/lime-elements/compare/v37.26.4...v37.26.5) (2024-05-02)
+
+
+### Bug Fixes
+
+
+* **percentage-colors:** properly display percentage colors ([63146d6](https://github.com/Lundalogik/lime-elements/commit/63146d651c950459d66758d1e6bc9f2d50071e1a))
+
+## [37.26.4](https://github.com/Lundalogik/lime-elements/compare/v37.26.3...v37.26.4) (2024-05-02)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure editor resizes with its container ([83a6146](https://github.com/Lundalogik/lime-elements/commit/83a614663a577da07ba6dbd6e5bd3b60c402ec2e))
+* **text-editor:** make sure empty & readonly has a min height similar to input field ([5b9d75a](https://github.com/Lundalogik/lime-elements/commit/5b9d75a25f389cb4d7459c7d3dc1dce2f31e8200))
+
 ## [37.26.3](https://github.com/Lundalogik/lime-elements/compare/v37.26.2...v37.26.3) (2024-04-30)
 
 
