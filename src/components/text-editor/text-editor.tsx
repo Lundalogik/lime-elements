@@ -51,7 +51,7 @@ export class TextEditor implements FormComponent<string> {
      * :::
      */
     @Prop({ reflect: true })
-    public readonly?: boolean;
+    public readonly?: boolean = false;
 
     /**
      * Optional helper text to display below the input field when it has focus
