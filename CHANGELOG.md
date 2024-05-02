@@ -1,3 +1,17 @@
+## [37.28.0](https://github.com/Lundalogik/lime-elements/compare/v37.27.0...v37.28.0) (2024-05-02)
+
+
+### Features
+
+
+* **text-editor:** add contentType prop ([8b81027](https://github.com/Lundalogik/lime-elements/commit/8b8102727f7177d330bbab82c3e9152fc56cb7a4))
+* **text-editor:** pass and emit value as markdown ([b780391](https://github.com/Lundalogik/lime-elements/commit/b780391dc0b7656f3e2649e24aa6c0d281a9c37d))
+
+### Bug Fixes
+
+
+* **text-editor:** don't do updates to innerHTML ([e91bee7](https://github.com/Lundalogik/lime-elements/commit/e91bee7fc6b257322dafb46f8f7a486998f55b95))
+
 ## [37.27.0](https://github.com/Lundalogik/lime-elements/compare/v37.26.5...v37.27.0) (2024-05-02)
 
 
