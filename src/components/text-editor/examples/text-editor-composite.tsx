@@ -14,6 +14,9 @@ export class TextEditorCompositeExample {
     private readonly = false;
 
     @State()
+    private invalid = false;
+
+    @State()
     private label: string;
 
     @State()
@@ -27,12 +30,18 @@ export class TextEditorCompositeExample {
                 value={this.value}
                 onChange={this.handleChange}
                 readonly={this.readonly}
+                invalid={this.invalid}
             />,
             <limel-example-controls>
                 <limel-checkbox
                     checked={this.readonly}
                     label="Readonly"
                     onChange={this.setReadonly}
+                />
+                <limel-checkbox
+                    checked={this.invalid}
+                    label="Invalid"
+                    onChange={this.setInvalid}
                 />
                 <limel-input-field
                     label="label"
@@ -52,6 +61,11 @@ export class TextEditorCompositeExample {
     private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
+    };
+
+    private setInvalid = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.invalid = event.detail;
     };
 
     private handleLabelChange = (event: CustomEvent<string>) => {
