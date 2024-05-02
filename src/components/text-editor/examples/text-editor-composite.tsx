@@ -20,6 +20,9 @@ export class TextEditorCompositeExample {
     private label: string;
 
     @State()
+    private placeholder: string;
+
+    @State()
     private helperText: string;
 
     public render() {
@@ -31,6 +34,7 @@ export class TextEditorCompositeExample {
                 onChange={this.handleChange}
                 readonly={this.readonly}
                 invalid={this.invalid}
+                placeholder={this.placeholder}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -52,6 +56,11 @@ export class TextEditorCompositeExample {
                     label="helperText"
                     value={this.helperText}
                     onChange={this.handleHelperTextChange}
+                />
+                <limel-input-field
+                    label="placeholder"
+                    value={this.placeholder}
+                    onChange={this.handlePlaceholderChange}
                 />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,
@@ -76,6 +85,11 @@ export class TextEditorCompositeExample {
     private handleHelperTextChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.helperText = event.detail;
+    };
+
+    private handlePlaceholderChange = (event: CustomEvent<string>) => {
+        event.stopPropagation();
+        this.placeholder = event.detail;
     };
 
     private handleChange = (event: CustomEvent<string>) => {

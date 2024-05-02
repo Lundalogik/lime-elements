@@ -32,6 +32,7 @@
 }
 
 :host(limel-text-editor[readonly]) {
+    --limel-text-editor-placeholder-top: 0;
     --limel-text-editor-outline-color: transparent;
     min-height: shared_input-select-picker.$height-of-mdc-text-field;
 
@@ -100,6 +101,20 @@ label {
     color: var(--limel-text-editor-label-color);
     font-size: 0.65rem; // `10.4px` similar to MDC's floating label
     letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
+}
+
+.placeholder {
+    @include mixins.truncate-text;
+    pointer-events: none;
+    position: absolute;
+    top: var(--limel-text-editor-placeholder-top, 2.25rem);
+    left: 0;
+    right: 0;
+
+    padding: var(--limel-text-editor-padding);
+    font-style: italic;
+    font-size: 0.875rem;
+    color: shared_input-select-picker.$input-placeholder-color;
 }
 
 limel-prosemirror-adapter {
