@@ -92,9 +92,11 @@ export class TextEditor implements FormComponent<string> {
     public change: EventEmitter<string>;
 
     private helperTextId: string;
+    private editorId: string;
 
     public constructor() {
         this.helperTextId = createRandomString();
+        this.editorId = createRandomString();
     }
 
     public render() {
@@ -127,6 +129,7 @@ export class TextEditor implements FormComponent<string> {
                 <limel-markdown
                     value={this.value}
                     aria-controls={this.helperTextId}
+                    id={this.editorId}
                 />,
                 this.renderPlaceholder(),
                 this.renderHelperLine(),
@@ -140,6 +143,7 @@ export class TextEditor implements FormComponent<string> {
                 onChange={this.handleChange}
                 value={this.value}
                 aria-controls={this.helperTextId}
+                id={this.editorId}
             />,
             this.renderPlaceholder(),
             this.renderHelperLine(),
@@ -153,7 +157,7 @@ export class TextEditor implements FormComponent<string> {
 
         return (
             <span class="notch">
-                <label>{this.label}</label>
+                <label htmlFor={this.editorId}>{this.label}</label>
             </span>
         );
     }
