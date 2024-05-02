@@ -1,3 +1,11 @@
+## [37.27.0](https://github.com/Lundalogik/lime-elements/compare/v37.26.5...v37.27.0) (2024-05-02)
+
+
+### Features
+
+
+* **text editor:** add new icons and mod/option key display depending on user system ([4cc1c3e](https://github.com/Lundalogik/lime-elements/commit/4cc1c3e1e2dd333959e71c14fa41dd056f938895))
+
 ## [37.26.5](https://github.com/Lundalogik/lime-elements/compare/v37.26.4...v37.26.5) (2024-05-02)
 
 
