@@ -1,3 +1,11 @@
+## [37.28.1](https://github.com/Lundalogik/lime-elements/compare/v37.28.0...v37.28.1) (2024-05-02)
+
+
+### Bug Fixes
+
+
+* **text-editor:** fix broken menu ([968ad40](https://github.com/Lundalogik/lime-elements/commit/968ad4076ea42f877e0dc735a3ee253fe945d01e))
+
 ## [37.28.0](https://github.com/Lundalogik/lime-elements/compare/v37.27.0...v37.28.0) (2024-05-02)
 
 
