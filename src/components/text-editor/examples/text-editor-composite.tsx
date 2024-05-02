@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, State, Watch } from '@stencil/core';
 /**
  * Composite example
  */
@@ -17,6 +17,9 @@ export class TextEditorCompositeExample {
     private invalid = false;
 
     @State()
+    private required = false;
+
+    @State()
     private label: string;
 
     @State()
@@ -33,6 +36,7 @@ export class TextEditorCompositeExample {
                 value={this.value}
                 onChange={this.handleChange}
                 readonly={this.readonly}
+                required={this.required}
                 invalid={this.invalid}
                 placeholder={this.placeholder}
             />,
@@ -46,6 +50,16 @@ export class TextEditorCompositeExample {
                     checked={this.invalid}
                     label="Invalid"
                     onChange={this.setInvalid}
+                />
+                <limel-checkbox
+                    checked={this.required}
+                    label="Required"
+                    onChange={this.setRequired}
+                />
+                <hr
+                    style={{
+                        'grid-column': '1/-1',
+                    }}
                 />
                 <limel-input-field
                     label="label"
@@ -67,9 +81,20 @@ export class TextEditorCompositeExample {
         ];
     }
 
+    @Watch('required')
+    @Watch('value')
+    protected checkValidity() {
+        this.invalid = this.required && !this.value;
+    }
+
     private setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
+    };
+
+    private setRequired = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.required = event.detail;
     };
 
     private setInvalid = (event: CustomEvent<boolean>) => {
