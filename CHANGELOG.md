@@ -1,3 +1,16 @@
+## [37.31.0](https://github.com/Lundalogik/lime-elements/compare/v37.30.0...v37.31.0) (2024-05-02)
+
+
+### Features
+
+
+* **text-editor:** enable `placeholder` prop ([71cfc0a](https://github.com/Lundalogik/lime-elements/commit/71cfc0a884e4166b030232bc48ff5d25054a3148))
+
+### Bug Fixes
+
+
+* **text-editor:** ensure helper text is rendered when no `value` & `readonly` ([a7aa240](https://github.com/Lundalogik/lime-elements/commit/a7aa240761cf1d2d839383eadd86af01abd71906))
+
 ## [37.30.0](https://github.com/Lundalogik/lime-elements/compare/v37.29.0...v37.30.0) (2024-05-02)
 
 
