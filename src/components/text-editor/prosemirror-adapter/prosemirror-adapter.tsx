@@ -95,7 +95,7 @@ export class ProsemirrorAdapter {
         ];
     }
 
-    initializeTextEditor = async () => {
+    private initializeTextEditor = async () => {
         this.actionBarItems = textEditorMenuItems;
 
         const mySchema = new Schema({
