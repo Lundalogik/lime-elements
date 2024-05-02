@@ -129,17 +129,20 @@ export class TextEditor implements FormComponent<string> {
                     value={this.value}
                     aria-controls={this.helperTextId}
                 />,
+                this.renderPlaceholder(),
                 this.renderHelperLine(),
             ];
         }
 
         return [
             <limel-prosemirror-adapter
+                aria-placeholder={this.placeholder}
                 contentType={this.contentType}
                 onChange={this.handleChange}
                 value={this.value}
                 aria-controls={this.helperTextId}
             />,
+            this.renderPlaceholder(),
             this.renderHelperLine(),
         ];
     }
@@ -152,6 +155,18 @@ export class TextEditor implements FormComponent<string> {
         return (
             <span class="notch">
                 <label>{this.label}</label>
+            </span>
+        );
+    }
+
+    private renderPlaceholder() {
+        if (!this.placeholder || this.value) {
+            return;
+        }
+
+        return (
+            <span class="placeholder" aria-hidden="true">
+                {this.placeholder}
             </span>
         );
     }
