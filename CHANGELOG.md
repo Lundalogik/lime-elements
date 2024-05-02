@@ -1,3 +1,16 @@
+## [37.29.0](https://github.com/Lundalogik/lime-elements/compare/v37.28.1...v37.29.0) (2024-05-02)
+
+
+### Features
+
+
+* **text-editor:** enable `helperText` prop ([ded2ba4](https://github.com/Lundalogik/lime-elements/commit/ded2ba40eec78baf804c6dcec4dc1a40f8466253))
+
+### Bug Fixes
+
+
+* **text-editor:** better align the content with the `label` & `helperText` ([3317bf0](https://github.com/Lundalogik/lime-elements/commit/3317bf006a558e062f90a83e193640e996f9a60a))
+
 ## [37.28.1](https://github.com/Lundalogik/lime-elements/compare/v37.28.0...v37.28.1) (2024-05-02)
 
 
