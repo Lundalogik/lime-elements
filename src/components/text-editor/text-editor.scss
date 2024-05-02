@@ -103,6 +103,12 @@ label {
     color: var(--limel-text-editor-label-color);
     font-size: 0.65rem; // `10.4px` similar to MDC's floating label
     letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
+
+    :host(limel-text-editor[required]) & {
+        &::after {
+            content: '*';
+        }
+    }
 }
 
 .placeholder {

@@ -86,6 +86,18 @@ export class TextEditor implements FormComponent<string> {
     public value: string;
 
     /**
+     * Set to `true` to indicate that the field is required.
+     *
+     * :::important
+     * An empty but required field is not automatically considered invalid.
+     * You must make sure to check the validity of the field on your own,
+     * and properly handle the `invalid` state.
+     * :::
+     */
+    @Prop({ reflect: true })
+    public required?: boolean = false;
+
+    /**
      * Dispatched when a change is made to the editor
      */
     @Event()

@@ -652,6 +652,7 @@ export namespace Components {
         "label"?: string;
         "placeholder"?: string;
         "readonly"?: boolean;
+        "required"?: boolean;
         "value": string;
     }
     export interface LimelTooltip {
@@ -1591,6 +1592,7 @@ namespace JSX_2 {
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
+        "required"?: boolean;
         "value"?: string;
     }
     interface LimelTooltip {
