@@ -1,3 +1,11 @@
+## [37.30.0](https://github.com/Lundalogik/lime-elements/compare/v37.29.0...v37.30.0) (2024-05-02)
+
+
+### Features
+
+
+* **text-editor:** enable `invalid` prop ([162c881](https://github.com/Lundalogik/lime-elements/commit/162c881000510f2b56b84c7cd21219d7998057d6))
+
 ## [37.29.0](https://github.com/Lundalogik/lime-elements/compare/v37.28.1...v37.29.0) (2024-05-02)
 
 
