@@ -35,6 +35,14 @@
     --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
 }
 
+:host(limel-text-editor[disabled]:not([disabled='false'])) {
+    @include shared_input-select-picker.looks-disabled;
+
+    limel-prosemirror-adapter {
+        pointer-events: none;
+    }
+}
+
 :host(limel-text-editor[invalid]:not([invalid='false'])) {
     --limel-text-editor-outline-color: var(--lime-error-text-color);
 }
