@@ -1,3 +1,12 @@
+## [37.26.4](https://github.com/Lundalogik/lime-elements/compare/v37.26.3...v37.26.4) (2024-05-02)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure editor resizes with its container ([83a6146](https://github.com/Lundalogik/lime-elements/commit/83a614663a577da07ba6dbd6e5bd3b60c402ec2e))
+* **text-editor:** make sure empty & readonly has a min height similar to input field ([5b9d75a](https://github.com/Lundalogik/lime-elements/commit/5b9d75a25f389cb4d7459c7d3dc1dce2f31e8200))
+
 ## [37.26.3](https://github.com/Lundalogik/lime-elements/compare/v37.26.2...v37.26.3) (2024-04-30)
 
 
