@@ -9,7 +9,7 @@
 }
 
 :host(limel-text-editor) {
-    --limel-text-editor-padding: 0.75rem;
+    --limel-text-editor-padding: 0.75rem 1rem;
     position: relative;
     isolation: isolate;
     display: flex;
