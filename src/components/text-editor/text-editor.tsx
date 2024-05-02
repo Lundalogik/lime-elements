@@ -77,7 +77,7 @@ export class TextEditor implements FormComponent<string> {
      * invalid.
      */
     @Prop({ reflect: true })
-    public invalid?: boolean;
+    public invalid?: boolean = false;
 
     /**
      * Description of the text inside the editor as markdown
@@ -165,8 +165,20 @@ export class TextEditor implements FormComponent<string> {
             <limel-helper-line
                 helperText={this.helperText}
                 helperTextId={this.helperTextId}
+                invalid={this.isInvalid()}
             />
         );
+    };
+
+    private isInvalid = () => {
+        if (this.readonly) {
+            // A readonly field can never be invalid.
+            return false;
+        }
+
+        if (this.invalid) {
+            return true;
+        }
     };
 
     private handleChange = () => (event: CustomEvent<string>) => {

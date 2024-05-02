@@ -27,6 +27,9 @@
     --limel-text-editor-background-color: #{shared_input-select-picker.$background-color-normal};
     --limel-text-editor-label-color: #{shared_input-select-picker.$label-color};
 }
+:host(limel-text-editor[invalid]) {
+    --limel-text-editor-outline-color: var(--lime-error-text-color);
+}
 
 :host(limel-text-editor[readonly]) {
     --limel-text-editor-outline-color: transparent;
