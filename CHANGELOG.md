@@ -1,3 +1,11 @@
+## [37.32.4](https://github.com/Lundalogik/lime-elements/compare/v37.32.3...v37.32.4) (2024-05-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure tabbing into the editor will focus on input area first ([ceb33ef](https://github.com/Lundalogik/lime-elements/commit/ceb33ef1689890e5fe104fa767416f5e8446d49b))
+
 ## [37.32.3](https://github.com/Lundalogik/lime-elements/compare/v37.32.2...v37.32.3) (2024-05-03)
 
 
