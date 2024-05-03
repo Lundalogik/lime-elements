@@ -53,6 +53,9 @@
 }
 
 .notched-outline {
+    transition: bottom
+        var(--limel-h-l-grid-template-rows-transition-speed, 0.46s)
+        cubic-bezier(1, 0.09, 0, 0.89);
     pointer-events: none;
     position: absolute;
     inset: 0;
@@ -60,10 +63,6 @@
 
     display: flex;
     background-color: var(--limel-text-editor-background-color);
-
-    :host(limel-text-editor.has-helper-text) & {
-        --limel-text-editor-notched-outline-bottom: 1rem;
-    }
 }
 
 .leading-outline,
@@ -142,4 +141,12 @@ limel-prosemirror-adapter {
     min-height: 0;
     height: 100%;
     overflow: hidden auto;
+}
+
+@include mixins.hide-helper-line-when-not-needed(limel-text-editor);
+:host(limel-text-editor.has-helper-text:focus-within),
+:host(limel-text-editor.has-helper-text[invalid]) {
+    .notched-outline {
+        --limel-text-editor-notched-outline-bottom: 1rem;
+    }
 }
