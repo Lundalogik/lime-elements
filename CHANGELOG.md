@@ -1,3 +1,11 @@
+## [37.32.3](https://github.com/Lundalogik/lime-elements/compare/v37.32.2...v37.32.3) (2024-05-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** hide the helper line when not needed ([b51474b](https://github.com/Lundalogik/lime-elements/commit/b51474bfdac5194090b886e93a568e719fcc3632))
+
 ## [37.32.2](https://github.com/Lundalogik/lime-elements/compare/v37.32.1...v37.32.2) (2024-05-03)
 
 
