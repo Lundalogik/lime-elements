@@ -86,12 +86,12 @@ export class ProsemirrorAdapter {
 
     public render() {
         return [
+            <div id="editor" />,
             <limel-action-bar
                 accessibleLabel="Toolbar"
                 actions={this.actionBarItems}
                 onItemSelected={this.handleActionBarItem}
             />,
-            <div id="editor" />,
         ];
     }
 
