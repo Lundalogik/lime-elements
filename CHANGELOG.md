@@ -1,3 +1,11 @@
+## [37.32.0](https://github.com/Lundalogik/lime-elements/compare/v37.31.2...v37.32.0) (2024-05-03)
+
+
+### Features
+
+
+* **text-editor:** add `required` prop ([73cad43](https://github.com/Lundalogik/lime-elements/commit/73cad4393c4e84272c8d331a3a1818b10269f5de))
+
 ## [37.31.2](https://github.com/Lundalogik/lime-elements/compare/v37.31.1...v37.31.2) (2024-05-03)
 
 
