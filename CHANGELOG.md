@@ -1,3 +1,11 @@
+## [37.32.1](https://github.com/Lundalogik/lime-elements/compare/v37.32.0...v37.32.1) (2024-05-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** make `action bar` less visible if editor is not focused ([29f4943](https://github.com/Lundalogik/lime-elements/commit/29f494361bdb2180b11fe94388eeed616f7cf243))
+
 ## [37.32.0](https://github.com/Lundalogik/lime-elements/compare/v37.31.2...v37.32.0) (2024-05-03)
 
 
