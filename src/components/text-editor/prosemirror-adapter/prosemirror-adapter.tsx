@@ -137,7 +137,17 @@ export class ProsemirrorAdapter {
         );
 
         this.menuCommandFactory = new MenuCommandFactory(mySchema);
+
+        if (this.value) {
+            this.view.dom.innerHTML = this.value;
+        }
+
+        this.host.shadowRoot.addEventListener('click', this.setFocusHandler);
     };
+
+    disconnectedCallback() {
+        this.host.shadowRoot.removeEventListener('click', this.setFocusHandler);
+    }
 
     private handleActionBarItem = (event: CustomEvent<ActionBarItem>) => {
         event.preventDefault();
@@ -167,6 +177,16 @@ export class ProsemirrorAdapter {
         });
         this.view.dispatch(transaction);
 
-        this.view.focus();
+        this.setFocus();
+    }
+
+    private setFocusHandler = () => {
+        this.setFocus();
+    };
+
+    public setFocus() {
+        if (this.view) {
+            this.view.focus();
+        }
     }
 }
