@@ -1,3 +1,11 @@
+## [37.31.2](https://github.com/Lundalogik/lime-elements/compare/v37.31.1...v37.31.2) (2024-05-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** prevent the label from blocking clicks on the content ([0e92cf2](https://github.com/Lundalogik/lime-elements/commit/0e92cf25eb981c926cad853c9becda92783d77e8))
+
 ## [37.31.1](https://github.com/Lundalogik/lime-elements/compare/v37.31.0...v37.31.1) (2024-05-02)
 
 
