@@ -1,5 +1,5 @@
 @use '../../style/internal/shared_input-select-picker';
-@use '../../../src/style/mixins.scss';
+@use '../../style/mixins.scss';
 
 @include shared_input-select-picker.lime-looks-like-input-value;
 .lime-looks-like-input-value {
