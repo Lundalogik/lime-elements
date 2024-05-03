@@ -29,6 +29,15 @@
     --limel-text-editor-background-color: #{shared_input-select-picker.$background-color-normal};
     --limel-text-editor-label-color: #{shared_input-select-picker.$label-color};
 }
+
+:host(limel-text-editor:hover) {
+    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
+}
+
+:host(limel-text-editor:focus-within) {
+    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
+}
+
 :host(limel-text-editor[invalid]) {
     --limel-text-editor-outline-color: var(--lime-error-text-color);
 }
@@ -60,6 +69,7 @@
 .leading-outline,
 .notch,
 .trailing-outline {
+    transition: border-color 0.2s ease;
     border-width: 1px;
     border-style: solid;
     border-color: var(--limel-text-editor-outline-color);
