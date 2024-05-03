@@ -79,6 +79,9 @@ export class ActionBarButton {
                 type="button"
                 onClick={this.handleClick}
                 disabled={this.isDisabled()}
+                class={{
+                    'is-selected': this.isItem(this.item) && this.item.selected,
+                }}
             >
                 {this.renderIcon()}
                 {this.renderLabel()}
