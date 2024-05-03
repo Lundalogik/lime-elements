@@ -35,6 +35,13 @@ limel-action-bar {
     backdrop-filter: blur(0.5rem);
     -webkit-backdrop-filter: blur(0.5rem);
 
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+    :host(limel-prosemirror-adapter:focus-within) &,
+    :host(limel-prosemirror-adapter:hover) & {
+        opacity: 1;
+    }
+
     // prevents visual defects that can appears
     // due to the backdrop-filter and closeness to borders
     margin: 0 1px;
