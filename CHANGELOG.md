@@ -1,3 +1,11 @@
+## [37.32.2](https://github.com/Lundalogik/lime-elements/compare/v37.32.1...v37.32.2) (2024-05-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** transition outlines & correctly visualize states ([c4dbd14](https://github.com/Lundalogik/lime-elements/commit/c4dbd14bfab608c77f8a3834184b52ca6a7ee287))
+
 ## [37.32.1](https://github.com/Lundalogik/lime-elements/compare/v37.32.0...v37.32.1) (2024-05-03)
 
 
