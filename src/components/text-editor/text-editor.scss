@@ -44,6 +44,7 @@
 }
 
 .notched-outline {
+    pointer-events: none;
     position: absolute;
     inset: 0;
     bottom: var(--limel-text-editor-notched-outline-bottom, 0);
