@@ -14,6 +14,7 @@ import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
+import { keymap } from 'prosemirror-keymap';
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
@@ -21,6 +22,7 @@ import { textEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { markdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
+import { EditorMenuTypes } from './menu/types';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -58,9 +60,12 @@ export class ProsemirrorAdapter {
     private view: EditorView;
 
     @State()
-    private actionBarItems: Array<ActionBarItem | ListSeparator> = [];
+    private actionBarItems: Array<
+        ActionBarItem<EditorMenuTypes> | ListSeparator
+    > = [];
 
     private menuCommandFactory: MenuCommandFactory;
+    private editorKeyMap = {};
 
     /**
      * Dispatched when a change is made to the editor
@@ -128,15 +133,24 @@ export class ProsemirrorAdapter {
             initialContentElement,
         );
 
+        this.menuCommandFactory = new MenuCommandFactory(mySchema);
+
+        this.editorKeyMap = this.menuCommandFactory.buildKeymap();
+
+        const keymapPlugin = keymap(this.editorKeyMap);
+
         this.view = new EditorView(
             this.host.shadowRoot.querySelector('#editor'),
             {
                 state: EditorState.create({
                     doc: initialDoc,
-                    plugins: exampleSetup({
-                        schema: mySchema,
-                        menuBar: false,
-                    }),
+                    plugins: [
+                        ...exampleSetup({
+                            schema: mySchema,
+                            menuBar: false,
+                        }),
+                        keymapPlugin,
+                    ],
                 }),
                 dispatchTransaction: (transaction) => {
                     const newState = this.view.state.apply(transaction);
@@ -173,10 +187,9 @@ export class ProsemirrorAdapter {
     private handleActionBarItem = (event: CustomEvent<ActionBarItem>) => {
         event.preventDefault();
 
-        const { text } = event.detail;
-        const mark = text.replace(/\s/g, '').toLowerCase();
+        const { value } = event.detail;
         try {
-            const command = this.menuCommandFactory.createCommand(mark);
+            const command = this.menuCommandFactory.getCommand(value);
             this.executeCommand(command);
         } catch (error) {
             throw new Error(`Error executing command: ${error}`);
@@ -198,6 +211,12 @@ export class ProsemirrorAdapter {
         });
         this.view.dispatch(transaction);
 
-        this.view.focus();
+        this.setFocus();
+    }
+
+    public setFocus() {
+        if (this.view) {
+            this.view.focus();
+        }
     }
 }
