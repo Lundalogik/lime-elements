@@ -177,7 +177,7 @@ export class MenuList {
     };
 
     private triggerIconColorWarning() {
-        if (this.items.some((item) => 'iconColor' in item)) {
+        if (this.items?.some((item) => 'iconColor' in item)) {
             /* eslint-disable-next-line no-console */
             console.warn(
                 "The `iconColor` prop is deprecated now! Use the new `Icon` interface and instead of `iconColor: 'color-name'` write `icon {name: 'icon-name', color: 'color-name'}`.",
