@@ -95,7 +95,7 @@ export class DockButton {
 
         return (
             <limel-popover
-                openDirection={this.useMobileLayout ? 'top' : 'right'}
+                openDirection={this.useMobileLayout ? 'top' : 'right-start'}
                 open={this.isOpen || this.item.dockMenu.menuOpen}
                 onClose={this.onPopoverClose}
             >
