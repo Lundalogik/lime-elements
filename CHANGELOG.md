@@ -1,3 +1,11 @@
+## [37.32.6](https://github.com/Lundalogik/lime-elements/compare/v37.32.5...v37.32.6) (2024-05-07)
+
+
+### Bug Fixes
+
+
+* **menu:** avoid error when `items` is undefined ([140b791](https://github.com/Lundalogik/lime-elements/commit/140b79176ead70b46dc4221f90fa88ae14a0fea0))
+
 ## [37.32.5](https://github.com/Lundalogik/lime-elements/compare/v37.32.4...v37.32.5) (2024-05-07)
 
 
