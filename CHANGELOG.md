@@ -1,3 +1,12 @@
+## [37.32.5](https://github.com/Lundalogik/lime-elements/compare/v37.32.4...v37.32.5) (2024-05-07)
+
+
+### Bug Fixes
+
+
+* **dock:** better visualize when a button's popover is open ([4280a18](https://github.com/Lundalogik/lime-elements/commit/4280a185f63b49edf2c3a64a69f9451d99ff931f))
+* **dock:** change opening direction of popover menus ([2aac9e2](https://github.com/Lundalogik/lime-elements/commit/2aac9e29de89ac5c3c923809d79857f1bdd55197))
+
 ## [37.32.4](https://github.com/Lundalogik/lime-elements/compare/v37.32.3...v37.32.4) (2024-05-03)
 
 
