@@ -26,7 +26,7 @@ import { createRandomString } from '../../util/random-string';
  * :::important
  * Are you developing for
  * [Lime CRM](https://www.lime-technologies.com/en/lime-crm/)? Please note that
- * you should use the [DialogService](https://lundalogik.github.io/lime-web-components/versions/latest/#/api/dialog-service)
+ * you should use the [DialogRenderer](https://lundalogik.github.io/lime-web-components/versions/latest/interfaces/DialogRenderer.html)
  * from Lime Web Components to open dialogs in Lime CRM.
  * :::
  *
