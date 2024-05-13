@@ -150,3 +150,9 @@ limel-prosemirror-adapter {
         --limel-text-editor-notched-outline-bottom: 1rem;
     }
 }
+
+:host(limel-text-editor[allow-resize]) {
+    limel-prosemirror-adapter {
+        resize: vertical;
+    }
+}

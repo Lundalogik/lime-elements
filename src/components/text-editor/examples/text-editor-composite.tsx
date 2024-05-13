@@ -20,6 +20,9 @@ export class TextEditorCompositeExample {
     private required = false;
 
     @State()
+    private allowResize = false;
+
+    @State()
     private label: string;
 
     @State()
@@ -39,6 +42,7 @@ export class TextEditorCompositeExample {
                 required={this.required}
                 invalid={this.invalid}
                 placeholder={this.placeholder}
+                allowResize={this.allowResize}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -55,6 +59,11 @@ export class TextEditorCompositeExample {
                     checked={this.required}
                     label="Required"
                     onChange={this.setRequired}
+                />
+                <limel-checkbox
+                    checked={this.allowResize}
+                    label="Allow resize"
+                    onChange={this.setAllowResize}
                 />
                 <hr
                     style={{
@@ -100,6 +109,11 @@ export class TextEditorCompositeExample {
     private setInvalid = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.invalid = event.detail;
+    };
+
+    private setAllowResize = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.allowResize = event.detail;
     };
 
     private handleLabelChange = (event: CustomEvent<string>) => {
