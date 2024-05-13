@@ -146,7 +146,7 @@ describe('limel-input-field', () => {
                 if (type.name !== 'textarea') {
                     it('has a trailing icon indicating the field is invalid', async () => {
                         const limelIcon = await page.find(
-                            'limel-input-field>>>i.mdc-text-field__icon.mdc-text-field__icon--trailing>limel-icon',
+                            'limel-input-field>>>i.mdc-text-field__icon.invalid-icon>limel-icon',
                         );
                         expect(limelIcon).toBeTruthy();
                         expect(limelIcon).toEqualAttribute(

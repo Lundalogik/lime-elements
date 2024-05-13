@@ -286,6 +286,8 @@ export class InputField {
         if (this.invalid) {
             this.mdcTextField.valid = false;
         }
+
+        this.mdcTextField.disabled = this.disabled || this.readonly;
     }
 
     public render() {
@@ -627,17 +629,13 @@ export class InputField {
             return;
         }
 
-        const html = [];
-
         const trailingIcon = this.getTrailingIcon();
 
         if (!this.isInvalid() && this.hasLink()) {
-            html.push(this.renderLinkIcon(this.getLink(), trailingIcon));
+            return this.renderLinkIcon(this.getLink(), trailingIcon);
         } else if (trailingIcon) {
-            html.push(this.renderTrailingIcon(trailingIcon));
+            return this.renderTrailingIcon(trailingIcon);
         }
-
-        return html;
     };
 
     private hasLink = () => {
@@ -683,19 +681,25 @@ export class InputField {
     };
 
     private renderTrailingIcon = (icon: string) => {
-        const props: any = {
-            tabIndex: this.isInvalid() ? '-1' : '0',
-        };
-        if (!this.isInvalid()) {
-            props.onKeyPress = this.handleIconKeyPress;
-            props.onClick = this.handleIconClick;
-            props.role = 'button';
+        if (this.isInvalid()) {
+            return (
+                <i
+                    key="invalid"
+                    class="material-icons mdc-text-field__icon invalid-icon"
+                >
+                    <limel-icon name={icon} />
+                </i>
+            );
         }
 
         return (
             <i
+                key="action"
                 class="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
-                {...props}
+                tabIndex={0}
+                role="button"
+                onKeyPress={this.handleIconKeyPress}
+                onClick={this.handleIconClick}
             >
                 <limel-icon name={icon} />
             </i>
@@ -918,16 +922,14 @@ export class InputField {
     };
 
     private handleIconClick = () => {
-        if (!this.isInvalid()) {
-            this.action.emit();
-        }
+        this.action.emit();
     };
 
     private handleIconKeyPress = (event: KeyboardEvent) => {
         const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
         const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
 
-        if ((isSpace || isEnter) && !this.isInvalid()) {
+        if (isSpace || isEnter) {
             this.action.emit();
         }
     };
