@@ -103,7 +103,7 @@ export class MenuCommandFactory {
         this.schema = schema;
     }
 
-    getCommand(mark: EditorMenuTypes, url?: string) {
+    public getCommand(mark: EditorMenuTypes, url?: string) {
         const commandFunc = commandMapping[mark];
         if (!commandFunc) {
             throw new Error(`The Mark "${mark}" is not supported`);
