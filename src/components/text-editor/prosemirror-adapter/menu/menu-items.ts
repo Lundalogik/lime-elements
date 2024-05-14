@@ -21,7 +21,7 @@ export const textEditorMenuItems: Array<
     ActionBarItem<EditorMenuTypes> | ListSeparator
 > = [
     {
-        value: EditorMenuTypes.Strong,
+        value: EditorMenuTypes.Bold,
         text: 'Bold',
         commandText: `${mod} B`,
         icon: '-lime-text-bold',
