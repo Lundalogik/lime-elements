@@ -1,3 +1,11 @@
+## [37.33.1](https://github.com/Lundalogik/lime-elements/compare/v37.33.0...v37.33.1) (2024-05-14)
+
+
+### Bug Fixes
+
+
+* **input-field:** fix toggling disabled trailing icon ([1a6e0b6](https://github.com/Lundalogik/lime-elements/commit/1a6e0b6a3678136fa2b39c6f72ffa358c5e0b1b8))
+
 ## [37.33.0](https://github.com/Lundalogik/lime-elements/compare/v37.32.7...v37.33.0) (2024-05-14)
 
 
