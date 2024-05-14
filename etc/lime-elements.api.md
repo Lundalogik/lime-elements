@@ -645,6 +645,7 @@ export namespace Components {
     }
     // @beta
     export interface LimelTextEditor {
+        "allowResize": boolean;
         "contentType": 'markdown' | 'html';
         "disabled"?: boolean;
         "helperText"?: string;
@@ -1584,6 +1585,7 @@ namespace JSX_2 {
     }
     // @beta
     interface LimelTextEditor {
+        "allowResize"?: boolean;
         "contentType"?: 'markdown' | 'html';
         "disabled"?: boolean;
         "helperText"?: string;

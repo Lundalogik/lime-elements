@@ -19,7 +19,7 @@
 
     width: 100%;
     min-width: 5rem;
-    min-height: 4rem;
+    min-height: 5rem;
     height: 100%;
     max-height: 100%;
 }
@@ -148,5 +148,11 @@ limel-prosemirror-adapter {
 :host(limel-text-editor.has-helper-text[invalid]) {
     .notched-outline {
         --limel-text-editor-notched-outline-bottom: 1rem;
+    }
+}
+
+:host(limel-text-editor[allow-resize]) {
+    limel-prosemirror-adapter {
+        resize: vertical;
     }
 }

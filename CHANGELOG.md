@@ -1,3 +1,16 @@
+## [37.33.0](https://github.com/Lundalogik/lime-elements/compare/v37.32.7...v37.33.0) (2024-05-14)
+
+
+### Features
+
+
+* **text-editor:** enable end users to resize the editor ([d83dd45](https://github.com/Lundalogik/lime-elements/commit/d83dd452c099dc47ae48c0168921f7008843d1b3))
+
+### Bug Fixes
+
+
+* **text-editor:** prevent editor from becoming smaller than 1 line of text ([2d4fe17](https://github.com/Lundalogik/lime-elements/commit/2d4fe1735ea463148e7b3181481e8d9ba754dfef))
+
 ## [37.32.7](https://github.com/Lundalogik/lime-elements/compare/v37.32.6...v37.32.7) (2024-05-07)
 
 
