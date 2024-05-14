@@ -589,14 +589,16 @@ export class ChipSet {
     };
 
     private renderHelperLine = () => {
-        if (!this.maxItems && !this.hasHelperText()) {
+        const maxItems = this.maxItems === 1 ? undefined : this.maxItems;
+
+        if (!maxItems && !this.hasHelperText()) {
             return;
         }
 
         return (
             <limel-helper-line
                 length={this.value.length}
-                maxLength={this.maxItems}
+                maxLength={maxItems}
                 helperText={this.helperText}
                 invalid={this.isInvalid()}
             />
