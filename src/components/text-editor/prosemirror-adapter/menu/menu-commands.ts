@@ -2,7 +2,7 @@ import { toggleMark, setBlockType, wrapIn } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType } from 'prosemirror-model';
 import { wrapInList } from 'prosemirror-schema-list';
 import { Command } from 'prosemirror-state';
-import { EditorMenuTypes, levelMapping } from './types';
+import { EditorMenuTypes, LevelMapping } from './types';
 
 type CommandFunction = (
     schema: Schema,
@@ -71,11 +71,23 @@ const commandMapping: CommandMapping = {
     em: createToggleMarkCommand,
     underline: createToggleMarkCommand,
     headerlevel1: (schema) =>
-        createSetNodeTypeCommand(schema, 'heading', levelMapping.one),
+        createSetNodeTypeCommand(
+            schema,
+            EditorMenuTypes.Heading,
+            LevelMapping.one,
+        ),
     headerlevel2: (schema) =>
-        createSetNodeTypeCommand(schema, 'heading', levelMapping.two),
+        createSetNodeTypeCommand(
+            schema,
+            EditorMenuTypes.Heading,
+            LevelMapping.two,
+        ),
     headerlevel3: (schema) =>
-        createSetNodeTypeCommand(schema, 'heading', levelMapping.three),
+        createSetNodeTypeCommand(
+            schema,
+            EditorMenuTypes.Heading,
+            LevelMapping.three,
+        ),
     blockquote: createWrapInCommand,
     /* eslint-disable camelcase */
     ordered_list: createListCommand,
@@ -92,10 +104,6 @@ export class MenuCommandFactory {
     }
 
     getCommand(mark: EditorMenuTypes, url?: string) {
-        if (!Object.values(EditorMenuTypes).includes(mark)) {
-            throw new Error(`The Menu Type "${mark}" is not supported`);
-        }
-
         const commandFunc = commandMapping[mark];
         if (!commandFunc) {
             throw new Error(`The Mark "${mark}" is not supported`);
@@ -106,7 +114,7 @@ export class MenuCommandFactory {
 
     buildKeymap() {
         return {
-            'Mod-B': this.getCommand(EditorMenuTypes.Strong),
+            'Mod-B': this.getCommand(EditorMenuTypes.Bold),
             'Mod-I': this.getCommand(EditorMenuTypes.Italic),
             'Mod-Shift-1': this.getCommand(EditorMenuTypes.HeaderLevel1),
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
