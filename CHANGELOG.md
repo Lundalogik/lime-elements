@@ -1,3 +1,19 @@
+## [37.33.2](https://github.com/Lundalogik/lime-elements/compare/v37.33.1...v37.33.2) (2024-05-14)
+
+
+### Bug Fixes
+
+
+* **input-field:** avoid validating during render ([6e23563](https://github.com/Lundalogik/lime-elements/commit/6e235637210d8f7b4db3227d97598db3effe4377))
+* **input-field:** handle change better to keep value in sync ([01ce9be](https://github.com/Lundalogik/lime-elements/commit/01ce9be4ed32d15e3e1d2119a101381d39391c25))
+* **input-field:** initialize invalid text field as invalid ([bd98e87](https://github.com/Lundalogik/lime-elements/commit/bd98e87ff2a9e4aa483d8c7718dc57c7ef8ec055))
+* **input-field:** render current value correctly ([a93f3f3](https://github.com/Lundalogik/lime-elements/commit/a93f3f36586148f59621663df8799b7cbf58e2e5))
+
+### Performance Improvements
+
+
+* **input-field:** set input element using ref ([7f6ecc7](https://github.com/Lundalogik/lime-elements/commit/7f6ecc76f0922fc821415d2a5f6b29c6a633b1c4))
+
 ## [37.33.1](https://github.com/Lundalogik/lime-elements/compare/v37.33.0...v37.33.1) (2024-05-14)
 
 
