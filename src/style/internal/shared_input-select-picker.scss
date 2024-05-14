@@ -237,7 +237,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
                 box-shadow: 0 0 0 functions.pxToRem(2) var(--mdc-theme-primary) !important; // has to be `!important` since we're using `box-shadow` insted of `outline` which is also used in `hover` mode
             }
         }
-        &:hover {
+        &:not(.mdc-text-field--disabled):hover {
             .mdc-text-field__icon--trailing {
                 box-shadow: var(--button-shadow-normal);
                 background-color: rgba(var(--contrast-100), 0.4);
@@ -253,27 +253,8 @@ $cropped-label-hack--font-size: 0.875rem; //14px
             }
         }
 
-        &.mdc-text-field--disabled,
         &.mdc-text-field--invalid {
-            // `mdc-text-field--invalid` displays a (!) icon, which we don't want it to appear interactive
-            &:hover {
-                .mdc-text-field__icon--trailing {
-                    box-shadow: none;
-                    background-color: transparent;
-
-                    &:hover {
-                        background-color: transparent;
-                        box-shadow: none;
-                    }
-
-                    &:active {
-                        box-shadow: none;
-                    }
-                }
-            }
-        }
-        &.mdc-text-field--invalid {
-            i.mdc-text-field__icon.mdc-text-field__icon--trailing {
+            i.mdc-text-field__icon.invalid-icon {
                 limel-icon {
                     color: var(--lime-error-text-color);
                 }
@@ -309,9 +290,6 @@ $cropped-label-hack--font-size: 0.875rem; //14px
                 .mdc-text-field-helper-text--validation-msg {
                     color: var(--lime-error-text-color);
                 }
-            }
-            .mdc-text-field__icon--trailing {
-                color: var(--lime-error-text-color);
             }
         }
 
