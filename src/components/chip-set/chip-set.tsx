@@ -605,8 +605,9 @@ export class ChipSet {
         );
     };
 
-    private renderInputChip(chip: Chip, index: number) {
+    private renderInputChip(chip: Chip, index: number, chips: Chip[]) {
         const chipProps = this.getChipProps(chip, 'default');
+        const isLastChip = index === chips.length - 1;
 
         return [
             <limel-chip
@@ -616,7 +617,7 @@ export class ChipSet {
                 }}
                 {...chipProps}
             />,
-            this.renderDelimiter(),
+            !(isLastChip && this.inputHidden()) && this.renderDelimiter(),
         ];
     }
 
