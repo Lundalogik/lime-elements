@@ -24,7 +24,7 @@ export class InputFieldPrefixExample {
         );
     }
 
-    private handleChange = (event: CustomEvent<string>) => {
-        this.value = event.detail;
+    private handleChange = (event: CustomEvent<string | number>) => {
+        this.value = event.detail + '';
     };
 }
