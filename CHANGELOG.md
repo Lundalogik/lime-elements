@@ -1,3 +1,11 @@
+## [37.33.3](https://github.com/Lundalogik/lime-elements/compare/v37.33.2...v37.33.3) (2024-05-15)
+
+
+### Bug Fixes
+
+
+* **input-field:** update number value only when different ([d1caac5](https://github.com/Lundalogik/lime-elements/commit/d1caac5977541b051382d20b4e69a620b5e14bc4)), closes [#1402](https://github.com/Lundalogik/lime-elements/issues/1402)
+
 ## [37.33.2](https://github.com/Lundalogik/lime-elements/compare/v37.33.1...v37.33.2) (2024-05-14)
 
 
