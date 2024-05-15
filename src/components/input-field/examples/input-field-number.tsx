@@ -24,7 +24,7 @@ export class InputFieldNumberExample {
     private formatNumber = true;
 
     @State()
-    private value;
+    private value = '';
 
     public render() {
         return [
@@ -70,8 +70,8 @@ export class InputFieldNumberExample {
         this.invalid = this.required && !this.value;
     }
 
-    private handleChange = (event: CustomEvent<string>) => {
-        this.value = event.detail;
+    private handleChange = (event: CustomEvent<string | number>) => {
+        this.value = event.detail + '';
         this.checkValidity();
     };
 
