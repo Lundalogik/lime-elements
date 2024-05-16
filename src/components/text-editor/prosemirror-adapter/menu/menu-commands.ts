@@ -25,10 +25,19 @@ const createToggleMarkCommand = (
     }
 
     if (markName === EditorMenuTypes.Link && url) {
-        return toggleMark(markType, { href: url });
+        const attrs = {
+            href: url,
+            target: isExternalLink(url) ? '_blank' : null,
+        };
+
+        return toggleMark(markType, attrs);
     }
 
     return toggleMark(markType);
+};
+
+const isExternalLink = (url: string): boolean => {
+    return !url.startsWith(window.location.origin);
 };
 
 const createSetNodeTypeCommand = (
