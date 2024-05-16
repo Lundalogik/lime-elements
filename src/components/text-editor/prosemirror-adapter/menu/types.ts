@@ -9,7 +9,6 @@ export const EditorMenuTypes = {
     Bold: 'strong',
     Italic: 'em',
     Blockquote: 'blockquote',
-    Heading: 'heading',
     HeaderLevel1: 'headerlevel1',
     HeaderLevel2: 'headerlevel2',
     HeaderLevel3: 'headerlevel3',
@@ -23,12 +22,14 @@ export type EditorMenuTypes =
 
 /**
  * `LevelMapping` is used to map string identifiers to numerical header levels.
- * Each one represents a different level to be used for creating the prosemirror commands
- * to set the level of a heading node in the editor.
+ * It provides a way to represent different levels of headings in ProseMirror commands.
+ *
+ * The `Heading` identifier is not a valid level and is used to identify the node type.
+ * The numerical values are used for creating ProseMirror commands to set the level of a heading node in the editor.
  * @beta
  */
-
 export const LevelMapping = {
+    Heading: 'heading',
     one: 1,
     two: 2,
     three: 3,

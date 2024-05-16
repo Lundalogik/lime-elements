@@ -82,19 +82,19 @@ const commandMapping: CommandMapping = {
     headerlevel1: (schema) =>
         createSetNodeTypeCommand(
             schema,
-            EditorMenuTypes.Heading,
+            LevelMapping.Heading,
             LevelMapping.one,
         ),
     headerlevel2: (schema) =>
         createSetNodeTypeCommand(
             schema,
-            EditorMenuTypes.Heading,
+            LevelMapping.Heading,
             LevelMapping.two,
         ),
     headerlevel3: (schema) =>
         createSetNodeTypeCommand(
             schema,
-            EditorMenuTypes.Heading,
+            LevelMapping.Heading,
             LevelMapping.three,
         ),
     blockquote: createWrapInCommand,
