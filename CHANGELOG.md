@@ -1,3 +1,16 @@
+## [37.35.0](https://github.com/Lundalogik/lime-elements/compare/v37.34.1...v37.35.0) (2024-05-16)
+
+
+### Features
+
+
+* **text-editor:** use updateView() instead of injecting HTML directly for first value ([d00b089](https://github.com/Lundalogik/lime-elements/commit/d00b089791bd505a4888a5856acc84be047ffa51))
+
+### Bug Fixes
+
+
+* **text-editor:** add watcher for value prop ([de11735](https://github.com/Lundalogik/lime-elements/commit/de11735c19680afae23ea18845f84009048c5756))
+
 ## [37.34.1](https://github.com/Lundalogik/lime-elements/compare/v37.34.0...v37.34.1) (2024-05-16)
 
 
