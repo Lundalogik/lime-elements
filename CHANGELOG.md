@@ -1,3 +1,24 @@
+## [37.34.1](https://github.com/Lundalogik/lime-elements/compare/v37.34.0...v37.34.1) (2024-05-16)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure clicking anywhere in the editor activates the edit mode ([55dd2b0](https://github.com/Lundalogik/lime-elements/commit/55dd2b09eacd0a3686a86e624edd5978678d3af9))
+
+## [37.34.0](https://github.com/Lundalogik/lime-elements/compare/v37.33.3...v37.34.0) (2024-05-15)
+
+
+### Features
+
+
+* **chip-set:** hide counter when a single chip is expected ([66ea537](https://github.com/Lundalogik/lime-elements/commit/66ea5373c65bd7397cd40c27bf9e05fd83736b60)), closes [#2299](https://github.com/Lundalogik/lime-elements/issues/2299)
+
+### Bug Fixes
+
+
+* **chip-set:** remove delimiter after last chip ([9fc8d19](https://github.com/Lundalogik/lime-elements/commit/9fc8d192f51ae17815ffc0c473b696d5340db1ae))
+
 ## [37.33.3](https://github.com/Lundalogik/lime-elements/compare/v37.33.2...v37.33.3) (2024-05-15)
 
 
