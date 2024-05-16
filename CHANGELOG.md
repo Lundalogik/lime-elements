@@ -1,3 +1,11 @@
+## [37.34.1](https://github.com/Lundalogik/lime-elements/compare/v37.34.0...v37.34.1) (2024-05-16)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure clicking anywhere in the editor activates the edit mode ([55dd2b0](https://github.com/Lundalogik/lime-elements/commit/55dd2b09eacd0a3686a86e624edd5978678d3af9))
+
 ## [37.34.0](https://github.com/Lundalogik/lime-elements/compare/v37.33.3...v37.34.0) (2024-05-15)
 
 
