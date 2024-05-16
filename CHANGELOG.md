@@ -1,3 +1,13 @@
+## [37.36.0](https://github.com/Lundalogik/lime-elements/compare/v37.35.0...v37.36.0) (2024-05-16)
+
+
+### Features
+
+
+* **chip-set:** enable displaying pictures instead of icons on chips ([d858fc4](https://github.com/Lundalogik/lime-elements/commit/d858fc4b9f16533e9814fd48f38aadf37d97f813))
+* **chip:** enable displaying pictures instead of icons ([cfc0c1d](https://github.com/Lundalogik/lime-elements/commit/cfc0c1d070cffef71b97b8e09382b0665f395f88))
+* **interface:** add new `Image` interface ([106d4a8](https://github.com/Lundalogik/lime-elements/commit/106d4a8f8d5c8015028d793d4f4495beeac3add1))
+
 ## [37.35.0](https://github.com/Lundalogik/lime-elements/compare/v37.34.1...v37.35.0) (2024-05-16)
 
 
