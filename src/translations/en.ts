@@ -19,4 +19,13 @@ export default {
     'file-viewer.open-in-fullscreen': 'Open in fullscreen',
     'file-viewer.open-in-new-tab': 'Open in a new tab',
     'file-viewer.more-actions': 'More…',
+    'editor-menu.bold': 'Bold',
+    'editor-menu.italic': 'Italic',
+    'editor-menu.h1': 'Header level 1',
+    'editor-menu.h2': 'Header level 2',
+    'editor-menu.h3': 'Header level 3',
+    'editor-menu.bulleted-list': 'Bulleted list',
+    'editor-menu.numbered-list': 'Numbered list',
+    'editor-menu.blockquote': 'Blockquote',
+    'editor-menu.link': 'Add Link',
 };
