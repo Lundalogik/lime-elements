@@ -18,11 +18,13 @@ import { keymap } from 'prosemirror-keymap';
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
-import { textEditorMenuItems } from './menu/menu-items';
+import { menuTranslationIDs, textEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { markdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
 import { EditorMenuTypes } from './menu/types';
+import { Languages } from 'src/interface';
+import translate from '../../../global/translations';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -53,6 +55,13 @@ export class ProsemirrorAdapter {
     @Prop()
     public value: string;
 
+    /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
+
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -66,6 +75,7 @@ export class ProsemirrorAdapter {
 
     private menuCommandFactory: MenuCommandFactory;
     private editorKeyMap = {};
+    private editorId: string;
 
     /**
      * Dispatched when a change is made to the editor
@@ -104,7 +114,7 @@ export class ProsemirrorAdapter {
 
     public render() {
         return [
-            <div id="editor" />,
+            <div id={this.editorId} class="text-editor" />,
             <limel-action-bar
                 accessibleLabel="Toolbar"
                 actions={this.actionBarItems}
@@ -114,7 +124,9 @@ export class ProsemirrorAdapter {
     }
 
     private initializeTextEditor = async () => {
-        this.actionBarItems = textEditorMenuItems;
+        this.editorId = await this.generateUniqueId();
+
+        await this.getActionBarItems();
 
         const mySchema = new Schema({
             nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
@@ -140,7 +152,7 @@ export class ProsemirrorAdapter {
         const keymapPlugin = keymap(this.editorKeyMap);
 
         this.view = new EditorView(
-            this.host.shadowRoot.querySelector('#editor'),
+            this.host.shadowRoot.querySelector(`#${this.editorId}`),
             {
                 state: EditorState.create({
                     doc: initialDoc,
@@ -183,6 +195,38 @@ export class ProsemirrorAdapter {
 
         this.view.dispatch(tr);
     }
+
+    private generateUniqueId = (): string => {
+        const arrayLength = 4; // Describes the length of the Uint32Array
+        const base36Radix = 36; // Indicates the radix for toString conversion
+
+        const array = new Uint32Array(arrayLength);
+        window.crypto.getRandomValues(array);
+
+        return (
+            'editor-' +
+            Array.from(array, (dec) => dec.toString(base36Radix)).join('-')
+        );
+    };
+
+    private isActionBarItem = (
+        item: ActionBarItem | ListSeparator,
+    ): item is ActionBarItem => {
+        return (item as ActionBarItem).value !== undefined;
+    };
+
+    private getActionBarItems = async () => {
+        this.actionBarItems = await textEditorMenuItems.map((item) => {
+            if (this.isActionBarItem(item)) {
+                const translationId = menuTranslationIDs[item.value];
+                if (translationId) {
+                    item.text = translate.get(translationId, this.language);
+                }
+            }
+
+            return item;
+        });
+    };
 
     private handleActionBarItem = (event: CustomEvent<ActionBarItem>) => {
         event.preventDefault();

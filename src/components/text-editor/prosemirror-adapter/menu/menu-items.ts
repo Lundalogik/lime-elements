@@ -59,7 +59,7 @@ export const textEditorMenuItems: Array<
     { separator: true },
     {
         value: EditorMenuTypes.BulletList,
-        text: 'Bullet list',
+        text: 'Bulleted list',
         icon: '-lime-text-bulleted-list',
         iconOnly: true,
     },
@@ -76,3 +76,18 @@ export const textEditorMenuItems: Array<
         iconOnly: true,
     },
 ];
+
+export const menuTranslationIDs = {
+    strong: 'editor-menu.bold',
+    em: 'editor-menu.italic',
+    headerlevel1: 'editor-menu.h1',
+    headerlevel2: 'editor-menu.h2',
+    headerlevel3: 'editor-menu.h3',
+    bullet_list: 'editor-menu.bulleted-list',
+    ordered_list: 'editor-menu.numbered-list',
+    blockquote: 'editor-menu.blockquote',
+    link: 'editor-menu.link',
+};
+
+export type menuTranslationIDs =
+    (typeof menuTranslationIDs)[keyof typeof menuTranslationIDs];
