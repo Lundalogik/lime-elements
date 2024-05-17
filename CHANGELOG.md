@@ -1,3 +1,11 @@
+## [37.39.0](https://github.com/Lundalogik/lime-elements/compare/v37.38.0...v37.39.0) (2024-05-17)
+
+
+### Features
+
+
+* **text-editor:** enable `disabled` prop ([ab06af6](https://github.com/Lundalogik/lime-elements/commit/ab06af666d7d773cf4bbd50542442286fcc1d4a6))
+
 ## [37.38.0](https://github.com/Lundalogik/lime-elements/compare/v37.37.0...v37.38.0) (2024-05-17)
 
 
