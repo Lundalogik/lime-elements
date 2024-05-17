@@ -65,6 +65,7 @@ export class DockButton {
 
     private tooltipId: string;
     private customComponentElement: HTMLElement;
+    private intersectionObserver?: IntersectionObserver;
 
     constructor() {
         this.tooltipId = createRandomString();
@@ -84,10 +85,17 @@ export class DockButton {
             return;
         }
 
-        const observer = new IntersectionObserver(
-            this.focusCustomComponentElement,
-        );
-        observer.observe(this.customComponentElement);
+        if (!this.intersectionObserver) {
+            this.intersectionObserver = new IntersectionObserver(
+                this.focusCustomComponentElement,
+            );
+            this.intersectionObserver.observe(this.customComponentElement);
+        }
+    }
+
+    public disconnectedCallback() {
+        this.intersectionObserver?.disconnect();
+        this.intersectionObserver = undefined;
     }
 
     private renderPopover() {
@@ -197,7 +205,20 @@ export class DockButton {
         }
     }
 
-    private focusCustomComponentElement = () => {
+    private focusCustomComponentElement = (
+        entries: IntersectionObserverEntry[],
+    ) => {
+        const entry = entries.find(
+            (e) => e.target === this.customComponentElement,
+        );
+        if (!entry) {
+            return;
+        }
+
+        if (!entry.isIntersecting) {
+            return;
+        }
+
         if (this.customComponentElement?.shadowRoot?.delegatesFocus) {
             this.customComponentElement?.focus();
         }
