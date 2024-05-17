@@ -14,13 +14,15 @@ export const schema: FormSchema<FormComponentFormData> = {
             description: 'Your name',
         },
         value: {
-            type: 'object',
+            type: 'string',
             title: 'Description',
             description: 'A personal description',
             lime: {
                 component: {
                     name: 'limel-text-editor',
-                    props: {},
+                    props: {
+                        contentType: 'html',
+                    },
                 },
             },
         },
