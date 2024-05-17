@@ -68,7 +68,7 @@
     }
 }
 
-:host(limel-chip[disabled]) {
+:host(limel-chip[disabled]:not([disabled='false'])) {
     .chip {
         // Similar to `limel-button[disabled]`
         color: rgba(var(--contrast-1600), 0.37);
@@ -77,13 +77,13 @@
     }
 }
 
-:host(limel-chip[readonly]) {
+:host(limel-chip[readonly]:not([readonly='false'])) {
     .chip {
         box-shadow: 0 0 0 1px rgba(var(--contrast-800), 0.5);
     }
 }
 
-:host(limel-chip[selected]) {
+:host(limel-chip[selected]:not([selected='false'])) {
     .chip {
         box-shadow: var(--button-shadow-inset);
 
