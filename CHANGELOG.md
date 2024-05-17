@@ -1,3 +1,11 @@
+## [37.37.0](https://github.com/Lundalogik/lime-elements/compare/v37.36.0...v37.37.0) (2024-05-17)
+
+
+### Features
+
+
+* **action-bar:** enable making items `selected` ([187c4d5](https://github.com/Lundalogik/lime-elements/commit/187c4d542730ed4227043433120668af63f300e8))
+
 ## [37.36.0](https://github.com/Lundalogik/lime-elements/compare/v37.35.0...v37.36.0) (2024-05-16)
 
 
