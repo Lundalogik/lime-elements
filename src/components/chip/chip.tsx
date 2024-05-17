@@ -340,7 +340,7 @@ export class Chip implements ChipInterface {
     };
 
     private removeChipLabel = (): string => {
-        return translate.get('chip-set.remove-chip', this.language);
+        return translate.get('remove', this.language) + ' ' + this.text;
     };
 
     private renderSpinner() {
