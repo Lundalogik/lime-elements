@@ -1,4 +1,5 @@
 export default {
+    remove: 'Fjern',
     'callout.note': 'Bemærk',
     'callout.important': 'Vigtig',
     'callout.tip': 'Tip',

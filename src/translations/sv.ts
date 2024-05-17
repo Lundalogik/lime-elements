@@ -1,4 +1,5 @@
 export default {
+    remove: 'Ta bort',
     'callout.note': 'Obs',
     'callout.important': 'Viktigt',
     'callout.tip': 'Tips',

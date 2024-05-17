@@ -1,4 +1,5 @@
 export default {
+    remove: 'Poista',
     'callout.note': 'Huomio',
     'callout.important': 'Tärkeää',
     'callout.tip': 'Vinkki',
