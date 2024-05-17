@@ -59,6 +59,7 @@
         box-shadow: var(--shadow-depth-8-error);
     }
 
+    &:has(+ limel-menu),
     &:has(+ .trailing-button) {
         padding-right: calc(var(--limel-chip-height) + 0.125rem);
 

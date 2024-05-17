@@ -26,6 +26,9 @@ import { ChipType, Chip as OldChipInterface } from '../chip-set/chip.types';
 import { Image } from '../../global/shared-types/image.types';
 import { isEmpty } from 'lodash-es';
 
+import { ListSeparator } from '../list/list-item.types';
+import { LimelMenuCustomEvent, MenuItem } from '../../components';
+
 interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
     /**
      * Identifier for the chip. Must be unique.
@@ -78,6 +81,7 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  * @exampleComponent limel-example-chip-badge
  * @exampleComponent limel-example-chip-filter
  * @exampleComponent limel-example-chip-removable
+ * @exampleComponent limel-example-chip-menu
  * @exampleComponent limel-example-chip-loading
  * @exampleComponent limel-example-chip-progress
  * @exampleComponent limel-example-chip-aria-role
@@ -190,11 +194,25 @@ export class Chip implements ChipInterface {
     public identifier?: number | string = crypto.randomUUID();
 
     /**
+     * When provided, the chip will render an ellipsis menu with the supplied items.
+     * Also, this will hide the "remove button" when `removable={true}`, as
+     * the remove button will automatically become the last item in the menu.
+     */
+    @Prop()
+    public menuItems?: Array<MenuItem | ListSeparator> = [];
+
+    /**
      * Fired when clicking on the remove button of a `removable` chip.
      * The value of `identifier` is emitted as the event detail.
      */
     @Event()
     public remove: EventEmitter<number | string>;
+
+    /**
+     * Emitted when a menu item is selected from the actions menu.
+     */
+    @Event()
+    public menuItemSelected: EventEmitter<MenuItem>;
 
     @Element()
     private host: HTMLLimelChipElement;
@@ -231,6 +249,7 @@ export class Chip implements ChipInterface {
                 {this.renderProgressBar()}
             </button>,
             this.renderRemoveButton(),
+            this.renderActionsMenu(),
         ];
     };
 
@@ -253,6 +272,7 @@ export class Chip implements ChipInterface {
                 {this.renderProgressBar()}
             </a>,
             this.renderRemoveButton(),
+            this.renderActionsMenu(),
         ];
     };
 
@@ -296,7 +316,12 @@ export class Chip implements ChipInterface {
     }
 
     private renderRemoveButton() {
-        if (!this.removable || this.readonly || this.disabled) {
+        if (
+            !this.removable ||
+            this.readonly ||
+            this.disabled ||
+            !!this.menuItems?.length
+        ) {
             return;
         }
 
@@ -313,6 +338,53 @@ export class Chip implements ChipInterface {
                 onClick={this.handleRemoveClick}
             />
         );
+    }
+
+    private renderActionsMenu() {
+        if (!this.menuItems?.length) {
+            return;
+        }
+
+        const svgData =
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" xml:space="preserve"><circle cx="16" cy="16" r="2"/><circle cx="16" cy="24" r="2"/><circle cx="16" cy="8" r="2"/></svg>';
+
+        const menuItems = this.getMenuItems();
+
+        return (
+            <limel-menu
+                items={menuItems}
+                onSelect={this.handleActionMenuSelect}
+            >
+                <button
+                    slot="trigger"
+                    class="trailing-button"
+                    tabIndex={-1}
+                    aria-label={this.actionMenuLabel}
+                    innerHTML={svgData}
+                />
+            </limel-menu>
+        );
+    }
+
+    private getMenuItems() {
+        let menuItems = [...this.menuItems];
+
+        if (this.removable) {
+            menuItems = [
+                ...menuItems,
+                { separator: true },
+                {
+                    text: this.removeChipLabel(),
+                    icon: {
+                        name: 'delete_sign',
+                        color: 'rgb(var(--color-red-default))',
+                    },
+                    value: '_remove',
+                },
+            ];
+        }
+
+        return menuItems;
     }
 
     private filterClickWhenDisabled = (e) => {
@@ -343,6 +415,10 @@ export class Chip implements ChipInterface {
         return translate.get('remove', this.language) + ' ' + this.text;
     };
 
+    private actionMenuLabel = (): string => {
+        return translate.get('file-viewer.more-actions', this.language);
+    };
+
     private renderSpinner() {
         if (!this.loading) {
             return;
@@ -371,4 +447,24 @@ export class Chip implements ChipInterface {
             />
         );
     }
+
+    private handleActionMenuSelect = (
+        event: LimelMenuCustomEvent<MenuItem>,
+    ) => {
+        const menuItem = event.detail;
+
+        if (!menuItem) {
+            return;
+        }
+
+        const { value } = menuItem;
+
+        if (value === '_remove') {
+            this.remove.emit(this.identifier);
+
+            return;
+        }
+
+        this.menuItemSelected.emit(value);
+    };
 }

@@ -209,6 +209,7 @@ export namespace Components {
         "language": Languages;
         "link"?: Omit<Link, 'text'>;
         "loading"?: boolean;
+        "menuItems"?: Array<MenuItem | ListSeparator>;
         "progress"?: number;
         "readonly": boolean;
         "removable": boolean;
@@ -1102,6 +1103,8 @@ namespace JSX_2 {
         "language"?: Languages;
         "link"?: Omit<Link, 'text'>;
         "loading"?: boolean;
+        "menuItems"?: Array<MenuItem | ListSeparator>;
+        "onMenuItemSelected"?: (event: LimelChipCustomEvent<MenuItem>) => void;
         "onRemove"?: (event: LimelChipCustomEvent<number | string>) => void;
         "progress"?: number;
         "readonly"?: boolean;
@@ -2106,7 +2109,7 @@ export interface ListSeparator {
 export type ListType = 'selectable' | 'radio' | 'checkbox';
 
 // @public
-export interface MenuItem<T = any> {
+interface MenuItem<T = any> {
     badge?: number | string;
     commandText?: string;
     disabled?: boolean;
@@ -2121,6 +2124,8 @@ export interface MenuItem<T = any> {
     text: string;
     value?: T;
 }
+export { MenuItem }
+export { MenuItem as MenuItem1 }
 
 // @public @deprecated
 export type MenuListType = 'menu';
