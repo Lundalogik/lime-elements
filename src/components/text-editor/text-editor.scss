@@ -38,11 +38,11 @@
     --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
 }
 
-:host(limel-text-editor[invalid]) {
+:host(limel-text-editor[invalid]:not([invalid='false'])) {
     --limel-text-editor-outline-color: var(--lime-error-text-color);
 }
 
-:host(limel-text-editor[readonly]) {
+:host(limel-text-editor[readonly]:not([readonly='false'])) {
     --limel-text-editor-placeholder-top: 0;
     --limel-text-editor-outline-color: transparent;
 
