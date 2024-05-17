@@ -1,3 +1,11 @@
+## [37.39.1](https://github.com/Lundalogik/lime-elements/compare/v37.39.0...v37.39.1) (2024-05-17)
+
+
+### Bug Fixes
+
+
+* **list:** don't deselect selected item when radio type ([6cac11d](https://github.com/Lundalogik/lime-elements/commit/6cac11dca9df3913ad08cc83a28a7d6faf028b9a))
+
 ## [37.39.0](https://github.com/Lundalogik/lime-elements/compare/v37.38.0...v37.39.0) (2024-05-17)
 
 
