@@ -1,3 +1,149 @@
+## [37.36.0](https://github.com/Lundalogik/lime-elements/compare/v37.35.0...v37.36.0) (2024-05-16)
+
+
+### Features
+
+
+* **chip-set:** enable displaying pictures instead of icons on chips ([d858fc4](https://github.com/Lundalogik/lime-elements/commit/d858fc4b9f16533e9814fd48f38aadf37d97f813))
+* **chip:** enable displaying pictures instead of icons ([cfc0c1d](https://github.com/Lundalogik/lime-elements/commit/cfc0c1d070cffef71b97b8e09382b0665f395f88))
+* **interface:** add new `Image` interface ([106d4a8](https://github.com/Lundalogik/lime-elements/commit/106d4a8f8d5c8015028d793d4f4495beeac3add1))
+
+## [37.35.0](https://github.com/Lundalogik/lime-elements/compare/v37.34.1...v37.35.0) (2024-05-16)
+
+
+### Features
+
+
+* **text-editor:** use updateView() instead of injecting HTML directly for first value ([d00b089](https://github.com/Lundalogik/lime-elements/commit/d00b089791bd505a4888a5856acc84be047ffa51))
+
+### Bug Fixes
+
+
+* **text-editor:** add watcher for value prop ([de11735](https://github.com/Lundalogik/lime-elements/commit/de11735c19680afae23ea18845f84009048c5756))
+
+## [37.34.1](https://github.com/Lundalogik/lime-elements/compare/v37.34.0...v37.34.1) (2024-05-16)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure clicking anywhere in the editor activates the edit mode ([55dd2b0](https://github.com/Lundalogik/lime-elements/commit/55dd2b09eacd0a3686a86e624edd5978678d3af9))
+
+## [37.34.0](https://github.com/Lundalogik/lime-elements/compare/v37.33.3...v37.34.0) (2024-05-15)
+
+
+### Features
+
+
+* **chip-set:** hide counter when a single chip is expected ([66ea537](https://github.com/Lundalogik/lime-elements/commit/66ea5373c65bd7397cd40c27bf9e05fd83736b60)), closes [#2299](https://github.com/Lundalogik/lime-elements/issues/2299)
+
+### Bug Fixes
+
+
+* **chip-set:** remove delimiter after last chip ([9fc8d19](https://github.com/Lundalogik/lime-elements/commit/9fc8d192f51ae17815ffc0c473b696d5340db1ae))
+
+## [37.33.3](https://github.com/Lundalogik/lime-elements/compare/v37.33.2...v37.33.3) (2024-05-15)
+
+
+### Bug Fixes
+
+
+* **input-field:** update number value only when different ([d1caac5](https://github.com/Lundalogik/lime-elements/commit/d1caac5977541b051382d20b4e69a620b5e14bc4)), closes [#1402](https://github.com/Lundalogik/lime-elements/issues/1402)
+
+## [37.33.2](https://github.com/Lundalogik/lime-elements/compare/v37.33.1...v37.33.2) (2024-05-14)
+
+
+### Bug Fixes
+
+
+* **input-field:** avoid validating during render ([6e23563](https://github.com/Lundalogik/lime-elements/commit/6e235637210d8f7b4db3227d97598db3effe4377))
+* **input-field:** handle change better to keep value in sync ([01ce9be](https://github.com/Lundalogik/lime-elements/commit/01ce9be4ed32d15e3e1d2119a101381d39391c25))
+* **input-field:** initialize invalid text field as invalid ([bd98e87](https://github.com/Lundalogik/lime-elements/commit/bd98e87ff2a9e4aa483d8c7718dc57c7ef8ec055))
+* **input-field:** render current value correctly ([a93f3f3](https://github.com/Lundalogik/lime-elements/commit/a93f3f36586148f59621663df8799b7cbf58e2e5))
+
+### Performance Improvements
+
+
+* **input-field:** set input element using ref ([7f6ecc7](https://github.com/Lundalogik/lime-elements/commit/7f6ecc76f0922fc821415d2a5f6b29c6a633b1c4))
+
+## [37.33.1](https://github.com/Lundalogik/lime-elements/compare/v37.33.0...v37.33.1) (2024-05-14)
+
+
+### Bug Fixes
+
+
+* **input-field:** fix toggling disabled trailing icon ([1a6e0b6](https://github.com/Lundalogik/lime-elements/commit/1a6e0b6a3678136fa2b39c6f72ffa358c5e0b1b8))
+
+## [37.33.0](https://github.com/Lundalogik/lime-elements/compare/v37.32.7...v37.33.0) (2024-05-14)
+
+
+### Features
+
+
+* **text-editor:** enable end users to resize the editor ([d83dd45](https://github.com/Lundalogik/lime-elements/commit/d83dd452c099dc47ae48c0168921f7008843d1b3))
+
+### Bug Fixes
+
+
+* **text-editor:** prevent editor from becoming smaller than 1 line of text ([2d4fe17](https://github.com/Lundalogik/lime-elements/commit/2d4fe1735ea463148e7b3181481e8d9ba754dfef))
+
+## [37.32.7](https://github.com/Lundalogik/lime-elements/compare/v37.32.6...v37.32.7) (2024-05-07)
+
+
+### Bug Fixes
+
+
+* **list:** avoid error when `items` is undefined ([b7309c2](https://github.com/Lundalogik/lime-elements/commit/b7309c2bfe3f3d22c6295e10f991368b7d0f8029))
+
+## [37.32.6](https://github.com/Lundalogik/lime-elements/compare/v37.32.5...v37.32.6) (2024-05-07)
+
+
+### Bug Fixes
+
+
+* **menu:** avoid error when `items` is undefined ([140b791](https://github.com/Lundalogik/lime-elements/commit/140b79176ead70b46dc4221f90fa88ae14a0fea0))
+
+## [37.32.5](https://github.com/Lundalogik/lime-elements/compare/v37.32.4...v37.32.5) (2024-05-07)
+
+
+### Bug Fixes
+
+
+* **dock:** better visualize when a button's popover is open ([4280a18](https://github.com/Lundalogik/lime-elements/commit/4280a185f63b49edf2c3a64a69f9451d99ff931f))
+* **dock:** change opening direction of popover menus ([2aac9e2](https://github.com/Lundalogik/lime-elements/commit/2aac9e29de89ac5c3c923809d79857f1bdd55197))
+
+## [37.32.4](https://github.com/Lundalogik/lime-elements/compare/v37.32.3...v37.32.4) (2024-05-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure tabbing into the editor will focus on input area first ([ceb33ef](https://github.com/Lundalogik/lime-elements/commit/ceb33ef1689890e5fe104fa767416f5e8446d49b))
+
+## [37.32.3](https://github.com/Lundalogik/lime-elements/compare/v37.32.2...v37.32.3) (2024-05-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** hide the helper line when not needed ([b51474b](https://github.com/Lundalogik/lime-elements/commit/b51474bfdac5194090b886e93a568e719fcc3632))
+
+## [37.32.2](https://github.com/Lundalogik/lime-elements/compare/v37.32.1...v37.32.2) (2024-05-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** transition outlines & correctly visualize states ([c4dbd14](https://github.com/Lundalogik/lime-elements/commit/c4dbd14bfab608c77f8a3834184b52ca6a7ee287))
+
+## [37.32.1](https://github.com/Lundalogik/lime-elements/compare/v37.32.0...v37.32.1) (2024-05-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** make `action bar` less visible if editor is not focused ([29f4943](https://github.com/Lundalogik/lime-elements/commit/29f494361bdb2180b11fe94388eeed616f7cf243))
+
 ## [37.32.0](https://github.com/Lundalogik/lime-elements/compare/v37.31.2...v37.32.0) (2024-05-03)
 
 

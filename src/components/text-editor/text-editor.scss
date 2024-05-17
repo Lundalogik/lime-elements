@@ -1,5 +1,5 @@
 @use '../../style/internal/shared_input-select-picker';
-@use '../../../src/style/mixins.scss';
+@use '../../style/mixins.scss';
 
 @include shared_input-select-picker.lime-looks-like-input-value;
 .lime-looks-like-input-value {
@@ -19,7 +19,7 @@
 
     width: 100%;
     min-width: 5rem;
-    min-height: 4rem;
+    min-height: 5rem;
     height: 100%;
     max-height: 100%;
 }
@@ -29,6 +29,15 @@
     --limel-text-editor-background-color: #{shared_input-select-picker.$background-color-normal};
     --limel-text-editor-label-color: #{shared_input-select-picker.$label-color};
 }
+
+:host(limel-text-editor:hover) {
+    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
+}
+
+:host(limel-text-editor:focus-within) {
+    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
+}
+
 :host(limel-text-editor[invalid]) {
     --limel-text-editor-outline-color: var(--lime-error-text-color);
 }
@@ -44,6 +53,9 @@
 }
 
 .notched-outline {
+    transition: bottom
+        var(--limel-h-l-grid-template-rows-transition-speed, 0.46s)
+        cubic-bezier(1, 0.09, 0, 0.89);
     pointer-events: none;
     position: absolute;
     inset: 0;
@@ -51,15 +63,12 @@
 
     display: flex;
     background-color: var(--limel-text-editor-background-color);
-
-    :host(limel-text-editor.has-helper-text) & {
-        --limel-text-editor-notched-outline-bottom: 1rem;
-    }
 }
 
 .leading-outline,
 .notch,
 .trailing-outline {
+    transition: border-color 0.2s ease;
     border-width: 1px;
     border-style: solid;
     border-color: var(--limel-text-editor-outline-color);
@@ -132,4 +141,18 @@ limel-prosemirror-adapter {
     min-height: 0;
     height: 100%;
     overflow: hidden auto;
+}
+
+@include mixins.hide-helper-line-when-not-needed(limel-text-editor);
+:host(limel-text-editor.has-helper-text:focus-within),
+:host(limel-text-editor.has-helper-text[invalid]) {
+    .notched-outline {
+        --limel-text-editor-notched-outline-bottom: 1rem;
+    }
+}
+
+:host(limel-text-editor[allow-resize]) {
+    limel-prosemirror-adapter {
+        resize: vertical;
+    }
 }

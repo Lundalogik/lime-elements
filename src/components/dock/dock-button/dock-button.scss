@@ -53,6 +53,10 @@ limel-popover {
     // makes buttons that are wrapped in a popover become fullwidth
     display: grid;
     grid-template-columns: 100%;
+
+    button[slot='trigger'][aria-expanded='true'] {
+        box-shadow: var(--button-shadow-inset);
+    }
 }
 
 .text {

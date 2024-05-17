@@ -1,7 +1,21 @@
 @use '../../../style/internal/shared_input-select-picker.scss';
 
 :host(limel-prosemirror-adapter) {
-    display: block;
+    display: flex;
+    flex-direction: column;
+
+    limel-action-bar {
+        order: 1;
+    }
+
+    div#editor {
+        order: 2;
+        height: 100%;
+    }
+
+    div[contenteditable='true'] {
+        height: 100%;
+    }
 }
 
 * {

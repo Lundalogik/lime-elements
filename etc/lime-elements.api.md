@@ -73,6 +73,7 @@ export interface Chip<T = any> {
     // @deprecated
     iconTitle?: string;
     id: number | string;
+    image?: Image_2;
     removable?: boolean;
     selected?: boolean;
     text: string;
@@ -203,6 +204,7 @@ export namespace Components {
         "disabled": boolean;
         "icon"?: string | Icon;
         "identifier"?: number | string;
+        "image"?: Image_2;
         "invalid": boolean;
         "language": Languages;
         "link"?: Omit<Link, 'text'>;
@@ -645,6 +647,7 @@ export namespace Components {
     }
     // @beta
     export interface LimelTextEditor {
+        "allowResize": boolean;
         "contentType": 'markdown' | 'html';
         "disabled"?: boolean;
         "helperText"?: string;
@@ -859,6 +862,14 @@ export interface Icon {
 
 // @public (undocumented)
 export type IconSize = 'x-small' | 'small' | 'medium' | 'large';
+
+// @public
+interface Image_2 {
+    alt: string;
+    loading?: 'lazy' | 'eager';
+    src: string;
+}
+export { Image_2 as Image }
 
 // @public (undocumented)
 export interface InfoTileProgress {
@@ -1086,6 +1097,7 @@ namespace JSX_2 {
         "disabled"?: boolean;
         "icon"?: string | Icon;
         "identifier"?: number | string;
+        "image"?: Image_2;
         "invalid"?: boolean;
         "language"?: Languages;
         "link"?: Omit<Link, 'text'>;
@@ -1584,6 +1596,7 @@ namespace JSX_2 {
     }
     // @beta
     interface LimelTextEditor {
+        "allowResize"?: boolean;
         "contentType"?: 'markdown' | 'html';
         "disabled"?: boolean;
         "helperText"?: string;

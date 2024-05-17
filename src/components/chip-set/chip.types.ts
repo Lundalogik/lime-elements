@@ -1,3 +1,4 @@
+import { Image } from '../../global/shared-types/image.types';
 import { Icon } from '../../global/shared-types/icon.types';
 
 /**
@@ -18,6 +19,11 @@ export interface Chip<T = any> {
      * Name of the icon to use. Not valid for `filter`.
      */
     icon?: string | Icon;
+
+    /**
+     * A picture to be displayed instead of the icon on the chip.
+     */
+    image?: Image;
 
     /**
      * Color of the icon. Overrides `--icon-color`.

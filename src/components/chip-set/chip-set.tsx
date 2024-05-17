@@ -59,6 +59,7 @@ const INPUT_FIELD_TABINDEX = 1;
  * @exampleComponent limel-example-chip-set-input-type-text
  * @exampleComponent limel-example-chip-set-input-type-search
  * @exampleComponent limel-example-chip-icon-color
+ * @exampleComponent limel-example-chip-set-image
  * @exampleComponent limel-example-chip-set-composite
  */
 @Component({
@@ -589,22 +590,25 @@ export class ChipSet {
     };
 
     private renderHelperLine = () => {
-        if (!this.maxItems && !this.hasHelperText()) {
+        const maxItems = this.maxItems === 1 ? undefined : this.maxItems;
+
+        if (!maxItems && !this.hasHelperText()) {
             return;
         }
 
         return (
             <limel-helper-line
                 length={this.value.length}
-                maxLength={this.maxItems}
+                maxLength={maxItems}
                 helperText={this.helperText}
                 invalid={this.isInvalid()}
             />
         );
     };
 
-    private renderInputChip(chip: Chip, index: number) {
+    private renderInputChip(chip: Chip, index: number, chips: Chip[]) {
         const chipProps = this.getChipProps(chip, 'default');
+        const isLastChip = index === chips.length - 1;
 
         return [
             <limel-chip
@@ -614,7 +618,7 @@ export class ChipSet {
                 }}
                 {...chipProps}
             />,
-            this.renderDelimiter(),
+            !(isLastChip && this.inputHidden()) && this.renderDelimiter(),
         ];
     }
 
@@ -628,6 +632,7 @@ export class ChipSet {
             identifier: chip.id,
             text: chip.text,
             icon: chip.icon,
+            image: chip.image,
             badge: chip.badge,
             selected: chip.selected,
             disabled: this.disabled,

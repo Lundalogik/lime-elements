@@ -16,12 +16,14 @@ describe('limel-file-viewer', () => {
     describe('with image', () => {
         beforeEach(async () => {
             page = await createPage(`
-                <limel-file-viewer url="cat.gif"></limel-file-viewer>
+                <limel-file-viewer url="/assets/misc-files/service-pnp-pga-07100-07149_150px.gif"></limel-file-viewer>
             `);
             contentElement = await page.find('limel-file-viewer>>>img');
         });
         it('displays the image given by url', () => {
-            expect(contentElement.getAttribute('src')).toEqualText('cat.gif');
+            expect(contentElement.getAttribute('src')).toEqualText(
+                '/assets/misc-files/service-pnp-pga-07100-07149_150px.gif',
+            );
         });
         it('shows button controls', async () => {
             const buttons = await page.find('limel-file-viewer>>>div.buttons');
@@ -42,7 +44,7 @@ describe('limel-file-viewer', () => {
     describe('with pdf', () => {
         beforeEach(async () => {
             page = await createPage(`
-                <limel-file-viewer url="file.pdf"></limel-file-viewer>
+                <limel-file-viewer url="/assets/misc-files/file.pdf"></limel-file-viewer>
             `);
             contentElement = await page.find('limel-file-viewer>>>iframe');
         });
@@ -62,12 +64,14 @@ describe('limel-file-viewer', () => {
     describe('with text', () => {
         beforeEach(async () => {
             page = await createPage(`
-                <limel-file-viewer url="file.txt"></limel-file-viewer>
+                <limel-file-viewer url="/assets/misc-files/file.txt"></limel-file-viewer>
             `);
             contentElement = await page.find('limel-file-viewer>>>object');
         });
         it('displays the text file using the object element', () => {
-            expect(contentElement.getAttribute('data')).toEqualText('file.txt');
+            expect(contentElement.getAttribute('data')).toEqualText(
+                '/assets/misc-files/file.txt',
+            );
         });
         it('shows button controls', async () => {
             const buttons = await page.find('limel-file-viewer>>>div.buttons');
@@ -81,14 +85,21 @@ describe('limel-file-viewer', () => {
 
     describe('with video', () => {
         beforeEach(async () => {
+            // We have no .mkv file, and I couldn't get the the server used for
+            // the tests to serve .mkv files anyway, so we just mock
+            // console.error to avoid the error message in the test output.
+            jest.spyOn(console, 'error').mockImplementation(() => {});
             page = await createPage(`
-                <limel-file-viewer url="file.mkv"></limel-file-viewer>
+                <limel-file-viewer url="/assets/misc-files/20736707-sd_426_240_30fps.mkv"></limel-file-viewer>
             `);
             contentElement = await page.find('limel-file-viewer>>>video');
+            jest.restoreAllMocks();
         });
         it('displays the video using the video element', async () => {
             const sourceElement = await contentElement.find('source');
-            expect(sourceElement.getAttribute('src')).toEqualText('file.mkv');
+            expect(sourceElement.getAttribute('src')).toEqualText(
+                '/assets/misc-files/20736707-sd_426_240_30fps.mkv',
+            );
         });
         it('does not show button controls', async () => {
             const buttons = await page.find('limel-file-viewer>>>div.buttons');
@@ -103,13 +114,16 @@ describe('limel-file-viewer', () => {
     describe('with audio', () => {
         beforeEach(async () => {
             page = await createPage(`
-                <limel-file-viewer url="file.mp3"></limel-file-viewer>
+                <limel-file-viewer url="/assets/misc-files/Gorilla-SoundBible.com-1576451741.mp3"></limel-file-viewer>
             `);
+
             contentElement = await page.find('limel-file-viewer>>>audio');
         });
         it('displays the audio using the audio element', async () => {
             const sourceElement = await contentElement.find('source');
-            expect(sourceElement.getAttribute('src')).toEqualText('file.mp3');
+            expect(sourceElement.getAttribute('src')).toEqualText(
+                '/assets/misc-files/Gorilla-SoundBible.com-1576451741.mp3',
+            );
         });
         it('does not show button controls', async () => {
             const buttons = await page.find('limel-file-viewer>>>div.buttons');
