@@ -215,8 +215,6 @@ export class ProsemirrorAdapter {
     }
 
     public setFocus() {
-        if (this.view) {
-            this.view.focus();
-        }
+        this.view?.focus();
     }
 }
