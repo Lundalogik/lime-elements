@@ -1,3 +1,16 @@
+## [37.38.0](https://github.com/Lundalogik/lime-elements/compare/v37.37.0...v37.38.0) (2024-05-17)
+
+
+### Features
+
+
+* **text-editor:** fix disabled and readonly prop CSS always showing ([64b97b1](https://github.com/Lundalogik/lime-elements/commit/64b97b1606cac8277916c4449730770cc30832a2))
+
+### Bug Fixes
+
+
+* **documentation:** fix text-editor form data example ([4d5ddcf](https://github.com/Lundalogik/lime-elements/commit/4d5ddcfe71f84091a40d4099117321dd1fe43abe))
+
 ## [37.37.0](https://github.com/Lundalogik/lime-elements/compare/v37.36.0...v37.37.0) (2024-05-17)
 
 
