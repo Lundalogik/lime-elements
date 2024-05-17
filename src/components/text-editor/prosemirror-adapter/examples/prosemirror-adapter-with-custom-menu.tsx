@@ -12,13 +12,8 @@ export class ProsemirrorAdapterWithCustomMenuExample {
     private text: string = '';
 
     public render() {
-        // const menuItems: EditorPluginButton[] = ['undo', 'redo'];
-
         return [
-            <limel-prosemirror-adapter
-                onChange={this.handleChange}
-                // menuItems={menuItems}
-            />,
+            <limel-prosemirror-adapter onChange={this.handleChange} />,
             <limel-example-value value={this.text} />,
         ];
     }
