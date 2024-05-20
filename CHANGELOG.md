@@ -1,3 +1,11 @@
+## [37.40.1](https://github.com/Lundalogik/lime-elements/compare/v37.40.0...v37.40.1) (2024-05-20)
+
+
+### Performance Improvements
+
+
+* **dock:** avoid re-creating observer whenever menu is opened ([1495948](https://github.com/Lundalogik/lime-elements/commit/149594822df8e5cefb7844a2613592a2c582203c))
+
 ## [37.40.0](https://github.com/Lundalogik/lime-elements/compare/v37.39.1...v37.40.0) (2024-05-20)
 
 
