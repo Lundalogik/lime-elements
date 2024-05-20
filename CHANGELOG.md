@@ -1,3 +1,25 @@
+## [37.40.0](https://github.com/Lundalogik/lime-elements/compare/v37.39.1...v37.40.0) (2024-05-20)
+
+
+### Features
+
+
+* **editor menu:** add menu items ([694fa37](https://github.com/Lundalogik/lime-elements/commit/694fa375920e854e855ca6fb7864df9e303446f6))
+* **text editor:** add command mapping to menu factory ([4224f51](https://github.com/Lundalogik/lime-elements/commit/4224f5193c4c94720c4ab7a2704a6b7d95e50a2d))
+* **text editor:** add editor menu types ([a6ff827](https://github.com/Lundalogik/lime-elements/commit/a6ff82716620a91d1a7338820855cf0be21ac521))
+* **text editor:** add target _blank to external links ([9c0e996](https://github.com/Lundalogik/lime-elements/commit/9c0e996febb26f8662e0c373bbadc6d4562eebe2))
+* **text editor:** add tests for menu command factory ([62ed73c](https://github.com/Lundalogik/lime-elements/commit/62ed73cb48868d11a3612fc3ee76a3e3e0daaec3))
+* **text editor:** implement new menu command handling in adapter ([9ba2779](https://github.com/Lundalogik/lime-elements/commit/9ba277936f8b110ad69ce32635bc9e88d9b4f42e))
+* **text editor:** set getCommand as public function ([8cfb783](https://github.com/Lundalogik/lime-elements/commit/8cfb783370c8c272017b2cdd1059f52e02d5dd4c))
+* **text editor:** use object for types instead of enums ([72b5323](https://github.com/Lundalogik/lime-elements/commit/72b53233511e3f4a95c8c0bb398522f5b0841819))
+
+### Bug Fixes
+
+
+* **menu command mapping:** adjust heading level mapping types ([3109707](https://github.com/Lundalogik/lime-elements/commit/31097074495cf0eb337f5c091011e3f33efafa48))
+* **text editor:** slight refactor of set focus ([8b40f3a](https://github.com/Lundalogik/lime-elements/commit/8b40f3af1ae43b12e15be0b17249370c5a426528))
+* **text editor:** update menu command tests ([9fbd2ae](https://github.com/Lundalogik/lime-elements/commit/9fbd2aecb46205e734775e07765bafac27490fde))
+
 ## [37.39.1](https://github.com/Lundalogik/lime-elements/compare/v37.39.0...v37.39.1) (2024-05-17)
 
 
