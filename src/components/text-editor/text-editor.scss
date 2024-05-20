@@ -11,6 +11,9 @@
 }
 
 :host(limel-text-editor) {
+    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color};
+    --limel-text-editor-background-color: #{shared_input-select-picker.$background-color-normal};
+    --limel-text-editor-label-color: #{shared_input-select-picker.$label-color};
     --limel-text-editor-padding: 0.75rem 1rem;
     position: relative;
     isolation: isolate;
@@ -24,12 +27,6 @@
     max-height: 100%;
 }
 
-:host(limel-text-editor:not([readonly])) {
-    --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color};
-    --limel-text-editor-background-color: #{shared_input-select-picker.$background-color-normal};
-    --limel-text-editor-label-color: #{shared_input-select-picker.$label-color};
-}
-
 :host(limel-text-editor:hover) {
     --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
 }
@@ -38,11 +35,19 @@
     --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
 }
 
-:host(limel-text-editor[invalid]) {
+:host(limel-text-editor[disabled]:not([disabled='false'])) {
+    @include shared_input-select-picker.looks-disabled;
+
+    limel-prosemirror-adapter {
+        pointer-events: none;
+    }
+}
+
+:host(limel-text-editor[invalid]:not([invalid='false'])) {
     --limel-text-editor-outline-color: var(--lime-error-text-color);
 }
 
-:host(limel-text-editor[readonly]) {
+:host(limel-text-editor[readonly]:not([readonly='false'])) {
     --limel-text-editor-placeholder-top: 0;
     --limel-text-editor-outline-color: transparent;
 

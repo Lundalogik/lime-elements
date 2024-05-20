@@ -1,3 +1,63 @@
+## [37.39.1](https://github.com/Lundalogik/lime-elements/compare/v37.39.0...v37.39.1) (2024-05-17)
+
+
+### Bug Fixes
+
+
+* **list:** don't deselect selected item when radio type ([6cac11d](https://github.com/Lundalogik/lime-elements/commit/6cac11dca9df3913ad08cc83a28a7d6faf028b9a))
+
+## [37.39.0](https://github.com/Lundalogik/lime-elements/compare/v37.38.0...v37.39.0) (2024-05-17)
+
+
+### Features
+
+
+* **text-editor:** enable `disabled` prop ([ab06af6](https://github.com/Lundalogik/lime-elements/commit/ab06af666d7d773cf4bbd50542442286fcc1d4a6))
+
+## [37.38.0](https://github.com/Lundalogik/lime-elements/compare/v37.37.0...v37.38.0) (2024-05-17)
+
+
+### Features
+
+
+* **text-editor:** fix disabled and readonly prop CSS always showing ([64b97b1](https://github.com/Lundalogik/lime-elements/commit/64b97b1606cac8277916c4449730770cc30832a2))
+
+### Bug Fixes
+
+
+* **documentation:** fix text-editor form data example ([4d5ddcf](https://github.com/Lundalogik/lime-elements/commit/4d5ddcfe71f84091a40d4099117321dd1fe43abe))
+
+## [37.37.0](https://github.com/Lundalogik/lime-elements/compare/v37.36.0...v37.37.0) (2024-05-17)
+
+
+### Features
+
+
+* **action-bar:** enable making items `selected` ([187c4d5](https://github.com/Lundalogik/lime-elements/commit/187c4d542730ed4227043433120668af63f300e8))
+
+## [37.36.0](https://github.com/Lundalogik/lime-elements/compare/v37.35.0...v37.36.0) (2024-05-16)
+
+
+### Features
+
+
+* **chip-set:** enable displaying pictures instead of icons on chips ([d858fc4](https://github.com/Lundalogik/lime-elements/commit/d858fc4b9f16533e9814fd48f38aadf37d97f813))
+* **chip:** enable displaying pictures instead of icons ([cfc0c1d](https://github.com/Lundalogik/lime-elements/commit/cfc0c1d070cffef71b97b8e09382b0665f395f88))
+* **interface:** add new `Image` interface ([106d4a8](https://github.com/Lundalogik/lime-elements/commit/106d4a8f8d5c8015028d793d4f4495beeac3add1))
+
+## [37.35.0](https://github.com/Lundalogik/lime-elements/compare/v37.34.1...v37.35.0) (2024-05-16)
+
+
+### Features
+
+
+* **text-editor:** use updateView() instead of injecting HTML directly for first value ([d00b089](https://github.com/Lundalogik/lime-elements/commit/d00b089791bd505a4888a5856acc84be047ffa51))
+
+### Bug Fixes
+
+
+* **text-editor:** add watcher for value prop ([de11735](https://github.com/Lundalogik/lime-elements/commit/de11735c19680afae23ea18845f84009048c5756))
+
 ## [37.34.1](https://github.com/Lundalogik/lime-elements/compare/v37.34.0...v37.34.1) (2024-05-16)
 
 
