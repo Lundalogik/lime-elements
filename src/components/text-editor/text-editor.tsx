@@ -1,7 +1,7 @@
 import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
-import { createRandomString } from 'src/util/random-string';
 import { Languages } from '../date-picker/date.types';
+import { createRandomString } from '../../util/random-string';
 /**
  * A rich text editor that offers a rich text editing experience with markdown support,
  * in the sense that you can easily type markdown syntax and see the rendered
