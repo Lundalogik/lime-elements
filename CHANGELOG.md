@@ -1,3 +1,19 @@
+## [37.41.0](https://github.com/Lundalogik/lime-elements/compare/v37.40.1...v37.41.0) (2024-05-20)
+
+
+### Features
+
+
+* **chip:** add optional ellipsis menu, enabling additional actions ([4ec1809](https://github.com/Lundalogik/lime-elements/commit/4ec180988fc3c55770427a945a35dd3604803226))
+* **chip:** make the component publicly available as `beta` ([e72e260](https://github.com/Lundalogik/lime-elements/commit/e72e260261d669dd292beea5224f1ae467fb4179))
+* **translations:** add a generic key for "Remove" ([6195f27](https://github.com/Lundalogik/lime-elements/commit/6195f27fd8abb1993dfc4f8d8966318870a4c227))
+
+### Bug Fixes
+
+
+* **chip:** construct a better label for the remove button ([9d066c4](https://github.com/Lundalogik/lime-elements/commit/9d066c4d0068c3c0ff636e1c383ac1c447c5dcaa))
+* **chip:** ensure that `disabled`, `readonly` & `selected` styles are always correct ([89b2731](https://github.com/Lundalogik/lime-elements/commit/89b27312836085c26705f2916a0ed09d2ec99bc9))
+
 ## [37.40.1](https://github.com/Lundalogik/lime-elements/compare/v37.40.0...v37.40.1) (2024-05-20)
 
 
