@@ -33,6 +33,7 @@ import { isItem } from './isItem';
  *
  * @exampleComponent limel-example-action-bar
  * @exampleComponent limel-example-action-bar-overflow-menu
+ * @exampleComponent limel-example-action-bar-selected-item
  * @exampleComponent limel-example-action-bar-colors
  * @exampleComponent limel-example-action-bar-floating
  * @exampleComponent limel-example-action-bar-styling

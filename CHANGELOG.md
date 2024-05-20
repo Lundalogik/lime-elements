@@ -1,3 +1,62 @@
+## [37.40.0](https://github.com/Lundalogik/lime-elements/compare/v37.39.1...v37.40.0) (2024-05-20)
+
+
+### Features
+
+
+* **editor menu:** add menu items ([694fa37](https://github.com/Lundalogik/lime-elements/commit/694fa375920e854e855ca6fb7864df9e303446f6))
+* **text editor:** add command mapping to menu factory ([4224f51](https://github.com/Lundalogik/lime-elements/commit/4224f5193c4c94720c4ab7a2704a6b7d95e50a2d))
+* **text editor:** add editor menu types ([a6ff827](https://github.com/Lundalogik/lime-elements/commit/a6ff82716620a91d1a7338820855cf0be21ac521))
+* **text editor:** add target _blank to external links ([9c0e996](https://github.com/Lundalogik/lime-elements/commit/9c0e996febb26f8662e0c373bbadc6d4562eebe2))
+* **text editor:** add tests for menu command factory ([62ed73c](https://github.com/Lundalogik/lime-elements/commit/62ed73cb48868d11a3612fc3ee76a3e3e0daaec3))
+* **text editor:** implement new menu command handling in adapter ([9ba2779](https://github.com/Lundalogik/lime-elements/commit/9ba277936f8b110ad69ce32635bc9e88d9b4f42e))
+* **text editor:** set getCommand as public function ([8cfb783](https://github.com/Lundalogik/lime-elements/commit/8cfb783370c8c272017b2cdd1059f52e02d5dd4c))
+* **text editor:** use object for types instead of enums ([72b5323](https://github.com/Lundalogik/lime-elements/commit/72b53233511e3f4a95c8c0bb398522f5b0841819))
+
+### Bug Fixes
+
+
+* **menu command mapping:** adjust heading level mapping types ([3109707](https://github.com/Lundalogik/lime-elements/commit/31097074495cf0eb337f5c091011e3f33efafa48))
+* **text editor:** slight refactor of set focus ([8b40f3a](https://github.com/Lundalogik/lime-elements/commit/8b40f3af1ae43b12e15be0b17249370c5a426528))
+* **text editor:** update menu command tests ([9fbd2ae](https://github.com/Lundalogik/lime-elements/commit/9fbd2aecb46205e734775e07765bafac27490fde))
+
+## [37.39.1](https://github.com/Lundalogik/lime-elements/compare/v37.39.0...v37.39.1) (2024-05-17)
+
+
+### Bug Fixes
+
+
+* **list:** don't deselect selected item when radio type ([6cac11d](https://github.com/Lundalogik/lime-elements/commit/6cac11dca9df3913ad08cc83a28a7d6faf028b9a))
+
+## [37.39.0](https://github.com/Lundalogik/lime-elements/compare/v37.38.0...v37.39.0) (2024-05-17)
+
+
+### Features
+
+
+* **text-editor:** enable `disabled` prop ([ab06af6](https://github.com/Lundalogik/lime-elements/commit/ab06af666d7d773cf4bbd50542442286fcc1d4a6))
+
+## [37.38.0](https://github.com/Lundalogik/lime-elements/compare/v37.37.0...v37.38.0) (2024-05-17)
+
+
+### Features
+
+
+* **text-editor:** fix disabled and readonly prop CSS always showing ([64b97b1](https://github.com/Lundalogik/lime-elements/commit/64b97b1606cac8277916c4449730770cc30832a2))
+
+### Bug Fixes
+
+
+* **documentation:** fix text-editor form data example ([4d5ddcf](https://github.com/Lundalogik/lime-elements/commit/4d5ddcfe71f84091a40d4099117321dd1fe43abe))
+
+## [37.37.0](https://github.com/Lundalogik/lime-elements/compare/v37.36.0...v37.37.0) (2024-05-17)
+
+
+### Features
+
+
+* **action-bar:** enable making items `selected` ([187c4d5](https://github.com/Lundalogik/lime-elements/commit/187c4d542730ed4227043433120668af63f300e8))
+
 ## [37.36.0](https://github.com/Lundalogik/lime-elements/compare/v37.35.0...v37.36.0) (2024-05-16)
 
 

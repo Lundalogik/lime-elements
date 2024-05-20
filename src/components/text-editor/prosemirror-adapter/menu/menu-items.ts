@@ -1,5 +1,6 @@
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
+import { EditorMenuTypes } from './types';
 
 const getCommandSymbols = (): {
     mod: string;
@@ -16,16 +17,18 @@ const getCommandSymbols = (): {
 
 const { mod, shift } = getCommandSymbols();
 
-export const textEditorMenuItems: Array<ActionBarItem | ListSeparator> = [
+export const textEditorMenuItems: Array<
+    ActionBarItem<EditorMenuTypes> | ListSeparator
+> = [
     {
-        value: 'strong',
+        value: EditorMenuTypes.Bold,
         text: 'Bold',
         commandText: `${mod} B`,
         icon: '-lime-text-bold',
         iconOnly: true,
     },
     {
-        value: 'em',
+        value: EditorMenuTypes.Italic,
         text: 'Italic',
         commandText: `${mod} I`,
         icon: '-lime-text-italic',
@@ -33,21 +36,21 @@ export const textEditorMenuItems: Array<ActionBarItem | ListSeparator> = [
     },
     { separator: true },
     {
-        value: 'headerlevel1',
+        value: EditorMenuTypes.HeaderLevel1,
         text: 'Header Level 1',
         commandText: `${mod} ${shift} 1`,
         icon: '-lime-text-h-heading-1',
         iconOnly: true,
     },
     {
-        value: 'headerlevel2',
+        value: EditorMenuTypes.HeaderLevel2,
         text: 'Header Level 2',
         commandText: `${mod} ${shift} 2`,
         icon: '-lime-text-h-heading-2',
         iconOnly: true,
     },
     {
-        value: 'headerlevel3',
+        value: EditorMenuTypes.HeaderLevel3,
         text: 'Header Level 3',
         commandText: `${mod} ${shift} 3`,
         icon: '-lime-text-h-heading-3',
@@ -55,19 +58,19 @@ export const textEditorMenuItems: Array<ActionBarItem | ListSeparator> = [
     },
     { separator: true },
     {
-        value: 'bullet_list',
+        value: EditorMenuTypes.BulletList,
         text: 'Bullet list',
         icon: '-lime-text-bulleted-list',
         iconOnly: true,
     },
     {
-        value: 'ordered_list',
+        value: EditorMenuTypes.OrderedList,
         text: 'Numbered list',
         icon: '-lime-text-ordered-list',
         iconOnly: true,
     },
     {
-        value: 'blockquote',
+        value: EditorMenuTypes.Blockquote,
         text: 'Blockquote',
         icon: '-lime-text-blockquote',
         iconOnly: true,
