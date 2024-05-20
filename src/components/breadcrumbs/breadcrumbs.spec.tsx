@@ -2,6 +2,7 @@ import { h } from '@stencil/core';
 import { newSpecPage, SpecPage } from '@stencil/core/testing';
 import { BreadcrumbsItem } from '@limetech/lime-elements';
 import { Breadcrumbs } from './breadcrumbs';
+import { getAttributesRecursively } from '../../util/get-attributes';
 
 let page: SpecPage;
 let handleSelect: jest.Mock;
@@ -66,7 +67,7 @@ describe('limel-breadcrumbs', () => {
         const ids = [];
         beforeEach(async () => {
             await initializeComponent(buttonLikeItems);
-            getIDs(page.root.shadowRoot.children[0], ids);
+            getAttributesRecursively(page.root.shadowRoot.children[0], ids);
         });
 
         afterEach(() => {
@@ -130,7 +131,7 @@ describe('limel-breadcrumbs', () => {
         it('renders the breadcrumbs with links', async () => {
             const ids = [];
             await initializeComponent(hyperlinkItems);
-            getIDs(page.root.shadowRoot.children[0], ids);
+            getAttributesRecursively(page.root.shadowRoot.children[0], ids);
 
             expect(page.root).toEqualHtml(
                 `<limel-breadcrumbs>
@@ -158,25 +159,6 @@ describe('limel-breadcrumbs', () => {
         });
     });
 });
-
-/**
- * Ids are randomly generated and we do not have access to them as they
- * are inside the breadcrumbs component. But we can get them this way.
- * Retrieves ids via inorder traversal
- *
- * @param node - base node
- * @param ids - id array that you wish to populate
- */
-function getIDs(node: Element, ids: string[]) {
-    if (node.children && node.id) {
-        ids.push(node.id);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let i = 0; i < node.children.length; i++) {
-        getIDs(node.children[i], ids);
-    }
-}
 
 async function initializeComponent(
     items: BreadcrumbsItem[],
