@@ -1,5 +1,7 @@
 import { Image } from '../../global/shared-types/image.types';
 import { Icon } from '../../global/shared-types/icon.types';
+import { MenuItem } from '../menu/menu.types';
+import { ListSeparator } from '../list/list-item.types';
 
 /**
  * @public
@@ -94,6 +96,11 @@ export interface Chip<T = any> {
      * If supplied, the chip will render a link, using the supplied href.
      */
     href?: string;
+
+    /**
+     * List of the items to display as in a menu, on the chip.
+     */
+    menuItems?: Array<MenuItem | ListSeparator>;
 }
 
 /**
