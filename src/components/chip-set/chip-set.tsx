@@ -56,6 +56,7 @@ const INPUT_FIELD_TABINDEX = 1;
  * @exampleComponent limel-example-chip-set-filter
  * @exampleComponent limel-example-chip-set-filter-badge
  * @exampleComponent limel-example-chip-set-input
+ * @exampleComponent limel-example-chip-set-input-type-with-menu-items
  * @exampleComponent limel-example-chip-set-input-type-text
  * @exampleComponent limel-example-chip-set-input-type-search
  * @exampleComponent limel-example-chip-icon-color
@@ -639,6 +640,7 @@ export class ChipSet {
             readonly: readonly,
             type: chipType,
             removable: removable,
+            menuItems: chip.menuItems,
             onClick: this.catchInputChipClicks(chip),
             onRemove: this.handleRemoveChip,
             ...(chip.href && {
