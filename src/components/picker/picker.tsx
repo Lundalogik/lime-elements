@@ -43,6 +43,7 @@ const CHIP_SET_TAG_NAME = 'limel-chip-set';
  * @exampleComponent limel-example-picker-multiple
  * @exampleComponent limel-example-picker-icons
  * @exampleComponent limel-example-picker-value-as-object
+ * @exampleComponent limel-example-picker-value-as-object-with-actions
  * @exampleComponent limel-example-picker-empty-suggestions
  * @exampleComponent limel-example-picker-leading-icon
  * @exampleComponent limel-example-picker-static-actions
@@ -329,6 +330,7 @@ export class Picker {
             removable: true,
             icon: name ? { name: name, color: color } : undefined,
             value: listItem,
+            menuItems: listItem.actions,
         };
     };
 
