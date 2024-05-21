@@ -457,14 +457,12 @@ export class Chip implements ChipInterface {
             return;
         }
 
-        const { value } = menuItem;
-
-        if (value === '_remove') {
+        if (menuItem.value === '_remove') {
             this.remove.emit(this.identifier);
 
             return;
         }
 
-        this.menuItemSelected.emit(value);
+        this.menuItemSelected.emit(menuItem);
     };
 }
