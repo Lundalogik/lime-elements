@@ -1,3 +1,11 @@
+## [37.41.1](https://github.com/Lundalogik/lime-elements/compare/v37.41.0...v37.41.1) (2024-05-22)
+
+
+### Bug Fixes
+
+
+* **button:** allow setting focus on button ([8cb2e02](https://github.com/Lundalogik/lime-elements/commit/8cb2e021aa313a529f57d3391b3e5d6eceedd04e))
+
 ## [37.41.0](https://github.com/Lundalogik/lime-elements/compare/v37.40.1...v37.41.0) (2024-05-20)
 
 
