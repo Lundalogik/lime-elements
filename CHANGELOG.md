@@ -1,3 +1,18 @@
+## [37.42.0](https://github.com/Lundalogik/lime-elements/compare/v37.41.1...v37.42.0) (2024-05-22)
+
+
+### Features
+
+
+* **chip-set:** implement ellipsis menu for action handling ([f7af0cc](https://github.com/Lundalogik/lime-elements/commit/f7af0cca65fd186756a6ede2614b79574c7d3a7a))
+* **chip.types:** add menuItems to the Chip interface ([d2056fb](https://github.com/Lundalogik/lime-elements/commit/d2056fb21cf3fe7c66dfc183de0b4ffafd475e4d))
+* **picker:** implement ellipsis menu for action handling ([0d7f0db](https://github.com/Lundalogik/lime-elements/commit/0d7f0db75ccc309c69837bf1ae51c22743dc592a))
+
+### Bug Fixes
+
+
+* **chip:** emit menuItem instead of value on menu selection ([8a12b88](https://github.com/Lundalogik/lime-elements/commit/8a12b88c1055a5bf6c0513bf6f9df7a4ef08c655))
+
 ## [37.41.1](https://github.com/Lundalogik/lime-elements/compare/v37.41.0...v37.41.1) (2024-05-22)
 
 
