@@ -1,3 +1,14 @@
+## [37.42.1](https://github.com/Lundalogik/lime-elements/compare/v37.42.0...v37.42.1) (2024-05-22)
+
+
+### Bug Fixes
+
+
+* **chip:** better visualize opening the menu ([226f56d](https://github.com/Lundalogik/lime-elements/commit/226f56d82f5be69eed1a87737aeabb47af0501eb))
+* **chip:** enable users to focus the menu trigger, using keyboard ([62f654a](https://github.com/Lundalogik/lime-elements/commit/62f654ae0525e8782b1331e0c5f45122d11e3cba))
+* **chip:** ensure the ellipsis menu changes color in dark mode ([712ed03](https://github.com/Lundalogik/lime-elements/commit/712ed03fb202c99ac2b63627b2a2620f39f837f8))
+* **chip:** use trailing icon of "remove" distincly for the remove button ([2c97cea](https://github.com/Lundalogik/lime-elements/commit/2c97cea11ced8580207012b25db546fa92c4b591))
+
 ## [37.42.0](https://github.com/Lundalogik/lime-elements/compare/v37.41.1...v37.42.0) (2024-05-22)
 
 
