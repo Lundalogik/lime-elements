@@ -209,6 +209,12 @@ limel-menu {
     button[slot='trigger'] {
         @include mixins.visualize-keyboard-focus;
     }
+
+    &[open] {
+        button[slot='trigger'] {
+            box-shadow: var(--button-shadow-inset);
+        }
+    }
 }
 
 @import './partial-styles/_loading.scss';
