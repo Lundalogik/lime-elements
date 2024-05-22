@@ -1,3 +1,14 @@
+## [37.42.2](https://github.com/Lundalogik/lime-elements/compare/v37.42.1...v37.42.2) (2024-05-22)
+
+
+### Bug Fixes
+
+
+* **chip:** allow setting focus on the internal button programmatically ([3d8c044](https://github.com/Lundalogik/lime-elements/commit/3d8c044cfe952a5cad1cbe9d235f975db06d6987))
+* **icon-button:** allow setting focus on the internal button programmatically ([4ba0979](https://github.com/Lundalogik/lime-elements/commit/4ba097956412aa599fc7bad1d113d3e7356df813))
+* **list:** allow setting focus on list items programmatically ([2b354e3](https://github.com/Lundalogik/lime-elements/commit/2b354e315f6fd183867f8ad34f2ed6c3d585172e))
+* **split-button:** allow setting focus on the internal button programmatically ([78ef959](https://github.com/Lundalogik/lime-elements/commit/78ef9592817e132728599b31ebb3819f8e817225))
+
 ## [37.42.1](https://github.com/Lundalogik/lime-elements/compare/v37.42.0...v37.42.1) (2024-05-22)
 
 
