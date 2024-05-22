@@ -357,8 +357,8 @@ export class Chip implements ChipInterface {
             >
                 <button
                     slot="trigger"
+                    disabled={this.disabled}
                     class="trailing-button"
-                    tabIndex={-1}
                     aria-label={this.actionMenuLabel}
                     innerHTML={svgData}
                 />
