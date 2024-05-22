@@ -37,7 +37,7 @@ const { ACTION_EVENT } = listStrings;
  */
 @Component({
     tag: 'limel-list',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'list.scss',
 })
 export class List {
