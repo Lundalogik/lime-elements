@@ -354,6 +354,7 @@ export class Chip implements ChipInterface {
             <limel-menu
                 items={menuItems}
                 onSelect={this.handleActionMenuSelect}
+                openDirection="bottom-end"
             >
                 <button
                     slot="trigger"
