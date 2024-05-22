@@ -206,5 +206,11 @@ limel-badge {
     }
 }
 
+limel-menu {
+    button[slot='trigger'] {
+        @include mixins.visualize-keyboard-focus;
+    }
+}
+
 @import './partial-styles/_loading.scss';
 @import './partial-styles/_progress.scss';
