@@ -88,7 +88,7 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  */
 @Component({
     tag: 'limel-chip',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'chip.scss',
 })
 export class Chip implements ChipInterface {
