@@ -88,7 +88,7 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  */
 @Component({
     tag: 'limel-chip',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'chip.scss',
 })
 export class Chip implements ChipInterface {
@@ -346,7 +346,7 @@ export class Chip implements ChipInterface {
         }
 
         const svgData =
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" xml:space="preserve"><circle cx="16" cy="16" r="2"/><circle cx="16" cy="24" r="2"/><circle cx="16" cy="8" r="2"/></svg>';
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" xml:space="preserve"><circle fill="currentColor" cx="16" cy="16" r="2"/><circle fill="currentColor" cx="16" cy="24" r="2"/><circle fill="currentColor" cx="16" cy="8" r="2"/></svg>';
 
         const menuItems = this.getMenuItems();
 
@@ -354,11 +354,12 @@ export class Chip implements ChipInterface {
             <limel-menu
                 items={menuItems}
                 onSelect={this.handleActionMenuSelect}
+                openDirection="bottom-end"
             >
                 <button
                     slot="trigger"
+                    disabled={this.disabled}
                     class="trailing-button"
-                    tabIndex={-1}
                     aria-label={this.actionMenuLabel}
                     innerHTML={svgData}
                 />
@@ -457,14 +458,12 @@ export class Chip implements ChipInterface {
             return;
         }
 
-        const { value } = menuItem;
-
-        if (value === '_remove') {
+        if (menuItem.value === '_remove') {
             this.remove.emit(this.identifier);
 
             return;
         }
 
-        this.menuItemSelected.emit(value);
+        this.menuItemSelected.emit(menuItem);
     };
 }

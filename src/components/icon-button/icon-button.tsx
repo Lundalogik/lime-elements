@@ -14,7 +14,7 @@ import { createRandomString } from '../../util/random-string';
  */
 @Component({
     tag: 'limel-icon-button',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'icon-button.scss',
 })
 export class IconButton {

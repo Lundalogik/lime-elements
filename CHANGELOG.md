@@ -1,3 +1,48 @@
+## [37.42.2](https://github.com/Lundalogik/lime-elements/compare/v37.42.1...v37.42.2) (2024-05-22)
+
+
+### Bug Fixes
+
+
+* **chip:** allow setting focus on the internal button programmatically ([3d8c044](https://github.com/Lundalogik/lime-elements/commit/3d8c044cfe952a5cad1cbe9d235f975db06d6987))
+* **icon-button:** allow setting focus on the internal button programmatically ([4ba0979](https://github.com/Lundalogik/lime-elements/commit/4ba097956412aa599fc7bad1d113d3e7356df813))
+* **list:** allow setting focus on list items programmatically ([2b354e3](https://github.com/Lundalogik/lime-elements/commit/2b354e315f6fd183867f8ad34f2ed6c3d585172e))
+* **split-button:** allow setting focus on the internal button programmatically ([78ef959](https://github.com/Lundalogik/lime-elements/commit/78ef9592817e132728599b31ebb3819f8e817225))
+
+## [37.42.1](https://github.com/Lundalogik/lime-elements/compare/v37.42.0...v37.42.1) (2024-05-22)
+
+
+### Bug Fixes
+
+
+* **chip:** better visualize opening the menu ([226f56d](https://github.com/Lundalogik/lime-elements/commit/226f56d82f5be69eed1a87737aeabb47af0501eb))
+* **chip:** enable users to focus the menu trigger, using keyboard ([62f654a](https://github.com/Lundalogik/lime-elements/commit/62f654ae0525e8782b1331e0c5f45122d11e3cba))
+* **chip:** ensure the ellipsis menu changes color in dark mode ([712ed03](https://github.com/Lundalogik/lime-elements/commit/712ed03fb202c99ac2b63627b2a2620f39f837f8))
+* **chip:** use trailing icon of "remove" distincly for the remove button ([2c97cea](https://github.com/Lundalogik/lime-elements/commit/2c97cea11ced8580207012b25db546fa92c4b591))
+
+## [37.42.0](https://github.com/Lundalogik/lime-elements/compare/v37.41.1...v37.42.0) (2024-05-22)
+
+
+### Features
+
+
+* **chip-set:** implement ellipsis menu for action handling ([f7af0cc](https://github.com/Lundalogik/lime-elements/commit/f7af0cca65fd186756a6ede2614b79574c7d3a7a))
+* **chip.types:** add menuItems to the Chip interface ([d2056fb](https://github.com/Lundalogik/lime-elements/commit/d2056fb21cf3fe7c66dfc183de0b4ffafd475e4d))
+* **picker:** implement ellipsis menu for action handling ([0d7f0db](https://github.com/Lundalogik/lime-elements/commit/0d7f0db75ccc309c69837bf1ae51c22743dc592a))
+
+### Bug Fixes
+
+
+* **chip:** emit menuItem instead of value on menu selection ([8a12b88](https://github.com/Lundalogik/lime-elements/commit/8a12b88c1055a5bf6c0513bf6f9df7a4ef08c655))
+
+## [37.41.1](https://github.com/Lundalogik/lime-elements/compare/v37.41.0...v37.41.1) (2024-05-22)
+
+
+### Bug Fixes
+
+
+* **button:** allow setting focus on button ([8cb2e02](https://github.com/Lundalogik/lime-elements/commit/8cb2e021aa313a529f57d3391b3e5d6eceedd04e))
+
 ## [37.41.0](https://github.com/Lundalogik/lime-elements/compare/v37.40.1...v37.41.0) (2024-05-20)
 
 

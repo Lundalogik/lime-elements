@@ -20,8 +20,8 @@ import { MenuItem } from '../menu/menu.types';
  */
 @Component({
     tag: 'limel-split-button',
+    shadow: { delegatesFocus: true },
     styleUrl: 'split-button.scss',
-    shadow: true,
 })
 export class SplitButton {
     /**

@@ -19,7 +19,7 @@ import {
  */
 @Component({
     tag: 'limel-button',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'button.scss',
 })
 export class Button {
