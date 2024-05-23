@@ -1,6 +1,7 @@
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
 import { EditorMenuTypes } from './types';
+import { cloneDeep } from 'lodash-es';
 
 const getCommandSymbols = (): {
     mod: string;
@@ -17,7 +18,7 @@ const getCommandSymbols = (): {
 
 const { mod, shift } = getCommandSymbols();
 
-export const textEditorMenuItems: Array<
+const textEditorMenuItems: Array<
     ActionBarItem<EditorMenuTypes> | ListSeparator
 > = [
     {
@@ -39,7 +40,7 @@ export const textEditorMenuItems: Array<
     { separator: true },
     {
         value: EditorMenuTypes.HeaderLevel1,
-        text: 'Header Level 1',
+        text: 'Header 1',
         commandText: `${mod} ${shift} 1`,
         icon: '-lime-text-h-heading-1',
         iconOnly: true,
@@ -47,7 +48,7 @@ export const textEditorMenuItems: Array<
     },
     {
         value: EditorMenuTypes.HeaderLevel2,
-        text: 'Header Level 2',
+        text: 'Header 2',
         commandText: `${mod} ${shift} 2`,
         icon: '-lime-text-h-heading-2',
         iconOnly: true,
@@ -55,7 +56,7 @@ export const textEditorMenuItems: Array<
     },
     {
         value: EditorMenuTypes.HeaderLevel3,
-        text: 'Header Level 3',
+        text: 'Header 3',
         commandText: `${mod} ${shift} 3`,
         icon: '-lime-text-h-heading-3',
         iconOnly: true,
@@ -84,3 +85,5 @@ export const textEditorMenuItems: Array<
         selected: false,
     },
 ];
+
+export const getTextEditorMenuItems = () => cloneDeep(textEditorMenuItems);
