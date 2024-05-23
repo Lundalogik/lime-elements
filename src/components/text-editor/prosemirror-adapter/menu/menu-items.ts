@@ -87,3 +87,20 @@ const textEditorMenuItems: Array<
 ];
 
 export const getTextEditorMenuItems = () => cloneDeep(textEditorMenuItems);
+
+export const menuTranslationIDs = {
+    strong: 'editor-menu.bold',
+    em: 'editor-menu.italic',
+    headerlevel1: 'editor-menu.h1',
+    headerlevel2: 'editor-menu.h2',
+    headerlevel3: 'editor-menu.h3',
+    /* eslint-disable camelcase */
+    bullet_list: 'editor-menu.bulleted-list',
+    ordered_list: 'editor-menu.numbered-list',
+    /* eslint-enable camelcase */
+    blockquote: 'editor-menu.blockquote',
+    link: 'editor-menu.link',
+};
+
+export type menuTranslationIDs =
+    (typeof menuTranslationIDs)[keyof typeof menuTranslationIDs];

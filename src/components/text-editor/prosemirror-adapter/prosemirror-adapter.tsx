@@ -18,13 +18,15 @@ import { keymap } from 'prosemirror-keymap';
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
 import { CommandWithActive, MenuCommandFactory } from './menu/menu-commands';
-import { textEditorMenuItems } from './menu/menu-items';
+import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { markdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
 import { EditorMenuTypes } from './menu/types';
+import translate from 'src/global/translations';
 import { isItem } from 'src/components/action-bar/isItem';
 import { cloneDeep } from 'lodash-es';
+import { Languages } from '../../date-picker/date.types';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -55,6 +57,12 @@ export class ProsemirrorAdapter {
     @Prop()
     public value: string;
 
+    /**
+     * Defines the language for translations.
+     */
+    @Prop({ reflect: true })
+    public language: Languages;
+
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -67,7 +75,8 @@ export class ProsemirrorAdapter {
     > = [];
 
     private menuCommandFactory: MenuCommandFactory;
-    private editorKeyMap = {};
+    private schema: Schema;
+    private contentConverter: ContentTypeConverter;
 
     /**
      * Dispatched when a change is made to the editor
@@ -79,7 +88,7 @@ export class ProsemirrorAdapter {
     protected watchValue(newValue: string) {
         if (
             !this.view ||
-            newValue === this.contentConverter.serialize(this.view, schema)
+            newValue === this.contentConverter.serialize(this.view, this.schema)
         ) {
             return;
         }
@@ -87,21 +96,18 @@ export class ProsemirrorAdapter {
         this.updateView(newValue);
     }
 
-    private contentConverter: ContentTypeConverter;
-
     public componentWillLoad() {
-        if (this.contentType === 'markdown') {
-            this.contentConverter = new markdownConverter();
-        } else if (this.contentType === 'html') {
-            this.contentConverter = new HTMLConverter();
-        }
+        this.getActionBarItems();
+        this.setupContentConverter();
     }
 
     public componentDidLoad() {
         // Stencil complains loudly about triggering rerenders in
         // componentDidLoad, but we have to, so we're using setTimeout to
         // suppress the warning. /Ads
-        setTimeout(this.initializeTextEditor, 0);
+        setTimeout(() => {
+            this.initializeTextEditor();
+        }, 0);
     }
 
     public render() {
@@ -115,66 +121,90 @@ export class ProsemirrorAdapter {
         ];
     }
 
-    private initializeTextEditor = async () => {
-        this.actionBarItems = textEditorMenuItems;
+    private setupContentConverter() {
+        /* eslint-disable multiline-ternary */
+        this.contentConverter =
+            this.contentType === 'markdown'
+                ? new markdownConverter()
+                : new HTMLConverter();
+        /* eslint-enable multiline-ternary */
+    }
 
-        const mySchema = new Schema({
-            nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
-            marks: schema.spec.marks,
-        });
+    private getActionBarItems = () => {
+        this.actionBarItems = getTextEditorMenuItems().map(
+            this.getTranslatedItem,
+        );
+    };
 
-        // Parse initial content directly if 'value' is provided
-        const initialContentElement = document.createElement('div');
-        initialContentElement.innerHTML = '<p></p>';
-        if (this.value) {
-            initialContentElement.innerHTML =
-                await this.contentConverter.parseAsHTML(this.value, schema);
+    private getTranslatedItem = (item) => {
+        const newItem = cloneDeep(item);
+
+        if (isItem(item)) {
+            const translationId = menuTranslationIDs[item.value];
+
+            if (translationId) {
+                newItem.text = translate.get(translationId, this.language);
+            }
         }
 
-        const initialDoc = DOMParser.fromSchema(mySchema).parse(
-            initialContentElement,
-        );
+        return newItem;
+    };
 
-        this.menuCommandFactory = new MenuCommandFactory(mySchema);
-
-        this.editorKeyMap = this.menuCommandFactory.buildKeymap();
-
-        const keymapPlugin = keymap(this.editorKeyMap);
-
+    private async initializeTextEditor() {
+        this.schema = this.initializeSchema();
+        const initialDoc = await this.parseInitialContent();
+        this.menuCommandFactory = new MenuCommandFactory(this.schema);
         this.view = new EditorView(
             this.host.shadowRoot.querySelector('#editor'),
             {
-                state: EditorState.create({
-                    doc: initialDoc,
-                    plugins: [
-                        ...exampleSetup({
-                            schema: mySchema,
-                            menuBar: false,
-                        }),
-                        keymapPlugin,
-                        this.createMenuStateTrackingPlugin(this.actionBarItems),
-                    ],
-                }),
-                dispatchTransaction: (transaction) => {
-                    const newState = this.view.state.apply(transaction);
-                    this.view.updateState(newState);
-
-                    this.change.emit(
-                        this.contentConverter.serialize(this.view, schema),
-                    );
-                },
+                state: this.createEditorState(initialDoc),
+                dispatchTransaction: this.handleTransaction,
             },
         );
-
-        this.menuCommandFactory = new MenuCommandFactory(mySchema);
-
         if (this.value) {
             this.updateView(this.value);
         }
-    };
+    }
+
+    private initializeSchema() {
+        return new Schema({
+            nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+            marks: schema.spec.marks,
+        });
+    }
+
+    private async parseInitialContent() {
+        const initialContentElement = document.createElement('div');
+
+        if (this.value) {
+            initialContentElement.innerHTML =
+                await this.contentConverter.parseAsHTML(
+                    this.value,
+                    this.schema,
+                );
+        } else {
+            initialContentElement.innerHTML = '<p></p>';
+        }
+
+        return DOMParser.fromSchema(this.schema).parse(initialContentElement);
+    }
+
+    private createEditorState(initialDoc) {
+        return EditorState.create({
+            doc: initialDoc,
+            plugins: [
+                ...exampleSetup({ schema: this.schema, menuBar: false }),
+                keymap(this.menuCommandFactory.buildKeymap()),
+                this.createMenuStateTrackingPlugin(this.actionBarItems),
+            ],
+        });
+    }
 
     private async updateView(content: string) {
-        const html = await this.contentConverter.parseAsHTML(content, schema);
+        const html = await this.contentConverter.parseAsHTML(
+            content,
+            this.schema,
+        );
         const prosemirrorDOMparser = DOMParser.fromSchema(
             this.view.state.schema,
         );
@@ -183,29 +213,35 @@ export class ProsemirrorAdapter {
         const prosemirrorDoc = prosemirrorDOMparser.parse(doc.body);
         const tr = this.view.state.tr;
         tr.replaceWith(0, tr.doc.content.size, prosemirrorDoc.content);
-
         this.view.dispatch(tr);
     }
 
-    private handleActionBarItem = (event: CustomEvent<ActionBarItem>) => {
-        event.preventDefault();
+    private handleTransaction = (transaction) => {
+        const newState = this.view.state.apply(transaction);
+        this.view.updateState(newState);
+        this.change.emit(
+            this.contentConverter.serialize(this.view, this.schema),
+        );
+    };
 
+    private handleActionBarItem = (
+        event: CustomEvent<ActionBarItem<EditorMenuTypes>>,
+    ) => {
+        event.preventDefault();
         const { value } = event.detail;
 
         try {
             const command = this.menuCommandFactory.getCommand(value);
-            this.executeCommand(command);
+            this.dispatchMenuCommand(command);
         } catch (error) {
             throw new Error(`Error executing command: ${error}`);
         }
     };
 
-    private executeCommand(command) {
+    private dispatchMenuCommand(command) {
         const { state } = this.view;
         const selection = state.selection;
-
         let transaction = state.tr;
-
         if (!selection.empty) {
             transaction.setSelection(selection);
         }
@@ -214,7 +250,6 @@ export class ProsemirrorAdapter {
             transaction = tr;
         });
         this.view.dispatch(transaction);
-
         this.setFocus();
     }
 
