@@ -8,7 +8,7 @@ import {
     Watch,
     h,
 } from '@stencil/core';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
@@ -17,12 +17,14 @@ import { exampleSetup } from 'prosemirror-example-setup';
 import { keymap } from 'prosemirror-keymap';
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
-import { MenuCommandFactory } from './menu/menu-commands';
+import { CommandWithActive, MenuCommandFactory } from './menu/menu-commands';
 import { textEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { markdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
 import { EditorMenuTypes } from './menu/types';
+import { isItem } from 'src/components/action-bar/isItem';
+import { cloneDeep } from 'lodash-es';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -150,6 +152,7 @@ export class ProsemirrorAdapter {
                             menuBar: false,
                         }),
                         keymapPlugin,
+                        this.createMenuStateTrackingPlugin(this.actionBarItems),
                     ],
                 }),
                 dispatchTransaction: (transaction) => {
@@ -188,6 +191,7 @@ export class ProsemirrorAdapter {
         event.preventDefault();
 
         const { value } = event.detail;
+
         try {
             const command = this.menuCommandFactory.getCommand(value);
             this.executeCommand(command);
@@ -217,4 +221,38 @@ export class ProsemirrorAdapter {
     public setFocus() {
         this.view?.focus();
     }
+
+    actionBarPluginKey = new PluginKey('actionBarPlugin');
+
+    private updateActionBarItems = (
+        actionBarItems: Array<ActionBarItem<EditorMenuTypes> | ListSeparator>,
+        view: EditorView,
+    ) => {
+        const updatedItems = cloneDeep(actionBarItems);
+        updatedItems.forEach((item) => {
+            if (isItem(item)) {
+                const command: CommandWithActive =
+                    this.menuCommandFactory.getCommand(item.value);
+                if (command && command.active) {
+                    item.selected = command.active(view.state);
+                } else {
+                    item.selected = false;
+                }
+            }
+        });
+        this.actionBarItems = updatedItems;
+    };
+
+    private createMenuStateTrackingPlugin = (
+        actionBarItems: Array<ActionBarItem<EditorMenuTypes> | ListSeparator>,
+    ) => {
+        return new Plugin({
+            key: this.actionBarPluginKey,
+            view: () => ({
+                update: (view) => {
+                    this.updateActionBarItems(actionBarItems, view);
+                },
+            }),
+        });
+    };
 }
