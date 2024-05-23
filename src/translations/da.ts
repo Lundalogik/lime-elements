@@ -18,4 +18,13 @@ export default {
     'file-viewer.open-in-fullscreen': 'Åbn i fuld skærm',
     'file-viewer.open-in-new-tab': 'Åbn i en ny fane',
     'file-viewer.more-actions': 'Mere…',
+    'editor-menu.bold': 'Fed',
+    'editor-menu.italic': 'Kursiv',
+    'editor-menu.h1': 'Overskrift 1',
+    'editor-menu.h2': 'Overskrift 2',
+    'editor-menu.h3': 'Overskrift 3',
+    'editor-menu.bulleted-list': 'Punktliste',
+    'editor-menu.numbered-list': 'Nummereret liste',
+    'editor-menu.blockquote': 'Blokcitat',
+    'editor-menu.link': 'Tilføj link',
 };
