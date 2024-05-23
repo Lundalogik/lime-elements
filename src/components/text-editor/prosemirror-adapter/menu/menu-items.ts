@@ -26,6 +26,7 @@ export const textEditorMenuItems: Array<
         commandText: `${mod} B`,
         icon: '-lime-text-bold',
         iconOnly: true,
+        selected: false,
     },
     {
         value: EditorMenuTypes.Italic,
@@ -33,6 +34,7 @@ export const textEditorMenuItems: Array<
         commandText: `${mod} I`,
         icon: '-lime-text-italic',
         iconOnly: true,
+        selected: false,
     },
     { separator: true },
     {
@@ -41,6 +43,7 @@ export const textEditorMenuItems: Array<
         commandText: `${mod} ${shift} 1`,
         icon: '-lime-text-h-heading-1',
         iconOnly: true,
+        selected: false,
     },
     {
         value: EditorMenuTypes.HeaderLevel2,
@@ -48,6 +51,7 @@ export const textEditorMenuItems: Array<
         commandText: `${mod} ${shift} 2`,
         icon: '-lime-text-h-heading-2',
         iconOnly: true,
+        selected: false,
     },
     {
         value: EditorMenuTypes.HeaderLevel3,
@@ -55,6 +59,7 @@ export const textEditorMenuItems: Array<
         commandText: `${mod} ${shift} 3`,
         icon: '-lime-text-h-heading-3',
         iconOnly: true,
+        selected: false,
     },
     { separator: true },
     {
@@ -62,17 +67,20 @@ export const textEditorMenuItems: Array<
         text: 'Bullet list',
         icon: '-lime-text-bulleted-list',
         iconOnly: true,
+        selected: false,
     },
     {
         value: EditorMenuTypes.OrderedList,
         text: 'Numbered list',
         icon: '-lime-text-ordered-list',
         iconOnly: true,
+        selected: false,
     },
     {
         value: EditorMenuTypes.Blockquote,
         text: 'Blockquote',
         icon: '-lime-text-blockquote',
         iconOnly: true,
+        selected: false,
     },
 ];
