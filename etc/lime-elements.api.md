@@ -559,6 +559,7 @@ export namespace Components {
     // @beta
     export interface LimelProsemirrorAdapter {
         "contentType": 'markdown' | 'html';
+        "language": Languages;
         "value": string;
     }
     // (undocumented)
@@ -656,6 +657,7 @@ export namespace Components {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
+        "language": Languages;
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
@@ -1498,6 +1500,7 @@ namespace JSX_2 {
     // @beta
     interface LimelProsemirrorAdapter {
         "contentType"?: 'markdown' | 'html';
+        "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
         "value"?: string;
     }
@@ -1610,6 +1613,7 @@ namespace JSX_2 {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
+        "language"?: Languages;
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
