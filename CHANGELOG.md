@@ -1,3 +1,14 @@
+## [37.43.0](https://github.com/Lundalogik/lime-elements/compare/v37.42.2...v37.43.0) (2024-05-23)
+
+
+### Features
+
+
+* **action bar:** reflect selected prop from action bar item ([b92dd98](https://github.com/Lundalogik/lime-elements/commit/b92dd989f1481df5a5582cbe5aa3fb5f4d613891))
+* **editor menu:** add functions to check state for active mark ([145e9b8](https://github.com/Lundalogik/lime-elements/commit/145e9b8cd1ee00088a1595b27b7587e4dc0a9acb))
+* **text editor:** add selected property to menu items ([f7253e2](https://github.com/Lundalogik/lime-elements/commit/f7253e2851e210c6c0c6adb0f4b25b1c5c6542e3))
+* **text editor:** add state tracking plugin to show item selected ([876def7](https://github.com/Lundalogik/lime-elements/commit/876def7eb28a9c159bea252a358e8b4ff8349be5))
+
 ## [37.42.2](https://github.com/Lundalogik/lime-elements/compare/v37.42.1...v37.42.2) (2024-05-22)
 
 
