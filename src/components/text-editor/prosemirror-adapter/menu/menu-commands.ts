@@ -1,7 +1,7 @@
 import { toggleMark, setBlockType, wrapIn } from 'prosemirror-commands';
-import { Schema, MarkType, NodeType } from 'prosemirror-model';
+import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
 import { wrapInList } from 'prosemirror-schema-list';
-import { Command } from 'prosemirror-state';
+import { Command, EditorState } from 'prosemirror-state';
 import { EditorMenuTypes, LevelMapping } from './types';
 
 type CommandFunction = (
@@ -14,26 +14,93 @@ interface CommandMapping {
     [key: string]: CommandFunction;
 }
 
+export interface CommandWithActive extends Command {
+    active?: (state: EditorState) => boolean;
+}
+
+const setActiveMethodForMark = (
+    command: CommandWithActive,
+    markType: MarkType,
+) => {
+    command.active = (state) => {
+        const { from, $from, to, empty } = state.selection;
+        if (empty) {
+            return !!markType.isInSet(state.storedMarks || $from.marks());
+        } else {
+            return state.doc.rangeHasMark(from, to, markType);
+        }
+    };
+};
+
+const setActiveMethodForNode = (
+    command: CommandWithActive,
+    nodeType: NodeType,
+    level?: number,
+) => {
+    command.active = (state) => {
+        const { $from } = state.selection;
+        const node = $from.node($from.depth);
+
+        if (node && node.type.name === nodeType.name) {
+            if (nodeType.name === 'heading') {
+                return node.attrs.level === level;
+            }
+
+            return true;
+        }
+
+        return false;
+    };
+};
+
+const setActiveMethodForWrap = (
+    command: CommandWithActive,
+    nodeType: NodeType,
+) => {
+    command.active = (state) => {
+        const { from, to } = state.selection;
+
+        for (let pos = from; pos <= to; pos++) {
+            const resolvedPos = state.doc.resolve(pos);
+            for (let i = resolvedPos.depth; i > 0; i--) {
+                const node = resolvedPos.node(i);
+                if (node && node.type.name === nodeType.name) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    };
+};
+
 const createToggleMarkCommand = (
     schema: Schema,
     markName: string,
     url?: string,
-): Command => {
+): CommandWithActive => {
     const markType: MarkType | undefined = schema.marks[markName];
     if (!markType) {
         throw new Error(`Mark "${markName}" not found in schema`);
     }
 
+    const attrs = getAttributes(markName, url);
+
+    const command: CommandWithActive = toggleMark(markType, attrs);
+    setActiveMethodForMark(command, markType);
+
+    return command;
+};
+
+const getAttributes = (markName: string, url: string): Attrs | null => {
     if (markName === EditorMenuTypes.Link && url) {
-        const attrs = {
+        return {
             href: url,
             target: isExternalLink(url) ? '_blank' : null,
         };
-
-        return toggleMark(markType, attrs);
     }
 
-    return toggleMark(markType);
+    return undefined;
 };
 
 const isExternalLink = (url: string): boolean => {
@@ -44,35 +111,52 @@ const createSetNodeTypeCommand = (
     schema: Schema,
     nodeType: string,
     level?: number,
-): Command => {
+): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[nodeType];
     if (!type) {
         throw new Error(`Node type "${nodeType}" not found in schema`);
     }
 
+    let command: CommandWithActive;
     if (nodeType === 'heading' && level) {
-        return setBlockType(type, { level: level });
+        command = setBlockType(type, { level: level });
     } else {
-        return setBlockType(type);
+        command = setBlockType(type);
     }
+
+    setActiveMethodForNode(command, type, level);
+
+    return command;
 };
 
-const createWrapInCommand = (schema: Schema, nodeType: string): Command => {
+const createWrapInCommand = (
+    schema: Schema,
+    nodeType: string,
+): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[nodeType];
     if (!type) {
         throw new Error(`Node type "${nodeType}" not found in schema`);
     }
 
-    return wrapIn(type);
+    const command: CommandWithActive = wrapIn(type);
+    setActiveMethodForWrap(command, type);
+
+    return command;
 };
 
-const createListCommand = (schema: Schema, listType: string): Command => {
+const createListCommand = (
+    schema: Schema,
+    listType: string,
+): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[listType];
     if (!type) {
         throw new Error(`List type "${listType}" not found in schema`);
     }
 
-    return wrapInList(type);
+    const command: CommandWithActive = wrapInList(type);
+    setActiveMethodForWrap(command, type);
+
+    return command;
 };
 
 const commandMapping: CommandMapping = {
