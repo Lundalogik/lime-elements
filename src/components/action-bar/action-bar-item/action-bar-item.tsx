@@ -44,6 +44,12 @@ export class ActionBarButton {
     @Prop({ reflect: true })
     public isVisible: boolean = true;
 
+    /**
+     * When the item is selected, this will be `true`.
+     */
+    @Prop({ reflect: true })
+    public selected: boolean = false;
+
     @Element()
     private host: HTMLLimelActionBarItemElement;
 
