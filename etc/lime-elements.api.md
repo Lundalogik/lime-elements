@@ -148,6 +148,7 @@ export namespace Components {
     export interface LimelActionBarItem {
         "isVisible": boolean;
         "item": ActionBarItem | ListSeparator;
+        "selected": boolean;
     }
     // (undocumented)
     export interface LimelActionBarOverflowMenu {
@@ -1042,6 +1043,7 @@ namespace JSX_2 {
         "isVisible"?: boolean;
         "item": ActionBarItem | ListSeparator;
         "onSelect"?: (event: LimelActionBarItemCustomEvent<ActionBarItem | ListSeparator>) => void;
+        "selected"?: boolean;
     }
     // (undocumented)
     interface LimelActionBarOverflowMenu {
