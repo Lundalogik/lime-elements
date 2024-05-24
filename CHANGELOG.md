@@ -1,3 +1,13 @@
+## [37.44.0](https://github.com/Lundalogik/lime-elements/compare/v37.43.0...v37.44.0) (2024-05-24)
+
+
+### Features
+
+
+* **editor menu:** export menu items as cloned items ([834ca84](https://github.com/Lundalogik/lime-elements/commit/834ca8491d3461fdd970347105436f06598618f1))
+* **text editor:** add language prop and pass to prosemirror adapter ([7e5969d](https://github.com/Lundalogik/lime-elements/commit/7e5969d1c08fdda615780e0413f3e713cb3d8b99))
+* **text editor:** add translations for menu items ([e67bdc4](https://github.com/Lundalogik/lime-elements/commit/e67bdc40bda47d1ee407a652750f581198a3bebb))
+
 ## [37.43.0](https://github.com/Lundalogik/lime-elements/compare/v37.42.2...v37.43.0) (2024-05-23)
 
 
