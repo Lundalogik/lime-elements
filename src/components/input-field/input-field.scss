@@ -89,7 +89,8 @@
 
     pointer-events: none;
 
-    :not(.mdc-text-field--focused):not(.mdc-text-field--invalid) & {
+    .mdc-text-field:not(.mdc-text-field--focused):not(.mdc-text-field--invalid)
+        & {
         display: block;
     }
 
@@ -98,7 +99,7 @@
     }
 }
 
-:not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
+.mdc-text-field:not(.mdc-text-field--focused):not(.mdc-text-field--invalid) {
     .mdc-text-field__input[type='number'] {
         color: transparent;
         -webkit-text-fill-color: transparent;
