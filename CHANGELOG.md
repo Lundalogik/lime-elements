@@ -1,3 +1,11 @@
+## [37.44.2](https://github.com/Lundalogik/lime-elements/compare/v37.44.1...v37.44.2) (2024-05-27)
+
+
+### Bug Fixes
+
+
+* **chip-set:** show clear all button ([03d2072](https://github.com/Lundalogik/lime-elements/commit/03d20720197bc358c9866241221c84c6362b27fc))
+
 ## [37.44.1](https://github.com/Lundalogik/lime-elements/compare/v37.44.0...v37.44.1) (2024-05-27)
 
 
