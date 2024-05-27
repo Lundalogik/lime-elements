@@ -1,3 +1,11 @@
+## [37.44.1](https://github.com/Lundalogik/lime-elements/compare/v37.44.0...v37.44.1) (2024-05-27)
+
+
+### Bug Fixes
+
+
+* **input-field:** show number input when editing ([6f043a0](https://github.com/Lundalogik/lime-elements/commit/6f043a0d8b57fbb304d8c455e220f4646406b14c)), closes [Lundalogik/crm-feature#4127](https://github.com/Lundalogik/crm-feature/issues/4127)
+
 ## [37.44.0](https://github.com/Lundalogik/lime-elements/compare/v37.43.0...v37.44.0) (2024-05-24)
 
 
