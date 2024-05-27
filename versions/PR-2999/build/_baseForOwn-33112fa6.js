@@ -1,0 +1,2 @@
+import{k as r}from"./_Uint8Array-d57ae3db.js";function n(r){return function(n,t,a){var e=-1,i=Object(n),f=a(n),o=f.length;while(o--){var u=f[r?o:++e];if(t(i[u],u,i)===false){break}}return n}}var t=n();function a(n,a){return n&&t(n,a,r)}export{a as b};
+//# sourceMappingURL=_baseForOwn-33112fa6.js.map
