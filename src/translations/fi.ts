@@ -1,4 +1,5 @@
 export default {
+    remove: 'Poista',
     'callout.note': 'Huomio',
     'callout.important': 'Tärkeää',
     'callout.tip': 'Vinkki',
@@ -18,4 +19,13 @@ export default {
     'file-viewer.open-in-fullscreen': 'Avaa koko näytössä',
     'file-viewer.open-in-new-tab': 'Avaa uudella välilehdellä',
     'file-viewer.more-actions': 'Lisää…',
+    'editor-menu.bold': 'Lihavoitu',
+    'editor-menu.italic': 'Kursivoitu',
+    'editor-menu.h1': 'Otsikkotaso 1',
+    'editor-menu.h2': 'Otsikkotaso 2',
+    'editor-menu.h3': 'Otsikkotaso 3',
+    'editor-menu.bulleted-list': 'Luettelomerkitty lista',
+    'editor-menu.numbered-list': 'Numeroitu lista',
+    'editor-menu.blockquote': 'Lohkoteksti',
+    'editor-menu.link': 'Lisää linkki',
 };

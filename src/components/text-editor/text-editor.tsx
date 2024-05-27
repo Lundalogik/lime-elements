@@ -1,6 +1,7 @@
 import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import { createRandomString } from 'src/util/random-string';
+import { Languages } from '../date-picker/date.types';
 /**
  * A rich text editor that offers a rich text editing experience with markdown support,
  * in the sense that you can easily type markdown syntax and see the rendered
@@ -34,13 +35,19 @@ export class TextEditor implements FormComponent<string> {
     public contentType: 'markdown' | 'html' = 'markdown';
 
     /**
+     * Defines the language for translations.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
+
+    /**
      * Set to `true` to disable the field.
      * Use `disabled` to indicate that the field can normally be interacted
      * with, but is currently disabled. This tells the user that if certain
      * requirements are met, the field may become enabled again.
      */
     @Prop({ reflect: true })
-    public disabled?: boolean;
+    public disabled?: boolean = false;
 
     /**
      * Set to `true` to make the component read-only.
@@ -164,6 +171,9 @@ export class TextEditor implements FormComponent<string> {
                 value={this.value}
                 aria-controls={this.helperTextId}
                 id={this.editorId}
+                tabindex={this.disabled ? -1 : 0}
+                aria-disabled={this.disabled}
+                language={this.language}
             />,
             this.renderPlaceholder(),
             this.renderHelperLine(),

@@ -35,9 +35,10 @@
     font-size: 0.875rem;
     padding: 0 0.125rem;
 
-    &:has(limel-icon) {
+    &:has(limel-icon),
+    &:has(img) {
         .text {
-            padding-left: 0.25rem;
+            padding-left: 0;
         }
     }
 
@@ -58,6 +59,7 @@
         box-shadow: var(--shadow-depth-8-error);
     }
 
+    &:has(+ limel-menu),
     &:has(+ .trailing-button) {
         padding-right: calc(var(--limel-chip-height) + 0.125rem);
 
@@ -67,7 +69,7 @@
     }
 }
 
-:host(limel-chip[disabled]) {
+:host(limel-chip[disabled]:not([disabled='false'])) {
     .chip {
         // Similar to `limel-button[disabled]`
         color: rgba(var(--contrast-1600), 0.37);
@@ -76,13 +78,13 @@
     }
 }
 
-:host(limel-chip[readonly]) {
+:host(limel-chip[readonly]:not([readonly='false'])) {
     .chip {
         box-shadow: 0 0 0 1px rgba(var(--contrast-800), 0.5);
     }
 }
 
-:host(limel-chip[selected]) {
+:host(limel-chip[selected]:not([selected='false'])) {
     .chip {
         box-shadow: var(--button-shadow-inset);
 
@@ -146,10 +148,18 @@
     }
 }
 
+img,
 limel-icon {
     flex-shrink: 0;
     width: calc(var(--limel-chip-height) - 0.25rem);
     height: calc(var(--limel-chip-height) - 0.25rem);
+}
+
+img {
+    border-radius: 50%;
+}
+
+limel-icon {
     padding: 0.0625rem;
 }
 
@@ -165,9 +175,7 @@ limel-badge {
 
 .trailing-button {
     all: unset;
-    @include mixins.is-flat-clickable(
-        $color--hovered: rgb(var(--color-red-dark))
-    );
+    @include mixins.is-flat-clickable();
 
     z-index: 1;
     flex-shrink: 0;
@@ -189,9 +197,22 @@ limel-badge {
         width: 1.25rem;
     }
 
-    &:hover {
+    &.remove-button:hover {
+        color: rgb(var(--color-red-dark));
         svg {
             transform: scale(0.8);
+        }
+    }
+}
+
+limel-menu {
+    button[slot='trigger'] {
+        @include mixins.visualize-keyboard-focus;
+    }
+
+    &[open] {
+        button[slot='trigger'] {
+            box-shadow: var(--button-shadow-inset);
         }
     }
 }

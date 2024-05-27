@@ -50,6 +50,13 @@ button {
     &[disabled] {
         opacity: 0.4;
     }
+
+    &.is-selected {
+        &:not(:hover) {
+            box-shadow: var(--button-shadow-inset);
+        }
+        color: var(--mdc-theme-primary) !important;
+    }
 }
 
 .text {

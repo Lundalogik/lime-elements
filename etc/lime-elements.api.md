@@ -73,6 +73,8 @@ export interface Chip<T = any> {
     // @deprecated
     iconTitle?: string;
     id: number | string;
+    image?: Image_2;
+    menuItems?: Array<MenuItem | ListSeparator>;
     removable?: boolean;
     selected?: boolean;
     text: string;
@@ -146,6 +148,7 @@ export namespace Components {
     export interface LimelActionBarItem {
         "isVisible": boolean;
         "item": ActionBarItem | ListSeparator;
+        "selected": boolean;
     }
     // (undocumented)
     export interface LimelActionBarOverflowMenu {
@@ -198,21 +201,23 @@ export namespace Components {
         "readonlyLabels"?: Array<Label<boolean>>;
         "required": boolean;
     }
+    // @beta
     export interface LimelChip {
         "badge"?: string | number;
         "disabled": boolean;
         "icon"?: string | Icon;
         "identifier"?: number | string;
+        "image"?: Image_2;
         "invalid": boolean;
         "language": Languages;
         "link"?: Omit<Link, 'text'>;
         "loading"?: boolean;
+        "menuItems"?: Array<MenuItem | ListSeparator>;
         "progress"?: number;
         "readonly": boolean;
         "removable": boolean;
         "selected": boolean;
         "text": string;
-        // @beta
         "type"?: ChipType;
     }
     export interface LimelChipSet {
@@ -554,6 +559,7 @@ export namespace Components {
     // @beta
     export interface LimelProsemirrorAdapter {
         "contentType": 'markdown' | 'html';
+        "language": Languages;
         "value": string;
     }
     // (undocumented)
@@ -651,6 +657,7 @@ export namespace Components {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
+        "language": Languages;
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
@@ -861,6 +868,14 @@ export interface Icon {
 // @public (undocumented)
 export type IconSize = 'x-small' | 'small' | 'medium' | 'large';
 
+// @public
+interface Image_2 {
+    alt: string;
+    loading?: 'lazy' | 'eager';
+    src: string;
+}
+export { Image_2 as Image }
+
 // @public (undocumented)
 export interface InfoTileProgress {
     displayPercentageColors?: boolean;
@@ -899,6 +914,8 @@ namespace JSX_2 {
         "limel-callout": LimelCallout;
         // (undocumented)
         "limel-checkbox": LimelCheckbox;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-chip"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
         // (undocumented)
         "limel-chip": LimelChip;
         // (undocumented)
@@ -1028,6 +1045,7 @@ namespace JSX_2 {
         "isVisible"?: boolean;
         "item": ActionBarItem | ListSeparator;
         "onSelect"?: (event: LimelActionBarItemCustomEvent<ActionBarItem | ListSeparator>) => void;
+        "selected"?: boolean;
     }
     // (undocumented)
     interface LimelActionBarOverflowMenu {
@@ -1082,22 +1100,25 @@ namespace JSX_2 {
         "readonlyLabels"?: Array<Label<boolean>>;
         "required"?: boolean;
     }
+    // @beta
     interface LimelChip {
         "badge"?: string | number;
         "disabled"?: boolean;
         "icon"?: string | Icon;
         "identifier"?: number | string;
+        "image"?: Image_2;
         "invalid"?: boolean;
         "language"?: Languages;
         "link"?: Omit<Link, 'text'>;
         "loading"?: boolean;
+        "menuItems"?: Array<MenuItem | ListSeparator>;
+        "onMenuItemSelected"?: (event: LimelChipCustomEvent<MenuItem>) => void;
         "onRemove"?: (event: LimelChipCustomEvent<number | string>) => void;
         "progress"?: number;
         "readonly"?: boolean;
         "removable"?: boolean;
         "selected"?: boolean;
         "text"?: string;
-        // @beta
         "type"?: ChipType;
     }
     interface LimelChipSet {
@@ -1479,6 +1500,7 @@ namespace JSX_2 {
     // @beta
     interface LimelProsemirrorAdapter {
         "contentType"?: 'markdown' | 'html';
+        "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
         "value"?: string;
     }
@@ -1591,6 +1613,7 @@ namespace JSX_2 {
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
+        "language"?: Languages;
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
@@ -2095,7 +2118,7 @@ export interface ListSeparator {
 export type ListType = 'selectable' | 'radio' | 'checkbox';
 
 // @public
-export interface MenuItem<T = any> {
+interface MenuItem<T = any> {
     badge?: number | string;
     commandText?: string;
     disabled?: boolean;
@@ -2110,6 +2133,8 @@ export interface MenuItem<T = any> {
     text: string;
     value?: T;
 }
+export { MenuItem }
+export { MenuItem as MenuItem1 }
 
 // @public @deprecated
 export type MenuListType = 'menu';

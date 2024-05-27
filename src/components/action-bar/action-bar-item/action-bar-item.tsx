@@ -44,6 +44,12 @@ export class ActionBarButton {
     @Prop({ reflect: true })
     public isVisible: boolean = true;
 
+    /**
+     * When the item is selected, this will be `true`.
+     */
+    @Prop({ reflect: true })
+    public selected: boolean = false;
+
     @Element()
     private host: HTMLLimelActionBarItemElement;
 
@@ -79,6 +85,9 @@ export class ActionBarButton {
                 type="button"
                 onClick={this.handleClick}
                 disabled={this.isDisabled()}
+                class={{
+                    'is-selected': this.isItem(this.item) && this.item.selected,
+                }}
             >
                 {this.renderIcon()}
                 {this.renderLabel()}

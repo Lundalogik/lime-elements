@@ -37,7 +37,7 @@ const { ACTION_EVENT } = listStrings;
  */
 @Component({
     tag: 'limel-list',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'list.scss',
 })
 export class List {
@@ -239,7 +239,10 @@ export class List {
         });
 
         if (selectedItem) {
-            this.mdcList.selectedIndex = -1;
+            if (this.type !== 'radio') {
+                this.mdcList.selectedIndex = -1;
+            }
+
             this.change.emit({ ...selectedItem, selected: false });
         }
 

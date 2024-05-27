@@ -1,4 +1,5 @@
 export default {
+    remove: 'Remove',
     'callout.note': 'Note',
     'callout.important': 'Important',
     'callout.tip': 'Tip',
@@ -9,7 +10,6 @@ export default {
     'date-picker.quarter.heading': 'Quarter',
     'date-picker.year.heading': 'Year',
     'chip-set.clear-all': 'Clear all',
-    'chip-set.remove-chip': 'Remove chip',
     'snackbar.dismiss': 'Dismiss',
     'file.drag-and-drop-tips':
         'Drag and drop your file here, or click to browse.',
@@ -19,4 +19,13 @@ export default {
     'file-viewer.open-in-fullscreen': 'Open in fullscreen',
     'file-viewer.open-in-new-tab': 'Open in a new tab',
     'file-viewer.more-actions': 'More…',
+    'editor-menu.bold': 'Bold',
+    'editor-menu.italic': 'Italic',
+    'editor-menu.h1': 'Heading 1',
+    'editor-menu.h2': 'Heading 2',
+    'editor-menu.h3': 'Heading 3',
+    'editor-menu.bulleted-list': 'Bulleted list',
+    'editor-menu.numbered-list': 'Numbered list',
+    'editor-menu.blockquote': 'Blockquote',
+    'editor-menu.link': 'Link',
 };

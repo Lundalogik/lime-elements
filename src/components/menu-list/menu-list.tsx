@@ -24,7 +24,7 @@ const { SELECTED_EVENT } = menuStrings;
  */
 @Component({
     tag: 'limel-menu-list',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'menu-list.scss',
 })
 export class MenuList {

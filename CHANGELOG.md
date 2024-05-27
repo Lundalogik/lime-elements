@@ -1,3 +1,220 @@
+## [37.44.0](https://github.com/Lundalogik/lime-elements/compare/v37.43.0...v37.44.0) (2024-05-24)
+
+
+### Features
+
+
+* **editor menu:** export menu items as cloned items ([834ca84](https://github.com/Lundalogik/lime-elements/commit/834ca8491d3461fdd970347105436f06598618f1))
+* **text editor:** add language prop and pass to prosemirror adapter ([7e5969d](https://github.com/Lundalogik/lime-elements/commit/7e5969d1c08fdda615780e0413f3e713cb3d8b99))
+* **text editor:** add translations for menu items ([e67bdc4](https://github.com/Lundalogik/lime-elements/commit/e67bdc40bda47d1ee407a652750f581198a3bebb))
+
+## [37.43.0](https://github.com/Lundalogik/lime-elements/compare/v37.42.2...v37.43.0) (2024-05-23)
+
+
+### Features
+
+
+* **action bar:** reflect selected prop from action bar item ([b92dd98](https://github.com/Lundalogik/lime-elements/commit/b92dd989f1481df5a5582cbe5aa3fb5f4d613891))
+* **editor menu:** add functions to check state for active mark ([145e9b8](https://github.com/Lundalogik/lime-elements/commit/145e9b8cd1ee00088a1595b27b7587e4dc0a9acb))
+* **text editor:** add selected property to menu items ([f7253e2](https://github.com/Lundalogik/lime-elements/commit/f7253e2851e210c6c0c6adb0f4b25b1c5c6542e3))
+* **text editor:** add state tracking plugin to show item selected ([876def7](https://github.com/Lundalogik/lime-elements/commit/876def7eb28a9c159bea252a358e8b4ff8349be5))
+
+## [37.42.2](https://github.com/Lundalogik/lime-elements/compare/v37.42.1...v37.42.2) (2024-05-22)
+
+
+### Bug Fixes
+
+
+* **chip:** allow setting focus on the internal button programmatically ([3d8c044](https://github.com/Lundalogik/lime-elements/commit/3d8c044cfe952a5cad1cbe9d235f975db06d6987))
+* **icon-button:** allow setting focus on the internal button programmatically ([4ba0979](https://github.com/Lundalogik/lime-elements/commit/4ba097956412aa599fc7bad1d113d3e7356df813))
+* **list:** allow setting focus on list items programmatically ([2b354e3](https://github.com/Lundalogik/lime-elements/commit/2b354e315f6fd183867f8ad34f2ed6c3d585172e))
+* **split-button:** allow setting focus on the internal button programmatically ([78ef959](https://github.com/Lundalogik/lime-elements/commit/78ef9592817e132728599b31ebb3819f8e817225))
+
+## [37.42.1](https://github.com/Lundalogik/lime-elements/compare/v37.42.0...v37.42.1) (2024-05-22)
+
+
+### Bug Fixes
+
+
+* **chip:** better visualize opening the menu ([226f56d](https://github.com/Lundalogik/lime-elements/commit/226f56d82f5be69eed1a87737aeabb47af0501eb))
+* **chip:** enable users to focus the menu trigger, using keyboard ([62f654a](https://github.com/Lundalogik/lime-elements/commit/62f654ae0525e8782b1331e0c5f45122d11e3cba))
+* **chip:** ensure the ellipsis menu changes color in dark mode ([712ed03](https://github.com/Lundalogik/lime-elements/commit/712ed03fb202c99ac2b63627b2a2620f39f837f8))
+* **chip:** use trailing icon of "remove" distincly for the remove button ([2c97cea](https://github.com/Lundalogik/lime-elements/commit/2c97cea11ced8580207012b25db546fa92c4b591))
+
+## [37.42.0](https://github.com/Lundalogik/lime-elements/compare/v37.41.1...v37.42.0) (2024-05-22)
+
+
+### Features
+
+
+* **chip-set:** implement ellipsis menu for action handling ([f7af0cc](https://github.com/Lundalogik/lime-elements/commit/f7af0cca65fd186756a6ede2614b79574c7d3a7a))
+* **chip.types:** add menuItems to the Chip interface ([d2056fb](https://github.com/Lundalogik/lime-elements/commit/d2056fb21cf3fe7c66dfc183de0b4ffafd475e4d))
+* **picker:** implement ellipsis menu for action handling ([0d7f0db](https://github.com/Lundalogik/lime-elements/commit/0d7f0db75ccc309c69837bf1ae51c22743dc592a))
+
+### Bug Fixes
+
+
+* **chip:** emit menuItem instead of value on menu selection ([8a12b88](https://github.com/Lundalogik/lime-elements/commit/8a12b88c1055a5bf6c0513bf6f9df7a4ef08c655))
+
+## [37.41.1](https://github.com/Lundalogik/lime-elements/compare/v37.41.0...v37.41.1) (2024-05-22)
+
+
+### Bug Fixes
+
+
+* **button:** allow setting focus on button ([8cb2e02](https://github.com/Lundalogik/lime-elements/commit/8cb2e021aa313a529f57d3391b3e5d6eceedd04e))
+
+## [37.41.0](https://github.com/Lundalogik/lime-elements/compare/v37.40.1...v37.41.0) (2024-05-20)
+
+
+### Features
+
+
+* **chip:** add optional ellipsis menu, enabling additional actions ([4ec1809](https://github.com/Lundalogik/lime-elements/commit/4ec180988fc3c55770427a945a35dd3604803226))
+* **chip:** make the component publicly available as `beta` ([e72e260](https://github.com/Lundalogik/lime-elements/commit/e72e260261d669dd292beea5224f1ae467fb4179))
+* **translations:** add a generic key for "Remove" ([6195f27](https://github.com/Lundalogik/lime-elements/commit/6195f27fd8abb1993dfc4f8d8966318870a4c227))
+
+### Bug Fixes
+
+
+* **chip:** construct a better label for the remove button ([9d066c4](https://github.com/Lundalogik/lime-elements/commit/9d066c4d0068c3c0ff636e1c383ac1c447c5dcaa))
+* **chip:** ensure that `disabled`, `readonly` & `selected` styles are always correct ([89b2731](https://github.com/Lundalogik/lime-elements/commit/89b27312836085c26705f2916a0ed09d2ec99bc9))
+
+## [37.40.1](https://github.com/Lundalogik/lime-elements/compare/v37.40.0...v37.40.1) (2024-05-20)
+
+
+### Performance Improvements
+
+
+* **dock:** avoid re-creating observer whenever menu is opened ([1495948](https://github.com/Lundalogik/lime-elements/commit/149594822df8e5cefb7844a2613592a2c582203c))
+
+## [37.40.0](https://github.com/Lundalogik/lime-elements/compare/v37.39.1...v37.40.0) (2024-05-20)
+
+
+### Features
+
+
+* **editor menu:** add menu items ([694fa37](https://github.com/Lundalogik/lime-elements/commit/694fa375920e854e855ca6fb7864df9e303446f6))
+* **text editor:** add command mapping to menu factory ([4224f51](https://github.com/Lundalogik/lime-elements/commit/4224f5193c4c94720c4ab7a2704a6b7d95e50a2d))
+* **text editor:** add editor menu types ([a6ff827](https://github.com/Lundalogik/lime-elements/commit/a6ff82716620a91d1a7338820855cf0be21ac521))
+* **text editor:** add target _blank to external links ([9c0e996](https://github.com/Lundalogik/lime-elements/commit/9c0e996febb26f8662e0c373bbadc6d4562eebe2))
+* **text editor:** add tests for menu command factory ([62ed73c](https://github.com/Lundalogik/lime-elements/commit/62ed73cb48868d11a3612fc3ee76a3e3e0daaec3))
+* **text editor:** implement new menu command handling in adapter ([9ba2779](https://github.com/Lundalogik/lime-elements/commit/9ba277936f8b110ad69ce32635bc9e88d9b4f42e))
+* **text editor:** set getCommand as public function ([8cfb783](https://github.com/Lundalogik/lime-elements/commit/8cfb783370c8c272017b2cdd1059f52e02d5dd4c))
+* **text editor:** use object for types instead of enums ([72b5323](https://github.com/Lundalogik/lime-elements/commit/72b53233511e3f4a95c8c0bb398522f5b0841819))
+
+### Bug Fixes
+
+
+* **menu command mapping:** adjust heading level mapping types ([3109707](https://github.com/Lundalogik/lime-elements/commit/31097074495cf0eb337f5c091011e3f33efafa48))
+* **text editor:** slight refactor of set focus ([8b40f3a](https://github.com/Lundalogik/lime-elements/commit/8b40f3af1ae43b12e15be0b17249370c5a426528))
+* **text editor:** update menu command tests ([9fbd2ae](https://github.com/Lundalogik/lime-elements/commit/9fbd2aecb46205e734775e07765bafac27490fde))
+
+## [37.39.1](https://github.com/Lundalogik/lime-elements/compare/v37.39.0...v37.39.1) (2024-05-17)
+
+
+### Bug Fixes
+
+
+* **list:** don't deselect selected item when radio type ([6cac11d](https://github.com/Lundalogik/lime-elements/commit/6cac11dca9df3913ad08cc83a28a7d6faf028b9a))
+
+## [37.39.0](https://github.com/Lundalogik/lime-elements/compare/v37.38.0...v37.39.0) (2024-05-17)
+
+
+### Features
+
+
+* **text-editor:** enable `disabled` prop ([ab06af6](https://github.com/Lundalogik/lime-elements/commit/ab06af666d7d773cf4bbd50542442286fcc1d4a6))
+
+## [37.38.0](https://github.com/Lundalogik/lime-elements/compare/v37.37.0...v37.38.0) (2024-05-17)
+
+
+### Features
+
+
+* **text-editor:** fix disabled and readonly prop CSS always showing ([64b97b1](https://github.com/Lundalogik/lime-elements/commit/64b97b1606cac8277916c4449730770cc30832a2))
+
+### Bug Fixes
+
+
+* **documentation:** fix text-editor form data example ([4d5ddcf](https://github.com/Lundalogik/lime-elements/commit/4d5ddcfe71f84091a40d4099117321dd1fe43abe))
+
+## [37.37.0](https://github.com/Lundalogik/lime-elements/compare/v37.36.0...v37.37.0) (2024-05-17)
+
+
+### Features
+
+
+* **action-bar:** enable making items `selected` ([187c4d5](https://github.com/Lundalogik/lime-elements/commit/187c4d542730ed4227043433120668af63f300e8))
+
+## [37.36.0](https://github.com/Lundalogik/lime-elements/compare/v37.35.0...v37.36.0) (2024-05-16)
+
+
+### Features
+
+
+* **chip-set:** enable displaying pictures instead of icons on chips ([d858fc4](https://github.com/Lundalogik/lime-elements/commit/d858fc4b9f16533e9814fd48f38aadf37d97f813))
+* **chip:** enable displaying pictures instead of icons ([cfc0c1d](https://github.com/Lundalogik/lime-elements/commit/cfc0c1d070cffef71b97b8e09382b0665f395f88))
+* **interface:** add new `Image` interface ([106d4a8](https://github.com/Lundalogik/lime-elements/commit/106d4a8f8d5c8015028d793d4f4495beeac3add1))
+
+## [37.35.0](https://github.com/Lundalogik/lime-elements/compare/v37.34.1...v37.35.0) (2024-05-16)
+
+
+### Features
+
+
+* **text-editor:** use updateView() instead of injecting HTML directly for first value ([d00b089](https://github.com/Lundalogik/lime-elements/commit/d00b089791bd505a4888a5856acc84be047ffa51))
+
+### Bug Fixes
+
+
+* **text-editor:** add watcher for value prop ([de11735](https://github.com/Lundalogik/lime-elements/commit/de11735c19680afae23ea18845f84009048c5756))
+
+## [37.34.1](https://github.com/Lundalogik/lime-elements/compare/v37.34.0...v37.34.1) (2024-05-16)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure clicking anywhere in the editor activates the edit mode ([55dd2b0](https://github.com/Lundalogik/lime-elements/commit/55dd2b09eacd0a3686a86e624edd5978678d3af9))
+
+## [37.34.0](https://github.com/Lundalogik/lime-elements/compare/v37.33.3...v37.34.0) (2024-05-15)
+
+
+### Features
+
+
+* **chip-set:** hide counter when a single chip is expected ([66ea537](https://github.com/Lundalogik/lime-elements/commit/66ea5373c65bd7397cd40c27bf9e05fd83736b60)), closes [#2299](https://github.com/Lundalogik/lime-elements/issues/2299)
+
+### Bug Fixes
+
+
+* **chip-set:** remove delimiter after last chip ([9fc8d19](https://github.com/Lundalogik/lime-elements/commit/9fc8d192f51ae17815ffc0c473b696d5340db1ae))
+
+## [37.33.3](https://github.com/Lundalogik/lime-elements/compare/v37.33.2...v37.33.3) (2024-05-15)
+
+
+### Bug Fixes
+
+
+* **input-field:** update number value only when different ([d1caac5](https://github.com/Lundalogik/lime-elements/commit/d1caac5977541b051382d20b4e69a620b5e14bc4)), closes [#1402](https://github.com/Lundalogik/lime-elements/issues/1402)
+
+## [37.33.2](https://github.com/Lundalogik/lime-elements/compare/v37.33.1...v37.33.2) (2024-05-14)
+
+
+### Bug Fixes
+
+
+* **input-field:** avoid validating during render ([6e23563](https://github.com/Lundalogik/lime-elements/commit/6e235637210d8f7b4db3227d97598db3effe4377))
+* **input-field:** handle change better to keep value in sync ([01ce9be](https://github.com/Lundalogik/lime-elements/commit/01ce9be4ed32d15e3e1d2119a101381d39391c25))
+* **input-field:** initialize invalid text field as invalid ([bd98e87](https://github.com/Lundalogik/lime-elements/commit/bd98e87ff2a9e4aa483d8c7718dc57c7ef8ec055))
+* **input-field:** render current value correctly ([a93f3f3](https://github.com/Lundalogik/lime-elements/commit/a93f3f36586148f59621663df8799b7cbf58e2e5))
+
+### Performance Improvements
+
+
+* **input-field:** set input element using ref ([7f6ecc7](https://github.com/Lundalogik/lime-elements/commit/7f6ecc76f0922fc821415d2a5f6b29c6a633b1c4))
+
 ## [37.33.1](https://github.com/Lundalogik/lime-elements/compare/v37.33.0...v37.33.1) (2024-05-14)
 
 

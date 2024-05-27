@@ -1,5 +1,7 @@
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
+import { EditorMenuTypes } from './types';
+import { cloneDeep } from 'lodash-es';
 
 const getCommandSymbols = (): {
     mod: string;
@@ -16,60 +18,89 @@ const getCommandSymbols = (): {
 
 const { mod, shift } = getCommandSymbols();
 
-export const textEditorMenuItems: Array<ActionBarItem | ListSeparator> = [
+const textEditorMenuItems: Array<
+    ActionBarItem<EditorMenuTypes> | ListSeparator
+> = [
     {
-        value: 'strong',
+        value: EditorMenuTypes.Bold,
         text: 'Bold',
         commandText: `${mod} B`,
         icon: '-lime-text-bold',
         iconOnly: true,
+        selected: false,
     },
     {
-        value: 'em',
+        value: EditorMenuTypes.Italic,
         text: 'Italic',
         commandText: `${mod} I`,
         icon: '-lime-text-italic',
         iconOnly: true,
+        selected: false,
     },
     { separator: true },
     {
-        value: 'headerlevel1',
-        text: 'Header Level 1',
+        value: EditorMenuTypes.HeaderLevel1,
+        text: 'Header 1',
         commandText: `${mod} ${shift} 1`,
         icon: '-lime-text-h-heading-1',
         iconOnly: true,
+        selected: false,
     },
     {
-        value: 'headerlevel2',
-        text: 'Header Level 2',
+        value: EditorMenuTypes.HeaderLevel2,
+        text: 'Header 2',
         commandText: `${mod} ${shift} 2`,
         icon: '-lime-text-h-heading-2',
         iconOnly: true,
+        selected: false,
     },
     {
-        value: 'headerlevel3',
-        text: 'Header Level 3',
+        value: EditorMenuTypes.HeaderLevel3,
+        text: 'Header 3',
         commandText: `${mod} ${shift} 3`,
         icon: '-lime-text-h-heading-3',
         iconOnly: true,
+        selected: false,
     },
     { separator: true },
     {
-        value: 'bullet_list',
+        value: EditorMenuTypes.BulletList,
         text: 'Bullet list',
         icon: '-lime-text-bulleted-list',
         iconOnly: true,
+        selected: false,
     },
     {
-        value: 'ordered_list',
+        value: EditorMenuTypes.OrderedList,
         text: 'Numbered list',
         icon: '-lime-text-ordered-list',
         iconOnly: true,
+        selected: false,
     },
     {
-        value: 'blockquote',
+        value: EditorMenuTypes.Blockquote,
         text: 'Blockquote',
         icon: '-lime-text-blockquote',
         iconOnly: true,
+        selected: false,
     },
 ];
+
+export const getTextEditorMenuItems = () => cloneDeep(textEditorMenuItems);
+
+export const menuTranslationIDs = {
+    strong: 'editor-menu.bold',
+    em: 'editor-menu.italic',
+    headerlevel1: 'editor-menu.h1',
+    headerlevel2: 'editor-menu.h2',
+    headerlevel3: 'editor-menu.h3',
+    /* eslint-disable camelcase */
+    bullet_list: 'editor-menu.bulleted-list',
+    ordered_list: 'editor-menu.numbered-list',
+    /* eslint-enable camelcase */
+    blockquote: 'editor-menu.blockquote',
+    link: 'editor-menu.link',
+};
+
+export type menuTranslationIDs =
+    (typeof menuTranslationIDs)[keyof typeof menuTranslationIDs];

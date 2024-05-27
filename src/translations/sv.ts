@@ -1,4 +1,5 @@
 export default {
+    remove: 'Ta bort',
     'callout.note': 'Obs',
     'callout.important': 'Viktigt',
     'callout.tip': 'Tips',
@@ -9,7 +10,6 @@ export default {
     'date-picker.quarter.heading': 'Kvartal',
     'date-picker.year.heading': 'År',
     'chip-set.clear-all': 'Rensa alla',
-    'chip-set.remove-chip': 'Ta bort chip',
     'snackbar.dismiss': 'Stäng',
     'file.drag-and-drop-tips':
         'Dra och släpp filen här eller klicka om du vill bläddra.',
@@ -19,4 +19,13 @@ export default {
     'file-viewer.open-in-fullscreen': 'Öppna i fullskärmsläge',
     'file-viewer.open-in-new-tab': 'Öppna i ny flik',
     'file-viewer.more-actions': 'Mer…',
+    'editor-menu.bold': 'Fet',
+    'editor-menu.italic': 'Kursiv',
+    'editor-menu.h1': 'Rubrik 1',
+    'editor-menu.h2': 'Rubrik 2',
+    'editor-menu.h3': 'Rubrik 3',
+    'editor-menu.bulleted-list': 'Punktlista',
+    'editor-menu.numbered-list': 'Numrerad lista',
+    'editor-menu.blockquote': 'Blockcitat',
+    'editor-menu.link': 'Lägg till länk',
 };

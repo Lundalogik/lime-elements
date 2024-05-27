@@ -1,4 +1,5 @@
 export default {
+    remove: 'Fjerne',
     'callout.note': 'Note',
     'callout.important': 'Viktig',
     'callout.tip': 'Tip',
@@ -17,4 +18,13 @@ export default {
     'file-viewer.open-in-fullscreen': 'Åpne i fullskjerm',
     'file-viewer.open-in-new-tab': 'Åpne i en ny fane',
     'file-viewer.more-actions': 'Mer…',
+    'editor-menu.bold': 'Fet',
+    'editor-menu.italic': 'Kursiv',
+    'editor-menu.h1': 'Overskrift 1',
+    'editor-menu.h2': 'Overskrift 2',
+    'editor-menu.h3': 'Overskrifts 3',
+    'editor-menu.bulleted-list': 'Punktliste',
+    'editor-menu.numbered-list': 'Nummerert liste',
+    'editor-menu.blockquote': 'Blokksitat',
+    'editor-menu.link': 'Legg til lenke',
 };
