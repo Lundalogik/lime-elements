@@ -150,7 +150,7 @@ $leading-icon-space: 1.5rem;
         outline: none;
     }
 
-    :not(.has-chips) &,
+    .mdc-chip-set:not(.has-chips) &,
     .has-chips.mdc-text-field--disabled & {
         display: none; // Won't receive focus when disabled
     }
