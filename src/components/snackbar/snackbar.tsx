@@ -36,6 +36,8 @@ import translate from '../../global/translations';
  * @exampleComponent limel-example-snackbar
  * @exampleComponent limel-example-snackbar-dismissible
  * @exampleComponent limel-example-snackbar-with-action
+ * @exampleComponent limel-example-snackbar-persistent
+ * @exampleComponent limel-example-snackbar-persistent-non-dismissible
  * @exampleComponent limel-example-snackbar-with-changing-messages
  * @exampleComponent limel-example-snackbar-positioning
  */
@@ -73,10 +75,21 @@ export class Snackbar {
     public dismissible: boolean = true;
 
     /**
-     * Whether to show the snackbar with space for multiple lines of text
+     * When `true`, the Snackbar will remain visible in the UI,
+     * meaning the countdown visualization will not be displayed
+     * and the timeout will be cancelled.
      */
     @Prop()
-    public multiline: boolean;
+    public persistent: boolean = false;
+
+    /**
+     * When `true`, the layout of the Snackbar will change.
+     * The action and the dismiss buttons will be rendered in a
+     * row below the text, instead of being rendered as trailing elements.
+     * This might be useful for Snackbars with very long messages.
+     */
+    @Prop()
+    public multiline?: boolean;
 
     /**
      * Defines the language for translations.
@@ -113,6 +126,14 @@ export class Snackbar {
         this.initialize();
     }
 
+    public componentWillRender() {
+        if (!this.persistent) {
+            this.mdcSnackbar.close();
+        } else if (!!this.mdcSnackbar && !this.mdcSnackbar.isOpen) {
+            this.mdcSnackbar.open();
+        }
+    }
+
     private initialize() {
         const element = this.host.shadowRoot.querySelector('.mdc-snackbar');
         if (!element) {
@@ -134,7 +155,9 @@ export class Snackbar {
      */
     @Method()
     public async show() {
-        if (this.timeout) {
+        if (this.persistent) {
+            this.mdcSnackbar.timeoutMs = -1;
+        } else if (this.timeout) {
             this.mdcSnackbar.timeoutMs = this.timeout;
         }
 
@@ -156,11 +179,11 @@ export class Snackbar {
             >
                 <div
                     class="mdc-snackbar__surface"
-                    role="status"
+                    role={`${this.persistent ? 'alertdialog' : 'status'}`}
                     aria-relevant="additions"
                 >
                     <div class="mdc-snackbar__label" aria-atomic="false"></div>
-                    {this.renderActions(this.actionText, this.dismissible)}
+                    {this.renderActions()}
                 </div>
             </aside>
         );
@@ -174,34 +197,34 @@ export class Snackbar {
         }
     }
 
-    private renderActions(actionText: string, dismissible: boolean) {
-        if (!actionText && !dismissible) {
+    private renderActions() {
+        if (!this.actionText && !this.dismissible) {
             return;
         }
 
         return (
             <div class="mdc-snackbar__actions" aria-atomic="true">
-                {this.renderActionButton(actionText)}
-                {this.renderDismissButton(dismissible)}
+                {this.renderActionButton()}
+                {this.renderDismissButton()}
             </div>
         );
     }
 
-    private renderActionButton(actionText: string) {
-        if (!actionText) {
+    private renderActionButton() {
+        if (!this.actionText) {
             return;
         }
 
         return (
             <limel-button
                 class="mdc-button mdc-snackbar__action"
-                label={actionText}
+                label={this.actionText}
             />
         );
     }
 
-    private renderDismissButton(dismissible: boolean) {
-        if (!dismissible) {
+    private renderDismissButton() {
+        if (!this.dismissible) {
             return;
         }
 
@@ -220,6 +243,10 @@ export class Snackbar {
     }
 
     private renderTimeoutVisualization() {
+        if (this.persistent) {
+            return;
+        }
+
         return (
             <svg width="36" height="36" viewBox="0 0 36 36">
                 <circle r="18" cx="18" cy="18" fill="var(--track-color)" />
