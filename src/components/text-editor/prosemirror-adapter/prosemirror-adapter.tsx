@@ -123,12 +123,11 @@ export class ProsemirrorAdapter {
     }
 
     private setupContentConverter() {
-        /* eslint-disable multiline-ternary */
-        this.contentConverter =
-            this.contentType === 'markdown'
-                ? new markdownConverter()
-                : new HTMLConverter();
-        /* eslint-enable multiline-ternary */
+        if (this.contentType === 'markdown') {
+            this.contentConverter = new markdownConverter();
+        } else {
+            this.contentConverter = new HTMLConverter();
+        }
     }
 
     private getActionBarItems = () => {
