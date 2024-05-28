@@ -1,7 +1,25 @@
 import { ContentTypeConverter } from './content-type-converter';
 import { EditorView } from 'prosemirror-view';
-import { defaultMarkdownSerializer } from 'prosemirror-markdown';
+import {
+    MarkdownSerializer,
+    defaultMarkdownSerializer,
+} from 'prosemirror-markdown';
 import { markdownToHTML } from '../../markdown/markdown-parser';
+
+const customMarkdownSerializer = new MarkdownSerializer(
+    {
+        ...defaultMarkdownSerializer.nodes,
+    },
+    {
+        ...defaultMarkdownSerializer.marks,
+        strikethrough: {
+            open: '~~',
+            close: '~~',
+            mixable: true,
+            expelEnclosingWhitespace: true,
+        },
+    },
+);
 
 /**
  * @private
@@ -15,7 +33,7 @@ export class markdownConverter implements ContentTypeConverter {
         if (view.dom.textContent === '') {
             return '';
         } else {
-            return defaultMarkdownSerializer.serialize(view.state.doc);
+            return customMarkdownSerializer.serialize(view.state.doc);
         }
     };
 }

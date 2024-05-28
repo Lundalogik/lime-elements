@@ -8,6 +8,7 @@ import { exampleSetup } from 'prosemirror-example-setup';
 import { EditorView } from 'prosemirror-view';
 import { MenuCommandFactory } from './menu-commands';
 import { EditorMenuTypes } from './types';
+import { strikethrough } from './menu-schema-extender';
 
 describe('MenuCommandFactory', () => {
     let mySchema: Schema;
@@ -23,7 +24,9 @@ describe('MenuCommandFactory', () => {
                 'paragraph block*',
                 'block',
             ),
-            marks: basicSchema.spec.marks,
+            marks: basicSchema.spec.marks.append({
+                strikethrough: strikethrough,
+            }),
         });
 
         factory = new MenuCommandFactory(mySchema);
