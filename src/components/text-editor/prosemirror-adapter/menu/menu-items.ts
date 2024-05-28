@@ -38,6 +38,14 @@ const textEditorMenuItems: Array<
         selected: false,
     },
     {
+        value: EditorMenuTypes.Underline,
+        text: 'Underline',
+        commandText: `${mod} U`,
+        icon: '-lime-text-underline',
+        iconOnly: true,
+        selected: false,
+    },
+    {
         value: EditorMenuTypes.Strikethrough,
         text: 'Strikethrough',
         commandText: `${mod} ${shift} X`,
@@ -125,6 +133,7 @@ export const menuTranslationIDs = {
     /* eslint-enable camelcase */
     blockquote: 'editor-menu.blockquote',
     link: 'editor-menu.link',
+    underline: 'editor-menu.underline',
     strikethrough: 'editor-menu.strikethrough',
     code: 'editor-menu.code',
 };

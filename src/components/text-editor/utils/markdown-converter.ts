@@ -12,6 +12,12 @@ const customMarkdownSerializer = new MarkdownSerializer(
     },
     {
         ...defaultMarkdownSerializer.marks,
+        underline: {
+            open: '<u>',
+            close: '</u>',
+            mixable: true,
+            expelEnclosingWhitespace: true,
+        },
         strikethrough: {
             open: '~~',
             close: '~~',
