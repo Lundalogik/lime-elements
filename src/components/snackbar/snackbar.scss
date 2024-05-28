@@ -7,7 +7,82 @@
 
 @use '../../style/internal/lime-theme';
 
-@use '@material/snackbar/mdc-snackbar';
+* {
+    box-sizing: border-box;
+}
+
+.mdc-snackbar {
+    display: none;
+    position: fixed;
+    z-index: 8;
+
+    margin: 0.5rem;
+
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.mdc-snackbar--opening,
+.mdc-snackbar--open,
+.mdc-snackbar--closing {
+    display: flex;
+}
+
+.mdc-snackbar--open .mdc-snackbar__label,
+.mdc-snackbar--open .mdc-snackbar__actions {
+    visibility: visible;
+}
+
+.mdc-snackbar--open .mdc-snackbar__surface {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+    transition:
+        opacity 150ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+        transform 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
+.mdc-snackbar__surface {
+    padding-left: 0px;
+    padding-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    transform: scale(0.8);
+    opacity: 0;
+    border-radius: var(--mdc-shape-small, 4px);
+}
+
+.mdc-snackbar__label {
+    -webkit-font-smoothing: antialiased;
+    font-family: var(
+        --mdc-typography-body2-font-family,
+        var(--mdc-typography-font-family, inherit)
+    );
+    font-size: var(--mdc-typography-body2-font-size, 0.8125rem);
+    line-height: var(--mdc-typography-body2-line-height, 1.625rem);
+    font-weight: var(--mdc-typography-body2-font-weight, 400);
+    letter-spacing: var(--mdc-typography-body2-letter-spacing, 0.0178571429em);
+    text-decoration: var(--mdc-typography-body2-text-decoration, inherit);
+    text-transform: var(--mdc-typography-body2-text-transform, inherit);
+    padding: 14px 8px 14px 16px;
+    width: 100%;
+    flex-grow: 1;
+    box-sizing: border-box;
+    margin: 0px;
+    visibility: hidden;
+}
+
+.mdc-snackbar__actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    box-sizing: border-box;
+    visibility: hidden;
+}
 
 .mdc-snackbar {
     top: var(--snackbar-top, auto);
