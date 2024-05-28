@@ -33,6 +33,7 @@ import {
     EditorLinkMenuEventDetail,
     createLinkPlugin,
 } from './plugins/link-plugin';
+import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -265,6 +266,7 @@ export class ProsemirrorAdapter {
                 keymap(this.menuCommandFactory.buildKeymap()),
                 this.createMenuStateTrackingPlugin(this.actionBarItems),
                 createLinkPlugin(this.handleNewLinkSelection),
+                createImageRemoverPlugin(),
             ],
         });
     }

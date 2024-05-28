@@ -188,13 +188,14 @@ const processPasteEvent = (
 
     const text = clipboardData.getData('text/plain');
 
-    if (!isValidUrl(text)) {
-        return false;
+    // Process as a link if the text is a valid URL
+    if (isValidUrl(text)) {
+        pasteAsLink(view, text);
+
+        return true;
     }
 
-    pasteAsLink(view, text);
-
-    return true;
+    return false;
 };
 
 const pasteAsLink = (view: EditorView, href: string) => {
