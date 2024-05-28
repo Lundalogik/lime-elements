@@ -1,7 +1,7 @@
 @for $i from 0 through 100 {
     .displays-percentage-colors {
         &[style*='--percentage: #{$i}%'] {
-            $range: floor($i / 10) * 10;
+            $range: floor($i * 0.1) * 10;
             --circular-progress-fill-color: var(
                 --color-percent--#{$range}to#{($range + 10)}
             );
