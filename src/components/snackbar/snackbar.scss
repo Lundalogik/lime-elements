@@ -10,16 +10,19 @@
 }
 
 .mdc-snackbar {
+    top: var(--snackbar-top, auto);
+    right: var(--snackbar-right, 0);
+    bottom: var(--snackbar-bottom, 0);
+    left: var(--snackbar-left, 0);
+
     display: none;
     position: fixed;
     z-index: 8;
 
-    margin: 0.5rem;
+    padding: 0.75rem;
 
     align-items: center;
     justify-content: center;
-    pointer-events: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .mdc-snackbar--opening,
@@ -28,90 +31,61 @@
     display: flex;
 }
 
-.mdc-snackbar--open .mdc-snackbar__label,
-.mdc-snackbar--open .mdc-snackbar__actions {
-    visibility: visible;
-}
+.mdc-snackbar--open {
+    .mdc-snackbar__label,
+    .mdc-snackbar__actions {
+        visibility: visible;
+    }
 
-.mdc-snackbar--open .mdc-snackbar__surface {
-    transform: scale(1);
-    opacity: 1;
-    pointer-events: auto;
-    transition:
-        opacity 150ms cubic-bezier(0, 0, 0.2, 1) 0ms,
-        transform 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    .mdc-snackbar__surface {
+        transition:
+            opacity 0.2s cubic-bezier(0, 0, 0.2, 1),
+            transform 0.2s cubic-bezier(0, 0, 0.2, 1);
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .mdc-snackbar__surface {
-    padding-left: 0px;
-    padding-right: 8px;
+    padding: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    box-sizing: border-box;
+    gap: 0.25rem;
+
+    min-height: 3.25rem;
+    min-width: unset;
+    max-width: 42rem;
+
     transform: scale(0.8);
     opacity: 0;
-    border-radius: var(--mdc-shape-small, 4px);
+    border-radius: 0.75rem;
+
+    background-color: rgb(var(--contrast-1400));
+    box-shadow: var(--shadow-depth-8), var(--shadow-depth-16);
 }
 
 .mdc-snackbar__label {
+    visibility: hidden;
+
+    color: rgb(var(--contrast-100));
+
     -webkit-font-smoothing: antialiased;
-    font-family: var(
-        --mdc-typography-body2-font-family,
-        var(--mdc-typography-font-family, inherit)
-    );
-    font-size: var(--mdc-typography-body2-font-size, 0.8125rem);
-    line-height: var(--mdc-typography-body2-line-height, 1.625rem);
-    font-weight: var(--mdc-typography-body2-font-weight, 400);
-    letter-spacing: var(--mdc-typography-body2-letter-spacing, 0.0178571429em);
-    text-decoration: var(--mdc-typography-body2-text-decoration, inherit);
-    text-transform: var(--mdc-typography-body2-text-transform, inherit);
-    padding: 14px 8px 14px 16px;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    padding: 0 0.25rem;
+
     width: 100%;
     flex-grow: 1;
-    box-sizing: border-box;
-    margin: 0px;
-    visibility: hidden;
 }
 
 .mdc-snackbar__actions {
+    visibility: hidden;
+
     display: flex;
     flex-shrink: 0;
     align-items: center;
     box-sizing: border-box;
-    visibility: hidden;
-}
-
-.mdc-snackbar {
-    top: var(--snackbar-top, auto);
-    right: var(--snackbar-right, 0);
-    bottom: var(--snackbar-bottom, 0);
-    left: var(--snackbar-left, 0);
-}
-
-.mdc-snackbar__surface {
-    min-width: unset;
-    max-width: 42rem;
-    background-color: rgb(var(--contrast-1400));
-    box-shadow: var(--shadow-depth-8), var(--shadow-depth-16);
-    gap: 0.75rem;
-}
-
-.mdc-snackbar__label {
-    // As long as this component is depended on MDC,
-    // we need to force it to be font-agnostic.
-    // When MDC-dependency is removed, this block can also be removed.
-    // However, on removal of MDC-dependency, we should also make sure to check
-    // other font-related styles that might be set by MDC,
-    // such as `letter-spacing` or `font-size`.
-    font-family: inherit;
-}
-
-.mdc-snackbar__label {
-    color: rgb(var(--contrast-100));
-}
-
-.mdc-snackbar__actions {
     gap: 0.5rem;
 }
 
