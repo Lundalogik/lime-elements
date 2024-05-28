@@ -8,7 +8,7 @@ import {
     Watch,
     h,
 } from '@stencil/core';
-import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
+import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
@@ -226,9 +226,14 @@ export class ProsemirrorAdapter {
         this.view.dispatch(tr);
     }
 
-    private handleTransaction = (transaction) => {
+    private handleTransaction = (transaction: Transaction) => {
         const newState = this.view.state.apply(transaction);
         this.view.updateState(newState);
+
+        if (transaction.getMeta('pointer')) {
+            return;
+        }
+
         this.change.emit(
             this.contentConverter.serialize(this.view, this.schema),
         );
