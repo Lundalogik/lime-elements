@@ -153,6 +153,8 @@ const createSetNodeTypeCommand = (
         command = toggleBlockType(schema, LevelMapping.Heading, {
             level: level,
         });
+    } else if (nodeType === EditorMenuTypes.CodeBlock) {
+        command = toggleBlockType(schema, EditorMenuTypes.CodeBlock);
     } else {
         command = setBlockType(type);
     }
@@ -260,6 +262,8 @@ const commandMapping: CommandMapping = {
     blockquote: (schema) =>
         createWrapInCommand(schema, EditorMenuTypes.Blockquote),
     /* eslint-disable camelcase */
+    code_block: (schema) =>
+        createSetNodeTypeCommand(schema, EditorMenuTypes.CodeBlock),
     ordered_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.OrderedList),
     bullet_list: (schema) =>
@@ -290,6 +294,8 @@ export class MenuCommandFactory {
             'Mod-Shift-1': this.getCommand(EditorMenuTypes.HeaderLevel1),
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
             'Mod-Shift-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
+            'Mod-`': this.getCommand(EditorMenuTypes.Code),
+            'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),
         };
     }
 }

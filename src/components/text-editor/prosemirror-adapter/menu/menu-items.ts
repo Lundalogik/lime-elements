@@ -37,6 +37,22 @@ const textEditorMenuItems: Array<
         iconOnly: true,
         selected: false,
     },
+    {
+        value: EditorMenuTypes.Code,
+        text: 'Code',
+        commandText: `${mod} \``,
+        icon: '-lime-text-code',
+        iconOnly: true,
+        selected: false,
+    },
+    {
+        value: EditorMenuTypes.CodeBlock,
+        text: 'Code Block',
+        commandText: `${mod} ${shift} C`,
+        icon: '-lime-text-code-block',
+        iconOnly: true,
+        selected: false,
+    },
     { separator: true },
     {
         value: EditorMenuTypes.HeaderLevel1,
@@ -97,9 +113,11 @@ export const menuTranslationIDs = {
     /* eslint-disable camelcase */
     bullet_list: 'editor-menu.bulleted-list',
     ordered_list: 'editor-menu.numbered-list',
+    code_block: 'editor-menu.code-block',
     /* eslint-enable camelcase */
     blockquote: 'editor-menu.blockquote',
     link: 'editor-menu.link',
+    code: 'editor-menu.code',
 };
 
 export type menuTranslationIDs =
