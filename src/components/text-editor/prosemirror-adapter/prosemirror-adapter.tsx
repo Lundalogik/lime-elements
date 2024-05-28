@@ -122,6 +122,10 @@ export class ProsemirrorAdapter {
         ];
     }
 
+    public disconnectedCallback() {
+        this.view.destroy();
+    }
+
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
             this.contentConverter = new markdownConverter();
