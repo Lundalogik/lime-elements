@@ -38,6 +38,14 @@ const textEditorMenuItems: Array<
         selected: false,
     },
     {
+        value: EditorMenuTypes.Strikethrough,
+        text: 'Strikethrough',
+        commandText: `${mod} ${shift} X`,
+        icon: '-lime-text-strikethrough',
+        iconOnly: true,
+        selected: false,
+    },
+    {
         value: EditorMenuTypes.Code,
         text: 'Code',
         commandText: `${mod} \``,
@@ -117,6 +125,7 @@ export const menuTranslationIDs = {
     /* eslint-enable camelcase */
     blockquote: 'editor-menu.blockquote',
     link: 'editor-menu.link',
+    strikethrough: 'editor-menu.strikethrough',
     code: 'editor-menu.code',
 };
 

@@ -27,6 +27,7 @@ import translate from 'src/global/translations';
 import { isItem } from 'src/components/action-bar/isItem';
 import { cloneDeep } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
+import { strikethrough } from './menu/menu-schema-extender';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -169,7 +170,9 @@ export class ProsemirrorAdapter {
     private initializeSchema() {
         return new Schema({
             nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
-            marks: schema.spec.marks,
+            marks: schema.spec.marks.append({
+                strikethrough: strikethrough,
+            }),
         });
     }
 

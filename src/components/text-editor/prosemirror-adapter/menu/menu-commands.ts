@@ -294,6 +294,7 @@ export class MenuCommandFactory {
             'Mod-Shift-1': this.getCommand(EditorMenuTypes.HeaderLevel1),
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
             'Mod-Shift-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
+            'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
             'Mod-`': this.getCommand(EditorMenuTypes.Code),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),
         };
