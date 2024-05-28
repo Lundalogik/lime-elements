@@ -2,6 +2,10 @@ import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import { createRandomString } from 'src/util/random-string';
 import { Languages } from '../date-picker/date.types';
+import { debounce } from 'lodash-es';
+
+const DEBOUNCE_TIMEOUT = 300;
+
 /**
  * A rich text editor that offers a rich text editing experience with markdown support,
  * in the sense that you can easily type markdown syntax and see the rendered
@@ -231,6 +235,10 @@ export class TextEditor implements FormComponent<string> {
 
     private handleChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
-        this.change.emit(event.detail);
+        this.changeEmitter(event.detail);
     };
+
+    private changeEmitter = debounce((value: string) => {
+        this.change.emit(value);
+    }, DEBOUNCE_TIMEOUT);
 }
