@@ -42,15 +42,11 @@
     gap: 0.5rem;
 }
 
+.dismiss,
 .mdc-snackbar__actions {
     --lime-elevated-surface-background-color: rgb(
         var(--contrast-1300)
     ); // background color of the buttons
-    limel-icon-button.mdc-snackbar__dismiss {
-        transform: scale(0.8);
-        margin: 0;
-        padding: 0;
-    }
 }
 
 .dismiss {
@@ -58,10 +54,20 @@
     --icon-background-color: var(--lime-elevated-surface-background-color);
     --fill-color: var(--mdc-theme-primary);
     --track-color: rgb(var(--contrast-800), 0.2);
-    position: relative;
+    position: absolute;
+    top: -0.9rem;
+    left: -0.9rem;
+    transform: scale(0.8);
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    limel-icon-button.mdc-snackbar__dismiss {
+        transform: scale(0.8);
+        margin: 0;
+        padding: 0;
+    }
 
     svg {
         position: absolute;
