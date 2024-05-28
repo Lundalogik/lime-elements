@@ -229,7 +229,7 @@ export class TextEditor implements FormComponent<string> {
         }
     };
 
-    private handleChange = () => (event: CustomEvent<string>) => {
+    private handleChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.change.emit(event.detail);
     };
