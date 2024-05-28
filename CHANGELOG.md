@@ -1,3 +1,13 @@
+## [37.44.3](https://github.com/Lundalogik/lime-elements/compare/v37.44.2...v37.44.3) (2024-05-28)
+
+
+### Bug Fixes
+
+
+* **snackbar:** ensure that animations are applied for closing ([0d6198d](https://github.com/Lundalogik/lime-elements/commit/0d6198d2e41d4b081042bd410ba543ecb14b6742))
+* **snackbar:** improve styles ([4750ea9](https://github.com/Lundalogik/lime-elements/commit/4750ea986a0c2c4e1ae44950bfdaffa84cec1634))
+* **snackbar:** move the Dismiss button to the top-left corner ([6290b98](https://github.com/Lundalogik/lime-elements/commit/6290b9857ac38a3a03d4e7f33646524abb3d5784))
+
 ## [37.44.2](https://github.com/Lundalogik/lime-elements/compare/v37.44.1...v37.44.2) (2024-05-27)
 
 
