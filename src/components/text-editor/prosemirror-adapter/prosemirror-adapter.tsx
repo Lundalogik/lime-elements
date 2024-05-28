@@ -125,8 +125,12 @@ export class ProsemirrorAdapter {
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
             this.contentConverter = new markdownConverter();
-        } else {
+        } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter();
+        } else {
+            throw new Error(
+                `Unsupported content type: ${this.contentType}. Only 'markdown' and 'html' are supported.`,
+            );
         }
     }
 
