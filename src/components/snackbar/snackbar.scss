@@ -5,8 +5,6 @@
  * @prop --snackbar-left: Snackbar has `position: fixed;` and uses `--snackbar-left`, which defaults to `0` for its `left` property. See the examples in the documentations for further info.
  */
 
-@use '../../style/internal/lime-theme';
-
 * {
     box-sizing: border-box;
 }
