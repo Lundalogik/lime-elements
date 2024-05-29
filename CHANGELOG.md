@@ -1,3 +1,13 @@
+## [37.45.0](https://github.com/Lundalogik/lime-elements/compare/v37.44.3...v37.45.0) (2024-05-29)
+
+
+### Features
+
+
+* **editor menu:** add commands for toggling blocks and lists ([e4d9ed8](https://github.com/Lundalogik/lime-elements/commit/e4d9ed880137de282964acad8ae4e2c8a12d0a13))
+* **text-editor:** add support for `code` and `code-block` formatting ([d3d724b](https://github.com/Lundalogik/lime-elements/commit/d3d724b65b0feee43f7598ecd71c706e3ed53e6e))
+* **text-editor:** add support for `strikethrough` formatting ([985efb1](https://github.com/Lundalogik/lime-elements/commit/985efb1a624d266d85221185614a1029e6f9ec0a))
+
 ## [37.44.3](https://github.com/Lundalogik/lime-elements/compare/v37.44.2...v37.44.3) (2024-05-28)
 
 
