@@ -5,52 +5,95 @@
  * @prop --snackbar-left: Snackbar has `position: fixed;` and uses `--snackbar-left`, which defaults to `0` for its `left` property. See the examples in the documentations for further info.
  */
 
-@use '../../style/internal/lime-theme';
-
-@use '@material/snackbar/mdc-snackbar';
+* {
+    box-sizing: border-box;
+}
 
 .mdc-snackbar {
     top: var(--snackbar-top, auto);
     right: var(--snackbar-right, 0);
     bottom: var(--snackbar-bottom, 0);
     left: var(--snackbar-left, 0);
+
+    display: none;
+    position: fixed;
+    z-index: 8;
+
+    padding: 0.75rem;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.mdc-snackbar--opening,
+.mdc-snackbar--open,
+.mdc-snackbar--closing {
+    display: flex;
+}
+
+.mdc-snackbar--open {
+    .mdc-snackbar__label,
+    .mdc-snackbar__actions {
+        visibility: visible;
+    }
+
+    .mdc-snackbar__surface {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .mdc-snackbar__surface {
+    transition:
+        opacity 0.2s cubic-bezier(0, 0, 0.2, 1),
+        transform 0.2s cubic-bezier(0, 0, 0.2, 1);
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.25rem;
+
+    min-height: 3.25rem;
     min-width: unset;
     max-width: 42rem;
+
+    transform: scale(0.8);
+    opacity: 0;
+    border-radius: 0.75rem;
+
     background-color: rgb(var(--contrast-1400));
     box-shadow: var(--shadow-depth-8), var(--shadow-depth-16);
-    gap: 0.75rem;
 }
 
 .mdc-snackbar__label {
-    // As long as this component is depended on MDC,
-    // we need to force it to be font-agnostic.
-    // When MDC-dependency is removed, this block can also be removed.
-    // However, on removal of MDC-dependency, we should also make sure to check
-    // other font-related styles that might be set by MDC,
-    // such as `letter-spacing` or `font-size`.
-    font-family: inherit;
-}
+    visibility: hidden;
 
-.mdc-snackbar__label {
     color: rgb(var(--contrast-100));
+
+    -webkit-font-smoothing: antialiased;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    padding: 0 0.25rem;
+
+    width: 100%;
+    flex-grow: 1;
 }
 
 .mdc-snackbar__actions {
+    visibility: hidden;
+
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    box-sizing: border-box;
     gap: 0.5rem;
 }
 
+.dismiss,
 .mdc-snackbar__actions {
     --lime-elevated-surface-background-color: rgb(
         var(--contrast-1300)
     ); // background color of the buttons
-    limel-icon-button.mdc-snackbar__dismiss {
-        transform: scale(0.8);
-        margin: 0;
-        padding: 0;
-    }
 }
 
 .dismiss {
@@ -58,10 +101,20 @@
     --icon-background-color: var(--lime-elevated-surface-background-color);
     --fill-color: var(--mdc-theme-primary);
     --track-color: rgb(var(--contrast-800), 0.2);
-    position: relative;
+    position: absolute;
+    top: -0.9rem;
+    left: -0.9rem;
+    transform: scale(0.8);
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    limel-icon-button.mdc-snackbar__dismiss {
+        transform: scale(0.8);
+        margin: 0;
+        padding: 0;
+    }
 
     svg {
         position: absolute;

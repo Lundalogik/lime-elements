@@ -160,7 +160,8 @@ export class Snackbar {
                     aria-relevant="additions"
                 >
                     <div class="mdc-snackbar__label" aria-atomic="false"></div>
-                    {this.renderActions(this.actionText, this.dismissible)}
+                    {this.renderActions(this.actionText)}
+                    {this.renderDismissButton(this.dismissible)}
                 </div>
             </aside>
         );
@@ -174,15 +175,14 @@ export class Snackbar {
         }
     }
 
-    private renderActions(actionText: string, dismissible: boolean) {
-        if (!actionText && !dismissible) {
+    private renderActions(actionText: string) {
+        if (!actionText) {
             return;
         }
 
         return (
             <div class="mdc-snackbar__actions" aria-atomic="true">
                 {this.renderActionButton(actionText)}
-                {this.renderDismissButton(dismissible)}
             </div>
         );
     }
