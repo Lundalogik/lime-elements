@@ -1,5 +1,7 @@
 import { Component, h, State } from '@stencil/core';
 import { FormComponentFormData, schema } from './text-editor-form-data';
+import { cloneDeep } from 'lodash-es';
+
 /**
  * Using the text editor as a form component
  *
@@ -17,6 +19,7 @@ import { FormComponentFormData, schema } from './text-editor-form-data';
 @Component({
     tag: 'limel-example-text-editor-as-form-component',
     shadow: true,
+    styleUrl: 'text-editor-as-form-component.scss',
 })
 export class TextEditorAsFormComponentExample {
     @State()
@@ -25,6 +28,19 @@ export class TextEditorAsFormComponentExample {
         value: '<p>I am the <b>greatest</b>.</p>',
     };
 
+    @State()
+    private formDirty = false;
+
+    // We fake a bit of state handling here, to
+    // be able to reset and "save" the form.
+    // This is mainly to visualize when the form
+    // is considered dirty.
+    private savedFormData: FormComponentFormData;
+
+    public componentWillLoad() {
+        this.savedFormData = cloneDeep(this.formData);
+    }
+
     public render() {
         return [
             <limel-form
@@ -32,6 +48,21 @@ export class TextEditorAsFormComponentExample {
                 value={this.formData}
                 schema={schema}
             />,
+            <div class="buttons">
+                <limel-button
+                    label="Save"
+                    disabled={!this.formDirty}
+                    onClick={this.handleSave}
+                    primary={true}
+                    class="has-reduced-presence"
+                />
+                <limel-button
+                    label="Reset"
+                    disabled={!this.formDirty}
+                    onClick={this.handleReset}
+                    class="has-reduced-presence"
+                />
+            </div>,
             <limel-example-value value={this.formData} />,
         ];
     }
@@ -39,5 +70,22 @@ export class TextEditorAsFormComponentExample {
     private handleFormChange = (event: CustomEvent<FormComponentFormData>) => {
         event.stopPropagation();
         this.formData = event.detail;
+        this.formDirty = this.getFormDirtyState();
+    };
+
+    private handleSave = () => {
+        this.savedFormData = cloneDeep(this.formData);
+        this.formDirty = this.getFormDirtyState();
+    };
+
+    private handleReset = () => {
+        this.formData = cloneDeep(this.savedFormData);
+        this.formDirty = this.getFormDirtyState();
+    };
+
+    private getFormDirtyState = () => {
+        return (
+            JSON.stringify(this.formData) !== JSON.stringify(this.savedFormData)
+        );
     };
 }
