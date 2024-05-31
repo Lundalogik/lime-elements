@@ -8,7 +8,7 @@ import { exampleSetup } from 'prosemirror-example-setup';
 import { EditorView } from 'prosemirror-view';
 import { MenuCommandFactory } from './menu-commands';
 import { EditorMenuTypes } from './types';
-import { strikethrough } from './menu-schema-extender';
+import { strikethrough, underline } from './menu-schema-extender';
 
 describe('MenuCommandFactory', () => {
     let mySchema: Schema;
@@ -25,6 +25,7 @@ describe('MenuCommandFactory', () => {
                 'block',
             ),
             marks: basicSchema.spec.marks.append({
+                underline: underline,
                 strikethrough: strikethrough,
             }),
         });
