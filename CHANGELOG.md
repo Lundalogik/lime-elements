@@ -1,3 +1,12 @@
+## [37.45.2](https://github.com/Lundalogik/lime-elements/compare/v37.45.1...v37.45.2) (2024-05-31)
+
+
+### Bug Fixes
+
+
+* **text-editor:** do not emit event for pointer transactions ([18f6d1c](https://github.com/Lundalogik/lime-elements/commit/18f6d1caf27622f3f8a5e8273d64194a139ea629))
+* **text-editor:** never emit change event as result of getting updated value from consumer ([e4a52d0](https://github.com/Lundalogik/lime-elements/commit/e4a52d0db5f2401cbd9d6a9df38bce1f27fab84a))
+
 ## [37.45.1](https://github.com/Lundalogik/lime-elements/compare/v37.45.0...v37.45.1) (2024-05-31)
 
 
