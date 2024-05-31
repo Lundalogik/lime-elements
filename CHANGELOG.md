@@ -1,3 +1,16 @@
+## [37.45.1](https://github.com/Lundalogik/lime-elements/compare/v37.45.0...v37.45.1) (2024-05-31)
+
+
+### Bug Fixes
+
+
+* **text-editor:** throw error if the content type is not supported ([b5183e6](https://github.com/Lundalogik/lime-elements/commit/b5183e62202be3127146ced823e02daec3884ff8))
+
+### Performance Improvements
+
+
+* **text-editor:** destroy view on disconnect ([2acbf8c](https://github.com/Lundalogik/lime-elements/commit/2acbf8cc59396079aa7c99a64620955385e7fffa))
+
 ## [37.45.0](https://github.com/Lundalogik/lime-elements/compare/v37.44.3...v37.45.0) (2024-05-29)
 
 
