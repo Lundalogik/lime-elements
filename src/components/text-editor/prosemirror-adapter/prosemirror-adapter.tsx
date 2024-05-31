@@ -78,6 +78,7 @@ export class ProsemirrorAdapter {
     private menuCommandFactory: MenuCommandFactory;
     private schema: Schema;
     private contentConverter: ContentTypeConverter;
+    private suppressChangeEvent = false;
 
     /**
      * Dispatched when a change is made to the editor
@@ -211,6 +212,7 @@ export class ProsemirrorAdapter {
     }
 
     private async updateView(content: string) {
+        this.suppressChangeEvent = true;
         const html = await this.contentConverter.parseAsHTML(
             content,
             this.schema,
@@ -224,11 +226,16 @@ export class ProsemirrorAdapter {
         const tr = this.view.state.tr;
         tr.replaceWith(0, tr.doc.content.size, prosemirrorDoc.content);
         this.view.dispatch(tr);
+        this.suppressChangeEvent = false;
     }
 
     private handleTransaction = (transaction: Transaction) => {
         const newState = this.view.state.apply(transaction);
         this.view.updateState(newState);
+
+        if (this.suppressChangeEvent) {
+            return;
+        }
 
         if (transaction.getMeta('pointer')) {
             return;
