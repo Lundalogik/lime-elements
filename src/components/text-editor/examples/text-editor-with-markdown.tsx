@@ -42,6 +42,7 @@ export class TextEditorWithMarkdownExample {
     };
 
     private handleChange = (event: CustomEvent<string>) => {
+        console.log('handleChange', event.detail);
         this.value = event.detail;
     };
 }
