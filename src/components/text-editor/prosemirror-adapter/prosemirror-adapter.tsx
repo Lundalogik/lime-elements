@@ -232,14 +232,18 @@ export class ProsemirrorAdapter {
     private handleTransaction = (transaction: Transaction) => {
         const newState = this.view.state.apply(transaction);
         this.view.updateState(newState);
+        console.log('handleTransaction', transaction);
 
         if (this.suppressChangeEvent) {
+            console.log('surpressing change event');
             return;
         }
 
         if (transaction.getMeta('pointer')) {
             return;
         }
+
+        console.log('emitting change event');
 
         this.change.emit(
             this.contentConverter.serialize(this.view, this.schema),
