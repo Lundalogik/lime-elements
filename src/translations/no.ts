@@ -1,5 +1,7 @@
 export default {
     remove: 'Fjerne',
+    save: 'Lagre',
+    cancel: 'Avbryt',
     'callout.note': 'Note',
     'callout.important': 'Viktig',
     'callout.tip': 'Tip',

@@ -1,5 +1,7 @@
 export default {
     remove: 'Ta bort',
+    save: 'Spara',
+    cancel: 'Avbryt',
     'callout.note': 'Obs',
     'callout.important': 'Viktigt',
     'callout.tip': 'Tips',
