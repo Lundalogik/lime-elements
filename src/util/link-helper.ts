@@ -32,7 +32,7 @@ function isValid(href: string) {
     );
 }
 
-function hasKnownProtocol(input: string) {
+export function hasKnownProtocol(input: string) {
     const knownProtocols = [
         'ftp',
         'ftps',

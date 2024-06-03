@@ -44,3 +44,13 @@ export type ProseMirrorAdapterElementWithFocus =
     HTMLLimelProsemirrorAdapterElement & {
         setFocus: () => void;
     };
+
+/**
+ * The `EditorTextLink` type is used to represent a link in the editor.
+ * @beta
+ * @private
+ */
+export type EditorTextLink = {
+    text?: string;
+    href: string;
+};

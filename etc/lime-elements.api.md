@@ -663,6 +663,12 @@ export namespace Components {
         "required"?: boolean;
         "value": string;
     }
+    // @beta
+    export interface LimelTextEditorLinkMenu {
+        "isOpen": boolean;
+        "language": Languages;
+        "link": EditorTextLink;
+    }
     export interface LimelTooltip {
         "elementId": string;
         "helperLabel"?: string;
@@ -718,6 +724,12 @@ export interface DockMenu {
         [key: string]: any;
     };
 }
+
+// @beta
+export type EditorTextLink = {
+    text?: string;
+    href: string;
+};
 
 // Warning: (ae-missing-release-tag) "EventEmitter" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -1028,6 +1040,10 @@ namespace JSX_2 {
         //
         // (undocumented)
         "limel-text-editor": LimelTextEditor;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-text-editor-link-menu"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-text-editor-link-menu": LimelTextEditorLinkMenu;
         // (undocumented)
         "limel-tooltip": LimelTooltip;
         // (undocumented)
@@ -1620,6 +1636,15 @@ namespace JSX_2 {
         "required"?: boolean;
         "value"?: string;
     }
+    // @beta
+    interface LimelTextEditorLinkMenu {
+        "isOpen"?: boolean;
+        "language"?: Languages;
+        "link"?: EditorTextLink;
+        "onCancel"?: (event: LimelTextEditorLinkMenuCustomEvent<void>) => void;
+        "onLinkChange"?: (event: LimelTextEditorLinkMenuCustomEvent<EditorTextLink>) => void;
+        "onSave"?: (event: LimelTextEditorLinkMenuCustomEvent<void>) => void;
+    }
     interface LimelTooltip {
         "elementId": string;
         "helperLabel"?: string;
@@ -2067,6 +2092,16 @@ export interface LimelTextEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelTextEditorElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelTextEditorLinkMenuCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelTextEditorLinkMenuCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelTextEditorLinkMenuElement;
 }
 
 // @public
