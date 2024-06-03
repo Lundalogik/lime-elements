@@ -30,4 +30,6 @@ export default {
     'editor-menu.numbered-list': 'Numeroitu lista',
     'editor-menu.blockquote': 'Lohkoteksti',
     'editor-menu.link': 'Lisää linkki',
+    'editor-link-menu.text': 'Teksti',
+    'editor-link-menu.link': 'Linkki',
 };

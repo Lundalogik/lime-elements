@@ -30,4 +30,6 @@ export default {
     'editor-menu.numbered-list': 'Numrerad lista',
     'editor-menu.blockquote': 'Blockcitat',
     'editor-menu.link': 'Lägg till länk',
+    'editor-link-menu.text': 'Text',
+    'editor-link-menu.link': 'Länk',
 };

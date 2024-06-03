@@ -30,4 +30,6 @@ export default {
     'editor-menu.numbered-list': 'Genummerde lijst',
     'editor-menu.blockquote': 'Blokcitaat',
     'editor-menu.link': 'Link toevoegen',
+    'editor-link-menu.text': 'Tekst',
+    'editor-link-menu.link': 'Link',
 };

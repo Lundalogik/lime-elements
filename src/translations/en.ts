@@ -30,4 +30,6 @@ export default {
     'editor-menu.numbered-list': 'Numbered list',
     'editor-menu.blockquote': 'Blockquote',
     'editor-menu.link': 'Link',
+    'editor-link-menu.text': 'Text',
+    'editor-link-menu.link': 'Link',
 };
