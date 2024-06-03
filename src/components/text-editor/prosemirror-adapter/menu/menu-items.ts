@@ -108,6 +108,12 @@ const textEditorMenuItems: Array<
         iconOnly: true,
         selected: false,
     },
+    {
+        value: EditorMenuTypes.Link,
+        text: 'Link',
+        icon: '-lime-text-link',
+        iconOnly: true,
+    },
 ];
 
 export const getTextEditorMenuItems = () => cloneDeep(textEditorMenuItems);

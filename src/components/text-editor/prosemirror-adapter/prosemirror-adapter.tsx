@@ -22,12 +22,14 @@ import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { markdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
-import { EditorMenuTypes } from './menu/types';
+import { EditorMenuTypes, EditorTextLink } from './menu/types';
 import translate from 'src/global/translations';
+import { createRandomString } from 'src/util/random-string';
 import { isItem } from 'src/components/action-bar/isItem';
 import { cloneDeep } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
 import { strikethrough } from './menu/menu-schema-extender';
+import { createLinkPlugin } from './plugins/link-plugin';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -67,6 +69,8 @@ export class ProsemirrorAdapter {
     @Element()
     private host: HTMLLimelTextEditorElement;
 
+    private portalId: string;
+
     @State()
     private view: EditorView;
 
@@ -74,6 +78,15 @@ export class ProsemirrorAdapter {
     private actionBarItems: Array<
         ActionBarItem<EditorMenuTypes> | ListSeparator
     > = [];
+
+    @State()
+    private link: EditorTextLink = { href: '' };
+
+    /**
+     * Open state of the dialog
+     */
+    @State()
+    public isLinkMenuOpen: boolean = false;
 
     private menuCommandFactory: MenuCommandFactory;
     private schema: Schema;
@@ -85,6 +98,12 @@ export class ProsemirrorAdapter {
      */
     @Event()
     private change: EventEmitter<string>;
+
+    constructor() {
+        this.portalId = createRandomString();
+    }
+
+    private actionBarPluginKey = new PluginKey('actionBarPlugin');
 
     @Watch('value')
     protected watchValue(newValue: string) {
@@ -116,10 +135,35 @@ export class ProsemirrorAdapter {
         return [
             <div id="editor" />,
             <limel-action-bar
+                slot="trigger"
                 accessibleLabel="Toolbar"
                 actions={this.actionBarItems}
                 onItemSelected={this.handleActionBarItem}
             />,
+            <limel-portal
+                containerId={this.portalId}
+                visible={this.isLinkMenuOpen}
+                openDirection="top"
+                inheritParentWidth={true}
+                containerStyle={{ 'z-index': 1 }}
+            >
+                <limel-menu-surface
+                    open={this.isLinkMenuOpen}
+                    onDismiss={this.handleCancelLinkMenu}
+                    style={{
+                        '--mdc-menu-min-width': '100%',
+                        'max-height': 'inherit',
+                    }}
+                >
+                    <limel-text-editor-link-menu
+                        link={this.link}
+                        isOpen={this.isLinkMenuOpen}
+                        onLinkChange={this.handleLinkChange}
+                        onCancel={this.handleCancelLinkMenu}
+                        onSave={this.handleSaveLinkMenu}
+                    />
+                </limel-menu-surface>
+            </limel-portal>,
         ];
     }
 
@@ -207,6 +251,7 @@ export class ProsemirrorAdapter {
                 ...exampleSetup({ schema: this.schema, menuBar: false }),
                 keymap(this.menuCommandFactory.buildKeymap()),
                 this.createMenuStateTrackingPlugin(this.actionBarItems),
+                createLinkPlugin(this.handleNewLinkSelection),
             ],
         });
     }
@@ -252,12 +297,42 @@ export class ProsemirrorAdapter {
         event.preventDefault();
         const { value } = event.detail;
 
+        if (value === EditorMenuTypes.Link) {
+            this.isLinkMenuOpen = true;
+
+            return;
+        }
+
         try {
             const command = this.menuCommandFactory.getCommand(value);
             this.dispatchMenuCommand(command);
         } catch (error) {
             throw new Error(`Error executing command: ${error}`);
         }
+    };
+
+    private handleCancelLinkMenu = () => {
+        this.isLinkMenuOpen = false;
+    };
+
+    private handleSaveLinkMenu = () => {
+        this.isLinkMenuOpen = false;
+
+        try {
+            const command = this.menuCommandFactory.getCommand(
+                'link',
+                this.link,
+            );
+            this.dispatchMenuCommand(command);
+        } catch (error) {
+            throw new Error(`Error executing command: ${error}`);
+        }
+
+        this.link = { href: '' };
+    };
+
+    private handleLinkChange = (event: CustomEvent<EditorTextLink>) => {
+        this.link = event.detail;
     };
 
     private dispatchMenuCommand(command) {
@@ -278,8 +353,6 @@ export class ProsemirrorAdapter {
     public setFocus() {
         this.view?.focus();
     }
-
-    actionBarPluginKey = new PluginKey('actionBarPlugin');
 
     private updateActionBarItems = (
         actionBarItems: Array<ActionBarItem<EditorMenuTypes> | ListSeparator>,
@@ -311,5 +384,11 @@ export class ProsemirrorAdapter {
                 },
             }),
         });
+    };
+
+    private handleNewLinkSelection = (text: string, href: string) => {
+        console.log('handleNewLinkSelection', href);
+        this.link.text = text;
+        this.link.href = href;
     };
 }

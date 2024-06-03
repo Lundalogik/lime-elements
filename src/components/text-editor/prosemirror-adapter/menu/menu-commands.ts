@@ -1,13 +1,18 @@
 import { toggleMark, setBlockType, wrapIn } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
-import { Command, EditorState, TextSelection } from 'prosemirror-state';
-import { EditorMenuTypes, LevelMapping } from './types';
+import {
+    Command,
+    EditorState,
+    Transaction,
+    TextSelection,
+} from 'prosemirror-state';
+import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
 
 type CommandFunction = (
     schema: Schema,
     mark: EditorMenuTypes,
-    url?: string,
+    link?: EditorTextLink,
 ) => CommandWithActive;
 
 interface CommandMapping {
@@ -74,17 +79,54 @@ const setActiveMethodForWrap = (
     };
 };
 
+const createInsertLinkCommand: CommandFunction = (
+    schema: Schema,
+    _: EditorMenuTypes,
+    link?: EditorTextLink,
+): CommandWithActive => {
+    const command: Command = (state, dispatch) => {
+        const { from, to } = state.selection;
+        if (from === to) {
+            // If no text is selected, insert new text with link
+            const linkMark = schema.marks.link.create({
+                href: link.href,
+                title: link.href,
+                target: isExternalLink(link.href) ? '_blank' : null,
+            });
+            const linkText = link.text || link.href;
+            const newLink = schema.text(linkText, [linkMark]);
+            dispatch(state.tr.insert(from, newLink));
+        } else {
+            // If text is selected, replace selected text with link text
+            const linkMark = schema.marks.link.create({
+                href: link.href,
+                title: link.href,
+                target: isExternalLink(link.href) ? '_blank' : null,
+            });
+            const selectedText = state.doc.textBetween(from, to, ' ');
+            const newLink = schema.text(link.text || selectedText, [linkMark]);
+            dispatch(state.tr.replaceWith(from, to, newLink));
+        }
+
+        return true;
+    };
+
+    setActiveMethodForMark(command, schema.marks.link);
+
+    return command;
+};
+
 const createToggleMarkCommand = (
     schema: Schema,
     markName: string,
-    url?: string,
+    link?: EditorTextLink,
 ): CommandWithActive => {
     const markType: MarkType | undefined = schema.marks[markName];
     if (!markType) {
         throw new Error(`Mark "${markName}" not found in schema`);
     }
 
-    const attrs = getAttributes(markName, url);
+    const attrs = getAttributes(markName, link);
 
     const command: CommandWithActive = toggleMark(markType, attrs);
     setActiveMethodForMark(command, markType);
@@ -92,18 +134,21 @@ const createToggleMarkCommand = (
     return command;
 };
 
-const getAttributes = (markName: string, url: string): Attrs | null => {
-    if (markName === EditorMenuTypes.Link && url) {
+const getAttributes = (
+    markName: string,
+    link: EditorTextLink,
+): Attrs | null => {
+    if (markName === EditorMenuTypes.Link && link.href) {
         return {
-            href: url,
-            target: isExternalLink(url) ? '_blank' : null,
+            href: link.href,
+            target: isExternalLink(link.href) ? '_blank' : null,
         };
     }
 
     return undefined;
 };
 
-const isExternalLink = (url: string): boolean => {
+export const isExternalLink = (url: string): boolean => {
     return !url.startsWith(window.location.origin);
 };
 
@@ -136,6 +181,16 @@ const toggleBlockType = (schema, type, attrs = {}, wrap = false) => {
 
         return false;
     };
+};
+
+export const isValidUrl = (text: string): boolean => {
+    try {
+        new URL(text);
+    } catch {
+        return false;
+    }
+
+    return true;
 };
 
 const createSetNodeTypeCommand = (
@@ -234,13 +289,42 @@ const createListCommand = (
     return command;
 };
 
+const copyPasteLinkCommand: Command = (
+    state: EditorState,
+    dispatch: (tr: Transaction) => void,
+) => {
+    const { from, to } = state.selection;
+    if (from === to) {
+        return false;
+    }
+
+    const clipboardData = (window as any).clipboardData;
+    if (!clipboardData) {
+        return false;
+    }
+
+    const copyPastedText = clipboardData.getData('text');
+    if (!isValidUrl(copyPastedText)) {
+        return false;
+    }
+
+    const linkMark = state.schema.marks.link.create({
+        href: copyPastedText,
+        target: isExternalLink(copyPastedText) ? '_blank' : null,
+    });
+
+    const selectedText = state.doc.textBetween(from, to, ' ');
+    const newLink = state.schema.text(selectedText, [linkMark]);
+    dispatch(state.tr.replaceWith(from, to, newLink));
+};
+
 const commandMapping: CommandMapping = {
     strong: createToggleMarkCommand,
     em: createToggleMarkCommand,
     underline: createToggleMarkCommand,
     strikethrough: createToggleMarkCommand,
     code: createToggleMarkCommand,
-    link: createToggleMarkCommand,
+    link: createInsertLinkCommand,
     headerlevel1: (schema) =>
         createSetNodeTypeCommand(
             schema,
@@ -278,13 +362,13 @@ export class MenuCommandFactory {
         this.schema = schema;
     }
 
-    public getCommand(mark: EditorMenuTypes, url?: string) {
+    public getCommand(mark: EditorMenuTypes, link?: EditorTextLink) {
         const commandFunc = commandMapping[mark];
         if (!commandFunc) {
             throw new Error(`The Mark "${mark}" is not supported`);
         }
 
-        return commandFunc(this.schema, mark, url);
+        return commandFunc(this.schema, mark, link);
     }
 
     buildKeymap() {
@@ -297,6 +381,7 @@ export class MenuCommandFactory {
             'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
             'Mod-`': this.getCommand(EditorMenuTypes.Code),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),
+            'Mod-v': copyPasteLinkCommand,
         };
     }
 }

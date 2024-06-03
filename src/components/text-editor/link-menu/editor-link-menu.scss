@@ -1,0 +1,12 @@
+:host(limel-text-editor-link-menu) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: end;
+    gap: 0.5rem;
+}
