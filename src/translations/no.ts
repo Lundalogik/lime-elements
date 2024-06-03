@@ -29,4 +29,6 @@ export default {
     'editor-menu.numbered-list': 'Nummerert liste',
     'editor-menu.blockquote': 'Blokksitat',
     'editor-menu.link': 'Legg til lenke',
+    'editor-link-menu.text': 'Tekst',
+    'editor-link-menu.link': 'Lenke',
 };
