@@ -29,7 +29,10 @@ import { isItem } from 'src/components/action-bar/isItem';
 import { cloneDeep } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
 import { strikethrough } from './menu/menu-schema-extender';
-import { createLinkPlugin } from './plugins/link-plugin';
+import {
+    EditorLinkMenuEventDetail,
+    createLinkPlugin,
+} from './plugins/link-plugin';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -129,6 +132,19 @@ export class ProsemirrorAdapter {
         setTimeout(() => {
             this.initializeTextEditor();
         }, 0);
+
+        this.host.addEventListener(
+            'open-editor-link-menu',
+            this.handleOpenLinkMenu,
+        );
+    }
+
+    public disconnectedCallback() {
+        this.host.removeEventListener(
+            'open-editor-link-menu',
+            this.handleOpenLinkMenu,
+        );
+        this.view.destroy();
     }
 
     public render() {
@@ -165,10 +181,6 @@ export class ProsemirrorAdapter {
                 </limel-menu-surface>
             </limel-portal>,
         ];
-    }
-
-    public disconnectedCallback() {
-        this.view.destroy();
     }
 
     private setupContentConverter() {
@@ -214,6 +226,7 @@ export class ProsemirrorAdapter {
                 dispatchTransaction: this.handleTransaction,
             },
         );
+
         if (this.value) {
             this.updateView(this.value);
         }
@@ -295,6 +308,7 @@ export class ProsemirrorAdapter {
         event: CustomEvent<ActionBarItem<EditorMenuTypes>>,
     ) => {
         event.preventDefault();
+        event.stopImmediatePropagation();
         const { value } = event.detail;
 
         if (value === EditorMenuTypes.Link) {
@@ -387,8 +401,16 @@ export class ProsemirrorAdapter {
     };
 
     private handleNewLinkSelection = (text: string, href: string) => {
-        console.log('handleNewLinkSelection', href);
         this.link.text = text;
         this.link.href = href;
+    };
+
+    private handleOpenLinkMenu = (
+        event: CustomEvent<EditorLinkMenuEventDetail>,
+    ) => {
+        event.stopImmediatePropagation();
+        const { href, text } = event.detail;
+        this.link = { href: href, text: text };
+        this.isLinkMenuOpen = true;
     };
 }
