@@ -1,5 +1,7 @@
 export default {
     remove: 'Poista',
+    save: 'Tallenna',
+    canceL: 'Peruuta',
     'callout.note': 'Huomio',
     'callout.important': 'Tärkeää',
     'callout.tip': 'Vinkki',
