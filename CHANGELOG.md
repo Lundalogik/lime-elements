@@ -1,3 +1,12 @@
+## [37.46.0](https://github.com/Lundalogik/lime-elements/compare/v37.45.2...v37.46.0) (2024-06-04)
+
+
+### Features
+
+
+* **editor menu:** add link menu component ([0fe2d9e](https://github.com/Lundalogik/lime-elements/commit/0fe2d9eb9da593eb7a3a7b5062ced4145e96696b))
+* **editor menu:** handle double clicks properly ([370fe76](https://github.com/Lundalogik/lime-elements/commit/370fe76c25fcf64d62ea26572a5bdeb396a3d573))
+
 ## [37.45.2](https://github.com/Lundalogik/lime-elements/compare/v37.45.1...v37.45.2) (2024-05-31)
 
 
