@@ -133,6 +133,12 @@ export class ProsemirrorAdapter {
         setTimeout(() => {
             this.initializeTextEditor();
         }, 0);
+    }
+
+    public connectedCallback() {
+        if (this.view) {
+            this.initializeTextEditor();
+        }
 
         this.host.addEventListener(
             'open-editor-link-menu',
