@@ -1,3 +1,11 @@
+## [37.46.1](https://github.com/Lundalogik/lime-elements/compare/v37.46.0...v37.46.1) (2024-06-04)
+
+
+### Bug Fixes
+
+
+* **text-editor:** better visualization of readonly state ([422c2b7](https://github.com/Lundalogik/lime-elements/commit/422c2b7202eca010e8d222c6ac1dfa5734c12665))
+
 ## [37.46.0](https://github.com/Lundalogik/lime-elements/compare/v37.45.2...v37.46.0) (2024-06-04)
 
 
