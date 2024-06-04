@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ActionBarItem } from "./components/action-bar/action-bar.types";
-import { ListItem, ListSeparator } from "./components/list/list-item.types";
+import { ListItem as ListItem1, ListSeparator } from "./components/list/list-item.types";
 import { MenuItem, MenuSearcher, OpenDirection, SurfaceWidth } from "./components/menu/menu.types";
 import { BreadcrumbsItem } from "./components/breadcrumbs/breadcrumbs.types";
 import { Button } from "./components/button/button.types";
@@ -24,10 +24,12 @@ import { Action } from "./components/collapsible-section/action";
 import { Config } from "./global/config";
 import { ClosingActions, DialogHeading } from "./components/dialog/dialog.types";
 import { DockItem } from "./components/dock/dock.types";
+import { FormSchema, ListItem, Tab } from "@limetech/lime-elements";
+import { Bird } from "./components/table/examples/birds";
 import { FileInfo } from "./global/shared-types/file.types";
 import { OfficeViewer } from "./components/file-viewer/file-viewer.types";
 import { FlexContainerAlign, FlexContainerDirection, FlexContainerJustify } from "./components/flex-container/flex-container.types";
-import { FormError, FormSchema, ValidationError, ValidationStatus } from "./components/form/form.types";
+import { FormError, FormSchema as FormSchema1, ValidationError, ValidationStatus } from "./components/form/form.types";
 import { IconSize } from "./components/icon/icon.types";
 import { InfoTileProgress } from "./components/info-tile/info-tile.types";
 import { InputType } from "./components/input-field/input-field.types";
@@ -39,12 +41,12 @@ import { ActionPosition, ActionScrollBehavior } from "./components/picker/action
 import { FlowItem } from "./components/progress-flow/progress-flow.types";
 import { Option } from "./components/select/option.types";
 import { SpinnerSize } from "./components/spinner/spinner.types";
-import { Tab } from "./components/tab-bar/tab.types";
+import { Tab as Tab1 } from "./components/tab-bar/tab.types";
 import { Column, ColumnAggregate, ColumnSorter, TableParams } from "./components/table/table.types";
 import { Layout } from "./components/table/layout";
 import { EditorTextLink } from "./components/text-editor/prosemirror-adapter/menu/types";
 export { ActionBarItem } from "./components/action-bar/action-bar.types";
-export { ListItem, ListSeparator } from "./components/list/list-item.types";
+export { ListItem as ListItem1, ListSeparator } from "./components/list/list-item.types";
 export { MenuItem, MenuSearcher, OpenDirection, SurfaceWidth } from "./components/menu/menu.types";
 export { BreadcrumbsItem } from "./components/breadcrumbs/breadcrumbs.types";
 export { Button } from "./components/button/button.types";
@@ -62,10 +64,12 @@ export { Action } from "./components/collapsible-section/action";
 export { Config } from "./global/config";
 export { ClosingActions, DialogHeading } from "./components/dialog/dialog.types";
 export { DockItem } from "./components/dock/dock.types";
+export { FormSchema, ListItem, Tab } from "@limetech/lime-elements";
+export { Bird } from "./components/table/examples/birds";
 export { FileInfo } from "./global/shared-types/file.types";
 export { OfficeViewer } from "./components/file-viewer/file-viewer.types";
 export { FlexContainerAlign, FlexContainerDirection, FlexContainerJustify } from "./components/flex-container/flex-container.types";
-export { FormError, FormSchema, ValidationError, ValidationStatus } from "./components/form/form.types";
+export { FormError, FormSchema as FormSchema1, ValidationError, ValidationStatus } from "./components/form/form.types";
 export { IconSize } from "./components/icon/icon.types";
 export { InfoTileProgress } from "./components/info-tile/info-tile.types";
 export { InputType } from "./components/input-field/input-field.types";
@@ -77,7 +81,7 @@ export { ActionPosition, ActionScrollBehavior } from "./components/picker/action
 export { FlowItem } from "./components/progress-flow/progress-flow.types";
 export { Option } from "./components/select/option.types";
 export { SpinnerSize } from "./components/spinner/spinner.types";
-export { Tab } from "./components/tab-bar/tab.types";
+export { Tab as Tab1 } from "./components/tab-bar/tab.types";
 export { Column, ColumnAggregate, ColumnSorter, TableParams } from "./components/table/table.types";
 export { Layout } from "./components/table/layout";
 export { EditorTextLink } from "./components/text-editor/prosemirror-adapter/menu/types";
@@ -992,6 +996,3371 @@ export namespace Components {
         "value": LabelValue;
     }
     /**
+     * Basic Example
+     * An action bar is typically placed on top of a page or section,
+     * displaying multiple buttons in a row.
+     * Separators can be added to visually group related actions.
+     * :::tip
+     * By default, when `layout="fullWidth"`, all actions will be placed on
+     * the left side of the action bar,
+     * but you can override this default behavior by
+     * adding `justify-content: flex-end;`.
+     * :::
+     */
+    interface LimelExampleActionBar {
+    }
+    /**
+     * Creative usage
+     * Since the action bar can automatically overflow actions which do not
+     * fit into the available width, it makes the component a good candidate
+     * for providing contextual actions within small sections of a user interface.
+     * :::important
+     * For this specific usage (`limel-action-bar` as a primary component in `limel-list`)
+     * the certain styles are required for the overflow menu to properly work.
+     * See the linked CSS file!
+     * There should be a `min-width` and `max-width` on the component in order to prevent
+     * the overflow menu to cause infinite rendering loops.
+     * :::
+     * @sourceFile action-bar-in-list.tsx
+     * @sourceFile action-bar-in-list.scss
+     */
+    interface LimelExampleActionBarAsPrimaryComponent {
+    }
+    /**
+     * Using colors
+     * You can specify colors for single actions, by setting `color` on the `icon`.
+     * :::note
+     * Make sure not to overuse colors!
+     * It is perfectly fine that most of the actions in the bar use the default color.
+     * Colors should be used to add an extra layer of meaning for the actions.
+     * :::
+     */
+    interface LimelExampleActionBarColors {
+    }
+    /**
+     * Floating Example
+     * For some designs, it may make sense to display the action bar as
+     * a floating element on top of the page's content.
+     * Set the `layout` prop to `floating` to get the basics styles of
+     * a floating bar.
+     * :::note
+     * 1. In this case, the action bar gets some elevation effect
+     * using a `box-shadow`. This is to properly separate the action bar
+     * form its surrounding context. You can override this by setting another
+     * `box-shadow`.
+     * 2. Make sure to use a proper `openDirection` for the
+     * overflow menu.
+     * 3. Make sure there is space on the sides of the action bar,
+     * so that it doesn't stretch out completely from left edge to the right
+     * edge. The component is already doing so using a `max-width`,
+     * but you can override it by providing another `max-width`.
+     * :::
+     */
+    interface LimelExampleActionBarFloating {
+    }
+    interface LimelExampleActionBarInList {
+    }
+    /**
+     * Overflow menu
+     * When the action bar items don't fit in the available space,
+     * an overflow button is automatically added as the last item on the action bar.
+     * The menu indicates the quantity of the actions which are currently invisible for the users.
+     * Clicking on the overflow button opens a menu with the remaining actions that didn't fit
+     * in the available space.
+     */
+    interface LimelExampleActionBarOverflowMenu {
+    }
+    /**
+     * Selected item
+     * For some use cases, one or more items in the action bar could
+     * get a `selected` state. This is useful for example when you want to
+     * highlight a currently active item in a list of items.
+     */
+    interface LimelExampleActionBarSelectedItem {
+    }
+    /**
+     * Styling
+     * Using provided custom CSS properties,
+     * it is possible to style the action bar.
+     * :::note
+     * The `--action-bar-item-icon-color` affects all icons.
+     * However, the `color` specified for `icon` for individual items
+     * will override that.
+     * :::
+     */
+    interface LimelExampleActionBarStyling {
+    }
+    interface LimelExampleActionButtonsChoosingExplicitLabels {
+    }
+    interface LimelExampleActionButtonsChoosingLabels {
+    }
+    interface LimelExampleActionButtonsColorsDoDont {
+    }
+    interface LimelExampleActionButtonsIconColor {
+    }
+    interface LimelExampleActionButtonsPlacement {
+    }
+    interface LimelExampleActionButtonsPrimarySecondary {
+    }
+    interface LimelExampleActionButtonsPrimarySecondaryReversed {
+    }
+    interface LimelExampleActionButtonsPrimarySecondaryReversedColors {
+    }
+    interface LimelExampleActionButtonsThirdAlternative {
+    }
+    interface LimelExampleAuditionForm {
+    }
+    interface LimelExampleAuditionFormReadonly {
+    }
+    /**
+     * Badge without a `label`
+     * When no `label` is provided, the badge will only render as a circle.
+     * This is a convention which is used in many applications to attract the
+     * user's attention to a certain element on the user interface; typically to
+     * menus or buttons that navigate the user to another pane or screen.
+     * In such cases, the idea is to provide the users with a "red thread"
+     * and help them find something that requires their attention, but is located
+     * on another place in the app, and not directly visible.
+     * :::tip
+     * Make sure that the dot is noticeable, by providing an
+     * eye-catching background color, as shown in this example.
+     * :::
+     */
+    interface LimelExampleBadge {
+    }
+    /**
+     * Number badges
+     * Numeric labels larger than 999 will get both rounded and abbreviated.
+     * For example, if the label is `1090` the badge will display `1.1K`.
+     * Abbreviation units used are `k` (Kilo) that stands for Thousands,
+     * `M` for Millions, `B` for Billions, and `T` for Trillions.
+     * When users hover the abbreviated badge, the complete
+     * `label` will be displayed in a tooltip.
+     */
+    interface LimelExampleBadgeNumber {
+    }
+    /**
+     * String badges
+     * String labels get truncated if their visual length is longer than
+     * six characters placed side by side (six `0`s to be exact).
+     * When users hover the truncated badge, the complete
+     * `label` will be displayed in a tooltip.
+     */
+    interface LimelExampleBadgeString {
+    }
+    interface LimelExampleBanner {
+    }
+    interface LimelExampleBooleanCheckboxes {
+    }
+    interface LimelExampleBooleanRadioButtons {
+    }
+    interface LimelExampleBrandColorPalette {
+    }
+    /**
+     * Items as buttons
+     * The Breadcrumbs can also be used to navigate between different
+     * steps of a process, such as steps of a form or survey, or
+     * moving through steps of a wizard.
+     * In this case, you will not provide any `link`s and instead will
+     * handle the clicks. When no links are provided, the component
+     * will automatically generate a list of `button`s.
+     * Keep in mind that the last item will not be rendered as an
+     * HTML button and and therefore won't be clickable.
+     */
+    interface LimelExampleBreadcrumbsButtons {
+    }
+    /**
+     * Changing the divider
+     * By default a **›** character is used to visually divide the
+     * items from each other. This visual divider indicates the
+     * order and depths of steps which are taken to reach the current
+     * step.
+     * However, in certain contexts, other characters could be
+     * more suitable to visualize this hierarchy,
+     * such as a **·**, **-** or similar.
+     * :::warning
+     * Avoid using ellipsis motifs like **···**, **…** or **⋮**,
+     * since they look like universally prevalent icons which
+     * communicate other meanings.
+     */
+    interface LimelExampleBreadcrumbsDivider {
+    }
+    /**
+     * Using colors
+     * You can specify colors for single item, by setting `color` on the `icon`.
+     * :::note
+     * Make sure not to overuse colors!
+     * It is perfectly fine that items in the bar use the default color.
+     * Colors should be used to add an extra layer of meaning for the actions.
+     * An icon can either adopt the color of the default text or receive a color
+     * if the `--breadcrumbs-item-text-color` has been set.
+     * Nevertheless, if the `color` is explicitly defined,
+     * it will take precedence over the default icon's color.
+     * :::
+     */
+    interface LimelExampleBreadcrumbsIconColor {
+    }
+    /**
+     * Using icons
+     * For an improved accessibility, you are required to
+     * provide a `text` for each item in the breadcrumbs.
+     * But each item can have an optional icon too.
+     * However, in some UIs, the design might require
+     * hiding the text and relying on an icon to visualize
+     * an item in the path.
+     * In this case you can set the `type` to
+     * `icon-only` on the desired items.
+     * :::note
+     * The last item (current step) will always
+     * display both an icon and the text, even if you
+     * set the `type` to `icon-only`
+     * :::
+     */
+    interface LimelExampleBreadcrumbsIcons {
+    }
+    /**
+     * Items as hyperlinks
+     * When the Breadcrumbs are used to navigate between different webpages,
+     * for example navigating a website, you will need to provide a `link`
+     * for each webpage.
+     * This way, the component will automatically generate a list of
+     * hyperlinks. This gives the users the possibility of interacting with links
+     * in a natural way, for instance they can open any of the previous
+     * pages in a new browser tab. This also has other accessibility benefits.
+     * :::note
+     * Clicking links will open in current window by default,
+     * and this reloads the entire webpage.
+     * To avoid reloading the whole application (in the context of a single-page apps),
+     * you might want to handle the navigation with your application's router,
+     * :::
+     * Keep in mind that the last item will not be rendered as an HTML link and
+     * is not clickable.
+     */
+    interface LimelExampleBreadcrumbsLinks {
+    }
+    /**
+     * Styling
+     * Using provided custom CSS properties,
+     * it is possible to style the breadcrumbs.
+     */
+    interface LimelExampleBreadcrumbsStyling {
+    }
+    /**
+     * Basic Example
+     * Just a label and a click-handler.
+     * Open the dev-tools console to see logged clicks.
+     */
+    interface LimelExampleButtonBasic {
+    }
+    /**
+     * With click handler, and failed feedback
+     * This example works just like the "With click handler" example, except that,
+     * when the `loading` attribute changes from `true` to `false`, the button
+     * automatically indicates that the previously ongoing process just failed.
+     */
+    interface LimelExampleButtonClickFail {
+    }
+    /**
+     * With click handler
+     * The click handler in this example simulates saving some changed values in a
+     * form. When the button is clicked, the `loading` attribute is set to `true`.
+     * After a short while, we pretend that the saving was successful, and set
+     * `loading` to `false`. We also set `disabled` to `true`, because we just
+     * successfully saved, so until the user updates our imaginary form again, there
+     * is nothing to save.
+     * When the `loading` attribute changes from `true` to `false`, the button
+     * automatically displays a checkmark icon for 2 seconds. Note that our click
+     * handler isn't actually involved in this.
+     * A short while after the checkmark has disappeared, we enable the button
+     * again. This is just so that you can try the functionality again. Normally,
+     * the button would stay disabled until the user made some changes, so there's
+     * something new to save!
+     */
+    interface LimelExampleButtonClickSuccess {
+    }
+    /**
+     * How to color button text and background
+     * When a button is a "primary" button (`primary={true}`), the color value you specify
+     * for `--lime-primary-color` will apply to its background. By default, text color
+     * of primary buttons is white. To change their text color you must send a color
+     * value with the `--lime-on-primary-color` variable.
+     * When a button is not a "primary" button, the value of `--lime-primary-color`
+     * will be applied to its text, and `--lime-on-primary-color` will have no effect.
+     * Keep in mind that `disabled` buttons don't care about your specified colors at all.
+     */
+    interface LimelExampleButtonColors {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleButtonComposite {
+        "schema": FormSchema;
+    }
+    /**
+     * Disabled
+     * :::note
+     * Discover when to utilize the disabled state and when it is preferable to hide a button by reading our guidelines [Disabled vs. Hidden](#/DesignGuidelines/disabled-hidden.md/).
+     * :::
+     */
+    interface LimelExampleButtonDisabled {
+    }
+    interface LimelExampleButtonDisabledVsHidden {
+    }
+    /**
+     * Text only
+     * This layout is good when you do not have access to icons which are
+     * descriptive enough.
+     */
+    interface LimelExampleButtonGroup {
+    }
+    /**
+     * Button group with badges
+     * Badges can be used to add further contextual information.
+     * For example, if the component is used to filter a set of data
+     * the badges could visualize the number of entries
+     * for each filter option.
+     * The badge can either
+     * have a `number` or `string` label.
+     * Read more about how the badge truncates or abbreviates the
+     * provided label [here](#/component/limel-badge/).
+     */
+    interface LimelExampleButtonGroupBadges {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleButtonGroupComposite {
+        "schema": FormSchema;
+    }
+    /**
+     * Icon only
+     * If you pick well descriptive icons, this layout will usually suffice. When
+     * you specify an `icon`, it will automatically be shown instead of the `title`.
+     * :::important
+     * Adding titles for buttons is compulsory. The reason is that when
+     * only icons are shown, titles will appear as `aria-label` for screen readers,
+     * as well as `title` attribute when users hover and hold their cursors on the
+     * buttons.
+     * :::
+     * This makes it easier for them to know what the button actually does
+     * or what the icon tries to indicate.
+     * So, make sure to label your icons properly and descriptively.
+     */
+    interface LimelExampleButtonGroupIcons {
+    }
+    /**
+     * Mixed text and icon within the same group
+     * Generally, you should avoid mixing text and images in button group. Although
+     * individual buttons can contain text or images, mixing the two in a single
+     * group can lead to an inconsistent and confusing interface.
+     * However, in some case your design may benefit from having only one button in
+     * a different format.
+     */
+    interface LimelExampleButtonGroupMix {
+    }
+    /**
+     * Icon
+     */
+    interface LimelExampleButtonIcon {
+    }
+    /**
+     * Loading
+     * Note that the example is also using `disabled`, because a button that is
+     * loading should normally also be disabled.
+     */
+    interface LimelExampleButtonLoading {
+    }
+    /**
+     * Outlined
+     * By setting `outlined={true}`, you can create a style
+     * of buttons which could be used to indicate an action
+     * with medium emphasis.
+     * :::note
+     * This style is useful to indicate the "secondariness" of an action.
+     * Therefore, only use this style, if there is another related
+     * `primary` button present on the same view or screen,
+     * along with another normal button.
+     * Also, give such a choice a second thought by reading
+     * [our guidelines for Split button](#/component/limel-split-button/).
+     * :::
+     */
+    interface LimelExampleButtonOutlined {
+    }
+    /**
+     * Primary
+     * Each screen (modal, or section with action buttons)
+     * should contain a single prominent button like this one,
+     * to emphasize the primary action.
+     * :::note
+     * Think twice before setting `primary={true}` on buttons.
+     * The arrangement of buttons and their colors should clearly
+     * communicate their importance and primariness or secondariness.
+     * See some examples at [our design guidelines for
+     * Action buttons](#/DesignGuidelines/action-buttons.md/).
+     * :::
+     */
+    interface LimelExampleButtonPrimary {
+    }
+    /**
+     * Reduce Presence
+     * This example is identical to the "With click handler" example, except that
+     * here, the `has-reduced-presence` class has been set to `true`. This will hide
+     * the button when it is disabled. However, it will also make sure that the
+     * button remains visible while the loading animation is ongoing. When the
+     * animation is done and the checkmark has been shown, the button will hide.
+     * Read more in the [Design Guidelines](#/DesignGuidelines/decluttering.md/)
+     */
+    interface LimelExampleButtonReducePresence {
+    }
+    interface LimelExampleButtonShadows {
+    }
+    /**
+     * Type: `caution`
+     */
+    interface LimelExampleCalloutCaution {
+    }
+    /**
+     * Composite
+     */
+    interface LimelExampleCalloutComposite {
+        "schema": FormSchema;
+    }
+    /**
+     * With custom `heading`
+     * By default, the title will equal the `type` qualifier.
+     * However, it is possible to use a `type` just to get the desired visualisation
+     * (icon and color), but override the default heading, using the `heading` prop.
+     */
+    interface LimelExampleCalloutCustomHeading {
+    }
+    /**
+     * With custom `icon`
+     * By default, the icon will be defined by the `type` qualifier.
+     * However, it is possible to use a `type` just to get the desired visualisation
+     * (color and heading), but override the default icon, using the `icon` prop.
+     */
+    interface LimelExampleCalloutCustomIcon {
+    }
+    /**
+     * Type: `important`
+     */
+    interface LimelExampleCalloutImportant {
+    }
+    /**
+     * Type: `note`
+     * This is the default type.
+     */
+    interface LimelExampleCalloutNote {
+    }
+    /**
+     * Adding rich content
+     * Sometimes, you need to display more than just a string of text.
+     * You may want to display richer content with pictures, links, or
+     * bullet point lists; or use a more advanced component inside
+     * the callout.
+     * To do so, simply wrap the content you want to display in this component.
+     */
+    interface LimelExampleCalloutRichContent {
+    }
+    /**
+     * Styling
+     * It is possible to change the default colors using the provided CSS
+     * variables. Just make sure to have good contrast between the text and
+     * background color, to provide good readability.
+     */
+    interface LimelExampleCalloutStyles {
+    }
+    /**
+     * Type: `tip`
+     * This type is useful for displaying tips & tricks, and How-Tos.
+     */
+    interface LimelExampleCalloutTip {
+    }
+    /**
+     * Type: `warning`
+     */
+    interface LimelExampleCalloutWarning {
+    }
+    interface LimelExampleCheckbox {
+    }
+    /**
+     * With `helperText`
+     * Checkboxes can have a helper text, which is useful when providing additional information
+     * can clarify functionality of the checkbox for the user.
+     * The helper text is displayed when user hovers the checkbox, or focuses on it using keyboard
+     * navigation. However, on touchscreen devices, the helper text is always displayed.
+     */
+    interface LimelExampleCheckboxHelperText {
+    }
+    /**
+     * Customizing the visualization of the `readonly` state
+     * It is possible and recommended that you enhance the visualization of a `boolean` field
+     * in a `readonly` state.
+     * Because depending on the context, the default UI of the `readonly` state may not always
+     * provide the best way of _visualizing information_, potentially leading to
+     * confusion and negatively affecting the end-users' experience.
+     * :::important
+     * Before reading the documentations below, make sure to read
+     * 1. our guides about the difference between
+     * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+     * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+     * :::
+     * Using the `readonlyLabels` optional prop, you can override the `label` and
+     * customize it accordingly. Additionally, by using the `icon` prop, you can
+     * override the default icons and their colors.
+     */
+    interface LimelExampleCheckboxReadonly {
+    }
+    /**
+     * Correct usage of ARIA roles
+     * Chips represent choices, filters, or tags, organized in a block or bundled into a group.
+     * While sighted users see the visually bundled group of chips in a well-designed UI,
+     * screen reader users only hear the chip text, one at a time.
+     * This can make it difficult for users of assistive technologies to understand
+     * the context of the chip.
+     * To provide an accessible experience, it's important to place the chips in
+     * a semantically correct structure, such as a list or a table,
+     * or properly use ARIA roles on the chip and its container.
+     * In this example, we demonstrate how to use ARIA roles to improve accessibility for chips.
+     * However, it's recommended to read up on the subject to fully understand the
+     * implications of ARIA roles.
+     * For more information on ARIA roles, refer to the
+     * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles).
+     */
+    interface LimelExampleChipAriaRole {
+    }
+    /**
+     * Chip with a badge
+     * Chips can display a badge with a number or a short text.
+     */
+    interface LimelExampleChipBadge {
+    }
+    /**
+     * Chip as button
+     * Typically, a chip is used to trigger an action or act as an input element.
+     * This is why the component generates a `<button>` element in the DOM to give
+     * a more semantically correct clues to assistive technologies.
+     * To trigger these actions, you will only need to handle the `onClick`
+     * event on the component.
+     */
+    interface LimelExampleChipButton {
+    }
+    /**
+     * Chip as filter
+     * Chips are great candidates to visualize active filters.
+     * However, as chips are used for other purposes as well,
+     * we need to make sure that the user understands that the chip is a filter,
+     * just by the look of it.
+     * By setting the `type` to `filter`, the chip will be rendered with a distinct style
+     * suitable for visualizing filters.
+     * :::note
+     * In this mode, clicking on the chip should also toggle its `selected` state.
+     * :::
+     */
+    interface LimelExampleChipFilter {
+    }
+    /**
+     * Chip Icon Color
+     * The color and background color of each chip's icon can be individually
+     * configured.
+     */
+    interface LimelExampleChipIconColor {
+    }
+    /**
+     * Icon color
+     * Using the `Icon` interface, you can specify colors for the icon.
+     */
+    interface LimelExampleChipIconColors {
+    }
+    /**
+     * Picture instead of icon
+     * Using the `Img` interface, you can specify an image to be displayed on the chip.
+     * :::note
+     * The specified image will be displayed instead of the icon, if both are provided.
+     * :::
+     */
+    interface LimelExampleChipImage {
+    }
+    /**
+     * Chip as hyperlink
+     * For accessibility and usability alike, if clicking on a chip should
+     * result in any kind of navigation, it is preferable to use a link,
+     * rather than a button.
+     * That way, the user can choose to, for example, open the link in a new tab.
+     * For this reason, we suggest always providing a Link with
+     * the URL representing the target state of the navigation.
+     */
+    interface LimelExampleChipLink {
+    }
+    /**
+     * Loading state
+     * Setting the `loading` to `true` puts the component in the `loading` state,
+     * and renders an indeterminate progress indicator inside the chip.
+     * :::note
+     * Note that this does _not_ disable the interactivity of the chip,
+     * and most probably you do not need it to be disabled either.
+     * If the chip should be disabled while loading, the
+     * `disabled` property should separately be set to `true` as well.
+     * :::
+     * :::tip
+     * Consider using [aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live)
+     * where appropriate, or to inform the user about what is being loaded
+     * use a [tooltip](#/component/limel-tooltip) on the component.
+     * This is mainly to improve the accessibility for users of assistive technologies.
+     * :::
+     */
+    interface LimelExampleChipLoading {
+    }
+    /**
+     * When an array of menu items is provided, the chip will render
+     * an ellipsis menu with the supplied items. When an item is selected,
+     * the `onMenuItemSelected` event will be emitted, reflecting the
+     * `value` of the selected item.
+     * :::note
+     * This will hide the "remove button" on the chip, when `removable={true}`,
+     * as the remove button will automatically become the last item in the menu.
+     * Clicking the remove button will emit the same `onRemove` event.
+     * :::
+     */
+    interface LimelExampleChipMenu {
+    }
+    /**
+     * Displaying a progress bar
+     * By defining a numeric `progress` (from `0` to `100`),
+     * you can display a progress bar on the chip
+     * to inform the user about an ongoing progress and also
+     * visualize the amount of progress that has been made so far.
+     * :::important
+     * 1. Do not use `loading={true}` and `progress` at the same time.
+     * 2. When the progress has completed, unset the `progress` property!
+     * :::
+     */
+    interface LimelExampleChipProgress {
+    }
+    /**
+     * Removable chips
+     * Chips can display a remove button,
+     * when their `removable` prop is set to `true`.
+     * This is typically used when the chip is used in a chip-set,
+     * where each chip visualizes a chosen option.
+     * :::tip
+     * When the chip is focused using the keyboard, the user can press
+     * the <kbd>Delete</kbd> or <kbd>Backspace</kbd> keys to
+     * trigger the same remove `event`.
+     * :::
+     */
+    interface LimelExampleChipRemovable {
+    }
+    /**
+     * Basic example with no `type` set
+     * May be useful as a read-only presentation of a collection of tags, or
+     * similar.
+     * Depending on the use case, you may also wish to consider
+     * [limel-button](#/component/limel-button/) or
+     * [limel-button-group](#/component/limel-button-group/).
+     */
+    interface LimelExampleChipSet {
+    }
+    /**
+     * Choice chip set
+     * Only one option can be selected at once. Kind of like radio-buttons, but the
+     * user can deselect the chosen option too. Good as an alternative to using a
+     * `select` when there are only a few options.
+     */
+    interface LimelExampleChipSetChoice {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleChipSetComposite {
+        "schema": FormSchema;
+    }
+    /**
+     * Filter chip set
+     * Any number of options can be selected at once, including none. As the name
+     * suggests, this one is good for filtering things.
+     */
+    interface LimelExampleChipSetFilter {
+    }
+    /**
+     * Filter chip set with badge.
+     * The badge can be used to visulize the number of results using each filter.
+     */
+    interface LimelExampleChipSetFilterBadge {
+    }
+    /**
+     * Chips with images
+     * You can use images instead of icons on chips.
+     * :::note
+     * The image will be displayed instead of the icon, if both are provided.
+     * :::
+     */
+    interface LimelExampleChipSetImage {
+    }
+    /**
+     * Input chip set
+     * Useful for collections of tags or labels. Can also be used as an advanced
+     * search input, with leading icon and a delimiter between search terms.
+     * :::note
+     * Setting `readonly` to `true` when the `type="input"`, the chips that are displayed
+     * will remain interactive. This means that the user can still click on them.
+     * However, the chips cannot be removed or added in `readonly` mode.
+     * :::
+     */
+    interface LimelExampleChipSetInput {
+    }
+    /**
+     * Input chip set with `inputType` of `search`
+     * When autocorrection is potentially harmful for the user experience and for
+     * your intended result, use `search` as `inputType`. For instance, for a
+     * question like "Please suggest unique names for our newly founded company",
+     * you probably don't want autocorrection, because you would expect many
+     * valid suggestions to not exist in the autocorrection dictionary. Therefore,
+     * you do not want the respondent's input to be regarded as a typo and to be
+     * changed when they press <kbd>Enter</kbd> or <kbd>Space</kbd>.
+     */
+    interface LimelExampleChipSetInputTypeSearch {
+    }
+    /**
+     * Input chip set with `inputType` of `text`
+     * There is a slight difference in the way browsers treat `input` field
+     * with `type="text"` and `type="search"`. You can read more about this
+     * difference in [Mozilla's documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search#using_search_inputs),
+     * but the most important difference in this case is activation of the
+     * autocorrection feature on most smart devices.
+     * When a user makes a spelling mistake while typing in an input field with
+     * `type="text"`, the mistake will be corrected automatically, right after they
+     * press <kbd>Enter</kbd> or <kbd>Space</kbd>. Input fields with `type="search"`
+     * do not auto correct the user's input.
+     * If you want to use limel-chip-set in a form context, where autocorrection is
+     * a good thing, use `text` as `inputType`. It is important to know that the
+     * chip-set component creates a chip from the autocorrected value, after the
+     * user has pressed the <kbd>Enter</kbd> key and the auto correction has fixed
+     * existing typos! For example, for a question like "Please type five of your
+     * favorite fruits", you would want to avoid misspellings, to collect higher
+     * quality data.
+     */
+    interface LimelExampleChipSetInputTypeText {
+    }
+    /**
+     * Input chip set, containing items with menus
+     * While chips inside a chip set of `type="input"` can be clicked on, resulting in
+     * an action, they can also have an ellipsis menu which will provide the end users with
+     * additional actions.
+     * When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
+     * will be emitted, reflecting the `value` of the selected item.
+     * :::note
+     * When a chip has `removable={true}` and when there are menu items, the "remove button" on the
+     * chip will be automatically added as the last item in the ellipsis menu.
+     * Clicking the remove button will emit the same `onRemove` event.
+     * :::
+     */
+    interface LimelExampleChipSetInputTypeWithMenuItems {
+    }
+    interface LimelExampleCircularProgress {
+    }
+    /**
+     * Tweaking the style, using CSS variables
+     * The component offers a few possibilities for tweaking its size and colors
+     * using a few CSS variables.
+     * :::note
+     * If you have tweaked component's size using size presets offered by the
+     * `size` prop, the css variable of `--circular-progress-size` will not have any
+     * effect.
+     * :::
+     * :::important
+     * Make sure that the track color is lighter than the fill color. Otherwise the
+     * UI will be very confusing for the users.
+     * :::
+     */
+    interface LimelExampleCircularProgressCssVariables {
+    }
+    /**
+     * Displaying percentage colors
+     * At Lime Technologies we have a convention for displaying percentage colors.
+     * The colors we use to display a range change with intervals of 10.
+     * The color spectrum is not modifiable, and looks like
+     * red → orange → yellow → green → teal.
+     * To enable this feature, simply set `displayPercentageColors` to `true`.
+     * Try changing the value in the example below to see how colors change
+     * for different percentages.
+     */
+    interface LimelExampleCircularProgressPercentageColors {
+    }
+    /**
+     * Using the props
+     * This component is initially designed to visualize a percentage on a scale of
+     * zero to 100. However, you can easily visualize a progress in other scales,
+     * simply by setting `maxValue`, `prefix` and `suffix`.
+     * Look at this example to see how the component displays an angle in a
+     * 360-degrees scale, a 60-seconds scale, and a 5-stars rating.
+     */
+    interface LimelExampleCircularProgressProps {
+    }
+    /**
+     * Size presets
+     * You can chose a preset size for the component to render it desireably,
+     * using the `size` prop.
+     * However, if these preset sizes do not suit your UI needs, do not specify them
+     * and instead specify the size using the `--circular-progress-size` variable,
+     * which must always be according to our
+     * [size rhythm](#/DesignGuidelines/size-rhythms.md/) guidelines.
+     * Note that the text size is automatically adjusted, based on the visual size
+     * of the component.
+     */
+    interface LimelExampleCircularProgressSizes {
+    }
+    /**
+     * Editable with automatic theme
+     * Here you see an instance of the Code Editor component which allows editing the
+     * presented code.
+     * This instance has an `auto` `colorScheme`, which means it reacts
+     * to the operating system's settings for preferred appearance (dark or light).
+     */
+    interface LimelExampleCodeEditor {
+    }
+    /**
+     * Editable with JSON linting and folding
+     * Here you see an instance of the Code Editor component with linting and
+     * folding support, which allows the user to see syntax errors in the JSON
+     * code shown in the editor. Folding makes it easier to collapse larger pieces
+     * of code.
+     */
+    interface LimelExampleCodeEditorFoldLint {
+    }
+    /**
+     * Readonly, with line numbers and dark theme
+     * Here you see a `readonly` instance of the Code Editor component. This means
+     * you cannot edit the code. We also display line numbers here.
+     * Additionally, this instance has a `dark` `colorScheme`, which means it does not
+     * respect the operating system's settings for preferred appearance (dark or light).
+     */
+    interface LimelExampleCodeEditorReadonlyWithLineNumbers {
+    }
+    interface LimelExampleCollapsibleSection {
+    }
+    /**
+     * Example with actions
+     */
+    interface LimelExampleCollapsibleSectionActions {
+    }
+    /**
+     * Using the CSS properties
+     */
+    interface LimelExampleCollapsibleSectionCssProps {
+    }
+    /**
+     * Opening and closing from outside the component
+     */
+    interface LimelExampleCollapsibleSectionExternalControl {
+    }
+    /**
+     * With a limel-slider - for testing
+     * :::note
+     * Some elements need to be redrawn if they were created
+     * while their container was hidden. The collapsible
+     * section will emit a resize event after opening, to make this happen.
+     * :::
+     */
+    interface LimelExampleCollapsibleSectionWithSlider {
+    }
+    interface LimelExampleColorPicker {
+    }
+    /**
+     * Using the component in `readonly` mode
+     * It is possible to use the component to visualize a color of your choice.
+     * In this case, users cannot pick any colors, but they can view what you have picked.
+     */
+    interface LimelExampleColorPickerReadonly {
+    }
+    interface LimelExampleColorsInComponents {
+    }
+    interface LimelExampleContrastColorPalette {
+    }
+    /**
+     * This component is only used in our documentations
+     * to provide a container for settings of examples.
+     * For example, it visually groups and organizes checkboxes
+     * used to show different states of components,
+     * such as Disabled, Required, Readonly, etc…
+     * :::warning
+     * For internal use only!
+     * :::
+     */
+    interface LimelExampleControls {
+    }
+    /**
+     * Custom form component
+     * You can specify a custom component to use for any property in your form. This
+     * is done under the `lime` key in the schema, following the
+     * [LimeSchemaOptions](#/type/LimeSchemaOptions/) specification, for example:
+     * ```ts
+     * const schema = {
+     *     type: 'object',
+     *     properties: {
+     *         hero: {
+     *             type: 'integer',
+     *             title: 'Hero',
+     *             lime: {
+     *                 component: {
+     *                     name: 'my-useful-hero-picker',
+     *                 },
+     *             },
+     *         },
+     *     },
+     * };
+     * ```
+     * While you can, in principle, use any component in a form, your custom form
+     * components should implement the [FormComponent](#/type/FormComponent/)
+     * interface.
+     * @sourceFile custom-component-schema.ts
+     * @sourceFile custom-component-picker.tsx
+     */
+    interface LimelExampleCustomComponentForm {
+    }
+    /**
+     * Form with custom error message
+     * @sourceFile custom-error-message-schema.ts
+     */
+    interface LimelExampleCustomErrorMessage {
+    }
+    interface LimelExampleCustomPicker {
+        /**
+          * {@inheritdoc FormComponent.disabled}
+         */
+        "disabled": boolean;
+        /**
+          * {@inheritdoc}
+         */
+        "helperText"?: string;
+        /**
+          * {@inheritdoc FormComponent.label}
+         */
+        "label": string;
+        /**
+          * {@inheritdoc FormComponent.readonly}
+         */
+        "readonly": boolean;
+        /**
+          * {@inheritdoc FormComponent.required}
+         */
+        "required": boolean;
+        /**
+          * {@inheritdoc}
+         */
+        "value": number;
+    }
+    /**
+     * Custom type
+     * It is possible to send in a custom type,
+     * and provide it with custom, icon, heading and styles
+     */
+    interface LimelExampleCustomType {
+    }
+    interface LimelExampleDarkLightMode {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleDatePickerComposite {
+        "schema": FormSchema;
+    }
+    /**
+     * Custom date formatter
+     * You can provide a function to customize the date formatting.
+     */
+    interface LimelExampleDatePickerCustomFormatter {
+    }
+    /**
+     * date
+     */
+    interface LimelExampleDatePickerDate {
+    }
+    /**
+     * datetime
+     */
+    interface LimelExampleDatePickerDatetime {
+    }
+    /**
+     * With defined localization
+     */
+    interface LimelExampleDatePickerFormatted {
+    }
+    /**
+     * month
+     */
+    interface LimelExampleDatePickerMonth {
+    }
+    /**
+     * Changing the input programmatically
+     */
+    interface LimelExampleDatePickerProgrammaticChange {
+    }
+    /**
+     * quarter
+     */
+    interface LimelExampleDatePickerQuarter {
+    }
+    /**
+     * time
+     */
+    interface LimelExampleDatePickerTime {
+    }
+    /**
+     * week
+     */
+    interface LimelExampleDatePickerWeek {
+    }
+    /**
+     * year
+     */
+    interface LimelExampleDatePickerYear {
+    }
+    interface LimelExampleDialog {
+    }
+    /**
+     * Example with three action buttons
+     * This example shows how more than two buttons can be positioned in a dialog's
+     * footer. Pay attention to how they are labeled & styled, and how you can
+     * enable important actions conditionally.
+     * :::note
+     * When it comes to details such as placement of action buttons, choice of
+     * labels, and adding meaningful graphical details, it's important to follow
+     * a few design conventions which are explained in
+     * [this guide](#/DesignGuidelines/action-buttons.md/).
+     */
+    interface LimelExampleDialogActionButtons {
+    }
+    /**
+     * Custom closing actions
+     * Action buttons in dialogs can be used to add a clear visual indication for
+     * the sighted users to realize that the dialog can be closed by pressing
+     * a button as well.
+     * This may sometimes be considered an unnecessary usage of action buttons for
+     * sighted users. Because majority of them users know that clicking or tapping
+     * outside the dialog closes it.
+     * Such buttons are usually labeled ***OK***, ***Dismiss*** or ***Close***.
+     * :::tip
+     * When to use action buttons for simple "close" actions?
+     * - In fullscreen dialogs where clicking outside to close is hard.
+     * - When big dialogs are opened on phones, which make tapping outside hard for users.
+     * - When designing with accessibility in mind, and for those users who
+     * use screen readers to navigate the user interface.
+     * :::
+     * But sometimes, depending on the importance of the message which is displayed,
+     * you have to choose to display a close button, and disable other means of
+     * dismissing the dialog.
+     * :::tip
+     * When to use custom closing actions?
+     * - To make sure that the user really reads and understands the dialog's content.
+     * - To make sure that the user does not accidentally click outside and close the dialog.
+     * :::
+     * For such cases, avoid generic labels like ***OK***, or ***Close*** which unconsciously
+     * motivate users to dismiss the message; and instead use more purposeful labels
+     * such as ***I understand***, ***Looks good!***, ***Continue***, and similar;
+     * like in the example below.
+     */
+    interface LimelExampleDialogClosingActions {
+    }
+    /**
+     * Dialog with form and header
+     */
+    interface LimelExampleDialogForm {
+    }
+    /**
+     * Fullscreen
+     */
+    interface LimelExampleDialogFullscreen {
+    }
+    /**
+     * Dialog with heading
+     * In this example you can also see how available style properties can be used.
+     */
+    interface LimelExampleDialogHeading {
+    }
+    /**
+     * Dialog with action inside the heading
+     * In this example you can also see how available style properties can be used.
+     */
+    interface LimelExampleDialogHeadingActions {
+    }
+    /**
+     * Nested `close` events
+     * When putting other elements that emit `close` events inside a dialog, those
+     * events must be caught and stopped inside the dialog. If not, they will bubble
+     * to the event handler listening for `close` events on the dialog, which will
+     * close the dialog too.
+     * This example has an event handler for the `close` event on the dialog, and
+     * a second event handler for the `close` event on the collapsible-section.
+     * Try it out with the _Stop the inner close-event_ switch disabled, and then
+     * with the switch enabled, to see the difference.
+     */
+    interface LimelExampleDialogNestedCloseEvents {
+    }
+    /**
+     * Custom size
+     */
+    interface LimelExampleDialogSize {
+    }
+    /**
+     * Basic Example
+     * The Dock component can be used as a place for displaying the app's
+     * primary navigation.
+     * :::important
+     * Avoid having too many items in the Dock, because it will become
+     * problematic on mobile devices, when the component is rendered horizontally.
+     * :::
+     * It is possible to split the dock items into two sections and place one or
+     * more items at the bottom of the column. To do so, you can use `isFooterStart`
+     * on one of the items, which will act as a separator between the two sections,
+     * pushing itself and preceding to the bottom.
+     * :::important
+     * You must provide `label`s for to improve accesibility! Without labels,
+     * screen-readers cannot tell visually impared persons about the content
+     * of the Dock.
+     * :::
+     * It is possible to add extra information about the items using `helperLabel`.
+     * When the component is expanded, only the `helpeLabel` is used
+     * in the tooltip, when items are hovered.
+     * When the component is shrunk, both `label` and `helperLabel` are displayed
+     * inside the tooltip.
+     * Keep in mind that on a mobile phone, the component will be displayed horizontally
+     * and no labels are displayed! Instead, both `label` and `helperLabel` will be used
+     * as a tooltip to improve accessibility for screen-reader technologies.
+     * However, since hovering is not possible on touch-only mobile devices, users who
+     * rely on their vision to navigate the app will only see your chosen icons.
+     * So pick them carefully.
+     */
+    interface LimelExampleDockBasic {
+    }
+    /**
+     * Using CSS color variables for theming the Dock
+     * A few CSS variables can be used to customize the look and feel of the steps.
+     * :::note
+     * Using CSS variables to tweak the colors, applies the colors globally to the
+     * component, not to individual Dock items!
+     * :::
+     * :::important
+     * Make sure that:
+     * - text has enough contrast with its background and is readable.
+     * :::
+     */
+    interface LimelExampleDockColorsCss {
+    }
+    /**
+     * Displaying a custom component after Dock item is clicked
+     * It is possible to display a custom component in a popover,
+     * when the Dock item is clicked. This enables you to design
+     * the content of the menu as you wish, independently from the Dock.
+     * :::note
+     * Pay attention to the `--popover-surface-width` variable in the
+     * `.SCSS` file. That defines the width the popover component, which is `auto`
+     * by default. But modifying it may be helpful depending on the usage.
+     * :::
+     * @sourceFile my-custom-menu.tsx
+     */
+    interface LimelExampleDockCustomComponent {
+    }
+    /**
+     * Basic Example expanded
+     */
+    interface LimelExampleDockExpanded {
+    }
+    /**
+     * Setting a horizontal layout for mobile devices.
+     * By default, the component has a vertical layout, placing the
+     * Dock items in a column. However, the component will render the
+     * Dock items in a horizontal layout when the screen width is smaller
+     * than `700px`.
+     * If you prefer the component to switch to the horizontal mobile layout
+     * at another breakpoint, use the `mobileBreakPoint` property and give it
+     * a desired value in pixels (without `px`).
+     * In this example, we have chosen a very large number (`5000`) to force
+     * the component to be rendered in mobile layout here in the documentation,
+     * no matter how large the reader's screen size is.
+     * :::important
+     * Triggering the mobile layout does not automatically adjust the position
+     * of the component at the bottom of the screen. You should do that manually
+     * yourself in a proper way, depending on where the component is used;
+     * for example by using CSS media queries, and setting `position: fixed`.
+     * :::
+     * :::note
+     * Labels are not displayed in horizontal layout, but they will be instead
+     * displayed as tooltips.
+     * :::
+     */
+    interface LimelExampleDockMobile {
+    }
+    /**
+     * Displaying a notification badge
+     * It is possible to display a notification badge on each individual
+     * button in the Dock. Badges are supposed to inform the user that
+     * there is something in the menu that requires their attention.
+     * This is typically done by displaying a number, which summarizes
+     * the quantity of the items that require user's attention.
+     * :::important
+     * The menus are not a part of the Dock. They are individual components
+     * that you develop separately. Make sure that the information
+     * and interactions regarding the notifications are correctly handled.
+     * For example, when the items that require user's attention are
+     * seen or handled by the user after opening the menu, the badge on the
+     * Dock button should disappear.
+     * :::
+     * When this quantity is unclear or undefined, you can simply pass an
+     * empty string (`badge: ''`), which will only render a circle on the button.
+     * This is enough to attract user's attention.
+     * However, it is also possible to use a short string such as "·" or "!"
+     * for such cases, if considered necessary.
+     * :::warning
+     * Do not negatively exploit this possibility and spam users' awareness.
+     * The Dock is the most important and most dominant structural part of
+     * the UI of your application. Therefore crowding it with too much noise
+     * _will_ negatively affect the user experience.
+     * :::
+     */
+    interface LimelExampleDockNotification {
+    }
+    /**
+     * Dynamic schema
+     */
+    interface LimelExampleDynamicForm {
+    }
+    /**
+     * Basic example
+     * Switching the value to `true` or `false` will dynamically change the label,
+     * while the default label (including its icon) is ignored.
+     */
+    interface LimelExampleDynamicLabel {
+    }
+    /**
+     * Readonly boolean
+     * The `readonly` mode of a boolean fields do not always
+     * clearly communicate the meaning of the data to the end users. Similar problems
+     * have existed in user interfaces forever, and it not solely limited to
+     * readonly-ness of a boolean field. If you are interested in reading more
+     * about these common design problems, you can check out
+     * [**State-Switch Controls:** The Infamous Case of the "Mute" Button](https://www.nngroup.com/articles/state-switch-buttons/)
+     * In short, the reason end-users become confused is that it is not enough to
+     * keep the same label for both `true` and `false` states,
+     * and only rely on changing the color or the
+     * shapes and visual motifs, to communicate what the field means.
+     * Instead, we need to use different labels to describe the state,
+     * and also get some additional help from icons and colors
+     * to clarify further if needed.
+     * :::important
+     * This example shows how to setup the `limel-dynamic-label` component to
+     * create a more descriptive and dynamic labels for boolean fields.
+     * But please make sure to read our guidelines about
+     * [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/)
+     * to understand the importance of this, and get help in choosing the right labels
+     * for boolean fields.
+     * :::
+     */
+    interface LimelExampleDynamicLabelReadonlyBoolean {
+    }
+    interface LimelExampleEventPrinter {
+        "writeEvent": (event: Event) => Promise<void>;
+    }
+    interface LimelExampleExtendedColorPalette {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleFile {
+    }
+    /**
+     * Limit accepted file types
+     */
+    interface LimelExampleFileAcceptedTypes {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleFileComposite {
+        "schema": FormSchema;
+    }
+    /**
+     * Custom icon and color
+     * This component automatically visualizes the file type, based on the extension
+     * of the selected file. The visualization is done by displaying a colorful icon
+     * along with the filename, for the most common file types.
+     * However, you can also customize the icon and its fill color & background color.
+     */
+    interface LimelExampleFileCustomIcon {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleFileDropzone {
+    }
+    /**
+     * File type filtering
+     * The component allows you to specify the types of files that the dropzone will accept.
+     * By default, it accepts all file types (`*`).
+     * For media files, it is possible to specify any format, using:
+     * `audio/*`, `video/*`, `image/*`.
+     * Additionally, you can use unique file type specifiers, such as:
+     * `.jpg`, or `.pdf`; or use a comma-separated list of file extensions or MIME types,
+     * for instance: `image/png, image/jpeg` or `.png, .jpg, .jpeg`.
+     * Read more about
+     * [HTML attribute: accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept)
+     */
+    interface LimelExampleFileDropzoneTypeFiltering {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleFileInput {
+    }
+    /**
+     * Example of a file input component with type filtering
+     */
+    interface LimelExampleFileInputTypeFiltering {
+    }
+    /**
+     * Most common file types
+     * These are file formats that any web browser can display,
+     * without relying on any third-party plugins or additional
+     * plugins or extensions.
+     */
+    interface LimelExampleFileViewer {
+    }
+    /**
+     * Adding custom actions
+     */
+    interface LimelExampleFileViewerCustomActions {
+    }
+    /**
+     * Using the `filename` prop
+     * The component looks at the URL of the provided file, and based on how the
+     * URL ends, it can detect the extension and consequently choose the right way
+     * of rendering it in the browser.
+     * However, sometimes the URLs do not have the filename in them. In this case,
+     * it is vital to specify the filename, for the component to be able to render it.
+     * :::important
+     * Make sure the provided filename contains the correct extension!
+     * :::
+     * :::tip
+     * The filename that is specified will also be the filename that is used when the
+     * file is downloaded by clicking the download button on the File Viewer.
+     * :::
+     */
+    interface LimelExampleFileViewerFilename {
+    }
+    /**
+     * Using inbuilt actions
+     * The component offers a few inbuilt actions that enable users
+     * to download the file, open it in a new tab, or view it in fullscreen mode.
+     * :::note
+     * These action buttons do not get rendered for the office files,
+     * because the 3rd-party office viewers already offer the same features
+     * in their UI.
+     * :::
+     * :::important
+     * The download button will not work here in this example,
+     * due to the security policies of the web browsers.
+     * This is because the example files are not hosted in the same domain.
+     * :::
+     */
+    interface LimelExampleFileViewerInbuiltActions {
+    }
+    /**
+     * Office files
+     * There are many different software programs that can be used to create
+     * office files such as word processing documents, spreadsheets, and presentations.
+     * Web browsers do not natively support these formats for direct display.
+     * However, using the file-viewer component, you can easily display the content
+     * of office file types. The viewer relies on a few third-party technologies
+     * to render the file.
+     * By default, the component uses Microsoft Office Viewer, since it supports
+     * a wider range of file office formats. However, you can
+     * choose other viewers which are supported by this component.
+     * :::important
+     * 1. The file should be stored somewhere with a publicly accessible URL,
+     * otherwise the viewer cannot render them.
+     * 1. Once the file is viewed, it might get cached for a short while on the
+     * 3rd party servers –therefor remain publicly visible–,
+     * even if the original file deleted.
+     * 1. Files that are too large may not be rendered at all.
+     * :::
+     */
+    interface LimelExampleFileViewerOffice {
+    }
+    /**
+     * See an instant preview
+     * Select a file from your local machine using the file picker below,
+     * and `limel-file-viewer` component will display the file, if the format
+     * is supported.
+     */
+    interface LimelExampleFileViewerWithPicker {
+    }
+    /**
+     * Basic form with validation
+     * @sourceFile basic-schema.ts
+     */
+    interface LimelExampleForm {
+    }
+    /**
+     * Layout
+     * By default, each item in a limel-form will be rendered in a single row, and
+     * each row occupies the entire available width of the form's container.
+     * This default layout may work fine on small screens or narrow containers,
+     * but on larger screens it usually won't produce a nice layout. Thus we
+     * recommend that you choose an appropriate responsive layout for your form.
+     * ###### Enabling responsive layouts
+     * By specifying `'grid'` as the layout `type` in your schema, as well as your desired
+     * number of `columns`, you can leave the job of responsively handling the form
+     * layout to Lime Elements.
+     * ```ts
+     * export const schema = {
+     *     type: 'object',
+     *     lime: {
+     *         layout: {
+     *             type: 'grid',
+     *             columns: 3,
+     *         },
+     *     },
+     *     …
+     * };
+     * ```
+     * :::note
+     * Value for `columns` can only be `5`, `4`, `3`, `2`, or `1`. If you do not
+     * specify a value, `limel-form` will choose `5` by default.
+     * :::
+     * So if you have chosen `4` for instance, the form will do its best to fit
+     * four columns in a row. But for smaller containers in which placement of four
+     * items per row is not possible, the form will automatically change the layout
+     * and fit 3 items per row. As the container's width decreases, the number of
+     * columns will also decrease.
+     * :::tip
+     * You can divide a form into sections,
+     * and specify a different layout for each section.
+     * :::
+     * In this example, each collapsible section has its own `colSpan`.
+     * However, since the layout is responsive, make sure to change the browser
+     * window size to see how their responsive layout changes.
+     * @sourceFile layout-schema.ts
+     */
+    interface LimelExampleFormLayout {
+    }
+    interface LimelExampleFormMapComponent {
+        "label": string;
+    }
+    /**
+     * Row layout
+     * @sourceFile row-layout-schema.ts
+     */
+    interface LimelExampleFormRowLayout {
+    }
+    /**
+     * Stretching fields in a form
+     * Sometimes, you need a field in the form to occupy several columns or the
+     * entire row, and stretch itself as wide as the form's width,
+     * disregarding the form's layout and placement of the item in the list.
+     * This could be nice for fields that require more space to provide better
+     * usability.
+     * :::tip
+     * For example, a larger `textarea` is easier for the user to type in and
+     * a `slider` that has many steps is easier to interact with when it is rendered wider.
+     * :::
+     * To do so, in your schema you need to specify a `layout` for the field itself.
+     * `span` specifies the number of columns that the field should span.
+     * Thus, `span` can be set to `2`, `3`, `4`, `5`, or `all`.
+     * Since we do not offer a *form layout* that has more than five columns,
+     * values higher than 5 (or higher than the maximum number of columns in the form)
+     * will only force the field to be full-width, just like `all` does.
+     * ```ts
+     * export const schema = {
+     *     …
+     *     properties: {
+     *         name: {
+     *             type: 'string',
+     *             title: 'Comment',
+     *             lime: {
+     *                 layout: {
+     *                       colSpan: 'all',
+     *                   },
+     *               },
+     *         },
+     *         …
+     *     },
+     *     …
+     * };
+     * ```
+     * ###### Dense layout (Auto reorder fields to avoid empty cells)
+     * The order of fields and the number of columns that a field must span, can
+     * affect the layout of your responsive form when the container width changes.
+     * Let's say you have a form with a 4 column layout, and you specify that its
+     * second field must span 3 columns.
+     * If the container's width decreases, it will force the form to render its
+     * layout in 3 columns instead. Therefore, the second field has to jump
+     * to the next line to still be able to span 3 columns.
+     * This will leave 2 empty cells in the first row, right after the first field.
+     * To avoid these empty cells in the UI, limel-form will place the next available
+     * field in this hole, provided it fits. So the hole may be filled by a single 2 column
+     * wide field, by two 1 column wide fields, or only partially filled by a single 1 column
+     * wide field. If none of the remaining fields fit, the hole will be left as it is.
+     * However, you can disable this functionality by setting `dense` to `false` in the
+     * options for the grid layout.
+     * ```ts
+     * export const schema = {
+     *     type: 'object',
+     *     lime: {
+     *         layout: {
+     *             type: 'grid',
+     *             dense: false,
+     *         },
+     *     },
+     * };
+     * ```
+     * :::note
+     * Sometimes, the order of fields are important for the way users perceive the form.
+     * If you choose to use the default auto-reordering behavior, make sure to test your
+     * form's layout in different screen sizes to see whether you can mitigate unwanted
+     * layout changes.
+     * Some unwanted results can be avoided by changing the order of the fields,
+     * so that they render appropriately on different screens, or by dividing
+     * the form into more sections.
+     * :::
+     * ###### Stretching a field vertically
+     * Most standard elements that can be used in forms, such as `limel-input`,
+     * `limel-select`, `limel-slider`, etc, have a fixed height, and therefore
+     * it does not really make sense to stretch them vertically, and we strongly
+     * recommend you not to!
+     * But there are some exceptions. One of them is `limel-input-field` with
+     * `type='textarea'`.
+     * Also, if you create a custom component for your form—let's say a map—you
+     * can use `rowSpan` to increase the height of your custom component.
+     * ```ts
+     * export const schema = {
+     *     type: 'object',
+     *     properties: {
+     *         comment: {
+     *             type: 'string',
+     *             title: 'Comment',
+     *             lime: {
+     *                 component: {
+     *                     props: {
+     *                         type: 'textarea',
+     *                     },
+     *                 },
+     *                 layout: {
+     *                       colSpan: 3,
+     *                       rowSpan: 2,
+     *                 },
+     *             },
+     *         },
+     *     },
+     * };
+     * ```
+     * :::note
+     * If you do *not* set the `rowSpan` for a component, it can stretch vertically
+     * within its row, and the row will simply expand with the component.
+     * If you *do* set a `rowSpan`, even if you set it to `1`, the component is
+     * fixed to that height. What happens to any potential overflow depends on the
+     * component.
+     * :::
+     * :::warning
+     * Custom web-components that you include in the forms should not have hard-coded
+     * `width` or `height` values! Otherwise they will stretch out of their cell and break
+     * the UI. Make sure that such components are internally designed to be responsive,
+     * and that their `:host` and any potential wrapping container has the following styles:
+     * ```scss
+     * :host {
+     *     display: block; // or another suitable property
+     *     width: 100%;
+     *     height: 100%;
+     * }
+     * :host([hidden]) {
+     *     display: none;
+     * }
+     * .my-component {
+     *     width: 100%;
+     *     height: 100%;
+     * }
+     * ```
+     * :::
+     * @sourceFile span-fields-schema.ts
+     */
+    interface LimelExampleFormSpanFields {
+    }
+    /**
+     * Form fields with help
+     * It's possible to add extensive help to any form element.
+     * The string you provide can be in Markdown format,
+     * empowering you to present a rich-text experience to the user,
+     * including bullet points, hyperlinks, etc…
+     * Read more on [Help](#/component/limel-help) component.
+     * :::note
+     * Do not confuse `help` and `helperText`!
+     * The helper text is a short description for the input fields
+     * that becomes visible when the user click on the fields to provide
+     * brief clues about the field or its expected value.
+     * It can also be used to display validation errors.
+     * These errors will be displayed in red below the fields, without
+     * requiring the users to click on the field.
+     * Check out the [Input field Component](#/component/limel-input-field)
+     * examples, where we describe how to properly use `helperText`, and `placeholder`.
+     * :::
+     * :::tip
+     * When rendering a form using a schema, the `helperText`s are automatically
+     * passed for all the fields based on the schema and validation errors.
+     * The `description` specified for a field in the schema is used as
+     * helper text while the field is shown as valid.
+     * When there is validation feedback to provide to the user,
+     * the field is instead marked as invalid with an error message that is displayed
+     * in the place of the helper text.
+     * :::
+     * @sourceFile help-form-schema.ts
+     */
+    interface LimelExampleFormWithHelp {
+    }
+    /**
+     * We use the `grid-area` property to give each component a unique name, and
+     * then use this name to "draw" our grid layout.
+     * You can name each component anything you want, like `salespipe`, or
+     * `infotile-active-support-tickets`, but keeping the names to a fixed number of
+     * characters makes the "drawing" of the grid look more like the actual grid.
+     * One to three characters is probably a good number for most cases.
+     * Any "name" that doesn't match a named element will create empty cells. In our
+     * case, we use a dot (`.`) to mark empty cells. Empty cells can be put anywhere
+     * in the grid, not just at the end.
+     * Note that we can add some extra spaces after the dot marking an empty cell,
+     * in order to align the next cell in our config-string. This can also be used
+     * if your elements have named of differing lengths. The extra whitespace is
+     * ignored when the CSS is parsed.
+     * If the name of an element does not appear in the grid-configuration, it will
+     * not be displayed at all. This might be useful if you wish to show a specific
+     * component only under certain circumstances, like if the viewport is large
+     * enough to accomodate it.
+     */
+    interface LimelExampleGrid {
+    }
+    /**
+     * Basic example
+     * :::tip
+     * Users can still hover the cursor on the truncated headings to read the full
+     * text.
+     * :::
+     */
+    interface LimelExampleHeader {
+    }
+    /**
+     * Colorful header
+     * It's up to you to choose colors for the background, text or icon.
+     * When you change the default colors pay attention to how they look together.
+     * For instance the text is readable and has enough contrast with a background color.
+     */
+    interface LimelExampleHeaderColors {
+    }
+    interface LimelExampleHeaderMenu {
+        "icon": string;
+        "items": ListItem[];
+    }
+    /**
+     * Narrow headers
+     * Sometimes your UI design may require having a narrower header.
+     * This will be easy to achieve by sending in the class of `is-narrow`
+     * to your component.
+     * This will render the header icon smaller, and reduces the font size of
+     * the `heading`.
+     * :::tip
+     * Keep in mind that headers are programmed to grow in height, depending
+     * on their content. So if you have large custom components in the `actions`
+     * slot or use both `heading` and `subheading`, they will still force the header
+     * to appear tall.
+     * :::
+     */
+    interface LimelExampleHeaderNarrow {
+    }
+    /**
+     * How Responsive layout of header works
+     * However, sometimes you may need to make the layout be responsive and split
+     * into two rows, at a break point.
+     * To activate this responsive layout, you can simply add the `has-responsive-layout`
+     * class to your `limel-header` component.
+     * This makes a few changes in the layout. Firstly, both the left side (icon and
+     * headings) and right side (actions slot) will occupy 50% of the total header
+     * width each. However, the width of left and right side will never become smaller
+     * than `22rem`.
+     * :::tip
+     * The value of `22rem` is the default breakpoint. But you can easily change it
+     * by tweaking the `--header-responsive-breakpoint` variable in your component.
+     * :::
+     */
+    interface LimelExampleHeaderResponsive {
+    }
+    /**
+     * Using the "actions" slot
+     * The component offers a place for including custom actions, or
+     * any other component that you want to include in the header.
+     * To include any component in the `actions` area,
+     * you can simply use the `slot="actions"` attribute.
+     * :::note
+     * In small containers when having the default layout, the `actions` area
+     * wins the battle of limited space! It means, if you have a very wide
+     * component in the actions area, it will never shrink in size, and instead
+     * forces the headings to truncate.
+     * :::
+     */
+    interface LimelExampleHeaderSlotActions {
+    }
+    /**
+     * Basic example
+     * This component accepts a string as a value and displays it in a popover.
+     * This string can be in markdown format, enabling you to add links, lists, etc;
+     * providing a richer experience for the user.
+     */
+    interface LimelExampleHelp {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleHelperLine {
+    }
+    /**
+     * Animating the appearance of the helper line
+     * It is possible to hide the helper line component with a
+     * smooth animation of its height.
+     * Simply add the `class="hide"` to the component,
+     * and it will take care fo the animations.
+     */
+    interface LimelExampleHelperLineAnimation {
+    }
+    /**
+     * Only with a character counter
+     */
+    interface LimelExampleHelperLineCharacterCounter {
+    }
+    /**
+     * When the helper line is empty
+     * When the component has no content, for example when there is no
+     * `helperTex`t or no character counter, the component will get a `display: none`
+     * as style, to avoid creating empty holes in the UI of the consumer component.
+     * This is important for example in a `flex` or `grid` component that has a `gap`
+     * between its children. If so, we don't want the empty
+     * `limel-helper-line` to get rendered and cause unnecessary gaps in the UI.
+     */
+    interface LimelExampleHelperLineEmpty {
+    }
+    /**
+     * Invalid example
+     */
+    interface LimelExampleHelperLineInvalid {
+    }
+    /**
+     * With a long helper text
+     */
+    interface LimelExampleHelperLineLongText {
+    }
+    /**
+     * With a long helper text, but no counter
+     */
+    interface LimelExampleHelperLineLongTextNoCounter {
+    }
+    /**
+     * Basic Example
+     * Just an icon and a click-handler.
+     * Open the dev-tools console to see logged clicks.
+     */
+    interface LimelExampleIconButtonBasic {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleIconButtonComposite {
+    }
+    /**
+     * Disabled
+     */
+    interface LimelExampleIconButtonDisabled {
+    }
+    /**
+     * Elevated
+     * An alternative button style, which helps communicate that this is a button
+     * which can be clicked.
+     */
+    interface LimelExampleIconButtonElevated {
+    }
+    /**
+     * Toggle State
+     * This isn't really a feature of `limel-icon-button`, but since it is a common
+     * use case, here is a simple way to make the icon button toggle between two
+     * different "states", each with its own icon and label.
+     */
+    interface LimelExampleIconButtonToggleState {
+    }
+    /**
+     * Colors
+     * Icons will inherit their colors form the `color` property of the parent element.
+     * For styling the background color, you can use the CSS variable
+     * `--icon-background-color`.
+     * :::note
+     * Note that `badge` is set to `true` to provide more space around the icon,
+     * and make sure the background color is nicely displayed.
+     * But the `bade` has effect, only when the `size` attribute is also set.
+     * :::
+     */
+    interface LimelExampleIconColor {
+    }
+    /**
+     * Icon Finder
+     * Used in the docs for `limel-icon`.
+     */
+    interface LimelExampleIconFinder {
+    }
+    /**
+     * Names
+     * To display an icon, all you need to do is specifying its name.
+     */
+    interface LimelExampleIconName {
+    }
+    /**
+     * Size
+     * There are preset sizes.
+     * :::note
+     * Setting the `bade` prop to `true` affects how big the icon is rendered,
+     * but only when the `size` attribute is also set.
+     * :::
+     */
+    interface LimelExampleIconSize {
+    }
+    /**
+     * Basic example
+     * This component does its best to offer a responsive layout
+     * that reacts both to the length of text, and size of the container.
+     * :::note
+     * To use this component properly, you need to define both
+     * a declared `height` and a declared `width` for it. Alternatively,
+     * make sure that its container enforces a width and height,
+     * for instance, use it as a flex or grid child.
+     * :::
+     * In this example, you can resize the component to see how it
+     * tries to adjust its content to the size of its container.
+     * :::tip
+     * Try to avoid long textual content to get
+     * the best possible visualization. They can cause
+     * undesired overlapping of the content, depending on the size of the
+     * component.
+     * :::
+     */
+    interface LimelExampleInfoTile {
+    }
+    /**
+     * Displaying a notification badge
+     * The component can display a badge, which could either be a `number` or
+     * a `string`. Read more about how the badge truncates or abbreviates the
+     * provided label [here](#/component/limel-badge/).
+     */
+    interface LimelExampleInfoTileBadge {
+    }
+    /**
+     * Loading state
+     * Sometimes the value needs to be calculated, updated, or fetched
+     * through a process that requires some time. In such cases, it is
+     * a great idea to let the users know that the data is being updated.
+     * To do so, set the `loading` property to `true`. The component will then
+     * show an indeterminate progressbar indicating the data is being updated,
+     * while the older value is still being displayed.
+     * :::note
+     * Note that this does _not_ disable the link, and most probably you
+     * do not need it to be disabled either.
+     * If the link should be disabled while loading, the
+     * `disabled` property should be set to `true` as well.
+     * :::
+     */
+    interface LimelExampleInfoTileLoading {
+    }
+    /**
+     * Displaying a progress bar
+     * By defining a numeric `progressValue`, you can display
+     * a circular progress bar to visualize more data on the component.
+     * This can for instance help illustrate how much of a
+     * set goal has been reached, which together with the `value` will help users
+     * get a better overview of the provided data.
+     * When the circular progress is shown, that would become the primary
+     * illustrative element on the component,
+     * which means the icon will be rendered smaller, only as a supportive
+     * contextual visual element.
+     * :::tip
+     * It is possible to customize the progress bar's suffix, but it is
+     * set to display the percentage sign (**%**) by default.
+     * :::
+     */
+    interface LimelExampleInfoTileProgress {
+    }
+    /**
+     * How to style the Info tile
+     * The component offers different CSS variables for styling
+     * the color of the text, background, and it's icon; as well as
+     * radius of it's rounded corners, and colors of the notification badge
+     * and its text.
+     */
+    interface LimelExampleInfoTileStyling {
+    }
+    /**
+     * Input Field with Completions
+     */
+    interface LimelExampleInputFieldAutocomplete {
+    }
+    /**
+     * Input Field with Error Icon
+     */
+    interface LimelExampleInputFieldErrorIcon {
+    }
+    /**
+     * Setting focus programmatically
+     * To set focus programmatically, call `.focus()` on the `limel-input-field`
+     * element. Note that, for this to work, the `tabindex` property must be set
+     * on the `limel-input-field`.
+     * - `tabindex="0"` means that the element should be focusable in sequential
+     * keyboard navigation, after any positive tabindex values and its order is
+     * defined by the document's source order.
+     * - A _positive value_ means the element should be focusable in sequential
+     * keyboard navigation, with its order defined by the value of the number.
+     * Read more on [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex).
+     */
+    interface LimelExampleInputFieldFocus {
+    }
+    /**
+     * Input Field with Leading and Trailing Icons & Action
+     */
+    interface LimelExampleInputFieldIconBoth {
+    }
+    /**
+     * Input Field with Leading Icon
+     * A leading icon can be used to visually "decorate" the input field. The
+     * purpose for adding a leading icon should be to help the user understand what
+     * the field is for.
+     * In this example, we use a map icon in addition to the "Address" label, to
+     * indicate that this field is meant for a physical address.
+     * The example has a minimum length just to show what an invalid field looks
+     * like.
+     */
+    interface LimelExampleInputFieldIconLeading {
+    }
+    /**
+     * Input Field with Trailing Icon & Action
+     * A trailing icon can be added to input fields along with an action
+     * for that trailing icon.
+     * :::note
+     * Use trailing icons only when you intend to have an action associated with them.
+     * Trailing icons of input fields will get an interactive visual effect when
+     * hovered to hint users that they are clickable.
+     * Therefore, a purely ornamental trailing icon that has this interactive effect
+     * will be confusing for users.
+     * :::
+     */
+    interface LimelExampleInputFieldIconTrailing {
+    }
+    /**
+     * Input Field of Type Number
+     */
+    interface LimelExampleInputFieldNumber {
+    }
+    /**
+     * Input Field with pattern
+     */
+    interface LimelExampleInputFieldPattern {
+    }
+    /**
+     * Input Field with a placeholder
+     * The placeholder text is displayed inside the input field,
+     * when the field is focused and empty.
+     * :::tip
+     * A `placeholder` text is good for providing hints and examples about the expected input.
+     * While the `helperText` is better for providing instructions.
+     * :::
+     * Unlike `helperText` which is constantly visible while the user is typing
+     * inside the field, the `placeholder` text disappears as soon as the user has
+     * input anything.
+     * :::note
+     * Make an informed decision when using `placeholder` instead of `helperText`!
+     * You may have good intentions to reduce clutter on the user interface
+     * and use a placeholder text, because it will disappear after user has started typing.
+     * However, if the additional tips or instructions that you are trying to provide is
+     * crucial or hard to remember, it is better to display them as helper text instead.
+     * This is because disappearing crucial information will strains users’ short-term memory.
+     * In a form with many fields, users can easily forget
+     * what each field was for. Especially if a field has validations that fail
+     * for example after submitting. Instructions that are not visible anymore will make it
+     * hard for the user to realize what the problem is or how to solve it.
+     * :::
+     * :::warning
+     * If no `label` is provided, then the placeholder text will be displayed even if the
+     * input field is not focused.
+     * However, this does not mean that you should use this
+     * as a hack, to create a minimalistic and clean user interface. Not providing labels
+     * will cause accessibility issues for users of assistive technologies,
+     * and strains users’ short-term memory as explained above.
+     * Additionally, users may confuse the placeholder text, as an automatically
+     * inputted value, and skip filling in information.
+     * :::
+     */
+    interface LimelExampleInputFieldPlaceholder {
+    }
+    /**
+     * Prefix
+     * An input Field with a currency symbol text displayed as prefix
+     */
+    interface LimelExampleInputFieldPrefix {
+    }
+    /**
+     * Input Field of Type Search
+     */
+    interface LimelExampleInputFieldSearch {
+    }
+    /**
+     * With `showLink=true`
+     */
+    interface LimelExampleInputFieldShowlink {
+    }
+    /**
+     * Suffix
+     * An Input Field with a unit of measurement displayed as suffix
+     */
+    interface LimelExampleInputFieldSuffix {
+    }
+    /**
+     * Input Field of Type Text
+     */
+    interface LimelExampleInputFieldText {
+    }
+    /**
+     * Input Field of Type Text
+     */
+    interface LimelExampleInputFieldTextDeclutteringGuidelines {
+    }
+    /**
+     * Multiple Fields
+     */
+    interface LimelExampleInputFieldTextMultiple {
+    }
+    /**
+     * Input Field of Type Textarea
+     */
+    interface LimelExampleInputFieldTextarea {
+    }
+    interface LimelExampleLinearProgress {
+    }
+    /**
+     * Setting the color
+     */
+    interface LimelExampleLinearProgressColor {
+    }
+    /**
+     * Indeterminate progress bar
+     */
+    interface LimelExampleLinearProgressIndeterminate {
+    }
+    /**
+     * Basic list
+     */
+    interface LimelExampleList {
+    }
+    /**
+     * List with action menu
+     */
+    interface LimelExampleListAction {
+    }
+    /**
+     * List with badge icons
+     */
+    interface LimelExampleListBadgeIcons {
+    }
+    /**
+     * Multi-line versus single-line layout
+     * By default, list items will always truncate the `text` line, which is displayed
+     * either alone, or as a primary heading (when there are both `text` and `secondaryText`)
+     * available. This means users will only see one line of text which is as wides as
+     * the list item, and no more. Thus, it is a good idea not to add long strings of
+     * text in the heading, as on mobile phones or small containers, they will be
+     * chopped off and truncated.
+     * However, the `secondaryText` which appears as a sub-heading is not truncated
+     * that quickly. By default, lists will display 3 lines of text, and then truncate
+     * the rest. Nevertheless, you can increase or decrease this number by specifying
+     * `maxLinesSecondaryText`.
+     * :::note
+     * Do not use `0`, negative numbers, decimal numbers, or very large numbers.
+     * :::
+     */
+    interface LimelExampleListBadgeIconsWithMultipleLines {
+    }
+    /**
+     * List with checkboxes
+     */
+    interface LimelExampleListCheckbox {
+    }
+    /**
+     * List with checkboxes and icons
+     */
+    interface LimelExampleListCheckboxIcons {
+    }
+    /**
+     * List data
+     * @sourceFile list-schema.ts
+     */
+    interface LimelExampleListForm {
+    }
+    /**
+     * List with grid layout
+     * To display list items in a grid layout instead of a vertical column,
+     * simply add `has-grid-layout` class to
+     * the component.
+     * This layout can be customized, using a few CSS variables.
+     * :::warning
+     * - This layout should not be used with lists that have checkboxes or radio buttons.
+     * - Also, it is recommended to avoid using secondary text with this layout.
+     */
+    interface LimelExampleListGrid {
+    }
+    /**
+     * List with icons
+     */
+    interface LimelExampleListIcons {
+    }
+    /**
+     * List with a primary component
+     */
+    interface LimelExampleListPrimaryComponent {
+    }
+    /**
+     * List with radio buttons
+     */
+    interface LimelExampleListRadioButton {
+    }
+    /**
+     * List with radio buttons and icons
+     */
+    interface LimelExampleListRadioButtonIcons {
+    }
+    /**
+     * List with secondary text
+     */
+    interface LimelExampleListSecondary {
+    }
+    /**
+     * List with selectable items
+     */
+    interface LimelExampleListSelectable {
+    }
+    /**
+     * List with separators
+     * Separators are simple yet powerful design elements that can be
+     * employed in lists of items. They offer significant usability advantages
+     * by providing valuable visual cues that aid users in perceiving
+     * and navigating through lists.
+     * - **Grouping and Hierarchy:**
+     * Separators can be used to group related items, signaling to users that
+     * those items share a common attribute or purpose.
+     * This grouping effect aids in creating a hierarchical structure within the list,
+     * making it simpler for users to grasp relationships and make informed decisions.
+     * - **Visual Scannability:**
+     * When users quickly scan a list, their eyes naturally use the separator lines
+     * as visual anchors, making it easier to find items and remember their whereabouts
+     * next time they revisit the same list.
+     * - **Reduced Cognitive Effort:**
+     * Separators contribute to a user's overall comprehension and experience
+     * by reducing the cognitive effort required to process the information.
+     * You can optionally add a short title to the separators,
+     * to clarify further what each group of items is about,
+     * and by doing so improve the users perception and experience.
+     */
+    interface LimelExampleListSeparator {
+    }
+    /**
+     * List with custom styles
+     * Adding the `has-striped-rows` class to the list will make the items more
+     * distinct by adding different background colors to even and odd rows.
+     * Also, by taking advantage of the `has-interactive-items`, hovering on a list
+     * item which is not `disabled` will display an elevated visual effect, giving
+     * it more affordance and a solid feeling of interactivity.
+     * | Class name              | Description                                                                                     |
+     * | ----------------------- | ----------------------------------------------------------------------------------------------- |
+     * | `has-striped-rows`      | Adds distinct styling by which every other row (list item) gets a darker background.            |
+     * | `has-interactive-items` | Adds more affordance by applying an elevated visual effect on list item, when they are hovered. |
+     * :::note
+     * to get both effects, you need to apply both of these classes.
+     * :::
+     */
+    interface LimelExampleListStriped {
+    }
+    /**
+     * Blockquotes
+     */
+    interface LimelExampleMarkdownBlockquotes {
+    }
+    /**
+     * Code
+     */
+    interface LimelExampleMarkdownCode {
+    }
+    /**
+     * Composite example
+     * Test your markdown code and see what you get in return in real-time.
+     */
+    interface LimelExampleMarkdownComposite {
+    }
+    /**
+     * Emphasis
+     */
+    interface LimelExampleMarkdownEmphasis {
+    }
+    /**
+     * Footnote
+     */
+    interface LimelExampleMarkdownFootnotes {
+    }
+    /**
+     * Headings
+     */
+    interface LimelExampleMarkdownHeadings {
+    }
+    /**
+     * Horizontal Rule
+     */
+    interface LimelExampleMarkdownHorizontalRule {
+    }
+    /**
+     * HTML
+     */
+    interface LimelExampleMarkdownHtml {
+    }
+    /**
+     * Images
+     */
+    interface LimelExampleMarkdownImages {
+    }
+    /**
+     * Links
+     * There are two ways to create links.
+     */
+    interface LimelExampleMarkdownLinks {
+    }
+    /**
+     * Lists
+     */
+    interface LimelExampleMarkdownLists {
+    }
+    /**
+     * Tables
+     */
+    interface LimelExampleMarkdownTables {
+    }
+    /**
+     * With badge icons
+     */
+    interface LimelExampleMenuBadgeIcons {
+    }
+    /**
+     * Basic example
+     * With a simple `onSelect` handler.
+     */
+    interface LimelExampleMenuBasic {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states. This example has a slightly
+     * more advanced `onSelect` handler, which disables the last selected value.
+     */
+    interface LimelExampleMenuComposite {
+        "schema": FormSchema;
+    }
+    /**
+     * Disabled
+     * Note that you don't need to disable the trigger button separately, as the
+     * component takes care of this for you.
+     */
+    interface LimelExampleMenuDisabled {
+    }
+    /**
+     * With grid layout
+     * To render items of a menu in a grid layout instead of a vertical list,
+     * simply setting the `gridLayout` property to `true`.
+     * :::note
+     * Menus with the grid layout has a responsive width by default,
+     * which will not grow wider than a certain size. However, if the default size is not
+     * wide enough for your use case, you can try setting another responsive width, using
+     * the `--menu-surface-width` variable.
+     * To achieve a responsive width, try using the `min()` function.
+     * This function selects the smallest value from a list of comma-separated expressions
+     * which are placed within the parentheses.
+     * For example, `--menu-surface-width: min(100vw, 40rem);` will output
+     * `width: min(100wv, 40rem);` which will tell the browser to render the menu
+     * content in a 40rem-wide grid, as long as 100% of the viewport's width (`100vw`)
+     * is larger than `40rem`.
+     * :::
+     * To tweak the grid layout, a few other variables are available:
+     * - `--list-grid-item-max-width`: Defines maximum width of items in the list, which defaults to `10rem`.
+     * - `--list-grid-item-min-width`: Defines minimum width of items, which to `7.5rem`.
+     * - `--list-grid-gap`: Defines the distance between the items, which defaults to `0.75rem`.
+     */
+    interface LimelExampleMenuGrid {
+    }
+    /**
+     * Menu with supporting hotkeys
+     */
+    interface LimelExampleMenuHotkeys {
+    }
+    /**
+     * With icons
+     */
+    interface LimelExampleMenuIcons {
+    }
+    /**
+     * With notification
+     * It is possible to display a notification badge on each individual
+     * list item inside the menu's dropdown.
+     * These notification badges are supposed to inform the user that
+     * there is something in the menu item that requires their attention.
+     * This is typically done by displaying a number, which summarizes
+     * the quantity of the items that require user's attention.
+     * However, if a number is not meaningful, it is possible to send an
+     * empty string (`badge: ''`), which will display a circle on the
+     * list item.
+     * Since list items in the menu are hidden away, users would not
+     * realize that there is something inside the menu which requires their
+     * attention. Which is why the trigger automatically displays a
+     * notification badge on its top-right corner,
+     * when the menu contains badges.
+     * By default, the badge is red and its text is white.
+     * This is to attract users' attention. However, this is possible to override using
+     * [provided style variables](/#/component/limel-menu/styles/).
+     * :::warning
+     * - Do not negatively exploit this possibility and spam users' attention.
+     * Crowding the UI with too much noise _will_ negatively affect the user experience.
+     * - Notification badges *must* be cleared as soon as the list item is clicked by the user!
+     * :::
+     */
+    interface LimelExampleMenuNotification {
+    }
+    /**
+     * openDirection
+     * The value of the `openDirection` property defines how the menu content
+     * is aligned with its trigger element, and in which direction it opens.
+     */
+    interface LimelExampleMenuOpenDirection {
+    }
+    /**
+     * Opening sub-menus programmatically
+     * **This example is currently not in use because it's an experimental feature**
+     * It is possible to open any sub-menu in the menu-hierarchy.
+     * This is done by using the parentItem property of the MenuItem class.
+     * @sourceFile item-constants.ts
+     */
+    interface LimelExampleMenuOpenSubMenuProgrammatically {
+    }
+    /**
+     * Searchable items
+     * @sourceFile subitems-search.ts
+     * @sourceFile item-constants.ts
+     */
+    interface LimelExampleMenuSearchable {
+    }
+    /**
+     * With `secondaryText`
+     * Menu items can display secondary text as well. By default, the secondary text
+     * will be displayed in two lines, and then get truncated.
+     * :::important
+     * Keep in mind that a menu's drop-down surface will stretch as much as its default
+     * maximum width values allow. However, if this default maximum width does not suit
+     * your use case, you can override it using the `--menu-surface-width` variable.
+     * But do not forget that menus should still behave responsively, thus assigning a fixed value
+     * should be avoided. To make the width responsive, try using the `min()` function.
+     * This function selects the smallest value from a list of comma-separated expressions
+     * which are placed within the parentheses.
+     * For example, `--menu-surface-width: min(90vw, 40rem);` will output
+     * `width: min(90wv, 40rem);` which will tell the browser to render the menu
+     * content in a grid that's allowed to take up 90% of the viewport's width (`90vw`)
+     * up to a maximum of `40rem`.
+     * :::
+     */
+    interface LimelExampleMenuSecondaryText {
+    }
+    /**
+     * Using separators with titles
+     * You divide groups of items using separators.
+     * It is also possible add a short title to the separators,
+     * to clarify further what each group of menu items is about,
+     * and by doing so improve the users perception and experience.
+     */
+    interface LimelExampleMenuSeparators {
+    }
+    /**
+     * Lazy loading items in sub-menus
+     * @sourceFile menu-sub-menu-lazy-loading-service-mock.ts
+     */
+    interface LimelExampleMenuSubMenuLazyLoading {
+    }
+    /**
+     * Lazy loading infinite amount of sub-menu
+     * :::note
+     * This example is here to show what the component looks like when you have a
+     * lot of nested sub-menus, and what the breadcrumb component looks like when
+     * you are deep into the menu.
+     * If you are looking for code examples, please see the
+     * _Lazy loading items in sub-menus_ example instead.
+     * :::
+     */
+    interface LimelExampleMenuSubMenuLazyLoadingInfinite {
+    }
+    /**
+     * Sub-menus
+     * To have an enhanced navigation and provide a better organization of items,
+     * you can incorporate sub-menus within the menu structure;
+     * and create a so called "Cascading menu".
+     * These sub-menus provide the user with an efficient way to access a
+     * wide range of choices without overwhelming them with clutter or complexity.
+     * The main menu, often called the parent menu,
+     * typically consists of top-level options that represent primary categories or options.
+     * Sub-menus, on the other hand, are secondary or menus that are nested
+     * beneath these primary options.
+     * Some of the benefits of creating tree-structure for the menus are:
+     * - **Organized Information:** Sub-menus enable a clear and organized presentation of content,
+     * making it easier for the user to find what they're looking for within a specific category.
+     * - **Space Efficiency:** They save screen space by concealing secondary options until needed,
+     * reducing visual clutter and making the interface cleaner and more user-friendly.
+     * - **Scalability:** Sub-menus can accommodate a large number of choices or features
+     * within a single parent menu, making them suitable for complex applications or websites.
+     * - **Logical Hierarchy:** By structuring information hierarchically,
+     * sub-menus help the user understand the relationships between various
+     * options and navigate through the interface more intuitively.
+     * Our cascading menus are designed to be mobile-friendly.
+     * This means that sub-menus are opened within the same menu surface,
+     * instead of the classic way of sticking out on the side, as a secondary menu.
+     * Thanks to a breadcrumbs component on the top, the user can easily navigate back
+     * and forth within the menu structure.
+     * :::tip
+     * It is also very easy to navigate the nested menu structure using the keyboard.
+     * - Using the <kbd>↓</kbd> & <kbd>↑</kbd> keys, the user can naturally
+     * navigate within the presented menu,
+     * - pressing the <kbd>→</kbd> key on a menu item that has sub-menu opens a nested menu,
+     * - and pressing the <kbd>←</kbd> key takes the user back to the previous/parent menu.
+     * :::
+     * @sourceFile item-constants.ts
+     */
+    interface LimelExampleMenuSubMenus {
+    }
+    /**
+     * Size of the menu drop-down surface
+     * Any element in the UI can be configured to open a menu.
+     * By default, the dropdown that opens up after the menu trigger is clicked
+     * inherits its width from the items that are inside the dropdown menu.
+     * However, for some designs, you may want the width of the menu dropdown
+     * to be exactly as wide as the width of its trigger element, or
+     * as wide as `limel-menu` element itself. This is easily achieved using the
+     * `surfaceWidth` prop. Read more on `SurfaceWidth`.
+     * :::tip
+     * In this example, `limel-menu` is highlighted with a dashed border,
+     * to make it easier to see its width.
+     * :::
+     * :::note
+     * The `--menu-surface-width` Overrides the width defined by `surfaceWidth`!
+     * :::
+     */
+    interface LimelExampleMenuSurfaceWidth {
+    }
+    /**
+     * Nested data
+     * @sourceFile nested-schema.ts
+     */
+    interface LimelExampleNestedForm {
+    }
+    /**
+     * Help with custom open direction
+     */
+    interface LimelExampleOpenDirection {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExamplePickerComposite {
+        "schema": FormSchema;
+    }
+    /**
+     * With no suggestions and a message for empty search results
+     * :::important
+     * This example simulates that searching is done on the server. Because these
+     * examples do not _actually_ send requests to the server, we simulate a small
+     * delay, using `setTimeout`. **Please do NOT copy that to production code!**
+     * See the other examples for code that does not include this artificial delay.
+     * :::
+     */
+    interface LimelExamplePickerEmptySuggestions {
+    }
+    /**
+     * With icons
+     */
+    interface LimelExamplePickerIcons {
+    }
+    /**
+     * With a "search" leading icon
+     */
+    interface LimelExamplePickerLeadingIcon {
+    }
+    /**
+     * Multiple values can be picked.
+     * - "Search" is done locally in the frontend.
+     * - Already picked items are removed from the available options.
+     */
+    interface LimelExamplePickerMultiple {
+    }
+    /**
+     * Single value can be picked.
+     * - "Search" is done locally in the frontend.
+     */
+    interface LimelExamplePickerSingle {
+    }
+    /**
+     * With static actions
+     * Static items can be added to the picker to enable triggering custom actions
+     * directly from the results dropdown list.
+     * :::tip
+     * A typical use case of such actions is scenarios in which the picker's search
+     * results or suggestions list does not include what the user wants to pick. By
+     * offering custom actions right in the list, we can enable users to add missing
+     * items.
+     * :::
+     */
+    interface LimelExamplePickerStaticActions {
+    }
+    /**
+     * With a value as an object
+     */
+    interface LimelExamplePickerValueAsObject {
+    }
+    /**
+     * Picker with `value` as an object, containing items with menus
+     * While chips inside the picker can be clicked on, resulting in
+     * an action, they can also have an ellipsis menu which will provide the end users with
+     * additional actions.
+     * When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
+     * will be emitted, reflecting the `value` of the selected item.
+     * :::note
+     * When a chip has `removable={true}` and when there are menu items, the "remove button" on the
+     * chip will be automatically added as the last item in the ellipsis menu.
+     * Clicking the remove button will emit the same `onRemove` event.
+     * :::
+     */
+    interface LimelExamplePickerValueAsObjectWithActions {
+    }
+    /**
+     * Placement of the trigger element and the layout
+     * The trigger element of the help component can be placed
+     * before or after the element it is describing.
+     * However, to provide a consistent layout, we recommend placing the
+     * trigger element on the left side of all elements.
+     * Just make sure the elements are aligned correctly,
+     * even when there is no help component beside them.
+     * Also see how we have implemented this component in the
+     * [Form](#/component/limel-form) component.
+     */
+    interface LimelExamplePlacement {
+    }
+    interface LimelExamplePopover {
+    }
+    /**
+     * Disconnect test
+     * This is an example to test that it works to remove a popover from the DOM,
+     * then add it back again without breaking it
+     */
+    interface LimelExamplePortalBasic {
+    }
+    interface LimelExamplePrimaryColorPalette {
+    }
+    /**
+     * Basic Example
+     * Progress flow can visualize linear process, consisting of distinct steps.
+     * Sometimes, this is a great alternative to use instead of `limel-select`.
+     * For instance, when there are too few options available to choose from, and
+     * the options have an incremental order.
+     * Each step can optionally get an icon, to help users understand its meaning
+     * faster, and recognize it quicker next time.
+     */
+    interface LimelExampleProgressFlowBasic {
+    }
+    /**
+     * Using colors
+     * By default, each step appears with a light grey background, and when
+     * selected, it gets the defined `--lime-primary-color` as background. Also,
+     * passed steps will get the same background color as selected steps by default.
+     * However, both of these colors can be customized by specifying color values
+     * for `selectedColor` and `passedColor`.
+     * Any icons will get the same color as the text for that step, but the color of
+     * icons for steps which are neither selected nor passed can be specified using
+     * the `iconColor` property.
+     */
+    interface LimelExampleProgressFlowColors {
+    }
+    /**
+     * Customizing colors further, using CSS
+     * A few CSS variables can be used to customize the look and feel of the steps.
+     * But keep in mind that it is not possible to target steps individually and
+     * change their colors, using these CSS variables.
+     * :::note
+     * Using CSS variables to tweak the colors, applies the colors globally to the
+     * component, not to individual steps!
+     * :::
+     * :::note
+     * Make sure that:
+     * - text has enough contrast with its background and is readable.
+     * - the `--progress-flow-step-divider-color` has the same color as the component's
+     * container.
+     * :::
+     */
+    interface LimelExampleProgressFlowColorsCss {
+    }
+    /**
+     * Disabled steps
+     * While the entire component can be `disabled`,
+     * each step can also be `disabled` individually.
+     * This enables you to ask users to provide required data to be able to continue.
+     */
+    interface LimelExampleProgressFlowDisabledStep {
+    }
+    /**
+     * Compact layout
+     * For cases where this component needs to take as little space as possible,
+     * we offer an alternative layout. All you need to do is addin the `is-narrow`
+     * class to the component.
+     */
+    interface LimelExampleProgressFlowNarrow {
+    }
+    /**
+     * Example with off-progress steps
+     * Naturally, the Progress Flow component is used to visualize a continuous linear
+     * process. But sometimes such processes can be abrupted, despite the level of progress.
+     * Abruptions can be excluded and displayed separately (not as a part of the flow)
+     * using the `isOffProgress` property.
+     */
+    interface LimelExampleProgressFlowOffProgressSteps {
+    }
+    /**
+     * Example with secondary text
+     * A `secondaryText` can be used to add further information to steps.
+     * This could be for instance a timestamp of when a step was activated by the user
+     * or an explainatory text.
+     */
+    interface LimelExampleProgressFlowSecondaryText {
+    }
+    /**
+     * Using `propsFactory`
+     * @sourceFile props-factory-schema.ts
+     * @sourceFile props-factory-picker.tsx
+     */
+    interface LimelExamplePropsFactoryForm {
+    }
+    interface LimelExamplePropsFactoryPicker {
+        /**
+          * Set to `true` if input should be disabled
+         */
+        "disabled": boolean;
+        /**
+          * An object injected using `propsFactory`
+         */
+        "injectedObject": { someProp: string };
+        /**
+          * A string injected using `propsFactory`
+         */
+        "injectedString": string;
+        /**
+          * Label to display next to the input field
+         */
+        "label": string;
+        /**
+          * Set to `true` if the value is readonly
+         */
+        "readonly": boolean;
+        /**
+          * Set to `true` if a value is required
+         */
+        "required": boolean;
+        /**
+          * The value of the property
+         */
+        "value": number;
+    }
+    /**
+     * Basic example
+     * Try typing and editing text, or copy & paste in some rendered HTML code
+     * from your browser into the editor to see how it is rendered and what you get
+     * as an output value.
+     */
+    interface LimelExampleProsemirrorAdapterBasic {
+    }
+    /**
+     * Example with custom menu
+     */
+    interface LimelExampleProsemirrorAdapterWithCustomMenu {
+    }
+    /**
+     * Help with the read more link
+     * If a `readMoreLink` supplied, it will render a "Read more" link at the bottom of the content.
+     * Even though you can add a link anywhere in the content, it is recommended to
+     * use the read more link. Because it will always be displayed at the bottom
+     * of the popover after the content, does not scroll away with the content,
+     * and it will be styled in a consistent way.
+     * @sourceFile help-and-documentation.ts
+     */
+    interface LimelExampleReadMore {
+    }
+    interface LimelExampleReadonlyProps {
+    }
+    interface LimelExampleSelect {
+    }
+    /**
+     * Changing Available Options
+     * This example shows how the component works when options are changed
+     * programmatically during the lifetime of the component.
+     * We have 5 different sets of options:
+     * 1. A set of options with an empty and disabled first option. This is used to ensure that the empty option cannot be re-selected.
+     * 2. A set of options with an empty but non-disabled first option. This is used to ensure that the empty option can be re-selected.
+     * 3. An empty array. This is used to ensure that the component can handle an empty set of options. To load the component with an empty set of options, select this group, then click the "Reinitialize" button.
+     * 4. A set of 3 options.
+     * 5. A set of 4 options. Set 4 and 5 are used to ensure that the component can handle sets of different sizes.
+     */
+    interface LimelExampleSelectChangeOptions {
+    }
+    /**
+     * Select field inside a dialog
+     */
+    interface LimelExampleSelectDialog {
+    }
+    /**
+     * Select multiple values
+     */
+    interface LimelExampleSelectMultiple {
+    }
+    /**
+     * Specific Value Preselected
+     */
+    interface LimelExampleSelectPreselected {
+    }
+    /**
+     * With Empty Option
+     * Adding an empty option makes it possible for the user to "unset"
+     * the value. Try selecting a value below, and then selecting the empty
+     * option again.
+     * If the component is set as required, the empty option is removed.
+     */
+    interface LimelExampleSelectWithEmptyOption {
+    }
+    /**
+     * Select with icons for options
+     */
+    interface LimelExampleSelectWithIcons {
+    }
+    /**
+     * Select with secondary text for options
+     * Using a `secondaryText` you can provide additional information about
+     * each option in the list, helping the users to select the right choice.
+     * :::note
+     * 1. The secondary text is only visible in the dropdown list,
+     * not on the selected option in the input field.
+     * 1. Additionally, on touch screen devices, the secondary text will not
+     * be visible in the dropdown list, since the component uses the "native"
+     * select, which does not have support for additional features like this,
+     * or displaying icons beside the options.
+     * :::
+     */
+    interface LimelExampleSelectWithSecondaryText {
+    }
+    /**
+     * Select with separators between options
+     * Separators are simple yet powerful design elements that can be
+     * employed in lists of items. They offer significant usability advantages
+     * by providing valuable visual cues that aid users in perceiving
+     * and navigating through lists. Read more about advantages of using
+     * separators in the
+     * [List component's documentations](/#/component/limel-list/).
+     */
+    interface LimelExampleSelectWithSeparators {
+    }
+    /**
+     * Form with server validation
+     * @sourceFile list-schema.ts
+     */
+    interface LimelExampleServerErrors {
+    }
+    interface LimelExampleShadowsBadUsage {
+    }
+    /**
+     * Basic example
+     * This component acts as a link, and therefore comes with features
+     * such as `title` and `target`.
+     * The `title` tag of the hyperlink can be used to
+     * provide additional information about the link.
+     * It improves accessibility both for users with assistive technologies,
+     * and sighted users. Hovering and holding the mouse cursor will
+     * display a tooltip generated with the specified `title`.
+     * What the `target` does is described well in
+     * [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target).
+     */
+    interface LimelExampleShortcut {
+    }
+    /**
+     * Displaying a notification badge
+     * The component can display a notification badge, which could either be
+     * a `number` or a `string`. Read more about how the badge truncates
+     * or abbreviates the provided label [here](#/component/limel-badge/).
+     */
+    interface LimelExampleShortcutNotification {
+    }
+    /**
+     * How to style the shortcut
+     * The component offers different CSS variables for styling
+     * the color of the shortcut, and it's icon; as well as
+     * radius of it's rounded corners, and colors of the notification badge
+     * and its text.
+     */
+    interface LimelExampleShortcutStyling {
+    }
+    /**
+     * Example with click handler
+     */
+    interface LimelExampleShortcutWithClickHandler {
+    }
+    interface LimelExampleSize {
+    }
+    interface LimelExampleSizeEdgeCase {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleSliderBasic {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleSliderComposite {
+        "schema": FormSchema;
+    }
+    /**
+     * With multiplier and step
+     * When step is configured and the initial value is not a multiple of the step
+     * value, the slider will round the value to the nearest step when it is changed
+     * for the first time. After a valid value has been set, only discrete valid
+     * values will be possible to pick.
+     */
+    interface LimelExampleSliderMultiplier {
+    }
+    /**
+     * With percentage colors
+     * You can add the `displays-percentage-colors` class to your slider component
+     * and it will automatically visualize current percentage colors in real-time.
+     * The colors change with intervals of 10 as users drags the slider pin.
+     * The color spectrum is not modifiable, and looks like red → orange → yellow
+     * → green → teal.
+     */
+    interface LimelExampleSliderMultiplierPercentageColors {
+    }
+    /**
+     * Basic example
+     * Snackbars should not necessarily require a deliberate action from the user to dismiss them.
+     * This is why the component has a default `timeout` and will disappear even if the user
+     * does not interact with it.
+     * As you see in this example, there is no `timeout` specified.
+     * Therefore the snackbar will automatically disappear after a few seconds.
+     * :::important
+     * Make sure to set a proper timeout, based on the length of the text.
+     * An average user must be able to read the full message within the given
+     * time!
+     * :::
+     */
+    interface LimelExampleSnackbar {
+    }
+    /**
+     * Dismissible
+     * By default, snackbars display a dismiss button.
+     * This allows users to close them at any time, before they time out.
+     * The reasons for this default behavior is that
+     * there could be multiple snackbars on the screen, covering each other.
+     * Also, snackbars could be covering other important content on the screen,
+     * or have unreasonably long timeout.
+     * However, you can override this default interaction design by setting the
+     * `dismissible` property to `false`.
+     */
+    interface LimelExampleSnackbarDismissible {
+    }
+    /**
+     * Positioning on large and small screens
+     * Snackbars are by default center-aligned and placed at the bottom of the screen.
+     * However, on larger screens, they can optionally be displayed on the leading edge
+     * which would be the left side in LTR, or the right side in RTL.
+     * To do so, you can take advantage of the provided CSS variables,
+     * and keep in mind that the Snackbar uses `position: fixed;`
+     * to determine its location.
+     * :::tip
+     * When customizing the Snackbars for usage in progressive web applications,
+     * remember to consider the safe areas, and add the
+     * [environment variables](https://developer.mozilla.org/en-US/docs/Web/CSS/env)
+     * in your calculations.
+     * For example: `--snackbar-bottom: env(safe-area-inset-left, 0)`.
+     * :::
+     */
+    interface LimelExampleSnackbarPositioning {
+    }
+    /**
+     * With actions
+     * You can include a single action button inside the snackbar.
+     * :::important
+     * Keep in mind that pressing the action button will close
+     * the snackbar immediately. The user must be informed that their
+     * requested action actually took place. If there is no instant
+     * visual feedback (for sighted users) in the user interface that
+     * informs the user about the updated state, displaying another
+     * snackbar could be a good idea.
+     * :::
+     */
+    interface LimelExampleSnackbarWithAction {
+    }
+    /**
+     * With changing messages
+     */
+    interface LimelExampleSnackbarWithChangingMessages {
+    }
+    /**
+     * With a generic design or branded for Lime Technologies
+     * The `limel-spinner` makes the boring waiting times slightly more cheerful by
+     * cycling through nine delightful colors.
+     * By default spinner's shape represents Lime Technologies' logo, as it is used
+     * primarily in our own products.
+     * However, it is easy render the spinner as a generic circle by specifying
+     * `limeBranded={false}`, which may be useful for instance when the
+     * spinner is used on a small component like a button.
+     */
+    interface LimelExampleSpinner {
+    }
+    /**
+     * With custom colors
+     * The `limel-spinner` is designed to cycle through ten colors which are all
+     * from Lime Technologies' brand colors.
+     * It is of course possible to override these colors.
+     */
+    interface LimelExampleSpinnerColor {
+    }
+    /**
+     * Spinner sizes
+     */
+    interface LimelExampleSpinnerSize {
+    }
+    /**
+     * Basic Example
+     * When used correctly, a split button reduces visual complexity of the user interface
+     * by grouping similar commands together.
+     * :::important
+     * Commands which are included in the menu must be variations of the default command,
+     * or be very relevant to it.
+     * :::
+     */
+    interface LimelExampleSplitButtonBasic {
+    }
+    /**
+     * Repeating the default command in the menu
+     * The default command must be the most commonly used action.
+     * Such actions typically have a very short label.
+     * However, sometimes it could be useful to repeat the default command again
+     * in the list of commands, using a more descriptive label which
+     * clarifies the default action.
+     * :::tip
+     * - **Limit the overall number of choices** within the menu to less than 10
+     * - **Order the items within the menu by popularity** and put the most popular ones on top.
+     * :::
+     */
+    interface LimelExampleSplitButtonRepeatDefaultCommand {
+    }
+    interface LimelExampleSurfaceShadows {
+    }
+    interface LimelExampleSurfaceShadowsInflated {
+    }
+    interface LimelExampleSurfaceShadowsStates {
+    }
+    interface LimelExampleSwitch {
+    }
+    /**
+     * With `helperText`
+     * Switch can have a helper text, which is useful when providing additional information and
+     * can clarify functionality of the switch for the user.
+     * The helper text is displayed when the user puts focus on the switch, and works with keyboard
+     * navigation as well. However, on touchscreen devices, the helper text is always displayed.
+     */
+    interface LimelExampleSwitchHelperText {
+    }
+    /**
+     * Customizing the visualization of the `readonly` state
+     * It is possible and recommended that you enhance the visualization of a `boolean` field
+     * in a `readonly` state.
+     * Because depending on the context, the default UI of the `readonly` state may not always
+     * provide the best way of _visualizing information_, potentially leading to
+     * confusion and negatively affecting the end-users' experience.
+     * :::important
+     * Before reading the documentations below, make sure to read
+     * 1. our guides about the difference between
+     * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+     * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+     * :::
+     * Using the `readonlyLabels` optional prop, you can override the `label` and
+     * customize it accordingly. Additionally, by using the `icon` prop, you can
+     * override the default icons and their colors.
+     */
+    interface LimelExampleSwitchReadonly {
+    }
+    interface LimelExampleSwitchVsCheckbox {
+    }
+    interface LimelExampleTabBar {
+    }
+    /**
+     * Default UI of Tab bars
+     * By default, tabs dynamically adjust their width to their own content, which
+     * means a tab with a larger label will be bigger than one with a shorter one.
+     * This is the preferred layout for tabs.
+     */
+    interface LimelExampleTabBarWithDynamicTabWidth {
+    }
+    /**
+     * Tab bars with custom styles
+     * In some situations and for the sake of UI design, you may want to have tabs
+     * that equally share the available screen width and stretch. To get such a
+     * result, you can add the `has-tabs-with-equal-width` class to the tab bar.
+     */
+    interface LimelExampleTabBarWithEqualTabWidth {
+    }
+    /**
+     * This example illustrates how to add custom components inside the `limel-tab-panel`.
+     * Each component will simulate loading the data it needs once the tab has been
+     * activated and then display the actual content. If the button is pressed, the
+     * component will emit the `changeTab` event to change the badge inside the
+     * corresponding tab.
+     * @sourceFile tab-panel-content.tsx
+     * @sourceFile tab-panel-content.scss
+     */
+    interface LimelExampleTabPanel {
+    }
+    interface LimelExampleTabPanelContent {
+        /**
+          * The tab that this component belongs to
+         */
+        "tab": Tab;
+    }
+    /**
+     * @sourceFile persons.ts
+     */
+    interface LimelExampleTable {
+    }
+    /**
+     * Activate a row
+     * @sourceFile persons.ts
+     */
+    interface LimelExampleTableActivateRow {
+    }
+    /**
+     * Custom components
+     * You can specify a custom component to use for any column in your table. This
+     * is done under the `component` key in the schema, following the
+     * [TableComponentDefinition](#/type/TableComponentDefinition/) specification,
+     * for example:
+     * ```ts
+     * const columns = [
+     *     {
+     *         title: 'Food',
+     *         field: 'food',
+     *         component: { name: 'my-fancy-food-displayer' },
+     *     },
+     * ];
+     * ```
+     * While you can, in principle, use any component in a table, your custom table
+     * components should implement the [TableComponent](#/type/TableComponent/)
+     * interface.
+     * @sourceFile birds.ts
+     * @sourceFile table-food.tsx
+     */
+    interface LimelExampleTableCustomComponents {
+    }
+    /**
+     * Default sorted columns
+     * In this example, the table is sorted on *two* columns. Primary sorting is
+     * done on the "Eggs per clutch" column, and secondary sorting is done on the
+     * "Name" column. The result is that within each "group" of birds that have the
+     * same number of eggs per clutch, the birds are sorted by name.
+     */
+    interface LimelExampleTableDefaultSorted {
+    }
+    interface LimelExampleTableFood {
+        /**
+          * Data for the whole row
+         */
+        "data": Bird;
+        /**
+          * Name of the field for the column
+         */
+        "field": string;
+        /**
+          * The value to display in the table cell
+         */
+        "value": any;
+    }
+    /**
+     * Column header menu
+     * You can also add custom components to the header cell of a column. In
+     * contrast to custom components used elsewhere in the table, custom components
+     * used in the header do not replace the entire content of the cell. Instead,
+     * they appear in a slot next to the column sorting icon.
+     * @sourceFile persons.ts
+     * @sourceFile header-menu.tsx
+     */
+    interface LimelExampleTableHeaderMenu {
+    }
+    /**
+     * Visualizing clickable rows better
+     * By taking advantage of the `has-interactive-rows` class, hovering on a row
+     * will display an elevated visual effect, giving it more affordance and a solid
+     * feeling of interactivity.
+     * :::note usage notes
+     * - Only use this class when clicking on an entire row triggers a reaction in
+     * the system, for example a card or a modal is opened to show further details.
+     * :::
+     */
+    interface LimelExampleTableInteractiveRows {
+    }
+    /**
+     * Layout
+     * Columns and their content can be decisive factors in how a table is
+     * preferred to rendered in the user interface. To set your preferred
+     * rendering, choose one of the available `layout` properties.
+     * ```tsx
+     * layout="default"
+     * ```
+     * The default layout resizes the table's columns,
+     * in a way that each column becomes as wide as the data it holds.
+     * :::important
+     * Note that be default, table columns have a maximum width of `40rem`.
+     * This means, they can never grow wider than that, unless you specify
+     * another size using the `--table-max-column-width` CSS variable.
+     * This applies to all other layouts presented further down as well!
+     * :::
+     * If there is additional space available on the right side of the last column,
+     * rows will stretch to fill the space and look visually as wide as the table.
+     * :::note
+     * While scrolling, new rows get lazy-loaded. Since the new data may have wider
+     * length, it might affect rendering of the layout in real-time.
+     * This means columns can get resized while user is scrolling down.
+     * :::
+     * :::tip
+     * It is also possible to affect internal layout of each column, by specifying
+     * `horizontalAlign` on the column headers, to `left` (default), `center`,
+     * or `right`. This basically defines the text-alignment for all the cells in that column.
+     * :::
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableLayoutDefault {
+    }
+    /**
+     * lowDensity
+     * ```tsx
+     * layout="lowDensity"
+     * ```
+     * By using this layout option, you can easily convert the table into an airy list of items.
+     * This type of UI is suitable for generating minimalist lists of items with
+     * only a few properties on each. Especially when the property values are not
+     * self-explanatory (such as an email address) and require a bit of extra help
+     * to know what they are.
+     * Using this UI, you can take advantage of the sticky header of the table which
+     * explains what each cell is about, and also enjoy sorting possibilities it
+     * offers.
+     * :::note usage notes
+     * - In this low-density UI, all cells will get a fixed height, which may affect
+     * the layout of custom components that you place inside them.
+     * - This UI is not preferred for data intensive views, in which the user's main
+     * task is processing the presented data and making sense of it. For such views,
+     * use the table component with its normal density.
+     * :::
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableLayoutLowDensity {
+    }
+    /**
+     * stretchColumns
+     * ```tsx
+     * layout="stretchColumns"
+     * ```
+     * With this layout, the table stretches columns so that all
+     * fit perfectly in the table container, when extra space is available.
+     * If all columns cannot fit within the available width,
+     * then a horizontal scrollbar will appear.
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableLayoutStretchColumns {
+    }
+    /**
+     * stretchLastColumn
+     * ```tsx
+     * layout="stretchLastColumn"
+     * ```
+     * Works just like `default`, but unlike the default layout
+     * which resulted in having an empty last column, in this layout
+     * the last existing column will stretch out to fill up the remaining table width.
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableLayoutStretchLastColumn {
+    }
+    /**
+     * Local sorting and pagination
+     * @sourceFile birds.ts
+     */
+    interface LimelExampleTableLocal {
+    }
+    /**
+     * Movable columns
+     * @sourceFile birds.ts
+     */
+    interface LimelExampleTableMovableColumns {
+    }
+    /**
+     * Remote sorting and pagination
+     * @sourceFile birds.ts
+     */
+    interface LimelExampleTableRemote {
+    }
+    /**
+     * Selectable rows with updating aggregates
+     * @sourceFile persons.ts
+     */
+    interface LimelExampleTableSelectableRows {
+    }
+    /**
+     * Disable column sorting
+     * By default, all columns can be sorted by end-users, if they click on
+     * a column header. An arrow icon on the header visualizes the
+     * direction of sorting, when a column is sorted.
+     * However, you can disable the sorting possibility in individual columns,
+     * by setting the `headerSort` to `false`.
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableSortingDisabled {
+    }
+    /**
+     * Allow resize
+     * The text editor automatically adjusts its own height to fit the content inside.
+     * So as the user types, the editor will grow taller, potentially resizing its own
+     * container element.
+     * By default, the user can also manually change the height of the text editor
+     * by dragging its bottom right corner.
+     * As soon as the user has changed the height, this will override the automatic
+     * resizing, and the editor will no longer adjust its height to fit the content inside.
+     * By setting `allowResize` to `false`, you can disable the end user
+     * to resize the text editor vertically.
+     * :::tip
+     * Using `max-height` and `min-height` CSS properties, you can limit the
+     * resizing to a specific range.
+     * :::
+     */
+    interface LimelExampleTextEditorAllowResize {
+    }
+    /**
+     * Using the text editor as a form component
+     * Here we have a simple form that uses the `limel-text-editor` component,
+     * instead of a regular text input field.
+     * :::note
+     * This allows the user to write rich text, with markdown support, in the form.
+     * But keep in mind that the value will be saved as a markdown string,
+     * and can also contain HTML tags, depending on what the users input
+     * in the filed.
+     * :::
+     * @sourceFile text-editor-form-data.ts
+     */
+    interface LimelExampleTextEditorAsFormComponent {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleTextEditorBasic {
+    }
+    /**
+     * Composite example
+     */
+    interface LimelExampleTextEditorComposite {
+    }
+    /**
+     * Resize with container
+     * Sometimes, you may want to make the text editor to follow the size of its container,
+     * both in width and height; for instance, when the container is resizable by the user.
+     * In such cases, make sure to set `allowResize={false}` on the component.
+     * However, you can still constrain the text editor to never grow beyond a certain height,
+     * by either
+     * - setting a fixed `height` or `max-height` the component itself,
+     * - or alternatively by setting a fixed `height` or `max-height` on the container
+     * element of the component.
+     * In this example, the maximum height is set to `15rem`, which means that:
+     * 1. the editor will adjust itself to the content inside,
+     * pushing out its container and making it taller, until it reaches `15rem` in height.
+     * 1. and also when you manually resize the container,
+     * the editor will try to fill the available surface area, until its height reaches `15rem`.
+     */
+    interface LimelExampleTextEditorSize {
+    }
+    /**
+     * Text editor in HTML mode.
+     * When using the text editor in HTML mode the `value` property is expected to contain
+     * an html formatted string and the output will likewise be html.
+     */
+    interface LimelExampleTextEditorWithHtml {
+    }
+    /**
+     * Text editor in markdown mode.
+     * When using the text editor in markdown mode the `value` property is expected to contain
+     * a markdown formatted string and the output will likewise be markdown. This is the default
+     * if no value for `contentType` is provided.
+     */
+    interface LimelExampleTextEditorWithMarkdown {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleTooltipBasic {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleTooltipComposite {
+        "schema": FormSchema;
+    }
+    interface LimelExampleTooltipDeclutter {
+    }
+    /**
+     * Using `maxlength` property
+     * To present an easy to read content, the tooltip's maximum text
+     * length is set to 50 characters, including spaces.
+     * When this threshold is reached, content will be rendered with line breaks.
+     * However, it is possible to override this value by specifying `maxlength`.
+     * :::note
+     * Tooltips are intended to display very brief information.
+     * Try not to place large amount of text in them.
+     * :::
+     */
+    interface LimelExampleTooltipMaxCharacter {
+    }
+    interface LimelExampleUiColorPalette {
+    }
+    interface LimelExampleValue {
+        /**
+          * A label describing the value.
+         */
+        "label"?: string;
+        /**
+          * The value that should be displayed.
+         */
+        "value": any;
+    }
+    /**
      * This component lets end-users select a *single* file from their device
      * storage. Regardless of the user's device or operating system, this component
      * opens up a file picker dialog that allows the user to choose a file.
@@ -1141,7 +4510,7 @@ export namespace Components {
         /**
           * An array of custom actions that can be displayed as an action menu on the file which is being displayed.
          */
-        "actions": ListItem[];
+        "actions": ListItem1[];
         /**
           * Displays a button that allows the user to download the file. Note that due to the browser's security policies, the file should be hosted on the same domain for the download button to work properly. Not displayed for office files!
          */
@@ -1259,11 +4628,11 @@ export namespace Components {
         /**
           * Factory for creating properties for custom form components  When using custom components in the form some properties might have to be set dynamically. If this factory is set, it will be called with the current schema for the field for each custom component in the form. The factory must return an object where each key is the name of the property that should be set, along with its value.
          */
-        "propsFactory"?: (schema: FormSchema) => Record<string, any>;
+        "propsFactory"?: (schema: FormSchema1) => Record<string, any>;
         /**
           * The schema used to render the form
          */
-        "schema": FormSchema;
+        "schema": FormSchema1;
         /**
           * Custom function to customize the default error messages
          */
@@ -1702,7 +5071,7 @@ export namespace Components {
         /**
           * List of items to display
          */
-        "items": Array<ListItem | ListSeparator>;
+        "items": Array<ListItem1 | ListSeparator>;
         /**
           * By default, lists will display 3 lines of text, and then truncate the rest. Consumers can increase or decrease this number by specifying `maxLinesSecondaryText`. If consumer enters zero or negative numbers we default to 1; and if they type decimals we round up.
          */
@@ -1863,7 +5232,7 @@ export namespace Components {
         /**
           * Static actions that can be clicked by the user.
          */
-        "actions": Array<ListItem<Action>>;
+        "actions": Array<ListItem1<Action>>;
         /**
           * Whether badge icons should be used in the result list or not
          */
@@ -1919,7 +5288,7 @@ export namespace Components {
         /**
           * Currently selected value or values. Where the value can be an object.
          */
-        "value": ListItem<PickerValue> | Array<ListItem<PickerValue>>;
+        "value": ListItem1<PickerValue> | Array<ListItem1<PickerValue>>;
     }
     /**
      * A popover is an impermanent layer that is displayed on top of other content
@@ -2403,7 +5772,7 @@ export namespace Components {
         /**
           * List of tabs to display
          */
-        "tabs": Tab[];
+        "tabs": Tab1[];
     }
     /**
      * The `limel-tab-panel` component uses the `limel-tab-bar` component together
@@ -2423,7 +5792,7 @@ export namespace Components {
         /**
           * The tabs to display in the panel
          */
-        "tabs": Tab[];
+        "tabs": Tab1[];
     }
     /**
      * @exampleComponent limel-example-table
@@ -2666,6 +6035,10 @@ export namespace Components {
          */
         "maxlength"?: number;
     }
+    interface MyCustomMenu {
+    }
+    interface MyCustomMenuWithNotifications {
+    }
 }
 export interface LimelActionBarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2730,6 +6103,18 @@ export interface LimelDockCustomEvent<T> extends CustomEvent<T> {
 export interface LimelDockButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLLimelDockButtonElement;
+}
+export interface LimelExampleCustomPickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLLimelExampleCustomPickerElement;
+}
+export interface LimelExamplePropsFactoryPickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLLimelExamplePropsFactoryPickerElement;
+}
+export interface LimelExampleTabPanelContentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLLimelExampleTabPanelContentElement;
 }
 export interface LimelFileCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -3318,6 +6703,4693 @@ declare global {
     var HTMLLimelDynamicLabelElement: {
         prototype: HTMLLimelDynamicLabelElement;
         new (): HTMLLimelDynamicLabelElement;
+    };
+    /**
+     * Basic Example
+     * An action bar is typically placed on top of a page or section,
+     * displaying multiple buttons in a row.
+     * Separators can be added to visually group related actions.
+     * :::tip
+     * By default, when `layout="fullWidth"`, all actions will be placed on
+     * the left side of the action bar,
+     * but you can override this default behavior by
+     * adding `justify-content: flex-end;`.
+     * :::
+     */
+    interface HTMLLimelExampleActionBarElement extends Components.LimelExampleActionBar, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionBarElement: {
+        prototype: HTMLLimelExampleActionBarElement;
+        new (): HTMLLimelExampleActionBarElement;
+    };
+    /**
+     * Creative usage
+     * Since the action bar can automatically overflow actions which do not
+     * fit into the available width, it makes the component a good candidate
+     * for providing contextual actions within small sections of a user interface.
+     * :::important
+     * For this specific usage (`limel-action-bar` as a primary component in `limel-list`)
+     * the certain styles are required for the overflow menu to properly work.
+     * See the linked CSS file!
+     * There should be a `min-width` and `max-width` on the component in order to prevent
+     * the overflow menu to cause infinite rendering loops.
+     * :::
+     * @sourceFile action-bar-in-list.tsx
+     * @sourceFile action-bar-in-list.scss
+     */
+    interface HTMLLimelExampleActionBarAsPrimaryComponentElement extends Components.LimelExampleActionBarAsPrimaryComponent, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionBarAsPrimaryComponentElement: {
+        prototype: HTMLLimelExampleActionBarAsPrimaryComponentElement;
+        new (): HTMLLimelExampleActionBarAsPrimaryComponentElement;
+    };
+    /**
+     * Using colors
+     * You can specify colors for single actions, by setting `color` on the `icon`.
+     * :::note
+     * Make sure not to overuse colors!
+     * It is perfectly fine that most of the actions in the bar use the default color.
+     * Colors should be used to add an extra layer of meaning for the actions.
+     * :::
+     */
+    interface HTMLLimelExampleActionBarColorsElement extends Components.LimelExampleActionBarColors, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionBarColorsElement: {
+        prototype: HTMLLimelExampleActionBarColorsElement;
+        new (): HTMLLimelExampleActionBarColorsElement;
+    };
+    /**
+     * Floating Example
+     * For some designs, it may make sense to display the action bar as
+     * a floating element on top of the page's content.
+     * Set the `layout` prop to `floating` to get the basics styles of
+     * a floating bar.
+     * :::note
+     * 1. In this case, the action bar gets some elevation effect
+     * using a `box-shadow`. This is to properly separate the action bar
+     * form its surrounding context. You can override this by setting another
+     * `box-shadow`.
+     * 2. Make sure to use a proper `openDirection` for the
+     * overflow menu.
+     * 3. Make sure there is space on the sides of the action bar,
+     * so that it doesn't stretch out completely from left edge to the right
+     * edge. The component is already doing so using a `max-width`,
+     * but you can override it by providing another `max-width`.
+     * :::
+     */
+    interface HTMLLimelExampleActionBarFloatingElement extends Components.LimelExampleActionBarFloating, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionBarFloatingElement: {
+        prototype: HTMLLimelExampleActionBarFloatingElement;
+        new (): HTMLLimelExampleActionBarFloatingElement;
+    };
+    interface HTMLLimelExampleActionBarInListElement extends Components.LimelExampleActionBarInList, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionBarInListElement: {
+        prototype: HTMLLimelExampleActionBarInListElement;
+        new (): HTMLLimelExampleActionBarInListElement;
+    };
+    /**
+     * Overflow menu
+     * When the action bar items don't fit in the available space,
+     * an overflow button is automatically added as the last item on the action bar.
+     * The menu indicates the quantity of the actions which are currently invisible for the users.
+     * Clicking on the overflow button opens a menu with the remaining actions that didn't fit
+     * in the available space.
+     */
+    interface HTMLLimelExampleActionBarOverflowMenuElement extends Components.LimelExampleActionBarOverflowMenu, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionBarOverflowMenuElement: {
+        prototype: HTMLLimelExampleActionBarOverflowMenuElement;
+        new (): HTMLLimelExampleActionBarOverflowMenuElement;
+    };
+    /**
+     * Selected item
+     * For some use cases, one or more items in the action bar could
+     * get a `selected` state. This is useful for example when you want to
+     * highlight a currently active item in a list of items.
+     */
+    interface HTMLLimelExampleActionBarSelectedItemElement extends Components.LimelExampleActionBarSelectedItem, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionBarSelectedItemElement: {
+        prototype: HTMLLimelExampleActionBarSelectedItemElement;
+        new (): HTMLLimelExampleActionBarSelectedItemElement;
+    };
+    /**
+     * Styling
+     * Using provided custom CSS properties,
+     * it is possible to style the action bar.
+     * :::note
+     * The `--action-bar-item-icon-color` affects all icons.
+     * However, the `color` specified for `icon` for individual items
+     * will override that.
+     * :::
+     */
+    interface HTMLLimelExampleActionBarStylingElement extends Components.LimelExampleActionBarStyling, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionBarStylingElement: {
+        prototype: HTMLLimelExampleActionBarStylingElement;
+        new (): HTMLLimelExampleActionBarStylingElement;
+    };
+    interface HTMLLimelExampleActionButtonsChoosingExplicitLabelsElement extends Components.LimelExampleActionButtonsChoosingExplicitLabels, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionButtonsChoosingExplicitLabelsElement: {
+        prototype: HTMLLimelExampleActionButtonsChoosingExplicitLabelsElement;
+        new (): HTMLLimelExampleActionButtonsChoosingExplicitLabelsElement;
+    };
+    interface HTMLLimelExampleActionButtonsChoosingLabelsElement extends Components.LimelExampleActionButtonsChoosingLabels, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionButtonsChoosingLabelsElement: {
+        prototype: HTMLLimelExampleActionButtonsChoosingLabelsElement;
+        new (): HTMLLimelExampleActionButtonsChoosingLabelsElement;
+    };
+    interface HTMLLimelExampleActionButtonsColorsDoDontElement extends Components.LimelExampleActionButtonsColorsDoDont, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionButtonsColorsDoDontElement: {
+        prototype: HTMLLimelExampleActionButtonsColorsDoDontElement;
+        new (): HTMLLimelExampleActionButtonsColorsDoDontElement;
+    };
+    interface HTMLLimelExampleActionButtonsIconColorElement extends Components.LimelExampleActionButtonsIconColor, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionButtonsIconColorElement: {
+        prototype: HTMLLimelExampleActionButtonsIconColorElement;
+        new (): HTMLLimelExampleActionButtonsIconColorElement;
+    };
+    interface HTMLLimelExampleActionButtonsPlacementElement extends Components.LimelExampleActionButtonsPlacement, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionButtonsPlacementElement: {
+        prototype: HTMLLimelExampleActionButtonsPlacementElement;
+        new (): HTMLLimelExampleActionButtonsPlacementElement;
+    };
+    interface HTMLLimelExampleActionButtonsPrimarySecondaryElement extends Components.LimelExampleActionButtonsPrimarySecondary, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionButtonsPrimarySecondaryElement: {
+        prototype: HTMLLimelExampleActionButtonsPrimarySecondaryElement;
+        new (): HTMLLimelExampleActionButtonsPrimarySecondaryElement;
+    };
+    interface HTMLLimelExampleActionButtonsPrimarySecondaryReversedElement extends Components.LimelExampleActionButtonsPrimarySecondaryReversed, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionButtonsPrimarySecondaryReversedElement: {
+        prototype: HTMLLimelExampleActionButtonsPrimarySecondaryReversedElement;
+        new (): HTMLLimelExampleActionButtonsPrimarySecondaryReversedElement;
+    };
+    interface HTMLLimelExampleActionButtonsPrimarySecondaryReversedColorsElement extends Components.LimelExampleActionButtonsPrimarySecondaryReversedColors, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionButtonsPrimarySecondaryReversedColorsElement: {
+        prototype: HTMLLimelExampleActionButtonsPrimarySecondaryReversedColorsElement;
+        new (): HTMLLimelExampleActionButtonsPrimarySecondaryReversedColorsElement;
+    };
+    interface HTMLLimelExampleActionButtonsThirdAlternativeElement extends Components.LimelExampleActionButtonsThirdAlternative, HTMLStencilElement {
+    }
+    var HTMLLimelExampleActionButtonsThirdAlternativeElement: {
+        prototype: HTMLLimelExampleActionButtonsThirdAlternativeElement;
+        new (): HTMLLimelExampleActionButtonsThirdAlternativeElement;
+    };
+    interface HTMLLimelExampleAuditionFormElement extends Components.LimelExampleAuditionForm, HTMLStencilElement {
+    }
+    var HTMLLimelExampleAuditionFormElement: {
+        prototype: HTMLLimelExampleAuditionFormElement;
+        new (): HTMLLimelExampleAuditionFormElement;
+    };
+    interface HTMLLimelExampleAuditionFormReadonlyElement extends Components.LimelExampleAuditionFormReadonly, HTMLStencilElement {
+    }
+    var HTMLLimelExampleAuditionFormReadonlyElement: {
+        prototype: HTMLLimelExampleAuditionFormReadonlyElement;
+        new (): HTMLLimelExampleAuditionFormReadonlyElement;
+    };
+    /**
+     * Badge without a `label`
+     * When no `label` is provided, the badge will only render as a circle.
+     * This is a convention which is used in many applications to attract the
+     * user's attention to a certain element on the user interface; typically to
+     * menus or buttons that navigate the user to another pane or screen.
+     * In such cases, the idea is to provide the users with a "red thread"
+     * and help them find something that requires their attention, but is located
+     * on another place in the app, and not directly visible.
+     * :::tip
+     * Make sure that the dot is noticeable, by providing an
+     * eye-catching background color, as shown in this example.
+     * :::
+     */
+    interface HTMLLimelExampleBadgeElement extends Components.LimelExampleBadge, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBadgeElement: {
+        prototype: HTMLLimelExampleBadgeElement;
+        new (): HTMLLimelExampleBadgeElement;
+    };
+    /**
+     * Number badges
+     * Numeric labels larger than 999 will get both rounded and abbreviated.
+     * For example, if the label is `1090` the badge will display `1.1K`.
+     * Abbreviation units used are `k` (Kilo) that stands for Thousands,
+     * `M` for Millions, `B` for Billions, and `T` for Trillions.
+     * When users hover the abbreviated badge, the complete
+     * `label` will be displayed in a tooltip.
+     */
+    interface HTMLLimelExampleBadgeNumberElement extends Components.LimelExampleBadgeNumber, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBadgeNumberElement: {
+        prototype: HTMLLimelExampleBadgeNumberElement;
+        new (): HTMLLimelExampleBadgeNumberElement;
+    };
+    /**
+     * String badges
+     * String labels get truncated if their visual length is longer than
+     * six characters placed side by side (six `0`s to be exact).
+     * When users hover the truncated badge, the complete
+     * `label` will be displayed in a tooltip.
+     */
+    interface HTMLLimelExampleBadgeStringElement extends Components.LimelExampleBadgeString, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBadgeStringElement: {
+        prototype: HTMLLimelExampleBadgeStringElement;
+        new (): HTMLLimelExampleBadgeStringElement;
+    };
+    interface HTMLLimelExampleBannerElement extends Components.LimelExampleBanner, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBannerElement: {
+        prototype: HTMLLimelExampleBannerElement;
+        new (): HTMLLimelExampleBannerElement;
+    };
+    interface HTMLLimelExampleBooleanCheckboxesElement extends Components.LimelExampleBooleanCheckboxes, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBooleanCheckboxesElement: {
+        prototype: HTMLLimelExampleBooleanCheckboxesElement;
+        new (): HTMLLimelExampleBooleanCheckboxesElement;
+    };
+    interface HTMLLimelExampleBooleanRadioButtonsElement extends Components.LimelExampleBooleanRadioButtons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBooleanRadioButtonsElement: {
+        prototype: HTMLLimelExampleBooleanRadioButtonsElement;
+        new (): HTMLLimelExampleBooleanRadioButtonsElement;
+    };
+    interface HTMLLimelExampleBrandColorPaletteElement extends Components.LimelExampleBrandColorPalette, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBrandColorPaletteElement: {
+        prototype: HTMLLimelExampleBrandColorPaletteElement;
+        new (): HTMLLimelExampleBrandColorPaletteElement;
+    };
+    /**
+     * Items as buttons
+     * The Breadcrumbs can also be used to navigate between different
+     * steps of a process, such as steps of a form or survey, or
+     * moving through steps of a wizard.
+     * In this case, you will not provide any `link`s and instead will
+     * handle the clicks. When no links are provided, the component
+     * will automatically generate a list of `button`s.
+     * Keep in mind that the last item will not be rendered as an
+     * HTML button and and therefore won't be clickable.
+     */
+    interface HTMLLimelExampleBreadcrumbsButtonsElement extends Components.LimelExampleBreadcrumbsButtons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBreadcrumbsButtonsElement: {
+        prototype: HTMLLimelExampleBreadcrumbsButtonsElement;
+        new (): HTMLLimelExampleBreadcrumbsButtonsElement;
+    };
+    /**
+     * Changing the divider
+     * By default a **›** character is used to visually divide the
+     * items from each other. This visual divider indicates the
+     * order and depths of steps which are taken to reach the current
+     * step.
+     * However, in certain contexts, other characters could be
+     * more suitable to visualize this hierarchy,
+     * such as a **·**, **-** or similar.
+     * :::warning
+     * Avoid using ellipsis motifs like **···**, **…** or **⋮**,
+     * since they look like universally prevalent icons which
+     * communicate other meanings.
+     */
+    interface HTMLLimelExampleBreadcrumbsDividerElement extends Components.LimelExampleBreadcrumbsDivider, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBreadcrumbsDividerElement: {
+        prototype: HTMLLimelExampleBreadcrumbsDividerElement;
+        new (): HTMLLimelExampleBreadcrumbsDividerElement;
+    };
+    /**
+     * Using colors
+     * You can specify colors for single item, by setting `color` on the `icon`.
+     * :::note
+     * Make sure not to overuse colors!
+     * It is perfectly fine that items in the bar use the default color.
+     * Colors should be used to add an extra layer of meaning for the actions.
+     * An icon can either adopt the color of the default text or receive a color
+     * if the `--breadcrumbs-item-text-color` has been set.
+     * Nevertheless, if the `color` is explicitly defined,
+     * it will take precedence over the default icon's color.
+     * :::
+     */
+    interface HTMLLimelExampleBreadcrumbsIconColorElement extends Components.LimelExampleBreadcrumbsIconColor, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBreadcrumbsIconColorElement: {
+        prototype: HTMLLimelExampleBreadcrumbsIconColorElement;
+        new (): HTMLLimelExampleBreadcrumbsIconColorElement;
+    };
+    /**
+     * Using icons
+     * For an improved accessibility, you are required to
+     * provide a `text` for each item in the breadcrumbs.
+     * But each item can have an optional icon too.
+     * However, in some UIs, the design might require
+     * hiding the text and relying on an icon to visualize
+     * an item in the path.
+     * In this case you can set the `type` to
+     * `icon-only` on the desired items.
+     * :::note
+     * The last item (current step) will always
+     * display both an icon and the text, even if you
+     * set the `type` to `icon-only`
+     * :::
+     */
+    interface HTMLLimelExampleBreadcrumbsIconsElement extends Components.LimelExampleBreadcrumbsIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBreadcrumbsIconsElement: {
+        prototype: HTMLLimelExampleBreadcrumbsIconsElement;
+        new (): HTMLLimelExampleBreadcrumbsIconsElement;
+    };
+    /**
+     * Items as hyperlinks
+     * When the Breadcrumbs are used to navigate between different webpages,
+     * for example navigating a website, you will need to provide a `link`
+     * for each webpage.
+     * This way, the component will automatically generate a list of
+     * hyperlinks. This gives the users the possibility of interacting with links
+     * in a natural way, for instance they can open any of the previous
+     * pages in a new browser tab. This also has other accessibility benefits.
+     * :::note
+     * Clicking links will open in current window by default,
+     * and this reloads the entire webpage.
+     * To avoid reloading the whole application (in the context of a single-page apps),
+     * you might want to handle the navigation with your application's router,
+     * :::
+     * Keep in mind that the last item will not be rendered as an HTML link and
+     * is not clickable.
+     */
+    interface HTMLLimelExampleBreadcrumbsLinksElement extends Components.LimelExampleBreadcrumbsLinks, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBreadcrumbsLinksElement: {
+        prototype: HTMLLimelExampleBreadcrumbsLinksElement;
+        new (): HTMLLimelExampleBreadcrumbsLinksElement;
+    };
+    /**
+     * Styling
+     * Using provided custom CSS properties,
+     * it is possible to style the breadcrumbs.
+     */
+    interface HTMLLimelExampleBreadcrumbsStylingElement extends Components.LimelExampleBreadcrumbsStyling, HTMLStencilElement {
+    }
+    var HTMLLimelExampleBreadcrumbsStylingElement: {
+        prototype: HTMLLimelExampleBreadcrumbsStylingElement;
+        new (): HTMLLimelExampleBreadcrumbsStylingElement;
+    };
+    /**
+     * Basic Example
+     * Just a label and a click-handler.
+     * Open the dev-tools console to see logged clicks.
+     */
+    interface HTMLLimelExampleButtonBasicElement extends Components.LimelExampleButtonBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonBasicElement: {
+        prototype: HTMLLimelExampleButtonBasicElement;
+        new (): HTMLLimelExampleButtonBasicElement;
+    };
+    /**
+     * With click handler, and failed feedback
+     * This example works just like the "With click handler" example, except that,
+     * when the `loading` attribute changes from `true` to `false`, the button
+     * automatically indicates that the previously ongoing process just failed.
+     */
+    interface HTMLLimelExampleButtonClickFailElement extends Components.LimelExampleButtonClickFail, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonClickFailElement: {
+        prototype: HTMLLimelExampleButtonClickFailElement;
+        new (): HTMLLimelExampleButtonClickFailElement;
+    };
+    /**
+     * With click handler
+     * The click handler in this example simulates saving some changed values in a
+     * form. When the button is clicked, the `loading` attribute is set to `true`.
+     * After a short while, we pretend that the saving was successful, and set
+     * `loading` to `false`. We also set `disabled` to `true`, because we just
+     * successfully saved, so until the user updates our imaginary form again, there
+     * is nothing to save.
+     * When the `loading` attribute changes from `true` to `false`, the button
+     * automatically displays a checkmark icon for 2 seconds. Note that our click
+     * handler isn't actually involved in this.
+     * A short while after the checkmark has disappeared, we enable the button
+     * again. This is just so that you can try the functionality again. Normally,
+     * the button would stay disabled until the user made some changes, so there's
+     * something new to save!
+     */
+    interface HTMLLimelExampleButtonClickSuccessElement extends Components.LimelExampleButtonClickSuccess, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonClickSuccessElement: {
+        prototype: HTMLLimelExampleButtonClickSuccessElement;
+        new (): HTMLLimelExampleButtonClickSuccessElement;
+    };
+    /**
+     * How to color button text and background
+     * When a button is a "primary" button (`primary={true}`), the color value you specify
+     * for `--lime-primary-color` will apply to its background. By default, text color
+     * of primary buttons is white. To change their text color you must send a color
+     * value with the `--lime-on-primary-color` variable.
+     * When a button is not a "primary" button, the value of `--lime-primary-color`
+     * will be applied to its text, and `--lime-on-primary-color` will have no effect.
+     * Keep in mind that `disabled` buttons don't care about your specified colors at all.
+     */
+    interface HTMLLimelExampleButtonColorsElement extends Components.LimelExampleButtonColors, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonColorsElement: {
+        prototype: HTMLLimelExampleButtonColorsElement;
+        new (): HTMLLimelExampleButtonColorsElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface HTMLLimelExampleButtonCompositeElement extends Components.LimelExampleButtonComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonCompositeElement: {
+        prototype: HTMLLimelExampleButtonCompositeElement;
+        new (): HTMLLimelExampleButtonCompositeElement;
+    };
+    /**
+     * Disabled
+     * :::note
+     * Discover when to utilize the disabled state and when it is preferable to hide a button by reading our guidelines [Disabled vs. Hidden](#/DesignGuidelines/disabled-hidden.md/).
+     * :::
+     */
+    interface HTMLLimelExampleButtonDisabledElement extends Components.LimelExampleButtonDisabled, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonDisabledElement: {
+        prototype: HTMLLimelExampleButtonDisabledElement;
+        new (): HTMLLimelExampleButtonDisabledElement;
+    };
+    interface HTMLLimelExampleButtonDisabledVsHiddenElement extends Components.LimelExampleButtonDisabledVsHidden, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonDisabledVsHiddenElement: {
+        prototype: HTMLLimelExampleButtonDisabledVsHiddenElement;
+        new (): HTMLLimelExampleButtonDisabledVsHiddenElement;
+    };
+    /**
+     * Text only
+     * This layout is good when you do not have access to icons which are
+     * descriptive enough.
+     */
+    interface HTMLLimelExampleButtonGroupElement extends Components.LimelExampleButtonGroup, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonGroupElement: {
+        prototype: HTMLLimelExampleButtonGroupElement;
+        new (): HTMLLimelExampleButtonGroupElement;
+    };
+    /**
+     * Button group with badges
+     * Badges can be used to add further contextual information.
+     * For example, if the component is used to filter a set of data
+     * the badges could visualize the number of entries
+     * for each filter option.
+     * The badge can either
+     * have a `number` or `string` label.
+     * Read more about how the badge truncates or abbreviates the
+     * provided label [here](#/component/limel-badge/).
+     */
+    interface HTMLLimelExampleButtonGroupBadgesElement extends Components.LimelExampleButtonGroupBadges, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonGroupBadgesElement: {
+        prototype: HTMLLimelExampleButtonGroupBadgesElement;
+        new (): HTMLLimelExampleButtonGroupBadgesElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface HTMLLimelExampleButtonGroupCompositeElement extends Components.LimelExampleButtonGroupComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonGroupCompositeElement: {
+        prototype: HTMLLimelExampleButtonGroupCompositeElement;
+        new (): HTMLLimelExampleButtonGroupCompositeElement;
+    };
+    /**
+     * Icon only
+     * If you pick well descriptive icons, this layout will usually suffice. When
+     * you specify an `icon`, it will automatically be shown instead of the `title`.
+     * :::important
+     * Adding titles for buttons is compulsory. The reason is that when
+     * only icons are shown, titles will appear as `aria-label` for screen readers,
+     * as well as `title` attribute when users hover and hold their cursors on the
+     * buttons.
+     * :::
+     * This makes it easier for them to know what the button actually does
+     * or what the icon tries to indicate.
+     * So, make sure to label your icons properly and descriptively.
+     */
+    interface HTMLLimelExampleButtonGroupIconsElement extends Components.LimelExampleButtonGroupIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonGroupIconsElement: {
+        prototype: HTMLLimelExampleButtonGroupIconsElement;
+        new (): HTMLLimelExampleButtonGroupIconsElement;
+    };
+    /**
+     * Mixed text and icon within the same group
+     * Generally, you should avoid mixing text and images in button group. Although
+     * individual buttons can contain text or images, mixing the two in a single
+     * group can lead to an inconsistent and confusing interface.
+     * However, in some case your design may benefit from having only one button in
+     * a different format.
+     */
+    interface HTMLLimelExampleButtonGroupMixElement extends Components.LimelExampleButtonGroupMix, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonGroupMixElement: {
+        prototype: HTMLLimelExampleButtonGroupMixElement;
+        new (): HTMLLimelExampleButtonGroupMixElement;
+    };
+    /**
+     * Icon
+     */
+    interface HTMLLimelExampleButtonIconElement extends Components.LimelExampleButtonIcon, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonIconElement: {
+        prototype: HTMLLimelExampleButtonIconElement;
+        new (): HTMLLimelExampleButtonIconElement;
+    };
+    /**
+     * Loading
+     * Note that the example is also using `disabled`, because a button that is
+     * loading should normally also be disabled.
+     */
+    interface HTMLLimelExampleButtonLoadingElement extends Components.LimelExampleButtonLoading, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonLoadingElement: {
+        prototype: HTMLLimelExampleButtonLoadingElement;
+        new (): HTMLLimelExampleButtonLoadingElement;
+    };
+    /**
+     * Outlined
+     * By setting `outlined={true}`, you can create a style
+     * of buttons which could be used to indicate an action
+     * with medium emphasis.
+     * :::note
+     * This style is useful to indicate the "secondariness" of an action.
+     * Therefore, only use this style, if there is another related
+     * `primary` button present on the same view or screen,
+     * along with another normal button.
+     * Also, give such a choice a second thought by reading
+     * [our guidelines for Split button](#/component/limel-split-button/).
+     * :::
+     */
+    interface HTMLLimelExampleButtonOutlinedElement extends Components.LimelExampleButtonOutlined, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonOutlinedElement: {
+        prototype: HTMLLimelExampleButtonOutlinedElement;
+        new (): HTMLLimelExampleButtonOutlinedElement;
+    };
+    /**
+     * Primary
+     * Each screen (modal, or section with action buttons)
+     * should contain a single prominent button like this one,
+     * to emphasize the primary action.
+     * :::note
+     * Think twice before setting `primary={true}` on buttons.
+     * The arrangement of buttons and their colors should clearly
+     * communicate their importance and primariness or secondariness.
+     * See some examples at [our design guidelines for
+     * Action buttons](#/DesignGuidelines/action-buttons.md/).
+     * :::
+     */
+    interface HTMLLimelExampleButtonPrimaryElement extends Components.LimelExampleButtonPrimary, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonPrimaryElement: {
+        prototype: HTMLLimelExampleButtonPrimaryElement;
+        new (): HTMLLimelExampleButtonPrimaryElement;
+    };
+    /**
+     * Reduce Presence
+     * This example is identical to the "With click handler" example, except that
+     * here, the `has-reduced-presence` class has been set to `true`. This will hide
+     * the button when it is disabled. However, it will also make sure that the
+     * button remains visible while the loading animation is ongoing. When the
+     * animation is done and the checkmark has been shown, the button will hide.
+     * Read more in the [Design Guidelines](#/DesignGuidelines/decluttering.md/)
+     */
+    interface HTMLLimelExampleButtonReducePresenceElement extends Components.LimelExampleButtonReducePresence, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonReducePresenceElement: {
+        prototype: HTMLLimelExampleButtonReducePresenceElement;
+        new (): HTMLLimelExampleButtonReducePresenceElement;
+    };
+    interface HTMLLimelExampleButtonShadowsElement extends Components.LimelExampleButtonShadows, HTMLStencilElement {
+    }
+    var HTMLLimelExampleButtonShadowsElement: {
+        prototype: HTMLLimelExampleButtonShadowsElement;
+        new (): HTMLLimelExampleButtonShadowsElement;
+    };
+    /**
+     * Type: `caution`
+     */
+    interface HTMLLimelExampleCalloutCautionElement extends Components.LimelExampleCalloutCaution, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutCautionElement: {
+        prototype: HTMLLimelExampleCalloutCautionElement;
+        new (): HTMLLimelExampleCalloutCautionElement;
+    };
+    /**
+     * Composite
+     */
+    interface HTMLLimelExampleCalloutCompositeElement extends Components.LimelExampleCalloutComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutCompositeElement: {
+        prototype: HTMLLimelExampleCalloutCompositeElement;
+        new (): HTMLLimelExampleCalloutCompositeElement;
+    };
+    /**
+     * With custom `heading`
+     * By default, the title will equal the `type` qualifier.
+     * However, it is possible to use a `type` just to get the desired visualisation
+     * (icon and color), but override the default heading, using the `heading` prop.
+     */
+    interface HTMLLimelExampleCalloutCustomHeadingElement extends Components.LimelExampleCalloutCustomHeading, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutCustomHeadingElement: {
+        prototype: HTMLLimelExampleCalloutCustomHeadingElement;
+        new (): HTMLLimelExampleCalloutCustomHeadingElement;
+    };
+    /**
+     * With custom `icon`
+     * By default, the icon will be defined by the `type` qualifier.
+     * However, it is possible to use a `type` just to get the desired visualisation
+     * (color and heading), but override the default icon, using the `icon` prop.
+     */
+    interface HTMLLimelExampleCalloutCustomIconElement extends Components.LimelExampleCalloutCustomIcon, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutCustomIconElement: {
+        prototype: HTMLLimelExampleCalloutCustomIconElement;
+        new (): HTMLLimelExampleCalloutCustomIconElement;
+    };
+    /**
+     * Type: `important`
+     */
+    interface HTMLLimelExampleCalloutImportantElement extends Components.LimelExampleCalloutImportant, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutImportantElement: {
+        prototype: HTMLLimelExampleCalloutImportantElement;
+        new (): HTMLLimelExampleCalloutImportantElement;
+    };
+    /**
+     * Type: `note`
+     * This is the default type.
+     */
+    interface HTMLLimelExampleCalloutNoteElement extends Components.LimelExampleCalloutNote, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutNoteElement: {
+        prototype: HTMLLimelExampleCalloutNoteElement;
+        new (): HTMLLimelExampleCalloutNoteElement;
+    };
+    /**
+     * Adding rich content
+     * Sometimes, you need to display more than just a string of text.
+     * You may want to display richer content with pictures, links, or
+     * bullet point lists; or use a more advanced component inside
+     * the callout.
+     * To do so, simply wrap the content you want to display in this component.
+     */
+    interface HTMLLimelExampleCalloutRichContentElement extends Components.LimelExampleCalloutRichContent, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutRichContentElement: {
+        prototype: HTMLLimelExampleCalloutRichContentElement;
+        new (): HTMLLimelExampleCalloutRichContentElement;
+    };
+    /**
+     * Styling
+     * It is possible to change the default colors using the provided CSS
+     * variables. Just make sure to have good contrast between the text and
+     * background color, to provide good readability.
+     */
+    interface HTMLLimelExampleCalloutStylesElement extends Components.LimelExampleCalloutStyles, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutStylesElement: {
+        prototype: HTMLLimelExampleCalloutStylesElement;
+        new (): HTMLLimelExampleCalloutStylesElement;
+    };
+    /**
+     * Type: `tip`
+     * This type is useful for displaying tips & tricks, and How-Tos.
+     */
+    interface HTMLLimelExampleCalloutTipElement extends Components.LimelExampleCalloutTip, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutTipElement: {
+        prototype: HTMLLimelExampleCalloutTipElement;
+        new (): HTMLLimelExampleCalloutTipElement;
+    };
+    /**
+     * Type: `warning`
+     */
+    interface HTMLLimelExampleCalloutWarningElement extends Components.LimelExampleCalloutWarning, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCalloutWarningElement: {
+        prototype: HTMLLimelExampleCalloutWarningElement;
+        new (): HTMLLimelExampleCalloutWarningElement;
+    };
+    interface HTMLLimelExampleCheckboxElement extends Components.LimelExampleCheckbox, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCheckboxElement: {
+        prototype: HTMLLimelExampleCheckboxElement;
+        new (): HTMLLimelExampleCheckboxElement;
+    };
+    /**
+     * With `helperText`
+     * Checkboxes can have a helper text, which is useful when providing additional information
+     * can clarify functionality of the checkbox for the user.
+     * The helper text is displayed when user hovers the checkbox, or focuses on it using keyboard
+     * navigation. However, on touchscreen devices, the helper text is always displayed.
+     */
+    interface HTMLLimelExampleCheckboxHelperTextElement extends Components.LimelExampleCheckboxHelperText, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCheckboxHelperTextElement: {
+        prototype: HTMLLimelExampleCheckboxHelperTextElement;
+        new (): HTMLLimelExampleCheckboxHelperTextElement;
+    };
+    /**
+     * Customizing the visualization of the `readonly` state
+     * It is possible and recommended that you enhance the visualization of a `boolean` field
+     * in a `readonly` state.
+     * Because depending on the context, the default UI of the `readonly` state may not always
+     * provide the best way of _visualizing information_, potentially leading to
+     * confusion and negatively affecting the end-users' experience.
+     * :::important
+     * Before reading the documentations below, make sure to read
+     * 1. our guides about the difference between
+     * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+     * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+     * :::
+     * Using the `readonlyLabels` optional prop, you can override the `label` and
+     * customize it accordingly. Additionally, by using the `icon` prop, you can
+     * override the default icons and their colors.
+     */
+    interface HTMLLimelExampleCheckboxReadonlyElement extends Components.LimelExampleCheckboxReadonly, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCheckboxReadonlyElement: {
+        prototype: HTMLLimelExampleCheckboxReadonlyElement;
+        new (): HTMLLimelExampleCheckboxReadonlyElement;
+    };
+    /**
+     * Correct usage of ARIA roles
+     * Chips represent choices, filters, or tags, organized in a block or bundled into a group.
+     * While sighted users see the visually bundled group of chips in a well-designed UI,
+     * screen reader users only hear the chip text, one at a time.
+     * This can make it difficult for users of assistive technologies to understand
+     * the context of the chip.
+     * To provide an accessible experience, it's important to place the chips in
+     * a semantically correct structure, such as a list or a table,
+     * or properly use ARIA roles on the chip and its container.
+     * In this example, we demonstrate how to use ARIA roles to improve accessibility for chips.
+     * However, it's recommended to read up on the subject to fully understand the
+     * implications of ARIA roles.
+     * For more information on ARIA roles, refer to the
+     * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles).
+     */
+    interface HTMLLimelExampleChipAriaRoleElement extends Components.LimelExampleChipAriaRole, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipAriaRoleElement: {
+        prototype: HTMLLimelExampleChipAriaRoleElement;
+        new (): HTMLLimelExampleChipAriaRoleElement;
+    };
+    /**
+     * Chip with a badge
+     * Chips can display a badge with a number or a short text.
+     */
+    interface HTMLLimelExampleChipBadgeElement extends Components.LimelExampleChipBadge, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipBadgeElement: {
+        prototype: HTMLLimelExampleChipBadgeElement;
+        new (): HTMLLimelExampleChipBadgeElement;
+    };
+    /**
+     * Chip as button
+     * Typically, a chip is used to trigger an action or act as an input element.
+     * This is why the component generates a `<button>` element in the DOM to give
+     * a more semantically correct clues to assistive technologies.
+     * To trigger these actions, you will only need to handle the `onClick`
+     * event on the component.
+     */
+    interface HTMLLimelExampleChipButtonElement extends Components.LimelExampleChipButton, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipButtonElement: {
+        prototype: HTMLLimelExampleChipButtonElement;
+        new (): HTMLLimelExampleChipButtonElement;
+    };
+    /**
+     * Chip as filter
+     * Chips are great candidates to visualize active filters.
+     * However, as chips are used for other purposes as well,
+     * we need to make sure that the user understands that the chip is a filter,
+     * just by the look of it.
+     * By setting the `type` to `filter`, the chip will be rendered with a distinct style
+     * suitable for visualizing filters.
+     * :::note
+     * In this mode, clicking on the chip should also toggle its `selected` state.
+     * :::
+     */
+    interface HTMLLimelExampleChipFilterElement extends Components.LimelExampleChipFilter, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipFilterElement: {
+        prototype: HTMLLimelExampleChipFilterElement;
+        new (): HTMLLimelExampleChipFilterElement;
+    };
+    /**
+     * Chip Icon Color
+     * The color and background color of each chip's icon can be individually
+     * configured.
+     */
+    interface HTMLLimelExampleChipIconColorElement extends Components.LimelExampleChipIconColor, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipIconColorElement: {
+        prototype: HTMLLimelExampleChipIconColorElement;
+        new (): HTMLLimelExampleChipIconColorElement;
+    };
+    /**
+     * Icon color
+     * Using the `Icon` interface, you can specify colors for the icon.
+     */
+    interface HTMLLimelExampleChipIconColorsElement extends Components.LimelExampleChipIconColors, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipIconColorsElement: {
+        prototype: HTMLLimelExampleChipIconColorsElement;
+        new (): HTMLLimelExampleChipIconColorsElement;
+    };
+    /**
+     * Picture instead of icon
+     * Using the `Img` interface, you can specify an image to be displayed on the chip.
+     * :::note
+     * The specified image will be displayed instead of the icon, if both are provided.
+     * :::
+     */
+    interface HTMLLimelExampleChipImageElement extends Components.LimelExampleChipImage, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipImageElement: {
+        prototype: HTMLLimelExampleChipImageElement;
+        new (): HTMLLimelExampleChipImageElement;
+    };
+    /**
+     * Chip as hyperlink
+     * For accessibility and usability alike, if clicking on a chip should
+     * result in any kind of navigation, it is preferable to use a link,
+     * rather than a button.
+     * That way, the user can choose to, for example, open the link in a new tab.
+     * For this reason, we suggest always providing a Link with
+     * the URL representing the target state of the navigation.
+     */
+    interface HTMLLimelExampleChipLinkElement extends Components.LimelExampleChipLink, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipLinkElement: {
+        prototype: HTMLLimelExampleChipLinkElement;
+        new (): HTMLLimelExampleChipLinkElement;
+    };
+    /**
+     * Loading state
+     * Setting the `loading` to `true` puts the component in the `loading` state,
+     * and renders an indeterminate progress indicator inside the chip.
+     * :::note
+     * Note that this does _not_ disable the interactivity of the chip,
+     * and most probably you do not need it to be disabled either.
+     * If the chip should be disabled while loading, the
+     * `disabled` property should separately be set to `true` as well.
+     * :::
+     * :::tip
+     * Consider using [aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live)
+     * where appropriate, or to inform the user about what is being loaded
+     * use a [tooltip](#/component/limel-tooltip) on the component.
+     * This is mainly to improve the accessibility for users of assistive technologies.
+     * :::
+     */
+    interface HTMLLimelExampleChipLoadingElement extends Components.LimelExampleChipLoading, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipLoadingElement: {
+        prototype: HTMLLimelExampleChipLoadingElement;
+        new (): HTMLLimelExampleChipLoadingElement;
+    };
+    /**
+     * When an array of menu items is provided, the chip will render
+     * an ellipsis menu with the supplied items. When an item is selected,
+     * the `onMenuItemSelected` event will be emitted, reflecting the
+     * `value` of the selected item.
+     * :::note
+     * This will hide the "remove button" on the chip, when `removable={true}`,
+     * as the remove button will automatically become the last item in the menu.
+     * Clicking the remove button will emit the same `onRemove` event.
+     * :::
+     */
+    interface HTMLLimelExampleChipMenuElement extends Components.LimelExampleChipMenu, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipMenuElement: {
+        prototype: HTMLLimelExampleChipMenuElement;
+        new (): HTMLLimelExampleChipMenuElement;
+    };
+    /**
+     * Displaying a progress bar
+     * By defining a numeric `progress` (from `0` to `100`),
+     * you can display a progress bar on the chip
+     * to inform the user about an ongoing progress and also
+     * visualize the amount of progress that has been made so far.
+     * :::important
+     * 1. Do not use `loading={true}` and `progress` at the same time.
+     * 2. When the progress has completed, unset the `progress` property!
+     * :::
+     */
+    interface HTMLLimelExampleChipProgressElement extends Components.LimelExampleChipProgress, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipProgressElement: {
+        prototype: HTMLLimelExampleChipProgressElement;
+        new (): HTMLLimelExampleChipProgressElement;
+    };
+    /**
+     * Removable chips
+     * Chips can display a remove button,
+     * when their `removable` prop is set to `true`.
+     * This is typically used when the chip is used in a chip-set,
+     * where each chip visualizes a chosen option.
+     * :::tip
+     * When the chip is focused using the keyboard, the user can press
+     * the <kbd>Delete</kbd> or <kbd>Backspace</kbd> keys to
+     * trigger the same remove `event`.
+     * :::
+     */
+    interface HTMLLimelExampleChipRemovableElement extends Components.LimelExampleChipRemovable, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipRemovableElement: {
+        prototype: HTMLLimelExampleChipRemovableElement;
+        new (): HTMLLimelExampleChipRemovableElement;
+    };
+    /**
+     * Basic example with no `type` set
+     * May be useful as a read-only presentation of a collection of tags, or
+     * similar.
+     * Depending on the use case, you may also wish to consider
+     * [limel-button](#/component/limel-button/) or
+     * [limel-button-group](#/component/limel-button-group/).
+     */
+    interface HTMLLimelExampleChipSetElement extends Components.LimelExampleChipSet, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetElement: {
+        prototype: HTMLLimelExampleChipSetElement;
+        new (): HTMLLimelExampleChipSetElement;
+    };
+    /**
+     * Choice chip set
+     * Only one option can be selected at once. Kind of like radio-buttons, but the
+     * user can deselect the chosen option too. Good as an alternative to using a
+     * `select` when there are only a few options.
+     */
+    interface HTMLLimelExampleChipSetChoiceElement extends Components.LimelExampleChipSetChoice, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetChoiceElement: {
+        prototype: HTMLLimelExampleChipSetChoiceElement;
+        new (): HTMLLimelExampleChipSetChoiceElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface HTMLLimelExampleChipSetCompositeElement extends Components.LimelExampleChipSetComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetCompositeElement: {
+        prototype: HTMLLimelExampleChipSetCompositeElement;
+        new (): HTMLLimelExampleChipSetCompositeElement;
+    };
+    /**
+     * Filter chip set
+     * Any number of options can be selected at once, including none. As the name
+     * suggests, this one is good for filtering things.
+     */
+    interface HTMLLimelExampleChipSetFilterElement extends Components.LimelExampleChipSetFilter, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetFilterElement: {
+        prototype: HTMLLimelExampleChipSetFilterElement;
+        new (): HTMLLimelExampleChipSetFilterElement;
+    };
+    /**
+     * Filter chip set with badge.
+     * The badge can be used to visulize the number of results using each filter.
+     */
+    interface HTMLLimelExampleChipSetFilterBadgeElement extends Components.LimelExampleChipSetFilterBadge, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetFilterBadgeElement: {
+        prototype: HTMLLimelExampleChipSetFilterBadgeElement;
+        new (): HTMLLimelExampleChipSetFilterBadgeElement;
+    };
+    /**
+     * Chips with images
+     * You can use images instead of icons on chips.
+     * :::note
+     * The image will be displayed instead of the icon, if both are provided.
+     * :::
+     */
+    interface HTMLLimelExampleChipSetImageElement extends Components.LimelExampleChipSetImage, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetImageElement: {
+        prototype: HTMLLimelExampleChipSetImageElement;
+        new (): HTMLLimelExampleChipSetImageElement;
+    };
+    /**
+     * Input chip set
+     * Useful for collections of tags or labels. Can also be used as an advanced
+     * search input, with leading icon and a delimiter between search terms.
+     * :::note
+     * Setting `readonly` to `true` when the `type="input"`, the chips that are displayed
+     * will remain interactive. This means that the user can still click on them.
+     * However, the chips cannot be removed or added in `readonly` mode.
+     * :::
+     */
+    interface HTMLLimelExampleChipSetInputElement extends Components.LimelExampleChipSetInput, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetInputElement: {
+        prototype: HTMLLimelExampleChipSetInputElement;
+        new (): HTMLLimelExampleChipSetInputElement;
+    };
+    /**
+     * Input chip set with `inputType` of `search`
+     * When autocorrection is potentially harmful for the user experience and for
+     * your intended result, use `search` as `inputType`. For instance, for a
+     * question like "Please suggest unique names for our newly founded company",
+     * you probably don't want autocorrection, because you would expect many
+     * valid suggestions to not exist in the autocorrection dictionary. Therefore,
+     * you do not want the respondent's input to be regarded as a typo and to be
+     * changed when they press <kbd>Enter</kbd> or <kbd>Space</kbd>.
+     */
+    interface HTMLLimelExampleChipSetInputTypeSearchElement extends Components.LimelExampleChipSetInputTypeSearch, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetInputTypeSearchElement: {
+        prototype: HTMLLimelExampleChipSetInputTypeSearchElement;
+        new (): HTMLLimelExampleChipSetInputTypeSearchElement;
+    };
+    /**
+     * Input chip set with `inputType` of `text`
+     * There is a slight difference in the way browsers treat `input` field
+     * with `type="text"` and `type="search"`. You can read more about this
+     * difference in [Mozilla's documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search#using_search_inputs),
+     * but the most important difference in this case is activation of the
+     * autocorrection feature on most smart devices.
+     * When a user makes a spelling mistake while typing in an input field with
+     * `type="text"`, the mistake will be corrected automatically, right after they
+     * press <kbd>Enter</kbd> or <kbd>Space</kbd>. Input fields with `type="search"`
+     * do not auto correct the user's input.
+     * If you want to use limel-chip-set in a form context, where autocorrection is
+     * a good thing, use `text` as `inputType`. It is important to know that the
+     * chip-set component creates a chip from the autocorrected value, after the
+     * user has pressed the <kbd>Enter</kbd> key and the auto correction has fixed
+     * existing typos! For example, for a question like "Please type five of your
+     * favorite fruits", you would want to avoid misspellings, to collect higher
+     * quality data.
+     */
+    interface HTMLLimelExampleChipSetInputTypeTextElement extends Components.LimelExampleChipSetInputTypeText, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetInputTypeTextElement: {
+        prototype: HTMLLimelExampleChipSetInputTypeTextElement;
+        new (): HTMLLimelExampleChipSetInputTypeTextElement;
+    };
+    /**
+     * Input chip set, containing items with menus
+     * While chips inside a chip set of `type="input"` can be clicked on, resulting in
+     * an action, they can also have an ellipsis menu which will provide the end users with
+     * additional actions.
+     * When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
+     * will be emitted, reflecting the `value` of the selected item.
+     * :::note
+     * When a chip has `removable={true}` and when there are menu items, the "remove button" on the
+     * chip will be automatically added as the last item in the ellipsis menu.
+     * Clicking the remove button will emit the same `onRemove` event.
+     * :::
+     */
+    interface HTMLLimelExampleChipSetInputTypeWithMenuItemsElement extends Components.LimelExampleChipSetInputTypeWithMenuItems, HTMLStencilElement {
+    }
+    var HTMLLimelExampleChipSetInputTypeWithMenuItemsElement: {
+        prototype: HTMLLimelExampleChipSetInputTypeWithMenuItemsElement;
+        new (): HTMLLimelExampleChipSetInputTypeWithMenuItemsElement;
+    };
+    interface HTMLLimelExampleCircularProgressElement extends Components.LimelExampleCircularProgress, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCircularProgressElement: {
+        prototype: HTMLLimelExampleCircularProgressElement;
+        new (): HTMLLimelExampleCircularProgressElement;
+    };
+    /**
+     * Tweaking the style, using CSS variables
+     * The component offers a few possibilities for tweaking its size and colors
+     * using a few CSS variables.
+     * :::note
+     * If you have tweaked component's size using size presets offered by the
+     * `size` prop, the css variable of `--circular-progress-size` will not have any
+     * effect.
+     * :::
+     * :::important
+     * Make sure that the track color is lighter than the fill color. Otherwise the
+     * UI will be very confusing for the users.
+     * :::
+     */
+    interface HTMLLimelExampleCircularProgressCssVariablesElement extends Components.LimelExampleCircularProgressCssVariables, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCircularProgressCssVariablesElement: {
+        prototype: HTMLLimelExampleCircularProgressCssVariablesElement;
+        new (): HTMLLimelExampleCircularProgressCssVariablesElement;
+    };
+    /**
+     * Displaying percentage colors
+     * At Lime Technologies we have a convention for displaying percentage colors.
+     * The colors we use to display a range change with intervals of 10.
+     * The color spectrum is not modifiable, and looks like
+     * red → orange → yellow → green → teal.
+     * To enable this feature, simply set `displayPercentageColors` to `true`.
+     * Try changing the value in the example below to see how colors change
+     * for different percentages.
+     */
+    interface HTMLLimelExampleCircularProgressPercentageColorsElement extends Components.LimelExampleCircularProgressPercentageColors, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCircularProgressPercentageColorsElement: {
+        prototype: HTMLLimelExampleCircularProgressPercentageColorsElement;
+        new (): HTMLLimelExampleCircularProgressPercentageColorsElement;
+    };
+    /**
+     * Using the props
+     * This component is initially designed to visualize a percentage on a scale of
+     * zero to 100. However, you can easily visualize a progress in other scales,
+     * simply by setting `maxValue`, `prefix` and `suffix`.
+     * Look at this example to see how the component displays an angle in a
+     * 360-degrees scale, a 60-seconds scale, and a 5-stars rating.
+     */
+    interface HTMLLimelExampleCircularProgressPropsElement extends Components.LimelExampleCircularProgressProps, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCircularProgressPropsElement: {
+        prototype: HTMLLimelExampleCircularProgressPropsElement;
+        new (): HTMLLimelExampleCircularProgressPropsElement;
+    };
+    /**
+     * Size presets
+     * You can chose a preset size for the component to render it desireably,
+     * using the `size` prop.
+     * However, if these preset sizes do not suit your UI needs, do not specify them
+     * and instead specify the size using the `--circular-progress-size` variable,
+     * which must always be according to our
+     * [size rhythm](#/DesignGuidelines/size-rhythms.md/) guidelines.
+     * Note that the text size is automatically adjusted, based on the visual size
+     * of the component.
+     */
+    interface HTMLLimelExampleCircularProgressSizesElement extends Components.LimelExampleCircularProgressSizes, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCircularProgressSizesElement: {
+        prototype: HTMLLimelExampleCircularProgressSizesElement;
+        new (): HTMLLimelExampleCircularProgressSizesElement;
+    };
+    /**
+     * Editable with automatic theme
+     * Here you see an instance of the Code Editor component which allows editing the
+     * presented code.
+     * This instance has an `auto` `colorScheme`, which means it reacts
+     * to the operating system's settings for preferred appearance (dark or light).
+     */
+    interface HTMLLimelExampleCodeEditorElement extends Components.LimelExampleCodeEditor, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCodeEditorElement: {
+        prototype: HTMLLimelExampleCodeEditorElement;
+        new (): HTMLLimelExampleCodeEditorElement;
+    };
+    /**
+     * Editable with JSON linting and folding
+     * Here you see an instance of the Code Editor component with linting and
+     * folding support, which allows the user to see syntax errors in the JSON
+     * code shown in the editor. Folding makes it easier to collapse larger pieces
+     * of code.
+     */
+    interface HTMLLimelExampleCodeEditorFoldLintElement extends Components.LimelExampleCodeEditorFoldLint, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCodeEditorFoldLintElement: {
+        prototype: HTMLLimelExampleCodeEditorFoldLintElement;
+        new (): HTMLLimelExampleCodeEditorFoldLintElement;
+    };
+    /**
+     * Readonly, with line numbers and dark theme
+     * Here you see a `readonly` instance of the Code Editor component. This means
+     * you cannot edit the code. We also display line numbers here.
+     * Additionally, this instance has a `dark` `colorScheme`, which means it does not
+     * respect the operating system's settings for preferred appearance (dark or light).
+     */
+    interface HTMLLimelExampleCodeEditorReadonlyWithLineNumbersElement extends Components.LimelExampleCodeEditorReadonlyWithLineNumbers, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCodeEditorReadonlyWithLineNumbersElement: {
+        prototype: HTMLLimelExampleCodeEditorReadonlyWithLineNumbersElement;
+        new (): HTMLLimelExampleCodeEditorReadonlyWithLineNumbersElement;
+    };
+    interface HTMLLimelExampleCollapsibleSectionElement extends Components.LimelExampleCollapsibleSection, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCollapsibleSectionElement: {
+        prototype: HTMLLimelExampleCollapsibleSectionElement;
+        new (): HTMLLimelExampleCollapsibleSectionElement;
+    };
+    /**
+     * Example with actions
+     */
+    interface HTMLLimelExampleCollapsibleSectionActionsElement extends Components.LimelExampleCollapsibleSectionActions, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCollapsibleSectionActionsElement: {
+        prototype: HTMLLimelExampleCollapsibleSectionActionsElement;
+        new (): HTMLLimelExampleCollapsibleSectionActionsElement;
+    };
+    /**
+     * Using the CSS properties
+     */
+    interface HTMLLimelExampleCollapsibleSectionCssPropsElement extends Components.LimelExampleCollapsibleSectionCssProps, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCollapsibleSectionCssPropsElement: {
+        prototype: HTMLLimelExampleCollapsibleSectionCssPropsElement;
+        new (): HTMLLimelExampleCollapsibleSectionCssPropsElement;
+    };
+    /**
+     * Opening and closing from outside the component
+     */
+    interface HTMLLimelExampleCollapsibleSectionExternalControlElement extends Components.LimelExampleCollapsibleSectionExternalControl, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCollapsibleSectionExternalControlElement: {
+        prototype: HTMLLimelExampleCollapsibleSectionExternalControlElement;
+        new (): HTMLLimelExampleCollapsibleSectionExternalControlElement;
+    };
+    /**
+     * With a limel-slider - for testing
+     * :::note
+     * Some elements need to be redrawn if they were created
+     * while their container was hidden. The collapsible
+     * section will emit a resize event after opening, to make this happen.
+     * :::
+     */
+    interface HTMLLimelExampleCollapsibleSectionWithSliderElement extends Components.LimelExampleCollapsibleSectionWithSlider, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCollapsibleSectionWithSliderElement: {
+        prototype: HTMLLimelExampleCollapsibleSectionWithSliderElement;
+        new (): HTMLLimelExampleCollapsibleSectionWithSliderElement;
+    };
+    interface HTMLLimelExampleColorPickerElement extends Components.LimelExampleColorPicker, HTMLStencilElement {
+    }
+    var HTMLLimelExampleColorPickerElement: {
+        prototype: HTMLLimelExampleColorPickerElement;
+        new (): HTMLLimelExampleColorPickerElement;
+    };
+    /**
+     * Using the component in `readonly` mode
+     * It is possible to use the component to visualize a color of your choice.
+     * In this case, users cannot pick any colors, but they can view what you have picked.
+     */
+    interface HTMLLimelExampleColorPickerReadonlyElement extends Components.LimelExampleColorPickerReadonly, HTMLStencilElement {
+    }
+    var HTMLLimelExampleColorPickerReadonlyElement: {
+        prototype: HTMLLimelExampleColorPickerReadonlyElement;
+        new (): HTMLLimelExampleColorPickerReadonlyElement;
+    };
+    interface HTMLLimelExampleColorsInComponentsElement extends Components.LimelExampleColorsInComponents, HTMLStencilElement {
+    }
+    var HTMLLimelExampleColorsInComponentsElement: {
+        prototype: HTMLLimelExampleColorsInComponentsElement;
+        new (): HTMLLimelExampleColorsInComponentsElement;
+    };
+    interface HTMLLimelExampleContrastColorPaletteElement extends Components.LimelExampleContrastColorPalette, HTMLStencilElement {
+    }
+    var HTMLLimelExampleContrastColorPaletteElement: {
+        prototype: HTMLLimelExampleContrastColorPaletteElement;
+        new (): HTMLLimelExampleContrastColorPaletteElement;
+    };
+    /**
+     * This component is only used in our documentations
+     * to provide a container for settings of examples.
+     * For example, it visually groups and organizes checkboxes
+     * used to show different states of components,
+     * such as Disabled, Required, Readonly, etc…
+     * :::warning
+     * For internal use only!
+     * :::
+     */
+    interface HTMLLimelExampleControlsElement extends Components.LimelExampleControls, HTMLStencilElement {
+    }
+    var HTMLLimelExampleControlsElement: {
+        prototype: HTMLLimelExampleControlsElement;
+        new (): HTMLLimelExampleControlsElement;
+    };
+    /**
+     * Custom form component
+     * You can specify a custom component to use for any property in your form. This
+     * is done under the `lime` key in the schema, following the
+     * [LimeSchemaOptions](#/type/LimeSchemaOptions/) specification, for example:
+     * ```ts
+     * const schema = {
+     *     type: 'object',
+     *     properties: {
+     *         hero: {
+     *             type: 'integer',
+     *             title: 'Hero',
+     *             lime: {
+     *                 component: {
+     *                     name: 'my-useful-hero-picker',
+     *                 },
+     *             },
+     *         },
+     *     },
+     * };
+     * ```
+     * While you can, in principle, use any component in a form, your custom form
+     * components should implement the [FormComponent](#/type/FormComponent/)
+     * interface.
+     * @sourceFile custom-component-schema.ts
+     * @sourceFile custom-component-picker.tsx
+     */
+    interface HTMLLimelExampleCustomComponentFormElement extends Components.LimelExampleCustomComponentForm, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCustomComponentFormElement: {
+        prototype: HTMLLimelExampleCustomComponentFormElement;
+        new (): HTMLLimelExampleCustomComponentFormElement;
+    };
+    /**
+     * Form with custom error message
+     * @sourceFile custom-error-message-schema.ts
+     */
+    interface HTMLLimelExampleCustomErrorMessageElement extends Components.LimelExampleCustomErrorMessage, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCustomErrorMessageElement: {
+        prototype: HTMLLimelExampleCustomErrorMessageElement;
+        new (): HTMLLimelExampleCustomErrorMessageElement;
+    };
+    interface HTMLLimelExampleCustomPickerElement extends Components.LimelExampleCustomPicker, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCustomPickerElement: {
+        prototype: HTMLLimelExampleCustomPickerElement;
+        new (): HTMLLimelExampleCustomPickerElement;
+    };
+    /**
+     * Custom type
+     * It is possible to send in a custom type,
+     * and provide it with custom, icon, heading and styles
+     */
+    interface HTMLLimelExampleCustomTypeElement extends Components.LimelExampleCustomType, HTMLStencilElement {
+    }
+    var HTMLLimelExampleCustomTypeElement: {
+        prototype: HTMLLimelExampleCustomTypeElement;
+        new (): HTMLLimelExampleCustomTypeElement;
+    };
+    interface HTMLLimelExampleDarkLightModeElement extends Components.LimelExampleDarkLightMode, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDarkLightModeElement: {
+        prototype: HTMLLimelExampleDarkLightModeElement;
+        new (): HTMLLimelExampleDarkLightModeElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface HTMLLimelExampleDatePickerCompositeElement extends Components.LimelExampleDatePickerComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerCompositeElement: {
+        prototype: HTMLLimelExampleDatePickerCompositeElement;
+        new (): HTMLLimelExampleDatePickerCompositeElement;
+    };
+    /**
+     * Custom date formatter
+     * You can provide a function to customize the date formatting.
+     */
+    interface HTMLLimelExampleDatePickerCustomFormatterElement extends Components.LimelExampleDatePickerCustomFormatter, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerCustomFormatterElement: {
+        prototype: HTMLLimelExampleDatePickerCustomFormatterElement;
+        new (): HTMLLimelExampleDatePickerCustomFormatterElement;
+    };
+    /**
+     * date
+     */
+    interface HTMLLimelExampleDatePickerDateElement extends Components.LimelExampleDatePickerDate, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerDateElement: {
+        prototype: HTMLLimelExampleDatePickerDateElement;
+        new (): HTMLLimelExampleDatePickerDateElement;
+    };
+    /**
+     * datetime
+     */
+    interface HTMLLimelExampleDatePickerDatetimeElement extends Components.LimelExampleDatePickerDatetime, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerDatetimeElement: {
+        prototype: HTMLLimelExampleDatePickerDatetimeElement;
+        new (): HTMLLimelExampleDatePickerDatetimeElement;
+    };
+    /**
+     * With defined localization
+     */
+    interface HTMLLimelExampleDatePickerFormattedElement extends Components.LimelExampleDatePickerFormatted, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerFormattedElement: {
+        prototype: HTMLLimelExampleDatePickerFormattedElement;
+        new (): HTMLLimelExampleDatePickerFormattedElement;
+    };
+    /**
+     * month
+     */
+    interface HTMLLimelExampleDatePickerMonthElement extends Components.LimelExampleDatePickerMonth, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerMonthElement: {
+        prototype: HTMLLimelExampleDatePickerMonthElement;
+        new (): HTMLLimelExampleDatePickerMonthElement;
+    };
+    /**
+     * Changing the input programmatically
+     */
+    interface HTMLLimelExampleDatePickerProgrammaticChangeElement extends Components.LimelExampleDatePickerProgrammaticChange, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerProgrammaticChangeElement: {
+        prototype: HTMLLimelExampleDatePickerProgrammaticChangeElement;
+        new (): HTMLLimelExampleDatePickerProgrammaticChangeElement;
+    };
+    /**
+     * quarter
+     */
+    interface HTMLLimelExampleDatePickerQuarterElement extends Components.LimelExampleDatePickerQuarter, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerQuarterElement: {
+        prototype: HTMLLimelExampleDatePickerQuarterElement;
+        new (): HTMLLimelExampleDatePickerQuarterElement;
+    };
+    /**
+     * time
+     */
+    interface HTMLLimelExampleDatePickerTimeElement extends Components.LimelExampleDatePickerTime, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerTimeElement: {
+        prototype: HTMLLimelExampleDatePickerTimeElement;
+        new (): HTMLLimelExampleDatePickerTimeElement;
+    };
+    /**
+     * week
+     */
+    interface HTMLLimelExampleDatePickerWeekElement extends Components.LimelExampleDatePickerWeek, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerWeekElement: {
+        prototype: HTMLLimelExampleDatePickerWeekElement;
+        new (): HTMLLimelExampleDatePickerWeekElement;
+    };
+    /**
+     * year
+     */
+    interface HTMLLimelExampleDatePickerYearElement extends Components.LimelExampleDatePickerYear, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDatePickerYearElement: {
+        prototype: HTMLLimelExampleDatePickerYearElement;
+        new (): HTMLLimelExampleDatePickerYearElement;
+    };
+    interface HTMLLimelExampleDialogElement extends Components.LimelExampleDialog, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDialogElement: {
+        prototype: HTMLLimelExampleDialogElement;
+        new (): HTMLLimelExampleDialogElement;
+    };
+    /**
+     * Example with three action buttons
+     * This example shows how more than two buttons can be positioned in a dialog's
+     * footer. Pay attention to how they are labeled & styled, and how you can
+     * enable important actions conditionally.
+     * :::note
+     * When it comes to details such as placement of action buttons, choice of
+     * labels, and adding meaningful graphical details, it's important to follow
+     * a few design conventions which are explained in
+     * [this guide](#/DesignGuidelines/action-buttons.md/).
+     */
+    interface HTMLLimelExampleDialogActionButtonsElement extends Components.LimelExampleDialogActionButtons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDialogActionButtonsElement: {
+        prototype: HTMLLimelExampleDialogActionButtonsElement;
+        new (): HTMLLimelExampleDialogActionButtonsElement;
+    };
+    /**
+     * Custom closing actions
+     * Action buttons in dialogs can be used to add a clear visual indication for
+     * the sighted users to realize that the dialog can be closed by pressing
+     * a button as well.
+     * This may sometimes be considered an unnecessary usage of action buttons for
+     * sighted users. Because majority of them users know that clicking or tapping
+     * outside the dialog closes it.
+     * Such buttons are usually labeled ***OK***, ***Dismiss*** or ***Close***.
+     * :::tip
+     * When to use action buttons for simple "close" actions?
+     * - In fullscreen dialogs where clicking outside to close is hard.
+     * - When big dialogs are opened on phones, which make tapping outside hard for users.
+     * - When designing with accessibility in mind, and for those users who
+     * use screen readers to navigate the user interface.
+     * :::
+     * But sometimes, depending on the importance of the message which is displayed,
+     * you have to choose to display a close button, and disable other means of
+     * dismissing the dialog.
+     * :::tip
+     * When to use custom closing actions?
+     * - To make sure that the user really reads and understands the dialog's content.
+     * - To make sure that the user does not accidentally click outside and close the dialog.
+     * :::
+     * For such cases, avoid generic labels like ***OK***, or ***Close*** which unconsciously
+     * motivate users to dismiss the message; and instead use more purposeful labels
+     * such as ***I understand***, ***Looks good!***, ***Continue***, and similar;
+     * like in the example below.
+     */
+    interface HTMLLimelExampleDialogClosingActionsElement extends Components.LimelExampleDialogClosingActions, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDialogClosingActionsElement: {
+        prototype: HTMLLimelExampleDialogClosingActionsElement;
+        new (): HTMLLimelExampleDialogClosingActionsElement;
+    };
+    /**
+     * Dialog with form and header
+     */
+    interface HTMLLimelExampleDialogFormElement extends Components.LimelExampleDialogForm, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDialogFormElement: {
+        prototype: HTMLLimelExampleDialogFormElement;
+        new (): HTMLLimelExampleDialogFormElement;
+    };
+    /**
+     * Fullscreen
+     */
+    interface HTMLLimelExampleDialogFullscreenElement extends Components.LimelExampleDialogFullscreen, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDialogFullscreenElement: {
+        prototype: HTMLLimelExampleDialogFullscreenElement;
+        new (): HTMLLimelExampleDialogFullscreenElement;
+    };
+    /**
+     * Dialog with heading
+     * In this example you can also see how available style properties can be used.
+     */
+    interface HTMLLimelExampleDialogHeadingElement extends Components.LimelExampleDialogHeading, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDialogHeadingElement: {
+        prototype: HTMLLimelExampleDialogHeadingElement;
+        new (): HTMLLimelExampleDialogHeadingElement;
+    };
+    /**
+     * Dialog with action inside the heading
+     * In this example you can also see how available style properties can be used.
+     */
+    interface HTMLLimelExampleDialogHeadingActionsElement extends Components.LimelExampleDialogHeadingActions, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDialogHeadingActionsElement: {
+        prototype: HTMLLimelExampleDialogHeadingActionsElement;
+        new (): HTMLLimelExampleDialogHeadingActionsElement;
+    };
+    /**
+     * Nested `close` events
+     * When putting other elements that emit `close` events inside a dialog, those
+     * events must be caught and stopped inside the dialog. If not, they will bubble
+     * to the event handler listening for `close` events on the dialog, which will
+     * close the dialog too.
+     * This example has an event handler for the `close` event on the dialog, and
+     * a second event handler for the `close` event on the collapsible-section.
+     * Try it out with the _Stop the inner close-event_ switch disabled, and then
+     * with the switch enabled, to see the difference.
+     */
+    interface HTMLLimelExampleDialogNestedCloseEventsElement extends Components.LimelExampleDialogNestedCloseEvents, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDialogNestedCloseEventsElement: {
+        prototype: HTMLLimelExampleDialogNestedCloseEventsElement;
+        new (): HTMLLimelExampleDialogNestedCloseEventsElement;
+    };
+    /**
+     * Custom size
+     */
+    interface HTMLLimelExampleDialogSizeElement extends Components.LimelExampleDialogSize, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDialogSizeElement: {
+        prototype: HTMLLimelExampleDialogSizeElement;
+        new (): HTMLLimelExampleDialogSizeElement;
+    };
+    /**
+     * Basic Example
+     * The Dock component can be used as a place for displaying the app's
+     * primary navigation.
+     * :::important
+     * Avoid having too many items in the Dock, because it will become
+     * problematic on mobile devices, when the component is rendered horizontally.
+     * :::
+     * It is possible to split the dock items into two sections and place one or
+     * more items at the bottom of the column. To do so, you can use `isFooterStart`
+     * on one of the items, which will act as a separator between the two sections,
+     * pushing itself and preceding to the bottom.
+     * :::important
+     * You must provide `label`s for to improve accesibility! Without labels,
+     * screen-readers cannot tell visually impared persons about the content
+     * of the Dock.
+     * :::
+     * It is possible to add extra information about the items using `helperLabel`.
+     * When the component is expanded, only the `helpeLabel` is used
+     * in the tooltip, when items are hovered.
+     * When the component is shrunk, both `label` and `helperLabel` are displayed
+     * inside the tooltip.
+     * Keep in mind that on a mobile phone, the component will be displayed horizontally
+     * and no labels are displayed! Instead, both `label` and `helperLabel` will be used
+     * as a tooltip to improve accessibility for screen-reader technologies.
+     * However, since hovering is not possible on touch-only mobile devices, users who
+     * rely on their vision to navigate the app will only see your chosen icons.
+     * So pick them carefully.
+     */
+    interface HTMLLimelExampleDockBasicElement extends Components.LimelExampleDockBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDockBasicElement: {
+        prototype: HTMLLimelExampleDockBasicElement;
+        new (): HTMLLimelExampleDockBasicElement;
+    };
+    /**
+     * Using CSS color variables for theming the Dock
+     * A few CSS variables can be used to customize the look and feel of the steps.
+     * :::note
+     * Using CSS variables to tweak the colors, applies the colors globally to the
+     * component, not to individual Dock items!
+     * :::
+     * :::important
+     * Make sure that:
+     * - text has enough contrast with its background and is readable.
+     * :::
+     */
+    interface HTMLLimelExampleDockColorsCssElement extends Components.LimelExampleDockColorsCss, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDockColorsCssElement: {
+        prototype: HTMLLimelExampleDockColorsCssElement;
+        new (): HTMLLimelExampleDockColorsCssElement;
+    };
+    /**
+     * Displaying a custom component after Dock item is clicked
+     * It is possible to display a custom component in a popover,
+     * when the Dock item is clicked. This enables you to design
+     * the content of the menu as you wish, independently from the Dock.
+     * :::note
+     * Pay attention to the `--popover-surface-width` variable in the
+     * `.SCSS` file. That defines the width the popover component, which is `auto`
+     * by default. But modifying it may be helpful depending on the usage.
+     * :::
+     * @sourceFile my-custom-menu.tsx
+     */
+    interface HTMLLimelExampleDockCustomComponentElement extends Components.LimelExampleDockCustomComponent, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDockCustomComponentElement: {
+        prototype: HTMLLimelExampleDockCustomComponentElement;
+        new (): HTMLLimelExampleDockCustomComponentElement;
+    };
+    /**
+     * Basic Example expanded
+     */
+    interface HTMLLimelExampleDockExpandedElement extends Components.LimelExampleDockExpanded, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDockExpandedElement: {
+        prototype: HTMLLimelExampleDockExpandedElement;
+        new (): HTMLLimelExampleDockExpandedElement;
+    };
+    /**
+     * Setting a horizontal layout for mobile devices.
+     * By default, the component has a vertical layout, placing the
+     * Dock items in a column. However, the component will render the
+     * Dock items in a horizontal layout when the screen width is smaller
+     * than `700px`.
+     * If you prefer the component to switch to the horizontal mobile layout
+     * at another breakpoint, use the `mobileBreakPoint` property and give it
+     * a desired value in pixels (without `px`).
+     * In this example, we have chosen a very large number (`5000`) to force
+     * the component to be rendered in mobile layout here in the documentation,
+     * no matter how large the reader's screen size is.
+     * :::important
+     * Triggering the mobile layout does not automatically adjust the position
+     * of the component at the bottom of the screen. You should do that manually
+     * yourself in a proper way, depending on where the component is used;
+     * for example by using CSS media queries, and setting `position: fixed`.
+     * :::
+     * :::note
+     * Labels are not displayed in horizontal layout, but they will be instead
+     * displayed as tooltips.
+     * :::
+     */
+    interface HTMLLimelExampleDockMobileElement extends Components.LimelExampleDockMobile, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDockMobileElement: {
+        prototype: HTMLLimelExampleDockMobileElement;
+        new (): HTMLLimelExampleDockMobileElement;
+    };
+    /**
+     * Displaying a notification badge
+     * It is possible to display a notification badge on each individual
+     * button in the Dock. Badges are supposed to inform the user that
+     * there is something in the menu that requires their attention.
+     * This is typically done by displaying a number, which summarizes
+     * the quantity of the items that require user's attention.
+     * :::important
+     * The menus are not a part of the Dock. They are individual components
+     * that you develop separately. Make sure that the information
+     * and interactions regarding the notifications are correctly handled.
+     * For example, when the items that require user's attention are
+     * seen or handled by the user after opening the menu, the badge on the
+     * Dock button should disappear.
+     * :::
+     * When this quantity is unclear or undefined, you can simply pass an
+     * empty string (`badge: ''`), which will only render a circle on the button.
+     * This is enough to attract user's attention.
+     * However, it is also possible to use a short string such as "·" or "!"
+     * for such cases, if considered necessary.
+     * :::warning
+     * Do not negatively exploit this possibility and spam users' awareness.
+     * The Dock is the most important and most dominant structural part of
+     * the UI of your application. Therefore crowding it with too much noise
+     * _will_ negatively affect the user experience.
+     * :::
+     */
+    interface HTMLLimelExampleDockNotificationElement extends Components.LimelExampleDockNotification, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDockNotificationElement: {
+        prototype: HTMLLimelExampleDockNotificationElement;
+        new (): HTMLLimelExampleDockNotificationElement;
+    };
+    /**
+     * Dynamic schema
+     */
+    interface HTMLLimelExampleDynamicFormElement extends Components.LimelExampleDynamicForm, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDynamicFormElement: {
+        prototype: HTMLLimelExampleDynamicFormElement;
+        new (): HTMLLimelExampleDynamicFormElement;
+    };
+    /**
+     * Basic example
+     * Switching the value to `true` or `false` will dynamically change the label,
+     * while the default label (including its icon) is ignored.
+     */
+    interface HTMLLimelExampleDynamicLabelElement extends Components.LimelExampleDynamicLabel, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDynamicLabelElement: {
+        prototype: HTMLLimelExampleDynamicLabelElement;
+        new (): HTMLLimelExampleDynamicLabelElement;
+    };
+    /**
+     * Readonly boolean
+     * The `readonly` mode of a boolean fields do not always
+     * clearly communicate the meaning of the data to the end users. Similar problems
+     * have existed in user interfaces forever, and it not solely limited to
+     * readonly-ness of a boolean field. If you are interested in reading more
+     * about these common design problems, you can check out
+     * [**State-Switch Controls:** The Infamous Case of the "Mute" Button](https://www.nngroup.com/articles/state-switch-buttons/)
+     * In short, the reason end-users become confused is that it is not enough to
+     * keep the same label for both `true` and `false` states,
+     * and only rely on changing the color or the
+     * shapes and visual motifs, to communicate what the field means.
+     * Instead, we need to use different labels to describe the state,
+     * and also get some additional help from icons and colors
+     * to clarify further if needed.
+     * :::important
+     * This example shows how to setup the `limel-dynamic-label` component to
+     * create a more descriptive and dynamic labels for boolean fields.
+     * But please make sure to read our guidelines about
+     * [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/)
+     * to understand the importance of this, and get help in choosing the right labels
+     * for boolean fields.
+     * :::
+     */
+    interface HTMLLimelExampleDynamicLabelReadonlyBooleanElement extends Components.LimelExampleDynamicLabelReadonlyBoolean, HTMLStencilElement {
+    }
+    var HTMLLimelExampleDynamicLabelReadonlyBooleanElement: {
+        prototype: HTMLLimelExampleDynamicLabelReadonlyBooleanElement;
+        new (): HTMLLimelExampleDynamicLabelReadonlyBooleanElement;
+    };
+    interface HTMLLimelExampleEventPrinterElement extends Components.LimelExampleEventPrinter, HTMLStencilElement {
+    }
+    var HTMLLimelExampleEventPrinterElement: {
+        prototype: HTMLLimelExampleEventPrinterElement;
+        new (): HTMLLimelExampleEventPrinterElement;
+    };
+    interface HTMLLimelExampleExtendedColorPaletteElement extends Components.LimelExampleExtendedColorPalette, HTMLStencilElement {
+    }
+    var HTMLLimelExampleExtendedColorPaletteElement: {
+        prototype: HTMLLimelExampleExtendedColorPaletteElement;
+        new (): HTMLLimelExampleExtendedColorPaletteElement;
+    };
+    /**
+     * Basic example
+     */
+    interface HTMLLimelExampleFileElement extends Components.LimelExampleFile, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileElement: {
+        prototype: HTMLLimelExampleFileElement;
+        new (): HTMLLimelExampleFileElement;
+    };
+    /**
+     * Limit accepted file types
+     */
+    interface HTMLLimelExampleFileAcceptedTypesElement extends Components.LimelExampleFileAcceptedTypes, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileAcceptedTypesElement: {
+        prototype: HTMLLimelExampleFileAcceptedTypesElement;
+        new (): HTMLLimelExampleFileAcceptedTypesElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface HTMLLimelExampleFileCompositeElement extends Components.LimelExampleFileComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileCompositeElement: {
+        prototype: HTMLLimelExampleFileCompositeElement;
+        new (): HTMLLimelExampleFileCompositeElement;
+    };
+    /**
+     * Custom icon and color
+     * This component automatically visualizes the file type, based on the extension
+     * of the selected file. The visualization is done by displaying a colorful icon
+     * along with the filename, for the most common file types.
+     * However, you can also customize the icon and its fill color & background color.
+     */
+    interface HTMLLimelExampleFileCustomIconElement extends Components.LimelExampleFileCustomIcon, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileCustomIconElement: {
+        prototype: HTMLLimelExampleFileCustomIconElement;
+        new (): HTMLLimelExampleFileCustomIconElement;
+    };
+    /**
+     * Basic example
+     */
+    interface HTMLLimelExampleFileDropzoneElement extends Components.LimelExampleFileDropzone, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileDropzoneElement: {
+        prototype: HTMLLimelExampleFileDropzoneElement;
+        new (): HTMLLimelExampleFileDropzoneElement;
+    };
+    /**
+     * File type filtering
+     * The component allows you to specify the types of files that the dropzone will accept.
+     * By default, it accepts all file types (`*`).
+     * For media files, it is possible to specify any format, using:
+     * `audio/*`, `video/*`, `image/*`.
+     * Additionally, you can use unique file type specifiers, such as:
+     * `.jpg`, or `.pdf`; or use a comma-separated list of file extensions or MIME types,
+     * for instance: `image/png, image/jpeg` or `.png, .jpg, .jpeg`.
+     * Read more about
+     * [HTML attribute: accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept)
+     */
+    interface HTMLLimelExampleFileDropzoneTypeFilteringElement extends Components.LimelExampleFileDropzoneTypeFiltering, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileDropzoneTypeFilteringElement: {
+        prototype: HTMLLimelExampleFileDropzoneTypeFilteringElement;
+        new (): HTMLLimelExampleFileDropzoneTypeFilteringElement;
+    };
+    /**
+     * Basic example
+     */
+    interface HTMLLimelExampleFileInputElement extends Components.LimelExampleFileInput, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileInputElement: {
+        prototype: HTMLLimelExampleFileInputElement;
+        new (): HTMLLimelExampleFileInputElement;
+    };
+    /**
+     * Example of a file input component with type filtering
+     */
+    interface HTMLLimelExampleFileInputTypeFilteringElement extends Components.LimelExampleFileInputTypeFiltering, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileInputTypeFilteringElement: {
+        prototype: HTMLLimelExampleFileInputTypeFilteringElement;
+        new (): HTMLLimelExampleFileInputTypeFilteringElement;
+    };
+    /**
+     * Most common file types
+     * These are file formats that any web browser can display,
+     * without relying on any third-party plugins or additional
+     * plugins or extensions.
+     */
+    interface HTMLLimelExampleFileViewerElement extends Components.LimelExampleFileViewer, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileViewerElement: {
+        prototype: HTMLLimelExampleFileViewerElement;
+        new (): HTMLLimelExampleFileViewerElement;
+    };
+    /**
+     * Adding custom actions
+     */
+    interface HTMLLimelExampleFileViewerCustomActionsElement extends Components.LimelExampleFileViewerCustomActions, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileViewerCustomActionsElement: {
+        prototype: HTMLLimelExampleFileViewerCustomActionsElement;
+        new (): HTMLLimelExampleFileViewerCustomActionsElement;
+    };
+    /**
+     * Using the `filename` prop
+     * The component looks at the URL of the provided file, and based on how the
+     * URL ends, it can detect the extension and consequently choose the right way
+     * of rendering it in the browser.
+     * However, sometimes the URLs do not have the filename in them. In this case,
+     * it is vital to specify the filename, for the component to be able to render it.
+     * :::important
+     * Make sure the provided filename contains the correct extension!
+     * :::
+     * :::tip
+     * The filename that is specified will also be the filename that is used when the
+     * file is downloaded by clicking the download button on the File Viewer.
+     * :::
+     */
+    interface HTMLLimelExampleFileViewerFilenameElement extends Components.LimelExampleFileViewerFilename, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileViewerFilenameElement: {
+        prototype: HTMLLimelExampleFileViewerFilenameElement;
+        new (): HTMLLimelExampleFileViewerFilenameElement;
+    };
+    /**
+     * Using inbuilt actions
+     * The component offers a few inbuilt actions that enable users
+     * to download the file, open it in a new tab, or view it in fullscreen mode.
+     * :::note
+     * These action buttons do not get rendered for the office files,
+     * because the 3rd-party office viewers already offer the same features
+     * in their UI.
+     * :::
+     * :::important
+     * The download button will not work here in this example,
+     * due to the security policies of the web browsers.
+     * This is because the example files are not hosted in the same domain.
+     * :::
+     */
+    interface HTMLLimelExampleFileViewerInbuiltActionsElement extends Components.LimelExampleFileViewerInbuiltActions, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileViewerInbuiltActionsElement: {
+        prototype: HTMLLimelExampleFileViewerInbuiltActionsElement;
+        new (): HTMLLimelExampleFileViewerInbuiltActionsElement;
+    };
+    /**
+     * Office files
+     * There are many different software programs that can be used to create
+     * office files such as word processing documents, spreadsheets, and presentations.
+     * Web browsers do not natively support these formats for direct display.
+     * However, using the file-viewer component, you can easily display the content
+     * of office file types. The viewer relies on a few third-party technologies
+     * to render the file.
+     * By default, the component uses Microsoft Office Viewer, since it supports
+     * a wider range of file office formats. However, you can
+     * choose other viewers which are supported by this component.
+     * :::important
+     * 1. The file should be stored somewhere with a publicly accessible URL,
+     * otherwise the viewer cannot render them.
+     * 1. Once the file is viewed, it might get cached for a short while on the
+     * 3rd party servers –therefor remain publicly visible–,
+     * even if the original file deleted.
+     * 1. Files that are too large may not be rendered at all.
+     * :::
+     */
+    interface HTMLLimelExampleFileViewerOfficeElement extends Components.LimelExampleFileViewerOffice, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileViewerOfficeElement: {
+        prototype: HTMLLimelExampleFileViewerOfficeElement;
+        new (): HTMLLimelExampleFileViewerOfficeElement;
+    };
+    /**
+     * See an instant preview
+     * Select a file from your local machine using the file picker below,
+     * and `limel-file-viewer` component will display the file, if the format
+     * is supported.
+     */
+    interface HTMLLimelExampleFileViewerWithPickerElement extends Components.LimelExampleFileViewerWithPicker, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFileViewerWithPickerElement: {
+        prototype: HTMLLimelExampleFileViewerWithPickerElement;
+        new (): HTMLLimelExampleFileViewerWithPickerElement;
+    };
+    /**
+     * Basic form with validation
+     * @sourceFile basic-schema.ts
+     */
+    interface HTMLLimelExampleFormElement extends Components.LimelExampleForm, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFormElement: {
+        prototype: HTMLLimelExampleFormElement;
+        new (): HTMLLimelExampleFormElement;
+    };
+    /**
+     * Layout
+     * By default, each item in a limel-form will be rendered in a single row, and
+     * each row occupies the entire available width of the form's container.
+     * This default layout may work fine on small screens or narrow containers,
+     * but on larger screens it usually won't produce a nice layout. Thus we
+     * recommend that you choose an appropriate responsive layout for your form.
+     * ###### Enabling responsive layouts
+     * By specifying `'grid'` as the layout `type` in your schema, as well as your desired
+     * number of `columns`, you can leave the job of responsively handling the form
+     * layout to Lime Elements.
+     * ```ts
+     * export const schema = {
+     *     type: 'object',
+     *     lime: {
+     *         layout: {
+     *             type: 'grid',
+     *             columns: 3,
+     *         },
+     *     },
+     *     …
+     * };
+     * ```
+     * :::note
+     * Value for `columns` can only be `5`, `4`, `3`, `2`, or `1`. If you do not
+     * specify a value, `limel-form` will choose `5` by default.
+     * :::
+     * So if you have chosen `4` for instance, the form will do its best to fit
+     * four columns in a row. But for smaller containers in which placement of four
+     * items per row is not possible, the form will automatically change the layout
+     * and fit 3 items per row. As the container's width decreases, the number of
+     * columns will also decrease.
+     * :::tip
+     * You can divide a form into sections,
+     * and specify a different layout for each section.
+     * :::
+     * In this example, each collapsible section has its own `colSpan`.
+     * However, since the layout is responsive, make sure to change the browser
+     * window size to see how their responsive layout changes.
+     * @sourceFile layout-schema.ts
+     */
+    interface HTMLLimelExampleFormLayoutElement extends Components.LimelExampleFormLayout, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFormLayoutElement: {
+        prototype: HTMLLimelExampleFormLayoutElement;
+        new (): HTMLLimelExampleFormLayoutElement;
+    };
+    interface HTMLLimelExampleFormMapComponentElement extends Components.LimelExampleFormMapComponent, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFormMapComponentElement: {
+        prototype: HTMLLimelExampleFormMapComponentElement;
+        new (): HTMLLimelExampleFormMapComponentElement;
+    };
+    /**
+     * Row layout
+     * @sourceFile row-layout-schema.ts
+     */
+    interface HTMLLimelExampleFormRowLayoutElement extends Components.LimelExampleFormRowLayout, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFormRowLayoutElement: {
+        prototype: HTMLLimelExampleFormRowLayoutElement;
+        new (): HTMLLimelExampleFormRowLayoutElement;
+    };
+    /**
+     * Stretching fields in a form
+     * Sometimes, you need a field in the form to occupy several columns or the
+     * entire row, and stretch itself as wide as the form's width,
+     * disregarding the form's layout and placement of the item in the list.
+     * This could be nice for fields that require more space to provide better
+     * usability.
+     * :::tip
+     * For example, a larger `textarea` is easier for the user to type in and
+     * a `slider` that has many steps is easier to interact with when it is rendered wider.
+     * :::
+     * To do so, in your schema you need to specify a `layout` for the field itself.
+     * `span` specifies the number of columns that the field should span.
+     * Thus, `span` can be set to `2`, `3`, `4`, `5`, or `all`.
+     * Since we do not offer a *form layout* that has more than five columns,
+     * values higher than 5 (or higher than the maximum number of columns in the form)
+     * will only force the field to be full-width, just like `all` does.
+     * ```ts
+     * export const schema = {
+     *     …
+     *     properties: {
+     *         name: {
+     *             type: 'string',
+     *             title: 'Comment',
+     *             lime: {
+     *                 layout: {
+     *                       colSpan: 'all',
+     *                   },
+     *               },
+     *         },
+     *         …
+     *     },
+     *     …
+     * };
+     * ```
+     * ###### Dense layout (Auto reorder fields to avoid empty cells)
+     * The order of fields and the number of columns that a field must span, can
+     * affect the layout of your responsive form when the container width changes.
+     * Let's say you have a form with a 4 column layout, and you specify that its
+     * second field must span 3 columns.
+     * If the container's width decreases, it will force the form to render its
+     * layout in 3 columns instead. Therefore, the second field has to jump
+     * to the next line to still be able to span 3 columns.
+     * This will leave 2 empty cells in the first row, right after the first field.
+     * To avoid these empty cells in the UI, limel-form will place the next available
+     * field in this hole, provided it fits. So the hole may be filled by a single 2 column
+     * wide field, by two 1 column wide fields, or only partially filled by a single 1 column
+     * wide field. If none of the remaining fields fit, the hole will be left as it is.
+     * However, you can disable this functionality by setting `dense` to `false` in the
+     * options for the grid layout.
+     * ```ts
+     * export const schema = {
+     *     type: 'object',
+     *     lime: {
+     *         layout: {
+     *             type: 'grid',
+     *             dense: false,
+     *         },
+     *     },
+     * };
+     * ```
+     * :::note
+     * Sometimes, the order of fields are important for the way users perceive the form.
+     * If you choose to use the default auto-reordering behavior, make sure to test your
+     * form's layout in different screen sizes to see whether you can mitigate unwanted
+     * layout changes.
+     * Some unwanted results can be avoided by changing the order of the fields,
+     * so that they render appropriately on different screens, or by dividing
+     * the form into more sections.
+     * :::
+     * ###### Stretching a field vertically
+     * Most standard elements that can be used in forms, such as `limel-input`,
+     * `limel-select`, `limel-slider`, etc, have a fixed height, and therefore
+     * it does not really make sense to stretch them vertically, and we strongly
+     * recommend you not to!
+     * But there are some exceptions. One of them is `limel-input-field` with
+     * `type='textarea'`.
+     * Also, if you create a custom component for your form—let's say a map—you
+     * can use `rowSpan` to increase the height of your custom component.
+     * ```ts
+     * export const schema = {
+     *     type: 'object',
+     *     properties: {
+     *         comment: {
+     *             type: 'string',
+     *             title: 'Comment',
+     *             lime: {
+     *                 component: {
+     *                     props: {
+     *                         type: 'textarea',
+     *                     },
+     *                 },
+     *                 layout: {
+     *                       colSpan: 3,
+     *                       rowSpan: 2,
+     *                 },
+     *             },
+     *         },
+     *     },
+     * };
+     * ```
+     * :::note
+     * If you do *not* set the `rowSpan` for a component, it can stretch vertically
+     * within its row, and the row will simply expand with the component.
+     * If you *do* set a `rowSpan`, even if you set it to `1`, the component is
+     * fixed to that height. What happens to any potential overflow depends on the
+     * component.
+     * :::
+     * :::warning
+     * Custom web-components that you include in the forms should not have hard-coded
+     * `width` or `height` values! Otherwise they will stretch out of their cell and break
+     * the UI. Make sure that such components are internally designed to be responsive,
+     * and that their `:host` and any potential wrapping container has the following styles:
+     * ```scss
+     * :host {
+     *     display: block; // or another suitable property
+     *     width: 100%;
+     *     height: 100%;
+     * }
+     * :host([hidden]) {
+     *     display: none;
+     * }
+     * .my-component {
+     *     width: 100%;
+     *     height: 100%;
+     * }
+     * ```
+     * :::
+     * @sourceFile span-fields-schema.ts
+     */
+    interface HTMLLimelExampleFormSpanFieldsElement extends Components.LimelExampleFormSpanFields, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFormSpanFieldsElement: {
+        prototype: HTMLLimelExampleFormSpanFieldsElement;
+        new (): HTMLLimelExampleFormSpanFieldsElement;
+    };
+    /**
+     * Form fields with help
+     * It's possible to add extensive help to any form element.
+     * The string you provide can be in Markdown format,
+     * empowering you to present a rich-text experience to the user,
+     * including bullet points, hyperlinks, etc…
+     * Read more on [Help](#/component/limel-help) component.
+     * :::note
+     * Do not confuse `help` and `helperText`!
+     * The helper text is a short description for the input fields
+     * that becomes visible when the user click on the fields to provide
+     * brief clues about the field or its expected value.
+     * It can also be used to display validation errors.
+     * These errors will be displayed in red below the fields, without
+     * requiring the users to click on the field.
+     * Check out the [Input field Component](#/component/limel-input-field)
+     * examples, where we describe how to properly use `helperText`, and `placeholder`.
+     * :::
+     * :::tip
+     * When rendering a form using a schema, the `helperText`s are automatically
+     * passed for all the fields based on the schema and validation errors.
+     * The `description` specified for a field in the schema is used as
+     * helper text while the field is shown as valid.
+     * When there is validation feedback to provide to the user,
+     * the field is instead marked as invalid with an error message that is displayed
+     * in the place of the helper text.
+     * :::
+     * @sourceFile help-form-schema.ts
+     */
+    interface HTMLLimelExampleFormWithHelpElement extends Components.LimelExampleFormWithHelp, HTMLStencilElement {
+    }
+    var HTMLLimelExampleFormWithHelpElement: {
+        prototype: HTMLLimelExampleFormWithHelpElement;
+        new (): HTMLLimelExampleFormWithHelpElement;
+    };
+    /**
+     * We use the `grid-area` property to give each component a unique name, and
+     * then use this name to "draw" our grid layout.
+     * You can name each component anything you want, like `salespipe`, or
+     * `infotile-active-support-tickets`, but keeping the names to a fixed number of
+     * characters makes the "drawing" of the grid look more like the actual grid.
+     * One to three characters is probably a good number for most cases.
+     * Any "name" that doesn't match a named element will create empty cells. In our
+     * case, we use a dot (`.`) to mark empty cells. Empty cells can be put anywhere
+     * in the grid, not just at the end.
+     * Note that we can add some extra spaces after the dot marking an empty cell,
+     * in order to align the next cell in our config-string. This can also be used
+     * if your elements have named of differing lengths. The extra whitespace is
+     * ignored when the CSS is parsed.
+     * If the name of an element does not appear in the grid-configuration, it will
+     * not be displayed at all. This might be useful if you wish to show a specific
+     * component only under certain circumstances, like if the viewport is large
+     * enough to accomodate it.
+     */
+    interface HTMLLimelExampleGridElement extends Components.LimelExampleGrid, HTMLStencilElement {
+    }
+    var HTMLLimelExampleGridElement: {
+        prototype: HTMLLimelExampleGridElement;
+        new (): HTMLLimelExampleGridElement;
+    };
+    /**
+     * Basic example
+     * :::tip
+     * Users can still hover the cursor on the truncated headings to read the full
+     * text.
+     * :::
+     */
+    interface HTMLLimelExampleHeaderElement extends Components.LimelExampleHeader, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHeaderElement: {
+        prototype: HTMLLimelExampleHeaderElement;
+        new (): HTMLLimelExampleHeaderElement;
+    };
+    /**
+     * Colorful header
+     * It's up to you to choose colors for the background, text or icon.
+     * When you change the default colors pay attention to how they look together.
+     * For instance the text is readable and has enough contrast with a background color.
+     */
+    interface HTMLLimelExampleHeaderColorsElement extends Components.LimelExampleHeaderColors, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHeaderColorsElement: {
+        prototype: HTMLLimelExampleHeaderColorsElement;
+        new (): HTMLLimelExampleHeaderColorsElement;
+    };
+    interface HTMLLimelExampleHeaderMenuElement extends Components.LimelExampleHeaderMenu, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHeaderMenuElement: {
+        prototype: HTMLLimelExampleHeaderMenuElement;
+        new (): HTMLLimelExampleHeaderMenuElement;
+    };
+    /**
+     * Narrow headers
+     * Sometimes your UI design may require having a narrower header.
+     * This will be easy to achieve by sending in the class of `is-narrow`
+     * to your component.
+     * This will render the header icon smaller, and reduces the font size of
+     * the `heading`.
+     * :::tip
+     * Keep in mind that headers are programmed to grow in height, depending
+     * on their content. So if you have large custom components in the `actions`
+     * slot or use both `heading` and `subheading`, they will still force the header
+     * to appear tall.
+     * :::
+     */
+    interface HTMLLimelExampleHeaderNarrowElement extends Components.LimelExampleHeaderNarrow, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHeaderNarrowElement: {
+        prototype: HTMLLimelExampleHeaderNarrowElement;
+        new (): HTMLLimelExampleHeaderNarrowElement;
+    };
+    /**
+     * How Responsive layout of header works
+     * However, sometimes you may need to make the layout be responsive and split
+     * into two rows, at a break point.
+     * To activate this responsive layout, you can simply add the `has-responsive-layout`
+     * class to your `limel-header` component.
+     * This makes a few changes in the layout. Firstly, both the left side (icon and
+     * headings) and right side (actions slot) will occupy 50% of the total header
+     * width each. However, the width of left and right side will never become smaller
+     * than `22rem`.
+     * :::tip
+     * The value of `22rem` is the default breakpoint. But you can easily change it
+     * by tweaking the `--header-responsive-breakpoint` variable in your component.
+     * :::
+     */
+    interface HTMLLimelExampleHeaderResponsiveElement extends Components.LimelExampleHeaderResponsive, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHeaderResponsiveElement: {
+        prototype: HTMLLimelExampleHeaderResponsiveElement;
+        new (): HTMLLimelExampleHeaderResponsiveElement;
+    };
+    /**
+     * Using the "actions" slot
+     * The component offers a place for including custom actions, or
+     * any other component that you want to include in the header.
+     * To include any component in the `actions` area,
+     * you can simply use the `slot="actions"` attribute.
+     * :::note
+     * In small containers when having the default layout, the `actions` area
+     * wins the battle of limited space! It means, if you have a very wide
+     * component in the actions area, it will never shrink in size, and instead
+     * forces the headings to truncate.
+     * :::
+     */
+    interface HTMLLimelExampleHeaderSlotActionsElement extends Components.LimelExampleHeaderSlotActions, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHeaderSlotActionsElement: {
+        prototype: HTMLLimelExampleHeaderSlotActionsElement;
+        new (): HTMLLimelExampleHeaderSlotActionsElement;
+    };
+    /**
+     * Basic example
+     * This component accepts a string as a value and displays it in a popover.
+     * This string can be in markdown format, enabling you to add links, lists, etc;
+     * providing a richer experience for the user.
+     */
+    interface HTMLLimelExampleHelpElement extends Components.LimelExampleHelp, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHelpElement: {
+        prototype: HTMLLimelExampleHelpElement;
+        new (): HTMLLimelExampleHelpElement;
+    };
+    /**
+     * Basic example
+     */
+    interface HTMLLimelExampleHelperLineElement extends Components.LimelExampleHelperLine, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHelperLineElement: {
+        prototype: HTMLLimelExampleHelperLineElement;
+        new (): HTMLLimelExampleHelperLineElement;
+    };
+    /**
+     * Animating the appearance of the helper line
+     * It is possible to hide the helper line component with a
+     * smooth animation of its height.
+     * Simply add the `class="hide"` to the component,
+     * and it will take care fo the animations.
+     */
+    interface HTMLLimelExampleHelperLineAnimationElement extends Components.LimelExampleHelperLineAnimation, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHelperLineAnimationElement: {
+        prototype: HTMLLimelExampleHelperLineAnimationElement;
+        new (): HTMLLimelExampleHelperLineAnimationElement;
+    };
+    /**
+     * Only with a character counter
+     */
+    interface HTMLLimelExampleHelperLineCharacterCounterElement extends Components.LimelExampleHelperLineCharacterCounter, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHelperLineCharacterCounterElement: {
+        prototype: HTMLLimelExampleHelperLineCharacterCounterElement;
+        new (): HTMLLimelExampleHelperLineCharacterCounterElement;
+    };
+    /**
+     * When the helper line is empty
+     * When the component has no content, for example when there is no
+     * `helperTex`t or no character counter, the component will get a `display: none`
+     * as style, to avoid creating empty holes in the UI of the consumer component.
+     * This is important for example in a `flex` or `grid` component that has a `gap`
+     * between its children. If so, we don't want the empty
+     * `limel-helper-line` to get rendered and cause unnecessary gaps in the UI.
+     */
+    interface HTMLLimelExampleHelperLineEmptyElement extends Components.LimelExampleHelperLineEmpty, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHelperLineEmptyElement: {
+        prototype: HTMLLimelExampleHelperLineEmptyElement;
+        new (): HTMLLimelExampleHelperLineEmptyElement;
+    };
+    /**
+     * Invalid example
+     */
+    interface HTMLLimelExampleHelperLineInvalidElement extends Components.LimelExampleHelperLineInvalid, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHelperLineInvalidElement: {
+        prototype: HTMLLimelExampleHelperLineInvalidElement;
+        new (): HTMLLimelExampleHelperLineInvalidElement;
+    };
+    /**
+     * With a long helper text
+     */
+    interface HTMLLimelExampleHelperLineLongTextElement extends Components.LimelExampleHelperLineLongText, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHelperLineLongTextElement: {
+        prototype: HTMLLimelExampleHelperLineLongTextElement;
+        new (): HTMLLimelExampleHelperLineLongTextElement;
+    };
+    /**
+     * With a long helper text, but no counter
+     */
+    interface HTMLLimelExampleHelperLineLongTextNoCounterElement extends Components.LimelExampleHelperLineLongTextNoCounter, HTMLStencilElement {
+    }
+    var HTMLLimelExampleHelperLineLongTextNoCounterElement: {
+        prototype: HTMLLimelExampleHelperLineLongTextNoCounterElement;
+        new (): HTMLLimelExampleHelperLineLongTextNoCounterElement;
+    };
+    /**
+     * Basic Example
+     * Just an icon and a click-handler.
+     * Open the dev-tools console to see logged clicks.
+     */
+    interface HTMLLimelExampleIconButtonBasicElement extends Components.LimelExampleIconButtonBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleIconButtonBasicElement: {
+        prototype: HTMLLimelExampleIconButtonBasicElement;
+        new (): HTMLLimelExampleIconButtonBasicElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface HTMLLimelExampleIconButtonCompositeElement extends Components.LimelExampleIconButtonComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleIconButtonCompositeElement: {
+        prototype: HTMLLimelExampleIconButtonCompositeElement;
+        new (): HTMLLimelExampleIconButtonCompositeElement;
+    };
+    /**
+     * Disabled
+     */
+    interface HTMLLimelExampleIconButtonDisabledElement extends Components.LimelExampleIconButtonDisabled, HTMLStencilElement {
+    }
+    var HTMLLimelExampleIconButtonDisabledElement: {
+        prototype: HTMLLimelExampleIconButtonDisabledElement;
+        new (): HTMLLimelExampleIconButtonDisabledElement;
+    };
+    /**
+     * Elevated
+     * An alternative button style, which helps communicate that this is a button
+     * which can be clicked.
+     */
+    interface HTMLLimelExampleIconButtonElevatedElement extends Components.LimelExampleIconButtonElevated, HTMLStencilElement {
+    }
+    var HTMLLimelExampleIconButtonElevatedElement: {
+        prototype: HTMLLimelExampleIconButtonElevatedElement;
+        new (): HTMLLimelExampleIconButtonElevatedElement;
+    };
+    /**
+     * Toggle State
+     * This isn't really a feature of `limel-icon-button`, but since it is a common
+     * use case, here is a simple way to make the icon button toggle between two
+     * different "states", each with its own icon and label.
+     */
+    interface HTMLLimelExampleIconButtonToggleStateElement extends Components.LimelExampleIconButtonToggleState, HTMLStencilElement {
+    }
+    var HTMLLimelExampleIconButtonToggleStateElement: {
+        prototype: HTMLLimelExampleIconButtonToggleStateElement;
+        new (): HTMLLimelExampleIconButtonToggleStateElement;
+    };
+    /**
+     * Colors
+     * Icons will inherit their colors form the `color` property of the parent element.
+     * For styling the background color, you can use the CSS variable
+     * `--icon-background-color`.
+     * :::note
+     * Note that `badge` is set to `true` to provide more space around the icon,
+     * and make sure the background color is nicely displayed.
+     * But the `bade` has effect, only when the `size` attribute is also set.
+     * :::
+     */
+    interface HTMLLimelExampleIconColorElement extends Components.LimelExampleIconColor, HTMLStencilElement {
+    }
+    var HTMLLimelExampleIconColorElement: {
+        prototype: HTMLLimelExampleIconColorElement;
+        new (): HTMLLimelExampleIconColorElement;
+    };
+    /**
+     * Icon Finder
+     * Used in the docs for `limel-icon`.
+     */
+    interface HTMLLimelExampleIconFinderElement extends Components.LimelExampleIconFinder, HTMLStencilElement {
+    }
+    var HTMLLimelExampleIconFinderElement: {
+        prototype: HTMLLimelExampleIconFinderElement;
+        new (): HTMLLimelExampleIconFinderElement;
+    };
+    /**
+     * Names
+     * To display an icon, all you need to do is specifying its name.
+     */
+    interface HTMLLimelExampleIconNameElement extends Components.LimelExampleIconName, HTMLStencilElement {
+    }
+    var HTMLLimelExampleIconNameElement: {
+        prototype: HTMLLimelExampleIconNameElement;
+        new (): HTMLLimelExampleIconNameElement;
+    };
+    /**
+     * Size
+     * There are preset sizes.
+     * :::note
+     * Setting the `bade` prop to `true` affects how big the icon is rendered,
+     * but only when the `size` attribute is also set.
+     * :::
+     */
+    interface HTMLLimelExampleIconSizeElement extends Components.LimelExampleIconSize, HTMLStencilElement {
+    }
+    var HTMLLimelExampleIconSizeElement: {
+        prototype: HTMLLimelExampleIconSizeElement;
+        new (): HTMLLimelExampleIconSizeElement;
+    };
+    /**
+     * Basic example
+     * This component does its best to offer a responsive layout
+     * that reacts both to the length of text, and size of the container.
+     * :::note
+     * To use this component properly, you need to define both
+     * a declared `height` and a declared `width` for it. Alternatively,
+     * make sure that its container enforces a width and height,
+     * for instance, use it as a flex or grid child.
+     * :::
+     * In this example, you can resize the component to see how it
+     * tries to adjust its content to the size of its container.
+     * :::tip
+     * Try to avoid long textual content to get
+     * the best possible visualization. They can cause
+     * undesired overlapping of the content, depending on the size of the
+     * component.
+     * :::
+     */
+    interface HTMLLimelExampleInfoTileElement extends Components.LimelExampleInfoTile, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInfoTileElement: {
+        prototype: HTMLLimelExampleInfoTileElement;
+        new (): HTMLLimelExampleInfoTileElement;
+    };
+    /**
+     * Displaying a notification badge
+     * The component can display a badge, which could either be a `number` or
+     * a `string`. Read more about how the badge truncates or abbreviates the
+     * provided label [here](#/component/limel-badge/).
+     */
+    interface HTMLLimelExampleInfoTileBadgeElement extends Components.LimelExampleInfoTileBadge, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInfoTileBadgeElement: {
+        prototype: HTMLLimelExampleInfoTileBadgeElement;
+        new (): HTMLLimelExampleInfoTileBadgeElement;
+    };
+    /**
+     * Loading state
+     * Sometimes the value needs to be calculated, updated, or fetched
+     * through a process that requires some time. In such cases, it is
+     * a great idea to let the users know that the data is being updated.
+     * To do so, set the `loading` property to `true`. The component will then
+     * show an indeterminate progressbar indicating the data is being updated,
+     * while the older value is still being displayed.
+     * :::note
+     * Note that this does _not_ disable the link, and most probably you
+     * do not need it to be disabled either.
+     * If the link should be disabled while loading, the
+     * `disabled` property should be set to `true` as well.
+     * :::
+     */
+    interface HTMLLimelExampleInfoTileLoadingElement extends Components.LimelExampleInfoTileLoading, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInfoTileLoadingElement: {
+        prototype: HTMLLimelExampleInfoTileLoadingElement;
+        new (): HTMLLimelExampleInfoTileLoadingElement;
+    };
+    /**
+     * Displaying a progress bar
+     * By defining a numeric `progressValue`, you can display
+     * a circular progress bar to visualize more data on the component.
+     * This can for instance help illustrate how much of a
+     * set goal has been reached, which together with the `value` will help users
+     * get a better overview of the provided data.
+     * When the circular progress is shown, that would become the primary
+     * illustrative element on the component,
+     * which means the icon will be rendered smaller, only as a supportive
+     * contextual visual element.
+     * :::tip
+     * It is possible to customize the progress bar's suffix, but it is
+     * set to display the percentage sign (**%**) by default.
+     * :::
+     */
+    interface HTMLLimelExampleInfoTileProgressElement extends Components.LimelExampleInfoTileProgress, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInfoTileProgressElement: {
+        prototype: HTMLLimelExampleInfoTileProgressElement;
+        new (): HTMLLimelExampleInfoTileProgressElement;
+    };
+    /**
+     * How to style the Info tile
+     * The component offers different CSS variables for styling
+     * the color of the text, background, and it's icon; as well as
+     * radius of it's rounded corners, and colors of the notification badge
+     * and its text.
+     */
+    interface HTMLLimelExampleInfoTileStylingElement extends Components.LimelExampleInfoTileStyling, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInfoTileStylingElement: {
+        prototype: HTMLLimelExampleInfoTileStylingElement;
+        new (): HTMLLimelExampleInfoTileStylingElement;
+    };
+    /**
+     * Input Field with Completions
+     */
+    interface HTMLLimelExampleInputFieldAutocompleteElement extends Components.LimelExampleInputFieldAutocomplete, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldAutocompleteElement: {
+        prototype: HTMLLimelExampleInputFieldAutocompleteElement;
+        new (): HTMLLimelExampleInputFieldAutocompleteElement;
+    };
+    /**
+     * Input Field with Error Icon
+     */
+    interface HTMLLimelExampleInputFieldErrorIconElement extends Components.LimelExampleInputFieldErrorIcon, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldErrorIconElement: {
+        prototype: HTMLLimelExampleInputFieldErrorIconElement;
+        new (): HTMLLimelExampleInputFieldErrorIconElement;
+    };
+    /**
+     * Setting focus programmatically
+     * To set focus programmatically, call `.focus()` on the `limel-input-field`
+     * element. Note that, for this to work, the `tabindex` property must be set
+     * on the `limel-input-field`.
+     * - `tabindex="0"` means that the element should be focusable in sequential
+     * keyboard navigation, after any positive tabindex values and its order is
+     * defined by the document's source order.
+     * - A _positive value_ means the element should be focusable in sequential
+     * keyboard navigation, with its order defined by the value of the number.
+     * Read more on [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex).
+     */
+    interface HTMLLimelExampleInputFieldFocusElement extends Components.LimelExampleInputFieldFocus, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldFocusElement: {
+        prototype: HTMLLimelExampleInputFieldFocusElement;
+        new (): HTMLLimelExampleInputFieldFocusElement;
+    };
+    /**
+     * Input Field with Leading and Trailing Icons & Action
+     */
+    interface HTMLLimelExampleInputFieldIconBothElement extends Components.LimelExampleInputFieldIconBoth, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldIconBothElement: {
+        prototype: HTMLLimelExampleInputFieldIconBothElement;
+        new (): HTMLLimelExampleInputFieldIconBothElement;
+    };
+    /**
+     * Input Field with Leading Icon
+     * A leading icon can be used to visually "decorate" the input field. The
+     * purpose for adding a leading icon should be to help the user understand what
+     * the field is for.
+     * In this example, we use a map icon in addition to the "Address" label, to
+     * indicate that this field is meant for a physical address.
+     * The example has a minimum length just to show what an invalid field looks
+     * like.
+     */
+    interface HTMLLimelExampleInputFieldIconLeadingElement extends Components.LimelExampleInputFieldIconLeading, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldIconLeadingElement: {
+        prototype: HTMLLimelExampleInputFieldIconLeadingElement;
+        new (): HTMLLimelExampleInputFieldIconLeadingElement;
+    };
+    /**
+     * Input Field with Trailing Icon & Action
+     * A trailing icon can be added to input fields along with an action
+     * for that trailing icon.
+     * :::note
+     * Use trailing icons only when you intend to have an action associated with them.
+     * Trailing icons of input fields will get an interactive visual effect when
+     * hovered to hint users that they are clickable.
+     * Therefore, a purely ornamental trailing icon that has this interactive effect
+     * will be confusing for users.
+     * :::
+     */
+    interface HTMLLimelExampleInputFieldIconTrailingElement extends Components.LimelExampleInputFieldIconTrailing, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldIconTrailingElement: {
+        prototype: HTMLLimelExampleInputFieldIconTrailingElement;
+        new (): HTMLLimelExampleInputFieldIconTrailingElement;
+    };
+    /**
+     * Input Field of Type Number
+     */
+    interface HTMLLimelExampleInputFieldNumberElement extends Components.LimelExampleInputFieldNumber, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldNumberElement: {
+        prototype: HTMLLimelExampleInputFieldNumberElement;
+        new (): HTMLLimelExampleInputFieldNumberElement;
+    };
+    /**
+     * Input Field with pattern
+     */
+    interface HTMLLimelExampleInputFieldPatternElement extends Components.LimelExampleInputFieldPattern, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldPatternElement: {
+        prototype: HTMLLimelExampleInputFieldPatternElement;
+        new (): HTMLLimelExampleInputFieldPatternElement;
+    };
+    /**
+     * Input Field with a placeholder
+     * The placeholder text is displayed inside the input field,
+     * when the field is focused and empty.
+     * :::tip
+     * A `placeholder` text is good for providing hints and examples about the expected input.
+     * While the `helperText` is better for providing instructions.
+     * :::
+     * Unlike `helperText` which is constantly visible while the user is typing
+     * inside the field, the `placeholder` text disappears as soon as the user has
+     * input anything.
+     * :::note
+     * Make an informed decision when using `placeholder` instead of `helperText`!
+     * You may have good intentions to reduce clutter on the user interface
+     * and use a placeholder text, because it will disappear after user has started typing.
+     * However, if the additional tips or instructions that you are trying to provide is
+     * crucial or hard to remember, it is better to display them as helper text instead.
+     * This is because disappearing crucial information will strains users’ short-term memory.
+     * In a form with many fields, users can easily forget
+     * what each field was for. Especially if a field has validations that fail
+     * for example after submitting. Instructions that are not visible anymore will make it
+     * hard for the user to realize what the problem is or how to solve it.
+     * :::
+     * :::warning
+     * If no `label` is provided, then the placeholder text will be displayed even if the
+     * input field is not focused.
+     * However, this does not mean that you should use this
+     * as a hack, to create a minimalistic and clean user interface. Not providing labels
+     * will cause accessibility issues for users of assistive technologies,
+     * and strains users’ short-term memory as explained above.
+     * Additionally, users may confuse the placeholder text, as an automatically
+     * inputted value, and skip filling in information.
+     * :::
+     */
+    interface HTMLLimelExampleInputFieldPlaceholderElement extends Components.LimelExampleInputFieldPlaceholder, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldPlaceholderElement: {
+        prototype: HTMLLimelExampleInputFieldPlaceholderElement;
+        new (): HTMLLimelExampleInputFieldPlaceholderElement;
+    };
+    /**
+     * Prefix
+     * An input Field with a currency symbol text displayed as prefix
+     */
+    interface HTMLLimelExampleInputFieldPrefixElement extends Components.LimelExampleInputFieldPrefix, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldPrefixElement: {
+        prototype: HTMLLimelExampleInputFieldPrefixElement;
+        new (): HTMLLimelExampleInputFieldPrefixElement;
+    };
+    /**
+     * Input Field of Type Search
+     */
+    interface HTMLLimelExampleInputFieldSearchElement extends Components.LimelExampleInputFieldSearch, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldSearchElement: {
+        prototype: HTMLLimelExampleInputFieldSearchElement;
+        new (): HTMLLimelExampleInputFieldSearchElement;
+    };
+    /**
+     * With `showLink=true`
+     */
+    interface HTMLLimelExampleInputFieldShowlinkElement extends Components.LimelExampleInputFieldShowlink, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldShowlinkElement: {
+        prototype: HTMLLimelExampleInputFieldShowlinkElement;
+        new (): HTMLLimelExampleInputFieldShowlinkElement;
+    };
+    /**
+     * Suffix
+     * An Input Field with a unit of measurement displayed as suffix
+     */
+    interface HTMLLimelExampleInputFieldSuffixElement extends Components.LimelExampleInputFieldSuffix, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldSuffixElement: {
+        prototype: HTMLLimelExampleInputFieldSuffixElement;
+        new (): HTMLLimelExampleInputFieldSuffixElement;
+    };
+    /**
+     * Input Field of Type Text
+     */
+    interface HTMLLimelExampleInputFieldTextElement extends Components.LimelExampleInputFieldText, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldTextElement: {
+        prototype: HTMLLimelExampleInputFieldTextElement;
+        new (): HTMLLimelExampleInputFieldTextElement;
+    };
+    /**
+     * Input Field of Type Text
+     */
+    interface HTMLLimelExampleInputFieldTextDeclutteringGuidelinesElement extends Components.LimelExampleInputFieldTextDeclutteringGuidelines, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldTextDeclutteringGuidelinesElement: {
+        prototype: HTMLLimelExampleInputFieldTextDeclutteringGuidelinesElement;
+        new (): HTMLLimelExampleInputFieldTextDeclutteringGuidelinesElement;
+    };
+    /**
+     * Multiple Fields
+     */
+    interface HTMLLimelExampleInputFieldTextMultipleElement extends Components.LimelExampleInputFieldTextMultiple, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldTextMultipleElement: {
+        prototype: HTMLLimelExampleInputFieldTextMultipleElement;
+        new (): HTMLLimelExampleInputFieldTextMultipleElement;
+    };
+    /**
+     * Input Field of Type Textarea
+     */
+    interface HTMLLimelExampleInputFieldTextareaElement extends Components.LimelExampleInputFieldTextarea, HTMLStencilElement {
+    }
+    var HTMLLimelExampleInputFieldTextareaElement: {
+        prototype: HTMLLimelExampleInputFieldTextareaElement;
+        new (): HTMLLimelExampleInputFieldTextareaElement;
+    };
+    interface HTMLLimelExampleLinearProgressElement extends Components.LimelExampleLinearProgress, HTMLStencilElement {
+    }
+    var HTMLLimelExampleLinearProgressElement: {
+        prototype: HTMLLimelExampleLinearProgressElement;
+        new (): HTMLLimelExampleLinearProgressElement;
+    };
+    /**
+     * Setting the color
+     */
+    interface HTMLLimelExampleLinearProgressColorElement extends Components.LimelExampleLinearProgressColor, HTMLStencilElement {
+    }
+    var HTMLLimelExampleLinearProgressColorElement: {
+        prototype: HTMLLimelExampleLinearProgressColorElement;
+        new (): HTMLLimelExampleLinearProgressColorElement;
+    };
+    /**
+     * Indeterminate progress bar
+     */
+    interface HTMLLimelExampleLinearProgressIndeterminateElement extends Components.LimelExampleLinearProgressIndeterminate, HTMLStencilElement {
+    }
+    var HTMLLimelExampleLinearProgressIndeterminateElement: {
+        prototype: HTMLLimelExampleLinearProgressIndeterminateElement;
+        new (): HTMLLimelExampleLinearProgressIndeterminateElement;
+    };
+    /**
+     * Basic list
+     */
+    interface HTMLLimelExampleListElement extends Components.LimelExampleList, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListElement: {
+        prototype: HTMLLimelExampleListElement;
+        new (): HTMLLimelExampleListElement;
+    };
+    /**
+     * List with action menu
+     */
+    interface HTMLLimelExampleListActionElement extends Components.LimelExampleListAction, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListActionElement: {
+        prototype: HTMLLimelExampleListActionElement;
+        new (): HTMLLimelExampleListActionElement;
+    };
+    /**
+     * List with badge icons
+     */
+    interface HTMLLimelExampleListBadgeIconsElement extends Components.LimelExampleListBadgeIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListBadgeIconsElement: {
+        prototype: HTMLLimelExampleListBadgeIconsElement;
+        new (): HTMLLimelExampleListBadgeIconsElement;
+    };
+    /**
+     * Multi-line versus single-line layout
+     * By default, list items will always truncate the `text` line, which is displayed
+     * either alone, or as a primary heading (when there are both `text` and `secondaryText`)
+     * available. This means users will only see one line of text which is as wides as
+     * the list item, and no more. Thus, it is a good idea not to add long strings of
+     * text in the heading, as on mobile phones or small containers, they will be
+     * chopped off and truncated.
+     * However, the `secondaryText` which appears as a sub-heading is not truncated
+     * that quickly. By default, lists will display 3 lines of text, and then truncate
+     * the rest. Nevertheless, you can increase or decrease this number by specifying
+     * `maxLinesSecondaryText`.
+     * :::note
+     * Do not use `0`, negative numbers, decimal numbers, or very large numbers.
+     * :::
+     */
+    interface HTMLLimelExampleListBadgeIconsWithMultipleLinesElement extends Components.LimelExampleListBadgeIconsWithMultipleLines, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListBadgeIconsWithMultipleLinesElement: {
+        prototype: HTMLLimelExampleListBadgeIconsWithMultipleLinesElement;
+        new (): HTMLLimelExampleListBadgeIconsWithMultipleLinesElement;
+    };
+    /**
+     * List with checkboxes
+     */
+    interface HTMLLimelExampleListCheckboxElement extends Components.LimelExampleListCheckbox, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListCheckboxElement: {
+        prototype: HTMLLimelExampleListCheckboxElement;
+        new (): HTMLLimelExampleListCheckboxElement;
+    };
+    /**
+     * List with checkboxes and icons
+     */
+    interface HTMLLimelExampleListCheckboxIconsElement extends Components.LimelExampleListCheckboxIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListCheckboxIconsElement: {
+        prototype: HTMLLimelExampleListCheckboxIconsElement;
+        new (): HTMLLimelExampleListCheckboxIconsElement;
+    };
+    /**
+     * List data
+     * @sourceFile list-schema.ts
+     */
+    interface HTMLLimelExampleListFormElement extends Components.LimelExampleListForm, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListFormElement: {
+        prototype: HTMLLimelExampleListFormElement;
+        new (): HTMLLimelExampleListFormElement;
+    };
+    /**
+     * List with grid layout
+     * To display list items in a grid layout instead of a vertical column,
+     * simply add `has-grid-layout` class to
+     * the component.
+     * This layout can be customized, using a few CSS variables.
+     * :::warning
+     * - This layout should not be used with lists that have checkboxes or radio buttons.
+     * - Also, it is recommended to avoid using secondary text with this layout.
+     */
+    interface HTMLLimelExampleListGridElement extends Components.LimelExampleListGrid, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListGridElement: {
+        prototype: HTMLLimelExampleListGridElement;
+        new (): HTMLLimelExampleListGridElement;
+    };
+    /**
+     * List with icons
+     */
+    interface HTMLLimelExampleListIconsElement extends Components.LimelExampleListIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListIconsElement: {
+        prototype: HTMLLimelExampleListIconsElement;
+        new (): HTMLLimelExampleListIconsElement;
+    };
+    /**
+     * List with a primary component
+     */
+    interface HTMLLimelExampleListPrimaryComponentElement extends Components.LimelExampleListPrimaryComponent, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListPrimaryComponentElement: {
+        prototype: HTMLLimelExampleListPrimaryComponentElement;
+        new (): HTMLLimelExampleListPrimaryComponentElement;
+    };
+    /**
+     * List with radio buttons
+     */
+    interface HTMLLimelExampleListRadioButtonElement extends Components.LimelExampleListRadioButton, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListRadioButtonElement: {
+        prototype: HTMLLimelExampleListRadioButtonElement;
+        new (): HTMLLimelExampleListRadioButtonElement;
+    };
+    /**
+     * List with radio buttons and icons
+     */
+    interface HTMLLimelExampleListRadioButtonIconsElement extends Components.LimelExampleListRadioButtonIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListRadioButtonIconsElement: {
+        prototype: HTMLLimelExampleListRadioButtonIconsElement;
+        new (): HTMLLimelExampleListRadioButtonIconsElement;
+    };
+    /**
+     * List with secondary text
+     */
+    interface HTMLLimelExampleListSecondaryElement extends Components.LimelExampleListSecondary, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListSecondaryElement: {
+        prototype: HTMLLimelExampleListSecondaryElement;
+        new (): HTMLLimelExampleListSecondaryElement;
+    };
+    /**
+     * List with selectable items
+     */
+    interface HTMLLimelExampleListSelectableElement extends Components.LimelExampleListSelectable, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListSelectableElement: {
+        prototype: HTMLLimelExampleListSelectableElement;
+        new (): HTMLLimelExampleListSelectableElement;
+    };
+    /**
+     * List with separators
+     * Separators are simple yet powerful design elements that can be
+     * employed in lists of items. They offer significant usability advantages
+     * by providing valuable visual cues that aid users in perceiving
+     * and navigating through lists.
+     * - **Grouping and Hierarchy:**
+     * Separators can be used to group related items, signaling to users that
+     * those items share a common attribute or purpose.
+     * This grouping effect aids in creating a hierarchical structure within the list,
+     * making it simpler for users to grasp relationships and make informed decisions.
+     * - **Visual Scannability:**
+     * When users quickly scan a list, their eyes naturally use the separator lines
+     * as visual anchors, making it easier to find items and remember their whereabouts
+     * next time they revisit the same list.
+     * - **Reduced Cognitive Effort:**
+     * Separators contribute to a user's overall comprehension and experience
+     * by reducing the cognitive effort required to process the information.
+     * You can optionally add a short title to the separators,
+     * to clarify further what each group of items is about,
+     * and by doing so improve the users perception and experience.
+     */
+    interface HTMLLimelExampleListSeparatorElement extends Components.LimelExampleListSeparator, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListSeparatorElement: {
+        prototype: HTMLLimelExampleListSeparatorElement;
+        new (): HTMLLimelExampleListSeparatorElement;
+    };
+    /**
+     * List with custom styles
+     * Adding the `has-striped-rows` class to the list will make the items more
+     * distinct by adding different background colors to even and odd rows.
+     * Also, by taking advantage of the `has-interactive-items`, hovering on a list
+     * item which is not `disabled` will display an elevated visual effect, giving
+     * it more affordance and a solid feeling of interactivity.
+     * | Class name              | Description                                                                                     |
+     * | ----------------------- | ----------------------------------------------------------------------------------------------- |
+     * | `has-striped-rows`      | Adds distinct styling by which every other row (list item) gets a darker background.            |
+     * | `has-interactive-items` | Adds more affordance by applying an elevated visual effect on list item, when they are hovered. |
+     * :::note
+     * to get both effects, you need to apply both of these classes.
+     * :::
+     */
+    interface HTMLLimelExampleListStripedElement extends Components.LimelExampleListStriped, HTMLStencilElement {
+    }
+    var HTMLLimelExampleListStripedElement: {
+        prototype: HTMLLimelExampleListStripedElement;
+        new (): HTMLLimelExampleListStripedElement;
+    };
+    /**
+     * Blockquotes
+     */
+    interface HTMLLimelExampleMarkdownBlockquotesElement extends Components.LimelExampleMarkdownBlockquotes, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownBlockquotesElement: {
+        prototype: HTMLLimelExampleMarkdownBlockquotesElement;
+        new (): HTMLLimelExampleMarkdownBlockquotesElement;
+    };
+    /**
+     * Code
+     */
+    interface HTMLLimelExampleMarkdownCodeElement extends Components.LimelExampleMarkdownCode, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownCodeElement: {
+        prototype: HTMLLimelExampleMarkdownCodeElement;
+        new (): HTMLLimelExampleMarkdownCodeElement;
+    };
+    /**
+     * Composite example
+     * Test your markdown code and see what you get in return in real-time.
+     */
+    interface HTMLLimelExampleMarkdownCompositeElement extends Components.LimelExampleMarkdownComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownCompositeElement: {
+        prototype: HTMLLimelExampleMarkdownCompositeElement;
+        new (): HTMLLimelExampleMarkdownCompositeElement;
+    };
+    /**
+     * Emphasis
+     */
+    interface HTMLLimelExampleMarkdownEmphasisElement extends Components.LimelExampleMarkdownEmphasis, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownEmphasisElement: {
+        prototype: HTMLLimelExampleMarkdownEmphasisElement;
+        new (): HTMLLimelExampleMarkdownEmphasisElement;
+    };
+    /**
+     * Footnote
+     */
+    interface HTMLLimelExampleMarkdownFootnotesElement extends Components.LimelExampleMarkdownFootnotes, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownFootnotesElement: {
+        prototype: HTMLLimelExampleMarkdownFootnotesElement;
+        new (): HTMLLimelExampleMarkdownFootnotesElement;
+    };
+    /**
+     * Headings
+     */
+    interface HTMLLimelExampleMarkdownHeadingsElement extends Components.LimelExampleMarkdownHeadings, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownHeadingsElement: {
+        prototype: HTMLLimelExampleMarkdownHeadingsElement;
+        new (): HTMLLimelExampleMarkdownHeadingsElement;
+    };
+    /**
+     * Horizontal Rule
+     */
+    interface HTMLLimelExampleMarkdownHorizontalRuleElement extends Components.LimelExampleMarkdownHorizontalRule, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownHorizontalRuleElement: {
+        prototype: HTMLLimelExampleMarkdownHorizontalRuleElement;
+        new (): HTMLLimelExampleMarkdownHorizontalRuleElement;
+    };
+    /**
+     * HTML
+     */
+    interface HTMLLimelExampleMarkdownHtmlElement extends Components.LimelExampleMarkdownHtml, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownHtmlElement: {
+        prototype: HTMLLimelExampleMarkdownHtmlElement;
+        new (): HTMLLimelExampleMarkdownHtmlElement;
+    };
+    /**
+     * Images
+     */
+    interface HTMLLimelExampleMarkdownImagesElement extends Components.LimelExampleMarkdownImages, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownImagesElement: {
+        prototype: HTMLLimelExampleMarkdownImagesElement;
+        new (): HTMLLimelExampleMarkdownImagesElement;
+    };
+    /**
+     * Links
+     * There are two ways to create links.
+     */
+    interface HTMLLimelExampleMarkdownLinksElement extends Components.LimelExampleMarkdownLinks, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownLinksElement: {
+        prototype: HTMLLimelExampleMarkdownLinksElement;
+        new (): HTMLLimelExampleMarkdownLinksElement;
+    };
+    /**
+     * Lists
+     */
+    interface HTMLLimelExampleMarkdownListsElement extends Components.LimelExampleMarkdownLists, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownListsElement: {
+        prototype: HTMLLimelExampleMarkdownListsElement;
+        new (): HTMLLimelExampleMarkdownListsElement;
+    };
+    /**
+     * Tables
+     */
+    interface HTMLLimelExampleMarkdownTablesElement extends Components.LimelExampleMarkdownTables, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMarkdownTablesElement: {
+        prototype: HTMLLimelExampleMarkdownTablesElement;
+        new (): HTMLLimelExampleMarkdownTablesElement;
+    };
+    /**
+     * With badge icons
+     */
+    interface HTMLLimelExampleMenuBadgeIconsElement extends Components.LimelExampleMenuBadgeIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuBadgeIconsElement: {
+        prototype: HTMLLimelExampleMenuBadgeIconsElement;
+        new (): HTMLLimelExampleMenuBadgeIconsElement;
+    };
+    /**
+     * Basic example
+     * With a simple `onSelect` handler.
+     */
+    interface HTMLLimelExampleMenuBasicElement extends Components.LimelExampleMenuBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuBasicElement: {
+        prototype: HTMLLimelExampleMenuBasicElement;
+        new (): HTMLLimelExampleMenuBasicElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states. This example has a slightly
+     * more advanced `onSelect` handler, which disables the last selected value.
+     */
+    interface HTMLLimelExampleMenuCompositeElement extends Components.LimelExampleMenuComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuCompositeElement: {
+        prototype: HTMLLimelExampleMenuCompositeElement;
+        new (): HTMLLimelExampleMenuCompositeElement;
+    };
+    /**
+     * Disabled
+     * Note that you don't need to disable the trigger button separately, as the
+     * component takes care of this for you.
+     */
+    interface HTMLLimelExampleMenuDisabledElement extends Components.LimelExampleMenuDisabled, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuDisabledElement: {
+        prototype: HTMLLimelExampleMenuDisabledElement;
+        new (): HTMLLimelExampleMenuDisabledElement;
+    };
+    /**
+     * With grid layout
+     * To render items of a menu in a grid layout instead of a vertical list,
+     * simply setting the `gridLayout` property to `true`.
+     * :::note
+     * Menus with the grid layout has a responsive width by default,
+     * which will not grow wider than a certain size. However, if the default size is not
+     * wide enough for your use case, you can try setting another responsive width, using
+     * the `--menu-surface-width` variable.
+     * To achieve a responsive width, try using the `min()` function.
+     * This function selects the smallest value from a list of comma-separated expressions
+     * which are placed within the parentheses.
+     * For example, `--menu-surface-width: min(100vw, 40rem);` will output
+     * `width: min(100wv, 40rem);` which will tell the browser to render the menu
+     * content in a 40rem-wide grid, as long as 100% of the viewport's width (`100vw`)
+     * is larger than `40rem`.
+     * :::
+     * To tweak the grid layout, a few other variables are available:
+     * - `--list-grid-item-max-width`: Defines maximum width of items in the list, which defaults to `10rem`.
+     * - `--list-grid-item-min-width`: Defines minimum width of items, which to `7.5rem`.
+     * - `--list-grid-gap`: Defines the distance between the items, which defaults to `0.75rem`.
+     */
+    interface HTMLLimelExampleMenuGridElement extends Components.LimelExampleMenuGrid, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuGridElement: {
+        prototype: HTMLLimelExampleMenuGridElement;
+        new (): HTMLLimelExampleMenuGridElement;
+    };
+    /**
+     * Menu with supporting hotkeys
+     */
+    interface HTMLLimelExampleMenuHotkeysElement extends Components.LimelExampleMenuHotkeys, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuHotkeysElement: {
+        prototype: HTMLLimelExampleMenuHotkeysElement;
+        new (): HTMLLimelExampleMenuHotkeysElement;
+    };
+    /**
+     * With icons
+     */
+    interface HTMLLimelExampleMenuIconsElement extends Components.LimelExampleMenuIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuIconsElement: {
+        prototype: HTMLLimelExampleMenuIconsElement;
+        new (): HTMLLimelExampleMenuIconsElement;
+    };
+    /**
+     * With notification
+     * It is possible to display a notification badge on each individual
+     * list item inside the menu's dropdown.
+     * These notification badges are supposed to inform the user that
+     * there is something in the menu item that requires their attention.
+     * This is typically done by displaying a number, which summarizes
+     * the quantity of the items that require user's attention.
+     * However, if a number is not meaningful, it is possible to send an
+     * empty string (`badge: ''`), which will display a circle on the
+     * list item.
+     * Since list items in the menu are hidden away, users would not
+     * realize that there is something inside the menu which requires their
+     * attention. Which is why the trigger automatically displays a
+     * notification badge on its top-right corner,
+     * when the menu contains badges.
+     * By default, the badge is red and its text is white.
+     * This is to attract users' attention. However, this is possible to override using
+     * [provided style variables](/#/component/limel-menu/styles/).
+     * :::warning
+     * - Do not negatively exploit this possibility and spam users' attention.
+     * Crowding the UI with too much noise _will_ negatively affect the user experience.
+     * - Notification badges *must* be cleared as soon as the list item is clicked by the user!
+     * :::
+     */
+    interface HTMLLimelExampleMenuNotificationElement extends Components.LimelExampleMenuNotification, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuNotificationElement: {
+        prototype: HTMLLimelExampleMenuNotificationElement;
+        new (): HTMLLimelExampleMenuNotificationElement;
+    };
+    /**
+     * openDirection
+     * The value of the `openDirection` property defines how the menu content
+     * is aligned with its trigger element, and in which direction it opens.
+     */
+    interface HTMLLimelExampleMenuOpenDirectionElement extends Components.LimelExampleMenuOpenDirection, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuOpenDirectionElement: {
+        prototype: HTMLLimelExampleMenuOpenDirectionElement;
+        new (): HTMLLimelExampleMenuOpenDirectionElement;
+    };
+    /**
+     * Opening sub-menus programmatically
+     * **This example is currently not in use because it's an experimental feature**
+     * It is possible to open any sub-menu in the menu-hierarchy.
+     * This is done by using the parentItem property of the MenuItem class.
+     * @sourceFile item-constants.ts
+     */
+    interface HTMLLimelExampleMenuOpenSubMenuProgrammaticallyElement extends Components.LimelExampleMenuOpenSubMenuProgrammatically, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuOpenSubMenuProgrammaticallyElement: {
+        prototype: HTMLLimelExampleMenuOpenSubMenuProgrammaticallyElement;
+        new (): HTMLLimelExampleMenuOpenSubMenuProgrammaticallyElement;
+    };
+    /**
+     * Searchable items
+     * @sourceFile subitems-search.ts
+     * @sourceFile item-constants.ts
+     */
+    interface HTMLLimelExampleMenuSearchableElement extends Components.LimelExampleMenuSearchable, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuSearchableElement: {
+        prototype: HTMLLimelExampleMenuSearchableElement;
+        new (): HTMLLimelExampleMenuSearchableElement;
+    };
+    /**
+     * With `secondaryText`
+     * Menu items can display secondary text as well. By default, the secondary text
+     * will be displayed in two lines, and then get truncated.
+     * :::important
+     * Keep in mind that a menu's drop-down surface will stretch as much as its default
+     * maximum width values allow. However, if this default maximum width does not suit
+     * your use case, you can override it using the `--menu-surface-width` variable.
+     * But do not forget that menus should still behave responsively, thus assigning a fixed value
+     * should be avoided. To make the width responsive, try using the `min()` function.
+     * This function selects the smallest value from a list of comma-separated expressions
+     * which are placed within the parentheses.
+     * For example, `--menu-surface-width: min(90vw, 40rem);` will output
+     * `width: min(90wv, 40rem);` which will tell the browser to render the menu
+     * content in a grid that's allowed to take up 90% of the viewport's width (`90vw`)
+     * up to a maximum of `40rem`.
+     * :::
+     */
+    interface HTMLLimelExampleMenuSecondaryTextElement extends Components.LimelExampleMenuSecondaryText, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuSecondaryTextElement: {
+        prototype: HTMLLimelExampleMenuSecondaryTextElement;
+        new (): HTMLLimelExampleMenuSecondaryTextElement;
+    };
+    /**
+     * Using separators with titles
+     * You divide groups of items using separators.
+     * It is also possible add a short title to the separators,
+     * to clarify further what each group of menu items is about,
+     * and by doing so improve the users perception and experience.
+     */
+    interface HTMLLimelExampleMenuSeparatorsElement extends Components.LimelExampleMenuSeparators, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuSeparatorsElement: {
+        prototype: HTMLLimelExampleMenuSeparatorsElement;
+        new (): HTMLLimelExampleMenuSeparatorsElement;
+    };
+    /**
+     * Lazy loading items in sub-menus
+     * @sourceFile menu-sub-menu-lazy-loading-service-mock.ts
+     */
+    interface HTMLLimelExampleMenuSubMenuLazyLoadingElement extends Components.LimelExampleMenuSubMenuLazyLoading, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuSubMenuLazyLoadingElement: {
+        prototype: HTMLLimelExampleMenuSubMenuLazyLoadingElement;
+        new (): HTMLLimelExampleMenuSubMenuLazyLoadingElement;
+    };
+    /**
+     * Lazy loading infinite amount of sub-menu
+     * :::note
+     * This example is here to show what the component looks like when you have a
+     * lot of nested sub-menus, and what the breadcrumb component looks like when
+     * you are deep into the menu.
+     * If you are looking for code examples, please see the
+     * _Lazy loading items in sub-menus_ example instead.
+     * :::
+     */
+    interface HTMLLimelExampleMenuSubMenuLazyLoadingInfiniteElement extends Components.LimelExampleMenuSubMenuLazyLoadingInfinite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuSubMenuLazyLoadingInfiniteElement: {
+        prototype: HTMLLimelExampleMenuSubMenuLazyLoadingInfiniteElement;
+        new (): HTMLLimelExampleMenuSubMenuLazyLoadingInfiniteElement;
+    };
+    /**
+     * Sub-menus
+     * To have an enhanced navigation and provide a better organization of items,
+     * you can incorporate sub-menus within the menu structure;
+     * and create a so called "Cascading menu".
+     * These sub-menus provide the user with an efficient way to access a
+     * wide range of choices without overwhelming them with clutter or complexity.
+     * The main menu, often called the parent menu,
+     * typically consists of top-level options that represent primary categories or options.
+     * Sub-menus, on the other hand, are secondary or menus that are nested
+     * beneath these primary options.
+     * Some of the benefits of creating tree-structure for the menus are:
+     * - **Organized Information:** Sub-menus enable a clear and organized presentation of content,
+     * making it easier for the user to find what they're looking for within a specific category.
+     * - **Space Efficiency:** They save screen space by concealing secondary options until needed,
+     * reducing visual clutter and making the interface cleaner and more user-friendly.
+     * - **Scalability:** Sub-menus can accommodate a large number of choices or features
+     * within a single parent menu, making them suitable for complex applications or websites.
+     * - **Logical Hierarchy:** By structuring information hierarchically,
+     * sub-menus help the user understand the relationships between various
+     * options and navigate through the interface more intuitively.
+     * Our cascading menus are designed to be mobile-friendly.
+     * This means that sub-menus are opened within the same menu surface,
+     * instead of the classic way of sticking out on the side, as a secondary menu.
+     * Thanks to a breadcrumbs component on the top, the user can easily navigate back
+     * and forth within the menu structure.
+     * :::tip
+     * It is also very easy to navigate the nested menu structure using the keyboard.
+     * - Using the <kbd>↓</kbd> & <kbd>↑</kbd> keys, the user can naturally
+     * navigate within the presented menu,
+     * - pressing the <kbd>→</kbd> key on a menu item that has sub-menu opens a nested menu,
+     * - and pressing the <kbd>←</kbd> key takes the user back to the previous/parent menu.
+     * :::
+     * @sourceFile item-constants.ts
+     */
+    interface HTMLLimelExampleMenuSubMenusElement extends Components.LimelExampleMenuSubMenus, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuSubMenusElement: {
+        prototype: HTMLLimelExampleMenuSubMenusElement;
+        new (): HTMLLimelExampleMenuSubMenusElement;
+    };
+    /**
+     * Size of the menu drop-down surface
+     * Any element in the UI can be configured to open a menu.
+     * By default, the dropdown that opens up after the menu trigger is clicked
+     * inherits its width from the items that are inside the dropdown menu.
+     * However, for some designs, you may want the width of the menu dropdown
+     * to be exactly as wide as the width of its trigger element, or
+     * as wide as `limel-menu` element itself. This is easily achieved using the
+     * `surfaceWidth` prop. Read more on `SurfaceWidth`.
+     * :::tip
+     * In this example, `limel-menu` is highlighted with a dashed border,
+     * to make it easier to see its width.
+     * :::
+     * :::note
+     * The `--menu-surface-width` Overrides the width defined by `surfaceWidth`!
+     * :::
+     */
+    interface HTMLLimelExampleMenuSurfaceWidthElement extends Components.LimelExampleMenuSurfaceWidth, HTMLStencilElement {
+    }
+    var HTMLLimelExampleMenuSurfaceWidthElement: {
+        prototype: HTMLLimelExampleMenuSurfaceWidthElement;
+        new (): HTMLLimelExampleMenuSurfaceWidthElement;
+    };
+    /**
+     * Nested data
+     * @sourceFile nested-schema.ts
+     */
+    interface HTMLLimelExampleNestedFormElement extends Components.LimelExampleNestedForm, HTMLStencilElement {
+    }
+    var HTMLLimelExampleNestedFormElement: {
+        prototype: HTMLLimelExampleNestedFormElement;
+        new (): HTMLLimelExampleNestedFormElement;
+    };
+    /**
+     * Help with custom open direction
+     */
+    interface HTMLLimelExampleOpenDirectionElement extends Components.LimelExampleOpenDirection, HTMLStencilElement {
+    }
+    var HTMLLimelExampleOpenDirectionElement: {
+        prototype: HTMLLimelExampleOpenDirectionElement;
+        new (): HTMLLimelExampleOpenDirectionElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface HTMLLimelExamplePickerCompositeElement extends Components.LimelExamplePickerComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePickerCompositeElement: {
+        prototype: HTMLLimelExamplePickerCompositeElement;
+        new (): HTMLLimelExamplePickerCompositeElement;
+    };
+    /**
+     * With no suggestions and a message for empty search results
+     * :::important
+     * This example simulates that searching is done on the server. Because these
+     * examples do not _actually_ send requests to the server, we simulate a small
+     * delay, using `setTimeout`. **Please do NOT copy that to production code!**
+     * See the other examples for code that does not include this artificial delay.
+     * :::
+     */
+    interface HTMLLimelExamplePickerEmptySuggestionsElement extends Components.LimelExamplePickerEmptySuggestions, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePickerEmptySuggestionsElement: {
+        prototype: HTMLLimelExamplePickerEmptySuggestionsElement;
+        new (): HTMLLimelExamplePickerEmptySuggestionsElement;
+    };
+    /**
+     * With icons
+     */
+    interface HTMLLimelExamplePickerIconsElement extends Components.LimelExamplePickerIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePickerIconsElement: {
+        prototype: HTMLLimelExamplePickerIconsElement;
+        new (): HTMLLimelExamplePickerIconsElement;
+    };
+    /**
+     * With a "search" leading icon
+     */
+    interface HTMLLimelExamplePickerLeadingIconElement extends Components.LimelExamplePickerLeadingIcon, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePickerLeadingIconElement: {
+        prototype: HTMLLimelExamplePickerLeadingIconElement;
+        new (): HTMLLimelExamplePickerLeadingIconElement;
+    };
+    /**
+     * Multiple values can be picked.
+     * - "Search" is done locally in the frontend.
+     * - Already picked items are removed from the available options.
+     */
+    interface HTMLLimelExamplePickerMultipleElement extends Components.LimelExamplePickerMultiple, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePickerMultipleElement: {
+        prototype: HTMLLimelExamplePickerMultipleElement;
+        new (): HTMLLimelExamplePickerMultipleElement;
+    };
+    /**
+     * Single value can be picked.
+     * - "Search" is done locally in the frontend.
+     */
+    interface HTMLLimelExamplePickerSingleElement extends Components.LimelExamplePickerSingle, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePickerSingleElement: {
+        prototype: HTMLLimelExamplePickerSingleElement;
+        new (): HTMLLimelExamplePickerSingleElement;
+    };
+    /**
+     * With static actions
+     * Static items can be added to the picker to enable triggering custom actions
+     * directly from the results dropdown list.
+     * :::tip
+     * A typical use case of such actions is scenarios in which the picker's search
+     * results or suggestions list does not include what the user wants to pick. By
+     * offering custom actions right in the list, we can enable users to add missing
+     * items.
+     * :::
+     */
+    interface HTMLLimelExamplePickerStaticActionsElement extends Components.LimelExamplePickerStaticActions, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePickerStaticActionsElement: {
+        prototype: HTMLLimelExamplePickerStaticActionsElement;
+        new (): HTMLLimelExamplePickerStaticActionsElement;
+    };
+    /**
+     * With a value as an object
+     */
+    interface HTMLLimelExamplePickerValueAsObjectElement extends Components.LimelExamplePickerValueAsObject, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePickerValueAsObjectElement: {
+        prototype: HTMLLimelExamplePickerValueAsObjectElement;
+        new (): HTMLLimelExamplePickerValueAsObjectElement;
+    };
+    /**
+     * Picker with `value` as an object, containing items with menus
+     * While chips inside the picker can be clicked on, resulting in
+     * an action, they can also have an ellipsis menu which will provide the end users with
+     * additional actions.
+     * When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
+     * will be emitted, reflecting the `value` of the selected item.
+     * :::note
+     * When a chip has `removable={true}` and when there are menu items, the "remove button" on the
+     * chip will be automatically added as the last item in the ellipsis menu.
+     * Clicking the remove button will emit the same `onRemove` event.
+     * :::
+     */
+    interface HTMLLimelExamplePickerValueAsObjectWithActionsElement extends Components.LimelExamplePickerValueAsObjectWithActions, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePickerValueAsObjectWithActionsElement: {
+        prototype: HTMLLimelExamplePickerValueAsObjectWithActionsElement;
+        new (): HTMLLimelExamplePickerValueAsObjectWithActionsElement;
+    };
+    /**
+     * Placement of the trigger element and the layout
+     * The trigger element of the help component can be placed
+     * before or after the element it is describing.
+     * However, to provide a consistent layout, we recommend placing the
+     * trigger element on the left side of all elements.
+     * Just make sure the elements are aligned correctly,
+     * even when there is no help component beside them.
+     * Also see how we have implemented this component in the
+     * [Form](#/component/limel-form) component.
+     */
+    interface HTMLLimelExamplePlacementElement extends Components.LimelExamplePlacement, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePlacementElement: {
+        prototype: HTMLLimelExamplePlacementElement;
+        new (): HTMLLimelExamplePlacementElement;
+    };
+    interface HTMLLimelExamplePopoverElement extends Components.LimelExamplePopover, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePopoverElement: {
+        prototype: HTMLLimelExamplePopoverElement;
+        new (): HTMLLimelExamplePopoverElement;
+    };
+    /**
+     * Disconnect test
+     * This is an example to test that it works to remove a popover from the DOM,
+     * then add it back again without breaking it
+     */
+    interface HTMLLimelExamplePortalBasicElement extends Components.LimelExamplePortalBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePortalBasicElement: {
+        prototype: HTMLLimelExamplePortalBasicElement;
+        new (): HTMLLimelExamplePortalBasicElement;
+    };
+    interface HTMLLimelExamplePrimaryColorPaletteElement extends Components.LimelExamplePrimaryColorPalette, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePrimaryColorPaletteElement: {
+        prototype: HTMLLimelExamplePrimaryColorPaletteElement;
+        new (): HTMLLimelExamplePrimaryColorPaletteElement;
+    };
+    /**
+     * Basic Example
+     * Progress flow can visualize linear process, consisting of distinct steps.
+     * Sometimes, this is a great alternative to use instead of `limel-select`.
+     * For instance, when there are too few options available to choose from, and
+     * the options have an incremental order.
+     * Each step can optionally get an icon, to help users understand its meaning
+     * faster, and recognize it quicker next time.
+     */
+    interface HTMLLimelExampleProgressFlowBasicElement extends Components.LimelExampleProgressFlowBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleProgressFlowBasicElement: {
+        prototype: HTMLLimelExampleProgressFlowBasicElement;
+        new (): HTMLLimelExampleProgressFlowBasicElement;
+    };
+    /**
+     * Using colors
+     * By default, each step appears with a light grey background, and when
+     * selected, it gets the defined `--lime-primary-color` as background. Also,
+     * passed steps will get the same background color as selected steps by default.
+     * However, both of these colors can be customized by specifying color values
+     * for `selectedColor` and `passedColor`.
+     * Any icons will get the same color as the text for that step, but the color of
+     * icons for steps which are neither selected nor passed can be specified using
+     * the `iconColor` property.
+     */
+    interface HTMLLimelExampleProgressFlowColorsElement extends Components.LimelExampleProgressFlowColors, HTMLStencilElement {
+    }
+    var HTMLLimelExampleProgressFlowColorsElement: {
+        prototype: HTMLLimelExampleProgressFlowColorsElement;
+        new (): HTMLLimelExampleProgressFlowColorsElement;
+    };
+    /**
+     * Customizing colors further, using CSS
+     * A few CSS variables can be used to customize the look and feel of the steps.
+     * But keep in mind that it is not possible to target steps individually and
+     * change their colors, using these CSS variables.
+     * :::note
+     * Using CSS variables to tweak the colors, applies the colors globally to the
+     * component, not to individual steps!
+     * :::
+     * :::note
+     * Make sure that:
+     * - text has enough contrast with its background and is readable.
+     * - the `--progress-flow-step-divider-color` has the same color as the component's
+     * container.
+     * :::
+     */
+    interface HTMLLimelExampleProgressFlowColorsCssElement extends Components.LimelExampleProgressFlowColorsCss, HTMLStencilElement {
+    }
+    var HTMLLimelExampleProgressFlowColorsCssElement: {
+        prototype: HTMLLimelExampleProgressFlowColorsCssElement;
+        new (): HTMLLimelExampleProgressFlowColorsCssElement;
+    };
+    /**
+     * Disabled steps
+     * While the entire component can be `disabled`,
+     * each step can also be `disabled` individually.
+     * This enables you to ask users to provide required data to be able to continue.
+     */
+    interface HTMLLimelExampleProgressFlowDisabledStepElement extends Components.LimelExampleProgressFlowDisabledStep, HTMLStencilElement {
+    }
+    var HTMLLimelExampleProgressFlowDisabledStepElement: {
+        prototype: HTMLLimelExampleProgressFlowDisabledStepElement;
+        new (): HTMLLimelExampleProgressFlowDisabledStepElement;
+    };
+    /**
+     * Compact layout
+     * For cases where this component needs to take as little space as possible,
+     * we offer an alternative layout. All you need to do is addin the `is-narrow`
+     * class to the component.
+     */
+    interface HTMLLimelExampleProgressFlowNarrowElement extends Components.LimelExampleProgressFlowNarrow, HTMLStencilElement {
+    }
+    var HTMLLimelExampleProgressFlowNarrowElement: {
+        prototype: HTMLLimelExampleProgressFlowNarrowElement;
+        new (): HTMLLimelExampleProgressFlowNarrowElement;
+    };
+    /**
+     * Example with off-progress steps
+     * Naturally, the Progress Flow component is used to visualize a continuous linear
+     * process. But sometimes such processes can be abrupted, despite the level of progress.
+     * Abruptions can be excluded and displayed separately (not as a part of the flow)
+     * using the `isOffProgress` property.
+     */
+    interface HTMLLimelExampleProgressFlowOffProgressStepsElement extends Components.LimelExampleProgressFlowOffProgressSteps, HTMLStencilElement {
+    }
+    var HTMLLimelExampleProgressFlowOffProgressStepsElement: {
+        prototype: HTMLLimelExampleProgressFlowOffProgressStepsElement;
+        new (): HTMLLimelExampleProgressFlowOffProgressStepsElement;
+    };
+    /**
+     * Example with secondary text
+     * A `secondaryText` can be used to add further information to steps.
+     * This could be for instance a timestamp of when a step was activated by the user
+     * or an explainatory text.
+     */
+    interface HTMLLimelExampleProgressFlowSecondaryTextElement extends Components.LimelExampleProgressFlowSecondaryText, HTMLStencilElement {
+    }
+    var HTMLLimelExampleProgressFlowSecondaryTextElement: {
+        prototype: HTMLLimelExampleProgressFlowSecondaryTextElement;
+        new (): HTMLLimelExampleProgressFlowSecondaryTextElement;
+    };
+    /**
+     * Using `propsFactory`
+     * @sourceFile props-factory-schema.ts
+     * @sourceFile props-factory-picker.tsx
+     */
+    interface HTMLLimelExamplePropsFactoryFormElement extends Components.LimelExamplePropsFactoryForm, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePropsFactoryFormElement: {
+        prototype: HTMLLimelExamplePropsFactoryFormElement;
+        new (): HTMLLimelExamplePropsFactoryFormElement;
+    };
+    interface HTMLLimelExamplePropsFactoryPickerElement extends Components.LimelExamplePropsFactoryPicker, HTMLStencilElement {
+    }
+    var HTMLLimelExamplePropsFactoryPickerElement: {
+        prototype: HTMLLimelExamplePropsFactoryPickerElement;
+        new (): HTMLLimelExamplePropsFactoryPickerElement;
+    };
+    /**
+     * Basic example
+     * Try typing and editing text, or copy & paste in some rendered HTML code
+     * from your browser into the editor to see how it is rendered and what you get
+     * as an output value.
+     */
+    interface HTMLLimelExampleProsemirrorAdapterBasicElement extends Components.LimelExampleProsemirrorAdapterBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleProsemirrorAdapterBasicElement: {
+        prototype: HTMLLimelExampleProsemirrorAdapterBasicElement;
+        new (): HTMLLimelExampleProsemirrorAdapterBasicElement;
+    };
+    /**
+     * Example with custom menu
+     */
+    interface HTMLLimelExampleProsemirrorAdapterWithCustomMenuElement extends Components.LimelExampleProsemirrorAdapterWithCustomMenu, HTMLStencilElement {
+    }
+    var HTMLLimelExampleProsemirrorAdapterWithCustomMenuElement: {
+        prototype: HTMLLimelExampleProsemirrorAdapterWithCustomMenuElement;
+        new (): HTMLLimelExampleProsemirrorAdapterWithCustomMenuElement;
+    };
+    /**
+     * Help with the read more link
+     * If a `readMoreLink` supplied, it will render a "Read more" link at the bottom of the content.
+     * Even though you can add a link anywhere in the content, it is recommended to
+     * use the read more link. Because it will always be displayed at the bottom
+     * of the popover after the content, does not scroll away with the content,
+     * and it will be styled in a consistent way.
+     * @sourceFile help-and-documentation.ts
+     */
+    interface HTMLLimelExampleReadMoreElement extends Components.LimelExampleReadMore, HTMLStencilElement {
+    }
+    var HTMLLimelExampleReadMoreElement: {
+        prototype: HTMLLimelExampleReadMoreElement;
+        new (): HTMLLimelExampleReadMoreElement;
+    };
+    interface HTMLLimelExampleReadonlyPropsElement extends Components.LimelExampleReadonlyProps, HTMLStencilElement {
+    }
+    var HTMLLimelExampleReadonlyPropsElement: {
+        prototype: HTMLLimelExampleReadonlyPropsElement;
+        new (): HTMLLimelExampleReadonlyPropsElement;
+    };
+    interface HTMLLimelExampleSelectElement extends Components.LimelExampleSelect, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSelectElement: {
+        prototype: HTMLLimelExampleSelectElement;
+        new (): HTMLLimelExampleSelectElement;
+    };
+    /**
+     * Changing Available Options
+     * This example shows how the component works when options are changed
+     * programmatically during the lifetime of the component.
+     * We have 5 different sets of options:
+     * 1. A set of options with an empty and disabled first option. This is used to ensure that the empty option cannot be re-selected.
+     * 2. A set of options with an empty but non-disabled first option. This is used to ensure that the empty option can be re-selected.
+     * 3. An empty array. This is used to ensure that the component can handle an empty set of options. To load the component with an empty set of options, select this group, then click the "Reinitialize" button.
+     * 4. A set of 3 options.
+     * 5. A set of 4 options. Set 4 and 5 are used to ensure that the component can handle sets of different sizes.
+     */
+    interface HTMLLimelExampleSelectChangeOptionsElement extends Components.LimelExampleSelectChangeOptions, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSelectChangeOptionsElement: {
+        prototype: HTMLLimelExampleSelectChangeOptionsElement;
+        new (): HTMLLimelExampleSelectChangeOptionsElement;
+    };
+    /**
+     * Select field inside a dialog
+     */
+    interface HTMLLimelExampleSelectDialogElement extends Components.LimelExampleSelectDialog, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSelectDialogElement: {
+        prototype: HTMLLimelExampleSelectDialogElement;
+        new (): HTMLLimelExampleSelectDialogElement;
+    };
+    /**
+     * Select multiple values
+     */
+    interface HTMLLimelExampleSelectMultipleElement extends Components.LimelExampleSelectMultiple, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSelectMultipleElement: {
+        prototype: HTMLLimelExampleSelectMultipleElement;
+        new (): HTMLLimelExampleSelectMultipleElement;
+    };
+    /**
+     * Specific Value Preselected
+     */
+    interface HTMLLimelExampleSelectPreselectedElement extends Components.LimelExampleSelectPreselected, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSelectPreselectedElement: {
+        prototype: HTMLLimelExampleSelectPreselectedElement;
+        new (): HTMLLimelExampleSelectPreselectedElement;
+    };
+    /**
+     * With Empty Option
+     * Adding an empty option makes it possible for the user to "unset"
+     * the value. Try selecting a value below, and then selecting the empty
+     * option again.
+     * If the component is set as required, the empty option is removed.
+     */
+    interface HTMLLimelExampleSelectWithEmptyOptionElement extends Components.LimelExampleSelectWithEmptyOption, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSelectWithEmptyOptionElement: {
+        prototype: HTMLLimelExampleSelectWithEmptyOptionElement;
+        new (): HTMLLimelExampleSelectWithEmptyOptionElement;
+    };
+    /**
+     * Select with icons for options
+     */
+    interface HTMLLimelExampleSelectWithIconsElement extends Components.LimelExampleSelectWithIcons, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSelectWithIconsElement: {
+        prototype: HTMLLimelExampleSelectWithIconsElement;
+        new (): HTMLLimelExampleSelectWithIconsElement;
+    };
+    /**
+     * Select with secondary text for options
+     * Using a `secondaryText` you can provide additional information about
+     * each option in the list, helping the users to select the right choice.
+     * :::note
+     * 1. The secondary text is only visible in the dropdown list,
+     * not on the selected option in the input field.
+     * 1. Additionally, on touch screen devices, the secondary text will not
+     * be visible in the dropdown list, since the component uses the "native"
+     * select, which does not have support for additional features like this,
+     * or displaying icons beside the options.
+     * :::
+     */
+    interface HTMLLimelExampleSelectWithSecondaryTextElement extends Components.LimelExampleSelectWithSecondaryText, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSelectWithSecondaryTextElement: {
+        prototype: HTMLLimelExampleSelectWithSecondaryTextElement;
+        new (): HTMLLimelExampleSelectWithSecondaryTextElement;
+    };
+    /**
+     * Select with separators between options
+     * Separators are simple yet powerful design elements that can be
+     * employed in lists of items. They offer significant usability advantages
+     * by providing valuable visual cues that aid users in perceiving
+     * and navigating through lists. Read more about advantages of using
+     * separators in the
+     * [List component's documentations](/#/component/limel-list/).
+     */
+    interface HTMLLimelExampleSelectWithSeparatorsElement extends Components.LimelExampleSelectWithSeparators, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSelectWithSeparatorsElement: {
+        prototype: HTMLLimelExampleSelectWithSeparatorsElement;
+        new (): HTMLLimelExampleSelectWithSeparatorsElement;
+    };
+    /**
+     * Form with server validation
+     * @sourceFile list-schema.ts
+     */
+    interface HTMLLimelExampleServerErrorsElement extends Components.LimelExampleServerErrors, HTMLStencilElement {
+    }
+    var HTMLLimelExampleServerErrorsElement: {
+        prototype: HTMLLimelExampleServerErrorsElement;
+        new (): HTMLLimelExampleServerErrorsElement;
+    };
+    interface HTMLLimelExampleShadowsBadUsageElement extends Components.LimelExampleShadowsBadUsage, HTMLStencilElement {
+    }
+    var HTMLLimelExampleShadowsBadUsageElement: {
+        prototype: HTMLLimelExampleShadowsBadUsageElement;
+        new (): HTMLLimelExampleShadowsBadUsageElement;
+    };
+    /**
+     * Basic example
+     * This component acts as a link, and therefore comes with features
+     * such as `title` and `target`.
+     * The `title` tag of the hyperlink can be used to
+     * provide additional information about the link.
+     * It improves accessibility both for users with assistive technologies,
+     * and sighted users. Hovering and holding the mouse cursor will
+     * display a tooltip generated with the specified `title`.
+     * What the `target` does is described well in
+     * [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target).
+     */
+    interface HTMLLimelExampleShortcutElement extends Components.LimelExampleShortcut, HTMLStencilElement {
+    }
+    var HTMLLimelExampleShortcutElement: {
+        prototype: HTMLLimelExampleShortcutElement;
+        new (): HTMLLimelExampleShortcutElement;
+    };
+    /**
+     * Displaying a notification badge
+     * The component can display a notification badge, which could either be
+     * a `number` or a `string`. Read more about how the badge truncates
+     * or abbreviates the provided label [here](#/component/limel-badge/).
+     */
+    interface HTMLLimelExampleShortcutNotificationElement extends Components.LimelExampleShortcutNotification, HTMLStencilElement {
+    }
+    var HTMLLimelExampleShortcutNotificationElement: {
+        prototype: HTMLLimelExampleShortcutNotificationElement;
+        new (): HTMLLimelExampleShortcutNotificationElement;
+    };
+    /**
+     * How to style the shortcut
+     * The component offers different CSS variables for styling
+     * the color of the shortcut, and it's icon; as well as
+     * radius of it's rounded corners, and colors of the notification badge
+     * and its text.
+     */
+    interface HTMLLimelExampleShortcutStylingElement extends Components.LimelExampleShortcutStyling, HTMLStencilElement {
+    }
+    var HTMLLimelExampleShortcutStylingElement: {
+        prototype: HTMLLimelExampleShortcutStylingElement;
+        new (): HTMLLimelExampleShortcutStylingElement;
+    };
+    /**
+     * Example with click handler
+     */
+    interface HTMLLimelExampleShortcutWithClickHandlerElement extends Components.LimelExampleShortcutWithClickHandler, HTMLStencilElement {
+    }
+    var HTMLLimelExampleShortcutWithClickHandlerElement: {
+        prototype: HTMLLimelExampleShortcutWithClickHandlerElement;
+        new (): HTMLLimelExampleShortcutWithClickHandlerElement;
+    };
+    interface HTMLLimelExampleSizeElement extends Components.LimelExampleSize, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSizeElement: {
+        prototype: HTMLLimelExampleSizeElement;
+        new (): HTMLLimelExampleSizeElement;
+    };
+    interface HTMLLimelExampleSizeEdgeCaseElement extends Components.LimelExampleSizeEdgeCase, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSizeEdgeCaseElement: {
+        prototype: HTMLLimelExampleSizeEdgeCaseElement;
+        new (): HTMLLimelExampleSizeEdgeCaseElement;
+    };
+    /**
+     * Basic example
+     */
+    interface HTMLLimelExampleSliderBasicElement extends Components.LimelExampleSliderBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSliderBasicElement: {
+        prototype: HTMLLimelExampleSliderBasicElement;
+        new (): HTMLLimelExampleSliderBasicElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface HTMLLimelExampleSliderCompositeElement extends Components.LimelExampleSliderComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSliderCompositeElement: {
+        prototype: HTMLLimelExampleSliderCompositeElement;
+        new (): HTMLLimelExampleSliderCompositeElement;
+    };
+    /**
+     * With multiplier and step
+     * When step is configured and the initial value is not a multiple of the step
+     * value, the slider will round the value to the nearest step when it is changed
+     * for the first time. After a valid value has been set, only discrete valid
+     * values will be possible to pick.
+     */
+    interface HTMLLimelExampleSliderMultiplierElement extends Components.LimelExampleSliderMultiplier, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSliderMultiplierElement: {
+        prototype: HTMLLimelExampleSliderMultiplierElement;
+        new (): HTMLLimelExampleSliderMultiplierElement;
+    };
+    /**
+     * With percentage colors
+     * You can add the `displays-percentage-colors` class to your slider component
+     * and it will automatically visualize current percentage colors in real-time.
+     * The colors change with intervals of 10 as users drags the slider pin.
+     * The color spectrum is not modifiable, and looks like red → orange → yellow
+     * → green → teal.
+     */
+    interface HTMLLimelExampleSliderMultiplierPercentageColorsElement extends Components.LimelExampleSliderMultiplierPercentageColors, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSliderMultiplierPercentageColorsElement: {
+        prototype: HTMLLimelExampleSliderMultiplierPercentageColorsElement;
+        new (): HTMLLimelExampleSliderMultiplierPercentageColorsElement;
+    };
+    /**
+     * Basic example
+     * Snackbars should not necessarily require a deliberate action from the user to dismiss them.
+     * This is why the component has a default `timeout` and will disappear even if the user
+     * does not interact with it.
+     * As you see in this example, there is no `timeout` specified.
+     * Therefore the snackbar will automatically disappear after a few seconds.
+     * :::important
+     * Make sure to set a proper timeout, based on the length of the text.
+     * An average user must be able to read the full message within the given
+     * time!
+     * :::
+     */
+    interface HTMLLimelExampleSnackbarElement extends Components.LimelExampleSnackbar, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSnackbarElement: {
+        prototype: HTMLLimelExampleSnackbarElement;
+        new (): HTMLLimelExampleSnackbarElement;
+    };
+    /**
+     * Dismissible
+     * By default, snackbars display a dismiss button.
+     * This allows users to close them at any time, before they time out.
+     * The reasons for this default behavior is that
+     * there could be multiple snackbars on the screen, covering each other.
+     * Also, snackbars could be covering other important content on the screen,
+     * or have unreasonably long timeout.
+     * However, you can override this default interaction design by setting the
+     * `dismissible` property to `false`.
+     */
+    interface HTMLLimelExampleSnackbarDismissibleElement extends Components.LimelExampleSnackbarDismissible, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSnackbarDismissibleElement: {
+        prototype: HTMLLimelExampleSnackbarDismissibleElement;
+        new (): HTMLLimelExampleSnackbarDismissibleElement;
+    };
+    /**
+     * Positioning on large and small screens
+     * Snackbars are by default center-aligned and placed at the bottom of the screen.
+     * However, on larger screens, they can optionally be displayed on the leading edge
+     * which would be the left side in LTR, or the right side in RTL.
+     * To do so, you can take advantage of the provided CSS variables,
+     * and keep in mind that the Snackbar uses `position: fixed;`
+     * to determine its location.
+     * :::tip
+     * When customizing the Snackbars for usage in progressive web applications,
+     * remember to consider the safe areas, and add the
+     * [environment variables](https://developer.mozilla.org/en-US/docs/Web/CSS/env)
+     * in your calculations.
+     * For example: `--snackbar-bottom: env(safe-area-inset-left, 0)`.
+     * :::
+     */
+    interface HTMLLimelExampleSnackbarPositioningElement extends Components.LimelExampleSnackbarPositioning, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSnackbarPositioningElement: {
+        prototype: HTMLLimelExampleSnackbarPositioningElement;
+        new (): HTMLLimelExampleSnackbarPositioningElement;
+    };
+    /**
+     * With actions
+     * You can include a single action button inside the snackbar.
+     * :::important
+     * Keep in mind that pressing the action button will close
+     * the snackbar immediately. The user must be informed that their
+     * requested action actually took place. If there is no instant
+     * visual feedback (for sighted users) in the user interface that
+     * informs the user about the updated state, displaying another
+     * snackbar could be a good idea.
+     * :::
+     */
+    interface HTMLLimelExampleSnackbarWithActionElement extends Components.LimelExampleSnackbarWithAction, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSnackbarWithActionElement: {
+        prototype: HTMLLimelExampleSnackbarWithActionElement;
+        new (): HTMLLimelExampleSnackbarWithActionElement;
+    };
+    /**
+     * With changing messages
+     */
+    interface HTMLLimelExampleSnackbarWithChangingMessagesElement extends Components.LimelExampleSnackbarWithChangingMessages, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSnackbarWithChangingMessagesElement: {
+        prototype: HTMLLimelExampleSnackbarWithChangingMessagesElement;
+        new (): HTMLLimelExampleSnackbarWithChangingMessagesElement;
+    };
+    /**
+     * With a generic design or branded for Lime Technologies
+     * The `limel-spinner` makes the boring waiting times slightly more cheerful by
+     * cycling through nine delightful colors.
+     * By default spinner's shape represents Lime Technologies' logo, as it is used
+     * primarily in our own products.
+     * However, it is easy render the spinner as a generic circle by specifying
+     * `limeBranded={false}`, which may be useful for instance when the
+     * spinner is used on a small component like a button.
+     */
+    interface HTMLLimelExampleSpinnerElement extends Components.LimelExampleSpinner, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSpinnerElement: {
+        prototype: HTMLLimelExampleSpinnerElement;
+        new (): HTMLLimelExampleSpinnerElement;
+    };
+    /**
+     * With custom colors
+     * The `limel-spinner` is designed to cycle through ten colors which are all
+     * from Lime Technologies' brand colors.
+     * It is of course possible to override these colors.
+     */
+    interface HTMLLimelExampleSpinnerColorElement extends Components.LimelExampleSpinnerColor, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSpinnerColorElement: {
+        prototype: HTMLLimelExampleSpinnerColorElement;
+        new (): HTMLLimelExampleSpinnerColorElement;
+    };
+    /**
+     * Spinner sizes
+     */
+    interface HTMLLimelExampleSpinnerSizeElement extends Components.LimelExampleSpinnerSize, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSpinnerSizeElement: {
+        prototype: HTMLLimelExampleSpinnerSizeElement;
+        new (): HTMLLimelExampleSpinnerSizeElement;
+    };
+    /**
+     * Basic Example
+     * When used correctly, a split button reduces visual complexity of the user interface
+     * by grouping similar commands together.
+     * :::important
+     * Commands which are included in the menu must be variations of the default command,
+     * or be very relevant to it.
+     * :::
+     */
+    interface HTMLLimelExampleSplitButtonBasicElement extends Components.LimelExampleSplitButtonBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSplitButtonBasicElement: {
+        prototype: HTMLLimelExampleSplitButtonBasicElement;
+        new (): HTMLLimelExampleSplitButtonBasicElement;
+    };
+    /**
+     * Repeating the default command in the menu
+     * The default command must be the most commonly used action.
+     * Such actions typically have a very short label.
+     * However, sometimes it could be useful to repeat the default command again
+     * in the list of commands, using a more descriptive label which
+     * clarifies the default action.
+     * :::tip
+     * - **Limit the overall number of choices** within the menu to less than 10
+     * - **Order the items within the menu by popularity** and put the most popular ones on top.
+     * :::
+     */
+    interface HTMLLimelExampleSplitButtonRepeatDefaultCommandElement extends Components.LimelExampleSplitButtonRepeatDefaultCommand, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSplitButtonRepeatDefaultCommandElement: {
+        prototype: HTMLLimelExampleSplitButtonRepeatDefaultCommandElement;
+        new (): HTMLLimelExampleSplitButtonRepeatDefaultCommandElement;
+    };
+    interface HTMLLimelExampleSurfaceShadowsElement extends Components.LimelExampleSurfaceShadows, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSurfaceShadowsElement: {
+        prototype: HTMLLimelExampleSurfaceShadowsElement;
+        new (): HTMLLimelExampleSurfaceShadowsElement;
+    };
+    interface HTMLLimelExampleSurfaceShadowsInflatedElement extends Components.LimelExampleSurfaceShadowsInflated, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSurfaceShadowsInflatedElement: {
+        prototype: HTMLLimelExampleSurfaceShadowsInflatedElement;
+        new (): HTMLLimelExampleSurfaceShadowsInflatedElement;
+    };
+    interface HTMLLimelExampleSurfaceShadowsStatesElement extends Components.LimelExampleSurfaceShadowsStates, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSurfaceShadowsStatesElement: {
+        prototype: HTMLLimelExampleSurfaceShadowsStatesElement;
+        new (): HTMLLimelExampleSurfaceShadowsStatesElement;
+    };
+    interface HTMLLimelExampleSwitchElement extends Components.LimelExampleSwitch, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSwitchElement: {
+        prototype: HTMLLimelExampleSwitchElement;
+        new (): HTMLLimelExampleSwitchElement;
+    };
+    /**
+     * With `helperText`
+     * Switch can have a helper text, which is useful when providing additional information and
+     * can clarify functionality of the switch for the user.
+     * The helper text is displayed when the user puts focus on the switch, and works with keyboard
+     * navigation as well. However, on touchscreen devices, the helper text is always displayed.
+     */
+    interface HTMLLimelExampleSwitchHelperTextElement extends Components.LimelExampleSwitchHelperText, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSwitchHelperTextElement: {
+        prototype: HTMLLimelExampleSwitchHelperTextElement;
+        new (): HTMLLimelExampleSwitchHelperTextElement;
+    };
+    /**
+     * Customizing the visualization of the `readonly` state
+     * It is possible and recommended that you enhance the visualization of a `boolean` field
+     * in a `readonly` state.
+     * Because depending on the context, the default UI of the `readonly` state may not always
+     * provide the best way of _visualizing information_, potentially leading to
+     * confusion and negatively affecting the end-users' experience.
+     * :::important
+     * Before reading the documentations below, make sure to read
+     * 1. our guides about the difference between
+     * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+     * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+     * :::
+     * Using the `readonlyLabels` optional prop, you can override the `label` and
+     * customize it accordingly. Additionally, by using the `icon` prop, you can
+     * override the default icons and their colors.
+     */
+    interface HTMLLimelExampleSwitchReadonlyElement extends Components.LimelExampleSwitchReadonly, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSwitchReadonlyElement: {
+        prototype: HTMLLimelExampleSwitchReadonlyElement;
+        new (): HTMLLimelExampleSwitchReadonlyElement;
+    };
+    interface HTMLLimelExampleSwitchVsCheckboxElement extends Components.LimelExampleSwitchVsCheckbox, HTMLStencilElement {
+    }
+    var HTMLLimelExampleSwitchVsCheckboxElement: {
+        prototype: HTMLLimelExampleSwitchVsCheckboxElement;
+        new (): HTMLLimelExampleSwitchVsCheckboxElement;
+    };
+    interface HTMLLimelExampleTabBarElement extends Components.LimelExampleTabBar, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTabBarElement: {
+        prototype: HTMLLimelExampleTabBarElement;
+        new (): HTMLLimelExampleTabBarElement;
+    };
+    /**
+     * Default UI of Tab bars
+     * By default, tabs dynamically adjust their width to their own content, which
+     * means a tab with a larger label will be bigger than one with a shorter one.
+     * This is the preferred layout for tabs.
+     */
+    interface HTMLLimelExampleTabBarWithDynamicTabWidthElement extends Components.LimelExampleTabBarWithDynamicTabWidth, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTabBarWithDynamicTabWidthElement: {
+        prototype: HTMLLimelExampleTabBarWithDynamicTabWidthElement;
+        new (): HTMLLimelExampleTabBarWithDynamicTabWidthElement;
+    };
+    /**
+     * Tab bars with custom styles
+     * In some situations and for the sake of UI design, you may want to have tabs
+     * that equally share the available screen width and stretch. To get such a
+     * result, you can add the `has-tabs-with-equal-width` class to the tab bar.
+     */
+    interface HTMLLimelExampleTabBarWithEqualTabWidthElement extends Components.LimelExampleTabBarWithEqualTabWidth, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTabBarWithEqualTabWidthElement: {
+        prototype: HTMLLimelExampleTabBarWithEqualTabWidthElement;
+        new (): HTMLLimelExampleTabBarWithEqualTabWidthElement;
+    };
+    /**
+     * This example illustrates how to add custom components inside the `limel-tab-panel`.
+     * Each component will simulate loading the data it needs once the tab has been
+     * activated and then display the actual content. If the button is pressed, the
+     * component will emit the `changeTab` event to change the badge inside the
+     * corresponding tab.
+     * @sourceFile tab-panel-content.tsx
+     * @sourceFile tab-panel-content.scss
+     */
+    interface HTMLLimelExampleTabPanelElement extends Components.LimelExampleTabPanel, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTabPanelElement: {
+        prototype: HTMLLimelExampleTabPanelElement;
+        new (): HTMLLimelExampleTabPanelElement;
+    };
+    interface HTMLLimelExampleTabPanelContentElement extends Components.LimelExampleTabPanelContent, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTabPanelContentElement: {
+        prototype: HTMLLimelExampleTabPanelContentElement;
+        new (): HTMLLimelExampleTabPanelContentElement;
+    };
+    /**
+     * @sourceFile persons.ts
+     */
+    interface HTMLLimelExampleTableElement extends Components.LimelExampleTable, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableElement: {
+        prototype: HTMLLimelExampleTableElement;
+        new (): HTMLLimelExampleTableElement;
+    };
+    /**
+     * Activate a row
+     * @sourceFile persons.ts
+     */
+    interface HTMLLimelExampleTableActivateRowElement extends Components.LimelExampleTableActivateRow, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableActivateRowElement: {
+        prototype: HTMLLimelExampleTableActivateRowElement;
+        new (): HTMLLimelExampleTableActivateRowElement;
+    };
+    /**
+     * Custom components
+     * You can specify a custom component to use for any column in your table. This
+     * is done under the `component` key in the schema, following the
+     * [TableComponentDefinition](#/type/TableComponentDefinition/) specification,
+     * for example:
+     * ```ts
+     * const columns = [
+     *     {
+     *         title: 'Food',
+     *         field: 'food',
+     *         component: { name: 'my-fancy-food-displayer' },
+     *     },
+     * ];
+     * ```
+     * While you can, in principle, use any component in a table, your custom table
+     * components should implement the [TableComponent](#/type/TableComponent/)
+     * interface.
+     * @sourceFile birds.ts
+     * @sourceFile table-food.tsx
+     */
+    interface HTMLLimelExampleTableCustomComponentsElement extends Components.LimelExampleTableCustomComponents, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableCustomComponentsElement: {
+        prototype: HTMLLimelExampleTableCustomComponentsElement;
+        new (): HTMLLimelExampleTableCustomComponentsElement;
+    };
+    /**
+     * Default sorted columns
+     * In this example, the table is sorted on *two* columns. Primary sorting is
+     * done on the "Eggs per clutch" column, and secondary sorting is done on the
+     * "Name" column. The result is that within each "group" of birds that have the
+     * same number of eggs per clutch, the birds are sorted by name.
+     */
+    interface HTMLLimelExampleTableDefaultSortedElement extends Components.LimelExampleTableDefaultSorted, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableDefaultSortedElement: {
+        prototype: HTMLLimelExampleTableDefaultSortedElement;
+        new (): HTMLLimelExampleTableDefaultSortedElement;
+    };
+    interface HTMLLimelExampleTableFoodElement extends Components.LimelExampleTableFood, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableFoodElement: {
+        prototype: HTMLLimelExampleTableFoodElement;
+        new (): HTMLLimelExampleTableFoodElement;
+    };
+    /**
+     * Column header menu
+     * You can also add custom components to the header cell of a column. In
+     * contrast to custom components used elsewhere in the table, custom components
+     * used in the header do not replace the entire content of the cell. Instead,
+     * they appear in a slot next to the column sorting icon.
+     * @sourceFile persons.ts
+     * @sourceFile header-menu.tsx
+     */
+    interface HTMLLimelExampleTableHeaderMenuElement extends Components.LimelExampleTableHeaderMenu, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableHeaderMenuElement: {
+        prototype: HTMLLimelExampleTableHeaderMenuElement;
+        new (): HTMLLimelExampleTableHeaderMenuElement;
+    };
+    /**
+     * Visualizing clickable rows better
+     * By taking advantage of the `has-interactive-rows` class, hovering on a row
+     * will display an elevated visual effect, giving it more affordance and a solid
+     * feeling of interactivity.
+     * :::note usage notes
+     * - Only use this class when clicking on an entire row triggers a reaction in
+     * the system, for example a card or a modal is opened to show further details.
+     * :::
+     */
+    interface HTMLLimelExampleTableInteractiveRowsElement extends Components.LimelExampleTableInteractiveRows, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableInteractiveRowsElement: {
+        prototype: HTMLLimelExampleTableInteractiveRowsElement;
+        new (): HTMLLimelExampleTableInteractiveRowsElement;
+    };
+    /**
+     * Layout
+     * Columns and their content can be decisive factors in how a table is
+     * preferred to rendered in the user interface. To set your preferred
+     * rendering, choose one of the available `layout` properties.
+     * ```tsx
+     * layout="default"
+     * ```
+     * The default layout resizes the table's columns,
+     * in a way that each column becomes as wide as the data it holds.
+     * :::important
+     * Note that be default, table columns have a maximum width of `40rem`.
+     * This means, they can never grow wider than that, unless you specify
+     * another size using the `--table-max-column-width` CSS variable.
+     * This applies to all other layouts presented further down as well!
+     * :::
+     * If there is additional space available on the right side of the last column,
+     * rows will stretch to fill the space and look visually as wide as the table.
+     * :::note
+     * While scrolling, new rows get lazy-loaded. Since the new data may have wider
+     * length, it might affect rendering of the layout in real-time.
+     * This means columns can get resized while user is scrolling down.
+     * :::
+     * :::tip
+     * It is also possible to affect internal layout of each column, by specifying
+     * `horizontalAlign` on the column headers, to `left` (default), `center`,
+     * or `right`. This basically defines the text-alignment for all the cells in that column.
+     * :::
+     * @sourceFile invoices.ts
+     */
+    interface HTMLLimelExampleTableLayoutDefaultElement extends Components.LimelExampleTableLayoutDefault, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableLayoutDefaultElement: {
+        prototype: HTMLLimelExampleTableLayoutDefaultElement;
+        new (): HTMLLimelExampleTableLayoutDefaultElement;
+    };
+    /**
+     * lowDensity
+     * ```tsx
+     * layout="lowDensity"
+     * ```
+     * By using this layout option, you can easily convert the table into an airy list of items.
+     * This type of UI is suitable for generating minimalist lists of items with
+     * only a few properties on each. Especially when the property values are not
+     * self-explanatory (such as an email address) and require a bit of extra help
+     * to know what they are.
+     * Using this UI, you can take advantage of the sticky header of the table which
+     * explains what each cell is about, and also enjoy sorting possibilities it
+     * offers.
+     * :::note usage notes
+     * - In this low-density UI, all cells will get a fixed height, which may affect
+     * the layout of custom components that you place inside them.
+     * - This UI is not preferred for data intensive views, in which the user's main
+     * task is processing the presented data and making sense of it. For such views,
+     * use the table component with its normal density.
+     * :::
+     * @sourceFile invoices.ts
+     */
+    interface HTMLLimelExampleTableLayoutLowDensityElement extends Components.LimelExampleTableLayoutLowDensity, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableLayoutLowDensityElement: {
+        prototype: HTMLLimelExampleTableLayoutLowDensityElement;
+        new (): HTMLLimelExampleTableLayoutLowDensityElement;
+    };
+    /**
+     * stretchColumns
+     * ```tsx
+     * layout="stretchColumns"
+     * ```
+     * With this layout, the table stretches columns so that all
+     * fit perfectly in the table container, when extra space is available.
+     * If all columns cannot fit within the available width,
+     * then a horizontal scrollbar will appear.
+     * @sourceFile invoices.ts
+     */
+    interface HTMLLimelExampleTableLayoutStretchColumnsElement extends Components.LimelExampleTableLayoutStretchColumns, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableLayoutStretchColumnsElement: {
+        prototype: HTMLLimelExampleTableLayoutStretchColumnsElement;
+        new (): HTMLLimelExampleTableLayoutStretchColumnsElement;
+    };
+    /**
+     * stretchLastColumn
+     * ```tsx
+     * layout="stretchLastColumn"
+     * ```
+     * Works just like `default`, but unlike the default layout
+     * which resulted in having an empty last column, in this layout
+     * the last existing column will stretch out to fill up the remaining table width.
+     * @sourceFile invoices.ts
+     */
+    interface HTMLLimelExampleTableLayoutStretchLastColumnElement extends Components.LimelExampleTableLayoutStretchLastColumn, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableLayoutStretchLastColumnElement: {
+        prototype: HTMLLimelExampleTableLayoutStretchLastColumnElement;
+        new (): HTMLLimelExampleTableLayoutStretchLastColumnElement;
+    };
+    /**
+     * Local sorting and pagination
+     * @sourceFile birds.ts
+     */
+    interface HTMLLimelExampleTableLocalElement extends Components.LimelExampleTableLocal, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableLocalElement: {
+        prototype: HTMLLimelExampleTableLocalElement;
+        new (): HTMLLimelExampleTableLocalElement;
+    };
+    /**
+     * Movable columns
+     * @sourceFile birds.ts
+     */
+    interface HTMLLimelExampleTableMovableColumnsElement extends Components.LimelExampleTableMovableColumns, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableMovableColumnsElement: {
+        prototype: HTMLLimelExampleTableMovableColumnsElement;
+        new (): HTMLLimelExampleTableMovableColumnsElement;
+    };
+    /**
+     * Remote sorting and pagination
+     * @sourceFile birds.ts
+     */
+    interface HTMLLimelExampleTableRemoteElement extends Components.LimelExampleTableRemote, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableRemoteElement: {
+        prototype: HTMLLimelExampleTableRemoteElement;
+        new (): HTMLLimelExampleTableRemoteElement;
+    };
+    /**
+     * Selectable rows with updating aggregates
+     * @sourceFile persons.ts
+     */
+    interface HTMLLimelExampleTableSelectableRowsElement extends Components.LimelExampleTableSelectableRows, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableSelectableRowsElement: {
+        prototype: HTMLLimelExampleTableSelectableRowsElement;
+        new (): HTMLLimelExampleTableSelectableRowsElement;
+    };
+    /**
+     * Disable column sorting
+     * By default, all columns can be sorted by end-users, if they click on
+     * a column header. An arrow icon on the header visualizes the
+     * direction of sorting, when a column is sorted.
+     * However, you can disable the sorting possibility in individual columns,
+     * by setting the `headerSort` to `false`.
+     * @sourceFile invoices.ts
+     */
+    interface HTMLLimelExampleTableSortingDisabledElement extends Components.LimelExampleTableSortingDisabled, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTableSortingDisabledElement: {
+        prototype: HTMLLimelExampleTableSortingDisabledElement;
+        new (): HTMLLimelExampleTableSortingDisabledElement;
+    };
+    /**
+     * Allow resize
+     * The text editor automatically adjusts its own height to fit the content inside.
+     * So as the user types, the editor will grow taller, potentially resizing its own
+     * container element.
+     * By default, the user can also manually change the height of the text editor
+     * by dragging its bottom right corner.
+     * As soon as the user has changed the height, this will override the automatic
+     * resizing, and the editor will no longer adjust its height to fit the content inside.
+     * By setting `allowResize` to `false`, you can disable the end user
+     * to resize the text editor vertically.
+     * :::tip
+     * Using `max-height` and `min-height` CSS properties, you can limit the
+     * resizing to a specific range.
+     * :::
+     */
+    interface HTMLLimelExampleTextEditorAllowResizeElement extends Components.LimelExampleTextEditorAllowResize, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTextEditorAllowResizeElement: {
+        prototype: HTMLLimelExampleTextEditorAllowResizeElement;
+        new (): HTMLLimelExampleTextEditorAllowResizeElement;
+    };
+    /**
+     * Using the text editor as a form component
+     * Here we have a simple form that uses the `limel-text-editor` component,
+     * instead of a regular text input field.
+     * :::note
+     * This allows the user to write rich text, with markdown support, in the form.
+     * But keep in mind that the value will be saved as a markdown string,
+     * and can also contain HTML tags, depending on what the users input
+     * in the filed.
+     * :::
+     * @sourceFile text-editor-form-data.ts
+     */
+    interface HTMLLimelExampleTextEditorAsFormComponentElement extends Components.LimelExampleTextEditorAsFormComponent, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTextEditorAsFormComponentElement: {
+        prototype: HTMLLimelExampleTextEditorAsFormComponentElement;
+        new (): HTMLLimelExampleTextEditorAsFormComponentElement;
+    };
+    /**
+     * Basic example
+     */
+    interface HTMLLimelExampleTextEditorBasicElement extends Components.LimelExampleTextEditorBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTextEditorBasicElement: {
+        prototype: HTMLLimelExampleTextEditorBasicElement;
+        new (): HTMLLimelExampleTextEditorBasicElement;
+    };
+    /**
+     * Composite example
+     */
+    interface HTMLLimelExampleTextEditorCompositeElement extends Components.LimelExampleTextEditorComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTextEditorCompositeElement: {
+        prototype: HTMLLimelExampleTextEditorCompositeElement;
+        new (): HTMLLimelExampleTextEditorCompositeElement;
+    };
+    /**
+     * Resize with container
+     * Sometimes, you may want to make the text editor to follow the size of its container,
+     * both in width and height; for instance, when the container is resizable by the user.
+     * In such cases, make sure to set `allowResize={false}` on the component.
+     * However, you can still constrain the text editor to never grow beyond a certain height,
+     * by either
+     * - setting a fixed `height` or `max-height` the component itself,
+     * - or alternatively by setting a fixed `height` or `max-height` on the container
+     * element of the component.
+     * In this example, the maximum height is set to `15rem`, which means that:
+     * 1. the editor will adjust itself to the content inside,
+     * pushing out its container and making it taller, until it reaches `15rem` in height.
+     * 1. and also when you manually resize the container,
+     * the editor will try to fill the available surface area, until its height reaches `15rem`.
+     */
+    interface HTMLLimelExampleTextEditorSizeElement extends Components.LimelExampleTextEditorSize, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTextEditorSizeElement: {
+        prototype: HTMLLimelExampleTextEditorSizeElement;
+        new (): HTMLLimelExampleTextEditorSizeElement;
+    };
+    /**
+     * Text editor in HTML mode.
+     * When using the text editor in HTML mode the `value` property is expected to contain
+     * an html formatted string and the output will likewise be html.
+     */
+    interface HTMLLimelExampleTextEditorWithHtmlElement extends Components.LimelExampleTextEditorWithHtml, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTextEditorWithHtmlElement: {
+        prototype: HTMLLimelExampleTextEditorWithHtmlElement;
+        new (): HTMLLimelExampleTextEditorWithHtmlElement;
+    };
+    /**
+     * Text editor in markdown mode.
+     * When using the text editor in markdown mode the `value` property is expected to contain
+     * a markdown formatted string and the output will likewise be markdown. This is the default
+     * if no value for `contentType` is provided.
+     */
+    interface HTMLLimelExampleTextEditorWithMarkdownElement extends Components.LimelExampleTextEditorWithMarkdown, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTextEditorWithMarkdownElement: {
+        prototype: HTMLLimelExampleTextEditorWithMarkdownElement;
+        new (): HTMLLimelExampleTextEditorWithMarkdownElement;
+    };
+    /**
+     * Basic example
+     */
+    interface HTMLLimelExampleTooltipBasicElement extends Components.LimelExampleTooltipBasic, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTooltipBasicElement: {
+        prototype: HTMLLimelExampleTooltipBasicElement;
+        new (): HTMLLimelExampleTooltipBasicElement;
+    };
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface HTMLLimelExampleTooltipCompositeElement extends Components.LimelExampleTooltipComposite, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTooltipCompositeElement: {
+        prototype: HTMLLimelExampleTooltipCompositeElement;
+        new (): HTMLLimelExampleTooltipCompositeElement;
+    };
+    interface HTMLLimelExampleTooltipDeclutterElement extends Components.LimelExampleTooltipDeclutter, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTooltipDeclutterElement: {
+        prototype: HTMLLimelExampleTooltipDeclutterElement;
+        new (): HTMLLimelExampleTooltipDeclutterElement;
+    };
+    /**
+     * Using `maxlength` property
+     * To present an easy to read content, the tooltip's maximum text
+     * length is set to 50 characters, including spaces.
+     * When this threshold is reached, content will be rendered with line breaks.
+     * However, it is possible to override this value by specifying `maxlength`.
+     * :::note
+     * Tooltips are intended to display very brief information.
+     * Try not to place large amount of text in them.
+     * :::
+     */
+    interface HTMLLimelExampleTooltipMaxCharacterElement extends Components.LimelExampleTooltipMaxCharacter, HTMLStencilElement {
+    }
+    var HTMLLimelExampleTooltipMaxCharacterElement: {
+        prototype: HTMLLimelExampleTooltipMaxCharacterElement;
+        new (): HTMLLimelExampleTooltipMaxCharacterElement;
+    };
+    interface HTMLLimelExampleUiColorPaletteElement extends Components.LimelExampleUiColorPalette, HTMLStencilElement {
+    }
+    var HTMLLimelExampleUiColorPaletteElement: {
+        prototype: HTMLLimelExampleUiColorPaletteElement;
+        new (): HTMLLimelExampleUiColorPaletteElement;
+    };
+    interface HTMLLimelExampleValueElement extends Components.LimelExampleValue, HTMLStencilElement {
+    }
+    var HTMLLimelExampleValueElement: {
+        prototype: HTMLLimelExampleValueElement;
+        new (): HTMLLimelExampleValueElement;
     };
     /**
      * This component lets end-users select a *single* file from their device
@@ -4188,6 +12260,18 @@ declare global {
         prototype: HTMLLimelTooltipContentElement;
         new (): HTMLLimelTooltipContentElement;
     };
+    interface HTMLMyCustomMenuElement extends Components.MyCustomMenu, HTMLStencilElement {
+    }
+    var HTMLMyCustomMenuElement: {
+        prototype: HTMLMyCustomMenuElement;
+        new (): HTMLMyCustomMenuElement;
+    };
+    interface HTMLMyCustomMenuWithNotificationsElement extends Components.MyCustomMenuWithNotifications, HTMLStencilElement {
+    }
+    var HTMLMyCustomMenuWithNotificationsElement: {
+        prototype: HTMLMyCustomMenuWithNotificationsElement;
+        new (): HTMLMyCustomMenuWithNotificationsElement;
+    };
     interface HTMLElementTagNameMap {
         "limel-action-bar": HTMLLimelActionBarElement;
         "limel-action-bar-item": HTMLLimelActionBarItemElement;
@@ -4212,6 +12296,359 @@ declare global {
         "limel-dock": HTMLLimelDockElement;
         "limel-dock-button": HTMLLimelDockButtonElement;
         "limel-dynamic-label": HTMLLimelDynamicLabelElement;
+        "limel-example-action-bar": HTMLLimelExampleActionBarElement;
+        "limel-example-action-bar-as-primary-component": HTMLLimelExampleActionBarAsPrimaryComponentElement;
+        "limel-example-action-bar-colors": HTMLLimelExampleActionBarColorsElement;
+        "limel-example-action-bar-floating": HTMLLimelExampleActionBarFloatingElement;
+        "limel-example-action-bar-in-list": HTMLLimelExampleActionBarInListElement;
+        "limel-example-action-bar-overflow-menu": HTMLLimelExampleActionBarOverflowMenuElement;
+        "limel-example-action-bar-selected-item": HTMLLimelExampleActionBarSelectedItemElement;
+        "limel-example-action-bar-styling": HTMLLimelExampleActionBarStylingElement;
+        "limel-example-action-buttons-choosing-explicit-labels": HTMLLimelExampleActionButtonsChoosingExplicitLabelsElement;
+        "limel-example-action-buttons-choosing-labels": HTMLLimelExampleActionButtonsChoosingLabelsElement;
+        "limel-example-action-buttons-colors-do-dont": HTMLLimelExampleActionButtonsColorsDoDontElement;
+        "limel-example-action-buttons-icon-color": HTMLLimelExampleActionButtonsIconColorElement;
+        "limel-example-action-buttons-placement": HTMLLimelExampleActionButtonsPlacementElement;
+        "limel-example-action-buttons-primary-secondary": HTMLLimelExampleActionButtonsPrimarySecondaryElement;
+        "limel-example-action-buttons-primary-secondary-reversed": HTMLLimelExampleActionButtonsPrimarySecondaryReversedElement;
+        "limel-example-action-buttons-primary-secondary-reversed-colors": HTMLLimelExampleActionButtonsPrimarySecondaryReversedColorsElement;
+        "limel-example-action-buttons-third-alternative": HTMLLimelExampleActionButtonsThirdAlternativeElement;
+        "limel-example-audition-form": HTMLLimelExampleAuditionFormElement;
+        "limel-example-audition-form-readonly": HTMLLimelExampleAuditionFormReadonlyElement;
+        "limel-example-badge": HTMLLimelExampleBadgeElement;
+        "limel-example-badge-number": HTMLLimelExampleBadgeNumberElement;
+        "limel-example-badge-string": HTMLLimelExampleBadgeStringElement;
+        "limel-example-banner": HTMLLimelExampleBannerElement;
+        "limel-example-boolean-checkboxes": HTMLLimelExampleBooleanCheckboxesElement;
+        "limel-example-boolean-radio-buttons": HTMLLimelExampleBooleanRadioButtonsElement;
+        "limel-example-brand-color-palette": HTMLLimelExampleBrandColorPaletteElement;
+        "limel-example-breadcrumbs-buttons": HTMLLimelExampleBreadcrumbsButtonsElement;
+        "limel-example-breadcrumbs-divider": HTMLLimelExampleBreadcrumbsDividerElement;
+        "limel-example-breadcrumbs-icon-color": HTMLLimelExampleBreadcrumbsIconColorElement;
+        "limel-example-breadcrumbs-icons": HTMLLimelExampleBreadcrumbsIconsElement;
+        "limel-example-breadcrumbs-links": HTMLLimelExampleBreadcrumbsLinksElement;
+        "limel-example-breadcrumbs-styling": HTMLLimelExampleBreadcrumbsStylingElement;
+        "limel-example-button-basic": HTMLLimelExampleButtonBasicElement;
+        "limel-example-button-click-fail": HTMLLimelExampleButtonClickFailElement;
+        "limel-example-button-click-success": HTMLLimelExampleButtonClickSuccessElement;
+        "limel-example-button-colors": HTMLLimelExampleButtonColorsElement;
+        "limel-example-button-composite": HTMLLimelExampleButtonCompositeElement;
+        "limel-example-button-disabled": HTMLLimelExampleButtonDisabledElement;
+        "limel-example-button-disabled-vs-hidden": HTMLLimelExampleButtonDisabledVsHiddenElement;
+        "limel-example-button-group": HTMLLimelExampleButtonGroupElement;
+        "limel-example-button-group-badges": HTMLLimelExampleButtonGroupBadgesElement;
+        "limel-example-button-group-composite": HTMLLimelExampleButtonGroupCompositeElement;
+        "limel-example-button-group-icons": HTMLLimelExampleButtonGroupIconsElement;
+        "limel-example-button-group-mix": HTMLLimelExampleButtonGroupMixElement;
+        "limel-example-button-icon": HTMLLimelExampleButtonIconElement;
+        "limel-example-button-loading": HTMLLimelExampleButtonLoadingElement;
+        "limel-example-button-outlined": HTMLLimelExampleButtonOutlinedElement;
+        "limel-example-button-primary": HTMLLimelExampleButtonPrimaryElement;
+        "limel-example-button-reduce-presence": HTMLLimelExampleButtonReducePresenceElement;
+        "limel-example-button-shadows": HTMLLimelExampleButtonShadowsElement;
+        "limel-example-callout-caution": HTMLLimelExampleCalloutCautionElement;
+        "limel-example-callout-composite": HTMLLimelExampleCalloutCompositeElement;
+        "limel-example-callout-custom-heading": HTMLLimelExampleCalloutCustomHeadingElement;
+        "limel-example-callout-custom-icon": HTMLLimelExampleCalloutCustomIconElement;
+        "limel-example-callout-important": HTMLLimelExampleCalloutImportantElement;
+        "limel-example-callout-note": HTMLLimelExampleCalloutNoteElement;
+        "limel-example-callout-rich-content": HTMLLimelExampleCalloutRichContentElement;
+        "limel-example-callout-styles": HTMLLimelExampleCalloutStylesElement;
+        "limel-example-callout-tip": HTMLLimelExampleCalloutTipElement;
+        "limel-example-callout-warning": HTMLLimelExampleCalloutWarningElement;
+        "limel-example-checkbox": HTMLLimelExampleCheckboxElement;
+        "limel-example-checkbox-helper-text": HTMLLimelExampleCheckboxHelperTextElement;
+        "limel-example-checkbox-readonly": HTMLLimelExampleCheckboxReadonlyElement;
+        "limel-example-chip-aria-role": HTMLLimelExampleChipAriaRoleElement;
+        "limel-example-chip-badge": HTMLLimelExampleChipBadgeElement;
+        "limel-example-chip-button": HTMLLimelExampleChipButtonElement;
+        "limel-example-chip-filter": HTMLLimelExampleChipFilterElement;
+        "limel-example-chip-icon-color": HTMLLimelExampleChipIconColorElement;
+        "limel-example-chip-icon-colors": HTMLLimelExampleChipIconColorsElement;
+        "limel-example-chip-image": HTMLLimelExampleChipImageElement;
+        "limel-example-chip-link": HTMLLimelExampleChipLinkElement;
+        "limel-example-chip-loading": HTMLLimelExampleChipLoadingElement;
+        "limel-example-chip-menu": HTMLLimelExampleChipMenuElement;
+        "limel-example-chip-progress": HTMLLimelExampleChipProgressElement;
+        "limel-example-chip-removable": HTMLLimelExampleChipRemovableElement;
+        "limel-example-chip-set": HTMLLimelExampleChipSetElement;
+        "limel-example-chip-set-choice": HTMLLimelExampleChipSetChoiceElement;
+        "limel-example-chip-set-composite": HTMLLimelExampleChipSetCompositeElement;
+        "limel-example-chip-set-filter": HTMLLimelExampleChipSetFilterElement;
+        "limel-example-chip-set-filter-badge": HTMLLimelExampleChipSetFilterBadgeElement;
+        "limel-example-chip-set-image": HTMLLimelExampleChipSetImageElement;
+        "limel-example-chip-set-input": HTMLLimelExampleChipSetInputElement;
+        "limel-example-chip-set-input-type-search": HTMLLimelExampleChipSetInputTypeSearchElement;
+        "limel-example-chip-set-input-type-text": HTMLLimelExampleChipSetInputTypeTextElement;
+        "limel-example-chip-set-input-type-with-menu-items": HTMLLimelExampleChipSetInputTypeWithMenuItemsElement;
+        "limel-example-circular-progress": HTMLLimelExampleCircularProgressElement;
+        "limel-example-circular-progress-css-variables": HTMLLimelExampleCircularProgressCssVariablesElement;
+        "limel-example-circular-progress-percentage-colors": HTMLLimelExampleCircularProgressPercentageColorsElement;
+        "limel-example-circular-progress-props": HTMLLimelExampleCircularProgressPropsElement;
+        "limel-example-circular-progress-sizes": HTMLLimelExampleCircularProgressSizesElement;
+        "limel-example-code-editor": HTMLLimelExampleCodeEditorElement;
+        "limel-example-code-editor-fold-lint": HTMLLimelExampleCodeEditorFoldLintElement;
+        "limel-example-code-editor-readonly-with-line-numbers": HTMLLimelExampleCodeEditorReadonlyWithLineNumbersElement;
+        "limel-example-collapsible-section": HTMLLimelExampleCollapsibleSectionElement;
+        "limel-example-collapsible-section-actions": HTMLLimelExampleCollapsibleSectionActionsElement;
+        "limel-example-collapsible-section-css-props": HTMLLimelExampleCollapsibleSectionCssPropsElement;
+        "limel-example-collapsible-section-external-control": HTMLLimelExampleCollapsibleSectionExternalControlElement;
+        "limel-example-collapsible-section-with-slider": HTMLLimelExampleCollapsibleSectionWithSliderElement;
+        "limel-example-color-picker": HTMLLimelExampleColorPickerElement;
+        "limel-example-color-picker-readonly": HTMLLimelExampleColorPickerReadonlyElement;
+        "limel-example-colors-in-components": HTMLLimelExampleColorsInComponentsElement;
+        "limel-example-contrast-color-palette": HTMLLimelExampleContrastColorPaletteElement;
+        "limel-example-controls": HTMLLimelExampleControlsElement;
+        "limel-example-custom-component-form": HTMLLimelExampleCustomComponentFormElement;
+        "limel-example-custom-error-message": HTMLLimelExampleCustomErrorMessageElement;
+        "limel-example-custom-picker": HTMLLimelExampleCustomPickerElement;
+        "limel-example-custom-type": HTMLLimelExampleCustomTypeElement;
+        "limel-example-dark-light-mode": HTMLLimelExampleDarkLightModeElement;
+        "limel-example-date-picker-composite": HTMLLimelExampleDatePickerCompositeElement;
+        "limel-example-date-picker-custom-formatter": HTMLLimelExampleDatePickerCustomFormatterElement;
+        "limel-example-date-picker-date": HTMLLimelExampleDatePickerDateElement;
+        "limel-example-date-picker-datetime": HTMLLimelExampleDatePickerDatetimeElement;
+        "limel-example-date-picker-formatted": HTMLLimelExampleDatePickerFormattedElement;
+        "limel-example-date-picker-month": HTMLLimelExampleDatePickerMonthElement;
+        "limel-example-date-picker-programmatic-change": HTMLLimelExampleDatePickerProgrammaticChangeElement;
+        "limel-example-date-picker-quarter": HTMLLimelExampleDatePickerQuarterElement;
+        "limel-example-date-picker-time": HTMLLimelExampleDatePickerTimeElement;
+        "limel-example-date-picker-week": HTMLLimelExampleDatePickerWeekElement;
+        "limel-example-date-picker-year": HTMLLimelExampleDatePickerYearElement;
+        "limel-example-dialog": HTMLLimelExampleDialogElement;
+        "limel-example-dialog-action-buttons": HTMLLimelExampleDialogActionButtonsElement;
+        "limel-example-dialog-closing-actions": HTMLLimelExampleDialogClosingActionsElement;
+        "limel-example-dialog-form": HTMLLimelExampleDialogFormElement;
+        "limel-example-dialog-fullscreen": HTMLLimelExampleDialogFullscreenElement;
+        "limel-example-dialog-heading": HTMLLimelExampleDialogHeadingElement;
+        "limel-example-dialog-heading-actions": HTMLLimelExampleDialogHeadingActionsElement;
+        "limel-example-dialog-nested-close-events": HTMLLimelExampleDialogNestedCloseEventsElement;
+        "limel-example-dialog-size": HTMLLimelExampleDialogSizeElement;
+        "limel-example-dock-basic": HTMLLimelExampleDockBasicElement;
+        "limel-example-dock-colors-css": HTMLLimelExampleDockColorsCssElement;
+        "limel-example-dock-custom-component": HTMLLimelExampleDockCustomComponentElement;
+        "limel-example-dock-expanded": HTMLLimelExampleDockExpandedElement;
+        "limel-example-dock-mobile": HTMLLimelExampleDockMobileElement;
+        "limel-example-dock-notification": HTMLLimelExampleDockNotificationElement;
+        "limel-example-dynamic-form": HTMLLimelExampleDynamicFormElement;
+        "limel-example-dynamic-label": HTMLLimelExampleDynamicLabelElement;
+        "limel-example-dynamic-label-readonly-boolean": HTMLLimelExampleDynamicLabelReadonlyBooleanElement;
+        "limel-example-event-printer": HTMLLimelExampleEventPrinterElement;
+        "limel-example-extended-color-palette": HTMLLimelExampleExtendedColorPaletteElement;
+        "limel-example-file": HTMLLimelExampleFileElement;
+        "limel-example-file-accepted-types": HTMLLimelExampleFileAcceptedTypesElement;
+        "limel-example-file-composite": HTMLLimelExampleFileCompositeElement;
+        "limel-example-file-custom-icon": HTMLLimelExampleFileCustomIconElement;
+        "limel-example-file-dropzone": HTMLLimelExampleFileDropzoneElement;
+        "limel-example-file-dropzone-type-filtering": HTMLLimelExampleFileDropzoneTypeFilteringElement;
+        "limel-example-file-input": HTMLLimelExampleFileInputElement;
+        "limel-example-file-input-type-filtering": HTMLLimelExampleFileInputTypeFilteringElement;
+        "limel-example-file-viewer": HTMLLimelExampleFileViewerElement;
+        "limel-example-file-viewer-custom-actions": HTMLLimelExampleFileViewerCustomActionsElement;
+        "limel-example-file-viewer-filename": HTMLLimelExampleFileViewerFilenameElement;
+        "limel-example-file-viewer-inbuilt-actions": HTMLLimelExampleFileViewerInbuiltActionsElement;
+        "limel-example-file-viewer-office": HTMLLimelExampleFileViewerOfficeElement;
+        "limel-example-file-viewer-with-picker": HTMLLimelExampleFileViewerWithPickerElement;
+        "limel-example-form": HTMLLimelExampleFormElement;
+        "limel-example-form-layout": HTMLLimelExampleFormLayoutElement;
+        "limel-example-form-map-component": HTMLLimelExampleFormMapComponentElement;
+        "limel-example-form-row-layout": HTMLLimelExampleFormRowLayoutElement;
+        "limel-example-form-span-fields": HTMLLimelExampleFormSpanFieldsElement;
+        "limel-example-form-with-help": HTMLLimelExampleFormWithHelpElement;
+        "limel-example-grid": HTMLLimelExampleGridElement;
+        "limel-example-header": HTMLLimelExampleHeaderElement;
+        "limel-example-header-colors": HTMLLimelExampleHeaderColorsElement;
+        "limel-example-header-menu": HTMLLimelExampleHeaderMenuElement;
+        "limel-example-header-narrow": HTMLLimelExampleHeaderNarrowElement;
+        "limel-example-header-responsive": HTMLLimelExampleHeaderResponsiveElement;
+        "limel-example-header-slot-actions": HTMLLimelExampleHeaderSlotActionsElement;
+        "limel-example-help": HTMLLimelExampleHelpElement;
+        "limel-example-helper-line": HTMLLimelExampleHelperLineElement;
+        "limel-example-helper-line-animation": HTMLLimelExampleHelperLineAnimationElement;
+        "limel-example-helper-line-character-counter": HTMLLimelExampleHelperLineCharacterCounterElement;
+        "limel-example-helper-line-empty": HTMLLimelExampleHelperLineEmptyElement;
+        "limel-example-helper-line-invalid": HTMLLimelExampleHelperLineInvalidElement;
+        "limel-example-helper-line-long-text": HTMLLimelExampleHelperLineLongTextElement;
+        "limel-example-helper-line-long-text-no-counter": HTMLLimelExampleHelperLineLongTextNoCounterElement;
+        "limel-example-icon-button-basic": HTMLLimelExampleIconButtonBasicElement;
+        "limel-example-icon-button-composite": HTMLLimelExampleIconButtonCompositeElement;
+        "limel-example-icon-button-disabled": HTMLLimelExampleIconButtonDisabledElement;
+        "limel-example-icon-button-elevated": HTMLLimelExampleIconButtonElevatedElement;
+        "limel-example-icon-button-toggle-state": HTMLLimelExampleIconButtonToggleStateElement;
+        "limel-example-icon-color": HTMLLimelExampleIconColorElement;
+        "limel-example-icon-finder": HTMLLimelExampleIconFinderElement;
+        "limel-example-icon-name": HTMLLimelExampleIconNameElement;
+        "limel-example-icon-size": HTMLLimelExampleIconSizeElement;
+        "limel-example-info-tile": HTMLLimelExampleInfoTileElement;
+        "limel-example-info-tile-badge": HTMLLimelExampleInfoTileBadgeElement;
+        "limel-example-info-tile-loading": HTMLLimelExampleInfoTileLoadingElement;
+        "limel-example-info-tile-progress": HTMLLimelExampleInfoTileProgressElement;
+        "limel-example-info-tile-styling": HTMLLimelExampleInfoTileStylingElement;
+        "limel-example-input-field-autocomplete": HTMLLimelExampleInputFieldAutocompleteElement;
+        "limel-example-input-field-error-icon": HTMLLimelExampleInputFieldErrorIconElement;
+        "limel-example-input-field-focus": HTMLLimelExampleInputFieldFocusElement;
+        "limel-example-input-field-icon-both": HTMLLimelExampleInputFieldIconBothElement;
+        "limel-example-input-field-icon-leading": HTMLLimelExampleInputFieldIconLeadingElement;
+        "limel-example-input-field-icon-trailing": HTMLLimelExampleInputFieldIconTrailingElement;
+        "limel-example-input-field-number": HTMLLimelExampleInputFieldNumberElement;
+        "limel-example-input-field-pattern": HTMLLimelExampleInputFieldPatternElement;
+        "limel-example-input-field-placeholder": HTMLLimelExampleInputFieldPlaceholderElement;
+        "limel-example-input-field-prefix": HTMLLimelExampleInputFieldPrefixElement;
+        "limel-example-input-field-search": HTMLLimelExampleInputFieldSearchElement;
+        "limel-example-input-field-showlink": HTMLLimelExampleInputFieldShowlinkElement;
+        "limel-example-input-field-suffix": HTMLLimelExampleInputFieldSuffixElement;
+        "limel-example-input-field-text": HTMLLimelExampleInputFieldTextElement;
+        "limel-example-input-field-text-decluttering-guidelines": HTMLLimelExampleInputFieldTextDeclutteringGuidelinesElement;
+        "limel-example-input-field-text-multiple": HTMLLimelExampleInputFieldTextMultipleElement;
+        "limel-example-input-field-textarea": HTMLLimelExampleInputFieldTextareaElement;
+        "limel-example-linear-progress": HTMLLimelExampleLinearProgressElement;
+        "limel-example-linear-progress-color": HTMLLimelExampleLinearProgressColorElement;
+        "limel-example-linear-progress-indeterminate": HTMLLimelExampleLinearProgressIndeterminateElement;
+        "limel-example-list": HTMLLimelExampleListElement;
+        "limel-example-list-action": HTMLLimelExampleListActionElement;
+        "limel-example-list-badge-icons": HTMLLimelExampleListBadgeIconsElement;
+        "limel-example-list-badge-icons-with-multiple-lines": HTMLLimelExampleListBadgeIconsWithMultipleLinesElement;
+        "limel-example-list-checkbox": HTMLLimelExampleListCheckboxElement;
+        "limel-example-list-checkbox-icons": HTMLLimelExampleListCheckboxIconsElement;
+        "limel-example-list-form": HTMLLimelExampleListFormElement;
+        "limel-example-list-grid": HTMLLimelExampleListGridElement;
+        "limel-example-list-icons": HTMLLimelExampleListIconsElement;
+        "limel-example-list-primary-component": HTMLLimelExampleListPrimaryComponentElement;
+        "limel-example-list-radio-button": HTMLLimelExampleListRadioButtonElement;
+        "limel-example-list-radio-button-icons": HTMLLimelExampleListRadioButtonIconsElement;
+        "limel-example-list-secondary": HTMLLimelExampleListSecondaryElement;
+        "limel-example-list-selectable": HTMLLimelExampleListSelectableElement;
+        "limel-example-list-separator": HTMLLimelExampleListSeparatorElement;
+        "limel-example-list-striped": HTMLLimelExampleListStripedElement;
+        "limel-example-markdown-blockquotes": HTMLLimelExampleMarkdownBlockquotesElement;
+        "limel-example-markdown-code": HTMLLimelExampleMarkdownCodeElement;
+        "limel-example-markdown-composite": HTMLLimelExampleMarkdownCompositeElement;
+        "limel-example-markdown-emphasis": HTMLLimelExampleMarkdownEmphasisElement;
+        "limel-example-markdown-footnotes": HTMLLimelExampleMarkdownFootnotesElement;
+        "limel-example-markdown-headings": HTMLLimelExampleMarkdownHeadingsElement;
+        "limel-example-markdown-horizontal-rule": HTMLLimelExampleMarkdownHorizontalRuleElement;
+        "limel-example-markdown-html": HTMLLimelExampleMarkdownHtmlElement;
+        "limel-example-markdown-images": HTMLLimelExampleMarkdownImagesElement;
+        "limel-example-markdown-links": HTMLLimelExampleMarkdownLinksElement;
+        "limel-example-markdown-lists": HTMLLimelExampleMarkdownListsElement;
+        "limel-example-markdown-tables": HTMLLimelExampleMarkdownTablesElement;
+        "limel-example-menu-badge-icons": HTMLLimelExampleMenuBadgeIconsElement;
+        "limel-example-menu-basic": HTMLLimelExampleMenuBasicElement;
+        "limel-example-menu-composite": HTMLLimelExampleMenuCompositeElement;
+        "limel-example-menu-disabled": HTMLLimelExampleMenuDisabledElement;
+        "limel-example-menu-grid": HTMLLimelExampleMenuGridElement;
+        "limel-example-menu-hotkeys": HTMLLimelExampleMenuHotkeysElement;
+        "limel-example-menu-icons": HTMLLimelExampleMenuIconsElement;
+        "limel-example-menu-notification": HTMLLimelExampleMenuNotificationElement;
+        "limel-example-menu-open-direction": HTMLLimelExampleMenuOpenDirectionElement;
+        "limel-example-menu-open-sub-menu-programmatically": HTMLLimelExampleMenuOpenSubMenuProgrammaticallyElement;
+        "limel-example-menu-searchable": HTMLLimelExampleMenuSearchableElement;
+        "limel-example-menu-secondary-text": HTMLLimelExampleMenuSecondaryTextElement;
+        "limel-example-menu-separators": HTMLLimelExampleMenuSeparatorsElement;
+        "limel-example-menu-sub-menu-lazy-loading": HTMLLimelExampleMenuSubMenuLazyLoadingElement;
+        "limel-example-menu-sub-menu-lazy-loading-infinite": HTMLLimelExampleMenuSubMenuLazyLoadingInfiniteElement;
+        "limel-example-menu-sub-menus": HTMLLimelExampleMenuSubMenusElement;
+        "limel-example-menu-surface-width": HTMLLimelExampleMenuSurfaceWidthElement;
+        "limel-example-nested-form": HTMLLimelExampleNestedFormElement;
+        "limel-example-open-direction": HTMLLimelExampleOpenDirectionElement;
+        "limel-example-picker-composite": HTMLLimelExamplePickerCompositeElement;
+        "limel-example-picker-empty-suggestions": HTMLLimelExamplePickerEmptySuggestionsElement;
+        "limel-example-picker-icons": HTMLLimelExamplePickerIconsElement;
+        "limel-example-picker-leading-icon": HTMLLimelExamplePickerLeadingIconElement;
+        "limel-example-picker-multiple": HTMLLimelExamplePickerMultipleElement;
+        "limel-example-picker-single": HTMLLimelExamplePickerSingleElement;
+        "limel-example-picker-static-actions": HTMLLimelExamplePickerStaticActionsElement;
+        "limel-example-picker-value-as-object": HTMLLimelExamplePickerValueAsObjectElement;
+        "limel-example-picker-value-as-object-with-actions": HTMLLimelExamplePickerValueAsObjectWithActionsElement;
+        "limel-example-placement": HTMLLimelExamplePlacementElement;
+        "limel-example-popover": HTMLLimelExamplePopoverElement;
+        "limel-example-portal-basic": HTMLLimelExamplePortalBasicElement;
+        "limel-example-primary-color-palette": HTMLLimelExamplePrimaryColorPaletteElement;
+        "limel-example-progress-flow-basic": HTMLLimelExampleProgressFlowBasicElement;
+        "limel-example-progress-flow-colors": HTMLLimelExampleProgressFlowColorsElement;
+        "limel-example-progress-flow-colors-css": HTMLLimelExampleProgressFlowColorsCssElement;
+        "limel-example-progress-flow-disabled-step": HTMLLimelExampleProgressFlowDisabledStepElement;
+        "limel-example-progress-flow-narrow": HTMLLimelExampleProgressFlowNarrowElement;
+        "limel-example-progress-flow-off-progress-steps": HTMLLimelExampleProgressFlowOffProgressStepsElement;
+        "limel-example-progress-flow-secondary-text": HTMLLimelExampleProgressFlowSecondaryTextElement;
+        "limel-example-props-factory-form": HTMLLimelExamplePropsFactoryFormElement;
+        "limel-example-props-factory-picker": HTMLLimelExamplePropsFactoryPickerElement;
+        "limel-example-prosemirror-adapter-basic": HTMLLimelExampleProsemirrorAdapterBasicElement;
+        "limel-example-prosemirror-adapter-with-custom-menu": HTMLLimelExampleProsemirrorAdapterWithCustomMenuElement;
+        "limel-example-read-more": HTMLLimelExampleReadMoreElement;
+        "limel-example-readonly-props": HTMLLimelExampleReadonlyPropsElement;
+        "limel-example-select": HTMLLimelExampleSelectElement;
+        "limel-example-select-change-options": HTMLLimelExampleSelectChangeOptionsElement;
+        "limel-example-select-dialog": HTMLLimelExampleSelectDialogElement;
+        "limel-example-select-multiple": HTMLLimelExampleSelectMultipleElement;
+        "limel-example-select-preselected": HTMLLimelExampleSelectPreselectedElement;
+        "limel-example-select-with-empty-option": HTMLLimelExampleSelectWithEmptyOptionElement;
+        "limel-example-select-with-icons": HTMLLimelExampleSelectWithIconsElement;
+        "limel-example-select-with-secondary-text": HTMLLimelExampleSelectWithSecondaryTextElement;
+        "limel-example-select-with-separators": HTMLLimelExampleSelectWithSeparatorsElement;
+        "limel-example-server-errors": HTMLLimelExampleServerErrorsElement;
+        "limel-example-shadows-bad-usage": HTMLLimelExampleShadowsBadUsageElement;
+        "limel-example-shortcut": HTMLLimelExampleShortcutElement;
+        "limel-example-shortcut-notification": HTMLLimelExampleShortcutNotificationElement;
+        "limel-example-shortcut-styling": HTMLLimelExampleShortcutStylingElement;
+        "limel-example-shortcut-with-click-handler": HTMLLimelExampleShortcutWithClickHandlerElement;
+        "limel-example-size": HTMLLimelExampleSizeElement;
+        "limel-example-size-edge-case": HTMLLimelExampleSizeEdgeCaseElement;
+        "limel-example-slider-basic": HTMLLimelExampleSliderBasicElement;
+        "limel-example-slider-composite": HTMLLimelExampleSliderCompositeElement;
+        "limel-example-slider-multiplier": HTMLLimelExampleSliderMultiplierElement;
+        "limel-example-slider-multiplier-percentage-colors": HTMLLimelExampleSliderMultiplierPercentageColorsElement;
+        "limel-example-snackbar": HTMLLimelExampleSnackbarElement;
+        "limel-example-snackbar-dismissible": HTMLLimelExampleSnackbarDismissibleElement;
+        "limel-example-snackbar-positioning": HTMLLimelExampleSnackbarPositioningElement;
+        "limel-example-snackbar-with-action": HTMLLimelExampleSnackbarWithActionElement;
+        "limel-example-snackbar-with-changing-messages": HTMLLimelExampleSnackbarWithChangingMessagesElement;
+        "limel-example-spinner": HTMLLimelExampleSpinnerElement;
+        "limel-example-spinner-color": HTMLLimelExampleSpinnerColorElement;
+        "limel-example-spinner-size": HTMLLimelExampleSpinnerSizeElement;
+        "limel-example-split-button-basic": HTMLLimelExampleSplitButtonBasicElement;
+        "limel-example-split-button-repeat-default-command": HTMLLimelExampleSplitButtonRepeatDefaultCommandElement;
+        "limel-example-surface-shadows": HTMLLimelExampleSurfaceShadowsElement;
+        "limel-example-surface-shadows-inflated": HTMLLimelExampleSurfaceShadowsInflatedElement;
+        "limel-example-surface-shadows-states": HTMLLimelExampleSurfaceShadowsStatesElement;
+        "limel-example-switch": HTMLLimelExampleSwitchElement;
+        "limel-example-switch-helper-text": HTMLLimelExampleSwitchHelperTextElement;
+        "limel-example-switch-readonly": HTMLLimelExampleSwitchReadonlyElement;
+        "limel-example-switch-vs-checkbox": HTMLLimelExampleSwitchVsCheckboxElement;
+        "limel-example-tab-bar": HTMLLimelExampleTabBarElement;
+        "limel-example-tab-bar-with-dynamic-tab-width": HTMLLimelExampleTabBarWithDynamicTabWidthElement;
+        "limel-example-tab-bar-with-equal-tab-width": HTMLLimelExampleTabBarWithEqualTabWidthElement;
+        "limel-example-tab-panel": HTMLLimelExampleTabPanelElement;
+        "limel-example-tab-panel-content": HTMLLimelExampleTabPanelContentElement;
+        "limel-example-table": HTMLLimelExampleTableElement;
+        "limel-example-table-activate-row": HTMLLimelExampleTableActivateRowElement;
+        "limel-example-table-custom-components": HTMLLimelExampleTableCustomComponentsElement;
+        "limel-example-table-default-sorted": HTMLLimelExampleTableDefaultSortedElement;
+        "limel-example-table-food": HTMLLimelExampleTableFoodElement;
+        "limel-example-table-header-menu": HTMLLimelExampleTableHeaderMenuElement;
+        "limel-example-table-interactive-rows": HTMLLimelExampleTableInteractiveRowsElement;
+        "limel-example-table-layout-default": HTMLLimelExampleTableLayoutDefaultElement;
+        "limel-example-table-layout-low-density": HTMLLimelExampleTableLayoutLowDensityElement;
+        "limel-example-table-layout-stretch-columns": HTMLLimelExampleTableLayoutStretchColumnsElement;
+        "limel-example-table-layout-stretch-last-column": HTMLLimelExampleTableLayoutStretchLastColumnElement;
+        "limel-example-table-local": HTMLLimelExampleTableLocalElement;
+        "limel-example-table-movable-columns": HTMLLimelExampleTableMovableColumnsElement;
+        "limel-example-table-remote": HTMLLimelExampleTableRemoteElement;
+        "limel-example-table-selectable-rows": HTMLLimelExampleTableSelectableRowsElement;
+        "limel-example-table-sorting-disabled": HTMLLimelExampleTableSortingDisabledElement;
+        "limel-example-text-editor-allow-resize": HTMLLimelExampleTextEditorAllowResizeElement;
+        "limel-example-text-editor-as-form-component": HTMLLimelExampleTextEditorAsFormComponentElement;
+        "limel-example-text-editor-basic": HTMLLimelExampleTextEditorBasicElement;
+        "limel-example-text-editor-composite": HTMLLimelExampleTextEditorCompositeElement;
+        "limel-example-text-editor-size": HTMLLimelExampleTextEditorSizeElement;
+        "limel-example-text-editor-with-html": HTMLLimelExampleTextEditorWithHtmlElement;
+        "limel-example-text-editor-with-markdown": HTMLLimelExampleTextEditorWithMarkdownElement;
+        "limel-example-tooltip-basic": HTMLLimelExampleTooltipBasicElement;
+        "limel-example-tooltip-composite": HTMLLimelExampleTooltipCompositeElement;
+        "limel-example-tooltip-declutter": HTMLLimelExampleTooltipDeclutterElement;
+        "limel-example-tooltip-max-character": HTMLLimelExampleTooltipMaxCharacterElement;
+        "limel-example-ui-color-palette": HTMLLimelExampleUiColorPaletteElement;
+        "limel-example-value": HTMLLimelExampleValueElement;
         "limel-file": HTMLLimelFileElement;
         "limel-file-dropzone": HTMLLimelFileDropzoneElement;
         "limel-file-input": HTMLLimelFileInputElement;
@@ -4255,6 +12692,8 @@ declare global {
         "limel-text-editor-link-menu": HTMLLimelTextEditorLinkMenuElement;
         "limel-tooltip": HTMLLimelTooltipElement;
         "limel-tooltip-content": HTMLLimelTooltipContentElement;
+        "my-custom-menu": HTMLMyCustomMenuElement;
+        "my-custom-menu-with-notifications": HTMLMyCustomMenuWithNotificationsElement;
     }
 }
 declare namespace LocalJSX {
@@ -5263,6 +13702,3382 @@ declare namespace LocalJSX {
         "value"?: LabelValue;
     }
     /**
+     * Basic Example
+     * An action bar is typically placed on top of a page or section,
+     * displaying multiple buttons in a row.
+     * Separators can be added to visually group related actions.
+     * :::tip
+     * By default, when `layout="fullWidth"`, all actions will be placed on
+     * the left side of the action bar,
+     * but you can override this default behavior by
+     * adding `justify-content: flex-end;`.
+     * :::
+     */
+    interface LimelExampleActionBar {
+    }
+    /**
+     * Creative usage
+     * Since the action bar can automatically overflow actions which do not
+     * fit into the available width, it makes the component a good candidate
+     * for providing contextual actions within small sections of a user interface.
+     * :::important
+     * For this specific usage (`limel-action-bar` as a primary component in `limel-list`)
+     * the certain styles are required for the overflow menu to properly work.
+     * See the linked CSS file!
+     * There should be a `min-width` and `max-width` on the component in order to prevent
+     * the overflow menu to cause infinite rendering loops.
+     * :::
+     * @sourceFile action-bar-in-list.tsx
+     * @sourceFile action-bar-in-list.scss
+     */
+    interface LimelExampleActionBarAsPrimaryComponent {
+    }
+    /**
+     * Using colors
+     * You can specify colors for single actions, by setting `color` on the `icon`.
+     * :::note
+     * Make sure not to overuse colors!
+     * It is perfectly fine that most of the actions in the bar use the default color.
+     * Colors should be used to add an extra layer of meaning for the actions.
+     * :::
+     */
+    interface LimelExampleActionBarColors {
+    }
+    /**
+     * Floating Example
+     * For some designs, it may make sense to display the action bar as
+     * a floating element on top of the page's content.
+     * Set the `layout` prop to `floating` to get the basics styles of
+     * a floating bar.
+     * :::note
+     * 1. In this case, the action bar gets some elevation effect
+     * using a `box-shadow`. This is to properly separate the action bar
+     * form its surrounding context. You can override this by setting another
+     * `box-shadow`.
+     * 2. Make sure to use a proper `openDirection` for the
+     * overflow menu.
+     * 3. Make sure there is space on the sides of the action bar,
+     * so that it doesn't stretch out completely from left edge to the right
+     * edge. The component is already doing so using a `max-width`,
+     * but you can override it by providing another `max-width`.
+     * :::
+     */
+    interface LimelExampleActionBarFloating {
+    }
+    interface LimelExampleActionBarInList {
+    }
+    /**
+     * Overflow menu
+     * When the action bar items don't fit in the available space,
+     * an overflow button is automatically added as the last item on the action bar.
+     * The menu indicates the quantity of the actions which are currently invisible for the users.
+     * Clicking on the overflow button opens a menu with the remaining actions that didn't fit
+     * in the available space.
+     */
+    interface LimelExampleActionBarOverflowMenu {
+    }
+    /**
+     * Selected item
+     * For some use cases, one or more items in the action bar could
+     * get a `selected` state. This is useful for example when you want to
+     * highlight a currently active item in a list of items.
+     */
+    interface LimelExampleActionBarSelectedItem {
+    }
+    /**
+     * Styling
+     * Using provided custom CSS properties,
+     * it is possible to style the action bar.
+     * :::note
+     * The `--action-bar-item-icon-color` affects all icons.
+     * However, the `color` specified for `icon` for individual items
+     * will override that.
+     * :::
+     */
+    interface LimelExampleActionBarStyling {
+    }
+    interface LimelExampleActionButtonsChoosingExplicitLabels {
+    }
+    interface LimelExampleActionButtonsChoosingLabels {
+    }
+    interface LimelExampleActionButtonsColorsDoDont {
+    }
+    interface LimelExampleActionButtonsIconColor {
+    }
+    interface LimelExampleActionButtonsPlacement {
+    }
+    interface LimelExampleActionButtonsPrimarySecondary {
+    }
+    interface LimelExampleActionButtonsPrimarySecondaryReversed {
+    }
+    interface LimelExampleActionButtonsPrimarySecondaryReversedColors {
+    }
+    interface LimelExampleActionButtonsThirdAlternative {
+    }
+    interface LimelExampleAuditionForm {
+    }
+    interface LimelExampleAuditionFormReadonly {
+    }
+    /**
+     * Badge without a `label`
+     * When no `label` is provided, the badge will only render as a circle.
+     * This is a convention which is used in many applications to attract the
+     * user's attention to a certain element on the user interface; typically to
+     * menus or buttons that navigate the user to another pane or screen.
+     * In such cases, the idea is to provide the users with a "red thread"
+     * and help them find something that requires their attention, but is located
+     * on another place in the app, and not directly visible.
+     * :::tip
+     * Make sure that the dot is noticeable, by providing an
+     * eye-catching background color, as shown in this example.
+     * :::
+     */
+    interface LimelExampleBadge {
+    }
+    /**
+     * Number badges
+     * Numeric labels larger than 999 will get both rounded and abbreviated.
+     * For example, if the label is `1090` the badge will display `1.1K`.
+     * Abbreviation units used are `k` (Kilo) that stands for Thousands,
+     * `M` for Millions, `B` for Billions, and `T` for Trillions.
+     * When users hover the abbreviated badge, the complete
+     * `label` will be displayed in a tooltip.
+     */
+    interface LimelExampleBadgeNumber {
+    }
+    /**
+     * String badges
+     * String labels get truncated if their visual length is longer than
+     * six characters placed side by side (six `0`s to be exact).
+     * When users hover the truncated badge, the complete
+     * `label` will be displayed in a tooltip.
+     */
+    interface LimelExampleBadgeString {
+    }
+    interface LimelExampleBanner {
+    }
+    interface LimelExampleBooleanCheckboxes {
+    }
+    interface LimelExampleBooleanRadioButtons {
+    }
+    interface LimelExampleBrandColorPalette {
+    }
+    /**
+     * Items as buttons
+     * The Breadcrumbs can also be used to navigate between different
+     * steps of a process, such as steps of a form or survey, or
+     * moving through steps of a wizard.
+     * In this case, you will not provide any `link`s and instead will
+     * handle the clicks. When no links are provided, the component
+     * will automatically generate a list of `button`s.
+     * Keep in mind that the last item will not be rendered as an
+     * HTML button and and therefore won't be clickable.
+     */
+    interface LimelExampleBreadcrumbsButtons {
+    }
+    /**
+     * Changing the divider
+     * By default a **›** character is used to visually divide the
+     * items from each other. This visual divider indicates the
+     * order and depths of steps which are taken to reach the current
+     * step.
+     * However, in certain contexts, other characters could be
+     * more suitable to visualize this hierarchy,
+     * such as a **·**, **-** or similar.
+     * :::warning
+     * Avoid using ellipsis motifs like **···**, **…** or **⋮**,
+     * since they look like universally prevalent icons which
+     * communicate other meanings.
+     */
+    interface LimelExampleBreadcrumbsDivider {
+    }
+    /**
+     * Using colors
+     * You can specify colors for single item, by setting `color` on the `icon`.
+     * :::note
+     * Make sure not to overuse colors!
+     * It is perfectly fine that items in the bar use the default color.
+     * Colors should be used to add an extra layer of meaning for the actions.
+     * An icon can either adopt the color of the default text or receive a color
+     * if the `--breadcrumbs-item-text-color` has been set.
+     * Nevertheless, if the `color` is explicitly defined,
+     * it will take precedence over the default icon's color.
+     * :::
+     */
+    interface LimelExampleBreadcrumbsIconColor {
+    }
+    /**
+     * Using icons
+     * For an improved accessibility, you are required to
+     * provide a `text` for each item in the breadcrumbs.
+     * But each item can have an optional icon too.
+     * However, in some UIs, the design might require
+     * hiding the text and relying on an icon to visualize
+     * an item in the path.
+     * In this case you can set the `type` to
+     * `icon-only` on the desired items.
+     * :::note
+     * The last item (current step) will always
+     * display both an icon and the text, even if you
+     * set the `type` to `icon-only`
+     * :::
+     */
+    interface LimelExampleBreadcrumbsIcons {
+    }
+    /**
+     * Items as hyperlinks
+     * When the Breadcrumbs are used to navigate between different webpages,
+     * for example navigating a website, you will need to provide a `link`
+     * for each webpage.
+     * This way, the component will automatically generate a list of
+     * hyperlinks. This gives the users the possibility of interacting with links
+     * in a natural way, for instance they can open any of the previous
+     * pages in a new browser tab. This also has other accessibility benefits.
+     * :::note
+     * Clicking links will open in current window by default,
+     * and this reloads the entire webpage.
+     * To avoid reloading the whole application (in the context of a single-page apps),
+     * you might want to handle the navigation with your application's router,
+     * :::
+     * Keep in mind that the last item will not be rendered as an HTML link and
+     * is not clickable.
+     */
+    interface LimelExampleBreadcrumbsLinks {
+    }
+    /**
+     * Styling
+     * Using provided custom CSS properties,
+     * it is possible to style the breadcrumbs.
+     */
+    interface LimelExampleBreadcrumbsStyling {
+    }
+    /**
+     * Basic Example
+     * Just a label and a click-handler.
+     * Open the dev-tools console to see logged clicks.
+     */
+    interface LimelExampleButtonBasic {
+    }
+    /**
+     * With click handler, and failed feedback
+     * This example works just like the "With click handler" example, except that,
+     * when the `loading` attribute changes from `true` to `false`, the button
+     * automatically indicates that the previously ongoing process just failed.
+     */
+    interface LimelExampleButtonClickFail {
+    }
+    /**
+     * With click handler
+     * The click handler in this example simulates saving some changed values in a
+     * form. When the button is clicked, the `loading` attribute is set to `true`.
+     * After a short while, we pretend that the saving was successful, and set
+     * `loading` to `false`. We also set `disabled` to `true`, because we just
+     * successfully saved, so until the user updates our imaginary form again, there
+     * is nothing to save.
+     * When the `loading` attribute changes from `true` to `false`, the button
+     * automatically displays a checkmark icon for 2 seconds. Note that our click
+     * handler isn't actually involved in this.
+     * A short while after the checkmark has disappeared, we enable the button
+     * again. This is just so that you can try the functionality again. Normally,
+     * the button would stay disabled until the user made some changes, so there's
+     * something new to save!
+     */
+    interface LimelExampleButtonClickSuccess {
+    }
+    /**
+     * How to color button text and background
+     * When a button is a "primary" button (`primary={true}`), the color value you specify
+     * for `--lime-primary-color` will apply to its background. By default, text color
+     * of primary buttons is white. To change their text color you must send a color
+     * value with the `--lime-on-primary-color` variable.
+     * When a button is not a "primary" button, the value of `--lime-primary-color`
+     * will be applied to its text, and `--lime-on-primary-color` will have no effect.
+     * Keep in mind that `disabled` buttons don't care about your specified colors at all.
+     */
+    interface LimelExampleButtonColors {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleButtonComposite {
+        "schema"?: FormSchema;
+    }
+    /**
+     * Disabled
+     * :::note
+     * Discover when to utilize the disabled state and when it is preferable to hide a button by reading our guidelines [Disabled vs. Hidden](#/DesignGuidelines/disabled-hidden.md/).
+     * :::
+     */
+    interface LimelExampleButtonDisabled {
+    }
+    interface LimelExampleButtonDisabledVsHidden {
+    }
+    /**
+     * Text only
+     * This layout is good when you do not have access to icons which are
+     * descriptive enough.
+     */
+    interface LimelExampleButtonGroup {
+    }
+    /**
+     * Button group with badges
+     * Badges can be used to add further contextual information.
+     * For example, if the component is used to filter a set of data
+     * the badges could visualize the number of entries
+     * for each filter option.
+     * The badge can either
+     * have a `number` or `string` label.
+     * Read more about how the badge truncates or abbreviates the
+     * provided label [here](#/component/limel-badge/).
+     */
+    interface LimelExampleButtonGroupBadges {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleButtonGroupComposite {
+        "schema"?: FormSchema;
+    }
+    /**
+     * Icon only
+     * If you pick well descriptive icons, this layout will usually suffice. When
+     * you specify an `icon`, it will automatically be shown instead of the `title`.
+     * :::important
+     * Adding titles for buttons is compulsory. The reason is that when
+     * only icons are shown, titles will appear as `aria-label` for screen readers,
+     * as well as `title` attribute when users hover and hold their cursors on the
+     * buttons.
+     * :::
+     * This makes it easier for them to know what the button actually does
+     * or what the icon tries to indicate.
+     * So, make sure to label your icons properly and descriptively.
+     */
+    interface LimelExampleButtonGroupIcons {
+    }
+    /**
+     * Mixed text and icon within the same group
+     * Generally, you should avoid mixing text and images in button group. Although
+     * individual buttons can contain text or images, mixing the two in a single
+     * group can lead to an inconsistent and confusing interface.
+     * However, in some case your design may benefit from having only one button in
+     * a different format.
+     */
+    interface LimelExampleButtonGroupMix {
+    }
+    /**
+     * Icon
+     */
+    interface LimelExampleButtonIcon {
+    }
+    /**
+     * Loading
+     * Note that the example is also using `disabled`, because a button that is
+     * loading should normally also be disabled.
+     */
+    interface LimelExampleButtonLoading {
+    }
+    /**
+     * Outlined
+     * By setting `outlined={true}`, you can create a style
+     * of buttons which could be used to indicate an action
+     * with medium emphasis.
+     * :::note
+     * This style is useful to indicate the "secondariness" of an action.
+     * Therefore, only use this style, if there is another related
+     * `primary` button present on the same view or screen,
+     * along with another normal button.
+     * Also, give such a choice a second thought by reading
+     * [our guidelines for Split button](#/component/limel-split-button/).
+     * :::
+     */
+    interface LimelExampleButtonOutlined {
+    }
+    /**
+     * Primary
+     * Each screen (modal, or section with action buttons)
+     * should contain a single prominent button like this one,
+     * to emphasize the primary action.
+     * :::note
+     * Think twice before setting `primary={true}` on buttons.
+     * The arrangement of buttons and their colors should clearly
+     * communicate their importance and primariness or secondariness.
+     * See some examples at [our design guidelines for
+     * Action buttons](#/DesignGuidelines/action-buttons.md/).
+     * :::
+     */
+    interface LimelExampleButtonPrimary {
+    }
+    /**
+     * Reduce Presence
+     * This example is identical to the "With click handler" example, except that
+     * here, the `has-reduced-presence` class has been set to `true`. This will hide
+     * the button when it is disabled. However, it will also make sure that the
+     * button remains visible while the loading animation is ongoing. When the
+     * animation is done and the checkmark has been shown, the button will hide.
+     * Read more in the [Design Guidelines](#/DesignGuidelines/decluttering.md/)
+     */
+    interface LimelExampleButtonReducePresence {
+    }
+    interface LimelExampleButtonShadows {
+    }
+    /**
+     * Type: `caution`
+     */
+    interface LimelExampleCalloutCaution {
+    }
+    /**
+     * Composite
+     */
+    interface LimelExampleCalloutComposite {
+        "schema"?: FormSchema;
+    }
+    /**
+     * With custom `heading`
+     * By default, the title will equal the `type` qualifier.
+     * However, it is possible to use a `type` just to get the desired visualisation
+     * (icon and color), but override the default heading, using the `heading` prop.
+     */
+    interface LimelExampleCalloutCustomHeading {
+    }
+    /**
+     * With custom `icon`
+     * By default, the icon will be defined by the `type` qualifier.
+     * However, it is possible to use a `type` just to get the desired visualisation
+     * (color and heading), but override the default icon, using the `icon` prop.
+     */
+    interface LimelExampleCalloutCustomIcon {
+    }
+    /**
+     * Type: `important`
+     */
+    interface LimelExampleCalloutImportant {
+    }
+    /**
+     * Type: `note`
+     * This is the default type.
+     */
+    interface LimelExampleCalloutNote {
+    }
+    /**
+     * Adding rich content
+     * Sometimes, you need to display more than just a string of text.
+     * You may want to display richer content with pictures, links, or
+     * bullet point lists; or use a more advanced component inside
+     * the callout.
+     * To do so, simply wrap the content you want to display in this component.
+     */
+    interface LimelExampleCalloutRichContent {
+    }
+    /**
+     * Styling
+     * It is possible to change the default colors using the provided CSS
+     * variables. Just make sure to have good contrast between the text and
+     * background color, to provide good readability.
+     */
+    interface LimelExampleCalloutStyles {
+    }
+    /**
+     * Type: `tip`
+     * This type is useful for displaying tips & tricks, and How-Tos.
+     */
+    interface LimelExampleCalloutTip {
+    }
+    /**
+     * Type: `warning`
+     */
+    interface LimelExampleCalloutWarning {
+    }
+    interface LimelExampleCheckbox {
+    }
+    /**
+     * With `helperText`
+     * Checkboxes can have a helper text, which is useful when providing additional information
+     * can clarify functionality of the checkbox for the user.
+     * The helper text is displayed when user hovers the checkbox, or focuses on it using keyboard
+     * navigation. However, on touchscreen devices, the helper text is always displayed.
+     */
+    interface LimelExampleCheckboxHelperText {
+    }
+    /**
+     * Customizing the visualization of the `readonly` state
+     * It is possible and recommended that you enhance the visualization of a `boolean` field
+     * in a `readonly` state.
+     * Because depending on the context, the default UI of the `readonly` state may not always
+     * provide the best way of _visualizing information_, potentially leading to
+     * confusion and negatively affecting the end-users' experience.
+     * :::important
+     * Before reading the documentations below, make sure to read
+     * 1. our guides about the difference between
+     * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+     * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+     * :::
+     * Using the `readonlyLabels` optional prop, you can override the `label` and
+     * customize it accordingly. Additionally, by using the `icon` prop, you can
+     * override the default icons and their colors.
+     */
+    interface LimelExampleCheckboxReadonly {
+    }
+    /**
+     * Correct usage of ARIA roles
+     * Chips represent choices, filters, or tags, organized in a block or bundled into a group.
+     * While sighted users see the visually bundled group of chips in a well-designed UI,
+     * screen reader users only hear the chip text, one at a time.
+     * This can make it difficult for users of assistive technologies to understand
+     * the context of the chip.
+     * To provide an accessible experience, it's important to place the chips in
+     * a semantically correct structure, such as a list or a table,
+     * or properly use ARIA roles on the chip and its container.
+     * In this example, we demonstrate how to use ARIA roles to improve accessibility for chips.
+     * However, it's recommended to read up on the subject to fully understand the
+     * implications of ARIA roles.
+     * For more information on ARIA roles, refer to the
+     * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles).
+     */
+    interface LimelExampleChipAriaRole {
+    }
+    /**
+     * Chip with a badge
+     * Chips can display a badge with a number or a short text.
+     */
+    interface LimelExampleChipBadge {
+    }
+    /**
+     * Chip as button
+     * Typically, a chip is used to trigger an action or act as an input element.
+     * This is why the component generates a `<button>` element in the DOM to give
+     * a more semantically correct clues to assistive technologies.
+     * To trigger these actions, you will only need to handle the `onClick`
+     * event on the component.
+     */
+    interface LimelExampleChipButton {
+    }
+    /**
+     * Chip as filter
+     * Chips are great candidates to visualize active filters.
+     * However, as chips are used for other purposes as well,
+     * we need to make sure that the user understands that the chip is a filter,
+     * just by the look of it.
+     * By setting the `type` to `filter`, the chip will be rendered with a distinct style
+     * suitable for visualizing filters.
+     * :::note
+     * In this mode, clicking on the chip should also toggle its `selected` state.
+     * :::
+     */
+    interface LimelExampleChipFilter {
+    }
+    /**
+     * Chip Icon Color
+     * The color and background color of each chip's icon can be individually
+     * configured.
+     */
+    interface LimelExampleChipIconColor {
+    }
+    /**
+     * Icon color
+     * Using the `Icon` interface, you can specify colors for the icon.
+     */
+    interface LimelExampleChipIconColors {
+    }
+    /**
+     * Picture instead of icon
+     * Using the `Img` interface, you can specify an image to be displayed on the chip.
+     * :::note
+     * The specified image will be displayed instead of the icon, if both are provided.
+     * :::
+     */
+    interface LimelExampleChipImage {
+    }
+    /**
+     * Chip as hyperlink
+     * For accessibility and usability alike, if clicking on a chip should
+     * result in any kind of navigation, it is preferable to use a link,
+     * rather than a button.
+     * That way, the user can choose to, for example, open the link in a new tab.
+     * For this reason, we suggest always providing a Link with
+     * the URL representing the target state of the navigation.
+     */
+    interface LimelExampleChipLink {
+    }
+    /**
+     * Loading state
+     * Setting the `loading` to `true` puts the component in the `loading` state,
+     * and renders an indeterminate progress indicator inside the chip.
+     * :::note
+     * Note that this does _not_ disable the interactivity of the chip,
+     * and most probably you do not need it to be disabled either.
+     * If the chip should be disabled while loading, the
+     * `disabled` property should separately be set to `true` as well.
+     * :::
+     * :::tip
+     * Consider using [aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live)
+     * where appropriate, or to inform the user about what is being loaded
+     * use a [tooltip](#/component/limel-tooltip) on the component.
+     * This is mainly to improve the accessibility for users of assistive technologies.
+     * :::
+     */
+    interface LimelExampleChipLoading {
+    }
+    /**
+     * When an array of menu items is provided, the chip will render
+     * an ellipsis menu with the supplied items. When an item is selected,
+     * the `onMenuItemSelected` event will be emitted, reflecting the
+     * `value` of the selected item.
+     * :::note
+     * This will hide the "remove button" on the chip, when `removable={true}`,
+     * as the remove button will automatically become the last item in the menu.
+     * Clicking the remove button will emit the same `onRemove` event.
+     * :::
+     */
+    interface LimelExampleChipMenu {
+    }
+    /**
+     * Displaying a progress bar
+     * By defining a numeric `progress` (from `0` to `100`),
+     * you can display a progress bar on the chip
+     * to inform the user about an ongoing progress and also
+     * visualize the amount of progress that has been made so far.
+     * :::important
+     * 1. Do not use `loading={true}` and `progress` at the same time.
+     * 2. When the progress has completed, unset the `progress` property!
+     * :::
+     */
+    interface LimelExampleChipProgress {
+    }
+    /**
+     * Removable chips
+     * Chips can display a remove button,
+     * when their `removable` prop is set to `true`.
+     * This is typically used when the chip is used in a chip-set,
+     * where each chip visualizes a chosen option.
+     * :::tip
+     * When the chip is focused using the keyboard, the user can press
+     * the <kbd>Delete</kbd> or <kbd>Backspace</kbd> keys to
+     * trigger the same remove `event`.
+     * :::
+     */
+    interface LimelExampleChipRemovable {
+    }
+    /**
+     * Basic example with no `type` set
+     * May be useful as a read-only presentation of a collection of tags, or
+     * similar.
+     * Depending on the use case, you may also wish to consider
+     * [limel-button](#/component/limel-button/) or
+     * [limel-button-group](#/component/limel-button-group/).
+     */
+    interface LimelExampleChipSet {
+    }
+    /**
+     * Choice chip set
+     * Only one option can be selected at once. Kind of like radio-buttons, but the
+     * user can deselect the chosen option too. Good as an alternative to using a
+     * `select` when there are only a few options.
+     */
+    interface LimelExampleChipSetChoice {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleChipSetComposite {
+        "schema"?: FormSchema;
+    }
+    /**
+     * Filter chip set
+     * Any number of options can be selected at once, including none. As the name
+     * suggests, this one is good for filtering things.
+     */
+    interface LimelExampleChipSetFilter {
+    }
+    /**
+     * Filter chip set with badge.
+     * The badge can be used to visulize the number of results using each filter.
+     */
+    interface LimelExampleChipSetFilterBadge {
+    }
+    /**
+     * Chips with images
+     * You can use images instead of icons on chips.
+     * :::note
+     * The image will be displayed instead of the icon, if both are provided.
+     * :::
+     */
+    interface LimelExampleChipSetImage {
+    }
+    /**
+     * Input chip set
+     * Useful for collections of tags or labels. Can also be used as an advanced
+     * search input, with leading icon and a delimiter between search terms.
+     * :::note
+     * Setting `readonly` to `true` when the `type="input"`, the chips that are displayed
+     * will remain interactive. This means that the user can still click on them.
+     * However, the chips cannot be removed or added in `readonly` mode.
+     * :::
+     */
+    interface LimelExampleChipSetInput {
+    }
+    /**
+     * Input chip set with `inputType` of `search`
+     * When autocorrection is potentially harmful for the user experience and for
+     * your intended result, use `search` as `inputType`. For instance, for a
+     * question like "Please suggest unique names for our newly founded company",
+     * you probably don't want autocorrection, because you would expect many
+     * valid suggestions to not exist in the autocorrection dictionary. Therefore,
+     * you do not want the respondent's input to be regarded as a typo and to be
+     * changed when they press <kbd>Enter</kbd> or <kbd>Space</kbd>.
+     */
+    interface LimelExampleChipSetInputTypeSearch {
+    }
+    /**
+     * Input chip set with `inputType` of `text`
+     * There is a slight difference in the way browsers treat `input` field
+     * with `type="text"` and `type="search"`. You can read more about this
+     * difference in [Mozilla's documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search#using_search_inputs),
+     * but the most important difference in this case is activation of the
+     * autocorrection feature on most smart devices.
+     * When a user makes a spelling mistake while typing in an input field with
+     * `type="text"`, the mistake will be corrected automatically, right after they
+     * press <kbd>Enter</kbd> or <kbd>Space</kbd>. Input fields with `type="search"`
+     * do not auto correct the user's input.
+     * If you want to use limel-chip-set in a form context, where autocorrection is
+     * a good thing, use `text` as `inputType`. It is important to know that the
+     * chip-set component creates a chip from the autocorrected value, after the
+     * user has pressed the <kbd>Enter</kbd> key and the auto correction has fixed
+     * existing typos! For example, for a question like "Please type five of your
+     * favorite fruits", you would want to avoid misspellings, to collect higher
+     * quality data.
+     */
+    interface LimelExampleChipSetInputTypeText {
+    }
+    /**
+     * Input chip set, containing items with menus
+     * While chips inside a chip set of `type="input"` can be clicked on, resulting in
+     * an action, they can also have an ellipsis menu which will provide the end users with
+     * additional actions.
+     * When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
+     * will be emitted, reflecting the `value` of the selected item.
+     * :::note
+     * When a chip has `removable={true}` and when there are menu items, the "remove button" on the
+     * chip will be automatically added as the last item in the ellipsis menu.
+     * Clicking the remove button will emit the same `onRemove` event.
+     * :::
+     */
+    interface LimelExampleChipSetInputTypeWithMenuItems {
+    }
+    interface LimelExampleCircularProgress {
+    }
+    /**
+     * Tweaking the style, using CSS variables
+     * The component offers a few possibilities for tweaking its size and colors
+     * using a few CSS variables.
+     * :::note
+     * If you have tweaked component's size using size presets offered by the
+     * `size` prop, the css variable of `--circular-progress-size` will not have any
+     * effect.
+     * :::
+     * :::important
+     * Make sure that the track color is lighter than the fill color. Otherwise the
+     * UI will be very confusing for the users.
+     * :::
+     */
+    interface LimelExampleCircularProgressCssVariables {
+    }
+    /**
+     * Displaying percentage colors
+     * At Lime Technologies we have a convention for displaying percentage colors.
+     * The colors we use to display a range change with intervals of 10.
+     * The color spectrum is not modifiable, and looks like
+     * red → orange → yellow → green → teal.
+     * To enable this feature, simply set `displayPercentageColors` to `true`.
+     * Try changing the value in the example below to see how colors change
+     * for different percentages.
+     */
+    interface LimelExampleCircularProgressPercentageColors {
+    }
+    /**
+     * Using the props
+     * This component is initially designed to visualize a percentage on a scale of
+     * zero to 100. However, you can easily visualize a progress in other scales,
+     * simply by setting `maxValue`, `prefix` and `suffix`.
+     * Look at this example to see how the component displays an angle in a
+     * 360-degrees scale, a 60-seconds scale, and a 5-stars rating.
+     */
+    interface LimelExampleCircularProgressProps {
+    }
+    /**
+     * Size presets
+     * You can chose a preset size for the component to render it desireably,
+     * using the `size` prop.
+     * However, if these preset sizes do not suit your UI needs, do not specify them
+     * and instead specify the size using the `--circular-progress-size` variable,
+     * which must always be according to our
+     * [size rhythm](#/DesignGuidelines/size-rhythms.md/) guidelines.
+     * Note that the text size is automatically adjusted, based on the visual size
+     * of the component.
+     */
+    interface LimelExampleCircularProgressSizes {
+    }
+    /**
+     * Editable with automatic theme
+     * Here you see an instance of the Code Editor component which allows editing the
+     * presented code.
+     * This instance has an `auto` `colorScheme`, which means it reacts
+     * to the operating system's settings for preferred appearance (dark or light).
+     */
+    interface LimelExampleCodeEditor {
+    }
+    /**
+     * Editable with JSON linting and folding
+     * Here you see an instance of the Code Editor component with linting and
+     * folding support, which allows the user to see syntax errors in the JSON
+     * code shown in the editor. Folding makes it easier to collapse larger pieces
+     * of code.
+     */
+    interface LimelExampleCodeEditorFoldLint {
+    }
+    /**
+     * Readonly, with line numbers and dark theme
+     * Here you see a `readonly` instance of the Code Editor component. This means
+     * you cannot edit the code. We also display line numbers here.
+     * Additionally, this instance has a `dark` `colorScheme`, which means it does not
+     * respect the operating system's settings for preferred appearance (dark or light).
+     */
+    interface LimelExampleCodeEditorReadonlyWithLineNumbers {
+    }
+    interface LimelExampleCollapsibleSection {
+    }
+    /**
+     * Example with actions
+     */
+    interface LimelExampleCollapsibleSectionActions {
+    }
+    /**
+     * Using the CSS properties
+     */
+    interface LimelExampleCollapsibleSectionCssProps {
+    }
+    /**
+     * Opening and closing from outside the component
+     */
+    interface LimelExampleCollapsibleSectionExternalControl {
+    }
+    /**
+     * With a limel-slider - for testing
+     * :::note
+     * Some elements need to be redrawn if they were created
+     * while their container was hidden. The collapsible
+     * section will emit a resize event after opening, to make this happen.
+     * :::
+     */
+    interface LimelExampleCollapsibleSectionWithSlider {
+    }
+    interface LimelExampleColorPicker {
+    }
+    /**
+     * Using the component in `readonly` mode
+     * It is possible to use the component to visualize a color of your choice.
+     * In this case, users cannot pick any colors, but they can view what you have picked.
+     */
+    interface LimelExampleColorPickerReadonly {
+    }
+    interface LimelExampleColorsInComponents {
+    }
+    interface LimelExampleContrastColorPalette {
+    }
+    /**
+     * This component is only used in our documentations
+     * to provide a container for settings of examples.
+     * For example, it visually groups and organizes checkboxes
+     * used to show different states of components,
+     * such as Disabled, Required, Readonly, etc…
+     * :::warning
+     * For internal use only!
+     * :::
+     */
+    interface LimelExampleControls {
+    }
+    /**
+     * Custom form component
+     * You can specify a custom component to use for any property in your form. This
+     * is done under the `lime` key in the schema, following the
+     * [LimeSchemaOptions](#/type/LimeSchemaOptions/) specification, for example:
+     * ```ts
+     * const schema = {
+     *     type: 'object',
+     *     properties: {
+     *         hero: {
+     *             type: 'integer',
+     *             title: 'Hero',
+     *             lime: {
+     *                 component: {
+     *                     name: 'my-useful-hero-picker',
+     *                 },
+     *             },
+     *         },
+     *     },
+     * };
+     * ```
+     * While you can, in principle, use any component in a form, your custom form
+     * components should implement the [FormComponent](#/type/FormComponent/)
+     * interface.
+     * @sourceFile custom-component-schema.ts
+     * @sourceFile custom-component-picker.tsx
+     */
+    interface LimelExampleCustomComponentForm {
+    }
+    /**
+     * Form with custom error message
+     * @sourceFile custom-error-message-schema.ts
+     */
+    interface LimelExampleCustomErrorMessage {
+    }
+    interface LimelExampleCustomPicker {
+        /**
+          * {@inheritdoc FormComponent.disabled}
+         */
+        "disabled"?: boolean;
+        /**
+          * {@inheritdoc}
+         */
+        "helperText"?: string;
+        /**
+          * {@inheritdoc FormComponent.label}
+         */
+        "label"?: string;
+        /**
+          * Emitted when the value is changed
+         */
+        "onChange"?: (event: LimelExampleCustomPickerCustomEvent<number>) => void;
+        /**
+          * {@inheritdoc FormComponent.readonly}
+         */
+        "readonly"?: boolean;
+        /**
+          * {@inheritdoc FormComponent.required}
+         */
+        "required"?: boolean;
+        /**
+          * {@inheritdoc}
+         */
+        "value"?: number;
+    }
+    /**
+     * Custom type
+     * It is possible to send in a custom type,
+     * and provide it with custom, icon, heading and styles
+     */
+    interface LimelExampleCustomType {
+    }
+    interface LimelExampleDarkLightMode {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleDatePickerComposite {
+        "schema"?: FormSchema;
+    }
+    /**
+     * Custom date formatter
+     * You can provide a function to customize the date formatting.
+     */
+    interface LimelExampleDatePickerCustomFormatter {
+    }
+    /**
+     * date
+     */
+    interface LimelExampleDatePickerDate {
+    }
+    /**
+     * datetime
+     */
+    interface LimelExampleDatePickerDatetime {
+    }
+    /**
+     * With defined localization
+     */
+    interface LimelExampleDatePickerFormatted {
+    }
+    /**
+     * month
+     */
+    interface LimelExampleDatePickerMonth {
+    }
+    /**
+     * Changing the input programmatically
+     */
+    interface LimelExampleDatePickerProgrammaticChange {
+    }
+    /**
+     * quarter
+     */
+    interface LimelExampleDatePickerQuarter {
+    }
+    /**
+     * time
+     */
+    interface LimelExampleDatePickerTime {
+    }
+    /**
+     * week
+     */
+    interface LimelExampleDatePickerWeek {
+    }
+    /**
+     * year
+     */
+    interface LimelExampleDatePickerYear {
+    }
+    interface LimelExampleDialog {
+    }
+    /**
+     * Example with three action buttons
+     * This example shows how more than two buttons can be positioned in a dialog's
+     * footer. Pay attention to how they are labeled & styled, and how you can
+     * enable important actions conditionally.
+     * :::note
+     * When it comes to details such as placement of action buttons, choice of
+     * labels, and adding meaningful graphical details, it's important to follow
+     * a few design conventions which are explained in
+     * [this guide](#/DesignGuidelines/action-buttons.md/).
+     */
+    interface LimelExampleDialogActionButtons {
+    }
+    /**
+     * Custom closing actions
+     * Action buttons in dialogs can be used to add a clear visual indication for
+     * the sighted users to realize that the dialog can be closed by pressing
+     * a button as well.
+     * This may sometimes be considered an unnecessary usage of action buttons for
+     * sighted users. Because majority of them users know that clicking or tapping
+     * outside the dialog closes it.
+     * Such buttons are usually labeled ***OK***, ***Dismiss*** or ***Close***.
+     * :::tip
+     * When to use action buttons for simple "close" actions?
+     * - In fullscreen dialogs where clicking outside to close is hard.
+     * - When big dialogs are opened on phones, which make tapping outside hard for users.
+     * - When designing with accessibility in mind, and for those users who
+     * use screen readers to navigate the user interface.
+     * :::
+     * But sometimes, depending on the importance of the message which is displayed,
+     * you have to choose to display a close button, and disable other means of
+     * dismissing the dialog.
+     * :::tip
+     * When to use custom closing actions?
+     * - To make sure that the user really reads and understands the dialog's content.
+     * - To make sure that the user does not accidentally click outside and close the dialog.
+     * :::
+     * For such cases, avoid generic labels like ***OK***, or ***Close*** which unconsciously
+     * motivate users to dismiss the message; and instead use more purposeful labels
+     * such as ***I understand***, ***Looks good!***, ***Continue***, and similar;
+     * like in the example below.
+     */
+    interface LimelExampleDialogClosingActions {
+    }
+    /**
+     * Dialog with form and header
+     */
+    interface LimelExampleDialogForm {
+    }
+    /**
+     * Fullscreen
+     */
+    interface LimelExampleDialogFullscreen {
+    }
+    /**
+     * Dialog with heading
+     * In this example you can also see how available style properties can be used.
+     */
+    interface LimelExampleDialogHeading {
+    }
+    /**
+     * Dialog with action inside the heading
+     * In this example you can also see how available style properties can be used.
+     */
+    interface LimelExampleDialogHeadingActions {
+    }
+    /**
+     * Nested `close` events
+     * When putting other elements that emit `close` events inside a dialog, those
+     * events must be caught and stopped inside the dialog. If not, they will bubble
+     * to the event handler listening for `close` events on the dialog, which will
+     * close the dialog too.
+     * This example has an event handler for the `close` event on the dialog, and
+     * a second event handler for the `close` event on the collapsible-section.
+     * Try it out with the _Stop the inner close-event_ switch disabled, and then
+     * with the switch enabled, to see the difference.
+     */
+    interface LimelExampleDialogNestedCloseEvents {
+    }
+    /**
+     * Custom size
+     */
+    interface LimelExampleDialogSize {
+    }
+    /**
+     * Basic Example
+     * The Dock component can be used as a place for displaying the app's
+     * primary navigation.
+     * :::important
+     * Avoid having too many items in the Dock, because it will become
+     * problematic on mobile devices, when the component is rendered horizontally.
+     * :::
+     * It is possible to split the dock items into two sections and place one or
+     * more items at the bottom of the column. To do so, you can use `isFooterStart`
+     * on one of the items, which will act as a separator between the two sections,
+     * pushing itself and preceding to the bottom.
+     * :::important
+     * You must provide `label`s for to improve accesibility! Without labels,
+     * screen-readers cannot tell visually impared persons about the content
+     * of the Dock.
+     * :::
+     * It is possible to add extra information about the items using `helperLabel`.
+     * When the component is expanded, only the `helpeLabel` is used
+     * in the tooltip, when items are hovered.
+     * When the component is shrunk, both `label` and `helperLabel` are displayed
+     * inside the tooltip.
+     * Keep in mind that on a mobile phone, the component will be displayed horizontally
+     * and no labels are displayed! Instead, both `label` and `helperLabel` will be used
+     * as a tooltip to improve accessibility for screen-reader technologies.
+     * However, since hovering is not possible on touch-only mobile devices, users who
+     * rely on their vision to navigate the app will only see your chosen icons.
+     * So pick them carefully.
+     */
+    interface LimelExampleDockBasic {
+    }
+    /**
+     * Using CSS color variables for theming the Dock
+     * A few CSS variables can be used to customize the look and feel of the steps.
+     * :::note
+     * Using CSS variables to tweak the colors, applies the colors globally to the
+     * component, not to individual Dock items!
+     * :::
+     * :::important
+     * Make sure that:
+     * - text has enough contrast with its background and is readable.
+     * :::
+     */
+    interface LimelExampleDockColorsCss {
+    }
+    /**
+     * Displaying a custom component after Dock item is clicked
+     * It is possible to display a custom component in a popover,
+     * when the Dock item is clicked. This enables you to design
+     * the content of the menu as you wish, independently from the Dock.
+     * :::note
+     * Pay attention to the `--popover-surface-width` variable in the
+     * `.SCSS` file. That defines the width the popover component, which is `auto`
+     * by default. But modifying it may be helpful depending on the usage.
+     * :::
+     * @sourceFile my-custom-menu.tsx
+     */
+    interface LimelExampleDockCustomComponent {
+    }
+    /**
+     * Basic Example expanded
+     */
+    interface LimelExampleDockExpanded {
+    }
+    /**
+     * Setting a horizontal layout for mobile devices.
+     * By default, the component has a vertical layout, placing the
+     * Dock items in a column. However, the component will render the
+     * Dock items in a horizontal layout when the screen width is smaller
+     * than `700px`.
+     * If you prefer the component to switch to the horizontal mobile layout
+     * at another breakpoint, use the `mobileBreakPoint` property and give it
+     * a desired value in pixels (without `px`).
+     * In this example, we have chosen a very large number (`5000`) to force
+     * the component to be rendered in mobile layout here in the documentation,
+     * no matter how large the reader's screen size is.
+     * :::important
+     * Triggering the mobile layout does not automatically adjust the position
+     * of the component at the bottom of the screen. You should do that manually
+     * yourself in a proper way, depending on where the component is used;
+     * for example by using CSS media queries, and setting `position: fixed`.
+     * :::
+     * :::note
+     * Labels are not displayed in horizontal layout, but they will be instead
+     * displayed as tooltips.
+     * :::
+     */
+    interface LimelExampleDockMobile {
+    }
+    /**
+     * Displaying a notification badge
+     * It is possible to display a notification badge on each individual
+     * button in the Dock. Badges are supposed to inform the user that
+     * there is something in the menu that requires their attention.
+     * This is typically done by displaying a number, which summarizes
+     * the quantity of the items that require user's attention.
+     * :::important
+     * The menus are not a part of the Dock. They are individual components
+     * that you develop separately. Make sure that the information
+     * and interactions regarding the notifications are correctly handled.
+     * For example, when the items that require user's attention are
+     * seen or handled by the user after opening the menu, the badge on the
+     * Dock button should disappear.
+     * :::
+     * When this quantity is unclear or undefined, you can simply pass an
+     * empty string (`badge: ''`), which will only render a circle on the button.
+     * This is enough to attract user's attention.
+     * However, it is also possible to use a short string such as "·" or "!"
+     * for such cases, if considered necessary.
+     * :::warning
+     * Do not negatively exploit this possibility and spam users' awareness.
+     * The Dock is the most important and most dominant structural part of
+     * the UI of your application. Therefore crowding it with too much noise
+     * _will_ negatively affect the user experience.
+     * :::
+     */
+    interface LimelExampleDockNotification {
+    }
+    /**
+     * Dynamic schema
+     */
+    interface LimelExampleDynamicForm {
+    }
+    /**
+     * Basic example
+     * Switching the value to `true` or `false` will dynamically change the label,
+     * while the default label (including its icon) is ignored.
+     */
+    interface LimelExampleDynamicLabel {
+    }
+    /**
+     * Readonly boolean
+     * The `readonly` mode of a boolean fields do not always
+     * clearly communicate the meaning of the data to the end users. Similar problems
+     * have existed in user interfaces forever, and it not solely limited to
+     * readonly-ness of a boolean field. If you are interested in reading more
+     * about these common design problems, you can check out
+     * [**State-Switch Controls:** The Infamous Case of the "Mute" Button](https://www.nngroup.com/articles/state-switch-buttons/)
+     * In short, the reason end-users become confused is that it is not enough to
+     * keep the same label for both `true` and `false` states,
+     * and only rely on changing the color or the
+     * shapes and visual motifs, to communicate what the field means.
+     * Instead, we need to use different labels to describe the state,
+     * and also get some additional help from icons and colors
+     * to clarify further if needed.
+     * :::important
+     * This example shows how to setup the `limel-dynamic-label` component to
+     * create a more descriptive and dynamic labels for boolean fields.
+     * But please make sure to read our guidelines about
+     * [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/)
+     * to understand the importance of this, and get help in choosing the right labels
+     * for boolean fields.
+     * :::
+     */
+    interface LimelExampleDynamicLabelReadonlyBoolean {
+    }
+    interface LimelExampleEventPrinter {
+    }
+    interface LimelExampleExtendedColorPalette {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleFile {
+    }
+    /**
+     * Limit accepted file types
+     */
+    interface LimelExampleFileAcceptedTypes {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleFileComposite {
+        "schema"?: FormSchema;
+    }
+    /**
+     * Custom icon and color
+     * This component automatically visualizes the file type, based on the extension
+     * of the selected file. The visualization is done by displaying a colorful icon
+     * along with the filename, for the most common file types.
+     * However, you can also customize the icon and its fill color & background color.
+     */
+    interface LimelExampleFileCustomIcon {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleFileDropzone {
+    }
+    /**
+     * File type filtering
+     * The component allows you to specify the types of files that the dropzone will accept.
+     * By default, it accepts all file types (`*`).
+     * For media files, it is possible to specify any format, using:
+     * `audio/*`, `video/*`, `image/*`.
+     * Additionally, you can use unique file type specifiers, such as:
+     * `.jpg`, or `.pdf`; or use a comma-separated list of file extensions or MIME types,
+     * for instance: `image/png, image/jpeg` or `.png, .jpg, .jpeg`.
+     * Read more about
+     * [HTML attribute: accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept)
+     */
+    interface LimelExampleFileDropzoneTypeFiltering {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleFileInput {
+    }
+    /**
+     * Example of a file input component with type filtering
+     */
+    interface LimelExampleFileInputTypeFiltering {
+    }
+    /**
+     * Most common file types
+     * These are file formats that any web browser can display,
+     * without relying on any third-party plugins or additional
+     * plugins or extensions.
+     */
+    interface LimelExampleFileViewer {
+    }
+    /**
+     * Adding custom actions
+     */
+    interface LimelExampleFileViewerCustomActions {
+    }
+    /**
+     * Using the `filename` prop
+     * The component looks at the URL of the provided file, and based on how the
+     * URL ends, it can detect the extension and consequently choose the right way
+     * of rendering it in the browser.
+     * However, sometimes the URLs do not have the filename in them. In this case,
+     * it is vital to specify the filename, for the component to be able to render it.
+     * :::important
+     * Make sure the provided filename contains the correct extension!
+     * :::
+     * :::tip
+     * The filename that is specified will also be the filename that is used when the
+     * file is downloaded by clicking the download button on the File Viewer.
+     * :::
+     */
+    interface LimelExampleFileViewerFilename {
+    }
+    /**
+     * Using inbuilt actions
+     * The component offers a few inbuilt actions that enable users
+     * to download the file, open it in a new tab, or view it in fullscreen mode.
+     * :::note
+     * These action buttons do not get rendered for the office files,
+     * because the 3rd-party office viewers already offer the same features
+     * in their UI.
+     * :::
+     * :::important
+     * The download button will not work here in this example,
+     * due to the security policies of the web browsers.
+     * This is because the example files are not hosted in the same domain.
+     * :::
+     */
+    interface LimelExampleFileViewerInbuiltActions {
+    }
+    /**
+     * Office files
+     * There are many different software programs that can be used to create
+     * office files such as word processing documents, spreadsheets, and presentations.
+     * Web browsers do not natively support these formats for direct display.
+     * However, using the file-viewer component, you can easily display the content
+     * of office file types. The viewer relies on a few third-party technologies
+     * to render the file.
+     * By default, the component uses Microsoft Office Viewer, since it supports
+     * a wider range of file office formats. However, you can
+     * choose other viewers which are supported by this component.
+     * :::important
+     * 1. The file should be stored somewhere with a publicly accessible URL,
+     * otherwise the viewer cannot render them.
+     * 1. Once the file is viewed, it might get cached for a short while on the
+     * 3rd party servers –therefor remain publicly visible–,
+     * even if the original file deleted.
+     * 1. Files that are too large may not be rendered at all.
+     * :::
+     */
+    interface LimelExampleFileViewerOffice {
+    }
+    /**
+     * See an instant preview
+     * Select a file from your local machine using the file picker below,
+     * and `limel-file-viewer` component will display the file, if the format
+     * is supported.
+     */
+    interface LimelExampleFileViewerWithPicker {
+    }
+    /**
+     * Basic form with validation
+     * @sourceFile basic-schema.ts
+     */
+    interface LimelExampleForm {
+    }
+    /**
+     * Layout
+     * By default, each item in a limel-form will be rendered in a single row, and
+     * each row occupies the entire available width of the form's container.
+     * This default layout may work fine on small screens or narrow containers,
+     * but on larger screens it usually won't produce a nice layout. Thus we
+     * recommend that you choose an appropriate responsive layout for your form.
+     * ###### Enabling responsive layouts
+     * By specifying `'grid'` as the layout `type` in your schema, as well as your desired
+     * number of `columns`, you can leave the job of responsively handling the form
+     * layout to Lime Elements.
+     * ```ts
+     * export const schema = {
+     *     type: 'object',
+     *     lime: {
+     *         layout: {
+     *             type: 'grid',
+     *             columns: 3,
+     *         },
+     *     },
+     *     …
+     * };
+     * ```
+     * :::note
+     * Value for `columns` can only be `5`, `4`, `3`, `2`, or `1`. If you do not
+     * specify a value, `limel-form` will choose `5` by default.
+     * :::
+     * So if you have chosen `4` for instance, the form will do its best to fit
+     * four columns in a row. But for smaller containers in which placement of four
+     * items per row is not possible, the form will automatically change the layout
+     * and fit 3 items per row. As the container's width decreases, the number of
+     * columns will also decrease.
+     * :::tip
+     * You can divide a form into sections,
+     * and specify a different layout for each section.
+     * :::
+     * In this example, each collapsible section has its own `colSpan`.
+     * However, since the layout is responsive, make sure to change the browser
+     * window size to see how their responsive layout changes.
+     * @sourceFile layout-schema.ts
+     */
+    interface LimelExampleFormLayout {
+    }
+    interface LimelExampleFormMapComponent {
+        "label"?: string;
+    }
+    /**
+     * Row layout
+     * @sourceFile row-layout-schema.ts
+     */
+    interface LimelExampleFormRowLayout {
+    }
+    /**
+     * Stretching fields in a form
+     * Sometimes, you need a field in the form to occupy several columns or the
+     * entire row, and stretch itself as wide as the form's width,
+     * disregarding the form's layout and placement of the item in the list.
+     * This could be nice for fields that require more space to provide better
+     * usability.
+     * :::tip
+     * For example, a larger `textarea` is easier for the user to type in and
+     * a `slider` that has many steps is easier to interact with when it is rendered wider.
+     * :::
+     * To do so, in your schema you need to specify a `layout` for the field itself.
+     * `span` specifies the number of columns that the field should span.
+     * Thus, `span` can be set to `2`, `3`, `4`, `5`, or `all`.
+     * Since we do not offer a *form layout* that has more than five columns,
+     * values higher than 5 (or higher than the maximum number of columns in the form)
+     * will only force the field to be full-width, just like `all` does.
+     * ```ts
+     * export const schema = {
+     *     …
+     *     properties: {
+     *         name: {
+     *             type: 'string',
+     *             title: 'Comment',
+     *             lime: {
+     *                 layout: {
+     *                       colSpan: 'all',
+     *                   },
+     *               },
+     *         },
+     *         …
+     *     },
+     *     …
+     * };
+     * ```
+     * ###### Dense layout (Auto reorder fields to avoid empty cells)
+     * The order of fields and the number of columns that a field must span, can
+     * affect the layout of your responsive form when the container width changes.
+     * Let's say you have a form with a 4 column layout, and you specify that its
+     * second field must span 3 columns.
+     * If the container's width decreases, it will force the form to render its
+     * layout in 3 columns instead. Therefore, the second field has to jump
+     * to the next line to still be able to span 3 columns.
+     * This will leave 2 empty cells in the first row, right after the first field.
+     * To avoid these empty cells in the UI, limel-form will place the next available
+     * field in this hole, provided it fits. So the hole may be filled by a single 2 column
+     * wide field, by two 1 column wide fields, or only partially filled by a single 1 column
+     * wide field. If none of the remaining fields fit, the hole will be left as it is.
+     * However, you can disable this functionality by setting `dense` to `false` in the
+     * options for the grid layout.
+     * ```ts
+     * export const schema = {
+     *     type: 'object',
+     *     lime: {
+     *         layout: {
+     *             type: 'grid',
+     *             dense: false,
+     *         },
+     *     },
+     * };
+     * ```
+     * :::note
+     * Sometimes, the order of fields are important for the way users perceive the form.
+     * If you choose to use the default auto-reordering behavior, make sure to test your
+     * form's layout in different screen sizes to see whether you can mitigate unwanted
+     * layout changes.
+     * Some unwanted results can be avoided by changing the order of the fields,
+     * so that they render appropriately on different screens, or by dividing
+     * the form into more sections.
+     * :::
+     * ###### Stretching a field vertically
+     * Most standard elements that can be used in forms, such as `limel-input`,
+     * `limel-select`, `limel-slider`, etc, have a fixed height, and therefore
+     * it does not really make sense to stretch them vertically, and we strongly
+     * recommend you not to!
+     * But there are some exceptions. One of them is `limel-input-field` with
+     * `type='textarea'`.
+     * Also, if you create a custom component for your form—let's say a map—you
+     * can use `rowSpan` to increase the height of your custom component.
+     * ```ts
+     * export const schema = {
+     *     type: 'object',
+     *     properties: {
+     *         comment: {
+     *             type: 'string',
+     *             title: 'Comment',
+     *             lime: {
+     *                 component: {
+     *                     props: {
+     *                         type: 'textarea',
+     *                     },
+     *                 },
+     *                 layout: {
+     *                       colSpan: 3,
+     *                       rowSpan: 2,
+     *                 },
+     *             },
+     *         },
+     *     },
+     * };
+     * ```
+     * :::note
+     * If you do *not* set the `rowSpan` for a component, it can stretch vertically
+     * within its row, and the row will simply expand with the component.
+     * If you *do* set a `rowSpan`, even if you set it to `1`, the component is
+     * fixed to that height. What happens to any potential overflow depends on the
+     * component.
+     * :::
+     * :::warning
+     * Custom web-components that you include in the forms should not have hard-coded
+     * `width` or `height` values! Otherwise they will stretch out of their cell and break
+     * the UI. Make sure that such components are internally designed to be responsive,
+     * and that their `:host` and any potential wrapping container has the following styles:
+     * ```scss
+     * :host {
+     *     display: block; // or another suitable property
+     *     width: 100%;
+     *     height: 100%;
+     * }
+     * :host([hidden]) {
+     *     display: none;
+     * }
+     * .my-component {
+     *     width: 100%;
+     *     height: 100%;
+     * }
+     * ```
+     * :::
+     * @sourceFile span-fields-schema.ts
+     */
+    interface LimelExampleFormSpanFields {
+    }
+    /**
+     * Form fields with help
+     * It's possible to add extensive help to any form element.
+     * The string you provide can be in Markdown format,
+     * empowering you to present a rich-text experience to the user,
+     * including bullet points, hyperlinks, etc…
+     * Read more on [Help](#/component/limel-help) component.
+     * :::note
+     * Do not confuse `help` and `helperText`!
+     * The helper text is a short description for the input fields
+     * that becomes visible when the user click on the fields to provide
+     * brief clues about the field or its expected value.
+     * It can also be used to display validation errors.
+     * These errors will be displayed in red below the fields, without
+     * requiring the users to click on the field.
+     * Check out the [Input field Component](#/component/limel-input-field)
+     * examples, where we describe how to properly use `helperText`, and `placeholder`.
+     * :::
+     * :::tip
+     * When rendering a form using a schema, the `helperText`s are automatically
+     * passed for all the fields based on the schema and validation errors.
+     * The `description` specified for a field in the schema is used as
+     * helper text while the field is shown as valid.
+     * When there is validation feedback to provide to the user,
+     * the field is instead marked as invalid with an error message that is displayed
+     * in the place of the helper text.
+     * :::
+     * @sourceFile help-form-schema.ts
+     */
+    interface LimelExampleFormWithHelp {
+    }
+    /**
+     * We use the `grid-area` property to give each component a unique name, and
+     * then use this name to "draw" our grid layout.
+     * You can name each component anything you want, like `salespipe`, or
+     * `infotile-active-support-tickets`, but keeping the names to a fixed number of
+     * characters makes the "drawing" of the grid look more like the actual grid.
+     * One to three characters is probably a good number for most cases.
+     * Any "name" that doesn't match a named element will create empty cells. In our
+     * case, we use a dot (`.`) to mark empty cells. Empty cells can be put anywhere
+     * in the grid, not just at the end.
+     * Note that we can add some extra spaces after the dot marking an empty cell,
+     * in order to align the next cell in our config-string. This can also be used
+     * if your elements have named of differing lengths. The extra whitespace is
+     * ignored when the CSS is parsed.
+     * If the name of an element does not appear in the grid-configuration, it will
+     * not be displayed at all. This might be useful if you wish to show a specific
+     * component only under certain circumstances, like if the viewport is large
+     * enough to accomodate it.
+     */
+    interface LimelExampleGrid {
+    }
+    /**
+     * Basic example
+     * :::tip
+     * Users can still hover the cursor on the truncated headings to read the full
+     * text.
+     * :::
+     */
+    interface LimelExampleHeader {
+    }
+    /**
+     * Colorful header
+     * It's up to you to choose colors for the background, text or icon.
+     * When you change the default colors pay attention to how they look together.
+     * For instance the text is readable and has enough contrast with a background color.
+     */
+    interface LimelExampleHeaderColors {
+    }
+    interface LimelExampleHeaderMenu {
+        "icon"?: string;
+        "items"?: ListItem[];
+    }
+    /**
+     * Narrow headers
+     * Sometimes your UI design may require having a narrower header.
+     * This will be easy to achieve by sending in the class of `is-narrow`
+     * to your component.
+     * This will render the header icon smaller, and reduces the font size of
+     * the `heading`.
+     * :::tip
+     * Keep in mind that headers are programmed to grow in height, depending
+     * on their content. So if you have large custom components in the `actions`
+     * slot or use both `heading` and `subheading`, they will still force the header
+     * to appear tall.
+     * :::
+     */
+    interface LimelExampleHeaderNarrow {
+    }
+    /**
+     * How Responsive layout of header works
+     * However, sometimes you may need to make the layout be responsive and split
+     * into two rows, at a break point.
+     * To activate this responsive layout, you can simply add the `has-responsive-layout`
+     * class to your `limel-header` component.
+     * This makes a few changes in the layout. Firstly, both the left side (icon and
+     * headings) and right side (actions slot) will occupy 50% of the total header
+     * width each. However, the width of left and right side will never become smaller
+     * than `22rem`.
+     * :::tip
+     * The value of `22rem` is the default breakpoint. But you can easily change it
+     * by tweaking the `--header-responsive-breakpoint` variable in your component.
+     * :::
+     */
+    interface LimelExampleHeaderResponsive {
+    }
+    /**
+     * Using the "actions" slot
+     * The component offers a place for including custom actions, or
+     * any other component that you want to include in the header.
+     * To include any component in the `actions` area,
+     * you can simply use the `slot="actions"` attribute.
+     * :::note
+     * In small containers when having the default layout, the `actions` area
+     * wins the battle of limited space! It means, if you have a very wide
+     * component in the actions area, it will never shrink in size, and instead
+     * forces the headings to truncate.
+     * :::
+     */
+    interface LimelExampleHeaderSlotActions {
+    }
+    /**
+     * Basic example
+     * This component accepts a string as a value and displays it in a popover.
+     * This string can be in markdown format, enabling you to add links, lists, etc;
+     * providing a richer experience for the user.
+     */
+    interface LimelExampleHelp {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleHelperLine {
+    }
+    /**
+     * Animating the appearance of the helper line
+     * It is possible to hide the helper line component with a
+     * smooth animation of its height.
+     * Simply add the `class="hide"` to the component,
+     * and it will take care fo the animations.
+     */
+    interface LimelExampleHelperLineAnimation {
+    }
+    /**
+     * Only with a character counter
+     */
+    interface LimelExampleHelperLineCharacterCounter {
+    }
+    /**
+     * When the helper line is empty
+     * When the component has no content, for example when there is no
+     * `helperTex`t or no character counter, the component will get a `display: none`
+     * as style, to avoid creating empty holes in the UI of the consumer component.
+     * This is important for example in a `flex` or `grid` component that has a `gap`
+     * between its children. If so, we don't want the empty
+     * `limel-helper-line` to get rendered and cause unnecessary gaps in the UI.
+     */
+    interface LimelExampleHelperLineEmpty {
+    }
+    /**
+     * Invalid example
+     */
+    interface LimelExampleHelperLineInvalid {
+    }
+    /**
+     * With a long helper text
+     */
+    interface LimelExampleHelperLineLongText {
+    }
+    /**
+     * With a long helper text, but no counter
+     */
+    interface LimelExampleHelperLineLongTextNoCounter {
+    }
+    /**
+     * Basic Example
+     * Just an icon and a click-handler.
+     * Open the dev-tools console to see logged clicks.
+     */
+    interface LimelExampleIconButtonBasic {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleIconButtonComposite {
+    }
+    /**
+     * Disabled
+     */
+    interface LimelExampleIconButtonDisabled {
+    }
+    /**
+     * Elevated
+     * An alternative button style, which helps communicate that this is a button
+     * which can be clicked.
+     */
+    interface LimelExampleIconButtonElevated {
+    }
+    /**
+     * Toggle State
+     * This isn't really a feature of `limel-icon-button`, but since it is a common
+     * use case, here is a simple way to make the icon button toggle between two
+     * different "states", each with its own icon and label.
+     */
+    interface LimelExampleIconButtonToggleState {
+    }
+    /**
+     * Colors
+     * Icons will inherit their colors form the `color` property of the parent element.
+     * For styling the background color, you can use the CSS variable
+     * `--icon-background-color`.
+     * :::note
+     * Note that `badge` is set to `true` to provide more space around the icon,
+     * and make sure the background color is nicely displayed.
+     * But the `bade` has effect, only when the `size` attribute is also set.
+     * :::
+     */
+    interface LimelExampleIconColor {
+    }
+    /**
+     * Icon Finder
+     * Used in the docs for `limel-icon`.
+     */
+    interface LimelExampleIconFinder {
+    }
+    /**
+     * Names
+     * To display an icon, all you need to do is specifying its name.
+     */
+    interface LimelExampleIconName {
+    }
+    /**
+     * Size
+     * There are preset sizes.
+     * :::note
+     * Setting the `bade` prop to `true` affects how big the icon is rendered,
+     * but only when the `size` attribute is also set.
+     * :::
+     */
+    interface LimelExampleIconSize {
+    }
+    /**
+     * Basic example
+     * This component does its best to offer a responsive layout
+     * that reacts both to the length of text, and size of the container.
+     * :::note
+     * To use this component properly, you need to define both
+     * a declared `height` and a declared `width` for it. Alternatively,
+     * make sure that its container enforces a width and height,
+     * for instance, use it as a flex or grid child.
+     * :::
+     * In this example, you can resize the component to see how it
+     * tries to adjust its content to the size of its container.
+     * :::tip
+     * Try to avoid long textual content to get
+     * the best possible visualization. They can cause
+     * undesired overlapping of the content, depending on the size of the
+     * component.
+     * :::
+     */
+    interface LimelExampleInfoTile {
+    }
+    /**
+     * Displaying a notification badge
+     * The component can display a badge, which could either be a `number` or
+     * a `string`. Read more about how the badge truncates or abbreviates the
+     * provided label [here](#/component/limel-badge/).
+     */
+    interface LimelExampleInfoTileBadge {
+    }
+    /**
+     * Loading state
+     * Sometimes the value needs to be calculated, updated, or fetched
+     * through a process that requires some time. In such cases, it is
+     * a great idea to let the users know that the data is being updated.
+     * To do so, set the `loading` property to `true`. The component will then
+     * show an indeterminate progressbar indicating the data is being updated,
+     * while the older value is still being displayed.
+     * :::note
+     * Note that this does _not_ disable the link, and most probably you
+     * do not need it to be disabled either.
+     * If the link should be disabled while loading, the
+     * `disabled` property should be set to `true` as well.
+     * :::
+     */
+    interface LimelExampleInfoTileLoading {
+    }
+    /**
+     * Displaying a progress bar
+     * By defining a numeric `progressValue`, you can display
+     * a circular progress bar to visualize more data on the component.
+     * This can for instance help illustrate how much of a
+     * set goal has been reached, which together with the `value` will help users
+     * get a better overview of the provided data.
+     * When the circular progress is shown, that would become the primary
+     * illustrative element on the component,
+     * which means the icon will be rendered smaller, only as a supportive
+     * contextual visual element.
+     * :::tip
+     * It is possible to customize the progress bar's suffix, but it is
+     * set to display the percentage sign (**%**) by default.
+     * :::
+     */
+    interface LimelExampleInfoTileProgress {
+    }
+    /**
+     * How to style the Info tile
+     * The component offers different CSS variables for styling
+     * the color of the text, background, and it's icon; as well as
+     * radius of it's rounded corners, and colors of the notification badge
+     * and its text.
+     */
+    interface LimelExampleInfoTileStyling {
+    }
+    /**
+     * Input Field with Completions
+     */
+    interface LimelExampleInputFieldAutocomplete {
+    }
+    /**
+     * Input Field with Error Icon
+     */
+    interface LimelExampleInputFieldErrorIcon {
+    }
+    /**
+     * Setting focus programmatically
+     * To set focus programmatically, call `.focus()` on the `limel-input-field`
+     * element. Note that, for this to work, the `tabindex` property must be set
+     * on the `limel-input-field`.
+     * - `tabindex="0"` means that the element should be focusable in sequential
+     * keyboard navigation, after any positive tabindex values and its order is
+     * defined by the document's source order.
+     * - A _positive value_ means the element should be focusable in sequential
+     * keyboard navigation, with its order defined by the value of the number.
+     * Read more on [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex).
+     */
+    interface LimelExampleInputFieldFocus {
+    }
+    /**
+     * Input Field with Leading and Trailing Icons & Action
+     */
+    interface LimelExampleInputFieldIconBoth {
+    }
+    /**
+     * Input Field with Leading Icon
+     * A leading icon can be used to visually "decorate" the input field. The
+     * purpose for adding a leading icon should be to help the user understand what
+     * the field is for.
+     * In this example, we use a map icon in addition to the "Address" label, to
+     * indicate that this field is meant for a physical address.
+     * The example has a minimum length just to show what an invalid field looks
+     * like.
+     */
+    interface LimelExampleInputFieldIconLeading {
+    }
+    /**
+     * Input Field with Trailing Icon & Action
+     * A trailing icon can be added to input fields along with an action
+     * for that trailing icon.
+     * :::note
+     * Use trailing icons only when you intend to have an action associated with them.
+     * Trailing icons of input fields will get an interactive visual effect when
+     * hovered to hint users that they are clickable.
+     * Therefore, a purely ornamental trailing icon that has this interactive effect
+     * will be confusing for users.
+     * :::
+     */
+    interface LimelExampleInputFieldIconTrailing {
+    }
+    /**
+     * Input Field of Type Number
+     */
+    interface LimelExampleInputFieldNumber {
+    }
+    /**
+     * Input Field with pattern
+     */
+    interface LimelExampleInputFieldPattern {
+    }
+    /**
+     * Input Field with a placeholder
+     * The placeholder text is displayed inside the input field,
+     * when the field is focused and empty.
+     * :::tip
+     * A `placeholder` text is good for providing hints and examples about the expected input.
+     * While the `helperText` is better for providing instructions.
+     * :::
+     * Unlike `helperText` which is constantly visible while the user is typing
+     * inside the field, the `placeholder` text disappears as soon as the user has
+     * input anything.
+     * :::note
+     * Make an informed decision when using `placeholder` instead of `helperText`!
+     * You may have good intentions to reduce clutter on the user interface
+     * and use a placeholder text, because it will disappear after user has started typing.
+     * However, if the additional tips or instructions that you are trying to provide is
+     * crucial or hard to remember, it is better to display them as helper text instead.
+     * This is because disappearing crucial information will strains users’ short-term memory.
+     * In a form with many fields, users can easily forget
+     * what each field was for. Especially if a field has validations that fail
+     * for example after submitting. Instructions that are not visible anymore will make it
+     * hard for the user to realize what the problem is or how to solve it.
+     * :::
+     * :::warning
+     * If no `label` is provided, then the placeholder text will be displayed even if the
+     * input field is not focused.
+     * However, this does not mean that you should use this
+     * as a hack, to create a minimalistic and clean user interface. Not providing labels
+     * will cause accessibility issues for users of assistive technologies,
+     * and strains users’ short-term memory as explained above.
+     * Additionally, users may confuse the placeholder text, as an automatically
+     * inputted value, and skip filling in information.
+     * :::
+     */
+    interface LimelExampleInputFieldPlaceholder {
+    }
+    /**
+     * Prefix
+     * An input Field with a currency symbol text displayed as prefix
+     */
+    interface LimelExampleInputFieldPrefix {
+    }
+    /**
+     * Input Field of Type Search
+     */
+    interface LimelExampleInputFieldSearch {
+    }
+    /**
+     * With `showLink=true`
+     */
+    interface LimelExampleInputFieldShowlink {
+    }
+    /**
+     * Suffix
+     * An Input Field with a unit of measurement displayed as suffix
+     */
+    interface LimelExampleInputFieldSuffix {
+    }
+    /**
+     * Input Field of Type Text
+     */
+    interface LimelExampleInputFieldText {
+    }
+    /**
+     * Input Field of Type Text
+     */
+    interface LimelExampleInputFieldTextDeclutteringGuidelines {
+    }
+    /**
+     * Multiple Fields
+     */
+    interface LimelExampleInputFieldTextMultiple {
+    }
+    /**
+     * Input Field of Type Textarea
+     */
+    interface LimelExampleInputFieldTextarea {
+    }
+    interface LimelExampleLinearProgress {
+    }
+    /**
+     * Setting the color
+     */
+    interface LimelExampleLinearProgressColor {
+    }
+    /**
+     * Indeterminate progress bar
+     */
+    interface LimelExampleLinearProgressIndeterminate {
+    }
+    /**
+     * Basic list
+     */
+    interface LimelExampleList {
+    }
+    /**
+     * List with action menu
+     */
+    interface LimelExampleListAction {
+    }
+    /**
+     * List with badge icons
+     */
+    interface LimelExampleListBadgeIcons {
+    }
+    /**
+     * Multi-line versus single-line layout
+     * By default, list items will always truncate the `text` line, which is displayed
+     * either alone, or as a primary heading (when there are both `text` and `secondaryText`)
+     * available. This means users will only see one line of text which is as wides as
+     * the list item, and no more. Thus, it is a good idea not to add long strings of
+     * text in the heading, as on mobile phones or small containers, they will be
+     * chopped off and truncated.
+     * However, the `secondaryText` which appears as a sub-heading is not truncated
+     * that quickly. By default, lists will display 3 lines of text, and then truncate
+     * the rest. Nevertheless, you can increase or decrease this number by specifying
+     * `maxLinesSecondaryText`.
+     * :::note
+     * Do not use `0`, negative numbers, decimal numbers, or very large numbers.
+     * :::
+     */
+    interface LimelExampleListBadgeIconsWithMultipleLines {
+    }
+    /**
+     * List with checkboxes
+     */
+    interface LimelExampleListCheckbox {
+    }
+    /**
+     * List with checkboxes and icons
+     */
+    interface LimelExampleListCheckboxIcons {
+    }
+    /**
+     * List data
+     * @sourceFile list-schema.ts
+     */
+    interface LimelExampleListForm {
+    }
+    /**
+     * List with grid layout
+     * To display list items in a grid layout instead of a vertical column,
+     * simply add `has-grid-layout` class to
+     * the component.
+     * This layout can be customized, using a few CSS variables.
+     * :::warning
+     * - This layout should not be used with lists that have checkboxes or radio buttons.
+     * - Also, it is recommended to avoid using secondary text with this layout.
+     */
+    interface LimelExampleListGrid {
+    }
+    /**
+     * List with icons
+     */
+    interface LimelExampleListIcons {
+    }
+    /**
+     * List with a primary component
+     */
+    interface LimelExampleListPrimaryComponent {
+    }
+    /**
+     * List with radio buttons
+     */
+    interface LimelExampleListRadioButton {
+    }
+    /**
+     * List with radio buttons and icons
+     */
+    interface LimelExampleListRadioButtonIcons {
+    }
+    /**
+     * List with secondary text
+     */
+    interface LimelExampleListSecondary {
+    }
+    /**
+     * List with selectable items
+     */
+    interface LimelExampleListSelectable {
+    }
+    /**
+     * List with separators
+     * Separators are simple yet powerful design elements that can be
+     * employed in lists of items. They offer significant usability advantages
+     * by providing valuable visual cues that aid users in perceiving
+     * and navigating through lists.
+     * - **Grouping and Hierarchy:**
+     * Separators can be used to group related items, signaling to users that
+     * those items share a common attribute or purpose.
+     * This grouping effect aids in creating a hierarchical structure within the list,
+     * making it simpler for users to grasp relationships and make informed decisions.
+     * - **Visual Scannability:**
+     * When users quickly scan a list, their eyes naturally use the separator lines
+     * as visual anchors, making it easier to find items and remember their whereabouts
+     * next time they revisit the same list.
+     * - **Reduced Cognitive Effort:**
+     * Separators contribute to a user's overall comprehension and experience
+     * by reducing the cognitive effort required to process the information.
+     * You can optionally add a short title to the separators,
+     * to clarify further what each group of items is about,
+     * and by doing so improve the users perception and experience.
+     */
+    interface LimelExampleListSeparator {
+    }
+    /**
+     * List with custom styles
+     * Adding the `has-striped-rows` class to the list will make the items more
+     * distinct by adding different background colors to even and odd rows.
+     * Also, by taking advantage of the `has-interactive-items`, hovering on a list
+     * item which is not `disabled` will display an elevated visual effect, giving
+     * it more affordance and a solid feeling of interactivity.
+     * | Class name              | Description                                                                                     |
+     * | ----------------------- | ----------------------------------------------------------------------------------------------- |
+     * | `has-striped-rows`      | Adds distinct styling by which every other row (list item) gets a darker background.            |
+     * | `has-interactive-items` | Adds more affordance by applying an elevated visual effect on list item, when they are hovered. |
+     * :::note
+     * to get both effects, you need to apply both of these classes.
+     * :::
+     */
+    interface LimelExampleListStriped {
+    }
+    /**
+     * Blockquotes
+     */
+    interface LimelExampleMarkdownBlockquotes {
+    }
+    /**
+     * Code
+     */
+    interface LimelExampleMarkdownCode {
+    }
+    /**
+     * Composite example
+     * Test your markdown code and see what you get in return in real-time.
+     */
+    interface LimelExampleMarkdownComposite {
+    }
+    /**
+     * Emphasis
+     */
+    interface LimelExampleMarkdownEmphasis {
+    }
+    /**
+     * Footnote
+     */
+    interface LimelExampleMarkdownFootnotes {
+    }
+    /**
+     * Headings
+     */
+    interface LimelExampleMarkdownHeadings {
+    }
+    /**
+     * Horizontal Rule
+     */
+    interface LimelExampleMarkdownHorizontalRule {
+    }
+    /**
+     * HTML
+     */
+    interface LimelExampleMarkdownHtml {
+    }
+    /**
+     * Images
+     */
+    interface LimelExampleMarkdownImages {
+    }
+    /**
+     * Links
+     * There are two ways to create links.
+     */
+    interface LimelExampleMarkdownLinks {
+    }
+    /**
+     * Lists
+     */
+    interface LimelExampleMarkdownLists {
+    }
+    /**
+     * Tables
+     */
+    interface LimelExampleMarkdownTables {
+    }
+    /**
+     * With badge icons
+     */
+    interface LimelExampleMenuBadgeIcons {
+    }
+    /**
+     * Basic example
+     * With a simple `onSelect` handler.
+     */
+    interface LimelExampleMenuBasic {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states. This example has a slightly
+     * more advanced `onSelect` handler, which disables the last selected value.
+     */
+    interface LimelExampleMenuComposite {
+        "schema"?: FormSchema;
+    }
+    /**
+     * Disabled
+     * Note that you don't need to disable the trigger button separately, as the
+     * component takes care of this for you.
+     */
+    interface LimelExampleMenuDisabled {
+    }
+    /**
+     * With grid layout
+     * To render items of a menu in a grid layout instead of a vertical list,
+     * simply setting the `gridLayout` property to `true`.
+     * :::note
+     * Menus with the grid layout has a responsive width by default,
+     * which will not grow wider than a certain size. However, if the default size is not
+     * wide enough for your use case, you can try setting another responsive width, using
+     * the `--menu-surface-width` variable.
+     * To achieve a responsive width, try using the `min()` function.
+     * This function selects the smallest value from a list of comma-separated expressions
+     * which are placed within the parentheses.
+     * For example, `--menu-surface-width: min(100vw, 40rem);` will output
+     * `width: min(100wv, 40rem);` which will tell the browser to render the menu
+     * content in a 40rem-wide grid, as long as 100% of the viewport's width (`100vw`)
+     * is larger than `40rem`.
+     * :::
+     * To tweak the grid layout, a few other variables are available:
+     * - `--list-grid-item-max-width`: Defines maximum width of items in the list, which defaults to `10rem`.
+     * - `--list-grid-item-min-width`: Defines minimum width of items, which to `7.5rem`.
+     * - `--list-grid-gap`: Defines the distance between the items, which defaults to `0.75rem`.
+     */
+    interface LimelExampleMenuGrid {
+    }
+    /**
+     * Menu with supporting hotkeys
+     */
+    interface LimelExampleMenuHotkeys {
+    }
+    /**
+     * With icons
+     */
+    interface LimelExampleMenuIcons {
+    }
+    /**
+     * With notification
+     * It is possible to display a notification badge on each individual
+     * list item inside the menu's dropdown.
+     * These notification badges are supposed to inform the user that
+     * there is something in the menu item that requires their attention.
+     * This is typically done by displaying a number, which summarizes
+     * the quantity of the items that require user's attention.
+     * However, if a number is not meaningful, it is possible to send an
+     * empty string (`badge: ''`), which will display a circle on the
+     * list item.
+     * Since list items in the menu are hidden away, users would not
+     * realize that there is something inside the menu which requires their
+     * attention. Which is why the trigger automatically displays a
+     * notification badge on its top-right corner,
+     * when the menu contains badges.
+     * By default, the badge is red and its text is white.
+     * This is to attract users' attention. However, this is possible to override using
+     * [provided style variables](/#/component/limel-menu/styles/).
+     * :::warning
+     * - Do not negatively exploit this possibility and spam users' attention.
+     * Crowding the UI with too much noise _will_ negatively affect the user experience.
+     * - Notification badges *must* be cleared as soon as the list item is clicked by the user!
+     * :::
+     */
+    interface LimelExampleMenuNotification {
+    }
+    /**
+     * openDirection
+     * The value of the `openDirection` property defines how the menu content
+     * is aligned with its trigger element, and in which direction it opens.
+     */
+    interface LimelExampleMenuOpenDirection {
+    }
+    /**
+     * Opening sub-menus programmatically
+     * **This example is currently not in use because it's an experimental feature**
+     * It is possible to open any sub-menu in the menu-hierarchy.
+     * This is done by using the parentItem property of the MenuItem class.
+     * @sourceFile item-constants.ts
+     */
+    interface LimelExampleMenuOpenSubMenuProgrammatically {
+    }
+    /**
+     * Searchable items
+     * @sourceFile subitems-search.ts
+     * @sourceFile item-constants.ts
+     */
+    interface LimelExampleMenuSearchable {
+    }
+    /**
+     * With `secondaryText`
+     * Menu items can display secondary text as well. By default, the secondary text
+     * will be displayed in two lines, and then get truncated.
+     * :::important
+     * Keep in mind that a menu's drop-down surface will stretch as much as its default
+     * maximum width values allow. However, if this default maximum width does not suit
+     * your use case, you can override it using the `--menu-surface-width` variable.
+     * But do not forget that menus should still behave responsively, thus assigning a fixed value
+     * should be avoided. To make the width responsive, try using the `min()` function.
+     * This function selects the smallest value from a list of comma-separated expressions
+     * which are placed within the parentheses.
+     * For example, `--menu-surface-width: min(90vw, 40rem);` will output
+     * `width: min(90wv, 40rem);` which will tell the browser to render the menu
+     * content in a grid that's allowed to take up 90% of the viewport's width (`90vw`)
+     * up to a maximum of `40rem`.
+     * :::
+     */
+    interface LimelExampleMenuSecondaryText {
+    }
+    /**
+     * Using separators with titles
+     * You divide groups of items using separators.
+     * It is also possible add a short title to the separators,
+     * to clarify further what each group of menu items is about,
+     * and by doing so improve the users perception and experience.
+     */
+    interface LimelExampleMenuSeparators {
+    }
+    /**
+     * Lazy loading items in sub-menus
+     * @sourceFile menu-sub-menu-lazy-loading-service-mock.ts
+     */
+    interface LimelExampleMenuSubMenuLazyLoading {
+    }
+    /**
+     * Lazy loading infinite amount of sub-menu
+     * :::note
+     * This example is here to show what the component looks like when you have a
+     * lot of nested sub-menus, and what the breadcrumb component looks like when
+     * you are deep into the menu.
+     * If you are looking for code examples, please see the
+     * _Lazy loading items in sub-menus_ example instead.
+     * :::
+     */
+    interface LimelExampleMenuSubMenuLazyLoadingInfinite {
+    }
+    /**
+     * Sub-menus
+     * To have an enhanced navigation and provide a better organization of items,
+     * you can incorporate sub-menus within the menu structure;
+     * and create a so called "Cascading menu".
+     * These sub-menus provide the user with an efficient way to access a
+     * wide range of choices without overwhelming them with clutter or complexity.
+     * The main menu, often called the parent menu,
+     * typically consists of top-level options that represent primary categories or options.
+     * Sub-menus, on the other hand, are secondary or menus that are nested
+     * beneath these primary options.
+     * Some of the benefits of creating tree-structure for the menus are:
+     * - **Organized Information:** Sub-menus enable a clear and organized presentation of content,
+     * making it easier for the user to find what they're looking for within a specific category.
+     * - **Space Efficiency:** They save screen space by concealing secondary options until needed,
+     * reducing visual clutter and making the interface cleaner and more user-friendly.
+     * - **Scalability:** Sub-menus can accommodate a large number of choices or features
+     * within a single parent menu, making them suitable for complex applications or websites.
+     * - **Logical Hierarchy:** By structuring information hierarchically,
+     * sub-menus help the user understand the relationships between various
+     * options and navigate through the interface more intuitively.
+     * Our cascading menus are designed to be mobile-friendly.
+     * This means that sub-menus are opened within the same menu surface,
+     * instead of the classic way of sticking out on the side, as a secondary menu.
+     * Thanks to a breadcrumbs component on the top, the user can easily navigate back
+     * and forth within the menu structure.
+     * :::tip
+     * It is also very easy to navigate the nested menu structure using the keyboard.
+     * - Using the <kbd>↓</kbd> & <kbd>↑</kbd> keys, the user can naturally
+     * navigate within the presented menu,
+     * - pressing the <kbd>→</kbd> key on a menu item that has sub-menu opens a nested menu,
+     * - and pressing the <kbd>←</kbd> key takes the user back to the previous/parent menu.
+     * :::
+     * @sourceFile item-constants.ts
+     */
+    interface LimelExampleMenuSubMenus {
+    }
+    /**
+     * Size of the menu drop-down surface
+     * Any element in the UI can be configured to open a menu.
+     * By default, the dropdown that opens up after the menu trigger is clicked
+     * inherits its width from the items that are inside the dropdown menu.
+     * However, for some designs, you may want the width of the menu dropdown
+     * to be exactly as wide as the width of its trigger element, or
+     * as wide as `limel-menu` element itself. This is easily achieved using the
+     * `surfaceWidth` prop. Read more on `SurfaceWidth`.
+     * :::tip
+     * In this example, `limel-menu` is highlighted with a dashed border,
+     * to make it easier to see its width.
+     * :::
+     * :::note
+     * The `--menu-surface-width` Overrides the width defined by `surfaceWidth`!
+     * :::
+     */
+    interface LimelExampleMenuSurfaceWidth {
+    }
+    /**
+     * Nested data
+     * @sourceFile nested-schema.ts
+     */
+    interface LimelExampleNestedForm {
+    }
+    /**
+     * Help with custom open direction
+     */
+    interface LimelExampleOpenDirection {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExamplePickerComposite {
+        "schema"?: FormSchema;
+    }
+    /**
+     * With no suggestions and a message for empty search results
+     * :::important
+     * This example simulates that searching is done on the server. Because these
+     * examples do not _actually_ send requests to the server, we simulate a small
+     * delay, using `setTimeout`. **Please do NOT copy that to production code!**
+     * See the other examples for code that does not include this artificial delay.
+     * :::
+     */
+    interface LimelExamplePickerEmptySuggestions {
+    }
+    /**
+     * With icons
+     */
+    interface LimelExamplePickerIcons {
+    }
+    /**
+     * With a "search" leading icon
+     */
+    interface LimelExamplePickerLeadingIcon {
+    }
+    /**
+     * Multiple values can be picked.
+     * - "Search" is done locally in the frontend.
+     * - Already picked items are removed from the available options.
+     */
+    interface LimelExamplePickerMultiple {
+    }
+    /**
+     * Single value can be picked.
+     * - "Search" is done locally in the frontend.
+     */
+    interface LimelExamplePickerSingle {
+    }
+    /**
+     * With static actions
+     * Static items can be added to the picker to enable triggering custom actions
+     * directly from the results dropdown list.
+     * :::tip
+     * A typical use case of such actions is scenarios in which the picker's search
+     * results or suggestions list does not include what the user wants to pick. By
+     * offering custom actions right in the list, we can enable users to add missing
+     * items.
+     * :::
+     */
+    interface LimelExamplePickerStaticActions {
+    }
+    /**
+     * With a value as an object
+     */
+    interface LimelExamplePickerValueAsObject {
+    }
+    /**
+     * Picker with `value` as an object, containing items with menus
+     * While chips inside the picker can be clicked on, resulting in
+     * an action, they can also have an ellipsis menu which will provide the end users with
+     * additional actions.
+     * When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
+     * will be emitted, reflecting the `value` of the selected item.
+     * :::note
+     * When a chip has `removable={true}` and when there are menu items, the "remove button" on the
+     * chip will be automatically added as the last item in the ellipsis menu.
+     * Clicking the remove button will emit the same `onRemove` event.
+     * :::
+     */
+    interface LimelExamplePickerValueAsObjectWithActions {
+    }
+    /**
+     * Placement of the trigger element and the layout
+     * The trigger element of the help component can be placed
+     * before or after the element it is describing.
+     * However, to provide a consistent layout, we recommend placing the
+     * trigger element on the left side of all elements.
+     * Just make sure the elements are aligned correctly,
+     * even when there is no help component beside them.
+     * Also see how we have implemented this component in the
+     * [Form](#/component/limel-form) component.
+     */
+    interface LimelExamplePlacement {
+    }
+    interface LimelExamplePopover {
+    }
+    /**
+     * Disconnect test
+     * This is an example to test that it works to remove a popover from the DOM,
+     * then add it back again without breaking it
+     */
+    interface LimelExamplePortalBasic {
+    }
+    interface LimelExamplePrimaryColorPalette {
+    }
+    /**
+     * Basic Example
+     * Progress flow can visualize linear process, consisting of distinct steps.
+     * Sometimes, this is a great alternative to use instead of `limel-select`.
+     * For instance, when there are too few options available to choose from, and
+     * the options have an incremental order.
+     * Each step can optionally get an icon, to help users understand its meaning
+     * faster, and recognize it quicker next time.
+     */
+    interface LimelExampleProgressFlowBasic {
+    }
+    /**
+     * Using colors
+     * By default, each step appears with a light grey background, and when
+     * selected, it gets the defined `--lime-primary-color` as background. Also,
+     * passed steps will get the same background color as selected steps by default.
+     * However, both of these colors can be customized by specifying color values
+     * for `selectedColor` and `passedColor`.
+     * Any icons will get the same color as the text for that step, but the color of
+     * icons for steps which are neither selected nor passed can be specified using
+     * the `iconColor` property.
+     */
+    interface LimelExampleProgressFlowColors {
+    }
+    /**
+     * Customizing colors further, using CSS
+     * A few CSS variables can be used to customize the look and feel of the steps.
+     * But keep in mind that it is not possible to target steps individually and
+     * change their colors, using these CSS variables.
+     * :::note
+     * Using CSS variables to tweak the colors, applies the colors globally to the
+     * component, not to individual steps!
+     * :::
+     * :::note
+     * Make sure that:
+     * - text has enough contrast with its background and is readable.
+     * - the `--progress-flow-step-divider-color` has the same color as the component's
+     * container.
+     * :::
+     */
+    interface LimelExampleProgressFlowColorsCss {
+    }
+    /**
+     * Disabled steps
+     * While the entire component can be `disabled`,
+     * each step can also be `disabled` individually.
+     * This enables you to ask users to provide required data to be able to continue.
+     */
+    interface LimelExampleProgressFlowDisabledStep {
+    }
+    /**
+     * Compact layout
+     * For cases where this component needs to take as little space as possible,
+     * we offer an alternative layout. All you need to do is addin the `is-narrow`
+     * class to the component.
+     */
+    interface LimelExampleProgressFlowNarrow {
+    }
+    /**
+     * Example with off-progress steps
+     * Naturally, the Progress Flow component is used to visualize a continuous linear
+     * process. But sometimes such processes can be abrupted, despite the level of progress.
+     * Abruptions can be excluded and displayed separately (not as a part of the flow)
+     * using the `isOffProgress` property.
+     */
+    interface LimelExampleProgressFlowOffProgressSteps {
+    }
+    /**
+     * Example with secondary text
+     * A `secondaryText` can be used to add further information to steps.
+     * This could be for instance a timestamp of when a step was activated by the user
+     * or an explainatory text.
+     */
+    interface LimelExampleProgressFlowSecondaryText {
+    }
+    /**
+     * Using `propsFactory`
+     * @sourceFile props-factory-schema.ts
+     * @sourceFile props-factory-picker.tsx
+     */
+    interface LimelExamplePropsFactoryForm {
+    }
+    interface LimelExamplePropsFactoryPicker {
+        /**
+          * Set to `true` if input should be disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * An object injected using `propsFactory`
+         */
+        "injectedObject"?: { someProp: string };
+        /**
+          * A string injected using `propsFactory`
+         */
+        "injectedString"?: string;
+        /**
+          * Label to display next to the input field
+         */
+        "label"?: string;
+        /**
+          * Emitted when the value is changed
+         */
+        "onChange"?: (event: LimelExamplePropsFactoryPickerCustomEvent<number>) => void;
+        /**
+          * Set to `true` if the value is readonly
+         */
+        "readonly"?: boolean;
+        /**
+          * Set to `true` if a value is required
+         */
+        "required"?: boolean;
+        /**
+          * The value of the property
+         */
+        "value"?: number;
+    }
+    /**
+     * Basic example
+     * Try typing and editing text, or copy & paste in some rendered HTML code
+     * from your browser into the editor to see how it is rendered and what you get
+     * as an output value.
+     */
+    interface LimelExampleProsemirrorAdapterBasic {
+    }
+    /**
+     * Example with custom menu
+     */
+    interface LimelExampleProsemirrorAdapterWithCustomMenu {
+    }
+    /**
+     * Help with the read more link
+     * If a `readMoreLink` supplied, it will render a "Read more" link at the bottom of the content.
+     * Even though you can add a link anywhere in the content, it is recommended to
+     * use the read more link. Because it will always be displayed at the bottom
+     * of the popover after the content, does not scroll away with the content,
+     * and it will be styled in a consistent way.
+     * @sourceFile help-and-documentation.ts
+     */
+    interface LimelExampleReadMore {
+    }
+    interface LimelExampleReadonlyProps {
+    }
+    interface LimelExampleSelect {
+    }
+    /**
+     * Changing Available Options
+     * This example shows how the component works when options are changed
+     * programmatically during the lifetime of the component.
+     * We have 5 different sets of options:
+     * 1. A set of options with an empty and disabled first option. This is used to ensure that the empty option cannot be re-selected.
+     * 2. A set of options with an empty but non-disabled first option. This is used to ensure that the empty option can be re-selected.
+     * 3. An empty array. This is used to ensure that the component can handle an empty set of options. To load the component with an empty set of options, select this group, then click the "Reinitialize" button.
+     * 4. A set of 3 options.
+     * 5. A set of 4 options. Set 4 and 5 are used to ensure that the component can handle sets of different sizes.
+     */
+    interface LimelExampleSelectChangeOptions {
+    }
+    /**
+     * Select field inside a dialog
+     */
+    interface LimelExampleSelectDialog {
+    }
+    /**
+     * Select multiple values
+     */
+    interface LimelExampleSelectMultiple {
+    }
+    /**
+     * Specific Value Preselected
+     */
+    interface LimelExampleSelectPreselected {
+    }
+    /**
+     * With Empty Option
+     * Adding an empty option makes it possible for the user to "unset"
+     * the value. Try selecting a value below, and then selecting the empty
+     * option again.
+     * If the component is set as required, the empty option is removed.
+     */
+    interface LimelExampleSelectWithEmptyOption {
+    }
+    /**
+     * Select with icons for options
+     */
+    interface LimelExampleSelectWithIcons {
+    }
+    /**
+     * Select with secondary text for options
+     * Using a `secondaryText` you can provide additional information about
+     * each option in the list, helping the users to select the right choice.
+     * :::note
+     * 1. The secondary text is only visible in the dropdown list,
+     * not on the selected option in the input field.
+     * 1. Additionally, on touch screen devices, the secondary text will not
+     * be visible in the dropdown list, since the component uses the "native"
+     * select, which does not have support for additional features like this,
+     * or displaying icons beside the options.
+     * :::
+     */
+    interface LimelExampleSelectWithSecondaryText {
+    }
+    /**
+     * Select with separators between options
+     * Separators are simple yet powerful design elements that can be
+     * employed in lists of items. They offer significant usability advantages
+     * by providing valuable visual cues that aid users in perceiving
+     * and navigating through lists. Read more about advantages of using
+     * separators in the
+     * [List component's documentations](/#/component/limel-list/).
+     */
+    interface LimelExampleSelectWithSeparators {
+    }
+    /**
+     * Form with server validation
+     * @sourceFile list-schema.ts
+     */
+    interface LimelExampleServerErrors {
+    }
+    interface LimelExampleShadowsBadUsage {
+    }
+    /**
+     * Basic example
+     * This component acts as a link, and therefore comes with features
+     * such as `title` and `target`.
+     * The `title` tag of the hyperlink can be used to
+     * provide additional information about the link.
+     * It improves accessibility both for users with assistive technologies,
+     * and sighted users. Hovering and holding the mouse cursor will
+     * display a tooltip generated with the specified `title`.
+     * What the `target` does is described well in
+     * [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target).
+     */
+    interface LimelExampleShortcut {
+    }
+    /**
+     * Displaying a notification badge
+     * The component can display a notification badge, which could either be
+     * a `number` or a `string`. Read more about how the badge truncates
+     * or abbreviates the provided label [here](#/component/limel-badge/).
+     */
+    interface LimelExampleShortcutNotification {
+    }
+    /**
+     * How to style the shortcut
+     * The component offers different CSS variables for styling
+     * the color of the shortcut, and it's icon; as well as
+     * radius of it's rounded corners, and colors of the notification badge
+     * and its text.
+     */
+    interface LimelExampleShortcutStyling {
+    }
+    /**
+     * Example with click handler
+     */
+    interface LimelExampleShortcutWithClickHandler {
+    }
+    interface LimelExampleSize {
+    }
+    interface LimelExampleSizeEdgeCase {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleSliderBasic {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleSliderComposite {
+        "schema"?: FormSchema;
+    }
+    /**
+     * With multiplier and step
+     * When step is configured and the initial value is not a multiple of the step
+     * value, the slider will round the value to the nearest step when it is changed
+     * for the first time. After a valid value has been set, only discrete valid
+     * values will be possible to pick.
+     */
+    interface LimelExampleSliderMultiplier {
+    }
+    /**
+     * With percentage colors
+     * You can add the `displays-percentage-colors` class to your slider component
+     * and it will automatically visualize current percentage colors in real-time.
+     * The colors change with intervals of 10 as users drags the slider pin.
+     * The color spectrum is not modifiable, and looks like red → orange → yellow
+     * → green → teal.
+     */
+    interface LimelExampleSliderMultiplierPercentageColors {
+    }
+    /**
+     * Basic example
+     * Snackbars should not necessarily require a deliberate action from the user to dismiss them.
+     * This is why the component has a default `timeout` and will disappear even if the user
+     * does not interact with it.
+     * As you see in this example, there is no `timeout` specified.
+     * Therefore the snackbar will automatically disappear after a few seconds.
+     * :::important
+     * Make sure to set a proper timeout, based on the length of the text.
+     * An average user must be able to read the full message within the given
+     * time!
+     * :::
+     */
+    interface LimelExampleSnackbar {
+    }
+    /**
+     * Dismissible
+     * By default, snackbars display a dismiss button.
+     * This allows users to close them at any time, before they time out.
+     * The reasons for this default behavior is that
+     * there could be multiple snackbars on the screen, covering each other.
+     * Also, snackbars could be covering other important content on the screen,
+     * or have unreasonably long timeout.
+     * However, you can override this default interaction design by setting the
+     * `dismissible` property to `false`.
+     */
+    interface LimelExampleSnackbarDismissible {
+    }
+    /**
+     * Positioning on large and small screens
+     * Snackbars are by default center-aligned and placed at the bottom of the screen.
+     * However, on larger screens, they can optionally be displayed on the leading edge
+     * which would be the left side in LTR, or the right side in RTL.
+     * To do so, you can take advantage of the provided CSS variables,
+     * and keep in mind that the Snackbar uses `position: fixed;`
+     * to determine its location.
+     * :::tip
+     * When customizing the Snackbars for usage in progressive web applications,
+     * remember to consider the safe areas, and add the
+     * [environment variables](https://developer.mozilla.org/en-US/docs/Web/CSS/env)
+     * in your calculations.
+     * For example: `--snackbar-bottom: env(safe-area-inset-left, 0)`.
+     * :::
+     */
+    interface LimelExampleSnackbarPositioning {
+    }
+    /**
+     * With actions
+     * You can include a single action button inside the snackbar.
+     * :::important
+     * Keep in mind that pressing the action button will close
+     * the snackbar immediately. The user must be informed that their
+     * requested action actually took place. If there is no instant
+     * visual feedback (for sighted users) in the user interface that
+     * informs the user about the updated state, displaying another
+     * snackbar could be a good idea.
+     * :::
+     */
+    interface LimelExampleSnackbarWithAction {
+    }
+    /**
+     * With changing messages
+     */
+    interface LimelExampleSnackbarWithChangingMessages {
+    }
+    /**
+     * With a generic design or branded for Lime Technologies
+     * The `limel-spinner` makes the boring waiting times slightly more cheerful by
+     * cycling through nine delightful colors.
+     * By default spinner's shape represents Lime Technologies' logo, as it is used
+     * primarily in our own products.
+     * However, it is easy render the spinner as a generic circle by specifying
+     * `limeBranded={false}`, which may be useful for instance when the
+     * spinner is used on a small component like a button.
+     */
+    interface LimelExampleSpinner {
+    }
+    /**
+     * With custom colors
+     * The `limel-spinner` is designed to cycle through ten colors which are all
+     * from Lime Technologies' brand colors.
+     * It is of course possible to override these colors.
+     */
+    interface LimelExampleSpinnerColor {
+    }
+    /**
+     * Spinner sizes
+     */
+    interface LimelExampleSpinnerSize {
+    }
+    /**
+     * Basic Example
+     * When used correctly, a split button reduces visual complexity of the user interface
+     * by grouping similar commands together.
+     * :::important
+     * Commands which are included in the menu must be variations of the default command,
+     * or be very relevant to it.
+     * :::
+     */
+    interface LimelExampleSplitButtonBasic {
+    }
+    /**
+     * Repeating the default command in the menu
+     * The default command must be the most commonly used action.
+     * Such actions typically have a very short label.
+     * However, sometimes it could be useful to repeat the default command again
+     * in the list of commands, using a more descriptive label which
+     * clarifies the default action.
+     * :::tip
+     * - **Limit the overall number of choices** within the menu to less than 10
+     * - **Order the items within the menu by popularity** and put the most popular ones on top.
+     * :::
+     */
+    interface LimelExampleSplitButtonRepeatDefaultCommand {
+    }
+    interface LimelExampleSurfaceShadows {
+    }
+    interface LimelExampleSurfaceShadowsInflated {
+    }
+    interface LimelExampleSurfaceShadowsStates {
+    }
+    interface LimelExampleSwitch {
+    }
+    /**
+     * With `helperText`
+     * Switch can have a helper text, which is useful when providing additional information and
+     * can clarify functionality of the switch for the user.
+     * The helper text is displayed when the user puts focus on the switch, and works with keyboard
+     * navigation as well. However, on touchscreen devices, the helper text is always displayed.
+     */
+    interface LimelExampleSwitchHelperText {
+    }
+    /**
+     * Customizing the visualization of the `readonly` state
+     * It is possible and recommended that you enhance the visualization of a `boolean` field
+     * in a `readonly` state.
+     * Because depending on the context, the default UI of the `readonly` state may not always
+     * provide the best way of _visualizing information_, potentially leading to
+     * confusion and negatively affecting the end-users' experience.
+     * :::important
+     * Before reading the documentations below, make sure to read
+     * 1. our guides about the difference between
+     * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+     * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+     * :::
+     * Using the `readonlyLabels` optional prop, you can override the `label` and
+     * customize it accordingly. Additionally, by using the `icon` prop, you can
+     * override the default icons and their colors.
+     */
+    interface LimelExampleSwitchReadonly {
+    }
+    interface LimelExampleSwitchVsCheckbox {
+    }
+    interface LimelExampleTabBar {
+    }
+    /**
+     * Default UI of Tab bars
+     * By default, tabs dynamically adjust their width to their own content, which
+     * means a tab with a larger label will be bigger than one with a shorter one.
+     * This is the preferred layout for tabs.
+     */
+    interface LimelExampleTabBarWithDynamicTabWidth {
+    }
+    /**
+     * Tab bars with custom styles
+     * In some situations and for the sake of UI design, you may want to have tabs
+     * that equally share the available screen width and stretch. To get such a
+     * result, you can add the `has-tabs-with-equal-width` class to the tab bar.
+     */
+    interface LimelExampleTabBarWithEqualTabWidth {
+    }
+    /**
+     * This example illustrates how to add custom components inside the `limel-tab-panel`.
+     * Each component will simulate loading the data it needs once the tab has been
+     * activated and then display the actual content. If the button is pressed, the
+     * component will emit the `changeTab` event to change the badge inside the
+     * corresponding tab.
+     * @sourceFile tab-panel-content.tsx
+     * @sourceFile tab-panel-content.scss
+     */
+    interface LimelExampleTabPanel {
+    }
+    interface LimelExampleTabPanelContent {
+        /**
+          * Emitted when the vote button is clicked to update the badge in the tab
+         */
+        "onChangeTab"?: (event: LimelExampleTabPanelContentCustomEvent<Tab>) => void;
+        /**
+          * The tab that this component belongs to
+         */
+        "tab"?: Tab;
+    }
+    /**
+     * @sourceFile persons.ts
+     */
+    interface LimelExampleTable {
+    }
+    /**
+     * Activate a row
+     * @sourceFile persons.ts
+     */
+    interface LimelExampleTableActivateRow {
+    }
+    /**
+     * Custom components
+     * You can specify a custom component to use for any column in your table. This
+     * is done under the `component` key in the schema, following the
+     * [TableComponentDefinition](#/type/TableComponentDefinition/) specification,
+     * for example:
+     * ```ts
+     * const columns = [
+     *     {
+     *         title: 'Food',
+     *         field: 'food',
+     *         component: { name: 'my-fancy-food-displayer' },
+     *     },
+     * ];
+     * ```
+     * While you can, in principle, use any component in a table, your custom table
+     * components should implement the [TableComponent](#/type/TableComponent/)
+     * interface.
+     * @sourceFile birds.ts
+     * @sourceFile table-food.tsx
+     */
+    interface LimelExampleTableCustomComponents {
+    }
+    /**
+     * Default sorted columns
+     * In this example, the table is sorted on *two* columns. Primary sorting is
+     * done on the "Eggs per clutch" column, and secondary sorting is done on the
+     * "Name" column. The result is that within each "group" of birds that have the
+     * same number of eggs per clutch, the birds are sorted by name.
+     */
+    interface LimelExampleTableDefaultSorted {
+    }
+    interface LimelExampleTableFood {
+        /**
+          * Data for the whole row
+         */
+        "data"?: Bird;
+        /**
+          * Name of the field for the column
+         */
+        "field"?: string;
+        /**
+          * The value to display in the table cell
+         */
+        "value"?: any;
+    }
+    /**
+     * Column header menu
+     * You can also add custom components to the header cell of a column. In
+     * contrast to custom components used elsewhere in the table, custom components
+     * used in the header do not replace the entire content of the cell. Instead,
+     * they appear in a slot next to the column sorting icon.
+     * @sourceFile persons.ts
+     * @sourceFile header-menu.tsx
+     */
+    interface LimelExampleTableHeaderMenu {
+    }
+    /**
+     * Visualizing clickable rows better
+     * By taking advantage of the `has-interactive-rows` class, hovering on a row
+     * will display an elevated visual effect, giving it more affordance and a solid
+     * feeling of interactivity.
+     * :::note usage notes
+     * - Only use this class when clicking on an entire row triggers a reaction in
+     * the system, for example a card or a modal is opened to show further details.
+     * :::
+     */
+    interface LimelExampleTableInteractiveRows {
+    }
+    /**
+     * Layout
+     * Columns and their content can be decisive factors in how a table is
+     * preferred to rendered in the user interface. To set your preferred
+     * rendering, choose one of the available `layout` properties.
+     * ```tsx
+     * layout="default"
+     * ```
+     * The default layout resizes the table's columns,
+     * in a way that each column becomes as wide as the data it holds.
+     * :::important
+     * Note that be default, table columns have a maximum width of `40rem`.
+     * This means, they can never grow wider than that, unless you specify
+     * another size using the `--table-max-column-width` CSS variable.
+     * This applies to all other layouts presented further down as well!
+     * :::
+     * If there is additional space available on the right side of the last column,
+     * rows will stretch to fill the space and look visually as wide as the table.
+     * :::note
+     * While scrolling, new rows get lazy-loaded. Since the new data may have wider
+     * length, it might affect rendering of the layout in real-time.
+     * This means columns can get resized while user is scrolling down.
+     * :::
+     * :::tip
+     * It is also possible to affect internal layout of each column, by specifying
+     * `horizontalAlign` on the column headers, to `left` (default), `center`,
+     * or `right`. This basically defines the text-alignment for all the cells in that column.
+     * :::
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableLayoutDefault {
+    }
+    /**
+     * lowDensity
+     * ```tsx
+     * layout="lowDensity"
+     * ```
+     * By using this layout option, you can easily convert the table into an airy list of items.
+     * This type of UI is suitable for generating minimalist lists of items with
+     * only a few properties on each. Especially when the property values are not
+     * self-explanatory (such as an email address) and require a bit of extra help
+     * to know what they are.
+     * Using this UI, you can take advantage of the sticky header of the table which
+     * explains what each cell is about, and also enjoy sorting possibilities it
+     * offers.
+     * :::note usage notes
+     * - In this low-density UI, all cells will get a fixed height, which may affect
+     * the layout of custom components that you place inside them.
+     * - This UI is not preferred for data intensive views, in which the user's main
+     * task is processing the presented data and making sense of it. For such views,
+     * use the table component with its normal density.
+     * :::
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableLayoutLowDensity {
+    }
+    /**
+     * stretchColumns
+     * ```tsx
+     * layout="stretchColumns"
+     * ```
+     * With this layout, the table stretches columns so that all
+     * fit perfectly in the table container, when extra space is available.
+     * If all columns cannot fit within the available width,
+     * then a horizontal scrollbar will appear.
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableLayoutStretchColumns {
+    }
+    /**
+     * stretchLastColumn
+     * ```tsx
+     * layout="stretchLastColumn"
+     * ```
+     * Works just like `default`, but unlike the default layout
+     * which resulted in having an empty last column, in this layout
+     * the last existing column will stretch out to fill up the remaining table width.
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableLayoutStretchLastColumn {
+    }
+    /**
+     * Local sorting and pagination
+     * @sourceFile birds.ts
+     */
+    interface LimelExampleTableLocal {
+    }
+    /**
+     * Movable columns
+     * @sourceFile birds.ts
+     */
+    interface LimelExampleTableMovableColumns {
+    }
+    /**
+     * Remote sorting and pagination
+     * @sourceFile birds.ts
+     */
+    interface LimelExampleTableRemote {
+    }
+    /**
+     * Selectable rows with updating aggregates
+     * @sourceFile persons.ts
+     */
+    interface LimelExampleTableSelectableRows {
+    }
+    /**
+     * Disable column sorting
+     * By default, all columns can be sorted by end-users, if they click on
+     * a column header. An arrow icon on the header visualizes the
+     * direction of sorting, when a column is sorted.
+     * However, you can disable the sorting possibility in individual columns,
+     * by setting the `headerSort` to `false`.
+     * @sourceFile invoices.ts
+     */
+    interface LimelExampleTableSortingDisabled {
+    }
+    /**
+     * Allow resize
+     * The text editor automatically adjusts its own height to fit the content inside.
+     * So as the user types, the editor will grow taller, potentially resizing its own
+     * container element.
+     * By default, the user can also manually change the height of the text editor
+     * by dragging its bottom right corner.
+     * As soon as the user has changed the height, this will override the automatic
+     * resizing, and the editor will no longer adjust its height to fit the content inside.
+     * By setting `allowResize` to `false`, you can disable the end user
+     * to resize the text editor vertically.
+     * :::tip
+     * Using `max-height` and `min-height` CSS properties, you can limit the
+     * resizing to a specific range.
+     * :::
+     */
+    interface LimelExampleTextEditorAllowResize {
+    }
+    /**
+     * Using the text editor as a form component
+     * Here we have a simple form that uses the `limel-text-editor` component,
+     * instead of a regular text input field.
+     * :::note
+     * This allows the user to write rich text, with markdown support, in the form.
+     * But keep in mind that the value will be saved as a markdown string,
+     * and can also contain HTML tags, depending on what the users input
+     * in the filed.
+     * :::
+     * @sourceFile text-editor-form-data.ts
+     */
+    interface LimelExampleTextEditorAsFormComponent {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleTextEditorBasic {
+    }
+    /**
+     * Composite example
+     */
+    interface LimelExampleTextEditorComposite {
+    }
+    /**
+     * Resize with container
+     * Sometimes, you may want to make the text editor to follow the size of its container,
+     * both in width and height; for instance, when the container is resizable by the user.
+     * In such cases, make sure to set `allowResize={false}` on the component.
+     * However, you can still constrain the text editor to never grow beyond a certain height,
+     * by either
+     * - setting a fixed `height` or `max-height` the component itself,
+     * - or alternatively by setting a fixed `height` or `max-height` on the container
+     * element of the component.
+     * In this example, the maximum height is set to `15rem`, which means that:
+     * 1. the editor will adjust itself to the content inside,
+     * pushing out its container and making it taller, until it reaches `15rem` in height.
+     * 1. and also when you manually resize the container,
+     * the editor will try to fill the available surface area, until its height reaches `15rem`.
+     */
+    interface LimelExampleTextEditorSize {
+    }
+    /**
+     * Text editor in HTML mode.
+     * When using the text editor in HTML mode the `value` property is expected to contain
+     * an html formatted string and the output will likewise be html.
+     */
+    interface LimelExampleTextEditorWithHtml {
+    }
+    /**
+     * Text editor in markdown mode.
+     * When using the text editor in markdown mode the `value` property is expected to contain
+     * a markdown formatted string and the output will likewise be markdown. This is the default
+     * if no value for `contentType` is provided.
+     */
+    interface LimelExampleTextEditorWithMarkdown {
+    }
+    /**
+     * Basic example
+     */
+    interface LimelExampleTooltipBasic {
+    }
+    /**
+     * Composite
+     * A place to try different combinations of states.
+     */
+    interface LimelExampleTooltipComposite {
+        "schema"?: FormSchema;
+    }
+    interface LimelExampleTooltipDeclutter {
+    }
+    /**
+     * Using `maxlength` property
+     * To present an easy to read content, the tooltip's maximum text
+     * length is set to 50 characters, including spaces.
+     * When this threshold is reached, content will be rendered with line breaks.
+     * However, it is possible to override this value by specifying `maxlength`.
+     * :::note
+     * Tooltips are intended to display very brief information.
+     * Try not to place large amount of text in them.
+     * :::
+     */
+    interface LimelExampleTooltipMaxCharacter {
+    }
+    interface LimelExampleUiColorPalette {
+    }
+    interface LimelExampleValue {
+        /**
+          * A label describing the value.
+         */
+        "label"?: string;
+        /**
+          * The value that should be displayed.
+         */
+        "value"?: any;
+    }
+    /**
      * This component lets end-users select a *single* file from their device
      * storage. Regardless of the user's device or operating system, this component
      * opens up a file picker dialog that allows the user to choose a file.
@@ -5433,7 +17248,7 @@ declare namespace LocalJSX {
         /**
           * An array of custom actions that can be displayed as an action menu on the file which is being displayed.
          */
-        "actions"?: ListItem[];
+        "actions"?: ListItem1[];
         /**
           * Displays a button that allows the user to download the file. Note that due to the browser's security policies, the file should be hosted on the same domain for the download button to work properly. Not displayed for office files!
          */
@@ -5465,7 +17280,7 @@ declare namespace LocalJSX {
         /**
           * Emitted when a custom action is selected from the action menu.
          */
-        "onAction"?: (event: LimelFileViewerCustomEvent<ListItem>) => void;
+        "onAction"?: (event: LimelFileViewerCustomEvent<ListItem1>) => void;
         /**
           * Link to the file
          */
@@ -5567,11 +17382,11 @@ declare namespace LocalJSX {
         /**
           * Factory for creating properties for custom form components  When using custom components in the form some properties might have to be set dynamically. If this factory is set, it will be called with the current schema for the field for each custom component in the form. The factory must return an object where each key is the name of the property that should be set, along with its value.
          */
-        "propsFactory"?: (schema: FormSchema) => Record<string, any>;
+        "propsFactory"?: (schema: FormSchema1) => Record<string, any>;
         /**
           * The schema used to render the form
          */
-        "schema"?: FormSchema;
+        "schema"?: FormSchema1;
         /**
           * Custom function to customize the default error messages
          */
@@ -6018,7 +17833,7 @@ declare namespace LocalJSX {
         /**
           * List of items to display
          */
-        "items"?: Array<ListItem | ListSeparator>;
+        "items"?: Array<ListItem1 | ListSeparator>;
         /**
           * By default, lists will display 3 lines of text, and then truncate the rest. Consumers can increase or decrease this number by specifying `maxLinesSecondaryText`. If consumer enters zero or negative numbers we default to 1; and if they type decimals we round up.
          */
@@ -6026,11 +17841,11 @@ declare namespace LocalJSX {
         /**
           * Fired when a new value has been selected from the list. Only fired if `type` is set to `selectable`, `radio` or `checkbox`.
          */
-        "onChange"?: (event: LimelListCustomEvent<ListItem | ListItem[]>) => void;
+        "onChange"?: (event: LimelListCustomEvent<ListItem1 | ListItem1[]>) => void;
         /**
           * Fired when an action has been selected from the action menu of a list item
          */
-        "onSelect"?: (event: LimelListCustomEvent<ListItem | ListItem[]>) => void;
+        "onSelect"?: (event: LimelListCustomEvent<ListItem1 | ListItem1[]>) => void;
         /**
           * The type of the list, omit to get a regular list. Available types are: `selectable`: regular list with single selection. `radio`: radio button list with single selection. `checkbox`: checkbox list with multiple selection.
          */
@@ -6207,7 +18022,7 @@ declare namespace LocalJSX {
         /**
           * Static actions that can be clicked by the user.
          */
-        "actions"?: Array<ListItem<Action>>;
+        "actions"?: Array<ListItem1<Action>>;
         /**
           * Whether badge icons should be used in the result list or not
          */
@@ -6251,11 +18066,11 @@ declare namespace LocalJSX {
         /**
           * Fired when a new value has been selected from the picker
          */
-        "onChange"?: (event: LimelPickerCustomEvent<ListItem<PickerValue> | Array<ListItem<PickerValue>>>) => void;
+        "onChange"?: (event: LimelPickerCustomEvent<ListItem1<PickerValue> | Array<ListItem1<PickerValue>>>) => void;
         /**
           * Fired when clicking on a selected value
          */
-        "onInteract"?: (event: LimelPickerCustomEvent<ListItem<PickerValue>>) => void;
+        "onInteract"?: (event: LimelPickerCustomEvent<ListItem1<PickerValue>>) => void;
         /**
           * Set to `true` to disable adding and removing items, but allow interaction with existing items.
          */
@@ -6275,7 +18090,7 @@ declare namespace LocalJSX {
         /**
           * Currently selected value or values. Where the value can be an object.
          */
-        "value"?: ListItem<PickerValue> | Array<ListItem<PickerValue>>;
+        "value"?: ListItem1<PickerValue> | Array<ListItem1<PickerValue>>;
     }
     /**
      * A popover is an impermanent layer that is displayed on top of other content
@@ -6795,11 +18610,11 @@ declare namespace LocalJSX {
         /**
           * Emitted when a tab has been changed
          */
-        "onChangeTab"?: (event: LimelTabBarCustomEvent<Tab>) => void;
+        "onChangeTab"?: (event: LimelTabBarCustomEvent<Tab1>) => void;
         /**
           * List of tabs to display
          */
-        "tabs"?: Tab[];
+        "tabs"?: Tab1[];
     }
     /**
      * The `limel-tab-panel` component uses the `limel-tab-bar` component together
@@ -6819,11 +18634,11 @@ declare namespace LocalJSX {
         /**
           * Emitted when a tab has been changed
          */
-        "onChangeTab"?: (event: LimelTabPanelCustomEvent<Tab>) => void;
+        "onChangeTab"?: (event: LimelTabPanelCustomEvent<Tab1>) => void;
         /**
           * The tabs to display in the panel
          */
-        "tabs"?: Tab[];
+        "tabs"?: Tab1[];
     }
     /**
      * @exampleComponent limel-example-table
@@ -7110,6 +18925,10 @@ declare namespace LocalJSX {
          */
         "maxlength"?: number;
     }
+    interface MyCustomMenu {
+    }
+    interface MyCustomMenuWithNotifications {
+    }
     interface IntrinsicElements {
         "limel-action-bar": LimelActionBar;
         "limel-action-bar-item": LimelActionBarItem;
@@ -7134,6 +18953,359 @@ declare namespace LocalJSX {
         "limel-dock": LimelDock;
         "limel-dock-button": LimelDockButton;
         "limel-dynamic-label": LimelDynamicLabel;
+        "limel-example-action-bar": LimelExampleActionBar;
+        "limel-example-action-bar-as-primary-component": LimelExampleActionBarAsPrimaryComponent;
+        "limel-example-action-bar-colors": LimelExampleActionBarColors;
+        "limel-example-action-bar-floating": LimelExampleActionBarFloating;
+        "limel-example-action-bar-in-list": LimelExampleActionBarInList;
+        "limel-example-action-bar-overflow-menu": LimelExampleActionBarOverflowMenu;
+        "limel-example-action-bar-selected-item": LimelExampleActionBarSelectedItem;
+        "limel-example-action-bar-styling": LimelExampleActionBarStyling;
+        "limel-example-action-buttons-choosing-explicit-labels": LimelExampleActionButtonsChoosingExplicitLabels;
+        "limel-example-action-buttons-choosing-labels": LimelExampleActionButtonsChoosingLabels;
+        "limel-example-action-buttons-colors-do-dont": LimelExampleActionButtonsColorsDoDont;
+        "limel-example-action-buttons-icon-color": LimelExampleActionButtonsIconColor;
+        "limel-example-action-buttons-placement": LimelExampleActionButtonsPlacement;
+        "limel-example-action-buttons-primary-secondary": LimelExampleActionButtonsPrimarySecondary;
+        "limel-example-action-buttons-primary-secondary-reversed": LimelExampleActionButtonsPrimarySecondaryReversed;
+        "limel-example-action-buttons-primary-secondary-reversed-colors": LimelExampleActionButtonsPrimarySecondaryReversedColors;
+        "limel-example-action-buttons-third-alternative": LimelExampleActionButtonsThirdAlternative;
+        "limel-example-audition-form": LimelExampleAuditionForm;
+        "limel-example-audition-form-readonly": LimelExampleAuditionFormReadonly;
+        "limel-example-badge": LimelExampleBadge;
+        "limel-example-badge-number": LimelExampleBadgeNumber;
+        "limel-example-badge-string": LimelExampleBadgeString;
+        "limel-example-banner": LimelExampleBanner;
+        "limel-example-boolean-checkboxes": LimelExampleBooleanCheckboxes;
+        "limel-example-boolean-radio-buttons": LimelExampleBooleanRadioButtons;
+        "limel-example-brand-color-palette": LimelExampleBrandColorPalette;
+        "limel-example-breadcrumbs-buttons": LimelExampleBreadcrumbsButtons;
+        "limel-example-breadcrumbs-divider": LimelExampleBreadcrumbsDivider;
+        "limel-example-breadcrumbs-icon-color": LimelExampleBreadcrumbsIconColor;
+        "limel-example-breadcrumbs-icons": LimelExampleBreadcrumbsIcons;
+        "limel-example-breadcrumbs-links": LimelExampleBreadcrumbsLinks;
+        "limel-example-breadcrumbs-styling": LimelExampleBreadcrumbsStyling;
+        "limel-example-button-basic": LimelExampleButtonBasic;
+        "limel-example-button-click-fail": LimelExampleButtonClickFail;
+        "limel-example-button-click-success": LimelExampleButtonClickSuccess;
+        "limel-example-button-colors": LimelExampleButtonColors;
+        "limel-example-button-composite": LimelExampleButtonComposite;
+        "limel-example-button-disabled": LimelExampleButtonDisabled;
+        "limel-example-button-disabled-vs-hidden": LimelExampleButtonDisabledVsHidden;
+        "limel-example-button-group": LimelExampleButtonGroup;
+        "limel-example-button-group-badges": LimelExampleButtonGroupBadges;
+        "limel-example-button-group-composite": LimelExampleButtonGroupComposite;
+        "limel-example-button-group-icons": LimelExampleButtonGroupIcons;
+        "limel-example-button-group-mix": LimelExampleButtonGroupMix;
+        "limel-example-button-icon": LimelExampleButtonIcon;
+        "limel-example-button-loading": LimelExampleButtonLoading;
+        "limel-example-button-outlined": LimelExampleButtonOutlined;
+        "limel-example-button-primary": LimelExampleButtonPrimary;
+        "limel-example-button-reduce-presence": LimelExampleButtonReducePresence;
+        "limel-example-button-shadows": LimelExampleButtonShadows;
+        "limel-example-callout-caution": LimelExampleCalloutCaution;
+        "limel-example-callout-composite": LimelExampleCalloutComposite;
+        "limel-example-callout-custom-heading": LimelExampleCalloutCustomHeading;
+        "limel-example-callout-custom-icon": LimelExampleCalloutCustomIcon;
+        "limel-example-callout-important": LimelExampleCalloutImportant;
+        "limel-example-callout-note": LimelExampleCalloutNote;
+        "limel-example-callout-rich-content": LimelExampleCalloutRichContent;
+        "limel-example-callout-styles": LimelExampleCalloutStyles;
+        "limel-example-callout-tip": LimelExampleCalloutTip;
+        "limel-example-callout-warning": LimelExampleCalloutWarning;
+        "limel-example-checkbox": LimelExampleCheckbox;
+        "limel-example-checkbox-helper-text": LimelExampleCheckboxHelperText;
+        "limel-example-checkbox-readonly": LimelExampleCheckboxReadonly;
+        "limel-example-chip-aria-role": LimelExampleChipAriaRole;
+        "limel-example-chip-badge": LimelExampleChipBadge;
+        "limel-example-chip-button": LimelExampleChipButton;
+        "limel-example-chip-filter": LimelExampleChipFilter;
+        "limel-example-chip-icon-color": LimelExampleChipIconColor;
+        "limel-example-chip-icon-colors": LimelExampleChipIconColors;
+        "limel-example-chip-image": LimelExampleChipImage;
+        "limel-example-chip-link": LimelExampleChipLink;
+        "limel-example-chip-loading": LimelExampleChipLoading;
+        "limel-example-chip-menu": LimelExampleChipMenu;
+        "limel-example-chip-progress": LimelExampleChipProgress;
+        "limel-example-chip-removable": LimelExampleChipRemovable;
+        "limel-example-chip-set": LimelExampleChipSet;
+        "limel-example-chip-set-choice": LimelExampleChipSetChoice;
+        "limel-example-chip-set-composite": LimelExampleChipSetComposite;
+        "limel-example-chip-set-filter": LimelExampleChipSetFilter;
+        "limel-example-chip-set-filter-badge": LimelExampleChipSetFilterBadge;
+        "limel-example-chip-set-image": LimelExampleChipSetImage;
+        "limel-example-chip-set-input": LimelExampleChipSetInput;
+        "limel-example-chip-set-input-type-search": LimelExampleChipSetInputTypeSearch;
+        "limel-example-chip-set-input-type-text": LimelExampleChipSetInputTypeText;
+        "limel-example-chip-set-input-type-with-menu-items": LimelExampleChipSetInputTypeWithMenuItems;
+        "limel-example-circular-progress": LimelExampleCircularProgress;
+        "limel-example-circular-progress-css-variables": LimelExampleCircularProgressCssVariables;
+        "limel-example-circular-progress-percentage-colors": LimelExampleCircularProgressPercentageColors;
+        "limel-example-circular-progress-props": LimelExampleCircularProgressProps;
+        "limel-example-circular-progress-sizes": LimelExampleCircularProgressSizes;
+        "limel-example-code-editor": LimelExampleCodeEditor;
+        "limel-example-code-editor-fold-lint": LimelExampleCodeEditorFoldLint;
+        "limel-example-code-editor-readonly-with-line-numbers": LimelExampleCodeEditorReadonlyWithLineNumbers;
+        "limel-example-collapsible-section": LimelExampleCollapsibleSection;
+        "limel-example-collapsible-section-actions": LimelExampleCollapsibleSectionActions;
+        "limel-example-collapsible-section-css-props": LimelExampleCollapsibleSectionCssProps;
+        "limel-example-collapsible-section-external-control": LimelExampleCollapsibleSectionExternalControl;
+        "limel-example-collapsible-section-with-slider": LimelExampleCollapsibleSectionWithSlider;
+        "limel-example-color-picker": LimelExampleColorPicker;
+        "limel-example-color-picker-readonly": LimelExampleColorPickerReadonly;
+        "limel-example-colors-in-components": LimelExampleColorsInComponents;
+        "limel-example-contrast-color-palette": LimelExampleContrastColorPalette;
+        "limel-example-controls": LimelExampleControls;
+        "limel-example-custom-component-form": LimelExampleCustomComponentForm;
+        "limel-example-custom-error-message": LimelExampleCustomErrorMessage;
+        "limel-example-custom-picker": LimelExampleCustomPicker;
+        "limel-example-custom-type": LimelExampleCustomType;
+        "limel-example-dark-light-mode": LimelExampleDarkLightMode;
+        "limel-example-date-picker-composite": LimelExampleDatePickerComposite;
+        "limel-example-date-picker-custom-formatter": LimelExampleDatePickerCustomFormatter;
+        "limel-example-date-picker-date": LimelExampleDatePickerDate;
+        "limel-example-date-picker-datetime": LimelExampleDatePickerDatetime;
+        "limel-example-date-picker-formatted": LimelExampleDatePickerFormatted;
+        "limel-example-date-picker-month": LimelExampleDatePickerMonth;
+        "limel-example-date-picker-programmatic-change": LimelExampleDatePickerProgrammaticChange;
+        "limel-example-date-picker-quarter": LimelExampleDatePickerQuarter;
+        "limel-example-date-picker-time": LimelExampleDatePickerTime;
+        "limel-example-date-picker-week": LimelExampleDatePickerWeek;
+        "limel-example-date-picker-year": LimelExampleDatePickerYear;
+        "limel-example-dialog": LimelExampleDialog;
+        "limel-example-dialog-action-buttons": LimelExampleDialogActionButtons;
+        "limel-example-dialog-closing-actions": LimelExampleDialogClosingActions;
+        "limel-example-dialog-form": LimelExampleDialogForm;
+        "limel-example-dialog-fullscreen": LimelExampleDialogFullscreen;
+        "limel-example-dialog-heading": LimelExampleDialogHeading;
+        "limel-example-dialog-heading-actions": LimelExampleDialogHeadingActions;
+        "limel-example-dialog-nested-close-events": LimelExampleDialogNestedCloseEvents;
+        "limel-example-dialog-size": LimelExampleDialogSize;
+        "limel-example-dock-basic": LimelExampleDockBasic;
+        "limel-example-dock-colors-css": LimelExampleDockColorsCss;
+        "limel-example-dock-custom-component": LimelExampleDockCustomComponent;
+        "limel-example-dock-expanded": LimelExampleDockExpanded;
+        "limel-example-dock-mobile": LimelExampleDockMobile;
+        "limel-example-dock-notification": LimelExampleDockNotification;
+        "limel-example-dynamic-form": LimelExampleDynamicForm;
+        "limel-example-dynamic-label": LimelExampleDynamicLabel;
+        "limel-example-dynamic-label-readonly-boolean": LimelExampleDynamicLabelReadonlyBoolean;
+        "limel-example-event-printer": LimelExampleEventPrinter;
+        "limel-example-extended-color-palette": LimelExampleExtendedColorPalette;
+        "limel-example-file": LimelExampleFile;
+        "limel-example-file-accepted-types": LimelExampleFileAcceptedTypes;
+        "limel-example-file-composite": LimelExampleFileComposite;
+        "limel-example-file-custom-icon": LimelExampleFileCustomIcon;
+        "limel-example-file-dropzone": LimelExampleFileDropzone;
+        "limel-example-file-dropzone-type-filtering": LimelExampleFileDropzoneTypeFiltering;
+        "limel-example-file-input": LimelExampleFileInput;
+        "limel-example-file-input-type-filtering": LimelExampleFileInputTypeFiltering;
+        "limel-example-file-viewer": LimelExampleFileViewer;
+        "limel-example-file-viewer-custom-actions": LimelExampleFileViewerCustomActions;
+        "limel-example-file-viewer-filename": LimelExampleFileViewerFilename;
+        "limel-example-file-viewer-inbuilt-actions": LimelExampleFileViewerInbuiltActions;
+        "limel-example-file-viewer-office": LimelExampleFileViewerOffice;
+        "limel-example-file-viewer-with-picker": LimelExampleFileViewerWithPicker;
+        "limel-example-form": LimelExampleForm;
+        "limel-example-form-layout": LimelExampleFormLayout;
+        "limel-example-form-map-component": LimelExampleFormMapComponent;
+        "limel-example-form-row-layout": LimelExampleFormRowLayout;
+        "limel-example-form-span-fields": LimelExampleFormSpanFields;
+        "limel-example-form-with-help": LimelExampleFormWithHelp;
+        "limel-example-grid": LimelExampleGrid;
+        "limel-example-header": LimelExampleHeader;
+        "limel-example-header-colors": LimelExampleHeaderColors;
+        "limel-example-header-menu": LimelExampleHeaderMenu;
+        "limel-example-header-narrow": LimelExampleHeaderNarrow;
+        "limel-example-header-responsive": LimelExampleHeaderResponsive;
+        "limel-example-header-slot-actions": LimelExampleHeaderSlotActions;
+        "limel-example-help": LimelExampleHelp;
+        "limel-example-helper-line": LimelExampleHelperLine;
+        "limel-example-helper-line-animation": LimelExampleHelperLineAnimation;
+        "limel-example-helper-line-character-counter": LimelExampleHelperLineCharacterCounter;
+        "limel-example-helper-line-empty": LimelExampleHelperLineEmpty;
+        "limel-example-helper-line-invalid": LimelExampleHelperLineInvalid;
+        "limel-example-helper-line-long-text": LimelExampleHelperLineLongText;
+        "limel-example-helper-line-long-text-no-counter": LimelExampleHelperLineLongTextNoCounter;
+        "limel-example-icon-button-basic": LimelExampleIconButtonBasic;
+        "limel-example-icon-button-composite": LimelExampleIconButtonComposite;
+        "limel-example-icon-button-disabled": LimelExampleIconButtonDisabled;
+        "limel-example-icon-button-elevated": LimelExampleIconButtonElevated;
+        "limel-example-icon-button-toggle-state": LimelExampleIconButtonToggleState;
+        "limel-example-icon-color": LimelExampleIconColor;
+        "limel-example-icon-finder": LimelExampleIconFinder;
+        "limel-example-icon-name": LimelExampleIconName;
+        "limel-example-icon-size": LimelExampleIconSize;
+        "limel-example-info-tile": LimelExampleInfoTile;
+        "limel-example-info-tile-badge": LimelExampleInfoTileBadge;
+        "limel-example-info-tile-loading": LimelExampleInfoTileLoading;
+        "limel-example-info-tile-progress": LimelExampleInfoTileProgress;
+        "limel-example-info-tile-styling": LimelExampleInfoTileStyling;
+        "limel-example-input-field-autocomplete": LimelExampleInputFieldAutocomplete;
+        "limel-example-input-field-error-icon": LimelExampleInputFieldErrorIcon;
+        "limel-example-input-field-focus": LimelExampleInputFieldFocus;
+        "limel-example-input-field-icon-both": LimelExampleInputFieldIconBoth;
+        "limel-example-input-field-icon-leading": LimelExampleInputFieldIconLeading;
+        "limel-example-input-field-icon-trailing": LimelExampleInputFieldIconTrailing;
+        "limel-example-input-field-number": LimelExampleInputFieldNumber;
+        "limel-example-input-field-pattern": LimelExampleInputFieldPattern;
+        "limel-example-input-field-placeholder": LimelExampleInputFieldPlaceholder;
+        "limel-example-input-field-prefix": LimelExampleInputFieldPrefix;
+        "limel-example-input-field-search": LimelExampleInputFieldSearch;
+        "limel-example-input-field-showlink": LimelExampleInputFieldShowlink;
+        "limel-example-input-field-suffix": LimelExampleInputFieldSuffix;
+        "limel-example-input-field-text": LimelExampleInputFieldText;
+        "limel-example-input-field-text-decluttering-guidelines": LimelExampleInputFieldTextDeclutteringGuidelines;
+        "limel-example-input-field-text-multiple": LimelExampleInputFieldTextMultiple;
+        "limel-example-input-field-textarea": LimelExampleInputFieldTextarea;
+        "limel-example-linear-progress": LimelExampleLinearProgress;
+        "limel-example-linear-progress-color": LimelExampleLinearProgressColor;
+        "limel-example-linear-progress-indeterminate": LimelExampleLinearProgressIndeterminate;
+        "limel-example-list": LimelExampleList;
+        "limel-example-list-action": LimelExampleListAction;
+        "limel-example-list-badge-icons": LimelExampleListBadgeIcons;
+        "limel-example-list-badge-icons-with-multiple-lines": LimelExampleListBadgeIconsWithMultipleLines;
+        "limel-example-list-checkbox": LimelExampleListCheckbox;
+        "limel-example-list-checkbox-icons": LimelExampleListCheckboxIcons;
+        "limel-example-list-form": LimelExampleListForm;
+        "limel-example-list-grid": LimelExampleListGrid;
+        "limel-example-list-icons": LimelExampleListIcons;
+        "limel-example-list-primary-component": LimelExampleListPrimaryComponent;
+        "limel-example-list-radio-button": LimelExampleListRadioButton;
+        "limel-example-list-radio-button-icons": LimelExampleListRadioButtonIcons;
+        "limel-example-list-secondary": LimelExampleListSecondary;
+        "limel-example-list-selectable": LimelExampleListSelectable;
+        "limel-example-list-separator": LimelExampleListSeparator;
+        "limel-example-list-striped": LimelExampleListStriped;
+        "limel-example-markdown-blockquotes": LimelExampleMarkdownBlockquotes;
+        "limel-example-markdown-code": LimelExampleMarkdownCode;
+        "limel-example-markdown-composite": LimelExampleMarkdownComposite;
+        "limel-example-markdown-emphasis": LimelExampleMarkdownEmphasis;
+        "limel-example-markdown-footnotes": LimelExampleMarkdownFootnotes;
+        "limel-example-markdown-headings": LimelExampleMarkdownHeadings;
+        "limel-example-markdown-horizontal-rule": LimelExampleMarkdownHorizontalRule;
+        "limel-example-markdown-html": LimelExampleMarkdownHtml;
+        "limel-example-markdown-images": LimelExampleMarkdownImages;
+        "limel-example-markdown-links": LimelExampleMarkdownLinks;
+        "limel-example-markdown-lists": LimelExampleMarkdownLists;
+        "limel-example-markdown-tables": LimelExampleMarkdownTables;
+        "limel-example-menu-badge-icons": LimelExampleMenuBadgeIcons;
+        "limel-example-menu-basic": LimelExampleMenuBasic;
+        "limel-example-menu-composite": LimelExampleMenuComposite;
+        "limel-example-menu-disabled": LimelExampleMenuDisabled;
+        "limel-example-menu-grid": LimelExampleMenuGrid;
+        "limel-example-menu-hotkeys": LimelExampleMenuHotkeys;
+        "limel-example-menu-icons": LimelExampleMenuIcons;
+        "limel-example-menu-notification": LimelExampleMenuNotification;
+        "limel-example-menu-open-direction": LimelExampleMenuOpenDirection;
+        "limel-example-menu-open-sub-menu-programmatically": LimelExampleMenuOpenSubMenuProgrammatically;
+        "limel-example-menu-searchable": LimelExampleMenuSearchable;
+        "limel-example-menu-secondary-text": LimelExampleMenuSecondaryText;
+        "limel-example-menu-separators": LimelExampleMenuSeparators;
+        "limel-example-menu-sub-menu-lazy-loading": LimelExampleMenuSubMenuLazyLoading;
+        "limel-example-menu-sub-menu-lazy-loading-infinite": LimelExampleMenuSubMenuLazyLoadingInfinite;
+        "limel-example-menu-sub-menus": LimelExampleMenuSubMenus;
+        "limel-example-menu-surface-width": LimelExampleMenuSurfaceWidth;
+        "limel-example-nested-form": LimelExampleNestedForm;
+        "limel-example-open-direction": LimelExampleOpenDirection;
+        "limel-example-picker-composite": LimelExamplePickerComposite;
+        "limel-example-picker-empty-suggestions": LimelExamplePickerEmptySuggestions;
+        "limel-example-picker-icons": LimelExamplePickerIcons;
+        "limel-example-picker-leading-icon": LimelExamplePickerLeadingIcon;
+        "limel-example-picker-multiple": LimelExamplePickerMultiple;
+        "limel-example-picker-single": LimelExamplePickerSingle;
+        "limel-example-picker-static-actions": LimelExamplePickerStaticActions;
+        "limel-example-picker-value-as-object": LimelExamplePickerValueAsObject;
+        "limel-example-picker-value-as-object-with-actions": LimelExamplePickerValueAsObjectWithActions;
+        "limel-example-placement": LimelExamplePlacement;
+        "limel-example-popover": LimelExamplePopover;
+        "limel-example-portal-basic": LimelExamplePortalBasic;
+        "limel-example-primary-color-palette": LimelExamplePrimaryColorPalette;
+        "limel-example-progress-flow-basic": LimelExampleProgressFlowBasic;
+        "limel-example-progress-flow-colors": LimelExampleProgressFlowColors;
+        "limel-example-progress-flow-colors-css": LimelExampleProgressFlowColorsCss;
+        "limel-example-progress-flow-disabled-step": LimelExampleProgressFlowDisabledStep;
+        "limel-example-progress-flow-narrow": LimelExampleProgressFlowNarrow;
+        "limel-example-progress-flow-off-progress-steps": LimelExampleProgressFlowOffProgressSteps;
+        "limel-example-progress-flow-secondary-text": LimelExampleProgressFlowSecondaryText;
+        "limel-example-props-factory-form": LimelExamplePropsFactoryForm;
+        "limel-example-props-factory-picker": LimelExamplePropsFactoryPicker;
+        "limel-example-prosemirror-adapter-basic": LimelExampleProsemirrorAdapterBasic;
+        "limel-example-prosemirror-adapter-with-custom-menu": LimelExampleProsemirrorAdapterWithCustomMenu;
+        "limel-example-read-more": LimelExampleReadMore;
+        "limel-example-readonly-props": LimelExampleReadonlyProps;
+        "limel-example-select": LimelExampleSelect;
+        "limel-example-select-change-options": LimelExampleSelectChangeOptions;
+        "limel-example-select-dialog": LimelExampleSelectDialog;
+        "limel-example-select-multiple": LimelExampleSelectMultiple;
+        "limel-example-select-preselected": LimelExampleSelectPreselected;
+        "limel-example-select-with-empty-option": LimelExampleSelectWithEmptyOption;
+        "limel-example-select-with-icons": LimelExampleSelectWithIcons;
+        "limel-example-select-with-secondary-text": LimelExampleSelectWithSecondaryText;
+        "limel-example-select-with-separators": LimelExampleSelectWithSeparators;
+        "limel-example-server-errors": LimelExampleServerErrors;
+        "limel-example-shadows-bad-usage": LimelExampleShadowsBadUsage;
+        "limel-example-shortcut": LimelExampleShortcut;
+        "limel-example-shortcut-notification": LimelExampleShortcutNotification;
+        "limel-example-shortcut-styling": LimelExampleShortcutStyling;
+        "limel-example-shortcut-with-click-handler": LimelExampleShortcutWithClickHandler;
+        "limel-example-size": LimelExampleSize;
+        "limel-example-size-edge-case": LimelExampleSizeEdgeCase;
+        "limel-example-slider-basic": LimelExampleSliderBasic;
+        "limel-example-slider-composite": LimelExampleSliderComposite;
+        "limel-example-slider-multiplier": LimelExampleSliderMultiplier;
+        "limel-example-slider-multiplier-percentage-colors": LimelExampleSliderMultiplierPercentageColors;
+        "limel-example-snackbar": LimelExampleSnackbar;
+        "limel-example-snackbar-dismissible": LimelExampleSnackbarDismissible;
+        "limel-example-snackbar-positioning": LimelExampleSnackbarPositioning;
+        "limel-example-snackbar-with-action": LimelExampleSnackbarWithAction;
+        "limel-example-snackbar-with-changing-messages": LimelExampleSnackbarWithChangingMessages;
+        "limel-example-spinner": LimelExampleSpinner;
+        "limel-example-spinner-color": LimelExampleSpinnerColor;
+        "limel-example-spinner-size": LimelExampleSpinnerSize;
+        "limel-example-split-button-basic": LimelExampleSplitButtonBasic;
+        "limel-example-split-button-repeat-default-command": LimelExampleSplitButtonRepeatDefaultCommand;
+        "limel-example-surface-shadows": LimelExampleSurfaceShadows;
+        "limel-example-surface-shadows-inflated": LimelExampleSurfaceShadowsInflated;
+        "limel-example-surface-shadows-states": LimelExampleSurfaceShadowsStates;
+        "limel-example-switch": LimelExampleSwitch;
+        "limel-example-switch-helper-text": LimelExampleSwitchHelperText;
+        "limel-example-switch-readonly": LimelExampleSwitchReadonly;
+        "limel-example-switch-vs-checkbox": LimelExampleSwitchVsCheckbox;
+        "limel-example-tab-bar": LimelExampleTabBar;
+        "limel-example-tab-bar-with-dynamic-tab-width": LimelExampleTabBarWithDynamicTabWidth;
+        "limel-example-tab-bar-with-equal-tab-width": LimelExampleTabBarWithEqualTabWidth;
+        "limel-example-tab-panel": LimelExampleTabPanel;
+        "limel-example-tab-panel-content": LimelExampleTabPanelContent;
+        "limel-example-table": LimelExampleTable;
+        "limel-example-table-activate-row": LimelExampleTableActivateRow;
+        "limel-example-table-custom-components": LimelExampleTableCustomComponents;
+        "limel-example-table-default-sorted": LimelExampleTableDefaultSorted;
+        "limel-example-table-food": LimelExampleTableFood;
+        "limel-example-table-header-menu": LimelExampleTableHeaderMenu;
+        "limel-example-table-interactive-rows": LimelExampleTableInteractiveRows;
+        "limel-example-table-layout-default": LimelExampleTableLayoutDefault;
+        "limel-example-table-layout-low-density": LimelExampleTableLayoutLowDensity;
+        "limel-example-table-layout-stretch-columns": LimelExampleTableLayoutStretchColumns;
+        "limel-example-table-layout-stretch-last-column": LimelExampleTableLayoutStretchLastColumn;
+        "limel-example-table-local": LimelExampleTableLocal;
+        "limel-example-table-movable-columns": LimelExampleTableMovableColumns;
+        "limel-example-table-remote": LimelExampleTableRemote;
+        "limel-example-table-selectable-rows": LimelExampleTableSelectableRows;
+        "limel-example-table-sorting-disabled": LimelExampleTableSortingDisabled;
+        "limel-example-text-editor-allow-resize": LimelExampleTextEditorAllowResize;
+        "limel-example-text-editor-as-form-component": LimelExampleTextEditorAsFormComponent;
+        "limel-example-text-editor-basic": LimelExampleTextEditorBasic;
+        "limel-example-text-editor-composite": LimelExampleTextEditorComposite;
+        "limel-example-text-editor-size": LimelExampleTextEditorSize;
+        "limel-example-text-editor-with-html": LimelExampleTextEditorWithHtml;
+        "limel-example-text-editor-with-markdown": LimelExampleTextEditorWithMarkdown;
+        "limel-example-tooltip-basic": LimelExampleTooltipBasic;
+        "limel-example-tooltip-composite": LimelExampleTooltipComposite;
+        "limel-example-tooltip-declutter": LimelExampleTooltipDeclutter;
+        "limel-example-tooltip-max-character": LimelExampleTooltipMaxCharacter;
+        "limel-example-ui-color-palette": LimelExampleUiColorPalette;
+        "limel-example-value": LimelExampleValue;
         "limel-file": LimelFile;
         "limel-file-dropzone": LimelFileDropzone;
         "limel-file-input": LimelFileInput;
@@ -7177,6 +19349,8 @@ declare namespace LocalJSX {
         "limel-text-editor-link-menu": LimelTextEditorLinkMenu;
         "limel-tooltip": LimelTooltip;
         "limel-tooltip-content": LimelTooltipContent;
+        "my-custom-menu": MyCustomMenu;
+        "my-custom-menu-with-notifications": MyCustomMenuWithNotifications;
     }
 }
 export { LocalJSX as JSX };
@@ -7551,6 +19725,2928 @@ declare module "@stencil/core" {
              * @beta 
              */
             "limel-dynamic-label": LocalJSX.LimelDynamicLabel & JSXBase.HTMLAttributes<HTMLLimelDynamicLabelElement>;
+            /**
+             * Basic Example
+             * An action bar is typically placed on top of a page or section,
+             * displaying multiple buttons in a row.
+             * Separators can be added to visually group related actions.
+             * :::tip
+             * By default, when `layout="fullWidth"`, all actions will be placed on
+             * the left side of the action bar,
+             * but you can override this default behavior by
+             * adding `justify-content: flex-end;`.
+             * :::
+             */
+            "limel-example-action-bar": LocalJSX.LimelExampleActionBar & JSXBase.HTMLAttributes<HTMLLimelExampleActionBarElement>;
+            /**
+             * Creative usage
+             * Since the action bar can automatically overflow actions which do not
+             * fit into the available width, it makes the component a good candidate
+             * for providing contextual actions within small sections of a user interface.
+             * :::important
+             * For this specific usage (`limel-action-bar` as a primary component in `limel-list`)
+             * the certain styles are required for the overflow menu to properly work.
+             * See the linked CSS file!
+             * There should be a `min-width` and `max-width` on the component in order to prevent
+             * the overflow menu to cause infinite rendering loops.
+             * :::
+             * @sourceFile action-bar-in-list.tsx
+             * @sourceFile action-bar-in-list.scss
+             */
+            "limel-example-action-bar-as-primary-component": LocalJSX.LimelExampleActionBarAsPrimaryComponent & JSXBase.HTMLAttributes<HTMLLimelExampleActionBarAsPrimaryComponentElement>;
+            /**
+             * Using colors
+             * You can specify colors for single actions, by setting `color` on the `icon`.
+             * :::note
+             * Make sure not to overuse colors!
+             * It is perfectly fine that most of the actions in the bar use the default color.
+             * Colors should be used to add an extra layer of meaning for the actions.
+             * :::
+             */
+            "limel-example-action-bar-colors": LocalJSX.LimelExampleActionBarColors & JSXBase.HTMLAttributes<HTMLLimelExampleActionBarColorsElement>;
+            /**
+             * Floating Example
+             * For some designs, it may make sense to display the action bar as
+             * a floating element on top of the page's content.
+             * Set the `layout` prop to `floating` to get the basics styles of
+             * a floating bar.
+             * :::note
+             * 1. In this case, the action bar gets some elevation effect
+             * using a `box-shadow`. This is to properly separate the action bar
+             * form its surrounding context. You can override this by setting another
+             * `box-shadow`.
+             * 2. Make sure to use a proper `openDirection` for the
+             * overflow menu.
+             * 3. Make sure there is space on the sides of the action bar,
+             * so that it doesn't stretch out completely from left edge to the right
+             * edge. The component is already doing so using a `max-width`,
+             * but you can override it by providing another `max-width`.
+             * :::
+             */
+            "limel-example-action-bar-floating": LocalJSX.LimelExampleActionBarFloating & JSXBase.HTMLAttributes<HTMLLimelExampleActionBarFloatingElement>;
+            "limel-example-action-bar-in-list": LocalJSX.LimelExampleActionBarInList & JSXBase.HTMLAttributes<HTMLLimelExampleActionBarInListElement>;
+            /**
+             * Overflow menu
+             * When the action bar items don't fit in the available space,
+             * an overflow button is automatically added as the last item on the action bar.
+             * The menu indicates the quantity of the actions which are currently invisible for the users.
+             * Clicking on the overflow button opens a menu with the remaining actions that didn't fit
+             * in the available space.
+             */
+            "limel-example-action-bar-overflow-menu": LocalJSX.LimelExampleActionBarOverflowMenu & JSXBase.HTMLAttributes<HTMLLimelExampleActionBarOverflowMenuElement>;
+            /**
+             * Selected item
+             * For some use cases, one or more items in the action bar could
+             * get a `selected` state. This is useful for example when you want to
+             * highlight a currently active item in a list of items.
+             */
+            "limel-example-action-bar-selected-item": LocalJSX.LimelExampleActionBarSelectedItem & JSXBase.HTMLAttributes<HTMLLimelExampleActionBarSelectedItemElement>;
+            /**
+             * Styling
+             * Using provided custom CSS properties,
+             * it is possible to style the action bar.
+             * :::note
+             * The `--action-bar-item-icon-color` affects all icons.
+             * However, the `color` specified for `icon` for individual items
+             * will override that.
+             * :::
+             */
+            "limel-example-action-bar-styling": LocalJSX.LimelExampleActionBarStyling & JSXBase.HTMLAttributes<HTMLLimelExampleActionBarStylingElement>;
+            "limel-example-action-buttons-choosing-explicit-labels": LocalJSX.LimelExampleActionButtonsChoosingExplicitLabels & JSXBase.HTMLAttributes<HTMLLimelExampleActionButtonsChoosingExplicitLabelsElement>;
+            "limel-example-action-buttons-choosing-labels": LocalJSX.LimelExampleActionButtonsChoosingLabels & JSXBase.HTMLAttributes<HTMLLimelExampleActionButtonsChoosingLabelsElement>;
+            "limel-example-action-buttons-colors-do-dont": LocalJSX.LimelExampleActionButtonsColorsDoDont & JSXBase.HTMLAttributes<HTMLLimelExampleActionButtonsColorsDoDontElement>;
+            "limel-example-action-buttons-icon-color": LocalJSX.LimelExampleActionButtonsIconColor & JSXBase.HTMLAttributes<HTMLLimelExampleActionButtonsIconColorElement>;
+            "limel-example-action-buttons-placement": LocalJSX.LimelExampleActionButtonsPlacement & JSXBase.HTMLAttributes<HTMLLimelExampleActionButtonsPlacementElement>;
+            "limel-example-action-buttons-primary-secondary": LocalJSX.LimelExampleActionButtonsPrimarySecondary & JSXBase.HTMLAttributes<HTMLLimelExampleActionButtonsPrimarySecondaryElement>;
+            "limel-example-action-buttons-primary-secondary-reversed": LocalJSX.LimelExampleActionButtonsPrimarySecondaryReversed & JSXBase.HTMLAttributes<HTMLLimelExampleActionButtonsPrimarySecondaryReversedElement>;
+            "limel-example-action-buttons-primary-secondary-reversed-colors": LocalJSX.LimelExampleActionButtonsPrimarySecondaryReversedColors & JSXBase.HTMLAttributes<HTMLLimelExampleActionButtonsPrimarySecondaryReversedColorsElement>;
+            "limel-example-action-buttons-third-alternative": LocalJSX.LimelExampleActionButtonsThirdAlternative & JSXBase.HTMLAttributes<HTMLLimelExampleActionButtonsThirdAlternativeElement>;
+            "limel-example-audition-form": LocalJSX.LimelExampleAuditionForm & JSXBase.HTMLAttributes<HTMLLimelExampleAuditionFormElement>;
+            "limel-example-audition-form-readonly": LocalJSX.LimelExampleAuditionFormReadonly & JSXBase.HTMLAttributes<HTMLLimelExampleAuditionFormReadonlyElement>;
+            /**
+             * Badge without a `label`
+             * When no `label` is provided, the badge will only render as a circle.
+             * This is a convention which is used in many applications to attract the
+             * user's attention to a certain element on the user interface; typically to
+             * menus or buttons that navigate the user to another pane or screen.
+             * In such cases, the idea is to provide the users with a "red thread"
+             * and help them find something that requires their attention, but is located
+             * on another place in the app, and not directly visible.
+             * :::tip
+             * Make sure that the dot is noticeable, by providing an
+             * eye-catching background color, as shown in this example.
+             * :::
+             */
+            "limel-example-badge": LocalJSX.LimelExampleBadge & JSXBase.HTMLAttributes<HTMLLimelExampleBadgeElement>;
+            /**
+             * Number badges
+             * Numeric labels larger than 999 will get both rounded and abbreviated.
+             * For example, if the label is `1090` the badge will display `1.1K`.
+             * Abbreviation units used are `k` (Kilo) that stands for Thousands,
+             * `M` for Millions, `B` for Billions, and `T` for Trillions.
+             * When users hover the abbreviated badge, the complete
+             * `label` will be displayed in a tooltip.
+             */
+            "limel-example-badge-number": LocalJSX.LimelExampleBadgeNumber & JSXBase.HTMLAttributes<HTMLLimelExampleBadgeNumberElement>;
+            /**
+             * String badges
+             * String labels get truncated if their visual length is longer than
+             * six characters placed side by side (six `0`s to be exact).
+             * When users hover the truncated badge, the complete
+             * `label` will be displayed in a tooltip.
+             */
+            "limel-example-badge-string": LocalJSX.LimelExampleBadgeString & JSXBase.HTMLAttributes<HTMLLimelExampleBadgeStringElement>;
+            "limel-example-banner": LocalJSX.LimelExampleBanner & JSXBase.HTMLAttributes<HTMLLimelExampleBannerElement>;
+            "limel-example-boolean-checkboxes": LocalJSX.LimelExampleBooleanCheckboxes & JSXBase.HTMLAttributes<HTMLLimelExampleBooleanCheckboxesElement>;
+            "limel-example-boolean-radio-buttons": LocalJSX.LimelExampleBooleanRadioButtons & JSXBase.HTMLAttributes<HTMLLimelExampleBooleanRadioButtonsElement>;
+            "limel-example-brand-color-palette": LocalJSX.LimelExampleBrandColorPalette & JSXBase.HTMLAttributes<HTMLLimelExampleBrandColorPaletteElement>;
+            /**
+             * Items as buttons
+             * The Breadcrumbs can also be used to navigate between different
+             * steps of a process, such as steps of a form or survey, or
+             * moving through steps of a wizard.
+             * In this case, you will not provide any `link`s and instead will
+             * handle the clicks. When no links are provided, the component
+             * will automatically generate a list of `button`s.
+             * Keep in mind that the last item will not be rendered as an
+             * HTML button and and therefore won't be clickable.
+             */
+            "limel-example-breadcrumbs-buttons": LocalJSX.LimelExampleBreadcrumbsButtons & JSXBase.HTMLAttributes<HTMLLimelExampleBreadcrumbsButtonsElement>;
+            /**
+             * Changing the divider
+             * By default a **›** character is used to visually divide the
+             * items from each other. This visual divider indicates the
+             * order and depths of steps which are taken to reach the current
+             * step.
+             * However, in certain contexts, other characters could be
+             * more suitable to visualize this hierarchy,
+             * such as a **·**, **-** or similar.
+             * :::warning
+             * Avoid using ellipsis motifs like **···**, **…** or **⋮**,
+             * since they look like universally prevalent icons which
+             * communicate other meanings.
+             */
+            "limel-example-breadcrumbs-divider": LocalJSX.LimelExampleBreadcrumbsDivider & JSXBase.HTMLAttributes<HTMLLimelExampleBreadcrumbsDividerElement>;
+            /**
+             * Using colors
+             * You can specify colors for single item, by setting `color` on the `icon`.
+             * :::note
+             * Make sure not to overuse colors!
+             * It is perfectly fine that items in the bar use the default color.
+             * Colors should be used to add an extra layer of meaning for the actions.
+             * An icon can either adopt the color of the default text or receive a color
+             * if the `--breadcrumbs-item-text-color` has been set.
+             * Nevertheless, if the `color` is explicitly defined,
+             * it will take precedence over the default icon's color.
+             * :::
+             */
+            "limel-example-breadcrumbs-icon-color": LocalJSX.LimelExampleBreadcrumbsIconColor & JSXBase.HTMLAttributes<HTMLLimelExampleBreadcrumbsIconColorElement>;
+            /**
+             * Using icons
+             * For an improved accessibility, you are required to
+             * provide a `text` for each item in the breadcrumbs.
+             * But each item can have an optional icon too.
+             * However, in some UIs, the design might require
+             * hiding the text and relying on an icon to visualize
+             * an item in the path.
+             * In this case you can set the `type` to
+             * `icon-only` on the desired items.
+             * :::note
+             * The last item (current step) will always
+             * display both an icon and the text, even if you
+             * set the `type` to `icon-only`
+             * :::
+             */
+            "limel-example-breadcrumbs-icons": LocalJSX.LimelExampleBreadcrumbsIcons & JSXBase.HTMLAttributes<HTMLLimelExampleBreadcrumbsIconsElement>;
+            /**
+             * Items as hyperlinks
+             * When the Breadcrumbs are used to navigate between different webpages,
+             * for example navigating a website, you will need to provide a `link`
+             * for each webpage.
+             * This way, the component will automatically generate a list of
+             * hyperlinks. This gives the users the possibility of interacting with links
+             * in a natural way, for instance they can open any of the previous
+             * pages in a new browser tab. This also has other accessibility benefits.
+             * :::note
+             * Clicking links will open in current window by default,
+             * and this reloads the entire webpage.
+             * To avoid reloading the whole application (in the context of a single-page apps),
+             * you might want to handle the navigation with your application's router,
+             * :::
+             * Keep in mind that the last item will not be rendered as an HTML link and
+             * is not clickable.
+             */
+            "limel-example-breadcrumbs-links": LocalJSX.LimelExampleBreadcrumbsLinks & JSXBase.HTMLAttributes<HTMLLimelExampleBreadcrumbsLinksElement>;
+            /**
+             * Styling
+             * Using provided custom CSS properties,
+             * it is possible to style the breadcrumbs.
+             */
+            "limel-example-breadcrumbs-styling": LocalJSX.LimelExampleBreadcrumbsStyling & JSXBase.HTMLAttributes<HTMLLimelExampleBreadcrumbsStylingElement>;
+            /**
+             * Basic Example
+             * Just a label and a click-handler.
+             * Open the dev-tools console to see logged clicks.
+             */
+            "limel-example-button-basic": LocalJSX.LimelExampleButtonBasic & JSXBase.HTMLAttributes<HTMLLimelExampleButtonBasicElement>;
+            /**
+             * With click handler, and failed feedback
+             * This example works just like the "With click handler" example, except that,
+             * when the `loading` attribute changes from `true` to `false`, the button
+             * automatically indicates that the previously ongoing process just failed.
+             */
+            "limel-example-button-click-fail": LocalJSX.LimelExampleButtonClickFail & JSXBase.HTMLAttributes<HTMLLimelExampleButtonClickFailElement>;
+            /**
+             * With click handler
+             * The click handler in this example simulates saving some changed values in a
+             * form. When the button is clicked, the `loading` attribute is set to `true`.
+             * After a short while, we pretend that the saving was successful, and set
+             * `loading` to `false`. We also set `disabled` to `true`, because we just
+             * successfully saved, so until the user updates our imaginary form again, there
+             * is nothing to save.
+             * When the `loading` attribute changes from `true` to `false`, the button
+             * automatically displays a checkmark icon for 2 seconds. Note that our click
+             * handler isn't actually involved in this.
+             * A short while after the checkmark has disappeared, we enable the button
+             * again. This is just so that you can try the functionality again. Normally,
+             * the button would stay disabled until the user made some changes, so there's
+             * something new to save!
+             */
+            "limel-example-button-click-success": LocalJSX.LimelExampleButtonClickSuccess & JSXBase.HTMLAttributes<HTMLLimelExampleButtonClickSuccessElement>;
+            /**
+             * How to color button text and background
+             * When a button is a "primary" button (`primary={true}`), the color value you specify
+             * for `--lime-primary-color` will apply to its background. By default, text color
+             * of primary buttons is white. To change their text color you must send a color
+             * value with the `--lime-on-primary-color` variable.
+             * When a button is not a "primary" button, the value of `--lime-primary-color`
+             * will be applied to its text, and `--lime-on-primary-color` will have no effect.
+             * Keep in mind that `disabled` buttons don't care about your specified colors at all.
+             */
+            "limel-example-button-colors": LocalJSX.LimelExampleButtonColors & JSXBase.HTMLAttributes<HTMLLimelExampleButtonColorsElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states.
+             */
+            "limel-example-button-composite": LocalJSX.LimelExampleButtonComposite & JSXBase.HTMLAttributes<HTMLLimelExampleButtonCompositeElement>;
+            /**
+             * Disabled
+             * :::note
+             * Discover when to utilize the disabled state and when it is preferable to hide a button by reading our guidelines [Disabled vs. Hidden](#/DesignGuidelines/disabled-hidden.md/).
+             * :::
+             */
+            "limel-example-button-disabled": LocalJSX.LimelExampleButtonDisabled & JSXBase.HTMLAttributes<HTMLLimelExampleButtonDisabledElement>;
+            "limel-example-button-disabled-vs-hidden": LocalJSX.LimelExampleButtonDisabledVsHidden & JSXBase.HTMLAttributes<HTMLLimelExampleButtonDisabledVsHiddenElement>;
+            /**
+             * Text only
+             * This layout is good when you do not have access to icons which are
+             * descriptive enough.
+             */
+            "limel-example-button-group": LocalJSX.LimelExampleButtonGroup & JSXBase.HTMLAttributes<HTMLLimelExampleButtonGroupElement>;
+            /**
+             * Button group with badges
+             * Badges can be used to add further contextual information.
+             * For example, if the component is used to filter a set of data
+             * the badges could visualize the number of entries
+             * for each filter option.
+             * The badge can either
+             * have a `number` or `string` label.
+             * Read more about how the badge truncates or abbreviates the
+             * provided label [here](#/component/limel-badge/).
+             */
+            "limel-example-button-group-badges": LocalJSX.LimelExampleButtonGroupBadges & JSXBase.HTMLAttributes<HTMLLimelExampleButtonGroupBadgesElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states.
+             */
+            "limel-example-button-group-composite": LocalJSX.LimelExampleButtonGroupComposite & JSXBase.HTMLAttributes<HTMLLimelExampleButtonGroupCompositeElement>;
+            /**
+             * Icon only
+             * If you pick well descriptive icons, this layout will usually suffice. When
+             * you specify an `icon`, it will automatically be shown instead of the `title`.
+             * :::important
+             * Adding titles for buttons is compulsory. The reason is that when
+             * only icons are shown, titles will appear as `aria-label` for screen readers,
+             * as well as `title` attribute when users hover and hold their cursors on the
+             * buttons.
+             * :::
+             * This makes it easier for them to know what the button actually does
+             * or what the icon tries to indicate.
+             * So, make sure to label your icons properly and descriptively.
+             */
+            "limel-example-button-group-icons": LocalJSX.LimelExampleButtonGroupIcons & JSXBase.HTMLAttributes<HTMLLimelExampleButtonGroupIconsElement>;
+            /**
+             * Mixed text and icon within the same group
+             * Generally, you should avoid mixing text and images in button group. Although
+             * individual buttons can contain text or images, mixing the two in a single
+             * group can lead to an inconsistent and confusing interface.
+             * However, in some case your design may benefit from having only one button in
+             * a different format.
+             */
+            "limel-example-button-group-mix": LocalJSX.LimelExampleButtonGroupMix & JSXBase.HTMLAttributes<HTMLLimelExampleButtonGroupMixElement>;
+            /**
+             * Icon
+             */
+            "limel-example-button-icon": LocalJSX.LimelExampleButtonIcon & JSXBase.HTMLAttributes<HTMLLimelExampleButtonIconElement>;
+            /**
+             * Loading
+             * Note that the example is also using `disabled`, because a button that is
+             * loading should normally also be disabled.
+             */
+            "limel-example-button-loading": LocalJSX.LimelExampleButtonLoading & JSXBase.HTMLAttributes<HTMLLimelExampleButtonLoadingElement>;
+            /**
+             * Outlined
+             * By setting `outlined={true}`, you can create a style
+             * of buttons which could be used to indicate an action
+             * with medium emphasis.
+             * :::note
+             * This style is useful to indicate the "secondariness" of an action.
+             * Therefore, only use this style, if there is another related
+             * `primary` button present on the same view or screen,
+             * along with another normal button.
+             * Also, give such a choice a second thought by reading
+             * [our guidelines for Split button](#/component/limel-split-button/).
+             * :::
+             */
+            "limel-example-button-outlined": LocalJSX.LimelExampleButtonOutlined & JSXBase.HTMLAttributes<HTMLLimelExampleButtonOutlinedElement>;
+            /**
+             * Primary
+             * Each screen (modal, or section with action buttons)
+             * should contain a single prominent button like this one,
+             * to emphasize the primary action.
+             * :::note
+             * Think twice before setting `primary={true}` on buttons.
+             * The arrangement of buttons and their colors should clearly
+             * communicate their importance and primariness or secondariness.
+             * See some examples at [our design guidelines for
+             * Action buttons](#/DesignGuidelines/action-buttons.md/).
+             * :::
+             */
+            "limel-example-button-primary": LocalJSX.LimelExampleButtonPrimary & JSXBase.HTMLAttributes<HTMLLimelExampleButtonPrimaryElement>;
+            /**
+             * Reduce Presence
+             * This example is identical to the "With click handler" example, except that
+             * here, the `has-reduced-presence` class has been set to `true`. This will hide
+             * the button when it is disabled. However, it will also make sure that the
+             * button remains visible while the loading animation is ongoing. When the
+             * animation is done and the checkmark has been shown, the button will hide.
+             * Read more in the [Design Guidelines](#/DesignGuidelines/decluttering.md/)
+             */
+            "limel-example-button-reduce-presence": LocalJSX.LimelExampleButtonReducePresence & JSXBase.HTMLAttributes<HTMLLimelExampleButtonReducePresenceElement>;
+            "limel-example-button-shadows": LocalJSX.LimelExampleButtonShadows & JSXBase.HTMLAttributes<HTMLLimelExampleButtonShadowsElement>;
+            /**
+             * Type: `caution`
+             */
+            "limel-example-callout-caution": LocalJSX.LimelExampleCalloutCaution & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutCautionElement>;
+            /**
+             * Composite
+             */
+            "limel-example-callout-composite": LocalJSX.LimelExampleCalloutComposite & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutCompositeElement>;
+            /**
+             * With custom `heading`
+             * By default, the title will equal the `type` qualifier.
+             * However, it is possible to use a `type` just to get the desired visualisation
+             * (icon and color), but override the default heading, using the `heading` prop.
+             */
+            "limel-example-callout-custom-heading": LocalJSX.LimelExampleCalloutCustomHeading & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutCustomHeadingElement>;
+            /**
+             * With custom `icon`
+             * By default, the icon will be defined by the `type` qualifier.
+             * However, it is possible to use a `type` just to get the desired visualisation
+             * (color and heading), but override the default icon, using the `icon` prop.
+             */
+            "limel-example-callout-custom-icon": LocalJSX.LimelExampleCalloutCustomIcon & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutCustomIconElement>;
+            /**
+             * Type: `important`
+             */
+            "limel-example-callout-important": LocalJSX.LimelExampleCalloutImportant & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutImportantElement>;
+            /**
+             * Type: `note`
+             * This is the default type.
+             */
+            "limel-example-callout-note": LocalJSX.LimelExampleCalloutNote & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutNoteElement>;
+            /**
+             * Adding rich content
+             * Sometimes, you need to display more than just a string of text.
+             * You may want to display richer content with pictures, links, or
+             * bullet point lists; or use a more advanced component inside
+             * the callout.
+             * To do so, simply wrap the content you want to display in this component.
+             */
+            "limel-example-callout-rich-content": LocalJSX.LimelExampleCalloutRichContent & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutRichContentElement>;
+            /**
+             * Styling
+             * It is possible to change the default colors using the provided CSS
+             * variables. Just make sure to have good contrast between the text and
+             * background color, to provide good readability.
+             */
+            "limel-example-callout-styles": LocalJSX.LimelExampleCalloutStyles & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutStylesElement>;
+            /**
+             * Type: `tip`
+             * This type is useful for displaying tips & tricks, and How-Tos.
+             */
+            "limel-example-callout-tip": LocalJSX.LimelExampleCalloutTip & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutTipElement>;
+            /**
+             * Type: `warning`
+             */
+            "limel-example-callout-warning": LocalJSX.LimelExampleCalloutWarning & JSXBase.HTMLAttributes<HTMLLimelExampleCalloutWarningElement>;
+            "limel-example-checkbox": LocalJSX.LimelExampleCheckbox & JSXBase.HTMLAttributes<HTMLLimelExampleCheckboxElement>;
+            /**
+             * With `helperText`
+             * Checkboxes can have a helper text, which is useful when providing additional information
+             * can clarify functionality of the checkbox for the user.
+             * The helper text is displayed when user hovers the checkbox, or focuses on it using keyboard
+             * navigation. However, on touchscreen devices, the helper text is always displayed.
+             */
+            "limel-example-checkbox-helper-text": LocalJSX.LimelExampleCheckboxHelperText & JSXBase.HTMLAttributes<HTMLLimelExampleCheckboxHelperTextElement>;
+            /**
+             * Customizing the visualization of the `readonly` state
+             * It is possible and recommended that you enhance the visualization of a `boolean` field
+             * in a `readonly` state.
+             * Because depending on the context, the default UI of the `readonly` state may not always
+             * provide the best way of _visualizing information_, potentially leading to
+             * confusion and negatively affecting the end-users' experience.
+             * :::important
+             * Before reading the documentations below, make sure to read
+             * 1. our guides about the difference between
+             * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+             * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+             * :::
+             * Using the `readonlyLabels` optional prop, you can override the `label` and
+             * customize it accordingly. Additionally, by using the `icon` prop, you can
+             * override the default icons and their colors.
+             */
+            "limel-example-checkbox-readonly": LocalJSX.LimelExampleCheckboxReadonly & JSXBase.HTMLAttributes<HTMLLimelExampleCheckboxReadonlyElement>;
+            /**
+             * Correct usage of ARIA roles
+             * Chips represent choices, filters, or tags, organized in a block or bundled into a group.
+             * While sighted users see the visually bundled group of chips in a well-designed UI,
+             * screen reader users only hear the chip text, one at a time.
+             * This can make it difficult for users of assistive technologies to understand
+             * the context of the chip.
+             * To provide an accessible experience, it's important to place the chips in
+             * a semantically correct structure, such as a list or a table,
+             * or properly use ARIA roles on the chip and its container.
+             * In this example, we demonstrate how to use ARIA roles to improve accessibility for chips.
+             * However, it's recommended to read up on the subject to fully understand the
+             * implications of ARIA roles.
+             * For more information on ARIA roles, refer to the
+             * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles).
+             */
+            "limel-example-chip-aria-role": LocalJSX.LimelExampleChipAriaRole & JSXBase.HTMLAttributes<HTMLLimelExampleChipAriaRoleElement>;
+            /**
+             * Chip with a badge
+             * Chips can display a badge with a number or a short text.
+             */
+            "limel-example-chip-badge": LocalJSX.LimelExampleChipBadge & JSXBase.HTMLAttributes<HTMLLimelExampleChipBadgeElement>;
+            /**
+             * Chip as button
+             * Typically, a chip is used to trigger an action or act as an input element.
+             * This is why the component generates a `<button>` element in the DOM to give
+             * a more semantically correct clues to assistive technologies.
+             * To trigger these actions, you will only need to handle the `onClick`
+             * event on the component.
+             */
+            "limel-example-chip-button": LocalJSX.LimelExampleChipButton & JSXBase.HTMLAttributes<HTMLLimelExampleChipButtonElement>;
+            /**
+             * Chip as filter
+             * Chips are great candidates to visualize active filters.
+             * However, as chips are used for other purposes as well,
+             * we need to make sure that the user understands that the chip is a filter,
+             * just by the look of it.
+             * By setting the `type` to `filter`, the chip will be rendered with a distinct style
+             * suitable for visualizing filters.
+             * :::note
+             * In this mode, clicking on the chip should also toggle its `selected` state.
+             * :::
+             */
+            "limel-example-chip-filter": LocalJSX.LimelExampleChipFilter & JSXBase.HTMLAttributes<HTMLLimelExampleChipFilterElement>;
+            /**
+             * Chip Icon Color
+             * The color and background color of each chip's icon can be individually
+             * configured.
+             */
+            "limel-example-chip-icon-color": LocalJSX.LimelExampleChipIconColor & JSXBase.HTMLAttributes<HTMLLimelExampleChipIconColorElement>;
+            /**
+             * Icon color
+             * Using the `Icon` interface, you can specify colors for the icon.
+             */
+            "limel-example-chip-icon-colors": LocalJSX.LimelExampleChipIconColors & JSXBase.HTMLAttributes<HTMLLimelExampleChipIconColorsElement>;
+            /**
+             * Picture instead of icon
+             * Using the `Img` interface, you can specify an image to be displayed on the chip.
+             * :::note
+             * The specified image will be displayed instead of the icon, if both are provided.
+             * :::
+             */
+            "limel-example-chip-image": LocalJSX.LimelExampleChipImage & JSXBase.HTMLAttributes<HTMLLimelExampleChipImageElement>;
+            /**
+             * Chip as hyperlink
+             * For accessibility and usability alike, if clicking on a chip should
+             * result in any kind of navigation, it is preferable to use a link,
+             * rather than a button.
+             * That way, the user can choose to, for example, open the link in a new tab.
+             * For this reason, we suggest always providing a Link with
+             * the URL representing the target state of the navigation.
+             */
+            "limel-example-chip-link": LocalJSX.LimelExampleChipLink & JSXBase.HTMLAttributes<HTMLLimelExampleChipLinkElement>;
+            /**
+             * Loading state
+             * Setting the `loading` to `true` puts the component in the `loading` state,
+             * and renders an indeterminate progress indicator inside the chip.
+             * :::note
+             * Note that this does _not_ disable the interactivity of the chip,
+             * and most probably you do not need it to be disabled either.
+             * If the chip should be disabled while loading, the
+             * `disabled` property should separately be set to `true` as well.
+             * :::
+             * :::tip
+             * Consider using [aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live)
+             * where appropriate, or to inform the user about what is being loaded
+             * use a [tooltip](#/component/limel-tooltip) on the component.
+             * This is mainly to improve the accessibility for users of assistive technologies.
+             * :::
+             */
+            "limel-example-chip-loading": LocalJSX.LimelExampleChipLoading & JSXBase.HTMLAttributes<HTMLLimelExampleChipLoadingElement>;
+            /**
+             * When an array of menu items is provided, the chip will render
+             * an ellipsis menu with the supplied items. When an item is selected,
+             * the `onMenuItemSelected` event will be emitted, reflecting the
+             * `value` of the selected item.
+             * :::note
+             * This will hide the "remove button" on the chip, when `removable={true}`,
+             * as the remove button will automatically become the last item in the menu.
+             * Clicking the remove button will emit the same `onRemove` event.
+             * :::
+             */
+            "limel-example-chip-menu": LocalJSX.LimelExampleChipMenu & JSXBase.HTMLAttributes<HTMLLimelExampleChipMenuElement>;
+            /**
+             * Displaying a progress bar
+             * By defining a numeric `progress` (from `0` to `100`),
+             * you can display a progress bar on the chip
+             * to inform the user about an ongoing progress and also
+             * visualize the amount of progress that has been made so far.
+             * :::important
+             * 1. Do not use `loading={true}` and `progress` at the same time.
+             * 2. When the progress has completed, unset the `progress` property!
+             * :::
+             */
+            "limel-example-chip-progress": LocalJSX.LimelExampleChipProgress & JSXBase.HTMLAttributes<HTMLLimelExampleChipProgressElement>;
+            /**
+             * Removable chips
+             * Chips can display a remove button,
+             * when their `removable` prop is set to `true`.
+             * This is typically used when the chip is used in a chip-set,
+             * where each chip visualizes a chosen option.
+             * :::tip
+             * When the chip is focused using the keyboard, the user can press
+             * the <kbd>Delete</kbd> or <kbd>Backspace</kbd> keys to
+             * trigger the same remove `event`.
+             * :::
+             */
+            "limel-example-chip-removable": LocalJSX.LimelExampleChipRemovable & JSXBase.HTMLAttributes<HTMLLimelExampleChipRemovableElement>;
+            /**
+             * Basic example with no `type` set
+             * May be useful as a read-only presentation of a collection of tags, or
+             * similar.
+             * Depending on the use case, you may also wish to consider
+             * [limel-button](#/component/limel-button/) or
+             * [limel-button-group](#/component/limel-button-group/).
+             */
+            "limel-example-chip-set": LocalJSX.LimelExampleChipSet & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetElement>;
+            /**
+             * Choice chip set
+             * Only one option can be selected at once. Kind of like radio-buttons, but the
+             * user can deselect the chosen option too. Good as an alternative to using a
+             * `select` when there are only a few options.
+             */
+            "limel-example-chip-set-choice": LocalJSX.LimelExampleChipSetChoice & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetChoiceElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states.
+             */
+            "limel-example-chip-set-composite": LocalJSX.LimelExampleChipSetComposite & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetCompositeElement>;
+            /**
+             * Filter chip set
+             * Any number of options can be selected at once, including none. As the name
+             * suggests, this one is good for filtering things.
+             */
+            "limel-example-chip-set-filter": LocalJSX.LimelExampleChipSetFilter & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetFilterElement>;
+            /**
+             * Filter chip set with badge.
+             * The badge can be used to visulize the number of results using each filter.
+             */
+            "limel-example-chip-set-filter-badge": LocalJSX.LimelExampleChipSetFilterBadge & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetFilterBadgeElement>;
+            /**
+             * Chips with images
+             * You can use images instead of icons on chips.
+             * :::note
+             * The image will be displayed instead of the icon, if both are provided.
+             * :::
+             */
+            "limel-example-chip-set-image": LocalJSX.LimelExampleChipSetImage & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetImageElement>;
+            /**
+             * Input chip set
+             * Useful for collections of tags or labels. Can also be used as an advanced
+             * search input, with leading icon and a delimiter between search terms.
+             * :::note
+             * Setting `readonly` to `true` when the `type="input"`, the chips that are displayed
+             * will remain interactive. This means that the user can still click on them.
+             * However, the chips cannot be removed or added in `readonly` mode.
+             * :::
+             */
+            "limel-example-chip-set-input": LocalJSX.LimelExampleChipSetInput & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetInputElement>;
+            /**
+             * Input chip set with `inputType` of `search`
+             * When autocorrection is potentially harmful for the user experience and for
+             * your intended result, use `search` as `inputType`. For instance, for a
+             * question like "Please suggest unique names for our newly founded company",
+             * you probably don't want autocorrection, because you would expect many
+             * valid suggestions to not exist in the autocorrection dictionary. Therefore,
+             * you do not want the respondent's input to be regarded as a typo and to be
+             * changed when they press <kbd>Enter</kbd> or <kbd>Space</kbd>.
+             */
+            "limel-example-chip-set-input-type-search": LocalJSX.LimelExampleChipSetInputTypeSearch & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetInputTypeSearchElement>;
+            /**
+             * Input chip set with `inputType` of `text`
+             * There is a slight difference in the way browsers treat `input` field
+             * with `type="text"` and `type="search"`. You can read more about this
+             * difference in [Mozilla's documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search#using_search_inputs),
+             * but the most important difference in this case is activation of the
+             * autocorrection feature on most smart devices.
+             * When a user makes a spelling mistake while typing in an input field with
+             * `type="text"`, the mistake will be corrected automatically, right after they
+             * press <kbd>Enter</kbd> or <kbd>Space</kbd>. Input fields with `type="search"`
+             * do not auto correct the user's input.
+             * If you want to use limel-chip-set in a form context, where autocorrection is
+             * a good thing, use `text` as `inputType`. It is important to know that the
+             * chip-set component creates a chip from the autocorrected value, after the
+             * user has pressed the <kbd>Enter</kbd> key and the auto correction has fixed
+             * existing typos! For example, for a question like "Please type five of your
+             * favorite fruits", you would want to avoid misspellings, to collect higher
+             * quality data.
+             */
+            "limel-example-chip-set-input-type-text": LocalJSX.LimelExampleChipSetInputTypeText & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetInputTypeTextElement>;
+            /**
+             * Input chip set, containing items with menus
+             * While chips inside a chip set of `type="input"` can be clicked on, resulting in
+             * an action, they can also have an ellipsis menu which will provide the end users with
+             * additional actions.
+             * When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
+             * will be emitted, reflecting the `value` of the selected item.
+             * :::note
+             * When a chip has `removable={true}` and when there are menu items, the "remove button" on the
+             * chip will be automatically added as the last item in the ellipsis menu.
+             * Clicking the remove button will emit the same `onRemove` event.
+             * :::
+             */
+            "limel-example-chip-set-input-type-with-menu-items": LocalJSX.LimelExampleChipSetInputTypeWithMenuItems & JSXBase.HTMLAttributes<HTMLLimelExampleChipSetInputTypeWithMenuItemsElement>;
+            "limel-example-circular-progress": LocalJSX.LimelExampleCircularProgress & JSXBase.HTMLAttributes<HTMLLimelExampleCircularProgressElement>;
+            /**
+             * Tweaking the style, using CSS variables
+             * The component offers a few possibilities for tweaking its size and colors
+             * using a few CSS variables.
+             * :::note
+             * If you have tweaked component's size using size presets offered by the
+             * `size` prop, the css variable of `--circular-progress-size` will not have any
+             * effect.
+             * :::
+             * :::important
+             * Make sure that the track color is lighter than the fill color. Otherwise the
+             * UI will be very confusing for the users.
+             * :::
+             */
+            "limel-example-circular-progress-css-variables": LocalJSX.LimelExampleCircularProgressCssVariables & JSXBase.HTMLAttributes<HTMLLimelExampleCircularProgressCssVariablesElement>;
+            /**
+             * Displaying percentage colors
+             * At Lime Technologies we have a convention for displaying percentage colors.
+             * The colors we use to display a range change with intervals of 10.
+             * The color spectrum is not modifiable, and looks like
+             * red → orange → yellow → green → teal.
+             * To enable this feature, simply set `displayPercentageColors` to `true`.
+             * Try changing the value in the example below to see how colors change
+             * for different percentages.
+             */
+            "limel-example-circular-progress-percentage-colors": LocalJSX.LimelExampleCircularProgressPercentageColors & JSXBase.HTMLAttributes<HTMLLimelExampleCircularProgressPercentageColorsElement>;
+            /**
+             * Using the props
+             * This component is initially designed to visualize a percentage on a scale of
+             * zero to 100. However, you can easily visualize a progress in other scales,
+             * simply by setting `maxValue`, `prefix` and `suffix`.
+             * Look at this example to see how the component displays an angle in a
+             * 360-degrees scale, a 60-seconds scale, and a 5-stars rating.
+             */
+            "limel-example-circular-progress-props": LocalJSX.LimelExampleCircularProgressProps & JSXBase.HTMLAttributes<HTMLLimelExampleCircularProgressPropsElement>;
+            /**
+             * Size presets
+             * You can chose a preset size for the component to render it desireably,
+             * using the `size` prop.
+             * However, if these preset sizes do not suit your UI needs, do not specify them
+             * and instead specify the size using the `--circular-progress-size` variable,
+             * which must always be according to our
+             * [size rhythm](#/DesignGuidelines/size-rhythms.md/) guidelines.
+             * Note that the text size is automatically adjusted, based on the visual size
+             * of the component.
+             */
+            "limel-example-circular-progress-sizes": LocalJSX.LimelExampleCircularProgressSizes & JSXBase.HTMLAttributes<HTMLLimelExampleCircularProgressSizesElement>;
+            /**
+             * Editable with automatic theme
+             * Here you see an instance of the Code Editor component which allows editing the
+             * presented code.
+             * This instance has an `auto` `colorScheme`, which means it reacts
+             * to the operating system's settings for preferred appearance (dark or light).
+             */
+            "limel-example-code-editor": LocalJSX.LimelExampleCodeEditor & JSXBase.HTMLAttributes<HTMLLimelExampleCodeEditorElement>;
+            /**
+             * Editable with JSON linting and folding
+             * Here you see an instance of the Code Editor component with linting and
+             * folding support, which allows the user to see syntax errors in the JSON
+             * code shown in the editor. Folding makes it easier to collapse larger pieces
+             * of code.
+             */
+            "limel-example-code-editor-fold-lint": LocalJSX.LimelExampleCodeEditorFoldLint & JSXBase.HTMLAttributes<HTMLLimelExampleCodeEditorFoldLintElement>;
+            /**
+             * Readonly, with line numbers and dark theme
+             * Here you see a `readonly` instance of the Code Editor component. This means
+             * you cannot edit the code. We also display line numbers here.
+             * Additionally, this instance has a `dark` `colorScheme`, which means it does not
+             * respect the operating system's settings for preferred appearance (dark or light).
+             */
+            "limel-example-code-editor-readonly-with-line-numbers": LocalJSX.LimelExampleCodeEditorReadonlyWithLineNumbers & JSXBase.HTMLAttributes<HTMLLimelExampleCodeEditorReadonlyWithLineNumbersElement>;
+            "limel-example-collapsible-section": LocalJSX.LimelExampleCollapsibleSection & JSXBase.HTMLAttributes<HTMLLimelExampleCollapsibleSectionElement>;
+            /**
+             * Example with actions
+             */
+            "limel-example-collapsible-section-actions": LocalJSX.LimelExampleCollapsibleSectionActions & JSXBase.HTMLAttributes<HTMLLimelExampleCollapsibleSectionActionsElement>;
+            /**
+             * Using the CSS properties
+             */
+            "limel-example-collapsible-section-css-props": LocalJSX.LimelExampleCollapsibleSectionCssProps & JSXBase.HTMLAttributes<HTMLLimelExampleCollapsibleSectionCssPropsElement>;
+            /**
+             * Opening and closing from outside the component
+             */
+            "limel-example-collapsible-section-external-control": LocalJSX.LimelExampleCollapsibleSectionExternalControl & JSXBase.HTMLAttributes<HTMLLimelExampleCollapsibleSectionExternalControlElement>;
+            /**
+             * With a limel-slider - for testing
+             * :::note
+             * Some elements need to be redrawn if they were created
+             * while their container was hidden. The collapsible
+             * section will emit a resize event after opening, to make this happen.
+             * :::
+             */
+            "limel-example-collapsible-section-with-slider": LocalJSX.LimelExampleCollapsibleSectionWithSlider & JSXBase.HTMLAttributes<HTMLLimelExampleCollapsibleSectionWithSliderElement>;
+            "limel-example-color-picker": LocalJSX.LimelExampleColorPicker & JSXBase.HTMLAttributes<HTMLLimelExampleColorPickerElement>;
+            /**
+             * Using the component in `readonly` mode
+             * It is possible to use the component to visualize a color of your choice.
+             * In this case, users cannot pick any colors, but they can view what you have picked.
+             */
+            "limel-example-color-picker-readonly": LocalJSX.LimelExampleColorPickerReadonly & JSXBase.HTMLAttributes<HTMLLimelExampleColorPickerReadonlyElement>;
+            "limel-example-colors-in-components": LocalJSX.LimelExampleColorsInComponents & JSXBase.HTMLAttributes<HTMLLimelExampleColorsInComponentsElement>;
+            "limel-example-contrast-color-palette": LocalJSX.LimelExampleContrastColorPalette & JSXBase.HTMLAttributes<HTMLLimelExampleContrastColorPaletteElement>;
+            /**
+             * This component is only used in our documentations
+             * to provide a container for settings of examples.
+             * For example, it visually groups and organizes checkboxes
+             * used to show different states of components,
+             * such as Disabled, Required, Readonly, etc…
+             * :::warning
+             * For internal use only!
+             * :::
+             */
+            "limel-example-controls": LocalJSX.LimelExampleControls & JSXBase.HTMLAttributes<HTMLLimelExampleControlsElement>;
+            /**
+             * Custom form component
+             * You can specify a custom component to use for any property in your form. This
+             * is done under the `lime` key in the schema, following the
+             * [LimeSchemaOptions](#/type/LimeSchemaOptions/) specification, for example:
+             * ```ts
+             * const schema = {
+             *     type: 'object',
+             *     properties: {
+             *         hero: {
+             *             type: 'integer',
+             *             title: 'Hero',
+             *             lime: {
+             *                 component: {
+             *                     name: 'my-useful-hero-picker',
+             *                 },
+             *             },
+             *         },
+             *     },
+             * };
+             * ```
+             * While you can, in principle, use any component in a form, your custom form
+             * components should implement the [FormComponent](#/type/FormComponent/)
+             * interface.
+             * @sourceFile custom-component-schema.ts
+             * @sourceFile custom-component-picker.tsx
+             */
+            "limel-example-custom-component-form": LocalJSX.LimelExampleCustomComponentForm & JSXBase.HTMLAttributes<HTMLLimelExampleCustomComponentFormElement>;
+            /**
+             * Form with custom error message
+             * @sourceFile custom-error-message-schema.ts
+             */
+            "limel-example-custom-error-message": LocalJSX.LimelExampleCustomErrorMessage & JSXBase.HTMLAttributes<HTMLLimelExampleCustomErrorMessageElement>;
+            "limel-example-custom-picker": LocalJSX.LimelExampleCustomPicker & JSXBase.HTMLAttributes<HTMLLimelExampleCustomPickerElement>;
+            /**
+             * Custom type
+             * It is possible to send in a custom type,
+             * and provide it with custom, icon, heading and styles
+             */
+            "limel-example-custom-type": LocalJSX.LimelExampleCustomType & JSXBase.HTMLAttributes<HTMLLimelExampleCustomTypeElement>;
+            "limel-example-dark-light-mode": LocalJSX.LimelExampleDarkLightMode & JSXBase.HTMLAttributes<HTMLLimelExampleDarkLightModeElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states.
+             */
+            "limel-example-date-picker-composite": LocalJSX.LimelExampleDatePickerComposite & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerCompositeElement>;
+            /**
+             * Custom date formatter
+             * You can provide a function to customize the date formatting.
+             */
+            "limel-example-date-picker-custom-formatter": LocalJSX.LimelExampleDatePickerCustomFormatter & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerCustomFormatterElement>;
+            /**
+             * date
+             */
+            "limel-example-date-picker-date": LocalJSX.LimelExampleDatePickerDate & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerDateElement>;
+            /**
+             * datetime
+             */
+            "limel-example-date-picker-datetime": LocalJSX.LimelExampleDatePickerDatetime & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerDatetimeElement>;
+            /**
+             * With defined localization
+             */
+            "limel-example-date-picker-formatted": LocalJSX.LimelExampleDatePickerFormatted & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerFormattedElement>;
+            /**
+             * month
+             */
+            "limel-example-date-picker-month": LocalJSX.LimelExampleDatePickerMonth & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerMonthElement>;
+            /**
+             * Changing the input programmatically
+             */
+            "limel-example-date-picker-programmatic-change": LocalJSX.LimelExampleDatePickerProgrammaticChange & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerProgrammaticChangeElement>;
+            /**
+             * quarter
+             */
+            "limel-example-date-picker-quarter": LocalJSX.LimelExampleDatePickerQuarter & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerQuarterElement>;
+            /**
+             * time
+             */
+            "limel-example-date-picker-time": LocalJSX.LimelExampleDatePickerTime & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerTimeElement>;
+            /**
+             * week
+             */
+            "limel-example-date-picker-week": LocalJSX.LimelExampleDatePickerWeek & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerWeekElement>;
+            /**
+             * year
+             */
+            "limel-example-date-picker-year": LocalJSX.LimelExampleDatePickerYear & JSXBase.HTMLAttributes<HTMLLimelExampleDatePickerYearElement>;
+            "limel-example-dialog": LocalJSX.LimelExampleDialog & JSXBase.HTMLAttributes<HTMLLimelExampleDialogElement>;
+            /**
+             * Example with three action buttons
+             * This example shows how more than two buttons can be positioned in a dialog's
+             * footer. Pay attention to how they are labeled & styled, and how you can
+             * enable important actions conditionally.
+             * :::note
+             * When it comes to details such as placement of action buttons, choice of
+             * labels, and adding meaningful graphical details, it's important to follow
+             * a few design conventions which are explained in
+             * [this guide](#/DesignGuidelines/action-buttons.md/).
+             */
+            "limel-example-dialog-action-buttons": LocalJSX.LimelExampleDialogActionButtons & JSXBase.HTMLAttributes<HTMLLimelExampleDialogActionButtonsElement>;
+            /**
+             * Custom closing actions
+             * Action buttons in dialogs can be used to add a clear visual indication for
+             * the sighted users to realize that the dialog can be closed by pressing
+             * a button as well.
+             * This may sometimes be considered an unnecessary usage of action buttons for
+             * sighted users. Because majority of them users know that clicking or tapping
+             * outside the dialog closes it.
+             * Such buttons are usually labeled ***OK***, ***Dismiss*** or ***Close***.
+             * :::tip
+             * When to use action buttons for simple "close" actions?
+             * - In fullscreen dialogs where clicking outside to close is hard.
+             * - When big dialogs are opened on phones, which make tapping outside hard for users.
+             * - When designing with accessibility in mind, and for those users who
+             * use screen readers to navigate the user interface.
+             * :::
+             * But sometimes, depending on the importance of the message which is displayed,
+             * you have to choose to display a close button, and disable other means of
+             * dismissing the dialog.
+             * :::tip
+             * When to use custom closing actions?
+             * - To make sure that the user really reads and understands the dialog's content.
+             * - To make sure that the user does not accidentally click outside and close the dialog.
+             * :::
+             * For such cases, avoid generic labels like ***OK***, or ***Close*** which unconsciously
+             * motivate users to dismiss the message; and instead use more purposeful labels
+             * such as ***I understand***, ***Looks good!***, ***Continue***, and similar;
+             * like in the example below.
+             */
+            "limel-example-dialog-closing-actions": LocalJSX.LimelExampleDialogClosingActions & JSXBase.HTMLAttributes<HTMLLimelExampleDialogClosingActionsElement>;
+            /**
+             * Dialog with form and header
+             */
+            "limel-example-dialog-form": LocalJSX.LimelExampleDialogForm & JSXBase.HTMLAttributes<HTMLLimelExampleDialogFormElement>;
+            /**
+             * Fullscreen
+             */
+            "limel-example-dialog-fullscreen": LocalJSX.LimelExampleDialogFullscreen & JSXBase.HTMLAttributes<HTMLLimelExampleDialogFullscreenElement>;
+            /**
+             * Dialog with heading
+             * In this example you can also see how available style properties can be used.
+             */
+            "limel-example-dialog-heading": LocalJSX.LimelExampleDialogHeading & JSXBase.HTMLAttributes<HTMLLimelExampleDialogHeadingElement>;
+            /**
+             * Dialog with action inside the heading
+             * In this example you can also see how available style properties can be used.
+             */
+            "limel-example-dialog-heading-actions": LocalJSX.LimelExampleDialogHeadingActions & JSXBase.HTMLAttributes<HTMLLimelExampleDialogHeadingActionsElement>;
+            /**
+             * Nested `close` events
+             * When putting other elements that emit `close` events inside a dialog, those
+             * events must be caught and stopped inside the dialog. If not, they will bubble
+             * to the event handler listening for `close` events on the dialog, which will
+             * close the dialog too.
+             * This example has an event handler for the `close` event on the dialog, and
+             * a second event handler for the `close` event on the collapsible-section.
+             * Try it out with the _Stop the inner close-event_ switch disabled, and then
+             * with the switch enabled, to see the difference.
+             */
+            "limel-example-dialog-nested-close-events": LocalJSX.LimelExampleDialogNestedCloseEvents & JSXBase.HTMLAttributes<HTMLLimelExampleDialogNestedCloseEventsElement>;
+            /**
+             * Custom size
+             */
+            "limel-example-dialog-size": LocalJSX.LimelExampleDialogSize & JSXBase.HTMLAttributes<HTMLLimelExampleDialogSizeElement>;
+            /**
+             * Basic Example
+             * The Dock component can be used as a place for displaying the app's
+             * primary navigation.
+             * :::important
+             * Avoid having too many items in the Dock, because it will become
+             * problematic on mobile devices, when the component is rendered horizontally.
+             * :::
+             * It is possible to split the dock items into two sections and place one or
+             * more items at the bottom of the column. To do so, you can use `isFooterStart`
+             * on one of the items, which will act as a separator between the two sections,
+             * pushing itself and preceding to the bottom.
+             * :::important
+             * You must provide `label`s for to improve accesibility! Without labels,
+             * screen-readers cannot tell visually impared persons about the content
+             * of the Dock.
+             * :::
+             * It is possible to add extra information about the items using `helperLabel`.
+             * When the component is expanded, only the `helpeLabel` is used
+             * in the tooltip, when items are hovered.
+             * When the component is shrunk, both `label` and `helperLabel` are displayed
+             * inside the tooltip.
+             * Keep in mind that on a mobile phone, the component will be displayed horizontally
+             * and no labels are displayed! Instead, both `label` and `helperLabel` will be used
+             * as a tooltip to improve accessibility for screen-reader technologies.
+             * However, since hovering is not possible on touch-only mobile devices, users who
+             * rely on their vision to navigate the app will only see your chosen icons.
+             * So pick them carefully.
+             */
+            "limel-example-dock-basic": LocalJSX.LimelExampleDockBasic & JSXBase.HTMLAttributes<HTMLLimelExampleDockBasicElement>;
+            /**
+             * Using CSS color variables for theming the Dock
+             * A few CSS variables can be used to customize the look and feel of the steps.
+             * :::note
+             * Using CSS variables to tweak the colors, applies the colors globally to the
+             * component, not to individual Dock items!
+             * :::
+             * :::important
+             * Make sure that:
+             * - text has enough contrast with its background and is readable.
+             * :::
+             */
+            "limel-example-dock-colors-css": LocalJSX.LimelExampleDockColorsCss & JSXBase.HTMLAttributes<HTMLLimelExampleDockColorsCssElement>;
+            /**
+             * Displaying a custom component after Dock item is clicked
+             * It is possible to display a custom component in a popover,
+             * when the Dock item is clicked. This enables you to design
+             * the content of the menu as you wish, independently from the Dock.
+             * :::note
+             * Pay attention to the `--popover-surface-width` variable in the
+             * `.SCSS` file. That defines the width the popover component, which is `auto`
+             * by default. But modifying it may be helpful depending on the usage.
+             * :::
+             * @sourceFile my-custom-menu.tsx
+             */
+            "limel-example-dock-custom-component": LocalJSX.LimelExampleDockCustomComponent & JSXBase.HTMLAttributes<HTMLLimelExampleDockCustomComponentElement>;
+            /**
+             * Basic Example expanded
+             */
+            "limel-example-dock-expanded": LocalJSX.LimelExampleDockExpanded & JSXBase.HTMLAttributes<HTMLLimelExampleDockExpandedElement>;
+            /**
+             * Setting a horizontal layout for mobile devices.
+             * By default, the component has a vertical layout, placing the
+             * Dock items in a column. However, the component will render the
+             * Dock items in a horizontal layout when the screen width is smaller
+             * than `700px`.
+             * If you prefer the component to switch to the horizontal mobile layout
+             * at another breakpoint, use the `mobileBreakPoint` property and give it
+             * a desired value in pixels (without `px`).
+             * In this example, we have chosen a very large number (`5000`) to force
+             * the component to be rendered in mobile layout here in the documentation,
+             * no matter how large the reader's screen size is.
+             * :::important
+             * Triggering the mobile layout does not automatically adjust the position
+             * of the component at the bottom of the screen. You should do that manually
+             * yourself in a proper way, depending on where the component is used;
+             * for example by using CSS media queries, and setting `position: fixed`.
+             * :::
+             * :::note
+             * Labels are not displayed in horizontal layout, but they will be instead
+             * displayed as tooltips.
+             * :::
+             */
+            "limel-example-dock-mobile": LocalJSX.LimelExampleDockMobile & JSXBase.HTMLAttributes<HTMLLimelExampleDockMobileElement>;
+            /**
+             * Displaying a notification badge
+             * It is possible to display a notification badge on each individual
+             * button in the Dock. Badges are supposed to inform the user that
+             * there is something in the menu that requires their attention.
+             * This is typically done by displaying a number, which summarizes
+             * the quantity of the items that require user's attention.
+             * :::important
+             * The menus are not a part of the Dock. They are individual components
+             * that you develop separately. Make sure that the information
+             * and interactions regarding the notifications are correctly handled.
+             * For example, when the items that require user's attention are
+             * seen or handled by the user after opening the menu, the badge on the
+             * Dock button should disappear.
+             * :::
+             * When this quantity is unclear or undefined, you can simply pass an
+             * empty string (`badge: ''`), which will only render a circle on the button.
+             * This is enough to attract user's attention.
+             * However, it is also possible to use a short string such as "·" or "!"
+             * for such cases, if considered necessary.
+             * :::warning
+             * Do not negatively exploit this possibility and spam users' awareness.
+             * The Dock is the most important and most dominant structural part of
+             * the UI of your application. Therefore crowding it with too much noise
+             * _will_ negatively affect the user experience.
+             * :::
+             */
+            "limel-example-dock-notification": LocalJSX.LimelExampleDockNotification & JSXBase.HTMLAttributes<HTMLLimelExampleDockNotificationElement>;
+            /**
+             * Dynamic schema
+             */
+            "limel-example-dynamic-form": LocalJSX.LimelExampleDynamicForm & JSXBase.HTMLAttributes<HTMLLimelExampleDynamicFormElement>;
+            /**
+             * Basic example
+             * Switching the value to `true` or `false` will dynamically change the label,
+             * while the default label (including its icon) is ignored.
+             */
+            "limel-example-dynamic-label": LocalJSX.LimelExampleDynamicLabel & JSXBase.HTMLAttributes<HTMLLimelExampleDynamicLabelElement>;
+            /**
+             * Readonly boolean
+             * The `readonly` mode of a boolean fields do not always
+             * clearly communicate the meaning of the data to the end users. Similar problems
+             * have existed in user interfaces forever, and it not solely limited to
+             * readonly-ness of a boolean field. If you are interested in reading more
+             * about these common design problems, you can check out
+             * [**State-Switch Controls:** The Infamous Case of the "Mute" Button](https://www.nngroup.com/articles/state-switch-buttons/)
+             * In short, the reason end-users become confused is that it is not enough to
+             * keep the same label for both `true` and `false` states,
+             * and only rely on changing the color or the
+             * shapes and visual motifs, to communicate what the field means.
+             * Instead, we need to use different labels to describe the state,
+             * and also get some additional help from icons and colors
+             * to clarify further if needed.
+             * :::important
+             * This example shows how to setup the `limel-dynamic-label` component to
+             * create a more descriptive and dynamic labels for boolean fields.
+             * But please make sure to read our guidelines about
+             * [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/)
+             * to understand the importance of this, and get help in choosing the right labels
+             * for boolean fields.
+             * :::
+             */
+            "limel-example-dynamic-label-readonly-boolean": LocalJSX.LimelExampleDynamicLabelReadonlyBoolean & JSXBase.HTMLAttributes<HTMLLimelExampleDynamicLabelReadonlyBooleanElement>;
+            "limel-example-event-printer": LocalJSX.LimelExampleEventPrinter & JSXBase.HTMLAttributes<HTMLLimelExampleEventPrinterElement>;
+            "limel-example-extended-color-palette": LocalJSX.LimelExampleExtendedColorPalette & JSXBase.HTMLAttributes<HTMLLimelExampleExtendedColorPaletteElement>;
+            /**
+             * Basic example
+             */
+            "limel-example-file": LocalJSX.LimelExampleFile & JSXBase.HTMLAttributes<HTMLLimelExampleFileElement>;
+            /**
+             * Limit accepted file types
+             */
+            "limel-example-file-accepted-types": LocalJSX.LimelExampleFileAcceptedTypes & JSXBase.HTMLAttributes<HTMLLimelExampleFileAcceptedTypesElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states.
+             */
+            "limel-example-file-composite": LocalJSX.LimelExampleFileComposite & JSXBase.HTMLAttributes<HTMLLimelExampleFileCompositeElement>;
+            /**
+             * Custom icon and color
+             * This component automatically visualizes the file type, based on the extension
+             * of the selected file. The visualization is done by displaying a colorful icon
+             * along with the filename, for the most common file types.
+             * However, you can also customize the icon and its fill color & background color.
+             */
+            "limel-example-file-custom-icon": LocalJSX.LimelExampleFileCustomIcon & JSXBase.HTMLAttributes<HTMLLimelExampleFileCustomIconElement>;
+            /**
+             * Basic example
+             */
+            "limel-example-file-dropzone": LocalJSX.LimelExampleFileDropzone & JSXBase.HTMLAttributes<HTMLLimelExampleFileDropzoneElement>;
+            /**
+             * File type filtering
+             * The component allows you to specify the types of files that the dropzone will accept.
+             * By default, it accepts all file types (`*`).
+             * For media files, it is possible to specify any format, using:
+             * `audio/*`, `video/*`, `image/*`.
+             * Additionally, you can use unique file type specifiers, such as:
+             * `.jpg`, or `.pdf`; or use a comma-separated list of file extensions or MIME types,
+             * for instance: `image/png, image/jpeg` or `.png, .jpg, .jpeg`.
+             * Read more about
+             * [HTML attribute: accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept)
+             */
+            "limel-example-file-dropzone-type-filtering": LocalJSX.LimelExampleFileDropzoneTypeFiltering & JSXBase.HTMLAttributes<HTMLLimelExampleFileDropzoneTypeFilteringElement>;
+            /**
+             * Basic example
+             */
+            "limel-example-file-input": LocalJSX.LimelExampleFileInput & JSXBase.HTMLAttributes<HTMLLimelExampleFileInputElement>;
+            /**
+             * Example of a file input component with type filtering
+             */
+            "limel-example-file-input-type-filtering": LocalJSX.LimelExampleFileInputTypeFiltering & JSXBase.HTMLAttributes<HTMLLimelExampleFileInputTypeFilteringElement>;
+            /**
+             * Most common file types
+             * These are file formats that any web browser can display,
+             * without relying on any third-party plugins or additional
+             * plugins or extensions.
+             */
+            "limel-example-file-viewer": LocalJSX.LimelExampleFileViewer & JSXBase.HTMLAttributes<HTMLLimelExampleFileViewerElement>;
+            /**
+             * Adding custom actions
+             */
+            "limel-example-file-viewer-custom-actions": LocalJSX.LimelExampleFileViewerCustomActions & JSXBase.HTMLAttributes<HTMLLimelExampleFileViewerCustomActionsElement>;
+            /**
+             * Using the `filename` prop
+             * The component looks at the URL of the provided file, and based on how the
+             * URL ends, it can detect the extension and consequently choose the right way
+             * of rendering it in the browser.
+             * However, sometimes the URLs do not have the filename in them. In this case,
+             * it is vital to specify the filename, for the component to be able to render it.
+             * :::important
+             * Make sure the provided filename contains the correct extension!
+             * :::
+             * :::tip
+             * The filename that is specified will also be the filename that is used when the
+             * file is downloaded by clicking the download button on the File Viewer.
+             * :::
+             */
+            "limel-example-file-viewer-filename": LocalJSX.LimelExampleFileViewerFilename & JSXBase.HTMLAttributes<HTMLLimelExampleFileViewerFilenameElement>;
+            /**
+             * Using inbuilt actions
+             * The component offers a few inbuilt actions that enable users
+             * to download the file, open it in a new tab, or view it in fullscreen mode.
+             * :::note
+             * These action buttons do not get rendered for the office files,
+             * because the 3rd-party office viewers already offer the same features
+             * in their UI.
+             * :::
+             * :::important
+             * The download button will not work here in this example,
+             * due to the security policies of the web browsers.
+             * This is because the example files are not hosted in the same domain.
+             * :::
+             */
+            "limel-example-file-viewer-inbuilt-actions": LocalJSX.LimelExampleFileViewerInbuiltActions & JSXBase.HTMLAttributes<HTMLLimelExampleFileViewerInbuiltActionsElement>;
+            /**
+             * Office files
+             * There are many different software programs that can be used to create
+             * office files such as word processing documents, spreadsheets, and presentations.
+             * Web browsers do not natively support these formats for direct display.
+             * However, using the file-viewer component, you can easily display the content
+             * of office file types. The viewer relies on a few third-party technologies
+             * to render the file.
+             * By default, the component uses Microsoft Office Viewer, since it supports
+             * a wider range of file office formats. However, you can
+             * choose other viewers which are supported by this component.
+             * :::important
+             * 1. The file should be stored somewhere with a publicly accessible URL,
+             * otherwise the viewer cannot render them.
+             * 1. Once the file is viewed, it might get cached for a short while on the
+             * 3rd party servers –therefor remain publicly visible–,
+             * even if the original file deleted.
+             * 1. Files that are too large may not be rendered at all.
+             * :::
+             */
+            "limel-example-file-viewer-office": LocalJSX.LimelExampleFileViewerOffice & JSXBase.HTMLAttributes<HTMLLimelExampleFileViewerOfficeElement>;
+            /**
+             * See an instant preview
+             * Select a file from your local machine using the file picker below,
+             * and `limel-file-viewer` component will display the file, if the format
+             * is supported.
+             */
+            "limel-example-file-viewer-with-picker": LocalJSX.LimelExampleFileViewerWithPicker & JSXBase.HTMLAttributes<HTMLLimelExampleFileViewerWithPickerElement>;
+            /**
+             * Basic form with validation
+             * @sourceFile basic-schema.ts
+             */
+            "limel-example-form": LocalJSX.LimelExampleForm & JSXBase.HTMLAttributes<HTMLLimelExampleFormElement>;
+            /**
+             * Layout
+             * By default, each item in a limel-form will be rendered in a single row, and
+             * each row occupies the entire available width of the form's container.
+             * This default layout may work fine on small screens or narrow containers,
+             * but on larger screens it usually won't produce a nice layout. Thus we
+             * recommend that you choose an appropriate responsive layout for your form.
+             * ###### Enabling responsive layouts
+             * By specifying `'grid'` as the layout `type` in your schema, as well as your desired
+             * number of `columns`, you can leave the job of responsively handling the form
+             * layout to Lime Elements.
+             * ```ts
+             * export const schema = {
+             *     type: 'object',
+             *     lime: {
+             *         layout: {
+             *             type: 'grid',
+             *             columns: 3,
+             *         },
+             *     },
+             *     …
+             * };
+             * ```
+             * :::note
+             * Value for `columns` can only be `5`, `4`, `3`, `2`, or `1`. If you do not
+             * specify a value, `limel-form` will choose `5` by default.
+             * :::
+             * So if you have chosen `4` for instance, the form will do its best to fit
+             * four columns in a row. But for smaller containers in which placement of four
+             * items per row is not possible, the form will automatically change the layout
+             * and fit 3 items per row. As the container's width decreases, the number of
+             * columns will also decrease.
+             * :::tip
+             * You can divide a form into sections,
+             * and specify a different layout for each section.
+             * :::
+             * In this example, each collapsible section has its own `colSpan`.
+             * However, since the layout is responsive, make sure to change the browser
+             * window size to see how their responsive layout changes.
+             * @sourceFile layout-schema.ts
+             */
+            "limel-example-form-layout": LocalJSX.LimelExampleFormLayout & JSXBase.HTMLAttributes<HTMLLimelExampleFormLayoutElement>;
+            "limel-example-form-map-component": LocalJSX.LimelExampleFormMapComponent & JSXBase.HTMLAttributes<HTMLLimelExampleFormMapComponentElement>;
+            /**
+             * Row layout
+             * @sourceFile row-layout-schema.ts
+             */
+            "limel-example-form-row-layout": LocalJSX.LimelExampleFormRowLayout & JSXBase.HTMLAttributes<HTMLLimelExampleFormRowLayoutElement>;
+            /**
+             * Stretching fields in a form
+             * Sometimes, you need a field in the form to occupy several columns or the
+             * entire row, and stretch itself as wide as the form's width,
+             * disregarding the form's layout and placement of the item in the list.
+             * This could be nice for fields that require more space to provide better
+             * usability.
+             * :::tip
+             * For example, a larger `textarea` is easier for the user to type in and
+             * a `slider` that has many steps is easier to interact with when it is rendered wider.
+             * :::
+             * To do so, in your schema you need to specify a `layout` for the field itself.
+             * `span` specifies the number of columns that the field should span.
+             * Thus, `span` can be set to `2`, `3`, `4`, `5`, or `all`.
+             * Since we do not offer a *form layout* that has more than five columns,
+             * values higher than 5 (or higher than the maximum number of columns in the form)
+             * will only force the field to be full-width, just like `all` does.
+             * ```ts
+             * export const schema = {
+             *     …
+             *     properties: {
+             *         name: {
+             *             type: 'string',
+             *             title: 'Comment',
+             *             lime: {
+             *                 layout: {
+             *                       colSpan: 'all',
+             *                   },
+             *               },
+             *         },
+             *         …
+             *     },
+             *     …
+             * };
+             * ```
+             * ###### Dense layout (Auto reorder fields to avoid empty cells)
+             * The order of fields and the number of columns that a field must span, can
+             * affect the layout of your responsive form when the container width changes.
+             * Let's say you have a form with a 4 column layout, and you specify that its
+             * second field must span 3 columns.
+             * If the container's width decreases, it will force the form to render its
+             * layout in 3 columns instead. Therefore, the second field has to jump
+             * to the next line to still be able to span 3 columns.
+             * This will leave 2 empty cells in the first row, right after the first field.
+             * To avoid these empty cells in the UI, limel-form will place the next available
+             * field in this hole, provided it fits. So the hole may be filled by a single 2 column
+             * wide field, by two 1 column wide fields, or only partially filled by a single 1 column
+             * wide field. If none of the remaining fields fit, the hole will be left as it is.
+             * However, you can disable this functionality by setting `dense` to `false` in the
+             * options for the grid layout.
+             * ```ts
+             * export const schema = {
+             *     type: 'object',
+             *     lime: {
+             *         layout: {
+             *             type: 'grid',
+             *             dense: false,
+             *         },
+             *     },
+             * };
+             * ```
+             * :::note
+             * Sometimes, the order of fields are important for the way users perceive the form.
+             * If you choose to use the default auto-reordering behavior, make sure to test your
+             * form's layout in different screen sizes to see whether you can mitigate unwanted
+             * layout changes.
+             * Some unwanted results can be avoided by changing the order of the fields,
+             * so that they render appropriately on different screens, or by dividing
+             * the form into more sections.
+             * :::
+             * ###### Stretching a field vertically
+             * Most standard elements that can be used in forms, such as `limel-input`,
+             * `limel-select`, `limel-slider`, etc, have a fixed height, and therefore
+             * it does not really make sense to stretch them vertically, and we strongly
+             * recommend you not to!
+             * But there are some exceptions. One of them is `limel-input-field` with
+             * `type='textarea'`.
+             * Also, if you create a custom component for your form—let's say a map—you
+             * can use `rowSpan` to increase the height of your custom component.
+             * ```ts
+             * export const schema = {
+             *     type: 'object',
+             *     properties: {
+             *         comment: {
+             *             type: 'string',
+             *             title: 'Comment',
+             *             lime: {
+             *                 component: {
+             *                     props: {
+             *                         type: 'textarea',
+             *                     },
+             *                 },
+             *                 layout: {
+             *                       colSpan: 3,
+             *                       rowSpan: 2,
+             *                 },
+             *             },
+             *         },
+             *     },
+             * };
+             * ```
+             * :::note
+             * If you do *not* set the `rowSpan` for a component, it can stretch vertically
+             * within its row, and the row will simply expand with the component.
+             * If you *do* set a `rowSpan`, even if you set it to `1`, the component is
+             * fixed to that height. What happens to any potential overflow depends on the
+             * component.
+             * :::
+             * :::warning
+             * Custom web-components that you include in the forms should not have hard-coded
+             * `width` or `height` values! Otherwise they will stretch out of their cell and break
+             * the UI. Make sure that such components are internally designed to be responsive,
+             * and that their `:host` and any potential wrapping container has the following styles:
+             * ```scss
+             * :host {
+             *     display: block; // or another suitable property
+             *     width: 100%;
+             *     height: 100%;
+             * }
+             * :host([hidden]) {
+             *     display: none;
+             * }
+             * .my-component {
+             *     width: 100%;
+             *     height: 100%;
+             * }
+             * ```
+             * :::
+             * @sourceFile span-fields-schema.ts
+             */
+            "limel-example-form-span-fields": LocalJSX.LimelExampleFormSpanFields & JSXBase.HTMLAttributes<HTMLLimelExampleFormSpanFieldsElement>;
+            /**
+             * Form fields with help
+             * It's possible to add extensive help to any form element.
+             * The string you provide can be in Markdown format,
+             * empowering you to present a rich-text experience to the user,
+             * including bullet points, hyperlinks, etc…
+             * Read more on [Help](#/component/limel-help) component.
+             * :::note
+             * Do not confuse `help` and `helperText`!
+             * The helper text is a short description for the input fields
+             * that becomes visible when the user click on the fields to provide
+             * brief clues about the field or its expected value.
+             * It can also be used to display validation errors.
+             * These errors will be displayed in red below the fields, without
+             * requiring the users to click on the field.
+             * Check out the [Input field Component](#/component/limel-input-field)
+             * examples, where we describe how to properly use `helperText`, and `placeholder`.
+             * :::
+             * :::tip
+             * When rendering a form using a schema, the `helperText`s are automatically
+             * passed for all the fields based on the schema and validation errors.
+             * The `description` specified for a field in the schema is used as
+             * helper text while the field is shown as valid.
+             * When there is validation feedback to provide to the user,
+             * the field is instead marked as invalid with an error message that is displayed
+             * in the place of the helper text.
+             * :::
+             * @sourceFile help-form-schema.ts
+             */
+            "limel-example-form-with-help": LocalJSX.LimelExampleFormWithHelp & JSXBase.HTMLAttributes<HTMLLimelExampleFormWithHelpElement>;
+            /**
+             * We use the `grid-area` property to give each component a unique name, and
+             * then use this name to "draw" our grid layout.
+             * You can name each component anything you want, like `salespipe`, or
+             * `infotile-active-support-tickets`, but keeping the names to a fixed number of
+             * characters makes the "drawing" of the grid look more like the actual grid.
+             * One to three characters is probably a good number for most cases.
+             * Any "name" that doesn't match a named element will create empty cells. In our
+             * case, we use a dot (`.`) to mark empty cells. Empty cells can be put anywhere
+             * in the grid, not just at the end.
+             * Note that we can add some extra spaces after the dot marking an empty cell,
+             * in order to align the next cell in our config-string. This can also be used
+             * if your elements have named of differing lengths. The extra whitespace is
+             * ignored when the CSS is parsed.
+             * If the name of an element does not appear in the grid-configuration, it will
+             * not be displayed at all. This might be useful if you wish to show a specific
+             * component only under certain circumstances, like if the viewport is large
+             * enough to accomodate it.
+             */
+            "limel-example-grid": LocalJSX.LimelExampleGrid & JSXBase.HTMLAttributes<HTMLLimelExampleGridElement>;
+            /**
+             * Basic example
+             * :::tip
+             * Users can still hover the cursor on the truncated headings to read the full
+             * text.
+             * :::
+             */
+            "limel-example-header": LocalJSX.LimelExampleHeader & JSXBase.HTMLAttributes<HTMLLimelExampleHeaderElement>;
+            /**
+             * Colorful header
+             * It's up to you to choose colors for the background, text or icon.
+             * When you change the default colors pay attention to how they look together.
+             * For instance the text is readable and has enough contrast with a background color.
+             */
+            "limel-example-header-colors": LocalJSX.LimelExampleHeaderColors & JSXBase.HTMLAttributes<HTMLLimelExampleHeaderColorsElement>;
+            "limel-example-header-menu": LocalJSX.LimelExampleHeaderMenu & JSXBase.HTMLAttributes<HTMLLimelExampleHeaderMenuElement>;
+            /**
+             * Narrow headers
+             * Sometimes your UI design may require having a narrower header.
+             * This will be easy to achieve by sending in the class of `is-narrow`
+             * to your component.
+             * This will render the header icon smaller, and reduces the font size of
+             * the `heading`.
+             * :::tip
+             * Keep in mind that headers are programmed to grow in height, depending
+             * on their content. So if you have large custom components in the `actions`
+             * slot or use both `heading` and `subheading`, they will still force the header
+             * to appear tall.
+             * :::
+             */
+            "limel-example-header-narrow": LocalJSX.LimelExampleHeaderNarrow & JSXBase.HTMLAttributes<HTMLLimelExampleHeaderNarrowElement>;
+            /**
+             * How Responsive layout of header works
+             * However, sometimes you may need to make the layout be responsive and split
+             * into two rows, at a break point.
+             * To activate this responsive layout, you can simply add the `has-responsive-layout`
+             * class to your `limel-header` component.
+             * This makes a few changes in the layout. Firstly, both the left side (icon and
+             * headings) and right side (actions slot) will occupy 50% of the total header
+             * width each. However, the width of left and right side will never become smaller
+             * than `22rem`.
+             * :::tip
+             * The value of `22rem` is the default breakpoint. But you can easily change it
+             * by tweaking the `--header-responsive-breakpoint` variable in your component.
+             * :::
+             */
+            "limel-example-header-responsive": LocalJSX.LimelExampleHeaderResponsive & JSXBase.HTMLAttributes<HTMLLimelExampleHeaderResponsiveElement>;
+            /**
+             * Using the "actions" slot
+             * The component offers a place for including custom actions, or
+             * any other component that you want to include in the header.
+             * To include any component in the `actions` area,
+             * you can simply use the `slot="actions"` attribute.
+             * :::note
+             * In small containers when having the default layout, the `actions` area
+             * wins the battle of limited space! It means, if you have a very wide
+             * component in the actions area, it will never shrink in size, and instead
+             * forces the headings to truncate.
+             * :::
+             */
+            "limel-example-header-slot-actions": LocalJSX.LimelExampleHeaderSlotActions & JSXBase.HTMLAttributes<HTMLLimelExampleHeaderSlotActionsElement>;
+            /**
+             * Basic example
+             * This component accepts a string as a value and displays it in a popover.
+             * This string can be in markdown format, enabling you to add links, lists, etc;
+             * providing a richer experience for the user.
+             */
+            "limel-example-help": LocalJSX.LimelExampleHelp & JSXBase.HTMLAttributes<HTMLLimelExampleHelpElement>;
+            /**
+             * Basic example
+             */
+            "limel-example-helper-line": LocalJSX.LimelExampleHelperLine & JSXBase.HTMLAttributes<HTMLLimelExampleHelperLineElement>;
+            /**
+             * Animating the appearance of the helper line
+             * It is possible to hide the helper line component with a
+             * smooth animation of its height.
+             * Simply add the `class="hide"` to the component,
+             * and it will take care fo the animations.
+             */
+            "limel-example-helper-line-animation": LocalJSX.LimelExampleHelperLineAnimation & JSXBase.HTMLAttributes<HTMLLimelExampleHelperLineAnimationElement>;
+            /**
+             * Only with a character counter
+             */
+            "limel-example-helper-line-character-counter": LocalJSX.LimelExampleHelperLineCharacterCounter & JSXBase.HTMLAttributes<HTMLLimelExampleHelperLineCharacterCounterElement>;
+            /**
+             * When the helper line is empty
+             * When the component has no content, for example when there is no
+             * `helperTex`t or no character counter, the component will get a `display: none`
+             * as style, to avoid creating empty holes in the UI of the consumer component.
+             * This is important for example in a `flex` or `grid` component that has a `gap`
+             * between its children. If so, we don't want the empty
+             * `limel-helper-line` to get rendered and cause unnecessary gaps in the UI.
+             */
+            "limel-example-helper-line-empty": LocalJSX.LimelExampleHelperLineEmpty & JSXBase.HTMLAttributes<HTMLLimelExampleHelperLineEmptyElement>;
+            /**
+             * Invalid example
+             */
+            "limel-example-helper-line-invalid": LocalJSX.LimelExampleHelperLineInvalid & JSXBase.HTMLAttributes<HTMLLimelExampleHelperLineInvalidElement>;
+            /**
+             * With a long helper text
+             */
+            "limel-example-helper-line-long-text": LocalJSX.LimelExampleHelperLineLongText & JSXBase.HTMLAttributes<HTMLLimelExampleHelperLineLongTextElement>;
+            /**
+             * With a long helper text, but no counter
+             */
+            "limel-example-helper-line-long-text-no-counter": LocalJSX.LimelExampleHelperLineLongTextNoCounter & JSXBase.HTMLAttributes<HTMLLimelExampleHelperLineLongTextNoCounterElement>;
+            /**
+             * Basic Example
+             * Just an icon and a click-handler.
+             * Open the dev-tools console to see logged clicks.
+             */
+            "limel-example-icon-button-basic": LocalJSX.LimelExampleIconButtonBasic & JSXBase.HTMLAttributes<HTMLLimelExampleIconButtonBasicElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states.
+             */
+            "limel-example-icon-button-composite": LocalJSX.LimelExampleIconButtonComposite & JSXBase.HTMLAttributes<HTMLLimelExampleIconButtonCompositeElement>;
+            /**
+             * Disabled
+             */
+            "limel-example-icon-button-disabled": LocalJSX.LimelExampleIconButtonDisabled & JSXBase.HTMLAttributes<HTMLLimelExampleIconButtonDisabledElement>;
+            /**
+             * Elevated
+             * An alternative button style, which helps communicate that this is a button
+             * which can be clicked.
+             */
+            "limel-example-icon-button-elevated": LocalJSX.LimelExampleIconButtonElevated & JSXBase.HTMLAttributes<HTMLLimelExampleIconButtonElevatedElement>;
+            /**
+             * Toggle State
+             * This isn't really a feature of `limel-icon-button`, but since it is a common
+             * use case, here is a simple way to make the icon button toggle between two
+             * different "states", each with its own icon and label.
+             */
+            "limel-example-icon-button-toggle-state": LocalJSX.LimelExampleIconButtonToggleState & JSXBase.HTMLAttributes<HTMLLimelExampleIconButtonToggleStateElement>;
+            /**
+             * Colors
+             * Icons will inherit their colors form the `color` property of the parent element.
+             * For styling the background color, you can use the CSS variable
+             * `--icon-background-color`.
+             * :::note
+             * Note that `badge` is set to `true` to provide more space around the icon,
+             * and make sure the background color is nicely displayed.
+             * But the `bade` has effect, only when the `size` attribute is also set.
+             * :::
+             */
+            "limel-example-icon-color": LocalJSX.LimelExampleIconColor & JSXBase.HTMLAttributes<HTMLLimelExampleIconColorElement>;
+            /**
+             * Icon Finder
+             * Used in the docs for `limel-icon`.
+             */
+            "limel-example-icon-finder": LocalJSX.LimelExampleIconFinder & JSXBase.HTMLAttributes<HTMLLimelExampleIconFinderElement>;
+            /**
+             * Names
+             * To display an icon, all you need to do is specifying its name.
+             */
+            "limel-example-icon-name": LocalJSX.LimelExampleIconName & JSXBase.HTMLAttributes<HTMLLimelExampleIconNameElement>;
+            /**
+             * Size
+             * There are preset sizes.
+             * :::note
+             * Setting the `bade` prop to `true` affects how big the icon is rendered,
+             * but only when the `size` attribute is also set.
+             * :::
+             */
+            "limel-example-icon-size": LocalJSX.LimelExampleIconSize & JSXBase.HTMLAttributes<HTMLLimelExampleIconSizeElement>;
+            /**
+             * Basic example
+             * This component does its best to offer a responsive layout
+             * that reacts both to the length of text, and size of the container.
+             * :::note
+             * To use this component properly, you need to define both
+             * a declared `height` and a declared `width` for it. Alternatively,
+             * make sure that its container enforces a width and height,
+             * for instance, use it as a flex or grid child.
+             * :::
+             * In this example, you can resize the component to see how it
+             * tries to adjust its content to the size of its container.
+             * :::tip
+             * Try to avoid long textual content to get
+             * the best possible visualization. They can cause
+             * undesired overlapping of the content, depending on the size of the
+             * component.
+             * :::
+             */
+            "limel-example-info-tile": LocalJSX.LimelExampleInfoTile & JSXBase.HTMLAttributes<HTMLLimelExampleInfoTileElement>;
+            /**
+             * Displaying a notification badge
+             * The component can display a badge, which could either be a `number` or
+             * a `string`. Read more about how the badge truncates or abbreviates the
+             * provided label [here](#/component/limel-badge/).
+             */
+            "limel-example-info-tile-badge": LocalJSX.LimelExampleInfoTileBadge & JSXBase.HTMLAttributes<HTMLLimelExampleInfoTileBadgeElement>;
+            /**
+             * Loading state
+             * Sometimes the value needs to be calculated, updated, or fetched
+             * through a process that requires some time. In such cases, it is
+             * a great idea to let the users know that the data is being updated.
+             * To do so, set the `loading` property to `true`. The component will then
+             * show an indeterminate progressbar indicating the data is being updated,
+             * while the older value is still being displayed.
+             * :::note
+             * Note that this does _not_ disable the link, and most probably you
+             * do not need it to be disabled either.
+             * If the link should be disabled while loading, the
+             * `disabled` property should be set to `true` as well.
+             * :::
+             */
+            "limel-example-info-tile-loading": LocalJSX.LimelExampleInfoTileLoading & JSXBase.HTMLAttributes<HTMLLimelExampleInfoTileLoadingElement>;
+            /**
+             * Displaying a progress bar
+             * By defining a numeric `progressValue`, you can display
+             * a circular progress bar to visualize more data on the component.
+             * This can for instance help illustrate how much of a
+             * set goal has been reached, which together with the `value` will help users
+             * get a better overview of the provided data.
+             * When the circular progress is shown, that would become the primary
+             * illustrative element on the component,
+             * which means the icon will be rendered smaller, only as a supportive
+             * contextual visual element.
+             * :::tip
+             * It is possible to customize the progress bar's suffix, but it is
+             * set to display the percentage sign (**%**) by default.
+             * :::
+             */
+            "limel-example-info-tile-progress": LocalJSX.LimelExampleInfoTileProgress & JSXBase.HTMLAttributes<HTMLLimelExampleInfoTileProgressElement>;
+            /**
+             * How to style the Info tile
+             * The component offers different CSS variables for styling
+             * the color of the text, background, and it's icon; as well as
+             * radius of it's rounded corners, and colors of the notification badge
+             * and its text.
+             */
+            "limel-example-info-tile-styling": LocalJSX.LimelExampleInfoTileStyling & JSXBase.HTMLAttributes<HTMLLimelExampleInfoTileStylingElement>;
+            /**
+             * Input Field with Completions
+             */
+            "limel-example-input-field-autocomplete": LocalJSX.LimelExampleInputFieldAutocomplete & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldAutocompleteElement>;
+            /**
+             * Input Field with Error Icon
+             */
+            "limel-example-input-field-error-icon": LocalJSX.LimelExampleInputFieldErrorIcon & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldErrorIconElement>;
+            /**
+             * Setting focus programmatically
+             * To set focus programmatically, call `.focus()` on the `limel-input-field`
+             * element. Note that, for this to work, the `tabindex` property must be set
+             * on the `limel-input-field`.
+             * - `tabindex="0"` means that the element should be focusable in sequential
+             * keyboard navigation, after any positive tabindex values and its order is
+             * defined by the document's source order.
+             * - A _positive value_ means the element should be focusable in sequential
+             * keyboard navigation, with its order defined by the value of the number.
+             * Read more on [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex).
+             */
+            "limel-example-input-field-focus": LocalJSX.LimelExampleInputFieldFocus & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldFocusElement>;
+            /**
+             * Input Field with Leading and Trailing Icons & Action
+             */
+            "limel-example-input-field-icon-both": LocalJSX.LimelExampleInputFieldIconBoth & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldIconBothElement>;
+            /**
+             * Input Field with Leading Icon
+             * A leading icon can be used to visually "decorate" the input field. The
+             * purpose for adding a leading icon should be to help the user understand what
+             * the field is for.
+             * In this example, we use a map icon in addition to the "Address" label, to
+             * indicate that this field is meant for a physical address.
+             * The example has a minimum length just to show what an invalid field looks
+             * like.
+             */
+            "limel-example-input-field-icon-leading": LocalJSX.LimelExampleInputFieldIconLeading & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldIconLeadingElement>;
+            /**
+             * Input Field with Trailing Icon & Action
+             * A trailing icon can be added to input fields along with an action
+             * for that trailing icon.
+             * :::note
+             * Use trailing icons only when you intend to have an action associated with them.
+             * Trailing icons of input fields will get an interactive visual effect when
+             * hovered to hint users that they are clickable.
+             * Therefore, a purely ornamental trailing icon that has this interactive effect
+             * will be confusing for users.
+             * :::
+             */
+            "limel-example-input-field-icon-trailing": LocalJSX.LimelExampleInputFieldIconTrailing & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldIconTrailingElement>;
+            /**
+             * Input Field of Type Number
+             */
+            "limel-example-input-field-number": LocalJSX.LimelExampleInputFieldNumber & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldNumberElement>;
+            /**
+             * Input Field with pattern
+             */
+            "limel-example-input-field-pattern": LocalJSX.LimelExampleInputFieldPattern & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldPatternElement>;
+            /**
+             * Input Field with a placeholder
+             * The placeholder text is displayed inside the input field,
+             * when the field is focused and empty.
+             * :::tip
+             * A `placeholder` text is good for providing hints and examples about the expected input.
+             * While the `helperText` is better for providing instructions.
+             * :::
+             * Unlike `helperText` which is constantly visible while the user is typing
+             * inside the field, the `placeholder` text disappears as soon as the user has
+             * input anything.
+             * :::note
+             * Make an informed decision when using `placeholder` instead of `helperText`!
+             * You may have good intentions to reduce clutter on the user interface
+             * and use a placeholder text, because it will disappear after user has started typing.
+             * However, if the additional tips or instructions that you are trying to provide is
+             * crucial or hard to remember, it is better to display them as helper text instead.
+             * This is because disappearing crucial information will strains users’ short-term memory.
+             * In a form with many fields, users can easily forget
+             * what each field was for. Especially if a field has validations that fail
+             * for example after submitting. Instructions that are not visible anymore will make it
+             * hard for the user to realize what the problem is or how to solve it.
+             * :::
+             * :::warning
+             * If no `label` is provided, then the placeholder text will be displayed even if the
+             * input field is not focused.
+             * However, this does not mean that you should use this
+             * as a hack, to create a minimalistic and clean user interface. Not providing labels
+             * will cause accessibility issues for users of assistive technologies,
+             * and strains users’ short-term memory as explained above.
+             * Additionally, users may confuse the placeholder text, as an automatically
+             * inputted value, and skip filling in information.
+             * :::
+             */
+            "limel-example-input-field-placeholder": LocalJSX.LimelExampleInputFieldPlaceholder & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldPlaceholderElement>;
+            /**
+             * Prefix
+             * An input Field with a currency symbol text displayed as prefix
+             */
+            "limel-example-input-field-prefix": LocalJSX.LimelExampleInputFieldPrefix & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldPrefixElement>;
+            /**
+             * Input Field of Type Search
+             */
+            "limel-example-input-field-search": LocalJSX.LimelExampleInputFieldSearch & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldSearchElement>;
+            /**
+             * With `showLink=true`
+             */
+            "limel-example-input-field-showlink": LocalJSX.LimelExampleInputFieldShowlink & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldShowlinkElement>;
+            /**
+             * Suffix
+             * An Input Field with a unit of measurement displayed as suffix
+             */
+            "limel-example-input-field-suffix": LocalJSX.LimelExampleInputFieldSuffix & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldSuffixElement>;
+            /**
+             * Input Field of Type Text
+             */
+            "limel-example-input-field-text": LocalJSX.LimelExampleInputFieldText & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldTextElement>;
+            /**
+             * Input Field of Type Text
+             */
+            "limel-example-input-field-text-decluttering-guidelines": LocalJSX.LimelExampleInputFieldTextDeclutteringGuidelines & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldTextDeclutteringGuidelinesElement>;
+            /**
+             * Multiple Fields
+             */
+            "limel-example-input-field-text-multiple": LocalJSX.LimelExampleInputFieldTextMultiple & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldTextMultipleElement>;
+            /**
+             * Input Field of Type Textarea
+             */
+            "limel-example-input-field-textarea": LocalJSX.LimelExampleInputFieldTextarea & JSXBase.HTMLAttributes<HTMLLimelExampleInputFieldTextareaElement>;
+            "limel-example-linear-progress": LocalJSX.LimelExampleLinearProgress & JSXBase.HTMLAttributes<HTMLLimelExampleLinearProgressElement>;
+            /**
+             * Setting the color
+             */
+            "limel-example-linear-progress-color": LocalJSX.LimelExampleLinearProgressColor & JSXBase.HTMLAttributes<HTMLLimelExampleLinearProgressColorElement>;
+            /**
+             * Indeterminate progress bar
+             */
+            "limel-example-linear-progress-indeterminate": LocalJSX.LimelExampleLinearProgressIndeterminate & JSXBase.HTMLAttributes<HTMLLimelExampleLinearProgressIndeterminateElement>;
+            /**
+             * Basic list
+             */
+            "limel-example-list": LocalJSX.LimelExampleList & JSXBase.HTMLAttributes<HTMLLimelExampleListElement>;
+            /**
+             * List with action menu
+             */
+            "limel-example-list-action": LocalJSX.LimelExampleListAction & JSXBase.HTMLAttributes<HTMLLimelExampleListActionElement>;
+            /**
+             * List with badge icons
+             */
+            "limel-example-list-badge-icons": LocalJSX.LimelExampleListBadgeIcons & JSXBase.HTMLAttributes<HTMLLimelExampleListBadgeIconsElement>;
+            /**
+             * Multi-line versus single-line layout
+             * By default, list items will always truncate the `text` line, which is displayed
+             * either alone, or as a primary heading (when there are both `text` and `secondaryText`)
+             * available. This means users will only see one line of text which is as wides as
+             * the list item, and no more. Thus, it is a good idea not to add long strings of
+             * text in the heading, as on mobile phones or small containers, they will be
+             * chopped off and truncated.
+             * However, the `secondaryText` which appears as a sub-heading is not truncated
+             * that quickly. By default, lists will display 3 lines of text, and then truncate
+             * the rest. Nevertheless, you can increase or decrease this number by specifying
+             * `maxLinesSecondaryText`.
+             * :::note
+             * Do not use `0`, negative numbers, decimal numbers, or very large numbers.
+             * :::
+             */
+            "limel-example-list-badge-icons-with-multiple-lines": LocalJSX.LimelExampleListBadgeIconsWithMultipleLines & JSXBase.HTMLAttributes<HTMLLimelExampleListBadgeIconsWithMultipleLinesElement>;
+            /**
+             * List with checkboxes
+             */
+            "limel-example-list-checkbox": LocalJSX.LimelExampleListCheckbox & JSXBase.HTMLAttributes<HTMLLimelExampleListCheckboxElement>;
+            /**
+             * List with checkboxes and icons
+             */
+            "limel-example-list-checkbox-icons": LocalJSX.LimelExampleListCheckboxIcons & JSXBase.HTMLAttributes<HTMLLimelExampleListCheckboxIconsElement>;
+            /**
+             * List data
+             * @sourceFile list-schema.ts
+             */
+            "limel-example-list-form": LocalJSX.LimelExampleListForm & JSXBase.HTMLAttributes<HTMLLimelExampleListFormElement>;
+            /**
+             * List with grid layout
+             * To display list items in a grid layout instead of a vertical column,
+             * simply add `has-grid-layout` class to
+             * the component.
+             * This layout can be customized, using a few CSS variables.
+             * :::warning
+             * - This layout should not be used with lists that have checkboxes or radio buttons.
+             * - Also, it is recommended to avoid using secondary text with this layout.
+             */
+            "limel-example-list-grid": LocalJSX.LimelExampleListGrid & JSXBase.HTMLAttributes<HTMLLimelExampleListGridElement>;
+            /**
+             * List with icons
+             */
+            "limel-example-list-icons": LocalJSX.LimelExampleListIcons & JSXBase.HTMLAttributes<HTMLLimelExampleListIconsElement>;
+            /**
+             * List with a primary component
+             */
+            "limel-example-list-primary-component": LocalJSX.LimelExampleListPrimaryComponent & JSXBase.HTMLAttributes<HTMLLimelExampleListPrimaryComponentElement>;
+            /**
+             * List with radio buttons
+             */
+            "limel-example-list-radio-button": LocalJSX.LimelExampleListRadioButton & JSXBase.HTMLAttributes<HTMLLimelExampleListRadioButtonElement>;
+            /**
+             * List with radio buttons and icons
+             */
+            "limel-example-list-radio-button-icons": LocalJSX.LimelExampleListRadioButtonIcons & JSXBase.HTMLAttributes<HTMLLimelExampleListRadioButtonIconsElement>;
+            /**
+             * List with secondary text
+             */
+            "limel-example-list-secondary": LocalJSX.LimelExampleListSecondary & JSXBase.HTMLAttributes<HTMLLimelExampleListSecondaryElement>;
+            /**
+             * List with selectable items
+             */
+            "limel-example-list-selectable": LocalJSX.LimelExampleListSelectable & JSXBase.HTMLAttributes<HTMLLimelExampleListSelectableElement>;
+            /**
+             * List with separators
+             * Separators are simple yet powerful design elements that can be
+             * employed in lists of items. They offer significant usability advantages
+             * by providing valuable visual cues that aid users in perceiving
+             * and navigating through lists.
+             * - **Grouping and Hierarchy:**
+             * Separators can be used to group related items, signaling to users that
+             * those items share a common attribute or purpose.
+             * This grouping effect aids in creating a hierarchical structure within the list,
+             * making it simpler for users to grasp relationships and make informed decisions.
+             * - **Visual Scannability:**
+             * When users quickly scan a list, their eyes naturally use the separator lines
+             * as visual anchors, making it easier to find items and remember their whereabouts
+             * next time they revisit the same list.
+             * - **Reduced Cognitive Effort:**
+             * Separators contribute to a user's overall comprehension and experience
+             * by reducing the cognitive effort required to process the information.
+             * You can optionally add a short title to the separators,
+             * to clarify further what each group of items is about,
+             * and by doing so improve the users perception and experience.
+             */
+            "limel-example-list-separator": LocalJSX.LimelExampleListSeparator & JSXBase.HTMLAttributes<HTMLLimelExampleListSeparatorElement>;
+            /**
+             * List with custom styles
+             * Adding the `has-striped-rows` class to the list will make the items more
+             * distinct by adding different background colors to even and odd rows.
+             * Also, by taking advantage of the `has-interactive-items`, hovering on a list
+             * item which is not `disabled` will display an elevated visual effect, giving
+             * it more affordance and a solid feeling of interactivity.
+             * | Class name              | Description                                                                                     |
+             * | ----------------------- | ----------------------------------------------------------------------------------------------- |
+             * | `has-striped-rows`      | Adds distinct styling by which every other row (list item) gets a darker background.            |
+             * | `has-interactive-items` | Adds more affordance by applying an elevated visual effect on list item, when they are hovered. |
+             * :::note
+             * to get both effects, you need to apply both of these classes.
+             * :::
+             */
+            "limel-example-list-striped": LocalJSX.LimelExampleListStriped & JSXBase.HTMLAttributes<HTMLLimelExampleListStripedElement>;
+            /**
+             * Blockquotes
+             */
+            "limel-example-markdown-blockquotes": LocalJSX.LimelExampleMarkdownBlockquotes & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownBlockquotesElement>;
+            /**
+             * Code
+             */
+            "limel-example-markdown-code": LocalJSX.LimelExampleMarkdownCode & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownCodeElement>;
+            /**
+             * Composite example
+             * Test your markdown code and see what you get in return in real-time.
+             */
+            "limel-example-markdown-composite": LocalJSX.LimelExampleMarkdownComposite & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownCompositeElement>;
+            /**
+             * Emphasis
+             */
+            "limel-example-markdown-emphasis": LocalJSX.LimelExampleMarkdownEmphasis & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownEmphasisElement>;
+            /**
+             * Footnote
+             */
+            "limel-example-markdown-footnotes": LocalJSX.LimelExampleMarkdownFootnotes & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownFootnotesElement>;
+            /**
+             * Headings
+             */
+            "limel-example-markdown-headings": LocalJSX.LimelExampleMarkdownHeadings & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownHeadingsElement>;
+            /**
+             * Horizontal Rule
+             */
+            "limel-example-markdown-horizontal-rule": LocalJSX.LimelExampleMarkdownHorizontalRule & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownHorizontalRuleElement>;
+            /**
+             * HTML
+             */
+            "limel-example-markdown-html": LocalJSX.LimelExampleMarkdownHtml & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownHtmlElement>;
+            /**
+             * Images
+             */
+            "limel-example-markdown-images": LocalJSX.LimelExampleMarkdownImages & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownImagesElement>;
+            /**
+             * Links
+             * There are two ways to create links.
+             */
+            "limel-example-markdown-links": LocalJSX.LimelExampleMarkdownLinks & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownLinksElement>;
+            /**
+             * Lists
+             */
+            "limel-example-markdown-lists": LocalJSX.LimelExampleMarkdownLists & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownListsElement>;
+            /**
+             * Tables
+             */
+            "limel-example-markdown-tables": LocalJSX.LimelExampleMarkdownTables & JSXBase.HTMLAttributes<HTMLLimelExampleMarkdownTablesElement>;
+            /**
+             * With badge icons
+             */
+            "limel-example-menu-badge-icons": LocalJSX.LimelExampleMenuBadgeIcons & JSXBase.HTMLAttributes<HTMLLimelExampleMenuBadgeIconsElement>;
+            /**
+             * Basic example
+             * With a simple `onSelect` handler.
+             */
+            "limel-example-menu-basic": LocalJSX.LimelExampleMenuBasic & JSXBase.HTMLAttributes<HTMLLimelExampleMenuBasicElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states. This example has a slightly
+             * more advanced `onSelect` handler, which disables the last selected value.
+             */
+            "limel-example-menu-composite": LocalJSX.LimelExampleMenuComposite & JSXBase.HTMLAttributes<HTMLLimelExampleMenuCompositeElement>;
+            /**
+             * Disabled
+             * Note that you don't need to disable the trigger button separately, as the
+             * component takes care of this for you.
+             */
+            "limel-example-menu-disabled": LocalJSX.LimelExampleMenuDisabled & JSXBase.HTMLAttributes<HTMLLimelExampleMenuDisabledElement>;
+            /**
+             * With grid layout
+             * To render items of a menu in a grid layout instead of a vertical list,
+             * simply setting the `gridLayout` property to `true`.
+             * :::note
+             * Menus with the grid layout has a responsive width by default,
+             * which will not grow wider than a certain size. However, if the default size is not
+             * wide enough for your use case, you can try setting another responsive width, using
+             * the `--menu-surface-width` variable.
+             * To achieve a responsive width, try using the `min()` function.
+             * This function selects the smallest value from a list of comma-separated expressions
+             * which are placed within the parentheses.
+             * For example, `--menu-surface-width: min(100vw, 40rem);` will output
+             * `width: min(100wv, 40rem);` which will tell the browser to render the menu
+             * content in a 40rem-wide grid, as long as 100% of the viewport's width (`100vw`)
+             * is larger than `40rem`.
+             * :::
+             * To tweak the grid layout, a few other variables are available:
+             * - `--list-grid-item-max-width`: Defines maximum width of items in the list, which defaults to `10rem`.
+             * - `--list-grid-item-min-width`: Defines minimum width of items, which to `7.5rem`.
+             * - `--list-grid-gap`: Defines the distance between the items, which defaults to `0.75rem`.
+             */
+            "limel-example-menu-grid": LocalJSX.LimelExampleMenuGrid & JSXBase.HTMLAttributes<HTMLLimelExampleMenuGridElement>;
+            /**
+             * Menu with supporting hotkeys
+             */
+            "limel-example-menu-hotkeys": LocalJSX.LimelExampleMenuHotkeys & JSXBase.HTMLAttributes<HTMLLimelExampleMenuHotkeysElement>;
+            /**
+             * With icons
+             */
+            "limel-example-menu-icons": LocalJSX.LimelExampleMenuIcons & JSXBase.HTMLAttributes<HTMLLimelExampleMenuIconsElement>;
+            /**
+             * With notification
+             * It is possible to display a notification badge on each individual
+             * list item inside the menu's dropdown.
+             * These notification badges are supposed to inform the user that
+             * there is something in the menu item that requires their attention.
+             * This is typically done by displaying a number, which summarizes
+             * the quantity of the items that require user's attention.
+             * However, if a number is not meaningful, it is possible to send an
+             * empty string (`badge: ''`), which will display a circle on the
+             * list item.
+             * Since list items in the menu are hidden away, users would not
+             * realize that there is something inside the menu which requires their
+             * attention. Which is why the trigger automatically displays a
+             * notification badge on its top-right corner,
+             * when the menu contains badges.
+             * By default, the badge is red and its text is white.
+             * This is to attract users' attention. However, this is possible to override using
+             * [provided style variables](/#/component/limel-menu/styles/).
+             * :::warning
+             * - Do not negatively exploit this possibility and spam users' attention.
+             * Crowding the UI with too much noise _will_ negatively affect the user experience.
+             * - Notification badges *must* be cleared as soon as the list item is clicked by the user!
+             * :::
+             */
+            "limel-example-menu-notification": LocalJSX.LimelExampleMenuNotification & JSXBase.HTMLAttributes<HTMLLimelExampleMenuNotificationElement>;
+            /**
+             * openDirection
+             * The value of the `openDirection` property defines how the menu content
+             * is aligned with its trigger element, and in which direction it opens.
+             */
+            "limel-example-menu-open-direction": LocalJSX.LimelExampleMenuOpenDirection & JSXBase.HTMLAttributes<HTMLLimelExampleMenuOpenDirectionElement>;
+            /**
+             * Opening sub-menus programmatically
+             * **This example is currently not in use because it's an experimental feature**
+             * It is possible to open any sub-menu in the menu-hierarchy.
+             * This is done by using the parentItem property of the MenuItem class.
+             * @sourceFile item-constants.ts
+             */
+            "limel-example-menu-open-sub-menu-programmatically": LocalJSX.LimelExampleMenuOpenSubMenuProgrammatically & JSXBase.HTMLAttributes<HTMLLimelExampleMenuOpenSubMenuProgrammaticallyElement>;
+            /**
+             * Searchable items
+             * @sourceFile subitems-search.ts
+             * @sourceFile item-constants.ts
+             */
+            "limel-example-menu-searchable": LocalJSX.LimelExampleMenuSearchable & JSXBase.HTMLAttributes<HTMLLimelExampleMenuSearchableElement>;
+            /**
+             * With `secondaryText`
+             * Menu items can display secondary text as well. By default, the secondary text
+             * will be displayed in two lines, and then get truncated.
+             * :::important
+             * Keep in mind that a menu's drop-down surface will stretch as much as its default
+             * maximum width values allow. However, if this default maximum width does not suit
+             * your use case, you can override it using the `--menu-surface-width` variable.
+             * But do not forget that menus should still behave responsively, thus assigning a fixed value
+             * should be avoided. To make the width responsive, try using the `min()` function.
+             * This function selects the smallest value from a list of comma-separated expressions
+             * which are placed within the parentheses.
+             * For example, `--menu-surface-width: min(90vw, 40rem);` will output
+             * `width: min(90wv, 40rem);` which will tell the browser to render the menu
+             * content in a grid that's allowed to take up 90% of the viewport's width (`90vw`)
+             * up to a maximum of `40rem`.
+             * :::
+             */
+            "limel-example-menu-secondary-text": LocalJSX.LimelExampleMenuSecondaryText & JSXBase.HTMLAttributes<HTMLLimelExampleMenuSecondaryTextElement>;
+            /**
+             * Using separators with titles
+             * You divide groups of items using separators.
+             * It is also possible add a short title to the separators,
+             * to clarify further what each group of menu items is about,
+             * and by doing so improve the users perception and experience.
+             */
+            "limel-example-menu-separators": LocalJSX.LimelExampleMenuSeparators & JSXBase.HTMLAttributes<HTMLLimelExampleMenuSeparatorsElement>;
+            /**
+             * Lazy loading items in sub-menus
+             * @sourceFile menu-sub-menu-lazy-loading-service-mock.ts
+             */
+            "limel-example-menu-sub-menu-lazy-loading": LocalJSX.LimelExampleMenuSubMenuLazyLoading & JSXBase.HTMLAttributes<HTMLLimelExampleMenuSubMenuLazyLoadingElement>;
+            /**
+             * Lazy loading infinite amount of sub-menu
+             * :::note
+             * This example is here to show what the component looks like when you have a
+             * lot of nested sub-menus, and what the breadcrumb component looks like when
+             * you are deep into the menu.
+             * If you are looking for code examples, please see the
+             * _Lazy loading items in sub-menus_ example instead.
+             * :::
+             */
+            "limel-example-menu-sub-menu-lazy-loading-infinite": LocalJSX.LimelExampleMenuSubMenuLazyLoadingInfinite & JSXBase.HTMLAttributes<HTMLLimelExampleMenuSubMenuLazyLoadingInfiniteElement>;
+            /**
+             * Sub-menus
+             * To have an enhanced navigation and provide a better organization of items,
+             * you can incorporate sub-menus within the menu structure;
+             * and create a so called "Cascading menu".
+             * These sub-menus provide the user with an efficient way to access a
+             * wide range of choices without overwhelming them with clutter or complexity.
+             * The main menu, often called the parent menu,
+             * typically consists of top-level options that represent primary categories or options.
+             * Sub-menus, on the other hand, are secondary or menus that are nested
+             * beneath these primary options.
+             * Some of the benefits of creating tree-structure for the menus are:
+             * - **Organized Information:** Sub-menus enable a clear and organized presentation of content,
+             * making it easier for the user to find what they're looking for within a specific category.
+             * - **Space Efficiency:** They save screen space by concealing secondary options until needed,
+             * reducing visual clutter and making the interface cleaner and more user-friendly.
+             * - **Scalability:** Sub-menus can accommodate a large number of choices or features
+             * within a single parent menu, making them suitable for complex applications or websites.
+             * - **Logical Hierarchy:** By structuring information hierarchically,
+             * sub-menus help the user understand the relationships between various
+             * options and navigate through the interface more intuitively.
+             * Our cascading menus are designed to be mobile-friendly.
+             * This means that sub-menus are opened within the same menu surface,
+             * instead of the classic way of sticking out on the side, as a secondary menu.
+             * Thanks to a breadcrumbs component on the top, the user can easily navigate back
+             * and forth within the menu structure.
+             * :::tip
+             * It is also very easy to navigate the nested menu structure using the keyboard.
+             * - Using the <kbd>↓</kbd> & <kbd>↑</kbd> keys, the user can naturally
+             * navigate within the presented menu,
+             * - pressing the <kbd>→</kbd> key on a menu item that has sub-menu opens a nested menu,
+             * - and pressing the <kbd>←</kbd> key takes the user back to the previous/parent menu.
+             * :::
+             * @sourceFile item-constants.ts
+             */
+            "limel-example-menu-sub-menus": LocalJSX.LimelExampleMenuSubMenus & JSXBase.HTMLAttributes<HTMLLimelExampleMenuSubMenusElement>;
+            /**
+             * Size of the menu drop-down surface
+             * Any element in the UI can be configured to open a menu.
+             * By default, the dropdown that opens up after the menu trigger is clicked
+             * inherits its width from the items that are inside the dropdown menu.
+             * However, for some designs, you may want the width of the menu dropdown
+             * to be exactly as wide as the width of its trigger element, or
+             * as wide as `limel-menu` element itself. This is easily achieved using the
+             * `surfaceWidth` prop. Read more on `SurfaceWidth`.
+             * :::tip
+             * In this example, `limel-menu` is highlighted with a dashed border,
+             * to make it easier to see its width.
+             * :::
+             * :::note
+             * The `--menu-surface-width` Overrides the width defined by `surfaceWidth`!
+             * :::
+             */
+            "limel-example-menu-surface-width": LocalJSX.LimelExampleMenuSurfaceWidth & JSXBase.HTMLAttributes<HTMLLimelExampleMenuSurfaceWidthElement>;
+            /**
+             * Nested data
+             * @sourceFile nested-schema.ts
+             */
+            "limel-example-nested-form": LocalJSX.LimelExampleNestedForm & JSXBase.HTMLAttributes<HTMLLimelExampleNestedFormElement>;
+            /**
+             * Help with custom open direction
+             */
+            "limel-example-open-direction": LocalJSX.LimelExampleOpenDirection & JSXBase.HTMLAttributes<HTMLLimelExampleOpenDirectionElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states.
+             */
+            "limel-example-picker-composite": LocalJSX.LimelExamplePickerComposite & JSXBase.HTMLAttributes<HTMLLimelExamplePickerCompositeElement>;
+            /**
+             * With no suggestions and a message for empty search results
+             * :::important
+             * This example simulates that searching is done on the server. Because these
+             * examples do not _actually_ send requests to the server, we simulate a small
+             * delay, using `setTimeout`. **Please do NOT copy that to production code!**
+             * See the other examples for code that does not include this artificial delay.
+             * :::
+             */
+            "limel-example-picker-empty-suggestions": LocalJSX.LimelExamplePickerEmptySuggestions & JSXBase.HTMLAttributes<HTMLLimelExamplePickerEmptySuggestionsElement>;
+            /**
+             * With icons
+             */
+            "limel-example-picker-icons": LocalJSX.LimelExamplePickerIcons & JSXBase.HTMLAttributes<HTMLLimelExamplePickerIconsElement>;
+            /**
+             * With a "search" leading icon
+             */
+            "limel-example-picker-leading-icon": LocalJSX.LimelExamplePickerLeadingIcon & JSXBase.HTMLAttributes<HTMLLimelExamplePickerLeadingIconElement>;
+            /**
+             * Multiple values can be picked.
+             * - "Search" is done locally in the frontend.
+             * - Already picked items are removed from the available options.
+             */
+            "limel-example-picker-multiple": LocalJSX.LimelExamplePickerMultiple & JSXBase.HTMLAttributes<HTMLLimelExamplePickerMultipleElement>;
+            /**
+             * Single value can be picked.
+             * - "Search" is done locally in the frontend.
+             */
+            "limel-example-picker-single": LocalJSX.LimelExamplePickerSingle & JSXBase.HTMLAttributes<HTMLLimelExamplePickerSingleElement>;
+            /**
+             * With static actions
+             * Static items can be added to the picker to enable triggering custom actions
+             * directly from the results dropdown list.
+             * :::tip
+             * A typical use case of such actions is scenarios in which the picker's search
+             * results or suggestions list does not include what the user wants to pick. By
+             * offering custom actions right in the list, we can enable users to add missing
+             * items.
+             * :::
+             */
+            "limel-example-picker-static-actions": LocalJSX.LimelExamplePickerStaticActions & JSXBase.HTMLAttributes<HTMLLimelExamplePickerStaticActionsElement>;
+            /**
+             * With a value as an object
+             */
+            "limel-example-picker-value-as-object": LocalJSX.LimelExamplePickerValueAsObject & JSXBase.HTMLAttributes<HTMLLimelExamplePickerValueAsObjectElement>;
+            /**
+             * Picker with `value` as an object, containing items with menus
+             * While chips inside the picker can be clicked on, resulting in
+             * an action, they can also have an ellipsis menu which will provide the end users with
+             * additional actions.
+             * When a menu item is selected from the ellipsis menu, the `onMenuItemSelected` event
+             * will be emitted, reflecting the `value` of the selected item.
+             * :::note
+             * When a chip has `removable={true}` and when there are menu items, the "remove button" on the
+             * chip will be automatically added as the last item in the ellipsis menu.
+             * Clicking the remove button will emit the same `onRemove` event.
+             * :::
+             */
+            "limel-example-picker-value-as-object-with-actions": LocalJSX.LimelExamplePickerValueAsObjectWithActions & JSXBase.HTMLAttributes<HTMLLimelExamplePickerValueAsObjectWithActionsElement>;
+            /**
+             * Placement of the trigger element and the layout
+             * The trigger element of the help component can be placed
+             * before or after the element it is describing.
+             * However, to provide a consistent layout, we recommend placing the
+             * trigger element on the left side of all elements.
+             * Just make sure the elements are aligned correctly,
+             * even when there is no help component beside them.
+             * Also see how we have implemented this component in the
+             * [Form](#/component/limel-form) component.
+             */
+            "limel-example-placement": LocalJSX.LimelExamplePlacement & JSXBase.HTMLAttributes<HTMLLimelExamplePlacementElement>;
+            "limel-example-popover": LocalJSX.LimelExamplePopover & JSXBase.HTMLAttributes<HTMLLimelExamplePopoverElement>;
+            /**
+             * Disconnect test
+             * This is an example to test that it works to remove a popover from the DOM,
+             * then add it back again without breaking it
+             */
+            "limel-example-portal-basic": LocalJSX.LimelExamplePortalBasic & JSXBase.HTMLAttributes<HTMLLimelExamplePortalBasicElement>;
+            "limel-example-primary-color-palette": LocalJSX.LimelExamplePrimaryColorPalette & JSXBase.HTMLAttributes<HTMLLimelExamplePrimaryColorPaletteElement>;
+            /**
+             * Basic Example
+             * Progress flow can visualize linear process, consisting of distinct steps.
+             * Sometimes, this is a great alternative to use instead of `limel-select`.
+             * For instance, when there are too few options available to choose from, and
+             * the options have an incremental order.
+             * Each step can optionally get an icon, to help users understand its meaning
+             * faster, and recognize it quicker next time.
+             */
+            "limel-example-progress-flow-basic": LocalJSX.LimelExampleProgressFlowBasic & JSXBase.HTMLAttributes<HTMLLimelExampleProgressFlowBasicElement>;
+            /**
+             * Using colors
+             * By default, each step appears with a light grey background, and when
+             * selected, it gets the defined `--lime-primary-color` as background. Also,
+             * passed steps will get the same background color as selected steps by default.
+             * However, both of these colors can be customized by specifying color values
+             * for `selectedColor` and `passedColor`.
+             * Any icons will get the same color as the text for that step, but the color of
+             * icons for steps which are neither selected nor passed can be specified using
+             * the `iconColor` property.
+             */
+            "limel-example-progress-flow-colors": LocalJSX.LimelExampleProgressFlowColors & JSXBase.HTMLAttributes<HTMLLimelExampleProgressFlowColorsElement>;
+            /**
+             * Customizing colors further, using CSS
+             * A few CSS variables can be used to customize the look and feel of the steps.
+             * But keep in mind that it is not possible to target steps individually and
+             * change their colors, using these CSS variables.
+             * :::note
+             * Using CSS variables to tweak the colors, applies the colors globally to the
+             * component, not to individual steps!
+             * :::
+             * :::note
+             * Make sure that:
+             * - text has enough contrast with its background and is readable.
+             * - the `--progress-flow-step-divider-color` has the same color as the component's
+             * container.
+             * :::
+             */
+            "limel-example-progress-flow-colors-css": LocalJSX.LimelExampleProgressFlowColorsCss & JSXBase.HTMLAttributes<HTMLLimelExampleProgressFlowColorsCssElement>;
+            /**
+             * Disabled steps
+             * While the entire component can be `disabled`,
+             * each step can also be `disabled` individually.
+             * This enables you to ask users to provide required data to be able to continue.
+             */
+            "limel-example-progress-flow-disabled-step": LocalJSX.LimelExampleProgressFlowDisabledStep & JSXBase.HTMLAttributes<HTMLLimelExampleProgressFlowDisabledStepElement>;
+            /**
+             * Compact layout
+             * For cases where this component needs to take as little space as possible,
+             * we offer an alternative layout. All you need to do is addin the `is-narrow`
+             * class to the component.
+             */
+            "limel-example-progress-flow-narrow": LocalJSX.LimelExampleProgressFlowNarrow & JSXBase.HTMLAttributes<HTMLLimelExampleProgressFlowNarrowElement>;
+            /**
+             * Example with off-progress steps
+             * Naturally, the Progress Flow component is used to visualize a continuous linear
+             * process. But sometimes such processes can be abrupted, despite the level of progress.
+             * Abruptions can be excluded and displayed separately (not as a part of the flow)
+             * using the `isOffProgress` property.
+             */
+            "limel-example-progress-flow-off-progress-steps": LocalJSX.LimelExampleProgressFlowOffProgressSteps & JSXBase.HTMLAttributes<HTMLLimelExampleProgressFlowOffProgressStepsElement>;
+            /**
+             * Example with secondary text
+             * A `secondaryText` can be used to add further information to steps.
+             * This could be for instance a timestamp of when a step was activated by the user
+             * or an explainatory text.
+             */
+            "limel-example-progress-flow-secondary-text": LocalJSX.LimelExampleProgressFlowSecondaryText & JSXBase.HTMLAttributes<HTMLLimelExampleProgressFlowSecondaryTextElement>;
+            /**
+             * Using `propsFactory`
+             * @sourceFile props-factory-schema.ts
+             * @sourceFile props-factory-picker.tsx
+             */
+            "limel-example-props-factory-form": LocalJSX.LimelExamplePropsFactoryForm & JSXBase.HTMLAttributes<HTMLLimelExamplePropsFactoryFormElement>;
+            "limel-example-props-factory-picker": LocalJSX.LimelExamplePropsFactoryPicker & JSXBase.HTMLAttributes<HTMLLimelExamplePropsFactoryPickerElement>;
+            /**
+             * Basic example
+             * Try typing and editing text, or copy & paste in some rendered HTML code
+             * from your browser into the editor to see how it is rendered and what you get
+             * as an output value.
+             */
+            "limel-example-prosemirror-adapter-basic": LocalJSX.LimelExampleProsemirrorAdapterBasic & JSXBase.HTMLAttributes<HTMLLimelExampleProsemirrorAdapterBasicElement>;
+            /**
+             * Example with custom menu
+             */
+            "limel-example-prosemirror-adapter-with-custom-menu": LocalJSX.LimelExampleProsemirrorAdapterWithCustomMenu & JSXBase.HTMLAttributes<HTMLLimelExampleProsemirrorAdapterWithCustomMenuElement>;
+            /**
+             * Help with the read more link
+             * If a `readMoreLink` supplied, it will render a "Read more" link at the bottom of the content.
+             * Even though you can add a link anywhere in the content, it is recommended to
+             * use the read more link. Because it will always be displayed at the bottom
+             * of the popover after the content, does not scroll away with the content,
+             * and it will be styled in a consistent way.
+             * @sourceFile help-and-documentation.ts
+             */
+            "limel-example-read-more": LocalJSX.LimelExampleReadMore & JSXBase.HTMLAttributes<HTMLLimelExampleReadMoreElement>;
+            "limel-example-readonly-props": LocalJSX.LimelExampleReadonlyProps & JSXBase.HTMLAttributes<HTMLLimelExampleReadonlyPropsElement>;
+            "limel-example-select": LocalJSX.LimelExampleSelect & JSXBase.HTMLAttributes<HTMLLimelExampleSelectElement>;
+            /**
+             * Changing Available Options
+             * This example shows how the component works when options are changed
+             * programmatically during the lifetime of the component.
+             * We have 5 different sets of options:
+             * 1. A set of options with an empty and disabled first option. This is used to ensure that the empty option cannot be re-selected.
+             * 2. A set of options with an empty but non-disabled first option. This is used to ensure that the empty option can be re-selected.
+             * 3. An empty array. This is used to ensure that the component can handle an empty set of options. To load the component with an empty set of options, select this group, then click the "Reinitialize" button.
+             * 4. A set of 3 options.
+             * 5. A set of 4 options. Set 4 and 5 are used to ensure that the component can handle sets of different sizes.
+             */
+            "limel-example-select-change-options": LocalJSX.LimelExampleSelectChangeOptions & JSXBase.HTMLAttributes<HTMLLimelExampleSelectChangeOptionsElement>;
+            /**
+             * Select field inside a dialog
+             */
+            "limel-example-select-dialog": LocalJSX.LimelExampleSelectDialog & JSXBase.HTMLAttributes<HTMLLimelExampleSelectDialogElement>;
+            /**
+             * Select multiple values
+             */
+            "limel-example-select-multiple": LocalJSX.LimelExampleSelectMultiple & JSXBase.HTMLAttributes<HTMLLimelExampleSelectMultipleElement>;
+            /**
+             * Specific Value Preselected
+             */
+            "limel-example-select-preselected": LocalJSX.LimelExampleSelectPreselected & JSXBase.HTMLAttributes<HTMLLimelExampleSelectPreselectedElement>;
+            /**
+             * With Empty Option
+             * Adding an empty option makes it possible for the user to "unset"
+             * the value. Try selecting a value below, and then selecting the empty
+             * option again.
+             * If the component is set as required, the empty option is removed.
+             */
+            "limel-example-select-with-empty-option": LocalJSX.LimelExampleSelectWithEmptyOption & JSXBase.HTMLAttributes<HTMLLimelExampleSelectWithEmptyOptionElement>;
+            /**
+             * Select with icons for options
+             */
+            "limel-example-select-with-icons": LocalJSX.LimelExampleSelectWithIcons & JSXBase.HTMLAttributes<HTMLLimelExampleSelectWithIconsElement>;
+            /**
+             * Select with secondary text for options
+             * Using a `secondaryText` you can provide additional information about
+             * each option in the list, helping the users to select the right choice.
+             * :::note
+             * 1. The secondary text is only visible in the dropdown list,
+             * not on the selected option in the input field.
+             * 1. Additionally, on touch screen devices, the secondary text will not
+             * be visible in the dropdown list, since the component uses the "native"
+             * select, which does not have support for additional features like this,
+             * or displaying icons beside the options.
+             * :::
+             */
+            "limel-example-select-with-secondary-text": LocalJSX.LimelExampleSelectWithSecondaryText & JSXBase.HTMLAttributes<HTMLLimelExampleSelectWithSecondaryTextElement>;
+            /**
+             * Select with separators between options
+             * Separators are simple yet powerful design elements that can be
+             * employed in lists of items. They offer significant usability advantages
+             * by providing valuable visual cues that aid users in perceiving
+             * and navigating through lists. Read more about advantages of using
+             * separators in the
+             * [List component's documentations](/#/component/limel-list/).
+             */
+            "limel-example-select-with-separators": LocalJSX.LimelExampleSelectWithSeparators & JSXBase.HTMLAttributes<HTMLLimelExampleSelectWithSeparatorsElement>;
+            /**
+             * Form with server validation
+             * @sourceFile list-schema.ts
+             */
+            "limel-example-server-errors": LocalJSX.LimelExampleServerErrors & JSXBase.HTMLAttributes<HTMLLimelExampleServerErrorsElement>;
+            "limel-example-shadows-bad-usage": LocalJSX.LimelExampleShadowsBadUsage & JSXBase.HTMLAttributes<HTMLLimelExampleShadowsBadUsageElement>;
+            /**
+             * Basic example
+             * This component acts as a link, and therefore comes with features
+             * such as `title` and `target`.
+             * The `title` tag of the hyperlink can be used to
+             * provide additional information about the link.
+             * It improves accessibility both for users with assistive technologies,
+             * and sighted users. Hovering and holding the mouse cursor will
+             * display a tooltip generated with the specified `title`.
+             * What the `target` does is described well in
+             * [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target).
+             */
+            "limel-example-shortcut": LocalJSX.LimelExampleShortcut & JSXBase.HTMLAttributes<HTMLLimelExampleShortcutElement>;
+            /**
+             * Displaying a notification badge
+             * The component can display a notification badge, which could either be
+             * a `number` or a `string`. Read more about how the badge truncates
+             * or abbreviates the provided label [here](#/component/limel-badge/).
+             */
+            "limel-example-shortcut-notification": LocalJSX.LimelExampleShortcutNotification & JSXBase.HTMLAttributes<HTMLLimelExampleShortcutNotificationElement>;
+            /**
+             * How to style the shortcut
+             * The component offers different CSS variables for styling
+             * the color of the shortcut, and it's icon; as well as
+             * radius of it's rounded corners, and colors of the notification badge
+             * and its text.
+             */
+            "limel-example-shortcut-styling": LocalJSX.LimelExampleShortcutStyling & JSXBase.HTMLAttributes<HTMLLimelExampleShortcutStylingElement>;
+            /**
+             * Example with click handler
+             */
+            "limel-example-shortcut-with-click-handler": LocalJSX.LimelExampleShortcutWithClickHandler & JSXBase.HTMLAttributes<HTMLLimelExampleShortcutWithClickHandlerElement>;
+            "limel-example-size": LocalJSX.LimelExampleSize & JSXBase.HTMLAttributes<HTMLLimelExampleSizeElement>;
+            "limel-example-size-edge-case": LocalJSX.LimelExampleSizeEdgeCase & JSXBase.HTMLAttributes<HTMLLimelExampleSizeEdgeCaseElement>;
+            /**
+             * Basic example
+             */
+            "limel-example-slider-basic": LocalJSX.LimelExampleSliderBasic & JSXBase.HTMLAttributes<HTMLLimelExampleSliderBasicElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states.
+             */
+            "limel-example-slider-composite": LocalJSX.LimelExampleSliderComposite & JSXBase.HTMLAttributes<HTMLLimelExampleSliderCompositeElement>;
+            /**
+             * With multiplier and step
+             * When step is configured and the initial value is not a multiple of the step
+             * value, the slider will round the value to the nearest step when it is changed
+             * for the first time. After a valid value has been set, only discrete valid
+             * values will be possible to pick.
+             */
+            "limel-example-slider-multiplier": LocalJSX.LimelExampleSliderMultiplier & JSXBase.HTMLAttributes<HTMLLimelExampleSliderMultiplierElement>;
+            /**
+             * With percentage colors
+             * You can add the `displays-percentage-colors` class to your slider component
+             * and it will automatically visualize current percentage colors in real-time.
+             * The colors change with intervals of 10 as users drags the slider pin.
+             * The color spectrum is not modifiable, and looks like red → orange → yellow
+             * → green → teal.
+             */
+            "limel-example-slider-multiplier-percentage-colors": LocalJSX.LimelExampleSliderMultiplierPercentageColors & JSXBase.HTMLAttributes<HTMLLimelExampleSliderMultiplierPercentageColorsElement>;
+            /**
+             * Basic example
+             * Snackbars should not necessarily require a deliberate action from the user to dismiss them.
+             * This is why the component has a default `timeout` and will disappear even if the user
+             * does not interact with it.
+             * As you see in this example, there is no `timeout` specified.
+             * Therefore the snackbar will automatically disappear after a few seconds.
+             * :::important
+             * Make sure to set a proper timeout, based on the length of the text.
+             * An average user must be able to read the full message within the given
+             * time!
+             * :::
+             */
+            "limel-example-snackbar": LocalJSX.LimelExampleSnackbar & JSXBase.HTMLAttributes<HTMLLimelExampleSnackbarElement>;
+            /**
+             * Dismissible
+             * By default, snackbars display a dismiss button.
+             * This allows users to close them at any time, before they time out.
+             * The reasons for this default behavior is that
+             * there could be multiple snackbars on the screen, covering each other.
+             * Also, snackbars could be covering other important content on the screen,
+             * or have unreasonably long timeout.
+             * However, you can override this default interaction design by setting the
+             * `dismissible` property to `false`.
+             */
+            "limel-example-snackbar-dismissible": LocalJSX.LimelExampleSnackbarDismissible & JSXBase.HTMLAttributes<HTMLLimelExampleSnackbarDismissibleElement>;
+            /**
+             * Positioning on large and small screens
+             * Snackbars are by default center-aligned and placed at the bottom of the screen.
+             * However, on larger screens, they can optionally be displayed on the leading edge
+             * which would be the left side in LTR, or the right side in RTL.
+             * To do so, you can take advantage of the provided CSS variables,
+             * and keep in mind that the Snackbar uses `position: fixed;`
+             * to determine its location.
+             * :::tip
+             * When customizing the Snackbars for usage in progressive web applications,
+             * remember to consider the safe areas, and add the
+             * [environment variables](https://developer.mozilla.org/en-US/docs/Web/CSS/env)
+             * in your calculations.
+             * For example: `--snackbar-bottom: env(safe-area-inset-left, 0)`.
+             * :::
+             */
+            "limel-example-snackbar-positioning": LocalJSX.LimelExampleSnackbarPositioning & JSXBase.HTMLAttributes<HTMLLimelExampleSnackbarPositioningElement>;
+            /**
+             * With actions
+             * You can include a single action button inside the snackbar.
+             * :::important
+             * Keep in mind that pressing the action button will close
+             * the snackbar immediately. The user must be informed that their
+             * requested action actually took place. If there is no instant
+             * visual feedback (for sighted users) in the user interface that
+             * informs the user about the updated state, displaying another
+             * snackbar could be a good idea.
+             * :::
+             */
+            "limel-example-snackbar-with-action": LocalJSX.LimelExampleSnackbarWithAction & JSXBase.HTMLAttributes<HTMLLimelExampleSnackbarWithActionElement>;
+            /**
+             * With changing messages
+             */
+            "limel-example-snackbar-with-changing-messages": LocalJSX.LimelExampleSnackbarWithChangingMessages & JSXBase.HTMLAttributes<HTMLLimelExampleSnackbarWithChangingMessagesElement>;
+            /**
+             * With a generic design or branded for Lime Technologies
+             * The `limel-spinner` makes the boring waiting times slightly more cheerful by
+             * cycling through nine delightful colors.
+             * By default spinner's shape represents Lime Technologies' logo, as it is used
+             * primarily in our own products.
+             * However, it is easy render the spinner as a generic circle by specifying
+             * `limeBranded={false}`, which may be useful for instance when the
+             * spinner is used on a small component like a button.
+             */
+            "limel-example-spinner": LocalJSX.LimelExampleSpinner & JSXBase.HTMLAttributes<HTMLLimelExampleSpinnerElement>;
+            /**
+             * With custom colors
+             * The `limel-spinner` is designed to cycle through ten colors which are all
+             * from Lime Technologies' brand colors.
+             * It is of course possible to override these colors.
+             */
+            "limel-example-spinner-color": LocalJSX.LimelExampleSpinnerColor & JSXBase.HTMLAttributes<HTMLLimelExampleSpinnerColorElement>;
+            /**
+             * Spinner sizes
+             */
+            "limel-example-spinner-size": LocalJSX.LimelExampleSpinnerSize & JSXBase.HTMLAttributes<HTMLLimelExampleSpinnerSizeElement>;
+            /**
+             * Basic Example
+             * When used correctly, a split button reduces visual complexity of the user interface
+             * by grouping similar commands together.
+             * :::important
+             * Commands which are included in the menu must be variations of the default command,
+             * or be very relevant to it.
+             * :::
+             */
+            "limel-example-split-button-basic": LocalJSX.LimelExampleSplitButtonBasic & JSXBase.HTMLAttributes<HTMLLimelExampleSplitButtonBasicElement>;
+            /**
+             * Repeating the default command in the menu
+             * The default command must be the most commonly used action.
+             * Such actions typically have a very short label.
+             * However, sometimes it could be useful to repeat the default command again
+             * in the list of commands, using a more descriptive label which
+             * clarifies the default action.
+             * :::tip
+             * - **Limit the overall number of choices** within the menu to less than 10
+             * - **Order the items within the menu by popularity** and put the most popular ones on top.
+             * :::
+             */
+            "limel-example-split-button-repeat-default-command": LocalJSX.LimelExampleSplitButtonRepeatDefaultCommand & JSXBase.HTMLAttributes<HTMLLimelExampleSplitButtonRepeatDefaultCommandElement>;
+            "limel-example-surface-shadows": LocalJSX.LimelExampleSurfaceShadows & JSXBase.HTMLAttributes<HTMLLimelExampleSurfaceShadowsElement>;
+            "limel-example-surface-shadows-inflated": LocalJSX.LimelExampleSurfaceShadowsInflated & JSXBase.HTMLAttributes<HTMLLimelExampleSurfaceShadowsInflatedElement>;
+            "limel-example-surface-shadows-states": LocalJSX.LimelExampleSurfaceShadowsStates & JSXBase.HTMLAttributes<HTMLLimelExampleSurfaceShadowsStatesElement>;
+            "limel-example-switch": LocalJSX.LimelExampleSwitch & JSXBase.HTMLAttributes<HTMLLimelExampleSwitchElement>;
+            /**
+             * With `helperText`
+             * Switch can have a helper text, which is useful when providing additional information and
+             * can clarify functionality of the switch for the user.
+             * The helper text is displayed when the user puts focus on the switch, and works with keyboard
+             * navigation as well. However, on touchscreen devices, the helper text is always displayed.
+             */
+            "limel-example-switch-helper-text": LocalJSX.LimelExampleSwitchHelperText & JSXBase.HTMLAttributes<HTMLLimelExampleSwitchHelperTextElement>;
+            /**
+             * Customizing the visualization of the `readonly` state
+             * It is possible and recommended that you enhance the visualization of a `boolean` field
+             * in a `readonly` state.
+             * Because depending on the context, the default UI of the `readonly` state may not always
+             * provide the best way of _visualizing information_, potentially leading to
+             * confusion and negatively affecting the end-users' experience.
+             * :::important
+             * Before reading the documentations below, make sure to read
+             * 1. our guides about the difference between
+             * [Disabled vs. Readonly](/#/DesignGuidelines/disabled-vs-readonly.md/) in our components.
+             * 2. our guidelines about [Labeling boolean fields](/#/DesignGuidelines/labeling-boolean-fields.md/).
+             * :::
+             * Using the `readonlyLabels` optional prop, you can override the `label` and
+             * customize it accordingly. Additionally, by using the `icon` prop, you can
+             * override the default icons and their colors.
+             */
+            "limel-example-switch-readonly": LocalJSX.LimelExampleSwitchReadonly & JSXBase.HTMLAttributes<HTMLLimelExampleSwitchReadonlyElement>;
+            "limel-example-switch-vs-checkbox": LocalJSX.LimelExampleSwitchVsCheckbox & JSXBase.HTMLAttributes<HTMLLimelExampleSwitchVsCheckboxElement>;
+            "limel-example-tab-bar": LocalJSX.LimelExampleTabBar & JSXBase.HTMLAttributes<HTMLLimelExampleTabBarElement>;
+            /**
+             * Default UI of Tab bars
+             * By default, tabs dynamically adjust their width to their own content, which
+             * means a tab with a larger label will be bigger than one with a shorter one.
+             * This is the preferred layout for tabs.
+             */
+            "limel-example-tab-bar-with-dynamic-tab-width": LocalJSX.LimelExampleTabBarWithDynamicTabWidth & JSXBase.HTMLAttributes<HTMLLimelExampleTabBarWithDynamicTabWidthElement>;
+            /**
+             * Tab bars with custom styles
+             * In some situations and for the sake of UI design, you may want to have tabs
+             * that equally share the available screen width and stretch. To get such a
+             * result, you can add the `has-tabs-with-equal-width` class to the tab bar.
+             */
+            "limel-example-tab-bar-with-equal-tab-width": LocalJSX.LimelExampleTabBarWithEqualTabWidth & JSXBase.HTMLAttributes<HTMLLimelExampleTabBarWithEqualTabWidthElement>;
+            /**
+             * This example illustrates how to add custom components inside the `limel-tab-panel`.
+             * Each component will simulate loading the data it needs once the tab has been
+             * activated and then display the actual content. If the button is pressed, the
+             * component will emit the `changeTab` event to change the badge inside the
+             * corresponding tab.
+             * @sourceFile tab-panel-content.tsx
+             * @sourceFile tab-panel-content.scss
+             */
+            "limel-example-tab-panel": LocalJSX.LimelExampleTabPanel & JSXBase.HTMLAttributes<HTMLLimelExampleTabPanelElement>;
+            "limel-example-tab-panel-content": LocalJSX.LimelExampleTabPanelContent & JSXBase.HTMLAttributes<HTMLLimelExampleTabPanelContentElement>;
+            /**
+             * @sourceFile persons.ts
+             */
+            "limel-example-table": LocalJSX.LimelExampleTable & JSXBase.HTMLAttributes<HTMLLimelExampleTableElement>;
+            /**
+             * Activate a row
+             * @sourceFile persons.ts
+             */
+            "limel-example-table-activate-row": LocalJSX.LimelExampleTableActivateRow & JSXBase.HTMLAttributes<HTMLLimelExampleTableActivateRowElement>;
+            /**
+             * Custom components
+             * You can specify a custom component to use for any column in your table. This
+             * is done under the `component` key in the schema, following the
+             * [TableComponentDefinition](#/type/TableComponentDefinition/) specification,
+             * for example:
+             * ```ts
+             * const columns = [
+             *     {
+             *         title: 'Food',
+             *         field: 'food',
+             *         component: { name: 'my-fancy-food-displayer' },
+             *     },
+             * ];
+             * ```
+             * While you can, in principle, use any component in a table, your custom table
+             * components should implement the [TableComponent](#/type/TableComponent/)
+             * interface.
+             * @sourceFile birds.ts
+             * @sourceFile table-food.tsx
+             */
+            "limel-example-table-custom-components": LocalJSX.LimelExampleTableCustomComponents & JSXBase.HTMLAttributes<HTMLLimelExampleTableCustomComponentsElement>;
+            /**
+             * Default sorted columns
+             * In this example, the table is sorted on *two* columns. Primary sorting is
+             * done on the "Eggs per clutch" column, and secondary sorting is done on the
+             * "Name" column. The result is that within each "group" of birds that have the
+             * same number of eggs per clutch, the birds are sorted by name.
+             */
+            "limel-example-table-default-sorted": LocalJSX.LimelExampleTableDefaultSorted & JSXBase.HTMLAttributes<HTMLLimelExampleTableDefaultSortedElement>;
+            "limel-example-table-food": LocalJSX.LimelExampleTableFood & JSXBase.HTMLAttributes<HTMLLimelExampleTableFoodElement>;
+            /**
+             * Column header menu
+             * You can also add custom components to the header cell of a column. In
+             * contrast to custom components used elsewhere in the table, custom components
+             * used in the header do not replace the entire content of the cell. Instead,
+             * they appear in a slot next to the column sorting icon.
+             * @sourceFile persons.ts
+             * @sourceFile header-menu.tsx
+             */
+            "limel-example-table-header-menu": LocalJSX.LimelExampleTableHeaderMenu & JSXBase.HTMLAttributes<HTMLLimelExampleTableHeaderMenuElement>;
+            /**
+             * Visualizing clickable rows better
+             * By taking advantage of the `has-interactive-rows` class, hovering on a row
+             * will display an elevated visual effect, giving it more affordance and a solid
+             * feeling of interactivity.
+             * :::note usage notes
+             * - Only use this class when clicking on an entire row triggers a reaction in
+             * the system, for example a card or a modal is opened to show further details.
+             * :::
+             */
+            "limel-example-table-interactive-rows": LocalJSX.LimelExampleTableInteractiveRows & JSXBase.HTMLAttributes<HTMLLimelExampleTableInteractiveRowsElement>;
+            /**
+             * Layout
+             * Columns and their content can be decisive factors in how a table is
+             * preferred to rendered in the user interface. To set your preferred
+             * rendering, choose one of the available `layout` properties.
+             * ```tsx
+             * layout="default"
+             * ```
+             * The default layout resizes the table's columns,
+             * in a way that each column becomes as wide as the data it holds.
+             * :::important
+             * Note that be default, table columns have a maximum width of `40rem`.
+             * This means, they can never grow wider than that, unless you specify
+             * another size using the `--table-max-column-width` CSS variable.
+             * This applies to all other layouts presented further down as well!
+             * :::
+             * If there is additional space available on the right side of the last column,
+             * rows will stretch to fill the space and look visually as wide as the table.
+             * :::note
+             * While scrolling, new rows get lazy-loaded. Since the new data may have wider
+             * length, it might affect rendering of the layout in real-time.
+             * This means columns can get resized while user is scrolling down.
+             * :::
+             * :::tip
+             * It is also possible to affect internal layout of each column, by specifying
+             * `horizontalAlign` on the column headers, to `left` (default), `center`,
+             * or `right`. This basically defines the text-alignment for all the cells in that column.
+             * :::
+             * @sourceFile invoices.ts
+             */
+            "limel-example-table-layout-default": LocalJSX.LimelExampleTableLayoutDefault & JSXBase.HTMLAttributes<HTMLLimelExampleTableLayoutDefaultElement>;
+            /**
+             * lowDensity
+             * ```tsx
+             * layout="lowDensity"
+             * ```
+             * By using this layout option, you can easily convert the table into an airy list of items.
+             * This type of UI is suitable for generating minimalist lists of items with
+             * only a few properties on each. Especially when the property values are not
+             * self-explanatory (such as an email address) and require a bit of extra help
+             * to know what they are.
+             * Using this UI, you can take advantage of the sticky header of the table which
+             * explains what each cell is about, and also enjoy sorting possibilities it
+             * offers.
+             * :::note usage notes
+             * - In this low-density UI, all cells will get a fixed height, which may affect
+             * the layout of custom components that you place inside them.
+             * - This UI is not preferred for data intensive views, in which the user's main
+             * task is processing the presented data and making sense of it. For such views,
+             * use the table component with its normal density.
+             * :::
+             * @sourceFile invoices.ts
+             */
+            "limel-example-table-layout-low-density": LocalJSX.LimelExampleTableLayoutLowDensity & JSXBase.HTMLAttributes<HTMLLimelExampleTableLayoutLowDensityElement>;
+            /**
+             * stretchColumns
+             * ```tsx
+             * layout="stretchColumns"
+             * ```
+             * With this layout, the table stretches columns so that all
+             * fit perfectly in the table container, when extra space is available.
+             * If all columns cannot fit within the available width,
+             * then a horizontal scrollbar will appear.
+             * @sourceFile invoices.ts
+             */
+            "limel-example-table-layout-stretch-columns": LocalJSX.LimelExampleTableLayoutStretchColumns & JSXBase.HTMLAttributes<HTMLLimelExampleTableLayoutStretchColumnsElement>;
+            /**
+             * stretchLastColumn
+             * ```tsx
+             * layout="stretchLastColumn"
+             * ```
+             * Works just like `default`, but unlike the default layout
+             * which resulted in having an empty last column, in this layout
+             * the last existing column will stretch out to fill up the remaining table width.
+             * @sourceFile invoices.ts
+             */
+            "limel-example-table-layout-stretch-last-column": LocalJSX.LimelExampleTableLayoutStretchLastColumn & JSXBase.HTMLAttributes<HTMLLimelExampleTableLayoutStretchLastColumnElement>;
+            /**
+             * Local sorting and pagination
+             * @sourceFile birds.ts
+             */
+            "limel-example-table-local": LocalJSX.LimelExampleTableLocal & JSXBase.HTMLAttributes<HTMLLimelExampleTableLocalElement>;
+            /**
+             * Movable columns
+             * @sourceFile birds.ts
+             */
+            "limel-example-table-movable-columns": LocalJSX.LimelExampleTableMovableColumns & JSXBase.HTMLAttributes<HTMLLimelExampleTableMovableColumnsElement>;
+            /**
+             * Remote sorting and pagination
+             * @sourceFile birds.ts
+             */
+            "limel-example-table-remote": LocalJSX.LimelExampleTableRemote & JSXBase.HTMLAttributes<HTMLLimelExampleTableRemoteElement>;
+            /**
+             * Selectable rows with updating aggregates
+             * @sourceFile persons.ts
+             */
+            "limel-example-table-selectable-rows": LocalJSX.LimelExampleTableSelectableRows & JSXBase.HTMLAttributes<HTMLLimelExampleTableSelectableRowsElement>;
+            /**
+             * Disable column sorting
+             * By default, all columns can be sorted by end-users, if they click on
+             * a column header. An arrow icon on the header visualizes the
+             * direction of sorting, when a column is sorted.
+             * However, you can disable the sorting possibility in individual columns,
+             * by setting the `headerSort` to `false`.
+             * @sourceFile invoices.ts
+             */
+            "limel-example-table-sorting-disabled": LocalJSX.LimelExampleTableSortingDisabled & JSXBase.HTMLAttributes<HTMLLimelExampleTableSortingDisabledElement>;
+            /**
+             * Allow resize
+             * The text editor automatically adjusts its own height to fit the content inside.
+             * So as the user types, the editor will grow taller, potentially resizing its own
+             * container element.
+             * By default, the user can also manually change the height of the text editor
+             * by dragging its bottom right corner.
+             * As soon as the user has changed the height, this will override the automatic
+             * resizing, and the editor will no longer adjust its height to fit the content inside.
+             * By setting `allowResize` to `false`, you can disable the end user
+             * to resize the text editor vertically.
+             * :::tip
+             * Using `max-height` and `min-height` CSS properties, you can limit the
+             * resizing to a specific range.
+             * :::
+             */
+            "limel-example-text-editor-allow-resize": LocalJSX.LimelExampleTextEditorAllowResize & JSXBase.HTMLAttributes<HTMLLimelExampleTextEditorAllowResizeElement>;
+            /**
+             * Using the text editor as a form component
+             * Here we have a simple form that uses the `limel-text-editor` component,
+             * instead of a regular text input field.
+             * :::note
+             * This allows the user to write rich text, with markdown support, in the form.
+             * But keep in mind that the value will be saved as a markdown string,
+             * and can also contain HTML tags, depending on what the users input
+             * in the filed.
+             * :::
+             * @sourceFile text-editor-form-data.ts
+             */
+            "limel-example-text-editor-as-form-component": LocalJSX.LimelExampleTextEditorAsFormComponent & JSXBase.HTMLAttributes<HTMLLimelExampleTextEditorAsFormComponentElement>;
+            /**
+             * Basic example
+             */
+            "limel-example-text-editor-basic": LocalJSX.LimelExampleTextEditorBasic & JSXBase.HTMLAttributes<HTMLLimelExampleTextEditorBasicElement>;
+            /**
+             * Composite example
+             */
+            "limel-example-text-editor-composite": LocalJSX.LimelExampleTextEditorComposite & JSXBase.HTMLAttributes<HTMLLimelExampleTextEditorCompositeElement>;
+            /**
+             * Resize with container
+             * Sometimes, you may want to make the text editor to follow the size of its container,
+             * both in width and height; for instance, when the container is resizable by the user.
+             * In such cases, make sure to set `allowResize={false}` on the component.
+             * However, you can still constrain the text editor to never grow beyond a certain height,
+             * by either
+             * - setting a fixed `height` or `max-height` the component itself,
+             * - or alternatively by setting a fixed `height` or `max-height` on the container
+             * element of the component.
+             * In this example, the maximum height is set to `15rem`, which means that:
+             * 1. the editor will adjust itself to the content inside,
+             * pushing out its container and making it taller, until it reaches `15rem` in height.
+             * 1. and also when you manually resize the container,
+             * the editor will try to fill the available surface area, until its height reaches `15rem`.
+             */
+            "limel-example-text-editor-size": LocalJSX.LimelExampleTextEditorSize & JSXBase.HTMLAttributes<HTMLLimelExampleTextEditorSizeElement>;
+            /**
+             * Text editor in HTML mode.
+             * When using the text editor in HTML mode the `value` property is expected to contain
+             * an html formatted string and the output will likewise be html.
+             */
+            "limel-example-text-editor-with-html": LocalJSX.LimelExampleTextEditorWithHtml & JSXBase.HTMLAttributes<HTMLLimelExampleTextEditorWithHtmlElement>;
+            /**
+             * Text editor in markdown mode.
+             * When using the text editor in markdown mode the `value` property is expected to contain
+             * a markdown formatted string and the output will likewise be markdown. This is the default
+             * if no value for `contentType` is provided.
+             */
+            "limel-example-text-editor-with-markdown": LocalJSX.LimelExampleTextEditorWithMarkdown & JSXBase.HTMLAttributes<HTMLLimelExampleTextEditorWithMarkdownElement>;
+            /**
+             * Basic example
+             */
+            "limel-example-tooltip-basic": LocalJSX.LimelExampleTooltipBasic & JSXBase.HTMLAttributes<HTMLLimelExampleTooltipBasicElement>;
+            /**
+             * Composite
+             * A place to try different combinations of states.
+             */
+            "limel-example-tooltip-composite": LocalJSX.LimelExampleTooltipComposite & JSXBase.HTMLAttributes<HTMLLimelExampleTooltipCompositeElement>;
+            "limel-example-tooltip-declutter": LocalJSX.LimelExampleTooltipDeclutter & JSXBase.HTMLAttributes<HTMLLimelExampleTooltipDeclutterElement>;
+            /**
+             * Using `maxlength` property
+             * To present an easy to read content, the tooltip's maximum text
+             * length is set to 50 characters, including spaces.
+             * When this threshold is reached, content will be rendered with line breaks.
+             * However, it is possible to override this value by specifying `maxlength`.
+             * :::note
+             * Tooltips are intended to display very brief information.
+             * Try not to place large amount of text in them.
+             * :::
+             */
+            "limel-example-tooltip-max-character": LocalJSX.LimelExampleTooltipMaxCharacter & JSXBase.HTMLAttributes<HTMLLimelExampleTooltipMaxCharacterElement>;
+            "limel-example-ui-color-palette": LocalJSX.LimelExampleUiColorPalette & JSXBase.HTMLAttributes<HTMLLimelExampleUiColorPaletteElement>;
+            "limel-example-value": LocalJSX.LimelExampleValue & JSXBase.HTMLAttributes<HTMLLimelExampleValueElement>;
             /**
              * This component lets end-users select a *single* file from their device
              * storage. Regardless of the user's device or operating system, this component
@@ -8205,6 +23301,8 @@ declare module "@stencil/core" {
              * @private 
              */
             "limel-tooltip-content": LocalJSX.LimelTooltipContent & JSXBase.HTMLAttributes<HTMLLimelTooltipContentElement>;
+            "my-custom-menu": LocalJSX.MyCustomMenu & JSXBase.HTMLAttributes<HTMLMyCustomMenuElement>;
+            "my-custom-menu-with-notifications": LocalJSX.MyCustomMenuWithNotifications & JSXBase.HTMLAttributes<HTMLMyCustomMenuWithNotificationsElement>;
         }
     }
 }
