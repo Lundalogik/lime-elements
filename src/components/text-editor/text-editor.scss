@@ -50,6 +50,7 @@
 :host(limel-text-editor[readonly]:not([readonly='false'])) {
     --limel-text-editor-placeholder-top: 0;
     --limel-text-editor-outline-color: transparent;
+    --limel-text-editor-background-color: transparent;
 
     limel-markdown {
         display: block;
