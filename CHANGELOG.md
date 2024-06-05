@@ -1,3 +1,11 @@
+## [37.47.0](https://github.com/Lundalogik/lime-elements/compare/v37.46.1...v37.47.0) (2024-06-05)
+
+
+### Features
+
+
+* **text editor:** block pasted inline images ([28d562c](https://github.com/Lundalogik/lime-elements/commit/28d562c7ade5f36ef77772ffcd16aa82b733441c))
+
 ## [37.46.1](https://github.com/Lundalogik/lime-elements/compare/v37.46.0...v37.46.1) (2024-06-04)
 
 
