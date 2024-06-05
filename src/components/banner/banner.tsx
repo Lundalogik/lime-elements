@@ -48,8 +48,10 @@ export class Banner {
             >
                 <div class="lime-banner__surface">
                     <div class="lime-banner__content">
-                        {this.renderIcon()}
-                        <div>{this.message}</div>
+                        <div class="icon-message">
+                            {this.renderIcon()}
+                            <div>{this.message}</div>
+                        </div>
                         <div class="lime-banner__actions">
                             <slot name="buttons" />
                         </div>
