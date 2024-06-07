@@ -8,6 +8,7 @@ import {
     prependProtocol,
 } from '../../../util/link-helper';
 import { LimelInputFieldCustomEvent } from '../../../components';
+import { ESCAPE } from 'src/util/keycodes';
 
 /**
  * This component is a menu for editing a link in the text editor.
@@ -61,6 +62,18 @@ export class TextEditorLinkMenu {
 
     @State()
     private invalidLink: boolean = false;
+
+    public componentWillLoad() {
+        this.setupGlobalHandlers();
+    }
+
+    private setupGlobalHandlers() {
+        if (this.isOpen) {
+            document.addEventListener('keyup', this.handleGlobalKeyPress);
+        } else {
+            document.removeEventListener('keyup', this.handleGlobalKeyPress);
+        }
+    }
 
     public render() {
         return [
@@ -119,6 +132,16 @@ export class TextEditorLinkMenu {
     private handleSave = (event: MouseEvent | KeyboardEvent) => {
         this.save.emit();
         event.stopPropagation();
+    };
+
+    private handleGlobalKeyPress = (event: KeyboardEvent) => {
+        if (event.key !== ESCAPE) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+        this.cancel.emit();
     };
 
     private handleLinkInputAction = (
