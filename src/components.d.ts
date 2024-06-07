@@ -5350,21 +5350,33 @@ export namespace Components {
     /**
      * The portal component provides a way to render children into a DOM node that
      * exist outside the DOM hierarchy of the parent component.
+     * When the limel-portal component is used, it creates a new DOM node (a div element)
+     * and appends it to a parent element (by default, the body of the document).
+     * The child elements of the limel-portal are then moved from
+     * their original location in the DOM to this new div element.
+     * This technique is often used to overcome CSS stacking context issues,
+     * or to render UI elements like modals, dropdowns, tooltips, etc.,
+     * that need to visually "break out" of their container.
+     * Using this component, we ensure that the content is always rendered in the
+     * correct position, and never covers its own trigger, or another component
+     * that is opened in the stacking layer. This way, we don't need to worry about
+     * z-indexes, or other stacking context issues.
+     * :::important
      * There are some caveats when using this component
-     * Events might not bubble up as expected since the content is moved out to
+     * 1. Events might not bubble up as expected since the content is moved out to
      * another DOM node.
-     * Any styling that is applied to content from the parent will be lost, if the
-     * content is just another web compoent it will work without any issues.
-     * Alternatively, use the
-     * `style=""` html attribute.
-     * Any component that is placed inside the container must have a style of
+     * 2. Any styling that is applied to content from the parent will be lost, if the
+     * content is just another web-component it will work without any issues.
+     * Alternatively, use the `style=""` html attribute.
+     * 3. Any component that is placed inside the container must have a style of
      * `max-height: inherit`. This ensures that its placement is calculated
      * correctly in relation to the trigger, and that it never covers its own
      * trigger.
-     * When the node is moved in the DOM, `disconnectedCallback` and
+     * 4. When the node is moved in the DOM, `disconnectedCallback` and
      * `connectedCallback` will be invoked, so if `disconnectedCallback` is used
      * to do any tear-down, the appropriate setup will have to be done again on
      * `connectedCallback`.
+     * :::
      * @private 
      * @exampleComponent limel-example-portal-basic
      */
@@ -5390,7 +5402,7 @@ export namespace Components {
          */
         "openDirection": OpenDirection;
         /**
-          * Parent element to move the content to.
+          * The `parent` property specifies the parent element where the content of the portal will be moved to. By default, it is set to `document.body`, meaning the content will be appended as a child of the body element in the DOM. If you want the content to be appended to a different element, you can specify that element by setting this property. Please note that the specified parent element should exist in the DOM at the time of rendering the portal.
          */
         "parent": HTMLElement;
         /**
@@ -11912,21 +11924,33 @@ declare global {
     /**
      * The portal component provides a way to render children into a DOM node that
      * exist outside the DOM hierarchy of the parent component.
+     * When the limel-portal component is used, it creates a new DOM node (a div element)
+     * and appends it to a parent element (by default, the body of the document).
+     * The child elements of the limel-portal are then moved from
+     * their original location in the DOM to this new div element.
+     * This technique is often used to overcome CSS stacking context issues,
+     * or to render UI elements like modals, dropdowns, tooltips, etc.,
+     * that need to visually "break out" of their container.
+     * Using this component, we ensure that the content is always rendered in the
+     * correct position, and never covers its own trigger, or another component
+     * that is opened in the stacking layer. This way, we don't need to worry about
+     * z-indexes, or other stacking context issues.
+     * :::important
      * There are some caveats when using this component
-     * Events might not bubble up as expected since the content is moved out to
+     * 1. Events might not bubble up as expected since the content is moved out to
      * another DOM node.
-     * Any styling that is applied to content from the parent will be lost, if the
-     * content is just another web compoent it will work without any issues.
-     * Alternatively, use the
-     * `style=""` html attribute.
-     * Any component that is placed inside the container must have a style of
+     * 2. Any styling that is applied to content from the parent will be lost, if the
+     * content is just another web-component it will work without any issues.
+     * Alternatively, use the `style=""` html attribute.
+     * 3. Any component that is placed inside the container must have a style of
      * `max-height: inherit`. This ensures that its placement is calculated
      * correctly in relation to the trigger, and that it never covers its own
      * trigger.
-     * When the node is moved in the DOM, `disconnectedCallback` and
+     * 4. When the node is moved in the DOM, `disconnectedCallback` and
      * `connectedCallback` will be invoked, so if `disconnectedCallback` is used
      * to do any tear-down, the appropriate setup will have to be done again on
      * `connectedCallback`.
+     * :::
      * @private 
      * @exampleComponent limel-example-portal-basic
      */
@@ -18156,21 +18180,33 @@ declare namespace LocalJSX {
     /**
      * The portal component provides a way to render children into a DOM node that
      * exist outside the DOM hierarchy of the parent component.
+     * When the limel-portal component is used, it creates a new DOM node (a div element)
+     * and appends it to a parent element (by default, the body of the document).
+     * The child elements of the limel-portal are then moved from
+     * their original location in the DOM to this new div element.
+     * This technique is often used to overcome CSS stacking context issues,
+     * or to render UI elements like modals, dropdowns, tooltips, etc.,
+     * that need to visually "break out" of their container.
+     * Using this component, we ensure that the content is always rendered in the
+     * correct position, and never covers its own trigger, or another component
+     * that is opened in the stacking layer. This way, we don't need to worry about
+     * z-indexes, or other stacking context issues.
+     * :::important
      * There are some caveats when using this component
-     * Events might not bubble up as expected since the content is moved out to
+     * 1. Events might not bubble up as expected since the content is moved out to
      * another DOM node.
-     * Any styling that is applied to content from the parent will be lost, if the
-     * content is just another web compoent it will work without any issues.
-     * Alternatively, use the
-     * `style=""` html attribute.
-     * Any component that is placed inside the container must have a style of
+     * 2. Any styling that is applied to content from the parent will be lost, if the
+     * content is just another web-component it will work without any issues.
+     * Alternatively, use the `style=""` html attribute.
+     * 3. Any component that is placed inside the container must have a style of
      * `max-height: inherit`. This ensures that its placement is calculated
      * correctly in relation to the trigger, and that it never covers its own
      * trigger.
-     * When the node is moved in the DOM, `disconnectedCallback` and
+     * 4. When the node is moved in the DOM, `disconnectedCallback` and
      * `connectedCallback` will be invoked, so if `disconnectedCallback` is used
      * to do any tear-down, the appropriate setup will have to be done again on
      * `connectedCallback`.
+     * :::
      * @private 
      * @exampleComponent limel-example-portal-basic
      */
@@ -18196,7 +18232,7 @@ declare namespace LocalJSX {
          */
         "openDirection"?: OpenDirection;
         /**
-          * Parent element to move the content to.
+          * The `parent` property specifies the parent element where the content of the portal will be moved to. By default, it is set to `document.body`, meaning the content will be appended as a child of the body element in the DOM. If you want the content to be appended to a different element, you can specify that element by setting this property. Please note that the specified parent element should exist in the DOM at the time of rendering the portal.
          */
         "parent"?: HTMLElement;
         /**
@@ -23043,21 +23079,33 @@ declare module "@stencil/core" {
             /**
              * The portal component provides a way to render children into a DOM node that
              * exist outside the DOM hierarchy of the parent component.
+             * When the limel-portal component is used, it creates a new DOM node (a div element)
+             * and appends it to a parent element (by default, the body of the document).
+             * The child elements of the limel-portal are then moved from
+             * their original location in the DOM to this new div element.
+             * This technique is often used to overcome CSS stacking context issues,
+             * or to render UI elements like modals, dropdowns, tooltips, etc.,
+             * that need to visually "break out" of their container.
+             * Using this component, we ensure that the content is always rendered in the
+             * correct position, and never covers its own trigger, or another component
+             * that is opened in the stacking layer. This way, we don't need to worry about
+             * z-indexes, or other stacking context issues.
+             * :::important
              * There are some caveats when using this component
-             * Events might not bubble up as expected since the content is moved out to
+             * 1. Events might not bubble up as expected since the content is moved out to
              * another DOM node.
-             * Any styling that is applied to content from the parent will be lost, if the
-             * content is just another web compoent it will work without any issues.
-             * Alternatively, use the
-             * `style=""` html attribute.
-             * Any component that is placed inside the container must have a style of
+             * 2. Any styling that is applied to content from the parent will be lost, if the
+             * content is just another web-component it will work without any issues.
+             * Alternatively, use the `style=""` html attribute.
+             * 3. Any component that is placed inside the container must have a style of
              * `max-height: inherit`. This ensures that its placement is calculated
              * correctly in relation to the trigger, and that it never covers its own
              * trigger.
-             * When the node is moved in the DOM, `disconnectedCallback` and
+             * 4. When the node is moved in the DOM, `disconnectedCallback` and
              * `connectedCallback` will be invoked, so if `disconnectedCallback` is used
              * to do any tear-down, the appropriate setup will have to be done again on
              * `connectedCallback`.
+             * :::
              * @private 
              * @exampleComponent limel-example-portal-basic
              */
