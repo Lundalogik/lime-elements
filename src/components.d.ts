@@ -5956,11 +5956,11 @@ export namespace Components {
      */
     interface LimelTextEditorLinkMenu {
         /**
-          * Open state of the dialog
+          * Open state of the link-menu dialog
          */
         "isOpen": boolean;
         /**
-          * Defines the language for translations. Will translate the translatable strings on the components.
+          * Defines the language for translations.
          */
         "language": Languages;
         /**
@@ -18858,11 +18858,11 @@ declare namespace LocalJSX {
      */
     interface LimelTextEditorLinkMenu {
         /**
-          * Open state of the dialog
+          * Open state of the link-menu dialog
          */
         "isOpen"?: boolean;
         /**
-          * Defines the language for translations. Will translate the translatable strings on the components.
+          * Defines the language for translations.
          */
         "language"?: Languages;
         /**
