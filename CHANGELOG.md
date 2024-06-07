@@ -1,3 +1,11 @@
+## [37.49.0](https://github.com/Lundalogik/lime-elements/compare/v37.48.0...v37.49.0) (2024-06-07)
+
+
+### Features
+
+
+* **text-editor:** reinitialise editor on reconnect ([aa63ca4](https://github.com/Lundalogik/lime-elements/commit/aa63ca4027b78034d94cdd68607b1b4dd4ecf89c))
+
 ## [37.48.0](https://github.com/Lundalogik/lime-elements/compare/v37.47.0...v37.48.0) (2024-06-07)
 
 
