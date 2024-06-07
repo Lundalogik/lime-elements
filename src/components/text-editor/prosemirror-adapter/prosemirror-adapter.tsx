@@ -182,13 +182,16 @@ export class ProsemirrorAdapter {
                         'max-height': 'inherit',
                     }}
                 >
-                    <limel-text-editor-link-menu
-                        link={this.link}
-                        isOpen={this.isLinkMenuOpen}
-                        onLinkChange={this.handleLinkChange}
-                        onCancel={this.handleCancelLinkMenu}
-                        onSave={this.handleSaveLinkMenu}
-                    />
+                    {this.isLinkMenuOpen && (
+                        <limel-text-editor-link-menu
+                            link={this.link}
+                            isOpen={this.isLinkMenuOpen}
+                            onLinkChange={this.handleLinkChange}
+                            onCancel={this.handleCancelLinkMenu}
+                            onSave={this.handleSaveLinkMenu}
+                        />
+                    )}
+                    ,
                 </limel-menu-surface>
             </limel-portal>,
         ];
@@ -346,7 +349,9 @@ export class ProsemirrorAdapter {
         const { value } = event.detail;
 
         if (value === EditorMenuTypes.Link) {
-            this.isLinkMenuOpen = true;
+            requestAnimationFrame(() => {
+                this.isLinkMenuOpen = true;
+            });
 
             return;
         }
@@ -357,22 +362,27 @@ export class ProsemirrorAdapter {
         this.view.dom.dispatchEvent(actionBarEvent);
     };
 
-    private handleCancelLinkMenu = () => {
+    private handleCancelLinkMenu = (event: CustomEvent<void>) => {
+        event.preventDefault();
+        event.stopPropagation();
+
         this.isLinkMenuOpen = false;
     };
 
     private handleSaveLinkMenu = () => {
-        this.isLinkMenuOpen = false;
+        requestAnimationFrame(() => {
+            this.isLinkMenuOpen = false;
 
-        const saveLinkEvent = new CustomEvent('saveLinkMenu', {
-            detail: {
-                type: EditorMenuTypes.Link,
-                link: this.link,
-            },
+            const saveLinkEvent = new CustomEvent('saveLinkMenu', {
+                detail: {
+                    type: EditorMenuTypes.Link,
+                    link: this.link,
+                },
+            });
+            this.view.dom.dispatchEvent(saveLinkEvent);
+
+            this.link = { href: '' };
         });
-        this.view.dom.dispatchEvent(saveLinkEvent);
-
-        this.link = { href: '' };
     };
 
     private handleLinkChange = (event: CustomEvent<EditorTextLink>) => {

@@ -1,4 +1,12 @@
-import { Component, Prop, h, Event, EventEmitter, State } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    h,
+    Event,
+    EventEmitter,
+    State,
+    Element,
+} from '@stencil/core';
 import { EditorTextLink } from '../prosemirror-adapter/menu/types';
 import { Languages } from '../../date-picker/date.types';
 import translate from '../../../global/translations';
@@ -8,6 +16,7 @@ import {
     prependProtocol,
 } from '../../../util/link-helper';
 import { LimelInputFieldCustomEvent } from '../../../components';
+import { ENTER } from '../../../util/keycodes';
 
 /**
  * This component is a menu for editing a link in the text editor.
@@ -29,13 +38,12 @@ export class TextEditorLinkMenu {
 
     /**
      * Defines the language for translations.
-     * Will translate the translatable strings on the components.
      */
     @Prop({ reflect: true })
     public language: Languages = 'en';
 
     /**
-     * Open state of the dialog
+     * Open state of the link-menu dialog
      */
     @Prop({ reflect: true })
     public isOpen: boolean = false;
@@ -62,6 +70,18 @@ export class TextEditorLinkMenu {
     @State()
     private invalidLink: boolean = false;
 
+    private textInput: HTMLLimelInputFieldElement;
+    private saveButton: HTMLLimelButtonElement;
+
+    public componentDidLoad() {
+        if (this.textInput) {
+            const inputField = this.textInput.shadowRoot.querySelector('input');
+            requestAnimationFrame(() => {
+                inputField.focus();
+            });
+        }
+    }
+
     public render() {
         return [
             <limel-input-field
@@ -69,6 +89,10 @@ export class TextEditorLinkMenu {
                 value={this.link?.text || ''}
                 leadingIcon="text_cursor"
                 onChange={this.handleLinkTitleChange}
+                onKeyDown={this.handleKeyDown}
+                ref={(el) =>
+                    (this.textInput = el as HTMLLimelInputFieldElement)
+                }
             />,
             <limel-input-field
                 label={this.getTranslation('editor-link-menu.link')}
@@ -79,6 +103,7 @@ export class TextEditorLinkMenu {
                 invalid={this.invalidLink}
                 onChange={this.handleLinkValueChange}
                 onAction={this.handleLinkInputAction}
+                onKeyDown={this.handleKeyDown}
             />,
             <div class="actions">
                 <limel-button
@@ -91,6 +116,9 @@ export class TextEditorLinkMenu {
                     label={this.getTranslation('save')}
                     disabled={!this.link?.href || this.invalidLink}
                     onClick={this.handleSave}
+                    ref={(el) =>
+                        (this.saveButton = el as HTMLLimelButtonElement)
+                    }
                     slot="button"
                 />
             </div>,
@@ -111,14 +139,32 @@ export class TextEditorLinkMenu {
         return !!getHref(href);
     };
 
+    private handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key !== ENTER) {
+            return;
+        }
+
+        if (this.saveButton) {
+            this.saveButton.focus();
+        }
+
+        event.preventDefault();
+        if (this.link?.href && !this.invalidLink) {
+            this.handleSave(event);
+        }
+    };
+
     private handleCancel = (event: MouseEvent) => {
         this.cancel.emit();
         event.stopPropagation();
     };
 
     private handleSave = (event: MouseEvent | KeyboardEvent) => {
-        this.save.emit();
         event.stopPropagation();
+
+        requestAnimationFrame(() => {
+            this.save.emit();
+        });
     };
 
     private handleLinkInputAction = (
