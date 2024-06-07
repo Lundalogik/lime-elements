@@ -97,14 +97,12 @@ export class TextEditorLinkMenu {
                 <limel-button
                     label={this.getTranslation('cancel')}
                     onClick={this.handleCancel}
-                    slot="button"
                 />
                 <limel-button
                     primary={true}
                     label={this.getTranslation('save')}
                     disabled={!this.link?.href || this.invalidLink}
                     onClick={this.handleSave}
-                    slot="button"
                 />
             </div>,
         ];
