@@ -102,6 +102,7 @@ export class ProsemirrorAdapter {
     private schema: Schema;
     private contentConverter: ContentTypeConverter;
     private suppressChangeEvent = false;
+    private actionBarElement: HTMLElement;
 
     /**
      * Dispatched when a change is made to the editor
@@ -162,7 +163,7 @@ export class ProsemirrorAdapter {
         return [
             <div id="editor" />,
             <limel-action-bar
-                slot="trigger"
+                ref={(el) => (this.actionBarElement = el)}
                 accessibleLabel="Toolbar"
                 actions={this.actionBarItems}
                 onItemSelected={this.handleActionBarItem}
@@ -172,6 +173,7 @@ export class ProsemirrorAdapter {
                 visible={this.isLinkMenuOpen}
                 openDirection="top"
                 inheritParentWidth={true}
+                anchor={this.actionBarElement}
                 containerStyle={{ 'z-index': 1 }}
             >
                 <limel-menu-surface
