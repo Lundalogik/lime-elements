@@ -367,6 +367,7 @@ export class ProsemirrorAdapter {
         event.stopPropagation();
 
         this.isLinkMenuOpen = false;
+        this.link = { text: '', href: '' };
     };
 
     private handleSaveLinkMenu = () => {

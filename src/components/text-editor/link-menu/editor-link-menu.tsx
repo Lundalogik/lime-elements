@@ -75,12 +75,12 @@ export class TextEditorLinkMenu {
 
     private setupGlobalHandlers() {
         if (this.isOpen) {
-            document.addEventListener('keyup', this.handleGlobalKeyPress);
+            document.addEventListener('keyup', this.handleCancel);
         }
     }
 
     private teardownGlobalHandlers() {
-        document.removeEventListener('keyup', this.handleGlobalKeyPress);
+        document.removeEventListener('keyup', this.handleCancel);
     }
 
     public componentDidLoad() {
@@ -169,9 +169,14 @@ export class TextEditorLinkMenu {
         }
     };
 
-    private handleCancel = (event: MouseEvent) => {
-        this.cancel.emit();
+    private handleCancel = (event: MouseEvent | KeyboardEvent) => {
+        if (event instanceof KeyboardEvent && event.key !== ESCAPE) {
+            return;
+        }
+
         event.stopPropagation();
+        event.preventDefault();
+        this.cancel.emit();
     };
 
     private handleSave = (event: MouseEvent | KeyboardEvent) => {
@@ -180,16 +185,6 @@ export class TextEditorLinkMenu {
         requestAnimationFrame(() => {
             this.save.emit();
         });
-    };
-
-    private handleGlobalKeyPress = (event: KeyboardEvent) => {
-        if (event.key !== ESCAPE) {
-            return;
-        }
-
-        event.stopPropagation();
-        event.preventDefault();
-        this.cancel.emit();
     };
 
     private handleLinkInputAction = (
