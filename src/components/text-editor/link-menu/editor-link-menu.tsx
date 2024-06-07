@@ -65,24 +65,36 @@ export class TextEditorLinkMenu {
     private textInput: HTMLLimelInputFieldElement;
     private saveButton: HTMLLimelButtonElement;
 
-    public componentWillLoad() {
+    public connectedCallback() {
         this.setupGlobalHandlers();
+    }
+
+    public disconnectedCallback() {
+        this.teardownGlobalHandlers();
     }
 
     private setupGlobalHandlers() {
         if (this.isOpen) {
             document.addEventListener('keyup', this.handleGlobalKeyPress);
-        } else {
-            document.removeEventListener('keyup', this.handleGlobalKeyPress);
         }
     }
 
+    private teardownGlobalHandlers() {
+        document.removeEventListener('keyup', this.handleGlobalKeyPress);
+    }
+
     public componentDidLoad() {
+        this.focusOnTextInput();
+    }
+
+    private focusOnTextInput() {
         if (this.textInput) {
             const inputField = this.textInput.shadowRoot.querySelector('input');
-            requestAnimationFrame(() => {
-                inputField.focus();
-            });
+            if (inputField) {
+                requestAnimationFrame(() => {
+                    inputField.focus();
+                });
+            }
         }
     }
 
