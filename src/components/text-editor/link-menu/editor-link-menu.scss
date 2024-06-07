@@ -3,6 +3,10 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.5rem;
+    max-width: calc(100vw - 2rem);
+    border-radius: 0.5rem;
+    background-color: var(--lime-elevated-surface-background-color);
+    box-shadow: var(--shadow-depth-16);
 }
 
 .actions {

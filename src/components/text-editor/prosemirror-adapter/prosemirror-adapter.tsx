@@ -168,6 +168,16 @@ export class ProsemirrorAdapter {
                 actions={this.actionBarItems}
                 onItemSelected={this.handleActionBarItem}
             />,
+            this.renderLinkMenu(),
+        ];
+    }
+
+    renderLinkMenu() {
+        if (!this.isLinkMenuOpen) {
+            return;
+        }
+
+        return (
             <limel-portal
                 containerId={this.portalId}
                 visible={this.isLinkMenuOpen}
@@ -176,24 +186,15 @@ export class ProsemirrorAdapter {
                 anchor={this.actionBarElement}
                 containerStyle={{ 'z-index': 1 }}
             >
-                <limel-menu-surface
-                    open={this.isLinkMenuOpen}
-                    onDismiss={this.handleCancelLinkMenu}
-                    style={{
-                        '--mdc-menu-min-width': '100%',
-                        'max-height': 'inherit',
-                    }}
-                >
-                    <limel-text-editor-link-menu
-                        link={this.link}
-                        isOpen={this.isLinkMenuOpen}
-                        onLinkChange={this.handleLinkChange}
-                        onCancel={this.handleCancelLinkMenu}
-                        onSave={this.handleSaveLinkMenu}
-                    />
-                </limel-menu-surface>
-            </limel-portal>,
-        ];
+                <limel-text-editor-link-menu
+                    link={this.link}
+                    isOpen={this.isLinkMenuOpen}
+                    onLinkChange={this.handleLinkChange}
+                    onCancel={this.handleCancelLinkMenu}
+                    onSave={this.handleSaveLinkMenu}
+                />
+            </limel-portal>
+        );
     }
 
     private setupContentConverter() {
