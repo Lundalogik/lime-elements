@@ -1,3 +1,12 @@
+## [37.48.0](https://github.com/Lundalogik/lime-elements/compare/v37.47.0...v37.48.0) (2024-06-07)
+
+
+### Features
+
+
+* **text editor:** add plugins for handling menu actions and state tracking ([1fc1034](https://github.com/Lundalogik/lime-elements/commit/1fc103488b8e316497df9fc61cae53937369c587))
+* **text-editor:** only call update when needed ([38c0667](https://github.com/Lundalogik/lime-elements/commit/38c0667d85465fb919c465d14a04fb5ba41f2e55))
+
 ## [37.47.0](https://github.com/Lundalogik/lime-elements/compare/v37.46.1...v37.47.0) (2024-06-05)
 
 
