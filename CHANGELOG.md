@@ -1,3 +1,11 @@
+## [37.49.1](https://github.com/Lundalogik/lime-elements/compare/v37.49.0...v37.49.1) (2024-06-07)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure link popover opens in a decent location ([875ace3](https://github.com/Lundalogik/lime-elements/commit/875ace3a902ebdc3796baedb11de8a2c0c6508fe))
+
 ## [37.49.0](https://github.com/Lundalogik/lime-elements/compare/v37.48.0...v37.49.0) (2024-06-07)
 
 
