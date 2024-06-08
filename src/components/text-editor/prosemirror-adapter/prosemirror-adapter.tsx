@@ -349,9 +349,7 @@ export class ProsemirrorAdapter {
         const { value } = event.detail;
 
         if (value === EditorMenuTypes.Link) {
-            requestAnimationFrame(() => {
-                this.isLinkMenuOpen = true;
-            });
+            this.isLinkMenuOpen = true;
 
             return;
         }
@@ -371,19 +369,17 @@ export class ProsemirrorAdapter {
     };
 
     private handleSaveLinkMenu = () => {
-        requestAnimationFrame(() => {
-            this.isLinkMenuOpen = false;
+        this.isLinkMenuOpen = false;
 
-            const saveLinkEvent = new CustomEvent('saveLinkMenu', {
-                detail: {
-                    type: EditorMenuTypes.Link,
-                    link: this.link,
-                },
-            });
-            this.view.dom.dispatchEvent(saveLinkEvent);
-
-            this.link = { href: '' };
+        const saveLinkEvent = new CustomEvent('saveLinkMenu', {
+            detail: {
+                type: EditorMenuTypes.Link,
+                link: this.link,
+            },
         });
+        this.view.dom.dispatchEvent(saveLinkEvent);
+
+        this.link = { href: '' };
     };
 
     private handleLinkChange = (event: CustomEvent<EditorTextLink>) => {

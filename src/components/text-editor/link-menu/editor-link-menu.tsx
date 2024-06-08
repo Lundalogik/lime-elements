@@ -182,9 +182,7 @@ export class TextEditorLinkMenu {
     private handleSave = (event: MouseEvent | KeyboardEvent) => {
         event.stopPropagation();
 
-        requestAnimationFrame(() => {
-            this.save.emit();
-        });
+        this.save.emit();
     };
 
     private handleLinkInputAction = (
