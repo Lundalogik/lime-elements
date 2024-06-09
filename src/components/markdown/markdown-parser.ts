@@ -28,7 +28,7 @@ export async function markdownToHTML(
     options?: markdownToHTMLOptions,
 ): Promise<string> {
     if (options?.forceHardLineBreaks) {
-        text = text.replace(/([\n\r])/g, '  $1');
+        text = text.replace(/(?<!\\)([\n\r])/g, '  $1');
     }
 
     const file = await unified()
