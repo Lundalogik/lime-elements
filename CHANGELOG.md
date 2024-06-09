@@ -1,3 +1,14 @@
+## [37.49.2](https://github.com/Lundalogik/lime-elements/compare/v37.49.1...v37.49.2) (2024-06-09)
+
+
+### Bug Fixes
+
+
+* **text editor:** handle initial focus and save events ([d44f378](https://github.com/Lundalogik/lime-elements/commit/d44f378492a1f72dea7a966c84596aa39a6d3648))
+* **text editor:** remove un-necessary requestAnimationFrame ([08cbb9a](https://github.com/Lundalogik/lime-elements/commit/08cbb9ad00a54cfa508c0f6c36bd366de0deb54a))
+* **text-editor:** ensure pressing `esc` closes the link popover ([ec35a1b](https://github.com/Lundalogik/lime-elements/commit/ec35a1bcaee00b5e605ae9c47df18012fb778609))
+* **text-editor:** open the link popover more gracefully ([0c7e7b4](https://github.com/Lundalogik/lime-elements/commit/0c7e7b4fa88fa579f3ec5efbd52b1e94131eea05))
+
 ## [37.49.1](https://github.com/Lundalogik/lime-elements/compare/v37.49.0...v37.49.1) (2024-06-07)
 
 
