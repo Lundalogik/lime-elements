@@ -5,6 +5,7 @@ docsDist/
 coverage/
 temp/
 .scannerwork
+src/components.d.ts
 
 .npmrc
 

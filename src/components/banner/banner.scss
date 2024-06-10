@@ -35,6 +35,11 @@
         flex-wrap: wrap;
     }
 
+    .icon-message {
+        display: flex;
+        align-items: center;
+    }
+
     div[class^='mdc-typography'] {
         color: rgb(var(--contrast-1200));
     }
@@ -56,5 +61,18 @@
             --banner-icon-background-color,
             rgb(var(--contrast-800))
         );
+    }
+}
+@media screen and (max-width: 760px) {
+    .lime-banner__content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .icon-message {
+        display: flex;
+        align-items: center;
+    }
+    .lime-banner__actions {
+        margin-left: 0;
     }
 }

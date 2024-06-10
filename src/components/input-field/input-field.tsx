@@ -287,6 +287,8 @@ export class InputField {
     public componentDidUpdate() {
         if (this.invalid) {
             this.mdcTextField.valid = false;
+        } else {
+            this.mdcTextField.valid = true;
         }
 
         this.mdcTextField.disabled = this.disabled || this.readonly;
@@ -391,6 +393,8 @@ export class InputField {
 
         if (this.invalid) {
             this.mdcTextField.valid = false;
+        } else {
+            this.mdcTextField.valid = true;
         }
 
         this.mapCompletions();

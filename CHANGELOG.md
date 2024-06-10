@@ -1,3 +1,19 @@
+## [37.49.4](https://github.com/Lundalogik/lime-elements/compare/v37.49.3...v37.49.4) (2024-06-10)
+
+
+### Bug Fixes
+
+
+* **banner:** improve mobile layout ([311a4f8](https://github.com/Lundalogik/lime-elements/commit/311a4f8194e55549b0be4e4e2e5f7787438e76d9))
+
+## [37.49.3](https://github.com/Lundalogik/lime-elements/compare/v37.49.2...v37.49.3) (2024-06-10)
+
+
+### Bug Fixes
+
+
+* **input-field:** improve synchronisation with invalid property ([e33141a](https://github.com/Lundalogik/lime-elements/commit/e33141ad1c954cb116897f2359700da8b11217f8))
+
 ## [37.49.2](https://github.com/Lundalogik/lime-elements/compare/v37.49.1...v37.49.2) (2024-06-09)
 
 
