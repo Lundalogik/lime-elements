@@ -1,12 +1,31 @@
 :host(limel-text-editor-link-menu) {
+    animation: fade 0.2s ease forwards;
+    animation-delay: 0.1s; // prevents the visual glitch when the link opens
+    opacity: 0;
+
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.5rem;
+    max-width: calc(100vw - 2rem);
+    border-radius: 0.5rem;
+    background-color: var(--lime-elevated-surface-background-color);
+    box-shadow: var(--shadow-depth-16);
 }
 
 .actions {
     display: flex;
     justify-content: end;
     gap: 0.5rem;
+}
+
+@keyframes fade {
+    0% {
+        scale: 0.86;
+        opacity: 0;
+    }
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
 }

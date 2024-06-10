@@ -23,6 +23,10 @@ export const EditorMenuTypes = {
 export type EditorMenuTypes =
     (typeof EditorMenuTypes)[keyof typeof EditorMenuTypes];
 
+export const editorMenuTypesArray: EditorMenuTypes[] = Object.values(
+    EditorMenuTypes,
+) as EditorMenuTypes[];
+
 /**
  * `LevelMapping` is used to map string identifiers to numerical header levels.
  * It provides a way to represent different levels of headings in ProseMirror commands.

@@ -1,3 +1,47 @@
+## [37.49.2](https://github.com/Lundalogik/lime-elements/compare/v37.49.1...v37.49.2) (2024-06-09)
+
+
+### Bug Fixes
+
+
+* **text editor:** handle initial focus and save events ([d44f378](https://github.com/Lundalogik/lime-elements/commit/d44f378492a1f72dea7a966c84596aa39a6d3648))
+* **text editor:** remove un-necessary requestAnimationFrame ([08cbb9a](https://github.com/Lundalogik/lime-elements/commit/08cbb9ad00a54cfa508c0f6c36bd366de0deb54a))
+* **text-editor:** ensure pressing `esc` closes the link popover ([ec35a1b](https://github.com/Lundalogik/lime-elements/commit/ec35a1bcaee00b5e605ae9c47df18012fb778609))
+* **text-editor:** open the link popover more gracefully ([0c7e7b4](https://github.com/Lundalogik/lime-elements/commit/0c7e7b4fa88fa579f3ec5efbd52b1e94131eea05))
+
+## [37.49.1](https://github.com/Lundalogik/lime-elements/compare/v37.49.0...v37.49.1) (2024-06-07)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure link popover opens in a decent location ([875ace3](https://github.com/Lundalogik/lime-elements/commit/875ace3a902ebdc3796baedb11de8a2c0c6508fe))
+
+## [37.49.0](https://github.com/Lundalogik/lime-elements/compare/v37.48.0...v37.49.0) (2024-06-07)
+
+
+### Features
+
+
+* **text-editor:** reinitialise editor on reconnect ([aa63ca4](https://github.com/Lundalogik/lime-elements/commit/aa63ca4027b78034d94cdd68607b1b4dd4ecf89c))
+
+## [37.48.0](https://github.com/Lundalogik/lime-elements/compare/v37.47.0...v37.48.0) (2024-06-07)
+
+
+### Features
+
+
+* **text editor:** add plugins for handling menu actions and state tracking ([1fc1034](https://github.com/Lundalogik/lime-elements/commit/1fc103488b8e316497df9fc61cae53937369c587))
+* **text-editor:** only call update when needed ([38c0667](https://github.com/Lundalogik/lime-elements/commit/38c0667d85465fb919c465d14a04fb5ba41f2e55))
+
+## [37.47.0](https://github.com/Lundalogik/lime-elements/compare/v37.46.1...v37.47.0) (2024-06-05)
+
+
+### Features
+
+
+* **text editor:** block pasted inline images ([28d562c](https://github.com/Lundalogik/lime-elements/commit/28d562c7ade5f36ef77772ffcd16aa82b733441c))
+
 ## [37.46.1](https://github.com/Lundalogik/lime-elements/compare/v37.46.0...v37.46.1) (2024-06-04)
 
 

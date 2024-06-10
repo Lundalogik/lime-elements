@@ -8,7 +8,7 @@ import {
     Watch,
     h,
 } from '@stencil/core';
-import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
@@ -17,12 +17,16 @@ import { exampleSetup } from 'prosemirror-example-setup';
 import { keymap } from 'prosemirror-keymap';
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
-import { CommandWithActive, MenuCommandFactory } from './menu/menu-commands';
+import { MenuCommandFactory } from './menu/menu-commands';
 import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { markdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
-import { EditorMenuTypes, EditorTextLink } from './menu/types';
+import {
+    EditorMenuTypes,
+    EditorTextLink,
+    editorMenuTypesArray,
+} from './menu/types';
 import translate from 'src/global/translations';
 import { createRandomString } from 'src/util/random-string';
 import { isItem } from 'src/components/action-bar/isItem';
@@ -33,6 +37,9 @@ import {
     EditorLinkMenuEventDetail,
     createLinkPlugin,
 } from './plugins/link-plugin';
+import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
+import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
+import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -95,6 +102,7 @@ export class ProsemirrorAdapter {
     private schema: Schema;
     private contentConverter: ContentTypeConverter;
     private suppressChangeEvent = false;
+    private actionBarElement: HTMLElement;
 
     /**
      * Dispatched when a change is made to the editor
@@ -105,8 +113,6 @@ export class ProsemirrorAdapter {
     constructor() {
         this.portalId = createRandomString();
     }
-
-    private actionBarPluginKey = new PluginKey('actionBarPlugin');
 
     @Watch('value')
     protected watchValue(newValue: string) {
@@ -132,6 +138,12 @@ export class ProsemirrorAdapter {
         setTimeout(() => {
             this.initializeTextEditor();
         }, 0);
+    }
+
+    public connectedCallback() {
+        if (this.view) {
+            this.initializeTextEditor();
+        }
 
         this.host.addEventListener(
             'open-editor-link-menu',
@@ -151,36 +163,38 @@ export class ProsemirrorAdapter {
         return [
             <div id="editor" />,
             <limel-action-bar
-                slot="trigger"
+                ref={(el) => (this.actionBarElement = el)}
                 accessibleLabel="Toolbar"
                 actions={this.actionBarItems}
                 onItemSelected={this.handleActionBarItem}
             />,
+            this.renderLinkMenu(),
+        ];
+    }
+
+    renderLinkMenu() {
+        if (!this.isLinkMenuOpen) {
+            return;
+        }
+
+        return (
             <limel-portal
                 containerId={this.portalId}
                 visible={this.isLinkMenuOpen}
                 openDirection="top"
                 inheritParentWidth={true}
+                anchor={this.actionBarElement}
                 containerStyle={{ 'z-index': 1 }}
             >
-                <limel-menu-surface
-                    open={this.isLinkMenuOpen}
-                    onDismiss={this.handleCancelLinkMenu}
-                    style={{
-                        '--mdc-menu-min-width': '100%',
-                        'max-height': 'inherit',
-                    }}
-                >
-                    <limel-text-editor-link-menu
-                        link={this.link}
-                        isOpen={this.isLinkMenuOpen}
-                        onLinkChange={this.handleLinkChange}
-                        onCancel={this.handleCancelLinkMenu}
-                        onSave={this.handleSaveLinkMenu}
-                    />
-                </limel-menu-surface>
-            </limel-portal>,
-        ];
+                <limel-text-editor-link-menu
+                    link={this.link}
+                    isOpen={this.isLinkMenuOpen}
+                    onLinkChange={this.handleLinkChange}
+                    onCancel={this.handleCancelLinkMenu}
+                    onSave={this.handleSaveLinkMenu}
+                />
+            </limel-portal>
+        );
     }
 
     private setupContentConverter() {
@@ -263,11 +277,34 @@ export class ProsemirrorAdapter {
             plugins: [
                 ...exampleSetup({ schema: this.schema, menuBar: false }),
                 keymap(this.menuCommandFactory.buildKeymap()),
-                this.createMenuStateTrackingPlugin(this.actionBarItems),
                 createLinkPlugin(this.handleNewLinkSelection),
+                createImageRemoverPlugin(),
+                createMenuStateTrackingPlugin(
+                    editorMenuTypesArray,
+                    this.menuCommandFactory,
+                    this.updateActiveActionBarItems,
+                ),
+                createActionBarInteractionPlugin(this.menuCommandFactory),
             ],
         });
     }
+
+    private updateActiveActionBarItems = (
+        activeTypes: Record<EditorMenuTypes, boolean>,
+    ) => {
+        const newItems = getTextEditorMenuItems().map((item) => {
+            if (isItem(item)) {
+                return {
+                    ...item,
+                    selected: activeTypes[item.value],
+                };
+            }
+
+            return item;
+        });
+
+        this.actionBarItems = newItems;
+    };
 
     private async updateView(content: string) {
         this.suppressChangeEvent = true;
@@ -317,30 +354,30 @@ export class ProsemirrorAdapter {
             return;
         }
 
-        try {
-            const command = this.menuCommandFactory.getCommand(value);
-            this.dispatchMenuCommand(command);
-        } catch (error) {
-            throw new Error(`Error executing command: ${error}`);
-        }
+        const actionBarEvent = new CustomEvent('actionBarItemClick', {
+            detail: event.detail,
+        });
+        this.view.dom.dispatchEvent(actionBarEvent);
     };
 
-    private handleCancelLinkMenu = () => {
+    private handleCancelLinkMenu = (event: CustomEvent<void>) => {
+        event.preventDefault();
+        event.stopPropagation();
+
         this.isLinkMenuOpen = false;
+        this.link = { text: '', href: '' };
     };
 
     private handleSaveLinkMenu = () => {
         this.isLinkMenuOpen = false;
 
-        try {
-            const command = this.menuCommandFactory.getCommand(
-                'link',
-                this.link,
-            );
-            this.dispatchMenuCommand(command);
-        } catch (error) {
-            throw new Error(`Error executing command: ${error}`);
-        }
+        const saveLinkEvent = new CustomEvent('saveLinkMenu', {
+            detail: {
+                type: EditorMenuTypes.Link,
+                link: this.link,
+            },
+        });
+        this.view.dom.dispatchEvent(saveLinkEvent);
 
         this.link = { href: '' };
     };
@@ -349,56 +386,9 @@ export class ProsemirrorAdapter {
         this.link = event.detail;
     };
 
-    private dispatchMenuCommand(command) {
-        const { state } = this.view;
-        const selection = state.selection;
-        let transaction = state.tr;
-        if (!selection.empty) {
-            transaction.setSelection(selection);
-        }
-
-        command(state, (tr) => {
-            transaction = tr;
-        });
-        this.view.dispatch(transaction);
-        this.setFocus();
-    }
-
     public setFocus() {
         this.view?.focus();
     }
-
-    private updateActionBarItems = (
-        actionBarItems: Array<ActionBarItem<EditorMenuTypes> | ListSeparator>,
-        view: EditorView,
-    ) => {
-        const updatedItems = cloneDeep(actionBarItems);
-        updatedItems.forEach((item) => {
-            if (isItem(item)) {
-                const command: CommandWithActive =
-                    this.menuCommandFactory.getCommand(item.value);
-                if (command && command.active) {
-                    item.selected = command.active(view.state);
-                } else {
-                    item.selected = false;
-                }
-            }
-        });
-        this.actionBarItems = updatedItems;
-    };
-
-    private createMenuStateTrackingPlugin = (
-        actionBarItems: Array<ActionBarItem<EditorMenuTypes> | ListSeparator>,
-    ) => {
-        return new Plugin({
-            key: this.actionBarPluginKey,
-            view: () => ({
-                update: (view) => {
-                    this.updateActionBarItems(actionBarItems, view);
-                },
-            }),
-        });
-    };
 
     private handleNewLinkSelection = (text: string, href: string) => {
         this.link.text = text;
