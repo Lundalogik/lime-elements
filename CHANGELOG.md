@@ -1,3 +1,11 @@
+## [37.50.0](https://github.com/Lundalogik/lime-elements/compare/v37.49.5...v37.50.0) (2024-06-10)
+
+
+### Features
+
+
+* **text-editor:** make it beta ([67b3750](https://github.com/Lundalogik/lime-elements/commit/67b3750d023374adab2ebb888b63d053385ab5f4))
+
 ## [37.49.5](https://github.com/Lundalogik/lime-elements/compare/v37.49.4...v37.49.5) (2024-06-10)
 
 
