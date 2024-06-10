@@ -1,3 +1,11 @@
+## [37.49.5](https://github.com/Lundalogik/lime-elements/compare/v37.49.4...v37.49.5) (2024-06-10)
+
+
+### Bug Fixes
+
+
+* **markdown:** don't always force line break ([a142983](https://github.com/Lundalogik/lime-elements/commit/a1429839f52ca054aa6f844bca0a93d19d5ec261)), closes [Lundalogik/crm-feature#4175](https://github.com/Lundalogik/crm-feature/issues/4175)
+
 ## [37.49.4](https://github.com/Lundalogik/lime-elements/compare/v37.49.3...v37.49.4) (2024-06-10)
 
 
