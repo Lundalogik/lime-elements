@@ -15,8 +15,15 @@ import { Component, h, State } from '@stencil/core';
  * to resize the text editor vertically.
  *
  * :::tip
- * Using `max-height` and `min-height` CSS properties, you can limit the
- * resizing to a specific range.
+ * 1. The text editor makes sure that it never becomes taller than the viewport's height.
+ * This way, its toolbar and resize control will remain reasonably visible, when
+ * the component is auto resizing itself based on the content it holds.
+ * This behavior is controlled by the `--text-editor-max-height` CSS variable,
+ * which defaults to `calc(100vh - (env(safe-area-inset-top) + env(safe-area-inset-bottom)) - 4rem)`,
+ * taking also into account the safe zones which are defined by the environment variables.
+ *
+ * 1. Using `max-height` and `min-height` CSS properties on the component itself,
+ * (or using `--text-editor-max-height`), you can limit the resizing to a specific range.
  * :::
  */
 @Component({

@@ -1,6 +1,10 @@
 @use '../../style/internal/shared_input-select-picker';
 @use '../../style/mixins.scss';
 
+/**
+ * @prop --text-editor-max-height: the tallest height the text editor can become when auto-resizing itself. Defaults to `calc(100vh - (env(safe-area-inset-top) + env(safe-area-inset-bottom)) - 4rem)`.
+ */
+
 @include shared_input-select-picker.lime-looks-like-input-value;
 .lime-looks-like-input-value {
     padding: var(--limel-text-editor-padding);
@@ -24,7 +28,13 @@
     min-width: 5rem;
     min-height: 5rem;
     height: 100%;
-    max-height: 100%;
+    max-height: var(
+        --text-editor-max-height,
+        calc(
+            100vh - (env(safe-area-inset-top) + env(safe-area-inset-bottom)) -
+                4rem
+        )
+    );
 }
 
 :host(limel-text-editor:hover) {
