@@ -113,7 +113,7 @@ export class TextEditorLinkMenu {
             <limel-input-field
                 label={this.getTranslation('editor-link-menu.link')}
                 value={this.link?.href || ''}
-                type="url"
+                type="text"
                 leadingIcon="-lime-text-link"
                 trailingIcon="external_link"
                 invalid={this.invalidLink}
