@@ -11,6 +11,7 @@
     div#editor {
         order: 2;
         height: 100%;
+        flex-grow: 1;
     }
 
     div[contenteditable='true'] {
