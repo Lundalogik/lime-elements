@@ -1,3 +1,11 @@
+## [37.50.1](https://github.com/Lundalogik/lime-elements/compare/v37.50.0...v37.50.1) (2024-06-11)
+
+
+### Bug Fixes
+
+
+* **input-field:** revert synchronisation with invalid property ([8bb0c3f](https://github.com/Lundalogik/lime-elements/commit/8bb0c3f4a1a0b0b97e0cdf9a33bf01f0d8dcb698))
+
 ## [37.50.0](https://github.com/Lundalogik/lime-elements/compare/v37.49.5...v37.50.0) (2024-06-10)
 
 
