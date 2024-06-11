@@ -151,7 +151,7 @@ limel-prosemirror-adapter {
 
 @include mixins.hide-helper-line-when-not-needed(limel-text-editor);
 :host(limel-text-editor.has-helper-text:focus-within),
-:host(limel-text-editor.has-helper-text[invalid]) {
+:host(limel-text-editor.has-helper-text[invalid]:not([invalid='false'])) {
     .notched-outline {
         --limel-text-editor-notched-outline-bottom: 1rem;
     }

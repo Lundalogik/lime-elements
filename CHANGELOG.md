@@ -1,3 +1,12 @@
+## [37.50.2](https://github.com/Lundalogik/lime-elements/compare/v37.50.1...v37.50.2) (2024-06-11)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure there is space after the last element in the content ([ccb83af](https://github.com/Lundalogik/lime-elements/commit/ccb83afc9feb6fe10580cca36878cae7ea2cdaa8))
+* **text-editor:** remove bottom empty space when used in forms ([fca7787](https://github.com/Lundalogik/lime-elements/commit/fca77870ad2542ba6387ceee51b5718fc2bc8056))
+
 ## [37.50.1](https://github.com/Lundalogik/lime-elements/compare/v37.50.0...v37.50.1) (2024-06-11)
 
 
