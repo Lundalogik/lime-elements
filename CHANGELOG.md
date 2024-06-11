@@ -1,3 +1,11 @@
+## [37.51.0](https://github.com/Lundalogik/lime-elements/compare/v37.50.3...v37.51.0) (2024-06-11)
+
+
+### Features
+
+
+* **text-editor:** add a CSS variable to control component's max height ([a5d6ac5](https://github.com/Lundalogik/lime-elements/commit/a5d6ac5300b00c50e4a28c8b04bdc8a9fe3c493d))
+
 ## [37.50.3](https://github.com/Lundalogik/lime-elements/compare/v37.50.2...v37.50.3) (2024-06-11)
 
 
