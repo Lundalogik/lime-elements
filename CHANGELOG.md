@@ -1,3 +1,11 @@
+## [37.52.0](https://github.com/Lundalogik/lime-elements/compare/v37.51.0...v37.52.0) (2024-06-12)
+
+
+### Features
+
+
+* **limel-text-editor:** remove native url validation from the link input field ([cf4d357](https://github.com/Lundalogik/lime-elements/commit/cf4d3579f2dfa42d12728f34a98eb91ac67c6623))
+
 ## [37.51.0](https://github.com/Lundalogik/lime-elements/compare/v37.50.3...v37.51.0) (2024-06-11)
 
 
