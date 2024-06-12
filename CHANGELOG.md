@@ -1,3 +1,19 @@
+## [37.51.0](https://github.com/Lundalogik/lime-elements/compare/v37.50.3...v37.51.0) (2024-06-11)
+
+
+### Features
+
+
+* **text-editor:** add a CSS variable to control component's max height ([a5d6ac5](https://github.com/Lundalogik/lime-elements/commit/a5d6ac5300b00c50e4a28c8b04bdc8a9fe3c493d))
+
+## [37.50.3](https://github.com/Lundalogik/lime-elements/compare/v37.50.2...v37.50.3) (2024-06-11)
+
+
+### Bug Fixes
+
+
+* **text-editor:** put most used controls in the toolbar first ([1061c72](https://github.com/Lundalogik/lime-elements/commit/1061c722c99b80783d5b1c2979612493776bd5b9))
+
 ## [37.50.2](https://github.com/Lundalogik/lime-elements/compare/v37.50.1...v37.50.2) (2024-06-11)
 
 

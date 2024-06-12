@@ -8,7 +8,8 @@ import { Component, h } from '@stencil/core';
  *
  * However, you can still constrain the text editor to never grow beyond a certain height,
  * by either
- * - setting a fixed `height` or `max-height` the component itself,
+ * - setting a fixed `height` or `max-height` the component itself, or using
+ * `--text-editor-max-height` CSS variable;
  * - or alternatively by setting a fixed `height` or `max-height` on the container
  * element of the component.
  *
