@@ -7,14 +7,17 @@
  */
 
 :root {
-    /* Lime Technologies Brand Colors (Do not have dark/light mode variants) */
+    /* Deprecated Lime Technologies Brand Colors (pre-2024 Brand Refresh).
+       They do not have dark/light mode variants.
+       Kept here for backwards compatibility only!
+    */
     --lime-brand-color-deep-red: 240, 87, 80; /* #f05750 */
-    --lime-brand-color-sellable-orange: 255, 112, 67; /* #ff7043 (FIXME: or 247-107-7; // #f76b07 ? --> can be replaced with orange-dark in light mode in this case) */
+    --lime-brand-color-sellable-orange: 255, 112, 67; /* #ff7043 */
     --lime-brand-color-orange: 255, 176, 59; /* #ffb03b */
     --lime-brand-color-yellow: 255, 207, 61; /* #ffcf3d */
-    --lime-brand-color-lime-green: 102, 187, 106; /* #66bb6a (FIXME: or 133-196-54; // #85c436 ? --> can be replaced with lime-default in light mode in this case) */
-    --lime-brand-color-flexible-turquoise: 38, 166, 154; /* #26a69a (FIXME: or 0-179-167; // #00b3a7 ? --> needs modifying the teal hues in this case) */
-    --lime-brand-color-simple-blue: 41, 182, 246; /* #29b6f6 (FIXME: or 0-183-255; // #00b7ff ? --> can be replaced with sky-light in dark mode in this case) */
+    --lime-brand-color-lime-green: 102, 187, 106; /* #66bb6a */
+    --lime-brand-color-flexible-turquoise: 38, 166, 154; /* #26a69a */
+    --lime-brand-color-simple-blue: 41, 182, 246; /* #29b6f6 */
     --lime-brand-color-dark-blue: 87, 135, 159; /* #57879f */
     --lime-brand-color-loving-magenta: 255, 49, 149; /* #ff3195 */
     --lime-brand-color-light-grey: 173, 173, 173; /* #adadad */
