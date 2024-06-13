@@ -46,7 +46,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@microsoft/api-extractor": "^7.46.2",
     "@popperjs/core": "^2.11.8",
-    "@rjsf/core": "^2.4.2",
+    "@rjsf/core": "^5.18.4",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@stencil/core": "^3.4.1",
     "@stencil/sass": "^3.0.11",
