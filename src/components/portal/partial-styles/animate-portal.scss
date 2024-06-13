@@ -1,0 +1,15 @@
+// This file is imported in `src/global/core-styles.scss`
+// to be included in the global scope of our applications.
+// Styles in that file are applied to all elements inside the `<body>`,
+// including the `div`s which are dynamically created by `limel-portal`.
+
+.limel-portal--container {
+    font-family: var(--limel-portal-font-family, inherit);
+    opacity: 0;
+    display: none;
+
+    &.is-visible {
+        opacity: 1;
+        display: inline-block;
+    }
+}
