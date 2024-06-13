@@ -1,3 +1,11 @@
+## [37.52.1](https://github.com/Lundalogik/lime-elements/compare/v37.52.0...v37.52.1) (2024-06-13)
+
+
+### Bug Fixes
+
+
+* **table:** prevent rendering rows with very short height ([09bcea3](https://github.com/Lundalogik/lime-elements/commit/09bcea3ffd413d504d7a3a3cf0a2ea79eaa9201d))
+
 ## [37.52.0](https://github.com/Lundalogik/lime-elements/compare/v37.51.0...v37.52.0) (2024-06-12)
 
 
