@@ -242,20 +242,16 @@ export class Portal {
 
     private hideContainer() {
         this.container.style.opacity = '0';
+        this.container.style.display = 'none';
     }
 
     private showContainer() {
         this.container.style.opacity = '1';
+        this.container.style.display = 'block';
     }
 
     private styleContainer() {
         const hostWidth = this.host.getBoundingClientRect().width;
-
-        if (this.visible) {
-            this.container.style.display = 'block';
-        } else {
-            this.container.style.display = 'none';
-        }
 
         if (this.inheritParentWidth) {
             const containerWidth = this.getContentWidth(this.container);
