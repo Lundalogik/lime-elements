@@ -160,12 +160,12 @@
     --color-gray-lighter: 245, 245, 245; /* #f5f5f5 */
     --color-gray-light: 224, 224, 224; /* #e0e0e0 */
     --color-gray-default: 158, 158, 158; /* #9e9e9e */
-    --color-gray-dark: var(--lime-brand-color-grey);
+    --color-gray-dark: 87, 87, 86; /* #575756 */
     --color-gray-darker: 33, 33, 33; /* #212121 */
 
     --color-glaucous-lighter: 208, 225, 232; /* #d0e1e8 */
     --color-glaucous-light: 135, 174, 193; /* #87aec1 */
-    --color-glaucous-default: var(--lime-brand-color-dark-blue);
+    --color-glaucous-default: 87, 135, 159; /* #57879f */
     --color-glaucous-dark: 58, 100, 119; /* #3a6477 */
     --color-glaucous-darker: 37, 71, 88; /* #254758 */
 }
@@ -192,7 +192,7 @@
     --contrast-1700: 255, 255, 255; /* #fff */
 
     --color-red-lighter: 239, 154, 154; /* #ef9a9a */
-    --color-red-light: var(--lime-brand-color-deep-red);
+    --color-red-light: 240, 87, 80; /* #f05750 */
     --color-red-default: 229, 57, 53; /* #e53935 */
     --color-red-dark: 198, 40, 40; /* #c62828 */
     --color-red-darker: 165, 23, 23; /* #a51717 */
@@ -205,7 +205,7 @@
 
     --color-magenta-lighter: 249, 161, 204; /* #f9a1cc */
     --color-magenta-light: 249, 79, 162; /* #f94fa2 */
-    --color-magenta-default: var(--lime-brand-color-loving-magenta);
+    --color-magenta-default: 255, 49, 149; /* #ff3195 */
     --color-magenta-dark: 208, 31, 117; /* #d01f75 */
     --color-magenta-darker: 156, 22, 87; /* #9c1657 */
 
@@ -234,7 +234,7 @@
     --color-blue-darker: 10, 60, 138; /* #0a3c8a */
 
     --color-sky-lighter: 129, 212, 250; /* #81d4fa */
-    --color-sky-light: var(--lime-brand-color-simple-blue);
+    --color-sky-light: 41, 182, 246; /* #29b6f6 */
     --color-sky-default: 3, 155, 229; /* #039be5 */
     --color-sky-dark: 2, 119, 189; /* #0277bd */
     --color-sky-darker: 1, 81, 144; /* #015190 */
@@ -246,13 +246,13 @@
     --color-cyan-darker: 0, 89, 93; /* #00595d */
 
     --color-teal-lighter: 128, 203, 196; /* #80cbc4 */
-    --color-teal-light: var(--lime-brand-color-flexible-turquoise);
+    --color-teal-light: 38, 166, 154; /* #26a69a */
     --color-teal-default: 0, 137, 123; /* #00897b */
     --color-teal-dark: 0, 105, 92; /* #00695c */
     --color-teal-darker: 1, 82, 69; /* #015245 */
 
     --color-green-lighter: 165, 214, 167; /* #a5d6a7 */
-    --color-green-light: var(--lime-brand-color-lime-green);
+    --color-green-light: 102, 187, 106; /* #66bb6a */
     --color-green-default: 67, 160, 71; /* #43a047 */
     --color-green-dark: 46, 125, 50; /* #2e7d32 */
     --color-green-darker: 32, 97, 37; /* #206125 */
@@ -276,8 +276,8 @@
     --color-yellow-darker: 224, 180, 21; /* #e0b415 */
 
     --color-amber-lighter: 255, 224, 130; /* #ffe082 */
-    --color-amber-light: var(--lime-brand-color-yellow);
-    --color-amber-default: var(--lime-brand-color-orange);
+    --color-amber-light: 255, 207, 61; /* #ffcf3d */
+    --color-amber-default: 255, 176, 59; /* #ffb03b */
     --color-amber-dark: 255, 143, 0; /* #ff8f00 */
     --color-amber-darker: 222, 98, 2; /* #de6202 */
 
@@ -288,7 +288,7 @@
     --color-orange-darker: 216, 77, 1; /* #d84d01 */
 
     --color-coral-lighter: 255, 171, 145; /* #ffab91 */
-    --color-coral-light: var(--lime-brand-color-sellable-orange);
+    --color-coral-light: 255, 112, 67; /* #ff7043 */
     --color-coral-default: 244, 81, 30; /* #f4511e */
     --color-coral-dark: 216, 67, 21; /* #d84315 */
     --color-coral-darker: 181, 50, 10; /* #b5320a */
@@ -300,7 +300,7 @@
     --color-brown-darker: 51, 32, 28; /* #33201c */
 
     --color-gray-lighter: 238, 238, 238; /* #eee */
-    --color-gray-light: var(--lime-brand-color-light-grey);
+    --color-gray-light: 173, 173, 173; /* #adadad */
     --color-gray-default: 117, 117, 117; /* #757575 */
     --color-gray-dark: 66, 66, 66; /* #424242 */
     --color-gray-darker: 33, 32, 32; /* #212020 */
@@ -350,7 +350,7 @@
         --contrast-1700: 255, 255, 255; /* #fff */
 
         --color-red-lighter: 239, 154, 154; /* #ef9a9a */
-        --color-red-light: var(--lime-brand-color-deep-red);
+        --color-red-light: 240, 87, 80; /* #f05750 */
         --color-red-default: 229, 57, 53; /* #e53935 */
         --color-red-dark: 198, 40, 40; /* #c62828 */
         --color-red-darker: 165, 23, 23; /* #a51717 */
@@ -363,7 +363,7 @@
 
         --color-magenta-lighter: 249, 161, 204; /* #f9a1cc */
         --color-magenta-light: 249, 79, 162; /* #f94fa2 */
-        --color-magenta-default: var(--lime-brand-color-loving-magenta);
+        --color-magenta-default: 255, 49, 149; /* #ff3195 */
         --color-magenta-dark: 208, 31, 117; /* #d01f75 */
         --color-magenta-darker: 156, 22, 87; /* #9c1657 */
 
@@ -392,7 +392,7 @@
         --color-blue-darker: 10, 60, 138; /* #0a3c8a */
 
         --color-sky-lighter: 129, 212, 250; /* #81d4fa */
-        --color-sky-light: var(--lime-brand-color-simple-blue);
+        --color-sky-light: 41, 182, 246; /* #29b6f6 */
         --color-sky-default: 3, 155, 229; /* #039be5 */
         --color-sky-dark: 2, 119, 189; /* #0277bd */
         --color-sky-darker: 1, 81, 144; /* #015190 */
@@ -404,13 +404,13 @@
         --color-cyan-darker: 0, 89, 93; /* #00595d */
 
         --color-teal-lighter: 128, 203, 196; /* #80cbc4 */
-        --color-teal-light: var(--lime-brand-color-flexible-turquoise);
+        --color-teal-light: 38, 166, 154; /* #26a69a */
         --color-teal-default: 0, 137, 123; /* #00897b */
         --color-teal-dark: 0, 105, 92; /* #00695c */
         --color-teal-darker: 1, 82, 69; /* #015245 */
 
         --color-green-lighter: 165, 214, 167; /* #a5d6a7 */
-        --color-green-light: var(--lime-brand-color-lime-green);
+        --color-green-light: 102, 187, 106; /* #66bb6a */
         --color-green-default: 67, 160, 71; /* #43a047 */
         --color-green-dark: 46, 125, 50; /* #2e7d32 */
         --color-green-darker: 32, 97, 37; /* #206125 */
@@ -434,8 +434,8 @@
         --color-yellow-darker: 224, 180, 21; /* #e0b415 */
 
         --color-amber-lighter: 255, 224, 130; /* #ffe082 */
-        --color-amber-light: var(--lime-brand-color-yellow);
-        --color-amber-default: var(--lime-brand-color-orange);
+        --color-amber-light: 255, 207, 61; /* #ffcf3d */
+        --color-amber-default: 255, 176, 59; /* #ffb03b */
         --color-amber-dark: 255, 143, 0; /* #ff8f00 */
         --color-amber-darker: 222, 98, 2; /* #de6202 */
 
@@ -446,7 +446,7 @@
         --color-orange-darker: 216, 77, 1; /* #d84d01 */
 
         --color-coral-lighter: 255, 171, 145; /* #ffab91 */
-        --color-coral-light: var(--lime-brand-color-sellable-orange);
+        --color-coral-light: 255, 112, 67; /* #ff7043 */
         --color-coral-default: 244, 81, 30; /* #f4511e */
         --color-coral-dark: 216, 67, 21; /* #d84315 */
         --color-coral-darker: 181, 50, 10; /* #b5320a */
@@ -458,7 +458,7 @@
         --color-brown-darker: 51, 32, 28; /* #33201c */
 
         --color-gray-lighter: 238, 238, 238; /* #eee */
-        --color-gray-light: var(--lime-brand-color-light-grey);
+        --color-gray-light: 173, 173, 173; /* #adadad */
         --color-gray-default: 117, 117, 117; /* #757575 */
         --color-gray-dark: 66, 66, 66; /* #424242 */
         --color-gray-darker: 33, 32, 32; /* #212020 */
