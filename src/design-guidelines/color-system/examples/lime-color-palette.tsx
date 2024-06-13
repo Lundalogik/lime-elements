@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
     tag: 'limel-example-brand-color-palette',
@@ -6,111 +6,51 @@ import { Component, h, State } from '@stencil/core';
     styleUrl: 'lime-color-palette.scss',
 })
 export class PaletteExample {
-    @State()
-    private primaryColors: boolean = false;
-
     public render() {
         return (
-            <div class={{ 'highlight-primary-colors': this.primaryColors }}>
+            <div>
                 <div class="color-palette">
-                    <div class="--lime-brand-color-deep-red swatch hue">
-                        --lime-brand-color-deep-red
-                    </div>
-                    <div class="swatch hue">
-                        <span class="equals">=</span>--color-red-light
-                        <span class="which-mood">in dark-mode</span>
-                    </div>
-
-                    <div class="--lime-brand-color-loving-magenta swatch hue is-primary">
-                        --lime-brand-color-loving-magenta
-                    </div>
-                    <div class="swatch hue">
-                        <span class="equals">=</span>--color-magenta-default
-                        <span class="which-mood">in dark-mode</span>
-                    </div>
-
-                    <div class="--lime-brand-color-simple-blue swatch hue is-primary">
-                        --lime-brand-color-simple-blue
-                    </div>
-                    <div class="swatch hue">
-                        <span class="equals">=</span>--color-sky-light
-                        <span class="which-mood">in dark-mode</span>
-                    </div>
-
-                    <div class="--lime-brand-color-flexible-turquoise swatch hue is-primary">
-                        --lime-brand-color-flexible-turquoise
-                    </div>
-                    <div class="swatch hue">
-                        <span class="equals">=</span>--color-teal-light
-                        <span class="which-mood">in dark-mode</span>
-                    </div>
-
-                    <div class="--lime-brand-color-lime-green swatch hue is-primary">
+                    <div class="--lime-brand-color-lime-green swatch hue">
                         --lime-brand-color-lime-green
                     </div>
                     <div class="swatch hue">
-                        <span class="equals">=</span>--color-lime-light
-                        <span class="which-mood">in dark-mode</span>
+                        <span class="equals">=</span>rgb(190, 224, 52) / #BEE034
                     </div>
-
-                    <div class="--lime-brand-color-yellow swatch hue">
-                        --lime-brand-color-yellow
+                    <div class="--lime-brand-color-ocean-teal swatch hue">
+                        --lime-brand-color-ocean-teal
                     </div>
                     <div class="swatch hue">
-                        <span class="equals">=</span>--color-amber-light
-                        <span class="which-mood">in dark-mode</span>
+                        <span class="equals">=</span>rgb(111, 205, 182) /
+                        #6FCDB6
                     </div>
-
-                    <div class="--lime-brand-color-orange swatch hue">
-                        --lime-brand-color-orange
-                    </div>
-                    <div class="swatch hue">
-                        <span class="equals">=</span>--color-amber-default
-                        <span class="which-mood">in dark-mode</span>
-                    </div>
-
-                    <div class="--lime-brand-color-sellable-orange swatch hue is-primary">
-                        --lime-brand-color-sellable-orange
+                    <div class="--lime-brand-color-aqua swatch hue">
+                        --lime-brand-color-aqua
                     </div>
                     <div class="swatch hue">
-                        <span class="equals">=</span>--color-coral-light
-                        <span class="which-mood">in dark-mode</span>
+                        <span class="equals">=</span>rgb(166, 239, 255) /
+                        #A6EFFF
                     </div>
-
-                    <div class="--lime-brand-color-light-grey swatch hue">
-                        --lime-brand-color-light-grey
-                    </div>
-                    <div class="swatch hue">
-                        <span class="equals">=</span>--color-gray-light
-                        <span class="which-mood">in dark-mode</span>
-                    </div>
-
-                    <div class="--lime-brand-color-grey swatch hue is-primary">
-                        --lime-brand-color-grey
+                    <div class="--lime-brand-color-bubble-gum swatch hue">
+                        --lime-brand-color-bubble-gum
                     </div>
                     <div class="swatch hue">
-                        <span class="equals">=</span>--color-gray-dark
-                        <span class="which-mood">in light-mode</span>
+                        <span class="equals">=</span>rgb(255, 166, 234) /
+                        #FFA6EA
                     </div>
-
-                    <div class="--lime-brand-color-dark-blue swatch hue">
-                        --lime-brand-color-dark-blue
+                    <div class="--lime-brand-color-sunny-orange swatch hue">
+                        --lime-brand-color-sunny-orange
                     </div>
                     <div class="swatch hue">
-                        <span class="equals">=</span>--color-glaucous
-                        <span class="which-mood">in light-mode</span>
+                        <span class="equals">=</span>rgb(254, 176, 0) / #FEB000
+                    </div>
+                    <div class="--lime-brand-color-cool-grey swatch hue">
+                        --lime-brand-color-cool-grey
+                    </div>
+                    <div class="swatch hue">
+                        <span class="equals">=</span>rgb(84, 87, 98) / #545762
                     </div>
                 </div>
-                <limel-checkbox
-                    label="Highlight primary brand colors"
-                    onChange={this.toggleMode}
-                    checked={this.primaryColors}
-                />
             </div>
         );
     }
-
-    private toggleMode = () => {
-        this.primaryColors = !this.primaryColors;
-    };
 }

@@ -9,6 +9,14 @@
 :root {
     --limel-chip-progress-mix-blend-mode: multiply;
 
+    /* Lime Technologies Brand Colors */
+    --lime-brand-color-lime-green: 190, 224, 52; /* #BEE034 */
+    --lime-brand-color-ocean-teal: 111, 205, 182; /* #6FCDB6 */
+    --lime-brand-color-aqua: 166, 239, 255; /* #A6EFFF */
+    --lime-brand-color-bubble-gum: 255, 166, 234; /* #FFA6EA */
+    --lime-brand-color-sunny-orange: 254, 176, 0; /* #FEB000 */
+    --lime-brand-color-cool-grey: 84, 87, 98; /* #545762 */
+
     /* Deprecated Lime Technologies Brand Colors (pre-2024 Brand Refresh).
        They do not have dark/light mode variants.
        Kept here for backwards compatibility only!
@@ -17,7 +25,6 @@
     --lime-brand-color-sellable-orange: 255, 112, 67; /* #ff7043 */
     --lime-brand-color-orange: 255, 176, 59; /* #ffb03b */
     --lime-brand-color-yellow: 255, 207, 61; /* #ffcf3d */
-    --lime-brand-color-lime-green: 102, 187, 106; /* #66bb6a */
     --lime-brand-color-flexible-turquoise: 38, 166, 154; /* #26a69a */
     --lime-brand-color-simple-blue: 41, 182, 246; /* #29b6f6 */
     --lime-brand-color-dark-blue: 87, 135, 159; /* #57879f */
