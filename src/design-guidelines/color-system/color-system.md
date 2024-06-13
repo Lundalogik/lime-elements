@@ -102,7 +102,9 @@ But when you do your own add-ons, integrations, and apps, keep in mind that the 
 Colors should be used to communicate meaning, and attract attention to things that are functionally important, not to scream your brand throughout the entire product. Different sections of the app should be distinct, but also blend together well. Extensive color usage will be placing the emphasis on an app’s UI structure, instead of its content.
 :::
 
-Use only one accent color (product color) and use it for all Lime Elements components in your product. Define this accent color by setting the CSS variable `--lime-primary-color`. We don't recommend using the Lime brand color CSS variables directly in this case, but instead suggest using their equivalent swatch from the color palette. This will ensure that your UI will automatically benefit from dark mode adjustments, while users do not notice the difference.
+Use only one accent color (product color) and use it for all Lime Elements components in your product. Define this accent color by setting the CSS variable `--lime-primary-color`.
+
+We don't recommend using the Lime brand color CSS variables for accent colors!
 
 Things that can be affected by the accent color:
 
