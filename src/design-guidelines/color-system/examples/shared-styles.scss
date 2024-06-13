@@ -18,7 +18,6 @@
 }
 
 .swatch {
-    transition: border-radius 0.2s ease;
     border-radius: 3px;
     justify-content: center;
     color: rgba(var(--kompendium-color-white), 0.4);
@@ -48,45 +47,6 @@
     font-size: functions.pxToRem(12);
     color: rgb(var(--kompendium-contrast-900));
     justify-content: start;
-}
-
-.brand-colors-tips {
-    transition: opacity 0.2s ease 0.4s;
-    opacity: 0;
-    font-size: functions.pxToRem(14);
-    padding-left: functions.pxToRem(44);
-    margin-bottom: functions.pxToRem(40);
-}
-
-.brand-colors {
-    .brand-colors-tips {
-        opacity: 1;
-    }
-}
-
-@media (prefers-color-scheme: light) {
-    .brand-colors {
-        .--color-glaucous-default,
-        .--color-gray-dark {
-            border-radius: 50%;
-        }
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .brand-colors {
-        .--color-red-light,
-        .--color-magenta-default,
-        .--color-sky-light,
-        .--color-teal-light,
-        .--color-green-light,
-        .--color-amber-light,
-        .--color-amber-default,
-        .--color-coral-light,
-        .--color-gray-light {
-            border-radius: 50%;
-        }
-    }
 }
 
 .--color-red-lighter {
