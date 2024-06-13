@@ -99,6 +99,7 @@ $table--limel-table--row-selector: 1;
 
 .tabulator-row {
     transition: background-color 0.2s ease;
+    min-height: 2.25rem;
 
     &:hover {
         transition: background-color 0.1s ease;
@@ -121,6 +122,8 @@ $table--limel-table--row-selector: 1;
 
         display: inline-flex;
         align-items: center;
+        min-height: inherit;
+
         &[style*='text-align: right;'] {
             justify-content: flex-end;
         }
