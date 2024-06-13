@@ -8,6 +8,8 @@ import {
 } from '@popperjs/core';
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 
+const IS_VISIBLE_CLASS = 'is-visible';
+
 /**
  * The portal component provides a way to render children into a DOM node that
  * exist outside the DOM hierarchy of the parent component.
@@ -206,8 +208,6 @@ export class Portal {
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
         this.container.setAttribute('class', 'limel-portal--container');
-        this.container.style.fontFamily =
-            'var(--limel-portal-font-family, inherit)';
         Object.assign(this.container, {
             portalSource: this.host,
         });
@@ -241,13 +241,11 @@ export class Portal {
     }
 
     private hideContainer() {
-        this.container.style.opacity = '0';
-        this.container.style.display = 'none';
+        this.container.classList.remove(IS_VISIBLE_CLASS);
     }
 
     private showContainer() {
-        this.container.style.opacity = '1';
-        this.container.style.display = 'block';
+        this.container.classList.add(IS_VISIBLE_CLASS);
     }
 
     private styleContainer() {
