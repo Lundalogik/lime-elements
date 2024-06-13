@@ -348,6 +348,20 @@ export class Table {
         this.init();
     }
 
+    @Watch('sorting')
+    protected updateSorting(
+        newValue: ColumnSorter[],
+        oldValue: ColumnSorter[],
+    ) {
+        const newSorting = this.getColumnSorter(newValue);
+        const oldSorting = this.getColumnSorter(oldValue);
+        if (isEqual(newSorting, oldSorting)) {
+            return;
+        }
+
+        this.tabulator.setSort(newSorting);
+    }
+
     private areSameColumns(newColumns: Column[], oldColumns: Column[]) {
         return (
             newColumns.length === oldColumns.length &&
@@ -439,6 +453,7 @@ export class Table {
         const ajaxOptions = this.getAjaxOptions();
         const paginationOptions = this.getPaginationOptions();
         const columnOptions = this.getColumnOptions();
+        const initialSorting = this.currentSorting ?? this.sorting;
 
         return {
             data: this.data,
@@ -450,15 +465,13 @@ export class Table {
             ...paginationOptions,
             rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
-            initialSort: this.getColumnSorter(),
+            initialSort: this.getColumnSorter(initialSorting),
             nestedFieldSeparator: false,
             ...columnOptions,
         };
     }
 
-    private getColumnSorter(): Tabulator.Sorter[] {
-        const sorting = this.currentSorting ?? this.sorting;
-
+    private getColumnSorter(sorting: ColumnSorter[]): Tabulator.Sorter[] {
         return sorting.map((sorter: ColumnSorter) => {
             return {
                 column: String(sorter.column.field),
