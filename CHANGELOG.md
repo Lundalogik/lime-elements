@@ -1,3 +1,11 @@
+## [37.52.2](https://github.com/Lundalogik/lime-elements/compare/v37.52.1...v37.52.2) (2024-06-13)
+
+
+### Bug Fixes
+
+
+* **table:** allow sorting to be updated after first render ([2e8650a](https://github.com/Lundalogik/lime-elements/commit/2e8650a1b98744e80ab119a3220e90cdb062a47a))
+
 ## [37.52.1](https://github.com/Lundalogik/lime-elements/compare/v37.52.0...v37.52.1) (2024-06-13)
 
 
