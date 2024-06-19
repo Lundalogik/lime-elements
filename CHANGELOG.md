@@ -1,3 +1,11 @@
+## [37.52.3](https://github.com/Lundalogik/lime-elements/compare/v37.52.2...v37.52.3) (2024-06-19)
+
+
+### Bug Fixes
+
+
+* **list:** improve layout when ordering primary components in items ([227184e](https://github.com/Lundalogik/lime-elements/commit/227184ee9bf76bba6f14cb4fcadaec6dacef696f))
+
 ## [37.52.2](https://github.com/Lundalogik/lime-elements/compare/v37.52.1...v37.52.2) (2024-06-13)
 
 
