@@ -83,6 +83,7 @@ $list-mdc-list-item: 0;
     }
 
     .mdc-deprecated-list-item {
+        gap: 0.5rem;
         transition: background-color 0.2s ease;
         box-sizing: border-box;
         z-index: $list-mdc-list-item; // in Chrome on Windows, menus flicker when they have a scroll bar and user hovers on them. We may be able to remove this in future versions of Chrome. Kia 2021-May-12
@@ -206,11 +207,6 @@ $list-mdc-list-item: 0;
         width: 100%;
     }
 
-    .has-primary-component {
-        .mdc-deprecated-list-item__text {
-            margin-left: 0.5rem;
-        }
-    }
     .mdc-deprecated-list-item__primary-command-text {
         display: flex;
         flex-direction: row;
