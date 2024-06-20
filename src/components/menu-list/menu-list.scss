@@ -25,7 +25,8 @@
         font-size: functions.pxToRem(13);
 
         .mdc-deprecated-list-item__graphic {
-            margin-right: functions.pxToRem(14);
+            margin-right: 0;
+            margin-left: -0.75rem;
         }
     }
 

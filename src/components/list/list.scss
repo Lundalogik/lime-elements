@@ -126,7 +126,7 @@ $list-mdc-list-item: 0;
     }
 
     .mdc-deprecated-list-item__graphic {
-        margin-right: functions.pxToRem(8);
+        margin-right: 0;
     }
 
     &.mdc-deprecated-list--avatar-list {
@@ -138,7 +138,6 @@ $list-mdc-list-item: 0;
                 rgb(var(--contrast-900))
             );
             color: var(--icon-color, rgba(var(--color-white), 0.88));
-            margin-right: functions.pxToRem(12);
             margin-left: functions.pxToRem(-4);
         }
 
@@ -224,16 +223,16 @@ $list-mdc-list-item: 0;
     limel-icon.mdc-deprecated-list-item__graphic {
         // Tweaks to make icon lists align nicely with badge-icon lists.
         &[size='x-small'] {
-            margin-right: functions.pxToRem(4);
+            margin-right: 0;
         }
         &[size='small'] {
-            margin-right: functions.pxToRem(8);
+            margin-right: 0;
         }
         &[size='medium'] {
-            margin-right: functions.pxToRem(8);
+            margin-right: 0.25rem;
         }
         &[size='large'] {
-            margin-right: functions.pxToRem(12);
+            margin-right: 0.5rem;
         }
     }
 }
