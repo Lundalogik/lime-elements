@@ -747,7 +747,7 @@ export class InputField {
                 class="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
                 tabIndex={0}
                 role="button"
-                onKeyPress={this.handleIconKeyPress}
+                onKeyDown={this.handleIconKeyPress}
                 onClick={this.handleIconClick}
             >
                 <limel-icon name={icon} />
