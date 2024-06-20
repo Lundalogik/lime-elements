@@ -65,6 +65,10 @@ export abstract class Picker {
         this.flatpickr = flatpickr(element, config) as flatpickr.Instance;
     }
 
+    public setValue(value: Date) {
+        this.flatpickr.setDate(value, false);
+    }
+
     public redraw() {
         this.flatpickr.redraw();
     }

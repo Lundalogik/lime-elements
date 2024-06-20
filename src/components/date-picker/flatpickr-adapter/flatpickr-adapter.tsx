@@ -142,6 +142,8 @@ export class DatePickerCalendar {
     public componentDidUpdate() {
         if (!this.flatPickrCreated) {
             this.createFlatpickr();
+        } else if (!this.isOpen) {
+            this.picker.setValue(this.value);
         }
 
         this.tryFixConfusingWidthBug();
