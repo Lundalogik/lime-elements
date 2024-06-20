@@ -123,6 +123,7 @@ $list-mdc-list-item: 0;
         // the action menu on the right side a list item
         line-height: 100%;
         margin-right: -0.5rem;
+        order: var(--limel-list-meta-order, 3);
     }
 
     .mdc-deprecated-list-item__graphic {
