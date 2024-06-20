@@ -11,8 +11,10 @@ import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { isAndroidDevice, isIOSDevice } from '../../../util/device';
 
+const ARIA_DATE_FORMAT = 'F j, Y';
+
 export abstract class Picker {
-    public formatDate: (date: Date) => string;
+    public formatter: (date: Date) => string;
 
     protected dateFormat: string;
     protected language: string = 'en';
@@ -113,6 +115,24 @@ export abstract class Picker {
 
     private getWeek(date) {
         return moment(date).isoWeek();
+    }
+
+    private get formatDate() {
+        const longDateFormat = new Intl.DateTimeFormat(this.language, {
+            dateStyle: 'long',
+        });
+
+        return (date: Date | null, format: string): string => {
+            if (!date) {
+                return '';
+            }
+
+            if (format === ARIA_DATE_FORMAT) {
+                return longDateFormat.format(date);
+            }
+
+            return this.formatter(date);
+        };
     }
 
     private parseDate(date: string) {
