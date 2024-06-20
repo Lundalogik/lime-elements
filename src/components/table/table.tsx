@@ -387,10 +387,9 @@ export class Table {
             this.tabulator.destroy();
         }
 
-        const options = this.getOptions();
         const table: HTMLElement =
             this.host.shadowRoot.querySelector('#tabulator-table');
-        this.initTabulatorComponent(table, options);
+        this.initTabulatorComponent(table);
     }
 
     /*
@@ -400,26 +399,21 @@ export class Table {
      * is never run).
      *
      * @param table {HTMLElement}
-     * @param options {Tabulator.Options}
      *
-
      */
-    private initTabulatorComponent(
-        table: HTMLElement,
-        options: Tabulator.Options,
-    ) {
+    private initTabulatorComponent(table: HTMLElement) {
         // Some browsers do not implement the ResizeObserver API...
         // If that's the case lets just create the table no
         // matter if its rendered or not.
         if (!('ResizeObserver' in window)) {
-            this.tabulator = new TabulatorTable(table, options);
+            this.tabulator = new TabulatorTable(table, this.getOptions());
             this.setSelection();
 
             return;
         }
 
         const observer = new ResizeObserver(() => {
-            this.tabulator = new TabulatorTable(table, options);
+            this.tabulator = new TabulatorTable(table, this.getOptions());
             this.setSelection();
             observer.unobserve(table);
         });
