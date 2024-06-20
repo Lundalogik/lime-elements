@@ -1,3 +1,11 @@
+## [37.52.6](https://github.com/Lundalogik/lime-elements/compare/v37.52.5...v37.52.6) (2024-06-20)
+
+
+### Bug Fixes
+
+
+* **table:** use latest available options on init ([bbbc2b8](https://github.com/Lundalogik/lime-elements/commit/bbbc2b85557773aae59226bb96035f20b657920e)), closes [Lundalogik/crm-feature#4186](https://github.com/Lundalogik/crm-feature/issues/4186)
+
 ## [37.52.5](https://github.com/Lundalogik/lime-elements/compare/v37.52.4...v37.52.5) (2024-06-20)
 
 
