@@ -1,3 +1,11 @@
+## [37.52.5](https://github.com/Lundalogik/lime-elements/compare/v37.52.4...v37.52.5) (2024-06-20)
+
+
+### Bug Fixes
+
+
+* **input-field:** handle keydown instead of keypress event ([e736c9d](https://github.com/Lundalogik/lime-elements/commit/e736c9d39d948808b01252281f62e52529e1822e)), closes [Lundalogik/crm-feature#4182](https://github.com/Lundalogik/crm-feature/issues/4182)
+
 ## [37.52.4](https://github.com/Lundalogik/lime-elements/compare/v37.52.3...v37.52.4) (2024-06-20)
 
 
