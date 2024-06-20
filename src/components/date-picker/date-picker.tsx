@@ -299,9 +299,6 @@ export class DatePicker {
         document.addEventListener('mousedown', this.documentClickListener, {
             passive: true,
         });
-        document.addEventListener('keydown', this.documentClickListener, {
-            passive: true,
-        });
 
         document.addEventListener(
             'blur',
@@ -328,7 +325,6 @@ export class DatePicker {
             this.showPortal = false;
         });
         document.removeEventListener('mousedown', this.documentClickListener);
-        document.removeEventListener('keydown', this.documentClickListener);
         document.removeEventListener(
             'blur',
             this.preventBlurFromCalendarContainer,
@@ -348,11 +344,8 @@ export class DatePicker {
         mdcTextField.getDefaultFoundation().deactivateFocus();
     }
 
-    private documentClickListener = (event: MouseEvent | KeyboardEvent) => {
-        if (
-            event.type === 'keydown' &&
-            (event as KeyboardEvent).key !== 'Tab'
-        ) {
+    private documentClickListener = (event: MouseEvent) => {
+        if (event.composedPath().includes(this.textField)) {
             return;
         }
 
