@@ -1,3 +1,11 @@
+## [37.52.4](https://github.com/Lundalogik/lime-elements/compare/v37.52.3...v37.52.4) (2024-06-20)
+
+
+### Bug Fixes
+
+
+* **list:** improve distances between elements within list items ([c931db8](https://github.com/Lundalogik/lime-elements/commit/c931db8cbbc86d923f20f25b6cb17c6dcadb531e))
+
 ## [37.52.3](https://github.com/Lundalogik/lime-elements/compare/v37.52.2...v37.52.3) (2024-06-19)
 
 
