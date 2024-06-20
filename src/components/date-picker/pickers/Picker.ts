@@ -113,10 +113,6 @@ export abstract class Picker {
         return selectedDates[0] ? new Date(selectedDates[0].toJSON()) : null;
     }
 
-    private getWeek(date) {
-        return moment(date).isoWeek();
-    }
-
     private get formatDate() {
         const longDateFormat = new Intl.DateTimeFormat(this.language, {
             dateStyle: 'long',
@@ -133,6 +129,10 @@ export abstract class Picker {
 
             return this.formatter(date);
         };
+    }
+
+    private getWeek(date) {
+        return moment(date).isoWeek();
     }
 
     private parseDate(date: string) {
