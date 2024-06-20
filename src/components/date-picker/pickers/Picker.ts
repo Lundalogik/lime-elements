@@ -37,16 +37,14 @@ export abstract class Picker {
         this.getWeek = this.getWeek.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleOnClose = this.handleOnClose.bind(this);
-        this.parseDate = this.parseDate.bind(this);
         this.getFlatpickrLang = this.getFlatpickrLang.bind(this);
     }
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
-        let config: flatpickr.Options.Options = {
+        const config: flatpickr.Options.Options = {
             clickOpens: this.nativePicker,
             disableMobile: !this.nativePicker,
             formatDate: this.nativePicker ? undefined : this.formatDate,
-            parseDate: this.nativePicker ? undefined : this.parseDate,
             appendTo: container,
             onClose: this.handleOnClose,
             defaultDate: value,
@@ -56,8 +54,8 @@ export abstract class Picker {
                 FlatpickrLanguages[this.getFlatpickrLang()] ||
                 FlatpickrLanguages.en,
             getWeek: this.getWeek,
+            ...this.getConfig(this.nativePicker),
         };
-        config = { ...config, ...this.getConfig(this.nativePicker) };
 
         // Week numbers designate weeks as starting with Monday and
         // ending with Sunday. To make the week numbers make sense,
@@ -133,10 +131,6 @@ export abstract class Picker {
 
     private getWeek(date) {
         return moment(date).isoWeek();
-    }
-
-    private parseDate(date: string) {
-        return moment(date, this.dateFormat, this.getMomentLang()).toDate();
     }
 
     private handleOnClose() {
