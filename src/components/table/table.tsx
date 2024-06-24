@@ -447,7 +447,6 @@ export class Table {
         const ajaxOptions = this.getAjaxOptions();
         const paginationOptions = this.getPaginationOptions();
         const columnOptions = this.getColumnOptions();
-        const initialSorting = this.currentSorting ?? this.sorting;
 
         return {
             data: this.data,
@@ -459,10 +458,18 @@ export class Table {
             ...paginationOptions,
             rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
-            initialSort: this.getColumnSorter(initialSorting),
+            initialSort: this.getInitialSorting(),
             nestedFieldSeparator: false,
             ...columnOptions,
         };
+    }
+
+    private getInitialSorting(): Tabulator.Sorter[] {
+        if (this.currentSorting && this.currentSorting.length) {
+            return this.getColumnSorter(this.currentSorting);
+        }
+
+        return this.getColumnSorter(this.sorting);
     }
 
     private getColumnSorter(sorting: ColumnSorter[]): Tabulator.Sorter[] {
