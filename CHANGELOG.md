@@ -1,3 +1,11 @@
+## [37.52.7](https://github.com/Lundalogik/lime-elements/compare/v37.52.6...v37.52.7) (2024-06-24)
+
+
+### Bug Fixes
+
+
+* **table:** apply correct sorting ([2771aea](https://github.com/Lundalogik/lime-elements/commit/2771aeaf5631cdaa47ce99f53a4ce68e68a19a2a))
+
 ## [37.52.6](https://github.com/Lundalogik/lime-elements/compare/v37.52.5...v37.52.6) (2024-06-20)
 
 
