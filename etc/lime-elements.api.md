@@ -630,7 +630,7 @@ export namespace Components {
     }
     // (undocumented)
     export interface LimelTable {
-        "activeRow": object;
+        "activeRow": RowData;
         "aggregates": ColumnAggregate[];
         "columns": Column[];
         "data": object[];
@@ -1594,7 +1594,7 @@ namespace JSX_2 {
     }
     // (undocumented)
     interface LimelTable {
-        "activeRow"?: object;
+        "activeRow"?: RowData;
         "aggregates"?: ColumnAggregate[];
         "columns"?: Column[];
         "data"?: object[];
@@ -2206,6 +2206,11 @@ export type PickerValue = number | string | {
 
 // @public
 export type ReplaceObjectType<T, AllowedType, ElseType> = T extends any[] ? ElseType : T extends Record<string, any> ? AllowedType : ElseType;
+
+// @public
+export type RowData = {
+    id?: string | number;
+};
 
 // @public
 export interface RowLayoutOptions extends FormLayoutOptions<FormLayoutType | `${FormLayoutType}`> {

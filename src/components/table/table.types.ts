@@ -209,3 +209,11 @@ export interface ColumnAggregate {
      */
     value: any;
 }
+
+/**
+ * Data for identifying a row of the table
+ * @public
+ */
+export type RowData = {
+    id?: string | number;
+};
