@@ -138,5 +138,24 @@ describe('limel-table', () => {
             ).toBeFalsy();
             expect(await selectAllCheckbox.getProperty('checked')).toBeFalsy();
         });
+        it('allows selection by id', async () => {
+            const columns = [{ field: 'name', title: 'Name' }];
+            const data = [
+                { id: 1, name: 'Alpha' },
+                { id: 2, name: 'Beta' },
+            ];
+            await render({
+                data: data,
+                selectable: true,
+                columns: columns,
+                selection: [{ id: 1 }],
+            });
+            const rowSelectors = await tableContainer.findAll(
+                '.tabulator-table > .tabulator-row > .tabulator-cell > limel-checkbox',
+            );
+
+            expect(await rowSelectors[0].getProperty('checked')).toBeTruthy();
+            expect(await rowSelectors[1].getProperty('checked')).toBeFalsy();
+        });
     });
 });
