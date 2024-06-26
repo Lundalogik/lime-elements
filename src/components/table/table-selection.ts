@@ -3,9 +3,11 @@ import Tabulator from 'tabulator-tables';
 import { setElementProperties } from './columns';
 import { ElementPool } from './element-pool';
 import { Selection, SelectionChangeSet } from './selection';
-import { isEqual } from 'lodash-es';
+import { RowData } from './table.types';
 
 const LIMEL_CHECKBOX = 'limel-checkbox';
+
+const getRowId = (data: RowData) => data.id ?? data;
 
 /**
  * Provides row selection to Tabulator with shift-click support for range selections
@@ -23,10 +25,10 @@ export class TableSelection {
     constructor(
         private getTable: () => Tabulator,
         private pool: ElementPool,
-        private selectEvent: EventEmitter<object[]>,
+        private selectEvent: EventEmitter<RowData[]>,
     ) {
         this.selection = new Selection((index) =>
-            this.getRowByIndex(index).getData(),
+            getRowId(this.getRowByIndex(index).getData()),
         );
     }
 
@@ -49,15 +51,24 @@ export class TableSelection {
      *
      * @param data - The selected items
      */
-    public setSelection(data: any[]): void {
-        if (isEqual(this.selection.items, data)) {
+    public setSelection(data: RowData[] = []): void {
+        const newItems = data.map(getRowId);
+        if (
+            this.selection.size === data.length &&
+            this.selection.items.every(
+                (oldItem, index) => oldItem === newItems[index],
+            )
+        ) {
             return;
         }
 
-        this.selection.items = data;
+        this.selection.items = newItems;
         const rows = this.getActiveRows();
         rows.forEach((row) =>
-            this.updateRowSelector(row, this.selection.has(row.getData())),
+            this.updateRowSelector(
+                row,
+                this.selection.has(getRowId(row.getData())),
+            ),
         );
     }
 
@@ -95,7 +106,7 @@ export class TableSelection {
         return (cell: Tabulator.CellComponent) => {
             const element = this.pool.get(LIMEL_CHECKBOX);
             setElementProperties(element, {
-                checked: this.selection.has(cell.getData()),
+                checked: this.selection.has(getRowId(cell.getData())),
             });
             element.style.display = 'inline-block';
 
@@ -131,7 +142,15 @@ export class TableSelection {
             );
         }
 
-        this.selectEvent.emit(this.selection.items);
+        this.selectEvent.emit(this.selection.items.map(this.getRowData));
+    };
+
+    private getRowData = (item: RowData | RowData['id']) => {
+        if (typeof item === 'object') {
+            return item;
+        }
+
+        return this.getTable().getRow(item).getData();
     };
 
     private updateRowSelectors = (changeSet: SelectionChangeSet): void => {

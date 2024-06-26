@@ -20,6 +20,9 @@ describe('table selection', () => {
     beforeEach(() => {
         emitSelect = jest.fn();
         table = {
+            getRow: function (this: Tabulator, id: string | number) {
+                return this.getRows().find((row) => row.getData().id === id);
+            },
             element: {
                 classList: {
                     toggle: jest.fn(),
@@ -121,11 +124,28 @@ describe('table selection', () => {
             expect(checkboxes.get(b).checked).toBeTruthy();
             expect(checkboxes.get(c).checked).toBeFalsy();
         });
+
+        it('can select a single row by id', () => {
+            const a = { id: 'a' };
+            const b = { id: 'b' };
+            const c = { id: 'c' };
+            const checkboxes = setupTableWithRowSelectors(a, b, c);
+
+            tableSelection.setSelection([{ id: 'b' }]);
+
+            expect(checkboxes.size).toEqual(3);
+            expect(checkboxes.get(a)).toBeDefined();
+            expect(checkboxes.get(b)).toBeDefined();
+            expect(checkboxes.get(c)).toBeDefined();
+            expect(checkboxes.get(a).checked).toBeFalsy();
+            expect(checkboxes.get(b).checked).toBeTruthy();
+            expect(checkboxes.get(c).checked).toBeFalsy();
+        });
     });
 
     describe('row selector cell click', () => {
         it('emits the select event with the data of the selected row', () => {
-            const a = {};
+            const a = { id: 1 };
             const b = {};
             setupTableWithRowSelectors(a, b);
 
