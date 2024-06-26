@@ -1,3 +1,11 @@
+## [37.53.0](https://github.com/Lundalogik/lime-elements/compare/v37.52.8...v37.53.0) (2024-06-26)
+
+
+### Features
+
+
+* **style:** add CSS variables for new Lime brand colors ([7675d8b](https://github.com/Lundalogik/lime-elements/commit/7675d8b52ae7173d1f06be7c526016eeb06f2857))
+
 ## [37.52.8](https://github.com/Lundalogik/lime-elements/compare/v37.52.7...v37.52.8) (2024-06-26)
 
 
