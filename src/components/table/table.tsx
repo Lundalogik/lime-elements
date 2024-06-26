@@ -263,8 +263,12 @@ export class Table {
     }
 
     @Watch('data')
-    protected updateData(newData = [], oldData = []) {
-        if (isEqual(newData, oldData)) {
+    protected updateData(newData: RowData[] = [], oldData: RowData[] = []) {
+        const newIds = new Set(newData.map((item) => item.id ?? item));
+
+        if (oldData.every((item) => newIds.has(item.id ?? item))) {
+            this.tabulator.updateOrAddData(newData);
+
             return;
         }
 
