@@ -1,3 +1,11 @@
+## [37.52.8](https://github.com/Lundalogik/lime-elements/compare/v37.52.7...v37.52.8) (2024-06-26)
+
+
+### Bug Fixes
+
+
+* **date-picker:** avoid closing before input click ([bab7d9a](https://github.com/Lundalogik/lime-elements/commit/bab7d9a79335d565c3b43eb78806d6b1fb6d10a4))
+
 ## [37.52.7](https://github.com/Lundalogik/lime-elements/compare/v37.52.6...v37.52.7) (2024-06-24)
 
 
