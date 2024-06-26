@@ -14,6 +14,7 @@ import {
     TableParams,
     ColumnSorter,
     ColumnAggregate,
+    RowData,
 } from './table.types';
 import { ColumnDefinitionFactory, createColumnSorter } from './columns';
 import { isEqual, has } from 'lodash-es';
@@ -100,7 +101,7 @@ export class Table {
      * Active row in the table
      */
     @Prop({ mutable: true })
-    public activeRow: object;
+    public activeRow: RowData;
 
     /**
      * Set to `true` to enable reordering of the columns by dragging them
@@ -651,7 +652,7 @@ export class Table {
             return;
         }
 
-        if (this.activeRow === row.getData()) {
+        if (this.isActiveRow(row)) {
             this.activeRow = null;
         } else {
             this.activeRow = row.getData();
@@ -692,7 +693,7 @@ export class Table {
     }
 
     private formatRow(row: Tabulator.RowComponent) {
-        if (this.activeRow === row.getData()) {
+        if (this.isActiveRow(row)) {
             row.getElement().classList.add('active');
         } else {
             row.getElement().classList.remove('active');
@@ -706,6 +707,20 @@ export class Table {
             element.classList.add('interactive-feedback');
             row.getElement().prepend(element);
         }
+    }
+
+    private isActiveRow(row: Tabulator.RowComponent) {
+        if (!this.activeRow) {
+            return false;
+        }
+
+        const activeRowId = this.activeRow.id ?? null;
+
+        if (activeRowId !== null) {
+            return activeRowId === row.getData().id;
+        }
+
+        return this.activeRow === row.getData();
     }
 
     private calculatePageCount(): number {
