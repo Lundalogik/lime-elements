@@ -1,0 +1,2 @@
+import{r as e,h as i}from"./index-6156b4fd.js";const t=".picker{position:relative;max-width:200px}";const s=class{constructor(i){e(this,i);this.value=undefined;this.searcher=undefined;this.offset=undefined;this.onChange=undefined}render(){return i("div",{class:"picker",style:{top:this.offset.top,left:this.offset.left}},i("limel-picker",{searcher:this.searcher,value:this.value,onChange:this.onChange}))}};s.style=t;export{s as limel_limeobject_selector_picker};
+//# sourceMappingURL=limel-limeobject-selector-picker.entry.js.map
