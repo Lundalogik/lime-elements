@@ -1,0 +1,63 @@
+// This file is imported in `src/global/core-styles.scss`
+// to be included in the global scope of our applications.
+// Styles in that file are applied to all elements inside the `<body>`,
+// including the `div`s which are dynamically created by `limel-portal`.
+
+.limel-portal--container {
+    font-family: var(--limel-portal-font-family, inherit);
+
+    transition:
+        opacity 0.2s ease,
+        display 0.2s ease;
+    transition-behavior: allow-discrete;
+    opacity: 0;
+    display: none;
+
+    &.is-visible {
+        opacity: 1;
+        display: inline-block;
+
+        @starting-style {
+            opacity: 0;
+            display: none;
+        }
+    }
+}
+
+// TODO: add these once the hiding animation starts working
+// &[data-popper-placement='left-start'] {
+//     transform-origin: right top;
+// }
+// &[data-popper-placement='left'] {
+//     transform-origin: right center;
+// }
+// &[data-popper-placement='left-end'] {
+//     transform-origin: right bottom;
+// }
+// &[data-popper-placement='top-start'] {
+//     transform-origin: left bottom;
+// }
+// &[data-popper-placement='top'] {
+//     transform-origin: center bottom;
+// }
+// &[data-popper-placement='top-end'] {
+//     transform-origin: right bottom;
+// }
+// &[data-popper-placement='right-start'] {
+//     transform-origin: left top;
+// }
+// &[data-popper-placement='right'] {
+//     transform-origin: left center;
+// }
+// &[data-popper-placement='right-end'] {
+//     transform-origin: left bottom;
+// }
+// &[data-popper-placement='bottom-start'] {
+//     transform-origin: left top;
+// }
+// &[data-popper-placement='bottom'] {
+//     transform-origin: center top;
+// }
+// &[data-popper-placement='bottom-end'] {
+//     transform-origin: right top;
+// }
