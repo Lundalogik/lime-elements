@@ -1,3 +1,13 @@
+## [37.53.2](https://github.com/Lundalogik/lime-elements/compare/v37.53.1...v37.53.2) (2024-06-27)
+
+
+### Bug Fixes
+
+
+* **table:** avoid scrolling when updating data ([019b570](https://github.com/Lundalogik/lime-elements/commit/019b5707aeebbd4d99720855ea73156b2eb8fe15))
+* **table:** keep better track of active row when updating data ([ce6c710](https://github.com/Lundalogik/lime-elements/commit/ce6c710ece90cabccdc76f0814e51bf071b95490))
+* **table:** keep better track of selection when updating data ([1e2c296](https://github.com/Lundalogik/lime-elements/commit/1e2c296c1bd4dae924d9d8ce2a60e8fdc8f2f01f))
+
 ## [37.53.1](https://github.com/Lundalogik/lime-elements/compare/v37.53.0...v37.53.1) (2024-06-26)
 
 
