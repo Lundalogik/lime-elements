@@ -11,8 +11,10 @@ import 'moment/locale/sv';
 import moment from 'moment/moment';
 import { isAndroidDevice, isIOSDevice } from '../../../util/device';
 
+const ARIA_DATE_FORMAT = 'F j, Y';
+
 export abstract class Picker {
-    public formatDate: (date: Date) => string;
+    public formatter: (date: Date) => string;
 
     protected dateFormat: string;
     protected language: string = 'en';
@@ -35,16 +37,14 @@ export abstract class Picker {
         this.getWeek = this.getWeek.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleOnClose = this.handleOnClose.bind(this);
-        this.parseDate = this.parseDate.bind(this);
         this.getFlatpickrLang = this.getFlatpickrLang.bind(this);
     }
 
     public init(element: HTMLElement, container: HTMLElement, value?: Date) {
-        let config: flatpickr.Options.Options = {
+        const config: flatpickr.Options.Options = {
             clickOpens: this.nativePicker,
             disableMobile: !this.nativePicker,
             formatDate: this.nativePicker ? undefined : this.formatDate,
-            parseDate: this.nativePicker ? undefined : this.parseDate,
             appendTo: container,
             onClose: this.handleOnClose,
             defaultDate: value,
@@ -54,8 +54,8 @@ export abstract class Picker {
                 FlatpickrLanguages[this.getFlatpickrLang()] ||
                 FlatpickrLanguages.en,
             getWeek: this.getWeek,
+            ...this.getConfig(this.nativePicker),
         };
-        config = { ...config, ...this.getConfig(this.nativePicker) };
 
         // Week numbers designate weeks as starting with Monday and
         // ending with Sunday. To make the week numbers make sense,
@@ -63,6 +63,10 @@ export abstract class Picker {
         (config.locale as flatpickr.CustomLocale).firstDayOfWeek = 1;
 
         this.flatpickr = flatpickr(element, config) as flatpickr.Instance;
+    }
+
+    public setValue(value: Date) {
+        this.flatpickr.setDate(value, false);
     }
 
     public redraw() {
@@ -111,12 +115,26 @@ export abstract class Picker {
         return selectedDates[0] ? new Date(selectedDates[0].toJSON()) : null;
     }
 
-    private getWeek(date) {
-        return moment(date).isoWeek();
+    private get formatDate() {
+        const longDateFormat = new Intl.DateTimeFormat(this.language, {
+            dateStyle: 'long',
+        });
+
+        return (date: Date | null, format: string): string => {
+            if (!date) {
+                return '';
+            }
+
+            if (format === ARIA_DATE_FORMAT) {
+                return longDateFormat.format(date);
+            }
+
+            return this.formatter(date);
+        };
     }
 
-    private parseDate(date: string) {
-        return moment(date, this.dateFormat, this.getMomentLang()).toDate();
+    private getWeek(date) {
+        return moment(date).isoWeek();
     }
 
     private handleOnClose() {

@@ -136,12 +136,14 @@ export class DatePickerCalendar {
                 break;
         }
 
-        this.picker.formatDate = this.formatter;
+        this.picker.formatter = this.formatter;
     }
 
     public componentDidUpdate() {
         if (!this.flatPickrCreated) {
             this.createFlatpickr();
+        } else if (!this.isOpen) {
+            this.picker.setValue(this.value);
         }
 
         this.tryFixConfusingWidthBug();

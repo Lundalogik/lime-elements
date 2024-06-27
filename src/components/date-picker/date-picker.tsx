@@ -6,7 +6,6 @@ import {
     Element,
     EventEmitter,
     Event,
-    Watch,
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { isAndroidDevice, isIOSDevice } from '../../util/device';
@@ -150,9 +149,6 @@ export class DatePicker {
     private host: HTMLLimelDatePickerElement;
 
     @State()
-    private formattedValue: string;
-
-    @State()
     private internalFormat: string;
     @State()
     private showPortal = false;
@@ -183,8 +179,6 @@ export class DatePicker {
         this.useNative = !this.readonly && (isIOSDevice() || isAndroidDevice());
 
         this.updateInternalFormatAndType();
-
-        this.formattedValue = this.formatValue(this.value);
     }
 
     public componentWillUpdate() {
@@ -209,7 +203,7 @@ export class DatePicker {
                     label={this.label}
                     helperText={this.helperText}
                     required={this.required}
-                    value={this.formattedValue}
+                    value={this.formatValue(this.value)}
                     type={this.nativeType}
                     onChange={this.nativeChangeHandler}
                 />
@@ -220,6 +214,8 @@ export class DatePicker {
             '--dropdown-z-index',
         );
 
+        const formatter = this.formatter || this.formatValue;
+
         return [
             <limel-input-field
                 disabled={this.disabled}
@@ -229,7 +225,7 @@ export class DatePicker {
                 placeholder={this.placeholder}
                 helperText={this.helperText}
                 required={this.required}
-                value={this.formattedValue}
+                value={this.value ? formatter(this.value) : ''}
                 onFocus={this.showCalendar}
                 onBlur={this.hideCalendar}
                 onClick={this.onInputClick}
@@ -249,18 +245,11 @@ export class DatePicker {
                     value={this.value}
                     ref={(el) => (this.datePickerCalendar = el)}
                     isOpen={this.showPortal}
-                    formatter={this.formatValue}
+                    formatter={formatter}
                     onChange={this.handleCalendarChange}
                 />
             </limel-portal>,
         ];
-    }
-
-    @Watch('value')
-    protected onValueChange(newValue: string, oldValue: string) {
-        if (newValue !== oldValue && newValue !== this.formattedValue) {
-            this.formattedValue = this.formatValue(this.value);
-        }
     }
 
     private updateInternalFormatAndType() {
@@ -269,9 +258,7 @@ export class DatePicker {
 
         if (this.useNative) {
             this.internalFormat = this.nativeFormat;
-        } else if (this.formatter) {
-            this.formatValue = this.formatter;
-        } else if (this.format) {
+        } else if (this.formatter || this.format) {
             this.internalFormat = this.format;
         } else {
             this.internalFormat = this.dateFormatter.getDateFormat(this.type);
@@ -284,7 +271,6 @@ export class DatePicker {
             event.detail,
             this.internalFormat,
         );
-        this.formattedValue = event.detail;
         this.change.emit(date);
     }
 
@@ -357,7 +343,6 @@ export class DatePicker {
 
     private handleCalendarChange(event) {
         const date = event.detail;
-        this.formattedValue = this.formatValue(date);
         event.stopPropagation();
         if (this.pickerIsAutoClosing()) {
             this.hideCalendar();
@@ -391,7 +376,6 @@ export class DatePicker {
     }
 
     private clearValue() {
-        this.formattedValue = '';
         this.change.emit(null);
     }
 

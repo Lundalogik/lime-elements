@@ -102,7 +102,9 @@ But when you do your own add-ons, integrations, and apps, keep in mind that the 
 Colors should be used to communicate meaning, and attract attention to things that are functionally important, not to scream your brand throughout the entire product. Different sections of the app should be distinct, but also blend together well. Extensive color usage will be placing the emphasis on an app’s UI structure, instead of its content.
 :::
 
-Use only one accent color (product color) and use it for all Lime Elements components in your product. Define this accent color by setting the CSS variable `--lime-primary-color`. We don't recommend using the Lime brand color CSS variables directly in this case, but instead suggest using their equivalent swatch from the color palette. This will ensure that your UI will automatically benefit from dark mode adjustments, while users do not notice the difference.
+Use only one accent color (product color) and use it for all Lime Elements components in your product. Define this accent color by setting the CSS variable `--lime-primary-color`.
+
+We don't recommend using the Lime brand color CSS variables for accent colors!
 
 Things that can be affected by the accent color:
 
@@ -163,11 +165,7 @@ With 100 swatches, this palette offers a much richer set of colors that can be u
 This set of colors is included in all available palettes, and can be used for branding and marketing purposes. Swatches and their respective CSS variables have specific names starting with the prefix `--lime-brand-color-`.
 
 :::note
-The brand colors do **not** have a dark and light version. Thus when their respective CSS variable names are used, they will be displayed with the same brightness in both light and dark UIs. However, an equivalent of all these hues already exist in our color palette, and mostly reside in the "dark mode" subset -as stated beside their names as well.
-:::
-
-:::note
-Names of our brand colors are chosen by our Marketing department thus sometimes do not exactly match our naming conventions for their equivalent hues in the color palettes.
+The brand colors do **not** have a dark and light version. Thus when their respective CSS variable names are used, they will be displayed with the same brightness in both light and dark UIs.
 :::
 
 ### Usage of brand colors
@@ -181,5 +179,4 @@ Good places to use brand colors are:
 
 -   in loading screens or splash screens
 -   in logos or home links
--   as accent colors, but carefully! This depends on the color which is chosen to represent the product. For example `deep-red`, `yellow`, `light-grey` or `grey` can never be good accent colors, even if they can be chosen to represent a Lime product.
     :::

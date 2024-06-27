@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
     tag: 'limel-example-extended-color-palette',
@@ -6,9 +6,6 @@ import { Component, h, State } from '@stencil/core';
     styleUrl: 'extended-color-palette.scss',
 })
 export class PaletteExample {
-    @State()
-    private brandColors: boolean = false;
-
     private colors = [
         'red',
         'pink',
@@ -34,7 +31,7 @@ export class PaletteExample {
 
     public render() {
         return (
-            <div class={{ 'brand-colors': this.brandColors }}>
+            <div>
                 <div class="color-palette">
                     {this.renderSwatches()}
                     <div class="brightness-label">lighter</div>
@@ -42,16 +39,6 @@ export class PaletteExample {
                     <div class="brightness-label">default</div>
                     <div class="brightness-label">dark</div>
                     <div class="brightness-label">darker</div>
-                </div>
-                <limel-checkbox
-                    label="Highlight Lime's brand colors"
-                    onChange={this.toggleMode}
-                    checked={this.brandColors}
-                />
-                <div class="brand-colors-tips">
-                    Most of the brand colors are included in the subset for "
-                    <b>dark mode</b>". Switch between dark & light mode to see
-                    all of them.
                 </div>
             </div>
         );
@@ -68,9 +55,5 @@ export class PaletteExample {
                 <div class="swatch hue">{color}</div>,
             ];
         });
-    };
-
-    private toggleMode = () => {
-        this.brandColors = !this.brandColors;
     };
 }

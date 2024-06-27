@@ -1,3 +1,20 @@
+## [37.53.1](https://github.com/Lundalogik/lime-elements/compare/v37.53.0...v37.53.1) (2024-06-26)
+
+
+### Bug Fixes
+
+
+* **date-picker:** call custom formatter correctly ([24cc245](https://github.com/Lundalogik/lime-elements/commit/24cc245c33e2296a7e068dd3f729792520639691))
+* **date-picker:** update value when set programmatically ([2a64fea](https://github.com/Lundalogik/lime-elements/commit/2a64fea0c24f869de1c10909a5bb82da55c721f9)), closes [Lundalogik/crm-feature#3182](https://github.com/Lundalogik/crm-feature/issues/3182)
+
+## [37.53.0](https://github.com/Lundalogik/lime-elements/compare/v37.52.8...v37.53.0) (2024-06-26)
+
+
+### Features
+
+
+* **style:** add CSS variables for new Lime brand colors ([7675d8b](https://github.com/Lundalogik/lime-elements/commit/7675d8b52ae7173d1f06be7c526016eeb06f2857))
+
 ## [37.52.8](https://github.com/Lundalogik/lime-elements/compare/v37.52.7...v37.52.8) (2024-06-26)
 
 
