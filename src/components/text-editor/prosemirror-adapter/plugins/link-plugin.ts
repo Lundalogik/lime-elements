@@ -22,15 +22,21 @@ const updateLink = (
 
     let text = '';
     let href = '';
-    view.state.doc.nodesBetween(from, to, (node) => {
-        if (node.type.name === 'text') {
-            text = node.text;
-            node.marks.forEach((mark: Mark) => {
-                if (mark.type.name === 'link') {
-                    href = mark.attrs.href;
-                }
-            });
+    view.state.doc.nodesBetween(from, to, (node, pos) => {
+        if (node.type.name !== 'text') {
+            return;
         }
+
+        const fromInNode = Math.max(0, from - pos);
+        const toInNode = Math.min(node.text.length, to - pos);
+
+        text = node.text.slice(fromInNode, toInNode);
+
+        node.marks.forEach((mark: Mark) => {
+            if (mark.type.name === 'link') {
+                href = mark.attrs.href;
+            }
+        });
     });
 
     if (updateLinkCallback) {
