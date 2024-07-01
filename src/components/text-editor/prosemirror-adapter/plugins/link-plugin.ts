@@ -30,7 +30,7 @@ const updateLink = (
         const fromInNode = Math.max(0, from - pos);
         const toInNode = Math.min(node.text.length, to - pos);
 
-        text = node.text.slice(fromInNode, toInNode);
+        text += node.text.slice(fromInNode, toInNode);
 
         node.marks.forEach((mark: Mark) => {
             if (mark.type.name === 'link') {
