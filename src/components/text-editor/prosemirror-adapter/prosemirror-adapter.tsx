@@ -8,7 +8,7 @@ import {
     Watch,
     h,
 } from '@stencil/core';
-import { EditorState, Transaction } from 'prosemirror-state';
+import { EditorState, Transaction, Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
@@ -32,6 +32,8 @@ import { createRandomString } from 'src/util/random-string';
 import { isItem } from 'src/components/action-bar/isItem';
 import { cloneDeep } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
+import { pluginFactory } from './plugins/plugin-factory';
+import { EditorPlugins } from './plugins/plugins';
 import { strikethrough } from './menu/menu-schema-extender';
 import {
     EditorLinkMenuEventDetail,
@@ -47,6 +49,7 @@ import { createActionBarInteractionPlugin } from './plugins/menu-action-interact
  *
  * @exampleComponent limel-example-prosemirror-adapter-basic
  * @exampleComponent limel-example-prosemirror-adapter-with-custom-menu
+ * @exampleComponent limel-example-prosemirror-adapter-with-searcher-plugin
  * @beta
  * @private
  */
@@ -75,6 +78,9 @@ export class ProsemirrorAdapter {
      */
     @Prop({ reflect: true })
     public language: Languages;
+
+    @Prop()
+    public plugins: EditorPlugins[] = [];
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -271,12 +277,18 @@ export class ProsemirrorAdapter {
         return DOMParser.fromSchema(this.schema).parse(initialContentElement);
     }
 
-    private createEditorState(initialDoc) {
+    private createEditorState(initialDoc: any) {
         return EditorState.create({
             doc: initialDoc,
             plugins: [
                 ...exampleSetup({ schema: this.schema, menuBar: false }),
                 keymap(this.menuCommandFactory.buildKeymap()),
+                ...this.plugins
+                    .map(
+                        (plugin: EditorPlugins): Plugin =>
+                            pluginFactory(plugin),
+                    )
+                    .filter(Boolean),
                 createLinkPlugin(this.handleNewLinkSelection),
                 createImageRemoverPlugin(),
                 createMenuStateTrackingPlugin(
