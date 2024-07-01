@@ -1,4 +1,4 @@
-import { toggleMark, setBlockType, wrapIn } from 'prosemirror-commands';
+import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
 import {
@@ -152,29 +152,56 @@ export const isExternalLink = (url: string): boolean => {
     return !url.startsWith(window.location.origin);
 };
 
-const toggleBlockType = (schema, type, attrs = {}, wrap = false) => {
-    const blockType = schema.nodes[type];
+/**
+ * Toggles or wraps a node type based on the selection and parameters.
+ * - Toggles to paragraph if the selection is of the specified type.
+ * - Lifts content out if already wrapped in the specified type.
+ * - Wraps or sets the selection to the specified type based on `shouldWrap`.
+ * @param schema - ProseMirror schema.
+ * @param type - Block type name to toggle.
+ * @param attrs - Attributes for the block type.
+ * @param shouldWrap - Wrap selection if true, otherwise directly set the block type for the selection.
+ * @returns A command based on selection and action needed.
+ */
+const toggleNodeType = (
+    schema: Schema,
+    type: string,
+    attrs: Attrs = {},
+    shouldWrap: boolean = false,
+): Command => {
+    const nodeType = schema.nodes[type];
     const paragraphType = schema.nodes.paragraph;
 
     return (state, dispatch) => {
-        const { $from, to } = state.selection;
+        const { $from, $to } = state.selection;
+
+        const hasActiveWrap = $from.node($from.depth - 1).type === nodeType;
+
         if (
             state.selection instanceof TextSelection &&
-            $from.sameParent($from.doc.resolve(to))
+            $from.sameParent($from.doc.resolve($to.pos))
         ) {
-            if ($from.parent.type === blockType) {
+            if ($from.parent.type === nodeType) {
                 if (dispatch) {
                     dispatch(
-                        state.tr.setBlockType($from.pos, to, paragraphType),
+                        state.tr.setBlockType(
+                            $from.pos,
+                            $to.pos,
+                            paragraphType,
+                        ),
                     );
                 }
 
                 return true;
             } else {
-                if (wrap) {
-                    return wrapIn(blockType, attrs)(state, dispatch);
+                if (hasActiveWrap) {
+                    return lift(state, dispatch);
+                }
+
+                if (shouldWrap) {
+                    return wrapIn(nodeType, attrs)(state, dispatch);
                 } else {
-                    return setBlockType(blockType, attrs)(state, dispatch);
+                    return setBlockType(nodeType, attrs)(state, dispatch);
                 }
             }
         }
@@ -205,11 +232,11 @@ const createSetNodeTypeCommand = (
 
     let command: CommandWithActive;
     if (nodeType === LevelMapping.Heading && level) {
-        command = toggleBlockType(schema, LevelMapping.Heading, {
+        command = toggleNodeType(schema, LevelMapping.Heading, {
             level: level,
         });
     } else if (nodeType === EditorMenuTypes.CodeBlock) {
-        command = toggleBlockType(schema, EditorMenuTypes.CodeBlock);
+        command = toggleNodeType(schema, EditorMenuTypes.CodeBlock);
     } else {
         command = setBlockType(type);
     }
@@ -230,7 +257,7 @@ const createWrapInCommand = (
 
     let command: CommandWithActive;
     if (nodeType === EditorMenuTypes.Blockquote) {
-        command = toggleBlockType(schema, EditorMenuTypes.Blockquote, {}, true);
+        command = toggleNodeType(schema, EditorMenuTypes.Blockquote, {}, true);
     } else {
         command = wrapIn(type);
     }
