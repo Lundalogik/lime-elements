@@ -1,4 +1,4 @@
-import { toggleMark, setBlockType, wrapIn } from 'prosemirror-commands';
+import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
 import {
@@ -152,12 +152,14 @@ export const isExternalLink = (url: string): boolean => {
     return !url.startsWith(window.location.origin);
 };
 
-const toggleBlockType = (schema, type, attrs = {}, wrap = false) => {
+const toggleBlockType = (schema, type, attrs = {}, shouldWrap = false) => {
     const blockType = schema.nodes[type];
     const paragraphType = schema.nodes.paragraph;
 
     return (state, dispatch) => {
         const { $from, to } = state.selection;
+        const hasActiveWrap = $from.node($from.depth - 1).type === blockType;
+
         if (
             state.selection instanceof TextSelection &&
             $from.sameParent($from.doc.resolve(to))
@@ -171,7 +173,11 @@ const toggleBlockType = (schema, type, attrs = {}, wrap = false) => {
 
                 return true;
             } else {
-                if (wrap) {
+                if (hasActiveWrap) {
+                    return lift(state, dispatch);
+                }
+
+                if (shouldWrap) {
                     return wrapIn(blockType, attrs)(state, dispatch);
                 } else {
                     return setBlockType(blockType, attrs)(state, dispatch);
