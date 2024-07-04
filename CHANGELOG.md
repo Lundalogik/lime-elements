@@ -1,3 +1,20 @@
+## [37.53.4](https://github.com/Lundalogik/lime-elements/compare/v37.53.3...v37.53.4) (2024-07-04)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure the link menu is correctly displayed ([40cbd32](https://github.com/Lundalogik/lime-elements/commit/40cbd32d343f7efe773f7935ca55fec1eafa8169))
+
+## [37.53.3](https://github.com/Lundalogik/lime-elements/compare/v37.53.2...v37.53.3) (2024-07-03)
+
+
+### Bug Fixes
+
+
+* **text-editor:** selected text now used for copying link text ([39e40c6](https://github.com/Lundalogik/lime-elements/commit/39e40c66a11a07d7346d2a26c38badf9f892aff4))
+* **text-editor:** selected text now used for copying link text across nodes ([2350727](https://github.com/Lundalogik/lime-elements/commit/23507278d4edd16c374b2fe72b73b5e1348758e4))
+
 ## [37.53.2](https://github.com/Lundalogik/lime-elements/compare/v37.53.1...v37.53.2) (2024-06-27)
 
 
