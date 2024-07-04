@@ -32,4 +32,6 @@ export default {
     'editor-menu.link': 'Link toevoegen',
     'editor-link-menu.text': 'Tekst',
     'editor-link-menu.link': 'Link',
+    'editor-menu.code-block': 'Codeblok',
+    'editor-menu.code': 'Code',
 };
