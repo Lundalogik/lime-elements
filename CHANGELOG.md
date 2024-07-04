@@ -1,3 +1,11 @@
+## [37.53.5](https://github.com/Lundalogik/lime-elements/compare/v37.53.4...v37.53.5) (2024-07-04)
+
+
+### Bug Fixes
+
+
+* **editor menu:** allow block quotes to be toggled ([169e520](https://github.com/Lundalogik/lime-elements/commit/169e52087190c7c654715f589c1c028563dfdaec))
+
 ## [37.53.4](https://github.com/Lundalogik/lime-elements/compare/v37.53.3...v37.53.4) (2024-07-04)
 
 
