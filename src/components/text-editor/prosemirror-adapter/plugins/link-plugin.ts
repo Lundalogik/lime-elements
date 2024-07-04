@@ -3,7 +3,7 @@ import { EditorView } from 'prosemirror-view';
 import { schema } from 'prosemirror-schema-basic';
 import { Mark } from 'prosemirror-model';
 import { isExternalLink, isValidUrl } from '../menu/menu-commands';
-import { EditorMenuTypes } from '../menu/types';
+import { EditorMenuTypes, MouseButtons } from '../menu/types';
 
 export const linkPluginKey = new PluginKey('linkPlugin');
 
@@ -153,10 +153,7 @@ let lastClickTime = 0;
 const DOUBLE_CLICK_DELAY = 200;
 let clickTimeout;
 
-const processDoubleClickEvent = (
-    view: EditorView,
-    event: MouseEvent,
-): boolean => {
+const processClickEvent = (view: EditorView, event: MouseEvent): boolean => {
     const now = Date.now();
 
     if (now - lastClickTime < DOUBLE_CLICK_DELAY) {
@@ -236,7 +233,12 @@ export const createLinkPlugin = (updateLinkCallback?: UpdateLinkCallback) => {
                         return processModClickEvent(view, event);
                     }
 
-                    return processDoubleClickEvent(view, event);
+                    if (event.button !== MouseButtons.Right) {
+                        // We want to ignore right-clicks
+                        return processClickEvent(view, event);
+                    }
+
+                    return true;
                 },
             },
         },

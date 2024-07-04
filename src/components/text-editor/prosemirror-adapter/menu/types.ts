@@ -58,3 +58,16 @@ export type EditorTextLink = {
     text?: string;
     href: string;
 };
+
+/**
+ * The `MouseButtons` type is used to represent the different mouse buttons.
+ * The values correspond to the button codes used in the `MouseEvent` interface.
+ * @beta
+ */
+export const MouseButtons = {
+    Left: 0,
+    Middle: 1,
+    Right: 2,
+};
+
+export type MouseButtons = (typeof MouseButtons)[keyof typeof MouseButtons];
