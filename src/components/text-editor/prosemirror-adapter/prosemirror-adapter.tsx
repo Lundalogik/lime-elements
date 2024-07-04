@@ -184,7 +184,6 @@ export class ProsemirrorAdapter {
                 openDirection="top"
                 inheritParentWidth={true}
                 anchor={this.actionBarElement}
-                containerStyle={{ 'z-index': 1 }}
             >
                 <limel-text-editor-link-menu
                     link={this.link}
