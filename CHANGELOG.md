@@ -1,3 +1,11 @@
+## [37.53.4](https://github.com/Lundalogik/lime-elements/compare/v37.53.3...v37.53.4) (2024-07-04)
+
+
+### Bug Fixes
+
+
+* **text-editor:** ensure the link menu is correctly displayed ([40cbd32](https://github.com/Lundalogik/lime-elements/commit/40cbd32d343f7efe773f7935ca55fec1eafa8169))
+
 ## [37.53.3](https://github.com/Lundalogik/lime-elements/compare/v37.53.2...v37.53.3) (2024-07-03)
 
 
