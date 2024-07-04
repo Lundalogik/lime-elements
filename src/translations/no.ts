@@ -31,4 +31,6 @@ export default {
     'editor-menu.link': 'Legg til lenke',
     'editor-link-menu.text': 'Tekst',
     'editor-link-menu.link': 'Lenke',
+    'editor-menu.code-block': 'Kodeblokk',
+    'editor-menu.code': 'Kode',
 };
