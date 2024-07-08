@@ -240,6 +240,18 @@ export const createLinkPlugin = (updateLinkCallback?: UpdateLinkCallback) => {
 
                     return true;
                 },
+                click: (_view, event) => {
+                    if (!(event.target instanceof HTMLElement)) {
+                        return;
+                    }
+
+                    // Prevent unhandled navigation and bubbling for link clicks
+                    const link = event.target.closest('a');
+                    if (link) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                },
             },
         },
         view: () => ({
