@@ -31,4 +31,6 @@ export default {
     'editor-menu.link': 'Tilføj link',
     'editor-link-menu.text': 'Tekst',
     'editor-link-menu.link': 'Link',
+    'editor-menu.code-block': 'Kodeblok',
+    'editor-menu.code': 'Kode',
 };

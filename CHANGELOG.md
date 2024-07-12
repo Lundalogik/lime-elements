@@ -1,3 +1,11 @@
+## [37.54.0](https://github.com/Lundalogik/lime-elements/compare/v37.53.5...v37.54.0) (2024-07-04)
+
+
+### Features
+
+
+* **text editor:** add missing translations for menu items ([c3ffa36](https://github.com/Lundalogik/lime-elements/commit/c3ffa364596fa9e98417a9e7d1742c5879f90a12))
+
 ## [37.53.5](https://github.com/Lundalogik/lime-elements/compare/v37.53.4...v37.53.5) (2024-07-04)
 
 

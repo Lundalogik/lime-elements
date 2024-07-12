@@ -32,4 +32,6 @@ export default {
     'editor-menu.link': 'Lisää linkki',
     'editor-link-menu.text': 'Teksti',
     'editor-link-menu.link': 'Linkki',
+    'editor-menu.code-block': 'Koodilohko',
+    'editor-menu.code': 'Koodi',
 };
