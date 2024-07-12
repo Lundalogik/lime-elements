@@ -1,3 +1,12 @@
+## [37.54.1](https://github.com/Lundalogik/lime-elements/compare/v37.54.0...v37.54.1) (2024-07-12)
+
+
+### Bug Fixes
+
+
+* **text editor:** allow only browser expected behaviour on right clicks ([766645a](https://github.com/Lundalogik/lime-elements/commit/766645aed5052d344d4913982091553b930b5e66))
+* **text editor:** prevent default behaviour on link clicks ([67d7c51](https://github.com/Lundalogik/lime-elements/commit/67d7c51794b7bc76efb49495bdebc254b47f8535))
+
 ## [37.54.0](https://github.com/Lundalogik/lime-elements/compare/v37.53.5...v37.54.0) (2024-07-04)
 
 
