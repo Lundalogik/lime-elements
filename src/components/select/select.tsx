@@ -255,10 +255,29 @@ export class Select {
     ) {
         event.stopPropagation();
 
+        const selector = `#${this.portalId} .mdc-menu-surface`;
+        const menuSurface: HTMLElement = document.querySelector(selector);
+
+        if (!menuSurface) {
+            return;
+        }
+
+        const scrollPosition = menuSurface.scrollTop;
+
         if (isMultiple(event.detail)) {
             const listItems: ListItem[] = event.detail;
             const options: Option[] = listItems.map((item) => item.value);
             this.change.emit(options);
+
+            // Using a single requestAnimationFrame or setTimeout doesn't
+            // work. Using two nested `requestAnimationFrame` worked most of
+            // the time, but not always. Using `setTimeout` inside the
+            // `requestAnimationFrame` seems to work consistently. /Ads
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    menuSurface.scrollTop = scrollPosition;
+                });
+            });
 
             return;
         }
