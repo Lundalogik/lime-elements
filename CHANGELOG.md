@@ -1,3 +1,11 @@
+## [37.54.2](https://github.com/Lundalogik/lime-elements/compare/v37.54.1...v37.54.2) (2024-07-17)
+
+
+### Bug Fixes
+
+
+* **flatpicker-adapter:** fix label and number cut-off ([e835fb4](https://github.com/Lundalogik/lime-elements/commit/e835fb4030a37a57f667118fd26698a4e87661b6))
+
 ## [37.54.1](https://github.com/Lundalogik/lime-elements/compare/v37.54.0...v37.54.1) (2024-07-12)
 
 
