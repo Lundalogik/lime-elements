@@ -106,7 +106,7 @@ svg {
     width: functions.pxToRem(30);
 
     line {
-        stroke: rgb(var(--color-white));
+        stroke: rgb(var(--contrast-600));
         stroke-width: 2;
     }
 }
