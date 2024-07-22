@@ -16,6 +16,7 @@ import { MenuItem } from '../menu/menu.types';
  * :::
  *
  * @exampleComponent limel-example-split-button-basic
+ * @exampleComponent limel-example-split-button-loading
  * @exampleComponent limel-example-split-button-repeat-default-command
  */
 @Component({
@@ -49,6 +50,20 @@ export class SplitButton {
     public disabled = false;
 
     /**
+     * Set to `true` to put the button in the `loading` state.
+     * This also disables the button.
+     */
+    @Prop({ reflect: true })
+    public loading = false;
+
+    /**
+     * Set to `true` to indicate failure instead of success when the button is
+     * no longer in the `loading` state.
+     */
+    @Prop({ reflect: true })
+    public loadingFailed = false;
+
+    /**
      * A list of items and separators to show in the menu.
      */
     @Prop()
@@ -73,6 +88,8 @@ export class SplitButton {
                     primary={this.primary}
                     icon={this.icon}
                     disabled={this.disabled}
+                    loading={this.loading}
+                    loadingFailed={this.loadingFailed}
                 />
                 {this.renderMenu()}
             </Host>
@@ -89,7 +106,7 @@ export class SplitButton {
                 class={{
                     primary: this.primary,
                 }}
-                disabled={this.disabled}
+                disabled={this.disabled || this.loading}
                 items={this.items}
                 openDirection="bottom"
             >

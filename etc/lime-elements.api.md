@@ -613,6 +613,8 @@ export namespace Components {
         "icon": string;
         "items": Array<MenuItem | ListSeparator>;
         "label": string;
+        "loading": boolean;
+        "loadingFailed": boolean;
         "primary": boolean;
     }
     export interface LimelSwitch {
@@ -1574,6 +1576,8 @@ namespace JSX_2 {
         "icon"?: string;
         "items"?: Array<MenuItem | ListSeparator>;
         "label"?: string;
+        "loading"?: boolean;
+        "loadingFailed"?: boolean;
         "onSelect"?: (event: LimelSplitButtonCustomEvent<MenuItem>) => void;
         "primary"?: boolean;
     }
