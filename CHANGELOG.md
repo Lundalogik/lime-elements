@@ -1,3 +1,11 @@
+## [37.54.3](https://github.com/Lundalogik/lime-elements/compare/v37.54.2...v37.54.3) (2024-07-29)
+
+
+### Bug Fixes
+
+
+* **text-editor:** make content scrollable in `readonly` ([aa9f7c7](https://github.com/Lundalogik/lime-elements/commit/aa9f7c72b1dffef6bcea609277316c37125efdea))
+
 ## [37.54.2](https://github.com/Lundalogik/lime-elements/compare/v37.54.1...v37.54.2) (2024-07-17)
 
 
