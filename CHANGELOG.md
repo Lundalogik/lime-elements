@@ -1,3 +1,11 @@
+## [37.55.1](https://github.com/Lundalogik/lime-elements/compare/v37.55.0...v37.55.1) (2024-07-29)
+
+
+### Bug Fixes
+
+
+* **select:** keep the scrolling position when multiple select true ([be0782d](https://github.com/Lundalogik/lime-elements/commit/be0782df819cfcea7bee3fe9a2173506d51fb65e))
+
 ## [37.55.0](https://github.com/Lundalogik/lime-elements/compare/v37.54.3...v37.55.0) (2024-07-29)
 
 
