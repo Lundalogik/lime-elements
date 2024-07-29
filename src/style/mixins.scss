@@ -84,6 +84,7 @@
         color: $color--hovered;
         background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
+        // box-shadow: 0 0 0 0.25rem rgba((var(--color-teal-default)), 0.28);
     }
 
     &:active {
@@ -92,7 +93,6 @@
         transform: translate3d(0, 0.08rem, 0);
     }
 }
-
 @mixin is-elevated-inset-clickable(
     $color: var(--mdc-theme-on-surface),
     $color--hovered: var(--mdc-theme-on-surface),
@@ -115,6 +115,7 @@
         color: $color--hovered;
         background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
+        //box-shadow: 0 0 0 0.25rem rgba((var(--color-teal-default)), 0.28);
     }
 
     &:active {
@@ -144,6 +145,7 @@
         color: $color--hovered;
         background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
+        // box-shadow: 0 0 0 0.25rem rgba((var(--color-teal-default)), 0.28);
     }
 
     &:active {
@@ -174,6 +176,7 @@
         color: $color--hovered;
         background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
+        //  box-shadow: 0 0 0 0.25rem rgba((var(--color-teal-default)), 0.28);
     }
 
     &:active {

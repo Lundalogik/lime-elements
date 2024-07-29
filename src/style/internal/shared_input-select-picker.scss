@@ -320,6 +320,7 @@ $cropped-label-hack--font-size: 0.875rem; //14px
             &:hover .mdc-text-field__icon--trailing {
                 &:hover {
                     box-shadow: var(--button-shadow-hovered);
+                    // box-shadow: 0 0 0 0.25rem rgba((var(--color-teal-default)), 0.28);
                 }
 
                 &:active {

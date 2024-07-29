@@ -19,7 +19,9 @@
     --button-shadow-hovered: 0 #{functions.pxToRem(2)} #{functions.pxToRem(6)}
             rgba(var(--color-black), 0.15),
         0 #{functions.pxToRem(6)} #{functions.pxToRem(10)}
-            rgba(var(--color-black), 0.05);
+            rgba(var(--color-teal-default), 0.05);
+
+    // --button-shadow-hovered: 0 0 0 0.25rem rgba(var(--color-teal-default), 0.28);
     --button-shadow-pressed: 0 #{functions.pxToRem(1)} #{functions.pxToRem(3)} 0
             rgba(var(--color-black), 0.132),
         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
