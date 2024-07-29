@@ -1,3 +1,11 @@
+## [37.55.0](https://github.com/Lundalogik/lime-elements/compare/v37.54.3...v37.55.0) (2024-07-29)
+
+
+### Features
+
+
+* **split-button:** add loading properties ([5f756b1](https://github.com/Lundalogik/lime-elements/commit/5f756b10b393cacc44a5339ef1c7b4bce2d84c7e))
+
 ## [37.54.3](https://github.com/Lundalogik/lime-elements/compare/v37.54.2...v37.54.3) (2024-07-29)
 
 
