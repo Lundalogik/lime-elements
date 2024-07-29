@@ -1,3 +1,35 @@
+## [37.55.1](https://github.com/Lundalogik/lime-elements/compare/v37.55.0...v37.55.1) (2024-07-29)
+
+
+### Bug Fixes
+
+
+* **select:** keep the scrolling position when multiple select true ([be0782d](https://github.com/Lundalogik/lime-elements/commit/be0782df819cfcea7bee3fe9a2173506d51fb65e))
+
+## [37.55.0](https://github.com/Lundalogik/lime-elements/compare/v37.54.3...v37.55.0) (2024-07-29)
+
+
+### Features
+
+
+* **split-button:** add loading properties ([5f756b1](https://github.com/Lundalogik/lime-elements/commit/5f756b10b393cacc44a5339ef1c7b4bce2d84c7e))
+
+## [37.54.3](https://github.com/Lundalogik/lime-elements/compare/v37.54.2...v37.54.3) (2024-07-29)
+
+
+### Bug Fixes
+
+
+* **text-editor:** make content scrollable in `readonly` ([aa9f7c7](https://github.com/Lundalogik/lime-elements/commit/aa9f7c72b1dffef6bcea609277316c37125efdea))
+
+## [37.54.2](https://github.com/Lundalogik/lime-elements/compare/v37.54.1...v37.54.2) (2024-07-17)
+
+
+### Bug Fixes
+
+
+* **flatpicker-adapter:** fix label and number cut-off ([e835fb4](https://github.com/Lundalogik/lime-elements/commit/e835fb4030a37a57f667118fd26698a4e87661b6))
+
 ## [37.54.1](https://github.com/Lundalogik/lime-elements/compare/v37.54.0...v37.54.1) (2024-07-12)
 
 
