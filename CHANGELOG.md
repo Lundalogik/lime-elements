@@ -1,3 +1,11 @@
+## [37.55.4](https://github.com/Lundalogik/lime-elements/compare/v37.55.3...v37.55.4) (2024-07-30)
+
+
+### Bug Fixes
+
+
+* **select:** fix bug introduced in v37.55.1, completely breaking limel-select ([7e8de2e](https://github.com/Lundalogik/lime-elements/commit/7e8de2ec6fa5cba6c5838001ff12c46e3c0ea752)), closes [#1268](https://github.com/Lundalogik/lime-elements/issues/1268) [Lundalogik/crm-feature#2808](https://github.com/Lundalogik/crm-feature/issues/2808)
+
 ## [37.55.3](https://github.com/Lundalogik/lime-elements/compare/v37.55.2...v37.55.3) (2024-07-30)
 
 
