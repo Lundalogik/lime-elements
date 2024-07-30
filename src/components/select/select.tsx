@@ -255,16 +255,13 @@ export class Select {
     ) {
         event.stopPropagation();
 
-        const selector = `#${this.portalId} .mdc-menu-surface`;
-        const menuSurface: HTMLElement = document.querySelector(selector);
-
-        if (!menuSurface) {
-            return;
-        }
-
-        const scrollPosition = menuSurface.scrollTop;
-
         if (isMultiple(event.detail)) {
+            const selector = `#${this.portalId} limel-menu-surface`;
+            const menuSurface = document
+                .querySelector(selector)
+                ?.shadowRoot?.querySelector('.mdc-menu-surface');
+            const scrollPosition = menuSurface?.scrollTop || 0;
+
             const listItems: ListItem[] = event.detail;
             const options: Option[] = listItems.map((item) => item.value);
             this.change.emit(options);
