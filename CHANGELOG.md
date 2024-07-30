@@ -1,3 +1,19 @@
+## [37.55.2](https://github.com/Lundalogik/lime-elements/compare/v37.55.1...v37.55.2) (2024-07-29)
+
+
+### Bug Fixes
+
+
+* **table:** make sorting work again ([2834ccd](https://github.com/Lundalogik/lime-elements/commit/2834ccd04df027cb440f2bb5f60df8dd535013fe))
+
+## [37.55.1](https://github.com/Lundalogik/lime-elements/compare/v37.55.0...v37.55.1) (2024-07-29)
+
+
+### Bug Fixes
+
+
+* **select:** keep the scrolling position when multiple select true ([be0782d](https://github.com/Lundalogik/lime-elements/commit/be0782df819cfcea7bee3fe9a2173506d51fb65e))
+
 ## [37.55.0](https://github.com/Lundalogik/lime-elements/compare/v37.54.3...v37.55.0) (2024-07-29)
 
 

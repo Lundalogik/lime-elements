@@ -264,23 +264,23 @@ export class Table {
 
     @Watch('data')
     protected updateData(newData: RowData[] = [], oldData: RowData[] = []) {
-        const newIds = new Set(newData.map((item) => item.id ?? item));
-
-        if (oldData.every((item) => newIds.has(item.id ?? item))) {
-            this.tabulator.updateOrAddData(newData);
-
-            return;
-        }
-
         this.pool.releaseAll();
+
+        const shouldReplace = this.shouldReplaceData(newData, oldData);
 
         setTimeout(() => {
             if (!this.tabulator) {
                 return;
             }
 
-            this.tabulator.replaceData(this.data);
-            this.setSelection();
+            if (shouldReplace) {
+                this.tabulator.replaceData(newData);
+                this.setSelection();
+
+                return;
+            }
+
+            this.tabulator.updateOrAddData(newData);
         });
     }
 
@@ -365,6 +365,40 @@ export class Table {
         }
 
         this.tabulator.setSort(newSorting);
+    }
+
+    private shouldReplaceData(newData: RowData[], oldData: RowData[]) {
+        const newIds = newData.map((item) => item.id ?? item) as Array<
+            string | number
+        >;
+        const oldIds = oldData.map((item) => item.id ?? item) as Array<
+            string | number
+        >;
+
+        return (
+            !this.areEqualIds(newIds, oldIds) ||
+            !this.isSameOrder(newIds, oldIds)
+        );
+    }
+
+    private areEqualIds(
+        newIds: Array<string | number>,
+        oldIds: Array<string | number>,
+    ): boolean {
+        const newIdSet = new Set(newIds);
+        const oldIdSet = new Set(oldIds);
+
+        return (
+            newIdSet.size === oldIdSet.size &&
+            newIds.every((id) => oldIdSet.has(id))
+        );
+    }
+
+    private isSameOrder(
+        newIds: Array<string | number>,
+        oldIds: Array<string | number>,
+    ): boolean {
+        return newIds.every((id, index) => id === oldIds[index]);
     }
 
     private areSameColumns(newColumns: Column[], oldColumns: Column[]) {
