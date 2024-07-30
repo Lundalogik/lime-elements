@@ -1,3 +1,11 @@
+## [37.55.3](https://github.com/Lundalogik/lime-elements/compare/v37.55.2...v37.55.3) (2024-07-30)
+
+
+### Bug Fixes
+
+
+* **button:**  make loading feedback visible ([952d1c7](https://github.com/Lundalogik/lime-elements/commit/952d1c7c93e7f63c9eb256b22494b0cf93fc0982))
+
 ## [37.55.2](https://github.com/Lundalogik/lime-elements/compare/v37.55.1...v37.55.2) (2024-07-29)
 
 
