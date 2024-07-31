@@ -14,7 +14,7 @@ export class CodeEditor extends React.Component {
 
         try {
             value = JSON.stringify(props.formData, null, '    ');
-        } catch (e) {
+        } catch {
             // N/A
         }
 
@@ -46,7 +46,7 @@ export class CodeEditor extends React.Component {
 
             props.onChange(value);
             props.onValidate();
-        } catch (e) {
+        } catch {
             props.onValidate('Should be a valid JSON document');
         }
     }

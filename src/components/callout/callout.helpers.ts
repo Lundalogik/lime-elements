@@ -29,7 +29,7 @@ export function getHeading(
 
     try {
         return translate.get(key, language);
-    } catch (error) {
+    } catch {
         return translate.get(key, 'en');
     }
 }
