@@ -1,4 +1,3 @@
-/* eslint-disable multiline-ternary */
 import { EditorState } from 'prosemirror-state';
 import { Schema, DOMParser } from 'prosemirror-model';
 import { addListNodes } from 'prosemirror-schema-list';

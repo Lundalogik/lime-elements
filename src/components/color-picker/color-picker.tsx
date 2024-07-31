@@ -1,4 +1,3 @@
-/* eslint-disable multiline-ternary */
 import { Component, h, Prop, State, Event, EventEmitter } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 
