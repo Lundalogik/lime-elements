@@ -209,7 +209,7 @@ function copyBuildOutput() {
     // Create `versions` folder if it doesn't already exist.
     try {
         shell.mkdir('docsDist/versions');
-    } catch (e) {
+    } catch {
         // If mkdir failed, it's almost certainly because the dir already exists.
         // Just ignore the error.
     }
