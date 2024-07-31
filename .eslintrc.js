@@ -10,6 +10,15 @@ module.exports = {
         'plugin:prettier/recommended',
         'plugin:sonarjs/recommended',
     ],
+    ignorePatterns: [
+        '.kompendium/',
+        '.github/',
+        '.vscode/',
+        'dist/',
+        'docsDist/',
+        'node_modules/',
+        'www/',
+    ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 2020,
