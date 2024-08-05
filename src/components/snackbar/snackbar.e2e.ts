@@ -8,8 +8,10 @@ import {
 describe('limel-snackbar', () => {
     let page: E2EPage;
     let snackbar: E2EElement;
-    let mdcSnackbar: E2EElement;
+    let popover: E2EElement;
     let snackbarLabel: E2EElement;
+
+    beforeEach(() => {});
 
     describe('show', () => {
         beforeEach(async () => {
@@ -17,20 +19,18 @@ describe('limel-snackbar', () => {
                 <limel-snackbar message="This is a message"></limel-snackbar>
             `);
             snackbar = await page.find('limel-snackbar');
-            mdcSnackbar = await page.find('limel-snackbar>>>.mdc-snackbar');
+            popover = await page.find('limel-snackbar>>>[popover]');
             await page.waitForChanges();
             await snackbar.callMethod('show');
             await page.waitForChanges();
         });
 
         it('opens the snackbar', () => {
-            expect(mdcSnackbar).toHaveClass('mdc-snackbar--open');
+            expect(popover).toHaveClass('open');
         });
 
         it('displays the message', async () => {
-            // Some extra waiting is required for the content to be populated.
-            await page.waitForTimeout(1000);
-            snackbarLabel = await mdcSnackbar.find('.mdc-snackbar__label');
+            snackbarLabel = await popover.find('.label');
             expect(snackbarLabel).toEqualText('This is a message');
         });
     });
@@ -63,7 +63,7 @@ describe('limel-snackbar', () => {
                 <limel-snackbar message="This is a message" action-text="Press me!"></limel-snackbar>
             `);
             snackbar = await page.find('limel-snackbar');
-            mdcSnackbar = await page.find('limel-snackbar>>>.mdc-snackbar');
+            popover = await page.find('limel-snackbar>>>[popover]');
             button = await page.find('limel-snackbar>>>limel-button');
             await page.waitForChanges();
             await snackbar.callMethod('show');
@@ -71,13 +71,11 @@ describe('limel-snackbar', () => {
         });
 
         it('opens the snackbar', () => {
-            expect(mdcSnackbar).toHaveClass('mdc-snackbar--open');
+            expect(popover).toHaveClass('open');
         });
 
         it('displays the message', async () => {
-            // Some extra waiting is required for the content to be populated.
-            await page.waitForTimeout(2000);
-            snackbarLabel = await mdcSnackbar.find('.mdc-snackbar__label');
+            snackbarLabel = await popover.find('.label');
             expect(snackbarLabel).toEqualText('This is a message');
         });
 

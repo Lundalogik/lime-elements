@@ -599,6 +599,7 @@ export namespace Components {
         "dismissible": boolean;
         "language": Languages;
         "message": string;
+        // @deprecated
         "multiline": boolean;
         "show": () => Promise<void>;
         "timeout"?: number;
@@ -1561,6 +1562,7 @@ namespace JSX_2 {
         "dismissible"?: boolean;
         "language"?: Languages;
         "message"?: string;
+        // @deprecated
         "multiline"?: boolean;
         "onAction"?: (event: LimelSnackbarCustomEvent<void>) => void;
         "onHide"?: (event: LimelSnackbarCustomEvent<void>) => void;

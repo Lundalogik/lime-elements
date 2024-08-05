@@ -1,15 +1,20 @@
 import { Languages } from '../date-picker/date.types';
-import { MDCSnackbar, MDCSnackbarCloseEvent } from '@material/snackbar';
 import {
     Component,
     Element,
     Event,
     EventEmitter,
     h,
+    Listen,
     Method,
     Prop,
+    State,
 } from '@stencil/core';
 import translate from '../../global/translations';
+import { SnackbarContainer } from './container';
+
+const container = new SnackbarContainer();
+const hideAnimationDuration = 300;
 
 /**
  * A Snackbar –also known as "Toast"– is used to inform the end user
@@ -37,9 +42,7 @@ import translate from '../../global/translations';
  * @exampleComponent limel-example-snackbar-dismissible
  * @exampleComponent limel-example-snackbar-with-action
  * @exampleComponent limel-example-snackbar-with-changing-messages
- * @exampleComponent limel-example-snackbar-positioning
  */
-
 @Component({
     tag: 'limel-snackbar',
     shadow: true,
@@ -74,6 +77,7 @@ export class Snackbar {
 
     /**
      * Whether to show the snackbar with space for multiple lines of text
+     * @deprecated Setting this property no longer has any effect. The property will be removed in a future major version.
      */
     @Prop()
     public multiline: boolean;
@@ -99,34 +103,21 @@ export class Snackbar {
     @Event()
     private hide: EventEmitter<void>;
 
-    private mdcSnackbar: MDCSnackbar;
+    @State()
+    private offset: number = 0;
 
-    constructor() {
-        this.handleMdcClosing = this.handleMdcClosing.bind(this);
-    }
+    @State()
+    private open: boolean = false;
 
-    public connectedCallback() {
-        this.initialize();
-    }
+    @State()
+    private closing: boolean = true;
 
-    public componentDidLoad() {
-        this.initialize();
-    }
+    private timeoutId?: number;
 
-    private initialize() {
-        const element = this.host.shadowRoot.querySelector('.mdc-snackbar');
-        if (!element) {
-            return;
-        }
-
-        this.mdcSnackbar = new MDCSnackbar(element);
-
-        this.mdcSnackbar.listen('MDCSnackbar:closing', this.handleMdcClosing);
-    }
-
-    public disconnectedCallback() {
-        this.mdcSnackbar.unlisten('MDCSnackbar:closing', this.handleMdcClosing);
-        this.mdcSnackbar.destroy();
+    @Listen('changeOffset')
+    protected onChangeIndex(event: CustomEvent<number>) {
+        event.stopPropagation();
+        this.offset = event.detail;
     }
 
     /**
@@ -134,32 +125,59 @@ export class Snackbar {
      */
     @Method()
     public async show() {
-        if (this.timeout) {
-            this.mdcSnackbar.timeoutMs = this.timeout;
+        if (this.open) {
+            return;
         }
 
-        this.mdcSnackbar.labelText = this.message;
+        this.open = true;
+        this.closing = false;
+        container.add(this.host);
 
-        this.mdcSnackbar.open();
+        if (this.timeout) {
+            this.timeoutId = window.setTimeout(
+                this.close,
+                Math.max(this.timeout - hideAnimationDuration, 0),
+            );
+        }
     }
+
+    private close = () => {
+        if (!this.open) {
+            return false;
+        }
+
+        this.closing = true;
+
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = undefined;
+        }
+
+        setTimeout(() => {
+            this.open = false;
+            container.remove(this.host);
+            this.hide.emit();
+            this.offset = 0;
+        }, hideAnimationDuration);
+    };
 
     public render() {
         return (
             <aside
-                class={`
-                    mdc-snackbar
-                    ${this.multiline ? 'mdc-snackbar--stacked' : ''}
-                `}
+                popover="manual"
                 style={{
                     '--snackbar-timeout': `${this.timeout}ms`,
+                    '--snackbar-distance-to-top-edge': `${this.offset}px`,
+                }}
+                class={{
+                    open: this.open,
+                    'is-closing': this.closing,
                 }}
             >
-                <div
-                    class="mdc-snackbar__surface"
-                    role="status"
-                    aria-relevant="additions"
-                >
-                    <div class="mdc-snackbar__label" aria-atomic="false"></div>
+                <div class="surface" role="status" aria-relevant="additions">
+                    <div class="label" aria-atomic="false">
+                        {this.message}
+                    </div>
                     {this.renderActions(this.actionText)}
                     {this.renderDismissButton(this.dismissible)}
                 </div>
@@ -167,13 +185,9 @@ export class Snackbar {
         );
     }
 
-    private handleMdcClosing(event: MDCSnackbarCloseEvent) {
-        if (event.detail.reason === 'action') {
-            this.action.emit();
-        } else {
-            this.hide.emit();
-        }
-    }
+    private handleClickAction = () => {
+        this.action.emit();
+    };
 
     private renderActions(actionText: string) {
         if (!actionText) {
@@ -181,7 +195,7 @@ export class Snackbar {
         }
 
         return (
-            <div class="mdc-snackbar__actions" aria-atomic="true">
+            <div class="actions" aria-atomic="true">
                 {this.renderActionButton(actionText)}
             </div>
         );
@@ -193,10 +207,7 @@ export class Snackbar {
         }
 
         return (
-            <limel-button
-                class="mdc-button mdc-snackbar__action"
-                label={actionText}
-            />
+            <limel-button label={actionText} onClick={this.handleClickAction} />
         );
     }
 
@@ -211,9 +222,10 @@ export class Snackbar {
             <div class="dismiss">
                 {this.renderTimeoutVisualization()}
                 <limel-icon-button
-                    class="mdc-icon-button mdc-snackbar__dismiss"
+                    class="dismiss-button"
                     icon="multiply"
                     label={label}
+                    onClick={this.close}
                 />
             </div>
         );
