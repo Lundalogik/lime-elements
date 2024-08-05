@@ -1,52 +1,39 @@
-/**
- * @prop --snackbar-top: Snackbar has `position: fixed;` and uses `--snackbar-top`, which defaults to `auto` for its `top` property. See the examples in the documentations for further info.
- * @prop --snackbar-right: Snackbar has `position: fixed;` and uses `--snackbar-right`, which defaults to `0` for its `right` property. See the examples in the documentations for further info.
- * @prop --snackbar-bottom: Snackbar has `position: fixed;` and uses `--snackbar-bottom`, which defaults to `0` for its `bottom` property. See the examples in the documentations for further info.
- * @prop --snackbar-left: Snackbar has `position: fixed;` and uses `--snackbar-left`, which defaults to `0` for its `left` property. See the examples in the documentations for further info.
- */
-
 * {
     box-sizing: border-box;
 }
 
-.mdc-snackbar {
-    top: var(--snackbar-top, auto);
-    right: var(--snackbar-right, 0);
-    bottom: var(--snackbar-bottom, 0);
-    left: var(--snackbar-left, 0);
+aside {
+    background: none;
+    border: none;
+    inset: unset;
+    overflow: visible;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    right: 0;
 
-    display: none;
-    position: fixed;
-    z-index: 8;
+    width: var(--limel-snackbar-width, 21rem);
+    top: calc(
+        var(--snackbar-distance-to-top-edge) + env(safe-area-inset-top, 0)
+    );
 
-    padding: 0.75rem;
-
-    align-items: center;
-    justify-content: center;
-}
-
-.mdc-snackbar--opening,
-.mdc-snackbar--open,
-.mdc-snackbar--closing {
-    display: flex;
-}
-
-.mdc-snackbar--open {
-    .mdc-snackbar__label,
-    .mdc-snackbar__actions {
-        visibility: visible;
-    }
-
-    .mdc-snackbar__surface {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.mdc-snackbar__surface {
     transition:
-        opacity 0.2s cubic-bezier(0, 0, 0.2, 1),
-        transform 0.2s cubic-bezier(0, 0, 0.2, 1);
+        opacity var(--limel-snackbar-opacity-transition-speed, 0.2s) ease,
+        top var(--limel-snackbar-top-transition-speed, 0.46s)
+            cubic-bezier(1, 0.09, 0, 0.89),
+        transform var(--limel-snackbar-top-transition-speed, 0.46s) ease;
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+
+    &.is-closing {
+        transform: translate3d(2rem, 0, 0);
+        opacity: 0;
+        --limel-snackbar-top-transition-speed: 0.2s;
+        --limel-snackbar-opacity-transition-speed: 0.2s;
+    }
+}
+
+.surface {
+    overflow: hidden;
+
     padding: 0.5rem;
     display: flex;
     align-items: center;
@@ -54,20 +41,13 @@
     gap: 0.25rem;
 
     min-height: 3.25rem;
-    min-width: unset;
-    max-width: 42rem;
-
-    transform: scale(0.8);
-    opacity: 0;
     border-radius: 0.75rem;
 
     background-color: rgb(var(--contrast-1400));
     box-shadow: var(--shadow-depth-8), var(--shadow-depth-16);
 }
 
-.mdc-snackbar__label {
-    visibility: hidden;
-
+.label {
     color: rgb(var(--contrast-100));
 
     -webkit-font-smoothing: antialiased;
@@ -79,9 +59,7 @@
     flex-grow: 1;
 }
 
-.mdc-snackbar__actions {
-    visibility: hidden;
-
+.actions {
     display: flex;
     flex-shrink: 0;
     align-items: center;
@@ -90,7 +68,7 @@
 }
 
 .dismiss,
-.mdc-snackbar__actions {
+.actions {
     --lime-elevated-surface-background-color: rgb(
         var(--contrast-1300)
     ); // background color of the buttons
@@ -101,20 +79,17 @@
     --icon-background-color: var(--lime-elevated-surface-background-color);
     --fill-color: var(--mdc-theme-primary);
     --track-color: rgb(var(--contrast-800), 0.2);
+    transition:
+        opacity 0.1s ease,
+        transform 0.1s ease;
     position: absolute;
-    top: -0.9rem;
-    left: -0.9rem;
-    transform: scale(0.8);
+    top: -0.375rem;
+    left: -0.375rem;
+    transform: scale(0.7);
 
     display: flex;
     align-items: center;
     justify-content: center;
-
-    limel-icon-button.mdc-snackbar__dismiss {
-        transform: scale(0.8);
-        margin: 0;
-        padding: 0;
-    }
 
     svg {
         position: absolute;
@@ -123,10 +98,21 @@
         stroke-dasharray: 100;
         stroke-linecap: round;
 
-        .mdc-snackbar--open & {
+        aside:popover-open & {
             animation: timeout var(--snackbar-timeout) linear forwards;
         }
     }
+
+    .is-closing {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+}
+
+.dismiss-button {
+    transform: scale(0.8);
+    margin: 0;
+    padding: 0;
 }
 
 @keyframes timeout {

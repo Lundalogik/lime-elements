@@ -5,13 +5,13 @@ import { Component, Element, h, State } from '@stencil/core';
  * By default, snackbars display a dismiss button.
  * This allows users to close them at any time, before they time out.
  *
- * The reasons for this default behavior is that
- * there could be multiple snackbars on the screen, covering each other.
- * Also, snackbars could be covering other important content on the screen,
- * or have unreasonably long timeout.
+ * The reason for this default behavior is that snackbars could be
+ * covering other important content on the screen,
+ * or simply have a timeout longer than the time it takes
+ * for the user to read the message.
  *
  * However, you can override this default interaction design by setting the
- * `dismissible` property to `false`.
+ * `dismissible` property to `false`, which removes the close button.
  */
 @Component({
     tag: 'limel-example-snackbar-dismissible',

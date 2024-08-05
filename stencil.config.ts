@@ -49,6 +49,7 @@ export const config: Config = {
     tsconfig: './tsconfig.dev.json',
     globalStyle: 'src/global/core-styles.scss',
     testing: {
+        browserArgs: ['--enable-experimental-web-platform-features'],
         moduleNameMapper: {
             '^lodash-es$': 'lodash',
             '@rjsf/core/lib/(.*)': '@rjsf/core/dist/cjs/$1',
