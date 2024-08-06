@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 import translate from '../../global/translations';
 import { SnackbarContainer } from './container';
+import { createRandomString } from 'src/util/random-string';
 
 const container = new SnackbarContainer();
 const hideAnimationDuration = 300;
@@ -112,7 +113,12 @@ export class Snackbar {
     @State()
     private closing: boolean = true;
 
+    private snackbarId: string;
     private timeoutId?: number;
+
+    public constructor() {
+        this.snackbarId = createRandomString();
+    }
 
     @Listen('changeOffset')
     protected onChangeIndex(event: CustomEvent<number>) {
@@ -173,6 +179,7 @@ export class Snackbar {
                     open: this.open,
                     'is-closing': this.closing,
                 }}
+                id={this.snackbarId}
             >
                 <div class="surface" role="status" aria-relevant="additions">
                     <div class="label" aria-atomic="false">
@@ -226,6 +233,7 @@ export class Snackbar {
                     icon="multiply"
                     label={label}
                     onClick={this.close}
+                    aria-controls={this.snackbarId}
                 />
             </div>
         );
