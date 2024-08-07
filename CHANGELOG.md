@@ -1,3 +1,13 @@
+## [37.55.5](https://github.com/Lundalogik/lime-elements/compare/v37.55.4...v37.55.5) (2024-08-07)
+
+
+### Bug Fixes
+
+
+* **snackbar:** allow snackbars to be stacked ([730c14a](https://github.com/Lundalogik/lime-elements/commit/730c14a9efe482a6beea520e6ba5f97d42e69966)), closes [Lundalogik/crm-feature#3355](https://github.com/Lundalogik/crm-feature/issues/3355) [Lundalogik/crm-feature#3356](https://github.com/Lundalogik/crm-feature/issues/3356)
+* **snackbar:** dynamically update `role` and `aria-relevant` attributes ([209052f](https://github.com/Lundalogik/lime-elements/commit/209052f24b81277f5c216db4f4963b989690404d))
+* **snackbar:** improve accessibility of the dismiss button ([5926906](https://github.com/Lundalogik/lime-elements/commit/5926906d180e6009d637888e02d1fa388de03458))
+
 ## [37.55.4](https://github.com/Lundalogik/lime-elements/compare/v37.55.3...v37.55.4) (2024-07-30)
 
 
