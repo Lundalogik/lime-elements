@@ -180,11 +180,11 @@ export class Snackbar {
                     'is-closing': this.closing,
                 }}
                 id={this.snackbarId}
+                role={this.open ? 'status' : undefined}
+                aria-relevant={this.open ? 'additions' : undefined}
             >
-                <div class="surface" role="status" aria-relevant="additions">
-                    <div class="label" aria-atomic="false">
-                        {this.message}
-                    </div>
+                <div class="surface" aria-atomic="false">
+                    <div class="label">{this.message}</div>
                     {this.renderActions(this.actionText)}
                     {this.renderDismissButton(this.dismissible)}
                 </div>
