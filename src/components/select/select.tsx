@@ -231,9 +231,7 @@ export class Select {
         }
 
         setTimeout(() => {
-            const list: HTMLElement = document.querySelector(
-                `#${this.portalId} limel-menu-surface limel-list`,
-            );
+            const list = this.host.shadowRoot.querySelector('limel-list');
             const firstItem: HTMLElement =
                 list?.shadowRoot?.querySelector('[tabindex]');
 
