@@ -333,6 +333,18 @@ dd {
   transition: background-color 0.3s ease 0.05s, border-color 0.3s ease 0.05s;
 }
 
+:root[data-theme=system-default] {
+  color-scheme: dark light;
+}
+
+:root[data-theme=force-light] {
+  color-scheme: light;
+}
+
+:root[data-theme=force-dark] {
+  color-scheme: dark;
+}
+
 :root {
   --kompendium-color-primary: 33, 150, 243;
   --kompendium-color-error: 229, 115, 115;

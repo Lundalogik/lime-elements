@@ -2,8 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-d017bb3a.js');
-const methods = require('./methods-ed6a9990.js');
+const index = require('./index-4264cbf1.js');
+const methods = require('./methods-98f6d427.js');
 
 function EventList({ events, id, }) {
   if (!events.length) {
@@ -73,17 +73,17 @@ function renderStyle(style) {
       index.h("kompendium-markdown", { text: style.docs }))));
 }
 
-function ExampleList({ examples, id, schema, }) {
+function ExampleList({ examples, id, schema, propsFactory, }) {
   if (!examples.length) {
     return;
   }
   return [
     index.h("h3", { class: "docs-layout-section-heading", id: id }, "Examples"),
-    examples.map(renderExample(schema)),
+    examples.map(renderExample(schema, propsFactory)),
   ];
 }
-const renderExample = (schema) => (example) => {
-  return index.h("kompendium-playground", { component: example, schema: schema });
+const renderExample = (schema, factory) => (example) => {
+  return (index.h("kompendium-playground", { component: example, schema: schema, propsFactory: factory }));
 };
 
 /** Error message constants. */
@@ -179,7 +179,7 @@ const KompendiumComponent = class {
       index.h("h1", { id: this.getId() }, title),
       index.h("kompendium-markdown", { text: component.docs }),
       index.h("kompendium-taglist", { tags: tags }),
-      index.h(ExampleList, { examples: examples, id: this.getId('examples'), schema: schema }),
+      index.h(ExampleList, { examples: examples, id: this.getId('examples'), schema: schema, propsFactory: this.examplePropsFactory }),
       index.h(methods.PropertyList, { props: component.props, id: this.getId('properties') }),
       index.h(EventList, { events: component.events, id: this.getId('events') }),
       index.h(methods.MethodList, { methods: component.methods, id: this.getId('methods') }),

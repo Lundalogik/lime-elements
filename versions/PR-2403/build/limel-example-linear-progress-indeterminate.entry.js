@@ -1,2 +1,2 @@
-import{r as e,h as r}from"./index-f1b3d5fb.js";const s=class{constructor(r){e(this,r)}render(){return r("limel-linear-progress",{indeterminate:true})}};export{s as limel_example_linear_progress_indeterminate};
+import{r as e,h as r}from"./index-6156b4fd.js";const s=class{constructor(r){e(this,r)}render(){return r("limel-linear-progress",{indeterminate:true})}};export{s as limel_example_linear_progress_indeterminate};
 //# sourceMappingURL=limel-example-linear-progress-indeterminate.entry.js.map
