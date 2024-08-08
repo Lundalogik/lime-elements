@@ -601,6 +601,8 @@ export namespace Components {
         "message": string;
         // @deprecated
         "multiline": boolean;
+        "open": boolean;
+        // @deprecated
         "show": () => Promise<void>;
         "timeout"?: number;
     }
@@ -1566,6 +1568,7 @@ namespace JSX_2 {
         "multiline"?: boolean;
         "onAction"?: (event: LimelSnackbarCustomEvent<void>) => void;
         "onHide"?: (event: LimelSnackbarCustomEvent<void>) => void;
+        "open"?: boolean;
         "timeout"?: number;
     }
     // (undocumented)

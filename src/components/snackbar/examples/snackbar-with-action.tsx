@@ -1,4 +1,4 @@
-import { Component, Element, h } from '@stencil/core';
+import { Component, State, h } from '@stencil/core';
 
 /**
  * With actions
@@ -18,17 +18,8 @@ import { Component, Element, h } from '@stencil/core';
     shadow: true,
 })
 export class SnackbarExample {
-    @Element()
-    private host: HTMLLimelExampleSnackbarWithActionElement;
-
-    private triggerSnackbarWithAction: (event: MouseEvent) => void;
-
-    constructor() {
-        this.triggerSnackbarWithAction = this.triggerSnackbar.bind(
-            this,
-            'limel-snackbar',
-        );
-    }
+    @State()
+    private isOpen = false;
 
     public render() {
         const timeout = 7000;
@@ -36,31 +27,32 @@ export class SnackbarExample {
         return [
             <limel-button
                 label="Send"
-                onClick={this.triggerSnackbarWithAction}
+                onClick={this.triggerSnackbar}
             />,
             <limel-snackbar
                 message="Your email has been sent."
                 actionText="Undo"
                 timeout={timeout}
+                open={this.isOpen}
                 onAction={this.snackbarOnAction}
                 onHide={this.snackbarWithActionOnHide}
             />,
         ];
     }
 
-    private triggerSnackbar(selector) {
-        const snackbar: HTMLLimelSnackbarElement =
-            this.host.shadowRoot.querySelector(selector);
-        snackbar.show();
-    }
+    private triggerSnackbar = () => {
+        this.isOpen = true;
+    };
 
-    private snackbarOnAction() {
+    private snackbarOnAction = () => {
         console.log('All good. We did not send the email.');
-    }
+        this.isOpen = false;
+    };
 
-    private snackbarWithActionOnHide() {
+    private snackbarWithActionOnHide = () => {
         console.log(
             'Now the email has really been sent! There is no way to undo this.',
         );
-    }
+        this.isOpen = false;
+    };
 }
