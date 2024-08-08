@@ -25,6 +25,10 @@ let anchor: HTMLAnchorElement;
 
 describe('limel-tooltip', () => {
     beforeEach(async () => {
+        const element = document.createElement('div');
+        Object.getPrototypeOf(element).showPopover = () => {};
+        Object.getPrototypeOf(element).hidePopover = () => {};
+
         page = await newSpecPage({
             components: [Tooltip, TooltipBasicExample, Portal],
             template: () => {
@@ -63,9 +67,11 @@ describe('limel-tooltip', () => {
             >
                 <mock:shadow-root>
                     <div class="trigger-anchor">
-                        <limel-portal container-id="${containerId}" open-direction="top" position="absolute">
+                        <limel-portal open-direction="top" position="absolute" style="pointer-events: none;">
                             <mock:shadow-root>
-                                <slot></slot>
+                                <div popover="manual" style="max-height: 752px;">
+                                    <slot></slot>
+                                </div>
                             </mock:shadow-root>
 
                             <limel-tooltip-content
