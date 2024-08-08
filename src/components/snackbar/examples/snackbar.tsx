@@ -1,4 +1,4 @@
-import { Component, Element, h } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 /**
  * Basic example
@@ -21,38 +21,29 @@ import { Component, Element, h } from '@stencil/core';
     shadow: true,
 })
 export class SnackbarExample {
-    @Element()
-    private host: HTMLLimelExampleSnackbarElement;
-
-    private triggerSnackbarWithoutAction: (event: MouseEvent) => void;
-
-    constructor() {
-        this.triggerSnackbarWithoutAction = this.triggerSnackbar.bind(
-            this,
-            'limel-snackbar',
-        );
-    }
+    @State()
+    private isOpen: boolean = false;
 
     public render() {
         return [
             <limel-button
                 label="Show snackbar"
-                onClick={this.triggerSnackbarWithoutAction}
+                onClick={this.handleShowSnackbar}
             />,
             <limel-snackbar
+                open={this.isOpen}
                 message="Quick scan started. It takes a couple of minutes…"
-                onHide={this.snackbarWithoutActionOnHide}
+                onHide={this.handleHideSnackbar}
             />,
         ];
     }
 
-    private triggerSnackbar(selector) {
-        const snackbar: HTMLLimelSnackbarElement =
-            this.host.shadowRoot.querySelector(selector);
-        snackbar.show();
-    }
+    private handleShowSnackbar = () => {
+        this.isOpen = true;
+    };
 
-    private snackbarWithoutActionOnHide() {
+    private handleHideSnackbar = () => {
+        this.isOpen = false;
         console.log('The scan is still going on in the background.');
-    }
+    };
 }

@@ -21,7 +21,7 @@ describe('limel-snackbar', () => {
             snackbar = await page.find('limel-snackbar');
             popover = await page.find('limel-snackbar>>>[popover]');
             await page.waitForChanges();
-            await snackbar.callMethod('show');
+            snackbar.setProperty('open', true);
             await page.waitForChanges();
         });
 
@@ -45,7 +45,8 @@ describe('limel-snackbar', () => {
             snackbar = await page.find('limel-snackbar');
             snackbar.setProperty('timeout', 4000);
             spy = await snackbar.spyOnEvent('hide');
-            await snackbar.callMethod('show');
+            snackbar.setProperty('open', true);
+            await page.waitForChanges();
             await page.waitForEvent('hide');
         });
 
@@ -66,7 +67,7 @@ describe('limel-snackbar', () => {
             popover = await page.find('limel-snackbar>>>[popover]');
             button = await page.find('limel-snackbar>>>limel-button');
             await page.waitForChanges();
-            await snackbar.callMethod('show');
+            snackbar.setProperty('open', true);
             await page.waitForChanges();
         });
 

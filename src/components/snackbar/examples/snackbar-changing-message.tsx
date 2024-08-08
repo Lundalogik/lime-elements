@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 /**
  * With changing messages
@@ -8,12 +8,11 @@ import { Component, h } from '@stencil/core';
     shadow: true,
 })
 export class SnackbarExample {
-    private snackbarWithChangingMessage: HTMLLimelSnackbarElement;
+    @State()
+    private isOpen = false;
 
-    constructor() {
-        this.triggerSnackbarWithChangingMessage =
-            this.triggerSnackbarWithChangingMessage.bind(this);
-    }
+    @State()
+    private message: string;
 
     public render() {
         return [
@@ -22,26 +21,29 @@ export class SnackbarExample {
                 onClick={this.triggerSnackbarWithChangingMessage}
             />,
             <limel-snackbar
+                message={this.message}
+                open={this.isOpen}
                 timeout={4000}
-                ref={(el) =>
-                    (this.snackbarWithChangingMessage =
-                        el as HTMLLimelSnackbarElement)
-                }
+                onHide={this.handleHide}
             />,
         ];
     }
 
-    private triggerSnackbarWithChangingMessage() {
+    private triggerSnackbarWithChangingMessage = () => {
         const trigger = (message, timeoutMs) => {
             setTimeout(() => {
-                this.snackbarWithChangingMessage.message = message;
-                this.snackbarWithChangingMessage.show();
+                this.message = message;
+                this.isOpen = true;
             }, timeoutMs);
         };
 
-        trigger('We will show you a new message in 15 seconds', 0);
-        trigger('You will see another message in 10 seconds', 5000);
+        trigger('We will show you a new message in 5 seconds', 0);
+        trigger('You will see another message in 5 seconds', 5000);
         trigger('The last message comes in 5 seconds', 10000);
         trigger('There will be no more messages!', 15000);
     }
+
+    private handleHide = () => {
+        this.isOpen = false;
+    };
 }

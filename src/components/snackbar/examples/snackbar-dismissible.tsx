@@ -1,4 +1,4 @@
-import { Component, Element, h, State } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 /**
  * Dismissible
@@ -18,26 +18,17 @@ import { Component, Element, h, State } from '@stencil/core';
     shadow: true,
 })
 export class SnackbarExample {
-    @Element()
-    private host: HTMLLimelExampleSnackbarElement;
-
     @State()
     private dismissible = true;
 
-    private triggerSnackbarWithoutAction: (event: MouseEvent) => void;
-
-    constructor() {
-        this.triggerSnackbarWithoutAction = this.triggerSnackbar.bind(
-            this,
-            'limel-snackbar',
-        );
-    }
+    @State()
+    private isOpen = false;
 
     public render() {
         return [
             <limel-button
                 label="Show snackbar"
-                onClick={this.triggerSnackbarWithoutAction}
+                onClick={this.triggerSnackbar}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -49,20 +40,20 @@ export class SnackbarExample {
             <limel-snackbar
                 message="Your internet connection is restored!"
                 dismissible={this.dismissible}
+                open={this.isOpen}
                 onHide={this.snackbarWithoutActionOnHide}
             />,
         ];
     }
 
-    private triggerSnackbar(selector) {
-        const snackbar: HTMLLimelSnackbarElement =
-            this.host.shadowRoot.querySelector(selector);
-        snackbar.show();
-    }
+    private triggerSnackbar = () => {
+        this.isOpen = true;
+    };
 
-    private snackbarWithoutActionOnHide() {
+    private snackbarWithoutActionOnHide = () => {
         console.log('We will try to reconnect if the connection drops again.');
-    }
+        this.isOpen = false;
+    };
 
     private onChange = (event: CustomEvent<boolean>) => {
         this.dismissible = event.detail;

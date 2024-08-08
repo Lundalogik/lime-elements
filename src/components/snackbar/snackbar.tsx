@@ -9,6 +9,7 @@ import {
     Method,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import translate from '../../global/translations';
 import { SnackbarContainer } from './container';
@@ -51,6 +52,12 @@ const hideAnimationDuration = 300;
 })
 export class Snackbar {
     /**
+     * `true` if the snackbar is open, `false` otherwise.
+     */
+    @Prop({ reflect: true })
+    public open: boolean = false;
+
+    /**
      * The text message to display.
      */
     @Prop()
@@ -58,8 +65,13 @@ export class Snackbar {
 
     /**
      * The amount of time in milliseconds to show the snackbar.
+     * If set to `null`, the snackbar will be persistent.
+     * This means:
+     * - either the end user will need to close is manually,
+     * which requires the `dismissible` property to be set to `true`.
+     * - or the snackbar needs to be closed programmatically.
      */
-    @Prop()
+    @Prop({ reflect: true })
     // eslint-disable-next-line no-magic-numbers
     public timeout?: number = 5000;
 
@@ -108,7 +120,7 @@ export class Snackbar {
     private offset: number = 0;
 
     @State()
-    private open: boolean = false;
+    private isOpen: boolean = false;
 
     @State()
     private closing: boolean = true;
@@ -120,36 +132,61 @@ export class Snackbar {
         this.snackbarId = createRandomString();
     }
 
+    public componentWillLoad() {
+        this.isOpen = this.open;
+    }
+
     @Listen('changeOffset')
     protected onChangeIndex(event: CustomEvent<number>) {
         event.stopPropagation();
         this.offset = event.detail;
     }
 
+    @Watch('open')
+    protected watchOpen() {
+        if (this.open) {
+            this.handleOpen();
+        } else {
+            this.handleClose();
+        }
+
+        this.isOpen = this.open;
+    }
+
     /**
      * Show the snackbar
+     * @deprecated Use the `open` property instead.
      */
     @Method()
     public async show() {
-        if (this.open) {
+        // eslint-disable-next-line no-console
+        console.warn(
+            'The `show` method in `limel-snackbar` is deprecated. Please use the `open` property instead.',
+        );
+        if (!this.open) {
+            this.handleOpen();
+        }
+    }
+
+    public handleOpen = () => {
+        if (this.isOpen) {
             return;
         }
 
-        this.open = true;
         this.closing = false;
         container.add(this.host);
 
         if (this.timeout) {
             this.timeoutId = window.setTimeout(
-                this.close,
+                this.handleClose,
                 Math.max(this.timeout - hideAnimationDuration, 0),
             );
         }
-    }
+    };
 
-    private close = () => {
-        if (!this.open) {
-            return false;
+    private handleClose = () => {
+        if (!this.isOpen) {
+            return;
         }
 
         this.closing = true;
@@ -160,7 +197,7 @@ export class Snackbar {
         }
 
         setTimeout(() => {
-            this.open = false;
+            this.isOpen = false;
             container.remove(this.host);
             this.hide.emit();
             this.offset = 0;
@@ -180,7 +217,7 @@ export class Snackbar {
                     'is-closing': this.closing,
                 }}
                 id={this.snackbarId}
-                role={this.open ? 'status' : undefined}
+                role={this.setAriaRoles()}
                 aria-relevant={this.open ? 'additions' : undefined}
             >
                 <div class="surface" aria-atomic="false">
@@ -190,6 +227,18 @@ export class Snackbar {
                 </div>
             </aside>
         );
+    }
+
+    private setAriaRoles() {
+        if (!this.open) {
+            return undefined;
+        }
+
+        if (!this.timeout) {
+            return 'alertdialog';
+        }
+
+        return 'status';
     }
 
     private handleClickAction = () => {
@@ -232,7 +281,7 @@ export class Snackbar {
                     class="dismiss-button"
                     icon="multiply"
                     label={label}
-                    onClick={this.close}
+                    onClick={this.handleClose}
                     aria-controls={this.snackbarId}
                 />
             </div>
@@ -240,6 +289,10 @@ export class Snackbar {
     }
 
     private renderTimeoutVisualization() {
+        if (!this.timeout) {
+            return;
+        }
+
         return (
             <svg width="36" height="36" viewBox="0 0 36 36">
                 <circle r="18" cx="18" cy="18" fill="var(--track-color)" />
