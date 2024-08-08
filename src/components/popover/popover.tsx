@@ -9,9 +9,9 @@ import {
 } from '@stencil/core';
 import { createRandomString } from '../../util/random-string';
 import { zipObject } from 'lodash-es';
-import { portalContains } from '../portal/contains';
 import { ESCAPE } from '../../util/keycodes';
 import { OpenDirection } from '../menu/menu.types';
+import { isDescendant } from '../../util/dom';
 
 /**
  * A popover is an impermanent layer that is displayed on top of other content
@@ -148,8 +148,8 @@ export class Popover {
     }
 
     private globalClickListener(event: MouseEvent) {
-        const element: HTMLElement = event.target as HTMLElement;
-        const clickedInside = portalContains(this.host, element);
+        const element: HTMLElement = event.composedPath()[0] as HTMLElement;
+        const clickedInside = isDescendant(element, this.host);
         if (this.open && !clickedInside) {
             event.stopPropagation();
             event.preventDefault();
