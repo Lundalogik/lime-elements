@@ -1,16 +1,14 @@
 import { DialogHeading, ClosingActions } from './dialog.types';
-import { MDCDialog } from '@material/dialog';
 import {
     Component,
     Element,
     Event,
     EventEmitter,
     h,
+    Listen,
     Prop,
     Watch,
 } from '@stencil/core';
-import { isEqual } from 'lodash-es';
-import { dispatchResizeEvent } from '../../util/dispatch-resize-event';
 import { createRandomString } from '../../util/random-string';
 
 /**
@@ -91,17 +89,9 @@ export class Dialog {
     @Element()
     private host: HTMLLimelDialogElement;
 
-    private mdcDialog: MDCDialog;
-
     private id: string;
 
     private showFooter = true;
-
-    constructor() {
-        this.handleMdcOpened = this.handleMdcOpened.bind(this);
-        this.handleMdcClosed = this.handleMdcClosed.bind(this);
-        this.handleMdcClosing = this.handleMdcClosing.bind(this);
-    }
 
     public connectedCallback() {
         this.initialize();
@@ -117,66 +107,77 @@ export class Dialog {
     }
 
     private initialize() {
-        const element = this.host.shadowRoot.querySelector('.mdc-dialog');
-        if (!element) {
+        if (!this.dialog) {
             return;
         }
 
-        this.mdcDialog = new MDCDialog(element);
         if (this.open) {
-            this.mdcDialog.open();
+            this.dialog.showModal();
         }
-
-        this.mdcDialog.listen('MDCDialog:opened', this.handleMdcOpened);
-        this.mdcDialog.listen('MDCDialog:closed', this.handleMdcClosed);
-        this.mdcDialog.listen('MDCDialog:closing', this.handleMdcClosing);
-
-        this.setClosingActions();
     }
 
-    public disconnectedCallback() {
-        this.mdcDialog.unlisten('MDCDialog:opened', this.handleMdcOpened);
-        this.mdcDialog.unlisten('MDCDialog:closed', this.handleMdcClosed);
-        this.mdcDialog.unlisten('MDCDialog:closing', this.handleMdcClosing);
-        this.mdcDialog.destroy();
+    @Listen('click')
+    protected handleClick(event: MouseEvent) {
+        if (!this.closingActions.scrimClick) {
+            return;
+        }
+
+        const rect = this.dialog.getBoundingClientRect();
+        const clickedInDialog =
+            rect.top <= event.clientY &&
+            event.clientY <= rect.top + rect.height &&
+            rect.left <= event.clientX &&
+            event.clientX <= rect.left + rect.width;
+
+        if (!clickedInDialog) {
+            this.closeDialog();
+        }
+    }
+
+    private handleCancel = (event: Event) => {
+        if (!this.closingActions.escapeKey && event.cancelable) {
+            event.preventDefault();
+
+            return;
+        }
+
+        this.closeDialog();
+    };
+
+    private closeDialog() {
+        if (!this.open) {
+            return;
+        }
+
+        const event = this.closing.emit();
+        if (event.defaultPrevented) {
+            return;
+        }
+
+        this.close.emit();
+        this.open = false;
     }
 
     public render() {
         return (
-            <div
+            <dialog
                 class={{
-                    'mdc-dialog': true,
-                    'full-screen': !!this.fullscreen,
+                    fullscreen: !!this.fullscreen,
                 }}
                 role="alertdialog"
                 aria-modal="true"
                 aria-labelledby={'limel-dialog-title-' + this.id}
                 aria-describedby={'limel-dialog-content-' + this.id}
+                onCancel={this.handleCancel}
             >
-                <input hidden={true} id="initialFocusEl" />
-                <div class="mdc-dialog__container">
-                    <div class="mdc-dialog__surface">
-                        {/*
-                            The `initialFocusElement` below is needed to make
-                            focus trapping work. At the time of writing, the
-                            focusable elements inside the slots are not
-                            detected, so we supply our own hidden element for
-                            the focus trap to use. Read more here:
-                            https://github.com/material-components/material-components-web/tree/v11.0.0/packages/mdc-dialog#handling-focus-trapping
-                        */}
-                        <input type="button" id="initialFocusElement" />
-                        {this.renderHeading()}
-                        <div
-                            class="mdc-dialog__content"
-                            id={'limel-dialog-content-' + this.id}
-                        >
-                            <slot />
-                        </div>
-                        {this.renderFooter()}
+                <div class="surface">
+                    {this.renderHeading()}
+                    <div class="content" id={'limel-dialog-content-' + this.id}>
+                        <slot />
                     </div>
+                    {this.renderFooter()}
                 </div>
-                <div class="mdc-dialog__scrim" />
-            </div>
+            </dialog>
         );
     }
 
@@ -186,48 +187,11 @@ export class Dialog {
             return;
         }
 
-        if (!this.mdcDialog) {
-            return;
-        }
-
         if (newValue) {
-            this.mdcDialog.open();
+            this.dialog.showModal();
         } else {
-            this.mdcDialog.close();
+            this.dialog.close();
         }
-    }
-
-    @Watch('closingActions')
-    protected closingActionsChanged(
-        newValue: ClosingActions,
-        oldValue: ClosingActions,
-    ) {
-        if (isEqual(newValue, oldValue)) {
-            return;
-        }
-
-        this.setClosingActions();
-    }
-
-    private handleMdcOpened() {
-        // When the opening-animation has completed, dispatch a
-        // resize-event so that any content that depends on
-        // javascript for layout has a chance to update to the
-        // final layout of the dialog. /Ads
-        const waitForUiToRender = 100;
-        setTimeout(dispatchResizeEvent, waitForUiToRender);
-    }
-
-    private handleMdcClosed() {
-        if (this.open) {
-            this.close.emit();
-        }
-
-        this.open = false;
-    }
-
-    private handleMdcClosing() {
-        this.closing.emit();
     }
 
     private isBadgeHeading(
@@ -251,7 +215,7 @@ export class Dialog {
                 </limel-header>
             );
         } else if (typeof this.heading === 'string') {
-            return <limel-header heading={this.heading}></limel-header>;
+            return <limel-header heading={this.heading} />;
         }
 
         return null;
@@ -260,22 +224,14 @@ export class Dialog {
     private renderFooter() {
         if (this.showFooter) {
             return (
-                <footer class="mdc-dialog__actions">
+                <footer class="actions">
                     <slot name="button" />
                 </footer>
             );
         }
     }
 
-    private setClosingActions() {
-        this.mdcDialog.scrimClickAction = '';
-        if (this.closingActions.scrimClick) {
-            this.mdcDialog.scrimClickAction = 'close';
-        }
-
-        this.mdcDialog.escapeKeyAction = '';
-        if (this.closingActions.escapeKey) {
-            this.mdcDialog.escapeKeyAction = 'close';
-        }
+    private get dialog() {
+        return this.host.shadowRoot.querySelector('dialog');
     }
 }
