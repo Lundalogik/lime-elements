@@ -25,10 +25,7 @@ export class SnackbarExample {
         const timeout = 7000;
 
         return [
-            <limel-button
-                label="Send"
-                onClick={this.triggerSnackbar}
-            />,
+            <limel-button label="Send" onClick={this.triggerSnackbar} />,
             <limel-snackbar
                 message="Your email has been sent."
                 actionText="Undo"
