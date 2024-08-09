@@ -1,28 +1,21 @@
-@use '../../style/functions';
 @use '../../style/mixins';
-
-@use '../../style/internal/lime-theme';
-
-@use '@material/dialog';
 
 /**
  * @prop --dialog-width: Width of the dialog.
+ * @prop --dialog-max-width: Max width of the dialog.
  * @prop --dialog-height: Height of the dialog.
- * @prop --dialog-z-index: z-index of the dialog container, including the scrim.
+ * @prop --dialog-max-height: Max height of the dialog.
+ * @prop --dialog-padding-top-bottom: Padding on top and bottom of dialog content. Affects the height of fade-out effects on top and bottom edges when the content is scrollable and has overflowed out of the content area. Defaults to `1.5rem`. Note that if you use this variable and set it to numbers smaller than 1rem, you will loose the fade-out effects on the edges. If you have set these paddings to `0`, losing the fade out effects should be however fine for your use case! Because in such a case your intention is to handle the `overflow` internally in the component that is displayed in the dialog's content.
+ * @prop --dialog-padding-left-right: Padding on the sides of dialog content. Defaults to `1.25rem`.
  * @prop --dialog-heading-title-color: Color of the title.
  * @prop --dialog-heading-subtitle-color: Color of the subtitle.
  * @prop --dialog-heading-supporting-text-color: Color of the supporting text.
  * @prop --dialog-heading-icon-color: Color of the icon.
  * @prop --dialog-heading-icon-background-color: Background color of the icon when displayed as a badge.
- * @prop --dialog-max-width: Max width of the dialog.
- * @prop --dialog-max-height: Max height of the dialog.
- * @prop --dialog-border-radius: Border radius of the dialog corners
- * @prop --dialog-padding-top-bottom: Padding on top and bottom of dialog content. Affects the height of fade-out effects on top and bottom edges when the content is scrollable and has overflowed out of the content area. Defaults to `1.5rem`. Note that if you use this variable and set it to numbers smaller than 1rem, you will loose the fade-out effects on the edges. If you have set these paddings to `0`, losing the fade out effects should be however fine for your use case! Because in such a case your intention is to handle the `overflow` internally in the component that is displayed in the dialog's content.
- * @prop --dialog-padding-left-right: Padding on the sides of dialog content. Defaults to `1.25rem`.
  */
 
-:host {
-    --dialog-background-color: var(--lime-elevated-surface-background-color);
+:host(limel-dialog) {
+    --limel-dialog-border-radius: 0.75rem;
     --header-heading-color: var(--dialog-heading-title-color);
     --header-subheading-color: var(--dialog-heading-subtitle-color);
     --header-supporting-text-color: var(--dialog-heading-supporting-text-color);
@@ -30,85 +23,80 @@
     --header-icon-background-color: var(--dialog-heading-icon-background-color);
 }
 
-$responsive-body-padding: 3vw; // 3% of viewport's width
-
-@include dialog.core-styles;
-
-.mdc-dialog__content {
-    // As long as this component is depended on MDC,
-    // we need to force it to be font-agnostic.
-    // When MDC-dependency is removed, this block can also be removed.
-    // However, on removal of MDC-dependency, we should also make sure to check
-    // other font-related styles that might be set by MDC,
-    // such as `letter-spacing` or `font-size`.
-    font-family: inherit;
+* {
+    box-sizing: border-box;
 }
 
-.mdc-dialog {
-    @include dialog.max-width(16000px, dialog.$margin);
+$responsive-body-padding: 3vw;
 
-    z-index: var(--dialog-z-index, dialog.$z-index);
+dialog {
+    border: none;
+    outline: none;
+
     padding: env(safe-area-inset-top) env(safe-area-inset-right)
         env(safe-area-inset-bottom) env(safe-area-inset-left);
+    border-radius: var(--limel-dialog-border-radius);
 
-    &.full-screen {
-        @include dialog.max-height(16000px, dialog.$margin);
-        .mdc-dialog__container {
-            height: 100%;
-            width: 100%;
+    width: var(--dialog-width, fit-content);
+    height: var(--dialog-height, fit-content);
 
-            .mdc-dialog__surface {
-                height: 100%;
-                width: 100%;
-            }
-        }
-    }
+    max-width: var(--dialog-max-width, calc(100vw - 1rem));
+    max-height: var(--dialog-max-height, calc(100% - 1rem));
 
-    .mdc-dialog__scrim {
-        background-color: rgba(var(--color-black), 0.4);
-    }
+    background-color: transparent;
+    box-shadow: var(--shadow-depth-8), var(--shadow-depth-64);
 
-    .mdc-dialog__container {
+    &.fullscreen {
+        --dialog-width: 100%;
+        --dialog-height: 100%;
+        width: 100%;
         height: 100%;
-        width: var(--dialog-width, auto);
-    }
-
-    .mdc-dialog__surface {
-        width: var(--dialog-width, auto);
-        height: var(--dialog-height, auto);
-        background-color: var(--dialog-background-color);
-        box-shadow: var(--shadow-depth-64);
-
-        max-width: var(--dialog-max-width, calc(100vw - 2rem));
-        max-height: var(--dialog-max-height, calc(100% - 2rem));
-        border-radius: var(--dialog-border-radius, 0.25rem);
-    }
-
-    .mdc-dialog__content {
-        --limel-top-edge-fade-height: var(--dialog-padding-top-bottom, 1.5rem);
-        --limel-bottom-edge-fade-height: var(
-            --dialog-padding-top-bottom,
-            1.5rem
-        );
-        @include mixins.fade-out-overflowed-content-on-edges(vertically);
-
-        color: var(--mdc-theme-on-surface);
-        padding-left: var(
-            --dialog-padding-left-right,
-            min(1.25rem, $responsive-body-padding)
-        );
-        padding-right: var(
-            --dialog-padding-left-right,
-            min(1.25rem, $responsive-body-padding)
-        );
     }
 }
 
-#initialFocusElement {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    z-index: -1;
+.surface {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    width: 100%;
+
+    border-radius: var(--limel-dialog-border-radius);
+    background-color: var(--lime-elevated-surface-background-color);
+}
+
+.content {
+    flex-grow: 1;
+    overflow-y: auto;
+
+    --limel-top-edge-fade-height: var(--dialog-padding-top-bottom, 1.5rem);
+    --limel-bottom-edge-fade-height: var(--dialog-padding-top-bottom, 1.5rem);
+    @include mixins.fade-out-overflowed-content-on-edges(vertically);
+
+    color: var(--mdc-theme-on-surface);
+    padding-left: var(
+        --dialog-padding-left-right,
+        min(1.25rem, $responsive-body-padding)
+    );
+    padding-right: var(
+        --dialog-padding-left-right,
+        min(1.25rem, $responsive-body-padding)
+    );
+}
+
+limel-header,
+.actions {
+    flex-shrink: 0;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 52px;
+    margin: 0px;
+    padding: 8px;
+    border-top: 1px solid transparent;
 }
 
 slot[name='header'] {
@@ -117,7 +105,7 @@ slot[name='header'] {
 
 slot[name='button'] {
     display: flex;
-    gap: 0.5rem; // Makes sure buttons get some default distance
+    gap: 0.5rem;
     width: 100%;
     justify-content: flex-end;
 }
@@ -131,3 +119,5 @@ slot[name='button'] {
         padding-top: 1rem;
     }
 }
+
+@import './partial-styles/show-hide-animations.scss';
