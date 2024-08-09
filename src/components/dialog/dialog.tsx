@@ -164,10 +164,7 @@ export class Dialog {
                 class={{
                     fullscreen: !!this.fullscreen,
                 }}
-                role="alertdialog"
-                aria-modal="true"
-                aria-labelledby={'limel-dialog-title-' + this.id}
-                aria-describedby={'limel-dialog-content-' + this.id}
+                {...this.getDialogAttributes(this.open, this.id)}
                 onCancel={this.handleCancel}
             >
                 <div class="surface">
@@ -192,6 +189,19 @@ export class Dialog {
         } else {
             this.dialog.close();
         }
+    }
+
+    private getDialogAttributes(isOpen, id) {
+        if (isOpen) {
+            return {
+                role: 'alertdialog',
+                'aria-modal': 'true',
+                'aria-labelledby': 'limel-dialog-title-' + id,
+                'aria-describedby': 'limel-dialog-content-' + id,
+            };
+        }
+
+        return {};
     }
 
     private isBadgeHeading(
