@@ -41,7 +41,7 @@ export class SnackbarExample {
         trigger('You will see another message in 5 seconds', 5000);
         trigger('The last message comes in 5 seconds', 10000);
         trigger('There will be no more messages!', 15000);
-    }
+    };
 
     private handleHide = () => {
         this.isOpen = false;

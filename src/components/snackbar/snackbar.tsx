@@ -41,9 +41,11 @@ const hideAnimationDuration = 300;
  * :::
  *
  * @exampleComponent limel-example-snackbar
- * @exampleComponent limel-example-snackbar-dismissible
  * @exampleComponent limel-example-snackbar-with-action
  * @exampleComponent limel-example-snackbar-with-changing-messages
+ * @exampleComponent limel-example-snackbar-dismissible
+ * @exampleComponent limel-example-snackbar-persistent
+ * @exampleComponent limel-example-snackbar-persistent-non-dismissible
  */
 @Component({
     tag: 'limel-snackbar',
