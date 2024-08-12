@@ -211,10 +211,6 @@ export class DatePicker {
             );
         }
 
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
-
         const formatter = this.formatter || this.formatValue;
 
         return [
@@ -233,11 +229,7 @@ export class DatePicker {
                 ref={(el) => (this.textField = el)}
                 {...inputProps}
             />,
-            <limel-portal
-                containerId={this.portalId}
-                visible={this.showPortal}
-                containerStyle={{ 'z-index': dropdownZIndex }}
-            >
+            <limel-portal containerId={this.portalId} visible={this.showPortal}>
                 <limel-flatpickr-adapter
                     format={this.internalFormat}
                     language={this.language}
