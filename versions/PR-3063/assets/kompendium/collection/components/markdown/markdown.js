@@ -16,7 +16,8 @@ export class Markdown {
   async renderMarkdown() {
     const types = getTypes();
     const file = await markdownToHtml(this.text, types);
-    this.host.shadowRoot.querySelector('#root').innerHTML = file.toString();
+    this.host.shadowRoot.querySelector('#root').innerHTML =
+      file === null || file === void 0 ? void 0 : file.toString();
   }
   render() {
     return h("div", { id: "root" });
