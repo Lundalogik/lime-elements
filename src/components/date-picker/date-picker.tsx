@@ -229,8 +229,9 @@ export class DatePicker {
                 ref={(el) => (this.textField = el)}
                 {...inputProps}
             />,
-            <limel-portal containerId={this.portalId} visible={this.showPortal}>
+            <limel-portal visible={this.showPortal}>
                 <limel-flatpickr-adapter
+                    id={this.portalId}
                     format={this.internalFormat}
                     language={this.language}
                     type={this.type}

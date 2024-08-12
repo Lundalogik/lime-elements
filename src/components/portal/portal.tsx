@@ -98,13 +98,6 @@ export class Portal {
             return;
         }
 
-        if (this.containerId) {
-            // eslint-disable-next-line no-console
-            console.warn(
-                'The `containerId` prop is no longer needed. It is deprecated and will be removed in a future release.',
-            );
-        }
-
         this.hideContainer();
         this.styleContainer();
 
