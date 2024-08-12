@@ -101,8 +101,12 @@ export class ProsemirrorAdapter {
     private menuCommandFactory: MenuCommandFactory;
     private schema: Schema;
     private contentConverter: ContentTypeConverter;
-    private suppressChangeEvent = false;
     private actionBarElement: HTMLElement;
+
+    /**
+     *  Used to stop change event emitting as result of getting updated value from consumer
+     */
+    private suppressChangeEvent = false;
 
     /**
      * Dispatched when a change is made to the editor
