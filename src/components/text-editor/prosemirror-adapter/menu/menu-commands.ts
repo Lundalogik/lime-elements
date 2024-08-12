@@ -179,6 +179,8 @@ const toggleNodeType = (
 
         if (
             state.selection instanceof TextSelection &&
+            // Ensure selection is within the same parent block
+            // We don't want toggling block types across multiple blocks
             $from.sameParent($from.doc.resolve($to.pos))
         ) {
             if ($from.parent.type === nodeType) {
