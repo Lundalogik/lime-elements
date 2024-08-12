@@ -487,10 +487,10 @@ export class Picker {
         return (
             <limel-portal
                 visible={content.length > 0}
-                containerId={this.portalId}
                 inheritParentWidth={true}
             >
                 <limel-menu-surface
+                    id={this.portalId}
                     open={content.length > 0}
                     allowClicksElement={this.host}
                     style={{

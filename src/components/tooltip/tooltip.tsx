@@ -98,13 +98,11 @@ export class Tooltip {
     @State()
     private open: boolean;
 
-    private portalId: string;
     private tooltipId: string;
     private ownerElement: HTMLElement;
     private tooltipTimer: TooltipTimer;
 
     public constructor() {
-        this.portalId = createRandomString();
         this.tooltipId = createRandomString();
         this.tooltipTimer = new TooltipTimer(
             () => (this.open = true),

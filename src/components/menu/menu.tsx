@@ -226,11 +226,11 @@ export class Menu {
                 {this.renderNotificationBadge()}
                 <limel-portal
                     visible={this.open}
-                    containerId={this.portalId}
                     openDirection={this.openDirection}
                     position="absolute"
                 >
                     <limel-menu-surface
+                        id={this.portalId}
                         open={this.open}
                         onDismiss={this.onClose}
                         style={{

@@ -881,10 +881,10 @@ export class InputField {
         return (
             <limel-portal
                 visible={this.showCompletions}
-                containerId={this.portalId}
                 inheritParentWidth={true}
             >
                 <limel-menu-surface
+                    id={this.portalId}
                     open={this.showCompletions}
                     allowClicksElement={this.limelInputField}
                     style={{

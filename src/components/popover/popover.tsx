@@ -131,10 +131,10 @@ export class Popover {
                 <slot name="trigger" />
                 <limel-portal
                     visible={this.open}
-                    containerId={this.portalId}
                     openDirection={this.openDirection}
                 >
                     <limel-popover-surface
+                        id={this.portalId}
                         contentCollection={this.host.children}
                         style={cssProperties}
                     />
