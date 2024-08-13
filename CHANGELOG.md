@@ -1,3 +1,11 @@
+## [37.55.7](https://github.com/Lundalogik/lime-elements/compare/v37.55.6...v37.55.7) (2024-08-13)
+
+
+### Bug Fixes
+
+
+* **dialog:** output accessibility attributes only when the dialog is open ([d9c2848](https://github.com/Lundalogik/lime-elements/commit/d9c28482db71431e8772ffac92cb6cf1bca05e68))
+
 ## [37.55.6](https://github.com/Lundalogik/lime-elements/compare/v37.55.5...v37.55.6) (2024-08-13)
 
 
