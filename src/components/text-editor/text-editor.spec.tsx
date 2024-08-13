@@ -19,7 +19,7 @@ describe('limel-text-editor', () => {
         getAttributesRecursively(textEditor, ids, 'id');
 
         expect(textEditor)
-            .toEqualHtml(`<limel-text-editor allow-resize="" language="en">
+            .toEqualHtml(`<limel-text-editor allow-resize="" language="en" ui="standard">
         <mock:shadow-root>
           <span class="notched-outline">
             <span class="leading-outline"></span>
