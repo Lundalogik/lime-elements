@@ -666,6 +666,7 @@ export namespace Components {
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
+        "ui"?: 'standard' | 'minimal';
         "value": string;
     }
     // @beta
@@ -1643,6 +1644,7 @@ namespace JSX_2 {
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
+        "ui"?: 'standard' | 'minimal';
         "value"?: string;
     }
     // @beta

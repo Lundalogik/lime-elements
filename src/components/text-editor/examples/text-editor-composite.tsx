@@ -1,3 +1,4 @@
+import { Option, LimelSelectCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State, Watch } from '@stencil/core';
 /**
  * Composite example
@@ -34,6 +35,17 @@ export class TextEditorCompositeExample {
     @State()
     private helperText: string;
 
+    @State()
+    private selectedUi: Option<'standard' | 'minimal'> = {
+        text: 'standard',
+        value: 'standard',
+    };
+
+    private availableUis: Array<Option<'standard' | 'minimal'>> = [
+        { text: 'standard', value: 'standard' },
+        { text: 'minimal', value: 'minimal' },
+    ];
+
     public render() {
         return [
             <limel-text-editor
@@ -47,6 +59,7 @@ export class TextEditorCompositeExample {
                 invalid={this.invalid}
                 placeholder={this.placeholder}
                 allowResize={this.allowResize}
+                ui={this.selectedUi.value}
             />,
             <limel-example-controls>
                 <limel-checkbox
@@ -73,6 +86,12 @@ export class TextEditorCompositeExample {
                     checked={this.allowResize}
                     label="Allow resize"
                     onChange={this.setAllowResize}
+                />
+                <limel-select
+                    label="ui"
+                    options={this.availableUis}
+                    value={this.selectedUi}
+                    onChange={this.handleNewSelection}
                 />
                 <hr
                     style={{
@@ -147,5 +166,11 @@ export class TextEditorCompositeExample {
 
     private handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
+    };
+
+    private handleNewSelection = (
+        event: LimelSelectCustomEvent<Option<'standard' | 'minimal'>>,
+    ) => {
+        this.selectedUi = event.detail;
     };
 }

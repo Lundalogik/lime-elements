@@ -17,6 +17,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-text-editor-with-html
  * @exampleComponent limel-example-text-editor-allow-resize
  * @exampleComponent limel-example-text-editor-size
+ * @exampleComponent limel-example-text-editor-ui
  * @exampleComponent limel-example-text-editor-composite
  * @beta
  */
@@ -110,6 +111,18 @@ export class TextEditor implements FormComponent<string> {
      */
     @Prop({ reflect: true })
     public allowResize: boolean = true;
+
+    /**
+     * Specifies the visual appearance of the editor.
+     *
+     * - `standard`: The default editor appearance with a full toolbar and
+     *    standard layout.
+     * - `minimal`: A compact editor appearance, ideal for limited space
+     *    scenarios such as mobile devices. In this mode, the toolbar is hidden
+     *    until the editor is focused.
+     */
+    @Prop({ reflect: true })
+    public ui?: 'standard' | 'minimal' = 'standard';
 
     /**
      * Dispatched when a change is made to the editor
