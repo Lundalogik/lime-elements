@@ -1,3 +1,11 @@
+## [37.55.8](https://github.com/Lundalogik/lime-elements/compare/v37.55.7...v37.55.8) (2024-08-14)
+
+
+### Bug Fixes
+
+
+* **datepicker:** use variable correctly ([8b33edb](https://github.com/Lundalogik/lime-elements/commit/8b33edb514c775a6437755f1641bd08583c10c7e))
+
 ## [37.55.7](https://github.com/Lundalogik/lime-elements/compare/v37.55.6...v37.55.7) (2024-08-13)
 
 
