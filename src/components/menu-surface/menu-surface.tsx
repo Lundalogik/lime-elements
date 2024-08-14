@@ -115,6 +115,10 @@ export class MenuSurface {
             return;
         }
 
+        if (isDescendant(elementPath[0], this.host)) {
+            return;
+        }
+
         if (this.allowClicksElement) {
             const clickedInAllowedElement = elementPath.includes(
                 this.allowClicksElement,

@@ -216,10 +216,6 @@ export class Menu {
     public render() {
         const cssProperties = this.getCssProperties();
 
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
-
         const menuSurfaceWidth = this.getMenuSurfaceWidth(
             cssProperties['--menu-surface-width'],
         );
@@ -230,12 +226,11 @@ export class Menu {
                 {this.renderNotificationBadge()}
                 <limel-portal
                     visible={this.open}
-                    containerId={this.portalId}
                     openDirection={this.openDirection}
                     position="absolute"
-                    containerStyle={{ 'z-index': dropdownZIndex }}
                 >
                     <limel-menu-surface
+                        id={this.portalId}
                         open={this.open}
                         onDismiss={this.onClose}
                         style={{

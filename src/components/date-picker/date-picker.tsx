@@ -13,6 +13,7 @@ import { DateType, Languages } from '../date-picker/date.types';
 import { InputType } from '../input-field/input-field.types';
 import { DateFormatter } from './dateFormatter';
 import { MDCTextField } from '@material/textfield';
+import { isDescendant } from 'src/util/dom';
 
 // tslint:disable:no-duplicate-string
 const nativeTypeForConsumerType: { [key: string]: InputType } = {
@@ -210,10 +211,6 @@ export class DatePicker {
             );
         }
 
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
-
         const formatter = this.formatter || this.formatValue;
 
         return [
@@ -227,18 +224,14 @@ export class DatePicker {
                 required={this.required}
                 value={this.value ? formatter(this.value) : ''}
                 onFocus={this.showCalendar}
-                onBlur={this.hideCalendar}
                 onClick={this.onInputClick}
                 onChange={this.handleInputElementChange}
                 ref={(el) => (this.textField = el)}
                 {...inputProps}
             />,
-            <limel-portal
-                containerId={this.portalId}
-                visible={this.showPortal}
-                containerStyle={{ 'z-index': dropdownZIndex }}
-            >
+            <limel-portal visible={this.showPortal}>
                 <limel-flatpickr-adapter
+                    id={this.portalId}
                     format={this.internalFormat}
                     language={this.language}
                     type={this.type}
@@ -331,12 +324,12 @@ export class DatePicker {
     }
 
     private documentClickListener = (event: MouseEvent) => {
-        if (event.composedPath().includes(this.textField)) {
+        const elementPath = event.composedPath() as HTMLElement[];
+        if (elementPath.includes(this.textField)) {
             return;
         }
 
-        const element = document.querySelector(`#${this.portalId}`);
-        if (!element.contains(event.target as Node)) {
+        if (!isDescendant(elementPath[0], this.host)) {
             this.hideCalendar();
         }
     };
