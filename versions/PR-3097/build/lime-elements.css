@@ -76,7 +76,7 @@
       0.125rem 0.125rem 0.625rem
           rgba(var(--color-white), 0.7),
       -1px -1px 0 1px rgba(var(--color-black), 0.07) inset,
-      0 0 1px 1px rgba(var(--color-white), 0.98) inset}.CodeMirror-lint-tooltip.cm-s-lime{position:fixed;transition:opacity 0.4s ease 0s;opacity:0;color:var(--mdc-theme-text-primary-on-background);background-color:var(--mdc-theme-on-primary);font-family:monospace;font-size:0.875rem;white-space:pre-wrap;padding:0.25rem 0.5rem;border-radius:0.5rem;max-width:40rem;box-shadow:var(--shadow-depth-64)}:root{--mdc-theme-primary:var(
+      0 0 1px 1px rgba(var(--color-white), 0.98) inset}.CodeMirror-lint-tooltip.cm-s-lime{position:fixed;z-index:var(--tooltip-z-index, var(--dropdown-z-index, 130));transition:opacity 0.4s ease 0s;opacity:0;color:var(--mdc-theme-text-primary-on-background);background-color:var(--mdc-theme-on-primary);font-family:monospace;font-size:0.875rem;white-space:pre-wrap;padding:0.25rem 0.5rem;border-radius:0.5rem;max-width:40rem;box-shadow:var(--shadow-depth-64)}:root{--mdc-theme-primary:var(
       --lime-primary-color,
       rgb(var(--color-teal-default))
   );--mdc-theme-secondary:var(
