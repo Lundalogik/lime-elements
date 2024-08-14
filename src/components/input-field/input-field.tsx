@@ -878,13 +878,18 @@ export class InputField {
             return;
         }
 
+        const dropdownZIndex = getComputedStyle(
+            this.limelInputField,
+        ).getPropertyValue('--dropdown-z-index');
+
         return (
             <limel-portal
                 visible={this.showCompletions}
+                containerId={this.portalId}
                 inheritParentWidth={true}
+                containerStyle={{ 'z-index': dropdownZIndex }}
             >
                 <limel-menu-surface
-                    id={this.portalId}
                     open={this.showCompletions}
                     allowClicksElement={this.limelInputField}
                     style={{

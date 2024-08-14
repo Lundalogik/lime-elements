@@ -121,7 +121,7 @@ describe('limel-menu', () => {
         describe('when selected', () => {
             let list;
             beforeEach(async () => {
-                list = await page.find('limel-menu>>>limel-menu-list');
+                list = await page.find('limel-menu-list');
                 await list.click();
                 await page.waitForChanges();
             });

@@ -184,6 +184,10 @@ export class Select {
     }
 
     public render() {
+        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
+            '--dropdown-z-index',
+        );
+
         return (
             <SelectTemplate
                 id={this.portalId}
@@ -204,6 +208,7 @@ export class Select {
                 close={this.closeMenu}
                 checkValid={this.checkValid}
                 native={this.isMobileDevice}
+                dropdownZIndex={dropdownZIndex}
             />
         );
     }
@@ -226,7 +231,9 @@ export class Select {
         }
 
         setTimeout(() => {
-            const list = this.host.shadowRoot.querySelector('limel-list');
+            const list: HTMLElement = document.querySelector(
+                `#${this.portalId} limel-menu-surface limel-list`,
+            );
             const firstItem: HTMLElement =
                 list?.shadowRoot?.querySelector('[tabindex]');
 
