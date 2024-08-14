@@ -1,6 +1,9 @@
 @use '../../style/functions';
 
+// Note! The `--dropdown-z-index` property is used from `menu.tsx`.
+
 /**
+ * @prop --dropdown-z-index: `z-index` of the dropdown menu.
  * @prop --menu-surface-width: Width of the menu surface. Overrides the width defined by `surfaceWidth`.
  * @prop --list-grid-item-max-width: Maximum width of items in the menu list when `gridLayout={true}`. Defaults to `10rem`.
  * @prop --list-grid-item-min-width: Minimum width of items in the menu list when `gridLayout={true}`. Defaults to `7.5rem`.

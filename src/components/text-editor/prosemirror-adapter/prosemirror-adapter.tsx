@@ -183,13 +183,13 @@ export class ProsemirrorAdapter {
 
         return (
             <limel-portal
+                containerId={this.portalId}
                 visible={this.isLinkMenuOpen}
                 openDirection="top"
                 inheritParentWidth={true}
                 anchor={this.actionBarElement}
             >
                 <limel-text-editor-link-menu
-                    id={this.portalId}
                     link={this.link}
                     isOpen={this.isLinkMenuOpen}
                     onLinkChange={this.handleLinkChange}

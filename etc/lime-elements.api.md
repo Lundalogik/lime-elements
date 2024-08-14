@@ -535,8 +535,11 @@ export namespace Components {
     }
     export interface LimelPortal {
         "anchor"?: HTMLElement;
+        "containerId": string;
+        "containerStyle": object;
         "inheritParentWidth": boolean;
         "openDirection": OpenDirection;
+        "parent": HTMLElement;
         "position": 'fixed' | 'absolute';
         "visible": boolean;
     }
@@ -1490,8 +1493,11 @@ namespace JSX_2 {
     }
     interface LimelPortal {
         "anchor"?: HTMLElement;
+        "containerId"?: string;
+        "containerStyle"?: object;
         "inheritParentWidth"?: boolean;
         "openDirection"?: OpenDirection;
+        "parent"?: HTMLElement;
         "position"?: 'fixed' | 'absolute';
         "visible"?: boolean;
     }

@@ -1,3 +1,7 @@
+/**
+ * @prop --tooltip-z-index: z-index of the tooltip.
+ */
+
 :host(limel-tooltip) {
     // Absolutely positioning ensures that this invisible element
     // does not occupy visible space in the UI.
