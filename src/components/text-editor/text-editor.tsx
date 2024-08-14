@@ -152,17 +152,11 @@ export class TextEditor implements FormComponent<string> {
 
         if (this.readonly) {
             return [
-                <div
-                    class={
-                        this.readonly ? 'content-wrapper fade-out-effect' : ''
-                    }
-                >
-                    <limel-markdown
-                        value={this.value}
-                        aria-controls={this.helperTextId}
-                        id={this.editorId}
-                    />
-                </div>,
+                <limel-markdown
+                    value={this.value}
+                    aria-controls={this.helperTextId}
+                    id={this.editorId}
+                />,
                 this.renderPlaceholder(),
                 this.renderHelperLine(),
             ];

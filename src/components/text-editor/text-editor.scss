@@ -64,48 +64,43 @@
     --limel-text-editor-background-color: transparent;
 
     limel-markdown {
+        // displayed when `readonly` instead of the adapter
         display: block;
         padding: var(--limel-text-editor-padding);
-    }
-}
+        overflow-y: auto;
 
-.content-wrapper {
-    overflow-y: auto;
+        &:before,
+        &:after {
+            z-index: 1;
+            pointer-events: none;
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100%;
+        }
+        &:after {
+            height: 1.75rem;
+            top: 0;
+            background: linear-gradient(
+                var(
+                    --text-editor-fade-out-background-color,
+                    rgb(var(--contrast-100))
+                ),
+                transparent
+            );
+        }
 
-    &.fade-out-effect:after {
-        pointer-events: none;
-        content: '';
-        display: block;
-        position: absolute;
-        z-index: 1;
-        height: 1.75rem;
-        width: 100%;
-        top: 0;
-        background: linear-gradient(
-            var(
-                --text-editor-fade-out-background-color,
-                rgb(var(--contrast-100))
-            ),
-            transparent
-        );
-    }
-
-    &.fade-out-effect:before {
-        pointer-events: none;
-        content: '';
-        display: block;
-        position: absolute;
-        z-index: 1;
-        height: 2rem;
-        width: 100%;
-        bottom: -0.25rem;
-        background: linear-gradient(
-            transparent,
-            var(
-                --text-editor-fade-out-background-color,
-                rgb(var(--contrast-100))
-            )
-        );
+        &:before {
+            height: 2rem;
+            bottom: -0.25rem;
+            background: linear-gradient(
+                transparent,
+                var(
+                    --text-editor-fade-out-background-color,
+                    rgb(var(--contrast-100))
+                )
+            );
+        }
     }
 }
 
