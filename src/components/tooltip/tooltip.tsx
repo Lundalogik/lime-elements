@@ -98,13 +98,11 @@ export class Tooltip {
     @State()
     private open: boolean;
 
-    private portalId: string;
     private tooltipId: string;
     private ownerElement: HTMLElement;
     private tooltipTimer: TooltipTimer;
 
     public constructor() {
-        this.portalId = createRandomString();
         this.tooltipId = createRandomString();
         this.tooltipTimer = new TooltipTimer(
             () => (this.open = true),
@@ -123,18 +121,12 @@ export class Tooltip {
     }
 
     public render(): JSX.Element {
-        const tooltipZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--tooltip-z-index',
-        );
-
         return (
             <div class="trigger-anchor">
                 <limel-portal
                     openDirection={this.openDirection}
                     visible={this.open}
-                    containerId={this.portalId}
-                    containerStyle={{
-                        'z-index': tooltipZIndex,
+                    style={{
                         'pointer-events': 'none',
                     }}
                     anchor={this.ownerElement}

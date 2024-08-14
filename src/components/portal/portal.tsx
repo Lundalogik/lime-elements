@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import { Component, Element, h, Host, Prop, Watch } from '@stencil/core';
 import { OpenDirection } from '../menu/menu.types';
 import {
     createPopper,
@@ -9,13 +9,12 @@ import {
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 
 /**
- * The portal component provides a way to render children into a DOM node that
- * exist outside the DOM hierarchy of the parent component.
+ * The portal component provides a way to render children in the top layer of
+ * the document (https://developer.mozilla.org/en-US/docs/Glossary/Top_layer)
  *
- * When the limel-portal component is used, it creates a new DOM node (a div element)
- * and appends it to a parent element (by default, the body of the document).
- * The child elements of the limel-portal are then moved from
- * their original location in the DOM to this new div element.
+ * When the limel-portal component is used, it renders a container with the
+ * `popover` attribute set to `manual` in order to render all content on top of
+ * everything else.
  *
  * This technique is often used to overcome CSS stacking context issues,
  * or to render UI elements like modals, dropdowns, tooltips, etc.,
@@ -29,19 +28,10 @@ import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
  * :::important
  * There are some caveats when using this component
  *
- * 1. Events might not bubble up as expected since the content is moved out to
- * another DOM node.
- * 2. Any styling that is applied to content from the parent will be lost, if the
- * content is just another web-component it will work without any issues.
- * Alternatively, use the `style=""` html attribute.
- * 3. Any component that is placed inside the container must have a style of
+ * 1. Any component that is placed inside the container must have a style of
  * `max-height: inherit`. This ensures that its placement is calculated
  * correctly in relation to the trigger, and that it never covers its own
  * trigger.
- * 4. When the node is moved in the DOM, `disconnectedCallback` and
- * `connectedCallback` will be invoked, so if `disconnectedCallback` is used
- * to do any tear-down, the appropriate setup will have to be done again on
- * `connectedCallback`.
  * :::
  *
  * @slot - Content to put inside the portal
@@ -65,31 +55,6 @@ export class Portal {
      */
     @Prop({ reflect: true })
     public position: 'fixed' | 'absolute' = 'absolute';
-
-    /**
-     * A unique ID.
-     */
-    @Prop({ reflect: true })
-    public containerId: string;
-
-    /**
-     * Dynamic styling that can be applied to the container holding the content.
-     */
-    @Prop()
-    public containerStyle: object = {};
-
-    /**
-     * The `parent` property specifies the parent element where the content
-     * of the portal will be moved to.
-     * By default, it is set to `document.body`, meaning the content
-     * will be appended as a child of the body element in the DOM.
-     * If you want the content to be appended to a different element,
-     * you can specify that element by setting this property.
-     * Please note that the specified parent element should exist
-     * in the DOM at the time of rendering the portal.
-     */
-    @Prop()
-    public parent: HTMLElement = document.body;
 
     /**
      * Used to make a dropdown have the same width as the trigger, for example
@@ -117,18 +82,11 @@ export class Portal {
     @Element()
     private host: HTMLLimelPortalElement;
 
-    private parents: WeakMap<HTMLElement, HTMLElement>;
-    private container: HTMLElement;
     private popperInstance: Instance;
     private loaded = false;
     private observer: ResizeObserver;
 
-    constructor() {
-        this.parents = new WeakMap();
-    }
-
     public disconnectedCallback() {
-        this.removeContainer();
         this.destroyPopper();
         if (this.observer) {
             this.observer.unobserve(this.container);
@@ -140,9 +98,7 @@ export class Portal {
             return;
         }
 
-        this.createContainer();
         this.hideContainer();
-        this.attachContainer();
         this.styleContainer();
 
         if (this.visible) {
@@ -161,13 +117,22 @@ export class Portal {
         }
     }
 
-    public componentDidLoad() {
+    public componentDidRender() {
         this.loaded = true;
         this.connectedCallback();
     }
 
     public render() {
-        return <slot />;
+        return (
+            <Host
+                onChange={this.stopEventPropagation}
+                onClick={this.stopEventPropagation}
+            >
+                <div popover="manual">
+                    <slot />
+                </div>
+            </Host>
+        );
     }
 
     @Watch('visible')
@@ -187,65 +152,22 @@ export class Portal {
         });
     }
 
-    private createContainer() {
-        const slot: HTMLSlotElement =
-            this.host.shadowRoot.querySelector('slot');
-        const content =
-            (slot.assignedElements && slot.assignedElements()) || [];
-
-        this.container = document.createElement('div');
-        this.container.setAttribute('id', this.containerId);
-        this.container.setAttribute('class', 'limel-portal--container');
-        this.container.style.fontFamily =
-            'var(--limel-portal-font-family, inherit)';
-        Object.assign(this.container, {
-            portalSource: this.host,
-        });
-
-        content.forEach((element: HTMLElement) => {
-            this.parents.set(element, element.parentElement);
-            this.container.appendChild(element);
-        });
+    private hideContainer() {
+        // @ts-ignore
+        this.container?.hidePopover();
     }
 
-    private attachContainer() {
-        this.parent.appendChild(this.container);
+    private showContainer() {
+        // @ts-ignore
+        this.container?.showPopover();
     }
 
-    private removeContainer() {
+    private styleContainer() {
         if (!this.container) {
             return;
         }
 
-        Array.from(this.container.children).forEach((element: HTMLElement) => {
-            const parent = this.parents.get(element);
-            if (!parent) {
-                return;
-            }
-
-            parent.appendChild(element);
-        });
-
-        this.hideContainer();
-        this.container.parentElement.removeChild(this.container);
-    }
-
-    private hideContainer() {
-        this.container.style.opacity = '0';
-    }
-
-    private showContainer() {
-        this.container.style.opacity = '1';
-    }
-
-    private styleContainer() {
         const hostWidth = this.host.getBoundingClientRect().width;
-
-        if (this.visible) {
-            this.container.style.display = 'block';
-        } else {
-            this.container.style.display = 'none';
-        }
 
         if (this.inheritParentWidth) {
             const containerWidth = this.getContentWidth(this.container);
@@ -258,10 +180,6 @@ export class Portal {
         }
 
         this.ensureContainerFitsInViewPort();
-
-        Object.keys(this.containerStyle).forEach((property) => {
-            this.container.style[property] = this.containerStyle[property];
-        });
     }
 
     private getContentWidth(element: HTMLElement | Element) {
@@ -367,5 +285,11 @@ export class Portal {
             extraCosmeticSpace;
 
         this.container.style.maxHeight = `${maxHeight}px`;
+    }
+
+    private stopEventPropagation = (event: Event) => event.stopPropagation();
+
+    private get container(): HTMLElement {
+        return this.host.shadowRoot.querySelector('[popover]');
     }
 }

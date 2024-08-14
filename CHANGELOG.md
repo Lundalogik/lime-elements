@@ -1,3 +1,30 @@
+## [37.55.8](https://github.com/Lundalogik/lime-elements/compare/v37.55.7...v37.55.8) (2024-08-14)
+
+
+### Bug Fixes
+
+
+* **datepicker:** use variable correctly ([8b33edb](https://github.com/Lundalogik/lime-elements/commit/8b33edb514c775a6437755f1641bd08583c10c7e))
+
+## [37.55.7](https://github.com/Lundalogik/lime-elements/compare/v37.55.6...v37.55.7) (2024-08-13)
+
+
+### Bug Fixes
+
+
+* **dialog:** output accessibility attributes only when the dialog is open ([d9c2848](https://github.com/Lundalogik/lime-elements/commit/d9c28482db71431e8772ffac92cb6cf1bca05e68))
+
+## [37.55.6](https://github.com/Lundalogik/lime-elements/compare/v37.55.5...v37.55.6) (2024-08-13)
+
+
+### Bug Fixes
+
+
+* **date-picker:** ensure clicks are handled correctly with new portal ([90427bd](https://github.com/Lundalogik/lime-elements/commit/90427bd30cbe82d5a3eb12572d1bb5030b68a9a0))
+* **menu-surface:** ensure clicks inside the surface does not emit dismiss event ([b7b14b4](https://github.com/Lundalogik/lime-elements/commit/b7b14b4416aeaeada07288c4485cc5074968ecd0))
+* **popover:** ensure clicks works as expected with updated portal component ([04f629f](https://github.com/Lundalogik/lime-elements/commit/04f629f3ea9a462262ebd9218c0ea9a2500dc93b))
+* **select:** ensure list is focused when menu is opened ([5f25b4b](https://github.com/Lundalogik/lime-elements/commit/5f25b4b685f53756873b56baffa246cc4f7636dc))
+
 ## [37.55.5](https://github.com/Lundalogik/lime-elements/compare/v37.55.4...v37.55.5) (2024-08-07)
 
 

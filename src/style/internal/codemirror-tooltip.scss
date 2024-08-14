@@ -1,6 +1,5 @@
 .CodeMirror-lint-tooltip.cm-s-lime {
     position: fixed;
-    z-index: var(--tooltip-z-index, var(--dropdown-z-index, 130));
     transition: opacity 0.4s ease 0s;
     opacity: 0;
 

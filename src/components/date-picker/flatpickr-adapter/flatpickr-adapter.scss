@@ -11,7 +11,7 @@
 
 :host(limel-flatpickr-adapter) {
     --calendar-text-color: rgb(var(--contrast-1400));
-    color: --calendar-text-color;
+    color: var(--calendar-text-color);
 
     * {
         box-sizing: border-box;
