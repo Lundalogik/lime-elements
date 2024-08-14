@@ -484,18 +484,13 @@ export class Picker {
     }
 
     private renderPortal(content: any[] = []) {
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
-
         return (
             <limel-portal
                 visible={content.length > 0}
-                containerId={this.portalId}
                 inheritParentWidth={true}
-                containerStyle={{ 'z-index': dropdownZIndex }}
             >
                 <limel-menu-surface
+                    id={this.portalId}
                     open={content.length > 0}
                     allowClicksElement={this.host}
                     style={{
