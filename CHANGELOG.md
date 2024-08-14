@@ -1,3 +1,16 @@
+## [37.56.0](https://github.com/Lundalogik/lime-elements/compare/v37.55.8...v37.56.0) (2024-08-14)
+
+
+### Features
+
+
+* **snackbar:** enable programmatically showing & hiding a snackbar ([ac84e63](https://github.com/Lundalogik/lime-elements/commit/ac84e637d6e2d32080ae788a2ea7b7d88a9b2c0c))
+
+### Reverts
+
+
+* revert changes to portal and dialog ([00b1e23](https://github.com/Lundalogik/lime-elements/commit/00b1e233a7762d8d60acbc4b50771c87dd6c2018)), closes [#3088](https://github.com/Lundalogik/lime-elements/issues/3088) [#3093](https://github.com/Lundalogik/lime-elements/issues/3093)
+
 ## [37.55.8](https://github.com/Lundalogik/lime-elements/compare/v37.55.7...v37.55.8) (2024-08-14)
 
 
