@@ -1,3 +1,11 @@
+## [37.56.2](https://github.com/Lundalogik/lime-elements/compare/v37.56.1...v37.56.2) (2024-08-15)
+
+
+### Bug Fixes
+
+
+* **dialog:** have border-radius consistent with the header ([3705376](https://github.com/Lundalogik/lime-elements/commit/37053762eb0fff3ee2b1c6c7ae5eee012979d1f1))
+
 ## [37.56.1](https://github.com/Lundalogik/lime-elements/compare/v37.56.0...v37.56.1) (2024-08-15)
 
 
