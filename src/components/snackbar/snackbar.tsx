@@ -129,20 +129,15 @@ export class Snackbar {
 
     private snackbarId: string;
     private timeoutId?: number;
-    private firstRender = true;
 
     public constructor() {
         this.snackbarId = createRandomString();
     }
 
-    public componentDidRender() {
-        if (!this.firstRender) {
-            return;
+    public componentDidLoad() {
+        if (this.open) {
+            requestAnimationFrame(this.handleOpen);
         }
-
-        this.firstRender = false;
-
-        requestAnimationFrame(() => this.watchOpen());
     }
 
     @Listen('changeOffset')
@@ -174,7 +169,6 @@ export class Snackbar {
         );
         if (!this.open) {
             this.handleOpen();
-            this.isOpen = true;
         }
     }
 
@@ -183,6 +177,7 @@ export class Snackbar {
             return;
         }
 
+        this.isOpen = true;
         this.closing = false;
         container.add(this.host);
 
