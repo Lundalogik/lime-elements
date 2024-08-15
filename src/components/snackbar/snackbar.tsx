@@ -167,6 +167,7 @@ export class Snackbar {
         );
         if (!this.open) {
             this.handleOpen();
+            this.isOpen = true;
         }
     }
 
