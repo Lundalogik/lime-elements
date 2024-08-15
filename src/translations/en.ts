@@ -14,7 +14,7 @@ export default {
     'chip-set.clear-all': 'Clear all',
     'snackbar.dismiss': 'Dismiss',
     'file.drag-and-drop-tips':
-        'Drag and drop your file here, or click to browse.',
+        'Drag & drop your file here, or click to browse.',
     'file-viewer.message.unsupported-filetype': 'Cannot display this file!',
     'file-viewer.download': 'Download',
     'file-viewer.exit-fullscreen': 'Exit fullscreen',

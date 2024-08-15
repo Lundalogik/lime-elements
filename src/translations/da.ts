@@ -13,7 +13,7 @@ export default {
     'date-picker.year.heading': 'År',
     'chip-set.clear-all': 'Ryd alle',
     'file.drag-and-drop-tips':
-        'Træk og slip filen her, eller klik for at gennemse.',
+        'Træk & slip filen her, eller klik for at gennemse.',
     'file-viewer.message.unsupported-filetype': 'Denne fil kan ikke vises!',
     'file-viewer.download': 'Hent',
     'file-viewer.exit-fullscreen': 'Afslut fuldskærm',

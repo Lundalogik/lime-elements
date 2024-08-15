@@ -2,3 +2,48 @@
  * @prop --icon-background-color: Background color of the icon. Defaults to `--contrast-400`.
  * @prop --icon-color: Color of the icon. Defaults to `--contrast-1100`.
  */
+
+:host(limel-file) {
+    position: relative;
+}
+
+.drag-and-drop-tip {
+    pointer-events: none;
+    position: absolute;
+    box-sizing: border-box;
+    margin: 0.25rem;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+
+    border-radius: 0.25rem;
+    border: 1px dashed rgb(var(--contrast-700));
+
+    padding: 0 0.5rem;
+
+    .invisible-label-mock {
+        flex-shrink: 0;
+        opacity: 0;
+        padding-right: 1rem;
+        padding-left: 1.5rem;
+    }
+
+    .tip {
+        font-size: smaller;
+        color: var(--mdc-theme-text-secondary-on-background);
+
+        // Below tries to render text in two lines,
+        // and then truncate if there is no more space
+        height: auto;
+        max-height: 3rem;
+        line-height: 1;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
