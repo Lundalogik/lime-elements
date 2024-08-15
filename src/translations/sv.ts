@@ -14,7 +14,7 @@ export default {
     'chip-set.clear-all': 'Rensa alla',
     'snackbar.dismiss': 'Stäng',
     'file.drag-and-drop-tips':
-        'Dra och släpp filen här eller klicka om du vill bläddra.',
+        'Dra & släpp filen här eller klicka om du vill bläddra.',
     'file-viewer.message.unsupported-filetype': 'Kan inte visa den här filen!',
     'file-viewer.download': 'Ladda ner',
     'file-viewer.exit-fullscreen': 'Avsluta fullskärmsläge',

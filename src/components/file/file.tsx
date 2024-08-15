@@ -119,16 +119,36 @@ export class File {
     private interact: EventEmitter<number | string>;
 
     public render() {
-        return (
+        return [
             <limel-file-dropzone
                 disabled={this.disabled || this.readonly || !!this.value}
                 accept={this.accept}
                 onFilesSelected={this.handleNewFiles}
             >
                 {this.renderChipset()}
-            </limel-file-dropzone>
+            </limel-file-dropzone>,
+            this.renderDragAndDropTip(),
+        ];
+    }
+
+    private renderDragAndDropTip() {
+        if (this.value || this.disabled || this.readonly) {
+            return;
+        }
+
+        return (
+            <div class="drag-and-drop-tip">
+                <span class="invisible-label-mock" role="presentation">
+                    {this.label}
+                </span>
+                <span class="tip">{this.dropZoneTip()}</span>
+            </div>
         );
     }
+
+    private dropZoneTip = (): string => {
+        return this.getTranslation('drag-and-drop-tips');
+    };
 
     private handleNewFiles = (event: CustomEvent<FileInfo[]>) => {
         this.preventAndStop(event);
@@ -170,7 +190,6 @@ export class File {
                 required={this.required}
                 type="input"
                 value={this.getChipArray()}
-                title={this.getTranslation('drag-and-drop-tips')}
             />
         );
 
