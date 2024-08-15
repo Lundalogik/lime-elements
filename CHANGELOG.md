@@ -1,3 +1,11 @@
+## [37.56.1](https://github.com/Lundalogik/lime-elements/compare/v37.56.0...v37.56.1) (2024-08-15)
+
+
+### Bug Fixes
+
+
+* **snackbar:** allow snackbar to be closed if opened with deprecated show method ([8d11ebd](https://github.com/Lundalogik/lime-elements/commit/8d11ebd49de66c0db69e0c0d0599ce11cb7a3003)), closes [Lundalogik/crm-feature#4285](https://github.com/Lundalogik/crm-feature/issues/4285)
+
 ## [37.56.0](https://github.com/Lundalogik/lime-elements/compare/v37.55.8...v37.56.0) (2024-08-14)
 
 
