@@ -16,7 +16,6 @@
  * @prop --dialog-heading-icon-background-color: Background color of the icon when displayed as a badge.
  * @prop --dialog-max-width: Max width of the dialog.
  * @prop --dialog-max-height: Max height of the dialog.
- * @prop --dialog-border-radius: Border radius of the dialog corners
  * @prop --dialog-padding-top-bottom: Padding on top and bottom of dialog content. Affects the height of fade-out effects on top and bottom edges when the content is scrollable and has overflowed out of the content area. Defaults to `1.5rem`. Note that if you use this variable and set it to numbers smaller than 1rem, you will loose the fade-out effects on the edges. If you have set these paddings to `0`, losing the fade out effects should be however fine for your use case! Because in such a case your intention is to handle the `overflow` internally in the component that is displayed in the dialog's content.
  * @prop --dialog-padding-left-right: Padding on the sides of dialog content. Defaults to `1.25rem`.
  */
@@ -81,7 +80,7 @@ $responsive-body-padding: 3vw; // 3% of viewport's width
 
         max-width: var(--dialog-max-width, calc(100vw - 2rem));
         max-height: var(--dialog-max-height, calc(100% - 2rem));
-        border-radius: var(--dialog-border-radius, 0.25rem);
+        border-radius: 0.75rem;
     }
 
     .mdc-dialog__content {
