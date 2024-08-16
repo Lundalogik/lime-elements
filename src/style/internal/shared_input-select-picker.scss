@@ -270,6 +270,13 @@ $cropped-label-hack--font-size: 0.875rem; //14px
             color: $input-text-color;
         }
 
+        &.mdc-text-field--with-leading-icon,
+        &.has-leading-icon {
+            .lime-looks-like-input-value {
+                padding-left: 1rem;
+            }
+        }
+
         .lime-looks-like-input-value {
             color: $input-text-color;
             opacity: 1;
