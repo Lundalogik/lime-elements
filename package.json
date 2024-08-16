@@ -86,7 +86,7 @@
     "number-abbreviate": "^2.0.0",
     "parse-css-color": "^0.2.1",
     "prettier": "^3.3.3",
-    "prosemirror-example-setup": "^1.2.2",
+    "prosemirror-example-setup": "^1.2.3",
     "prosemirror-markdown": "^1.13.0",
     "prosemirror-schema-basic": "^1.2.3",
     "puppeteer": "^19.11.1",
