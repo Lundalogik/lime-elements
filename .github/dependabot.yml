@@ -25,3 +25,5 @@ updates:
       - dependency-name: "puppeteer"
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "replace-in-file"
+        update-types: ["version-update:semver-major"]
