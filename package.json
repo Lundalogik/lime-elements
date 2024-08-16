@@ -100,7 +100,7 @@
     "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.0",
-    "replace-in-file": "^8.1.0",
+    "replace-in-file": "^7.1.0",
     "shelljs": "0.8.5",
     "shx": "^0.3.3",
     "style-to-object": "^1.0.6",
