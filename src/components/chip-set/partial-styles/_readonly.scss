@@ -1,15 +1,3 @@
-:host(.is-file-picker.shows-dropzone[readonly]) {
-    .mdc-text-field:not(.has-chips) {
-        .mdc-notched-outline {
-            &:before,
-            &:after {
-                // Drop zone visualization
-                display: none;
-            }
-        }
-    }
-}
-
 :host(limel-chip-set[readonly]) {
     .mdc-text-field {
         &.mdc-text-field--disabled {
