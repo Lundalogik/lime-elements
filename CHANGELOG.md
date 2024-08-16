@@ -1,3 +1,11 @@
+## [37.56.3](https://github.com/Lundalogik/lime-elements/compare/v37.56.2...v37.56.3) (2024-08-16)
+
+
+### Bug Fixes
+
+
+* **input-field:** better render empty `readonly` with `leadingIcon` ([457d334](https://github.com/Lundalogik/lime-elements/commit/457d334aa6ec697c97ea08a4123b2678ccbb62e2))
+
 ## [37.56.2](https://github.com/Lundalogik/lime-elements/compare/v37.56.1...v37.56.2) (2024-08-15)
 
 
