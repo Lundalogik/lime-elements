@@ -1,3 +1,11 @@
+## [37.56.4](https://github.com/Lundalogik/lime-elements/compare/v37.56.3...v37.56.4) (2024-08-19)
+
+
+### Bug Fixes
+
+
+* **file:** display a better clue about the dropzone ([bc8fa59](https://github.com/Lundalogik/lime-elements/commit/bc8fa59b3168e62ab13baa9ee48f560350ca8fe8))
+
 ## [37.56.3](https://github.com/Lundalogik/lime-elements/compare/v37.56.2...v37.56.3) (2024-08-16)
 
 
