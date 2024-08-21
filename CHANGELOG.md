@@ -1,3 +1,11 @@
+## [37.56.5](https://github.com/Lundalogik/lime-elements/compare/v37.56.4...v37.56.5) (2024-08-21)
+
+
+### Bug Fixes
+
+
+* **text-editor:** always keep toolbar's backdrop blur effect ([c429933](https://github.com/Lundalogik/lime-elements/commit/c429933e24589cb2ba7e0dd17485fe0f64dbb0d9))
+
 ## [37.56.4](https://github.com/Lundalogik/lime-elements/compare/v37.56.3...v37.56.4) (2024-08-19)
 
 
