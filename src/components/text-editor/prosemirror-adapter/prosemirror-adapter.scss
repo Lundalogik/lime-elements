@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
 
-    limel-action-bar {
+    .toolbar {
         order: 1;
     }
 
@@ -36,27 +36,35 @@
     }
 }
 
-limel-action-bar {
+.toolbar {
     --action-bar-border-radius: 0.25rem;
+    border-radius: var(--action-bar-border-radius);
+    flex-shrink: 0;
 
     position: sticky;
     z-index: 1;
     top: 1px;
-    background-color: shared_input-select-picker.$background-color-normal;
-    backdrop-filter: blur(0.5rem);
-    -webkit-backdrop-filter: blur(0.5rem);
-
-    opacity: 0.6;
-    transition: opacity 0.5s ease;
-    :host(limel-prosemirror-adapter:focus-within) &,
-    :host(limel-prosemirror-adapter:hover) & {
-        opacity: 1;
-    }
 
     // prevents visual defects that can appears
     // due to the backdrop-filter and closeness to borders
     margin: 0 1px;
     width: calc(100% - 2px);
+
+    background-color: shared_input-select-picker.$background-color-normal;
+    backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
+}
+
+limel-action-bar {
+    min-width: 0;
+    opacity: var(--limel-prosemirror-adapter-toolbar-opacity);
+    transition: opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: var(
+        --limel-prosemirror-adapter-toolbar-transition-timing-function
+    );
+    padding: 0.125rem 0.25rem;
+    background-color: transparent;
 }
 
 .ProseMirror {

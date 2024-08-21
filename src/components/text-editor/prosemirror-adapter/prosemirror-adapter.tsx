@@ -166,12 +166,14 @@ export class ProsemirrorAdapter {
     public render() {
         return [
             <div id="editor" />,
-            <limel-action-bar
-                ref={(el) => (this.actionBarElement = el)}
-                accessibleLabel="Toolbar"
-                actions={this.actionBarItems}
-                onItemSelected={this.handleActionBarItem}
-            />,
+            <div class="toolbar">
+                <limel-action-bar
+                    ref={(el) => (this.actionBarElement = el)}
+                    accessibleLabel="Toolbar"
+                    actions={this.actionBarItems}
+                    onItemSelected={this.handleActionBarItem}
+                />
+            </div>,
             this.renderLinkMenu(),
         ];
     }
