@@ -20,6 +20,14 @@
     --limel-text-editor-background-color: #{shared_input-select-picker.$background-color-normal};
     --limel-text-editor-label-color: #{shared_input-select-picker.$label-color};
     --limel-text-editor-padding: 0.75rem 1rem;
+    --limel-prosemirror-adapter-toolbar-opacity: 0.6;
+    --limel-prosemirror-adapter-toolbar-transition-timing-function: cubic-bezier(
+        0.19,
+        0.23,
+        0.26,
+        0.89
+    );
+
     position: relative;
     isolation: isolate;
     display: flex;
@@ -36,6 +44,11 @@
                 4rem
         )
     );
+}
+
+:host(limel-text-editor:focus-within),
+:host(limel-text-editor:hover) {
+    --limel-prosemirror-adapter-toolbar-opacity: 1;
 }
 
 :host(limel-text-editor:hover) {
