@@ -1,3 +1,13 @@
+## [37.56.6](https://github.com/Lundalogik/lime-elements/compare/v37.56.5...v37.56.6) (2024-08-21)
+
+
+### Bug Fixes
+
+
+* **text-editor:** don't render the content over the notch's borders ([691da6a](https://github.com/Lundalogik/lime-elements/commit/691da6a0682f23925148f61335d905f108e253e6))
+* **text-editor:** ensure entire surface is clickable ([3ad3447](https://github.com/Lundalogik/lime-elements/commit/3ad344761d4fa0874ade044e405913cc290fc146))
+* **text-editor:** focus on the editable element when tabbing to editor ([59ccf9a](https://github.com/Lundalogik/lime-elements/commit/59ccf9abcf380cf70ae13cd149955bf429ba3602))
+
 ## [37.56.5](https://github.com/Lundalogik/lime-elements/compare/v37.56.4...v37.56.5) (2024-08-21)
 
 
