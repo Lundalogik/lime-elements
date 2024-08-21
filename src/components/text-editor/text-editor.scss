@@ -44,6 +44,7 @@
                 4rem
         )
     );
+    padding: 1px; // prevents visual defects that can appear due to the backdrop-filter and closeness to borders
 }
 
 :host(limel-text-editor:focus-within),
