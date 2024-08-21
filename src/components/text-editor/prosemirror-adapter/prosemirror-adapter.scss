@@ -47,12 +47,9 @@
 
     position: sticky;
     z-index: 1;
-    top: 1px;
+    top: 0;
 
-    // prevents visual defects that can appears
-    // due to the backdrop-filter and closeness to borders
-    margin: 0 1px;
-    width: calc(100% - 2px);
+    width: 100%;
 
     background-color: shared_input-select-picker.$background-color-normal;
     backdrop-filter: blur(0.5rem);
