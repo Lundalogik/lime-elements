@@ -11,6 +11,7 @@ import {
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
+import { Plugin } from 'prosemirror-state';
 import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
@@ -75,6 +76,12 @@ export class ProsemirrorAdapter {
      */
     @Prop({ reflect: true })
     public language: Languages;
+
+    /**
+     * An array of custom ProseMirror plugins to load into the editor.
+     */
+    @Prop()
+    public customPlugins: Array<Plugin> = [];
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -288,6 +295,7 @@ export class ProsemirrorAdapter {
                     this.updateActiveActionBarItems,
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
+                ...this.customPlugins,
             ],
         });
     }
