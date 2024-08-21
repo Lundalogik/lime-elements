@@ -170,7 +170,7 @@ export class TextEditor implements FormComponent<string> {
                 value={this.value}
                 aria-controls={this.helperTextId}
                 id={this.editorId}
-                tabindex={this.disabled ? -1 : 0}
+                tabindex={this.disabled ? -1 : undefined}
                 aria-disabled={this.disabled}
                 language={this.language}
             />,

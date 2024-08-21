@@ -25,7 +25,7 @@ describe('limel-text-editor', () => {
             <span class="leading-outline"></span>
             <span class="trailing-outline"></span>
           </span>
-          <limel-prosemirror-adapter aria-controls=${ariaControls[0]} contenttype="markdown" id=${ids[0]} language="en" tabindex="0"></limel-prosemirror-adapter>
+          <limel-prosemirror-adapter aria-controls=${ariaControls[0]} contenttype="markdown" id=${ids[0]} language="en"></limel-prosemirror-adapter>
         </mock:shadow-root>
       </limel-text-editor>`);
     });
@@ -74,7 +74,7 @@ describe('limel-text-editor', () => {
                 value: { attribute: 'value', value: 'test' },
                 disabled: { attribute: 'tabindex', value: false },
             },
-            ['test', '0'],
+            ['test', null],
         ],
         [
             {
