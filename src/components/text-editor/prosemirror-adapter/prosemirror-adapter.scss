@@ -23,6 +23,19 @@
     box-sizing: border-box;
 }
 
+:host(limel-prosemirror-adapter:hover),
+:host(limel-prosemirror-adapter:focus-within) {
+    .toolbar {
+        will-change: grid-template-rows;
+    }
+    limel-action-bar {
+        will-change: opacity, padding;
+    }
+    .ProseMirror {
+        will-change: padding;
+    }
+}
+
 .ProseMirror-menubar-wrapper {
     display: grid;
     grid-template-rows: auto 1fr;
@@ -51,6 +64,17 @@
 
     width: 100%;
 
+    display: grid;
+    grid-template-rows: var(
+        --limel-prosemirror-adapter-toolbar-grid-template-rows
+    );
+    transition-property: grid-template-rows;
+    transition-duration: var(
+        --limel-prosemirror-adapter-toolbar-grid-template-rows-transition-duration
+    );
+    transition-timing-function: var(
+        --limel-prosemirror-adapter-toolbar-transition-timing-function
+    );
     background-color: shared_input-select-picker.$background-color-normal;
     backdrop-filter: blur(0.5rem);
     -webkit-backdrop-filter: blur(0.5rem);
@@ -58,17 +82,32 @@
 
 limel-action-bar {
     min-width: 0;
-    opacity: var(--limel-prosemirror-adapter-toolbar-opacity);
-    transition: opacity;
-    transition-duration: 0.3s;
+    transition-property: padding, opacity;
+    transition-duration: var(
+        --limel-prosemirror-adapter-toolbar-grid-template-rows-transition-duration
+    );
     transition-timing-function: var(
         --limel-prosemirror-adapter-toolbar-transition-timing-function
     );
-    padding: 0.125rem 0.25rem;
+    opacity: var(--limel-prosemirror-adapter-toolbar-opacity);
+    padding: var(
+            --limel-prosemirror-adapter-action-bar-padding-top-bottom,
+            0.125rem
+        )
+        0.25rem;
     background-color: transparent;
+
+    overflow: hidden;
 }
 
 .ProseMirror {
+    transition-duration: padding;
+    transition-duration: var(
+        --limel-prosemirror-adapter-toolbar-grid-template-rows-transition-duration
+    );
+    transition-timing-function: var(
+        --limel-prosemirror-adapter-toolbar-transition-timing-function
+    );
     position: relative;
     word-wrap: break-word;
     white-space: pre-wrap;
