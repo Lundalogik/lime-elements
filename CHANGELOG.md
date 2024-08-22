@@ -1,3 +1,11 @@
+## [37.57.0](https://github.com/Lundalogik/lime-elements/compare/v37.56.6...v37.57.0) (2024-08-22)
+
+
+### Features
+
+
+* **text-editor:** add `ui` prop ([716f85a](https://github.com/Lundalogik/lime-elements/commit/716f85a5aac003645774fa6387372fbf427ebf14))
+
 ## [37.56.6](https://github.com/Lundalogik/lime-elements/compare/v37.56.5...v37.56.6) (2024-08-21)
 
 
