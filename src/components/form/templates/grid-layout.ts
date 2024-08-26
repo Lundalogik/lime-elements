@@ -24,10 +24,17 @@ export class GridLayout extends React.Component<LayoutProps, LayoutState> {
     public componentDidMount() {
         this.observer = new ResizeObserver(this.handleResize);
         this.observer.observe(this.elementRef.current);
+        window.addEventListener('resize', this.handleResize, {
+            capture: true,
+            passive: true,
+        });
     }
 
     public componentWillUnmount() {
         this.observer.unobserve(this.elementRef.current);
+        window.removeEventListener('resize', this.handleResize, {
+            capture: true,
+        });
     }
 
     public handleResize() {
