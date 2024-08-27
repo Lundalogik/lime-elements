@@ -1,3 +1,11 @@
+## [37.57.1](https://github.com/Lundalogik/lime-elements/compare/v37.57.0...v37.57.1) (2024-08-27)
+
+
+### Bug Fixes
+
+
+* **markdown:** allow MsoNormal class attribute, and add default styling for it ([de30904](https://github.com/Lundalogik/lime-elements/commit/de3090476034b33705aa221ae103ab8fd5e457e7))
+
 ## [37.57.0](https://github.com/Lundalogik/lime-elements/compare/v37.56.6...v37.57.0) (2024-08-22)
 
 
