@@ -40,10 +40,10 @@ export async function markdownToHTML(
         .use(rehypeRaw)
         .use(rehypeSanitize, {
             ...defaultSchema,
-            // Allow the `style` attribute on all elements
             attributes: {
                 ...defaultSchema.attributes,
-                '*': ['style', 'width'],
+                p: [['className', 'MsoNormal']], // Allow the class 'MsoNormal' on <p> elements
+                '*': ['style', 'width'], // Allow `style` and 'width' attribute on all elements
             },
         })
         .use(() => {
