@@ -328,6 +328,7 @@ export class DatePicker {
             this.textField.shadowRoot.querySelector('.mdc-text-field'),
         );
         mdcTextField.getDefaultFoundation().deactivateFocus();
+        mdcTextField.valid = !this.invalid;
     }
 
     private documentClickListener = (event: MouseEvent) => {
