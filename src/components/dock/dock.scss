@@ -51,6 +51,9 @@
 :host(limel-dock:not(.has-mobile-layout)) {
     height: 100%;
     width: calc((var(--dock-padding) * 2) + var(--dock-item-height));
+    nav {
+        padding-bottom: calc((var(--limel-dock-padding) + 0.25rem));
+    }
 }
 
 :host(limel-dock.expanded) {
