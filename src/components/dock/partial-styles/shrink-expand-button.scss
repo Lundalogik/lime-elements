@@ -11,7 +11,7 @@
 
     height: var(--dock-expand-shrink-button-height);
     padding: 0 0.5rem;
-    margin: var(--dock-padding);
+    margin: var(--limel-dock-padding);
     border-radius: functions.pxToRem(6);
 
     &.expanded {
