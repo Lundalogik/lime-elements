@@ -1,3 +1,11 @@
+## [37.57.3](https://github.com/Lundalogik/lime-elements/compare/v37.57.2...v37.57.3) (2024-09-03)
+
+
+### Bug Fixes
+
+
+* **date-picker:** keep invalid state when hiding calendar ([55d463d](https://github.com/Lundalogik/lime-elements/commit/55d463d0f6c6b6f6146f3afb3f373b06f5554746))
+
 ## [37.57.2](https://github.com/Lundalogik/lime-elements/compare/v37.57.1...v37.57.2) (2024-09-03)
 
 
