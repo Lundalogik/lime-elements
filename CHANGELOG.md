@@ -1,3 +1,11 @@
+## [37.57.4](https://github.com/Lundalogik/lime-elements/compare/v37.57.3...v37.57.4) (2024-09-03)
+
+
+### Bug Fixes
+
+
+* **dock:** prevent button shadow from cut-off ([54059c2](https://github.com/Lundalogik/lime-elements/commit/54059c2cf5ecda3f8da5dd450792b6f15cfa473b))
+
 ## [37.57.3](https://github.com/Lundalogik/lime-elements/compare/v37.57.2...v37.57.3) (2024-09-03)
 
 
