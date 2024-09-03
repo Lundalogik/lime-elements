@@ -4,7 +4,6 @@ export class Playground {
   constructor() {
     /**
      * Factory for creating props for example components
-     *
      * @returns {Record<string, unknown>} props
      */
     this.propsFactory = () => ({});

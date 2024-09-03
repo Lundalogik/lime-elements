@@ -3,7 +3,6 @@ import { markdownToHtml } from '../../kompendium/markdown';
 import { getTypes } from './markdown-types';
 /**
  * This component renders markdown
- *
  * @exampleComponent kompendium-example-markdown
  */
 export class Markdown {
