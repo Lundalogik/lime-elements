@@ -3,30 +3,30 @@
 @use '../../style/internal/lime-theme';
 
 /**
- * @prop --spinner-color-1: 1st animated stroke color, defaults to `--lime-brand-color-deep-red`.
- * @prop --spinner-color-2: 2nd animated stroke color, defaults to `--lime-brand-color-sellable-orange`.
- * @prop --spinner-color-3: 3rd animated stroke color, defaults to `--lime-brand-color-simple-blue`.
- * @prop --spinner-color-4: 4th animated stroke color, defaults to `--lime-brand-color-orange`.
- * @prop --spinner-color-5: 5th animated stroke color, defaults to `--lime-brand-color-lime-green`.
- * @prop --spinner-color-6: 6th animated stroke color, defaults to `--lime-brand-color-yellow`.
- * @prop --spinner-color-7: 7th animated stroke color, defaults to `--lime-brand-color-flexible-turquoise`.
- * @prop --spinner-color-8: 8th animated stroke color, defaults to `--lime-brand-color-loving-magenta`.
- * @prop --spinner-color-9: 9th animated stroke color, defaults to `--lime-brand-color-dark-blue`.
- * @prop --spinner-color-10: 10th animated stroke color, defaults to `--lime-brand-color-light-grey`.
+ * @prop --spinner-color-1: 1st animated stroke color, defaults to `--lime-brand-color-lime-green`.
+ * @prop --spinner-color-2: 2nd animated stroke color, defaults to `--lime-brand-color-ocean-teal`.
+ * @prop --spinner-color-3: 3rd animated stroke color, defaults to `--lime-brand-color-aqua`.
+ * @prop --spinner-color-4: 4th animated stroke color, defaults to `--lime-brand-color-bubble-gum`.
+ * @prop --spinner-color-5: 5th animated stroke color, defaults to `--lime-brand-color-sunny-orange`.
+ * @prop --spinner-color-6: 6th animated stroke color, defaults to `--lime-brand-color-lime-green`.
+ * @prop --spinner-color-7: 7th animated stroke color, defaults to `--lime-brand-color-ocean-teal`.
+ * @prop --spinner-color-8: 8th animated stroke color, defaults to `--lime-brand-color-aqua`.
+ * @prop --spinner-color-9: 9th animated stroke color, defaults to `--lime-brand-color-bubble-gum`.
+ * @prop --spinner-color-10: 10th animated stroke color, defaults to `--lime-brand-color-sunny-orange`.
  */
 
 $stroke-width-normal: 4;
 $stroke-width-thick: 10;
-$colors: var(--spinner-color-1, rgb(var(--lime-brand-color-deep-red))),
-    var(--spinner-color-2, rgb(var(--lime-brand-color-sellable-orange))),
-    var(--spinner-color-3, rgb(var(--lime-brand-color-simple-blue))),
-    var(--spinner-color-4, rgb(var(--lime-brand-color-orange))),
-    var(--spinner-color-5, rgb(var(--lime-brand-color-lime-green))),
-    var(--spinner-color-6, rgb(var(--lime-brand-color-yellow))),
-    var(--spinner-color-7, rgb(var(--lime-brand-color-flexible-turquoise))),
-    var(--spinner-color-8, rgb(var(--lime-brand-color-loving-magenta))),
-    var(--spinner-color-9, rgb(var(--lime-brand-color-dark-blue))),
-    var(--spinner-color-9, rgb(var(--lime-brand-color-light-grey)));
+$colors: var(--spinner-color-1, rgb(var(--lime-brand-color-lime-green))),
+    var(--spinner-color-2, rgb(var(--lime-brand-color-ocean-teal))),
+    var(--spinner-color-3, rgb(var(--lime-brand-color-aqua))),
+    var(--spinner-color-4, rgb(var(--lime-brand-color-bubble-gum))),
+    var(--spinner-color-5, rgb(var(--lime-brand-color-sunny-orange))),
+    var(--spinner-color-6, rgb(var(--lime-brand-color-lime-green))),
+    var(--spinner-color-7, rgb(var(--lime-brand-color-ocean-teal))),
+    var(--spinner-color-8, rgb(var(--lime-brand-color-aqua))),
+    var(--spinner-color-9, rgb(var(--lime-brand-color-bubble-gum))),
+    var(--spinner-color-10, rgb(var(--contrast-700)));
 $dash: 63;
 $duration: length($colors) * 1s;
 $duration-alt: math.div($duration, length($colors));
