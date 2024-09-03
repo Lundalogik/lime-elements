@@ -1,3 +1,11 @@
+## [37.57.2](https://github.com/Lundalogik/lime-elements/compare/v37.57.1...v37.57.2) (2024-09-03)
+
+
+### Bug Fixes
+
+
+* **snackbar:** open snackbar when created programatically ([824e29c](https://github.com/Lundalogik/lime-elements/commit/824e29ceba0a7582fded70d42512c0ca236aa5c1))
+
 ## [37.57.1](https://github.com/Lundalogik/lime-elements/compare/v37.57.0...v37.57.1) (2024-08-27)
 
 
