@@ -21,7 +21,7 @@
     --badge-text-color: rgb(var(--color-white));
 
     --dock-item-height: 2.75rem;
-    --dock-padding: 0.25rem;
+    --limel-dock-padding: 0.25rem;
     --dock-expand-shrink-button-height: 1rem;
 
     --limel-dock-item-text-color: var(
@@ -50,7 +50,7 @@
 
 :host(limel-dock:not(.has-mobile-layout)) {
     height: 100%;
-    width: calc((var(--dock-padding) * 2) + var(--dock-item-height));
+    width: calc((var(--limel-dock-padding) * 2) + var(--dock-item-height));
     nav {
         padding-bottom: calc((var(--limel-dock-padding) + 0.25rem));
     }
@@ -72,7 +72,7 @@ nav {
     gap: functions.pxToRem(6);
     flex-grow: 1;
 
-    padding: var(--dock-padding); // needed for the focus effect
+    padding: var(--limel-dock-padding); // needed for the focus effect
 
     overflow-y: auto;
     scrollbar-width: none; // This hides the scrollbars appearing under in Firefox
