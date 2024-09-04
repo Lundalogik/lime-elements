@@ -5,7 +5,6 @@ export function createMenu(docs, guides, types) {
   menu = [...menu, createComponentMenu(docs), createTypeMenu(types)];
   return menu;
 }
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const addGuide = (menu, path) => (guide) => {
   const subPath = guide.data.path.replace(path, '');
   const parts = subPath.split('/');

@@ -21,7 +21,6 @@ const mapCodeNode = (types = []) => (node, _, parent) => {
   }
   return wrapText(node, types);
 };
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function wrapText(node, types = []) {
   return splitTypeString(node.value).map(createNode(types));
 }

@@ -17,14 +17,13 @@ const TS_UTILITY_PATTERN = /(Partial|Required|Readonly|Array)<(.+?)>/g;
 
 /**
  * Create schemas for the components that describe their interface
- *
  * @param {JsonDocsComponent[]} components the components
  * @param {TypeDescription[]} types type definitions
  * @returns {*} list of schemas for the components
  */
 export function createSchemas(
     components: JsonDocsComponent[],
-    types: TypeDescription[]
+    types: TypeDescription[],
 ): Array<Record<string, any>> {
     const componentSchemas =
         components?.filter(negate(isExample)).map(createSchema(types)) || [];
@@ -47,7 +46,7 @@ const createSchema =
 
         const data = JSON.stringify(properties);
         const definitionKeys = Object.keys(definitions).filter(
-            isReferenceUsed(data)
+            isReferenceUsed(data),
         );
 
         if (definitionKeys.length > 0) {
@@ -67,7 +66,7 @@ function getSchemaId(object: JsonDocsComponent | ClassDescription): string {
 
 function createDefinitions(types: TypeDescription[]): Record<string, any> {
     const interfaces: InterfaceDescription[] = types.filter(
-        (type) => type.type === 'interface'
+        (type) => type.type === 'interface',
     ) as any;
     const keys = interfaces.map((i) => i.name);
     const schemas = interfaces.map((i) => {
@@ -82,7 +81,7 @@ function createDefinitions(types: TypeDescription[]): Record<string, any> {
 
 function createProps(
     props: Array<Partial<JsonDocsProp>>,
-    definitions: Record<string, any>
+    definitions: Record<string, any>,
 ) {
     const keys = props?.map((prop) => prop.name) || [];
     const schemas = props?.map(createPropSchema(definitions)) || [];
@@ -186,7 +185,7 @@ function getSchemaItems(propType: string, definitions: Record<string, any>) {
 
 function getSchemaPropertiesRef(
     propType: string,
-    definitions: Record<string, any>
+    definitions: Record<string, any>,
 ): string {
     const definition = Object.keys(definitions).find((key) => key === propType);
     if (definition) {

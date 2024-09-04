@@ -3,7 +3,7 @@ import { readFile } from './filesystem';
 import { KompendiumGuide, KompendiumConfig, Guide } from '../types';
 
 export async function findGuides(
-    config: Partial<KompendiumConfig>
+    config: Partial<KompendiumConfig>,
 ): Promise<KompendiumGuide[]> {
     const nodes = config.guides.map(createMenuNode('/')).flat();
     const promises = nodes.map(createGuide);
