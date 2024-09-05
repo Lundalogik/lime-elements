@@ -28,7 +28,10 @@ export class FileInputExample {
                 disabled={this.disabled || this.readonly}
                 multiple={this.multiple}
             >
-                <limel-button label="Select a file" />
+                <limel-button
+                    label="Select a file"
+                    disabled={this.disabled || this.readonly}
+                />
             </limel-file-input>,
             this.files.map((file) => (
                 <limel-chip
