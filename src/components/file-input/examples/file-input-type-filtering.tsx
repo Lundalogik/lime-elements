@@ -29,7 +29,10 @@ export class FileInputTypeFilteringExample {
                 disabled={this.disabled || this.readonly}
                 multiple={this.multiple}
             >
-                <limel-button label="Select an image" />
+                <limel-button
+                    label="Select an image"
+                    disabled={this.disabled || this.readonly}
+                />
             </limel-file-input>,
             this.files.map((file) => (
                 <limel-chip
