@@ -40,6 +40,8 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
+import { mention } from './mentions/node-schema-extender';
+import { createTriggerPlugin } from './plugins/trigger-plugin';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -356,8 +358,16 @@ export class ProsemirrorAdapter {
     }
 
     private initializeSchema() {
+        const nodes = schema.spec.nodes
+            .append({
+                mention: mention,
+            })
+            .append(
+                addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+            );
+
         return new Schema({
-            nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+            nodes: nodes,
             marks: schema.spec.marks.append({
                 strikethrough: strikethrough,
             }),
@@ -394,6 +404,7 @@ export class ProsemirrorAdapter {
                     this.updateActiveActionBarItems,
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
+                createTriggerPlugin(),
             ],
         });
     }
