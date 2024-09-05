@@ -1,3 +1,22 @@
+## [37.57.6](https://github.com/Lundalogik/lime-elements/compare/v37.57.5...v37.57.6) (2024-09-05)
+
+
+### Bug Fixes
+
+
+* **markdown:** do not crash when html tag contains blank line ([c8090ab](https://github.com/Lundalogik/lime-elements/commit/c8090ab18d8c6f36b8752213926d9f3257f0f7c6))
+When the markdown component is fed html in which there is a blank line
+(2 consecutive line breaks) anywhere between the opening bracket and
+the closing bracket, the components crashes. Update the sub-dependency
+`hast-util-raw` to avoid this. The parser now switches to text-mode
+when this happens, which will output the rest of the html after the
+blank line, up until the closing bracket, as text. So it still will
+not render the html element correctly, but at least the parser does
+not crash, and the rest of the content after the element's closing
+bracket will be rendered correctly.
+
+fix: #3149
+
 ## [37.57.5](https://github.com/Lundalogik/lime-elements/compare/v37.57.4...v37.57.5) (2024-09-05)
 
 
