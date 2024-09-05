@@ -42,6 +42,7 @@ import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plu
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
 import { mention } from './mentions/node-schema-extender';
 import { createTriggerPlugin } from './plugins/trigger-plugin';
+import { createMentionParseTransaction } from './mentions/parse-mentions';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -353,9 +354,18 @@ export class ProsemirrorAdapter {
         );
 
         if (this.value) {
-            this.updateView(this.value);
+            await this.updateView(this.value);
+            this.parseMentions(this.view);
         }
     }
+
+    private parseMentions = (view) => {
+        const { state } = view;
+        const transaction = createMentionParseTransaction(state, this.schema);
+        if (transaction) {
+            this.view.dispatch(transaction);
+        }
+    };
 
     private initializeSchema() {
         const nodes = schema.spec.nodes
