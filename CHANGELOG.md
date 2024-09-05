@@ -1,3 +1,11 @@
+## [37.57.5](https://github.com/Lundalogik/lime-elements/compare/v37.57.4...v37.57.5) (2024-09-05)
+
+
+### Bug Fixes
+
+
+* **spinner:** use new brand colors ([a5a446f](https://github.com/Lundalogik/lime-elements/commit/a5a446f9c67eebaea127f34ffd278dcd99f9cdd3))
+
 ## [37.57.4](https://github.com/Lundalogik/lime-elements/compare/v37.57.3...v37.57.4) (2024-09-03)
 
 
