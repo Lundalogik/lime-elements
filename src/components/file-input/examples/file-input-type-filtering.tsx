@@ -13,9 +13,6 @@ export class FileInputTypeFilteringExample {
     private disabled = false;
 
     @State()
-    private readonly = false;
-
-    @State()
     private multiple = false;
 
     @State()
@@ -26,12 +23,12 @@ export class FileInputTypeFilteringExample {
             <limel-file-input
                 onFilesSelected={this.handleFilesSelected}
                 accept="image/*"
-                disabled={this.disabled || this.readonly}
+                disabled={this.disabled}
                 multiple={this.multiple}
             >
                 <limel-button
                     label="Select an image"
-                    disabled={this.disabled || this.readonly}
+                    disabled={this.disabled}
                 />
             </limel-file-input>,
             this.files.map((file) => (
@@ -40,7 +37,6 @@ export class FileInputTypeFilteringExample {
                     text={file.filename}
                     icon={file.icon}
                     disabled={this.disabled}
-                    readonly={this.readonly}
                     removable={true}
                     onRemove={this.handleRemove}
                 />
@@ -50,11 +46,6 @@ export class FileInputTypeFilteringExample {
                     checked={this.disabled}
                     label="Disabled"
                     onChange={this.setDisabled}
-                />
-                <limel-checkbox
-                    checked={this.readonly}
-                    label="Readonly"
-                    onChange={this.setReadonly}
                 />
                 <limel-checkbox
                     checked={this.multiple}
@@ -77,11 +68,6 @@ export class FileInputTypeFilteringExample {
     private setDisabled = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.disabled = event.detail;
-    };
-
-    private setReadonly = (event: CustomEvent<boolean>) => {
-        event.stopPropagation();
-        this.readonly = event.detail;
     };
 
     private setMultiple = (event: CustomEvent<boolean>) => {
