@@ -18,6 +18,7 @@ We only use `rem` units in our design system. `1rem` equals the font size set in
 
 -   4 px = 0.25 rem
 -   8 px = 0.5 rem
+-   12 px = 0.75 rem
 -   16 px = 1 rem
 -   20 px = 1.25 rem
 -   24 px = 1.5 rem
