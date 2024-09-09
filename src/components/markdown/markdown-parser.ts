@@ -9,6 +9,7 @@ import rehypeRaw from 'rehype-raw';
 import { visit } from 'unist-util-visit';
 import { sanitizeStyle } from './sanitize-style';
 import { Node } from 'unist';
+import { remarkEncodeMention } from './plugins/parse-mention-rehype-plugin';
 
 /**
  * Takes a string as input and returns a new string
@@ -34,6 +35,7 @@ export async function markdownToHTML(
 
     const file = await unified()
         .use(remarkParse)
+        .use(remarkEncodeMention)
         .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeExternalLinks, { target: '_blank' })
@@ -43,13 +45,16 @@ export async function markdownToHTML(
             attributes: {
                 ...defaultSchema.attributes,
                 p: [['className', 'MsoNormal']], // Allow the class 'MsoNormal' on <p> elements
-                '*': ['style', 'width'], // Allow `style` and 'width' attribute on all elements
+                '*': [
+                    ...(defaultSchema.attributes['*'] || []),
+                    'style',
+                    'width',
+                    'data*',
+                ],
             },
         })
         .use(() => {
             return (tree: Node) => {
-                // Run the sanitizeStyle function on all elements, to sanitize
-                // the value of the `style` attribute, if there is one.
                 visit(tree, 'element', sanitizeStyle);
             };
         })
