@@ -9,6 +9,8 @@ import rehypeRaw from 'rehype-raw';
 import { visit } from 'unist-util-visit';
 import { sanitizeStyle } from './sanitize-style';
 import { Node } from 'unist';
+import { Schema } from 'rehype-sanitize/lib';
+import { CustomElement } from '../../global/shared-types/custom-element.types';
 
 /**
  * Takes a string as input and returns a new string
@@ -39,12 +41,7 @@ export async function markdownToHTML(
         .use(rehypeExternalLinks, { target: '_blank' })
         .use(rehypeRaw)
         .use(rehypeSanitize, {
-            ...defaultSchema,
-            attributes: {
-                ...defaultSchema.attributes,
-                p: [['className', 'MsoNormal']], // Allow the class 'MsoNormal' on <p> elements
-                '*': ['style', 'width'], // Allow `style` and 'width' attribute on all elements
-            },
+            ...getWhiteList(options?.whitelist ?? []),
         })
         .use(() => {
             return (tree: Node) => {
@@ -59,6 +56,27 @@ export async function markdownToHTML(
     return file.toString();
 }
 
+function getWhiteList(allowedComponents: CustomElement[]): Schema {
+    const whitelist: Schema = {
+        ...defaultSchema,
+        tagNames: [
+            ...(defaultSchema.tagNames || []),
+            ...allowedComponents.map((component) => component.tagName),
+        ],
+        attributes: {
+            ...defaultSchema.attributes,
+            p: [['className', 'MsoNormal']], // Allow the class 'MsoNormal' on <p> elements
+            '*': ['style', 'width'], // Allow `style` and 'width' attribute on all elements
+        },
+    };
+
+    for (const component of allowedComponents) {
+        whitelist.attributes[component.tagName] = component.attributes;
+    }
+
+    return whitelist;
+}
+
 /**
  * Options for markdownToHTML.
  */
@@ -67,4 +85,5 @@ export interface markdownToHTMLOptions {
      * Set to `true` to convert all soft line breaks to hard line breaks.
      */
     forceHardLineBreaks?: boolean;
+    whitelist?: CustomElement[];
 }

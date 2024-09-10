@@ -476,6 +476,8 @@ export namespace Components {
     }
     export interface LimelMarkdown {
         "value": string;
+        // @alpha
+        "whitelist"?: CustomElement[];
     }
     // (undocumented)
     export interface LimelMenu {
@@ -695,6 +697,14 @@ export type Config = {
     defaultLocale?: string;
     featureSwitches?: Record<string, boolean>;
 };
+
+// @alpha
+export interface CustomElement {
+    // (undocumented)
+    attributes: string[];
+    // (undocumented)
+    tagName: string;
+}
 
 // @public (undocumented)
 export type DateType = 'datetime' | 'date' | 'time' | 'week' | 'month' | 'quarter' | 'year';
@@ -1430,6 +1440,8 @@ namespace JSX_2 {
     }
     interface LimelMarkdown {
         "value"?: string;
+        // @alpha
+        "whitelist"?: CustomElement[];
     }
     // (undocumented)
     interface LimelMenu {

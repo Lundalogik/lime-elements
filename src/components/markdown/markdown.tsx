@@ -1,5 +1,6 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
+import { CustomElement } from '../../global/shared-types/custom-element.types';
 
 /**
  * The Markdown component receives markdown syntax
@@ -32,11 +33,21 @@ export class Markdown {
     @Prop()
     public value: string;
 
+    /**
+     * Whitelisted html elements.
+     *
+     * Any custom element added here will not be sanitized and thus rendered.
+     * @alpha
+     */
+    @Prop()
+    public whitelist?: CustomElement[];
+
     @Watch('value')
     public async textChanged() {
         try {
             const html = await markdownToHTML(this.value, {
                 forceHardLineBreaks: true,
+                whitelist: this.whitelist ?? [],
             });
             this.rootElement.innerHTML = html;
         } catch (error) {
