@@ -53,6 +53,7 @@ export class LinearProgress {
             <Host
                 role="progressbar"
                 aria-label="Progress Bar"
+                aria-live="polite"
                 aria-valuemin="0"
                 aria-valuemax="1"
                 aria-valuenow={ariaValueNow}
