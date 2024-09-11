@@ -2,6 +2,7 @@ export default {
     remove: 'Verwijder',
     save: 'Opslaan',
     cancel: 'Annuleren',
+    loading: 'Laden…',
     'callout.note': 'Opmerking',
     'callout.important': 'Belangrijk',
     'callout.tip': 'Tip',

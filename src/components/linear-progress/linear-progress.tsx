@@ -1,4 +1,7 @@
 import { Component, Element, h, Host, Prop, Watch } from '@stencil/core';
+import { Languages } from '../date-picker/date.types';
+import translate from '../../global/translations';
+
 const PERCENT = 100;
 
 /**
@@ -15,6 +18,13 @@ const PERCENT = 100;
     styleUrl: 'linear-progress.scss',
 })
 export class LinearProgress {
+    /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
+
     /**
      * The value of the progress bar. Should be between `0` and `1`.
      */
@@ -35,13 +45,18 @@ export class LinearProgress {
             return;
         }
 
+        const loadingText = translate.get('loading', this.language);
+        const ariaValueNow = this.indeterminate ? undefined : this.value;
+        const ariaValueText = this.indeterminate ? loadingText : undefined;
+
         return (
             <Host
                 role="progressbar"
                 aria-label="Progress Bar"
                 aria-valuemin="0"
                 aria-valuemax="1"
-                aria-valuenow={this.value}
+                aria-valuenow={ariaValueNow}
+                aria-valuetext={ariaValueText}
                 style={{ '--percentage': `${this.value * PERCENT}%` }}
             >
                 <div class="progress" />
