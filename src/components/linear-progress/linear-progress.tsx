@@ -1,5 +1,5 @@
-import { MDCLinearProgress } from '@material/linear-progress';
-import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import { Component, Element, h, Host, Prop, Watch } from '@stencil/core';
+const PERCENT = 100;
 
 /**
  * @exampleComponent limel-example-linear-progress
@@ -27,73 +27,38 @@ export class LinearProgress {
     @Element()
     private host: HTMLLimelLinearProgressElement;
 
-    private mdcLinearProgress: MDCLinearProgress;
-
-    public connectedCallback() {
-        this.initialize();
-    }
-
-    public componentDidLoad() {
-        this.initialize();
-    }
-
-    private initialize() {
-        const element = this.host.shadowRoot.querySelector(
-            '.mdc-linear-progress',
-        );
-        if (!element) {
-            return;
-        }
-
-        this.mdcLinearProgress = new MDCLinearProgress(element);
-        this.mdcLinearProgress.progress = this.value;
-    }
-
-    public disconnectedCallback() {
-        if (this.mdcLinearProgress) {
-            this.mdcLinearProgress.destroy();
-        }
-    }
-
     public render() {
         if (!this.isFinite(this.value)) {
             return;
         }
 
-        const classList = {
-            'mdc-linear-progress': true,
-            'mdc-linear-progress--indeterminate': this.indeterminate,
-        };
-
         return (
-            <div
+            <Host
                 role="progressbar"
-                class={classList}
                 aria-label="Progress Bar"
                 aria-valuemin="0"
                 aria-valuemax="1"
                 aria-valuenow={this.value}
+                style={{ '--percentage': `${this.value * PERCENT}%` }}
             >
-                <div class="mdc-linear-progress__buffer">
-                    <div class="mdc-linear-progress__buffer-bar"></div>
-                </div>
-                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-                    <span class="mdc-linear-progress__bar-inner" />
-                </div>
-                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-                    <span class="mdc-linear-progress__bar-inner" />
-                </div>
-            </div>
+                <div class="progress" />
+            </Host>
         );
     }
 
     @Watch('value')
-    protected watchValue(newValue) {
-        if (!this.mdcLinearProgress || !this.isFinite(newValue)) {
+    protected watchValue(newValue: number) {
+        if (!this.isFinite(newValue)) {
             return;
         }
 
-        this.mdcLinearProgress.progress = newValue;
+        this.updateProgress(newValue);
+    }
+
+    private updateProgress(value: number): void {
+        if (this.host) {
+            this.host.style.setProperty('--percentage', `${value * PERCENT}%`);
+        }
     }
 
     private isFinite(value: unknown) {
