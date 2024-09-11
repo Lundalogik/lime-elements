@@ -2,6 +2,7 @@ export default {
     remove: 'Fjern',
     save: 'Gem',
     cancel: 'Annullér',
+    loading: 'Indlæser…',
     'callout.note': 'Bemærk',
     'callout.important': 'Vigtig',
     'callout.tip': 'Tip',

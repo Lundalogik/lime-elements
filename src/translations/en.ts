@@ -2,6 +2,7 @@ export default {
     remove: 'Remove',
     save: 'Save',
     cancel: 'Cancel',
+    loading: 'Loading…',
     'callout.note': 'Note',
     'callout.important': 'Important',
     'callout.tip': 'Tip',

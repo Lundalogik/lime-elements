@@ -461,9 +461,9 @@ export namespace Components {
         "type": InputType;
         "value": string;
     }
-    // (undocumented)
     export interface LimelLinearProgress {
         "indeterminate": boolean;
+        "language": Languages;
         "value": number;
     }
     // (undocumented)
@@ -1423,9 +1423,9 @@ namespace JSX_2 {
         "type"?: InputType;
         "value"?: string;
     }
-    // (undocumented)
     interface LimelLinearProgress {
         "indeterminate"?: boolean;
+        "language"?: Languages;
         "value"?: number;
     }
     // (undocumented)

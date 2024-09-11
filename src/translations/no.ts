@@ -2,6 +2,7 @@ export default {
     remove: 'Fjerne',
     save: 'Lagre',
     cancel: 'Avbryt',
+    loading: 'Laster…',
     'callout.note': 'Note',
     'callout.important': 'Viktig',
     'callout.tip': 'Tip',
