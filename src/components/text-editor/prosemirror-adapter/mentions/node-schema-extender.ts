@@ -15,8 +15,6 @@ export const mention: NodeSpec = {
     toDOM: (node) => [
         'limebb-mention',
         {
-            class: 'mention',
-            style: 'color: blue',
             type: node.attrs.type,
             objectid: node.attrs.objectid,
             descriptive: node.attrs.descriptive,
