@@ -46,13 +46,14 @@ export class LinearProgress {
         }
 
         const loadingText = translate.get('loading', this.language);
+        const ariaLabel = translate.get('progress-bar', this.language);
         const ariaValueNow = this.indeterminate ? undefined : this.value;
         const ariaValueText = this.indeterminate ? loadingText : undefined;
 
         return (
             <Host
                 role="progressbar"
-                aria-label="Progress Bar"
+                aria-label={ariaLabel}
                 aria-live="polite"
                 aria-valuemin="0"
                 aria-valuemax="1"

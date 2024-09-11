@@ -35,4 +35,5 @@ export default {
     'editor-link-menu.link': 'Länk',
     'editor-menu.code-block': 'Kodblock',
     'editor-menu.code': 'Kod',
+    'progress-bar': 'Förloppsindikator',
 };
