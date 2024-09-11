@@ -34,4 +34,5 @@ export default {
     'editor-link-menu.link': 'Lenke',
     'editor-menu.code-block': 'Kodeblokk',
     'editor-menu.code': 'Kode',
+    'progress-bar': 'Fremdriftsindikator',
 };

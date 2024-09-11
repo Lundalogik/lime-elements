@@ -34,4 +34,5 @@ export default {
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Kodeblok',
     'editor-menu.code': 'Kode',
+    'progress-bar': 'Fremskridtsindikator',
 };

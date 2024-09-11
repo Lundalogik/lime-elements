@@ -35,4 +35,5 @@ export default {
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Code block',
     'editor-menu.code': 'Code',
+    'progress-bar': 'Progress bar',
 };
