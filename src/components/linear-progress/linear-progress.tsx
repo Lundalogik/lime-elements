@@ -2,9 +2,12 @@ import { Component, Element, h, Host, Prop, Watch } from '@stencil/core';
 const PERCENT = 100;
 
 /**
+ * The linear progress component can be used to visualize the current state of a progress in a scale;
+ * for example percentage of completion of a task.
+ *
  * @exampleComponent limel-example-linear-progress
- * @exampleComponent limel-example-linear-progress-color
  * @exampleComponent limel-example-linear-progress-indeterminate
+ * @exampleComponent limel-example-linear-progress-color
  */
 @Component({
     tag: 'limel-linear-progress',
