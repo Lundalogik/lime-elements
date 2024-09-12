@@ -43,7 +43,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^19.4.1",
+    "@commitlint/config-conventional": "^19.5.0",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.10.0",
     "@microsoft/api-extractor": "^7.47.8",
