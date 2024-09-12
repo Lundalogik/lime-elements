@@ -40,7 +40,8 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
-import { mention } from './mentions/node-schema-extender';
+import { NodeConfig } from '../types';
+import { createNodeSpec } from '../utils/plugin-factory';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -78,6 +79,9 @@ export class ProsemirrorAdapter {
      */
     @Prop({ reflect: true })
     public language: Languages;
+
+    @Prop()
+    plugins: NodeConfig[] = [];
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -223,7 +227,7 @@ export class ProsemirrorAdapter {
 
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
-            this.contentConverter = new MarkdownConverter();
+            this.contentConverter = new MarkdownConverter(this.plugins);
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter();
         } else {
@@ -273,13 +277,15 @@ export class ProsemirrorAdapter {
     }
 
     private initializeSchema() {
-        const nodes = schema.spec.nodes
-            .append({
-                mention: mention,
-            })
-            .append(
-                addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
-            );
+        let nodes = schema.spec.nodes;
+
+        this.plugins.forEach((plugin) => {
+            const newNodeSpec = createNodeSpec(plugin);
+            const nodeName = plugin.tagName;
+
+            nodes = nodes.append({ [nodeName]: newNodeSpec });
+        });
+        nodes = addListNodes(nodes, 'paragraph block*', 'block');
 
         return new Schema({
             nodes: nodes,
