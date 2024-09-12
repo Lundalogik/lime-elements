@@ -95,6 +95,10 @@ export class TextEditor implements FormComponent<string> {
     @Prop({ reflect: true })
     public value: string;
 
+    /**
+     * @private
+     * set to private to avoid usage while under development
+     */
     @Prop()
     public plugins: NodeConfig[] = [];
 

@@ -80,6 +80,10 @@ export class ProsemirrorAdapter {
     @Prop({ reflect: true })
     public language: Languages;
 
+    /**
+     * @private
+     * set to private to avoid usage while under development
+     */
     @Prop()
     plugins: NodeConfig[] = [];
 
