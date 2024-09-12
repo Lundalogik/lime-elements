@@ -10,6 +10,7 @@ const PERCENT = 100;
  *
  * @exampleComponent limel-example-linear-progress
  * @exampleComponent limel-example-linear-progress-indeterminate
+ * @exampleComponent limel-example-linear-progress-accessible-label
  * @exampleComponent limel-example-linear-progress-color
  */
 @Component({
@@ -37,6 +38,14 @@ export class LinearProgress {
     @Prop({ reflect: true })
     public indeterminate: boolean = false;
 
+    /**
+     * A label used to describe the purpose of the element to users
+     * of assistive technologies, like screen readers.
+     * If not provided, the generic word of "Progress bar" will be used.
+     */
+    @Prop({ reflect: true })
+    public accessibleLabel?: string;
+
     @Element()
     private host: HTMLLimelLinearProgressElement;
 
@@ -53,7 +62,7 @@ export class LinearProgress {
         return (
             <Host
                 role="progressbar"
-                aria-label={ariaLabel}
+                aria-label={this.accessibleLabel || ariaLabel}
                 aria-live="polite"
                 aria-valuemin="0"
                 aria-valuemax="1"

@@ -462,6 +462,7 @@ export namespace Components {
         "value": string;
     }
     export interface LimelLinearProgress {
+        "accessibleLabel"?: string;
         "indeterminate": boolean;
         "language": Languages;
         "value": number;
@@ -1424,6 +1425,7 @@ namespace JSX_2 {
         "value"?: string;
     }
     interface LimelLinearProgress {
+        "accessibleLabel"?: string;
         "indeterminate"?: boolean;
         "language"?: Languages;
         "value"?: number;
