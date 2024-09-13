@@ -1,3 +1,11 @@
+## [37.58.0](https://github.com/Lundalogik/lime-elements/compare/v37.57.6...v37.58.0) (2024-09-13)
+
+
+### Features
+
+
+* **markdown:** add component whitelist ([de1ea6a](https://github.com/Lundalogik/lime-elements/commit/de1ea6a063b848fe2b82db2352336840092566df))
+
 ## [37.57.6](https://github.com/Lundalogik/lime-elements/compare/v37.57.5...v37.57.6) (2024-09-05)
 
 
