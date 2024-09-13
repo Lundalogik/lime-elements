@@ -18,6 +18,7 @@ import { CustomElement } from '../../global/shared-types/custom-element.types';
  * @exampleComponent limel-example-markdown-blockquotes
  * @exampleComponent limel-example-markdown-horizontal-rule
  * @exampleComponent limel-example-markdown-composite
+ * @exampleComponent limel-example-markdown-custom-component
  */
 @Component({
     tag: 'limel-markdown',
