@@ -1857,6 +1857,7 @@ const App = class {
       } }), index.h("stencil-route", { url: "/debug/:name", component: "kompendium-debug", componentProps: {
         docs: this.data.docs,
         schemas: this.data.schemas,
+        examplePropsFactory: this.examplePropsFactory,
       } }), index.h("stencil-route", { component: "kompendium-guide", componentProps: {
         data: this.data,
       } }))))));

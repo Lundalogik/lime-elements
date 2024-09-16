@@ -8,7 +8,6 @@ const Playground = class {
     registerInstance(this, hostRef);
     /**
      * Factory for creating props for example components
-     *
      * @returns {Record<string, unknown>} props
      */
     this.propsFactory = () => ({});

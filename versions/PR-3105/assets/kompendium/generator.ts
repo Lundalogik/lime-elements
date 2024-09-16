@@ -11,7 +11,6 @@ import { parseFile } from './typedoc';
 import { createSchemas } from './schema';
 import { createIndex } from './search';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
     if (!generateDocs()) {
         return () => null;
@@ -23,7 +22,7 @@ export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
 let logger: Logger;
 
 export function kompendiumGenerator(
-    config: Partial<KompendiumConfig>
+    config: Partial<KompendiumConfig>,
 ): (docs: JsonDocs, stencilConfig: Config) => Promise<void> {
     config = {
         ...defaultConfig,
@@ -93,7 +92,7 @@ async function createSymlink(config: Partial<KompendiumConfig>) {
 }
 
 async function getProjectTitle(
-    config: Partial<KompendiumConfig>
+    config: Partial<KompendiumConfig>,
 ): Promise<string> {
     if (config.title) {
         return config.title;
@@ -110,7 +109,7 @@ async function getProjectTitle(
 
 async function writeData(
     config: Partial<KompendiumConfig>,
-    data: KompendiumData
+    data: KompendiumData,
 ) {
     let filePath = `${config.path}/kompendium.json`;
 
@@ -169,23 +168,15 @@ function isWatcher(): boolean {
 }
 
 function isProd(): boolean {
-    if (process.argv.includes('--dev')) {
-        return false;
-    }
-
-    if (process.argv.includes('test')) {
-        return false;
-    }
-
-    if (process.argv.find((arg) => arg.includes('jest-worker'))) {
-        return false;
-    }
-
-    return true;
+    return !(
+        process.argv.includes('--dev') ||
+        process.argv.includes('test') ||
+        process.argv.find((arg) => arg.includes('jest-worker'))
+    );
 }
 
 async function getTypes(
-    config: Partial<KompendiumConfig>
+    config: Partial<KompendiumConfig>,
 ): Promise<TypeDescription[]> {
     logger.debug('Getting type information...');
     let types = await readTypes(config);
@@ -223,7 +214,7 @@ async function isModified(types: any[], cache: Record<string, number>) {
 
 async function saveData(
     config: Partial<KompendiumConfig>,
-    types: TypeDescription[]
+    types: TypeDescription[],
 ) {
     let filenames = types.map((t) => t.sources).flat();
     filenames = [...new Set(filenames)];

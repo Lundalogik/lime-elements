@@ -3,6 +3,11 @@ import { r as registerInstance, h } from './index-3601b4dc.js';
 const KompendiumDebug = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
+    /**
+     * Factory for creating props for example components
+     * @returns {Record<string, unknown>} props
+     */
+    this.examplePropsFactory = () => ({});
   }
   render() {
     const tag = this.match.params.name;
@@ -13,9 +18,8 @@ const KompendiumDebug = class {
     const ExampleComponent = component.tag;
     const ownerComponent = this.docs.components.find(isOwnerOf(component));
     const schema = this.schemas.find((s) => s.$id === ownerComponent.tag);
-    const props = {
-      schema: schema,
-    };
+    const factory = this.examplePropsFactory;
+    const props = Object.assign({ schema: schema }, factory(ExampleComponent));
     return (h("div", { class: "show-case" }, h("div", { class: "show-case_component" }, h(ExampleComponent, Object.assign({}, props)))));
   }
 };

@@ -2,8 +2,7 @@ import { Component, h } from '@stencil/core';
 import { markdownExample } from './markdown-example';
 /**
  * This is a simple example of how the `kompendium-markdown` component is used
- *
- * @link markdown-example.ts
+ * @sourceFile markdown-example.ts
  */
 export class MarkdownExample {
   render() {

@@ -53,6 +53,11 @@ export namespace Components {
          */
         "docs": JsonDocs;
         /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "examplePropsFactory"?: PropsFactory;
+        /**
           * Matched route parameters
          */
         "match": MatchResults;
@@ -288,6 +293,11 @@ declare namespace LocalJSX {
           * The generated documentation data
          */
         "docs"?: JsonDocs;
+        /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "examplePropsFactory"?: PropsFactory;
         /**
           * Matched route parameters
          */

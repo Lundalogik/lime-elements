@@ -35,7 +35,7 @@ export function readFile(path: string, options: any = 'utf8'): Promise<string> {
 export function writeFile(
     path: string,
     data: string,
-    options: any = 'utf8'
+    options: any = 'utf8',
 ): Promise<void> {
     return new Promise((resolve, reject) => {
         fs.writeFile(path, data, options, (error) => {
