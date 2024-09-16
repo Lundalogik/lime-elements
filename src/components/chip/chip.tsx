@@ -73,7 +73,6 @@ interface ChipInterface extends Omit<OldChipInterface, 'id' | 'badge'> {
  * or navigating to a page with more information about the item in the shopping list.
  * :::
  *
- * @beta
  * @exampleComponent limel-example-chip-button
  * @exampleComponent limel-example-chip-link
  * @exampleComponent limel-example-chip-icon-colors
