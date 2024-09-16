@@ -43,6 +43,10 @@ export class LimeElementsWidgetAdapter extends React.Component {
             return !!value.length;
         }
 
+        if (value instanceof Date) {
+            return true;
+        }
+
         if (typeof value === 'object') {
             return !!Object.entries(value).length;
         }

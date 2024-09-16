@@ -124,6 +124,10 @@ export class SchemaField extends React.Component<FieldProps> {
             return !!value.length;
         }
 
+        if (value instanceof Date) {
+            return true;
+        }
+
         if (typeof value === 'object') {
             return !isEmpty(value);
         }
