@@ -12,7 +12,6 @@ const Playground = class {
     index.registerInstance(this, hostRef);
     /**
      * Factory for creating props for example components
-     *
      * @returns {Record<string, unknown>} props
      */
     this.propsFactory = () => ({});
