@@ -1,3 +1,16 @@
+## [37.59.0](https://github.com/Lundalogik/lime-elements/compare/v37.58.0...v37.59.0) (2024-09-16)
+
+
+### Features
+
+
+* **form:** support time picker ([2bddee1](https://github.com/Lundalogik/lime-elements/commit/2bddee1e084f106bf18c322fe412b90647af30e9))
+
+### Bug Fixes
+
+
+* **form:** pass date type for format in date widget ([4753d4b](https://github.com/Lundalogik/lime-elements/commit/4753d4bb0599fec82f96d80be70d22802e3c97b9)), closes [#1489](https://github.com/Lundalogik/lime-elements/issues/1489)
+
 ## [37.58.0](https://github.com/Lundalogik/lime-elements/compare/v37.57.6...v37.58.0) (2024-09-13)
 
 
