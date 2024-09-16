@@ -1,3 +1,18 @@
+## [37.60.0](https://github.com/Lundalogik/lime-elements/compare/v37.59.1...v37.60.0) (2024-09-16)
+
+
+### Features
+
+
+* **linear-progress:** add `accessibleLabel` prop ([515aa26](https://github.com/Lundalogik/lime-elements/commit/515aa268fa5962f7c22b531d660923f74256aae6))
+
+### Bug Fixes
+
+
+* **linear-progress:** improve accessibility of the indeterminate state ([0339f8f](https://github.com/Lundalogik/lime-elements/commit/0339f8f0bd87fabb7b0474193f4b4b8787044d1b))
+* **linear-progress:** more accessible dynamic updates ([3a9807e](https://github.com/Lundalogik/lime-elements/commit/3a9807e7cd2f2f1492b640686e9318b50d66b2f1))
+* **linear-progress:** use localized `aria-label` for better accessibility ([31cc4a9](https://github.com/Lundalogik/lime-elements/commit/31cc4a960af4d4048b31e4057fcb72b1bfb8281b))
+
 ## [37.59.1](https://github.com/Lundalogik/lime-elements/compare/v37.59.0...v37.59.1) (2024-09-16)
 
 
