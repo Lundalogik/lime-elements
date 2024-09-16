@@ -46,7 +46,7 @@ function createDocs(data: KompendiumData): KompendiumDocument[] {
 
 export function* createDocuments(
     items: MenuItem[],
-    data: KompendiumData
+    data: KompendiumData,
 ): Generator<KompendiumDocument> {
     for (const item of items) {
         if (isIndexable(item)) {
@@ -72,7 +72,7 @@ function isIndexable(item: MenuItem): boolean {
 
 function createDocument(
     item: MenuItem,
-    data: KompendiumData
+    data: KompendiumData,
 ): KompendiumDocument {
     if (item.path?.startsWith('/component/')) {
         return createComponentDocument(item, data);
@@ -85,7 +85,7 @@ function createDocument(
 
 function createComponentDocument(
     item: MenuItem,
-    data: KompendiumData
+    data: KompendiumData,
 ): KompendiumDocument {
     const tag = item.path.split('/')[2];
     const component = data.docs.components.find((c) => c.tag === tag);
@@ -107,7 +107,7 @@ function createComponentDocument(
 
 function createTypeDocument(
     item: MenuItem,
-    data: KompendiumData
+    data: KompendiumData,
 ): KompendiumDocument {
     const type = data.types?.find((t) => t.name === item.title);
 
@@ -122,7 +122,7 @@ function createTypeDocument(
 
 function createGuideDocument(
     item: MenuItem,
-    data: KompendiumData
+    data: KompendiumData,
 ): KompendiumDocument {
     const guide = data.guides?.find((g) => g.data.path === item.path);
 
@@ -135,7 +135,7 @@ function createGuideDocument(
 
 function createInterfaceDocument(
     item: MenuItem,
-    type: InterfaceDescription
+    type: InterfaceDescription,
 ): KompendiumDocument {
     return {
         path: item.path,
@@ -148,7 +148,7 @@ function createInterfaceDocument(
 
 function createAliasDocument(
     item: MenuItem,
-    type: AliasDescription
+    type: AliasDescription,
 ): KompendiumDocument {
     return {
         path: item.path,
@@ -160,7 +160,7 @@ function createAliasDocument(
 // eslint-disable-next-line sonarjs/no-identical-functions
 function createEnumDocument(
     item: MenuItem,
-    type: EnumDescription
+    type: EnumDescription,
 ): KompendiumDocument {
     return {
         path: item.path,

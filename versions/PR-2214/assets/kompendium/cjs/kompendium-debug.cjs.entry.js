@@ -7,6 +7,11 @@ const index = require('./index-4264cbf1.js');
 const KompendiumDebug = class {
   constructor(hostRef) {
     index.registerInstance(this, hostRef);
+    /**
+     * Factory for creating props for example components
+     * @returns {Record<string, unknown>} props
+     */
+    this.examplePropsFactory = () => ({});
   }
   render() {
     const tag = this.match.params.name;
@@ -17,9 +22,8 @@ const KompendiumDebug = class {
     const ExampleComponent = component.tag;
     const ownerComponent = this.docs.components.find(isOwnerOf(component));
     const schema = this.schemas.find((s) => s.$id === ownerComponent.tag);
-    const props = {
-      schema: schema,
-    };
+    const factory = this.examplePropsFactory;
+    const props = Object.assign({ schema: schema }, factory(ExampleComponent));
     return (index.h("div", { class: "show-case" }, index.h("div", { class: "show-case_component" }, index.h(ExampleComponent, Object.assign({}, props)))));
   }
 };
