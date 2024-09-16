@@ -1,3 +1,11 @@
+## [37.59.1](https://github.com/Lundalogik/lime-elements/compare/v37.59.0...v37.59.1) (2024-09-16)
+
+
+### Bug Fixes
+
+
+* **snackbar:** allow the snackbar to be created in its opened state ([c57d179](https://github.com/Lundalogik/lime-elements/commit/c57d1793345b605b50c486ce3b59ea2b1695b2d2)), closes [Lundalogik/crm-feature#4288](https://github.com/Lundalogik/crm-feature/issues/4288)
+
 ## [37.59.0](https://github.com/Lundalogik/lime-elements/compare/v37.58.0...v37.59.0) (2024-09-16)
 
 
