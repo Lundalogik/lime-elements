@@ -264,8 +264,6 @@ export class Table {
 
     @Watch('data')
     protected updateData(newData: RowData[] = [], oldData: RowData[] = []) {
-        this.pool.releaseAll();
-
         const shouldReplace = this.shouldReplaceData(newData, oldData);
 
         setTimeout(() => {
@@ -274,6 +272,7 @@ export class Table {
             }
 
             if (shouldReplace) {
+                this.pool.releaseAll();
                 this.tabulator.replaceData(newData);
                 this.setSelection();
 
