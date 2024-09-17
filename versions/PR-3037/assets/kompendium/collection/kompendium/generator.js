@@ -8,7 +8,6 @@ import { findGuides } from './guides';
 import { parseFile } from './typedoc';
 import { createSchemas } from './schema';
 import { createIndex } from './search';
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const kompendium = (config = {}) => {
   if (!generateDocs()) {
     return () => null;
@@ -121,16 +120,9 @@ function isWatcher() {
   return !!process.argv.includes('--watch');
 }
 function isProd() {
-  if (process.argv.includes('--dev')) {
-    return false;
-  }
-  if (process.argv.includes('test')) {
-    return false;
-  }
-  if (process.argv.find((arg) => arg.includes('jest-worker'))) {
-    return false;
-  }
-  return true;
+  return !(process.argv.includes('--dev') ||
+    process.argv.includes('test') ||
+    process.argv.find((arg) => arg.includes('jest-worker')));
 }
 async function getTypes(config) {
   logger.debug('Getting type information...');

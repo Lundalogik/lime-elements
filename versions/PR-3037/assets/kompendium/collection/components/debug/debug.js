@@ -1,5 +1,12 @@
 import { Component, h, Prop } from '@stencil/core';
 export class KompendiumDebug {
+  constructor() {
+    /**
+     * Factory for creating props for example components
+     * @returns {Record<string, unknown>} props
+     */
+    this.examplePropsFactory = () => ({});
+  }
   render() {
     const tag = this.match.params.name;
     const component = findComponent(tag, this.docs);
@@ -10,9 +17,8 @@ export class KompendiumDebug {
     const ExampleComponent = component.tag;
     const ownerComponent = this.docs.components.find(isOwnerOf(component));
     const schema = this.schemas.find((s) => s.$id === ownerComponent.tag);
-    const props = {
-      schema: schema,
-    };
+    const factory = this.examplePropsFactory;
+    const props = Object.assign({ schema: schema }, factory(ExampleComponent));
     return (h("div", { class: "show-case" },
       h("div", { class: "show-case_component" },
         h(ExampleComponent, Object.assign({}, props)))));
@@ -81,6 +87,30 @@ export class KompendiumDebug {
         "tags": [],
         "text": "Matched route parameters"
       }
+    },
+    "examplePropsFactory": {
+      "type": "unknown",
+      "mutable": false,
+      "complexType": {
+        "original": "PropsFactory",
+        "resolved": "(name: string) => Record<string, unknown>",
+        "references": {
+          "PropsFactory": {
+            "location": "import",
+            "path": "../playground/playground.types"
+          }
+        }
+      },
+      "required": false,
+      "optional": true,
+      "docs": {
+        "tags": [{
+            "text": "props",
+            "name": "returns"
+          }],
+        "text": "Factory for creating props for example components"
+      },
+      "defaultValue": "() => ({})"
     }
   }; }
 }
