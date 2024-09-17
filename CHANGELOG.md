@@ -1,3 +1,11 @@
+## [37.60.1](https://github.com/Lundalogik/lime-elements/compare/v37.60.0...v37.60.1) (2024-09-17)
+
+
+### Bug Fixes
+
+
+* **table-view:** only release element pool if should replace is true ([ff9268b](https://github.com/Lundalogik/lime-elements/commit/ff9268bb5f476b9fb94e4fc1ca38c846370608a0))
+
 ## [37.60.0](https://github.com/Lundalogik/lime-elements/compare/v37.59.1...v37.60.0) (2024-09-16)
 
 
