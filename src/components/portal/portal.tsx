@@ -241,6 +241,10 @@ export class Portal {
     }
 
     private hideContainer() {
+        if (!this.container) {
+            return;
+        }
+
         this.container.classList.remove(IS_VISIBLE_CLASS);
     }
 
