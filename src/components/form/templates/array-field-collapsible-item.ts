@@ -34,19 +34,24 @@ interface CollapsibleItemProps {
 
 export class CollapsibleItemTemplate extends React.Component {
     public refs: { section: any };
-    private isOpen: boolean;
+    state = {
+        isOpen: false,
+    };
 
     constructor(public props: CollapsibleItemProps) {
         super(props);
         this.handleAction = this.handleAction.bind(this);
         this.isDeepEmpty = this.isDeepEmpty.bind(this);
 
-        this.isOpen = this.isDeepEmpty(props.data);
+        this.setState({
+            isOpen: this.isDeepEmpty(props.data),
+        });
     }
 
     public componentDidMount() {
         const section: HTMLLimelCollapsibleSectionElement = this.refs.section;
         section.addEventListener('action', this.handleAction);
+        section.addEventListener('open', this.handleOpen);
 
         this.setActions(section);
     }
@@ -59,10 +64,15 @@ export class CollapsibleItemTemplate extends React.Component {
     public componentWillUnmount() {
         const section: HTMLLimelCollapsibleSectionElement = this.refs.section;
         section.removeEventListener('action', this.handleAction);
+        section.removeEventListener('open', this.handleOpen);
     }
 
     public render() {
         const { data, schema, formSchema } = this.props;
+        let children: any;
+        if (this.state.isOpen) {
+            children = this.props.item.children;
+        }
 
         return React.createElement(
             'limel-collapsible-section',
@@ -70,9 +80,9 @@ export class CollapsibleItemTemplate extends React.Component {
                 header: findTitle(data, schema, formSchema) || 'New item',
                 class: 'limel-form-array-item--object',
                 ref: 'section',
-                'is-open': this.isOpen,
+                'is-open': this.state.isOpen,
             },
-            this.props.item.children,
+            children,
         );
     }
 
@@ -106,6 +116,12 @@ export class CollapsibleItemTemplate extends React.Component {
         event.stopPropagation();
         event.detail.run(event);
     }
+
+    private handleOpen = () => {
+        this.setState({
+            isOpen: true,
+        });
+    };
 
     private isDeepEmpty(data) {
         if (typeof data !== 'object') {
