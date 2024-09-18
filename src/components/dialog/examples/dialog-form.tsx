@@ -16,9 +16,11 @@ interface FormValue {
 }
 
 /**
- * Dialog with limel-form
+ * Dialog with form and confirmation dialog
  *
  * This example demonstrates how to use a `limel-form` inside a `limel-dialog`.
+ * It also shows a confirmation dialog when the user closes the main dialog
+ * without saving.
  */
 @Component({
     tag: 'limel-example-dialog-form',
@@ -41,6 +43,8 @@ export class DialogFormExample {
 
     @State()
     private isConfirmationOpen = false;
+
+    private isSaving = false;
 
     private formSchema: FormSchema<FormValue> = {
         type: 'object',
@@ -144,6 +148,7 @@ export class DialogFormExample {
     };
 
     private submitForm = () => {
+        this.isSaving = true;
         alert(`${this.formValue?.name} is ${this.formValue?.age} years old`);
         this.closeDialog();
     };
@@ -158,7 +163,11 @@ export class DialogFormExample {
 
     private onClosing = () => {
         console.log('dialog is closing now!');
-        this.isConfirmationOpen = true;
+        if (!this.isSaving) {
+            this.isConfirmationOpen = true;
+        }
+
+        this.isSaving = false;
     };
 
     private closeConfirmation = () => {
