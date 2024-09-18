@@ -74,6 +74,7 @@ export class ProgressFlowItem {
                 {this.renderIcon()}
                 <span class="text">{this.item.text}</span>
                 {this.renderDivider()}
+                {this.renderLockIcon()}
             </button>,
             this.renderSecondaryText(),
         ];
@@ -119,5 +120,13 @@ export class ProgressFlowItem {
         }
 
         return <div class="divider" />;
+    }
+
+    private renderLockIcon() {
+        if (!this.isDisabled()) {
+            return;
+        }
+
+        return <limel-icon name="lock" class="lock-icon" />;
     }
 }
