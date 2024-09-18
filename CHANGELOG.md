@@ -1,3 +1,11 @@
+## [37.61.0](https://github.com/Lundalogik/lime-elements/compare/v37.60.2...v37.61.0) (2024-09-18)
+
+
+### Features
+
+
+* **chip:** remove `[@beta](https://github.com/beta)` tag ([b1bcf0b](https://github.com/Lundalogik/lime-elements/commit/b1bcf0b40d12256d4bcc296eded90f08ee359d3c))
+
 ## [37.60.2](https://github.com/Lundalogik/lime-elements/compare/v37.60.1...v37.60.2) (2024-09-18)
 
 
