@@ -1,21 +1,23 @@
 .step {
     // `before` is circle
-    // `after` is lock icon
+
     &:before,
-    &:after {
+    .lock-icon {
         pointer-events: none;
         box-sizing: border-box;
         z-index: $limel-progress-flow-step-content;
+    }
+
+    &::before {
         position: absolute;
         right: var(--selected-indicator-right);
-
         border-radius: 50%;
     }
 
     .last & {
         &:before,
-        &:after {
-            right: functions.pxToRem(8);
+        .lock-icon {
+            right: 0.5rem;
         }
     }
 }
@@ -23,35 +25,21 @@
 .flow-item:not(.off-progress-item) {
     .step {
         &.selected {
-            &:before,
-            &:after {
+            &:before {
                 content: '';
                 width: functions.pxToRem(6);
                 height: functions.pxToRem(6);
-            }
-
-            &:before {
-                background-color: var(--step-divider-color);
+                background-color: rgb(var(--contrast-700));
                 opacity: 0.7;
             }
         }
-        &.disabled {
-            &:before,
-            &:after {
-                width: functions.pxToRem(12);
-                height: functions.pxToRem(12);
-            }
-
-            &:after {
-                content: '';
-                background: {
-                    image: url("data:image/svg+xml;charset=utf-8, <svg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg' xml:space='preserve' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'><path fill='rgb(127,127,127)' d='M32.18 13.711c0-2.207-1.793-4-4.002-4H11.821c-2.208 0-4 1.793-4 4V28.29a4 4 0 0 0 4 4h16.357a4.002 4.002 0 0 0 4.001-4V13.711Z'/><path fill='rgb(127,127,127)' d='M11.211 9.758V7.673A7.489 7.489 0 0 1 18.696.188h2.608a7.489 7.489 0 0 1 7.485 7.485v2.085h-3V7.673a4.488 4.488 0 0 0-4.485-4.485h-2.608a4.488 4.488 0 0 0-4.485 4.485v2.085h-3Z'/></svg>");
-                    size: 90%;
-                    repeat: no-repeat;
-                    position: center;
-                }
-                mix-blend-mode: multiply;
-            }
-        }
     }
+}
+
+.lock-icon {
+    margin-left: 0.25rem;
+    margin-right: -0.5rem;
+    width: 0.75rem;
+    color: currentColor;
+    scale: 0.8;
 }
