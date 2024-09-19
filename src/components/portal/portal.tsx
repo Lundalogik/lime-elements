@@ -252,6 +252,12 @@ export class Portal {
         this.container.classList.add(IS_VISIBLE_CLASS);
     }
 
+    private styleContainer() {
+        this.setContainerWidth();
+        this.setContainerHeight();
+        this.setContainerStyles();
+    }
+
     private setContainerWidth() {
         const hostWidth = this.host.getBoundingClientRect().width;
 
@@ -281,10 +287,7 @@ export class Portal {
         return this.getContentWidth(elementContent);
     }
 
-    private styleContainer() {
-        this.setContainerWidth();
-        this.setContainerHeight();
-
+    private setContainerStyles() {
         Object.keys(this.containerStyle).forEach((property) => {
             this.container.style[property] = this.containerStyle[property];
         });
