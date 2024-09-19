@@ -9,6 +9,8 @@ import {
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 
 const IS_VISIBLE_CLASS = 'is-visible';
+const IS_HIDING_CLASS = 'is-hiding';
+const hideAnimationDuration = 300;
 
 /**
  * The portal component provides a way to render children into a DOM node that
@@ -185,9 +187,7 @@ export class Portal {
         }
 
         if (!this.visible) {
-            this.hideContainer();
-            this.styleContainer();
-            this.destroyPopper();
+            this.animateHideAndCleanup();
 
             return;
         }
@@ -250,6 +250,23 @@ export class Portal {
 
     private showContainer() {
         this.container.classList.add(IS_VISIBLE_CLASS);
+    }
+
+    private animateHideAndCleanup() {
+        if (!this.container) {
+            return;
+        }
+
+        this.container.classList.add(IS_HIDING_CLASS);
+        this.styleContainer();
+
+        setTimeout(() => {
+            this.container.classList.remove(IS_HIDING_CLASS);
+            if (!this.visible) {
+                this.container.classList.remove(IS_VISIBLE_CLASS);
+                this.destroyPopper();
+            }
+        }, hideAnimationDuration);
     }
 
     private styleContainer() {

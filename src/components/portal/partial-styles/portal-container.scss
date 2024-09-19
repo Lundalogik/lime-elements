@@ -11,5 +11,65 @@
     &.is-visible {
         opacity: 1;
         display: inline-block;
+
+        > * {
+            will-change: opacity, transform;
+        }
     }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.94) translate3d(0, 0, 0);
+    }
+}
+
+@mixin transform-origin($position, $origin) {
+    &[data-popper-placement='#{$position}'] {
+        > * {
+            transform-origin: $origin;
+        }
+    }
+}
+
+.limel-portal--container {
+    > * {
+        // The element that the consumer component puts inside the portal
+        animation: fade-in 0.18s cubic-bezier(0.11, 0.59, 0.18, 1.26) forwards;
+    }
+
+    &.is-hiding {
+        > * {
+            animation: fade-out 0.22s ease forwards;
+        }
+    }
+
+    @include transform-origin('left-start', right top);
+    @include transform-origin('left', right center);
+    @include transform-origin('left-end', right bottom);
+    @include transform-origin('top-start', left bottom);
+    @include transform-origin('top', center bottom);
+    @include transform-origin('top-end', right bottom);
+    @include transform-origin('right-start', left top);
+    @include transform-origin('right', left center);
+    @include transform-origin('right-end', left bottom);
+    @include transform-origin('bottom-start', left top);
+    @include transform-origin('bottom', center top);
+    @include transform-origin('bottom-end', right top);
 }
