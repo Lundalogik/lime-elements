@@ -124,6 +124,8 @@ export class InfoTile {
                 tabindex="0"
                 aria-label={extendedAriaLabel}
                 aria-disabled={this.disabled}
+                aria-busy={this.loading ? 'true' : 'false'}
+                aria-live="polite"
                 class={{
                     'is-clickable': !!this.link?.href && !this.disabled,
                     'has-circular-progress':
