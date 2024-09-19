@@ -252,7 +252,7 @@ export class Portal {
         this.container.classList.add(IS_VISIBLE_CLASS);
     }
 
-    private styleContainer() {
+    private setContainerWidth() {
         const hostWidth = this.host.getBoundingClientRect().width;
 
         if (this.inheritParentWidth) {
@@ -264,12 +264,6 @@ export class Portal {
 
             this.container.style.width = `${width}px`;
         }
-
-        this.ensureContainerFitsInViewPort();
-
-        Object.keys(this.containerStyle).forEach((property) => {
-            this.container.style[property] = this.containerStyle[property];
-        });
     }
 
     private getContentWidth(element: HTMLElement | Element) {
@@ -285,6 +279,15 @@ export class Portal {
         const elementContent = element.querySelector('*');
 
         return this.getContentWidth(elementContent);
+    }
+
+    private styleContainer() {
+        this.setContainerWidth();
+        this.ensureContainerFitsInViewPort();
+
+        Object.keys(this.containerStyle).forEach((property) => {
+            this.container.style[property] = this.containerStyle[property];
+        });
     }
 
     private createPopper() {
