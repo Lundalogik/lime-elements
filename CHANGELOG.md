@@ -1,3 +1,11 @@
+## [37.61.2](https://github.com/Lundalogik/lime-elements/compare/v37.61.1...v37.61.2) (2024-09-19)
+
+
+### Performance Improvements
+
+
+* **form:** render collapsed children when they become visible ([6a2ffa0](https://github.com/Lundalogik/lime-elements/commit/6a2ffa050c3186043186d7d8f16cd5cd246b0698))
+
 ## [37.61.1](https://github.com/Lundalogik/lime-elements/compare/v37.61.0...v37.61.1) (2024-09-19)
 
 
