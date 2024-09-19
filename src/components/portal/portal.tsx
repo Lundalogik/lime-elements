@@ -283,7 +283,7 @@ export class Portal {
 
     private styleContainer() {
         this.setContainerWidth();
-        this.ensureContainerFitsInViewPort();
+        this.setContainerHeight();
 
         Object.keys(this.containerStyle).forEach((property) => {
             this.container.style[property] = this.containerStyle[property];
@@ -363,7 +363,7 @@ export class Portal {
         return flipPlacements[direction];
     }
 
-    private ensureContainerFitsInViewPort() {
+    private setContainerHeight() {
         const viewHeight = Math.max(
             document.documentElement.clientHeight || 0,
             window.innerHeight || 0,
