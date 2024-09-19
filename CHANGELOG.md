@@ -1,3 +1,11 @@
+## [37.61.3](https://github.com/Lundalogik/lime-elements/compare/v37.61.2...v37.61.3) (2024-09-19)
+
+
+### Bug Fixes
+
+
+* **info-tile:** improve accessibility while loading ([66a54f5](https://github.com/Lundalogik/lime-elements/commit/66a54f5d71d513f4ee2dbd9ee36051595cd25c61))
+
 ## [37.61.2](https://github.com/Lundalogik/lime-elements/compare/v37.61.1...v37.61.2) (2024-09-19)
 
 
