@@ -16,6 +16,7 @@
 @include menu.core-styles;
 
 .mdc-menu-surface {
+    opacity: 1; // overrides MDC's, to enable animating the surface when used in `limel-portal`
     display: var(--limel-menu-surface-display, block);
     flex-direction: var(--limel-menu-surface-flex-direction, row);
     max-height: inherit;
