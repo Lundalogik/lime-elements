@@ -1,3 +1,11 @@
+## [37.61.1](https://github.com/Lundalogik/lime-elements/compare/v37.61.0...v37.61.1) (2024-09-19)
+
+
+### Performance Improvements
+
+
+* **portal:** do DOM manipulation when portal becomes visible ([e8859e4](https://github.com/Lundalogik/lime-elements/commit/e8859e442bd433e3c875ecbb469573e01789dfa3))
+
 ## [37.61.0](https://github.com/Lundalogik/lime-elements/compare/v37.60.2...v37.61.0) (2024-09-18)
 
 
