@@ -1,3 +1,27 @@
+## [37.61.1](https://github.com/Lundalogik/lime-elements/compare/v37.61.0...v37.61.1) (2024-09-19)
+
+
+### Performance Improvements
+
+
+* **portal:** do DOM manipulation when portal becomes visible ([e8859e4](https://github.com/Lundalogik/lime-elements/commit/e8859e442bd433e3c875ecbb469573e01789dfa3))
+
+## [37.61.0](https://github.com/Lundalogik/lime-elements/compare/v37.60.2...v37.61.0) (2024-09-18)
+
+
+### Features
+
+
+* **chip:** remove `[@beta](https://github.com/beta)` tag ([b1bcf0b](https://github.com/Lundalogik/lime-elements/commit/b1bcf0b40d12256d4bcc296eded90f08ee359d3c))
+
+## [37.60.2](https://github.com/Lundalogik/lime-elements/compare/v37.60.1...v37.60.2) (2024-09-18)
+
+
+### Bug Fixes
+
+
+* **form:** correctly determine the correct number of columns when form is used inside dialog ([34818d6](https://github.com/Lundalogik/lime-elements/commit/34818d64e8e6d32cfc196856a98e37d55b382753)), closes [Lundalogik/lime-elements#1628](https://github.com/Lundalogik/lime-elements/issues/1628)
+
 ## [37.60.1](https://github.com/Lundalogik/lime-elements/compare/v37.60.0...v37.60.1) (2024-09-17)
 
 

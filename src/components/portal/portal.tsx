@@ -140,6 +140,17 @@ export class Portal {
             return;
         }
 
+        if (this.visible) {
+            this.init();
+        }
+    }
+
+    public componentDidLoad() {
+        this.loaded = true;
+        this.connectedCallback();
+    }
+
+    private init() {
         this.createContainer();
         this.hideContainer();
         this.attachContainer();
@@ -161,17 +172,16 @@ export class Portal {
         }
     }
 
-    public componentDidLoad() {
-        this.loaded = true;
-        this.connectedCallback();
-    }
-
     public render() {
         return <slot />;
     }
 
     @Watch('visible')
     protected onVisible() {
+        if (!this.container && this.visible) {
+            this.init();
+        }
+
         if (!this.visible) {
             this.hideContainer();
             this.styleContainer();
