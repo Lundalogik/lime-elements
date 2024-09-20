@@ -76,4 +76,4 @@ jobs:
           git fetch origin "refs/tags/${{ inputs.last_release_git_tag }}:refs/tags/${{ inputs.last_release_git_tag }}"
           git checkout "${{ inputs.last_release_git_tag }}"
           git checkout -b "${{ steps.determine_branch_name.outputs.branch_name }}"
-          git push origin "${{ steps.determine_branch_name.outputs.branch_name }}"
+          git push --dry-run origin "${{ steps.determine_branch_name.outputs.branch_name }}"

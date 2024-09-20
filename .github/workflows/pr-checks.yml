@@ -22,6 +22,30 @@ jobs:
     - run: npm ci
     - run: npm run lint:prod
 
+  create_backport_branch_minor:
+    name: Create Backport Branch (Minor)
+    uses: ./.github/workflows/create-backport-branch.yml
+    permissions:
+      contents: write
+    with:
+      last_release_git_tag: 'v37.61.4'
+      last_release_version: '37.61.4'
+      new_release_version: '37.62.0'
+      new_release_major_version: '37'
+      new_release_minor_version: '62'
+
+  create_backport_branch_major:
+    name: Create Backport Branch (Major)
+    uses: ./.github/workflows/create-backport-branch.yml
+    permissions:
+      contents: write
+    with:
+      last_release_git_tag: 'v37.61.4'
+      last_release_version: '37.61.4'
+      new_release_version: '38.0.0'
+      new_release_major_version: '38'
+      new_release_minor_version: '0'
+
   build:
     name: Build
     runs-on: ubuntu-latest
