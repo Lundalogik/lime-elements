@@ -236,7 +236,6 @@ export class Portal {
             parent.appendChild(element);
         });
 
-        this.hideContainer();
         this.container.parentElement.removeChild(this.container);
     }
 
