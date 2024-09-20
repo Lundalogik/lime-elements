@@ -102,6 +102,7 @@ export class ProsemirrorAdapter {
     private schema: Schema;
     private contentConverter: ContentTypeConverter;
     private actionBarElement: HTMLElement;
+    private lastEmittedValue: string;
 
     /**
      *  Used to stop change event emitting as result of getting updated value from consumer
@@ -341,9 +342,14 @@ export class ProsemirrorAdapter {
             return;
         }
 
-        this.change.emit(
-            this.contentConverter.serialize(this.view, this.schema),
-        );
+        const content = this.contentConverter.serialize(this.view, this.schema);
+
+        if (content === this.lastEmittedValue) {
+            return;
+        }
+
+        this.lastEmittedValue = content;
+        this.change.emit(content);
     };
 
     private handleActionBarItem = (
