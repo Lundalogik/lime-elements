@@ -30,7 +30,7 @@ import {
 import translate from 'src/global/translations';
 import { createRandomString } from 'src/util/random-string';
 import { isItem } from 'src/components/action-bar/isItem';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, debounce } from 'lodash-es';
 import { Languages } from '../../date-picker/date.types';
 import { strikethrough } from './menu/menu-schema-extender';
 import {
@@ -40,6 +40,8 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
+
+const DEBOUNCE_TIMEOUT = 300;
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -103,6 +105,7 @@ export class ProsemirrorAdapter {
     private contentConverter: ContentTypeConverter;
     private actionBarElement: HTMLElement;
     private lastEmittedValue: string;
+    private changeWaiting = false;
 
     /**
      *  Used to stop change event emitting as result of getting updated value from consumer
@@ -121,13 +124,26 @@ export class ProsemirrorAdapter {
 
     @Watch('value')
     protected watchValue(newValue: string) {
-        if (
-            !this.view ||
-            newValue === this.contentConverter.serialize(this.view, this.schema)
-        ) {
+        if (!this.view) {
             return;
         }
 
+        if (this.changeWaiting) {
+            // A change is pending; do not update the editor's content
+            return;
+        }
+
+        const currentContent = this.contentConverter.serialize(
+            this.view,
+            this.schema,
+        );
+
+        // If the new value is the same as the current content, do nothing
+        if (newValue === currentContent) {
+            return;
+        }
+
+        // Update the editor's content with the new value
         this.updateView(newValue);
     }
 
@@ -161,7 +177,8 @@ export class ProsemirrorAdapter {
             'open-editor-link-menu',
             this.handleOpenLinkMenu,
         );
-        this.view.destroy();
+        this.view?.dom?.removeEventListener('blur', this.handleBlur);
+        this.view?.destroy();
     }
 
     public render() {
@@ -246,6 +263,8 @@ export class ProsemirrorAdapter {
                 dispatchTransaction: this.handleTransaction,
             },
         );
+
+        this.view.dom.addEventListener('blur', this.handleBlur);
 
         if (this.value) {
             this.updateView(this.value);
@@ -334,11 +353,7 @@ export class ProsemirrorAdapter {
         const newState = this.view.state.apply(transaction);
         this.view.updateState(newState);
 
-        if (this.suppressChangeEvent) {
-            return;
-        }
-
-        if (transaction.getMeta('pointer')) {
+        if (this.suppressChangeEvent || transaction.getMeta('pointer')) {
             return;
         }
 
@@ -349,7 +364,8 @@ export class ProsemirrorAdapter {
         }
 
         this.lastEmittedValue = content;
-        this.change.emit(content);
+        this.changeWaiting = true;
+        this.changeEmitter(content);
     };
 
     private handleActionBarItem = (
@@ -413,5 +429,14 @@ export class ProsemirrorAdapter {
         const { href, text } = event.detail;
         this.link = { href: href, text: text };
         this.isLinkMenuOpen = true;
+    };
+
+    private changeEmitter = debounce((value: string) => {
+        this.change.emit(value);
+        this.changeWaiting = false;
+    }, DEBOUNCE_TIMEOUT);
+
+    private handleBlur = () => {
+        this.changeEmitter.flush();
     };
 }
