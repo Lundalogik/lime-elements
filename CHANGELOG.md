@@ -1,3 +1,11 @@
+## [37.61.4](https://github.com/Lundalogik/lime-elements/compare/v37.61.3...v37.61.4) (2024-09-20)
+
+
+### Bug Fixes
+
+
+* **form:** consider any Date value as non-empty ([82e9f87](https://github.com/Lundalogik/lime-elements/commit/82e9f87d8abd016dbeb3c9baa800b0291b00825b)), closes [#3158](https://github.com/Lundalogik/lime-elements/issues/3158)
+
 ## [37.61.3](https://github.com/Lundalogik/lime-elements/compare/v37.61.2...v37.61.3) (2024-09-19)
 
 
