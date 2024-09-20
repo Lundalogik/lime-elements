@@ -2,6 +2,7 @@ export default {
     remove: 'Fjern',
     save: 'Gem',
     cancel: 'Annullér',
+    loading: 'Indlæser…',
     'callout.note': 'Bemærk',
     'callout.important': 'Vigtig',
     'callout.tip': 'Tip',
@@ -33,4 +34,5 @@ export default {
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Kodeblok',
     'editor-menu.code': 'Kode',
+    'progress-bar': 'Fremskridtsindikator',
 };

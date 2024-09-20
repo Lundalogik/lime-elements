@@ -2,6 +2,7 @@ export default {
     remove: 'Fjerne',
     save: 'Lagre',
     cancel: 'Avbryt',
+    loading: 'Laster…',
     'callout.note': 'Note',
     'callout.important': 'Viktig',
     'callout.tip': 'Tip',
@@ -33,4 +34,5 @@ export default {
     'editor-link-menu.link': 'Lenke',
     'editor-menu.code-block': 'Kodeblokk',
     'editor-menu.code': 'Kode',
+    'progress-bar': 'Fremdriftsindikator',
 };

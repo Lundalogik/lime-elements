@@ -14,6 +14,8 @@ For a full list of components, along with live examples, please visit the [docum
 
 [![Version](https://img.shields.io/npm/v/@limetech/lime-elements.svg)](https://www.npmjs.com/package/@limetech/lime-elements) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
+---
+
 ## Getting Started
 
 -   To install, run `npm install @limetech/lime-elements`.
@@ -74,9 +76,25 @@ Providing your own icons is crucial as many of our components use an `Icon` inte
     <limel-config config={{iconPath: '/my/parent/path/'}} />
     ```
 
+---
+
+## Using @beta components
+
+Components marked as `@beta` are not yet stable. Here's what you need to know:
+
+1. **Breaking changes:** We may change `@beta` components in ways that break your code. We won't increase the major version number when we do this.
+1. **Unstable:** `@beta` components may have more bugs than other components. Use them at your own risk.
+1. **Feedback wanted:** We offer `@beta` components to get your input. Your feedback helps us improve them.
+
+Remember: All components can change, but `@beta` components change more often and without warning.
+
+---
+
 ## Getting help
 
 -   If you have a general question, or are in need of support, please open a [Question issue](https://github.com/Lundalogik/lime-elements/issues/new?template=03_question.md) on GitHub.
+
+---
 
 ## Contributing
 

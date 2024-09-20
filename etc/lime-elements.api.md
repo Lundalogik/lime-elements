@@ -201,7 +201,6 @@ export namespace Components {
         "readonlyLabels"?: Array<Label<boolean>>;
         "required": boolean;
     }
-    // @beta
     export interface LimelChip {
         "badge"?: string | number;
         "disabled": boolean;
@@ -218,6 +217,7 @@ export namespace Components {
         "removable": boolean;
         "selected": boolean;
         "text": string;
+        // @beta
         "type"?: ChipType;
     }
     export interface LimelChipSet {
@@ -461,9 +461,10 @@ export namespace Components {
         "type": InputType;
         "value": string;
     }
-    // (undocumented)
     export interface LimelLinearProgress {
+        "accessibleLabel"?: string;
         "indeterminate": boolean;
+        "language": Languages;
         "value": number;
     }
     // (undocumented)
@@ -942,8 +943,6 @@ namespace JSX_2 {
         "limel-callout": LimelCallout;
         // (undocumented)
         "limel-checkbox": LimelCheckbox;
-        // Warning: (ae-incompatible-release-tags) The symbol ""limel-chip"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
-        //
         // (undocumented)
         "limel-chip": LimelChip;
         // (undocumented)
@@ -1132,7 +1131,6 @@ namespace JSX_2 {
         "readonlyLabels"?: Array<Label<boolean>>;
         "required"?: boolean;
     }
-    // @beta
     interface LimelChip {
         "badge"?: string | number;
         "disabled"?: boolean;
@@ -1151,6 +1149,7 @@ namespace JSX_2 {
         "removable"?: boolean;
         "selected"?: boolean;
         "text"?: string;
+        // @beta
         "type"?: ChipType;
     }
     interface LimelChipSet {
@@ -1423,9 +1422,10 @@ namespace JSX_2 {
         "type"?: InputType;
         "value"?: string;
     }
-    // (undocumented)
     interface LimelLinearProgress {
+        "accessibleLabel"?: string;
         "indeterminate"?: boolean;
+        "language"?: Languages;
         "value"?: number;
     }
     // (undocumented)

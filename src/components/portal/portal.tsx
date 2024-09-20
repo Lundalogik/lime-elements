@@ -8,6 +8,8 @@ import {
 } from '@popperjs/core';
 import { FlipModifier } from '@popperjs/core/lib/modifiers/flip';
 
+const IS_VISIBLE_CLASS = 'is-visible';
+
 /**
  * The portal component provides a way to render children into a DOM node that
  * exist outside the DOM hierarchy of the parent component.
@@ -140,6 +142,17 @@ export class Portal {
             return;
         }
 
+        if (this.visible) {
+            this.init();
+        }
+    }
+
+    public componentDidLoad() {
+        this.loaded = true;
+        this.connectedCallback();
+    }
+
+    private init() {
         this.createContainer();
         this.hideContainer();
         this.attachContainer();
@@ -161,17 +174,16 @@ export class Portal {
         }
     }
 
-    public componentDidLoad() {
-        this.loaded = true;
-        this.connectedCallback();
-    }
-
     public render() {
         return <slot />;
     }
 
     @Watch('visible')
     protected onVisible() {
+        if (!this.container && this.visible) {
+            this.init();
+        }
+
         if (!this.visible) {
             this.hideContainer();
             this.styleContainer();
@@ -196,8 +208,6 @@ export class Portal {
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.containerId);
         this.container.setAttribute('class', 'limel-portal--container');
-        this.container.style.fontFamily =
-            'var(--limel-portal-font-family, inherit)';
         Object.assign(this.container, {
             portalSource: this.host,
         });
@@ -231,21 +241,25 @@ export class Portal {
     }
 
     private hideContainer() {
-        this.container.style.opacity = '0';
+        if (!this.container) {
+            return;
+        }
+
+        this.container.classList.remove(IS_VISIBLE_CLASS);
     }
 
     private showContainer() {
-        this.container.style.opacity = '1';
+        this.container.classList.add(IS_VISIBLE_CLASS);
     }
 
     private styleContainer() {
-        const hostWidth = this.host.getBoundingClientRect().width;
+        this.setContainerWidth();
+        this.setContainerHeight();
+        this.setContainerStyles();
+    }
 
-        if (this.visible) {
-            this.container.style.display = 'block';
-        } else {
-            this.container.style.display = 'none';
-        }
+    private setContainerWidth() {
+        const hostWidth = this.host.getBoundingClientRect().width;
 
         if (this.inheritParentWidth) {
             const containerWidth = this.getContentWidth(this.container);
@@ -256,12 +270,6 @@ export class Portal {
 
             this.container.style.width = `${width}px`;
         }
-
-        this.ensureContainerFitsInViewPort();
-
-        Object.keys(this.containerStyle).forEach((property) => {
-            this.container.style[property] = this.containerStyle[property];
-        });
     }
 
     private getContentWidth(element: HTMLElement | Element) {
@@ -277,6 +285,12 @@ export class Portal {
         const elementContent = element.querySelector('*');
 
         return this.getContentWidth(elementContent);
+    }
+
+    private setContainerStyles() {
+        Object.keys(this.containerStyle).forEach((property) => {
+            this.container.style[property] = this.containerStyle[property];
+        });
     }
 
     private createPopper() {
@@ -352,7 +366,7 @@ export class Portal {
         return flipPlacements[direction];
     }
 
-    private ensureContainerFitsInViewPort() {
+    private setContainerHeight() {
         const viewHeight = Math.max(
             document.documentElement.clientHeight || 0,
             window.innerHeight || 0,

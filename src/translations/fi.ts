@@ -2,6 +2,7 @@ export default {
     remove: 'Poista',
     save: 'Tallenna',
     canceL: 'Peruuta',
+    loading: 'Ladataan…',
     'callout.note': 'Huomio',
     'callout.important': 'Tärkeää',
     'callout.tip': 'Vinkki',
@@ -34,4 +35,5 @@ export default {
     'editor-link-menu.link': 'Linkki',
     'editor-menu.code-block': 'Koodilohko',
     'editor-menu.code': 'Koodi',
+    'progress-bar': 'Edistymispalkki',
 };

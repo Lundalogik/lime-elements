@@ -1,10 +1,17 @@
-import { MDCLinearProgress } from '@material/linear-progress';
-import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import { Component, Element, h, Host, Prop, Watch } from '@stencil/core';
+import { Languages } from '../date-picker/date.types';
+import translate from '../../global/translations';
+
+const PERCENT = 100;
 
 /**
+ * The linear progress component can be used to visualize the current state of a progress in a scale;
+ * for example percentage of completion of a task.
+ *
  * @exampleComponent limel-example-linear-progress
- * @exampleComponent limel-example-linear-progress-color
  * @exampleComponent limel-example-linear-progress-indeterminate
+ * @exampleComponent limel-example-linear-progress-accessible-label
+ * @exampleComponent limel-example-linear-progress-color
  */
 @Component({
     tag: 'limel-linear-progress',
@@ -12,6 +19,13 @@ import { Component, Element, h, Prop, Watch } from '@stencil/core';
     styleUrl: 'linear-progress.scss',
 })
 export class LinearProgress {
+    /**
+     * Defines the language for translations.
+     * Will translate the translatable strings on the components.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = 'en';
+
     /**
      * The value of the progress bar. Should be between `0` and `1`.
      */
@@ -24,76 +38,56 @@ export class LinearProgress {
     @Prop({ reflect: true })
     public indeterminate: boolean = false;
 
+    /**
+     * A label used to describe the purpose of the element to users
+     * of assistive technologies, like screen readers.
+     * If not provided, the generic word of "Progress bar" will be used.
+     */
+    @Prop({ reflect: true })
+    public accessibleLabel?: string;
+
     @Element()
     private host: HTMLLimelLinearProgressElement;
-
-    private mdcLinearProgress: MDCLinearProgress;
-
-    public connectedCallback() {
-        this.initialize();
-    }
-
-    public componentDidLoad() {
-        this.initialize();
-    }
-
-    private initialize() {
-        const element = this.host.shadowRoot.querySelector(
-            '.mdc-linear-progress',
-        );
-        if (!element) {
-            return;
-        }
-
-        this.mdcLinearProgress = new MDCLinearProgress(element);
-        this.mdcLinearProgress.progress = this.value;
-    }
-
-    public disconnectedCallback() {
-        if (this.mdcLinearProgress) {
-            this.mdcLinearProgress.destroy();
-        }
-    }
 
     public render() {
         if (!this.isFinite(this.value)) {
             return;
         }
 
-        const classList = {
-            'mdc-linear-progress': true,
-            'mdc-linear-progress--indeterminate': this.indeterminate,
-        };
+        const loadingText = translate.get('loading', this.language);
+        const ariaLabel = translate.get('progress-bar', this.language);
+        const ariaValueNow = this.indeterminate ? undefined : this.value;
+        const ariaValueText = this.indeterminate ? loadingText : undefined;
 
         return (
-            <div
+            <Host
                 role="progressbar"
-                class={classList}
-                aria-label="Progress Bar"
+                aria-label={this.accessibleLabel || ariaLabel}
+                aria-live="polite"
                 aria-valuemin="0"
                 aria-valuemax="1"
-                aria-valuenow={this.value}
+                aria-valuenow={ariaValueNow}
+                aria-valuetext={ariaValueText}
+                style={{ '--percentage': `${this.value * PERCENT}%` }}
             >
-                <div class="mdc-linear-progress__buffer">
-                    <div class="mdc-linear-progress__buffer-bar"></div>
-                </div>
-                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-                    <span class="mdc-linear-progress__bar-inner" />
-                </div>
-                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-                    <span class="mdc-linear-progress__bar-inner" />
-                </div>
-            </div>
+                <div class="progress" />
+            </Host>
         );
     }
 
     @Watch('value')
-    protected watchValue(newValue) {
-        if (!this.mdcLinearProgress || !this.isFinite(newValue)) {
+    protected watchValue(newValue: number) {
+        if (!this.isFinite(newValue)) {
             return;
         }
 
-        this.mdcLinearProgress.progress = newValue;
+        this.updateProgress(newValue);
+    }
+
+    private updateProgress(value: number): void {
+        if (this.host) {
+            this.host.style.setProperty('--percentage', `${value * PERCENT}%`);
+        }
     }
 
     private isFinite(value: unknown) {

@@ -2,6 +2,7 @@ export default {
     remove: 'Ta bort',
     save: 'Spara',
     cancel: 'Avbryt',
+    loading: 'Laddar…',
     'callout.note': 'Obs',
     'callout.important': 'Viktigt',
     'callout.tip': 'Tips',
@@ -34,4 +35,5 @@ export default {
     'editor-link-menu.link': 'Länk',
     'editor-menu.code-block': 'Kodblock',
     'editor-menu.code': 'Kod',
+    'progress-bar': 'Förloppsindikator',
 };

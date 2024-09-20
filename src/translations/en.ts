@@ -2,6 +2,7 @@ export default {
     remove: 'Remove',
     save: 'Save',
     cancel: 'Cancel',
+    loading: 'Loading…',
     'callout.note': 'Note',
     'callout.important': 'Important',
     'callout.tip': 'Tip',
@@ -34,4 +35,5 @@ export default {
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Code block',
     'editor-menu.code': 'Code',
+    'progress-bar': 'Progress bar',
 };

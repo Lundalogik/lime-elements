@@ -1,3 +1,87 @@
+## [37.61.3](https://github.com/Lundalogik/lime-elements/compare/v37.61.2...v37.61.3) (2024-09-19)
+
+
+### Bug Fixes
+
+
+* **info-tile:** improve accessibility while loading ([66a54f5](https://github.com/Lundalogik/lime-elements/commit/66a54f5d71d513f4ee2dbd9ee36051595cd25c61))
+
+## [37.61.2](https://github.com/Lundalogik/lime-elements/compare/v37.61.1...v37.61.2) (2024-09-19)
+
+
+### Performance Improvements
+
+
+* **form:** render collapsed children when they become visible ([6a2ffa0](https://github.com/Lundalogik/lime-elements/commit/6a2ffa050c3186043186d7d8f16cd5cd246b0698))
+
+## [37.61.1](https://github.com/Lundalogik/lime-elements/compare/v37.61.0...v37.61.1) (2024-09-19)
+
+
+### Performance Improvements
+
+
+* **portal:** do DOM manipulation when portal becomes visible ([e8859e4](https://github.com/Lundalogik/lime-elements/commit/e8859e442bd433e3c875ecbb469573e01789dfa3))
+
+## [37.61.0](https://github.com/Lundalogik/lime-elements/compare/v37.60.2...v37.61.0) (2024-09-18)
+
+
+### Features
+
+
+* **chip:** remove `[@beta](https://github.com/beta)` tag ([b1bcf0b](https://github.com/Lundalogik/lime-elements/commit/b1bcf0b40d12256d4bcc296eded90f08ee359d3c))
+
+## [37.60.2](https://github.com/Lundalogik/lime-elements/compare/v37.60.1...v37.60.2) (2024-09-18)
+
+
+### Bug Fixes
+
+
+* **form:** correctly determine the correct number of columns when form is used inside dialog ([34818d6](https://github.com/Lundalogik/lime-elements/commit/34818d64e8e6d32cfc196856a98e37d55b382753)), closes [Lundalogik/lime-elements#1628](https://github.com/Lundalogik/lime-elements/issues/1628)
+
+## [37.60.1](https://github.com/Lundalogik/lime-elements/compare/v37.60.0...v37.60.1) (2024-09-17)
+
+
+### Bug Fixes
+
+
+* **table-view:** only release element pool if should replace is true ([ff9268b](https://github.com/Lundalogik/lime-elements/commit/ff9268bb5f476b9fb94e4fc1ca38c846370608a0))
+
+## [37.60.0](https://github.com/Lundalogik/lime-elements/compare/v37.59.1...v37.60.0) (2024-09-16)
+
+
+### Features
+
+
+* **linear-progress:** add `accessibleLabel` prop ([515aa26](https://github.com/Lundalogik/lime-elements/commit/515aa268fa5962f7c22b531d660923f74256aae6))
+
+### Bug Fixes
+
+
+* **linear-progress:** improve accessibility of the indeterminate state ([0339f8f](https://github.com/Lundalogik/lime-elements/commit/0339f8f0bd87fabb7b0474193f4b4b8787044d1b))
+* **linear-progress:** more accessible dynamic updates ([3a9807e](https://github.com/Lundalogik/lime-elements/commit/3a9807e7cd2f2f1492b640686e9318b50d66b2f1))
+* **linear-progress:** use localized `aria-label` for better accessibility ([31cc4a9](https://github.com/Lundalogik/lime-elements/commit/31cc4a960af4d4048b31e4057fcb72b1bfb8281b))
+
+## [37.59.1](https://github.com/Lundalogik/lime-elements/compare/v37.59.0...v37.59.1) (2024-09-16)
+
+
+### Bug Fixes
+
+
+* **snackbar:** allow the snackbar to be created in its opened state ([c57d179](https://github.com/Lundalogik/lime-elements/commit/c57d1793345b605b50c486ce3b59ea2b1695b2d2)), closes [Lundalogik/crm-feature#4288](https://github.com/Lundalogik/crm-feature/issues/4288)
+
+## [37.59.0](https://github.com/Lundalogik/lime-elements/compare/v37.58.0...v37.59.0) (2024-09-16)
+
+
+### Features
+
+
+* **form:** support time picker ([2bddee1](https://github.com/Lundalogik/lime-elements/commit/2bddee1e084f106bf18c322fe412b90647af30e9))
+
+### Bug Fixes
+
+
+* **form:** pass date type for format in date widget ([4753d4b](https://github.com/Lundalogik/lime-elements/commit/4753d4bb0599fec82f96d80be70d22802e3c97b9)), closes [#1489](https://github.com/Lundalogik/lime-elements/issues/1489)
+
 ## [37.58.0](https://github.com/Lundalogik/lime-elements/compare/v37.57.6...v37.58.0) (2024-09-13)
 
 

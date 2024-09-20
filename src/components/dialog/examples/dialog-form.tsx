@@ -1,14 +1,30 @@
+import {
+    FormSchema,
+    LimelFormCustomEvent,
+    ValidationStatus,
+} from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
 
 const MIN_NAME_LENGTH = 5;
 const MIN_AGE = 20;
 const MAX_AGE = 50;
 
+interface FormValue {
+    name: string;
+    age: number;
+    percentage: number;
+}
+
 /**
- * Dialog with form and header
+ * Dialog with form and confirmation dialog
+ *
+ * This example demonstrates how to use a `limel-form` inside a `limel-dialog`.
+ * It also shows a confirmation dialog when the user closes the main dialog
+ * without saving.
  */
 @Component({
     tag: 'limel-example-dialog-form',
+    styleUrl: 'dialog-form.scss',
     shadow: true,
 })
 export class DialogFormExample {
@@ -16,16 +32,57 @@ export class DialogFormExample {
     private isOpen = false;
 
     @State()
-    private name = '';
+    private isFormValid = true;
 
     @State()
-    private age: string;
-
-    @State()
-    private percentage = 45;
+    private formValue: FormValue = {
+        name: 'Harry Potter 🪄',
+        age: 44,
+        percentage: 40,
+    };
 
     @State()
     private isConfirmationOpen = false;
+
+    private isSaving = false;
+
+    private formSchema: FormSchema<FormValue> = {
+        type: 'object',
+        lime: {
+            layout: {
+                type: 'grid',
+                columns: 2,
+            },
+        },
+        properties: {
+            name: {
+                type: 'string',
+                title: 'Name',
+                minLength: MIN_NAME_LENGTH,
+            },
+            age: {
+                type: 'number',
+                title: 'Age',
+                minimum: MIN_AGE,
+                maximum: MAX_AGE,
+            },
+            percentage: {
+                type: 'number',
+                title: 'Percentage',
+                lime: {
+                    layout: {
+                        colSpan: 'all',
+                    },
+                    component: {
+                        name: 'limel-slider',
+                        props: {
+                            unit: '%',
+                        },
+                    },
+                },
+            },
+        },
+    };
 
     public render() {
         return [
@@ -35,35 +92,18 @@ export class DialogFormExample {
                 onClick={this.openDialog}
             />,
             <limel-dialog
+                class="registration-dialog"
                 heading="Registration"
                 open={this.isOpen}
                 onClose={this.closeDialog}
                 onClosing={this.onClosing}
             >
-                <form>
-                    <p>
-                        <limel-input-field
-                            label="Name"
-                            value={this.name}
-                            required={true}
-                            invalid={!this.nameValid()}
-                            onChange={this.nameOnChange}
-                        />
-                    </p>
-                    <p>
-                        <limel-input-field
-                            label="Age"
-                            value={this.age}
-                            required={true}
-                            invalid={!this.ageValid()}
-                            onChange={this.ageOnChange}
-                            type="number"
-                        />
-                    </p>
-                    <p>
-                        <limel-slider unit="%" value={this.percentage} />
-                    </p>
-                </form>
+                <limel-form
+                    value={this.formValue}
+                    schema={this.formSchema}
+                    onChange={this.handleFormChange}
+                    onValidate={this.handleFormValidation}
+                />
                 <limel-button
                     label="Cancel"
                     onClick={this.closeDialog}
@@ -72,7 +112,7 @@ export class DialogFormExample {
                 <limel-button
                     primary={true}
                     label="Save"
-                    disabled={!this.nameValid() || !this.ageValid()}
+                    disabled={!this.isFormValid}
                     onClick={this.submitForm}
                     slot="button"
                 />
@@ -96,16 +136,20 @@ export class DialogFormExample {
         ];
     }
 
-    private nameValid() {
-        return this.name.length >= MIN_NAME_LENGTH;
-    }
+    private handleFormChange = (event: LimelFormCustomEvent<FormValue>) => {
+        this.formValue = event.detail;
+    };
 
-    private ageValid() {
-        return +this.age > MIN_AGE && +this.age < MAX_AGE;
-    }
+    private handleFormValidation = (
+        event: LimelFormCustomEvent<ValidationStatus>,
+    ) => {
+        console.debug('Validation status:', event.detail);
+        this.isFormValid = event.detail.valid;
+    };
 
     private submitForm = () => {
-        alert(`${this.name} is ${this.age} years old`);
+        this.isSaving = true;
+        alert(`${this.formValue?.name} is ${this.formValue?.age} years old`);
         this.closeDialog();
     };
 
@@ -119,15 +163,11 @@ export class DialogFormExample {
 
     private onClosing = () => {
         console.log('dialog is closing now!');
-        this.isConfirmationOpen = true;
-    };
+        if (!this.isSaving) {
+            this.isConfirmationOpen = true;
+        }
 
-    private nameOnChange = (event) => {
-        this.name = event.detail;
-    };
-
-    private ageOnChange = (event) => {
-        this.age = event.detail;
+        this.isSaving = false;
     };
 
     private closeConfirmation = () => {
