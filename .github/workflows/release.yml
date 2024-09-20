@@ -24,20 +24,20 @@ jobs:
       new_release_published: ${{ steps.semantic.outputs.new_release_published }}
       new_release_version: ${{ steps.semantic.outputs.new_release_version }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       with:
         persist-credentials: false
     - name: Read .nvmrc
       run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       id: nvm
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
     - run: npm ci
     - run: npm run build
     - name: Semantic Release
-      uses: cycjimmy/semantic-release-action@v4
+      uses: cycjimmy/semantic-release-action@cb425203a562475bca039ba4dbf90c7f9ac790f4 # v4.1.0
       id: semantic # Need an `id` for output variables
       with:
         semantic_version: 19.0.5
@@ -60,7 +60,7 @@ jobs:
         package-version: ${{ steps.semantic.outputs.new_release_version }}
     - name: Trigger update in lime-crm-building-blocks
       if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'main'
-      uses: peter-evans/repository-dispatch@v2
+      uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
       with:
         token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
         event-type: update-lime-elements
@@ -68,7 +68,7 @@ jobs:
         client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
     - name: Trigger update in lime-crm-components
       if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'main'
-      uses: peter-evans/repository-dispatch@v2
+      uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
       with:
         token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
         event-type: update-lime-elements
@@ -76,7 +76,7 @@ jobs:
         client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
     - name: Trigger update in lime-webclient
       if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'main'
-      uses: peter-evans/repository-dispatch@v2
+      uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
       with:
         token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
         event-type: update-lime-elements

@@ -11,11 +11,11 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
     - name: Read .nvmrc
       run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       id: nvm
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
@@ -26,11 +26,11 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
     - name: Read .nvmrc
       run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       id: nvm
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
@@ -43,11 +43,11 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
     - name: Read .nvmrc
       run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       id: nvm
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - run: node -v && npm -v
@@ -58,9 +58,9 @@ jobs:
     name: Commitlint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
-      - uses: wagoid/commitlint-github-action@v5
+      - uses: wagoid/commitlint-github-action@3d28780bbf0365e29b144e272b2121204d5be5f3 # v6.1.2
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
 
   autosquash:
@@ -69,7 +69,7 @@ jobs:
     steps:
       - name: Block Autosquash Commits
         if:  github.event_name != 'merge_group'
-        uses: xt0rted/block-autosquash-commits-action@v2.2.0
+        uses: xt0rted/block-autosquash-commits-action@79880c36b4811fe549cfffe20233df88876024e7 # v2.2.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -101,6 +101,6 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ secrets.ENABLE_AUTOMERGE }}
       - name: Autoapprove
-        uses: hmarr/auto-approve-action@v3.2.1
+        uses: hmarr/auto-approve-action@f0939ea97e9205ef24d872e76833fa908a770363 # v4.0.0
         with:
           github-token: ${{ secrets.APPROVE_AUTOMATIC_PRS }}
