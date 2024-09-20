@@ -1,3 +1,13 @@
+## [37.61.5](https://github.com/Lundalogik/lime-elements/compare/v37.61.4...v37.61.5) (2024-09-20)
+
+
+### Bug Fixes
+
+
+* **text-editor:** correct change handler function signature ([62595d6](https://github.com/Lundalogik/lime-elements/commit/62595d6beba6e970de94df33d589f7196ad29cb6))
+* **text-editor:** do not emit change events unless the value has actually changed ([4d0efc5](https://github.com/Lundalogik/lime-elements/commit/4d0efc5d728824c0b1aff53a15482ff4291985b3))
+* **text-editor:** handle change better to keep value in sync ([6649350](https://github.com/Lundalogik/lime-elements/commit/66493508b357a0d3e10676c94d9c19b6a798e722)), closes [Lundalogik/crm-feature#4312](https://github.com/Lundalogik/crm-feature/issues/4312)
+
 ## [37.61.4](https://github.com/Lundalogik/lime-elements/compare/v37.61.3...v37.61.4) (2024-09-20)
 
 
