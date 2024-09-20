@@ -16,7 +16,7 @@ import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
 import { keymap } from 'prosemirror-keymap';
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
-import { ListSeparator } from 'src/components/list/list-item.types';
+import { ListItem, ListSeparator } from 'src/components/list/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
 import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
@@ -40,6 +40,9 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
+import { mention } from './mentions/node-schema-extender';
+import { createTriggerPlugin } from './plugins/trigger-plugin';
+import { createMentionParseTransaction } from './mentions/parse-mentions';
 
 /**
  * The ProseMirror adapter offers a rich text editing experience with markdown support.
@@ -85,6 +88,9 @@ export class ProsemirrorAdapter {
     private view: EditorView;
 
     @State()
+    private pickerQuery: string;
+
+    @State()
     private actionBarItems: Array<
         ActionBarItem<EditorMenuTypes> | ListSeparator
     > = [];
@@ -97,6 +103,30 @@ export class ProsemirrorAdapter {
      */
     @State()
     public isLinkMenuOpen: boolean = false;
+
+    /**
+     * Open state of the picker
+     */
+    @State()
+    public isPickerOpen: boolean = false;
+
+    @State()
+    private pickerItems: ListItem[] = [];
+
+    private selectedItem: ListItem<number>;
+
+    private fakeMentionItems: Array<ListItem<number>> = [
+        {
+            text: 'Captain Kirk',
+            value: 1,
+            secondaryText: 'commander',
+        },
+        { text: 'Spock', value: 2, secondaryText: 'scienceOfficer' },
+        { text: 'Scottie Mc Beamin', value: 3, secondaryText: 'beamManager' },
+        { text: 'Data', value: 4, secondaryText: 'android' },
+        { text: 'Worff', value: 5, secondaryText: 'security' },
+        { text: 'Uhura', value: 6, secondaryText: 'communications' },
+    ];
 
     private menuCommandFactory: MenuCommandFactory;
     private schema: Schema;
@@ -133,6 +163,7 @@ export class ProsemirrorAdapter {
     public componentWillLoad() {
         this.getActionBarItems();
         this.setupContentConverter();
+        this.pickerItems = this.fakeMentionItems;
     }
 
     public componentDidLoad() {
@@ -153,6 +184,14 @@ export class ProsemirrorAdapter {
             'open-editor-link-menu',
             this.handleOpenLinkMenu,
         );
+
+        this.host.addEventListener('open-picker', this.handleOpenPicker);
+        this.host.addEventListener('close-picker', this.handleClosePicker);
+        this.host.addEventListener(
+            'mention-picker-change',
+            this.handleQueryChange,
+        );
+        this.host.addEventListener('mention-picker-saver', this.selectItem);
     }
 
     public disconnectedCallback() {
@@ -160,6 +199,13 @@ export class ProsemirrorAdapter {
             'open-editor-link-menu',
             this.handleOpenLinkMenu,
         );
+        this.host.removeEventListener('open-picker', this.handleOpenPicker);
+        this.host.removeEventListener('close-picker', this.handleClosePicker);
+        this.host.removeEventListener(
+            'mention-picker-change',
+            this.handleQueryChange,
+        );
+        this.host.removeEventListener('mention-picker-saver', this.selectItem);
         this.view.destroy();
     }
 
@@ -175,6 +221,7 @@ export class ProsemirrorAdapter {
                 />
             </div>,
             this.renderLinkMenu(),
+            this.renderPicker(),
         ];
     }
 
@@ -201,6 +248,66 @@ export class ProsemirrorAdapter {
             </limel-portal>
         );
     }
+
+    renderPicker() {
+        if (!this.isPickerOpen) {
+            return;
+        }
+
+        return (
+            <limel-portal
+                containerId={this.portalId}
+                visible={this.isPickerOpen}
+                openDirection="top"
+                inheritParentWidth={true}
+                anchor={this.actionBarElement}
+            >
+                <limel-text-editor-picker items={this.pickerItems} />
+            </limel-portal>
+        );
+    }
+
+    private handleClosePicker = (event: CustomEvent<void>) => {
+        event.stopPropagation();
+        this.isPickerOpen = false;
+    };
+
+    private handleOpenPicker = (event: CustomEvent<string>) => {
+        event.stopPropagation();
+        this.isPickerOpen = true;
+    };
+
+    private handleQueryChange = (event: CustomEvent<string>) => {
+        event.stopImmediatePropagation();
+        this.pickerQuery = event.detail;
+        this.search(this.pickerQuery).then((items) => {
+            this.pickerItems = items;
+        });
+    };
+
+    private search = (query: string): Promise<ListItem[]> => {
+        return new Promise((resolve) => {
+            if (query === '') {
+                return resolve(this.fakeMentionItems);
+            }
+
+            const filteredItems = this.fakeMentionItems.filter((item) => {
+                return item.text.toLowerCase().includes(query.toLowerCase());
+            });
+
+            return resolve(filteredItems);
+        });
+    };
+
+    private selectItem = () => {
+        this.selectedItem = this.pickerItems[0];
+        const customEvent = new CustomEvent('item-selected', {
+            detail: this.selectedItem,
+            bubbles: true,
+            composed: true,
+        });
+        this.view.dom.dispatchEvent(customEvent);
+    };
 
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
@@ -247,13 +354,30 @@ export class ProsemirrorAdapter {
         );
 
         if (this.value) {
-            this.updateView(this.value);
+            await this.updateView(this.value);
+            this.parseMentions(this.view);
         }
     }
 
+    private parseMentions = (view) => {
+        const { state } = view;
+        const transaction = createMentionParseTransaction(state, this.schema);
+        if (transaction) {
+            this.view.dispatch(transaction);
+        }
+    };
+
     private initializeSchema() {
+        const nodes = schema.spec.nodes
+            .append({
+                mention: mention,
+            })
+            .append(
+                addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+            );
+
         return new Schema({
-            nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+            nodes: nodes,
             marks: schema.spec.marks.append({
                 strikethrough: strikethrough,
             }),
@@ -290,6 +414,7 @@ export class ProsemirrorAdapter {
                     this.updateActiveActionBarItems,
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
+                createTriggerPlugin(),
             ],
         });
     }
