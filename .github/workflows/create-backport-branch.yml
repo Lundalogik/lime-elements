@@ -1,0 +1,79 @@
+name: Create Backport Branch
+
+on:
+  workflow_call:
+    inputs:
+      last_release_git_tag:
+        required: true
+        type: string
+      last_release_version:
+        required: true
+        type: string
+      new_release_version:
+        required: true
+        type: string
+      new_release_major_version:
+        required: true
+        type: string
+      new_release_minor_version:
+        required: true
+        type: string
+
+jobs:
+  create_branch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          persist-credentials: true
+
+      - name: Extract Last Release Major and Minor Versions
+        id: extract_last_versions
+        run: |
+          last_version='${{ inputs.last_release_version }}'
+          IFS='.' read -r last_major last_minor last_patch <<< "$last_version"
+          echo "last_major=$last_major" >> $GITHUB_OUTPUT
+          echo "last_minor=$last_minor" >> $GITHUB_OUTPUT
+
+      - name: Determine Bump Type
+        id: determine_bump
+        run: |
+          new_major='${{ inputs.new_release_major_version }}'
+          new_minor='${{ inputs.new_release_minor_version }}'
+          last_major='${{ steps.extract_last_versions.outputs.last_major }}'
+          last_minor='${{ steps.extract_last_versions.outputs.last_minor }}'
+
+          if [ "$new_major" -gt "$last_major" ]; then
+            echo "bump_type=major" >> $GITHUB_OUTPUT
+          elif [ "$new_major" -eq "$last_major" ] && [ "$new_minor" -gt "$last_minor" ]; then
+            echo "bump_type=minor" >> $GITHUB_OUTPUT
+          else
+            echo "bump_type=patch" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Determine Branch Name
+        id: determine_branch_name
+        run: |
+          bump_type='${{ steps.determine_bump.outputs.bump_type }}'
+          last_major='${{ steps.extract_last_versions.outputs.last_major }}'
+          last_minor='${{ steps.extract_last_versions.outputs.last_minor }}'
+
+          if [ "$bump_type" = "major" ]; then
+            branch_name="${last_major}.x.x"
+          elif [ "$bump_type" = "minor" ]; then
+            branch_name="${last_major}.${last_minor}.x"
+          else
+            branch_name=""
+          fi
+          echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
+
+      - name: Create Release Branch
+        if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
+        run: |
+          git fetch origin "refs/tags/${{ inputs.last_release_git_tag }}:refs/tags/${{ inputs.last_release_git_tag }}"
+          git checkout "${{ inputs.last_release_git_tag }}"
+          git checkout -b "${{ steps.determine_branch_name.outputs.branch_name }}"
+          git push origin "${{ steps.determine_branch_name.outputs.branch_name }}"
