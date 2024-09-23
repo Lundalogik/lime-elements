@@ -12,12 +12,6 @@ on:
       new_release_version:
         required: true
         type: string
-      new_release_major_version:
-        required: true
-        type: string
-      new_release_minor_version:
-        required: true
-        type: string
   workflow_call:
     inputs:
       last_release_git_tag:
@@ -27,12 +21,6 @@ on:
         required: true
         type: string
       new_release_version:
-        required: true
-        type: string
-      new_release_major_version:
-        required: true
-        type: string
-      new_release_minor_version:
         required: true
         type: string
 
@@ -50,11 +38,19 @@ jobs:
           echo "last_major=$last_major" >> $GITHUB_OUTPUT
           echo "last_minor=$last_minor" >> $GITHUB_OUTPUT
 
+      - name: Extract New Release Major and Minor Versions
+        id: extract_new_versions
+        run: |
+          new_version='${{ inputs.new_release_version }}'
+          IFS='.' read -r new_major new_minor new_patch <<< "$new_version"
+          echo "new_major=$new_major" >> $GITHUB_OUTPUT
+          echo "new_minor=$new_minor" >> $GITHUB_OUTPUT
+
       - name: Determine Bump Type
         id: determine_bump
         run: |
-          new_major='${{ inputs.new_release_major_version }}'
-          new_minor='${{ inputs.new_release_minor_version }}'
+          new_major='${{ steps.extract_new_versions.outputs.new_major }}'
+          new_minor='${{ steps.extract_new_versions.outputs.new_minor }}'
           last_major='${{ steps.extract_last_versions.outputs.last_major }}'
           last_minor='${{ steps.extract_last_versions.outputs.last_minor }}'
 

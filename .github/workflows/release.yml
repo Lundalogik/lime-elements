@@ -98,8 +98,6 @@ jobs:
       last_release_git_tag: ${{ needs.semantic-release.outputs.last_release_git_tag }}
       last_release_version: ${{ needs.semantic-release.outputs.last_release_version }}
       new_release_version: ${{ needs.semantic-release.outputs.new_release_version }}
-      new_release_major_version: ${{ needs.semantic-release.outputs.new_release_major_version }}
-      new_release_minor_version: ${{ needs.semantic-release.outputs.new_release_minor_version }}
 
 
 
