@@ -1,3 +1,11 @@
+## [37.61.8](https://github.com/Lundalogik/lime-elements/compare/v37.61.7...v37.61.8) (2024-09-23)
+
+
+### Bug Fixes
+
+
+* **icons:** size icons according to our size rhythms ([116080e](https://github.com/Lundalogik/lime-elements/commit/116080e7358406a7903092cf6bc2167b7bad2a1e))
+
 ## [37.61.7](https://github.com/Lundalogik/lime-elements/compare/v37.61.6...v37.61.7) (2024-09-23)
 
 
