@@ -1,3 +1,11 @@
+## [37.61.6](https://github.com/Lundalogik/lime-elements/compare/v37.61.5...v37.61.6) (2024-09-23)
+
+
+### Bug Fixes
+
+
+* **progress-flow:** increase lock icon visibility ([7d4d08b](https://github.com/Lundalogik/lime-elements/commit/7d4d08bdaefb12f9373b4d88143798147eacb5f6))
+
 ## [37.61.5](https://github.com/Lundalogik/lime-elements/compare/v37.61.4...v37.61.5) (2024-09-20)
 
 
