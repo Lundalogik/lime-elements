@@ -12,7 +12,7 @@ on:
         required: true
         type: string
       last_release_git_tag:
-        description: 'The git tag of the last release. Defaults to `v{last_release_version}`'
+        description: 'The git tag of the last release. Defaults to `v{last_release_version}`. Example: v1.2.3'
         required: false
         default: ''
         type: string
@@ -27,7 +27,7 @@ on:
         required: true
         type: string
       last_release_git_tag:
-        description: 'The git tag of the last release. Defaults to `v{last_release_version}`'
+        description: 'The git tag of the last release. Defaults to `v{last_release_version}`. Example: v1.2.3'
         required: false
         default: ''
         type: string
@@ -45,6 +45,8 @@ jobs:
           IFS='.' read -r last_major last_minor last_patch <<< "$last_version"
           echo "last_major=$last_major" >> $GITHUB_OUTPUT
           echo "last_minor=$last_minor" >> $GITHUB_OUTPUT
+          echo "last major: $last_major"
+          echo "last minor: $last_minor"
 
       - name: Extract New Release Major and Minor Versions
         id: extract_new_versions
@@ -53,6 +55,8 @@ jobs:
           IFS='.' read -r new_major new_minor new_patch <<< "$new_version"
           echo "new_major=$new_major" >> $GITHUB_OUTPUT
           echo "new_minor=$new_minor" >> $GITHUB_OUTPUT
+          echo "new major: $new_major"
+          echo "new minor: $new_minor"
 
       - name: Determine Bump Type
         id: determine_bump
@@ -64,10 +68,13 @@ jobs:
 
           if [ "$new_major" -gt "$last_major" ]; then
             echo "bump_type=major" >> $GITHUB_OUTPUT
+            echo "bump type is `major`"
           elif [ "$new_major" -eq "$last_major" ] && [ "$new_minor" -gt "$last_minor" ]; then
             echo "bump_type=minor" >> $GITHUB_OUTPUT
+            echo "bump type is `minor`"
           else
             echo "bump_type=patch" >> $GITHUB_OUTPUT
+            echo "bump type is `patch` or other"
           fi
 
       - name: Determine Branch Name
@@ -85,16 +92,19 @@ jobs:
             branch_name=""
           fi
           echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
+          echo "branch name: $branch_name"
 
       - name: Set Last Release Git Tag
         id: set_git_tag
         if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
         run: |
           if [ -z "${{ inputs.last_release_git_tag }}" ]; then
-            echo "last_release_git_tag=v${{ inputs.last_release_version }}" >> $GITHUB_OUTPUT
+            git_tag="v${{ inputs.last_release_version }}"
           else
-            echo "last_release_git_tag=${{ inputs.last_release_git_tag }}" >> $GITHUB_OUTPUT
+            git_tag="${{ inputs.last_release_git_tag }}"
           fi
+          echo "last_release_git_tag=${git_tag}" >> $GITHUB_OUTPUT
+          echo "last release git tag: ${git_tag}"
 
       - name: Checkout Code
         if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
@@ -109,3 +119,4 @@ jobs:
           git checkout "${{ steps.set_git_tag.outputs.last_release_git_tag }}"
           git checkout -b "${{ steps.determine_branch_name.outputs.branch_name }}"
           git push origin "${{ steps.determine_branch_name.outputs.branch_name }}"
+          echo "branch created: ${{ steps.determine_branch_name.outputs.branch_name }}"
