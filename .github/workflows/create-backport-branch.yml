@@ -1,6 +1,23 @@
 name: Create Backport Branch
 
 on:
+  workflow_dispatch:
+    inputs:
+      last_release_git_tag:
+        required: true
+        type: string
+      last_release_version:
+        required: true
+        type: string
+      new_release_version:
+        required: true
+        type: string
+      new_release_major_version:
+        required: true
+        type: string
+      new_release_minor_version:
+        required: true
+        type: string
   workflow_call:
     inputs:
       last_release_git_tag:
