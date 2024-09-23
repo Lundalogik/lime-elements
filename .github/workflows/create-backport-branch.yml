@@ -3,25 +3,33 @@ name: Create Backport Branch
 on:
   workflow_dispatch:
     inputs:
-      last_release_git_tag:
-        required: true
-        type: string
       last_release_version:
+        description: 'The version of the last release. Example: 1.2.3'
         required: true
         type: string
       new_release_version:
+        description: 'The version of the new release. Example: 1.3.0'
         required: true
+        type: string
+      last_release_git_tag:
+        description: 'The git tag of the last release. Defaults to `v{last_release_version}`'
+        required: false
+        default: ''
         type: string
   workflow_call:
     inputs:
-      last_release_git_tag:
-        required: true
-        type: string
       last_release_version:
+        description: 'The version of the last release. Example: 1.2.3'
         required: true
         type: string
       new_release_version:
+        description: 'The version of the new release. Example: 1.3.0'
         required: true
+        type: string
+      last_release_git_tag:
+        description: 'The git tag of the last release. Defaults to `v{last_release_version}`'
+        required: false
+        default: ''
         type: string
 
 jobs:
@@ -78,6 +86,16 @@ jobs:
           fi
           echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
 
+      - name: Set Last Release Git Tag
+        id: set_git_tag
+        if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
+        run: |
+          if [ -z "${{ inputs.last_release_git_tag }}" ]; then
+            echo "last_release_git_tag=v${{ inputs.last_release_version }}" >> $GITHUB_OUTPUT
+          else
+            echo "last_release_git_tag=${{ inputs.last_release_git_tag }}" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout Code
         if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -87,7 +105,7 @@ jobs:
       - name: Create Release Branch
         if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
         run: |
-          git fetch origin "refs/tags/${{ inputs.last_release_git_tag }}:refs/tags/${{ inputs.last_release_git_tag }}"
-          git checkout "${{ inputs.last_release_git_tag }}"
+          git fetch origin "refs/tags/${{ steps.set_git_tag.outputs.last_release_git_tag }}:refs/tags/${{ steps.set_git_tag.outputs.last_release_git_tag }}"
+          git checkout "${{ steps.set_git_tag.outputs.last_release_git_tag }}"
           git checkout -b "${{ steps.determine_branch_name.outputs.branch_name }}"
           git push origin "${{ steps.determine_branch_name.outputs.branch_name }}"
