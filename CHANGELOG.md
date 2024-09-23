@@ -1,3 +1,11 @@
+## [37.61.7](https://github.com/Lundalogik/lime-elements/compare/v37.61.6...v37.61.7) (2024-09-23)
+
+
+### Bug Fixes
+
+
+* **button:** increase accessibility for loading button ([0a389b3](https://github.com/Lundalogik/lime-elements/commit/0a389b3e2d3ebc211bf052bf7c88b0cf92606306))
+
 ## [37.61.6](https://github.com/Lundalogik/lime-elements/compare/v37.61.5...v37.61.6) (2024-09-23)
 
 
