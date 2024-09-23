@@ -68,13 +68,13 @@ jobs:
 
           if [ "$new_major" -gt "$last_major" ]; then
             echo "bump_type=major" >> $GITHUB_OUTPUT
-            echo "bump type is `major`"
+            echo 'bump type is `major`'
           elif [ "$new_major" -eq "$last_major" ] && [ "$new_minor" -gt "$last_minor" ]; then
             echo "bump_type=minor" >> $GITHUB_OUTPUT
-            echo "bump type is `minor`"
+            echo 'bump type is `minor`'
           else
             echo "bump_type=patch" >> $GITHUB_OUTPUT
-            echo "bump type is `patch` or other"
+            echo 'bump type is `patch` or other'
           fi
 
       - name: Determine Branch Name
