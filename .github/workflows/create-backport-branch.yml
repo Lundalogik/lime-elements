@@ -25,11 +25,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-        with:
-          persist-credentials: true
-
       - name: Extract Last Release Major and Minor Versions
         id: extract_last_versions
         run: |
@@ -69,6 +64,12 @@ jobs:
             branch_name=""
           fi
           echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
+
+      - name: Checkout Code
+        if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          persist-credentials: true
 
       - name: Create Release Branch
         if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
