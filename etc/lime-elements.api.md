@@ -221,6 +221,7 @@ export namespace Components {
         "type"?: ChipType;
     }
     export interface LimelChipSet {
+        "autocomplete": string;
         "clearAllButton": boolean;
         "delimiter": string;
         "disabled": boolean;
@@ -1153,6 +1154,7 @@ namespace JSX_2 {
         "type"?: ChipType;
     }
     interface LimelChipSet {
+        "autocomplete"?: string;
         "clearAllButton"?: boolean;
         "delimiter"?: string;
         "disabled"?: boolean;
