@@ -94,6 +94,8 @@ export class Button {
                         outlined: this.outlined,
                     }}
                     disabled={this.disabled || this.loading}
+                    aria-busy={this.loading ? 'true' : 'false'}
+                    aria-live="polite"
                 >
                     {this.renderIcon()}
                     {this.renderLabel()}
