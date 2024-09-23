@@ -106,4 +106,4 @@
   );--mdc-theme-on-surface:var(
       --lime-on-surface-color,
       rgb(var(--contrast-1500))
-  );--lime-elevated-surface-background-color:rgb(var(--contrast-100))}
+  );--lime-elevated-surface-background-color:rgb(var(--contrast-100))}.limel-portal--container{font-family:var(--limel-portal-font-family, inherit);opacity:0;display:none}.limel-portal--container.is-visible{opacity:1;display:inline-block}
