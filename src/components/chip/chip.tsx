@@ -239,6 +239,8 @@ export class Chip implements ChipInterface {
                 class="chip"
                 role="button"
                 disabled={this.disabled || this.readonly}
+                aria-busy={this.loading ? 'true' : 'false'}
+                aria-live="polite"
                 onKeyDown={this.handleDeleteKeyDown}
             >
                 {this.renderSpinner()}
