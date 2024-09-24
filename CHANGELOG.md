@@ -1,3 +1,11 @@
+## [37.61.9](https://github.com/Lundalogik/lime-elements/compare/v37.61.8...v37.61.9) (2024-09-24)
+
+
+### Bug Fixes
+
+
+* **chip:** improve accessibility while loading ([a49d6cb](https://github.com/Lundalogik/lime-elements/commit/a49d6cb54ba437fe6eb5f3f13d8bc4dee98f52c7))
+
 ## [37.61.8](https://github.com/Lundalogik/lime-elements/compare/v37.61.7...v37.61.8) (2024-09-23)
 
 
