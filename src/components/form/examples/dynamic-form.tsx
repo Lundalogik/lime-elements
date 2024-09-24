@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 import { FormSchema, ValidationStatus } from '@limetech/lime-elements';
 
 /**
@@ -44,18 +44,27 @@ export class DynamicFormExample {
     }
 
     public render() {
-        return [
-            <textarea onChange={this.handleTextChange}>{this.text}</textarea>,
-            <br />,
-            <limel-form
-                onChange={this.handleFormChange}
-                onValidate={this.handleValidate}
-                value={this.formData}
-                schema={this.schema}
-            />,
-            <limel-example-value value={this.formData} />,
-            <limel-example-value label="Errors" value={this.errors} />,
-        ];
+        return (
+            <Host>
+                <limel-code-editor
+                    language="json"
+                    lineNumbers={true}
+                    lint={true}
+                    fold={true}
+                    onChange={this.handleTextChange}
+                    value={this.text}
+                />
+                <br />
+                <limel-form
+                    onChange={this.handleFormChange}
+                    onValidate={this.handleValidate}
+                    value={this.formData}
+                    schema={this.schema}
+                />
+                <limel-example-value value={this.formData} />
+                <limel-example-value label="Errors" value={this.errors} />
+            </Host>
+        );
     }
 
     private handleFormChange = (event: CustomEvent) => {
@@ -63,9 +72,9 @@ export class DynamicFormExample {
     };
 
     private handleTextChange = (event) => {
-        this.text = event.target.value;
+        this.text = event.detail;
         try {
-            const json = JSON.parse(event.target.value);
+            const json = JSON.parse(event.detail);
             if (json) {
                 this.schema = json;
             }
