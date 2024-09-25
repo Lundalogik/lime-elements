@@ -23,13 +23,6 @@ import { OpenDirection } from '../menu/menu.types';
  * dismissed by tapping or clicking another part of the screen, but not by a
  * clicking a button or link on the popover itself.
  *
- * :::warning
- * The component is emitting a close event when you click outside its container
- * or press the <kbd>Esc</kbd> key. However, it’s up to you as consumer to react
- * properly on this event and hide the component (preferably by setting the
- * property `open` to `false`).
- * :::
- *
  * ## Usage
  * Use a popover to show **options** or **information** related to the trigger
  * onscreen. A typical use case for popovers is a tooltip, in which you show
@@ -61,7 +54,7 @@ import { OpenDirection } from '../menu/menu.types';
  * :::
  *
  * @slot - Content to put inside the surface
- * @exampleComponent limel-example-popover
+ * @exampleComponent limel-example-popover-basic
  */
 @Component({
     tag: 'limel-popover',

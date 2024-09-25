@@ -1,11 +1,32 @@
 import { Component, h, State } from '@stencil/core';
 
+/**
+ * Basic example
+ * This example shows a simple trigger element that opens a popover when clicked.
+ *
+ * :::note
+ * Due accessibility concerns, the trigger element should be something that can be
+ * interacted with, using both mouse click and the <kbd>  spacebar  </kbd>
+ * or the <kbd>↩ return</kbd> key on the keyboard.
+ *
+ * This is why we are using a `limel-button` element as the trigger in this example,
+ * which is both accessible with mouse and keyboard.
+ * :::
+ *
+ * :::warning
+ * The component is emitting a close event when you click outside its container
+ * or press the <kbd>Esc</kbd> key. However, it’s up to you as consumer to react
+ * properly on this event and hide the component (preferably by setting the
+ * property `open` to `false`).
+ * :::
+ */
+
 @Component({
-    tag: 'limel-example-popover',
+    tag: 'limel-example-popover-basic',
     shadow: true,
-    styleUrl: 'popover.scss',
+    styleUrl: 'popover-basic.scss',
 })
-export class PopoverExample {
+export class PopoverBasicExample {
     @State()
     private isOpen = false;
 
