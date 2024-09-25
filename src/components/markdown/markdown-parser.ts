@@ -38,7 +38,9 @@ export async function markdownToHTML(
         .use(remarkParse)
         .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeExternalLinks, { target: '_blank' })
+        .use(rehypeExternalLinks, {
+            target: '_blank',
+        })
         .use(rehypeRaw)
         .use(rehypeSanitize, {
             ...getWhiteList(options?.whitelist ?? []),
@@ -67,6 +69,7 @@ function getWhiteList(allowedComponents: CustomElement[]): Schema {
             ...defaultSchema.attributes,
             p: [['className', 'MsoNormal']], // Allow the class 'MsoNormal' on <p> elements
             '*': ['style', 'width'], // Allow `style` and 'width' attribute on all elements
+            a: ['href', 'target'], // Allow `target`, `href` on <a> elements
         },
     };
 
