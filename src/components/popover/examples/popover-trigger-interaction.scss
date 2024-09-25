@@ -1,0 +1,30 @@
+div[slot='trigger'] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.opening-countdown-indicator {
+    // For inspiration only!
+    // Here we created a CSS-only countdown indicator
+    // which informs the users if they wait long enough while hovering,
+    // they can expect something to happen.
+    display: block;
+    height: 0.125rem;
+    background-color: rgb(var(--color-sky-light));
+    border-radius: 1rem;
+
+    transition:
+        width ease-out,
+        opacity ease;
+    transition-duration: 260ms;
+    opacity: 0;
+    width: 0%;
+
+    div[slot='trigger']:not([aria-expanded='true']):has(limel-chip:hover) & {
+        transition-duration: var(--popover-timeout);
+        opacity: 1;
+        width: calc(100% - 1rem);
+    }
+}
