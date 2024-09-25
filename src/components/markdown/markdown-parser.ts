@@ -40,6 +40,7 @@ export async function markdownToHTML(
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeExternalLinks, {
             target: '_blank',
+            rel: ['noopener', 'noreferrer'],
         })
         .use(rehypeRaw)
         .use(rehypeSanitize, {
@@ -69,7 +70,7 @@ function getWhiteList(allowedComponents: CustomElement[]): Schema {
             ...defaultSchema.attributes,
             p: [['className', 'MsoNormal']], // Allow the class 'MsoNormal' on <p> elements
             '*': ['style', 'width'], // Allow `style` and 'width' attribute on all elements
-            a: ['href', 'target'], // Allow `target`, `href` on <a> elements
+            a: ['href', 'target', 'rel'], // Allow `target`, `rel` and `href` on <a> elements
         },
     };
 
