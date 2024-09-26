@@ -1,3 +1,11 @@
+## [37.61.10](https://github.com/Lundalogik/lime-elements/compare/v37.61.9...v37.61.10) (2024-09-26)
+
+
+### Bug Fixes
+
+
+* **markdown:** fix broken default config - allow target attribute on links and more ([232f744](https://github.com/Lundalogik/lime-elements/commit/232f744581170e354edc841eb68db02c7211f31b)), closes [Lundalogik/crm-feature#4348](https://github.com/Lundalogik/crm-feature/issues/4348)
+
 ## [37.61.9](https://github.com/Lundalogik/lime-elements/compare/v37.61.8...v37.61.9) (2024-09-24)
 
 
