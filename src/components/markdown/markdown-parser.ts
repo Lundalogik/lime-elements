@@ -65,8 +65,11 @@ function getWhiteList(allowedComponents: CustomElement[]): Schema {
         ],
         attributes: {
             ...defaultSchema.attributes,
-            p: [['className', 'MsoNormal']], // Allow the class 'MsoNormal' on <p> elements
-            '*': ['style', 'width'], // Allow `style` and 'width' attribute on all elements
+            p: [
+                ...(defaultSchema.attributes.p ?? []),
+                ['className', 'MsoNormal'],
+            ], // Allow the class 'MsoNormal' on <p> elements
+            '*': [...(defaultSchema.attributes['*'] ?? []), 'style'], // Allow `style` attribute on all elements
         },
     };
 
