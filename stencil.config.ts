@@ -32,8 +32,12 @@ export const config: Config = {
             copy: [
                 { src: 'style/color-palette-extended.css' },
                 {
-                    src: 'test-assets/',
-                    dest: 'assets/',
+                    src: 'test-assets/icons',
+                    dest: 'assets/icons',
+                },
+                {
+                    src: 'test-assets/misc-files',
+                    dest: 'assets/misc-files',
                 },
                 {
                     src: '../node_modules/kompendium/dist/',
@@ -41,7 +45,7 @@ export const config: Config = {
                 },
                 {
                     src: 'favicon.svg',
-                    dest: 'favicon.svg',
+                    dest: '.',
                 },
             ],
         },

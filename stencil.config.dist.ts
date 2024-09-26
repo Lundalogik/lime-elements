@@ -9,7 +9,7 @@ export const config: Config = {
             type: 'dist',
             copy: [
                 { src: 'style/' },
-                { src: 'style/mixins.scss', dest: '../scss/mixins.scss' },
+                { src: 'style/mixins.scss', dest: '../scss/' },
             ],
         },
     ],
