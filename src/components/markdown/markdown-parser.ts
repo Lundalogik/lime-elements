@@ -1,6 +1,7 @@
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import * as parse5 from 'parse5';
 import remarkGfm from 'remark-gfm';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
@@ -37,6 +38,17 @@ export async function markdownToHTML(
     const file = await unified()
         .use(remarkParse)
         .use(remarkGfm)
+        .use(() => {
+            return (tree: Node) => {
+                // Run the parse5.serialize function on all html elements,
+                // to minify it to get rid of extra whitespace that causes rendering issues
+                // when elements are opened/closed with empty lines between them.
+                visit(tree, 'html', (node: any) => {
+                    const documentFragment = parse5.parseFragment(node.value);
+                    node.value = parse5.serialize(documentFragment);
+                });
+            };
+        })
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeExternalLinks, { target: '_blank' })
         .use(rehypeRaw)
