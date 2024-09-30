@@ -1,3 +1,11 @@
+## [37.62.0](https://github.com/Lundalogik/lime-elements/compare/v37.61.10...v37.62.0) (2024-09-30)
+
+
+### Features
+
+
+* **chip-set:** add `autocomplete` as a prop for `input` type ([798ceaf](https://github.com/Lundalogik/lime-elements/commit/798ceaffd62fa59211ddec4e950cc8c2e7e9d5da))
+
 ## [37.61.10](https://github.com/Lundalogik/lime-elements/compare/v37.61.9...v37.61.10) (2024-09-26)
 
 

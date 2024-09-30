@@ -178,6 +178,14 @@ export class ChipSet {
     public delimiter: string = null;
 
     /**
+     * For chip-set of type `input`, defines whether the input field should have autocomplete enabled.
+     * Read more about the `autocomplete` attribute
+     * [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete).
+     */
+    @Prop({ reflect: true })
+    public autocomplete: string = 'off';
+
+    /**
      * Defines the language for translations.
      * Will translate the translatable strings on the components. For example, the clear all chips label.
      */
@@ -424,6 +432,7 @@ export class ChipSet {
                     onChange={this.inputFieldOnChange}
                     placeholder={this.isFull() ? '' : this.searchLabel}
                     readonly={this.isFull()}
+                    autocomplete={this.autocomplete}
                 />
                 <div
                     class={{
