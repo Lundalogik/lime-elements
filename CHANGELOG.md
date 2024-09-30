@@ -1,3 +1,11 @@
+## [37.62.1](https://github.com/Lundalogik/lime-elements/compare/v37.62.0...v37.62.1) (2024-09-30)
+
+
+### Bug Fixes
+
+
+* **components:** animate showing & hiding popover-, tooltip-, & menu surfaces ([71edb3d](https://github.com/Lundalogik/lime-elements/commit/71edb3d2e7434e27004e15867fd26687c2f29e6a))
+
 ## [37.62.0](https://github.com/Lundalogik/lime-elements/compare/v37.61.10...v37.62.0) (2024-09-30)
 
 
