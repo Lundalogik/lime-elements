@@ -1,0 +1,22 @@
+:host(limel-example-chart-styling) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+limel-chart {
+    &[type='bar'] {
+        --chart-item-border-radius: 0.5rem;
+        height: 20rem;
+    }
+
+    &[type='stacked-bar'] {
+        --chart-stacked-item-divider-color: transparent;
+        --chart-item-border-radius: 1rem;
+    }
+}
+
+hr {
+    opacity: 0.3;
+    width: 100%;
+}
