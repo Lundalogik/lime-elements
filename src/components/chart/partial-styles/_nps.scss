@@ -1,0 +1,121 @@
+:host(limel-chart[type='nps']) {
+    --limel-chart-nps-gauge-angel: 220deg;
+    $detractors: rgb(var(--color-coral-default)) 0deg
+        calc(var(--limel-chart-nps-gauge-angel) / 2);
+    $passives: rgb(var(--color-amber-light))
+        calc(var(--limel-chart-nps-gauge-angel) / 2)
+        calc(var(--limel-chart-nps-gauge-angel) * 0.65);
+    $promoters-good: rgb(var(--color-lime-light))
+        calc(var(--limel-chart-nps-gauge-angel) * 0.65)
+        calc(var(--limel-chart-nps-gauge-angel) * 0.85);
+    $promoters-excellent: rgb(var(--color-lime-default))
+        calc(var(--limel-chart-nps-gauge-angel) * 0.85)
+        var(--limel-chart-nps-gauge-angel);
+    $thickness-of-colorful-area: min(3rem, 20%);
+
+    table {
+        min-height: 4rem;
+        min-width: 4rem;
+    }
+
+    .chart {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        aspect-ratio: 1;
+        margin: auto;
+
+        width: unset;
+        height: unset;
+        max-width: 100%;
+        max-height: 100%;
+        rotate: calc(var(--limel-chart-nps-gauge-angel) / 2 * -1);
+        transform: translate(-15%, -5%); // values depend on `rotate` above
+
+        &:before,
+        &:after {
+            content: '';
+            aspect-ratio: 1;
+            position: absolute;
+            border-radius: 50%;
+            z-index: -1;
+            min-height: 0;
+            min-width: 0;
+        }
+        &:before {
+            height: 100%;
+            max-height: 100%;
+            background: conic-gradient(
+                $detractors,
+                $passives,
+                $promoters-good,
+                $promoters-excellent,
+                transparent var(--limel-chart-nps-gauge-angel)
+            );
+        }
+        &:after {
+            height: calc(100% - ($thickness-of-colorful-area * 2));
+            max-height: calc(100% - ($thickness-of-colorful-area * 2));
+            background: conic-gradient(
+                var(--chart-background-color, rgb(var(--contrast-100))) 0deg
+                    var(--limel-chart-nps-gauge-angel),
+                transparent var(--limel-chart-nps-gauge-angel)
+            );
+        }
+    }
+
+    .item {
+        $item-rotation-angel: calc(
+            (var(--limel-chart-item-value) + 100) / 200 *
+                var(--limel-chart-nps-gauge-angel)
+        );
+
+        @include mixins.visualize-keyboard-focus;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+
+        border-radius: 0.5rem;
+        position: absolute;
+        height: calc(50% - $thickness-of-colorful-area + 0.5rem);
+        width: 0.5rem;
+        transform: translateY(-50%) rotate($item-rotation-angel);
+        transform-origin: bottom;
+
+        &:hover,
+        &:focus-visible {
+            @include line(vertical);
+        }
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+        }
+        &:before {
+            transform: translateY(-60%);
+            width: 0.4rem;
+            border-radius: 1rem;
+            border-color: var(--limel-chart-item-color, $default-item-color);
+            border-style: solid;
+            border-bottom-width: 1.75rem;
+            border-right-color: transparent;
+            border-left-color: transparent;
+            border-top-color: transparent;
+        }
+        &:after {
+            border-radius: 50%;
+            background-color: var(
+                --limel-chart-item-color,
+                $default-item-color
+            );
+            aspect-ratio: 1;
+            height: clamp(0.75rem, 10%, 1.25rem);
+
+            border: 0.125rem solid rgb(var(--contrast-100), 0.8);
+            box-shadow: var(--shadow-depth-8);
+        }
+    }
+}

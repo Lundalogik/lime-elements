@@ -61,6 +61,14 @@ export interface Button {
 // @public
 export type CalloutType = 'note' | 'important' | 'tip' | 'caution' | 'warning';
 
+// @beta
+export interface ChartItem<T extends number | [number, number] = number | [number, number]> {
+    color?: string;
+    formattedValue?: string;
+    text: string;
+    value: T;
+}
+
 // @public (undocumented)
 export interface Chip<T = any> {
     badge?: number;
@@ -188,6 +196,26 @@ export namespace Components {
         "icon"?: string;
         "language": Languages;
         "type"?: CalloutType;
+    }
+    // @beta
+    export interface LimelChart {
+        "accessibleItemsLabel"?: string;
+        "accessibleLabel"?: string;
+        "axisIncrement"?: number;
+        "items": ChartItem[];
+        "language": Languages;
+        "loading": boolean;
+        "maxValue"?: number;
+        "orientation"?: 'landscape' | 'portrait';
+        "type"?: | 'area'
+        | 'bar'
+        | 'doughnut'
+        | 'line'
+        | 'nps'
+        | 'pie'
+        | 'ring'
+        | 'dot'
+        | 'stacked-bar';
     }
     export interface LimelCheckbox {
         "checked": boolean;
@@ -957,6 +985,10 @@ namespace JSX_2 {
         "limel-button-group": LimelButtonGroup;
         // (undocumented)
         "limel-callout": LimelCallout;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-chart"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-chart": LimelChart;
         // (undocumented)
         "limel-checkbox": LimelCheckbox;
         // (undocumented)
@@ -1133,6 +1165,26 @@ namespace JSX_2 {
         "icon"?: string;
         "language"?: Languages;
         "type"?: CalloutType;
+    }
+    // @beta
+    interface LimelChart {
+        "accessibleItemsLabel"?: string;
+        "accessibleLabel"?: string;
+        "axisIncrement"?: number;
+        "items": ChartItem[];
+        "language"?: Languages;
+        "loading"?: boolean;
+        "maxValue"?: number;
+        "orientation"?: 'landscape' | 'portrait';
+        "type"?: | 'area'
+        | 'bar'
+        | 'doughnut'
+        | 'line'
+        | 'nps'
+        | 'pie'
+        | 'ring'
+        | 'dot'
+        | 'stacked-bar';
     }
     interface LimelCheckbox {
         "checked"?: boolean;

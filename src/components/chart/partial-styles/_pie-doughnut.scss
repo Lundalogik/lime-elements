@@ -1,0 +1,48 @@
+:host(limel-chart[type='pie']),
+:host(limel-chart[type='doughnut']) {
+    .item {
+        background: conic-gradient(
+            transparent 0 calc(var(--limel-chart-item-offset) * 1%),
+            var(--limel-chart-item-color, $default-item-color)
+                calc(var(--limel-chart-item-offset) * 1%)
+                calc(
+                    var(--limel-chart-item-offset) * 1% +
+                        var(--limel-chart-item-size) * 1%
+                ),
+            transparent
+                calc(
+                    var(--limel-chart-item-offset) * 1% +
+                        var(--limel-chart-item-size) * 1%
+                )
+        );
+        &:focus,
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    .item {
+        // A hack that disabled the tooltips.
+        // this is because items are absolutely positioned
+        // and stacked on top of each other.
+        // This makes means the tooltip of the top-most layer is
+        // the one that is shown. Layers below it are
+        // not hoverable, and I don't know how to fix that yer.
+        pointer-events: none;
+    }
+}
+
+:host(limel-chart[type='doughnut']) {
+    .chart:after {
+        aspect-ratio: 1;
+        content: '';
+        position: absolute;
+        inset: 0;
+        margin: auto;
+
+        max-width: 60%;
+        max-height: 60%;
+        border-radius: 50%;
+        background-color: rgb(var(--contrast-100));
+    }
+}
