@@ -20,7 +20,7 @@ import { ListSeparator } from 'src/components/list/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
 import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
-import { markdownConverter } from '../utils/markdown-converter';
+import { MarkdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
 import {
     EditorMenuTypes,
@@ -40,6 +40,8 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
+import { NodeConfig } from '../types';
+import { createNodeSpec } from '../utils/plugin-factory';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -77,6 +79,13 @@ export class ProsemirrorAdapter {
      */
     @Prop({ reflect: true })
     public language: Languages;
+
+    /**
+     * @private
+     * set to private to avoid usage while under development
+     */
+    @Prop()
+    plugins: NodeConfig[] = [];
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -222,7 +231,7 @@ export class ProsemirrorAdapter {
 
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
-            this.contentConverter = new markdownConverter();
+            this.contentConverter = new MarkdownConverter(this.plugins);
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter();
         } else {
@@ -272,8 +281,18 @@ export class ProsemirrorAdapter {
     }
 
     private initializeSchema() {
+        let nodes = schema.spec.nodes;
+
+        this.plugins.forEach((plugin) => {
+            const newNodeSpec = createNodeSpec(plugin);
+            const nodeName = plugin.tagName;
+
+            nodes = nodes.append({ [nodeName]: newNodeSpec });
+        });
+        nodes = addListNodes(nodes, 'paragraph block*', 'block');
+
         return new Schema({
-            nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+            nodes: nodes,
             marks: schema.spec.marks.append({
                 strikethrough: strikethrough,
             }),

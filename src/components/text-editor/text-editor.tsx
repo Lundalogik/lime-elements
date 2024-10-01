@@ -2,6 +2,8 @@ import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
+import { NodeConfig } from './types';
+
 /**
  * A rich text editor that offers a rich text editing experience with markdown support,
  * in the sense that you can easily type markdown syntax and see the rendered
@@ -94,6 +96,13 @@ export class TextEditor implements FormComponent<string> {
     public value: string;
 
     /**
+     * @private
+     * set to private to avoid usage while under development
+     */
+    @Prop()
+    public plugins: NodeConfig[] = [];
+
+    /**
      * Set to `true` to indicate that the field is required.
      *
      * :::important
@@ -180,6 +189,7 @@ export class TextEditor implements FormComponent<string> {
                 aria-placeholder={this.placeholder}
                 contentType={this.contentType}
                 onChange={this.handleChange}
+                plugins={this.plugins}
                 value={this.value}
                 aria-controls={this.helperTextId}
                 id={this.editorId}
