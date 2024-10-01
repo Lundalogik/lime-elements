@@ -1,0 +1,46 @@
+:host(limel-chart[type='pie']),
+:host(limel-chart[type='doughnut']),
+:host(limel-chart[type='ring']) {
+    table {
+        min-height: 2rem;
+        min-width: 2rem;
+    }
+
+    .chart,
+    .item {
+        aspect-ratio: 1;
+        display: flex;
+        margin: auto;
+    }
+
+    .chart {
+        justify-content: center;
+        align-items: center;
+
+        &:before {
+            aspect-ratio: 1;
+            content: '';
+            position: absolute;
+            z-index: 0;
+            inset: 0;
+            margin: auto;
+
+            border-radius: 50%;
+            max-width: 100%;
+            max-height: 100%;
+            background-color: var(
+                --chart-background-color,
+                rgb(var(--contrast-200))
+            );
+        }
+    }
+
+    .item {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 50%;
+
+        position: absolute;
+        inset: 0;
+    }
+}

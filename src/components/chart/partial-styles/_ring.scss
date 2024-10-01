@@ -1,0 +1,72 @@
+:host(limel-chart[type='ring']) {
+    .chart {
+        &:after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            aspect-ratio: 1;
+            border-radius: 50%;
+
+            max-height: calc(
+                100% - var(--limel-chart-number-of-items) *
+                    (100% / (var(--limel-chart-number-of-items) + 1))
+            );
+            max-width: calc(
+                100% - var(--limel-chart-number-of-items) *
+                    (100% / (var(--limel-chart-number-of-items) + 1))
+            );
+
+            background-color: var(
+                --limel-chart-background-color,
+                rgb(var(--contrast-200))
+            );
+        }
+
+        &:has(.item:hover),
+        &:has(.item:focus-visible) {
+            .item {
+                opacity: 1;
+                filter: grayscale(1);
+            }
+        }
+    }
+
+    .chart:after,
+    .item {
+        margin: auto;
+        border: 1px solid
+            var(--limel-chart-background-color, rgb(var(--contrast-400)));
+    }
+
+    .item {
+        @include mixins.visualize-keyboard-focus;
+
+        background: conic-gradient(
+            var(--limel-chart-item-color, $default-item-color) 0
+                calc(
+                    var(--limel-chart-item-offset) * 1% +
+                        var(--limel-chart-item-size) * 1%
+                ),
+            var(--chart-background-color, rgb(var(--contrast-200)))
+                calc(
+                    var(--limel-chart-item-offset) * 1% +
+                        var(--limel-chart-item-size) * 1%
+                )
+        );
+
+        max-width: calc(
+            100% - var(--limel-chart-item-index) *
+                (100% / (var(--limel-chart-number-of-items) + 1))
+        );
+
+        max-height: calc(
+            100% - var(--limel-chart-item-index) *
+                (100% / (var(--limel-chart-number-of-items) + 1))
+        );
+
+        &:focus-visible,
+        &:hover {
+            filter: grayscale(0) !important;
+        }
+    }
+}

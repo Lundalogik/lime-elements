@@ -1,0 +1,127 @@
+@use '../../style/mixins';
+$min-item-size: 0.5rem;
+$default-item-color: var(--chart-item-color, rgb(var(--contrast-1100), 0.8));
+
+/**
+* @prop --chart-background-color: Defines the background color of the chart. Defaults to `transparent` for _most_ chart types.
+* @prop --chart-item-color: If no color is defined for chart items, this color will be use. Defaults to `rgb(var(--contrast-1100), 0.8)`.
+* @prop --chart-item-divider-color: Defines the color that visually separates items in some charts, such as `stacked-bar` chart items. Defaults to `rgb(var(--color-white), 0.6)`.
+* @prop --chart-axis-line-color: Defines color of the axis lines. Defaults to `--contrast-900`. Note that lines have opacity as well, and get opaque on hover.
+* @prop --chart-item-border-radius: Defines the roundness of corners of items in a chart. Defaults to different values depending on the chart type. Does not have any effect on `pie` and `doughnut` types.
+*/
+
+:host(limel-chart) {
+    --chart-axis-line-color: var(
+        --limel-chart-axis-line-color,
+        rgb(var(--contrast-900))
+    );
+    box-sizing: border-box;
+    isolation: isolate;
+
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: var(--limel-chart-padding);
+}
+
+table {
+    // Since these are mainly "resets", no styles should be before them.
+    all: unset;
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    colgroup,
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+        all: unset;
+    }
+
+    caption,
+    colgroup,
+    thead,
+    tfoot,
+    th,
+    td {
+        @include mixins.visually-hidden;
+    }
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.chart {
+    position: relative;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+
+    &:has(.item:hover),
+    &:has(.item:focus-visible) {
+        .item {
+            opacity: 0.4;
+        }
+    }
+}
+
+.item {
+    transition:
+        background-color 0.2s ease,
+        filter 0.2s ease,
+        opacity 0.4s ease;
+    cursor: help;
+
+    &:focus-visible,
+    &:hover {
+        opacity: 1 !important;
+    }
+}
+
+limel-spinner {
+    margin: auto;
+}
+
+@mixin line(
+    $direction: vertical,
+    $color: rgb(var(--contrast-800), 0.4),
+    $position: center
+) {
+    @if $direction == vertical {
+        background: linear-gradient(to bottom, $color 0%, $color 100%)
+            $position/1px
+            100%
+            no-repeat;
+    } @else if $direction == horizontal {
+        background: linear-gradient(to right, $color 0%, $color 100%)
+            $position/100%
+            1px
+            no-repeat;
+    }
+}
+
+@import './partial-styles/_layout-for-charts-with-x-y-axises';
+@import './partial-styles/_layout-for-charts-with-circular-shape';
+@import './partial-styles/_bar-gantt-dot';
+@import './partial-styles/_area_line';
+@import './partial-styles/_pie-doughnut';
+@import './partial-styles/_ring';
+@import './partial-styles/_stacked-bar';
+@import './partial-styles/_nps';
+@import './partial-styles/_axises';

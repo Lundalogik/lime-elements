@@ -1,0 +1,49 @@
+@use '../../../style/mixins';
+
+:host(limel-chart[type='stacked-bar']) {
+    .chart {
+        display: flex;
+        border-radius: 0.25rem;
+        overflow: hidden;
+        background-color: var(
+            --chart-background-color,
+            rgb(var(--contrast-800), 0.2)
+        );
+    }
+
+    .item {
+        @include mixins.visualize-keyboard-focus;
+        display: flex;
+        border-radius: var(--chart-item-border-radius, 0);
+        background: var(--limel-chart-item-color, $default-item-color);
+
+        &:last-of-type {
+            box-shadow: none !important;
+        }
+    }
+}
+
+:host(limel-chart[type='stacked-bar'][orientation='landscape']) {
+    .chart {
+        flex-direction: row;
+    }
+
+    .item {
+        min-height: 0.5rem;
+        width: calc(var(--limel-chart-item-size) * 1%);
+        box-shadow: -1px 0 0 0
+            var(--chart-item-divider-color, rgb(var(--color-white), 0.6)) inset;
+    }
+}
+
+:host(limel-chart[type='stacked-bar'][orientation='portrait']) {
+    .chart {
+        flex-direction: column-reverse;
+    }
+
+    .item {
+        min-width: 0.5rem;
+        height: calc(var(--limel-chart-item-size) * 1%);
+        box-shadow: 0 -1px 0 0 rgb(var(--color-white), 0.6) inset;
+    }
+}

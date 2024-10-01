@@ -1,0 +1,174 @@
+:host(limel-chart[type='area']),
+:host(limel-chart[type='line']) {
+    .item {
+        position: relative;
+
+        &:after {
+            // the dot
+            margin: auto;
+            width: $min-item-size;
+            height: $min-item-size;
+            border-radius: 50%;
+            border: 1px solid rgb(var(--contrast-100));
+        }
+
+        &:before {
+            // the line & area
+            inset: 0;
+        }
+
+        &:after,
+        &:before {
+            transition:
+                border-color 0.2s ease,
+                opacity 0.4s ease;
+            content: '';
+            position: absolute;
+            background: var(--limel-chart-item-color, $default-item-color);
+        }
+
+        &:hover,
+        &:focus-visible {
+            &:after {
+                border-color: transparent;
+            }
+        }
+    }
+}
+
+:host(limel-chart[type='line'][orientation='landscape']),
+:host(limel-chart[type='area'][orientation='landscape']) {
+    .item {
+        height: 100%;
+
+        &:after {
+            transform: translateX(-50%) translateY(50%);
+            left: 0;
+            bottom: calc(
+                (var(--limel-chart-item-size) + var(--limel-chart-item-offset)) *
+                    1%
+            );
+        }
+    }
+}
+
+:host(limel-chart[type='line'][orientation='portrait']),
+:host(limel-chart[type='area'][orientation='portrait']) {
+    .item {
+        width: 100%;
+
+        &:after {
+            transform: translateX(-50%) translateY(-50%);
+            left: calc(
+                (var(--limel-chart-item-size) + var(--limel-chart-item-offset)) *
+                    1%
+            );
+        }
+    }
+}
+
+// Area chart
+
+:host(limel-chart[type='area']) {
+    .item {
+        &:after {
+            opacity: 0;
+        }
+
+        &:hover,
+        &:focus-visible {
+            &:after {
+                opacity: 1;
+            }
+            &:before {
+                opacity: 0.7;
+            }
+        }
+    }
+}
+
+:host(limel-chart[type='area'][orientation='landscape']) {
+    $start: 0 calc((100 - var(--limel-chart-item-offset)) * 1%);
+    /* prettier-ignore */
+    $first: 0 calc((100 - (var(--limel-chart-item-size) + var(--limel-chart-item-offset))) * 1%);
+    /* prettier-ignore */
+    $second: 100% calc((100 - (var(--limel-chart-next-item-size) + var(--limel-chart-next-item-offset))) * 1%);
+    $end: 100% calc((100 - var(--limel-chart-next-item-offset)) * 1%);
+
+    .item {
+        &:before {
+            clip-path: polygon($start, $first, $second, $end);
+        }
+    }
+}
+
+:host(limel-chart[type='area'][orientation='portrait']) {
+    $start: calc(var(--limel-chart-item-offset) * 1%) 0;
+    /* prettier-ignore */
+    $first: calc((var(--limel-chart-item-size) + var(--limel-chart-item-offset)) * 1%) 0;
+    /* prettier-ignore */
+    $second: calc((var(--limel-chart-next-item-size) + var(--limel-chart-next-item-offset)) * 1%) 100%;
+    $end: calc(var(--limel-chart-next-item-offset) * 1%) 100%;
+
+    .item {
+        &:before {
+            clip-path: polygon($start, $first, $second, $end);
+        }
+    }
+}
+
+// Line chart
+
+:host(limel-chart[type='line']) {
+    --limel-chart-line-thickness: 0.125rem;
+
+    .item {
+        &:hover {
+            &:before {
+                opacity: 0.4;
+            }
+        }
+    }
+}
+
+:host(limel-chart[type='line'][orientation='landscape']) {
+    /* prettier-ignore */
+    $start: 0 calc((100 - (var(--limel-chart-item-size) + var(--limel-chart-item-offset))) * 1%);
+    /* prettier-ignore */
+    $first: 0 calc(((100 - (var(--limel-chart-item-size) + var(--limel-chart-item-offset))) * 1%) + var(--limel-chart-line-thickness));
+    /* prettier-ignore */
+    $second: 100% calc(((100 - (var(--limel-chart-next-item-size) + var(--limel-chart-next-item-offset))) * 1%) + var(--limel-chart-line-thickness));
+    /* prettier-ignore */
+    $end: 100% calc((100 - (var(--limel-chart-next-item-size) + var(--limel-chart-next-item-offset))) * 1%);
+
+    .item {
+        &:hover {
+            @include line(vertical, $position: left);
+        }
+
+        &:before {
+            clip-path: polygon($start, $first, $second, $end);
+        }
+    }
+}
+
+:host(limel-chart[type='line'][orientation='portrait']) {
+    /* prettier-ignore */
+    $start: calc(((var(--limel-chart-item-size) + var(--limel-chart-item-offset))) * 1%) 0;
+    /* prettier-ignore */
+    $first: calc((((var(--limel-chart-item-size) + var(--limel-chart-item-offset)) * 1%) + var(--limel-chart-line-thickness))) 0;
+    /* prettier-ignore */
+    $second: calc(((var(--limel-chart-next-item-size) + var(--limel-chart-next-item-offset)) * 1%) + var(--limel-chart-line-thickness)) 100%;
+    /* prettier-ignore */
+    $end: calc(((var(--limel-chart-next-item-size) + var(--limel-chart-next-item-offset)) * 1%)) 100%;
+
+    .item {
+        &:hover {
+            @include line(horizontal, $position: top);
+        }
+
+        &:before {
+            clip-path: polygon($start, $first, $second, $end);
+        }
+    }
+}
