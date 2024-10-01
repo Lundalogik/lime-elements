@@ -1,12 +1,7 @@
-import { Component, Prop, h, Event, EventEmitter, State } from '@stencil/core';
+import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
 import { EditorTextLink } from '../prosemirror-adapter/menu/types';
 import { Languages } from '../../date-picker/date.types';
 import translate from '../../../global/translations';
-import {
-    getHref,
-    hasKnownProtocol,
-    prependProtocol,
-} from '../../../util/link-helper';
 import { LimelInputFieldCustomEvent } from '../../../components';
 import { ENTER, ESCAPE } from '../../../util/keycodes';
 
@@ -59,9 +54,6 @@ export class TextEditorLinkMenu {
     @Event()
     private linkChange: EventEmitter<EditorTextLink>;
 
-    @State()
-    private invalidLink: boolean = false;
-
     private textInput: HTMLLimelInputFieldElement;
     private saveButton: HTMLLimelButtonElement;
 
@@ -99,6 +91,8 @@ export class TextEditorLinkMenu {
     }
 
     public render() {
+        const isValid = this.isValid(this.link.href);
+
         return [
             <limel-input-field
                 label={this.getTranslation('editor-link-menu.text')}
@@ -116,7 +110,7 @@ export class TextEditorLinkMenu {
                 type="text"
                 leadingIcon="-lime-text-link"
                 trailingIcon="external_link"
-                invalid={this.invalidLink}
+                invalid={!isValid}
                 onChange={this.handleLinkValueChange}
                 onAction={this.handleLinkInputAction}
                 onKeyDown={this.handleKeyDown}
@@ -129,7 +123,7 @@ export class TextEditorLinkMenu {
                 <limel-button
                     primary={true}
                     label={this.getTranslation('save')}
-                    disabled={!this.link?.href || this.invalidLink}
+                    disabled={!isValid}
                     onClick={this.handleSave}
                     ref={(el) =>
                         (this.saveButton = el as HTMLLimelButtonElement)
@@ -144,14 +138,14 @@ export class TextEditorLinkMenu {
         return translate.get(key, this.language);
     };
 
-    private validateLink = (href: string): boolean => {
-        if (!hasKnownProtocol(href)) {
-            const formattedLink = prependProtocol(href);
-
-            return !!getHref(formattedLink);
+    private isValid = (href: string): boolean => {
+        try {
+            new URL(href);
+        } catch {
+            return false;
         }
 
-        return !!getHref(href);
+        return true;
     };
 
     private handleKeyDown = (event: KeyboardEvent) => {
@@ -164,7 +158,7 @@ export class TextEditorLinkMenu {
         }
 
         event.preventDefault();
-        if (this.link?.href && !this.invalidLink) {
+        if (this.isValid(this.link?.href)) {
             this.handleSave(event);
         }
     };
@@ -198,9 +192,7 @@ export class TextEditorLinkMenu {
 
     private handleLinkValueChange = (event: CustomEvent<string>) => {
         const href = event.detail;
-        const isValid = this.validateLink(href);
 
-        this.invalidLink = !isValid;
         this.emitLinkChange(this.link?.text, href);
     };
 
