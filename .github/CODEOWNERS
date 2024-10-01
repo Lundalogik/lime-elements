@@ -1,6 +1,8 @@
 # Maintainer team should monitor all changes to files in the .github folder,
 # like our GitHub Actions workflows and this CODEOWNERS file.
-/.github/   @Lundalogik/lime-elements-maintainers
+# @lime-opensource is also a code owner, to allow automatic merge of
+# Dependabot updates.
+/.github/   @Lundalogik/lime-elements-maintainers, @lime-opensource
 
 # The maintainer team should also monitor all changes to the public API.
 /etc/*      @Lundalogik/lime-elements-maintainers
