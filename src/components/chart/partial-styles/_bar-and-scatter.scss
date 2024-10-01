@@ -1,0 +1,147 @@
+@use '../../../style/mixins';
+
+$min-item-size: 0.5rem;
+$space-for-text: 4rem;
+
+@mixin line($direction: vertical, $color: rgb(var(--contrast-800), 0.4)) {
+    @if $direction == vertical {
+        background: linear-gradient(to bottom, $color 0%, $color 100%)
+            center/1px
+            100%
+            no-repeat;
+    } @else if $direction == horizontal {
+        background: linear-gradient(to right, $color 0%, $color 100%)
+            center/100%
+            1px
+            no-repeat;
+    }
+}
+
+:host(limel-chart[type='bar']),
+:host(limel-chart[type='scatter']) {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .chart {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: relative;
+
+        &:after {
+            content: attr(data-item-text);
+            position: absolute;
+
+            @include mixins.truncate-text;
+
+            text-align: right;
+            font-size: 0.625rem;
+            transform-origin: right;
+            padding: 0 0.25rem;
+            width: $space-for-text;
+        }
+    }
+}
+
+:host(limel-chart[type='bar']) {
+    .item {
+        background-color: var(--limel-chart-item-color);
+    }
+}
+
+:host(limel-chart[type='scatter']) {
+    .item {
+        &:before {
+            content: '';
+            position: absolute;
+            margin: auto;
+
+            width: $min-item-size;
+            height: $min-item-size;
+            border-radius: 50%;
+
+            background-color: var(--limel-chart-item-color);
+        }
+    }
+}
+
+:host(limel-chart[type='bar'][orientation='horizontal']),
+:host(limel-chart[type='scatter'][orientation='horizontal']) {
+    overflow: auto hidden;
+    padding-bottom: $space-for-text;
+
+    .chart {
+        flex-direction: row;
+        align-items: flex-end;
+        padding: 0 0.5rem;
+        border-bottom: 1px solid rgb(var(--contrast-800));
+    }
+
+    .item {
+        min-width: $min-item-size;
+        width: inherit;
+        height: calc(var(--limel-chart-item-value) * 1%);
+        border-radius: 0.125rem 0.125rem 0 0;
+
+        &:after {
+            bottom: -1.5rem;
+            transform: rotate(-45deg) translateY(-100%);
+        }
+    }
+}
+
+:host(limel-chart[type='scatter'][orientation='horizontal']) {
+    .item {
+        &:hover {
+            @include line(vertical);
+        }
+
+        &:before {
+            inset: 0 0 auto 0;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+:host(limel-chart[type='bar'][orientation='vertical']),
+:host(limel-chart[type='scatter'][orientation='vertical']) {
+    overflow: hidden auto;
+    padding-left: $space-for-text + 0.5rem;
+
+    .chart {
+        padding: 0.5rem 0;
+        flex-direction: column;
+        border-left: 1px solid rgb(var(--contrast-800));
+    }
+
+    .item {
+        min-height: $min-item-size;
+        height: inherit;
+        width: calc(var(--limel-chart-item-value) * 1%);
+        border-radius: 0 0.125rem 0.125rem 0;
+
+        &:after {
+            left: -$space-for-text - 0.5rem;
+        }
+    }
+}
+
+:host(limel-chart[type='scatter'][orientation='vertical']) {
+    .item {
+        &:hover {
+            @include line(horizontal);
+        }
+
+        &:before {
+            inset: 0 0 0 auto;
+            transform: translateX(50%);
+        }
+    }
+}

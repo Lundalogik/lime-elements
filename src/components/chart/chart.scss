@@ -1,0 +1,37 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+:host(limel-chart) {
+    isolation: isolate;
+    box-sizing: border-box;
+}
+
+.chart {
+    flex-grow: 1;
+    width: inherit;
+    height: inherit;
+
+    &:has(.item:hover) {
+        .item {
+            opacity: 0.4;
+        }
+    }
+}
+
+.item {
+    transition:
+        background-color 0.2s ease,
+        opacity 0.4s ease;
+    cursor: help;
+
+    &:hover {
+        opacity: 1 !important;
+    }
+}
+
+@import './partial-styles/_bar-and-scatter';
+@import './partial-styles/_pie-and-doughnut';
+@import './partial-styles/_stacked-bar';
