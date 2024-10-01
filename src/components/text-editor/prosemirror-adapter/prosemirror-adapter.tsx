@@ -114,7 +114,7 @@ export class ProsemirrorAdapter {
     > = [];
 
     @State()
-    private link: EditorTextLink = { href: '' };
+    private link: EditorTextLink = { href: 'https://' };
 
     /**
      * Open state of the dialog
@@ -425,7 +425,7 @@ export class ProsemirrorAdapter {
         event.stopPropagation();
 
         this.isLinkMenuOpen = false;
-        this.link = { text: '', href: '' };
+        this.link = { text: '', href: 'https://' };
     };
 
     private handleSaveLinkMenu = () => {
@@ -439,7 +439,7 @@ export class ProsemirrorAdapter {
         });
         this.view.dom.dispatchEvent(saveLinkEvent);
 
-        this.link = { href: '' };
+        this.link = { href: 'https://' };
     };
 
     private handleLinkChange = (event: CustomEvent<EditorTextLink>) => {
@@ -452,7 +452,7 @@ export class ProsemirrorAdapter {
 
     private handleNewLinkSelection = (text: string, href: string) => {
         this.link.text = text;
-        this.link.href = href;
+        this.link.href = href || 'https://';
     };
 
     private handleOpenLinkMenu = (
