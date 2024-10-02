@@ -1,3 +1,5 @@
+@use '../../../style/mixins';
+
 :host(limel-chart[type='stacked-bar']) {
     display: flex;
     width: 100%;
@@ -11,6 +13,7 @@
     }
 
     .item {
+        @include mixins.visualize-keyboard-focus;
         display: flex;
         background-color: var(--limel-chart-item-color);
 

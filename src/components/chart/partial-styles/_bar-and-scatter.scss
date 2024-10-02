@@ -29,6 +29,7 @@ $space-for-text: 4rem;
     }
 
     .item {
+        @include mixins.visualize-keyboard-focus;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -99,7 +100,8 @@ $space-for-text: 4rem;
 
 :host(limel-chart[type='scatter'][orientation='horizontal']) {
     .item {
-        &:hover {
+        &:hover,
+        &:focus-visible {
             @include line(vertical);
         }
 
@@ -135,7 +137,8 @@ $space-for-text: 4rem;
 
 :host(limel-chart[type='scatter'][orientation='vertical']) {
     .item {
-        &:hover {
+        &:hover,
+        &:focus-visible {
             @include line(horizontal);
         }
 

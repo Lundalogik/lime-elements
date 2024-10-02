@@ -92,6 +92,7 @@ export class Chart {
                     }}
                     id={itemId}
                     data-item-text={item.text}
+                    tabIndex={0}
                 />,
                 this.renderTooltip(
                     itemId,

@@ -14,7 +14,8 @@
     width: inherit;
     height: inherit;
 
-    &:has(.item:hover) {
+    &:has(.item:hover),
+    &:has(.item:focus-visible) {
         .item {
             opacity: 0.4;
         }
@@ -27,6 +28,7 @@
         opacity 0.4s ease;
     cursor: help;
 
+    &:focus-visible,
     &:hover {
         opacity: 1 !important;
     }
