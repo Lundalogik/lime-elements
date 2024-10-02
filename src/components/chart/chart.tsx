@@ -93,7 +93,14 @@ export class Chart {
                     id={itemId}
                     data-item-text={item.text}
                 />,
-                this.renderTooltip(itemId, item.text, item.value, percentage),
+                this.renderTooltip(
+                    itemId,
+                    item.text,
+                    item.value,
+                    item.prefix,
+                    item.suffix,
+                    percentage,
+                ),
             ];
         });
     }
@@ -102,18 +109,22 @@ export class Chart {
         itemId: string,
         text: string,
         value: number,
+        prefix: string = '',
+        suffix: string = '',
         percentage: number,
     ) {
         const PERCENT_DECIMAL = 2;
 
+        const formattedValue = `${prefix}${value}${suffix}`;
+
         const tooltipProps: any = {
-            label: `${text}: ${value}`,
+            label: `${text}`,
+            helperLabel: `${formattedValue}`,
             elementId: itemId,
         };
 
         if (this.type !== 'bar' && this.type !== 'scatter') {
-            tooltipProps.helperLabel =
-                percentage.toFixed(PERCENT_DECIMAL) + '%';
+            tooltipProps.label = `${text} (${percentage.toFixed(PERCENT_DECIMAL)}%)`;
         }
 
         return <limel-tooltip {...tooltipProps} />;
