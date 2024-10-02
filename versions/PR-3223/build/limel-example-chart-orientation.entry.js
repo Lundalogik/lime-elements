@@ -1,0 +1,2 @@
+import{r as t,h as r}from"./index-6156b4fd.js";import{c as e}from"./chart-stacked-bar-items-b57b1008.js";const a=class{constructor(r){t(this,r)}render(){return r("limel-chart",{style:{width:"1rem",height:"15rem"},items:e,orientation:"vertical",maxValue:512})}};export{a as limel_example_chart_orientation};
+//# sourceMappingURL=limel-example-chart-orientation.entry.js.map
