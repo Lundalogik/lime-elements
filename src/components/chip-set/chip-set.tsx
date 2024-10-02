@@ -518,7 +518,7 @@ export class ChipSet {
             return false;
         }
 
-        return !this.value || !this.value.length;
+        return !this.value?.length;
     }
 
     private inputFieldOnChange(event) {
@@ -579,7 +579,7 @@ export class ChipSet {
         event.stopPropagation();
         this.inputChipIndexSelected = null;
         this.textValue = event.target.value;
-        this.input.emit(event.target.value && event.target.value.trim());
+        this.input.emit(event.target.value?.trim());
     }
 
     private emitInteraction(chip: Chip) {

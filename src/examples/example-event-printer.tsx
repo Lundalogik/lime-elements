@@ -86,7 +86,7 @@ function serializeEvent(e: any) {
         offsetY: e.offsetY,
         pageX: e.pageX,
         pageY: e.pageY,
-        path: e.path && e.path.length ? e.path.map((n) => n.localName) : null,
+        path: e.path?.length ? e.path.map((n) => n.localName) : null,
         relatedTarget: e.relatedTarget ? e.relatedTarget.outerHTML : null,
         returnValue: e.returnValue,
         screenX: e.screenX,

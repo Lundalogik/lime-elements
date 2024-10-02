@@ -412,7 +412,7 @@ export class Picker {
             return this.renderSpinner();
         }
 
-        if (!this.items || !this.items.length) {
+        if (!this.items?.length) {
             return this.renderEmptyMessage();
         }
 

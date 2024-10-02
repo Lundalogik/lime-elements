@@ -27,7 +27,7 @@ export function handleKeyboardEvent(event: KeyboardEvent) {
         return;
     }
 
-    if (!this.value || !this.value.length) {
+    if (!this.value?.length) {
         // If there are no chips, there is nothing to select.
         return;
     }
