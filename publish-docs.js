@@ -295,7 +295,7 @@ function updateVersionList() {
     // Keep only versions that begin with a digit. Any versions beginning with
     // a letter are pull requests, pre-releases, or other special cases, not
     // eligible as "Latest".
-    const fullVersions = files.filter((file) => file.match(/^[0-9].*/));
+    const fullVersions = files.filter((file) => file.match(/^\d.*/));
     createSymlinkForRelease(fullVersions, 'latest');
 }
 

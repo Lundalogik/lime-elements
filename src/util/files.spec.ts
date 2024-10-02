@@ -34,6 +34,7 @@ describe('createFileInfo', () => {
 
         expect(result.id).toBeDefined();
 
+        // eslint-disable-next-line sonarjs/sonar-no-unused-vars
         const { id: h, ...resultWithoutId } = result;
 
         expect(resultWithoutId).toMatchObject(expectedFileInfo);

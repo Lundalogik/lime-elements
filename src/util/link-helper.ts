@@ -48,7 +48,7 @@ export function hasKnownProtocol(input: string) {
     ];
 
     return knownProtocols.some((knownProtocol) => {
-        return input.indexOf(knownProtocol + '://') === 0;
+        return input.startsWith(knownProtocol + '://');
     });
 }
 

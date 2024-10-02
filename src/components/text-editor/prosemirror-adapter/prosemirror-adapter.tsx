@@ -20,7 +20,7 @@ import { ListSeparator } from 'src/components/list/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
 import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
-import { markdownConverter } from '../utils/markdown-converter';
+import { MarkdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
 import {
     EditorMenuTypes,
@@ -222,7 +222,7 @@ export class ProsemirrorAdapter {
 
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
-            this.contentConverter = new markdownConverter();
+            this.contentConverter = new MarkdownConverter();
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter();
         } else {
