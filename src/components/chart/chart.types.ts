@@ -14,6 +14,13 @@ export interface ChartItem {
     value: number;
 
     /**
+     * Defines the starting value of those items
+     * which are not a single data point, and instead
+     * represent a range.
+     */
+    startValue?: number;
+
+    /**
      * A prefix shown before the value
      */
     prefix?: string;

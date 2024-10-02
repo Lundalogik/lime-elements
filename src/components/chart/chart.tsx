@@ -79,16 +79,22 @@ export class Chart {
             const itemId = createRandomString();
 
             const percentage = (item.value / totalValue) * PERCENT;
-            const rotation = cumulativeRotation;
-            cumulativeRotation += percentage / PERCENT;
+
+            let startValue: number;
+            if (this.type === 'pie' || this.type === 'doughnut') {
+                startValue = cumulativeRotation;
+                cumulativeRotation += percentage / 100;
+            } else {
+                startValue = item.startValue || 0;
+            }
 
             return [
                 <span
                     class="item"
                     style={{
                         '--limel-chart-item-color': item.color,
+                        '--limel-chart-item-start-value': `${startValue}`,
                         '--limel-chart-item-value': `${percentage}`,
-                        '--limel-chart-item-rotate': `${rotation}turn`,
                     }}
                     id={itemId}
                     data-item-text={item.text}
