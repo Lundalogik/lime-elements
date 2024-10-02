@@ -30,7 +30,7 @@
                 calc(var(--limel-chart-item-value) * 1%),
             transparent 0
         );
-        transform: translate3d(0, 0, 0) rotate(var(--rotate));
+        transform: translate3d(0, 0, 0) rotate(var(--limel-chart-item-rotate));
 
         &:focus,
         &:focus-visible {

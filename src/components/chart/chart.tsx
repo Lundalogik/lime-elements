@@ -88,7 +88,7 @@ export class Chart {
                     style={{
                         '--limel-chart-item-color': item.color,
                         '--limel-chart-item-value': `${percentage}`,
-                        '--rotate': `${rotation}turn`,
+                        '--limel-chart-item-rotate': `${rotation}turn`,
                     }}
                     id={itemId}
                     data-item-text={item.text}

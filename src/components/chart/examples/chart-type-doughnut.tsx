@@ -19,7 +19,7 @@ export class ChartTypeDoughnutExample {
         const defaultMaxValue = `${this.maxValue}`;
 
         return (
-            <Host class="large row-layout">
+            <Host class="row-layout">
                 <limel-chart
                     items={chartItems}
                     type="doughnut"
