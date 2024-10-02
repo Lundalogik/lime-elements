@@ -24,7 +24,7 @@ const customMarkdownSerializer = new MarkdownSerializer(
 /**
  * @private
  */
-export class markdownConverter implements ContentTypeConverter {
+export class MarkdownConverter implements ContentTypeConverter {
     public parseAsHTML = (text: string): Promise<string> => {
         return markdownToHTML(text);
     };
