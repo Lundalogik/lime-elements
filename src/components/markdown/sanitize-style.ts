@@ -8,7 +8,7 @@ import { allowedCssProperties } from './allowed-css-properties';
  * @param node - node to check
  */
 export function sanitizeStyle(node: any) {
-    if (node.tagName && node.properties && node.properties.style) {
+    if (node.tagName && node.properties?.style) {
         // Sanitize the 'style' attribute of the node.
         node.properties.style = sanitizeStyleValue(node.properties.style);
     }

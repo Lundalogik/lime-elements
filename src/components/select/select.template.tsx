@@ -339,7 +339,7 @@ function getSelectedText(value: Option | Option[], readonly: boolean): string {
 }
 
 function getSelectedIcon(value: any) {
-    if (!value || !value.icon) {
+    if (!value?.icon) {
         return '';
     }
 

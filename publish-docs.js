@@ -366,7 +366,6 @@ function createSymlinkForRelease(versions, alias) {
 function createSymlink(folder, alias) {
     shell.cd('docsDist/versions');
 
-    // eslint-disable-next-line sonarjs/no-collapsible-if
     if (shell.ln('-sf', `${folder}`, alias).code !== 0) {
         if (
             shell.rm(alias).code !== 0 ||
