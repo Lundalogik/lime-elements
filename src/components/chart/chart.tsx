@@ -89,7 +89,7 @@ export class Chart {
             let startValue: number;
             if (this.type === 'pie' || this.type === 'doughnut') {
                 startValue = cumulativeRotation;
-                cumulativeRotation += percentage / 100;
+                cumulativeRotation += percentage / PERCENT;
             } else {
                 startValue = item.startValue || 0;
             }
