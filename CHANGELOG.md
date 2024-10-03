@@ -1,3 +1,11 @@
+## [37.62.2](https://github.com/Lundalogik/lime-elements/compare/v37.62.1...v37.62.2) (2024-10-03)
+
+
+### Bug Fixes
+
+
+* **chip:** keep original image ratio ([3ba88d8](https://github.com/Lundalogik/lime-elements/commit/3ba88d8353e2956de43764ad72242645422b381b))
+
 ## [37.62.1](https://github.com/Lundalogik/lime-elements/compare/v37.62.0...v37.62.1) (2024-09-30)
 
 
