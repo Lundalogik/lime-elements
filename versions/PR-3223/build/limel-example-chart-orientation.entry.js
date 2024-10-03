@@ -1,2 +1,2 @@
-import{r as t,h as e}from"./index-6156b4fd.js";import{c as r}from"./chart-stacked-bar-items-470cdea2.js";const a=class{constructor(e){t(this,e)}render(){return e("limel-chart",{style:{width:"1rem",height:"15rem"},items:r,orientation:"vertical",maxValue:512})}};export{a as limel_example_chart_orientation};
+import{r as t,h as r}from"./index-6156b4fd.js";import{c as e}from"./chart-items-stack-8da26d74.js";const a=class{constructor(r){t(this,r)}render(){return r("limel-chart",{style:{width:"1rem",height:"15rem"},items:e,orientation:"vertical",maxValue:512})}};export{a as limel_example_chart_orientation};
 //# sourceMappingURL=limel-example-chart-orientation.entry.js.map
