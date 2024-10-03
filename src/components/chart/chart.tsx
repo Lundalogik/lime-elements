@@ -15,6 +15,7 @@ const PERCENT = 100;
  * @exampleComponent limel-example-chart-type-scatter
  * @exampleComponent limel-example-chart-type-doughnut
  * @exampleComponent limel-example-chart-type-pie
+ * @exampleComponent limel-example-chart-type-gantt
  * @Beta
  */
 
@@ -35,8 +36,13 @@ export class Chart {
      * Defines how items are visualized in the chart.
      */
     @Prop({ reflect: true })
-    public type: 'bar' | 'stacked-bar' | 'pie' | 'doughnut' | 'scatter' =
-        'stacked-bar';
+    public type:
+        | 'bar'
+        | 'gantt'
+        | 'stacked-bar'
+        | 'pie'
+        | 'doughnut'
+        | 'scatter' = 'stacked-bar';
 
     /**
      * Defines how the bars in the chart `bar` and `stacked-bar` types

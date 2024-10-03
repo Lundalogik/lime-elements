@@ -3,16 +3,16 @@ import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
 import { chartItems } from './chart-items-bar';
 
 /**
- * Bar chart
+ * Gantt chart
  *
  * @sourceFile chart-items-bar.ts
  */
 @Component({
-    tag: 'limel-example-chart-type-bar',
+    tag: 'limel-example-chart-type-gantt',
     shadow: true,
     styleUrl: 'chart-resizable-container.scss',
 })
-export class ChartTypeBarExample {
+export class ChartTypeGanttExample {
     @State()
     private maxValue = 100;
 
@@ -31,7 +31,7 @@ export class ChartTypeBarExample {
             <Host class="large">
                 <h4>Subscriptions per month</h4>
                 <limel-chart
-                    type="bar"
+                    type="gantt"
                     items={chartItems}
                     orientation={this.orientation}
                     maxValue={this.maxValue}

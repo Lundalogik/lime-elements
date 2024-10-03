@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import { chartItems } from './chart-stacked-bar-items';
+import { chartItems } from './chart-items-stack';
 
 /**
  * Using the `maxValue` prop

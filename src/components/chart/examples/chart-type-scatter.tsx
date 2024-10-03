@@ -1,11 +1,11 @@
 import { Component, h, Host, State } from '@stencil/core';
 import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
-import { chartItems } from './chart-bar-items';
+import { chartItems } from './chart-items-bar';
 
 /**
  * Scatter chart
  *
- * @sourceFile chart-bar-items.ts
+ * @sourceFile chart-items-bar.ts
  */
 @Component({
     tag: 'limel-example-chart-type-scatter',

@@ -1,5 +1,5 @@
 import { Component, h, Host, State } from '@stencil/core';
-import { chartItems } from './chart-stacked-bar-items';
+import { chartItems } from './chart-items-stack';
 
 /**
  * Pie chart
