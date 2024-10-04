@@ -29,7 +29,7 @@ export const config: Config = {
                 },
                 {
                     src: 'favicon.svg',
-                    dest: 'favicon.svg',
+                    dest: '.',
                 },
             ],
         },
