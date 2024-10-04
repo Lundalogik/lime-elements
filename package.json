@@ -75,7 +75,7 @@
     "flatpickr": "^4.6.13",
     "globals": "^15.10.0",
     "html-escaper": "^3.0.3",
-    "jest": "^27.5.1",
+    "jest": "^29.7.0",
     "jest-cli": "^27.5.1",
     "jsonlint-mod": "^1.7.6",
     "jsx-dom": "^8.1.5",
