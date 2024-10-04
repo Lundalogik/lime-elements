@@ -16,6 +16,7 @@ const PERCENT = 100;
  * @exampleComponent limel-example-chart-type-doughnut
  * @exampleComponent limel-example-chart-type-pie
  * @exampleComponent limel-example-chart-type-gantt
+ * @exampleComponent limel-example-chart-multi-axis
  * @Beta
  */
 
@@ -52,13 +53,12 @@ export class Chart {
     public orientation: 'horizontal' | 'vertical' = 'horizontal';
 
     /**
-     * Specifies the maximum value used to calculate
-     * the size of each item in the chart.
-     * If `maxValue` is not provided, the size of items will be
-     * visualized in relation to each other.
+     * Specifies the range that items' values could be in.
+     * This is used in calculation of the size of the items in the chart.
+     * When not provided, the sum of all values in the items will be considered as the range.
      */
     @Prop({ reflect: true })
-    public maxValue?: number;
+    public range?: number;
 
     /**
      *
@@ -71,22 +71,38 @@ export class Chart {
             return;
         }
 
-        return <div class="chart">{this.renderItems()}</div>;
+        const hasNegativeValues = this.items.some(
+            (item) => item.value < 0 || (item.startValue || 0) < 0,
+        );
+
+        return (
+            <div
+                class={{
+                    chart: true,
+                    'has-negative-values': hasNegativeValues,
+                }}
+            >
+                {this.renderItems()}
+            </div>
+        );
     }
 
     private renderItems() {
-        const totalValue =
-            this.maxValue ||
-            this.items.reduce((acc, item) => acc + item.value, 0);
+        const sumOfAllValues = this.items.reduce(
+            (acc, item) => acc + item.value,
+            0,
+        );
+        const totalRange = this.range || sumOfAllValues || 1;
 
         let cumulativeRotation = 0;
 
         return this.items.map((item) => {
             const itemId = createRandomString();
 
-            const percentage = (item.value / totalValue) * PERCENT;
+            let startValue: number = item.startValue ?? 0;
+            const percentage =
+                ((item.value - startValue) / totalRange) * PERCENT;
 
-            let startValue: number;
             if (this.type === 'pie' || this.type === 'doughnut') {
                 startValue = cumulativeRotation;
                 cumulativeRotation += percentage / PERCENT;
@@ -100,7 +116,8 @@ export class Chart {
                     style={{
                         '--limel-chart-item-color': item.color,
                         '--limel-chart-item-start-value': `${startValue}`,
-                        '--limel-chart-item-value': `${percentage}`,
+                        '--limel-chart-item-end-value': `${item.value}`,
+                        '--limel-chart-item-size': `${percentage}`,
                     }}
                     id={itemId}
                     data-item-text={item.text}

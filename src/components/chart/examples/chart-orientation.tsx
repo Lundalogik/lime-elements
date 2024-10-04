@@ -25,7 +25,7 @@ export class ChartOrientationExample {
                 style={{ width: '1rem', height: '15rem' }}
                 items={chartItems}
                 orientation="vertical"
-                maxValue={512}
+                range={512}
             />
         );
     }

@@ -3,16 +3,16 @@ import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
 import { chartItems } from './chart-items-bar';
 
 /**
- * Scatter chart
+ * Multi-axis Charts
  *
  * @sourceFile chart-items-bar.ts
  */
 @Component({
-    tag: 'limel-example-chart-type-scatter',
+    tag: 'limel-example-chart-multi-axis',
     shadow: true,
     styleUrl: 'chart-resizable-container.scss',
 })
-export class ChartTypeScatterExample {
+export class ChartTypeBarMultiAxisExample {
     @State()
     private range = 100;
 
@@ -31,7 +31,7 @@ export class ChartTypeScatterExample {
             <Host class="large">
                 <h4>Subscriptions per month</h4>
                 <limel-chart
-                    type="scatter"
+                    type="bar"
                     items={chartItems}
                     orientation={this.orientation}
                     range={this.range}
@@ -63,6 +63,7 @@ export class ChartTypeScatterExample {
     ) => {
         this.orientation = event.detail.value as 'horizontal' | 'vertical';
     };
+
     private handlerangeChange = (event) => {
         this.range = +event.detail;
     };

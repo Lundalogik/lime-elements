@@ -27,7 +27,7 @@
 
         background: conic-gradient(
             var(--limel-chart-item-color)
-                calc(var(--limel-chart-item-value) * 1%),
+                calc(var(--limel-chart-item-size) * 1%),
             transparent 0
         );
         transform: translate3d(0, 0, 0)

@@ -14,7 +14,7 @@ import { chartItems } from './chart-items-bar';
 })
 export class ChartTypeGanttExample {
     @State()
-    private maxValue = 100;
+    private range = 100;
 
     @State()
     private orientation: 'horizontal' | 'vertical' = 'horizontal';
@@ -25,7 +25,7 @@ export class ChartTypeGanttExample {
     ];
 
     public render() {
-        const defaultMaxValue = `${this.maxValue}`;
+        const defaultrange = `${this.range}`;
 
         return (
             <Host class="large">
@@ -34,7 +34,7 @@ export class ChartTypeGanttExample {
                     type="gantt"
                     items={chartItems}
                     orientation={this.orientation}
-                    maxValue={this.maxValue}
+                    range={this.range}
                 />
                 <limel-example-controls>
                     <limel-select
@@ -45,9 +45,9 @@ export class ChartTypeGanttExample {
                     />
                     <limel-input-field
                         type="number"
-                        label="MaxValue"
-                        value={defaultMaxValue}
-                        onChange={this.handleMaxValueChange}
+                        label="range"
+                        value={defaultrange}
+                        onChange={this.handlerangeChange}
                     />
                 </limel-example-controls>
             </Host>
@@ -64,7 +64,7 @@ export class ChartTypeGanttExample {
         this.orientation = event.detail.value as 'horizontal' | 'vertical';
     };
 
-    private handleMaxValueChange = (event) => {
-        this.maxValue = +event.detail;
+    private handlerangeChange = (event) => {
+        this.range = +event.detail;
     };
 }

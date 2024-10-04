@@ -13,30 +13,30 @@ import { chartItems } from './chart-items-stack';
 })
 export class ChartTypeDoughnutExample {
     @State()
-    private maxValue = 300;
+    private range = 300;
 
     public render() {
-        const defaultMaxValue = `${this.maxValue}`;
+        const defaultrange = `${this.range}`;
 
         return (
             <Host class="row-layout">
                 <limel-chart
                     items={chartItems}
                     type="doughnut"
-                    maxValue={this.maxValue}
+                    range={this.range}
                 />
                 <limel-example-controls>
                     <limel-input-field
                         type="number"
-                        label="MaxValue"
-                        value={defaultMaxValue}
-                        onChange={this.handleMaxValueChange}
+                        label="range"
+                        value={defaultrange}
+                        onChange={this.handlerangeChange}
                     />
                 </limel-example-controls>
             </Host>
         );
     }
-    private handleMaxValueChange = (event) => {
-        this.maxValue = +event.detail;
+    private handlerangeChange = (event) => {
+        this.range = +event.detail;
     };
 }

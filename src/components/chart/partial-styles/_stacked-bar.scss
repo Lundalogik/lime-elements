@@ -30,7 +30,7 @@
 
     .item {
         min-height: 0.5rem;
-        width: calc(var(--limel-chart-item-value) * 1%);
+        width: calc(var(--limel-chart-item-size) * 1%);
         box-shadow: -1px 0 0 0 rgb(var(--color-white), 0.6) inset;
     }
 }
@@ -42,7 +42,7 @@
 
     .item {
         min-width: 0.5rem;
-        height: calc(var(--limel-chart-item-value) * 1%);
+        height: calc(var(--limel-chart-item-size) * 1%);
         box-shadow: 0 -1px 0 0 rgb(var(--color-white), 0.6) inset;
     }
 }
