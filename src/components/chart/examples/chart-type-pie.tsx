@@ -16,7 +16,7 @@ export class ChartTypePieExample {
     private range = 300;
 
     public render() {
-        const defaultrange = `${this.range}`;
+        const defaultRange = `${this.range}`;
 
         return (
             <Host class="row-layout">
@@ -25,14 +25,14 @@ export class ChartTypePieExample {
                     <limel-input-field
                         type="number"
                         label="range"
-                        value={defaultrange}
-                        onChange={this.handlerangeChange}
+                        value={defaultRange}
+                        onChange={this.handleRangeChange}
                     />
                 </limel-example-controls>
             </Host>
         );
     }
-    private handlerangeChange = (event) => {
+    private handleRangeChange = (event) => {
         this.range = +event.detail;
     };
 }

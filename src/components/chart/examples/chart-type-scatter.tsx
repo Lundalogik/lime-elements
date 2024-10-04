@@ -19,13 +19,13 @@ export class ChartTypeScatterExample {
     @State()
     private orientation: 'horizontal' | 'vertical' = 'horizontal';
 
-    private options: Option[] = [
+    private orientations: Option[] = [
         { text: 'Horizontal', value: 'horizontal' },
         { text: 'Vertical', value: 'vertical' },
     ];
 
     public render() {
-        const defaultrange = `${this.range}`;
+        const defaultRange = `${this.range}`;
 
         return (
             <Host class="large">
@@ -39,23 +39,25 @@ export class ChartTypeScatterExample {
                 <limel-example-controls>
                     <limel-select
                         label="orientation"
-                        value={this.getSelectedOption()}
-                        options={this.options}
+                        value={this.getSelectedOrientation()}
+                        options={this.orientations}
                         onChange={this.handleOrientationChange}
                     />
                     <limel-input-field
                         type="number"
                         label="range"
-                        value={defaultrange}
-                        onChange={this.handlerangeChange}
+                        value={defaultRange}
+                        onChange={this.handleRangeChange}
                     />
                 </limel-example-controls>
             </Host>
         );
     }
 
-    private getSelectedOption() {
-        return this.options.find((option) => option.value === this.orientation);
+    private getSelectedOrientation() {
+        return this.orientations.find(
+            (option) => option.value === this.orientation,
+        );
     }
 
     private handleOrientationChange = (
@@ -63,7 +65,7 @@ export class ChartTypeScatterExample {
     ) => {
         this.orientation = event.detail.value as 'horizontal' | 'vertical';
     };
-    private handlerangeChange = (event) => {
+    private handleRangeChange = (event) => {
         this.range = +event.detail;
     };
 }
