@@ -1,7 +1,13 @@
 import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import { Plugin } from 'prosemirror-state';
 import { FormComponent } from '../form/form.types';
 import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
+import {
+    CustomEditorPlugin,
+    pluginFactory,
+} from './prosemirror-adapter/plugins/plugin-factory';
+
 /**
  * A rich text editor that offers a rich text editing experience with markdown support,
  * in the sense that you can easily type markdown syntax and see the rendered
@@ -133,6 +139,9 @@ export class TextEditor implements FormComponent<string> {
     private helperTextId: string;
     private editorId: string;
 
+    @Prop()
+    public customPlugins: CustomEditorPlugin[] = [];
+
     public constructor() {
         this.helperTextId = createRandomString();
         this.editorId = createRandomString();
@@ -186,10 +195,28 @@ export class TextEditor implements FormComponent<string> {
                 tabindex={this.disabled ? -1 : undefined}
                 aria-disabled={this.disabled}
                 language={this.language}
+                customPlugins={this.createPlugins(this.customPlugins)}
             />,
             this.renderPlaceholder(),
             this.renderHelperLine(),
         ];
+    }
+
+    private createPlugins(plugins: CustomEditorPlugin[]): Plugin[] {
+        const pluginArray: Plugin[] = [];
+
+        for (const plugin of plugins) {
+            if (!plugin) {
+                return;
+            }
+
+            const createdPlugin = pluginFactory(plugin);
+            if (createdPlugin) {
+                pluginArray.push(createdPlugin);
+            }
+        }
+
+        return pluginArray;
     }
 
     private renderLabel() {
