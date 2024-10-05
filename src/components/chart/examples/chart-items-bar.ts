@@ -4,7 +4,7 @@ export const chartItems: ChartItem[] = [
     {
         text: 'January',
         value: 10,
-        color: 'var(--color-percent--0to10',
+        color: 'var(--color-percent--0to10)',
     },
     {
         text: 'February',

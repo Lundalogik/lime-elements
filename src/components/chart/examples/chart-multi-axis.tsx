@@ -1,11 +1,11 @@
 import { Component, h, Host, State } from '@stencil/core';
 import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
-import { chartItems } from './chart-items-bar';
+import { chartItems } from './chart-items-negative-values';
 
 /**
  * Multi-axis Charts
  *
- * @sourceFile chart-items-bar.ts
+ * @sourceFile chart-items-negative-values.ts
  */
 @Component({
     tag: 'limel-example-chart-multi-axis',
@@ -19,9 +19,17 @@ export class ChartTypeBarMultiAxisExample {
     @State()
     private orientation: 'horizontal' | 'vertical' = 'horizontal';
 
+    @State()
+    private type: 'bar' | 'scatter' = 'bar';
+
     private orientations: Option[] = [
         { text: 'Horizontal', value: 'horizontal' },
         { text: 'Vertical', value: 'vertical' },
+    ];
+
+    private types: Option[] = [
+        { text: 'Bar', value: 'bar' },
+        { text: 'Scatter', value: 'scatter' },
     ];
 
     public render() {
@@ -29,9 +37,9 @@ export class ChartTypeBarMultiAxisExample {
 
         return (
             <Host class="large">
-                <h4>Subscriptions per month</h4>
+                <h4>Temperature fluctuations past 24 hours</h4>
                 <limel-chart
-                    type="bar"
+                    type={this.type}
                     items={chartItems}
                     orientation={this.orientation}
                     range={this.range}
@@ -43,12 +51,12 @@ export class ChartTypeBarMultiAxisExample {
                         options={this.orientations}
                         onChange={this.handleOrientationChange}
                     />
-                    {/* <limel-select
+                    <limel-select
                         label="type"
-                        value={this.getSelectedOrientation()}
-                        options={this.orientations}
-                        onChange={this.handleOrientationChange}
-                    /> */}
+                        value={this.getSelectedType()}
+                        options={this.types}
+                        onChange={this.handleTypeChange}
+                    />
                     <limel-input-field
                         type="number"
                         label="range"
@@ -70,6 +78,16 @@ export class ChartTypeBarMultiAxisExample {
         event: LimelSelectCustomEvent<Option<string>>,
     ) => {
         this.orientation = event.detail.value as 'horizontal' | 'vertical';
+    };
+
+    private getSelectedType() {
+        return this.types.find((option) => option.value === this.type);
+    }
+
+    private handleTypeChange = (
+        event: LimelSelectCustomEvent<Option<string>>,
+    ) => {
+        this.type = event.detail.value as 'bar' | 'scatter';
     };
 
     private handleRangeChange = (event) => {

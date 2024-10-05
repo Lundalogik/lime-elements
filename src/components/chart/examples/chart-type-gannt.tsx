@@ -1,11 +1,11 @@
 import { Component, h, Host, State } from '@stencil/core';
 import { LimelSelectCustomEvent, Option } from '@limetech/lime-elements';
-import { chartItems } from './chart-items-bar';
+import { chartItems } from './chart-items-gantt';
 
 /**
  * Gantt chart
  *
- * @sourceFile chart-items-bar.ts
+ * @sourceFile chart-items-gantt.ts
  */
 @Component({
     tag: 'limel-example-chart-type-gantt',
@@ -14,7 +14,7 @@ import { chartItems } from './chart-items-bar';
 })
 export class ChartTypeGanttExample {
     @State()
-    private range = 100;
+    private range = 150;
 
     @State()
     private orientation: 'horizontal' | 'vertical' = 'horizontal';
@@ -29,9 +29,9 @@ export class ChartTypeGanttExample {
 
         return (
             <Host class="large">
-                <h4>Subscriptions per month</h4>
+                <h4>Project Timeline: Key Phases from Concept to Launch</h4>
                 <limel-chart
-                    type="gantt"
+                    type="bar"
                     items={chartItems}
                     orientation={this.orientation}
                     range={this.range}

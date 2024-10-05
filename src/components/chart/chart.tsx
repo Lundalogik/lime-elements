@@ -37,13 +37,8 @@ export class Chart {
      * Defines how items are visualized in the chart.
      */
     @Prop({ reflect: true })
-    public type:
-        | 'bar'
-        | 'gantt'
-        | 'stacked-bar'
-        | 'pie'
-        | 'doughnut'
-        | 'scatter' = 'stacked-bar';
+    public type: 'bar' | 'stacked-bar' | 'pie' | 'doughnut' | 'scatter' =
+        'stacked-bar';
 
     /**
      * Defines how the bars in the chart `bar` and `stacked-bar` types
@@ -101,7 +96,7 @@ export class Chart {
 
             let startValue: number = item.startValue ?? 0;
             const percentage =
-                ((item.value - startValue) / totalRange) * PERCENT;
+                (Math.abs(item.value - startValue) / totalRange) * PERCENT;
 
             if (this.type === 'pie' || this.type === 'doughnut') {
                 startValue = cumulativeRotation;
@@ -130,6 +125,7 @@ export class Chart {
                     item.prefix,
                     item.suffix,
                     percentage,
+                    item.startValue,
                 ),
             ];
         });
@@ -142,10 +138,14 @@ export class Chart {
         prefix: string = '',
         suffix: string = '',
         percentage: number,
+        startValue?: number,
     ) {
         const PERCENT_DECIMAL = 2;
 
-        const formattedValue = `${prefix}${value}${suffix}`;
+        const formattedValue =
+            startValue !== undefined
+                ? `${prefix}${startValue}${suffix} - ${prefix}${value}${suffix}`
+                : `${prefix}${value}${suffix}`;
 
         const tooltipProps: any = {
             label: `${text}`,
