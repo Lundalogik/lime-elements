@@ -1,3 +1,11 @@
+## [37.63.0](https://github.com/Lundalogik/lime-elements/compare/v37.62.3...v37.63.0) (2024-10-08)
+
+
+### Features
+
+
+* **mixins:** add a mixin to enable truncating text on a desired line number ([819a873](https://github.com/Lundalogik/lime-elements/commit/819a873032987dc1378cd8704708e2fc4acef0ae))
+
 ## [37.62.3](https://github.com/Lundalogik/lime-elements/compare/v37.62.2...v37.62.3) (2024-10-08)
 
 
