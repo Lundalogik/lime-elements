@@ -66,17 +66,8 @@ export class Chart {
             return;
         }
 
-        const hasNegativeValues = this.items.some(
-            (item) => item.value < 0 || (item.startValue || 0) < 0,
-        );
-
         return (
-            <div
-                class={{
-                    chart: true,
-                    'has-negative-values': hasNegativeValues,
-                }}
-            >
+            <div class="chart">
                 {this.renderAxises()}
                 {this.renderItems()}
             </div>
