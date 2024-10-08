@@ -2,13 +2,13 @@ import { ChartItem } from '@limetech/lime-elements';
 export const chartItems: ChartItem[] = [
     {
         text: 'Market Research',
-        startValue: 0,
+        startValue: 1,
         value: 10,
         color: 'rgb(var(--color-blue-default))',
     },
     {
         text: 'Business Plan Development',
-        startValue: 0,
+        startValue: 1,
         value: 20,
         color: 'rgb(var(--color-green-default))',
     },
