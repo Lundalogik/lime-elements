@@ -14,7 +14,7 @@ import { chartItems } from './chart-items-negative-values';
 })
 export class ChartTypeBarMultiAxisExample {
     @State()
-    private range = 50;
+    private range = 55;
 
     @State()
     private orientation: 'horizontal' | 'vertical' = 'horizontal';

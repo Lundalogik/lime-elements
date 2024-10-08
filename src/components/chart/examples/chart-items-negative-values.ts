@@ -9,9 +9,9 @@ export const chartItems: ChartItem[] = [
         suffix: '°',
     },
     {
-        text: 'Moscow',
+        text: 'Kiruna',
         value: -5,
-        startValue: -15,
+        startValue: -17,
         color: 'rgb(var(--color-sky-lighter))',
         suffix: '°',
     },
