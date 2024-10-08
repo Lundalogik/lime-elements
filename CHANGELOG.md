@@ -1,3 +1,11 @@
+## [37.62.3](https://github.com/Lundalogik/lime-elements/compare/v37.62.2...v37.62.3) (2024-10-08)
+
+
+### Bug Fixes
+
+
+* **L10n:** fix broken support for French (`fr`) and German (`de`) ([8cf8620](https://github.com/Lundalogik/lime-elements/commit/8cf8620988b17cc0a5303c72c069e4d33259e666))
+
 ## [37.62.2](https://github.com/Lundalogik/lime-elements/compare/v37.62.1...v37.62.2) (2024-10-03)
 
 
