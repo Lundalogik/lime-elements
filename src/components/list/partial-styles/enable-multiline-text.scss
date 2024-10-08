@@ -2,6 +2,8 @@
 // default styles first. MDC offers possibility to have max three-line lists.
 // But MDC Web does not currently support three-line lists.
 
+@use '../../../style/mixins';
+
 :host {
     --line-height-of-secondary-text: 1rem;
 }
@@ -10,10 +12,7 @@
     height: auto !important; // `!important` because MD adds different fixed `height`s to different lists, such as `mdc-list--two-line` or `mdc-list--avatar-list` and we don't want to overwride them all separately
 
     .mdc-deprecated-list-item__secondary-text {
+        @include mixins.truncate-text-on-line(var(--maxLinesSecondaryText));
         line-height: var(--line-height-of-secondary-text);
-        white-space: normal;
-        display: -webkit-box;
-        -webkit-line-clamp: var(--maxLinesSecondaryText);
-        -webkit-box-orient: vertical;
     }
 }
