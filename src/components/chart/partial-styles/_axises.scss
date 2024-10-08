@@ -36,10 +36,10 @@
 :host(limel-chart[orientation='horizontal']) {
     .axises {
         flex-direction: column-reverse;
+        // transform: translateY(0.5px);
     }
     .axis-line {
         border-bottom: 1px solid;
-        transform: translateY(0.5px);
 
         span {
             bottom: 0;
@@ -51,10 +51,10 @@
 :host(limel-chart[orientation='vertical']) {
     .axises {
         flex-direction: row;
+        // transform: translateX(-0.5px);
     }
     .axis-line {
         border-left: 1px solid;
-        transform: translateX(-0.5px);
 
         span {
             bottom: 0.5rem;

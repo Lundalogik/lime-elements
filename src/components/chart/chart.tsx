@@ -85,16 +85,23 @@ export class Chart {
 
     private renderAxises() {
         if (this.type !== 'bar' && this.type !== 'scatter') {
-            return null;
+            return;
         }
 
-        const { minRange, totalRange } = this.calculateRange();
-        const increment = totalRange / 10;
+        const { minRange, maxRange } = this.calculateRange();
+        const increment = 10;
         const lines = [];
 
-        for (let i = 0; i <= 10; i++) {
-            const value = minRange + i * increment;
-            // const position = ((value - minRange) / totalRange) * 100;
+        // Adjust minRange and maxRange to the nearest multiples of increment
+        const adjustedMinRange = Math.floor(minRange / increment) * increment;
+        const adjustedMaxRange = Math.ceil(maxRange / increment) * increment;
+
+        for (
+            let value = adjustedMinRange;
+            value <= adjustedMaxRange;
+            value += increment
+        ) {
+            // const position = ((value - minRange) / (maxRange - minRange)) * 100;
 
             lines.push(
                 <div
@@ -102,6 +109,9 @@ export class Chart {
                         'axis-line': true,
                         'zero-line': value === 0,
                     }}
+                    // style={{
+                    //     [this.orientation === 'vertical' ? 'bottom' : 'left']: `${position}%`,
+                    // }}
                     role="presentation"
                 >
                     <span>{value}</span>
