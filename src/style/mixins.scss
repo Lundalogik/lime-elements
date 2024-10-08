@@ -361,3 +361,16 @@
         @error "Please specify the font-family #{$letterform}!";
     }
 }
+
+/**
+* This mixin is a hack, using old CSS syntax
+* to enable you to truncate a piece of text,
+* after a certain number of lines.
+*/
+@mixin truncate-text-on-line($max-lines) {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $max-lines;
+}
