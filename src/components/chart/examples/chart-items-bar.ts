@@ -18,8 +18,8 @@ export const chartItems: ChartItem[] = [
     },
     {
         text: 'April',
-        value: 81,
-        color: 'var(--color-percent--70to80)',
+        value: 55,
+        color: 'var(--color-percent--50to60)',
     },
     {
         text: 'May',
@@ -58,7 +58,7 @@ export const chartItems: ChartItem[] = [
     },
     {
         text: 'December',
-        value: 1,
-        color: 'var(--color-percent--0to10)',
+        value: 36,
+        color: 'var(--color-percent--30to40)',
     },
 ];
