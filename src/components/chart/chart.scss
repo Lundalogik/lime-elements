@@ -1,4 +1,5 @@
 /**
+* @prop --chart-background-color: Defines the background color of the chart. Defaults to `transparent` for _most_ chart types.
 * @prop --chart-item-border-radius: Defines the roundness of corners of items in a chart. Defaults to different values depending on the chart type. Does not have any effect on `pie` and `doughnut` types.
 * @prop --chart-stacked-item-divider-color: Defines the color that visually separates stacked chart items, for example for a `stacked-bar` chart. Defaults to `rgb(var(--color-white), 0.6)`.
 */

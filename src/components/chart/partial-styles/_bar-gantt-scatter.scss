@@ -25,6 +25,7 @@ $min-item-size: 0.5rem;
     .chart {
         display: flex;
         gap: 0.5rem;
+        background-color: var(--chart-background-color, transparent);
     }
 
     .item {

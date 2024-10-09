@@ -13,13 +13,15 @@ limel-chart {
     &[type='stacked-bar'] {
         --chart-stacked-item-divider-color: transparent;
         --chart-item-border-radius: 1.5rem;
+        --chart-background-color: transparent;
+
         height: var(--chart-item-border-radius);
         border-radius: var(--chart-item-border-radius);
         overflow: hidden;
     }
 }
 
-hr {
-    opacity: 0.3;
+div[role='separator'] {
     width: 100%;
+    border-top: 1px dashed rgb(var(--color-green-light));
 }

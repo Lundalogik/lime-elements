@@ -9,7 +9,10 @@
         display: flex;
         border-radius: 0.25rem;
         overflow: hidden;
-        background-color: rgb(var(--contrast-800), 0.3);
+        background-color: var(
+            --chart-background-color,
+            rgb(var(--contrast-800), 0.2)
+        );
     }
 
     .item {

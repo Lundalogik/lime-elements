@@ -14,8 +14,10 @@ import { chartItems } from './chart-items-negative-values';
 export class ChartStackedBarExample {
     public render() {
         return [
+            <h4>Stacked-bar Chart</h4>,
             <limel-chart items={chartItems} type="stacked-bar" />,
-            <hr />,
+            <div role="separator" />,
+            <h4>Bar Chart</h4>,
             <limel-chart items={chartItems} type="bar" />,
         ];
     }

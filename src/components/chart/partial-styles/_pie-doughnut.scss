@@ -10,7 +10,10 @@
         justify-content: center;
         align-items: center;
         overflow: hidden;
-        background-color: rgb(var(--contrast-800), 0.3);
+        background-color: var(
+            --chart-background-color,
+            rgb(var(--contrast-800), 0.2)
+        );
 
         aspect-ratio: 1;
 
