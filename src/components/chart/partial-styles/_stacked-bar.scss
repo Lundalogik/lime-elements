@@ -24,7 +24,7 @@
     }
 }
 
-:host(limel-chart[type='stacked-bar'][orientation='horizontal']) {
+:host(limel-chart[type='stacked-bar'][orientation='landscape']) {
     .chart {
         flex-direction: row;
     }
@@ -41,7 +41,7 @@
     }
 }
 
-:host(limel-chart[type='stacked-bar'][orientation='vertical']) {
+:host(limel-chart[type='stacked-bar'][orientation='portrait']) {
     .chart {
         flex-direction: column-reverse;
     }

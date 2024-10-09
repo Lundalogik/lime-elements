@@ -34,7 +34,7 @@
     }
 }
 
-:host(limel-chart[orientation='horizontal']) {
+:host(limel-chart[orientation='landscape']) {
     .axises {
         flex-direction: column-reverse;
         // transform: translateY(0.5px);
@@ -49,7 +49,7 @@
     }
 }
 
-:host(limel-chart[orientation='vertical']) {
+:host(limel-chart[orientation='portrait']) {
     .axises {
         flex-direction: row;
         // transform: translateX(-0.5px);

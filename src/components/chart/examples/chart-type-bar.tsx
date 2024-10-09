@@ -17,11 +17,11 @@ export class ChartTypeBarExample {
     private range = 100;
 
     @State()
-    private orientation: 'horizontal' | 'vertical' = 'horizontal';
+    private orientation: 'landscape' | 'portrait' = 'landscape';
 
     private orientations: Option[] = [
-        { text: 'Horizontal', value: 'horizontal' },
-        { text: 'Vertical', value: 'vertical' },
+        { text: 'landscape', value: 'landscape' },
+        { text: 'portrait', value: 'portrait' },
     ];
 
     public render() {
@@ -63,7 +63,7 @@ export class ChartTypeBarExample {
     private handleOrientationChange = (
         event: LimelSelectCustomEvent<Option<string>>,
     ) => {
-        this.orientation = event.detail.value as 'horizontal' | 'vertical';
+        this.orientation = event.detail.value as 'landscape' | 'portrait';
     };
 
     private handleRangeChange = (event) => {

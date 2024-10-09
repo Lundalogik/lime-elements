@@ -24,7 +24,7 @@ export class ChartOrientationExample {
             <limel-chart
                 style={{ width: '0.5rem', height: '15rem' }}
                 items={chartItems}
-                orientation="vertical"
+                orientation="portrait"
             />
         );
     }

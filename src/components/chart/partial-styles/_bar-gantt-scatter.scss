@@ -2,13 +2,13 @@
 
 $min-item-size: 0.5rem;
 // $space-for-text: 4rem;
-@mixin line($direction: vertical, $color: rgb(var(--contrast-800), 0.4)) {
-    @if $direction == vertical {
+@mixin line($direction: portrait, $color: rgb(var(--contrast-800), 0.4)) {
+    @if $direction == portrait {
         background: linear-gradient(to bottom, $color 0%, $color 100%)
             center/1px
             100%
             no-repeat;
-    } @else if $direction == horizontal {
+    } @else if $direction == landscape {
         background: linear-gradient(to right, $color 0%, $color 100%)
             center/100%
             1px
@@ -82,8 +82,8 @@ $min-item-size: 0.5rem;
     }
 }
 
-:host(limel-chart[type='bar'][orientation='horizontal']),
-:host(limel-chart[type='scatter'][orientation='horizontal']) {
+:host(limel-chart[type='bar'][orientation='landscape']),
+:host(limel-chart[type='scatter'][orientation='landscape']) {
     --limel-chart-padding: 0.5rem 0.5rem 0.5rem 2rem;
     overflow: auto hidden;
 
@@ -100,12 +100,12 @@ $min-item-size: 0.5rem;
     }
 }
 
-:host(limel-chart[type='scatter'][orientation='horizontal']) {
+:host(limel-chart[type='scatter'][orientation='landscape']) {
     .item {
         &.has-start-value,
         &:hover,
         &:focus-visible {
-            @include line(vertical);
+            @include line(portrait);
         }
 
         &:before {
@@ -119,8 +119,8 @@ $min-item-size: 0.5rem;
     }
 }
 
-:host(limel-chart[type='bar'][orientation='vertical']),
-:host(limel-chart[type='scatter'][orientation='vertical']) {
+:host(limel-chart[type='bar'][orientation='portrait']),
+:host(limel-chart[type='scatter'][orientation='portrait']) {
     --limel-chart-padding: 0.5rem 0.5rem 2rem 0.5rem;
     overflow: hidden auto;
 
@@ -136,12 +136,12 @@ $min-item-size: 0.5rem;
     }
 }
 
-:host(limel-chart[type='scatter'][orientation='vertical']) {
+:host(limel-chart[type='scatter'][orientation='portrait']) {
     .item {
         &.has-start-value,
         &:hover,
         &:focus-visible {
-            @include line(horizontal);
+            @include line(landscape);
         }
 
         &:before {

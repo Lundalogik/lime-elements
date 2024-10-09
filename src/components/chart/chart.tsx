@@ -43,11 +43,11 @@ export class Chart {
         'stacked-bar';
 
     /**
-     * Defines how the bars in the chart `bar` and `stacked-bar` types
-     * are stretched.
+     * Defines whether the chart is intended to be displayed wide or tall.
+     * Does not have any effect on chart types which generate circular forms.
      */
     @Prop({ reflect: true })
-    public orientation: 'horizontal' | 'vertical' = 'horizontal';
+    public orientation?: 'landscape' | 'portrait' = 'landscape';
 
     /**
      * Specifies the range that items' values could be in.
@@ -103,7 +103,7 @@ export class Chart {
                         'zero-line': value === 0,
                     }}
                     // style={{
-                    //     [this.orientation === 'vertical' ? 'bottom' : 'left']: `${position}%`,
+                    //     [this.orientation === 'portrait' ? 'bottom' : 'left']: `${position}%`,
                     // }}
                     role="presentation"
                 >
@@ -199,7 +199,7 @@ export class Chart {
             <limel-tooltip
                 {...tooltipProps}
                 openDirection={
-                    this.orientation === 'vertical' ? 'right' : 'top'
+                    this.orientation === 'portrait' ? 'right' : 'top'
                 }
             />
         );

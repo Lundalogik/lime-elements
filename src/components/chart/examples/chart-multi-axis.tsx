@@ -17,14 +17,14 @@ export class ChartTypeBarMultiAxisExample {
     private range = 55;
 
     @State()
-    private orientation: 'horizontal' | 'vertical' = 'horizontal';
+    private orientation: 'landscape' | 'portrait' = 'landscape';
 
     @State()
     private type: 'bar' | 'scatter' = 'bar';
 
     private orientations: Option[] = [
-        { text: 'Horizontal', value: 'horizontal' },
-        { text: 'Vertical', value: 'vertical' },
+        { text: 'landscape', value: 'landscape' },
+        { text: 'portrait', value: 'portrait' },
     ];
 
     private types: Option[] = [
@@ -77,7 +77,7 @@ export class ChartTypeBarMultiAxisExample {
     private handleOrientationChange = (
         event: LimelSelectCustomEvent<Option<string>>,
     ) => {
-        this.orientation = event.detail.value as 'horizontal' | 'vertical';
+        this.orientation = event.detail.value as 'landscape' | 'portrait';
     };
 
     private getSelectedType() {
