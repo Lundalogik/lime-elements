@@ -12,7 +12,10 @@ limel-chart {
 
     &[type='stacked-bar'] {
         --chart-stacked-item-divider-color: transparent;
-        --chart-item-border-radius: 1rem;
+        --chart-item-border-radius: 1.5rem;
+        height: var(--chart-item-border-radius);
+        border-radius: var(--chart-item-border-radius);
+        overflow: hidden;
     }
 }
 

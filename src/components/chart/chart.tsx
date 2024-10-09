@@ -2,6 +2,8 @@ import { Component, h, Prop } from '@stencil/core';
 import { ChartItem } from './chart.types';
 import { createRandomString } from '../../util/random-string';
 
+const PERCENT = 100;
+
 /**
  * A chart is a graphical representation of data, in which
  * visual symbols such as such bars, dots, lines, or slices, represent
@@ -126,8 +128,9 @@ export class Chart {
             const itemId = createRandomString();
 
             const normalizedStart =
-                (((item.startValue ?? 0) - minRange) / totalRange) * 100;
-            const normalizedEnd = ((item.value - minRange) / totalRange) * 100;
+                (((item.startValue ?? 0) - minRange) / totalRange) * PERCENT;
+            const normalizedEnd =
+                ((item.value - minRange) / totalRange) * PERCENT;
             const size = normalizedEnd - normalizedStart;
 
             let offset = normalizedStart;
@@ -148,6 +151,7 @@ export class Chart {
                         item: true,
                         'has-start-value': item.startValue !== undefined,
                     }}
+                    key={itemId}
                     id={itemId}
                     // data-item-text={item.text}
                     tabIndex={0}
@@ -156,10 +160,10 @@ export class Chart {
                     itemId,
                     item.text,
                     item.value,
-                    item.prefix,
-                    item.suffix,
                     size,
                     item.startValue,
+                    item.prefix,
+                    item.suffix,
                 ),
             ];
         });
@@ -169,10 +173,10 @@ export class Chart {
         itemId: string,
         text: string,
         value: number,
-        prefix: string = '',
-        suffix: string = '',
         size: number,
         startValue?: number,
+        prefix: string = '',
+        suffix: string = '',
     ) {
         const PERCENT_DECIMAL = 2;
 
@@ -215,6 +219,10 @@ export class Chart {
 
         const totalRange = this.range ?? maxRange - minRange;
 
-        return { minRange, maxRange, totalRange }; // Return all ranges
+        return {
+            minRange: minRange,
+            maxRange: maxRange,
+            totalRange: totalRange,
+        }; // Return all ranges
     }
 }
