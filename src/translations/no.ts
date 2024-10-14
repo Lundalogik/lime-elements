@@ -3,6 +3,7 @@ export default {
     save: 'Lagre',
     cancel: 'Avbryt',
     loading: 'Laster…',
+    value: 'Verdi',
     'callout.note': 'Note',
     'callout.important': 'Viktig',
     'callout.tip': 'Tip',

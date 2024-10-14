@@ -3,6 +3,7 @@ export default {
     save: 'Tallenna',
     canceL: 'Peruuta',
     loading: 'Ladataan…',
+    value: 'Arvo',
     'callout.note': 'Huomio',
     'callout.important': 'Tärkeää',
     'callout.tip': 'Vinkki',
