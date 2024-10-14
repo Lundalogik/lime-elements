@@ -3,6 +3,7 @@ export default {
     save: 'Speichern',
     cancel: 'Abbrechen',
     loading: 'Laden…',
+    value: 'Wert',
     'callout.note': 'Hinweis',
     'callout.important': 'Wichtig',
     'callout.tip': 'Tipp',

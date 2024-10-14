@@ -3,6 +3,7 @@ export default {
     save: 'Save',
     cancel: 'Cancel',
     loading: 'Loading…',
+    value: 'Value',
     'callout.note': 'Note',
     'callout.important': 'Important',
     'callout.tip': 'Tip',
