@@ -15,6 +15,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-text-editor-as-form-component
  * @exampleComponent limel-example-text-editor-with-markdown
  * @exampleComponent limel-example-text-editor-with-html
+ * @exampleComponent limel-example-text-editor-with-tables
  * @exampleComponent limel-example-text-editor-allow-resize
  * @exampleComponent limel-example-text-editor-size
  * @exampleComponent limel-example-text-editor-ui
