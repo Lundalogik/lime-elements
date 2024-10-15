@@ -19,6 +19,7 @@ import { EditorUiType } from './types';
  * @exampleComponent limel-example-text-editor-as-form-component
  * @exampleComponent limel-example-text-editor-with-markdown
  * @exampleComponent limel-example-text-editor-with-html
+ * @exampleComponent limel-example-text-editor-with-tables
  * @exampleComponent limel-example-text-editor-allow-resize
  * @exampleComponent limel-example-text-editor-size
  * @exampleComponent limel-example-text-editor-ui
@@ -155,6 +156,12 @@ export class TextEditor implements FormComponent<string> {
     public ui?: EditorUiType = 'standard';
 
     /**
+     * Set to `true` to allow parsing of table data. Only works when `type` is `html`.
+     */
+    @Prop({ reflect: true })
+    public enableTables?: boolean;
+
+    /**
      * Dispatched when a change is made to the editor
      */
     @Event()
@@ -247,6 +254,7 @@ export class TextEditor implements FormComponent<string> {
                 aria-disabled={this.disabled}
                 language={this.language}
                 triggerCharacters={this.triggers}
+                supportTables={this.enableTables}
             />,
             this.renderPlaceholder(),
             this.renderHelperLine(),
