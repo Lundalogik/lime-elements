@@ -44,6 +44,7 @@ import { CustomElementDefinition } from '../../../global/shared-types/custom-ele
 import { createNodeSpec } from '../utils/plugin-factory';
 import { createTriggerPlugin } from './plugins/trigger/factory';
 import { TriggerCharacter } from '../text-editor.types';
+import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -99,6 +100,9 @@ export class ProsemirrorAdapter {
      */
     @Prop()
     triggerCharacters: TriggerCharacter[] = [];
+
+    @Prop()
+    public supportTables: boolean = false;
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -304,6 +308,10 @@ export class ProsemirrorAdapter {
         });
         nodes = addListNodes(nodes, 'paragraph block*', 'block');
 
+        if (this.supportTables) {
+            nodes = nodes.append(getTableNodes());
+        }
+
         return new Schema({
             nodes: nodes,
             marks: schema.spec.marks.append({
@@ -343,6 +351,7 @@ export class ProsemirrorAdapter {
                     this.updateActiveActionBarItems,
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
+                ...getTableEditingPlugins(this.supportTables),
             ],
         });
     }
