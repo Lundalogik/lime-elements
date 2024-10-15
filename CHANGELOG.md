@@ -1,3 +1,11 @@
+## [37.63.1](https://github.com/Lundalogik/lime-elements/compare/v37.63.0...v37.63.1) (2024-10-15)
+
+
+### Bug Fixes
+
+
+* **popover:** reduce transparency of popover's surface ([9380276](https://github.com/Lundalogik/lime-elements/commit/938027669dff4d52bc8c8691cf17f28c3b2d5154))
+
 ## [37.63.0](https://github.com/Lundalogik/lime-elements/compare/v37.62.3...v37.63.0) (2024-10-08)
 
 
