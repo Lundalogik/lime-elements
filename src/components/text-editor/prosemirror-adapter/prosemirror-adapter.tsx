@@ -40,6 +40,7 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
+import { getTableNodes, tableEditingPlugin } from './plugins/table-plugin';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -273,7 +274,11 @@ export class ProsemirrorAdapter {
 
     private initializeSchema() {
         return new Schema({
-            nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+            nodes: addListNodes(
+                schema.spec.nodes,
+                'paragraph block*',
+                'block',
+            ).append(getTableNodes()),
             marks: schema.spec.marks.append({
                 strikethrough: strikethrough,
             }),
@@ -310,6 +315,7 @@ export class ProsemirrorAdapter {
                     this.updateActiveActionBarItems,
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
+                tableEditingPlugin(),
             ],
         });
     }
