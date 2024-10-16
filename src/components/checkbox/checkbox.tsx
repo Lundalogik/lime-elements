@@ -106,6 +106,7 @@ export class Checkbox {
 
     @State()
     private modified = false;
+    private shouldReinitialize = false;
 
     /**
      * Emitted when the input value is changed.
@@ -136,6 +137,19 @@ export class Checkbox {
         this.mdcCheckbox.indeterminate = newValue;
     }
 
+    @Watch('readonly')
+    protected handleReadonlyChange() {
+        this.destroyMDCInstances();
+        this.shouldReinitialize = true;
+    }
+
+    componentDidRender() {
+        if (this.shouldReinitialize) {
+            this.initialize();
+            this.shouldReinitialize = false;
+        }
+    }
+
     public connectedCallback() {
         this.initialize();
     }
@@ -144,7 +158,7 @@ export class Checkbox {
         this.initialize();
     }
 
-    public disconnectedCallback() {
+    private destroyMDCInstances = () => {
         this.mdcCheckbox?.destroy();
         this.formField?.destroy();
 
@@ -159,6 +173,10 @@ export class Checkbox {
                 cssClasses.ANIM_UNCHECKED_INDETERMINATE,
             );
         }
+    };
+
+    public disconnectedCallback() {
+        this.destroyMDCInstances();
     }
 
     public render() {
