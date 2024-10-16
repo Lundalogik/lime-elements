@@ -136,6 +136,14 @@ export class Checkbox {
         this.mdcCheckbox.indeterminate = newValue;
     }
 
+    @Watch('readonly')
+    protected handleReadonlyChange() {
+        this.destroyMDCInstances();
+        requestAnimationFrame(() => {
+            this.initialize();
+        });
+    }
+
     public connectedCallback() {
         this.initialize();
     }
@@ -144,7 +152,7 @@ export class Checkbox {
         this.initialize();
     }
 
-    public disconnectedCallback() {
+    private destroyMDCInstances = () => {
         this.mdcCheckbox?.destroy();
         this.formField?.destroy();
 
@@ -159,6 +167,10 @@ export class Checkbox {
                 cssClasses.ANIM_UNCHECKED_INDETERMINATE,
             );
         }
+    };
+
+    public disconnectedCallback() {
+        this.destroyMDCInstances();
     }
 
     public render() {
