@@ -1,0 +1,27 @@
+:host(limel-example-chart-styling) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+limel-chart {
+    &[type='bar'] {
+        --chart-item-border-radius: 0.5rem;
+        height: 20rem;
+    }
+
+    &[type='stacked-bar'] {
+        --chart-stacked-item-divider-color: transparent;
+        --chart-item-border-radius: 1.5rem;
+        --chart-background-color: transparent;
+
+        height: var(--chart-item-border-radius);
+        border-radius: var(--chart-item-border-radius);
+        overflow: hidden;
+    }
+}
+
+div[role='separator'] {
+    width: 100%;
+    border-top: 1px dashed rgb(var(--color-green-light));
+}

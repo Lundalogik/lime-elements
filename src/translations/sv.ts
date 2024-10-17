@@ -3,6 +3,7 @@ export default {
     save: 'Spara',
     cancel: 'Avbryt',
     loading: 'Laddar…',
+    value: 'Värde',
     'callout.note': 'Obs',
     'callout.important': 'Viktigt',
     'callout.tip': 'Tips',
