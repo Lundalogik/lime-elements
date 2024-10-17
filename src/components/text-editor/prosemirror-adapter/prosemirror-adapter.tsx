@@ -40,6 +40,7 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
+import { getHref } from 'src/util/link-helper';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -410,8 +411,17 @@ export class ProsemirrorAdapter {
     };
 
     private handleLinkChange = (event: CustomEvent<EditorTextLink>) => {
-        this.link = event.detail;
+        const { href } = event.detail;
+
+        this.updateLink({
+            ...event.detail,
+            href: getHref(href),
+        });
     };
+
+    private updateLink = debounce((value: EditorTextLink) => {
+        this.link = value;
+    }, DEBOUNCE_TIMEOUT);
 
     public setFocus() {
         this.view?.focus();
