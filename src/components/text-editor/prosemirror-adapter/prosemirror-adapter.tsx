@@ -18,7 +18,11 @@ import { keymap } from 'prosemirror-keymap';
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
 import { MenuCommandFactory } from './menu/menu-commands';
-import { menuTranslationIDs, getTextEditorMenuItems } from './menu/menu-items';
+import {
+    menuTranslationIDs,
+    getTextEditorMenuItems,
+    getSecondaryMenuItems,
+} from './menu/menu-items';
 import { ContentTypeConverter } from '../utils/content-type-converter';
 import { MarkdownConverter } from '../utils/markdown-converter';
 import { HTMLConverter } from '../utils/html-converter';
@@ -92,6 +96,11 @@ export class ProsemirrorAdapter {
     > = [];
 
     @State()
+    private secondaryActionBarItems: Array<
+        ActionBarItem<EditorMenuTypes> | ListSeparator
+    > = [];
+
+    @State()
     private link: EditorTextLink = { href: '' };
 
     /**
@@ -104,6 +113,7 @@ export class ProsemirrorAdapter {
     private schema: Schema;
     private contentConverter: ContentTypeConverter;
     private actionBarElement: HTMLElement;
+    private secondaryActionBarElement: HTMLElement;
     private lastEmittedValue: string;
     private changeWaiting = false;
 
@@ -183,12 +193,20 @@ export class ProsemirrorAdapter {
 
     public render() {
         return [
-            <div id="editor" />,
-            <div class="toolbar">
+            <div key="editor" id="editor" />,
+            <div key="toolbar" class="toolbar">
                 <limel-action-bar
                     ref={(el) => (this.actionBarElement = el)}
                     accessibleLabel="Toolbar"
                     actions={this.actionBarItems}
+                    onItemSelected={this.handleActionBarItem}
+                />
+            </div>,
+            <div key="secondary-toolbar" class="secondary-toolbar">
+                <limel-action-bar
+                    ref={(el) => (this.secondaryActionBarElement = el)}
+                    accessibleLabel="Secondary toolbar"
+                    actions={this.secondaryActionBarItems}
                     onItemSelected={this.handleActionBarItem}
                 />
             </div>,
@@ -234,6 +252,9 @@ export class ProsemirrorAdapter {
 
     private getActionBarItems = () => {
         this.actionBarItems = getTextEditorMenuItems().map(
+            this.getTranslatedItem,
+        );
+        this.secondaryActionBarItems = getSecondaryMenuItems().map(
             this.getTranslatedItem,
         );
     };
@@ -376,6 +397,12 @@ export class ProsemirrorAdapter {
         const { value } = event.detail;
 
         if (value === EditorMenuTypes.Link) {
+            this.isLinkMenuOpen = true;
+
+            return;
+        }
+
+        if (value === EditorMenuTypes.Mention) {
             this.isLinkMenuOpen = true;
 
             return;

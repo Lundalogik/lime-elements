@@ -382,6 +382,17 @@ const commandMapping: CommandMapping = {
     bullet_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.BulletList),
     /* eslint-enable camelcase */
+    mention: () => {
+        const command: CommandWithActive = () => {
+            console.log('Mention command not implemented');
+
+            return false;
+        };
+
+        command.active = () => false;
+
+        return command;
+    },
 };
 
 export class MenuCommandFactory {

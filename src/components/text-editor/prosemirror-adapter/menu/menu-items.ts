@@ -120,6 +120,40 @@ const textEditorMenuItems: Array<
 
 export const getTextEditorMenuItems = () => cloneDeep(textEditorMenuItems);
 
+const secondaryMenuItems: Array<
+    ActionBarItem<EditorMenuTypes> | ListSeparator
+> = [
+    {
+        value: EditorMenuTypes.Attach,
+        text: 'Attach',
+        icon: 'plus',
+        iconOnly: true,
+    },
+    {
+        value: EditorMenuTypes.Mention,
+        text: 'Mention',
+        icon: '-lime-logo-outlined-colored',
+        iconOnly: true,
+    },
+    {
+        value: EditorMenuTypes.Tag,
+        text: 'Tag',
+        icon: 'hashtag',
+        iconOnly: true,
+    },
+    {
+        separator: true,
+    },
+    {
+        value: EditorMenuTypes.Emoji,
+        text: 'Emoji',
+        icon: 'happy',
+        iconOnly: true,
+    },
+];
+
+export const getSecondaryMenuItems = () => cloneDeep(secondaryMenuItems);
+
 export const menuTranslationIDs = {
     strong: 'editor-menu.bold',
     em: 'editor-menu.italic',

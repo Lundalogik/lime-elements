@@ -18,6 +18,10 @@ export const EditorMenuTypes = {
     Strikethrough: 'strikethrough',
     Code: 'code',
     CodeBlock: 'code_block',
+    Mention: 'mention',
+    Emoji: 'emoji',
+    Attach: 'attach',
+    Tag: 'tag',
 };
 
 export type EditorMenuTypes =
