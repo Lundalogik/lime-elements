@@ -1,3 +1,11 @@
+## [37.63.2](https://github.com/Lundalogik/lime-elements/compare/v37.63.1...v37.63.2) (2024-10-18)
+
+
+### Bug Fixes
+
+
+* **checkbox:** teardown and re-initialize component when readonly is changed ([16a77cc](https://github.com/Lundalogik/lime-elements/commit/16a77ccaccc6041bc500376a595a54cd1838159b))
+
 ## [37.63.1](https://github.com/Lundalogik/lime-elements/compare/v37.63.0...v37.63.1) (2024-10-15)
 
 
