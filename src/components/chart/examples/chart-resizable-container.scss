@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+:host {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    resize: both;
+    overflow: auto;
+
+    box-sizing: border-box;
+    position: relative;
+
+    min-width: 10rem;
+    width: 100%;
+    max-width: 100%;
+
+    min-height: 5rem;
+    height: 100%;
+    max-height: 50rem;
+
+    padding: 1rem 1rem 3rem 1rem;
+    border: 0.125rem dashed rgb(var(--contrast-500));
+
+    border-radius: 0.5rem;
+
+    &::after {
+        content: 'Resize me ⤵';
+        font-size: 0.75rem;
+        position: absolute;
+        right: 0.25rem;
+        bottom: 0.25rem;
+    }
+}
+
+:host(.large) {
+    height: 25rem;
+}
+
+:host(.tall) {
+    height: 35rem;
+}
+
+:host(.row-layout) {
+    flex-direction: row;
+}
+
+limel-example-controls {
+    --example-controls-column-layout: auto-fit;
+    padding: 1rem 0.5rem;
+    height: fit-content;
+    min-width: 40%;
+}

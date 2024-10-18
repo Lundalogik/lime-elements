@@ -3,6 +3,7 @@ export default {
     save: 'Gem',
     cancel: 'Annullér',
     loading: 'Indlæser…',
+    value: 'Værdi',
     'callout.note': 'Bemærk',
     'callout.important': 'Vigtig',
     'callout.tip': 'Tip',

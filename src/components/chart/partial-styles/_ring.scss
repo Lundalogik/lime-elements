@@ -1,0 +1,83 @@
+:host(limel-chart[type='ring']) {
+    table {
+        min-height: 2rem;
+        min-width: 2rem;
+    }
+
+    .chart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        aspect-ratio: 1;
+        border-radius: 50%;
+
+        &:after {
+            content: '';
+
+            width: calc(
+                100% - var(--limel-chart-number-of-items) *
+                    (100% / (var(--limel-chart-number-of-items) + 1))
+            );
+
+            background-color: var(
+                --limel-chart-background-color,
+                rgb(var(--contrast-200))
+            );
+        }
+
+        &:has(.item:hover),
+        &:has(.item:focus-visible) {
+            .item {
+                opacity: 1;
+                filter: grayscale(1);
+            }
+        }
+    }
+
+    .chart:after,
+    .item {
+        display: flex;
+        aspect-ratio: 1;
+        border-radius: 50%;
+
+        position: absolute;
+        inset: 0;
+        margin: auto;
+
+        border: 1px solid
+            var(--limel-chart-background-color, rgb(var(--contrast-400)));
+    }
+
+    .item {
+        @include mixins.visualize-keyboard-focus;
+
+        background: conic-gradient(
+            var(--limel-chart-item-color) 0
+                calc(
+                    var(--limel-chart-item-offset) * 1% +
+                        var(--limel-chart-item-size) * 1%
+                ),
+            var(--chart-background-color, rgb(var(--contrast-200)))
+                calc(
+                    var(--limel-chart-item-offset) * 1% +
+                        var(--limel-chart-item-size) * 1%
+                )
+        );
+
+        width: calc(
+            100% - var(--limel-chart-item-index) *
+                (100% / (var(--limel-chart-number-of-items) + 1))
+        );
+
+        &:focus-visible,
+        &:hover {
+            filter: grayscale(0) !important;
+        }
+
+        &:first-child {
+            // I don't know why the first item is not 100% centered
+            margin-left: -1px;
+        }
+    }
+}

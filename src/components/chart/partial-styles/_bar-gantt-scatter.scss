@@ -1,0 +1,127 @@
+@mixin line($direction: portrait, $color: rgb(var(--contrast-800), 0.4)) {
+    @if $direction == portrait {
+        background: linear-gradient(to bottom, $color 0%, $color 100%)
+            center/1px
+            100%
+            no-repeat;
+    } @else if $direction == landscape {
+        background: linear-gradient(to right, $color 0%, $color 100%)
+            center/100%
+            1px
+            no-repeat;
+    }
+}
+
+:host(limel-chart[type='bar']),
+:host(limel-chart[type='scatter']) {
+    .chart {
+        gap: 0.5rem;
+    }
+
+    .item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: var(--chart-item-border-radius, 0.125rem);
+    }
+}
+
+:host(limel-chart[type='bar']) {
+    .item {
+        background-color: var(--limel-chart-item-color);
+    }
+}
+
+:host(limel-chart[type='scatter']) {
+    .item {
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            margin: auto;
+
+            width: $min-item-size;
+            height: $min-item-size;
+            border-radius: 50%;
+        }
+        &::after {
+            background-color: var(--limel-chart-item-color);
+        }
+
+        &.has-start-value {
+            &:before {
+                background-color: var(--limel-chart-item-color);
+            }
+        }
+    }
+}
+
+:host(limel-chart[type='bar'][orientation='landscape']),
+:host(limel-chart[type='scatter'][orientation='landscape']) {
+    .item {
+        height: calc(var(--limel-chart-item-size) * 1%);
+        bottom: calc(var(--limel-chart-item-offset) * 1%);
+
+        &.has-negative-value-only {
+            height: calc(var(--limel-chart-item-size) * -1%);
+
+            transform-origin: bottom;
+            transform: rotateX(180deg);
+        }
+    }
+}
+
+:host(limel-chart[type='scatter'][orientation='landscape']) {
+    .item {
+        &.has-start-value,
+        &:hover,
+        &:focus-visible {
+            @include line(portrait);
+        }
+
+        &:before {
+            inset: auto 0 0 0;
+            transform: translateY(50%);
+        }
+        &::after {
+            inset: 0 0 auto 0;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+:host(limel-chart[type='bar'][orientation='portrait']),
+:host(limel-chart[type='scatter'][orientation='portrait']) {
+    .item {
+        width: calc(var(--limel-chart-item-size) * 1%);
+        left: calc(var(--limel-chart-item-offset) * 1%);
+
+        &.has-negative-value-only {
+            width: calc(var(--limel-chart-item-size) * -1%);
+
+            transform-origin: left;
+            transform: rotateY(180deg);
+        }
+    }
+}
+
+:host(limel-chart[type='scatter'][orientation='portrait']) {
+    .item {
+        &.has-start-value,
+        &:hover,
+        &:focus-visible {
+            @include line(landscape);
+        }
+
+        &:before {
+            inset: 0 auto 0 0;
+            transform: translateX(-50%);
+        }
+
+        &:after {
+            inset: 0 0 0 auto;
+            transform: translateX(50%);
+        }
+    }
+}

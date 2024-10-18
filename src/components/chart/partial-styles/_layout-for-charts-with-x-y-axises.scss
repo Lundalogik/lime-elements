@@ -1,0 +1,49 @@
+:host(limel-chart[type='bar']),
+:host(limel-chart[type='scatter']),
+:host(limel-chart[type='area']) {
+    .chart {
+        display: flex;
+        background-color: var(--chart-background-color, transparent);
+    }
+
+    .item {
+        @include mixins.visualize-keyboard-focus;
+        position: relative;
+        mix-blend-mode: hard-light;
+    }
+}
+
+:host(limel-chart[type='bar'][orientation='landscape']),
+:host(limel-chart[type='scatter'][orientation='landscape']),
+:host(limel-chart[type='area'][orientation='landscape']) {
+    --limel-chart-padding: 0.5rem 0.5rem 0.5rem 2rem;
+
+    .chart {
+        flex-direction: row;
+        align-items: flex-end;
+        overflow: auto hidden;
+        padding: 0 0.125rem;
+    }
+
+    .item {
+        min-width: $min-item-size;
+        width: inherit;
+    }
+}
+
+:host(limel-chart[type='bar'][orientation='portrait']),
+:host(limel-chart[type='scatter'][orientation='portrait']),
+:host(limel-chart[type='area'][orientation='portrait']) {
+    --limel-chart-padding: 0.5rem 0.5rem 1rem 0.5rem;
+
+    .chart {
+        flex-direction: column;
+        overflow: hidden auto;
+        padding: 0.125rem 0;
+    }
+
+    .item {
+        min-height: $min-item-size;
+        height: inherit;
+    }
+}
