@@ -26,6 +26,7 @@ export class TextEditorWithTablesExample {
                 onChange={this.handleChange}
                 readonly={this.readonly}
                 contentType="html"
+                enableTables={true}
             />,
             <limel-example-controls>
                 <limel-checkbox

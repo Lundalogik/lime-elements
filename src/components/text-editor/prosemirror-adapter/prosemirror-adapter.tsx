@@ -40,7 +40,7 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
-import { getTableNodes, tableEditingPlugin } from './plugins/table-plugin';
+import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -78,6 +78,9 @@ export class ProsemirrorAdapter {
      */
     @Prop({ reflect: true })
     public language: Languages;
+
+    @Prop()
+    public supportTables: boolean = false;
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -273,12 +276,18 @@ export class ProsemirrorAdapter {
     }
 
     private initializeSchema() {
+        let nodes = addListNodes(
+            schema.spec.nodes,
+            'paragraph block*',
+            'block',
+        );
+
+        if (this.supportTables) {
+            nodes = nodes.append(getTableNodes());
+        }
+
         return new Schema({
-            nodes: addListNodes(
-                schema.spec.nodes,
-                'paragraph block*',
-                'block',
-            ).append(getTableNodes()),
+            nodes: nodes,
             marks: schema.spec.marks.append({
                 strikethrough: strikethrough,
             }),
@@ -315,7 +324,7 @@ export class ProsemirrorAdapter {
                     this.updateActiveActionBarItems,
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
-                tableEditingPlugin(),
+                ...getTableEditingPlugins(this.supportTables),
             ],
         });
     }

@@ -1,6 +1,13 @@
 import { tableNodes, tableEditing } from 'prosemirror-tables';
+import { Plugin } from 'prosemirror-state';
 
-export const tableEditingPlugin = tableEditing;
+export const getTableEditingPlugins = (tablesEnabled: boolean): Plugin[] => {
+    if (tablesEnabled) {
+        return [tableEditing()];
+    }
+
+    return [];
+};
 
 export const getTableNodes = () => {
     return tableNodes({

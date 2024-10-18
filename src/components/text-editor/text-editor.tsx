@@ -126,6 +126,12 @@ export class TextEditor implements FormComponent<string> {
     public ui?: 'standard' | 'minimal' = 'standard';
 
     /**
+     * Set to `true` to allow parsing of table data. Only works when `type` is `html`.
+     */
+    @Prop({ reflect: true })
+    public enableTables?: boolean;
+
+    /**
      * Dispatched when a change is made to the editor
      */
     @Event()
@@ -187,6 +193,7 @@ export class TextEditor implements FormComponent<string> {
                 tabindex={this.disabled ? -1 : undefined}
                 aria-disabled={this.disabled}
                 language={this.language}
+                supportTables={this.enableTables}
             />,
             this.renderPlaceholder(),
             this.renderHelperLine(),
