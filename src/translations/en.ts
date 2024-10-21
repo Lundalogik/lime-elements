@@ -36,4 +36,5 @@ export default {
     'editor-menu.code-block': 'Code block',
     'editor-menu.code': 'Code',
     'progress-bar': 'Progress bar',
+    'secondary-action-bar': 'Secondary action bar',
 };

@@ -36,4 +36,5 @@ export default {
     'editor-menu.code-block': 'Kodblock',
     'editor-menu.code': 'Kod',
     'progress-bar': 'Förloppsindikator',
+    'secondary-action-bar': 'Sekundär verktygsrad',
 };

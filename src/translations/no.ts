@@ -35,4 +35,5 @@ export default {
     'editor-menu.code-block': 'Kodeblokk',
     'editor-menu.code': 'Kode',
     'progress-bar': 'Fremdriftsindikator',
+    'secondary-action-bar': 'Sekundær verktøylinje',
 };

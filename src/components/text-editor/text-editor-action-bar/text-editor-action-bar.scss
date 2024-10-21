@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+}
+
+:host(limel-text-editor-action-bar) {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    gap: 2rem;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+limel-action-bar {
+    min-width: 5rem;
+    flex-grow: 1;
+}
+
+limel-split-button {
+    min-width: 0;
+    flex-shrink: 0;
+}

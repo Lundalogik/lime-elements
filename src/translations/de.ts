@@ -37,4 +37,5 @@ export default {
     'editor-menu.code-block': 'Codeblock',
     'editor-menu.code': 'Code',
     'progress-bar': 'Fortschrittsbalken',
+    'secondary-action-bar': 'Sekundäre Aktionsleiste',
 };

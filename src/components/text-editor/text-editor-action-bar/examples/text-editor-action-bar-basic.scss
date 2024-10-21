@@ -1,0 +1,22 @@
+:host {
+    --example-controls-column-layout: auto-fit;
+}
+
+div {
+    box-sizing: border-box;
+    overflow: auto;
+    resize: horizontal;
+
+    width: 100%;
+    max-width: 40rem;
+
+    padding: 1rem;
+
+    background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill='rgba(186,186,192,0.16)' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
+    background-size: 0.5rem;
+}
+
+limel-text-editor-action-bar {
+    background-color: rgb(var(--contrast-100));
+    box-shadow: var(--shadow-depth-16);
+}

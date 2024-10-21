@@ -36,4 +36,5 @@ export default {
     'editor-menu.code-block': 'Koodilohko',
     'editor-menu.code': 'Koodi',
     'progress-bar': 'Edistymispalkki',
+    'secondary-action-bar': 'Toissijainen toimintopalkki',
 };
