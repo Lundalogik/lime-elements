@@ -1,6 +1,6 @@
 import { ActionBarItem } from 'src/components/action-bar/action-bar.types';
 import { ListSeparator } from 'src/components/list/list-item.types';
-import { EditorMenuTypes } from './types';
+import { EditorMenuTypes, EditorPluginTypes } from './types';
 import { cloneDeep } from 'lodash-es';
 
 const getCommandSymbols = (): {
@@ -119,6 +119,49 @@ const textEditorMenuItems: Array<
 ];
 
 export const getTextEditorMenuItems = () => cloneDeep(textEditorMenuItems);
+
+const secondaryMenuItems: Array<
+    ActionBarItem<EditorMenuTypes> | ListSeparator
+> = [
+    {
+        value: EditorPluginTypes.Attach,
+        text: 'Attach',
+        icon: 'plus',
+        iconOnly: true,
+    },
+    {
+        value: EditorPluginTypes.Mention,
+        text: 'Mention',
+        icon: '-lime-logo-outlined-colored',
+        iconOnly: true,
+    },
+    {
+        value: EditorPluginTypes.Tag,
+        text: 'Tag',
+        icon: 'hashtag',
+        iconOnly: true,
+    },
+    {
+        separator: true,
+    },
+    {
+        value: EditorPluginTypes.Emoji,
+        text: 'Emoji',
+        icon: 'happy',
+        iconOnly: true,
+    },
+    {
+        separator: true,
+    },
+    {
+        value: 'Awimbowe',
+        text: 'Awimbowe',
+        icon: 'octopus',
+        iconOnly: true,
+    },
+];
+
+export const getSecondaryMenuItems = () => cloneDeep(secondaryMenuItems);
 
 export const menuTranslationIDs = {
     strong: 'editor-menu.bold',
