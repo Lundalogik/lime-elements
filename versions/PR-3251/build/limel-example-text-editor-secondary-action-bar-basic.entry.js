@@ -1,0 +1,2 @@
+import{r,h as e}from"./index-6156b4fd.js";const t=class{constructor(e){r(this,e)}render(){return[e("limel-text-editor-secondary-action-bar",null)]}};export{t as limel_example_text_editor_secondary_action_bar_basic};
+//# sourceMappingURL=limel-example-text-editor-secondary-action-bar-basic.entry.js.map

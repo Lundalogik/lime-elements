@@ -1,0 +1,2 @@
+import{r,h as t}from"./index-6156b4fd.js";const s="";const e=class{constructor(t){r(this,t);this.language="en"}render(){return t("p",null,"Hi")}};e.style=s;export{e as limel_text_editor_secondary_action_bar};
+//# sourceMappingURL=limel-text-editor-secondary-action-bar.entry.js.map
