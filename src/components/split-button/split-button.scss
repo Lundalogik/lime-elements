@@ -91,6 +91,10 @@ limel-menu {
         }
     }
 
+    &[aria-expanded]:not([aria-expanded='false']) {
+        box-shadow: var(--button-shadow-inset-pressed);
+    }
+
     &:before {
         // prevents unintentionally activating the default action,
         // by clicking on the edge of menu trigger,
