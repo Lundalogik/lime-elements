@@ -1,3 +1,11 @@
+## [37.63.3](https://github.com/Lundalogik/lime-elements/compare/v37.63.2...v37.63.3) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **split-button:** highlight menu's trigger when the menu is open ([b177586](https://github.com/Lundalogik/lime-elements/commit/b177586f453378bcee3f950010e9d198f19a01c2))
+
 ## [37.63.2](https://github.com/Lundalogik/lime-elements/compare/v37.63.1...v37.63.2) (2024-10-18)
 
 
