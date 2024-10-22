@@ -1,3 +1,11 @@
+## [37.63.4](https://github.com/Lundalogik/lime-elements/compare/v37.63.3...v37.63.4) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **split-button:** remove unnecessary padding left ([522c8df](https://github.com/Lundalogik/lime-elements/commit/522c8dfb8afc1eb62df6c782c3b1ac26c6c0e16e))
+
 ## [37.63.3](https://github.com/Lundalogik/lime-elements/compare/v37.63.2...v37.63.3) (2024-10-22)
 
 
