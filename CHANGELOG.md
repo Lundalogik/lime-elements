@@ -1,3 +1,12 @@
+## [37.63.6](https://github.com/Lundalogik/lime-elements/compare/v37.63.5...v37.63.6) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **picker:** cancel debounced search when disconnected ([359aae6](https://github.com/Lundalogik/lime-elements/commit/359aae633fe27eed848fb70ebac8a823d489928d))
+* **portal:** avoid creating or showing things when disconnected ([95305af](https://github.com/Lundalogik/lime-elements/commit/95305af5edaeece86b0943750130bcecd94c3fef))
+
 ## [37.63.5](https://github.com/Lundalogik/lime-elements/compare/v37.63.4...v37.63.5) (2024-10-22)
 
 
