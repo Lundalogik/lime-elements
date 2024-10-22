@@ -587,6 +587,7 @@ export class Picker {
         }
 
         if (this.multiple) {
+            this.textValue = '';
             this.chipSet?.setFocus(true);
         }
     }
