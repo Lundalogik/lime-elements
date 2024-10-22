@@ -40,7 +40,7 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
-import { NodeConfig } from '../types';
+import { CustomElement } from '../../../global/shared-types/custom-element.types';
 import { createNodeSpec } from '../utils/plugin-factory';
 
 const DEBOUNCE_TIMEOUT = 300;
@@ -85,7 +85,7 @@ export class ProsemirrorAdapter {
      * set to private to avoid usage while under development
      */
     @Prop()
-    plugins: NodeConfig[] = [];
+    plugins: CustomElement[] = [];
 
     @Element()
     private host: HTMLLimelTextEditorElement;
