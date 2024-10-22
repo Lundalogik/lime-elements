@@ -134,9 +134,11 @@ export class Portal {
     public disconnectedCallback() {
         this.removeContainer();
         this.destroyPopper();
-        if (this.observer) {
+        if (this.observer && this.container) {
             this.observer.unobserve(this.container);
         }
+
+        this.container = null;
     }
 
     public connectedCallback() {
@@ -155,6 +157,10 @@ export class Portal {
     }
 
     private init() {
+        if (!this.host.isConnected) {
+            return;
+        }
+
         this.createContainer();
         this.hideContainer();
         this.attachContainer();
@@ -184,6 +190,8 @@ export class Portal {
     protected onVisible() {
         if (!this.container && this.visible) {
             this.init();
+
+            return;
         }
 
         if (!this.visible) {
