@@ -7,7 +7,7 @@ import {
     defaultMarkdownSerializer,
 } from 'prosemirror-markdown';
 import { markdownToHTML } from '../../markdown/markdown-parser';
-import { NodeConfig } from '../types';
+import { CustomElement } from '../../../global/shared-types/custom-element.types';
 
 type MarkdownSerializerFunction = (
     state: MarkdownSerializerState,
@@ -15,12 +15,12 @@ type MarkdownSerializerFunction = (
 ) => void;
 
 const createMarkdownSerializerFunction = (
-    config: NodeConfig,
+    config: CustomElement,
 ): MarkdownSerializerFunction => {
     return (state: MarkdownSerializerState, node: ProseMirrorNode) => {
         const tagOpen =
             `<${config.tagName}` +
-            config.attrs
+            config.attributes
                 .map((attr) => ` ${attr}="${node.attrs[attr]}"`)
                 .join('') +
             '>';
@@ -30,7 +30,9 @@ const createMarkdownSerializerFunction = (
     };
 };
 
-const buildMarkdownSerializer = (plugins: NodeConfig[]): MarkdownSerializer => {
+const buildMarkdownSerializer = (
+    plugins: CustomElement[],
+): MarkdownSerializer => {
     const customNodes = {};
 
     plugins.forEach((plugin) => {
@@ -60,12 +62,21 @@ const buildMarkdownSerializer = (plugins: NodeConfig[]): MarkdownSerializer => {
  */
 export class MarkdownConverter implements ContentTypeConverter {
     private markdownSerializer: MarkdownSerializer;
+    private customNodes: CustomElement[];
 
-    constructor(plugins: NodeConfig[]) {
+    constructor(plugins: CustomElement[]) {
         this.markdownSerializer = buildMarkdownSerializer(plugins);
+        this.customNodes = plugins;
     }
     public parseAsHTML = (text: string): Promise<string> => {
-        return markdownToHTML(text);
+        const whitelist: CustomElement[] = this.customNodes.map(
+            (nodeConfig: CustomElement) => ({
+                tagName: nodeConfig.tagName,
+                attributes: nodeConfig.attributes,
+            }),
+        );
+
+        return markdownToHTML(text, { whitelist: whitelist });
     };
 
     public serialize = (view: EditorView): string => {

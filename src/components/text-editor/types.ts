@@ -1,16 +1,9 @@
-import { NodeSpec } from 'prosemirror-model';
+import { CustomElement } from '../../global/shared-types/custom-element.types';
 
 /**
  * @private
  * set to private to avoid usage while under development
  */
 export type TextEditorPlugin = {
-    node: NodeConfig[];
+    node: CustomElement[];
 };
-
-export interface NodeConfig {
-    tagName: string;
-    attrs: string[];
-}
-
-export type NodeSpecFactory = (config: NodeConfig) => NodeSpec;

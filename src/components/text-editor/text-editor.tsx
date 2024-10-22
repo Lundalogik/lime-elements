@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
-import { NodeConfig } from './types';
+import { CustomElement } from '../../global/shared-types/custom-element.types';
 
 /**
  * A rich text editor that offers a rich text editing experience with markdown support,
@@ -21,7 +21,7 @@ import { NodeConfig } from './types';
  * @exampleComponent limel-example-text-editor-size
  * @exampleComponent limel-example-text-editor-ui
  * @exampleComponent limel-example-text-editor-composite
- * @exampleComponent limel-example-text-editor-custom-node
+ * @exampleComponent limel-example-text-editor-custom-element
  * @beta
  */
 @Component({
@@ -101,7 +101,7 @@ export class TextEditor implements FormComponent<string> {
      * set to private to avoid usage while under development
      */
     @Prop()
-    public plugins: NodeConfig[] = [];
+    public plugins: CustomElement[] = [];
 
     /**
      * Set to `true` to indicate that the field is required.
