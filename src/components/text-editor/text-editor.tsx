@@ -21,6 +21,7 @@ import { NodeConfig } from './types';
  * @exampleComponent limel-example-text-editor-size
  * @exampleComponent limel-example-text-editor-ui
  * @exampleComponent limel-example-text-editor-composite
+ * @exampleComponent limel-example-text-editor-custom-node
  * @beta
  */
 @Component({
