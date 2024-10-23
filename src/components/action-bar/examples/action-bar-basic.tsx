@@ -85,15 +85,6 @@ export class ActionBarBasicExample {
 
     private handleSelected = (event: CustomEvent<ActionBarItem>) => {
         event.stopPropagation();
-        const setSelection = (item: ActionBarItem) => {
-            return {
-                ...item,
-                selected: item.text === event.detail.text,
-            };
-        };
-
         console.log(event.detail);
-
-        this.actionBarItems = this.actionBarItems.map(setSelection);
     };
 }
