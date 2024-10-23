@@ -31,7 +31,7 @@ import { isItem } from './isItem';
  * but its primary goal remains consistent—to
  * empower users to interact with the software and perform desired actions effortlessly.
  *
- * @exampleComponent limel-example-action-bar
+ * @exampleComponent limel-example-action-bar-basic
  * @exampleComponent limel-example-action-bar-overflow-menu
  * @exampleComponent limel-example-action-bar-selected-item
  * @exampleComponent limel-example-action-bar-colors
