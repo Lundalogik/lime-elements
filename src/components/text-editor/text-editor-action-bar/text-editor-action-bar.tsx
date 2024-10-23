@@ -79,6 +79,41 @@ export class TextEditorSecondaryActionBar {
     public toolbarActions: Array<ActionBarItem | ListSeparator> = [];
 
     /**
+     * When true, displays a button that:
+     * 1. Allows end users to open their operating system's File Manager.
+     * 1. Allows you to limit which file types are allowed,
+     * and how many files can be chosen by the user.
+     */
+    @Prop({ reflect: true })
+    public fileInput: boolean = false;
+
+    /**
+     * Specifies the types of files that the dropzone will accept. By default, all file types are accepted.
+     *
+     * For media files, formats can be specified using: `audio/*`, `video/*`, `image/*`.
+     * Unique file type specifiers can also be used, for example: `.jpg`, `.pdf`.
+     * A comma-separated list of file extensions or MIME types is also acceptable, e.g., `image/png, image/jpeg` or
+     * `.png, .jpg, .jpeg`.
+     *
+     * @see [HTML attribute: accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) for more
+     * details.
+     */
+    @Prop({ reflect: true })
+    public fileInputAccept: string = '*';
+
+    /**
+     * Set to `true` to enable selection of multiple files
+     */
+    @Prop({ reflect: true })
+    public fileInputMultiple: boolean = false;
+
+    /**
+     * Set to `true` to disable file input selection.
+     */
+    @Prop({ reflect: true })
+    public fileInputDisabled: boolean = false;
+
+    /**
      * Event emitted when the split button is clicked.
      */
     @Event()
@@ -98,10 +133,38 @@ export class TextEditorSecondaryActionBar {
 
     public render() {
         return [
+            this.renderFileInput(),
             this.renderLimelActionBar(),
             this.renderLimelSplitButton(),
             this.renderSplitButtonTooltip(),
         ];
+    }
+
+    private renderFileInput() {
+        if (!this.fileInput) {
+            return;
+        }
+
+        return (
+            <limel-file-input
+                accept={this.fileInputAccept}
+                multiple={this.fileInputMultiple}
+                disabled={this.fileInputDisabled}
+            >
+                <limel-icon-button
+                    icon="attach"
+                    id="attach-file"
+                    disabled={this.fileInputDisabled}
+                />
+                <limel-tooltip
+                    elementId="attach-file"
+                    label="Click to attach files"
+                    helperLabel="or drag & drop them here…"
+                    maxlength={20}
+                    openDirection="right"
+                />
+            </limel-file-input>
+        );
     }
 
     private renderLimelActionBar() {
