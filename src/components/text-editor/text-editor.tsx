@@ -97,8 +97,10 @@ export class TextEditor implements FormComponent<string> {
     public value: string;
 
     /**
-     * @private
      * set to private to avoid usage while under development
+     *
+     * @private
+     * @alpha
      */
     @Prop()
     public plugins: CustomElement[] = [];
