@@ -57,6 +57,12 @@ export async function markdownToHTML(
 }
 
 function getWhiteList(allowedComponents: CustomElement[]): Schema {
+    const defaultSchemaClone = [...(defaultSchema.attributes['*'] ?? [])];
+    const asteriskAttributeWhitelist = defaultSchemaClone.filter((attr) => {
+        return attr !== 'height';
+    });
+    asteriskAttributeWhitelist.push('style');
+
     const whitelist: Schema = {
         ...defaultSchema,
         tagNames: [
@@ -69,7 +75,7 @@ function getWhiteList(allowedComponents: CustomElement[]): Schema {
                 ...(defaultSchema.attributes.p ?? []),
                 ['className', 'MsoNormal'],
             ], // Allow the class 'MsoNormal' on <p> elements
-            '*': [...(defaultSchema.attributes['*'] ?? []), 'style'], // Allow `style` attribute on all elements
+            '*': asteriskAttributeWhitelist,
         },
     };
 
