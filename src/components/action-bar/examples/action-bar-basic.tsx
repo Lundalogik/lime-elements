@@ -17,9 +17,9 @@ import { ActionBarItem, ListSeparator } from '@limetech/lime-elements';
  *
  */
 @Component({
-    tag: 'limel-example-action-bar',
+    tag: 'limel-example-action-bar-basic',
     shadow: true,
-    styleUrl: 'action-bar.scss',
+    styleUrl: 'action-bar-basic.scss',
 })
 export class ActionBarBasicExample {
     @State()
