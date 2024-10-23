@@ -1,3 +1,25 @@
+## [37.64.0](https://github.com/Lundalogik/lime-elements/compare/v37.63.6...v37.64.0) (2024-10-23)
+
+
+### Features
+
+
+* **lime text editor:** add mention to schema nodes ([17ad553](https://github.com/Lundalogik/lime-elements/commit/17ad55369338e03e6706f0055f709bc474c8aa44))
+* **text editor mentions:** add node spec ([9893b31](https://github.com/Lundalogik/lime-elements/commit/9893b310500d88772aef0e2546d428c4ec8bda6f))
+* **text editor mentions:** add nodeSpec factory ([16b03e8](https://github.com/Lundalogik/lime-elements/commit/16b03e8af52b1d6c27a2844abe10c5d7eaa7bef9))
+* **text editor mentions:** allow for serialization from node config ([2b9fdbb](https://github.com/Lundalogik/lime-elements/commit/2b9fdbbe76e16447b94cf97699d7d03c497bfbbc))
+* **text editor mentions:** remove hardcoded mention node spec ([134d1cc](https://github.com/Lundalogik/lime-elements/commit/134d1cc1c05e0da376ad4999bf55189443d8ea23))
+* **text editor mentions:** serialize mention from Markdown ([bc78c84](https://github.com/Lundalogik/lime-elements/commit/bc78c84084b0ad7381f7c3aabe352da717419635))
+* **text editor mentions:** set plugins prop to private ([ed230b4](https://github.com/Lundalogik/lime-elements/commit/ed230b45549f0a939220cf9e38c49285ae91cbab))
+* **text editor mentions:** use node config + plugins prop in prosemirror adapter ([848a551](https://github.com/Lundalogik/lime-elements/commit/848a551d502fe72f4f17245f1615c06bac3ffa89))
+* **text editor mentions:** use node config + plugins prop in text editor ([ac3783b](https://github.com/Lundalogik/lime-elements/commit/ac3783ba1e2be42885d6877a63d945101fc79354))
+* **text editor plugins:** add types and interface ([b017da3](https://github.com/Lundalogik/lime-elements/commit/b017da328aecbe904b42d2f24d25227284b1fd01))
+
+### Bug Fixes
+
+
+* **text-editor:** pass custom node as whitelist ([33f0be1](https://github.com/Lundalogik/lime-elements/commit/33f0be1a20e580ee4a945317bdf1b69b11ff8eca))
+
 ## [37.63.6](https://github.com/Lundalogik/lime-elements/compare/v37.63.5...v37.63.6) (2024-10-22)
 
 
