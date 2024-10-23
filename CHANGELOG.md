@@ -1,3 +1,11 @@
+## [37.64.1](https://github.com/Lundalogik/lime-elements/compare/v37.64.0...v37.64.1) (2024-10-23)
+
+
+### Bug Fixes
+
+
+* **markdown:** better image resizing ([1aa3334](https://github.com/Lundalogik/lime-elements/commit/1aa3334fc324b1223307fad151603c283012a5b9))
+
 ## [37.64.0](https://github.com/Lundalogik/lime-elements/compare/v37.63.6...v37.64.0) (2024-10-23)
 
 
