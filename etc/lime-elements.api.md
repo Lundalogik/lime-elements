@@ -564,7 +564,7 @@ export namespace Components {
     export interface LimelProsemirrorAdapter {
         "contentType": 'markdown' | 'html';
         "language": Languages;
-        // Warning: (ae-incompatible-release-tags) The symbol "plugins" is marked as @beta, but its signature references "CustomElement" which is marked as @alpha
+        // @alpha
         "plugins": CustomElement[];
         "value": string;
     }
@@ -670,7 +670,7 @@ export namespace Components {
         "label"?: string;
         "language": Languages;
         "placeholder"?: string;
-        // Warning: (ae-incompatible-release-tags) The symbol "plugins" is marked as @beta, but its signature references "CustomElement" which is marked as @alpha
+        // @alpha
         "plugins": CustomElement[];
         "readonly"?: boolean;
         "required"?: boolean;
@@ -1542,7 +1542,7 @@ namespace JSX_2 {
         "contentType"?: 'markdown' | 'html';
         "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
-        // Warning: (ae-incompatible-release-tags) The symbol "plugins" is marked as @beta, but its signature references "CustomElement" which is marked as @alpha
+        // @alpha
         "plugins"?: CustomElement[];
         "value"?: string;
     }
@@ -1662,7 +1662,7 @@ namespace JSX_2 {
         "language"?: Languages;
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
         "placeholder"?: string;
-        // Warning: (ae-incompatible-release-tags) The symbol "plugins" is marked as @beta, but its signature references "CustomElement" which is marked as @alpha
+        // @alpha
         "plugins"?: CustomElement[];
         "readonly"?: boolean;
         "required"?: boolean;
