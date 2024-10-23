@@ -81,8 +81,10 @@ export class ProsemirrorAdapter {
     public language: Languages;
 
     /**
-     * @private
      * set to private to avoid usage while under development
+     *
+     * @private
+     * @alpha
      */
     @Prop()
     plugins: CustomElement[] = [];
