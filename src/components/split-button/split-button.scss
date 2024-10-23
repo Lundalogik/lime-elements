@@ -1,8 +1,7 @@
-@import '../../style/mixins';
+@use '../../style/mixins';
 
 :host(limel-split-button.has-menu) {
     --button-padding-right: 2rem;
-    --button-padding-left: 1rem;
 }
 
 :host(limel-split-button) {
@@ -78,17 +77,21 @@ limel-menu {
     width: 1rem;
 
     &:not(:disabled) {
-        @include is-flat-clickable(
+        @include mixins.is-flat-clickable(
             $color: 'inherit',
             $color--hovered: 'inherit'
         );
-        @include visualize-keyboard-focus();
+        @include mixins.visualize-keyboard-focus();
         cursor: pointer;
 
         &:focus-visible,
         &:hover {
             background-color: rgb(var(--color-white), 0.1);
         }
+    }
+
+    &[aria-expanded]:not([aria-expanded='false']) {
+        box-shadow: var(--button-shadow-inset-pressed);
     }
 
     &:before {

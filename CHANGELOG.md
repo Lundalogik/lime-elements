@@ -1,3 +1,36 @@
+## [37.63.6](https://github.com/Lundalogik/lime-elements/compare/v37.63.5...v37.63.6) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **picker:** cancel debounced search when disconnected ([359aae6](https://github.com/Lundalogik/lime-elements/commit/359aae633fe27eed848fb70ebac8a823d489928d))
+* **portal:** avoid creating or showing things when disconnected ([95305af](https://github.com/Lundalogik/lime-elements/commit/95305af5edaeece86b0943750130bcecd94c3fef))
+
+## [37.63.5](https://github.com/Lundalogik/lime-elements/compare/v37.63.4...v37.63.5) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **picker:** clear search when picking a value and multiple is true ([6764895](https://github.com/Lundalogik/lime-elements/commit/676489511614f69bcebf7cd9a9dba8ec932bae25)), closes [#3188](https://github.com/Lundalogik/lime-elements/issues/3188)
+
+## [37.63.4](https://github.com/Lundalogik/lime-elements/compare/v37.63.3...v37.63.4) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **split-button:** remove unnecessary padding left ([522c8df](https://github.com/Lundalogik/lime-elements/commit/522c8dfb8afc1eb62df6c782c3b1ac26c6c0e16e))
+
+## [37.63.3](https://github.com/Lundalogik/lime-elements/compare/v37.63.2...v37.63.3) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **split-button:** highlight menu's trigger when the menu is open ([b177586](https://github.com/Lundalogik/lime-elements/commit/b177586f453378bcee3f950010e9d198f19a01c2))
+
 ## [37.63.2](https://github.com/Lundalogik/lime-elements/compare/v37.63.1...v37.63.2) (2024-10-18)
 
 
