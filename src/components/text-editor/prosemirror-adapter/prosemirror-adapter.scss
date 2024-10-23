@@ -17,6 +17,10 @@
     div[contenteditable='true'] {
         height: 100%;
     }
+    div.secondary-toolbar {
+        order: 3;
+        margin-top: auto;
+    }
 }
 
 * {
