@@ -121,6 +121,11 @@ slot[name='button'] {
     justify-content: flex-end;
 }
 
+footer.mdc-dialog__actions {
+    min-height: unset;
+    padding: 0.375rem; // 6px
+}
+
 @media screen and (max-width: 760px) {
     slot[name='button'] {
         flex-direction: column-reverse;
