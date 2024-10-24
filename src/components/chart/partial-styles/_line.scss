@@ -1,0 +1,66 @@
+:host(limel-chart[type='line']) {
+    --chart-line-thickness: 0.125rem;
+
+    .item {
+        background-color: var(--limel-chart-item-color);
+
+        //👇 Prevents a rendering bug in Chrome, that causes the
+        // colors to change, due to conflict between
+        // `mix-blend-mode` and `clip-path`
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+:host(limel-chart[type='line'][orientation='landscape']) {
+    .item {
+        height: 100%;
+        clip-path: polygon(
+            0 calc((100 - var(--limel-chart-item-offset)) * 1%),
+            0
+                calc(
+                    (
+                            100 -
+                                (
+                                    var(--limel-chart-item-size) +
+                                        var(--limel-chart-item-offset)
+                                )
+                        ) * 1%
+                ),
+            100%
+                calc(
+                    (
+                            100 -
+                                (
+                                    var(--limel-chart-next-item-size) +
+                                        var(--limel-chart-next-item-offset)
+                                )
+                        ) * 1%
+                ),
+            100% calc((100 - var(--limel-chart-next-item-offset)) * 1%)
+        );
+    }
+}
+
+:host(limel-chart[type='line'][orientation='portrait']) {
+    .item {
+        width: 100%;
+        clip-path: polygon(
+            calc(var(--limel-chart-item-offset) * 1%) 0,
+            calc(
+                    (
+                            var(--limel-chart-item-size) +
+                                var(--limel-chart-item-offset)
+                        ) * 1%
+                )
+                0,
+            calc(
+                    (
+                            var(--limel-chart-next-item-size) +
+                                var(--limel-chart-next-item-offset)
+                        ) * 1%
+                )
+                100%,
+            calc(var(--limel-chart-next-item-offset) * 1%) 100%
+        );
+    }
+}
