@@ -95,8 +95,6 @@ export class Dialog {
 
     private id: string;
 
-    private showFooter = true;
-
     constructor() {
         this.handleMdcOpened = this.handleMdcOpened.bind(this);
         this.handleMdcClosed = this.handleMdcClosed.bind(this);
@@ -109,7 +107,6 @@ export class Dialog {
 
     public componentWillLoad() {
         this.id = createRandomString();
-        this.showFooter = !!this.host.querySelector('[slot="button"]');
     }
 
     public componentDidLoad() {
@@ -258,13 +255,11 @@ export class Dialog {
     }
 
     private renderFooter() {
-        if (this.showFooter) {
-            return (
-                <footer class="mdc-dialog__actions">
-                    <slot name="button" />
-                </footer>
-            );
-        }
+        return (
+            <footer class="mdc-dialog__actions">
+                <slot name="button" />
+            </footer>
+        );
     }
 
     private setClosingActions() {
