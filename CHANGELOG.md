@@ -1,3 +1,12 @@
+## [37.64.2](https://github.com/Lundalogik/lime-elements/compare/v37.64.1...v37.64.2) (2024-10-24)
+
+
+### Bug Fixes
+
+
+* **dialog:** do not remove footer slot if empty, improve styling instead ([1a9b5e9](https://github.com/Lundalogik/lime-elements/commit/1a9b5e904e5df344856efaf89d26e290b3942668)), closes [#1009](https://github.com/Lundalogik/lime-elements/issues/1009) [#3265](https://github.com/Lundalogik/lime-elements/issues/3265)
+* **dialog:** let footer's height be based on its children ([3eab045](https://github.com/Lundalogik/lime-elements/commit/3eab045fb8ecbade71fb23600d3f5b419bcbc766))
+
 ## [37.64.1](https://github.com/Lundalogik/lime-elements/compare/v37.64.0...v37.64.1) (2024-10-23)
 
 
