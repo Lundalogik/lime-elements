@@ -1,10 +1,10 @@
 import { NodeSpec } from 'prosemirror-model';
-import { CustomElement } from '../../../global/shared-types/custom-element.types';
+import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
 
-type NodeSpecFactory = (config: CustomElement) => NodeSpec;
+type NodeSpecFactory = (config: CustomElementDefinition) => NodeSpec;
 
 export const createNodeSpec: NodeSpecFactory = (
-    config: CustomElement,
+    config: CustomElementDefinition,
 ): NodeSpec => {
     const attributes = config.attributes.reduce((acc, attr) => {
         acc[attr] = {};

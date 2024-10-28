@@ -40,8 +40,10 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
-import { CustomElement } from '../../../global/shared-types/custom-element.types';
+import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
 import { createNodeSpec } from '../utils/plugin-factory';
+import { createTriggerPlugin } from './plugins/trigger/factory';
+import { TriggerCharacter } from '../text-editor.types';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -87,7 +89,16 @@ export class ProsemirrorAdapter {
      * @alpha
      */
     @Prop()
-    plugins: CustomElement[] = [];
+    plugins: CustomElementDefinition[] = [];
+
+    /**
+     * set to private to avoid usage while under development
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    triggerCharacters: TriggerCharacter[] = [];
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -324,6 +335,7 @@ export class ProsemirrorAdapter {
                 ...exampleSetup({ schema: this.schema, menuBar: false }),
                 keymap(this.menuCommandFactory.buildKeymap()),
                 createLinkPlugin(this.handleNewLinkSelection),
+                createTriggerPlugin(this.triggerCharacters),
                 createImageRemoverPlugin(),
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,
