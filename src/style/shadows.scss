@@ -111,6 +111,9 @@
         0 0 1px 1px rgb(var(--color-white), 0.98) inset;
 }
 
+// @include mixins.in(dark-mode) {
+// latest version is found in `color-palette-extended.css`
+// }
 // ⚠️ This section below is commented out.
 // It's contents are moved to src/style/color-palette-extended.css
 //
@@ -120,95 +123,3 @@
 // The shadows will get rendered too dark, due to `@media (prefers-color-scheme: dark)`
 // rule from the mixin. The day we generate `.css` files from these `.scss` files,
 // we can do it differently.
-
-// @include mixins.in(dark-mode) {
-//     --button-shadow-normal: 0 #{functions.pxToRem(1.5)} #{functions.pxToRem(
-//                 3.6
-//             )} 0 rgb(var(--color-black), 0.632),
-//         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-//             rgb(var(--color-black), 0.608);
-
-//     --button-shadow-hovered: 0 #{functions.pxToRem(2)} #{functions.pxToRem(6)}
-//             rgb(var(--color-black), 0.55),
-//         0 #{functions.pxToRem(6)} #{functions.pxToRem(10)}
-//             rgb(var(--color-black), 0.45);
-
-//     --button-shadow-pressed: 0 #{functions.pxToRem(1)} #{functions.pxToRem(3)} 0
-//             rgb(var(--color-black), 0.532),
-//         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-//             rgb(var(--color-black), 0.508);
-
-//     --button-shadow-inset: 0 #{functions.pxToRem(0.5)} #{functions.pxToRem(3.5)}
-//             0 rgb(var(--color-black), 0.532) inset,
-//         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-//             rgb(var(--color-black), 0.508) inset,
-//         0 0 #{functions.pxToRem(4)} rgb(var(--color-white), 0.1);
-
-//     --button-shadow-inset-pressed: 0 #{functions.pxToRem(0.5)} #{functions.pxToRem(
-//                 5.5
-//             )} 0 rgb(var(--color-black), 0.532) inset,
-//         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(1.9)} 0
-//             rgb(var(--color-black), 0.52) inset,
-//         0 0 #{functions.pxToRem(3)} rgb(var(--color-white), 0.1);
-
-//     --shadow-depth-8: 0 #{functions.pxToRem(3.2)} #{functions.pxToRem(7.2)} 0
-//             rgb(var(--color-black), 0.532),
-//         0 #{functions.pxToRem(0.6)} #{functions.pxToRem(1.8)} 0
-//             rgb(var(--color-black), 0.508);
-
-//     --shadow-depth-8-reversed: 0 #{functions.pxToRem(-3.2)} #{functions.pxToRem(
-//                 7.2
-//             )} 0 rgb(var(--color-black), 0.532),
-//         0 #{functions.pxToRem(-0.6)} #{functions.pxToRem(1.8)} 0
-//             rgb(var(--color-black), 0.508);
-
-//     --shadow-depth-16: 0 #{functions.pxToRem(6.4)} #{functions.pxToRem(14.4)} 0
-//             rgb(var(--color-black), 0.532),
-//         0 #{functions.pxToRem(1.2)} #{functions.pxToRem(3.6)} 0
-//             rgb(var(--color-black), 0.508);
-
-//     --shadow-depth-64: 0 #{functions.pxToRem(25.6)} #{functions.pxToRem(57.6)} 0
-//             rgb(var(--color-black), 0.22),
-//         0 #{functions.pxToRem(4.8)} #{functions.pxToRem(14.4)} 0
-//             rgb(var(--color-black), 0.58);
-
-//     --shadow-inflated-8: #{functions.pxToRem(-2)} #{functions.pxToRem(-2)} #{functions.pxToRem(
-//                 6
-//             )} rgb(var(--color-black), 0.21),
-//         #{functions.pxToRem(-4)} #{functions.pxToRem(-4)} #{functions.pxToRem(
-//                 10
-//             )} rgb(var(--color-white), 0.08),
-//         #{functions.pxToRem(4)} #{functions.pxToRem(4)} #{functions.pxToRem(10)}
-//             rgb(var(--color-black), 0.46),
-//         #{functions.pxToRem(1)} #{functions.pxToRem(1)} #{functions.pxToRem(10)}
-//             rgb(var(--color-white), 0.16),
-//         -1px -1px 0 1px rgb(var(--color-black), 0.37) inset,
-//         0 0 1px 1px rgb(var(--color-white), 0.2) inset;
-
-//     --shadow-inflated-16: #{functions.pxToRem(-3)} #{functions.pxToRem(-3)} #{functions.pxToRem(
-//                 6
-//             )} rgb(var(--color-black), 0.21),
-//         #{functions.pxToRem(-6)} #{functions.pxToRem(-6)} #{functions.pxToRem(
-//                 16
-//             )} rgb(var(--color-white), 0.1),
-//         #{functions.pxToRem(6)} #{functions.pxToRem(6)} #{functions.pxToRem(16)}
-//             rgb(var(--color-black), 0.46),
-//         #{functions.pxToRem(2)} #{functions.pxToRem(2)} #{functions.pxToRem(10)}
-//             rgb(var(--color-white), 0.16),
-//         -1px -1px 0 1px rgb(var(--color-black), 0.37) inset,
-//         0 0 1px 1px rgb(var(--color-white), 0.2) inset;
-
-//     --shadow-inflated-64: #{functions.pxToRem(-3)} #{functions.pxToRem(-3)} #{functions.pxToRem(
-//                 6
-//             )} rgb(var(--color-black), 0.21),
-//         #{functions.pxToRem(-10)} #{functions.pxToRem(-10)} #{functions.pxToRem(
-//                 30
-//             )} rgb(var(--color-white), 0.2),
-//         #{functions.pxToRem(10)} #{functions.pxToRem(10)} #{functions.pxToRem(
-//                 36
-//             )} rgb(var(--color-black), 0.46),
-//         #{functions.pxToRem(2)} #{functions.pxToRem(2)} #{functions.pxToRem(10)}
-//             rgb(var(--color-white), 0.16),
-//         -1px -1px 0 1px rgb(var(--color-black), 0.37) inset,
-//         0 0 1px 1px rgb(var(--color-white), 0.2) inset;
-// }
