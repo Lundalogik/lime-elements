@@ -13,34 +13,34 @@
     // Good for buttons and clickables such as select dropdowns, or slider grabbers
     --button-shadow-normal: 0 #{functions.pxToRem(1.5)} #{functions.pxToRem(
                 3.6
-            )} 0 rgba(var(--color-black), 0.232),
+            )} 0 rgb(var(--color-black), 0.232),
         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-            rgba(var(--color-black), 0.208);
+            rgb(var(--color-black), 0.208);
     --button-shadow-hovered: 0 #{functions.pxToRem(2)} #{functions.pxToRem(6)}
-            rgba(var(--color-black), 0.15),
+            rgb(var(--color-black), 0.15),
         0 #{functions.pxToRem(6)} #{functions.pxToRem(10)}
-            rgba(var(--color-black), 0.05);
+            rgb(var(--color-black), 0.05);
     --button-shadow-pressed: 0 #{functions.pxToRem(1)} #{functions.pxToRem(3)} 0
-            rgba(var(--color-black), 0.132),
+            rgb(var(--color-black), 0.132),
         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-            rgba(var(--color-black), 0.108);
+            rgb(var(--color-black), 0.108);
     --button-shadow-inset: 0 #{functions.pxToRem(0.5)} #{functions.pxToRem(3.5)}
-            0 rgba(var(--color-black), 0.132) inset,
+            0 rgb(var(--color-black), 0.132) inset,
         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-            rgba(var(--color-black), 0.108) inset,
-        0 0 #{functions.pxToRem(4)} rgba(var(--color-white), 0.9);
+            rgb(var(--color-black), 0.108) inset,
+        0 0 #{functions.pxToRem(4)} rgb(var(--color-white), 0.9);
     --button-shadow-inset-pressed: 0 #{functions.pxToRem(0.5)} #{functions.pxToRem(
                 5.5
-            )} 0 rgba(var(--color-black), 0.132) inset,
+            )} 0 rgb(var(--color-black), 0.132) inset,
         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(1.9)} 0
-            rgba(var(--color-black), 0.12) inset,
-        0 0 #{functions.pxToRem(3)} rgba(var(--color-white), 0.9);
+            rgb(var(--color-black), 0.12) inset,
+        0 0 #{functions.pxToRem(3)} rgb(var(--color-white), 0.9);
 
     // Good for Command bars, Command dropdowns, Context menus
     --shadow-depth-8: 0 #{functions.pxToRem(3.2)} #{functions.pxToRem(7.2)} 0
-            rgba(var(--color-black), 0.132),
+            rgb(var(--color-black), 0.132),
         0 #{functions.pxToRem(0.6)} #{functions.pxToRem(1.8)} 0
-            rgba(var(--color-black), 0.108);
+            rgb(var(--color-black), 0.108);
     // Same as above, but when element is focused
     --shadow-depth-8-focused: var(--shadow-depth-8), var(--shadow-focused-state);
     // Same as above, but when element is indicating error or warning
@@ -48,15 +48,15 @@
     // Same as above, but light source is below the element, good for bottom bars, etc...
     --shadow-depth-8-reversed: 0 #{functions.pxToRem(-3.2)} #{functions.pxToRem(
                 7.2
-            )} 0 rgba(var(--color-black), 0.132),
+            )} 0 rgb(var(--color-black), 0.132),
         0 #{functions.pxToRem(-0.6)} #{functions.pxToRem(1.8)} 0
-            rgba(var(--color-black), 0.108);
+            rgb(var(--color-black), 0.108);
 
     // Good for Teaching callouts, Search results dropdown, cards, Tooltips
     --shadow-depth-16: 0 #{functions.pxToRem(6.4)} #{functions.pxToRem(14.4)} 0
-            rgba(var(--color-black), 0.132),
+            rgb(var(--color-black), 0.132),
         0 #{functions.pxToRem(1.2)} #{functions.pxToRem(3.6)} 0
-            rgba(var(--color-black), 0.108);
+            rgb(var(--color-black), 0.108);
 
     // Same as above, but when element is focused
     --shadow-depth-16-focused: var(--shadow-depth-16),
@@ -64,9 +64,9 @@
 
     // Good for Pop up dialogs
     --shadow-depth-64: 0 #{functions.pxToRem(25.6)} #{functions.pxToRem(57.6)} 0
-            rgba(var(--color-black), 0.22),
+            rgb(var(--color-black), 0.22),
         0 #{functions.pxToRem(4.8)} #{functions.pxToRem(14.4)} 0
-            rgba(var(--color-black), 0.18);
+            rgb(var(--color-black), 0.18);
 
     // Same as above, but when element is focused
     --shadow-depth-64-focused: var(--shadow-depth-64),
@@ -74,41 +74,41 @@
 
     --shadow-inflated-8: #{functions.pxToRem(-2)} #{functions.pxToRem(-2)} #{functions.pxToRem(
                 6
-            )} rgba(var(--color-black), 0.01),
+            )} rgb(var(--color-black), 0.01),
         #{functions.pxToRem(-4)} #{functions.pxToRem(-4)} #{functions.pxToRem(
                 10
-            )} rgba(var(--color-white), 0.6),
+            )} rgb(var(--color-white), 0.6),
         #{functions.pxToRem(4)} #{functions.pxToRem(4)} #{functions.pxToRem(10)}
-            rgba(var(--color-black), 0.05),
+            rgb(var(--color-black), 0.05),
         #{functions.pxToRem(1)} #{functions.pxToRem(1)} #{functions.pxToRem(10)}
-            rgba(var(--color-white), 0.7),
-        -1px -1px 0 1px rgba(var(--color-black), 0.07) inset,
-        0 0 1px 1px rgba(var(--color-white), 0.98) inset;
+            rgb(var(--color-white), 0.7),
+        -1px -1px 0 1px rgb(var(--color-black), 0.07) inset,
+        0 0 1px 1px rgb(var(--color-white), 0.98) inset;
     --shadow-inflated-16: #{functions.pxToRem(-3)} #{functions.pxToRem(-3)} #{functions.pxToRem(
                 6
-            )} rgba(var(--color-black), 0.01),
+            )} rgb(var(--color-black), 0.01),
         #{functions.pxToRem(-6)} #{functions.pxToRem(-6)} #{functions.pxToRem(
                 16
-            )} rgba(var(--color-white), 0.8),
+            )} rgb(var(--color-white), 0.8),
         #{functions.pxToRem(6)} #{functions.pxToRem(6)} #{functions.pxToRem(16)}
-            rgba(var(--color-black), 0.05),
+            rgb(var(--color-black), 0.05),
         #{functions.pxToRem(2)} #{functions.pxToRem(2)} #{functions.pxToRem(10)}
-            rgba(var(--color-white), 0.7),
-        -1px -1px 0 1px rgba(var(--color-black), 0.07) inset,
-        0 0 1px 1px rgba(var(--color-white), 0.98) inset;
+            rgb(var(--color-white), 0.7),
+        -1px -1px 0 1px rgb(var(--color-black), 0.07) inset,
+        0 0 1px 1px rgb(var(--color-white), 0.98) inset;
     --shadow-inflated-64: #{functions.pxToRem(-3)} #{functions.pxToRem(-3)} #{functions.pxToRem(
                 6
-            )} rgba(var(--color-black), 0.01),
+            )} rgb(var(--color-black), 0.01),
         #{functions.pxToRem(-10)} #{functions.pxToRem(-10)} #{functions.pxToRem(
                 30
-            )} rgba(var(--color-white), 1),
+            )} rgb(var(--color-white), 1),
         #{functions.pxToRem(10)} #{functions.pxToRem(10)} #{functions.pxToRem(
                 36
-            )} rgba(var(--color-black), 0.06),
+            )} rgb(var(--color-black), 0.06),
         #{functions.pxToRem(2)} #{functions.pxToRem(2)} #{functions.pxToRem(10)}
-            rgba(var(--color-white), 0.7),
-        -1px -1px 0 1px rgba(var(--color-black), 0.07) inset,
-        0 0 1px 1px rgba(var(--color-white), 0.98) inset;
+            rgb(var(--color-white), 0.7),
+        -1px -1px 0 1px rgb(var(--color-black), 0.07) inset,
+        0 0 1px 1px rgb(var(--color-white), 0.98) inset;
 }
 
 // ⚠️ This section below is commented out.
@@ -124,91 +124,91 @@
 // @include mixins.in(dark-mode) {
 //     --button-shadow-normal: 0 #{functions.pxToRem(1.5)} #{functions.pxToRem(
 //                 3.6
-//             )} 0 rgba(var(--color-black), 0.632),
+//             )} 0 rgb(var(--color-black), 0.632),
 //         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-//             rgba(var(--color-black), 0.608);
+//             rgb(var(--color-black), 0.608);
 
 //     --button-shadow-hovered: 0 #{functions.pxToRem(2)} #{functions.pxToRem(6)}
-//             rgba(var(--color-black), 0.55),
+//             rgb(var(--color-black), 0.55),
 //         0 #{functions.pxToRem(6)} #{functions.pxToRem(10)}
-//             rgba(var(--color-black), 0.45);
+//             rgb(var(--color-black), 0.45);
 
 //     --button-shadow-pressed: 0 #{functions.pxToRem(1)} #{functions.pxToRem(3)} 0
-//             rgba(var(--color-black), 0.532),
+//             rgb(var(--color-black), 0.532),
 //         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-//             rgba(var(--color-black), 0.508);
+//             rgb(var(--color-black), 0.508);
 
 //     --button-shadow-inset: 0 #{functions.pxToRem(0.5)} #{functions.pxToRem(3.5)}
-//             0 rgba(var(--color-black), 0.532) inset,
+//             0 rgb(var(--color-black), 0.532) inset,
 //         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-//             rgba(var(--color-black), 0.508) inset,
-//         0 0 #{functions.pxToRem(4)} rgba(var(--color-white), 0.1);
+//             rgb(var(--color-black), 0.508) inset,
+//         0 0 #{functions.pxToRem(4)} rgb(var(--color-white), 0.1);
 
 //     --button-shadow-inset-pressed: 0 #{functions.pxToRem(0.5)} #{functions.pxToRem(
 //                 5.5
-//             )} 0 rgba(var(--color-black), 0.532) inset,
+//             )} 0 rgb(var(--color-black), 0.532) inset,
 //         0 #{functions.pxToRem(0.3)} #{functions.pxToRem(1.9)} 0
-//             rgba(var(--color-black), 0.52) inset,
-//         0 0 #{functions.pxToRem(3)} rgba(var(--color-white), 0.1);
+//             rgb(var(--color-black), 0.52) inset,
+//         0 0 #{functions.pxToRem(3)} rgb(var(--color-white), 0.1);
 
 //     --shadow-depth-8: 0 #{functions.pxToRem(3.2)} #{functions.pxToRem(7.2)} 0
-//             rgba(var(--color-black), 0.532),
+//             rgb(var(--color-black), 0.532),
 //         0 #{functions.pxToRem(0.6)} #{functions.pxToRem(1.8)} 0
-//             rgba(var(--color-black), 0.508);
+//             rgb(var(--color-black), 0.508);
 
 //     --shadow-depth-8-reversed: 0 #{functions.pxToRem(-3.2)} #{functions.pxToRem(
 //                 7.2
-//             )} 0 rgba(var(--color-black), 0.532),
+//             )} 0 rgb(var(--color-black), 0.532),
 //         0 #{functions.pxToRem(-0.6)} #{functions.pxToRem(1.8)} 0
-//             rgba(var(--color-black), 0.508);
+//             rgb(var(--color-black), 0.508);
 
 //     --shadow-depth-16: 0 #{functions.pxToRem(6.4)} #{functions.pxToRem(14.4)} 0
-//             rgba(var(--color-black), 0.532),
+//             rgb(var(--color-black), 0.532),
 //         0 #{functions.pxToRem(1.2)} #{functions.pxToRem(3.6)} 0
-//             rgba(var(--color-black), 0.508);
+//             rgb(var(--color-black), 0.508);
 
 //     --shadow-depth-64: 0 #{functions.pxToRem(25.6)} #{functions.pxToRem(57.6)} 0
-//             rgba(var(--color-black), 0.22),
+//             rgb(var(--color-black), 0.22),
 //         0 #{functions.pxToRem(4.8)} #{functions.pxToRem(14.4)} 0
-//             rgba(var(--color-black), 0.58);
+//             rgb(var(--color-black), 0.58);
 
 //     --shadow-inflated-8: #{functions.pxToRem(-2)} #{functions.pxToRem(-2)} #{functions.pxToRem(
 //                 6
-//             )} rgba(var(--color-black), 0.21),
+//             )} rgb(var(--color-black), 0.21),
 //         #{functions.pxToRem(-4)} #{functions.pxToRem(-4)} #{functions.pxToRem(
 //                 10
-//             )} rgba(var(--color-white), 0.08),
+//             )} rgb(var(--color-white), 0.08),
 //         #{functions.pxToRem(4)} #{functions.pxToRem(4)} #{functions.pxToRem(10)}
-//             rgba(var(--color-black), 0.46),
+//             rgb(var(--color-black), 0.46),
 //         #{functions.pxToRem(1)} #{functions.pxToRem(1)} #{functions.pxToRem(10)}
-//             rgba(var(--color-white), 0.16),
-//         -1px -1px 0 1px rgba(var(--color-black), 0.37) inset,
-//         0 0 1px 1px rgba(var(--color-white), 0.2) inset;
+//             rgb(var(--color-white), 0.16),
+//         -1px -1px 0 1px rgb(var(--color-black), 0.37) inset,
+//         0 0 1px 1px rgb(var(--color-white), 0.2) inset;
 
 //     --shadow-inflated-16: #{functions.pxToRem(-3)} #{functions.pxToRem(-3)} #{functions.pxToRem(
 //                 6
-//             )} rgba(var(--color-black), 0.21),
+//             )} rgb(var(--color-black), 0.21),
 //         #{functions.pxToRem(-6)} #{functions.pxToRem(-6)} #{functions.pxToRem(
 //                 16
-//             )} rgba(var(--color-white), 0.1),
+//             )} rgb(var(--color-white), 0.1),
 //         #{functions.pxToRem(6)} #{functions.pxToRem(6)} #{functions.pxToRem(16)}
-//             rgba(var(--color-black), 0.46),
+//             rgb(var(--color-black), 0.46),
 //         #{functions.pxToRem(2)} #{functions.pxToRem(2)} #{functions.pxToRem(10)}
-//             rgba(var(--color-white), 0.16),
-//         -1px -1px 0 1px rgba(var(--color-black), 0.37) inset,
-//         0 0 1px 1px rgba(var(--color-white), 0.2) inset;
+//             rgb(var(--color-white), 0.16),
+//         -1px -1px 0 1px rgb(var(--color-black), 0.37) inset,
+//         0 0 1px 1px rgb(var(--color-white), 0.2) inset;
 
 //     --shadow-inflated-64: #{functions.pxToRem(-3)} #{functions.pxToRem(-3)} #{functions.pxToRem(
 //                 6
-//             )} rgba(var(--color-black), 0.21),
+//             )} rgb(var(--color-black), 0.21),
 //         #{functions.pxToRem(-10)} #{functions.pxToRem(-10)} #{functions.pxToRem(
 //                 30
-//             )} rgba(var(--color-white), 0.2),
+//             )} rgb(var(--color-white), 0.2),
 //         #{functions.pxToRem(10)} #{functions.pxToRem(10)} #{functions.pxToRem(
 //                 36
-//             )} rgba(var(--color-black), 0.46),
+//             )} rgb(var(--color-black), 0.46),
 //         #{functions.pxToRem(2)} #{functions.pxToRem(2)} #{functions.pxToRem(10)}
-//             rgba(var(--color-white), 0.16),
-//         -1px -1px 0 1px rgba(var(--color-black), 0.37) inset,
-//         0 0 1px 1px rgba(var(--color-white), 0.2) inset;
+//             rgb(var(--color-white), 0.16),
+//         -1px -1px 0 1px rgb(var(--color-black), 0.37) inset,
+//         0 0 1px 1px rgb(var(--color-white), 0.2) inset;
 // }
