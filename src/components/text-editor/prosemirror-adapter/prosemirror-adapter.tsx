@@ -42,6 +42,7 @@ import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plu
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
 import { CustomElement } from '../../../global/shared-types/custom-element.types';
 import { createNodeSpec } from '../utils/plugin-factory';
+import { createTriggerPlugin } from './plugins/trigger-plugin';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -331,6 +332,7 @@ export class ProsemirrorAdapter {
                     this.updateActiveActionBarItems,
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
+                createTriggerPlugin(),
             ],
         });
     }
