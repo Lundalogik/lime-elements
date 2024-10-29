@@ -1,112 +1,73 @@
-@use './functions';
-@use './mixins';
-
 :root {
     // Could be useful for highlighting areas or elements that are focused, using a box-shadow.
     // However, we recommend to use `var(--shadow-depth-8-focus)` to get a more coherent visual effect.
-    --shadow-focused-state: 0 0 0 #{functions.pxToRem(2)} var(--mdc-theme-primary);
+    --shadow-focused-state: 0 0 0 0.125rem var(--mdc-theme-primary);
 
     // Could be useful for highlighting areas or elements that contain errors, using a box-shadow.
     // However, we recommend to use `var(--shadow-depth-8-error)` to get a more coherent visual effect.
-    --shadow-error-state: 0 0 0 #{functions.pxToRem(2)} rgb(var(--color-red-default));
+    --shadow-error-state: 0 0 0 0.125rem rgb(var(--color-red-default));
 
     // Good for buttons and clickables such as select dropdowns, or slider grabbers
-    --button-shadow-normal: 0 #{functions.pxToRem(1.5)} #{functions.pxToRem(
-                3.6
-            )} 0 rgb(var(--color-black), 0.232),
-        0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-            rgb(var(--color-black), 0.208);
-    --button-shadow-hovered: 0 #{functions.pxToRem(2)} #{functions.pxToRem(6)}
-            rgb(var(--color-black), 0.15),
-        0 #{functions.pxToRem(6)} #{functions.pxToRem(10)}
-            rgb(var(--color-black), 0.05);
-    --button-shadow-pressed: 0 #{functions.pxToRem(1)} #{functions.pxToRem(3)} 0
+    --button-shadow-normal: 0 0.09375rem 0.225rem 0
+            rgb(var(--color-black), 0.232),
+        0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.208);
+    --button-shadow-hovered: 0 0.125rem 0.375rem rgb(var(--color-black), 0.15),
+        0 0.375rem 0.625rem rgb(var(--color-black), 0.05);
+    --button-shadow-pressed: 0 0.0625rem 0.1875rem 0
             rgb(var(--color-black), 0.132),
-        0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-            rgb(var(--color-black), 0.108);
-    --button-shadow-inset: 0 #{functions.pxToRem(0.5)} #{functions.pxToRem(3.5)}
-            0 rgb(var(--color-black), 0.132) inset,
-        0 #{functions.pxToRem(0.3)} #{functions.pxToRem(0.9)} 0
-            rgb(var(--color-black), 0.108) inset,
-        0 0 #{functions.pxToRem(4)} rgb(var(--color-white), 0.9);
-    --button-shadow-inset-pressed: 0 #{functions.pxToRem(0.5)} #{functions.pxToRem(
-                5.5
-            )} 0 rgb(var(--color-black), 0.132) inset,
-        0 #{functions.pxToRem(0.3)} #{functions.pxToRem(1.9)} 0
-            rgb(var(--color-black), 0.12) inset,
-        0 0 #{functions.pxToRem(3)} rgb(var(--color-white), 0.9);
+        0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.108);
+    --button-shadow-inset: 0 0.03125rem 0.21875rem 0
+            rgb(var(--color-black), 0.132) inset,
+        0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.108) inset,
+        0 0 0.25rem rgb(var(--color-white), 0.9);
+    --button-shadow-inset-pressed: 0 0.03125rem 0.34375rem 0
+            rgb(var(--color-black), 0.132) inset,
+        0 0.01875rem 0.11875rem 0 rgb(var(--color-black), 0.12) inset,
+        0 0 0.1875rem rgb(var(--color-white), 0.9);
 
     // Good for Command bars, Command dropdowns, Context menus
-    --shadow-depth-8: 0 #{functions.pxToRem(3.2)} #{functions.pxToRem(7.2)} 0
-            rgb(var(--color-black), 0.132),
-        0 #{functions.pxToRem(0.6)} #{functions.pxToRem(1.8)} 0
-            rgb(var(--color-black), 0.108);
+    --shadow-depth-8: 0 0.2rem 0.45rem 0 rgb(var(--color-black), 0.132),
+        0 0.0375rem 0.1125rem 0 rgb(var(--color-black), 0.108);
     // Same as above, but when element is focused
     --shadow-depth-8-focused: var(--shadow-depth-8), var(--shadow-focused-state);
     // Same as above, but when element is indicating error or warning
     --shadow-depth-8-error: var(--shadow-depth-8), var(--shadow-error-state);
     // Same as above, but light source is below the element, good for bottom bars, etc...
-    --shadow-depth-8-reversed: 0 #{functions.pxToRem(-3.2)} #{functions.pxToRem(
-                7.2
-            )} 0 rgb(var(--color-black), 0.132),
-        0 #{functions.pxToRem(-0.6)} #{functions.pxToRem(1.8)} 0
-            rgb(var(--color-black), 0.108);
+    --shadow-depth-8-reversed: 0 -0.2rem 0.45rem 0 rgb(var(--color-black), 0.132),
+        0 -0.0375rem 0.1125rem 0 rgb(var(--color-black), 0.108);
 
     // Good for Teaching callouts, Search results dropdown, cards, Tooltips
-    --shadow-depth-16: 0 #{functions.pxToRem(6.4)} #{functions.pxToRem(14.4)} 0
-            rgb(var(--color-black), 0.132),
-        0 #{functions.pxToRem(1.2)} #{functions.pxToRem(3.6)} 0
-            rgb(var(--color-black), 0.108);
+    --shadow-depth-16: 0 0.4rem 0.9rem 0 rgb(var(--color-black), 0.132),
+        0 0.075rem 0.225rem 0 rgb(var(--color-black), 0.108);
 
     // Same as above, but when element is focused
     --shadow-depth-16-focused: var(--shadow-depth-16),
         var(--shadow-focused-state);
 
     // Good for Pop up dialogs
-    --shadow-depth-64: 0 #{functions.pxToRem(25.6)} #{functions.pxToRem(57.6)} 0
-            rgb(var(--color-black), 0.22),
-        0 #{functions.pxToRem(4.8)} #{functions.pxToRem(14.4)} 0
-            rgb(var(--color-black), 0.18);
+    --shadow-depth-64: 0 1.6rem 3.6rem 0 rgb(var(--color-black), 0.22),
+        0 0.3rem 0.9rem 0 rgb(var(--color-black), 0.18);
 
     // Same as above, but when element is focused
     --shadow-depth-64-focused: var(--shadow-depth-64),
         var(--shadow-focused-state);
 
-    --shadow-inflated-8: #{functions.pxToRem(-2)} #{functions.pxToRem(-2)} #{functions.pxToRem(
-                6
-            )} rgb(var(--color-black), 0.01),
-        #{functions.pxToRem(-4)} #{functions.pxToRem(-4)} #{functions.pxToRem(
-                10
-            )} rgb(var(--color-white), 0.6),
-        #{functions.pxToRem(4)} #{functions.pxToRem(4)} #{functions.pxToRem(10)}
-            rgb(var(--color-black), 0.05),
-        #{functions.pxToRem(1)} #{functions.pxToRem(1)} #{functions.pxToRem(10)}
-            rgb(var(--color-white), 0.7),
+    --shadow-inflated-8: -0.125rem -0.125rem 0.375rem rgb(var(--color-black), 0.01),
+        -0.25rem -0.25rem 0.625rem rgb(var(--color-white), 0.6),
+        0.25rem 0.25rem 0.625rem rgb(var(--color-black), 0.05),
+        0.0625rem 0.0625rem 0.625rem rgb(var(--color-white), 0.7),
         -1px -1px 0 1px rgb(var(--color-black), 0.07) inset,
         0 0 1px 1px rgb(var(--color-white), 0.98) inset;
-    --shadow-inflated-16: #{functions.pxToRem(-3)} #{functions.pxToRem(-3)} #{functions.pxToRem(
-                6
-            )} rgb(var(--color-black), 0.01),
-        #{functions.pxToRem(-6)} #{functions.pxToRem(-6)} #{functions.pxToRem(
-                16
-            )} rgb(var(--color-white), 0.8),
-        #{functions.pxToRem(6)} #{functions.pxToRem(6)} #{functions.pxToRem(16)}
-            rgb(var(--color-black), 0.05),
-        #{functions.pxToRem(2)} #{functions.pxToRem(2)} #{functions.pxToRem(10)}
-            rgb(var(--color-white), 0.7),
+    --shadow-inflated-16: -0.1875rem -0.1875rem 0.375rem rgb(var(--color-black), 0.01),
+        -0.375rem -0.375rem 1rem rgb(var(--color-white), 0.8),
+        0.375rem 0.375rem 1rem rgb(var(--color-black), 0.05),
+        0.125rem 0.125rem 0.625rem rgb(var(--color-white), 0.7),
         -1px -1px 0 1px rgb(var(--color-black), 0.07) inset,
         0 0 1px 1px rgb(var(--color-white), 0.98) inset;
-    --shadow-inflated-64: #{functions.pxToRem(-3)} #{functions.pxToRem(-3)} #{functions.pxToRem(
-                6
-            )} rgb(var(--color-black), 0.01),
-        #{functions.pxToRem(-10)} #{functions.pxToRem(-10)} #{functions.pxToRem(
-                30
-            )} rgb(var(--color-white), 1),
-        #{functions.pxToRem(10)} #{functions.pxToRem(10)} #{functions.pxToRem(
-                36
-            )} rgb(var(--color-black), 0.06),
-        #{functions.pxToRem(2)} #{functions.pxToRem(2)} #{functions.pxToRem(10)}
-            rgb(var(--color-white), 0.7),
+    --shadow-inflated-64: -0.1875rem -0.1875rem 0.375rem rgb(var(--color-black), 0.01),
+        -0.625rem -0.625rem 1.875rem rgb(var(--color-white), 1),
+        0.625rem 0.625rem 2.25rem rgb(var(--color-black), 0.06),
+        0.125rem 0.125rem 0.625rem rgb(var(--color-white), 0.7),
         -1px -1px 0 1px rgb(var(--color-black), 0.07) inset,
         0 0 1px 1px rgb(var(--color-white), 0.98) inset;
 }
