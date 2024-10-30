@@ -451,9 +451,12 @@ export class Table {
         }
 
         const observer = new ResizeObserver(() => {
-            this.tabulator = new TabulatorTable(table, this.getOptions());
-            this.setSelection();
-            observer.unobserve(table);
+            requestAnimationFrame(() => {
+                this.tabulator = new TabulatorTable(table, this.getOptions());
+                this.setSelection();
+                observer.unobserve(table);
+                observer.disconnect();
+            });
         });
         observer.observe(table);
     }
