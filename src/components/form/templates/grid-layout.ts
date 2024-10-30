@@ -38,23 +38,28 @@ export class GridLayout extends React.Component<LayoutProps, LayoutState> {
     }
 
     public handleResize() {
-        const element = this.elementRef.current;
-        const width = element.getBoundingClientRect().width;
-        const maxColumns = Math.min(
-            MAX_COLUMNS,
-            Math.max(1, Math.floor(width / (MAX_COLUMN_WIDTH * PX_PER_REM))),
-        );
+        requestAnimationFrame(() => {
+            const element = this.elementRef.current;
+            const width = element.getBoundingClientRect().width;
+            const maxColumns = Math.min(
+                MAX_COLUMNS,
+                Math.max(
+                    1,
+                    Math.floor(width / (MAX_COLUMN_WIDTH * PX_PER_REM)),
+                ),
+            );
 
-        const columns = this.getColumnCount(maxColumns);
-        if (element.style.getPropertyValue(COLUMN_COUNT) !== `${columns}`) {
-            element.style.setProperty(COLUMN_COUNT, `${columns}`);
-        }
+            const columns = this.getColumnCount(maxColumns);
+            if (element.style.getPropertyValue(COLUMN_COUNT) !== `${columns}`) {
+                element.style.setProperty(COLUMN_COUNT, `${columns}`);
+            }
 
-        if (maxColumns !== this.state.maxColumns) {
-            this.setState({
-                maxColumns: maxColumns,
-            });
-        }
+            if (maxColumns !== this.state.maxColumns) {
+                this.setState({
+                    maxColumns: maxColumns,
+                });
+            }
+        });
     }
 
     public render() {
