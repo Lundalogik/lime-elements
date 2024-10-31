@@ -1,3 +1,13 @@
+## [37.64.3](https://github.com/Lundalogik/lime-elements/compare/v37.64.2...v37.64.3) (2024-10-31)
+
+
+### Bug Fixes
+
+
+* **style:** improve hover shadow effect ([fffc6e0](https://github.com/Lundalogik/lime-elements/commit/fffc6e0a3168bcb944f5e9adf41bddd34281e2ee))
+* **style:** improve interactive effects of clickable elements ([6219a11](https://github.com/Lundalogik/lime-elements/commit/6219a11195d17bde5a7beb9c48284833a83994c1))
+* **style:** improve shadows for dark mode ([11d4871](https://github.com/Lundalogik/lime-elements/commit/11d48719c6de42bce2d4241f04375f7a0358ef78))
+
 ## [37.64.2](https://github.com/Lundalogik/lime-elements/compare/v37.64.1...v37.64.2) (2024-10-24)
 
 
