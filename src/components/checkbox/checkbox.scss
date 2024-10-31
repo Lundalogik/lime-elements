@@ -19,6 +19,13 @@
 :host(limel-checkbox) {
     @include custom-checkbox-styles;
 }
+:host(limel-checkbox),
+limel-dynamic-label {
+    min-height: 2.5rem;
+}
+limel-dynamic-label {
+    margin-left: 0.25rem;
+}
 
 @include checkbox.core-styles;
 @include form-field.core-styles;
