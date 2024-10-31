@@ -67,6 +67,11 @@ $scale-factor: 0.8;
     --mdc-switch-disabled-unselected-handle-color: rgb(var(--contrast-1000));
 }
 
+:host(limel-switch),
+limel-dynamic-label {
+    min-height: 1.625rem;
+}
+
 .mdc-switch {
     margin-right: functions.pxToRem(8);
     &:hover {
