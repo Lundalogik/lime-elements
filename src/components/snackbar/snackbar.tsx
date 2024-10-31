@@ -67,9 +67,9 @@ export class Snackbar {
 
     /**
      * The amount of time in milliseconds to show the snackbar.
-     * If set to `null`, the snackbar will be persistent.
+     * If set to `null` or any value less than or equal to 0, the snackbar will be persistent.
      * This means:
-     * - either the end user will need to close is manually,
+     * - either the end user will need to close it manually,
      * which requires the `dismissible` property to be set to `true`.
      * - or the snackbar needs to be closed programmatically.
      */
@@ -181,7 +181,7 @@ export class Snackbar {
         this.closing = false;
         container.add(this.host);
 
-        if (this.timeout) {
+        if (this.timeout && this.timeout > 0) {
             this.timeoutId = window.setTimeout(
                 this.handleClose,
                 Math.max(this.timeout - hideAnimationDuration, 0),
@@ -239,7 +239,7 @@ export class Snackbar {
             return undefined;
         }
 
-        if (!this.timeout) {
+        if (!this.timeout || this.timeout <= 0) {
             return 'alertdialog';
         }
 
@@ -294,7 +294,7 @@ export class Snackbar {
     }
 
     private renderTimeoutVisualization() {
-        if (!this.timeout) {
+        if (!this.timeout || this.timeout <= 0) {
             return;
         }
 
