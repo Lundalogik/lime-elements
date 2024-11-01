@@ -1,0 +1,2 @@
+import{b as t}from"./_baseGetTag-49d0259e.js";import{i as e}from"./isObject-7039fcda.js";var o="[object AsyncFunction]",r="[object Function]",n="[object GeneratorFunction]",c="[object Proxy]";function a(a){if(!e(a)){return false}var i=t(a);return i==r||i==n||i==o||i==c}function i(t,e){return t===e||t!==t&&e!==e}export{i as e,a as i};
+//# sourceMappingURL=eq-1533d1d3.js.map
