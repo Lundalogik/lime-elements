@@ -89,7 +89,7 @@ export class ProsemirrorAdapter {
      * @alpha
      */
     @Prop()
-    plugins: CustomElementDefinition[] = [];
+    customElements: CustomElementDefinition[] = [];
 
     /**
      * set to private to avoid usage while under development
@@ -244,7 +244,7 @@ export class ProsemirrorAdapter {
 
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
-            this.contentConverter = new MarkdownConverter(this.plugins);
+            this.contentConverter = new MarkdownConverter(this.customElements);
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter();
         } else {
@@ -296,9 +296,9 @@ export class ProsemirrorAdapter {
     private initializeSchema() {
         let nodes = schema.spec.nodes;
 
-        this.plugins.forEach((plugin) => {
-            const newNodeSpec = createNodeSpec(plugin);
-            const nodeName = plugin.tagName;
+        this.customElements.forEach((customElement) => {
+            const newNodeSpec = createNodeSpec(customElement);
+            const nodeName = customElement.tagName;
 
             nodes = nodes.append({ [nodeName]: newNodeSpec });
         });

@@ -99,13 +99,16 @@ export class TextEditor implements FormComponent<string> {
     public value: string;
 
     /**
-     * set to private to avoid usage while under development
+     * A list of custom elements
+     *
+     * Any `CustomElement` that should be used inside the text editor needs
+     * to be defined here.
      *
      * @private
      * @alpha
      */
     @Prop()
-    public plugins: CustomElementDefinition[] = [];
+    public customElements: CustomElementDefinition[] = [];
 
     /**
      * A set of trigger characters
@@ -235,7 +238,7 @@ export class TextEditor implements FormComponent<string> {
                 aria-placeholder={this.placeholder}
                 contentType={this.contentType}
                 onChange={this.handleChange}
-                plugins={this.plugins}
+                customElements={this.customElements}
                 value={this.value}
                 aria-controls={this.helperTextId}
                 id={this.editorId}
