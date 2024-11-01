@@ -10,7 +10,7 @@ import { visit } from 'unist-util-visit';
 import { sanitizeStyle } from './sanitize-style';
 import { Node } from 'unist';
 import { Schema } from 'rehype-sanitize/lib';
-import { CustomElement } from '../../global/shared-types/custom-element.types';
+import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 
 /**
  * Takes a string as input and returns a new string
@@ -56,7 +56,7 @@ export async function markdownToHTML(
     return file.toString();
 }
 
-function getWhiteList(allowedComponents: CustomElement[]): Schema {
+function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
     const defaultSchemaClone = [...(defaultSchema.attributes['*'] ?? [])];
     const asteriskAttributeWhitelist = defaultSchemaClone.filter((attr) => {
         return attr !== 'height';
@@ -94,5 +94,5 @@ export interface markdownToHTMLOptions {
      * Set to `true` to convert all soft line breaks to hard line breaks.
      */
     forceHardLineBreaks?: boolean;
-    whitelist?: CustomElement[];
+    whitelist?: CustomElementDefinition[];
 }

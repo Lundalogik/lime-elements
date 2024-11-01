@@ -1,6 +1,6 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
-import { CustomElement } from '../../global/shared-types/custom-element.types';
+import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 
 /**
  * The Markdown component receives markdown syntax
@@ -41,7 +41,7 @@ export class Markdown {
      * @alpha
      */
     @Prop()
-    public whitelist?: CustomElement[];
+    public whitelist?: CustomElementDefinition[];
 
     @Watch('value')
     public async textChanged() {
