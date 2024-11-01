@@ -24,7 +24,7 @@ export class TextEditorCustomElementExample {
             <limel-text-editor
                 value={this.value}
                 onChange={this.handleChange}
-                plugins={[
+                customElements={[
                     {
                         tagName: 'limel-chip',
                         attributes: ['text', 'icon'],

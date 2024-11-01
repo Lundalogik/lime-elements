@@ -131,7 +131,7 @@ export class TextEditorCustomTriggersExample {
                 style={{ display: 'block' }}
                 ref={(el) => (this.textEditorElement = el)}
                 value={this.value}
-                plugins={[
+                customElements={[
                     { tagName: 'limel-chip', attributes: ['text', 'icon'] },
                 ]}
                 triggers={['@']}
