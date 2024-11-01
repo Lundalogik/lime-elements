@@ -11,7 +11,7 @@ import { Component, State, h } from '@stencil/core';
  * - the user actually reads message that is being displayed.
  * - has time to take an informed decision to press the action button.
  *
- * To make a Snackbar persistent, set the `timeout` property to `null`.
+ * To make a Snackbar persistent, set the `timeout` property to `-1`.
  */
 @Component({
     tag: 'limel-example-snackbar-persistent',
@@ -31,7 +31,7 @@ export class SnackbarPersistentExample {
                 message="We use cookies to deliver services and analyze traffic."
                 actionText="Okay, I got it!"
                 open={this.isOpen}
-                timeout={null}
+                timeout={-1}
                 onAction={this.snackbarOnAction}
                 onHide={this.handleHide}
             />,
