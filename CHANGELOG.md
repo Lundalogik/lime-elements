@@ -1,3 +1,29 @@
+## [37.64.4](https://github.com/Lundalogik/lime-elements/compare/v37.64.3...v37.64.4) (2024-11-01)
+
+
+### Bug Fixes
+
+
+* **checkbox:** better UI when there is multi-lined label ([edb7d69](https://github.com/Lundalogik/lime-elements/commit/edb7d6966da84ba38737be61dffca37fd0463107))
+* **checkbox:** minimize the layout shifts in `readonly` mode ([552bc20](https://github.com/Lundalogik/lime-elements/commit/552bc209d6cd1dc74b1117b1abb604abc41402ba))
+* **checkbox:** specify letter-spacing ([a4b8e11](https://github.com/Lundalogik/lime-elements/commit/a4b8e11acf362f8a1d99e7fca1ecbc0198c15b08))
+* **dynamic-label:** better UI when there is multi-lined label ([6cf6356](https://github.com/Lundalogik/lime-elements/commit/6cf63567047386d04125a183870f640f221a2007))
+* **dynamic-label:** don't truncate the label ([fd326ec](https://github.com/Lundalogik/lime-elements/commit/fd326ec23d8e15b07d4ce58b952eebc7cf638372))
+* **label:** specify line-height ([9033f7c](https://github.com/Lundalogik/lime-elements/commit/9033f7cb801cb4b74a8fdfff58203ec65ba8fc0e))
+* **switch:** better UI when there is multi-lined label ([84ed201](https://github.com/Lundalogik/lime-elements/commit/84ed201c2df25644dda33bb6566bd99d25e8f45e))
+* **switch:** minimize the layout shifts in `readonly` mode ([7f49f5e](https://github.com/Lundalogik/lime-elements/commit/7f49f5e3c2b5e31fbba63636d6fd41409091f81d))
+* **switch:** specify letter-spacing ([85fe2c0](https://github.com/Lundalogik/lime-elements/commit/85fe2c022f56c0d5c2cd6984e8bdd26d3d281657))
+
+## [37.64.3](https://github.com/Lundalogik/lime-elements/compare/v37.64.2...v37.64.3) (2024-10-31)
+
+
+### Bug Fixes
+
+
+* **style:** improve hover shadow effect ([fffc6e0](https://github.com/Lundalogik/lime-elements/commit/fffc6e0a3168bcb944f5e9adf41bddd34281e2ee))
+* **style:** improve interactive effects of clickable elements ([6219a11](https://github.com/Lundalogik/lime-elements/commit/6219a11195d17bde5a7beb9c48284833a83994c1))
+* **style:** improve shadows for dark mode ([11d4871](https://github.com/Lundalogik/lime-elements/commit/11d48719c6de42bce2d4241f04375f7a0358ef78))
+
 ## [37.64.2](https://github.com/Lundalogik/lime-elements/compare/v37.64.1...v37.64.2) (2024-10-24)
 
 
