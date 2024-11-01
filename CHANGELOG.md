@@ -1,3 +1,18 @@
+## [37.65.0](https://github.com/Lundalogik/lime-elements/compare/v37.64.4...v37.65.0) (2024-11-01)
+
+
+### Features
+
+
+* **text-editor:** add triggers ([c73a16c](https://github.com/Lundalogik/lime-elements/commit/c73a16cd4c0ab40a1ba54cd6ceb4201db01ec41e)), closes [Lundalogik/crm-feature#4430](https://github.com/Lundalogik/crm-feature/issues/4430)
+* **text-editor:** add types ([90bf6fa](https://github.com/Lundalogik/lime-elements/commit/90bf6fa6ad3923031e8ee752f19a24a3e6ec7dc6))
+
+### Bug Fixes
+
+
+* **custom-element:** change name to CustomElementDefinition ([b8f3c70](https://github.com/Lundalogik/lime-elements/commit/b8f3c70d9d48e10e64da113983656a8c00d5b0d6))
+* update api definitions ([70c26b6](https://github.com/Lundalogik/lime-elements/commit/70c26b6fa0e3ce2d116dd18396124620b5386d33))
+
 ## [37.64.4](https://github.com/Lundalogik/lime-elements/compare/v37.64.3...v37.64.4) (2024-11-01)
 
 
