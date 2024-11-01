@@ -81,6 +81,7 @@ label {
     color: var(--mdc-theme-on-surface);
     padding-top: 0.375rem;
     line-height: normal;
+    letter-spacing: normal;
 
     &:not(.disabled) {
         cursor: pointer;
