@@ -1,3 +1,11 @@
+## [37.65.1](https://github.com/Lundalogik/lime-elements/compare/v37.65.0...v37.65.1) (2024-11-04)
+
+
+### Bug Fixes
+
+
+* **table:** prevent row selections from ruining the layout ([dd3b397](https://github.com/Lundalogik/lime-elements/commit/dd3b39752a287470dbfd45fb7a9ab014fa0d8882))
+
 ## [37.65.0](https://github.com/Lundalogik/lime-elements/compare/v37.64.4...v37.65.0) (2024-11-01)
 
 
