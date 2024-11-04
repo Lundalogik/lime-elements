@@ -4,7 +4,10 @@
 
 .select-all,
 .limel-table--row-selector {
-    --mdc-checkbox-touch-target-size: 1rem; // prevent the checkbox affecting the row height
+    --mdc-checkbox-touch-target-size: 1.125rem; // prevent the checkbox affecting the row height
+    limel-checkbox {
+        min-height: 1.125rem;
+    }
 }
 
 .select-all {
