@@ -1,3 +1,12 @@
+## [37.65.2](https://github.com/Lundalogik/lime-elements/compare/v37.65.1...v37.65.2) (2024-11-05)
+
+
+### Bug Fixes
+
+
+* **form:** prevent feedback loop in ResizeObserver callback ([833e899](https://github.com/Lundalogik/lime-elements/commit/833e899984e76943b25f714ff2830d3609ac5546))
+* **table:** prevent feedback loop in ResizeObserver callback ([b38721f](https://github.com/Lundalogik/lime-elements/commit/b38721f4c45fc879957c59d1bb270f4335907227))
+
 ## [37.65.1](https://github.com/Lundalogik/lime-elements/compare/v37.65.0...v37.65.1) (2024-11-04)
 
 
