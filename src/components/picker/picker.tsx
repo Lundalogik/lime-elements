@@ -237,6 +237,10 @@ export class Picker {
         this.chipSet = this.host.shadowRoot.querySelector(CHIP_SET_TAG_NAME);
     }
 
+    public disconnectedCallback() {
+        this.debouncedSearch.cancel();
+    }
+
     public async componentWillUpdate() {
         this.chipSetEditMode = false;
         if (this.chipSet) {
@@ -583,6 +587,7 @@ export class Picker {
         }
 
         if (this.multiple) {
+            this.textValue = '';
             this.chipSet?.setFocus(true);
         }
     }

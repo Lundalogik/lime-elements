@@ -17,9 +17,9 @@ import { ActionBarItem, ListSeparator } from '@limetech/lime-elements';
  *
  */
 @Component({
-    tag: 'limel-example-action-bar',
+    tag: 'limel-example-action-bar-basic',
     shadow: true,
-    styleUrl: 'action-bar.scss',
+    styleUrl: 'action-bar-basic.scss',
 })
 export class ActionBarBasicExample {
     @State()
@@ -85,15 +85,6 @@ export class ActionBarBasicExample {
 
     private handleSelected = (event: CustomEvent<ActionBarItem>) => {
         event.stopPropagation();
-        const setSelection = (item: ActionBarItem) => {
-            return {
-                ...item,
-                selected: item.text === event.detail.text,
-            };
-        };
-
         console.log(event.detail);
-
-        this.actionBarItems = this.actionBarItems.map(setSelection);
     };
 }

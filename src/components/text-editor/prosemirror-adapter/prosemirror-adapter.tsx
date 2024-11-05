@@ -40,6 +40,10 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
+import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
+import { createNodeSpec } from '../utils/plugin-factory';
+import { createTriggerPlugin } from './plugins/trigger/factory';
+import { TriggerCharacter } from '../text-editor.types';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -78,6 +82,24 @@ export class ProsemirrorAdapter {
     @Prop({ reflect: true })
     public language: Languages;
 
+    /**
+     * set to private to avoid usage while under development
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    customElements: CustomElementDefinition[] = [];
+
+    /**
+     * set to private to avoid usage while under development
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    triggerCharacters: TriggerCharacter[] = [];
+
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -92,7 +114,7 @@ export class ProsemirrorAdapter {
     > = [];
 
     @State()
-    private link: EditorTextLink = { href: '' };
+    private link: EditorTextLink = { href: 'https://' };
 
     /**
      * Open state of the dialog
@@ -222,7 +244,7 @@ export class ProsemirrorAdapter {
 
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
-            this.contentConverter = new MarkdownConverter();
+            this.contentConverter = new MarkdownConverter(this.customElements);
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter();
         } else {
@@ -272,8 +294,18 @@ export class ProsemirrorAdapter {
     }
 
     private initializeSchema() {
+        let nodes = schema.spec.nodes;
+
+        this.customElements.forEach((customElement) => {
+            const newNodeSpec = createNodeSpec(customElement);
+            const nodeName = customElement.tagName;
+
+            nodes = nodes.append({ [nodeName]: newNodeSpec });
+        });
+        nodes = addListNodes(nodes, 'paragraph block*', 'block');
+
         return new Schema({
-            nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
+            nodes: nodes,
             marks: schema.spec.marks.append({
                 strikethrough: strikethrough,
             }),
@@ -303,6 +335,7 @@ export class ProsemirrorAdapter {
                 ...exampleSetup({ schema: this.schema, menuBar: false }),
                 keymap(this.menuCommandFactory.buildKeymap()),
                 createLinkPlugin(this.handleNewLinkSelection),
+                createTriggerPlugin(this.triggerCharacters),
                 createImageRemoverPlugin(),
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,
@@ -392,7 +425,7 @@ export class ProsemirrorAdapter {
         event.stopPropagation();
 
         this.isLinkMenuOpen = false;
-        this.link = { text: '', href: '' };
+        this.link = { text: '', href: 'https://' };
     };
 
     private handleSaveLinkMenu = () => {
@@ -406,7 +439,7 @@ export class ProsemirrorAdapter {
         });
         this.view.dom.dispatchEvent(saveLinkEvent);
 
-        this.link = { href: '' };
+        this.link = { href: 'https://' };
     };
 
     private handleLinkChange = (event: CustomEvent<EditorTextLink>) => {
@@ -419,7 +452,7 @@ export class ProsemirrorAdapter {
 
     private handleNewLinkSelection = (text: string, href: string) => {
         this.link.text = text;
-        this.link.href = href;
+        this.link.href = href || 'https://';
     };
 
     private handleOpenLinkMenu = (

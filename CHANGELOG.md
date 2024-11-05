@@ -1,3 +1,133 @@
+## [37.65.3](https://github.com/Lundalogik/lime-elements/compare/v37.65.2...v37.65.3) (2024-11-05)
+
+
+### Bug Fixes
+
+
+* **prosemirror-adapter:** ensure external links are properly normalized with https ([f2bc1d4](https://github.com/Lundalogik/lime-elements/commit/f2bc1d4b830fecdb8720390d59e82a7b8a7e29d0))
+
+## [37.65.2](https://github.com/Lundalogik/lime-elements/compare/v37.65.1...v37.65.2) (2024-11-05)
+
+
+### Bug Fixes
+
+
+* **form:** prevent feedback loop in ResizeObserver callback ([833e899](https://github.com/Lundalogik/lime-elements/commit/833e899984e76943b25f714ff2830d3609ac5546))
+* **table:** prevent feedback loop in ResizeObserver callback ([b38721f](https://github.com/Lundalogik/lime-elements/commit/b38721f4c45fc879957c59d1bb270f4335907227))
+
+## [37.65.1](https://github.com/Lundalogik/lime-elements/compare/v37.65.0...v37.65.1) (2024-11-04)
+
+
+### Bug Fixes
+
+
+* **table:** prevent row selections from ruining the layout ([dd3b397](https://github.com/Lundalogik/lime-elements/commit/dd3b39752a287470dbfd45fb7a9ab014fa0d8882))
+
+## [37.65.0](https://github.com/Lundalogik/lime-elements/compare/v37.64.4...v37.65.0) (2024-11-01)
+
+
+### Features
+
+
+* **text-editor:** add triggers ([c73a16c](https://github.com/Lundalogik/lime-elements/commit/c73a16cd4c0ab40a1ba54cd6ceb4201db01ec41e)), closes [Lundalogik/crm-feature#4430](https://github.com/Lundalogik/crm-feature/issues/4430)
+* **text-editor:** add types ([90bf6fa](https://github.com/Lundalogik/lime-elements/commit/90bf6fa6ad3923031e8ee752f19a24a3e6ec7dc6))
+
+### Bug Fixes
+
+
+* **custom-element:** change name to CustomElementDefinition ([b8f3c70](https://github.com/Lundalogik/lime-elements/commit/b8f3c70d9d48e10e64da113983656a8c00d5b0d6))
+* update api definitions ([70c26b6](https://github.com/Lundalogik/lime-elements/commit/70c26b6fa0e3ce2d116dd18396124620b5386d33))
+
+## [37.64.4](https://github.com/Lundalogik/lime-elements/compare/v37.64.3...v37.64.4) (2024-11-01)
+
+
+### Bug Fixes
+
+
+* **checkbox:** better UI when there is multi-lined label ([edb7d69](https://github.com/Lundalogik/lime-elements/commit/edb7d6966da84ba38737be61dffca37fd0463107))
+* **checkbox:** minimize the layout shifts in `readonly` mode ([552bc20](https://github.com/Lundalogik/lime-elements/commit/552bc209d6cd1dc74b1117b1abb604abc41402ba))
+* **checkbox:** specify letter-spacing ([a4b8e11](https://github.com/Lundalogik/lime-elements/commit/a4b8e11acf362f8a1d99e7fca1ecbc0198c15b08))
+* **dynamic-label:** better UI when there is multi-lined label ([6cf6356](https://github.com/Lundalogik/lime-elements/commit/6cf63567047386d04125a183870f640f221a2007))
+* **dynamic-label:** don't truncate the label ([fd326ec](https://github.com/Lundalogik/lime-elements/commit/fd326ec23d8e15b07d4ce58b952eebc7cf638372))
+* **label:** specify line-height ([9033f7c](https://github.com/Lundalogik/lime-elements/commit/9033f7cb801cb4b74a8fdfff58203ec65ba8fc0e))
+* **switch:** better UI when there is multi-lined label ([84ed201](https://github.com/Lundalogik/lime-elements/commit/84ed201c2df25644dda33bb6566bd99d25e8f45e))
+* **switch:** minimize the layout shifts in `readonly` mode ([7f49f5e](https://github.com/Lundalogik/lime-elements/commit/7f49f5e3c2b5e31fbba63636d6fd41409091f81d))
+* **switch:** specify letter-spacing ([85fe2c0](https://github.com/Lundalogik/lime-elements/commit/85fe2c022f56c0d5c2cd6984e8bdd26d3d281657))
+
+## [37.64.3](https://github.com/Lundalogik/lime-elements/compare/v37.64.2...v37.64.3) (2024-10-31)
+
+
+### Bug Fixes
+
+
+* **style:** improve hover shadow effect ([fffc6e0](https://github.com/Lundalogik/lime-elements/commit/fffc6e0a3168bcb944f5e9adf41bddd34281e2ee))
+* **style:** improve interactive effects of clickable elements ([6219a11](https://github.com/Lundalogik/lime-elements/commit/6219a11195d17bde5a7beb9c48284833a83994c1))
+* **style:** improve shadows for dark mode ([11d4871](https://github.com/Lundalogik/lime-elements/commit/11d48719c6de42bce2d4241f04375f7a0358ef78))
+
+## [37.64.2](https://github.com/Lundalogik/lime-elements/compare/v37.64.1...v37.64.2) (2024-10-24)
+
+
+### Bug Fixes
+
+
+* **dialog:** do not remove footer slot if empty, improve styling instead ([1a9b5e9](https://github.com/Lundalogik/lime-elements/commit/1a9b5e904e5df344856efaf89d26e290b3942668)), closes [#1009](https://github.com/Lundalogik/lime-elements/issues/1009) [#3265](https://github.com/Lundalogik/lime-elements/issues/3265)
+* **dialog:** let footer's height be based on its children ([3eab045](https://github.com/Lundalogik/lime-elements/commit/3eab045fb8ecbade71fb23600d3f5b419bcbc766))
+
+## [37.64.1](https://github.com/Lundalogik/lime-elements/compare/v37.64.0...v37.64.1) (2024-10-23)
+
+
+### Bug Fixes
+
+
+* **markdown:** better image resizing ([1aa3334](https://github.com/Lundalogik/lime-elements/commit/1aa3334fc324b1223307fad151603c283012a5b9))
+
+## [37.64.0](https://github.com/Lundalogik/lime-elements/compare/v37.63.6...v37.64.0) (2024-10-23)
+
+
+### Features
+
+
+* **lime text editor:** add mention to schema nodes ([17ad553](https://github.com/Lundalogik/lime-elements/commit/17ad55369338e03e6706f0055f709bc474c8aa44))
+* **text editor mentions:** add node spec ([9893b31](https://github.com/Lundalogik/lime-elements/commit/9893b310500d88772aef0e2546d428c4ec8bda6f))
+* **text editor mentions:** add nodeSpec factory ([16b03e8](https://github.com/Lundalogik/lime-elements/commit/16b03e8af52b1d6c27a2844abe10c5d7eaa7bef9))
+* **text editor mentions:** allow for serialization from node config ([2b9fdbb](https://github.com/Lundalogik/lime-elements/commit/2b9fdbbe76e16447b94cf97699d7d03c497bfbbc))
+* **text editor mentions:** remove hardcoded mention node spec ([134d1cc](https://github.com/Lundalogik/lime-elements/commit/134d1cc1c05e0da376ad4999bf55189443d8ea23))
+* **text editor mentions:** serialize mention from Markdown ([bc78c84](https://github.com/Lundalogik/lime-elements/commit/bc78c84084b0ad7381f7c3aabe352da717419635))
+* **text editor mentions:** set plugins prop to private ([ed230b4](https://github.com/Lundalogik/lime-elements/commit/ed230b45549f0a939220cf9e38c49285ae91cbab))
+* **text editor mentions:** use node config + plugins prop in prosemirror adapter ([848a551](https://github.com/Lundalogik/lime-elements/commit/848a551d502fe72f4f17245f1615c06bac3ffa89))
+* **text editor mentions:** use node config + plugins prop in text editor ([ac3783b](https://github.com/Lundalogik/lime-elements/commit/ac3783ba1e2be42885d6877a63d945101fc79354))
+* **text editor plugins:** add types and interface ([b017da3](https://github.com/Lundalogik/lime-elements/commit/b017da328aecbe904b42d2f24d25227284b1fd01))
+
+### Bug Fixes
+
+
+* **text-editor:** pass custom node as whitelist ([33f0be1](https://github.com/Lundalogik/lime-elements/commit/33f0be1a20e580ee4a945317bdf1b69b11ff8eca))
+
+## [37.63.6](https://github.com/Lundalogik/lime-elements/compare/v37.63.5...v37.63.6) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **picker:** cancel debounced search when disconnected ([359aae6](https://github.com/Lundalogik/lime-elements/commit/359aae633fe27eed848fb70ebac8a823d489928d))
+* **portal:** avoid creating or showing things when disconnected ([95305af](https://github.com/Lundalogik/lime-elements/commit/95305af5edaeece86b0943750130bcecd94c3fef))
+
+## [37.63.5](https://github.com/Lundalogik/lime-elements/compare/v37.63.4...v37.63.5) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **picker:** clear search when picking a value and multiple is true ([6764895](https://github.com/Lundalogik/lime-elements/commit/676489511614f69bcebf7cd9a9dba8ec932bae25)), closes [#3188](https://github.com/Lundalogik/lime-elements/issues/3188)
+
+## [37.63.4](https://github.com/Lundalogik/lime-elements/compare/v37.63.3...v37.63.4) (2024-10-22)
+
+
+### Bug Fixes
+
+
+* **split-button:** remove unnecessary padding left ([522c8df](https://github.com/Lundalogik/lime-elements/commit/522c8dfb8afc1eb62df6c782c3b1ac26c6c0e16e))
+
 ## [37.63.3](https://github.com/Lundalogik/lime-elements/compare/v37.63.2...v37.63.3) (2024-10-22)
 
 

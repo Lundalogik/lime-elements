@@ -18,6 +18,12 @@
 
 :host(limel-checkbox) {
     @include custom-checkbox-styles;
+    min-height: 2.5rem;
+}
+
+limel-dynamic-label {
+    margin-top: 0.375rem;
+    margin-left: 0.25rem;
 }
 
 @include checkbox.core-styles;
@@ -35,6 +41,7 @@
 
 .mdc-form-field {
     display: flex;
+    align-items: flex-start;
 
     .mdc-checkbox {
         .mdc-checkbox__native-control {
@@ -78,6 +85,9 @@
     label {
         cursor: pointer;
         line-height: normal;
+        letter-spacing: normal;
+
+        padding-top: 0.75rem;
         padding-left: 0;
 
         &.mdc-checkbox--required::after {
