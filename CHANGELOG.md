@@ -1,3 +1,11 @@
+## [37.65.4](https://github.com/Lundalogik/lime-elements/compare/v37.65.3...v37.65.4) (2024-11-05)
+
+
+### Bug Fixes
+
+
+* **snackbar:** treat timeout -1 as meaning no timeout ([0c586f7](https://github.com/Lundalogik/lime-elements/commit/0c586f7dfa0f1b3c730e3f210a017f26a09673bb)), closes [#3278](https://github.com/Lundalogik/lime-elements/issues/3278)
+
 ## [37.65.3](https://github.com/Lundalogik/lime-elements/compare/v37.65.2...v37.65.3) (2024-11-05)
 
 
