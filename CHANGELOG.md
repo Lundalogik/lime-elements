@@ -1,3 +1,11 @@
+## [37.65.3](https://github.com/Lundalogik/lime-elements/compare/v37.65.2...v37.65.3) (2024-11-05)
+
+
+### Bug Fixes
+
+
+* **prosemirror-adapter:** ensure external links are properly normalized with https ([f2bc1d4](https://github.com/Lundalogik/lime-elements/commit/f2bc1d4b830fecdb8720390d59e82a7b8a7e29d0))
+
 ## [37.65.2](https://github.com/Lundalogik/lime-elements/compare/v37.65.1...v37.65.2) (2024-11-05)
 
 
