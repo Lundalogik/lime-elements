@@ -543,7 +543,6 @@ export namespace Components {
         "containerStyle": object;
         "inheritParentWidth": boolean;
         "openDirection": OpenDirection;
-        "parent": HTMLElement;
         "position": 'fixed' | 'absolute';
         "visible": boolean;
     }
@@ -1527,7 +1526,6 @@ namespace JSX_2 {
         "containerStyle"?: object;
         "inheritParentWidth"?: boolean;
         "openDirection"?: OpenDirection;
-        "parent"?: HTMLElement;
         "position"?: 'fixed' | 'absolute';
         "visible"?: boolean;
     }
