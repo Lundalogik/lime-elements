@@ -83,19 +83,6 @@ export class Portal {
     public containerStyle: object = {};
 
     /**
-     * The `parent` property specifies the parent element where the content
-     * of the portal will be moved to.
-     * By default, it is set to `document.body`, meaning the content
-     * will be appended as a child of the body element in the DOM.
-     * If you want the content to be appended to a different element,
-     * you can specify that element by setting this property.
-     * Please note that the specified parent element should exist
-     * in the DOM at the time of rendering the portal.
-     */
-    @Prop()
-    public parent: HTMLElement = document.body;
-
-    /**
      * Used to make a dropdown have the same width as the trigger, for example
      * in `limel-picker`.
      */
@@ -227,7 +214,7 @@ export class Portal {
     }
 
     private attachContainer() {
-        this.parent.appendChild(this.container);
+        this.getParent().appendChild(this.container);
     }
 
     private removeContainer() {
@@ -405,5 +392,22 @@ export class Portal {
             extraCosmeticSpace;
 
         this.container.style.maxHeight = `${maxHeight}px`;
+    }
+
+    // Returns the parent element where the content of the portal will be moved to.
+    // It needs to have styling of the portal container.
+    private getParent() {
+        let element: Element | undefined = this.anchor || this.host;
+
+        while (element) {
+            const parent = element.closest('.limel-portal--parent');
+            if (parent) {
+                return parent;
+            }
+
+            element = (element.getRootNode() as ShadowRoot).host;
+        }
+
+        return document.body;
     }
 }

@@ -223,6 +223,7 @@ export class Snackbar {
                 class={{
                     open: this.open,
                     'is-closing': this.closing,
+                    'limel-portal--parent': true,
                 }}
                 id={this.snackbarId}
                 role={this.setAriaRoles()}
