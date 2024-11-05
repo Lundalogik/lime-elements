@@ -1,0 +1,22 @@
+limel-button-group {
+    min-width: 8rem;
+}
+
+limel-example-controls {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mode {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.value {
+    display: flex;
+    gap: 0.5rem;
+}
+
+limel-portal {
+    width: auto;
+}

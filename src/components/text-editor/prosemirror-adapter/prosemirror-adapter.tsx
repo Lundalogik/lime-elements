@@ -40,8 +40,10 @@ import {
 import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
-import { CustomElement } from '../../../global/shared-types/custom-element.types';
+import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
 import { createNodeSpec } from '../utils/plugin-factory';
+import { createTriggerPlugin } from './plugins/trigger/factory';
+import { TriggerCharacter } from '../text-editor.types';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -87,7 +89,16 @@ export class ProsemirrorAdapter {
      * @alpha
      */
     @Prop()
-    plugins: CustomElement[] = [];
+    customElements: CustomElementDefinition[] = [];
+
+    /**
+     * set to private to avoid usage while under development
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    triggerCharacters: TriggerCharacter[] = [];
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -233,7 +244,7 @@ export class ProsemirrorAdapter {
 
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
-            this.contentConverter = new MarkdownConverter(this.plugins);
+            this.contentConverter = new MarkdownConverter(this.customElements);
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter();
         } else {
@@ -285,9 +296,9 @@ export class ProsemirrorAdapter {
     private initializeSchema() {
         let nodes = schema.spec.nodes;
 
-        this.plugins.forEach((plugin) => {
-            const newNodeSpec = createNodeSpec(plugin);
-            const nodeName = plugin.tagName;
+        this.customElements.forEach((customElement) => {
+            const newNodeSpec = createNodeSpec(customElement);
+            const nodeName = customElement.tagName;
 
             nodes = nodes.append({ [nodeName]: newNodeSpec });
         });
@@ -324,6 +335,7 @@ export class ProsemirrorAdapter {
                 ...exampleSetup({ schema: this.schema, menuBar: false }),
                 keymap(this.menuCommandFactory.buildKeymap()),
                 createLinkPlugin(this.handleNewLinkSelection),
+                createTriggerPlugin(this.triggerCharacters),
                 createImageRemoverPlugin(),
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,

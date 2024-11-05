@@ -2,7 +2,8 @@ import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
-import { CustomElement } from '../../global/shared-types/custom-element.types';
+import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
+import { TriggerCharacter, TriggerEventDetail } from './text-editor.types';
 
 /**
  * A rich text editor that offers a rich text editing experience with markdown support,
@@ -22,6 +23,7 @@ import { CustomElement } from '../../global/shared-types/custom-element.types';
  * @exampleComponent limel-example-text-editor-ui
  * @exampleComponent limel-example-text-editor-composite
  * @exampleComponent limel-example-text-editor-custom-element
+ * @exampleComponent limel-example-text-editor-triggers
  * @beta
  */
 @Component({
@@ -97,13 +99,28 @@ export class TextEditor implements FormComponent<string> {
     public value: string;
 
     /**
-     * set to private to avoid usage while under development
+     * A list of custom elements
+     *
+     * Any `CustomElement` that should be used inside the text editor needs
+     * to be defined here.
      *
      * @private
      * @alpha
      */
     @Prop()
-    public plugins: CustomElement[] = [];
+    public customElements: CustomElementDefinition[] = [];
+
+    /**
+     * A set of trigger characters
+     *
+     * Defining a character here will enable trigger events to be sent if the
+     * character is detected in the editor.
+     *
+     * @private
+     * @alpha
+     */
+    @Prop()
+    public triggers: TriggerCharacter[] = [];
 
     /**
      * Set to `true` to indicate that the field is required.
@@ -141,6 +158,35 @@ export class TextEditor implements FormComponent<string> {
      */
     @Event()
     public change: EventEmitter<string>;
+
+    /**
+     * Dispatched if a trigger character is detected.
+     *
+     * @private
+     * @alpha
+     */
+    @Event()
+    public triggerStart: EventEmitter<TriggerEventDetail>;
+
+    /**
+     * Dispatched if a trigger session is ended. That is if the selection
+     * goes outside the trigger input or if something is inserted using the
+     * supplied `TextEditor` insert function.
+     *
+     * @private
+     * @alpha
+     */
+    @Event()
+    public triggerStop: EventEmitter<TriggerEventDetail>;
+
+    /**
+     * Dispatched if a input is changed during an active trigger.
+     *
+     * @private
+     * @alpha
+     */
+    @Event()
+    public triggerChange: EventEmitter<TriggerEventDetail>;
 
     private helperTextId: string;
     private editorId: string;
@@ -192,13 +238,14 @@ export class TextEditor implements FormComponent<string> {
                 aria-placeholder={this.placeholder}
                 contentType={this.contentType}
                 onChange={this.handleChange}
-                plugins={this.plugins}
+                customElements={this.customElements}
                 value={this.value}
                 aria-controls={this.helperTextId}
                 id={this.editorId}
                 tabindex={this.disabled ? -1 : undefined}
                 aria-disabled={this.disabled}
                 language={this.language}
+                triggerCharacters={this.triggers}
             />,
             this.renderPlaceholder(),
             this.renderHelperLine(),

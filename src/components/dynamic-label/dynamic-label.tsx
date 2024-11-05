@@ -87,6 +87,6 @@ export class DynamicLabel {
     }
 
     private renderLabel(label: string = '') {
-        return <span>{label}</span>;
+        return <label>{label}</label>;
     }
 }

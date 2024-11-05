@@ -479,7 +479,7 @@ export namespace Components {
     export interface LimelMarkdown {
         "value": string;
         // @alpha
-        "whitelist"?: CustomElement[];
+        "whitelist"?: CustomElementDefinition[];
     }
     // (undocumented)
     export interface LimelMenu {
@@ -563,9 +563,11 @@ export namespace Components {
     // @beta
     export interface LimelProsemirrorAdapter {
         "contentType": 'markdown' | 'html';
+        // @alpha
+        "customElements": CustomElementDefinition[];
         "language": Languages;
         // @alpha
-        "plugins": CustomElement[];
+        "triggerCharacters": TriggerCharacter[];
         "value": string;
     }
     // (undocumented)
@@ -664,16 +666,18 @@ export namespace Components {
     export interface LimelTextEditor {
         "allowResize": boolean;
         "contentType": 'markdown' | 'html';
+        // @alpha
+        "customElements": CustomElementDefinition[];
         "disabled"?: boolean;
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
         "language": Languages;
         "placeholder"?: string;
-        // @alpha
-        "plugins": CustomElement[];
         "readonly"?: boolean;
         "required"?: boolean;
+        // @alpha
+        "triggers": TriggerCharacter[];
         "ui"?: 'standard' | 'minimal';
         "value": string;
     }
@@ -705,7 +709,12 @@ export type Config = {
 };
 
 // @alpha
-export interface CustomElement {
+export type CustomElement = Omit<CustomElementDefinition, 'attributes'> & {
+    attributes: Record<string, any>;
+};
+
+// @alpha
+export interface CustomElementDefinition {
     // (undocumented)
     attributes: string[];
     // (undocumented)
@@ -1447,7 +1456,7 @@ namespace JSX_2 {
     interface LimelMarkdown {
         "value"?: string;
         // @alpha
-        "whitelist"?: CustomElement[];
+        "whitelist"?: CustomElementDefinition[];
     }
     // (undocumented)
     interface LimelMenu {
@@ -1540,10 +1549,12 @@ namespace JSX_2 {
     // @beta
     interface LimelProsemirrorAdapter {
         "contentType"?: 'markdown' | 'html';
+        // @alpha
+        "customElements"?: CustomElementDefinition[];
         "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
         // @alpha
-        "plugins"?: CustomElement[];
+        "triggerCharacters"?: TriggerCharacter[];
         "value"?: string;
     }
     // (undocumented)
@@ -1655,17 +1666,25 @@ namespace JSX_2 {
     interface LimelTextEditor {
         "allowResize"?: boolean;
         "contentType"?: 'markdown' | 'html';
+        // @alpha
+        "customElements"?: CustomElementDefinition[];
         "disabled"?: boolean;
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
         "language"?: Languages;
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
-        "placeholder"?: string;
         // @alpha
-        "plugins"?: CustomElement[];
+        "onTriggerChange"?: (event: LimelTextEditorCustomEvent<TriggerEventDetail>) => void;
+        // @alpha
+        "onTriggerStart"?: (event: LimelTextEditorCustomEvent<TriggerEventDetail>) => void;
+        // @alpha
+        "onTriggerStop"?: (event: LimelTextEditorCustomEvent<TriggerEventDetail>) => void;
+        "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
+        // @alpha
+        "triggers"?: TriggerCharacter[];
         "ui"?: 'standard' | 'minimal';
         "value"?: string;
     }
@@ -2297,6 +2316,27 @@ export interface TableParams {
 export interface TabPanelComponent {
     changeTab?: EventEmitter<Tab>;
     tab: Tab;
+}
+
+// @alpha (undocumented)
+export interface TextEditor {
+    insert: (input: TextEditorNode | string) => void;
+}
+
+// @alpha (undocumented)
+export type TextEditorNode = {
+    node: CustomElement | string;
+    children?: Array<TextEditorNode | string>;
+};
+
+// @alpha (undocumented)
+export type TriggerCharacter = '@' | '#' | '$' | '!' | '?' | '&' | '*' | '%' | '+' | '-' | '=' | '/' | '\\' | '^' | '~' | '`' | ':' | ';' | '|' | '.' | ',' | '<' | '>' | '[' | ']' | '{' | '}' | '(' | ')' | "'";
+
+// @alpha (undocumented)
+export interface TriggerEventDetail {
+    textEditor: TextEditor;
+    trigger: TriggerCharacter;
+    value: string;
 }
 
 // @public (undocumented)

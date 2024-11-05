@@ -63,33 +63,55 @@
     }
 }
 
+$clickable-normal-state-transitions: (
+    color var(--limel-clickable-transition-speed, 0.4s) ease,
+    background-color var(--limel-clickable-transition-speed, 0.4s) ease,
+    box-shadow var(--limel-clickable-transform-speed, 0.4s) ease,
+    transform var(--limel-clickable-transform-speed, 0.4s)
+        var(--limel-clickable-transform-timing-function, ease)
+);
+
 @mixin is-elevated-clickable(
     $color: var(--mdc-theme-on-surface),
     $color--hovered: var(--mdc-theme-on-surface),
     $background-color: var(--lime-elevated-surface-background-color),
     $background-color--hovered: var(--lime-elevated-surface-background-color)
 ) {
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+    transition: $clickable-normal-state-transitions;
 
     cursor: pointer;
     color: $color;
     background-color: $background-color;
     box-shadow: var(--button-shadow-normal);
 
+    &:hover,
+    &:focus,
+    &:focus-visible {
+        will-change: color, background-color, box-shadow, transform;
+    }
+
     &:hover {
+        transform: translate3d(0, -0.04rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
     &:active {
+        --limel-clickable-transform-timing-function: cubic-bezier(
+            0.83,
+            -0.15,
+            0.49,
+            1.16
+        );
+        transform: translate3d(0, 0.05rem, 0);
         box-shadow: var(--button-shadow-pressed);
+    }
 
-        transform: translate3d(0, 0.08rem, 0);
+    &:hover,
+    &:active {
+        --limel-clickable-transition-speed: 0.2s;
+        --limel-clickable-transform-speed: 0.16s;
     }
 }
 
@@ -100,27 +122,42 @@
     $background-color--hovered: var(--lime-elevated-surface-background-color),
     $background-color--inset: var(--mdc-theme-surface)
 ) {
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+    transition: $clickable-normal-state-transitions;
 
     cursor: pointer;
     color: $color;
     background-color: $background-color;
     box-shadow: var(--button-shadow-normal);
 
+    &:hover,
+    &:focus,
+    &:focus-visible {
+        will-change: color, background-color, box-shadow, transform;
+    }
+
     &:hover {
+        transform: translate3d(0, 0.01rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
     &:active {
+        --limel-clickable-transform-timing-function: cubic-bezier(
+            0.83,
+            -0.15,
+            0.49,
+            1.16
+        );
+        transform: translate3d(0, 0.05rem, 0);
         background-color: $background-color--inset;
         box-shadow: var(--button-shadow-inset-pressed);
-        transform: translate3d(0, 0.05rem, 0);
+    }
+
+    &:hover,
+    &:active {
+        --limel-clickable-transition-speed: 0.2s;
+        --limel-clickable-transform-speed: 0.16s;
     }
 }
 
@@ -130,26 +167,40 @@
     $color--hovered: var(--mdc-theme-on-surface),
     $background-color--hovered: var(--lime-elevated-surface-background-color)
 ) {
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+    transition: $clickable-normal-state-transitions;
 
     cursor: pointer;
     color: $color;
     background-color: $background-color;
 
+    &:hover,
+    &:focus,
+    &:focus-visible {
+        will-change: color, background-color, box-shadow, transform;
+    }
+
     &:hover {
+        transform: translate3d(0, 0.01rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
     &:active {
+        --limel-clickable-transform-timing-function: cubic-bezier(
+            0.83,
+            -0.15,
+            0.49,
+            1.16
+        );
+        transform: translate3d(0, 0.05rem, 0);
         box-shadow: var(--button-shadow-pressed);
+    }
 
-        transform: translate3d(0, 0.08rem, 0);
+    &:hover,
+    &:active {
+        --limel-clickable-transition-speed: 0.2s;
+        --limel-clickable-transform-speed: 0.16s;
     }
 }
 
@@ -160,26 +211,41 @@
     $background-color--hovered: var(--lime-elevated-surface-background-color),
     $background-color--inset: var(--mdc-theme-surface)
 ) {
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease-out;
+    transition: $clickable-normal-state-transitions;
 
     cursor: pointer;
     color: $color;
     background-color: $background-color;
 
+    &:hover,
+    &:focus,
+    &:focus-visible {
+        will-change: color, background-color, box-shadow, transform;
+    }
+
     &:hover {
+        transform: translate3d(0, -0.04rem, 0);
         color: $color--hovered;
         background-color: $background-color--hovered;
         box-shadow: var(--button-shadow-hovered);
     }
 
     &:active {
+        --limel-clickable-transform-timing-function: cubic-bezier(
+            0.83,
+            -0.15,
+            0.49,
+            1.16
+        );
+        transform: translate3d(0, 0.05rem, 0);
         background-color: $background-color--inset;
         box-shadow: var(--button-shadow-inset-pressed);
-        transform: translate3d(0, 0.05rem, 0);
+    }
+
+    &:hover,
+    &:active {
+        --limel-clickable-transition-speed: 0.2s;
+        --limel-clickable-transform-speed: 0.16s;
     }
 }
 

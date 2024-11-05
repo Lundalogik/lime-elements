@@ -7,7 +7,7 @@ import {
     defaultMarkdownSerializer,
 } from 'prosemirror-markdown';
 import { markdownToHTML } from '../../markdown/markdown-parser';
-import { CustomElement } from '../../../global/shared-types/custom-element.types';
+import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
 
 type MarkdownSerializerFunction = (
     state: MarkdownSerializerState,
@@ -15,7 +15,7 @@ type MarkdownSerializerFunction = (
 ) => void;
 
 const createMarkdownSerializerFunction = (
-    config: CustomElement,
+    config: CustomElementDefinition,
 ): MarkdownSerializerFunction => {
     return (state: MarkdownSerializerState, node: ProseMirrorNode) => {
         const tagOpen =
@@ -31,7 +31,7 @@ const createMarkdownSerializerFunction = (
 };
 
 const buildMarkdownSerializer = (
-    plugins: CustomElement[],
+    plugins: CustomElementDefinition[],
 ): MarkdownSerializer => {
     const customNodes = {};
 
@@ -62,15 +62,15 @@ const buildMarkdownSerializer = (
  */
 export class MarkdownConverter implements ContentTypeConverter {
     private markdownSerializer: MarkdownSerializer;
-    private customNodes: CustomElement[];
+    private customNodes: CustomElementDefinition[];
 
-    constructor(plugins: CustomElement[]) {
+    constructor(plugins: CustomElementDefinition[]) {
         this.markdownSerializer = buildMarkdownSerializer(plugins);
         this.customNodes = plugins;
     }
     public parseAsHTML = (text: string): Promise<string> => {
-        const whitelist: CustomElement[] = this.customNodes.map(
-            (nodeConfig: CustomElement) => ({
+        const whitelist: CustomElementDefinition[] = this.customNodes.map(
+            (nodeConfig: CustomElementDefinition) => ({
                 tagName: nodeConfig.tagName,
                 attributes: nodeConfig.attributes,
             }),
