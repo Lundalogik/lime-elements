@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-6156b4fd.js";import{C as s}from"./item-constants-bff120c0.js";const i=class{constructor(t){e(this,t);this.items=s;this.handleSelect=e=>{this.lastSelectedItem=e.detail.text};this.lastSelectedItem=undefined}render(){return[t("limel-menu",{items:this.items,onSelect:this.handleSelect},t("limel-button",{label:"Menu",slot:"trigger"})),t("limel-example-value",{label:"Last selected item",value:this.lastSelectedItem})]}};export{i as limel_example_menu_sub_menus};
+//# sourceMappingURL=limel-example-menu-sub-menus.entry.js.map
