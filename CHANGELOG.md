@@ -1,3 +1,11 @@
+## [37.65.5](https://github.com/Lundalogik/lime-elements/compare/v37.65.4...v37.65.5) (2024-11-06)
+
+
+### Bug Fixes
+
+
+* **text-editor:** better support for nested custom elements ([d2889aa](https://github.com/Lundalogik/lime-elements/commit/d2889aa67a3d24217dfa2bd198c8287024268f18)), closes [Lundalogik/crm-feature#4437](https://github.com/Lundalogik/crm-feature/issues/4437)
+
 ## [37.65.4](https://github.com/Lundalogik/lime-elements/compare/v37.65.3...v37.65.4) (2024-11-05)
 
 
