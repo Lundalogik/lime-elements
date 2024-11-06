@@ -1,3 +1,11 @@
+## [37.65.6](https://github.com/Lundalogik/lime-elements/compare/v37.65.5...v37.65.6) (2024-11-06)
+
+
+### Bug Fixes
+
+
+* **snackbar:** show tooltip correctly ([f7d52c1](https://github.com/Lundalogik/lime-elements/commit/f7d52c1c598d88ed498d739a4eb57a156a9b424a)), closes [#3285](https://github.com/Lundalogik/lime-elements/issues/3285)
+
 ## [37.65.5](https://github.com/Lundalogik/lime-elements/compare/v37.65.4...v37.65.5) (2024-11-06)
 
 
