@@ -17,7 +17,7 @@ export class TextEditorCustomElementExample {
     @State()
     private value: string =
         "This chip doesn't fit " +
-        '<limel-chip text="Github" icon="github_copyrighted"/>';
+        '<limel-chip text="Github" icon="github_copyrighted">nested element</limel-chip>';
 
     public render() {
         return [

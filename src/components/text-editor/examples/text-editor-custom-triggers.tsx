@@ -261,6 +261,7 @@ export class TextEditorCustomTriggersExample {
                     text: event.detail.text,
                 },
             },
+            children: ["I'm a teapot"],
         });
     };
 

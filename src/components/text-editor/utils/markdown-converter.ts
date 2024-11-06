@@ -26,7 +26,9 @@ const createMarkdownSerializerFunction = (
             '>';
         const tagClose = `</${config.tagName}>`;
 
-        state.write(`${tagOpen}${tagClose}`);
+        state.write(tagOpen);
+        state.renderContent(node);
+        state.write(tagClose);
     };
 };
 
