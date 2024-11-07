@@ -1,3 +1,11 @@
+## [37.65.7](https://github.com/Lundalogik/lime-elements/compare/v37.65.6...v37.65.7) (2024-11-07)
+
+
+### Bug Fixes
+
+
+* **form:** set collapsible item initial state correctly ([fc10d3d](https://github.com/Lundalogik/lime-elements/commit/fc10d3d9dca527af554c205508c3ca92e0282919)), closes [#3288](https://github.com/Lundalogik/lime-elements/issues/3288)
+
 ## [37.65.6](https://github.com/Lundalogik/lime-elements/compare/v37.65.5...v37.65.6) (2024-11-06)
 
 
