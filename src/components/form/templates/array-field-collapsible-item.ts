@@ -43,9 +43,9 @@ export class CollapsibleItemTemplate extends React.Component {
         this.handleAction = this.handleAction.bind(this);
         this.isDeepEmpty = this.isDeepEmpty.bind(this);
 
-        this.setState({
+        this.state = {
             isOpen: this.isDeepEmpty(props.data),
-        });
+        };
     }
 
     public componentDidMount() {
