@@ -1,3 +1,11 @@
+## [37.65.10](https://github.com/Lundalogik/lime-elements/compare/v37.65.9...v37.65.10) (2024-11-08)
+
+
+### Bug Fixes
+
+
+* **table:** change the sorting arrows direction ([b022c96](https://github.com/Lundalogik/lime-elements/commit/b022c9640e54cbd10c060f545f420b7b2f59f910))
+
 ## [37.65.9](https://github.com/Lundalogik/lime-elements/compare/v37.65.8...v37.65.9) (2024-11-08)
 
 
