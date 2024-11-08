@@ -90,9 +90,6 @@ export class MenuSurface {
             capture: true,
         });
         this.host.addEventListener('keydown', this.handleKeyDown);
-        window.addEventListener('resize', this.handleResize, {
-            passive: true,
-        });
     };
 
     private teardown = () => {
@@ -101,7 +98,6 @@ export class MenuSurface {
             capture: true,
         });
         this.host.removeEventListener('keydown', this.handleKeyDown);
-        window.removeEventListener('resize', this.handleResize);
     };
 
     private handleDocumentClick = (event) => {
@@ -127,12 +123,6 @@ export class MenuSurface {
 
         this.dismiss.emit();
         this.preventClickEventPropagation();
-    };
-
-    private handleResize = () => {
-        if (this.open) {
-            this.dismiss.emit();
-        }
     };
 
     private preventClickEventPropagation = () => {
