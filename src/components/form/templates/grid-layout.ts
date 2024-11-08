@@ -40,6 +40,10 @@ export class GridLayout extends React.Component<LayoutProps, LayoutState> {
     public handleResize() {
         requestAnimationFrame(() => {
             const element = this.elementRef.current;
+            if (!element) {
+                return;
+            }
+
             const width = element.getBoundingClientRect().width;
             const maxColumns = Math.min(
                 MAX_COLUMNS,
