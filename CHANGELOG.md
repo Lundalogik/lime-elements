@@ -1,3 +1,11 @@
+## [37.65.9](https://github.com/Lundalogik/lime-elements/compare/v37.65.8...v37.65.9) (2024-11-08)
+
+
+### Performance Improvements
+
+
+* **portal:** prevent memory leak in internal component used by several components with dropdowns ([8f4619e](https://github.com/Lundalogik/lime-elements/commit/8f4619e45b5db9d87330fb3faa19836fea3fade7))
+
 ## [37.65.8](https://github.com/Lundalogik/lime-elements/compare/v37.65.7...v37.65.8) (2024-11-08)
 
 
