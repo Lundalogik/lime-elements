@@ -37,7 +37,8 @@ interface LinkProperties {
     target?: string;
 }
 
-const DEBOUNCE_TIMEOUT = 300;
+const CHANGE_EVENT_DEBOUNCE_TIMEOUT = 300;
+const RESIZE_HANDLER_DEBOUNCE_TIMEOUT = 100;
 
 /**
  * @exampleComponent limel-example-input-field-text
@@ -280,6 +281,7 @@ export class InputField {
             this.mdcTextField.destroy();
         }
 
+        this.restyleCompletionsDropDown.cancel();
         window.removeEventListener('resize', this.layout);
         this.limelInputField.removeEventListener('focus', this.setFocus);
     }
@@ -492,7 +494,16 @@ export class InputField {
 
     private layout = () => {
         this.mdcTextField?.layout();
+        this.restyleCompletionsDropDown();
     };
+
+    private restyleCompletionsDropDown = debounce(() => {
+        const stateOfShowCompletions = this.showCompletions;
+        this.showCompletions = false;
+        requestAnimationFrame(() => {
+            this.showCompletions = stateOfShowCompletions;
+        });
+    }, RESIZE_HANDLER_DEBOUNCE_TIMEOUT);
 
     private getAdditionalProps = () => {
         const props: any = {};
@@ -974,7 +985,7 @@ export class InputField {
     private changeEmitter = debounce((value: string) => {
         this.change.emit(value);
         this.changeWaiting = false;
-    }, DEBOUNCE_TIMEOUT);
+    }, CHANGE_EVENT_DEBOUNCE_TIMEOUT);
 
     private handleChange = (event: Event) => {
         event.stopPropagation();
