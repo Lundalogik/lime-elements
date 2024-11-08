@@ -1,3 +1,11 @@
+## [37.65.8](https://github.com/Lundalogik/lime-elements/compare/v37.65.7...v37.65.8) (2024-11-08)
+
+
+### Bug Fixes
+
+
+* **form:** handle undefined element ([8e65007](https://github.com/Lundalogik/lime-elements/commit/8e65007ef0829cdb7e36f8f7cc676cf32d499028))
+
 ## [37.65.7](https://github.com/Lundalogik/lime-elements/compare/v37.65.6...v37.65.7) (2024-11-07)
 
 
