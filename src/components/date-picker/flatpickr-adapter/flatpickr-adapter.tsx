@@ -136,7 +136,9 @@ export class DatePickerCalendar {
                 break;
         }
 
-        this.picker.formatter = this.formatter;
+        if (this.formatter) {
+            this.picker.formatter = this.formatter;
+        }
     }
 
     public componentDidUpdate() {
