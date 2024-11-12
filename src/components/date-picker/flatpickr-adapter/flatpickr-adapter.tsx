@@ -164,6 +164,7 @@ export class DatePickerCalendar {
 
     public disconnectedCallback() {
         this.picker.destroy();
+        this.flatPickrCreated = false;
     }
 
     public render() {
