@@ -4,6 +4,7 @@ import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 import { TriggerCharacter, TriggerEventDetail } from './text-editor.types';
+import { EditorUiType } from './types';
 
 /**
  * A rich text editor that offers a rich text editing experience with markdown support,
@@ -151,7 +152,7 @@ export class TextEditor implements FormComponent<string> {
      *    until the editor is focused.
      */
     @Prop({ reflect: true })
-    public ui?: 'standard' | 'minimal' = 'standard';
+    public ui?: EditorUiType = 'standard';
 
     /**
      * Dispatched when a change is made to the editor
