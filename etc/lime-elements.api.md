@@ -677,7 +677,7 @@ export namespace Components {
         "required"?: boolean;
         // @alpha
         "triggers": TriggerCharacter[];
-        "ui"?: 'standard' | 'minimal';
+        "ui"?: EditorUiType;
         "value": string;
     }
     // @beta
@@ -760,6 +760,9 @@ export type EditorTextLink = {
     text?: string;
     href: string;
 };
+
+// @beta (undocumented)
+export type EditorUiType = 'standard' | 'minimal';
 
 // Warning: (ae-missing-release-tag) "EventEmitter" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -1683,7 +1686,7 @@ namespace JSX_2 {
         "required"?: boolean;
         // @alpha
         "triggers"?: TriggerCharacter[];
-        "ui"?: 'standard' | 'minimal';
+        "ui"?: EditorUiType;
         "value"?: string;
     }
     // @beta
