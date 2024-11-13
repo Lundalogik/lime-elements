@@ -1,3 +1,12 @@
+## [37.52.9](https://github.com/Lundalogik/lime-elements/compare/v37.52.8...v37.52.9) (2024-11-13)
+
+
+### Bug Fixes
+
+
+* **input-field:** resize completions dropdown when viewport is resized ([5d66f16](https://github.com/Lundalogik/lime-elements/commit/5d66f16ab5e17bbcdcea9c7a506b80c02ec064b7)), closes [Lundalogik/crm-feature#4408](https://github.com/Lundalogik/crm-feature/issues/4408)
+* **menu-surface:** do not close menu when viewport is resized ([2ef5d8c](https://github.com/Lundalogik/lime-elements/commit/2ef5d8ca8f485db85d0a5221f586f48330a858e3)), closes [Lundalogik/crm-feature#4408](https://github.com/Lundalogik/crm-feature/issues/4408)
+
 ## [37.52.8](https://github.com/Lundalogik/lime-elements/compare/v37.52.7...v37.52.8) (2024-06-26)
 
 
