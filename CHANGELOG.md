@@ -1,3 +1,11 @@
+## [37.65.13](https://github.com/Lundalogik/lime-elements/compare/v37.65.12...v37.65.13) (2024-11-13)
+
+
+### Bug Fixes
+
+
+* **flatpickr-adapter:** handle missing `formatter` property ([05a1b06](https://github.com/Lundalogik/lime-elements/commit/05a1b06aefcb4eade4e86221541fb9952b40d1b2))
+
 ## [37.65.12](https://github.com/Lundalogik/lime-elements/compare/v37.65.11...v37.65.12) (2024-11-12)
 
 
