@@ -152,12 +152,21 @@ export class ListRenderer {
                 {...attributes}
             >
                 {this.renderIcon(this.config, item)}
+                {this.renderBadge(item)}
                 {this.getPrimaryComponent(item)}
                 {this.renderText(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
                 {this.renderActionMenu(item.actions)}
             </li>
         );
+    };
+
+    private renderBadge = (item: ListItem) => {
+        if (!item.badgeCount) {
+            return;
+        }
+
+        return <limel-badge label={item.badgeCount} />;
     };
 
     private renderTextForSeparator = (item: ListSeparator) => {
