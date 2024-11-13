@@ -159,13 +159,13 @@ export class Portal {
         }
 
         if ('ResizeObserver' in window) {
-            const observer = new ResizeObserver(() => {
+            this.observer = new ResizeObserver(() => {
                 if (this.popperInstance) {
                     this.styleContainer();
                     this.popperInstance.update();
                 }
             });
-            observer.observe(this.container);
+            this.observer.observe(this.container);
         }
     }
 

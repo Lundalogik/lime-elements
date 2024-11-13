@@ -1,3 +1,45 @@
+## [37.65.12](https://github.com/Lundalogik/lime-elements/compare/v37.65.11...v37.65.12) (2024-11-12)
+
+
+### Bug Fixes
+
+
+* **date-picker:** avoid creating flatpickr instance while hidden ([7bd6f8a](https://github.com/Lundalogik/lime-elements/commit/7bd6f8a7f37d9920c832dc3513632927d0ae5365))
+* **flatpickr-adapter:** create flatpickr again after disconnected ([737178a](https://github.com/Lundalogik/lime-elements/commit/737178a62b8958c9f9b7d2af23764e7ec150fb6d))
+
+## [37.65.11](https://github.com/Lundalogik/lime-elements/compare/v37.65.10...v37.65.11) (2024-11-11)
+
+
+### Bug Fixes
+
+
+* **input-field:** resize completions dropdown when viewport is resized ([05aade8](https://github.com/Lundalogik/lime-elements/commit/05aade8bbe7b62568957bcd95e108c1ed5d379a3)), closes [Lundalogik/crm-feature#4408](https://github.com/Lundalogik/crm-feature/issues/4408)
+* **menu-surface:** do not close menu when viewport is resized ([c428aea](https://github.com/Lundalogik/lime-elements/commit/c428aea28856ee73ab201f4b701f98dfd9cf6470)), closes [Lundalogik/crm-feature#4408](https://github.com/Lundalogik/crm-feature/issues/4408)
+
+## [37.65.10](https://github.com/Lundalogik/lime-elements/compare/v37.65.9...v37.65.10) (2024-11-08)
+
+
+### Bug Fixes
+
+
+* **table:** change the sorting arrows direction ([b022c96](https://github.com/Lundalogik/lime-elements/commit/b022c9640e54cbd10c060f545f420b7b2f59f910))
+
+## [37.65.9](https://github.com/Lundalogik/lime-elements/compare/v37.65.8...v37.65.9) (2024-11-08)
+
+
+### Performance Improvements
+
+
+* **portal:** prevent memory leak in internal component used by several components with dropdowns ([8f4619e](https://github.com/Lundalogik/lime-elements/commit/8f4619e45b5db9d87330fb3faa19836fea3fade7))
+
+## [37.65.8](https://github.com/Lundalogik/lime-elements/compare/v37.65.7...v37.65.8) (2024-11-08)
+
+
+### Bug Fixes
+
+
+* **form:** handle undefined element ([8e65007](https://github.com/Lundalogik/lime-elements/commit/8e65007ef0829cdb7e36f8f7cc676cf32d499028))
+
 ## [37.65.7](https://github.com/Lundalogik/lime-elements/compare/v37.65.6...v37.65.7) (2024-11-07)
 
 
