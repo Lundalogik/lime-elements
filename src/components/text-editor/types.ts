@@ -7,3 +7,8 @@ import { CustomElementDefinition } from '../../global/shared-types/custom-elemen
 export type TextEditorPlugin = {
     node: CustomElementDefinition[];
 };
+
+/**
+ * @beta
+ */
+export type EditorUiType = 'standard' | 'minimal';
