@@ -1,0 +1,2 @@
+function n(t,e){var o;if(t.contains(e)||((o=t.shadowRoot)===null||o===void 0?void 0:o.contains(e))){return true}const i=r(e);if(!i){return false}return n(t,i)}function r(n){const r=n.closest(".limel-portal--container");if(r){return r.portalSource}const t=n.getRootNode();return t.host}export{n as p};
+//# sourceMappingURL=contains-845fe815.js.map
