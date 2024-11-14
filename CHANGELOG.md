@@ -1,3 +1,11 @@
+## [37.66.1](https://github.com/Lundalogik/lime-elements/compare/v37.66.0...v37.66.1) (2024-11-14)
+
+
+### Bug Fixes
+
+
+* **text-editor:** update prosemirror-model to 1.22.1 to fix XSS vulnerability ([55a916c](https://github.com/Lundalogik/lime-elements/commit/55a916c9e9bb9b1e2041ff76a08807dbbc48bba6))
+
 ## [37.66.0](https://github.com/Lundalogik/lime-elements/compare/v37.65.13...v37.66.0) (2024-11-14)
 
 
