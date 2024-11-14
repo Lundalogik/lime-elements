@@ -157,6 +157,7 @@ export class TextEditor implements FormComponent<string> {
 
     /**
      * Set to `true` to allow parsing of table data. Only works when `type` is `html`.
+
      */
     @Prop({ reflect: true })
     public enableTables?: boolean;
@@ -254,11 +255,15 @@ export class TextEditor implements FormComponent<string> {
                 aria-disabled={this.disabled}
                 language={this.language}
                 triggerCharacters={this.triggers}
-                supportTables={this.enableTables}
+                supportTables={this.checkForTables()}
             />,
             this.renderPlaceholder(),
             this.renderHelperLine(),
         ];
+    }
+
+    private checkForTables() {
+        return this.enableTables && this.contentType === 'html';
     }
 
     private renderLabel() {
