@@ -565,6 +565,8 @@ export namespace Components {
         // @alpha
         "customElements": CustomElementDefinition[];
         "language": Languages;
+        // (undocumented)
+        "supportTables": boolean;
         // @alpha
         "triggerCharacters": TriggerCharacter[];
         "value": string;
@@ -668,6 +670,8 @@ export namespace Components {
         // @alpha
         "customElements": CustomElementDefinition[];
         "disabled"?: boolean;
+        // @alpha
+        "enableTables"?: boolean;
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;
@@ -1551,6 +1555,8 @@ namespace JSX_2 {
         "customElements"?: CustomElementDefinition[];
         "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
+        // (undocumented)
+        "supportTables"?: boolean;
         // @alpha
         "triggerCharacters"?: TriggerCharacter[];
         "value"?: string;
@@ -1667,6 +1673,8 @@ namespace JSX_2 {
         // @alpha
         "customElements"?: CustomElementDefinition[];
         "disabled"?: boolean;
+        // @alpha
+        "enableTables"?: boolean;
         "helperText"?: string;
         "invalid"?: boolean;
         "label"?: string;

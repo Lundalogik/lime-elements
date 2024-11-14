@@ -156,7 +156,8 @@ export class TextEditor implements FormComponent<string> {
 
     /**
      * Set to `true` to allow parsing of table data. Only works when `type` is `html`.
-
+     * @private
+     * @alpha
      */
     @Prop({ reflect: true })
     public enableTables?: boolean;

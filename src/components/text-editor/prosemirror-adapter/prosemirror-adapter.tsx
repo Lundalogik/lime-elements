@@ -102,6 +102,11 @@ export class ProsemirrorAdapter {
     triggerCharacters: TriggerCharacter[] = [];
 
     @Prop()
+    /**
+     * Will only work if 'contentType' is set to 'html'
+     * @private
+     * @alpha
+     */
     public supportTables: boolean = false;
 
     @Element()
