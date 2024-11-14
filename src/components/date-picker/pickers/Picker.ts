@@ -14,7 +14,8 @@ import { isAndroidDevice, isIOSDevice } from '../../../util/device';
 const ARIA_DATE_FORMAT = 'F j, Y';
 
 export abstract class Picker {
-    public formatter: (date: Date) => string;
+    public formatter = (date: Date) =>
+        moment(date).locale(this.getMomentLang()).format(this.dateFormat);
 
     protected dateFormat: string;
     protected language: string = 'en';
