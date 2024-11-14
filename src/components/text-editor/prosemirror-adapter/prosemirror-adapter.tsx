@@ -101,9 +101,6 @@ export class ProsemirrorAdapter {
     @Prop()
     triggerCharacters: TriggerCharacter[] = [];
 
-    @Prop()
-    public supportTables: boolean = false;
-
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -308,7 +305,7 @@ export class ProsemirrorAdapter {
         });
         nodes = addListNodes(nodes, 'paragraph block*', 'block');
 
-        if (this.supportTables) {
+        if (this.contentType === 'html') {
             nodes = nodes.append(getTableNodes());
         }
 
@@ -351,7 +348,7 @@ export class ProsemirrorAdapter {
                     this.updateActiveActionBarItems,
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
-                ...getTableEditingPlugins(this.supportTables),
+                ...getTableEditingPlugins(this.contentType === 'html'),
             ],
         });
     }
