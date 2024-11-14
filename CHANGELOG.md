@@ -1,3 +1,12 @@
+## [37.66.0](https://github.com/Lundalogik/lime-elements/compare/v37.65.13...v37.66.0) (2024-11-14)
+
+
+### Features
+
+
+* **text-editor:** add uiType as a type ([239ea3d](https://github.com/Lundalogik/lime-elements/commit/239ea3de43e9ac43b7db677726aeaf6496cd136c))
+* **text-editor:** use uiType in editor ([b56fcbb](https://github.com/Lundalogik/lime-elements/commit/b56fcbbef73c5cf292139a549b78f976e54d6a3a))
+
 ## [37.65.13](https://github.com/Lundalogik/lime-elements/compare/v37.65.12...v37.65.13) (2024-11-13)
 
 
