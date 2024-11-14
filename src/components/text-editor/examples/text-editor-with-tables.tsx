@@ -14,7 +14,7 @@ import { Component, h, State } from '@stencil/core';
 export class TextEditorWithTablesExample {
     @State()
     private value: string =
-        '<table><tbody><tr><td style="background-color: rgb(25, 107, 36);color: white;"><p><strong>Column1</strong></p></td><td style="background-color: rgb(25, 107, 36);color: white;"><p><strong>Column2</strong></p></td></tr><tr><td style="background-color: rgb(193, 240, 200);color: black;"><p>Cell A1</p></td><td style="background-color: rgb(193, 240, 200);color: black;"><p>Cell B1</p></td></tr><tr><td style="color: black;"><p>Cell A2</p></td><td style="background-color: yellow;color: red;"><p>Cell B2</p></td></tr></tbody></table>';
+        '<table><tbody><tr><td style="background-color: rgb(25, 107, 36);color: white;"><p><strong>Column1</strong></p></td><td style="background-color: rgb(25, 107, 36);color: white;"><p><strong>Column2</strong></p></td></tr><tr><td style="background-color: rgb(193, 240, 200);color: black;"><p>Cell A1</p></td><td style="background-color: rgb(193, 240, 200);color: black;"><p>Cell B1</p></td></tr><tr><td style="color: green;"><p>Cell A2</p></td><td style="background-color: yellow;color: red;"><p>Cell B2</p></td></tr></tbody></table>';
 
     @State()
     private readonly = false;
