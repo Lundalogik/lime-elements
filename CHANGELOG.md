@@ -1,3 +1,18 @@
+## [37.67.0](https://github.com/Lundalogik/lime-elements/compare/v37.66.1...v37.67.0) (2024-11-15)
+
+
+### Features
+
+
+* **text-editor tables:** add basic plugin for parsing tables ([e36577d](https://github.com/Lundalogik/lime-elements/commit/e36577d5c8d89b92279ae119135a317910ea2a98))
+* **text-editor tables:** fix example component ([9b4d5a0](https://github.com/Lundalogik/lime-elements/commit/9b4d5a04b0c0944cde94baf00599b62ecbb0211a))
+* **text-editor tables:** set enableTables true if contentType is html ([8a2f54b](https://github.com/Lundalogik/lime-elements/commit/8a2f54b7df4f11e49495bf0ac63b57293f6a2fa6))
+
+### Bug Fixes
+
+
+* **text-editor tables:** put repeated code in single function ([7f8a6ae](https://github.com/Lundalogik/lime-elements/commit/7f8a6ae921663aa27ee24bf62c7cff95e1f0cc50))
+
 ## [37.66.1](https://github.com/Lundalogik/lime-elements/compare/v37.66.0...v37.66.1) (2024-11-14)
 
 
