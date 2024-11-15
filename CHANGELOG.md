@@ -1,3 +1,12 @@
+## [37.68.0](https://github.com/Lundalogik/lime-elements/compare/v37.67.0...v37.68.0) (2024-11-15)
+
+
+### Features
+
+
+* **chart:** add new component ([6680e4b](https://github.com/Lundalogik/lime-elements/commit/6680e4b147dd16d8179fd835ba61d6e837d1d809))
+* **mixins:** add a mixin for visually hiding an element ([e1a3934](https://github.com/Lundalogik/lime-elements/commit/e1a3934d0cf427c204c01560e85c46c390f04bf4))
+
 ## [37.67.0](https://github.com/Lundalogik/lime-elements/compare/v37.66.1...v37.67.0) (2024-11-15)
 
 
