@@ -64,7 +64,7 @@
     "codemirror": "^5.65.9",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
-    "eslint": "^9.14.0",
+    "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-ban": "^1.6.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
