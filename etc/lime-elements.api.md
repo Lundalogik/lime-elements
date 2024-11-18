@@ -2413,6 +2413,8 @@ export interface TabPanelComponent {
 // @alpha (undocumented)
 export interface TextEditor {
     insert: (input: TextEditorNode | string) => void;
+    // (undocumented)
+    stopTrigger: () => void;
 }
 
 // @alpha (undocumented)
