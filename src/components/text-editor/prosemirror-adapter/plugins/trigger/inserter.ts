@@ -38,6 +38,14 @@ export const inserterFactory = (view: EditorView): TextEditor => {
             transaction.setMeta('stopTrigger', true);
             dispatch(transaction);
         },
+        stopTrigger: () => {
+            const { state, dispatch } = view;
+
+            const transaction = state.tr;
+            transaction.setMeta('stopTrigger', true);
+
+            dispatch(transaction);
+        },
     };
 };
 

@@ -59,6 +59,7 @@ export interface TextEditor {
      *
      */
     insert: (input: TextEditorNode | string) => void;
+    stopTrigger: () => void;
 }
 
 /**
