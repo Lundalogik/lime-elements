@@ -142,17 +142,25 @@ export const createTriggerPlugin = (triggerCharacters: TriggerCharacter[]) => {
         activeTrigger = null;
     };
 
-    const handleKeyDown = (view: EditorView, event: any) => {
-        const { state } = view;
-
+    const handleKeyDown = (_: EditorView, event: any) => {
         if (event.key === 'Escape') {
             stopTrigger();
 
             return true;
         }
 
-        if (isTrigger(event.key, triggerCharacters) && shouldTrigger(state)) {
-            activeTrigger = event.key;
+        return false;
+    };
+
+    const handleInput = (view: EditorView, event: any) => {
+        const { state } = view;
+
+        if (
+            event.inputType === 'insertText' &&
+            isTrigger(event.data, triggerCharacters) &&
+            shouldTrigger(state)
+        ) {
+            activeTrigger = event.data;
             triggerText = '';
             triggerPosition = state.selection.$from.pos - triggerText.length;
             sendTriggerEvent('triggerStart', view, activeTrigger, triggerText);
@@ -221,6 +229,9 @@ export const createTriggerPlugin = (triggerCharacters: TriggerCharacter[]) => {
         },
         props: {
             handleKeyDown: handleKeyDown,
+            handleDOMEvents: {
+                input: handleInput,
+            },
         },
         appendTransaction: appendTransactions,
     });
