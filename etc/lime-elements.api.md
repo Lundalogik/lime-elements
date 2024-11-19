@@ -198,6 +198,17 @@ export namespace Components {
         "type"?: CalloutType;
     }
     // @beta
+    export interface LimelCard {
+        "actions"?: Array<ActionBarItem | ListSeparator>;
+        "clickable": boolean;
+        "heading"?: string;
+        "icon"?: string | Icon;
+        "image"?: Image_2;
+        "orientation": 'landscape' | 'portrait';
+        "subheading"?: string;
+        "value"?: string;
+    }
+    // @beta
     export interface LimelChart {
         "accessibleItemsLabel"?: string;
         "accessibleLabel"?: string;
@@ -985,6 +996,10 @@ namespace JSX_2 {
         "limel-button-group": LimelButtonGroup;
         // (undocumented)
         "limel-callout": LimelCallout;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-card"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
+        // (undocumented)
+        "limel-card": LimelCard;
         // Warning: (ae-incompatible-release-tags) The symbol ""limel-chart"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
         //
         // (undocumented)
@@ -1165,6 +1180,18 @@ namespace JSX_2 {
         "icon"?: string;
         "language"?: Languages;
         "type"?: CalloutType;
+    }
+    // @beta
+    interface LimelCard {
+        "actions"?: Array<ActionBarItem | ListSeparator>;
+        "clickable"?: boolean;
+        "heading"?: string;
+        "icon"?: string | Icon;
+        "image"?: Image_2;
+        "onActionSelected"?: (event: LimelCardCustomEvent<ActionBarItem>) => void;
+        "orientation"?: 'landscape' | 'portrait';
+        "subheading"?: string;
+        "value"?: string;
     }
     // @beta
     interface LimelChart {
@@ -1839,6 +1866,16 @@ export interface LimelButtonGroupCustomEvent<T> extends CustomEvent<T> {
     target: HTMLLimelButtonGroupElement;
 }
 
+// Warning: (ae-missing-release-tag) "LimelCardCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelCardCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelCardElement;
+}
+
 // Warning: (ae-missing-release-tag) "LimelCheckboxCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -2249,10 +2286,12 @@ export interface ListItem<T = any> {
 }
 
 // @public
-export interface ListSeparator {
+interface ListSeparator {
     separator: true;
     text?: string;
 }
+export { ListSeparator }
+export { ListSeparator as ListSeparator1 }
 
 // @public
 export type ListType = 'selectable' | 'radio' | 'checkbox';
