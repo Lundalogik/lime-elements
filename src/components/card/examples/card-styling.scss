@@ -1,0 +1,12 @@
+@import './card-resizable-container';
+
+limel-card {
+    --card-border-radius: 1.25rem;
+    --card-background-color: rgb(var(--color-pink-light));
+    --card-heading-color: rgb(var(--color-yellow-default));
+    --card-subheading-color: rgb(var(--color-yellow-lighter));
+
+    color: rgb(
+        var(--color-pink-lighter)
+    ); //overrides the default body text color
+}
