@@ -1,3 +1,11 @@
+## [37.69.1](https://github.com/Lundalogik/lime-elements/compare/v37.69.0...v37.69.1) (2024-11-20)
+
+
+### Bug Fixes
+
+
+* **text-editor:** make sure trigger characters work on Android ([940de41](https://github.com/Lundalogik/lime-elements/commit/940de41c45058a1fba6a92eb0773fd53e7edf6c9)), closes [Lundalogik/crm-feature#4470](https://github.com/Lundalogik/crm-feature/issues/4470)
+
 ## [37.69.0](https://github.com/Lundalogik/lime-elements/compare/v37.68.0...v37.69.0) (2024-11-20)
 
 
