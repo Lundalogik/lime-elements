@@ -3,6 +3,7 @@ import {
     Element,
     Event,
     EventEmitter,
+    Host,
     Prop,
     State,
     Watch,
@@ -205,18 +206,20 @@ export class ProsemirrorAdapter {
     }
 
     public render() {
-        return [
-            <div id="editor" />,
-            <div class="toolbar">
-                <limel-action-bar
-                    ref={(el) => (this.actionBarElement = el)}
-                    accessibleLabel="Toolbar"
-                    actions={this.actionBarItems}
-                    onItemSelected={this.handleActionBarItem}
-                />
-            </div>,
-            this.renderLinkMenu(),
-        ];
+        return (
+            <Host onFocus={this.handleFocus}>
+                <div id="editor" />,
+                <div class="toolbar">
+                    <limel-action-bar
+                        ref={(el) => (this.actionBarElement = el)}
+                        accessibleLabel="Toolbar"
+                        actions={this.actionBarItems}
+                        onItemSelected={this.handleActionBarItem}
+                    />
+                </div>
+                {this.renderLinkMenu()}
+            </Host>
+        );
     }
 
     renderLinkMenu() {
@@ -452,9 +455,9 @@ export class ProsemirrorAdapter {
         this.link = event.detail;
     };
 
-    public setFocus() {
+    private handleFocus = () => {
         this.view?.focus();
-    }
+    };
 
     private handleNewLinkSelection = (text: string, href: string) => {
         this.link.text = text;
