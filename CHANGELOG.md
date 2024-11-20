@@ -1,3 +1,11 @@
+## [37.69.0](https://github.com/Lundalogik/lime-elements/compare/v37.68.0...v37.69.0) (2024-11-20)
+
+
+### Features
+
+
+* **card:** add new component ([8a9e5ee](https://github.com/Lundalogik/lime-elements/commit/8a9e5ee3f720e8185164fcf65815db9f6b612069))
+
 ## [37.68.0](https://github.com/Lundalogik/lime-elements/compare/v37.67.0...v37.68.0) (2024-11-15)
 
 
