@@ -10,11 +10,14 @@ limel-slider {
     width: 100%;
 }
 
+limel-action-bar {
+    --action-bar-background-color: transparent;
+}
+
 :host(limel-example-card-nested-component.on-pink-background) {
     --lime-primary-color: rgb(var(--color-purple-default));
 
     limel-action-bar {
-        --action-bar-background-color: transparent;
         --action-bar-item-text-color: rgb(var(--color-white));
     }
 }
