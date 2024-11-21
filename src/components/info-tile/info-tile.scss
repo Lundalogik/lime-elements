@@ -53,7 +53,6 @@
     --icon-preferred-size: 60cqh;
     --icon-max-size: calc(100cqw - 0.5rem);
 
-    isolation: isolate;
     container-type: size;
     position: relative;
     display: flex;
@@ -92,22 +91,6 @@ a {
         --info-tile-background-color,
         var(--lime-elevated-surface-background-color)
     );
-
-    &.is-clickable {
-        @include mixins.is-elevated-clickable(
-            $background-color:
-                var(
-                    --info-tile-background-color,
-                    var(--lime-elevated-surface-background-color)
-                ),
-            $background-color--hovered:
-                var(
-                    --info-tile-background-color,
-                    var(--lime-elevated-surface-background-color)
-                )
-        );
-        @include mixins.visualize-keyboard-focus;
-    }
 }
 
 .icon {
@@ -347,5 +330,22 @@ $l: 62.5rem; //1000px
             right: 0.5rem;
             --icon-max-size: 3rem;
         }
+    }
+}
+
+// The 3D effect
+limel-3d-hover-effect-glow {
+    border-radius: var(--info-tile-border-radius, 1rem);
+}
+
+:host(limel-info-tile) {
+    @include mixins.parent-of-the-3d-element;
+}
+
+a {
+    @include mixins.the-3d-element;
+
+    &.is-clickable {
+        @include mixins.the-3d-element--clickable;
     }
 }
