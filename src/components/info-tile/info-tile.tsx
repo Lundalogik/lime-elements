@@ -1,6 +1,11 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Element, Host } from '@stencil/core';
 import { InfoTileProgress } from '../info-tile/info-tile.types';
 import { Link } from '../../global/shared-types/link.types';
+import {
+    tiltFollowingTheCursor,
+    handleMouseEnter,
+    handleMouseLeave,
+} from '../../util/3d-tilt-hover-effect';
 
 /**
  * This component can be used on places such as a start page or a dashboard.
@@ -101,6 +106,9 @@ export class InfoTile {
     @Prop()
     public progress?: InfoTileProgress;
 
+    @Element() private element: HTMLElement;
+    private the3dElementBounds: DOMRect;
+
     public render() {
         const extendedAriaLabel =
             this.checkProps(this?.prefix) +
@@ -116,36 +124,43 @@ export class InfoTile {
 
         const link = !this.disabled ? this.link?.href : '#';
 
-        return [
-            <a
-                title={this.link?.title}
-                href={link}
-                target={this.link?.target}
-                tabindex="0"
-                aria-label={extendedAriaLabel}
-                aria-disabled={this.disabled}
-                aria-busy={this.loading ? 'true' : 'false'}
-                aria-live="polite"
-                class={{
-                    'is-clickable': !!this.link?.href && !this.disabled,
-                    'has-circular-progress':
-                        !!this.progress?.value || this.progress?.value === 0,
-                }}
+        return (
+            <Host
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
             >
-                {this.renderIcon()}
-                {this.renderProgress()}
-                <div class="value-group">
-                    {this.renderPrefix()}
-                    <div class="value-and-suffix">
-                        {this.renderValue()}
-                        {this.renderSuffix()}
+                <a
+                    title={this.link?.title}
+                    href={link}
+                    target={this.link?.target}
+                    tabindex="0"
+                    aria-label={extendedAriaLabel}
+                    aria-disabled={this.disabled}
+                    aria-busy={this.loading ? 'true' : 'false'}
+                    aria-live="polite"
+                    class={{
+                        'is-clickable': !!this.link?.href && !this.disabled,
+                        'has-circular-progress':
+                            !!this.progress?.value ||
+                            this.progress?.value === 0,
+                    }}
+                >
+                    {this.renderIcon()}
+                    {this.renderProgress()}
+                    <div class="value-group">
+                        {this.renderPrefix()}
+                        <div class="value-and-suffix">
+                            {this.renderValue()}
+                            {this.renderSuffix()}
+                        </div>
+                        {this.renderSpinner()}
                     </div>
-                    {this.renderSpinner()}
-                </div>
-                {this.renderLabel()}
-            </a>,
-            this.renderNotification(),
-        ];
+                    {this.renderLabel()}
+                </a>
+                {this.renderNotification()}
+                <div class="limel-3d-hover-effect-glow" />
+            </Host>
+        );
     }
 
     private checkProps(propValue) {
@@ -224,5 +239,24 @@ export class InfoTile {
         if (this.loading) {
             return <limel-linear-progress indeterminate={true} />;
         }
+    };
+
+    private handleMouseEnter = () => {
+        handleMouseEnter(
+            this.element,
+            'a',
+            (bounds) => {
+                this.the3dElementBounds = bounds;
+            },
+            this.tiltFollowingTheCursor,
+        );
+    };
+
+    private handleMouseLeave = () => {
+        handleMouseLeave(this.element, 'a', this.tiltFollowingTheCursor);
+    };
+
+    private tiltFollowingTheCursor = (e: MouseEvent) => {
+        tiltFollowingTheCursor(e, this.the3dElementBounds, this.element);
     };
 }
