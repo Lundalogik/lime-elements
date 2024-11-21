@@ -457,46 +457,17 @@ $clickable-normal-state-transitions: (
     white-space: nowrap;
 }
 
-// This mixin designed to enhance the visual effects,
-// when the `tiltFollowingTheCursor` utility function from `3d-tilt-hover-effect.ts`
-// is implemented in a component.
-// This adds styles to a `<div class"limel-3d-hover-effect-glow" />`, needed to create
-// a glow effect on a 3D element when the parent element is hovered.
-// when the `tiltFollowingTheCursor` utility function from `3d-tilt-hover-effect.ts`
-// Parts of these styles are controlled by the `titleFollowingTheCursor` function.
-@mixin limel-3d-hover-effect-glow($the3dElement, $border-radius) {
-    .limel-3d-hover-effect-glow {
-        transition:
-            background 0.4s ease,
-            opacity 0.4s ease;
-        pointer-events: none;
-
-        position: absolute;
-        inset: 0;
-        border-radius: $border-radius;
-
-        opacity: 0.1;
-        #{$the3dElement}:hover & {
-            opacity: 0.5;
-        }
-
-        background-image: radial-gradient(
-            circle at var(--limel-3d-hover-effect-glow-position, 50% -20%),
-            rgb(var(--color-white), 0.3),
-            rgb(var(--color-white), 0)
-        );
-
-        mix-blend-mode: plus-lighter;
-    }
-}
-
 // These mixins below are designed to apply the necessary visual effects,
 // when the `tiltFollowingTheCursor` utility function from `3d-tilt-hover-effect.ts`
 // is implemented in a component.
 @mixin parent-of-the-3d-element {
     isolation: isolate;
     transform-style: preserve-3d;
+
     perspective: 1000px;
+    @media (prefers-reduced-motion) {
+        perspective: 2000px;
+    }
 }
 
 @mixin the-3d-element {
@@ -506,6 +477,10 @@ $clickable-normal-state-transitions: (
     transition-property: transform, box-shadow, background-color;
     transition-timing-function: ease-out;
     transform: scale3d(1, 1, 1) rotate3d(0, 0, 0, 0deg);
+
+    &:focus {
+        outline: none;
+    }
 
     &:hover,
     &:focus,
@@ -523,7 +498,7 @@ $clickable-normal-state-transitions: (
 
     &:hover,
     &:focus-visible {
-        box-shadow: var(--button-shadow-hovered);
+        box-shadow: var(--button-shadow-hovered), var(--shadow-depth-16);
     }
 
     &:hover {
@@ -531,7 +506,17 @@ $clickable-normal-state-transitions: (
             rotate3d(var(--limel-3d-hover-effect-rotate3d));
     }
     &:focus-visible {
+        outline: none;
         transform: scale3d(1.01, 1.01, 1.01);
+    }
+
+    &:hover {
+        limel-3d-hover-effect-glow {
+            opacity: 0.5;
+            @media (prefers-reduced-motion) {
+                opacity: 0.2;
+            }
+        }
     }
 }
 
@@ -539,15 +524,22 @@ $clickable-normal-state-transitions: (
     cursor: pointer;
     box-shadow: var(--button-shadow-normal);
 
+    &:hover,
+    &:focus-visible {
+        // seems repetitive. But it's required for some scenarios, like for info tiles.
+        box-shadow: var(--button-shadow-hovered), var(--shadow-depth-16);
+    }
+
     &:active {
         transform: scale3d(1, 1, 1) rotate3d(0, 0, 0, 0deg);
         box-shadow: var(--button-shadow-pressed);
     }
 
     &:focus-visible {
-        box-shadow: var(--button-shadow-hovered), var(--shadow-depth-8-focused);
+        box-shadow: var(--shadow-depth-8-focused), var(--button-shadow-hovered);
     }
+
     &:focus-visible:active {
-        box-shadow: var(--button-shadow-pressed), var(--shadow-depth-8-focused);
+        box-shadow: var(--shadow-depth-8-focused), var(--button-shadow-pressed);
     }
 }
