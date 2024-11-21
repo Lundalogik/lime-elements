@@ -27,8 +27,11 @@ import { TextEditor, TriggerEventDetail } from '../text-editor.types';
  * supplied methods will effectivly replace the trigger content in the text editor with
  * the content of choice.
  *
- * In this example we pass either a text or a `limel-chip` representing some chosen user
- * in a mention like situation.
+ * In this example we pass either plain text, HTML string, or a `limel-chip`
+ * representing some chosen user in a mention like situation.
+ *
+ * :::note
+ * Changing the contentType resets the text editor with an empty value.
  */
 @Component({
     tag: 'limel-example-text-editor-triggers',
@@ -43,13 +46,16 @@ export class TextEditorCustomTriggersExample {
     private triggerState: string = '';
 
     @State()
-    private inputText: string = '';
+    private tagValue: string = '';
 
     @State()
     private isPickerOpen: boolean = false;
 
     @State()
-    private insertMode: 'text' | 'chip' = 'text';
+    private insertMode: 'text' | 'chip' | 'html' = 'text';
+
+    @State()
+    private contentType: 'markdown' | 'html' = 'markdown';
 
     @State()
     private items: Array<MenuItem<number>> = [
@@ -76,6 +82,22 @@ export class TextEditorCustomTriggersExample {
             id: '2',
             title: 'chip',
         },
+        {
+            id: '3',
+            title: 'html',
+        },
+    ];
+
+    private contentTypeButtons: Button[] = [
+        {
+            id: '1',
+            title: 'markdown',
+            selected: true,
+        },
+        {
+            id: '2',
+            title: 'html',
+        },
     ];
 
     private triggerFunction?: TextEditor;
@@ -85,11 +107,11 @@ export class TextEditorCustomTriggersExample {
         this.setupEventHandlers();
     }
 
-    @Watch('inputText')
-    protected watchInputText() {
+    @Watch('tagValue')
+    protected watchTagValue() {
         if (this.isPickerOpen) {
             this.visibleItems = this.items.filter((item: MenuItem<number>) =>
-                item.text.toLowerCase().includes(this.inputText),
+                item.text.toLowerCase().includes(this.tagValue),
             );
         }
     }
@@ -180,6 +202,16 @@ export class TextEditorCustomTriggersExample {
 
     public render() {
         return [
+            <limel-example-controls>
+                <label>
+                    contentType:
+                    <limel-button-group
+                        class="mode"
+                        value={this.contentTypeButtons}
+                        onChange={this.handleContentTypeChange}
+                    />
+                </label>
+            </limel-example-controls>,
             this.renderPicker(),
             <limel-text-editor
                 style={{ display: 'block' }}
@@ -192,14 +224,18 @@ export class TextEditorCustomTriggersExample {
                 onTriggerStop={this.handleTriggerStop}
                 onTriggerChange={this.handleTriggerChange}
                 onChange={this.handleChange}
+                contentType={this.contentType}
+                key={this.contentType}
             />,
             <limel-example-controls>
-                Insert mode:
-                <limel-button-group
-                    class="mode"
-                    value={this.insertModeButtons}
-                    onChange={this.handleInsertModeChange}
-                />
+                <label>
+                    Insert mode:
+                    <limel-button-group
+                        class="mode"
+                        value={this.insertModeButtons}
+                        onChange={this.handleInsertModeChange}
+                    />
+                </label>
                 <div class="value">
                     <limel-example-value
                         label="Action"
@@ -207,7 +243,7 @@ export class TextEditorCustomTriggersExample {
                     />
                     <limel-example-value
                         label="Tag value"
-                        value={this.inputText}
+                        value={this.tagValue}
                     />
                 </div>
             </limel-example-controls>,
@@ -252,12 +288,12 @@ export class TextEditorCustomTriggersExample {
 
     private handleTriggerStop = () => {
         this.triggerState = 'stop';
-        this.inputText = '';
+        this.tagValue = '';
         this.isPickerOpen = false;
     };
 
     private handleTriggerChange = (event: CustomEvent<TriggerEventDetail>) => {
-        this.inputText = event.detail.value.toLowerCase();
+        this.tagValue = event.detail.value.toLowerCase();
     };
 
     private handleChange = (event: CustomEvent<string>) => {
@@ -274,9 +310,26 @@ export class TextEditorCustomTriggersExample {
         this.insertMode = event.detail.title as any;
     };
 
+    private handleContentTypeChange = (event: CustomEvent<Button>) => {
+        this.contentType = event.detail.title as any;
+        this.value = '';
+    };
+
     private insertItem = (item: MenuItem) => {
         this.removeAllSelections();
         this.visibleItems = this.items;
+
+        if (this.insertMode === 'html') {
+            this.triggerFunction
+                .insertHtml(`<strong>${item.text}</strong>`)
+                .then(() => console.log('HTML inserted successfully'))
+                .catch((error) =>
+                    console.error('Error inserting HTML:', error),
+                );
+
+            return;
+        }
+
         if (this.insertMode === 'text') {
             this.triggerFunction.insert('@' + item.text);
 

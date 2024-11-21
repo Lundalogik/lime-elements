@@ -6,6 +6,7 @@ import {
     TriggerCharacter,
     TriggerEventDetail,
 } from 'src/components/text-editor/text-editor.types';
+import { ContentTypeConverter } from '../../../utils/content-type-converter';
 
 const isTrigger = (
     key: string,
@@ -61,12 +62,13 @@ const stillHasTrigger = (
 
 const getTriggerEventDetail = (
     view: EditorView,
+    contentConverter: ContentTypeConverter,
     trigger: TriggerCharacter,
     value: string,
 ): TriggerEventDetail => {
     return {
         trigger: trigger,
-        textEditor: inserterFactory(view),
+        textEditor: inserterFactory(view, contentConverter),
         value: value,
     };
 };
@@ -74,11 +76,12 @@ const getTriggerEventDetail = (
 const sendTriggerEvent = (
     type: 'triggerStart' | 'triggerStop' | 'triggerChange',
     view: EditorView,
+    contentConverter: ContentTypeConverter,
     trigger: TriggerCharacter,
     value: string,
 ) => {
     const event = new CustomEvent<TriggerEventDetail>(type, {
-        detail: getTriggerEventDetail(view, trigger, value),
+        detail: getTriggerEventDetail(view, contentConverter, trigger, value),
         bubbles: true,
         composed: true,
     });
@@ -129,7 +132,10 @@ const processTransactions = (
     return text;
 };
 
-export const createTriggerPlugin = (triggerCharacters: TriggerCharacter[]) => {
+export const createTriggerPlugin = (
+    triggerCharacters: TriggerCharacter[],
+    contentConverter: ContentTypeConverter,
+) => {
     let activeTrigger: TriggerCharacter | null = null;
     let triggerText = '';
     let pluginView: EditorView | null = null;
@@ -137,7 +143,13 @@ export const createTriggerPlugin = (triggerCharacters: TriggerCharacter[]) => {
 
     const stopTrigger = () => {
         triggerText = '';
-        sendTriggerEvent('triggerStop', pluginView, activeTrigger, triggerText);
+        sendTriggerEvent(
+            'triggerStop',
+            pluginView,
+            contentConverter,
+            activeTrigger,
+            triggerText,
+        );
         triggerPosition = null;
         activeTrigger = null;
     };
@@ -163,7 +175,13 @@ export const createTriggerPlugin = (triggerCharacters: TriggerCharacter[]) => {
             activeTrigger = event.data;
             triggerText = '';
             triggerPosition = state.selection.$from.pos - triggerText.length;
-            sendTriggerEvent('triggerStart', view, activeTrigger, triggerText);
+            sendTriggerEvent(
+                'triggerStart',
+                view,
+                contentConverter,
+                activeTrigger,
+                triggerText,
+            );
 
             return false;
         }
@@ -202,6 +220,7 @@ export const createTriggerPlugin = (triggerCharacters: TriggerCharacter[]) => {
             sendTriggerEvent(
                 'triggerChange',
                 pluginView,
+                contentConverter,
                 activeTrigger,
                 triggerText.slice(1),
             );

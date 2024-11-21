@@ -56,9 +56,14 @@ export type TextEditorNode = {
 export interface TextEditor {
     /**
      * Method to insert either text or a node at the cursor position
-     *
      */
     insert: (input: TextEditorNode | string) => void;
+
+    /**
+     * Method to insert an HTML string at the cursor position
+     */
+    insertHtml: (input: string) => Promise<void>;
+
     stopTrigger: () => void;
 }
 

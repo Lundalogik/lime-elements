@@ -2417,6 +2417,7 @@ export interface TabPanelComponent {
 // @alpha (undocumented)
 export interface TextEditor {
     insert: (input: TextEditorNode | string) => void;
+    insertHtml: (input: string) => Promise<void>;
     // (undocumented)
     stopTrigger: () => void;
 }

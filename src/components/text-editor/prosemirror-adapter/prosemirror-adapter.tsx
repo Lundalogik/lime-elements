@@ -352,7 +352,10 @@ export class ProsemirrorAdapter {
                 ...exampleSetup({ schema: this.schema, menuBar: false }),
                 keymap(this.menuCommandFactory.buildKeymap()),
                 createLinkPlugin(this.handleNewLinkSelection),
-                createTriggerPlugin(this.triggerCharacters),
+                createTriggerPlugin(
+                    this.triggerCharacters,
+                    this.contentConverter,
+                ),
                 createImageRemoverPlugin(),
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,
