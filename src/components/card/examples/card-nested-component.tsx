@@ -1,6 +1,9 @@
 import { Component, h, State } from '@stencil/core';
 import { ActionBarItem, ListSeparator } from '@limetech/lime-elements';
-
+/**
+ * Made just to showcase a feature in a docs example for `limel-card`.
+ * @private
+ */
 @Component({
     tag: 'limel-example-card-nested-component',
     shadow: true,
