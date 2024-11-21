@@ -1,10 +1,19 @@
-import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
+import {
+    Component,
+    h,
+    Prop,
+    Event,
+    EventEmitter,
+    Element,
+    Host,
+} from '@stencil/core';
 import { Image } from '../../global/shared-types/image.types';
 import { Icon } from '../../global/shared-types/icon.types';
 import { isItem } from '../action-bar/isItem';
 import { getIconName } from '../icon/get-icon-props';
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { ActionBarItem } from '../action-bar/action-bar.types';
+import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
 
 /**
  * Card is a component that displays content about a single topic,
@@ -87,17 +96,37 @@ export class Card {
     @Event()
     public actionSelected: EventEmitter<ActionBarItem>;
 
+    @Element()
+    private host: HTMLElement;
+
+    private handleMouseEnter: () => void;
+    private handleMouseLeave: () => void;
+
+    public componentWillLoad() {
+        const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
+            this.host,
+        );
+        this.handleMouseEnter = handleMouseEnter;
+        this.handleMouseLeave = handleMouseLeave;
+    }
+
     public render() {
         return (
-            <section tabindex={this.clickable ? 0 : ''}>
-                {this.renderImage()}
-                <div class="body">
-                    {this.renderHeader()}
-                    {this.renderSlot()}
-                    {this.renderValue()}
-                    {this.renderActionBar()}
-                </div>
-            </section>
+            <Host
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+            >
+                <section tabindex={this.clickable ? 0 : ''}>
+                    {this.renderImage()}
+                    <div class="body">
+                        {this.renderHeader()}
+                        {this.renderSlot()}
+                        {this.renderValue()}
+                        {this.renderActionBar()}
+                    </div>
+                    <limel-3d-hover-effect-glow />
+                </section>
+            </Host>
         );
     }
 
