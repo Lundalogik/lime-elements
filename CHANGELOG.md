@@ -1,3 +1,11 @@
+## [37.70.1](https://github.com/Lundalogik/lime-elements/compare/v37.70.0...v37.70.1) (2024-11-21)
+
+
+### Bug Fixes
+
+
+* **card:** improve background color styles ([3376742](https://github.com/Lundalogik/lime-elements/commit/33767426e4d5f3ba735fd47dbf40f4b63c7f62d7))
+
 ## [37.70.0](https://github.com/Lundalogik/lime-elements/compare/v37.69.1...v37.70.0) (2024-11-21)
 
 
