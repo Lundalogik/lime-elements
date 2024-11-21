@@ -1,3 +1,11 @@
+## [37.70.0](https://github.com/Lundalogik/lime-elements/compare/v37.69.1...v37.70.0) (2024-11-21)
+
+
+### Features
+
+
+* **text-editor:** delegate focus to prosemirror ([fc813b2](https://github.com/Lundalogik/lime-elements/commit/fc813b28c9574473409b0302166adc38f719af68))
+
 ## [37.69.1](https://github.com/Lundalogik/lime-elements/compare/v37.69.0...v37.69.1) (2024-11-20)
 
 
