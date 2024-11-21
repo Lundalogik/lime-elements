@@ -30,7 +30,7 @@ import { EditorUiType } from './types';
  */
 @Component({
     tag: 'limel-text-editor',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'text-editor.scss',
 })
 export class TextEditor implements FormComponent<string> {
@@ -244,7 +244,7 @@ export class TextEditor implements FormComponent<string> {
                 value={this.value}
                 aria-controls={this.helperTextId}
                 id={this.editorId}
-                tabindex={this.disabled ? -1 : undefined}
+                tabindex={this.disabled ? -1 : 0}
                 aria-disabled={this.disabled}
                 language={this.language}
                 triggerCharacters={this.triggers}
