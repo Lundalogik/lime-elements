@@ -478,6 +478,9 @@ $clickable-normal-state-transitions: (
         opacity: 0.1;
         #{$the3dElement}:hover & {
             opacity: 0.5;
+            @media (prefers-reduced-motion) {
+                opacity: 0.2;
+            }
         }
 
         background-image: radial-gradient(
@@ -496,7 +499,11 @@ $clickable-normal-state-transitions: (
 @mixin parent-of-the-3d-element {
     isolation: isolate;
     transform-style: preserve-3d;
+
     perspective: 1000px;
+    @media (prefers-reduced-motion) {
+        perspective: 2000px;
+    }
 }
 
 @mixin the-3d-element {
@@ -506,6 +513,10 @@ $clickable-normal-state-transitions: (
     transition-property: transform, box-shadow, background-color;
     transition-timing-function: ease-out;
     transform: scale3d(1, 1, 1) rotate3d(0, 0, 0, 0deg);
+
+    &:focus {
+        outline: none;
+    }
 
     &:hover,
     &:focus,
@@ -523,7 +534,7 @@ $clickable-normal-state-transitions: (
 
     &:hover,
     &:focus-visible {
-        box-shadow: var(--button-shadow-hovered);
+        box-shadow: var(--button-shadow-hovered), var(--shadow-depth-16);
     }
 
     &:hover {
@@ -531,6 +542,7 @@ $clickable-normal-state-transitions: (
             rotate3d(var(--limel-3d-hover-effect-rotate3d));
     }
     &:focus-visible {
+        outline: none;
         transform: scale3d(1.01, 1.01, 1.01);
     }
 }
@@ -539,15 +551,22 @@ $clickable-normal-state-transitions: (
     cursor: pointer;
     box-shadow: var(--button-shadow-normal);
 
+    &:hover,
+    &:focus-visible {
+        // seems repetitive. But it's required for some scenarios, like for info tiles.
+        box-shadow: var(--button-shadow-hovered), var(--shadow-depth-16);
+    }
+
     &:active {
         transform: scale3d(1, 1, 1) rotate3d(0, 0, 0, 0deg);
         box-shadow: var(--button-shadow-pressed);
     }
 
     &:focus-visible {
-        box-shadow: var(--button-shadow-hovered), var(--shadow-depth-8-focused);
+        box-shadow: var(--shadow-depth-8-focused), var(--button-shadow-hovered);
     }
+
     &:focus-visible:active {
-        box-shadow: var(--button-shadow-pressed), var(--shadow-depth-8-focused);
+        box-shadow: var(--shadow-depth-8-focused), var(--button-shadow-pressed);
     }
 }
