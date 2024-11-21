@@ -78,7 +78,8 @@ img {
         height: 100%;
     }
 
-    :host(limel-card:hover) & {
+    section:hover &,
+    section:focus-visible & {
         transition-duration: 0.2s;
         filter: saturate(1.3);
     }
