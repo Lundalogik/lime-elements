@@ -1,10 +1,22 @@
-import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
+import {
+    Component,
+    h,
+    Prop,
+    Event,
+    EventEmitter,
+    Element,
+} from '@stencil/core';
 import { Image } from '../../global/shared-types/image.types';
 import { Icon } from '../../global/shared-types/icon.types';
 import { isItem } from '../action-bar/isItem';
 import { getIconName } from '../icon/get-icon-props';
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { ActionBarItem } from '../action-bar/action-bar.types';
+import {
+    tiltFollowingTheCursor,
+    handleMouseEnter,
+    handleMouseLeave,
+} from '../../util/3d-tilt-hover-effect';
 
 /**
  * Card is a component that displays content about a single topic,
@@ -87,9 +99,22 @@ export class Card {
     @Event()
     public actionSelected: EventEmitter<ActionBarItem>;
 
+    @Element() private element: HTMLElement;
+    private the3dElementBounds: DOMRect;
+
+    public componentDidLoad() {
+        const the3dElement = this.element.shadowRoot.querySelector('section');
+        the3dElement.addEventListener('mouseenter', this.handleMouseEnter);
+        the3dElement.addEventListener('mouseleave', this.handleMouseLeave);
+    }
+
     public render() {
         return (
-            <section tabindex={this.clickable ? 0 : ''}>
+            <section
+                tabindex={this.clickable ? 0 : ''}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+            >
                 {this.renderImage()}
                 <div class="body">
                     {this.renderHeader()}
@@ -97,6 +122,7 @@ export class Card {
                     {this.renderValue()}
                     {this.renderActionBar()}
                 </div>
+                <div class="limel-3d-hover-effect-glow" />
             </section>
         );
     }
@@ -190,4 +216,23 @@ export class Card {
             />
         );
     }
+
+    private handleMouseEnter = () => {
+        handleMouseEnter(
+            this.element,
+            'section',
+            (bounds) => {
+                this.the3dElementBounds = bounds;
+            },
+            this.tiltFollowingTheCursor,
+        );
+    };
+
+    private handleMouseLeave = () => {
+        handleMouseLeave(this.element, 'section', this.tiltFollowingTheCursor);
+    };
+
+    private tiltFollowingTheCursor = (e: MouseEvent) => {
+        tiltFollowingTheCursor(e, this.the3dElementBounds, this.element);
+    };
 }
