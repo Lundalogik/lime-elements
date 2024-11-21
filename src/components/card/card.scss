@@ -3,6 +3,7 @@
 * @prop --card-subheading-color: color of the sub heading. Defaults to `--contrast-1000`;
 * @prop --card-border-radius: border radius of the card. Defaults to `0.95rem`;
 * @prop --card-background-color: background color of the card.
+* @prop --card-background-color--hovered: background color of the card, when hovered.
 */
 
 @use '../../style/mixins';
@@ -22,7 +23,6 @@ $default-border-radius: 0.95rem;
 
 section {
     box-sizing: border-box;
-    @include mixins.visualize-keyboard-focus;
 
     display: flex;
     gap: 0.5rem;
@@ -36,22 +36,17 @@ section {
     border: 1px solid rgb(var(--contrast-500));
 
     padding: 0.25rem;
-    background-color: var(
-        --card-background-color,
-        var(--lime-elevated-surface-background-color)
-    );
+    background-color: var(--card-background-color, rgb(var(--contrast-300)));
 
-    :host(limel-card[clickable]:not([disabled='true']):not([disabled])) & {
+    :host(limel-card[clickable]) & {
+        @include mixins.visualize-keyboard-focus;
         @include mixins.is-flat-clickable(
             $background-color:
-                var(
-                    --card-background-color,
-                    var(--lime-elevated-surface-background-color)
-                ),
+                var(--card-background-color, rgb(var(--contrast-200))),
             $background-color--hovered:
                 var(
-                    --card-background-color,
-                    var(--lime-elevated-surface-background-color)
+                    --card-background-color--hovered,
+                    var(--card-background-color, rgb(var(--contrast-200)))
                 )
         );
     }
@@ -143,6 +138,7 @@ header {
 }
 
 limel-action-bar {
+    --action-bar-background-color: transparent;
     padding: 0.5rem;
     margin-left: auto;
 }
