@@ -14,7 +14,13 @@ import {
 } from '@stencil/core';
 import { createRandomString } from 'src/util/random-string';
 import { portalContains } from '../../portal/contains';
-import { ESCAPE } from '../../../util/keycodes';
+import {
+    ARROW_DOWN,
+    ARROW_UP,
+    ENTER,
+    ESCAPE,
+    TAB,
+} from '../../../util/keycodes';
 import { TextEditor, TriggerEventDetail } from '../text-editor.types';
 
 /**
@@ -42,7 +48,7 @@ import { TextEditor, TriggerEventDetail } from '../text-editor.types';
 export class TextEditorCustomTriggersExample {
     constructor() {
         this.portalId = createRandomString();
-        this.globalClickListener = this.globalClickListener.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
     @State()
     private value: string = '';
@@ -62,6 +68,18 @@ export class TextEditorCustomTriggersExample {
     @State()
     private insertMode: 'text' | 'chip' = 'text';
 
+    @State()
+    private items: Array<ListItem<number>> = [
+        { text: 'Wolverine', value: 1, icon: 'wolf', selected: true },
+        { text: 'Captain America', value: 2, icon: 'captain_america' },
+        { text: 'Superman', value: 3, icon: 'superman' },
+        { text: 'Tony Stark', value: 4, icon: 'iron_man' },
+        { text: 'Batman', value: 5, icon: 'batman_old' },
+    ];
+
+    @State()
+    private visibleItems: Array<ListItem<number>>;
+
     @Element()
     private host: HTMLLimelPopoverElement;
 
@@ -70,37 +88,6 @@ export class TextEditorCustomTriggersExample {
      */
     @Event()
     private close: EventEmitter<void>;
-
-    @Watch('isPickerOpen')
-    protected watchOpen() {
-        this.setupGlobalHandlers();
-    }
-
-    public componentWillLoad() {
-        this.setupGlobalHandlers();
-    }
-
-    private setupGlobalHandlers() {
-        if (this.isPickerOpen) {
-            document.addEventListener('click', this.globalClickListener, {
-                capture: true,
-            });
-            document.addEventListener('keyup', this.handleGlobalKeyPress);
-        } else {
-            document.removeEventListener('click', this.globalClickListener);
-            document.removeEventListener('keyup', this.handleGlobalKeyPress);
-        }
-    }
-
-    private handleGlobalKeyPress = (event: KeyboardEvent) => {
-        if (event.key !== ESCAPE) {
-            return;
-        }
-
-        event.stopPropagation();
-        event.preventDefault();
-        this.close.emit();
-    };
 
     private insertModeButtons: Button[] = [
         {
@@ -115,15 +102,113 @@ export class TextEditorCustomTriggersExample {
     ];
 
     private portalId: string;
-    private items: Array<ListItem<number>> = [
-        { text: 'Wolverine', value: 1, icon: 'wolf' },
-        { text: 'Captain America', value: 2, icon: 'captain_america' },
-        { text: 'Superman', value: 3, icon: 'superman' },
-        { text: 'Tony Stark', value: 4, icon: 'iron_man' },
-        { text: 'Batman', value: 5, icon: 'batman_old' },
-    ];
 
     private triggerFunction?: TextEditor;
+
+    @Watch('isPickerOpen')
+    protected watchOpen() {
+        this.setupEventHandlers();
+    }
+
+    @Watch('inputText')
+    protected watchInputText() {
+        if (this.isPickerOpen) {
+            this.visibleItems = this.items.filter((item: ListItem<number>) =>
+                item.text.toLowerCase().includes(this.inputText),
+            );
+        }
+    }
+    public componentWillLoad() {
+        this.visibleItems = this.items;
+        this.setupEventHandlers();
+    }
+
+    private setupEventHandlers() {
+        if (this.isPickerOpen) {
+            this.host.addEventListener('click', this.handleClick, {
+                capture: true,
+            });
+            this.host.addEventListener('keydown', this.handleKeyPress, {
+                capture: true,
+            });
+        } else {
+            this.host.removeEventListener('click', this.handleClick, {
+                capture: true,
+            });
+            this.host.removeEventListener('keydown', this.handleKeyPress, {
+                capture: true,
+            });
+        }
+    }
+
+    private handleKeyPress = (event: KeyboardEvent) => {
+        const capturedKeys = [ESCAPE, ARROW_UP, ARROW_DOWN, ENTER, TAB];
+        if (capturedKeys.includes(event.key)) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
+
+        if (event.key === ARROW_DOWN || event.key === ARROW_UP) {
+            this.moveSelection(event.key);
+        }
+
+        if (event.key === ENTER || event.key === TAB) {
+            const selectedItem: ListItem | undefined = this.visibleItems.find(
+                (item) => item.selected,
+            );
+
+            if (selectedItem) {
+                this.insertItem(selectedItem);
+            }
+        }
+
+        if (event.key === ESCAPE) {
+            this.close.emit();
+            this.isPickerOpen = false;
+            // @TODO: close the trigger session
+        }
+    };
+
+    private moveSelection = (
+        direction: typeof ARROW_UP | typeof ARROW_DOWN,
+    ) => {
+        const increment = direction === ARROW_DOWN ? 1 : -1;
+        const numberOfItems = this.visibleItems.length;
+        const currentSelectionIndex = this.visibleItems.findIndex(
+            (item) => item.selected,
+        );
+
+        const selectionIndex =
+            (currentSelectionIndex + increment + numberOfItems) % numberOfItems;
+
+        this.removeAllSelections();
+        this.setSelection(selectionIndex);
+    };
+
+    private removeAllSelections = () => {
+        this.items = this.items.map((currentItem) => {
+            currentItem.selected = false;
+
+            return { ...currentItem };
+        });
+    };
+
+    private setSelection = (selectionIndex: number) => {
+        let selectedItemId = undefined;
+        this.visibleItems = this.visibleItems.map((item, index) => {
+            const isSelected = index === selectionIndex;
+
+            if (isSelected) {
+                selectedItemId = item.value;
+            }
+
+            return { ...item, selected: isSelected };
+        });
+
+        if (selectedItemId) {
+            this.items[selectedItemId - 1].selected = true;
+        }
+    };
 
     public render() {
         return [
@@ -163,6 +248,52 @@ export class TextEditorCustomTriggersExample {
         ];
     }
 
+    private renderPicker = () => {
+        if (!this.isPickerOpen) {
+            return;
+        }
+
+        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
+            '--dropdown-z-index',
+        );
+
+        return [
+            <limel-portal
+                containerStyle={{
+                    'background-color': 'rgb(var(--contrast-100))',
+                    'border-radius': '0.5rem',
+                    'box-shadow': 'var(--shadow-depth-16)',
+                    'z-index': dropdownZIndex,
+                }}
+                containerId={this.portalId}
+                visible={this.isPickerOpen}
+                openDirection="bottom-start"
+                inheritParentWidth={true}
+                anchor={this.textEditorElement}
+            >
+                {this.renderList(this.visibleItems)}
+            </limel-portal>,
+        ];
+    };
+
+    private renderList = (items: Array<ListItem<number>>) => {
+        if (items.length === 0) {
+            return (
+                <div style={{ padding: '0.5rem' }}>
+                    Couldn't find. Not a hero yet! 🥲
+                </div>
+            );
+        }
+
+        return (
+            <limel-list
+                items={items}
+                onChange={this.handleListChange}
+                type="selectable"
+            />
+        );
+    };
+
     private handleTriggerStart = (event: CustomEvent<TriggerEventDetail>) => {
         this.triggerState = 'start';
         this.isPickerOpen = true;
@@ -183,39 +314,7 @@ export class TextEditorCustomTriggersExample {
         this.value = event.detail;
     };
 
-    private renderPicker = () => {
-        if (!this.isPickerOpen) {
-            return;
-        }
-
-        const items = this.items.filter((item: ListItem<number>) =>
-            item.text.toLowerCase().includes(this.inputText),
-        );
-
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
-
-        return [
-            <limel-portal
-                containerStyle={{
-                    'background-color': 'rgb(var(--contrast-100))',
-                    'border-radius': '0.5rem',
-                    'box-shadow': 'var(--shadow-depth-16)',
-                    'z-index': dropdownZIndex,
-                }}
-                containerId={this.portalId}
-                visible={this.isPickerOpen}
-                openDirection="bottom-start"
-                inheritParentWidth={true}
-                anchor={this.textEditorElement}
-            >
-                {this.renderList(items)}
-            </limel-portal>,
-        ];
-    };
-
-    private globalClickListener(event: MouseEvent) {
+    private handleClick(event: MouseEvent) {
         const element: HTMLElement = event.target as HTMLElement;
         const clickedInside = portalContains(this.host, element);
         if (this.isPickerOpen && !clickedInside) {
@@ -226,29 +325,23 @@ export class TextEditorCustomTriggersExample {
         }
     }
 
-    private renderList = (items: Array<ListItem<number>>) => {
-        if (items.length === 0) {
-            return (
-                <div style={{ padding: '0.5rem' }}>
-                    Couldn't find. Not a hero yet! 🥲
-                </div>
-            );
-        }
-
-        return (
-            <limel-list
-                items={items}
-                onChange={this.handleListChange}
-                type="selectable"
-            />
-        );
-    };
-
     private handleListChange = (
         event: LimelListCustomEvent<ListItem<number>>,
     ) => {
+        if (event.detail.selected) {
+            this.insertItem(event.detail);
+        }
+    };
+
+    private handleInsertModeChange = (event: CustomEvent<Button>) => {
+        this.insertMode = event.detail.title as any;
+    };
+
+    private insertItem = (item: ListItem) => {
+        this.removeAllSelections();
+        this.visibleItems = this.items;
         if (this.insertMode === 'text') {
-            this.triggerFunction.insert('@' + event.detail.text);
+            this.triggerFunction.insert('@' + item.text);
 
             return;
         }
@@ -257,15 +350,11 @@ export class TextEditorCustomTriggersExample {
             node: {
                 tagName: 'limel-chip',
                 attributes: {
-                    icon: event.detail.icon,
-                    text: event.detail.text,
+                    icon: item.icon,
+                    text: item.text,
                 },
             },
             children: ["I'm a teapot"],
         });
-    };
-
-    private handleInsertModeChange = (event: CustomEvent<Button>) => {
-        this.insertMode = event.detail.title as any;
     };
 }
