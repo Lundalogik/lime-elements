@@ -208,7 +208,7 @@ export class ProsemirrorAdapter {
     public render() {
         return (
             <Host onFocus={this.handleFocus}>
-                <div id="editor" />,
+                <div id="editor" />
                 <div class="toolbar">
                     <limel-action-bar
                         ref={(el) => (this.actionBarElement = el)}
