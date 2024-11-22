@@ -1,3 +1,11 @@
+## [37.70.2](https://github.com/Lundalogik/lime-elements/compare/v37.70.1...v37.70.2) (2024-11-22)
+
+
+### Bug Fixes
+
+
+* **text-editor:** remove comma above menu bar ([e26098c](https://github.com/Lundalogik/lime-elements/commit/e26098ca9020d9f3b5bcfacfc2604d4c6c4bd9da))
+
 ## [37.70.1](https://github.com/Lundalogik/lime-elements/compare/v37.70.0...v37.70.1) (2024-11-21)
 
 
