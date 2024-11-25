@@ -3,17 +3,7 @@ import {
     LimelListCustomEvent,
     ListItem,
 } from '@limetech/lime-elements';
-import {
-    Component,
-    h,
-    State,
-    Element,
-    Event,
-    EventEmitter,
-    Watch,
-} from '@stencil/core';
-import { createRandomString } from 'src/util/random-string';
-import { portalContains } from '../../portal/contains';
+import { Component, h, State, Element, Watch } from '@stencil/core';
 import {
     ARROW_DOWN,
     ARROW_UP,
@@ -46,10 +36,6 @@ import { TextEditor, TriggerEventDetail } from '../text-editor.types';
     styleUrl: 'text-editor-custom-triggers.scss',
 })
 export class TextEditorCustomTriggersExample {
-    constructor() {
-        this.portalId = createRandomString();
-        this.handleClick = this.handleClick.bind(this);
-    }
     @State()
     private value: string = '';
 
@@ -61,9 +47,6 @@ export class TextEditorCustomTriggersExample {
 
     @State()
     private isPickerOpen: boolean = false;
-
-    @State()
-    private textEditorElement: HTMLElement;
 
     @State()
     private insertMode: 'text' | 'chip' = 'text';
@@ -83,12 +66,6 @@ export class TextEditorCustomTriggersExample {
     @Element()
     private host: HTMLLimelPopoverElement;
 
-    /**
-     * Emits an event when the component is closing
-     */
-    @Event()
-    private close: EventEmitter<void>;
-
     private insertModeButtons: Button[] = [
         {
             id: '1',
@@ -100,8 +77,6 @@ export class TextEditorCustomTriggersExample {
             title: 'chip',
         },
     ];
-
-    private portalId: string;
 
     private triggerFunction?: TextEditor;
 
@@ -125,16 +100,10 @@ export class TextEditorCustomTriggersExample {
 
     private setupEventHandlers() {
         if (this.isPickerOpen) {
-            this.host.addEventListener('click', this.handleClick, {
-                capture: true,
-            });
             this.host.addEventListener('keydown', this.handleKeyPress, {
                 capture: true,
             });
         } else {
-            this.host.removeEventListener('click', this.handleClick, {
-                capture: true,
-            });
             this.host.removeEventListener('keydown', this.handleKeyPress, {
                 capture: true,
             });
@@ -163,9 +132,7 @@ export class TextEditorCustomTriggersExample {
         }
 
         if (event.key === ESCAPE) {
-            this.close.emit();
             this.isPickerOpen = false;
-            // @TODO: close the trigger session
         }
     };
 
@@ -212,9 +179,9 @@ export class TextEditorCustomTriggersExample {
 
     public render() {
         return [
+            this.renderPicker(),
             <limel-text-editor
                 style={{ display: 'block' }}
-                ref={(el) => (this.textEditorElement = el)}
                 value={this.value}
                 customElements={[
                     { tagName: 'limel-chip', attributes: ['text', 'icon'] },
@@ -243,37 +210,20 @@ export class TextEditorCustomTriggersExample {
                     />
                 </div>
             </limel-example-controls>,
-            this.renderPicker(),
             <limel-example-value value={this.value} />,
         ];
     }
 
     private renderPicker = () => {
-        if (!this.isPickerOpen) {
-            return;
-        }
-
-        const dropdownZIndex = getComputedStyle(this.host).getPropertyValue(
-            '--dropdown-z-index',
-        );
-
-        return [
-            <limel-portal
-                containerStyle={{
-                    'background-color': 'rgb(var(--contrast-100))',
-                    'border-radius': '0.5rem',
-                    'box-shadow': 'var(--shadow-depth-16)',
-                    'z-index': dropdownZIndex,
-                }}
-                containerId={this.portalId}
-                visible={this.isPickerOpen}
-                openDirection="bottom-start"
-                inheritParentWidth={true}
-                anchor={this.textEditorElement}
+        return (
+            <limel-popover
+                open={this.isPickerOpen}
+                openDirection="top-start"
+                onClose={this.handleTriggerStop}
             >
                 {this.renderList(this.visibleItems)}
-            </limel-portal>,
-        ];
+            </limel-popover>
+        );
     };
 
     private renderList = (items: Array<ListItem<number>>) => {
@@ -313,17 +263,6 @@ export class TextEditorCustomTriggersExample {
     private handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
     };
-
-    private handleClick(event: MouseEvent) {
-        const element: HTMLElement = event.target as HTMLElement;
-        const clickedInside = portalContains(this.host, element);
-        if (this.isPickerOpen && !clickedInside) {
-            event.stopPropagation();
-            event.preventDefault();
-            this.isPickerOpen = false;
-            this.close.emit();
-        }
-    }
 
     private handleListChange = (
         event: LimelListCustomEvent<ListItem<number>>,
