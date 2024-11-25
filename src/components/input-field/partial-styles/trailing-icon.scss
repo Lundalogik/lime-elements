@@ -35,6 +35,16 @@
     }
 }
 
+:host([type='email']) {
+    .mdc-text-field--with-trailing-icon {
+        .mdc-text-field__icon--trailing {
+            limel-icon {
+                color: rgb(var(--contrast-900));
+            }
+        }
+    }
+}
+
 a.lime-trailing-icon-for-link {
     @extend .mdc-text-field__icon--trailing;
 }
