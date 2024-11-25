@@ -71,14 +71,7 @@ export class MarkdownConverter implements ContentTypeConverter {
         this.customNodes = plugins;
     }
     public parseAsHTML = (text: string): Promise<string> => {
-        const whitelist: CustomElementDefinition[] = this.customNodes.map(
-            (nodeConfig: CustomElementDefinition) => ({
-                tagName: nodeConfig.tagName,
-                attributes: nodeConfig.attributes,
-            }),
-        );
-
-        return markdownToHTML(text, { whitelist: whitelist });
+        return markdownToHTML(text, { whitelist: this.customNodes });
     };
 
     public serialize = (view: EditorView): string => {
