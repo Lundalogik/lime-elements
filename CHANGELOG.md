@@ -1,3 +1,11 @@
+## [37.70.3](https://github.com/Lundalogik/lime-elements/compare/v37.70.2...v37.70.3) (2024-11-25)
+
+
+### Bug Fixes
+
+
+* **text-editor:** close XSS vulnerability ([f9606ab](https://github.com/Lundalogik/lime-elements/commit/f9606abedd7fcfb969ec191f2973bf3c5ed15929)), closes [Lundalogik/crm-feature#4490](https://github.com/Lundalogik/crm-feature/issues/4490)
+
 ## [37.70.2](https://github.com/Lundalogik/lime-elements/compare/v37.70.1...v37.70.2) (2024-11-22)
 
 
