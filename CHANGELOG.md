@@ -1,3 +1,11 @@
+## [37.70.5](https://github.com/Lundalogik/lime-elements/compare/v37.70.4...v37.70.5) (2024-11-26)
+
+
+### Reverts
+
+
+* Revert "chore(util): add a utility function to create an interactive 3D effect" ([f81fdb8](https://github.com/Lundalogik/lime-elements/commit/f81fdb8add98d0deadc4d8da59593af0433da43b))
+
 ## [37.70.4](https://github.com/Lundalogik/lime-elements/compare/v37.70.3...v37.70.4) (2024-11-26)
 
 
