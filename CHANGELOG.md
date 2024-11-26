@@ -1,3 +1,11 @@
+## [37.70.4](https://github.com/Lundalogik/lime-elements/compare/v37.70.3...v37.70.4) (2024-11-26)
+
+
+### Bug Fixes
+
+
+* **input-field:** ensure email icon displays well in dark-mode ([e0625ce](https://github.com/Lundalogik/lime-elements/commit/e0625ce9bb010fcb71ea5e5c724ee017f9d3b366))
+
 ## [37.70.3](https://github.com/Lundalogik/lime-elements/compare/v37.70.2...v37.70.3) (2024-11-25)
 
 
