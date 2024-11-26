@@ -1,3 +1,11 @@
+## [37.71.0](https://github.com/Lundalogik/lime-elements/compare/v37.70.5...v37.71.0) (2024-11-26)
+
+
+### Features
+
+
+* **text editor:** add stopTrigger function to inserter factory ([88349f3](https://github.com/Lundalogik/lime-elements/commit/88349f345c2154d60f84c53ab31113db068b4605))
+
 ## [37.70.5](https://github.com/Lundalogik/lime-elements/compare/v37.70.4...v37.70.5) (2024-11-26)
 
 
