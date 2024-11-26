@@ -1,3 +1,11 @@
+## [37.63.7](https://github.com/Lundalogik/lime-elements/compare/v37.63.6...v37.63.7) (2024-11-26)
+
+
+### Bug Fixes
+
+
+* **markdown:** better image resizing ([3e8cc17](https://github.com/Lundalogik/lime-elements/commit/3e8cc172eacd31ece3848919c44e953452eb77f4)), closes [Lundalogik/crm-feature#4422](https://github.com/Lundalogik/crm-feature/issues/4422)
+
 ## [37.63.6](https://github.com/Lundalogik/lime-elements/compare/v37.63.5...v37.63.6) (2024-10-22)
 
 
