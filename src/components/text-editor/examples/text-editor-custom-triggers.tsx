@@ -133,6 +133,7 @@ export class TextEditorCustomTriggersExample {
 
         if (event.key === ESCAPE) {
             this.isPickerOpen = false;
+            this.triggerFunction?.stopTrigger();
         }
     };
 
