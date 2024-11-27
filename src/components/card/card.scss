@@ -38,21 +38,12 @@ section {
     padding: 0.25rem;
     background-color: var(--card-background-color, rgb(var(--contrast-300)));
 
-    :host(limel-card[clickable]) & {
-        @include mixins.visualize-keyboard-focus;
-        @include mixins.is-flat-clickable(
-            $background-color:
-                var(--card-background-color, rgb(var(--contrast-200))),
-            $background-color--hovered:
-                var(
-                    --card-background-color--hovered,
-                    var(--card-background-color, rgb(var(--contrast-200)))
-                )
-        );
-    }
-
-    :host(limel-card[clickable]:hover) & {
+    &:hover {
         border-color: transparent;
+        background-color: var(
+            --card-background-color--hovered,
+            var(--card-background-color, rgb(var(--contrast-200)))
+        );
     }
 }
 
@@ -142,4 +133,22 @@ limel-action-bar {
     --action-bar-background-color: transparent;
     padding: 0.5rem;
     margin-left: auto;
+}
+
+// The 3D effect
+@include mixins.limel-3d-hover-effect-glow(
+    section,
+    var(--card-border-radius, $default-border-radius)
+);
+
+:host(limel-card) {
+    @include mixins.parent-of-the-3d-element;
+}
+
+section {
+    @include mixins.the-3d-element;
+
+    :host(limel-card[clickable]) & {
+        @include mixins.the-3d-element--clickable;
+    }
 }
