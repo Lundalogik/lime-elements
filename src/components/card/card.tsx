@@ -124,7 +124,7 @@ export class Card {
                         {this.renderValue()}
                         {this.renderActionBar()}
                     </div>
-                    <div class="limel-3d-hover-effect-glow" />
+                    <limel-3d-hover-effect-glow />
                 </section>
             </Host>
         );
