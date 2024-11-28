@@ -20,8 +20,6 @@ on:
 jobs:
   create_branch:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Extract Last Release Major and Minor Versions
         id: extract_last_versions
@@ -96,6 +94,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: true
+          token: ${{ secrets.CREATE_RELEASE }}
 
       - name: Create Release Branch
         if: ${{ steps.determine_branch_name.outputs.branch_name != '' }}
