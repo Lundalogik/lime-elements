@@ -1,3 +1,12 @@
+## [37.72.0](https://github.com/Lundalogik/lime-elements/compare/v37.71.0...v37.72.0) (2024-11-28)
+
+
+### Features
+
+
+* **card:** add interactive 3D tilt effect on hover ([b1425d1](https://github.com/Lundalogik/lime-elements/commit/b1425d14481eb15468213bc1eae5b281b62eecec))
+* **info-tile:** add interactive 3D tilt effect on hover ([05604fb](https://github.com/Lundalogik/lime-elements/commit/05604fb353106d692e9523231915894d71fe85bb))
+
 ## [37.71.0](https://github.com/Lundalogik/lime-elements/compare/v37.70.5...v37.71.0) (2024-11-26)
 
 
