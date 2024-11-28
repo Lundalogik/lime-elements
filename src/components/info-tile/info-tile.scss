@@ -334,10 +334,9 @@ $l: 62.5rem; //1000px
 }
 
 // The 3D effect
-@include mixins.limel-3d-hover-effect-glow(
-    a,
-    var(--info-tile-border-radius, 1rem)
-);
+limel-3d-hover-effect-glow {
+    border-radius: var(--info-tile-border-radius, 1rem);
+}
 
 :host(limel-info-tile) {
     @include mixins.parent-of-the-3d-element;
