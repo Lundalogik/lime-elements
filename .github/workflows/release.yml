@@ -97,8 +97,6 @@ jobs:
       last_release_version: ${{ needs.semantic-release.outputs.last_release_version }}
       new_release_version: ${{ needs.semantic-release.outputs.new_release_version }}
 
-
-
   docs:
     needs: semantic-release
     if: needs.semantic-release.outputs.new_release_published == 'true'
