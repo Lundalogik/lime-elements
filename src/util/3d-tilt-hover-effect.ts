@@ -46,11 +46,7 @@
  *   @include the-3d-element--clickable;
  *   ```
  * - **For the glow effect**:
- *   Add a `<div class="limel-3d-hover-effect-glow" />` inside "the-3d-element",
- *   and use the following SCSS mixin:
- *   ```scss
- *   @include limel-3d-hover-effect-glow($selector, $border-radius);
- *   ```
+ *   Add a `<limel-3d-hover-effect-glow />` inside "the-3d-element".
  *
  * 3. **Initialize in your component**:
  *
