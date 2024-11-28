@@ -85,6 +85,15 @@ export class ProsemirrorAdapter {
     public language: Languages;
 
     /**
+     * Set to `true` to disable the field.
+     * Use `disabled` to indicate that the field can normally be interacted
+     * with, but is currently disabled. This tells the user that if certain
+     * requirements are met, the field may become enabled again.
+     */
+    @Prop({ reflect: true })
+    public disabled?: boolean = false;
+
+    /**
      * set to private to avoid usage while under development
      *
      * @private
@@ -456,7 +465,9 @@ export class ProsemirrorAdapter {
     };
 
     private handleFocus = () => {
-        this.view?.focus();
+        if (!this.disabled) {
+            this.view?.focus();
+        }
     };
 
     private handleNewLinkSelection = (text: string, href: string) => {

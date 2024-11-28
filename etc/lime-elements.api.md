@@ -603,6 +603,7 @@ export namespace Components {
         "contentType": 'markdown' | 'html';
         // @alpha
         "customElements": CustomElementDefinition[];
+        "disabled"?: boolean;
         "language": Languages;
         // @alpha
         "triggerCharacters": TriggerCharacter[];
@@ -1631,6 +1632,7 @@ namespace JSX_2 {
         "contentType"?: 'markdown' | 'html';
         // @alpha
         "customElements"?: CustomElementDefinition[];
+        "disabled"?: boolean;
         "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
         // @alpha

@@ -244,10 +244,10 @@ export class TextEditor implements FormComponent<string> {
                 value={this.value}
                 aria-controls={this.helperTextId}
                 id={this.editorId}
-                tabindex={this.disabled ? -1 : 0}
                 aria-disabled={this.disabled}
                 language={this.language}
                 triggerCharacters={this.triggers}
+                disabled={this.disabled}
             />,
             this.renderPlaceholder(),
             this.renderHelperLine(),
