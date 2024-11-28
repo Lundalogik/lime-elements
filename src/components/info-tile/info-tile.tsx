@@ -1,7 +1,7 @@
 import { Component, Prop, h, Element, Host } from '@stencil/core';
 import { InfoTileProgress } from '../info-tile/info-tile.types';
 import { Link } from '../../global/shared-types/link.types';
-import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
+import { apply3DTiltHoverEffect } from '../../util/3d-tilt-hover-effect';
 
 /**
  * This component can be used on places such as a start page or a dashboard.
@@ -105,15 +105,8 @@ export class InfoTile {
     @Element()
     private host: HTMLElement;
 
-    private handleMouseEnter: () => void;
-    private handleMouseLeave: () => void;
-
     public componentWillLoad() {
-        const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
-            this.host,
-        );
-        this.handleMouseEnter = handleMouseEnter;
-        this.handleMouseLeave = handleMouseLeave;
+        apply3DTiltHoverEffect(this.host);
     }
 
     public render() {
@@ -132,10 +125,7 @@ export class InfoTile {
         const link = !this.disabled ? this.link?.href : '#';
 
         return (
-            <Host
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-            >
+            <Host>
                 <a
                     title={this.link?.title}
                     href={link}
@@ -165,7 +155,6 @@ export class InfoTile {
                     {this.renderLabel()}
                 </a>
                 {this.renderNotification()}
-                <limel-3d-hover-effect-glow />
             </Host>
         );
     }

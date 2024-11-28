@@ -13,7 +13,7 @@ import { isItem } from '../action-bar/isItem';
 import { getIconName } from '../icon/get-icon-props';
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { ActionBarItem } from '../action-bar/action-bar.types';
-import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
+import { apply3DTiltHoverEffect } from '../../util/3d-tilt-hover-effect';
 
 /**
  * Card is a component that displays content about a single topic,
@@ -99,23 +99,13 @@ export class Card {
     @Element()
     private host: HTMLElement;
 
-    private handleMouseEnter: () => void;
-    private handleMouseLeave: () => void;
-
     public componentWillLoad() {
-        const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
-            this.host,
-        );
-        this.handleMouseEnter = handleMouseEnter;
-        this.handleMouseLeave = handleMouseLeave;
+        apply3DTiltHoverEffect(this.host, { clickable: this.clickable });
     }
 
     public render() {
         return (
-            <Host
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-            >
+            <Host>
                 <section tabindex={this.clickable ? 0 : ''}>
                     {this.renderImage()}
                     <div class="body">
@@ -124,7 +114,6 @@ export class Card {
                         {this.renderValue()}
                         {this.renderActionBar()}
                     </div>
-                    <limel-3d-hover-effect-glow />
                 </section>
             </Host>
         );

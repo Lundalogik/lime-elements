@@ -134,20 +134,3 @@ limel-action-bar {
     padding: 0.5rem;
     margin-left: auto;
 }
-
-// The 3D effect
-limel-3d-hover-effect-glow {
-    border-radius: var(--card-border-radius, $default-border-radius);
-}
-
-:host(limel-card) {
-    @include mixins.parent-of-the-3d-element;
-}
-
-section {
-    @include mixins.the-3d-element;
-
-    :host(limel-card[clickable]) & {
-        @include mixins.the-3d-element--clickable;
-    }
-}
