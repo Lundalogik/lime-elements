@@ -40,17 +40,6 @@
 
 a {
     all: unset;
-    @include mixins.is-elevated-clickable(
-        $background-color: var(
-                --shortcut-background-color,
-                var(--lime-elevated-surface-background-color)
-            ),
-        $background-color--hovered: var(
-                --shortcut-background-color,
-                var(--lime-elevated-surface-background-color)
-            )
-    );
-    @include mixins.visualize-keyboard-focus;
     text-align: center;
 
     height: calc(100% - 1rem);
@@ -58,6 +47,10 @@ a {
     padding: 0.5rem;
 
     border-radius: var(--shortcut-border-radius, 1rem);
+    background-color: var(
+        --shortcut-background-color,
+        var(--lime-elevated-surface-background-color)
+    );
 }
 
 limel-icon {
@@ -81,4 +74,19 @@ limel-badge {
     position: absolute;
     top: -0.25rem;
     right: 0.125rem;
+}
+
+// The 3D effect
+limel-3d-hover-effect-glow {
+    border-radius: var(--shortcut-border-radius, 1rem);
+}
+
+:host(limel-shortcut) {
+    @include mixins.parent-of-the-3d-element;
+}
+
+a {
+    @include mixins.the-3d-element;
+
+    @include mixins.the-3d-element--clickable;
 }
