@@ -1,5 +1,6 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Element, Host } from '@stencil/core';
 import { Link } from '../../global/shared-types/link.types';
+import { getMouseEventHandlers } from '../../util/3d-tilt-hover-effect';
 
 /**
  * This component can be used on places such as a start page or a dashboard.
@@ -53,21 +54,41 @@ export class Shortcut {
     @Prop()
     public link?: Link;
 
+    @Element()
+    private host: HTMLElement;
+
+    private handleMouseEnter: () => void;
+    private handleMouseLeave: () => void;
+
+    public componentWillLoad() {
+        const { handleMouseEnter, handleMouseLeave } = getMouseEventHandlers(
+            this.host,
+        );
+        this.handleMouseEnter = handleMouseEnter;
+        this.handleMouseLeave = handleMouseLeave;
+    }
+
     public render() {
-        return [
-            <a
-                aria-disabled={this.disabled}
-                href={this.link?.href}
-                target={this.link?.target}
-                tabindex="0"
-                aria-label={this.getAriaLabel()}
-                title={this.link?.title}
+        return (
+            <Host
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
             >
-                <limel-icon name={this.icon} />
-            </a>,
-            this.renderLabel(),
-            this.renderNotification(),
-        ];
+                <a
+                    aria-disabled={this.disabled}
+                    href={this.link?.href}
+                    target={this.link?.target}
+                    tabindex="0"
+                    aria-label={this.getAriaLabel()}
+                    title={this.link?.title}
+                >
+                    <limel-icon name={this.icon} />
+                    <limel-3d-hover-effect-glow />
+                </a>
+                {this.renderLabel()}
+                {this.renderNotification()}
+            </Host>
+        );
     }
 
     private renderLabel = () => {
