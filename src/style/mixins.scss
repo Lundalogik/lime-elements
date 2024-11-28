@@ -545,6 +545,15 @@ $clickable-normal-state-transitions: (
         outline: none;
         transform: scale3d(1.01, 1.01, 1.01);
     }
+
+    &:hover {
+        limel-3d-hover-effect-glow {
+            --limel-3d-hover-effect-glow-opacity: 0.5;
+            @media (prefers-reduced-motion) {
+                --limel-3d-hover-effect-glow-opacity: 0.2;
+            }
+        }
+    }
 }
 
 @mixin the-3d-element--clickable {

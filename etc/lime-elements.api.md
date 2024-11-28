@@ -146,6 +146,8 @@ export interface ColumnSorter {
 //
 // @public (undocumented)
 export namespace Components {
+    export interface Limel3dHoverEffectGlow {
+    }
     export interface LimelActionBar {
         "accessibleLabel"?: string;
         "actions": Array<ActionBarItem | ListSeparator>;
@@ -982,6 +984,8 @@ namespace JSX_2 {
     // (undocumented)
     interface IntrinsicElements {
         // (undocumented)
+        "limel-3d-hover-effect-glow": Limel3dHoverEffectGlow;
+        // (undocumented)
         "limel-action-bar": LimelActionBar;
         // (undocumented)
         "limel-action-bar-item": LimelActionBarItem;
@@ -1131,6 +1135,8 @@ namespace JSX_2 {
         "limel-tooltip": LimelTooltip;
         // (undocumented)
         "limel-tooltip-content": LimelTooltipContent;
+    }
+    interface Limel3dHoverEffectGlow {
     }
     interface LimelActionBar {
         "accessibleLabel"?: string;
