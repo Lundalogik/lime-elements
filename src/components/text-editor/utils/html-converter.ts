@@ -1,6 +1,6 @@
 import { ContentTypeConverter } from './content-type-converter';
 import { EditorView } from 'prosemirror-view';
-import { markdownToHTML } from '../../markdown/markdown-parser';
+import { sanitizeHTML } from '../../markdown/markdown-parser';
 import { CustomElementDefinition } from '../../../interface';
 
 /**
@@ -14,7 +14,7 @@ export class HTMLConverter implements ContentTypeConverter {
     }
 
     public parseAsHTML = (text: string): Promise<string> => {
-        return markdownToHTML(text, { whitelist: this.customNodes });
+        return sanitizeHTML(text, this.customNodes);
     };
 
     public serialize = (view: EditorView): string => {
