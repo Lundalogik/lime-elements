@@ -1,4 +1,4 @@
-import { Component } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 /**
  * This component enhances the visual effects, when the `tiltFollowingTheCursor`
  * utility function from `3d-tilt-hover-effect.ts` is implemented in a component.
@@ -21,6 +21,6 @@ import { Component } from '@stencil/core';
 })
 export class HoverEffectGlowComponent {
     public render() {
-        return null;
+        return <div />;
     }
 }

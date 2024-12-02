@@ -512,9 +512,9 @@ $clickable-normal-state-transitions: (
 
     &:hover {
         limel-3d-hover-effect-glow {
-            opacity: 0.5;
+            --limel-3d-hover-effect-glow-opacity: 0.5;
             @media (prefers-reduced-motion) {
-                opacity: 0.2;
+                --limel-3d-hover-effect-glow-opacity: 0.2;
             }
         }
     }
