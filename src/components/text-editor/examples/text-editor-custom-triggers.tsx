@@ -1,7 +1,7 @@
 import {
     Button,
-    LimelListCustomEvent,
-    ListItem,
+    LimelMenuListCustomEvent,
+    MenuItem,
 } from '@limetech/lime-elements';
 import { Component, h, State, Element, Watch } from '@stencil/core';
 import {
@@ -52,7 +52,7 @@ export class TextEditorCustomTriggersExample {
     private insertMode: 'text' | 'chip' = 'text';
 
     @State()
-    private items: Array<ListItem<number>> = [
+    private items: Array<MenuItem<number>> = [
         { text: 'Wolverine', value: 1, icon: 'wolf', selected: true },
         { text: 'Captain America', value: 2, icon: 'captain_america' },
         { text: 'Superman', value: 3, icon: 'superman' },
@@ -61,7 +61,7 @@ export class TextEditorCustomTriggersExample {
     ];
 
     @State()
-    private visibleItems: Array<ListItem<number>>;
+    private visibleItems: Array<MenuItem<number>>;
 
     @Element()
     private host: HTMLLimelPopoverElement;
@@ -88,7 +88,7 @@ export class TextEditorCustomTriggersExample {
     @Watch('inputText')
     protected watchInputText() {
         if (this.isPickerOpen) {
-            this.visibleItems = this.items.filter((item: ListItem<number>) =>
+            this.visibleItems = this.items.filter((item: MenuItem<number>) =>
                 item.text.toLowerCase().includes(this.inputText),
             );
         }
@@ -122,7 +122,7 @@ export class TextEditorCustomTriggersExample {
         }
 
         if (event.key === ENTER || event.key === TAB) {
-            const selectedItem: ListItem | undefined = this.visibleItems.find(
+            const selectedItem: MenuItem | undefined = this.visibleItems.find(
                 (item) => item.selected,
             );
 
@@ -227,7 +227,7 @@ export class TextEditorCustomTriggersExample {
         );
     };
 
-    private renderList = (items: Array<ListItem<number>>) => {
+    private renderList = (items: Array<MenuItem<number>>) => {
         if (items.length === 0) {
             return (
                 <div style={{ padding: '0.5rem' }}>
@@ -237,10 +237,9 @@ export class TextEditorCustomTriggersExample {
         }
 
         return (
-            <limel-list
+            <limel-menu-list
                 items={items}
-                onChange={this.handleListChange}
-                type="selectable"
+                onInteract={this.handleListInteraction}
             />
         );
     };
@@ -265,19 +264,17 @@ export class TextEditorCustomTriggersExample {
         this.value = event.detail;
     };
 
-    private handleListChange = (
-        event: LimelListCustomEvent<ListItem<number>>,
+    private handleListInteraction = (
+        event: LimelMenuListCustomEvent<MenuItem<number>>,
     ) => {
-        if (event.detail.selected) {
-            this.insertItem(event.detail);
-        }
+        this.insertItem(event.detail);
     };
 
     private handleInsertModeChange = (event: CustomEvent<Button>) => {
         this.insertMode = event.detail.title as any;
     };
 
-    private insertItem = (item: ListItem) => {
+    private insertItem = (item: MenuItem) => {
         this.removeAllSelections();
         this.visibleItems = this.items;
         if (this.insertMode === 'text') {
