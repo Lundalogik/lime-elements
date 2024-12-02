@@ -1,3 +1,11 @@
+## [37.72.3](https://github.com/Lundalogik/lime-elements/compare/v37.72.2...v37.72.3) (2024-12-02)
+
+
+### Bug Fixes
+
+
+* **text-editor:** move delegate logic to prosemirror adapter ([9765130](https://github.com/Lundalogik/lime-elements/commit/9765130ae8e39e04caec8f9d0561ced2d7abc445))
+
 ## [37.72.2](https://github.com/Lundalogik/lime-elements/compare/v37.72.1...v37.72.2) (2024-12-02)
 
 
