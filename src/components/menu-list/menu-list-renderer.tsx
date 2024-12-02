@@ -139,6 +139,7 @@ export class MenuListRenderer {
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 aria-selected={item.selected ? 'true' : 'false'}
                 data-index={index}
+                data-text={item.text}
                 {...attributes}
             >
                 {this.renderIcon(this.config, item)}
