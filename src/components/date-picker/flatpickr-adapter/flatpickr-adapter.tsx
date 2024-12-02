@@ -78,60 +78,60 @@ export class DatePickerCalendar {
         switch (this.type) {
             case 'date':
                 this.picker = new DateOnlyPicker(
-                    this.format,
                     this.language,
                     this.change,
+                    this.format,
                 );
                 break;
 
             case 'time':
                 this.picker = new TimePicker(
-                    this.format,
                     this.language,
                     this.change,
+                    this.format,
                 );
                 break;
 
             case 'week':
                 this.picker = new WeekPicker(
-                    this.format,
                     this.language,
                     this.change,
+                    this.format,
                 );
                 break;
 
             case 'month':
                 this.picker = new MonthPicker(
-                    this.format,
                     this.language,
                     this.change,
                     translate,
+                    this.format,
                 );
                 break;
 
             case 'quarter':
                 this.picker = new QuarterPicker(
-                    this.format,
                     this.language,
                     this.change,
                     translate,
+                    this.format,
                 );
                 break;
             case 'year':
                 this.picker = new YearPicker(
-                    this.format,
                     this.language,
                     this.change,
                     translate,
+                    this.format,
                 );
                 break;
 
             case 'datetime':
             default:
                 this.picker = new DatetimePicker(
-                    this.format,
                     this.language,
                     this.change,
+                    this.format,
                 );
                 break;
         }

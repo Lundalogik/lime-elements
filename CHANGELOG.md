@@ -1,3 +1,11 @@
+## [37.72.2](https://github.com/Lundalogik/lime-elements/compare/v37.72.1...v37.72.2) (2024-12-02)
+
+
+### Bug Fixes
+
+
+* **text-editor:** correctly animate the padding property ([fb83f90](https://github.com/Lundalogik/lime-elements/commit/fb83f90143ab2c623bfe7d9ad85d341f8b6a4ae9))
+
 ## [37.72.1](https://github.com/Lundalogik/lime-elements/compare/v37.72.0...v37.72.1) (2024-11-28)
 
 

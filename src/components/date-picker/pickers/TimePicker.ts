@@ -4,11 +4,11 @@ import { Picker } from './Picker';
 
 export class TimePicker extends Picker {
     public constructor(
-        dateFormat: string = 'LT',
         language: string,
         change: EventEmitter,
+        dateFormat: string = 'LT',
     ) {
-        super(dateFormat, language, change);
+        super(language, change, dateFormat);
     }
 
     public getConfig(): flatpickr.Options.Options {

@@ -29,7 +29,7 @@ import { CustomElementDefinition } from '../../global/shared-types/custom-elemen
  */
 export async function markdownToHTML(
     text: string,
-    options?: markdownToHTMLOptions,
+    options?: MarkdownToHTMLOptions,
 ): Promise<string> {
     if (options?.forceHardLineBreaks) {
         text = text.replace(/(?<!\\)([\n\r])/g, '  $1');
@@ -119,7 +119,7 @@ function getWhiteList(allowedComponents: CustomElementDefinition[]): Schema {
 /**
  * Options for markdownToHTML.
  */
-export interface markdownToHTMLOptions {
+export interface MarkdownToHTMLOptions {
     /**
      * Set to `true` to convert all soft line breaks to hard line breaks.
      */

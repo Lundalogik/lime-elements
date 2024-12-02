@@ -4,11 +4,11 @@ import { Picker } from './Picker';
 
 export class DatePicker extends Picker {
     public constructor(
-        dateFormat: string = 'L',
         language: string,
         change: EventEmitter,
+        dateFormat: string = 'L',
     ) {
-        super(dateFormat, language, change);
+        super(language, change, dateFormat);
     }
 
     public getConfig(nativePicker: boolean): flatpickr.Options.Options {
