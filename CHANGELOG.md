@@ -1,3 +1,11 @@
+## [37.70.6](https://github.com/Lundalogik/lime-elements/compare/v37.70.5...v37.70.6) (2024-12-02)
+
+
+### Bug Fixes
+
+
+* **text-editor:** fix bug where html was interpreted as markdown ([47f1c34](https://github.com/Lundalogik/lime-elements/commit/47f1c349b244f81bb1d2b7068a0f7fbb4894b5b5)), closes [#3318](https://github.com/Lundalogik/lime-elements/issues/3318)
+
 ## [37.70.5](https://github.com/Lundalogik/lime-elements/compare/v37.70.4...v37.70.5) (2024-11-26)
 
 
