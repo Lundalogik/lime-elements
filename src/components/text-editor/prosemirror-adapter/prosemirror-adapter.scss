@@ -101,7 +101,7 @@ limel-action-bar {
 }
 
 .ProseMirror {
-    transition-duration: padding;
+    transition-property: padding;
     transition-duration: var(
         --limel-prosemirror-adapter-toolbar-grid-template-rows-transition-duration
     );
