@@ -250,6 +250,7 @@ export class CodeEditor {
     }
 
     private forceRedraw() {
+        // eslint-disable-next-line sonarjs/pseudo-random
         this.random = Math.random();
     }
 
