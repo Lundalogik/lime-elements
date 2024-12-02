@@ -76,6 +76,13 @@ export class MenuList {
     @Event()
     private select: EventEmitter<MenuItem>;
 
+    /**
+     * Fires when a user interacts with an item in the list (e.g., click,
+     * keyboard select).
+     */
+    @Event()
+    interact: EventEmitter<MenuItem>;
+
     public connectedCallback() {
         this.setup();
     }
@@ -163,13 +170,18 @@ export class MenuList {
             return !!item.selected;
         });
 
+        let interactedItem: MenuItem;
         if (selectedItem) {
-            this.select.emit({ ...selectedItem, selected: false });
+            interactedItem = { ...selectedItem, selected: false };
+            this.select.emit(interactedItem);
         }
 
         if (MenuItems[index] !== selectedItem) {
-            this.select.emit({ ...MenuItems[index], selected: false });
+            interactedItem = { ...MenuItems[index], selected: false };
+            this.select.emit(interactedItem);
         }
+
+        this.interact.emit(interactedItem);
     };
 
     private isMenuItem = (item: MenuItem): boolean => {

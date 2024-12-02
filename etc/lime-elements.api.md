@@ -1532,6 +1532,7 @@ namespace JSX_2 {
         "items"?: Array<ListItem | ListSeparator>;
         "maxLinesSecondaryText"?: number;
         "onChange"?: (event: LimelListCustomEvent<ListItem | ListItem[]>) => void;
+        "onInteract"?: (event: LimelListCustomEvent<ListItem>) => void;
         "onSelect"?: (event: LimelListCustomEvent<ListItem | ListItem[]>) => void;
         "type"?: ListType;
     }
@@ -1562,6 +1563,7 @@ namespace JSX_2 {
         "iconSize"?: IconSize;
         "items"?: Array<MenuItem | ListSeparator>;
         "maxLinesSecondaryText"?: number;
+        "onInteract"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
         "onSelect"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
         "type"?: MenuListType;
     }

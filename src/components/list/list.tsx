@@ -99,6 +99,13 @@ export class List {
     @Event()
     protected select: EventEmitter<ListItem | ListItem[]>;
 
+    /**
+     * Fires when a user interacts with an item in the list (e.g., click,
+     * keyboard select).
+     */
+    @Event()
+    interact: EventEmitter<ListItem>;
+
     public connectedCallback() {
         this.setup();
     }
@@ -238,17 +245,23 @@ export class List {
             return !!item.selected;
         });
 
+        let interactedItem: ListItem;
+
         if (selectedItem) {
             if (this.type !== 'radio') {
                 this.mdcList.selectedIndex = -1;
             }
 
-            this.change.emit({ ...selectedItem, selected: false });
+            interactedItem = { ...selectedItem, selected: false };
+            this.change.emit(interactedItem);
         }
 
         if (listItems[index] !== selectedItem) {
-            this.change.emit({ ...listItems[index], selected: true });
+            interactedItem = { ...listItems[index], selected: true };
+            this.change.emit(interactedItem);
         }
+
+        this.interact.emit(interactedItem);
     };
 
     private handleMultiSelect = (index: number) => {
@@ -273,6 +286,7 @@ export class List {
             });
 
         this.change.emit(selectedItems);
+        this.interact.emit({ ...selectedItems[index] });
     };
 
     private isListItem = (item: ListItem): boolean => {
