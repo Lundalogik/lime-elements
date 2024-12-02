@@ -152,7 +152,7 @@ sonarjs.configs.recommended,
         "sonarjs/media-has-caption": "warn",
         "sonarjs/mouse-events-a11y": "warn",
         "sonarjs/new-cap": "warn",
-        "sonarjs/no-clear-text-protocols": "warn",
+        "sonarjs/no-clear-text-protocols": "error",
         "sonarjs/no-commented-code": "warn",
         "sonarjs/no-empty-function": "warn",
         "sonarjs/no-invalid-await": "off", // This rule gives lots of false positives.
@@ -289,5 +289,15 @@ sonarjs.configs.recommended,
             name: "underscore",
             message: "This project uses lodash instead of underscore. Please import from lodash-es instead. This will reduce the bundle size.",
         }],
+    },
+}, {
+    files: [
+        "src/**/*.spec.{ts,tsx}",
+        "src/**/*.e2e.{ts,tsx}",
+        "src/**/*.test-wrapper.{ts,tsx}",
+    ],
+
+    rules: {
+        "sonarjs/no-clear-text-protocols": "off",
     },
 }];
