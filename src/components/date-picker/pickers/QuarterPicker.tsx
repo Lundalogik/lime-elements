@@ -14,12 +14,12 @@ export class QuarterPicker extends Picker {
     private quarters = [];
 
     public constructor(
-        dateFormat: string = '[Q]Q YYYY',
         language: string,
         protected change: EventEmitter<Date>,
         private translations: Translations,
+        dateFormat: string = '[Q]Q YYYY',
     ) {
-        super(dateFormat, language, change);
+        super(language, change, dateFormat);
         this.handleChange = this.handleChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleReady = this.handleReady.bind(this);
