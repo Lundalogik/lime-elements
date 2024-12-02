@@ -154,7 +154,7 @@ sonarjs.configs.recommended,
         "sonarjs/new-cap": "warn",
         "sonarjs/no-clear-text-protocols": "error",
         "sonarjs/no-commented-code": "warn",
-        "sonarjs/no-empty-function": "warn",
+        "sonarjs/no-empty-function": "off", // Crashes eslint.
         "sonarjs/no-invalid-await": "off", // This rule gives lots of false positives.
         "sonarjs/no-invariant-returns": "warn",
         "sonarjs/no-misused-promises": "warn",
@@ -163,6 +163,7 @@ sonarjs.configs.recommended,
         "sonarjs/no-selector-parameter": "warn",
         "sonarjs/no-skipped-test": "warn",
         "sonarjs/no-unknown-property": "off", // This rule is incompatible with Stencil.
+        "sonarjs/no-unused-expressions": "off", // Crashes eslint. Probably incompatible with @typescript-eslint/no-unused-expressions?
         "sonarjs/object-alt-content": "warn",
         "sonarjs/prefer-nullish-coalescing": "off", // This rule requires the `strictNullChecks` compiler option to be turned on to function correctly. We probably want this, but it will be a huge job, and it might be a breaking change too.
         "sonarjs/prefer-promise-shorthand": "warn",
