@@ -167,7 +167,6 @@ sonarjs.configs.recommended,
         "sonarjs/prefer-nullish-coalescing": "off", // This rule requires the `strictNullChecks` compiler option to be turned on to function correctly. We probably want this, but it will be a huge job, and it might be a breaking change too.
         "sonarjs/prefer-promise-shorthand": "warn",
         "sonarjs/prefer-spread": "warn",
-        "sonarjs/pseudo-random": "warn",
         "sonarjs/public-static-readonly": "warn",
         "sonarjs/sonar-prefer-optional-chain": "warn",
         "sonarjs/sonar-prefer-regexp-exec": "warn",

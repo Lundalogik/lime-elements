@@ -15,6 +15,7 @@ function legacyCreateRandomString() {
     const ASCII_A = 97;
     const NUMBER_OF_LETTERS = 26;
 
+    /* eslint-disable sonarjs/pseudo-random */
     return (
         String.fromCharCode(
             ASCII_A + Math.floor(Math.random() * NUMBER_OF_LETTERS),
@@ -22,4 +23,5 @@ function legacyCreateRandomString() {
         Math.random().toString(USE_HEX).substring(SKIP_LEADING_ZERODOT) +
         Math.random().toString(USE_HEX).substring(SKIP_LEADING_ZERODOT)
     );
+    /* eslint-enable sonarjs/pseudo-random */
 }
