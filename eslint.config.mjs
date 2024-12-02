@@ -157,7 +157,7 @@ sonarjs.configs.recommended,
         "sonarjs/no-clear-text-protocols": "warn",
         "sonarjs/no-commented-code": "warn",
         "sonarjs/no-empty-function": "warn",
-        "sonarjs/no-invalid-await": "warn",
+        "sonarjs/no-invalid-await": "off", // This rule gives lots of false positives.
         "sonarjs/no-invariant-returns": "warn",
         "sonarjs/no-misused-promises": "warn",
         "sonarjs/no-nested-assignment": "warn",
