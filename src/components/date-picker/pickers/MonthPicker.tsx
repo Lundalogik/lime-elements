@@ -13,12 +13,12 @@ export class MonthPicker extends Picker {
     private months = [];
 
     public constructor(
-        dateFormat: string = 'MM/YYYY',
         language: string,
         change: EventEmitter<Date>,
         private translations: Translations,
+        dateFormat: string = 'MM/YYYY',
     ) {
-        super(dateFormat, language, change);
+        super(language, change, dateFormat);
         this.handleChange = this.handleChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleReady = this.handleReady.bind(this);

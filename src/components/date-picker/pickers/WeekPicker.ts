@@ -5,11 +5,11 @@ import { Picker } from './Picker';
 
 export class WeekPicker extends Picker {
     public constructor(
-        dateFormat: string = '[w] W GGGG',
         language: string,
         change: EventEmitter,
+        dateFormat: string = '[w] W GGGG',
     ) {
-        super(dateFormat, language, change);
+        super(language, change, dateFormat);
     }
 
     public getConfig(nativePicker: boolean): flatpickr.Options.Options {

@@ -146,7 +146,6 @@ sonarjs.configs.recommended,
         "sonarjs/alt-text": "warn",
         "sonarjs/anchor-is-valid": "warn",
         "sonarjs/concise-regexp": "off", // We probably want this, but it doesn't seem to work with "warn".
-        "sonarjs/default-param-last": "warn",
         "sonarjs/deprecation": "warn",
         "sonarjs/function-return-type": "warn",
         "sonarjs/jsx-key": "warn",

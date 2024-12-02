@@ -13,12 +13,12 @@ export class YearPicker extends Picker {
     private selectedYear: string;
 
     public constructor(
-        dateFormat: string = 'YYYY',
         language: string,
         change: EventEmitter<Date>,
         private translations: Translations,
+        dateFormat: string = 'YYYY',
     ) {
-        super(dateFormat, language, change);
+        super(language, change, dateFormat);
         this.handleChange = this.handleChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleReady = this.handleReady.bind(this);
