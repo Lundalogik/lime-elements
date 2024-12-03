@@ -143,33 +143,17 @@ sonarjs.configs.recommended,
         "prefer-const": "error",
         "prefer-object-spread": "error",
         radix: "error",
-        "sonarjs/alt-text": "warn",
-        "sonarjs/anchor-is-valid": "warn",
-        "sonarjs/concise-regexp": "off", // We probably want this, but it doesn't seem to work with "warn".
         "sonarjs/deprecation": "warn",
         "sonarjs/function-return-type": "warn",
-        "sonarjs/jsx-key": "warn",
-        "sonarjs/media-has-caption": "warn",
-        "sonarjs/mouse-events-a11y": "warn",
-        "sonarjs/new-cap": "warn",
-        "sonarjs/no-clear-text-protocols": "error",
-        "sonarjs/no-commented-code": "warn",
-        "sonarjs/no-empty-function": "warn",
         "sonarjs/no-invalid-await": "off", // This rule gives lots of false positives.
         "sonarjs/no-invariant-returns": "warn",
-        "sonarjs/no-misused-promises": "warn",
         "sonarjs/no-nested-assignment": "warn",
-        "sonarjs/no-redeclare": "off", // This complains about imports from Stencil, like `Element` and `Event`, and cannot be configured.
         "sonarjs/no-selector-parameter": "warn",
-        "sonarjs/no-skipped-test": "warn",
-        "sonarjs/no-unknown-property": "off", // This rule is incompatible with Stencil.
+        "sonarjs/no-skipped-tests": "warn",
+        "sonarjs/no-unused-vars": "off", // We use the TypeScript rule instead.
         "sonarjs/object-alt-content": "warn",
-        "sonarjs/prefer-nullish-coalescing": "off", // This rule requires the `strictNullChecks` compiler option to be turned on to function correctly. We probably want this, but it will be a huge job, and it might be a breaking change too.
-        "sonarjs/prefer-promise-shorthand": "warn",
-        "sonarjs/prefer-spread": "warn",
+        "sonarjs/prefer-regexp-exec": "warn",
         "sonarjs/public-static-readonly": "warn",
-        "sonarjs/sonar-prefer-optional-chain": "warn",
-        "sonarjs/sonar-prefer-regexp-exec": "warn",
         "sonarjs/todo-tag": "warn",
         "sonarjs/use-type-alias": "warn",
 
