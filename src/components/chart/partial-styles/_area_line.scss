@@ -45,7 +45,10 @@
             transform: translateX(-50%) translateY(50%);
             left: 0;
             bottom: calc(
-                (var(--limel-chart-item-size) + var(--limel-chart-item-offset)) *
+                (
+                        var(--limel-chart-item-size) +
+                            var(--limel-chart-item-offset)
+                    ) *
                     1%
             );
         }
@@ -60,7 +63,10 @@
         &:after {
             transform: translateX(-50%) translateY(-50%);
             left: calc(
-                (var(--limel-chart-item-size) + var(--limel-chart-item-offset)) *
+                (
+                        var(--limel-chart-item-size) +
+                            var(--limel-chart-item-offset)
+                    ) *
                     1%
             );
         }

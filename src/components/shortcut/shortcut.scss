@@ -41,13 +41,11 @@
 a {
     all: unset;
     @include mixins.is-elevated-clickable(
-        $background-color:
-            var(
+        $background-color: var(
                 --shortcut-background-color,
                 var(--lime-elevated-surface-background-color)
             ),
-        $background-color--hovered:
-            var(
+        $background-color--hovered: var(
                 --shortcut-background-color,
                 var(--lime-elevated-surface-background-color)
             )
