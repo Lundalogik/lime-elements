@@ -1,0 +1,28 @@
+:host(limel-3d-hover-effect-glow) {
+    display: block;
+    pointer-events: none;
+
+    position: absolute;
+    inset: 0;
+
+    mix-blend-mode: plus-lighter;
+}
+
+div {
+    position: absolute;
+    inset: 0;
+
+    transition: background, opacity;
+    transition-timing-function: ease-out; // Must be the same as the 3D Element itself
+    transition-duration: 0.8s; // Must be the same as the 3D Element itself
+
+    border-radius: inherit;
+
+    opacity: var(--limel-3d-hover-effect-glow-opacity, 0.1);
+
+    background-image: radial-gradient(
+        circle at var(--limel-3d-hover-effect-glow-position, 50% -20%),
+        rgb(var(--color-white), 0.3),
+        rgb(var(--color-white), 0)
+    );
+}
