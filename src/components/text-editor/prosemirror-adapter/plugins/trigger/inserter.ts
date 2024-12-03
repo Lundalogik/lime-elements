@@ -97,7 +97,7 @@ const getCustomNode = (name: string, schema: Schema): NodeType => {
 
     if (!customNode) {
         throw new Error(
-            `A custom element hasn't been registered for node ${name}`,
+            `No custom element has been registered for node ${name}`,
         );
     }
 
