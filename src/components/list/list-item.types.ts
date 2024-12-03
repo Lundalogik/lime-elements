@@ -63,6 +63,8 @@ export interface ListItem<T = any> {
      * Component used to render the list item.
      */
     primaryComponent?: ListComponent;
+
+    badgeCount?: number | string;
 }
 
 /**

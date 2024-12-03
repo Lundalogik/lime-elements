@@ -258,6 +258,15 @@ $list-mdc-list-item: 0;
     }
 }
 
+limel-badge {
+    position: absolute;
+    top: 0rem;
+    left: -0.0125rem;
+    /* color: red; */
+    --badge-background-color: rgb(var(--color-red-default));
+    --badge-text-color: rgb(var(--color-yellow-lighter));
+}
+
 @import '../checkbox/checkbox.scss';
 
 @import './radio-button/radio-button.scss';
