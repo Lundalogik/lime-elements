@@ -1,3 +1,11 @@
+## [37.73.0](https://github.com/Lundalogik/lime-elements/compare/v37.72.3...v37.73.0) (2024-12-04)
+
+
+### Features
+
+
+* **list:** add interaction event ([f97c850](https://github.com/Lundalogik/lime-elements/commit/f97c850412cda2a53ab669ade94f0d9861651471))
+
 ## [37.72.3](https://github.com/Lundalogik/lime-elements/compare/v37.72.2...v37.72.3) (2024-12-02)
 
 
