@@ -1,0 +1,2 @@
+import{r as e,h as i}from"./index-6156b4fd.js";const s=class{constructor(i){e(this,i);this.handleChange=e=>{this.value=e.detail};this.value=undefined}render(){return i("limel-input-field",{label:"Search",type:"search",leadingIcon:"search",value:this.value,onChange:this.handleChange})}};export{s as limel_example_input_field_search};
+//# sourceMappingURL=limel-example-input-field-search.entry.js.map
