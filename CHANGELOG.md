@@ -1,3 +1,11 @@
+## [37.74.0](https://github.com/Lundalogik/lime-elements/compare/v37.73.0...v37.74.0) (2024-12-04)
+
+
+### Features
+
+
+* **text-editor:** add insertHtml function to properly parse html string ([be1b234](https://github.com/Lundalogik/lime-elements/commit/be1b2348fa250f0d6bef2fec3de6a294161a02a1))
+
 ## [37.73.0](https://github.com/Lundalogik/lime-elements/compare/v37.72.3...v37.73.0) (2024-12-04)
 
 
