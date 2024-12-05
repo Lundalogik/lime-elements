@@ -7,6 +7,8 @@ import {
     TriggerEventDetail,
 } from 'src/components/text-editor/text-editor.types';
 import { ContentTypeConverter } from '../../../utils/content-type-converter';
+import { ResolvedPos } from 'prosemirror-model';
+import { ESCAPE } from 'src/util/keycodes';
 
 const isTrigger = (
     key: string,
@@ -15,48 +17,102 @@ const isTrigger = (
     return key.length === 1 && validTriggers.includes(key as TriggerCharacter);
 };
 
-const shouldTrigger = (state: EditorState): boolean => {
-    const { $from } = state.selection;
+const isWhitespace = (char: string): boolean => /\s/.test(char);
 
-    if ($from.pos === 1) {
-        return true;
-    }
-
-    // Getting the position immediately before the current selection
-    const prevPos = $from.pos - 1;
-
-    if (prevPos > 0) {
-        // allow trigger if the cursor is at the start of a new paragraph
-        if ($from.parentOffset === 0) {
-            return true;
-        }
-
-        const prevChar = state.doc.textBetween(prevPos, $from.pos);
-
-        return prevChar === ' ' || prevChar === '\n';
-    }
-
-    return false;
+const isAtStartOfBlock = ($pos: ResolvedPos): boolean => {
+    return $pos.parentOffset === 0 || $pos.parentOffset === 1;
 };
 
-const stillHasTrigger = (
-    state: EditorState,
-    activeTrigger: string,
-    triggerPosition: number,
-    triggerLength: number,
-): boolean => {
-    const cursorPosition = state.selection.$from.pos;
+const getPreviousCharacter = ($from: ResolvedPos): string | null => {
+    if ($from.parentOffset === 0) {
+        return null;
+    }
 
-    if (
-        cursorPosition < triggerPosition ||
-        cursorPosition > triggerPosition + triggerLength + 1
-    ) {
+    const nodeBefore = $from.nodeBefore;
+
+    if (!nodeBefore) {
+        return null;
+    }
+
+    if (nodeBefore.isText) {
+        const text = nodeBefore.text;
+        if (text && text.length > 0) {
+            return text.charAt(text.length - 1);
+        }
+    } else if (nodeBefore.type.name === 'hard_break') {
+        return '\n';
+    } else if (nodeBefore.isInline) {
+        return '\uFFFC';
+    }
+
+    // Default case for unsupported nodes
+    return null;
+};
+
+
+const findTriggerPosition = (
+    state: EditorState,
+    triggerCharacters: TriggerCharacter[],
+): { trigger: TriggerCharacter; position: number } | null => {
+    const { $from } = state.selection;
+    let position = $from.pos;
+
+    while (position > 0) {
+        const charBefore = state.doc.textBetween(position - 1, position);
+
+        if (isTrigger(charBefore, triggerCharacters)) {
+            const previousPosition = position - 2; // Position of the character before the trigger
+            const charBeforeTrigger =
+                previousPosition >= 0
+                    ? state.doc.textBetween(previousPosition, previousPosition + 1)
+                    : null;
+
+            if (
+                (charBeforeTrigger && isWhitespace(charBeforeTrigger)) ||
+                isAtStartOfBlock(state.doc.resolve(position - 1))
+            ) {
+                return { trigger: charBefore as TriggerCharacter, position: position - 1 };
+            }
+        }
+
+        position -= 1;
+
+        // Stop if we reach the start of the block
+        const parentNodeStart = $from.start($from.depth);
+        if (position <= parentNodeStart) {
+            break;
+        }
+    }
+
+    return null;
+};
+
+
+const shouldTrigger = (
+    state: EditorState,
+    triggerCharacters: TriggerCharacter[],
+): boolean => {
+    const { $from } = state.selection;
+
+    if (!state.selection.empty) {
         return false;
     }
 
+    // If cursor is at the very start of the document or block, trigger
+    if ($from.pos === 0 || isAtStartOfBlock($from)) {
+        return true;
+    }
+
+    const prevChar = getPreviousCharacter($from);
+
     return (
-        state.doc.textBetween(triggerPosition, triggerPosition + 1) ===
-        activeTrigger
+        prevChar === null ||
+        isWhitespace(prevChar) ||
+        (isTrigger(prevChar, triggerCharacters) &&
+            (getPreviousCharacter(state.doc.resolve($from.pos - 1)) === null ||
+                isWhitespace(
+                    getPreviousCharacter(state.doc.resolve($from.pos - 1))
+                )))
     );
 };
 
@@ -155,7 +211,7 @@ export const createTriggerPlugin = (
     };
 
     const handleKeyDown = (_: EditorView, event: any) => {
-        if (event.key === 'Escape') {
+        if (event.key === ESCAPE) {
             stopTrigger();
 
             return true;
@@ -170,7 +226,7 @@ export const createTriggerPlugin = (
         if (
             event.inputType === 'insertText' &&
             isTrigger(event.data, triggerCharacters) &&
-            shouldTrigger(state)
+            shouldTrigger(state, triggerCharacters)
         ) {
             activeTrigger = event.data;
             triggerText = '';
@@ -194,38 +250,58 @@ export const createTriggerPlugin = (
         oldState: EditorState,
         newState: EditorState,
     ): Transaction => {
-        if (!activeTrigger || !triggerPosition || !pluginView) {
+        if (!pluginView) {
             return;
         }
 
-        if (
-            !stillHasTrigger(
-                newState,
-                activeTrigger,
-                triggerPosition,
-                triggerText.length,
-            )
-        ) {
-            return;
-        }
+        const foundTrigger = findTriggerPosition(newState, triggerCharacters);
 
-        const updatedText = processTransactions(
-            triggerText,
-            transactions,
-            oldState,
-        );
+        if (foundTrigger) {
+            const { trigger, position } = foundTrigger;
 
-        if (updatedText !== triggerText) {
-            triggerText = updatedText;
-            sendTriggerEvent(
-                'triggerChange',
-                pluginView,
-                contentConverter,
-                activeTrigger,
-                triggerText.slice(1),
-            );
+            if (
+                activeTrigger &&
+                position === triggerPosition &&
+                trigger === activeTrigger
+            ) {
+                const updatedText = processTransactions(
+                    triggerText,
+                    transactions,
+                    oldState,
+                );
+
+                if (updatedText !== triggerText) {
+                    triggerText = updatedText;
+                    sendTriggerEvent(
+                        'triggerChange',
+                        pluginView,
+                        contentConverter,
+                        activeTrigger,
+                        triggerText.slice(1),
+                    );
+                }
+            } else {
+                // Start a new trigger
+                activeTrigger = trigger;
+                triggerPosition = position;
+                triggerText = newState.doc.textBetween(
+                    triggerPosition,
+                    newState.selection.from,
+                );
+
+                sendTriggerEvent(
+                    'triggerStart',
+                    pluginView,
+                    contentConverter,
+                    activeTrigger,
+                    triggerText.slice(1),
+                );
+            }
+        } else if (activeTrigger) {
+            stopTrigger();
         }
     };
+
 
     return new Plugin({
         key: new PluginKey('triggerPlugin'),
