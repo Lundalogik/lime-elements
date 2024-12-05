@@ -19,6 +19,11 @@ const isTrigger = (
 
 const isWhitespace = (char: string): boolean => /\s/.test(char);
 
+const hasSingleWhitespace = (text: string): boolean => {
+    // Only one whitespace allowed between words within a trigger query
+    return text.trim().split(/\s+/).length <= 2;
+};
+
 const isAtStartOfBlock = ($pos: ResolvedPos): boolean => {
     return $pos.parentOffset === 0 || $pos.parentOffset === 1;
 };
@@ -50,7 +55,7 @@ const getPreviousCharacter = ($from: ResolvedPos): string | null => {
 };
 
 
-const findTriggerPosition = (
+export const findTriggerPosition = (
     state: EditorState,
     triggerCharacters: TriggerCharacter[],
 ): { trigger: TriggerCharacter; position: number } | null => {
@@ -121,10 +126,11 @@ const getTriggerEventDetail = (
     contentConverter: ContentTypeConverter,
     trigger: TriggerCharacter,
     value: string,
+    registeredTriggers: TriggerCharacter[],
 ): TriggerEventDetail => {
     return {
         trigger: trigger,
-        textEditor: inserterFactory(view, contentConverter),
+        textEditor: inserterFactory(view, contentConverter, registeredTriggers),
         value: value,
     };
 };
@@ -134,10 +140,11 @@ const sendTriggerEvent = (
     view: EditorView,
     contentConverter: ContentTypeConverter,
     trigger: TriggerCharacter,
+    registeredTriggers: TriggerCharacter[],
     value: string,
 ) => {
     const event = new CustomEvent<TriggerEventDetail>(type, {
-        detail: getTriggerEventDetail(view, contentConverter, trigger, value),
+        detail: getTriggerEventDetail(view, contentConverter, trigger, value, registeredTriggers),
         bubbles: true,
         composed: true,
     });
@@ -204,6 +211,7 @@ export const createTriggerPlugin = (
             pluginView,
             contentConverter,
             activeTrigger,
+            triggerCharacters,
             triggerText,
         );
         triggerPosition = null;
@@ -222,24 +230,45 @@ export const createTriggerPlugin = (
 
     const handleInput = (view: EditorView, event: any) => {
         const { state } = view;
+        const foundTrigger = findTriggerPosition(state, triggerCharacters);
+        const position = foundTrigger?.position ?? state.selection.$from.pos - triggerText.length;;
+
+        // Additional check for cursor movement into trigger text
+        // if (foundTrigger && !activeTrigger) {
+        //     const { trigger, position } = foundTrigger;
+        //     activeTrigger = trigger;
+        //     triggerPosition = position;
+        //     triggerText = state.doc.textBetween(triggerPosition, state.selection.from);
+
+        //     console.log('from handleInput found trigger and not active trigger :', triggerText);
+        //     sendTriggerEvent(
+        //         'triggerStart',
+        //         view,
+        //         contentConverter,
+        //         activeTrigger,
+        //         triggerCharacters,
+        //         triggerText.slice(1), // Exclude the trigger character itself
+        //     );
+
+        //     return true;
+        // }
 
         if (
             event.inputType === 'insertText' &&
             isTrigger(event.data, triggerCharacters) &&
             shouldTrigger(state, triggerCharacters)
         ) {
-            activeTrigger = event.data;
+            activeTrigger = foundTrigger?.trigger ?? event.data as TriggerCharacter;
             triggerText = '';
-            triggerPosition = state.selection.$from.pos - triggerText.length;
+            triggerPosition = position;
             sendTriggerEvent(
                 'triggerStart',
                 view,
                 contentConverter,
                 activeTrigger,
+                triggerCharacters,
                 triggerText,
             );
-
-            return false;
         }
 
         return false;
@@ -258,17 +287,30 @@ export const createTriggerPlugin = (
 
         if (foundTrigger) {
             const { trigger, position } = foundTrigger;
+            const { $from } = newState.selection;
+
+            const wibble = newState.doc.textBetween(position, $from.pos);
+
+            if (!hasSingleWhitespace(triggerText)) {
+                stopTrigger();
+            }
 
             if (
                 activeTrigger &&
                 position === triggerPosition &&
                 trigger === activeTrigger
             ) {
+
+                // Update text and notify changes
                 const updatedText = processTransactions(
                     triggerText,
                     transactions,
                     oldState,
                 );
+
+                console.log('from appendTransactions updatedText:', updatedText);
+                console.log('from appendTransactions triggerText :', triggerText);
+                console.log('from appendTransactions wibble :', wibble);
 
                 if (updatedText !== triggerText) {
                     triggerText = updatedText;
@@ -277,28 +319,11 @@ export const createTriggerPlugin = (
                         pluginView,
                         contentConverter,
                         activeTrigger,
+                        triggerCharacters,
                         triggerText.slice(1),
                     );
                 }
-            } else {
-                // Start a new trigger
-                activeTrigger = trigger;
-                triggerPosition = position;
-                triggerText = newState.doc.textBetween(
-                    triggerPosition,
-                    newState.selection.from,
-                );
-
-                sendTriggerEvent(
-                    'triggerStart',
-                    pluginView,
-                    contentConverter,
-                    activeTrigger,
-                    triggerText.slice(1),
-                );
             }
-        } else if (activeTrigger) {
-            stopTrigger();
         }
     };
 

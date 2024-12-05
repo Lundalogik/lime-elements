@@ -3,22 +3,39 @@ import { EditorView } from 'prosemirror-view';
 import {
     TextEditor,
     TextEditorNode,
+    TriggerCharacter,
 } from 'src/components/text-editor/text-editor.types';
 import { ContentTypeConverter } from '../../../utils/content-type-converter';
 import { createHtmlInserter } from './create-html-inserter';
+import { findTriggerPosition } from './factory';
 
+/**
+ * Factory function to create an inserter
+ *
+ * @param view - The editor view
+ * @param contentConverter - The content converter
+ * @param trigger - The trigger character
+ * @returns The inserter
+ */
 export const inserterFactory = (
     view: EditorView,
     contentConverter: ContentTypeConverter,
+    registeredTriggers: TriggerCharacter[],
 ): TextEditor => {
     const startPos = getTriggerStartPosition(view);
+    const state = view.state;
+
+    // to handle cases where there is a trigger and the cursor might have been moved
+    const foundTrigger = findTriggerPosition(state, registeredTriggers);
+    const position = foundTrigger?.position ?? startPos;
+
 
     return {
-        insert: createNodeAndTextInserter(view, startPos),
+        insert: createNodeAndTextInserter(view, position),
         insertHtml: createHtmlInserter(
             view,
             contentConverter,
-            startPos,
+            position,
             dispatchTransaction,
         ),
         stopTrigger: () => stopTriggerTransaction(view),
