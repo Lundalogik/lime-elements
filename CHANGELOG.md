@@ -1,3 +1,21 @@
+## [37.75.0](https://github.com/Lundalogik/lime-elements/compare/v37.74.0...v37.75.0) (2024-12-06)
+
+
+### Features
+
+
+* **menu:** make it easier to distinguish menu choices in analytics software like Heap ([010c5d8](https://github.com/Lundalogik/lime-elements/commit/010c5d82a66acd7989cbafef17707283b59a6efa))
+This change adds the value of the menu item's `text` property
+under the attribute `data-text`, to make it possible to distinguish
+which menu option was selected, in analytics apps like Heap.
+Note that if you are putting any kind of sensitive data in the
+`text` property of menu items, and you are using a service for
+analysing user behaviour, such data could be sent to your analytics
+service, which may be a violation of GDPR and other regulations.
+If including such data in the menu item is absolutely necessary,
+we recommend including it in the menu item's `data-secondary-text`
+property instead.
+
 ## [37.74.0](https://github.com/Lundalogik/lime-elements/compare/v37.73.0...v37.74.0) (2024-12-04)
 
 
