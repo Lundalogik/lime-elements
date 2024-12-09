@@ -2,7 +2,6 @@ import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkGfm from 'remark-gfm';
-import rehypeParse from 'rehype-parse';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
@@ -53,35 +52,6 @@ export async function markdownToHTML(
         })
         .use(rehypeStringify)
         .process(text);
-
-    return file.toString();
-}
-
-/**
- * Sanitizes a given HTML string by removing dangerous tags and attributes.
- *
- * @param html - The string containing HTML to sanitize.
- * @param whitelist - Optional whitelist of custom components.
- * @returns The sanitized HTML string.
- */
-export async function sanitizeHTML(
-    html: string,
-    whitelist?: CustomElementDefinition[],
-): Promise<string> {
-    const file = await unified()
-        .use(rehypeParse)
-        .use(rehypeSanitize, {
-            ...getWhiteList(whitelist ?? []),
-        })
-        .use(() => {
-            return (tree: Node) => {
-                // Run the sanitizeStyle function on all elements, to sanitize
-                // the value of the `style` attribute, if there is one.
-                visit(tree, 'element', sanitizeStyle);
-            };
-        })
-        .use(rehypeStringify)
-        .process(html);
 
     return file.toString();
 }
