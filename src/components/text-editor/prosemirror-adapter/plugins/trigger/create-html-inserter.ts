@@ -1,11 +1,13 @@
 import { Node, DOMParser, Fragment } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { ContentTypeConverter } from '../../../utils/content-type-converter';
+import { TriggerCharacter } from 'src/interface';
+import { findTriggerPosition } from './factory';
 
 export const createHtmlInserter = (
     view: EditorView,
     contentConverter: ContentTypeConverter,
-    startPos: number,
+    triggerCharacter: TriggerCharacter,
     dispatchTransaction: (
         view: EditorView,
         startPos: number,
@@ -13,6 +15,10 @@ export const createHtmlInserter = (
     ) => void,
 ): ((input: string) => Promise<void>) => {
     const schema = view.state.schema;
+    const state = view.state;
+
+    const foundTrigger = findTriggerPosition(state, triggerCharacter);
+    const position = foundTrigger?.position;
 
     return async (input: string): Promise<void> => {
         const container = document.createElement('span');
@@ -20,6 +26,6 @@ export const createHtmlInserter = (
 
         const fragment = DOMParser.fromSchema(schema).parse(container).content;
 
-        dispatchTransaction(view, startPos, fragment);
+        dispatchTransaction(view, position, fragment);
     };
 };

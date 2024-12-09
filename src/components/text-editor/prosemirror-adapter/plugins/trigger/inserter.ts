@@ -3,22 +3,27 @@ import { EditorView } from 'prosemirror-view';
 import {
     TextEditor,
     TextEditorNode,
+    TriggerCharacter,
 } from 'src/components/text-editor/text-editor.types';
 import { ContentTypeConverter } from '../../../utils/content-type-converter';
 import { createHtmlInserter } from './create-html-inserter';
+import { findTriggerPosition } from './factory';
+
+// const getTriggerStartPosition = (view: EditorView): number => {
+//     return view.state?.selection?.$from?.pos;
+// };
 
 export const inserterFactory = (
     view: EditorView,
     contentConverter: ContentTypeConverter,
+    triggerCharacter: TriggerCharacter,
 ): TextEditor => {
-    const startPos = getTriggerStartPosition(view);
-
     return {
-        insert: createNodeAndTextInserter(view, startPos),
+        insert: createNodeAndTextInserter(view, triggerCharacter),
         insertHtml: createHtmlInserter(
             view,
             contentConverter,
-            startPos,
+            triggerCharacter,
             dispatchTransaction,
         ),
         stopTrigger: () => stopTriggerTransaction(view),
@@ -26,9 +31,10 @@ export const inserterFactory = (
 };
 
 const createNodeAndTextInserter =
-    (view: EditorView, startPos: number) =>
+    (view: EditorView, triggerCharacter: TriggerCharacter) =>
     (input: TextEditorNode | string): void => {
         const schema = view.state.schema;
+        const state = view.state;
         let node: Node;
 
         try {
@@ -40,11 +46,12 @@ const createNodeAndTextInserter =
             return;
         }
 
+        const foundTrigger = findTriggerPosition(state, triggerCharacter);
+        const position = foundTrigger?.position;
         const spaceNode = schema.text(' ');
-
         const fragment = schema.nodes.doc.create(null, [node, spaceNode]);
 
-        dispatchTransaction(view, startPos, fragment);
+        dispatchTransaction(view, position, fragment);
     };
 
 const stopTriggerTransaction = (view: EditorView): void => {
@@ -62,11 +69,12 @@ const dispatchTransaction = (
     fragment: Fragment | Node,
 ): void => {
     const state = view.state;
-    const dispatch = view.dispatch;
     const fromPos = state.selection.$from.pos;
-
+    const dispatch = view.dispatch;
     const transaction = state.tr.replaceWith(startPos, fromPos, fragment);
+
     transaction.setMeta('stopTrigger', true);
+
     dispatch(transaction);
 };
 
@@ -102,8 +110,4 @@ const getCustomNode = (name: string, schema: Schema): NodeType => {
     }
 
     return customNode;
-};
-
-const getTriggerStartPosition = (view: EditorView): number => {
-    return view.state?.selection?.$from?.pos;
 };
