@@ -1,0 +1,2 @@
+const s=9;const o=13;const a=27;const c=32;const t=8;const n=46;const e=38;const r=40;const p=37;const w=39;const A="Tab";const D="Enter";const E="Escape";const b="Space";const f="Backspace";const g="Delete";const h="ArrowUp";const i="ArrowDown";const k="ArrowLeft";const l="ArrowRight";const B=".";const S=",";const T=";";const d="!";const j="?";export{i as A,f as B,S as C,g as D,D as E,B as P,j as Q,T as S,A as T,o as a,h as b,E as c,d,s as e,a as f,e as g,r as h,b as i,c as j,n as k,t as l,k as m,p as n,l as o,w as p};
+//# sourceMappingURL=keycodes-47c446e5.js.map
