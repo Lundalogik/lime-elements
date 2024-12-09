@@ -55,6 +55,7 @@ section {
 }
 
 img {
+    flex-shrink: 0;
     transition: filter 0.6s ease;
     object-fit: cover;
     border-radius: calc(
