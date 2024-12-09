@@ -1,3 +1,11 @@
+## [37.75.1](https://github.com/Lundalogik/lime-elements/compare/v37.75.0...v37.75.1) (2024-12-09)
+
+
+### Reverts
+
+
+* Revert "chore(deps-dev): bump react and react-dom" ([8725389](https://github.com/Lundalogik/lime-elements/commit/87253893b37c72e76496ef39305b3436c966a432))
+
 ## [37.75.0](https://github.com/Lundalogik/lime-elements/compare/v37.74.0...v37.75.0) (2024-12-06)
 
 
