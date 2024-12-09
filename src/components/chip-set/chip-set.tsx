@@ -407,7 +407,9 @@ export class ChipSet {
                     'lime-text-field--readonly': this.readonly,
                     'has-chips mdc-text-field--label-floating':
                         this.value.length !== 0,
-                    'has-leading-icon': this.leadingIcon !== null,
+                    'has-leading-icon':
+                        this.leadingIcon !== null ||
+                        (this.editMode && this.value.length === 0),
                     'has-clear-all-button': this.clearAllButton,
                 }}
                 onClick={this.handleTextFieldFocus}
@@ -737,8 +739,16 @@ export class ChipSet {
     };
 
     private renderLeadingIcon() {
-        if (!this.leadingIcon) {
+        if (!this.leadingIcon && !this.editMode) {
             return;
+        }
+
+        if (this.editMode && this.value.length === 0) {
+            return (
+                <i class="mdc-text-field__icon search-icon">
+                    <limel-icon name="search" />
+                </i>
+            );
         }
 
         return (
