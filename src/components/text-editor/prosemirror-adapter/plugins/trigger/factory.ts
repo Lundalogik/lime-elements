@@ -77,7 +77,8 @@ export const findTriggerPosition = (
             let charBeforeTrigger: string | null = null;
             if (previousPosition >= 0) {
                 charBeforeTrigger = state.doc.textBetween(
-                    previousPosition, previousPosition + 1
+                    previousPosition,
+                    previousPosition + 1,
                 );
             }
 
@@ -263,14 +264,14 @@ export const createTriggerPlugin = (
         oldState: EditorState,
         newState: EditorState,
     ): Transaction => {
-        if (!pluginView) {
+        if (!pluginView || !activeTrigger) {
             return;
         }
 
         const foundTrigger = findTriggerPosition(newState, triggerCharacters);
         const trigger: TriggerCharacter = foundTrigger?.trigger;
 
-        if (activeTrigger && trigger === activeTrigger) {
+        if (trigger === activeTrigger) {
             const updatedText = processTransactions(
                 triggerText,
                 transactions,
