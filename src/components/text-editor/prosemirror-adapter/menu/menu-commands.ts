@@ -152,6 +152,16 @@ export const isExternalLink = (url: string): boolean => {
     return !url.startsWith(window.location.origin);
 };
 
+const preserveSelection = (
+    state: EditorState,
+    tr: Transaction,
+): Transaction => {
+    const { $from, $to } = state.selection;
+    const newSelection = TextSelection.create(tr.doc, $from.pos, $to.pos);
+
+    return tr.setSelection(newSelection);
+};
+
 /**
  * Toggles or wraps a node type based on the selection and parameters.
  * - Toggles to paragraph if the selection is of the specified type.
@@ -184,14 +194,15 @@ const toggleNodeType = (
             $from.sameParent($from.doc.resolve($to.pos))
         ) {
             if ($from.parent.type === nodeType) {
+                let tr = state.tr
+                    .setBlockType($from.pos, $to.pos, paragraphType)
+                    .setMeta('preserveWhitespace', true);
+                tr.replaceSelectionWith(schema.text($from.parent.textContent));
+
+                tr = preserveSelection(state, tr);
+
                 if (dispatch) {
-                    dispatch(
-                        state.tr.setBlockType(
-                            $from.pos,
-                            $to.pos,
-                            paragraphType,
-                        ),
-                    );
+                    dispatch(tr);
                 }
 
                 return true;
@@ -203,7 +214,22 @@ const toggleNodeType = (
                 if (shouldWrap) {
                     return wrapIn(nodeType, attrs)(state, dispatch);
                 } else {
-                    return setBlockType(nodeType, attrs)(state, dispatch);
+                    let tr = state.tr
+                        .setBlockType($from.pos, $to.pos, nodeType, attrs)
+                        .setMeta('preserveWhitespace', true);
+                    if (nodeType === paragraphType) {
+                        tr.replaceSelectionWith(
+                            schema.text($from.parent.textContent),
+                        );
+                    }
+
+                    tr = preserveSelection(state, tr);
+
+                    if (dispatch) {
+                        dispatch(tr);
+                    }
+
+                    return true;
                 }
             }
         }
