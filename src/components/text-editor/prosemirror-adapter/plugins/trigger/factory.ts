@@ -9,6 +9,7 @@ import {
 import { ContentTypeConverter } from '../../../utils/content-type-converter';
 import { ResolvedPos } from 'prosemirror-model';
 import { ESCAPE } from 'src/util/keycodes';
+import { handlePunctuationInput, punctuationKeys } from '../punctuation-inputs/punctuation-input-handler';
 
 const TWO = 2;
 
@@ -224,16 +225,6 @@ export const createTriggerPlugin = (
         activeTrigger = null;
     };
 
-    const handleKeyDown = (_: EditorView, event: any) => {
-        if (event.key === ESCAPE) {
-            stopTrigger();
-
-            return true;
-        }
-
-        return false;
-    };
-
     const handleInput = (view: EditorView, event: any) => {
         const { state } = view;
 
@@ -259,6 +250,20 @@ export const createTriggerPlugin = (
         return false;
     };
 
+    const handleKeyDown = (view: EditorView, event: any) => {
+        if (event.key === ESCAPE) {
+            stopTrigger();
+
+            return true;
+        }
+
+        if (punctuationKeys.includes(event.key) && !activeTrigger) {
+            handlePunctuationInput(view, event);
+        }
+
+        return false;
+    };
+
     const appendTransactions = (
         transactions: Transaction[],
         oldState: EditorState,
@@ -271,7 +276,14 @@ export const createTriggerPlugin = (
         const foundTrigger = findTriggerPosition(newState, triggerCharacters);
         const trigger: TriggerCharacter = foundTrigger?.trigger;
 
+        if (!trigger) {
+            stopTrigger();
+
+            return;
+        }
+
         if (trigger === activeTrigger) {
+
             const updatedText = processTransactions(
                 triggerText,
                 transactions,
