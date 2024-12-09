@@ -1,3 +1,11 @@
+## [37.75.2](https://github.com/Lundalogik/lime-elements/compare/v37.75.1...v37.75.2) (2024-12-09)
+
+
+### Bug Fixes
+
+
+* **text-editor:** send stop trigger when outside ([d33417d](https://github.com/Lundalogik/lime-elements/commit/d33417d4f817c38993ce68b29d5bd6a82f4a50d3))
+
 ## [37.75.1](https://github.com/Lundalogik/lime-elements/compare/v37.75.0...v37.75.1) (2024-12-09)
 
 
