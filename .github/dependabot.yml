@@ -32,3 +32,11 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "replace-in-file"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-"
+        update-types: ["version-update:semver-major"]
