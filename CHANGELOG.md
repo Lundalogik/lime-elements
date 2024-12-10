@@ -1,3 +1,11 @@
+## [37.75.3](https://github.com/Lundalogik/lime-elements/compare/v37.75.2...v37.75.3) (2024-12-10)
+
+
+### Bug Fixes
+
+
+* **card:** prevent image from being squeezed in landscape orientation ([dc0dbb5](https://github.com/Lundalogik/lime-elements/commit/dc0dbb537d67a09585eb8d46801931872ecdae42))
+
 ## [37.75.2](https://github.com/Lundalogik/lime-elements/compare/v37.75.1...v37.75.2) (2024-12-09)
 
 
