@@ -72,6 +72,13 @@
     --limel-text-editor-outline-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
 }
 
+:host(limel-text-editor:focus-within),
+:host(limel-text-editor:focus) {
+    .placeholder {
+        opacity: 0;
+    }
+}
+
 :host(limel-text-editor[disabled]:not([disabled='false'])) {
     @include shared_input-select-picker.looks-disabled;
 
