@@ -1,3 +1,19 @@
+## [37.75.2](https://github.com/Lundalogik/lime-elements/compare/v37.75.1...v37.75.2) (2024-12-09)
+
+
+### Bug Fixes
+
+
+* **text-editor:** send stop trigger when outside ([d33417d](https://github.com/Lundalogik/lime-elements/commit/d33417d4f817c38993ce68b29d5bd6a82f4a50d3))
+
+## [37.75.1](https://github.com/Lundalogik/lime-elements/compare/v37.75.0...v37.75.1) (2024-12-09)
+
+
+### Reverts
+
+
+* Revert "chore(deps-dev): bump react and react-dom" ([8725389](https://github.com/Lundalogik/lime-elements/commit/87253893b37c72e76496ef39305b3436c966a432))
+
 ## [37.75.0](https://github.com/Lundalogik/lime-elements/compare/v37.74.0...v37.75.0) (2024-12-06)
 
 

@@ -206,6 +206,8 @@ export const createTriggerPlugin = (
                 triggerText.length,
             )
         ) {
+            stopTrigger();
+
             return;
         }
 
