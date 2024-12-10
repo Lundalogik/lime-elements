@@ -1,3 +1,11 @@
+## [37.75.4](https://github.com/Lundalogik/lime-elements/compare/v37.75.3...v37.75.4) (2024-12-10)
+
+
+### Bug Fixes
+
+
+* **text-editor:** don't show placeholder when composer is active ([8aba357](https://github.com/Lundalogik/lime-elements/commit/8aba3571fc0bf43b46622c00e3b46becd6c86f2d))
+
 ## [37.75.3](https://github.com/Lundalogik/lime-elements/compare/v37.75.2...v37.75.3) (2024-12-10)
 
 
