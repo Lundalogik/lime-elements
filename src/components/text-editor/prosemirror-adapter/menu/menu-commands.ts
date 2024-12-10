@@ -262,7 +262,8 @@ const handleDifferentNodeType = (
             .setBlockType($from.pos, $to.pos, nodeType, attrs)
             .setMeta('preserveWhitespace', true);
         if (nodeType === paragraphType) {
-            tr.replaceSelectionWith(schema.text($from.parent.textContent));
+            const selectedText = state.doc.textBetween($from.pos, $to.pos, '');
+            tr.replaceSelectionWith(schema.text(selectedText));
         }
 
         tr = preserveSelection(state, tr);
