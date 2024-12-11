@@ -1,3 +1,11 @@
+## [37.76.0](https://github.com/Lundalogik/lime-elements/compare/v37.75.4...v37.76.0) (2024-12-11)
+
+
+### Features
+
+
+* **popover:** add new CSS variable for controlling surface's `box-shadow` ([dc27cd8](https://github.com/Lundalogik/lime-elements/commit/dc27cd88c74f2a2712a6b0bd2242148cb4256452))
+
 ## [37.75.4](https://github.com/Lundalogik/lime-elements/compare/v37.75.3...v37.75.4) (2024-12-10)
 
 
