@@ -106,7 +106,7 @@ const findEnd = (doc, pos, href) => {
  */
 const getLinkDataAtPosition = (view: EditorView, event: MouseEvent) => {
     const pos = view.posAtCoords({ left: event.clientX, top: event.clientY });
-    const node = view.state.doc.nodeAt(pos.pos);
+    const node = view.state.doc.nodeAt(pos?.pos);
     if (!node) {
         return null;
     }
