@@ -56,6 +56,7 @@ import { OpenDirection } from '../menu/menu.types';
  * @slot - Content to put inside the surface
  * @exampleComponent limel-example-popover-basic
  * @exampleComponent limel-example-popover-trigger-interaction
+ * @exampleComponent limel-example-popover-styling
  */
 @Component({
     tag: 'limel-popover',
