@@ -22,7 +22,7 @@ export class Spinner {
      * Gives the spinner the shape of Lime Technologies' logo
      */
     @Prop()
-    public limeBranded: boolean = true;
+    public limeBranded: boolean = false;
 
     public render() {
         return [
