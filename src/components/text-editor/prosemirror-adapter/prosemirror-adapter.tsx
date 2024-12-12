@@ -60,7 +60,7 @@ const DEBOUNCE_TIMEOUT = 300;
  */
 @Component({
     tag: 'limel-prosemirror-adapter',
-    shadow: true,
+    shadow: { delegatesFocus: true },
     styleUrl: 'prosemirror-adapter.scss',
 })
 export class ProsemirrorAdapter {
