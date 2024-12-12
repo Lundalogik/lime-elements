@@ -1,3 +1,11 @@
+## [37.76.1](https://github.com/Lundalogik/lime-elements/compare/v37.76.0...v37.76.1) (2024-12-12)
+
+
+### Bug Fixes
+
+
+* **prosemirror-adaptor:** delegate focus ([e099691](https://github.com/Lundalogik/lime-elements/commit/e099691448d2ecc9433013f74e9312a44c7f250e)), closes [Lundalogik/crm-feature#4528](https://github.com/Lundalogik/crm-feature/issues/4528)
+
 ## [37.76.0](https://github.com/Lundalogik/lime-elements/compare/v37.75.4...v37.76.0) (2024-12-11)
 
 
