@@ -4,12 +4,9 @@ import { Component, State, h } from '@stencil/core';
  * The `limel-spinner` makes the boring waiting times slightly more cheerful by
  * cycling through nine delightful colors.
  *
- * By default spinner's shape represents Lime Technologies' logo, as it is used
- * primarily in our own products.
- *
- * However, it is easy render the spinner as a generic circle by specifying
- * `limeBranded={false}`, which may be useful for instance when the
- * spinner is used on a small component like a button.
+ * By default, the spinner is rendered as a circle.
+ * However, it is possible to set `limeBranded={true}`,
+ * which renders the spinner's shape as Lime Technologies' logo.
  */
 @Component({
     tag: 'limel-example-spinner',
@@ -27,7 +24,7 @@ export class SpinnerExample {
             >
                 <limel-checkbox
                     checked={this.limeBranded}
-                    label="Lime branded (default design)"
+                    label="Lime branded"
                     onChange={this.renderBranded}
                 />
             </limel-example-controls>,
