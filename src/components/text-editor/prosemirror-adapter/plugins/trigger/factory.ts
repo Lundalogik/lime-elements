@@ -124,7 +124,9 @@ const shouldTrigger = (
     }
 
     const prevChar = getPreviousCharacter($from);
-    const charBeforePrevChar = getPreviousCharacter(state.doc.resolve($from.pos - 1));
+    const charBeforePrevChar = getPreviousCharacter(
+        state.doc.resolve($from.pos - 1),
+    );
 
     return (
         prevChar === null ||
