@@ -1,6 +1,16 @@
 import { CustomElement } from '../../global/shared-types/custom-element.types';
 
 /**
+ * Represents a trigger character and its position in the text.
+ *
+ * @alpha
+ */
+export type Trigger = {
+    character: TriggerCharacter;
+    position: number;
+};
+
+/**
  * A character that triggers a specific action in the text editor.
  *
  * @alpha
