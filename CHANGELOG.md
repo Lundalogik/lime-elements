@@ -1,3 +1,11 @@
+## [37.76.2](https://github.com/Lundalogik/lime-elements/compare/v37.76.1...v37.76.2) (2024-12-17)
+
+
+### Bug Fixes
+
+
+* **text-editor:** fix triggers not working on iOS and on text-editor inside form ([5e7eaa3](https://github.com/Lundalogik/lime-elements/commit/5e7eaa3fe4eb56801a6400a74389b6c55a317fc8)), closes [Lundalogik/crm-feature#4498](https://github.com/Lundalogik/crm-feature/issues/4498) [Lundalogik/limepkg-email#1273](https://github.com/Lundalogik/limepkg-email/issues/1273)
+
 ## [37.76.1](https://github.com/Lundalogik/lime-elements/compare/v37.76.0...v37.76.1) (2024-12-12)
 
 
