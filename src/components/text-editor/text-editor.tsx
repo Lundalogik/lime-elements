@@ -23,9 +23,9 @@ import { EditorUiType } from './types';
  * @exampleComponent limel-example-text-editor-allow-resize
  * @exampleComponent limel-example-text-editor-size
  * @exampleComponent limel-example-text-editor-ui
- * @exampleComponent limel-example-text-editor-composite
  * @exampleComponent limel-example-text-editor-custom-element
  * @exampleComponent limel-example-text-editor-triggers
+ * @exampleComponent limel-example-text-editor-composite
  * @beta
  */
 @Component({
