@@ -351,11 +351,11 @@ export class ProsemirrorAdapter {
             plugins: [
                 ...exampleSetup({ schema: this.schema, menuBar: false }),
                 keymap(this.menuCommandFactory.buildKeymap()),
-                createLinkPlugin(this.handleNewLinkSelection),
                 createTriggerPlugin(
                     this.triggerCharacters,
                     this.contentConverter,
                 ),
+                createLinkPlugin(this.handleNewLinkSelection),
                 createImageRemoverPlugin(),
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,

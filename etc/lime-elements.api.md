@@ -2429,6 +2429,12 @@ export type TextEditorNode = {
 };
 
 // @alpha
+export type Trigger = {
+    character: TriggerCharacter;
+    position: number;
+};
+
+// @alpha
 export type TriggerCharacter = '@' | '#' | '$' | '!' | '?' | '&' | '*' | '%' | '+' | '-' | '=' | '/' | '\\' | '^' | '~' | '`' | ':' | ';' | '|' | '.' | ',' | '<' | '>' | '[' | ']' | '{' | '}' | '(' | ')' | "'";
 
 // @alpha (undocumented)
