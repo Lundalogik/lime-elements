@@ -2428,7 +2428,7 @@ export type TextEditorNode = {
     children?: Array<TextEditorNode | string>;
 };
 
-// @alpha (undocumented)
+// @alpha
 export type TriggerCharacter = '@' | '#' | '$' | '!' | '?' | '&' | '*' | '%' | '+' | '-' | '=' | '/' | '\\' | '^' | '~' | '`' | ':' | ';' | '|' | '.' | ',' | '<' | '>' | '[' | ']' | '{' | '}' | '(' | ')' | "'";
 
 // @alpha (undocumented)

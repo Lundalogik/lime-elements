@@ -1,6 +1,8 @@
 import { CustomElement } from '../../global/shared-types/custom-element.types';
 
 /**
+ * A character that triggers a specific action in the text editor.
+ *
  * @alpha
  */
 export type TriggerCharacter =
