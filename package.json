@@ -28,7 +28,7 @@
     "lint:fix": "npm run lint:src:fix && npm run lint:scss:fix",
     "lint:prod": "npm run lint:src:prod && npm run lint:scss:prod",
     "lint:src": "eslint \"**/*.{ts,tsx,js}\" --max-warnings=99 && prettier -c \"{!(package*).json,.prettierrc}\"",
-    "lint:src:fix": "eslint \"**/*.{ts,tsx,js}\" --fix && prettier --write \"{!(package*).json,.prettierrc}\"",
+    "lint:src:fix": "eslint \"**/*.{ts,tsx,js}\" --fix --quiet && prettier --write \"{!(package*).json,.prettierrc}\"",
     "lint:src:prod": "eslint \"**/*.{ts,tsx,js}\" --rule \"linebreak-style: [error, unix]\" --max-warnings=99 && prettier -c \"{!(package*).json,.prettierrc}\"",
     "lint:scss": "prettier -c --ignore-path ./.gitignore **/*.scss",
     "lint:scss:fix": "prettier --write --ignore-path ./.gitignore **/*.scss",
