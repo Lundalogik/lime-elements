@@ -4,7 +4,10 @@ import { Component, h, State } from '@stencil/core';
 const NETWORK_DELAY = 500;
 
 /**
- * With no suggestions and a message for empty search results
+ * With a custom search function
+ *
+ * The custom search function returns two suggestions if the query is empty.
+ * Otherwise, it filters the items based on the query.
  *
  * :::important
  * This example simulates that searching is done on the server. Because these
@@ -51,25 +54,19 @@ export class PickerExample {
         ];
     }
 
-    private search = (query: string): Promise<ListItem[]> => {
-        return new Promise((resolve) => {
-            if (query === '') {
-                // Simulate some network delay
-                setTimeout(() => {
-                    resolve([]);
-                }, NETWORK_DELAY);
-            }
+    private search = async (query: string): Promise<ListItem[]> => {
+        // Simulate network delay
+        await new Promise((resolve) => setTimeout(resolve, NETWORK_DELAY));
 
-            // Simulate some network delay
-            setTimeout(() => {
-                const filteredItems = this.allItems.filter((item) => {
-                    return item.text
-                        .toLowerCase()
-                        .includes(query.toLowerCase());
-                });
-                resolve(filteredItems);
-            }, NETWORK_DELAY);
+        if (query === '') {
+            return this.allItems.slice(8, 10);
+        }
+
+        const filteredItems = this.allItems.filter((item) => {
+            return item.text.toLowerCase().includes(query.toLowerCase());
         });
+
+        return filteredItems;
     };
 
     private onChange = (event: LimelPickerCustomEvent<ListItem<number>>) => {

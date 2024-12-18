@@ -34,7 +34,8 @@ export class PickerLeadingIconExample {
                 label="Favorite awesomenaut"
                 leadingIcon="search"
                 value={this.selectedItem}
-                searcher={this.search}
+                allItems={this.allItems}
+                emptyResultMessage="No results"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,
@@ -43,19 +44,6 @@ export class PickerLeadingIconExample {
             </p>,
         ];
     }
-
-    private search = (query: string): Promise<ListItem[]> => {
-        return new Promise((resolve) => {
-            if (query === '') {
-                resolve(this.allItems);
-            }
-
-            const filteredItems = this.allItems.filter((item) => {
-                return item.text.toLowerCase().includes(query.toLowerCase());
-            });
-            resolve(filteredItems);
-        });
-    };
 
     private onChange = (event: LimelPickerCustomEvent<ListItem<number>>) => {
         this.selectedItem = event.detail;

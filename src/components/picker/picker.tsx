@@ -37,9 +37,10 @@ import { DebouncedFunc, debounce } from 'lodash-es';
 
 const SEARCH_DEBOUNCE = 300;
 const CHIP_SET_TAG_NAME = 'limel-chip-set';
+const DEFAULT_SEARCHER_MAX_RESULTS = 20;
 
 /**
- * @exampleComponent limel-example-picker-single
+ * @exampleComponent limel-example-picker-basic
  * @exampleComponent limel-example-picker-multiple
  * @exampleComponent limel-example-picker-icons
  * @exampleComponent limel-example-picker-value-as-object
@@ -126,7 +127,20 @@ export class Picker {
      * the searcher function itself.
      */
     @Prop()
-    public searcher: Searcher;
+    public searcher?: Searcher;
+
+    /**
+     * Only used if no `searcher` is provided. The picker will then use a
+     * default search function that filters the `allItems` based on the
+     * `text` and `secondaryText` properties of the items.
+     * This way, custom search functions are typically only needed when the
+     * search is done on the server.
+     * For performance reasons, the default searcher will never return more
+     * than 20 items, but if there are more than 20 items, the rest can be
+     * found by typing more characters in the search field.
+     */
+    @Prop()
+    public allItems?: Array<ListItem<PickerValue>> = [];
 
     /**
      * True if multiple values are allowed
@@ -556,11 +570,36 @@ export class Picker {
         const timeoutId = setTimeout(() => {
             this.loading = true;
         });
-        const result = (await this.searcher(this.textValue)) as Array<
+        const searcher = this.searcher || this.defaultSearcher;
+        const result = (await searcher(this.textValue)) as Array<
             ListItem<PickerValue>
         >;
+
+        // If the search function resolves immediately,
+        // the loading spinner will not be shown.
         clearTimeout(timeoutId);
+
         this.handleSearchResult(query, result);
+    };
+
+    private defaultSearcher: Searcher = async (
+        query: string,
+    ): Promise<ListItem[]> => {
+        if (query === '') {
+            return this.allItems.slice(0, DEFAULT_SEARCHER_MAX_RESULTS);
+        }
+
+        const filteredItems = this.allItems.filter((item) => {
+            let searchText = item.text.toLowerCase();
+            if (item.secondaryText) {
+                searchText =
+                    searchText + ' ' + item.secondaryText.toLowerCase();
+            }
+
+            return searchText.includes(query.toLowerCase());
+        });
+
+        return filteredItems.slice(0, DEFAULT_SEARCHER_MAX_RESULTS);
     };
 
     /**
