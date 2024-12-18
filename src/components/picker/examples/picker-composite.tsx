@@ -66,6 +66,7 @@ export class PickerCompositeExample {
         delete schema.properties.actionPosition;
         delete schema.properties.actionScrollBehavior;
         delete schema.properties.actions;
+        delete schema.properties.allItems;
         delete schema.properties.searcher;
         this.schema = schema;
     }
@@ -74,7 +75,7 @@ export class PickerCompositeExample {
         return [
             <limel-picker
                 {...this.props}
-                searcher={this.search}
+                allItems={this.availableItems}
                 onChange={this.handleChange}
                 onInteract={this.handleEvent}
             />,
@@ -84,20 +85,6 @@ export class PickerCompositeExample {
             />,
         ];
     }
-
-    private search = (query: string): Promise<ListItem[]> => {
-        return new Promise((resolve) => {
-            if (query === '') {
-                return resolve(this.availableItems);
-            }
-
-            const filteredItems = this.availableItems.filter((item) => {
-                return item.text.toLowerCase().includes(query.toLowerCase());
-            });
-
-            return resolve(filteredItems);
-        });
-    };
 
     private handleChange = (
         event: CustomEvent<

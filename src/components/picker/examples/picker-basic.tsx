@@ -4,13 +4,22 @@ import { Component, h, State } from '@stencil/core';
 /**
  * Single value can be picked.
  *
- * - "Search" is done locally in the frontend.
+ * Since all items are already loaded from the server, we can use the
+ * `allItems` property to provide the picker with all the items at once.
+ * The picker uses a default search function that filters the items based on
+ * the `text` and `secondaryText` properties of the items.
+ *
+ * :::note
+ * For performance reasons, the default searcher will never return more
+ * than 20 items, but if there are more than 20 items, the rest can be
+ * found by typing more characters in the search field.
+ * :::
  */
 @Component({
-    tag: 'limel-example-picker-single',
+    tag: 'limel-example-picker-basic',
     shadow: true,
 })
-export class PickerSingleExample {
+export class PickerBasicExample {
     @State()
     private selectedItem: ListItem<number>;
 
@@ -35,27 +44,14 @@ export class PickerSingleExample {
             <limel-picker
                 label="Favorite awesomenaut"
                 value={this.selectedItem}
-                searcher={this.search}
+                allItems={this.allItems}
+                emptyResultMessage="No matching awesomenauts found"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,
             <limel-example-value value={this.selectedItem} />,
         ];
     }
-
-    private search = (query: string): Promise<ListItem[]> => {
-        return new Promise((resolve) => {
-            if (query === '') {
-                return resolve(this.allItems);
-            }
-
-            const filteredItems = this.allItems.filter((item) => {
-                return item.text.toLowerCase().includes(query.toLowerCase());
-            });
-
-            return resolve(filteredItems);
-        });
-    };
 
     private onChange = (event: LimelPickerCustomEvent<ListItem<number>>) => {
         this.selectedItem = event.detail;
