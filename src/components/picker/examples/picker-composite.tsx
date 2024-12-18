@@ -24,7 +24,7 @@ export class PickerCompositeExample {
         helperText: 'My helper text',
         leadingIcon: 'search',
         emptyResultMessage: 'No matches found',
-        delimiter: null,
+        delimiter: '',
         value: [],
         required: false,
         disabled: false,
