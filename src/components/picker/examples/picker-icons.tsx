@@ -144,31 +144,14 @@ export class PickerIconsExample {
                 value={this.selectedItems}
                 searchLabel={'Search your awesomenaut'}
                 multiple={true}
-                searcher={this.search}
+                allItems={this.allItems}
+                emptyResultMessage="No matching awesomenauts found"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,
             <limel-example-value value={this.selectedItems} />,
         ];
     }
-
-    private search = (query: string): Promise<ListItem[]> => {
-        return new Promise((resolve) => {
-            if (query === '') {
-                resolve([]);
-            }
-
-            const filteredItems = this.allItems.filter((item) => {
-                const searchText =
-                    item.text.toLowerCase() +
-                    ' ' +
-                    item.secondaryText.toLowerCase();
-
-                return searchText.includes(query.toLowerCase());
-            });
-            resolve(filteredItems);
-        });
-    };
 
     private onChange = (
         event: LimelPickerCustomEvent<Array<ListItem<number>>>,

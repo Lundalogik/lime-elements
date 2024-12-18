@@ -4,7 +4,6 @@ import { Component, h, State } from '@stencil/core';
 /**
  * Multiple values can be picked.
  *
- * - "Search" is done locally in the frontend.
  * - Already picked items are removed from the available options.
  */
 @Component({
@@ -39,27 +38,14 @@ export class PickerMultipleExample {
                 label="Favorite awesomenaut"
                 value={this.selectedItems}
                 multiple={true}
-                searcher={this.search}
+                allItems={this.availableItems}
+                emptyResultMessage="No matching awesomenauts found"
                 onChange={this.onChange}
                 onInteract={this.onInteract}
             />,
             <limel-example-value value={this.selectedItems} />,
         ];
     }
-
-    private search = (query: string): Promise<ListItem[]> => {
-        return new Promise((resolve) => {
-            if (query === '') {
-                return resolve(this.availableItems);
-            }
-
-            const filteredItems = this.availableItems.filter((item) => {
-                return item.text.toLowerCase().includes(query.toLowerCase());
-            });
-
-            return resolve(filteredItems);
-        });
-    };
 
     private onChange = (
         event: LimelPickerCustomEvent<Array<ListItem<number>>>,

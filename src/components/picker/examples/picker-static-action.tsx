@@ -86,7 +86,6 @@ export class PickerStaticActionsExample {
     private actionPosition: Option<ActionPosition> = this.actionPositions[0];
 
     constructor() {
-        this.search = this.search.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onAction = this.onAction.bind(this);
         this.setBehavior = this.setBehavior.bind(this);
@@ -99,7 +98,7 @@ export class PickerStaticActionsExample {
                 label="Select your favorite pet"
                 value={this.selectedItem}
                 searchLabel={'Search your awesomenaut'}
-                searcher={this.search}
+                allItems={this.allItems}
                 onChange={this.onChange}
                 onInteract={this.onInteract}
                 onAction={this.onAction}
@@ -131,19 +130,6 @@ export class PickerStaticActionsExample {
                 value={this.lastUsedAction}
             />,
         ];
-    }
-
-    private search(query: string): Promise<ListItem[]> {
-        return new Promise((resolve) => {
-            if (query === '') {
-                resolve(this.allItems);
-            }
-
-            const filteredItems = this.allItems.filter((item) => {
-                return item.text.toLowerCase().includes(query.toLowerCase());
-            });
-            resolve(filteredItems);
-        });
     }
 
     private onChange(event: LimelPickerCustomEvent<ListItem<number>>) {

@@ -554,6 +554,7 @@ export namespace Components {
         "actionPosition": ActionPosition;
         "actions": Array<ListItem<Action>>;
         "actionScrollBehavior": ActionScrollBehavior;
+        "allItems"?: Array<ListItem<PickerValue>>;
         "badgeIcons": boolean;
         "delimiter": string;
         "disabled": boolean;
@@ -565,7 +566,7 @@ export namespace Components {
         "multiple": boolean;
         "readonly": boolean;
         "required": boolean;
-        "searcher": Searcher;
+        "searcher"?: Searcher;
         "searchLabel": string;
         "value": ListItem<PickerValue> | Array<ListItem<PickerValue>>;
     }
@@ -1582,6 +1583,7 @@ namespace JSX_2 {
         "actionPosition"?: ActionPosition;
         "actions"?: Array<ListItem<Action>>;
         "actionScrollBehavior"?: ActionScrollBehavior;
+        "allItems"?: Array<ListItem<PickerValue>>;
         "badgeIcons"?: boolean;
         "delimiter"?: string;
         "disabled"?: boolean;
