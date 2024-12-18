@@ -1,3 +1,11 @@
+## [37.76.3](https://github.com/Lundalogik/lime-elements/compare/v37.76.2...v37.76.3) (2024-12-18)
+
+
+### Bug Fixes
+
+
+* **text-editor:** avoid occasional null reference error ([26860c4](https://github.com/Lundalogik/lime-elements/commit/26860c4a7b6e27a2de5ba5ca6271216877656bdf))
+
 ## [37.76.2](https://github.com/Lundalogik/lime-elements/compare/v37.76.1...v37.76.2) (2024-12-17)
 
 
