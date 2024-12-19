@@ -183,8 +183,12 @@ export class InfoTile {
     private renderValue = () => {
         const characterCount = (this.value ?? '').toString().length;
 
-        if (!this.value && this.loading) {
+        if ((this.value === 'undefined' || !this.value) && this.loading) {
             return <span class="value">···</span>;
+        }
+
+        if (!this.value) {
+            return;
         }
 
         if (this.value) {
