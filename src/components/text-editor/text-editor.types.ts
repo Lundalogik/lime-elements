@@ -1,4 +1,17 @@
-import { CustomElement } from '../../global/shared-types/custom-element.types';
+import {
+    CustomElement,
+    CustomElementDefinition,
+} from '../../global/shared-types/custom-element.types';
+import { ListItem } from '../list/list-item.types';
+
+export type TriggerMap = {
+    [K in TriggerCharacter]?: EditorNodeDefinition;
+};
+
+export interface EditorNodeDefinition {
+    customElement: CustomElementDefinition;
+    mapAttributes: (item: ListItem) => { [key: string]: any };
+}
 
 /**
  * @alpha

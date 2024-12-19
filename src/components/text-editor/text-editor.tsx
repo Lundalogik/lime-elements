@@ -26,6 +26,7 @@ import { EditorUiType } from './types';
  * @exampleComponent limel-example-text-editor-composite
  * @exampleComponent limel-example-text-editor-custom-element
  * @exampleComponent limel-example-text-editor-triggers
+ * @exampleComponent limel-example-text-editor-using-trigger-maps
  * @beta
  */
 @Component({
