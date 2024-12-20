@@ -8,9 +8,7 @@ import { Component, h } from '@stencil/core';
  * used to show different states of components,
  * such as Disabled, Required, Readonly, etc…
  *
- * :::warning
- * For internal use only!
- * :::
+ * @private
  */
 @Component({
     tag: 'limel-example-controls',
