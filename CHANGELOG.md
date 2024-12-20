@@ -1,3 +1,16 @@
+## [37.77.0](https://github.com/Lundalogik/lime-elements/compare/v37.76.3...v37.77.0) (2024-12-20)
+
+
+### Features
+
+
+* **file-viewer:** publicly release as a `beta` ([9880c0f](https://github.com/Lundalogik/lime-elements/commit/9880c0f0efe32ba3d948414204d20d190ce17a05))
+
+### Bug Fixes
+
+
+* **file-viewer:** make the unsupported file message more accessible ([597d40a](https://github.com/Lundalogik/lime-elements/commit/597d40a4f3e1305a2341be0f0e70f8a7b1722d45))
+
 ## [37.76.3](https://github.com/Lundalogik/lime-elements/compare/v37.76.2...v37.76.3) (2024-12-18)
 
 
