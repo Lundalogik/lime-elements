@@ -2,6 +2,31 @@ import { Component, h, Prop } from '@stencil/core';
 import { isDate, isObject, isArray, isUndefined } from 'lodash-es';
 
 /**
+ * The `limel-example-value` component is a utility component
+ * used internally in the Lime Elements documentation to display
+ * property values and component states in a formatted way.
+ *
+ * ## Purpose
+ * This component helps visualize different types of values in
+ * our component examples and documentation.
+ * It's particularly useful for:
+ * - Displaying primitive values
+ * - Formatting dates
+ * - Pretty-printing objects and arrays
+ * - Showing undefined values
+ *
+ * ## Usage
+ * ```tsx
+ * <limel-example-value label="Selected item" value={this.selectedItem} />
+ * ```
+ *
+ * Display Formatting
+ * The component automatically formats different value types:
+ * - `undefined` values are displayed as `undefined`
+ * - `Date` objects are converted to strings using `toString()`
+ * - Objects and arrays are pretty-printed using `JSON.stringify` with indentation
+ * - Primitive values are displayed within `<code>` tags.
+ *
  * @private
  */
 @Component({
