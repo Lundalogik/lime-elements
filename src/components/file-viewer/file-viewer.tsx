@@ -273,7 +273,7 @@ export class FileViewer {
 
     private renderNoFileSupportMessage = () => {
         return (
-            <div class="no-support">
+            <div class="no-support" role="alert">
                 <limel-icon
                     class="icon--warning"
                     name="brake_warning"
