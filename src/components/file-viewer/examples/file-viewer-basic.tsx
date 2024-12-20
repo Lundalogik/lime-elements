@@ -12,7 +12,7 @@ import { Component, h } from '@stencil/core';
     styleUrl: 'file-viewer-basic.scss',
 })
 export class FileViewerExample {
-    private fileViewers = [
+    private files = [
         {
             title: 'Image',
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/TEIDE.JPG/2880px-TEIDE.JPG',
@@ -46,7 +46,7 @@ export class FileViewerExample {
     ];
 
     public render() {
-        return this.fileViewers.map(this.renderFileViewer);
+        return this.files.map(this.renderFileViewer);
     }
 
     private renderFileViewer(fileViewer: any) {
