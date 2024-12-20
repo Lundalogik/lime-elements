@@ -20,7 +20,7 @@ export class FileViewerExample {
         },
         {
             title: 'Vector graphic',
-            url: 'https://lundalogik.github.io/lime-elements/versions/next/favicon.svg',
+            url: 'https://lundalogik.github.io/lime-elements/versions/latest/favicon.svg',
             alt: 'Logo of Lime Elements',
         },
         {

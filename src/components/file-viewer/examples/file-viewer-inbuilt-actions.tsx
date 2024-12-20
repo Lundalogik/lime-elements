@@ -34,7 +34,7 @@ export class FileViewerInbuiltActionsExample {
             />,
             <limel-file-viewer
                 class="hosted-on-the-same-domain"
-                url="https://lundalogik.github.io/lime-elements/versions/next/favicon.svg"
+                url="https://lundalogik.github.io/lime-elements/versions/latest/favicon.svg"
                 allowFullscreen={true}
                 allowOpenInNewTab={true}
                 allowDownload={true}
