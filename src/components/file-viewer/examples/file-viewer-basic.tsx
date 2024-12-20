@@ -15,8 +15,8 @@ export class FileViewerExample {
     private fileViewers = [
         {
             title: 'Image',
-            url: 'https://www.lime-technologies.se/wp-content/uploads/2021/02/SummerParty-8-scaled.jpg',
-            alt: 'Some of the people working at Lime Technologies',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/TEIDE.JPG/2880px-TEIDE.JPG',
+            alt: 'A synthetic-aperture radar image acquired by the SIR-C/X-SAR radar on board the Space Shuttle Endeavour shows the Teide volcano.',
         },
         {
             title: 'Vector graphic',
@@ -25,7 +25,7 @@ export class FileViewerExample {
         },
         {
             title: 'PDF',
-            url: 'https://investors.lime-technologies.com/wp-content/uploads/2023/04/Sustainability-report-2022.pdf',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/13/Example.pdf',
         },
         {
             title: 'Text',
