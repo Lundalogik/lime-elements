@@ -1,3 +1,11 @@
+## [37.78.0](https://github.com/Lundalogik/lime-elements/compare/v37.77.0...v37.78.0) (2024-12-20)
+
+
+### Features
+
+
+* **picker:** add default searcher function for simple client-side filtering ([86e7405](https://github.com/Lundalogik/lime-elements/commit/86e7405d325cdb5eb84a1abad5b8a29ac89f4a73)), closes [Lundalogik/crm-feature#4534](https://github.com/Lundalogik/crm-feature/issues/4534)
+
 ## [37.77.0](https://github.com/Lundalogik/lime-elements/compare/v37.76.3...v37.77.0) (2024-12-20)
 
 
