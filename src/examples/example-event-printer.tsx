@@ -1,6 +1,8 @@
 import { Component, h, Method, State } from '@stencil/core';
 import dayjs from 'dayjs';
-
+/**
+ * @private
+ */
 @Component({
     tag: 'limel-example-event-printer',
     styleUrl: 'example-event-printer.scss',
