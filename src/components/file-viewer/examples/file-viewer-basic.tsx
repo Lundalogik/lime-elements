@@ -7,9 +7,9 @@ import { Component, h } from '@stencil/core';
  * plugins or extensions.
  */
 @Component({
-    tag: 'limel-example-file-viewer',
+    tag: 'limel-example-file-viewer-basic',
     shadow: true,
-    styleUrl: 'file-viewer.scss',
+    styleUrl: 'file-viewer-basic.scss',
 })
 export class FileViewerExample {
     private fileViewers = [
