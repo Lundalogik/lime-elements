@@ -1,6 +1,36 @@
 import { Component, h, Method, State } from '@stencil/core';
 import dayjs from 'dayjs';
 /**
+ * The `limel-example-event-printer` component is a utility component used in
+ * Lime Elements documentation for debugging and displaying events
+ * that occur in component examples.
+ *
+ * ## Purpose
+ * This component acts as an event logger that:
+ * - Captures and displays events in a readable format
+ * - Shows event details in an expandable view
+ * - Timestamps each event occurrence
+ * - Pretty-prints event data
+ *
+ * ## Usage
+ * ```tsx
+ * <limel-example-event-printer ref={(el) => this.eventPrinter = el} />
+ * // Later in your code:
+ * this.eventPrinter.writeEvent(event);
+ * ```
+ *
+ * ## State Management
+ * Uses @State() decorator to maintain an array of caught events
+ * Each event entry contains:
+ * - `timestamp`: String representation of when the event occurred
+ * - `event`: The actual Event object
+ *
+ * ## Display Format
+ * Events are displayed in a collapsible `<details>` element with:
+ * - Summary showing timestamp, event type, and basic details
+ * - Expandable section showing the full event data
+ * - Code formatting for better readability
+ *
  * @private
  */
 @Component({
