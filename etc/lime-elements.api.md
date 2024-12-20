@@ -386,6 +386,7 @@ export namespace Components {
         "disabled": boolean;
         "multiple": boolean;
     }
+    // @beta
     export interface LimelFileViewer {
         "actions": ListItem[];
         "allowDownload"?: boolean;
@@ -1041,6 +1042,8 @@ namespace JSX_2 {
         "limel-file-dropzone": LimelFileDropzone;
         // (undocumented)
         "limel-file-input": LimelFileInput;
+        // Warning: (ae-incompatible-release-tags) The symbol ""limel-file-viewer"" is marked as @public, but its signature references "JSX_2" which is marked as @beta
+        //
         // (undocumented)
         "limel-file-viewer": LimelFileViewer;
         // (undocumented)
@@ -1398,6 +1401,7 @@ namespace JSX_2 {
         "multiple"?: boolean;
         "onFilesSelected"?: (event: LimelFileInputCustomEvent<FileInfo[]>) => void;
     }
+    // @beta
     interface LimelFileViewer {
         "actions"?: ListItem[];
         "allowDownload"?: boolean;

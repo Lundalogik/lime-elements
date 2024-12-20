@@ -43,7 +43,8 @@ import { LimelMenuCustomEvent } from '../../components';
  * @exampleComponent limel-example-file-viewer-inbuilt-actions
  * @exampleComponent limel-example-file-viewer-custom-actions
  * @exampleComponent limel-example-file-viewer-with-picker
- * @private
+ *
+ * @beta
  */
 
 @Component({
