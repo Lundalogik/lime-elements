@@ -1,6 +1,9 @@
 import { Component, h, Prop } from '@stencil/core';
 import { isDate, isObject, isArray, isUndefined } from 'lodash-es';
 
+/**
+ * @private
+ */
 @Component({
     tag: 'limel-example-value',
     styleUrl: 'example-value.scss',
