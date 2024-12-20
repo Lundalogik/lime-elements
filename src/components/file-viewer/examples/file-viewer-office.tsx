@@ -29,7 +29,7 @@ import { OfficeViewer } from '../file-viewer.types';
 @Component({
     tag: 'limel-example-file-viewer-office',
     shadow: true,
-    styleUrl: 'file-viewer.scss',
+    styleUrl: 'file-viewer-basic.scss',
 })
 export class FileViewerOfficeExample {
     @State()

@@ -37,7 +37,7 @@ import { LimelMenuCustomEvent } from '../../components';
  * browser and take advantage of for example native zooming and panning
  * functionalities.
  *
- * @exampleComponent limel-example-file-viewer
+ * @exampleComponent limel-example-file-viewer-basic
  * @exampleComponent limel-example-file-viewer-office
  * @exampleComponent limel-example-file-viewer-filename
  * @exampleComponent limel-example-file-viewer-inbuilt-actions
