@@ -26,9 +26,9 @@ export class FileViewerFilenameExample {
     public render() {
         return (
             <limel-file-viewer
-                url="https://avatars.githubusercontent.com/u/2682464?s=200&v=4"
-                alt="Lime's avatar on Github"
-                filename="lime-logo.png"
+                url="https://unsplash.it/1280/720/?random"
+                alt="Some random picture form Unsplash"
+                filename="random-image.jpg"
             />
         );
     }

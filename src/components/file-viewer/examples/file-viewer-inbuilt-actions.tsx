@@ -27,7 +27,9 @@ export class FileViewerInbuiltActionsExample {
     public render() {
         return [
             <limel-file-viewer
-                url="https://www.lime-technologies.se/wp-content/uploads/2021/02/SummerParty-8-scaled.jpg"
+                url="https://unsplash.it/1280/720/?random"
+                alt="Some random picture form Unsplash"
+                filename="random-image.jpg"
                 allowFullscreen={true}
                 allowOpenInNewTab={true}
                 allowDownload={true}
