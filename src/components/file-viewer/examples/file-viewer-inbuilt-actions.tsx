@@ -21,7 +21,7 @@ import { Component, h } from '@stencil/core';
 @Component({
     tag: 'limel-example-file-viewer-inbuilt-actions',
     shadow: true,
-    styleUrl: 'limel-example-file-viewer-inbuilt-actions.scss',
+    styleUrl: 'file-viewer-inbuilt-actions.scss',
 })
 export class FileViewerInbuiltActionsExample {
     public render() {
