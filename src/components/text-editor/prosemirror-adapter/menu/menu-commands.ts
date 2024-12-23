@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
-import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
+import { Schema, MarkType, NodeType, Attrs, Node } from 'prosemirror-model';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
 import {
     Command,
@@ -303,17 +304,106 @@ const toggleList = (listType) => {
     };
 };
 
-const createListCommand = (
+const isInListOfType = (state: EditorState, listType: NodeType): boolean => {
+    const { $from } = state.selection;
+    for (let depth = $from.depth; depth > 0; depth--) {
+        const node = $from.node(depth);
+        if (node.type === listType) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+const convertListType = (
+    state: EditorState,
+    fromType: NodeType,
+    toType: NodeType,
+    dispatch?: (tr: Transaction) => void,
+): boolean => {
+    const { $from } = state.selection;
+    let listFound = false;
+    let pos: number;
+    let node: Node;
+
+    // Find the list node
+    for (let depth = $from.depth; depth > 0; depth--) {
+        node = $from.node(depth);
+        if (node.type === fromType) {
+            pos = $from.before(depth);
+            listFound = true;
+            break;
+        }
+    }
+
+    if (!listFound || !dispatch) {
+        return listFound;
+    }
+
+    // Create new list with same content but different type
+    const newList = toType.create(node.attrs, node.content);
+
+    // Create and dispatch the transaction
+    const tr = state.tr.replaceWith(pos, pos + node.nodeSize, newList);
+
+    dispatch(tr);
+
+    return true;
+};
+
+// Define allowed list types based on EditorMenuTypes
+const LIST_TYPES = [
+    EditorMenuTypes.BulletList,
+    EditorMenuTypes.OrderedList,
+] as const;
+
+type ListType = (typeof LIST_TYPES)[number];
+
+const getOtherListType = (schema: Schema, currentType: string): NodeType => {
+    // Validate current type is a valid list type
+    if (!LIST_TYPES.includes(currentType as ListType)) {
+        console.error(`Invalid list type: ${currentType}`);
+    }
+
+    // Find the other list type
+    const otherType = LIST_TYPES.find((type) => type !== currentType);
+
+    if (!otherType || !schema.nodes[otherType]) {
+        console.error(`List type "${otherType}" not found in schema`);
+    }
+
+    return schema.nodes[otherType];
+};
+
+export const createListCommand = (
     schema: Schema,
     listType: string,
 ): CommandWithActive => {
-    const type: NodeType | undefined = schema.nodes[listType];
+    const type = schema.nodes[listType];
     if (!type) {
         throw new Error(`List type "${listType}" not found in schema`);
     }
 
-    const command: CommandWithActive = toggleList(type);
-    setActiveMethodForWrap(command, type);
+    const command: CommandWithActive = (state, dispatch) => {
+        try {
+            const otherListType = getOtherListType(schema, listType);
+
+            if (isInListOfType(state, otherListType)) {
+                return convertListType(state, otherListType, type, dispatch);
+            }
+
+            return toggleList(type)(state, dispatch);
+        } catch (error) {
+            console.error('Error in list command:', error);
+
+            return false;
+        }
+    };
+
+    command.active = (state: EditorState) => {
+        return isInListOfType(state, type);
+    };
 
     return command;
 };
