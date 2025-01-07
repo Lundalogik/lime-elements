@@ -1,3 +1,11 @@
+## [37.78.1](https://github.com/Lundalogik/lime-elements/compare/v37.78.0...v37.78.1) (2025-01-07)
+
+
+### Bug Fixes
+
+
+* **shortcut:** add 3D hover effect ([66674a2](https://github.com/Lundalogik/lime-elements/commit/66674a2782ede2ab5e4ffdbe7418269c251a8c00))
+
 ## [37.78.0](https://github.com/Lundalogik/lime-elements/compare/v37.77.0...v37.78.0) (2024-12-20)
 
 
