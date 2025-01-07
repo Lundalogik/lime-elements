@@ -2,34 +2,34 @@
 
 // .has-rowselector {} // Mabe useful later
 
+$checkbox-distance-to-left-edge: 0.5rem;
+
 .select-all,
 .limel-table--row-selector {
-    --mdc-checkbox-touch-target-size: 1.125rem; // prevent the checkbox affecting the row height
-    limel-checkbox {
-        min-height: 1.125rem;
-    }
+    // prevent the checkbox affecting the row height
+    --mdc-checkbox-touch-target-size: 1.125rem;
+    --mdc-checkbox-ripple-size: 2.5rem;
 }
 
 .select-all {
     position: absolute;
     z-index: $table--limel-table--row-selector;
-    left: 0;
+    left: $checkbox-distance-to-left-edge;
     top: functions.pxToRem(6);
-    width: functions.pxToRem(41); // width of the selector column
-
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
 }
 
 .limel-table--row-selector {
     position: sticky !important; // otherwise will be overwritten from `.tabulator-row .tabulator-cell`
     left: 0;
     border-width: 0;
-    justify-content: center;
     z-index: $table--limel-table--row-selector;
-    padding-right: 0 !important;
-    padding-left: 0 !important;
+
+    text-overflow: unset !important; // Otherwise a `…` will be rendered besides the checkbox, since we truncate all cells
+    padding-left: $checkbox-distance-to-left-edge !important;
+
+    limel-checkbox {
+        margin-top: functions.pxToRem(1);
+    }
 
     .tabulator-row-odd & {
         background-image: linear-gradient(
@@ -66,7 +66,6 @@
 
     limel-checkbox {
         transition: opacity 0.2s ease;
-        align-self: center;
         opacity: 0.3;
 
         .tabulator-row:hover & {

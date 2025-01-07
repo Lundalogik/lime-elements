@@ -120,8 +120,6 @@ $table--limel-table--row-selector: 1;
         padding: $cell-padding;
         padding-left: $cell-padding + $width-of-sorter-arrow;
 
-        display: inline-flex;
-        align-items: center;
         min-height: inherit;
 
         &[style*='text-align: right;'] {
@@ -140,7 +138,6 @@ $table--limel-table--row-selector: 1;
 .tabulator-col,
 .tabulator-cell {
     max-width: var(--table-max-column-width, 40rem);
-    font-size: functions.pxToRem(13);
 }
 
 #tabulator-loader,
