@@ -1,6 +1,7 @@
 import { ListSeparator } from '../../global/shared-types/separator.types';
 import { Icon } from '../../global/shared-types/icon.types';
 import { MenuItem } from '../menu/menu.types';
+import { Image } from '../../global/shared-types/image.types';
 
 export { ListSeparator };
 
@@ -63,6 +64,11 @@ export interface ListItem<T = any> {
      * Component used to render the list item.
      */
     primaryComponent?: ListComponent;
+
+    /**
+     * A picture to show on the list item.
+     */
+    image?: Image;
 }
 
 /**
