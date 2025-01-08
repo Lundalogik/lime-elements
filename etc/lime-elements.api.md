@@ -2294,6 +2294,7 @@ export interface ListItem<T = any> {
     icon?: string | Icon;
     // @deprecated
     iconColor?: string;
+    image?: Image_2;
     primaryComponent?: ListComponent;
     secondaryText?: string;
     selected?: boolean;
