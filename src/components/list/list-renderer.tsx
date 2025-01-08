@@ -6,6 +6,7 @@ import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { ListRendererConfig } from './list-renderer-config';
 import { RadioButtonTemplate } from './radio-button/radio-button.template';
 import { getIconColor, getIconName } from '../icon/get-icon-props';
+import { isEmpty } from 'lodash-es';
 
 export class ListRenderer {
     private defaultConfig: ListRendererConfig = {
@@ -152,6 +153,7 @@ export class ListRenderer {
                 {...attributes}
             >
                 {this.renderIcon(this.config, item)}
+                {this.renderPicture(item)}
                 {this.getPrimaryComponent(item)}
                 {this.renderText(item)}
                 {this.twoLines && this.avatarList ? this.renderDivider() : null}
@@ -246,6 +248,15 @@ export class ListRenderer {
             />
         );
     };
+
+    private renderPicture(item: ListItem) {
+        const image = item.image;
+        if (isEmpty(image)) {
+            return;
+        }
+
+        return <img src={image.src} alt={image.alt} loading="lazy" />;
+    }
 
     private renderDivider = () => {
         const classes = {

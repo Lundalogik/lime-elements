@@ -258,6 +258,34 @@ $list-mdc-list-item: 0;
     }
 }
 
+img {
+    flex-shrink: 0;
+    object-fit: cover;
+
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    box-shadow: 0 0 0 1px rgb(var(--contrast-800), 0.5);
+}
+
+.mdc-deprecated-list-item {
+    &:has(img) {
+        limel-icon {
+            position: absolute;
+            top: 0.125rem;
+            left: 0.125rem;
+            padding: 0.1875rem; // 3px
+            background-color: rgb(var(--contrast-200), 0.8);
+
+            &[badge] {
+                top: 0;
+                padding: 0;
+                scale: 0.6;
+            }
+        }
+    }
+}
+
 @import '../checkbox/checkbox.scss';
 
 @import './radio-button/radio-button.scss';

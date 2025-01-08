@@ -25,6 +25,7 @@ const { ACTION_EVENT } = listStrings;
  * @exampleComponent limel-example-list-selectable
  * @exampleComponent limel-example-list-icons
  * @exampleComponent limel-example-list-badge-icons
+ * @exampleComponent limel-example-list-pictures
  * @exampleComponent limel-example-list-checkbox
  * @exampleComponent limel-example-list-checkbox-icons
  * @exampleComponent limel-example-list-radio-button
