@@ -1,0 +1,2 @@
+import{d as e}from"./_defineProperty-72aa0f12.js";import{e as r}from"./eq-8014c26f.js";function a(r,a,t){if(a=="__proto__"&&e){e(r,a,{configurable:true,enumerable:true,value:t,writable:true})}else{r[a]=t}}var t=Object.prototype;var f=t.hasOwnProperty;function i(e,t,i){var o=e[t];if(!(f.call(e,t)&&r(o,i))||i===undefined&&!(t in e)){a(e,t,i)}}export{i as a,a as b};
+//# sourceMappingURL=_assignValue-2bca0c11.js.map
