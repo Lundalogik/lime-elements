@@ -1,2 +1,0 @@
-var r=9007199254740991;var n=/^(?:0|[1-9]\d*)$/;function a(a,e){var o=typeof a;e=e==null?r:e;return!!e&&(o=="number"||o!="symbol"&&n.test(a))&&(a>-1&&a%1==0&&a<e)}export{a as i};
-//# sourceMappingURL=_isIndex-6de44c7b.js.map
