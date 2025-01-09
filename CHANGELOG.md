@@ -1,3 +1,11 @@
+## [37.78.2](https://github.com/Lundalogik/lime-elements/compare/v37.78.1...v37.78.2) (2025-01-09)
+
+
+### Bug Fixes
+
+
+* **text-editor:** don't show trailing `*` when required="false" ([e2b7118](https://github.com/Lundalogik/lime-elements/commit/e2b7118b6f2166d478c81c5677129e71dcb43110))
+
 ## [37.78.1](https://github.com/Lundalogik/lime-elements/compare/v37.78.0...v37.78.1) (2025-01-07)
 
 
