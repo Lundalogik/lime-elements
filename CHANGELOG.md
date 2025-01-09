@@ -1,3 +1,13 @@
+## [37.79.0](https://github.com/Lundalogik/lime-elements/compare/v37.78.2...v37.79.0) (2025-01-09)
+
+
+### Features
+
+
+* **list-item.types:** add 'image' property to ListItem type ([a900aae](https://github.com/Lundalogik/lime-elements/commit/a900aae551b121f5a626a9a3b67ae4f83d510e69))
+* **list:** add support for displaying pictures in the list items ([dea4059](https://github.com/Lundalogik/lime-elements/commit/dea40594b94efdd2c8314cca9af4c714223afb31))
+* **picker:** add support for displaying pictures in the picker list items ([ebae96e](https://github.com/Lundalogik/lime-elements/commit/ebae96e8e32e3c90247d827575b0f391f46489a8))
+
 ## [37.78.2](https://github.com/Lundalogik/lime-elements/compare/v37.78.1...v37.78.2) (2025-01-09)
 
 
