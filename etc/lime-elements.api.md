@@ -63,6 +63,7 @@ export type CalloutType = 'note' | 'important' | 'tip' | 'caution' | 'warning';
 
 // @beta
 export interface ChartItem<T extends number | [number, number] = number | [number, number]> {
+    clickable?: boolean;
     color?: string;
     formattedValue?: string;
     text: string;
@@ -1213,6 +1214,7 @@ export namespace JSX {
         "language"?: Languages;
         "loading"?: boolean;
         "maxValue"?: number;
+        "onInteract"?: (event: LimelChartCustomEvent<ChartItem>) => void;
         "orientation"?: 'landscape' | 'portrait';
         "type"?: | 'area'
         | 'bar'
@@ -1888,6 +1890,16 @@ export interface LimelCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     // (undocumented)
     target: HTMLLimelCardElement;
+}
+
+// Warning: (ae-missing-release-tag) "LimelChartCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface LimelChartCustomEvent<T> extends CustomEvent<T> {
+    // (undocumented)
+    detail: T;
+    // (undocumented)
+    target: HTMLLimelChartElement;
 }
 
 // Warning: (ae-missing-release-tag) "LimelCheckboxCustomEvent" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
