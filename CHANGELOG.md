@@ -1,3 +1,11 @@
+## [37.79.1](https://github.com/Lundalogik/lime-elements/compare/v37.79.0...v37.79.1) (2025-01-10)
+
+
+### Bug Fixes
+
+
+* **table:** prevent random large font-sizes in iOS & truncate strings ([795d73a](https://github.com/Lundalogik/lime-elements/commit/795d73a2d1cd3bd8d40e64ae82869783d0194e6f))
+
 ## [37.79.0](https://github.com/Lundalogik/lime-elements/compare/v37.78.2...v37.79.0) (2025-01-09)
 
 
