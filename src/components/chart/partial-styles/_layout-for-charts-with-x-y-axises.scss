@@ -8,7 +8,6 @@
     }
 
     .item {
-        @include mixins.visualize-keyboard-focus;
         position: relative;
         mix-blend-mode: hard-light;
     }
