@@ -92,6 +92,10 @@ table {
     &:hover {
         opacity: 1 !important;
     }
+
+    &[role='button'] {
+        cursor: pointer;
+    }
 }
 
 limel-spinner {
