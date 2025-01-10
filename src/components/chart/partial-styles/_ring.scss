@@ -39,8 +39,6 @@
     }
 
     .item {
-        @include mixins.visualize-keyboard-focus;
-
         background: conic-gradient(
             var(--limel-chart-item-color, $default-item-color) 0
                 calc(

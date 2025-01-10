@@ -12,12 +12,11 @@
     }
 
     .item {
-        @include mixins.visualize-keyboard-focus;
         display: flex;
         border-radius: var(--chart-item-border-radius, 0);
         background: var(--limel-chart-item-color, $default-item-color);
 
-        &:last-of-type {
+        &:last-of-type:not(:focus-visible) {
             box-shadow: none !important;
         }
     }
@@ -31,8 +30,12 @@
     .item {
         min-height: 0.5rem;
         width: calc(var(--limel-chart-item-size) * 1%);
-        box-shadow: -1px 0 0 0
-            var(--chart-item-divider-color, rgb(var(--color-white), 0.6)) inset;
+
+        &:not(:focus-visible) {
+            box-shadow: -1px 0 0 0
+                var(--chart-item-divider-color, rgb(var(--color-white), 0.6))
+                inset;
+        }
     }
 }
 
@@ -44,6 +47,9 @@
     .item {
         min-width: 0.5rem;
         height: calc(var(--limel-chart-item-size) * 1%);
-        box-shadow: 0 -1px 0 0 rgb(var(--color-white), 0.6) inset;
+
+        &:not(:focus-visible) {
+            box-shadow: 0 -1px 0 0 rgb(var(--color-white), 0.6) inset;
+        }
     }
 }
