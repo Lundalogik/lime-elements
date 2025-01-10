@@ -82,8 +82,10 @@ table {
 }
 
 .item {
+    @include mixins.visualize-keyboard-focus;
     transition:
         background-color 0.2s ease,
+        box-shadow 0.2s ease,
         filter 0.2s ease,
         opacity 0.4s ease;
     cursor: help;
