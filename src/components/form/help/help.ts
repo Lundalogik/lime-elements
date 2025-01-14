@@ -1,5 +1,4 @@
 import React from 'react';
-import { LimeElementsAdapter } from '../adapters/base-adapter';
 import { FormSchema } from '../form.types';
 
 export function getHelpComponent(schema: FormSchema) {
@@ -15,8 +14,5 @@ export function getHelpComponent(schema: FormSchema) {
 
     const helpProps = help;
 
-    return React.createElement(LimeElementsAdapter, {
-        name: 'limel-help',
-        elementProps: helpProps,
-    });
+    return React.createElement('limel-help', helpProps);
 }

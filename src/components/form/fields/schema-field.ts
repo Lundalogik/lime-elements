@@ -1,4 +1,3 @@
-import { LimeElementsAdapter } from '../adapters';
 import JSONSchemaField from '@rjsf/core/lib/components/fields/SchemaField';
 import React from 'react';
 import { FieldProps } from './types';
@@ -6,7 +5,7 @@ import { isEmpty, capitalize } from 'lodash-es';
 import { resetDependentFields } from './field-helpers';
 import { FieldTemplate } from '../templates';
 import { getHelpComponent } from '../help';
-import { FormSchema } from '../form.types';
+import { FormComponent, FormSchema } from '../form.types';
 import { TimePicker } from '../widgets/time-picker';
 
 /**
@@ -180,11 +179,13 @@ export class SchemaField extends React.Component<FieldProps> {
         return formData;
     }
 
-    private handleCustomComponentChange(event) {
+    private handleCustomComponentChange(
+        event: React.SyntheticEvent<Element, CustomEvent>,
+    ) {
         const { schema } = this.props;
         event.stopPropagation();
 
-        let value = event.detail;
+        let value = event.nativeEvent.detail;
 
         if (shouldChangeToUndefined(value, schema)) {
             value = undefined;
@@ -230,13 +231,17 @@ export class SchemaField extends React.Component<FieldProps> {
             invalid: this.isInvalid(),
             label: this.getLabel(),
             helperText: this.getHelperText(),
-            formInfo: {
-                schema: schema,
-                rootSchema: registry.formContext.schema,
-                errorSchema: errorSchema,
-                rootValue: registry.formContext.rootValue,
-                name: name,
-                schemaPath: this.getSchemaPath(idSchema?.$id),
+            ref: (element: FormComponent) => {
+                element.formInfo = {
+                    schema: schema,
+                    rootSchema: registry.formContext.schema,
+                    errorSchema: errorSchema,
+                    rootValue: registry.formContext.rootValue,
+                    name: name,
+                    schemaPath: this.getSchemaPath(idSchema?.$id),
+                };
+
+                return () => {};
             },
         };
     }
@@ -248,15 +253,10 @@ export class SchemaField extends React.Component<FieldProps> {
 
         verifyCustomComponentIsDefined(name);
 
-        const component = React.createElement(LimeElementsAdapter, {
-            name: name,
-            elementProps: {
-                ...userDefinedComponentProps,
-                ...this.buildCustomComponentProps(),
-            },
-            events: {
-                change: this.handleCustomComponentChange,
-            },
+        const component = React.createElement(name, {
+            ...userDefinedComponentProps,
+            ...this.buildCustomComponentProps(),
+            onChange: this.handleCustomComponentChange,
         });
 
         return React.createElement(

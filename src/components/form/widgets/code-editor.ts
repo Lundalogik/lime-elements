@@ -1,5 +1,4 @@
 import React from 'react';
-import { LimeElementsAdapter } from '../adapters';
 import { FieldProps } from '@rjsf/core';
 
 export class CodeEditor extends React.Component {
@@ -18,22 +17,22 @@ export class CodeEditor extends React.Component {
             // N/A
         }
 
-        return React.createElement(LimeElementsAdapter, {
-            name: 'limel-code-editor',
-            elementProps: {
-                value: value,
-                language: 'json',
-                lineNumbers: true,
-                fold: true,
-                lint: true,
-            },
-            events: {
-                change: this.handleChange,
-            },
+        return React.createElement('limel-code-editor', {
+            value: value,
+            language: 'json',
+            lineNumbers: true,
+            fold: true,
+            lint: true,
+            onChange: this.handleChange,
         });
     }
 
-    private handleChange(event: CustomEvent<string>) {
+    private handleChange(
+        event: React.SyntheticEvent<
+            HTMLLimelCodeEditorElement,
+            CustomEvent<string>
+        >,
+    ) {
         const props = this.props;
         event.stopPropagation();
 
@@ -42,7 +41,7 @@ export class CodeEditor extends React.Component {
         }
 
         try {
-            const value = JSON.parse(event.detail);
+            const value = JSON.parse(event.nativeEvent.detail);
 
             props.onChange(value);
             props.onValidate();
