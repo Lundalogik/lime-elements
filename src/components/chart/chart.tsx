@@ -434,8 +434,7 @@ export class Chart {
         this.range = this.calculateRange();
     }
 
-    private handleClick = (event: MouseEvent) => {
-        const target = event.currentTarget as HTMLElement;
+    private getClickableItem(target: HTMLElement): ChartItem | undefined {
         const index = target.dataset.index;
         if (index === undefined) {
             return;
@@ -443,6 +442,15 @@ export class Chart {
 
         const item = this.items[Number(index)];
         if (!item.clickable) {
+            return;
+        }
+
+        return item;
+    }
+
+    private handleClick = (event: MouseEvent) => {
+        const item = this.getClickableItem(event.currentTarget as HTMLElement);
+        if (!item) {
             return;
         }
 
@@ -451,20 +459,16 @@ export class Chart {
     };
 
     private handleKeyDown = (event: KeyboardEvent) => {
-        const target = event.currentTarget as HTMLElement;
-        const index = target.dataset.index;
-        if (index === undefined) {
+        if (event.key !== 'Enter' && event.key !== ' ') {
             return;
         }
 
-        const item = this.items[Number(index)];
-        if (!item.clickable) {
+        const item = this.getClickableItem(event.currentTarget as HTMLElement);
+        if (!item) {
             return;
         }
 
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            this.handleClick(event as unknown as MouseEvent);
-        }
+        event.preventDefault();
+        this.interact.emit(item);
     };
 }
