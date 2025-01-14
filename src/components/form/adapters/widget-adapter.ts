@@ -1,15 +1,14 @@
 import React from 'react';
 import { WidgetProps } from '../widgets/types';
-import { LimeElementsAdapter } from './base-adapter';
 import { capitalize } from 'lodash-es';
 import { getHelpComponent } from '../help';
 
-interface WidgetAdapterProps {
+export interface WidgetAdapterProps {
     name: string;
     value?: any;
     widgetProps: WidgetProps;
     extraProps?: any;
-    events?: { [key: string]: (event: any) => void };
+    events: { change: (event: CustomEvent) => void };
 }
 
 /**
@@ -22,7 +21,7 @@ interface WidgetAdapterProps {
  * Please read the docs for more info.
  * Link: https://react-jsonschema-form.readthedocs.io/
  */
-export class LimeElementsWidgetAdapter extends React.Component {
+export class LimeElementsWidgetAdapter extends React.Component<WidgetAdapterProps> {
     state = {
         modified: false,
     };
@@ -102,37 +101,35 @@ export class LimeElementsWidgetAdapter extends React.Component {
     }
 
     render() {
-        const { name, events, extraProps } = this.props;
+        const { name, extraProps } = this.props;
         const disabled = this.isDisabled();
         const value = this.getValue();
         const readonly = this.isReadOnly();
 
-        const newEvents = {
-            change: this.props.widgetProps.onChange,
-            blur: this.handleBlur,
-            ...events,
-        };
-
         return React.createElement(
             React.Fragment,
             {},
-            React.createElement(LimeElementsAdapter, {
-                name: name,
-                elementProps: {
-                    value: value,
-                    label: this.getLabel(),
-                    disabled: disabled,
-                    readonly: readonly,
-                    required: this.isRequired(),
-                    invalid: this.isInvalid(),
-                    'helper-text': this.getHelperText(),
-                    ...extraProps,
-                },
-                events: newEvents,
+            React.createElement(name, {
+                value: value,
+                label: this.getLabel(),
+                disabled: disabled,
+                readonly: readonly,
+                required: this.isRequired(),
+                invalid: this.isInvalid(),
+                'helper-text': this.getHelperText(),
+                ...extraProps,
+                onChange: this.handleChange,
+                onBlur: this.handleBlur,
             }),
             getHelpComponent(this.props.widgetProps.schema),
         );
     }
+
+    private handleChange = (
+        event: React.SyntheticEvent<Element, CustomEvent>,
+    ) => {
+        this.props.events.change(event.nativeEvent);
+    };
 
     private isDisabled() {
         const widgetProps = this.props.widgetProps;
