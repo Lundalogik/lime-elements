@@ -34,7 +34,7 @@ export class ChartClickableItemsExample {
             <limel-chart
                 items={chartItems}
                 maxValue={128}
-                onItemSelected={this.handleSelected}
+                onInteract={this.handleSelected}
             />,
             <limel-example-value
                 label="Clicked item"

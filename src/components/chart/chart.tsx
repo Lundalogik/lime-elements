@@ -118,10 +118,10 @@ export class Chart {
     };
 
     /**
-     * Fired when a feed item with `clickable` set to `true` is clicked
+     * Fired when a chart item with `clickable` set to `true` is clicked
      */
     @Event()
-    public itemSelected: EventEmitter<ChartItem>;
+    public interact: EventEmitter<ChartItem>;
 
     public componentWillLoad() {
         this.recalculateRangeData();
@@ -447,7 +447,7 @@ export class Chart {
         }
 
         event.stopPropagation();
-        this.itemSelected.emit(item);
+        this.interact.emit(item);
     };
 
     private handleKeyDown = (event: KeyboardEvent) => {
