@@ -99,7 +99,7 @@ $table--limel-table--row-selector: 1;
 
 .tabulator-row {
     transition: background-color 0.2s ease;
-    min-height: 2.25rem;
+    height: 2.25rem;
 
     &:hover {
         transition: background-color 0.1s ease;
@@ -120,7 +120,7 @@ $table--limel-table--row-selector: 1;
         padding: $cell-padding;
         padding-left: $cell-padding + $width-of-sorter-arrow;
 
-        min-height: inherit;
+        height: inherit;
 
         &[style*='text-align: right;'] {
             justify-content: flex-end;
