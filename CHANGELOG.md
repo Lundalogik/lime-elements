@@ -1,3 +1,16 @@
+## [37.79.2](https://github.com/Lundalogik/lime-elements/compare/v37.79.1...v37.79.2) (2025-01-16)
+
+
+### Bug Fixes
+
+
+* **form:** avoid using and remove LimeElementsAdapter ([f9d8ece](https://github.com/Lundalogik/lime-elements/commit/f9d8ece92ccb9bcb969c210677b24881f8bbb40e))
+
+### Reverts
+
+
+* Revert "ci(dependabot): ignore new major versions of react and related deps" ([b7f5264](https://github.com/Lundalogik/lime-elements/commit/b7f5264aae5c12bebe486090d6902d4d902be813))
+
 ## [37.79.1](https://github.com/Lundalogik/lime-elements/compare/v37.79.0...v37.79.1) (2025-01-10)
 
 
