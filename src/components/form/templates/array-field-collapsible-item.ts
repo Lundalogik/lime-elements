@@ -33,7 +33,6 @@ interface CollapsibleItemProps {
 }
 
 export class CollapsibleItemTemplate extends React.Component {
-    public refs: { section: any };
     state = {
         isOpen: false,
     };
@@ -48,8 +47,10 @@ export class CollapsibleItemTemplate extends React.Component {
         };
     }
 
+    private section: HTMLLimelCollapsibleSectionElement;
+
     public componentDidMount() {
-        const section: HTMLLimelCollapsibleSectionElement = this.refs.section;
+        const section = this.section;
         section.addEventListener('action', this.handleAction);
         section.addEventListener('open', this.handleOpen);
 
@@ -57,12 +58,11 @@ export class CollapsibleItemTemplate extends React.Component {
     }
 
     public componentDidUpdate() {
-        const section: HTMLLimelCollapsibleSectionElement = this.refs.section;
-        this.setActions(section);
+        this.setActions(this.section);
     }
 
     public componentWillUnmount() {
-        const section: HTMLLimelCollapsibleSectionElement = this.refs.section;
+        const section = this.section;
         section.removeEventListener('action', this.handleAction);
         section.removeEventListener('open', this.handleOpen);
     }
@@ -79,7 +79,9 @@ export class CollapsibleItemTemplate extends React.Component {
             {
                 header: findTitle(data, schema, formSchema) || 'New item',
                 class: 'limel-form-array-item--object',
-                ref: 'section',
+                ref: (section: HTMLLimelCollapsibleSectionElement) => {
+                    this.section = section;
+                },
                 'is-open': this.state.isOpen,
             },
             children,
