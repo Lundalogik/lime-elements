@@ -1,3 +1,11 @@
+## [37.79.4](https://github.com/Lundalogik/lime-elements/compare/v37.79.3...v37.79.4) (2025-01-17)
+
+
+### Bug Fixes
+
+
+* **card:** make the UI more responsive ([bc2a007](https://github.com/Lundalogik/lime-elements/commit/bc2a007068bb8a9d4c5a8e411fcb2c0081b82d36))
+
 ## [37.79.3](https://github.com/Lundalogik/lime-elements/compare/v37.79.2...v37.79.3) (2025-01-17)
 
 
