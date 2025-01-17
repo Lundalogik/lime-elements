@@ -31,9 +31,6 @@
     limel-action-bar {
         will-change: opacity, padding;
     }
-    .ProseMirror {
-        will-change: padding;
-    }
 }
 
 .ProseMirror-menubar-wrapper {
@@ -101,13 +98,6 @@ limel-action-bar {
 }
 
 .ProseMirror {
-    transition-property: padding;
-    transition-duration: var(
-        --limel-prosemirror-adapter-toolbar-grid-template-rows-transition-duration
-    );
-    transition-timing-function: var(
-        --limel-prosemirror-adapter-toolbar-transition-timing-function
-    );
     position: relative;
     word-wrap: break-word;
     white-space: pre-wrap;
