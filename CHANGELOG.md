@@ -1,3 +1,11 @@
+## [37.79.3](https://github.com/Lundalogik/lime-elements/compare/v37.79.2...v37.79.3) (2025-01-17)
+
+
+### Bug Fixes
+
+
+* **table:** avoid row height change ([1765648](https://github.com/Lundalogik/lime-elements/commit/1765648a2f649f71ec3912a7192d6350bd99dda3))
+
 ## [37.79.2](https://github.com/Lundalogik/lime-elements/compare/v37.79.1...v37.79.2) (2025-01-16)
 
 
