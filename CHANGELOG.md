@@ -1,3 +1,11 @@
+## [37.79.5](https://github.com/Lundalogik/lime-elements/compare/v37.79.4...v37.79.5) (2025-01-17)
+
+
+### Bug Fixes
+
+
+* **text-editor:** don't animate the `padding` around the content ([73a4959](https://github.com/Lundalogik/lime-elements/commit/73a49590828c7fc0302d24a2b351cd28e7af9bb4))
+
 ## [37.79.4](https://github.com/Lundalogik/lime-elements/compare/v37.79.3...v37.79.4) (2025-01-17)
 
 
