@@ -207,7 +207,7 @@ label {
 }
 
 .placeholder {
-    transition-property: top, padding;
+    transition-property: top;
     transition-duration: var(
         --limel-prosemirror-adapter-toolbar-grid-template-rows-transition-duration
     );
