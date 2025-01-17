@@ -72,7 +72,6 @@
                 var(--limel-chart-nps-gauge-angel)
         );
 
-        @include mixins.visualize-keyboard-focus;
         display: flex;
         align-items: flex-start;
         justify-content: center;

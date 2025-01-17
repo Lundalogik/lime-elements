@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
 import { Languages } from '../date-picker/date.types';
 import translate from '../../global/translations';
 import { createRandomString } from '../../util/random-string';
@@ -28,6 +28,7 @@ const DEFAULT_INCREMENT_SIZE = 10;
  * @exampleComponent limel-example-chart-multi-axis-with-negative-start-values
  * @exampleComponent limel-example-chart-multi-axis-area-with-negative-start-values
  * @exampleComponent limel-example-chart-axis-increment
+ * @exampleComponent limel-example-chart-clickable-items
  * @exampleComponent limel-example-chart-accessibility
  * @exampleComponent limel-example-chart-styling
  * @exampleComponent limel-example-chart-creative-styling
@@ -115,6 +116,12 @@ export class Chart {
         maxValue: number;
         totalRange: number;
     };
+
+    /**
+     * Fired when a chart item with `clickable` set to `true` is clicked
+     */
+    @Event()
+    public interact: EventEmitter<ChartItem>;
 
     public componentWillLoad() {
         this.recalculateRangeData();
@@ -222,7 +229,11 @@ export class Chart {
                     class={this.getItemClass(item)}
                     key={itemId}
                     id={itemId}
+                    data-index={index}
                     tabIndex={0}
+                    role={item.clickable ? 'button' : null}
+                    onClick={this.handleClick}
+                    onKeyDown={this.handleKeyDown}
                 >
                     <th>{this.getItemText(item)}</th>
                     <td>{this.getFormattedValue(item)}</td>
@@ -422,4 +433,42 @@ export class Chart {
     private recalculateRangeData() {
         this.range = this.calculateRange();
     }
+
+    private getClickableItem(target: HTMLElement): ChartItem | undefined {
+        const index = target.dataset.index;
+        if (index === undefined) {
+            return;
+        }
+
+        const item = this.items[Number(index)];
+        if (!item.clickable) {
+            return;
+        }
+
+        return item;
+    }
+
+    private handleClick = (event: MouseEvent) => {
+        const item = this.getClickableItem(event.currentTarget as HTMLElement);
+        if (!item) {
+            return;
+        }
+
+        event.stopPropagation();
+        this.interact.emit(item);
+    };
+
+    private handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key !== 'Enter' && event.key !== ' ') {
+            return;
+        }
+
+        const item = this.getClickableItem(event.currentTarget as HTMLElement);
+        if (!item) {
+            return;
+        }
+
+        event.preventDefault();
+        this.interact.emit(item);
+    };
 }

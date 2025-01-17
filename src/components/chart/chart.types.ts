@@ -26,4 +26,11 @@ export interface ChartItem<
      * and make sure there is enough contrast between colors of adjacent items.
      */
     color?: string;
+
+    /**
+     * When set to `true`, the item will become clickable,
+     * which provides visual and accessible feedback when hovered, or focused,
+     * and also results in emitting an event when clicked.
+     */
+    clickable?: boolean;
 }
