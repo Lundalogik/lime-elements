@@ -1,0 +1,106 @@
+:host(limel-markdown.adjust-for-table-cell) {
+    // This is not a public feature.
+    // We use it only in CRM. E.g. in table cells.
+    // This is a helper class, can be applied to `limel-markdown` when
+    // the markdown is used in a `limel-table`.
+    // It ensures that content can be render properly inside a
+    // ver small table cell.
+
+    // Images do not overflow out of the cell and are fully visible.
+    img {
+        max-height: 1.25rem;
+        vertical-align: middle;
+    }
+
+    // Paragraphs are displayed as inline elements.
+    // For instance, they'll follow the same line as an image or headings.
+    p {
+        display: inline;
+    }
+
+    // Headings are displayed as inline elements with a small
+    // visual color to indicate the level of the heading.
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        display: inline-block;
+        vertical-align: bottom;
+
+        font-size: 0.875rem; // Same as `<p>`s
+        margin: 0 0.25rem 0 0;
+        letter-spacing: normal;
+        font-weight: 500;
+
+        &:before {
+            opacity: 0.6;
+            vertical-align: middle;
+            font-size: 0.5rem;
+            border-radius: 0.25rem 0 0 0.25rem;
+            padding: 0.25rem;
+            padding-right: 2rem;
+            margin-right: -1.75rem;
+            background: linear-gradient(
+                to right,
+                rgb(var(--contrast-800), 0.6),
+                rgb(var(--contrast-800), 0)
+            );
+        }
+    }
+
+    h1 {
+        &:before {
+            content: 'H1';
+        }
+    }
+
+    h2 {
+        &:before {
+            content: 'H2';
+        }
+    }
+
+    h3 {
+        &:before {
+            content: 'H3';
+        }
+    }
+
+    h4 {
+        &:before {
+            content: 'H4';
+        }
+    }
+
+    h5 {
+        &:before {
+            content: 'H5';
+        }
+    }
+
+    h6 {
+        &:before {
+            content: 'H6';
+        }
+    }
+
+    // ensures `pre` and `code` won't take too much space
+    pre {
+        margin: 0;
+    }
+    pre > code {
+        padding: 0.125rem;
+        margin: 0;
+    }
+
+    // ensures tables take less space due to margins and paddings
+    dl {
+        margin: 0;
+    }
+    dl dt,
+    dl dd {
+        padding: 0.00625rem 0.125rem;
+    }
+}
