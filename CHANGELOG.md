@@ -1,3 +1,11 @@
+## [37.79.6](https://github.com/Lundalogik/lime-elements/compare/v37.79.5...v37.79.6) (2025-01-21)
+
+
+### Bug Fixes
+
+
+* **markdown:** give images delicate rounded corners ([d3d7b16](https://github.com/Lundalogik/lime-elements/commit/d3d7b16677f9085ffc587134f527b7309f02050e))
+
 ## [37.79.5](https://github.com/Lundalogik/lime-elements/compare/v37.79.4...v37.79.5) (2025-01-17)
 
 
