@@ -10,14 +10,11 @@
 @import './partial-styles/tables.scss';
 @import './partial-styles/blockquotes.scss';
 @import './partial-styles/definition-lists.scss';
+@import './partial-styles/img.scss';
 
 // body-text
 hr {
     border-top: 1px solid rgb(var(--contrast-700));
-}
-
-img {
-    max-width: 100%;
 }
 
 .MsoNormal {
