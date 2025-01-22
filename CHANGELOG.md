@@ -1,3 +1,11 @@
+## [37.79.8](https://github.com/Lundalogik/lime-elements/compare/v37.79.7...v37.79.8) (2025-01-22)
+
+
+### Bug Fixes
+
+
+* **card:** ensure the surface's height respects the component's set height ([73b7788](https://github.com/Lundalogik/lime-elements/commit/73b77882e7a32bef38b7da92e34f09fe2d03dc75))
+
 ## [37.79.7](https://github.com/Lundalogik/lime-elements/compare/v37.79.6...v37.79.7) (2025-01-22)
 
 
