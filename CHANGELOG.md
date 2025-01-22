@@ -1,3 +1,11 @@
+## [37.79.7](https://github.com/Lundalogik/lime-elements/compare/v37.79.6...v37.79.7) (2025-01-22)
+
+
+### Bug Fixes
+
+
+* **card:** ensure the surface is as big as the card ([7d50404](https://github.com/Lundalogik/lime-elements/commit/7d50404cfa4128009e23dd62c336a7cba37ae149))
+
 ## [37.79.6](https://github.com/Lundalogik/lime-elements/compare/v37.79.5...v37.79.6) (2025-01-21)
 
 
