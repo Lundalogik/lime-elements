@@ -1,3 +1,5 @@
+import { CustomElementDefinition } from './shared-types/custom-element.types';
+
 /**
  * Configuration options for limel-config.
  *
@@ -15,6 +17,14 @@ export type Config = {
     defaultLocale?: string;
 
     /**
+     * Whitelisted html elements for `limel-markdown`.
+     *
+     * Any custom element added here will not be sanitized and thus rendered.
+     * @alpha
+     */
+    markdownWhitelist?: CustomElementDefinition[];
+
+    /**
      * @internal
      */
     featureSwitches?: Record<string, boolean>;
@@ -23,6 +33,7 @@ export type Config = {
 class ConfigClass implements Config {
     public iconPath = '';
     public defaultLocale = navigator.language;
+    public markdownWhitelist?: CustomElementDefinition[];
     public featureSwitches: any = getFeatureSwitches(localStorage);
 }
 

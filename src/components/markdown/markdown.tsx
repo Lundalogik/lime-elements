@@ -1,5 +1,6 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
 import { markdownToHTML } from './markdown-parser';
+import { globalConfig } from '../../global/config';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
 
 /**
@@ -38,10 +39,13 @@ export class Markdown {
      * Whitelisted html elements.
      *
      * Any custom element added here will not be sanitized and thus rendered.
+     * Can also be set via `limel-config`. Setting this property will override
+     * the global config.
      * @alpha
      */
     @Prop()
-    public whitelist?: CustomElementDefinition[];
+    public whitelist?: CustomElementDefinition[] =
+        globalConfig.markdownWhitelist;
 
     @Watch('value')
     public async textChanged() {

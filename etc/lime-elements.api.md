@@ -748,6 +748,7 @@ export namespace Components {
 export type Config = {
     iconPath?: string;
     defaultLocale?: string;
+    markdownWhitelist?: CustomElementDefinition[];
     featureSwitches?: Record<string, boolean>;
 };
 
