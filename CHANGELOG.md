@@ -1,3 +1,11 @@
+## [37.80.0](https://github.com/Lundalogik/lime-elements/compare/v37.79.8...v37.80.0) (2025-01-28)
+
+
+### Features
+
+
+* **markdown:** support global whitelist config ([ff8a507](https://github.com/Lundalogik/lime-elements/commit/ff8a507cd3f37b279879d2ef787b1bce15942f7d))
+
 ## [37.79.8](https://github.com/Lundalogik/lime-elements/compare/v37.79.7...v37.79.8) (2025-01-22)
 
 
