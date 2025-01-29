@@ -179,7 +179,7 @@ export class Card {
             return;
         }
 
-        return <h1>{this.heading}</h1>;
+        return <h1 class="title">{this.heading}</h1>;
     }
 
     private renderSubheading() {
