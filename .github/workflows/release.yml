@@ -85,17 +85,6 @@ jobs:
         repository: Lundalogik/lime-webclient
         client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
 
-  create-backport-branch:
-    name: Create Backport Branch
-    needs: [semantic-release]
-    if: needs.semantic-release.outputs.new_release_published == 'true'
-    uses: ./.github/workflows/create-backport-branch.yml
-    secrets: inherit
-    with:
-      last_release_git_tag: ${{ needs.semantic-release.outputs.last_release_git_tag }}
-      last_release_version: ${{ needs.semantic-release.outputs.last_release_version }}
-      new_release_version: ${{ needs.semantic-release.outputs.new_release_version }}
-
   docs:
     needs: semantic-release
     if: needs.semantic-release.outputs.new_release_published == 'true'
