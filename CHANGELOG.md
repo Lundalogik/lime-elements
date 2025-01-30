@@ -1,3 +1,11 @@
+## [37.81.0](https://github.com/Lundalogik/lime-elements/compare/v37.80.1...v37.81.0) (2025-01-30)
+
+
+### Features
+
+
+* **header:** properly support the `Icon` interface ([a70b6d0](https://github.com/Lundalogik/lime-elements/commit/a70b6d0e0508a0c6743afdf1fb79a0753f9e486d))
+
 ## [37.80.1](https://github.com/Lundalogik/lime-elements/compare/v37.80.0...v37.80.1) (2025-01-30)
 
 
