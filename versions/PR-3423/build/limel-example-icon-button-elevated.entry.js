@@ -1,0 +1,2 @@
+import{r as e,h as t}from"./index-6156b4fd.js";const o=class{constructor(t){e(this,t)}render(){return t("limel-icon-button",{label:"Add favourite",icon:"heart_outlined",elevated:true})}};export{o as limel_example_icon_button_elevated};
+//# sourceMappingURL=limel-example-icon-button-elevated.entry.js.map
