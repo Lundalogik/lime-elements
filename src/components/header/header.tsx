@@ -118,7 +118,20 @@ export class Header {
             return;
         }
 
-        return <limel-icon class="icon" badge={true} name={icon} />;
+        return (
+            <limel-icon
+                class="icon"
+                badge={true}
+                name={icon}
+                style={{
+                    '--limel-header-icon-color': `${(this.icon as Icon)?.color ?? ''}`,
+                    '--limel-header-icon-background-color': `${
+                        (this.icon as Icon)?.backgroundColor ?? ''
+                    }`,
+                    title: `${(this.icon as Icon)?.title}`,
+                }}
+            />
+        );
     }
 
     private renderSupportingText() {

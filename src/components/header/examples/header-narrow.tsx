@@ -26,7 +26,10 @@ export class HeaderExample {
         return (
             <limel-header
                 class="is-narrow"
-                icon="ok"
+                icon={{
+                    name: 'ok',
+                    color: 'rgb(var(--color-blue-default))',
+                }}
                 heading="This is a narrow header"
             />
         );

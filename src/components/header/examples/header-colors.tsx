@@ -25,7 +25,10 @@ export class HeaderExample {
     public render() {
         return (
             <limel-header
-                icon="create_new"
+                icon={{
+                    name: 'create_new',
+                    color: 'rgb(var(--color-white))',
+                }}
                 heading="Edit note"
                 subheading="Created: 17 Jan 2023"
             >
