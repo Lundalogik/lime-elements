@@ -427,8 +427,6 @@ export class InputField {
 
         if (this.type === 'textarea') {
             classList['mdc-text-field--textarea'] = true;
-            classList['has-helper-line'] =
-                !!this.helperText || !!this.maxlength;
         } else {
             classList['mdc-text-field--with-leading-icon'] = !!this.leadingIcon;
             classList['mdc-text-field--with-trailing-icon'] =
@@ -542,12 +540,20 @@ export class InputField {
         this.changeEmitter.flush();
     };
 
+    private get validationMessage(): string {
+        if (this.isInvalid() && !this.invalid) {
+            return this.inputElement?.validationMessage || '';
+        }
+
+        return '';
+    }
+
     private hasHelperText = () => {
-        return this.helperText !== null && this.helperText !== undefined;
+        return !!(this.helperText ?? this.validationMessage);
     };
 
     private hasHelperLine = () => {
-        return this.maxlength || this.hasHelperText();
+        return this.maxlength > 0 || this.hasHelperText();
     };
 
     private renderHelperLine = () => {
@@ -561,7 +567,7 @@ export class InputField {
         return (
             <limel-helper-line
                 helperTextId={this.helperTextId}
-                helperText={this.helperText}
+                helperText={this.helperText ?? this.validationMessage}
                 length={length}
                 maxLength={this.maxlength}
                 invalid={this.isInvalid()}

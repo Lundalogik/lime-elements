@@ -21,7 +21,6 @@ export class InputFieldErrorIconExample {
             <limel-input-field
                 label="Text Field with native validation"
                 minlength={MIN_LENGTH}
-                helperText="Please enter at least 6 characters!"
                 value={this.valueNative}
                 onChange={this.onChangeNative}
             />,

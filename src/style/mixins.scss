@@ -345,9 +345,7 @@ $clickable-normal-state-transitions: (
 
     :host(#{$component-tag}:focus),
     :host(#{$component-tag}:focus-visible),
-    :host(#{$component-tag}:focus-within),
-    :host(#{$component-tag}[invalid]:not([invalid='false'])),
-    :host(#{$component-tag}[invalid='true']) {
+    :host(#{$component-tag}:focus-within) {
         --limel-h-l-grid-template-rows-transition-speed: 0.46s;
         --limel-h-l-grid-template-rows: 1fr;
     }
