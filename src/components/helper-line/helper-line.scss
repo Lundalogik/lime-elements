@@ -23,6 +23,9 @@ div {
 }
 
 :host(limel-helper-line.invalid) {
+    --limel-h-l-grid-template-rows-transition-speed: 0.46s;
+    --limel-h-l-grid-template-rows: 1fr;
+
     .helper-text {
         color: var(--mdc-theme-error);
     }
