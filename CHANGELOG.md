@@ -1,3 +1,11 @@
+## [37.80.1](https://github.com/Lundalogik/lime-elements/compare/v37.80.0...v37.80.1) (2025-01-30)
+
+
+### Bug Fixes
+
+
+* **card:** improve visibility of the header ([08f6008](https://github.com/Lundalogik/lime-elements/commit/08f60081848ca06041daf9b59221221ff31df613))
+
 ## [37.80.0](https://github.com/Lundalogik/lime-elements/compare/v37.79.8...v37.80.0) (2025-01-28)
 
 
