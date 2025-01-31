@@ -90,7 +90,7 @@
     "prosemirror-markdown": "^1.13.1",
     "prosemirror-model": ">=1.22.1",
     "prosemirror-schema-basic": "^1.2.3",
-    "prosemirror-tables": "^1.6.2",
+    "prosemirror-tables": "^1.6.3",
     "puppeteer": "^19.11.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
