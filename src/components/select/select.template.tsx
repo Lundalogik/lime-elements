@@ -323,16 +323,19 @@ function getMenuOptionFilter(selectIsRequired: boolean) {
 }
 
 function getSelectedText(value: Option | Option[], readonly: boolean): string {
-    if ((!value || (isMultiple(value) && !value.length)) && readonly) {
-        return '–';
-    }
+    const emptyReadOnlyOption = <span class="readonly-option">–</span>;
 
-    if (!value) {
-        return '';
+    const isEmptyValue = !value || (isMultiple(value) && !value.length);
+    if (isEmptyValue) {
+        return readonly ? emptyReadOnlyOption : '';
     }
 
     if (isMultiple(value)) {
         return value.map((option) => option.text).join(', ');
+    }
+
+    if (readonly && (value.value === 'empty' || value.text === '')) {
+        return emptyReadOnlyOption;
     }
 
     return value.text;
