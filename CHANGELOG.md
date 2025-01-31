@@ -1,3 +1,11 @@
+## [37.81.1](https://github.com/Lundalogik/lime-elements/compare/v37.81.0...v37.81.1) (2025-01-31)
+
+
+### Bug Fixes
+
+
+* **select:** improve visualisation of the `readOnly` state ([60d7f30](https://github.com/Lundalogik/lime-elements/commit/60d7f3029789d1e4c1d6cad08e858508b7f731ab))
+
 ## [37.81.0](https://github.com/Lundalogik/lime-elements/compare/v37.80.1...v37.81.0) (2025-01-30)
 
 
