@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
-import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
+import { Schema, MarkType, NodeType, Attrs, Node } from 'prosemirror-model';
+import { liftListItem } from 'prosemirror-schema-list';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
 import {
     Command,
@@ -303,17 +305,221 @@ const toggleList = (listType) => {
     };
 };
 
-const createListCommand = (
-    schema: Schema,
-    listType: string,
-): CommandWithActive => {
-    const type: NodeType | undefined = schema.nodes[listType];
-    if (!type) {
-        throw new Error(`List type "${listType}" not found in schema`);
+const isInListOfType = (state: EditorState, listType: NodeType): boolean => {
+    const { $from } = state.selection;
+    for (let depth = $from.depth; depth > 0; depth--) {
+        const node = $from.node(depth);
+        if (node.type === listType) {
+            return true;
+        }
     }
 
-    const command: CommandWithActive = toggleList(type);
-    setActiveMethodForWrap(command, type);
+    return false;
+};
+
+const convertListType = (
+    state: EditorState,
+    fromType: NodeType,
+    toType: NodeType,
+    dispatch?: (tr: Transaction) => void,
+): boolean => {
+    const { $from } = state.selection;
+    let listFound = false;
+    let pos: number;
+    let node: Node;
+
+    // Find the list node
+    for (let depth = $from.depth; depth > 0; depth--) {
+        node = $from.node(depth);
+        if (node.type === fromType) {
+            pos = $from.before(depth);
+            listFound = true;
+            break;
+        }
+    }
+
+    if (!listFound || !dispatch) {
+        return listFound;
+    }
+
+    // Create new list with same content but different type
+    const newList = toType.create(node.attrs, node.content);
+
+    // Create and dispatch the transaction
+    const tr = state.tr.replaceWith(pos, pos + node.nodeSize, newList);
+
+    dispatch(tr);
+
+    return true;
+};
+
+// Define allowed list types based on EditorMenuTypes
+const LIST_TYPES = [
+    EditorMenuTypes.BulletList,
+    EditorMenuTypes.OrderedList,
+] as const;
+
+type ListType = (typeof LIST_TYPES)[number];
+
+const getOtherListType = (schema: Schema, currentType: string): NodeType => {
+    // Validate current type is a valid list type
+    if (!LIST_TYPES.includes(currentType as ListType)) {
+        console.error(`Invalid list type: ${currentType}`);
+    }
+
+    // Find the other list type
+    const otherType = LIST_TYPES.find((type) => type !== currentType);
+
+    if (!otherType || !schema.nodes[otherType]) {
+        console.error(`List type "${otherType}" not found in schema`);
+    }
+
+    return schema.nodes[otherType];
+};
+
+/**
+ * Iterates through all list nodes (including nested ones) in the selection
+ * and converts each node from one type to another.
+ *
+ * This helper also handles attribute conversion:
+ * - When converting from an ordered list to a bullet list, attributes like `order` are removed.
+ * - When converting from a bullet list to an ordered list, you can set a default start (e.g. 1).
+ *
+ * @param EditorState - state - The current editor state.
+ * @param NodeType - fromType - The list node type to convert from.
+ * @param NodeType - toType - The list node type to convert to.
+ * @param Function - dispatch - The dispatch function.
+ * @returns boolean - Whether any conversion was performed.
+ */
+const convertAllListNodes = (state, fromType, toType, dispatch) => {
+    let converted = false;
+    let tr = state.tr;
+
+    state.doc.nodesBetween(
+        state.selection.from,
+        state.selection.to,
+        (node, pos) => {
+            if (node.type === fromType) {
+                // Create new attributes by copying the current ones
+                const newAttrs = { ...node.attrs };
+
+                // Handle attribute differences:
+                if (
+                    fromType.name === 'ordered_list' &&
+                    toType.name === 'bullet_list'
+                ) {
+                    // Bullet lists generally do not need an "order" attribute
+                    delete newAttrs.order;
+                } else if (
+                    fromType.name === 'bullet_list' &&
+                    toType.name === 'ordered_list'
+                ) {
+                    // For ordered lists, set a default start if not present
+                    newAttrs.order = newAttrs.order || 1;
+                }
+                // You can add more attribute merging logic here if needed.
+
+                // Replace the current list node with one of the target type
+                const newNode = toType.create(
+                    newAttrs,
+                    node.content,
+                    node.marks,
+                );
+                tr = tr.replaceWith(pos, pos + node.nodeSize, newNode);
+                converted = true;
+
+                // Skip the subtree to avoid reprocessing nested nodes already converted.
+                return false;
+            }
+
+            return true;
+        },
+    );
+
+    if (converted && dispatch) {
+        dispatch(tr.scrollIntoView());
+    }
+
+    return converted;
+};
+
+/**
+ * Converts all list nodes in the selection from one list type to the other.
+ *
+ * Here we assume that the command is meant to toggle the type.
+ * It checks which list type is present (if any) and then converts them.
+ *
+ * @param EditorState - state - The current editor state.
+ * @param Function - dispatch - The dispatch function.
+ * @returns boolean - Whether conversion occurred.
+ */
+const toggleListConversion = (state, dispatch) => {
+    const { schema, selection } = state;
+    const bulletType = schema.nodes.bullet_list;
+    const orderedType = schema.nodes.ordered_list;
+    let bulletCount = 0;
+    let orderedCount = 0;
+
+    state.doc.nodesBetween(selection.from, selection.to, (node) => {
+        if (node.type === bulletType) {
+            bulletCount++;
+        }
+
+        if (node.type === orderedType) {
+            orderedCount++;
+        }
+
+        return true;
+    });
+
+    if (bulletCount > 0 && orderedCount === 0) {
+        // Convert bullet lists to ordered lists
+        return convertAllListNodes(state, bulletType, orderedType, dispatch);
+    } else if (orderedCount > 0 && bulletCount === 0) {
+        // Convert ordered lists to bullet lists
+        return convertAllListNodes(state, orderedType, bulletType, dispatch);
+    }
+
+    // If mixed or if none are found, you might decide not to convert or handle it specially.
+    return false;
+};
+
+export const createListCommand = (schema, listTypeName) => {
+    const type = schema.nodes[listTypeName];
+    if (!type) {
+        throw new Error(`List type "${listTypeName}" not found in schema`);
+    }
+
+    const command = (state, dispatch) => {
+        // First, try to detect and convert if the selection spans a different list type.
+        // For example, if the selection is currently in an ordered list and the command is bullet list.
+        const otherType = getOtherListType(schema, listTypeName);
+        if (otherType && toggleListConversion(state, dispatch)) {
+            return true;
+        }
+
+        // Otherwise, use your original toggleList implementation.
+        return toggleList(type)(state, dispatch);
+    };
+
+    command.active = (state) => {
+        let isActive = false;
+        state.doc.nodesBetween(
+            state.selection.from,
+            state.selection.to,
+            (node) => {
+                if (node.type === type) {
+                    isActive = true;
+
+                    return false;
+                }
+
+                return true;
+            },
+        );
+
+        return isActive;
+    };
 
     return command;
 };
