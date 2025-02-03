@@ -1,3 +1,35 @@
+## [37.81.1](https://github.com/Lundalogik/lime-elements/compare/v37.81.0...v37.81.1) (2025-01-31)
+
+
+### Bug Fixes
+
+
+* **select:** improve visualisation of the `readOnly` state ([60d7f30](https://github.com/Lundalogik/lime-elements/commit/60d7f3029789d1e4c1d6cad08e858508b7f731ab))
+
+## [37.81.0](https://github.com/Lundalogik/lime-elements/compare/v37.80.1...v37.81.0) (2025-01-30)
+
+
+### Features
+
+
+* **header:** properly support the `Icon` interface ([a70b6d0](https://github.com/Lundalogik/lime-elements/commit/a70b6d0e0508a0c6743afdf1fb79a0753f9e486d))
+
+## [37.80.1](https://github.com/Lundalogik/lime-elements/compare/v37.80.0...v37.80.1) (2025-01-30)
+
+
+### Bug Fixes
+
+
+* **card:** improve visibility of the header ([08f6008](https://github.com/Lundalogik/lime-elements/commit/08f60081848ca06041daf9b59221221ff31df613))
+
+## [37.80.0](https://github.com/Lundalogik/lime-elements/compare/v37.79.8...v37.80.0) (2025-01-28)
+
+
+### Features
+
+
+* **markdown:** support global whitelist config ([ff8a507](https://github.com/Lundalogik/lime-elements/commit/ff8a507cd3f37b279879d2ef787b1bce15942f7d))
+
 ## [37.79.8](https://github.com/Lundalogik/lime-elements/compare/v37.79.7...v37.79.8) (2025-01-22)
 
 
