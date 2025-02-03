@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
-import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
+import { Schema, MarkType, NodeType, Attrs, Fragment } from 'prosemirror-model';
+import { wrapInList } from 'prosemirror-schema-list';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
 import {
     Command,
@@ -269,51 +271,255 @@ const createWrapInCommand = (
     return command;
 };
 
-const toggleList = (listType) => {
-    return (state, dispatch) => {
-        const { $from, $to } = state.selection;
-        const range = $from.blockRange($to);
+/**
+ * Iterates through all list nodes (including nested ones) in the selection
+ * that match the specified list type, and replaces each with a paragraph node.
+ *
+ * @param EditorState - The current editor state.
+ * @param NodeType - The list node type to remove.
+ * @param Schema- The editor schema.
+ * @param Function - The dispatch function.
+ * @returns boolean - True if any list nodes were removed.
+ */
+const removeListNodes = (state, targetType, schema, dispatch) => {
+    let tr = state.tr;
+    let changed = false;
 
-        if (!range) {
-            return false;
-        }
+    state.doc.nodesBetween(
+        state.selection.from,
+        state.selection.to,
+        (node, pos) => {
+            if (node.type === targetType) {
+                const start = pos;
+                const end = pos + node.nodeSize;
 
-        const wrapping = range && findWrapping(range, listType);
+                let frag = Fragment.empty;
+                node.forEach((child) => {
+                    // Each child should be a list_item. If its first child is a paragraph, use that.
+                    if (
+                        child.childCount > 0 &&
+                        child.firstChild.type === schema.nodes.paragraph
+                    ) {
+                        frag = frag.append(Fragment.from(child.firstChild));
+                    } else {
+                        // Otherwise, wrap the list_item content in a new paragraph.
+                        const para = schema.nodes.paragraph.create(
+                            null,
+                            child.content,
+                            child.marks,
+                        );
+                        frag = frag.append(Fragment.from(para));
+                    }
+                });
 
-        if (wrapping) {
-            // Wrap the selection in a list
-            if (dispatch) {
-                dispatch(state.tr.wrap(range, wrapping).scrollIntoView());
+                tr = tr.replaceWith(start, end, frag);
+                changed = true;
+
+                // Skip descending into this node's children.
+                return false;
             }
 
             return true;
-        } else {
-            // Check if we are in a list item and lift out of the list
-            const liftRange = range && liftTarget(range);
-            if (liftRange !== null) {
-                if (dispatch) {
-                    dispatch(state.tr.lift(range, liftRange).scrollIntoView());
+        },
+    );
+
+    if (changed && dispatch) {
+        dispatch(tr.scrollIntoView());
+    }
+
+    return changed;
+};
+
+const isInListOfType = (state: EditorState, listType: NodeType): boolean => {
+    const { $from } = state.selection;
+    for (let depth = $from.depth; depth > 0; depth--) {
+        const node = $from.node(depth);
+        if (node.type === listType) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+// Define allowed list types based on EditorMenuTypes
+const LIST_TYPES = [
+    EditorMenuTypes.BulletList,
+    EditorMenuTypes.OrderedList,
+] as const;
+
+type ListType = (typeof LIST_TYPES)[number];
+
+const getOtherListType = (schema: Schema, currentType: string): NodeType => {
+    if (!LIST_TYPES.includes(currentType as ListType)) {
+        console.error(`Invalid list type: ${currentType}`);
+    }
+
+    const otherType = LIST_TYPES.find((type) => type !== currentType);
+
+    if (!otherType || !schema.nodes[otherType]) {
+        console.error(`List type "${otherType}" not found in schema`);
+    }
+
+    return schema.nodes[otherType];
+};
+
+const fromOrderedToBulletList = (fromType: NodeType, toType: NodeType) => {
+    return (
+        fromType.name === EditorMenuTypes.OrderedList &&
+        toType.name === EditorMenuTypes.BulletList
+    );
+};
+
+const fromBulletToOrderedList = (fromType: NodeType, toType: NodeType) => {
+    return (
+        fromType.name === EditorMenuTypes.BulletList &&
+        toType.name === EditorMenuTypes.OrderedList
+    );
+};
+
+/**
+ * Returns the converted attributes for a list node when converting from one type to another.
+ *
+ * @param NodeType - fromType - The current list type.
+ * @param NodeType - toType - The target list type.
+ * @param Object - attrs - The current attributes.
+ * @returns Object - The updated attributes.
+ */
+const convertAttributes = (fromType, toType, attrs) => {
+    const newAttrs = { ...attrs };
+    if (fromOrderedToBulletList(fromType, toType)) {
+        // Bullet lists generally do not need an "order" attribute.
+        delete newAttrs.order;
+    } else if (fromBulletToOrderedList(fromType, toType)) {
+        // For ordered lists, set a default start if not present.
+        newAttrs.order = newAttrs.order || 1;
+    }
+
+    return newAttrs;
+};
+
+/**
+ * Iterates through all list nodes (including nested ones) in the selection
+ * and converts each node from one type to another.
+ *
+ * This helper also handles attribute conversion:
+ * - When converting from an ordered list to a bullet list, attributes like "order" are removed.
+ * - When converting from a bullet list to an ordered list, a default start (1) is set if not present.
+ *
+ * @param EditorState - state - The current editor state.
+ * @param NodeType - fromType - The list node type to convert from.
+ * @param NodeType - toType - The list node type to convert to.
+ * @param Function - dispatch - The dispatch function.
+ * @returns boolean - Whether any conversion was performed.
+ */
+const convertAllListNodes = (state, fromType, toType, dispatch) => {
+    let converted = false;
+    let tr = state.tr;
+
+    state.doc.nodesBetween(
+        state.selection.from,
+        state.selection.to,
+        (node, pos) => {
+            if (node.type === fromType) {
+                const newAttrs = convertAttributes(
+                    fromType,
+                    toType,
+                    node.attrs,
+                );
+                const newNode = toType.create(
+                    newAttrs,
+                    node.content,
+                    node.marks,
+                );
+                tr = tr.replaceWith(pos, pos + node.nodeSize, newNode);
+                converted = true;
+
+                return false; // Skip the subtree.
+            }
+
+            return true;
+        },
+    );
+
+    if (converted && dispatch) {
+        dispatch(tr.scrollIntoView());
+    }
+
+    return converted;
+};
+
+/**
+ * Adjusts the current selection to include only fully selected blocks.
+ *
+ * @param EditorState - state - The current editor state.
+ * @returns Object - An object with properties "from" and "to" representing
+ *   the new selection boundaries.
+ */
+const adjustSelectionToFullBlocks = (state) => {
+    const { $from, $to } = state.selection;
+    // If the selection start is at the beginning of its block, keep it.
+    // Otherwise, move to the end of that block (i.e. skip the partial block).
+    const from = $from.pos === $from.start() ? $from.pos : $from.end();
+    // Similarly, if the selection end is at the end of its block, keep it.
+    // Otherwise, use the start of that block.
+    const to = $to.pos === $to.end() ? $to.pos : $to.start();
+
+    return { from: from, to: to };
+};
+
+export const createListCommand = (schema, listTypeName) => {
+    const type = schema.nodes[listTypeName];
+    if (!type) {
+        throw new Error(`List type "${listTypeName}" not found in schema`);
+    }
+
+    const command = (state, dispatch) => {
+        // If selection is already in the target list type, remove the list.
+        if (isInListOfType(state, type)) {
+            return removeListNodes(state, type, schema, dispatch);
+        }
+
+        // If the selection is in another list type, convert it.
+        const isOtherListType = getOtherListType(schema, listTypeName);
+        if (isOtherListType && isInListOfType(state, isOtherListType)) {
+            return convertAllListNodes(state, isOtherListType, type, dispatch);
+        }
+
+        // Adjust the selection to include only fully selected blocks.
+        const { from, to } = adjustSelectionToFullBlocks(state);
+        if (from >= to) {
+            return false;
+        }
+
+        // Create a new transaction with the adjusted selection.
+        const adjustedTr = state.tr.setSelection(
+            new TextSelection(state.doc.resolve(from), state.doc.resolve(to)),
+        );
+        // Apply the transaction to get a new state.
+        const newState = state.apply(adjustedTr);
+
+        return wrapInList(type)(newState, dispatch);
+    };
+
+    command.active = (state) => {
+        let isActive = false;
+        state.doc.nodesBetween(
+            state.selection.from,
+            state.selection.to,
+            (node) => {
+                if (node.type === type) {
+                    isActive = true;
+
+                    return false;
                 }
 
                 return true;
-            }
+            },
+        );
 
-            return false;
-        }
+        return isActive;
     };
-};
-
-const createListCommand = (
-    schema: Schema,
-    listType: string,
-): CommandWithActive => {
-    const type: NodeType | undefined = schema.nodes[listType];
-    if (!type) {
-        throw new Error(`List type "${listType}" not found in schema`);
-    }
-
-    const command: CommandWithActive = toggleList(type);
-    setActiveMethodForWrap(command, type);
 
     return command;
 };
