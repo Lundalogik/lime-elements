@@ -1,3 +1,11 @@
+## [37.81.2](https://github.com/Lundalogik/lime-elements/compare/v37.81.1...v37.81.2) (2025-02-03)
+
+
+### Bug Fixes
+
+
+* **input-field:** show native validation message as helper text ([590dc6e](https://github.com/Lundalogik/lime-elements/commit/590dc6ed03b11656013283b2e4d7133dbade7266))
+
 ## [37.81.1](https://github.com/Lundalogik/lime-elements/compare/v37.81.0...v37.81.1) (2025-01-31)
 
 
