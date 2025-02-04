@@ -17,6 +17,7 @@
             margin-bottom: 0;
 
             .tabulator-row {
+                height: $height-of-aggregations-row;
                 background: transparent !important;
             }
 
@@ -25,8 +26,9 @@
             }
 
             .tabulator-cell {
-                padding-top: functions.pxToRem(3);
-                padding-bottom: functions.pxToRem(3);
+                height: $height-of-aggregations-row !important;
+                padding-top: 0.25rem;
+                padding-bottom: 0;
             }
         }
     }
