@@ -163,9 +163,9 @@
 
     .has-aggregation {
         .tabulator-tableHolder {
-            margin-bottom: functions.pxToRem(
-                24
-            ); // makes sure aggregations row doesn't cover the last table row, and horizontal scroll bar is shown on windows
+            // makes sure aggregations row doesn't cover the last table row,
+            // and the horizontal scroll bar which is shown on windows
+            margin-bottom: $height-of-aggregations-row;
         }
     }
 
