@@ -161,7 +161,7 @@
         }
     }
 
-    .has-aggregation {
+    &:has(.tabulator-calcs-holder) {
         .tabulator-tableHolder {
             // makes sure aggregations row doesn't cover the last table row,
             // and the horizontal scroll bar which is shown on windows
