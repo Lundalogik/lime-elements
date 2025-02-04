@@ -10,6 +10,7 @@ $width-of-sorter-arrow: 0.5rem;
 $cell-padding: 0.5rem;
 $table--has-interactive-rows--selectable-row--hover: 2;
 $table--limel-table--row-selector: 1;
+$height-of-aggregations-row: 1.5rem;
 
 :host(limel-table) {
     isolation: isolate;
