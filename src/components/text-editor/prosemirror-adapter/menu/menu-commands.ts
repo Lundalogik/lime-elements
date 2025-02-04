@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 /* eslint-disable no-console */
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs, Fragment } from 'prosemirror-model';
@@ -468,6 +469,85 @@ const adjustSelectionToFullBlocks = (state) => {
     return { from: from, to: to };
 };
 
+const toggleList = (listType) => {
+    return (state, dispatch) => {
+        const { $from, $to } = state.selection;
+        const range = $from.blockRange($to);
+
+        if (!range) {
+            return false;
+        }
+
+        const wrapping = range && findWrapping(range, listType);
+
+        if (wrapping) {
+            // Wrap the selection in a list
+            if (dispatch) {
+                dispatch(state.tr.wrap(range, wrapping).scrollIntoView());
+            }
+
+            return true;
+        } else {
+            // Check if we are in a list item and lift out of the list
+            const liftRange = range && liftTarget(range);
+            if (liftRange !== null) {
+                if (dispatch) {
+                    dispatch(state.tr.lift(range, liftRange).scrollIntoView());
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+    };
+};
+
+const handleNoSelection = (state, type, schema, otherType, dispatch) => {
+    const { $from } = state.selection;
+    const blockFrom = $from.start();
+    const blockTo = $from.end();
+    const adjustedTr = state.tr.setSelection(
+        new TextSelection(
+            state.doc.resolve(blockFrom),
+            state.doc.resolve(blockTo),
+        ),
+    );
+    const newState = state.apply(adjustedTr);
+
+    if (isInListOfType(newState, type)) {
+        return removeListNodes(newState, type, schema, dispatch);
+    }
+
+    if (isInListOfType(newState, otherType)) {
+        return convertAllListNodes(newState, otherType, type, dispatch);
+    }
+
+    return toggleList(type)(newState, dispatch);
+};
+
+const handleSelection = (state, type, schema, otherType, dispatch) => {
+    if (isInListOfType(state, type)) {
+        return removeListNodes(state, type, schema, dispatch);
+    }
+
+    if (otherType && isInListOfType(state, otherType)) {
+        return convertAllListNodes(state, otherType, type, dispatch);
+    }
+
+    const { from, to } = adjustSelectionToFullBlocks(state);
+    if (from >= to) {
+        return false;
+    }
+
+    const modifiedTr = state.tr.setSelection(
+        new TextSelection(state.doc.resolve(from), state.doc.resolve(to)),
+    );
+    const updatedState = state.apply(modifiedTr);
+
+    return wrapInList(type)(updatedState, dispatch);
+};
+
 export const createListCommand = (schema, listTypeName) => {
     const type = schema.nodes[listTypeName];
     if (!type) {
@@ -475,31 +555,13 @@ export const createListCommand = (schema, listTypeName) => {
     }
 
     const command = (state, dispatch) => {
-        // If selection is already in the target list type, remove the list.
-        if (isInListOfType(state, type)) {
-            return removeListNodes(state, type, schema, dispatch);
-        }
+        const { $from, $to } = state.selection;
+        const noSelection = $from === $to;
+        const otherType = getOtherListType(schema, listTypeName);
 
-        // If the selection is in another list type, convert it.
-        const isOtherListType = getOtherListType(schema, listTypeName);
-        if (isOtherListType && isInListOfType(state, isOtherListType)) {
-            return convertAllListNodes(state, isOtherListType, type, dispatch);
-        }
-
-        // Adjust the selection to include only fully selected blocks.
-        const { from, to } = adjustSelectionToFullBlocks(state);
-        if (from >= to) {
-            return false;
-        }
-
-        // Create a new transaction with the adjusted selection.
-        const adjustedTr = state.tr.setSelection(
-            new TextSelection(state.doc.resolve(from), state.doc.resolve(to)),
-        );
-        // Apply the transaction to get a new state.
-        const newState = state.apply(adjustedTr);
-
-        return wrapInList(type)(newState, dispatch);
+        return noSelection
+            ? handleNoSelection(state, type, schema, otherType, dispatch)
+            : handleSelection(state, type, schema, otherType, dispatch);
     };
 
     command.active = (state) => {
