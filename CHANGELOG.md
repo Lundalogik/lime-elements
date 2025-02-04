@@ -1,3 +1,12 @@
+## [37.81.3](https://github.com/Lundalogik/lime-elements/compare/v37.81.2...v37.81.3) (2025-02-04)
+
+
+### Bug Fixes
+
+
+* **table:** ensure aggregations row is always shown when needed ([3d5378b](https://github.com/Lundalogik/lime-elements/commit/3d5378bd6ea94e8786bfb22dcd8ed4e4f0bf1427))
+* **table:** prevent numbers in the aggregations row from being cropped ([d65faf9](https://github.com/Lundalogik/lime-elements/commit/d65faf9033ba34f40f0f90c97f1cc84ca7ee113e))
+
 ## [37.81.2](https://github.com/Lundalogik/lime-elements/compare/v37.81.1...v37.81.2) (2025-02-03)
 
 
