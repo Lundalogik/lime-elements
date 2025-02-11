@@ -44,12 +44,8 @@ export class InputFieldErrorIconExample {
     };
 
     private isInvalid = () => {
-        const substringLength = 9;
-
         return !!(
-            this.valueConsumer &&
-            this.valueConsumer.substr(-substringLength, substringLength) !==
-                '@test.com'
+            this.valueConsumer && !this.valueConsumer.endsWith('@test.com')
         );
     };
 }
