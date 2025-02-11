@@ -96,7 +96,7 @@ export class ActionBar {
 
     private hasRendered = false;
     private intersectionObserver: IntersectionObserver;
-    private firstRender = true;
+    private isFirstIntersectionCheck = true;
     private actionBarItems: HTMLLimelActionBarItemElement[] = [];
 
     public connectedCallback() {
@@ -190,7 +190,7 @@ export class ActionBar {
             (entry) => !entry.isIntersecting,
         );
 
-        if (this.firstRender) {
+        if (this.isFirstIntersectionCheck) {
             this.overflowCutoff = intersectingItems.length;
         } else {
             this.overflowCutoff =
@@ -199,7 +199,7 @@ export class ActionBar {
                 notIntersectingItems.length;
         }
 
-        this.firstRender = false;
+        this.isFirstIntersectionCheck = false;
     };
 
     private createIntersectionObserver() {
@@ -210,7 +210,7 @@ export class ActionBar {
         };
 
         this.overflowCutoff = this.actions.length;
-        this.firstRender = true;
+        this.isFirstIntersectionCheck = true;
 
         this.actionBarItems = [];
 
