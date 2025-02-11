@@ -544,7 +544,6 @@ export namespace Components {
         "iconSize": IconSize;
         "items": Array<MenuItem | ListSeparator>;
         "maxLinesSecondaryText": number;
-        "type": MenuListType;
     }
     // (undocumented)
     export interface LimelMenuSurface {
@@ -1577,7 +1576,6 @@ export namespace JSX {
         "maxLinesSecondaryText"?: number;
         "onInteract"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
         "onSelect"?: (event: LimelMenuListCustomEvent<MenuItem>) => void;
-        "type"?: MenuListType;
     }
     // (undocumented)
     export interface LimelMenuSurface {
@@ -2331,9 +2329,6 @@ interface MenuItem<T = any> {
 }
 export { MenuItem }
 export { MenuItem as MenuItem1 }
-
-// @public @deprecated
-export type MenuListType = 'menu';
 
 // @public
 export type MenuLoader = (item: MenuItem) => Promise<Array<MenuItem | ListSeparator>>;
