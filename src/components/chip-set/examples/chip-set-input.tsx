@@ -1,6 +1,6 @@
 import { Chip, LimelChipSetCustomEvent } from '@limetech/lime-elements';
 import { Component, h, State } from '@stencil/core';
-import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
+import { ENTER } from '../../../util/keycodes';
 
 /**
  * Input chip set
@@ -137,10 +137,7 @@ export class ChipSetInputExample {
     };
 
     private onKeyUp = (event: KeyboardEvent) => {
-        if (
-            (event.key === ENTER || event.keyCode === ENTER_KEY_CODE) &&
-            this.textValue.trim()
-        ) {
+        if (event.key === ENTER && this.textValue.trim()) {
             this.value = [
                 ...this.value,
                 this.createChip(this.textValue.trim()),

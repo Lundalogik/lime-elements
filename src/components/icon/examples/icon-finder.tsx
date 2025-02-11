@@ -1,6 +1,6 @@
 import { Chip, LimelChipSetCustomEvent } from '@limetech/lime-elements';
 import { Component, h, Host, State } from '@stencil/core';
-import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
+import { ENTER } from '../../../util/keycodes';
 
 interface Icon {
     id: string;
@@ -100,10 +100,7 @@ export class IconFinder {
     };
 
     private readonly onKeyUp = (event: KeyboardEvent) => {
-        if (
-            (event.key === ENTER || event.keyCode === ENTER_KEY_CODE) &&
-            this.textValue.trim()
-        ) {
+        if (event.key === ENTER && this.textValue.trim()) {
             this.value = [
                 ...this.value,
                 this.createChip(this.textValue.trim()),

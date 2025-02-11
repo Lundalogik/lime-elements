@@ -13,12 +13,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { isMobileDevice } from '../../util/device';
-import {
-    ENTER,
-    ENTER_KEY_CODE,
-    SPACE,
-    SPACE_KEY_CODE,
-} from '../../util/keycodes';
+import { ENTER, SPACE } from '../../util/keycodes';
 import { isMultiple } from '../../util/multiple';
 import { createRandomString } from '../../util/random-string';
 import { SelectTemplate, triggerIconColorWarning } from './select.template';
@@ -313,8 +308,8 @@ export class Select {
     }
 
     private handleMenuTriggerKeyPress(event: KeyboardEvent) {
-        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
-        const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
+        const isEnter = event.key === ENTER;
+        const isSpace = event.key === SPACE;
 
         if (!this.menuOpen && (isSpace || isEnter)) {
             event.stopPropagation();
