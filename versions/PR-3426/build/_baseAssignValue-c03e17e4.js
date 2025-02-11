@@ -1,2 +1,0 @@
-import{d as e}from"./_defineProperty-72aa0f12.js";function r(r,t,a){if(t=="__proto__"&&e){e(r,t,{configurable:true,enumerable:true,value:a,writable:true})}else{r[t]=a}}export{r as b};
-//# sourceMappingURL=_baseAssignValue-c03e17e4.js.map
