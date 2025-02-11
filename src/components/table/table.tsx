@@ -650,13 +650,11 @@ export class Table {
             data: this.data,
         });
 
-        if (isEqual(this.currentLoad, load)) {
-            return resolveExistingData;
+        if (!isEqual(this.currentLoad, load)) {
+            this.currentSorting = columnSorters;
+            this.currentLoad = load;
+            this.load.emit(load);
         }
-
-        this.currentSorting = columnSorters;
-        this.currentLoad = load;
-        this.load.emit(load);
 
         return resolveExistingData;
     }
