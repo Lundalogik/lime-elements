@@ -76,14 +76,6 @@ jobs:
         event-type: update-lime-elements
         repository: Lundalogik/lime-crm-components
         client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
-    - name: Trigger update in lime-webclient
-      if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'main'
-      uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
-      with:
-        token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
-        event-type: update-lime-elements
-        repository: Lundalogik/lime-webclient
-        client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
 
   docs:
     needs: semantic-release
