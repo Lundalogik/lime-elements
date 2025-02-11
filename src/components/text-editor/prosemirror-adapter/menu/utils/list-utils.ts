@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { EditorState } from 'prosemirror-state';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { NodeType, Fragment, Schema } from 'prosemirror-model';
 import { EditorMenuTypes } from '../types';
 import { findWrapping, liftTarget } from 'prosemirror-transform';
@@ -40,7 +40,14 @@ export const getOtherListType = (
     return schema.nodes[otherType];
 };
 
-export const removeListNodes = (state, targetType, schema, dispatch) => {
+export type Dispatch = (tr: Transaction) => void;
+
+export const removeListNodes = (
+    state: EditorState,
+    targetType: NodeType,
+    schema: Schema,
+    dispatch: Dispatch,
+) => {
     let tr = state.tr;
     let changed = false;
 
@@ -100,7 +107,11 @@ const fromBulletToOrderedList = (fromType: NodeType, toType: NodeType) => {
     );
 };
 
-const convertListAttributes = (fromType, toType, attrs) => {
+const convertListAttributes = (
+    fromType: NodeType,
+    toType: NodeType,
+    attrs: Record<string, any>,
+) => {
     const newAttrs = { ...attrs };
     if (fromOrderedToBulletList(fromType, toType)) {
         // Bullet lists generally do not need an "order" attribute.
@@ -113,7 +124,12 @@ const convertListAttributes = (fromType, toType, attrs) => {
     return newAttrs;
 };
 
-export const convertAllListNodes = (state, fromType, toType, dispatch) => {
+export const convertAllListNodes = (
+    state: EditorState,
+    fromType: NodeType,
+    toType: NodeType,
+    dispatch: Dispatch,
+) => {
     let converted = false;
     let tr = state.tr;
 
@@ -149,8 +165,8 @@ export const convertAllListNodes = (state, fromType, toType, dispatch) => {
     return converted;
 };
 
-export const toggleList = (listType) => {
-    return (state, dispatch) => {
+export const toggleList = (listType: NodeType) => {
+    return (state: EditorState, dispatch: Dispatch) => {
         const { $from, $to } = state.selection;
         const range = $from.blockRange($to);
 

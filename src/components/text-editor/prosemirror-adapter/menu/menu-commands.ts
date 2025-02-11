@@ -16,6 +16,7 @@ import {
     removeListNodes,
     convertAllListNodes,
     toggleList,
+    Dispatch,
 } from './utils/list-utils';
 import { adjustSelectionToFullBlocks } from './utils/selection-utils';
 import { copyPasteLinkCommand } from './utils/link-utils';
@@ -225,7 +226,13 @@ const createWrapInCommand = (
  * @param dispatch - The dispatch function.
  * @returns A command for handling list operations when there is no selection.
  */
-const handleListNoSelection = (state, type, schema, otherType, dispatch) => {
+const handleListNoSelection = (
+    state: EditorState,
+    type: NodeType,
+    schema: Schema,
+    otherType: NodeType,
+    dispatch: Dispatch,
+) => {
     const { $from } = state.selection;
     const blockFrom = $from.start();
     const blockTo = $from.end();
@@ -258,7 +265,13 @@ const handleListNoSelection = (state, type, schema, otherType, dispatch) => {
  * @param dispatch - The dispatch function.
  * @returns A command for handling list operations when there is a selection.
  */
-const handleListWithSelection = (state, type, schema, otherType, dispatch) => {
+const handleListWithSelection = (
+    state: EditorState,
+    type: NodeType,
+    schema: Schema,
+    otherType: NodeType,
+    dispatch: Dispatch,
+) => {
     const { $from } = state.selection;
     const listItemType = schema.nodes.list_item;
     const ancestorDepth = findAncestorDepthOfType($from, listItemType);
@@ -298,7 +311,10 @@ const handleListWithSelection = (state, type, schema, otherType, dispatch) => {
  * @param listTypeName - The name of the list type to toggle.
  * @returns A command for toggling list types.
  */
-export const createListCommand = (schema, listTypeName) => {
+export const createListCommand = (
+    schema: Schema,
+    listTypeName: string,
+): CommandWithActive => {
     const type = schema.nodes[listTypeName];
     if (!type) {
         throw new Error(`List type "${listTypeName}" not found in schema`);
