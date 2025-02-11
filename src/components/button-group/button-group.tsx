@@ -174,7 +174,7 @@ export class ButtonGroup {
         event.stopPropagation();
         const target = event.target as HTMLInputElement;
         // The ID is prefixed with `b` in the HTML, remember? /Ads
-        this.selectedButtonId = target.id.substr(1);
+        this.selectedButtonId = target.id.slice(1);
         const button = this.value.find((item) => {
             return item.id === this.selectedButtonId;
         });
