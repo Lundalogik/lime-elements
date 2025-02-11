@@ -30,8 +30,26 @@ module.exports = {
             },
         ],
         '@semantic-release/changelog',
+        [
+            '@semantic-release/exec',
+            {
+                prepareCmd:
+                    // eslint-disable-next-line no-template-curly-in-string
+                    'sed -i "s/sonar\\.projectVersion=.*/sonar.projectVersion=${nextRelease.version}/" sonar-project.properties',
+            },
+        ],
         '@semantic-release/npm',
-        '@semantic-release/git',
+        [
+            '@semantic-release/git',
+            {
+                assets: [
+                    'CHANGELOG.md',
+                    'package.json',
+                    'package-lock.json',
+                    'sonar-project.properties',
+                ],
+            },
+        ],
         [
             '@semantic-release/github',
             {
