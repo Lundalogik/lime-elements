@@ -94,11 +94,16 @@ export class ActionBar {
     @State()
     private overflowCutoff: number = this.actions.length;
 
+    private hasRendered = false;
     private intersectionObserver: IntersectionObserver;
     private firstRender = true;
     private actionBarItems: HTMLLimelActionBarItemElement[] = [];
 
-    public connectedCallback() {}
+    public connectedCallback() {
+        if (this.hasRendered) {
+            this.createIntersectionObserver();
+        }
+    }
 
     public componentDidRender() {
         if (this.haveItemsChanged()) {
@@ -111,10 +116,10 @@ export class ActionBar {
         this.intersectionObserver?.disconnect();
         this.intersectionObserver = undefined;
         this.actionBarItems = [];
-        this.connectedCallback = () => this.createIntersectionObserver();
     }
 
     public render() {
+        this.hasRendered = true;
         let overflowActions: Array<MenuItem | ListSeparator> = [];
         if (this.actions.length) {
             overflowActions = this.actions.slice(this.overflowCutoff);
