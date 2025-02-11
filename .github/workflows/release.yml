@@ -60,22 +60,6 @@ jobs:
         aws-role: ${{ secrets.AWS_SHARED_LIMECLOUD_WRITE_STATIC_FILES_ROLE }}
         frontend-path: ./
         package-version: ${{ steps.semantic.outputs.new_release_version }}
-    - name: Trigger update in lime-crm-building-blocks
-      if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'main'
-      uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
-      with:
-        token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
-        event-type: update-lime-elements
-        repository: Lundalogik/lime-crm-building-blocks
-        client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
-    - name: Trigger update in lime-crm-components
-      if: steps.semantic.outputs.new_release_published == 'true' && github.ref_name == 'main'
-      uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
-      with:
-        token: ${{ secrets.PRIVATE_REPO_DISPATCH }}
-        event-type: update-lime-elements
-        repository: Lundalogik/lime-crm-components
-        client-payload: '{"version": "${{ steps.semantic.outputs.new_release_version }}"}'
 
   docs:
     needs: semantic-release
