@@ -89,7 +89,7 @@ export class ActionBar {
     public itemSelected: EventEmitter<ActionBarItem>;
 
     @Element()
-    private host: HTMLElement;
+    private readonly host: HTMLElement;
 
     @State()
     private overflowCutoff: number = this.actions.length;
@@ -142,7 +142,10 @@ export class ActionBar {
         );
     }
 
-    private renderActionBarItem = (item: ActionBarItem, index: number) => {
+    private readonly renderActionBarItem = (
+        item: ActionBarItem,
+        index: number,
+    ) => {
         return (
             <limel-action-bar-item
                 item={item}
@@ -153,7 +156,9 @@ export class ActionBar {
         );
     };
 
-    private renderOverflowMenu = (items: Array<MenuItem | ListSeparator>) => {
+    private readonly renderOverflowMenu = (
+        items: Array<MenuItem | ListSeparator>,
+    ) => {
         if (!(this.actions.length - this.overflowCutoff)) {
             return;
         }
@@ -172,7 +177,7 @@ export class ActionBar {
         return index < this.overflowCutoff;
     }
 
-    private handleSelect = (
+    private readonly handleSelect = (
         event: CustomEvent<ActionBarItem | ListSeparator>,
     ) => {
         event.stopPropagation();
@@ -181,7 +186,9 @@ export class ActionBar {
         }
     };
 
-    private handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    private readonly handleIntersection = (
+        entries: IntersectionObserverEntry[],
+    ) => {
         const intersectingItems = entries.filter(
             (entry) => entry.isIntersecting,
         );
