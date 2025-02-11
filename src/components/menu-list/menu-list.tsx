@@ -1,7 +1,6 @@
 import { IconSize } from '../icon/icon.types';
 import { ListSeparator } from '../list/list-item.types';
 import { MenuItem } from '../menu/menu.types';
-import { MenuListType } from '../menu-list/menu-list.types';
 import { MDCMenu, MDCMenuItemEvent } from '@material/menu';
 import { MDCRipple } from '@material/ripple';
 import { strings as menuStrings } from '@material/menu/constants';
@@ -45,14 +44,6 @@ export class MenuList {
      */
     @Prop()
     public iconSize: IconSize = 'small';
-
-    /**
-     * The type of the menu, omit to get a regular vertical menu.
-     * Available types are:
-     * `menu`: regular vertical menu.
-     */
-    @Prop()
-    public type: MenuListType;
 
     /**
      * By default, lists will display 3 lines of text, and then truncate the rest.
@@ -99,18 +90,12 @@ export class MenuList {
     public render() {
         this.config = {
             badgeIcons: this.badgeIcons,
-            type: this.type,
             iconSize: this.iconSize,
         };
 
         const html = this.MenuListRenderer.render(this.items, this.config);
 
         return <div class="mdc-menu mdc-menu-surface">{html}</div>;
-    }
-
-    @Watch('type')
-    protected handleType() {
-        this.setupListeners();
     }
 
     @Watch('items')

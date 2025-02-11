@@ -413,7 +413,6 @@ export class Menu {
                     'has-grid-layout has-interactive-items': this.gridLayout,
                 }}
                 items={items}
-                type="menu"
                 badgeIcons={this.badgeIcons}
                 onSelect={this.onSelect}
                 ref={this.setListElement}
