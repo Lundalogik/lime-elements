@@ -8,12 +8,7 @@ import {
     Prop,
 } from '@stencil/core';
 import { isDescendant } from '../../util/dom';
-import {
-    ESCAPE,
-    ESCAPE_KEY_CODE,
-    TAB,
-    TAB_KEY_CODE,
-} from '../../util/keycodes';
+import { ESCAPE, TAB } from '../../util/keycodes';
 
 /**
  * @slot - Content to put inside the surface
@@ -162,9 +157,8 @@ export class MenuSurface {
     };
 
     private handleKeyDown = (event: KeyboardEvent) => {
-        const isEscape =
-            event.key === ESCAPE || event.keyCode === ESCAPE_KEY_CODE;
-        const isTab = event.key === TAB || event.keyCode === TAB_KEY_CODE;
+        const isEscape = event.key === ESCAPE;
+        const isTab = event.key === TAB;
 
         if (this.open && (isEscape || isTab)) {
             event.stopPropagation();

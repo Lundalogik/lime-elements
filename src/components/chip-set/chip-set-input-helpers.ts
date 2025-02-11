@@ -1,16 +1,10 @@
 import {
     ARROW_LEFT,
-    ARROW_LEFT_KEY_CODE,
     ARROW_RIGHT,
-    ARROW_RIGHT_KEY_CODE,
     BACKSPACE,
-    BACKSPACE_KEY_CODE,
     DELETE,
-    DELETE_KEY_CODE,
     ENTER,
-    ENTER_KEY_CODE,
     ESCAPE,
-    ESCAPE_KEY_CODE,
 } from '../../util/keycodes';
 
 /**
@@ -32,21 +26,18 @@ export function handleKeyboardEvent(event: KeyboardEvent) {
         return;
     }
 
-    const isLeft =
-        event.key === ARROW_LEFT || event.keyCode === ARROW_LEFT_KEY_CODE;
-    const isRight =
-        event.key === ARROW_RIGHT || event.keyCode === ARROW_RIGHT_KEY_CODE;
-    const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
-    const isDelete = event.key === DELETE || event.keyCode === DELETE_KEY_CODE;
-    const isBackspace =
-        event.key === BACKSPACE || event.keyCode === BACKSPACE_KEY_CODE;
-    const isEscape = event.key === ESCAPE || event.keyCode === ESCAPE_KEY_CODE;
+    const isArrowLeft = event.key === ARROW_LEFT;
+    const isArrowRight = event.key === ARROW_RIGHT;
+    const isEnter = event.key === ENTER;
+    const isDelete = event.key === DELETE;
+    const isBackspace = event.key === BACKSPACE;
+    const isEscape = event.key === ESCAPE;
 
-    if (isLeft) {
+    if (isArrowLeft) {
         return handleLeft(this, event);
     }
 
-    if (isRight) {
+    if (isArrowRight) {
         return handleRight(this, event);
     }
 

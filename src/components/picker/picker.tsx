@@ -14,18 +14,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { isDescendant } from '../../util/dom';
-import {
-    ARROW_DOWN,
-    ARROW_DOWN_KEY_CODE,
-    ARROW_UP,
-    ARROW_UP_KEY_CODE,
-    ENTER,
-    ENTER_KEY_CODE,
-    ESCAPE,
-    ESCAPE_KEY_CODE,
-    TAB,
-    TAB_KEY_CODE,
-} from '../../util/keycodes';
+import { ARROW_DOWN, ARROW_UP, ENTER, ESCAPE, TAB } from '../../util/keycodes';
 import { createRandomString } from '../../util/random-string';
 import {
     LimelChipSetCustomEvent,
@@ -494,12 +483,7 @@ export class Picker {
 
     private onListKeyDown(event: KeyboardEvent) {
         const keyFound = [TAB, ESCAPE, ENTER].includes(event.key);
-        const keyCodeFound = [
-            TAB_KEY_CODE,
-            ESCAPE_KEY_CODE,
-            ENTER_KEY_CODE,
-        ].includes(event.keyCode);
-        if (keyFound || keyCodeFound) {
+        if (keyFound) {
             this.chipSet.setFocus();
         }
     }
@@ -691,14 +675,12 @@ export class Picker {
      */
     private handleInputKeyDown(event: KeyboardEvent) {
         const isForwardTab =
-            (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
+            event.key === TAB &&
             !event.altKey &&
             !event.metaKey &&
             !event.shiftKey;
-        const isUp =
-            event.key === ARROW_UP || event.keyCode === ARROW_UP_KEY_CODE;
-        const isDown =
-            event.key === ARROW_DOWN || event.keyCode === ARROW_DOWN_KEY_CODE;
+        const isUp = event.key === ARROW_UP;
+        const isDown = event.key === ARROW_DOWN;
 
         if (!isForwardTab && !isUp && !isDown) {
             return;
@@ -734,8 +716,7 @@ export class Picker {
      * @param event - event
      */
     private handleDropdownKeyDown(event: KeyboardEvent) {
-        const isEscape =
-            event.key === ESCAPE || event.keyCode === ESCAPE_KEY_CODE;
+        const isEscape = event.key === ESCAPE;
 
         if (isEscape) {
             event.preventDefault();

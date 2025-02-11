@@ -16,12 +16,7 @@ import {
     removeEnterClickable,
 } from '../../util/make-enter-clickable';
 import translate from '../../global/translations';
-import {
-    BACKSPACE,
-    BACKSPACE_KEY_CODE,
-    DELETE,
-    DELETE_KEY_CODE,
-} from '../../util/keycodes';
+import { BACKSPACE, DELETE } from '../../util/keycodes';
 import { ChipType, Chip as OldChipInterface } from '../chip-set/chip.types';
 import { Image } from '../../global/shared-types/image.types';
 import { isEmpty } from 'lodash-es';
@@ -406,9 +401,8 @@ export class Chip implements ChipInterface {
         }
 
         const keys = [DELETE, BACKSPACE];
-        const keycodes = [DELETE_KEY_CODE, BACKSPACE_KEY_CODE];
 
-        if (keys.includes(event.key) || keycodes.includes(event.keyCode)) {
+        if (keys.includes(event.key)) {
             this.handleRemoveClick(event);
         }
     };

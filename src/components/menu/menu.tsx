@@ -27,15 +27,10 @@ import {
 
 import {
     ARROW_DOWN,
-    ARROW_DOWN_KEY_CODE,
     ARROW_LEFT,
-    ARROW_LEFT_KEY_CODE,
     ARROW_RIGHT,
-    ARROW_RIGHT_KEY_CODE,
     ARROW_UP,
-    ARROW_UP_KEY_CODE,
     TAB,
-    TAB_KEY_CODE,
 } from '../../util/keycodes';
 
 interface MenuCrumbItem extends BreadcrumbsItem {
@@ -453,14 +448,12 @@ export class Menu {
     // list to enable selection with the keyboard
     private handleInputKeyDown = (event: KeyboardEvent) => {
         const isForwardTab =
-            (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
+            event.key === TAB &&
             !event.altKey &&
             !event.metaKey &&
             !event.shiftKey;
-        const isUp =
-            event.key === ARROW_UP || event.keyCode === ARROW_UP_KEY_CODE;
-        const isDown =
-            event.key === ARROW_DOWN || event.keyCode === ARROW_DOWN_KEY_CODE;
+        const isUp = event.key === ARROW_UP;
+        const isDown = event.key === ARROW_DOWN;
 
         if (!isForwardTab && !isUp && !isDown) {
             return;
@@ -499,16 +492,14 @@ export class Menu {
     // And can go forward/back with righ/left arrow keys
     private handleMenuKeyDown = (event: KeyboardEvent) => {
         const isBackwardTab =
-            (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
+            event.key === TAB &&
             !event.altKey &&
             !event.metaKey &&
             event.shiftKey;
 
-        const isLeft =
-            event.key === ARROW_LEFT || event.keyCode === ARROW_LEFT_KEY_CODE;
+        const isLeft = event.key === ARROW_LEFT;
 
-        const isRight =
-            event.key === ARROW_RIGHT || event.keyCode === ARROW_RIGHT_KEY_CODE;
+        const isRight = event.key === ARROW_RIGHT;
 
         if (!isBackwardTab && !isLeft && !isRight) {
             return;

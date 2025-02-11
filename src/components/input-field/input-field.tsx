@@ -12,17 +12,11 @@ import {
 import { debounce } from 'lodash-es';
 import {
     ARROW_DOWN,
-    ARROW_DOWN_KEY_CODE,
     ARROW_UP,
-    ARROW_UP_KEY_CODE,
     ENTER,
-    ENTER_KEY_CODE,
     ESCAPE,
-    ESCAPE_KEY_CODE,
     SPACE,
-    SPACE_KEY_CODE,
     TAB,
-    TAB_KEY_CODE,
 } from '../../util/keycodes';
 import { InputType } from '../input-field/input-field.types';
 import { ListItem } from '../list/list-item.types';
@@ -829,16 +823,14 @@ export class InputField {
     private onKeyDown = (event: KeyboardEvent): void => {
         this.showCompletions = true;
         const isForwardTab =
-            (event.key === TAB || event.keyCode === TAB_KEY_CODE) &&
+            event.key === TAB &&
             !event.altKey &&
             !event.metaKey &&
             !event.shiftKey;
-        const isUp =
-            event.key === ARROW_UP || event.keyCode === ARROW_UP_KEY_CODE;
-        const isDown =
-            event.key === ARROW_DOWN || event.keyCode === ARROW_DOWN_KEY_CODE;
+        const isUp = event.key === ARROW_UP;
+        const isDown = event.key === ARROW_DOWN;
 
-        if (event.keyCode === TAB_KEY_CODE && event.shiftKey) {
+        if (event.key === TAB && event.shiftKey) {
             this.showCompletions = false;
         }
 
@@ -942,12 +934,7 @@ export class InputField {
 
     private handleKeyDownInDropdown = (event: KeyboardEvent) => {
         const keyFound = [TAB, ESCAPE, ENTER].includes(event.key);
-        const keyCodeFound = [
-            TAB_KEY_CODE,
-            ESCAPE_KEY_CODE,
-            ENTER_KEY_CODE,
-        ].includes(event.keyCode);
-        if (keyFound || keyCodeFound) {
+        if (keyFound) {
             this.setFocus();
         }
     };
@@ -1003,8 +990,8 @@ export class InputField {
     };
 
     private handleIconKeyPress = (event: KeyboardEvent) => {
-        const isEnter = event.key === ENTER || event.keyCode === ENTER_KEY_CODE;
-        const isSpace = event.key === SPACE || event.keyCode === SPACE_KEY_CODE;
+        const isEnter = event.key === ENTER;
+        const isSpace = event.key === SPACE;
 
         if (isSpace || isEnter) {
             this.action.emit();
