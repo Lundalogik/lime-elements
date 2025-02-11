@@ -39,10 +39,12 @@ export class FileCustomIconExample {
     };
 
     private updateIcon() {
-        if (this.value?.filename?.substr(-5) === '.crab') {
-            this.value.icon = 'crab';
-            this.value.iconColor = 'rgb(var(--color-white))';
-            this.value.iconBackgroundColor = 'rgb(var(--color-coral-default))';
+        if (this.value?.filename?.endsWith('.crab')) {
+            this.value.icon = {
+                name: 'crab',
+                color: 'rgb(var(--color-white))',
+                backgroundColor: 'rgb(var(--color-coral-default))',
+            };
         }
     }
 }
