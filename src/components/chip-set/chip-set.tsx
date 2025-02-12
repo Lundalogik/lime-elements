@@ -197,34 +197,34 @@ export class ChipSet {
      * Dispatched when a chip is interacted with
      */
     @Event()
-    private interact: EventEmitter<Chip>;
+    private readonly interact: EventEmitter<Chip>;
 
     /**
      * Dispatched when a chip is selected/deselected
      */
     @Event()
-    private change: EventEmitter<Chip | Chip[]>;
+    private readonly change: EventEmitter<Chip | Chip[]>;
 
     /**
      * Emitted when an input chip set has received focus and editing in the text field has started
      */
     @Event()
-    private startEdit: EventEmitter<void>;
+    private readonly startEdit: EventEmitter<void>;
 
     /**
      * Emitted when an input chip set has lost focus and editing in the text field has ended
      */
     @Event()
-    private stopEdit: EventEmitter<void>;
+    private readonly stopEdit: EventEmitter<void>;
 
     /**
      * Dispatched when the input is changed for type `input`
      */
     @Event()
-    private input: EventEmitter<string>;
+    private readonly input: EventEmitter<string>;
 
     @Element()
-    private host: HTMLLimelChipSetElement;
+    private readonly host: HTMLLimelChipSetElement;
 
     @State()
     private editMode: boolean = false;
@@ -242,7 +242,7 @@ export class ChipSet {
     private selectedChipIds: Array<string | number>;
 
     private mdcTextField: MDCTextField;
-    private handleKeyDown = handleKeyboardEvent;
+    private readonly handleKeyDown = handleKeyboardEvent;
 
     constructor() {
         this.renderChip = this.renderChip.bind(this);
@@ -366,7 +366,7 @@ export class ChipSet {
         );
     }
 
-    private getValue = () => {
+    private readonly getValue = () => {
         return this.value.map((chip) => ({
             ...chip,
             ...(this.type && {
@@ -459,7 +459,7 @@ export class ChipSet {
         );
     }
 
-    private renderEmptyValueForReadonly = () => {
+    private readonly renderEmptyValueForReadonly = () => {
         if (this.readonly && this.value.length === 0) {
             return (
                 <span class="lime-empty-value-for-readonly lime-looks-like-input-value">
@@ -490,7 +490,7 @@ export class ChipSet {
         );
     }
 
-    private floatLabelAbove = () => {
+    private readonly floatLabelAbove = () => {
         if (!!this.value.length || this.editMode || this.readonly) {
             return true;
         }
@@ -595,11 +595,11 @@ export class ChipSet {
         return <limel-chip {...chipProps} />;
     }
 
-    private hasHelperText = () => {
+    private readonly hasHelperText = () => {
         return this.helperText !== null && this.helperText !== undefined;
     };
 
-    private renderHelperLine = () => {
+    private readonly renderHelperLine = () => {
         const maxItems = this.maxItems === 1 ? undefined : this.maxItems;
 
         if (!maxItems && !this.hasHelperText()) {
@@ -661,7 +661,7 @@ export class ChipSet {
         };
     }
 
-    private catchInputChipClicks = (chip: Chip) => (event: Event) => {
+    private readonly catchInputChipClicks = (chip: Chip) => (event: Event) => {
         /*
          * We need to add the `chip` to the event object so that the consumer
          * can get the chip object when the chip is clicked.
@@ -723,13 +723,13 @@ export class ChipSet {
         this.selectedChipIds = [...this.selectedChipIds, id];
     }
 
-    private handleRemoveChip = (
+    private readonly handleRemoveChip = (
         event: LimelChipCustomEvent<string | number>,
     ) => {
         this.removeChip(event.detail);
     };
 
-    private removeChip = (identifier: string | number) => {
+    private readonly removeChip = (identifier: string | number) => {
         const newValue = this.value.filter((chip) => {
             return chip.id !== identifier;
         });
@@ -766,7 +766,7 @@ export class ChipSet {
         );
     }
 
-    private clearAllChipsLabel = (): string => {
+    private readonly clearAllChipsLabel = (): string => {
         return translate.get('chip-set.clear-all', this.language);
     };
 
