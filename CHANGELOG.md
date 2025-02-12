@@ -1,3 +1,11 @@
+## [37.81.5](https://github.com/Lundalogik/lime-elements/compare/v37.81.4...v37.81.5) (2025-02-12)
+
+
+### Bug Fixes
+
+
+* **file-viewer:** add accessible option for text files ([39977e9](https://github.com/Lundalogik/lime-elements/commit/39977e9c22c90e272bdfd1abc59c0cd1957e7014))
+
 ## [37.81.4](https://github.com/Lundalogik/lime-elements/compare/v37.81.3...v37.81.4) (2025-02-12)
 
 
