@@ -24,6 +24,7 @@ export function getFileIcon(file: FileInfo) {
 }
 
 export function getFileColor(file: FileInfo) {
+    // eslint-disable-next-line sonarjs/deprecation
     const color = getIconColor(file.icon, file.iconColor);
 
     if (color) {
@@ -41,6 +42,7 @@ export function getFileColor(file: FileInfo) {
 export function getFileBackgroundColor(file: FileInfo) {
     const backgroundColor = getIconBackgroundColor(
         file.icon,
+        // eslint-disable-next-line sonarjs/deprecation
         file.iconBackgroundColor,
     );
 

@@ -108,16 +108,29 @@ export class Button {
 
     @Watch('loading')
     protected loadingWatcher(newValue: boolean, oldValue: boolean) {
-        if (oldValue && !newValue) {
-            this.justLoaded = true;
-            const TIMEOUT = 2000;
-            this.justLoadedTimeout = window.setTimeout(() => {
-                this.justLoaded = false;
-            }, TIMEOUT);
+        const hasFinishedLoading = this.hasFinishedLoading(newValue, oldValue);
+        if (hasFinishedLoading) {
+            this.handleLoadingFinished();
         } else if (newValue) {
-            this.justLoaded = false;
-            window.clearTimeout(this.justLoadedTimeout);
+            this.handleLoadingStarted();
         }
+    }
+
+    private hasFinishedLoading(newValue: boolean, oldValue: boolean) {
+        return oldValue && !newValue;
+    }
+
+    private handleLoadingFinished() {
+        this.justLoaded = true;
+        const TIMEOUT = 2000;
+        this.justLoadedTimeout = window.setTimeout(() => {
+            this.justLoaded = false;
+        }, TIMEOUT);
+    }
+
+    private handleLoadingStarted() {
+        this.justLoaded = false;
+        window.clearTimeout(this.justLoadedTimeout);
     }
 
     private renderLoadingIcons() {

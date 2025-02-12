@@ -122,6 +122,7 @@ export class ActionBarButton {
 
         if ('icon' in this.item) {
             const name = getIconName(this.item.icon);
+            // eslint-disable-next-line sonarjs/deprecation
             const color = getIconColor(this.item.icon, this.item.iconColor);
 
             return (
@@ -169,6 +170,7 @@ export class ActionBarButton {
     }
 
     private triggerIconColorWarning() {
+        // eslint-disable-next-line sonarjs/deprecation
         if (this.isItem(this.item) && this.item.iconColor) {
             /* eslint-disable-next-line no-console */
             console.warn(

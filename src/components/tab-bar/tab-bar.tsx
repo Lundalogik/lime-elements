@@ -267,6 +267,7 @@ export class TabBar {
         }
 
         const name = getIconName(tab.icon);
+        // eslint-disable-next-line sonarjs/deprecation
         const color = getIconColor(tab.icon, tab.iconColor);
         const style = { color: '' };
 
@@ -315,6 +316,7 @@ export class TabBar {
     }
 
     private triggerIconColorWarning() {
+        // eslint-disable-next-line sonarjs/deprecation
         if (this.tabs.some((tab) => tab.iconColor)) {
             /* eslint-disable-next-line no-console */
             console.warn(

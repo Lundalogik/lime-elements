@@ -274,6 +274,7 @@ function createMenuItems(
         const selected = isSelected(option, value);
         const { text, secondaryText, disabled } = option;
         const name = getIconName(option.icon);
+        // eslint-disable-next-line sonarjs/deprecation
         const color = getIconColor(option.icon, option.iconColor);
 
         if (!name) {
@@ -365,6 +366,7 @@ function getSelectedIcon(value: any) {
 
 export function triggerIconColorWarning(options: Option[]) {
     options.forEach((option) => {
+        // eslint-disable-next-line sonarjs/deprecation
         if (option.iconColor) {
             /* eslint-disable-next-line no-console */
             console.warn(

@@ -228,6 +228,7 @@ export class ListRenderer {
             return;
         }
 
+        // eslint-disable-next-line sonarjs/deprecation
         const color = getIconColor(item.icon, item.iconColor);
 
         if (color) {

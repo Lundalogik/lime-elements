@@ -9,7 +9,7 @@ const getCommandSymbols = (): {
     shift: string;
 } => {
     const macUserAgent = /Macintosh|MacIntel|MacPPC|Mac68K/;
-    if (navigator.userAgent.match(macUserAgent)) {
+    if (macUserAgent.exec(navigator.userAgent)) {
         return { mod: '⌘', option: '⌥', shift: '⇧' };
     }
 

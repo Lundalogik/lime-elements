@@ -29,6 +29,7 @@ const getDifferentKeys = (a: object = {}, b: object = {}): any[] => {
  * @param schema - The schema associated with the data
  * @param rootSchema - The root schema
  */
+// eslint-disable-next-line sonarjs/no-invariant-returns
 export const resetDependentFields = (oldData, newData, schema, rootSchema) => {
     // Dependencies only exist on object types
     if (!isPlainObject(newData)) {
