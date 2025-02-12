@@ -76,7 +76,7 @@ export class ActionBarButton {
 
     public render() {
         if (!this.isItem(this.item) && this.item.separator) {
-            return <div role="separator" />;
+            return <hr />;
         }
 
         return (

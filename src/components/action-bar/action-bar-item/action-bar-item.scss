@@ -74,7 +74,8 @@ limel-icon {
     );
 }
 
-div[role='separator'] {
+hr {
+    all: unset;
     width: 1px;
     height: 1.5rem;
     border-radius: var(--action-bar-item-height);
