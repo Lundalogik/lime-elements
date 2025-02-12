@@ -426,8 +426,9 @@ $clickable-normal-state-transitions: (
     @if $letterform == sans-serif {
         font-family: ui-sans-serif, system-ui, sans-serif;
     } @else if $letterform == monospace {
-        font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo,
-            Consolas, 'DejaVu Sans Mono', monospace;
+        font-family:
+            ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas,
+            'DejaVu Sans Mono', monospace;
     } @else {
         @error "Please specify the font-family #{$letterform}!";
     }

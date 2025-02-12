@@ -17,7 +17,8 @@
 
 $stroke-width-normal: 4;
 $stroke-width-thick: 10;
-$colors: var(--spinner-color-1, rgb(var(--lime-brand-color-lime-green))),
+$colors:
+    var(--spinner-color-1, rgb(var(--lime-brand-color-lime-green))),
     var(--spinner-color-2, rgb(var(--lime-brand-color-ocean-teal))),
     var(--spinner-color-3, rgb(var(--lime-brand-color-aqua))),
     var(--spinner-color-4, rgb(var(--lime-brand-color-bubble-gum))),
