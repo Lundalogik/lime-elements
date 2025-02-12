@@ -144,7 +144,7 @@ sonarjs.configs.recommended,
         "prefer-object-spread": "error",
         radix: "error",
         "sonarjs/deprecation": "warn",
-        "sonarjs/function-return-type": "warn",
+        "sonarjs/function-return-type": "off",
         "sonarjs/no-invalid-await": "off", // This rule gives lots of false positives.
         "sonarjs/no-invariant-returns": "warn",
         "sonarjs/no-nested-assignment": "warn",
