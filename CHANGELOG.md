@@ -1,3 +1,11 @@
+## [37.81.4](https://github.com/Lundalogik/lime-elements/compare/v37.81.3...v37.81.4) (2025-02-12)
+
+
+### Bug Fixes
+
+
+* **action-bar:** improve accessibility ([64a34ec](https://github.com/Lundalogik/lime-elements/commit/64a34eca38cc09d7cad4ccaa99c136a1f2903c95))
+
 ## [37.81.3](https://github.com/Lundalogik/lime-elements/compare/v37.81.2...v37.81.3) (2025-02-04)
 
 
