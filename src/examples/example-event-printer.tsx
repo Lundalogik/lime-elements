@@ -20,7 +20,7 @@ import dayjs from 'dayjs';
  * ```
  *
  * ## State Management
- * Uses @State() decorator to maintain an array of caught events
+ * Uses `@State()` decorator to maintain an array of caught events
  * Each event entry contains:
  * - `timestamp`: String representation of when the event occurred
  * - `event`: The actual Event object
