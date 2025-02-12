@@ -234,7 +234,16 @@ export class FileViewer {
     private renderText = () => {
         return [
             this.renderButtons(),
-            <object data={this.fileUrl} type="text/plain" />,
+            <object data={this.fileUrl} type="text/plain">
+                {`Text content from: ${this.filename || this.url}`}
+                <a
+                    href={this.fileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Open text file in new tab
+                </a>
+            </object>,
         ];
     };
 
