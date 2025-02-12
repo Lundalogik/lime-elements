@@ -43,7 +43,8 @@ export class InputFieldFocusExample {
     }
 
     private getInputFieldRef = (input: HTMLLimelInputFieldElement) => {
-        return (this.inputField = input);
+        this.inputField = input;
+        return input;
     };
 
     private handleChange = (event: CustomEvent<string>) => {

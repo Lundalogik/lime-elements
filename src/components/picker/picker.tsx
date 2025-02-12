@@ -340,6 +340,7 @@ export class Picker {
 
     private createChip = (listItem: ListItem): Chip => {
         const name = getIconName(listItem.icon);
+        // eslint-disable-next-line sonarjs/deprecation
         const color = getIconFillColor(listItem.icon, listItem.iconColor);
         const valueId = this.getValueId(listItem);
 

@@ -141,6 +141,7 @@ export class ProgressFlow {
     };
 
     private getItemStyle(flowItem: FlowItem) {
+        // eslint-disable-next-line sonarjs/deprecation
         const color = getIconColor(flowItem.icon, flowItem.iconColor);
         const style: any = {};
 
@@ -186,6 +187,7 @@ export class ProgressFlow {
 
     private triggerIconColorWarning() {
         for (const flowItem of this.flowItems) {
+            // eslint-disable-next-line sonarjs/deprecation
             if (flowItem.iconColor) {
                 /* eslint-disable-next-line no-console */
                 console.warn(

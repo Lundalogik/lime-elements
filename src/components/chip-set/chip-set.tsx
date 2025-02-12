@@ -787,8 +787,11 @@ export class ChipSet {
         for (const chip of value) {
             if (
                 chip.icon &&
+                // eslint-disable-next-line sonarjs/deprecation
                 (chip.iconFillColor ||
+                    // eslint-disable-next-line sonarjs/deprecation
                     chip.iconBackgroundColor ||
+                    // eslint-disable-next-line sonarjs/deprecation
                     chip.iconTitle)
             ) {
                 /* eslint-disable-next-line no-console */

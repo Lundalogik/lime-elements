@@ -266,7 +266,8 @@ export class Menu {
 
     @Watch('open')
     protected openWatcher(newValue: boolean) {
-        if (newValue) {
+        const opened = newValue;
+        if (opened) {
             this.setFocus();
         } else {
             this.clearSearch();

@@ -9,6 +9,7 @@ import { Icon } from '../../global/shared-types/icon.types';
  * @returns - The icon name or the provided string, or `undefined` if `icon` is falsy.
  */
 export function getIconName(
+    // eslint-disable-next-line sonarjs/use-type-alias
     icon: string | Icon | undefined,
 ): string | undefined {
     if (!!icon && typeof icon === 'object' && 'name' in icon) {
