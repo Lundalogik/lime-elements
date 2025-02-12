@@ -572,7 +572,7 @@ export class ChipSet {
         // If there are chips in the picker, hide the input to avoid the input
         // being placed on a new line and adding ugly space beneath the chips.
         // If there are no chips, show the input, or the picker will look weird.
-        return !!(this.value && this.value.length);
+        return !!this.value?.length;
     }
 
     private handleTextInput(event) {
