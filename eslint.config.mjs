@@ -154,7 +154,7 @@ sonarjs.configs.recommended,
         "sonarjs/object-alt-content": "warn",
         "sonarjs/prefer-regexp-exec": "warn",
         "sonarjs/public-static-readonly": "warn",
-        "sonarjs/todo-tag": "warn",
+        "sonarjs/todo-tag": "off",
         "sonarjs/use-type-alias": "warn",
 
         "spaced-comment": ["error", "always", {
