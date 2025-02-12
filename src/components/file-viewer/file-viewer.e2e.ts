@@ -29,16 +29,6 @@ describe('limel-file-viewer', () => {
             const buttons = await page.find('limel-file-viewer>>>div.buttons');
             expect(buttons).toBeDefined();
         });
-        it.skip('removes the image when url is cleared', async () => {
-            await page.$eval('limel-file-viewer', (el: any) => {
-                el.url = '';
-            });
-            await page.waitForChanges();
-
-            contentElement = await page.find('limel-file-viewer>>>img');
-
-            expect(contentElement).toBeNull();
-        });
     });
 
     describe('with pdf', () => {
@@ -132,18 +122,6 @@ describe('limel-file-viewer', () => {
         it('has file not supported text as fallback', async () => {
             const noSupportMessage = await contentElement.find('.no-support');
             expect(noSupportMessage).toBeDefined();
-        });
-    });
-
-    describe('without url', () => {
-        beforeEach(async () => {
-            page = await createPage(`
-                <limel-file-viewer></limel-file-viewer>
-            `);
-            contentElement = await page.find('limel-file-viewer>>>*');
-        });
-        it.skip('shows nothing', () => {
-            expect(contentElement).toBeNull();
         });
     });
 });
