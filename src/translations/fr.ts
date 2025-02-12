@@ -15,8 +15,6 @@ export default {
     'date-picker.year.heading': 'Année',
     'chip-set.clear-all': 'Tout effacer',
     'snackbar.dismiss': 'Fermer',
-    'file.drag-and-drop-tips':
-        'Glissez-déposez votre fichier ici, ou cliquez pour parcourir.',
     'file-viewer.message.unsupported-filetype':
         "Impossible d'afficher ce fichier!",
     'file-viewer.download': 'Télécharger',
