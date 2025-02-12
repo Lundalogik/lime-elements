@@ -51,12 +51,12 @@ export class ActionBarButton {
     public selected: boolean = false;
 
     @Element()
-    private host: HTMLLimelActionBarItemElement;
+    private readonly host: HTMLLimelActionBarItemElement;
 
     /**
      * Used to attach the right tooltip to the right button
      */
-    private tooltipId: string;
+    private readonly tooltipId: string;
 
     constructor() {
         this.tooltipId = createRandomString();
@@ -96,7 +96,7 @@ export class ActionBarButton {
         );
     }
 
-    private handleClick = (event: MouseEvent) => {
+    private readonly handleClick = (event: MouseEvent) => {
         event.stopPropagation();
         this.select.emit(this.item);
     };
