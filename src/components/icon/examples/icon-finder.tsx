@@ -1,5 +1,5 @@
 import { Chip, LimelChipSetCustomEvent } from '@limetech/lime-elements';
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 import { ENTER, ENTER_KEY_CODE } from '../../../util/keycodes';
 
 interface Icon {
@@ -32,7 +32,7 @@ export class IconFinder {
         this.loadIconIndex();
     }
 
-    private loadIconIndex = async () => {
+    private readonly loadIconIndex = async () => {
         const response = await fetch(
             'https://lundalogik.github.io/lime-icons8/assets/icon-index.json',
         );
@@ -41,23 +41,25 @@ export class IconFinder {
     };
 
     public render() {
-        return [
-            <limel-chip-set
-                label="Icon finder"
-                type="input"
-                value={this.value}
-                onChange={this.chipSetOnChange}
-                onInput={this.onInput}
-                onKeyUp={this.onKeyUp}
-                searchLabel="Type and press enter to search"
-                emptyInputOnBlur={true}
-                leadingIcon={'search'}
-            />,
-            <div> {this.icons.map(this.renderIconButton)}</div>,
-        ];
+        return (
+            <Host>
+                <limel-chip-set
+                    label="Icon finder"
+                    type="input"
+                    value={this.value}
+                    onChange={this.chipSetOnChange}
+                    onInput={this.onInput}
+                    onKeyUp={this.onKeyUp}
+                    searchLabel="Type and press enter to search"
+                    emptyInputOnBlur={true}
+                    leadingIcon={'search'}
+                />
+                <div> {this.icons.map(this.renderIconButton)}</div>
+            </Host>
+        );
     }
 
-    private renderIconButton = (icon: Icon) => {
+    private readonly renderIconButton = (icon: Icon) => {
         const iconName = icon.id.replace('.svg', '');
         const label = `Copy ${iconName}`;
 
@@ -70,24 +72,34 @@ export class IconFinder {
         );
     };
 
+    private async copyToClipboard(text: string) {
+        try {
+            await navigator.clipboard.writeText(text);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+        }
+    }
+
     private copyIconName(event) {
         const iconName = event.target.icon;
         const element = document.createElement('textarea');
         element.value = iconName;
         document.body.appendChild(element);
         element.select();
-        document.execCommand('copy');
+        this.copyToClipboard(iconName);
         document.body.removeChild(element);
         console.log(`copied icon name '${iconName}' to clipboard`);
     }
 
-    private onInput = (event: LimelChipSetCustomEvent<string> | InputEvent) => {
+    private readonly onInput = (
+        event: LimelChipSetCustomEvent<string> | InputEvent,
+    ) => {
         if (event instanceof CustomEvent) {
             this.textValue = event.detail;
         }
     };
 
-    private onKeyUp = (event: KeyboardEvent) => {
+    private readonly onKeyUp = (event: KeyboardEvent) => {
         if (
             (event.key === ENTER || event.keyCode === ENTER_KEY_CODE) &&
             this.textValue.trim()
@@ -101,7 +113,7 @@ export class IconFinder {
         }
     };
 
-    private searchIcons = () => {
+    private readonly searchIcons = () => {
         this.icons = [];
         this.indexedIcons.forEach((icon: Icon) => {
             this.value.forEach((search: Chip) => {
@@ -116,7 +128,9 @@ export class IconFinder {
         this.icons = [...new Set(this.icons)];
     };
 
-    private chipSetOnChange = (event: LimelChipSetCustomEvent<Chip[]>) => {
+    private readonly chipSetOnChange = (
+        event: LimelChipSetCustomEvent<Chip[]>,
+    ) => {
         this.value = event.detail;
         this.searchIcons();
     };
