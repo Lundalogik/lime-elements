@@ -1,0 +1,2 @@
+import{r,h as e}from"./index-6156b4fd.js";const a=":host(limel-example-header-narrow){--header-top-right-left-border-radius:0}";const o=class{constructor(e){r(this,e)}render(){return e("limel-header",{class:"is-narrow",icon:{name:"ok",color:"rgb(var(--color-blue-default))"},heading:"This is a narrow header"})}};o.style=a;export{o as limel_example_header_narrow};
+//# sourceMappingURL=limel-example-header-narrow.entry.js.map
