@@ -209,7 +209,7 @@ describe('limel-button', () => {
 
                 describe('and then setting the property to `true`', () => {
                     beforeEach(async () => {
-                        page.waitForTimeout(100);
+                        await page.waitForNetworkIdle();
                         limelButton.setProperty('loading', true);
                         await page.waitForChanges();
                     });
@@ -258,7 +258,7 @@ describe('limel-button', () => {
 
             describe('after 2 seconds', () => {
                 beforeEach(async () => {
-                    await page.waitForTimeout(1900);
+                    await new Promise((resolve) => setTimeout(resolve, 1900));
                     await page.waitForChanges();
                 });
                 testNotLoading(
