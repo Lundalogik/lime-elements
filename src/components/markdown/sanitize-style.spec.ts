@@ -225,13 +225,6 @@ describe('isValidCssColorValue', () => {
         ])('returns true for valid RGB/A value "%s"', (color) => {
             expect(isValidCssColorValue(color)).toBe(true);
         });
-
-        // Skipped because it doesn't return false for this value.
-        // That's not critical though, since what we are concerned about is
-        // removing values that could be used for attacks.
-        it.skip('returns false for an invalid RGB/A value', () => {
-            expect(isValidCssColorValue('rgb(300,300,300)')).toBe(false);
-        });
     });
 
     describe('with HSL/A', () => {
@@ -242,13 +235,6 @@ describe('isValidCssColorValue', () => {
             'hsla(360, 100%, 50%, 0.5)',
         ])('returns true for valid HSL/A value "%s"', (color) => {
             expect(isValidCssColorValue(color)).toBe(true);
-        });
-
-        // Skipped because it doesn't return false for this value.
-        // That's not critical though, since what we are concerned about is
-        // removing values that could be used for attacks.
-        it.skip('returns false for an invalid HSL/A value', () => {
-            expect(isValidCssColorValue('hsl(361,101%,101%)')).toBe(false);
         });
     });
 
