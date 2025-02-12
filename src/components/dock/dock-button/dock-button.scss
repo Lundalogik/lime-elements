@@ -39,8 +39,8 @@
         box-shadow: var(--button-shadow-inset);
 
         &:focus-visible {
-            box-shadow: var(--button-shadow-inset),
-                var(--shadow-depth-8-focused);
+            box-shadow:
+                var(--button-shadow-inset), var(--shadow-depth-8-focused);
         }
 
         .icon {
