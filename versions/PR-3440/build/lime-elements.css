@@ -28,47 +28,35 @@
   );--mdc-theme-on-surface:var(
       --lime-on-surface-color,
       rgb(var(--contrast-1500))
-  )}:root{--lime-deep-red:rgb(var(--lime-brand-color-deep-red));--lime-red:rgb(var(--lime-brand-color-sellable-orange));--lime-orange:rgb(var(--lime-brand-color-orange));--lime-yellow:rgb(var(--lime-brand-color-yellow));--lime-green:rgb(var(--lime-brand-color-lime-green));--lime-turquoise:rgb(var(--lime-brand-color-flexible-turquoise));--lime-blue:rgb(var(--lime-brand-color-simple-blue));--lime-dark-blue:rgb(var(--lime-brand-color-dark-blue));--lime-magenta:rgb(var(--lime-brand-color-loving-magenta));--lime-light-grey:rgb(var(--lime-brand-color-light-grey));--lime-dark-grey:rgb(var(--lime-brand-color-grey));--color-percent--0:rgb(var(--color-gray-default));--color-percent--0to10:rgb(var(--color-red-dark));--color-percent--10to20:rgb(var(--color-red-default));--color-percent--20to30:rgb(var(--color-coral-default));--color-percent--30to40:rgb(var(--color-orange-default));--color-percent--40to50:rgb(var(--color-amber-default));--color-percent--50to60:rgb(var(--color-yellow-default));--color-percent--60to70:rgb(var(--color-grass-default));--color-percent--70to80:rgb(var(--color-lime-default));--color-percent--80to90:rgb(var(--color-teal-default));--color-percent--90to100:rgb(var(--color-teal-dark))}:root{--shadow-brighten-edges-inside:0 -1px 0.26rem rgb(var(--color-white), 0.06)
-          inset,
-      0 0 0 1px rgb(var(--color-white), 0.06) inset;--shadow-brighten-edges-outside:0 0.125rem 0.26rem
-          rgb(var(--color-white), 0.06),
-      0 0 0 1px rgb(var(--color-white), 0.06);--shadow-focused-state:0 0 0 0.125rem var(--mdc-theme-primary);--shadow-error-state:0 0 0 0.125rem rgb(var(--color-red-default));--button-shadow-normal:0 0.09375rem 0.225rem 0
-          rgb(var(--color-black), 0.232),
+  )}:root{--lime-deep-red:rgb(var(--lime-brand-color-deep-red));--lime-red:rgb(var(--lime-brand-color-sellable-orange));--lime-orange:rgb(var(--lime-brand-color-orange));--lime-yellow:rgb(var(--lime-brand-color-yellow));--lime-green:rgb(var(--lime-brand-color-lime-green));--lime-turquoise:rgb(var(--lime-brand-color-flexible-turquoise));--lime-blue:rgb(var(--lime-brand-color-simple-blue));--lime-dark-blue:rgb(var(--lime-brand-color-dark-blue));--lime-magenta:rgb(var(--lime-brand-color-loving-magenta));--lime-light-grey:rgb(var(--lime-brand-color-light-grey));--lime-dark-grey:rgb(var(--lime-brand-color-grey));--color-percent--0:rgb(var(--color-gray-default));--color-percent--0to10:rgb(var(--color-red-dark));--color-percent--10to20:rgb(var(--color-red-default));--color-percent--20to30:rgb(var(--color-coral-default));--color-percent--30to40:rgb(var(--color-orange-default));--color-percent--40to50:rgb(var(--color-amber-default));--color-percent--50to60:rgb(var(--color-yellow-default));--color-percent--60to70:rgb(var(--color-grass-default));--color-percent--70to80:rgb(var(--color-lime-default));--color-percent--80to90:rgb(var(--color-teal-default));--color-percent--90to100:rgb(var(--color-teal-dark))}:root{--shadow-brighten-edges-inside:0 -1px 0.26rem rgb(var(--color-white), 0.06) inset,
+      0 0 0 1px rgb(var(--color-white), 0.06) inset;--shadow-brighten-edges-outside:0 0.125rem 0.26rem rgb(var(--color-white), 0.06),
+      0 0 0 1px rgb(var(--color-white), 0.06);--shadow-focused-state:0 0 0 0.125rem var(--mdc-theme-primary);--shadow-error-state:0 0 0 0.125rem rgb(var(--color-red-default));--button-shadow-normal:0 0.09375rem 0.225rem 0 rgb(var(--color-black), 0.232),
       0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.208),
       var(--shadow-brighten-edges-inside);--button-shadow-hovered:0 0.125rem 0.375rem rgb(var(--color-black), 0.25),
       0 0.4rem 0.475rem -0.3rem rgb(var(--color-black), 0.1),
-      var(--shadow-brighten-edges-inside);--button-shadow-pressed:0 0.0625rem 0.1875rem 0
-          rgb(var(--color-black), 0.132),
+      var(--shadow-brighten-edges-inside);--button-shadow-pressed:0 0.0625rem 0.1875rem 0 rgb(var(--color-black), 0.132),
       0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.108),
-      var(--shadow-brighten-edges-inside);--button-shadow-inset:0 0.03125rem 0.21875rem 0
-          rgb(var(--color-black), 0.132) inset,
+      var(--shadow-brighten-edges-inside);--button-shadow-inset:0 0.03125rem 0.21875rem 0 rgb(var(--color-black), 0.132) inset,
       0 0.01875rem 0.05625rem 0 rgb(var(--color-black), 0.108) inset,
       var(--shadow-brighten-edges-outside),
-      0 0 0.25rem rgb(var(--color-white), 0.9);--button-shadow-inset-pressed:0 0.03125rem 0.34375rem 0
-          rgb(var(--color-black), 0.132) inset,
+      0 0 0.25rem rgb(var(--color-white), 0.9);--button-shadow-inset-pressed:0 0.03125rem 0.34375rem 0 rgb(var(--color-black), 0.132) inset,
       0 0.01875rem 0.11875rem 0 rgb(var(--color-black), 0.12) inset,
       0 -1px 0.3rem rgb(var(--color-white), 0.9),
       var(--shadow-brighten-edges-outside);--shadow-depth-8:0 0.2rem 0.45rem 0 rgb(var(--color-black), 0.132),
-      0 0.0375rem 0.1125rem 0 rgb(var(--color-black), 0.108);--shadow-depth-8-focused:var(--shadow-depth-8), var(--shadow-focused-state);--shadow-depth-8-error:var(--shadow-depth-8), var(--shadow-error-state);--shadow-depth-8-reversed:0 -0.2rem 0.45rem 0
-          rgb(var(--color-black), 0.132),
+      0 0.0375rem 0.1125rem 0 rgb(var(--color-black), 0.108);--shadow-depth-8-focused:var(--shadow-depth-8), var(--shadow-focused-state);--shadow-depth-8-error:var(--shadow-depth-8), var(--shadow-error-state);--shadow-depth-8-reversed:0 -0.2rem 0.45rem 0 rgb(var(--color-black), 0.132),
       0 -0.0375rem 0.1125rem 0 rgb(var(--color-black), 0.108);--shadow-depth-16:0 0.4rem 0.9rem 0 rgb(var(--color-black), 0.132),
-      0 0.075rem 0.225rem 0 rgb(var(--color-black), 0.108);--shadow-depth-16-focused:var(--shadow-depth-16),
-      var(--shadow-focused-state);--shadow-depth-64:0 1.6rem 3.6rem 0 rgb(var(--color-black), 0.22),
-      0 0.3rem 0.9rem 0 rgb(var(--color-black), 0.18);--shadow-depth-64-focused:var(--shadow-depth-64),
-      var(--shadow-focused-state);--shadow-inflated-8:-0.125rem -0.125rem 0.375rem
-          rgb(var(--color-black), 0.01),
+      0 0.075rem 0.225rem 0 rgb(var(--color-black), 0.108);--shadow-depth-16-focused:var(--shadow-depth-16), var(--shadow-focused-state);--shadow-depth-64:0 1.6rem 3.6rem 0 rgb(var(--color-black), 0.22),
+      0 0.3rem 0.9rem 0 rgb(var(--color-black), 0.18);--shadow-depth-64-focused:var(--shadow-depth-64), var(--shadow-focused-state);--shadow-inflated-8:-0.125rem -0.125rem 0.375rem rgb(var(--color-black), 0.01),
       -0.25rem -0.25rem 0.625rem rgb(var(--color-white), 0.6),
       0.25rem 0.25rem 0.625rem rgb(var(--color-black), 0.05),
       0.0625rem 0.0625rem 0.625rem rgb(var(--color-white), 0.7),
       -1px -1px 0 1px rgb(var(--color-black), 0.07) inset,
-      0 0 1px 1px rgb(var(--color-white), 0.98) inset;--shadow-inflated-16:-0.1875rem -0.1875rem 0.375rem
-          rgb(var(--color-black), 0.01),
+      0 0 1px 1px rgb(var(--color-white), 0.98) inset;--shadow-inflated-16:-0.1875rem -0.1875rem 0.375rem rgb(var(--color-black), 0.01),
       -0.375rem -0.375rem 1rem rgb(var(--color-white), 0.8),
       0.375rem 0.375rem 1rem rgb(var(--color-black), 0.05),
       0.125rem 0.125rem 0.625rem rgb(var(--color-white), 0.7),
       -1px -1px 0 1px rgb(var(--color-black), 0.07) inset,
-      0 0 1px 1px rgb(var(--color-white), 0.98) inset;--shadow-inflated-64:-0.1875rem -0.1875rem 0.375rem
-          rgb(var(--color-black), 0.01),
+      0 0 1px 1px rgb(var(--color-white), 0.98) inset;--shadow-inflated-64:-0.1875rem -0.1875rem 0.375rem rgb(var(--color-black), 0.01),
       -0.625rem -0.625rem 1.875rem rgb(var(--color-white), 1),
       0.625rem 0.625rem 2.25rem rgb(var(--color-black), 0.06),
       0.125rem 0.125rem 0.625rem rgb(var(--color-white), 0.7),
