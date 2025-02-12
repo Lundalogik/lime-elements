@@ -441,7 +441,6 @@ export class ChipSet {
                         'mdc-text-field--required': this.required,
                         'lime-notched-outline--notched': this.floatLabelAbove(),
                     }}
-                    dropzone-tip={this.dropZoneTip()}
                 >
                     <div class="mdc-notched-outline__leading" />
                     {this.renderLabel()}
@@ -490,10 +489,6 @@ export class ChipSet {
         if (!!this.value.length || this.editMode || this.readonly) {
             return true;
         }
-    };
-
-    private dropZoneTip = (): string => {
-        return translate.get('file.drag-and-drop-tips', this.language);
     };
 
     private isFull(): boolean {
