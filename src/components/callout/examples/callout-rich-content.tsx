@@ -32,13 +32,14 @@ export class CalloutRichContentExample {
                 />
                 <img
                     src="https://octodex.github.com/images/welcometocat.png"
+                    alt="A happy Octocat with a party hat"
                     style={{ width: '7rem' }}
                 />
                 <p>
                     And a link to where you find{' '}
                     <a href="https://octodex.github.com/" target="blank">
                         these nice pictures
-                    </a>
+                    </a>{' '}
                     😉.
                 </p>
             </limel-callout>
