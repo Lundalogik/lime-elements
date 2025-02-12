@@ -7,6 +7,7 @@ import {
     Event,
     EventEmitter,
     h,
+    Host,
     Method,
     Prop,
     State,
@@ -397,61 +398,65 @@ export class ChipSet {
     }
 
     private renderInputChips() {
-        return [
-            <div
-                class={{
-                    'mdc-text-field mdc-text-field--outlined': true,
-                    'mdc-chip-set mdc-chip-set--input': true,
-                    'force-invalid': this.isInvalid(),
-                    'mdc-text-field--disabled': this.readonly || this.disabled,
-                    'lime-text-field--readonly': this.readonly,
-                    'has-chips mdc-text-field--label-floating':
-                        this.value.length !== 0,
-                    'has-leading-icon': this.leadingIcon !== null,
-                    'has-clear-all-button': this.clearAllButton,
-                }}
-                onClick={this.handleTextFieldFocus}
-            >
-                {this.value.map(this.renderInputChip)}
-                <input
-                    tabIndex={INPUT_FIELD_TABINDEX}
-                    type={this.inputType}
-                    id="input-element"
-                    disabled={this.readonly || this.disabled}
-                    class={{
-                        'mdc-text-field__input': true,
-                        hidden: this.inputHidden(),
-                    }}
-                    value={this.textValue}
-                    onBlur={this.handleInputBlur}
-                    onFocus={this.handleTextFieldFocus}
-                    onKeyDown={this.handleKeyDown}
-                    onInput={this.handleTextInput}
-                    // Some browsers emit a change event on input elements, we need to stop
-                    // that event from propagating since we are emitting our own change event
-                    onChange={this.inputFieldOnChange}
-                    placeholder={this.isFull() ? '' : this.searchLabel}
-                    readonly={this.isFull()}
-                    autocomplete={this.autocomplete}
-                />
+        return (
+            <Host>
                 <div
                     class={{
-                        'mdc-notched-outline': true,
-                        'mdc-notched-outline--upgraded': true,
-                        'mdc-text-field--required': this.required,
-                        'lime-notched-outline--notched': this.floatLabelAbove(),
+                        'mdc-text-field mdc-text-field--outlined': true,
+                        'mdc-chip-set mdc-chip-set--input': true,
+                        'force-invalid': this.isInvalid(),
+                        'mdc-text-field--disabled':
+                            this.readonly || this.disabled,
+                        'lime-text-field--readonly': this.readonly,
+                        'has-chips mdc-text-field--label-floating':
+                            this.value.length !== 0,
+                        'has-leading-icon': this.leadingIcon !== null,
+                        'has-clear-all-button': this.clearAllButton,
                     }}
+                    onClick={this.handleTextFieldFocus}
                 >
-                    <div class="mdc-notched-outline__leading" />
-                    {this.renderLabel()}
-                    <div class="mdc-notched-outline__trailing" />
+                    {this.value.map(this.renderInputChip)}
+                    <input
+                        tabIndex={INPUT_FIELD_TABINDEX}
+                        type={this.inputType}
+                        id="input-element"
+                        disabled={this.readonly || this.disabled}
+                        class={{
+                            'mdc-text-field__input': true,
+                            hidden: this.inputHidden(),
+                        }}
+                        value={this.textValue}
+                        onBlur={this.handleInputBlur}
+                        onFocus={this.handleTextFieldFocus}
+                        onKeyDown={this.handleKeyDown}
+                        onInput={this.handleTextInput}
+                        // Some browsers emit a change event on input elements, we need to stop
+                        // that event from propagating since we are emitting our own change event
+                        onChange={this.inputFieldOnChange}
+                        placeholder={this.isFull() ? '' : this.searchLabel}
+                        readonly={this.isFull()}
+                        autocomplete={this.autocomplete}
+                    />
+                    <div
+                        class={{
+                            'mdc-notched-outline': true,
+                            'mdc-notched-outline--upgraded': true,
+                            'mdc-text-field--required': this.required,
+                            'lime-notched-outline--notched':
+                                this.floatLabelAbove(),
+                        }}
+                    >
+                        <div class="mdc-notched-outline__leading" />
+                        {this.renderLabel()}
+                        <div class="mdc-notched-outline__trailing" />
+                    </div>
+                    {this.renderLeadingIcon()}
+                    {this.renderEmptyValueForReadonly()}
+                    {this.renderClearAllChipsButton()}
                 </div>
-                {this.renderLeadingIcon()}
-                {this.renderEmptyValueForReadonly()}
-                {this.renderClearAllChipsButton()}
-            </div>,
-            this.renderHelperLine(),
-        ];
+                {this.renderHelperLine()}
+            </Host>
+        );
     }
 
     private renderEmptyValueForReadonly = () => {
