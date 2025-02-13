@@ -104,19 +104,19 @@ export class Snackbar {
     public language: Languages = 'en';
 
     @Element()
-    private host: HTMLLimelSnackbarElement;
+    private readonly host: HTMLLimelSnackbarElement;
 
     /**
      * Emitted when the action button is pressed
      */
     @Event()
-    private action: EventEmitter<void>;
+    private readonly action: EventEmitter<void>;
 
     /**
      * Emitted when the snackbar hides itself
      */
     @Event()
-    private hide: EventEmitter<void>;
+    private readonly hide: EventEmitter<void>;
 
     @State()
     private offset: number = 0;
@@ -127,7 +127,7 @@ export class Snackbar {
     @State()
     private closing: boolean = true;
 
-    private snackbarId: string;
+    private readonly snackbarId: string;
     private timeoutId?: number;
 
     public constructor() {
@@ -192,7 +192,7 @@ export class Snackbar {
         }
     };
 
-    private handleClose = () => {
+    private readonly handleClose = () => {
         if (!this.isOpen) {
             return;
         }
@@ -250,7 +250,7 @@ export class Snackbar {
         return 'status';
     }
 
-    private handleClickAction = () => {
+    private readonly handleClickAction = () => {
         this.action.emit();
     };
 
