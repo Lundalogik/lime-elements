@@ -98,7 +98,7 @@ aside {
         stroke-dasharray: 100;
         stroke-linecap: round;
 
-        aside:popover-open & {
+        aside.open & {
             animation: timeout var(--snackbar-timeout) linear forwards;
         }
     }
