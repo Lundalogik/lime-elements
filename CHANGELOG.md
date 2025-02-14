@@ -1,3 +1,16 @@
+## [38.0.0](https://github.com/Lundalogik/lime-elements/compare/v37.81.5...v38.0.0) (2025-02-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* Old browsers which do not support the `.key` property
+on keyboard events are no longer supported.
+
+### Miscellaneous Chores
+
+
+* remove use of deprecated `event.keyCode` property ([87cc8ca](https://github.com/Lundalogik/lime-elements/commit/87cc8cac46237a291717f6981c9cea52d676a8d1))
+
 ## [37.81.5](https://github.com/Lundalogik/lime-elements/compare/v37.81.4...v37.81.5) (2025-02-12)
 
 
