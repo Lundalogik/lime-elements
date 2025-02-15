@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 import { chartItems } from './chart-items-clickable';
 import { ChartItem } from '@limetech/lime-elements';
 
@@ -30,20 +30,22 @@ export class ChartClickableItemsExample {
     private lastInteractedWith: ChartItem;
 
     public render() {
-        return [
-            <limel-chart
-                items={chartItems}
-                maxValue={128}
-                onInteract={this.handleInteract}
-            />,
-            <limel-example-value
-                label="Clicked item"
-                value={this.lastInteractedWith}
-            />,
-        ];
+        return (
+            <Host>
+                <limel-chart
+                    items={chartItems}
+                    maxValue={128}
+                    onInteract={this.handleInteract}
+                />
+                <limel-example-value
+                    label="Clicked item"
+                    value={this.lastInteractedWith}
+                />
+            </Host>
+        );
     }
 
-    private handleInteract = (event: CustomEvent<ChartItem>) => {
+    private readonly handleInteract = (event: CustomEvent<ChartItem>) => {
         event.stopPropagation();
         this.lastInteractedWith = event.detail;
     };

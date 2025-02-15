@@ -448,7 +448,7 @@ export class Chart {
         return item;
     }
 
-    private handleClick = (event: MouseEvent) => {
+    private readonly handleClick = (event: MouseEvent) => {
         const item = this.getClickableItem(event.currentTarget as HTMLElement);
         if (!item) {
             return;
@@ -458,7 +458,7 @@ export class Chart {
         this.interact.emit(item);
     };
 
-    private handleKeyDown = (event: KeyboardEvent) => {
+    private readonly handleKeyDown = (event: KeyboardEvent) => {
         if (event.key !== 'Enter' && event.key !== ' ') {
             return;
         }
