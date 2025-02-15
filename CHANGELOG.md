@@ -1,3 +1,16 @@
+## [38.1.0](https://github.com/Lundalogik/lime-elements/compare/v38.0.0...v38.1.0) (2025-02-15)
+
+
+### Features
+
+
+* **chart:** allow making items clickable ([8bba3db](https://github.com/Lundalogik/lime-elements/commit/8bba3db8925b394b0b0efa8e88bddc4cf06e01df))
+
+### Bug Fixes
+
+
+* **chart:** allow all items to show focused style… ([8efe22c](https://github.com/Lundalogik/lime-elements/commit/8efe22c5ffd2d2945001c00346bec80869ee10a3))
+
 ## [38.0.0](https://github.com/Lundalogik/lime-elements/compare/v37.81.5...v38.0.0) (2025-02-14)
 
 
