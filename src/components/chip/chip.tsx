@@ -351,6 +351,7 @@ export class Chip implements ChipInterface {
                 items={menuItems}
                 onSelect={this.handleActionMenuSelect}
                 openDirection="bottom-end"
+                onCancel={this.handleActionMenuCancel}
             >
                 <button
                     slot="trigger"
@@ -460,5 +461,9 @@ export class Chip implements ChipInterface {
         }
 
         this.menuItemSelected.emit(menuItem);
+    };
+
+    private handleActionMenuCancel = (event: LimelMenuCustomEvent<void>) => {
+        event.stopPropagation();
     };
 }
