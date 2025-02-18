@@ -1,3 +1,11 @@
+## [38.1.1](https://github.com/Lundalogik/lime-elements/compare/v38.1.0...v38.1.1) (2025-02-18)
+
+
+### Bug Fixes
+
+
+* **info-tile:** render the 3d glow effect with the right intensity ([da3112d](https://github.com/Lundalogik/lime-elements/commit/da3112d763c97e3550ab2214c9d20d05750299ec))
+
 ## [38.1.0](https://github.com/Lundalogik/lime-elements/compare/v38.0.0...v38.1.0) (2025-02-15)
 
 
