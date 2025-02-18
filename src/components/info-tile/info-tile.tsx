@@ -163,9 +163,9 @@ export class InfoTile {
                         {this.renderSpinner()}
                     </div>
                     {this.renderLabel()}
+                    <limel-3d-hover-effect-glow />
                 </a>
                 {this.renderNotification()}
-                <limel-3d-hover-effect-glow />
             </Host>
         );
     }
