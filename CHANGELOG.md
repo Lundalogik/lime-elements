@@ -1,3 +1,11 @@
+## [38.1.2](https://github.com/Lundalogik/lime-elements/compare/v38.1.1...v38.1.2) (2025-02-19)
+
+
+### Reverts
+
+
+* Revert "chore(mixins): enable passing extra transitionable props to some mixins" ([1008415](https://github.com/Lundalogik/lime-elements/commit/1008415b5cc90226ebac0fecf43b8161a2654b0a))
+
 ## [38.1.1](https://github.com/Lundalogik/lime-elements/compare/v38.1.0...v38.1.1) (2025-02-18)
 
 
