@@ -68,14 +68,7 @@ $clickable-normal-state-transitions: (
     background-color var(--limel-clickable-transition-speed, 0.4s) ease,
     box-shadow var(--limel-clickable-transform-speed, 0.4s) ease,
     transform var(--limel-clickable-transform-speed, 0.4s)
-        var(--limel-clickable-transform-timing-function, ease),
-    // the property below can be used by consumer to pass
-    // one or more extra transition properties to the mixin,
-    // instead of overriding (or repeating) the whole transition rule
-    // which is applied by the mixin
-    // an example could be:
-    // `--limel-additional-clickable-transition-properties: opacity 0.2s ease, width 0.3s ease-out;`
-    var(--limel-additional-clickable-transition-properties)
+        var(--limel-clickable-transform-timing-function, ease)
 );
 
 @mixin is-elevated-clickable(
