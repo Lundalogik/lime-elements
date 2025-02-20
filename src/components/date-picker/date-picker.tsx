@@ -185,6 +185,10 @@ export class DatePicker {
         this.updateInternalFormatAndType();
     }
 
+    public disconnectedCallback() {
+        this.hideCalendar();
+    }
+
     public render() {
         const inputProps: any = {
             onAction: this.clearValue,
