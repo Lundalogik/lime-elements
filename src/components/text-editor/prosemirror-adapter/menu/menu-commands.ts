@@ -21,6 +21,7 @@ interface CommandMapping {
 
 export interface CommandWithActive extends Command {
     active?: (state: EditorState) => boolean;
+    allowed?: (state: EditorState) => boolean;
 }
 
 const setActiveMethodForMark = (
