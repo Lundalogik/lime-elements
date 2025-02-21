@@ -7,24 +7,31 @@ import { EditorMenuTypes } from '../menu/types';
 
 export const actionBarPluginKey = new PluginKey('actionBarPlugin');
 
-export type ActiveMenuItems = Record<EditorMenuTypes, boolean>;
+export interface ActiveMenuItems {
+    active: Record<EditorMenuTypes, boolean>;
+    allowed: Record<EditorMenuTypes, boolean>;
+}
 
-export type UpdateMenuItemsCallBack = (activeTypes: ActiveMenuItems) => void;
+export type UpdateMenuItemsCallBack = (
+    activeTypes: Record<EditorMenuTypes, boolean>,
+    allowedTypes: Record<EditorMenuTypes, boolean>,
+) => void;
 
 const getMenuItemStates = (
     menuTypes: EditorMenuTypes[],
     menuCommandFactory: MenuCommandFactory,
     view: EditorView,
 ): ActiveMenuItems => {
-    const activeTypes: ActiveMenuItems = {};
+    const activeTypes: Record<EditorMenuTypes, boolean> = {};
+    const allowedTypes: Record<EditorMenuTypes, boolean> = {};
 
     menuTypes.forEach((type) => {
         const command: CommandWithActive = menuCommandFactory.getCommand(type);
-        activeTypes[type] =
-            command && command.active && command.active(view.state);
+        activeTypes[type] = !!command?.active?.(view.state) || false;
+        allowedTypes[type] = !!(command?.allowed?.(view.state) ?? true);
     });
 
-    return activeTypes;
+    return { active: activeTypes, allowed: allowedTypes };
 };
 
 export const createMenuStateTrackingPlugin = (
@@ -36,7 +43,7 @@ export const createMenuStateTrackingPlugin = (
         key: actionBarPluginKey,
         state: {
             init: () => {
-                return {};
+                return { active: {}, allowed: {} };
             },
             apply: (tr, menuStates) => {
                 const newMenuStates = tr.getMeta(actionBarPluginKey);
@@ -58,7 +65,10 @@ export const createMenuStateTrackingPlugin = (
                         menuItemStates,
                     );
                     view.dispatch(tr);
-                    updateCallback(menuItemStates);
+                    updateCallback(
+                        menuItemStates.active,
+                        menuItemStates.allowed,
+                    );
                 }
             },
         }),

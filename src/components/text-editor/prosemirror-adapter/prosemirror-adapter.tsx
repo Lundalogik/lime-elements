@@ -405,19 +405,23 @@ export class ProsemirrorAdapter {
 
     private updateActiveActionBarItems = (
         activeTypes: Record<EditorMenuTypes, boolean>,
+        allowedTypes: Record<EditorMenuTypes, boolean>,
     ) => {
         const newItems = getTextEditorMenuItems().map((item) => {
             if (isItem(item)) {
                 return {
                     ...item,
                     selected: activeTypes[item.value],
+                    allowed: allowedTypes[item.value],
                 };
             }
 
             return item;
         });
 
-        this.actionBarItems = newItems;
+        this.actionBarItems = newItems.filter((item) =>
+            isItem(item) ? item.allowed : true,
+        );
     };
 
     private async updateView(content: string) {
