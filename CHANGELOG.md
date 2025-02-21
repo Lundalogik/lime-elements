@@ -1,3 +1,11 @@
+## [38.1.4](https://github.com/Lundalogik/lime-elements/compare/v38.1.3...v38.1.4) (2025-02-21)
+
+
+### Bug Fixes
+
+
+* **chip:** stop propagation of cancel ([e892bb0](https://github.com/Lundalogik/lime-elements/commit/e892bb024bd4e622c5acd4ce09c6a19ed90c460c)), closes [Lundalogik/crm-feature#4613](https://github.com/Lundalogik/crm-feature/issues/4613)
+
 ## [38.1.3](https://github.com/Lundalogik/lime-elements/compare/v38.1.2...v38.1.3) (2025-02-21)
 
 
