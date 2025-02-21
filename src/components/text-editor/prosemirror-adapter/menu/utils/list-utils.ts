@@ -24,6 +24,12 @@ export const isInListOfType = (
     return false;
 };
 
+/**
+ * Get the other list type from the current list type.
+ * @param schema - The schema to use.
+ * @param currentType - The current list type.
+ * @returns The other list type.
+ */
 export const getOtherListType = (
     schema: Schema,
     currentType: string,
@@ -197,4 +203,41 @@ export const toggleList = (listType: NodeType) => {
             return false;
         }
     };
+};
+
+/**
+ * Converts a single list node from one type to another.
+ */
+export const convertSingleListNode = (
+    state: EditorState,
+    fromType: NodeType,
+    toType: NodeType,
+    dispatch: Dispatch,
+): boolean => {
+    const { $from } = state.selection;
+    const tr = state.tr;
+
+    // Find the nearest parent list of fromType
+    for (let depth = $from.depth; depth > 0; depth--) {
+        const node = $from.node(depth);
+        if (node.type === fromType) {
+            const pos = $from.before(depth);
+            const newNode = toType.create(
+                convertListAttributes(fromType, toType, node.attrs),
+                node.content,
+                node.marks,
+            );
+            if (dispatch) {
+                dispatch(
+                    tr
+                        .replaceWith(pos, pos + node.nodeSize, newNode)
+                        .scrollIntoView(),
+                );
+            }
+
+            return true;
+        }
+    }
+
+    return false;
 };

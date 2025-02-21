@@ -18,7 +18,6 @@ import {
     toggleList,
     Dispatch,
 } from './utils/list-utils';
-import { adjustSelectionToFullBlocks } from './utils/selection-utils';
 import { copyPasteLinkCommand } from './utils/link-utils';
 import { findAncestorDepthOfType } from './utils/node-utils';
 
@@ -217,42 +216,42 @@ const createWrapInCommand = (
 };
 
 /**
- * Handles list operations when there is no selection.
+ * Handles list operations when there is no selection (cursor only).
+ * If the cursor is within a list item, only that list item is affected.
  *
- * @param state - The current editor state.
- * @param type - The type of list to toggle.
- * @param schema - The ProseMirror schema.
- * @param otherType - The other type of list to convert to.
- * @param dispatch - The dispatch function.
- * @returns A command for handling list operations when there is no selection.
+ * @param EditorState - state - The current editor state.
+ * @param NodeType - type - The type of list to toggle.
+ * @param Schema - schema - The ProseMirror schema.
+ * @param Function - dispatch - The dispatch function.
+ * @returns boolean - True if the command was executed.
  */
-const handleListNoSelection = (
-    state: EditorState,
-    type: NodeType,
-    schema: Schema,
-    otherType: NodeType,
-    dispatch: Dispatch,
-) => {
+const handleListNoSelection = (state, type, schema, dispatch) => {
     const { $from } = state.selection;
-    const blockFrom = $from.start();
-    const blockTo = $from.end();
-    const adjustedTr = state.tr.setSelection(
+    // Find the nearest list_item ancestor.
+    const listItemDepth = findAncestorDepthOfType(
+        $from,
+        schema.nodes.list_item,
+    );
+
+    if (listItemDepth === null) {
+        // Not inside a list item; fallback to toggling list on the current block.
+        return toggleList(type)(state, dispatch);
+    }
+
+    // Get the content positions within the list item
+    const listItemStart = $from.start(listItemDepth);
+    const listItemEnd = $from.end(listItemDepth);
+
+    // Set selection to the current list item.
+    const tr = state.tr.setSelection(
         new TextSelection(
-            state.doc.resolve(blockFrom),
-            state.doc.resolve(blockTo),
+            state.doc.resolve(listItemStart),
+            state.doc.resolve(listItemEnd),
         ),
     );
-    const newState = state.apply(adjustedTr);
+    const newState = state.apply(tr);
 
-    if (isInListOfType(newState, type)) {
-        return removeListNodes(newState, type, schema, dispatch);
-    }
-
-    if (isInListOfType(newState, otherType)) {
-        return convertAllListNodes(newState, otherType, type, dispatch);
-    }
-
-    return toggleList(type)(newState, dispatch);
+    return sinkListItem(schema.nodes.list_item)(newState, dispatch);
 };
 
 /**
@@ -272,7 +271,7 @@ const handleListWithSelection = (
     otherType: NodeType,
     dispatch: Dispatch,
 ) => {
-    const { $from } = state.selection;
+    const { $from, $to } = state.selection;
     const listItemType = schema.nodes.list_item;
     const ancestorDepth = findAncestorDepthOfType($from, listItemType);
 
@@ -291,14 +290,7 @@ const handleListWithSelection = (
         return convertAllListNodes(state, otherType, type, dispatch);
     }
 
-    const { from, to } = adjustSelectionToFullBlocks(state);
-    if (from >= to) {
-        return false;
-    }
-
-    const modifiedTr = state.tr.setSelection(
-        new TextSelection(state.doc.resolve(from), state.doc.resolve(to)),
-    );
+    const modifiedTr = state.tr.setSelection(new TextSelection($from, $to));
     const updatedState = state.apply(modifiedTr);
 
     return wrapInList(type)(updatedState, dispatch);
@@ -329,7 +321,7 @@ export const createListCommand = (
         const otherType = getOtherListType(schema, listTypeName);
 
         return noSelection
-            ? handleListNoSelection(state, type, schema, otherType, dispatch)
+            ? handleListNoSelection(state, type, schema, dispatch)
             : handleListWithSelection(state, type, schema, otherType, dispatch);
     };
 
