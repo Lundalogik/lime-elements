@@ -1,3 +1,27 @@
+## [38.1.3](https://github.com/Lundalogik/lime-elements/compare/v38.1.2...v38.1.3) (2025-02-21)
+
+
+### Bug Fixes
+
+
+* **date-picker:** fix memory leak when component is destroyed before menu is closed ([fb4b92b](https://github.com/Lundalogik/lime-elements/commit/fb4b92b13f41a40164a9383ae6733e6caca08eb5))
+
+## [38.1.2](https://github.com/Lundalogik/lime-elements/compare/v38.1.1...v38.1.2) (2025-02-19)
+
+
+### Reverts
+
+
+* Revert "chore(mixins): enable passing extra transitionable props to some mixins" ([1008415](https://github.com/Lundalogik/lime-elements/commit/1008415b5cc90226ebac0fecf43b8161a2654b0a))
+
+## [38.1.1](https://github.com/Lundalogik/lime-elements/compare/v38.1.0...v38.1.1) (2025-02-18)
+
+
+### Bug Fixes
+
+
+* **info-tile:** render the 3d glow effect with the right intensity ([da3112d](https://github.com/Lundalogik/lime-elements/commit/da3112d763c97e3550ab2214c9d20d05750299ec))
+
 ## [38.1.0](https://github.com/Lundalogik/lime-elements/compare/v38.0.0...v38.1.0) (2025-02-15)
 
 
