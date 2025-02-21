@@ -5,9 +5,9 @@ import { schema as basicSchema } from 'prosemirror-schema-basic';
 import { keymap } from 'prosemirror-keymap';
 import { exampleSetup } from 'prosemirror-example-setup';
 import { EditorView } from 'prosemirror-view';
-import { MenuCommandFactory } from './menu-commands';
-import { EditorMenuTypes } from './types';
-import { strikethrough } from './menu-schema-extender';
+import { MenuCommandFactory } from '../menu-commands';
+import { EditorMenuTypes } from '../types';
+import { strikethrough } from '../menu-schema-extender';
 
 describe('MenuCommandFactory', () => {
     let mySchema: Schema;
