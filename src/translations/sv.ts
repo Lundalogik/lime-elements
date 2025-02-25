@@ -34,5 +34,10 @@ export default {
     'editor-link-menu.link': 'Länk',
     'editor-menu.code-block': 'Kodblock',
     'editor-menu.code': 'Kod',
+    'editor-image-view.loading': 'Laddar bilden: { filename }...',
+    'editor-image-view.failed': 'Något gick fel med bilden: { filename }',
+    'editor-image-view.success': 'Bilden: { filename } är redo',
+    'editor-image-view.resize-handle':
+        'Dra åt höger eller vänster för att ändra storlek på bilden',
     'progress-bar': 'Förloppsindikator',
 };

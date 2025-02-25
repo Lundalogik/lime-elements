@@ -2,6 +2,8 @@ import { ContentTypeConverter } from './content-type-converter';
 import { EditorView } from 'prosemirror-view';
 import { sanitizeHTML } from '../../markdown/markdown-parser';
 import { CustomElementDefinition } from '../../../interface';
+import { DOMSerializer } from 'prosemirror-model';
+import { hasImageNode } from '../prosemirror-adapter/plugins/image/node';
 
 /**
  * @private
@@ -18,10 +20,20 @@ export class HTMLConverter implements ContentTypeConverter {
     };
 
     public serialize = (view: EditorView): string => {
-        if (view.dom.textContent === '') {
+        if (
+            view.dom.textContent.trim() === '' &&
+            !hasImageNode(view.state.doc)
+        ) {
             return '';
-        } else {
-            return view.dom.innerHTML;
         }
+
+        const div = document.createElement('div');
+        div.appendChild(
+            DOMSerializer.fromSchema(view.state.schema).serializeFragment(
+                view.state.doc.content,
+            ),
+        );
+
+        return div.innerHTML;
     };
 }
