@@ -35,5 +35,11 @@ export default {
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Codeblock',
     'editor-menu.code': 'Code',
+    'editor-image-view.loading': 'Lade Bild: { filename }...',
+    'editor-image-view.failed':
+        'Beim Laden des Bildes ist etwas schief gelaufen: { filename }',
+    'editor-image-view.success': 'Bild: { filename } ist bereit',
+    'editor-image-view.resize-handle':
+        'Ziehen Sie nach rechts oder links, um die Größe des Bildes zu ändern.',
     'progress-bar': 'Fortschrittsbalken',
 };

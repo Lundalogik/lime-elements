@@ -35,5 +35,11 @@ export default {
     'editor-link-menu.link': 'Lien',
     'editor-menu.code-block': 'Bloc de code',
     'editor-menu.code': 'Code',
+    'editor-image-view.loading': "Chargement de l'image: { filename }...",
+    'editor-image-view.failed':
+        "Un problème est survenu avec l'image: { filename }",
+    'editor-image-view.success': 'Image: { filename } est prête',
+    'editor-image-view.resize-handle':
+        "Faites glisser vers la droite ou la gauche pour redimensionner l'image",
     'progress-bar': 'Barre de progression',
 };

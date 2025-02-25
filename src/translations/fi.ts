@@ -34,5 +34,10 @@ export default {
     'editor-link-menu.link': 'Linkki',
     'editor-menu.code-block': 'Koodilohko',
     'editor-menu.code': 'Koodi',
+    'editor-image-view.loading': 'Ladataan kuvaa: { filename }...',
+    'editor-image-view.failed': 'Jokin meni pieleen kuvan kanssa: { filename }',
+    'editor-image-view.success': 'Kuva: { filename } on valmis',
+    'editor-image-view.resize-handle':
+        'Vedä oikealle tai vasemmalle muuttaaksesi kuvan kokoa',
     'progress-bar': 'Edistymispalkki',
 };

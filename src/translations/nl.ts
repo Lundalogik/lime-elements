@@ -34,5 +34,11 @@ export default {
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Codeblok',
     'editor-menu.code': 'Code',
+    'editor-image-view.loading': 'Afbeelding wordt geladen: { filename }...',
+    'editor-image-view.failed':
+        'Er is iets misgegaan met de afbeelding: { filename }',
+    'editor-image-view.success': 'Afbeelding: { filename } is klaar',
+    'editor-image-view.resize-handle':
+        'Sleep naar rechts of links om de afbeeldingsgrootte te veranderen',
     'progress-bar': 'Voortgangsbalk',
 };
