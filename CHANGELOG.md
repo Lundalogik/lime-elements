@@ -1,3 +1,13 @@
+## [38.1.5](https://github.com/Lundalogik/lime-elements/compare/v38.1.4...v38.1.5) (2025-02-25)
+
+
+### Bug Fixes
+
+
+* **markdown:** better render the `<kbd>` element ([c7d4911](https://github.com/Lundalogik/lime-elements/commit/c7d4911e353053664f4da6f8ebdcabe150b4a363))
+* **text-editor:** better render the `<img>` element ([3a0a95d](https://github.com/Lundalogik/lime-elements/commit/3a0a95d934a97e2558899f271cd1ba71db0d752a))
+* **text-editor:** better render the `<kbd>` element ([e493ed3](https://github.com/Lundalogik/lime-elements/commit/e493ed3f6778bb9877ca4edbd4d4f5d669460bbe))
+
 ## [38.1.4](https://github.com/Lundalogik/lime-elements/compare/v38.1.3...v38.1.4) (2025-02-21)
 
 
