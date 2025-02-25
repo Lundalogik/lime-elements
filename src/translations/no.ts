@@ -33,5 +33,10 @@ export default {
     'editor-link-menu.link': 'Lenke',
     'editor-menu.code-block': 'Kodeblokk',
     'editor-menu.code': 'Kode',
+    'editor-image-view.loading': 'Laster bilde: { filename }...',
+    'editor-image-view.failed': 'Noe gikk galt med bildet: { filename }',
+    'editor-image-view.success': 'Bilde: { filename } er klart',
+    'editor-image-view.resize-handle':
+        'Dra til høyre eller venstre for å endre størrelsen på bildet',
     'progress-bar': 'Fremdriftsindikator',
 };
