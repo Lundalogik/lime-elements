@@ -16,6 +16,7 @@ import { CustomElementDefinition } from '../../global/shared-types/custom-elemen
  * @exampleComponent limel-example-markdown-footnotes
  * @exampleComponent limel-example-markdown-tables
  * @exampleComponent limel-example-markdown-html
+ * @exampleComponent limel-example-markdown-keys
  * @exampleComponent limel-example-markdown-blockquotes
  * @exampleComponent limel-example-markdown-horizontal-rule
  * @exampleComponent limel-example-markdown-composite
