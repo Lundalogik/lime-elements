@@ -14,8 +14,11 @@
         border-spacing: 0;
         background: transparent;
         margin: 0.75rem 0;
+    }
 
+    tbody {
         border: 1px solid rgb(var(--contrast-400));
+        border-radius: 0.25rem;
     }
 
     th,
@@ -57,4 +60,18 @@
             }
         }
     }
+}
+
+table {
+    // This enables very wide tables to be scrollable on small
+    // containers. However, since the default is `display: table`,
+    // these styles could potentially create other misalignment or
+    // layout issues. For example, small tables won't be 100% wide
+    // anymore. I have accepted this tradeoff and have not yet
+    // found anything too horrible or better solution. /Kia
+    display: block;
+    box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
 }
