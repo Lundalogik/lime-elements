@@ -11,7 +11,6 @@ export declare class Playground {
   schema: Record<string, any>;
   /**
    * Factory for creating props for example components
-   *
    * @returns {Record<string, unknown>} props
    */
   propsFactory?: PropsFactory;

@@ -1,0 +1,2 @@
+import{h as r}from"./_baseIteratee-1d34e060.js";var t=Object.prototype;var e=t.hasOwnProperty;function n(r,t){return r!=null&&e.call(r,t)}function u(t,e){return t!=null&&r(t,e,n)}var s="Expected a function";function a(r){if(typeof r!="function"){throw new TypeError(s)}return function(){var t=arguments;switch(t.length){case 0:return!r.call(this);case 1:return!r.call(this,t[0]);case 2:return!r.call(this,t[0],t[1]);case 3:return!r.call(this,t[0],t[1],t[2])}return!r.apply(this,t)}}export{u as h,a as n};
+//# sourceMappingURL=negate-daabd577.js.map

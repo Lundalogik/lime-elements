@@ -14,7 +14,7 @@ export interface JsonDocsSource {
 
 export async function addSources(docs: JsonDocs): Promise<JsonDocs> {
     const components = await Promise.all(
-        docs.components?.map(addComponentSources) || []
+        docs.components?.map(addComponentSources) || [],
     );
 
     return {
@@ -24,7 +24,7 @@ export async function addSources(docs: JsonDocs): Promise<JsonDocs> {
 }
 
 export async function addComponentSources(
-    component: JsonDocsComponent
+    component: JsonDocsComponent,
 ): Promise<any> {
     const sources = await getSources(component);
 
@@ -35,12 +35,12 @@ export async function addComponentSources(
 }
 
 export async function getSources(
-    component: JsonDocsComponent
+    component: JsonDocsComponent,
 ): Promise<JsonDocsSource[]> {
     const source = await readFile(component.filePath);
     const styleNames = getStyleFiles(source);
     const styles = await Promise.all(
-        styleNames.map(getStyle(component.dirPath))
+        styleNames.map(getStyle(component.dirPath)),
     );
     const links = await getLinkedSourceFiles(component);
 
@@ -88,26 +88,26 @@ const getStyle =
     };
 
 async function getLinkedSourceFiles(
-    component: JsonDocsComponent
+    component: JsonDocsComponent,
 ): Promise<JsonDocsSource[]> {
     const deprecatedLinkTags = component.docsTags.filter(
-        (tag) => tag.name === 'link'
+        (tag) => tag.name === 'link',
     );
     if (deprecatedLinkTags.length > 0) {
         // eslint-disable-next-line no-console
         console.warn(
             'Using the @link tag to link source files for display alongside examples is deprecated. ' +
-                'Use @sourceFile instead.'
+                'Use @sourceFile instead.',
         );
     }
 
     const linkTags = component.docsTags.filter(
-        (tag) => tag.name === 'sourceFile'
+        (tag) => tag.name === 'sourceFile',
     );
     const backwardsCompatibleLinkTags = [...linkTags, ...deprecatedLinkTags];
 
     return Promise.all<JsonDocsSource>(
-        backwardsCompatibleLinkTags.map(getLink(component))
+        backwardsCompatibleLinkTags.map(getLink(component)),
     );
 }
 

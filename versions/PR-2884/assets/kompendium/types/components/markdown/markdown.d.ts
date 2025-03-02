@@ -1,6 +1,5 @@
 /**
  * This component renders markdown
- *
  * @exampleComponent kompendium-example-markdown
  */
 export declare class Markdown {
