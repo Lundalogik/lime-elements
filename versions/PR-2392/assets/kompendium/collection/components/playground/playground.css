@@ -150,6 +150,10 @@ section.example .code {
 }
 
 .show-case_component {
+  font-family: var(--kompendium-example-font-family, inherit);
+  font-size: var(--kompendium-example-font-size, inherit);
+  line-height: var(--kompendium-example-line-height, inherit);
+  color: var(--kompendium-example-color, inherit);
   padding: 1.25rem;
   border-radius: 0.875rem;
   background-color: rgb(var(--kompendium-contrast-100));

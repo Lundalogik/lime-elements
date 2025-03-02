@@ -5,12 +5,17 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
+import { PropsFactory } from "./components/playground/playground.types";
 import { JsonDocs, JsonDocsComponent, JsonDocsTag } from "./stencil-public-runtime";
 import { MatchResults } from "@stencil/router";
 import { KompendiumData, MenuItem, TypeDescription } from "./types";
 import { ProplistItem } from "./components/proplist/proplist";
 export namespace Components {
     interface KompendiumApp {
+        /**
+          * Factory for creating props for example components
+         */
+        "examplePropsFactory"?: PropsFactory;
         /**
           * Path to `kompendium.json`
          */
@@ -28,6 +33,10 @@ export namespace Components {
          */
         "docs": JsonDocs;
         /**
+          * Factory for creating props for example components
+         */
+        "examplePropsFactory": PropsFactory;
+        /**
           * Matched route parameters
          */
         "match": MatchResults;
@@ -43,6 +52,11 @@ export namespace Components {
           * The generated documentation data
          */
         "docs": JsonDocs;
+        /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "examplePropsFactory"?: PropsFactory;
         /**
           * Matched route parameters
          */
@@ -88,6 +102,11 @@ export namespace Components {
           * The component to display
          */
         "component": JsonDocsComponent;
+        /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "propsFactory"?: PropsFactory;
         /**
           * Schema for the component
          */
@@ -235,6 +254,10 @@ declare global {
 declare namespace LocalJSX {
     interface KompendiumApp {
         /**
+          * Factory for creating props for example components
+         */
+        "examplePropsFactory"?: PropsFactory;
+        /**
           * Path to `kompendium.json`
          */
         "path"?: string;
@@ -251,6 +274,10 @@ declare namespace LocalJSX {
          */
         "docs"?: JsonDocs;
         /**
+          * Factory for creating props for example components
+         */
+        "examplePropsFactory"?: PropsFactory;
+        /**
           * Matched route parameters
          */
         "match"?: MatchResults;
@@ -266,6 +293,11 @@ declare namespace LocalJSX {
           * The generated documentation data
          */
         "docs"?: JsonDocs;
+        /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "examplePropsFactory"?: PropsFactory;
         /**
           * Matched route parameters
          */
@@ -311,6 +343,11 @@ declare namespace LocalJSX {
           * The component to display
          */
         "component"?: JsonDocsComponent;
+        /**
+          * Factory for creating props for example components
+          * @returns props
+         */
+        "propsFactory"?: PropsFactory;
         /**
           * Schema for the component
          */

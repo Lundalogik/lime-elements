@@ -91,7 +91,7 @@ const traverseCallback = (data: any) => (reflection: Reflection) => {
 
 function addInterface(
     reflection: DeclarationReflection,
-    data: InterfaceDescription[]
+    data: InterfaceDescription[],
 ) {
     if (!reflection.flags.isExported) {
         return;

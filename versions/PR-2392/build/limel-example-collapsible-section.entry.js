@@ -1,2 +1,2 @@
-import{r as e,h as l}from"./index-2626b3b7.js";const s=class{constructor(l){e(this,l)}render(){return l("div",null,l("limel-collapsible-section",{header:"This text becomes the header"},l("p",null,"This element becomes the body.")))}};export{s as limel_example_collapsible_section};
+import{r as e,h as l}from"./index-6156b4fd.js";const s=class{constructor(l){e(this,l)}render(){return l("div",null,l("limel-collapsible-section",{header:"This text becomes the header"},l("p",null,"This element becomes the body.")))}};export{s as limel_example_collapsible_section};
 //# sourceMappingURL=limel-example-collapsible-section.entry.js.map

@@ -43,7 +43,7 @@ function getLanguage(props: { className?: string[] }) {
     }
 
     const languageClass = props.className.find((name) =>
-        name.startsWith('language-')
+        name.startsWith('language-'),
     );
     if (!languageClass) {
         return;

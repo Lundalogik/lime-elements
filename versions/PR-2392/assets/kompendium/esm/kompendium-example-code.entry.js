@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-a0810d83.js';
+import { r as registerInstance, h } from './index-3601b4dc.js';
 
 const code = `
 import foo from 'foo';

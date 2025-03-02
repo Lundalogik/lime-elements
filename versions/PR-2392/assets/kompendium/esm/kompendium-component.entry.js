@@ -1,5 +1,5 @@
-import { h, r as registerInstance, g as getElement } from './index-a0810d83.js';
-import { P as PropertyList, M as MethodList } from './methods-383896f0.js';
+import { h, r as registerInstance, g as getElement } from './index-3601b4dc.js';
+import { P as PropertyList, M as MethodList } from './methods-6b30f69d.js';
 
 function EventList({ events, id, }) {
   if (!events.length) {
@@ -69,17 +69,17 @@ function renderStyle(style) {
       h("kompendium-markdown", { text: style.docs }))));
 }
 
-function ExampleList({ examples, id, schema, }) {
+function ExampleList({ examples, id, schema, propsFactory, }) {
   if (!examples.length) {
     return;
   }
   return [
     h("h3", { class: "docs-layout-section-heading", id: id }, "Examples"),
-    examples.map(renderExample(schema)),
+    examples.map(renderExample(schema, propsFactory)),
   ];
 }
-const renderExample = (schema) => (example) => {
-  return h("kompendium-playground", { component: example, schema: schema });
+const renderExample = (schema, factory) => (example) => {
+  return (h("kompendium-playground", { component: example, schema: schema, propsFactory: factory }));
 };
 
 /** Error message constants. */
@@ -175,7 +175,7 @@ const KompendiumComponent = class {
       h("h1", { id: this.getId() }, title),
       h("kompendium-markdown", { text: component.docs }),
       h("kompendium-taglist", { tags: tags }),
-      h(ExampleList, { examples: examples, id: this.getId('examples'), schema: schema }),
+      h(ExampleList, { examples: examples, id: this.getId('examples'), schema: schema, propsFactory: this.examplePropsFactory }),
       h(PropertyList, { props: component.props, id: this.getId('properties') }),
       h(EventList, { events: component.events, id: this.getId('events') }),
       h(MethodList, { methods: component.methods, id: this.getId('methods') }),
