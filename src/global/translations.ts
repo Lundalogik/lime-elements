@@ -18,9 +18,21 @@ const allTranslations = {
     sv: sv,
 };
 
+const REGEX = /\{\s*(\w+)\s*\}/g;
+
 export class Translations {
-    public get(key, language = 'en') {
-        return allTranslations[language][key];
+    public get(key: string, language = 'en', params?: object): string {
+        const translation = allTranslations[language][key];
+        if (!translation) {
+            return key;
+        }
+
+        return translation.replace(
+            REGEX,
+            (match: string, mergeCodeKey: string) => {
+                return params[mergeCodeKey] || match;
+            },
+        );
     }
 }
 
