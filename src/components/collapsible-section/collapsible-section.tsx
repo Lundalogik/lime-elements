@@ -18,6 +18,7 @@ import { createRandomString } from '../../util/random-string';
  * @slot - Content to put inside the collapsible section
  * @exampleComponent limel-example-collapsible-section
  * @exampleComponent limel-example-collapsible-section-actions
+ * @exampleComponent limel-example-collapsible-section-with-custom-header-component
  * @exampleComponent limel-example-collapsible-section-css-props
  * @exampleComponent limel-example-collapsible-section-external-control
  * @exampleComponent limel-example-collapsible-section-with-slider
@@ -104,6 +105,7 @@ export class CollapsibleSection {
                         {this.header}
                     </h2>
                     <div class="divider-line" />
+                    {this.renderHeaderSlot()}
                     {this.renderActions()}
                 </header>
                 <div
@@ -144,6 +146,10 @@ export class CollapsibleSection {
             </div>
         );
     };
+
+    private renderHeaderSlot() {
+        return <slot name="header" />;
+    }
 
     private renderActionButton = (action: Action) => {
         return (
