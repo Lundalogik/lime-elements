@@ -1,0 +1,2 @@
+import{r as e,h as l}from"./index-6156b4fd.js";const s=class{constructor(l){e(this,l)}render(){return l("div",null,l("limel-collapsible-section",{header:"This section has a custom slot in the header"},l("limel-circular-progress",{slot:"header",value:65,size:"x-small"}),l("p",null,"This element becomes the body.")))}};export{s as limel_example_collapsible_section_with_slot_in_header};
+//# sourceMappingURL=limel-example-collapsible-section-with-slot-in-header.entry.js.map
