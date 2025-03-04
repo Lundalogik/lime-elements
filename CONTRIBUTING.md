@@ -3,7 +3,6 @@
 ✨ Thanks for contributing to **lime-elements**! ✨
 
 
-
 These guidelines are based on the [contributing guidelines](https://github.com/semantic-release/semantic-release/blob/45eee4acdd2a213672466369bcf0a04cd39ee0e1/CONTRIBUTING.md) from **[semantic-release](https://github.com/semantic-release/semantic-release)**.
 
 As a contributor, here are the guidelines we would like you to follow:
