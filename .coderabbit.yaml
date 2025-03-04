@@ -187,7 +187,7 @@ reviews:
       essential_rules: true
 chat:
   # Enable the bot to reply automatically without requiring the user to tag it.
-  auto_reply: true
+  auto_reply: false
   integrations:
     jira:
       # Enable the Jira integration for opening issues, etc. 'auto' disables
