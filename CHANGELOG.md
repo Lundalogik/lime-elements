@@ -1,3 +1,11 @@
+## [38.2.1](https://github.com/Lundalogik/lime-elements/compare/v38.2.0...v38.2.1) (2025-03-05)
+
+
+### Bug Fixes
+
+
+* **markdown:** allow horizontal scrolling in nested HTML tables ([228f94f](https://github.com/Lundalogik/lime-elements/commit/228f94fa3cfb7de3d7e0aa20e2f54d376457623a))
+
 ## [38.2.0](https://github.com/Lundalogik/lime-elements/compare/v38.1.5...v38.2.0) (2025-03-05)
 
 
