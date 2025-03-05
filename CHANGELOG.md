@@ -1,3 +1,11 @@
+## [38.2.0](https://github.com/Lundalogik/lime-elements/compare/v38.1.5...v38.2.0) (2025-03-05)
+
+
+### Features
+
+
+* **collapsible-section:** add support for adding custom header content ([3b0a999](https://github.com/Lundalogik/lime-elements/commit/3b0a9995cc22e5b4ff0cd8068f4134cf58b5f82e))
+
 ## [38.1.5](https://github.com/Lundalogik/lime-elements/compare/v38.1.4...v38.1.5) (2025-02-25)
 
 
