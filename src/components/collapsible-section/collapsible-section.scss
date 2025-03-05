@@ -117,6 +117,10 @@ header {
     flex-shrink: 0;
 }
 
+::slotted([slot='header']) {
+    margin-right: 0.5rem;
+}
+
 .body {
     background-color: var(--body-background-color, var(--contrast-100));
     padding-left: var(--body-padding, 1.25rem);

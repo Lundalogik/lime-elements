@@ -35,3 +35,5 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 .env
 venv/
+
+/chrome-headless-shell/

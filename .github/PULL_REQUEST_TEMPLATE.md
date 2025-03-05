@@ -1,4 +1,8 @@
+<!-- If the PR title includes `@coderabbitai`, CodeRabbit will generate an automatic PR title -->
 
+<!-- Automated summary by CodeRabbit will be added here -->
+@coderabbitai summary
+<!-- End of CodeRabbit summary -->
 
 ## Review:
 - [ ] Commits are [atomic](https://seesparkbox.com/foundry/atomic_commits_with_git)
