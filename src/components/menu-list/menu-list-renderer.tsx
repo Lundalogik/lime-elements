@@ -229,6 +229,7 @@ export class MenuListRenderer {
 
         // eslint-disable-next-line sonarjs/deprecation
         const color = getIconColor(item.icon, item.iconColor);
+        const iconTitle = this.getIconTitle(item);
 
         if (color) {
             if (config.badgeIcons) {
@@ -245,8 +246,24 @@ export class MenuListRenderer {
                 name={name}
                 style={style}
                 size={config.iconSize}
+                aria-label={iconTitle}
+                aria-hidden={iconTitle ? null : 'true'}
             />
         );
+    };
+
+    /**
+     * Get the icon title if available
+     *
+     * @param item - the list item
+     * @returns the icon title or undefined
+     */
+    private getIconTitle = (item: MenuItem): string | undefined => {
+        if (!item.icon || typeof item.icon !== 'object') {
+            return undefined;
+        }
+
+        return item.icon.title;
     };
 
     private renderNotification = (item: MenuItem) => {
