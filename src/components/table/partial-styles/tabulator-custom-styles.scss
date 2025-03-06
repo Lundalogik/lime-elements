@@ -163,7 +163,7 @@
             order: 2;
         }
 
-        .tabulator-tableHolder {
+        .tabulator-tableholder {
             order: 3;
         }
 
@@ -179,7 +179,7 @@
     }
 
     &:has(.tabulator-calcs-holder) {
-        .tabulator-tableHolder {
+        .tabulator-tableholder {
             // makes sure aggregations row doesn't cover the last table row,
             // and the horizontal scroll bar which is shown on windows
             margin-bottom: $height-of-aggregations-row;

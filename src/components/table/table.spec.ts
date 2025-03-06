@@ -11,6 +11,7 @@ describe('limel-table data updates', () => {
             updateOrAddData: jest.fn(),
         };
         (component as any).setSelection = jest.fn();
+        (component as any).initialized = true;
     });
 
     afterEach(() => {

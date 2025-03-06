@@ -1,42 +1,21 @@
 @use '../../../style/functions';
 
-.tabulator-col-sorter {
-    transition: opacity 0.2s ease;
-    right: 0 !important;
-    position: relative !important;
-    justify-content: center;
-    cursor: pointer;
-
-    [aria-sort='none'] & {
-        opacity: 0;
-    }
-
-    [aria-sort='desc'] &,
-    [aria-sort='asc'] & {
-        opacity: 1;
-
-        &:before {
-            position: absolute;
-            content: '';
-            width: 0.125rem;
-            height: 0.4rem;
-            background-color: var(--table-arrow-color--active);
+.tabulator {
+    .tabulator-header .tabulator-col .tabulator-col-content {
+        .tabulator-col-sorter {
+            position: relative;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+            right: 0;
         }
     }
 }
 
 .tabulator-sortable {
-    &[aria-sort='desc'],
-    &[aria-sort='asc'] {
-        &:hover {
-            .tabulator-col-sorter {
-                opacity: 1;
-                animation: indicate-sortable-sorted-column 0.5s ease;
-            }
-        }
-    }
-
     &[aria-sort='none'] {
+        .tabulator-col-sorter {
+            opacity: 0;
+        }
         &:hover {
             .tabulator-col-sorter {
                 opacity: 1;
@@ -48,9 +27,25 @@
             }
         }
     }
+
+    &[aria-sort='desc'],
+    &[aria-sort='asc'] {
+        .tabulator-col-sorter {
+            opacity: 1;
+        }
+
+        &:hover {
+            .tabulator-col-sorter {
+                opacity: 1;
+                animation: indicate-sortable-sorted-column 0.5s ease;
+            }
+        }
+    }
 }
 
 .tabulator-arrow {
+    rotate: 180deg; // changes the direction of the arrow, according to our sorting direction convention
+
     transition: border 0.2s ease;
     border-left: 0.25rem solid transparent !important;
     border-right: 0.25rem solid transparent !important;
@@ -77,7 +72,7 @@
         .tabulator-col.tabulator-sortable[aria-sort='desc']
         & {
         height: 0;
-        transform: translate3d(0, -0.2rem, 0) rotate(180deg);
+        transform: translate3d(0, -0.2rem, 0);
         border-top-width: 0.25rem;
         border-bottom-width: 0;
         border-top-color: var(--table-arrow-color--active);
@@ -88,7 +83,7 @@
         .tabulator-col.tabulator-sortable[aria-sort='asc']
         & {
         height: 0;
-        transform: translate3d(0, 0.2rem, 0) rotate(180deg);
+        transform: translate3d(0, 0.2rem, 0);
         border-top-width: 0;
         border-bottom-width: 0.25rem;
         border-bottom-color: var(--table-arrow-color--active);

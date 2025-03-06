@@ -8,7 +8,20 @@ import {
     Event,
     Host,
 } from '@stencil/core';
-import TabulatorTable from 'tabulator-tables';
+import {
+    TabulatorFull,
+    Tabulator,
+    Options as TabulatorOptions,
+    Sorter as TabulatorSorter,
+    SorterFromTable as TabulatorSorterFromTable,
+    SortDirection as TabulatorSortDirection,
+    ColumnComponent as TabulatorColumnComponent,
+    ColumnDefinition as TabulatorColumnDefinition,
+    RowComponent as TabulatorRowComponent,
+    OptionsData as TabulatorOptionsData,
+    OptionsPagination as TabulatorOptionsPagination,
+    OptionsColumns as TabulatorOptionsColumns,
+} from 'tabulator-tables';
 import {
     Column,
     TableParams,
@@ -214,7 +227,9 @@ export class Table {
 
     private pool: ElementPool;
     private columnFactory: ColumnDefinitionFactory;
-    private firstRequest: boolean;
+    private initialized = false;
+    private destroyed = false;
+    private resizeObserver: ResizeObserver;
     private currentSorting: ColumnSorter[];
     private tableSelection: TableSelection;
     private shouldSort = false;
@@ -237,15 +252,28 @@ export class Table {
     }
 
     public componentWillLoad() {
-        this.firstRequest = this.mode === 'remote';
         this.initTableSelection();
     }
 
     public componentDidLoad() {
+        this.destroyed = false;
         this.init();
     }
 
     public disconnectedCallback() {
+        this.destroyed = true;
+        this.initialized = false;
+
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
+        }
+
+        if (this.tabulator) {
+            this.tabulator.destroy();
+            this.tabulator = null;
+        }
+
         this.pool.clear();
     }
 
@@ -289,7 +317,7 @@ export class Table {
         const hasRowUpdates = !areRowsEqual(newData, oldData);
 
         setTimeout(() => {
-            if (!this.tabulator) {
+            if (!this.tabulator || !this.initialized) {
                 return;
             }
 
@@ -308,7 +336,9 @@ export class Table {
                 return;
             }
 
-            this.tabulator.updateOrAddData(newData);
+            if (newData.length > 0) {
+                this.tabulator.updateOrAddData(newData);
+            }
         });
     }
 
@@ -461,6 +491,7 @@ export class Table {
         if (this.tabulator) {
             this.pool.releaseAll();
             this.tabulator.destroy();
+            this.initialized = false;
         }
 
         const table: HTMLElement =
@@ -482,21 +513,50 @@ export class Table {
         // If that's the case lets just create the table no
         // matter if its rendered or not.
         if (!('ResizeObserver' in window)) {
-            this.tabulator = new TabulatorTable(table, this.getOptions());
+            this.tabulator = this.createTabulator(table);
             this.setSelection();
 
             return;
         }
 
-        const observer = new ResizeObserver(() => {
+        this.resizeObserver = new ResizeObserver(() => {
             requestAnimationFrame(() => {
-                this.tabulator = new TabulatorTable(table, this.getOptions());
+                if (this.destroyed) {
+                    return;
+                }
+
+                this.tabulator = this.createTabulator(table);
                 this.setSelection();
-                observer.unobserve(table);
-                observer.disconnect();
+                this.resizeObserver?.unobserve(table);
+                this.resizeObserver?.disconnect();
             });
         });
-        observer.observe(table);
+        this.resizeObserver.observe(table);
+    }
+
+    private createTabulator(table: HTMLElement): Tabulator {
+        const tabulator = new TabulatorFull(table, this.getOptions());
+        tabulator.on('rowClick', this.onClickRow);
+        tabulator.on('dataSorting', this.handleDataSorting);
+        tabulator.on('pageLoaded', this.handlePageLoaded);
+        tabulator.on('columnMoved', this.handleMoveColumn);
+        tabulator.on('renderComplete', this.handleRenderComplete);
+        tabulator.on('tableBuilt', () => {
+            if (this.destroyed) {
+                tabulator.destroy();
+
+                return;
+            }
+
+            this.initialized = true;
+            if (this.isRemoteMode() && !this.data?.length) {
+                this.tabulator.setData();
+            } else if (!this.isRemoteMode()) {
+                this.updateData(this.data, []);
+            }
+        });
+
+        return tabulator;
     }
 
     private initTableSelection() {
@@ -523,7 +583,7 @@ export class Table {
         this.tabulator?.setMaxPage(this.calculatePageCount());
     }
 
-    private getOptions(): Tabulator.Options {
+    private getOptions(): TabulatorOptions {
         const ajaxOptions = this.getAjaxOptions();
         const paginationOptions = this.getPaginationOptions();
         const columnOptions = this.getColumnOptions();
@@ -532,12 +592,8 @@ export class Table {
             data: this.data,
             layout: mapLayout(this.layout),
             columns: this.getColumnDefinitions(),
-            dataSorting: this.handleDataSorting,
-            pageLoaded: this.handlePageLoaded,
-            renderComplete: this.handleRenderComplete,
             ...ajaxOptions,
             ...paginationOptions,
-            rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
             initialSort: this.getInitialSorting(),
             nestedFieldSeparator: false,
@@ -545,7 +601,7 @@ export class Table {
         };
     }
 
-    private getInitialSorting(): Tabulator.Sorter[] {
+    private getInitialSorting(): TabulatorSorter[] {
         if (this.currentSorting && this.currentSorting.length > 0) {
             return this.getColumnSorter(this.currentSorting);
         }
@@ -553,16 +609,16 @@ export class Table {
         return this.getColumnSorter(this.sorting);
     }
 
-    private getColumnSorter(sorting: ColumnSorter[]): Tabulator.Sorter[] {
+    private getColumnSorter(sorting: ColumnSorter[]): TabulatorSorter[] {
         return sorting.map((sorter: ColumnSorter) => {
             return {
                 column: String(sorter.column.field),
-                dir: sorter.direction.toLocaleLowerCase() as Tabulator.SortDirection,
+                dir: sorter.direction.toLocaleLowerCase() as TabulatorSortDirection,
             };
         });
     }
 
-    private getColumnDefinitions(): Tabulator.ColumnDefinition[] {
+    private getColumnDefinitions(): TabulatorColumnDefinition[] {
         const columnDefinitions = this.columns
             .map(this.addColumnAggregator)
             .map((column) => {
@@ -607,7 +663,7 @@ export class Table {
         return column;
     }
 
-    private getAjaxOptions(): Tabulator.OptionsData {
+    private getAjaxOptions(): TabulatorOptionsData {
         if (!this.isRemoteMode()) {
             return {};
         }
@@ -624,51 +680,30 @@ export class Table {
         };
     }
 
-    /*
-     * The ajaxRequesting callback is triggered when ever an ajax request is made.
-     *
-     * Tabulator is requesting data with an AJAX request even though it has been
-     * given data when it was created.
-     *
-     * It seems unnecessary for us to emit the `load` event as well when this
-     * happens, since we can just initialize the table with the data that has been
-     * given to us. Therefore, we abort the request if:
-     *
-     *  * its the first time this method is called and,
-     *  * data has been sent in to the component as a prop
-     *
-     */
     private handleAjaxRequesting() {
-        const abortRequest = this.firstRequest && !!this.data?.length;
-        this.firstRequest = false;
-
-        if (abortRequest) {
-            setTimeout(() => {
-                this.updateMaxPage();
-                this.tabulator.replaceData(this.data);
-            });
-
-            return false;
-        }
-
-        return true;
+        return !this.destroyed;
     }
 
-    private getPaginationOptions(): Tabulator.OptionsPagination {
+    private getPaginationOptions(): TabulatorOptionsPagination {
         if (!this.pageSize) {
             return {};
         }
 
         return {
-            pagination: this.isRemoteMode() ? 'remote' : 'local',
+            pagination: true,
+            paginationMode: this.isRemoteMode() ? 'remote' : 'local',
             paginationSize: this.pageSize,
             paginationInitialPage: this.page,
         };
     }
 
     private requestData(_, __, params: any): Promise<object> {
-        const sorters = params.sorters;
-        const currentPage = params.page;
+        if (this.destroyed) {
+            return Promise.reject();
+        }
+
+        const sorters = params.sorters ?? [];
+        const currentPage = params.page ?? FIRST_PAGE;
 
         if (this.page !== currentPage) {
             this.changePage.emit(currentPage);
@@ -703,7 +738,7 @@ export class Table {
         return this.mode === 'remote';
     }
 
-    private handleDataSorting(sorters: Tabulator.Sorter[]): void {
+    private handleDataSorting(sorters: TabulatorSorterFromTable[]): void {
         if (this.isRemoteMode()) {
             return;
         }
@@ -731,9 +766,13 @@ export class Table {
         }
     }
 
-    private onClickRow(_ev, row: Tabulator.RowComponent): void {
+    private onClickRow(event: PointerEvent, row: TabulatorRowComponent): void {
         if (row.getPosition === undefined) {
             // Not a data row, probably a CalcComponent
+            return;
+        }
+
+        if (event.defaultPrevented) {
             return;
         }
 
@@ -746,7 +785,7 @@ export class Table {
         this.activate.emit(this.activeRow);
     }
 
-    private getActiveRows: () => Tabulator.RowComponent[] = () => {
+    private getActiveRows: () => TabulatorRowComponent[] = () => {
         if (!this.tabulator) {
             return [];
         }
@@ -778,7 +817,7 @@ export class Table {
         this.tabulator.getRows().forEach(this.formatRow);
     }
 
-    private formatRow(row: Tabulator.RowComponent) {
+    private formatRow(row: TabulatorRowComponent) {
         if (this.isActiveRow(row)) {
             row.getElement().classList.add('active');
         } else {
@@ -795,7 +834,7 @@ export class Table {
         }
     }
 
-    private isActiveRow(row: Tabulator.RowComponent) {
+    private isActiveRow(row: TabulatorRowComponent) {
         if (!this.activeRow) {
             return false;
         }
@@ -822,23 +861,26 @@ export class Table {
         return columns.some((column) => has(column, 'aggregator'));
     }
 
-    private getColumnOptions = (): Tabulator.OptionsColumns => {
+    private getColumnOptions = (): TabulatorOptionsColumns => {
         if (!this.movableColumns) {
             return {};
         }
 
         return {
             movableColumns: true,
-            columnMoved: this.handleMoveColumn,
         };
     };
 
-    private handleMoveColumn = (_, components: Tabulator.ColumnComponent[]) => {
+    private handleMoveColumn = (_, components: TabulatorColumnComponent[]) => {
+        if (!this.movableColumns) {
+            return;
+        }
+
         const columns = components.map(this.findColumn).filter(Boolean);
         this.changeColumns.emit(columns);
     };
 
-    private findColumn = (component: Tabulator.ColumnComponent): Column => {
+    private findColumn = (component: TabulatorColumnComponent): Column => {
         return this.columns.find((column) => {
             return (
                 column.field === component.getField() &&
@@ -848,6 +890,8 @@ export class Table {
     };
 
     render() {
+        const totalRows = this.totalRows ?? this.data.length;
+
         return (
             <Host
                 class={{
@@ -857,7 +901,7 @@ export class Table {
                 <div
                     id="tabulator-container"
                     class={{
-                        'has-pagination': this.totalRows > this.pageSize,
+                        'has-pagination': totalRows > this.pageSize,
                         'has-aggregation': this.hasAggregation(this.columns),
                         'has-movable-columns': this.movableColumns,
                         'has-rowselector': this.selectable,
