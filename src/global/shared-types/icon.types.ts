@@ -20,11 +20,17 @@ export interface Icon {
     backgroundColor?: string;
 
     /**
-     * The `title` attribute of the icon.
      * Used primarily to improve accessibility for users who
      * take advantage of assistive technologies; but also
      * to clarify further what an icon tries to resemble
      * for sighted users.
+     *
+     * Depending on the component which is using the `Icon` interface,
+     * the `title` might be used as a `title` attribute on the
+     * rendered icon element, as an `aria-label` attribute, or as a
+     * `label` in a tooltip associated with the icon. Documentations
+     * about the accessibility of the component should provide more
+     * information about how the `title` is used.
      */
     title?: string;
 }
