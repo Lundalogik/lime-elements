@@ -2,7 +2,11 @@ import { ListSeparator } from '../list/list-item.types';
 import { MenuItem } from '../menu/menu.types';
 import { h } from '@stencil/core';
 import { MenuListRendererConfig } from './menu-list-renderer-config';
-import { getIconColor, getIconName } from '../icon/get-icon-props';
+import {
+    getIconColor,
+    getIconName,
+    getIconTitle,
+} from '../icon/get-icon-props';
 import { isFunction } from 'lodash-es';
 
 export class MenuListRenderer {
@@ -229,6 +233,7 @@ export class MenuListRenderer {
 
         // eslint-disable-next-line sonarjs/deprecation
         const color = getIconColor(item.icon, item.iconColor);
+        const title = getIconTitle(item.icon);
 
         if (color) {
             if (config.badgeIcons) {
@@ -245,6 +250,8 @@ export class MenuListRenderer {
                 name={name}
                 style={style}
                 size={config.iconSize}
+                aria-label={title}
+                aria-hidden={title ? null : 'true'}
             />
         );
     };
