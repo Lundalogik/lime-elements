@@ -49,7 +49,7 @@ $height-of-aggregations-row: 1.5rem;
     .tabulator-header {
         color: var(--table-text-color);
     }
-    .tabulator-tableHolder {
+    .tabulator-tableholder {
         .tabulator-table {
             color: var(--table-text-color);
             background-color: transparent;
@@ -69,7 +69,7 @@ $height-of-aggregations-row: 1.5rem;
             background-color: rgb(var(--table-header-background-color));
             border-right-color: rgb(var(--contrast-200));
 
-            &.tabulator-sortable {
+            &.tabulator-sortable.tabulator-col-sorter-element {
                 &:hover {
                     background-color: rgb(
                         var(--table-header-background-color--hover)
@@ -78,6 +78,7 @@ $height-of-aggregations-row: 1.5rem;
             }
 
             .tabulator-col-content {
+                padding-top: 0.125rem;
                 padding-right: $width-of-sorter-arrow;
             }
         }

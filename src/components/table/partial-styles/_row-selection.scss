@@ -15,7 +15,7 @@ $checkbox-distance-to-left-edge: 0.5rem;
     position: absolute;
     z-index: $table--limel-table--row-selector;
     left: $checkbox-distance-to-left-edge;
-    top: functions.pxToRem(6);
+    top: functions.pxToRem(4);
 }
 
 .limel-table--row-selector {
