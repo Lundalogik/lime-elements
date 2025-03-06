@@ -16,7 +16,7 @@
         flex-shrink: 0;
     }
 
-    .tabulator-tableHolder {
+    .tabulator-tableholder {
         isolation: isolate;
         flex-grow: 1;
         $unset-tabulators-calculated-and-hardcoded-height: unset !important; // tabulator calculates (not so precisely) height of the scrollable area of the table and adds it inline.
