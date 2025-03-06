@@ -149,24 +149,13 @@ export class ActionBarButton {
             return;
         }
 
-        if (this.item.text) {
-            return (
-                <limel-tooltip
-                    elementId={this.tooltipId}
-                    label={this.item.text}
-                    helperLabel={this.item.commandText}
-                />
-            );
-        }
-
-        if (this.item.commandText) {
-            return (
-                <limel-tooltip
-                    elementId={this.tooltipId}
-                    label={this.item.commandText}
-                />
-            );
-        }
+        return (
+            <limel-tooltip
+                elementId={this.tooltipId}
+                label={this.item.text}
+                helperLabel={this.item.commandText}
+            />
+        );
     }
 
     private triggerIconColorWarning() {
