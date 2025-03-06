@@ -8,7 +8,20 @@ import {
     Event,
     Host,
 } from '@stencil/core';
-import TabulatorTable from 'tabulator-tables';
+import {
+    TabulatorFull,
+    Tabulator,
+    Options as TabulatorOptions,
+    Sorter as TabulatorSorter,
+    SorterFromTable as TabulatorSorterFromTable,
+    SortDirection as TabulatorSortDirection,
+    ColumnComponent as TabulatorColumnComponent,
+    ColumnDefinition as TabulatorColumnDefinition,
+    RowComponent as TabulatorRowComponent,
+    OptionsData as TabulatorOptionsData,
+    OptionsPagination as TabulatorOptionsPagination,
+    OptionsColumns as TabulatorOptionsColumns,
+} from 'tabulator-tables';
 import {
     Column,
     TableParams,
@@ -198,6 +211,7 @@ export class Table {
     private pool: ElementPool;
     private columnFactory: ColumnDefinitionFactory;
     private firstRequest: boolean;
+    private initialized: boolean = false;
     private currentSorting: ColumnSorter[];
     private tableSelection: TableSelection;
 
@@ -267,7 +281,7 @@ export class Table {
         const shouldReplace = this.shouldReplaceData(newData, oldData);
 
         setTimeout(() => {
-            if (!this.tabulator) {
+            if (!this.tabulator || !this.initialized) {
                 return;
             }
 
@@ -423,6 +437,7 @@ export class Table {
         if (this.tabulator) {
             this.pool.releaseAll();
             this.tabulator.destroy();
+            this.initialized = false;
         }
 
         const table: HTMLElement =
@@ -444,7 +459,16 @@ export class Table {
         // If that's the case lets just create the table no
         // matter if its rendered or not.
         if (!('ResizeObserver' in window)) {
-            this.tabulator = new TabulatorTable(table, this.getOptions());
+            this.tabulator = new TabulatorFull(table, this.getOptions());
+            this.tabulator.on('rowClick', this.onClickRow);
+            this.tabulator.on('dataSorting', this.handleDataSorting);
+            this.tabulator.on('pageLoaded', this.handlePageLoaded);
+            this.tabulator.on('columnMoved', this.handleMoveColumn);
+            this.tabulator.on('tableBuilt', () => {
+                console.log('Tabulator is now fully initialized.');
+                this.initialized = true;
+                this.updateData(this.data, []);
+            });
             this.setSelection();
 
             return;
@@ -452,7 +476,16 @@ export class Table {
 
         const observer = new ResizeObserver(() => {
             requestAnimationFrame(() => {
-                this.tabulator = new TabulatorTable(table, this.getOptions());
+                this.tabulator = new TabulatorFull(table, this.getOptions());
+                this.tabulator.on('rowClick', this.onClickRow);
+                this.tabulator.on('dataSorting', this.handleDataSorting);
+                this.tabulator.on('pageLoaded', this.handlePageLoaded);
+                this.tabulator.on('columnMoved', this.handleMoveColumn);
+                this.tabulator.on('tableBuilt', () => {
+                    console.log('Tabulator is now fully initialized.');
+                    this.initialized = true;
+                    this.updateData(this.data, []);
+                });
                 this.setSelection();
                 observer.unobserve(table);
                 observer.disconnect();
@@ -484,7 +517,7 @@ export class Table {
         this.tabulator?.setMaxPage(this.calculatePageCount());
     }
 
-    private getOptions(): Tabulator.Options {
+    private getOptions(): TabulatorOptions {
         const ajaxOptions = this.getAjaxOptions();
         const paginationOptions = this.getPaginationOptions();
         const columnOptions = this.getColumnOptions();
@@ -493,11 +526,8 @@ export class Table {
             data: this.data,
             layout: mapLayout(this.layout),
             columns: this.getColumnDefinitions(),
-            dataSorting: this.handleDataSorting,
-            pageLoaded: this.handlePageLoaded,
             ...ajaxOptions,
             ...paginationOptions,
-            rowClick: this.onClickRow,
             rowFormatter: this.formatRow,
             initialSort: this.getInitialSorting(),
             nestedFieldSeparator: false,
@@ -505,7 +535,7 @@ export class Table {
         };
     }
 
-    private getInitialSorting(): Tabulator.Sorter[] {
+    private getInitialSorting(): TabulatorSorter[] {
         if (this.currentSorting && this.currentSorting.length) {
             return this.getColumnSorter(this.currentSorting);
         }
@@ -513,16 +543,16 @@ export class Table {
         return this.getColumnSorter(this.sorting);
     }
 
-    private getColumnSorter(sorting: ColumnSorter[]): Tabulator.Sorter[] {
+    private getColumnSorter(sorting: ColumnSorter[]): TabulatorSorter[] {
         return sorting.map((sorter: ColumnSorter) => {
             return {
                 column: String(sorter.column.field),
-                dir: sorter.direction.toLocaleLowerCase() as Tabulator.SortDirection,
+                dir: sorter.direction.toLocaleLowerCase() as TabulatorSortDirection,
             };
         });
     }
 
-    private getColumnDefinitions(): Tabulator.ColumnDefinition[] {
+    private getColumnDefinitions(): TabulatorColumnDefinition[] {
         const columnDefinitions = this.columns
             .map(this.addColumnAggregator)
             .map(this.columnFactory.create);
@@ -567,7 +597,7 @@ export class Table {
         return column;
     }
 
-    private getAjaxOptions(): Tabulator.OptionsData {
+    private getAjaxOptions(): TabulatorOptionsData {
         if (!this.isRemoteMode()) {
             return {};
         }
@@ -614,13 +644,13 @@ export class Table {
         return true;
     }
 
-    private getPaginationOptions(): Tabulator.OptionsPagination {
+    private getPaginationOptions(): TabulatorOptionsPagination {
         if (!this.pageSize) {
             return {};
         }
 
         return {
-            pagination: this.isRemoteMode() ? 'remote' : 'local',
+            paginationMode: this.isRemoteMode() ? 'remote' : 'local',
             paginationSize: this.pageSize,
             paginationInitialPage: this.page,
         };
@@ -663,7 +693,7 @@ export class Table {
         return this.mode === 'remote';
     }
 
-    private handleDataSorting(sorters: Tabulator.Sorter[]): void {
+    private handleDataSorting(sorters: TabulatorSorterFromTable[]): void {
         if (this.isRemoteMode()) {
             return;
         }
@@ -684,7 +714,7 @@ export class Table {
         this.changePage.emit(page);
     }
 
-    private onClickRow(_ev, row: Tabulator.RowComponent): void {
+    private onClickRow(_ev, row: TabulatorRowComponent): void {
         if (typeof row.getPosition === 'undefined') {
             // Not a data row, probably a CalcComponent
             return;
@@ -699,7 +729,7 @@ export class Table {
         this.activate.emit(this.activeRow);
     }
 
-    private getActiveRows: () => Tabulator.RowComponent[] = () => {
+    private getActiveRows: () => TabulatorRowComponent[] = () => {
         if (!this.tabulator) {
             return [];
         }
@@ -730,7 +760,7 @@ export class Table {
         this.tabulator.getRows().forEach(this.formatRow);
     }
 
-    private formatRow(row: Tabulator.RowComponent) {
+    private formatRow(row: TabulatorRowComponent) {
         if (this.isActiveRow(row)) {
             row.getElement().classList.add('active');
         } else {
@@ -747,7 +777,7 @@ export class Table {
         }
     }
 
-    private isActiveRow(row: Tabulator.RowComponent) {
+    private isActiveRow(row: TabulatorRowComponent) {
         if (!this.activeRow) {
             return false;
         }
@@ -774,23 +804,22 @@ export class Table {
         return columns.some((column) => has(column, 'aggregator'));
     }
 
-    private getColumnOptions = (): Tabulator.OptionsColumns => {
+    private getColumnOptions = (): TabulatorOptionsColumns => {
         if (!this.movableColumns) {
             return {};
         }
 
         return {
             movableColumns: true,
-            columnMoved: this.handleMoveColumn,
         };
     };
 
-    private handleMoveColumn = (_, components: Tabulator.ColumnComponent[]) => {
+    private handleMoveColumn = (_, components: TabulatorColumnComponent[]) => {
         const columns = components.map(this.findColumn).filter((c) => c);
         this.changeColumns.emit(columns);
     };
 
-    private findColumn = (component: Tabulator.ColumnComponent): Column => {
+    private findColumn = (component: TabulatorColumnComponent): Column => {
         return this.columns.find((column) => {
             return (
                 column.field === component.getField() &&
