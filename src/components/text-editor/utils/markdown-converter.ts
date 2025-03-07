@@ -8,6 +8,11 @@ import {
 } from 'prosemirror-markdown';
 import { markdownToHTML } from '../../markdown/markdown-parser';
 import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
+import {
+    getImageNodeMarkdownSerializer,
+    hasImageNode,
+} from '../prosemirror-adapter/plugins/image/node';
+import { Languages } from '../../date-picker/date.types';
 
 type MarkdownSerializerFunction = (
     state: MarkdownSerializerState,
@@ -34,6 +39,7 @@ const createMarkdownSerializerFunction = (
 
 const buildMarkdownSerializer = (
     plugins: CustomElementDefinition[],
+    language: Languages,
 ): MarkdownSerializer => {
     const customNodes = {};
 
@@ -43,6 +49,7 @@ const buildMarkdownSerializer = (
 
     const nodes = {
         ...defaultMarkdownSerializer.nodes,
+        ...getImageNodeMarkdownSerializer(language),
         ...customNodes,
     };
 
@@ -66,8 +73,8 @@ export class MarkdownConverter implements ContentTypeConverter {
     private markdownSerializer: MarkdownSerializer;
     private customNodes: CustomElementDefinition[];
 
-    constructor(plugins: CustomElementDefinition[]) {
-        this.markdownSerializer = buildMarkdownSerializer(plugins);
+    constructor(plugins: CustomElementDefinition[], language: Languages) {
+        this.markdownSerializer = buildMarkdownSerializer(plugins, language);
         this.customNodes = plugins;
     }
     public parseAsHTML = (text: string): Promise<string> => {
@@ -75,10 +82,13 @@ export class MarkdownConverter implements ContentTypeConverter {
     };
 
     public serialize = (view: EditorView): string => {
-        if (view.dom.textContent === '') {
+        if (
+            view.dom.textContent.trim() === '' &&
+            !hasImageNode(view.state.doc)
+        ) {
             return '';
-        } else {
-            return this.markdownSerializer.serialize(view.state.doc);
         }
+
+        return this.markdownSerializer.serialize(view.state.doc);
     };
 }

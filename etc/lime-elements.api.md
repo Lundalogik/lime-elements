@@ -966,6 +966,32 @@ interface Image_2 {
 }
 export { Image_2 as Image }
 
+// @alpha (undocumented)
+export interface ImageInfo {
+    fileInfoId: string;
+    src: string;
+    state: ImageState;
+}
+
+// @alpha (undocumented)
+export interface ImageInserter {
+    // (undocumented)
+    fileInfo: FileInfo;
+    insertFailedThumbnail: () => void;
+    insertImage: (src?: string) => void;
+    insertThumbnail: () => void;
+}
+
+// @alpha (undocumented)
+export enum ImageState {
+    // (undocumented)
+    FAILED = "failed",
+    // (undocumented)
+    LOADING = "loading",
+    // (undocumented)
+    SUCCESS = "success"
+}
+
 // @public (undocumented)
 export interface InfoTileProgress {
     displayPercentageColors?: boolean;
@@ -1651,6 +1677,10 @@ export namespace JSX {
         "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
         // @alpha
+        "onImagePasted"?: (event: LimelProsemirrorAdapterCustomEvent<ImageInserter>) => void;
+        // @alpha
+        "onImageRemoved"?: (event: LimelProsemirrorAdapterCustomEvent<ImageInfo>) => void;
+        // @alpha
         "triggerCharacters"?: TriggerCharacter[];
         "value"?: string;
     }
@@ -1771,6 +1801,10 @@ export namespace JSX {
         "label"?: string;
         "language"?: Languages;
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
+        // @alpha
+        "onImagePasted"?: (event: LimelTextEditorCustomEvent<ImageInserter>) => void;
+        // @alpha
+        "onImageRemoved"?: (event: LimelTextEditorCustomEvent<ImageInfo>) => void;
         // @alpha
         "onTriggerChange"?: (event: LimelTextEditorCustomEvent<TriggerEventDetail>) => void;
         // @alpha
