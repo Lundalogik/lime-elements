@@ -124,16 +124,27 @@ export class ActionBarButton {
             const name = getIconName(this.item.icon);
             // eslint-disable-next-line sonarjs/deprecation
             const color = getIconColor(this.item.icon, this.item.iconColor);
+            const iconTitle = this.getIconTitle();
 
             return (
                 <limel-icon
                     name={name}
+                    aria-label={iconTitle}
+                    aria-hidden={iconTitle ? null : 'true'}
                     style={{
                         '--action-bar-item-icon-color': `${color}`,
                     }}
                 />
             );
         }
+    }
+
+    getIconTitle() {
+        if (!this.isItem(this.item) || typeof this.item.icon !== 'object') {
+            return;
+        }
+
+        return this.item.icon.title;
     }
 
     private renderLabel() {
@@ -149,24 +160,28 @@ export class ActionBarButton {
             return;
         }
 
-        if (this.item.text) {
-            return (
-                <limel-tooltip
-                    elementId={this.tooltipId}
-                    label={this.item.text}
-                    helperLabel={this.item.commandText}
-                />
-            );
+        return (
+            <limel-tooltip
+                elementId={this.tooltipId}
+                label={this.getTooltipLabel()}
+                helperLabel={this.item.commandText}
+            />
+        );
+    }
+
+    private getTooltipLabel(): string {
+        if (!this.isItem(this.item)) {
+            return null;
         }
 
-        if (this.item.commandText) {
-            return (
-                <limel-tooltip
-                    elementId={this.tooltipId}
-                    label={this.item.commandText}
-                />
-            );
+        const iconTitle = this.getIconTitle();
+        const tooltipLabel = this.item.text;
+
+        if (iconTitle && tooltipLabel) {
+            return `${iconTitle} ${tooltipLabel}`;
         }
+
+        return tooltipLabel;
     }
 
     private triggerIconColorWarning() {
