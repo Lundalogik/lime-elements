@@ -200,10 +200,12 @@ export class Table {
     private firstRequest: boolean;
     private currentSorting: ColumnSorter[];
     private tableSelection: TableSelection;
+    private shouldSort = false;
 
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
         this.handlePageLoaded = this.handlePageLoaded.bind(this);
+        this.handleRenderComplete = this.handleRenderComplete.bind(this);
         this.handleAjaxRequesting = this.handleAjaxRequesting.bind(this);
         this.requestData = this.requestData.bind(this);
         this.onClickRow = this.onClickRow.bind(this);
@@ -305,9 +307,8 @@ export class Table {
             return;
         }
 
-        // Updating columns requires a reinitialization otherwise sorting will not work
-        // afterwards
-        this.init();
+        this.tabulator.setColumns(this.getColumnDefinitions());
+        this.shouldSort = true;
     }
 
     @Watch('aggregates')
@@ -495,6 +496,7 @@ export class Table {
             columns: this.getColumnDefinitions(),
             dataSorting: this.handleDataSorting,
             pageLoaded: this.handlePageLoaded,
+            renderComplete: this.handleRenderComplete,
             ...ajaxOptions,
             ...paginationOptions,
             rowClick: this.onClickRow,
@@ -682,6 +684,13 @@ export class Table {
         }
 
         this.changePage.emit(page);
+    }
+
+    private handleRenderComplete(): void {
+        if (this.tabulator && this.shouldSort) {
+            this.shouldSort = false;
+            this.tabulator.setSort(this.getColumnSorter(this.sorting));
+        }
     }
 
     private onClickRow(_ev, row: Tabulator.RowComponent): void {
