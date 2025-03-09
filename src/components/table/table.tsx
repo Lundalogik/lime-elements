@@ -200,7 +200,7 @@ export class Table {
     private firstRequest: boolean;
     private currentSorting: ColumnSorter[];
     private tableSelection: TableSelection;
-    private shouldSort: boolean = false;
+    private shouldSort = false;
 
     constructor() {
         this.handleDataSorting = this.handleDataSorting.bind(this);
