@@ -1,5 +1,10 @@
 import { EventEmitter } from '@stencil/core';
-import Tabulator from 'tabulator-tables';
+import {
+    Tabulator,
+    ColumnDefinition as TabulatorColumnDefinition,
+    CellComponent as TabulatorCellComponent,
+    RowComponent as TabulatorRowComponent,
+} from 'tabulator-tables';
 import { setElementProperties } from './columns';
 import { ElementPool } from './element-pool';
 import { Selection, SelectionChangeSet } from './selection';
@@ -79,12 +84,12 @@ export class TableSelection {
      * @returns The column definitions with the checkbox column prepended to it
      */
     public getColumnDefinitions(
-        columnDefinitions: Tabulator.ColumnDefinition[],
-    ): Tabulator.ColumnDefinition[] {
+        columnDefinitions: TabulatorColumnDefinition[],
+    ): TabulatorColumnDefinition[] {
         return [this.getRowSelectorColumnDefinition(), ...columnDefinitions];
     }
 
-    private getRowSelectorColumnDefinition(): Tabulator.ColumnDefinition {
+    private getRowSelectorColumnDefinition(): TabulatorColumnDefinition {
         return {
             title: '',
             formatter: this.getRowSelectorFormatter(),
@@ -103,7 +108,7 @@ export class TableSelection {
     }
 
     private getRowSelectorFormatter() {
-        return (cell: Tabulator.CellComponent) => {
+        return (cell: TabulatorCellComponent) => {
             const element = this.pool.get(LIMEL_CHECKBOX);
             setElementProperties(element, {
                 checked: this.selection.has(getRowId(cell.getData())),
@@ -124,13 +129,17 @@ export class TableSelection {
      */
     protected rowSelectorCellClick = (
         ev: PointerEvent,
-        cell: Tabulator.CellComponent,
+        cell: TabulatorCellComponent,
     ): void => {
         ev.stopPropagation();
         ev.preventDefault();
 
         const clickedRow = cell.getRow();
         const rowPosition = clickedRow.getPosition(true);
+
+        if (rowPosition === false) {
+            return;
+        }
 
         if (ev.shiftKey) {
             this.updateRowSelectors(
@@ -160,7 +169,7 @@ export class TableSelection {
     };
 
     private updateRowSelector = (
-        row: Tabulator.RowComponent,
+        row: TabulatorRowComponent,
         checked: boolean,
     ): void => {
         const cell = row.getCells()[0];
@@ -170,7 +179,7 @@ export class TableSelection {
         }
     };
 
-    private getActiveRows: () => Tabulator.RowComponent[] = () => {
+    private getActiveRows: () => TabulatorRowComponent[] = () => {
         const table = this.getTable();
         if (!table) {
             return [];
