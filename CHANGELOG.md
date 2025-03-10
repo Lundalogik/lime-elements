@@ -1,3 +1,13 @@
+## [38.2.2](https://github.com/Lundalogik/lime-elements/compare/v38.2.1...v38.2.2) (2025-03-10)
+
+
+### Bug Fixes
+
+
+* **action-bar:** properly use the `title` property of the item's `icon` ([4296e83](https://github.com/Lundalogik/lime-elements/commit/4296e838d2598dac19e51d107dda2c9da61ca387))
+* **list:** properly use the `title` property of the item's `icon` ([4d60cac](https://github.com/Lundalogik/lime-elements/commit/4d60cac65313f8edb6d3128b93be7cb03260275e))
+* **menu:** properly use the `title` property of the item's `icon` ([208e5eb](https://github.com/Lundalogik/lime-elements/commit/208e5ebe80cd55e858c820372e2be422bee4977c))
+
 ## [38.2.1](https://github.com/Lundalogik/lime-elements/compare/v38.2.0...v38.2.1) (2025-03-05)
 
 
