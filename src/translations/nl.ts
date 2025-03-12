@@ -24,6 +24,7 @@ export default {
     'file-viewer.more-actions': 'Meer…',
     'editor-menu.bold': 'Vet',
     'editor-menu.italic': 'Cursief',
+    'editor-menu.strikethrough': 'Doorhalen',
     'editor-menu.h1': 'Kopniveau 1',
     'editor-menu.h2': 'Kopniveau 2',
     'editor-menu.h3': 'Kopniveau 3',

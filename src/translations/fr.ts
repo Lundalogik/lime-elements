@@ -24,6 +24,7 @@ export default {
     'file-viewer.more-actions': 'Plus…',
     'editor-menu.bold': 'Gras',
     'editor-menu.italic': 'Italique',
+    'editor-menu.strikethrough': 'Barré',
     'editor-menu.h1': 'Titre 1',
     'editor-menu.h2': 'Titre 2',
     'editor-menu.h3': 'Titre 3',

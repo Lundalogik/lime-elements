@@ -24,6 +24,7 @@ export default {
     'file-viewer.more-actions': 'Mehr…',
     'editor-menu.bold': 'Fett',
     'editor-menu.italic': 'Kursiv',
+    'editor-menu.strikethrough': 'Durchgestrichen',
     'editor-menu.h1': 'Überschrift 1',
     'editor-menu.h2': 'Überschrift 2',
     'editor-menu.h3': 'Überschrift 3',

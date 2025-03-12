@@ -23,6 +23,7 @@ export default {
     'file-viewer.more-actions': 'More…',
     'editor-menu.bold': 'Bold',
     'editor-menu.italic': 'Italic',
+    'editor-menu.strikethrough': 'Strikethrough',
     'editor-menu.h1': 'Heading 1',
     'editor-menu.h2': 'Heading 2',
     'editor-menu.h3': 'Heading 3',

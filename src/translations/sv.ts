@@ -23,6 +23,7 @@ export default {
     'file-viewer.more-actions': 'Mer…',
     'editor-menu.bold': 'Fet',
     'editor-menu.italic': 'Kursiv',
+    'editor-menu.strikethrough': 'Genomstruken',
     'editor-menu.h1': 'Rubrik 1',
     'editor-menu.h2': 'Rubrik 2',
     'editor-menu.h3': 'Rubrik 3',
