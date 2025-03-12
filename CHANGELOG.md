@@ -1,3 +1,12 @@
+## [38.3.0](https://github.com/Lundalogik/lime-elements/compare/v38.2.3...v38.3.0) (2025-03-12)
+
+
+### Features
+
+
+* **text-editor:** add support for pasting inline images ([735893b](https://github.com/Lundalogik/lime-elements/commit/735893b205e901ef98a850318a50d5911012157e))
+* **translations:** add support for merge codes in translations ([0433193](https://github.com/Lundalogik/lime-elements/commit/0433193a66079c83f1cc969b7e2bf0a3450f9e97))
+
 ## [38.2.3](https://github.com/Lundalogik/lime-elements/compare/v38.2.2...v38.2.3) (2025-03-12)
 
 
