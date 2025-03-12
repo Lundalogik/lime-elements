@@ -14,6 +14,7 @@ export default {
     'date-picker.quarter.heading': 'Vuosineljännes',
     'date-picker.year.heading': 'Vuosi',
     'chip-set.clear-all': 'Tyhjennä kaikki',
+    'snackbar.dismiss': 'Sulje',
     'file-viewer.message.unsupported-filetype':
         'Tätä tiedostoa ei voi näyttää!',
     'file-viewer.download': 'Ladata',
