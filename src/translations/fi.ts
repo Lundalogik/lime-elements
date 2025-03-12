@@ -24,6 +24,7 @@ export default {
     'file-viewer.more-actions': 'Lisää…',
     'editor-menu.bold': 'Lihavoitu',
     'editor-menu.italic': 'Kursivoitu',
+    'editor-menu.strikethrough': 'Yliviivaus',
     'editor-menu.h1': 'Otsikkotaso 1',
     'editor-menu.h2': 'Otsikkotaso 2',
     'editor-menu.h3': 'Otsikkotaso 3',
