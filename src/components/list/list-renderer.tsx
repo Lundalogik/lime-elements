@@ -5,7 +5,11 @@ import { h } from '@stencil/core';
 import { CheckboxTemplate } from '../checkbox/checkbox.template';
 import { ListRendererConfig } from './list-renderer-config';
 import { RadioButtonTemplate } from './radio-button/radio-button.template';
-import { getIconColor, getIconName } from '../icon/get-icon-props';
+import {
+    getIconColor,
+    getIconName,
+    getIconTitle,
+} from '../icon/get-icon-props';
 import { isEmpty } from 'lodash-es';
 
 export class ListRenderer {
@@ -230,6 +234,7 @@ export class ListRenderer {
 
         // eslint-disable-next-line sonarjs/deprecation
         const color = getIconColor(item.icon, item.iconColor);
+        const title = getIconTitle(item.icon);
 
         if (color) {
             if (config.badgeIcons) {
@@ -246,6 +251,8 @@ export class ListRenderer {
                 name={name}
                 style={style}
                 size={config.iconSize}
+                aria-label={title}
+                aria-hidden={title ? null : 'true'}
             />
         );
     };
