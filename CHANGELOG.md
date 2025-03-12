@@ -1,3 +1,11 @@
+## [38.2.3](https://github.com/Lundalogik/lime-elements/compare/v38.2.2...v38.2.3) (2025-03-12)
+
+
+### Bug Fixes
+
+
+* **table:** preserve checkbox background on hover ([aa73123](https://github.com/Lundalogik/lime-elements/commit/aa73123076357825d51ac1681959558e7fb3dbdf))
+
 ## [38.2.2](https://github.com/Lundalogik/lime-elements/compare/v38.2.1...v38.2.2) (2025-03-10)
 
 
