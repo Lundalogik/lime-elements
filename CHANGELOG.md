@@ -1,3 +1,12 @@
+## [38.3.1](https://github.com/Lundalogik/lime-elements/compare/v38.3.0...v38.3.1) (2025-03-12)
+
+
+### Bug Fixes
+
+
+* **snackbar:** add missing translations for the dismiss button ([ec8f33d](https://github.com/Lundalogik/lime-elements/commit/ec8f33db5f8bd7f64509f725d65fd1ee819be41e))
+* **text-editor:** add translations for "Strikethrough" action ([297bfc7](https://github.com/Lundalogik/lime-elements/commit/297bfc71acc5643dc45038a85738caaf1ca02f95))
+
 ## [38.3.0](https://github.com/Lundalogik/lime-elements/compare/v38.2.3...v38.3.0) (2025-03-12)
 
 
