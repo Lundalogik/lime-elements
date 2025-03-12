@@ -1,7 +1,7 @@
 export default {
     remove: 'Poista',
     save: 'Tallenna',
-    canceL: 'Peruuta',
+    cancel: 'Peruuta',
     loading: 'Ladataan…',
     value: 'Arvo',
     'callout.note': 'Huomio',
