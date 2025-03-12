@@ -39,4 +39,5 @@ export default {
     'editor-image-view.resize-handle':
         'Dra til høyre eller venstre for å endre størrelsen på bildet',
     'progress-bar': 'Fremdriftsindikator',
+    'snackbar.dismiss': 'Lukk',
 };

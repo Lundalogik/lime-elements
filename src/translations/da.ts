@@ -14,6 +14,7 @@ export default {
     'date-picker.quarter.heading': 'Kvartal',
     'date-picker.year.heading': 'År',
     'chip-set.clear-all': 'Ryd alle',
+    'snackbar.dismiss': 'Luk',
     'file-viewer.message.unsupported-filetype': 'Denne fil kan ikke vises!',
     'file-viewer.download': 'Hent',
     'file-viewer.exit-fullscreen': 'Afslut fuldskærm',

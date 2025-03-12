@@ -14,6 +14,7 @@ export default {
     'date-picker.quarter.heading': 'Kwartaal',
     'date-picker.year.heading': 'Jaar',
     'chip-set.clear-all': 'Alles wissen',
+    'snackbar.dismiss': 'Sluiten',
     'file-viewer.message.unsupported-filetype':
         'Kan dit bestand niet weergeven!',
     'file-viewer.download': 'Downloaden',
