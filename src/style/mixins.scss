@@ -542,3 +542,63 @@ $clickable-normal-state-transitions: (
         box-shadow: var(--shadow-depth-8-focused), var(--button-shadow-pressed);
     }
 }
+
+/**
+ * The breakpoints below are used to create responsive designs
+ * in Lime's products. Therefore, they are here to get distributed
+ * to all components in other private repos, which rely on this `mixins`
+ * file, to create consistent styles.
+ *
+ * :::important
+ * In very rare cases you should used media queries!
+ * Nowadays, there are many better ways of achieving responsive design
+ * without media queries. For example, using CSS Grid, Flexbox, and their features.
+ * :::
+ */
+$narrow-viewport-breakpoint: 800px;
+$medium-viewport-breakpoint: 1023px;
+// At this breakpoint, `limel-dialog` switches the layout of `slot="button"`
+// and stretches the buttons to full-width.
+$narrow-dialog-breakpoint: 760px;
+
+/**
+  * Media query mixins for responsive design based on screen width.
+  * Note that these mixins do not detect the device type!
+  */
+@mixin when-viewport-width-is-narrow {
+    // What our products consider as mobile (held in portrait mode)
+    @media (max-width: #{$narrow-viewport-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin when-viewport-width-is-not-narrow {
+    // Wider than what our products consider as mobile (held in portrait mode)
+    @media (min-width: #{$narrow-viewport-breakpoint + 1px}) {
+        @content;
+    }
+}
+
+@mixin when-viewport-width-is-medium {
+    // What our products consider as to be bigger than a phone,
+    // but not bigger than a tablet (held in landscape mode)
+    // or a small laptop screen.
+    @media (min-width: #{$narrow-viewport-breakpoint + 1px}) and (max-width: #{$medium-viewport-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin when-viewport-width-is-not-large {
+    // What our products consider as a phone,
+    // or a small tablet (held in landscape mode) or a small laptop screen.
+    @media (max-width: #{$medium-viewport-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin when-viewport-width-is-large {
+    // What our products consider wider than tablet (held in landscape mode)
+    @media (min-width: #{$medium-viewport-breakpoint + 1px}) {
+        @content;
+    }
+}
