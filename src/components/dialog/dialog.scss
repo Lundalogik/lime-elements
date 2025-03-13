@@ -126,7 +126,7 @@ footer.mdc-dialog__actions {
     padding: 0.375rem; // 6px
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: #{mixins.$narrow-dialog-breakpoint}) {
     slot[name='button'] {
         flex-direction: column-reverse;
     }
