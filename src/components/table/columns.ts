@@ -267,7 +267,7 @@ function createResizeObserver(
 
 // Tabulator seems to also have this `field` property, that does not appear on
 // the interface for some reason
-interface TabulatorSorter extends Tabulator.Sorter {
+interface TabulatorSorter extends Tabulator.SorterFromTable {
     field: string;
 }
 
