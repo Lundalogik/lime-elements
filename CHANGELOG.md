@@ -1,3 +1,11 @@
+## [38.3.2](https://github.com/Lundalogik/lime-elements/compare/v38.3.1...v38.3.2) (2025-03-13)
+
+
+### Bug Fixes
+
+
+* **table:** apply new columns without a full init ([3a5e7ac](https://github.com/Lundalogik/lime-elements/commit/3a5e7ac394daa8c689797b71a321f3801b226d48)), closes [Lundalogik/crm-feature#4449](https://github.com/Lundalogik/crm-feature/issues/4449)
+
 ## [38.3.1](https://github.com/Lundalogik/lime-elements/compare/v38.3.0...v38.3.1) (2025-03-12)
 
 
