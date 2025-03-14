@@ -111,7 +111,7 @@ reviews:
     enabled: true
 
     # Automatic incremental code review on each push
-    auto_incremental_review: false
+    auto_incremental_review: true
 
     # Ignore reviewing if the title of the pull request contains any of these
     # keywords (case-insensitive).
