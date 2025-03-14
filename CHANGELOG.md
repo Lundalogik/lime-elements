@@ -1,3 +1,11 @@
+## [38.3.3](https://github.com/Lundalogik/lime-elements/compare/v38.3.2...v38.3.3) (2025-03-14)
+
+
+### Bug Fixes
+
+
+* **style:** add new mixins & breakpoint variables ([958438e](https://github.com/Lundalogik/lime-elements/commit/958438e2dda49a2cacdea95a514d5f759a51543f))
+
 ## [38.3.2](https://github.com/Lundalogik/lime-elements/compare/v38.3.1...v38.3.2) (2025-03-13)
 
 
