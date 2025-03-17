@@ -3,16 +3,16 @@
 * @prop --markdown-hyperlink-color--hovered: color of text for hyperlinks when hovered. Defaults to `--color-blue-default`;
 */
 
-@import './partial-styles/pre-code';
-@import './partial-styles/headings';
-@import './partial-styles/body-text';
-@import './partial-styles/lists';
-@import './partial-styles/tables';
-@import './partial-styles/blockquotes';
-@import './partial-styles/definition-lists';
-@import './partial-styles/img';
-@import './partial-styles/kbd';
-@import './partial-styles/_adjust-for-table-cell';
+@forward './partial-styles/pre-code';
+@forward './partial-styles/headings';
+@forward './partial-styles/body-text';
+@forward './partial-styles/lists';
+@forward './partial-styles/tables';
+@forward './partial-styles/blockquotes';
+@forward './partial-styles/definition-lists';
+@forward './partial-styles/img';
+@forward './partial-styles/kbd';
+@forward './partial-styles/_adjust-for-table-cell';
 
 // body-text
 hr {
