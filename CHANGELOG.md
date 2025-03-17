@@ -1,3 +1,11 @@
+## [38.4.0](https://github.com/Lundalogik/lime-elements/compare/v38.3.3...v38.4.0) (2025-03-17)
+
+
+### Features
+
+
+* **badge:** enable the consumer to control its `max-width` ([8661573](https://github.com/Lundalogik/lime-elements/commit/86615732dcfc5185c3a05c22abb1ceb206a884a6))
+
 ## [38.3.3](https://github.com/Lundalogik/lime-elements/compare/v38.3.2...v38.3.3) (2025-03-14)
 
 
