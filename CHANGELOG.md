@@ -1,3 +1,11 @@
+## [38.4.1](https://github.com/Lundalogik/lime-elements/compare/v38.4.0...v38.4.1) (2025-03-17)
+
+
+### Bug Fixes
+
+
+* **markdown:** remove hyphens from paragraphs & lists ([867dd95](https://github.com/Lundalogik/lime-elements/commit/867dd959fc8fefe3217d7212cf230f921099443a))
+
 ## [38.4.0](https://github.com/Lundalogik/lime-elements/compare/v38.3.3...v38.4.0) (2025-03-17)
 
 
