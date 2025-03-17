@@ -5,6 +5,7 @@
 /**
  * @prop --badge-background-color: badge background color
  * @prop --badge-text-color: badge text color
+ * @prop --badge-max-width: maximum width of the badge, before its text gets truncated
  */
 
 :host([hidden]) {
@@ -43,7 +44,7 @@ span {
         min-width: var(
             --limel-min-badge-size
         ); // ensures that a badge with only one character rendered as perfect circle
-        max-width: 2.75rem;
+        max-width: var(--badge-max-width, 2.75rem);
         padding: 0 functions.pxToRem(4.5);
     }
 }
