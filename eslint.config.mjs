@@ -28,6 +28,7 @@ export default [{
         "**/docsDist/",
         "**/node_modules/",
         "**/www/",
+        "**/chrome-headless-shell/",
     ],
 }, ...compat.extends(
     "eslint:recommended",
