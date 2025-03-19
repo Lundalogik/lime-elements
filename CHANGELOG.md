@@ -1,3 +1,11 @@
+## [38.5.0](https://github.com/Lundalogik/lime-elements/compare/v38.4.1...v38.5.0) (2025-03-19)
+
+
+### Features
+
+
+* **chip:** add missing `loading` property to `Chip` interface ([a300621](https://github.com/Lundalogik/lime-elements/commit/a3006219f90044a621d819640bd06fef463d9512)), closes [Lundalogik/crm-feature#4676](https://github.com/Lundalogik/crm-feature/issues/4676)
+
 ## [38.4.1](https://github.com/Lundalogik/lime-elements/compare/v38.4.0...v38.4.1) (2025-03-17)
 
 
