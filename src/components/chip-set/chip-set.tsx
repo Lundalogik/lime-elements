@@ -646,6 +646,7 @@ export class ChipSet {
             badge: chip.badge,
             selected: chip.selected,
             disabled: this.disabled,
+            loading: chip.loading,
             readonly: readonly,
             type: chipType,
             removable: removable,
