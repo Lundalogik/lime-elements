@@ -87,7 +87,7 @@
     "parse-css-color": "^0.2.1",
     "prettier": "^3.5.0",
     "prosemirror-example-setup": "^1.2.3",
-    "prosemirror-markdown": "^1.13.1",
+    "prosemirror-markdown": "^1.13.2",
     "prosemirror-model": ">=1.22.1",
     "prosemirror-schema-basic": "^1.2.3",
     "prosemirror-tables": "^1.6.4",
