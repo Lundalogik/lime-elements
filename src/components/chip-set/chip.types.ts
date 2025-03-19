@@ -101,6 +101,12 @@ export interface Chip<T = any> {
      * List of the items to display as in a menu, on the chip.
      */
     menuItems?: Array<MenuItem | ListSeparator>;
+
+    /**
+     * Set to `true` to put the chip in the `loading` state, and render an
+     * indeterminate progress indicator inside the chip.
+     */
+    loading?: boolean;
 }
 
 /**
