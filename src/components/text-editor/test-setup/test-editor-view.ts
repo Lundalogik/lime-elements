@@ -24,17 +24,18 @@ export function createEditorView(
     const editorState =
         state || createEditorState('<p></p>', createTestSchema());
 
-    const dispatch =
-        dispatchSpy ||
-        jest.fn((tr) => {
-            const newState = editorState.apply(tr);
-            view.updateState(newState);
-        });
-
-    const view = new EditorView(container, {
+    const viewProps: {
+        state: EditorState;
+        dispatchTransaction?: (tr: any) => void;
+    } = {
         state: editorState,
-        dispatchTransaction: dispatch,
-    });
+    };
+
+    if (dispatchSpy) {
+        viewProps.dispatchTransaction = dispatchSpy;
+    }
+
+    const view = new EditorView(container, viewProps);
 
     return { view: view, container: container };
 }
@@ -46,12 +47,8 @@ export function createEditorView(
  * @returns A Jest mock function that can be used as a dispatch spy
  */
 export function createDispatchSpy(autoUpdate = true): jest.Mock {
-    return jest.fn((view: EditorView, tr) => {
-        if (autoUpdate) {
-            const newState = view.state.apply(tr);
-            view.updateState(newState);
-        }
-
+    return jest.fn((tr) => {
+        // Return the transaction for easier testing
         return tr;
     });
 }
