@@ -8,33 +8,33 @@ This directory contains utility functions and setup code to help test the text e
    - `createTestSchema()` - Creates a ProseMirror schema with all needed marks and nodes
    - `createCustomTestSchema(options)` - Creates a custom schema with specified extensions
 
-1. **Analysis**
+A. **Analysis**
    - Examine text editor for mark/node usage
    - Review existing schema configuration
 
-2. **Dependencies**
+B. **Dependencies**
    - Identify required ProseMirror packages
    - Determine schema construction method
 
-3. **Design**
+C. **Design**
    - Define function signature
    - Plan schema structure with nodes/marks
 
-4. **Implementation**
+D. **Implementation**
    - Create base schema
    - Add list nodes (ordered, bullet)
    - Add custom marks (strikethrough, etc.)
    - Add any custom nodes
 
-5. **Validation**
+E. **Validation**
    - Ensure schema includes all testing elements
    - Add schema configuration validation
 
-6. **Documentation**
+F. **Documentation**
    - Document function usage and returned schema
    - Add examples
 
-7. **Integration**
+G. **Integration**
    - Ensure compatibility with other test utilities
    - Verify consistency with production schema
 
