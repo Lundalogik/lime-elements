@@ -31,9 +31,11 @@ This document tracks the implementation progress of the text editor testing suit
   - [x] `createDocWithBlockquote(text, schema?)` - Creates a document with a blockquote
   - [x] `createDocWithCodeBlock(code, schema?)` - Creates a document with a code block
 
-- [ ] Command Testing
-  - [ ] `testCommand(command, state, expected)` - Tests a command and verifies the result
-  - [ ] `getCommandResult(command, state)` - Gets the result of applying a command
+- [x] Command Testing
+  - [x] `testCommand(command, state, expected)` - Tests a command and verifies the result
+  - [x] `getCommandResult(command, state)` - Gets the result of applying a command
+  - [x] `testCommandWithView(command, state, expected)` - Tests a command that requires view context
+  - [x] `createCommandTester(command)` - Creates a reusable tester for a specific command
 
 - [x] Mocks
   - [x] `createDispatchSpy()` - Creates a Jest spy for the dispatch function
@@ -42,9 +44,11 @@ This document tracks the implementation progress of the text editor testing suit
 - [x] Selection Helpers (Implemented in Editor State Utilities)
   - [x] `setTextSelection(state, from, to)` - Creates a text selection
 
-- [ ] Event Simulation
-  - [ ] `simulateKeyPress(view, key, modifiers?)` - Simulates a key press on the editor
-  - [ ] `simulatePaste(view, content, mimeType?)` - Simulates pasting content
+- [x] Event Simulation
+  - [x] `simulateKeyPress(view, key, modifiers?)` - Simulates a key press on the editor
+  - [x] `simulatePaste(view, content)` - Simulates pasting content
+  - [x] `simulateClick(view, clientX, clientY, options?)` - Simulates a mouse click 
+  - [x] `simulateDragAndDrop(view, startX, startY, endX, endY, dragData?)` - Simulates drag and drop
 
 ## Completed Implementations
 
@@ -151,6 +155,59 @@ Implemented in `test-content-generation.ts`:
    - Creates a document with a code block
    - Useful for testing code block formatting and commands
 
+### Command Testing Utilities (2023-08-20)
+
+Implemented in `test-command-testing.ts`:
+
+1. **getCommandResult(command, state)**
+   - Gets the result of applying a ProseMirror command to a state
+   - Returns a CommandResult with success status, transaction, and new state
+   - Allows testing command applicability without side effects
+
+2. **testCommand(command, state, expected)**
+   - Tests a ProseMirror command and verifies its results
+   - Checks whether the command is applicable as expected
+   - Can verify document content and size after command application
+   - Returns the CommandResult for further assertions
+
+3. **testCommandWithView(command, state, expected)**
+   - Tests commands that require an EditorView to function
+   - Creates a temporary view for the command execution
+   - Allows testing DOM-dependent commands
+   - Returns both the result and the view for cleanup
+
+4. **createCommandTester(command)**
+   - Creates a reusable test function for a specific command
+   - Allows testing the same command with different states
+   - Simplifies test setup for command-focused tests
+
+### Event Simulation Utilities (2023-08-20)
+
+Implemented in `test-event-simulation.ts`:
+
+1. **simulateKeyPress(view, key, modifiers?)**
+   - Simulates key press events on the editor
+   - Supports modifier keys (Shift, Ctrl, Alt, Meta)
+   - Returns whether the event was handled by the editor
+   - Useful for testing keyboard shortcuts and key bindings
+
+2. **simulatePaste(view, content)**
+   - Simulates clipboard paste events
+   - Supports text, HTML, and file content types
+   - Creates a proper ClipboardEvent with DataTransfer data
+   - Allows testing of complex paste handling
+
+3. **simulateClick(view, clientX, clientY, options?)**
+   - Simulates mouse click events at specified coordinates
+   - Supports different mouse buttons and click types (single, double)
+   - Useful for testing cursor positioning and node selection
+
+4. **simulateDragAndDrop(view, startX, startY, endX, endY, dragData?)**
+   - Simulates full drag and drop operations
+   - Dispatches the complete sequence of drag events (mousedown, dragstart, dragover, drop, mouseup)
+   - Supports text and HTML drag data
+   - Useful for testing drag-based interactions like node moving
+
 ## Implementation Notes
 
 - Content generation utilities provide specialized methods for different content types
@@ -158,3 +215,5 @@ Implemented in `test-content-generation.ts`:
 - The MarkSpec interface makes it easy to apply multiple marks to text content
 - Added support for common block elements used in the text editor
 - Each function follows the same pattern for consistency and ease of use
+- Command testing utilities can test both standard commands and those requiring view context
+- Event simulation utilities faithfully recreate browser events for accurate testing
