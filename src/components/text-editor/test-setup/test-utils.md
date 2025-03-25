@@ -6,7 +6,7 @@ This directory contains utility functions and setup code to help test the text e
 
 1. **Schema Setup**
    - `createTestSchema()` - Creates a ProseMirror schema with all needed marks and nodes
-   # Schema Setup - `createTestSchema()`
+   - `createCustomTestSchema(options)` - Creates a custom schema with specified extensions
 
 1. **Analysis**
    - Examine text editor for mark/node usage
@@ -37,8 +37,6 @@ This directory contains utility functions and setup code to help test the text e
 7. **Integration**
    - Ensure compatibility with other test utilities
    - Verify consistency with production schema
-
-   - `createCustomTestSchema(options)` - Creates a custom schema with specified extensions
 
 2. **Editor State Utilities**
    - `createEditorState(content?, schema?)` - Creates an editor state with optional content
