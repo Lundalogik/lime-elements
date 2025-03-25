@@ -22,16 +22,20 @@ This document tracks the implementation progress of the text editor testing suit
   - [x] `cleanupEditorView(view, container?)` - Properly destroys an editor view to prevent memory leaks
   - [x] `mockProseMirrorDOMEnvironment()` - Sets up the DOM environment for ProseMirror in Node.js
 
-- [ ] Content Generation
-  - [ ] `createDocWithText(text, schema?)` - Creates a document with plain text
-  - [ ] `createDocWithHTML(html, schema?)` - Creates a document from HTML string
-  - [ ] `createDocWithFormattedText(text, marks, schema?)` - Creates a document with marked text
+- [x] Content Generation
+  - [x] `createDocWithText(text, schema?)` - Creates a document with plain text
+  - [x] `createDocWithHTML(html, schema?)` - Creates a document from HTML string
+  - [x] `createDocWithFormattedText(text, marks, schema?)` - Creates a document with marked text
+  - [x] `createDocWithBulletList(items, schema?)` - Creates a document with a bullet list
+  - [x] `createDocWithHeading(text, level?, schema?)` - Creates a document with a heading
+  - [x] `createDocWithBlockquote(text, schema?)` - Creates a document with a blockquote
+  - [x] `createDocWithCodeBlock(code, schema?)` - Creates a document with a code block
 
 - [ ] Command Testing
   - [ ] `testCommand(command, state, expected)` - Tests a command and verifies the result
   - [ ] `getCommandResult(command, state)` - Gets the result of applying a command
 
-- [ ] Mocks
+- [x] Mocks
   - [x] `createDispatchSpy()` - Creates a Jest spy for the dispatch function
   - [ ] `createMockEditorView()` - Creates a mocked editor view 
 
@@ -110,9 +114,47 @@ Implemented in `test-editor-view.ts`:
    - Creates mock window and document objects with required methods
    - Returns a cleanup function to restore the original environment
 
+### Content Generation Utilities (2023-08-19)
+
+Implemented in `test-content-generation.ts`:
+
+1. **createDocWithText(text, schema?)**
+   - Creates a document with plain text in a paragraph
+   - Accepts optional schema
+   - Provides basic content for simple tests
+
+2. **createDocWithHTML(html, schema?)**
+   - Creates a document by parsing HTML content
+   - Supports complex HTML structures
+   - Useful for testing HTML conversion
+
+3. **createDocWithFormattedText(text, marks, schema?)**
+   - Creates a document with text that has specific marks (formatting)
+   - Accepts an array of mark specifications with types and attributes
+   - Allows testing of complex formatting scenarios
+
+4. **createDocWithBulletList(items, schema?)**
+   - Creates a document containing a bullet list
+   - Takes an array of strings as list items
+   - Useful for testing list-related functionality
+
+5. **createDocWithHeading(text, level?, schema?)**
+   - Creates a document with a heading of specified level
+   - Default level is 1 (H1)
+   - Useful for testing heading-related commands
+
+6. **createDocWithBlockquote(text, schema?)**
+   - Creates a document with text in a blockquote
+   - Useful for testing blockquote commands and rendering
+
+7. **createDocWithCodeBlock(code, schema?)**
+   - Creates a document with a code block
+   - Useful for testing code block formatting and commands
+
 ## Implementation Notes
 
-- The editor view utilities handle DOM creation and cleanup, which is essential for avoiding memory leaks in tests
-- The dispatch spy makes it easy to test commands and verify the transactions they create
-- DOM mocking allows tests to run in environments without a full DOM implementation
-- All utilities are designed to work together, creating a consistent testing experience
+- Content generation utilities provide specialized methods for different content types
+- All utilities integrate with the schema and state utilities
+- The MarkSpec interface makes it easy to apply multiple marks to text content
+- Added support for common block elements used in the text editor
+- Each function follows the same pattern for consistency and ease of use
