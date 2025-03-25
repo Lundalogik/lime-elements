@@ -1,5 +1,5 @@
 import { EditorState, Transaction, Command } from 'prosemirror-state';
-import { createEditorView } from './test-editor-view';
+import { createEditorView } from './editor-view-builder';
 import { EditorView } from 'prosemirror-view';
 
 /**

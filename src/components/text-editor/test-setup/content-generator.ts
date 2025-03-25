@@ -1,6 +1,6 @@
 import { Schema, Mark, Fragment, Node } from 'prosemirror-model';
-import { createTestSchema } from './test-schema-setup';
-import { createEditorState } from './test-editor-state';
+import { createTestSchema } from './schema-builder';
+import { createEditorState } from './editor-state-builder';
 import { EditorState } from 'prosemirror-state';
 
 /**

@@ -1,19 +1,19 @@
 import { Schema, MarkType, NodeType } from 'prosemirror-model';
 import { EditorState, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { createTestSchema, createCustomTestSchema } from './test-schema-setup';
+import { createTestSchema, createCustomTestSchema } from './schema-builder';
 import {
     createEditorState,
     createEditorStateWithSelection,
     setTextSelection,
     createDocumentWithText,
-} from './test-editor-state';
+} from './editor-state-builder';
 import {
     createEditorView,
     createDispatchSpy,
     cleanupEditorView,
     mockProseMirrorDOMEnvironment,
-} from './test-editor-view';
+} from './editor-view-builder';
 import {
     createDocWithText,
     createDocWithHTML,
@@ -23,13 +23,13 @@ import {
     createDocWithBlockquote,
     createDocWithCodeBlock,
     MarkSpec,
-} from './test-content-generation';
+} from './content-generator';
 import {
     getCommandResult,
     testCommand,
     testCommandWithView,
     createCommandTester,
-} from './test-command-testing';
+} from './command-tester';
 import {
     simulateKeyPress,
     simulatePaste,
@@ -37,7 +37,7 @@ import {
     simulateDragAndDrop,
     KeyModifiers,
     PasteData,
-} from './test-event-simulation';
+} from './event-simulator';
 
 describe('Text Editor Test Utilities', () => {
     describe('Schema Utilities', () => {

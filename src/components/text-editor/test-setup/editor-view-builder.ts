@@ -1,7 +1,7 @@
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { createEditorState } from './test-editor-state';
-import { createTestSchema } from './test-schema-setup';
+import { createEditorState } from './editor-state-builder';
+import { createTestSchema } from './schema-builder';
 
 /**
  * Creates a ProseMirror editor view for testing purposes.
