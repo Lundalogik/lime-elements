@@ -93,13 +93,12 @@ describe('Editor View Utilities', () => {
             expect(dispatchSpy).toHaveBeenCalledWith(tr);
         });
 
-        it('should update view state by default', () => {
-            // For this test, we need a working dispatch function
+        it('should update view state when autoUpdate is true', () => {
+            // Create state and spy with autoUpdate enabled
             const state = createEditorState('<p></p>');
-            const dispatchSpy = jest.fn((transaction) => {
-                // Manually update state for this test
-                view.updateState(view.state.apply(transaction));
-            });
+            const dispatchSpy = createDispatchSpy(true);
+
+            // Create the editor view (which will set the view on the spy)
             const result = createEditorView(state, dispatchSpy);
             view = result.view;
             container = result.container;
@@ -107,35 +106,30 @@ describe('Editor View Utilities', () => {
             // Initial state is empty
             expect(view.state.doc.textContent).toBe('');
 
-            // Create and dispatch a transaction
+            // Create a transaction and call the spy directly
             const tr = view.state.tr.insertText('Updated text');
-            view.dispatch(tr);
+            dispatchSpy(tr);
 
-            // View state should be updated
+            // View state should be updated automatically
             expect(view.state.doc.textContent).toBe('Updated text');
         });
 
         it('should not update view state when autoUpdate is false', () => {
-            // Create a state to track
+            // Create state and spy with autoUpdate disabled
             const state = createEditorState('<p></p>');
+            const dispatchSpy = createDispatchSpy(false);
 
-            // Create a dispatch function that doesn't update the state
-            const noUpdateDispatch = jest.fn((transaction) => {
-                console.log('transaction', transaction);
-                // Don't update the view - that's what we're testing
-            });
-
-            // Create view with the non-updating dispatch
-            const result = createEditorView(state, noUpdateDispatch);
+            // Create the editor view (which will set the view on the spy)
+            const result = createEditorView(state, dispatchSpy);
             view = result.view;
             container = result.container;
 
             // Initial state is empty
             expect(view.state.doc.textContent).toBe('');
 
-            // Create and dispatch a transaction
+            // Create a transaction and call the spy directly
             const tr = view.state.tr.insertText('New text');
-            view.dispatch(tr);
+            dispatchSpy(tr);
 
             // View state should not be updated
             expect(view.state.doc.textContent).toBe('');
