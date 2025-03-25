@@ -10,9 +10,11 @@ This document tracks the implementation progress of the text editor testing suit
   - [x] `createTestSchema()` - Creates a ProseMirror schema with all needed marks and nodes
   - [x] `createCustomTestSchema(options)` - Creates a custom schema with specified extensions
 
-- [ ] Editor State Utilities
-  - [ ] `createEditorState(content?, schema?)` - Creates an editor state with optional content
-  - [ ] `createEditorStateWithSelection(content, from, to, schema?)` - Creates an editor state with a specific selection
+- [x] Editor State Utilities
+  - [x] `createEditorState(content?, schema?, plugins?)` - Creates an editor state with optional content
+  - [x] `createEditorStateWithSelection(content, from, to, schema?, plugins?)` - Creates an editor state with a specific selection
+  - [x] `setTextSelection(state, from, to?)` - Sets a text selection on an existing state
+  - [x] `createDocumentWithText(text?, schema?)` - Creates a simple document with text
 
 - [ ] Editor View Utilities
   - [ ] `createEditorView(state, dispatchSpy?)` - Creates a ProseMirror editor view with an optional dispatch spy
@@ -58,9 +60,34 @@ Implemented in `test-schema-setup.ts`:
    - Supports custom marks and nodes
    - Options include: addLists, addStrikethrough, addUnderline, customMarks, customNodes
 
+### Editor State Utilities (2023-08-18)
+
+Implemented in `test-editor-state.ts`:
+
+1. **createEditorState(content?, schema?, plugins?)**
+   - Creates a basic editor state for testing
+   - Accepts optional HTML content string
+   - Uses the test schema by default, or accepts a custom schema
+   - Supports adding plugins for more complex testing scenarios
+
+2. **createEditorStateWithSelection(content, from, to, schema?, plugins?)**
+   - Creates an editor state with a specific text selection
+   - Requires content and selection positions
+   - Allows for testing selection-based commands and functionality
+
+3. **setTextSelection(state, from, to?)**
+   - Utility to create a new state with modified text selection
+   - Works with existing editor states
+   - Simplifies testing of selection changes
+
+4. **createDocumentWithText(text?, schema?)**
+   - Simplified utility for creating a basic document with text
+   - Creates a single paragraph with the provided text
+   - Useful for simple test cases
+
 ## Implementation Notes
 
-- Based schema implementation on patterns seen in existing test files
-- Ensured compatibility with the text editor's actual schema
-- Made the custom schema function highly configurable for different test scenarios
-- Both functions build on ProseMirror's basic schema structure
+- The editor state utilities build on the schema utilities, demonstrating integration between the components
+- Used ProseMirror's DOMParser to create documents from HTML strings, matching the behavior of the actual editor
+- Added flexibility in the API to support both simple and complex test scenarios
+- Included plugin support for testing more advanced editor features
