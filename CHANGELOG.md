@@ -1,3 +1,11 @@
+## [38.6.0](https://github.com/Lundalogik/lime-elements/compare/v38.5.0...v38.6.0) (2025-03-25)
+
+
+### Features
+
+
+* **text editor:** conditionally allow commands ([819f599](https://github.com/Lundalogik/lime-elements/commit/819f599835de1859f0b8bb19b772c5cf6e5a51f6))
+
 ## [38.5.0](https://github.com/Lundalogik/lime-elements/compare/v38.4.1...v38.5.0) (2025-03-19)
 
 
