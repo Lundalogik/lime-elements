@@ -16,9 +16,11 @@ This document tracks the implementation progress of the text editor testing suit
   - [x] `setTextSelection(state, from, to?)` - Sets a text selection on an existing state
   - [x] `createDocumentWithText(text?, schema?)` - Creates a simple document with text
 
-- [ ] Editor View Utilities
-  - [ ] `createEditorView(state, dispatchSpy?)` - Creates a ProseMirror editor view with an optional dispatch spy
-  - [ ] `cleanupEditorView(view)` - Properly destroys an editor view to prevent memory leaks
+- [x] Editor View Utilities
+  - [x] `createEditorView(state?, dispatchSpy?, parentElement?)` - Creates a ProseMirror editor view with an optional dispatch spy
+  - [x] `createDispatchSpy(autoUpdate?)` - Creates a Jest spy function for tracking dispatch calls
+  - [x] `cleanupEditorView(view, container?)` - Properly destroys an editor view to prevent memory leaks
+  - [x] `mockProseMirrorDOMEnvironment()` - Sets up the DOM environment for ProseMirror in Node.js
 
 - [ ] Content Generation
   - [ ] `createDocWithText(text, schema?)` - Creates a document with plain text
@@ -30,13 +32,11 @@ This document tracks the implementation progress of the text editor testing suit
   - [ ] `getCommandResult(command, state)` - Gets the result of applying a command
 
 - [ ] Mocks
-  - [ ] `createDispatchSpy()` - Creates a Jest spy for the dispatch function
+  - [x] `createDispatchSpy()` - Creates a Jest spy for the dispatch function
   - [ ] `createMockEditorView()` - Creates a mocked editor view 
-  - [ ] `mockProseMirrorDOMEnvironment()` - Sets up the DOM environment for ProseMirror
 
-- [ ] Selection Helpers
-  - [ ] `setTextSelection(state, from, to)` - Creates a text selection
-  - [ ] `setNodeSelection(state, pos)` - Creates a node selection
+- [x] Selection Helpers (Implemented in Editor State Utilities)
+  - [x] `setTextSelection(state, from, to)` - Creates a text selection
 
 - [ ] Event Simulation
   - [ ] `simulateKeyPress(view, key, modifiers?)` - Simulates a key press on the editor
@@ -85,9 +85,34 @@ Implemented in `test-editor-state.ts`:
    - Creates a single paragraph with the provided text
    - Useful for simple test cases
 
+### Editor View Utilities (2023-08-19)
+
+Implemented in `test-editor-view.ts`:
+
+1. **createEditorView(state?, dispatchSpy?, parentElement?)**
+   - Creates a ProseMirror editor view for testing
+   - Accepts an optional state, dispatch spy, and parent element
+   - Creates and configures all required DOM elements
+   - Returns both the view and its container for easy cleanup
+
+2. **createDispatchSpy(autoUpdate?)**
+   - Creates a Jest mock function for tracking dispatch calls
+   - Optionally updates the view's state automatically
+   - Allows tests to verify that commands are dispatching the right transactions
+
+3. **cleanupEditorView(view, container?)**
+   - Properly cleans up the editor view to prevent memory leaks
+   - Destroys the view and removes DOM elements
+   - Should be called in test afterEach/cleanup
+
+4. **mockProseMirrorDOMEnvironment()**
+   - Sets up a minimal DOM environment for ProseMirror if testing in Node.js
+   - Creates mock window and document objects with required methods
+   - Returns a cleanup function to restore the original environment
+
 ## Implementation Notes
 
-- The editor state utilities build on the schema utilities, demonstrating integration between the components
-- Used ProseMirror's DOMParser to create documents from HTML strings, matching the behavior of the actual editor
-- Added flexibility in the API to support both simple and complex test scenarios
-- Included plugin support for testing more advanced editor features
+- The editor view utilities handle DOM creation and cleanup, which is essential for avoiding memory leaks in tests
+- The dispatch spy makes it easy to test commands and verify the transactions they create
+- DOM mocking allows tests to run in environments without a full DOM implementation
+- All utilities are designed to work together, creating a consistent testing experience
