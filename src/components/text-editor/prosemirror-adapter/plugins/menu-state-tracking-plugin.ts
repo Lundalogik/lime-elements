@@ -17,7 +17,7 @@ export type UpdateMenuItemsCallBack = (
     allowedTypes: Record<EditorMenuTypes, boolean>,
 ) => void;
 
-const getMenuItemStates = (
+export const getMenuItemStates = (
     menuTypes: EditorMenuTypes[],
     menuCommandFactory: MenuCommandFactory,
     view: EditorView,
