@@ -11,7 +11,10 @@ import {
 import { ListSeparator } from '../list/list-item.types';
 import { MenuItem, OpenDirection } from '../menu/menu.types';
 import { ActionBarItem } from './action-bar.types';
+import { Languages } from './../date-picker/date.types';
+import translate from './../../global/translations';
 import { isItem } from './isItem';
+import { Icon } from '../../global/shared-types/icon.types';
 
 /**
  * An action bar is a user interface element commonly found in software applications and websites.
@@ -36,6 +39,7 @@ import { isItem } from './isItem';
  * @exampleComponent limel-example-action-bar-selected-item
  * @exampleComponent limel-example-action-bar-colors
  * @exampleComponent limel-example-action-bar-floating
+ * @exampleComponent limel-example-action-bar-floating-expand
  * @exampleComponent limel-example-action-bar-styling
  * @exampleComponent limel-example-action-bar-as-primary-component
  * @exampleComponent limel-example-action-bar-icon-title
@@ -52,6 +56,12 @@ export class ActionBar {
      */
     @Prop()
     public actions: Array<ActionBarItem | ListSeparator> = [];
+
+    /**
+     * Defines the language for translations.
+     */
+    @Prop({ reflect: true })
+    public language: Languages = document.documentElement.lang as Languages;
 
     /**
      * A label used to describe the purpose of the element to users
@@ -76,6 +86,12 @@ export class ActionBar {
     public layout?: 'fullWidth' | 'floating';
 
     /**
+     * When set to `true`, the action bar will be collapsible.
+     */
+    @Prop({ reflect: true })
+    public collapsible = false;
+
+    /**
      * Defines the location that the content of the overflow menu
      * appears, in relation to its trigger.
      */
@@ -94,6 +110,12 @@ export class ActionBar {
 
     @State()
     private overflowCutoff: number = this.actions.length;
+
+    /**
+     * Indicates whether the action bar is currently in a collapsed state.
+     */
+    @State()
+    private actionBarIsShrunk = false;
 
     private hasRendered = false;
     private intersectionObserver: IntersectionObserver;
@@ -132,6 +154,8 @@ export class ActionBar {
                 class={{
                     'is-full-width': this.layout === 'fullWidth',
                     'is-floating': this.layout === 'floating',
+                    'is-shrunk': this.actionBarIsShrunk && this.collapsible,
+                    'can-be-shrunk': !!this.collapsible,
                 }}
                 role="grid"
             >
@@ -139,6 +163,7 @@ export class ActionBar {
                     {this.actions.map(this.renderActionBarItem)}
                 </div>
                 {this.renderOverflowMenu(overflowActions)}
+                {this.renderCollapseExpandButton()}
             </Host>
         );
     }
@@ -164,14 +189,53 @@ export class ActionBar {
             return;
         }
 
+        const shrunkOverFlowIcon: Icon = {
+            name: 'more',
+            color: 'rgb(var(--contrast-1000))',
+            title: this.getTranslation('action-bar.actions'),
+        };
+
         return (
             <limel-action-bar-overflow-menu
                 openDirection={this.openDirection}
                 items={items}
                 onSelect={this.handleSelect}
                 role="gridcell"
+                overFlowIcon={
+                    this.actionBarIsShrunk ? shrunkOverFlowIcon : undefined
+                }
             />
         );
+    };
+
+    private renderCollapseExpandButton() {
+        if (!this.collapsible) {
+            return;
+        }
+
+        return (
+            <button
+                class={{
+                    'expand-shrink': true,
+                }}
+                aria-label={this.tooltipLabel}
+                type="button"
+                onClick={this.handleCollapseExpandClick}
+            >
+                <limel-icon
+                    name="double_left"
+                    id="tooltip-expand-shrink-button"
+                />
+                <limel-tooltip
+                    label={this.tooltipLabel}
+                    elementId="tooltip-expand-shrink-button"
+                />
+            </button>
+        );
+    }
+
+    private handleCollapseExpandClick = () => {
+        this.actionBarIsShrunk = !this.actionBarIsShrunk;
     };
 
     private isVisible(index: number) {
@@ -185,6 +249,19 @@ export class ActionBar {
         if (isItem(event.detail)) {
             this.itemSelected.emit(event.detail);
         }
+    };
+
+    private get tooltipLabel() {
+        let key = 'action-bar.collapse';
+        if (this.actionBarIsShrunk) {
+            key = 'action-bar.expand';
+        }
+
+        return this.getTranslation(key);
+    }
+
+    private getTranslation = (key: string) => {
+        return translate.get(key, this.language);
     };
 
     private readonly handleIntersection = (
