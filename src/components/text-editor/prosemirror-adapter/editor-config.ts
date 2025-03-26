@@ -13,6 +13,7 @@ import { createImageInserterPlugin } from './plugins/image/inserter';
 import { createImageViewPlugin } from './plugins/image/view';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
+import { createListKeyHandlerPlugin } from './plugins/list-key-handler';
 import { createTriggerPlugin } from './plugins/trigger/factory';
 import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
 import { getImageNode } from './plugins/image/node';
@@ -127,6 +128,7 @@ export function buildEditorPlugins(options: EditorPluginsOptions): Plugin[] {
             onActiveItemsChange
         ),
         createActionBarInteractionPlugin(menuCommandFactory),
+        createListKeyHandlerPlugin(schema),
         ...getTableEditingPlugins(contentType === 'html'),
     ];
 }
