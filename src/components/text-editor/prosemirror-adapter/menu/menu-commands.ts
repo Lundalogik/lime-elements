@@ -1,13 +1,25 @@
+/* eslint-disable multiline-ternary */
+
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
-import { findWrapping, liftTarget } from 'prosemirror-transform';
-import {
-    Command,
-    EditorState,
-    Transaction,
-    TextSelection,
-} from 'prosemirror-state';
+import { wrapInList, sinkListItem } from 'prosemirror-schema-list';
+import { Command, EditorState, TextSelection } from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
+import {
+    setActiveMethodForMark,
+    setActiveMethodForNode,
+    setActiveMethodForWrap,
+} from './menu-command-utils/active-state-utils';
+import {
+    isInListOfType,
+    getOtherListType,
+    removeListNodes,
+    convertAllListNodes,
+    toggleList,
+    Dispatch,
+} from './menu-command-utils/list-utils';
+import { copyPasteLinkCommand } from './menu-command-utils/link-utils';
+import { findAncestorDepthOfType } from './menu-command-utils/node-utils';
 
 type CommandFunction = (
     schema: Schema,
@@ -23,62 +35,6 @@ export interface CommandWithActive extends Command {
     active?: (state: EditorState) => boolean;
     allowed?: (state: EditorState) => boolean;
 }
-
-const setActiveMethodForMark = (
-    command: CommandWithActive,
-    markType: MarkType,
-) => {
-    command.active = (state) => {
-        const { from, $from, to, empty } = state.selection;
-        if (empty) {
-            return !!markType.isInSet(state.storedMarks || $from.marks());
-        } else {
-            return state.doc.rangeHasMark(from, to, markType);
-        }
-    };
-};
-
-const setActiveMethodForNode = (
-    command: CommandWithActive,
-    nodeType: NodeType,
-    level?: number,
-) => {
-    command.active = (state) => {
-        const { $from } = state.selection;
-        const node = $from.node($from.depth);
-
-        if (node && node.type.name === nodeType.name) {
-            if (nodeType.name === LevelMapping.Heading && level) {
-                return node.attrs.level === level;
-            }
-
-            return true;
-        }
-
-        return false;
-    };
-};
-
-const setActiveMethodForWrap = (
-    command: CommandWithActive,
-    nodeType: NodeType,
-) => {
-    command.active = (state) => {
-        const { from, to } = state.selection;
-
-        for (let pos = from; pos <= to; pos++) {
-            const resolvedPos = state.doc.resolve(pos);
-            for (let i = resolvedPos.depth; i > 0; i--) {
-                const node = resolvedPos.node(i);
-                if (node && node.type.name === nodeType.name) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    };
-};
 
 const createInsertLinkCommand: CommandFunction = (
     schema: Schema,
@@ -213,16 +169,6 @@ const toggleNodeType = (
     };
 };
 
-export const isValidUrl = (text: string): boolean => {
-    try {
-        new URL(text);
-    } catch {
-        return false;
-    }
-
-    return true;
-};
-
 const createSetNodeTypeCommand = (
     schema: Schema,
     nodeType: string,
@@ -270,82 +216,134 @@ const createWrapInCommand = (
     return command;
 };
 
-const toggleList = (listType) => {
-    return (state, dispatch) => {
-        const { $from, $to } = state.selection;
-        const range = $from.blockRange($to);
+/**
+ * Handles list operations when there is no selection (cursor only).
+ * If the cursor is within a list item, only that list item is affected.
+ *
+ * @param EditorState - state - The current editor state.
+ * @param NodeType - type - The type of list to toggle.
+ * @param Schema - schema - The ProseMirror schema.
+ * @param Function - dispatch - The dispatch function.
+ * @returns boolean - True if the command was executed.
+ */
+const handleListNoSelection = (state, type, schema, dispatch) => {
+    const { $from } = state.selection;
+    // Find the nearest list_item ancestor.
+    const listItemDepth = findAncestorDepthOfType(
+        $from,
+        schema.nodes.list_item,
+    );
 
-        if (!range) {
-            return false;
+    if (listItemDepth === null) {
+        // Not inside a list item; fallback to toggling list on the current block.
+        return toggleList(type)(state, dispatch);
+    }
+
+    // Get the content positions within the list item
+    const listItemStart = $from.start(listItemDepth);
+    const listItemEnd = $from.end(listItemDepth);
+
+    // Set selection to the current list item.
+    const tr = state.tr.setSelection(
+        new TextSelection(
+            state.doc.resolve(listItemStart),
+            state.doc.resolve(listItemEnd),
+        ),
+    );
+    const newState = state.apply(tr);
+
+    return sinkListItem(schema.nodes.list_item)(newState, dispatch);
+};
+
+/**
+ * Handles list operations when there is a selection.
+ *
+ * @param state - The current editor state.
+ * @param type - The type of list to toggle.
+ * @param schema - The ProseMirror schema.
+ * @param otherType - The other type of list to convert to.
+ * @param dispatch - The dispatch function.
+ * @returns A command for handling list operations when there is a selection.
+ */
+const handleListWithSelection = (
+    state: EditorState,
+    type: NodeType,
+    schema: Schema,
+    otherType: NodeType,
+    dispatch: Dispatch,
+) => {
+    const { $from, $to } = state.selection;
+    const listItemType = schema.nodes.list_item;
+    const ancestorDepth = findAncestorDepthOfType($from, listItemType);
+
+    // If an ancestor of type list_item is found, attempt to sink that list_item.
+    if (ancestorDepth !== null) {
+        // If we're already in this list type, toggle it off (remove the list)
+        if (isInListOfType(state, type)) {
+            return removeListNodes(state, type, schema, dispatch);
         }
 
-        const wrapping = range && findWrapping(range, listType);
+        // If we're in a different list type, convert from one to the other
+        if (otherType && isInListOfType(state, otherType)) {
+            return convertAllListNodes(state, otherType, type, dispatch);
+        }
+    }
 
-        if (wrapping) {
-            // Wrap the selection in a list
-            if (dispatch) {
-                dispatch(state.tr.wrap(range, wrapping).scrollIntoView());
-            }
+    const modifiedTr = state.tr.setSelection(new TextSelection($from, $to));
+    const updatedState = state.apply(modifiedTr);
 
-            return true;
-        } else {
-            // Check if we are in a list item and lift out of the list
-            const liftRange = range && liftTarget(range);
-            if (liftRange !== null) {
-                if (dispatch) {
-                    dispatch(state.tr.lift(range, liftRange).scrollIntoView());
+    return wrapInList(type)(updatedState, dispatch);
+};
+
+/**
+ * Creates a command for toggling list types.
+ *
+ * @param schema - The ProseMirror schema.
+ * @param listTypeName - The name of the list type to toggle.
+ * @returns A command for toggling list types.
+ */
+export const createListCommand = (
+    schema: Schema,
+    listTypeName: string,
+): CommandWithActive => {
+    const type = schema.nodes[listTypeName];
+    if (!type) {
+        throw new Error(`List type "${listTypeName}" not found in schema`);
+    }
+
+    const command = (state, dispatch) => {
+        const { $from, $to } = state.selection;
+        const noSelection = $from === $to;
+        // Get the other list type for the current list type
+        // This is used to convert all list items to the other list type
+        // when toggling list types
+        const otherType = getOtherListType(schema, listTypeName);
+
+        return noSelection
+            ? handleListNoSelection(state, type, schema, dispatch)
+            : handleListWithSelection(state, type, schema, otherType, dispatch);
+    };
+
+    command.active = (state) => {
+        let isActive = false;
+        state.doc.nodesBetween(
+            state.selection.from,
+            state.selection.to,
+            (node) => {
+                if (node.type === type) {
+                    isActive = true;
+
+                    return false;
                 }
 
                 return true;
-            }
+            },
+        );
 
-            return false;
-        }
+        return isActive;
     };
-};
-
-const createListCommand = (
-    schema: Schema,
-    listType: string,
-): CommandWithActive => {
-    const type: NodeType | undefined = schema.nodes[listType];
-    if (!type) {
-        throw new Error(`List type "${listType}" not found in schema`);
-    }
-
-    const command: CommandWithActive = toggleList(type);
-    setActiveMethodForWrap(command, type);
 
     return command;
-};
-
-const copyPasteLinkCommand: Command = (
-    state: EditorState,
-    dispatch: (tr: Transaction) => void,
-) => {
-    const { from, to } = state.selection;
-    if (from === to) {
-        return false;
-    }
-
-    const clipboardData = (window as any).clipboardData;
-    if (!clipboardData) {
-        return false;
-    }
-
-    const copyPastedText = clipboardData.getData('text');
-    if (!isValidUrl(copyPastedText)) {
-        return false;
-    }
-
-    const linkMark = state.schema.marks.link.create({
-        href: copyPastedText,
-        target: isExternalLink(copyPastedText) ? '_blank' : null,
-    });
-
-    const selectedText = state.doc.textBetween(from, to, ' ');
-    const newLink = state.schema.text(selectedText, [linkMark]);
-    dispatch(state.tr.replaceWith(from, to, newLink));
 };
 
 const commandMapping: CommandMapping = {
@@ -408,6 +406,8 @@ export class MenuCommandFactory {
             'Mod-Shift-1': this.getCommand(EditorMenuTypes.HeaderLevel1),
             'Mod-Shift-2': this.getCommand(EditorMenuTypes.HeaderLevel2),
             'Mod-Shift-3': this.getCommand(EditorMenuTypes.HeaderLevel3),
+            'Mod-Shift-8': this.getCommand(EditorMenuTypes.BulletList),
+            'Mod-Shift-9': this.getCommand(EditorMenuTypes.OrderedList),
             'Mod-Shift-X': this.getCommand(EditorMenuTypes.Strikethrough),
             'Mod-`': this.getCommand(EditorMenuTypes.Code),
             'Mod-Shift-C': this.getCommand(EditorMenuTypes.CodeBlock),

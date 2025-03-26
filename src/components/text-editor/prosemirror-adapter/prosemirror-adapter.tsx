@@ -52,6 +52,7 @@ import {
 } from '../text-editor.types';
 import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
 import { getImageNode, imageCache } from './plugins/image/node';
+import { createListKeyHandlerPlugin } from './plugins/list-key-handler';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -398,6 +399,7 @@ export class ProsemirrorAdapter {
                     this.updateActiveActionBarItems,
                 ),
                 createActionBarInteractionPlugin(this.menuCommandFactory),
+                createListKeyHandlerPlugin(this.schema),
                 ...getTableEditingPlugins(this.contentType === 'html'),
             ],
         });
