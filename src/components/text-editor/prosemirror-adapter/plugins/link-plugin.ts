@@ -2,8 +2,9 @@ import { Plugin, PluginKey, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { schema } from 'prosemirror-schema-basic';
 import { Mark } from 'prosemirror-model';
-import { isExternalLink, isValidUrl } from '../menu/menu-commands';
+import { isExternalLink } from '../menu/menu-commands';
 import { EditorMenuTypes, MouseButtons } from '../menu/types';
+import { isValidUrl } from '../menu/menu-command-utils/link-utils';
 
 export const linkPluginKey = new PluginKey('linkPlugin');
 
