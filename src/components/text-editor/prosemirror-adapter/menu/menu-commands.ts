@@ -1,14 +1,30 @@
+/* eslint-disable multiline-ternary */
+
 import { toggleMark, setBlockType, wrapIn, lift } from 'prosemirror-commands';
 import { Schema, MarkType, NodeType, Attrs } from 'prosemirror-model';
-import { findWrapping, liftTarget } from 'prosemirror-transform';
+import { wrapInList, sinkListItem } from 'prosemirror-schema-list';
 import { Command, EditorState, TextSelection } from 'prosemirror-state';
 import { EditorMenuTypes, EditorTextLink, LevelMapping } from './types';
 import { getLinkAttributes } from '../plugins/link/utils';
+import {
+    setActiveMethodForMark,
+    setActiveMethodForNode,
+    setActiveMethodForWrap,
+} from './menu-command-utils/active-state-utils';
+import {
+    isInListOfType,
+    getOtherListType,
+    removeListNodes,
+    convertAllListNodes,
+    toggleList,
+    Dispatch,
+} from './menu-command-utils/list-utils';
+import { findAncestorDepthOfType } from './menu-command-utils/node-utils';
 
 type CommandFunction = (
     schema: Schema,
     mark: EditorMenuTypes,
-    link?: EditorTextLink
+    link?: EditorTextLink,
 ) => CommandWithActive;
 
 interface CommandMapping {
@@ -19,62 +35,6 @@ export interface CommandWithActive extends Command {
     active?: (state: EditorState) => boolean;
     allowed?: (state: EditorState) => boolean;
 }
-
-const setActiveMethodForMark = (
-    command: CommandWithActive,
-    markType: MarkType
-) => {
-    command.active = (state) => {
-        const { from, $from, to, empty } = state.selection;
-        if (empty) {
-            return !!markType.isInSet(state.storedMarks || $from.marks());
-        } else {
-            return state.doc.rangeHasMark(from, to, markType);
-        }
-    };
-};
-
-const setActiveMethodForNode = (
-    command: CommandWithActive,
-    nodeType: NodeType,
-    level?: number
-) => {
-    command.active = (state) => {
-        const { $from } = state.selection;
-        const node = $from.node($from.depth);
-
-        if (node && node.type.name === nodeType.name) {
-            if (nodeType.name === LevelMapping.Heading && level) {
-                return node.attrs.level === level;
-            }
-
-            return true;
-        }
-
-        return false;
-    };
-};
-
-const setActiveMethodForWrap = (
-    command: CommandWithActive,
-    nodeType: NodeType
-) => {
-    command.active = (state) => {
-        const { from, to } = state.selection;
-
-        for (let pos = from; pos <= to; pos++) {
-            const resolvedPos = state.doc.resolve(pos);
-            for (let i = resolvedPos.depth; i > 0; i--) {
-                const node = resolvedPos.node(i);
-                if (node && node.type.name === nodeType.name) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    };
-};
 
 const createInsertLinkCommand: CommandFunction = (
     schema: Schema,
@@ -110,7 +70,7 @@ const createInsertLinkCommand: CommandFunction = (
 const createToggleMarkCommand = (
     schema: Schema,
     markName: string,
-    link?: EditorTextLink
+    link?: EditorTextLink,
 ): CommandWithActive => {
     const markType: MarkType | undefined = schema.marks[markName];
     if (!markType) {
@@ -127,7 +87,7 @@ const createToggleMarkCommand = (
 
 const getAttributes = (
     markName: string,
-    link: EditorTextLink
+    link: EditorTextLink,
 ): Attrs | null => {
     if (markName === EditorMenuTypes.Link && link.href) {
         return {
@@ -158,7 +118,7 @@ const toggleNodeType = (
     schema: Schema,
     type: string,
     attrs: Attrs = {},
-    shouldWrap: boolean = false
+    shouldWrap: boolean = false,
 ): Command => {
     const nodeType = schema.nodes[type];
     const paragraphType = schema.nodes.paragraph;
@@ -177,7 +137,11 @@ const toggleNodeType = (
             if ($from.parent.type === nodeType) {
                 if (dispatch) {
                     dispatch(
-                        state.tr.setBlockType($from.pos, $to.pos, paragraphType)
+                        state.tr.setBlockType(
+                            $from.pos,
+                            $to.pos,
+                            paragraphType,
+                        ),
                     );
                 }
 
@@ -202,7 +166,7 @@ const toggleNodeType = (
 const createSetNodeTypeCommand = (
     schema: Schema,
     nodeType: string,
-    level?: number
+    level?: number,
 ): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[nodeType];
     if (!type) {
@@ -227,7 +191,7 @@ const createSetNodeTypeCommand = (
 
 const createWrapInCommand = (
     schema: Schema,
-    nodeType: string
+    nodeType: string,
 ): CommandWithActive => {
     const type: NodeType | undefined = schema.nodes[nodeType];
     if (!type) {
@@ -246,51 +210,136 @@ const createWrapInCommand = (
     return command;
 };
 
-const toggleList = (listType) => {
-    return (state, dispatch) => {
-        const { $from, $to } = state.selection;
-        const range = $from.blockRange($to);
+/**
+ * Handles list operations when there is no selection (cursor only).
+ * If the cursor is within a list item, only that list item is affected.
+ *
+ * @param EditorState - state - The current editor state.
+ * @param NodeType - type - The type of list to toggle.
+ * @param Schema - schema - The ProseMirror schema.
+ * @param Function - dispatch - The dispatch function.
+ * @returns boolean - True if the command was executed.
+ */
+const handleListNoSelection = (state, type, schema, dispatch) => {
+    const { $from } = state.selection;
+    // Find the nearest list_item ancestor.
+    const listItemDepth = findAncestorDepthOfType(
+        $from,
+        schema.nodes.list_item,
+    );
 
-        if (!range) {
-            return false;
-        }
+    if (listItemDepth === null) {
+        // Not inside a list item; fallback to toggling list on the current block.
+        return toggleList(type)(state, dispatch);
+    }
 
-        const wrapping = range && findWrapping(range, listType);
+    // Get the content positions within the list item
+    const listItemStart = $from.start(listItemDepth);
+    const listItemEnd = $from.end(listItemDepth);
 
-        if (wrapping) {
-            // Wrap the selection in a list
-            if (dispatch) {
-                dispatch(state.tr.wrap(range, wrapping).scrollIntoView());
-            }
+    // Set selection to the current list item.
+    const tr = state.tr.setSelection(
+        new TextSelection(
+            state.doc.resolve(listItemStart),
+            state.doc.resolve(listItemEnd),
+        ),
+    );
+    const newState = state.apply(tr);
 
+    return sinkListItem(schema.nodes.list_item)(newState, dispatch);
+};
+
+/**
+ * Handles list operations when there is a selection.
+ *
+ * @param state - The current editor state.
+ * @param type - The type of list to toggle.
+ * @param schema - The ProseMirror schema.
+ * @param otherType - The other type of list to convert to.
+ * @param dispatch - The dispatch function.
+ * @returns A command for handling list operations when there is a selection.
+ */
+const handleListWithSelection = (
+    state: EditorState,
+    type: NodeType,
+    schema: Schema,
+    otherType: NodeType,
+    dispatch: Dispatch,
+) => {
+    const { $from, $to } = state.selection;
+    const listItemType = schema.nodes.list_item;
+    const ancestorDepth = findAncestorDepthOfType($from, listItemType);
+
+    // If an ancestor of type list_item is found, attempt to sink that list_item.
+    if (ancestorDepth !== null) {
+        if (sinkListItem(listItemType)(state, dispatch)) {
             return true;
-        } else {
-            // Check if we are in a list item and lift out of the list
-            const liftRange = range && liftTarget(range);
-            if (liftRange !== null) {
-                if (dispatch) {
-                    dispatch(state.tr.lift(range, liftRange).scrollIntoView());
+        }
+    }
+
+    if (isInListOfType(state, type)) {
+        return removeListNodes(state, type, schema, dispatch);
+    }
+
+    if (otherType && isInListOfType(state, otherType)) {
+        return convertAllListNodes(state, otherType, type, dispatch);
+    }
+
+    const modifiedTr = state.tr.setSelection(new TextSelection($from, $to));
+    const updatedState = state.apply(modifiedTr);
+
+    return wrapInList(type)(updatedState, dispatch);
+};
+
+/**
+ * Creates a command for toggling list types.
+ *
+ * @param schema - The ProseMirror schema.
+ * @param listTypeName - The name of the list type to toggle.
+ * @returns A command for toggling list types.
+ */
+export const createListCommand = (
+    schema: Schema,
+    listTypeName: string,
+): CommandWithActive => {
+    const type = schema.nodes[listTypeName];
+    if (!type) {
+        throw new Error(`List type "${listTypeName}" not found in schema`);
+    }
+
+    const command = (state, dispatch) => {
+        const { $from, $to } = state.selection;
+        const noSelection = $from === $to;
+        // Get the other list type for the current list type
+        // This is used to convert all list items to the other list type
+        // when toggling list types
+        const otherType = getOtherListType(schema, listTypeName);
+
+        return noSelection
+            ? handleListNoSelection(state, type, schema, dispatch)
+            : handleListWithSelection(state, type, schema, otherType, dispatch);
+    };
+
+    command.active = (state) => {
+        let isActive = false;
+        state.doc.nodesBetween(
+            state.selection.from,
+            state.selection.to,
+            (node) => {
+                if (node.type === type) {
+                    isActive = true;
+
+                    return false;
                 }
 
                 return true;
-            }
+            },
+        );
 
-            return false;
-        }
+        return isActive;
     };
-};
 
-const createListCommand = (
-    schema: Schema,
-    listType: string
-): CommandWithActive => {
-    const type: NodeType | undefined = schema.nodes[listType];
-    if (!type) {
-        throw new Error(`List type "${listType}" not found in schema`);
-    }
-
-    const command: CommandWithActive = toggleList(type);
-    setActiveMethodForWrap(command, type);
+    command.allowed = (state) => {};
 
     return command;
 };
@@ -306,29 +355,30 @@ const commandMapping: CommandMapping = {
         createSetNodeTypeCommand(
             schema,
             LevelMapping.Heading,
-            LevelMapping.one
+            LevelMapping.one,
         ),
     headerlevel2: (schema) =>
         createSetNodeTypeCommand(
             schema,
             LevelMapping.Heading,
-            LevelMapping.two
+            LevelMapping.two,
         ),
     headerlevel3: (schema) =>
         createSetNodeTypeCommand(
             schema,
             LevelMapping.Heading,
-            LevelMapping.three
+            LevelMapping.three,
         ),
     blockquote: (schema) =>
         createWrapInCommand(schema, EditorMenuTypes.Blockquote),
-
+    /* eslint-disable camelcase */
     code_block: (schema) =>
         createSetNodeTypeCommand(schema, EditorMenuTypes.CodeBlock),
     ordered_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.OrderedList),
     bullet_list: (schema) =>
         createListCommand(schema, EditorMenuTypes.BulletList),
+    /* eslint-enable camelcase */
 };
 
 export class MenuCommandFactory {
