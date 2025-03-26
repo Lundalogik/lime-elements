@@ -26,12 +26,12 @@ The text editor currently supports basic list functionality:
 ## Planned Features
 
 1. **Enhanced List Creation**
-   - [ ] Keyboard shortcuts for creating lists (e.g., `Mod-Shift-8` for bullet lists, `Mod-Shift-9` for ordered lists)
+   - [x] Keyboard shortcuts for creating lists (e.g., `Mod-Shift-8` for bullet lists, `Mod-Shift-9` for ordered lists)
    - [ ] Markdown-style auto-conversion (typing `* ` or `1. ` at the start of a line)
    - [ ] Support for creating lists with multiple selection ranges
 
 2. **List Manipulation**
-   - [ ] Indenting and outdenting list items (Tab/Shift+Tab)
+   - [x] Indenting and outdenting list items (Tab/Shift+Tab)
    - [ ] Splitting list items (Enter within a list item)
    - [ ] Joining list items (Backspace at the start of a list item)
    - [ ] Moving list items up and down

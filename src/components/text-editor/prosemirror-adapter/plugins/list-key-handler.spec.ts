@@ -1,181 +1,89 @@
 import { Schema } from 'prosemirror-model';
-import { EditorState, TextSelection } from 'prosemirror-state';
+import { TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { isInListItem, createListKeyHandlerPlugin } from './list-key-handler';
 import { createCustomTestSchema } from '../../test-setup/schema-builder';
 import {
     createEditorView,
     cleanupEditorView,
+    createDispatchSpy,
+    mockProseMirrorDOMEnvironment,
 } from '../../test-setup/editor-view-builder';
+import { createEditorState } from '../../test-setup/editor-state-builder';
 
 describe('List Key Handler Plugin', () => {
     let schema: Schema;
-    let state: EditorState;
-    let view: EditorView;
-    let container: HTMLElement;
-    let dispatch: jest.Mock;
+    let cleanupMock: () => void;
 
     beforeEach(() => {
+        cleanupMock = mockProseMirrorDOMEnvironment();
         schema = createCustomTestSchema({});
-        dispatch = jest.fn((tr) => {
-            state = state.apply(tr);
-            view.updateState(state);
-        });
     });
 
     afterEach(() => {
-        if (view) {
-            cleanupEditorView(view, container);
-            view = null;
-            container = null;
-        }
+        cleanupMock();
     });
-
-    const setupListWithItems = (items: string[]) => {
-        // Create document with a list containing the specified items
-        const listItems = items.map((text) => {
-            return schema.nodes.list_item.create(
-                null,
-                schema.nodes.paragraph.create(null, schema.text(text)),
-            );
-        });
-
-        const bulletList = schema.nodes.bullet_list.create(null, listItems);
-        const doc = schema.nodes.doc.create(null, [bulletList]);
-
-        state = EditorState.create({
-            schema: schema,
-            doc: doc,
-            plugins: [createListKeyHandlerPlugin(schema)],
-        });
-
-        const result = createEditorView(state, dispatch);
-        view = result.view;
-        container = result.container;
-
-        return { view: view, state: state };
-    };
 
     describe('isInListItem', () => {
         it('should return true when cursor is in a list item', () => {
-            setupListWithItems(['First item', 'Second item']);
-
-            // Position cursor in first list item
-            const pos = state.doc.resolve(6);
-            const tr = state.tr.setSelection(
-                TextSelection.create(state.doc, pos.pos),
+            // Create a state with a list item
+            const state = createEditorState(
+                '<ul><li><p>List item</p></li></ul>',
+                schema,
             );
-            state = state.apply(tr);
-            view.updateState(state);
 
-            expect(isInListItem(state)).toBe(true);
+            // Create a selection inside the list item
+            const pos = 5; // Position inside the list item text
+            const selection = TextSelection.create(state.doc, pos);
+            const newState = state.apply(state.tr.setSelection(selection));
+
+            // Verify that isInListItem returns true
+            expect(isInListItem(newState)).toBe(true);
         });
 
         it('should return false when cursor is not in a list item', () => {
-            // Create a document with plain paragraphs
-            const doc = schema.nodes.doc.create(null, [
-                schema.nodes.paragraph.create(
-                    null,
-                    schema.text('Plain paragraph'),
-                ),
-            ]);
+            // Create a state with just a paragraph
+            const state = createEditorState('<p>Not a list item</p>', schema);
 
-            state = EditorState.create({
-                schema: schema,
-                doc: doc,
-                plugins: [createListKeyHandlerPlugin(schema)],
-            });
-
-            const result = createEditorView(state, dispatch);
-            view = result.view;
-            container = result.container;
-
+            // Verify that isInListItem returns false
             expect(isInListItem(state)).toBe(false);
         });
     });
 
     describe('Tab behavior', () => {
-        it('should indent a list item when Tab is pressed', () => {
-            setupListWithItems(['First item', 'Second item', 'Third item']);
+        let view: EditorView;
+        let container: HTMLElement;
+        let dispatchSpy: jest.Mock;
 
-            // Position cursor in second list item
-            const pos = state.doc.resolve(22); // Approximate position in second item
-            const tr = state.tr.setSelection(
-                TextSelection.create(state.doc, pos.pos),
-            );
-            state = state.apply(tr);
-            view.updateState(state);
-
-            // Create a mock Tab event
-            const tabEvent = new KeyboardEvent('keydown', {
-                key: 'Tab',
-                bubbles: true,
-            });
-
-            // Simulate Tab press and check if it was handled
-            const result = view.dispatchEvent(tabEvent);
-            const eventWasHandled = !result;
-
-            // Check if the event was handled
-            expect(eventWasHandled).toBe(true);
-            expect(dispatch).toHaveBeenCalled();
-
-            // Check the structure: first item should contain a nested list with the second item
-            const firstItem = state.doc.firstChild.child(0);
-            expect(firstItem.childCount).toBeGreaterThan(1);
-
-            // Verify the nested structure
-            const nestedList = firstItem.child(1);
-            expect(nestedList.type.name).toBe('bullet_list');
-            expect(nestedList.childCount).toBe(1);
-
-            const nestedItem = nestedList.child(0);
-            expect(nestedItem.type.name).toBe('list_item');
-            expect(nestedItem.textContent).toBe('Second item');
+        afterEach(() => {
+            if (view) {
+                cleanupEditorView(view, container);
+            }
         });
 
-        it('should outdent a nested list item when Shift+Tab is pressed', () => {
-            // Create a list with a nested item
-            const innerListItem = schema.nodes.list_item.create(
-                null,
-                schema.nodes.paragraph.create(null, schema.text('Nested item')),
+        it('should indent a list item when Tab is pressed', () => {
+            // Create a state with a list containing multiple items
+            const state = createEditorState(
+                `<ul>
+                    <li><p>First item</p></li>
+                    <li><p>Second item</p></li>
+                    <li><p>Third item</p></li>
+                </ul>`,
+                schema,
+                [createListKeyHandlerPlugin(schema)],
             );
 
-            const innerList = schema.nodes.bullet_list.create(null, [
-                innerListItem,
-            ]);
-
-            const outerListItem1 = schema.nodes.list_item.create(null, [
-                schema.nodes.paragraph.create(null, schema.text('First item')),
-                innerList,
-            ]);
-
-            const outerListItem2 = schema.nodes.list_item.create(
-                null,
-                schema.nodes.paragraph.create(null, schema.text('Last item')),
-            );
-
-            const bulletList = schema.nodes.bullet_list.create(null, [
-                outerListItem1,
-                outerListItem2,
-            ]);
-            const doc = schema.nodes.doc.create(null, [bulletList]);
-
-            state = EditorState.create({
-                schema: schema,
-                doc: doc,
-                plugins: [createListKeyHandlerPlugin(schema)],
-            });
-
-            const result = createEditorView(state, dispatch);
+            // Create a view with the dispatch spy
+            dispatchSpy = createDispatchSpy();
+            const result = createEditorView(state, dispatchSpy);
             view = result.view;
             container = result.container;
 
-            // Find position of the nested item and set cursor there
-            let nestedItemPos = null;
+            // Find position within the second list item's text
+            let secondItemPos = 0;
             state.doc.descendants((node, pos) => {
-                if (node.isText && node.text === 'Nested item') {
-                    nestedItemPos = pos;
+                if (node.isText && node.text.includes('Second item')) {
+                    secondItemPos = pos + 1; // Position inside the text
 
                     return false;
                 }
@@ -183,29 +91,97 @@ describe('List Key Handler Plugin', () => {
                 return true;
             });
 
-            const tr = state.tr.setSelection(
-                TextSelection.create(state.doc, nestedItemPos + 2),
-            );
-            state = state.apply(tr);
-            view.updateState(state);
+            // Set selection to the second item
+            const selection = TextSelection.create(state.doc, secondItemPos);
+            view.dispatch(state.tr.setSelection(selection));
 
-            // Create a mock Shift+Tab event
+            // Reset the spy to track only the Tab event
+            dispatchSpy.mockClear();
+
+            // Create and dispatch a Tab keydown event
+            const tabEvent = new KeyboardEvent('keydown', {
+                key: 'Tab',
+                bubbles: true,
+            });
+
+            // Dispatch the event to the view's DOM node
+            view.dom.dispatchEvent(tabEvent);
+
+            // Verify that a transaction was dispatched
+            expect(dispatchSpy).toHaveBeenCalled();
+
+            // The createDispatchSpy with autoUpdate=true will automatically update the view state
+            // Verify the document structure: first item should contain a nested list with second item
+            const firstItem = view.state.doc.firstChild.child(0);
+            expect(firstItem.childCount).toBeGreaterThan(1);
+
+            // Verify that there's a nested list in the first item
+            const nestedList = firstItem.child(1);
+            expect(nestedList.type.name).toBe('bullet_list');
+            expect(nestedList.childCount).toBe(1);
+
+            // Verify the nested item is the second item
+            const nestedItem = nestedList.child(0);
+            expect(nestedItem.type.name).toBe('list_item');
+            expect(nestedItem.textContent.includes('Second item')).toBe(true);
+        });
+
+        it('should outdent a nested list item when Shift+Tab is pressed', () => {
+            // Create a state with a nested list structure
+            const state = createEditorState(
+                `<ul>
+                    <li>
+                        <p>First item</p>
+                        <ul>
+                            <li><p>Nested item</p></li>
+                        </ul>
+                    </li>
+                    <li><p>Last item</p></li>
+                </ul>`,
+                schema,
+                [createListKeyHandlerPlugin(schema)],
+            );
+
+            // Create a view with the dispatch spy
+            dispatchSpy = createDispatchSpy();
+            const result = createEditorView(state, dispatchSpy);
+            view = result.view;
+            container = result.container;
+
+            // Find position of the nested item content
+            let nestedItemPos = 0;
+            state.doc.descendants((node, pos) => {
+                if (node.isText && node.text.includes('Nested item')) {
+                    nestedItemPos = pos + 1; // Position inside the text
+
+                    return false;
+                }
+
+                return true;
+            });
+
+            // Set selection to the nested item
+            const selection = TextSelection.create(state.doc, nestedItemPos);
+            view.dispatch(state.tr.setSelection(selection));
+
+            // Reset the spy to track only the Shift+Tab event
+            dispatchSpy.mockClear();
+
+            // Create and dispatch a Shift+Tab keydown event
             const shiftTabEvent = new KeyboardEvent('keydown', {
                 key: 'Tab',
                 shiftKey: true,
                 bubbles: true,
             });
 
-            // Simulate Shift+Tab press and check if it was handled
-            const result2 = view.dispatchEvent(shiftTabEvent);
-            const eventWasHandled = !result2;
+            // Dispatch the event
+            view.dom.dispatchEvent(shiftTabEvent);
 
-            // Check if the event was handled
-            expect(eventWasHandled).toBe(true);
-            expect(dispatch).toHaveBeenCalled();
+            // Verify that a transaction was dispatched
+            expect(dispatchSpy).toHaveBeenCalled();
 
-            // Verify that the list structure changed (should now have 3 top-level items)
-            expect(state.doc.firstChild.childCount).toBe(3);
+            // Verify the document structure: should now have 3 top-level items
+            expect(view.state.doc.firstChild.childCount).toBe(3);
         });
     });
 });

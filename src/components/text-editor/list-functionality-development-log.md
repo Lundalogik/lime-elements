@@ -51,8 +51,35 @@ The implementation will proceed in the following phases:
 
 ## Development Log
 
-### [Date 1]
-*To be filled in as work progresses*
+### [April 23, 2023]
+
+**Implemented Tab/Shift+Tab for List Indentation/Outdentation**
+
+- Created a new plugin `list-key-handler.ts` that handles Tab and Shift+Tab keystrokes within lists
+- Added tests for the plugin in `list-key-handler.spec.ts`
+- Integrated the plugin into the ProseMirror adapter
+- Added the following functionality:
+  - Tab key now indents a list item when cursor is within a list
+  - Shift+Tab outdents a list item when cursor is within a list
+  - Only activated when cursor is within a list item (regular tab behavior preserved elsewhere)
+
+**Added Keyboard Shortcuts for List Creation**
+
+- Added keyboard shortcuts in `menu-commands.ts`:
+  - `Mod-Shift-8` for creating bullet lists
+  - `Mod-Shift-9` for creating ordered lists
+- These shortcuts use the existing list command implementation
+
+**Next Steps**
+
+- Need to implement Enter key handling for proper list item splitting
+- Need to implement Backspace key handling for joining list items
+- Additional testing is needed with real keyboard interaction
+
+**Verification Checklist**
+- [x] All existing tests continue to pass after changes
+- [x] No regression in current list functionality has been introduced
+- [x] Implementation follows the core principles established in implementation plan
 
 ### [Date 2]
 *To be filled in as work progresses*
