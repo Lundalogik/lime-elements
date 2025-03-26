@@ -4,7 +4,11 @@
 * @prop --action-bar-item-max-width: Maximum width of a button in the action bar. Defaults to `10rem`. Keep in mind that the buttons should not appear too big.
 * @prop --action-bar-border-radius: Defines the roundness of the corners of the action bar. Defaults to `0`.
 * @prop --action-bar-background-color: Background color of the whole component. Defaults to `--contrast-100`.
+* @prop --action-bar-shrink-icon-color: Color of the shrink icon. Defaults to `--contrast-1000`.
+
 */
+
+@use '../../style/mixins';
 
 :host(limel-action-bar) {
     --action-bar-item-height: 2rem;
@@ -26,6 +30,8 @@
         --action-bar-background-color,
         rgb(var(--contrast-100))
     );
+
+    transition: max-width 0.3s ease;
 }
 
 :host(limel-action-bar),
@@ -42,6 +48,14 @@
     min-width: 0;
 }
 
+:host(limel-action-bar.is-shrunk) .items {
+    opacity: 0;
+}
+
+:host(limel-action-bar:not(.is-shrunk)) .items {
+    opacity: 1;
+}
+
 :host(limel-action-bar.is-full-width) {
     width: 100%;
 }
@@ -55,4 +69,50 @@
 
     max-width: calc(100% - 2rem);
     box-shadow: var(--shadow-depth-16), var(--shadow-depth-8);
+}
+
+:host(limel-action-bar.is-shrunk) {
+    max-width: 5rem;
+    transition: max-width 0.3s ease-in-out;
+
+    .expand-shrink {
+        transition: transform 0.3s ease;
+        transform: rotateY(180deg);
+    }
+}
+
+:host(limel-action-bar:not(.is-shrunk)) {
+    max-width: 100%;
+    transition: max-width 0.3s ease-in-out;
+
+    .expand-shrink {
+        transition: transform 0.3s ease;
+        transform: rotateY(0deg);
+    }
+}
+
+:host(limel-action-bar.can-be-shrunk.is-full-width) {
+    .expand-shrink {
+        margin-left: auto;
+    }
+}
+
+.expand-shrink {
+    all: unset;
+    box-sizing: border-box;
+    border-radius: 50%;
+
+    @include mixins.is-flat-clickable();
+    @include mixins.visualize-keyboard-focus;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    limel-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0.125rem;
+        color: var(--action-bar-shrink-icon-color, rgb(var(--contrast-1000)));
+    }
 }

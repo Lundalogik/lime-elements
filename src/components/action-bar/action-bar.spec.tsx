@@ -52,7 +52,7 @@ describe('action-bar', () => {
 
     it('renders', () => {
         expect(page.root).toEqualHtml(`
-            <limel-action-bar role="grid">
+            <limel-action-bar language="" role="grid">
                 <mock:shadow-root>
                     <div class=items role="rowgroup">
                         <limel-action-bar-item isvisible="" role="gridcell"></limel-action-bar-item>
