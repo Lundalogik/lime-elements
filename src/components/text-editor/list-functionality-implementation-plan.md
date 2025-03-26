@@ -24,6 +24,30 @@ In implementing new list features, we must adhere to the following principles:
    - After each change, ensure regression tests pass before proceeding
    - Document any unexpected behaviors or edge cases discovered
 
+## Implementation Plan
+
+The implementation will proceed in the following phases:
+
+### Phase 1: Key Navigation and Manipulation
+
+- [x] Implement Tab/Shift+Tab for indenting/outdenting list items
+- [x] Enhance Enter behavior within lists for proper splitting
+- [x] Improve Backspace behavior at the start of list items for joining
+- [x] Add keyboard shortcuts for bullet and ordered lists
+
+### Phase 2: Automatic List Creation
+
+- [ ] Implement Markdown-style list creation with input rules
+- [ ] Add continue list behavior when pressing Enter at the end of a list item
+- [ ] Support for converting existing text to lists with shortcuts
+
+### Phase 3: List Attributes and Advanced Features
+
+- [ ] Add support for list item numbering options
+- [ ] Implement custom list markers
+- [ ] Enhance nested list styling and behavior
+- [ ] Add ARIA attributes for accessibility
+
 ## Phase 1: Key Navigation and Manipulation
 
 ### 1. Tab/Shift+Tab for Indenting/Outdenting List Items
@@ -146,51 +170,4 @@ In implementing new list features, we must adhere to the following principles:
    - Update the keymap in `MenuCommandFactory.buildKeymap()`
 
 2. **Implementation Details:**
-   ```typescript
-   // In MenuCommandFactory.buildKeymap()
-   buildKeymap() {
-     return {
-       // Existing shortcuts...
-       'Mod-B': this.getCommand(EditorMenuTypes.Bold),
-       'Mod-I': this.getCommand(EditorMenuTypes.Italic),
-       
-       // New list shortcuts
-       'Mod-Shift-8': this.getCommand(EditorMenuTypes.BulletList),
-       'Mod-Shift-9': this.getCommand(EditorMenuTypes.OrderedList),
-       
-       // Rest of existing shortcuts...
-     };
-   }
    ```
-
-3. **Integration:**
-   - Ensure shortcuts work with existing command structure
-   - Add appropriate tests for shortcut functionality
-
-## Phase 1 Integration Plan
-
-1. **New Files to Create:**
-   - `src/components/text-editor/prosemirror-adapter/plugins/list-key-handler.ts` - Key handler plugin for list-specific keys
-   - `src/components/text-editor/prosemirror-adapter/menu/menu-command-utils/list-item-utils.ts` - Utilities for list item operations
-
-2. **Files to Modify:**
-   - `src/components/text-editor/prosemirror-adapter/menu/menu-commands.ts` - Update keyboard shortcuts
-   - `src/components/text-editor/prosemirror-adapter/prosemirror-adapter.ts` - Register the new key handler plugin
-
-3. **Testing Strategy:**
-   - Create comprehensive tests for each key operation
-   - Test edge cases (empty lists, nested lists, etc.)
-   - Ensure existing functionality isn't broken
-
-4. **Expected Challenges:**
-   - Handling cursor position after operations
-   - Managing selection across list boundaries
-   - Ensuring proper nesting of lists
-
-## Next Steps After Phase 1
-
-Once Phase 1 is complete, we'll proceed to:
-
-1. Implement Markdown-style list creation (Phase 2)
-2. Add automatic list continuation (Phase 2)
-3. Enhance list attributes and styling (Phase 3) 

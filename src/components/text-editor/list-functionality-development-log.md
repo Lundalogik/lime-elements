@@ -81,8 +81,80 @@ The implementation will proceed in the following phases:
 - [x] No regression in current list functionality has been introduced
 - [x] Implementation follows the core principles established in implementation plan
 
-### [Date 2]
-*To be filled in as work progresses*
+### [March 26, 2024]
+
+**Fixed List Command Handling and Tests**
+
+- Improved tests for the `list-key-handler.ts` plugin
+  - Fixed test setup to properly use mock DOM environment
+  - Enhanced test cases for Tab and Shift+Tab operations
+  - Improved verification of list structure changes
+
+**Fixed List Command Toggle Behavior**
+
+- Fixed a critical bug in `handleListWithSelection` function in `menu-commands.ts`
+  - Corrected the handling of toggling between different list types (bullet/ordered)
+  - Fixed the issue with toggling list off back to paragraphs
+  - Removed unnecessary attempt to sink list items before checking list type
+
+**Implementation Details**
+- Modified the handling in `handleListWithSelection` to:
+  1. First check if we're already in the target list type, and if so, toggle it off
+  2. Next check if we're in a different list type, and if so, convert between types
+  3. Finally, wrap content in a list if not already in a list
+
+**Verification Checklist**
+- [x] All existing tests now pass after changes
+- [x] No regression in current list functionality has been introduced
+- [x] All tests for list key handling now pass successfully
+- [x] Tests correctly verify list indentation and outdentation behavior
+
+**Next Steps**
+- Implement Enter key handling for proper list item splitting
+- Implement Backspace key handling for joining list items
+- Add comprehensive tests for keyboard interaction in real usage scenarios
+
+### [March 27, 2024]
+
+**Implemented Enhanced Enter Key Behavior for Lists**
+
+- Enhanced the list key handler plugin with improved Enter key behavior:
+  - Splitting list items when Enter is pressed within content
+  - Exiting a list when Enter is pressed in an empty list item
+- Added comprehensive tests for Enter key functionality:
+  - Tests for splitting list items at various positions
+  - Tests for exiting lists when in an empty list item
+- Added the `isEmptyListItem` utility function for detecting empty list items
+
+**Implemented Backspace Key Behavior for Lists**
+
+- Added Backspace key handling to the list key handler plugin:
+  - Joining with previous list item when Backspace is pressed at start of list item
+  - Lifting list item out of the list when Backspace is pressed at start of first item
+  - Preserving regular Backspace behavior elsewhere
+- Added new utility function `isAtStartOfListItem` to detect when cursor is at list item start
+- Added comprehensive tests for Backspace key functionality:
+  - Tests for joining with previous list items
+  - Tests for lifting list items out of lists
+  - Tests for default behavior when not at start of list item
+
+**Implementation Details**
+- Used ProseMirror's built-in commands for optimal functionality:
+  - `splitListItem` for Enter key handling
+  - `joinBackward` and `liftListItem` for Backspace key handling through `chainCommands`
+- Ensured special key combinations (like Shift+Enter) are preserved
+- Added robust testing for edge cases and normal usage patterns
+
+**Verification Checklist**
+- [x] All existing tests continue to pass after changes
+- [x] No regression in current list functionality has been introduced
+- [x] Each key handler properly prevents default browser behavior only when needed
+- [x] All utility functions are properly tested with both positive and negative cases
+
+**Next Steps**
+- Update the prosemirror-adapter to properly register the enhanced list key handler
+- Add Markdown-style list creation with input rules (Phase 2)
+- Implement automatic list continuation when pressing Enter at end of list items (Phase 2)
 
 ### [Date 3]
 *To be filled in as work progresses* 

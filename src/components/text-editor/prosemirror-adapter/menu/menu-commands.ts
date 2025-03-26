@@ -278,17 +278,15 @@ const handleListWithSelection = (
 
     // If an ancestor of type list_item is found, attempt to sink that list_item.
     if (ancestorDepth !== null) {
-        if (sinkListItem(listItemType)(state, dispatch)) {
-            return true;
+        // If we're already in this list type, toggle it off (remove the list)
+        if (isInListOfType(state, type)) {
+            return removeListNodes(state, type, schema, dispatch);
         }
-    }
 
-    if (isInListOfType(state, type)) {
-        return removeListNodes(state, type, schema, dispatch);
-    }
-
-    if (otherType && isInListOfType(state, otherType)) {
-        return convertAllListNodes(state, otherType, type, dispatch);
+        // If we're in a different list type, convert from one to the other
+        if (otherType && isInListOfType(state, otherType)) {
+            return convertAllListNodes(state, otherType, type, dispatch);
+        }
     }
 
     const modifiedTr = state.tr.setSelection(new TextSelection($from, $to));

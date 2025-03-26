@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import { Schema } from 'prosemirror-model';
 import { EditorState, TextSelection } from 'prosemirror-state';
-import { createListCommand } from '../menu-commands';
-import { EditorMenuTypes } from '../types';
+import { createListCommand } from './menu-commands';
+import { EditorMenuTypes } from './types';
 
 describe('List Commands', () => {
     let schema: Schema;
