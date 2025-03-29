@@ -3,6 +3,7 @@ import { ActionBarItem } from '../../action-bar/action-bar.types';
 import { ListSeparator } from '../../list/list-item.types';
 import { MenuItem, OpenDirection } from '../../menu/menu.types';
 import { LimelMenuCustomEvent } from '../../../components';
+import { Icon } from 'src/global/shared-types/icon.types';
 
 /**
  * @private
@@ -29,6 +30,13 @@ export class ActionBarOverflowMenu {
     public openDirection: OpenDirection = 'bottom-end';
 
     /**
+     * Icon to display in the overflow menu trigger.
+     * If not provided, the number of items in the overflow menu will be displayed.
+     */
+    @Prop()
+    public overFlowIcon?: Icon;
+
+    /**
      * Fired when an item in the action bar overflow menu has been clicked.
      * @public
      */
@@ -48,6 +56,18 @@ export class ActionBarOverflowMenu {
     }
 
     private countOverflowedItems = () => {
+        if (this.overFlowIcon) {
+            return (
+                <limel-icon
+                    style={{
+                        color: `${this.overFlowIcon.color}`,
+                    }}
+                    name={this.overFlowIcon.name}
+                    aria-label={this.overFlowIcon.title}
+                />
+            );
+        }
+
         return `+${this.numberOfMenuItems}`;
     };
 
