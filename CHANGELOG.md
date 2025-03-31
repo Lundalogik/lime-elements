@@ -1,3 +1,16 @@
+## [38.7.0](https://github.com/Lundalogik/lime-elements/compare/v38.6.0...v38.7.0) (2025-03-31)
+
+
+### Features
+
+
+* **action-bar:** add collapsible functionality ([b2b33ed](https://github.com/Lundalogik/lime-elements/commit/b2b33ed1d69e861e39a9affafeedf7e82cc1386a))
+
+### Bug Fixes
+
+
+* **index:** set default language to English ([c794547](https://github.com/Lundalogik/lime-elements/commit/c7945476264c66abd71ae908c7cc61dfdb3ad143))
+
 ## [38.6.0](https://github.com/Lundalogik/lime-elements/compare/v38.5.0...v38.6.0) (2025-03-25)
 
 
