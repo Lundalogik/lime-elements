@@ -13,6 +13,7 @@ interface FormValue {
     name: string;
     age: number;
     percentage: number;
+    color: string;
 }
 
 /**
@@ -39,6 +40,7 @@ export class DialogFormExample {
         name: 'Harry Potter 🪄',
         age: 44,
         percentage: 40,
+        color: 'red',
     };
 
     @State()
@@ -80,6 +82,37 @@ export class DialogFormExample {
                         },
                     },
                 },
+            },
+            color: {
+                type: 'string',
+                title: 'Favorite color',
+                oneOf: [
+                    {
+                        type: 'string',
+                        const: 'red',
+                        title: 'Red',
+                    },
+                    {
+                        type: 'string',
+                        const: 'yellow',
+                        title: 'Yellow',
+                    },
+                    {
+                        type: 'string',
+                        const: 'green',
+                        title: 'Green',
+                    },
+                    {
+                        type: 'string',
+                        const: 'blue',
+                        title: 'Blue',
+                    },
+                    {
+                        type: 'string',
+                        const: 'black',
+                        title: 'Black',
+                    },
+                ],
             },
         },
     };
@@ -149,7 +182,9 @@ export class DialogFormExample {
 
     private submitForm = () => {
         this.isSaving = true;
-        alert(`${this.formValue?.name} is ${this.formValue?.age} years old`);
+        alert(
+            `${this.formValue?.name} is ${this.formValue?.age} years old. Favorite color is ${this.formValue?.color}.`,
+        );
         this.closeDialog();
     };
 
