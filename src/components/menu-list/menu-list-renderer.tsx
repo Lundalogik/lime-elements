@@ -142,6 +142,7 @@ export class MenuListRenderer {
                 role="menuitem"
                 aria-disabled={item.disabled ? 'true' : 'false'}
                 aria-selected={item.selected ? 'true' : 'false'}
+                data-item={item.identifier ? item.identifier : null}
                 data-index={index}
                 data-text={item.text}
                 {...attributes}
