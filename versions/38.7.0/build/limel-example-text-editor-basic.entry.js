@@ -1,2 +1,0 @@
-import{r as e,h as t}from"./index-6156b4fd.js";const i=class{constructor(t){e(this,t);this.handleChange=e=>{this.value=e.detail};this.value=undefined}render(){return[t("limel-text-editor",{value:this.value,onChange:this.handleChange}),t("limel-example-value",{value:this.value})]}};export{i as limel_example_text_editor_basic};
-//# sourceMappingURL=limel-example-text-editor-basic.entry.js.map
