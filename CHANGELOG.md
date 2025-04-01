@@ -1,3 +1,11 @@
+## [38.7.1](https://github.com/Lundalogik/lime-elements/compare/v38.7.0...v38.7.1) (2025-04-01)
+
+
+### Bug Fixes
+
+
+* **action-bar:** show expand button only when more than one action exists ([0aace07](https://github.com/Lundalogik/lime-elements/commit/0aace07b6a20f4bded4f8e8837a2c2c386139456))
+
 ## [38.7.0](https://github.com/Lundalogik/lime-elements/compare/v38.6.0...v38.7.0) (2025-03-31)
 
 
