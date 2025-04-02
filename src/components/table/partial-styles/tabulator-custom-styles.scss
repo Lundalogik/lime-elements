@@ -87,6 +87,22 @@
                     }
                 }
             }
+            .recent-active {
+                &:before {
+                    $width-of-selected-row-indicator: 0.2rem;
+                    content: '';
+                    display: inline-block;
+                    box-sizing: border-box;
+                    position: sticky;
+                    z-index: $table--has-interactive-rows--selectable-row--hover +
+                        1;
+                    inset: 0 0 auto 0;
+                    border: $width-of-selected-row-indicator solid
+                        rgb(211, 211, 211);
+                    border-radius: 1rem;
+                    margin-right: -$width-of-selected-row-indicator * 2;
+                }
+            }
         }
     }
 }
