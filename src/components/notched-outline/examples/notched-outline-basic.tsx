@@ -43,11 +43,12 @@ export class NotchedOutlineBasicExample {
                         readonly={this.readonly}
                     >
                         <input
+                            slot="content"
                             id={id}
                             type="text"
                             required={this.required}
                             disabled={this.disabled}
-                            slot="content"
+                            readonly={this.readonly}
                         />
                     </limel-notched-outline>
                 </div>

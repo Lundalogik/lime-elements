@@ -7,27 +7,11 @@ import { Component, Prop, h } from '@stencil/core';
  * We use it in various components to unify styles and avoid
  * repeating code.
  *
- * :::important
- * Note that this component will render itself using `position: absolute;`
- * This is to:
- * 1. remain independent from the elements within the consumer component
- * 1. inherit its height and width from the consumer component and
- * visually appear to be wrapping around the elements.
- *
- * This means the consumer component should have proper layout strategies
- * for excluding the variable height of its `limel-helper-line`, ensuring that
- * the notched outline is not visually wrapping the helper line.
- *
- * Also, the `pointer-events: none;` style enables the consumer to
- * place this component as the top-most layer in the stacking context,
- * without affecting interactivity with elements below.
- * :::
- *
  * :::note
  * The component has `shadow: false`. This is to improve performance,
  * and ensure that its internal elements are considered as a internal elements
- * of the consumer's DOM. This way, the id of `<label for="id">` would
- * be correctly associated with the input element of the consumer.
+ * of the consumer's DOM. This way, the value `for` in `<label for="id-of-input-element">`
+ * would be correctly associated with the input element's `id`, in the consumer component.
  * :::
  * @exampleComponent limel-example-notched-outline-basic
  * @private

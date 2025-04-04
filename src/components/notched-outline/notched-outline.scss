@@ -10,6 +10,9 @@ $border-radius: 0.25rem;
 limel-notched-outline {
     --notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color};
     --notched-outline-background-color: #{shared_input-select-picker.$background-color-normal};
+    // internal variables:
+    --limel-notched-outline-label-color: #{shared_input-select-picker.$label-color};
+
     display: block;
 
     *,
@@ -21,10 +24,6 @@ limel-notched-outline {
     [slot='content'] {
         background-color: var(--notched-outline-background-color);
         border-radius: $border-radius;
-    }
-
-    &:hover {
-        --notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
     }
 }
 
@@ -85,7 +84,7 @@ limel-notched-outline {
             display: block;
             padding: 0 0.25rem;
 
-            color: #{shared_input-select-picker.$label-color};
+            color: var(--limel-notched-outline-label-color);
             font-size: 0.65rem; // `10.4px` similar to MDC's floating label
             letter-spacing: var(
                 --mdc-typography-subtitle1-letter-spacing,
@@ -108,6 +107,23 @@ limel-notched-outline {
     }
 }
 
+limel-notched-outline:not([disabled]:not([disabled='false'])) {
+    &:hover {
+        --notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
+        --notched-outline-background-color: #{shared_input-select-picker.$background-color-hovered};
+    }
+
+    &:has([slot='content']:focus-visible),
+    &:has([slot='content']:focus-within) {
+        --notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
+        --notched-outline-background-color: #{shared_input-select-picker.$background-color-focused};
+    }
+}
+
+limel-notched-outline[disabled]:not([disabled='false']) {
+    --limel-notched-outline-label-color: #{shared_input-select-picker.$label-color-disabled};
+}
+
 limel-notched-outline[required]:not([required='false']) {
     .limel-notched-outline--notch {
         label {
@@ -123,6 +139,9 @@ limel-notched-outline[required]:not([required='false']) {
 
 limel-notched-outline[invalid]:not([invalid='false']) {
     --notched-outline-border-color: var(--lime-error-text-color);
+    &:hover {
+        --notched-outline-border-color: var(--lime-error-text-color);
+    }
 
     .limel-notched-outline--notch {
         label {
