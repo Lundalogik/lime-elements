@@ -1,17 +1,11 @@
 @use '../../style/mixins.scss';
 @use '../../style/internal/shared_input-select-picker';
 
-/**
- * @prop --notched-outline-border-color: Color of the outlines.
- * @prop --notched-outline-background-color: Color of the background.
- */
 $border-radius: 0.25rem;
 
 limel-notched-outline {
-    --notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color};
-    --notched-outline-background-color: #{shared_input-select-picker.$background-color-normal};
-    // internal variables:
-    --limel-notched-outline-label-color: #{shared_input-select-picker.$label-color};
+    --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color};
+    --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-normal};
 
     display: block;
 
@@ -22,7 +16,7 @@ limel-notched-outline {
     }
 
     [slot='content'] {
-        background-color: var(--notched-outline-background-color);
+        background-color: var(--limel-notched-outline-background-color);
         border-radius: $border-radius;
     }
 }
@@ -50,7 +44,7 @@ limel-notched-outline {
         transition: border-color 0.2s ease;
         border-width: 1px;
         border-style: solid;
-        border-color: var(--notched-outline-border-color);
+        border-color: var(--limel-notched-outline-border-color);
     }
 
     &--leading-outline {
@@ -67,7 +61,10 @@ limel-notched-outline {
         position: relative;
         z-index: 2;
 
-        border-top-width: 0;
+        border-top-color: var(
+            --limel-notched-outline-notch-border-top-color,
+            var(--limel-notched-outline-border-color)
+        );
         border-right-width: 0;
         border-left-width: 0;
 
@@ -76,16 +73,27 @@ limel-notched-outline {
         label {
             all: unset; // ensures that `label` is not inheriting styles
             @include mixins.truncate-text;
-
             position: relative;
-            transition: color 0.2s ease;
-            transform: translateY(-50%);
+            transition:
+                color 0.2s ease,
+                font-size 0.2s ease,
+                transform 0.16s ease;
 
+            transform: var(
+                --limel-notched-outline-label-transform,
+                translate3d(0, 0.66rem, 0)
+            );
             display: block;
             padding: 0 0.25rem;
 
-            color: var(--limel-notched-outline-label-color);
-            font-size: 0.65rem; // `10.4px` similar to MDC's floating label
+            color: var(
+                --limel-notched-outline-label-color,
+                #{shared_input-select-picker.$label-color}
+            );
+            font-size: var(
+                --limel-notched-outline-label-font-size,
+                0.875rem
+            ); // 14px
             letter-spacing: var(
                 --mdc-typography-subtitle1-letter-spacing,
                 0.009375em
@@ -109,14 +117,14 @@ limel-notched-outline {
 
 limel-notched-outline:not([disabled]:not([disabled='false'])) {
     &:hover {
-        --notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
-        --notched-outline-background-color: #{shared_input-select-picker.$background-color-hovered};
+        --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
+        --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-hovered};
     }
 
     &:has([slot='content']:focus-visible),
     &:has([slot='content']:focus-within) {
-        --notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
-        --notched-outline-background-color: #{shared_input-select-picker.$background-color-focused};
+        --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
+        --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-focused};
     }
 }
 
@@ -138,9 +146,9 @@ limel-notched-outline[required]:not([required='false']) {
 }
 
 limel-notched-outline[invalid]:not([invalid='false']) {
-    --notched-outline-border-color: var(--lime-error-text-color);
+    --limel-notched-outline-border-color: var(--lime-error-text-color);
     &:hover {
-        --notched-outline-border-color: var(--lime-error-text-color);
+        --limel-notched-outline-border-color: var(--lime-error-text-color);
     }
 
     .limel-notched-outline--notch {
@@ -153,6 +161,24 @@ limel-notched-outline[invalid]:not([invalid='false']) {
 }
 
 limel-notched-outline[readonly]:not([readonly='false']) {
-    --notched-outline-border-color: transparent !important;
-    --notched-outline-background-color: transparent !important;
+    --limel-notched-outline-border-color: transparent !important;
+    --limel-notched-outline-background-color: transparent !important;
+}
+
+// Transitioning the floating label
+limel-notched-outline:not([disabled]:not([disabled='false'])) {
+    &:hover,
+    &:focus,
+    &:focus-within {
+        label {
+            will-change: color, transform, font-size;
+        }
+    }
+
+    &:has([slot='content']:focus-visible),
+    &:has([slot='content']:focus-within) {
+        --limel-notched-outline-label-font-size: 0.65rem; // `10.4px` similar to MDC's floating label
+        --limel-notched-outline-label-transform: translate3d(0, -50%, 0);
+        --limel-notched-outline-notch-border-top-color: transparent;
+    }
 }
