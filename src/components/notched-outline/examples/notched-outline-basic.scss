@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+}
+
+section {
+    padding: 1rem;
+    background: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' style='fill-rule:evenodd;'><path fill='rgba(186,186,192,0.16)' d='M0 0h4v4H0zM4 4h4v4H4z'/></svg>");
+    background-size: 0.5rem;
+}
+
+input[type='text'] {
+    // Overriding some of the native input styles for the
+    // sake of this example.
+    border: none;
+    outline: none;
+
+    height: 2.5rem;
+    width: 100%;
+    padding: 0 1rem;
+
+    background-color: transparent;
+}
