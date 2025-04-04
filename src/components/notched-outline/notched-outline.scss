@@ -80,7 +80,7 @@ limel-notched-outline {
                 transform 0.12s ease;
 
             transform: translate3d(
-                0,
+                var(--limel-notched-outline-label-transform-x, 0),
                 var(--limel-notched-outline-label-transform-y, 0.72rem),
                 0
             );
@@ -167,9 +167,14 @@ limel-notched-outline[readonly]:not([readonly='false']) {
     --limel-notched-outline-background-color: transparent !important;
 }
 
+limel-notched-outline[leading-icon]:not([leading-icon='false']) {
+    --limel-notched-outline-label-transform-x: 1.25rem;
+}
+
 // Transitioning the floating label
 @mixin float-label {
     --limel-notched-outline-label-font-size: 0.65rem; // `10.4px` similar to MDC's floating label
+    --limel-notched-outline-label-transform-x: 0;
     --limel-notched-outline-label-transform-y: -50%;
     --limel-notched-outline-notch-border-top-color: transparent;
 }
