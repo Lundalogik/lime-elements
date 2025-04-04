@@ -77,11 +77,11 @@ limel-notched-outline {
             transition:
                 color 0.2s ease,
                 font-size 0.2s ease,
-                transform 0.16s ease;
+                transform 0.12s ease;
 
             transform: var(
                 --limel-notched-outline-label-transform,
-                translate3d(0, 0.66rem, 0)
+                translate3d(0, 0.72rem, 0)
             );
             display: block;
             padding: 0 0.25rem;
@@ -98,6 +98,7 @@ limel-notched-outline {
                 --mdc-typography-subtitle1-letter-spacing,
                 0.009375em
             );
+            line-height: 1;
 
             &:after {
                 position: absolute;
