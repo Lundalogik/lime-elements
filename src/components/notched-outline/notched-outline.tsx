@@ -92,6 +92,7 @@ export class NotchedOutline {
                 <span class="limel-notched-outline--leading-outline" />
                 {this.renderLabel()}
                 <span class="limel-notched-outline--trailing-outline" />
+                {this.renderEmptyReadonlyValue()}
             </span>,
         ];
     }
@@ -105,6 +106,16 @@ export class NotchedOutline {
             <span class="limel-notched-outline--notch">
                 <label htmlFor={this.labelId}>{this.label}</label>
             </span>
+        );
+    }
+
+    private renderEmptyReadonlyValue() {
+        if (!this.readonly || this.value) {
+            return;
+        }
+
+        return (
+            <span class="limel-notched-outline--empty-readonly-value">–</span>
         );
     }
 }

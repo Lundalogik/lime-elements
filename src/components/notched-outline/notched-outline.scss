@@ -2,6 +2,7 @@
 @use '../../style/internal/shared_input-select-picker';
 
 $border-radius: 0.25rem;
+$value-top: 0.72rem;
 
 limel-notched-outline {
     --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color};
@@ -81,7 +82,7 @@ limel-notched-outline {
 
             transform: translate3d(
                 var(--limel-notched-outline-label-transform-x, 0),
-                var(--limel-notched-outline-label-transform-y, 0.72rem),
+                var(--limel-notched-outline-label-transform-y, $value-top),
                 0
             );
             display: block;
@@ -115,60 +116,83 @@ limel-notched-outline {
         border-top-right-radius: $border-radius;
         border-bottom-right-radius: $border-radius;
     }
-}
 
-limel-notched-outline:not([disabled]:not([disabled='false'])) {
-    &:hover {
-        --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
-        --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-hovered};
-    }
-
-    &:has([slot='content']:focus-visible),
-    &:has([slot='content']:focus-within) {
-        --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
-        --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-focused};
+    &--empty-readonly-value {
+        @include shared_input-select-picker.lime-looks-like-input-value;
+        position: absolute;
+        top: $value-top;
+        left: 1rem;
     }
 }
 
-limel-notched-outline[disabled]:not([disabled='false']) {
-    --limel-notched-outline-label-color: #{shared_input-select-picker.$label-color-disabled};
-}
+limel-notched-outline {
+    &:not([disabled]:not([disabled='false'])) {
+        &:hover {
+            --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
+            --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-hovered};
+        }
 
-limel-notched-outline[required]:not([required='false']) {
-    .limel-notched-outline--notch {
-        label {
-            padding-right: 0.75rem;
+        &:has([slot='content']:focus-visible),
+        &:has([slot='content']:focus-within) {
+            --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
+            --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-focused};
+        }
+    }
 
-            &:after {
-                content: '*';
-                scale: 1.5;
+    &[disabled]:not([disabled='false']) {
+        --limel-notched-outline-label-color: #{shared_input-select-picker.$label-color-disabled};
+    }
+
+    &[required]:not([required='false']) {
+        .limel-notched-outline--notch {
+            label {
+                padding-right: 0.75rem;
+
+                &:after {
+                    content: '*';
+                    scale: 1.5;
+                }
             }
         }
     }
-}
 
-limel-notched-outline[invalid]:not([invalid='false']) {
-    --limel-notched-outline-border-color: var(--lime-error-text-color);
-    &:hover {
+    &[invalid]:not([invalid='false']) {
         --limel-notched-outline-border-color: var(--lime-error-text-color);
+        &:hover {
+            --limel-notched-outline-border-color: var(--lime-error-text-color);
+        }
+
+        .limel-notched-outline--notch {
+            label {
+                &:after {
+                    color: var(--lime-error-text-color);
+                }
+            }
+        }
+
+        .limel-notched-outline--empty-readonly-value {
+            color: var(--lime-error-text-color);
+        }
     }
 
-    .limel-notched-outline--notch {
-        label {
-            &:after {
-                color: var(--lime-error-text-color);
+    &[readonly]:not([readonly='false']) {
+        --limel-notched-outline-border-color: transparent !important;
+        --limel-notched-outline-background-color: transparent !important;
+
+        .limel-notched-outline--notch {
+            label {
+                transition-duration: 0s;
             }
         }
     }
-}
 
-limel-notched-outline[readonly]:not([readonly='false']) {
-    --limel-notched-outline-border-color: transparent !important;
-    --limel-notched-outline-background-color: transparent !important;
-}
+    &[leading-icon]:not([leading-icon='false']) {
+        --limel-notched-outline-label-transform-x: 1.25rem;
 
-limel-notched-outline[leading-icon]:not([leading-icon='false']) {
-    --limel-notched-outline-label-transform-x: 1.25rem;
+        .limel-notched-outline--empty-readonly-value {
+            left: 2.25rem;
+        }
+    }
 }
 
 // Transitioning the floating label
@@ -179,21 +203,24 @@ limel-notched-outline[leading-icon]:not([leading-icon='false']) {
     --limel-notched-outline-notch-border-top-color: transparent;
 }
 
-limel-notched-outline:not([disabled]:not([disabled='false'])) {
-    &:hover,
-    &:focus,
-    &:focus-within {
-        label {
-            will-change: color, transform, font-size;
+limel-notched-outline {
+    &:not([disabled]:not([disabled='false'])) {
+        &:hover,
+        &:focus,
+        &:focus-within {
+            label {
+                will-change: color, transform, font-size;
+            }
+        }
+
+        &:has([slot='content']:focus-visible),
+        &:has([slot='content']:focus-within) {
+            @include float-label;
         }
     }
 
-    &:has([slot='content']:focus-visible),
-    &:has([slot='content']:focus-within) {
+    &[value]:not([value='false']),
+    &[readonly]:not([value]:not([value='true'])) {
         @include float-label;
     }
-}
-
-limel-notched-outline[value]:not([value='false']) {
-    @include float-label;
 }
