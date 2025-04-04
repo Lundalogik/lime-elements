@@ -71,11 +71,19 @@ export class NotchedOutline {
 
     /**
      * Set to `true` when the user has entered a value for the input element.
-     * This applies proper visual styles, such as shrinking the label in size,
+     shrinking the label in size,
      * and visually rendering it above the entered value.
      */
     @Prop({ reflect: true })
-    public hasValue = false;
+    public value = false;
+
+    /**
+     * Set to `true` when the consumer element displays a leading icon.
+     * This applies proper visual styles, such as rendering the label
+     * correctly placed beside the leading icon.
+     */
+    @Prop({ reflect: true })
+    public leadingIcon = false;
 
     public render() {
         return [

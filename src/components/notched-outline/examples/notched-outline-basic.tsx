@@ -26,7 +26,13 @@ export class NotchedOutlineBasicExample {
     private invalid = false;
 
     @State()
-    private value: string;
+    private value = false;
+
+    @State()
+    private leadingIcon = false;
+
+    @State()
+    private inputValue: string;
 
     public render() {
         const id = 'abcd';
@@ -41,6 +47,8 @@ export class NotchedOutlineBasicExample {
                         invalid={this.invalid}
                         disabled={this.disabled}
                         readonly={this.readonly}
+                        value={this.value}
+                        leadingIcon={this.leadingIcon}
                     >
                         <input
                             slot="content"
@@ -49,6 +57,7 @@ export class NotchedOutlineBasicExample {
                             required={this.required}
                             disabled={this.disabled}
                             readonly={this.readonly}
+                            value={this.inputValue}
                         />
                     </limel-notched-outline>
                 </div>
@@ -74,6 +83,21 @@ export class NotchedOutlineBasicExample {
                     label="Invalid"
                     onChange={this.setInvalid}
                 />
+                <hr
+                    style={{
+                        gridColumn: '1/-1',
+                    }}
+                />
+                <limel-checkbox
+                    checked={this.value}
+                    label="Value"
+                    onChange={this.setHasValue}
+                />
+                <limel-checkbox
+                    checked={this.leadingIcon}
+                    label="Leading icon"
+                    onChange={this.setHasLeadingIcon}
+                />
             </limel-example-controls>,
             <limel-example-value value={this.value} />,
         ];
@@ -97,5 +121,15 @@ export class NotchedOutlineBasicExample {
     private setInvalid = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.invalid = event.detail;
+    };
+
+    private setHasValue = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.value = event.detail;
+    };
+
+    private setHasLeadingIcon = (event: CustomEvent<boolean>) => {
+        event.stopPropagation();
+        this.leadingIcon = event.detail;
     };
 }

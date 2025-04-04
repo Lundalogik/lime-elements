@@ -71,7 +71,7 @@ limel-notched-outline {
         max-width: calc(100% - 1.5rem);
 
         label {
-            all: unset; // ensures that `label` is not inheriting styles
+            all: unset; // ensures that `label` is not inheriting default styles
             @include mixins.truncate-text;
             position: relative;
             transition:
@@ -79,9 +79,10 @@ limel-notched-outline {
                 font-size 0.2s ease,
                 transform 0.12s ease;
 
-            transform: var(
-                --limel-notched-outline-label-transform,
-                translate3d(0, 0.72rem, 0)
+            transform: translate3d(
+                0,
+                var(--limel-notched-outline-label-transform-y, 0.72rem),
+                0
             );
             display: block;
             padding: 0 0.25rem;
@@ -167,6 +168,12 @@ limel-notched-outline[readonly]:not([readonly='false']) {
 }
 
 // Transitioning the floating label
+@mixin float-label {
+    --limel-notched-outline-label-font-size: 0.65rem; // `10.4px` similar to MDC's floating label
+    --limel-notched-outline-label-transform-y: -50%;
+    --limel-notched-outline-notch-border-top-color: transparent;
+}
+
 limel-notched-outline:not([disabled]:not([disabled='false'])) {
     &:hover,
     &:focus,
@@ -178,8 +185,10 @@ limel-notched-outline:not([disabled]:not([disabled='false'])) {
 
     &:has([slot='content']:focus-visible),
     &:has([slot='content']:focus-within) {
-        --limel-notched-outline-label-font-size: 0.65rem; // `10.4px` similar to MDC's floating label
-        --limel-notched-outline-label-transform: translate3d(0, -50%, 0);
-        --limel-notched-outline-notch-border-top-color: transparent;
+        @include float-label;
     }
+}
+
+limel-notched-outline[value]:not([value='false']) {
+    @include float-label;
 }
