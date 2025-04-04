@@ -6,7 +6,6 @@
  * @prop --text-editor-fade-out-background-color: the color of the fade-out effect at the top and bottom of the text editor, when the text-editor is in readonly state. Defaults to rgb(var(--contrast-100)).
  */
 
-@include shared_input-select-picker.lime-looks-like-input-value;
 .lime-looks-like-input-value {
     padding: var(--limel-text-editor-padding);
 }
