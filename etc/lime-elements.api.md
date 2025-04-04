@@ -555,6 +555,17 @@ export namespace Components {
         "allowClicksElement": HTMLElement;
         "open": boolean;
     }
+    export interface LimelNotchedOutline {
+        "disabled": boolean;
+        "hasFloatingLabel": boolean;
+        "hasLeadingIcon": boolean;
+        "hasValue": boolean;
+        "invalid": boolean;
+        "label"?: string;
+        "labelId"?: string;
+        "readonly": boolean;
+        "required": boolean;
+    }
     // (undocumented)
     export interface LimelPicker {
         "actionPosition": ActionPosition;
@@ -1119,6 +1130,8 @@ export namespace JSX {
         // (undocumented)
         "limel-menu-surface": LimelMenuSurface;
         // (undocumented)
+        "limel-notched-outline": LimelNotchedOutline;
+        // (undocumented)
         "limel-picker": LimelPicker;
         // (undocumented)
         "limel-popover": LimelPopover;
@@ -1617,6 +1630,17 @@ export namespace JSX {
         "allowClicksElement"?: HTMLElement;
         "onDismiss"?: (event: LimelMenuSurfaceCustomEvent<void>) => void;
         "open"?: boolean;
+    }
+    export interface LimelNotchedOutline {
+        "disabled"?: boolean;
+        "hasFloatingLabel"?: boolean;
+        "hasLeadingIcon"?: boolean;
+        "hasValue"?: boolean;
+        "invalid"?: boolean;
+        "label"?: string;
+        "labelId"?: string;
+        "readonly"?: boolean;
+        "required"?: boolean;
     }
     // (undocumented)
     export interface LimelPicker {
