@@ -186,7 +186,7 @@ limel-notched-outline {
         }
     }
 
-    &[leading-icon]:not([leading-icon='false']) {
+    &[has-leading-icon]:not([has-leading-icon='false']) {
         --limel-notched-outline-label-transform-x: 1.25rem;
 
         .limel-notched-outline--empty-readonly-value {
@@ -219,8 +219,8 @@ limel-notched-outline {
         }
     }
 
-    &[value]:not([value='false']),
-    &[readonly]:not([value]:not([value='true'])) {
+    &[has-value]:not([has-value='false']),
+    &[readonly]:not([has-value]:not([has-value='true'])) {
         @include float-label;
     }
 }

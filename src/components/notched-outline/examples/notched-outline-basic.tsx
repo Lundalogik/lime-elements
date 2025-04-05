@@ -26,10 +26,10 @@ export class NotchedOutlineBasicExample {
     private invalid = false;
 
     @State()
-    private value = false;
+    private hasValue = false;
 
     @State()
-    private leadingIcon = false;
+    private hasLeadingIcon = false;
 
     @State()
     private inputValue: string;
@@ -47,8 +47,8 @@ export class NotchedOutlineBasicExample {
                         invalid={this.invalid}
                         disabled={this.disabled}
                         readonly={this.readonly}
-                        value={this.value}
-                        leadingIcon={this.leadingIcon}
+                        hasValue={this.hasValue}
+                        hasLeadingIcon={this.hasLeadingIcon}
                     >
                         <input
                             slot="content"
@@ -89,17 +89,17 @@ export class NotchedOutlineBasicExample {
                     }}
                 />
                 <limel-checkbox
-                    checked={this.value}
+                    checked={this.hasValue}
                     label="Value"
                     onChange={this.setHasValue}
                 />
                 <limel-checkbox
-                    checked={this.leadingIcon}
+                    checked={this.hasLeadingIcon}
                     label="Leading icon"
                     onChange={this.setHasLeadingIcon}
                 />
             </limel-example-controls>,
-            <limel-example-value value={this.value} />,
+            <limel-example-value value={this.hasValue} />,
         ];
     }
 
@@ -125,11 +125,11 @@ export class NotchedOutlineBasicExample {
 
     private setHasValue = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
-        this.value = event.detail;
+        this.hasValue = event.detail;
     };
 
     private setHasLeadingIcon = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
-        this.leadingIcon = event.detail;
+        this.hasLeadingIcon = event.detail;
     };
 }

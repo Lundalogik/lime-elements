@@ -75,7 +75,7 @@ export class NotchedOutline {
      * and visually rendering it above the entered value.
      */
     @Prop({ reflect: true })
-    public value = false;
+    public hasValue = false;
 
     /**
      * Set to `true` when the consumer element displays a leading icon.
@@ -83,7 +83,7 @@ export class NotchedOutline {
      * correctly placed beside the leading icon.
      */
     @Prop({ reflect: true })
-    public leadingIcon = false;
+    public hasLeadingIcon = false;
 
     public render() {
         return [
@@ -110,7 +110,7 @@ export class NotchedOutline {
     }
 
     private renderEmptyReadonlyValue() {
-        if (!this.readonly || this.value) {
+        if (!this.readonly || this.hasValue) {
             return;
         }
 
