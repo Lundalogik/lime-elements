@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
@@ -224,44 +224,39 @@ export class TextEditor implements FormComponent<string> {
     }
 
     public render() {
-        return (
-            <Host
-                class={{
-                    'has-helper-text': !!this.helperText,
-                }}
+        return [
+            <limel-notched-outline
+                labelId={this.editorId}
+                label={this.label}
+                required={this.required}
+                invalid={this.invalid}
+                disabled={this.disabled}
+                readonly={this.readonly}
+                hasValue={!!this.value}
+                hasFloatingLabel={true}
             >
-                <span class="notched-outline">
-                    <span class="leading-outline" />
-                    {this.renderLabel()}
-                    <span class="trailing-outline" />
-                </span>
                 {this.renderEditor()}
-            </Host>
-        );
+                {this.renderPlaceholder()}
+            </limel-notched-outline>,
+            this.renderHelperLine(),
+        ];
     }
 
     private renderEditor() {
-        if (this.readonly && !this.value) {
-            return [
-                <span class="lime-looks-like-input-value">–</span>,
-                this.renderHelperLine(),
-            ];
-        }
-
         if (this.readonly) {
-            return [
+            return (
                 <limel-markdown
+                    slot="content"
                     value={this.value}
                     aria-controls={this.helperTextId}
                     id={this.editorId}
-                />,
-                this.renderPlaceholder(),
-                this.renderHelperLine(),
-            ];
+                />
+            );
         }
 
-        return [
+        return (
             <limel-prosemirror-adapter
+                slot="content"
                 aria-placeholder={this.placeholder}
                 contentType={this.contentType}
                 onChange={this.handleChange}
@@ -277,21 +272,7 @@ export class TextEditor implements FormComponent<string> {
                 language={this.language}
                 triggerCharacters={this.triggers}
                 disabled={this.disabled}
-            />,
-            this.renderPlaceholder(),
-            this.renderHelperLine(),
-        ];
-    }
-
-    private renderLabel() {
-        if (!this.label) {
-            return;
-        }
-
-        return (
-            <span class="notch">
-                <label htmlFor={this.editorId}>{this.label}</label>
-            </span>
+            />
         );
     }
 
@@ -301,7 +282,7 @@ export class TextEditor implements FormComponent<string> {
         }
 
         return (
-            <span class="placeholder" aria-hidden="true">
+            <span class="placeholder" aria-hidden="true" slot="content">
                 {this.placeholder}
             </span>
         );
