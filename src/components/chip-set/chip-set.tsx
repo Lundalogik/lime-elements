@@ -18,6 +18,7 @@ import translate from '../../global/translations';
 import { getHref, getTarget } from '../../util/link-helper';
 import { isEqual } from 'lodash-es';
 import { LimelChipCustomEvent } from '../../components';
+import { createRandomString } from '../../util/random-string';
 
 const INPUT_FIELD_TABINDEX = 1;
 
@@ -243,8 +244,10 @@ export class ChipSet {
 
     private mdcTextField: MDCTextField;
     private readonly handleKeyDown = handleKeyboardEvent;
+    private labelId: string;
 
     constructor() {
+        this.labelId = createRandomString();
         this.renderChip = this.renderChip.bind(this);
         this.renderInputChip = this.renderInputChip.bind(this);
         this.isFull = this.isFull.bind(this);
@@ -419,7 +422,7 @@ export class ChipSet {
                     <input
                         tabIndex={INPUT_FIELD_TABINDEX}
                         type={this.inputType}
-                        id="input-element"
+                        id={this.labelId}
                         disabled={this.readonly || this.disabled}
                         class={{
                             'mdc-text-field__input': true,
@@ -483,7 +486,7 @@ export class ChipSet {
 
         return (
             <div class="mdc-notched-outline__notch">
-                <label class={labelClassList} htmlFor="input-element">
+                <label class={labelClassList} htmlFor={this.labelId}>
                     {this.label}
                 </label>
             </div>
