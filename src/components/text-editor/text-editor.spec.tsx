@@ -18,16 +18,22 @@ describe('limel-text-editor', () => {
         getAttributesRecursively(textEditor, ariaControls, 'aria-controls');
         getAttributesRecursively(textEditor, ids, 'id');
 
-        expect(textEditor)
-            .toEqualHtml(`<limel-text-editor allow-resize="" language="en" ui="standard">
-        <mock:shadow-root>
-          <span class="notched-outline">
-            <span class="leading-outline"></span>
-            <span class="trailing-outline"></span>
-          </span>
-          <limel-prosemirror-adapter aria-controls=${ariaControls[0]} contenttype="markdown" id=${ids[0]} language="en"></limel-prosemirror-adapter>
-        </mock:shadow-root>
-      </limel-text-editor>`);
+        const notchedOutline = textEditor.shadowRoot.querySelector(
+            'limel-notched-outline',
+        );
+        expect(notchedOutline).not.toBeFalsy();
+        expect(notchedOutline.getAttribute('hasfloatinglabel')).toBe('');
+
+        const prosemirrorAdapter = textEditor.shadowRoot.querySelector(
+            'limel-prosemirror-adapter',
+        );
+        expect(prosemirrorAdapter).not.toBeFalsy();
+        expect(prosemirrorAdapter.getAttribute('contenttype')).toBe('markdown');
+        expect(prosemirrorAdapter.getAttribute('language')).toBe('en');
+        expect(prosemirrorAdapter.getAttribute('slot')).toBe('content');
+
+        const labelId = notchedOutline.getAttribute('labelid');
+        expect(prosemirrorAdapter.getAttribute('id')).toBe(labelId);
     });
 
     test.each([
@@ -147,9 +153,14 @@ describe('limel-text-editor', () => {
         });
 
         test('it renders the label', () => {
-            const label = textEditor.shadowRoot.querySelector('label');
+            const notchedOutline = textEditor.shadowRoot.querySelector(
+                'limel-notched-outline',
+            );
+            expect(notchedOutline).not.toBeFalsy();
+            expect(notchedOutline.getAttribute('label')).toEqual('my label');
 
-            expect(label.innerHTML).toEqual('my label');
+            const hasLabelProp = notchedOutline.hasAttribute('label');
+            expect(hasLabelProp).toBe(true);
         });
     });
 });
