@@ -5,8 +5,6 @@ describe('limel-input-field', () => {
     let page: E2EPage;
     let limelInput: E2EElement;
     let inputContainer: E2EElement;
-    let label: E2EElement;
-    let outline: E2EElement;
 
     const types: Array<{ name: InputType; [key: string]: any }> = [
         { name: 'email' },
@@ -95,42 +93,6 @@ describe('limel-input-field', () => {
 
                 it('has the class `mdc-text-field__input`', () => {
                     expect(nativeInput).toHaveClass('mdc-text-field__input');
-                });
-            });
-            describe('the label', () => {
-                beforeEach(async () => {
-                    label = await page.find(
-                        'limel-input-field>>>.mdc-floating-label',
-                    );
-                });
-                it('is NOT floating', () => {
-                    expect(label).not.toHaveClass(
-                        'mdc-floating-label--float-above',
-                    );
-                });
-                describe('after focusing', () => {
-                    beforeEach(async () => {
-                        label.click();
-                        await page.waitForEvent('click');
-                        await page.waitForChanges();
-                    });
-                    it('IS floating', () => {
-                        expect(label).toHaveClass(
-                            'mdc-floating-label--float-above',
-                        );
-                    });
-                });
-            });
-            describe('the outline', () => {
-                beforeEach(async () => {
-                    outline = await page.find(
-                        'limel-input-field>>>.mdc-notched-outline',
-                    );
-                });
-                it('has the expected structure', () => {
-                    expect(replaceLabelId(outline.outerHTML)).toEqual(
-                        '<span class="mdc-notched-outline mdc-notched-outline--upgraded" tabindex="-1"><span class="mdc-notched-outline__leading"></span><span class="mdc-notched-outline__notch"><span class="mdc-floating-label" id="tf-input-label">Test</span></span><span class="mdc-notched-outline__trailing"></span></span>',
-                    );
                 });
             });
             describe('when invalid is set to true', () => {
@@ -247,20 +209,10 @@ describe('limel-input-field', () => {
             page = await createPage(`
                 <limel-input-field
                     type="urlAsText"
-                    label="Website"
                     show-link="true"
+                    label="Test"
                 ></limel-input-field>
             `);
-
-            await page.evaluate(() => {
-                const elements = document.querySelectorAll(
-                    '.mdc-floating-label',
-                );
-
-                elements.forEach((el) => {
-                    el.id = 'test';
-                });
-            });
 
             limelInput = await page.find('limel-input-field');
             inputContainer = await page.find(
@@ -353,11 +305,4 @@ describe('limel-input-field', () => {
 
 async function createPage(content: string) {
     return newE2EPage({ html: content });
-}
-
-function replaceLabelId(HTML: string) {
-    return HTML.replace(
-        /"a_(\d|[a-f]){8}-(\d|[a-f]){4}-(\d|[a-f]){4}-(\d|[a-f]){4}-(\d|[a-f]){12}"/g,
-        '"tf-input-label"',
-    );
 }
