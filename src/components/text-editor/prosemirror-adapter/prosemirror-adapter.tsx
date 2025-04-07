@@ -38,14 +38,20 @@ import {
     EditorLinkMenuEventDetail,
     createLinkPlugin,
 } from './plugins/link-plugin';
-import { createImageRemoverPlugin } from './plugins/image-remover-plugin';
+import { createImageInserterPlugin } from './plugins/image/inserter';
+import { createImageViewPlugin } from './plugins/image/view';
 import { createMenuStateTrackingPlugin } from './plugins/menu-state-tracking-plugin';
 import { createActionBarInteractionPlugin } from './plugins/menu-action-interaction-plugin';
 import { CustomElementDefinition } from '../../../global/shared-types/custom-element.types';
 import { createNodeSpec } from '../utils/plugin-factory';
 import { createTriggerPlugin } from './plugins/trigger/factory';
-import { TriggerCharacter } from '../text-editor.types';
+import {
+    TriggerCharacter,
+    ImageInserter,
+    ImageInfo,
+} from '../text-editor.types';
 import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
+import { getImageNode, imageCache } from './plugins/image/node';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -151,6 +157,24 @@ export class ProsemirrorAdapter {
     @Event()
     private change: EventEmitter<string>;
 
+    /**
+     * Dispatched when a image is pasted into the editor
+     *
+     * @private
+     * @alpha
+     */
+    @Event()
+    private imagePasted: EventEmitter<ImageInserter>;
+
+    /**
+     * Dispatched when a image is removed from the editor
+     *
+     * @private
+     * @alpha
+     */
+    @Event()
+    private imageRemoved: EventEmitter<ImageInfo>;
+
     constructor() {
         this.portalId = createRandomString();
     }
@@ -206,6 +230,8 @@ export class ProsemirrorAdapter {
     }
 
     public disconnectedCallback() {
+        imageCache.clear();
+
         this.host.removeEventListener(
             'open-editor-link-menu',
             this.handleOpenLinkMenu,
@@ -257,7 +283,10 @@ export class ProsemirrorAdapter {
 
     private setupContentConverter() {
         if (this.contentType === 'markdown') {
-            this.contentConverter = new MarkdownConverter(this.customElements);
+            this.contentConverter = new MarkdownConverter(
+                this.customElements,
+                this.language,
+            );
         } else if (this.contentType === 'html') {
             this.contentConverter = new HTMLConverter(this.customElements);
         } else {
@@ -321,6 +350,8 @@ export class ProsemirrorAdapter {
             nodes = nodes.append(getTableNodes());
         }
 
+        nodes = nodes.append(getImageNode(this.language));
+
         return new Schema({
             nodes: nodes,
             marks: schema.spec.marks.append({
@@ -356,7 +387,11 @@ export class ProsemirrorAdapter {
                     this.contentConverter,
                 ),
                 createLinkPlugin(this.handleNewLinkSelection),
-                createImageRemoverPlugin(),
+                createImageInserterPlugin(
+                    this.imagePasted.emit,
+                    this.imageRemoved.emit,
+                ),
+                createImageViewPlugin(this.language),
                 createMenuStateTrackingPlugin(
                     editorMenuTypesArray,
                     this.menuCommandFactory,
@@ -370,19 +405,23 @@ export class ProsemirrorAdapter {
 
     private updateActiveActionBarItems = (
         activeTypes: Record<EditorMenuTypes, boolean>,
+        allowedTypes: Record<EditorMenuTypes, boolean>,
     ) => {
         const newItems = getTextEditorMenuItems().map((item) => {
             if (isItem(item)) {
                 return {
                     ...item,
                     selected: activeTypes[item.value],
+                    allowed: allowedTypes[item.value],
                 };
             }
 
             return item;
         });
 
-        this.actionBarItems = newItems;
+        this.actionBarItems = newItems.filter((item) =>
+            isItem(item) ? item.allowed : true,
+        );
     };
 
     private async updateView(content: string) {

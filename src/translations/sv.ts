@@ -4,6 +4,9 @@ export default {
     cancel: 'Avbryt',
     loading: 'Laddar…',
     value: 'Värde',
+    'action-bar.collapse': 'Dölj',
+    'action-bar.expand': 'Visa',
+    'action-bar.actions': 'Åtgärder',
     'callout.note': 'Obs',
     'callout.important': 'Viktigt',
     'callout.tip': 'Tips',
@@ -23,6 +26,7 @@ export default {
     'file-viewer.more-actions': 'Mer…',
     'editor-menu.bold': 'Fet',
     'editor-menu.italic': 'Kursiv',
+    'editor-menu.strikethrough': 'Genomstruken',
     'editor-menu.h1': 'Rubrik 1',
     'editor-menu.h2': 'Rubrik 2',
     'editor-menu.h3': 'Rubrik 3',
@@ -34,5 +38,10 @@ export default {
     'editor-link-menu.link': 'Länk',
     'editor-menu.code-block': 'Kodblock',
     'editor-menu.code': 'Kod',
+    'editor-image-view.loading': 'Laddar bilden: { filename }...',
+    'editor-image-view.failed': 'Något gick fel med bilden: { filename }',
+    'editor-image-view.success': 'Bilden: { filename } är redo',
+    'editor-image-view.resize-handle':
+        'Dra åt höger eller vänster för att ändra storlek på bilden',
     'progress-bar': 'Förloppsindikator',
 };

@@ -4,6 +4,9 @@ export default {
     cancel: 'Annuler',
     loading: 'Chargement…',
     value: 'Valeur',
+    'action-bar.collapse': 'Réduire',
+    'action-bar.expand': 'Développer',
+    'action-bar.actions': 'Actions',
     'callout.note': 'Note',
     'callout.important': 'Important',
     'callout.tip': 'Conseil',
@@ -24,6 +27,7 @@ export default {
     'file-viewer.more-actions': 'Plus…',
     'editor-menu.bold': 'Gras',
     'editor-menu.italic': 'Italique',
+    'editor-menu.strikethrough': 'Barré',
     'editor-menu.h1': 'Titre 1',
     'editor-menu.h2': 'Titre 2',
     'editor-menu.h3': 'Titre 3',
@@ -35,5 +39,11 @@ export default {
     'editor-link-menu.link': 'Lien',
     'editor-menu.code-block': 'Bloc de code',
     'editor-menu.code': 'Code',
+    'editor-image-view.loading': "Chargement de l'image: { filename }...",
+    'editor-image-view.failed':
+        "Un problème est survenu avec l'image: { filename }",
+    'editor-image-view.success': 'Image: { filename } est prête',
+    'editor-image-view.resize-handle':
+        "Faites glisser vers la droite ou la gauche pour redimensionner l'image",
     'progress-bar': 'Barre de progression',
 };

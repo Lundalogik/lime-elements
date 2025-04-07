@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.lint.json",
   "compilerOptions": {
     "jsx": "preserve"
   }

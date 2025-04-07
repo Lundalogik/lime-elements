@@ -44,7 +44,9 @@ describe('action-bar', () => {
 
         page = await newSpecPage({
             components: [ActionBar],
-            template: () => <limel-action-bar actions={actionsIn} />,
+            template: () => (
+                <limel-action-bar language="en" actions={actionsIn} />
+            ),
         });
 
         await page.waitForChanges();
@@ -52,7 +54,7 @@ describe('action-bar', () => {
 
     it('renders', () => {
         expect(page.root).toEqualHtml(`
-            <limel-action-bar role="grid">
+            <limel-action-bar language="en" role="grid">
                 <mock:shadow-root>
                     <div class=items role="rowgroup">
                         <limel-action-bar-item isvisible="" role="gridcell"></limel-action-bar-item>

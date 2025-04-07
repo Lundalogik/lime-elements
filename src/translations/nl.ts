@@ -4,6 +4,9 @@ export default {
     cancel: 'Annuleren',
     loading: 'Laden…',
     value: 'Waarde',
+    'action-bar.collapse': 'Inklappen',
+    'action-bar.expand': 'Uitklappen',
+    'action-bar.actions': 'Acties',
     'callout.note': 'Opmerking',
     'callout.important': 'Belangrijk',
     'callout.tip': 'Tip',
@@ -14,6 +17,7 @@ export default {
     'date-picker.quarter.heading': 'Kwartaal',
     'date-picker.year.heading': 'Jaar',
     'chip-set.clear-all': 'Alles wissen',
+    'snackbar.dismiss': 'Sluiten',
     'file-viewer.message.unsupported-filetype':
         'Kan dit bestand niet weergeven!',
     'file-viewer.download': 'Downloaden',
@@ -23,6 +27,7 @@ export default {
     'file-viewer.more-actions': 'Meer…',
     'editor-menu.bold': 'Vet',
     'editor-menu.italic': 'Cursief',
+    'editor-menu.strikethrough': 'Doorhalen',
     'editor-menu.h1': 'Kopniveau 1',
     'editor-menu.h2': 'Kopniveau 2',
     'editor-menu.h3': 'Kopniveau 3',
@@ -34,5 +39,11 @@ export default {
     'editor-link-menu.link': 'Link',
     'editor-menu.code-block': 'Codeblok',
     'editor-menu.code': 'Code',
+    'editor-image-view.loading': 'Afbeelding wordt geladen: { filename }...',
+    'editor-image-view.failed':
+        'Er is iets misgegaan met de afbeelding: { filename }',
+    'editor-image-view.success': 'Afbeelding: { filename } is klaar',
+    'editor-image-view.resize-handle':
+        'Sleep naar rechts of links om de afbeeldingsgrootte te veranderen',
     'progress-bar': 'Voortgangsbalk',
 };

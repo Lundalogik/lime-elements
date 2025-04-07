@@ -83,6 +83,7 @@ export interface Chip<T = any> {
     iconTitle?: string;
     id: number | string;
     image?: Image_2;
+    loading?: boolean;
     menuItems?: Array<MenuItem | ListSeparator>;
     removable?: boolean;
     selected?: boolean;
@@ -152,6 +153,8 @@ export namespace Components {
     export interface LimelActionBar {
         "accessibleLabel"?: string;
         "actions": Array<ActionBarItem | ListSeparator>;
+        "collapsible": boolean;
+        "language": Languages;
         "layout"?: 'fullWidth' | 'floating';
         "openDirection": OpenDirection;
     }
@@ -165,6 +168,7 @@ export namespace Components {
     export interface LimelActionBarOverflowMenu {
         "items": Array<MenuItem | ListSeparator>;
         "openDirection": OpenDirection;
+        "overFlowIcon"?: Icon;
     }
     export interface LimelBadge {
         "label"?: number | string;
@@ -966,6 +970,32 @@ interface Image_2 {
 }
 export { Image_2 as Image }
 
+// @alpha (undocumented)
+export interface ImageInfo {
+    fileInfoId: string;
+    src: string;
+    state: ImageState;
+}
+
+// @alpha (undocumented)
+export interface ImageInserter {
+    // (undocumented)
+    fileInfo: FileInfo;
+    insertFailedThumbnail: () => void;
+    insertImage: (src?: string) => void;
+    insertThumbnail: () => void;
+}
+
+// @alpha (undocumented)
+export enum ImageState {
+    // (undocumented)
+    FAILED = "failed",
+    // (undocumented)
+    LOADING = "loading",
+    // (undocumented)
+    SUCCESS = "success"
+}
+
 // @public (undocumented)
 export interface InfoTileProgress {
     displayPercentageColors?: boolean;
@@ -1142,6 +1172,8 @@ export namespace JSX {
     export interface LimelActionBar {
         "accessibleLabel"?: string;
         "actions"?: Array<ActionBarItem | ListSeparator>;
+        "collapsible"?: boolean;
+        "language"?: Languages;
         "layout"?: 'fullWidth' | 'floating';
         "onItemSelected"?: (event: LimelActionBarCustomEvent<ActionBarItem>) => void;
         "openDirection"?: OpenDirection;
@@ -1158,6 +1190,7 @@ export namespace JSX {
         "items"?: Array<MenuItem | ListSeparator>;
         "onSelect"?: (event: LimelActionBarOverflowMenuCustomEvent<ActionBarItem>) => void;
         "openDirection"?: OpenDirection;
+        "overFlowIcon"?: Icon;
     }
     export interface LimelBadge {
         "label"?: number | string;
@@ -1651,6 +1684,10 @@ export namespace JSX {
         "language"?: Languages;
         "onChange"?: (event: LimelProsemirrorAdapterCustomEvent<string>) => void;
         // @alpha
+        "onImagePasted"?: (event: LimelProsemirrorAdapterCustomEvent<ImageInserter>) => void;
+        // @alpha
+        "onImageRemoved"?: (event: LimelProsemirrorAdapterCustomEvent<ImageInfo>) => void;
+        // @alpha
         "triggerCharacters"?: TriggerCharacter[];
         "value"?: string;
     }
@@ -1771,6 +1808,10 @@ export namespace JSX {
         "label"?: string;
         "language"?: Languages;
         "onChange"?: (event: LimelTextEditorCustomEvent<string>) => void;
+        // @alpha
+        "onImagePasted"?: (event: LimelTextEditorCustomEvent<ImageInserter>) => void;
+        // @alpha
+        "onImageRemoved"?: (event: LimelTextEditorCustomEvent<ImageInfo>) => void;
         // @alpha
         "onTriggerChange"?: (event: LimelTextEditorCustomEvent<TriggerEventDetail>) => void;
         // @alpha

@@ -47,15 +47,6 @@ $checkbox-distance-to-left-edge: 0.5rem;
         );
     }
 
-    .tabulator-row:not(.tabulator-calcs):hover & {
-        will-change: background-image;
-        background-image: linear-gradient(
-            to right,
-            rgb(var(--table-row-background-color--hover)) 70%,
-            rgb(var(--table-row-background-color--hover), 0)
-        );
-    }
-
     .tabulator-row.active & {
         background-image: linear-gradient(
             to right,

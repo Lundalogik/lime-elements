@@ -1,3 +1,108 @@
+## [38.7.1](https://github.com/Lundalogik/lime-elements/compare/v38.7.0...v38.7.1) (2025-04-01)
+
+
+### Bug Fixes
+
+
+* **action-bar:** show expand button only when more than one action exists ([0aace07](https://github.com/Lundalogik/lime-elements/commit/0aace07b6a20f4bded4f8e8837a2c2c386139456))
+
+## [38.7.0](https://github.com/Lundalogik/lime-elements/compare/v38.6.0...v38.7.0) (2025-03-31)
+
+
+### Features
+
+
+* **action-bar:** add collapsible functionality ([b2b33ed](https://github.com/Lundalogik/lime-elements/commit/b2b33ed1d69e861e39a9affafeedf7e82cc1386a))
+
+### Bug Fixes
+
+
+* **index:** set default language to English ([c794547](https://github.com/Lundalogik/lime-elements/commit/c7945476264c66abd71ae908c7cc61dfdb3ad143))
+
+## [38.6.0](https://github.com/Lundalogik/lime-elements/compare/v38.5.0...v38.6.0) (2025-03-25)
+
+
+### Features
+
+
+* **text editor:** conditionally allow commands ([819f599](https://github.com/Lundalogik/lime-elements/commit/819f599835de1859f0b8bb19b772c5cf6e5a51f6))
+
+## [38.5.0](https://github.com/Lundalogik/lime-elements/compare/v38.4.1...v38.5.0) (2025-03-19)
+
+
+### Features
+
+
+* **chip:** add missing `loading` property to `Chip` interface ([a300621](https://github.com/Lundalogik/lime-elements/commit/a3006219f90044a621d819640bd06fef463d9512)), closes [Lundalogik/crm-feature#4676](https://github.com/Lundalogik/crm-feature/issues/4676)
+
+## [38.4.1](https://github.com/Lundalogik/lime-elements/compare/v38.4.0...v38.4.1) (2025-03-17)
+
+
+### Bug Fixes
+
+
+* **markdown:** remove hyphens from paragraphs & lists ([867dd95](https://github.com/Lundalogik/lime-elements/commit/867dd959fc8fefe3217d7212cf230f921099443a))
+
+## [38.4.0](https://github.com/Lundalogik/lime-elements/compare/v38.3.3...v38.4.0) (2025-03-17)
+
+
+### Features
+
+
+* **badge:** enable the consumer to control its `max-width` ([8661573](https://github.com/Lundalogik/lime-elements/commit/86615732dcfc5185c3a05c22abb1ceb206a884a6))
+
+## [38.3.3](https://github.com/Lundalogik/lime-elements/compare/v38.3.2...v38.3.3) (2025-03-14)
+
+
+### Bug Fixes
+
+
+* **style:** add new mixins & breakpoint variables ([958438e](https://github.com/Lundalogik/lime-elements/commit/958438e2dda49a2cacdea95a514d5f759a51543f))
+
+## [38.3.2](https://github.com/Lundalogik/lime-elements/compare/v38.3.1...v38.3.2) (2025-03-13)
+
+
+### Bug Fixes
+
+
+* **table:** apply new columns without a full init ([3a5e7ac](https://github.com/Lundalogik/lime-elements/commit/3a5e7ac394daa8c689797b71a321f3801b226d48)), closes [Lundalogik/crm-feature#4449](https://github.com/Lundalogik/crm-feature/issues/4449)
+
+## [38.3.1](https://github.com/Lundalogik/lime-elements/compare/v38.3.0...v38.3.1) (2025-03-12)
+
+
+### Bug Fixes
+
+
+* **snackbar:** add missing translations for the dismiss button ([ec8f33d](https://github.com/Lundalogik/lime-elements/commit/ec8f33db5f8bd7f64509f725d65fd1ee819be41e))
+* **text-editor:** add translations for "Strikethrough" action ([297bfc7](https://github.com/Lundalogik/lime-elements/commit/297bfc71acc5643dc45038a85738caaf1ca02f95))
+
+## [38.3.0](https://github.com/Lundalogik/lime-elements/compare/v38.2.3...v38.3.0) (2025-03-12)
+
+
+### Features
+
+
+* **text-editor:** add support for pasting inline images ([735893b](https://github.com/Lundalogik/lime-elements/commit/735893b205e901ef98a850318a50d5911012157e))
+* **translations:** add support for merge codes in translations ([0433193](https://github.com/Lundalogik/lime-elements/commit/0433193a66079c83f1cc969b7e2bf0a3450f9e97))
+
+## [38.2.3](https://github.com/Lundalogik/lime-elements/compare/v38.2.2...v38.2.3) (2025-03-12)
+
+
+### Bug Fixes
+
+
+* **table:** preserve checkbox background on hover ([aa73123](https://github.com/Lundalogik/lime-elements/commit/aa73123076357825d51ac1681959558e7fb3dbdf))
+
+## [38.2.2](https://github.com/Lundalogik/lime-elements/compare/v38.2.1...v38.2.2) (2025-03-10)
+
+
+### Bug Fixes
+
+
+* **action-bar:** properly use the `title` property of the item's `icon` ([4296e83](https://github.com/Lundalogik/lime-elements/commit/4296e838d2598dac19e51d107dda2c9da61ca387))
+* **list:** properly use the `title` property of the item's `icon` ([4d60cac](https://github.com/Lundalogik/lime-elements/commit/4d60cac65313f8edb6d3128b93be7cb03260275e))
+* **menu:** properly use the `title` property of the item's `icon` ([208e5eb](https://github.com/Lundalogik/lime-elements/commit/208e5ebe80cd55e858c820372e2be422bee4977c))
+
 ## [38.2.1](https://github.com/Lundalogik/lime-elements/compare/v38.2.0...v38.2.1) (2025-03-05)
 
 

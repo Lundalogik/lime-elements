@@ -3,7 +3,12 @@ import { FormComponent } from '../form/form.types';
 import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
 import { CustomElementDefinition } from '../../global/shared-types/custom-element.types';
-import { TriggerCharacter, TriggerEventDetail } from './text-editor.types';
+import {
+    TriggerCharacter,
+    TriggerEventDetail,
+    ImageInserter,
+    ImageInfo,
+} from './text-editor.types';
 import { EditorUiType } from './types';
 
 /**
@@ -20,6 +25,8 @@ import { EditorUiType } from './types';
  * @exampleComponent limel-example-text-editor-with-markdown
  * @exampleComponent limel-example-text-editor-with-html
  * @exampleComponent limel-example-text-editor-with-tables
+ * @exampleComponent limel-example-text-editor-with-inline-images-file-storage
+ * @exampleComponent limel-example-text-editor-with-inline-images-base64
  * @exampleComponent limel-example-text-editor-allow-resize
  * @exampleComponent limel-example-text-editor-size
  * @exampleComponent limel-example-text-editor-ui
@@ -162,6 +169,24 @@ export class TextEditor implements FormComponent<string> {
     public change: EventEmitter<string>;
 
     /**
+     * Dispatched when a image is pasted into the editor
+     *
+     * @private
+     * @alpha
+     */
+    @Event()
+    private imagePasted: EventEmitter<ImageInserter>;
+
+    /**
+     * Dispatched when a image is removed from the editor
+     *
+     * @private
+     * @alpha
+     */
+    @Event()
+    private imageRemoved: EventEmitter<ImageInfo>;
+
+    /**
      * Dispatched if a trigger character is detected.
      *
      * @private
@@ -240,6 +265,8 @@ export class TextEditor implements FormComponent<string> {
                 aria-placeholder={this.placeholder}
                 contentType={this.contentType}
                 onChange={this.handleChange}
+                onImagePasted={this.handleImagePasted}
+                onImageRemoved={this.handleImageRemoved}
                 customElements={this.customElements}
                 value={this.value}
                 aria-controls={this.helperTextId}
@@ -306,5 +333,15 @@ export class TextEditor implements FormComponent<string> {
     private handleChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.change.emit(event.detail);
+    };
+
+    private handleImagePasted = (event: CustomEvent<ImageInserter>) => {
+        event.stopPropagation();
+        this.imagePasted.emit(event.detail);
+    };
+
+    private handleImageRemoved = (event: CustomEvent<ImageInfo>) => {
+        event.stopPropagation();
+        this.imageRemoved.emit(event.detail);
     };
 }

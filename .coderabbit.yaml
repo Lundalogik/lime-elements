@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
 # Natural language in which you want CodeRabbit to write the review.
 language: en-US
 
@@ -6,7 +8,7 @@ language: en-US
 tone_instructions: ''
 
 # Enable early-access features.
-early_access: false
+early_access: true
 
 # Enable free tier features for users not on a paid plan.
 enable_free_tier: true
@@ -49,7 +51,7 @@ reviews:
   fail_commit_status: false
 
   # Generate walkthrough in a markdown collapsible section.
-  collapse_walkthrough: false
+  collapse_walkthrough: true
 
   # Generate a summary of the changed files in the walkthrough.
   changed_files_summary: true
@@ -93,7 +95,13 @@ reviews:
   # ones (starting with '!') when cloning the repository.
   path_filters: ['!etc/lime-elements.api.md']
 
-  path_instructions: []
+  path_instructions:
+    - path: '**/*.tsx'
+      instructions: Our `.tsx` files are typically using StencilJS, not React.
+    - path: '**/*.{ts,tsx}'
+      instructions: Imports from other files in the same module (lime-elements) must use relative paths. Using absolute paths for imports will cause the production build to fail.
+    - path: 'src/components/**/examples/**/*.{ts,tsx}'
+      instructions: These files are an exception to the rule that all imports should use relative paths. When these example files import something that is publically exported by lime-elements, the import should be made from `@limetech/lime-elements`. If they import something from another file inside the `example` folder, the import should use a relative path.
 
   # Abort the in-progress review if the pull request is closed or merged.
   abort_on_close: true
@@ -103,7 +111,7 @@ reviews:
     enabled: true
 
     # Automatic incremental code review on each push
-    auto_incremental_review: false
+    auto_incremental_review: true
 
     # Ignore reviewing if the title of the pull request contains any of these
     # keywords (case-insensitive).

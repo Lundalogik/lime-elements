@@ -1,9 +1,12 @@
 export default {
     remove: 'Poista',
     save: 'Tallenna',
-    canceL: 'Peruuta',
+    cancel: 'Peruuta',
     loading: 'Ladataan…',
     value: 'Arvo',
+    'action-bar.collapse': 'Pienennä',
+    'action-bar.expand': 'Laajenna',
+    'action-bar.actions': 'Toiminnot',
     'callout.note': 'Huomio',
     'callout.important': 'Tärkeää',
     'callout.tip': 'Vinkki',
@@ -14,6 +17,7 @@ export default {
     'date-picker.quarter.heading': 'Vuosineljännes',
     'date-picker.year.heading': 'Vuosi',
     'chip-set.clear-all': 'Tyhjennä kaikki',
+    'snackbar.dismiss': 'Sulje',
     'file-viewer.message.unsupported-filetype':
         'Tätä tiedostoa ei voi näyttää!',
     'file-viewer.download': 'Ladata',
@@ -23,6 +27,7 @@ export default {
     'file-viewer.more-actions': 'Lisää…',
     'editor-menu.bold': 'Lihavoitu',
     'editor-menu.italic': 'Kursivoitu',
+    'editor-menu.strikethrough': 'Yliviivaus',
     'editor-menu.h1': 'Otsikkotaso 1',
     'editor-menu.h2': 'Otsikkotaso 2',
     'editor-menu.h3': 'Otsikkotaso 3',
@@ -34,5 +39,10 @@ export default {
     'editor-link-menu.link': 'Linkki',
     'editor-menu.code-block': 'Koodilohko',
     'editor-menu.code': 'Koodi',
+    'editor-image-view.loading': 'Ladataan kuvaa: { filename }...',
+    'editor-image-view.failed': 'Jokin meni pieleen kuvan kanssa: { filename }',
+    'editor-image-view.success': 'Kuva: { filename } on valmis',
+    'editor-image-view.resize-handle':
+        'Vedä oikealle tai vasemmalle muuttaaksesi kuvan kokoa',
     'progress-bar': 'Edistymispalkki',
 };
