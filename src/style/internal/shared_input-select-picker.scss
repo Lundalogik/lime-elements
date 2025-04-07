@@ -214,9 +214,15 @@ $cropped-label-hack--font-size: 0.875rem; //14px
 
 @mixin leading-icon {
     .mdc-text-field__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: $input-text-leading-icon-color;
-        width: functions.pxToRem(24);
-        height: functions.pxToRem(24);
+
+        limel-icon {
+            width: functions.pxToRem(24);
+            height: functions.pxToRem(24);
+        }
     }
 }
 
