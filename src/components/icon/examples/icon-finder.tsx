@@ -80,16 +80,11 @@ export class IconFinder {
         }
     }
 
-    private copyIconName(event) {
-        const iconName = event.target.icon;
-        const element = document.createElement('textarea');
-        element.value = iconName;
-        document.body.appendChild(element);
-        element.select();
+    private readonly copyIconName = (event: MouseEvent) => {
+        const iconName = (event.target as HTMLLimelIconButtonElement).icon;
         this.copyToClipboard(iconName);
-        document.body.removeChild(element);
         console.log(`copied icon name '${iconName}' to clipboard`);
-    }
+    };
 
     private readonly onInput = (
         event: LimelChipSetCustomEvent<string> | InputEvent,
