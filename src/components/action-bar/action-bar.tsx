@@ -209,7 +209,11 @@ export class ActionBar {
     };
 
     private renderCollapseExpandButton() {
-        if (!this.collapsible || this.actions.length <= 1) {
+        if (
+            !this.collapsible ||
+            this.actions.length <= 1 ||
+            this.layout !== 'floating'
+        ) {
             return;
         }
 
