@@ -272,6 +272,8 @@ export class TextEditor implements FormComponent<string> {
                 aria-controls={this.helperTextId}
                 id={this.editorId}
                 aria-disabled={this.disabled}
+                aria-invalid={this.invalid}
+                aria-required={this.required}
                 language={this.language}
                 triggerCharacters={this.triggers}
                 disabled={this.disabled}
