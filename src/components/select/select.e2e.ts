@@ -11,7 +11,9 @@ describe('limel-select (native)', () => {
                 <limel-select data-native label="Favourite Doctor"></limel-select>
             `);
             limelSelect = await page.find('limel-select');
-            label = await page.find('limel-select>>>.mdc-floating-label');
+            label = await page.find(
+                'limel-select >>> .limel-notched-outline--notch label',
+            );
         });
         it('displays the correct label', () => {
             expect(label).toEqualText('Favourite Doctor');
@@ -224,7 +226,9 @@ describe('limel-select (menu)', () => {
                 <limel-select label="Favourite Doctor"></limel-select>
             `);
             limelSelect = await page.find('limel-select');
-            label = await page.find('limel-select>>>.mdc-floating-label');
+            label = await page.find(
+                'limel-select >>> .limel-notched-outline--notch label',
+            );
         });
         it('displays the correct label', () => {
             expect(label).toEqualText('Favourite Doctor');

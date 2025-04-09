@@ -3,7 +3,6 @@ import { Option } from '../select/option.types';
 import { FunctionalComponent, h } from '@stencil/core';
 import { isMultiple } from '../../util/multiple';
 import { getIconColor, getIconName } from '../icon/get-icon-props';
-
 interface SelectTemplateProps {
     disabled?: boolean;
     readonly?: boolean;
@@ -50,27 +49,41 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
     const classList = {
         'limel-select': true,
         'mdc-select': true,
-        'mdc-select--outlined': true,
         'mdc-select--disabled': props.disabled,
         'limel-select--readonly': props.readonly,
-        'limel-select--required': props.required,
         'limel-select--invalid': !isValid,
-        'limel-select--empty': !hasValue,
         'limel-select--with-helper-text': typeof props.helperText === 'string',
     };
 
-    return (
-        <div class={classList}>
+    return [
+        <limel-notched-outline
+            class={classList}
+            labelId="s-label"
+            label={props.label}
+            required={props.required}
+            invalid={!isValid}
+            disabled={props.disabled}
+            readonly={props.readonly}
+            hasValue={hasValue}
+            hasFloatingLabel={floatLabelAbove(props)}
+        >
             <SelectValue
                 {...props}
                 hasValue={hasValue}
                 isValid={isValid}
                 hasEmptyText={hasEmptyText}
             />
-            <HelperText text={props.helperText} isValid={!props.invalid} />
-            <SelectDropdown {...props} />
-        </div>
-    );
+        </limel-notched-outline>,
+        <HelperText text={props.helperText} isValid={!props.invalid} />,
+        <SelectDropdown {...props} />,
+    ];
+};
+
+const floatLabelAbove = (props) => {
+    // if (!props.hasEmptyText || props.isOpen) {
+    if (props.isOpen) {
+        return true;
+    }
 };
 
 const SelectValue: FunctionalComponent<
@@ -85,18 +98,10 @@ const SelectValue: FunctionalComponent<
         'limel-select-trigger': true,
         'limel-select--focused': props.isOpen,
     };
-    const labelClassList = {
-        'mdc-floating-label': true,
-        'mdc-floating-label--float-above':
-            !props.hasEmptyText ||
-            props.isOpen ||
-            props.readonly ||
-            props.hasValue,
-        'mdc-floating-label--active': props.isOpen,
-    };
 
     return (
         <button
+            slot="content"
             class={anchorClassList}
             onClick={props.open}
             onKeyPress={props.onTriggerPress}
@@ -107,16 +112,13 @@ const SelectValue: FunctionalComponent<
             aria-required={props.required}
             disabled={props.disabled || props.readonly}
         >
-            <span id="s-label" class={labelClassList}>
-                {props.label}
-            </span>
             <span class="mdc-select__selected-text-container limel-select__selected-option">
                 {getSelectedIcon(props.value)}
                 <span
                     id="s-selected-text"
                     class="mdc-select__selected-text limel-select__selected-option__text"
                 >
-                    {getSelectedText(props.value, props.readonly)}
+                    {getSelectedText(props.value)}
                 </span>
             </span>
             <ShowIcon {...props} isValid={props.isValid} />
@@ -323,20 +325,14 @@ function getMenuOptionFilter(selectIsRequired: boolean) {
     };
 }
 
-function getSelectedText(value: Option | Option[], readonly: boolean): string {
-    const emptyReadOnlyOption = <span class="readonly-option">–</span>;
-
+function getSelectedText(value: Option | Option[]): string {
     const isEmptyValue = !value || (isMultiple(value) && !value.length);
     if (isEmptyValue) {
-        return readonly ? emptyReadOnlyOption : '';
+        return '';
     }
 
     if (isMultiple(value)) {
         return value.map((option) => option.text).join(', ');
-    }
-
-    if (readonly && (value.value === 'empty' || value.text === '')) {
-        return emptyReadOnlyOption;
     }
 
     return value.text;
