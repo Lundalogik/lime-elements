@@ -1,6 +1,6 @@
 :host(limel-chip-set[readonly]) {
     .mdc-text-field {
-        &.mdc-text-field--disabled {
+        &.disabled {
             pointer-events: auto;
         }
     }
