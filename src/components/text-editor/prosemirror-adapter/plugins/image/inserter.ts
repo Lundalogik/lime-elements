@@ -204,15 +204,13 @@ const processPasteEvent = (
         }
     }
 
-    if (files.length > 0) {
-        return true;
-    }
-
     const htmlContent = clipboardData.getData('text/html');
     if (htmlContent) {
         const imagesSources = extractImagesFromHTML(htmlContent);
         if (imagesSources.length > 0) {
-            return true; // Prevent default as we're handling the images
+            for (const src of imagesSources) {
+                processImageSource(view, src);
+            }
         }
     }
 
@@ -239,4 +237,222 @@ const extractImagesFromHTML = (htmlContent: string): string[] => {
     });
 
     return sources;
+};
+
+/**
+ * Process an image source by detecting its type and handling it accordingly
+ *
+ * @param view - The ProseMirror editor view
+ * @param src - The image source URL or data URL
+ */
+const processImageSource = (view: EditorView, src: string): void => {
+    const sourceType = detectImageSourceType(src);
+
+    switch (sourceType) {
+        case 'data-url':
+            processDataUrlImage(view, src);
+            break;
+        case 'external-url':
+            processExternalUrlImage(view, src);
+            break;
+        case 'unknown':
+        default:
+            console.warn('Unknown image source type:', src);
+            break;
+    }
+};
+
+/**
+ * Detect the type of image source
+ *
+ * @param src - The image source
+ * @returns The detected source type
+ */
+const detectImageSourceType = (
+    src: string,
+): 'data-url' | 'external-url' | 'unknown' => {
+    if (src.startsWith('data:image/')) {
+        return 'data-url';
+    } else if (/^https?:\/\//i.exec(src) || src.startsWith('//')) {
+        return 'external-url';
+    } else {
+        return 'unknown';
+    }
+};
+
+/**
+ * Process a data URL image
+ *
+ * @param view - The editor view
+ * @param dataUrl - The data URL of the image
+ */
+const processDataUrlImage = (view: EditorView, dataUrl: string): void => {
+    console.log('dataUrl', dataUrl);
+    // Extract mime type from data URL
+    const mimeMatch = /^data:([^;]+);/.exec(dataUrl);
+    const mimeType = mimeMatch ? mimeMatch[1] : 'image/png';
+    const extension = mimeType.split('/')[1] || 'png';
+
+    // Create a blob from the data URL
+    const regex = /^data:([^;]+);base64,(.+)$/;
+    const matches = regex.exec(dataUrl);
+    if (!matches) {
+        console.error('Invalid data URL format');
+
+        return;
+    }
+
+    const base64Data = matches[2];
+    const binaryString = atob(base64Data);
+    const bytes = new Uint8Array(binaryString.length);
+
+    for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    const blob = new Blob([bytes], { type: mimeType });
+    const fileName = `pasted-image-${Date.now()}.${extension}`;
+    const file = new File([blob], fileName, { type: mimeType });
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+        dispatchImagePastedEvent(view, reader.result as string, file);
+    };
+
+    reader.readAsDataURL(blob);
+};
+
+/**
+ * Process an external URL image
+ *
+ * @param view - The editor view
+ * @param url - The URL of the image
+ */
+const processExternalUrlImage = (view: EditorView, url: string): void => {
+    console.log('url', url);
+    fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(
+                    `Failed to fetch image: ${response.statusText}`,
+                );
+            }
+
+            return response.blob();
+        })
+        .then((blob) => {
+            const fileType = blob.type || 'image/png';
+            const extension = fileType.split('/')[1] || 'png';
+            const fileName =
+                url.split('/').pop() ||
+                `external-image-${Date.now()}.${extension}`;
+            const file = new File([blob], fileName, { type: fileType });
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                dispatchImagePastedEvent(view, reader.result as string, file);
+            };
+
+            reader.readAsDataURL(blob);
+        })
+        .catch((error) => {
+            console.error('Error processing external image:', error);
+        });
+};
+
+/**
+ * Create and dispatch an imagePasted event
+ *
+ * @param view - The editor view
+ * @param base64Data - The base64 data of the image
+ * @param file - The file object
+ */
+const dispatchImagePastedEvent = (
+    view: EditorView,
+    base64Data: string,
+    file: File,
+): void => {
+    view.dom.dispatchEvent(
+        new CustomEvent('imagePasted', {
+            detail: imageInserterFactory(
+                view,
+                base64Data,
+                createFileInfo(file),
+            ),
+        }),
+    );
+};
+
+/**
+ * Convert a URL or data URL to a Blob
+ *
+ * @param url - The URL or data URL to convert
+ * @returns A Promise that resolves to a Blob or null if conversion fails
+ */
+const urlToBlob = async (url: string): Promise<Blob | null> => {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            return null;
+        }
+
+        return await response.blob();
+    } catch (error) {
+        console.error('Error converting URL to blob:', error);
+
+        return null;
+    }
+};
+
+/**
+ * Creates a smaller thumbnail from an image data URL
+ * @param dataUrl - Original image data URL
+ * @param maxWidth - Maximum width of thumbnail
+ * @param maxHeight - Maximum height of thumbnail
+ * @param quality - JPEG quality (0-1)
+ * @returns Promise resolving to a smaller thumbnail data URL
+ */
+const createOptimizedThumbnail = (
+    dataUrl: string,
+    maxWidth = 300,
+    maxHeight = 300,
+    quality = 0.7,
+): Promise<string> => {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+            // Calculate new dimensions while maintaining aspect ratio
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth) {
+                height = (height * maxWidth) / width;
+                width = maxWidth;
+            }
+
+            if (height > maxHeight) {
+                width = (width * maxHeight) / height;
+                height = maxHeight;
+            }
+
+            // Create canvas and draw resized image
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Convert to JPEG for better compression
+            const thumbnailDataUrl = canvas.toDataURL('image/jpeg', quality);
+            resolve(thumbnailDataUrl);
+        };
+
+        // Handle potential loading errors
+        img.onerror = () => {
+            console.warn('Failed to create thumbnail, using original');
+            resolve(dataUrl);
+        };
+
+        img.src = dataUrl;
+    });
 };

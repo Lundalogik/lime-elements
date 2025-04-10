@@ -336,6 +336,7 @@ export class TextEditor implements FormComponent<string> {
     };
 
     private handleImagePasted = (event: CustomEvent<ImageInserter>) => {
+        console.log('image pasted lime elements');
         event.stopPropagation();
         this.imagePasted.emit(event.detail);
     };
