@@ -7,7 +7,6 @@ import {
     Event,
     EventEmitter,
     h,
-    Host,
     Method,
     Prop,
     State,
@@ -340,34 +339,69 @@ export class ChipSet {
     }
 
     public render() {
-        if (this.type === 'input') {
-            return this.renderInputChips();
-        }
-
         const classes = {
             'mdc-chip-set': true,
-            disabled: this.disabled || this.readonly,
             'mdc-text-field--with-trailing-icon': true,
+            disabled: this.disabled || this.readonly,
         };
+
         if (this.type) {
             classes[`mdc-chip-set--${this.type}`] = true;
         }
 
-        const chipSetLabel = this.renderChipSetLabel();
-        if (chipSetLabel) {
-            classes['chip-set--with-label'] = true;
+        if (this.type === 'input') {
+            Object.assign(classes, {
+                'mdc-text-field': true,
+                'mdc-text-field--outlined': true,
+                'mdc-chip-set--input': true,
+                'lime-text-field--readonly': this.readonly,
+                'has-chips': this.value.length !== 0,
+                'has-leading-icon': this.leadingIcon !== null,
+                'has-clear-all-button': this.clearAllButton,
+            });
         }
 
         const value = this.getValue();
 
-        return (
-            <div class={classes} role="grid">
-                {chipSetLabel}
-                {value.map(this.renderChip)}
-                {this.renderHelperLine()}
-            </div>
-        );
+        return [
+            <limel-notched-outline
+                labelId={this.labelId}
+                label={this.label}
+                required={this.required}
+                invalid={this.invalid || this.isInvalid()}
+                disabled={this.disabled}
+                readonly={this.readonly}
+                hasValue={!!this.value?.length}
+                hasLeadingIcon={!!this.leadingIcon}
+                hasFloatingLabel={this.floatLabelAbove()}
+            >
+                <div slot="content" {...this.getContentProps()} class={classes}>
+                    {this.renderContent(value)}
+                </div>
+            </limel-notched-outline>,
+            this.renderHelperLine(),
+        ];
     }
+
+    private getContentProps() {
+        if (this.type === 'input') {
+            return {
+                onClick: this.handleTextFieldFocus,
+            };
+        }
+
+        return {
+            role: 'grid',
+        };
+    }
+
+    private renderContent = (value: Chip[]) => {
+        if (this.type === 'input') {
+            return this.renderInputChips();
+        }
+
+        return value.map(this.renderChip);
+    };
 
     private readonly getValue = () => {
         return this.value.map((chip) => ({
@@ -388,113 +422,42 @@ export class ChipSet {
         this.initialize();
     }
 
-    private renderChipSetLabel() {
-        if (!this.label) {
-            return;
-        }
-
-        return (
-            <label class="chip-set__label mdc-floating-label mdc-floating-label--float-above">
-                {this.label}
-            </label>
-        );
-    }
-
     private renderInputChips() {
-        return (
-            <Host>
-                <div
-                    class={{
-                        'mdc-text-field mdc-text-field--outlined': true,
-                        'mdc-chip-set mdc-chip-set--input': true,
-                        'force-invalid': this.isInvalid(),
-                        'mdc-text-field--disabled':
-                            this.readonly || this.disabled,
-                        'lime-text-field--readonly': this.readonly,
-                        'has-chips mdc-text-field--label-floating':
-                            this.value.length !== 0,
-                        'has-leading-icon': this.leadingIcon !== null,
-                        'has-clear-all-button': this.clearAllButton,
-                    }}
-                    onClick={this.handleTextFieldFocus}
-                >
-                    {this.value.map(this.renderInputChip)}
-                    <input
-                        tabIndex={INPUT_FIELD_TABINDEX}
-                        type={this.inputType}
-                        id={this.labelId}
-                        disabled={this.readonly || this.disabled}
-                        class={{
-                            'mdc-text-field__input': true,
-                            hidden: this.inputHidden(),
-                        }}
-                        value={this.textValue}
-                        onBlur={this.handleInputBlur}
-                        onFocus={this.handleTextFieldFocus}
-                        onKeyDown={this.handleKeyDown}
-                        onInput={this.handleTextInput}
-                        // Some browsers emit a change event on input elements, we need to stop
-                        // that event from propagating since we are emitting our own change event
-                        onChange={this.inputFieldOnChange}
-                        placeholder={this.isFull() ? '' : this.searchLabel}
-                        readonly={this.isFull()}
-                        autocomplete={this.autocomplete}
-                    />
-                    <div
-                        class={{
-                            'mdc-notched-outline': true,
-                            'mdc-notched-outline--upgraded': true,
-                            'mdc-text-field--required': this.required,
-                            'lime-notched-outline--notched':
-                                this.floatLabelAbove(),
-                        }}
-                    >
-                        <div class="mdc-notched-outline__leading" />
-                        {this.renderLabel()}
-                        <div class="mdc-notched-outline__trailing" />
-                    </div>
-                    {this.renderLeadingIcon()}
-                    {this.renderEmptyValueForReadonly()}
-                    {this.renderClearAllChipsButton()}
-                </div>
-                {this.renderHelperLine()}
-            </Host>
-        );
-    }
-
-    private readonly renderEmptyValueForReadonly = () => {
-        if (this.readonly && this.value.length === 0) {
-            return (
-                <span class="lime-empty-value-for-readonly lime-looks-like-input-value">
-                    –
-                </span>
-            );
-        }
-    };
-
-    private renderLabel() {
-        const labelClassList = {
-            'mdc-floating-label': true,
-            'mdc-text-field--disabled': this.readonly || this.disabled,
-            'mdc-floating-label--required': this.required,
-            'lime-floating-label--float-above': this.floatLabelAbove(),
-        };
-
-        if (!this.label) {
-            return;
-        }
-
-        return (
-            <div class="mdc-notched-outline__notch">
-                <label class={labelClassList} htmlFor={this.labelId}>
-                    {this.label}
-                </label>
-            </div>
-        );
+        return [
+            this.value.map(this.renderInputChip),
+            <input
+                tabIndex={INPUT_FIELD_TABINDEX}
+                type={this.inputType}
+                id={this.labelId}
+                disabled={this.readonly || this.disabled}
+                class={{
+                    'mdc-text-field__input': true,
+                    hidden: this.inputHidden(),
+                }}
+                value={this.textValue}
+                onBlur={this.handleInputBlur}
+                onFocus={this.handleTextFieldFocus}
+                onKeyDown={this.handleKeyDown}
+                onInput={this.handleTextInput}
+                // Some browsers emit a change event on input elements, we need to stop
+                // that event from propagating since we are emitting our own change event
+                onChange={this.inputFieldOnChange}
+                placeholder={this.isFull() ? '' : this.searchLabel}
+                readonly={this.isFull()}
+                autocomplete={this.autocomplete}
+            />,
+            this.renderLeadingIcon(),
+            this.renderClearAllChipsButton(),
+        ];
     }
 
     private readonly floatLabelAbove = () => {
-        if (!!this.value.length || this.editMode || this.readonly) {
+        if (
+            !!this.value.length ||
+            this.editMode ||
+            this.readonly ||
+            this.textValue
+        ) {
             return true;
         }
     };
