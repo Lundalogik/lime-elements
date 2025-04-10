@@ -204,5 +204,39 @@ const processPasteEvent = (
         }
     }
 
-    return files.length > 0;
+    if (files.length > 0) {
+        return true;
+    }
+
+    const htmlContent = clipboardData.getData('text/html');
+    if (htmlContent) {
+        const imagesSources = extractImagesFromHTML(htmlContent);
+        if (imagesSources.length > 0) {
+            return true; // Prevent default as we're handling the images
+        }
+    }
+
+    return false;
+};
+
+/**
+ * Extract image sources from HTML content
+ *
+ * @param htmlContent - The HTML content to extract images from
+ * @returns An array of image source URLs
+ */
+const extractImagesFromHTML = (htmlContent: string): string[] => {
+    const sources: string[] = [];
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+
+    const imgElements = tempDiv.querySelectorAll('img');
+    imgElements.forEach((img) => {
+        const src = img.getAttribute('src');
+        if (src) {
+            sources.push(src);
+        }
+    });
+
+    return sources;
 };
