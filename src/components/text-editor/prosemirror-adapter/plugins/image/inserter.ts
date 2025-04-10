@@ -7,7 +7,7 @@ import {
     ImageInfo,
     ImageState,
 } from '../../../text-editor.types';
-import { Node, Slice, Fragment } from 'prosemirror-model';
+import { Node } from 'prosemirror-model';
 import { imageCache } from './node';
 
 export const pluginKey = new PluginKey('imageInserterPlugin');
@@ -27,8 +27,8 @@ export const createImageInserterPlugin = (
     return new Plugin({
         key: pluginKey,
         props: {
-            handlePaste: (view, event, slice) => {
-                return processPasteEvent(view, event, slice);
+            handlePaste: (view, event) => {
+                return processPasteEvent(view, event);
             },
             handleDOMEvents: {
                 imagePasted: (_, event) => {
@@ -168,62 +168,6 @@ const createFailedThumbnailInserter =
     };
 
 /**
- * Check if a given ProseMirror node or fragment contains any image nodes.
- * @param node - The ProseMirror node or fragment to check.
- * @returns A boolean indicating whether the node contains any image nodes.
- */
-const isImageNode = (node: Node | Fragment): boolean => {
-    if (node instanceof Node) {
-        if (node.type.name === 'image') {
-            return true;
-        }
-
-        let found = false;
-        node.content.forEach((child) => {
-            if (isImageNode(child)) {
-                found = true;
-            }
-        });
-
-        return found;
-    } else if (node instanceof Fragment) {
-        let found = false;
-        node.forEach((child) => {
-            if (isImageNode(child)) {
-                found = true;
-            }
-        });
-
-        return found;
-    }
-
-    return false;
-};
-
-/**
- * Filter out image nodes from a ProseMirror fragment.
- * @param fragment - The ProseMirror fragment to filter.
- * @returns A new fragment with image nodes removed.
- */
-const filterImageNodes = (fragment: Fragment): Fragment => {
-    const filteredChildren: Node[] = [];
-
-    fragment.forEach((child) => {
-        if (!isImageNode(child)) {
-            if (child.content.size > 0) {
-                const filteredContent = filterImageNodes(child.content);
-                const newNode = child.copy(filteredContent);
-                filteredChildren.push(newNode);
-            } else {
-                filteredChildren.push(child);
-            }
-        }
-    });
-
-    return Fragment.fromArray(filteredChildren);
-};
-
-/**
  * Process a paste event and trigger an imagePasted event if an image file is pasted.
  * If an HTML image element is pasted, this image is filtered out from the slice content.
  *
@@ -234,7 +178,6 @@ const filterImageNodes = (fragment: Fragment): Fragment => {
 const processPasteEvent = (
     view: EditorView,
     event: ClipboardEvent,
-    slice: Slice,
 ): boolean => {
     const clipboardData = event.clipboardData;
     if (!clipboardData) {
@@ -259,20 +202,6 @@ const processPasteEvent = (
 
             reader.readAsDataURL(file);
         }
-    }
-
-    const filteredSlice = new Slice(
-        filterImageNodes(slice.content),
-        slice.openStart,
-        slice.openEnd,
-    );
-
-    if (filteredSlice.content.childCount < slice.content.childCount) {
-        const { state, dispatch } = view;
-        const tr = state.tr.replaceSelection(filteredSlice);
-        dispatch(tr);
-
-        return true;
     }
 
     return files.length > 0;
