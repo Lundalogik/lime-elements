@@ -132,5 +132,12 @@
   "bugs": {
     "url": "https://github.com/Lundalogik/lime-elements/issues"
   },
-  "homepage": "https://github.com/Lundalogik/lime-elements#readme"
+  "homepage": "https://github.com/Lundalogik/lime-elements#readme",
+  "dependencies": {
+    "@types/dompurify": "^3.2.0",
+    "crypto-browserify": "^3.12.1",
+    "dompurify": "^3.2.5",
+    "node-fetch": "^3.3.2",
+    "sanitize-html": "^2.14.0"
+  }
 }
