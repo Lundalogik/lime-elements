@@ -321,21 +321,26 @@ export class InputField {
         }
 
         return [
-            <label class={this.getContainerClassList()}>
-                <span class="mdc-notched-outline" tabindex="-1">
-                    <span class="mdc-notched-outline__leading"></span>
-                    {this.renderLabel()}
-                    <span class="mdc-notched-outline__trailing"></span>
-                </span>
-                {this.renderLeadingIcon()}
-                {this.renderEmptyValueForReadonly()}
-                {this.renderPrefix()}
-                {this.renderFormattedNumber()}
-                {this.renderInput(properties)}
-                {this.renderSuffix()}
-                {this.renderTextarea(properties)}
-                {this.renderTrailingLinkOrButton()}
-            </label>,
+            <limel-notched-outline
+                labelId={this.labelId}
+                label={this.label}
+                required={this.required}
+                invalid={this.invalid || this.isInvalid()}
+                disabled={this.disabled}
+                readonly={this.readonly}
+                hasValue={!!this.value}
+                hasLeadingIcon={!!this.leadingIcon}
+            >
+                <label slot="content" class={this.getContainerClassList()}>
+                    {this.renderLeadingIcon()}
+                    {this.renderPrefix()}
+                    {this.renderFormattedNumber()}
+                    {this.renderInput(properties)}
+                    {this.renderSuffix()}
+                    {this.renderTextarea(properties)}
+                    {this.renderTrailingLinkOrButton()}
+                </label>
+            </limel-notched-outline>,
             this.renderHelperLine(),
             this.renderAutocompleteList(),
         ];
@@ -408,7 +413,6 @@ export class InputField {
     private getContainerClassList = () => {
         const classList = {
             'mdc-text-field': true,
-            'mdc-text-field--no-label': !this.label,
             'mdc-text-field--outlined': true,
             'mdc-text-field--invalid': this.isInvalid(),
             'mdc-text-field--disabled': this.disabled || this.readonly,
@@ -569,16 +573,6 @@ export class InputField {
         );
     };
 
-    private renderEmptyValueForReadonly = () => {
-        if (this.readonly && this.isEmpty()) {
-            return (
-                <span class="lime-empty-value-for-readonly lime-looks-like-input-value">
-                    –
-                </span>
-            );
-        }
-    };
-
     private renderSuffix = () => {
         if (!this.hasSuffix() || this.type === 'textarea') {
             return;
@@ -648,26 +642,6 @@ export class InputField {
         if (element) {
             this.inputElement = element;
         }
-    };
-
-    private renderLabel = () => {
-        const labelClassList = {
-            'mdc-floating-label': true,
-            'mdc-floating-label--float-above':
-                !this.isEmpty() || this.isFocused || this.readonly,
-        };
-
-        if (!this.label) {
-            return;
-        }
-
-        return (
-            <span class="mdc-notched-outline__notch">
-                <span class={labelClassList} id={this.labelId}>
-                    {this.label}
-                </span>
-            </span>
-        );
     };
 
     private renderLeadingIcon = () => {

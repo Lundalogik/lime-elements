@@ -25,7 +25,9 @@ describe('limel-chip-set', () => {
             ]);
             await page.waitForChanges();
 
-            label = await page.find('limel-chip-set >>> .chip-set__label');
+            label = await page.find(
+                'limel-chip-set >>> .limel-notched-outline--notch label',
+            );
             chips = await page.findAll('limel-chip-set >>> limel-chip');
 
             spy = await chipSet.spyOnEvent('interact');

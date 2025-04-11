@@ -1,0 +1,249 @@
+@use '../../style/mixins.scss';
+@use '../../style/internal/shared_input-select-picker';
+/**
+ * @prop --limel-notched-outline-z-index: Defines the `z-index` of the outlines & the label, since they are absolutely positioned. Useful if there are other elements with z-indexes in the consumer.
+ */
+
+$border-radius: 0.25rem;
+$value-top: 0.62rem;
+
+limel-notched-outline {
+    --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color};
+    --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-normal};
+
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+}
+
+.limel-notched-outline {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    [slot='content'] {
+        background-color: var(--limel-notched-outline-background-color);
+        border-radius: var(
+            --limel-notched-outline-border-radius,
+            $border-radius
+        );
+    }
+
+    // Why is everything prefixed?
+    // Because the component has `shadow: false;`
+    // and this ensures that we are not inheriting styles.
+    &--outlines {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: var(--limel-notched-outline-z-index, 0);
+        display: flex;
+    }
+
+    &--leading-outline,
+    &--notch,
+    &--trailing-outline {
+        transition: border-color 0.2s ease;
+        border-width: 1px;
+        border-style: solid;
+        border-color: var(--limel-notched-outline-border-color);
+    }
+
+    &--leading-outline {
+        flex-shrink: 0;
+        width: 0.75rem;
+        border-right-width: 0;
+        border-top-left-radius: var(
+            --limel-notched-outline-border-radius,
+            $border-radius
+        );
+        border-bottom-left-radius: var(
+            --limel-notched-outline-border-radius,
+            $border-radius
+        );
+    }
+
+    &--notch {
+        flex-shrink: 0;
+
+        position: relative;
+        z-index: 2;
+
+        border-top-color: var(
+            --limel-notched-outline-notch-border-top-color,
+            var(--limel-notched-outline-border-color)
+        );
+        border-right-width: 0;
+        border-left-width: 0;
+
+        max-width: calc(100% - 1.5rem);
+
+        label {
+            all: unset;
+            @include mixins.truncate-text;
+            position: relative;
+            transition:
+                color 0.2s ease,
+                font-size 0.2s ease,
+                transform 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+
+            transform: translate3d(
+                var(--limel-notched-outline-label-transform-x, 0),
+                var(--limel-notched-outline-label-transform-y, $value-top),
+                0
+            );
+            display: block;
+            padding: 0 0.25rem;
+
+            color: var(
+                --limel-notched-outline-label-color,
+                #{shared_input-select-picker.$label-color}
+            );
+            font-size: var(
+                --limel-notched-outline-label-font-size,
+                #{shared_input-select-picker.$cropped-label-hack--font-size}
+            );
+            letter-spacing: var(
+                --mdc-typography-subtitle1-letter-spacing,
+                0.009375em
+            );
+
+            &:after {
+                position: absolute;
+                right: 0;
+                padding: 0 0.25rem;
+            }
+        }
+    }
+
+    &--trailing-outline {
+        flex-grow: 1;
+        border-left-width: 0;
+        border-top-right-radius: var(
+            --limel-notched-outline-border-radius,
+            $border-radius
+        );
+        border-bottom-right-radius: var(
+            --limel-notched-outline-border-radius,
+            $border-radius
+        );
+    }
+
+    &--empty-readonly-value {
+        @include shared_input-select-picker.lime-looks-like-input-value;
+        position: absolute;
+        top: $value-top;
+        left: 1rem;
+    }
+}
+
+limel-notched-outline {
+    &:not([disabled]:not([disabled='false'])) {
+        &:hover {
+            --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--hovered};
+            --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-hovered};
+        }
+
+        &:has([slot='content']:focus-visible),
+        &:has([slot='content']:focus-within) {
+            --limel-notched-outline-border-color: #{shared_input-select-picker.$lime-text-field-outline-color--focused};
+            --limel-notched-outline-background-color: #{shared_input-select-picker.$background-color-focused};
+        }
+    }
+
+    &[disabled]:not([disabled='false']) {
+        --limel-notched-outline-label-color: #{shared_input-select-picker.$label-color-disabled};
+    }
+
+    &[required]:not([required='false']) {
+        .limel-notched-outline--notch {
+            label {
+                padding-right: 0.75rem;
+
+                &:after {
+                    content: '*';
+                    scale: 1.3;
+                }
+            }
+        }
+    }
+
+    &[invalid]:not([invalid='false']) {
+        &:not([disabled]:not([disabled='false'])) {
+            --limel-notched-outline-border-color: var(--lime-error-text-color);
+            &:hover {
+                --limel-notched-outline-border-color: var(
+                    --lime-error-text-color
+                );
+            }
+        }
+
+        .limel-notched-outline--notch {
+            label {
+                &:after {
+                    color: var(--lime-error-text-color);
+                }
+            }
+        }
+    }
+
+    &[readonly]:not([readonly='false']) {
+        --limel-notched-outline-border-color: transparent !important;
+        --limel-notched-outline-background-color: transparent !important;
+
+        .limel-notched-outline--notch {
+            label {
+                transition-duration: 0s;
+            }
+        }
+    }
+
+    &[has-leading-icon] {
+        &:not([has-leading-icon='false']):not([has-floating-label]):not(
+                [has-value]
+            ) {
+            --limel-notched-outline-label-transform-x: 1.25rem;
+        }
+
+        .limel-notched-outline--empty-readonly-value {
+            left: 2.25rem;
+        }
+    }
+}
+
+// Transitioning the floating label
+@mixin float-label {
+    --limel-notched-outline-label-font-size: 0.65rem; // `10.4px` similar to MDC's floating label
+    --limel-notched-outline-label-transform-x: 0;
+    --limel-notched-outline-label-transform-y: calc(-50% - 0.09375rem);
+    --limel-notched-outline-notch-border-top-color: transparent;
+}
+
+limel-notched-outline {
+    &:not([disabled]:not([disabled='false'])) {
+        &:hover,
+        &:focus,
+        &:focus-within {
+            label {
+                will-change: color, transform, font-size;
+            }
+        }
+
+        &:has([slot='content']:focus-visible),
+        &:has([slot='content']:focus-within) {
+            @include float-label;
+        }
+    }
+
+    &[has-floating-label],
+    &[has-value]:not([has-value='false']),
+    &[readonly]:not([has-value]:not([has-value='true'])) {
+        @include float-label;
+    }
+}
