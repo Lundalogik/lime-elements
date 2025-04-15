@@ -1,7 +1,7 @@
 import { Component, h, State } from '@stencil/core';
 
 /**
- * Opening and closing from outside the component
+ * Opening and closing programmatically
  */
 @Component({
     tag: 'limel-example-collapsible-section-external-control',
@@ -14,7 +14,7 @@ export class CollapsibleSectionExternalControlExample {
     public render() {
         return [
             <limel-button
-                label={'toggle'}
+                label={this.isOpen ? 'Close' : 'Open'}
                 primary={true}
                 onClick={this.toggle}
                 style={{ 'margin-bottom': '1rem' }}
