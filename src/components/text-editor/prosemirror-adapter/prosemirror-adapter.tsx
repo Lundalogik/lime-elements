@@ -117,6 +117,12 @@ export class ProsemirrorAdapter {
     @Prop()
     triggerCharacters: TriggerCharacter[] = [];
 
+    /**
+     * Set to `true` to allow images to be pasted into the editor.
+     */
+    @Prop()
+    allowImages: boolean = false;
+
     @Element()
     private host: HTMLLimelTextEditorElement;
 
@@ -390,6 +396,7 @@ export class ProsemirrorAdapter {
                 createImageInserterPlugin(
                     this.imagePasted.emit,
                     this.imageRemoved.emit,
+                    this.allowImages,
                 ),
                 createImageViewPlugin(this.language),
                 createMenuStateTrackingPlugin(
