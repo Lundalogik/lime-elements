@@ -306,10 +306,10 @@ export namespace Components {
         "readonly": boolean;
         "value": string;
     }
-    // (undocumented)
     export interface LimelCollapsibleSection {
         "actions": Action[];
         "header": string;
+        "invalid": boolean;
         "isOpen": boolean;
     }
     export interface LimelColorPicker {
@@ -1349,10 +1349,10 @@ export namespace JSX {
         "readonly"?: boolean;
         "value"?: string;
     }
-    // (undocumented)
     export interface LimelCollapsibleSection {
         "actions"?: Action[];
         "header"?: string;
+        "invalid"?: boolean;
         "isOpen"?: boolean;
         "onAction"?: (event: LimelCollapsibleSectionCustomEvent<Action>) => void;
         "onClose"?: (event: LimelCollapsibleSectionCustomEvent<void>) => void;
