@@ -66,6 +66,19 @@
     pointer-events: none;
 }
 
+section {
+    transition: box-shadow 0.4s ease;
+    border-radius: var(--border-radius-of-header);
+
+    &[aria-invalid]:not([aria-invalid='false']) {
+        --header-stroke-color: rgb(var(--color-red-default)) !important;
+
+        &:not(.open) {
+            box-shadow: 0 0 0 1px rgb(var(--color-red-default));
+        }
+    }
+}
+
 header {
     isolation: isolate;
     position: relative;

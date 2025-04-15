@@ -31,6 +31,7 @@ import { createRandomString } from '../../util/random-string';
  * @exampleComponent limel-example-collapsible-section-with-custom-header-component
  * @exampleComponent limel-example-collapsible-section-external-control
  * @exampleComponent limel-example-collapsible-section-with-slider
+ * @exampleComponent limel-example-collapsible-section-invalid
  * @exampleComponent limel-example-collapsible-section-css-props
  */
 @Component({
@@ -50,6 +51,13 @@ export class CollapsibleSection {
      */
     @Prop({ reflect: true })
     public header: string;
+
+    /**
+     * `true` if the section is invalid, `false` if valid.
+     * This can be used to indicate that the content inside the section is invalid.
+     */
+    @Prop({ reflect: true })
+    public invalid = false;
 
     /**
      * Actions to place to the far right inside the header
@@ -98,7 +106,10 @@ export class CollapsibleSection {
 
     public render() {
         return (
-            <section class={`${this.isOpen ? 'open' : ''}`}>
+            <section
+                class={`${this.isOpen ? 'open' : ''}`}
+                aria-invalid={this.invalid}
+            >
                 <header>
                     <button
                         class="open-close-toggle"
