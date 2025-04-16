@@ -1,2 +1,2 @@
-import{r as t,h as e}from"./index-6156b4fd.js";const s=class{constructor(e){t(this,e);this.items=[{text:"Copy",icon:"copy"},{text:"Cut",icon:"cut"},{separator:true},{text:"Paste",icon:"paste"}]}render(){return e("limel-menu",{items:this.items},e("limel-button",{label:"Menu",slot:"trigger"}))}};export{s as limel_example_menu_icons};
+import{r as t,h as e}from"./index-2714248e.js";const s=class{constructor(e){t(this,e);this.items=[{text:"Copy",icon:"copy"},{text:"Cut",icon:"cut"},{separator:true},{text:"Paste",icon:"paste"}]}render(){return e("limel-menu",{items:this.items},e("limel-button",{label:"Menu",slot:"trigger"}))}};export{s as limel_example_menu_icons};
 //# sourceMappingURL=limel-example-menu-icons.entry.js.map
