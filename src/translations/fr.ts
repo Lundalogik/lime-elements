@@ -46,4 +46,6 @@ export default {
     'editor-image-view.resize-handle':
         "Faites glisser vers la droite ou la gauche pour redimensionner l'image",
     'progress-bar': 'Barre de progression',
+    'ai-avatar.label': 'Avatar IA',
+    'ai-avatar.thinking': 'en réflexion',
 };

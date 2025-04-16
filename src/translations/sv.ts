@@ -44,4 +44,6 @@ export default {
     'editor-image-view.resize-handle':
         'Dra åt höger eller vänster för att ändra storlek på bilden',
     'progress-bar': 'Förloppsindikator',
+    'ai-avatar.label': 'AI-avatar',
+    'ai-avatar.thinking': 'tänker',
 };

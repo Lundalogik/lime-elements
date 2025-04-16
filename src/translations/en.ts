@@ -44,4 +44,6 @@ export default {
     'editor-image-view.resize-handle':
         'Drag to right or left to resize the image',
     'progress-bar': 'Progress bar',
+    'ai-avatar.label': 'AI Avatar',
+    'ai-avatar.thinking': 'thinking',
 };
