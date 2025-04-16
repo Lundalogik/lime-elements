@@ -2,19 +2,19 @@ import { Component, h } from '@stencil/core';
 import { ActionBarItem, ListSeparator } from '@limetech/lime-elements';
 
 /**
- * Floating action bar with expand button
+ * Floating action bar with collapse button
  *
- * Some designs may require a floating action bar with an expand button.
- * It can be useful if action bar is covering important content.
- * To make the action bar expandable, set the `collapsible` prop to `true`.
+ * Some designs may require a floating action bar with a collapse button.
+ * This feature is useful when the action bar is covering important content.
+ * To make the action bar collapsible, set the `collapsible` prop to `true`.
  *
  */
 @Component({
-    tag: 'limel-example-action-bar-floating-expand',
+    tag: 'limel-example-action-bar-floating-collapsible',
     shadow: true,
     styleUrl: 'action-bar-floating.scss',
 })
-export class ActionBarFloatingExpandExample {
+export class ActionBarFloatingCollapsibleExample {
     private actionBarItems: Array<ActionBarItem | ListSeparator> = [
         {
             text: 'Add',
