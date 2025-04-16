@@ -1,0 +1,2 @@
+import{r as a,h as r}from"./index-2714248e.js";const s="div{background-color:rgb(var(--contrast-800))}";const t=class{constructor(r){a(this,r)}render(){return r("div",null,r("limel-ai-avatar",{label:"Ask AI Assistant",onClick:this.onClick}))}onClick(){console.log("Button clicked.")}};t.style=s;export{t as limel_example_ai_avatar_basic};
+//# sourceMappingURL=limel-example-ai-avatar-basic.entry.js.map
