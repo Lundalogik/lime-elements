@@ -46,4 +46,6 @@ export default {
     'editor-image-view.resize-handle':
         'Sleep naar rechts of links om de afbeeldingsgrootte te veranderen',
     'progress-bar': 'Voortgangsbalk',
+    'ai-avatar.label': 'AI-avatar',
+    'ai-avatar.thinking': 'aan het denken',
 };

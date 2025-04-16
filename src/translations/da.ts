@@ -44,4 +44,6 @@ export default {
     'editor-image-view.resize-handle':
         'Træk til højre eller venstre for at ændre størrelsen på billedet',
     'progress-bar': 'Fremskridtsindikator',
+    'ai-avatar.label': 'AI-avatar',
+    'ai-avatar.thinking': 'tænker',
 };

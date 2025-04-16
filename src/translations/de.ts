@@ -46,4 +46,6 @@ export default {
     'editor-image-view.resize-handle':
         'Ziehen Sie nach rechts oder links, um die Größe des Bildes zu ändern.',
     'progress-bar': 'Fortschrittsbalken',
+    'ai-avatar.label': 'KI-Avatar',
+    'ai-avatar.thinking': 'denkt',
 };

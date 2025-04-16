@@ -170,6 +170,10 @@ export namespace Components {
         "openDirection": OpenDirection;
         "overFlowIcon"?: Icon;
     }
+    export interface LimelAiAvatar {
+        "isThinking": boolean;
+        "language": Languages;
+    }
     export interface LimelBadge {
         "label"?: number | string;
     }
@@ -1035,6 +1039,8 @@ export namespace JSX {
         // (undocumented)
         "limel-action-bar-overflow-menu": LimelActionBarOverflowMenu;
         // (undocumented)
+        "limel-ai-avatar": LimelAiAvatar;
+        // (undocumented)
         "limel-badge": LimelBadge;
         // (undocumented)
         "limel-banner": LimelBanner;
@@ -1205,6 +1211,10 @@ export namespace JSX {
         "onSelect"?: (event: LimelActionBarOverflowMenuCustomEvent<ActionBarItem>) => void;
         "openDirection"?: OpenDirection;
         "overFlowIcon"?: Icon;
+    }
+    export interface LimelAiAvatar {
+        "isThinking"?: boolean;
+        "language"?: Languages;
     }
     export interface LimelBadge {
         "label"?: number | string;

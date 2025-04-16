@@ -44,4 +44,6 @@ export default {
         'Dra til høyre eller venstre for å endre størrelsen på bildet',
     'progress-bar': 'Fremdriftsindikator',
     'snackbar.dismiss': 'Lukk',
+    'ai-avatar.label': 'KI-avatar',
+    'ai-avatar.thinking': 'tenker',
 };

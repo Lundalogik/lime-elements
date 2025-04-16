@@ -45,4 +45,6 @@ export default {
     'editor-image-view.resize-handle':
         'Vedä oikealle tai vasemmalle muuttaaksesi kuvan kokoa',
     'progress-bar': 'Edistymispalkki',
+    'ai-avatar.label': 'Tekoälyavatar',
+    'ai-avatar.thinking': 'ajattelee',
 };
