@@ -51,7 +51,7 @@
     "@rjsf/core": "^2.4.2",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@stencil/core": "^3.4.2",
-    "@stencil/sass": "^3.0.12",
+    "@stencil/sass": "^3.2.1",
     "@types/codemirror": "^5.60.2",
     "@types/html-escaper": "^3.0.4",
     "@types/jest": "^27.4.0",
