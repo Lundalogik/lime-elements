@@ -1,3 +1,11 @@
+## [38.8.0](https://github.com/Lundalogik/lime-elements/compare/v38.7.2...v38.8.0) (2025-04-16)
+
+
+### Features
+
+
+* **collapsible-section:** add `invalid` prop ([ef1b73a](https://github.com/Lundalogik/lime-elements/commit/ef1b73a70118d8e85e37257f232397726fc630aa))
+
 ## [38.7.2](https://github.com/Lundalogik/lime-elements/compare/v38.7.1...v38.7.2) (2025-04-16)
 
 
