@@ -1,3 +1,11 @@
+## [38.7.2](https://github.com/Lundalogik/lime-elements/compare/v38.7.1...v38.7.2) (2025-04-16)
+
+
+### Bug Fixes
+
+
+* **text-editor:** improve accessibility, using more aria roles ([6eb35c2](https://github.com/Lundalogik/lime-elements/commit/6eb35c2666961707963a85efbd7d916e9cb7c477))
+
 ## [38.7.1](https://github.com/Lundalogik/lime-elements/compare/v38.7.0...v38.7.1) (2025-04-01)
 
 
