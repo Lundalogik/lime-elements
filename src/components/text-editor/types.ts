@@ -11,4 +11,4 @@ export type TextEditorPlugin = {
 /**
  * @beta
  */
-export type EditorUiType = 'standard' | 'minimal';
+export type EditorUiType = 'standard' | 'minimal' | 'no-toolbar';
