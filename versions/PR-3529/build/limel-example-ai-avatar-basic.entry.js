@@ -1,2 +1,0 @@
-import{r as a,h as r}from"./index-2714248e.js";const e="";const s=class{constructor(r){a(this,r)}render(){return r("limel-ai-avatar",null)}};s.style=e;export{s as limel_example_ai_avatar_basic};
-//# sourceMappingURL=limel-example-ai-avatar-basic.entry.js.map
