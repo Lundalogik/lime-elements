@@ -1,10 +1,9 @@
-import { Option, LimelSelectCustomEvent } from '@limetech/lime-elements';
+import {
+    EditorUiType,
+    LimelSelectCustomEvent,
+    Option,
+} from '@limetech/lime-elements';
 import { Component, h, State, Watch } from '@stencil/core';
-
-/**
- * The `ui` options
- */
-type TextEditorUIs = 'standard' | 'minimal' | 'no-toolbar';
 
 /**
  * Composite example
@@ -42,12 +41,12 @@ export class TextEditorCompositeExample {
     private helperText: string;
 
     @State()
-    private selectedUi: Option<TextEditorUIs> = {
+    private selectedUi: Option<EditorUiType> = {
         text: 'standard',
         value: 'standard',
     };
 
-    private availableUis: Array<Option<TextEditorUIs>> = [
+    private availableUis: Array<Option<EditorUiType>> = [
         { text: 'standard', value: 'standard' },
         { text: 'minimal', value: 'minimal' },
         { text: 'no-toolbar', value: 'no-toolbar' },
@@ -176,7 +175,7 @@ export class TextEditorCompositeExample {
     };
 
     private handleNewSelection = (
-        event: LimelSelectCustomEvent<Option<TextEditorUIs>>,
+        event: LimelSelectCustomEvent<Option<EditorUiType>>,
     ) => {
         this.selectedUi = event.detail;
     };
