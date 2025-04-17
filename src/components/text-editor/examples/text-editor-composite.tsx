@@ -3,7 +3,7 @@ import {
     LimelSelectCustomEvent,
     Option,
 } from '@limetech/lime-elements';
-import { Component, h, State, Watch } from '@stencil/core';
+import { Component, h, Host, State, Watch } from '@stencil/core';
 
 /**
  * Composite example
@@ -46,82 +46,84 @@ export class TextEditorCompositeExample {
         value: 'standard',
     };
 
-    private availableUis: Array<Option<EditorUiType>> = [
+    private readonly availableUis: Array<Option<EditorUiType>> = [
         { text: 'standard', value: 'standard' },
         { text: 'minimal', value: 'minimal' },
         { text: 'no-toolbar', value: 'no-toolbar' },
     ];
 
     public render() {
-        return [
-            <limel-text-editor
-                label={this.label}
-                helperText={this.helperText}
-                value={this.value}
-                onChange={this.handleChange}
-                readonly={this.readonly}
-                required={this.required}
-                disabled={this.disabled}
-                invalid={this.invalid}
-                placeholder={this.placeholder}
-                allowResize={this.allowResize}
-                ui={this.selectedUi.value}
-            />,
-            <limel-example-controls>
-                <limel-checkbox
-                    checked={this.readonly}
-                    label="Readonly"
-                    onChange={this.setReadonly}
+        return (
+            <Host>
+                <limel-text-editor
+                    label={this.label}
+                    helperText={this.helperText}
+                    value={this.value}
+                    onChange={this.handleChange}
+                    readonly={this.readonly}
+                    required={this.required}
+                    disabled={this.disabled}
+                    invalid={this.invalid}
+                    placeholder={this.placeholder}
+                    allowResize={this.allowResize}
+                    ui={this.selectedUi.value}
                 />
-                <limel-checkbox
-                    checked={this.invalid}
-                    label="Invalid"
-                    onChange={this.setInvalid}
-                />
-                <limel-checkbox
-                    checked={this.required}
-                    label="Required"
-                    onChange={this.setRequired}
-                />
-                <limel-checkbox
-                    checked={this.disabled}
-                    label="Disabled"
-                    onChange={this.setDisabled}
-                />
-                <limel-checkbox
-                    checked={this.allowResize}
-                    label="Allow resize"
-                    onChange={this.setAllowResize}
-                />
-                <limel-select
-                    label="ui"
-                    options={this.availableUis}
-                    value={this.selectedUi}
-                    onChange={this.handleNewSelection}
-                />
-                <hr
-                    style={{
-                        'grid-column': '1/-1',
-                    }}
-                />
-                <limel-input-field
-                    label="label"
-                    value={this.label}
-                    onChange={this.handleLabelChange}
-                />
-                <limel-input-field
-                    label="helperText"
-                    value={this.helperText}
-                    onChange={this.handleHelperTextChange}
-                />
-                <limel-input-field
-                    label="placeholder"
-                    value={this.placeholder}
-                    onChange={this.handlePlaceholderChange}
-                />
-            </limel-example-controls>,
-            <limel-example-value value={this.value} />,
-        ];
+                <limel-example-controls>
+                    <limel-checkbox
+                        checked={this.readonly}
+                        label="Readonly"
+                        onChange={this.setReadonly}
+                    />
+                    <limel-checkbox
+                        checked={this.invalid}
+                        label="Invalid"
+                        onChange={this.setInvalid}
+                    />
+                    <limel-checkbox
+                        checked={this.required}
+                        label="Required"
+                        onChange={this.setRequired}
+                    />
+                    <limel-checkbox
+                        checked={this.disabled}
+                        label="Disabled"
+                        onChange={this.setDisabled}
+                    />
+                    <limel-checkbox
+                        checked={this.allowResize}
+                        label="Allow resize"
+                        onChange={this.setAllowResize}
+                    />
+                    <limel-select
+                        label="ui"
+                        options={this.availableUis}
+                        value={this.selectedUi}
+                        onChange={this.handleNewSelection}
+                    />
+                    <hr
+                        style={{
+                            'grid-column': '1/-1',
+                        }}
+                    />
+                    <limel-input-field
+                        label="label"
+                        value={this.label}
+                        onChange={this.handleLabelChange}
+                    />
+                    <limel-input-field
+                        label="helperText"
+                        value={this.helperText}
+                        onChange={this.handleHelperTextChange}
+                    />
+                    <limel-input-field
+                        label="placeholder"
+                        value={this.placeholder}
+                        onChange={this.handlePlaceholderChange}
+                    />
+                </limel-example-controls>
+                <limel-example-value value={this.value} />
+            </Host>
+        );
     }
 
     @Watch('required')
@@ -130,51 +132,51 @@ export class TextEditorCompositeExample {
         this.invalid = this.required && !this.value;
     }
 
-    private setReadonly = (event: CustomEvent<boolean>) => {
+    private readonly setReadonly = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.readonly = event.detail;
     };
 
-    private setRequired = (event: CustomEvent<boolean>) => {
+    private readonly setRequired = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.required = event.detail;
     };
 
-    private setInvalid = (event: CustomEvent<boolean>) => {
+    private readonly setInvalid = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.invalid = event.detail;
     };
 
-    private setDisabled = (event: CustomEvent<boolean>) => {
+    private readonly setDisabled = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.disabled = event.detail;
     };
 
-    private setAllowResize = (event: CustomEvent<boolean>) => {
+    private readonly setAllowResize = (event: CustomEvent<boolean>) => {
         event.stopPropagation();
         this.allowResize = event.detail;
     };
 
-    private handleLabelChange = (event: CustomEvent<string>) => {
+    private readonly handleLabelChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.label = event.detail;
     };
 
-    private handleHelperTextChange = (event: CustomEvent<string>) => {
+    private readonly handleHelperTextChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.helperText = event.detail;
     };
 
-    private handlePlaceholderChange = (event: CustomEvent<string>) => {
+    private readonly handlePlaceholderChange = (event: CustomEvent<string>) => {
         event.stopPropagation();
         this.placeholder = event.detail;
     };
 
-    private handleChange = (event: CustomEvent<string>) => {
+    private readonly handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
     };
 
-    private handleNewSelection = (
+    private readonly handleNewSelection = (
         event: LimelSelectCustomEvent<Option<EditorUiType>>,
     ) => {
         this.selectedUi = event.detail;
