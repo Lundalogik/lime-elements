@@ -13,13 +13,15 @@ export class AIAvatar {
     public static: false;
 
     public render() {
-        return [
+        return (
             <Host>
-                <div class="ring red" />
-                <div class="ring green" />
-                <div class="ring blue" />
-                <div class="ring yellow" />
-            </Host>,
-        ];
+                <div class="rings-container">
+                    <div class="ring red" />
+                    <div class="ring green" />
+                    <div class="ring blue" />
+                    <div class="ring yellow" />
+                </div>
+            </Host>
+        );
     }
 }
