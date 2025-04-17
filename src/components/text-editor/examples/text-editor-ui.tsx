@@ -3,7 +3,7 @@ import {
     LimelSelectCustomEvent,
     Option,
 } from '@limetech/lime-elements';
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Host, State } from '@stencil/core';
 
 /**
  * UI
@@ -38,7 +38,7 @@ export class TextEditorUiExample {
         value: 'standard',
     };
 
-    private availableUis: Array<Option<EditorUiType>> = [
+    private readonly availableUis: Array<Option<EditorUiType>> = [
         { text: 'standard', value: 'standard' },
         { text: 'minimal', value: 'minimal' },
         { text: 'no-toolbar', value: 'no-toolbar' },
@@ -51,32 +51,34 @@ export class TextEditorUiExample {
         const placeholderText =
             this.selectedUi.value !== 'standard' ? 'Write a comment…' : '';
 
-        return [
-            <limel-text-editor
-                value={this.value}
-                onChange={this.handleChange}
-                ui={this.selectedUi.value}
-                placeholder={placeholderText}
-            />,
-            <limel-example-controls
-                style={{ '--example-controls-column-layout': 'auto-fit' }}
-            >
-                <limel-example-value value={this.value} />
-                <limel-select
-                    label="ui"
-                    options={this.availableUis}
-                    value={this.selectedUi}
-                    onChange={this.handleNewSelection}
+        return (
+            <Host>
+                <limel-text-editor
+                    value={this.value}
+                    onChange={this.handleChange}
+                    ui={this.selectedUi.value}
+                    placeholder={placeholderText}
                 />
-            </limel-example-controls>,
-        ];
+                <limel-example-controls
+                    style={{ '--example-controls-column-layout': 'auto-fit' }}
+                >
+                    <limel-example-value value={this.value} />
+                    <limel-select
+                        label="ui"
+                        options={this.availableUis}
+                        value={this.selectedUi}
+                        onChange={this.handleNewSelection}
+                    />
+                </limel-example-controls>
+            </Host>
+        );
     }
 
-    private handleChange = (event: CustomEvent<string>) => {
+    private readonly handleChange = (event: CustomEvent<string>) => {
         this.value = event.detail;
     };
 
-    private handleNewSelection = (
+    private readonly handleNewSelection = (
         event: LimelSelectCustomEvent<Option<EditorUiType>>,
     ) => {
         this.selectedUi = event.detail;
