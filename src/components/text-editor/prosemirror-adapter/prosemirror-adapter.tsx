@@ -52,6 +52,7 @@ import {
 } from '../text-editor.types';
 import { getTableNodes, getTableEditingPlugins } from './plugins/table-plugin';
 import { getImageNode, imageCache } from './plugins/image/node';
+import { EditorUiType } from '../types';
 
 const DEBOUNCE_TIMEOUT = 300;
 
@@ -116,6 +117,12 @@ export class ProsemirrorAdapter {
      */
     @Prop()
     triggerCharacters: TriggerCharacter[] = [];
+
+    /**
+     * Specifies the visual appearance of the editor.
+     */
+    @Prop()
+    public ui: EditorUiType = 'standard';
 
     @Element()
     private host: HTMLLimelTextEditorElement;
@@ -244,16 +251,26 @@ export class ProsemirrorAdapter {
         return (
             <Host onFocus={this.handleFocus}>
                 <div id="editor" />
-                <div class="toolbar">
-                    <limel-action-bar
-                        ref={(el) => (this.actionBarElement = el)}
-                        accessibleLabel="Toolbar"
-                        actions={this.actionBarItems}
-                        onItemSelected={this.handleActionBarItem}
-                    />
-                </div>
+                {this.renderToolbar()}
                 {this.renderLinkMenu()}
             </Host>
+        );
+    }
+
+    renderToolbar() {
+        if (!this.actionBarItems.length || this.ui === 'no-toolbar') {
+            return;
+        }
+
+        return (
+            <div class="toolbar">
+                <limel-action-bar
+                    ref={(el) => (this.actionBarElement = el)}
+                    accessibleLabel="Toolbar"
+                    actions={this.actionBarItems}
+                    onItemSelected={this.handleActionBarItem}
+                />
+            </div>
         );
     }
 

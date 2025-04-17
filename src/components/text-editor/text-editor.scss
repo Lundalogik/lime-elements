@@ -50,11 +50,15 @@ $min-height: 5rem;
 }
 
 :host(limel-text-editor[ui='minimal']:not(:focus-within)) {
-    --limel-text-editor-padding: 0.75rem 1rem 0.75rem 1rem;
     --limel-prosemirror-adapter-toolbar-grid-template-rows: 0fr;
     --limel-prosemirror-adapter-toolbar-grid-template-rows-transition-duration: 0.46s;
     --limel-prosemirror-adapter-action-bar-padding-top-bottom: 0;
     --limel-prosemirror-adapter-toolbar-opacity: 0;
+}
+
+:host(limel-text-editor[ui='minimal']:not(:focus-within)),
+:host(limel-text-editor[ui='no-toolbar']) {
+    --limel-text-editor-padding: 0.75rem 1rem 0.75rem 1rem;
     --limel-text-editor-placeholder-top: 0;
 
     min-height: calc($min-height / 2);

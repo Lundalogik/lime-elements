@@ -626,6 +626,7 @@ export namespace Components {
         "language": Languages;
         // @alpha
         "triggerCharacters": TriggerCharacter[];
+        "ui": EditorUiType;
         "value": string;
     }
     // (undocumented)
@@ -822,7 +823,7 @@ export type EditorTextLink = {
 };
 
 // @beta (undocumented)
-export type EditorUiType = 'standard' | 'minimal';
+export type EditorUiType = 'standard' | 'minimal' | 'no-toolbar';
 
 // Warning: (ae-missing-release-tag) "EventEmitter" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -1713,6 +1714,7 @@ export namespace JSX {
         "onImageRemoved"?: (event: LimelProsemirrorAdapterCustomEvent<ImageInfo>) => void;
         // @alpha
         "triggerCharacters"?: TriggerCharacter[];
+        "ui"?: EditorUiType;
         "value"?: string;
     }
     // (undocumented)
