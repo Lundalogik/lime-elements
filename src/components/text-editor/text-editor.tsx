@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
 import { FormComponent } from '../form/form.types';
 import { Languages } from '../date-picker/date.types';
 import { createRandomString } from '../../util/random-string';
@@ -179,7 +179,7 @@ export class TextEditor implements FormComponent<string> {
      * @alpha
      */
     @Event()
-    private imagePasted: EventEmitter<ImageInserter>;
+    private readonly imagePasted: EventEmitter<ImageInserter>;
 
     /**
      * Dispatched when a image is removed from the editor
@@ -188,7 +188,7 @@ export class TextEditor implements FormComponent<string> {
      * @alpha
      */
     @Event()
-    private imageRemoved: EventEmitter<ImageInfo>;
+    private readonly imageRemoved: EventEmitter<ImageInfo>;
 
     /**
      * Dispatched if a trigger character is detected.
@@ -219,8 +219,8 @@ export class TextEditor implements FormComponent<string> {
     @Event()
     public triggerChange: EventEmitter<TriggerEventDetail>;
 
-    private helperTextId: string;
-    private editorId: string;
+    private readonly helperTextId: string;
+    private readonly editorId: string;
 
     public constructor() {
         this.helperTextId = createRandomString();
@@ -228,22 +228,24 @@ export class TextEditor implements FormComponent<string> {
     }
 
     public render() {
-        return [
-            <limel-notched-outline
-                labelId={this.editorId}
-                label={this.label}
-                required={this.required}
-                invalid={this.invalid}
-                disabled={this.disabled}
-                readonly={this.readonly}
-                hasValue={!!this.value}
-                hasFloatingLabel={true}
-            >
-                {this.renderEditor()}
-                {this.renderPlaceholder()}
-            </limel-notched-outline>,
-            this.renderHelperLine(),
-        ];
+        return (
+            <Host>
+                <limel-notched-outline
+                    labelId={this.editorId}
+                    label={this.label}
+                    required={this.required}
+                    invalid={this.invalid}
+                    disabled={this.disabled}
+                    readonly={this.readonly}
+                    hasValue={!!this.value}
+                    hasFloatingLabel={true}
+                >
+                    {this.renderEditor()}
+                    {this.renderPlaceholder()}
+                </limel-notched-outline>
+                {this.renderHelperLine()}
+            </Host>
+        );
     }
 
     private renderEditor() {
