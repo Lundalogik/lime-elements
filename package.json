@@ -91,7 +91,7 @@
     "prosemirror-model": ">=1.22.1",
     "prosemirror-schema-basic": "^1.2.4",
     "prosemirror-tables": "^1.6.4",
-    "puppeteer": "^19.11.1",
+    "puppeteer": "^24.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-shadow-dom-retarget-events": "^1.1.0",
