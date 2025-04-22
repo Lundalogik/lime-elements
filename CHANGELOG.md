@@ -1,3 +1,11 @@
+## [38.9.2](https://github.com/Lundalogik/lime-elements/compare/v38.9.1...v38.9.2) (2025-04-22)
+
+
+### Bug Fixes
+
+
+* **table:** add empty space after the last row ([971695c](https://github.com/Lundalogik/lime-elements/commit/971695c61e36519ecaedcd27bc0c2da8d4ba5e2d))
+
 ## [38.9.1](https://github.com/Lundalogik/lime-elements/compare/v38.9.0...v38.9.1) (2025-04-22)
 
 
