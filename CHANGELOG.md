@@ -1,3 +1,11 @@
+## [38.8.1](https://github.com/Lundalogik/lime-elements/compare/v38.8.0...v38.8.1) (2025-04-22)
+
+
+### Bug Fixes
+
+
+* **input-field:** ensure label is vertically center aligned, in dialog ([3f2feee](https://github.com/Lundalogik/lime-elements/commit/3f2feee34a510591343fc6e3fac0e1fd6320d495))
+
 ## [38.8.0](https://github.com/Lundalogik/lime-elements/compare/v38.7.2...v38.8.0) (2025-04-16)
 
 
