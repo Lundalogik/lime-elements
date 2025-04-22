@@ -65,6 +65,15 @@ limel-notched-outline {
     }
 }
 
+:host(limel-input-field:not([type='textarea'])) {
+    .limel-notched-outline {
+        // Needed only for Safari,
+        // to ensure that the outlines are not rendered
+        // larger than the input element.
+        height: shared_input-select-picker.$height-of-mdc-text-field;
+    }
+}
+
 .mdc-text-field {
     width: 100%;
 
