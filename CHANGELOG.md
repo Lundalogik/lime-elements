@@ -1,3 +1,11 @@
+## [38.9.1](https://github.com/Lundalogik/lime-elements/compare/v38.9.0...v38.9.1) (2025-04-22)
+
+
+### Bug Fixes
+
+
+* **input-field:** render empty fields with correct height on Safari ([292da76](https://github.com/Lundalogik/lime-elements/commit/292da76eb36d314c0958a74d9e9bbfecb65dca88))
+
 ## [38.9.0](https://github.com/Lundalogik/lime-elements/compare/v38.8.1...v38.9.0) (2025-04-22)
 
 
