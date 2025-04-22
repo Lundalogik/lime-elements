@@ -1,3 +1,11 @@
+## [38.9.0](https://github.com/Lundalogik/lime-elements/compare/v38.8.1...v38.9.0) (2025-04-22)
+
+
+### Features
+
+
+* **text-editor:** add a new `ui` type for rendering the component without a toolbar ([86c0dba](https://github.com/Lundalogik/lime-elements/commit/86c0dbaa4a79851d928baca5bda96ab52a853866))
+
 ## [38.8.1](https://github.com/Lundalogik/lime-elements/compare/v38.8.0...v38.8.1) (2025-04-22)
 
 
