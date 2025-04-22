@@ -113,6 +113,7 @@ limel-notched-outline {
                 --mdc-typography-subtitle1-letter-spacing,
                 0.009375em
             );
+            line-height: normal;
 
             &:after {
                 position: absolute;
