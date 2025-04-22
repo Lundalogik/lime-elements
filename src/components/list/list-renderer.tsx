@@ -96,12 +96,17 @@ export class ListRenderer {
                 // Ignore ListSeparator
             } else {
                 const item = items[i] as ListItem<any>;
+                if (item.disabled) {
+                    // Skip disabled items - they should never get tabindex
+                    continue;
+                }
+
                 if (item.selected) {
                     result = i;
                     break;
                 }
 
-                if (result === undefined && !item.disabled) {
+                if (result === undefined) {
                     result = i;
                     // Do NOT break, as any later item with
                     // `selected=true` should get the tab-index instead!
