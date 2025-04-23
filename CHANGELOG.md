@@ -1,3 +1,13 @@
+## [38.9.3](https://github.com/Lundalogik/lime-elements/compare/v38.9.2...v38.9.3) (2025-04-23)
+
+
+### Bug Fixes
+
+
+* **chip-set:** make input value color respect dark mode again ([71067e6](https://github.com/Lundalogik/lime-elements/commit/71067e65addc2415080c7f3d3142f9556cfaf0c5))
+* **input-field:** make input value color respect dark mode again ([43be7a4](https://github.com/Lundalogik/lime-elements/commit/43be7a4d68054826e36bd81ed34e7a76fea2c130))
+* **select:** make input value color respect dark mode again ([68ea1e5](https://github.com/Lundalogik/lime-elements/commit/68ea1e530fc60cf6901603989d8addb4af2e3e7d))
+
 ## [38.9.2](https://github.com/Lundalogik/lime-elements/compare/v38.9.1...v38.9.2) (2025-04-22)
 
 
