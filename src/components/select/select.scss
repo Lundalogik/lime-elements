@@ -62,8 +62,13 @@ limel-notched-outline:not([invalid]:not([invalid='false'])) {
 
 .limel-select__selected-option__text {
     .mdc-select:not(.mdc-select--disabled) & {
-        @include shared_input-select-picker.looks-like-input-label;
+        color: shared_input-select-picker.$input-text-color;
     }
+
+    .mdc-select.mdc-select--disabled & {
+        color: shared_input-select-picker.$input-text-color-disabled;
+    }
+
     @include mixins.truncate-text;
 }
 
