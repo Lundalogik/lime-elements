@@ -65,7 +65,7 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
             disabled={props.disabled}
             readonly={props.readonly}
             hasValue={hasValue}
-            hasFloatingLabel={props.isOpen}
+            hasFloatingLabel={floatLabelAbove(props)}
         >
             <SelectValue
                 {...props}
@@ -77,6 +77,23 @@ export const SelectTemplate: FunctionalComponent<SelectTemplateProps> = (
         <HelperText text={props.helperText} isValid={!props.invalid} />,
         <SelectDropdown {...props} />,
     ];
+};
+
+const floatLabelAbove = (props: SelectTemplateProps) => {
+    if (props.isOpen) {
+        return true;
+    }
+
+    const value = props.value;
+    if (value) {
+        if (isMultiple(value)) {
+            return value.length > 0;
+        } else {
+            return value.text !== '';
+        }
+    }
+
+    return false;
 };
 
 const SelectValue: FunctionalComponent<
