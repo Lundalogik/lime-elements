@@ -152,6 +152,15 @@ limel-notched-outline {
     cursor: pointer;
 }
 
+.mdc-text-field__input {
+    .mdc-text-field:not(.mdc-text-field--disabled) & {
+        color: shared_input-select-picker.$input-text-color;
+    }
+    .mdc-text-field.mdc-text-field--disabled & {
+        color: shared_input-select-picker.$input-text-color-disabled;
+    }
+}
+
 input.mdc-text-field__input {
     @include shared_input-select-picker.input-field-placeholder;
 
