@@ -1,4 +1,7 @@
+@use '../../../style/mixins';
+
 $tab-scroller-fade-width: 4rem;
+$space-around-buttons: 0.25rem;
 
 .scroll-fade,
 .scroll-button {
@@ -40,7 +43,6 @@ $tab-scroller-fade-width: 4rem;
 }
 
 .scroll-button {
-    --icon-background-color: rgb(var(--contrast-100));
     display: flex;
     align-items: center;
     top: 0;
@@ -48,16 +50,35 @@ $tab-scroller-fade-width: 4rem;
 
     &.left {
         transform: translate3d(-#{$tab-scroller-fade-width}, 0, 0);
-        left: 0.25rem;
+        left: $space-around-buttons;
     }
 
     &.right {
         transform: translate3d($tab-scroller-fade-width, 0, 0);
-        right: 0.25rem;
+        right: $space-around-buttons;
     }
 
     &:hover {
         transform: translate3d(0, 0, 0);
+    }
+
+    button {
+        all: unset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 1.25rem;
+        height: calc(100% - calc(#{$space-around-buttons} * 2));
+        border-radius: 0.25rem;
+
+        &:not(:disabled) {
+            @include mixins.is-elevated-clickable;
+        }
+    }
+
+    limel-icon {
+        width: 1rem;
     }
 }
 
