@@ -1,3 +1,11 @@
+## [38.9.4](https://github.com/Lundalogik/lime-elements/compare/v38.9.3...v38.9.4) (2025-04-24)
+
+
+### Bug Fixes
+
+
+* **select:** ensure label floats, when a labeled empty option is selected ([625db3c](https://github.com/Lundalogik/lime-elements/commit/625db3caa9b57418521bc0adeb7c21633e6abd11))
+
 ## [38.9.3](https://github.com/Lundalogik/lime-elements/compare/v38.9.2...v38.9.3) (2025-04-23)
 
 
