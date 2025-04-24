@@ -64,11 +64,12 @@ $tab-separator-background-color: rgb(var(--contrast-600));
 
 .mdc-tab {
     border-radius: 0;
-    padding-right: 1.25rem;
-    padding-left: 1.25rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
     min-width: 2.5rem;
     background-color: transparent;
     flex: 0 0 auto;
+    height: 2.5rem;
 
     &:not(.mdc-tab--active) {
         --badge-background-color: rgb(var(--contrast-600));
@@ -92,6 +93,14 @@ $tab-separator-background-color: rgb(var(--contrast-600));
                 display: none;
             }
         }
+    }
+
+    .mdc-tab__icon {
+        margin-left: -0.25rem;
+    }
+
+    limel-badge {
+        margin-right: -0.25rem;
     }
 }
 
