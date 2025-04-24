@@ -19,6 +19,8 @@ import { getIconColor, getIconName } from '../icon/get-icon-props';
 const { TAB_ACTIVATED_EVENT } = strings;
 const SCROLL_DISTANCE_ON_CLICK_PX = 150;
 const HIDE_SCROLL_BUTTONS_WHEN_SCROLLED_LESS_THAN_PX = 40;
+const TOTAL_WIDTH_PERCENTAGE = 100;
+const OVERLAP_PERCENTAGE = 20;
 
 /**
  * Tabs are great to organize information hierarchically in the interface and divide it into distinct categories. Using tabs, you can create groups of content that are related and at the same level in the hierarchy.
@@ -250,17 +252,36 @@ export class TabBar {
     }
 
     private handleLeftScrollClick() {
+        const scrollDistance = this.getScrollDistance();
         this.scrollArea.scroll({
-            left: this.scrollArea.scrollLeft - SCROLL_DISTANCE_ON_CLICK_PX,
+            left: this.scrollArea.scrollLeft - scrollDistance,
             behavior: 'smooth',
         });
     }
 
     private handleRightScrollClick() {
+        const scrollDistance = this.getScrollDistance();
         this.scrollArea.scroll({
-            left: this.scrollArea.scrollLeft + SCROLL_DISTANCE_ON_CLICK_PX,
+            left: this.scrollArea.scrollLeft + scrollDistance,
             behavior: 'smooth',
         });
+    }
+
+    /**
+     * Calculates how far to scroll when navigation buttons are clicked.
+     * Returns the visible width minus an overlap percentage to maintain context.
+     * Falls back to the constant value if something goes wrong.
+     */
+    private getScrollDistance(): number {
+        if (!this.scrollArea) {
+            return SCROLL_DISTANCE_ON_CLICK_PX;
+        }
+
+        const containerWidth = this.scrollArea.getBoundingClientRect().width;
+        const scrollDistance =
+            containerWidth * (1 - OVERLAP_PERCENTAGE / TOTAL_WIDTH_PERCENTAGE);
+
+        return Math.max(scrollDistance, SCROLL_DISTANCE_ON_CLICK_PX);
     }
 
     private renderIcon(tab: Tab) {
