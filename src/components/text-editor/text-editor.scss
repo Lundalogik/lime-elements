@@ -90,6 +90,7 @@ $min-height: 5rem;
         display: block;
         padding: var(--limel-text-editor-padding);
         overflow-y: auto;
+        height: 100%;
 
         &:before,
         &:after {
