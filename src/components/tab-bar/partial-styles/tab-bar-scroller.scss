@@ -1,4 +1,4 @@
-@use '../../style/functions';
+$tab-scroller-fade-width: 4rem;
 
 .scroll-fade,
 .scroll-button {
@@ -13,15 +13,11 @@
 .scroll-fade {
     top: 0;
     height: 100%;
-    width: functions.pxToRem($tab-scroller-fade-width);
+    width: $tab-scroller-fade-width;
     pointer-events: none;
 
     &.left {
-        transform: translate3d(
-            functions.pxToRem(0 - $tab-scroller-fade-width),
-            0,
-            0
-        );
+        transform: translate3d(-#{$tab-scroller-fade-width}, 0, 0);
         left: 0;
         background: linear-gradient(
             270deg,
@@ -32,11 +28,7 @@
     }
 
     &.right {
-        transform: translate3d(
-            functions.pxToRem($tab-scroller-fade-width),
-            0,
-            0
-        );
+        transform: translate3d($tab-scroller-fade-width, 0, 0);
         right: 0;
         background: linear-gradient(
             90deg,
@@ -55,21 +47,13 @@
     bottom: 0;
 
     &.left {
-        transform: translate3d(
-            functions.pxToRem(0 - $tab-scroller-fade-width),
-            0,
-            0
-        );
-        left: functions.pxToRem(4);
+        transform: translate3d(-#{$tab-scroller-fade-width}, 0, 0);
+        left: 0.25rem;
     }
 
     &.right {
-        transform: translate3d(
-            functions.pxToRem($tab-scroller-fade-width),
-            0,
-            0
-        );
-        right: functions.pxToRem(4);
+        transform: translate3d($tab-scroller-fade-width, 0, 0);
+        right: 0.25rem;
     }
 
     &:hover {
