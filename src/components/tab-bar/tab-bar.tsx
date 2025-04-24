@@ -119,25 +119,27 @@ export class TabBar {
                     </div>
                     <div class="scroll-fade left" />
                     <div class="scroll-button left">
-                        <limel-icon-button
-                            icon="angle_left"
-                            elevated={true}
+                        <button
+                            type="button"
                             tabindex="-1"
                             aria-hidden="true"
                             disabled={!this.canScrollLeft}
                             onClick={this.handleLeftScrollClick}
-                        />
+                        >
+                            <limel-icon name="angle_left" />
+                        </button>
                     </div>
                     <div class="scroll-fade right" />
                     <div class="scroll-button right">
-                        <limel-icon-button
-                            icon="angle_right"
-                            elevated={true}
+                        <button
+                            type="button"
                             tabindex="-1"
                             aria-hidden="true"
                             disabled={!this.canScrollRight}
                             onClick={this.handleRightScrollClick}
-                        />
+                        >
+                            <limel-icon name="angle_right" />
+                        </button>
                     </div>
                 </div>
             </div>
