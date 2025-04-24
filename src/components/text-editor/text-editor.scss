@@ -89,7 +89,9 @@ $min-height: 5rem;
         // displayed when `readonly` instead of the adapter
         display: block;
         padding: var(--limel-text-editor-padding);
+
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         height: 100%;
 
         &:before,
@@ -155,6 +157,7 @@ limel-prosemirror-adapter {
     min-height: $min-height;
     height: 100%;
     overflow: hidden auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 @include mixins.hide-helper-line-when-not-needed(limel-text-editor);
